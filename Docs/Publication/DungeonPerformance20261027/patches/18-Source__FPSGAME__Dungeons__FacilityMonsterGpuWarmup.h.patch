@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h
++++ b/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h
+@@ -4,16 +4,22 @@
+ #include "UObject/StrongObjectPtr.h"
+ 
+ class ANurseZombie;
++class ABellowSacLobber;
++class ACharacter;
++class USkeletalMesh;
++class UAnimSequence;
++class UQuadrupedAnimationSet;
+ class USkeletalMeshComponent;
+ class USceneCaptureComponent2D;
+ class UTextureRenderTarget2D;
+ struct FFacilityWarmupCompletion;
+ 
+-/** Warm the SAME deferred staff body used at activation. No AI, damage or battle clock. */
++/** Warm the SAME deferred staff/Bellow body used at activation. No gameplay clock. */
+ class FFacilityMonsterGpuWarmup
+ {
+ public:
+     explicit FFacilityMonsterGpuWarmup(ANurseZombie* Monster);
++    explicit FFacilityMonsterGpuWarmup(ABellowSacLobber* Monster);
+     ~FFacilityMonsterGpuWarmup();
+     /** Returns true only when this call submits a capture. */
+     bool Tick(bool bAllowSubmission);
+@@ -23,6 +29,8 @@
+     void RestoreForActivation();
+ 
+ private:
++    void Initialize(ACharacter* Monster, USkeletalMesh* VisualMesh, UAnimSequence* IdleClip,
++        UQuadrupedAnimationSet* QuadrupedSet = nullptr);
+     void ReleaseCapture();
+     TWeakObjectPtr<USkeletalMeshComponent> Body;
+     TStrongObjectPtr<USceneCaptureComponent2D> Capture;

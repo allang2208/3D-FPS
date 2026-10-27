@@ -9,6 +9,7 @@
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
+#include "MonsterCorpseMeshComponent.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -63,7 +64,8 @@ FName NameFor(EM09State State)
 }
 float Smooth(float T){T=FMath::Clamp(T,0.f,1.f);return T*T*(3.f-2.f*T);}
 }
-AHangingBellM09::AHangingBellM09()
+AHangingBellM09::AHangingBellM09(const FObjectInitializer& Initializer)
+ : Super(Initializer.SetDefaultSubobjectClass<UMonsterCorpseMeshComponent>(MeshComponentName))
 {
  PrimaryActorTick.bCanEverTick=true;bReplicates=true;SetReplicateMovement(true);
  Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));

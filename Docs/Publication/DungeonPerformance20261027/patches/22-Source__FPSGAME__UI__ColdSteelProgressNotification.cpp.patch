@@ -1,0 +1,79 @@
+--- a/Source/FPSGAME/UI/ColdSteelProgressNotification.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProgressNotification.cpp
+@@ -1,5 +1,7 @@
+ #include "ColdSteelProgressNotification.h"
+ #include "ColdSteelStatusModel.h"
++#include "Async/Async.h"
++#include "ImageCore.h"
+ #include "ColdSteelUIStyle.h"
+ #include "Audio.h"
+ #include "Components/AudioComponent.h"
+@@ -27,9 +29,6 @@
+     if(!Model)return;
+     const FString Base=FPaths::ProjectContentDir()/TEXT("ColdSteelData");
+     TArray<uint8> Bytes;
+-    if(!IconTexture && FFileHelper::LoadFileToArray(Bytes,*(Base/Model->RifleDefinition().Icon)))
+-        IconTexture=FImageUtils::ImportBufferAsTexture2D(Bytes);
+-    if(IconTexture){IconBrush.SetResourceObject(IconTexture);IconBrush.DrawAs=ESlateBrushDrawType::Image;}
+     if(PCM.IsEmpty() && FFileHelper::LoadFileToArray(Bytes,*(Base/Model->RifleDefinition().UpgradeSound)))
+     {
+         FWaveModInfo Wave;
+@@ -85,6 +84,32 @@
+     Sound->SoundGroup=SOUNDGROUP_UI;Sound->QueueAudio(PCM.GetData(),PCM.Num());
+     Audio=UGameplayStatics::SpawnSound2D(this,Sound,.6f,1.f,0.f,nullptr,false,true);
+ }
++void UColdSteelProgressNotification::PrepareNoticeIcon()
++{
++    bNoticeLoading=true;bNoticeReady=false;
++    const uint64 Request=++IconRequest;
++    IconTexture=nullptr;IconBrush.SetResourceObject(nullptr);IconBrush.DrawAs=ESlateBrushDrawType::NoDrawType;
++    if(Active.Icon.IsEmpty()){bNoticeReady=true;return;}
++    const FString Filename=FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Active.Icon;
++    const TWeakObjectPtr<UColdSteelProgressNotification> Weak(this);
++    // One decode per widget at a time. Preserve the original full-resolution
++    // image/format; texture creation and widget access stay on the game thread.
++    Async(EAsyncExecution::ThreadPool,[Weak,Request,Filename]()
++    {
++        auto Image=MakeShared<FImage,ESPMode::ThreadSafe>();
++        const bool Loaded=FImageUtils::LoadImage(*Filename,*Image);
++        AsyncTask(ENamedThreads::GameThread,[Weak,Request,Image,Loaded]()
++        {
++            auto* Self=Weak.Get();
++            if(!Self||Self->IconRequest!=Request||!Self->bNoticeLoading)return;
++            if(Loaded)Self->IconTexture=FImageUtils::CreateTexture2DFromImage(*Image);
++            Self->IconBrush.SetResourceObject(Self->IconTexture);
++            Self->IconBrush.DrawAs=Self->IconTexture?ESlateBrushDrawType::Image:ESlateBrushDrawType::NoDrawType;
++            Self->bNoticeReady=true;
++        });
++    });
++}
++
+ void UColdSteelProgressNotification::NativeTick(const FGeometry& Geometry,float Delta)
+ {
+     Super::NativeTick(Geometry,Delta);
+@@ -93,13 +118,11 @@
+     if(Audio)Audio->SetPaused(Paused);
+     if(!Paused)
+     {
+-        if(!bActive && Model && Model->PopProgressNotice(Active))
++        if(!bActive && !bNoticeLoading && Model && Model->PopProgressNotice(Active))
++            PrepareNoticeIcon();
++        if(bNoticeLoading && bNoticeReady)
+         {
+-            TArray<uint8> Bytes;
+-            IconTexture=nullptr;
+-            if(!Active.Icon.IsEmpty()&&FFileHelper::LoadFileToArray(Bytes,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Active.Icon)))
+-                IconTexture=FImageUtils::ImportBufferAsTexture2D(Bytes);
+-            IconBrush.SetResourceObject(IconTexture);IconBrush.DrawAs=IconTexture?ESlateBrushDrawType::Image:ESlateBrushDrawType::NoDrawType;
++            bNoticeLoading=bNoticeReady=false;
+             bActive=true;Elapsed=0;PlayCue();
+         }
+         if(bActive)
+@@ -120,6 +143,6 @@
+     }
+ }
+ void UColdSteelProgressNotification::NativeDestruct()
+-{if(Audio){Audio->Stop();Audio=nullptr;}Sound=nullptr;Super::NativeDestruct();}
++{++IconRequest;bNoticeLoading=bNoticeReady=false;if(Audio){Audio->Stop();Audio=nullptr;}Sound=nullptr;Super::NativeDestruct();}
+ void UColdSteelProgressNotification::ReleaseSlateResources(bool bReleaseChildren)
+ {Super::ReleaseSlateResources(bReleaseChildren);Card.Reset();Root.Reset();}

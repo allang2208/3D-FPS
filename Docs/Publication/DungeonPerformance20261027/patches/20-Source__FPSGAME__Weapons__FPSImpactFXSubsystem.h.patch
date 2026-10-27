@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
+@@ -32,6 +32,8 @@
+     USoundBase* SacFlightCue() const { return SacFlightSound.Get(); }
+     USoundBase* SacFuseCue() const { return SacFuseSound.Get(); }
+     static float SacAudioGain();
++    /** Called by entry loading; prepares existing impact pools without spawning a hit. */
++    bool PumpRenderPreparation(double Deadline,FString& Error);
+     virtual void OnWorldBeginPlay(UWorld& InWorld) override;
+     virtual void Deinitialize() override;
+     virtual void Tick(float DeltaTime) override;
+@@ -123,4 +125,7 @@
+     int32 LastSoundVariant[6] = {-1,-1,-1,-1,-1,-1};
+     float BurstTokens = 8.f;
+     bool bReady = false;
++    int32 PreparationCursor = 0;
++    double PreparationWaitStarted = 0.;
++    bool bPreparationSubmitted = false, bRenderPreparationReady = false;
+ };

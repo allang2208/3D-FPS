@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -21,6 +21,7 @@
+ #include "Weapons/LMG201WeaponAssets.h"
+ #include "Items/FPSPotionUseComponent.h"
+ #include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
+ #include "Multiplayer/ColdSteelPlayerState.h"
+ #include "Characters/FPSModularOutfitComponent.h"
+ #include "Characters/FPSArmJointCorrectiveComponent.h"
+@@ -228,7 +229,8 @@
+ }
+ 
+ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer)
+-    : Super(ObjectInitializer.SetDefaultSubobjectClass<UFPSCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
++    : Super(ObjectInitializer.SetDefaultSubobjectClass<UFPSCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)
++        .SetDefaultSubobjectClass<UFPSPlayerBodyMeshComponent>(ACharacter::MeshComponentName))
+ {
+     PrimaryActorTick.bCanEverTick = true;
+     CreateDefaultSubobject<UFPSPlayerBodyComponent>(TEXT("PlayerBody"));

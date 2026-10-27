@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.h
+@@ -0,0 +1,22 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "FPSPlayerBodyMeshComponent.generated.h"
++
++/** Pose authority whose skin can be fully replaced by the modular outfit. */
++UCLASS()
++class FPSGAME_API UFPSPlayerBodyMeshComponent : public USkeletalMeshComponent
++{
++    GENERATED_BODY()
++public:
++    /** Called after the replacement parts are bound and source sections hidden. */
++    void UpdateModularRenderOwnership();
++    /** Restore before source sections or the source outfit are released. */
++    void RestoreSourceRendering();
++    bool IsModularPoseOnly() const;
++    virtual void CreateRenderState_Concurrent(FRegisterComponentContext* Context) override;
++    virtual FPrimitiveSceneProxy* CreateSceneProxy() override;
++private:
++    TWeakObjectPtr<USkeletalMesh> ReplacedMesh;
++};

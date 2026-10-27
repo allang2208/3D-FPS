@@ -3,6 +3,7 @@
 #include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
+#include "MonsterCorpseMeshComponent.h"
 #include "M14SoftBodyDeath.h"
 #include "MonsterCharacterMovementComponent.h"
 #include "MonsterAIController.h"
@@ -33,7 +34,8 @@
 #include "Perception/AISenseConfig_Sight.h"
 
 ASpiralPillarM14::ASpiralPillarM14(const FObjectInitializer& Initializer)
-    : Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName))
+    : Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName)
+        .SetDefaultSubobjectClass<UMonsterCorpseMeshComponent>(MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick=true;bReplicates=true;
     Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));

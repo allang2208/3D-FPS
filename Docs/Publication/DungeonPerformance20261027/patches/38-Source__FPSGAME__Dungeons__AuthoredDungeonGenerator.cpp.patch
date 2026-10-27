@@ -1,0 +1,50 @@
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -1,5 +1,6 @@
+ #include "AuthoredDungeonGenerator.h"
+ #include "Net/UnrealNetwork.h"
++#include "../Diagnostics/FPSResourceLifecycle.h"
+ #include "Templates/Atomic.h"
+ #include "../WorldGeneration/RiverPilotFXSubsystem.h"
+ #include "DungeonPusChannel.h"
+@@ -1761,9 +1762,18 @@
+ void AAuthoredDungeonGenerator::CancelGenerationResources()
+ {
+     if(!BuildState)return;
++    FPSResourceLifecycle::Record(this,TEXT("Dungeon.BeforeCancelRequests"),{
++        {TEXT("resource_batches"),BuildState->ResourceBatches.Num()},
++        {TEXT("monster_dependency_handles"),BuildState->MonsterRendering.DependencyLoads.Num()},
++        {TEXT("generation_resource_references"),GenerationResources.Num()}});
+     for(auto& Batch:BuildState->ResourceBatches)
+         if(Batch.Handle)Batch.Handle->CancelHandle();
+     BuildState->ResourceBatches.Reset();
++    BuildState->MonsterRendering.CancelDependencyLoads();
++    FPSResourceLifecycle::Record(this,TEXT("Dungeon.AfterCancelRequests"),{
++        {TEXT("resource_batches"),BuildState->ResourceBatches.Num()},
++        {TEXT("monster_dependency_handles"),BuildState->MonsterRendering.DependencyLoads.Num()},
++        {TEXT("generation_resource_references"),GenerationResources.Num()}});
+ }
+ 
+ void AAuthoredDungeonGenerator::HoldPlayers()
+@@ -2117,6 +2127,11 @@
+     for(const auto& Asset:State->Assets)if(Asset.Value)GenerationResources.Add(Asset.Value);
+     State->MonsterRendering.RetainDependencies(GenerationResources);
+     State->GlassRendering.RetainDependencies(GenerationResources);
++    FPSResourceLifecycle::Record(this,TEXT("Dungeon.Ready"),{
++        {TEXT("seed"),GeneratedSeed}, {TEXT("generation_resource_references"),GenerationResources.Num()},
++        {TEXT("generated_actors"),GeneratedActors.Num()},
++        {TEXT("monster_render_templates"),State->MonsterRendering.Components.Num()},
++        {TEXT("glass_fragment_templates"),State->GlassRendering.Fragments.Num()}});
+     BuildState.Reset();SetActorTickEnabled(false);
+     GeneratedActors.RemoveAll([](const TObjectPtr<AActor>& Actor){return !IsValid(Actor);});
+     for(AActor* Actor:GeneratedActors)if(auto* Hazard=Cast<ADungeonPusChannel>(Actor))Hazard->ActivateDamage();
+@@ -2143,6 +2158,9 @@
+     ++GenerationSerial;RollbackAssembly();
+     if(BuildState&&!BuildState->bCommitted)GenerationResources.SetNum(FMath::Min(GenerationResources.Num(),BuildState->PreviousResourceCount));
+     BuildState.Reset();bWaitingNetworkLayout=false;SetActorTickEnabled(false);ReleasePlayers();
++    FPSResourceLifecycle::Record(this,TEXT("Dungeon.AfterCancelAssembly"),{
++        {TEXT("generation_resource_references"),GenerationResources.Num()},
++        {TEXT("generated_actors"),GeneratedActors.Num()}});
+ }
+ 
+ FString AAuthoredDungeonGenerator::GetGenerationMetricsJson() const

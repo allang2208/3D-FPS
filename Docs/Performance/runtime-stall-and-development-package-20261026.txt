@@ -1,0 +1,118 @@
+2026-10-26 已有 Trace 阻塞修复与独立 Development 基线
+
+2026-10-27 收尾更新：下述独立包经用户运行反馈确认负载不完整，已退出性能对照并移入 trash。
+专用 Build-DevelopmentBaseline.ps1 入口也已退役。本文保留历史构建记录，不再作为测试指引；
+当前采样口径与归档位置见 runtime-baseline-scope-20261027.txt。
+
+工作范围
+仅使用用户已导出的数据继续离线分析，修改源码并后台编译、Cook、Stage。
+不打开编辑器界面，不运行游戏，不发起新采样，不执行测试。
+本轮不修改画质、怪物数量、战斗规则、准备池预算或资源精度。
+
+已有证据
+输入：Saved/PerformanceReports/gpu-DF45C1894478F7214176018473D09B16/engine.utrace。
+主线程导出：Saved/PerformanceAnalysis20261026_112804/game-events.csv。
+本轮计算：Saved/PerformanceNext20261026/game-thread-analysis.json 和 hotspot-scopes.txt。
+7553025 条事件中保留 2786 个完整 FEngineLoop::Tick，116 个不短于 50 ms。
+末尾没有完成的事件不计入帧耗时。父子 scope 不相加；等待时间不能当成 CPU 执行时间。
+
+1. 门交互提示首次查询意外触发同步资源加载
+Trace 249.581161 至 249.881525 秒这一帧耗时 300.364 ms。
+HUD NativeTick 中 StaticLoadObjectInternal 为 287.318 ms，包含蓝图加载/编译，
+出现 BI_Interact_C、BP_ThirdPersonCharacter_C、WBP_MainHud_C 等示例资源。
+ColdSteelDoorInteraction 原先在 IsDoor 首次查询时 LoadObject 接口蓝图。
+现改为遍历目标已加载类及父类的接口声明，并匹配接口类及其父类的完整路径。
+保留原先门函数名称回退和门脱落规则；不引入新资产或静态 UObject 指针。
+作用是消除此查询入口的同步加载，并不证明所有门资产的依赖均已缩小。
+
+2. 升级提示在游戏线程读取和解码图片
+Trace 286.127 秒附近，ProgressNotification NativeTick 为 32.260 ms，
+其中图片解压约 20 ms，纹理创建约 2 ms。
+ColdSteelProgressNotification 改为每个控件最多一个后台文件读取/图片解码任务。
+保持原始图片尺寸、格式和显示内容；UTexture 创建及控件赋值仍在游戏线程。
+使用弱对象和请求代次隔离回调，销毁控件后旧结果不再应用。
+提示按原队列顺序显示，图标准备好后同步开始提示时长和音效；不改变升级规则。
+移除了随后马上被实际提示图标替换的默认步枪图标预加载。
+后台解码可能延后提示开始，不能宣称整个提示耗时全部消失。
+
+3. 有界资源生命周期记录
+新增 Diagnostics/FPSResourceLifecycle，F6 JSON schema 提升到 16。
+resource_lifecycle 保存最近 256 个边界事件，包含进程会话标识、对象序列身份、
+世界/实例身份、时间、帧号、进程内存与各所有者报告的句柄/资源数量。
+记录点覆盖 World 初始化/结束、玩家装备准备替换/释放、技能准备完成/取消/销毁、
+地牢生成完成/取消/结束和大厅准备池反初始化。
+记录不会持有 UObject，不增加每帧遍历，不强制 GC，不等待 GPU。
+历史跨同一进程的 F6 清空和 World 切换保留；普通日志同时保留退出事件。
+导出线程仅复制已序列化记录，记录时间独立于旧的 F6 面板快照。
+这些数量是所有者报告的引用数量，不是去重后的 GPU 分配，也不是实际显存驻留。
+释放引用和引擎稍后的渲染清理/GC之间有时间差，不能仅凭相邻两行断定泄漏。
+
+4. 独立包入口
+Tools/Performance/Build-DevelopmentBaseline.ps1 复用 Tools/Build/Build-Package.ps1，
+从当前 DefaultGame.ini 获取完整 MapsToCook，保持项目原有 Cook 和渲染配置。
+输出位于 F:/FPSGAMEData/Builds/PerformanceDevelopment-时间戳。
+共享构建互斥保护现有工作；遇到已打开的项目编辑器不关闭它。
+该入口只 Build/Cook/Stage/Archive，不启动编辑器界面、游戏或采样。
+独立包中附带 Launch-F6-WddmCapture.cmd，由用户手动启动时请求 Windows 提权，
+用于 F6 的 WDDM 记录；不附加分辨率、画质或帧率参数，打包期间不会执行此入口。
+
+尚不能归因的部分
+同一份 Trace 中还存在编辑器 Niagara 首次编译（约 167 ms）、目录变更处理，
+以及主线程等待。Cooked 包可移除编辑器专属工作，用于后续与 PIE 分开对照。
+大厅和角色的一些长帧仍有未细分区间，不能把整个 scope 归咎于刷怪或动画。
+Render/GPU 离线统计已导出至本轮目录；多线程、嵌套和 GPU 时间线不能直接累加。
+本轮尚未证明某一个 GPU pass 是持续低帧根因，也未依据猜测降低渲染质量。
+
+用户后续对照方式
+先关闭编辑器，再使用独立包进入同一个随机地牢，保持分辨率/窗口模式、画质、
+地牢种子、装备和技能条件一致。注意 PIE 实际视口尺寸可能小于编辑器窗口。
+独立包和 PIE 的存档位置可能不同；本轮不复制、覆盖或清空用户存档。
+仍按原 F6 流程导出完整采集目录，保留首次进入、开始刷怪和后续持续低帧时段。
+若只导出 JSON，生命周期记录仍可用于判断引用回收，但不能替代 GPU 事件关联。
+性能收益与包内实际行为待用户测试，不以编译成功代替运行验收。
+
+首次 Cook 的构建内存问题与处理
+首次完整 Cook 于 13:01 启动，已完成约 8230 个资源包后，
+在等待大批骨骼模型和着色器期间，进程提交内存达到约 58 GiB；主机物理内存约 32 GiB，
+当时系统剩余提交空间约 5 GiB。该数据仅描述本次 Cook，不能作为游戏低帧归因。
+本轮只结束了自己启动的 Cook 进程（PID 103108），没有关闭其他编辑器。
+原始日志、停止原因和已有 DDC 缓存均保留；UAT 随该次人工停止返回 25。
+该输出目录尚未成为独立成品包。
+
+Build-Package 新增可选 AdditionalCookerOptions，其他入口默认行为保持原样。
+Development 基线入口使用 UE 5.8 源码提供的构建参数：
+- 整体资产编译并发 2，骨骼资产在 Cook 时同步构建（asyncskinnedassetcompilation=0）。
+- Cook 每 100 个包回收；最低空闲物理内存 4096 MiB、最低空闲提交空间 8192 MiB。
+- Cook 同时准备的着色器任务阈值 16；平台数据缓存窗口：SkeletalMesh 4、StaticMesh 8、Texture2D 32。
+上述设置通过命令行传入 GEditorIni 的 CookSettings/CookPlatformDataCacheSettings，
+以及 asyncassetcompilationmaxconcurrency/asyncskinnedassetcompilation。
+它们只约束构建过程，不是硬内存上限，不保证单个大型资产一定小于该预算。
+不使用 UE 5.8 已提示弃用的 MemoryMaxUsed 参数，不改全局项目画质或着色器平台，
+不降低资产精度，不剔除地图或资源。第三次完整构建已成功，结果见下文。
+
+第二次 Cook 的追加处理
+14:34 的 Cook 已完成 M25 源网格，但之后一次积累 698 个蒙皮资产依赖。
+即使骨骼构建并发设为 1，完成约一半时，进程提交内存仍超过 54 GiB，
+系统剩余提交空间不足 5 GiB。再次仅停止本轮自己的 Cook（PID 77848），
+保留 DDC 和日志；退出码 25 来自人工停止，不是新的游戏崩溃。
+第三次采用引擎已支持的 asyncskinnedassetcompilation=0，避免这类后台构建队列。
+该开关仅作用于本次 Cook 的编辑器进程，不写入运行时或用户编辑器设置。
+
+源码构建结果（2026-10-26）
+FPSGAME Development 于 14:28 完成，退出码 0；日志：
+Saved/PerformanceNext20261026/FPSGAME-20261026-142737.txt。
+用户保存并关闭编辑器后，FPSGAMEEditor Development 于 14:33 完成，退出码 0；日志：
+Saved/PerformanceNext20261026/FPSGAMEEditor-20261026-143244.txt。
+这是源码编译结果，不代表已运行游戏、完成独立包或确认帧率改善。
+
+独立包交付结果（2026-10-26）
+第三次 Build/Cook/Stage/Archive 已完整完成，AutomationTool 退出码 0，
+BUILD SUCCESSFUL；该次流程耗时 47 分 23 秒。未启动编辑器界面或运行游戏测试。
+日志：Saved/BuildPackage/performance-development-Development-20261026-150538.log。
+构建记录：Saved/PerformanceNext20261026/package-20261026-150509.json。
+交付目录：F:/FPSGAMEData/Builds/PerformanceDevelopment-20261026-150509/Windows。
+普通启动入口为目录内 FPSGAME.exe；需要 F6 WDDM 采集时，由用户手动运行
+Launch-F6-WddmCapture.cmd。该入口请求管理员权限，仅用于允许 WDDM 采集，
+不添加画质、分辨率或帧率覆盖，也不表示管理员权限本身带来性能提升。
+前两次目录不是交付包；本次应使用上述 150509 目录。
+编译与打包成功不等于已确认性能改善；后续由用户在相同条件下运行并导出完整 F6 目录。

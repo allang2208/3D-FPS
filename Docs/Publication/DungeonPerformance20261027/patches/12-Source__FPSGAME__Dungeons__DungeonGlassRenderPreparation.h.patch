@@ -1,0 +1,86 @@
+--- a/Source/FPSGAME/Dungeons/DungeonGlassRenderPreparation.h
++++ b/Source/FPSGAME/Dungeons/DungeonGlassRenderPreparation.h
+@@ -0,0 +1,83 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "WardBreakableGlass.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++#include "Materials/Material.h"
++#include "Materials/MaterialInterface.h"
++#include "NiagaraSystem.h"
++#include "UObject/StrongObjectPtr.h"
++#include "../Rendering/FPSFXAssetPreparation.h"
++
++/** Selected-layout glass only; owned by the assembly, without registering/playing effects. */
++struct FDungeonGlassRenderPreparation
++{
++    TArray<TStrongObjectPtr<UNiagaraSystem>> Systems;
++    TArray<TWeakObjectPtr<UWardBreakableGlass>> Panes;
++    TArray<TStrongObjectPtr<UStaticMeshComponent>> Fragments;
++    int32 SystemCursor=0, FragmentCursor=0;
++    FFPSFXAssetPreparation AssetPreparation;
++    double WaitStartedAt=0.;
++
++    void Add(UWardBreakableGlass* Pane)
++    {
++        if (!Pane || !Pane->FractureMesh || !Pane->FractureMaterial) return;
++        if (auto* System=AWardGlassBurst::ResolveImpactSystem(Pane);
++            System && !Systems.ContainsByPredicate([System](const auto& Entry){return Entry.Get()==System;}))
++            Systems.Emplace(System);
++        if (!Panes.ContainsByPredicate([Pane](const auto& Entry)
++            {return Entry.IsValid() && Entry->FractureMesh==Pane->FractureMesh && Entry->FractureMaterial==Pane->FractureMaterial;}))
++            Panes.Add(Pane);
++    }
++
++    bool IsReady() const { return SystemCursor==Systems.Num() && FragmentCursor==Panes.Num(); }
++
++    void RetainDependencies(TArray<TObjectPtr<UObject>>& Assets) const
++    {
++        // The resolved fallback can differ from the pane's authored asset.
++        for (const auto& System:Systems) Assets.AddUnique(System.Get());
++    }
++
++    bool Pump(double Deadline, FString& Error)
++    {
++        if (!Error.IsEmpty()) return false;
++        auto Waiting=[this,&Error](const UObject* Asset)
++        {
++            if (WaitStartedAt==0.) WaitStartedAt=FPlatformTime::Seconds();
++            else if (FPlatformTime::Seconds()-WaitStartedAt>120.)
++                Error=TEXT("玻璃破碎特效准备超时：")+GetPathNameSafe(Asset);
++            return false;
++        };
++        while (SystemCursor<Systems.Num() && FPlatformTime::Seconds()<Deadline)
++        {
++            UNiagaraSystem* System=Systems[SystemCursor].Get();
++            if (!AssetPreparation.Poll(System)) return Waiting(System);
++            ++SystemCursor; AssetPreparation.Reset(); WaitStartedAt=0.;
++        }
++        while (FragmentCursor<Panes.Num() && FPlatformTime::Seconds()<Deadline)
++        {
++            auto* Pane=Panes[FragmentCursor].Get();
++            if (!Pane) { ++FragmentCursor; WaitStartedAt=0.; continue; }
++#if WITH_EDITOR
++            if (Pane->FractureMesh->IsCompiling() || Pane->FractureMaterial->GetMaterial()->IsCompiling())
++                return Waiting(Pane->FractureMaterial);
++#endif
++            if (!Fragments.IsValidIndex(FragmentCursor)) Fragments.SetNum(FragmentCursor+1);
++            if (!Fragments[FragmentCursor].IsValid())
++            {
++                // Match the real fragment component's flags and vertex factory.
++                auto* Template=GetDefault<AWardGlassBurst>()->FindComponentByClass<UStaticMeshComponent>();
++                auto* Component=NewObject<UStaticMeshComponent>(GetTransientPackage(),NAME_None,RF_Transient,Template);
++                Fragments[FragmentCursor].Reset(Component);
++                Component->SetStaticMesh(Pane->FractureMesh);
++                Component->SetMaterial(0,Pane->FractureMaterial);
++                Component->PrecachePSOs();
++                return Waiting(Pane->FractureMesh);
++            }
++            if (Fragments[FragmentCursor]->IsPSOPrecaching()) return Waiting(Pane->FractureMesh);
++            ++FragmentCursor; WaitStartedAt=0.;
++        }
++        return IsReady();
++    }
++};

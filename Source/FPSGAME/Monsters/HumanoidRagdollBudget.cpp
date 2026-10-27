@@ -1,6 +1,6 @@
 #include "HumanoidRagdollBudget.h"
 #include "HumanoidKnockdownComponent.h"
-#include "MonsterIdleBreathingMeshComponent.h"
+#include "MonsterCorpseMeshComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
 #include "HundredEyedSlagMonster.h"
 #include "M14SoftBodyDeath.h"
@@ -91,7 +91,7 @@ void UHumanoidRagdollBudget::UpdateFrozenLODs()
         if (auto* SkeletalMesh = Cast<USkeletalMeshComponent>(Mesh))
             SkeletalMesh->TickAnimation(0.f, false);
         Mesh->RefreshBoneTransforms();
-        if (auto* Body = Cast<UMonsterIdleBreathingMeshComponent>(Mesh))
+        if (auto* Body = Cast<UMonsterCorpseMeshComponent>(Mesh))
             Body->BeginFrozenShadowCaching();
     }
     if (FrozenMeshes.IsEmpty()) GetWorld()->GetTimerManager().ClearTimer(FrozenLODTimer);

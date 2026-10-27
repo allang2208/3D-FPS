@@ -15,7 +15,6 @@
 #include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Materials/MaterialRelevance.h"
 
 namespace
 {
@@ -151,60 +150,8 @@ void UMonsterIdleBreathingMeshComponent::CacheBones()
     }
 }
 
-bool UMonsterIdleBreathingMeshComponent::CanCacheFrozenShadow() const
-{
-    if (!GetWorld() || !GetWorld()->IsGameWorld() || GetNetMode() == NM_DedicatedServer
-        || IsComponentTickEnabled() || IsSimulatingPhysics() || !CastShadow
-        || GetOverlayMaterial()) return false;
-    // A frozen skeleton can still have animated shader geometry/opacity. Keep
-    // the authored invalidation policy for those materials.
-    const FMaterialRelevance Relevance = GetMaterialRelevance(GShaderPlatformForFeatureLevel[GetWorld()->GetFeatureLevel()]);
-    return Relevance.bOpaque && !Relevance.bMasked && !Relevance.bNormalTranslucency
-        && !Relevance.bSeparateTranslucency && !Relevance.bPostMotionBlurTranslucency
-        && !Relevance.bUsesWorldPositionOffset && !Relevance.bUsesDisplacement
-        && !Relevance.bUsesPixelDepthOffset;
-}
-
-void UMonsterIdleBreathingMeshComponent::BeginFrozenShadowCaching()
-{
-    if (bFrozenShadowCacheManaged || ShadowCacheInvalidationBehavior != EShadowCacheInvalidationBehavior::Auto
-        || !CanCacheFrozenShadow()) return;
-    bFrozenShadowCacheManaged = true;
-    // Rigid retains transform/light/reveal invalidations, while skipping the
-    // unconditional per-frame deformable-mesh invalidation for this held pose.
-    ShadowCacheInvalidationBehavior = EShadowCacheInvalidationBehavior::Rigid;
-    MarkRenderStateDirty();
-}
-
-void UMonsterIdleBreathingMeshComponent::EndFrozenShadowCaching()
-{
-    if (!bFrozenShadowCacheManaged) return;
-    bFrozenShadowCacheManaged = false;
-    if (ShadowCacheInvalidationBehavior == EShadowCacheInvalidationBehavior::Rigid)
-    {
-        ShadowCacheInvalidationBehavior = EShadowCacheInvalidationBehavior::Auto;
-        MarkRenderStateDirty();
-    }
-}
-
-FPrimitiveSceneProxy* UMonsterIdleBreathingMeshComponent::CreateSceneProxy()
-{
-    // Material/asset replacement already recreates the proxy. Recheck here so
-    // a newly assigned deforming material never inherits the held-pose policy.
-    if (bFrozenShadowCacheManaged && !CanCacheFrozenShadow())
-    {
-        bFrozenShadowCacheManaged = false;
-        if (ShadowCacheInvalidationBehavior == EShadowCacheInvalidationBehavior::Rigid)
-            ShadowCacheInvalidationBehavior = EShadowCacheInvalidationBehavior::Auto;
-    }
-    return Super::CreateSceneProxy();
-}
-
 void UMonsterIdleBreathingMeshComponent::FinalizeBoneTransform()
 {
-    // A new pose (including a corpse LOD change or reactivation) invalidates the
-    // old shadow immediately. Never reuse a frozen silhouette for live animation.
-    EndFrozenShadowCaching();
     auto* Character = Cast<ACharacter>(GetOwner());
     // No preview/studio animation, dedicated-server work or change to M-31 poses.
     if (!Character || !GetWorld() || !GetWorld()->IsGameWorld() || GetNetMode() == NM_DedicatedServer)

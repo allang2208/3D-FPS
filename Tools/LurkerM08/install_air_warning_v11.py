@@ -65,7 +65,10 @@ def material():
     for name,n in inputs.items():MAT.connect_material_expressions(n,'',custom,name)
     rgb=node(u.MaterialExpressionComponentMask,20,0,r=True,g=True,b=True,a=False)
     alpha=node(u.MaterialExpressionComponentMask,20,160,r=False,g=False,b=False,a=True)
-    MAT.connect_material_expressions(custom,'',rgb,'Input');MAT.connect_material_expressions(custom,'',alpha,'Input')
+    # ComponentMask exposes its first input without the name "Input".
+    for mask in (rgb,alpha):
+        if not MAT.connect_material_expressions(custom,'',mask,''):
+            raise RuntimeError('Cannot connect air-warning color/opacity mask')
     MAT.connect_material_property(rgb,'',u.MaterialProperty.MP_EMISSIVE_COLOR)
     MAT.connect_material_property(alpha,'',u.MaterialProperty.MP_OPACITY)
     MAT.recompile_material(m);save(m);return m

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Diagnostics/FPSResourceLifecycle.h
++++ b/Source/FPSGAME/Diagnostics/FPSResourceLifecycle.h
+@@ -0,0 +1,15 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include <initializer_list>
++
++class FJsonObject;
++
++/** Bounded process history of owner-reported counts. No UObject retention or scene scan. */
++namespace FPSResourceLifecycle
++{
++    struct FCount { const TCHAR* Name; int64 Value; };
++    void Record(const UObject* Owner, const TCHAR* Phase, std::initializer_list<FCount> Counts = {});
++    /** Copies immutable serialized rows; safe on the F6 export worker. */
++    TSharedRef<FJsonObject> Snapshot();
++}

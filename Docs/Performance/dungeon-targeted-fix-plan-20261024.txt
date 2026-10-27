@@ -1,0 +1,48 @@
+随机地牢定向修复计划与实施记录（基于20:29采集）
+
+目标与边界
+保持画质、怪物数量、战斗和波次规则。只做源码修改与必要后台Game/Editor构建，不启动UE、游戏、采样或测试。
+不将本次实施完成等同于持续GPU慢态根因已经解决。
+
+实施清单
+1. 弯刀、符文剑（含破防、龙爪）、弓和冰锥的高频可见性传播：消除状态未变时的无条件子树渲染置脏；继续纠正新挂接或状态不一致的子组件，保持原来的树级显示语义。
+2. 欢迎区的入口准备：纳入catalog声明的固定入口保留空间，而不仅是生成的FacilityEntrancePassage节点；只给未开始的欢迎区提前准备，不锁门、不激活AI、不推进正式生成时钟和随机流。
+3. 准备准入：保留16实例/256 MiB和1 GiB余量策略，区分CPU物理内存、提交余量、GPU样本未知/过期与实际不足；沿用现有低频F6快照记录实际拒绝依据。
+4. GPU慢态：已有同帧同网格Normalize相差约442倍的证据，继续记录为输出访问/同步/驻留未闭合。缺少WDDM逐资源证据时，不删除UAV屏障、不改堆驻留优先级、不切换画质或盲写引擎补丁。
+5. 保存本批次源码备份，合并现有工作文件中的精确改动，统一构建FPSGAME与FPSGAMEEditor。
+
+依据
+Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp高频SetVisibility(...,true)与3个子网格持续换渲染对象对应；符文剑和弓存在同类传播。
+UE SceneComponent的Propagate实现会在状态未变时仍MarkRenderStateDirty子组件。新的树级更新须保留状态改变和新子件接入，不只守卫父组件。
+欢迎区原来只识别生成通道节点。catalog的reserved_min/reserved_max覆盖固定入口大厅/祭坛，未纳入准备区域；日志显示布局完成与首刷间约10秒，而准备请求仅提前约1.36秒。
+内存准入读取CPU物理/虚拟余量和独立GPU预算；旧笼统拒绝原因不能区分哪项阻止。
+
+实施细节
+可见性统一小工具：Characters/FPSComponentVisibility.h。父/子树状态真正变化时仍调用UE原传播路径；状态相同时遍历附属关系，只对不一致的子树传播。这样不会漏掉后来挂上的衣袖、手套和附件，也不额外置脏状态已一致的组件。
+接入位置：KukriWeaponComponent::TickComponent、RuneSwordComponent::TickComponent、RuneSwordGuard::TickGuardBreak、RuneSwordAzureDragon持续龙爪显示、BowWeaponComponent::UpdateDoorPushPresentation、FPSIceSpikeVolley本机/网络持续位置更新。
+初始化、换装、技能启动/结束、部件销毁等离散状态转换保留原调用。检查到的巫婆投射物OnRep、PKM脚架装备刷新和M1911枪口拆除属于其他生命周期，未机械替换。
+
+固定入口准备：DungeonThemeEncounter只在WelcomeElite配置时读取现有catalog的reserved_min/max，确认范围包含同catalog的EntryPosition，再缓存为准备空间。仅未开始的欢迎区使用；正式ContainsLocation、PlayerInArea、封门、槽位、AI/BeginPlay和奖励路径未修改。区域开始后的准备仍按现有当前区域和短暂过门宽限处理，不让远处完成区域持续占用准备池。
+备份catalog中的固定入口范围为[-100,-1800,-50]至[3500,1200,800]；生成入口通道局部cells仅约5.54m宽、12.2m长。实现读取当前运行catalog，不硬编码这些示例坐标。
+
+准入原因：FacilityHallSpawnSubsystem分别返回cpu_physical_below_reserve、cpu_commit_below_reserve、gpu_budget_unknown_or_stale、gpu_budget_below_reserve。Windows AvailableVirtual实际受可用地址空间及全局提交余量的最小值约束，保留其原判断，不修改分页文件或内存策略。
+现有PreparationSnapshot追加CPU物理/提交可用字节、其采样时间、最近准入结果/时刻和候选估算量。最近准入结果不会被下一帧的slow_frame调度原因覆盖；GPU读取仍使用原至多2Hz异步缓存，无新增阻塞或采集开关。
+
+覆盖边界（源码接入，不是运行验收）
+单机/监听服务器：入口范围和所有活玩家迭代沿用现有服务端路径。
+专用服务器：仍跳过GPU预算，保留CPU准入；无渲染捕获。
+客户端：没有服务端准备池；可见性小工具按各武器现有本机/网络呈现入口执行。
+分路/迟到玩家：主题原有活玩家遍历与拓扑判断保留。
+区域开始/已通关/离开/换图：没有增加长期资源拥有者，池的现有回收/世界清理继续生效。
+普通首次入场：新入口空间只能增加可选准备机会；资源确实不足时仍可能0命中，不伪造预刷成功或阻塞正式波次。
+
+GPU主问题边界
+本机Morph Normalize GPU范围同时包含UAV同步、shader派发和后续读取转换；同参数范围快慢相差数百倍不能直接断言shader算法或哪一个屏障有错。
+本包WDDM错误5使逐资源物理驻留/调度缺失。现有Launch-F6-WddmCapture.cmd提供用户确认UAC的入口；本轮不自行提权、修改权限、启动采集或重启编辑器。没有依据修改引擎屏障、强制驻留/提高优先级、切CPU Morph或降低LOD。
+
+构建接入中的最小兼容修复
+首轮Game成功；Editor被当时新加入的Characters/KukriBodyMotionDiagnosis.cpp阻塞：UE 5.8的JSON键TSharedString无StartsWith，MakeShared返回的TSharedRef也无ToSharedRef。
+只把前缀比较改为Key.ToView().StartsWith，并直接向Serialize传入既有TSharedRef。保留该文件其他工作内容；没有运行其控制台命令、诊断或截图。原文件和失败构建回执已单独保存。
+
+状态
+源码修改已落盘，FPSGAME与FPSGAMEEditor最终后台构建均成功（exit_code=0），没有运行测试。构建结果与最终范围在Saved/DungeonTargetedFix20261024/completion.json记录。

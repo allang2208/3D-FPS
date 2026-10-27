@@ -1,4 +1,5 @@
 #include "M66IncineratorMonster.h"
+#include "MonsterCorpseMeshComponent.h"
 #include "M66MovementComponent.h"
 #include "M66AnimInstance.h"
 #include "M66FurnaceVisualComponent.h"
@@ -14,7 +15,8 @@
 #include "UObject/ConstructorHelpers.h"
 
 AM66IncineratorMonster::AM66IncineratorMonster(const FObjectInitializer& Initializer)
-    :Super(Initializer.SetDefaultSubobjectClass<UM66MovementComponent>(ACharacter::CharacterMovementComponentName))
+    :Super(Initializer.SetDefaultSubobjectClass<UM66MovementComponent>(ACharacter::CharacterMovementComponentName)
+        .SetDefaultSubobjectClass<UMonsterCorpseMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.bStartWithTickEnabled=true;
     bReplicates=true;SetReplicateMovement(true);SetCanBeDamaged(true);

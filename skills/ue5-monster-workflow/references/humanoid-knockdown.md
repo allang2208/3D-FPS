@@ -1,5 +1,13 @@
 # 人形击飞、起身与受限布娃娃
 
+## 调参期间的刚体生命周期（2026-10-22 螳螂崩溃）
+
+遍历骨骼网格 Bodies 或约束时，不调用会重建整个物理状态的 setter。本机 UE 5.8 的 FBodyInstance::SetCollisionEnabled(NoCollision) 可经 RecreateInstanceBody 重建骨骼物理状态，使循环中其他刚体/约束指针失效；BodySetup.IsValid() 不能保护已经悬空的 FBodyInstance 指针。
+
+FPSGAME 辅助根需要保留刚体和锁定关节，因此对齐后逐形状 SetShapeCollisionEnabled(..., NoCollision, false)，最后统一 UpdatePhysicsFilterData；TunePhysics 不重复切整刚体碰撞。保留质量、阻尼、CCD、关节与预算。此方法仅用于确实要保留刚体的辅助根，不替代正常物理重建。
+
+冻结尸体仅复用已稳定姿势：没有物理子步或最终骨骼变换完全相同时可跳过重复刷新，姿势/LOD 改变仍刷新。冻结阴影须排除 WPO、位移、PDO、Overlay、活动布料和变形器，保留灯光与变换失效。后台构建不证明画面无变化或帧率收益。
+
 2026-10-03 性能收尾：百目死亡加入共享预算；死亡定姿后关闭角色、战斗、移动和网格 Tick，多 LOD 尸体由共享 0.5 秒定时器只在 LOD 变化时刷新完整快照。活体起身和近景物理精度保留，源码与普通构建记录见工程 `Docs/Monsters/monster-ragdoll-performance-20261003.md`；未进行游戏或性能测试。
 
 2026-10-03 用户确认当前重建巫婆的移动、倒地和死亡布娃娃达到预期，正式显示名改为“巫婆”，稳定 ID `WitchRebuilt` 保留。认可基准记录为 `Docs/Monsters/witch-physical-settle-20261003.md` 和 `witch-walking-leg-restore-20261003.md`。同日向其他怪物推广的源码与资产制作见 `Docs/Monsters/monster-ragdoll-standard-20261003.md`；其他怪物尚未由用户试玩确认，不能把巫婆的认可转述为全怪物认可。

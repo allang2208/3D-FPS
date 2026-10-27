@@ -1,0 +1,55 @@
+--- a/Source/FPSGAME/Rendering/FPSFXAssetPreparation.h
++++ b/Source/FPSGAME/Rendering/FPSFXAssetPreparation.h
+@@ -0,0 +1,52 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "NiagaraSystem.h"
++#include "Particles/ParticleSystem.h"
++
++/** Per-asset nonblocking preparation. Call Reset when advancing to another asset.
++ * Owners retain assets and choose deadlines, GPU admission and component lifetimes. */
++struct FFPSFXAssetPreparation
++{
++    void Reset() { bCompileRequested = bPSOsRequested = false; }
++
++    bool PollScripts(UNiagaraSystem* System)
++    {
++#if WITH_EDITOR
++        if (!bCompileRequested)
++        {
++            bCompileRequested = true;
++            if (!System->IsReadyToRun() && !System->HasOutstandingCompilationRequests(true))
++                System->RequestCompile(false);
++            return false;
++        }
++        // Submit deferred requests; never synchronously wait for compilation.
++        System->PollForCompilationComplete(true);
++        if (System->HasOutstandingCompilationRequests(true)) return false;
++#endif
++        return System->IsReadyToRun();
++    }
++
++    void RequestPSOs(UFXSystemAsset* Asset)
++    {
++        if (bPSOsRequested) return;
++        Asset->PrecacheAssetPSOs();
++        bPSOsRequested = true;
++    }
++
++    bool PollPSOs(UFXSystemAsset* Asset)
++    {
++        if (!bPSOsRequested) { RequestPSOs(Asset); return false; }
++        const auto& Event = Asset->GetPrecachePSOsEvent();
++        return !Event || Event->IsComplete();
++    }
++
++    bool Poll(UFXSystemAsset* Asset)
++    {
++        if (auto* System = Cast<UNiagaraSystem>(Asset); System && !PollScripts(System)) return false;
++        return PollPSOs(Asset);
++    }
++
++private:
++    bool bCompileRequested = false, bPSOsRequested = false;
++};

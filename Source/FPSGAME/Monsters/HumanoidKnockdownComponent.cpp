@@ -356,8 +356,8 @@ void UHumanoidKnockdownComponent::TunePhysics()
     {
         if (!Body || !Body->BodySetup.IsValid()) continue;
         const FName Bone=Body->BodySetup->BoneName;
-        if (Bone==Container)
-            Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        // AlignContainerRoot disables the helper's shapes without rebuilding
+        // the body array. SetCollisionEnabled here would invalidate this loop.
         const FString Name=Bone.ToString().ToLower();
         const bool bTorso=Bone==PelvisBone || Name.Contains(TEXT("spine"));
         Body->SetMassOverride(Mass*Weight(Bone)/FMath::Max(1.f,Sum),true);

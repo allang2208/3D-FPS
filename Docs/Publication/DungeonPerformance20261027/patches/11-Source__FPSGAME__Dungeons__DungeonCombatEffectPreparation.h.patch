@@ -1,0 +1,48 @@
+--- a/Source/FPSGAME/Dungeons/DungeonCombatEffectPreparation.h
++++ b/Source/FPSGAME/Dungeons/DungeonCombatEffectPreparation.h
+@@ -0,0 +1,45 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "NiagaraSystem.h"
++#include "Particles/ParticleSystem.h"
++#include "UObject/StrongObjectPtr.h"
++#include "../Rendering/FPSFXAssetPreparation.h"
++
++/** Compile/PSO preparation for effects referenced by the selected encounters. No live simulation. */
++struct FDungeonCombatEffectPreparation
++{
++    TArray<TStrongObjectPtr<UFXSystemAsset>> Assets;
++    int32 Cursor=0;
++    FFPSFXAssetPreparation AssetPreparation;
++    double WaitStartedAt=0.;
++
++    void Add(UObject* Object)
++    {
++        auto* Asset=Cast<UFXSystemAsset>(Object);
++        if(Asset&&!Assets.ContainsByPredicate([Asset](const auto& Entry){return Entry.Get()==Asset;}))
++            Assets.Emplace(Asset);
++    }
++
++    void RetainDependencies(TArray<TObjectPtr<UObject>>& Out) const
++    { for(const auto& Asset:Assets)Out.AddUnique(Asset.Get()); }
++
++    bool Pump(double Deadline,FString& Error)
++    {
++        if(!Error.IsEmpty())return false;
++        auto Waiting=[this,&Error](const UObject* Asset)
++        {
++            if(WaitStartedAt==0.)WaitStartedAt=FPlatformTime::Seconds();
++            else if(FPlatformTime::Seconds()-WaitStartedAt>120.)
++                Error=TEXT("怪物战斗特效准备超时：")+GetPathNameSafe(Asset);
++            return false;
++        };
++        while(Cursor<Assets.Num()&&FPlatformTime::Seconds()<Deadline)
++        {
++            auto* Asset=Assets[Cursor].Get();
++            if(!AssetPreparation.Poll(Asset))return Waiting(Asset);
++            ++Cursor;AssetPreparation.Reset();WaitStartedAt=0.;
++        }
++        return Cursor==Assets.Num();
++    }
++};

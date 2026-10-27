@@ -8,7 +8,7 @@
 class USkeletalMesh;
 class USkeleton;
 class USkeletalMeshComponent;
-class UPoseableMeshComponent;
+class UMonsterCorpsePoseableMeshComponent;
 DECLARE_MULTICAST_DELEGATE_TwoParams(FSoftCorpseGroundImpact, const FVector&, float);
 
 USTRUCT()
@@ -108,11 +108,12 @@ private:
     FVector ToWorld(const FVector& P) const { return Origin+P*100.; }
     FVector ToSimulation(const FVector& P) const { return (P-Origin)*.01; }
     UPROPERTY(Transient) TObjectPtr<UM14SoftBodyData> Data;
-    UPROPERTY(Transient) TObjectPtr<UPoseableMeshComponent> Display;
+    UPROPERTY(Transient) TObjectPtr<UMonsterCorpsePoseableMeshComponent> Display;
     TArray<FVector> Positions,Previous,Velocities,PredictedVelocities,Initial,GroundPoint,GroundNormal,TracePosition,WallPoint,WallNormal;
     TArray<float> InvMass,Lengths,Volumes,EdgeLambda,VolumeLambda,BarrierLambda;
     TArray<FQuat> HardwareRotation;
     TArray<FTransform> BindFrames;
+    TArray<FTransform> RenderPoseScratch;
     TArray<FIntPoint> SelfContactPairs;
     TArray<uint8> Grounded;
     TArray<uint8> RelaxedEdges,RelaxedTets;
@@ -121,6 +122,7 @@ private:
     float Accumulator=0.f,Elapsed=0.f,QuietSeconds=0.f,BudgetRetry=0.f;
     int32 ContactCursor=0;
     bool bSettled=false,bBudget=false;
+    bool bHasSubmittedPose=false;
     bool bGroundImpactSent=false;
     float WorldSpacingCm=24.f;
 };

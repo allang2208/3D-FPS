@@ -1,0 +1,72 @@
+--- a/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.cpp
+@@ -1,5 +1,7 @@
+ #include "FacilityMonsterGpuWarmup.h"
+ #include "../Monsters/NurseZombie.h"
++#include "../Monsters/BellowSacLobber.h"
++#include "../Monsters/QuadrupedAnimationTemplate.h"
+ #include "../UI/FPSPerformanceMetrics.h"
+ #include "Animation/AnimSequence.h"
+ #include "Engine/SkeletalMesh.h"
+@@ -21,6 +23,19 @@
+ FFacilityMonsterGpuWarmup::FFacilityMonsterGpuWarmup(ANurseZombie* Monster)
+ {
+     if (!Monster || Monster->HasActorBegunPlay() || !Monster->VisualMesh || !Monster->IdleClip) return;
++    Initialize(Monster, Monster->VisualMesh, Monster->IdleClip);
++}
++
++FFacilityMonsterGpuWarmup::FFacilityMonsterGpuWarmup(ABellowSacLobber* Monster)
++{
++    if (!Monster || Monster->HasActorBegunPlay() || !Monster->AnimationSet
++        || !Monster->AnimationSet->ReferenceMesh || !Monster->AnimationSet->FindSequence(TEXT("Idle"))) return;
++    Initialize(Monster, Monster->AnimationSet->ReferenceMesh, nullptr, Monster->AnimationSet);
++}
++
++void FFacilityMonsterGpuWarmup::Initialize(ACharacter* Monster, USkeletalMesh* VisualMesh,
++    UAnimSequence* IdleClip, UQuadrupedAnimationSet* QuadrupedSet)
++{
+     auto* Mesh = Monster->GetMesh();
+     Body = Mesh;
+     OriginalRelativeTransform = Mesh->GetRelativeTransform();
+@@ -35,7 +50,7 @@
+     // Register only the real visual body. Capsule, movement, combat and AI remain
+     // unregistered until the existing FinishSpawning path runs at its original time.
+     Monster->SetActorHiddenInGame(false);
+-    Mesh->SetSkeletalMeshAsset(Monster->VisualMesh);
++    Mesh->SetSkeletalMeshAsset(VisualMesh);
+     Mesh->SetVisibleInSceneCaptureOnly(true);
+     Mesh->SetHiddenInGame(false);
+     Mesh->SetVisibility(true);
+@@ -48,8 +63,21 @@
+     Mesh->SetForcedLOD(1);
+     Mesh->SetComponentTickEnabled(false);
+     Mesh->RegisterComponentWithWorld(Monster->GetWorld());
+-    Mesh->PlayAnimation(Monster->IdleClip, false);
+-    Mesh->SetPosition(0.f, false);
++    if (QuadrupedSet)
++    {
++        // Keep Bellow's native animation class: switching it to SingleNode
++        // would make Wolf::BeginPlay reject its template animation instance.
++        if (auto* Animation = Cast<UQuadrupedTemplateAnimInstance>(Mesh->GetAnimInstance()))
++        {
++            Animation->SetAnimationSet(QuadrupedSet);
++            Animation->FinishPoseTransition();
++        }
++    }
++    else
++    {
++        Mesh->PlayAnimation(IdleClip, false);
++        Mesh->SetPosition(0.f, false);
++    }
+     Mesh->TickAnimation(0.f, false);
+     Mesh->RefreshBoneTransforms();
+     Mesh->UpdateComponentToWorld();
+@@ -115,7 +143,7 @@
+     const auto State = Completion;
+     ENQUEUE_RENDER_COMMAND(FacilityWarmupFence)([State](FRHICommandListImmediate& RHICmdList)
+     {
+-        State->Fence = RHICreateGPUFence(TEXT("FacilityStaffBodyWarmup"));
++        State->Fence = RHICreateGPUFence(TEXT("FacilityMonsterBodyWarmup"));
+         RHICmdList.WriteGPUFence(State->Fence);
+     });
+     bSubmitted = true;

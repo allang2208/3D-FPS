@@ -1,0 +1,39 @@
+随机地牢性能代码收敛 — 2026-10-26
+
+范围
+本批处理已确认的重复调度、准备实现与诊断数据。保持画质、怪物数量、正式刷怪资格/间隔、战斗与奖励规则。没有安装群体插件、改动引擎、启动 UE/游戏/commandlet、采样或运行测试。构建结果见 Saved/PerformanceConsolidation20261026 下逐目标回执。
+
+1. 准备请求单一入口
+DungeonThemeEncounter 的区域更新是唯一的可选准备请求拥有者，移除 FacilityHallEncounter 房间定时器的重复请求。已在队列中的房间直接返回，资格失效仍由原维护阶段处理。维护阶段合并剔除与优先级选择，在一个保持原顺序的循环中查找一次候选槽。
+沿用既有区域低频更新，覆盖进入/离开、首波、未来波次、地下层进入、预算回收后的再次准备；没有新增第二个定时器、另一套状态缓存或完整活体怪物池。正式生成前仍按实时状态复核。16 实例/256 MiB 与原内存准入阈值保持不变。
+
+2. 共用特效资产准备步骤
+Rendering/FPSFXAssetPreparation.h 提供同一套非阻塞 Niagara 编译请求/轮询与资产 PSO 请求/等待。玻璃和怪物特效复用完整步骤；玩家技能复用编译与 PSO 步骤，继续在原预算准入后建立代表组件。
+各拥有者保留原超时、强引用、取消、片段组件和实际技能激活逻辑。Dragon Breath 的真实复用体积与避免重复网格的规则保留。没有引入全局资产永久缓存，也没有把素材准备误当全部实例 GPU 就绪。
+
+3. 日常记录与深度观察分离
+fps.Perf.RenderResourceSampling 默认由 1 改为 0。普通 F6 帧记录仍保留基础帧时间、每秒最多两次的 RHI 内存预算与有界准备池快照；不再遍历全场角色、骨骼和 Groom，不建立组件 JSON/形变列表。
+显式 F6“GPU 驻留/调度：开始”会自动开启详细观察，停止后返回基础观察；人工设置该控制台变量为 1 或已有 MonsterCapture 命令仍可明确启用。精确姿势比较和原生缓冲身份仍只在显式 GPU 采集中进行。
+基础样本写 component_details_recorded=false，未观察的怪物/骨骼/毛发数量省略，不把未知写成零。已有单请求在途门控、2 Hz 频率、360 条滚动容量和独立预算读取保留。暂停普通记录不妨碍准备阶段读取必要内存预算。
+
+4. 导出去重与离线兼容
+schema_version 升为 15。
+- 组件只写入 skinned_components；legacy_staff_body 标识旧 staff 子集，不再重复序列化同一组件。
+- render_resource_history.samples 保存滚动历史与已归档战斗窗口的样本并集，每份完成记录只序列化一次。
+- history_sample_indices 选择滚动历史；每个战斗窗口的 completed_resource_sample_indices 引用同一表，取代内嵌 completed_resource_samples。
+- 已归档但已被滚动历史覆盖的样本仍保留；容量语义继续是滚动 360 条与原有有界战斗窗口，不能将并集直接当作滚动时间线。
+Tools/Performance/performance_report.py 提供 resource_samples(report, window=None)、encounter_windows、skinned_components、staff_components，读取旧内嵌布局与新引用布局。该工具仅离线读取用户提供的报告，不启动采集；本轮未运行该工具或测试。
+
+后续用户采集
+1. 使用本批最终 Editor 构建。保存并退出旧编辑器后，通过根目录 Launch-F6-WddmCapture.cmd 启动并确认 Windows 权限提示；本批不会替用户启动或关闭。
+2. 刷怪前在 F6 点击“GPU 驻留/调度：开始”，等待“WDDM + UE 正在记录”。普通导出仍可看帧时间，但没有开启深采就没有组件/缓冲身份记录。
+3. 保持原装备、画质、分辨率和通常进入路线。出现持续低帧后再保留约 20 秒，直接导出，等待保存完成。期间不要并行编译/烘焙；不要同时变更驱动或系统 GPU 设置。
+4. 保留整份 Saved/PerformanceReports/gpu-... 文件夹：manifest.json、engine.utrace、wddm.etl、buffers.jsonl、性能 JSON。状态仍报权限错误时保留失败记录，无需重复战斗。
+5. 后续先对齐 WDDM 与 UE 时间线，区分资源迁移、队列等待、外部负载与实际 GPU 执行。缺少逐资源关联时不猜具体缓冲。只有这条证据仍不足时才准备针对性的硬件分析，避免继续泛化预热。
+
+结论边界
+代码收敛可以减少重复工作和观察开销，不能据此宣称历史 Morph/SkinCache 持续慢态已根治。尚无本批运行性能结果；测试与画面/战斗验收由用户进行。
+
+构建交付
+FPSGAME Win64 Development 最终常规构建成功（36 项动作，退出码 0）。FPSGAMEEditor Win64 Development 常规构建返回成功（UBT 确认 Target is up to date，0 项新增动作，退出码 0）。首轮帮助类把 FX 资产类型写得过宽导致的编译错误已修正；保留历次日志，未采用热补丁或打开编辑器。
+最终源码清单、SHA-256、Game/Editor 二进制指纹及逐目标回执汇总在 Saved/PerformanceConsolidation20261026/completion.json。没有运行离线读取工具、游戏测试或新性能采样。

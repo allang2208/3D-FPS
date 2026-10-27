@@ -1,0 +1,108 @@
+--- a/Source/FPSGAME/Diagnostics/FPSResourceLifecycle.cpp
++++ b/Source/FPSGAME/Diagnostics/FPSResourceLifecycle.cpp
+@@ -0,0 +1,105 @@
++#include "FPSResourceLifecycle.h"
++
++#include "Dom/JsonObject.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "HAL/PlatformMemory.h"
++#include "HAL/PlatformProcess.h"
++#include "Misc/EngineVersion.h"
++#include "Misc/ScopeLock.h"
++#include "ProfilingDebugging/MiscTrace.h"
++#include "Serialization/JsonSerializer.h"
++#include "Serialization/MemoryWriter.h"
++#include "UObject/ObjectKey.h"
++
++DEFINE_LOG_CATEGORY_STATIC(LogFPSResourceLifecycle, Log, All);
++
++namespace FPSResourceLifecycle
++{
++namespace
++{
++    constexpr int32 Capacity = 256;
++    FCriticalSection HistoryLock;
++    TArray<FString> Rows;
++    int32 WriteIndex = 0;
++    uint64 Sequence = 0;
++    const FString ProcessSession = FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FString ObjectIdentity(const UObject* Object)
++    {
++        FObjectKey Key(Object);
++        TArray<uint8> Bytes;
++        FMemoryWriter Writer(Bytes);
++        Writer << Key;
++        return BytesToHex(Bytes.GetData(), Bytes.Num());
++    }
++}
++
++void Record(const UObject* Owner, const TCHAR* Phase, std::initializer_list<FCount> Counts)
++{
++#if !UE_BUILD_SHIPPING
++    check(IsInGameThread());
++    if (IsRunningCommandlet()) return;
++    auto Row = MakeShared<FJsonObject>();
++    Row->SetStringField(TEXT("phase"), Phase);
++    Row->SetStringField(TEXT("owner"), GetPathNameSafe(Owner));
++    // Serial numbers distinguish repeated PIE objects reusing the same path.
++    if (Owner) Row->SetStringField(TEXT("owner_key"), ObjectIdentity(Owner));
++    if (const UWorld* World = Owner ? Owner->GetWorld() : nullptr)
++    {
++        Row->SetStringField(TEXT("world"), World->GetPathName());
++        Row->SetStringField(TEXT("world_key"), ObjectIdentity(World));
++        Row->SetNumberField(TEXT("world_type"), int32(World->WorldType));
++        if (const auto* Instance = World->GetGameInstance())
++            Row->SetStringField(TEXT("game_instance_key"), ObjectIdentity(Instance));
++    }
++    Row->SetStringField(TEXT("utc"), FDateTime::UtcNow().ToIso8601());
++    Row->SetNumberField(TEXT("platform_seconds"), FPlatformTime::Seconds());
++    Row->SetStringField(TEXT("frame"), LexToString(GFrameCounter));
++    const auto Memory = FPlatformMemory::GetStats();
++    Row->SetNumberField(TEXT("process_physical_bytes"), double(Memory.UsedPhysical));
++    Row->SetNumberField(TEXT("process_virtual_bytes"), double(Memory.UsedVirtual));
++    Row->SetNumberField(TEXT("system_available_physical_bytes"), double(Memory.AvailablePhysical));
++    auto Values = MakeShared<FJsonObject>();
++    for (const auto& Count : Counts) Values->SetNumberField(Count.Name, double(Count.Value));
++    Row->SetObjectField(TEXT("counts"), Values);
++    FString Text;
++    {
++        FScopeLock Guard(&HistoryLock);
++        Row->SetStringField(TEXT("sequence"), LexToString(++Sequence));
++        FJsonSerializer::Serialize(Row, TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&Text));
++        if (Rows.Num() < Capacity) Rows.Add(Text);
++        else Rows[WriteIndex] = Text;
++        WriteIndex = (WriteIndex + 1) % Capacity;
++    }
++    TRACE_BOOKMARK(TEXT("FPS.ResourceLifecycle %s"), *Text);
++    // The ordinary log preserves teardown events even when no next PIE exports F6.
++    UE_LOG(LogFPSResourceLifecycle, Log, TEXT("%s"), *Text);
++#endif
++}
++
++TSharedRef<FJsonObject> Snapshot()
++{
++    auto Result = MakeShared<FJsonObject>();
++    Result->SetStringField(TEXT("contract"), TEXT("Process-wide boundary history, independent of F6 clear and World travel. Owner-reported counts are not unique GPU allocations, physical VRAM or proof of a leak. Release precedes asynchronous render cleanup and GC. No object references, forced GC, GPU waits or scene enumeration. LogFPSResourceLifecycle retains teardown rows in the ordinary process log. History is copied at export, not at the older panel snapshot."));
++    Result->SetStringField(TEXT("process_session"), ProcessSession);
++    Result->SetNumberField(TEXT("process_id"), FPlatformProcess::GetCurrentProcessId());
++    Result->SetStringField(TEXT("engine_version"), FEngineVersion::Current().ToString());
++    Result->SetNumberField(TEXT("capacity"), Capacity);
++    TArray<FString> Copy;
++    {
++        FScopeLock Guard(&HistoryLock);
++        Result->SetStringField(TEXT("overwritten"), LexToString(Sequence > Capacity ? Sequence - Capacity : 0));
++        const int32 First = Rows.Num() == Capacity ? WriteIndex : 0;
++        for (int32 I = 0; I < Rows.Num(); ++I) Copy.Add(Rows[(First + I) % Rows.Num()]);
++    }
++    TArray<TSharedPtr<FJsonValue>> Events;
++    for (const FString& Text : Copy)
++    {
++        TSharedPtr<FJsonObject> Row;
++        if (FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text), Row))
++            Events.Add(MakeShared<FJsonValueObject>(Row));
++    }
++    Result->SetArrayField(TEXT("events"), Events);
++    return Result;
++}
++}

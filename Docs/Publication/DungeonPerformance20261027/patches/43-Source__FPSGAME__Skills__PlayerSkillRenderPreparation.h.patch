@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Skills/PlayerSkillRenderPreparation.h
++++ b/Source/FPSGAME/Skills/PlayerSkillRenderPreparation.h
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include "CoreMinimal.h"
++#include "../Rendering/FPSFXAssetPreparation.h"
+ 
+ class AActor;
+ class USceneComponent;
+@@ -19,5 +20,6 @@
+     TWeakObjectPtr<AActor> WarmHost;
+     TWeakObjectPtr<UObject> CurrentAsset;
+     TWeakObjectPtr<USceneComponent> CurrentComponent;
+-    bool bCompileRequested=false,bActivated=false;
++    FFPSFXAssetPreparation AssetPreparation;
++    bool bActivated=false;
+ };

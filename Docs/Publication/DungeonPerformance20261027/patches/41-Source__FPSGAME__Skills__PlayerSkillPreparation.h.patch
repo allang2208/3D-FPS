@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Skills/PlayerSkillPreparation.h
++++ b/Source/FPSGAME/Skills/PlayerSkillPreparation.h
+@@ -33,6 +33,7 @@
+     float Progress = 0.f;
+ 
+ private:
++    friend class UBowSkillTrainingAuditCommandlet;
+     struct FJob
+     {
+         FName Skill;
+@@ -45,6 +46,7 @@
+     void RefreshLearnedSkills();
+     void BindConsumers(FName Skill);
+     void ReleaseUnusedResidents();
++    void RecordResourceState(const UObject* Context, const TCHAR* Phase) const;
+     bool CanPrepareRender();
+     void TickDeferredRender();
+     void CheckEquipmentChanges();

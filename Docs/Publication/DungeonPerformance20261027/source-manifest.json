@@ -1,0 +1,288 @@
+{
+  "baseline_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+  "runtime_tests_run": false,
+  "direct_files": [
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp",
+      "initial_git_blob": "225fe0305d9c7202dfe86e1f2de8808d100d1310",
+      "published_sha256_lf_utf8": "bca91f47113ed772b53d7290cb3bc4568d1d7d466f92ead6b6763fb33c9bcd62",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterRagdollPhysics.cpp",
+      "initial_git_blob": "250c5b1b3ff2d6da8d3b95433c7dbe5627eff9ac",
+      "published_sha256_lf_utf8": "7cc416dd5c937ecc16544609800220ad743e7bb1f59e83499c26eed3faa2aa1d",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidRagdollBudget.cpp",
+      "initial_git_blob": "cd9acd3b07dbfeaebe673ebecc57459d223e222e",
+      "published_sha256_lf_utf8": "b451152a03e3f8d28cd1cc8dcf1b16f28ba5b65ab0d2b17e504341d25afe77e8",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.cpp",
+      "initial_git_blob": "c0e42c867def21e83f2ff76d1f5f39301fa5e66c",
+      "published_sha256_lf_utf8": "7eed42195c64868b8cd26e3ec742cf337d571ea826be7aa45da99c7df764ac25",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.h",
+      "initial_git_blob": "98c4ff56b7c71c1e60be42200d563bd25b948776",
+      "published_sha256_lf_utf8": "2a30cb25db1312e98bf02acab41ff98741668b0a813007439dd793ef780babc8",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCorpseMeshComponent.cpp",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "dd4ded675c2db7ebef9faf246c698032e29e43e35b422fc3d9b8d10493e67c4f",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCorpseMeshComponent.h",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "f69744182eb4839669a8299def5cb227203bb07f84afe42706cbeb0d5c4394b1",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M14SoftBodyDeath.cpp",
+      "initial_git_blob": "4dd31b327e7e79a2d0c0852832d42fff37e33835",
+      "published_sha256_lf_utf8": "b083fe6be6a363d38ee654c04704b61f866a6c472ce987cc7c2caaf4a41ff6dd",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M14SoftBodyDeath.h",
+      "initial_git_blob": "9584009960c5afd39e697270ce2e609a44a6e9dd",
+      "published_sha256_lf_utf8": "700276e9c3b03fd6f4cca2c0915009f8644a3910c555b5cebd18645f804a9a27",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66CorpseSyncComponent.cpp",
+      "initial_git_blob": "46a62c7103aada2159c4c346885d3468a9ec99bf",
+      "published_sha256_lf_utf8": "e8fbbb85e94d906c4f8f48d7978606dbd7b843ae23b68edf1e4be8a4b6e62a29",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "initial_git_blob": "de0222868fd26f7337f71dd20f5828ba37c8a950",
+      "published_sha256_lf_utf8": "b7357a07cdcf465ea703e9199597ade5eb4f6fa0766f4918a44476e247b51d4c",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.h",
+      "initial_git_blob": "70b5dbaeb3f13fe072f64525a4f4a7c988403e9d",
+      "published_sha256_lf_utf8": "dc1f092fd47fd2ce77cb373621d548e3f3a3150a1ee0653e92f5ca63877cdc9e",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14.cpp",
+      "initial_git_blob": "35df1266704e4a456f7b28ef2f149f627899302d",
+      "published_sha256_lf_utf8": "8329ee874248447b717bf04c4de9b18d6722f4ddb0162e6306497d23f708e6c0",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66IncineratorMonster.cpp",
+      "initial_git_blob": "4db53c3888ca8eaf18e5e76b8ff891fef6dc5e0e",
+      "published_sha256_lf_utf8": "f18ce75e87556ecea7e0ec6d7c0aa341f1384a0f42a2ad59cd4ee8e5629f959c",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyPoseAnchorComponent.cpp",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "cfd7389cf35bdd1a3d28f7c004899eb3d9cb00c688d97a61b5fed929add476bb",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyPoseAnchorComponent.h",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "6f6e2cd719a0529bb8576dc25ae5ceb7d7551b708f28ffbed7be9b97384b7c40",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/import_kukri.py",
+      "initial_git_blob": "3e7ccd30de8ae8004dd31e17a19a07baa1383525",
+      "published_sha256_lf_utf8": "054cc7306b8646ed17aa63fc390ae2d00c35814e15b2ec5ce1ad7fda7b47afe0",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Tools/Fluids/author_clearwater_water.py",
+      "initial_git_blob": "e6df859e63a43656a4fc51e4433d357fdf00ddbe",
+      "published_sha256_lf_utf8": "c5c6306789a496e6c5bb7b22ed9814bcdca64df526c5d160f102accc9644f259",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Tools/LurkerM08/install_air_warning_v11.py",
+      "initial_git_blob": "106277c504436477924f6bf54cb3cee7d624de50",
+      "published_sha256_lf_utf8": "96b382dc1f0a0ae5749659a3a235d2db6e2770fe54d090c7142e078a853efd1b",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Tools/Performance/performance_report.py",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "04e63e2208b38b5ea7a3ef452bfeeeba2b42ecbdbc019a7619dc1b30299a1b19",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "skills/ue5-performance-packaging/SKILL.md",
+      "initial_git_blob": "61c1f191c19a546fe2a8ae4d362fd8f7e007d366",
+      "published_sha256_lf_utf8": "f6eea95a5542bceee2572c3688802cfa8d6d28cb2920d182c9b6bf1f67aa8d73",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "skills/ue5-performance-packaging/references/runtime-baseline-equivalence.md",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "33b375f86eeee0bf20fd4e7aeefa9a27ee2734b06a2d6542382ec41c658c27fd",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/validation.md",
+      "initial_git_blob": "3b979e8832b1f2bcdbf122772e2ff7c5cfae8536",
+      "published_sha256_lf_utf8": "337c8d63ba75abcff2c2674d59fdbd495c3909025f6ff893f76946e80d9886e4",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/humanoid-knockdown.md",
+      "initial_git_blob": "9394ffec44d2769a17e6915d05316f43e6b679e5",
+      "published_sha256_lf_utf8": "14d0bdb011ef04e9e2562937ce53667f38f2c36fe181c701f77ac57c0d82ad03",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10Mawcrawler.cpp",
+      "initial_git_blob": "988ab0b131e76125f8e9f952c6be02ca2a1e9c47",
+      "published_sha256_lf_utf8": "e4cffd54fb4a5333ec333098d6ff4b3e7866bb2200e1d050c5a4971709a2bad3",
+      "scope": "only owned lines"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+      "initial_git_blob": "ad3d8cc1dac6eb590bd8a582811479cc63880978",
+      "published_sha256_lf_utf8": "00655044aa9bcd84aa2022d08bd8ef1d2b9ee05f9180071b4d14227d9b6f5c03",
+      "scope": "only owned lines"
+    },
+    {
+      "path": "Docs/Performance/mantis-crash-and-reception-capture-20261022.md",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "af2014ddead568a40ae9728c6db91d425e959115caa8d7f5659340579603ed71",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/glass-preparation-and-spawn-retention-20261022.md",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "0ff2f4f82a446cac03f44a911ae1bba12188b5ffe73e7c185224db6c88d356a5",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/resource-retention-and-combat-preparation-20261023.md",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "f135d9d715e4f599134077409589a738331320db62470cc1658f8821312eb7b6",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/corpse-render-reuse-20261023.md",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "8ad48ea83f610ce4e11a26c89c0aa8ba1eec079efe91f1be6c85ae01e14ed7ae",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/groom-redundant-update-investigation-20261023.md",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "5ea04740804135d662fbc5ccb3a8dfa922c86e34be5827a19353d64dfe7d7871",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/hall-spawn-smoothness-and-direction-20261024.md",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "64bdfea1b467eeb6c739cef280b09cbc9166bee2d23291c6685f6715cd01dd76",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/dungeon-targeted-fix-plan-20261024.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "44f61b485f72cd588f4254320b10e3121cfc3cbde40558ada6d138f83668b748",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/dungeon-latest-capture-findings-20261024-2029.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "be72e698e76cff40c8f6907d80d4a41233212905870984862a1f72563f628faf",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/dungeon-latest-capture-findings-20261026-1110.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "1678ed62469bbc96bb50a2b7c41262474a52f7dd088e04d83d5e61dd0ed6e563",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/dungeon-performance-closeout-20261024.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "587b637f8228f65f8584ea57f7c299fd4deef48ba4de71bf91a9021701c03ef4",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/repeated-crowd-gpu-evidence-20261024.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "23343435ebd6504438b15c84f9e2dadc5e72c6ed35b185ce6783e7051a776416",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/residency-budget-and-carried-gear-20261024.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "049a86368ed539bd87858cdfc286b21c51ee48e7f1bdd442d17d2d2d7e3c8536",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/sustained-gpu-plan-20261024.md",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "f69b704863e8ce27f7fabb7341a2e79e7c6a16a98cdb3c8738e1b09dcc1743c4",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/performance-consolidation-20261026.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "e0efa97b900cc7cc48809ec5e43020917f69adbaa461a5b72e73301135edcc50",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/editor-session-lifecycle-fixes-20261026.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "cb6988e7fb6187202f5bf7de0f963f0422b97f824b72b90fb8d844f23626842a",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/editor-session-performance-plan-20261026.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "afee7e95a226b2a383152254d1daec47e8f139a0b778bc6492516faabbfdec91",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/runtime-stall-and-development-package-20261026.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "ab5f5b3e15266e0a8897f23a7f933b0359cf564007df0fde2af919cfbfd2cca3",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/runtime-package-missing-assets-20261026.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "e207fd76f9652d6b26141940074901b33579c240a5ec36a74bc90f4d69b88aef",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/Performance/runtime-baseline-scope-20261027.txt",
+      "initial_git_blob": null,
+      "published_sha256_lf_utf8": "ad2eadb2087282c72fa8630d11cc8e4f86364dc6eed7d67590fd33a7d99fde20",
+      "scope": "owned file changes"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "initial_git_blob": "42f2ac4b35ec0bab5ba54fc7a7a89efd2f30ef44",
+      "published_sha256_lf_utf8": "4e1cc131c4008c8ccdd8362ab004a7853f3d7dca4a9ac0f720ae3d031dc9ce54",
+      "scope": "only owned lines"
+    },
+    {
+      "path": ".gitattributes",
+      "initial_git_blob": "b8eb60524b4d2f36f94378c8ce1bd26e394f3a36",
+      "published_sha256_lf_utf8": "bbdf9aa210c48a6e9f908e7a94d6730d925bc7ef50229d7ad560a03fa0f2a84f",
+      "scope": "only owned lines"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+--- a/Source/FPSGAME/Characters/FPSComponentVisibility.h
++++ b/Source/FPSGAME/Characters/FPSComponentVisibility.h
+@@ -0,0 +1,47 @@
++#pragma once
++
++#include "Components/SceneComponent.h"
++
++namespace FPSComponentVisibility
++{
++// UE's Propagate path dirties every descendant even when its value is unchanged.
++// Preserve tree-wide visibility (including newly attached children), but only
++// propagate through a subtree when one of its actual values changes.
++inline void SetVisibilityTree(USceneComponent* Root, bool bVisible)
++{
++    if (!Root) return;
++    if (Root->GetVisibleFlag() != bVisible)
++    {
++        Root->SetVisibility(bVisible, true);
++        return;
++    }
++    TInlineComponentArray<USceneComponent*, 16> Pending;
++    Pending.Append(Root->GetAttachChildren());
++    while (!Pending.IsEmpty())
++    {
++        auto* Child = Pending.Pop(EAllowShrinking::No);
++        if (!Child) continue;
++        if (Child->GetVisibleFlag() != bVisible) Child->SetVisibility(bVisible, true);
++        else Pending.Append(Child->GetAttachChildren());
++    }
++}
++
++inline void SetHiddenInGameTree(USceneComponent* Root, bool bHidden)
++{
++    if (!Root) return;
++    if (Root->bHiddenInGame != bHidden)
++    {
++        Root->SetHiddenInGame(bHidden, true);
++        return;
++    }
++    TInlineComponentArray<USceneComponent*, 16> Pending;
++    Pending.Append(Root->GetAttachChildren());
++    while (!Pending.IsEmpty())
++    {
++        auto* Child = Pending.Pop(EAllowShrinking::No);
++        if (!Child) continue;
++        if (Child->bHiddenInGame != bHidden) Child->SetHiddenInGame(bHidden, true);
++        else Pending.Append(Child->GetAttachChildren());
++    }
++}
++}

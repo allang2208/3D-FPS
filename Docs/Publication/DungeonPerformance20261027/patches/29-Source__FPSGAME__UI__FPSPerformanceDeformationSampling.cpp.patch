@@ -1,0 +1,141 @@
+--- a/Source/FPSGAME/UI/FPSPerformanceDeformationSampling.cpp
++++ b/Source/FPSGAME/UI/FPSPerformanceDeformationSampling.cpp
+@@ -0,0 +1,138 @@
++#include "FPSPerformanceMetrics.h"
++#include "../Characters/FPSPlayerBodyMeshComponent.h"
++#include "../Characters/FPSBodyWeaponMeshComponent.h"
++#include "../Characters/FPSBodyPoseAnchorComponent.h"
++#include "Animation/MorphTarget.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Dom/JsonObject.h"
++#include "Engine/SkinnedAsset.h"
++#include "GameFramework/Actor.h"
++#include "GroomComponent.h"
++#include "GroomCache.h"
++#include "NiagaraComponent.h"
++
++TSharedPtr<FJsonObject> UFPSPerformanceMetricsSubsystem::SampleSkinnedInputs(
++    USkinnedMeshComponent* Mesh, TMap<FString, FObservedDeformation>& CurrentInputs, bool bCompareValues)
++{
++    const auto Row = MakeShared<FJsonObject>();
++    auto* Skeletal = Cast<USkeletalMeshComponent>(Mesh);
++    auto* PoseSource = Mesh->LeaderPoseComponent.Get();
++    if (!PoseSource) PoseSource = Mesh;
++    const auto* PoseSkeletal = Cast<USkeletalMeshComponent>(PoseSource);
++    Row->SetStringField(TEXT("owner"), GetPathNameSafe(Mesh->GetOwner()));
++    Row->SetStringField(TEXT("component_class"), Mesh->GetClass()->GetPathName());
++    Row->SetStringField(TEXT("pose_source"), PoseSource->GetPathName());
++    Row->SetBoolField(TEXT("uses_leader_pose"), PoseSource != Mesh);
++    Row->SetBoolField(TEXT("registered"), Mesh->IsRegistered());
++    Row->SetBoolField(TEXT("tick_enabled"), Mesh->IsComponentTickEnabled());
++    Row->SetBoolField(TEXT("hidden_in_game"), Mesh->bHiddenInGame);
++    Row->SetBoolField(TEXT("owner_no_see"), Mesh->bOwnerNoSee);
++    Row->SetBoolField(TEXT("only_owner_see"), Mesh->bOnlyOwnerSee);
++    Row->SetBoolField(TEXT("cast_shadow"), Mesh->CastShadow);
++    Row->SetBoolField(TEXT("cast_hidden_shadow"), Mesh->bCastHiddenShadow);
++    Row->SetBoolField(TEXT("visible_in_ray_tracing_flag"), Mesh->bVisibleInRayTracing);
++    Row->SetNumberField(TEXT("shadow_invalidation_policy"), static_cast<int32>(Mesh->ShadowCacheInvalidationBehavior));
++    Row->SetBoolField(TEXT("has_mesh_deformer"), !Mesh->GetMeshDeformerInstances().DeformerInstances.IsEmpty());
++    Row->SetBoolField(TEXT("has_cloth_simulation_instances"), Skeletal && !Skeletal->GetClothingSimulationInstances().IsEmpty());
++    const auto* Body = Cast<UFPSPlayerBodyMeshComponent>(Mesh);
++    Row->SetBoolField(TEXT("modular_source_pose_only"), Body && Body->IsModularPoseOnly());
++    Row->SetBoolField(TEXT("permanent_pose_anchor"), Mesh->IsA<UFPSBodyPoseAnchorComponent>());
++    if(const auto* Mechanical=Cast<UFPSBodyWeaponMeshComponent>(Mesh))
++        Row->SetStringField(TEXT("unchanged_manual_pose_submissions_skipped"),LexToString(Mechanical->GetUnchangedPoseSkipCount()));
++    const bool Pending = (Skeletal && Skeletal->IsRunningParallelEvaluation())
++        || (PoseSkeletal && PoseSkeletal->IsRunningParallelEvaluation());
++    Row->SetBoolField(TEXT("pose_source_parallel_evaluation_pending"), Pending);
++    const auto Inputs = MakeShared<FJsonObject>();
++    Row->SetObjectField(TEXT("sampled_cpu_inputs"), Inputs);
++    Inputs->SetBoolField(TEXT("comparison_requested"), bCompareValues);
++    Inputs->SetBoolField(TEXT("available"), bCompareValues && !Pending);
++    if (!bCompareValues || Pending) return Row; // Never join animation work for instrumentation.
++
++    Inputs->SetNumberField(TEXT("bone_revision"), Mesh->GetBoneTransformRevisionNumber());
++    Inputs->SetNumberField(TEXT("bone_frame"), Mesh->GetCurrentBoneTransformFrame());
++    const FString Path = Mesh->GetPathName();
++    auto& Current = CurrentInputs.Add(Path);
++    Current.Component = Mesh; Current.PoseSource = PoseSource; Current.Asset = Mesh->GetSkinnedAsset();
++    Current.Bones = PoseSource->GetComponentSpaceTransforms();
++    Current.WorldTransform = Mesh->GetComponentTransform();
++    Current.Seconds = FPlatformTime::Seconds();
++    Current.PredictedLOD = Mesh->GetPredictedLODLevel();
++    if (Skeletal)
++    {
++        Current.MorphWeights = Skeletal->MorphTargetWeights;
++        for (const auto& Morph : Skeletal->ActiveMorphTargets)
++            if (Morph.Key) Current.MorphIndices.Add(Morph.Key->GetFName(), Morph.Value);
++    }
++    Inputs->SetNumberField(TEXT("pose_source_bone_count"), Current.Bones.Num());
++    Inputs->SetNumberField(TEXT("predicted_lod"), Current.PredictedLOD);
++    Inputs->SetBoolField(TEXT("skeletal_morph_state_available"), Skeletal != nullptr);
++    const auto* Previous = PreviousDeformationInputs.Find(Path);
++    const bool Comparable = Previous && Previous->Component == Current.Component
++        && Previous->PoseSource == Current.PoseSource && Previous->Asset == Current.Asset
++        && Previous->PredictedLOD == Current.PredictedLOD;
++    Inputs->SetBoolField(TEXT("previous_sample_comparable"), Comparable);
++    if (!Comparable) return Row;
++    Inputs->SetNumberField(TEXT("sample_interval_seconds"), Current.Seconds - Previous->Seconds);
++    bool SameBones = Current.Bones.Num() == Previous->Bones.Num();
++    for (int32 I = 0; SameBones && I < Current.Bones.Num(); ++I)
++        SameBones = Current.Bones[I].Equals(Previous->Bones[I], 0.);
++    bool SameMorphs = Current.MorphWeights == Previous->MorphWeights
++        && Current.MorphIndices.Num() == Previous->MorphIndices.Num();
++    for (const auto& Pair : Current.MorphIndices)
++    {
++        const auto* Index = Previous->MorphIndices.Find(Pair.Key);
++        if (!Index || *Index != Pair.Value) { SameMorphs = false; break; }
++    }
++    Inputs->SetBoolField(TEXT("pose_equal_at_sample_points"), SameBones);
++    if (Skeletal) Inputs->SetBoolField(TEXT("morph_state_equal_at_sample_points"), SameMorphs);
++    Inputs->SetBoolField(TEXT("world_transform_equal_at_sample_points"), Current.WorldTransform.Equals(Previous->WorldTransform, 0.));
++    return Row;
++}
++
++TSharedPtr<FJsonObject> UFPSPerformanceMetricsSubsystem::SampleGroomResource(const UGroomComponent* Groom)
++{
++    const auto Row = MakeShared<FJsonObject>();
++    Row->SetStringField(TEXT("component"), Groom->GetPathName());
++    Row->SetStringField(TEXT("owner"), GetPathNameSafe(Groom->GetOwner()));
++    Row->SetStringField(TEXT("attach_parent"), GetPathNameSafe(Groom->GetAttachParent()));
++    Row->SetStringField(TEXT("attach_socket"), Groom->GetAttachSocketName().ToString());
++    Row->SetStringField(TEXT("relative_transform"), Groom->GetRelativeTransform().ToString());
++    Row->SetStringField(TEXT("asset"), GetPathNameSafe(Groom->GroomAsset));
++    Row->SetStringField(TEXT("binding_asset"), GetPathNameSafe(Groom->BindingAsset));
++    Row->SetStringField(TEXT("cache"), GetPathNameSafe(Groom->GroomCache));
++    Row->SetBoolField(TEXT("registered"), Groom->IsRegistered());
++    Row->SetBoolField(TEXT("tick_enabled"), Groom->IsComponentTickEnabled());
++    Row->SetBoolField(TEXT("visible_flag"), Groom->IsVisible());
++    Row->SetBoolField(TEXT("hidden_in_game"), Groom->bHiddenInGame);
++    Row->SetBoolField(TEXT("cast_shadow"), Groom->CastShadow);
++    Row->SetBoolField(TEXT("cast_hidden_shadow"), Groom->bCastHiddenShadow);
++    Row->SetBoolField(TEXT("visible_in_ray_tracing_flag"), Groom->bVisibleInRayTracing);
++    Row->SetBoolField(TEXT("simulation_override_enabled"), Groom->SimulationSettings.bOverrideSettings);
++    Row->SetBoolField(TEXT("override_solver_enabled"), Groom->SimulationSettings.SolverSettings.bEnableSimulation);
++    Row->SetBoolField(TEXT("has_mesh_deformer"), Groom->MeshDeformerInstance != nullptr);
++    Row->SetNumberField(TEXT("forced_lod"), Groom->GetForcedLOD());
++    Row->SetNumberField(TEXT("desired_sync_lod"), Groom->GetDesiredSyncLOD());
++    Row->SetNumberField(TEXT("best_available_lod"), Groom->GetBestAvailableLOD());
++    int32 ActiveNiagara = 0;
++    for (const auto& Niagara : Groom->NiagaraComponents) if (Niagara && Niagara->IsActive()) ++ActiveNiagara;
++    Row->SetNumberField(TEXT("niagara_component_slots"), Groom->NiagaraComponents.Num());
++    Row->SetNumberField(TEXT("active_niagara_components"), ActiveNiagara);
++    TArray<TSharedPtr<FJsonValue>> LODRows;
++    if (const auto* Asset = Groom->GroomAsset.Get())
++    {
++        const auto& Groups = Asset->GetHairGroupsLOD();
++        Row->SetNumberField(TEXT("hair_groups"), Groups.Num());
++        for (int32 G = 0; G < Groups.Num(); ++G)
++            for (int32 L = 0; L < Groups[G].LODs.Num(); ++L)
++            {
++                const auto Item = MakeShared<FJsonObject>();
++                Item->SetNumberField(TEXT("group"), G); Item->SetNumberField(TEXT("lod"), L);
++                Item->SetBoolField(TEXT("visible_setting"), Groups[G].LODs[L].bVisible);
++                Item->SetStringField(TEXT("geometry"), StaticEnum<EGroomGeometryType>()->GetNameStringByValue(static_cast<int64>(Groups[G].LODs[L].GeometryType)));
++                Item->SetBoolField(TEXT("effective_simulation_enabled"), Groom->IsSimulationEnable(G, L));
++                LODRows.Add(MakeShared<FJsonValueObject>(Item));
++            }
++    }
++    Row->SetArrayField(TEXT("configured_group_lods"), LODRows);
++    return Row;
++}

@@ -1,0 +1,425 @@
+--- a/Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp
++++ b/Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSPerformanceMetrics.h"
+ #include "FPSGpuTraceCapture.h"
++#include "../FPSGAMECharacter.h"
+ 
+ #include "../Monsters/FatZombieAnimInstance.h"
+ #include "../Monsters/NurseZombie.h"
+@@ -14,6 +15,7 @@
+ #include "Engine/SkeletalMesh.h"
+ #include "Engine/World.h"
+ #include "EngineUtils.h"
++#include "GroomComponent.h"
+ #include "HAL/IConsoleManager.h"
+ #include "ProfilingDebugging/CountersTrace.h"
+ #include "Rendering/SkeletalMeshRenderData.h"
+@@ -25,8 +27,8 @@
+ 
+ namespace FPSRenderResources
+ {
+-TAutoConsoleVariable<int32> Sampling(TEXT("fps.Perf.RenderResourceSampling"), 1,
+-    TEXT("Record published GPU memory and staff details at most twice per second. Demand-driven lightweight preparation budgets remain available when diagnostics are disabled."));
++TAutoConsoleVariable<int32> Sampling(TEXT("fps.Perf.RenderResourceSampling"), 0,
++    TEXT("Opt-in character/component details at most twice per second; explicit F6 GPU capture also enables them. Basic memory history and preparation budgets remain available without scene enumeration."));
+ TRACE_DECLARE_INT_COUNTER(LocalBudget, TEXT("FPS/Resources/LocalBudgetBytes"));
+ TRACE_DECLARE_INT_COUNTER(LocalUsed, TEXT("FPS/Resources/LocalUsedBytes"));
+ TRACE_DECLARE_INT_COUNTER(LocalOverBudget, TEXT("FPS/Resources/LocalOverBudgetBytes"));
+@@ -35,12 +37,15 @@
+ TRACE_DECLARE_INT_COUNTER(MonstersPrepared, TEXT("FPS/Resources/MonstersNotBegunPlay"));
+ TRACE_DECLARE_INT_COUNTER(HallPendingSpawns, TEXT("FPS/Resources/HallPendingSpawns"));
+ 
+-constexpr int32 MaxStaff = 64;
++constexpr int32 MaxSkinnedComponents = 96;
++constexpr int32 MaxGrooms = 32;
+ constexpr int32 MaxMorphDetails = 8;
+ 
+ struct FStaff
+ {
+     FString Path, Asset, Clip, OutgoingClip;
++    bool bLegacyStaff = false;
++    TSharedPtr<FJsonObject> ComponentDetails;
+     bool bParallelEvaluation = false, bVisible = false, bMorphsKnown = false, bAnimationKnown = false;
+     int32 CapturedCurves = -1;
+     float BlendAlpha = 1.f;
+@@ -61,11 +66,14 @@
+ struct FSample
+ {
+     bool bCollectDetails = false;
++    bool bExpandedCapture = false;
+     double GameSeconds = 0, RenderSeconds = 0, RhiSeconds = 0, GatherMs = 0;
+     double NativeObservationMs = 0;
+     TSharedPtr<FFPSGpuTraceCapture, ESPMode::ThreadSafe> GpuTrace;
+     uint64 GameFrame = 0, RenderFrame = 0;
+     int32 StaffCount = 0;
++    int32 SkinnedCount = 0, GroomCount = 0;
++    TArray<TSharedPtr<FJsonValue>> Grooms;
+     int32 PreparedInstances = 0, PendingSpawns = 0;
+     FName PreparationDecision;
+     TSharedPtr<FJsonObject> PreparationSnapshot;
+@@ -111,21 +119,29 @@
+     const auto Sample = MakeShared<FSample, ESPMode::ThreadSafe>();
+     if (GpuTraceCapture && GpuTraceCapture->IsCollectingBuffers()) Sample->GpuTrace = GpuTraceCapture;
+     Sample->bCollectDetails = bRecording && (Sampling.GetValueOnGameThread() != 0 || Sample->GpuTrace.IsValid());
++    Sample->bExpandedCapture = Sample->bCollectDetails && Sample->GpuTrace.IsValid();
++    TMap<FString, FObservedDeformation> CurrentInputs;
+     Sample->GameSeconds = FPlatformTime::Seconds();
+     Sample->GameFrame = GFrameCounter;
++    // Preparation state is bounded by the shared pool, without a scene scan.
++    if (const auto* Spawns=GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>())
++    {
++        Sample->PreparedInstances=Spawns->PreparedCount();
++        Sample->PendingSpawns=Spawns->PendingCount();
++        Sample->PreparationDecision=Spawns->PreparationLastDecision();
++        if (bRecording) Sample->PreparationSnapshot=Spawns->PreparationSnapshot();
++    }
+     if (Sample->bCollectDetails)
+     {
+-        if (const auto* Spawns=GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>())
+-        {
+-            Sample->PreparedInstances=Spawns->PreparedCount();
+-            Sample->PendingSpawns=Spawns->PendingCount();
+-            Sample->PreparationDecision=Spawns->PreparationLastDecision();
+-            Sample->PreparationSnapshot=Spawns->PreparationSnapshot();
+-        }
++        TArray<ACharacter*> Characters;
+         for (TActorIterator<ACharacter> It(GetWorld()); It; ++It)
+         {
+             const auto* Combat=It->FindComponentByClass<UMonsterCombatComponent>();
+-            if(!Combat)continue;
++            if(!Combat)
++            {
++                if (It->IsA<AFPSGAMECharacter>()) Characters.Add(*It);
++                continue;
++            }
+             auto& Counts=Sample->Monsters.FindOrAdd(It->GetClass()->GetPathName());
+             if(!It->HasActorBegunPlay())++Counts.Prepared;
+             else if(Combat->IsDead())++Counts.Dead;
+@@ -137,39 +153,65 @@
+                 Counts.RigidShadowCache+=!Body->IsComponentTickEnabled() && Body->IsRegistered()
+                     && Body->ShadowCacheInvalidationBehavior==EShadowCacheInvalidationBehavior::Rigid;
+             }
+-            if (!It->ActorHasTag(TEXT("FacelessResearcher")) && !It->ActorHasTag(TEXT("FacelessReceptionist")))
+-                continue;
+-            ++Sample->StaffCount;
+-            if (Sample->Staff.Num() >= MaxStaff) continue;
+-            USkeletalMeshComponent* Mesh = It->GetMesh();
+-            if (!Mesh) continue;
+-            FStaff& Staff = Sample->Staff.AddDefaulted_GetRef();
+-            Staff.Path = Mesh->GetPathName();
+-            Staff.Asset = GetPathNameSafe(Mesh->GetSkeletalMeshAsset());
+-            Staff.bVisible = Mesh->IsVisible();
+-            Staff.bParallelEvaluation = Mesh->IsRunningParallelEvaluation();
+-            Staff.MeshObject = Mesh->GetMeshObject();
+-            Staff.MeshHandle = reinterpret_cast<UPTRINT>(Staff.MeshObject);
+-            // Never wait for parallel animation to inspect its mutable results/proxy.
+-            if (Staff.bParallelEvaluation) continue;
+-            Staff.bMorphsKnown = true;
+-            for (const auto& Morph : Mesh->ActiveMorphTargets)
+-            {
+-                if (!Morph.Key || !Mesh->MorphTargetWeights.IsValidIndex(Morph.Value)) continue;
+-                const float Weight = Mesh->MorphTargetWeights[Morph.Value];
+-                if (Weight != 0.f)
+-                    Staff.Morphs.Add({Morph.Key->GetName(), Morph.Value, Weight});
++            const bool LegacyStaff = It->ActorHasTag(TEXT("FacelessResearcher")) || It->ActorHasTag(TEXT("FacelessReceptionist"));
++            if (LegacyStaff) ++Sample->StaffCount;
++            Characters.Add(*It);
++        }
++        // Prioritize players so a crowd cannot exclude their body/equipment.
++        Characters.StableSort([](const ACharacter& A, const ACharacter& B)
++            { return A.IsA<AFPSGAMECharacter>() && !B.IsA<AFPSGAMECharacter>(); });
++        for (auto* Character : Characters)
++        {
++            TInlineComponentArray<USkinnedMeshComponent*> Meshes;
++            Character->GetComponents(Meshes);
++            // Capture each primary body before its auxiliary parts.
++            Meshes.StableSort([Character](const USkinnedMeshComponent& A, const USkinnedMeshComponent& B)
++                { return &A == Character->GetMesh() && &B != Character->GetMesh(); });
++            const bool LegacyStaff = Character->ActorHasTag(TEXT("FacelessResearcher")) || Character->ActorHasTag(TEXT("FacelessReceptionist"));
++            for (auto* Skinned : Meshes)
++            {
++                ++Sample->SkinnedCount;
++                if (Sample->Staff.Num() >= MaxSkinnedComponents) continue;
++                FStaff& Staff = Sample->Staff.AddDefaulted_GetRef();
++                Staff.bLegacyStaff = LegacyStaff && Skinned == Character->GetMesh();
++                Staff.Path = Skinned->GetPathName();
++                Staff.Asset = GetPathNameSafe(Skinned->GetSkinnedAsset());
++                Staff.bVisible = Skinned->IsVisible();
++                Staff.MeshObject = Skinned->GetMeshObject();
++                Staff.MeshHandle = reinterpret_cast<UPTRINT>(Staff.MeshObject);
++                Staff.ComponentDetails = SampleSkinnedInputs(Skinned, CurrentInputs, Sample->bExpandedCapture);
++                auto* Mesh = Cast<USkeletalMeshComponent>(Skinned);
++                if (!Mesh) continue;
++                Staff.bParallelEvaluation = Mesh->IsRunningParallelEvaluation();
++                // Never wait for parallel animation to inspect its mutable results/proxy.
++                if (Staff.bParallelEvaluation) continue;
++                Staff.bMorphsKnown = true;
++                for (const auto& Morph : Mesh->ActiveMorphTargets)
++                {
++                    if (!Morph.Key || !Mesh->MorphTargetWeights.IsValidIndex(Morph.Value)) continue;
++                    const float Weight = Mesh->MorphTargetWeights[Morph.Value];
++                    if (Weight != 0.f) Staff.Morphs.Add({Morph.Key->GetName(), Morph.Value, Weight});
++                }
++                if (const auto* Anim = Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance()))
++                {
++                    Staff.bAnimationKnown = true;
++                    Staff.Clip = GetPathNameSafe(Anim->ActiveClip);
++                    Staff.OutgoingClip = GetPathNameSafe(Anim->OutgoingLoop);
++                    Staff.BlendAlpha = Anim->BlendAlpha;
++                    Staff.CapturedCurves = Anim->GetCapturedClothingCurveCount();
++                }
+             }
+-            if (const auto* Anim = Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance()))
+-            {
+-                Staff.bAnimationKnown = true;
+-                Staff.Clip = GetPathNameSafe(Anim->ActiveClip);
+-                Staff.OutgoingClip = GetPathNameSafe(Anim->OutgoingLoop);
+-                Staff.BlendAlpha = Anim->BlendAlpha;
+-                Staff.CapturedCurves = Anim->GetCapturedClothingCurveCount();
++            {
++                TInlineComponentArray<UGroomComponent*> Grooms;
++                Character->GetComponents(Grooms);
++                Sample->GroomCount += Grooms.Num();
++                for (const auto* Groom : Grooms)
++                    if (Sample->Grooms.Num() < MaxGrooms)
++                        Sample->Grooms.Add(MakeShared<FJsonValueObject>(SampleGroomResource(Groom)));
+             }
+         }
+     }
++    PreviousDeformationInputs = MoveTemp(CurrentInputs);
+     Sample->GatherMs = (FPlatformTime::Seconds() - Sample->GameSeconds) * 1000.0;
+ 
+     ENQUEUE_RENDER_COMMAND(FPSObserveStaffRenderResources)(
+@@ -252,7 +294,7 @@
+                     Self->RenderBudgetBytes = Sample->Memory.BudgetLocal;
+                     Self->RenderUsedBytes = Sample->Memory.UsedLocal;
+                     Self->RenderBudgetSeconds = Sample->RhiSeconds;
+-                    if (!Sample->bCollectDetails || !Self->bRecording || Self->CaptureGeneration != Generation) return;
++                    if (!Self->bRecording || Self->CaptureGeneration != Generation) return;
+                     const double PublishStart = FPlatformTime::Seconds();
+                     const auto Row = MakeShared<FJsonObject>();
+                     Row->SetNumberField(TEXT("game_seconds"), Sample->GameSeconds);
+@@ -275,109 +317,126 @@
+                         TRACE_COUNTER_SET(LocalUsed, Sample->Memory.UsedLocal);
+                         TRACE_COUNTER_SET(LocalOverBudget, Sample->Memory.DemotedLocal);
+                     }
+-                    Row->SetNumberField(TEXT("staff_count"), Sample->StaffCount);
+                     Row->SetNumberField(TEXT("hall_prepared_instances"), Sample->PreparedInstances);
+                     Row->SetNumberField(TEXT("hall_pending_spawn_requests"), Sample->PendingSpawns);
+                     Row->SetStringField(TEXT("hall_preparation_last_decision"), Sample->PreparationDecision.ToString());
+                     if (Sample->PreparationSnapshot)
+                         Row->SetObjectField(TEXT("hall_preparation"), Sample->PreparationSnapshot);
+-                    TArray<TSharedPtr<FJsonValue>> MonsterRows;
+-                    int32 Alive=0,Dead=0,Prepared=0,Simulating=0;
+-                    for(const auto& Pair:Sample->Monsters)
++                    TRACE_COUNTER_SET(HallPendingSpawns, Sample->PendingSpawns);
++                    Row->SetBoolField(TEXT("expanded_gpu_capture"), Sample->bExpandedCapture);
++                    Row->SetBoolField(TEXT("component_details_recorded"), Sample->bCollectDetails);
++                    // Omit unobserved counts; a budget-only sample does not mean
++                    // that the world contains zero monsters or components.
++                    if (Sample->bCollectDetails)
+                     {
+-                        auto Counts=MakeShared<FJsonObject>();Counts->SetStringField(TEXT("class"),Pair.Key);
+-                        Counts->SetNumberField(TEXT("alive"),Pair.Value.Alive);Counts->SetNumberField(TEXT("dead"),Pair.Value.Dead);
+-                        Counts->SetNumberField(TEXT("not_begun_play"),Pair.Value.Prepared);
+-                        Counts->SetNumberField(TEXT("body_simulating_physics"),Pair.Value.Simulating);
+-                        Counts->SetNumberField(TEXT("registered_body_tick_enabled"),Pair.Value.MeshTick);
+-                        Counts->SetNumberField(TEXT("frozen_body_rigid_shadow_policy"),Pair.Value.RigidShadowCache);
+-                        MonsterRows.Add(MakeShared<FJsonValueObject>(Counts));
+-                        Alive+=Pair.Value.Alive;Dead+=Pair.Value.Dead;Prepared+=Pair.Value.Prepared;Simulating+=Pair.Value.Simulating;
++                        Row->SetNumberField(TEXT("staff_count"), Sample->StaffCount);
++                        TArray<TSharedPtr<FJsonValue>> MonsterRows;
++                        int32 Alive=0,Dead=0,Prepared=0,Simulating=0;
++                        for(const auto& Pair:Sample->Monsters)
++                        {
++                            auto Counts=MakeShared<FJsonObject>();Counts->SetStringField(TEXT("class"),Pair.Key);
++                            Counts->SetNumberField(TEXT("alive"),Pair.Value.Alive);Counts->SetNumberField(TEXT("dead"),Pair.Value.Dead);
++                            Counts->SetNumberField(TEXT("not_begun_play"),Pair.Value.Prepared);
++                            Counts->SetNumberField(TEXT("body_simulating_physics"),Pair.Value.Simulating);
++                            Counts->SetNumberField(TEXT("registered_body_tick_enabled"),Pair.Value.MeshTick);
++                            Counts->SetNumberField(TEXT("frozen_body_rigid_shadow_policy"),Pair.Value.RigidShadowCache);
++                            MonsterRows.Add(MakeShared<FJsonValueObject>(Counts));
++                            Alive+=Pair.Value.Alive;Dead+=Pair.Value.Dead;Prepared+=Pair.Value.Prepared;Simulating+=Pair.Value.Simulating;
++                        }
++                        Row->SetArrayField(TEXT("monster_classes"),MonsterRows);
++                        Row->SetNumberField(TEXT("monsters_alive"),Alive);Row->SetNumberField(TEXT("monsters_dead"),Dead);
++                        Row->SetNumberField(TEXT("monsters_not_begun_play"),Prepared);
++                        TRACE_COUNTER_SET(MonstersAlive, Alive);
++                        TRACE_COUNTER_SET(MonstersPrepared, Prepared);
++                        Row->SetNumberField(TEXT("monster_bodies_simulating_physics"),Simulating);
++                        TArray<TSharedPtr<FJsonValue>> SkinnedRows;
++                        TMap<FString, FObservedRenderHandles> CurrentHandles;
++                        int32 ObservedMorphs = 0, ObservedStaff = 0;
++                        for (const FStaff& Staff : Sample->Staff)
++                        {
++                            const auto Item = Staff.ComponentDetails ? Staff.ComponentDetails : MakeShared<FJsonObject>();
++                            Item->SetStringField(TEXT("component"), Staff.Path);
++                            Item->SetStringField(TEXT("asset"), Staff.Asset);
++                            if (!Staff.NativeBuffers.IsEmpty()) Item->SetArrayField(TEXT("native_buffers"), Staff.NativeBuffers);
++                            Item->SetBoolField(TEXT("visible_flag"), Staff.bVisible);
++                            Item->SetBoolField(TEXT("parallel_evaluation_pending"), Staff.bParallelEvaluation);
++                            if (Staff.bAnimationKnown)
++                            {
++                                Item->SetStringField(TEXT("active_clip"), Staff.Clip);
++                                Item->SetStringField(TEXT("outgoing_clip"), Staff.OutgoingClip);
++                                Item->SetNumberField(TEXT("transition_alpha"), Staff.BlendAlpha);
++                            }
++                            else
++                            {
++                                Item->SetField(TEXT("active_clip"), MakeShared<FJsonValueNull>());
++                                Item->SetField(TEXT("outgoing_clip"), MakeShared<FJsonValueNull>());
++                                Item->SetField(TEXT("transition_alpha"), MakeShared<FJsonValueNull>());
++                            }
++                            if (Staff.CapturedCurves >= 0)
++                                Item->SetNumberField(TEXT("captured_clothing_curves"), Staff.CapturedCurves);
++                            else Item->SetField(TEXT("captured_clothing_curves"), MakeShared<FJsonValueNull>());
++                            if (Staff.bMorphsKnown)
++                            {
++                                if (Staff.bLegacyStaff) ObservedMorphs += Staff.Morphs.Num();
++                                Item->SetNumberField(TEXT("active_morph_count"), Staff.Morphs.Num());
++                                TArray<TSharedPtr<FJsonValue>> MorphRows;
++                                for (int32 I = 0; I < FMath::Min(Staff.Morphs.Num(), MaxMorphDetails); ++I)
++                                {
++                                    const auto MorphRow = MakeShared<FJsonObject>();
++                                    MorphRow->SetStringField(TEXT("name"), Staff.Morphs[I].Name);
++                                    MorphRow->SetNumberField(TEXT("index"), Staff.Morphs[I].Index);
++                                    MorphRow->SetNumberField(TEXT("weight"), Staff.Morphs[I].Weight);
++                                    MorphRows.Add(MakeShared<FJsonValueObject>(MorphRow));
++                                }
++                                Item->SetArrayField(TEXT("active_morphs"), MorphRows);
++                                Item->SetBoolField(TEXT("morph_details_truncated"), Staff.Morphs.Num() > MaxMorphDetails);
++                            }
++                            else Item->SetField(TEXT("active_morph_count"), MakeShared<FJsonValueNull>());
++                            if (Staff.bRenderDataKnown)
++                            {
++                                Item->SetNumberField(TEXT("observed_render_lod"), Staff.Lod);
++                                Item->SetNumberField(TEXT("lod_vertices"), Staff.Vertices);
++                                Item->SetNumberField(TEXT("lod_sections"), Staff.Sections);
++                                Item->SetNumberField(TEXT("stored_morph_count"), Staff.StoredMorphs);
++                                Item->SetNumberField(TEXT("stored_morph_batches"), Staff.AllMorphBatches);
++                                Item->SetNumberField(TEXT("shared_morph_buffer_logical_bytes"), static_cast<double>(Staff.MorphBufferBytes));
++                                if (Staff.bMorphsKnown)
++                                    Item->SetNumberField(TEXT("observed_active_morph_batches"), Staff.ActiveMorphBatches);
++                                else Item->SetField(TEXT("observed_active_morph_batches"), MakeShared<FJsonValueNull>());
++                            }
++                            else Item->SetField(TEXT("observed_render_lod"), MakeShared<FJsonValueNull>());
++                            const FObservedRenderHandles* Previous = Self->PreviousRenderHandles.Find(Staff.Path);
++                            Item->SetBoolField(TEXT("render_object_present"), Staff.MeshHandle != 0);
++                            if (Previous)
++                                Item->SetBoolField(TEXT("render_object_changed_since_sample"), Previous->Mesh != Staff.MeshHandle);
++                            else Item->SetField(TEXT("render_object_changed_since_sample"), MakeShared<FJsonValueNull>());
++                            if (Staff.bSkinCacheKnown)
++                            {
++                                Item->SetBoolField(TEXT("rt_skin_cache_entry_present"), Staff.SkinCacheHandle != 0);
++                                Item->SetBoolField(TEXT("rt_skin_cache_separate"), Staff.bSeparateRayTracingCache);
++                                if (Previous)
++                                    Item->SetBoolField(TEXT("rt_skin_cache_entry_changed_since_sample"), Previous->SkinCache != Staff.SkinCacheHandle);
++                                else Item->SetField(TEXT("rt_skin_cache_entry_changed_since_sample"), MakeShared<FJsonValueNull>());
++                            }
++                            else Item->SetField(TEXT("rt_skin_cache_entry_present"), MakeShared<FJsonValueNull>());
++                            CurrentHandles.Add(Staff.Path, {Staff.MeshHandle, Staff.SkinCacheHandle});
++                            Item->SetBoolField(TEXT("legacy_staff_body"), Staff.bLegacyStaff);
++                            ObservedStaff += Staff.bLegacyStaff ? 1 : 0;
++                            SkinnedRows.Add(MakeShared<FJsonValueObject>(Item));
++                        }
++                        TRACE_COUNTER_SET(StaffActiveMorphs, ObservedMorphs);
++                        Row->SetBoolField(TEXT("staff_details_truncated"), Sample->StaffCount > ObservedStaff);
++                        {
++                            Row->SetNumberField(TEXT("skinned_component_count"), Sample->SkinnedCount);
++                            Row->SetBoolField(TEXT("skinned_details_truncated"), Sample->SkinnedCount > SkinnedRows.Num());
++                            Row->SetArrayField(TEXT("skinned_components"), SkinnedRows);
++                            Row->SetNumberField(TEXT("groom_component_count"), Sample->GroomCount);
++                            Row->SetBoolField(TEXT("groom_details_truncated"), Sample->GroomCount > Sample->Grooms.Num());
++                            Row->SetArrayField(TEXT("grooms"), Sample->Grooms);
++                        }
++                        Self->PreviousRenderHandles = MoveTemp(CurrentHandles);
+                     }
+-                    Row->SetArrayField(TEXT("monster_classes"),MonsterRows);
+-                    Row->SetNumberField(TEXT("monsters_alive"),Alive);Row->SetNumberField(TEXT("monsters_dead"),Dead);
+-                    Row->SetNumberField(TEXT("monsters_not_begun_play"),Prepared);
+-                    TRACE_COUNTER_SET(MonstersAlive, Alive);
+-                    TRACE_COUNTER_SET(MonstersPrepared, Prepared);
+-                    TRACE_COUNTER_SET(HallPendingSpawns, Sample->PendingSpawns);
+-                    Row->SetNumberField(TEXT("monster_bodies_simulating_physics"),Simulating);
+-                    Row->SetBoolField(TEXT("staff_details_truncated"), Sample->StaffCount > Sample->Staff.Num());
+-                    TArray<TSharedPtr<FJsonValue>> StaffRows;
+-                    TMap<FString, FObservedRenderHandles> CurrentHandles;
+-                    int32 ObservedMorphs = 0;
+-                    for (const FStaff& Staff : Sample->Staff)
+-                    {
+-                        const auto Item = MakeShared<FJsonObject>();
+-                        Item->SetStringField(TEXT("component"), Staff.Path);
+-                        Item->SetStringField(TEXT("asset"), Staff.Asset);
+-                        if (!Staff.NativeBuffers.IsEmpty()) Item->SetArrayField(TEXT("native_buffers"), Staff.NativeBuffers);
+-                        Item->SetBoolField(TEXT("visible_flag"), Staff.bVisible);
+-                        Item->SetBoolField(TEXT("parallel_evaluation_pending"), Staff.bParallelEvaluation);
+-                        if (Staff.bAnimationKnown)
+-                        {
+-                            Item->SetStringField(TEXT("active_clip"), Staff.Clip);
+-                            Item->SetStringField(TEXT("outgoing_clip"), Staff.OutgoingClip);
+-                            Item->SetNumberField(TEXT("transition_alpha"), Staff.BlendAlpha);
+-                        }
+-                        else
+-                        {
+-                            Item->SetField(TEXT("active_clip"), MakeShared<FJsonValueNull>());
+-                            Item->SetField(TEXT("outgoing_clip"), MakeShared<FJsonValueNull>());
+-                            Item->SetField(TEXT("transition_alpha"), MakeShared<FJsonValueNull>());
+-                        }
+-                        if (Staff.CapturedCurves >= 0)
+-                            Item->SetNumberField(TEXT("captured_clothing_curves"), Staff.CapturedCurves);
+-                        else Item->SetField(TEXT("captured_clothing_curves"), MakeShared<FJsonValueNull>());
+-                        if (Staff.bMorphsKnown)
+-                        {
+-                            ObservedMorphs += Staff.Morphs.Num();
+-                            Item->SetNumberField(TEXT("active_morph_count"), Staff.Morphs.Num());
+-                            TArray<TSharedPtr<FJsonValue>> MorphRows;
+-                            for (int32 I = 0; I < FMath::Min(Staff.Morphs.Num(), MaxMorphDetails); ++I)
+-                            {
+-                                const auto MorphRow = MakeShared<FJsonObject>();
+-                                MorphRow->SetStringField(TEXT("name"), Staff.Morphs[I].Name);
+-                                MorphRow->SetNumberField(TEXT("index"), Staff.Morphs[I].Index);
+-                                MorphRow->SetNumberField(TEXT("weight"), Staff.Morphs[I].Weight);
+-                                MorphRows.Add(MakeShared<FJsonValueObject>(MorphRow));
+-                            }
+-                            Item->SetArrayField(TEXT("active_morphs"), MorphRows);
+-                            Item->SetBoolField(TEXT("morph_details_truncated"), Staff.Morphs.Num() > MaxMorphDetails);
+-                        }
+-                        else Item->SetField(TEXT("active_morph_count"), MakeShared<FJsonValueNull>());
+-                        if (Staff.bRenderDataKnown)
+-                        {
+-                            Item->SetNumberField(TEXT("observed_render_lod"), Staff.Lod);
+-                            Item->SetNumberField(TEXT("lod_vertices"), Staff.Vertices);
+-                            Item->SetNumberField(TEXT("lod_sections"), Staff.Sections);
+-                            Item->SetNumberField(TEXT("stored_morph_count"), Staff.StoredMorphs);
+-                            Item->SetNumberField(TEXT("stored_morph_batches"), Staff.AllMorphBatches);
+-                            Item->SetNumberField(TEXT("shared_morph_buffer_logical_bytes"), static_cast<double>(Staff.MorphBufferBytes));
+-                            if (Staff.bMorphsKnown)
+-                                Item->SetNumberField(TEXT("observed_active_morph_batches"), Staff.ActiveMorphBatches);
+-                            else Item->SetField(TEXT("observed_active_morph_batches"), MakeShared<FJsonValueNull>());
+-                        }
+-                        else Item->SetField(TEXT("observed_render_lod"), MakeShared<FJsonValueNull>());
+-                        const FObservedRenderHandles* Previous = Self->PreviousRenderHandles.Find(Staff.Path);
+-                        Item->SetBoolField(TEXT("render_object_present"), Staff.MeshHandle != 0);
+-                        if (Previous)
+-                            Item->SetBoolField(TEXT("render_object_changed_since_sample"), Previous->Mesh != Staff.MeshHandle);
+-                        else Item->SetField(TEXT("render_object_changed_since_sample"), MakeShared<FJsonValueNull>());
+-                        if (Staff.bSkinCacheKnown)
+-                        {
+-                            Item->SetBoolField(TEXT("rt_skin_cache_entry_present"), Staff.SkinCacheHandle != 0);
+-                            Item->SetBoolField(TEXT("rt_skin_cache_separate"), Staff.bSeparateRayTracingCache);
+-                            if (Previous)
+-                                Item->SetBoolField(TEXT("rt_skin_cache_entry_changed_since_sample"), Previous->SkinCache != Staff.SkinCacheHandle);
+-                            else Item->SetField(TEXT("rt_skin_cache_entry_changed_since_sample"), MakeShared<FJsonValueNull>());
+-                        }
+-                        else Item->SetField(TEXT("rt_skin_cache_entry_present"), MakeShared<FJsonValueNull>());
+-                        CurrentHandles.Add(Staff.Path, {Staff.MeshHandle, Staff.SkinCacheHandle});
+-                        StaffRows.Add(MakeShared<FJsonValueObject>(Item));
+-                    }
+-                    TRACE_COUNTER_SET(StaffActiveMorphs, ObservedMorphs);
+-                    Row->SetArrayField(TEXT("staff"), StaffRows);
+-                    Self->PreviousRenderHandles = MoveTemp(CurrentHandles);
++                    else Self->PreviousRenderHandles.Reset();
+                     Row->SetNumberField(TEXT("game_publish_ms"), (FPlatformTime::Seconds() - PublishStart) * 1000.0);
+                     if (Self->RenderResourceSamples.Num() < MaxRenderResourceSamples)
+                         Self->RenderResourceSamples.Add(Row);

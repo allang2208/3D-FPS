@@ -1,0 +1,46 @@
+--- a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h
+@@ -6,6 +6,7 @@
+ #include "FacilityHallSpawnSubsystem.generated.h"
+ 
+ class AFacilityHallEncounter;
++class FJsonObject;
+ 
+ /** One admission queue; bounded optional preparation never postpones a due wave. */
+ UCLASS()
+@@ -23,15 +24,35 @@
+     int32 PreparedCount() const;
+     int32 PendingCount() const { return Pending.Num(); }
+     FName PreparationLastDecision() const { return PreparationDecision; }
++    TSharedRef<FJsonObject> PreparationSnapshot() const;
+ 
+ private:
++    void MaintainPreparation(double Now);
++    void UpdatePreparation(double Now);
++    uint64 PreparedBytes() const;
++    bool HasPreparationHeadroom(uint64 AdditionalBytes) const;
++    FName PreparationHeadroomBlocker(uint64 AdditionalBytes) const;
+     TArray<TWeakObjectPtr<AFacilityHallEncounter>> Pending;
+     TArray<TWeakObjectPtr<AFacilityHallEncounter>> PreparationPending;
+     TArray<TWeakObjectPtr<AFacilityHallEncounter>> PreparedHalls;
++    TWeakObjectPtr<AFacilityHallEncounter> PreparationCandidate;
++    double NextPreparationMaintenanceAt = 0.;
+     double NextPreparationAt = 0.;
++    double NextWarmupAt = 0.;
++    double NextMemorySampleAt = 0.;
++    uint64 AvailablePhysical = 0, AvailableVirtual = 0;
+     FRenderCommandFence SpawnRenderFence;
++    FRenderCommandFence PreparationRegistrationFence;
++    FRenderCommandFence PreparationReleaseFence;
+     uint64 LastAttemptFrame = MAX_uint64;
+     double NextAttemptAt = 0.;
+     bool bRenderRegistrationPending = false;
++    bool bPreparationRegistrationPending = false;
++    bool bPreparationReleasePending = false;
++    bool bPreparationMemoryPressure = false;
+     FName PreparationDecision=TEXT("not_requested");
++    FName LastPreparationAdmission=TEXT("not_requested");
++    uint64 LastPreparationCandidateBytes=0;
++    double LastPreparationAdmissionAt=-1.;
++    double MemorySamplePlatformSeconds=-1.;
+ };

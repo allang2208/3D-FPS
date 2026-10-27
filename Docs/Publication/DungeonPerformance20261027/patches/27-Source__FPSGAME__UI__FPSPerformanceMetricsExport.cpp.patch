@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp
++++ b/Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSPerformanceMetrics.h"
+ #include "FPSGpuTraceCapture.h"
++#include "../Diagnostics/FPSResourceLifecycle.h"
+ #include "Debugging/SlateDebugging.h"
+ #include "Async/Async.h"
+ 
+@@ -396,7 +397,8 @@
+ bool UFPSPerformanceMetricsSubsystem::ExportSnapshot(const FFPSPerformanceSnapshot& Snapshot, FString& OutPath)
+ {
+     const TSharedRef<FJsonObject> Root = MakeShared<FJsonObject>();
+-    Root->SetNumberField(TEXT("schema_version"), 12);
++    Root->SetNumberField(TEXT("schema_version"), 16);
++    Root->SetObjectField(TEXT("resource_lifecycle"), FPSResourceLifecycle::Snapshot());
+     if (Snapshot.GpuTraceBundle)
+     {
+         Root->SetObjectField(TEXT("gpu_trace_bundle"), Snapshot.GpuTraceBundle);
+@@ -423,6 +425,19 @@
+     }
+     else Root->SetStringField(TEXT("gpu_trace_bundle_status"), Snapshot.GpuTraceCapture ? TEXT("not_finalized_use_async_export") : TEXT("not_requested"));
+     AddRecordedDetails(Root, Snapshot);
++    // Completed samples are immutable and shared by rolling history and combat
++    // windows. Serialize each once, including archived rows no longer in history.
++    TArray<TSharedPtr<FJsonValue>> ResourceRows, HistoryResourceIndices;
++    TMap<const FJsonObject*, int32> ResourceIndices;
++    const auto ResourceIndex = [&](const TSharedPtr<FJsonObject>& Resource)
++    {
++        if (const int32* Found = ResourceIndices.Find(Resource.Get())) return *Found;
++        const int32 Index = ResourceRows.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Resource)));
++        ResourceIndices.Add(Resource.Get(), Index);
++        return Index;
++    };
++    for (const auto& Resource : Snapshot.RenderResourceSamples)
++        HistoryResourceIndices.Add(MakeShared<FJsonValueNumber>(ResourceIndex(Resource)));
+     auto Encounters=MakeShared<FJsonObject>();
+     Encounters->SetStringField(TEXT("contract"),TEXT("Automatic on each hall wave's first successful spawn: up to 3s preceding and 20s following frames, nearby triggers merged up to 30s. Four archived windows plus one active, max 4096 frames each. Independent from UI rolling window; clear/restart discards history. Timers retain their original asynchronous/process-wide semantics. No per-actor GPU time is inferred."));
+     Encounters->SetNumberField(TEXT("archived_window_capacity"),MaxCombatWindows);
+@@ -459,9 +474,9 @@
+         Row->SetArrayField(TEXT("frames"),Frames);
+         Row->SetArrayField(TEXT("events"),RetainedEvents(Window.Events));
+         TArray<TSharedPtr<FJsonValue>> WindowResources;
+-        for(const auto& Resource:Window.ResourceSamples)WindowResources.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Resource)));
+-        Row->SetArrayField(TEXT("completed_resource_samples"),WindowResources);
+-        Row->SetStringField(TEXT("resource_sample_contract"),TEXT("Completed 2Hz observations available when window archived/snapshotted. Late asynchronous results may be absent; game/render/RHI timestamps remain separate."));
++        for(const auto& Resource:Window.ResourceSamples)WindowResources.Add(MakeShared<FJsonValueNumber>(ResourceIndex(Resource)));
++        Row->SetArrayField(TEXT("completed_resource_sample_indices"),WindowResources);
++        Row->SetStringField(TEXT("resource_sample_contract"),TEXT("Indices into render_resource_history.samples, including archived observations no longer in rolling history. Completed 2Hz observations available when window archived/snapshotted; late results may be absent. Game/render/RHI timestamps remain separate."));
+         Row->SetNumberField(TEXT("frame_count"),Frames.Num());
+         Row->SetNumberField(TEXT("frames_at_least_50ms"),Over50);Row->SetNumberField(TEXT("frames_at_least_100ms"),Over100);
+         Row->SetNumberField(TEXT("paused_frames"),Paused);Row->SetNumberField(TEXT("background_frames"),Background);
+@@ -491,13 +506,14 @@
+     Inventory->SetArrayField(TEXT("snapshots"),Inventories);
+     Root->SetObjectField(TEXT("gpu_resource_inventory"),Inventory);
+     auto Resources = MakeShared<FJsonObject>();
+-    Resources->SetStringField(TEXT("contract"), TEXT("At most 2Hz since clear/restart while recording; newest 360 completed observations, separate from the frame window. GPU memory is process-wide RHI-published data including editor/other worlds. monster_classes counts current-World Characters with MonsterCombatComponent; body simulation/Tick flags are not measured solver/animation execution. Detailed staff morph observations cover FacelessResearcher/FacelessReceptionist only. Game/render/RHI timestamps are separate, not same-frame GPU timings. Missing data is null. No flush, texture-streaming update or gameplay mutation."));
++    Resources->SetStringField(TEXT("contract"), TEXT("At most 2Hz while recording; the rolling history retains 360 completed samples. Memory budgets and bounded preparation state are recorded without scene enumeration. Character, skinned-component and groom details require explicit F6 GPU capture or fps.Perf.RenderResourceSampling=1 (default 0). Unobserved counts are omitted, never reported as zero. Detailed capture covers current-World FPSGAME players and Characters with MonsterCombatComponent, players first, capped at 96 skinned and 32 groom components. legacy_staff_body marks the FacelessResearcher/FacelessReceptionist primary-body subset in the single component list. Pose-array comparisons and native buffer observation still require explicit GPU capture. GPU memory is process-wide including editor/other worlds; state flags and skipped-pose counts are not GPU timings. Game/render/RHI timestamps are separate. No flush, animation wait, texture-streaming update or gameplay mutation."));
++    Resources->SetStringField(TEXT("sampled_inputs_contract"), TEXT("Explicit GPU capture only. Exact CPU component-space transforms of the pose source and skeletal morph weights/indices are compared between two sample points when component, asset, leader and predicted LOD match. Equality does not prove unchanged inputs between samples, identical submitted GPU work or unchanged cloth, deformer, WPO, hair simulation or velocity history. Parallel evaluation is skipped without waiting. Native buffer observations cover morph input/output only; they do not inventory all skin/RT/hair buffers or measure physical residency. Collection cost is reported in game_gather_ms and native_buffer_observation_rhi_ms."));
++    Resources->SetStringField(TEXT("groom_contract"), TEXT("Identity, attachment, transform and flags help identify duplicate candidates; matching asset names alone do not prove duplicate rendering. effective_simulation_enabled is IsSimulationEnable(group,lod), accounting for component and asset settings, not measured GPU execution. Forced/desired/best available LODs and configured_group_lods are not the actual rendered LOD. Active Niagara count is an activation flag, not solver cost. Hidden shadow casters may still contribute to the image."));
+     Resources->SetNumberField(TEXT("capacity"), MaxRenderResourceSamples);
+     Resources->SetNumberField(TEXT("sample_interval_seconds"), .5);
+     Resources->SetStringField(TEXT("overwritten_since_clear"), LexToString(Snapshot.RenderResourceSamplesOverwritten));
+-    TArray<TSharedPtr<FJsonValue>> ResourceRows;
+-    for (const auto& Row : Snapshot.RenderResourceSamples)
+-        ResourceRows.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Row)));
++    Resources->SetArrayField(TEXT("history_sample_indices"), HistoryResourceIndices);
++    Resources->SetStringField(TEXT("sample_storage"), TEXT("Schema 15: samples is a unique table shared by rolling history and archived combat windows. history_sample_indices selects the rolling history (capacity 360); each window has completed_resource_sample_indices. Component records occur once in skinned_components, with legacy_staff_body marking the old staff subset. Tools/Performance/performance_report.py reads old and new layouts."));
+     Resources->SetArrayField(TEXT("samples"), ResourceRows);
+     Root->SetObjectField(TEXT("render_resource_history"), Resources);
+     Root->SetNumberField(TEXT("event_capacity"), MaxEvents);

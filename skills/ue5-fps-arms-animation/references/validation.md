@@ -1,5 +1,14 @@
 # 候选发布、运行与音画验收
 
+## 动画采样率与压缩断言
+
+UE 5.8 在 AnimCompressionTypes.cpp 的 IsNearlyZero(SampleFrameTime.GetSubFrame()) 断言时，先找同次日志中的具体动画及 Incompatible resampling frame rate。源模型与压缩目标帧率是两项配置，controller.set_frame_rate 只改前者。
+
+- 写轨道前把 platform_target_frame_rate.default 设为作者源帧率，在编辑 bracket 关闭前建立一致采样。保留关键帧数量、动作时长和命中时序，不凑整帧、缩时长或关闭断言。
+- 项目已有 WeaponAnimationAuthoring.finalize_authored_animation，负责 NotifyPopulated 及等待该动画压缩结束。先设正确帧率，不能在错误压缩任务已经启动后依赖 finalizer 补救。
+- 已保存的坏动画在 PostLoad 就可能启动压缩。若作者源完整、资产刚由当前导入器生成，可在无占用且持有共享资产互斥时备份单个包，再按原包路径重建。保留附加 notify/metadata，不将此方法推广为任意资产的无条件替换。
+- 2026-10-27 双持 Kukri 第三击为 223 个关键帧、222 间隔、120 FPS、1.85 秒；默认 30 FPS 得到 55.5 帧而崩溃。匹配 120 FPS 并等待压缩后保存，未改命中时序；导入成功与运行验收分开记录。
+
 ## 证据链
 
 1. 查看当前实际画面和源动作，保存本次改动前路径、时序与散列。候选检查输出必须晚于相应导出文件，避免用上一代报告验收新 FBX。

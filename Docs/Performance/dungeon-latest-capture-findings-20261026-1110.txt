@@ -1,0 +1,64 @@
+随机地牢新数据离线归因 — 2026-10-26 11:10
+
+结论
+本轮清理没有解决用户报告的持续低帧。新 schema 15 与基础采样分支已出现在记录中，不能再以“重新编译同一版本”作为处理方法。当前重点是怪群存在时持续发生的 GPU 渲染工作及其等待，不继续把扩大准备池、增加预热或更换通用刷怪插件当主修复。
+
+输入
+Saved/PerformanceReports/gpu-0BADA70244766222EC791881A63FE903/
+performance-20261026-031055-D7F632C8430AA7EF39F4988406B3AFDF.json
+engine.utrace、buffers.jsonl、manifest.json。
+PIE / D3D12 / 2552x1218；末窗暂停和后台帧均为 0。新装备为 PitViper，不能把它与 10 月 24 日弯刀场景的 FPS 差值当同条件优化收益或回退比例。
+
+同次运行
+完整落在各阶段内的帧，FPS=1000/平均帧毫秒；GPU/CPU 发布读数各自统计，不相加或伪造同帧来源。
+首波前 3 秒：71.34 FPS，GPU 11.35 ms。
+首波 0–5 秒：25.61 FPS，GPU 35.70 ms。
+首波 5–10 秒：10.08 FPS，GPU 95.75 ms。
+首波 10–20 秒：10.16 FPS，GPU 95.78 ms。
+第二波 5–10 秒：6.70 FPS，GPU 146.24 ms。
+导出末窗 10.025 秒：8.88 FPS，帧 112.64 ms，GPU 110.44 ms，Game 25.57 ms。
+末窗没有 Hall.SpawnActivated，最后一次激活在末窗起点前约 6.20 秒。因此卡顿已经持续到生成动作结束后。
+
+准备池
+第一条请求估算在首刷前 11.20 秒，较历史“只提前约 1 秒”的缺陷确有变化。
+203 次观察 prepared instance 全为 0，49 次激活全为 prepared=0。
+请求首次被观察时，GPU 预算余量约 896 MiB，低于保留 1 GiB 加候选实例的准入要求；随后也出现 CPU 物理内存不足。
+last_admission_result 是保留的最近判断，不是逐样本重新调用准入的次数。
+正式生成尝试 64 次，包含时间平均 2.568 ms、P95 4.260 ms、最大 37.552 ms。此范围不包含以后发生的全部渲染工作。
+预算门槛未放松；强行扩大池可能继续挤占已经紧张的内存。末次仍有 6 只鼓囊，不能据此判断删改了怪物规则。
+
+短 GPU 时间线
+manifest 记录 11:10:52.366–11:10:54.916，共 2.551 秒，首刷后 46.028 秒才开始；仅与 JSON 末窗重叠 2.127 秒。没有覆盖刷怪前后变化。
+用本机 UnrealInsights -NoUI 解码现有 trace，导出时间表。Graphics 有 31 个完整 Frame；排除首尾后使用 29 帧，原生 trace 时钟 1005.55727–1008.03231 秒。这个小窗口不等于 JSON 的十秒窗口。
+29 帧 Frame 范围平均 85.30 ms。以下为每帧包含时间：
+MorphUpdate                              19.39 ms
+GPUSkinCache_UpdateSkinningBatches        20.34 ms
+RayTracingDynamicGeometry                14.93 ms
+ShadowDepths                             10.77 ms
+Hair                                      1.62 ms
+Morph 内的 Normalize 为 12.85 ms；SkinCache 内的 dispatch 合计为 14.52 ms，子项不能再加到父项上。
+范围可能包含屏障、依赖等待或队列空洞；本次导出没有 GPUWork 交集及逐 dispatch 元数据，不将以上直接称为纯 shader 执行时间，不断言某只怪或某个输出缓冲负责了全部耗时。
+这段没有记录到名称匹配 CreateDescriptorHeap/CreateComputePipeline/CreateGraphicsPipeline 的 CPU 创建范围；只限该短窗口，不能否定早先加载尖峰。
+Insights 对少量事件做了约 3–5 微秒顺序修复，不足以解释数十毫秒的持续慢态。
+
+内存与既有修复
+203 次 DXGI 样本均未超过预算，但末窗预算余量平均 290.85 MiB、最低仅 6.62 MiB。显存压力是重点嫌疑，预算未超出不是所有活跃资源都在本地物理显存的证明。
+只有最后 4 次记录开启了详细观察：36 活怪、3 尸体、头发/眉毛/睫毛共 3 个 Groom。
+玩家原始身体与第一人称姿势锚点没有渲染对象。玩家组件在这 4 次观察里没有反复更换 render object；一只迎宾员有 1 次变化，不能据此认定重复重建问题。
+基础观察 199 次，平均 game_gather 0.0164 ms/次。首次开启详细观察为 26.22 ms，其余 3 次约 1.33–2.13 ms；不是每帧都发生。
+用户在低帧时还启用了资源清单，单次 RHI 枚举 135.27 ms，发生在主追踪开始前；会额外造成一次尖峰，但不能解释此前已经持续几十秒的低帧。后续只需启用“GPU 驻留/调度”，无需额外打开“GPU 资源详采”。
+资源清单含 transient/共享/未跟踪 owner，不能把 allocation_bytes 的 25 GiB 逻辑总量称为物理显存占用。
+
+缺失项与下一步
+WDDM StartTraceW 错误 5，process_elevated=false；没有 wddm.etl。UE/缓冲文件已关闭，但完整包 files_finalized=false。
+用户本轮确认从平时快捷方式/项目文件启动；这解释权限缺失，普通启动不是卡顿成因。
+后续先补齐一次有用证据，不再要求重复普通 JSON 来证明低帧：
+1. 用户保存并退出 UE，通过根目录 Launch-F6-WddmCapture.cmd 启动，确认 Windows 权限提示。
+2. 战斗前打开 F6 的“GPU 驻留/调度”，先确认“WDDM + UE 正在记录”；如果仍报权限错误，停在入口排查，无需再打一轮。
+3. 保持当前质量、装备与通常路线，慢态后保留约 20 秒再导出整份 gpu-... 文件夹。无需额外打开资源清单。避免同时编译/烘焙或其他 GPU 重负载。
+4. 将 WDDM 调度/驻留与 UE 队列、缓冲身份按时钟对齐。若仍缺少具体资源/硬件执行证据，再安排针对性的硬件 GPU Trace；WDDM 不保证单独解决全部归因。
+不先关闭光追、阴影、Morph 或减怪来制造帧率改善；不在没有证据时改资源优先级、同步屏障或驱动设置。
+
+本轮实际工作
+只分析用户已有文件、查阅相关项目/引擎源码，并后台运行 UnrealInsights 离线导出。未启动 UE 编辑器/游戏、未进行新采集或运行测试、未改游戏源码/画质/怪数/战斗规则。
+离线结果位于 Saved/PerformanceAnalysis20261026_111055：analysis.json、gpu-frames.csv、resource-timeline.csv、原始 events/timers/threads.csv、analyze.py、insights.log。

@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
+@@ -129,6 +129,9 @@
+         Decal->SetMobility(EComponentMobility::Movable);
+         Decal->SetVisibility(false);
+         Decal->SetFadeScreenSize(.002f);
++        // Seed one existing idle slot per surface for entry PSO preparation.
++        // AddDecal still assigns the actual hit's material before showing it.
++        if(DecalMaterials.IsValidIndex(I))Decal->SetDecalMaterial(DecalMaterials[I]);
+         Decal->RegisterComponentWithWorld(&InWorld);
+         Decals.Add(Decal);
+     }

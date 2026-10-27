@@ -1,0 +1,47 @@
+--- a/Source/FPSGAME/UI/FPSPerformanceMetrics.h
++++ b/Source/FPSGAME/UI/FPSPerformanceMetrics.h
+@@ -9,6 +9,8 @@
+ class APlayerController;
+ class UGameViewportClient;
+ class ULightComponent;
++class USkinnedMeshComponent;
++class UGroomComponent;
+ class FSlateWindowElementList;
+ class FJsonObject;
+ class FFPSGpuTraceCapture;
+@@ -330,6 +332,12 @@
+     void AttachGpuTraceCapture(FFPSPerformanceSnapshot& Snapshot) const { Snapshot.GpuTraceCapture = GpuTraceCapture; }
+     /** Shared, at most 2Hz passive budget observation; works with diagnostics stopped. */
+     void RefreshRenderBudget();
++    /** Existing asynchronous observation only; this never polls or waits on the GPU. */
++    bool GetRecentRenderBudget(uint64& OutBudgetBytes, uint64& OutUsedBytes) const
++    {
++        OutBudgetBytes = RenderBudgetBytes; OutUsedBytes = RenderUsedBytes;
++        return RenderBudgetBytes>0 && FPlatformTime::Seconds()-RenderBudgetSeconds<2.0;
++    }
+     /** Optional preparation only; unknown/stale samples must not delay gameplay. */
+     bool HasRecentRenderHeadroom(uint64 ReserveBytes) const
+     {
+@@ -446,6 +454,22 @@
+     uint64 RenderResourceSamplesOverwritten = 0;
+     struct FObservedRenderHandles { uint64 Mesh = 0, SkinCache = 0; };
+     TMap<FString, FObservedRenderHandles> PreviousRenderHandles;
++    // Only retained during explicit GPU capture. Weak identities do not pin assets.
++    struct FObservedDeformation
++    {
++        TWeakObjectPtr<USkinnedMeshComponent> Component, PoseSource;
++        TWeakObjectPtr<UObject> Asset;
++        TArray<FTransform> Bones;
++        TArray<float> MorphWeights;
++        TMap<FName, int32> MorphIndices;
++        FTransform WorldTransform;
++        double Seconds = 0.;
++        int32 PredictedLOD = INDEX_NONE;
++    };
++    TMap<FString, FObservedDeformation> PreviousDeformationInputs;
++    TSharedPtr<FJsonObject> SampleSkinnedInputs(USkinnedMeshComponent* Mesh,
++        TMap<FString, FObservedDeformation>& CurrentInputs, bool bCompareValues);
++    static TSharedPtr<FJsonObject> SampleGroomResource(const UGroomComponent* Groom);
+     TUniquePtr<FFPSCombatWindow> ActiveCombatWindow;
+     TArray<TSharedPtr<const FFPSCombatWindow>> CombatWindows;
+     TArray<FFPSPerformanceEvent> EncounterEvents;

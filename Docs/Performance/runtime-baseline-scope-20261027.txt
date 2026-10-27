@@ -1,0 +1,47 @@
+正式随机地牢性能采样口径（2026-10-27）
+
+当前结论
+用户运行 PerformanceDevelopment-20261026-225529 后反馈资源缺失、怪群未正常出现。
+该包的内容和运行行为尚未与原工程对齐，当前不能作为正式地牢的性能对照，
+也不能用它的较高帧率推断此前优化生效或编辑器开销就是主要原因。
+构建、Cook、Stage 完成与已登记资源进入容器，不等于完整战斗场景可用。
+旧说明中的构建完成记录仍属实；推荐该包用于性能对照的部分由本说明替代。
+
+本次已有运行证据（只读用户日志，没有重新运行）
+日志留存：Saved/PackagingRepair20261026/reported-FPSGAME-20261027.log
+原包已于本轮收尾移入 F:/FPSGAMEData/trash/dungeon-performance-20261027/PerformanceDevelopment-20261026-225529；
+包内原日志、存档和说明一并保留。
+用户运行时间：2026-10-27 14:46 至 14:49。
+- 实际加载了 DayNight_Lighting，并进入 L_Dungeon_Randomized；不是另建的空白测试地图。
+- 仍有 13 个动态 UObject 资源 SkipPackage，涉及 M4 动画/音效和火焰/雷电技能特效/音效。
+- rain-moderate.png 在包内找不到，连续重复报错；原工程的对应 PNG 存在。
+- 水面蒸汽、冰命中雾、箭雨和暴风雪等 Niagara 系统报告 spawn/update 属性不匹配。
+- HallWaves 记录首波/增援配置，且有 M08 精英生成及目标完成记录。
+  因此不能表述为刷怪算法没有编入；普通怪没有正常生成仍是实际功能缺陷。
+- room=1、2、124、114、119 出现重复 Spawn deferred。
+  同一段还有 empty navigation bounds 警告。生成器通过移动/缩放导航 Brush 请求更新，
+  本机 UE 的 Brush 运行时 bounds 依赖 BodySetup，而编辑器可以从 Polys 计算。
+  这是需要进一步修复/确认的导航路径，现有日志没有逐落点拒绝原因，不能仅凭关联定论。
+
+后续主采样入口
+使用 D:/FPS3D/FPSGAME/FPSGAME.uproject，在用户平时使用的正式主场景中正常开始游戏，
+通过原来的出征/地牢入口进入随机地牢；保留原有资源加载、导航、刷怪、AI、装备、技能、
+尸体、灯光和特效。不得用空场、手工少刷怪或简化地图替代。
+优先继续分析已有正式地牢记录；无需为本次纠正再次测试这个独立包。
+
+需要新的 WDDM 记录时，由用户手动使用工程根目录下的：
+D:/FPS3D/FPSGAME/Launch-F6-WddmCapture.cmd
+它调用 Tools/Performance/Start-WddmCaptureEditor.ps1，打开原工程 UE 编辑器并申请权限，
+不选择测试地图、不运行 PIE、不自动采集，不修改画质/分辨率/波次/战斗规则。
+独立包 Windows 目录内也有同名 cmd，但它启动的是该包 FPSGAME.exe；两者不能混用。
+继续按 Docs/Performance/f6-wddm-capture-guide-20261018.txt 的 F6 手动流程操作。
+
+数据解释边界
+只有相同运行入口、地图/种子、实际可见怪群、装备/技能、分辨率与画质的记录才作前后对照。
+缺资源、怪群未出现、特效无法运行或未进入同一战斗阶段的记录，只用于功能排错。
+独立包在内容、导航和正式波次完整性得到用户实际确认后，才能另作 PIE/打包运行差异对照。
+本次只纠正采样口径和说明，没有改刷怪规则、运行代码或资产，没有重新打包或运行测试。
+
+2026-10-27 收尾：独立包与失败输出共六个目录已归档；专用 Build-DevelopmentBaseline.ps1 入口已退役。
+通用打包工具、正式工程、原工程 F6 入口、用户采样和修复记录保留。后续恢复工作先看
+Docs/Publication/DungeonPerformance20261027/README.md。本轮不再构建、Cook 或测试。

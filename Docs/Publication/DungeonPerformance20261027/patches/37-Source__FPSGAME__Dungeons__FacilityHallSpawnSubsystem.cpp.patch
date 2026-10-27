@@ -1,0 +1,84 @@
+--- a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp
+@@ -1,5 +1,6 @@
+ #include "FacilityHallSpawnSubsystem.h"
+ #include "FacilityHallEncounter.h"
++#include "../Diagnostics/FPSResourceLifecycle.h"
+ #include "FacilityHallPreparationBudget.h"
+ #include "FacilityMonsterGpuWarmup.h"
+ #include "Engine/World.h"
+@@ -28,13 +29,13 @@
+ void UFacilityHallSpawnSubsystem::RequestPreparation(AFacilityHallEncounter* Hall)
+ {
+     if (!IsValid(Hall) || Hall->GetWorld() != GetWorld() || !Hall->HasAuthority() || GetWorld()->GetNetMode() == NM_Client) return;
++    // Pending rooms are re-evaluated by maintenance. Do not scan every slot
++    // again just because the area's low-frequency update repeats its demand.
++    if (PreparationPending.Contains(Hall)) return;
+     double DistanceSquared;
+     if (Hall->PreparationPriority(Hall->FindPreparationSlot(), DistanceSquared) == INDEX_NONE) return;
+-    if (!PreparationPending.Contains(Hall))
+-    {
+-        Hall->PreparationRequestedAt = GetWorld()->GetTimeSeconds();
+-        PreparationPending.Add(Hall);
+-    }
++    Hall->PreparationRequestedAt = GetWorld()->GetTimeSeconds();
++    PreparationPending.Add(Hall);
+ }
+ 
+ int32 UFacilityHallSpawnSubsystem::PreparedCount() const
+@@ -122,23 +123,23 @@
+ {
+     if (Now < NextPreparationMaintenanceAt) return;
+     NextPreparationMaintenanceAt = Now + .1;
+-    PreparationPending.RemoveAll([](const auto& Entry)
+-    {
+-        auto* Hall = Entry.Get();
+-        if (!Hall) return true;
+-        double DistanceSquared;
+-        if (Hall->PreparationPriority(Hall->FindPreparationSlot(), DistanceSquared) == INDEX_NONE)
+-        { Hall->PreparationRequestedAt = -1.; return true; }
+-        return false;
+-    });
+     AFacilityHallEncounter* Best = nullptr;
+     int32 BestPriority = MAX_int32, BestCount = MAX_int32;
+     double BestDistance = TNumericLimits<double>::Max();
+-    for (const auto& Entry : PreparationPending)
+-    {
+-        auto* Hall = Entry.Get();
++    // Prune and select in one stable-order pass; each room's slot is searched
++    // once here, and activation still revalidates against live gameplay state.
++    for (int32 Index = 0; Index < PreparationPending.Num();)
++    {
++        auto* Hall = PreparationPending[Index].Get();
+         double DistanceSquared;
+-        const int32 Priority = Hall->PreparationPriority(Hall->FindPreparationSlot(), DistanceSquared);
++        const int32 Priority = Hall ? Hall->PreparationPriority(Hall->FindPreparationSlot(), DistanceSquared) : INDEX_NONE;
++        if (Priority == INDEX_NONE)
++        {
++            if (Hall) Hall->PreparationRequestedAt = -1.;
++            PreparationPending.RemoveAt(Index);
++            continue;
++        }
++        ++Index;
+         const int32 Count = Hall->PreparedMonsters.Num();
+         if (Priority < BestPriority || (Priority == BestPriority && (Count < BestCount
+             || (Count == BestCount && DistanceSquared < BestDistance))))
+@@ -344,10 +345,18 @@
+ 
+ void UFacilityHallSpawnSubsystem::Deinitialize()
+ {
++    FPSResourceLifecycle::Record(this,TEXT("SpawnPool.BeforeDeinitialize"),{
++        {TEXT("prepared_instances"),PreparedCount()},
++        {TEXT("pending_preparations"),PreparationPending.Num()},
++        {TEXT("estimated_buffer_bytes"),int64(PreparedBytes())}});
+     const auto RetiringHalls = PreparedHalls;
+     PreparedHalls.Reset();
+     for (const auto& Hall : RetiringHalls) if (Hall.IsValid()) Hall->DiscardPreparedMonster(TEXT("world_cleanup"));
+     PreparationPending.Reset(); PreparationCandidate.Reset(); Pending.Reset();
+     bPreparationMemoryPressure=false;
++    FPSResourceLifecycle::Record(this,TEXT("SpawnPool.AfterDeinitialize"),{
++        {TEXT("prepared_instances"),PreparedCount()},
++        {TEXT("pending_preparations"),PreparationPending.Num()},
++        {TEXT("estimated_buffer_bytes"),int64(PreparedBytes())}});
+     Super::Deinitialize();
+ }

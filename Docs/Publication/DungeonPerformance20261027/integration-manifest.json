@@ -1,0 +1,504 @@
+{
+  "baseline_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+  "normalization": "Decode UTF-8 BOM if present; CRLF to LF; hash UTF-8 text",
+  "automatic_application": false,
+  "patches": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyAssetPreloader.h",
+      "patch": "patches/01-Source__FPSGAME__Characters__FPSBodyAssetPreloader.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "4ea3a6eda40fe09c7250d068993ba38c755c7150"
+      },
+      "baseline_sha256_lf_utf8": "576ca2812e5936b275bc015c4867c3ccca5080ec89485c6996cdc6083e018bfe",
+      "result_sha256_lf_utf8": "a50ee634e4e70492ef2396fb6d9081ce3beb0a687606d88fac079509b6d1f526",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.cpp",
+      "patch": "patches/02-Source__FPSGAME__Characters__FPSPlayerBodyMeshComponent.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "33c8e709c66c2e4df23a062402268093d7cbbf7ccd39c9c1459aa6372b397609",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.h",
+      "patch": "patches/03-Source__FPSGAME__Characters__FPSPlayerBodyMeshComponent.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "8ba10ee44e58d00ed1affd19512b989ec515009b6511c5c174a76a678adcc585",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "patch": "patches/04-Source__FPSGAME__Characters__FPSModularOutfitComponent.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "b89dc56c07a4f400bd260193d60855fd9de4a3a3"
+      },
+      "baseline_sha256_lf_utf8": "98230118a945da15cdbc4b5fe21a14910e0606041b190748cf9fdf51bfb3c132",
+      "result_sha256_lf_utf8": "9e2605f09f85b85aa7055e882b2bc9cd35fb31fe12053dd808ec4645bcf20fbe",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSComponentVisibility.h",
+      "patch": "patches/05-Source__FPSGAME__Characters__FPSComponentVisibility.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "86584356663d11fabb00fc73f38e231c1e1a0b239c05cbcf66e818345e017804",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Diagnostics/FPSResourceLifecycle.cpp",
+      "patch": "patches/06-Source__FPSGAME__Diagnostics__FPSResourceLifecycle.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "c54117bd44d7973392cf0a90b8c6afb01ae5dd5b1d51e1c39a6d05e052853e29",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Diagnostics/FPSResourceLifecycle.h",
+      "patch": "patches/07-Source__FPSGAME__Diagnostics__FPSResourceLifecycle.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "552806fb28dd4ee0e3e3f4cde48d78f17b7ba12bc39a64df7c7d0f91559433c5",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Rendering/FPSFXAssetPreparation.h",
+      "patch": "patches/08-Source__FPSGAME__Rendering__FPSFXAssetPreparation.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "e97e81185cc23bcb7496b5a6600cb5134210da834158b30d181085c290f33430",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBreakableGlass.cpp",
+      "patch": "patches/09-Source__FPSGAME__Dungeons__WardBreakableGlass.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "73ed05e6d06ee4e88f4f52d5727bf00c63da5423"
+      },
+      "baseline_sha256_lf_utf8": "3f1923ce09e48e998aae23614e09158745014218889ce6cfb5b82dc505383f69",
+      "result_sha256_lf_utf8": "12b97d99586f95b2f59f5b977156f6444b5f5ffff08bf00f1d724cea16038579",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBreakableGlass.h",
+      "patch": "patches/10-Source__FPSGAME__Dungeons__WardBreakableGlass.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "3661bc079609b968c0118cb2b3ea86f0a7799aea"
+      },
+      "baseline_sha256_lf_utf8": "91a131547ddedd4a3c055ff05873285f9cb287753062f37c35cfa361b853990c",
+      "result_sha256_lf_utf8": "12cec67cc6c44c1e5beb46f6f9f7903c05d93de5222c5b4de82861b98c9cf3b9",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonCombatEffectPreparation.h",
+      "patch": "patches/11-Source__FPSGAME__Dungeons__DungeonCombatEffectPreparation.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "57269016ca6464bef673c3d117a39166524c1420e5c06a49f0492508ae995b13",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonGlassRenderPreparation.h",
+      "patch": "patches/12-Source__FPSGAME__Dungeons__DungeonGlassRenderPreparation.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "b80619dd4cb22ede3715a96333bb20165707bb8b04406e1d9dba45ae461635a7",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h",
+      "patch": "patches/13-Source__FPSGAME__Dungeons__DungeonMonsterRenderPreparation.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "6a3f82cc3ca10e6f22df6e437bf88adf81d3b769"
+      },
+      "baseline_sha256_lf_utf8": "3b0af8cfffa5789d64f7456254f5de428c07039bfe0d5dc1adb51b9af5c9b0e8",
+      "result_sha256_lf_utf8": "db91fa458e8ad1dc95212ea6ee862986b1ff70ac19a228c749fcca859b5c8ac7",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallPreparation.cpp",
+      "patch": "patches/14-Source__FPSGAME__Dungeons__FacilityHallPreparation.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "4c3cfe9a03df9d552fdcf40ca914aa45605b302378ed3c10671e024555fff237",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallPreparationBudget.h",
+      "patch": "patches/15-Source__FPSGAME__Dungeons__FacilityHallPreparationBudget.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "34ea8dd667f8ec506435e7579c3eb040d9ba8cbfa7d605a91738e8be8ff25b87",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h",
+      "patch": "patches/16-Source__FPSGAME__Dungeons__FacilityHallSpawnSubsystem.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "4a2fd69800d8f38262f9ba76d227da34e688bfeb"
+      },
+      "baseline_sha256_lf_utf8": "7e860657a3c1a1b9cdc4937fdc19d8a357177cf5d1fa50f55dc1846e150b2633",
+      "result_sha256_lf_utf8": "c086c3a983ee2388c83bbe5e51f0b8dc8b253789db05af05430f1cda9c87ce7e",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.cpp",
+      "patch": "patches/17-Source__FPSGAME__Dungeons__FacilityMonsterGpuWarmup.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "959ee209e71de116d7fcdbd566213fb8167b4b8f"
+      },
+      "baseline_sha256_lf_utf8": "912e3ca5049f78185214e08fa1acabf21cbca1d0339f74acce101548c617672c",
+      "result_sha256_lf_utf8": "31f9507aa98a509c71a801d9b3cdea34e977a329a75c5ad00913c4db1bc0a51c",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h",
+      "patch": "patches/18-Source__FPSGAME__Dungeons__FacilityMonsterGpuWarmup.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "73ec41bf0dac5328dc7609c8cc39d9039b451c25"
+      },
+      "baseline_sha256_lf_utf8": "d182cfaea53001790d7bb9561320f9b62a57f543e53a958cdcb24a5f42d508ae",
+      "result_sha256_lf_utf8": "29975c3b0989bfab68d910288120dd2a25b7f96d8ae4a3aa7f6bf6aebfcfabd8",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+      "patch": "patches/19-Source__FPSGAME__Weapons__FPSImpactFXSubsystem.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "a8dd72e73808413da3e191ae343ab902ca85c3b4"
+      },
+      "baseline_sha256_lf_utf8": "11c9f1299909e33ec36ba936d253a4ce3cbe7ba09838fed39dd19182bacb8486",
+      "result_sha256_lf_utf8": "94161d22894ab85bc249f0882a2679df871e0bde2bb7e9a135ff53ac2bfa70d8",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "patch": "patches/20-Source__FPSGAME__Weapons__FPSImpactFXSubsystem.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "f6d87554dd03ce89085b64daa476874f2eaf9e1c"
+      },
+      "baseline_sha256_lf_utf8": "93f5dba0db3d470f78bf9141a008a2204d600c7f22554fb0a74fdabd55e7e0c6",
+      "result_sha256_lf_utf8": "25b9ed876c60dbf1ffcf797b9cbe351c02ad3030eb5fb6acb4a17e330e417058",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXPreparation.cpp",
+      "patch": "patches/21-Source__FPSGAME__Weapons__FPSImpactFXPreparation.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "f02aef61bfc9f248ae8d0a512bc5f8dcc8a4b7c89fea8cf51a99cb8f401e1cbe",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProgressNotification.cpp",
+      "patch": "patches/22-Source__FPSGAME__UI__ColdSteelProgressNotification.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "c43f28484fa63f7fd2f7b65c06766d0426c26b35"
+      },
+      "baseline_sha256_lf_utf8": "a1735a27e3bc82c9a3d91e2d0ad9c869d32847f9c7d1a42af8438a703637eb7a",
+      "result_sha256_lf_utf8": "ed8cd1a74d9fef89e938ba302f5acabe95d465798de85a96ccefaa0fff0d708f",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProgressNotification.h",
+      "patch": "patches/23-Source__FPSGAME__UI__ColdSteelProgressNotification.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "8c18ca5cafd6a34222362e5d3d74d17a3a7b6936"
+      },
+      "baseline_sha256_lf_utf8": "c77b2aa58b9d90530cd602c1128254d5d1e5405c0d522e9e04e35f535054c37f",
+      "result_sha256_lf_utf8": "fe5122dc9d07f3f7687ce7279c98ddb65039224b499552c35b7284eb7375cd54",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSGpuTraceCapture.cpp",
+      "patch": "patches/24-Source__FPSGAME__UI__FPSGpuTraceCapture.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "8b44f2f40f1de5cb72543b95385d8bfd7afcfc6a"
+      },
+      "baseline_sha256_lf_utf8": "82cb1890316ca40325ccbf24de38efc52c588a1822605c522a7273e09c834a23",
+      "result_sha256_lf_utf8": "4cc0156e7cbcd21ee58fe2729d08dd6beb771d090d8e4e93d0ed903bf0b2f158",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetrics.cpp",
+      "patch": "patches/25-Source__FPSGAME__UI__FPSPerformanceMetrics.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "218ed88bc5b2904076e89cde951120e0fc0a1f98"
+      },
+      "baseline_sha256_lf_utf8": "ba0a38c65471a2d401ff52504ca98efbf9126b88178167ffac1bae933b4dd3b0",
+      "result_sha256_lf_utf8": "d04c78e9d3d44ea204bcf564f8ca81489cf99c154b556dc62138919193f18e06",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetrics.h",
+      "patch": "patches/26-Source__FPSGAME__UI__FPSPerformanceMetrics.h.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "c5d6e9a298a71c7e8e2169346ca29b69a2929e38"
+      },
+      "baseline_sha256_lf_utf8": "f00c8ed2cfcf7980633ee82b8ed448c0a8a8170456ecb225eef92a2ec1dd3e07",
+      "result_sha256_lf_utf8": "f22b81d97f11ab057a0b8484b4ca156cdf7fdd5d9fb8a660917e654733607ac0",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp",
+      "patch": "patches/27-Source__FPSGAME__UI__FPSPerformanceMetricsExport.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "a5f8ae7e3622f7608c1a10ca982f64c40f47580c"
+      },
+      "baseline_sha256_lf_utf8": "db3f8e586305c2018a595be583acb5133c713d3e18e5c7991d892a46137b2a77",
+      "result_sha256_lf_utf8": "03e3e7269f37cbd70207b7676d05b53e6a715401a3064af4a78f019eeaa4fc67",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp",
+      "patch": "patches/28-Source__FPSGAME__UI__FPSPerformanceMetricsResources.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "34c8beed2594d48d69fe221ae82af488a2ff6d67"
+      },
+      "baseline_sha256_lf_utf8": "668721a6f03fe820e0e40a6a4ef1da4a263acdfed2e57450d5604216f316b0bd",
+      "result_sha256_lf_utf8": "94b2a78d2acd027977b2b3e42f6e301d9d5e3d317c823e6688befd52b9bb4620",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceDeformationSampling.cpp",
+      "patch": "patches/29-Source__FPSGAME__UI__FPSPerformanceDeformationSampling.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "1dfeae49bc3a96a4cf379d9962e7991f67e166c13783806722850f572d2a9810",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceCaptureCommands.cpp",
+      "patch": "patches/30-Source__FPSGAME__UI__FPSPerformanceCaptureCommands.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "d984f4bfe595c7f4ada0ebe2fcd57dcbd78b15c5"
+      },
+      "baseline_sha256_lf_utf8": "3cf225f422aeaedf76f0b5f38a8c4a974bb92fbff82e1724966e20b43a7fba9e",
+      "result_sha256_lf_utf8": "770072a5bdc60ac82c74b9b885854ed57e3afc18ae1ec21ef466169d82206c42",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelDoorInteraction.cpp",
+      "patch": "patches/31-Source__FPSGAME__Building__ColdSteelDoorInteraction.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "5d632d74a2fc41eae895b111f970adf4cd999fef"
+      },
+      "baseline_sha256_lf_utf8": "b73fcdafe0ccaf599bad619492fd7259d235ac871749d46f963a54206d4646dc",
+      "result_sha256_lf_utf8": "d3862000c1a4a4b214f886c0cf5ffa8420495611e025ebd9990445cca488f12d",
+      "purpose": "Owned performance source; integrate with matching local gameplay dependencies"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp",
+      "patch": "patches/32-Source__FPSGAME__Characters__FPSBodyAssetPreloader.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "432b000f714f7889393cd48c512982256f22ca5d"
+      },
+      "baseline_sha256_lf_utf8": "92073ec64ad23c1eeb2834af26e3e20fe78f5ba0ded266fa61c386803ee8e969",
+      "result_sha256_lf_utf8": "93b282b444213087eeee0573c6d0dec35f1c615de1ee80fcb68a47f96532adb6",
+      "purpose": "Carried-resource scope and cancellation; excludes parallel Saiga entry"
+    },
+    {
+      "path": "Tools/Build/Build-Package.ps1",
+      "patch": "patches/33-Tools__Build__Build-Package.ps1.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "b200ccf1abb2f2a334758b520e520bb9b0f4f342"
+      },
+      "baseline_sha256_lf_utf8": "69065b48ef22eafca9adb58f438b13922ca61d631cc7106d8ed5835e8ac28d3d",
+      "result_sha256_lf_utf8": "813593df67bde2d93eca8f589420d7ad4e208ea8a4d43543375c665a563e3de8",
+      "purpose": "Reusable packaging tooling; manifest coverage does not establish runtime completeness"
+    },
+    {
+      "path": "Tools/Build/Repair-KnownCookMaterials.py",
+      "patch": "patches/34-Tools__Build__Repair-KnownCookMaterials.py.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "7471eb4ba6e741a8b1ed395ce6e43e5e10915885ab898b190363d3fd094f10a1",
+      "purpose": "Reusable packaging tooling; manifest coverage does not establish runtime completeness"
+    },
+    {
+      "path": "Config/Packaging/RequiredRuntimePackages.txt",
+      "patch": "patches/35-Config__Packaging__RequiredRuntimePackages.txt.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": null
+      },
+      "baseline_sha256_lf_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf_utf8": "5fe9ed4f9c579f92dd1065e72c5bef695252746cc868981d9026bab86074caa9",
+      "purpose": "Reusable packaging tooling; manifest coverage does not establish runtime completeness"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "patch": "patches/36-Source__FPSGAME__Dungeons__FacilityHallEncounter.cpp.patch",
+      "baseline": {
+        "local_snapshot": "Saved/PerformanceConsolidation20261026/before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp"
+      },
+      "baseline_sha256_lf_utf8": "b7f28c745393572feb4b735a8fc40cd517ec66b218c5e97184722502f4505c87",
+      "result_sha256_lf_utf8": "3bdea7d16e08029b56b1235b605f86aabf5d27cc1ebe624761621ae4011d17bb",
+      "purpose": "Scoped delta from saved pre-task baseline; earlier shared integration retained locally"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp",
+      "patch": "patches/37-Source__FPSGAME__Dungeons__FacilityHallSpawnSubsystem.cpp.patch",
+      "baseline": {
+        "local_snapshot": "Saved/PerformanceConsolidation20261026/before/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp"
+      },
+      "baseline_sha256_lf_utf8": "f457f3e94707e4fd211b2f30aa58b61587530178d9d17b9a9c5f22aa3e39fb6b",
+      "result_sha256_lf_utf8": "d4aab41fdaaf164dea5f94544c86447d849c26863ee0879fc69cfe011b98f700",
+      "purpose": "Scoped delta from saved pre-task baseline; earlier shared integration retained locally"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "patch": "patches/38-Source__FPSGAME__Dungeons__AuthoredDungeonGenerator.cpp.patch",
+      "baseline": {
+        "local_snapshot": "Saved/PerformanceLifecycle20261026/before-121907/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp"
+      },
+      "baseline_sha256_lf_utf8": "3d8745f8a777e81c9b8872b1711220c96652583b195f68c35ed055da5c2f8ea3",
+      "result_sha256_lf_utf8": "3b1ebafde856b7c6e8fe4e6a2c8de3a3998a93634fc29111102f630b2875e474",
+      "purpose": "Scoped delta from saved pre-task baseline; earlier shared integration retained locally"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonLighting.cpp",
+      "patch": "patches/39-Source__FPSGAME__Dungeons__AuthoredDungeonLighting.cpp.patch",
+      "baseline": {
+        "local_snapshot": "Saved/PerformanceNext20261026/before-123536/Source/FPSGAME/Dungeons/AuthoredDungeonLighting.cpp"
+      },
+      "baseline_sha256_lf_utf8": "d2a3c2bb066411f7951f82c94b5dbd7e861ca0f75d449ac0ff1d2457b55f59f7",
+      "result_sha256_lf_utf8": "ffab6a97c9fe83dbff85a706a80c25842e6c6903490b95ffea0d56a5007307fb",
+      "purpose": "Scoped delta from saved pre-task baseline; earlier shared integration retained locally"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillPreparation.cpp",
+      "patch": "patches/40-Source__FPSGAME__Skills__PlayerSkillPreparation.cpp.patch",
+      "baseline": {
+        "local_snapshot": "Saved/PerformanceNext20261026/before-123536/Source/FPSGAME/Skills/PlayerSkillPreparation.cpp"
+      },
+      "baseline_sha256_lf_utf8": "10043b733f4ffa8e4e63ff9bc26f32ab275beff96d718a85a8e533590d9b12f6",
+      "result_sha256_lf_utf8": "59c7c32bb733f800194be4e946e1934edc373150a478f2b15224f54033402bff",
+      "purpose": "Scoped delta from saved pre-task baseline; earlier shared integration retained locally"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillPreparation.h",
+      "patch": "patches/41-Source__FPSGAME__Skills__PlayerSkillPreparation.h.patch",
+      "baseline": {
+        "local_snapshot": "Saved/PerformanceNext20261026/before-123536/Source/FPSGAME/Skills/PlayerSkillPreparation.h"
+      },
+      "baseline_sha256_lf_utf8": "74891252429e1c853658c2b7a59db64dbacaf1afed27352cfe5fbfc4eeda4929",
+      "result_sha256_lf_utf8": "9f67331acedfd7157259118d8ef72e6e17ef2b15227c20f866de871999b66096",
+      "purpose": "Scoped delta from saved pre-task baseline; earlier shared integration retained locally"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillRenderPreparation.cpp",
+      "patch": "patches/42-Source__FPSGAME__Skills__PlayerSkillRenderPreparation.cpp.patch",
+      "baseline": {
+        "local_snapshot": "Saved/PerformanceConsolidation20261026/before/Source/FPSGAME/Skills/PlayerSkillRenderPreparation.cpp"
+      },
+      "baseline_sha256_lf_utf8": "9c22e63d2d8dfddd6e5decbc192f327678796f1bbb578db1eef092fa8434b25d",
+      "result_sha256_lf_utf8": "fcaa8d7aeb12a006b5ad45c395af4c9f12559254a9acb1b23bd072c6ba75708f",
+      "purpose": "Scoped delta from saved pre-task baseline; earlier shared integration retained locally"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillRenderPreparation.h",
+      "patch": "patches/43-Source__FPSGAME__Skills__PlayerSkillRenderPreparation.h.patch",
+      "baseline": {
+        "local_snapshot": "Saved/PerformanceConsolidation20261026/before/Source/FPSGAME/Skills/PlayerSkillRenderPreparation.h"
+      },
+      "baseline_sha256_lf_utf8": "61f2b190d548366509482d3df13c469d16d4c009ac3f49d71ed413c6f2eb79d0",
+      "result_sha256_lf_utf8": "a7a59e718ff8cd1686ce5f219f55e23d2babea2f3dcffa0364ec3491da72e10f",
+      "purpose": "Scoped delta from saved pre-task baseline; earlier shared integration retained locally"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "patch": "patches/44-Config__DefaultGame.ini.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "99bbbe8babe56f9dac3a60d636fcb0499af4cebc"
+      },
+      "baseline_sha256_lf_utf8": "84463e956f6c9e47ae1f896acb079f2dc0d2450d808d5959d81addc4f0def620",
+      "result_sha256_lf_utf8": "57b142a844b78068255260f7a82d3186a09fe0c8a90bbd8637c841372cb76c9a",
+      "purpose": "Runtime string-path cook inclusion and editor-only empty GameFeatureData scan"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "patch": "patches/45-Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+      "baseline": {
+        "local_index_blob": "5d4a9c6261d3bcc0836d58cee9aba3a98ae5dbc4"
+      },
+      "baseline_sha256_lf_utf8": "1ac730388f6938f4f69121b3dd95bb8d8821b47b89bc1005fbf17a1e261c69f6",
+      "result_sha256_lf_utf8": "824024f6088b6c1ca439a582d20b189b3d358112124e7a98f1d0ab4f5d30b888",
+      "purpose": "Only pose-driver default component selection; other staged character features excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "patch": "patches/46-Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+      "baseline": {
+        "git_commit": "e0a86866a083909b7d737a3ea73bb6c821b022d3",
+        "git_blob": "a0d826ed6376ddcb430e3cc9fc3cf33c6d380784"
+      },
+      "baseline_sha256_lf_utf8": "c1c631780ab2ab4171426551a95d64797ab432bebacfafc282a6773c02b31f63",
+      "result_sha256_lf_utf8": "041ad6f0fdd4086d13b88b5fbc9efaec94a22e840cbb929c486bef4795a85c88",
+      "purpose": "Header for existing source-render ownership restoration call"
+    }
+  ]
+}

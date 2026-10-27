@@ -1,0 +1,63 @@
+--- a/Source/FPSGAME/Skills/PlayerSkillPreparation.cpp
++++ b/Source/FPSGAME/Skills/PlayerSkillPreparation.cpp
+@@ -1,5 +1,6 @@
+ #include "PlayerSkillPreparation.h"
+ #include "PlayerSkillRenderPreparation.h"
++#include "../Diagnostics/FPSResourceLifecycle.h"
+ #include "FPSFireMagicComponent.h"
+ #include "../Production/WarhammerSlamFXSubsystem.h"
+ #include "../UI/ColdSteelStatusModel.h"
+@@ -75,10 +76,28 @@
+     }));
+ }
+ 
+-FPlayerSkillPreparation::~FPlayerSkillPreparation(){Cancel();}
++FPlayerSkillPreparation::~FPlayerSkillPreparation()
++{
++    Cancel();
++    Residents.Reset(); Prepared.Reset();
++    RecordResourceState(nullptr, TEXT("Skills.Destroyed"));
++}
++
++void FPlayerSkillPreparation::RecordResourceState(const UObject* Context, const TCHAR* Phase) const
++{
++    FPSResourceLifecycle::Record(Context, Phase, {
++        {TEXT("resident_handles"), Residents.Num()}, {TEXT("prepared_paths"), Prepared.Num()},
++        {TEXT("pending_handle"), Pending.IsValid() ? 1 : 0},
++        {TEXT("render_preparation_owner"), RenderPreparation.IsValid() ? 1 : 0},
++        {TEXT("deferred_render_paths"), DeferredRenderPaths.Num()},
++        {TEXT("jobs"), Jobs.Num()}, {TEXT("consumers"), Consumers.Num()}});
++}
+ 
+ void FPlayerSkillPreparation::Cancel()
+ {
++    const UObject* DiagnosticOwner = Model.Get();
++    const bool HadWork = bStarted || Pending.IsValid() || RenderPreparation.IsValid();
++    if (HadWork) RecordResourceState(DiagnosticOwner, TEXT("Skills.BeforeCancel"));
+     if(Model.IsValid()&&ChangedHandle.IsValid())Model->OnChanged.Remove(ChangedHandle);
+     ChangedHandle.Reset();Model.Reset();
+     if(Pending)Pending->CancelHandle();
+@@ -90,6 +109,7 @@
+     bStarted=bFailed=bAssetPreparationStarted=bPSORequested=bRefreshRequested=bBindingsDelivered=false;Progress=0;
+     Consumers.RemoveAll([](const FConsumer& C){return !C.Owner.IsValid()||!C.Ready.IsBound();});
+     // Asset handles survive travel; world-bound representatives never do.
++    if (HadWork) RecordResourceState(DiagnosticOwner, TEXT("Skills.AfterCancelResidentsKeptForTravel"));
+ }
+ 
+ void FPlayerSkillPreparation::RegisterConsumer(AActor* Owner,FName Skill,FSimpleDelegate Ready,const TArray<FSoftObjectPath>& ExtraPaths)
+@@ -127,6 +147,7 @@
+     });
+     RenderPreparation=MakeShared<FPlayerSkillRenderPreparation>();RefreshLearnedSkills();
+     Status=FText::FromString(TEXT("后台准备已学战技与魔法"));
++    RecordResourceState(&InModel, TEXT("Skills.Begin"));
+     UE_LOG(LogTemp,Display,TEXT("PlayerSkillBackground: queued %d learned skills (martial -> magic; assets -> shaders/PSO -> bindings)"),Jobs.Num());
+ }
+ 
+@@ -182,6 +203,7 @@
+             It.RemoveCurrent();++Released;
+         }
+     bResidentCleanupPending=false;
++    RecordResourceState(Model.Get(), TEXT("Skills.CurrentSetSettled"));
+     if(Released)UE_LOG(LogTemp,Display,TEXT("PlayerSkillBackground: released %d obsolete resource handles; retained %d current resources"),Released,Residents.Num());
+ }
+ 

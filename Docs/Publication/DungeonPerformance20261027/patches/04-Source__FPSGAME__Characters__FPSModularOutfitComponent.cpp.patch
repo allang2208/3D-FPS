@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSModularOutfitComponent.h"
+ #include "FPSPlayerBodyComponent.h"
++#include "FPSPlayerBodyMeshComponent.h"
+ #include "FPSOutfitSecondaryMotion.h"
+ #include "FPSQuiverMotion.h"
+ #include "Engine/StaticMesh.h"
+@@ -117,6 +118,7 @@
+ }
+ void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
+ {
++    if (auto* Body = Cast<UFPSPlayerBodyMeshComponent>(P.Source.Get())) Body->RestoreSourceRendering();
+     if(P.RobeHem)if(auto* Robe=P.RobeHem->Garment.Get())
+     {
+         PrimaryComponentTick.RemovePrerequisite(Robe,Robe->PrimaryComponentTick);
+@@ -423,6 +425,7 @@
+         // the arm/body sections owned by this presentation, never weapon parts.
+         for(int32 L=0;L<Existing->PreviouslyVisible.Num();++L)for(int32 M:Existing->HiddenMaterials)
+             if(Source->IsMaterialSectionShown(M,L))Section(Source,M,L,false);
++        if (auto* Body = Cast<UFPSPlayerBodyMeshComponent>(Source)) Body->UpdateModularRenderOwnership();
+         return;
+     }
+     TMap<int32,FString> BaseMaterialPaths;
+@@ -684,6 +687,7 @@
+             {if(Source->IsMaterialSectionShown(M,L))Visible.Add(M);Section(Source,M,L,false);}
+         }
+     FollowVisibility(*Existing);
++    if (auto* Body = Cast<UFPSPlayerBodyMeshComponent>(Source)) Body->UpdateModularRenderOwnership();
+     // Completed stale loads cannot apply an old recipe: source identity and the
+     // current equipment are re-read by DiscoverSources, never captured on commit.
+     for(auto It=PendingLoads.CreateIterator();It;++It)

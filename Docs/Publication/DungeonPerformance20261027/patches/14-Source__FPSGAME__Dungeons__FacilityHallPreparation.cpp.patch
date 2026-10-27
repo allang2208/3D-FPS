@@ -1,0 +1,152 @@
+--- a/Source/FPSGAME/Dungeons/FacilityHallPreparation.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallPreparation.cpp
+@@ -0,0 +1,149 @@
++#include "FacilityHallEncounter.h"
++#include "FacilityHallPreparationBudget.h"
++#include "AuthoredDungeonGenerator.h"
++#include "DungeonThemeEncounter.h"
++#include "DungeonMonsterRenderPreparation.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/BellowSacLobber.h"
++#include "../UI/FPSPerformanceMetrics.h"
++#include "Engine/World.h"
++#include "ProfilingDebugging/CpuProfilerTrace.h"
++
++int32 AFacilityHallEncounter::FindPreparationSlot() const
++{
++    if (Slots.IsEmpty()) return INDEX_NONE;
++    const int32 DueSlots = bSecondWave ? Slots.Num() : FirstWaveCount;
++    auto Eligible = [this](int32 Index)
++    {
++        if (!Slots.IsValidIndex(Index)) return false;
++        const auto& Slot = Slots[Index];
++        return (!Slot.bIncinerationBasement||bIncinerationBasementEntered) && !Slot.bDefeated && !Slot.Monster.IsValid()
++            && Members.IsValidIndex(Slot.Member) && Members[Slot.Member]
++            && !PreparedMonsters.ContainsByPredicate([Index](const auto& Entry) { return Entry->Slot == Index; })
++            // An unavailable/oversized optional candidate must not block the
++            // remaining slots. Normal spawn eligibility is unchanged.
++            && EstimatePreparationBytes(Index) <= FacilityHallPreparation::MaxEstimatedBytes;
++    };
++    if (Eligible(ObjectiveEliteSlot)) return ObjectiveEliteSlot;
++    // Read-only lookahead: neither placement RNG nor wave/slot state advances.
++    for (int32 Offset = 0; Offset < DueSlots; ++Offset)
++    {
++        const int32 Index = (NextSlot + Offset) % DueSlots;
++        if (IsSlotReleased(Slots[Index])&&Eligible(Index)) return Index;
++    }
++    // At most one future-wave reservation per room, only after combat starts.
++    // The entrance budget belongs to the first wave of the entire area.
++    if (Theme.IsValid() && Theme->HasStarted()
++        && !PreparedMonsters.ContainsByPredicate([this](const auto& Entry) { return !IsSlotReleased(Slots[Entry->Slot]); }))
++        for (int32 Index = 0; Index < Slots.Num(); ++Index)
++            if (!IsSlotReleased(Slots[Index])&&Slots[Index].ReleaseGroup<=CurrentReleaseGroup+1&&Eligible(Index)) return Index;
++    return INDEX_NONE;
++}
++
++int32 AFacilityHallEncounter::PreparationPriority(int32 SlotIndex, double& DistanceSquared) const
++{
++    DistanceSquared = TNumericLimits<double>::Max();
++    if (bStopping || bCleared || !HasAuthority() || GetNetMode() == NM_Client
++        || !Run.IsValid() || !Run->IsRunActive() || !Generator.IsValid() || Generator->IsPreparationPending()
++        || !Theme.IsValid() || !Slots.IsValidIndex(SlotIndex)) return INDEX_NONE;
++    const auto& Slot = Slots[SlotIndex];
++    if ((Slot.bIncinerationBasement&&!bIncinerationBasementEntered)||Slot.ReleaseGroup>CurrentReleaseGroup+1|| Slot.bDefeated || Slot.Monster.IsValid()
++        || !Members.IsValidIndex(Slot.Member) || !Members[Slot.Member]) return INDEX_NONE;
++    const int32 AreaPriority = Theme->PreparationPriority(DistanceSquared);
++    if (AreaPriority == INDEX_NONE) return INDEX_NONE;
++    const bool bFutureWave = !IsSlotReleased(Slot);
++    if (bFutureWave && !Theme->HasStarted()) return INDEX_NONE;
++    // Every area's due first wave outranks optional future reinforcements.
++    return AreaPriority + (bFutureWave ? 4 : 0);
++}
++
++uint64 AFacilityHallEncounter::EstimatePreparationBytes(int32 SlotIndex) const
++{
++    if (!Slots.IsValidIndex(SlotIndex)) return 0;
++    if (GetNetMode() == NM_DedicatedServer || !FApp::CanEverRender()) return 1024ull * 1024ull;
++    const auto* Defaults = Members[Slots[SlotIndex].Member]->GetDefaultObject<ACharacter>();
++    const USkeletalMesh* Mesh = FDungeonMonsterRenderPreparation::BodyMesh(Defaults);
++    const auto* Data = Mesh && !Mesh->IsCompiling() ? Mesh->GetResourceForRendering() : nullptr;
++    // Conservative admission estimate, not a physical VRAM residency reading.
++    // Shared mesh/texture resources are already owned by the generator's run.
++    // Unknown render size must not be admitted as a cheap one-megabyte actor.
++    if (!Data || Data->LODRenderData.IsEmpty()) return FacilityHallPreparation::MaxEstimatedBytes + 1;
++    const uint64 Vertices = Data->LODRenderData[0].GetNumVertices();
++    return 1024ull * 1024ull + Vertices * 128ull;
++}
++
++bool AFacilityHallEncounter::PrepareNextSlot()
++{
++    const int32 Index = FindPreparationSlot();
++    double DistanceSquared;
++    if (PreparationPriority(Index, DistanceSquared) == INDEX_NONE) return false;
++    const auto& Slot = Slots[Index];
++    TRACE_CPUPROFILER_EVENT_SCOPE(FacilityHallSpawn_PrepareNative);
++    FFPSPerformanceScope Scope(this, TEXT("Hall.PrepareNative"), FString::Printf(TEXT("room=%d slot=%d"), Room.Id, Index), true);
++    auto Entry = MakeUnique<FFacilityPreparedMonster>();
++    Entry->Slot = Index;
++    Entry->EstimatedBytes = EstimatePreparationBytes(Index);
++    FActorSpawnParameters Params;
++    Params.Owner = this;
++    Params.bDeferConstruction = true;
++    Params.ObjectFlags |= RF_Transient;
++    Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    Params.CustomPreSpawnInitialization = [&Entry](AActor* Actor)
++    {
++        Entry->bHidden = Actor->IsHidden();
++        Entry->bCollision = Actor->GetActorEnableCollision();
++        Entry->bDamage = Actor->CanBeDamaged();
++        Entry->bReplicates = Actor->GetIsReplicated();
++        Entry->Tags = Actor->Tags;
++        Actor->SetReplicates(false);
++        Actor->Tags.Reset(); Actor->Tags.Add(TEXT("Dungeon.PreparedInstance"));
++        Actor->SetActorHiddenInGame(true);
++        Actor->SetActorEnableCollision(false);
++        Actor->SetCanBeDamaged(false);
++        // Deferred allocation never starts audio/Niagara, AI, timers or rewards.
++        TInlineComponentArray<UActorComponent*> Components(Actor);
++        for (auto* Component : Components)
++            if (Component->bAutoActivate)
++            {
++                Entry->AutoActivateComponents.Add(Component);
++                Component->bAutoActivate = false;
++            }
++        if (auto* Staff = Cast<ANurseZombie>(Actor)) Staff->PrepareDeferredAllocation();
++    };
++    // Keep native registered components of other species away from the level.
++    // Their actual construction and placement still happen at normal activation.
++    const FTransform Staging(FRotator::ZeroRotator, Room.Origin + FVector(0, 0, -1000000.));
++    auto* Monster = GetWorld()->SpawnActor<ACharacter>(Members[Slot.Member], Staging, Params);
++    if (!IsValid(Monster)) return false;
++    Entry->Monster = Monster;
++    Entry->PreparedAt = GetWorld()->GetTimeSeconds();
++    // Warm each supported species' actual body before its normal activation.
++    // Bellow keeps its native quadruped animation graph; projectiles and other
++    // species-specific gameplay construction still run at their original time.
++    if (GetNetMode() != NM_DedicatedServer && FApp::CanEverRender() && !Slot.bObjectiveElite
++        && (!bStaffLiving || Slot.Member < 3))
++    {
++        if (auto* Staff = Cast<ANurseZombie>(Monster))
++            Entry->GpuWarmup = MakeUnique<FFacilityMonsterGpuWarmup>(Staff);
++        else if (auto* Bellow = Cast<ABellowSacLobber>(Monster))
++            Entry->GpuWarmup = MakeUnique<FFacilityMonsterGpuWarmup>(Bellow);
++    }
++    PreparedMonsters.Add(MoveTemp(Entry));
++    return true;
++}
++
++void AFacilityHallEncounter::DiscardPreparation(int32 PreparedIndex, const TCHAR* Reason)
++{
++    auto Entry = MoveTemp(PreparedMonsters[PreparedIndex]);
++    PreparedMonsters.RemoveAt(PreparedIndex);
++    UFPSPerformanceMetricsSubsystem::RecordMarker(this, TEXT("Hall.PreparationRetired"),
++        FString::Printf(TEXT("room=%d slot=%d age=%.3f reason=%s"), Room.Id, Entry->Slot,
++            GetWorld()->GetTimeSeconds() - Entry->PreparedAt, Reason), true);
++    if (Entry->GpuWarmup) Entry->GpuWarmup->Cancel();
++    if (Entry->Monster.IsValid()) Entry->Monster->Destroy();
++}
++
++void AFacilityHallEncounter::DiscardPreparedMonster(const TCHAR* Reason)
++{
++    while (!PreparedMonsters.IsEmpty()) DiscardPreparation(PreparedMonsters.Num() - 1, Reason);
++}

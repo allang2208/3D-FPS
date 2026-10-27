@@ -1,0 +1,106 @@
+随机地牢：2026-10-24 20:29 新采集离线分析
+
+结论
+本次复现了历次相同的形变更新慢态。上一轮资源与重复工作治理未解决主问题。
+本样本没有严重超出DXGI预算，不能继续用上一份的超预算3–4 GiB单独解释。
+同帧、同网格、同顶点数的Morph Normalize范围仍快慢相差数百倍。主要调查面继续是输出缓冲的访问、同步和驻留/调度；这些范围含屏障和等待，不等于纯shader计算时间。
+另找到一处明确的项目代码问题：弯刀视图每帧传播可见性，导致其附属手臂/衣物渲染状态反复置脏。它是可修复的旁支，尚不能将其等同于历次跨装备出现的共同慢态根因。
+
+原始证据
+Saved/PerformanceReports/gpu-EFBD365648009F30FC0FE4B761CD57DE/
+  performance-20261024-122916-A7D79081425956C1E4E2AFB0A7DA52DF.json
+  engine.utrace、buffers.jsonl、manifest.json
+schema14。PIE / D3D12 / 2552x1218；末窗暂停帧与后台帧均为0。
+采集北京时间20:28:41.022–20:29:14.790，持续33.769秒，完整覆盖末尾十秒帧窗口。
+UE时间线已关闭，缓冲身份写盘完毕，identity_rows_dropped=0；available_files_finalized=true。
+WDDM创建会话失败，错误5，capture_mode=ue_trace_only，无wddm.etl，files_finalized=false。
+这不使UE时间线失效，但不能证明哪个具体资源迁移到了哪个物理段或驱动内部为何等待。
+
+一、同次运行的帧率变化
+阶段                      FPS       发布GPU均值        活怪观察范围
+第一刷怪窗口前3秒         61.33     11.94 ms           0
+首刷0–5秒                27.28     25.26 ms           2–29
+首刷5–10秒               10.58     91.44 ms           33–36
+首刷10–20秒              16.10     58.95 ms           32–36
+末尾十秒                 16.49     58.30 ms           33–38
+FPS按实际单调时钟帧间隔计算。CPU/GPU发布读数没有同帧来源ID，不相加、不人为平移。
+独立GPU trace开始于首刷后11.596秒，不能冒充覆盖此前5–10秒最慢阶段；该阶段依据保存的逐帧JSON。
+与上一份19:03数据的怪数、装备和运行状态不同，不将两次FPS差异称为优化收益或回退幅度。
+
+二、GPU时间线的主要范围
+末窗165个完整Graphics队列GPU帧，Frame平均60.554 ms；与GPUWork区间交集平均57.501 ms，约95%。
+不是整段CPU迟迟不提交工作就能解释。GPUWork仍允许内部等待、抢占、迁移，不能当硬件纯计算利用率。
+末窗平均包含时间：
+  MorphUpdate                             28.650 ms/帧
+    其中MorphUpdateNormalize              17.410 ms/帧
+    其中MorphUpdateScatter                 9.128 ms/帧
+  GPUSkinCache_UpdateSkinningBatches         9.103 ms/帧
+    其中SkinCacheDispatch总和               2.820 ms/帧
+  ShadowDepths                             3.488 ms/帧
+  RayTracingDynamicGeometry                2.820 ms/帧
+  Hair                                     1.766 ms/帧
+父子范围不得相加；Hair也不是全部毛发相关工作总和。
+整段591个完整GPU帧，平均56.983 ms，SkinCache派发数平均243.15。
+
+同帧计算量对照：
+迎宾员SK_FacelessReceptionist_V05，162110顶点：
+  Normalize快样本4341个，中位0.0082 ms；慢样本2044个，中位3.6234 ms，约442倍。
+  581个同帧同顶点分组同时出现快与慢。
+  trace第16.108秒的一帧，同网格/162110顶点/63589存储batch参数，既有0.0082 ms，也有3.6127、3.7294、3.8369、3.9403 ms。
+研究员SK_FacelessResearcher_V05，119791顶点：
+  快样本4455个，中位0.0072 ms；慢样本575个，中位2.6286 ms，约365倍。
+  219个同帧同顶点分组同时出现快与慢。
+两类慢Normalize范围均完全落在记录的已提交GPUWork内。
+Normalize本机shader只按顶点读写Morph输出并缩放，且该GPU范围包含前后的UAV/读取转换，不能把范围时长直接称为shader执行时长。
+源码：Engine/Shaders/Private/MorphTargets.usf:164；Engine/Source/Runtime/Engine/Private/SkeletalRenderGPUSkin.cpp:1814。
+GPU事件没有Actor或输出GPU地址标签，不能将同帧第N个dispatch直接命名为某一只怪。
+
+三、显存及提交链
+230个内存观察样本全部未超预算；最低本地预算余量0.108 GiB。
+末窗本地Budget平均10.620 GiB，CurrentUsage平均10.353 GiB，余量平均0.266 GiB，最低0.116 GiB。
+预算仍紧张；未超预算不证明全部活跃资源都在本地物理显存。
+本次输出current/previous身份按并集去重为32个逻辑缓冲、101.934 MiB；两组是相同缓冲集合，不能加倍。
+共享Morph输入4个逻辑缓冲、69.571 MiB。HeapType=DEFAULT不是逐资源物理驻留证明。
+3份RHI清单有截断；其中transient别名和未跟踪Owner不得按总数当独占物理显存。
+CPU专项导出：33.769秒内CreateDescriptorHeap(BindlessResources,131072)共10次，包含时间总计229.087 ms，最大43.869 ms。
+仍有局部提交尖峰，但与旧记录42次/6.26秒不同，且主慢范围位于已提交GPUWork中。
+Compute PSO创建50次共165.122 ms、最大10.350 ms；Graphics PSO创建58次共27.471 ms、最大4.614 ms。
+这些跨线程/父子范围不能机械求和或换算成每帧可回收成本。
+Microsoft对Budget/CurrentUsage口径：
+https://learn.microsoft.com/en-us/windows/win32/api/dxgi1_4/ns-dxgi1_4-dxgi_query_video_memory_info
+
+四、上一轮改动在新数据中的状态
+玩家原身体CharacterMesh0与FirstPersonSharedBody锚点均标记纯姿势；末窗各19次观察render_object_present均为false，说明该项确实生效。
+末窗outfit_rebuilds=0、weapon_rebuilds=0、visibility_fields_changed=0；该计数只覆盖有埋点的玩家身体调用路径，不覆盖全工程和引擎内部传播。
+已冻结的人形尸体统计为禁用body tick、rigid shadow policy；不能仅凭保留渲染对象推断它们仍重复计算GPU动画。
+Groom全程只有头发、睫毛、眉毛各1份，没有重复发型实例增长，未发现应把毛发作为主要修复方向的新证据。
+至多2Hz资源观察：game_gather每次平均0.725 ms、最大1.887 ms；这是每次采样成本，非每帧成本。显式native观察最大3.591 ms。
+
+五、新确认的无效渲染状态更新
+末窗以下3个组件各19次观察均render_object_changed_since_sample=true：
+  FPSGAMECharacter_0.SkeletalMeshComponent_34 / SK_KaitlinView_FrostArms_1fe8e2187b
+  FPSGAMECharacter_0.SkeletalMeshComponent_35 / SK_FrostArms_Charcoal
+  FPSGAMECharacter_0.SkeletalMeshComponent_36 / SK_FrostArms_BlackLeatherDetail
+其姿势来源均为KukriViewmodel，本体render object稳定，三个子组件的可见状态稳定；没有对应换装重建。
+项目调用：Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp:552，TickComponent每帧无条件Viewmodel->SetVisibility(...,true)。
+引擎实现：Engine/Source/Runtime/Engine/Private/Components/SceneComponent.cpp:3588–3622，Propagate时即使父组件可见值不变，仍遍历子树并对每个子组件MarkRenderStateDirty。
+因此现有“可见性字段改变为0”不能排除这条重复重建。建议修复为状态改变时才传播，并保留装备生成、切换、收起、镜头占用时的正确子件可见性语义；同类高频调用应按所属可见性规则处理，不能全局机械替换。
+此处没有逐组件GPU耗时，不能宣称修完一定恢复60FPS，也不解释旧装备/旧日期均存在的全部慢态。
+
+六、预刷池仍未工作
+保存的50次Hall.SpawnActivated全部prepared=0，230次观察的prepared instance均为0。
+第一条有效准备请求约在首刷前1.361秒才出现，此前长时间not_requested；之后记录为内存未知/不足、正式生成优先及慢帧让出。
+内存准入同时检查CPU物理/虚拟余量、最近GPU预算及新实例估算；本JSON的system_memory是DXGI非本地段，不是CPU可用RAM，所以不能只用GPU余量1.3 GiB断言准入判断出错。
+SpawnAttempt平均2.337 ms，p95 5.412 ms，最大30.234 ms；包括63次尝试，50次激活。
+没有预刷是需要独立解决的准备效果问题；它不能解释刷完以后同一Normalize范围仍持续数百倍变慢。
+末次仍有7只鼓囊存活，不能从预刷未命中推出本次删除了鼓囊规则。
+
+后续处理优先级
+1. 精确修复Kukri可见性传播的重复置脏，范围由本次证据锁定；不要以关闭手臂衣物或改变战斗表现代替。
+2. 主线收敛到Morph输出访问/同步/驻留的慢态，不再用毛发降档、减怪、关光追、扩大池、继续泛化预热替代根因定位。
+3. 逐资源WDDM调度/驻留仍缺失。本包明确错误5；如后续需要物理段归因，只补这条证据链，沿用已有UE时间线和身份数据，不再重复要求普通JSON来重新证明卡顿。
+4. 预刷准入和触发时间单独处理，不放松安全预算去强行扩大池。
+
+本轮交付边界
+只读取用户已有数据、源码和本机引擎实现，离线解码trace并以UnrealInsights -NoUI导出CPU表；没有启动UE编辑器/游戏，没有新采集、运行测试或修改游戏/引擎源码。
+离线结果：Saved/PerformanceAnalysis20261024_202916/analysis.json、cpu-buffer-analysis.json、gpu-frames.csv、normalize-pairs.csv、resource-timeline.csv，以及解码/导出脚本和日志。

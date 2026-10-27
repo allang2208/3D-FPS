@@ -26,7 +26,7 @@ class FPSGAME_API AHangingBellM09 : public ACharacter
 {
  GENERATED_BODY()
 public:
- AHangingBellM09();
+ AHangingBellM09(const FObjectInitializer& Initializer=FObjectInitializer::Get());
  virtual void OnConstruction(const FTransform& Transform) override;
  virtual void BeginPlay() override;
  virtual void EndPlay(const EEndPlayReason::Type Reason) override;

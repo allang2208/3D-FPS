@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonLighting.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonLighting.cpp
+@@ -1,5 +1,6 @@
+ #include "AuthoredDungeonLighting.h"
+ #include "AuthoredDungeonGenerator.h"
++#include "../Diagnostics/FPSResourceLifecycle.h"
+ 
+ #include "Components/PointLightComponent.h"
+ #include "Components/PrimitiveComponent.h"
+@@ -35,10 +36,16 @@
+ 
+ void AAuthoredDungeonGenerator::EndPlay(const EEndPlayReason::Type EndPlayReason)
+ {
++    FPSResourceLifecycle::Record(this,TEXT("Dungeon.BeforeEndPlay"),{
++        {TEXT("generation_resource_references"),GenerationResources.Num()},
++        {TEXT("render_groups"),RenderGroups.Num()}});
+     CancelAssembly();
+     ResetRoomLighting();
+     LightModules.Reset();
+     RenderGroups.Reset();GenerationResources.Reset();
++    FPSResourceLifecycle::Record(this,TEXT("Dungeon.AfterEndPlay"),{
++        {TEXT("generation_resource_references"),GenerationResources.Num()},
++        {TEXT("render_groups"),RenderGroups.Num()}});
+     Super::EndPlay(EndPlayReason);
+ }
+ 

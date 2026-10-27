@@ -1,6 +1,6 @@
 #include "MonsterRagdollPhysics.h"
 #include "HumanoidRagdollBudget.h"
-#include "MonsterIdleBreathingMeshComponent.h"
+#include "MonsterCorpseMeshComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterAIController.h"
 #include "Animation/PoseSnapshot.h"
@@ -32,7 +32,7 @@ void RetireCorpseTicks(USkeletalMeshComponent* Mesh)
     }
     if (auto* Budget = Mesh->GetWorld()->GetSubsystem<UHumanoidRagdollBudget>())
         Budget->RegisterFrozenMesh(Mesh);
-    if (auto* Body = Cast<UMonsterIdleBreathingMeshComponent>(Mesh))
+    if (auto* Body = Cast<UMonsterCorpseMeshComponent>(Mesh))
         Body->BeginFrozenShadowCaching();
 }
 
@@ -94,7 +94,18 @@ void AlignContainerRoot(USkeletalMeshComponent* Mesh, FName AnchorBone)
         Joint->SetAngularSwing1Limit(ACM_Locked, 0.f); Joint->SetAngularSwing2Limit(ACM_Locked, 0.f);
         Joint->SetAngularTwistLimit(ACM_Locked, 0.f); Joint->SetDisableCollision(true);
     }
-    if (auto* Body = Mesh->GetBodyInstance(Root)) Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    if (auto* Body = Mesh->GetBodyInstance(Root); Body && Body->BodySetup.IsValid())
+    {
+        // Keep the helper body and its locked joint alive. In UE 5.8,
+        // FBodyInstance::SetCollisionEnabled(NoCollision) recreates the entire
+        // skeletal physics state, discarding the alignment above and invalidating
+        // pointers held by the caller's body/constraint iteration.
+        const auto* Setup = Cast<USkeletalBodySetup>(Body->GetBodySetup());
+        const int32 ShapeCount = Setup ? Setup->AggGeom.GetElementCount() : 0;
+        for (int32 ShapeIndex = 0; ShapeIndex < ShapeCount; ++ShapeIndex)
+            Body->SetShapeCollisionEnabled(ShapeIndex, ECollisionEnabled::NoCollision, false);
+        Body->UpdatePhysicsFilterData();
+    }
 }
 
 void BeginHandoff(USkeletalMeshComponent* Mesh, FName AnchorBone, const FVector& LinearVelocity,

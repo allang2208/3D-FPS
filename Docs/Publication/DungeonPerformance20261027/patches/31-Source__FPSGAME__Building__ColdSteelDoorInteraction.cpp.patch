@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/Building/ColdSteelDoorInteraction.cpp
++++ b/Source/FPSGAME/Building/ColdSteelDoorInteraction.cpp
+@@ -25,11 +25,6 @@
+         // 无关蓝图的同名事件。
+     };
+     const TCHAR* InteractInterfacePath = TEXT("/Game/DoorSystem/Player/Blueprints/BI_Interact.BI_Interact_C");
+-    UClass* LoadInteractInterface()
+-    {
+-        static UClass* Cached = LoadObject<UClass>(nullptr, InteractInterfacePath);
+-        return Cached;
+-    }
+ }
+ 
+ bool UColdSteelDoorInteraction::IsDoor(const AActor* Target)
+@@ -37,11 +32,15 @@
+     if (!Target) return false;
+     // 失去支撑正在落体的构件只留外观：不再当作可交互的门／窗（标签由 VoxelBuildPrefabActor::BeginFall 打上）。
+     if (Target->ActorHasTag(TEXT("VoxelDetached"))) return false;
+-    if (const UClass* Interface = LoadInteractInterface())
+-    {
+-        const UClass* Class = Target->GetClass();
+-        if (Class->ImplementsInterface(Interface)) return true;
+-    }
++    // A loaded actor's implemented interfaces are already loaded. Preserve the
++    // superclass/interface inheritance check without pulling the Fab demo player
++    // and HUD into memory from the crosshair's per-frame interaction query.
++    static const FName InteractInterfaceName(TEXT("BI_Interact_C"));
++    for (const UClass* Class = Target->GetClass(); Class; Class = Class->GetSuperClass())
++        for (const auto& Implemented : Class->Interfaces)
++            for (const UClass* Interface = Implemented.Class; Interface; Interface = Interface->GetSuperClass())
++                if (Interface->GetFName() == InteractInterfaceName && Interface->GetPathName() == InteractInterfacePath)
++                    return true;
+     for (const FName& Name : DoorEntryNames)
+         if (Target->FindFunction(Name)) return true;
+     return false;

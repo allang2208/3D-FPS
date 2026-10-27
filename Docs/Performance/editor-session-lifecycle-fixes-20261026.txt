@@ -1,0 +1,54 @@
+2026-10-26 编辑器会话卡顿与准备请求生命周期修复
+
+范围
+基于用户已有的 11:28:04 导出及对应日志继续离线排查，完成源码、配置和后台构建。
+不启动 UE、游戏或新采集，不执行测试。不改画质、怪物数量、战斗规则或现有准备池预算。
+
+已定位的编辑器停顿
+Saved/Logs/FPSGAME-backup-2026.10.26-03.32.10.log:4401：
+03:27:06.255 UTC，自动导入以 ReimportDataTableFactory 处理 Content/ColdSteelData/wood-cores.json。
+同一帧日志 4403 在 03:27:07.565 关闭“数据表选项”窗口。
+已有 UE Trace 中，该帧耗时 1949.50 ms，其中 AddModalWindow 为 1219.58 ms。
+它解释该次明显停顿，不能解释所有持续低帧。
+
+配置修改
+Config/DefaultEditorPerProjectUserSettings.ini 增加 ColdSteelData/*.json 排除规则。
+当前 Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini 同步加入该排除项，
+避免已有用户配置覆盖项目默认值。保留 Localization 排除及其他用户设置。
+JSON 继续由游戏原有读取路径使用；模型、贴图、音频等自动导入规则保持原样。
+修改将在用户下次正常启动编辑器时读取；本轮不打开编辑器。
+
+准备请求修改
+FPSBodyAssetPreloader：GameInstance Deinitialize 时显式 CancelHandle 未完成的固定准备请求，
+再释放本地句柄。仅 Reset 指针不足以取消 StreamableManager 仍持有的请求。
+DungeonMonsterRenderPreparation：复用原有析构清理，提取 CancelDependencyLoads。
+AuthoredDungeonGenerator：生成失败/取消的 CancelGenerationResources 同时调用上述取消方法。
+生成失败会保留 BuildState 用于错误报告，不能只依赖之后析构时才清理请求。
+正常完成时的依赖转交不变；此处取消请求不等于强制中断引擎已开始的全部包 I/O。
+
+本次范围内已有清理逻辑
+玩家背包准备已取消旧 PendingInventoryHandle，并使用请求代次隔离回调。
+PlayerSkillPreparation 已取消待加载请求、销毁临时渲染宿主，并按当前需求回收旧 Residents。
+FacilityHallSpawnSubsystem 与大厅 EndPlay 已回收准备池实例和暖机工作。
+上述路径未再增加重复的管理层；未凭静态阅读宣称整个项目不存在资源泄漏。
+
+WDDM 记录缺口与修正
+gpu-DF45C1894478F7214176018473D09B16 的 ETL 会话头记录 66.260 s，
+但 xperf tracestats 显示实际仅保留末尾 7.482 s，首个事件为 03:27:55.206 UTC。
+因此 files_finalized=true 和 EventsLost=0 只说明原有收尾/计数状态，不能证明首轮数据仍在。
+原始文件不改写；离线统计保存在 Saved/PerformanceLifecycle20261026/etl-statistics.txt。
+
+FPSGpuTraceCapture 改为有界顺序记录：384 MiB 请求停止，为收尾预留空间，硬上限仍为 512 MiB。
+先关闭 ETW 再等游戏线程停止 UE Trace，避免游戏线程停顿时继续写满 ETL。
+触及硬上限不会标为完整包；容量提前停止会在 F6 状态和 manifest 中说明。
+DxgKrnl 去掉 Profiler 事件；该项在原文件保留窗口中产生约 220 万条驱动进入/退出事件。
+D3D12 只保留 Names/Devices/Resources/ObjectLifetime；GPU 通道耗时继续由 UE Trace 提供。
+保留队列调度、分配、驻留、GPU 地址及本项目缓冲身份记录；清单版本为 6。
+顺序/循环模式语义依据：https://learn.microsoft.com/en-us/windows/win32/etw/logging-mode-constants
+
+交付界限
+FPSGAME Win64 Development 编译成功，7 个动作，58.91 s。
+FPSGAMEEditor Win64 Development 编译成功，8 个动作，50.37 s。
+构建产物已落盘；详细结果见 Saved/PerformanceLifecycle20261026 下对应目标 receipt.json 和日志。
+尚未进行游戏测试或新采样，不能给出这批修改的帧率收益。
+持续低帧的 GPU 根因仍待能覆盖问题发生时段的事件关联；不把本次停顿或取消遗漏等同于全部根因。

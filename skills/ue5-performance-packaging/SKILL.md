@@ -13,6 +13,8 @@ description: UE5.6-UE5.8 performance budgeting, regression diagnosis, and packag
 
 ## 怪群 GPU 与区域提前准备
 
+PIE、原工程与独立包性能对照，或资源不全/无怪但帧率更高时，先读 [正式战斗负载与性能基线](references/runtime-baseline-equivalence.md)。构建成功和局部资源覆盖不证明场景等价。
+
 同量蒙皮计算突然变慢、玩家装备随怪群变慢或 F6 驻留采集，读 [共享输出缓冲归因](references/shared-skinning-buffer-diagnosis.md)。提前分摊区域刷怪初始化、控制准备池内存和主客机生命周期，读 [区域提前准备](references/area-spawn-preparation.md)。
 
 - 骨骼装备多个 LOD 仍保持全精度时，读取[连续长靴与渲染 LOD](../asset-model-workflow/references/continuous-boots-and-render-lods.md)：检查独立策略、最终渲染数据和重导入口，不能从减面比例推算帧率。

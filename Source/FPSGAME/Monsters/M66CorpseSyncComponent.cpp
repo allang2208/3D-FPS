@@ -82,7 +82,9 @@ void UM66CorpseSyncComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
     if(!bRemoteSetup)
     {
         Monster->AcceptServerCorpse();
-        Mesh->SetComponentTickEnabled(true);Mesh->SetForcedLOD(1);
+        // This component owns the interpolated snapshot and its one manual
+        // evaluation below. Automatic mesh Tick would evaluate it a second time.
+        Mesh->SetComponentTickEnabled(false);Mesh->SetForcedLOD(1);
         Mesh->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
         Mesh->SetSimulatePhysics(false);Mesh->SetAllBodiesSimulatePhysics(false);Mesh->SetAllBodiesPhysicsBlendWeight(0.f);
         Mesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);Mesh->SetCollisionResponseToAllChannels(ECR_Ignore);
@@ -102,6 +104,14 @@ void UM66CorpseSyncComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
     }
     Mesh->SetWorldTransform(WorldPose,false,nullptr,ETeleportType::TeleportPhysics);
     if(auto* Anim=Cast<UMonsterCorpsePoseAnimInstance>(Mesh->GetAnimInstance()))Anim->HoldPose(Pose);
+    // Retain the LOD/streaming refresh previously supplied by automatic Tick.
+    Mesh->UpdateLODStatus();
     Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
-    if(Packet.Frozen&&Alpha>=1.f){MonsterRagdollPhysics::RetireCorpseTicks(Mesh);SetComponentTickEnabled(false);}
+    if(Alpha>=1.f)
+    {
+        if(Packet.Frozen)MonsterRagdollPhysics::RetireCorpseTicks(Mesh);
+        // Hold the endpoint without resubmitting it while waiting for the next
+        // network sample. OnRep_Packet wakes the same interpolation clock.
+        SetComponentTickEnabled(false);
+    }
 }

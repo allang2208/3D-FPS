@@ -1,0 +1,48 @@
+--- a/Source/FPSGAME/UI/FPSPerformanceMetrics.cpp
++++ b/Source/FPSGAME/UI/FPSPerformanceMetrics.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPerformanceMetrics.h"
++#include "../Diagnostics/FPSResourceLifecycle.h"
+ #include "FPSGpuTraceCapture.h"
+ #include "FPSGpuTraceSessionSubsystem.h"
+ 
+@@ -62,6 +63,7 @@
+ void UFPSPerformanceMetricsSubsystem::Initialize(FSubsystemCollectionBase& Collection)
+ {
+     Super::Initialize(Collection);
++    FPSResourceLifecycle::Record(this, TEXT("World.Initialize"));
+     FrameSamples.SetNum(MaxSamples);
+     CompletedEvents.SetNum(MaxEvents);
+     ActiveEvents.Reserve(16);
+@@ -79,6 +81,7 @@
+ 
+ void UFPSPerformanceMetricsSubsystem::Deinitialize()
+ {
++    FPSResourceLifecycle::Record(this, TEXT("World.Deinitialize"));
+     // Ordinary map travel destroys this World collector, but the GameInstance
+     // retains the user's capture and the destination World reattaches it.
+     GpuTraceCapture.Reset();
+@@ -98,6 +101,7 @@
+     WorstHitches.Empty();
+     RenderResourceSamples.Empty();
+     PreviousRenderHandles.Empty();
++    PreviousDeformationInputs.Empty();
+     Super::Deinitialize();
+ }
+ 
+@@ -110,6 +114,7 @@
+     ResetEncounterDiagnostics();
+     RenderResourceSamples.Reset();
+     PreviousRenderHandles.Reset();
++    PreviousDeformationInputs.Reset();
+     RenderResourceWriteIndex = 0;
+     RenderResourceSamplesOverwritten = 0;
+     NextRenderResourceSampleSeconds = 0.0;
+@@ -144,6 +149,7 @@
+     else
+     {
+         if (GpuTraceCapture) GpuTraceCapture->RequestStop(TEXT("recording_stopped"));
++        PreviousDeformationInputs.Reset();
+         ArchiveCombatWindow(false); InvalidateActiveEvents(); GpuInventoryRequests.Reset();
+     }
+ }

@@ -1,0 +1,313 @@
+--- a/Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp
++++ b/Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp
+@@ -1,6 +1,8 @@
+ // Player-body async preloader implementation. See FPSBodyAssetPreloader.h.
+ 
+ #include "FPSBodyAssetPreloader.h"
++#include "../Diagnostics/FPSResourceLifecycle.h"
++#include "FPSBodyOutfitResources.h"
+ 
+ #include "FPSPreloadAssetRegistry.gen.h"
+ #include "FPSPlayerBodyTypes.h"
+@@ -281,9 +283,8 @@
+         }
+     }
+ 
+-    /** Player body mesh, every animation clip, and the outfit world meshes declared in
+-     *  Content/ColdSteelData/player_body.json. */
+-    void CollectFromBodyConfig(TSet<FSoftObjectPath>& Out)
++    /** Fixed body/animation resources; outfit recipes belong to the carried set. */
++    void CollectFromBodyConfig(TSet<FSoftObjectPath>& Out, TSharedPtr<FJsonObject>& CachedConfig)
+     {
+         FString Json;
+         const FString ConfigPath = FPaths::ProjectContentDir() / TEXT("ColdSteelData/player_body.json");
+@@ -296,6 +297,7 @@
+         {
+             return;
+         }
++        CachedConfig = Root;
+ 
+         FString BodyMesh;
+         if (Root->TryGetStringField(TEXT("body_mesh"), BodyMesh))
+@@ -320,50 +322,15 @@
+         // shared facial grooms and selected hairstyle, retaining the request
+         // until the real components own them. Do not pin every catalogue variant
+         // in this GameInstance-wide bootstrap batch after the player changes hair.
+-        const TSharedPtr<FJsonObject>* Outfits = nullptr;
+-        if (Root->TryGetObjectField(TEXT("outfits"), Outfits))
+-        {
+-            for (const auto& Pair : (*Outfits)->Values)
+-            {
+-                const TSharedPtr<FJsonObject>* Settings = nullptr;
+-                if (!Pair.Value.IsValid() || !Pair.Value->TryGetObject(Settings))
+-                {
+-                    continue;
+-                }
+-                FString WorldMesh;
+-                if ((*Settings)->TryGetStringField(TEXT("world_mesh"), WorldMesh))
+-                {
+-                    AddPath(Out, WorldMesh);
+-                }
+-                FString WorldStaticMesh;
+-                if ((*Settings)->TryGetStringField(TEXT("world_static_mesh"), WorldStaticMesh))
+-                {
+-                    AddPath(Out, WorldStaticMesh);
+-                }
+-                const TSharedPtr<FJsonObject>* RigidPack=nullptr;
+-                FString RigidMesh;
+-                if((*Settings)->TryGetObjectField(TEXT("rigid_pack"),RigidPack)&&(*RigidPack)->TryGetStringField(TEXT("mesh"),RigidMesh))
+-                    AddPath(Out,RigidMesh);
+-                const TSharedPtr<FJsonObject>* Overrides = nullptr;
+-                if ((*Settings)->TryGetObjectField(TEXT("body_materials"), Overrides) ||
+-                    (*Settings)->TryGetObjectField(TEXT("first_person_materials"), Overrides))
+-                {
+-                    for (const auto& Entry : (*Overrides)->Values)
+-                    {
+-                        if (Entry.Value.IsValid())
+-                        {
+-                            AddPath(Out, Entry.Value->AsString());
+-                        }
+-                    }
+-                }
+-            }
+-        }
++        // Legacy ApplyOutfit also has an async recipe fallback for newly acquired
++        // items. Preloading every catalog entry is no longer needed for swaps.
+     }
+ 
+     /** Every weapon the inventory can equip. The paths are read from each item's own
+      *  Data blob, so this uses the same text layer the equipment and UI code use and
+      *  materialises no items (CreateItem mints a GUID per call). */
+-    void CollectFromInventory(TSet<FSoftObjectPath>& Out, UColdSteelStatusModel* Model)
++    void CollectFromInventory(TSet<FSoftObjectPath>& Out, UColdSteelStatusModel* Model,
++        const TSharedPtr<FJsonObject>& Config)
+     {
+         if (!Model)
+         {
+@@ -373,8 +340,15 @@
+             TEXT("viewmodel_mesh"), TEXT("world_mesh"), TEXT("tool_viewmodel"),
+             TEXT("tool_mesh"), TEXT("mesh"), TEXT("preview_mesh"),
+         };
++        const TSharedPtr<FJsonObject>* Outfits = nullptr;
++        if (Config) Config->TryGetObjectField(TEXT("outfits"), Outfits);
++        const auto* Shirt=Model->Items().FindByPredicate([](const FColdSteelItem& Item){return Item.Place==1&&Item.Cell==7;});
++        const FName ShirtDefinition=Shirt?FName(*Shirt->Definition):NAME_None;
++        TSet<FString> Definitions;
+         for (const FColdSteelItem& Item : Model->Items())
+         {
++            // Warehouse/world records share this array but are not carried gear.
++            if (Item.Place != 0 && Item.Place != 1 && Item.Place != 5) continue;
+             for (const TCHAR* Key : AssetKeys)
+             {
+                 const FString Value = ColdSteelInventory::Text(Item, Key);
+@@ -383,6 +357,12 @@
+                     AddPath(Out, Value);
+                 }
+             }
++            if (Outfits && !Definitions.Contains(Item.Definition))
++            {
++                Definitions.Add(Item.Definition);
++                if (const auto Recipe = (*Outfits)->TryGetField(Item.Definition))
++                    FPSBodyOutfitResources::GatherOutfit(Recipe, ShirtDefinition, Out);
++            }
+         }
+     }
+ }
+@@ -390,6 +370,7 @@
+ void UFPSBodyAssetPreloader::Initialize(FSubsystemCollectionBase& Collection)
+ {
+     Super::Initialize(Collection);
++    RecordResourceState(TEXT("Body.Initialize"));
+     TickHandle = FTSTicker::GetCoreTicker().AddTicker(
+         FTickerDelegate::CreateWeakLambda(this, [this](float DeltaTime)
+         {
+@@ -400,26 +381,57 @@
+ 
+ void UFPSBodyAssetPreloader::Deinitialize()
+ {
++    RecordResourceState(TEXT("Body.BeforeDeinitialize"));
++    ++InventoryRequestGeneration;
++    if (StatusModel.IsValid()) StatusModel->OnChanged.Remove(InventoryChangedHandle);
++    InventoryChangedHandle.Reset(); StatusModel.Reset();
++    if (PendingInventoryHandle) PendingInventoryHandle->CancelHandle();
++    PendingInventoryHandle.Reset(); InventoryHandle.Reset(); InventoryPaths.Reset(); BodyConfig.Reset();
+     if (TickHandle.IsValid())
+     {
+         FTSTicker::GetCoreTicker().RemoveTicker(TickHandle);
+         TickHandle.Reset();
+     }
++    // The streamable manager also owns pending handles. Dropping our pointer
++    // alone leaves their requests alive after this GameInstance has shut down.
++    for (const auto& Handle : Handles)
++        if (Handle.IsValid() && !Handle->HasLoadCompleted()) Handle->CancelHandle();
+     Handles.Reset();
++    RecordResourceState(TEXT("Body.AfterDeinitialize"));
+     Super::Deinitialize();
+ }
+ 
++void UFPSBodyAssetPreloader::RecordResourceState(const TCHAR* Phase) const
++{
++    int32 Pending = 0;
++    for (const auto& Handle : Handles)
++        if (Handle && !Handle->HasLoadCompleted() && !Handle->WasCanceled()) ++Pending;
++    TArray<FSoftObjectPath> RetainedPaths;
++    if (InventoryHandle) InventoryHandle->GetRequestedAssets(RetainedPaths);
++    FPSResourceLifecycle::Record(this, Phase, {
++        {TEXT("bootstrap_handles"), Handles.Num()}, {TEXT("bootstrap_pending_handles"), Pending},
++        {TEXT("bootstrap_requested_path_history"), RequestedPaths.Num()},
++        {TEXT("inventory_target_paths"), InventoryPaths.Num()},
++        {TEXT("inventory_retained_paths"), RetainedPaths.Num()},
++        {TEXT("inventory_pending_handle"), PendingInventoryHandle.IsValid() ? 1 : 0}});
++}
++
+ void UFPSBodyAssetPreloader::OnTick(float /*DeltaTime*/)
+ {
+     // Keeps ticking until a game world exists; KickoffOnce sets the flag itself.
+-    if (FPSBodyPreloadPrivate::GAsyncPreload != 0)
++    if (!bKickedOff && FPSBodyPreloadPrivate::GAsyncPreload != 0)
+     {
+         KickoffOnce();
+     }
+-    if (bKickedOff && TickHandle.IsValid())
+-    {
+-        FTSTicker::GetCoreTicker().RemoveTicker(TickHandle);
+-        TickHandle.Reset();
++    if (bKickedOff && FPSBodyPreloadPrivate::GAsyncPreload != 0)
++    {
++        const double Now = FPlatformTime::Seconds();
++        if (Now < NextInventoryRefreshSeconds) return;
++        NextInventoryRefreshSeconds = Now + .5;
++        auto* World = GetGameInstance()->GetWorld();
++        if (!World || !World->IsGameWorld()) return;
++        if (InventoryWorld.Get() != World) { InventoryWorld = World; bInventoryDirty = true; }
++        if (bInventoryDirty) { bInventoryDirty = false; CollectFromStatusModel(); }
+     }
+ }
+ 
+@@ -434,13 +446,8 @@
+     bKickedOff = true;
+ 
+     TSet<FSoftObjectPath> Paths;
+-    FPSBodyPreloadPrivate::CollectFromBodyConfig(Paths);
++    FPSBodyPreloadPrivate::CollectFromBodyConfig(Paths, BodyConfig);
+     FPSBodyPreloadPrivate::CollectFromClassDefaults(Paths, AFPSGAMECharacter::StaticClass());
+-
+-    if (UColdSteelStatusModel* Model = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+-    {
+-        FPSBodyPreloadPrivate::CollectFromInventory(Paths, Model);
+-    }
+ 
+     // Component defaults carry the viewmodel and attachment meshes for the class,
+     // including the per-weapon variants the family headers point at.
+@@ -460,6 +467,11 @@
+     RequestAssets(Paths);
+     const int32 PrimaryCount = RequestedPaths.Num();
+ 
++    StatusModel = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if (StatusModel.IsValid())
++        InventoryChangedHandle = StatusModel->OnChanged.AddWeakLambda(this, [this]() { bInventoryDirty = true; });
++    CollectFromStatusModel(); bInventoryDirty = false; InventoryWorld = World;
++
+     TSet<FSoftObjectPath> EquipmentPaths;
+     if (FPSBodyPreloadPrivate::GPreloadCandidates != 0)
+     {
+@@ -477,9 +489,59 @@
+     RequestAssets(EquipmentPaths);
+ 
+     UE_LOG(LogTemp, Display,
+-        TEXT("BodyAssetPreloader: requested %d assets asynchronously (body/inventory=%d, additional equipment=%d, registry candidates=%d, folder candidates=%d); toggle with fps.body.AsyncPreload"),
+-        RequestedPaths.Num(), PrimaryCount, RequestedPaths.Num() - PrimaryCount,
+-        NamedCount, EquipmentPaths.Num() - NamedCount);
++        TEXT("BodyAssetPreloader: requested %d assets asynchronously (fixed body/defaults=%d, additional equipment=%d, registry candidates=%d, folder candidates=%d); carried scope has %d paths"),
++        GetRequestedCount(), PrimaryCount, RequestedPaths.Num() - PrimaryCount,
++        NamedCount, EquipmentPaths.Num() - NamedCount, InventoryPaths.Num());
++}
++
++void UFPSBodyAssetPreloader::UpdateLoadedCount()
++{
++    LoadedCount = 0;
++    for (const auto& Path : RequestedPaths) LoadedCount += Path.ResolveObject() != nullptr;
++    for (const auto& Path : InventoryPaths) LoadedCount += Path.ResolveObject() != nullptr;
++}
++
++void UFPSBodyAssetPreloader::CollectFromStatusModel()
++{
++    auto* Model = StatusModel.Get();
++    if (!Model) return;
++    TSet<FSoftObjectPath> Wanted;
++    FPSBodyPreloadPrivate::CollectFromInventory(Wanted, Model, BodyConfig);
++    for (const auto& Path : RequestedPaths) Wanted.Remove(Path);
++    const int32 Limit = FPSBodyPreloadPrivate::GMaxAssets > 0
++        ? FMath::Max(0, FPSBodyPreloadPrivate::GMaxAssets - RequestedPaths.Num()) : MAX_int32;
++    if (Wanted.Num() > Limit)
++    {
++        TArray<FSoftObjectPath> Ordered = Wanted.Array();
++        Ordered.Sort([](const auto& A, const auto& B) { return A.ToString() < B.ToString(); });
++        Wanted.Reset();
++        for (int32 I = 0; I < Limit; ++I) Wanted.Add(Ordered[I]);
++    }
++    bool Same = Wanted.Num() == InventoryPaths.Num();
++    for (const auto& Path : Wanted) if (!InventoryPaths.Contains(Path)) { Same = false; break; }
++    if (Same) return;
++    const uint64 Generation = ++InventoryRequestGeneration;
++    if (PendingInventoryHandle) PendingInventoryHandle->CancelHandle();
++    PendingInventoryHandle.Reset(); InventoryPaths = MoveTemp(Wanted);
++    if (InventoryPaths.IsEmpty())
++    {
++        InventoryHandle.Reset(); UpdateLoadedCount();
++        RecordResourceState(TEXT("Body.InventoryReleased"));
++        UE_LOG(LogTemp, Display, TEXT("BodyAssetPreloader: released carried-gear scope (no carried paths)"));
++        return;
++    }
++    // Keep the previous set until the new async set finishes. Real equipped,
++    // dropped and preview components retain their own assets after this handoff.
++    PendingInventoryHandle = UAssetManager::GetStreamableManager().RequestAsyncLoad(InventoryPaths.Array(),
++        FStreamableDelegate::CreateWeakLambda(this, [this, Generation]()
++        {
++            if (Generation != InventoryRequestGeneration) return;
++            InventoryHandle = MoveTemp(PendingInventoryHandle);
++            UpdateLoadedCount();
++            RecordResourceState(TEXT("Body.InventoryReplaced"));
++            UE_LOG(LogTemp, Display, TEXT("BodyAssetPreloader: replaced carried-gear scope (%d paths); obsolete scope released"), InventoryPaths.Num());
++        }), FStreamableManager::DefaultAsyncLoadPriority);
++    RecordResourceState(TEXT("Body.InventoryRequested"));
+ }
+ 
+ void UFPSBodyAssetPreloader::RequestAssets(const TSet<FSoftObjectPath>& Paths)
+@@ -492,11 +554,11 @@
+     ToRequest.Reserve(Paths.Num());
+     for (const FSoftObjectPath& Path : Paths)
+     {
+-        if (Path.IsNull() || RequestedPaths.Contains(Path))
++        if (Path.IsNull() || RequestedPaths.Contains(Path) || InventoryPaths.Contains(Path))
+         {
+             continue;
+         }
+-        if (FPSBodyPreloadPrivate::GMaxAssets > 0 && RequestedPaths.Num() >= FPSBodyPreloadPrivate::GMaxAssets)
++        if (FPSBodyPreloadPrivate::GMaxAssets > 0 && GetRequestedCount() >= FPSBodyPreloadPrivate::GMaxAssets)
+         {
+             UE_LOG(LogTemp, Warning, TEXT("BodyAssetPreloader: asset cap %d reached, %d paths skipped"),
+                 FPSBodyPreloadPrivate::GMaxAssets, Paths.Num() - ToRequest.Num());
+@@ -519,11 +581,9 @@
+             {
+                 // Primary and optional batches may complete in either order.
+                 // Report resolved objects, not all requests when the first finishes.
+-                Self->LoadedCount = 0;
+-                for (const FSoftObjectPath& Path : Self->RequestedPaths)
+-                    Self->LoadedCount += Path.ResolveObject() != nullptr;
++                Self->UpdateLoadedCount();
+                 UE_LOG(LogTemp, Display, TEXT("BodyAssetPreloader: %d / %d assets loaded"),
+-                    Self->LoadedCount, Self->RequestedPaths.Num());
++                    Self->LoadedCount, Self->GetRequestedCount());
+             }
+         }),
+         // Default priority (0): AsyncLoadHighPriority (100) competes with the streaming
+@@ -533,5 +593,6 @@
+     if (Handle.IsValid())
+     {
+         Handles.Add(Handle);
+-    }
+-}
++        RecordResourceState(TEXT("Body.BootstrapRequested"));
++    }
++}

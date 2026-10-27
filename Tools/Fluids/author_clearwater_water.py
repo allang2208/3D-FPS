@@ -240,7 +240,13 @@ def custom(mat, code, inputs, out_type, x, y, description='', preamble=''):
         pins.append(pin)
     expr.set_editor_property('inputs', pins)
     for pin_name, src in inputs:
-        connect(mat, src, expr, pin_name)
+        # These packed values use the alpha channel (frequency, hit strength,
+        # sunlight strength). VectorParameter's unnamed output contains RGB.
+        if isinstance(src, u.MaterialExpressionVectorParameter) and re.fullmatch(r'W\d+|Hit\d+|SunColor', pin_name):
+            if not MEL.connect_material_expressions(src, 'RGBA', expr, pin_name):
+                raise RuntimeError('Packed parameter connection failed: ' + pin_name)
+        else:
+            connect(mat, src, expr, pin_name)
     return expr
 
 

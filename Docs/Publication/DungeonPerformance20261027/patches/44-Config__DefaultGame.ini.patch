@@ -1,0 +1,59 @@
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -12,6 +12,47 @@
+ ProjectID=87128631443E575C00DFA7A699D451BC
+ 
+ [/Script/UnrealEd.ProjectPackagingSettings]
++; Runtime string paths are not automatically discovered by map cooking.
++; 2026-10-26: include dungeon species and resources missing in the standalone run.
+++DirectoriesToAlwaysCook=(Path="/Game/Audio/GodSpaceBGM20261002")
+++DirectoriesToAlwaysCook=(Path="/Game/Audio/PlayerHitFeedback20260914")
+++DirectoriesToAlwaysCook=(Path="/Game/Audio/QuickCombat20260918")
+++DirectoriesToAlwaysCook=(Path="/Game/Audio/SwordAttack20260914")
+++DirectoriesToAlwaysCook=(Path="/Game/Audio/WeaponHit20260916")
+++DirectoriesToAlwaysCook=(Path="/Game/Building/Voxels/Rounded")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/Death20261006/Animations")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/DualPistolStandards20261020")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/Grip")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/KwangSwordLeftContact20261010/Animations")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/Stun20261006/Animations")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations")
+++DirectoriesToAlwaysCook=(Path="/Game/Characters/JasonPlayer20261003/TangDaoWhirlwind20261010/Animations")
+++DirectoriesToAlwaysCook=(Path="/Game/Clearwater")
+++DirectoriesToAlwaysCook=(Path="/Game/Fluids/FluidPolish20260924")
+++DirectoriesToAlwaysCook=(Path="/Game/Fluids/FurnaceCasting20260926")
+++DirectoriesToAlwaysCook=(Path="/Game/Fluids/FurnaceSmoke20260924")
+++DirectoriesToAlwaysCook=(Path="/Game/Fluids/RiverPilot20260923")
+++DirectoriesToAlwaysCook=(Path="/Game/Items/ProductionTools/RusticPickaxe20260919")
+++DirectoriesToAlwaysCook=(Path="/Game/Items/Smelting/Ingot")
+++DirectoriesToAlwaysCook=(Path="/Game/Monsters/BlindSupplicantM07")
+++DirectoriesToAlwaysCook=(Path="/Game/Monsters/BoundCongregate")
+++DirectoriesToAlwaysCook=(Path="/Game/Monsters/LurkerM08")
+++DirectoriesToAlwaysCook=(Path="/Game/Monsters/M10Mawcrawler")
+++DirectoriesToAlwaysCook=(Path="/Game/Monsters/SpitterZombie")
+++DirectoriesToAlwaysCook=(Path="/Game/Monsters/StaffLiving")
+++DirectoriesToAlwaysCook=(Path="/Game/Props/WarehouseCrateTiers20260924/Skeletal")
+++DirectoriesToAlwaysCook=(Path="/Game/Skills/Whirlwind20260920")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/AKM/Audio")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/AKMIntegration/SourceMatched")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/ElectrifiedMelee")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/M4HK416Replica")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/RiftSlash20260930")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/ShatterVFX20260930")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/SwordUppercut20261003/LongGrip")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/SwordUppercut20261003/Standard")
+++DirectoriesToAlwaysCook=(Path="/Game/WorldGeneration/GrassDeform")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/RuneboundWarhammer20261022")
+ ; Backpack meshes referenced by external JSON.
+ +DirectoriesToAlwaysCook=(Path="/Game/Characters/BackpackMotion20261022")
+@@ -280,7 +321,7 @@
+ -PrimaryAssetTypesToScan=(PrimaryAssetType="PrimaryAssetLabel",AssetBaseClass=/Script/Engine.PrimaryAssetLabel,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path="/Game")),SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=Unknown))
+ +PrimaryAssetTypesToScan=(PrimaryAssetType="Map",AssetBaseClass="/Script/Engine.World",bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path="/Game/Maps")),SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=Unknown))
+ +PrimaryAssetTypesToScan=(PrimaryAssetType="PrimaryAssetLabel",AssetBaseClass="/Script/Engine.PrimaryAssetLabel",bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path="/Game")),SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=Unknown))
+-+PrimaryAssetTypesToScan=(PrimaryAssetType="GameFeatureData",AssetBaseClass="/Script/GameFeatures.GameFeatureData",bHasBlueprintClasses=False,bIsEditorOnly=False,Directories=,SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=AlwaysCook))
+++PrimaryAssetTypesToScan=(PrimaryAssetType="GameFeatureData",AssetBaseClass="/Script/GameFeatures.GameFeatureData",bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=,SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=AlwaysCook))
+ bOnlyCookProductionAssets=False
+ bShouldManagerDetermineTypeAndName=False
+ bShouldGuessTypeAndNameInEditor=True

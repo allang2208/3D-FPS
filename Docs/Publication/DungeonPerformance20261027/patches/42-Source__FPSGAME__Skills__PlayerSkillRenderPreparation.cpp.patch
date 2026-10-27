@@ -1,0 +1,50 @@
+--- a/Source/FPSGAME/Skills/PlayerSkillRenderPreparation.cpp
++++ b/Source/FPSGAME/Skills/PlayerSkillRenderPreparation.cpp
+@@ -47,7 +47,7 @@
+         if(auto* Owner=Component->GetOwner())Owner->RemoveInstanceComponent(Component);
+         Component->DestroyComponent();
+     }
+-    CurrentComponent.Reset();CurrentAsset.Reset();bCompileRequested=bActivated=false;
++    CurrentComponent.Reset();CurrentAsset.Reset();AssetPreparation.Reset();bActivated=false;
+ }
+ 
+ bool FPlayerSkillRenderPreparation::Tick(UObject* Asset,UWorld* World,bool bAllowRepresentative,bool& bDeferred)
+@@ -65,26 +65,13 @@
+         // Dragon Breath owns a real, reusable volume on the caster. Never
+         // allocate a second fluid grid as a generic preparation representative.
+         if(System->GetPathName().Contains(TEXT("/DragonBreath20261013/")))return true;
+-#if WITH_EDITOR
+-        if(!bCompileRequested)
+-        {
+-            bCompileRequested=true;
+-            if(!System->IsReadyToRun()&&!System->HasOutstandingCompilationRequests(true))System->RequestCompile(false);
+-            return false;
+-        }
+-        // Flush only a deferred compile REQUEST, never wait for its result.
+-        // HasOutstandingCompilationRequests includes requests not yet submitted;
+-        // polling with false would wait forever and time out every cold effect.
+-        System->PollForCompilationComplete(true);
+-        if(System->HasOutstandingCompilationRequests(true))return false;
+-#endif
+-        if(!System->IsReadyToRun())return false;
++        if(!AssetPreparation.PollScripts(System))return false;
+         if(!bAllowRepresentative){SkipCurrent();bDeferred=true;return true;}
+         auto* FX=Cast<UNiagaraComponent>(CurrentComponent.Get());
+         if(!FX)
+         {
+             auto* Owner=Host(World);if(!Owner)return false;
+-            System->PrecacheAssetPSOs();
++            AssetPreparation.RequestPSOs(System);
+             FX=NewObject<UNiagaraComponent>(Owner);Owner->AddInstanceComponent(FX);FX->SetupAttachment(Owner->GetRootComponent());
+             FX->SetAutoActivate(false);FX->SetAutoDestroy(false);FX->SetAsset(System);
+             // UE 5.8 exposes these instance overrides as reflected properties,
+@@ -108,8 +95,7 @@
+     {UGameplayStatics::PrimeSound(Sound);return true;}
+     if(auto* Cascade=Cast<UParticleSystem>(Asset))
+     {
+-        if(!bCompileRequested){Cascade->PrecacheAssetPSOs();bCompileRequested=true;return false;}
+-        const auto& Event=Cascade->GetPrecachePSOsEvent();return !Event||Event->IsComplete();
++        return AssetPreparation.PollPSOs(Cascade);
+     }
+ #if WITH_EDITOR
+     // UE 5.8 keeps IsCompiling protected; poll the public usable-data state

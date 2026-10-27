@@ -3,6 +3,7 @@
 #include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
+#include "MonsterCorpseMeshComponent.h"
 #include "MonsterCharacterMovementComponent.h"
 #include "M10MovementComponent.h"
 #include "M10AnimInstance.h"
@@ -32,7 +33,8 @@
 #include "Sound/SoundAttenuation.h"
 
 AM10Mawcrawler::AM10Mawcrawler(const FObjectInitializer& Initializer)
-    : Super(Initializer.SetDefaultSubobjectClass<UM10MovementComponent>(CharacterMovementComponentName))
+    : Super(Initializer.SetDefaultSubobjectClass<UM10MovementComponent>(CharacterMovementComponentName)
+        .SetDefaultSubobjectClass<UMonsterCorpseMeshComponent>(MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick=true;
     Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));

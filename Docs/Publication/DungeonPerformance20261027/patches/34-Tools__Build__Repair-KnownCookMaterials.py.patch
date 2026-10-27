@@ -1,0 +1,173 @@
+--- a/Tools/Build/Repair-KnownCookMaterials.py
++++ b/Tools/Build/Repair-KnownCookMaterials.py
+@@ -0,0 +1,170 @@
++"""Repair material graph errors reported by the October 26 package cook.
++
++Run as a Python commandlet with the editor closed. Saves assets, never plays or
++renders a scene. Preserve all formulas, material settings and parameter values.
++"""
++import datetime
++import json
++import re
++import shutil
++from pathlib import Path
++
++import unreal as u
++
++ROOT = Path("D:/FPS3D/FPSGAME")
++OUT = ROOT / "Saved/PackagingRepair20261026"
++BACKUP = OUT / ("materials-before-" + datetime.datetime.now().strftime("%H%M%S"))
++LIB = u.MaterialEditingLibrary
++SAVED = []
++
++
++def load(path):
++    source = ROOT / ("Content/" + path.removeprefix("/Game/") + ".uasset")
++    target = BACKUP / source.relative_to(ROOT / "Content")
++    target.parent.mkdir(parents=True, exist_ok=True)
++    shutil.copy2(source, target)
++    mat = u.load_asset(path)
++    if not isinstance(mat, u.Material):
++        raise RuntimeError("Expected material: " + path)
++    return mat, list(LIB.get_material_expressions(mat))
++
++
++def connect(source, output, target, pin):
++    if not LIB.connect_material_expressions(source, output, target, pin):
++        raise RuntimeError("Cannot connect " + source.get_name() + " -> " + target.get_name() + "." + pin)
++
++
++def save(mat, details):
++    errors = LIB.recompile_material(mat)
++    if errors:
++        raise RuntimeError("Material compilation failed: " + str(errors))
++    if not u.EditorAssetLibrary.save_loaded_asset(mat, False):
++        raise RuntimeError("Material save failed: " + mat.get_path_name())
++    SAVED.append({"asset": mat.get_path_name(), "changes": details})
++    (OUT / "material-repair.json").write_text(json.dumps({
++        "saved": SAVED, "backup": str(BACKUP), "runtime_tested": False,
++    }, ensure_ascii=False, indent=2), encoding="utf-8")
++    u.log("PACKAGE_MATERIAL_SAVED " + mat.get_path_name())
++
++
++def repair_warning():
++    mat, nodes = load("/Game/Monsters/LurkerM08/AirWarningV11/M_M08_AirWarning_V11")
++    custom = [n for n in nodes if isinstance(n, u.MaterialExpressionCustom)]
++    masks = [n for n in nodes if isinstance(n, u.MaterialExpressionComponentMask)]
++    if len(custom) != 1 or len(masks) != 2:
++        raise RuntimeError("M08 warning graph differs from its authoring script")
++    for mask in masks:
++        connect(custom[0], "", mask, "")
++    save(mat, "Restore Custom RGBA output to existing RGB/alpha masks")
++
++
++def repair_water():
++    mat, nodes = load("/Game/Clearwater/M_ClearwaterWater")
++    changed = 0
++    for node in nodes:
++        if not isinstance(node, u.MaterialExpressionCustom):
++            continue
++        pins = [str(p.get_editor_property("input_name")) for p in node.get_editor_property("inputs")]
++        sources = list(LIB.get_inputs_for_material_expression(mat, node))
++        if len(pins) != len(sources):
++            raise RuntimeError("Water custom input layout differs from the saved graph")
++        for pin, source in zip(pins, sources):
++            if re.fullmatch(r"W\d+|Hit\d+|SunColor", pin):
++                if not isinstance(source, u.MaterialExpressionVectorParameter):
++                    raise RuntimeError("Expected packed water vector at " + pin)
++                connect(source, "RGBA", node, pin)
++                changed += 1
++    if not changed:
++        raise RuntimeError("No packed water inputs found")
++    save(mat, "Restore fourth channel on %d packed parameter connections" % changed)
++
++
++def repair_timber():
++    mat, nodes = load("/Game/Items/HarvestTimber/M_CutUpperMotion")
++    masks = [n for n in nodes if isinstance(n, u.MaterialExpressionCustom)
++             and "saturate(step(T,P.z)" in str(n.get_editor_property("code"))]
++    if len(masks) != 1:
++        raise RuntimeError("Expected one authored timber trim mask")
++    mask = masks[0]
++    code = str(mask.get_editor_property("code"))
++    inputs = list(mask.get_editor_property("inputs"))
++    names = [str(p.get_editor_property("input_name")) for p in inputs]
++    if names[:6] != ["O", "P", "H", "F", "R", "T"] or len(inputs) != 9:
++        raise RuntimeError("Unexpected timber mask inputs: " + str(names))
++    parameters = {str(n.get_editor_property("parameter_name")): n for n in nodes
++                  if isinstance(n, u.MaterialExpressionScalarParameter)}
++    bindings = []
++    for index, (name, short) in enumerate([
++        ("HarvestStubZMax", "Z"), ("HarvestStubYaw", "Y"), ("HarvestStubYawTol", "W")
++    ], start=6):
++        if names[index] not in (name, short):
++            raise RuntimeError("Unexpected timber stub input: " + names[index])
++        # The original patch used short variable names in HLSL, but left long
++        # parameter names on the pins. Keep the existing HLSL unchanged.
++        pin = short if re.search(r"\b" + short + r"\b", code) else names[index]
++        inputs[index].set_editor_property("input_name", pin)
++        source = parameters.get(name)
++        if source is None:
++            source = LIB.create_material_expression(mat, u.MaterialExpressionScalarParameter, -300, -800 + index * 150)
++            source.set_editor_property("parameter_name", name)
++            source.set_editor_property("default_value", 0.0)
++        bindings.append((source, pin))
++    mask.set_editor_property("inputs", inputs)
++    for source, pin in bindings:
++        connect(source, "", mask, pin)
++    save(mat, "Reconnect existing stub mask parameters using the authored HLSL names")
++
++
++def repair_grips():
++    for name in ("M_RG01_phantom_945f8c7bf65e", "M_RG01_balanced_2d9d058ead3f"):
++        mat, nodes = load("/Game/Weapons/RearGripSurface20261007/Materials/" + name)
++        targets = [n for n in nodes if isinstance(n, u.MaterialExpressionCustom)
++                   and str(n.get_editor_property("description")) == "Rear grip polymer surface refinement 20261007"]
++        colors = [n for n in nodes if isinstance(n, u.MaterialExpressionVertexColor)]
++        if len(targets) != 1 or not colors:
++            raise RuntimeError("Rear grip graph differs from the authoring script")
++        inputs = list(LIB.get_inputs_for_material_expression(mat, targets[0]))
++        names = [str(p.get_editor_property("input_name")) for p in targets[0].get_editor_property("inputs")]
++        polymer = inputs[names.index("Polymer")]
++        if not isinstance(polymer, u.MaterialExpressionOneMinus):
++            raise RuntimeError("Expected vertex color inverse for grip polymer mask")
++        connect(colors[-1], "R", polymer, "")
++        save(mat, "Restore vertex color R to existing OneMinus polymer mask")
++
++
++def repair_slag():
++    base = "/Game/Monsters/HundredEyedSlag/"
++    mat, nodes = load(base + "BlackMistV17/M_SlagMistView")
++    changed = 0
++    for node in nodes:
++        if isinstance(node, u.MaterialExpressionCustom):
++            code = str(node.get_editor_property("code"))
++            if "float3 point = CameraOrigin" in code:
++                # 'point' is a shader-language modifier, not a valid variable.
++                node.set_editor_property("code", re.sub(r"\bpoint\b", "mistSamplePosition", code))
++                changed += 1
++    if not changed:
++        raise RuntimeError("Expected mist sampling variable in authored HLSL")
++    save(mat, "Rename reserved HLSL identifier; keep the mist formula")
++    for path in ("V1/Materials/M_HundredEyedSlag_Skin", "PolishV2/Backup/M_HundredEyedSlag_Skin_V1"):
++        mat, nodes = load(base + path)
++        changed = 0
++        for node in nodes:
++            if isinstance(node, u.MaterialExpressionTextureSample):
++                texture = node.get_editor_property("texture")
++                if texture and texture.get_name() in ("T_HundredEyedSlag_Roughness", "T_HundredEyedSlag_Metallic"):
++                    node.set_editor_property("sampler_type", u.MaterialSamplerType.SAMPLERTYPE_MASKS)
++                    changed += 1
++        if changed != 2:
++            raise RuntimeError("Expected the two existing slag scalar texture samples")
++        save(mat, "Match scalar texture samplers to existing Masks texture compression")
++
++
++if Path(u.Paths.project_dir()).resolve() != ROOT.resolve():
++    raise RuntimeError("Wrong project")
++repair_warning()
++repair_water()
++repair_timber()
++repair_grips()
++repair_slag()
++u.log("PACKAGE_MATERIAL_REPAIR_COMPLETE")

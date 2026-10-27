@@ -1,0 +1,53 @@
+--- a/Source/FPSGAME/Weapons/FPSImpactFXPreparation.cpp
++++ b/Source/FPSGAME/Weapons/FPSImpactFXPreparation.cpp
+@@ -0,0 +1,50 @@
++#include "FPSImpactFXSubsystem.h"
++#include "Components/InstancedStaticMeshComponent.h"
++#include "Components/DecalComponent.h"
++#include "Engine/World.h"
++#include "Materials/Material.h"
++#include "Materials/MaterialInterface.h"
++#include "Misc/App.h"
++
++bool UFPSImpactFXSubsystem::PumpRenderPreparation(double Deadline,FString& Error)
++{
++    if(!Error.IsEmpty())return false;
++    if(bRenderPreparationReady||!FApp::CanEverRender()||GetWorld()->GetNetMode()==NM_DedicatedServer)return true;
++    auto Waiting=[this,&Error](const UObject* Asset)
++    {
++        if(PreparationWaitStarted==0.)PreparationWaitStarted=FPlatformTime::Seconds();
++        else if(FPlatformTime::Seconds()-PreparationWaitStarted>120.)
++            Error=TEXT("命中特效材质与渲染管线准备超时：")+GetPathNameSafe(Asset);
++        return false;
++    };
++    if(!bReady)return Waiting(this);
++    const int32 SurfaceCount=FMath::Min(Decals.Num(),DecalMaterials.Num());
++    const int32 Count=Renderers.Num()+SurfaceCount+(BloodDecals.IsEmpty()?0:1);
++    while(PreparationCursor<Count&&FPlatformTime::Seconds()<Deadline)
++    {
++        UInstancedStaticMeshComponent* Renderer=nullptr;
++        UDecalComponent* Decal=nullptr;
++        if(PreparationCursor<Renderers.Num())Renderer=Renderers[PreparationCursor];
++        else if(PreparationCursor<Renderers.Num()+SurfaceCount)Decal=Decals[PreparationCursor-Renderers.Num()];
++        else Decal=BloodDecals[0];
++        if(!bPreparationSubmitted)
++        {
++            TArray<UMaterialInterface*> Materials;
++            if(Renderer)Renderer->GetUsedMaterials(Materials);
++            else if(Decal&&Decal->GetDecalMaterial())Materials.Add(Decal->GetDecalMaterial());
++#if WITH_EDITOR
++            for(auto* Material:Materials)
++                if(Material&&Material->GetMaterial()->IsCompiling())return Waiting(Material);
++#endif
++            if(Renderer)Renderer->PrecachePSOs();
++            else if(Decal)Decal->PrecachePSOs();
++            bPreparationSubmitted=true;
++            return Waiting(Renderer?static_cast<UObject*>(Renderer):static_cast<UObject*>(Decal));
++        }
++        if(Renderer&&Renderer->IsPSOPrecaching())return Waiting(Renderer);
++        if(Decal&&Decal->GetPSOPrecacheComponentData().IsPSOPrecaching())return Waiting(Decal);
++        ++PreparationCursor;bPreparationSubmitted=false;PreparationWaitStarted=0.;
++    }
++    bRenderPreparationReady=PreparationCursor==Count;
++    return bRenderPreparationReady;
++}

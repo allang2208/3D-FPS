@@ -1,7 +1,7 @@
 #include "M14SoftBodyDeath.h"
 #include "M14XPBDConstraints.h"
 #include "HumanoidRagdollBudget.h"
-#include "Components/PoseableMeshComponent.h"
+#include "MonsterCorpseMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
@@ -61,7 +61,7 @@ bool UM14SoftBodyDeathComponent::Start(USkeletalMeshComponent* LivingMesh,UM14So
     ProjectContacts();ProjectHardware();
     if(GetWorld()->GetNetMode()!=NM_DedicatedServer)
     {
-        Display=NewObject<UPoseableMeshComponent>(GetOwner(),TEXT("M14SoftCorpseDisplay"));
+        Display=NewObject<UMonsterCorpsePoseableMeshComponent>(GetOwner(),TEXT("M14SoftCorpseDisplay"));
         Display->SetSkinnedAssetAndUpdate(Data->CorpseMesh);
         // Preserve per-instance wound/skin parameters on the deformed-normal materials.
         for(int32 Slot=0;Slot<LivingMesh->GetNumMaterials();++Slot)
@@ -317,12 +317,12 @@ void UM14SoftBodyDeathComponent::DampInternalVelocity(float Dt)
 void UM14SoftBodyDeathComponent::UpdateMesh()
 {
     if(!Display)return;
-    Display->BoneSpaceTransforms=BindFrames;
+    auto& NextPose=RenderPoseScratch;NextPose=BindFrames;
     const FTransform Root=BindFrames[0];
     for(int32 I=0;I<Data->SoftNodeCount;++I)
     {
         const FVector Local=MeshToWorld.InverseTransformPosition(ToWorld(Positions[I]));
-        Display->BoneSpaceTransforms[Data->Nodes[I].RenderBone]=FTransform(FQuat::Identity,Local).GetRelativeTransform(Root);
+        NextPose[Data->Nodes[I].RenderBone]=FTransform(FQuat::Identity,Local).GetRelativeTransform(Root);
     }
     for(int32 I=0;I<Data->Hardware.Num();++I)
     {
@@ -330,8 +330,14 @@ void UM14SoftBodyDeathComponent::UpdateMesh()
         for(int32 N:H.Nodes)Center+=Positions[N];Center/=4.;
         const FQuat LocalRotation=MeshToWorld.GetRotation().Inverse()*HardwareRotation[I]*MeshToWorld.GetRotation();
         const FTransform Local(LocalRotation,MeshToWorld.InverseTransformPosition(ToWorld(Center)));
-        Display->BoneSpaceTransforms[H.RenderBone]=Local.GetRelativeTransform(Root);
+        NextPose[H.RenderBone]=Local.GetRelativeTransform(Root);
     }
+    // Exact comparison, without a motion threshold: keep every authored solver
+    // movement, but do not invalidate skinning/BLAS/bounds for an identical pose.
+    bool Same=bHasSubmittedPose&&NextPose.Num()==Display->BoneSpaceTransforms.Num();
+    for(int32 I=0;Same&&I<NextPose.Num();++I)Same=NextPose[I].Equals(Display->BoneSpaceTransforms[I],0.);
+    if(Same)return;
+    Swap(Display->BoneSpaceTransforms,NextPose);bHasSubmittedPose=true;
     Display->MarkRefreshTransformDirty();Display->RefreshBoneTransforms();
 }
 
@@ -350,17 +356,18 @@ bool UM14SoftBodyDeathComponent::Advance(float Dt)
     {RefreshContact(ContactCursor);ContactCursor=(ContactCursor+1)%Positions.Num();}
     Accumulator=FMath::Min(Accumulator+Dt,.05f);
     constexpr float Step=1.f/120.f;
-    while(Accumulator>=Step){Substep(Step);Accumulator-=Step;}
-    UpdateMesh();
+    bool Advanced=false;
+    while(Accumulator>=Step){Substep(Step);Accumulator-=Step;Advanced=true;}
+    if(Advanced)UpdateMesh();
     double Energy=0.;int32 Contacts=0;
     for(int32 I=0;I<Velocities.Num();++I){Energy+=Velocities[I].SquaredLength();Contacts+=Grounded[I]?1:0;}
     const bool Quiet=Elapsed>2.f&&Contacts>FMath::Max(6,Data->SoftNodeCount/12)&&Energy/Velocities.Num()<.0016;
     QuietSeconds=Quiet?QuietSeconds+Dt:0.f;
-    if(QuietSeconds>.7f){bSettled=true;ReleaseBudget();}
+    if(QuietSeconds>.7f){bSettled=true;ReleaseBudget();if(Display)Display->BeginFrozenShadowCaching();}
     return bSettled;
 }
 void UM14SoftBodyDeathComponent::FreezeForBudget()
-{if(CanReleaseCorpseBudget()){bSettled=true;ReleaseBudget();}}
+{if(CanReleaseCorpseBudget()){bSettled=true;ReleaseBudget();if(Display)Display->BeginFrozenShadowCaching();}}
 void UM14SoftBodyDeathComponent::ReleaseBudget()
 {
     if(bBudget&&GetWorld())GetWorld()->GetSubsystem<UHumanoidRagdollBudget>()->Release(this);

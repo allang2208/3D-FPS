@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "FPSBodyPoseAnchorComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -37,7 +38,7 @@ void UFPSPlayerBodyComponent::InitializeFirstPersonLowerBody()
     OwnerCameraTorsoClearance=Read(TEXT("torso_front_clearance_cm"),40.f);
     bLowerBodyRequested=true;
     auto* Body=GetBodyMesh();auto* Mesh=Body->GetSkeletalMeshAsset();
-    auto* Lower=NewObject<USkeletalMeshComponent>(GetOwner(),TEXT("FirstPersonSharedBody"),RF_Transient);
+    auto* Lower=NewObject<UFPSBodyPoseAnchorComponent>(GetOwner(),TEXT("FirstPersonSharedBody"),RF_Transient);
     GetOwner()->AddInstanceComponent(Lower);
     Lower->ComponentTags.Append({TEXT("FirstPersonLowerBody"),TEXT("SharedOwnerBody"),TEXT("PreloadModularOutfit")});
     Lower->SetSkeletalMeshAsset(Mesh);

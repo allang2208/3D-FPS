@@ -215,6 +215,11 @@ for clip in CLIPS:
         seq = A.create_asset(name, DEST + '/Animations', u.AnimSequence, factory)
         if not seq:
             raise RuntimeError('Cannot create ' + path)
+    # SetFrameRate updates the source model only. Keep compression at the authored
+    # rate before closing the edit bracket: 222 intervals at 120 Hz cannot be
+    # resampled to the default 30 Hz (55.5 frames; UE asserts during compression).
+    authored_rate = u.FrameRate(numerator=data['fps'], denominator=1)
+    seq.get_editor_property('platform_target_frame_rate').set_editor_property('default', authored_rate)
     controller = seq.get_editor_property('controller')
     if controller is None:
         controller = u.AnimDataController()
@@ -223,7 +228,7 @@ for clip in CLIPS:
     controller.open_bracket('Kukri ' + clip, False)
     try:
         controller.remove_all_bone_tracks(False)
-        controller.set_frame_rate(u.FrameRate(numerator=data['fps'], denominator=1), False)
+        controller.set_frame_rate(authored_rate, False)
         controller.set_number_of_frames(u.FrameNumber(value=len(frames) - 1), False)
         for bone in data['bones']:
             if not controller.add_bone_curve(bone, False):
@@ -241,6 +246,9 @@ for clip in CLIPS:
     seq.set_editor_property('force_root_lock', False)
     L.set_metadata_tag(seq, 'Kukri.AuthorSource', str(P / 'Clips' / (clip + '.json')))
     L.set_metadata_tag(seq, 'Kukri.Revision', REVISION)
+    # Complete this asset's compression before saving or reporting import success.
+    if not u.WeaponAnimationAuthoring.finalize_authored_animation(seq):
+        raise RuntimeError('Cannot finalize ' + path)
     save(seq)
     receipt['animations'][path] = dict(frames=len(frames), fps=data['fps'], seconds=(len(frames) - 1) / data['fps'],
                                        play_length=seq.get_play_length(), contact=data.get('contact'), loop=data['loop'])
@@ -249,4 +257,3 @@ for clip in CLIPS:
 receipt['complete'] = True
 (P / 'import_receipt.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
 u.log('KUKRI_IMPORT_COMPLETE assets=%d' % len(receipt['assets']))
-

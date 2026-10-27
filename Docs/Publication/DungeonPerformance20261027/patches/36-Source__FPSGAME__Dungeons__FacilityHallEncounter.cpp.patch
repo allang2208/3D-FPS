@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+@@ -685,8 +685,8 @@
+ {
+     if (bStopping) return;
+     if (!Run.IsValid() || !Run->IsRunActive() || !Generator.IsValid()) { Destroy(); return; }
+-    if (!bCleared)
+-        GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>()->RequestPreparation(this);
++    // The area's update is the single owner of optional preparation requests.
++    // This room timer only advances its existing gameplay/wave state.
+     if (!bConfigured || Generator->IsPreparationPending() || !Theme.IsValid() || !Theme->HasStarted()) return;
+     // Sealing an area starts its waves, not omniscient aggro. Each monster
+     // acquires through sight/damage or investigates a nearby ally's warning.

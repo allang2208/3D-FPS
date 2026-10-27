@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
++++ b/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
+@@ -200,6 +200,13 @@
+     Audio->AttenuationOverrides.FalloffDistance=2500.f;
+ }
+ 
++UNiagaraSystem* AWardGlassBurst::ResolveImpactSystem(const UWardBreakableGlass* Pane)
++{
++    UNiagaraSystem* System=Pane->ImpactParticles;
++    return !System || System->GetFName()==TEXT("NS_Impact_Glass")
++        ? GetDefault<AWardGlassBurst>()->Glints->GetAsset() : System;
++}
++
+ void AWardGlassBurst::Play(const UWardBreakableGlass* Pane,const FVector& HitPoint,const FVector& ShotDirection)
+ {
+     GetWorldTimerManager().ClearTimer(ReleaseTimer);
+@@ -231,9 +238,7 @@
+     Material->SetVectorParameterValue(TEXT("HitPoint"),FLinearColor(HitPoint));
+     Material->SetVectorParameterValue(TEXT("ShotDirection"),FLinearColor(ShotDirection.GetSafeNormal()));
+     SetActorHiddenInGame(false);
+-    UNiagaraSystem* ImpactSystem=Pane->ImpactParticles;
+-    if(!ImpactSystem || ImpactSystem->GetFName()==TEXT("NS_Impact_Glass"))
+-        ImpactSystem=GetDefault<AWardGlassBurst>()->Glints->GetAsset();
++    UNiagaraSystem* ImpactSystem=ResolveImpactSystem(Pane);
+     if(ImpactSystem)
+     {
+         // The shared gun-impact system contains an emitter-source crack sprite:

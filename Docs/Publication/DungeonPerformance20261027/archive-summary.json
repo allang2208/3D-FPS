@@ -1,0 +1,50 @@
+{
+  "archive_root": "F:\\FPSGAMEData\\trash\\dungeon-performance-20261027",
+  "directory_count": 6,
+  "file_count": 148,
+  "bytes": 49690868143,
+  "hash_readback": true,
+  "source_directories": [
+    "PerformanceDevelopment-20261026-130133",
+    "PerformanceDevelopment-20261026-143445",
+    "PerformanceDevelopment-20261026-150509",
+    "PerformanceDevelopment-20261026-220735",
+    "PerformanceDevelopment-20261026-221426",
+    "PerformanceDevelopment-20261026-225529"
+  ],
+  "runtime_tests_run": false,
+  "small_files": [
+    {
+      "source": "Tools/Performance/Build-DevelopmentBaseline.ps1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\dungeon-performance-20261027\\Tools\\Performance\\Build-DevelopmentBaseline.ps1",
+      "bytes": 4451,
+      "sha256": "855c6cd7ac5cd19813232ab108b5455b73432993a665d51b68cec357c4b08380",
+      "reason": "Rejected non-equivalent standalone performance baseline; use normal full project entry",
+      "hash_readback": true
+    },
+    {
+      "source": "Saved/AnimationCompressionRepair20261027/repair.ps1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\dungeon-performance-20261027\\Saved\\AnimationCompressionRepair20261027\\repair.ps1",
+      "bytes": 2820,
+      "sha256": "76e93dc2f1d2ca9e7dd9dd95b88bedaef743ce2e6944c8b3b479fb3640219a16",
+      "reason": "Completed one-off animation repair; maintained importer retains the fix",
+      "hash_readback": true
+    },
+    {
+      "source": "Saved/AnimationCompressionRepair20261027/083249/A_Kukri_DualAttack3.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\dungeon-performance-20261027\\Saved\\AnimationCompressionRepair20261027\\083249\\A_Kukri_DualAttack3.uasset",
+      "bytes": 1230291,
+      "sha256": "8927bbcff52ebb63ae097ef2e5f8e216ede2747d1c2c06ffa80ec5585e1c2680",
+      "reason": "Invalid pre-repair animation backup retained for recovery; active repaired asset stays in Content",
+      "hash_readback": true
+    },
+    {
+      "source": "Saved/AnimationCompressionRepair20261027/083249/import_receipt.before.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\dungeon-performance-20261027\\Saved\\AnimationCompressionRepair20261027\\083249\\import_receipt.before.json",
+      "bytes": 488,
+      "sha256": "b322a44a0f70ab9ccf064371f79917c9caaf8900b15c94dcafe4361f1656cbbd",
+      "reason": "Receipt paired with invalid pre-repair backup",
+      "hash_readback": true
+    }
+  ]
+}

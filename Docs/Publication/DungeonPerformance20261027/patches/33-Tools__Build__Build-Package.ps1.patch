@@ -1,0 +1,82 @@
+--- a/Tools/Build/Build-Package.ps1
++++ b/Tools/Build/Build-Package.ps1
+@@ -48,7 +48,9 @@
+     # half-finished file is a timing problem, not a verdict: retry that many extra times.
+     # Cook/stage failures are never retried.
+     [int]$RetryOnCompileFailure = 0,
+-    [int]$RetryDelaySeconds = 600
++    [int]$RetryDelaySeconds = 600,
++    # Per-run cooker scheduling options; not staged as runtime game settings.
++    [string]$AdditionalCookerOptions = ''
+ )
+ 
+ $ErrorActionPreference = 'Stop'
+@@ -156,6 +158,26 @@
+     }
+ }
+ 
++# Runtime paths held in strings/JSON are not a map dependency. These known
++# required packages must have source inputs and appear in the completed cook.
++$requiredRuntimePackages = @()
++if (-not $SkipCook) {
++    $runtimeManifest = Join-Path $projectRoot 'Config/Packaging/RequiredRuntimePackages.txt'
++    $requiredRuntimePackages = @(Get-Content -LiteralPath $runtimeManifest |
++        ForEach-Object { $_.Trim() } | Where-Object { $_ -and -not $_.StartsWith('#') } |
++        Sort-Object -Unique)
++    foreach ($package in $requiredRuntimePackages) {
++        if ($package -notmatch '^/Game/[A-Za-z0-9_/]+$') {
++            throw "Invalid required runtime package in ${runtimeManifest}: $package"
++        }
++        $sourceBase = Join-Path $projectRoot ('Content/' + $package.Substring(6))
++        if (-not (Test-Path -LiteralPath ($sourceBase + '.uasset')) -and
++            -not (Test-Path -LiteralPath ($sourceBase + '.umap'))) {
++            throw "Required runtime package has no source file: $package"
++        }
++    }
++}
++
+ $uatArgs = @(
+     'BuildCookRun',
+     "-project=$projectFile",
+@@ -172,6 +194,9 @@
+ if (-not $WithDebugInfo) { $uatArgs += '-nodebuginfo' }
+ if (-not $SkipBuild) { $uatArgs += '-build' }
+ if (-not $SkipCook) { $uatArgs += @('-cook', "-map=$mapArg") }
++if (-not $SkipCook -and -not [string]::IsNullOrWhiteSpace($AdditionalCookerOptions)) {
++    $uatArgs += "-AdditionalCookerOptions=$AdditionalCookerOptions"
++}
+ if (-not $SkipStage) { $uatArgs += @('-stage', '-pak', '-iostore') }
+ if ($SkipCook -and -not $SkipStage) { throw '-SkipStage is required when -SkipCook is set (staging needs cooked data).' }
+ 
+@@ -214,4 +239,31 @@
+ 
+ Write-Output "log: $logFile"
+ if ($code -ne 0) { exit $code }
+-Write-Output "staged build: $(Join-Path $ArchiveDir 'Windows')"+if (-not $SkipCook) {
++    # Cook can succeed while shipping a default material for shader failures.
++    # Preserve the authored appearance: treat that build diagnostic as failure.
++    $materialFailures = @(Select-String -LiteralPath $logFile -Pattern 'Failed to compile Material.*Default Material will be used in game' |
++        ForEach-Object { $_.Line } | Sort-Object -Unique)
++    if ($materialFailures.Count) {
++        $materialFailurePath = [IO.Path]::ChangeExtension($logFile, 'material-failures.txt')
++        $materialFailures | Set-Content -LiteralPath $materialFailurePath -Encoding utf8
++        throw "Cook produced fallback materials. Repair the shader errors before delivery: $materialFailurePath"
++    }
++    # ReferencedSet belongs to this full Windows cook. Read package identities
++    # rather than accepting an old loose cooked file as proof of inclusion.
++    $referencedSetPath = Join-Path $projectRoot 'Saved/Cooked/Windows/FPSGAME/Metadata/ReferencedSet.txt'
++    $cookedPackages = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
++    foreach ($package in Get-Content -LiteralPath $referencedSetPath) {
++        [void]$cookedPackages.Add($package.Trim())
++    }
++    $missingRuntimePackages = @($requiredRuntimePackages | Where-Object { -not $cookedPackages.Contains($_) })
++    $coveragePath = [IO.Path]::ChangeExtension($logFile, 'runtime-packages.json')
++    [ordered]@{required_count=$requiredRuntimePackages.Count;missing=$missingRuntimePackages;
++        referenced_set=$referencedSetPath;archive=$ArchiveDir;runtime_tested=$false} |
++        ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $coveragePath -Encoding utf8
++    if ($missingRuntimePackages.Count) {
++        throw "Cook omitted required runtime packages: $($missingRuntimePackages -join ', '). Details: $coveragePath"
++    }
++    Write-Output "required runtime packages cooked: $($requiredRuntimePackages.Count)"
++}
++Write-Output "staged build: $(Join-Path $ArchiveDir 'Windows')"
