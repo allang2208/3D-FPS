@@ -1,0 +1,72 @@
+{
+  "purpose": "User-requested stronger heart-piercing-arrow auditions; layered sound design, not raw recordings",
+  "sample_rate": 48000,
+  "channels": 2,
+  "rng_seed": 261026,
+  "runtime_modified": false,
+  "game_tested": false,
+  "listening_approved": false,
+  "loudness_note": "Shared -3 dBFS sample peak; no claim of perceptual loudness matching. Changes are attack, layering, spectral body and tail, not master gain alone.",
+  "sources": [
+    {
+      "file": "Sources\\Bow.wav",
+      "sha256": "0dc8cf132cf583563936ac3a4d776e196210d5f6703b4ebdd7c68e8f35b9f3e3",
+      "license": "CC0-1.0"
+    },
+    {
+      "file": "Sources\\English_Longbow_Shoot.wav",
+      "sha256": "c25684ccdab3eb13f17a0ffa637fbd175659d092665f16c0bce8510d46c4fbee",
+      "license": "CC0-1.0"
+    },
+    {
+      "file": "Sources\\swish_2.wav",
+      "sha256": "690725fd44a99a4abd32d59c0efe8e28486afb564d3f5710cca75a2c786cf0f1",
+      "license": "CC0-1.0"
+    },
+    {
+      "file": "Sources\\swish_3.wav",
+      "sha256": "7767c7b6ba063d8d5de6e05ba29c037af5c4a19d02b00b6b5ff398f72732e1c9",
+      "license": "CC0-1.0"
+    },
+    {
+      "file": "Sources\\swish_4.wav",
+      "sha256": "a53382f21d9c7e4d7a1d6e8cddc9ce9779740f9ad2ba4d9012ee20318c04f24c",
+      "license": "CC0-1.0"
+    }
+  ],
+  "candidates": [
+    {
+      "candidate": "E",
+      "title": "重弦崩响",
+      "single": "Singles\\E_HeavySnap.wav",
+      "audition": "Auditions\\E_HeavySnap_2x.wav",
+      "seconds": 0.68,
+      "recipe": "Lowered bow/string layers + short low-body impulse + short pressure transient + fast swish. Compact tail.",
+      "peak_target_dbfs": -3,
+      "selected": false,
+      "imported_to_ue": false
+    },
+    {
+      "candidate": "F",
+      "title": "裂空穿刺",
+      "single": "Singles\\F_PiercingRip.wav",
+      "audition": "Auditions\\F_PiercingRip_2x.wav",
+      "seconds": 0.76,
+      "recipe": "Sharp bow attack + bright air rip + brief low-body impulse + quiet early reflections.",
+      "peak_target_dbfs": -3,
+      "selected": false,
+      "imported_to_ue": false
+    },
+    {
+      "candidate": "G",
+      "title": "蓄力震爆",
+      "single": "Singles\\G_SiegeBurst.wav",
+      "audition": "Auditions\\G_SiegeBurst_2x.wav",
+      "seconds": 0.98,
+      "recipe": "Lower bow body + stronger descending bass impulse + broad pressure transient + longer airy release and short reflections.",
+      "peak_target_dbfs": -3,
+      "selected": false,
+      "imported_to_ue": false
+    }
+  ]
+}

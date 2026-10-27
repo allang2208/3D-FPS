@@ -1,0 +1,31 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/HeartPiercingArrowTypes.h
+@@ -0,0 +1,28 @@
++#pragma once
++#include "CoreMinimal.h"
++
++class UColdSteelStatusModel;
++
++struct FHeartPiercingArrowTuning
++{
++    float ChargeSeconds=3.f;
++    float DamageBase=2.5f, EarlyGrowth=.1f, LateGrowth=.15f;
++    int32 GrowthChangeLevel=8, SecondPenetrationLevel=8, ThirdPenetrationLevel=16;
++    float SpeedMultiplier=2.f;
++};
++
++struct FHeartPiercingArrowStats
++{
++    bool bLearned=false;
++    float ChargeSeconds=3.f;
++    float DamageMultiplier=1.f, SpeedMultiplier=1.f;
++    int32 TargetPenetration=0;
++};
++
++namespace HeartPiercingArrow
++{
++    FHeartPiercingArrowStats Evaluate(const FHeartPiercingArrowTuning& Tuning,int32 Level);
++    // A running draw supplies its actual full-draw clock, including the perfect-release reward.
++    FHeartPiercingArrowStats ForModel(const UColdSteelStatusModel* Model,int32 Level=INDEX_NONE,float FullDrawSeconds=0.f);
++    bool IsCharged(const FHeartPiercingArrowStats& Stats,float DrawElapsed,float DrawFraction);
++}

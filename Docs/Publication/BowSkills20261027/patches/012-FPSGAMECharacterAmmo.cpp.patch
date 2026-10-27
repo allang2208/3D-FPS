@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/FPSGAMECharacterAmmo.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterAmmo.cpp
+@@ -11,6 +11,10 @@
+ #include "GameFramework/PlayerInput.h"
+ #include "InputCoreTypes.h"
+ #include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++
++bool AFPSGAMECharacter::IsElementArrowWheelOpen() const
++{const auto* E=FindComponentByClass<UFPSElementalArrowComponent>();return E&&E->IsWheelOpen();}
+ 
+ namespace
+ {
+@@ -84,6 +88,7 @@
+ }
+ void AFPSGAMECharacter::MoveAmmoPointer(FVector2D Delta)
+ {
++    if(auto* E=FindComponentByClass<UFPSElementalArrowComponent>())E->MovePointer(Delta*MouseAxisToScreenPixels(Cast<APlayerController>(Controller)));
+     // 轴值 → 屏幕像素；轮盘内部再按 fps.AmmoWheel.PixelsPerRadius 换算成半径比例。
+     // MouseY 的 Scale=-1 已体现在传入值里，这里只换算单位，不翻转方向。
+     if(AmmoWheel)AmmoWheel->MovePointer(Delta*MouseAxisToScreenPixels(Cast<APlayerController>(Controller)));
+@@ -100,6 +105,7 @@
+ }
+ void AFPSGAMECharacter::CancelAmmoSelection()
+ {
++    if(auto* E=FindComponentByClass<UFPSElementalArrowComponent>())E->CancelSelection();
+     bReloadInputHeld=false;AmmoSelectionWeapon.Reset();LookInput=FVector2D::ZeroVector;
+     if(AmmoWheel){AmmoWheel->RemoveFromParent();AmmoWheel=nullptr;}
+ }

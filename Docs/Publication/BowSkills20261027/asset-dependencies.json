@@ -1,0 +1,26 @@
+{
+  "note": "Runtime soft references, not a binary asset redistribution manifest. Shared parent assets and generated PNG/WAV/UE packages stay local.",
+  "references": [
+    "/Game/Skills/Fireball/ImpactRealistic20260914/M_FireballHeatShockwave.M_FireballHeatShockwave",
+    "/Game/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.NS_FireballImpactRealistic",
+    "/Game/Skills/Fireball/ImpactRealistic20260914/S_FireballImpactLayered.S_FireballImpactLayered",
+    "/Game/Skills/FlameArmor20261016/TorchV2",
+    "/Game/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorArrowV2.NS_FlameArmorArrowV2",
+    "/Game/Skills/IceArmor20261017",
+    "/Game/Skills/IceSpike/FrostV2/M_IceShell.M_IceShell",
+    "/Game/Skills/IceSpike/FrostV2/NS_ColdMist.NS_ColdMist",
+    "/Game/Skills/IceSpike/FrostV2/NS_FrostCrystals.NS_FrostCrystals",
+    "/Game/Skills/IceSpike/FrostV2/SM_IceSpike_01.SM_IceSpike_01",
+    "/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact",
+    "/Game/Skills/IceSpike/S_IceImpact.S_IceImpact",
+    "/Game/Skills/IlluminationArrow20261027",
+    "/Game/Skills/IlluminationArrow20261027/M_IlluminationArrowGlow.M_IlluminationArrowGlow",
+    "/Game/Skills/IlluminationArrow20261027/M_IlluminationMarkDepth.M_IlluminationMarkDepth",
+    "/Game/Skills/IlluminationArrow20261027/M_IlluminationMarkOutline.M_IlluminationMarkOutline",
+    "/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain",
+    "/Game/Skills/MagicArrowRain20261026/",
+    "/Game/Weapons/DualPistolMagazineDrop20261022",
+    "/Game/Weapons/DualRevolverReload20261022",
+    "/Game/Weapons/ElectrifiedMelee/NS_ElectrifiedBlade.NS_ElectrifiedBlade"
+  ]
+}

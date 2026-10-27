@@ -1,0 +1,266 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/FPSMagicArrowRainComponent.cpp
+@@ -0,0 +1,263 @@
++#include "FPSMagicArrowRainComponent.h"
++#include "BowHeldMagicVisual.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "FPSIlluminationArrowComponent.h"
++#include "FPSMagicArrowRain.h"
++#include "FPSElementalArrowComponent.h"
++#include "MagicArrowRainGround.h"
++#include "PlayerSkillPreparation.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../FPSGAMECharacter.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Monsters/BoundCongregateCaptureComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Components/DecalComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/StaticMesh.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Sound/SoundBase.h"
++#include "Net/UnrealNetwork.h"
++
++UFPSMagicArrowRainComponent::UFPSMagicArrowRainComponent()
++{PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;SetIsReplicatedByDefault(true);}
++UColdSteelStatusModel* UFPSMagicArrowRainComponent::Model() const
++{return ColdSteelAuthority::ForPawn(::Cast<APawn>(GetOwner()));}
++UBowWeaponComponent* UFPSMagicArrowRainComponent::Bow() const
++{return GetOwner()->FindComponentByClass<UBowWeaponComponent>();}
++void UFPSMagicArrowRainComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME_CONDITION(UFPSMagicArrowRainComponent,bServerDrawing,COND_SkipOwner);}
++void UFPSMagicArrowRainComponent::BeginPlay()
++{
++    Super::BeginPlay();if(auto* B=Bow())AddTickPrerequisiteComponent(B);
++    if(GetNetMode()==NM_DedicatedServer){bAssetsReady=true;return;}
++    TArray<FSoftObjectPath> Paths;for(const auto* Name:MagicArrowRainAssets::Names)Paths.Emplace(MagicArrowRainAssets::Path(Name));
++    Paths.Emplace(TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
++    Paths.Emplace(MagicArrowRainAssets::Path(TEXT("ATT_ArrowRain")));
++    PlayerSkillAssets::Defer(GetOwner(),TEXT("magicArrowRain"),FSimpleDelegate::CreateWeakLambda(this,[this,Paths]
++    {bAssetsReady=true;Assets.Reset();for(const auto& P:Paths){auto* A=P.ResolveObject();Assets.Add(A);bAssetsReady&=A!=nullptr;}}),Paths);
++}
++void UFPSMagicArrowRainComponent::EndPlay(const EEndPlayReason::Type Reason)
++{
++    if(GetOwner()->HasAuthority())if(auto* M=Model();M&&bServerPrepared)M->CancelMagicArrowRain();
++    if(AssetLoad)AssetLoad->CancelHandle();if(Flow)Flow->DestroyComponent();if(Preview)Preview->DestroyComponent();
++    Super::EndPlay(Reason);
++}
++bool UFPSMagicArrowRainComponent::CanContinue() const
++{
++    if(const auto* Light=GetOwner()->FindComponentByClass<UFPSIlluminationArrowComponent>();Light&&(Light->IsPrepared()||Light->IsPending()))return false;
++    const auto* P=::Cast<AFPSGAMECharacter>(GetOwner());const auto* M=Model();const auto* B=M?M->ActiveBow():nullptr;
++    const auto* Health=P?P->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    if(!P||!M||!B||(!Weapon.IsEmpty()&&B->InstanceId!=Weapon)||!Health||Health->IsDead()
++        ||P->IsTraversing()||P->IsSprinting()||P->IsCastBlockingLeftHandAction()||UBoundCongregateCaptureComponent::IsCaptured(P))return false;
++    if(P->IsLocallyControlled())
++    {
++        const auto* PC=::Cast<APlayerController>(P->GetController());
++        if(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||P->IsChoosingAmmo())return false;
++    }
++    return true;
++}
++bool UFPSMagicArrowRainComponent::Trigger()
++{
++    if(IsPending())return false;
++    if(bPrepared){CancelFromBow();if(auto* B=Bow())B->CancelAction(false);return true;}
++    if(const auto* P=::Cast<APawn>(GetOwner()))if(const auto* PS=P->GetPlayerState<AColdSteelPlayerState>();PS&&PS->InventoryRequestPending())return false;
++    auto* B=Bow();auto* M=Model();
++    auto Fail=[&](const TCHAR* Text){Message=Text;MessageUntil=GetWorld()->GetTimeSeconds()+1.8;return false;};
++    if(const auto* Element=GetOwner()->FindComponentByClass<UFPSElementalArrowComponent>();Element&&(Element->IsPrepared()||Element->IsPending()))return Fail(TEXT("请先取消元素箭"));
++    if(!B||!B->IsEquipped()||!M||!M->ActiveBow())return Fail(TEXT("需要装备弓"));
++    if(!bAssetsReady)return Fail(TEXT("箭雨素材加载中"));
++    Weapon=M->ActiveBow()->InstanceId;
++    if(!CanContinue()||B->GetStage()!=EBowStage::Ready)return Fail(TEXT("请先完成当前动作"));
++    if(M->MagicArrowRainCooldown()>0)return Fail(TEXT("技能冷却中"));
++    const auto* P=::Cast<AFPSGAMECharacter>(GetOwner());
++    if(B->ArrowsInPouch()<1&&(!P||!P->HasInfiniteReserveAmmoFor(M->AmmoDefinitionFor(*M->ActiveBow()))))return Fail(TEXT("箭袋里没有可用的箭"));
++    Cast=M->MagicArrowRainStats();bWaiting=true;ServerPrepare();return true;
++}
++void UFPSMagicArrowRainComponent::ServerPrepare_Implementation()
++{
++    if(const auto* Element=GetOwner()->FindComponentByClass<UFPSElementalArrowComponent>();Element&&Element->IsPrepared()){ClientPrepared(false,TEXT("请先取消元素箭"));return;}
++    auto* M=Model();const auto* Item=M?M->ActiveBow():nullptr;
++    if(!Item||bServerPrepared){ClientPrepared(false,TEXT("当前无法准备箭雨"));return;}
++    Weapon=Item->InstanceId;
++    PreparedAmmo=M->AmmoDefinitionFor(*Item);
++    if(!CanContinue()){ClientPrepared(false,TEXT("当前无法准备箭雨"));return;}
++    Cast=M->MagicArrowRainStats();
++    auto* P=::Cast<AFPSGAMECharacter>(GetOwner());
++    if((M->PouchCount(M->AmmoDefinitionFor(*Item))<1&&!P->HasInfiniteReserveAmmoFor(M->AmmoDefinitionFor(*Item)))
++        ||!M->BeginMagicArrowRain(Cast)){ClientPrepared(false,TEXT("箭支、资源不足或技能冷却"));return;}
++    bServerPrepared=true;DrawStartedAt=-1.;bServerDrawing=false;SendResources();ClientPrepared(true,FString());
++}
++void UFPSMagicArrowRainComponent::ClientPrepared_Implementation(bool Accepted,const FString& Reason)
++{
++    // A cancel can cross the prepare acknowledgement; never revive that draw.
++    if(bCancelPending||!bWaiting)return;
++    if(Accepted&&(!CanContinue()||!Bow()||Bow()->GetStage()!=EBowStage::Ready))
++    {CancelFromBow();return;}
++    bWaiting=false;if(!Accepted){Message=Reason;MessageUntil=GetWorld()->GetTimeSeconds()+2.;return;}
++    bPrepared=true;bValid=false;Message.Reset();if(auto* M=Model())Cast=M->MagicArrowRainStats();
++    if(auto* B=Bow()){B->SetTriggerHeld(false);B->BeginNock();}MakePresentation();
++}
++bool UFPSMagicArrowRainComponent::IsManaDraining() const
++{
++    const auto* P=::Cast<APawn>(GetOwner());
++    if(P&&P->IsLocallyControlled())return bPrepared&&!bReleasePending&&Bow()&&Bow()->IsDrawing();
++    return bServerDrawing;
++}
++void UFPSMagicArrowRainComponent::DrawStarted(float CarriedSeconds){if(bPrepared&&!bReleasePending)ServerDraw(CarriedSeconds);}
++void UFPSMagicArrowRainComponent::ServerDraw_Implementation(float CarriedSeconds)
++{
++    if(!bServerPrepared||bServerDrawing||!CanContinue()||!FMath::IsFinite(CarriedSeconds))return;
++    bServerDrawing=true;DrawStartedAt=GetWorld()->GetTimeSeconds()-FMath::Clamp(CarriedSeconds,0.f,.25f);
++}
++void UFPSMagicArrowRainComponent::Release(const FVector& Muzzle)
++{
++    if(!bPrepared||bReleasePending)return;
++    // Commit the circle the player actually saw. Re-selecting during input or
++    // again on the server can jump across a moving body, ledge or camera update.
++    if(!Bow()||Bow()->DrawFraction()<1.f||!bValid)
++    {
++        const FString Why=Bow()&&Bow()->DrawFraction()<1.f?TEXT("未满蓄，已收弓"):Failure;
++        CancelFromBow();if(auto* B=Bow()){B->CancelAction(false);B->ShowFeedback(Why);}return;
++    }
++    bReleasePending=true;HidePresentation();ServerRelease(Muzzle,Ground);
++}
++void UFPSMagicArrowRainComponent::ServerRelease_Implementation(FVector_NetQuantize Muzzle,FVector_NetQuantize RequestedGround)
++{
++    auto* M=Model();auto* P=::Cast<AFPSGAMECharacter>(GetOwner());
++    auto Reject=[&](const FString& Reason)
++    {if(M)M->CancelMagicArrowRain();bServerPrepared=bServerDrawing=false;DrawStartedAt=-1.;SendResources();ClientReleased(false,Reason);};
++    if(!M||!P||!bServerPrepared||!bServerDrawing||!CanContinue()||DrawStartedAt<0
++        ||GetWorld()->GetTimeSeconds()-DrawStartedAt<Cast.ChargeSeconds-.06f
++        ||Muzzle.ContainsNaN()||RequestedGround.ContainsNaN()||FVector::DistSquared(Muzzle,P->GetPawnViewLocation())>FMath::Square(200.f))
++    {Reject(TEXT("蓄力或落点已失效，已收弓"));return;}
++    FVector Point=RequestedGround,Up=FVector::UpVector,Air;FString Reason;
++    Cast=M->MagicArrowRainStats();
++    // Like other ground spells, validate the requested point itself: floor,
++    // range, visibility, headroom and the real arrow path remain authoritative.
++    // A second aim trace is not stable enough to validate a selected ground point.
++    if(!MagicArrowRainGround::Validate(P,Cast,Muzzle,Point,Up,Air,Reason))
++    {Reject(Reason.IsEmpty()?TEXT("落点无法释放，已收弓"):Reason);return;}
++    Cast.SurfaceNormal=Up;
++    FActorSpawnParameters Params;Params.Owner=P;Params.Instigator=P;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    auto* Rain=GetWorld()->SpawnActor<AFPSMagicArrowRain>(Point,FRotator::ZeroRotator,Params);
++    if(!Rain){Reject(TEXT("箭雨生成失败，已收弓"));return;}
++    const FString Ammo=M->AmmoDefinitionFor(*M->ActiveBow());
++    if(!M->ReleaseMagicArrowRain(Cast,!P->HasInfiniteReserveAmmoFor(Ammo)))
++    {Rain->Destroy();Reject(TEXT("资源不足，已收弓"));return;}
++    Rain->Launch(M,Cast,Muzzle,Point,Air);bServerPrepared=bServerDrawing=false;DrawStartedAt=-1.;SendResources();ClientReleased(true,FString());
++}
++void UFPSMagicArrowRainComponent::ClientReleased_Implementation(bool Accepted,const FString& Reason)
++{
++    bPrepared=bWaiting=bReleasePending=bCancelPending=false;HidePresentation();
++    if(auto* B=Bow())B->FinishMagicArrowRainRelease(Accepted);
++    if(Accepted)
++    {if(auto* S=::Cast<USoundBase>(FSoftObjectPath(MagicArrowRainAssets::Path(TEXT("S_ArrowRainRelease"))).ResolveObject()))UGameplayStatics::PlaySound2D(this,S,.6f);}
++    else {Message=Reason;MessageUntil=GetWorld()->GetTimeSeconds()+2.;if(auto* B=Bow())B->ShowFeedback(Reason);}
++}
++void UFPSMagicArrowRainComponent::CancelFromBow()
++{
++    if(!bPrepared&&!bWaiting)return;
++    if(bReleasePending)return; // The release RPC owns the already-submitted transaction.
++    bPrepared=bWaiting=false;bCancelPending=true;HidePresentation();ServerCancel();
++}
++void UFPSMagicArrowRainComponent::ServerCancel_Implementation(){AuthorityCancel(FString());}
++void UFPSMagicArrowRainComponent::FinishForRemoval()
++{
++    if(GetOwner()->HasAuthority())AuthorityCancel(FString());
++}
++void UFPSMagicArrowRainComponent::AuthorityCancel(const FString& Reason)
++{
++    if(auto* M=Model();M&&bServerPrepared)M->CancelMagicArrowRain();
++    bServerPrepared=bServerDrawing=false;DrawStartedAt=-1.;SendResources();ClientCancelled(Reason);
++}
++void UFPSMagicArrowRainComponent::SendResources()
++{if(auto* M=Model())ClientResources(MagicArrowRainResources::Capture(*M,PreparedAmmo));}
++void UFPSMagicArrowRainComponent::ClientResources_Implementation(const FMagicArrowRainResourceReceipt& Receipt)
++{
++    auto* P=::Cast<APawn>(GetOwner());auto* M=Model();
++    if(!P||P->HasAuthority()||!P->IsLocallyControlled()||!M||M->RuntimePawn()!=P||Receipt.Revision<=LastResourceRevision)return;
++    LastResourceRevision=Receipt.Revision;
++    if(MagicArrowRainResources::Apply(*M,Receipt))M->SaveNow();
++}
++void UFPSMagicArrowRainComponent::ClientCancelled_Implementation(const FString& Reason)
++{
++    bPrepared=bWaiting=bReleasePending=bCancelPending=false;HidePresentation();
++    if(auto* B=Bow())B->CancelAction(false);
++    if(!Reason.IsEmpty()){Message=Reason;MessageUntil=GetWorld()->GetTimeSeconds()+2.;if(auto* B=Bow())B->ShowFeedback(Reason);}
++}
++FString UFPSMagicArrowRainComponent::StatusText() const
++{
++    if(GetWorld()->GetTimeSeconds()<MessageUntil)return Message;
++    if(IsPending())return TEXT("同步中");
++    if(!bPrepared)return FString();
++    if(Bow()&&Bow()->IsDrawing())return !bValid?Failure:Bow()->DrawFraction()>=1.f?TEXT("松手释放"):TEXT("拉弓蓄力");
++    return TEXT("按住左键拉弓");
++}
++void UFPSMagicArrowRainComponent::MakePresentation()
++{
++    if(Flow||!bAssetsReady)return;
++    Flow=NewObject<UStaticMeshComponent>(GetOwner());Flow->RegisterComponent();
++    Flow->SetStaticMesh(::Cast<UStaticMesh>(FSoftObjectPath(TEXT("/Engine/BasicShapes/Cylinder.Cylinder")).ResolveObject()));
++    Flow->SetMaterial(0,::Cast<UMaterialInterface>(FSoftObjectPath(MagicArrowRainAssets::Path(TEXT("M_ArrowRainFlow"))).ResolveObject()));
++    Flow->SetCollisionEnabled(ECollisionEnabled::NoCollision);Flow->SetCastShadow(false);Flow->SetCanEverAffectNavigation(false);
++    Flow->SetOnlyOwnerSee(true);Flow->SetVisibility(false);
++    Preview=NewObject<UDecalComponent>(GetOwner());Preview->RegisterComponent();
++    auto* Material=::Cast<UMaterialInterface>(FSoftObjectPath(MagicArrowRainAssets::Path(TEXT("M_ArrowRainPreview"))).ResolveObject());
++    PreviewMaterial=UMaterialInstanceDynamic::Create(Material,this);Preview->SetDecalMaterial(PreviewMaterial);
++    PreviewMaterial->SetScalarParameterValue(TEXT("Radius"),Cast.Radius);
++    Preview->DecalSize=FVector(100.f,Cast.Radius,Cast.Radius);Preview->SetVisibility(false);
++}
++void UFPSMagicArrowRainComponent::HidePresentation()
++{if(Flow)Flow->SetVisibility(false);if(Preview)Preview->SetVisibility(false);bValid=false;}
++void UFPSMagicArrowRainComponent::UpdatePreview()
++{
++    auto* P=::Cast<APawn>(GetOwner());if(!P)return;
++    Ground=FVector::ZeroVector;Normal=FVector::UpVector;
++    FVector Tail,Tip;
++    const bool HasTip=Bow()&&Bow()->GetMagicArrowEndpoints(Tail,Tip);
++    bValid=MagicArrowRainGround::Select(P,Cast,P->GetPawnViewLocation(),P->GetViewRotation().Vector(),Ground,Normal,Burst,Failure,HasTip?&Tip:nullptr);
++    if(Preview&&PreviewMaterial)
++    {
++        Preview->SetVisibility(Bow()&&Bow()->IsDrawing()&&(bValid||!Ground.IsNearlyZero()));
++        Preview->SetWorldLocation(Ground+Normal*2.f);Preview->SetWorldRotation((-Normal).Rotation());
++        // The damage and falling arrows use a horizontal footprint, also on slopes.
++        const float PlaneExtent=Cast.Radius/FMath::Max(.45f,float(Normal.Z));
++        Preview->DecalSize=FVector(100.f,PlaneExtent,PlaneExtent);
++        PreviewMaterial->SetVectorParameterValue(TEXT("GroundCenter"),FLinearColor(Ground));
++        PreviewMaterial->SetScalarParameterValue(TEXT("Valid"),bValid?1.f:0.f);
++        PreviewMaterial->SetScalarParameterValue(TEXT("Ready"),Bow()&&Bow()->DrawFraction()>=1.f?1.f:0.f);
++    }
++}
++void UFPSMagicArrowRainComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++    Super::TickComponent(Delta,Type,Tick);
++    if(GetOwner()->HasAuthority()&&bServerPrepared)
++    {
++        auto* M=Model();
++        const bool Exhausted=M&&(M->Stamina()<=0.f||(!M->HasInfiniteMana()&&M->Mana()<=0.f));
++        if(!CanContinue()||!M||Exhausted)
++        {AuthorityCancel(Exhausted?TEXT("体力或魔法耗尽，已收弓"):TEXT("箭雨已取消"));return;}
++    }
++    auto* P=::Cast<APawn>(GetOwner());if(!P||!P->IsLocallyControlled()||!bPrepared||bReleasePending)return;
++    if(!CanContinue()){CancelFromBow();if(auto* B=Bow())B->CancelAction(false);return;}
++    MakePresentation();FVector Tail,Tip;
++    const bool Visible=Bow()&&Bow()->HasArrowNocked()&&Bow()->GetMagicArrowEndpoints(Tail,Tip);
++    if(Flow)
++    {
++        const bool FirstPersonVisible=Visible&&UBowHeldMagicVisual::ShowFirstPerson(P);
++        Flow->SetVisibility(FirstPersonVisible);
++        if(FirstPersonVisible)Flow->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(Tip-Tail).ToQuat(),(Tip+Tail)*.5f,FVector(.016f,.016f,(Tip-Tail).Size()/100.f)));
++    }
++    // Only drawing needs ground queries. One arrow-path check at 30 Hz replaces
++    // the old pair of camera/arrow checks at 20 Hz, while making aiming quicker.
++    constexpr float PreviewInterval=1.f/30.f;
++    PreviewAge+=Delta;
++    if(Bow()&&Bow()->IsDrawing()&&PreviewAge>=PreviewInterval)
++    {PreviewAge=FMath::Fmod(PreviewAge,PreviewInterval);UpdatePreview();}
++}

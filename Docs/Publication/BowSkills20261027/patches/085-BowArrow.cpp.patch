@@ -1,0 +1,188 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
+@@ -4,6 +4,7 @@
+ #include "../../FPSGAMECharacter.h"
+ #include "../../Skills/ColdSteelSkillRules.h"
+ #include "../../Monsters/MonsterDamageAlert.h"
++#include "../../Monsters/MonsterCombatComponent.h"
+ #include "../../UI/ColdSteelStatusModel.h"
+ #include "../../UI/ColdSteelWorldInteraction.h"
+ #include "Components/CapsuleComponent.h"
+@@ -69,10 +70,15 @@
+     GravityCM = FMath::Max(0.f, InGravityCM);
+     MaxDistanceCM = FMath::Max(400.f, InRangeCM);
+     Shot = InShot;
++    RemainingPenetrations=Shot.bHeartPiercingArrow?FMath::Clamp(Shot.BowTargetPenetration,0,3):0;
++    HitTargets.Reset();
+     AmmoId = InAmmoId;
+     bRecoverable = bInRecoverable;
+     if(HasAuthority())
+-    {Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;ForceNetUpdate();}
++    {
++        Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;
++        ForceNetUpdate();
++    }
+     RecoverySeconds = FMath::Clamp(InRecoverySeconds, 8.f, 300.f);
+     if (const auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+         RecoveryCaption = FString::Printf(TEXT("拾回 %s ×1"), *Profile->AmmoLabel(AmmoId));
+@@ -122,16 +128,13 @@
+ void ABowArrow::Tick(float Delta)
+ {
+     Super::Tick(Delta);
+-    if(!HasAuthority())return;
++    if(!HasAuthority()){UpdateElementVisual(Delta);UpdateIlluminationVisual(Delta);return;}
+     Delta = FMath::Max(0.f, Delta);
+     Age += Delta;
+     if (bStuck) return;
+     if (Delta <= 0.f || Velocity.IsNearlyZero()) return;
+     float Remaining = FMath::Min(Delta, 8.f);
+     FVector Previous = GetActorLocation();
+-    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowArrow), true, GetInstigator());
+-    Query.AddIgnoredActor(this);
+-    FHitResult Hit;
+     while (Remaining > KINDA_SMALL_NUMBER)
+     {
+         const float Dt = FMath::Min3(Remaining, 1.f / 120.f, StepCM / FMath::Max(1.f, float(Velocity.Size())));
+@@ -142,14 +145,10 @@
+         const FVector Next = Previous + Displacement;
+         Velocity += Acceleration * Dt;
+         SetActorRotation(Velocity.Rotation());
+-        const bool Blocked = RangedAttackQuery::SweepSingle(GetWorld(), GetInstigator(), Hit, Previous, Next, FQuat::Identity,
+-            ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query);
+-        TravelledCM += Displacement.Size() * (Blocked ? Hit.Time : 1.f);
+-        if (Blocked)
+-        {
+-            ApplyHit(Hit);
+-            return;
+-        }
++        float Distance=0.f;
++        const bool bContinue=AdvanceSegment(Previous,Next,Distance);
++        TravelledCM+=Distance;
++        if(!bContinue)return;
+         Previous = Next;
+         Remaining -= Dt;
+         if (TravelledCM >= MaxDistanceCM)
+@@ -159,27 +158,61 @@
+         }
+     }
+     SetActorLocation(Previous);
++    
++    UpdateElementVisual(Delta);
++    UpdateIlluminationVisual(Delta);
+     if (TravelledCM >= MaxDistanceCM || Age > 8.f) Destroy();
+ }
+ 
+ void ABowArrow::ResolveLaunchObstruction(const FVector& CameraOrigin)
+ {
++    if(Presentation.bIllumination)LastIlluminationScan=CameraOrigin;
++    float Distance=0.f;
++    AdvanceSegment(CameraOrigin,GetActorLocation(),Distance);
++}
++
++bool ABowArrow::AdvanceSegment(const FVector& Start,const FVector& End,float& Distance)
++{
+     FHitResult Hit;
+-    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowLaunch), true, GetInstigator());
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowArrow),true,GetInstigator());
+     Query.AddIgnoredActor(this);
+-    if (RangedAttackQuery::SweepSingle(GetWorld(), GetInstigator(), Hit, CameraOrigin, GetActorLocation(), FQuat::Identity,
+-        ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query)) ApplyHit(Hit);
+-}
+-
+-void ABowArrow::ApplyHit(const FHitResult& Hit)
+-{
+-    SetActorLocation(Hit.ImpactPoint + Velocity.GetSafeNormal() * 2.f);
++    for(const auto& Target:HitTargets)if(Target.IsValid())Query.AddIgnoredActor(Target.Get());
++    // Re-query the complete segment after each penetrated target. Moving the
++    // start beyond a body could skip a thin wall or an adjacent second target.
++    while(RangedAttackQuery::SweepSingle(GetWorld(),GetInstigator(),Hit,Start,End,FQuat::Identity,
++        ECC_Visibility,FCollisionShape::MakeSphere(CollisionRadiusCM),Query))
++    {
++        Distance=FVector::Distance(Start,Hit.Location);
++        auto* Target=Hit.GetActor();
++        auto* Component=Hit.GetComponent();
++        ScanIllumination(Hit.Location,true);
++        if(!ApplyHit(Hit))return false;
++        if(Target&&HitTargets.Contains(Target))Query.AddIgnoredActor(Target);
++        else if(Component)Query.AddIgnoredComponent(Component); // Broken pane only; its wall still blocks.
++    }
++    Distance=FVector::Distance(Start,End);
++    ScanIllumination(End,false);
++    return true;
++}
++
++bool ABowArrow::ApplyHit(const FHitResult& Hit)
++{
++    if(bResolved||bStuck)return false;
+     // Continue flight through the removed pane instead of pinning an arrow in empty air.
+-    if(UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal()))return;
+-    if (!bResolved)
+-    {
+-        bResolved = true;
+-        auto* Target = Hit.GetActor();
++    if(UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal()))
++    {
++        return true;
++    }
++    auto* Target=Hit.GetActor();
++    if(Target&&HitTargets.Contains(Target))return true;
++    ApplyIlluminationImpact(Hit);
++    const auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
++    const auto* Health=Target?Target->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    // Capture life before damage: a lethal arrow may still pass through its victim.
++    const bool bCanPierce=RemainingPenetrations>0&&((Combat&&!Combat->IsDead())||(Health&&!Health->IsDead()));
++    if(Target)
++    {
++        HitTargets.Add(Target);
+         auto* Pawn = Cast<APawn>(GetInstigator());
+         const FVector Direction = Velocity.GetSafeNormal();
+         if (Target)
+@@ -190,8 +223,11 @@
+                 // Bow release/impact never reports a hearing stimulus. Keep
+                 // the local audio, and resolve group alarms only after death.
+                 const MonsterDamageAlert::FScopedSilentShot SilentShot(Target);
++                // Illumination uses this ordinary-arrow damage snapshot and shared
++                // armour/critical/status calculation, with no extra skill damage.
+                 Applied = ColdSteelSkills::ApplyHit(Pawn, Hit, Damage, Direction, Shot, &Result);
+             }
++
+             if (auto* Character = Cast<AFPSGAMECharacter>(Pawn))
+             {
+                 Character->NotifyConfirmedWeaponHit(Target, Applied, &Result, true,false);
+@@ -200,12 +236,19 @@
+             }
+         }
+     }
++    BurstElement(Hit);
++    if(bCanPierce){--RemainingPenetrations;return true;}
++    bResolved=true;
++    SetActorLocation(Hit.ImpactPoint+Velocity.GetSafeNormal()*2.f);
+     FinishStuck(Hit);
++    return false;
+ }
+ 
+ void ABowArrow::FinishStuck(const FHitResult& Hit)
+ {
+     bStuck = true;
++    UpdateIlluminationVisual(0);
++    UpdateElementVisual(0);
+     Velocity = FVector::ZeroVector;
+     SetActorTickEnabled(false);
+     // Even an infinite-reserve arrow can be gathered out of the world. Only
+@@ -341,6 +384,7 @@
+     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+     DOREPLIFETIME_CONDITION(ABowArrow,Presentation,COND_InitialOnly);
+     DOREPLIFETIME(ABowArrow,bStuck);DOREPLIFETIME(ABowArrow,bRecoverable);
++    DOREPLIFETIME(ABowArrow,bElementBurst);
+ }
+ void ABowArrow::OnRep_Presentation()
+ {
+@@ -354,5 +398,6 @@
+     SetActorEnableCollision(bStuck);
+     RecoveryShape->SetCollisionEnabled(bStuck&&bRecoverable?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
+     AutoRecovery->SetCollisionEnabled(bStuck?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
+-    SetActorTickEnabled(false);
+-}
++    if(bStuck){UpdateElementVisual(0);UpdateIlluminationVisual(0);}
++    SetActorTickEnabled(!bStuck&&(Presentation.bIllumination||ElementalArrow::IsElement(Presentation.Element)));
++}

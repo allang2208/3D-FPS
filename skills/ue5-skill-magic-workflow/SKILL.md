@@ -5,6 +5,8 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 # 本机维护源入口
 
+弓专属技能的搭箭、持续费用、元素 CD、标记及队友表现，读取 [弓系准备技能](references/bow-prepared-skills.md)。
+
 范围、连锁技能被栏杆或镂空障碍误挡时，读取[范围与连锁遮挡](references/area-skill-occlusion.md)。
 
 本机共用流程统一读取[ue5-skill-magic-workflow](C:/Users/allan/.codex/skills/ue5-skill-magic-workflow/SKILL.md)，不要叠加旧镜像流程。

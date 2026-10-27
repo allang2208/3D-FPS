@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+@@ -6,6 +6,9 @@
+ #include "../Skills/FPSIceSpikeComponent.h"
+ #include "../Skills/FPSIceWallComponent.h"
+ #include "../Skills/FPSBlizzardComponent.h"
++#include "../Skills/FPSMagicArrowRainComponent.h"
++#include "../Skills/FPSElementalArrowComponent.h"
++#include "../Skills/FPSIlluminationArrowComponent.h"
+ #include "../Skills/FPSLightningComponent.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+ #include "../Skills/FPSHolyLightComponent.h"
+@@ -73,7 +76,7 @@
+     {
+         if(!B.Skill.IsNone())
+         {
+-            if((!ElectricMagic::IsSkill(B.Skill)&&!FireMagic::IsSkill(B.Skill)&&B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("iceWall")&&B.Skill!=TEXT("blizzard")&&B.Skill!=TEXT("lightningStrike")&&B.Skill!=TEXT("holyLight")&&B.Skill!=TEXT("lightningHaste")&&B.Skill!=TEXT("iceArmor")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat")&&B.Skill!=TEXT("whirlwind")&&B.Skill!=TEXT("swordUppercut"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
++            if((!ElectricMagic::IsSkill(B.Skill)&&!FireMagic::IsSkill(B.Skill)&&B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("iceWall")&&B.Skill!=TEXT("blizzard")&&B.Skill!=TEXT("magicArrowRain")&&B.Skill!=TEXT("elementalArrow")&&B.Skill!=TEXT("illuminationArrow")&&B.Skill!=TEXT("lightningStrike")&&B.Skill!=TEXT("holyLight")&&B.Skill!=TEXT("lightningHaste")&&B.Skill!=TEXT("iceArmor")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat")&&B.Skill!=TEXT("whirlwind")&&B.Skill!=TEXT("swordUppercut"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
+             Skills.Add(B.Skill);
+         }
+         else if(!B.ItemDefinition.IsEmpty())
+@@ -90,7 +93,7 @@
+ FColdSteelQuickBinding UColdSteelStatusModel::QuickBinding(int32 Index) const
+ { return Current.QuickBindings.IsValidIndex(Index)?Current.QuickBindings[Index]:FColdSteelQuickBinding(); }
+ const FColdSteelSkillDefinition* UColdSteelStatusModel::QuickSkillDefinition(FName Id) const
+-{ if(Id==TEXT("swordUppercut"))return &MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return &ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return &BlizzardSkill;if(Id==TEXT("iceWall"))return &IceWallSkill;if(Id==TEXT("staffLight"))return &StaffLightSkill;if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningHaste"))return &LightningHasteSkill;if(Id==TEXT("iceArmor"))return &IceArmorSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
++{ if(Id==TEXT("illuminationArrow")||Id==TEXT("magicArrowRain")||Id==TEXT("elementalArrow"))return &MasteryDefinition(Id);if(Id==TEXT("swordUppercut"))return &MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return &ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return &BlizzardSkill;if(Id==TEXT("iceWall"))return &IceWallSkill;if(Id==TEXT("staffLight"))return &StaffLightSkill;if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningHaste"))return &LightningHasteSkill;if(Id==TEXT("iceArmor"))return &IceArmorSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
+ bool UColdSteelStatusModel::CanBindQuickSkill(FName Id) const
+ { if(Id==TEXT("runeBlades")||Id==TEXT("staffLight"))return false;if(Id==TEXT("swordUppercut"))return true;const auto* P=Current.Skills.Find(Id);return QuickSkillDefinition(Id)&&P&&P->Level>0; }
+ const FColdSteelItem* UColdSteelStatusModel::ResolveQuickItem(int32 Index) const
+@@ -189,6 +192,9 @@
+         if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return Kukri->BeginWhirlwind();
+         if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->BeginWhirlwind();
+     }
++    if(Skill==TEXT("illuminationArrow"))if(auto* Ability=Player->FindComponentByClass<UFPSIlluminationArrowComponent>())return Ability->Trigger();
++    if(Skill==TEXT("elementalArrow"))if(auto* Ability=Player->FindComponentByClass<UFPSElementalArrowComponent>())return Ability->Trigger();
++    if(Skill==TEXT("magicArrowRain"))if(auto* Ability=Player->FindComponentByClass<UFPSMagicArrowRainComponent>())return Ability->Trigger();
+     if(Skill==TEXT("dodge"))return Player->TryDodge();
+     if(Skill==TEXT("quickCombat"))return TriggerQuickCombat();
+     if(Skill==TEXT("fireball"))if(auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>()){Ability->Trigger();return true;}

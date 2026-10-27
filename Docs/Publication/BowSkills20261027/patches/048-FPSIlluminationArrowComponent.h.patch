@@ -1,0 +1,62 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/FPSIlluminationArrowComponent.h
+@@ -0,0 +1,59 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "IlluminationArrowTypes.h"
++#include "FPSIlluminationArrowComponent.generated.h"
++class UBowWeaponComponent;
++class UColdSteelStatusModel;
++class UIlluminationArrowVisual;
++class UMaterialInterface;
++struct FStreamableHandle;
++
++UCLASS(ClassGroup=(Skills))
++class FPSGAME_API UFPSIlluminationArrowComponent : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    UFPSIlluminationArrowComponent();
++    bool Trigger();
++    bool IsPrepared() const{return bPrepared||bServerPrepared;}
++    bool IsPending() const{return bWaiting||bCancelPending||bShotReplyPending;}
++    bool ShotPrepared() const{return bPrepared;}
++    bool BuildShot(bool Requested,FIlluminationArrowCast& Out,FString& Reason) const;
++    void ShotCommitted();
++    void PredictRelease();
++    void ResolveShotReply();
++    void FlushTraining();
++    void CancelFromBow();
++    FString StatusText() const;
++    void RegisterMark(const FIlluminationArrowCast& Cast,double EndsAt);
++    void RecordMarkedKill(FGuid CastId,AActor* Target);
++protected:
++    virtual void BeginPlay() override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++    virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
++private:
++    friend class UBowSkillTrainingAuditCommandlet;
++    UFUNCTION(Server,Reliable) void ServerPrepare(FGuid PreparationId);
++    UFUNCTION(Server,Reliable) void ServerCancel(FGuid PreparationId);
++    UFUNCTION(Client,Reliable) void ClientPrepared(FGuid PreparationId,bool Accepted,const FString& Reason);
++    UFUNCTION(Client,Reliable) void ClientCleared(FGuid PreparationId);
++    UPROPERTY(Transient) TObjectPtr<UIlluminationArrowVisual> Visual;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> Outline;
++    TSharedPtr<FStreamableHandle> AssetLoad;
++    bool bPrepared=false,bServerPrepared=false,bWaiting=false,bCancelPending=false;
++    bool bShotReplyPending=false;
++    FGuid ActivePreparationId,ServerPreparationId;
++    bool bOutlineEnabled=false;
++    FString Weapon,Notice;double NoticeUntil=0;
++    struct FTrainingCast {double EndsAt=0;int32 Kills=0;TSet<TWeakObjectPtr<AActor>> Targets;};
++    TMap<FGuid,FTrainingCast> Training;
++    int32 PendingExperience=0;
++    TWeakObjectPtr<UColdSteelStatusModel> TrainingModel;
++    UColdSteelStatusModel* Model() const;
++    UBowWeaponComponent* Bow() const;
++    bool CanContinue() const;
++    bool OtherArrowPrepared() const;
++    void Feedback(const FString& Message);
++    void PreparePresentation();
++};

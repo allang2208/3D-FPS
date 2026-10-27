@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
+@@ -131,6 +131,7 @@
+     UPROPERTY() bool bBowClipLooping = false;
+     UPROPERTY() FVector BowNock = FVector::ZeroVector;
+     UPROPERTY() bool bBowArrow = false;
++    UPROPERTY() uint8 BowMagic = 0;
+     UPROPERTY() bool bBowTakingArrow = false;
+     UPROPERTY() float BowSeat = 1.f;
+     UPROPERTY() float BowStringContact = 0.f;

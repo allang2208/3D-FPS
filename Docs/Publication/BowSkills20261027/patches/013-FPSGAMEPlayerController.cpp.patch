@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSGAMEPlayerController.h"
+ #include "Building/ApartmentDeviceControl.h"
++#include "Skills/FPSElementalArrowComponent.h"
+ #include "Movement/FPSFurnitureRestComponent.h"
+ #include "UI/ColdSteelWoodworkingWidget.h"
+ #include "UI/ColdSteelAlchemyWidget.h"
+@@ -419,6 +420,13 @@
+         if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) CloseExpedition();
+         return true;
+     }
++    if(auto* E=GetPawn()?GetPawn()->FindComponentByClass<UFPSElementalArrowComponent>():nullptr)
++    {
++        const int32 Slot=ColdSteelQuickBar::KeyIndex(Params.Key);
++        if(Params.Event==IE_Released&&E->KeyReleased(Slot))return true;
++        if(Params.Event==IE_Repeat&&E->OwnsKey(Slot))return true;
++        if(E->IsWheelOpen()&&Slot>=0)return true;
++    }
+     if(auto* AmmoPawn=Cast<AFPSGAMECharacter>(GetPawn());AmmoPawn&&AmmoPawn->IsAmmoWheelOpen())
+     {
+         if(Params.Key==EKeys::Escape){if(Params.Event==IE_Pressed)AmmoPawn->CancelAmmoSelection();return true;}
+@@ -546,6 +554,8 @@
+         if(QuickIndex>=0)
+         {
+             const auto Binding=Profile->QuickBinding(QuickIndex);
++            if(Binding.Skill==TEXT("elementalArrow"))
++                if(auto* E=GetPawn()?GetPawn()->FindComponentByClass<UFPSElementalArrowComponent>():nullptr){InterruptInspection();E->KeyPressed(QuickIndex);return true;}
+             // Dodge shares the locomotion policy even when triggered by a skill slot.
+             if(!Binding.IsEmpty()&&Binding.Skill!=TEXT("dodge"))InterruptInspection();
+             if(Profile->BeginSpellAimPreview(QuickIndex))return true;

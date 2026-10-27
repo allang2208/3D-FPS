@@ -1,0 +1,27 @@
+{
+  "saved_at_local": "2026-10-27T23:32:06+08:00",
+  "audio": {
+    "candidate": "H / BalancedV4",
+    "asset": "/Game/Skills/HeartPiercingArrow/Audio20261026/S_HeartPiercingArrow_Release.S_HeartPiercingArrow_Release",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HeartPiercingArrowAudioCandidates20261026\\SelectedH\\S_HeartPiercingArrow_Release.wav",
+    "source_sha256": "0e839fe2900c76c0161558165451adb3d32efc6ffc60a7814dfb1a2f7525c959",
+    "saved": true,
+    "looping": false,
+    "volume": 1.0,
+    "pitch": 1.0,
+    "compression": "PCM",
+    "loading_behavior": "ForceInline",
+    "runtime_tested": false,
+    "played": false
+  },
+  "asset_sha256": "449ff79e7cc9d23b75ac4e66aaedd09a384dc46dbc66e64d1f1a4c86ed6eb5c4",
+  "asset_bytes": 54256,
+  "commandlet_exit_code": 0,
+  "archive_files": 60,
+  "archive_bytes": 11882897,
+  "gameplay_tests_rerun": false,
+  "listening_tested": false,
+  "repackaged": false,
+  "prior_isolated_assertions": 355,
+  "actual_multiplayer_acceptance": false
+}

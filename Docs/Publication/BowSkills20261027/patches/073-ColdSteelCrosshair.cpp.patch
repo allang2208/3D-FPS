@@ -1,0 +1,72 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -2,6 +2,7 @@
+ #include "ColdSteelExplosiveWarnings.h"
+ #include "ColdSteelUIStyle.h"
+ #include "ColdSteelHUDLayout.h"
++#include "ColdSteelBowRhythm.h"
+ #include "HAL/PlatformTime.h"
+ #include "ColdSteelWorldInteraction.h"
+ #include "../FPSGAMECharacter.h"
+@@ -14,52 +15,6 @@
+ #include "Styling/CoreStyle.h"
+ #include "Framework/Application/SlateApplication.h"
+ #include "Fonts/FontMeasure.h"
+-
+-namespace
+-{
+-int32 PaintBowRhythm(const UBowWeaponComponent& Bow,const FGeometry& Geometry,
+-    FSlateWindowElementList& Elements,int32 Layer,const FWidgetStyle& Style,float S)
+-{
+-    FBowDrawRhythm Rhythm;
+-    if (!Bow.GetDrawRhythm(Rhythm)) return Layer;
+-    constexpr float Width=208.f,TrackWidth=192.f;
+-    const FVector2D At=Geometry.GetLocalSize()*.5f+FVector2D(-Width*.5f,96.f)*S;
+-    const float Duration=Rhythm.FullDrawSeconds+ColdSteelBow::PerfectReleaseWindow+.30f;
+-    const float Progress=FMath::Clamp(Rhythm.Elapsed/Duration,0.f,1.f);
+-    const float WindowStart=Rhythm.FullDrawSeconds/Duration;
+-    const float WindowWidth=ColdSteelBow::PerfectReleaseWindow/Duration;
+-    const bool Late=Rhythm.Elapsed>Rhythm.FullDrawSeconds+ColdSteelBow::PerfectReleaseWindow;
+-    auto Tint=[&](FLinearColor Color){Color*=Style.GetColorAndOpacityTint();Color.A*=Rhythm.Opacity;return Color;};
+-    const auto* White=FCoreStyle::Get().GetBrush(TEXT("WhiteBrush"));
+-    auto Box=[&](int32 Z,FVector2D Offset,FVector2D Size,FLinearColor Color)
+-    {
+-        FSlateDrawElement::MakeBox(Elements,Layer+Z,Geometry.ToPaintGeometry(Size*S,FSlateLayoutTransform(At+Offset*S)),
+-            White,ESlateDrawEffect::None,Tint(Color));
+-    };
+-    // 用户要求只保留进度条：无外框、无轨道底线、无提示文字；
+-    // 进度填充改金色系，避免浅灰近白的观感被当成底色。
+-    // 进度落在金色判定区间时，给整条进度条外缘加一圈呼吸式金色脉冲。
+-    if (Rhythm.bPerfect)
+-    {
+-        const float Wave=.5f+.5f*FMath::Sin(float(FPlatformTime::Seconds())*2.f*PI*2.2f);
+-        const float Glow=2.f+2.5f*Wave;
+-        auto GlowBrush=ColdSteelUI::RoundedBrush(FLinearColor(0,0,0,0),3.f*S,
+-            FLinearColor::White,1.5f*S);
+-        FSlateDrawElement::MakeBox(Elements,Layer+2,
+-            Geometry.ToPaintGeometry(FVector2D(TrackWidth+Glow*2.f,6.f+Glow*2.f)*S,
+-                FSlateLayoutTransform(At+FVector2D(8.f-Glow,24.f-Glow)*S)),
+-            &GlowBrush,ESlateDrawEffect::None,
+-            Tint(ColdSteelUI::HUDGoldLight*FLinearColor(1.f,1.f,1.f,.35f+.55f*Wave)));
+-    }
+-    if (Progress>0.f)
+-        Box(3,FVector2D(8,24),FVector2D(TrackWidth*Progress,6),Late?ColdSteelUI::HUDGoldDim:ColdSteelUI::HUDGold);
+-    Box(4,FVector2D(8+TrackWidth*WindowStart,23),FVector2D(TrackWidth*WindowWidth,8),
+-        Rhythm.bPerfect?ColdSteelUI::HUDGoldLight:Late?ColdSteelUI::HUDGoldDim:ColdSteelUI::HUDGoldLight);
+-    // The marker reads the combat clock directly; UI easing must not shift the release window.
+-    Box(5,FVector2D(7+TrackWidth*Progress,21),FVector2D(2,12),ColdSteelUI::TextPrimary);
+-    return Layer+5;
+-}
+-}
+ 
+ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& Geometry,
+     const FSlateRect& Clip,FSlateWindowElementList& Elements,int32 Layer,const FWidgetStyle& Style,bool Enabled) const
+@@ -255,7 +210,7 @@
+     // Independent of the reticle/sight gate: physical sights and full ADS hide
+     // the crosshair, but never the owner's draw timing cue.
+     if(bBow&&!Character->IsTraversing())
+-        Result=PaintBowRhythm(*Bow,Geometry,Elements,Result+2,Style,1.f/ColdSteelUI::PixelScale(this));
++        Result=ColdSteelBowRhythm::Paint(*Bow,Geometry,Elements,Result+2,Style,1.f/ColdSteelUI::PixelScale(this));
+     if(Character->IsTraversing() || (bBow ? !Bow->ShouldShowCrosshair() : !Character->HasInventoryWeapon()&&!Character->HasOffhandPistol()))return Result+2;
+     const bool bKVScope=Character->GetGunsmithOpticVariant()==KVScopeAssets::Id;
+     if(!bBow&&Character->HasInventoryWeapon()&&Character->IsAiming()&&(Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")||bKVScope)&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){

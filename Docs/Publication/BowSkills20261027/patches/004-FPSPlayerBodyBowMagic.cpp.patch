@@ -1,0 +1,37 @@
+--- /dev/null
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp
+@@ -0,0 +1,34 @@
++#include "FPSPlayerBodyComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../Skills/BowHeldMagicVisual.h"
++#include "../Weapons/Bow/BowPartComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++
++void UFPSPlayerBodyComponent::UpdateBowMagic()
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    UStaticMeshComponent* Rod=nullptr;
++    if(DisplayState.BowMagic&&DisplayState.bBowArrow&&!IsDeathViewActive()
++        &&DisplayState.Family==TEXT("Bow")&&BowItemInstance==DisplayState.WeaponInstance
++        &&!UBowHeldMagicVisual::ShowFirstPerson(Character.Get())&&!FPSPlayerBodyWorldBodyHidden())
++    {
++        for(auto Part:WorldBowParts)if(Part&&Part->SlotName==TEXT("arrow")&&Part->IsPartVisible()&&!Part->bHiddenInGame)
++        {Rod=Part->RodVisual(0);break;}
++    }
++    if(!Rod||!Rod->IsVisible()||Rod->bHiddenInGame||!Rod->GetStaticMesh())
++    {if(WorldBowMagic)WorldBowMagic->Clear();return;}
++    // Match PlaceRod's authored axis and axial centre, after the body's final hand contacts.
++    // The asymmetric fletching bounds must not pull the effect away from the shaft.
++    const auto Bounds=Rod->GetStaticMesh()->GetBounds();
++    const FVector Axis=Bounds.BoxExtent.X>Bounds.BoxExtent.Z?FVector::XAxisVector:FVector::ZAxisVector;
++    const FVector Centre=Axis*FVector::DotProduct(Bounds.Origin,Axis);
++    const FVector Extent=Axis*FVector::DotProduct(Bounds.BoxExtent,Axis);
++    const FTransform Transform=Rod->GetComponentTransform();
++    if(!WorldBowMagic)
++    {
++        WorldBowMagic=NewObject<UBowHeldMagicVisual>(GetOwner(),NAME_None,RF_Transient);
++        GetOwner()->AddInstanceComponent(WorldBowMagic);WorldBowMagic->RegisterComponent();
++    }
++    WorldBowMagic->Update(DisplayState.BowMagic,Transform.TransformPosition(Centre-Extent),Transform.TransformPosition(Centre+Extent));
++}

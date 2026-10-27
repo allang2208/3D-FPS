@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp
+@@ -22,6 +22,8 @@
+     else if(Id==TEXT("iceSpike"))Cost=D->IceSpike.ManaCost+(L-1)*D->IceSpike.ManaCostPerLevel;
+     else if(Id==TEXT("iceWall"))Cost=D->IceWall.ManaCost;
+     else if(Id==TEXT("blizzard"))Cost=D->Blizzard.ManaCost;
++    else if(Id==TEXT("illuminationArrow"))Cost=D->IlluminationArrow.ManaCost;
++    else if(Id==TEXT("magicArrowRain"))Cost=D->MagicArrowRain.ManaCost;
+     else if(Id==TEXT("lightningStrike"))Cost=D->Lightning.ManaCost;
+     else if(Id==TEXT("holyLight"))Cost=D->HolyLight.ManaCost;
+     else if(Id==TEXT("iceArmor"))Cost=D->IceArmor.ManaBase+(L-1)*D->IceArmor.ManaPerLevel;

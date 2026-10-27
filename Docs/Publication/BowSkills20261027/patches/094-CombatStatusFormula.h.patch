@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Combat/CombatStatusFormula.h
++++ b/Source/FPSGAME/Combat/CombatStatusFormula.h
+@@ -120,7 +120,7 @@
+     float MagicShred()const{return ShredTime>0?Shred:0;}
+     float FinalMultiplier()const{return WardTime>0?Ward:1;}
+     /** 标记承伤乘区（所有伤害类型）。 */
+-    float MarkedMultiplier()const{return MarkedTime>0?1+MarkedValue:1;}
++    float MarkedMultiplier() const;
+     /** 石化承伤乘区（魔法/电系）。 */
+     float PetrifiedMagicMultiplier()const{return PetrifyTime>0?PetrifyMul:1;}
+     /** 骆驼惊吓：本实体作为攻击方的输出折减。 */

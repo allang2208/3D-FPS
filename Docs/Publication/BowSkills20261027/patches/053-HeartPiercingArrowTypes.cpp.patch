@@ -1,0 +1,49 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/HeartPiercingArrowTypes.cpp
+@@ -0,0 +1,46 @@
++#include "HeartPiercingArrowTypes.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Weapons/GunsmithSystem.h"
++#include "../Weapons/WeaponStatEvaluation.h"
++#include "Engine/GameInstance.h"
++
++FHeartPiercingArrowStats HeartPiercingArrow::Evaluate(const FHeartPiercingArrowTuning& T,int32 Level)
++{
++    FHeartPiercingArrowStats S;
++    S.ChargeSeconds=T.ChargeSeconds;
++    S.bLearned=Level>0;
++    if(!S.bLearned)return S;
++    const int32 L=FMath::Clamp(Level,1,20);
++    S.DamageMultiplier=T.DamageBase+FMath::Min(L-1,T.GrowthChangeLevel-1)*T.EarlyGrowth
++        +FMath::Max(0,L-T.GrowthChangeLevel)*T.LateGrowth;
++    S.SpeedMultiplier=T.SpeedMultiplier;
++    S.TargetPenetration=1+int32(L>=T.SecondPenetrationLevel)+int32(L>=T.ThirdPenetrationLevel);
++    return S;
++}
++
++FHeartPiercingArrowStats HeartPiercingArrow::ForModel(const UColdSteelStatusModel* Model,int32 Level,float FullDrawSeconds)
++{
++    if(!Model)return {};
++    auto S=Evaluate(Model->MasteryDefinition(TEXT("heartPiercingArrow")).HeartPiercingArrow,
++        Level==INDEX_NONE?Model->MasteryProgress(TEXT("heartPiercingArrow")).Level:Level);
++    if(S.bLearned)if(const auto* Bow=Model->ActiveBow())
++    {
++        // The same draw-speed sources shorten both thresholds by the same factor.
++        // Runtime callers supply the draw-session clock; panels use the equipped bow's clock.
++        const double BaseDraw=FMath::Max(.01,ColdSteelInventory::Number(*Bow,TEXT("draw_seconds"),1.4));
++        const double ActualDraw=FullDrawSeconds>0.f?double(FullDrawSeconds):FMath::Max(.3,ColdSteelWeaponStats::Interval(Bow,Model,BaseDraw));
++        S.ChargeSeconds*=ActualDraw/BaseDraw;
++        if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
++        {
++            const auto Mods=G->Calculate(Bow->Definition,G->Installed(*Bow)).Bow;
++            S.DamageMultiplier*=Mods.PiercingDamage;
++        }
++    }
++    return S;
++}
++
++bool HeartPiercingArrow::IsCharged(const FHeartPiercingArrowStats& S,float Elapsed,float Fraction)
++{
++    return S.bLearned&&Fraction>=1.f&&Elapsed>S.ChargeSeconds;
++}
++

@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
++++ b/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
+@@ -1,4 +1,7 @@
+ #include "PlayerSkillPreparation.h"
++#include "MagicArrowRainTypes.h"
++#include "ElementalArrowTypes.h"
++#include "IlluminationArrowTypes.h"
+ #include "FlameArmorAssets.h"
+ #include "MeteorAssets.h"
+ #include "DragonBreathAudioAssets.h"
+@@ -28,6 +31,9 @@
+ // Keep these entries aligned when changing the corresponding spell's load sites.
+ void PlayerSkillAssets::Gather(FName Skill, const FColdSteelProfile& Profile, TArray<FSoftObjectPath>& Out)
+ {
++    if(Skill==TEXT("illuminationArrow"))for(const auto* P:{IlluminationArrow::Glow,IlluminationArrow::Outline,IlluminationArrow::Depth})AddSkillAsset(Out,P);
++    if(Skill==TEXT("elementalArrow"))for(const auto& P:ElementalArrow::Assets())Out.AddUnique(P);
++    if(Skill==TEXT("magicArrowRain")){for(const auto* Name:MagicArrowRainAssets::Names)AddSkillAsset(Out,MagicArrowRainAssets::Path(Name));AddSkillAsset(Out,MagicArrowRainAssets::Path(TEXT("ATT_ArrowRain")));AddSkillAsset(Out,TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));}
+     if(Skill==TEXT("lightningHaste"))for(const TCHAR* Path:{LightningHasteAssets::Arc,LightningHasteAssets::CastSound,LightningHasteAssets::EndSound})AddSkillAsset(Out,Path);
+     if (Skill == TEXT("quickCombat"))
+         for (const TCHAR* Path : {

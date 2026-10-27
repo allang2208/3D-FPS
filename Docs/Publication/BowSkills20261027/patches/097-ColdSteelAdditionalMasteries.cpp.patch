@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp
+@@ -5,7 +5,7 @@
+ {
+     if(Id==TEXT("rifleMastery"))return RifleDefinition();if(Id==TEXT("pistolMastery"))return PistolDefinition();
+     static const TMap<FName,FColdSteelSkillDefinition> AdditionalDefinitions=[] {
+-        TMap<FName,FColdSteelSkillDefinition> Out;for(FName Key:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery")),FName(TEXT("heavyStrike")),FName(TEXT("whirlwind")),FName(TEXT("dashAttack")),FName(TEXT("swordUppercut"))})Out.Add(Key,ColdSteelSkills::LoadDefinition(Key));return Out;}();
++        TMap<FName,FColdSteelSkillDefinition> Out;for(FName Key:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery")),FName(TEXT("heartPiercingArrow")),FName(TEXT("magicArrowRain")),FName(TEXT("elementalArrow")),FName(TEXT("illuminationArrow")),FName(TEXT("heavyStrike")),FName(TEXT("whirlwind")),FName(TEXT("dashAttack")),FName(TEXT("swordUppercut"))})Out.Add(Key,ColdSteelSkills::LoadDefinition(Key));return Out;}();
+     if(const auto* D=AdditionalDefinitions.Find(Id))return *D;return RifleDefinition();
+ }
+ FColdSteelSkillProgress UColdSteelStatusModel::MasteryProgress(FName Id)const

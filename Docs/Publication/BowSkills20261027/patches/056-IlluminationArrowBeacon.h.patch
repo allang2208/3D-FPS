@@ -1,0 +1,24 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/IlluminationArrowBeacon.h
+@@ -0,0 +1,21 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "GameFramework/Actor.h"
++#include "IlluminationArrowBeacon.generated.h"
++
++class UIlluminationArrowVisual;
++
++/** A timed impact light independent of the recoverable or penetrating arrow. */
++UCLASS()
++class FPSGAME_API AIlluminationArrowBeacon : public AActor
++{
++    GENERATED_BODY()
++public:
++    AIlluminationArrowBeacon();
++    void Initialize(const FHitResult& Hit,float Duration);
++    virtual void BeginPlay() override;
++    virtual void Tick(float Delta) override;
++private:
++    UPROPERTY(VisibleAnywhere) TObjectPtr<USceneComponent> Root;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UIlluminationArrowVisual> Visual;
++};

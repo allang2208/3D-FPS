@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -348,6 +348,12 @@
+     UPROPERTY() float IceWallCooldownDuration = 0;
+     UPROPERTY() bool bIceWallReserved = false;
+     UPROPERTY() float IceWallReservedMana = 0;
++    UPROPERTY() float IlluminationArrowCooldown=0;
++    UPROPERTY() float IlluminationArrowCooldownDuration=0;
++    UPROPERTY() float MagicArrowRainCooldown=0;
++    UPROPERTY() float MagicArrowRainCooldownDuration=0;
++    UPROPERTY() bool bMagicArrowRainReserved=false;
++    UPROPERTY() float MagicArrowRainReservedMana=0;
+     UPROPERTY() float BlizzardCooldown = 0;
+     UPROPERTY() float BlizzardCooldownDuration = 0;
+     UPROPERTY() bool bBlizzardReserved = false;

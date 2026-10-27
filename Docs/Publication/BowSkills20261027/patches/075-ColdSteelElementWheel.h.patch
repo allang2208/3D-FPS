@@ -1,0 +1,31 @@
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelElementWheel.h
+@@ -0,0 +1,28 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Blueprint/UserWidget.h"
++#include "Styling/SlateBrush.h"
++#include "../Skills/ElementalArrowTypes.h"
++#include "ColdSteelElementWheel.generated.h"
++
++UCLASS()
++class FPSGAME_API UColdSteelElementWheel : public UUserWidget
++{
++    GENERATED_BODY()
++public:
++    void Configure(EArrowElement Current);
++    void MovePointer(FVector2D Pixels);
++    EArrowElement SelectedElement() const;
++protected:
++    virtual void NativeOnInitialized() override;
++    virtual void NativeTick(const FGeometry&,float) override;
++    virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool) const override;
++private:
++    UPROPERTY(Transient) TObjectPtr<class UColdSteelStatusModel> Model;
++    UPROPERTY(Transient) TArray<TObjectPtr<class UTexture2D>> Textures;
++    TArray<FSlateBrush> Brushes;
++    FVector2D Pointer=FVector2D::ZeroVector;
++    EArrowElement Current=EArrowElement::Fire;
++    int32 Hover=INDEX_NONE;
++    int32 DisplayedCooldowns[3]={-1,-1,-1};
++};

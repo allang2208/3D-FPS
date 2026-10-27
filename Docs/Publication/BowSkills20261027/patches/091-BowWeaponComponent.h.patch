@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
+@@ -50,6 +50,7 @@
+     bool bPerfect=false,bReleased=false,bSpeedBoosted=false;
+     bool bPiercingAvailable=false,bPiercingReady=false;
+     float PiercingSeconds=3.f;
++    bool bMagicArrowRain=false,bMagicRainValid=false;
+ };
+ 
+ /**
+@@ -88,6 +89,8 @@
+     /** 0 = 未拉，1 = 拉满；节拍奖励另按同一动作时钟判定。 */
+     UFUNCTION(BlueprintPure, Category="Bow") float DrawFraction() const;
+     bool GetDrawRhythm(FBowDrawRhythm& Out) const;
++    bool GetMagicArrowEndpoints(FVector& Tail,FVector& Tip) const;
++    void FinishMagicArrowRainRelease(bool bSuccess);
+     bool HasPerfectDrawSpeedBonus() const;
+     /** 服务器拒绝射击时清除本机预测的加速与成功反馈，不改变放弦动作时钟。 */
+     void ClearPerfectSpeedPending() { bPerfectSpeedPending = false; bLastPerfectRelease = bLastPiercingRelease = false; }
+@@ -184,7 +187,7 @@
+     // 节奏（秒）：作者值由 bows.json 覆盖，参考轨迹按阶段归一化映射到实际片段时长。
+     float StageActionRate=1.f;
+     FHeartPiercingArrowStats PiercingDrawStats;
+-    float NockSeconds = .68f, DrawSeconds = 1.4f, HoldSeconds = 2.2f, ReleaseSeconds = .3f,
++    float NockSeconds = .68f, DrawSeconds = 1.4f, ReleaseSeconds = .3f,
+           RecoverSeconds = .34f;
+     // 数值。`critical_chance` / `toughness_multiplier` 缺省即不覆盖射击瞬间的修炼快照。
+     float FullDamage = 69.f, FullSpeedCM = 9800.f, MinSpeedRatio = .35f,

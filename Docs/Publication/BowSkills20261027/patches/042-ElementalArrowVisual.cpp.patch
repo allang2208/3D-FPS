@@ -1,0 +1,202 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ElementalArrowVisual.cpp
+@@ -0,0 +1,199 @@
++#include "ElementalArrowVisual.h"
++#include "../WorldGeneration/FluidPresentationSubsystem.h"
++#include "Components/SceneComponent.h"
++#include "Components/SplineComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Camera/PlayerCameraManager.h"
++#include "GameFramework/PlayerController.h"
++#include "NiagaraComponent.h"
++#include "NiagaraSystem.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "Materials/MaterialInterface.h"
++#include "GameFramework/Actor.h"
++
++namespace
++{
++// First-person arrows retain full detail; teammate and flying arrows share a world budget.
++TArray<TWeakObjectPtr<UElementalArrowVisual>> FlyingVisuals;
++constexpr int32 MaxFlyingVisuals=12,ArcPoints=17,IceShards=7;
++}
++
++void UElementalArrowVisual::Clear()
++{
++    if(Load)Load->CancelHandle();Load.Reset();
++    for(const auto& FX:Effects)if(FX)FX->DestroyComponent();Effects.Reset();
++    for(const auto& Shard:Shards)if(Shard)Shard->DestroyComponent();Shards.Reset();
++    for(const auto& Path:Paths)if(Path)Path->DestroyComponent();Paths.Reset();Assets.Reset();
++    FlyingVisuals.RemoveAll([this](const auto& V){return !V.IsValid()||V.Get()==this;});
++    Current=EArrowElement::None;bReady=bBuilt=false;Age=EnvironmentAge=0;FluidDetail=1;Wind=FVector::ZeroVector;
++}
++void UElementalArrowVisual::EndPlay(const EEndPlayReason::Type Reason){Clear();Super::EndPlay(Reason);}
++void UElementalArrowVisual::Build(const FVector& Tail,const FVector& Tip)
++{
++    auto AddFX=[&](const TCHAR* Asset)->UNiagaraComponent*
++    {
++        auto* System=Cast<UNiagaraSystem>(FSoftObjectPath(Asset).ResolveObject());if(!System)return nullptr;
++        auto* FX=NewObject<UNiagaraComponent>(GetOwner(),NAME_None,RF_Transient);GetOwner()->AddInstanceComponent(FX);
++        FX->SetAutoActivate(false);FX->SetAsset(System);FX->SetCastShadow(false);FX->SetVisibleInRayTracing(false);
++        FX->RegisterComponent();FX->SetWorldLocation(Tip);FX->AddTickPrerequisiteActor(GetOwner());
++        FX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);Effects.Add(FX);return FX;
++    };
++    if(Current==EArrowElement::Fire)
++    {
++        // Three overlapping tongues wrap the forward shaft, rather than one tip tuft.
++        for(int32 I=0;I<3;++I)AddFX(ElementalArrow::Flame);
++    }
++    else if(Current==EArrowElement::Ice)
++    {
++        AddFX(ElementalArrow::Mist);AddFX(ElementalArrow::Mist);AddFX(ElementalArrow::Crystals);
++        for(int32 I=0;I<IceShards;++I)
++        {
++            auto* Shard=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);GetOwner()->AddInstanceComponent(Shard);
++            Shard->SetStaticMesh(Cast<UStaticMesh>(FSoftObjectPath(ElementalArrow::Shard).ResolveObject()));
++            Shard->SetMaterial(0,Cast<UMaterialInterface>(FSoftObjectPath(ElementalArrow::IceMaterial).ResolveObject()));
++            Shard->SetCollisionEnabled(ECollisionEnabled::NoCollision);Shard->SetCanEverAffectNavigation(false);
++            Shard->SetCastShadow(false);Shard->SetVisibleInRayTracing(false);Shard->SetReceivesDecals(false);
++            Shard->RegisterComponent();Shards.Add(Shard);
++        }
++    }
++    else if(Current==EArrowElement::Lightning)
++    {
++        for(int32 I=0;I<3;++I)
++        {
++            auto* Path=NewObject<USplineComponent>(GetOwner(),NAME_None,RF_Transient);GetOwner()->AddInstanceComponent(Path);
++            Path->SetCollisionEnabled(ECollisionEnabled::NoCollision);Path->RegisterComponent();
++            Path->ClearSplinePoints(false);
++            for(int32 J=0;J<ArcPoints;++J)
++            {
++                Path->AddSplinePoint(FVector::ZeroVector,ESplineCoordinateSpace::Local,false);
++                Path->SetSplinePointType(J,ESplinePointType::Linear,false);
++            }
++            Path->UpdateSpline();Paths.Add(Path);
++            if(auto* FX=AddFX(ElementalArrow::Blade))
++            {
++                FX->SetVariableObject(TEXT("User.BladeSpline"),Path);
++                FX->SetVariableFloat(TEXT("User.Progress"),1);FX->SetVariableFloat(TEXT("User.Jitter"),0);
++                FX->SetVariableFloat(TEXT("User._DetailSpeed"),.0013f);FX->SetVariableFloat(TEXT("User.MainPowerSpeed"),8);
++                FX->SetVariableFloat(TEXT("User._DetailSpeedOffset"),6);
++                FX->SetVariableBool(TEXT("User.AddDetail"),false);FX->SetVariableBool(TEXT("User.AddMainPower"),true);
++            }
++        }
++    }
++    Previous=Tip;bBuilt=true;
++}
++void UElementalArrowVisual::Update(EArrowElement Element,const FVector& Tail,const FVector& Tip,float Delta,bool bFlying,bool bWorldPresentation)
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    const bool WorldPresentation=bFlying||bWorldPresentation;
++    float DistanceDetail=1.f;
++    if(WorldPresentation)if(const auto* PC=GetWorld()->GetFirstPlayerController();PC&&PC->PlayerCameraManager)
++    {
++        const double Distance=FVector::DistSquared(PC->PlayerCameraManager->GetCameraLocation(),Tip);
++        if(Distance>FMath::Square(6000.f)){if(Current!=EArrowElement::None)Clear();return;}
++        if(Distance>FMath::Square(2200.f))DistanceDetail=.55f;
++    }
++    if(Element!=Current)
++    {
++        Clear();if(!ElementalArrow::IsElement(Element))return;
++        if(WorldPresentation)
++        {
++            int32 Count=0;for(const auto& V:FlyingVisuals)if(V.IsValid()&&V->GetWorld()==GetWorld())++Count;
++            if(Count>=MaxFlyingVisuals)return;
++            FlyingVisuals.Add(this);
++        }
++        Current=Element;
++        TArray<FSoftObjectPath> AssetPaths;
++        if(Element==EArrowElement::Fire)AssetPaths.Emplace(ElementalArrow::Flame);
++        else if(Element==EArrowElement::Ice)for(const auto* P:{ElementalArrow::Mist,ElementalArrow::Crystals,ElementalArrow::Shard,ElementalArrow::IceMaterial})AssetPaths.Emplace(P);
++        else AssetPaths.Emplace(ElementalArrow::Blade);
++        bool Ready=true;for(const auto& P:AssetPaths)Ready&=P.ResolveObject()!=nullptr;
++        auto Retain=[this,AssetPaths]{for(const auto& P:AssetPaths)if(auto* A=P.ResolveObject())Assets.Add(A);bReady=true;};
++        if(Ready)Retain();else Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(AssetPaths,FStreamableDelegate::CreateWeakLambda(this,Retain));
++    }
++    if(!bReady||Element==EArrowElement::None)return;
++    if(!bBuilt)Build(Tail,Tip);
++    const float Step=FMath::Max(0.f,Delta),PreviousAge=Age;Age+=Step;
++    const FVector Direction=(Tip-Tail).GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
++    FVector Side,Up;Direction.FindBestAxisVectors(Side,Up);
++    const FVector Displacement=(Tip-Previous).GetClampedToMaxSize(400.f);
++    const FVector Velocity=Delta>SMALL_NUMBER?(Displacement/Delta).GetClampedToMaxSize(20000.f):FVector::ZeroVector;
++    if(Current==EArrowElement::Ice)
++    {
++        EnvironmentAge-=Step;
++        if(EnvironmentAge<=0.f)
++        {
++            EnvironmentAge=.12f;FluidDetail=1;Wind=FVector::ZeroVector;
++            if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())
++            {
++                constexpr int32 Wanted=12;
++                FluidDetail=FMath::Max(.35f,float(Fluid->AllocateDetail(Tip,Wanted,!WorldPresentation))/Wanted);
++                Wind=Fluid->WindAt(Tip)*.15f;
++            }
++        }
++    }
++    for(int32 I=0;I<Effects.Num();++I)
++    {
++        auto* FX=Effects[I].Get();if(!FX)continue;
++        if(Current==EArrowElement::Lightning)
++        {
++            if(!Paths.IsValidIndex(I))continue;
++            auto* Path=Paths[I].Get();
++            const float Period=.16f+I*.017f,Offset=I/3.f;
++            const int32 Pulse=FMath::FloorToInt(Age/Period+Offset);
++            const bool Restart=Pulse!=FMath::FloorToInt(PreviousAge/Period+Offset);
++            const FVector Start=bFlying?Tail-Direction*(I==0?48.f:22.f):FMath::Lerp(Tail,Tip,I==0?.24f:.34f);
++            const FVector End=FMath::Lerp(Tail,Tip,I==0?1.f:.95f);
++            Path->SetWorldLocation(Start);
++            for(int32 J=0;J<ArcPoints;++J)
++            {
++                const float T=float(J)/(ArcPoints-1),Envelope=FMath::Sin(T*PI);
++                const float Phase=T*(I==0?16.f:25.f)+I*2.1f+Pulse*1.73f;
++                const float Radius=Envelope*(I==0?3.8f:6.5f)*(bFlying?1.25f:1.f);
++                const FVector Point=(End-Start)*T+(Side*FMath::Sin(Phase)+Up*FMath::Cos(Phase*1.37f))*Radius;
++                Path->SetLocationAtSplinePoint(J,Point,ESplineCoordinateSpace::Local,false);
++            }
++            Path->UpdateSpline();
++            FX->SetWorldLocation(Start);FX->SetSystemFixedBounds(Path->CalcBounds(FTransform::Identity).GetBox().ExpandBy(18));
++            const float Width=I==0?.72f:I==1?.44f:.34f;
++            FX->SetVariableFloat(TEXT("User._Width"),Width*(bFlying?1.3f:1.f));
++            FX->SetVariableFloat(TEXT("User._Brightness"),(I==0?65.f:46.f)*(1.f+.08f*FMath::Sin(Age*18.f+I)));
++            if(Restart||!FX->IsActive())FX->Activate(true);
++            continue;
++        }
++        const bool Fire=Current==EArrowElement::Fire;
++        const bool Mist=!Fire&&I<2;
++        const float Along=Fire?.36f+I*.29f:Mist?(I==0?.57f:.94f):.92f;
++        const FVector Anchor=FMath::Lerp(Tail,Tip,Along);
++        FX->SetWorldLocationAndRotation(Anchor,Direction.Rotation());
++        FX->SetWorldScale3D(FVector(Fire?(bFlying?2.05f:1.65f):1.f));
++        // In flight these inputs are a temporal segment; held effects cover only
++        // their own forward-shaft section, rather than spreading sparse particles.
++        const FVector SpawnStart=bFlying?Anchor-Displacement:Fire?Anchor-Direction*12.f:FMath::Lerp(Tail,Tip,I==0?.26f:.57f);
++        FX->SetVariablePosition(TEXT("User.PreviousPosition"),SpawnStart);
++        FX->SetVariablePosition(TEXT("User.CurrentPosition"),Anchor);
++        FX->SetVariableVec3(TEXT("User.Velocity"),Velocity);
++        FX->SetVariableVec3(TEXT("User.FlightDirection"),Direction);
++        FX->SetVariableVec3(TEXT("User.Side"),Side*1.2f);FX->SetVariableVec3(TEXT("User.Up"),Up*1.2f);
++        FX->SetVariableVec3(TEXT("User.Wind"),Wind);
++        FX->SetVariableFloat(TEXT("User.Flight"),bFlying?1.f:0.f);
++        FX->SetVariableFloat(TEXT("User.Strength"),Mist?1.f:Fire?1.f:bFlying?1.5f:2.f);
++        FX->SetVariableFloat(TEXT("User.ReleasePulse"),bFlying?FMath::Clamp(1.f-Age/.16f,0.f,1.f):0.f);
++        FX->SetVariableFloat(TEXT("User.DetailReduction"),1.f-DistanceDetail*FluidDetail*.95f);
++        FX->SetVariableFloat(TEXT("User.Detail"),DistanceDetail*(I==1?.85f:1.f));
++        FX->SetVariableFloat(TEXT("User.Fade"),Fire?.95f:1.f);
++        if(!FX->IsActive())FX->Activate(true);
++    }
++    for(int32 I=0;I<Shards.Num();++I)
++    {
++        const float T=.30f+I*.10f,Angle=I*2.39996f+Age*.32f;
++        const FVector Radial=Side*FMath::Cos(Angle)+Up*FMath::Sin(Angle);
++        Shards[I]->SetWorldLocationAndRotation(FMath::Lerp(Tail,Tip,T)+Radial*(I%2?2.6f:1.6f),(Direction+Radial*.18f).Rotation());
++        const float Size=(I%3==0?.38f:.29f)*(1.f+.025f*FMath::Sin(Age*4.f+I));
++        Shards[I]->SetWorldScale3D(FVector(Size*1.18f,Size,Size));
++        Shards[I]->SetVisibility(DistanceDetail>.8f||I%2==0);
++    }
++    Previous=Tip;
++}

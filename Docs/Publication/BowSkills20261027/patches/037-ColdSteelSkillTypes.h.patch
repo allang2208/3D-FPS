@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -13,6 +13,9 @@
+ #include "WhirlwindTypes.h"
+ #include "DashAttackTypes.h"
+ #include "HeartPiercingArrowTypes.h"
++#include "MagicArrowRainTypes.h"
++#include "ElementalArrowTypes.h"
++#include "IlluminationArrowTypes.h"
+ #include "../Combat/WeaponDamageTypes.h"
+ #include "../Combat/MonsterToughnessTypes.h"
+ #include "../Weapons/DealerPokerTypes.h"
+@@ -49,6 +52,8 @@
+ 
+ struct FColdSteelSkillDefinition
+ {
++    FElementalArrowTuning ElementalArrow;
++    FIlluminationArrowTuning IlluminationArrow;
+     FName Id = TEXT("rifleMastery");
+     FString Name = TEXT("步枪精通");
+     FString Description = TEXT("精通步枪的精准射击，每颗子弹都命中要害。");
+@@ -93,6 +98,7 @@
+     FIceWallTuning IceWall;
+     FBlizzardTuning Blizzard;
+     FHeartPiercingArrowTuning HeartPiercingArrow;
++    FMagicArrowRainTuning MagicArrowRain;
+ };
+ 
+ struct FColdSteelSkillEffect

@@ -1,0 +1,60 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ElementalArrowBurst.h
+@@ -0,0 +1,57 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "GameFramework/Actor.h"
++#include "ElementalArrowTypes.h"
++#include "ElementalArrowBurst.generated.h"
++class UColdSteelStatusModel;
++class UStaticMeshComponent;
++struct FStreamableHandle;
++
++USTRUCT()
++struct FElementalIceRay
++{
++    GENERATED_BODY()
++    UPROPERTY() FVector_NetQuantizeNormal Direction=FVector::ForwardVector;
++    UPROPERTY() float Range=0;
++    UPROPERTY() float EndTime=-1;
++    UPROPERTY() FVector_NetQuantize End=FVector::ZeroVector;
++    UPROPERTY() FVector_NetQuantizeNormal Normal=FVector::UpVector;
++    UPROPERTY() bool bHit=false;
++};
++
++/** One burst transaction. Ice rays fly and collide; their hit rewards finish together. */
++UCLASS()
++class FPSGAME_API AElementalArrowBurst : public AActor
++{
++    GENERATED_BODY()
++public:
++    AElementalArrowBurst();
++    void Launch(APawn* Shooter,const FElementalArrowCast& Snapshot,const FHitResult& Hit);
++    void FinishForRemoval();
++    virtual void Tick(float Delta) override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
++private:
++    friend class UBowSkillTrainingAuditCommandlet;
++    UPROPERTY(Replicated) EArrowElement Element=EArrowElement::None;
++    UPROPERTY(Replicated) FVector_NetQuantize Origin=FVector::ZeroVector;
++    UPROPERTY(Replicated) FVector_NetQuantizeNormal Normal=FVector::UpVector;
++    UPROPERTY(Replicated) float Radius=0,Speed=2400;
++    UPROPERTY(Replicated) double StartedAt=0;
++    UPROPERTY(Replicated) TArray<FElementalIceRay> Rays;
++    UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> Meshes;
++    UPROPERTY(Transient) TArray<TObjectPtr<UObject>> Assets;
++    UPROPERTY(Transient) TObjectPtr<class UPointLightComponent> Flash;
++    TSharedPtr<FStreamableHandle> Load;
++    TWeakObjectPtr<UColdSteelStatusModel> Model;
++    TWeakObjectPtr<AActor> SeedTarget;
++    TSet<TWeakObjectPtr<AActor>> HitTargets;
++    TSet<int32> PresentedHits;
++    FElementalArrowCast Cast;
++    FIceSpikeRewards Rewards;
++    bool bPresented=false,bRequestedAssets=false,bAssetsReady=false,bFinished=false;
++    float SimulatedAge=0;
++    void Present();
++    void IceImpact(const FVector& Position,const FVector& Up,bool bSound);
++    void FinishRewards();
++};

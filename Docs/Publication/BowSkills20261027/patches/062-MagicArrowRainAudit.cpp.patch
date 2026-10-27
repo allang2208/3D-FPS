@@ -1,0 +1,200 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/MagicArrowRainAudit.cpp
+@@ -0,0 +1,197 @@
++#include "BowSkillTrainingAuditCommandlet.h"
++#include "FPSMagicArrowRainComponent.h"
++#include "FPSMagicArrowRain.h"
++#include "MagicArrowRainGround.h"
++#include "PlayerSkillPreparation.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelProfileRecovery.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Bow/BowArmsMeshComponent.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Components/BoxComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Camera/CameraComponent.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "Materials/Material.h"
++#include "NiagaraSystem.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "HAL/FileManager.h"
++#include "Serialization/JsonSerializer.h"
++#include "UObject/StrongObjectPtr.h"
++
++int32 UBowSkillTrainingAuditCommandlet::RunMagicArrowRain(const FString& Params)
++{
++    const FString Original=FCommandLine::Get();
++    const FString Profile=TEXT("MagicArrowRainAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(TEXT("BowSkillTrainingAudit -ColdSteelProfile=")+Profile));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("MagicArrowRainAuditWorld"));
++    auto* W=GI->GetWorld();auto* M=GI->GetSubsystem<UColdSteelStatusModel>();
++    if(!W||!M||!M->IsAudit()||M->ProfileSlot()!=TEXT("ColdSteel_")+Profile)return 2;
++    TArray<TSharedPtr<FJsonValue>> Rows;int32 Failed=0;
++    auto Check=[&](bool OK,const FString& Name,const FString& Detail=FString())
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),Name);Row->SetBoolField(TEXT("passed"),OK);Row->SetStringField(TEXT("detail"),Detail);
++        Rows.Add(MakeShared<FJsonValueObject>(Row));Failed+=!OK;
++        UE_LOG(LogTemp,Display,TEXT("ARROW_RAIN_AUDIT %s %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),*Name,*Detail);
++    };
++    auto Seed=M->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();Seed.DungeonRun={};
++    for(auto& B:Seed.QuickBindings)B={};
++    for(auto& S:Seed.Skills){S.Value.Level=1;S.Value.Experience=0;}
++    auto Item=M->CreateItem(TEXT("bow_dark"));Item.Place=1;Item.Cell=6;Seed.Items.Add(Item);
++    const FString Ammo=M->AmmoDefinitionFor(Item);Seed.AmmoPouch.FindOrAdd(Ammo)=10;
++    Seed.Stamina=100;Seed.Mana=100;Seed.MagicArrowRainCooldown=Seed.MagicArrowRainCooldownDuration=0;
++    Seed.bMagicArrowRainReserved=false;Seed.MagicArrowRainReservedMana=0;
++    Check(M->CommitState(Seed),TEXT("isolated legal profile"),M->ResultMessage());
++    M->Current.Mana=M->Derived(TEXT("maxMp"));const auto Baseline=M->Snapshot();
++    const auto Spell=M->MagicArrowRainStats();
++    auto Reset=[&](){M->Current=Baseline;M->CurrentPawn.Reset();M->bTrainingDirty=false;M->RewardedVictims.Reset();};
++    Check(M->SkillCatalog().Contains(TEXT("magicArrowRain")),TEXT("skill catalog includes loader entry"));
++    {
++        FPlayerSkillPreparation Preparation;Preparation.Begin(*M);
++        Check(Preparation.Jobs.ContainsByPredicate([](const auto& J){return J.Skill==TEXT("magicArrowRain")&&J.bMagic;}),TEXT("learned skill queues a magic preparation job"));
++        Preparation.Cancel();
++    }
++    Check(M->CanBindQuickSkill(TEXT("magicArrowRain"))&&M->QuickSkillDefinition(TEXT("magicArrowRain"))->Id==TEXT("magicArrowRain"),TEXT("card resolves real active skill and quick binding"));
++    TArray<FSoftObjectPath> Paths;PlayerSkillAssets::Gather(TEXT("magicArrowRain"),Baseline,Paths);
++    Check(Paths.Num()==11,TEXT("preparation gathers all runtime paths"),FString::FromInt(Paths.Num()));
++    TArray<TStrongObjectPtr<UObject>> Loaded;
++    for(const auto& Path:Paths){UObject* A=Path.TryLoad();Check(A!=nullptr,TEXT("saved asset resolves: ")+Path.GetAssetName());if(A)Loaded.Emplace(A);}
++    auto* Mesh=Cast<UStaticMesh>(FSoftObjectPath(MagicArrowRainAssets::Path(TEXT("SM_ArrowRain"))).ResolveObject());
++    if(Mesh)
++    {
++        const FVector Size=Mesh->GetBoundingBox().GetSize();
++        Check(Size.X>70&&Size.X<85&&Size.Y<10&&Size.Z<10,TEXT("arrow mesh units and forward axis"),Size.ToString());
++    }
++    auto* Decal=Cast<UMaterial>(FSoftObjectPath(MagicArrowRainAssets::Path(TEXT("M_ArrowRainPreview"))).ResolveObject());
++    Check(Decal&&Decal->MaterialDomain==MD_DeferredDecal,TEXT("saved ground preview is a decal material"));
++    const auto Low=M->MagicArrowRainStats(1),High=M->MagicArrowRainStats(20);
++    Check(High.Damage>Low.Damage&&Low.ChargeSeconds==High.ChargeSeconds&&Low.Radius==High.Radius,TEXT("level growth preserves charge and footprint"));
++    Check(M->BeginMagicArrowRain(Spell),TEXT("prepare reserves base mana"));
++    Check(FMath::IsNearlyEqual(M->Mana(),Baseline.Mana-Spell.ManaCost,.01f)&&M->PouchCount(Ammo)==10&&M->MagicArrowRainCooldown()==0,TEXT("prepare costs no arrow or cooldown"));
++    Check(!M->BeginMagicArrowRain(Spell),TEXT("duplicate prepare cannot double charge"));
++    M->Current.Mana-=6.f;M->CancelMagicArrowRain();
++    Check(FMath::IsNearlyEqual(M->Mana(),Baseline.Mana-6.f,.01f)&&!M->Current.bMagicArrowRainReserved,TEXT("cancel refunds reservation but preserves upkeep"));
++    const float AfterCancel=M->Mana();M->CancelMagicArrowRain();Check(M->Mana()==AfterCancel,TEXT("cancel refund is idempotent"));
++    Reset();M->BeginMagicArrowRain(Spell);Check(M->ReleaseMagicArrowRain(Spell,true),TEXT("release commits reserved cast"));
++    Check(M->PouchCount(Ammo)==9&&FMath::IsNearlyEqual(M->MagicArrowRainCooldown(),Spell.Cooldown)&&!M->Current.bMagicArrowRainReserved,TEXT("release spends exactly one arrow and starts cooldown"));
++    Check(!M->ReleaseMagicArrowRain(Spell,true)&&M->PouchCount(Ammo)==9,TEXT("duplicate release cannot spend or fire twice"));
++    Reset();M->BeginMagicArrowRain(Spell);M->Current.AmmoPouch.FindOrAdd(Ammo)=0;
++    Check(!M->ReleaseMagicArrowRain(Spell,true)&&M->Current.bMagicArrowRainReserved,TEXT("missing release ammo rejects without losing refund"));
++    M->CancelMagicArrowRain();Check(FMath::IsNearlyEqual(M->Mana(),Baseline.Mana,.01f),TEXT("rejected release returns base mana"));
++    Reset();M->BeginMagicArrowRain(Spell);M->Current.Mana-=3.f;auto Recovery=M->Snapshot();
++    Check(ColdSteelProfileRecovery::InterruptedSpells(Recovery,Baseline.Mana)&&!Recovery.bMagicArrowRainReserved&&FMath::IsNearlyEqual(Recovery.Mana,Baseline.Mana-3,.01f),TEXT("interrupted save restores only reserved mana"));
++    Reset();
++
++    auto* Player=W->SpawnActor<AFPSGAMECharacter>(FVector(-900,0,100),FRotator::ZeroRotator);
++    auto* PC=W->SpawnActor<APlayerController>();PC->SetAsLocalPlayerController();
++    auto* PlayerState=W->SpawnActor<AColdSteelPlayerState>();PlayerState->SetOwner(PC);PC->SetPlayerState(PlayerState);PC->Possess(Player);Player->SetPlayerState(PlayerState);
++    Player->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    auto* HP=Player->FindComponentByClass<UFPSCombatHealthComponent>();HP->Health=HP->MaxHealth;
++    auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();auto* Skill=Player->FindComponentByClass<UFPSMagicArrowRainComponent>();
++    Bow->Character=Player;Bow->Camera=Player->FindComponentByClass<UCameraComponent>();Bow->InstanceId=Item.InstanceId;Bow->ArrowId=Ammo;
++    Bow->Viewmodel=NewObject<UBowArmsMeshComponent>(Player);Bow->Viewmodel->RegisterComponent();Bow->bPresentationReady=true;Bow->bUsesArms=false;
++    Bow->Stage=EBowStage::Ready;Skill->Cast=Spell;Skill->Weapon=Item.InstanceId;
++    W->InitializeActorsForPlay(FURL());
++    Check(Player->IsLocallyControlled()&&Player->IsPlayerControlled(),TEXT("fixture owns local player without viewport or map BeginPlay"));
++    Skill->bPrepared=Skill->bServerPrepared=true;Bow->bArrowNocked=true;
++    Bow->SetStage(EBowStage::Drawing,0.f,.15f);
++    Check(FMath::IsNearlyEqual(Bow->DrawSeconds,1.2f)&&Skill->bServerDrawing&&FMath::IsNearlyEqual(float(W->GetTimeSeconds()-Skill->DrawStartedAt),.15f,.001f),TEXT("skill charge carries partial frame into authority clock"));
++    M->CurrentPawn=Player;const float BeforeMana=M->Mana(),BeforeStamina=M->Stamina();
++    M->TickRuntime(.5f,Player);
++    Check(FMath::IsNearlyEqual(M->Mana(),BeforeMana-1.5f,.02f),TEXT("holding drains 3 mana per second without passive regen"));
++    Check(M->Stamina()<BeforeStamina,TEXT("holding uses heavy charge stamina drain"));
++    M->CurrentPawn.Reset();Skill->AuthorityCancel(FString());
++    Reset();Skill->bPrepared=Skill->bServerPrepared=true;Skill->bReleasePending=true;Bow->Stage=EBowStage::Holding;
++    Check(!Skill->Trigger()&&Bow->Stage==EBowStage::Holding,TEXT("hotkey cannot cancel an already submitted release"));
++    Skill->bPrepared=Skill->bServerPrepared=Skill->bReleasePending=false;
++    Skill->bWaiting=false;Skill->bCancelPending=true;Skill->ClientPrepared_Implementation(true,FString());
++    Check(!Skill->bPrepared&&Skill->bCancelPending,TEXT("late prepare acknowledgement cannot revive cancelled arrow"));Skill->bCancelPending=false;
++    Bow->Stage=EBowStage::Ready;Skill->Weapon=TEXT("previous bow instance");Skill->bWaiting=true;
++    Skill->ServerPrepare_Implementation();
++    Check(Skill->bServerPrepared&&Skill->Weapon==Item.InstanceId,TEXT("fresh prepare replaces old equipped bow identity"));Skill->AuthorityCancel(FString());Reset();
++
++    auto Box=[&](FVector Position,FVector Extent,FRotator Rotation=FRotator::ZeroRotator)
++    {
++        auto* A=W->SpawnActor<AActor>();auto* C=NewObject<UBoxComponent>(A);A->SetRootComponent(C);C->SetBoxExtent(Extent);
++        C->SetCollisionEnabled(ECollisionEnabled::QueryOnly);C->SetCollisionResponseToAllChannels(ECR_Block);C->SetCollisionObjectType(ECC_WorldStatic);C->RegisterComponent();A->SetActorLocationAndRotation(Position,Rotation);return A;
++    };
++    auto* Floor=Box(FVector(0,0,-25),FVector(6000,6000,25));
++    // Advance only the isolated world's clock; do not start a map or character BeginPlay.
++    // UWorld clamps a single long delta; step the clock in ordinary frame slices.
++    for(int32 I=0;I<30;++I)W->Tick(LEVELTICK_TimeOnly,.1f);
++    FVector Ground(0,0,0),Normal=FVector::UpVector,Burst;FString Reason;
++    Check(MagicArrowRainGround::Validate(Player,Spell,Player->GetPawnViewLocation(),Ground,Normal,Burst,Reason)&&FMath::IsNearlyEqual(float(Burst.Z),600.f,1.f),TEXT("valid floor selects six meter airburst"),Reason);
++    auto* Roof=Box(FVector(0,0,250),FVector(450,450,20));Ground=FVector::ZeroVector;Normal=FVector::UpVector;
++    Check(!MagicArrowRainGround::Validate(Player,Spell,Player->GetPawnViewLocation(),Ground,Normal,Burst,Reason),TEXT("insufficient ceiling height rejects"),Reason);Roof->Destroy();
++    Ground=FVector(5000,0,0);Normal=FVector::UpVector;
++    Check(!MagicArrowRainGround::Validate(Player,Spell,Player->GetPawnViewLocation(),Ground,Normal,Burst,Reason),TEXT("beyond forty meters rejects"),Reason);
++    auto* Wall=Box(FVector(-450,0,400),FVector(25,500,500));Ground=FVector::ZeroVector;Normal=FVector::UpVector;
++    Check(!MagicArrowRainGround::Validate(Player,Spell,Player->GetPawnViewLocation(),Ground,Normal,Burst,Reason),TEXT("solid path obstruction rejects preview"),Reason);Wall->Destroy();
++    FActorSpawnParameters Spawn;Spawn.Owner=Player;Spawn.Instigator=Player;
++    auto* Rain=W->SpawnActor<AFPSMagicArrowRain>(FVector::ZeroVector,FRotator::ZeroRotator,Spawn);
++    auto DamageSpell=Spell;DamageSpell.CriticalChance=-100;Rain->Launch(M,DamageSpell,Player->GetPawnViewLocation(),FVector::ZeroVector,FVector(0,0,600));Rain->BuildRain();
++    bool Cone=Rain->RainEnds.Num()==28;float Outer=0;
++    for(int32 I=0;I<Rain->RainEnds.Num();++I){Cone&=Rain->RainStarts[I].Equals(Rain->Flight.Burst,1.f);Outer=FMath::Max(Outer,float(Rain->RainEnds[I].Size2D()));}
++    Check(Cone&&Outer>370&&Outer<400,TEXT("28 cone arrows share the airburst apex and cover the real footprint"),FString::Printf(TEXT("arrows=%d outer=%.1f"),Rain->RainEnds.Num(),Outer));
++    auto Target=[&](const FVector& Point)
++    {
++        const FTransform Transform(Point);
++        auto* Enemy=W->SpawnActorDeferred<ANurseZombie>(ANurseZombie::StaticClass(),Transform,nullptr,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
++        Enemy->AutoPossessAI=EAutoPossessAI::Disabled;Enemy->AIControllerClass=nullptr;Enemy->FinishSpawning(Transform);
++        // This fixture has no animated mesh hit volumes; provide the query body explicitly.
++        Enemy->GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
++        Enemy->Knockdown=nullptr;Enemy->Health=Enemy->MaxHealth=10000;return Enemy;
++    };
++    auto* Enemy=Target(FVector(150,0,95));auto* Friendly=Target(FVector(-150,100,95));Friendly->Tags.Add(TEXT("Friendly"));
++    auto* NearEnemy=Target(FVector(-700,0,95));
++    PC->SetControlRotation((FVector(-700,0,Player->GetPawnViewLocation().Z)-Player->GetPawnViewLocation()).Rotation());
++    Reset();M->BeginMagicArrowRain(Spell);Skill->Cast=Spell;Skill->Weapon=Item.InstanceId;
++    Skill->bPrepared=Skill->bServerPrepared=Skill->bServerDrawing=true;Skill->bWaiting=Skill->bReleasePending=Skill->bCancelPending=false;
++    Skill->DrawStartedAt=W->GetTimeSeconds()-Spell.ChargeSeconds-.1;Bow->Stage=EBowStage::Holding;Bow->bArrowNocked=true;
++    Skill->UpdatePreview();const FVector NearGround=Skill->Ground;
++    Check(Skill->bValid&&FVector::DotProduct((NearGround-Player->GetPawnViewLocation()).GetSafeNormal(),PC->GetControlRotation().Vector())<.85f,TEXT("near enemy aim projects to legal ground despite steep eye-to-feet angle"),FString::Printf(TEXT("valid=%d ground=%s eye=%s worldTime=%.3f reason=%s"),Skill->bValid,*NearGround.ToString(),*Player->GetPawnViewLocation().ToString(),W->GetTimeSeconds(),*Skill->Failure));
++    Skill->Release(Player->GetPawnViewLocation());
++    Check(!Skill->bPrepared&&!Skill->bServerPrepared&&M->PouchCount(Ammo)==9&&M->MagicArrowRainCooldown()>0,TEXT("full local release accepts near enemy ground and commits once"),Skill->StatusText());
++    for(TActorIterator<AFPSMagicArrowRain> It(W);It;++It)if(*It!=Rain&&!It->IsActorBeingDestroyed())It->Destroy();
++    Reset();M->BeginMagicArrowRain(Spell);Skill->bPrepared=Skill->bServerPrepared=Skill->bServerDrawing=true;
++    Skill->DrawStartedAt=W->GetTimeSeconds()-.4;Bow->Stage=EBowStage::Drawing;Bow->DrawSeconds=Spell.ChargeSeconds;Bow->Elapsed=.4;Bow->bArrowNocked=true;
++    Skill->Release(Player->GetPawnViewLocation());
++    Check(!Skill->bPrepared&&!M->Current.bMagicArrowRainReserved&&M->PouchCount(Ammo)==10&&M->MagicArrowRainCooldown()==0&&Bow->Feedback.Contains(TEXT("未满蓄")),TEXT("partial charge release cancels with correct skill feedback and full base refund"));
++    NearEnemy->Destroy();Reset();
++    Rain->PreviousFraction=1.f;Rain->Flight.StartedAt=Rain->Clock()-Rain->Flight.FlightSeconds-.41;
++    Rain->Tick(0.f);const float Once=Enemy->Health;Rain->Tick(0.f);
++    Check(Once<10000&&Enemy->Health==Once,TEXT("actual effect tick damages enemy once across repeated frames"),FString::SanitizeFloat(10000-Once));
++    Check(Friendly->Health==10000,TEXT("friendly target receives no damage"));
++    Check(M->MasteryProgress(TEXT("magicArrowRain")).Experience==4,TEXT("single hit trains arrow rain once"));
++    Check(M->MasteryProgress(TEXT("heartPiercingArrow")).Experience==0,TEXT("arrow rain grants no piercing arrow training"));
++    Enemy->Health=10000;auto* Cover=Box(FVector(150,0,300),FVector(100,100,20));
++    M->ApplyMagicArrowRain(Player,FVector::ZeroVector,FVector(0,0,600),DamageSpell);
++    Check(Enemy->Health==10000,TEXT("overhead slab shields damage"));Cover->Destroy();
++    Enemy->Destroy();Friendly->Destroy();Rain->Destroy();
++    Floor->Destroy();auto* Slope=Box(FVector(0,0,-25),FVector(2000,2000,25),FRotator(30,0,0));
++    auto* SlopeRain=W->SpawnActor<AFPSMagicArrowRain>(FVector::ZeroVector,FRotator::ZeroRotator,Spawn);
++    FHitResult Hit;FCollisionQueryParams Q;W->LineTraceSingleByChannel(Hit,FVector(0,0,100),FVector(0,0,-100),ECC_Visibility,Q);
++    DamageSpell.SurfaceNormal=Hit.ImpactNormal;const FVector SlopeGround=Hit.ImpactPoint;
++    SlopeRain->Launch(M,DamageSpell,Player->GetPawnViewLocation(),SlopeGround,SlopeGround+FVector(0,0,600));SlopeRain->BuildRain();
++    Check(SlopeRain->RainEnds.Num()==28,TEXT("downhill arrows reach the slope instead of disappearing"),FString::FromInt(SlopeRain->RainEnds.Num()));
++    SlopeRain->Destroy();Slope->Destroy();
++
++    auto Root=MakeShared<FJsonObject>();Root->SetStringField(TEXT("profile"),Profile);Root->SetBoolField(TEXT("world_begin_play"),false);Root->SetBoolField(TEXT("network_socket"),false);Root->SetBoolField(TEXT("rendered_or_listened"),false);
++    Root->SetNumberField(TEXT("checks"),Rows.Num());Root->SetNumberField(TEXT("failed"),Failed);Root->SetArrayField(TEXT("results"),Rows);
++    FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));
++    const FString Dir=FPaths::ProjectSavedDir()/TEXT("MagicArrowRain20261026/Review");IFileManager::Get().MakeDirectory(*Dir,true);
++    FFileHelper::SaveStringToFile(Json,*(Dir/TEXT("native-checks.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
++    UE_LOG(LogTemp,Display,TEXT("ARROW_RAIN_AUDIT_DONE checks=%d failed=%d"),Rows.Num(),Failed);
++    M->CurrentPawn.Reset();Skill->bPrepared=Skill->bServerPrepared=Skill->bServerDrawing=false;
++    GI->Shutdown();GEngine->DestroyWorldContext(W);W->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    return Failed?1:0;
++}

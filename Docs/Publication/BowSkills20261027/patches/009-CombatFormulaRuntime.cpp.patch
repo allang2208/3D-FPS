@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp
++++ b/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp
+@@ -1,4 +1,6 @@
+ #include "CombatFormulaRuntime.h"
++#include "../Skills/IlluminationMarkComponent.h"
++#include "../Skills/MagicArrowRainDamage.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "CoreCombatFormula.h"
+@@ -28,7 +30,7 @@
+ thread_local CombatFormulaRuntime::WeaponHit* CombatFormulaRuntime::ActiveWeaponHit=nullptr;
+ thread_local const double* CombatFormulaRuntime::ActivePhysicalPenetration=nullptr;
+ bool CombatFormulaRuntime::IsMagic(const UDamageType* Type)
+-{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UWitchMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<ULightningDamage>()||Type->IsA<UHolyLightDamage>()||Type->IsA<UFireMagicDamage>()||Type->IsA<UCorrosivePusDamage>()||Type->IsA<URuneOrbBladeDamage>()||Type->IsA<UStatusMagicDamage>());}
++{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UWitchMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<UMagicArrowRainDamage>()||Type->IsA<ULightningDamage>()||Type->IsA<UHolyLightDamage>()||Type->IsA<UFireMagicDamage>()||Type->IsA<UCorrosivePusDamage>()||Type->IsA<URuneOrbBladeDamage>()||Type->IsA<UStatusMagicDamage>());}
+ float CombatFormulaRuntime::MonsterDefense(const AActor* Target,bool Magic)
+ {
+     // 2026-09-28 六维剔除：防御直接读常量表（旧狼系字段、大手/小手/手脑/巫婆魔防覆盖
+@@ -62,7 +64,7 @@
+     if(Type&&Type->IsA<UCombatDirectDamage>())
+     {
+         const auto* Field=Target->FindComponentByClass<UCombatStatusFormula>();
+-        return Damage*(Field?Field->ZhenmoDamageMultiplier():1.f);
++        return Damage*(Field?Field->ZhenmoDamageMultiplier():1.f)*(1.f+UIlluminationMarkComponent::DamageBonus(Target));
+     }
+     if(ActiveWeaponHit&&ActiveWeaponHit->Target==Target&&!ActiveWeaponHit->bResolved&&!IsMagic(Type))
+     {

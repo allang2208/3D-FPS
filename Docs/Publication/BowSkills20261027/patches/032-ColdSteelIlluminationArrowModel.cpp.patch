@@ -1,0 +1,37 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ColdSteelIlluminationArrowModel.cpp
+@@ -0,0 +1,34 @@
++#include "../UI/ColdSteelStatusModel.h"
++#include "ColdSteelSkillRules.h"
++
++FIlluminationArrowCast UColdSteelStatusModel::IlluminationArrowStats(int32 AtLevel) const
++{
++    const auto& D=MasteryDefinition(TEXT("illuminationArrow"));
++    auto C=IlluminationArrow::Evaluate(D.IlluminationArrow,AtLevel<0?MasteryProgress(D.Id).Level:AtLevel,D.MaxLevel);
++    C.ManaCost=SpellManaCost(D.Id,AtLevel);
++    C.Cooldown*=FMath::Max(.2f,1.f-float(SetEffect(TEXT("cooldown"))));return C;
++}
++float UColdSteelStatusModel::IlluminationArrowCooldown() const
++{return HasNoAbilityCooldown()?0.f:Current.IlluminationArrowCooldown;}
++float UColdSteelStatusModel::IlluminationArrowCooldownDuration() const{return Current.IlluminationArrowCooldownDuration;}
++bool UColdSteelStatusModel::CanPrepareIlluminationArrow(FString& Reason) const
++{
++    if(!ActiveBow()){Reason=TEXT("需要装备弓");return false;}
++    if(MasteryProgress(TEXT("illuminationArrow")).Level<1){Reason=TEXT("未学习照明箭");return false;}
++    if(Current.bMagicArrowRainReserved){Reason=TEXT("请先取消魔法箭雨");return false;}
++    if(IlluminationArrowCooldown()>0){Reason=TEXT("照明箭冷却中");return false;}
++    if(!CanSpendMana(SpellManaCost(TEXT("illuminationArrow")))){Reason=TEXT("魔法不足");return false;}
++    return true;
++}
++void UColdSteelStatusModel::StageIlluminationArrowCost(FColdSteelProfile& P,const FIlluminationArrowCast& C,float StaminaCost) const
++{
++    if(StaminaCost>0){P.Stamina=FMath::Max(0.f,P.Stamina-StaminaCost);P.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;}
++    if(!HasInfiniteMana())P.Mana=FMath::Max(0.f,P.Mana-C.ManaCost);
++    P.IlluminationArrowCooldown=P.IlluminationArrowCooldownDuration=HasNoAbilityCooldown()?0.f:C.Cooldown;
++}
++void UColdSteelStatusModel::TrainIlluminationArrow(int32 Experience)
++{
++    if(Experience<=0)return;
++    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,MasteryDefinition(TEXT("illuminationArrow")),Experience);
++    StageTraining(MoveTemp(P));
++}

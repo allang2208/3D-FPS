@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Monsters/MantisM27Stealth.cpp
++++ b/Source/FPSGAME/Monsters/MantisM27Stealth.cpp
+@@ -1,4 +1,5 @@
+ #include "MantisM27Monster.h"
++#include "../Skills/IlluminationMarkComponent.h"
+ #include "MonsterAIController.h"
+ #include "MonsterCombatComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+@@ -38,9 +39,15 @@
+     return Applied;
+ }
+ 
++void AMantisM27Monster::RevealByIllumination()
++{
++    if(!HasAuthority())return;
++    ActiveAttackDamageScale=1.f;SetCloaked(false);RestoreCloakVisuals();
++}
+ void AMantisM27Monster::SetCloaked(bool Enabled)
+ {
+     if (!HasAuthority()) return;
++    if(Enabled&&UIlluminationMarkComponent::IsMarked(this))return;
+     if (Enabled)
+     {
+         CancelPounce();

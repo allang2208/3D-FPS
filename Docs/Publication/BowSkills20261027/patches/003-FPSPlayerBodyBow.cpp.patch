@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
+@@ -9,6 +9,7 @@
+ #include "../Weapons/Bow/BowPartComponent.h"
+ #include "../Weapons/Bow/BowFlexMeshComponent.h"
+ #include "../Skills/FPSFireballComponent.h"
++#include "../Skills/BowHeldMagicVisual.h"
+ #include "../Items/FPSPotionUseComponent.h"
+ #include "Animation/AnimSequence.h"
+ #include "Components/StaticMeshComponent.h"
+@@ -100,6 +101,7 @@
+     const float Phase=Entry?Bow.Elapsed/FMath::Max(.001f,Bow.DrawEntrySeconds):Bow.Elapsed/FMath::Max(.001f,Bow.NockSeconds);
+     State.bBowTakingArrow=(Bow.Stage==EBowStage::Nocking||Entry)&&Phase>=.34f;
+     State.bBowArrow=Bow.Stage!=EBowStage::QuickCombat&&(Bow.bArrowNocked||State.bBowTakingArrow);
++    State.BowMagic=UBowHeldMagicVisual::KindFor(Character.Get());
+     const float Seat=Entry?.9f:Bow.NockContactFraction;
+     State.BowSeat=FMath::SmoothStep(0.f,1.f,(Phase-Seat)/FMath::Max(.001f,1.f-Seat));
+     State.bBowCarryAxis=Entry?FName(Bow.DrawEntryClip())!=FName(TEXT("Draw")):Bow.bNockHasCarryAxis;
+@@ -125,6 +127,7 @@
+ 
+ void UFPSPlayerBodyComponent::ClearBow()
+ {
++    if(WorldBowMagic){WorldBowMagic->Clear();WorldBowMagic->DestroyComponent();WorldBowMagic=nullptr;}
+     for(int32 I=WorldBowParts.Num()-1;I>=0;--I)if(auto* Part=WorldBowParts[I].Get())
+     {
+         TArray<USceneComponent*> Children;Part->GetChildrenComponents(false,Children);
+@@ -367,4 +370,5 @@
+             FPSBodyEquipment::ApplyShadowFlags(Primitive,ShouldWorldBodyCastShadow()&&!Stowed&&Part->IsPartVisible());
+         }
+     }
+-}
++    UpdateBowMagic();
++}

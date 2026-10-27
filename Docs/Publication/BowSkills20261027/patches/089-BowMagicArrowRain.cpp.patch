@@ -1,0 +1,21 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/Bow/BowMagicArrowRain.cpp
+@@ -0,0 +1,18 @@
++#include "BowWeaponComponent.h"
++#include "BowPartComponent.h"
++#include "../../Skills/FPSMagicArrowRainComponent.h"
++#include "../../Skills/ColdSteelSkillRules.h"
++
++bool UBowWeaponComponent::GetMagicArrowEndpoints(FVector& Tail,FVector& Tip) const
++{
++    const auto* Riser=FindPart(TEXT("riser"));if(!Riser||!bArrowNocked)return false;
++    Tail=Riser->GetComponentTransform().TransformPosition(NockPoint());
++    Tip=Riser->GetComponentTransform().TransformPosition(ArrowTipPoint());return true;
++}
++void UBowWeaponComponent::FinishMagicArrowRainRelease(bool Success)
++{
++    if(!Success){CancelAction(false);return;}
++    bArrowNocked=false;bLastPerfectRelease=bLastPiercingRelease=bPerfectSpeedPending=false;
++    ReleaseRatio=1.f;ReleaseKick=1.f;ReleaseFeedbackAge=0.f;
++    StopDrawAudio();StopHandlingAudio();SetStage(EBowStage::Release,ReleaseSeconds);EndNetworkDraw();
++}

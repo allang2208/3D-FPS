@@ -1,0 +1,52 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.h
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.h
+@@ -24,6 +24,8 @@
+     UPROPERTY() FString Ammo;
+     UPROPERTY() float Radius=.3f;
+     UPROPERTY() float Length=76.f;
++    UPROPERTY() EArrowElement Element=EArrowElement::None;
++    UPROPERTY() bool bIllumination=false;
+ };
+ 
+ UCLASS()
+@@ -44,6 +46,8 @@
+                    bool bInRecoverable, float InRecoverySeconds);
+     virtual void Tick(float Delta) override;
+     void ResolveLaunchObstruction(const FVector& CameraOrigin);
++    void SetIlluminationCast(const FIlluminationArrowCast& Snapshot);
++    void SetElementalCast(const FElementalArrowCast& Snapshot);
+     bool CanRecover() const { return bStuck && bRecoverable && !IsActorBeingDestroyed(); }
+     FString RecoveryPrompt() const;
+     bool TryRecover(APawn* Pawn);
+@@ -51,8 +55,21 @@
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ 
+ private:
++    FIlluminationArrowCast IlluminationCast;
++    UPROPERTY(Transient) TObjectPtr<class UIlluminationArrowVisual> IlluminationVisual;
++    FVector LastIlluminationScan=FVector::ZeroVector;double NextIlluminationScan=0;
++    TSet<TWeakObjectPtr<AActor>> IlluminatedTargets;
++    void ScanIllumination(const FVector& End,bool Force);
++    void ApplyIlluminationImpact(const FHitResult& Hit);
++    void UpdateIlluminationVisual(float Delta);
++    FElementalArrowCast ElementalCast;
++    UPROPERTY(Transient) TObjectPtr<class UElementalArrowVisual> ElementVisual;
++    UPROPERTY(Replicated) bool bElementBurst=false;
++    void UpdateElementVisual(float Delta);
++    void BurstElement(const FHitResult& Hit);
+     /** 命中结算：一次扫掠一个目标，命中后不再重复扣血。 */
+-    void ApplyHit(const FHitResult& Hit);
++    bool ApplyHit(const FHitResult& Hit);
++    bool AdvanceSegment(const FVector& Start,const FVector& End,float& Distance);
+     /** 命中后插住：只留实弹箭的拾取查询，随被击组件移动，超时消失。 */
+     void FinishStuck(const FHitResult& Hit);
+ 
+@@ -67,6 +84,8 @@
+     float Damage = 0.f, GravityCM = 0.f, TravelledCM = 0.f, MaxDistanceCM = 0.f;
+     float Age = 0.f;
+     bool bResolved = false;
++    int32 RemainingPenetrations=0;
++    TSet<TWeakObjectPtr<AActor>> HitTargets;
+     UPROPERTY(ReplicatedUsing=OnRep_Stuck) bool bStuck = false;
+     UPROPERTY(ReplicatedUsing=OnRep_Presentation) FBowArrowPresentation Presentation;
+     UFUNCTION() void OnRep_Presentation();

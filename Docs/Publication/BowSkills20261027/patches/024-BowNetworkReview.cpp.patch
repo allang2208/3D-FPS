@@ -1,0 +1,201 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/BowNetworkReview.cpp
+@@ -0,0 +1,198 @@
++#include "BowSkillTrainingAuditCommandlet.h"
++#include "BowSkillLifecycle.h"
++#include "FPSIlluminationArrowComponent.h"
++#include "FPSElementalArrowComponent.h"
++#include "FPSMagicArrowRainComponent.h"
++#include "FPSMagicArrowRain.h"
++#include "MagicArrowRainResources.h"
++#include "HeartPiercingArrowTypes.h"
++#include "ElementalArrowBurst.h"
++#include "IlluminationMarkComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelProfileRecovery.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Multiplayer/ColdSteelProfileTransfer.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Components/BoxComponent.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "HAL/FileManager.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++
++int32 UBowSkillTrainingAuditCommandlet::RunBowNetworkReview(const FString& Params)
++{
++    const FString Original=FCommandLine::Get();
++    const FString Profile=TEXT("BowSkillAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(TEXT("BowSkillTrainingAudit -ColdSteelProfile=")+Profile));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("BowNetworkReviewWorld"));
++    auto* W=GI->GetWorld();auto* M=GI->GetSubsystem<UColdSteelStatusModel>();
++    if(!W||!M||!M->IsAudit()||M->ProfileSlot()!=TEXT("ColdSteel_")+Profile)return 2;
++    TArray<TSharedPtr<FJsonValue>> Rows;int32 Failed=0;
++    auto Check=[&](bool OK,const FString& Name)
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),Name);Row->SetBoolField(TEXT("passed"),OK);
++        Rows.Add(MakeShared<FJsonValueObject>(Row));Failed+=!OK;
++        UE_LOG(LogTemp,Display,TEXT("BOW_NETWORK_REVIEW %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),*Name);
++    };
++    auto Seed=M->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();Seed.DungeonRun={};
++    for(auto& B:Seed.QuickBindings)B={};
++    for(auto& S:Seed.Skills){S.Value.Level=1;S.Value.Experience=0;}
++    auto Item=M->CreateItem(TEXT("bow_dark"));Item.Place=1;Item.Cell=6;Seed.Items.Add(Item);
++    const FString Ammo=M->AmmoDefinitionFor(Item);Seed.AmmoPouch.FindOrAdd(Ammo)=100;
++    Seed.Stamina=100;Seed.Mana=100;Seed.FireballCooldown=Seed.IceSpikeCooldown=Seed.LightningCooldown=0;
++    Seed.IlluminationArrowCooldown=Seed.MagicArrowRainCooldown=0;Seed.bMagicArrowRainReserved=false;Seed.MagicArrowRainReservedMana=0;
++    Check(M->CommitState(Seed),TEXT("isolated legal profile"));
++    M->Current.Mana=M->Derived(TEXT("maxMp"));const auto Baseline=M->Snapshot();
++    auto* Player=W->SpawnActor<AFPSGAMECharacter>();auto* PC=W->SpawnActor<APlayerController>();PC->SetAsLocalPlayerController();
++    auto* LocalPS=W->SpawnActor<AColdSteelPlayerState>();LocalPS->SetOwner(PC);PC->SetPlayerState(LocalPS);PC->Possess(Player);Player->SetPlayerState(LocalPS);
++    auto Guest=Baseline;Guest.NetworkProfileId=FGuid::NewGuid();auto* Shadow=M->CreateShadowModel(Guest);
++    auto* Remote=W->SpawnActor<AFPSGAMECharacter>(FVector(3000,0,100),FRotator::ZeroRotator);
++    auto* RemotePC=W->SpawnActor<ABowSkillAuditRemoteController>();auto* PS=W->SpawnActor<AColdSteelPlayerState>();
++    PS->SetOwner(RemotePC);PS->ShadowModel=Shadow;PS->SlotName=TEXT("ColdSteel_")+Profile+TEXT("_Guest");RemotePC->SetPlayerState(PS);RemotePC->Possess(Remote);
++    Remote->SetPlayerState(PS);Remote->NetShadowProfile=Shadow;Shadow->CurrentPawn=Remote;
++    for(auto* P:{Player,Remote}){auto* HP=P->FindComponentByClass<UFPSCombatHealthComponent>();HP->Health=HP->MaxHealth;}
++    W->InitializeActorsForPlay(FURL());
++    Check(ColdSteelAuthority::ForPawn(Remote)==Shadow&&ColdSteelAuthority::ForPawn(Player)==M,TEXT("guest and host authority models are distinct"));
++    auto* Light=Player->FindComponentByClass<UFPSIlluminationArrowComponent>();
++    auto* Element=Player->FindComponentByClass<UFPSElementalArrowComponent>();
++    const FGuid Old=FGuid::NewGuid(),Next=FGuid::NewGuid();
++    // Actual acknowledgement implementations, deliberately delivered out of order.
++    Light->ActivePreparationId=Old;Light->bPrepared=true;Light->PredictRelease();Light->ClientCleared_Implementation(Old);
++    Check(Light->IsPending()&&!Light->Trigger(),TEXT("illumination clear cannot unlock before inventory receipt"));
++    Light->ResolveShotReply();Check(!Light->IsPending(),TEXT("illumination receipt unlocks once"));
++    Light->ActivePreparationId=Next;Light->bWaiting=true;Light->ClientCleared_Implementation(Old);Light->ClientPrepared_Implementation(Old,true,FString());
++    Check(Light->bWaiting&&!Light->bPrepared,TEXT("old illumination replies cannot clear or prepare the next arrow"));
++    Light->ServerPreparationId=Next;Light->bServerPrepared=true;Light->ServerCancel_Implementation(Old);
++    Check(Light->bServerPrepared,TEXT("old illumination cancel cannot cancel newer server preparation"));
++    Light->bWaiting=Light->bServerPrepared=false;
++    Element->ActivePreparationId=Old;Element->bPrepared=true;Element->PredictRelease();Element->ResolveShotReply();
++    Element->ActivePreparationId=Next;Element->bWaiting=true;Element->ClientCleared_Implementation(Old);Element->ClientPrepared_Implementation(Old,true,EArrowElement::Fire,FString());
++    Check(Element->bWaiting&&!Element->bPrepared,TEXT("late elemental clear after receipt preserves next preparation"));
++    Element->bWaiting=false;Element->bPrepared=true;Element->PredictRelease();Element->ClientCleared_Implementation(Next);
++    Check(Element->IsPending()&&!Element->Trigger(),TEXT("elemental clear waits for inventory receipt"));
++    Element->ResolveShotReply();Element->ServerPreparationId=Next;Element->bServerPrepared=true;Element->ServerElement=EArrowElement::Ice;
++    Element->ServerCancel_Implementation(Old);
++    Check(Element->bServerPrepared&&Element->ServerElement==EArrowElement::Ice,TEXT("old elemental cancel preserves new element"));
++    Element->bServerPrepared=false;Element->ServerElement=EArrowElement::None;
++
++    auto* RemoteLight=Remote->FindComponentByClass<UFPSIlluminationArrowComponent>();
++    auto* RemoteElement=Remote->FindComponentByClass<UFPSElementalArrowComponent>();
++    for(bool IsLight:{true,false})
++    {
++        RemoteLight->bServerPrepared=IsLight;RemoteElement->bServerPrepared=!IsLight;RemoteElement->ServerElement=IsLight?EArrowElement::None:EArrowElement::Fire;
++        FColdSteelInventoryRequest R;R.Sequence=IsLight?1:2;R.Pawn=Remote;R.Action=EColdSteelInventoryAction::BowShot;
++        R.bIlluminationArrow=IsLight;R.ArrowElement=IsLight?EArrowElement::None:EArrowElement::Fire;R.Revision=Shadow->Snapshot().CampfireInventoryRevision+100;
++        const auto Before=Shadow->Snapshot();PS->ServerInventoryAction_Implementation(R);
++        Check(!RemoteLight->bServerPrepared&&!RemoteElement->bServerPrepared,IsLight?TEXT("inventory rejection retires illumination preparation"):TEXT("inventory rejection retires elemental preparation"));
++        Check(Shadow->PouchCount(Ammo)==Before.AmmoPouch.FindRef(Ammo)&&Shadow->Mana()==Before.Mana,TEXT("rejected request spends no arrow or mana"));
++    }
++    // A delayed full mirror must not rewind the immediate illumination cooldown receipt.
++    M->Current=Baseline;M->CurrentPawn=Player;M->Current.CampfireInventoryRevision+=10;
++    M->Current.IlluminationArrowCooldown=17.f;M->Current.IlluminationArrowCooldownDuration=18.f;
++    auto* OldSave=NewObject<UColdSteelProfileSave>();OldSave->Profile=Baseline;
++    LocalPS->bMirrorReady=true;LocalPS->ReceivingMirrorPawn=Player;
++    ColdSteelProfileTransfer::SaveToBlob(OldSave,LocalPS->MirrorBlob);LocalPS->OnRep_MirrorBlob();
++    Check(FMath::IsNearlyEqual(M->IlluminationArrowCooldown(),17.f),TEXT("old full mirror preserves newer illumination cooldown"));
++    M->Current=Baseline;M->CurrentPawn.Reset();
++
++    auto* Floor=W->SpawnActor<AActor>();auto* Box=NewObject<UBoxComponent>(Floor);Floor->SetRootComponent(Box);
++    Box->SetBoxExtent(FVector(2000,2000,25));Box->SetCollisionEnabled(ECollisionEnabled::QueryOnly);Box->SetCollisionResponseToAllChannels(ECR_Block);
++    Box->SetCollisionObjectType(ECC_WorldStatic);Box->RegisterComponent();Floor->SetActorLocation(FVector(0,0,-25));
++    auto* Rain=W->SpawnActor<AFPSMagicArrowRain>();Rain->Flight.Burst=FVector(0,0,600);Rain->BuildRain();
++    Check(!Rain->bRainBuilt,TEXT("missing replicated instigator does not permanently consume rain construction"));
++    Rain->SetInstigator(Remote);Rain->BuildRain();
++    Check(Rain->bRainBuilt&&Rain->RainEnds.Num()==28,TEXT("rain constructs after instigator resolves"));
++    bool Cone=true;for(const auto& Start:Rain->RainStarts)Cone&=Start.Equals(Rain->Flight.Burst);
++    Check(Cone,TEXT("all visible rain arrows originate at airburst"));
++
++    auto Target=[&](int32 Index)
++    {
++        const FTransform Transform(FVector(4000,Index*180,100));
++        auto* T=W->SpawnActorDeferred<ANurseZombie>(ANurseZombie::StaticClass(),Transform,nullptr,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
++        T->AutoPossessAI=EAutoPossessAI::Disabled;T->FinishSpawning(Transform);
++        T->Knockdown=nullptr;T->Health=T->MaxHealth=10000;return T;
++    };
++    auto Cast=Shadow->IlluminationArrowStats(20);Cast.Id=FGuid::NewGuid();auto* Enemy=Target(0);
++    Check(UIlluminationMarkComponent::Apply(Enemy,Remote,Cast),TEXT("guest applies authority mark"));
++    auto* Mark=Enemy->FindComponentByClass<UIlluminationMarkComponent>();auto Impact=Cast;Impact.Duration=IlluminationArrow::ImpactDuration(Cast);
++    UIlluminationMarkComponent::Apply(Enemy,Remote,Impact);UIlluminationMarkComponent::Apply(Enemy,Remote,Cast);
++    Check(Mark&&Mark->Remaining()>59.9f,TEXT("path refresh cannot shorten sixty second impact mark"));
++    auto HostCast=M->IlluminationArrowStats(1);HostCast.Id=FGuid::NewGuid();UIlluminationMarkComponent::Apply(Enemy,Player,HostCast);
++    Check(FMath::IsNearlyEqual(UIlluminationMarkComponent::DamageBonus(Enemy),.5f),TEXT("marks from two players use maximum bonus instead of stacking"));
++    Mark->ObserveKill(Remote);Mark->ObserveKill(Remote);
++    for(int32 I=1;I<7;++I){auto* T=Target(I);UIlluminationMarkComponent::Apply(T,Remote,Cast);T->FindComponentByClass<UIlluminationMarkComponent>()->ObserveKill(Remote);}
++    Check(RemoteLight->PendingExperience==180,TEXT("seven unique marked kills grant cumulative 180 XP exactly once"));
++    Check(Light->PendingExperience==0,TEXT("another player's marked kill grants no host training"));
++    // Confirmed ice hits and deferred illumination XP must be in the departure snapshot.
++    FActorSpawnParameters Spawn;Spawn.Instigator=Remote;Spawn.Owner=Remote;
++    auto* Burst=W->SpawnActor<AElementalArrowBurst>(FVector::ZeroVector,FRotator::ZeroRotator,Spawn);
++    Burst->Model=Shadow;Burst->Element=EArrowElement::Ice;Burst->Rewards.Hits=1;
++    auto* RainSkill=Remote->FindComponentByClass<UFPSMagicArrowRainComponent>();
++    Shadow->Current.Mana=Shadow->Derived(TEXT("maxMp"));const float FullMana=Shadow->Mana();
++    Shadow->BeginMagicArrowRain(Shadow->MagicArrowRainStats());RainSkill->bServerPrepared=true;
++    BowSkillLifecycle::FinishForRemoval(Remote);
++    Check(Shadow->MasteryProgress(TEXT("illuminationArrow")).Experience==180,TEXT("departure flushes illumination XP before saving"));
++    Check(Shadow->MasteryProgress(TEXT("elementalArrow")).Experience==4&&Burst->bFinished,TEXT("departure settles confirmed ice hits"));
++    Check(!Shadow->Current.bMagicArrowRainReserved&&FMath::IsNearlyEqual(Shadow->Mana(),FullMana),TEXT("departure refunds unlaunched rain reservation"));
++    BowSkillLifecycle::FinishForRemoval(Remote);
++    Check(Shadow->MasteryProgress(TEXT("elementalArrow")).Experience==4,TEXT("departure settlement is idempotent"));
++    RemoteLight->PendingExperience=12;RemotePC->UnPossess();Remote->SetPlayerState(nullptr);RemoteLight->FlushTraining();
++    Check(Shadow->MasteryProgress(TEXT("illuminationArrow")).Experience==192&&M->MasteryProgress(TEXT("illuminationArrow")).Experience==0,TEXT("late cleanup retains guest model without crediting host"));
++
++    RemotePC->Possess(Remote);Remote->SetPlayerState(PS);PS->BoundProfileId=Guest.NetworkProfileId;
++    Shadow->Current=Guest;Shadow->CurrentPawn=Remote;M->Current=Baseline;M->CurrentPawn.Reset();
++    Shadow->Current.Mana=Shadow->Derived(TEXT("maxMp"));const auto OldUpload=Shadow->Snapshot();
++    const auto RainCast=Shadow->MagicArrowRainStats();
++    Check(Shadow->BeginMagicArrowRain(RainCast)&&Shadow->Snapshot().CampfireInventoryRevision>OldUpload.CampfireInventoryRevision,TEXT("rain reservation increments authoritative inventory revision"));
++    const auto PreparedReceipt=MagicArrowRainResources::Capture(*Shadow,Ammo);
++    Check(MagicArrowRainResources::Apply(*M,PreparedReceipt)&&FMath::IsNearlyEqual(M->Mana(),OldUpload.Mana-RainCast.ManaCost),TEXT("rain preparation receipt synchronizes base mana"));
++    const float ReservedMana=Shadow->Mana();
++    Check(PS->ApplyGuestProfile(OldUpload)&&FMath::IsNearlyEqual(Shadow->Mana(),ReservedMana)&&Shadow->Current.bMagicArrowRainReserved,TEXT("stale owner upload cannot refund an active rain reservation"));
++    Check(Shadow->ReleaseMagicArrowRain(RainCast,true),TEXT("rain authority release commits one arrow"));
++    const auto ReleasedReceipt=MagicArrowRainResources::Capture(*Shadow,Ammo);
++    MagicArrowRainResources::Apply(*M,ReleasedReceipt);MagicArrowRainResources::Apply(*M,ReleasedReceipt);
++    Check(M->PouchCount(Ammo)==99&&FMath::IsNearlyEqual(M->Mana(),ReservedMana)&&M->MagicArrowRainCooldown()>0,TEXT("rain release receipt is idempotent for arrow count and mana"));
++    Check(!MagicArrowRainResources::Apply(*M,PreparedReceipt)&&!M->Current.bMagicArrowRainReserved&&M->PouchCount(Ammo)==99,TEXT("late preparation receipt cannot rewind released rain"));
++    Shadow->Current.MagicArrowRainCooldown=0;Shadow->BeginMagicArrowRain(RainCast);Shadow->Current.Mana-=3;Shadow->CancelMagicArrowRain();
++    MagicArrowRainResources::Apply(*M,MagicArrowRainResources::Capture(*Shadow,Ammo));
++    Check(FMath::IsNearlyEqual(M->Mana(),ReservedMana-3)&&!M->Current.bMagicArrowRainReserved&&M->PouchCount(Ammo)==99,TEXT("cancel receipt refunds base mana while retaining upkeep and arrows"));
++    M->Current=Baseline;M->CurrentPawn.Reset();
++
++    for(int32 L=1;L<=20;++L)
++    {
++        const auto C=M->IlluminationArrowStats(L);const auto Fire=M->ElementalArrowStats(EArrowElement::Fire,L);
++        Check(C.Radius>=1000&&C.Radius<=3000&&C.Duration>=10&&C.Duration<=30&&C.DamageBonus>=.15f&&C.DamageBonus<=.5f&&C.Cooldown>=18&&C.Cooldown<=30,
++            FString::Printf(TEXT("illumination level %d stays within configured endpoints"),L));
++        Check(Fire.Radius==M->FireballStats().Radius*2&&Fire.ManaCost==ElementalArrow::ManaCost(M->MasteryDefinition(TEXT("elementalArrow")).ElementalArrow,M->FireballStats().ManaCost),
++            FString::Printf(TEXT("element level %d applies source mana surcharge and doubled radius"),L));
++        const auto Piercing=HeartPiercingArrow::Evaluate(M->MasteryDefinition(TEXT("heartPiercingArrow")).HeartPiercingArrow,L);
++        Check(Piercing.DamageMultiplier>=2.5f&&Piercing.DamageMultiplier<=5.f&&Piercing.SpeedMultiplier==2.f
++            &&Piercing.TargetPenetration==1+int32(L>=8)+int32(L>=16)
++            &&!HeartPiercingArrow::IsCharged(Piercing,Piercing.ChargeSeconds,1.f)
++            &&HeartPiercingArrow::IsCharged(Piercing,Piercing.ChargeSeconds+.01f,1.f),
++            FString::Printf(TEXT("piercing level %d preserves damage speed penetration and strict charge threshold"),L));
++    }
++    Shadow->Current=Guest;auto Paid=Shadow->Snapshot();Shadow->StageElementalArrowCost(Paid,Shadow->ElementalArrowStats(EArrowElement::Fire));Shadow->Current=Paid;
++    Check(Shadow->ElementalArrowCooldown(EArrowElement::Fire)>0&&Shadow->ElementalArrowCooldown(EArrowElement::Ice)==0&&Shadow->ElementalArrowCooldown(EArrowElement::Lightning)==0,TEXT("three elemental cooldowns remain independent"));
++
++    auto Root=MakeShared<FJsonObject>();Root->SetStringField(TEXT("profile"),Profile);Root->SetNumberField(TEXT("checks"),Rows.Num());Root->SetNumberField(TEXT("failed"),Failed);
++    Root->SetBoolField(TEXT("world_begin_play"),false);Root->SetBoolField(TEXT("network_socket"),false);Root->SetBoolField(TEXT("rendered_or_listened"),false);Root->SetArrayField(TEXT("results"),Rows);
++    FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));
++    FString Dir;FParse::Value(*Params,TEXT("ReportDir="),Dir);
++    if(Dir.IsEmpty())Dir=FPaths::ProjectSavedDir()/TEXT("BowNetworkReview20261027");IFileManager::Get().MakeDirectory(*Dir,true);
++    FFileHelper::SaveStringToFile(Json,*(Dir/TEXT("native-checks.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
++    UE_LOG(LogTemp,Display,TEXT("BOW_NETWORK_REVIEW_DONE checks=%d failed=%d"),Rows.Num(),Failed);
++    // Actor/component teardown must happen while their game-instance subsystems are alive.
++    M->CurrentPawn.Reset();Shadow->CurrentPawn.Reset();PS->bDisconnectPrepared=LocalPS->bDisconnectPrepared=true;
++    TArray<AActor*> Actors;for(TActorIterator<AActor> It(W);It;++It)Actors.Add(*It);for(auto* A:Actors)if(IsValid(A))A->Destroy();
++    GI->Shutdown();GEngine->DestroyWorldContext(W);W->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    return Failed?1:0;
++}

@@ -1,0 +1,107 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp
+@@ -0,0 +1,104 @@
++#include "../UI/ColdSteelStatusModel.h"
++#include "ColdSteelSkillRules.h"
++#include "FPSMagicArrowRainComponent.h"
++#include "MagicArrowRainDamage.h"
++#include "MagicArrowRainResources.h"
++#include "MagicOcclusion.h"
++#include "BlizzardEnvironment.h"
++#include "HolyLightTargets.h"
++#include "../Combat/CombatFormulaRuntime.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "Kismet/GameplayStatics.h"
++#include "Engine/OverlapResult.h"
++#include "Engine/World.h"
++
++FMagicArrowRainCast UColdSteelStatusModel::MagicArrowRainStats(int32 AtLevel) const
++{
++    const auto& D=MasteryDefinition(TEXT("magicArrowRain"));
++    FMagicArrowRainCast C;static_cast<FMagicArrowRainTuning&>(C)=D.MagicArrowRain;
++    const int32 L=FMath::Clamp(AtLevel<0?MasteryProgress(D.Id).Level:AtLevel,1,D.MaxLevel)-1;
++    const double Dexterity=Attribute(TEXT("dex")),Intelligence=Attribute(TEXT("intt"));
++    // The release snapshot and the skill card share this independent 2:1 attribute curve.
++    C.Damage=FMath::FloorToFloat(C.DamageBase+L*C.DamagePerLevel
++        +Dexterity*(C.DexterityBase+L*C.DexterityPerLevel)
++        +Intelligence*(C.IntelligenceBase+L*C.IntelligencePerLevel));
++    C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
++    C.MagicDamageBonus=SetEffect(TEXT("magicDamage"));C.ManaCost=SpellManaCost(D.Id,L+1);
++    C.Cooldown*=FMath::Max(.2f,1.f-float(SetEffect(TEXT("cooldown"))));return C;
++}
++float UColdSteelStatusModel::MagicArrowRainCooldown() const
++{return HasNoAbilityCooldown()?0.f:Current.MagicArrowRainCooldown;}
++float UColdSteelStatusModel::MagicArrowRainCooldownDuration() const
++{return Current.MagicArrowRainCooldownDuration;}
++bool UColdSteelStatusModel::BeginMagicArrowRain(const FMagicArrowRainCast& Cast)
++{
++    if(!ActiveBow()||MasteryProgress(TEXT("magicArrowRain")).Level<1||Current.bMagicArrowRainReserved
++        ||MagicArrowRainCooldown()>0.f||!CanSpendMana(Cast.ManaCost)||Stamina()<=0.f)return false;
++    SyncRuntime();auto P=Snapshot();const float Paid=HasInfiniteMana()?0.f:Cast.ManaCost;
++    P.Mana-=Paid;P.bMagicArrowRainReserved=true;P.MagicArrowRainReservedMana=Paid;
++    return MagicArrowRainResources::Commit(*this,MoveTemp(P));
++}
++bool UColdSteelStatusModel::ReleaseMagicArrowRain(const FMagicArrowRainCast& Cast,bool bSpendArrow)
++{
++    const auto* Bow=ActiveBow();if(!Bow||!Current.bMagicArrowRainReserved||Stamina()<=0.f||(!HasInfiniteMana()&&Mana()<=0.f))return false;
++    const FString Ammo=AmmoDefinitionFor(*Bow);if(bSpendArrow&&PouchCount(Ammo)<1)return false;
++    SyncRuntime();auto P=Snapshot();if(bSpendArrow)--P.AmmoPouch.FindOrAdd(Ammo);
++    P.bMagicArrowRainReserved=false;P.MagicArrowRainReservedMana=0;
++    P.MagicArrowRainCooldown=HasNoAbilityCooldown()?0.f:Cast.Cooldown;
++    P.MagicArrowRainCooldownDuration=P.MagicArrowRainCooldown;
++    return MagicArrowRainResources::Commit(*this,MoveTemp(P));
++}
++void UColdSteelStatusModel::CancelMagicArrowRain()
++{
++    if(!Current.bMagicArrowRainReserved)return;
++    SyncRuntime();auto P=Snapshot();P.Mana=FMath::Min(float(Derived(TEXT("maxMp"))),P.Mana+P.MagicArrowRainReservedMana);
++    P.bMagicArrowRainReserved=false;P.MagicArrowRainReservedMana=0;MagicArrowRainResources::Commit(*this,MoveTemp(P));
++}
++void UColdSteelStatusModel::ApplyMagicArrowRain(APawn* Shooter,const FVector& Ground,const FVector& Burst,const FMagicArrowRainCast& Cast)
++{
++    if(!Shooter||!Shooter->HasAuthority()||!Shooter->IsPlayerControlled())return;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(MagicArrowRainDamage),false,Shooter);
++    TArray<FOverlapResult> Overlaps;
++    const float SlopeDrop=Cast.Radius*FVector(Cast.SurfaceNormal.X,Cast.SurfaceNormal.Y,0).Size()/FMath::Max(.45f,float(Cast.SurfaceNormal.Z));
++    const float Bottom=Ground.Z-SlopeDrop-50.f;
++    const float HalfHeight=FMath::Max(1.f,float(Burst.Z-Bottom)*.5f);
++    GetWorld()->OverlapMultiByObjectType(Overlaps,FVector(Ground.X,Ground.Y,Bottom+HalfHeight),FQuat::Identity,
++        FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeBox(FVector(Cast.Radius,Cast.Radius,HalfHeight)),Query);
++    TSet<AActor*> Seen;int32 Hits=0,Kills=0,CriticalHits=0,CriticalKills=0;
++    TGuardValue<FTrainingHit*> Training(ActiveTrainingHit,nullptr);
++    TGuardValue<FFireballRewards*> Rewards(ActiveFireballRewards,nullptr);
++    for(const auto& Overlap:Overlaps)
++    {
++        AActor* Target=Overlap.GetActor();if(!IsValid(Target)||Target==Shooter||Seen.Contains(Target))continue;Seen.Add(Target);
++        auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
++        if(!Combat||Combat->IsDead()||HolyLightTargets::IsFriendly(Target))continue;
++        MagicOcclusion::FBodySamples Samples;MagicOcclusion::BodySamples(Target,Ground,Samples);bool Exposed=false;
++        for(const FVector& Point:Samples)
++        {
++            const FVector Horizontal(Point.X-Ground.X,Point.Y-Ground.Y,0);
++            const float FloorZ=Ground.Z-FVector::DotProduct(Cast.SurfaceNormal,Horizontal)/FMath::Max(.45f,float(Cast.SurfaceNormal.Z));
++            if(Horizontal.SizeSquared()>FMath::Square(Cast.Radius)||Point.Z<FloorZ-50||Point.Z>Burst.Z)continue;
++            FHitResult Block;
++            // The cone travels directly from its burst apex to the exposed body sample.
++            // Solid roofs/walls shield the target; bodies and marked open rails do not.
++            if(!BlizzardEnvironment::Trace(Shooter,Burst,Point,Block,true))
++            {Exposed=true;break;}
++        }
++        if(!Exposed)continue;
++        bool Critical=false;
++        const CombatFormulaRuntime::MagicHit Context{Cast.CriticalChance,Cast.CriticalDamageBonus,0.f,Cast.MagicDamageBonus,&Critical,false};
++        TGuardValue<const CombatFormulaRuntime::MagicHit*> Magic(CombatFormulaRuntime::ActiveMagicHit,&Context);
++        const float Applied=UGameplayStatics::ApplyDamage(Target,Cast.Damage,Shooter->GetController(),Shooter,UMagicArrowRainDamage::StaticClass());
++        if(Applied<=0)continue;
++        FWeaponDamageResult Result;Result.bResolved=true;Result.bCritical=Critical;Result.bKilled=Combat->IsDead();
++        if(auto* Player=::Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied,&Result);
++        if(!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
++        {++Hits;Kills+=Combat->IsDead()?1:0;CriticalHits+=Critical?1:0;CriticalKills+=Critical&&Combat->IsDead()?1:0;}
++    }
++    if(Hits==0)return;
++    SyncRuntime();auto P=Snapshot();const auto& D=MasteryDefinition(TEXT("magicArrowRain"));
++    ColdSteelSkills::AddExperience(P,D,Hits*D.HitExperience+Kills*D.KillExperience+(Hits>=2?D.MultiHitExperience:0));
++    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalHits*CriticalStrikeSkill.CriticalHitExperience+CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
++    StageTraining(MoveTemp(P));
++}

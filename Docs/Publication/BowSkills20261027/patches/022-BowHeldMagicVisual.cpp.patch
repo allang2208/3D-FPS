@@ -1,0 +1,93 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/BowHeldMagicVisual.cpp
+@@ -0,0 +1,90 @@
++#include "BowHeldMagicVisual.h"
++#include "FPSElementalArrowComponent.h"
++#include "FPSMagicArrowRainComponent.h"
++#include "FPSIlluminationArrowComponent.h"
++#include "ElementalArrowVisual.h"
++#include "IlluminationArrowVisual.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "Camera/PlayerCameraManager.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/World.h"
++#include "GameFramework/Pawn.h"
++#include "GameFramework/PlayerController.h"
++#include "Materials/MaterialInterface.h"
++
++uint8 UBowHeldMagicVisual::KindFor(const APawn* Pawn)
++{
++    if(!Pawn)return None;
++    const bool Local=Pawn->IsLocallyControlled();
++    if(const auto* E=Pawn->FindComponentByClass<UFPSElementalArrowComponent>())
++    {
++        const auto Element=Local?E->ShotElement():E->PreparedElement();
++        if(ElementalArrow::IsElement(Element))return uint8(Element);
++    }
++    if(const auto* R=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();R&&(Local?R->IsPrepared():R->HasPreparedArrow()))return Rain;
++    if(const auto* L=Pawn->FindComponentByClass<UFPSIlluminationArrowComponent>();L&&(Local?L->ShotPrepared():L->IsPrepared()))return Illumination;
++    return None;
++}
++bool UBowHeldMagicVisual::ShowFirstPerson(const APawn* Pawn)
++{
++    if(!Pawn||!Pawn->IsLocallyControlled())return false;
++    const auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();
++    return !Body||!Body->IsThirdPersonViewEnabled();
++}
++void UBowHeldMagicVisual::Clear()
++{
++    if(Load)Load->CancelHandle();Load.Reset();
++    if(ElementVisual){ElementVisual->Clear();ElementVisual->DestroyComponent();ElementVisual=nullptr;}
++    if(LightVisual){LightVisual->Clear();LightVisual->DestroyComponent();LightVisual=nullptr;}
++    if(Flow){Flow->DestroyComponent();Flow=nullptr;}
++    Assets.Reset();Current=None;LastUpdate=-1.;bRainReady=false;
++}
++void UBowHeldMagicVisual::EndPlay(const EEndPlayReason::Type Reason){Clear();Super::EndPlay(Reason);}
++void UBowHeldMagicVisual::OnComponentDestroyed(bool bDestroyingHierarchy){Clear();Super::OnComponentDestroyed(bDestroyingHierarchy);}
++void UBowHeldMagicVisual::Update(uint8 Kind,const FVector& Tail,const FVector& Tip)
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    if(const auto* PC=GetWorld()->GetFirstPlayerController();PC&&PC->PlayerCameraManager)
++        if(FVector::DistSquared(PC->PlayerCameraManager->GetCameraLocation(),Tip)>FMath::Square(6000.f))Kind=None;
++    if(Kind>Illumination)Kind=None;
++    if(Kind!=Current)
++    {
++        Clear();Current=Kind;
++        if(Kind>=Fire&&Kind<=Lightning)
++        {
++            ElementVisual=NewObject<UElementalArrowVisual>(GetOwner(),NAME_None,RF_Transient);
++            GetOwner()->AddInstanceComponent(ElementVisual);ElementVisual->RegisterComponent();
++        }
++        else if(Kind==Illumination)
++        {
++            LightVisual=NewObject<UIlluminationArrowVisual>(GetOwner(),NAME_None,RF_Transient);
++            GetOwner()->AddInstanceComponent(LightVisual);LightVisual->RegisterComponent();
++        }
++        else if(Kind==Rain)
++        {
++            const TArray<FSoftObjectPath> Paths={FSoftObjectPath(TEXT("/Engine/BasicShapes/Cylinder.Cylinder")),FSoftObjectPath(MagicArrowRainAssets::Path(TEXT("M_ArrowRainFlow")))};
++            auto Retain=[this,Paths]{for(const auto& P:Paths)if(auto* A=P.ResolveObject())Assets.Add(A);bRainReady=Assets.Num()==Paths.Num();};
++            bool Ready=true;for(const auto& P:Paths)Ready&=P.ResolveObject()!=nullptr;
++            if(Ready)Retain();else Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,Retain));
++        }
++    }
++    if(Current==None)return;
++    const double Now=GetWorld()->GetTimeSeconds();
++    const float Delta=LastUpdate<0.?0.f:FMath::Max(0.f,float(Now-LastUpdate));LastUpdate=Now;
++    if(ElementVisual)ElementVisual->Update(EArrowElement(Current),Tail,Tip,Delta,false,true);
++    if(LightVisual)LightVisual->Update(Tail,Tip,Delta,false);
++    if(Current==Rain&&bRainReady)
++    {
++        if(!Flow)
++        {
++            Flow=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);GetOwner()->AddInstanceComponent(Flow);
++            Flow->SetStaticMesh(Cast<UStaticMesh>(Assets[0]));Flow->SetMaterial(0,Cast<UMaterialInterface>(Assets[1]));
++            Flow->SetCollisionEnabled(ECollisionEnabled::NoCollision);Flow->SetCanEverAffectNavigation(false);
++            Flow->SetCastShadow(false);Flow->SetVisibleInRayTracing(false);Flow->SetReceivesDecals(false);Flow->RegisterComponent();
++        }
++        Flow->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(Tip-Tail).ToQuat(),(Tail+Tip)*.5f,FVector(.02f,.02f,(Tip-Tail).Size()/100.f)));
++    }
++}

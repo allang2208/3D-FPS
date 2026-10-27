@@ -1,0 +1,72 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/IlluminationArrowVisual.cpp
+@@ -0,0 +1,69 @@
++#include "IlluminationArrowVisual.h"
++#include "IlluminationArrowTypes.h"
++#include "Components/DynamicMeshComponent.h"
++#include "DynamicMesh/DynamicMesh3.h"
++#include "DynamicMesh/DynamicMeshAttributeSet.h"
++#include "Components/PointLightComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Materials/MaterialInterface.h"
++#include "Engine/World.h"
++
++void UIlluminationArrowVisual::Create()
++{
++    Arcs=NewObject<UDynamicMeshComponent>(GetOwner());
++    Arcs->SetMobility(EComponentMobility::Movable);
++    Arcs->SetCollisionEnabled(ECollisionEnabled::NoCollision);Arcs->SetGenerateOverlapEvents(false);Arcs->SetCanEverAffectNavigation(false);
++    Arcs->SetCastShadow(false);Arcs->SetVisibleInRayTracing(false);Arcs->RegisterComponent();
++    using namespace UE::Geometry;
++    FDynamicMesh3 Mesh;Mesh.EnableAttributes();
++    auto Triangle=[&](int32 A,int32 B,int32 C){const int32 Id=Mesh.AppendTriangle(A,B,C);
++        Mesh.Attributes()->PrimaryNormals()->SetTriangle(Id,FIndex3i(A,B,C));Mesh.Attributes()->PrimaryUV()->SetTriangle(Id,FIndex3i(A,B,C));};
++    for(int32 Ring=0;Ring<2;++Ring)
++    {
++        const int32 Base=Mesh.VertexCount();
++        for(int32 I=0;I<=32;++I)
++        {
++            const float T=float(I)/32,A=T*PI*1.65f+Ring*PI;
++            const float Width=(.15f+.8f*FMath::Sin(T*PI));
++            for(int32 Side=0;Side<2;++Side)
++            {
++                const float R=7.f+Ring*2.f+(Side?Width:-Width);
++                Mesh.AppendVertex(FVector3d(-3.f+Ring*3.f+FMath::Sin(A)*2.f,FMath::Cos(A)*R,FMath::Sin(A)*R));
++                Mesh.Attributes()->PrimaryNormals()->AppendElement(FVector3f(1,0,0));Mesh.Attributes()->PrimaryUV()->AppendElement(FVector2f(T,Side));
++            }
++        }
++        for(int32 I=0;I<32;++I){const int32 J=Base+I*2;Triangle(J,J+1,J+2);Triangle(J+1,J+3,J+2);}
++    }
++    Arcs->SetMesh(MoveTemp(Mesh));Arcs->SetMaterial(0,Material);
++    Light=NewObject<UPointLightComponent>(GetOwner());Light->SetMobility(EComponentMobility::Movable);
++    Light->SetCastShadows(false);Light->SetVolumetricScatteringIntensity(0);Light->SetIndirectLightingIntensity(0);
++    Light->SetLightColor(FLinearColor(1.f,.88f,.57f));Light->SetAttenuationRadius(450.f);Light->SetIntensity(1000.f);
++    Light->MaxDrawDistance=3500.f;Light->MaxDistanceFadeRange=500.f;Light->RegisterComponent();
++}
++void UIlluminationArrowVisual::Update(const FVector& Tail,const FVector& Tip,float Delta,bool Flying)
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    if(!bRequested)
++    {
++        bRequested=true;Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(IlluminationArrow::Glow),FStreamableDelegate::CreateWeakLambda(this,[this]
++        {Material=Cast<UMaterialInterface>(FSoftObjectPath(IlluminationArrow::Glow).ResolveObject());}));
++    }
++    if(!Material)return;if(!Arcs)Create();Age+=FMath::Max(0.f,Delta);
++    const FVector Forward=(Tip-Tail).GetSafeNormal();
++    const FQuat Rotation=FQuat::FindBetweenNormals(FVector::ForwardVector,Forward)*FQuat(FVector::ForwardVector,Age*2.5f);
++    Arcs->SetWorldLocationAndRotation(Tip,Rotation);Arcs->SetWorldScale3D(FVector(Flying?1.35f:1.f));Arcs->SetVisibility(true);
++    Light->SetWorldLocation(Tip+Forward*6.f);Light->SetIntensity((Flying?1700.f:1000.f)*(1.f+.12f*FMath::Sin(Age*6.f)));Light->SetVisibility(true);
++}
++void UIlluminationArrowVisual::Clear()
++{if(Arcs)Arcs->SetVisibility(false);if(Light)Light->SetVisibility(false);Age=0;}
++void UIlluminationArrowVisual::UpdateImpact(const FVector& Position,const FVector& Forward,float Delta)
++{
++    Update(Position-Forward*76.f,Position,Delta,true);
++    if(!Arcs||!Light)return;
++    Arcs->SetWorldScale3D(FVector(2.2f));
++    Light->SetAttenuationRadius(1000.f);
++    Light->SetIntensity(6000.f*(1.f+.05f*FMath::Sin(Age*3.f)));
++}
++void UIlluminationArrowVisual::EndPlay(const EEndPlayReason::Type Reason)
++{if(Load)Load->CancelHandle();if(Arcs)Arcs->DestroyComponent();if(Light)Light->DestroyComponent();Super::EndPlay(Reason);}

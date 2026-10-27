@@ -1,0 +1,11 @@
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -12,6 +12,8 @@
+ ProjectID=87128631443E575C00DFA7A699D451BC
+ 
+ [/Script/UnrealEd.ProjectPackagingSettings]
+++DirectoriesToAlwaysCook=(Path="/Game/Skills/IlluminationArrow20261027")
+++DirectoriesToAlwaysCook=(Path="/Game/Skills/MagicArrowRain20261026")
+ +DirectoriesToAlwaysCook=(Path="/Game/Skills/DragonBreath20261013/Audio20261019")
+ +DirectoriesToAlwaysCook=(Path="/Game/Audio/DungeonBGM20261017")
+ ; Server-side UDW transitions resolve these preset assets through native paths.

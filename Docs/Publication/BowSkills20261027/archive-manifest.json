@@ -1,0 +1,482 @@
+[
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Config/DefaultGame.ini",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Config/DefaultGame.ini",
+    "bytes": 32939,
+    "sha256": "eaad010ce2d522d4dfa0df8ff31571558bedbae930a2c2ead5bb16bec0153b11",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Content/ColdSteelData/skills.json",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Content/ColdSteelData/skills.json",
+    "bytes": 32928,
+    "sha256": "814150270f0a5dc27c43abfe2d2ed592808ee2f708250a8eeb0bd08d3bbf3a4f",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "bytes": 289047,
+    "sha256": "078978b563d0e67f206eef01aac60e4401d862197164abfc9752121d694d1fcd",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+    "bytes": 8527,
+    "sha256": "b36a6831cb7b023f8197831e16952d7739eec8de49560e2504be20a51f5b59a2",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "bytes": 12791,
+    "sha256": "9698bf86ee3e1f05d743602a0de9b0068182358e44a4f16d2c09a0aeed79924b",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp",
+    "bytes": 3355,
+    "sha256": "eee7bc461eb3b5ae7cefa48d166fe8331947ba73f775eb5ab5dca4947e1c7ca9",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "bytes": 39353,
+    "sha256": "fa2423cb525f2906ae770f1480cbb80a305fb8830db197c567b2e83e888a9ceb",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "bytes": 64527,
+    "sha256": "4aef0654b9b8a3ca207f94f95c11ab8cb58ba5f46ea700b5bd4dd3702940f260",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "bytes": 9516,
+    "sha256": "47261bbb83cfd1731af686a476b828e650f38415e89b83c9821744015888d043",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp",
+    "bytes": 3645,
+    "sha256": "92596c2c54f41e3e1d12ff0fc74bd651ecb7e84d068f09ae832c70c41736e930",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+    "bytes": 17826,
+    "sha256": "f3f836522f3f489bb1ad7989715dd26ee2d1c85db76624ac1cdfb3712ec146d5",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelBowRhythm.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelBowRhythm.cpp",
+    "bytes": 11328,
+    "sha256": "8a57ea40100cdb045be0b468483b054284f1fb55f1cea2ce1c514355a743f3f5",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "bytes": 25925,
+    "sha256": "92ed96e4b8efe7e2cc67b1d403513cb2b6af49e7e1d40f477deaa10f210bebd0",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+    "bytes": 7713,
+    "sha256": "acce9d38c03422cd7b599c48e21f2e77e062cdd759d94da01476b7cb66ff8a8f",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "bytes": 108433,
+    "sha256": "14b26907ec94277804a7a781eab16f43a8b159738031115854b9c3bf3e2ebcc6",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+    "bytes": 17903,
+    "sha256": "7ad62db13de92bf12f88eb94b6312967d1e7bea2cf3df6a9d06860c8365b640e",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+    "bytes": 31031,
+    "sha256": "08bf10b0bb7e05cd32a0f0a81b047f5c8f71dff9dbe2067fbcdd1d2638dafd89",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "bytes": 124945,
+    "sha256": "0c6738b26ac81f7d2e6e0523391c6991797b90aced9e320004c586b96941bbe9",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelSkillPage.h",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelSkillPage.h",
+    "bytes": 5512,
+    "sha256": "f90243a296ab0c2bae846e35b022905ac5ba4ae85d87109c035c58d45621b4af",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "bytes": 45377,
+    "sha256": "868bf88b0d843b58d592b54908cd39bd61f1e035fadff92ed74ea88afb3297f2",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+    "bytes": 100023,
+    "sha256": "bb01477929acd44a303ceee40e377c6f9ce90f4af2a755ea4f506ce8527255b6",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+    "bytes": 17768,
+    "sha256": "36fa99b337ea640f8cf3233a370175adf9a591eb2208764d7cb65196a281d586",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/AirburstV2/Before/M_ArrowRainBurstCoreV2.uasset",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/AirburstV2/Before/M_ArrowRainBurstCoreV2.uasset",
+    "bytes": 13040,
+    "sha256": "a144af16cb69d7ba59556531c7900c8e7e0e1fb9a0dc2dcc40f1e535776cd4a0",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/AirburstV2/Before/M_ArrowRainBurstSmokeV2.uasset",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/AirburstV2/Before/M_ArrowRainBurstSmokeV2.uasset",
+    "bytes": 15492,
+    "sha256": "bfea971084a85d432233ebc435af15261828e11c60fc44fb1aad291f08527696",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/AirburstV2/Before/M_ArrowRainMetal.uasset",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/AirburstV2/Before/M_ArrowRainMetal.uasset",
+    "bytes": 7273,
+    "sha256": "f256aa9c42974e2dfb97470fd88f16098f0f29f57990d35b9af55748268e289a",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/AirburstV2/Before/M_ArrowRainPressureWaveV2.uasset",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/AirburstV2/Before/M_ArrowRainPressureWaveV2.uasset",
+    "bytes": 13096,
+    "sha256": "55e58ea5d4290458d4448ab8a57fb207da73cfa3a00d8a4c4f9c7c2a2a88b4ee",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/AirburstV2/Before/NS_ArrowRainBurst.uasset",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/AirburstV2/Before/NS_ArrowRainBurst.uasset",
+    "bytes": 1616148,
+    "sha256": "8b4cb857ce063dde5bc67f51ab3fc803416e156b3c93fae984c7e16bd4b66133",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/ConeV3/Before/NS_ArrowRainDust.uasset",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/ConeV3/Before/NS_ArrowRainDust.uasset",
+    "bytes": 1691614,
+    "sha256": "0339ff9b38bd27a41222087ca38a2562045cd32d3259a13299e841d6fd448f78",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/VisibilityV4/Before/M_ArrowRainMetal.uasset",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/VisibilityV4/Before/M_ArrowRainMetal.uasset",
+    "bytes": 13593,
+    "sha256": "062892627eeef7f70026560f642b52947319fc400f2b0f53c176dc7d0496a95b",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "SourceAssets/MagicArrowRain20261026/VisibilityV4/Before/NS_ArrowRainBurst.uasset",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/MagicArrowRain20261026/VisibilityV4/Before/NS_ArrowRainBurst.uasset",
+    "bytes": 2422816,
+    "sha256": "f67cabb9f0522458c89c54d66e4b7c1bf369d821c6a14d68fe3b6db42d2603c6",
+    "reason": "replaced pre-edit snapshot",
+    "replacement": "Current source and Tools/Skills/build_magic_arrow_rain_assets.py upgrade chain"
+  },
+  {
+    "source": "Tools/Skills/integrate_magic_arrow_rain.py",
+    "destination": "trash/bow-skills-retired-20261027/Tools/Skills/integrate_magic_arrow_rain.py",
+    "bytes": 10765,
+    "sha256": "9f0ce652936df1d4d84b17943a30e7c843d04437d0d93a20a91749f052d65246",
+    "reason": "completed one-time or failed acquisition script",
+    "replacement": "Current source, retained audio inputs and BalancedV4 authoring chain"
+  },
+  {
+    "source": "Tools/Skills/integrate_magic_arrow_rain_ui.py",
+    "destination": "trash/bow-skills-retired-20261027/Tools/Skills/integrate_magic_arrow_rain_ui.py",
+    "bytes": 12188,
+    "sha256": "abb1ab07a989efc4c79cba3a14870679598bf79ccb15ab3d15060a60e2cc05fa",
+    "reason": "completed one-time or failed acquisition script",
+    "replacement": "Current source, retained audio inputs and BalancedV4 authoring chain"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/prepare_auditions.py",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/prepare_auditions.py",
+    "bytes": 3602,
+    "sha256": "cacdf5bb16959d9fe0040a1620f3877b39e0d4b247c9b63d8f10bed8e97bfae7",
+    "reason": "completed one-time or failed acquisition script",
+    "replacement": "Current source, retained audio inputs and BalancedV4 authoring chain"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/209399.html",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/209399.html",
+    "bytes": 45233,
+    "sha256": "c0677e547f32230c2239893bd237641058dd9738bf15e0e3dd6fb0e612e1d2a0",
+    "reason": "failed Freesound preview research; no audio used",
+    "replacement": "Retained selected CC0 source records"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/263675.html",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/263675.html",
+    "bytes": 41049,
+    "sha256": "bbb9a7b13afbbaa57729ffaebcd718a4a0c8b20fbe54b881dbaf3a44b1a3cde9",
+    "reason": "failed Freesound preview research; no audio used",
+    "replacement": "Retained selected CC0 source records"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/384915.html",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/384915.html",
+    "bytes": 49033,
+    "sha256": "81f633ccfe00aaba0f89cd5b2456ca902eab761b13fc43691628b1fff4b5431b",
+    "reason": "failed Freesound preview research; no audio used",
+    "replacement": "Retained selected CC0 source records"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/410751.html",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/410751.html",
+    "bytes": 48625,
+    "sha256": "4123f20e41838e194e9f46c7fff61eb41e95539e44e5aa6e9e5c7aca133ae601",
+    "reason": "failed Freesound preview research; no audio used",
+    "replacement": "Retained selected CC0 source records"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Auditions/A_BattleBow_2x.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Auditions/A_BattleBow_2x.wav",
+    "bytes": 393100,
+    "sha256": "22fea401151fb9e3cfe08015a8ad0dd1a350b3e1d1c808a1320b1433346865b3",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Auditions/B_HeavyString_2x.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Auditions/B_HeavyString_2x.wav",
+    "bytes": 344236,
+    "sha256": "ec343b457329574c9fbe7766c0fe8dae645d6822bdfca016afd78f9f63ac1b95",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Auditions/C_DeepLongbow_2x.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Auditions/C_DeepLongbow_2x.wav",
+    "bytes": 396132,
+    "sha256": "b4a7fad5bbf8a0ae32aefae86c33206dcf2f0a27bbd7af7518a2e69f9799e46a",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Auditions/D_BowWhoosh_2x.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Auditions/D_BowWhoosh_2x.wav",
+    "bytes": 354940,
+    "sha256": "5f70c53183128971f3fa369e96453d1e4181df7055658df58d9fd4641a1f3f86",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Singles/A_BattleBow.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Singles/A_BattleBow.wav",
+    "bytes": 158036,
+    "sha256": "1d46d3cc01f5800bf9a72b3a1f7f326c13f9165099beafcb204683d84d6a8086",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Singles/B_HeavyString.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Singles/B_HeavyString.wav",
+    "bytes": 121388,
+    "sha256": "a625d621c7e6db5271f969a1c628d3958520209fd93b6cd1b74f6006ef2fe305",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Singles/C_DeepLongbow.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Singles/C_DeepLongbow.wav",
+    "bytes": 160310,
+    "sha256": "28638be1111dd1e3fba04688fccdc9823b7f0d9271203dd650475ec2957a4810",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Singles/D_BowWhoosh.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Singles/D_BowWhoosh.wav",
+    "bytes": 129416,
+    "sha256": "adc226bf3774e92de32a7d3f9d4d43bb6e6f5461243079784f637cac1adaa374",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/Auditions/E_HeavySnap_2x.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/Auditions/E_HeavySnap_2x.wav",
+    "bytes": 472364,
+    "sha256": "fd43901573fd0420053e473b84c90280b4a587002300f256f6c9dfb85fb54c53",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/Auditions/F_PiercingRip_2x.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/Auditions/F_PiercingRip_2x.wav",
+    "bytes": 503084,
+    "sha256": "e205b4ead843cce701f0ff350a9df41fff638d19963c5e8ea2b3cdaa64dcea0a",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/Auditions/G_SiegeBurst_2x.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/Auditions/G_SiegeBurst_2x.wav",
+    "bytes": 587564,
+    "sha256": "e2796445b3123c1906ee66eb47ee32fb58939257f7ab78d37ae4d42e2268bb66",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/combine_efg.py",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/combine_efg.py",
+    "bytes": 3706,
+    "sha256": "053edde738b57e96f8d4deb329f309a4a2862c92fa4f5dd1daf8d72bc440756a",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/H_HeartPiercing_Combined.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/H_HeartPiercing_Combined.wav",
+    "bytes": 296684,
+    "sha256": "72c3ee4d164e78e77f3ffad1eb9423102d6ce4d82cb187d29b13970c94707ad3",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/H_HeartPiercing_Combined_2x.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/H_HeartPiercing_Combined_2x.wav",
+    "bytes": 606764,
+    "sha256": "25927e36c7ff460c9001a49d8d4f8f1447c58a23000db375ef2a5c3730d48dec",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/manifest.json",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/manifest.json",
+    "bytes": 1685,
+    "sha256": "882b4e5281248c6c2ba526af0ccc111e1866e18f1436d95a46a383c7e9652776",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/README.md",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/StrongV2/CombinedV3/README.md",
+    "bytes": 815,
+    "sha256": "2395d910019b2038c93dd3e560d23a23d728a8e2ded4454d88097c1d69dde816",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/SelectedH/History/CombinedV3/import-receipt.json",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/SelectedH/History/CombinedV3/import-receipt.json",
+    "bytes": 568,
+    "sha256": "17ef77691ed307c0db4b47bbac9279c0225c5accb1b41c7861a09f9b33dc28cd",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/SelectedH/History/CombinedV3/selection.json",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/SelectedH/History/CombinedV3/selection.json",
+    "bytes": 833,
+    "sha256": "149f966f83a5576dcf3d091d1b9b960eaee1dba8c5b11f9b65768e388e261db6",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/SelectedH/History/CombinedV3/S_HeartPiercingArrow_Release.wav",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/SelectedH/History/CombinedV3/S_HeartPiercingArrow_Release.wav",
+    "bytes": 296684,
+    "sha256": "72c3ee4d164e78e77f3ffad1eb9423102d6ce4d82cb187d29b13970c94707ad3",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/prepare_oga_auditions.py",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/prepare_oga_auditions.py",
+    "bytes": 4198,
+    "sha256": "697247574793b75f09902f6d9cb331a7eee7e77669a78960426998573e6a0a44",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/crossbow_dryshot.flac",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/crossbow_dryshot.flac",
+    "bytes": 20365,
+    "sha256": "2e0fee16e556cfc9fd2376074b56b7082991ede9187db62656d9256d28f4d62f",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/Flare_shoot.ogg",
+    "destination": "trash/bow-skills-retired-20261027/SourceAssets/HeartPiercingArrowAudioCandidates20261026/Sources/Flare_shoot.ogg",
+    "bytes": 6381,
+    "sha256": "ac3e1f9868946cfd2fdfe00f65d7170d1e30d66ec626ba7767a5370dacedaba6",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  },
+  {
+    "source": "Saved/BowRhythmAC20261026/Before/ColdSteelBowRhythm.cpp",
+    "destination": "trash/bow-skills-retired-20261027/Saved/BowRhythmAC20261026/Before/ColdSteelBowRhythm.cpp",
+    "bytes": 9665,
+    "sha256": "5095c0041391538c5f2ac2a42a4c3ad5b2f078fd9d55f8d94299c74f9822a852",
+    "reason": "superseded audition, CombinedV3 or rejected ABC implementation",
+    "replacement": "BalancedV4 source/import and current A/C rhythm; E/F/G Singles and CC0 inputs retained"
+  }
+]

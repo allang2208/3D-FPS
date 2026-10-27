@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -476,7 +476,7 @@
+         N.Detail=FString::Printf(TEXT("获得 %d 点属性点 · 打开角色状态进行分配"),After.Points-Before.Points);
+         ProgressNotices.Add(MoveTemp(N));
+     }
+-    const FColdSteelSkillDefinition* NoticeDefinitions[]={&StormDomainSkill,&ThunderLanceSkill,&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&IceWallSkill,&BlizzardSkill,&LightningSkill,&HolyLightSkill,&MeteorSkill,&FlameArmorSkill,&IceArmorSkill,&LightningHasteSkill,&DragonBreathSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("bluntMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heartPiercingArrow")),&MasteryDefinition(TEXT("heavyStrike")),&MasteryDefinition(TEXT("swordUppercut")),&MasteryDefinition(TEXT("whirlwind")),&MasteryDefinition(TEXT("dashAttack"))};
++    const FColdSteelSkillDefinition* NoticeDefinitions[]={&StormDomainSkill,&ThunderLanceSkill,&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&IceWallSkill,&BlizzardSkill,&LightningSkill,&HolyLightSkill,&MeteorSkill,&FlameArmorSkill,&IceArmorSkill,&LightningHasteSkill,&DragonBreathSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("bluntMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heartPiercingArrow")),&MasteryDefinition(TEXT("magicArrowRain")),&MasteryDefinition(TEXT("elementalArrow")),&MasteryDefinition(TEXT("illuminationArrow")),&MasteryDefinition(TEXT("heavyStrike")),&MasteryDefinition(TEXT("swordUppercut")),&MasteryDefinition(TEXT("whirlwind")),&MasteryDefinition(TEXT("dashAttack"))};
+     for(const auto* Definition:NoticeDefinitions)
+     {
+     const auto* Old=Before.Skills.Find(Definition->Id); const auto* New=After.Skills.Find(Definition->Id);
+@@ -484,6 +484,19 @@
+     {
+         FColdSteelProgressNotice N; N.Title=FString::Printf(TEXT("%s升级   Lv.%d → %d"),*Definition->Name,Old->Level,New->Level);
+         N.Detail=ColdSteelSkills::EffectSummary(ColdSteelSkills::Effect(*Definition,New->Level)); N.Icon=Definition->Icon;
++        if(Definition->Id==TEXT("illuminationArrow"))
++        {
++            const auto C=IlluminationArrowStats(New->Level);
++            N.Detail=FString::Printf(TEXT("范围 %.1f m · 标记 %.1f s · 承伤 +%.1f%% · 冷却 %.1f s"),C.Radius/100.f,C.Duration,C.DamageBonus*100.f,C.Cooldown);
++        }
++        else if(Definition->Id==TEXT("elementalArrow"))
++        {
++            const auto& T=Definition->ElementalArrow;
++            N.Detail=FString::Printf(TEXT("火焰 ×%.2f · 寒冰 ×%.2f · 闪电 ×%.2f"),
++                ElementalArrow::DamageMultiplier(T,EArrowElement::Fire,New->Level),
++                ElementalArrow::DamageMultiplier(T,EArrowElement::Ice,New->Level),
++                ElementalArrow::DamageMultiplier(T,EArrowElement::Lightning,New->Level));
++        }
+         if(Definition->Id==TEXT("heartPiercingArrow"))
+         {
+             const auto C=HeartPiercingArrow::Evaluate(Definition->HeartPiercingArrow,New->Level);

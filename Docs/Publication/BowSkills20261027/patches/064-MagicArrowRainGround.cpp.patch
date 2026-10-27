@@ -1,0 +1,52 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/MagicArrowRainGround.cpp
+@@ -0,0 +1,49 @@
++#include "MagicArrowRainGround.h"
++#include "BlizzardEnvironment.h"
++#include "MeteorGround.h"
++#include "../Combat/RangedAttackQuery.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "GameFramework/Pawn.h"
++#include "Engine/World.h"
++
++FVector MagicArrowRainGround::Flight(const FVector& Start,const FVector& Burst,float Fraction)
++{return FMath::Lerp(Start,Burst,Fraction)+FVector(0,0,60.f*FMath::Sin(PI*Fraction));}
++
++bool MagicArrowRainGround::Validate(APawn* Pawn,const FMagicArrowRainCast& Cast,const FVector& Start,
++    FVector& Ground,FVector& Normal,FVector& Burst,FString& Failure)
++{
++    if(!MeteorGround::Validate(Pawn,Cast.Range,Ground,Normal,true,Failure))return false;
++    FHitResult Roof;
++    float Height=Cast.BurstHeight;
++    if(BlizzardEnvironment::Trace(Pawn,Ground+FVector(0,0,8),Ground+FVector(0,0,Height+65),Roof,true))
++        Height=FMath::Min(Height,float(Roof.ImpactPoint.Z-Ground.Z)-65.f);
++    if(Height<Cast.MinimumHeight){Failure=TEXT("上方空间不足");return false;}
++    Burst=Ground+FVector(0,0,Height);
++    FVector Previous=Start;
++    for(int32 I=1;I<=20;++I)
++    {
++        const FVector Next=Flight(Start,Burst,float(I)/20.f);FHitResult Hit;
++        if(BlizzardEnvironment::Trace(Pawn,Previous,Next,Hit,true))
++        {Failure=TEXT("引导箭路径被遮挡");return false;}
++        Previous=Next;
++    }
++    return true;
++}
++
++bool MagicArrowRainGround::Select(APawn* Pawn,const FMagicArrowRainCast& Cast,const FVector& Eye,const FVector& Aim,
++    FVector& Ground,FVector& Normal,FVector& Burst,FString& Failure,const FVector* LaunchOrigin)
++{
++    Failure.Reset();FHitResult Hit;FVector Axis=FVector::RightVector;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(ArrowRainAim),true,Pawn);
++    if(RangedAttackQuery::LineTraceSingle(Pawn->GetWorld(),Pawn,Hit,Eye,Eye+Aim*(Cast.Range+250.f),ECC_Visibility,Query)
++        &&Hit.GetActor()&&Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())
++    {
++        FHitResult Floor;
++        if(!BlizzardEnvironment::Floor(Pawn,Hit.ImpactPoint,0.f,1200.f,Floor))
++        {Failure=TEXT("目标脚下无地面");return false;}
++        Ground=Floor.ImpactPoint;Normal=Floor.ImpactNormal;
++    }
++    else if(!BlizzardEnvironment::Select(Pawn,Cast.Range,Eye,Aim,Ground,Normal,Axis,Failure))return false;
++    // The camera selects the ground; the arrow tip determines flight clearance.
++    return Validate(Pawn,Cast,LaunchOrigin?*LaunchOrigin:Eye,Ground,Normal,Burst,Failure);
++}

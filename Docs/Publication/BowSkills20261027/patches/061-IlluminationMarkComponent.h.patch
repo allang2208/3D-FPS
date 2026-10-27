@@ -1,0 +1,46 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/IlluminationMarkComponent.h
+@@ -0,0 +1,43 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "IlluminationArrowTypes.h"
++#include "IlluminationMarkComponent.generated.h"
++class UFPSIlluminationArrowComponent;
++class UPrimitiveComponent;
++class UMaterialInterface;
++struct FStreamableHandle;
++
++/** Target-owned scan mark; authority owns duration, damage and kill attribution. */
++UCLASS(ClassGroup=(Skills))
++class FPSGAME_API UIlluminationMarkComponent : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    UIlluminationMarkComponent();
++    static bool Apply(AActor* Target,APawn* Shooter,const FIlluminationArrowCast& Cast);
++    static float DamageBonus(const AActor* Target);
++    static bool IsMarked(const AActor* Target);
++    static bool HasPresentation(const UWorld* World);
++    float Remaining() const;
++    void Clear();
++    void ObserveKill(const APawn* Killer);
++    virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
++private:
++    struct FMark {TWeakObjectPtr<UFPSIlluminationArrowComponent> Source;FGuid CastId;double EndsAt=0;float Bonus=0;};
++    TArray<FMark> Marks;
++    UPROPERTY(ReplicatedUsing=OnRep_Mark) double MarkEndsAt=0;
++    UPROPERTY(Replicated) float MarkBonus=0;
++    UPROPERTY(Transient) TArray<TObjectPtr<UPrimitiveComponent>> Proxies;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> DepthMaterial;
++    TSharedPtr<FStreamableHandle> Load;
++    bool bLoadRequested=false,bDeathObserved=false,bTracked=false;
++    void TrackPresentation(bool Active);
++    UFUNCTION() void OnRep_Mark();
++    void Refresh();
++    void Present();
++    void RemovePresentation();
++    double Clock() const;
++};

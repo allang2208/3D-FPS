@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
+@@ -57,6 +57,10 @@
+     UPROPERTY() float Charge=0.f;
+     // Manual perfect-release candidate only; authority checks its own draw session.
+     UPROPERTY() float BowReleaseElapsed=-1.f;
++    // All releases report their continuous draw clock; damage remains server-derived.
++    UPROPERTY() float BowChargeElapsed=-1.f;
++    UPROPERTY() EArrowElement ArrowElement=EArrowElement::None;
++    UPROPERTY() bool bIlluminationArrow=false;
+     UPROPERTY() int64 ContainerRevision=0;
+     UPROPERTY() int64 Count=0;
+     UPROPERTY() int32 Place=0;
+@@ -90,6 +94,11 @@
+     UPROPERTY() int64 ServerSoulDebits=0;
+     UPROPERTY() bool bResourcesChanged = false;
+     UPROPERTY() float ManaRestored = 0.f;
++    UPROPERTY() float ElementManaSpent=0.f;
++    UPROPERTY() EArrowElement ArrowElement=EArrowElement::None;
++    UPROPERTY() bool bIlluminationArrow=false;
++    UPROPERTY() float ElementCooldown=0.f;
++    UPROPERTY() double ElementCooldownEnd=0.;
+     UPROPERTY() float StaminaSpent = 0.f;
+     UPROPERTY() bool bEquipmentChanged=false;
+     UPROPERTY() int32 ActiveWeaponSlot=6;

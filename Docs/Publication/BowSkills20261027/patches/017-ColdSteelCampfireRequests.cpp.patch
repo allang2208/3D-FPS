@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
+@@ -2,6 +2,7 @@
+ #include "../Skills/FPSFireMagicComponent.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+ #include "../Skills/FPSBlizzardComponent.h"
++#include "../Skills/BowSkillLifecycle.h"
+ #include "../FPSGAMECharacter.h"
+ #include "ColdSteelNetWorldSubsystem.h"
+ #include "ColdSteelNetSessionSubsystem.h"
+@@ -130,6 +131,7 @@
+     if(CastPawn)if(auto* Fire=CastPawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->FinishDragonBreathForRemoval();
+     if(CastPawn)if(auto* Electric=CastPawn->FindComponentByClass<UFPSElectricMagicComponent>())Electric->FinishDomainForRemoval();
+     if(CastPawn)if(auto* Blizzard=CastPawn->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
++    BowSkillLifecycle::FinishForRemoval(CastPawn);
+     const bool Closed=CloseStationSessions();
+     // Preserve unfinished paid jobs too when closing cannot complete (e.g. pawn already gone).
+     const bool Saved=!ShadowModel||SaveShadowToHostDisk();

@@ -6,6 +6,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ---
 
+弓的节拍/穿心箭、元素箭与箭雨准备、照明箭以及队友搭箭特效，读取 [弓系准备技能](../ue5-skill-magic-workflow/references/bow-prepared-skills.md)。
+
 # 本机维护源入口
 
 本机共用流程统一读取[ue5-weapon-workflow](C:/Users/allan/.codex/skills/ue5-weapon-workflow/SKILL.md)，不要叠加旧镜像流程。

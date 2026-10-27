@@ -1,0 +1,55 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -192,7 +192,7 @@
+     float LightningCooldownDuration() const { return Current.LightningCooldownDuration; }
+     bool BeginLightningCast(const FLightningCast& Cast);
+     bool ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Cast,float Damage,FLightningRewards& Rewards,bool bTrain=true,const FHitResult* DirectHit=nullptr);
+-    void FinishLightningCast(const FLightningRewards& Rewards);
++    void FinishLightningCast(const FLightningRewards& Rewards,bool bElementalArrow=false);
+     const FColdSteelSkillDefinition& HolyLightDefinition() const { return HolyLightSkill; }
+     FColdSteelSkillProgress HolyLightProgress() const;
+     FHolyLightCast HolyLightStats(int32 AtLevel=-1) const;
+@@ -213,6 +213,25 @@
+     const FColdSteelSkillDefinition& BlizzardDefinition() const { return BlizzardSkill; }
+     FColdSteelSkillProgress BlizzardProgress() const;
+     FBlizzardCast BlizzardStats(int32 AtLevel=-1) const;
++    FIlluminationArrowCast IlluminationArrowStats(int32 AtLevel=-1) const;
++    float IlluminationArrowCooldown() const;
++    float IlluminationArrowCooldownDuration() const;
++    bool CanPrepareIlluminationArrow(FString& Reason) const;
++    void StageIlluminationArrowCost(FColdSteelProfile& Profile,const FIlluminationArrowCast& Cast,float StaminaCost=0.f) const;
++    void TrainIlluminationArrow(int32 Experience);
++    FElementalArrowCast ElementalArrowStats(EArrowElement Element,int32 AtLevel=-1) const;
++    void StageElementalArrowTraining(FColdSteelProfile& Profile,int32 Hits,int32 Kills) const;
++    float ElementalArrowCooldown(EArrowElement Element) const;
++    float ElementalArrowCooldownDuration(EArrowElement Element) const;
++    bool CanPrepareElementalArrow(EArrowElement Element,FString& Reason) const;
++    void StageElementalArrowCost(FColdSteelProfile& Profile,const FElementalArrowCast& Cast,float BowStaminaCost=0.f) const;
++    FMagicArrowRainCast MagicArrowRainStats(int32 AtLevel=-1) const;
++    float MagicArrowRainCooldown() const;
++    float MagicArrowRainCooldownDuration() const;
++    bool BeginMagicArrowRain(const FMagicArrowRainCast& Cast);
++    bool ReleaseMagicArrowRain(const FMagicArrowRainCast& Cast,bool bSpendArrow);
++    void CancelMagicArrowRain();
++    void ApplyMagicArrowRain(APawn* Shooter,const FVector& Ground,const FVector& Burst,const FMagicArrowRainCast& Cast);
+     float BlizzardCooldown() const;
+     float BlizzardCooldownDuration() const;
+     bool BeginBlizzardCast(const FBlizzardCast& Spell);
+@@ -225,7 +244,7 @@
+     float IceSpikeCooldownDuration() const { return Current.IceSpikeCooldownDuration; }
+     bool BeginIceSpikeCast(const FIceSpikeCast& Cast);
+     void ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Rewards);
+-    void FinishIceSpikeCast(const FIceSpikeRewards& Rewards);
++    void FinishIceSpikeCast(const FIceSpikeRewards& Rewards,bool bElementalArrow=false);
+     FColdSteelSkillProgress FireballProgress() const;
+     FFireballCast FireballStats(int32 AtLevel=-1) const;
+     /**
+@@ -245,7 +264,7 @@
+     /** 手势已扣蓝并起冷却，但法术没有放出时退回。Skill 为空则只退蓝。 */
+     bool RefundUnreleasedCast(float PaidMana, FName Skill);
+     void FinishFireballCast();
+-    void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr);
++    void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr,bool bElementalArrow=false);
+     float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr);
+     bool PopProgressNotice(FColdSteelProgressNotice& Out);
+     /** 角色经验到账飘字队列：只服务 HUD，不写入档案；批量击杀在 StageTraining 合并。 */

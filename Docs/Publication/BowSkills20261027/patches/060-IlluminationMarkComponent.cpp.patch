@@ -1,0 +1,142 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/IlluminationMarkComponent.cpp
+@@ -0,0 +1,139 @@
++#include "IlluminationMarkComponent.h"
++#include "FPSIlluminationArrowComponent.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "../Combat/RangedAttackQuery.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../Monsters/MantisM27Monster.h"
++#include "../UI/StatusEffectsComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/World.h"
++#include "GameFramework/GameStateBase.h"
++#include "Materials/MaterialInterface.h"
++#include "Net/UnrealNetwork.h"
++
++namespace {TMap<TWeakObjectPtr<const UWorld>,int32> IlluminationViewCounts;}
++bool UIlluminationMarkComponent::HasPresentation(const UWorld* World)
++{return IlluminationViewCounts.FindRef(World)>0;}
++void UIlluminationMarkComponent::TrackPresentation(bool Active)
++{
++    Active=Active&&GetNetMode()!=NM_DedicatedServer;if(Active==bTracked)return;
++    bTracked=Active;int32& Count=IlluminationViewCounts.FindOrAdd(GetWorld());Count+=Active?1:-1;
++    if(Count<=0)IlluminationViewCounts.Remove(GetWorld());
++}
++UIlluminationMarkComponent::UIlluminationMarkComponent()
++{PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickInterval=.1f;SetIsReplicatedByDefault(true);}
++double UIlluminationMarkComponent::Clock() const
++{const auto* G=GetWorld()->GetGameState();return !GetOwner()->HasAuthority()&&G?G->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();}
++float UIlluminationMarkComponent::Remaining() const{return FMath::Max(0.f,float(MarkEndsAt-Clock()));}
++bool UIlluminationMarkComponent::IsMarked(const AActor* Target)
++{const auto* M=Target?Target->FindComponentByClass<UIlluminationMarkComponent>():nullptr;return M&&M->Remaining()>0;}
++float UIlluminationMarkComponent::DamageBonus(const AActor* Target)
++{
++    const auto* M=Target?Target->FindComponentByClass<UIlluminationMarkComponent>():nullptr;
++    if(!M)return 0;const double Now=M->Clock();float Bonus=0;
++    if(Target->HasAuthority()){for(const auto& Mark:M->Marks)if(Mark.EndsAt>Now)Bonus=FMath::Max(Bonus,Mark.Bonus);return Bonus;}
++    return M->Remaining()>0?M->MarkBonus:0;
++}
++bool UIlluminationMarkComponent::Apply(AActor* Target,APawn* Shooter,const FIlluminationArrowCast& Cast)
++{
++    if(!IsValid(Target)||!Shooter||!Target->HasAuthority()||!Cast.Id.IsValid()||RangedAttackQuery::IsFriendlyUnit(Shooter,Target))return false;
++    const auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();
++    if(!C||C->IsDead())return false;
++    auto* Status=UCombatStatusFormula::GetOrAdd(Target);if(!Status||Status->IsImmune())return false;
++    auto* Source=Shooter->FindComponentByClass<UFPSIlluminationArrowComponent>();if(!Source)return false;
++    auto* Mark=Target->FindComponentByClass<UIlluminationMarkComponent>();
++    if(!Mark)
++    {
++        Mark=NewObject<UIlluminationMarkComponent>(Target);Target->AddInstanceComponent(Mark);Mark->RegisterComponent();
++    }
++    double EndsAt=Target->GetWorld()->GetTimeSeconds()+Cast.Duration;
++    auto* Entry=Mark->Marks.FindByPredicate([Source](const FMark& M){return M.Source==Source;});
++    // A later path scan must not shorten an existing double-duration impact mark.
++    if(Entry)EndsAt=FMath::Max(EndsAt,Entry->EndsAt);
++    if(!Entry)Entry=&Mark->Marks.AddDefaulted_GetRef();
++    *Entry={Source,Cast.Id,EndsAt,Cast.DamageBonus};Mark->bDeathObserved=false;
++    Source->RegisterMark(Cast,EndsAt);Mark->Refresh();
++    if(auto* Mantis=::Cast<AMantisM27Monster>(Target))Mantis->RevealByIllumination();
++    return true;
++}
++void UIlluminationMarkComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(UIlluminationMarkComponent,MarkEndsAt);DOREPLIFETIME(UIlluminationMarkComponent,MarkBonus);}
++void UIlluminationMarkComponent::Refresh()
++{
++    const double Now=Clock();Marks.RemoveAll([Now](const FMark& M){return M.EndsAt<=Now;});
++    MarkEndsAt=0;MarkBonus=0;for(const auto& M:Marks){MarkEndsAt=FMath::Max(MarkEndsAt,M.EndsAt);MarkBonus=FMath::Max(MarkBonus,M.Bonus);}
++    GetOwner()->ForceNetUpdate();OnRep_Mark();
++}
++void UIlluminationMarkComponent::OnRep_Mark()
++{
++    SetComponentTickEnabled(Remaining()>0);
++    TrackPresentation(Remaining()>0);
++    if(Remaining()>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("illuminationMarked"),Remaining());
++    else if(auto* Display=GetOwner()->FindComponentByClass<UStatusEffectsComponent>())Display->Remove(TEXT("illuminationMarked"));
++    Present();
++}
++void UIlluminationMarkComponent::ObserveKill(const APawn* Killer)
++{
++    auto* Actor=GetOwner();if(!Actor->HasAuthority()||bDeathObserved||!Killer)return;
++    bDeathObserved=true;
++    const double Now=Clock();
++    for(const auto& M:Marks)if(M.EndsAt>Now&&M.Source.IsValid()&&M.Source->GetOwner()==Killer)M.Source->RecordMarkedKill(M.CastId,Actor);
++    Clear();
++}
++void UIlluminationMarkComponent::Clear()
++{Marks.Reset();MarkEndsAt=0;MarkBonus=0;if(GetOwner()->HasAuthority())GetOwner()->ForceNetUpdate();OnRep_Mark();}
++void UIlluminationMarkComponent::RemovePresentation()
++{for(const auto& P:Proxies)if(P)P->DestroyComponent();Proxies.Reset();}
++void UIlluminationMarkComponent::Present()
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    if(Remaining()<=0){RemovePresentation();return;}
++    if(!DepthMaterial)
++    {
++        if(!bLoadRequested)
++        {
++            bLoadRequested=true;
++            Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(IlluminationArrow::Depth),FStreamableDelegate::CreateWeakLambda(this,[this]
++            {DepthMaterial=Cast<UMaterialInterface>(FSoftObjectPath(IlluminationArrow::Depth).ResolveObject());Present();}));
++        }
++        return;
++    }
++    if(!Proxies.IsEmpty())return;
++    TInlineComponentArray<UMeshComponent*> Meshes(GetOwner());
++    for(auto* Mesh:Meshes)
++    {
++        if(!Mesh->IsVisible()||!Mesh->bRenderInMainPass||Mesh->bHiddenInGame)continue;
++        UMeshComponent* Proxy=nullptr;
++        if(auto* Skin=Cast<USkeletalMeshComponent>(Mesh);Skin&&Skin->GetSkeletalMeshAsset())
++        {
++            auto* P=NewObject<USkeletalMeshComponent>(GetOwner());P->SetupAttachment(Skin);
++            P->SetSkeletalMeshAsset(Skin->GetSkeletalMeshAsset());P->SetLeaderPoseComponent(Skin);
++            P->bUseBoundsFromLeaderPoseComponent=true;Proxy=P;
++        }
++        else if(auto* Static=Cast<UStaticMeshComponent>(Mesh);Static&&Static->GetStaticMesh())
++        {auto* P=NewObject<UStaticMeshComponent>(GetOwner());P->SetupAttachment(Static);P->SetStaticMesh(Static->GetStaticMesh());Proxy=P;}
++        if(!Proxy)continue;
++        Proxy->SetCollisionEnabled(ECollisionEnabled::NoCollision);Proxy->SetGenerateOverlapEvents(false);Proxy->SetCanEverAffectNavigation(false);
++        Proxy->SetCastShadow(false);Proxy->SetVisibleInRayTracing(false);Proxy->SetRenderInMainPass(false);Proxy->SetRenderInDepthPass(false);
++        for(int32 I=0;I<Proxy->GetNumMaterials();++I)Proxy->SetMaterial(I,DepthMaterial);
++        Proxy->SetRenderCustomDepth(true);Proxy->SetCustomDepthStencilValue(IlluminationArrow::Stencil);
++        Proxy->SetCustomDepthStencilWriteMask(ERendererStencilMask::ERSM_Default);Proxy->RegisterComponent();Proxies.Add(Proxy);
++    }
++}
++void UIlluminationMarkComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++    Super::TickComponent(Delta,Type,Tick);
++    if(GetOwner()->HasAuthority())
++    {
++        const auto* C=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
++        if(!Marks.IsEmpty()&&((C&&C->IsDead())||(Status&&Status->IsImmune()))){Clear();return;}
++        const double Now=Clock();if(Marks.ContainsByPredicate([Now](const FMark& M){return M.EndsAt<=Now;}))Refresh();
++    }
++    if(Remaining()<=0){RemovePresentation();TrackPresentation(false);SetComponentTickEnabled(false);}
++    else if(Proxies.IsEmpty())Present(); // Replicated mark can arrive before the streamed monster mesh.
++}
++void UIlluminationMarkComponent::EndPlay(const EEndPlayReason::Type Reason)
++{if(Load)Load->CancelHandle();TrackPresentation(false);RemovePresentation();Super::EndPlay(Reason);}

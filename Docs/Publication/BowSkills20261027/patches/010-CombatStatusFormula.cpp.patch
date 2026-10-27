@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Combat/CombatStatusFormula.cpp
++++ b/Source/FPSGAME/Combat/CombatStatusFormula.cpp
+@@ -1,4 +1,5 @@
+ #include "CombatStatusFormula.h"
++#include "../Skills/IlluminationMarkComponent.h"
+ #include "AncientBreakingSealComponent.h"
+ #include "../Weapons/AncientSealSeat.h"
+ #include "../Monsters/M66IncineratorMonster.h"
+@@ -220,6 +221,8 @@
+             if(auto* Lock=Character->FindComponentByClass<UPlayerGuardBreakComponent>()){Lock->Apply(Seconds);return;}
+     InterruptOwnerActions(Seconds);
+ }
++float UCombatStatusFormula::MarkedMultiplier() const
++{return 1.f+FMath::Max(MarkedTime>0?MarkedValue:0.f,UIlluminationMarkComponent::DamageBonus(GetOwner()));}
+ void UCombatStatusFormula::AddMarked(float Seconds,float Value)
+ {
+     if(IsImmune()||Seconds<=0)return;
+@@ -552,6 +555,7 @@
+ {if(Seconds>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(Type,Seconds,1);}
+ void UCombatStatusFormula::PurgeTransient()
+ {
++    if(auto* Mark=GetOwner()->FindComponentByClass<UIlluminationMarkComponent>())Mark->Clear();
+     if(auto* Guard=GetOwner()->FindComponentByClass<UTangDaoGuardComponent>())Guard->ClearTransient();
+     if (auto* Mist = GetOwner()->FindComponentByClass<USlagMistViewComponent>()) Mist->ClearBlindness();
+     if(auto* Infection=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())Infection->Cure();
+@@ -602,5 +606,6 @@
+     if(Take()&&TigerRoarRemaining()>0.f){TigerRoarBonus=0.f;TigerRoarEndsAt=0.;Clear(TEXT("tigerRoar"));++Cleansed;}
+     if(Take()&&PhysicalVulnerabilityRemaining()>0.f){PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;Clear(TEXT("physicalVulnerability"));++Cleansed;}
+     if(Take()&&BreakingSealRemaining()>0.f){if(auto* Seal=GetOwner()->FindComponentByClass<UAncientBreakingSealComponent>())Seal->Clear();++Cleansed;}
++    if(Take()&&UIlluminationMarkComponent::IsMarked(Owner)){Owner->FindComponentByClass<UIlluminationMarkComponent>()->Clear();++Cleansed;}
+     return Cleansed;
+ }

@@ -1,0 +1,73 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/FPSMagicArrowRainComponent.h
+@@ -0,0 +1,70 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "MagicArrowRainTypes.h"
++#include "MagicArrowRainResources.h"
++#include "FPSMagicArrowRainComponent.generated.h"
++class UColdSteelStatusModel;
++class UBowWeaponComponent;
++class UStaticMeshComponent;
++class UDecalComponent;
++class UMaterialInstanceDynamic;
++struct FStreamableHandle;
++
++UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
++class FPSGAME_API UFPSMagicArrowRainComponent : public UActorComponent
++{
++    GENERATED_BODY()
++    friend class UBowSkillTrainingAuditCommandlet;
++public:
++    UFPSMagicArrowRainComponent();
++    bool Trigger();
++    bool IsPrepared() const{return bPrepared;}
++    bool HasPreparedArrow() const{return bPrepared||bServerPrepared;}
++    bool IsPending() const{return bWaiting||bReleasePending||bCancelPending;}
++    bool IsManaDraining() const;
++    float ChargeSeconds() const{return Cast.ChargeSeconds;}
++    bool PreviewValid() const{return bValid;}
++    FString StatusText() const;
++    void DrawStarted(float CarriedSeconds=0.f);
++    void Release(const FVector& Muzzle);
++    void CancelFromBow();
++    void FinishForRemoval();
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
++protected:
++    virtual void BeginPlay() override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++    virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
++private:
++    UFUNCTION(Server,Reliable) void ServerPrepare();
++    UFUNCTION(Server,Reliable) void ServerDraw(float CarriedSeconds);
++    UFUNCTION(Server,Reliable) void ServerRelease(FVector_NetQuantize Muzzle,FVector_NetQuantize RequestedGround);
++    UFUNCTION(Server,Reliable) void ServerCancel();
++    UFUNCTION(Client,Reliable) void ClientPrepared(bool bAccepted,const FString& Reason);
++    UFUNCTION(Client,Reliable) void ClientReleased(bool bAccepted,const FString& Reason);
++    UFUNCTION(Client,Reliable) void ClientCancelled(const FString& Reason);
++    UFUNCTION(Client,Reliable) void ClientResources(const FMagicArrowRainResourceReceipt& Receipt);
++    void SendResources();
++    UPROPERTY(Replicated) bool bServerDrawing=false;
++    UPROPERTY(Transient) TArray<TObjectPtr<UObject>> Assets;
++    TSharedPtr<FStreamableHandle> AssetLoad;
++    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> Flow;
++    UPROPERTY(Transient) TObjectPtr<UDecalComponent> Preview;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> PreviewMaterial;
++    UColdSteelStatusModel* Model() const;
++    UBowWeaponComponent* Bow() const;
++    bool CanContinue() const;
++    void MakePresentation();
++    void UpdatePreview();
++    void HidePresentation();
++    void AuthorityCancel(const FString& Reason);
++    bool bPrepared=false,bWaiting=false,bReleasePending=false,bServerPrepared=false,bAssetsReady=false,bValid=false;
++    bool bCancelPending=false;
++    double DrawStartedAt=-1.,MessageUntil=0.;
++    float PreviewAge=0.f;
++    FString Weapon,Message,Failure;
++    FString PreparedAmmo;
++    int64 LastResourceRevision=-1;
++    FVector Ground=FVector::ZeroVector,Normal=FVector::UpVector,Burst=FVector::ZeroVector;
++    FMagicArrowRainCast Cast;
++};

@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -283,7 +283,8 @@
+     UFUNCTION(BlueprintPure, Category = "AKM") int32 GetReserveAmmo() const { return ReserveAmmo; }
+     UFUNCTION(BlueprintPure, Category = "AKM") bool HasInfiniteReserveAmmo() const;
+     bool HasInfiniteReserveAmmoFor(const FString& AmmoType) const;
+-    bool IsAmmoWheelOpen() const { return AmmoWheel!=nullptr; }
++    bool IsAmmoWheelOpen() const { return AmmoWheel!=nullptr||IsElementArrowWheelOpen(); }
++    bool IsElementArrowWheelOpen() const;
+     bool IsChoosingAmmo() const { return bReloadInputHeld||IsAmmoWheelOpen(); }
+     void CancelAmmoSelection();
+     bool StartAmmoSwitch(const FString& WeaponId,const FString& Target);

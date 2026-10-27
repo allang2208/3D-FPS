@@ -1,0 +1,105 @@
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelElementWheel.cpp
+@@ -0,0 +1,102 @@
++#include "ColdSteelElementWheel.h"
++#include "ColdSteelStatusModel.h"
++#include "ColdSteelUIStyle.h"
++#include "Blueprint/WidgetTree.h"
++#include "Components/Spacer.h"
++#include "Engine/GameInstance.h"
++#include "Engine/Texture2D.h"
++#include "ImageUtils.h"
++#include "Misc/Paths.h"
++#include "Fonts/FontMeasure.h"
++#include "Framework/Application/SlateApplication.h"
++#include "Rendering/DrawElements.h"
++#include "Rendering/SlateRenderer.h"
++#include "Styling/CoreStyle.h"
++#include "HAL/IConsoleManager.h"
++
++void UColdSteelElementWheel::NativeOnInitialized()
++{
++    Super::NativeOnInitialized();Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    WidgetTree->RootWidget=WidgetTree->ConstructWidget<USpacer>();SetVisibility(ESlateVisibility::HitTestInvisible);
++    for(int32 I=1;I<=3;++I)
++    {
++        auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/ElementalArrow::Icon(EArrowElement(I)));
++        Textures.Add(Texture);FSlateBrush B;B.SetResourceObject(Texture);B.ImageSize=FVector2D(96);B.DrawAs=ESlateBrushDrawType::Image;Brushes.Add(B);
++    }
++}
++void UColdSteelElementWheel::Configure(EArrowElement Element){Current=Element;}
++void UColdSteelElementWheel::NativeTick(const FGeometry& G,float Delta)
++{
++    Super::NativeTick(G,Delta);
++    bool Changed=false;
++    for(int32 I=0;I<3;++I)
++    {
++        const int32 Tenths=Model?FMath::CeilToInt(Model->ElementalArrowCooldown(EArrowElement(I+1))*10.f):0;
++        if(DisplayedCooldowns[I]!=Tenths){DisplayedCooldowns[I]=Tenths;Changed=true;}
++    }
++    if(Changed)if(auto S=GetCachedWidget())S->Invalidate(EInvalidateWidgetReason::Paint);
++}
++void UColdSteelElementWheel::MovePointer(FVector2D Pixels)
++{
++    const auto* Setting=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.AmmoWheel.PixelsPerRadius"));
++    Pointer+=Pixels/FMath::Max(20.f,Setting?Setting->GetFloat():180.f);
++    if(Pointer.Size()>1.f)Pointer.Normalize();
++    Hover=INDEX_NONE;
++    if(Pointer.Size()>=.30f)
++    {
++        const float Angle=FMath::Atan2(Pointer.Y,Pointer.X)+HALF_PI+PI/3.f;
++        Hover=FMath::FloorToInt(FMath::Fmod(Angle+2*PI,2*PI)/(2*PI/3));
++    }
++    if(auto S=GetCachedWidget())S->Invalidate(EInvalidateWidgetReason::Paint);
++}
++EArrowElement UColdSteelElementWheel::SelectedElement() const
++{
++    const EArrowElement E=Hover>=0?EArrowElement(Hover+1):EArrowElement::None;
++    return Model&&ElementalArrow::IsElement(E)&&Model->MasteryProgress(ElementalArrow::Spell(E)).Level>0?E:EArrowElement::None;
++}
++int32 UColdSteelElementWheel::NativePaint(const FPaintArgs& Args,const FGeometry& G,const FSlateRect& Cull,FSlateWindowElementList& Out,int32 Layer,const FWidgetStyle& Style,bool Enabled) const
++{
++    Layer=Super::NativePaint(Args,G,Cull,Out,Layer,Style,Enabled);
++    const float Scale=FMath::Max(.01f,ColdSteelUI::PixelScale(this));
++    const FVector2D Center=G.GetLocalSize()*.5f;const float R=FMath::Min(220.f/Scale,float(G.GetLocalSize().Y)*.32f),Inner=R*.30f;
++    const auto Renderer=FSlateApplication::Get().GetRenderer();const auto Transform=G.GetAccumulatedRenderTransform();
++    const auto Resource=Renderer->GetResourceHandle(*FCoreStyle::Get().GetBrush("WhiteBrush"));
++    auto Text=[&](const FString& Value,FVector2D At,float Pixels,FLinearColor Color)
++    {const auto Font=ColdSteelUI::TextFont(Pixels*.75f/Scale);const auto Size=Renderer->GetFontMeasureService()->Measure(Value,Font);
++        FSlateDrawElement::MakeText(Out,Layer+5,G.ToPaintGeometry(Size,FSlateLayoutTransform(At-Size*.5f)),Value,Font,ESlateDrawEffect::None,Color);};
++    auto Band=[&](float Start,float End,float Low,float High,FLinearColor Color)
++    {
++        TArray<FSlateVertex> Vertices;TArray<SlateIndex> Indices;
++        for(int32 I=0;I<=64;++I)
++        {
++            const float A=FMath::Lerp(Start,End,I/64.f);const FVector2f D(FMath::Cos(A),FMath::Sin(A));
++            Vertices.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(Transform,FVector2f(Center)+D*Low,FVector2f(.5f),Color.ToFColor(true)));
++            Vertices.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(Transform,FVector2f(Center)+D*High,FVector2f(.5f),Color.ToFColor(true)));
++            if(I){const SlateIndex J=I*2;Indices.Append({SlateIndex(J-2),J,SlateIndex(J+1),SlateIndex(J-2),SlateIndex(J+1),SlateIndex(J-1)});}
++        }
++        FSlateDrawElement::MakeCustomVerts(Out,Layer+2,Resource,Vertices,Indices,nullptr,0,0);
++    };
++    Band(0,2*PI,0,Inner,ColdSteelUI::Content);
++    for(int32 I=0;I<3;++I)
++    {
++        const EArrowElement E=EArrowElement(I+1);const bool Learned=Model&&Model->MasteryProgress(ElementalArrow::Spell(E)).Level>0;
++        const float A=-HALF_PI+I*2*PI/3,Start=A-PI/3+.006f,End=A+PI/3-.006f;
++        const auto Color=Learned?ElementalArrow::Color(E):ColdSteelUI::TextTertiary;
++        Band(Start,End,Inner,R,I==Hover?ColdSteelUI::ButtonHover:ColdSteelUI::Content);
++        Band(Start,End,R-((I==Hover||E==Current)?3.f:1.f)/Scale,R,Color);
++        if(E==Current)Band(Start,End,Inner,Inner+3.f/Scale,Color);
++        const FVector2D Cell=Center+FVector2D(FMath::Cos(A),FMath::Sin(A))*R*.68f;
++        const float Side=82.f/Scale;
++        FSlateDrawElement::MakeBox(Out,Layer+4,G.ToPaintGeometry(FVector2D(Side),FSlateLayoutTransform(Cell-FVector2D(Side*.5f,Side*.65f))),&Brushes[I],ESlateDrawEffect::None,FLinearColor(1,1,1,Learned?1.f:.3f));
++        Text(ElementalArrow::Name(E),Cell+FVector2D(0,Side*.52f),16,Learned?ColdSteelUI::TextPrimary:ColdSteelUI::TextTertiary);
++        const float Cooldown=Learned?Model->ElementalArrowCooldown(E):0.f;
++        const FString State=!Learned?TEXT("未学习对应魔法"):Cooldown>0.f?FString::Printf(TEXT("冷却 %.1f s · 可切换"),Cooldown):TEXT("已就绪");
++        Text(State,Cell+FVector2D(0,Side*.82f),12,!Learned?ColdSteelUI::TextTertiary:Cooldown>0.f?ColdSteelUI::TextSecondary:ColdSteelUI::Success);
++    }
++    Text(TEXT("元素箭"),Center-FVector2D(0,10.f/Scale),19,ColdSteelUI::TextPrimary);
++    Text(Hover<0?TEXT("盘心取消"):TEXT("松键确认"),Center+FVector2D(0,17.f/Scale),12,ColdSteelUI::TextSecondary);
++    Text(TEXT("各元素独立冷却 · 冷却中也可切换 · Esc 取消"),Center+FVector2D(0,R+30.f/Scale),14,ColdSteelUI::TextSecondary);
++    const auto PointerBrush=ColdSteelUI::RoundedBrush(ColdSteelUI::TextPrimary,3.f/Scale,FLinearColor::Transparent,0);
++    FSlateDrawElement::MakeBox(Out,Layer+6,G.ToPaintGeometry(FVector2D(6.f/Scale),FSlateLayoutTransform(Center+Pointer*R-FVector2D(3.f/Scale))),&PointerBrush);
++    return Layer+6;
++}

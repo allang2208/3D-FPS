@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -230,6 +230,8 @@
+     void UpdateNativeBowContacts();
+     void ClearBow();
+     void UpdateBowVisibility(bool HideOwner);
++    void UpdateBowMagic();
++    UPROPERTY(Transient) TObjectPtr<class UBowHeldMagicVisual> WorldBowMagic;
+     UPROPERTY(Transient) TObjectPtr<class USkeletalMeshComponent> BowRig;
+     UPROPERTY(Transient) TArray<TObjectPtr<class UBowPartComponent>> WorldBowParts;
+     UPROPERTY(Transient) TMap<FName,TObjectPtr<class UAnimSequence>> BowClips;

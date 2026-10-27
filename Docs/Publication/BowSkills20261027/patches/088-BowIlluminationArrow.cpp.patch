@@ -1,0 +1,68 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/Bow/BowIlluminationArrow.cpp
+@@ -0,0 +1,65 @@
++#include "BowArrow.h"
++#include "../../Skills/IlluminationArrowVisual.h"
++#include "../../Skills/IlluminationArrowBeacon.h"
++#include "../../Skills/IlluminationMarkComponent.h"
++#include "../../Skills/MagicOcclusion.h"
++#include "../../Combat/RangedAttackQuery.h"
++#include "../../Monsters/MonsterCombatComponent.h"
++#include "Engine/OverlapResult.h"
++#include "Engine/World.h"
++
++void ABowArrow::SetIlluminationCast(const FIlluminationArrowCast& Snapshot)
++{
++    IlluminationCast=Snapshot;Presentation.bIllumination=Snapshot.Id.IsValid();
++    LastIlluminationScan=GetActorLocation();NextIlluminationScan=0;
++    if(Presentation.bIllumination){Presentation.bFlameArmor=false;StopFlameVisual();}
++    ForceNetUpdate();
++}
++void ABowArrow::UpdateIlluminationVisual(float Delta)
++{
++    if(!Presentation.bIllumination||bStuck)
++    {if(IlluminationVisual){IlluminationVisual->DestroyComponent();IlluminationVisual=nullptr;}return;}
++    if(!IlluminationVisual){IlluminationVisual=NewObject<UIlluminationArrowVisual>(this);IlluminationVisual->RegisterComponent();}
++    const FVector Tip=GetActorLocation();IlluminationVisual->Update(Tip-GetActorForwardVector()*Presentation.Length,Tip,Delta,true);
++}
++void ABowArrow::ApplyIlluminationImpact(const FHitResult& Hit)
++{
++    if(!HasAuthority()||!IlluminationCast.Id.IsValid())return;
++    auto ImpactCast=IlluminationCast;
++    ImpactCast.Duration=IlluminationArrow::ImpactDuration(IlluminationCast);
++    // Extend the scan mark from the actual impact time, including penetrating hits.
++    UIlluminationMarkComponent::Apply(Hit.GetActor(),GetInstigator(),ImpactCast);
++    const FVector Normal=Hit.ImpactNormal.GetSafeNormal(UE_SMALL_NUMBER,-GetActorForwardVector());
++    FActorSpawnParameters Params;Params.Instigator=GetInstigator();
++    Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    if(auto* Beacon=GetWorld()->SpawnActor<AIlluminationArrowBeacon>(
++        Hit.ImpactPoint+Normal*12.f,Normal.Rotation(),Params))Beacon->Initialize(Hit,ImpactCast.Duration);
++}
++void ABowArrow::ScanIllumination(const FVector& End,bool Force)
++{
++    if(!HasAuthority()||!IlluminationCast.Id.IsValid()||!GetInstigator())return;
++    const double Now=GetWorld()->GetTimeSeconds();
++    if(!Force&&Now<NextIlluminationScan&&FVector::DistSquared(End,LastIlluminationScan)<FMath::Square(IlluminationCast.Radius*.35f))return;
++    const FVector Start=LastIlluminationScan;LastIlluminationScan=End;NextIlluminationScan=Now+.1;
++    FCollisionQueryParams Q(SCENE_QUERY_STAT(IlluminationArrowScan),false,GetInstigator());Q.AddIgnoredActor(this);
++    TArray<FHitResult> Hits;
++    GetWorld()->SweepMultiByObjectType(Hits,Start,End,FQuat::Identity,FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(IlluminationCast.Radius),Q);
++    TSet<AActor*> Seen;
++    for(const auto& Hit:Hits)
++    {
++        auto* Target=Hit.GetActor();
++        if(!IsValid(Target)||Seen.Contains(Target)||IlluminatedTargets.Contains(Target))continue;Seen.Add(Target);
++        const auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();
++        if(!C||C->IsDead()||RangedAttackQuery::IsFriendlyUnit(GetInstigator(),Target))continue;
++        MagicOcclusion::FBodySamples Samples;MagicOcclusion::BodySamples(Target,End,Samples);
++        FCollisionQueryParams Cover(SCENE_QUERY_STAT(IlluminationArrowCover),true,GetInstigator());Cover.AddIgnoredActor(this);Cover.AddIgnoredActor(Target);
++        bool Exposed=false;
++        for(const auto& Sample:Samples)
++        {
++            const FVector Near=FMath::ClosestPointOnSegment(Sample,Start,End);
++            if(FVector::DistSquared(Near,Sample)>FMath::Square(IlluminationCast.Radius))continue;
++            FHitResult Block;if(!MagicOcclusion::TraceBlocker(GetWorld(),Near,Sample,Cover,Block,GetInstigator())){Exposed=true;break;}
++        }
++        if(Exposed&&UIlluminationMarkComponent::Apply(Target,GetInstigator(),IlluminationCast))IlluminatedTargets.Add(Target);
++    }
++}

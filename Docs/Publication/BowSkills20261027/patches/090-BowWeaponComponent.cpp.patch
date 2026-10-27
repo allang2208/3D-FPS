@@ -1,0 +1,163 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
+@@ -1,4 +1,7 @@
+ #include "BowWeaponComponent.h"
++#include "../../Skills/FPSMagicArrowRainComponent.h"
++#include "../../Skills/FPSElementalArrowComponent.h"
++#include "../../Skills/FPSIlluminationArrowComponent.h"
+ #include "../../Characters/FPSComponentVisibility.h"
+ #include "../../Skills/LightningHasteSpeed.h"
+ #include "../../Combat/RangedAttackQuery.h"
+@@ -448,7 +451,6 @@
+         ? Character->GetNetShadowProfile() : GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if (!IsDrawing())
+         DrawSeconds = FMath::Max(.3f, float(ColdSteelWeaponStats::Interval(Item, Profile, Number(TEXT("draw_seconds"), 1.4f))));
+-    HoldSeconds = FMath::Max(0.f, Number(TEXT("hold_seconds"), 2.2f));
+     ReleaseSeconds = FMath::Max(.08f, Number(TEXT("release_seconds"), .3f));
+     RecoverSeconds = FMath::Max(.08f, Number(TEXT("recover_seconds"), .34f));
+     EquipSeconds = FMath::Max(.1f, Number(TEXT("equip_seconds"), .45f));
+@@ -500,7 +502,7 @@
+     if (Stage != EBowStage::Nocking)
+         NockSeconds = FMath::Max(.12f, Number(TEXT("nock_seconds"), .68f))*Mods.Nock
+             / float(ColdSteelBow::NockSpeedMultiplier(Profile));
+-    HoldSeconds*=Mods.Hold;FullDamage*=Mods.Damage;
++    FullDamage*=Mods.Damage;
+     FullSpeedCM*=Mods.Speed;StaminaCost*=Mods.Stamina;SwayAmplitudeCM*=Mods.Sway;
+     HipSpread*=Mods.Spread;MoveSpreadMax*=Mods.Spread;AirSpreadMax*=Mods.Spread;
+     ShotSpreadStep*=Mods.Spread;SpreadRecovery*=Mods.Spread;
+@@ -724,6 +726,11 @@
+     Out.FullDrawSeconds = DrawSeconds;
+     Out.bPiercingAvailable=PiercingDrawStats.bLearned;
+     Out.PiercingSeconds=PiercingDrawStats.ChargeSeconds;
++    if(const auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();Rain&&Rain->IsPrepared()&&IsDrawing())
++    {
++        Out.bMagicArrowRain=true;Out.bMagicRainValid=Rain->PreviewValid();
++        Out.bPiercingAvailable=false;Out.Elapsed=DrawElapsed();return true;
++    }
+     if (IsDrawing())
+     {
+         Out.Elapsed = DrawElapsed();
+@@ -821,11 +828,14 @@
+         const bool bSpeedBonus = HasPerfectDrawSpeedBonus();
+         if (const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+         {
+-            PiercingDrawStats=HeartPiercingArrow::ForModel(Profile);
+             if (const auto* Item = Profile->ActiveBow())
+                 DrawSeconds = float(ColdSteelBow::Evaluate(*Item, Profile).Draw)
+                     * ColdSteelBow::DrawSpeedScale(bSpeedBonus);
+-        }
++            PiercingDrawStats=HeartPiercingArrow::ForModel(Profile,INDEX_NONE,DrawSeconds);
++        }
++        auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();
++        const bool MagicRain=Rain&&Rain->IsPrepared();
++        if(MagicRain){DrawSeconds=Rain->ChargeSeconds();Seconds=DrawSeconds;PiercingDrawStats={};Rain->DrawStarted(StartSeconds);}
+         bLastPerfectRelease = bLastPiercingRelease = false;
+         if (auto* Pawn = Character.Get(); Pawn && Pawn->GetNetMode() == NM_Client)
+             if (auto* PS = Pawn->GetPlayerState<AColdSteelPlayerState>())
+@@ -898,6 +908,9 @@
+ 
+ void UBowWeaponComponent::BeginPrimaryAttack()
+ {
++    if(const auto* Light=GetOwner()->FindComponentByClass<UFPSIlluminationArrowComponent>();Light&&Light->IsPending())return;
++    if(const auto* Element=GetOwner()->FindComponentByClass<UFPSElementalArrowComponent>();Element&&Element->IsPending())return;
++    if(const auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();Rain&&Rain->IsPending())return;
+     if (!IsEquipped() || !CanUse()) return;
+     if (Character.IsValid() && Character->IsChoosingAmmo()) return;
+     if (Character.IsValid() && Character->IsCastBlockingLeftHandAction()) return;
+@@ -979,6 +992,12 @@
+     if (Stage != EBowStage::Drawing && Stage != EBowStage::Holding) return;
+     // 仅输入释放可放箭；力竭、菜单与翻越等中断均收弓，不发射。
+     ReleaseRatio = DrawFraction();
++    if(auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();Rain&&Rain->IsPrepared())
++    {
++        SampleArms();UpdatePoseLayers();UpdateBowGeometry();ReleasedNockCM=NockPoint();
++        FVector Tail,Tip;if(GetMagicArrowEndpoints(Tail,Tip))Rain->Release(Tip);else CancelAction(false);
++        return;
++    }
+     if (ReleaseRatio < ColdSteelBow::MinimumFireDrawFraction)
+     {
+         CancelAction(false);
+@@ -1052,6 +1071,9 @@
+ 
+ void UBowWeaponComponent::CancelAction(bool bImmediate)
+ {
++    if(auto* Light=GetOwner()->FindComponentByClass<UFPSIlluminationArrowComponent>())Light->CancelFromBow();
++    if(auto* Element=GetOwner()->FindComponentByClass<UFPSElementalArrowComponent>())Element->CancelFromBow();
++    if(auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>())Rain->CancelFromBow();
+     EndNetworkDraw();
+     bLastPerfectRelease = bLastPiercingRelease = false;
+     if (!bImmediate && IsDrawing() && bArrowNocked && CanUse())
+@@ -1128,10 +1150,18 @@
+     auto* Pawn = Character.Get();
+     auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if (!Pawn || !Camera || !Profile || !bArrowNocked) return false;
++    auto* Element=GetOwner()->FindComponentByClass<UFPSElementalArrowComponent>();
++    const EArrowElement ArrowElement=Element?Element->ShotElement():EArrowElement::None;
++    auto* Light=GetOwner()->FindComponentByClass<UFPSIlluminationArrowComponent>();
++    const bool bIllumination=Light&&Light->ShotPrepared();FIlluminationArrowCast LightCast;FString LightReason;
++    if(Pawn->HasAuthority()&&Light&&!Light->BuildShot(bIllumination,LightCast,LightReason)){ShowFeedback(LightReason);return false;}
++    FElementalArrowCast ElementCast;FString ElementReason;
++    if(Pawn->HasAuthority()&&Element&&!Element->BuildShot(ArrowElement,ElementCast,ElementReason))
++    {ShowFeedback(ElementReason);return false;}
+     const float Clamped = FMath::Clamp(Ratio, 0.f, 1.f);
+     const float Cost = FMath::Max(0.f, StaminaCost * FMath::Lerp(.4f, 1.f, Clamped))*Profile->ActionStaminaMultiplier();
+     if (!Profile->CanSpendStamina(Cost)) { ShowFeedback(TEXT("体力不足，已收弓")); return false; }
+-    const auto Piercing=HeartPiercingArrow::ForModel(Profile);
++    const auto Piercing=HeartPiercingArrow::ForModel(Profile,INDEX_NONE,DrawSeconds);
+     const bool bPiercing=HeartPiercingArrow::IsCharged(Piercing,DrawElapsed(),Clamped);
+     const float Speed = FullSpeedCM * FMath::Lerp(MinSpeedRatio, 1.f, Clamped)
+         * (bPiercing?Piercing.SpeedMultiplier:1.f);
+@@ -1181,13 +1211,23 @@
+         Request.Item=InstanceId;Request.Eye=CameraOrigin;Request.Origin=Muzzle;Request.Direction=LaunchDirection;Request.Charge=Ratio;
+         Request.BowReleaseElapsed=bPerfect?DrawElapsed():-1.f;
+         Request.BowChargeElapsed=DrawElapsed();
++        Request.ArrowElement=ArrowElement;Request.bIlluminationArrow=bIllumination;
+         if(!PS||!PS->RequestInventoryAction(Request)){ShowFeedback(TEXT("物品操作正在同步，请稍候"));return false;}
+     }
+     else if (auto* Arrow = GetWorld()->SpawnActor<ABowArrow>(Muzzle, Direction, Spawn))
+     {
+         FString Reason;
+         bool bSpentOwnedArrow = false;
+-        if (!ConsumeArrowFromPouch(Reason, bSpentOwnedArrow)) { Arrow->Destroy(); bArrowNocked = false; ShowFeedback(Reason); return false; }
++        if(ArrowElement!=EArrowElement::None||bIllumination)
++        {
++            bSpentOwnedArrow=!Pawn->HasInfiniteReserveAmmoFor(ArrowId);
++            if(bSpentOwnedArrow&&Profile->PouchCount(ArrowId)<1){Arrow->Destroy();ShowFeedback(TEXT("箭支不足"));return false;}
++            auto After=Profile->Snapshot();
++            if(bSpentOwnedArrow)--After.AmmoPouch.FindOrAdd(ArrowId);
++            if(bIllumination)Profile->StageIlluminationArrowCost(After,LightCast,Cost);else Profile->StageElementalArrowCost(After,ElementCast,Cost);
++            if(!Profile->CommitCampfireState(After,TEXT("Inventory"))){Arrow->Destroy();ShowFeedback(TEXT("元素箭资源未保存，未发射"));return false;}
++        }
++        else if (!ConsumeArrowFromPouch(Reason, bSpentOwnedArrow)) { Arrow->Destroy(); bArrowNocked = false; ShowFeedback(Reason); return false; }
+         // 射击瞬间的修炼／符文快照与弹道组件同源；弓自己的暴击与破韧只在配了值时覆盖。
+         FColdSteelSkillShot Shot = ColdSteelSkills::Snapshot(Pawn, Profile ? Profile->ActiveBow() : nullptr, true);
+         Shot.bPerfectBowRelease = bPerfect;
+@@ -1206,6 +1246,9 @@
+                          ArrowHeadMesh ? ArrowHeadMesh.Get() : nullptr,
+                          ArrowRadiusCM, ArrowLengthCM, ArrowId, bSpentOwnedArrow,
+                          Item ? ColdSteelInventory::Number(*Item, TEXT("arrow_recovery_seconds"), 120.f) : 120.f);
++        Arrow->SetElementalCast(ElementCast);
++        if(bIllumination){Arrow->SetIlluminationCast(LightCast);Light->ShotCommitted();}
++        if(Element&&ArrowElement!=EArrowElement::None)Element->ShotCommitted();
+         Arrow->ResolveLaunchObstruction(CameraOrigin);
+     }
+     else return false;
+@@ -1226,7 +1269,9 @@
+             ShotPitch = 1.f; // Preserve the selected E+F+G mix; do not layer the normal release again.
+         }
+     if (ShotSound) UGameplayStatics::PlaySound2D(this, ShotSound, .6f, ShotPitch);
+-    if(Pawn->GetNetMode()!=NM_Client)Profile->SpendStamina(Cost);
++    if(Pawn->GetNetMode()!=NM_Client&&ArrowElement==EArrowElement::None&&!bIllumination)Profile->SpendStamina(Cost);
++    if(Pawn->GetNetMode()==NM_Client&&bIllumination)Light->PredictRelease();
++    if(Pawn->GetNetMode()==NM_Client&&Element&&ArrowElement!=EArrowElement::None)Element->PredictRelease();
+     return true;
+ }
+ 
+@@ -1552,7 +1597,6 @@
+     if (Stage == EBowStage::Holding)
+     {
+         // 满拉保持的呼吸抖动随保持时长上升；右键稳持把幅度压到配置比例。
+-        const float Grow = FMath::Clamp(HoldElapsed / FMath::Max(.2f, HoldSeconds), 0.f, 1.f);
+         const float Amplitude = SwayAmplitudeCM * (.35f + .65f * Grow)
+             * FMath::Lerp(1.f, SteadySwayScale, AimAlpha()) * Scale;
+         Rotation.Yaw += (FMath::Sin(VisualTime * 1.05f) + .18f * FMath::Sin(VisualTime * 4.13f)) * Amplitude * .1f;

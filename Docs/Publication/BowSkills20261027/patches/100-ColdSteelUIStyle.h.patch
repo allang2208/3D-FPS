@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelUIStyle.h
++++ b/Source/FPSGAME/UI/ColdSteelUIStyle.h
+@@ -37,6 +37,8 @@
+     inline const FLinearColor ExclusiveText = HUDGoldLight;
+     inline constexpr float HUDCornerWidth=286.f,HUDCornerHeight=72.f,HUDGap=12.f;
+     inline const FLinearColor Warning = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("F0BE71FF")));
++    // Bow skill readiness: user-requested red.
++    inline const FLinearColor BowPiercingReady = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E84B4BFF")));
+     // 生命/魔法语义色（2026-09-28 统一）：HUD 资源条与人物状态页同源，
+     // 原 ResourceMeter 与 CharacterSheet 的五处字面量（763B43/BD626D/36566E/7194AC/55799D）收敛于此。
+     inline const FLinearColor Health = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("BD626DFF")));

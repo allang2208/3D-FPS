@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+@@ -156,7 +156,7 @@
+     Current.bFireballReserved=false;SyncRuntime();CommitState(Snapshot());
+ }
+ 
+-void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit)
++void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit,bool bElementalArrow)
+ {
+     if(!Shooter || !GetWorld() || !Shooter->IsPlayerControlled() || !Shooter->HasAuthority())return;
+     if(Cast.Damage>0)
+@@ -211,7 +211,8 @@
+     // explosion cannot destroy its blocker and then reach victims behind it.
+     if(auto* Wall=::Cast<AFPSIceWall>(DirectTarget))
+         UGameplayStatics::ApplyDamage(Wall,Cast.Damage,Shooter->GetController(),Shooter,UFireballDamage::StaticClass());
+-    SyncRuntime();auto P=Snapshot();P.bFireballReserved=false;
++    SyncRuntime();auto P=Snapshot();if(!bElementalArrow)P.bFireballReserved=false;
++    if(bElementalArrow)StageElementalArrowTraining(P,HitCount,KillCount);
+     const auto& F=FireballSkill.Fireball;
+     ColdSteelSkills::AddExperience(P,FireballSkill,HitCount*F.HitExperience+KillCount*FireballSkill.KillExperience+(HitCount>=2?F.MultiHitExperience:0)+(KillCount>=2?F.MultiKillExperience:0));
+     ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalHits*CriticalStrikeSkill.CriticalHitExperience+CriticalKills*CriticalStrikeSkill.CriticalKillExperience);

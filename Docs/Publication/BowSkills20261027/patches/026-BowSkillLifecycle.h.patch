@@ -1,0 +1,10 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/BowSkillLifecycle.h
+@@ -0,0 +1,7 @@
++#pragma once
++class APawn;
++namespace BowSkillLifecycle
++{
++    // Finish confirmed rewards and unlaunched reservations before profile persistence.
++    void FinishForRemoval(APawn* Pawn);
++}

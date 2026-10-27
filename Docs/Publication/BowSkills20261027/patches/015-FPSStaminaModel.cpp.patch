@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -10,6 +10,7 @@
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "FPSExhaustionComponent.h"
++#include "../Skills/FPSMagicArrowRainComponent.h"
+ #include "../Survival/FPSSurvivalComponent.h"
+ #include "../Combat/CombatStatusFormula.h"
+ #include "Dom/JsonObject.h"
+@@ -31,7 +32,8 @@
+     const auto* Kukri=Pawn->FindComponentByClass<UKukriWeaponComponent>();
+     const auto* Bow=Pawn->FindComponentByClass<UBowWeaponComponent>();
+     const auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
+-    if((Bow&&Bow->IsDrawing())||(PS&&PS->IsBowDrawActive(Pawn)))return EStaminaActivity::Charging;
++    const auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();
++    if((Rain&&Rain->IsManaDraining())||(Bow&&Bow->IsDrawing())||(PS&&PS->IsBowDrawActive(Pawn)))return EStaminaActivity::Charging;
+     if((Sword&&Sword->IsHeavyCharging())||(Tool&&Tool->IsHeavyCharging())||(Kukri&&Kukri->IsHeavyCharging()))return EStaminaActivity::Charging;
+     if(Sword&&Sword->IsGuarding())return EStaminaActivity::Guarding;
+     const auto* PC=Cast<APlayerController>(Pawn->GetController());

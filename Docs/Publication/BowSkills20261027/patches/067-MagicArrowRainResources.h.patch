@@ -1,0 +1,29 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/MagicArrowRainResources.h
+@@ -0,0 +1,26 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "MagicArrowRainResources.generated.h"
++class UColdSteelStatusModel;
++struct FColdSteelProfile;
++
++USTRUCT()
++struct FMagicArrowRainResourceReceipt
++{
++    GENERATED_BODY()
++    UPROPERTY() int64 Revision=-1;
++    UPROPERTY() float Mana=0;
++    UPROPERTY() FString Ammo;
++    UPROPERTY() int64 ArrowCount=0;
++    UPROPERTY() float Cooldown=0,CooldownDuration=0;
++    UPROPERTY() double CapturedAt=0;
++    UPROPERTY() bool bReserved=false;
++    UPROPERTY() float ReservedMana=0;
++};
++
++namespace MagicArrowRainResources
++{
++    bool Commit(UColdSteelStatusModel& Model,FColdSteelProfile State);
++    FMagicArrowRainResourceReceipt Capture(const UColdSteelStatusModel& Model,const FString& Ammo);
++    bool Apply(UColdSteelStatusModel& Model,const FMagicArrowRainResourceReceipt& Receipt);
++}

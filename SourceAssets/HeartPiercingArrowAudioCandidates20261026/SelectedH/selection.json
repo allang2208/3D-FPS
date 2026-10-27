@@ -1,0 +1,18 @@
+{
+  "selected_candidate": "H / BalancedV4",
+  "user_approved": false,
+  "user_instruction": "第三种声音最后一下太大，平衡并加入前两个声音细节",
+  "source_file": "SourceAssets\\HeartPiercingArrowAudioCandidates20261026\\StrongV2\\BalancedV4\\H_HeartPiercing_BalancedV4.wav",
+  "runtime_source": "SourceAssets\\HeartPiercingArrowAudioCandidates20261026\\SelectedH\\S_HeartPiercingArrow_Release.wav",
+  "sha256": "0e839fe2900c76c0161558165451adb3d32efc6ffc60a7814dfb1a2f7525c959",
+  "processing_since_approval": "User-directed rebalance: restore E/F detail, lower G weight and fade it by 240 ms; see StrongV2/BalancedV4/manifest.json.",
+  "sample_rate": 48000,
+  "channels": 2,
+  "bit_depth": 24,
+  "seconds": 0.86,
+  "license": "CC0-1.0; credits in ../StrongV2/README.md",
+  "runtime_asset": "/Game/Skills/HeartPiercingArrow/Audio20261026/S_HeartPiercingArrow_Release.S_HeartPiercingArrow_Release",
+  "revision": "BalancedV4",
+  "integration_authorized": true,
+  "listening_approved": false
+}

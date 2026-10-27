@@ -1,0 +1,33 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/IlluminationArrowBeacon.cpp
+@@ -0,0 +1,30 @@
++#include "IlluminationArrowBeacon.h"
++#include "IlluminationArrowVisual.h"
++#include "Components/SceneComponent.h"
++#include "Components/PrimitiveComponent.h"
++
++AIlluminationArrowBeacon::AIlluminationArrowBeacon()
++{
++    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(10.f);
++    PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.TickInterval=1.f/30.f;
++    PrimaryActorTick.TickGroup=TG_PostUpdateWork;
++    Root=CreateDefaultSubobject<USceneComponent>(TEXT("Root"));SetRootComponent(Root);
++    Visual=CreateDefaultSubobject<UIlluminationArrowVisual>(TEXT("Illumination"));
++    SetActorEnableCollision(false);
++}
++void AIlluminationArrowBeacon::Initialize(const FHitResult& Hit,float Duration)
++{
++    if(!HasAuthority())return;
++    if(auto* Component=Hit.GetComponent())
++        AttachToComponent(Component,FAttachmentTransformRules::KeepWorldTransform,Hit.BoneName);
++    SetLifeSpan(Duration);ForceNetUpdate();
++}
++void AIlluminationArrowBeacon::BeginPlay()
++{
++    Super::BeginPlay();SetActorTickEnabled(GetNetMode()!=NM_DedicatedServer);
++}
++void AIlluminationArrowBeacon::Tick(float Delta)
++{
++    Super::Tick(Delta);
++    Visual->UpdateImpact(GetActorLocation(),GetActorForwardVector(),Delta);
++}

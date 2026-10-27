@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRecovery.h
++++ b/Source/FPSGAME/UI/ColdSteelProfileRecovery.h
+@@ -43,6 +43,11 @@
+     Into.DragonBreathReservedMana=From.DragonBreathReservedMana;
+     Into.IceWallReservedMana=From.IceWallReservedMana;
+     Into.BlizzardReservedMana=From.BlizzardReservedMana;
++    Into.IlluminationArrowCooldown=Remaining(From.IlluminationArrowCooldown);
++    Into.IlluminationArrowCooldownDuration=From.IlluminationArrowCooldownDuration;
++    Into.MagicArrowRainCooldown=Remaining(From.MagicArrowRainCooldown);
++    Into.MagicArrowRainCooldownDuration=From.MagicArrowRainCooldownDuration;
++    Into.bMagicArrowRainReserved=From.bMagicArrowRainReserved;Into.MagicArrowRainReservedMana=From.MagicArrowRainReservedMana;
+     Into.ElectricCooldowns=From.ElectricCooldowns;Into.ElectricCooldownDurations=From.ElectricCooldownDurations;
+     Into.ElectricReservedMana=From.ElectricReservedMana;
+     for(auto& Pair:Into.ElectricCooldowns)Pair.Value=Remaining(Pair.Value,Into.ElectricReservedMana.Contains(Pair.Key));
+@@ -59,6 +64,9 @@
+         Clean.IceWallCooldown=Clean.IceWallCooldownDuration=0;
+     }
+     Clean.IceWallReservedMana=0;
++    const bool AbandonedRain=Clean.bMagicArrowRainReserved;
++    if(AbandonedRain)Clean.Mana=FMath::Min(MaxMana,Clean.Mana+Clean.MagicArrowRainReservedMana);
++    Clean.bMagicArrowRainReserved=false;Clean.MagicArrowRainReservedMana=0;
+     const bool AbandonedBlizzard=Clean.bBlizzardReserved;Clean.bBlizzardReserved=false;
+     if(AbandonedBlizzard)
+     {
+@@ -82,7 +90,7 @@
+     Clean.bDragonBreathReserved=false;Clean.DragonBreathReservedMana=0;
+     const bool AbandonedQuick=Clean.bQuickCombatReserved||Clean.QuickCombatCooldown>0.f||Clean.QuickCombatCooldownDuration>0.f;
+     Clean.bQuickCombatReserved=false;Clean.QuickCombatCooldown=Clean.QuickCombatCooldownDuration=0.f;
+-    return AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedDragon||AbandonedQuick;
++    return AbandonedRain||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedDragon||AbandonedQuick;
+ }
+ 
+ inline void AlchemyProgress(FColdSteelProfile& Into,const FColdSteelProfile& Other)

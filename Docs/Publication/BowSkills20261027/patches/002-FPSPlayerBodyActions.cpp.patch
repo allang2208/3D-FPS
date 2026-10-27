@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "../Skills/BowHeldMagicVisual.h"
+ #include "../Weapons/WeaponBipodDeploymentComponent.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../FPSGAMECharacter.h"
+@@ -317,6 +318,8 @@
+         // Movement poses below come from the action actually running on authority.
+         if(State.Action==EFPSBodyAction::Traverse){State.Action=EFPSBodyAction::None;State.bHasActionProgress=false;}
+     }
++    // The owner's packet supplies the pose; only the server selects its magic kind.
++    State.BowMagic=State.Family==TEXT("Bow")?UBowHeldMagicVisual::KindFor(Pawn):0;
+     if(State.Contacts.Channel==TEXT("Bipod")&&(!Pawn->BipodDeployment||!Pawn->BipodDeployment->BlocksMovement()))
+         State.Contacts=FFPSBodyMotionSample();
+     if(const auto* Book=Pawn->FindComponentByClass<USpellbookComponent>();!Book||!Book->IsFocusActive())

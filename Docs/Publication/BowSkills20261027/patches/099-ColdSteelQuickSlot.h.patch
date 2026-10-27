@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.h
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.h
+@@ -46,6 +46,6 @@
+     UPROPERTY(Transient) TObjectPtr<class UImage> ReadyFlash;
+     UPROPERTY(Transient) TObjectPtr<class UTexture2D> Texture;
+     UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> Textures;
+-    FString DisplayedWaterIcon;
++    FString DisplayedWaterIcon,DisplayedElementIcon;
+     float DisplayScale=0.f;
+ };

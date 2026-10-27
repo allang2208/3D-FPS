@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp
+@@ -102,10 +102,11 @@
+     if(Critical){++Batch.CriticalHits;if(Combat->IsDead())++Batch.CriticalKills;}
+ }
+ 
+-void UColdSteelStatusModel::FinishIceSpikeCast(const FIceSpikeRewards& Batch)
++void UColdSteelStatusModel::FinishIceSpikeCast(const FIceSpikeRewards& Batch,bool bElementalArrow)
+ {
+-    if(!Current.bIceSpikeReserved)return;
+-    SyncRuntime();auto P=Snapshot();P.bIceSpikeReserved=false;
++    if(!bElementalArrow&&!Current.bIceSpikeReserved)return;
++    SyncRuntime();auto P=Snapshot();if(!bElementalArrow)P.bIceSpikeReserved=false;
++    if(bElementalArrow)StageElementalArrowTraining(P,Batch.Hits,Batch.Kills);
+     const auto& T=IceSpikeSkill.IceSpike;
+     ColdSteelSkills::AddExperience(P,IceSpikeSkill,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience+(Batch.Hits>=2?T.MultiHitExperience:0)+(Batch.Kills>=2?T.MultiKillExperience:0));
+     ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);

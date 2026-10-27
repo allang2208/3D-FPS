@@ -1,0 +1,51 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -1,6 +1,8 @@
+ #include "../Dungeon/DungeonLayout.h"
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "ColdSteelStatusModel.h"
++#include "../Skills/FPSMagicArrowRainComponent.h"
++#include "../Skills/FPSElementalArrowComponent.h"
+ #include "ColdSteelContainerSearchSubsystem.h"
+ #include "GameFramework/PlayerController.h"
+ #include "ColdSteelProfileRecovery.h"
+@@ -1381,6 +1383,8 @@
+     Current.LightningCooldown=FMath::Max(0.f,Current.LightningCooldown-Seconds);
+     Current.HolyLightCooldown=FMath::Max(0.f,Current.HolyLightCooldown-Seconds);
+     Current.IceArmorCooldown=FMath::Max(0.f,Current.IceArmorCooldown-Seconds);
++    Current.IlluminationArrowCooldown=FMath::Max(0.f,Current.IlluminationArrowCooldown-Seconds);
++    Current.MagicArrowRainCooldown=FMath::Max(0.f,Current.MagicArrowRainCooldown-Seconds);
+     Current.LightningHasteCooldown=FMath::Max(0.f,Current.LightningHasteCooldown-Seconds);
+     Current.MeteorCooldown=FMath::Max(0.f,Current.MeteorCooldown-Seconds);
+     Current.FlameArmorCooldown=FMath::Max(0.f,Current.FlameArmorCooldown-Seconds);
+@@ -1401,6 +1405,8 @@
+     else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
+     if(HasNoAbilityCooldown())Current.IceSpikeCooldown=0.f;
+     else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
++    Current.IlluminationArrowCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.IlluminationArrowCooldown-Delta);
++    Current.MagicArrowRainCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MagicArrowRainCooldown-Delta);
+     if(HasNoAbilityCooldown())Current.BlizzardCooldown=0.f;
+     else if(!Current.bBlizzardReserved)Current.BlizzardCooldown=FMath::Max(0.f,Current.BlizzardCooldown-Delta);
+     if(HasNoAbilityCooldown())Current.IceWallCooldown=0.f;
+@@ -1421,10 +1427,20 @@
+     if(const auto* Rune=UJingangRuneComponent::From(this))
+         ReduceAllAbilityCooldowns(Delta*(1.f/Rune->CooldownMultiplier()-1.f));
+     TickFormulaBuffs(Delta);
++    // Capture the hold before stamina exhaustion can cancel the preparation.
++    if(Delta>0.f&&Pawn->HasAuthority())if(auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>();Element&&Element->IsManaDraining())
++        Element->NoteHoldResourcesSpent();
+     TickStamina(Delta,Pawn);
+     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=Health->Health;
+     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){
+-        Current.Mana=FMath::Clamp(Current.Mana+Derived(TEXT("mpRegen"))*Delta,0.f,Derived(TEXT("maxMp")));
++        const auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();
++        const bool RainDrawing=Rain&&Rain->IsManaDraining();
++        const auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>();
++        const bool ElementDrawing=Element&&Element->IsManaDraining();
++        const float HoldCost=RainDrawing?MasteryDefinition(TEXT("magicArrowRain")).MagicArrowRain.ManaPerSecond
++            :ElementDrawing?MasteryDefinition(TEXT("elementalArrow")).ElementalArrow.ManaPerSecond:0.f;
++        const float ManaDelta=(RainDrawing||ElementDrawing)?(HasInfiniteMana()?0.f:-HoldCost):float(Derived(TEXT("mpRegen")));
++        Current.Mana=FMath::Clamp(Current.Mana+ManaDelta*Delta,0.f,float(Derived(TEXT("maxMp"))));
+         if(Pawn->HasAuthority())Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
+         // 白玉/人参击杀回复：KillProc* 按 1 秒窗口折算成每秒量，窗口内步进结清。
+         if(KillProcTime>0){const float Step=FMath::Min(Delta,KillProcTime);KillProcTime-=Step;

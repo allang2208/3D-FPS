@@ -1,0 +1,18 @@
+{
+  "tool": "image_gen.imagegen",
+  "reference": "Content/ColdSteelData/Skills/magic_arrow_rain_cold_steel.png",
+  "prompts": [
+    {
+      "key": "fire",
+      "prompt": "Use case: precise-object-edit. Create ONE finished square fantasy FPS skill icon by editing the supplied reference. Preserve the reference's brushed silver rounded-square metal frame, bevel proportions, dark graphite interior and transparent area outside the frame. Replace the entire central arrow-rain scene with ONE imposing, realistic steel arrow angled from lower left tail to upper right arrowhead, filling the interior. Sharp readable silhouette at small HUD sizes, physically detailed metal and fletching, cinematic embossed game-icon rendering. No text, no letters, no numbers, no separate mini-icons, no watermark. Keep all elemental effects within the frame. Element: FIRE. The arrowhead and shaft are tightly wrapped in turbulent orange and crimson fire with a white-hot orange core, ember sparks and a compact explosive flare around the arrow tip. Dominant red-orange, neutral silver frame. This is a flame-enchanted arrow icon, not an arrow-rain icon."
+    },
+    {
+      "key": "ice",
+      "prompt": "Use case: precise-object-edit. Create ONE finished square fantasy FPS skill icon by editing the supplied reference. Preserve the reference's brushed silver rounded-square metal frame, bevel proportions, dark graphite interior and transparent area outside the frame. Replace the entire central arrow-rain scene with ONE imposing, realistic steel arrow angled from lower left tail to upper right arrowhead, filling the interior. Sharp readable silhouette at small HUD sizes, physically detailed metal and fletching, cinematic embossed game-icon rendering. No text, no letters, no numbers, no separate mini-icons, no watermark. Keep all elemental effects within the frame. Element: ICE. The arrowhead and shaft are sheathed in translucent pale cyan-blue ice crystals, with sharp crystalline facets and curling white-blue freezing mist. Frost and tiny ice splinters concentrate around the tip. Dominant icy cyan and pale blue, neutral silver frame. This is a frost-enchanted arrow icon, not an arrow-rain icon."
+    },
+    {
+      "key": "lightning",
+      "prompt": "Use case: precise-object-edit. Create ONE finished square fantasy FPS skill icon by editing the supplied reference. Preserve the reference's brushed silver rounded-square metal frame, bevel proportions, dark graphite interior and transparent area outside the frame. Replace the entire central arrow-rain scene with ONE imposing, realistic steel arrow angled from lower left tail to upper right arrowhead, filling the interior. Sharp readable silhouette at small HUD sizes, physically detailed metal and fletching, cinematic embossed game-icon rendering. No text, no letters, no numbers, no separate mini-icons, no watermark. Keep all elemental effects within the frame. Element: LIGHTNING. The arrowhead and shaft are wrapped in branching blue-violet electrical arcs with crisp white-hot lightning cores. A compact electric starburst and several distinct zigzag bolts surround the arrow tip. Dominant electric blue-violet and white, neutral silver frame. This is a lightning-enchanted arrow icon, not an arrow-rain icon."
+    }
+  ]
+}

@@ -1,0 +1,253 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/FPSElementalArrowComponent.cpp
+@@ -0,0 +1,250 @@
++#include "FPSElementalArrowComponent.h"
++#include "FPSIlluminationArrowComponent.h"
++#include "ElementalArrowVisual.h"
++#include "BowHeldMagicVisual.h"
++#include "ColdSteelSkillRules.h"
++#include "FPSMagicArrowRainComponent.h"
++#include "PlayerSkillPreparation.h"
++#include "../UI/ColdSteelElementWheel.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../FPSGAMECharacter.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Monsters/BoundCongregateCaptureComponent.h"
++#include "Engine/World.h"
++#include "Framework/Application/SlateApplication.h"
++
++UFPSElementalArrowComponent::UFPSElementalArrowComponent()
++{PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;SetIsReplicatedByDefault(true);}
++UColdSteelStatusModel* UFPSElementalArrowComponent::Model() const{return ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner()));}
++UBowWeaponComponent* UFPSElementalArrowComponent::Bow() const{return GetOwner()->FindComponentByClass<UBowWeaponComponent>();}
++bool UFPSElementalArrowComponent::IsManaDraining() const
++{
++    const auto* P=Cast<AFPSGAMECharacter>(GetOwner());if(!P)return false;
++    if(P->IsLocallyControlled())return bPrepared&&!bShotReplyPending&&Bow()&&Bow()->IsDrawing();
++    const auto* PS=P->GetPlayerState<AColdSteelPlayerState>();
++    return P->HasAuthority()&&bServerPrepared&&PS&&PS->IsBowDrawActive(P);
++}
++void UFPSElementalArrowComponent::BeginPlay()
++{
++    Super::BeginPlay();if(auto* B=Bow())AddTickPrerequisiteComponent(B);
++    if(GetNetMode()!=NM_DedicatedServer)
++    {
++        const auto Paths=ElementalArrow::Assets();
++        PlayerSkillAssets::Defer(GetOwner(),TEXT("elementalArrow"),FSimpleDelegate::CreateWeakLambda(this,[this,Paths]
++        {for(const auto& P:Paths)if(auto* A=P.ResolveObject())Assets.Add(A);}),Paths);
++        Visual=NewObject<UElementalArrowVisual>(GetOwner());Visual->RegisterComponent();
++    }
++}
++void UFPSElementalArrowComponent::EndPlay(const EEndPlayReason::Type Reason)
++{if(GetOwner()->HasAuthority())FinishHoldResources();CancelSelection();if(Visual)Visual->DestroyComponent();Super::EndPlay(Reason);}
++bool UFPSElementalArrowComponent::CanContinue() const
++{
++    if(const auto* Light=GetOwner()->FindComponentByClass<UFPSIlluminationArrowComponent>();Light&&(Light->IsPrepared()||Light->IsPending()))return false;
++    const auto* P=Cast<AFPSGAMECharacter>(GetOwner());const auto* M=Model();const auto* Item=M?M->ActiveBow():nullptr;
++    const auto* H=P?P->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    if(!P||!Item||!H||H->IsDead()||(!Weapon.IsEmpty()&&Item->InstanceId!=Weapon)||P->IsTraversing()||P->IsSprinting()
++        ||P->IsCastBlockingLeftHandAction()||UBoundCongregateCaptureComponent::IsCaptured(P))return false;
++    if(P->IsLocallyControlled())
++    {
++        const auto* PC=Cast<APlayerController>(P->GetController());
++        if(!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()
++            ||(P->IsChoosingAmmo()&&!IsWheelOpen())
++            ||(FSlateApplication::IsInitialized()&&!FSlateApplication::Get().IsActive()))return false;
++    }
++    return true;
++}
++void UFPSElementalArrowComponent::Feedback(const FString& Text)
++{Notice=Text;NoticeUntil=GetWorld()->GetTimeSeconds()+2.;if(auto* B=Bow())B->ShowFeedback(Text);}
++void UFPSElementalArrowComponent::KeyPressed(int32 Slot)
++{
++    if(HeldSlot>=0||IsPending())return;
++    auto* M=Model();auto* B=Bow();const auto* Item=M?M->ActiveBow():nullptr;
++    if(!Item||!B){Feedback(TEXT("需要装备弓"));return;}
++    Weapon=Item->InstanceId;if(!CanContinue())return;
++    if(B->IsDrawing()){B->SetTriggerHeld(false);B->CancelAction(false);}
++    if(auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();Rain&&(Rain->IsPrepared()||Rain->IsPending()))
++    {Feedback(TEXT("请先取消魔法箭雨"));return;}
++    // Selection is available while the selected spell is cooling or mana is low.
++    // Resource/cooldown validation belongs to Prepare, after a short press or choice.
++    HeldSlot=Slot;PressedAt=GetWorld()->GetTimeSeconds();
++}
++bool UFPSElementalArrowComponent::KeyReleased(int32 Slot)
++{
++    if(!OwnsKey(Slot))return false;
++    const bool WasOpen=Wheel!=nullptr;
++    const EArrowElement Choice=Wheel?Wheel->SelectedElement():EArrowElement::None;
++    CancelSelection();
++    if(!CanContinue())return true;
++    if(WasOpen)
++    {
++        if(ElementalArrow::IsElement(Choice))
++        {
++            SelectedElement=Choice;Notice.Reset();NoticeUntil=0;
++            auto* M=Model();const float Cooldown=M?M->ElementalArrowCooldown(Choice):0.f;
++            if(Cooldown>0.f)
++            {
++                if(bPrepared)CancelFromBow();
++                Feedback(FString::Printf(TEXT("已切换%s · 冷却 %.1f 秒"),ElementalArrow::Name(Choice),Cooldown));
++            }
++            else if(!Prepare(Choice)&&bPrepared)CancelFromBow();
++        }
++    }
++    else Trigger();
++    return true;
++}
++void UFPSElementalArrowComponent::MovePointer(FVector2D Pixels){if(Wheel)Wheel->MovePointer(Pixels);}
++void UFPSElementalArrowComponent::CancelSelection()
++{HeldSlot=INDEX_NONE;if(Wheel){Wheel->RemoveFromParent();Wheel=nullptr;}}
++bool UFPSElementalArrowComponent::Trigger()
++{
++    if(IsPending())return false;
++    if(bPrepared){CancelFromBow();return true;}
++    return Prepare(SelectedElement);
++}
++bool UFPSElementalArrowComponent::Prepare(EArrowElement Element)
++{
++    auto* M=Model();auto* B=Bow();if(IsPending()||!M||!B)return false;
++    if(const auto* P=Cast<APawn>(GetOwner()))if(const auto* PS=P->GetPlayerState<AColdSteelPlayerState>();PS&&PS->InventoryRequestPending())return false;
++    FString Reason;
++    if(!M->CanPrepareElementalArrow(Element,Reason)){Feedback(Reason);return false;}
++    Weapon=M->ActiveBow()->InstanceId;
++    if(!CanContinue()||B->GetStage()!=EBowStage::Ready){Feedback(TEXT("请先完成当前动作"));return false;}
++    if(auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();Rain&&(Rain->IsPrepared()||Rain->IsPending()))
++    {Feedback(TEXT("请先取消魔法箭雨"));return false;}
++    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
++    if(B->ArrowsInPouch()<1&&!Pawn->HasInfiniteReserveAmmoFor(M->AmmoDefinitionFor(*M->ActiveBow())))
++    {Feedback(TEXT("箭袋里没有可用的箭"));return false;}
++    ActivePreparationId=FGuid::NewGuid();bWaiting=true;ServerPrepare(ActivePreparationId,Element);return true;
++}
++void UFPSElementalArrowComponent::ServerPrepare_Implementation(FGuid PreparationId,EArrowElement Element)
++{
++    if(!PreparationId.IsValid())return;
++    ServerPreparationId=PreparationId;bServerPrepared=false;ServerElement=EArrowElement::None;
++    auto* M=Model();FString Reason;
++    if(!M||!M->CanPrepareElementalArrow(Element,Reason)){ClientPrepared(PreparationId,false,Element,Reason);return;}
++    Weapon=M->ActiveBow()->InstanceId;
++    const auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();
++    if(!CanContinue()||(Rain&&(Rain->IsPrepared()||Rain->IsPending()))){ClientPrepared(PreparationId,false,Element,TEXT("当前无法准备元素箭"));return;}
++    ServerElement=Element;bServerPrepared=true;ClientPrepared(PreparationId,true,Element,FString());
++}
++void UFPSElementalArrowComponent::ClientPrepared_Implementation(FGuid PreparationId,bool Accepted,EArrowElement Element,const FString& Reason)
++{
++    if(PreparationId!=ActivePreparationId||!bWaiting||bCancelPending)return;
++    bWaiting=false;if(!Accepted){bPrepared=false;Feedback(Reason);return;}
++    if(!CanContinue()||!Bow()||Bow()->GetStage()!=EBowStage::Ready){bPrepared=true;CancelFromBow();return;}
++    SelectedElement=Element;bPrepared=true;Notice.Reset();
++    Bow()->SetTriggerHeld(false);Bow()->BeginNock();
++}
++void UFPSElementalArrowComponent::CancelFromBow()
++{
++    CancelSelection();if(bShotReplyPending||(!bPrepared&&!bWaiting&&!bServerPrepared&&!bHoldResourcesDirty))return;
++    bPrepared=bWaiting=false;bCancelPending=true;if(Visual)Visual->Clear();
++    ServerCancel(GetOwner()->HasAuthority()?ServerPreparationId:ActivePreparationId);
++}
++void UFPSElementalArrowComponent::ServerCancel_Implementation(FGuid PreparationId)
++{
++    if(PreparationId==ServerPreparationId)
++    {
++        const bool WasPrepared=bServerPrepared;
++        bServerPrepared=bCancelPending=false;ServerElement=EArrowElement::None;
++        // Clear the authority clock without an unscoped PlayerState cancel RPC.
++        // The component receipt below is guarded by this preparation's identity.
++        if(WasPrepared)if(auto* P=Cast<AFPSGAMECharacter>(GetOwner()))
++            if(auto* PS=P->GetPlayerState<AColdSteelPlayerState>())PS->ServerSetBowDraw(P,Weapon,false,0.f);
++        FinishHoldResources();
++    }
++    ClientCleared(PreparationId);
++}
++void UFPSElementalArrowComponent::FinishHoldResources()
++{
++    if(!bHoldResourcesDirty)return;
++    auto* M=Model();auto* P=Cast<APawn>(GetOwner());if(!M||!P||!P->HasAuthority())return;
++    const auto* PS=!P->IsLocallyControlled()?P->GetPlayerState<AColdSteelPlayerState>():nullptr;
++    // One checkpoint at cancellation, never a disk write per upkeep tick.
++    // A failed save retains ownership so an old upload still cannot refund it.
++    if(!M->CommitCampfireState(M->Snapshot(),TEXT("ElementalArrowHold"),PS?PS->CampfireGuestSlot():FString()))return;
++    bHoldResourcesDirty=false;const auto State=M->Snapshot();
++    ClientHoldResources(ServerPreparationId,State.CampfireInventoryRevision,State.Mana,State.Stamina,State.StaminaRecoveryDelay,State.bSprintExhausted);
++}
++void UFPSElementalArrowComponent::ClientHoldResources_Implementation(FGuid PreparationId,int64 Revision,float Mana,float Stamina,float RecoveryDelay,bool bExhausted)
++{
++    const auto* P=Cast<APawn>(GetOwner());auto* M=Model();
++    if(!P||P->HasAuthority()||!P->IsLocallyControlled()||!M||M->RuntimePawn()!=P||PreparationId!=ActivePreparationId||Revision<=LastHoldResourceRevision)return;
++    auto State=M->Snapshot();if(Revision<State.CampfireInventoryRevision)return;
++    LastHoldResourceRevision=Revision;State.CampfireInventoryRevision=Revision;State.CampfireWorldReceipts.FindOrAdd(TEXT("ElementalArrowHold"))=Revision;
++    State.Mana=FMath::Clamp(Mana,0.f,float(M->Derived(TEXT("maxMp"))));State.Stamina=FMath::Clamp(Stamina,0.f,M->MaxStamina());
++    State.StaminaRecoveryDelay=RecoveryDelay;State.bSprintExhausted=bExhausted;
++    M->AdoptNetMirror(State,true);M->OnChanged.Broadcast();M->SaveNow();
++}
++void UFPSElementalArrowComponent::ClientCleared_Implementation(FGuid PreparationId)
++{if(PreparationId!=ActivePreparationId)return;bPrepared=bWaiting=bCancelPending=false;if(Visual)Visual->Clear();}
++void UFPSElementalArrowComponent::ClientManaExhausted_Implementation(FGuid PreparationId)
++{
++    if(PreparationId!=ActivePreparationId||bShotReplyPending)return;
++    if(auto* B=Bow()){B->SetTriggerHeld(false);B->CancelAction(false);}
++    // Keep the preparation locked until the resource checkpoint and clear arrive.
++    Feedback(TEXT("魔法不足，已收弓"));
++}
++void UFPSElementalArrowComponent::PredictRelease(){bShotReplyPending=true;bPrepared=false;if(Visual)Visual->Clear();}
++void UFPSElementalArrowComponent::ResolveShotReply()
++{if(!bShotReplyPending)return;ClientCleared_Implementation(ActivePreparationId);bShotReplyPending=false;}
++bool UFPSElementalArrowComponent::BuildShot(EArrowElement Requested,FElementalArrowCast& Out,FString& Reason) const
++{
++    if(Requested==EArrowElement::None)
++    {
++        if(bServerPrepared){Reason=TEXT("元素箭准备状态不同步");return false;}return true;
++    }
++    auto* M=Model();
++    if(!bServerPrepared||ServerElement!=Requested||!CanContinue()||!M){Reason=TEXT("元素箭准备已失效");return false;}
++    if(!M->CanPrepareElementalArrow(Requested,Reason))return false;
++    Out=M->ElementalArrowStats(Requested);return true;
++}
++void UFPSElementalArrowComponent::ShotCommitted(){bServerPrepared=bHoldResourcesDirty=false;ServerElement=EArrowElement::None;ClientCleared(ServerPreparationId);}
++void UFPSElementalArrowComponent::ShotRejected(){ServerCancel_Implementation(ServerPreparationId);}
++FString UFPSElementalArrowComponent::StatusText() const
++{
++    if(GetWorld()->GetTimeSeconds()<NoticeUntil)return Notice;
++    if(IsPending())return TEXT("同步中");
++    if(bPrepared)return FString::Printf(TEXT("%s · 已搭箭"),ElementalArrow::Name(SelectedElement));
++    return ElementalArrow::Name(SelectedElement);
++}
++void UFPSElementalArrowComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++    Super::TickComponent(Delta,Type,Tick);
++    if((bPrepared||bWaiting||bServerPrepared||HeldSlot>=0)&&!CanContinue())
++    {CancelFromBow();return;}
++    if(IsManaDraining())if(const auto* M=Model())
++    {
++        const auto E=GetOwner()->HasAuthority()?ServerElement:SelectedElement;
++        const float Cost=ElementalArrow::ManaCost(M->MasteryDefinition(TEXT("elementalArrow")).ElementalArrow,M->SpellManaCost(ElementalArrow::Spell(E)));
++        if(!M->CanSpendMana(Cost))
++        {
++            if(GetOwner()->HasAuthority())
++            {
++                ClientManaExhausted(ServerPreparationId);
++                ServerCancel_Implementation(ServerPreparationId);
++            }
++            else ClientManaExhausted_Implementation(ActivePreparationId);
++            return;
++        }
++    }
++    if(HeldSlot>=0&&!Wheel&&GetWorld()->GetTimeSeconds()-PressedAt>=ElementalArrow::HoldSeconds)
++    {
++        auto* B=Bow();if(B&&(B->GetStage()==EBowStage::Ready||B->GetStage()==EBowStage::Release||B->GetStage()==EBowStage::Recover))
++        {
++            B->SetTriggerHeld(false);B->SetSteadyHeld(false);
++            if(auto* P=Cast<APawn>(GetOwner()))Wheel=CreateWidget<UColdSteelElementWheel>(Cast<APlayerController>(P->GetController()));
++            if(Wheel){Wheel->Configure(SelectedElement);Wheel->AddToViewport(45);}else CancelSelection();
++        }
++    }
++    if(Visual)
++    {
++        FVector Tail,Tip;
++        if(bPrepared&&UBowHeldMagicVisual::ShowFirstPerson(Cast<APawn>(GetOwner()))&&Bow()&&Bow()->GetMagicArrowEndpoints(Tail,Tip))Visual->Update(SelectedElement,Tail,Tip,Delta,false);
++        else Visual->Clear();
++    }
++}

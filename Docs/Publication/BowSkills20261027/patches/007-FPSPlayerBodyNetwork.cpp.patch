@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -24,7 +24,7 @@
+         ||A.ConsumeHands!=B.ConsumeHands||A.bConsumeWeaponsHidden!=B.bConsumeWeaponsHidden
+         ||A.OffhandReloadPhase!=B.OffhandReloadPhase
+         ||A.bOffhandReloadReturnFromReload!=B.bOffhandReloadReturnFromReload
+-        ||A.BowClip!=B.BowClip||A.bBowClipLooping!=B.bBowClipLooping||A.bBowArrow!=B.bBowArrow||A.bBowTakingArrow!=B.bBowTakingArrow
++        ||A.BowClip!=B.BowClip||A.bBowClipLooping!=B.bBowClipLooping||A.bBowArrow!=B.bBowArrow||A.bBowTakingArrow!=B.bBowTakingArrow||A.BowMagic!=B.BowMagic
+         ||((A.BowCastTransfer>0.f)!=(B.BowCastTransfer>0.f))||((A.BowCastTransfer>=1.f)!=(B.BowCastTransfer>=1.f))
+         ||((A.BowCastTransferRate<0.f)!=(B.BowCastTransferRate<0.f))
+         ||A.bBowTwoHandConsume!=B.bBowTwoHandConsume

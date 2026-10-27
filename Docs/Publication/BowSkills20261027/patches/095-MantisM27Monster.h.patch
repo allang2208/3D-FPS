@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Monsters/MantisM27Monster.h
++++ b/Source/FPSGAME/Monsters/MantisM27Monster.h
+@@ -17,6 +17,7 @@
+ {
+     GENERATED_BODY()
+ public:
++    void RevealByIllumination();
+     AMantisM27Monster(const FObjectInitializer& Initializer = FObjectInitializer::Get());
+     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Hearing", meta=(ClampMin="0", Units="cm"))
+     float GunshotHearingRadius = 3600.f;

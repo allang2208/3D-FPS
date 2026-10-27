@@ -1,0 +1,11 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/MagicArrowRainDamage.h
+@@ -0,0 +1,8 @@
++#pragma once
++#include "GameFramework/DamageType.h"
++#include "MagicArrowRainDamage.generated.h"
++UCLASS()
++class FPSGAME_API UMagicArrowRainDamage : public UDamageType
++{
++    GENERATED_BODY()
++};

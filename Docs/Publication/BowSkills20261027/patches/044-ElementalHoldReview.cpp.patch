@@ -1,0 +1,206 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ElementalHoldReview.cpp
+@@ -0,0 +1,203 @@
++#include "BowSkillTrainingAuditCommandlet.h"
++#include "FPSElementalArrowComponent.h"
++#include "FPSMagicArrowRainComponent.h"
++#include "FPSIlluminationArrowComponent.h"
++#include "BowHeldMagicVisual.h"
++#include "ColdSteelSkillRules.h"
++#include "IlluminationArrowTypes.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Bow/BowStats.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "Engine/StreamableManager.h"
++#include "Components/PrimitiveComponent.h"
++#include "Components/PointLightComponent.h"
++#include "HAL/IConsoleManager.h"
++#include "HAL/FileManager.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++#include "Serialization/MemoryReader.h"
++#include "Serialization/MemoryWriter.h"
++#include "Serialization/ObjectAndNameAsStringProxyArchive.h"
++
++namespace FPSBodyNetwork {bool IsTransition(const FFPSBodyState& A,const FFPSBodyState& B);}
++
++int32 UBowSkillTrainingAuditCommandlet::RunElementalHoldReview(const FString& Params)
++{
++    FString Dir;FParse::Value(*Params,TEXT("ReportDir="),Dir);
++    if(Dir.IsEmpty())Dir=FPaths::ProjectSavedDir()/TEXT("ElementalHoldReview20261027");
++    const FString Original=FCommandLine::Get(),Profile=TEXT("ElementalHoldAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(TEXT("BowSkillTrainingAudit -ColdSteelProfile=")+Profile));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("ElementalHoldReview"));
++    auto* W=GI->GetWorld();auto* M=GI->GetSubsystem<UColdSteelStatusModel>();if(!W||!M||!M->IsAudit())return 2;
++    int32 Failed=0;TArray<TSharedPtr<FJsonValue>> Rows;
++    auto Check=[&](bool OK,const FString& Name)
++    {auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("case"),Name);R->SetBoolField(TEXT("passed"),OK);Rows.Add(MakeShared<FJsonValueObject>(R));Failed+=!OK;UE_LOG(LogTemp,Display,TEXT("ELEMENTAL_HOLD_REVIEW %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),*Name);};
++    auto Seed=M->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();Seed.DungeonRun={};
++    for(auto& B:Seed.QuickBindings)B={};for(auto& S:Seed.Skills){S.Value.Level=1;S.Value.Experience=0;}
++    auto Item=M->CreateItem(TEXT("bow_dark"));Item.Place=1;Item.Cell=6;Seed.Items.Add(Item);
++    Seed.AmmoPouch.FindOrAdd(M->AmmoDefinitionFor(Item))=100;Seed.FireballCooldown=Seed.IceSpikeCooldown=Seed.LightningCooldown=0;
++    Seed.bMagicArrowRainReserved=false;Seed.MagicArrowRainCooldown=0;Seed.Mana=100;Seed.Stamina=100;
++    Check(M->CommitState(Seed),TEXT("isolated legal profile"));Seed=M->Snapshot();
++    auto* Host=W->SpawnActor<AFPSGAMECharacter>();auto* HostPC=W->SpawnActor<APlayerController>();HostPC->SetAsLocalPlayerController();
++    auto* HostPS=W->SpawnActor<AColdSteelPlayerState>();HostPS->SetOwner(HostPC);HostPC->SetPlayerState(HostPS);HostPC->Possess(Host);Host->SetPlayerState(HostPS);M->CurrentPawn=Host;
++    auto Guest=Seed;Guest.NetworkProfileId=FGuid::NewGuid();auto* Shadow=M->CreateShadowModel(Guest);Shadow->bAudit=true;
++    auto* Remote=W->SpawnActor<AFPSGAMECharacter>();auto* RemotePC=W->SpawnActor<ABowSkillAuditRemoteController>();
++    auto* PS=W->SpawnActor<AColdSteelPlayerState>();PS->SetOwner(RemotePC);PS->ShadowModel=Shadow;PS->BoundProfileId=Guest.NetworkProfileId;
++    PS->SlotName=TEXT("ColdSteel_")+Profile+TEXT("_Guest");RemotePC->SetPlayerState(PS);RemotePC->Possess(Remote);Remote->SetPlayerState(PS);
++    Remote->NetShadowProfile=Shadow;Shadow->CurrentPawn=Remote;PS->ShadowPawn=Remote;
++    for(auto* P:{Host,Remote}){auto* HP=P->FindComponentByClass<UFPSCombatHealthComponent>();HP->Health=HP->MaxHealth;auto* B=P->FindComponentByClass<UBowWeaponComponent>();B->Character=P;B->InstanceId=Item.InstanceId;B->EquippedDefinition=Item.Definition;}
++    W->InitializeActorsForPlay(FURL());
++    auto* E=Remote->FindComponentByClass<UFPSElementalArrowComponent>();auto* LocalE=Host->FindComponentByClass<UFPSElementalArrowComponent>();
++    auto* Bow=Host->FindComponentByClass<UBowWeaponComponent>();
++    for(int32 I=1;I<=3;++I)
++    {
++        const auto Kind=EArrowElement(I);Shadow->Current=Guest;Shadow->CurrentPawn=Remote;Shadow->Current.Mana=Shadow->Derived(TEXT("maxMp"));Shadow->Current.Stamina=Shadow->MaxStamina();
++        const auto Uploaded=Shadow->Snapshot();E->bServerPrepared=true;E->ServerElement=Kind;E->ServerPreparationId=FGuid::NewGuid();E->Weapon=Item.InstanceId;
++        PS->BowDrawStartedAt=W->GetTimeSeconds();PS->BowDrawPawn=Remote;PS->BowDrawWeapon=Item.InstanceId;
++        Check(E->IsManaDraining(),FString::Printf(TEXT("remote element %d uses authority draw session"),I));
++        Shadow->TickRuntime(2.f,Remote);const auto Held=Shadow->Snapshot();
++        Check(FMath::IsNearlyEqual(Held.Mana,Uploaded.Mana-6.f),FString::Printf(TEXT("element %d drains exactly 3 MP/s without regeneration"),I));
++        const float Drain=ColdSteelBow::ChargeStaminaPerSecond(*Shadow->ActiveBow(),Shadow);
++        Check(FMath::IsNearlyEqual(Held.Stamina,Uploaded.Stamina-2.f*Drain,.01f),FString::Printf(TEXT("element %d charges stamina once"),I));
++        Check(PS->ApplyGuestProfile(Uploaded)&&FMath::IsNearlyEqual(Shadow->Mana(),Held.Mana)&&FMath::IsNearlyEqual(Shadow->Stamina(),Held.Stamina),FString::Printf(TEXT("element %d equal-revision upload cannot refund active upkeep"),I));
++        Shadow->Current.Mana=Held.Mana;Shadow->Current.Stamina=Held.Stamina;
++        E->ServerCancel_Implementation(E->ServerPreparationId);
++        Check(!PS->IsBowDrawActive(Remote),TEXT("element cancel ends its authority draw session"));
++        Check(Shadow->Snapshot().CampfireInventoryRevision>Uploaded.CampfireInventoryRevision,FString::Printf(TEXT("element %d cancellation commits upkeep revision"),I));
++        Check(PS->ApplyGuestProfile(Uploaded)&&FMath::IsNearlyEqual(Shadow->Mana(),Held.Mana)&&FMath::IsNearlyEqual(Shadow->Stamina(),Held.Stamina),FString::Printf(TEXT("element %d old upload cannot refund cancelled upkeep"),I));
++        Check(Shadow->ElementalArrowCooldown(Kind)==0&&Shadow->PouchCount(M->AmmoDefinitionFor(Item))==100,TEXT("cancel spends no arrow and starts no cooldown"));
++        PS->BowDrawStartedAt=-1;PS->BowDrawPawn.Reset();
++    }
++    Shadow->Current=Guest;M->Current=Seed;M->CurrentPawn=Host;
++    M->Current.Mana=M->Derived(TEXT("maxMp"));M->Current.Stamina=M->MaxStamina();
++    LocalE->bPrepared=LocalE->bServerPrepared=true;LocalE->SelectedElement=LocalE->ServerElement=EArrowElement::Fire;
++    Bow->Stage=EBowStage::Holding;const float Before=M->Mana();M->TickRuntime(2.f,Host);
++    Check(FMath::IsNearlyEqual(M->Mana(),Before-6.f),TEXT("host draw uses same upkeep rate"));
++    Bow->Stage=EBowStage::Ready;M->Current.Mana=10;M->TickRuntime(1.f,Host);
++    Check(M->Mana()>10,TEXT("prepared idle resumes regeneration"));
++    const FGuid NewId=FGuid::NewGuid();LocalE->ActivePreparationId=NewId;LocalE->bPrepared=true;Bow->Stage=EBowStage::Holding;
++    LocalE->ClientManaExhausted_Implementation(FGuid::NewGuid());
++    Check(LocalE->bPrepared&&Bow->IsDrawing(),TEXT("old exhaustion receipt leaves next preparation untouched"));
++    LocalE->bPrepared=LocalE->bServerPrepared=false;Bow->Stage=EBowStage::Ready;
++
++    auto* Body=Remote->FindComponentByClass<UFPSPlayerBodyComponent>();Body->Character=Remote;
++    auto* Rain=Remote->FindComponentByClass<UFPSMagicArrowRainComponent>();auto* Light=Remote->FindComponentByClass<UFPSIlluminationArrowComponent>();
++    for(uint8 Kind=1;Kind<=5;++Kind)
++    {
++        E->bServerPrepared=Kind<=3;E->ServerElement=Kind<=3?EArrowElement(Kind):EArrowElement::None;
++        Rain->bServerPrepared=Kind==4;Light->bServerPrepared=Kind==5;
++        auto State=Body->SampleRemoteAuthorityState();
++        Check(State.BowMagic==Kind,FString::Printf(TEXT("authority selects held magic kind %d"),Kind));
++        auto Forged=State;Forged.BowMagic=255;Body->AcceptBodyPresentation(Forged,Kind);
++        Check(Body->ReplicatedState.BowMagic==Kind,TEXT("owner cannot forge body magic kind"));
++        TArray<uint8> Bytes;FMemoryWriter Writer(Bytes);FObjectAndNameAsStringProxyArchive Out(Writer,false);FFPSBodyState::StaticStruct()->SerializeItem(Out,&State,nullptr);
++        FFPSBodyState Restored;FMemoryReader Reader(Bytes);FObjectAndNameAsStringProxyArchive In(Reader,true);FFPSBodyState::StaticStruct()->SerializeItem(In,&Restored,nullptr);
++        Check(Restored.BowMagic==Kind,TEXT("body archive retains held magic kind"));
++        auto Plain=State;Plain.BowMagic=0;Check(FPSBodyNetwork::IsTransition(Plain,State),TEXT("magic kind change is a reliable body transition"));
++    }
++    E->bServerPrepared=Rain->bServerPrepared=Light->bServerPrepared=false;E->ServerElement=EArrowElement::None;
++    Check(UBowHeldMagicVisual::KindFor(Remote)==0,TEXT("all cleared preparations produce no held magic"));
++    E->ServerPreparationId=FGuid::NewGuid();E->bServerPrepared=true;E->CancelFromBow();
++    Check(!E->IsPending(),TEXT("server-side elemental interruption does not retain a client wait lock"));E->bCancelPending=false;
++    Light->ServerPreparationId=FGuid::NewGuid();Light->bServerPrepared=true;Light->CancelFromBow();
++    Check(!Light->IsPending(),TEXT("server-side illumination interruption does not retain a client wait lock"));Light->bCancelPending=false;
++    Shadow->Current=Guest;Shadow->CurrentPawn=Remote;const auto BeforeFailure=Shadow->Snapshot();
++    E->bServerPrepared=true;E->ServerElement=EArrowElement::Fire;E->ServerPreparationId=FGuid::NewGuid();
++    PS->BowDrawStartedAt=W->GetTimeSeconds();PS->BowDrawPawn=Remote;PS->BowDrawWeapon=Item.InstanceId;
++    Shadow->TickRuntime(1.f,Remote);const auto AfterHold=Shadow->Snapshot();Shadow->AuditFailNextSave=true;
++    E->ServerCancel_Implementation(E->ServerPreparationId);
++    Check(E->OwnsHoldResources()&&!E->IsPending(),TEXT("failed checkpoint retains resource ownership without locking skill input"));
++    Check(PS->ApplyGuestProfile(BeforeFailure)&&FMath::IsNearlyEqual(Shadow->Mana(),AfterHold.Mana),TEXT("failed checkpoint still rejects refunding old upload"));
++    E->CancelFromBow();
++    Check(!E->OwnsHoldResources()&&Shadow->Snapshot().CampfireInventoryRevision>BeforeFailure.CampfireInventoryRevision,TEXT("lifecycle cancellation retries and settles upkeep once"));
++    const int64 SettledRevision=Shadow->Snapshot().CampfireInventoryRevision;E->ServerCancel_Implementation(E->ServerPreparationId);
++    Check(Shadow->Snapshot().CampfireInventoryRevision==SettledRevision,TEXT("duplicate cancellation does not commit or charge again"));
++    LocalE->ServerPreparationId=FGuid::NewGuid();LocalE->ActivePreparationId=FGuid::NewGuid();
++    LocalE->bServerPrepared=LocalE->bPrepared=true;LocalE->bHoldResourcesDirty=false;Bow->Stage=EBowStage::Holding;
++    HostPS->BowDrawPawn=Host;HostPS->BowDrawStartedAt=W->GetTimeSeconds();
++    LocalE->ServerCancel_Implementation(LocalE->ServerPreparationId);
++    Check(Bow->IsDrawing()&&LocalE->bPrepared&&!HostPS->IsBowDrawActive(Host),TEXT("old server cancellation cannot stop a newer owner preparation"));
++    LocalE->bPrepared=false;Bow->Stage=EBowStage::Ready;
++
++    // Exercise client receipt guards with a local autonomous pawn. This does
++    // not simulate RPC transport or packet scheduling.
++    Host->SetRole(ROLE_AutonomousProxy);M->Current=Seed;M->CurrentPawn=Host;
++    LocalE->ActivePreparationId=FGuid::NewGuid();LocalE->LastHoldResourceRevision=-1;
++    const int64 ReceiptRevision=Seed.CampfireInventoryRevision+2;
++    LocalE->ClientHoldResources_Implementation(LocalE->ActivePreparationId,ReceiptRevision,40.f,60.f,1.2f,false);
++    Check(M->Mana()==40.f&&M->Stamina()==60.f&&M->Snapshot().CampfireInventoryRevision==ReceiptRevision,TEXT("owner receipt reconciles absolute upkeep resources"));
++    M->Current.Mana=35.f;LocalE->ClientHoldResources_Implementation(LocalE->ActivePreparationId,ReceiptRevision,40.f,60.f,1.2f,false);
++    Check(M->Mana()==35.f,TEXT("duplicate upkeep receipt cannot rewind later mana"));
++    LocalE->ClientHoldResources_Implementation(FGuid::NewGuid(),ReceiptRevision+1,80.f,80.f,0.f,false);
++    Check(M->Mana()==35.f,TEXT("receipt from another preparation is ignored"));
++    M->Current.CampfireInventoryRevision=ReceiptRevision+3;
++    LocalE->ClientHoldResources_Implementation(LocalE->ActivePreparationId,ReceiptRevision+2,70.f,70.f,0.f,false);
++    Check(M->Mana()==35.f,TEXT("receipt older than a later inventory transaction is ignored"));
++    Host->SetRole(ROLE_Authority);M->Current=Seed;
++
++    Shadow->Current=Guest;Shadow->CurrentPawn=Remote;Shadow->Current.Mana=Shadow->Derived(TEXT("maxMp"));Shadow->Current.Stamina=Shadow->MaxStamina();
++    const auto RainCast=Shadow->MagicArrowRainStats();Check(Shadow->BeginMagicArrowRain(RainCast),TEXT("rain reserve fixture"));
++    Rain->bServerPrepared=Rain->bServerDrawing=true;const auto RainUpload=Shadow->Snapshot();Shadow->TickRuntime(1.f,Remote);
++    const auto RainHeld=Shadow->Snapshot();
++    Check(PS->ApplyGuestProfile(RainUpload)&&FMath::IsNearlyEqual(Shadow->Mana(),RainHeld.Mana)&&FMath::IsNearlyEqual(Shadow->Stamina(),RainHeld.Stamina),TEXT("equal-revision rain upload also preserves ongoing upkeep"));
++    Rain->AuthorityCancel(FString());
++    Shadow->Current=Guest;Shadow->CurrentPawn=Remote;
++    E->bServerPrepared=true;E->ServerElement=EArrowElement::Fire;E->ServerPreparationId=FGuid::NewGuid();E->Weapon=Item.InstanceId;
++    Shadow->Current.Mana=Shadow->ElementalArrowStats(EArrowElement::Fire).ManaCost-1.f;const float Insufficient=Shadow->Mana();
++    PS->BowDrawStartedAt=W->GetTimeSeconds();PS->BowDrawPawn=Remote;PS->BowDrawWeapon=Item.InstanceId;
++    E->TickComponent(.016f,LEVELTICK_All,nullptr);
++    Check(!E->IsPrepared()&&!E->IsPending()&&!PS->IsBowDrawActive(Remote),TEXT("insufficient release mana cancels authority preparation and draw"));
++    Check(Shadow->Mana()==Insufficient&&Shadow->PouchCount(M->AmmoDefinitionFor(Item))==100&&Shadow->FireballCooldown()==0,TEXT("mana exhaustion does not release, spend base cost or start cooldown"));
++    Shadow->Current=Guest;Shadow->CurrentPawn=Remote;const auto RejectedUpload=Shadow->Snapshot();
++    E->bServerPrepared=true;E->ServerElement=EArrowElement::Fire;E->ServerPreparationId=FGuid::NewGuid();
++    PS->BowDrawStartedAt=W->GetTimeSeconds();PS->BowDrawPawn=Remote;PS->BowDrawWeapon=Item.InstanceId;
++    Shadow->TickRuntime(1.f,Remote);const float RejectedMana=Shadow->Mana();
++    FColdSteelInventoryRequest Request;Request.Sequence=1000;Request.Pawn=Remote;Request.Item=Item.InstanceId;
++    Request.Action=EColdSteelInventoryAction::BowShot;Request.ArrowElement=EArrowElement::Fire;
++    Request.Revision=Shadow->Snapshot().CampfireInventoryRevision+100;PS->ServerInventoryAction_Implementation(Request);
++    Check(!E->IsPrepared()&&!E->OwnsHoldResources()&&!PS->IsBowDrawActive(Remote)&&Shadow->Snapshot().CampfireInventoryRevision>RejectedUpload.CampfireInventoryRevision,TEXT("rejected bow request checkpoints upkeep before retiring preparation"));
++    Check(PS->ApplyGuestProfile(RejectedUpload)&&FMath::IsNearlyEqual(Shadow->Mana(),RejectedMana)&&Shadow->PouchCount(M->AmmoDefinitionFor(Item))==100,TEXT("rejected shot keeps prior upkeep but spends no arrow"));
++
++    // Actual saved assets and registered components, without a rendered frame.
++    auto* Delay=IConsoleManager::Get().FindConsoleVariable(TEXT("s.StreamableDelegateDelayFrames"));
++    const int32 OldDelay=Delay?Delay->GetInt():1;if(Delay)Delay->Set(0,ECVF_SetByCode);
++    auto Paths=ElementalArrow::Assets();Paths.Emplace(IlluminationArrow::Glow);Paths.Emplace(MagicArrowRainAssets::Path(TEXT("M_ArrowRainFlow")));
++    Paths.Emplace(TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
++    for(const auto& Path:Paths)Check(LoadObject<UObject>(nullptr,*Path.ToString())!=nullptr,TEXT("saved bow effect asset resolves"));
++    auto* VisualOwner=W->SpawnActor<AActor>();VisualOwner->DispatchBeginPlay();
++    auto* Visual=NewObject<UBowHeldMagicVisual>(VisualOwner);VisualOwner->AddInstanceComponent(Visual);Visual->RegisterComponent();
++    for(uint8 Kind=1;Kind<=5;++Kind)
++    {
++        Visual->Update(Kind,FVector(0,0,100),FVector(76,0,100));FlushAsyncLoading();Visual->Update(Kind,FVector(0,0,100),FVector(76,0,100));
++        TInlineComponentArray<UPrimitiveComponent*> Parts;VisualOwner->GetComponents(Parts);
++        Check(Parts.Num()>0,FString::Printf(TEXT("held visual %d constructs real primitives"),Kind));
++        if(Kind==5)Check(VisualOwner->FindComponentByClass<UPointLightComponent>()!=nullptr,TEXT("held illumination constructs its head light"));
++        Visual->Clear();Parts.Reset();VisualOwner->GetComponents(Parts);
++        Check(Parts.IsEmpty()&&!VisualOwner->FindComponentByClass<UPointLightComponent>(),TEXT("visual switch/cancel destroys old primitives and lights"));
++    }
++    Visual->DestroyComponent();VisualOwner->Destroy();if(Delay)Delay->Set(OldDelay,ECVF_SetByCode);
++    for(int32 L=1;L<=20;++L)for(int32 I=1;I<=3;++I)
++    {
++        const auto Kind=EArrowElement(I);const auto C=M->ElementalArrowStats(Kind,L);
++        const float Expected=(Kind==EArrowElement::Fire?1.5f:1.25f)+.05f*FMath::Min(L-1,9)+.08f*FMath::Max(L-10,0);
++        Check(FMath::IsNearlyEqual(ElementalArrow::DamageMultiplier(M->MasteryDefinition(TEXT("elementalArrow")).ElementalArrow,Kind,L),Expected),TEXT("level growth matches V4 balance"));
++        Check(C.ManaCost==FMath::CeilToFloat(M->SpellManaCost(ElementalArrow::Spell(Kind))*1.5f),TEXT("all elements use rounded source mana surcharge"));
++    }
++    auto Root=MakeShared<FJsonObject>();Root->SetNumberField(TEXT("checks"),Rows.Num());Root->SetNumberField(TEXT("failed"),Failed);
++    Root->SetBoolField(TEXT("world_begin_play"),false);Root->SetBoolField(TEXT("network_socket"),false);Root->SetBoolField(TEXT("rendered"),false);Root->SetArrayField(TEXT("results"),Rows);
++    FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));IFileManager::Get().MakeDirectory(*Dir,true);FFileHelper::SaveStringToFile(Json,*(Dir/TEXT("result.json")));
++    M->CurrentPawn.Reset();Shadow->CurrentPawn.Reset();PS->bDisconnectPrepared=HostPS->bDisconnectPrepared=true;
++    TArray<AActor*> Actors;for(TActorIterator<AActor> It(W);It;++It)Actors.Add(*It);for(auto* A:Actors)if(IsValid(A))A->Destroy();
++    GI->Shutdown();GEngine->DestroyWorldContext(W);W->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    UE_LOG(LogTemp,Display,TEXT("ELEMENTAL_HOLD_REVIEW_DONE checks=%d failed=%d"),Rows.Num(),Failed);return Failed?1:0;
++}

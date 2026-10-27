@@ -1,0 +1,888 @@
+{
+  "normalization": "UTF-8 without BOM, LF",
+  "head_reference": "90360e1d0702ce50b7066fa558a9a3c7be227d92",
+  "entries": [
+    {
+      "target": "Config/DefaultGame.ini",
+      "patch": "patches/000-DefaultGame.ini.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Config/DefaultGame.ini",
+      "base_sha256": "e860191f76c0c018a9177060ab898c50347d41121fa46c993dbb7b09a1e69f78",
+      "result_sha256": "1c47fe07236347254068f12e17ddbd771610cba5dace5e214218b21a236e3669",
+      "local_complete_sha256": "fdc51a8baea632c9509a50ea111d0d01e94f353b504d79ba664022c35a284e78",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Content/ColdSteelData/skills.json",
+      "patch": "patches/001-skills.json.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Content/ColdSteelData/skills.json",
+      "base_sha256": "b35e561ad9dc463090eda84fc7ac3322dd13716c2583c09111ea9f31c3855fc8",
+      "result_sha256": "985c2bd7e526b1abd3b2d6ffec1ab06f8b9d0886f31dd33f1ddd94d91077bc36",
+      "local_complete_sha256": "985c2bd7e526b1abd3b2d6ffec1ab06f8b9d0886f31dd33f1ddd94d91077bc36",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "patch": "patches/002-FPSPlayerBodyActions.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "a00a0f9c448b5f4e196614ab444393433d2fcd3980984b2bc36d8784ff14266e",
+      "result_sha256": "1dbb6c98ecbb5908d36495867ea5d2bbbe81fa85ff04b3420cd37ef181406d1b",
+      "local_complete_sha256": "d0539e33a29f5c8fc61050505145aaa4b3ac3fd88196f9266746c12758775624",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "patch": "patches/003-FPSPlayerBodyBow.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "c3a8b7c65ef44c16dd038f915017270722a5a7ade88b1d9105869bdb5fda2a28",
+      "result_sha256": "236a6308ccbc2048b16669b05fea6e78b94138e2444b95e5ae1d3a5e89ee5620",
+      "local_complete_sha256": "47b8cb1c7741e090205cc9045398ff9ea3de99e966cd44c95549e8102933d458",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp",
+      "patch": "patches/004-FPSPlayerBodyBowMagic.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "9c72ef7ef3993ec3b8eb11acbe5e1ac5d2c16f0c33a4af24be65f1f1dee3b467",
+      "local_complete_sha256": "9c72ef7ef3993ec3b8eb11acbe5e1ac5d2c16f0c33a4af24be65f1f1dee3b467",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "patch": "patches/005-FPSPlayerBodyComponent.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "dcbb9ccd987517b0ee1c3f6c6766d1c4699ca14fb7b146b687c2ef6223e11162",
+      "result_sha256": "4ff154052e21d512fae361f96d281e1c9b3c84ff5279f6eea9bdf0ed0ecff399",
+      "local_complete_sha256": "bc9ca69b5dd653ebcc84f058cb2bc17768f5bdb1ef7ee7d06eb75dc0a8048717",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "patch": "patches/006-FPSPlayerBodyConsumable.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "c2cf89c667f8f8e744c8bf32e977a92dbadffe4b335756937646ca7d4483ac36",
+      "result_sha256": "874f8a41576f2a6a6f128414b979abd482fa62554f2402b19ccac7e43f2d4d01",
+      "local_complete_sha256": "f2988f0c13f2e3db062b4c4caf997e40d6d8d90247a9c9287609df7ccaf99e9f",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "patch": "patches/007-FPSPlayerBodyNetwork.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "d78a0c165a90b899ac9673967a3c31039082d2679adc688009a1551ad5a8a371",
+      "result_sha256": "19ea13729ca872db59b3609bca6cf9d575f8c3ccda3f69dd89544e70e8f6d862",
+      "local_complete_sha256": "e7a224f6d41413ab59e9895f205e332fe9b0376570ff5be66cdf216e687feb80",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "patch": "patches/008-FPSPlayerBodyTypes.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "cec6c689a3e82c1f0f5ba6bf585281a2f357336f550023b32c7d531c4cc324d3",
+      "result_sha256": "82af3f95f56a71e5282cadd087ff45cdf5679c9dceaa44f0bc679d38af854ae2",
+      "local_complete_sha256": "863a37e98e9ee7c2d792aec43a5c7b2e2e5eebfa18d59ecdf1de673f132fd0eb",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+      "patch": "patches/009-CombatFormulaRuntime.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+      "base_sha256": "f054f596eab42f7aac09fec9ce00b5e7f551dd4f1ad7e349f06945f12a714c06",
+      "result_sha256": "f5151d743d825b8072790b09adb932939371f5e35b62227c39897e5a69334115",
+      "local_complete_sha256": "f5151d743d825b8072790b09adb932939371f5e35b62227c39897e5a69334115",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+      "patch": "patches/010-CombatStatusFormula.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "ad436b43fa7b2cee8e5f85dba817cf1bf5893490ec6e82df5cfbd1dc76046053",
+      "result_sha256": "8dd21c2ed271f9d51983a4c238597eded67e4aa501831a5ee5914c3033eef031",
+      "local_complete_sha256": "26c603d28fdfb9636a9ef15931aa53dc67324dd139f4213caa67d5283e35b4ba",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "patch": "patches/011-FPSGAMECharacter.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "base_sha256": "861a4810c11e4506431013a37f73b50c984ca27425a28e57b03ddf5a822f7d6b",
+      "result_sha256": "4d00034c632e312b6f739973d23d3fcc72385add9fffdc6731a5b12f8ae03dc9",
+      "local_complete_sha256": "8035b60daf7f1dcfa9e09344756401f1d1db9dc55dd3c611d753063d4ceabb50",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMECharacterAmmo.cpp",
+      "patch": "patches/012-FPSGAMECharacterAmmo.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "897d130b75626fcb5cb8e8347bdded7aeb758f9acfedc8cf6380ba434edd145e",
+      "result_sha256": "9fb073acfc5a6c2b203de0d53da38001053f36cdba906e7ee6b0fc164b3edf0b",
+      "local_complete_sha256": "e0f17e412cf0a229dca286e979c0ed70aa3b589cb3dcb9b25c4b01dc34187fba",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "patch": "patches/013-FPSGAMEPlayerController.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "94eba286228e2fb704491ba83745da11681cc0a345142f5598a618f6e52b6be9",
+      "result_sha256": "e20db2f2c8350ba609408edc1813fc1ae23c81dd54ba398ab2efc2b75480d181",
+      "local_complete_sha256": "bbc30eb8f308fe22a1379e70425d8a3769a58baab0c91c51c61ccd4d5fe0161c",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Monsters/MantisM27Stealth.cpp",
+      "patch": "patches/014-MantisM27Stealth.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "d51ca96639c9dee00e8f902881d409de7004225abd80f54e107055ec2b132275",
+      "result_sha256": "b4e9759d0d0f3ca08d4906ceec8f5f8a76dc9eefa33372610d5d5be38dc3e9ea",
+      "local_complete_sha256": "b4e9759d0d0f3ca08d4906ceec8f5f8a76dc9eefa33372610d5d5be38dc3e9ea",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "patch": "patches/015-FPSStaminaModel.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "base_sha256": "9698bf86ee3e1f05d743602a0de9b0068182358e44a4f16d2c09a0aeed79924b",
+      "result_sha256": "2de22e763f0d4fb8bf224bfbe980a5e8b99ee5da3731238a542dc4278d59883a",
+      "local_complete_sha256": "b0f6290ec3a68e73203e6a44a60774584946fa655a0eafcb6da75bc9a6773ed7",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp",
+      "patch": "patches/016-ColdSteelBowAuthority.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "a7cd66eabbf87fd9729d43ef7facc5fa8933bd2c785ccfa6dc36ae18a7ec8670",
+      "result_sha256": "483790c2b1274b5d6164b4e26efd2727c9c57daf3b94ab66f999d73bc2386647",
+      "local_complete_sha256": "81dba47ad312cf2d1e99991153af9acecc20a53a87b03fab6e61f5ac728c3cf8",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "patch": "patches/017-ColdSteelCampfireRequests.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "89ff01724ef8836daa9a7d257578a6e4bb0808ac11ede82908cd808aa1a00bdf",
+      "result_sha256": "9b2192ec0f9cc1112dc856faa3f180d0db03f549cc856cddf6d5d515ab67d7ee",
+      "local_complete_sha256": "45c56f1b0e71ceadf26d45bb7df6c7ce44451598be23654cb94b6bd3b9fa18f4",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "patch": "patches/018-ColdSteelInventoryRequestTypes.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "cbd1715c79db9f3c505969303a6b47cbe87f2643c08cfdf7b905bdbb5534088c",
+      "result_sha256": "39fb051f30ee3703b52a98a99c2a64686fbd64656e5652bac6f9d21fbb45258f",
+      "local_complete_sha256": "659d414a3978669e286dc32704f62e03643750e7c706a8283b81ee7a880a48e7",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "patch": "patches/019-ColdSteelInventoryRequests.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "ac4458e6c96ea7a3a2b9e4125e9f1f9f5f6f2095f5884aee33a6a7cb039700b7",
+      "result_sha256": "2df9708c10701a9662eca1838c9bd91cfa7616c0718efbcc8ba91bee19d6fe57",
+      "local_complete_sha256": "c55f29f8e782a166c16fccf1ee881999531d33dd47c419d0d9669bebcc2b672f",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "patch": "patches/020-ColdSteelPlayerState.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: existing inventory/profile framework plus this batch removed",
+      "base_sha256": "59b51c8bd75ec5710fdfd541f197f051865392c015b034c4eb16c6b94a46301a",
+      "result_sha256": "f0738b18504088ee26ff3a3de6818f3ccfa08933057a04c5b2e823dec499394d",
+      "local_complete_sha256": "f0738b18504088ee26ff3a3de6818f3ccfa08933057a04c5b2e823dec499394d",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "patch": "patches/021-ColdSteelTeamTravel.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "f21c7d8eb068f73dc94957532f0f7413167ac4947a2a1ad9483a22c29ace55d4",
+      "result_sha256": "fb0c046ef6838c189c10130398e7f0ab9396fa5c444246154d8dcb1bf5ca532a",
+      "local_complete_sha256": "4d719c0b6d9f5e13c4044b5c62209d72c48a585d9b14552f70be95a0918de305",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowHeldMagicVisual.cpp",
+      "patch": "patches/022-BowHeldMagicVisual.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e0da68e68a1d919badc72bbdd58bfb4d940c5e3f6497e94470a0e014a87d6baa",
+      "local_complete_sha256": "e0da68e68a1d919badc72bbdd58bfb4d940c5e3f6497e94470a0e014a87d6baa",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowHeldMagicVisual.h",
+      "patch": "patches/023-BowHeldMagicVisual.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "7c1d5b85ba69f86eb7d83900edefe08f6404d00e660b25ac3ddfda9ba8757115",
+      "local_complete_sha256": "7c1d5b85ba69f86eb7d83900edefe08f6404d00e660b25ac3ddfda9ba8757115",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowNetworkReview.cpp",
+      "patch": "patches/024-BowNetworkReview.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "95ae4085c6188be39596f05d1b43676855f43df43a792191d79530a303050a7c",
+      "local_complete_sha256": "95ae4085c6188be39596f05d1b43676855f43df43a792191d79530a303050a7c",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowSkillLifecycle.cpp",
+      "patch": "patches/025-BowSkillLifecycle.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "6bf299e95ff67193b7b0716da0a1250e89291a7bc2e696bf4dd03a529cb47245",
+      "local_complete_sha256": "6bf299e95ff67193b7b0716da0a1250e89291a7bc2e696bf4dd03a529cb47245",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowSkillLifecycle.h",
+      "patch": "patches/026-BowSkillLifecycle.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4e13b69027d7b9243d99ecf18ee867af9de30fc5539c581516386adb7b00d4a9",
+      "local_complete_sha256": "4e13b69027d7b9243d99ecf18ee867af9de30fc5539c581516386adb7b00d4a9",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp",
+      "patch": "patches/027-BowSkillTrainingAuditCommandlet.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "0f34604bf8bfb61faa9c611f87510c4abcbaef5c1ecc674f10e128b0a715c729",
+      "result_sha256": "38b35663c220ecdc81d54b283c98525e40f106c35330be52d1466e13793108f3",
+      "local_complete_sha256": "59981cd4e394f631b5815832337761da149855cf00a775857674fea40862c633",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h",
+      "patch": "patches/028-BowSkillTrainingAuditCommandlet.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "aa1003e92c0561a0c9c2c197fb9d9ba81173387b19db42938a4641ffb7b8abe0",
+      "result_sha256": "32a0aad6d0fa7ba29640bcd95069ae3f124a72cfb7a64f14ee13acafccc14f07",
+      "local_complete_sha256": "f4cd13631379f0db0c249fbcf419e190ae26863f2b838bf2f7e32eb72cd93e2c",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelElementalArrowModel.cpp",
+      "patch": "patches/029-ColdSteelElementalArrowModel.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "09c7074e1189dd35915c96b4b093805d21d2d9758385276f3d33a22736d241cf",
+      "local_complete_sha256": "09c7074e1189dd35915c96b4b093805d21d2d9758385276f3d33a22736d241cf",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "patch": "patches/030-ColdSteelFireballModel.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "fdb606683b609742e2ced2ee713e493e147e4b3af4cfca922d61a6f008c27748",
+      "result_sha256": "ce6ac01eb481bc714542188fd1f3c8a04e56c1a361972a141fd3684d3aa370c9",
+      "local_complete_sha256": "76c1b389871b57a08bb8dc444446b35bb5a967606c00f766b2a9d4407c98149d",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "patch": "patches/031-ColdSteelIceSpikeModel.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "dac2785bcfd30baf35a85ce74da7356bf5ab7b5ef53e1d27a3ce1469cafdcb16",
+      "result_sha256": "7fc94097ce77a87583677c51fe7acd12319696a4592b7aeae345eb041f62de94",
+      "local_complete_sha256": "c7d1fef154c4c3aea1efa7a4d8688eea6fb2a842ecf174ebadb52c8715f1d523",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelIlluminationArrowModel.cpp",
+      "patch": "patches/032-ColdSteelIlluminationArrowModel.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "5caed6457062759a8b9e3105027353e9a10220d62521cc9ae678c835da791931",
+      "local_complete_sha256": "5caed6457062759a8b9e3105027353e9a10220d62521cc9ae678c835da791931",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "patch": "patches/033-ColdSteelLightningModel.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "e4accd43ebb790bf102c06effb4ead59b6b5b4bc21f99f4de7562f17530d7e15",
+      "result_sha256": "a46161818001fd11e57b4fd92dfdfd49105340d985379a0fa5d69874c64138b4",
+      "local_complete_sha256": "e943a1577e8a3515281aca4ec67ceb3edb68cb039ba373d9bfb45cddf4a11bd0",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp",
+      "patch": "patches/034-ColdSteelMagicArrowRainModel.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "8f0c7a43c5188afae11a6c6c4197683d5afcd90deb39c084d084318a407b97f2",
+      "local_complete_sha256": "8f0c7a43c5188afae11a6c6c4197683d5afcd90deb39c084d084318a407b97f2",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "patch": "patches/035-ColdSteelSkillModel.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "base_sha256": "73c94839327ef4a10f7f1426a8e61d892f1c85a9be1015167784c3d057f400d7",
+      "result_sha256": "d3a10d520380080abf7da3458ae2a00ae9c91ab8ba933338bd15b1529a1b8637",
+      "local_complete_sha256": "19459d68c3921dd7b275e8a6c77b0762dda7ab13593879d7b784d2d419e88e4c",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "patch": "patches/036-ColdSteelSkillRules.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "base_sha256": "89fed03b86c8011ba1ba132e45e5e610b25d3872e2ebf18f7c405b9905d1e96d",
+      "result_sha256": "2fe5aa66d32048c9dab1615c6dd3e819abf12627ab947b4c915b575b9e8fa6e6",
+      "local_complete_sha256": "4e3cfdf99e0d5a3788e0b8b302fef14fd22d19af32ae9782987acb8ee1435107",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "patch": "patches/037-ColdSteelSkillTypes.h.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "base_sha256": "6cd5f64b4416a574525f1481ae53b4a6e03ed6a59ebf1387426a8181dd6ec82c",
+      "result_sha256": "1ae690d7132ca60955a8bcc49a6b5f9fbc7ea6ce76a5d2a44207fcdcb16a7eaf",
+      "local_complete_sha256": "e1947e48b1ee8a6245d8ee610f2904b8de8ee0cdb937b2f12afe599a0e619adb",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelSpellMana.cpp",
+      "patch": "patches/038-ColdSteelSpellMana.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp",
+      "base_sha256": "9fe4b65685aa4273de3839940932638382c5137151731b2724cf220775072896",
+      "result_sha256": "5bb0e44a8fad75e215ad3f7ec3ed97a7590d36bf057ecd50b75e33771544755e",
+      "local_complete_sha256": "5bb0e44a8fad75e215ad3f7ec3ed97a7590d36bf057ecd50b75e33771544755e",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ElementalArrowBurst.cpp",
+      "patch": "patches/039-ElementalArrowBurst.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "5d45d6a840f4739f802e920a6bbfd80bd1c9be2c3fb68966892dc28f98548ea7",
+      "local_complete_sha256": "5d45d6a840f4739f802e920a6bbfd80bd1c9be2c3fb68966892dc28f98548ea7",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ElementalArrowBurst.h",
+      "patch": "patches/040-ElementalArrowBurst.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "a833bdb1c60a44aa4cf3472e468351b5e1df003ce3f4aacce82354bc2c157f30",
+      "local_complete_sha256": "a833bdb1c60a44aa4cf3472e468351b5e1df003ce3f4aacce82354bc2c157f30",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ElementalArrowTypes.h",
+      "patch": "patches/041-ElementalArrowTypes.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "da68f95a1350a0f9c68926cef89dc93bf61ebc306961b348deadd45812c07214",
+      "local_complete_sha256": "da68f95a1350a0f9c68926cef89dc93bf61ebc306961b348deadd45812c07214",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ElementalArrowVisual.cpp",
+      "patch": "patches/042-ElementalArrowVisual.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "649f1de4d081aa9b16f5a8d5399939bb49dd880f1ed7b2b7f9685603973ac5db",
+      "local_complete_sha256": "649f1de4d081aa9b16f5a8d5399939bb49dd880f1ed7b2b7f9685603973ac5db",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ElementalArrowVisual.h",
+      "patch": "patches/043-ElementalArrowVisual.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "7a0255555c8bd77faa318e778e721feb26b961e218eafd6a3c358294e16ffcdf",
+      "local_complete_sha256": "7a0255555c8bd77faa318e778e721feb26b961e218eafd6a3c358294e16ffcdf",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ElementalHoldReview.cpp",
+      "patch": "patches/044-ElementalHoldReview.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "48960c6627f7cc2ccca34d745544c4c24ce3475112d6d532776469f3ac0aebd7",
+      "local_complete_sha256": "48960c6627f7cc2ccca34d745544c4c24ce3475112d6d532776469f3ac0aebd7",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSElementalArrowComponent.cpp",
+      "patch": "patches/045-FPSElementalArrowComponent.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b4e9544cf793ef6c0b38e2f2d420cbb76a88d89346ff7ac6ae9acff42697ff4d",
+      "local_complete_sha256": "b4e9544cf793ef6c0b38e2f2d420cbb76a88d89346ff7ac6ae9acff42697ff4d",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSElementalArrowComponent.h",
+      "patch": "patches/046-FPSElementalArrowComponent.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "bc1657607a631fe88c2f1a918ab4d5c701e01e39b6c168ba22268538c5ad754b",
+      "local_complete_sha256": "bc1657607a631fe88c2f1a918ab4d5c701e01e39b6c168ba22268538c5ad754b",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSIlluminationArrowComponent.cpp",
+      "patch": "patches/047-FPSIlluminationArrowComponent.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ce9a4dbb08dae1ac09c585aca24a43d7beece8f6d746c543f5e2bffc45497c84",
+      "local_complete_sha256": "ce9a4dbb08dae1ac09c585aca24a43d7beece8f6d746c543f5e2bffc45497c84",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSIlluminationArrowComponent.h",
+      "patch": "patches/048-FPSIlluminationArrowComponent.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "959bb6d9ccdb10b9f9cde9c7dadf5c76182e322624e45bfcbd8fc6395f6a5cdd",
+      "local_complete_sha256": "959bb6d9ccdb10b9f9cde9c7dadf5c76182e322624e45bfcbd8fc6395f6a5cdd",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSMagicArrowRain.cpp",
+      "patch": "patches/049-FPSMagicArrowRain.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "a95905ea121a5d97de935634db33a3d0980555f6831eb6af550a9dac8340654c",
+      "local_complete_sha256": "a95905ea121a5d97de935634db33a3d0980555f6831eb6af550a9dac8340654c",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSMagicArrowRain.h",
+      "patch": "patches/050-FPSMagicArrowRain.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "82b3da6897c391284d6289d7616d5b90bbb247b0f85f6de06d0c35d4ec229bd3",
+      "local_complete_sha256": "82b3da6897c391284d6289d7616d5b90bbb247b0f85f6de06d0c35d4ec229bd3",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSMagicArrowRainComponent.cpp",
+      "patch": "patches/051-FPSMagicArrowRainComponent.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "74994bddc3ad27a7147e53e9c871e85d6693d3d65f0fc87fba039336535d0988",
+      "local_complete_sha256": "74994bddc3ad27a7147e53e9c871e85d6693d3d65f0fc87fba039336535d0988",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSMagicArrowRainComponent.h",
+      "patch": "patches/052-FPSMagicArrowRainComponent.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "82212f8650ba95b1856150e932fc2455db0af074b50c5ff9bd8e3f8023ecf479",
+      "local_complete_sha256": "82212f8650ba95b1856150e932fc2455db0af074b50c5ff9bd8e3f8023ecf479",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/HeartPiercingArrowTypes.cpp",
+      "patch": "patches/053-HeartPiercingArrowTypes.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ab83473e21cb0135cdbd39775c006b3e2900136a4d3f1bcb58be0a994aedb371",
+      "local_complete_sha256": "ab83473e21cb0135cdbd39775c006b3e2900136a4d3f1bcb58be0a994aedb371",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/HeartPiercingArrowTypes.h",
+      "patch": "patches/054-HeartPiercingArrowTypes.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4aee9d1396657580ca479057f9b6a9f1d55d7dcf83e6409a7e8082868d3e9bbe",
+      "local_complete_sha256": "4aee9d1396657580ca479057f9b6a9f1d55d7dcf83e6409a7e8082868d3e9bbe",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/IlluminationArrowBeacon.cpp",
+      "patch": "patches/055-IlluminationArrowBeacon.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b28166c029d65652aeb089243be99b0922c6317f10b5478e7e790ffcbfd85a12",
+      "local_complete_sha256": "b28166c029d65652aeb089243be99b0922c6317f10b5478e7e790ffcbfd85a12",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/IlluminationArrowBeacon.h",
+      "patch": "patches/056-IlluminationArrowBeacon.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "144bb20c0ab1da8ae4d83e3cb00e5cc5d6192dc0e817888d3c400cf10d333f5e",
+      "local_complete_sha256": "144bb20c0ab1da8ae4d83e3cb00e5cc5d6192dc0e817888d3c400cf10d333f5e",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/IlluminationArrowTypes.h",
+      "patch": "patches/057-IlluminationArrowTypes.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "7b6ef02cf85c5af8c7ecfcb26df6de302226bd7520967d3582b002e1bf756918",
+      "local_complete_sha256": "7b6ef02cf85c5af8c7ecfcb26df6de302226bd7520967d3582b002e1bf756918",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/IlluminationArrowVisual.cpp",
+      "patch": "patches/058-IlluminationArrowVisual.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "23eb687108284d16041c58530c5f4f3a87588ca7622e84f5118cbde774abd25e",
+      "local_complete_sha256": "23eb687108284d16041c58530c5f4f3a87588ca7622e84f5118cbde774abd25e",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/IlluminationArrowVisual.h",
+      "patch": "patches/059-IlluminationArrowVisual.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "93491ca88be304b43a4cf0d4f9b71f621c7bc20aafcfe726f0ac5e82ed09609e",
+      "local_complete_sha256": "93491ca88be304b43a4cf0d4f9b71f621c7bc20aafcfe726f0ac5e82ed09609e",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/IlluminationMarkComponent.cpp",
+      "patch": "patches/060-IlluminationMarkComponent.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4066b9390a1802d2a4d328953f75bfc3729357d167d3215c3568edc21e139bfa",
+      "local_complete_sha256": "4066b9390a1802d2a4d328953f75bfc3729357d167d3215c3568edc21e139bfa",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/IlluminationMarkComponent.h",
+      "patch": "patches/061-IlluminationMarkComponent.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "730f80cd4037eeea5ea7b6336e0c142d53571cbdf13cfadd0074a0c04f349539",
+      "local_complete_sha256": "730f80cd4037eeea5ea7b6336e0c142d53571cbdf13cfadd0074a0c04f349539",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/MagicArrowRainAudit.cpp",
+      "patch": "patches/062-MagicArrowRainAudit.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ee7ccb1492ee0a279e9866d70c9b9f7b18e75080e5748a93416fe3a14f942666",
+      "local_complete_sha256": "ee7ccb1492ee0a279e9866d70c9b9f7b18e75080e5748a93416fe3a14f942666",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/MagicArrowRainDamage.h",
+      "patch": "patches/063-MagicArrowRainDamage.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "01a0626151024a4b5e5545ac0e60c656e8999d20502d29ce9f19186d7cb99794",
+      "local_complete_sha256": "01a0626151024a4b5e5545ac0e60c656e8999d20502d29ce9f19186d7cb99794",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/MagicArrowRainGround.cpp",
+      "patch": "patches/064-MagicArrowRainGround.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "95ebd5a24c95db75fc7b18160886df5d94b31e1b50b9fa977b4776fafcd0a7e3",
+      "local_complete_sha256": "95ebd5a24c95db75fc7b18160886df5d94b31e1b50b9fa977b4776fafcd0a7e3",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/MagicArrowRainGround.h",
+      "patch": "patches/065-MagicArrowRainGround.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "16e289467bf1949467c49de0f2c1aca773c1d8999d67e78dd96b1f40f145a94b",
+      "local_complete_sha256": "16e289467bf1949467c49de0f2c1aca773c1d8999d67e78dd96b1f40f145a94b",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/MagicArrowRainResources.cpp",
+      "patch": "patches/066-MagicArrowRainResources.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "0e21b7b3f060f3aa5149d4aeacf061b83ffa6abdd836c857f35ba12f6a1f0644",
+      "local_complete_sha256": "0e21b7b3f060f3aa5149d4aeacf061b83ffa6abdd836c857f35ba12f6a1f0644",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/MagicArrowRainResources.h",
+      "patch": "patches/067-MagicArrowRainResources.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "dcf220fcffa1c8bfb67d061cb84ddad637397518a0516ed6af78846647a46f58",
+      "local_complete_sha256": "dcf220fcffa1c8bfb67d061cb84ddad637397518a0516ed6af78846647a46f58",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/MagicArrowRainTypes.h",
+      "patch": "patches/068-MagicArrowRainTypes.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "edae0e7bd7a57ac511d5a538276ae710ef0980ac67fce1862cadcc6bac2ff509",
+      "local_complete_sha256": "edae0e7bd7a57ac511d5a538276ae710ef0980ac67fce1862cadcc6bac2ff509",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "patch": "patches/069-PlayerSkillAssets.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "base_sha256": "90296ec64d2a15799d0d36bd46a62c246be66065679f0e402cef49ebe68b737b",
+      "result_sha256": "bb693142ad8f08f30e2d9150e43cde821a1839fb8675a262d48645671ace8cb9",
+      "local_complete_sha256": "bb693142ad8f08f30e2d9150e43cde821a1839fb8675a262d48645671ace8cb9",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelBowRhythm.cpp",
+      "patch": "patches/071-ColdSteelBowRhythm.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "2c2996e8f77c41935449eba743c9a7b5041055d5e07be5bd2df0c57342247eef",
+      "local_complete_sha256": "2c2996e8f77c41935449eba743c9a7b5041055d5e07be5bd2df0c57342247eef",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelBowRhythm.h",
+      "patch": "patches/072-ColdSteelBowRhythm.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "7a07998b39cf193231b8f1bda5ecbaaebc14b79c444fda6ff4750ec6ebd1296b",
+      "local_complete_sha256": "7a07998b39cf193231b8f1bda5ecbaaebc14b79c444fda6ff4750ec6ebd1296b",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "patch": "patches/073-ColdSteelCrosshair.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "6a2651165d2d39909a840a6dd790e4819ba04f82350549dec9ec2adeb92565d8",
+      "result_sha256": "3ff36709a316d3813d92bc399d4f781a48746ec0f70149847d162d3a1fe03f6f",
+      "local_complete_sha256": "0d086d0cd88f8da9716f81497cf33d9081e1b216f1d43337c4e01808d8b276bd",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelElementWheel.cpp",
+      "patch": "patches/074-ColdSteelElementWheel.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "bf2b878bc42f783381482941d9518e1a445b19be7ccbcb1b84c920cf25114306",
+      "local_complete_sha256": "bf2b878bc42f783381482941d9518e1a445b19be7ccbcb1b84c920cf25114306",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelElementWheel.h",
+      "patch": "patches/075-ColdSteelElementWheel.h.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b1860c72516f912810ef95ada63387a4a12364a66c285ed877f5d19307a040f0",
+      "local_complete_sha256": "b1860c72516f912810ef95ada63387a4a12364a66c285ed877f5d19307a040f0",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "patch": "patches/076-ColdSteelInventoryTypes.h.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "base_sha256": "8b5f54a2bab8984463675b63dccaeea32637adefd086c76e234a95490cbdd9f7",
+      "result_sha256": "c66f6f586b25a4ac1748a5ded2e5c67f5e692c22cb651860edaed485dea948aa",
+      "local_complete_sha256": "c66f6f586b25a4ac1748a5ded2e5c67f5e692c22cb651860edaed485dea948aa",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "patch": "patches/077-ColdSteelNetworkInventory.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "d8fd5811e1015cb32dc830bbccf2e2cbc06abb6eef8c5ba389e08b2afd75b3d3",
+      "result_sha256": "6f415fccb5344b80f121b57bfff6e62cce9311ecefc641e685ab066d3da2d0d1",
+      "local_complete_sha256": "a023879b3fb0b3b20f36acabc662eaf1f09b1d7c476bd231d8bad9374493e55d",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "patch": "patches/078-ColdSteelProfileRecovery.h.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "base_sha256": "067eaa530bc61602becced1891f076bf3f3070f30ef7591749f65358dd59345d",
+      "result_sha256": "445d648f8a2485c883c2ebaa13c5f358b8fe09ac2fa28190757fef0cc5bdcd78",
+      "local_complete_sha256": "445d648f8a2485c883c2ebaa13c5f358b8fe09ac2fa28190757fef0cc5bdcd78",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "patch": "patches/079-ColdSteelProfileRuntime.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "base_sha256": "980627117a62a0a9ba95b1a1a5e16ddec11f4e9bc42d106f5e3f25e131e1d1ee",
+      "result_sha256": "51cf4f12d7d37405614501589ce016dcee16be65711750a9fe00e2990fcfa34e",
+      "local_complete_sha256": "e3f6cc68040aa1e5349e151059663d6d30acde3b1604d507170f2d7e495c3694",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "patch": "patches/080-ColdSteelQuickBarModel.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "base_sha256": "5b83c619f8bd18b7ddaf2fb86774e04c7ec21ef87e11c0725788a732e25730bd",
+      "result_sha256": "98bf3e6bf5278c7a438286871b56e4fa8ef3ed652a898536725ddd3d9c852f4f",
+      "local_complete_sha256": "98bf3e6bf5278c7a438286871b56e4fa8ef3ed652a898536725ddd3d9c852f4f",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "patch": "patches/081-ColdSteelQuickSlot.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "base_sha256": "67002bfb5dfd757d0214cbcff3dacc9d1e9ec0002799b6af4d6cb20fa4f8004e",
+      "result_sha256": "d98829658f04210fde31edd1f451be01aa7c0dd3ba76148ee3f90a61327aed34",
+      "local_complete_sha256": "d98829658f04210fde31edd1f451be01aa7c0dd3ba76148ee3f90a61327aed34",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "patch": "patches/082-ColdSteelSkillPage.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "base_sha256": "80da42868402c64a4f4f6840c48abdc5be1112d1db735dfa6004afd256d5fd71",
+      "result_sha256": "532136080f0df68c6ac4a513ad2023200daa92da969bea71745251574db186f4",
+      "local_complete_sha256": "59c52ec57b3e17101362218a9ef63180c248bbd9726e7d446e775878f8b72f85",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelSkillPage.h",
+      "patch": "patches/083-ColdSteelSkillPage.h.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelSkillPage.h",
+      "base_sha256": "afcb1c4e3e4415b4733059dc755af13854814fc139d075762c18965c032636f4",
+      "result_sha256": "57e6ef0e73011282ee26be873c3f4590eb32972f298a5983948db8cff1ad9d97",
+      "local_complete_sha256": "57e6ef0e73011282ee26be873c3f4590eb32972f298a5983948db8cff1ad9d97",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "patch": "patches/084-ColdSteelStatusModel.h.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "base_sha256": "c155e3bdf7f6f52db62936df253b1862dc06e926603e35a4a861e1747a276189",
+      "result_sha256": "c24f3edb4d58191c153746697adadf6a62d54179b9e5b5e9816cc2845be3391b",
+      "local_complete_sha256": "88c9939f30d416bba4a095b47ef6cb7a4455fe8a2e383ca4b7c6b646a98f5100",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+      "patch": "patches/085-BowArrow.cpp.patch",
+      "prerequisite": "HEAD with only bow skill projectile changes",
+      "base_sha256": "361b72f1d8fb3c83b30374896569e9d7d88a3baa5b6ce121864eaa56709dbf51",
+      "result_sha256": "0c756270761ccd09f2fb7f51bf9cd06765296e53d92259d84073b9ce43ae23ca",
+      "local_complete_sha256": "ff2fd02c2e612e4a18ad74a7d776a8f6933cfd89c24b302ed18ea14a9e538a15",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowArrow.h",
+      "patch": "patches/086-BowArrow.h.patch",
+      "prerequisite": "HEAD with only bow skill projectile declarations",
+      "base_sha256": "22894195c4c27778afe266224362df736156e51abe04a5d94ec2ca3642ecb5af",
+      "result_sha256": "0251d0b3d35f31cfba545c5b945308d4029a4c714043bfc2e604453c8b69d163",
+      "local_complete_sha256": "774d67ac416ab5fa76c7c25df5d246b0f68be5782669474b2f67dc713967da27",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowElementalArrow.cpp",
+      "patch": "patches/087-BowElementalArrow.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "2e7271b7b32578e73a8b675feb96a33f8c5182a0cb97b01271c3cfd55a46396a",
+      "local_complete_sha256": "2e7271b7b32578e73a8b675feb96a33f8c5182a0cb97b01271c3cfd55a46396a",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowIlluminationArrow.cpp",
+      "patch": "patches/088-BowIlluminationArrow.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e65a75853d4fb7d7324c91ff59a21a853a30d1b099719799954ec781a1a90cbe",
+      "local_complete_sha256": "e65a75853d4fb7d7324c91ff59a21a853a30d1b099719799954ec781a1a90cbe",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowMagicArrowRain.cpp",
+      "patch": "patches/089-BowMagicArrowRain.cpp.patch",
+      "prerequisite": "new owned source; existing host dependencies required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "856ffc9a3625c1663f7d50597f77d1f499f8fbdd17ec8237d4efdc22781a37e5",
+      "local_complete_sha256": "856ffc9a3625c1663f7d50597f77d1f499f8fbdd17ec8237d4efdc22781a37e5",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "patch": "patches/090-BowWeaponComponent.cpp.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "base_sha256": "b66b746f1d379bdc8390665eda86ccca1f77fe9a1951db805886a1b1c1e88628",
+      "result_sha256": "6cffc7c3415181f5875812779136b49da7cf349709996791f3f9b80fd680baa4",
+      "local_complete_sha256": "4d261f13bae166cccc9ce599c7f54d6cfec9efe6c804e15725e724f3ec7ee866",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "patch": "patches/091-BowWeaponComponent.h.patch",
+      "prerequisite": "SourceAssets/MagicArrowRain20261026/Before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "base_sha256": "6eab215e7c64473142624f2c2493a5dd9591bb27257fb1a393db462f8be50d65",
+      "result_sha256": "2830938e7075f4355648af258393dae04ec1cd07ab78268d11913f8811648df5",
+      "local_complete_sha256": "99c5ad4835415ae12080211d2e0df9a3c03aa8583ceda6b3030466cc806b12a2",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMECharacter.h",
+      "patch": "patches/092-FPSGAMECharacter.h.patch",
+      "prerequisite": "HEAD with elemental wheel declaration",
+      "base_sha256": "f1e091ce71f975e6ffa26b0cf63f81ad7dccd9f543d4b08ec23122deead8ce54",
+      "result_sha256": "fec93c6904871b342940b81192b9b90b33162cf0c877b3f8240c5ce96f89e4f4",
+      "local_complete_sha256": "e10080e61c0f294b1c4dedb280c35b8a9813b9e9dda008169b4be67ee70138a8",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+      "patch": "patches/094-CombatStatusFormula.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "e3f1687e926151dca29b7dbe30f4bc0d8a940694ad7a5be51c2f2c77c55e2ee3",
+      "result_sha256": "45a6fb83886cb62a308c0fd30f91d9805b14e78d9bc74d5e749908c8cc6c50b2",
+      "local_complete_sha256": "2c9d4b2b5ef47df381b60599719b410a73e94269d8804315279dddb5e6117079",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Monsters/MantisM27Monster.h",
+      "patch": "patches/095-MantisM27Monster.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "c77f04a429835eba407b2fa5126e6c65b089770b4602127c1add31f72ea069a7",
+      "result_sha256": "ab9fb57958609eb7f55782d45fcae2782cdacde4a99857fa25cd1c3963a20993",
+      "local_complete_sha256": "ab9fb57958609eb7f55782d45fcae2782cdacde4a99857fa25cd1c3963a20993",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "patch": "patches/096-ColdSteelPlayerState.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "76a27d5d862e6b8198ac358e226328bc277442f1a05bb3dd05de67a79b11e2b9",
+      "result_sha256": "2f69bd1851727177727b54f12172a2a422733504872cb2dac9e7fe37dd39c0ec",
+      "local_complete_sha256": "943cf3524500e0e386538ec2c594e3bb3f6c99c8b32f8f774ad6d16fbe5a6b31",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp",
+      "patch": "patches/097-ColdSteelAdditionalMasteries.cpp.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "d2f3b34c947deac59b484cd8b5a42b13353763b1191fab75e96cc415da437268",
+      "result_sha256": "f6ca6d4e5a2a7040ee1522faa7f07a1d275608bf6bfe7f19ceac63e10484a603",
+      "local_complete_sha256": "9730baeb43b4532bc586423fb5d66585e7bccb5942c6fd24acdbdb4382bd5a86",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelQuickSlot.h",
+      "patch": "patches/099-ColdSteelQuickSlot.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "f0ab54bff3d37aa9741b989375852fb0be4fb1d7810b08854d9d257d16d9eca3",
+      "result_sha256": "f5127b3b4c7545a0bccfefb5c1190836b674b62cf25d8f5ccfd75a2de66f128d",
+      "local_complete_sha256": "f5127b3b4c7545a0bccfefb5c1190836b674b62cf25d8f5ccfd75a2de66f128d",
+      "publication": "manual integration; never overwrite current working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+      "patch": "patches/100-ColdSteelUIStyle.h.patch",
+      "prerequisite": "HEAD",
+      "base_sha256": "38855296be77eb1b3067a13e5e445241b1e2dad5443142582a2e458faa61670d",
+      "result_sha256": "b1b9d2b405178cd94146dbecddfdef6324f4d5918a9dea740538614f0403376e",
+      "local_complete_sha256": "bcb5c47eee51c5169b8bc21e077a44213518ff8c5f836f5859f4b7c6361ae68d",
+      "publication": "manual integration; never overwrite current working source"
+    }
+  ]
+}

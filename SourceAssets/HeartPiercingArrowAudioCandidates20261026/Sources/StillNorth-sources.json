@@ -1,0 +1,36 @@
+{
+  "author": "Ben Jaszczak and Brian Nelson / Still North Media",
+  "license": "CC0-1.0",
+  "github_index": "https://github.com/PanderMusubi/sound-effects-library-weapons",
+  "mirror_page": "https://opengameart.org/content/medieval-sound-effects-weapon-textures",
+  "original_permission_page": "https://web.archive.org/web/20220331020630/https://www.stillnorthmedia.com/libraries",
+  "archive_url": "https://opengameart.org/sites/default/files/medieval_sfx_textures_1_of_2.7z",
+  "archive_sha256": "b5e2b2c86d811d983d15dbf8453df6a25275a2a0dc4e88e0dc5e1cb3046fd4ae",
+  "files": [
+    {
+      "file": "Arrow Fletching.wav",
+      "bytes": 17953924,
+      "sha256": "d19db022f47e4d038b09ac68a9f43b1468bd831b14419219bf6b32cea93a7d9d"
+    },
+    {
+      "file": "English Longbow Draw.wav",
+      "bytes": 16315012,
+      "sha256": "bba988c01dfe839aff995b6b05d8d432eeb339bd9761cf92be7321bc733f3bee"
+    },
+    {
+      "file": "English Longbow Nock Arrow.wav",
+      "bytes": 3758212,
+      "sha256": "6db46e24f26ba2555049d1d9cc8d57a1fd217abfafa89a3048bb38c9ebb911d5"
+    },
+    {
+      "file": "English Longbow Set Arrow.wav",
+      "bytes": 2252932,
+      "sha256": "2d46ee38cfddf8f92faadbef971ed9913b640cdd73a1b721ffe7ec127cbf7fb0"
+    },
+    {
+      "file": "English Longbow Shoot.wav",
+      "bytes": 2305156,
+      "sha256": "c25684ccdab3eb13f17a0ffa637fbd175659d092665f16c0bce8510d46c4fbee"
+    }
+  ]
+}

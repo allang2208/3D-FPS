@@ -1,0 +1,25 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/BowSkillLifecycle.cpp
+@@ -0,0 +1,22 @@
++#include "BowSkillLifecycle.h"
++#include "ElementalArrowBurst.h"
++#include "FPSMagicArrowRain.h"
++#include "FPSMagicArrowRainComponent.h"
++#include "FPSElementalArrowComponent.h"
++#include "FPSIlluminationArrowComponent.h"
++#include "EngineUtils.h"
++#include "GameFramework/Pawn.h"
++
++void BowSkillLifecycle::FinishForRemoval(APawn* Pawn)
++{
++    if(!Pawn||!Pawn->HasAuthority())return;
++    if(auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>())Rain->FinishForRemoval();
++    if(auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>())Element->CancelFromBow();
++    // No outstanding effect may add rewards after the disconnect/travel snapshot.
++    for(TActorIterator<AElementalArrowBurst> It(Pawn->GetWorld());It;++It)
++        if(It->GetInstigator()==Pawn)It->FinishForRemoval();
++    for(TActorIterator<AFPSMagicArrowRain> It(Pawn->GetWorld());It;++It)
++        if(It->GetInstigator()==Pawn)It->Destroy();
++    if(auto* Light=Pawn->FindComponentByClass<UFPSIlluminationArrowComponent>())
++    {Light->CancelFromBow();Light->FlushTraining();}
++}

@@ -1,0 +1,35 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ElementalArrowVisual.h
+@@ -0,0 +1,32 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "ElementalArrowTypes.h"
++#include "ElementalArrowVisual.generated.h"
++class UNiagaraComponent;
++class USplineComponent;
++class UStaticMeshComponent;
++struct FStreamableHandle;
++
++/** Existing elemental assets, fitted to the real held/flying arrow endpoints. */
++UCLASS()
++class FPSGAME_API UElementalArrowVisual : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    void Update(EArrowElement Element,const FVector& Tail,const FVector& Tip,float Delta,bool bFlying,bool bWorldPresentation=false);
++    void Clear();
++protected:
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++private:
++    EArrowElement Current=EArrowElement::None;
++    UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> Effects;
++    UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> Shards;
++    UPROPERTY(Transient) TArray<TObjectPtr<USplineComponent>> Paths;
++    UPROPERTY(Transient) TArray<TObjectPtr<UObject>> Assets;
++    TSharedPtr<FStreamableHandle> Load;
++    FVector Previous=FVector::ZeroVector,Wind=FVector::ZeroVector;
++    float Age=0,EnvironmentAge=0,FluidDetail=1;
++    bool bReady=false,bBuilt=false;
++    void Build(const FVector& Tail,const FVector& Tip);
++};

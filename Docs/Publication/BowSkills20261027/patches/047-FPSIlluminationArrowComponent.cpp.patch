@@ -1,0 +1,169 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/FPSIlluminationArrowComponent.cpp
+@@ -0,0 +1,166 @@
++#include "FPSIlluminationArrowComponent.h"
++#include "BowHeldMagicVisual.h"
++#include "IlluminationArrowVisual.h"
++#include "IlluminationMarkComponent.h"
++#include "FPSElementalArrowComponent.h"
++#include "FPSMagicArrowRainComponent.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../FPSGAMECharacter.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Monsters/BoundCongregateCaptureComponent.h"
++#include "../Combat/RangedAttackQuery.h"
++#include "Camera/CameraComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/World.h"
++#include "Materials/MaterialInterface.h"
++#include "Framework/Application/SlateApplication.h"
++
++UFPSIlluminationArrowComponent::UFPSIlluminationArrowComponent()
++{PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;SetIsReplicatedByDefault(true);}
++UColdSteelStatusModel* UFPSIlluminationArrowComponent::Model() const{return ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner()));}
++UBowWeaponComponent* UFPSIlluminationArrowComponent::Bow() const{return GetOwner()->FindComponentByClass<UBowWeaponComponent>();}
++void UFPSIlluminationArrowComponent::BeginPlay()
++{
++    Super::BeginPlay();if(auto* B=Bow())AddTickPrerequisiteComponent(B);
++    PreparePresentation();
++}
++void UFPSIlluminationArrowComponent::PreparePresentation()
++{
++    if(Visual)return;
++    auto* P=Cast<AFPSGAMECharacter>(GetOwner());if(!P||!P->IsLocallyControlled()||GetNetMode()==NM_DedicatedServer)return;
++    Visual=NewObject<UIlluminationArrowVisual>(GetOwner());Visual->RegisterComponent();
++    AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(IlluminationArrow::Outline),FStreamableDelegate::CreateWeakLambda(this,[this]
++    {
++        Outline=Cast<UMaterialInterface>(FSoftObjectPath(IlluminationArrow::Outline).ResolveObject());
++        if(auto* C=Cast<AFPSGAMECharacter>(GetOwner());Outline&&C&&C->FirstPersonCamera)C->FirstPersonCamera->AddOrUpdateBlendable(Outline,0.f);
++    }));
++}
++void UFPSIlluminationArrowComponent::EndPlay(const EEndPlayReason::Type Reason)
++{
++    FlushTraining();if(AssetLoad)AssetLoad->CancelHandle();if(Visual)Visual->DestroyComponent();
++    if(auto* C=Cast<AFPSGAMECharacter>(GetOwner());Outline&&C&&C->FirstPersonCamera)C->FirstPersonCamera->RemoveBlendable(Outline);
++    Super::EndPlay(Reason);
++}
++bool UFPSIlluminationArrowComponent::OtherArrowPrepared() const
++{
++    const auto* E=GetOwner()->FindComponentByClass<UFPSElementalArrowComponent>();
++    const auto* R=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();
++    return (E&&(E->IsPrepared()||E->IsPending()))||(R&&(R->IsPrepared()||R->IsPending()));
++}
++bool UFPSIlluminationArrowComponent::CanContinue() const
++{
++    const auto* P=Cast<AFPSGAMECharacter>(GetOwner());const auto* M=Model();const auto* Item=M?M->ActiveBow():nullptr;
++    const auto* H=P?P->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    if(!P||!Item||!H||H->IsDead()||(!Weapon.IsEmpty()&&Item->InstanceId!=Weapon)||P->IsTraversing()||P->IsSprinting()
++        ||P->IsCastBlockingLeftHandAction()||UBoundCongregateCaptureComponent::IsCaptured(P))return false;
++    if(P->IsLocallyControlled())
++    {
++        const auto* PC=Cast<APlayerController>(P->GetController());
++        if(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()||P->IsChoosingAmmo()
++            ||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||(FSlateApplication::IsInitialized()&&!FSlateApplication::Get().IsActive()))return false;
++    }
++    return true;
++}
++void UFPSIlluminationArrowComponent::Feedback(const FString& Message)
++{Notice=Message;NoticeUntil=GetWorld()->GetTimeSeconds()+2.;if(auto* B=Bow())B->ShowFeedback(Message);}
++bool UFPSIlluminationArrowComponent::Trigger()
++{
++    if(IsPending())return false;
++    if(bPrepared){CancelFromBow();if(auto* B=Bow())B->CancelAction(false);return true;}
++    if(const auto* P=Cast<APawn>(GetOwner()))if(const auto* PS=P->GetPlayerState<AColdSteelPlayerState>();PS&&PS->InventoryRequestPending())return false;
++    auto* M=Model();auto* B=Bow();FString Why;
++    if(!M||!B||!M->CanPrepareIlluminationArrow(Why)){Feedback(Why.IsEmpty()?TEXT("需要装备弓"):Why);return false;}
++    Weapon=M->ActiveBow()->InstanceId;
++    if(OtherArrowPrepared()){Feedback(TEXT("请先取消当前魔法箭"));return false;}
++    if(!CanContinue()||B->GetStage()!=EBowStage::Ready){Feedback(TEXT("请先完成当前动作"));return false;}
++    const auto* P=Cast<AFPSGAMECharacter>(GetOwner());
++    if(B->ArrowsInPouch()<1&&!P->HasInfiniteReserveAmmoFor(M->AmmoDefinitionFor(*M->ActiveBow())))
++    {Feedback(TEXT("箭袋里没有可用的箭"));return false;}
++    ActivePreparationId=FGuid::NewGuid();bWaiting=true;ServerPrepare(ActivePreparationId);return true;
++}
++void UFPSIlluminationArrowComponent::ServerPrepare_Implementation(FGuid PreparationId)
++{
++    if(!PreparationId.IsValid())return;
++    ServerPreparationId=PreparationId;bServerPrepared=false;
++    auto* M=Model();FString Why;
++    if(!M||!M->CanPrepareIlluminationArrow(Why)){ClientPrepared(PreparationId,false,Why);return;}
++    Weapon=M->ActiveBow()->InstanceId;
++    if(!CanContinue()||OtherArrowPrepared()){ClientPrepared(PreparationId,false,TEXT("当前无法准备照明箭"));return;}
++    const auto* P=Cast<AFPSGAMECharacter>(GetOwner());const FString Ammo=M->AmmoDefinitionFor(*M->ActiveBow());
++    if(!P||(M->PouchCount(Ammo)<1&&!P->HasInfiniteReserveAmmoFor(Ammo))){ClientPrepared(PreparationId,false,TEXT("箭支不足"));return;}
++    bServerPrepared=true;ClientPrepared(PreparationId,true,FString());
++}
++void UFPSIlluminationArrowComponent::ClientPrepared_Implementation(FGuid PreparationId,bool Accepted,const FString& Reason)
++{
++    if(PreparationId!=ActivePreparationId||!bWaiting||bCancelPending)return;bWaiting=false;
++    if(!Accepted){bPrepared=false;Feedback(Reason);return;}
++    bPrepared=true;
++    if(!CanContinue()||!Bow()||Bow()->GetStage()!=EBowStage::Ready){CancelFromBow();return;}
++    Notice.Reset();Bow()->SetTriggerHeld(false);Bow()->BeginNock();
++}
++void UFPSIlluminationArrowComponent::CancelFromBow()
++{
++    if(bShotReplyPending||(!bPrepared&&!bWaiting&&!bServerPrepared))return;
++    bPrepared=bWaiting=false;bCancelPending=true;if(Visual)Visual->Clear();
++    ServerCancel(GetOwner()->HasAuthority()?ServerPreparationId:ActivePreparationId);
++}
++void UFPSIlluminationArrowComponent::ServerCancel_Implementation(FGuid PreparationId)
++{if(PreparationId==ServerPreparationId)bServerPrepared=bCancelPending=false;ClientCleared(PreparationId);}
++void UFPSIlluminationArrowComponent::ClientCleared_Implementation(FGuid PreparationId)
++{if(PreparationId!=ActivePreparationId)return;bPrepared=bWaiting=bCancelPending=false;if(Visual)Visual->Clear();}
++void UFPSIlluminationArrowComponent::PredictRelease(){bShotReplyPending=true;bPrepared=false;if(Visual)Visual->Clear();}
++void UFPSIlluminationArrowComponent::ResolveShotReply()
++{if(!bShotReplyPending)return;ClientCleared_Implementation(ActivePreparationId);bShotReplyPending=false;}
++void UFPSIlluminationArrowComponent::ShotCommitted(){bServerPrepared=false;ClientCleared(ServerPreparationId);}
++bool UFPSIlluminationArrowComponent::BuildShot(bool Requested,FIlluminationArrowCast& Out,FString& Reason) const
++{
++    if(!Requested){if(bServerPrepared){Reason=TEXT("照明箭准备状态不同步");return false;}return true;}
++    auto* M=Model();if(!bServerPrepared||!CanContinue()||OtherArrowPrepared()||!M){Reason=TEXT("照明箭准备已失效");return false;}
++    if(!M->CanPrepareIlluminationArrow(Reason))return false;
++    Out=M->IlluminationArrowStats();Out.Id=FGuid::NewGuid();return true;
++}
++FString UFPSIlluminationArrowComponent::StatusText() const
++{
++    if(GetWorld()->GetTimeSeconds()<NoticeUntil)return Notice;
++    if(IsPending())return TEXT("同步中");return bPrepared?TEXT("照明箭 · 已搭箭"):TEXT("标记 / 显形");
++}
++void UFPSIlluminationArrowComponent::RegisterMark(const FIlluminationArrowCast& Cast,double EndsAt)
++{
++    if(!GetOwner()->HasAuthority())return;
++    TrainingModel=Model();
++    auto& Batch=Training.FindOrAdd(Cast.Id);Batch.EndsAt=FMath::Max(Batch.EndsAt,EndsAt);
++}
++void UFPSIlluminationArrowComponent::RecordMarkedKill(FGuid CastId,AActor* Target)
++{
++    if(!GetOwner()->HasAuthority()||!Target||Target->ActorHasTag(TEXT("Summoned"))||Target->ActorHasTag(TEXT("NoSkillTraining"))
++        ||RangedAttackQuery::IsFriendlyUnit(GetOwner(),Target))return;
++    auto* Batch=Training.Find(CastId);auto* M=Model();
++    if(!Batch||!M||GetWorld()->GetTimeSeconds()>Batch->EndsAt||Batch->Targets.Contains(Target))return;
++    Batch->Targets.Add(Target);++Batch->Kills;const auto& D=M->MasteryDefinition(TEXT("illuminationArrow"));const auto& T=D.IlluminationArrow;
++    PendingExperience+=D.KillExperience;
++    PendingExperience+=Batch->Kills==3?T.ThreeKillExperience:Batch->Kills==5?T.FiveKillExperience:Batch->Kills==7?T.SevenKillExperience:0;
++}
++void UFPSIlluminationArrowComponent::FlushTraining()
++{
++    // Defer until the damage caller has finished its own profile transaction.
++    if(PendingExperience>0)if(auto* M=TrainingModel.Get()){const int32 XP=PendingExperience;PendingExperience=0;M->TrainIlluminationArrow(XP);}
++}
++void UFPSIlluminationArrowComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++    Super::TickComponent(Delta,Type,Tick);PreparePresentation();FlushTraining();
++    const bool ShowOutline=UIlluminationMarkComponent::HasPresentation(GetWorld());
++    if(Outline&&ShowOutline!=bOutlineEnabled)
++    {
++        bOutlineEnabled=ShowOutline;
++        if(auto* C=Cast<AFPSGAMECharacter>(GetOwner());C&&C->FirstPersonCamera)C->FirstPersonCamera->AddOrUpdateBlendable(Outline,bOutlineEnabled?1.f:0.f);
++    }
++    const double Now=GetWorld()->GetTimeSeconds();
++    for(auto It=Training.CreateIterator();It;++It)if(It.Value().EndsAt<Now)It.RemoveCurrent();
++    if((IsPrepared()||IsPending())&&!CanContinue()){CancelFromBow();return;}
++    if(Visual){FVector Tail,Tip;if(bPrepared&&UBowHeldMagicVisual::ShowFirstPerson(Cast<APawn>(GetOwner()))&&Bow()&&Bow()->GetMagicArrowEndpoints(Tail,Tip))Visual->Update(Tail,Tip,Delta,false);else Visual->Clear();}
++}

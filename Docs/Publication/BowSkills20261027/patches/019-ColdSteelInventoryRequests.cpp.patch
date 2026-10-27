@@ -1,0 +1,59 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -8,6 +8,8 @@
+ #include "../UI/ColdSteelPickup.h"
+ #include "../UI/ColdSteelWarehouseChest.h"
+ #include "../Weapons/Bow/BowArrow.h"
++#include "../Skills/FPSElementalArrowComponent.h"
++#include "../Skills/FPSIlluminationArrowComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelWorldInteraction.h"
+@@ -178,6 +180,15 @@
+         default:Reason=TEXT("未知物品操作");break;
+         }
+     }
++    if(!Success&&Request.Action==EColdSteelInventoryAction::BowShot&&Pawn&&Request.Pawn==Pawn)
++    {
++        // General inventory validation can reject before ExecuteBowShot is reached.
++        // Retire the same pawn's preparation and draw on every failed shot.
++        if(Request.bIlluminationArrow)if(auto* Light=Pawn->FindComponentByClass<UFPSIlluminationArrowComponent>())Light->ShotCommitted();
++        if(Request.ArrowElement!=EArrowElement::None)if(auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>())Element->ShotRejected();
++        BowDrawStartedAt=-1.;BowDrawPawn.Reset();BowDrawWeapon.Reset();
++        ClientClearBowPerfectSpeedBonus();
++    }
+     if(Reason.IsEmpty())Reason=TEXT("物品已变化或当前无法使用");
+     const auto After=Model?Model->Snapshot():Before;
+     QueueInventoryReply(Request,Success,Reason,Before,After);
+@@ -222,6 +233,18 @@
+             if(!After.AmmoPouch.Contains(Pair.Key)&&Pair.Value)Reply->PouchDelta.Add(Pair.Key,-Pair.Value);
+         Reply->bResourcesChanged=Request.Action==EColdSteelInventoryAction::Consume;
+         Reply->ManaRestored=FMath::Max(0.f,After.Mana-Before.Mana);
++        if(Request.Action==EColdSteelInventoryAction::BowShot&&Request.bIlluminationArrow)
++        {
++            Reply->bIlluminationArrow=true;Reply->ElementManaSpent=FMath::Max(0.f,Before.Mana-After.Mana);
++            Reply->ElementCooldown=After.IlluminationArrowCooldownDuration;Reply->ElementCooldownEnd=GetWorld()->GetTimeSeconds()+After.IlluminationArrowCooldown;
++        }
++        if(Request.Action==EColdSteelInventoryAction::BowShot&&ElementalArrow::IsElement(Request.ArrowElement))
++        {
++            Reply->ElementManaSpent=FMath::Max(0.f,Before.Mana-After.Mana);Reply->ArrowElement=Request.ArrowElement;
++            Reply->ElementCooldown=Request.ArrowElement==EArrowElement::Fire?After.FireballCooldownDuration:Request.ArrowElement==EArrowElement::Ice?After.IceSpikeCooldownDuration:After.LightningCooldownDuration;
++            const float Remaining=Request.ArrowElement==EArrowElement::Fire?After.FireballCooldown:Request.ArrowElement==EArrowElement::Ice?After.IceSpikeCooldown:After.LightningCooldown;
++            Reply->ElementCooldownEnd=GetWorld()->GetTimeSeconds()+Remaining;
++        }
+         if(Request.Action==EColdSteelInventoryAction::BowShot||Request.Action==EColdSteelInventoryAction::Harvest)Reply->StaminaSpent=FMath::Max(0.f,Before.Stamina-After.Stamina);
+         Reply->bEquipmentChanged=Before.ActiveWeaponSlot!=After.ActiveWeaponSlot||Before.ActiveProductionTool!=After.ActiveProductionTool;
+         Reply->ActiveWeaponSlot=After.ActiveWeaponSlot;Reply->ActiveProductionTool=After.ActiveProductionTool;
+@@ -297,6 +320,12 @@
+         Model->PostNotice(TEXT("联机物品操作"),Applied?Reply->Message:TEXT("结果正在重新同步"));
+     }
+     if(Decoded&&Reply->bSuccess)AcknowledgeInventoryProfile();else {bHasLastSent=false;HeartbeatTimer=0.f;}
++    if(PendingInventoryRequest.Action==EColdSteelInventoryAction::BowShot)
++        if(auto* ShotPawn=InventoryRequestPawn.Get())
++        {
++            if(PendingInventoryRequest.bIlluminationArrow)if(auto* Light=ShotPawn->FindComponentByClass<UFPSIlluminationArrowComponent>())Light->ResolveShotReply();
++            if(PendingInventoryRequest.ArrowElement!=EArrowElement::None)if(auto* Element=ShotPawn->FindComponentByClass<UFPSElementalArrowComponent>())Element->ResolveShotReply();
++        }
+     InventoryRequestPawn.Reset();
+ }
+ void AColdSteelPlayerState::ClientContainerInvalidated_Implementation(AActor* Target)

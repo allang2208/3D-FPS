@@ -1,0 +1,201 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ElementalArrowBurst.cpp
+@@ -0,0 +1,198 @@
++#include "ElementalArrowBurst.h"
++#include "FPSLightningArc.h"
++#include "FPSFireballProjectile.h"
++#include "MagicOcclusion.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Combat/RangedAttackQuery.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "../WorldGeneration/FluidPresentationSubsystem.h"
++#include "Components/StaticMeshComponent.h"
++#include "Components/PointLightComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/OverlapResult.h"
++#include "Engine/World.h"
++#include "Engine/StaticMesh.h"
++#include "GameFramework/GameStateBase.h"
++#include "Materials/MaterialInterface.h"
++#include "Particles/ParticleSystem.h"
++#include "Sound/SoundBase.h"
++#include "NiagaraComponent.h"
++#include "NiagaraFunctionLibrary.h"
++#include "NiagaraSystem.h"
++#include "Kismet/GameplayStatics.h"
++#include "Net/UnrealNetwork.h"
++
++namespace
++{
++bool Enemy(AActor* Target,APawn* Shooter)
++{const auto* C=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
++ return Target!=Shooter&&C&&!C->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(Shooter,Target);}
++template<class T>T* Asset(const TCHAR* P){return Cast<T>(FSoftObjectPath(P).ResolveObject());}
++}
++AElementalArrowBurst::AElementalArrowBurst()
++{
++    bReplicates=true;NetUpdateFrequency=30;PrimaryActorTick.bCanEverTick=true;
++    SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("BurstRoot")));
++}
++void AElementalArrowBurst::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME(AElementalArrowBurst,Element);DOREPLIFETIME(AElementalArrowBurst,Origin);DOREPLIFETIME(AElementalArrowBurst,Normal);
++    DOREPLIFETIME(AElementalArrowBurst,Radius);DOREPLIFETIME(AElementalArrowBurst,Speed);DOREPLIFETIME(AElementalArrowBurst,StartedAt);DOREPLIFETIME(AElementalArrowBurst,Rays);
++}
++void AElementalArrowBurst::Launch(APawn* Shooter,const FElementalArrowCast& Snapshot,const FHitResult& Hit)
++{
++    if(!HasAuthority()||!Shooter)return;
++    SetInstigator(Shooter);SetOwner(Shooter);Model=ColdSteelAuthority::ForPawn(Shooter);Cast=Snapshot;
++    if(!Model.IsValid()){Destroy();return;}
++    Element=Snapshot.Element;Origin=Hit.ImpactPoint;Normal=Hit.ImpactNormal;Radius=Snapshot.Radius;
++    StartedAt=GetWorld()->GetTimeSeconds();SeedTarget=Hit.GetActor();SetActorLocation(Origin);
++    if(Element==EArrowElement::Fire)
++    {Model->ApplyFireballExplosion(Shooter,FVector(Origin)+FVector(Normal)*4,Snapshot.Fire,&Hit,true);SetLifeSpan(1.5f);return;}
++    const FVector Start=FVector(Origin)+FVector(Normal)*4;
++    FCollisionQueryParams Q(SCENE_QUERY_STAT(ElementalArrowTargets),true,Shooter);Q.AddIgnoredActor(this);
++    TArray<FOverlapResult> Overlaps;GetWorld()->OverlapMultiByObjectType(Overlaps,Start,FQuat::Identity,FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(Radius),Q);
++    TArray<AActor*> Targets;for(const auto& O:Overlaps)if(Enemy(O.GetActor(),Shooter))Targets.AddUnique(O.GetActor());
++    for(AActor* Target:Targets)Q.AddIgnoredActor(Target);if(SeedTarget.IsValid())Q.AddIgnoredActor(SeedTarget.Get());
++    FLightningRewards LightningRewards;
++    if(Enemy(Hit.GetActor(),Shooter))
++    {
++        HitTargets.Add(Hit.GetActor());
++        if(Element==EArrowElement::Ice)Model->ApplyIceSpikeHit(Shooter,Hit,Snapshot.Ice,Rewards);
++        else Model->ApplyLightningHit(Shooter,Hit.GetActor(),Start,Snapshot.Lightning,Snapshot.Lightning.Damage,LightningRewards,true,&Hit);
++    }
++    Speed=FMath::Max(600.f,Snapshot.Ice.Speed);
++    for(AActor* Target:Targets)
++    {
++        if(Target==Hit.GetActor()||!Enemy(Target,Shooter))continue;
++        MagicOcclusion::FBodySamples Samples;MagicOcclusion::BodySamples(Target,Start,Samples);
++        FVector End=FVector::ZeroVector;bool Exposed=false;
++        for(const FVector& Sample:Samples)
++        {
++            if(FVector::DistSquared(Start,Sample)>FMath::Square(Radius))continue;
++            FHitResult Cover;if(!MagicOcclusion::TraceBlocker(GetWorld(),Start,Sample,Q,Cover,Shooter)){End=Sample;Exposed=true;break;}
++        }
++        if(!Exposed)continue;
++        if(Element==EArrowElement::Ice)
++        {
++            FElementalIceRay R;R.Direction=(End-Start).GetSafeNormal();R.Range=FVector::Distance(Start,End)+30.f;Rays.Add(R);
++        }
++        else
++        {
++            FActorSpawnParameters P;P.Owner=Shooter;P.Instigator=Shooter;
++            if(auto* Arc=GetWorld()->SpawnActor<AFPSLightningArc>(Start,FRotator::ZeroRotator,P))
++                Arc->InitializeArc(Asset<UNiagaraSystem>(ElementalArrow::Chain),Start,End,Snapshot.Lightning,.4f,false);
++            Model->ApplyLightningHit(Shooter,Target,Start,Snapshot.Lightning,Snapshot.Lightning.Damage,LightningRewards,true);
++        }
++    }
++    if(Element==EArrowElement::Lightning){Model->FinishLightningCast(LightningRewards,true);bFinished=true;SetLifeSpan(1.5f);}
++    else if(Rays.IsEmpty()){FinishRewards();SetLifeSpan(1.5f);}
++    else SetLifeSpan(FMath::Max(2.f,Radius/Speed+2.f));
++    ForceNetUpdate();
++}
++void AElementalArrowBurst::IceImpact(const FVector& Position,const FVector& Up,bool bSound)
++{
++    if(auto* P=Asset<UParticleSystem>(ElementalArrow::IceImpact))UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),P,Position,Up.Rotation(),FVector(.6f));
++    if(bSound)if(auto* S=Asset<USoundBase>(ElementalArrow::IceSound))UGameplayStatics::PlaySoundAtLocation(this,S,Position,.45f);
++}
++void AElementalArrowBurst::Present()
++{
++    if(GetNetMode()==NM_DedicatedServer||!ElementalArrow::IsElement(Element))return;
++    if(!bRequestedAssets)
++    {
++        bRequestedAssets=true;const auto Paths=ElementalArrow::Assets();bool Ready=true;for(const auto& P:Paths)Ready&=P.ResolveObject()!=nullptr;
++        auto Retain=[this,Paths]{for(const auto& P:Paths)if(auto* A=P.ResolveObject())Assets.Add(A);bAssetsReady=true;};
++        if(Ready)Retain();else Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,Retain));
++    }
++    if(!bAssetsReady)return;
++    if(!bPresented)
++    {
++        bPresented=true;
++        if(Element==EArrowElement::Fire)
++        {
++            const float Scale=Radius/210.375f;const FRotator Rotation=FRotationMatrix::MakeFromZ(Normal).Rotator();
++            if(auto* FX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,Asset<UNiagaraSystem>(ElementalArrow::Explosion),FVector(Origin)+FVector(Normal)*8,Rotation,FVector(Scale*.765f),true,false,ENCPoolMethod::AutoRelease))
++            {
++                FX->SetVariableFloat(TEXT("User.SurfaceHit"),1);FX->SetVariableVec3(TEXT("User.LocalUp"),Rotation.UnrotateVector(FVector::UpVector));
++                FX->SetVariableFloat(TEXT("User.ImpactGrowth"),Scale-1);
++                if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,9,false);
++                FX->Activate(true);
++            }
++            if(auto* Wave=GetWorld()->SpawnActor<AFireballShockwave>(FVector(Origin)+FVector(Normal)*4,Rotation))Wave->Setup(Asset<UMaterialInterface>(ElementalArrow::Wave),Radius,true);
++            Flash=NewObject<UPointLightComponent>(this);AddInstanceComponent(Flash);Flash->SetCastShadows(false);Flash->SetVolumetricScatteringIntensity(0);
++            Flash->SetLightColor(FLinearColor(1,.35f,.08f));Flash->SetAttenuationRadius(Radius*1.7f);Flash->RegisterComponent();Flash->SetWorldLocation(FVector(Origin)+FVector(Normal)*25);
++            if(auto* S=Asset<USoundBase>(ElementalArrow::FireSound))UGameplayStatics::PlaySoundAtLocation(this,S,Origin,.72f);
++        }
++        else if(Element==EArrowElement::Ice)IceImpact(Origin,Normal,true);
++        else
++        {
++            FActorSpawnParameters P;P.Owner=GetInstigator();P.Instigator=GetInstigator();
++            if(auto* Arc=GetWorld()->SpawnActor<AFPSLightningArc>(Origin,FRotator::ZeroRotator,P))
++            {Arc->SetReplicates(false);FLightningCast C;C.Duration=.18f;C.Fade=.12f;Arc->InitializeArc(Asset<UNiagaraSystem>(ElementalArrow::Chain),FVector(Origin)-FVector::UpVector*40,FVector(Origin)+FVector::UpVector*50,C,.28f,false);}
++        }
++    }
++    while(Meshes.Num()<Rays.Num())
++    {
++        auto* Mesh=NewObject<UStaticMeshComponent>(this);AddInstanceComponent(Mesh);
++        Mesh->SetStaticMesh(Asset<UStaticMesh>(ElementalArrow::Shard));Mesh->SetMaterial(0,Asset<UMaterialInterface>(ElementalArrow::IceMaterial));
++        Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetCanEverAffectNavigation(false);Mesh->SetCastShadow(false);Mesh->RegisterComponent();
++        Mesh->SetWorldScale3D(FVector(.65f));Meshes.Add(Mesh);
++    }
++}
++void AElementalArrowBurst::FinishRewards()
++{if(bFinished)return;bFinished=true;if(Model.IsValid())Model->FinishIceSpikeCast(Rewards,true);}
++void AElementalArrowBurst::FinishForRemoval()
++{
++    if(!HasAuthority())return;
++    if(Element==EArrowElement::Ice)FinishRewards();
++    Destroy();
++}
++void AElementalArrowBurst::Tick(float Delta)
++{
++    Super::Tick(Delta);if(Element==EArrowElement::None)return;
++    const auto* GS=GetWorld()->GetGameState();const double Now=HasAuthority()?GetWorld()->GetTimeSeconds():GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++    const float Age=FMath::Max(0.f,float(Now-StartedAt));
++    if(HasAuthority()&&Element==EArrowElement::Ice&&!bFinished)
++    {
++        const FVector Start=FVector(Origin)+FVector(Normal)*4;bool Active=false;
++        FCollisionQueryParams Q(SCENE_QUERY_STAT(ElementalIceFlight),true,GetInstigator());Q.AddIgnoredActor(this);if(SeedTarget.IsValid())Q.AddIgnoredActor(SeedTarget.Get());
++        for(const auto& T:HitTargets)if(T.IsValid())Q.AddIgnoredActor(T.Get());
++        for(auto& R:Rays)
++        {
++            if(R.EndTime>=0)continue;
++            float Distance=FMath::Min(SimulatedAge*Speed,R.Range),EndDistance=FMath::Min(Age*Speed,R.Range);
++            while(Distance<EndDistance)
++            {
++                const float Next=FMath::Min(Distance+60.f,EndDistance);FHitResult Hit;
++                if(RangedAttackQuery::SweepSingle(GetWorld(),GetInstigator(),Hit,Start+FVector(R.Direction)*Distance,Start+FVector(R.Direction)*Next,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(3.f),Q))
++                {
++                    R.End=Hit.ImpactPoint;R.Normal=Hit.ImpactNormal;R.EndTime=Age;R.bHit=true;
++                    if(auto* Target=Hit.GetActor();Target&&!HitTargets.Contains(Target))
++                    {HitTargets.Add(Target);Q.AddIgnoredActor(Target);if(Model.IsValid())Model->ApplyIceSpikeHit(GetInstigator(),Hit,Cast.Ice,Rewards);}
++                    ForceNetUpdate();break;
++                }
++                Distance=Next;
++            }
++            if(R.EndTime<0&&EndDistance>=R.Range){R.EndTime=Age;R.End=Start+FVector(R.Direction)*R.Range;ForceNetUpdate();}
++            Active|=R.EndTime<0;
++        }
++        SimulatedAge=Age;if(!Active)FinishRewards();
++    }
++    Present();
++    if(Flash)Flash->SetIntensity(18000.f*FMath::Max(0.f,1.f-Age/.24f));
++    for(int32 I=0;I<Meshes.Num()&&I<Rays.Num();++I)
++    {
++        const auto& R=Rays[I];const bool Ended=R.EndTime>=0;
++        Meshes[I]->SetVisibility(!Ended&&Age*Speed<=R.Range);
++        Meshes[I]->SetWorldLocationAndRotation(FVector(Origin)+FVector(Normal)*4+FVector(R.Direction)*FMath::Min(R.Range,Age*Speed),FVector(R.Direction).Rotation());
++        if(Ended&&R.bHit&&!PresentedHits.Contains(I)){PresentedHits.Add(I);IceImpact(R.End,R.Normal,false);}
++    }
++}
++void AElementalArrowBurst::EndPlay(const EEndPlayReason::Type Reason)
++{
++    if(HasAuthority()&&Element==EArrowElement::Ice)FinishRewards();
++    if(Load)Load->CancelHandle();Super::EndPlay(Reason);
++}

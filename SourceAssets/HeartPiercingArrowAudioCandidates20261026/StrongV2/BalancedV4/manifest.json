@@ -1,0 +1,62 @@
+{
+  "candidate": "H",
+  "revision": "BalancedV4",
+  "source_candidates": [
+    {
+      "candidate": "E",
+      "file": "../Singles/E_HeavySnap.wav",
+      "sha256": "531165efe6788cee1b959dcff4bce6acdb9cf5b79c2d57c1903a00ffa15ee74a"
+    },
+    {
+      "candidate": "F",
+      "file": "../Singles/F_PiercingRip.wav",
+      "sha256": "1584b30034464031c2b589dce4112bf0f253f57a65e84edb3f5df430b8cf3706"
+    },
+    {
+      "candidate": "G",
+      "file": "../Singles/G_SiegeBurst.wav",
+      "sha256": "458230fe7471736f73b3f043f5a1ab2c9f1a8d03f7d053bd149983a8a6e1bcf4"
+    }
+  ],
+  "user_request": "Reduce the excessive third sound and include the first two sounds' detail",
+  "layers": [
+    {
+      "source": "E",
+      "highpass_hz": 80,
+      "gain": 1.0,
+      "delay_seconds": 0
+    },
+    {
+      "source": "F",
+      "highpass_hz": 180,
+      "gain": 0.82,
+      "delay_seconds": 0.006,
+      "attack_ramp_seconds": 0.002
+    },
+    {
+      "source": "G",
+      "band_hz": [
+        45,
+        500
+      ],
+      "gain": 0.38,
+      "delay_seconds": 0.002,
+      "fade_start_seconds": 0.065,
+      "fade_end_seconds": 0.24
+    }
+  ],
+  "g_layer_gain_change_db_from_v3": -10.683195113800533,
+  "g_high_air_tail_removed": true,
+  "master": "35 Hz high-pass; no added saturation; 0.5 ms attack; 620-840 ms fade; -3 dBFS sample peak",
+  "master_gain_db": -4.668855857446484,
+  "sample_rate": 48000,
+  "channels": 2,
+  "single_seconds": 0.86,
+  "single": "H_HeartPiercing_BalancedV4.wav",
+  "audition": "H_HeartPiercing_BalancedV4_2x.wav",
+  "audition_repeats": 2,
+  "audition_gap_seconds": 0.85,
+  "license": "CC0-1.0; source credits and license chain in ../README.md",
+  "listening_approved": false,
+  "game_tested": false
+}

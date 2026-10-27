@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
+@@ -35,6 +35,21 @@
+     }
+     const auto* Health=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const bool SameLivingPawn=CurrentPawn.Get()==ExpectedPawn&&Health&&!Health->IsDead();
++    if(SameLivingPawn&&Reply->bIlluminationArrow)
++    {
++        Next.Mana=FMath::Max(0.f,Next.Mana-Reply->ElementManaSpent);const auto* GS=GetWorld()->GetGameState();
++        Next.IlluminationArrowCooldown=FMath::Clamp(float(Reply->ElementCooldownEnd-(GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())),0.f,Reply->ElementCooldown);
++        Next.IlluminationArrowCooldownDuration=Reply->ElementCooldown;
++    }
++    if(SameLivingPawn&&ElementalArrow::IsElement(Reply->ArrowElement))
++    {
++        Next.Mana=FMath::Max(0.f,Next.Mana-Reply->ElementManaSpent);
++        const auto* GS=GetWorld()->GetGameState();
++        const float Remaining=FMath::Clamp(float(Reply->ElementCooldownEnd-(GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())),0.f,Reply->ElementCooldown);
++        if(Reply->ArrowElement==EArrowElement::Fire){Next.FireballCooldown=Remaining;Next.FireballCooldownDuration=Reply->ElementCooldown;}
++        else if(Reply->ArrowElement==EArrowElement::Ice){Next.IceSpikeCooldown=Remaining;Next.IceSpikeCooldownDuration=Reply->ElementCooldown;}
++        else {Next.LightningCooldown=Remaining;Next.LightningCooldownDuration=Reply->ElementCooldown;}
++    }
+     if(Reply->bResourcesChanged&&SameLivingPawn)
+     {Next.Mana=FMath::Min(float(ResourceMaximum(Next,true)),Next.Mana+Reply->ManaRestored);}
+     if(SameLivingPawn&&Reply->StaminaSpent>0.f)

@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -53,6 +53,9 @@
+ #include "Skills/FPSIceSpikeComponent.h"
+ #include "Skills/FPSIceWallComponent.h"
+ #include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
+ #include "Skills/FPSLightningComponent.h"
+ #include "Skills/FPSElectricMagicComponent.h"
+ #include "Weapons/FPSMeleeLightningComponent.h"
+@@ -296,6 +299,9 @@
+     CreateDefaultSubobject<UFPSIceSpikeComponent>(TEXT("IceSpikeSkill"));
+     CreateDefaultSubobject<UFPSIceWallComponent>(TEXT("IceWallSkill"));
+     CreateDefaultSubobject<UFPSBlizzardComponent>(TEXT("BlizzardSkill"));
++    CreateDefaultSubobject<UFPSMagicArrowRainComponent>(TEXT("MagicArrowRainSkill"));
++    CreateDefaultSubobject<UFPSElementalArrowComponent>(TEXT("ElementalArrowSkill"));
++    CreateDefaultSubobject<UFPSIlluminationArrowComponent>(TEXT("IlluminationArrowSkill"));
+     CreateDefaultSubobject<UFPSLightningComponent>(TEXT("LightningSkill"));
+     CreateDefaultSubobject<UFPSElectricMagicComponent>(TEXT("ElectricMagicSkills"));
+     CreateDefaultSubobject<UFPSMeleeLightningComponent>(TEXT("MeleeLightningEnchantment"));

@@ -1,0 +1,34 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/MagicArrowRainTypes.h
+@@ -0,0 +1,31 @@
++#pragma once
++#include "CoreMinimal.h"
++
++struct FMagicArrowRainTuning
++{
++    float ChargeSeconds=1.2f, Radius=400.f, Range=4000.f, BurstHeight=600.f, MinimumHeight=220.f;
++    float ManaCost=20.f, ManaPerSecond=3.f, Cooldown=16.f, SeedSpeed=3500.f;
++    float DamageBase=70.f, DamagePerLevel=8.f;
++    float DexterityBase=21.f, DexterityPerLevel=1.25f, IntelligenceBase=10.5f, IntelligencePerLevel=.625f;
++    int32 ArrowCount=28;
++};
++struct FMagicArrowRainCast : FMagicArrowRainTuning
++{
++    float Damage=0.f, CriticalChance=0.f, CriticalDamageBonus=.5f, MagicDamageBonus=0.f;
++    FVector SurfaceNormal=FVector::UpVector;
++};
++namespace MagicArrowRainTiming
++{
++    inline constexpr float LaunchDelay=.10f, LaunchSpread=.20f;
++    inline constexpr float FallSeconds=.125f; // Twice the previous .25 s volley speed.
++    inline constexpr float DamageDelay=LaunchDelay+LaunchSpread*.5f+FallSeconds;
++    inline constexpr int32 MaxArrows=32; // Matches the batched Niagara impact slots.
++}
++namespace MagicArrowRainAssets
++{
++    inline constexpr const TCHAR* Root=TEXT("/Game/Skills/MagicArrowRain20261026/");
++    inline FString Path(const TCHAR* Name){return FString(Root)+Name+TEXT(".")+Name;}
++    inline const TCHAR* Names[]={TEXT("SM_ArrowRain"),TEXT("M_ArrowRainMetal"),TEXT("M_ArrowRainFlow"),
++        TEXT("M_ArrowRainPreview"),TEXT("NS_ArrowRainBurst"),TEXT("NS_ArrowRainDust"),
++        TEXT("S_ArrowRainRelease"),TEXT("S_ArrowRainBurst"),TEXT("S_ArrowRainImpact"),TEXT("M_ArrowRainTrailV4")};
++}

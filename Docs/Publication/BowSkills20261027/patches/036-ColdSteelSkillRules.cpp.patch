@@ -1,0 +1,150 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -2,6 +2,7 @@
+ #include "../Weapons/AncientSealSeat.h"
+ #include "../Monsters/MonsterCombatComponent.h"
+ #include "FPSLightningHasteComponent.h"
++#include "IlluminationMarkComponent.h"
+ #include "../Monsters/RootCrownRigPreview.h"
+ #include "../Monsters/MonsterCombatComponent.h"
+ #include "../Monsters/HeQueMonster.h"
+@@ -40,6 +41,24 @@
+ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
+ {
+     FColdSteelSkillDefinition D;D.Id=Id;
++    if(Id==TEXT("illuminationArrow"))
++    {
++        D.Name=TEXT("照明箭");D.Icon=TEXT("Skills/illumination_arrow_cold_steel.png");D.MaxLevel=20;
++        D.ExperiencePerLevel=300;D.KillExperience=12;D.HitExperience=0;D.CriticalExperience=0;
++        D.Description=TEXT("弓限定主动技能。搭箭后正常拉弓射击，伤害按普通箭计算；沿途扫描标记敌人，直击标记时间翻倍并留下持续照明。红色轮廓高亮、破除螳螂隐身并加深承伤，兼容节拍与穿心箭。");
++    }
++    if(Id==TEXT("elementalArrow"))
++    {
++        D.Name=TEXT("元素箭");D.Icon=TEXT("Skills/elemental_arrow_fire.png");D.MaxLevel=20;
++        D.ExperiencePerLevel=300;D.HitExperience=4;D.KillExperience=10;D.MultiHitExperience=6;
++        D.Description=TEXT("弓限定主动技能，独立修炼至20级。短按搭箭，长按切换火焰／寒冰／闪电；左键拉弓、松手射击，兼容完美节拍与穿心箭。元素箭等级提升原魔法的伤害调用倍率，原魔法等级和当前属性继续影响伤害。持续拉弓消耗体力与魔法；射出蓝耗按元素箭倍率提高，冷却与对应魔法共用。");
++    }
++    if(Id==TEXT("magicArrowRain"))
++    {
++        D.Name=TEXT("魔法箭雨");D.Icon=TEXT("Skills/magic_arrow_rain_cold_steel.png");
++        D.Description=TEXT("弓限定主动魔法，以敏捷为主、智力为辅。激活后搭上绿色附魔箭，长按左键拉弓并以镜头选择地面范围；满蓄后松手，引导箭在上方空爆并降下一次密集箭雨。保持拉弓持续耗体耗蓝，耗尽收弓，不会自动射出。");
++        D.ExperiencePerLevel=300;D.HitExperience=4;D.KillExperience=10;D.MultiHitExperience=6;
++    }
+     if(Id==TEXT("heartPiercingArrow"))
+     {
+         D.Name=TEXT("穿心箭");D.Icon=TEXT("Skills/heart_piercing_arrow_cold_steel.png");
+@@ -74,6 +93,32 @@
+     O->TryGetStringField(TEXT("name"), D.Name); O->TryGetStringField(TEXT("description"), D.Description);
+     O->TryGetStringField(TEXT("icon"), D.Icon); O->TryGetStringField(TEXT("upgradeSound"), D.UpgradeSound);
+     auto Num = [&](const TCHAR* Key, double Default) { double Value=Default; O->TryGetNumberField(Key,Value); return FMath::IsFinite(Value)?Value:Default; };
++    if(Id==TEXT("illuminationArrow"))
++    {
++        auto& T=D.IlluminationArrow;
++        T.RadiusBase=Num(TEXT("radiusBaseCM"),T.RadiusBase);T.RadiusMax=Num(TEXT("radiusMaxCM"),T.RadiusMax);
++        T.DurationBase=Num(TEXT("durationBase"),T.DurationBase);T.DurationMax=Num(TEXT("durationMax"),T.DurationMax);
++        T.BonusBase=Num(TEXT("damageBonusBase"),T.BonusBase);T.BonusMax=Num(TEXT("damageBonusMax"),T.BonusMax);
++        T.CooldownBase=Num(TEXT("cooldownBase"),T.CooldownBase);T.CooldownMin=Num(TEXT("cooldownMin"),T.CooldownMin);
++        T.ManaCost=Num(TEXT("manaCost"),T.ManaCost);T.ThreeKillExperience=Num(TEXT("threeKillExperience"),T.ThreeKillExperience);
++        T.FiveKillExperience=Num(TEXT("fiveKillExperience"),T.FiveKillExperience);T.SevenKillExperience=Num(TEXT("sevenKillExperience"),T.SevenKillExperience);
++    }
++    if(Id==TEXT("elementalArrow"))
++    {
++        auto& T=D.ElementalArrow;
++        T.FireDamageMultiplier=FMath::Clamp(float(Num(TEXT("fireDamageMultiplier"),T.FireDamageMultiplier)),0.f,20.f);
++        T.IceDamageMultiplier=FMath::Clamp(float(Num(TEXT("iceDamageMultiplier"),T.IceDamageMultiplier)),0.f,20.f);
++        T.LightningDamageMultiplier=FMath::Clamp(float(Num(TEXT("lightningDamageMultiplier"),T.LightningDamageMultiplier)),0.f,20.f);
++        T.FireGrowth=FMath::Clamp(float(Num(TEXT("fireGrowth"),T.FireGrowth)),0.f,2.f);
++        T.FireLateGrowth=FMath::Clamp(float(Num(TEXT("fireLateGrowth"),T.FireLateGrowth)),0.f,2.f);
++        T.ControlGrowth=FMath::Clamp(float(Num(TEXT("controlGrowth"),T.ControlGrowth)),0.f,2.f);
++        T.ControlLateGrowth=FMath::Clamp(float(Num(TEXT("controlLateGrowth"),T.ControlLateGrowth)),0.f,2.f);
++        T.GrowthChangeLevel=FMath::Clamp(int32(Num(TEXT("growthChangeLevel"),T.GrowthChangeLevel)),2,D.MaxLevel);
++        T.ManaCostMultiplier=FMath::Clamp(float(Num(TEXT("manaCostMultiplier"),T.ManaCostMultiplier)),0.f,20.f);
++        T.ManaPerSecond=FMath::Clamp(float(Num(TEXT("manaPerSecond"),T.ManaPerSecond)),0.f,100.f);
++        T.RadiusMultiplier=Num(TEXT("radiusMultiplier"),2);
++        T.ChillSeconds=Num(TEXT("chillSeconds"),5);T.ChillSlow=Num(TEXT("chillSlow"),.3);T.StunSeconds=Num(TEXT("stunSeconds"),1.5);
++    }
+     if(Id==TEXT("heartPiercingArrow"))
+     {
+         auto& T=D.HeartPiercingArrow;
+@@ -84,6 +129,17 @@
+         T.SecondPenetrationLevel=FMath::Clamp(int32(Num(TEXT("secondPenetrationLevel"),8)),1,20);
+         T.ThirdPenetrationLevel=FMath::Clamp(int32(Num(TEXT("thirdPenetrationLevel"),16)),T.SecondPenetrationLevel,20);
+         T.SpeedMultiplier=FMath::Max(1.f,float(Num(TEXT("arrowSpeedMultiplier"),2)));
++    }
++    if(Id==TEXT("magicArrowRain"))
++    {
++        auto& T=D.MagicArrowRain;
++        T.ChargeSeconds=Num(TEXT("chargeSeconds"),1.2);T.Radius=Num(TEXT("radiusCM"),400);T.Range=Num(TEXT("rangeCM"),4000);
++        T.BurstHeight=Num(TEXT("burstHeightCM"),600);T.MinimumHeight=Num(TEXT("minimumHeightCM"),220);
++        T.ManaCost=Num(TEXT("manaCost"),20);T.ManaPerSecond=Num(TEXT("manaPerSecond"),3);T.Cooldown=Num(TEXT("cooldownSeconds"),16);
++        T.SeedSpeed=Num(TEXT("seedSpeedCM"),3500);T.ArrowCount=FMath::Clamp(int32(Num(TEXT("arrowCount"),28)),24,32);
++        T.DamageBase=Num(TEXT("damageBase"),T.DamageBase);T.DamagePerLevel=Num(TEXT("damagePerLevel"),T.DamagePerLevel);
++        T.DexterityBase=Num(TEXT("dexterityBase"),T.DexterityBase);T.DexterityPerLevel=Num(TEXT("dexterityPerLevel"),T.DexterityPerLevel);
++        T.IntelligenceBase=Num(TEXT("intelligenceBase"),T.IntelligenceBase);T.IntelligencePerLevel=Num(TEXT("intelligencePerLevel"),T.IntelligencePerLevel);
+     }
+     if(Id==TEXT("swordUppercut"))
+     {
+@@ -359,19 +415,25 @@
+ }
+ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
+ {
+-    if (P.SkillProgressVersion >= 26) return false;
++    if (P.SkillProgressVersion >= 29) return false;
++    P.Skills.FindOrAdd(TEXT("illuminationArrow"));
++    if(P.SkillProgressVersion==28){P.SkillProgressVersion=29;return true;}
++    P.Skills.FindOrAdd(TEXT("elementalArrow"));
++    if(P.SkillProgressVersion==27){P.SkillProgressVersion=29;return true;}
++    P.Skills.FindOrAdd(TEXT("magicArrowRain"));
++    if(P.SkillProgressVersion==26){P.SkillProgressVersion=29;return true;}
+     P.Skills.FindOrAdd(TEXT("heartPiercingArrow"));
+-    if(P.SkillProgressVersion==25){P.SkillProgressVersion=26;return true;}
++    if(P.SkillProgressVersion==25){P.SkillProgressVersion=29;return true;}
+     P.Skills.FindOrAdd(TEXT("bluntMastery"));
+-    if(P.SkillProgressVersion==24){P.SkillProgressVersion=26;return true;}
++    if(P.SkillProgressVersion==24){P.SkillProgressVersion=29;return true;}
+     P.Skills.FindOrAdd(TEXT("lightningHaste"));P.LightningHasteCooldown=P.LightningHasteCooldownDuration=0;
+-    if(P.SkillProgressVersion==23){P.SkillProgressVersion=26;return true;}
++    if(P.SkillProgressVersion==23){P.SkillProgressVersion=29;return true;}
+     P.Skills.FindOrAdd(TEXT("iceArmor"));P.IceArmorCooldown=P.IceArmorCooldownDuration=0;
+-    if(P.SkillProgressVersion==22){P.SkillProgressVersion=26;return true;}
++    if(P.SkillProgressVersion==22){P.SkillProgressVersion=29;return true;}
+     P.Skills.FindOrAdd(TEXT("dragonBreath"));
+     P.DragonBreathCooldown=P.DragonBreathCooldownDuration=P.DragonBreathReservedMana=0.f;
+     P.bDragonBreathReserved=false;
+-    if(P.SkillProgressVersion==21){P.SkillProgressVersion=26;return true;}
++    if(P.SkillProgressVersion==21){P.SkillProgressVersion=29;return true;}
+     if (P.SkillProgressVersion < 8)
+     {
+         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
+@@ -404,12 +466,21 @@
+     for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))}){P.Skills.FindOrAdd(Id);P.ElectricCooldowns.FindOrAdd(Id);P.ElectricCooldownDurations.FindOrAdd(Id);}
+     P.Skills.FindOrAdd(TEXT("swordUppercut"));
+     P.SwordUppercutCooldown=P.SwordUppercutCooldownDuration=0.f;
+-    P.SkillProgressVersion=26;
++    P.SkillProgressVersion=29;
+     return true;
+ }
+ bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
+ {
+-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>26 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
++    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>29 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
++    if(P.SkillProgressVersion>=29&&(!P.Skills.Contains(TEXT("illuminationArrow"))||!FMath::IsFinite(P.IlluminationArrowCooldown)
++        ||!FMath::IsFinite(P.IlluminationArrowCooldownDuration)||P.IlluminationArrowCooldown<0||P.IlluminationArrowCooldownDuration<P.IlluminationArrowCooldown
++        ||P.IlluminationArrowCooldownDuration>300)){Reason=TEXT("照明箭进度或冷却无效");return false;}
++    if(P.SkillProgressVersion>=28&&!P.Skills.Contains(TEXT("elementalArrow"))){Reason=TEXT("元素箭进度缺失");return false;}
++    if(P.SkillProgressVersion>=27&&(!P.Skills.Contains(TEXT("magicArrowRain"))||!FMath::IsFinite(P.MagicArrowRainCooldown)
++        ||P.MagicArrowRainCooldown<0||!FMath::IsFinite(P.MagicArrowRainCooldownDuration)||P.MagicArrowRainCooldownDuration<P.MagicArrowRainCooldown
++        ||P.MagicArrowRainCooldownDuration>300||!FMath::IsFinite(P.MagicArrowRainReservedMana)||P.MagicArrowRainReservedMana<0
++        ||(!P.bMagicArrowRainReserved&&P.MagicArrowRainReservedMana!=0)))
++    {Reason=TEXT("魔法箭雨进度或资源无效");return false;}
+     if(P.SkillProgressVersion>=26&&!P.Skills.Contains(TEXT("heartPiercingArrow"))){Reason=TEXT("穿心箭进度缺失");return false;}
+     if(P.SkillProgressVersion>=25&&!P.Skills.Contains(TEXT("bluntMastery"))){Reason=TEXT("钝器精通进度缺失");return false;}
+     if(P.SkillProgressVersion>=24&&(!P.Skills.Contains(TEXT("lightningHaste"))||!FMath::IsFinite(P.LightningHasteCooldown)||!FMath::IsFinite(P.LightningHasteCooldownDuration)||P.LightningHasteCooldown<0||P.LightningHasteCooldownDuration<P.LightningHasteCooldown||P.LightningHasteCooldownDuration>300)){Reason=TEXT("雷电迅捷进度或冷却无效");return false;}
+@@ -674,6 +745,7 @@
+     if(!Model)Model=GameInstance->GetSubsystem<UColdSteelStatusModel>();
+     if(Model)Model->ApplyKillStaminaRecovery(Victim);
+     if(auto* Haste=Killer->FindComponentByClass<UFPSLightningHasteComponent>())Haste->ObserveKill(Victim);
++    if(auto* Mark=Victim->FindComponentByClass<UIlluminationMarkComponent>())Mark->ObserveKill(Killer);
+ }
+ void ColdSteelSkills::GrantBerserkOnWeaponHit(AActor* Shooter,const FColdSteelSkillShot& Shot)
+ {

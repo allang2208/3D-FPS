@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -219,6 +219,11 @@
+     /** One reliable start/cancel per draw; no per-frame timing reports. */
+     UFUNCTION(Server, Reliable)
+     void ServerSetBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,bool bDrawing,float CarriedSeconds);
++
++    bool IsBowDrawActive(const AFPSGAMECharacter* Character) const;
++    void CancelBowDraw(bool bExhausted=false);
++    UFUNCTION(Client, Reliable)
++    void ClientCancelBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,bool bExhausted);
+ 
+     /** 完美节拍奖励是否待生效：下一条箭拉弓速度 +25%（服务器判定，拥有者同步）。 */
+     bool BowPerfectSpeedBonusPending() const { return bBowPerfectSpeedBonus; }
+@@ -356,6 +361,7 @@
+     static TArray<uint8> InventoryBaseline(const FColdSteelProfile& Profile);
+     void SendInventoryBaseline();
+     bool ExecuteBowShot(const FColdSteelInventoryRequest& Request,UColdSteelStatusModel* Model,FString& Reason);
++    void TickBowDrawAuthority();
+     double LastBowShotAt=-100.;
+     TWeakObjectPtr<APawn> BowDrawPawn;
+     FString BowDrawWeapon;

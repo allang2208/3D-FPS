@@ -1,0 +1,72 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/FPSElementalArrowComponent.h
+@@ -0,0 +1,69 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "ElementalArrowTypes.h"
++#include "FPSElementalArrowComponent.generated.h"
++class UColdSteelElementWheel;
++class UElementalArrowVisual;
++class UColdSteelStatusModel;
++class UBowWeaponComponent;
++
++UCLASS(ClassGroup=(Skills))
++class FPSGAME_API UFPSElementalArrowComponent : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    UFPSElementalArrowComponent();
++    bool Trigger();
++    void KeyPressed(int32 Slot);
++    bool KeyReleased(int32 Slot);
++    bool OwnsKey(int32 Slot) const{return HeldSlot==Slot&&Slot>=0;}
++    bool IsWheelOpen() const{return Wheel!=nullptr;}
++    void MovePointer(FVector2D Pixels);
++    void CancelSelection();
++    void CancelFromBow();
++    bool IsPrepared() const{return bPrepared||bServerPrepared;}
++    bool IsManaDraining() const;
++    void NoteHoldResourcesSpent(){bHoldResourcesDirty=true;}
++    bool OwnsHoldResources() const{return bServerPrepared||bHoldResourcesDirty;}
++    EArrowElement PreparedElement() const{return bServerPrepared?ServerElement:ShotElement();}
++    bool IsPending() const{return bWaiting||bCancelPending||bShotReplyPending;}
++    EArrowElement Selected() const{return SelectedElement;}
++    EArrowElement ShotElement() const{return bPrepared?SelectedElement:EArrowElement::None;}
++    FString StatusText() const;
++    bool BuildShot(EArrowElement Requested,FElementalArrowCast& Out,FString& Reason) const;
++    void ShotCommitted();
++    void ShotRejected();
++    void PredictRelease();
++    void ResolveShotReply();
++protected:
++    virtual void BeginPlay() override;
++    virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++private:
++    friend class UBowSkillTrainingAuditCommandlet;
++    UFUNCTION(Server,Reliable) void ServerPrepare(FGuid PreparationId,EArrowElement Element);
++    UFUNCTION(Server,Reliable) void ServerCancel(FGuid PreparationId);
++    UFUNCTION(Client,Reliable) void ClientPrepared(FGuid PreparationId,bool Accepted,EArrowElement Element,const FString& Reason);
++    UFUNCTION(Client,Reliable) void ClientCleared(FGuid PreparationId);
++    UFUNCTION(Client,Reliable) void ClientManaExhausted(FGuid PreparationId);
++    UFUNCTION(Client,Reliable) void ClientHoldResources(FGuid PreparationId,int64 Revision,float Mana,float Stamina,float RecoveryDelay,bool bExhausted);
++    UPROPERTY(Transient) TObjectPtr<UColdSteelElementWheel> Wheel;
++    UPROPERTY(Transient) TObjectPtr<UElementalArrowVisual> Visual;
++    UPROPERTY(Transient) TArray<TObjectPtr<UObject>> Assets;
++    EArrowElement SelectedElement=EArrowElement::Fire,ServerElement=EArrowElement::None;
++    bool bPrepared=false,bWaiting=false,bServerPrepared=false,bCancelPending=false;
++    bool bShotReplyPending=false;
++    bool bHoldResourcesDirty=false;
++    int64 LastHoldResourceRevision=-1;
++    FGuid ActivePreparationId,ServerPreparationId;
++    int32 HeldSlot=INDEX_NONE;
++    double PressedAt=0,NoticeUntil=0;
++    FString Weapon,Notice;
++    UColdSteelStatusModel* Model() const;
++    UBowWeaponComponent* Bow() const;
++    bool CanContinue() const;
++    bool Prepare(EArrowElement Element);
++    void Feedback(const FString& Text);
++    void FinishHoldResources();
++};

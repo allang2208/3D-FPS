@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelSkillPage.h
++++ b/Source/FPSGAME/UI/ColdSteelSkillPage.h
+@@ -41,6 +41,7 @@
+     UPROPERTY(Transient) TObjectPtr<UTexture2D> FireballIconTexture;
+     UPROPERTY(Transient) TObjectPtr<UTexture2D> IceArmorIconTexture;
+     UPROPERTY(Transient) TObjectPtr<UTexture2D> LightningHasteIconTexture;
++    TSharedPtr<SButton> MagicArrowRainDetailButton,ElementalArrowDetailButton,IlluminationArrowDetailButton;
+     TSharedPtr<SButton> IceArmorDetailButton;
+     TSharedPtr<SButton> LightningHasteDetailButton;
+     FSlateBrush IceArmorIconBrush;

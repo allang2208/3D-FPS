@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Skills/ColdSteelLightningModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelLightningModel.cpp
+@@ -108,9 +108,10 @@
+     return true;
+ }
+ 
+-void UColdSteelStatusModel::FinishLightningCast(const FLightningRewards& Batch)
++void UColdSteelStatusModel::FinishLightningCast(const FLightningRewards& Batch,bool bElementalArrow)
+ {
+     SyncRuntime();auto P=Snapshot();const auto& T=LightningSkill.Lightning;
++    if(bElementalArrow)StageElementalArrowTraining(P,Batch.Hits,Batch.Kills);
+     ColdSteelSkills::AddExperience(P,LightningSkill,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience+(Batch.Hits>=2?T.MultiHitExperience:0)+(Batch.Kills>=2?T.MultiKillExperience:0));
+     ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
+     for(const auto& K:Batch.KillRewards){if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}

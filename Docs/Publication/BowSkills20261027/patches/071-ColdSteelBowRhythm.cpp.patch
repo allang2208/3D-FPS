@@ -1,0 +1,306 @@
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelBowRhythm.cpp
+@@ -0,0 +1,303 @@
++#include "ColdSteelBowRhythm.h"
++#include "ColdSteelUIStyle.h"
++#include "../Weapons/Bow/BowStats.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "Layout/Geometry.h"
++#include "Rendering/DrawElements.h"
++#include "Styling/CoreStyle.h"
++#include "Styling/WidgetStyle.h"
++
++namespace
++{
++constexpr int32 ArcSegments = 32;
++constexpr float DrawRadius = 44.f;
++constexpr float TrackY = ColdSteelBowRhythm::TrackY;
++constexpr float TrackWidth = 120.f;
++constexpr float DrawWidth = 54.f;
++constexpr float WindowWidth = 18.f;
++constexpr float TrackHeight = 4.f;
++constexpr float TrackLeft = -TrackWidth * .5f;
++
++FLinearColor Alpha(FLinearColor Color, float Opacity)
++{
++    Color.A *= Opacity;
++    return Color;
++}
++
++// One monotonic mapping for the full draw session. The perfect window keeps
++// a readable width even with fast bows; seconds still come from gameplay.
++struct FRhythmTrack
++{
++    float FullDraw, WindowEndSeconds, ReadySeconds;
++    float DrawEnd, WindowEnd, PiercingAt;
++    bool bSeparateCharge;
++
++    explicit FRhythmTrack(const FBowDrawRhythm& Rhythm)
++    {
++        FullDraw=FMath::Max(.0001f,Rhythm.FullDrawSeconds);
++        WindowEndSeconds=FullDraw+ColdSteelBow::PerfectReleaseWindow;
++        ReadySeconds=FMath::Max(FullDraw,Rhythm.PiercingSeconds);
++        bSeparateCharge=Rhythm.bPiercingAvailable&&ReadySeconds>WindowEndSeconds;
++        DrawEnd=bSeparateCharge?DrawWidth:TrackWidth-WindowWidth;
++        WindowEnd=DrawEnd+WindowWidth;
++        // Slow bows can become piercing-ready inside the perfect window.
++        // Merge that milestone into the window rather than inventing a wait.
++        PiercingAt=bSeparateCharge?TrackWidth:FMath::Lerp(DrawEnd,WindowEnd,
++            FMath::Clamp((ReadySeconds-FullDraw)/ColdSteelBow::PerfectReleaseWindow,0.f,1.f));
++    }
++
++    float Position(float Elapsed) const
++    {
++        if(Elapsed<=FullDraw)return DrawEnd*FMath::Clamp(Elapsed/FullDraw,0.f,1.f);
++        if(Elapsed<=WindowEndSeconds)return DrawEnd+WindowWidth*
++            FMath::Clamp((Elapsed-FullDraw)/ColdSteelBow::PerfectReleaseWindow,0.f,1.f);
++        if(bSeparateCharge)return WindowEnd+(TrackWidth-WindowEnd)*
++            FMath::Clamp((Elapsed-WindowEndSeconds)/(ReadySeconds-WindowEndSeconds),0.f,1.f);
++        return TrackWidth;
++    }
++};
++
++// Geometry is authored in screen pixels, then converted once through the HUD's
++// PixelScale. Only the small line buffer is reused within a paint; no UI state,
++// timers, item parsing or resource preparation lives in the renderer.
++struct FRhythmPainter
++{
++    const FGeometry& Geometry;
++    FSlateWindowElementList& Elements;
++    int32 Layer;
++    FLinearColor Tint;
++    FVector2D Center;
++    float Scale;
++    TArray<FVector2D> Points;
++
++    FRhythmPainter(const FGeometry& InGeometry, FSlateWindowElementList& InElements,
++        int32 InLayer, FLinearColor InTint, float InScale)
++        : Geometry(InGeometry), Elements(InElements), Layer(InLayer), Tint(InTint),
++          Center(InGeometry.GetLocalSize() * .5f), Scale(InScale)
++    {
++        // No normal viewport shrinks this cue; keep it inside extremely small
++        // split/embedded views too, without moving it away from the aim point.
++        Scale = FMath::Min(Scale, float(FMath::Min(Center.X / 86.f, Center.Y / 90.f)));
++        Points.Reserve(ArcSegments + 3);
++    }
++
++    void Point(FVector2D Position) { Points.Add(Center + Position * Scale); }
++
++    void Stroke(FLinearColor Color, float Width, int32 Z = 2)
++    {
++        if (Points.Num() < 2) return;
++        FSlateDrawElement::MakeLines(Elements, Layer + Z, Geometry.ToPaintGeometry(), Points,
++            ESlateDrawEffect::None, FLinearColor(0.f, 0.f, 0.f, .78f * Color.A) * Tint,
++            true, (Width + 1.2f) * Scale);
++        FSlateDrawElement::MakeLines(Elements, Layer + Z + 1, Geometry.ToPaintGeometry(), Points,
++            ESlateDrawEffect::None, Color * Tint, true, Width * Scale);
++    }
++
++    void Line(FVector2D A, FVector2D B, FLinearColor Color, float Width = 1.5f, int32 Z = 2)
++    {
++        Points.Reset();
++        Point(A);
++        Point(B);
++        Stroke(Color, Width, Z);
++    }
++
++    void Arc(float Start, float End, FLinearColor Color, float Width)
++    {
++        if (End - Start <= .0001f || Color.A <= 0.f) return;
++        static const TArray<FVector2D> CompactUnitArcAC = []
++        {
++            TArray<FVector2D> Result;
++            Result.Reserve(ArcSegments + 1);
++            for (int32 I = 0; I <= ArcSegments; ++I)
++            {
++                const float Angle = FMath::DegreesToRadians(135.f - 90.f * I / ArcSegments);
++                Result.Emplace(FMath::Cos(Angle), FMath::Sin(Angle));
++            }
++            return Result;
++        }();
++        auto At = [&](float Fraction)
++        {
++            const float Sample = FMath::Clamp(Fraction, 0.f, 1.f) * ArcSegments;
++            const int32 Index = FMath::Min(FMath::FloorToInt(Sample), ArcSegments - 1);
++            return FMath::Lerp(CompactUnitArcAC[Index], CompactUnitArcAC[Index + 1], Sample - Index) * DrawRadius;
++        };
++        Points.Reset();
++        Point(At(Start));
++        const int32 First = FMath::FloorToInt(Start * ArcSegments) + 1;
++        for (int32 I = First; I < ArcSegments && float(I) / ArcSegments < End; ++I)
++            Point(CompactUnitArcAC[I] * DrawRadius);
++        Point(At(End));
++        Stroke(Color, Width);
++    }
++
++    void Bar(float X, float Width, FLinearColor Color,float Height=TrackHeight)
++    {
++        if (Width <= .001f) return;
++        const auto* White = FCoreStyle::Get().GetBrush(TEXT("WhiteBrush"));
++        const FVector2D At(X, TrackY - Height * .5f);
++        FSlateDrawElement::MakeBox(Elements, Layer + 2,
++            Geometry.ToPaintGeometry(FVector2D(Width + 1.2f, Height + 1.2f) * Scale,
++                FSlateLayoutTransform(Center + (At - FVector2D(.6f)) * Scale)),
++            White, ESlateDrawEffect::None, FLinearColor(0.f, 0.f, 0.f, .78f * Color.A) * Tint);
++        FSlateDrawElement::MakeBox(Elements, Layer + 3,
++            Geometry.ToPaintGeometry(FVector2D(Width, Height) * Scale,
++                FSlateLayoutTransform(Center + At * Scale)),
++            White, ESlateDrawEffect::None, Color * Tint);
++    }
++
++    void PulseGlow(float Width,FLinearColor Color,float Pulse)
++    {
++        const auto* White=FCoreStyle::Get().GetBrush(TEXT("WhiteBrush"));
++        for(int32 Band=0;Band<2;++Band)
++        {
++            const float Height=Band==0?9.f:6.f;
++            const float Opacity=(Band==0?.045f:.075f)*(1.f+Pulse);
++            const FVector2D At(TrackLeft-1.f,TrackY-Height*.5f);
++            FSlateDrawElement::MakeBox(Elements,Layer+1,
++                Geometry.ToPaintGeometry(FVector2D(Width+2.f,Height)*Scale,FSlateLayoutTransform(Center+At*Scale)),
++                White,ESlateDrawEffect::None,Alpha(Color,Opacity)*Tint);
++        }
++    }
++
++    void FullDrawPulse(float Age,FLinearColor Color)
++    {
++        // Full draw has its own clock, independent of the later piercing charge.
++        // The whole track glows while its fill and milestone markers keep their meanings.
++        const float Pulse=.5f+.5f*FMath::Cos(Age*2.f*PI*1.15f);
++        const float Arrival=FMath::Square(1.f-FMath::Clamp(Age/.28f,0.f,1.f));
++        const auto* White=FCoreStyle::Get().GetBrush(TEXT("WhiteBrush"));
++        auto Band=[&](float X,float Width,float Height,float Opacity,int32 Z)
++        {
++            FSlateDrawElement::MakeBox(Elements,Layer+Z,
++                Geometry.ToPaintGeometry(FVector2D(Width,Height)*Scale,
++                    FSlateLayoutTransform(Center+FVector2D(X,TrackY-Height*.5f)*Scale)),
++                White,ESlateDrawEffect::None,Alpha(Color,Opacity)*Tint);
++        };
++        Band(TrackLeft-3.f,TrackWidth+6.f,14.f+3.f*Pulse,.04f+.055f*Pulse+.05f*Arrival,1);
++        Band(TrackLeft-1.5f,TrackWidth+3.f,8.f+2.f*Pulse,.08f+.1f*Pulse+.09f*Arrival,1);
++        Band(TrackLeft,TrackWidth,TrackHeight,.055f+.11f*Pulse+.16f*Arrival,4);
++
++        const auto Edge=Alpha(Color,.42f+.34f*Pulse+.2f*Arrival);
++        for(float Y:{TrackY-4.5f,TrackY+4.5f})
++            Line(FVector2D(TrackLeft-1.f,Y),FVector2D(-TrackLeft+1.f,Y),Edge,1.f,2);
++        for(float X:{TrackLeft-1.f,-TrackLeft+1.f})
++            Line(FVector2D(X,TrackY-4.5f),FVector2D(X,TrackY+4.5f),Edge,1.f,2);
++
++        // A narrow sheen travels across the entire track without covering its ticks.
++        const float CenterX=FMath::Lerp(TrackLeft-12.f,-TrackLeft+12.f,FMath::Fmod(Age/1.05f,1.f));
++        for(int32 I=-3;I<=3;++I)
++        {
++            const float X=CenterX+I*3.f;
++            const float Left=FMath::Max(TrackLeft,X-1.5f),Right=FMath::Min(-TrackLeft,X+1.5f);
++            if(Right<=Left)continue;
++            Band(Left,Right-Left,TrackHeight,.28f*(1.f-FMath::Abs(I)/4.f),4);
++        }
++    }
++
++    void Diamond(float X,FLinearColor Color,bool bFilled,FLinearColor Outline)
++    {
++        constexpr float Radius=3.5f;
++        Points.Reset();
++        Point(FVector2D(X,TrackY-Radius));
++        Point(FVector2D(X+Radius,TrackY));
++        Point(FVector2D(X,TrackY+Radius));
++        Point(FVector2D(X-Radius,TrackY));
++        Point(FVector2D(X,TrackY-Radius));
++        Stroke(Outline,1.1f,6);
++        if(!bFilled)return;
++        // Five short spans fill the tiny diamond without a texture or new brush.
++        for(int32 Row=-2;Row<=2;++Row)
++        {
++            const float Half=Radius-.5f-FMath::Abs(Row);
++            Points.Reset();
++            Point(FVector2D(X-Half,TrackY+Row));
++            Point(FVector2D(X+Half,TrackY+Row));
++            FSlateDrawElement::MakeLines(Elements,Layer+7,Geometry.ToPaintGeometry(),Points,
++                ESlateDrawEffect::None,Color*Tint,true,Scale);
++        }
++    }
++};
++}
++
++int32 ColdSteelBowRhythm::Paint(const UBowWeaponComponent& Bow, const FGeometry& Geometry,
++    FSlateWindowElementList& Elements, int32 Layer, const FWidgetStyle& Style, float PixelToLocal)
++{
++    FBowDrawRhythm Rhythm;
++    if (!Bow.GetDrawRhythm(Rhythm)) return Layer;
++    FLinearColor Tint = Style.GetColorAndOpacityTint();
++    Tint.A *= Rhythm.Opacity;
++    if (Tint.A <= 0.f) return Layer;
++    FRhythmPainter Paint(Geometry, Elements, Layer, Tint, PixelToLocal);
++    if(Rhythm.bMagicArrowRain)
++    {
++        const float Draw=FMath::Clamp(Rhythm.Elapsed/FMath::Max(.01f,Rhythm.FullDrawSeconds),0.f,1.f);
++        const float Pulse=.5f+.5f*FMath::Cos(FMath::Max(0.f,Rhythm.Elapsed-Rhythm.FullDrawSeconds)*2.f*PI*1.25f);
++        const FLinearColor Color=Rhythm.bMagicRainValid?FLinearColor(.12f,.85f,.38f):FLinearColor(.65f,.16f,.12f);
++        const float Opacity=Draw>=1.f?.75f+.2f*Pulse:.65f;
++        Paint.Arc(.5f-Draw*.5f,.5f+Draw*.5f,Alpha(Color,Opacity),Draw>=1.f?2.f:1.75f);
++        Paint.Bar(TrackLeft,TrackWidth,Alpha(ColdSteelUI::TextSecondary,.16f));
++        Paint.Bar(TrackLeft,TrackWidth*Draw,Alpha(Color,Opacity),TrackHeight);
++        if(Draw>=1.f&&Rhythm.bMagicRainValid)Paint.PulseGlow(TrackWidth,Color,Pulse*.55f);
++        return Layer+7;
++    }
++    const FRhythmTrack Track(Rhythm);
++    const float Draw=FMath::Clamp(Rhythm.Elapsed/Track.FullDraw,0.f,1.f);
++    const float Position=Track.Position(Rhythm.Elapsed);
++    const float WindowStart=TrackLeft+Track.DrawEnd;
++    const float WindowEnd=TrackLeft+Track.WindowEnd;
++    const bool Late=Rhythm.Elapsed>Track.WindowEndSeconds;
++    const FLinearColor Silver=ColdSteelUI::TextPrimary;
++    const FLinearColor Piercing=ColdSteelUI::BowPiercingReady;
++    // Real draw time drives a gentle 1.35 Hz breath. The cue never blinks out,
++    // never expands toward the target, and freezes with the gameplay clock.
++    const float ReadyAge=FMath::Max(0.f,Rhythm.Elapsed-Track.ReadySeconds);
++    const float Pulse=Rhythm.bReleased?1.f:.5f+.5f*FMath::Cos(ReadyAge*2.f*PI*1.35f);
++    const float ReadyOpacity=.72f+.25f*Pulse;
++
++    // The arc always means draw completion. Only brightness/color changes
++    // after full draw; it never grows a second time or covers the aim point.
++    const FLinearColor ArcColor=Rhythm.bPiercingReady?Alpha(Piercing,ReadyOpacity)
++        :Rhythm.bPerfect?ColdSteelUI::HUDGoldLight
++        :Late?Alpha(ColdSteelUI::HUDGoldDim,.4f):Alpha(ColdSteelUI::HUDGold,.65f);
++    Paint.Arc(.5f-Draw*.5f,.5f+Draw*.5f,ArcColor,
++        Rhythm.bPiercingReady?1.9f+.45f*Pulse:Rhythm.bPerfect?2.25f:1.75f);
++
++    // Both destinations are visible at the start. Previously completed
++    // progress remains filled when crossing from the perfect window to charge.
++    Paint.Bar(TrackLeft,TrackWidth,Alpha(ColdSteelUI::TextSecondary,.16f));
++    Paint.Bar(WindowStart,WindowWidth,Alpha(ColdSteelUI::HUDGoldLight,Rhythm.bPerfect?.3f:.13f));
++    if(Rhythm.bPiercingReady)
++        Paint.Bar(TrackLeft,Position,Alpha(Piercing,ReadyOpacity),TrackHeight+.65f*Pulse);
++    else
++    {
++        Paint.Bar(TrackLeft,FMath::Min(Position,Track.WindowEnd),Alpha(ColdSteelUI::HUDGold,Late?.35f:.65f));
++        if(Rhythm.bPerfect)
++            Paint.Bar(WindowStart,FMath::Clamp(Position-Track.DrawEnd,0.f,WindowWidth),ColdSteelUI::HUDGoldLight);
++        if(Position>Track.WindowEnd)
++            Paint.Bar(WindowEnd,Position-Track.WindowEnd,Alpha(Silver,.6f));
++    }
++
++    if(Draw>=1.f&&!Rhythm.bReleased)
++        Paint.FullDrawPulse(Rhythm.bPiercingReady?ReadyAge:FMath::Max(0.f,Rhythm.Elapsed-Track.FullDraw),
++            Rhythm.bPiercingReady?Piercing:FMath::Lerp(ColdSteelUI::HUDGoldLight,ColdSteelUI::TextPrimary,.7f));
++
++    const auto WindowColor=Alpha(ColdSteelUI::HUDGoldLight,Rhythm.bPerfect?.95f:Late?.28f:.45f);
++    for(float X:{WindowStart,WindowEnd})
++        Paint.Line(FVector2D(X,TrackY-3.5f),FVector2D(X,TrackY+3.5f),WindowColor,1.1f,4);
++    if(Rhythm.bPerfect&&Rhythm.bPiercingReady)
++        for(float Y:{TrackY-3.f,TrackY+3.f})
++            Paint.Line(FVector2D(WindowStart,Y),FVector2D(WindowEnd,Y),WindowColor,1.f,4);
++
++    if(!Rhythm.bReleased&&(!Rhythm.bPiercingReady||Rhythm.bPerfect)&&(!Late||Rhythm.bPiercingAvailable))
++    {
++        const float Marker=TrackLeft+Position;
++        Paint.Line(FVector2D(Marker,TrackY-4.f),FVector2D(Marker,TrackY+4.f),Alpha(Silver,.9f),1.25f,6);
++    }
++    if(Rhythm.bPiercingAvailable)
++    {
++        const auto Color=Alpha(Piercing,Rhythm.bPiercingReady?ReadyOpacity:.42f);
++        Paint.Diamond(TrackLeft+Track.PiercingAt,Color,Rhythm.bPiercingReady,
++            Rhythm.bPiercingReady&&Rhythm.bPerfect?WindowColor:Color);
++    }
++    return Layer + 7;
++}

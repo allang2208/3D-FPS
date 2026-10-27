@@ -1,0 +1,64 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -1,5 +1,7 @@
+ #include "ColdSteelPlayerState.h"
+ #include "../Skills/LightningHasteSpeed.h"
++#include "../Skills/FPSElementalArrowComponent.h"
++#include "../Skills/FPSMagicArrowRainComponent.h"
+ #include "../Movement/FPSCharacterMovementComponent.h"
+ #include "../Monsters/RootCrownRigPreview.h"
+ #include "../Monsters/RootCrownHitComponent.h"
+@@ -140,6 +142,7 @@
+             ApplyShadowToServerPawn();
+         }
+         // 影子档案随服务端时钟走：冷却衰减/法力回复/增益结算不再等客户端 30s 兜底上行。
++        TickBowDrawAuthority();
+         if (ShadowModel && Pawn && ShadowPawn.Get() == Pawn)
+             ShadowModel->TickRuntime(DeltaSeconds, Pawn);
+         TickSuper90Authority(DeltaSeconds);
+@@ -407,6 +410,16 @@
+         if(const auto* Pawn=GetPawn())
+             if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())Adopted.Health=Health->Health;
+         const bool KeepServerPouch=bRestoreGuestAmmo||Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision;
++        // Same-revision owner uploads can predate continuous bow upkeep. Keep
++        // authority resources while prepared, then rely on the end checkpoint.
++        const auto* UpkeepPawn=GetPawn();
++        const auto* ElementHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UFPSElementalArrowComponent>():nullptr;
++        const auto* RainHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UFPSMagicArrowRainComponent>():nullptr;
++        if((ElementHold&&ElementHold->OwnsHoldResources())||(RainHold&&RainHold->HasPreparedArrow()))
++        {
++            Adopted.Mana=Prev.Mana;Adopted.Stamina=Prev.Stamina;Adopted.StaminaRecoveryDelay=Prev.StaminaRecoveryDelay;Adopted.bSprintExhausted=Prev.bSprintExhausted;
++            Adopted.SpellbookFocusManaLoss=Prev.SpellbookFocusManaLoss;Adopted.UppercutStaminaSpent=Prev.UppercutStaminaSpent;
++        }
+         if(Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision)
+         {
+             Adopted.Items=Prev.Items;
+@@ -927,6 +940,8 @@
+     // Never let it restore consumed items or undo a completed transaction.
+     Model->SyncRuntime();
+     const auto CurrentInventory=Model->Snapshot();
++    // Elemental and illumination arrows commit cooldowns through the inventory channel.
++    const bool KeepElementCooldowns=Save->Profile.CampfireInventoryRevision<CurrentInventory.CampfireInventoryRevision;
+     const double MirrorUppercutSpent=Save->Profile.UppercutStaminaSpent;
+     // The owner chooses these cosmetics. A paced mirror may have been captured
+     // before the latest switch, even after its upload has finished sending.
+@@ -974,7 +989,18 @@
+         ColdSteelProfileRecovery::NetworkSpells(Save->Profile,Save->Profile,float(FMath::Max(0.,Now-ReceivingMirrorCapturedAt)));
+     }
+     else ColdSteelProfileRecovery::NetworkSpells(Save->Profile,Model->Snapshot());
+-
++    if(KeepElementCooldowns)
++    {
++        Save->Profile.FireballCooldown=CurrentInventory.FireballCooldown;Save->Profile.FireballCooldownDuration=CurrentInventory.FireballCooldownDuration;
++        Save->Profile.IceSpikeCooldown=CurrentInventory.IceSpikeCooldown;Save->Profile.IceSpikeCooldownDuration=CurrentInventory.IceSpikeCooldownDuration;
++        Save->Profile.LightningCooldown=CurrentInventory.LightningCooldown;Save->Profile.LightningCooldownDuration=CurrentInventory.LightningCooldownDuration;
++        Save->Profile.IlluminationArrowCooldown=CurrentInventory.IlluminationArrowCooldown;
++        Save->Profile.IlluminationArrowCooldownDuration=CurrentInventory.IlluminationArrowCooldownDuration;
++        Save->Profile.MagicArrowRainCooldown=CurrentInventory.MagicArrowRainCooldown;
++        Save->Profile.MagicArrowRainCooldownDuration=CurrentInventory.MagicArrowRainCooldownDuration;
++        Save->Profile.bMagicArrowRainReserved=CurrentInventory.bMagicArrowRainReserved;
++        Save->Profile.MagicArrowRainReservedMana=CurrentInventory.MagicArrowRainReservedMana;
++    }
+ 
+     const auto* MartialGS=GetWorld()->GetGameState();
+     const float MartialAge=MartialGS?float(FMath::Max(0.,MartialGS->GetServerWorldTimeSeconds()-ReceivingMirrorCapturedAt)):0.f;

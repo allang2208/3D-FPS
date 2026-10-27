@@ -1,0 +1,74 @@
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+@@ -10,6 +10,9 @@
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelStatusModel.h"
++#include "../Skills/FPSMagicArrowRainComponent.h"
++#include "../Skills/FPSElementalArrowComponent.h"
++#include "../Skills/FPSIlluminationArrowComponent.h"
+ #include "ColdSteelQuickDrag.h"
+ #include "ColdSteelInventoryWidget.h"
+ #include "ColdSteelUIStyle.h"
+@@ -195,13 +198,17 @@
+     {FColdSteelQuickBinding B;B.Skill=FixedSkill==TEXT("runeBlades")&&Staff&&Staff->HasIlluminationSpecial()?FName(TEXT("staffLight")):FixedSkill;return B;}();
+     const auto* Item=Model->ResolveQuickItem(Index);
+     const FString WaterIcon=Item&&Item->Definition==TEXT("mineral_water")?ColdSteelInventory::Text(*Item,TEXT("ue_icon")):FString();
+-    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon;
++    const auto* ElementAbility=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UFPSElementalArrowComponent>():nullptr;
++    const EArrowElement SelectedElement=ElementAbility?ElementAbility->Selected():EArrowElement::Fire;
++    const FString ElementIcon=Binding.Skill==TEXT("elementalArrow")?ElementalArrow::Icon(SelectedElement):FString();
++    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon||ElementIcon!=DisplayedElementIcon;
+     if(BindingChanged)
+     {
+-        bLoaded=true;Displayed=Binding;DisplayedWaterIcon=WaterIcon;FString Path,Name;
++        bLoaded=true;Displayed=Binding;DisplayedWaterIcon=WaterIcon;DisplayedElementIcon=ElementIcon;FString Path,Name;
+         if(const auto* D=Model->QuickSkillDefinition(Binding.Skill)){Path=D->Icon;Name=D->Name;}
+         else if(!Binding.ItemDefinition.IsEmpty())
+         {const auto Template=Item?*Item:Model->CreateItem(Binding.ItemDefinition);Path=ColdSteelInventory::Text(Template,TEXT("ue_icon"));Name=ColdSteelInventory::Text(Template,TEXT("name"));}
++        if(!ElementIcon.IsEmpty()){Path=ElementIcon;Name=FString(TEXT("元素箭 · "))+ElementalArrow::Name(SelectedElement);}
+         Texture=nullptr;
+         if(!Path.IsEmpty())
+         {
+@@ -217,11 +224,40 @@
+             FString::Printf(TEXT("%s · %s\n拖到空槽移动，拖到其他内容交换；拖出快捷栏解绑"),*Name,*KeyText)):
+             Binding.Skill==TEXT("staffLight")?FString::Printf(TEXT("%s · %s\n按 G 开启／关闭照明；无冷却、无消耗"),*KeyText,*Name):
+             FString::Printf(TEXT("%s · %s\n按 %s 直接触发；冷却结束后可用"),*KeyText,*Name,*KeyText)));
++        if(Binding.Skill==TEXT("elementalArrow"))SetToolTipText(FText::FromString(FString::Printf(
++            TEXT("%s · %s\n短按搭箭／取消；长按 0.3 秒切换元素，冷却中仍可打开圆盘。\n三元素分别冷却，只与对应原魔法共用冷却；选中冷却元素后，待就绪短按搭箭。"),*KeyText,*Name)));
+     }
+     FString Message;float Fraction=0,Remaining=0;bool Dim=false;
+     bGoldPrepared=false;
+     Count->SetText(FText::GetEmpty());
+-    if(Binding.Skill==TEXT("lightningHaste"))
++    if(Binding.Skill==TEXT("illuminationArrow"))
++    {
++        const auto* P=GetOwningPlayerPawn();const auto* Ability=P?P->FindComponentByClass<UFPSIlluminationArrowComponent>():nullptr;
++        Remaining=Model->IlluminationArrowCooldown();Fraction=Remaining/FMath::Max(.1f,Model->IlluminationArrowCooldownDuration());
++        if(Ability){Message=Ability->StatusText();bGoldPrepared=Ability->IsPrepared();}
++        Dim=!Model->ActiveBow()||(!bGoldPrepared&&!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill)));
++        if(!Model->ActiveBow())Message=TEXT("需要装备弓");
++    }
++    else if(Binding.Skill==TEXT("elementalArrow"))
++    {
++        Remaining=Model->ElementalArrowCooldown(SelectedElement);
++        Fraction=Remaining/FMath::Max(.1f,Model->ElementalArrowCooldownDuration(SelectedElement));
++        FString Why;const bool CanPrepare=Model->CanPrepareElementalArrow(SelectedElement,Why);
++        // Keep the selection shortcut available; only the mask shows this element's CD.
++        Dim=!Model->ActiveBow()||!Model->CanBindQuickSkill(TEXT("elementalArrow"));
++        if(ElementAbility){Message=ElementAbility->StatusText();bGoldPrepared=ElementAbility->IsPrepared();}
++        if(!CanPrepare&&!bGoldPrepared)Message=Remaining>0?TEXT("长按切换"):Why;
++    }
++    else if(Binding.Skill==TEXT("magicArrowRain"))
++    {
++        const auto* P=GetOwningPlayerPawn();const auto* Ability=P?P->FindComponentByClass<UFPSMagicArrowRainComponent>():nullptr;
++        Remaining=Model->MagicArrowRainCooldown();
++        Fraction=Remaining/FMath::Max(.1f,Model->MagicArrowRainCooldownDuration());
++        if(Ability){Message=Ability->StatusText();bGoldPrepared=Ability->IsPrepared();}
++        Dim=!Model->ActiveBow()||(!bGoldPrepared&&!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill)));
++        if(!Model->ActiveBow())Message=TEXT("需要装备弓");
++    }
++    else if(Binding.Skill==TEXT("lightningHaste"))
+     {
+         const auto* Player=GetOwningPlayerPawn();const auto* A=Player?Player->FindComponentByClass<UFPSLightningHasteComponent>():nullptr;
+         if(A){Message=A->StatusText();Fraction=A->CooldownFraction();if(A->Remaining()>0)Count->SetText(FText::FromString(FString::Printf(TEXT("%.0fs"),FMath::CeilToFloat(A->Remaining()))));}

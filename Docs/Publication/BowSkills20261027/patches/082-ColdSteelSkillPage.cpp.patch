@@ -1,0 +1,344 @@
+--- a/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+@@ -6,6 +6,7 @@
+ #include "../Skills/ColdSteelSkillRules.h"
+ #include "../Skills/SwordUppercutTuning.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/Bow/BowStats.h"
+ #include "Engine/GameInstance.h"
+ #include "Engine/Texture2D.h"
+ #include "ImageUtils.h"
+@@ -21,14 +22,14 @@
+ #include "Widgets/Text/STextBlock.h"
+ #include "Framework/Application/SlateApplication.h"
+ 
+-namespace { bool Additional(FName Id){return ColdSteelSkills::IsMeleeMastery(Id)||Id==TEXT("machineGunMastery")||Id==TEXT("shotgunMastery")||Id==TEXT("bowMastery")||Id==TEXT("heartPiercingArrow");} }
++namespace { bool Additional(FName Id){return ColdSteelSkills::IsMeleeMastery(Id)||Id==TEXT("machineGunMastery")||Id==TEXT("shotgunMastery")||Id==TEXT("bowMastery")||Id==TEXT("heartPiercingArrow")||Id==TEXT("magicArrowRain")||Id==TEXT("elementalArrow")||Id==TEXT("illuminationArrow");} }
+ void UColdSteelSkillPage::SetHUD(UColdSteelHUDWidget* Owner){HUD=Owner;}
+ FReply UColdSteelSkillPage::NativeOnPreviewMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
+ {
+     PendingDragSkill=NAME_None;
+     if(!bDetail&&HUD.IsValid()&&E.GetEffectingButton()==EKeys::LeftMouseButton)
+     {
+-        const TPair<FName,TSharedPtr<SButton>> Cards[]={{TEXT("lightningHaste"),LightningHasteDetailButton},{TEXT("iceArmor"),IceArmorDetailButton},{TEXT("swordUppercut"),UppercutDetailButton},{TEXT("stormDomain"),ElectricDetailButtons.FindRef(TEXT("stormDomain"))},{TEXT("thunderLance"),ElectricDetailButtons.FindRef(TEXT("thunderLance"))},{TEXT("blizzard"),BlizzardDetailButton},{TEXT("iceWall"),IceWallDetailButton},{TEXT("dragonBreath"),DragonBreathDetailButton},{TEXT("meteor"),MeteorDetailButton},{TEXT("flameArmor"),FlameArmorDetailButton},{TEXT("holyLight"),HolyLightDetailButton},{TEXT("lightningStrike"),LightningDetailButton},{TEXT("iceSpike"),IceSpikeDetailButton},{TEXT("fireball"),FireballDetailButton},{TEXT("dodge"),DodgeDetailButton},{TEXT("heavyStrike"),HeavyDetailButton},{TEXT("quickCombat"),QuickCombatDetailButton},{TEXT("whirlwind"),WhirlwindDetailButton}};
++        const TPair<FName,TSharedPtr<SButton>> Cards[]={{TEXT("illuminationArrow"),IlluminationArrowDetailButton},{TEXT("elementalArrow"),ElementalArrowDetailButton},{TEXT("magicArrowRain"),MagicArrowRainDetailButton},{TEXT("lightningHaste"),LightningHasteDetailButton},{TEXT("iceArmor"),IceArmorDetailButton},{TEXT("swordUppercut"),UppercutDetailButton},{TEXT("stormDomain"),ElectricDetailButtons.FindRef(TEXT("stormDomain"))},{TEXT("thunderLance"),ElectricDetailButtons.FindRef(TEXT("thunderLance"))},{TEXT("blizzard"),BlizzardDetailButton},{TEXT("iceWall"),IceWallDetailButton},{TEXT("dragonBreath"),DragonBreathDetailButton},{TEXT("meteor"),MeteorDetailButton},{TEXT("flameArmor"),FlameArmorDetailButton},{TEXT("holyLight"),HolyLightDetailButton},{TEXT("lightningStrike"),LightningDetailButton},{TEXT("iceSpike"),IceSpikeDetailButton},{TEXT("fireball"),FireballDetailButton},{TEXT("dodge"),DodgeDetailButton},{TEXT("heavyStrike"),HeavyDetailButton},{TEXT("quickCombat"),QuickCombatDetailButton},{TEXT("whirlwind"),WhirlwindDetailButton}};
+         for(const auto& Card:Cards)
+         {
+             if(!Card.Value||!Card.Value->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition()))continue;
+@@ -49,6 +50,7 @@
+ void UColdSteelSkillPage::NativeOnDragDetected(const FGeometry&,const FPointerEvent& E,UDragDropOperation*& Out)
+ {
+     const FName Id=PendingDragSkill;PendingDragSkill=NAME_None;
++    if((Id==TEXT("illuminationArrow")||Id==TEXT("magicArrowRain")||Id==TEXT("elementalArrow"))&&HUD.IsValid()){Out=HUD->StartQuickDrag(Id,INDEX_NONE,MasteryIconBrushes.Find(Id),E.GetScreenSpacePosition());return;}
+     if(Id==TEXT("swordUppercut")&&HUD.IsValid())
+     {Out=HUD->StartQuickDrag(Id,INDEX_NONE,&UppercutIconBrush,E.GetScreenSpacePosition());return;}
+     if(!Id.IsNone()&&HUD.IsValid())Out=HUD->StartQuickDrag(Id,INDEX_NONE,Id==TEXT("lightningHaste")?&LightningHasteIconBrush:Id==TEXT("iceArmor")?&IceArmorIconBrush:ElectricMagic::IsSkill(Id)?ElectricIconBrushes.Find(Id):Id==TEXT("blizzard")?&BlizzardIconBrush:Id==TEXT("iceWall")?&IceWallIconBrush:Id==TEXT("dragonBreath")?&DragonBreathIconBrush:Id==TEXT("meteor")?&MeteorIconBrush:Id==TEXT("flameArmor")?&FlameArmorIconBrush:Id==TEXT("holyLight")?&HolyLightIconBrush:Id==TEXT("lightningStrike")?&LightningIconBrush:Id==TEXT("whirlwind")?&WhirlwindIconBrush:Id==TEXT("iceSpike")?&IceSpikeIconBrush:Id==TEXT("heavyStrike")?&HeavyIconBrush:Id==TEXT("fireball")?&FireballIconBrush:Id==TEXT("quickCombat")?&QuickCombatIconBrush:&DodgeIconBrush,E.GetScreenSpacePosition());
+@@ -64,7 +66,7 @@
+             IconTexture=FImageUtils::ImportBufferAsTexture2D(Bytes);
+         if (IconTexture) { IconBrush.SetResourceObject(IconTexture); IconBrush.DrawAs=ESlateBrushDrawType::Image; }
+     }
+-    if(Model)for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("bluntMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery")),FName(TEXT("heartPiercingArrow"))})
++    if(Model)for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("bluntMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery")),FName(TEXT("heartPiercingArrow")),FName(TEXT("magicArrowRain")),FName(TEXT("elementalArrow")),FName(TEXT("illuminationArrow"))})
+     {
+         if(MasteryIconBrushes.Contains(Id))continue;
+         auto& Brush=MasteryIconBrushes.Add(Id);
+@@ -75,6 +77,13 @@
+             auto* Texture=FImageUtils::ImportBufferAsTexture2D(Bytes);
+             if(Texture){MasteryIconTextures.Add(Id,Texture);Brush.SetResourceObject(Texture);Brush.DrawAs=ESlateBrushDrawType::Image;}
+         }
++    }
++    for(int32 I=1;I<=3;++I)
++    {
++        const FName Key(*FString::Printf(TEXT("elementArrowIcon%d"),I));
++        if(MasteryIconBrushes.Contains(Key))continue;
++        auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/ElementalArrow::Icon(EArrowElement(I)));
++        if(Texture){MasteryIconTextures.Add(Key,Texture);auto& B=MasteryIconBrushes.Add(Key);B.SetResourceObject(Texture);B.DrawAs=ESlateBrushDrawType::Image;}
+     }
+     SAssignNew(Root,SBox); RefreshLayout(); return Root.ToSharedRef();
+ }
+@@ -83,7 +92,7 @@
+ FColdSteelSkillProgress UColdSteelSkillPage::Progress(FName Id) const
+ { if(Id==TEXT("lightningHaste"))return Model->MasteryProgress(Id);if(Id==TEXT("iceArmor"))return Model->MasteryProgress(Id);if(Id==TEXT("swordUppercut"))return Model->MasteryProgress(Id);if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicProgress(Id);if(Id==TEXT("blizzard"))return Model->BlizzardProgress();if(Id==TEXT("iceWall"))return Model->IceWallProgress();if(FireMagic::IsSkill(Id))return Model->FireMagicProgress(Id);if(Id==TEXT("holyLight"))return Model->HolyLightProgress();if(Id==TEXT("lightningStrike"))return Model->LightningProgress();if(Id==TEXT("iceSpike"))return Model->IceSpikeProgress();if(Id==TEXT("quickCombat"))return Model->QuickCombatProgress();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryProgress(Id);if(Id==TEXT("fireball"))return Model->FireballProgress();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeProgress();if(Id==TEXT("pistolMastery"))return Model->PistolProgress();return Id==TEXT("dodge")?Model->DodgeProgress():(Id==TEXT("dexterousHands")?Model->DexterousHandsProgress():Model->RifleProgress()); }
+ void UColdSteelSkillPage::ReleaseSlateResources(bool bReleaseChildren)
+-{ LightningHasteDetailButton.Reset();IceArmorDetailButton.Reset();UppercutDetailButton.Reset();ElectricDetailButtons.Reset();BlizzardDetailButton.Reset();IceWallDetailButton.Reset();Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();DragonBreathDetailButton.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
++{ IlluminationArrowDetailButton.Reset();ElementalArrowDetailButton.Reset();MagicArrowRainDetailButton.Reset();LightningHasteDetailButton.Reset();IceArmorDetailButton.Reset();UppercutDetailButton.Reset();ElectricDetailButtons.Reset();BlizzardDetailButton.Reset();IceWallDetailButton.Reset();Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();DragonBreathDetailButton.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
+ void UColdSteelSkillPage::NativeTick(const FGeometry& Geometry,float Delta)
+ {
+     Super::NativeTick(Geometry,Delta);
+@@ -296,16 +305,23 @@
+     }
+     auto LevelLabel=[this,Id](){return SNew(STextBlock).Text_Lambda([this,Id]{return FText::FromString(FString::Printf(TEXT("Lv.%d / %d"),Progress(Id).Level,Definition(Id).MaxLevel));})
+         .Font(ColdSteelUI::NumberFont(16*.75f/Scale,true)).ColorAndOpacity(ColdSteelUI::Accent).AutoWrapText(false);};
++    if(Id==TEXT("illuminationArrow"))Tags=TEXT("弓限定 / 标记显形 / 主动");
++    if(Id==TEXT("elementalArrow"))Tags=TEXT("弓限定 / 三元素附魔 / 主动");
++    if(Id==TEXT("magicArrowRain"))Tags=TEXT("弓限定 / 范围魔法 / 主动");
+     if(Id==TEXT("heartPiercingArrow"))Tags=TEXT("弓限定 / 持续拉弓 / 被动战技");
+     TSharedRef<SWidget> Brief=Paragraph(bCompact?TEXT("在实战中修炼 · 查看技能详情"):D.Description,14,ColdSteelUI::TextSecondary,PageWidth-76);
+     if(Id==TEXT("heartPiercingArrow")&&bCompact)
+         Brief=SNew(STextBlock).Text_Lambda([this,Id]
+         {
+-            const auto S=HeartPiercingArrow::Evaluate(Definition(Id).HeartPiercingArrow,Progress(Id).Level);
+-            return FText::FromString(FString::Printf(TEXT("持续拉弓 >%.0f 秒 · 满拉伤害 ×%.2f\n箭速 ×%.0f · 目标穿透 +%d（最多 %d 个）"),
++            const auto S=HeartPiercingArrow::ForModel(Model);
++            return FText::FromString(FString::Printf(TEXT("持续拉弓 >%.1f 秒 · 满拉伤害 ×%.2f\n箭速 ×%.0f · 目标穿透 +%d（最多 %d 个）"),
+                 S.ChargeSeconds,S.DamageMultiplier,S.SpeedMultiplier,S.TargetPenetration,S.TargetPenetration+1));
+         }).Font(ColdSteelUI::TextFont(14*.75f/Scale)).ColorAndOpacity(ColdSteelUI::TextSecondary)
+             .AutoWrapText(false).WrapTextAt(FMath::Max(1.f,PageWidth-76)/Scale).LineHeightPercentage(1.4f);
++    if(Id==TEXT("magicArrowRain")&&bCompact)
++        Brief=Paragraph(TEXT("搭箭附魔 → 长按左键选点 → 满蓄松手\n空爆后锥形箭雨 · 保持期间持续耗体耗蓝"),14,ColdSteelUI::TextSecondary,PageWidth-76);
++    if(Id==TEXT("illuminationArrow")&&bCompact)Brief=Paragraph(TEXT("沿途扫描 · 命中双倍标记 · 持续照明\n普通箭伤害 / 破除隐身 / 承伤加深"),14,ColdSteelUI::TextSecondary,PageWidth-76);
++    if(Id==TEXT("elementalArrow")&&bCompact)Brief=Paragraph(TEXT("短按搭箭 · 长按圆盘切换 · 松开左键射击\n火焰爆炸 / 寒冰散射 / 闪电放射"),14,ColdSteelUI::TextSecondary,PageWidth-76);
+     auto Identity=SNew(SVerticalBox)
+         +SVerticalBox::Slot().AutoHeight()[Label(D.Name,20,ColdSteelUI::TextPrimary)]
+         +SVerticalBox::Slot().AutoHeight().Padding(0,4/Scale,0,0)[Paragraph(Tags,12,ColdSteelUI::TextSecondary,PageWidth-64-60-(Compact?0:128))];
+@@ -329,11 +345,57 @@
+ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
+ {
+     if(bNext&&Progress(SelectedSkill).Level>=Definition(SelectedSkill).MaxLevel)return TEXT("MAX");
++    if(SelectedSkill==TEXT("illuminationArrow"))
++    {
++        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);const auto C=Model->IlluminationArrowStats(L);
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.1f m"),C.Radius/100.f);
++        case 1:return FString::Printf(TEXT("%.1f s"),C.Duration);
++        case 2:return FString::Printf(TEXT("+%.1f%%"),C.DamageBonus*100.f);
++        case 3:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        case 4:return FString::Printf(TEXT("%.1f MP"),C.ManaCost);
++        case 6:return FString::Printf(TEXT("%.1f s"),IlluminationArrow::ImpactDuration(C));
++        default:{const int32 Need=ColdSteelSkills::ExperienceRequired(Definition(SelectedSkill),L);return Need?FString::Printf(TEXT("%d XP"),Need):TEXT("MAX");}
++        }
++    }
++    if(SelectedSkill==TEXT("elementalArrow"))
++    {
++        const auto& D=Definition(SelectedSkill);const auto& T=D.ElementalArrow;
++        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);
++        if(Index<=5)
++        {
++            const auto E=Index<2?EArrowElement::Fire:Index<4?EArrowElement::Ice:EArrowElement::Lightning;
++            if(Index%2==0)return FString::Printf(TEXT("×%.2f"),ElementalArrow::DamageMultiplier(T,E,L));
++            const auto C=Model->ElementalArrowStats(E,L);
++            return FString::Printf(TEXT("%.0f"),E==EArrowElement::Fire?C.Fire.Damage:E==EArrowElement::Ice?C.Ice.Damage:C.Lightning.Damage);
++        }
++        if(Index==6)return FString::Printf(TEXT("%.1f m"),Model->ElementalArrowStats(EArrowElement::Fire,L).Radius/100.f);
++        if(Index==7)return FString::Printf(TEXT("%.0f%% / %.1f s"),T.ChillSlow*100,T.ChillSeconds);
++        if(Index==8)return FString::Printf(TEXT("%.1f s"),T.StunSeconds);
++        const int32 Need=ColdSteelSkills::ExperienceRequired(D,L);
++        return Need?FString::Printf(TEXT("%d XP"),Need):TEXT("MAX");
++    }
++    if(SelectedSkill==TEXT("magicArrowRain"))
++    {
++        const auto C=Model->MagicArrowRainStats(Progress(SelectedSkill).Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),C.Damage);
++        case 1:return FString::Printf(TEXT("%.1f m"),C.Radius/100.f);
++        case 2:return FString::Printf(TEXT("%.0f m"),C.Range/100.f);
++        case 3:return FString::Printf(TEXT("%.1f s"),C.ChargeSeconds);
++        case 4:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++        case 5:return FString::Printf(TEXT("%.1f / 秒"),C.ManaPerSecond);
++        case 6:return FString::Printf(TEXT("%.1f / 秒"),Model->HeavyChargeStaminaPerSecond());
++        default:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        }
++    }
+     if(SelectedSkill==TEXT("heartPiercingArrow"))
+     {
+         const int32 Level=Progress(SelectedSkill).Level+(bNext?1:0);
+         const auto& D=Definition(SelectedSkill);
+-        const auto S=HeartPiercingArrow::Evaluate(D.HeartPiercingArrow,Level);
++        const auto S=HeartPiercingArrow::ForModel(Model,Level);
+         switch(Index)
+         {
+         case 0:return FString::Printf(TEXT("×%.2f"),S.DamageMultiplier);
+@@ -341,7 +403,7 @@
+         case 2:return FString::Printf(TEXT("%d 个"),S.TargetPenetration+1);
+         case 3:return FString::Printf(TEXT("×%.0f"),S.SpeedMultiplier);
+         case 4:return FString::Printf(TEXT(">%.1f s"),S.ChargeSeconds);
+-        case 6:return FString::Printf(TEXT("%.1f / 秒"),Model->HeavyChargeStaminaPerSecond());
++        case 6:return FString::Printf(TEXT("%.1f / 秒"),Model->ActiveBow()?ColdSteelBow::ChargeStaminaPerSecond(*Model->ActiveBow(),Model):Model->HeavyChargeStaminaPerSecond());
+         default:{const int32 Need=ColdSteelSkills::ExperienceRequired(D,Level);return Need?FString::Printf(TEXT("%d XP"),Need):TEXT("MAX");}
+         }
+     }
+@@ -659,7 +721,31 @@
+             +SHorizontalBox::Slot().FillWidth(1)[Label(Name,14,ColdSteelUI::TextSecondary)]
+             +SHorizontalBox::Slot().AutoWidth().Padding(12/Scale,0,0,0)[Label(FString::Printf(TEXT("+%d XP"),Experience),14,ColdSteelUI::Success,true)]];
+     };
+-    if(SelectedSkill==TEXT("heartPiercingArrow"))
++    if(SelectedSkill==TEXT("illuminationArrow"))
++    {
++        const auto& T=D.IlluminationArrow;
++        AddReward(TEXT("击杀有效标记目标"),D.KillExperience);
++        AddReward(TEXT("同箭标记累计 3 杀额外"),T.ThreeKillExperience);
++        AddReward(TEXT("同箭标记累计 5 杀额外"),T.FiveKillExperience);
++        AddReward(TEXT("同箭标记累计 7 杀额外"),T.SevenKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(FString::Printf(TEXT("每档奖励每支箭仅触发一次，可与击杀经验叠加；七杀合计 %d XP。升级需要当前等级 × %d XP，上限 %d 级。"),7*D.KillExperience+T.ThreeKillExperience+T.FiveKillExperience+T.SevenKillExperience,D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Paragraph(TEXT("只计本人在目标标记尚有效时完成的击杀，可更换武器，也可由本人持续伤害击杀。每个目标死亡只计一次，重复施加后归属本人最新一箭；队友击杀、友方、召唤物、无修炼目标、过期后击杀及单纯扫描不计。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("elementalArrow")||SelectedSkill==TEXT("magicArrowRain"))
++    {
++        const bool bElemental=SelectedSkill==TEXT("elementalArrow");
++        AddReward(TEXT("每个有效目标命中"),D.HitExperience);
++        AddReward(TEXT("每次直接击杀额外"),D.KillExperience);
++        AddReward(TEXT("同箭命中至少两人"),D.MultiHitExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(FString::Printf(
++            TEXT("命中与击杀可叠加，直接击杀共 %d XP；多目标奖励每次释放只计一次。升级需要当前等级 × %d XP，上限 %d 级。"),
++            D.HitExperience+D.KillExperience,D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Paragraph(bElemental?
++            TEXT("火焰爆炸、寒冰散射和闪电放射共用元素箭修炼。只计实际元素伤害，同一目标同一箭最多一次，整批冰锥结束后统一结算；原魔法与暴击照常修炼。普通箭与穿心箭的物理命中不计本项。"):
++            TEXT("整次箭雨统一结算，同一目标只计一次范围命中；视觉箭矢数量不重复增加修炼。暴击照常修炼。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Paragraph(TEXT("空射、取消、友方、尸体、召唤物、无修炼目标与后续持续伤害不计。满级后停止积累经验。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("heartPiercingArrow"))
+     {
+         AddReward(TEXT("穿心箭每个有效命中"),D.HitExperience);
+         AddReward(TEXT("每次直接击杀额外"),D.KillExperience);
+@@ -855,6 +941,15 @@
+             [SAssignNew(HeavyDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
+                 .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("heavyStrike")))[Overview(true,TEXT("heavyStrike"))]];
+         if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
++            [SAssignNew(IlluminationArrowDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
++                .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("illuminationArrow")))[Overview(true,TEXT("illuminationArrow"))]];
++        if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
++            [SAssignNew(ElementalArrowDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
++                .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("elementalArrow")))[Overview(true,TEXT("elementalArrow"))]];
++        if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
++            [SAssignNew(MagicArrowRainDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
++                .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("magicArrowRain")))[Overview(true,TEXT("magicArrowRain"))]];
++        if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
+             [SAssignNew(FireballDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
+                 .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("fireball")))[Overview(true,TEXT("fireball"))]];
+         if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
+@@ -920,7 +1015,106 @@
+             +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(100/Scale).HAlign(HAlign_Right)[Label(TEXT("当前等级"),12,ColdSteelUI::TextSecondary)]]
+             +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(100/Scale).HAlign(HAlign_Right)[Label(TEXT("下一等级"),12,ColdSteelUI::Success)]]];
+         else Scroll->AddSlot().Padding(28/Scale,4/Scale)[Label(TEXT("技能收益"),16,ColdSteelUI::TextPrimary)];
+-        if(SelectedSkill==TEXT("heartPiercingArrow"))
++        if(SelectedSkill==TEXT("illuminationArrow"))
++        {
++            const TCHAR* Labels[]={TEXT("路径扫描半径"),TEXT("沿途标记时间"),TEXT("直击标记 / 照明"),TEXT("标记目标承伤"),TEXT("释放后冷却"),TEXT("射出魔法消耗"),TEXT("升级所需修炼")};
++            const int32 Rows[]={0,1,6,2,3,4,5};
++            for(int32 I=0;I<7;++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Labels[I],Rows[I])];
++            Scroll->AddSlot().Padding(16/Scale,12/Scale)[Paragraph(TEXT("按绑定键搭上照明箭；长按左键正常拉弓，松手射出。箭头白金光弧提供局部照明，射出后恢复普通箭。再次按技能键、切武器或打开菜单取消。射出才扣除一支箭、魔法并开始独立冷却；拉弓持续耗体，沿用节拍与穿心箭。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale)[Paragraph(TEXT("箭矢沿实际飞行路径连续扫描；实体墙和楼板遮挡探测，撞停或消失后停止扫描。沿途目标每箭扫描标记一次；直接命中的目标从命中时刷新双倍标记时长，后续扫描不会缩短已有标记。红色轮廓高亮，螳螂立即显形且期间无法隐身；所有来源伤害提高，同类标记取最高增伤，不相乘叠加。净化、免疫和死亡按现有状态规则处理。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale)[Paragraph(TEXT("命中位置留下白金光弧和持续照明，时长等于直击标记；命中怪物随目标移动，命中地面或墙面则留在落点。穿透命中各自留下光源，拾回箭矢不会提前熄灭。光源不追加扫描或伤害。箭矢本体按普通箭结算，保留蓄力、暴击、护甲、节拍与穿心箭效果，无照明技能额外伤害倍率。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale,16/Scale,12/Scale)[TrainingCard()];
++            const auto& D=Definition(SelectedSkill);
++            auto Growth=SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight().Padding(0,0,0,12/Scale)[Label(TEXT("完整成长 · 20 级"),16,ColdSteelUI::TextPrimary)]
++                +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8/Scale)[Paragraph(TEXT("线性成长。下表为基础冷却，装备冷却缩减另计；上方对照为当前装备下的实值。范围为半径，沿途标记从扫描时计算；直击标记与落点照明从命中时计算，持续时间翻倍。"),12,ColdSteelUI::TextSecondary,PageWidth-76)];
++            if(PageWidth>=620)Growth->AddSlot().AutoHeight().Padding(0,0,0,8/Scale)[SNew(SHorizontalBox)
++                +SHorizontalBox::Slot().FillWidth(.65f)[Label(TEXT("等级"),12,ColdSteelUI::TextPrimary)]
++                +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("半径"),12,ColdSteelUI::TextPrimary)]
++                +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("沿途"),12,ColdSteelUI::TextPrimary)]
++                +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("直击 / 照明"),12,ColdSteelUI::TextPrimary)]
++                +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("增伤"),12,ColdSteelUI::TextPrimary)]
++                +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("冷却"),12,ColdSteelUI::TextPrimary)]];
++            for(int32 L=1;L<=D.MaxLevel;++L)
++            {
++                const auto C=IlluminationArrow::Evaluate(D.IlluminationArrow,L,D.MaxLevel);
++                const auto Color=L==Progress(SelectedSkill).Level?ColdSteelUI::Accent:ColdSteelUI::TextSecondary;
++                if(PageWidth>=620)Growth->AddSlot().AutoHeight().Padding(0,5/Scale)[SNew(SHorizontalBox)
++                    +SHorizontalBox::Slot().FillWidth(.65f)[Label(FString::Printf(TEXT("%02d"),L),14,Color,true)]
++                    +SHorizontalBox::Slot().FillWidth(1)[Label(FString::Printf(TEXT("%.1f m"),C.Radius/100.f),14,Color,true)]
++                    +SHorizontalBox::Slot().FillWidth(1)[Label(FString::Printf(TEXT("%.1f s"),C.Duration),14,Color,true)]
++                    +SHorizontalBox::Slot().FillWidth(1)[Label(FString::Printf(TEXT("%.1f s"),IlluminationArrow::ImpactDuration(C)),14,Color,true)]
++                    +SHorizontalBox::Slot().FillWidth(1)[Label(FString::Printf(TEXT("+%.1f%%"),C.DamageBonus*100),14,Color,true)]
++                    +SHorizontalBox::Slot().FillWidth(1)[Label(FString::Printf(TEXT("%.1f s"),C.Cooldown),14,Color,true)]];
++                else Growth->AddSlot().AutoHeight().Padding(0,6/Scale)[SNew(SVerticalBox)
++                    +SVerticalBox::Slot().AutoHeight()[Label(FString::Printf(TEXT("Lv.%02d"),L),14,Color,true)]
++                    +SVerticalBox::Slot().AutoHeight().Padding(0,4/Scale,0,0)[Paragraph(FString::Printf(TEXT("半径 %.1f m · 沿途 %.1f s\n直击 / 照明 %.1f s\n承伤 +%.1f%% · 冷却 %.1f s"),C.Radius/100.f,C.Duration,IlluminationArrow::ImpactDuration(C),C.DamageBonus*100,C.Cooldown),14,Color,PageWidth-76)]];
++            }
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[SNew(SBorder).BorderImage(&CardBrush).Padding(16/Scale)[Growth]];
++        }
++        else if(SelectedSkill==TEXT("elementalArrow"))
++        {
++            const auto& D=Definition(SelectedSkill);const auto& T=D.ElementalArrow;
++            const TCHAR* Labels[]={TEXT("火球伤害调用倍率"),TEXT("火焰箭基础魔法伤害"),TEXT("冰锥伤害调用倍率"),TEXT("每枚冰锥基础魔法伤害"),TEXT("闪电伤害调用倍率"),TEXT("每道闪电基础魔法伤害"),TEXT("三元素波及半径"),TEXT("寒冷减速 / 持续"),TEXT("闪电眩晕"),TEXT("升级所需修炼")};
++            for(int32 I=0;I<10;++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Labels[I],I)];
++            for(int32 I=1;I<=3;++I)
++            {
++                const auto E=EArrowElement(I);const auto C=Model->ElementalArrowStats(E);
++                const FName Key(*FString::Printf(TEXT("elementArrowIcon%d"),I));
++                const bool Learned=Model->MasteryProgress(ElementalArrow::Spell(E)).Level>0;
++                Scroll->AddSlot().Padding(16/Scale,6/Scale)[SNew(SBorder).BorderImage(&CardBrush).Padding(16/Scale)[SNew(SHorizontalBox)
++                    +SHorizontalBox::Slot().AutoWidth().Padding(0,0,12/Scale,0)[SNew(SBox).WidthOverride(64/Scale).HeightOverride(64/Scale)[SNew(SImage).Image(MasteryIconBrushes.Find(Key))]]
++                    +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Paragraph(FString::Printf(TEXT("%s · %s\n射出 %.0f MP · %.1f 秒冷却"),ElementalArrow::Name(E),Learned?TEXT("可使用"):TEXT("对应魔法未学习"),C.ManaCost,C.Cooldown),14,ColdSteelUI::TextSecondary,PageWidth-152)]]];
++            }
++            Scroll->AddSlot().Padding(16/Scale,12/Scale)[Paragraph(TEXT("短按绑定键搭上一支元素箭；长按 0.3 秒打开圆盘，冷却中仍可切换。三元素独立倒计时，只与各自原魔法共用冷却。移向元素后松键确认，已就绪则搭箭；选中冷却元素会保留选择，待就绪后短按搭箭。盘心或 Esc 取消选择。按住左键正常拉弓，松手射出；再次短按技能键取消附魔。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale)[Paragraph(TEXT("保留正常弓箭物理伤害、节拍奖励及穿心箭的伤害／箭速／穿透。元素爆发每支箭只触发一次；贯穿后的后续命中继续造成物理伤害。元素附伤不再乘穿心箭倍率。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale)[SNew(SBorder).BorderImage(&CardBrush).Padding(16/Scale)[Paragraph(FString::Printf(TEXT("射出蓝耗：对应魔法 ×%g，向上取整。\n持续拉弓：%g MP / 秒，同时沿用弓的持续体力消耗，停止自然回蓝。搭箭待机不扣维持蓝量。魔法不足以支付射出费用时自动收弓；取消不消耗箭支、不进入冷却，已发生的维持消耗不返还。"),T.ManaCostMultiplier,T.ManaPerSecond),14,ColdSteelUI::TextSecondary,PageWidth-76)]];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale)[Paragraph(FString::Printf(TEXT("火焰：原火球伤害乘上方调用倍率，半径 ×%g，直击全伤，范围伤害沿用距离衰减。寒冰：向范围内可见敌人各发射一枚冰锥，原冰锥伤害乘调用倍率，附加 %.1f 秒寒冷。闪电：范围内可见敌人各承受一道放大后的闪电及 %.1f 秒眩晕。首目标同样受到元素伤害与控制。"),T.RadiusMultiplier,T.ChillSeconds,T.StunSeconds),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale)[Paragraph(TEXT("三元素共用上方波及半径，各自独立冷却，并分别与原魔法共用冷却；未学习对应魔法时不可用。实体墙与楼板遮挡波及，冰锥途中可被障碍截断。每个目标同次最多受一次元素伤害，控制遵守已有免疫规则。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale)[Paragraph(TEXT("元素箭与原魔法分别成长：元素箭等级提高调用倍率，原魔法等级与当前属性决定被放大的基础伤害。下一等级只预览元素箭升级，原魔法等级保持当前值。暴击、魔法增伤和目标魔防另行结算；射出时锁定本箭伤害。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale,16/Scale,12/Scale)[TrainingCard()];
++            auto Growth=SNew(SVerticalBox)
++                +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,12/Scale)[Label(FString::Printf(TEXT("完整成长 · %d 级"),D.MaxLevel),16,ColdSteelUI::TextPrimary)]
++                +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,12/Scale)[Paragraph(FString::Printf(
++                    TEXT("2～%d 级：火焰每级 +%.2f，寒冰／闪电 +%.2f；%d～%d 级：每级分别 +%.2f / +%.2f。表中倍率作用于对应魔法的当前伤害。"),
++                    T.GrowthChangeLevel,T.FireGrowth,T.ControlGrowth,T.GrowthChangeLevel+1,D.MaxLevel,T.FireLateGrowth,T.ControlLateGrowth),12,ColdSteelUI::TextSecondary,PageWidth-76)];
++            if(PageWidth>=480)Growth->AddSlot().AutoHeight().Padding(0,0,0,8/Scale)[SNew(SHorizontalBox)
++                +SHorizontalBox::Slot().FillWidth(.75f)[Label(TEXT("等级"),14,ColdSteelUI::TextPrimary)]
++                +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("火焰"),14,ColdSteelUI::TextPrimary)]
++                +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("寒冰"),14,ColdSteelUI::TextPrimary)]
++                +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("闪电"),14,ColdSteelUI::TextPrimary)]];
++            for(int32 L=1;L<=D.MaxLevel;++L)
++            {
++                const float F=ElementalArrow::DamageMultiplier(T,EArrowElement::Fire,L),I=ElementalArrow::DamageMultiplier(T,EArrowElement::Ice,L),E=ElementalArrow::DamageMultiplier(T,EArrowElement::Lightning,L);
++                const auto Color=L==Progress(SelectedSkill).Level?ColdSteelUI::Accent:ColdSteelUI::TextSecondary;
++                if(PageWidth>=480)Growth->AddSlot().AutoHeight().Padding(0,5/Scale)[SNew(SHorizontalBox)
++                    +SHorizontalBox::Slot().FillWidth(.75f)[Label(FString::Printf(TEXT("Lv.%02d"),L),14,Color,true)]
++                    +SHorizontalBox::Slot().FillWidth(1)[Label(FString::Printf(TEXT("×%.2f"),F),14,Color,true)]
++                    +SHorizontalBox::Slot().FillWidth(1)[Label(FString::Printf(TEXT("×%.2f"),I),14,Color,true)]
++                    +SHorizontalBox::Slot().FillWidth(1)[Label(FString::Printf(TEXT("×%.2f"),E),14,Color,true)]];
++                else Growth->AddSlot().AutoHeight().Padding(0,5/Scale)[SNew(SVerticalBox)
++                    +SVerticalBox::Slot().AutoHeight()[Label(FString::Printf(TEXT("Lv.%02d"),L),14,Color,true)]
++                    +SVerticalBox::Slot().AutoHeight().Padding(0,4/Scale,0,0)[Paragraph(FString::Printf(TEXT("火焰 ×%.2f  /  寒冰 ×%.2f  /  闪电 ×%.2f"),F,I,E),14,Color,PageWidth-76)]];
++            }
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[SNew(SBorder).BorderImage(&CardBrush).Padding(16/Scale)[Growth]];
++        }
++        else if(SelectedSkill==TEXT("magicArrowRain"))
++        {
++            const TCHAR* Labels[]={TEXT("单次范围魔法伤害"),TEXT("范围半径"),TEXT("最大选点距离"),TEXT("满蓄时间"),TEXT("基础魔法消耗"),TEXT("持续魔法消耗"),TEXT("持续体力消耗"),TEXT("释放后冷却")};
++            for(int32 I=0;I<8;++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Labels[I],I)];
++            const auto& T=Definition(SelectedSkill).MagicArrowRain;
++            Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,8/Scale)[Label(TEXT("伤害成长"),16,ColdSteelUI::TextPrimary)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("主属性敏捷，副属性智力。伤害系数和每级成长均为敏捷∶智力＝2∶1；使用释放时包含装备、精通和状态修正的有效属性。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(FString::Printf(
++                TEXT("令 K＝技能等级−1：范围伤害＝向下取整〔%g＋%g×K＋敏捷×(%g＋%g×K)＋智力×(%g＋%g×K)〕。"),
++                T.DamageBase,T.DamagePerLevel,T.DexterityBase,T.DexterityPerLevel,T.IntelligenceBase,T.IntelligencePerLevel),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("上方显示当前属性下的基础魔法伤害及升级后的数值。魔法增伤、暴击与目标魔防另行结算；面板魔攻不额外计入此公式。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,8/Scale)[Label(TEXT("操作与释放"),16,ColdSteelUI::TextPrimary)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("按绑定键搭上绿色附魔箭；长按左键拉弓，镜头选择地面范围，满蓄后松手释放。再次按技能键、切武器或打开菜单取消；体力或魔法耗尽会平缓收弓，保留箭支，不会自动射出。未满蓄或落点无效时松手同样取消。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("准备时暂扣基础魔法；未射出取消会返还，持续拉弓已经消耗的资源不返还。真实离弦后消耗一支箭并开始冷却。保持期间暂停自然回体和回蓝；箭雨不叠加穿心箭或完美节拍奖励。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("引导箭在目标上方空爆，随后一次密集箭雨落下；同一目标只结算一次范围伤害。实体墙、顶板和楼层可以遮挡，途中撞墙不会在远端触发箭雨。绿色圆圈表示范围，短暂烟尘不造成持续伤害。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,8/Scale,16/Scale,12/Scale)[TrainingCard()];
++        }
++        else if(SelectedSkill==TEXT("heartPiercingArrow"))
+         {
+             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("普通满拉箭伤害倍率"),0)];
+             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("额外目标穿透"),1)];
+@@ -931,19 +1125,21 @@
+             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("升级所需修炼"),5)];
+             const auto& D=Definition(SelectedSkill);
+             const auto& T=D.HeartPiercingArrow;
++            const auto Current=HeartPiercingArrow::ForModel(Model);
++            const double ChargeDrain=Model->ActiveBow()?ColdSteelBow::ChargeStaminaPerSecond(*Model->ActiveBow(),Model):Model->HeavyChargeStaminaPerSecond();
+             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,8/Scale)[Label(TEXT("触发与结算"),16,ColdSteelUI::TextPrimary)];
+             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(FString::Printf(
+-                TEXT("持弓按住左键，从开始实际拉弦计时；持续超过 %.1f 秒并达到满拉后，进度条转红并脉冲，松手释放穿心箭。搭箭与举弓准备不计时，不需要绑定快捷键，无额外魔法消耗或技能冷却。"),T.ChargeSeconds),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++                TEXT("持弓按住左键，从开始实际拉弦计时；当前装备持续超过 %.1f 秒并达到满拉后，进度条转红并脉冲，松手释放穿心箭。搭箭与举弓准备不计时，不需要绑定快捷键，无额外魔法消耗或技能冷却。"),Current.ChargeSeconds),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(FString::Printf(
+-                TEXT("从实际拉弦开始持续消耗体力，满拉和穿心就绪后继续按住也会消耗，并暂停自然回体。沿用重击蓄力规则，当前每秒 %.1f 体力，受动作耗体倍率影响。松手或取消后停止，已消耗体力不返还；实际出箭仍另扣本次射击体力。体力耗尽时平缓收弓，保留箭支，不触发攻击。"),Model->HeavyChargeStaminaPerSecond()),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++                TEXT("从实际拉弦开始持续消耗体力，满拉和穿心就绪后继续按住也会消耗，并暂停自然回体。当前每秒 %.1f 体力，受持续拉弓耗体改造与角色动作耗体倍率影响。松手或取消后停止，已消耗体力不返还；实际出箭仍另扣本次射击体力。体力耗尽时平缓收弓，保留箭支，不触发攻击。"),ChargeDrain),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(
+                 TEXT("倍率在普通满拉箭伤害上继续相乘，继承当前弓、箭种、精通、暴击与目标防御结算。每个穿透目标沿用同一发箭的伤害倍率与速度，不因穿透衰减；实体墙与地形仍会挡住箭。额外穿透耗尽后，箭停在最后目标上；一箭只留下一个可回收箭体。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(FString::Printf(
+-                TEXT("收弓、换武器、死亡或动作打断都会取消本次蓄力，下次从零计时。快速拉弓不会缩短穿心箭的 %.1f 秒门槛；体力允许时可一直维持，只有松手才射箭，不再因持弓超时自动射出。完美节拍仍按原满拉窗口结算。"),T.ChargeSeconds),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++                TEXT("收弓、换武器、死亡或动作打断都会取消本次蓄力，下次从零计时。穿心箭与普通拉弓共用拉弓速度，基础 %.1f 秒门槛随当前拉弓速度同比缩短或延长，完美节拍的下次拉弓加速同样生效。体力允许时可一直维持，松手才射箭。完美节拍仍按满拉窗口结算。"),T.ChargeSeconds),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+             Scroll->AddSlot().Padding(16/Scale,8/Scale,16/Scale,12/Scale)[TrainingCard()];
+             Scroll->AddSlot().Padding(16/Scale,8/Scale,16/Scale,8/Scale)[Label(TEXT("完整成长 · 20 级"),16,ColdSteelUI::TextPrimary)];
+             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(FString::Printf(
+-                TEXT("2～%d 级每级增加 %.2f 倍伤害，%d～%d 级每级增加 %.2f 倍；第 %d / %d 级分别获得第 2 / 3 次额外目标穿透。箭速与蓄力门槛全等级固定。"),
++                TEXT("2～%d 级每级增加 %.2f 倍伤害，%d～%d 级每级增加 %.2f 倍；第 %d / %d 级分别获得第 2 / 3 次额外目标穿透。下表为技能基础成长，不含当前弓体改造；基础箭速与蓄力门槛不随等级改变。"),
+                 T.GrowthChangeLevel,T.EarlyGrowth,T.GrowthChangeLevel+1,D.MaxLevel,T.LateGrowth,T.SecondPenetrationLevel,T.ThirdPenetrationLevel),12,ColdSteelUI::TextSecondary,PageWidth-44)];
+             auto Growth=SNew(SVerticalBox);
+             auto AddGrowth=[&](const FString& Level,const FString& Damage,const FString& Targets,bool bMilestone)

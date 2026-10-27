@@ -1,0 +1,28 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/IlluminationArrowVisual.h
+@@ -0,0 +1,25 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "IlluminationArrowVisual.generated.h"
++class UDynamicMeshComponent;
++class UPointLightComponent;
++class UMaterialInterface;
++struct FStreamableHandle;
++UCLASS()
++class FPSGAME_API UIlluminationArrowVisual : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    void Update(const FVector& Tail,const FVector& Tip,float Delta,bool Flying);
++    void UpdateImpact(const FVector& Position,const FVector& Forward,float Delta);
++    void Clear();
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++private:
++    UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> Arcs;
++    UPROPERTY(Transient) TObjectPtr<UPointLightComponent> Light;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> Material;
++    TSharedPtr<FStreamableHandle> Load;
++    bool bRequested=false;float Age=0;
++    void Create();
++};

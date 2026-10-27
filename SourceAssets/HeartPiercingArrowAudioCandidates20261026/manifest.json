@@ -1,0 +1,83 @@
+{
+  "purpose": "Heart-piercing arrow release sounds for user audition",
+  "created_date": "2026-10-26",
+  "runtime_modified": false,
+  "freesound_candidates": "Not delivered: public preview CDN returned HTTP 403. Saved HTML files are research references, not selected audio.",
+  "candidates": [
+    {
+      "candidate": "A",
+      "label": "BattleBow",
+      "author": "artisticdude",
+      "source_page": "https://opengameart.org/content/battle-sound-effects",
+      "license": "CC0-1.0",
+      "source_file": "Sources\\Bow.wav",
+      "source_sha256": "0dc8cf132cf583563936ac3a4d776e196210d5f6703b4ebdd7c68e8f35b9f3e3",
+      "speed_and_pitch_ratio": 1,
+      "source_cut_seconds": null,
+      "gain_db": -2.898094625061419,
+      "single_seconds": 0.5485833333333333,
+      "single_file": "Singles\\A_BattleBow.wav",
+      "audition_file": "Auditions\\A_BattleBow_2x.wav",
+      "processing": "48 kHz stereo, 0.5 ms/8 ms edge fades, -3 dBFS peak; audition repeats twice with 0.7 s gap. Peak matching is not perceptual loudness matching. No added bass, EQ, compression, or layering.",
+      "selected": false,
+      "imported_to_ue": false
+    },
+    {
+      "candidate": "B",
+      "label": "HeavyString",
+      "author": "HolgiB",
+      "source_page": "https://opengameart.org/content/crossbow-sounds",
+      "license": "CC-BY-3.0",
+      "source_file": "Sources\\crossbow_dryshot.flac",
+      "source_sha256": "2e0fee16e556cfc9fd2376074b56b7082991ede9187db62656d9256d28f4d62f",
+      "speed_and_pitch_ratio": 0.8,
+      "source_cut_seconds": null,
+      "gain_db": -3.414354030754719,
+      "single_seconds": 0.42133333333333334,
+      "single_file": "Singles\\B_HeavyString.wav",
+      "audition_file": "Auditions\\B_HeavyString_2x.wav",
+      "processing": "48 kHz stereo, 0.5 ms/8 ms edge fades, -3 dBFS peak; audition repeats twice with 0.7 s gap. Peak matching is not perceptual loudness matching. No added bass, EQ, compression, or layering.",
+      "selected": false,
+      "imported_to_ue": false
+    },
+    {
+      "candidate": "C",
+      "label": "DeepLongbow",
+      "author": "Ben Jaszczak and Brian Nelson / Still North Media",
+      "source_page": "https://opengameart.org/content/medieval-sound-effects-weapon-textures",
+      "license": "CC0-1.0",
+      "source_file": "Sources\\English_Longbow_Shoot.wav",
+      "source_sha256": "c25684ccdab3eb13f17a0ffa637fbd175659d092665f16c0bce8510d46c4fbee",
+      "speed_and_pitch_ratio": 0.85,
+      "source_cut_seconds": [
+        0.087,
+        0.56
+      ],
+      "gain_db": 3.5774045498021287,
+      "single_seconds": 0.5564791666666666,
+      "single_file": "Singles\\C_DeepLongbow.wav",
+      "audition_file": "Auditions\\C_DeepLongbow_2x.wav",
+      "processing": "48 kHz stereo, 0.5 ms/8 ms edge fades, -3 dBFS peak; audition repeats twice with 0.7 s gap. Peak matching is not perceptual loudness matching. No added bass, EQ, compression, or layering.",
+      "selected": false,
+      "imported_to_ue": false
+    },
+    {
+      "candidate": "D",
+      "label": "BowWhoosh",
+      "author": "dorkster; source sounds by qubodup",
+      "source_page": "https://opengameart.org/content/bow-arrow-shot",
+      "license": "CC-BY-SA-3.0",
+      "source_file": "Sources\\Flare_shoot.ogg",
+      "source_sha256": "ac3e1f9868946cfd2fdfe00f65d7170d1e30d66ec626ba7767a5370dacedaba6",
+      "speed_and_pitch_ratio": 1,
+      "source_cut_seconds": null,
+      "gain_db": 2.267683955609513,
+      "single_seconds": 0.4492083333333333,
+      "single_file": "Singles\\D_BowWhoosh.wav",
+      "audition_file": "Auditions\\D_BowWhoosh_2x.wav",
+      "processing": "48 kHz stereo, 0.5 ms/8 ms edge fades, -3 dBFS peak; audition repeats twice with 0.7 s gap. Peak matching is not perceptual loudness matching. No added bass, EQ, compression, or layering.",
+      "selected": false,
+      "imported_to_ue": false
+    }
+  ]
+}
