@@ -62,6 +62,8 @@ private:
     {
         TWeakObjectPtr<AVoxelBuildPrefabActor> Piece;
         TWeakObjectPtr<UNiagaraComponent> FX;
+        TWeakObjectPtr<class UAudioComponent> IncineratorAudio;
+        bool bIncineratorAudible=false;
         float Rate=0;
         double LastSeen=0,NextConfigure=0,LastFeed=-100;
         /** 上一拍任务累计进度（秒）；-1＝还没有有效读数。跨越整批边界时写 User.Puff，无新事件系统。 */
@@ -112,6 +114,10 @@ private:
         FSoftObjectPath(TEXT("/Game/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.NS_FurnaceBlackSmoke")));
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> FurnaceAsset;
     TSharedPtr<FStreamableHandle> FurnaceLoad;
+    UPROPERTY() TSoftObjectPtr<class USoundWave> IncineratorSoundTemplate=TSoftObjectPtr<USoundWave>(
+        FSoftObjectPath(TEXT("/Game/Building/Incinerator20261027/S_IncineratorCombustionLoop.S_IncineratorCombustionLoop")));
+    UPROPERTY(Transient) TObjectPtr<USoundWave> IncineratorSound;
+    TSharedPtr<FStreamableHandle> IncineratorSoundLoad;
     /** Decorative casting droplets. The primary liquid surface has its own bounded pool. */
     UPROPERTY() TSoftObjectPtr<UNiagaraSystem> TapTemplate=TSoftObjectPtr<UNiagaraSystem>(
         FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/NS_CastingDroplets.NS_CastingDroplets")));
@@ -131,6 +137,7 @@ private:
     void PrepareColdPool();
     void UpdateWaterBody(FWaterBody& Entry);
     void UpdateFurnaceSmoke();
+    void UpdateIncinerator(FFurnaceSmoke& Entry,double Now,int32& Alive,float Rain);
     /** 出铁口熔融金属流与凝固锭（2026-09-25）：完成上升沿触发，全部在既有 5Hz 拍内，只读玩法数据。 */
     void UpdateFurnaceTap(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,const FVoxelSmeltingJob* Job,
         const UStaticMeshComponent* Body,const FVector& Mouth,bool bDone,double Now);

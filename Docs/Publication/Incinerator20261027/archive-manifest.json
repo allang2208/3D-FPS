@@ -1,0 +1,304 @@
+{
+  "date": "2026-10-27",
+  "scope": "IncineratorUpgrade20261027 only",
+  "archive_root": "trash/incinerator-retired-20261027",
+  "files": [
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Config/DefaultGame.ini",
+      "destination": "trash/incinerator-retired-20261027/Before/Config/DefaultGame.ini",
+      "bytes": 37373,
+      "sha256": "d9a711d671fe4fd3de7dca40113816e94580d21d8439af77a9523c9065c5e229",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp",
+      "bytes": 7734,
+      "sha256": "92a62d6a5cd33267b8bed87963444fa93323e058d0da924056f2033f611b4c11",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+      "bytes": 4034,
+      "sha256": "1949fa95e044f4e7cf18534e05b7bda9fbad4ef3b6a6d772823bf29195f60905",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "bytes": 22523,
+      "sha256": "ec3bdf054604030f1f3ccf92dfa833717349c4573995bca2e7f087cc5940e9c5",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "bytes": 4460,
+      "sha256": "813ecf9ecec5c1aae6924a6c8fb63415ebe2ad4cc3e7ee2d733afb88443d0821",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp",
+      "bytes": 12500,
+      "sha256": "3c574c0b80c9bdc83a7dec6e06a0c6852a10b5b6621e630357ba65ff2a654f3e",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.h",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.h",
+      "bytes": 1962,
+      "sha256": "e5c9bf68001b5d11245c5e657892799fb7b0912333825953b872734490d9ff6d",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp",
+      "bytes": 18366,
+      "sha256": "4da950eb2f7abd0b5ad58fa6744edef49088d36dedcc328e786a2815b9b3a152",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorWidget.h",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorWidget.h",
+      "bytes": 2102,
+      "sha256": "2da23c2aa9d79c18b5b561a4c43dc5fad717085c071b8b09143cca91808a9cec",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "bytes": 3249,
+      "sha256": "eef9e7c970d5a308e7799f2b9bc2ed40ae56fe4248241bac23c990b1fed1dac4",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+      "bytes": 30786,
+      "sha256": "89159499db7b819e331bdff80432175aae18c8019209069c00b838c78a722035",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/Before/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+      "destination": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+      "bytes": 8962,
+      "sha256": "0b5436b380253f8267722a587987b2e15113e2600973542a55b0357098dc00e1",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp",
+      "bytes": 16527,
+      "sha256": "9834500ee031c4f2919bba6269104f3f2fa57c5c73bf60fc624f0f028b765019",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.h",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.h",
+      "bytes": 2327,
+      "sha256": "fbadfde31dc73a7567e3dd2c6776885788405594c8330948f741c20881a9b5fc",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp",
+      "bytes": 18952,
+      "sha256": "ddc9cac1790b545680412e3ecd9f84db258b7a7dd3b542b5ecea783a1cf1d478",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "bytes": 4539,
+      "sha256": "1c7b81916a7ddabd903cc978b25b00972f23dfa67157da4e669c1e8848125663",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "bytes": 109854,
+      "sha256": "32e7aa41c57c50761b7def5f5e7c8bdc238e1433229e78ef4438eec7b2201b65",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/Before/Source/FPSGAME/WorldGeneration/FluidIncineratorPresentation.cpp",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/Before/Source/FPSGAME/WorldGeneration/FluidIncineratorPresentation.cpp",
+      "bytes": 4605,
+      "sha256": "87307934ab13cf9fc6e1918891700eb62189ac5fec9b4295d9fa4158e3d7fa67",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/Before/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/Before/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+      "bytes": 31430,
+      "sha256": "f912e8a138c1c5a07279ce192afe12ed25a5b508f354b06e6db5eb65a9d69659",
+      "reason": "Superseded pre-change snapshots; retained for exact patch recovery",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Intermediate/Build/XmlConfigCache.bin",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Intermediate/Build/XmlConfigCache.bin",
+      "bytes": 312,
+      "sha256": "94208ab663b26ed90977db69c3e67ebf76cfaaae409219ddddd786b69b199424",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 18555,
+      "sha256": "fb2d41c40228977ba82276b097ecdd2e64019f2fac24467a8ab0ae0f68b72f53",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 18654,
+      "sha256": "bb2be5496ae74e3993568da581baa92e33bd4538bde729859f99ce7966bab2c9",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Saved/Config/CrashReportClient/UECC-Windows-5F15D0EE41F118B1B72B569391EF5963/CrashReportClient.ini",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Saved/Config/CrashReportClient/UECC-Windows-5F15D0EE41F118B1B72B569391EF5963/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Saved/Config/WindowsEditor/Editor.ini",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Saved/Config/WindowsEditor/Editor.ini",
+      "bytes": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 70499,
+      "sha256": "9e6a40501b6bf25b39bda695e282687c83752de9e7295821e765c46dbe8d1aed",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "1494e965f7a76a265e8be0cd5ec257bc8a10b29579b4657468615b7e8903913d",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "4b1a464c3de97e297721c0ac3fd0d8ae190a01e8efc3c9b0eeb3edacdd8b56a2",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Saved/SourceControl/UncontrolledChangelists.json",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Saved/SourceControl/UncontrolledChangelists.json",
+      "bytes": 606,
+      "sha256": "7eedc6dcef4c1f1a6aebdde8a3edf40dfb8fd01dcc0632e9464fce41da148e40",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/AssetHost/Saved/UnrealBuildTool/BuildConfiguration.xml",
+      "destination": "trash/incinerator-retired-20261027/AssetHost/Saved/UnrealBuildTool/BuildConfiguration.xml",
+      "bytes": 132,
+      "sha256": "1e7cd8512dedf37d7b103c5592f5600433e7fe97da23434e69990f8a3370508a",
+      "reason": "Completed isolated import host cache; host recipe, source WAV and saved sound retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/game-build-backup-2026.10.27-07.20.41.json",
+      "destination": "trash/incinerator-retired-20261027/game-build-backup-2026.10.27-07.20.41.json",
+      "bytes": 59777,
+      "sha256": "53739428626bb42e20a63f5b879456e4f761b8e6f0bf09e8b5d858dace0baa73",
+      "reason": "Superseded automatic build log backup; final and initial-error logs retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/game-build-backup-2026.10.27-07.20.41.log",
+      "destination": "trash/incinerator-retired-20261027/game-build-backup-2026.10.27-07.20.41.log",
+      "bytes": 25388,
+      "sha256": "9db4a2a2e55d72b3a9bae48f7c3f86d7296510f50906f5a6a4c33bba0c08e33f",
+      "reason": "Superseded automatic build log backup; final and initial-error logs retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/game-build-backup-2026.10.27-10.28.36.json",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/game-build-backup-2026.10.27-10.28.36.json",
+      "bytes": 186363,
+      "sha256": "dfd9dd04584b106112425c33336c8c274df66adbf70f62a0544718e16e08395c",
+      "reason": "Superseded automatic build log backup; final and initial-error logs retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    },
+    {
+      "source": "SourceAssets/IncineratorUpgrade20261027/NetworkReview/game-build-backup-2026.10.27-10.28.36.log",
+      "destination": "trash/incinerator-retired-20261027/NetworkReview/game-build-backup-2026.10.27-10.28.36.log",
+      "bytes": 75113,
+      "sha256": "defcf0d267b69e5905a7f4540a3f1b8b04155e9fe3f724531a46552e9f8190ad",
+      "reason": "Superseded automatic build log backup; final and initial-error logs retained",
+      "retained": "Current Source/; Tools/IncineratorUpgrade/; final build logs and audio receipts under SourceAssets/IncineratorUpgrade20261027/"
+    }
+  ],
+  "verified_after_move": true
+}

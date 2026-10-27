@@ -5,6 +5,7 @@
 #include "WoodworkingSawVisualComponent.h"
 #include "PotionWorkbenchVisualComponent.h"
 #include "Engine/World.h"
+#include "GameFramework/GameStateBase.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -26,8 +27,23 @@ void AVoxelBuildPrefabActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(AVoxelBuildPrefabActor,AlchemyState);
+    DOREPLIFETIME(AVoxelBuildPrefabActor,IncinerationEndTime);
     DOREPLIFETIME(AVoxelBuildPrefabActor,Id);DOREPLIFETIME(AVoxelBuildPrefabActor,Cell);DOREPLIFETIME(AVoxelBuildPrefabActor,QuarterTurns);
     DOREPLIFETIME(AVoxelBuildPrefabActor,NetMesh);DOREPLIFETIME(AVoxelBuildPrefabActor,NetSurface);DOREPLIFETIME(AVoxelBuildPrefabActor,LogicActor);DOREPLIFETIME(AVoxelBuildPrefabActor,bFalling);
+}
+void AVoxelBuildPrefabActor::PresentIncineration()
+{
+    if(!HasAuthority()||Id!=VoxelIncineratorId||bFalling||!GetWorld())return;
+    const auto* State=GetWorld()->GetGameState();
+    IncinerationEndTime=(State?State->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())+8.;
+    ForceNetUpdate();
+}
+double AVoxelBuildPrefabActor::IncinerationRemaining() const
+{
+    if(Id!=VoxelIncineratorId||bFalling||!GetWorld()||IncinerationEndTime<=0.)return 0.;
+    const auto* State=GetWorld()->GetGameState();
+    if(GetNetMode()==NM_Client&&!State)return 0.;
+    return FMath::Clamp(IncinerationEndTime-(State?State->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds()),0.,8.);
 }
 void AVoxelBuildPrefabActor::OnRep_Configuration(){if(!Id.IsNone())Configure(Id,Cell,QuarterTurns,NetMesh,NetSurface,nullptr);OnRep_Falling();}
 FIntVector AVoxelBuildPrefabActor::RotatedFootprint(FIntVector Footprint,int32 QuarterTurns)

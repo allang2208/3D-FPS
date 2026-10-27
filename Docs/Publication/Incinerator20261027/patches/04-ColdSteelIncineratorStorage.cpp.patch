@@ -1,0 +1,169 @@
+--- a/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp
++++ b/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp
+@@ -7,6 +7,13 @@
+ #include "Misc/FileHelper.h"
+ #include "Misc/Paths.h"
+ #include "Misc/SecureHash.h"
++#include "JsonObjectConverter.h"
++#include "../Building/VoxelBuildPrefabActor.h"
++#include "../Building/VoxelBuildWorld.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../FPSGAMECharacter.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Engine/World.h"
+ 
+ namespace ColdSteelIncineratorStorage
+ {
+@@ -28,6 +35,25 @@
+         for(auto& B:P.QuickBindings)if(B.ItemId==Id)B=FColdSteelQuickBinding();
+         for(int32 N=0;N<P.Hotbar.Num();++N)if(P.Hotbar[N]==Id){P.Hotbar[N].Reset();if(P.HotbarDefinitions.IsValidIndex(N))P.HotbarDefinitions[N].Reset();}
+         if(P.ActiveProductionTool==Id)P.ActiveProductionTool.Reset();
++    }
++    TSharedPtr<FJsonValue> CanonicalValue(const TSharedPtr<FJsonValue>& Value)
++    {
++        if(!Value)return MakeShared<FJsonValueNull>();
++        if(Value->Type==EJson::Object)
++        {
++            const auto Source=Value->AsObject();auto Sorted=MakeShared<FJsonObject>();
++            TArray<FJsonObject::FStringType> Keys;Source->Values.GetKeys(Keys);
++            Keys.Sort([](const auto& A,const auto& B){return MakeStringView(A).Compare(MakeStringView(B),ESearchCase::CaseSensitive)<0;});
++            for(const auto& Key:Keys)Sorted->SetField(MakeStringView(Key),CanonicalValue(Source->Values.FindChecked(Key)));
++            return MakeShared<FJsonValueObject>(Sorted);
++        }
++        if(Value->Type==EJson::Array)
++        {
++            TArray<TSharedPtr<FJsonValue>> Array;
++            for(const auto& Entry:Value->AsArray())Array.Add(CanonicalValue(Entry));
++            return MakeShared<FJsonValueArray>(Array);
++        }
++        return Value;
+     }
+ }
+ FRules ParseRules(const FString& Json)
+@@ -135,6 +161,69 @@
+     if(!ColdSteelInventory::Validate(Candidate,Reason))return false;
+     Next=MoveTemp(Candidate);Reason.Reset();return true;
+ }
++FString InputSignature(const UColdSteelStatusModel& Model,const FQuote& Q)
++{
++    auto Inputs=Q.Inputs;
++    Inputs.Sort([](const auto& A,const auto& B){return A.InstanceId<B.InstanceId;});
++    FString Text=Q.Container+TEXT("\n");
++    for(auto I:Inputs)
++    {
++        // Use the same catalog normalization as profile uploads. Compare JSON values,
++        // not whitespace/key order introduced by server sanitization of Item.Data.
++        if(Model.GetWorld()&&Model.GetWorld()->GetNetMode()!=NM_Standalone&&!Model.SanitizeNetworkItem(I))return {};
++        I.Cooldown=0.f;FString Json;TSharedPtr<FJsonObject> Object,Data;
++        if(!FJsonObjectConverter::UStructToJsonObjectString(I,Json)
++            ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Object)
++            ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data))return {};
++        Object->SetObjectField(TEXT("data"),Data);
++        const auto Sorted=CanonicalValue(MakeShared<FJsonValueObject>(Object))->AsObject();
++        Json.Reset();FJsonSerializer::Serialize(Sorted.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Json));
++        Text+=Json+TEXT("\n");
++    }
++    FTCHARToUTF8 Bytes(*Text);FSHAHash Hash;
++    FSHA1::HashBuffer(Bytes.Get(),Bytes.Length(),Hash.Hash);return Hash.ToString();
++}
++bool ExecuteAuthority(UColdSteelStatusModel& Model,AActor* Station,const FString& ExpectedInputs,const FString& ExpectedRules,const FString& GuestSlot,FString& Reason)
++{
++    auto* Piece=Cast<AVoxelBuildPrefabActor>(Station);
++    auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
++    auto* Pawn=Model.RuntimePawn();const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    if(!Piece||!World||!Pawn||!Health||Health->IsDead()||!Piece->HasAuthority()||Piece->GetWorld()!=Pawn->GetWorld()
++        ||Piece->IsFalling()||Piece->PrefabId()!=VoxelIncineratorId||World->PrefabActorAt(Piece->AnchorCell())!=Piece
++        ||FVector::DistSquared(Pawn->GetActorLocation(),Piece->GetActorLocation()+FVector(0,0,70))>FMath::Square(240.f))
++    {Reason=TEXT("焚化炉不可用或距离过远，请重新靠近并打开");return false;}
++    const FVector Eye=Pawn->GetPawnViewLocation();
++    const FVector Near=Piece->GetComponentsBoundingBox(true).GetClosestPointTo(Eye);
++    FHitResult Hit;FCollisionQueryParams Trace(SCENE_QUERY_STAT(IncineratorReach),false,Pawn);
++    if(Pawn->GetWorld()->LineTraceSingleByChannel(Hit,Eye,Near,ECC_Visibility,Trace)&&Hit.GetActor()!=Piece)
++    {Reason=TEXT("焚化炉被遮挡，请靠近操作面");return false;}
++    Model.SyncRuntime();const auto Rules=LoadRules();
++    const auto Q=Quote(Model.Snapshot(),World->IncineratorContainerAt(Piece->AnchorCell()),Rules);
++    if(!Q.bValid){Reason=Q.Reason;return false;}
++    if(ExpectedInputs.IsEmpty()||ExpectedInputs!=InputSignature(Model,Q)||ExpectedRules!=Rules.Signature)
++    {Reason=TEXT("投入物品或回收规则已变化，未执行焚化；请重新确认");return false;}
++    FColdSteelProfile Next;if(!Prepare(Model,Q,Rules,Next,Reason))return false;
++    // Destruction is irreversible even offline: uncertain disk writes must freeze
++    // later saves instead of letting the old in-memory inventory overwrite them.
++    const bool Saved=Model.CommitCampfireState(MoveTemp(Next),TEXT("Inventory"),GuestSlot);
++    if(!Saved){Reason=Model.ResultMessage();return false;}
++    Piece->PresentIncineration();
++    Reason=Q.Products.IsEmpty()?TEXT("焚化已保存 · 无回收产物 · 炉体正在排烟"):TEXT("焚化已保存 · 产物已放入背包／弹药袋");return true;
++}
++bool NormalizeAmmoInput(const UColdSteelStatusModel& Model,FColdSteelItem& I)
++{
++    const auto* Ammo=Model.AmmoType(I.Definition);
++    if(!I.bIncineratorAmmo||!Ammo||I.InstanceId.IsEmpty()||I.InstanceId.Len()>128
++        ||I.Place!=4||!IsContainer(I.Container)||I.Container.Len()>256
++        ||I.Count<=0||I.Count>ColdSteelAmmo::MaxCount||I.Width!=1||I.Height!=1
++        ||I.Magazine!=0||I.Reserve!=0||I.VirtualMagazineAmmo!=0)return false;
++    // Retain exact count and container/cell; rebuild only host-owned display data.
++    I.StackMax=ColdSteelAmmo::MaxCount;I.Cooldown=0.f;I.bRotated=false;I.LoadedAmmoType.Reset();
++    auto Data=MakeShared<FJsonObject>();Data->SetStringField(TEXT("name"),Model.AmmoLabel(I.Definition));
++    Data->SetStringField(TEXT("category"),TEXT("ammo"));Data->SetNumberField(TEXT("grid_w"),1);Data->SetNumberField(TEXT("grid_h"),1);
++    Data->SetNumberField(TEXT("maxStack"),double(ColdSteelAmmo::MaxCount));Data->SetStringField(TEXT("icon"),Ammo->Icon);
++    I.Data.Reset();return FJsonSerializer::Serialize(Data,TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&I.Data));
++}
+ bool DepositAmmo(UColdSteelStatusModel& Model,const FString& Ammo,int64 Count,FString& Reason,int32 Cell)
+ {
+     if(!Model.bIncineratorOpen||!IsContainer(Model.ActiveContainer)||!Model.AmmoType(Ammo))
+@@ -144,10 +233,7 @@
+     {Reason=TEXT("弹药袋数量不足或已变化");return false;}
+     FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Ammo;
+     I.Count=Count;I.StackMax=Limit;I.Place=4;I.Container=Model.ActiveContainer;I.bIncineratorAmmo=true;I.Magazine=I.Reserve=0;
+-    auto Data=MakeShared<FJsonObject>();Data->SetStringField(TEXT("name"),Model.AmmoLabel(Ammo));Data->SetStringField(TEXT("category"),TEXT("ammo"));
+-    Data->SetNumberField(TEXT("grid_w"),1);Data->SetNumberField(TEXT("grid_h"),1);Data->SetNumberField(TEXT("maxStack"),double(Limit));
+-    Data->SetStringField(TEXT("icon"),Model.AmmoType(Ammo)->Icon);
+-    FJsonSerializer::Serialize(Data,TJsonWriterFactory<>::Create(&I.Data));
++    if(!NormalizeAmmoInput(Model,I)){Reason=TEXT("弹药暂存数据无效，弹药仍在弹药袋");return false;}
+     if(Cell>=0)
+     {
+         const int32 Target=ColdSteelInventory::Owner(State.Items,4,Cell,I.Container);
+@@ -196,25 +282,40 @@
+ FString Describe(const FQuote& Q,const UColdSteelStatusModel& Model,bool Confirmation)
+ {
+     TArray<FString> Lines;
+-    if(!Q.Unconfigured.IsEmpty())Lines.Add(FString::Printf(TEXT("产出未配置：%d 种投入物尚无回收规则"),Q.Unconfigured.Num()));
+-    if(Q.Products.IsEmpty())Lines.Add(Q.Unconfigured.IsEmpty()?TEXT("预计收获：无物品"):TEXT("未计算这些物品的回收收益"));
+-    for(const auto& P:Q.Products)Lines.Add(FString::Printf(TEXT("%s × %lld"),*Name(Model.CreateItem(P.Item)),P.Count));
++    if(!Q.Unconfigured.IsEmpty())Lines.Add(FString::Printf(TEXT("%d 种投入物无回收产物，将直接销毁"),Q.Unconfigured.Num()));
++    if(Q.Products.IsEmpty())Lines.Add(TEXT("预计收获：无物品"));
++    for(const auto& P:Q.Products)Lines.Add(FString::Printf(TEXT("%s × %lld"),Model.AmmoType(P.Item)?*Model.AmmoLabel(P.Item):*Name(Model.CreateItem(P.Item)),P.Count));
+     if(Confirmation)
+     {
++        Lines.Insert(FString::Printf(TEXT("本次焚化 %d 个条目"),Q.Inputs.Num()),0);
+         Lines.Add(Q.Products.IsEmpty()?TEXT("本次不获得物品。确认后投入区内物品永久销毁。"):TEXT("确认后销毁投入区内物品，收获放入背包／弹药袋。"));
+         Lines.Add(TEXT("改装、强化、附魔与枪内弹药随本体移除，不额外返还。"));
++        for(const auto& Input:Q.Inputs)Lines.Add(FString::Printf(TEXT("%s × %lld"),*Name(Input),Input.Count));
+     }
+     if(!Q.Reason.IsEmpty())Lines.Add(Q.Reason);
+     return FString::Join(Lines,TEXT("\n"));
+ }
+ bool FSession::Review(UColdSteelStatusModel& Model,const FString& Container,const FRules& Rules)
+ {Cancel();Model.SyncRuntime();Draft=Quote(Model.Snapshot(),Container,Rules);return Draft.bValid;}
+-bool FSession::Confirm(UColdSteelStatusModel& Model,const FRules& Rules,FString& Reason)
++bool FSession::Confirm(UColdSteelStatusModel& Model,const FRules& Rules,FString& Reason,AActor* Station)
+ {
+     auto Q=MoveTemp(Draft);Cancel();
+     if(!Model.bIncineratorOpen||Model.ActiveContainer!=Q.Container){Reason=TEXT("焚化会话已关闭，请重新打开");return false;}
+     Model.SyncRuntime();FColdSteelProfile Next;
+     if(!Prepare(Model,Q,Rules,Next,Reason))return false;
++    if(!Model.IsAudit())
++    {
++        auto* Pawn=Model.RuntimePawn();
++        if(Pawn&&Pawn->GetNetMode()!=NM_Standalone)
++        {
++            auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
++            FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::Incinerate;
++            R.Target=Station;R.Item=InputSignature(Model,Q);R.Mode=Rules.Signature;
++            const bool Sent=PS&&PS->RequestInventoryAction(R);
++            Reason=Sent?(Pawn->HasAuthority()?TEXT("焚化请求已处理，请查看结果提示"):TEXT("焚化请求已提交，等待服务端确认")):TEXT("物品正在同步，请稍后重新确认");return Sent;
++        }
++        return ExecuteAuthority(Model,Station,InputSignature(Model,Q),Rules.Signature,FString(),Reason);
++    }
+     if(!Model.CommitState(MoveTemp(Next))){Reason=Model.ResultMessage();return false;}
+     Reason=Q.Products.IsEmpty()?TEXT("已焚化投入物品；本次未获得物品"):TEXT("已焚化，收获已放入背包／弹药袋");return true;
+ }

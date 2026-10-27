@@ -24,6 +24,8 @@
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
 #include "NiagaraSystem.h"
+#include "Components/AudioComponent.h"
+#include "Sound/SoundWave.h"
 
 bool UFluidPresentationSubsystem::DoesSupportWorldType(EWorldType::Type Type) const
 {return Type==EWorldType::Game||Type==EWorldType::PIE;}
@@ -41,6 +43,8 @@ void UFluidPresentationSubsystem::OnWorldBeginPlay(UWorld& World)
     // 高炉黑烟系统常驻（一个 Niagara 资产句柄）；异步预载完成前不起烟，避免热路径同步 LoadObject。
     FurnaceLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(FurnaceTemplate.ToSoftObjectPath(),
         FStreamableDelegate::CreateWeakLambda(this,[this](){FurnaceAsset=FurnaceTemplate.Get();FurnaceLoad.Reset();}));
+    IncineratorSoundLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(IncineratorSoundTemplate.ToSoftObjectPath(),
+        FStreamableDelegate::CreateWeakLambda(this,[this](){IncineratorSound=IncineratorSoundTemplate.Get();IncineratorSoundLoad.Reset();}));
     // 出铁口熔融金属流＋凝固锭：一次请求把 NS 与 SM_Ingot、四个 MI_<def>Ingot 全部预载到内存，
     // 首次完成上升沿前就绪；仍是异步软引用，缺资产时静默跳过（零回归锚点：没有同步 LoadObject）。
     {
@@ -243,7 +247,13 @@ void UFluidPresentationSubsystem::Deinitialize()
         Rack->DestroyComponent();
     }
     CastingRackPool.Reset();
-    for(auto& E:Furnaces)if(auto* FX=E.FX.Get())FX->DestroyComponent();
+    for(auto& E:Furnaces)
+    {
+        if(auto* FX=E.FX.Get())FX->DestroyComponent();
+        if(auto* Audio=E.IncineratorAudio.Get()){Audio->Stop();Audio->DestroyComponent();}
+    }
+    if(IncineratorSoundLoad){IncineratorSoundLoad->CancelHandle();IncineratorSoundLoad.Reset();}
+    IncineratorSound=nullptr;
     Furnaces.Reset();
     for(auto& FX:ColdPool)if(FX)
     {
@@ -350,7 +360,12 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
     //（与 FPSWeaponFXComponent 持续烟同一语义）；风/接触平面/细节预算全部走共享 ConfigureSmoke。
     Furnaces.RemoveAll([this](FFurnaceSmoke& E)
     {
-        if(E.Piece.IsValid())return false;
+        if(E.Piece.IsValid())
+        {
+            // Idle incinerators must not occupy every registration slot forever.
+            return E.Piece->PrefabId()==VoxelIncineratorId&&E.Piece->IncinerationRemaining()<=0.
+                &&!E.FX.IsValid()&&!E.IncineratorAudio.IsValid();
+        }
         ReleaseFurnaceTap(E);ReleaseFurnaceIngot(E);ReleaseCastingRack(E);
         return true;
     });
@@ -359,14 +374,25 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
     {   // 1Hz 对账登记：构件的 Id/Cell 由 Configure() 在 SpawnActor 返回之后写入，生成事件触发时
         // PrefabId() 仍是 None，事件式登记对新放/存档装载/预置关卡三种炉子恒漏（零烟根因，2026-09-24）。
         FurnaceScanAt=Now+1.;
+        int32 FurnaceCount=0,IncineratorCount=0;
+        for(const auto& E:Furnaces)if(E.Piece.IsValid())
+        {if(E.Piece->PrefabId()==VoxelIncineratorId)++IncineratorCount;else ++FurnaceCount;}
         for(TActorIterator<AVoxelBuildPrefabActor> It(GetWorld());It;++It)
-            if(auto* Piece=*It;Piece&&Piece->PrefabId()==VoxelSmeltingFurnaceId)
+            if(auto* Piece=*It;Piece&&(Piece->PrefabId()==VoxelSmeltingFurnaceId||Piece->PrefabId()==VoxelIncineratorId))
             {
                 bool Seen=false;for(const auto& E:Furnaces)if(E.Piece.Get()==Piece){Seen=true;break;}
-                if(!Seen&&Furnaces.Num()<32){FFurnaceSmoke Entry;Entry.Piece=Piece;Entry.LastSeen=Now;Furnaces.Add(Entry);}
+                const bool Incinerator=Piece->PrefabId()==VoxelIncineratorId;
+                const bool Eligible=Incinerator?
+                    (bHasView&&Piece->IncinerationRemaining()>0.&&IncineratorCount<32
+                        &&FVector::DistSquared(Piece->GetActorLocation(),Eye)<FMath::Square(5300.f)):FurnaceCount<32;
+                if(!Seen&&Eligible)
+                {
+                    FFurnaceSmoke Entry;Entry.Piece=Piece;Entry.LastSeen=Now;Furnaces.Add(Entry);
+                    if(Incinerator)++IncineratorCount;else ++FurnaceCount;
+                }
             }
     }
-    if(!bHasView||Furnaces.IsEmpty())return;
+    if(Furnaces.IsEmpty())return;
     constexpr float MaxRate=16.f;          // 与 author_furnace_black_smoke.py 的额定 User.SpawnRate 同底（v2 加密）
     constexpr double Dissipate=3.9;        // 最大粒子寿命 3.6s + 补发余量（v2）
     // 雨量 0..1（AFPSWeatherManager 有效雨量），驱动炉烟 v3 的"被随机方向阵风快速吹散/加速消散"。
@@ -375,6 +401,8 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
     for(auto& E:Furnaces)
     {
         auto* Piece=E.Piece.Get();if(!Piece)continue;
+        if(Piece->PrefabId()==VoxelIncineratorId){UpdateIncinerator(E,Now,Alive,Rain);continue;}
+        if(!bHasView)continue;
         auto* Build=Cast<AVoxelBuildWorld>(Piece->GetOwner());
         auto* Body=Piece->Body();
         const FIntVector Cell=Piece->AnchorCell();

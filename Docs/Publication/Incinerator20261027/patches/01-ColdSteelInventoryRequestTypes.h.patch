@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
+@@ -31,7 +31,8 @@
+     Building,
+     Workstation,
+     Shop,
+-    Planting
++    Planting,
++    Incinerate
+ };
+ 
+ USTRUCT()

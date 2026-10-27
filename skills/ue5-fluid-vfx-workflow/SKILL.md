@@ -23,4 +23,6 @@ description: 为 FPSGAME 制作和优化 UE5 流体特效，包括枪口烟、�
 
 ## 地面火场与撞击
 
+焚化炉短时黑烟、燃烧声、晚加入时钟与登记／音效预算，读取 [炉体烟火与声音](references/furnace-forge-presentation.md#焚化炉短时烟火与声音)。
+
 陨星式爆燃、火环或火焰高度整齐、碎石抢主体时，读取 [地面火场与撞击层次](references/meteor-ground-impact.md)，保留当前制作供体与服务器阶段时钟。

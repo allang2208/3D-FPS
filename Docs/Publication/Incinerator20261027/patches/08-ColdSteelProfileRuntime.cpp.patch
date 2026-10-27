@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -1,6 +1,7 @@
+ #include "../Dungeon/DungeonLayout.h"
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "ColdSteelStatusModel.h"
++#include "ColdSteelIncineratorStorage.h"
+ #include "../Skills/FPSMagicArrowRainComponent.h"
+ #include "ColdSteelContainerSearchSubsystem.h"
+ #include "GameFramework/PlayerController.h"
+@@ -315,6 +316,20 @@
+     RemoveRetiredItems(Migrated);
+     if(!ColdSteelCurrency::Normalize(Migrated,CurrencyChanged,CurrencyReason)){Message=CurrencyReason;return;}
+     ColdSteelItemRarity::Normalize(Migrated.Items);
++    if(Migrated.CampfireInventoryRevision>Current.CampfireInventoryRevision)
++    {
++        // Reconnection may restore a committed destruction through a full mirror
++        // with no surviving request/receipt. Retire bindings only for exact
++        // instances removed by that newer authority inventory.
++        TSet<FString> Removed;
++        for(const auto& Item:Current.Items)
++            if(!Item.Container.StartsWith(TEXT("NetView."))&&!Migrated.Items.ContainsByPredicate([&](const auto& I){return I.InstanceId==Item.InstanceId;}))
++                Removed.Add(Item.InstanceId);
++        for(auto& Binding:Migrated.QuickBindings)if(Removed.Contains(Binding.ItemId))Binding=FColdSteelQuickBinding();
++        for(int32 N=0;N<Migrated.Hotbar.Num();++N)if(Removed.Contains(Migrated.Hotbar[N]))
++        {Migrated.Hotbar[N].Reset();if(Migrated.HotbarDefinitions.IsValidIndex(N))Migrated.HotbarDefinitions[N].Reset();}
++        if(Removed.Contains(Migrated.ActiveProductionTool))Migrated.ActiveProductionTool.Reset();
++    }
+     if(AnnounceGains)QueueAcquisitionNotices(Current,Migrated);
+     Publish(Migrated);
+ }
+@@ -1026,6 +1041,7 @@
+ }
+ bool UColdSteelStatusModel::SanitizeNetworkItem(FColdSteelItem& Item) const
+ {
++    if(Item.bIncineratorAmmo)return ColdSteelIncineratorStorage::NormalizeAmmoInput(*this,Item);
+     // Guest uploads are not a trusted item factory. Every instance must be
+     // representable by this host's catalog, and catalogue-owned numeric fields
+     // are clamped here before any game rule reads Data.

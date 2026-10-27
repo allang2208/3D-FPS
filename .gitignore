@@ -5502,3 +5502,6 @@ __pycache__/
 !/SourceAssets/ArcaneConduitBelt20261025/stats-proposal.json
 !/SourceAssets/BackpackIcons20261025/FrontR1/plan.json
 /Tools/BackpackFit/fit_registry.json
+
+# Incinerator build/import host, source audio, snapshots and receipts remain local.
+/SourceAssets/IncineratorUpgrade20261027/

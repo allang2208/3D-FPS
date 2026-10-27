@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
+@@ -38,6 +38,12 @@
+     Next.CampfireWorldReceipts=Reply->WorldReceipts;
+     if(Reply->bEquipmentChanged){Next.ActiveWeaponSlot=Reply->ActiveWeaponSlot;Next.ActiveProductionTool=Reply->ActiveProductionTool;}
+     }
++    // A full mirror can arrive first. Even at an equal revision this receipt
++    // still retires bindings to removed instances; pouch deltas remain once-only.
++    for(auto& Binding:Next.QuickBindings)if(Reply->Removed.Contains(Binding.ItemId))Binding=FColdSteelQuickBinding();
++    for(int32 N=0;N<Next.Hotbar.Num();++N)if(Reply->Removed.Contains(Next.Hotbar[N]))
++    {Next.Hotbar[N].Reset();if(Next.HotbarDefinitions.IsValidIndex(N))Next.HotbarDefinitions[N].Reset();}
++    if(Reply->Removed.Contains(Next.ActiveProductionTool))Next.ActiveProductionTool.Reset();
+     const auto* Health=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const bool SameLivingPawn=CurrentPawn.Get()==ExpectedPawn&&Health&&!Health->IsDead();
+     if(Reply->bResourcesChanged&&SameLivingPawn)

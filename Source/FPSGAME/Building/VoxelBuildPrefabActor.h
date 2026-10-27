@@ -27,6 +27,9 @@ public:
     FIntVector AnchorCell() const {return Cell;}
     int32 Yaw() const {return QuarterTurns;}
     UStaticMeshComponent* Body() const {return MeshComponent;}
+    /** Cosmetic burn interval, authority writes only after a durable inventory commit. */
+    void PresentIncineration();
+    double IncinerationRemaining() const;
     const FAlchemyBenchState& AlchemyPresentation() const {return AlchemyState;}
     void SetAlchemyPresentation(const FAlchemyBenchState& State);
     UFUNCTION() void OnRep_AlchemyState();
@@ -66,4 +69,6 @@ private:
     /** 见 IsFalling()。BeginFall 成功后置位；落体件不再占用 Prefabs 记录。 */
     UPROPERTY(ReplicatedUsing=OnRep_Falling) bool bFalling=false;
     UFUNCTION() void OnRep_Falling();
+    // Runtime only: receipts already persist destruction; loading must never burn inventory again.
+    UPROPERTY(Replicated) double IncinerationEndTime=0.;
 };

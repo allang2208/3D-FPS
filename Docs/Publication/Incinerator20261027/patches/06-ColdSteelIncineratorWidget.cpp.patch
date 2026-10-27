@@ -1,0 +1,85 @@
+--- a/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp
+@@ -62,7 +62,7 @@
+             .OnClicked_Lambda([this](){Review();return FReply::Handled();})[Label(TEXT("焚化"),14,true)]];
+         auto ConfirmActions=SNew(SUniformGridPanel).SlotPadding(FMargin(4/Scale,0));
+         ConfirmActions->AddSlot(0,0)[Action(TEXT("取消"),[this](){Cancel();return FReply::Handled();})];
+-        ConfirmActions->AddSlot(1,0)[Action(TEXT("确认焚化"),[this](){Confirm();return FReply::Handled();})];
++        ConfirmActions->AddSlot(1,0)[Action(TEXT("确认永久销毁"),[this](){Confirm();return FReply::Handled();})];
+         auto Contents=SNew(SVerticalBox);
+         Contents->AddSlot().AutoHeight()[SNew(SBorder).BorderImage(&Header).Padding(FMargin(16/Scale,10/Scale))[Heading]];
+         Contents->AddSlot().AutoHeight().Padding(16/Scale,8/Scale)[HorizontalText(Label(TEXT("待焚化物品 · 放入后仍可取回"),14,true))];
+@@ -77,8 +77,9 @@
+         Contents->AddSlot().AutoHeight().Padding(12/Scale,6/Scale)[SAssignNew(YieldBox,SBorder).BorderImage(&Card).Padding(FMargin(12/Scale,8/Scale))[Yield]];
+         auto Confirmation=SNew(SVerticalBox);
+         Confirmation->AddSlot().AutoHeight()[HorizontalText(Label(TEXT("确认焚化投入区内全部物品？"),16,true))];
+-        Confirmation->AddSlot().AutoHeight().Padding(0,6/Scale)[SNew(SBox).HeightOverride(84/Scale)
+-            [HorizontalText(SAssignNew(ConfirmText,STextBlock).Font(GunsmithUI::TextFont(14/Scale)).ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(false).WrapTextAt(0))]];
++        Confirmation->AddSlot().AutoHeight().Padding(0,6/Scale)[SNew(SBox).HeightOverride(112/Scale)
++            [SNew(SScrollBox).AllowOverscroll(EAllowOverscroll::No)+SScrollBox::Slot()
++                [SAssignNew(ConfirmText,STextBlock).Font(GunsmithUI::TextFont(14/Scale)).ColorAndOpacity(ColdSteelUI::Warning).AutoWrapText(true)]]];
+         Confirmation->AddSlot().AutoHeight()[SNew(SBox).HeightOverride(36/Scale)[ConfirmActions]];
+         Contents->AddSlot().AutoHeight().Padding(12/Scale,0)[SAssignNew(ConfirmBox,SBorder).BorderImage(&Card).Padding(FMargin(12/Scale,8/Scale)).Visibility(EVisibility::Collapsed)[Confirmation]];
+         auto AmmoControls=SNew(SVerticalBox);
+@@ -98,8 +99,13 @@
+             [SNew(SBorder).BorderImage(&Frame).Padding(FMargin(1/Scale))[Contents]]];
+         Refresh();
+     }
+-    bool Ready() const {return Owner.IsValid()&&Owner->IsInputReady()&&Owner->StationReady();}
+-    void Reset(){Session.Cancel();bReview=false;AmmoId.Reset();Notice.Reset();Rules=ColdSteelIncineratorStorage::LoadRules();Refresh();}
++    bool Ready() const {return Owner.IsValid()&&Owner->IsInputReady()&&Owner->StationReady()&&Owner->GetModel()&&!Owner->GetModel()->IsCampfireInventoryPending();}
++    void Reset(){Session.Cancel();bReview=false;bAwaitingReceipt=false;AmmoId.Reset();Notice.Reset();Rules=ColdSteelIncineratorStorage::LoadRules();Refresh();}
++    void PollReceipt()
++    {
++        if(bAwaitingReceipt&&Owner.IsValid()&&Owner->GetModel()&&!Owner->GetModel()->IsCampfireInventoryPending())
++        {bAwaitingReceipt=false;Notice.Reset();Refresh();} // The authoritative receipt supplies the result toast.
++    }
+     void Refresh()
+     {
+         if(!Owner.IsValid()||!Owner->GetModel()||!YieldText)return;
+@@ -107,14 +113,14 @@
+         int32 Used=0,Objects=0;for(const auto& I:M->Items())if(I.Place==4&&I.Container==Owner->ContainerKey()){Used+=I.Width*I.Height;++Objects;}
+         Capacity->SetText(FText::FromString(FString::Printf(TEXT("%d / 216 格"),Used)));
+         const FString Description=Objects?ColdSteelIncineratorStorage::Describe(Preview,*M,false)
+-            :Rules.bValid?(Rules.Recipes.IsEmpty()?TEXT("产出未配置\n投入物品后，在这里查看预计收获"):TEXT("投入物品后自动计算预计收获")):Rules.Error;
++            :Rules.bValid?(Rules.Recipes.IsEmpty()&&Rules.bAllowUnconfigured?TEXT("无回收产物 · 确认后永久销毁投入物品"):TEXT("投入物品后自动计算预计收获")):Rules.Error;
+         YieldText->SetText(SingleLine(Description));
+         Status->SetText(SingleLine(Notice.IsEmpty()?TEXT("关闭面板不会焚化；暂存物品会随档案保存。可在仓库取回各炉暂存。"):Notice));
+         ConfirmBox->SetVisibility(bReview?EVisibility::Visible:EVisibility::Collapsed);
+         AmmoBox->SetVisibility(AmmoId.IsEmpty()?EVisibility::Collapsed:EVisibility::Visible);
+         ActionBox->SetVisibility(bReview||!AmmoId.IsEmpty()?EVisibility::Collapsed:EVisibility::Visible);
+         GridScroll->SetEnabled(!bReview&&!bSubmitting&&AmmoId.IsEmpty());
+-        if(bReview)ConfirmText->SetText(SingleLine(ColdSteelIncineratorStorage::Describe(Session.Draft,*M,true)));
++        if(bReview)ConfirmText->SetText(FText::FromString(ColdSteelIncineratorStorage::Describe(Session.Draft,*M,true)));
+     }
+     void Changed(){if(bReview||!AmmoId.IsEmpty())Notice=TEXT("物品状态已变化，请重新操作");Session.Cancel();bReview=false;AmmoId.Reset();Refresh();}
+     bool Cancel(){const bool Had=bReview||!AmmoId.IsEmpty();bReview=false;AmmoId.Reset();Session.Cancel();Refresh();return Had;}
+@@ -123,8 +129,8 @@
+     bool Confirm()
+     {
+         if(!Ready()||!bReview||bSubmitting)return false;
+-        bSubmitting=true;bReview=false;FString Reason;const bool OK=Session.Confirm(*Owner->GetModel(),ColdSteelIncineratorStorage::LoadRules(),Reason);
+-        bSubmitting=false;Notice=Reason;Rules=ColdSteelIncineratorStorage::LoadRules();Refresh();return OK;
++        bSubmitting=true;bReview=false;FString Reason;const bool OK=Session.Confirm(*Owner->GetModel(),ColdSteelIncineratorStorage::LoadRules(),Reason,Owner->GetStation());
++        bSubmitting=false;bAwaitingReceipt=OK&&Owner->GetModel()->IsCampfireInventoryPending();Notice=Reason;Rules=ColdSteelIncineratorStorage::LoadRules();Refresh();return OK;
+     }
+     bool Retrieve()
+     {if(!Ready()||bSubmitting)return false;Cancel();FString Reason;const bool OK=ColdSteelIncineratorStorage::Retrieve(*Owner->GetModel(),Owner->ContainerKey(),Reason);Notice=Reason;Refresh();return OK;}
+@@ -154,7 +160,7 @@
+ private:
+     TWeakObjectPtr<UColdSteelIncineratorWidget> Owner;
+     ColdSteelIncineratorStorage::FRules Rules;ColdSteelIncineratorStorage::FQuote Preview;ColdSteelIncineratorStorage::FSession Session;
+-    float Scale=1;bool bReview=false,bSubmitting=false;FString Notice,AmmoId;int32 AmmoCell=-1;int64 AmmoBefore=0,AmmoGeneration=0;
++    float Scale=1;bool bReview=false,bSubmitting=false,bAwaitingReceipt=false;FString Notice,AmmoId;int32 AmmoCell=-1;int64 AmmoBefore=0,AmmoGeneration=0;
+     FButtonStyle Buttons;FEditableTextBoxStyle InputStyle;FSlateBrush Frame,Fallback,Header,Card;
+     TSharedPtr<SScrollBox> GridScroll;TSharedPtr<SBorder> YieldBox,ConfirmBox,AmmoBox;TSharedPtr<SBox> ActionBox;
+     TSharedPtr<STextBlock> Capacity,YieldText,Status,ConfirmText,AmmoCaption;TSharedPtr<SEditableTextBox> AmmoQuantity;
+@@ -187,7 +193,7 @@
+         &&Pawn&&FVector::Dist(Pawn->GetActorLocation(),Piece->GetActorLocation()+FVector(0,0,70))<=240.f;
+ }
+ void UColdSteelIncineratorWidget::NativeTick(const FGeometry& G,float Delta)
+-{Super::NativeTick(G,Delta);const float S=ColdSteelUI::PixelScale(this);if(Panel&&!FMath::IsNearlyEqual(LastScale,S,.001f)){LastScale=S;Panel->Build();}if(bStationOpen&&!StationReady())RequestClose();}
++{Super::NativeTick(G,Delta);const float S=ColdSteelUI::PixelScale(this);if(Panel&&!FMath::IsNearlyEqual(LastScale,S,.001f)){LastScale=S;Panel->Build();}if(Panel)Panel->PollReceipt();if(bStationOpen&&!StationReady())RequestClose();}
+ void UColdSteelIncineratorWidget::OnInventoryChanged(){if(bStationOpen&&Panel)Panel->Changed();}
+ bool UColdSteelIncineratorWidget::CancelConfirmation(){return Panel&&Panel->Cancel();}
+ void UColdSteelIncineratorWidget::RequestClose(){CloseStation();if(HUD)HUD->CloseWorkbench();}

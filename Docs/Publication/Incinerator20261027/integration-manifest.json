@@ -1,0 +1,71 @@
+{
+  "baseline_commit": "530dbf6006180df406f529704d2c1c7b40a4c958",
+  "normalization": "UTF-8 without BOM; CRLF to LF",
+  "automatic_application": false,
+  "patches": [
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "patch": "patches/01-ColdSteelInventoryRequestTypes.h.patch",
+      "local_baseline_archive": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "baseline_sha256_lf_utf8": "502d79486338f2c3245eb3bd6f42ea62594ac0288f1a9d624900a800549df4f6",
+      "result_sha256_lf_utf8": "baf1e206f7f024242229c13b241980418e9697a082b330604c87df78f47aec2e",
+      "excludes_concurrent_changes": true
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "patch": "patches/02-ColdSteelInventoryRequests.cpp.patch",
+      "local_baseline_archive": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "baseline_sha256_lf_utf8": "ec3bdf054604030f1f3ccf92dfa833717349c4573995bca2e7f087cc5940e9c5",
+      "result_sha256_lf_utf8": "48a87406297e05ca03c0bb4c9f740fbb41c491d4593dbe797a75e42b4ffd4367",
+      "excludes_concurrent_changes": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelIncineratorStorage.h",
+      "patch": "patches/03-ColdSteelIncineratorStorage.h.patch",
+      "local_baseline_archive": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.h",
+      "baseline_sha256_lf_utf8": "e5c9bf68001b5d11245c5e657892799fb7b0912333825953b872734490d9ff6d",
+      "result_sha256_lf_utf8": "ac7d913322d7e44b9690b5ca0d38263baaa686f35b193649c064960bd46f806b",
+      "excludes_concurrent_changes": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp",
+      "patch": "patches/04-ColdSteelIncineratorStorage.cpp.patch",
+      "local_baseline_archive": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp",
+      "baseline_sha256_lf_utf8": "01b35dd182b155116307d048b951ba4d90b4232e9134388b1ccd8bdc55231ac4",
+      "result_sha256_lf_utf8": "0dfd5304120a9e9caaf5dff1c7d3d73c02961b8efd7b5bf2a5f44d81d44843ac",
+      "excludes_concurrent_changes": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelIncineratorWidget.h",
+      "patch": "patches/05-ColdSteelIncineratorWidget.h.patch",
+      "local_baseline_archive": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorWidget.h",
+      "baseline_sha256_lf_utf8": "84628a088870bfcfffdd3466a624d7ab2d1a048f69807aafb5ea8f26ee83636a",
+      "result_sha256_lf_utf8": "074a4de192d50aa15d52f69091ee7439131accaff0b0d787d08c59312a2d35a3",
+      "excludes_concurrent_changes": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp",
+      "patch": "patches/06-ColdSteelIncineratorWidget.cpp.patch",
+      "local_baseline_archive": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp",
+      "baseline_sha256_lf_utf8": "4da950eb2f7abd0b5ad58fa6744edef49088d36dedcc328e786a2815b9b3a152",
+      "result_sha256_lf_utf8": "ddc9cac1790b545680412e3ecd9f84db258b7a7dd3b542b5ecea783a1cf1d478",
+      "excludes_concurrent_changes": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "patch": "patches/07-ColdSteelNetworkInventory.cpp.patch",
+      "local_baseline_archive": "trash/incinerator-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "baseline_sha256_lf_utf8": "eef9e7c970d5a308e7799f2b9bc2ed40ae56fe4248241bac23c990b1fed1dac4",
+      "result_sha256_lf_utf8": "708698280c36362c1ece412bea181b12f314d1abb74de2e02347ed1f097279a2",
+      "excludes_concurrent_changes": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "patch": "patches/08-ColdSteelProfileRuntime.cpp.patch",
+      "local_baseline_archive": "trash/incinerator-retired-20261027/NetworkReview/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "baseline_sha256_lf_utf8": "02848eaa33aaa2fbd5ad0f1544850ec50019ac24ed7b9035487fb347bb8a8683",
+      "result_sha256_lf_utf8": "89a62bb1c5f4db974847a7a9c8ba861f4944c3f8eccceee2797d1dc12355ebef",
+      "excludes_concurrent_changes": false
+    }
+  ]
+}

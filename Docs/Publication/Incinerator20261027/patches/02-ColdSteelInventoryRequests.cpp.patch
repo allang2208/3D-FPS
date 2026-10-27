@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -15,6 +15,7 @@
+ #include "../Weapons/Bow/BowArrow.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelIncineratorStorage.h"
+ #include "../UI/ColdSteelWorldInteraction.h"
+ #include "../Survival/FPSSurvivalComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+@@ -150,6 +151,9 @@
+         if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
+             Success=Shared->PlantingAction(Model,PC->IsLocalController()?nullptr:this,Request,Reason);
+     }
++    else if(Request.Action==EColdSteelInventoryAction::Incinerate)
++        Success=ColdSteelIncineratorStorage::ExecuteAuthority(*Model,Request.Target,Request.Item,Request.Mode,
++            PC->IsLocalController()?FString():SlotName,Reason);
+     else if(Request.Action>=EColdSteelInventoryAction::Harvest)
+         Success=ExecuteWorldAction(Request,Model,Reason);
+     else if(Request.Action==EColdSteelInventoryAction::Consume)
