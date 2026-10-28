@@ -1,0 +1,196 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriModules20261026\\Kukri_Modules_Editable.blend",
+  "stats_authored": false,
+  "runtime_tested": false,
+  "variants": [
+    {
+      "id": "knife_grip_checkered",
+      "name": "棱纹胶柄",
+      "kind": "GripCheckered",
+      "slot": "grip",
+      "object": "SM_Kukri_GripCheckered",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripCheckered.SM_Kukri_GripCheckered",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripCheckered.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripCheckered_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripCheckered_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripCheckered_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripCheckered.M_Kukri_GripCheckered",
+      "icon_key": "grip_knife_grip_checkered",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\grip_knife_grip_checkered.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriRefinement20261027",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\grip_knife_grip_checkered.png"
+    },
+    {
+      "id": "knife_grip_leather",
+      "name": "缠革握柄",
+      "kind": "GripLeather",
+      "slot": "grip",
+      "object": "SM_Kukri_GripLeather",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripLeather.SM_Kukri_GripLeather",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripLeather.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLeather_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLeather_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLeather_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripLeather.M_Kukri_GripLeather",
+      "icon_key": "grip_knife_grip_leather",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\grip_knife_grip_leather.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriRefinement20261027",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\grip_knife_grip_leather.png"
+    },
+    {
+      "id": "knife_grip_laminate",
+      "name": "层压木柄",
+      "kind": "GripLaminate",
+      "slot": "grip",
+      "object": "SM_Kukri_GripLaminate",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripLaminate.SM_Kukri_GripLaminate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripLaminate.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLaminate_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLaminate_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLaminate_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripLaminate.M_Kukri_GripLaminate",
+      "icon_key": "grip_knife_grip_laminate",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\grip_knife_grip_laminate.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriRefinement20261027",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\grip_knife_grip_laminate.png"
+    },
+    {
+      "id": "knife_pommel_steel",
+      "name": "包钢柄尾",
+      "kind": "PommelSteel",
+      "slot": "pommel",
+      "object": "SM_Kukri_PommelSteel",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelSteel.SM_Kukri_PommelSteel",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_PommelSteel.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelSteel_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelSteel_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelSteel_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_PommelSteel.M_Kukri_PommelSteel",
+      "icon_key": "pommel_knife_pommel_steel",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\pommel_knife_pommel_steel.png",
+      "triangles": 4848,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\pommel_knife_pommel_steel.png",
+      "surface_revision": "KukriRefinement20261027"
+    },
+    {
+      "id": "knife_pommel_faceted",
+      "name": "棱面柄尾",
+      "kind": "PommelFaceted",
+      "slot": "pommel",
+      "object": "SM_Kukri_PommelFaceted",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelFaceted.SM_Kukri_PommelFaceted",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_PommelFaceted.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelFaceted_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelFaceted_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelFaceted_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_PommelFaceted.M_Kukri_PommelFaceted",
+      "icon_key": "pommel_knife_pommel_faceted",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\pommel_knife_pommel_faceted.png",
+      "triangles": 4848,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\pommel_knife_pommel_faceted.png",
+      "surface_revision": "KukriRefinement20261027"
+    },
+    {
+      "id": "knife_pommel_ringed",
+      "name": "环纹柄尾",
+      "kind": "PommelRinged",
+      "slot": "pommel",
+      "object": "SM_Kukri_PommelRinged",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelRinged.SM_Kukri_PommelRinged",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_PommelRinged.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelRinged_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelRinged_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelRinged_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_PommelRinged.M_Kukri_PommelRinged",
+      "icon_key": "pommel_knife_pommel_ringed",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\pommel_knife_pommel_ringed.png",
+      "triangles": 4848,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\pommel_knife_pommel_ringed.png",
+      "surface_revision": "KukriRefinement20261027"
+    },
+    {
+      "id": "knife_lanyard_braid",
+      "name": "编织短绳",
+      "kind": "LanyardBraid",
+      "slot": "lanyard",
+      "object": "SM_Kukri_LanyardBraid_PhysicsV1",
+      "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardBraid_PhysicsV1.SM_Kukri_LanyardBraid_PhysicsV1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Export\\SM_Kukri_LanyardBraid_PhysicsV1.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardBraid_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardBraid_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardBraid_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardBraid_PhysicsV1.M_Kukri_LanyardBraid_PhysicsV1",
+      "icon_key": "lanyard_knife_lanyard_braid",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\lanyard_knife_lanyard_braid.png",
+      "triangles": 1280,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\lanyard_knife_lanyard_braid.png",
+      "surface_revision": "KukriRefinement20261027"
+    },
+    {
+      "id": "knife_lanyard_tassel",
+      "name": "铜环短穗",
+      "kind": "LanyardTassel",
+      "slot": "lanyard",
+      "object": "SM_Kukri_LanyardTassel_PhysicsV1",
+      "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardTassel_PhysicsV1.SM_Kukri_LanyardTassel_PhysicsV1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Export\\SM_Kukri_LanyardTassel_PhysicsV1.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTassel_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTassel_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTassel_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTassel_PhysicsV1.M_Kukri_LanyardTassel_PhysicsV1",
+      "icon_key": "lanyard_knife_lanyard_tassel",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\lanyard_knife_lanyard_tassel.png",
+      "triangles": 3952,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\lanyard_knife_lanyard_tassel.png",
+      "surface_revision": "KukriRefinement20261027"
+    },
+    {
+      "id": "knife_lanyard_tag",
+      "name": "方牌挂饰",
+      "kind": "LanyardTag",
+      "slot": "lanyard",
+      "object": "SM_Kukri_LanyardTag_PhysicsV1",
+      "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardTag_PhysicsV1.SM_Kukri_LanyardTag_PhysicsV1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Export\\SM_Kukri_LanyardTag_PhysicsV1.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTag_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTag_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTag_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTag_PhysicsV1.M_Kukri_LanyardTag_PhysicsV1",
+      "icon_key": "lanyard_knife_lanyard_tag",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\lanyard_knife_lanyard_tag.png",
+      "triangles": 3312,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\lanyard_knife_lanyard_tag.png",
+      "surface_revision": "KukriRefinement20261027"
+    }
+  ]
+}

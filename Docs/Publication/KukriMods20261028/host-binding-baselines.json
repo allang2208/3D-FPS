@@ -1,0 +1,92 @@
+[
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp",
+    "section": "Server accepted action identity (requires existing ordinary/dash/quick/uppercut/whirlwind receipts)",
+    "host_lf_sha256": "1a7873f96bf7b56a308d2a1ea356cd9033ee1d82f2b60796fe566a4e0644ef43"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "section": "Private declarations",
+    "host_lf_sha256": "a1860fbcdeeaf74387b5d1db931a0d755e41ac92a195b950a809f4bc214aee95"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "section": "After accepting contact, immediately before common ApplyHit",
+    "host_lf_sha256": "b7de691573e503973d65499db2444e041a434cbe0e447d2ad9ab579e9da097ec"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+    "section": "Heavy receipt member paired with getter/increment in the patch",
+    "host_lf_sha256": "e0a33a93d85427ba7be3d905ff949d9879771caa88c7e68b08b295b190680b7a"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "section": "Extend the existing weather-equipment enumeration",
+    "host_lf_sha256": "9f19736e65a17b67d542b1cb84cf216b7743045d3c98e1d86c1f511ee39e7db9"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyWeather.cpp",
+    "section": "Mirror signature; gate only the owner-viewmodel block, retaining world entries",
+    "host_lf_sha256": "ac838e58cc7dfa6adf0e231a26e5da54e15957b5bc3a47185b6bdfb10fed6769"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/KukriNetworkAuditCommandlet.h",
+    "section": "Existing fixture member declaration",
+    "host_lf_sha256": "594b7575e9d9b7a755c467d49e2640404f32f7b225e7a74464623953d4465ab9"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/KukriNetworkAuditCommandlet.cpp",
+    "section": "Invoke rune cases after existing attack cases",
+    "host_lf_sha256": "bc0b26a4fc3caac95953d59d13b8a2f8379313599c584a283b10ffc1fbd09214"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "section": "In RefreshOffhand after selecting the actual inventory instance",
+    "host_lf_sha256": "cced2a2b3571b2c012b5518ed162e972121e7b63728814e603226379b388c734"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+    "section": "Stat bindings inside existing action lifecycle (placement excerpts only)",
+    "host_lf_sha256": "ab41ba313b0ec9cbc1fb42caf847473ad2c7a5e85de3b3096da94aa4877d7f39"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "section": "Stat bindings inside existing action lifecycle (placement excerpts only)",
+    "host_lf_sha256": "cced2a2b3571b2c012b5518ed162e972121e7b63728814e603226379b388c734"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriQuickCombat.cpp",
+    "section": "Stat bindings inside existing action lifecycle (placement excerpts only)",
+    "host_lf_sha256": "10755680e645c8dd818cd4f033e659a6e1cbff17750f89e48ad5f26fbc130910"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriUppercut.cpp",
+    "section": "Stat bindings inside existing action lifecycle (placement excerpts only)",
+    "host_lf_sha256": "07ba1128f137ca19687fd6a2245d378138ac67b56844d425daf595a084550cc3"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWhirlwind.cpp",
+    "section": "Stat bindings inside existing action lifecycle (placement excerpts only)",
+    "host_lf_sha256": "d526c0a07ab1554f3bafd2e5a2ac4e7f288a6fbd19b74883546c9c2d19ac592f"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ElementalArrowTypes.h",
+    "section": "Chill constant in an independently maintained source",
+    "host_lf_sha256": "889e389045e74e696180a6cf2537f3bdee7e1cfa275e749832570cccc61a21d2"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "section": "Chill constant in an independently maintained source",
+    "host_lf_sha256": "790f79db20402ef09371068064c826c5edb70cf2a07dd97f71c8786db54bbfe0"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "section": "Chill constant in an independently maintained source",
+    "host_lf_sha256": "790f79db20402ef09371068064c826c5edb70cf2a07dd97f71c8786db54bbfe0"
+  },
+  {
+    "path": "Config/DefaultGame.ini",
+    "section": "Add to existing /Script/UnrealEd.ProjectPackagingSettings section",
+    "host_lf_sha256": "8075b8b5febcd0d3b43bd98f2aac6c737ecaaf55fe5906e251daf97949c9cf30"
+  }
+]

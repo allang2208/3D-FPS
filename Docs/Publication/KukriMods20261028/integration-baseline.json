@@ -1,0 +1,538 @@
+[
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "c1c631780ab2ab4171426551a95d64797ab432bebacfafc282a6773c02b31f63",
+    "candidate_sha256": "7221a99bb6716b21c22babfd6f8219891ed43b37d0418961ec3d848a25a03423",
+    "local_sha256": "4a663b802fb011ad60f395f419ef18296587fe6ae1a17f8919fff5816b3dbdec",
+    "selected_changes": [
+      477,
+      480,
+      483,
+      500,
+      502,
+      503,
+      507
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "ad436b43fa7b2cee8e5f85dba817cf1bf5893490ec6e82df5cfbd1dc76046053",
+    "candidate_sha256": "5580b7622a359e5bff508c964cf8f74d6ab5737f409fc2fa6c7db4d1237a227b",
+    "local_sha256": "f42b4ba6ecfac225f880ecff2777063d18ba56f6096673030e61a0f360d3675c",
+    "selected_changes": [
+      589,
+      592,
+      596,
+      597,
+      598,
+      599,
+      600,
+      601,
+      602,
+      603,
+      606,
+      608
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "e3f1687e926151dca29b7dbe30f4bc0d8a940694ad7a5be51c2f2c77c55e2ee3",
+    "candidate_sha256": "e82b0888c57430e7958fc86f2b571ee451523d2f7db910557dc7a1bec870a523",
+    "local_sha256": "c67945ac964056fd4e3b85159425fba62003b9e0dff2b7d43dade9f8353f33e5",
+    "selected_changes": [
+      611,
+      612,
+      614,
+      615,
+      617,
+      618
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "4237800b55eb6a01693c3736e210090db893aa9da8781395ecda07a154884bfc",
+    "candidate_sha256": "90c43277c013e65e21809ca34ac28505f73c668f76e0a010abae73a6f7d98530",
+    "local_sha256": "5d6695cf2d3b471544aa335d8f93be14a940d173ad8bcf74af5582d039d648f0",
+    "selected_changes": [
+      621,
+      634
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "f5fa0e6004a49b10cc9a9bdc059548d8d28ab24ea6789ce7203dfd65afdf0f83",
+    "candidate_sha256": "7b42b0d2774f015ac307afbb60461844f199179409d902c3efeba087a26dd484",
+    "local_sha256": "5495f33b1a48f009616485eeeb4cf5531c2f5e3f2987ffef825871dc217dbed2",
+    "selected_changes": [
+      823,
+      824
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "e17628ba1b07c96dee4e0299059902b5e21679af2c0830883f857639e88479b7",
+    "candidate_sha256": "8c40e25ee28cf06c71cf23b78ef7d619a3135fcc074eacf08125911e9ff3361e",
+    "local_sha256": "ef5b7f08a405e885ec91424c97160d749dddfa5082d89d2473753a8a8c55e6c2",
+    "selected_changes": [
+      1561,
+      1564
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "05011345c977cfdd1fbf4863fd1ca86083a6b4c8cac62e97009d474d4fe7b3f2",
+    "candidate_sha256": "54f8bed77a10f0dc5b88c46b103c345d4b843d6ff2a1c9f8eef182f0cfc27571",
+    "local_sha256": "8de94a937352f041b0aca6216d5515170d0167147f65466e89252fbfab3941bf",
+    "selected_changes": [
+      850,
+      852,
+      856
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "c542b9e9e944dd22674c2c8b57cf9b7701d8333d4e7c0c9456f3a7651311553d",
+    "candidate_sha256": "c22492259576b6b2faddd62e8c52d56801c3a5686a867ab01fd3769b87def99b",
+    "local_sha256": "e29a416ebeeb9f92ef31382869d8b680af63ce2ecacec27ed33caa967418baa7",
+    "selected_changes": [
+      1047,
+      1048,
+      1050,
+      1052
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "27f3b19334e23cef491315dbc8deb0ccf7ba49237986a59870e74c11337a6954",
+    "candidate_sha256": "5a9cb6f88879736385385b4f963243e32475a82a917f4650b09f4e68358e67f8",
+    "local_sha256": "ac203086d81bf966c40bdc003e2895fea43b27cc32bf9bf804a485fef2161ff6",
+    "selected_changes": [
+      1053,
+      1055,
+      1056
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/BlizzardTypes.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "8ce158479e14ac314d96ae5eaf5c48cf01e0d332a40967c47d285f5062bfed10",
+    "candidate_sha256": "f2d3d5057450a5bd03c0e65e52dc1e94fdc1a9210695ef25940efc75b90e0139",
+    "local_sha256": "61849400f77d4c59b6554756fd93dd0583af37628d0ef4c7f37a3a50397cea3f",
+    "selected_changes": [
+      1057,
+      1058,
+      1060
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "c590704df517f950f6cd5d51c9d8b58647d4a699500f388a605bcf77ce12a998",
+    "candidate_sha256": "bc20b8e85da76852df0dcf9ae9e067a8de0bdd14987b2b240d2b9edf59e53e5e",
+    "local_sha256": "7d79fb7dd6659189cd181f3ed859d5500f8cee658f5c53f55acbf10f4beaee2a",
+    "selected_changes": [
+      1064,
+      1066
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "d495dd069e20a64bc473d553b109aea4091de152c7a36f6d0aa786b2360c1e2d",
+    "candidate_sha256": "3d7113070260281f48a45acbdb0b2e0e56eb5ed5adf3e4a68ebd49b93f136be6",
+    "local_sha256": "950abf26f2f620058be3dd5d24ca96ddff0f32c0fce794d18edf891566f596c5",
+    "selected_changes": [
+      1068,
+      1069
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "dac2785bcfd30baf35a85ce74da7356bf5ab7b5ef53e1d27a3ce1469cafdcb16",
+    "candidate_sha256": "c1c48121fb755b67b316c997c4a8859784d3523ca3289949f229e1518dc4a80d",
+    "local_sha256": "bb8617e6e64ea8a1308a2e6fca8d0d489cc5935bf3783d6d830a52d6375d7fda",
+    "selected_changes": [
+      1070,
+      1072
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "ebf8dde8e42c19bd56b4db9b9feeb86ecdb5da10ff2103e2b5da53e656940f1a",
+    "candidate_sha256": "49fb4a042ac3a3af2bd1e05bf17066c164f69bd8dab9b8477baef6d29c39cc35",
+    "local_sha256": "4dd68bb6a04333c523cac0f1c877d4fde22e08018b0573b31039523f0add4d1a",
+    "selected_changes": [
+      1076,
+      1079,
+      1080,
+      1081
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "74f667ffc9650a5d7bc3df792a13eb640d7f720cb5bdd803c8336b7954e8c816",
+    "candidate_sha256": "7aee917a8b08d915888016ee819b60761720ee811e010a963d4621a761fce570",
+    "local_sha256": "5cf6a8602e21340657a4497c0deb413c1a878e9016a943482e82f79076916713",
+    "selected_changes": [
+      1082,
+      1087,
+      1088,
+      1089,
+      1090,
+      1091,
+      1096,
+      1101,
+      1102
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "f03cd49eb3c81e0d05a787d8b6c29b098662807d0ea9fbb295114b93667058a7",
+    "candidate_sha256": "649baa60e80140db1c6f659750137bbeb478390b56e8f52ff77706338bd079e2",
+    "local_sha256": "790f79db20402ef09371068064c826c5edb70cf2a07dd97f71c8786db54bbfe0",
+    "selected_changes": [
+      1107,
+      1117,
+      1118,
+      1128,
+      1131,
+      1135,
+      1136,
+      1141,
+      1142
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "d8c1a4bce327a77875effcf1a9c337526c051960d131633ec2d6bd2dbb3c963c",
+    "candidate_sha256": "55e484c424bf9d00ecc46a60af3a416d6fcde007cff26694bdbd6dec93bc20f6",
+    "local_sha256": "28b3f32cc97a0e6040e21684447ef604b7e21d9b613ba19c51e7510cc5d24f2b",
+    "selected_changes": [
+      1152,
+      1154
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/DashAttackTypes.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "bce7c57a19c335e9d1f0da582b9c63e917fc368edbd6b719c26917f688c4925c",
+    "candidate_sha256": "c56e18c74a4033d8f4b14b5e34fdb7e25b20dfcd5e3d5464f07b6f1de4626849",
+    "local_sha256": "c56e18c74a4033d8f4b14b5e34fdb7e25b20dfcd5e3d5464f07b6f1de4626849",
+    "selected_changes": [
+      1572
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSIceArmorComponent.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "47e8a025b2fb9511fdd5a3d545f4189bff4b2b3639ec7306a475f770814b938c",
+    "candidate_sha256": "030046149e085cdeb2de8bb6c664303fc069b7c00f5631381b0af7375cf062fe",
+    "local_sha256": "030046149e085cdeb2de8bb6c664303fc069b7c00f5631381b0af7375cf062fe",
+    "selected_changes": [
+      1165,
+      1166
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/IceArmorTypes.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "d28ea6b6c126a03f7098e893376f2412fe36c3f0fc1e285524552b216ee873dc",
+    "candidate_sha256": "93a18239eecb674ba999f6d99408e05d495bc0badf7f442f27fac3e7a934c35a",
+    "local_sha256": "93a18239eecb674ba999f6d99408e05d495bc0badf7f442f27fac3e7a934c35a",
+    "selected_changes": [
+      1167,
+      1168,
+      1169
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/IceSpikeTypes.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "6a12f6be1578cef819cfdc306f0b009c124bef1cfb0c35e1bf982522e9844fb3",
+    "candidate_sha256": "367e0046cf9b753265a11b90d0f6f169bd672cef3f6ec5e4f0132208a85f4cc5",
+    "local_sha256": "367e0046cf9b753265a11b90d0f6f169bd672cef3f6ec5e4f0132208a85f4cc5",
+    "selected_changes": [
+      1573
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/IceWallTypes.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "0a62154e62386fa121e7897780a21f2b56ebbef339cbda55e3a90db8b04ad521",
+    "candidate_sha256": "53949c1a6c2b1a4d26a959770a6aa7bc36eb0309da67f26d77bf4609603199cc",
+    "local_sha256": "53949c1a6c2b1a4d26a959770a6aa7bc36eb0309da67f26d77bf4609603199cc",
+    "selected_changes": [
+      1170,
+      1171,
+      1172
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "e42e43a156b340a5013878509235f6ece30263a7b430b6031bd827a4734b9ec2",
+    "candidate_sha256": "ad75308a55ede6c07162e59b5854cbe3f5d51370f9c3dfa66632f18e2f118003",
+    "local_sha256": "7d7408c1ac20001f8e73fe6752d199d141eb77963d7795736c265cf546e50c35",
+    "selected_changes": [
+      1213,
+      1239,
+      1257
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelStaffModificationUI.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "cd241fe62db6995883c9186e33e06e6ddf8de2c09858aaef343268e1891c5cf0",
+    "candidate_sha256": "0524635246e6b416604281319631557a0039a446df505b9739b37cd517cfa04f",
+    "local_sha256": "0524635246e6b416604281319631557a0039a446df505b9739b37cd517cfa04f",
+    "selected_changes": [
+      1266
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWeaponText.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "d15bf35a61dc7aad97dde52dad7177789de381f1be343b324e113bc0c5cd3c39",
+    "candidate_sha256": "0e096781de37823c411562906827f3b6c3d763183fd264b61cdff3177aa7cc0e",
+    "local_sha256": "067c09b719c9ba671e80a53a9bd3bab5ac51906702b6d855d46f2039dcaa4393",
+    "selected_changes": [
+      1268
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "6a58ade690d0e20d7c4630b70c8eda9683775cc9602d18daebc902a6a9c1e27c",
+    "candidate_sha256": "805d518171370ae79623a2411d8aaf4f036c6ba508fcbc7cf20be5b7a5a47844",
+    "local_sha256": "d111cd13df69f193a2171e1d9fa55df8747a7b3607e8ca8886318e2ef5e37e62",
+    "selected_changes": [
+      1271,
+      1272,
+      1273,
+      1274,
+      1275,
+      1276,
+      1281,
+      1282,
+      1283,
+      1284,
+      1285
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "9ef6ed51a797d432d5857883fd86be6c3a91d09212ff87a93f2e4fd584a06fd9",
+    "candidate_sha256": "5464a08180470f595e9615b621ae80008b14923f49a39cb4d286b21b0855fe97",
+    "local_sha256": "c5593c9f582af30bd4cb049dbd61f721624a827e0d3e39d65863d2ffea5bbdd5",
+    "selected_changes": [
+      1288,
+      1289,
+      1290
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "54ea9de014d0a06f6bc5f4a65217c9a4101a97d3717e7c60ae62f0e2c9334445",
+    "candidate_sha256": "df73f3a02e2a31019c024a4463d0ceca7792bcbb4424f761aabe60f555664c12",
+    "local_sha256": "0a89628d0dc39c9efe34f89cee76936a8dfec0832a907a44a7b53e088a6740db",
+    "selected_changes": [
+      1295
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "11c9f1299909e33ec36ba936d253a4ce3cbe7ba09838fed39dd19182bacb8486",
+    "candidate_sha256": "5b81c10ea0d51700389d4a23a7666426e27cf9cbaf1eff949fc1e4f2dc470a81",
+    "local_sha256": "f877aadbe19bd7ffad3bf67abe70287dfdd215e93962d79ed312b16d4b776335",
+    "selected_changes": [
+      1296,
+      1297,
+      1299,
+      1300,
+      1301,
+      1302,
+      1303
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "93f5dba0db3d470f78bf9141a008a2204d600c7f22554fb0a74fdabd55e7e0c6",
+    "candidate_sha256": "e717c183a52f157dffd0e05edd15d1ff6031a7823c9d23aee1bcb4a286f9e07e",
+    "local_sha256": "f73de208df0b97c71b609966d908eeee639c24c516a9164065e77bf454a06010",
+    "selected_changes": [
+      1304,
+      1306
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "6dea2da4bf393cf23887d341c9efb6d4d48a1a4ee5c718ca244e175af9cfe26d",
+    "candidate_sha256": "fd16d8e3ee78d34c28637b9785653c3f25f4475e1288004b11fa9b95c9b97972",
+    "local_sha256": "4ddfcb660ada831fbe316ef1c3c9fe55a773b1e15eb25a161f221b417b8eeb75",
+    "selected_changes": [
+      1553,
+      1555
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "5be1d05c04c7c2f085d21c9aee55295bdef529c812712d21e4d4b77bd8710b5c",
+    "candidate_sha256": "ced6e2285d5bc5065f03d21b07edfc784091ad676593b7aef6356a4b5071b1a8",
+    "local_sha256": "da42ebcfd3f6cd6561964ecc6a20692dc0568289a9717099a0f9015f77c5f43a",
+    "selected_changes": [
+      1541
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriDashAttack.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "813b6885e196a3afdeebffff59443638ca8d95b5317484128d23487fe787eadb",
+    "candidate_sha256": "7125ecbb8e03b04cfbe972a8880766823b3e5c37c37214af17f147d6494e1895",
+    "local_sha256": "bec6e2e39a682c7d21053cb69aada67002a9ed8f16502cfedc60532917210200",
+    "selected_changes": [
+      1325
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "d5756585153a797ee7603e21809fdca716952eb9e9b9f4e9dac3a6ace3100cd4",
+    "candidate_sha256": "4d8e9251b4ccc2f3026a50b904ed6f80048aaf88b3f6593fb496fabdc746788f",
+    "local_sha256": "ab41ba313b0ec9cbc1fb42caf847473ad2c7a5e85de3b3096da94aa4877d7f39",
+    "selected_changes": [
+      1356
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "49a1ca8fa23a12e9e8b0d61dd67ef52fc5cb6a8ef7cd2e66faf9c2da2ee6ce17",
+    "candidate_sha256": "f41278a82fd63b2c64219dbf94b9b6c3ead7cbb09d4d3661807c2e38dc6b1148",
+    "local_sha256": "cced2a2b3571b2c012b5518ed162e972121e7b63728814e603226379b388c734",
+    "selected_changes": [
+      1398,
+      1401,
+      1402,
+      1406,
+      1436,
+      1437
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "1e6bdcfffe7c9e6b9bb8823a4a1dc744736af26249b5b4307d505cce841575af",
+    "candidate_sha256": "e731adfbab0772c0f2d4359a449fd1014a0600b34035883dc2ef221ef26f3577",
+    "local_sha256": "e0a33a93d85427ba7be3d905ff949d9879771caa88c7e68b08b295b190680b7a",
+    "selected_changes": [
+      1454,
+      1461,
+      1470
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "5d131cc93f3ce59c891ea8576f7596521188856e27306cb7e8b526e82bbd5c74",
+    "candidate_sha256": "af94c6937a15e2f245c17c590190bb59e026bfbcce088cc8e0aa9dd154445083",
+    "local_sha256": "f326dc884800629d248602beb9dcce6335128468c3819b7f7ce3acaf279e58b3",
+    "selected_changes": [
+      1491,
+      1492,
+      1493,
+      1495
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "38a6e143becd4ce18ce6ad3175fee65b42d538e91665a589f74a08f230760ec6",
+    "candidate_sha256": "adfa5896dbe68c17db2b369e0a8575235b1dfce7ca8961942d7972c638c3f57d",
+    "local_sha256": "9fa56883f2d604534fed913524c6528be865f7851daa48a0a2e032905797e711",
+    "selected_changes": [
+      1496,
+      1498
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "c89b318a7b8f2b6f3410ef86512381f992a35ac4fa4ce13dd897720bc1173807",
+    "candidate_sha256": "cbc03cf2b69b18dcb15d06ce4450c100aeb832681ce792d2e899d59343427057",
+    "local_sha256": "204a271421b9f1c2f7efadfbb16bf88430ffff791cb4e9607c5abf579742d56b",
+    "selected_changes": [
+      1499,
+      1500,
+      1501,
+      1502,
+      1503,
+      1504,
+      1505,
+      1506,
+      1507,
+      1508,
+      1509,
+      1510
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "aa6b4ce119cc569d3f718fccb7d7fe3dd5a7eedd6e2832f8da3d168eb9c4db18",
+    "candidate_sha256": "b2eab7fcb1b9a15b0cb12170787c38e4fe96fa144f49b5eb8302c44e66409b3a",
+    "local_sha256": "b2eab7fcb1b9a15b0cb12170787c38e4fe96fa144f49b5eb8302c44e66409b3a",
+    "selected_changes": [
+      1511,
+      1512,
+      1513
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "9fd1168749ac242215225b1e0a83b1d6b9b5bd470ab5b289d71b48afed5dd4bc",
+    "candidate_sha256": "5a8a8eaa60d9fa869144ad0379894100e7bf964988be1cbfd9b6db773acc39fe",
+    "local_sha256": "e46e120a3124639e7b4cd2516ac675d317f311529125670e6c5e955fa889d36c",
+    "selected_changes": [
+      1533,
+      1534,
+      1535,
+      1536,
+      1537,
+      1538,
+      1539,
+      1540
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/WeaponDamagePanel.cpp",
+    "baseline_commit": "531ad50575f475d62c854506967a4d54680347ba",
+    "baseline_sha256": "c534c8a02a141cc15d5e8f5ed26edb581b9f98a699b9df08cb10515cefd230e1",
+    "candidate_sha256": "1dff3412eb485e9bde2f8239c3a691d0c2d8c1895f3eaf6e547799b0b586283b",
+    "local_sha256": "1dff3412eb485e9bde2f8239c3a691d0c2d8c1895f3eaf6e547799b0b586283b",
+    "selected_changes": [
+      1559,
+      1560
+    ]
+  }
+]

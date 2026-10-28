@@ -1,0 +1,2366 @@
+[
+  {
+    "path": "SourceAssets/ChillUnified20261028/build-editor.log",
+    "bytes": 68299
+  },
+  {
+    "path": "SourceAssets/ChillUnified20261028/delivery.json",
+    "bytes": 2351
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/export-slots.log",
+    "bytes": 1088
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/failure-state.json",
+    "bytes": 40862
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/publication-receipt.json",
+    "bytes": 5064
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/read-failure-mcp.txt",
+    "bytes": 0
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/read-staged-console.log",
+    "bytes": 21674
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/read-staged-v2-console.log",
+    "bytes": 22199
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/read-staged-v2.log",
+    "bytes": 230064
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/read-staged-v3-console.log",
+    "bytes": 30116
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/read-staged-v3.log",
+    "bytes": 238243
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/read-staged.log",
+    "bytes": 226766
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-fresh-console.log",
+    "bytes": 26828
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-fresh.log",
+    "bytes": 258215
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-receipt.json",
+    "bytes": 9319
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-staged-console.log",
+    "bytes": 19757
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-staged-v2-console.log",
+    "bytes": 20509
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-staged-v2.log",
+    "bytes": 229490
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-staged-v3-console.log",
+    "bytes": 18770
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-staged-v3.log",
+    "bytes": 224233
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/repair-staged.log",
+    "bytes": 227462
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/staging-inputs.json",
+    "bytes": 31482
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_Blade_FoldedBalanced.uasset",
+    "bytes": 532233
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_Blade_HeavyBack.uasset",
+    "bytes": 534276
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_Blade_Swift.uasset",
+    "bytes": 533920
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_GripCheckered.uasset",
+    "bytes": 71509
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_GripLaminate.uasset",
+    "bytes": 71653
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_GripLeather.uasset",
+    "bytes": 71541
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_LanyardBraid.uasset",
+    "bytes": 71301
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_LanyardTag.uasset",
+    "bytes": 71591
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_LanyardTassel.uasset",
+    "bytes": 70222
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_PommelFaceted.uasset",
+    "bytes": 71696
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_PommelRinged.uasset",
+    "bytes": 71482
+  },
+  {
+    "path": "SourceAssets/KukriAssetRepair20261026/StagingOriginalMeshes/SM_Kukri_PommelSteel.uasset",
+    "bytes": 71447
+  },
+  {
+    "path": "SourceAssets/KukriAttackCapDiagnosis20261027/saved-profile-readout.json",
+    "bytes": 16296
+  },
+  {
+    "path": "SourceAssets/KukriAttackSpeedBaseline20261027/build-editor.log",
+    "bytes": 30933
+  },
+  {
+    "path": "SourceAssets/KukriAttackSpeedBaseline20261027/compile-live-batch.json",
+    "bytes": 186
+  },
+  {
+    "path": "SourceAssets/KukriAttackSpeedBaseline20261027/compile-live-result.json",
+    "bytes": 144
+  },
+  {
+    "path": "SourceAssets/KukriAttackSpeedBaseline20261027/delivery.json",
+    "bytes": 757
+  },
+  {
+    "path": "SourceAssets/KukriAttackSpeedBaseline20261027/live-coding-schema.json",
+    "bytes": 721
+  },
+  {
+    "path": "SourceAssets/KukriAttackSpeedCard20261027/build-editor.log",
+    "bytes": 41564
+  },
+  {
+    "path": "SourceAssets/KukriAttackSpeedCard20261027/delivery.json",
+    "bytes": 318
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/ActiveFX/build-editor.log",
+    "bytes": 20931
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/ActiveFX/delivery-v2.json",
+    "bytes": 371
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/ActiveFX/import-commandlet-backup-2026.10.27-16.32.26.log",
+    "bytes": 287300
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/ActiveFX/import-commandlet.log",
+    "bytes": 287699
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/ActiveFX/import-console.log",
+    "bytes": 34123
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/ActiveFX/material-receipt.json",
+    "bytes": 503
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Art/WolfSigil.png",
+    "bytes": 917680
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/bake.log",
+    "bytes": 1079
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/blade-layout-source.json",
+    "bytes": 8600
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/build-editor.log",
+    "bytes": 21673
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Icons/ue_kukri_blade_2_berserker_rune.png",
+    "bytes": 3163830
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/import-commandlet.log",
+    "bytes": 307769
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/import-console.log",
+    "bytes": 38506
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/import-receipt.json",
+    "bytes": 3424
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Kukri_Berserker_Runes_Editable.blend",
+    "bytes": 2721614
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/placements.json",
+    "bytes": 2722
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/published-option.json",
+    "bytes": 1157
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/SwitchReset/build-editor.log",
+    "bytes": 20853
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Textures/T_KukriMask_Canine_Berserker.png",
+    "bytes": 67450
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Textures/T_KukriMask_Factory_Berserker.png",
+    "bytes": 68481
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Textures/T_KukriMask_FoldedBalanced_Berserker.png",
+    "bytes": 68263
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Textures/T_KukriMask_HeavyBack_Berserker.png",
+    "bytes": 66794
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Textures/T_KukriMask_Hunter_Berserker.png",
+    "bytes": 65636
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/Textures/T_KukriMask_Swift_Berserker.png",
+    "bytes": 70833
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/comparison-render.log",
+    "bytes": 835
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/fit-projection.log",
+    "bytes": 2550
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/inspect-projection.log",
+    "bytes": 2047
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/install-bridge-1.txt",
+    "bytes": 210
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/install-receipt.json",
+    "bytes": 1271
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/install_refine-commandlet-backup-2026.10.28-01.36.02.log",
+    "bytes": 292125
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/install_refine-commandlet.log",
+    "bytes": 297735
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/install_refine-console.log",
+    "bytes": 35827
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/projection-diagnosis.json",
+    "bytes": 3275
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/read-material-bridge.txt",
+    "bytes": 119
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/read-mesh-bridge-2.txt",
+    "bytes": 210
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/read-mesh-bridge.txt",
+    "bytes": 0
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/read_blade_meshes-commandlet.log",
+    "bytes": 288635
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/read_blade_meshes-console.log",
+    "bytes": 37334
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/rune-projection-comparison.png",
+    "bytes": 2322741
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/runtime-blade-geometry.json",
+    "bytes": 5190658
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/runtime-materials.json",
+    "bytes": 6818
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/vertex-fix-559def7acf674eb4bdaa516db1ce3c6c.txt",
+    "bytes": 680
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/vertex-fix-c41152d692e04b7ab459c9d922e197fb.txt",
+    "bytes": 693
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/vertex-interpolation-receipt.json",
+    "bytes": 921
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/vertex-pin-3f494bd79ee4413fbe39b22afbb3af5d.txt",
+    "bytes": 252
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/VolumeRefine/vertex-save-4c3afb9cee9d44c0b9745929fe5735ad.txt",
+    "bytes": 142
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Art/WolfHead_Crown.png",
+    "bytes": 1434576
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Art/WolfHead_DesignInitial.png",
+    "bytes": 1557357
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/author_materials-commandlet.log",
+    "bytes": 323046
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/author_materials-console.log",
+    "bytes": 58821
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/head-layout.json",
+    "bytes": 478
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/install-bridge-68a10a273a2a470da0dcaf85f6600e45.txt",
+    "bytes": 210
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/install-receipt.json",
+    "bytes": 629
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/install_head-commandlet.log",
+    "bytes": 288261
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/install_head-console.log",
+    "bytes": 34623
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/install_particles-commandlet.log",
+    "bytes": 299630
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/install_particles-console.log",
+    "bytes": 37104
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/particle-install-receipt.json",
+    "bytes": 534
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Preview/berserker-in-game.png",
+    "bytes": 3393387
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Preview/capture-1176688ec35c442b98759bfc2f1bb2cf.txt",
+    "bytes": 858
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Preview/capture-6ced36cb538548d99dd1b014da33ae6f.txt",
+    "bytes": 858
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Preview/capture-cb29893cb8d54c1a93dfc158509b2c7f.txt",
+    "bytes": 622
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Preview/end-094bbd47ed224673ab49d7eea4a8e4f8.txt",
+    "bytes": 136
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Preview/game-capture.json",
+    "bytes": 569
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Preview/start-0eafe2c2f0f24ef498a7bf2ebb4762e6.txt",
+    "bytes": 0
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/Preview/start-37c09b4f86b04fa49ec33ddfae6a702f.txt",
+    "bytes": 128
+  },
+  {
+    "path": "SourceAssets/KukriBerserker20261028/WolfHeadComposite/prompts.json",
+    "bytes": 3329
+  },
+  {
+    "path": "SourceAssets/KukriBladeBalance20261027/build-editor-attempt1.log",
+    "bytes": 57948
+  },
+  {
+    "path": "SourceAssets/KukriBladeBalance20261027/build-editor.log",
+    "bytes": 1020
+  },
+  {
+    "path": "SourceAssets/KukriBladeConcepts20261026/design-brief.json",
+    "bytes": 2061
+  },
+  {
+    "path": "SourceAssets/KukriBladeConcepts20261026/design-prompts.json",
+    "bytes": 5731
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/author-final.log",
+    "bytes": 1892
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/author.log",
+    "bytes": 1411
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Export/SM_Kukri_Blade_FoldedBalanced.fbx",
+    "bytes": 699308
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Export/SM_Kukri_Blade_HeavyBack.fbx",
+    "bytes": 704588
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Export/SM_Kukri_Blade_Swift.fbx",
+    "bytes": 701548
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/icon-inputs-final.log",
+    "bytes": 1324
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/icon-inputs.log",
+    "bytes": 1324
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/IconInputs/blade_1_folded_balanced_blade.png",
+    "bytes": 103777
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/IconInputs/blade_1_heavy_back_blade.png",
+    "bytes": 95278
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/IconInputs/blade_1_swift_blade.png",
+    "bytes": 86924
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Icons/blade_1_folded_balanced_blade.png",
+    "bytes": 3011263
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Icons/blade_1_heavy_back_blade.png",
+    "bytes": 3004128
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Icons/blade_1_swift_blade.png",
+    "bytes": 3031439
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/imagegen-receipt.json",
+    "bytes": 6982
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Kukri_Blade_SurfaceV2_Editable.blend",
+    "bytes": 1551928
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Kukri_Blade_SurfaceV2_Icons_Editable.blend",
+    "bytes": 1563588
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/deployment.json",
+    "bytes": 2247
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-all-background-console.log",
+    "bytes": 42168
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-all-background.log",
+    "bytes": 303898
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-all-mcp.txt",
+    "bytes": 210
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-icons.json",
+    "bytes": 463
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-surface-console.log",
+    "bytes": 35531
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-surface-final-mcp-retry.txt",
+    "bytes": 0
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-surface-final-mcp.txt",
+    "bytes": 0
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-surface.json",
+    "bytes": 1808
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Receipts/import-surface.log",
+    "bytes": 282691
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_FoldedBalanced_BaseColor.png",
+    "bytes": 1149782
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_FoldedBalanced_Normal.png",
+    "bytes": 65853
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_FoldedBalanced_ORM.png",
+    "bytes": 789961
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_HeavyBack_BaseColor.png",
+    "bytes": 932502
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_HeavyBack_Normal.png",
+    "bytes": 65504
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_HeavyBack_ORM.png",
+    "bytes": 748189
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_Swift_BaseColor.png",
+    "bytes": 888391
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_Swift_Normal.png",
+    "bytes": 65116
+  },
+  {
+    "path": "SourceAssets/KukriBladeSurfaceV220261026/Textures/T_Kukri_Swift_ORM.png",
+    "bytes": 738122
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/author.log",
+    "bytes": 3030
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Export/SM_Kukri_Blade_FoldedBalanced.fbx",
+    "bytes": 649500
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Export/SM_Kukri_Blade_HeavyBack.fbx",
+    "bytes": 652524
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Export/SM_Kukri_Blade_Swift.fbx",
+    "bytes": 650300
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Icons/blade_1_folded_balanced_blade.png",
+    "bytes": 309978
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Icons/blade_1_heavy_back_blade.png",
+    "bytes": 302784
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Icons/blade_1_swift_blade.png",
+    "bytes": 298683
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/icons-gray.log",
+    "bytes": 1507
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/icons.log",
+    "bytes": 1507
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/import-console.log",
+    "bytes": 44902
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/import.log",
+    "bytes": 310110
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/import_receipt.json",
+    "bytes": 2111
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Kukri_Blade_Icons_Editable.blend",
+    "bytes": 1209092
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Kukri_Blade_Variants_Editable.blend",
+    "bytes": 1407587
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/publication_receipt.json",
+    "bytes": 1285
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_FoldedBalanced_BaseColor.png",
+    "bytes": 971059
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_FoldedBalanced_Normal.png",
+    "bytes": 517706
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_FoldedBalanced_ORM.png",
+    "bytes": 884928
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_HeavyBack_BaseColor.png",
+    "bytes": 826510
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_HeavyBack_Normal.png",
+    "bytes": 60514
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_HeavyBack_ORM.png",
+    "bytes": 730144
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_Swift_BaseColor.png",
+    "bytes": 911353
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_Swift_Normal.png",
+    "bytes": 439480
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/Textures/T_Kukri_Swift_ORM.png",
+    "bytes": 817157
+  },
+  {
+    "path": "SourceAssets/KukriBladeVariants20261026/variants.json",
+    "bytes": 3641
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/author.log",
+    "bytes": 2585
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/bake-runes.log",
+    "bytes": 1964
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/blade-layout-source.json",
+    "bytes": 444
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/build-editor.log",
+    "bytes": 1031
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/canine.json",
+    "bytes": 1603
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Export/SM_Kukri_Blade_Canine.fbx",
+    "bytes": 1262252
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Icons/Canine_Model_Reference.png",
+    "bytes": 333448
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Icons/ue_kukri_blade_1_canine_blade.png",
+    "bytes": 3031953
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/import-commandlet-sdk-skip.log",
+    "bytes": 301151
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/import-commandlet.log",
+    "bytes": 89327
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/import-console-sdk-skip.log",
+    "bytes": 36075
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/import-console.log",
+    "bytes": 6158
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/import-receipt.json",
+    "bytes": 2536
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Kukri_Canine_Editable.blend",
+    "bytes": 890408
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Kukri_Canine_IconSource.blend",
+    "bytes": 893423
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Kukri_Canine_Runes_Editable.blend",
+    "bytes": 897334
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/placements.json",
+    "bytes": 1262
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/publication-receipt.json",
+    "bytes": 2677
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Textures/T_Kukri_Canine_BaseColor.png",
+    "bytes": 741701
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Textures/T_Kukri_Canine_Normal.png",
+    "bytes": 121707
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Textures/T_Kukri_Canine_ORM.png",
+    "bytes": 524132
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Textures/T_KukriMask_Canine_RuneKnot.png",
+    "bytes": 66019
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Textures/T_KukriMask_Canine_RunePeaks.png",
+    "bytes": 62004
+  },
+  {
+    "path": "SourceAssets/KukriCanineBlade20261027/Textures/T_KukriMask_Canine_RuneWing.png",
+    "bytes": 64220
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/author.log",
+    "bytes": 4855
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/build-game-console.log",
+    "bytes": 22986
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/build-game.json",
+    "bytes": 65728
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/build-game.log",
+    "bytes": 27717
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/build_receipt.json",
+    "bytes": 561
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/concept-receipt.json",
+    "bytes": 4985
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_grip_checkered.png",
+    "bytes": 2387149
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_lanyard_braid.png",
+    "bytes": 1926644
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_lanyard_tag.png",
+    "bytes": 1887218
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_lanyard_tassel.png",
+    "bytes": 1886344
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_mark_knot.png",
+    "bytes": 468036
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_mark_peaks.png",
+    "bytes": 311447
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_mark_wing.png",
+    "bytes": 457137
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_pommel_faceted.png",
+    "bytes": 2565601
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Concepts/knife_pommel_ringed.png",
+    "bytes": 2454304
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/design-prompts.json",
+    "bytes": 14316
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_GripCheckered.fbx",
+    "bytes": 2148812
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_GripLaminate.fbx",
+    "bytes": 2083692
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_GripLeather.fbx",
+    "bytes": 2134284
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_LanyardBraid.fbx",
+    "bytes": 153564
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_LanyardTag.fbx",
+    "bytes": 138076
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_LanyardTassel.fbx",
+    "bytes": 409660
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_PommelFaceted.fbx",
+    "bytes": 480492
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_PommelRinged.fbx",
+    "bytes": 477996
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Export/SM_Kukri_PommelSteel.fbx",
+    "bytes": 477228
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/blade_2_knife_mark_knot.png",
+    "bytes": 307277
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/blade_2_knife_mark_peaks.png",
+    "bytes": 285754
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/blade_2_knife_mark_wing.png",
+    "bytes": 307994
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/grip_knife_grip_checkered.png",
+    "bytes": 338010
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/grip_knife_grip_laminate.png",
+    "bytes": 339442
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/grip_knife_grip_leather.png",
+    "bytes": 312316
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/lanyard_knife_lanyard_braid.png",
+    "bytes": 301216
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/lanyard_knife_lanyard_tag.png",
+    "bytes": 302175
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/lanyard_knife_lanyard_tassel.png",
+    "bytes": 308418
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/pommel_knife_pommel_faceted.png",
+    "bytes": 370031
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/pommel_knife_pommel_ringed.png",
+    "bytes": 348311
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Icons/pommel_knife_pommel_steel.png",
+    "bytes": 366181
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/icons.log",
+    "bytes": 3181
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/import-editor-result.txt",
+    "bytes": 818
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/import_receipt.json",
+    "bytes": 12407
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Kukri_Component_Icons_Editable.blend",
+    "bytes": 3771812
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Kukri_Components_Editable.blend",
+    "bytes": 3862447
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Kukri_Rune_Icons_Editable.blend",
+    "bytes": 287751
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/live-coding-result.txt",
+    "bytes": 494
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/live-coding-schema.txt",
+    "bytes": 721
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/live-coding.json",
+    "bytes": 102
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/mcp-toolsets.txt",
+    "bytes": 13635
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/publication_receipt.json",
+    "bytes": 4246
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/rune_import_receipt.json",
+    "bytes": 7167
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/runes.log",
+    "bytes": 889
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripCheckered_BaseColor.png",
+    "bytes": 1776290
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripCheckered_Normal.png",
+    "bytes": 1461018
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripCheckered_ORM.png",
+    "bytes": 806035
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripLaminate_BaseColor.png",
+    "bytes": 2035318
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripLaminate_Normal.png",
+    "bytes": 1364026
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripLaminate_ORM.png",
+    "bytes": 712443
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripLeather_BaseColor.png",
+    "bytes": 1652323
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripLeather_Normal.png",
+    "bytes": 1001827
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_GripLeather_ORM.png",
+    "bytes": 807659
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardBraid_BaseColor.png",
+    "bytes": 831874
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardBraid_Normal.png",
+    "bytes": 257964
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardBraid_ORM.png",
+    "bytes": 382267
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardTag_BaseColor.png",
+    "bytes": 614615
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardTag_Normal.png",
+    "bytes": 232719
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardTag_ORM.png",
+    "bytes": 341040
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardTassel_BaseColor.png",
+    "bytes": 634916
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardTassel_Normal.png",
+    "bytes": 233906
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_LanyardTassel_ORM.png",
+    "bytes": 360863
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelFaceted_BaseColor.png",
+    "bytes": 720514
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelFaceted_Normal.png",
+    "bytes": 503867
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelFaceted_ORM.png",
+    "bytes": 410896
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelRinged_BaseColor.png",
+    "bytes": 270321
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelRinged_Normal.png",
+    "bytes": 139603
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelRinged_ORM.png",
+    "bytes": 432762
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelSteel_BaseColor.png",
+    "bytes": 686983
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelSteel_Normal.png",
+    "bytes": 506601
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_Kukri_PommelSteel_ORM.png",
+    "bytes": 431951
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_KukriMask_RuneKnot.png",
+    "bytes": 63439
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_KukriMask_RunePeaks.png",
+    "bytes": 61550
+  },
+  {
+    "path": "SourceAssets/KukriComponentVariants20261026/Textures/T_KukriMask_RuneWing.png",
+    "bytes": 63222
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/blade_1_folded_balanced_blade.png",
+    "bytes": 3027727
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/blade_1_heavy_back_blade.png",
+    "bytes": 3014274
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/blade_1_swift_blade.png",
+    "bytes": 2979924
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/blade_2_knife_mark_knot.png",
+    "bytes": 3030415
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/blade_2_knife_mark_peaks.png",
+    "bytes": 3039331
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/blade_2_knife_mark_wing.png",
+    "bytes": 3085774
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/grip_knife_grip_checkered.png",
+    "bytes": 3052248
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/grip_knife_grip_laminate.png",
+    "bytes": 3051052
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/grip_knife_grip_leather.png",
+    "bytes": 3112484
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/lanyard_knife_lanyard_braid.png",
+    "bytes": 3118040
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/lanyard_knife_lanyard_tag.png",
+    "bytes": 3098593
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/lanyard_knife_lanyard_tassel.png",
+    "bytes": 3064890
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/pommel_knife_pommel_faceted.png",
+    "bytes": 3171882
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/pommel_knife_pommel_ringed.png",
+    "bytes": 3036817
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/pommel_knife_pommel_steel.png",
+    "bytes": 3120230
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/ue_kukri_grip_false.png",
+    "bytes": 3052725
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Generated/ue_kukri_pommel_false.png",
+    "bytes": 2931537
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/imagegen-receipt.json",
+    "bytes": 25012
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/blade_1_folded_balanced_blade.png",
+    "bytes": 309978
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/blade_1_heavy_back_blade.png",
+    "bytes": 302784
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/blade_1_swift_blade.png",
+    "bytes": 298683
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/blade_2_knife_mark_knot.png",
+    "bytes": 307277
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/blade_2_knife_mark_peaks.png",
+    "bytes": 285754
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/blade_2_knife_mark_wing.png",
+    "bytes": 307994
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/grip_knife_grip_checkered.png",
+    "bytes": 338010
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/grip_knife_grip_laminate.png",
+    "bytes": 339442
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/grip_knife_grip_leather.png",
+    "bytes": 312316
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/lanyard_knife_lanyard_braid.png",
+    "bytes": 301216
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/lanyard_knife_lanyard_tag.png",
+    "bytes": 302175
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/lanyard_knife_lanyard_tassel.png",
+    "bytes": 308418
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/pommel_knife_pommel_faceted.png",
+    "bytes": 370031
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/pommel_knife_pommel_ringed.png",
+    "bytes": 348311
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/pommel_knife_pommel_steel.png",
+    "bytes": 366181
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/remove.png",
+    "bytes": 2733959
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/ue_kukri_blade_1_false.png",
+    "bytes": 2988731
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/ue_kukri_grip_false.png",
+    "bytes": 274560
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/ue_kukri_lanyard_false.png",
+    "bytes": 2935906
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Inputs/ue_kukri_pommel_false.png",
+    "bytes": 403774
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/manifest.json",
+    "bytes": 36004
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/pie-state.json",
+    "bytes": 92
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/before-normal-close.json",
+    "bytes": 157
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/build-editor-console.log",
+    "bytes": 25724
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/build-editor.json",
+    "bytes": 71151
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/build-editor.log",
+    "bytes": 30282
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/completion.json",
+    "bytes": 756
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/deployment.json",
+    "bytes": 18115
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/editor-state-result.txt",
+    "bytes": 249
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/editor-state.json",
+    "bytes": 157
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/editor-tools.txt",
+    "bytes": 20128
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/import-result.txt",
+    "bytes": 125
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/import.json",
+    "bytes": 2813
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/normal-close-build-result.txt",
+    "bytes": 210
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/normal-close-result.txt",
+    "bytes": 831
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/pie-state-result.txt",
+    "bytes": 22
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/stop-pie-build-result.txt",
+    "bytes": 22
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/stop-pie-result.txt",
+    "bytes": 49
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/Receipts/toolsets.txt",
+    "bytes": 13635
+  },
+  {
+    "path": "SourceAssets/KukriFinalIntegration20261026/stop-pie.json",
+    "bytes": 87
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ConceptV1/design-proposal.json",
+    "bytes": 5384
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ConceptV1/FrostRaven_Concept01.png",
+    "bytes": 2302346
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/audit-backup-2026.10.28-05.29.12.log",
+    "bytes": 286606
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/audit-console.log",
+    "bytes": 43880
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/audit-first.log",
+    "bytes": 286606
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/audit-result.json",
+    "bytes": 5212
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/audit.log",
+    "bytes": 295618
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/build-editor-first.log",
+    "bytes": 38040
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/build-editor.log",
+    "bytes": 21286
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/review-result.json",
+    "bytes": 396
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenCrown.png",
+    "bytes": 1640830
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenSigil.png",
+    "bytes": 541044
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenSigilRelief.png",
+    "bytes": 924905
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/art-receipt.json",
+    "bytes": 258
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/author-art.log",
+    "bytes": 1412
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/blade-layout-source.json",
+    "bytes": 8600
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/build-editor-first.log",
+    "bytes": 56852
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/build-editor.log",
+    "bytes": 28120
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/delivery.json",
+    "bytes": 4340
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/fit-projection.log",
+    "bytes": 1383
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/FrostRaven_Crown_Editable.blend",
+    "bytes": 224018
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/FrostRaven_Rune_Editable.blend",
+    "bytes": 229365
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/icon-source.json",
+    "bytes": 1058
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Icons/ue_kukri_blade_2_frost_raven_rune.png",
+    "bytes": 3174426
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/import-commandlet.log",
+    "bytes": 304500
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/import-console.log",
+    "bytes": 36816
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/import-receipt.json",
+    "bytes": 3059
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/material-receipt.json",
+    "bytes": 405
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/published-option.json",
+    "bytes": 1291
+  },
+  {
+    "path": "SourceAssets/KukriFrostRaven20261028/ProductionV1/SM_FrostRaven_Crown.fbx",
+    "bytes": 741372
+  },
+  {
+    "path": "SourceAssets/KukriGripBalance20261027/build-editor.log",
+    "bytes": 29605
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/author.log",
+    "bytes": 1523
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/framed-icons-render.log",
+    "bytes": 1575
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/icon-prompts.json",
+    "bytes": 4731
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/IconInputs/grip_knife_grip_checkered.png",
+    "bytes": 189184
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/IconInputs/grip_knife_grip_laminate.png",
+    "bytes": 128272
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/IconInputs/grip_knife_grip_leather.png",
+    "bytes": 203055
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Icons/grip_knife_grip_checkered.png",
+    "bytes": 332865
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Icons/grip_knife_grip_laminate.png",
+    "bytes": 280642
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Icons/grip_knife_grip_leather.png",
+    "bytes": 327400
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/icons-render.log",
+    "bytes": 1341
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/import-assets-console.log",
+    "bytes": 21127
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/import-assets.log",
+    "bytes": 242918
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/import-jobs.json",
+    "bytes": 4716
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Kukri_Grip_SurfaceV2_Editable.blend",
+    "bytes": 3903999
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Kukri_Grip_SurfaceV2_FramedIcons_Editable.blend",
+    "bytes": 3318956
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Kukri_Grip_SurfaceV2_Icons_Editable.blend",
+    "bytes": 3247614
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Receipts/import-assets.json",
+    "bytes": 3888
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Receipts/publication.json",
+    "bytes": 5094
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Receipts/staging-inputs.json",
+    "bytes": 7560
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripCheckered_BaseColor.png",
+    "bytes": 1437595
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripCheckered_Normal.png",
+    "bytes": 3176328
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripCheckered_ORM.png",
+    "bytes": 2054427
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripLaminate_BaseColor.png",
+    "bytes": 940279
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripLaminate_Normal.png",
+    "bytes": 1099516
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripLaminate_ORM.png",
+    "bytes": 929165
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripLeather_BaseColor.png",
+    "bytes": 1585999
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripLeather_Normal.png",
+    "bytes": 3742737
+  },
+  {
+    "path": "SourceAssets/KukriGripSurfaceV220261027/Textures/T_Kukri_GripLeather_ORM.png",
+    "bytes": 1925882
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/author.log",
+    "bytes": 1075
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/bake-runes.log",
+    "bytes": 454
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/blade-layout-source.json",
+    "bytes": 443
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/build-editor.log",
+    "bytes": 22802
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Export/SM_Kukri_Blade_Hunter.fbx",
+    "bytes": 699132
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/hunter.json",
+    "bytes": 1425
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Icons/Hunter_Model_Reference.png",
+    "bytes": 304620
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Icons/ue_kukri_blade_1_hunter_blade.png",
+    "bytes": 3099359
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/import-commandlet.log",
+    "bytes": 295783
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/import-console.log",
+    "bytes": 34932
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/import-receipt.json",
+    "bytes": 2536
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Kukri_Hunter_Editable.blend",
+    "bytes": 566328
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Kukri_Hunter_IconSource.blend",
+    "bytes": 568506
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Kukri_Hunter_Runes_Editable.blend",
+    "bytes": 574859
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/placements.json",
+    "bytes": 1265
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/publication-receipt.json",
+    "bytes": 2379
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Textures/T_Kukri_Hunter_BaseColor.png",
+    "bytes": 798724
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Textures/T_Kukri_Hunter_Normal.png",
+    "bytes": 115816
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Textures/T_Kukri_Hunter_ORM.png",
+    "bytes": 502179
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Textures/T_KukriMask_Hunter_RuneKnot.png",
+    "bytes": 63707
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Textures/T_KukriMask_Hunter_RunePeaks.png",
+    "bytes": 60923
+  },
+  {
+    "path": "SourceAssets/KukriHunterBlade20261027/Textures/T_KukriMask_Hunter_RuneWing.png",
+    "bytes": 63138
+  },
+  {
+    "path": "SourceAssets/KukriLanyardBalance20261027/build-editor.log",
+    "bytes": 41716
+  },
+  {
+    "path": "SourceAssets/KukriLanyardBalance20261027/delivery.json",
+    "bytes": 493
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/author.log",
+    "bytes": 1985
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/build-editor-console.log",
+    "bytes": 49996
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/build-editor.json",
+    "bytes": 129307
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/build-editor.log",
+    "bytes": 55316
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/build-game-shared.log",
+    "bytes": 43860
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/build_receipt.json",
+    "bytes": 834
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Export/SM_Kukri_Blade_Factory.fbx",
+    "bytes": 68812
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Export/SM_Kukri_Grip_Factory.fbx",
+    "bytes": 124348
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Export/SM_Kukri_Lanyard_Factory.fbx",
+    "bytes": 46924
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Export/SM_Kukri_Pommel_Factory.fbx",
+    "bytes": 102444
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/icon-inputs.log",
+    "bytes": 2937
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/icon_deployments.json",
+    "bytes": 2879
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/icon_import_receipt.json",
+    "bytes": 1180
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/icon_provenance.json",
+    "bytes": 350
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/IconInputs/SM_Kukri_Blade_Factory.png",
+    "bytes": 163617
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/IconInputs/SM_Kukri_Grip_Factory.png",
+    "bytes": 274560
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/IconInputs/SM_Kukri_Lanyard_Factory.png",
+    "bytes": 231235
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/IconInputs/SM_Kukri_Pommel_Factory.png",
+    "bytes": 403774
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Icons/blade_1.png",
+    "bytes": 2988731
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Icons/blade_2.png",
+    "bytes": 2733959
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Icons/grip.png",
+    "bytes": 274560
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Icons/lanyard.png",
+    "bytes": 2935906
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Icons/pommel.png",
+    "bytes": 403774
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/imagegen-prompts.json",
+    "bytes": 2438
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/import-final.log",
+    "bytes": 302121
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/import-v2.log",
+    "bytes": 292610
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/import.log",
+    "bytes": 282024
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/import_receipt.json",
+    "bytes": 474
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/Kukri_Modules_Editable.blend",
+    "bytes": 268019
+  },
+  {
+    "path": "SourceAssets/KukriModules20261026/modules.json",
+    "bytes": 9163
+  },
+  {
+    "path": "SourceAssets/KukriPommelBalance20261027/compile_bridge_result.txt",
+    "bytes": 175
+  },
+  {
+    "path": "SourceAssets/KukriPommelBalance20261027/compile_request.json",
+    "bytes": 214
+  },
+  {
+    "path": "SourceAssets/KukriPommelBalance20261027/delivery.json",
+    "bytes": 529
+  },
+  {
+    "path": "SourceAssets/KukriPommelBalance20261027/editor_compile.log",
+    "bytes": 245
+  },
+  {
+    "path": "SourceAssets/KukriPommelBalance20261027/editor_compile_status.log",
+    "bytes": 300
+  },
+  {
+    "path": "SourceAssets/KukriPommelBalance20261027/live_compile_failure.log",
+    "bytes": 2162
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/author.log",
+    "bytes": 4409
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/build-editor.log",
+    "bytes": 23905
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Export/SM_Kukri_LanyardBraid_PhysicsV1.fbx",
+    "bytes": 2575612
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Export/SM_Kukri_LanyardFactory_PhysicsV1.fbx",
+    "bytes": 737484
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Export/SM_Kukri_LanyardTag_PhysicsV1.fbx",
+    "bytes": 1185020
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Export/SM_Kukri_LanyardTassel_PhysicsV1.fbx",
+    "bytes": 2775340
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/export-physics.log",
+    "bytes": 991
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Generated/BladeHeavy_ImageGen.png",
+    "bytes": 3066531
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Generated/LanyardTag_ImageGen.png",
+    "bytes": 3186856
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Generated/StandardEmptyFrame_ImageGen.png",
+    "bytes": 3012339
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/icon-generation.json",
+    "bytes": 5390
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/icon-manifest.json",
+    "bytes": 36011
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/blade_1_folded_balanced_blade.png",
+    "bytes": 106612
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/blade_1_heavy_back_blade.png",
+    "bytes": 97797
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/blade_1_swift_blade.png",
+    "bytes": 89546
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/blade_2_knife_mark_knot.png",
+    "bytes": 130039
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/blade_2_knife_mark_peaks.png",
+    "bytes": 88799
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/blade_2_knife_mark_wing.png",
+    "bytes": 132014
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/grip_knife_grip_checkered.png",
+    "bytes": 171091
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/grip_knife_grip_laminate.png",
+    "bytes": 110978
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/grip_knife_grip_leather.png",
+    "bytes": 165864
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/lanyard_knife_lanyard_braid.png",
+    "bytes": 141527
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/lanyard_knife_lanyard_tag.png",
+    "bytes": 134147
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/lanyard_knife_lanyard_tassel.png",
+    "bytes": 135144
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/pommel_knife_pommel_faceted.png",
+    "bytes": 268049
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/pommel_knife_pommel_ringed.png",
+    "bytes": 246440
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/pommel_knife_pommel_steel.png",
+    "bytes": 245399
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/remove.png",
+    "bytes": 51764
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/ue_kukri_blade_1_false.png",
+    "bytes": 60320
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/ue_kukri_grip_false.png",
+    "bytes": 80283
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/ue_kukri_lanyard_false.png",
+    "bytes": 135723
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/IconInputs/ue_kukri_pommel_false.png",
+    "bytes": 153360
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/blade_1_folded_balanced_blade.png",
+    "bytes": 1036517
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/blade_1_heavy_back_blade.png",
+    "bytes": 1026367
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/blade_1_swift_blade.png",
+    "bytes": 1033739
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/blade_2_knife_mark_knot.png",
+    "bytes": 1032015
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/blade_2_knife_mark_peaks.png",
+    "bytes": 1034714
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/blade_2_knife_mark_wing.png",
+    "bytes": 1033392
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/grip_knife_grip_checkered.png",
+    "bytes": 1033020
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/grip_knife_grip_laminate.png",
+    "bytes": 974613
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/grip_knife_grip_leather.png",
+    "bytes": 1026986
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/lanyard_knife_lanyard_braid.png",
+    "bytes": 1053854
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/lanyard_knife_lanyard_tag.png",
+    "bytes": 1036648
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/lanyard_knife_lanyard_tassel.png",
+    "bytes": 1052093
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/pommel_knife_pommel_faceted.png",
+    "bytes": 937703
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/pommel_knife_pommel_ringed.png",
+    "bytes": 913361
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/pommel_knife_pommel_steel.png",
+    "bytes": 909343
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/remove.png",
+    "bytes": 1019854
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/ue_kukri_blade_1_false.png",
+    "bytes": 1042227
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/ue_kukri_grip_false.png",
+    "bytes": 1005219
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/ue_kukri_lanyard_false.png",
+    "bytes": 1054212
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Icons/ue_kukri_pommel_false.png",
+    "bytes": 939583
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/import-icons-backup-2026.10.27-05.03.36.log",
+    "bytes": 229481
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/import-icons-console.log",
+    "bytes": 21679
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/import-icons.log",
+    "bytes": 264873
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/import-surfaces-console.log",
+    "bytes": 27820
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/import-surfaces.log",
+    "bytes": 294187
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Kukri_IconInputs_Editable.blend",
+    "bytes": 8238343
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Kukri_Refinement_Editable.blend",
+    "bytes": 8051270
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Kukri_StandardIcons_Editable.blend",
+    "bytes": 8239748
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Receipts/import-icons.json",
+    "bytes": 7818
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Receipts/import-surfaces.json",
+    "bytes": 6400
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Receipts/publication.json",
+    "bytes": 32920
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Receipts/staging-inputs.json",
+    "bytes": 48725
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/record-rest-bounds.log",
+    "bytes": 208
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/render-final-icons.log",
+    "bytes": 4238
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/render-inputs.log",
+    "bytes": 6125
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/source-geometry.json",
+    "bytes": 8336
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/source-geometry.log",
+    "bytes": 6175
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/StandardEmptyFrame.png",
+    "bytes": 3012339
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_FoldedBalanced_BaseColor.png",
+    "bytes": 1161676
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_FoldedBalanced_Normal.png",
+    "bytes": 279182
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_FoldedBalanced_ORM.png",
+    "bytes": 796954
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripCheckered_BaseColor.png",
+    "bytes": 1437359
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripCheckered_Normal.png",
+    "bytes": 3004715
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripCheckered_ORM.png",
+    "bytes": 2054395
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripLaminate_BaseColor.png",
+    "bytes": 940259
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripLaminate_Normal.png",
+    "bytes": 1099519
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripLaminate_ORM.png",
+    "bytes": 929169
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripLeather_BaseColor.png",
+    "bytes": 1586044
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripLeather_Normal.png",
+    "bytes": 3508757
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_GripLeather_ORM.png",
+    "bytes": 1925321
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_HeavyBack_BaseColor.png",
+    "bytes": 969684
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_HeavyBack_Normal.png",
+    "bytes": 248082
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_HeavyBack_ORM.png",
+    "bytes": 754664
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardBraid_BaseColor.png",
+    "bytes": 3092900
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardBraid_Normal.png",
+    "bytes": 4610003
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardBraid_ORM.png",
+    "bytes": 2281413
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardFactory_BaseColor.png",
+    "bytes": 2389762
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardFactory_Normal.png",
+    "bytes": 3667888
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardFactory_ORM.png",
+    "bytes": 1883063
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardTag_BaseColor.png",
+    "bytes": 1976622
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardTag_Normal.png",
+    "bytes": 2961138
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardTag_ORM.png",
+    "bytes": 1821755
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardTassel_BaseColor.png",
+    "bytes": 2322810
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardTassel_Normal.png",
+    "bytes": 3324965
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_LanyardTassel_ORM.png",
+    "bytes": 2081635
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelFaceted_BaseColor.png",
+    "bytes": 1278143
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelFaceted_Normal.png",
+    "bytes": 2233791
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelFaceted_ORM.png",
+    "bytes": 1666380
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelRinged_BaseColor.png",
+    "bytes": 1458863
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelRinged_Normal.png",
+    "bytes": 1082550
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelRinged_ORM.png",
+    "bytes": 1771329
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelSteel_BaseColor.png",
+    "bytes": 1425424
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelSteel_Normal.png",
+    "bytes": 1072259
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_PommelSteel_ORM.png",
+    "bytes": 1694495
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_Swift_BaseColor.png",
+    "bytes": 951537
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_Swift_Normal.png",
+    "bytes": 257097
+  },
+  {
+    "path": "SourceAssets/KukriRefinement20261027/Textures/T_Kukri_Swift_ORM.png",
+    "bytes": 753029
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/bake-runes.log",
+    "bytes": 1463
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/blade-layout-source.json",
+    "bytes": 7719
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/bridge-import-runes.txt",
+    "bytes": 726
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/build-editor.log",
+    "bytes": 2064
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/delivery.json",
+    "bytes": 536
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/import-commandlet-console.log",
+    "bytes": 37926
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/import-commandlet.log",
+    "bytes": 306608
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/import-receipt.json",
+    "bytes": 7167
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Kukri_Runes_Natural_Editable.blend",
+    "bytes": 1602223
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/placements.json",
+    "bytes": 5112
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_Factory_RuneKnot.png",
+    "bytes": 65852
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_Factory_RunePeaks.png",
+    "bytes": 62652
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_Factory_RuneWing.png",
+    "bytes": 64713
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_FoldedBalanced_RuneKnot.png",
+    "bytes": 65740
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_FoldedBalanced_RunePeaks.png",
+    "bytes": 62638
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_FoldedBalanced_RuneWing.png",
+    "bytes": 64608
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_HeavyBack_RuneKnot.png",
+    "bytes": 65025
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_HeavyBack_RunePeaks.png",
+    "bytes": 61929
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_HeavyBack_RuneWing.png",
+    "bytes": 63428
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_Swift_RuneKnot.png",
+    "bytes": 66447
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_Swift_RunePeaks.png",
+    "bytes": 63580
+  },
+  {
+    "path": "SourceAssets/KukriRuneNatural20261027/Textures/T_KukriMask_Swift_RuneWing.png",
+    "bytes": 64684
+  },
+  {
+    "path": "SourceAssets/BleedingFixBurst20261027/build-editor.log",
+    "bytes": 21085
+  },
+  {
+    "path": "SourceAssets/BleedingFixBurst20261027/GroundResidue/build-editor.log",
+    "bytes": 21640
+  },
+  {
+    "path": "SourceAssets/BleedingFixBurst20261027/import-commandlet.log",
+    "bytes": 290664
+  },
+  {
+    "path": "SourceAssets/BleedingFixBurst20261027/import-console.log",
+    "bytes": 36440
+  },
+  {
+    "path": "SourceAssets/BleedingFixBurst20261027/material-bridge-result.txt",
+    "bytes": 0
+  },
+  {
+    "path": "SourceAssets/BleedingFixBurst20261027/material-receipt.json",
+    "bytes": 237
+  }
+]

@@ -26,6 +26,7 @@ TSharedPtr<FJsonObject> Catalog(const FColdSteelItem& Item)
     FString File=ColdSteelInventory::Text(Item,TEXT("modular_melee_catalog"));
     if(File.IsEmpty())File=ColdSteelInventory::Text(Item,TEXT("modular_sword_catalog"));
     if(File.IsEmpty()&&Item.Definition==TEXT("ue_steel_warhammer"))File=TEXT("warhammer-modules.json");
+    if(File.IsEmpty()&&Item.Definition==TEXT("ue_kukri"))File=TEXT("kukri-modules.json");
     if(File.IsEmpty())File=Item.Definition==TEXT("ue_frost_crystal_sword")?TEXT("frost-sword-modules.json"):
         Item.Definition==TEXT("ue_rune_sword")?TEXT("rune-sword-modules.json"):FString();
     if(File.IsEmpty())return nullptr;
@@ -108,6 +109,69 @@ FString RootSlot(const FColdSteelItem& Item)
 {
     FString Slot=TEXT("blade_1");if(const auto Root=Catalog(Item))Root->TryGetStringField(TEXT("root_slot"),Slot);return Slot;
 }
+FTransform ModuleTransform(const FColdSteelItem& Item,const FString& Slot,const TSharedPtr<FJsonObject>& Spec,const FGunsmithParts& Parts)
+{
+    const FVector PommelOffset=Vector(Part(Item,TEXT("grip"),Parts),TEXT("pommel_offset_cm"));
+    const auto Local=[&](const FString& Key,const TSharedPtr<FJsonObject>& Data)
+    {
+        const bool AtPommel=Key==TEXT("pommel")||Key==TEXT("pommel_mount")||Key==TEXT("tassel");
+        const FVector R=Vector(Data,TEXT("rotation_deg"));
+        return FTransform(FRotator(R.X,R.Y,R.Z),Vector(Data,TEXT("location_cm"))+(AtPommel?PommelOffset:FVector::ZeroVector),
+            Vector(Data,TEXT("scale"),FVector(1)));
+    };
+    FTransform Result=Local(Slot,Spec);
+    FString Parent;
+    if(Spec->TryGetStringField(TEXT("parent_slot"),Parent)&&Parent!=Slot)
+        if(const auto ParentSpec=Part(Item,*Parent,Parts))Result=Result*Local(Parent,ParentSpec);
+    return Result;
+}
+}
+
+TSharedPtr<FJsonObject> ColdSteelModularSword::HangingDynamics(const UStaticMesh* Mesh)
+{
+    if(!Mesh||!Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/Kukri20261020/")))return nullptr;
+    FColdSteelItem Item;Item.Definition=TEXT("ue_kukri");
+    const auto Root=Catalog(Item);
+    const TSharedPtr<FJsonObject>* Slots=nullptr,*Choices=nullptr;
+    if(!Root||!Root->TryGetObjectField(TEXT("slots"),Slots)||!(*Slots)->TryGetObjectField(TEXT("lanyard"),Choices))return nullptr;
+    const FString Path=Mesh->GetPathName();
+    for(const auto& Pair:(*Choices)->Values)
+    {
+        const auto Spec=Pair.Value->AsObject();FString Asset;
+        if(Spec&&Spec->HasField(TEXT("guides_cm"))&&Spec->TryGetStringField(TEXT("mesh"),Asset)&&Asset==Path)return Spec;
+    }
+    return nullptr;
+}
+
+TArray<ColdSteelModularSword::FModuleGeometry> ColdSteelModularSword::DescribeGeometry(const FColdSteelItem& Item)
+{
+    TArray<FModuleGeometry> Result;
+    const auto Parts=Installed(Item,nullptr);const FString Primary=RootSlot(Item);
+    const auto Rune=Part(Item,ColdSteelFrostRunes::Slot(Item.Definition),Parts);
+    const TSharedPtr<FJsonObject>* RuneMaterials=nullptr;
+    if(Rune)Rune->TryGetObjectField(TEXT("surface_materials"),RuneMaterials);
+    for(const FString& Slot:ModuleSlots(Item))if(const auto Spec=Part(Item,*Slot,Parts))
+    {
+        bool Hidden=false;Spec->TryGetBoolField(TEXT("hidden"),Hidden);
+        FString Mesh;if(Hidden||!Spec->TryGetStringField(TEXT("mesh"),Mesh)||Mesh.IsEmpty())continue;
+        FModuleGeometry Entry;Entry.Slot=Slot;Entry.Mesh=Mesh;Entry.bRoot=Slot==Primary;
+        Entry.RelativeTransform=Entry.bRoot?FTransform::Identity:ModuleTransform(Item,Slot,Spec,Parts);
+        // Explicit slot order lets remote equipment carry the same persistent
+        // surface overrides without loading a mesh just to inspect its materials.
+        const TArray<TSharedPtr<FJsonValue>>* MaterialSlots=nullptr;
+        const TSharedPtr<FJsonObject>* BaseMaterials=nullptr;
+        Spec->TryGetObjectField(TEXT("materials"),BaseMaterials);
+        if(Spec->TryGetArrayField(TEXT("material_slot_names"),MaterialSlots))
+            for(const auto& Value:*MaterialSlots)
+            {
+                const FString Name=Value->AsString();FString Material;
+                if(BaseMaterials)(*BaseMaterials)->TryGetStringField(Name,Material);
+                if(RuneMaterials)(*RuneMaterials)->TryGetStringField(Name,Material);
+                Entry.Materials.Add(MoveTemp(Material));
+            }
+        Result.Add(MoveTemp(Entry));
+    }
+    return Result;
 }
 
 void ColdSteelModularSword::ResetCatalogCache()
@@ -177,9 +241,11 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
     {
         FString Mesh; if(Spec->TryGetStringField(TEXT("mesh"),Mesh))Add(Mesh);
         const TSharedPtr<FJsonObject>* Materials=nullptr;
-        if(Spec->TryGetObjectField(TEXT("materials"),Materials))
-            for(const auto& Pair:(*Materials)->Values){FString Path;if(Pair.Value->TryGetString(Path))Add(Path);}
+        for(const TCHAR* Field:{TEXT("materials"),TEXT("surface_materials")})
+            if(Spec->TryGetObjectField(Field,Materials))
+                for(const auto& Pair:(*Materials)->Values){FString Path;if(Pair.Value->TryGetString(Path))Add(Path);}
     };
+    if(const auto Rune=Part(Item,ColdSteelFrostRunes::Slot(Item.Definition),Parts))Gather(Rune);
     for(const FString& Slot:ModuleSlots(Item))
         if(const auto Spec=Part(Item,*Slot,Parts))
         {
@@ -247,12 +313,13 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
     // The root is a real module too; cosmetic adapters need its authored slot.
     Blade->ComponentTags.RemoveAll([](FName Tag){return Tag.ToString().StartsWith(TEXT("SwordSlot="));});
     Blade->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+PrimarySlot)));
-    const FVector PommelOffset=Vector(Part(Item,TEXT("grip"),Parts),TEXT("pommel_offset_cm"));
     struct FInstall {FString Slot;TSharedPtr<FJsonObject> Spec;UStaticMesh* Asset;TMap<FName,UMaterialInterface*> Materials;};
     TArray<FInstall> Plan;
     for(const FString& Slot:ModuleSlots(Item))
     {
         const auto Spec=Part(Item,*Slot,Parts);if(!Spec)return false;
+        bool Hidden=false;Spec->TryGetBoolField(TEXT("hidden"),Hidden);
+        if(Hidden&&Slot!=PrimarySlot)continue;
         auto* Asset=LoadObject<UStaticMesh>(nullptr,*Spec->GetStringField(TEXT("mesh")));if(!Asset)return false;
         Plan.Add({Slot,Spec,Asset,{}});
         const TSharedPtr<FJsonObject>* Adapter=nullptr;
@@ -268,6 +335,17 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
             Plan.Add({TEXT("tassel"),*Tassel,Tail,{}});
         }
     }
+    TMap<FName,UMaterialInterface*> RuneMaterials;
+    if(IncludeRune)
+        if(const auto Rune=Part(Item,ColdSteelFrostRunes::Slot(Item.Definition),Parts))
+        {
+            const TSharedPtr<FJsonObject>* Materials=nullptr;
+            if(Rune->TryGetObjectField(TEXT("surface_materials"),Materials))for(const auto& Pair:(*Materials)->Values)
+            {
+                auto* Material=LoadObject<UMaterialInterface>(nullptr,*Pair.Value->AsString());if(!Material)return false;
+                RuneMaterials.Add(FName(*Pair.Key),Material);
+            }
+        }
     for(auto& Entry:Plan)
     {
         const TSharedPtr<FJsonObject>* Materials=nullptr;
@@ -276,6 +354,8 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
             auto* Material=LoadObject<UMaterialInterface>(nullptr,*Pair.Value->AsString());if(!Material)return false;
             Entry.Materials.Add(FName(*Pair.Key),Material);
         }
+        for(const auto& Pair:RuneMaterials)
+            if(Entry.Asset->GetMaterialIndex(Pair.Key)!=INDEX_NONE)Entry.Materials.Add(Pair.Key,Pair.Value);
     }
     // Factory parts have no adapter; remove the previous fitting when reverting.
     for(auto* Mesh:Components(Blade))if(Mesh!=Blade&&!Plan.ContainsByPredicate([&](const FInstall& Entry)
@@ -291,9 +371,15 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
         {
             const FName SlotTag(*(TEXT("SwordSlot=")+Entry.Slot));Mesh=nullptr;
             for(auto* Child:Components(Blade))if(Child!=Blade&&Child->ComponentHasTag(SlotTag)){Mesh=Child;break;}
+            const bool bHanging=Entry.Slot==TEXT("tassel")||Entry.Spec->HasField(TEXT("guides_cm"));
+            if(Mesh&&bHanging!=Mesh->IsA<USwordTasselMeshComponent>())
+            {
+                if(auto* Owner=Mesh->GetOwner())Owner->RemoveInstanceComponent(Mesh);
+                Mesh->DestroyComponent();Mesh=nullptr;
+            }
             if(!Mesh)
             {
-                Mesh=Entry.Slot==TEXT("tassel")?NewObject<USwordTasselMeshComponent>(Blade,NAME_None,RF_Transient):NewObject<UStaticMeshComponent>(Blade,NAME_None,RF_Transient);
+                Mesh=bHanging?NewObject<USwordTasselMeshComponent>(Blade,NAME_None,RF_Transient):NewObject<UStaticMeshComponent>(Blade,NAME_None,RF_Transient);
                 if(auto* Owner=Mesh->GetOwner())Owner->AddInstanceComponent(Mesh);
                 Mesh->ComponentTags.Add(PartTag);Mesh->ComponentTags.Add(SlotTag);
                 Mesh->SetupAttachment(Blade);Mesh->SetMobility(EComponentMobility::Movable);
@@ -303,11 +389,7 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
                 Mesh->SetForcedLodModel(Blade->GetForcedLodModel());
                 Mesh->RegisterComponentWithWorld(Blade->GetWorld());
             }
-            const bool AtPommel=Entry.Slot==TEXT("pommel")||Entry.Slot==TEXT("pommel_mount")||Entry.Slot==TEXT("tassel");
-            Mesh->SetRelativeLocation(Vector(Entry.Spec,TEXT("location_cm"))+(AtPommel?PommelOffset:FVector::ZeroVector));
-            const FVector Rotation=Vector(Entry.Spec,TEXT("rotation_deg"));
-            Mesh->SetRelativeRotation(FRotator(Rotation.X,Rotation.Y,Rotation.Z));
-            Mesh->SetRelativeScale3D(Vector(Entry.Spec,TEXT("scale"),FVector(1)));
+            Mesh->SetRelativeTransform(ModuleTransform(Item,Entry.Slot,Entry.Spec,Parts));
             Mesh->SetVisibility(Blade->IsVisible());Mesh->SetHiddenInGame(Blade->bHiddenInGame);
         }
         if(Mesh->GetStaticMesh()!=Entry.Asset){Mesh->EmptyOverrideMaterials();Mesh->SetStaticMesh(Entry.Asset);}

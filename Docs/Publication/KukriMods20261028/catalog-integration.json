@@ -1,0 +1,70 @@
+[
+  {
+    "file": "Content/ColdSteelData/skills.json",
+    "path": [
+      "elementalArrow",
+      "chillSlow"
+    ],
+    "value": 0.05
+  },
+  {
+    "file": "Content/ColdSteelData/skills.json",
+    "path": [
+      "iceWall",
+      "chillSlowPercent"
+    ],
+    "value": 0.05
+  },
+  {
+    "file": "Content/ColdSteelData/skills.json",
+    "path": [
+      "blizzard",
+      "chillSlowPercent"
+    ],
+    "value": 0.05
+  },
+  {
+    "file": "Content/ColdSteelData/skills.json",
+    "path": [
+      "iceArmor",
+      "slowPerStack"
+    ],
+    "value": 0.05
+  },
+  {
+    "file": "Content/ColdSteelData/staff-gunsmith.json",
+    "path": [
+      "columns",
+      4,
+      "options",
+      0,
+      "effects",
+      "iceChillSlowPercent"
+    ],
+    "value": 0.05
+  },
+  {
+    "file": "Content/ColdSteelData/status_effects.json",
+    "match": {
+      "type": "chill"
+    },
+    "field": "description",
+    "value": "所有来源共用寒冷层数，每层移动速度−5%，层数加法叠加。达到20层触发冻结并消耗10层；冻结期间不再叠加寒冷，寒冷到期清空余层。"
+  },
+  {
+    "file": "Content/ColdSteelData/status_effects.json",
+    "match": {
+      "type": "frozen"
+    },
+    "field": "description",
+    "value": "无法移动、攻击、使用技能与物品；受到的非魔法伤害+50%。由寒冷达到20层触发并消耗10层，冻结时长由触发来源决定；冻结期间不再叠加寒冷。"
+  },
+  {
+    "file": "Content/ColdSteelData/items.json",
+    "path": [
+      "ue_kukri",
+      "modular_melee_catalog"
+    ],
+    "value": "kukri-modules.json"
+  }
+]

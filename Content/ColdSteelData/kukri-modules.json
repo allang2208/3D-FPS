@@ -1,0 +1,733 @@
+{
+  "version": 1,
+  "interface": "kukri-grip-frame-v1-20261026",
+  "root_slot": "blade_1",
+  "module_slots": [
+    "blade_1",
+    "grip",
+    "pommel",
+    "lanyard"
+  ],
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "bone_mount": {
+    "rotation_xyzw": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "location_cm": [
+      0,
+      0,
+      0
+    ],
+    "scale": [
+      0.01,
+      0.01,
+      0.01
+    ]
+  },
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "mesh": "/Game/Weapons/Kukri20261020/Modules20261026/SM_Kukri_Blade_Factory.SM_Kukri_Blade_Factory",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "前倾弯曲钢刃，保留锤纹刃面与原有切削轮廓。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.29
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          27
+        ],
+        "material_slot_names": [
+          "M_Kukri"
+        ],
+        "materials": {
+          "M_Kukri": "/Game/Weapons/Kukri20261020/Materials/M_Kukri.M_Kukri"
+        }
+      },
+      "swift_blade": {
+        "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_Swift.SM_Kukri_Blade_Swift",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "窄弧刀身配连续浅槽，石墨灰刀面衔接银色刃口。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.29
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          27
+        ],
+        "material_slot_names": [
+          "M_Kukri_Swift"
+        ],
+        "materials": {
+          "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_Swift.M_Kukri_Swift"
+        }
+      },
+      "heavy_back_blade": {
+        "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_HeavyBack.SM_Kukri_Blade_HeavyBack",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "宽腹刀身与厚实脊面，深灰锻面衔接宽银色刃口。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.29
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          27
+        ],
+        "material_slot_names": [
+          "M_Kukri_HeavyBack"
+        ],
+        "materials": {
+          "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_HeavyBack.M_Kukri_HeavyBack"
+        }
+      },
+      "folded_balanced_blade": {
+        "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_FoldedBalanced.SM_Kukri_Blade_FoldedBalanced",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "平顺弧腹配银灰百炼流纹，保留素面刃口。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.29
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          27
+        ],
+        "material_slot_names": [
+          "M_Kukri_FoldedBalanced"
+        ],
+        "materials": {
+          "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_FoldedBalanced.M_Kukri_FoldedBalanced"
+        }
+      },
+      "hunter_blade": {
+        "mesh": "/Game/Weapons/Kukri20261020/HunterBlade20261027/SM_Kukri_Blade_Hunter.SM_Kukri_Blade_Hunter",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "加长弧形刀身，石墨灰缎面钢材配细磨银色刃口。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8.0
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          36.135000000000005
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          36.13586723804474
+        ],
+        "material_slot_names": [
+          "M_Kukri_Hunter"
+        ],
+        "materials": {
+          "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/HunterBlade20261027/Materials/M_Kukri_Hunter.M_Kukri_Hunter"
+        }
+      },
+      "canine_blade": {
+        "mesh": "/Game/Weapons/Kukri20261020/CanineBlade20261027/SM_Kukri_Blade_Canine.SM_Kukri_Blade_Canine",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "弧形刃口开出连续犬牙锯齿，深灰钢面衬以银色齿刃。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8.0
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.290000000000003
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          26.29057765007019
+        ],
+        "material_slot_names": [
+          "M_Kukri_Canine"
+        ],
+        "materials": {
+          "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/CanineBlade20261027/Materials/M_Kukri_Canine.M_Kukri_Canine"
+        }
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/Kukri20261020/Modules20261026/SM_Kukri_Grip_Factory.SM_Kukri_Grip_Factory",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "木质握面与固定铆钉成组装配，保留现有握持轮廓。"
+      },
+      "knife_grip_checkered": {
+        "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripCheckered.SM_Kukri_GripCheckered",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "石墨灰胶质握面布满细密棱纹，保留金属铆钉。"
+      },
+      "knife_grip_leather": {
+        "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripLeather.SM_Kukri_GripLeather",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "深栗色皮革斜向包覆握面，浅缝衔接原有轮廓。"
+      },
+      "knife_grip_laminate": {
+        "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripLaminate.SM_Kukri_GripLaminate",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "深浅木层形成流动纹理，表面呈细腻缎光。"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/Kukri20261020/Modules20261026/SM_Kukri_Pommel_Factory.SM_Kukri_Pommel_Factory",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.500000476837158
+        ],
+        "appearance": "外扩木质尾座与内部刀茎末段，保留挂绳穿孔。"
+      },
+      "knife_pommel_steel": {
+        "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelSteel.SM_Kukri_PommelSteel",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.500000476837158
+        ],
+        "appearance": "包钢尾座衔接银灰边缘，保留原有穿绳孔。"
+      },
+      "knife_pommel_faceted": {
+        "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelFaceted.SM_Kukri_PommelFaceted",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.500000476837158
+        ],
+        "appearance": "古铜色尾座采用宽阔棱面，保留原有穿绳孔。"
+      },
+      "knife_pommel_ringed": {
+        "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelRinged.SM_Kukri_PommelRinged",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.500000476837158
+        ],
+        "appearance": "深灰尾座下沿环绕三道浅纹，银灰边缘清晰分层。"
+      }
+    },
+    "lanyard": {
+      "factory": {
+        "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardFactory_PhysicsV1.SM_Kukri_LanyardFactory_PhysicsV1",
+        "location_cm": [
+          0.6662091016769409,
+          -1.414446160197258e-06,
+          -1.9326786994934082
+        ],
+        "appearance": "穿过柄尾孔的短挂绳，安装位置跟随柄尾。",
+        "parent_slot": "pommel",
+        "guides_cm": [
+          [
+            0.024230910639744252,
+            0.015206677198875695,
+            -1.7999999225139618
+          ],
+          [
+            0.08337259059771895,
+            0.03952937840949744,
+            -2.4000000208616257
+          ],
+          [
+            0.13138232752680779,
+            0.04490091523621231,
+            -2.9999999329447746
+          ],
+          [
+            0.36003736313432455,
+            0.01369539531879127,
+            -3.700000047683716
+          ],
+          [
+            1.0137020610272884,
+            -0.10478449985384941,
+            -4.500000178813934
+          ],
+          [
+            2.0135268568992615,
+            -0.4598500672727823,
+            -5.200000107288361
+          ],
+          [
+            2.6064570993185043,
+            -0.67445058375597,
+            -5.799999833106995
+          ],
+          [
+            2.6710527017712593,
+            -0.7033315021544695,
+            -6.052754446864128
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_LanyardFactory_PhysicsV1"
+        ],
+        "materials": {
+          "M_Kukri_LanyardFactory_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardFactory_PhysicsV1.M_Kukri_LanyardFactory_PhysicsV1"
+        },
+        "physics": "SwordTasselMeshComponent: bounded gravity, inertia, damping and length constraints"
+      },
+      "no_lanyard": {
+        "hidden": true,
+        "appearance": "原装柄尾 · 空置穿孔"
+      },
+      "knife_lanyard_braid": {
+        "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardBraid_PhysicsV1.SM_Kukri_LanyardBraid_PhysicsV1",
+        "location_cm": [
+          0.6662091016769409,
+          -1.414446160197258e-06,
+          -1.9326786994934082
+        ],
+        "appearance": "深橄榄色短绳呈交错编织纹理。",
+        "parent_slot": "pommel",
+        "guides_cm": [
+          [
+            0.09420221904292703,
+            -0.005048590537626296,
+            -1.7999999225139618
+          ],
+          [
+            0.10072342120110989,
+            0.008890864410204813,
+            -2.4000000208616257
+          ],
+          [
+            0.17122168792411685,
+            0.02245845244033262,
+            -2.9999999329447746
+          ],
+          [
+            0.4002045840024948,
+            0.008635769336251542,
+            -3.700000047683716
+          ],
+          [
+            1.0131246410310268,
+            -0.10299169225618243,
+            -4.500000178813934
+          ],
+          [
+            1.8710054457187653,
+            -0.4099693614989519,
+            -5.200000107288361
+          ],
+          [
+            2.7133047580718994,
+            -0.6967747583985329,
+            -5.799999833106995
+          ],
+          [
+            2.6858413591980934,
+            -0.8059915155172348,
+            -6.134095788002014
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_LanyardBraid_PhysicsV1"
+        ],
+        "materials": {
+          "M_Kukri_LanyardBraid_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardBraid_PhysicsV1.M_Kukri_LanyardBraid_PhysicsV1"
+        },
+        "physics": "SwordTasselMeshComponent: bounded gravity, inertia, damping and length constraints"
+      },
+      "knife_lanyard_tassel": {
+        "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardTassel_PhysicsV1.SM_Kukri_LanyardTassel_PhysicsV1",
+        "location_cm": [
+          0.6662091016769409,
+          -1.414446160197258e-06,
+          -1.9326786994934082
+        ],
+        "appearance": "短绳连接古铜环，下垂四条短皮穗。",
+        "parent_slot": "pommel",
+        "guides_cm": [
+          [
+            0.06237968918867409,
+            0.059774843975901604,
+            -1.7999999225139618
+          ],
+          [
+            0.2547837560996413,
+            0.031101377680897713,
+            -2.3000000044703484
+          ],
+          [
+            0.9908656589686871,
+            -0.08793039596639574,
+            -2.800000086426735
+          ],
+          [
+            2.5707416236400604,
+            -0.656075868755579,
+            -3.400000184774399
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -3.9000000804662704
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -4.800000041723251
+          ],
+          [
+            2.830405905842781,
+            -0.7378362119197845,
+            -6.1000000685453415
+          ],
+          [
+            2.6766277849674225,
+            -0.7378362584859133,
+            -7.144417613744736
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_LanyardTassel_PhysicsV1"
+        ],
+        "materials": {
+          "M_Kukri_LanyardTassel_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTassel_PhysicsV1.M_Kukri_LanyardTassel_PhysicsV1"
+        },
+        "physics": "SwordTasselMeshComponent: bounded gravity, inertia, damping and length constraints"
+      },
+      "knife_lanyard_tag": {
+        "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardTag_PhysicsV1.SM_Kukri_LanyardTag_PhysicsV1",
+        "location_cm": [
+          0.6662091016769409,
+          -1.414446160197258e-06,
+          -1.9326786994934082
+        ],
+        "appearance": "短绳与金属扣环连接方牌，两道细银纹装饰牌面。",
+        "parent_slot": "pommel",
+        "guides_cm": [
+          [
+            0.06237968918867409,
+            0.059774843975901604,
+            -1.7999999225139618
+          ],
+          [
+            0.2547837560996413,
+            0.031101377680897713,
+            -2.3000000044703484
+          ],
+          [
+            0.9908656589686871,
+            -0.08793039596639574,
+            -2.800000086426735
+          ],
+          [
+            2.5707416236400604,
+            -0.656075868755579,
+            -3.400000184774399
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -3.9000000804662704
+          ],
+          [
+            2.743704989552498,
+            -0.7378362584859133,
+            -4.1999999433755875
+          ],
+          [
+            2.7660395950078964,
+            -0.7275934796780348,
+            -6.589999794960022
+          ],
+          [
+            2.7660395950078964,
+            -0.7275934796780348,
+            -6.700000166893005
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          1,
+          0.7,
+          0.45,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 4.6,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_LanyardTag_PhysicsV1"
+        ],
+        "materials": {
+          "M_Kukri_LanyardTag_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTag_PhysicsV1.M_Kukri_LanyardTag_PhysicsV1"
+        },
+        "physics": "SwordTasselMeshComponent: bounded gravity, inertia, damping and length constraints"
+      }
+    },
+    "blade_2": {
+      "factory": {
+        "appearance": "保留原有锤纹刀面，不添加额外符文。"
+      },
+      "knife_mark_wing": {
+        "appearance": "暖金色折翼纹样沿刀面展开。",
+        "surface_materials": {
+          "M_Kukri": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Factory_RuneWing.MI_KukriMark_Factory_RuneWing",
+          "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Swift_RuneWing.MI_KukriMark_Swift_RuneWing",
+          "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_HeavyBack_RuneWing.MI_KukriMark_HeavyBack_RuneWing",
+          "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_FoldedBalanced_RuneWing.MI_KukriMark_FoldedBalanced_RuneWing",
+          "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/HunterBlade20261027/Runes/Materials/MI_KukriMark_Hunter_RuneWing.MI_KukriMark_Hunter_RuneWing",
+          "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/CanineBlade20261027/Runes/Materials/MI_KukriMark_Canine_RuneWing.MI_KukriMark_Canine_RuneWing"
+        }
+      },
+      "knife_mark_knot": {
+        "appearance": "银灰环结纹样交错排列，保留通透留白。",
+        "surface_materials": {
+          "M_Kukri": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Factory_RuneKnot.MI_KukriMark_Factory_RuneKnot",
+          "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Swift_RuneKnot.MI_KukriMark_Swift_RuneKnot",
+          "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_HeavyBack_RuneKnot.MI_KukriMark_HeavyBack_RuneKnot",
+          "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_FoldedBalanced_RuneKnot.MI_KukriMark_FoldedBalanced_RuneKnot",
+          "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/HunterBlade20261027/Runes/Materials/MI_KukriMark_Hunter_RuneKnot.MI_KukriMark_Hunter_RuneKnot",
+          "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/CanineBlade20261027/Runes/Materials/MI_KukriMark_Canine_RuneKnot.MI_KukriMark_Canine_RuneKnot"
+        }
+      },
+      "knife_mark_peaks": {
+        "appearance": "深灰三峰纹样与小菱形印记点缀刀面。",
+        "surface_materials": {
+          "M_Kukri": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Factory_RunePeaks.MI_KukriMark_Factory_RunePeaks",
+          "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Swift_RunePeaks.MI_KukriMark_Swift_RunePeaks",
+          "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_HeavyBack_RunePeaks.MI_KukriMark_HeavyBack_RunePeaks",
+          "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_FoldedBalanced_RunePeaks.MI_KukriMark_FoldedBalanced_RunePeaks",
+          "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/HunterBlade20261027/Runes/Materials/MI_KukriMark_Hunter_RunePeaks.MI_KukriMark_Hunter_RunePeaks",
+          "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/CanineBlade20261027/Runes/Materials/MI_KukriMark_Canine_RunePeaks.MI_KukriMark_Canine_RunePeaks"
+        }
+      },
+      "berserker_rune": {
+        "appearance": "血红狼首与獠牙纹样沿刀面自然展开，细长血痕连接下缘，纹路带有微弱呼吸红光。",
+        "surface_materials": {
+          "M_Kukri": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Factory.MI_Berserker_Factory",
+          "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Swift.MI_Berserker_Swift",
+          "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_HeavyBack.MI_Berserker_HeavyBack",
+          "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_FoldedBalanced.MI_Berserker_FoldedBalanced",
+          "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Hunter.MI_Berserker_Hunter",
+          "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Canine.MI_Berserker_Canine"
+        }
+      },
+      "frost_raven_rune": {
+        "appearance": "冰蓝鸦喙与三道羽翼沿刀面展开，银灰纹边包裹晶莹的霜光。",
+        "surface_materials": {
+          "M_Kukri": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Factory.MI_FrostRaven_Factory",
+          "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Swift.MI_FrostRaven_Swift",
+          "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_HeavyBack.MI_FrostRaven_HeavyBack",
+          "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_FoldedBalanced.MI_FrostRaven_FoldedBalanced",
+          "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Hunter.MI_FrostRaven_Hunter",
+          "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Canine.MI_FrostRaven_Canine"
+        }
+      }
+    }
+  },
+  "surface_revision": "KukriRefinement20261027|RuneNatural20261027"
+}

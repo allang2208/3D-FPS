@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "interface": "kukri-grip-frame-v1-20261026",
+  "root_slot": "blade_1",
+  "module_slots": [
+    "blade_1",
+    "grip",
+    "pommel",
+    "lanyard"
+  ],
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "bone_mount": {
+    "rotation_xyzw": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "location_cm": [
+      0,
+      0,
+      0
+    ],
+    "scale": [
+      0.01,
+      0.01,
+      0.01
+    ]
+  },
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "mesh": "/Game/Weapons/Kukri20261020/Modules20261026/SM_Kukri_Blade_Factory.SM_Kukri_Blade_Factory",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "前倾弯曲钢刃，保留锤纹刃面与原有切削轮廓。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.29
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          27
+        ]
+      },
+      "swift_blade": {
+        "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_Swift.SM_Kukri_Blade_Swift",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "窄弧刀身配连续浅槽，石墨灰刀面衔接银色刃口。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.29
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          27
+        ]
+      },
+      "heavy_back_blade": {
+        "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_HeavyBack.SM_Kukri_Blade_HeavyBack",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "宽腹刀身与厚实脊面，深灰锻面衔接宽银色刃口。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.29
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          27
+        ]
+      },
+      "folded_balanced_blade": {
+        "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_FoldedBalanced.SM_Kukri_Blade_FoldedBalanced",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "平顺弧腹配银灰百炼流纹，保留素面刃口。",
+        "trace_base_cm": [
+          0.6,
+          0,
+          8
+        ],
+        "trace_tip_cm": [
+          6.18,
+          0,
+          26.29
+        ],
+        "rune_dimensions_cm": [
+          10,
+          2.5,
+          27
+        ]
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/Kukri20261020/Modules20261026/SM_Kukri_Grip_Factory.SM_Kukri_Grip_Factory",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "木质握面与固定铆钉成组装配，保留现有握持轮廓。"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/Kukri20261020/Modules20261026/SM_Kukri_Pommel_Factory.SM_Kukri_Pommel_Factory",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.500000476837158
+        ],
+        "appearance": "外扩木质尾座与内部刀茎末段，保留挂绳穿孔。"
+      }
+    },
+    "lanyard": {
+      "factory": {
+        "mesh": "/Game/Weapons/Kukri20261020/Modules20261026/SM_Kukri_Lanyard_Factory.SM_Kukri_Lanyard_Factory",
+        "location_cm": [
+          0.6662091016769409,
+          -1.414446160197258e-06,
+          -1.9326786994934082
+        ],
+        "appearance": "穿过柄尾孔的短挂绳，安装位置跟随柄尾。",
+        "parent_slot": "pommel"
+      },
+      "no_lanyard": {
+        "hidden": true,
+        "appearance": "原装柄尾 · 空置穿孔"
+      }
+    },
+    "blade_2": {
+      "factory": {
+        "appearance": "保留原有锤纹刀面，不添加额外符文。"
+      }
+    }
+  }
+}

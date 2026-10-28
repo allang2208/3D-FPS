@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "family": "knife_blade",
+  "options": [
+    {
+      "id": "swift_blade",
+      "name": "轻型迅刃",
+      "description": "窄弧刀身配连续浅槽，石墨灰刀面衔接银色刃口。",
+      "appearance": "窄弧刀身配连续浅槽，石墨灰刀面衔接银色刃口。",
+      "effects": [
+        {
+          "text": "物理伤害 -5%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击速度 +15%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击体力消耗 -15%",
+          "benefit": 1
+        },
+        {
+          "text": "削韧 -15%",
+          "benefit": -1
+        }
+      ],
+      "stats": {
+        "physical_damage_mult": 0.95,
+        "attack_speed_mult": 1.15,
+        "stamina_mult": 0.85,
+        "toughness_damage_mult": 0.85
+      }
+    },
+    {
+      "id": "heavy_back_blade",
+      "name": "厚背重刃",
+      "description": "宽腹刀身与厚实脊面，深灰锻面衔接宽银色刃口。",
+      "appearance": "宽腹刀身与厚实脊面，深灰锻面衔接宽银色刃口。",
+      "effects": [
+        {
+          "text": "物理伤害 +20%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度 -10%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击体力消耗 +10%",
+          "benefit": -1
+        },
+        {
+          "text": "削韧 +25%",
+          "benefit": 1
+        }
+      ],
+      "stats": {
+        "physical_damage_mult": 1.2,
+        "attack_speed_mult": 0.9,
+        "stamina_mult": 1.1,
+        "toughness_damage_mult": 1.25
+      }
+    },
+    {
+      "id": "folded_balanced_blade",
+      "name": "百炼均衡刃",
+      "description": "平顺弧腹配银灰百炼流纹，保留素面刃口。",
+      "appearance": "平顺弧腹配银灰百炼流纹，保留素面刃口。",
+      "effects": [
+        {
+          "text": "物理伤害 +10%",
+          "benefit": 1
+        },
+        {
+          "text": "削韧 +10%",
+          "benefit": 1
+        }
+      ],
+      "stats": {
+        "physical_damage_mult": 1.1,
+        "attack_speed_mult": 1.0,
+        "stamina_mult": 1.0,
+        "toughness_damage_mult": 1.1
+      }
+    }
+  ]
+}

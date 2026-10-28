@@ -1,0 +1,801 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -4,0 +5 @@
++#include "../Weapons/ModularSwordVisual.h"
+@@ -53,0 +55,18 @@
++// Read the same modular recipe on local and remote pawns. No owner viewmodel is
++// required, and the existing body equipment serializer carries the individual parts.
++void DescribeKukri(FFPSBodyWeapon& Weapon,const FColdSteelItem& Item)
++{
++    for(const auto& Module:ColdSteelModularSword::DescribeGeometry(Item))
++    {
++        if(Module.bRoot)
++        {
++            Weapon.StaticMesh=FSoftObjectPath(Module.Mesh);Weapon.Materials.Reset();
++            for(const FString& Material:Module.Materials)Weapon.Materials.Emplace(FSoftObjectPath(Material));
++            continue;
++        }
++        FFPSBodyAttachment Part;Part.Mesh=FSoftObjectPath(Module.Mesh);
++        Part.RelativeTransform=Module.RelativeTransform;Part.Slot=FName(*Module.Slot);
++        for(const FString& Material:Module.Materials)Part.Materials.Emplace(FSoftObjectPath(Material));
++        Weapon.Parts.Add(MoveTemp(Part));
++    }
++}
+@@ -203,0 +223,2 @@
++        for(FName Tag:Part->ComponentTags)if(Tag.ToString().StartsWith(TEXT("SwordSlot=")))
++        {Entry.Slot=FName(*Tag.ToString().RightChop(10));break;}
+@@ -453,0 +475,2 @@
++            if(Definition.PoseFamily==TEXT("Kukri")||Definition.PoseFamily==TEXT("KukriDual")||Definition.PoseFamily==TEXT("OffhandKukri"))
++                Part->ComponentTags.AddUnique(TEXT("SwordSlot=blade_1"));
+@@ -506 +529 @@
+-                const auto TailSpec=Definition.PoseFamily==TEXT("Staff")?ColdSteelStaffAssembly::TailDynamics(ChildMesh):nullptr;
++                const auto TailSpec=Definition.PoseFamily==TEXT("Staff")?ColdSteelStaffAssembly::TailDynamics(ChildMesh):ColdSteelModularSword::HangingDynamics(ChildMesh);
+@@ -509,0 +533 @@
++                if(!Attachment.Slot.IsNone())Child->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+Attachment.Slot.ToString())));
+@@ -623,0 +648 @@
++            if(!DefinitionPart.Slot.IsNone())Part->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+DefinitionPart.Slot.ToString())));
+--- a/Source/FPSGAME/Combat/CombatStatusFormula.cpp
++++ b/Source/FPSGAME/Combat/CombatStatusFormula.cpp
+@@ -96 +96,2 @@
+-    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("bleed"),BleedTime,BleedStacks);}}
++    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("bleed"),BleedTime,BleedStacks);
++    EmitBleedingBurst();}}
+@@ -328 +329 @@
+-    float Mul=FMath::Max(.01f,1-ChillStacks*ChillSlow)*(1+.1f*HasteStacks);
++    float Mul=ChillMovementMultiplier()*(1+.1f*HasteStacks);
+@@ -380 +381,2 @@
+-        if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())Combat->ApplyHitWithReactionScale(0.f,Deal);else Deal();
++        if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())return Combat->ApplyHitWithReactionScale(0.f,Deal);
++        return Deal();
+@@ -384,6 +386,5 @@
+-        if(const auto* N=Cast<ANurseZombie>(GetOwner())){Health=N->Health;MaxHealth=N->MaxHealth;}
+-        else if(const auto* H=Cast<AHandBrainMonster>(GetOwner())){Health=H->Health;MaxHealth=H->MaxHealth;}
+-        else if(const auto* F=Cast<AFleshHandMonster>(GetOwner())){Health=F->Health;MaxHealth=F->MaxHealth;}
+-        else if(const auto* M=Cast<APoisonMaggotMonster>(GetOwner())){Health=M->Health;MaxHealth=M->MaxHealth;}
+-        else if(const auto* W=Cast<AWolfMonster>(GetOwner())){Health=W->Health;MaxHealth=W->MaxHealth;}
+-        else if(const auto* C=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>()){Health=C->Health;MaxHealth=C->MaxHealth;}
++        // Use the same vitals adapter as the monster health bar. The old five
++        // concrete casts returned zero for later monsters and skipped DoT damage.
++        if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())
++        {FText Name;if(Combat->GetVitals(Health,MaxHealth,Name))return;}
++        if(const auto* C=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>()){Health=C->Health;MaxHealth=C->MaxHealth;}
+@@ -397 +398,3 @@
+-            if(Health>0)Apply(FMath::Max(1.f,FMath::FloorToFloat(Health*.01f*BleedStacks)),BleedSource.Get(),UCombatDirectDamage::StaticClass());BleedTick+=1;
++            if(Health>0&&Apply(FMath::Max(1.f,FMath::FloorToFloat(Health*.01f*BleedStacks)),BleedSource.Get(),UCombatDirectDamage::StaticClass())>0.f)
++                EmitBleedingBurst();
++            BleedTick+=1;
+@@ -399 +402 @@
+-        const bool Had=BleedStacks>0;
++        const int32 Before=BleedStacks;
+@@ -401 +404 @@
+-        if(Had)
++        if(BleedStacks!=Before)
+@@ -436,9 +439,7 @@
+-void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,float SlowPerStack)
+-{
+-    if(IsImmune()||FrozenTime>0||Stacks<=0||Seconds<=0)return;
+-    // Mixed spell/pendant stacks retain each contribution to total movement slow.
+-    ChillSlow=(ChillSlow*ChillStacks+SlowPerStack*Stacks)/float(ChillStacks+Stacks);
+-    ChillStacks+=Stacks;ChillTime+=Seconds;
+-    if(ChillStacks>=20)
+-    {
+-        ChillStacks-=10;FrozenTime=Seconds;
++void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,bool bRefreshDuration)
++{
++    if(!GetOwner()->HasAuthority()||IsImmune()||FrozenTime>0||Stacks<=0||Seconds<=0)return;
++    ChillStacks+=Stacks;ChillTime=bRefreshDuration?FMath::Max(ChillTime,Seconds):ChillTime+Seconds;
++    if(ChillStacks>=CombatChill::FreezeThreshold)
++    {
++        ChillStacks-=CombatChill::FreezeCost;FrozenTime=Seconds;
+@@ -569 +570 @@
+-    Burns.Empty();BleedSource.Reset();Drones.Empty();
++    Burns.Empty();BleedSource.Reset();BleedSurface.Reset();BleedBone=NAME_None;BleedTick=0;Drones.Empty();
+@@ -589 +590 @@
+-    if(Take())if(BleedStacks>0){BleedStacks=0;BleedTime=BleedTick=0;BleedSource.Reset();Clear(TEXT("bleed"));++Cleansed;}
++    if(Take())if(BleedStacks>0){BleedStacks=0;BleedTime=BleedTick=0;BleedSource.Reset();BleedSurface.Reset();BleedBone=NAME_None;Clear(TEXT("bleed"));++Cleansed;}
+--- a/Source/FPSGAME/Combat/CombatStatusFormula.h
++++ b/Source/FPSGAME/Combat/CombatStatusFormula.h
+@@ -2,0 +3 @@
++#include "CombatChill.h"
+@@ -14,0 +16 @@
++class UPrimitiveComponent;
+@@ -44,0 +47 @@
++    void AddBleedingHit(AActor* Source,int32 Stacks,const FHitResult& Hit);
+@@ -92 +95,5 @@
+-    void AddChill(int32 Stacks,float Seconds,float SlowPerStack);
++    /** Fixed -5% per stack for every source; duration mode remains source-owned. */
++    void AddChill(int32 Stacks,float Seconds,bool bRefreshDuration=false);
++    int32 ChillCount() const{return ChillTime>0.f?ChillStacks:0;}
++    float ChillRemaining() const{return FMath::Max(0.f,ChillTime);}
++    float ChillMovementMultiplier() const{return CombatChill::MovementMultiplier(ChillCount());}
+@@ -147 +154 @@
+-    float ChillTime=0,ChillSlow=.05f,FrozenTime=0,HasteTime=0,ChainTime=0;
++    float ChillTime=0,FrozenTime=0,HasteTime=0,ChainTime=0;
+@@ -159,0 +167,5 @@
++    TWeakObjectPtr<UPrimitiveComponent> BleedSurface;
++    FName BleedBone;
++    FVector BleedLocalPoint=FVector::ZeroVector,BleedLocalNormal=FVector::ForwardVector;
++    double LastBleedBurstAt=-10.;
++    void EmitBleedingBurst();
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -11,0 +12,2 @@
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
+@@ -246,0 +249,2 @@
++    CreateDefaultSubobject<UKukriBerserkerComponent>(TEXT("KukriBerserkerRune"));
++    CreateDefaultSubobject<UKukriFrostRavenComponent>(TEXT("KukriFrostRavenRune"));
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -10,0 +11,2 @@
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
+@@ -83,0 +86,2 @@
++    if(auto* Rune=FindComponentByClass<UKukriBerserkerComponent>())Rune->Configure(Profile);
++    if(auto* Rune=FindComponentByClass<UKukriFrostRavenComponent>())Rune->Configure(Profile);
+--- a/Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp
++++ b/Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp
+@@ -1,0 +2 @@
++#include "../Weapons/Kukri/KukriBerserkerComponent.h"
+@@ -219 +220 @@
+-    return Super::GetMaxSpeed()*(Status?Status->MovementMultiplier():1.f)*(Fear?FMath::Max(.01f,1.f-.33f*Fear->Stacks):1.f);
++    return Super::GetMaxSpeed()*(Status?Status->MovementMultiplier():1.f)*(Fear?FMath::Max(.01f,1.f-.33f*Fear->Stacks):1.f)*UKukriBerserkerComponent::MovementMultiplier(CharacterOwner);
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -55,0 +56,12 @@
++float UColdSteelStatusModel::HeavyChargeStaminaPerSecond() const
++{
++    const auto* Item=Equipped();
++    double BladeCost=!ActiveProductionTool()&&Item&&ColdSteelInventory::IsOneHandedMelee(*Item)?
++        ColdSteelMelee::ItemModifiers(Item,this).Stamina:1.;
++    const auto* Off=Item&&ColdSteelInventory::IsOneHandedMelee(*Item)?ColdSteelMelee::PairedOneHandedWeapon(Item,this):nullptr;
++    const auto* Kukri=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UKukriWeaponComponent>():nullptr;
++    // While charging, use the actual selected action (single fallback or dual), including the authority's receipt.
++    if(Off&&(!Kukri||!Kukri->IsHeavyCharging()||Kukri->IsDualHeavyCharging()))
++        BladeCost=.5*BladeCost+.5*ColdSteelMelee::ItemModifiers(Off,this).Stamina;
++    return MasteryDefinition(TEXT("heavyStrike")).HeavyChargeStaminaPerSecond*BladeCost*ActionStaminaMultiplier();
++}
+@@ -69 +81 @@
+-    const float Cost=Empty?ColdSteelMelee::UnarmedAttackStamina(this):ColdSteelMelee::AttackStamina(Equipped(),this);
++    const float Cost=Empty?ColdSteelMelee::UnarmedAttackStamina(this):ColdSteelMelee::ComboAttackStamina(Equipped(),this,true);
+@@ -112 +124,11 @@
+-    const double Ratio=ColdSteelMelee::EquippedModifiers(this).KillStaminaMaxRatio;
++    double Ratio=ColdSteelMelee::EquippedModifiers(this).KillStaminaMaxRatio;
++    if(!ActiveProductionTool())
++    {
++        // Equipped kill passives belong to each active blade, regardless of which
++        // owned attack dealt the killing blow. Stored/inactive weapon sets do not count.
++        const auto* Main=Equipped();
++        if(Main&&ColdSteelInventory::IsOneHandedMelee(*Main))
++            Ratio+=ColdSteelMelee::ItemModifiers(Main,this).KillStaminaMaxRatio;
++        if(const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,this))
++            Ratio+=ColdSteelMelee::ItemModifiers(Off,this).KillStaminaMaxRatio;
++    }
+--- a/Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp
++++ b/Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp
+@@ -1,0 +2 @@
++#include "../Weapons/FPSImpactFXSubsystem.h"
+@@ -16,0 +18,5 @@
++void UFPSStatusReplicationComponent::MulticastBleedingBurst_Implementation(FVector_NetQuantize Position,FVector_NetQuantizeNormal Normal,int32 Stacks)
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    if(auto* FX=GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>())FX->SpawnBleedingBurst(Position,Normal,Stacks,GetOwner());
++}
+@@ -59 +64,0 @@
+-        Next.ChillSlow=C->ChillSlow;
+@@ -150 +154,0 @@
+-        C->ChillSlow=State.ChillSlow;
+--- a/Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.h
++++ b/Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.h
+@@ -3,0 +4 @@
++#include "Engine/NetSerialization.h"
+@@ -66 +66,0 @@
+-    UPROPERTY() float ChillSlow=0.f;
+@@ -110,0 +111,2 @@
++    /** Cosmetic pulse only; DoT damage remains server-owned by CombatStatusFormula. */
++    UFUNCTION(NetMulticast,Unreliable) void MulticastBleedingBurst(FVector_NetQuantize Position,FVector_NetQuantizeNormal Normal,int32 Stacks);
+--- a/Source/FPSGAME/Skills/BlizzardTypes.h
++++ b/Source/FPSGAME/Skills/BlizzardTypes.h
+@@ -2,0 +3 @@
++#include "../Combat/CombatChill.h"
+@@ -12 +13 @@
+-    float Duration=5,DurationGrowth=5,TickSeconds=.5f,ChillSeconds=2.5f,ChillSlow=.035f;
++    float Duration=5,DurationGrowth=5,TickSeconds=.5f,ChillSeconds=2.5f,ChillSlow=CombatChill::SlowPerStack;
+@@ -21 +22 @@
+-    UPROPERTY() float TickSeconds=.5f; UPROPERTY() float ChillSeconds=2.5f; UPROPERTY() float ChillSlow=.035f; UPROPERTY() float CastSpeed=1;
++    UPROPERTY() float TickSeconds=.5f; UPROPERTY() float ChillSeconds=2.5f; UPROPERTY() float ChillSlow=CombatChill::SlowPerStack; UPROPERTY() float CastSpeed=1;
+--- a/Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp
+@@ -49 +49 @@
+-            C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"));
++            C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"))>0?CombatChill::SlowPerStack:0.f;
+@@ -86,2 +86,2 @@
+-        Status->AddChill(Spell.ChillStacks,Spell.ChillSeconds,Spell.ChillSlow);
+-        if(Spell.PendantChillSlow>0)Status->AddChill(1,Spell.PendantChillSeconds,Spell.PendantChillSlow);
++        Status->AddChill(Spell.ChillStacks,Spell.ChillSeconds);
++        if(Spell.PendantChillSlow>0)Status->AddChill(1,Spell.PendantChillSeconds);
+--- a/Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp
+@@ -25 +25,26 @@
+-        C.Damage=FMath::FloorToFloat(Stats.Damage*C.DamageMultiplier)*Stats.Modifiers.MartialDamage;
++        const auto* Enhance=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
++        const auto WeaponCost=[&](const FColdSteelItem& Weapon,const FMeleeModifiers& Mods)
++        {
++            const double Delta=Enhance?Enhance->CraftEffect(Weapon,TEXT("skillStaminaCostDelta")):0.;
++            return FMath::Max(0.,(T.StaminaCost+Delta)*Mods.Stamina);
++        };
++        double Cost=WeaponCost(*Item,Stats.Modifiers);
++        C.ToughnessMultiplier=float(Stats.Modifiers.ToughnessDamage);
++        // Dual kukri (a one-handed melee in the active slot and another in its paired off-hand slot -- the pair
++        // UKukriWeaponComponent::RefreshOffhand presents as two blades; user 2026-10-26): the sprint attack's base is the sum
++        // of both weapons' physical panels (base + added), then the same skill formula.  The authority's 0x16 branch reads
++        // this same function on the shadow profile, so client and server agree.
++        double Base=Stats.Damage;
++        double MartialDamage=Stats.Modifiers.MartialDamage;
++        if(const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Item,this);
++            Off&&ColdSteelInventory::IsOneHandedMelee(*Item))
++        {
++            const auto OffStats=ColdSteelMelee::Evaluate(*Off,this);
++            const double Right=(Stats.DamageParts.BasePhysical+Stats.DamageParts.AddedPhysical)*Stats.Modifiers.MartialDamage;
++            const double Left=(OffStats.DamageParts.BasePhysical+OffStats.DamageParts.AddedPhysical)*OffStats.Modifiers.MartialDamage;
++            Base=Right+Left;MartialDamage=1.;
++            if(Base>0.)C.ToughnessMultiplier=float((Right*Stats.Modifiers.ToughnessDamage+Left*OffStats.Modifiers.ToughnessDamage)/Base);
++            // One combined skill bill: split its base between the participating blades, then apply each blade's mods.
++            Cost=.5*Cost+.5*WeaponCost(*Off,OffStats.Modifiers);
++        }
++        C.Damage=FMath::FloorToFloat(Base*C.DamageMultiplier)*MartialDamage;
+@@ -30,3 +55 @@
+-        const auto* Enhance=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
+-        const double CostDelta=Enhance?Enhance->CraftEffect(*Item,TEXT("skillStaminaCostDelta")):0.;
+-        C.StaminaCost=FMath::Max(0.f,float((T.StaminaCost+CostDelta)*Stats.Modifiers.Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina));
++        C.StaminaCost=float(Cost*ColdSteelMelee::TemporaryModifiers(this).Stamina);
+--- a/Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp
+@@ -56 +56 @@
+-            C.ChillSlow=Craft(TEXT("iceChillSlowPercent"));C.ChillDuration=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
++            C.ChillSlow=Craft(TEXT("iceChillSlowPercent"))>0?CombatChill::SlowPerStack:0.f;C.ChillDuration=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
+@@ -98,2 +98 @@
+-    if(Cast.ChillSlow>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,Cast.ChillDuration,Cast.ChillSlow);
+-    if(auto* Player=::Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
++    if(Cast.ChillSlow>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,Cast.ChillDuration,Cast.bRefreshChillDuration);
+--- a/Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp
+@@ -51 +51 @@
+-            C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"));
++            C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"))>0?CombatChill::SlowPerStack:0.f;
+@@ -96 +96 @@
+-        UCombatStatusFormula::GetOrAdd(Target)->AddChill(C.ChillStacks,C.ChillDuration,C.ChillSlow);
++        UCombatStatusFormula::GetOrAdd(Target)->AddChill(C.ChillStacks,C.ChillDuration);
+@@ -98 +98 @@
+-            UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,C.PendantChillSeconds,C.PendantChillSlow);
++            UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,C.PendantChillSeconds);
+@@ -120 +120 @@
+-        if(X*X+Y*Y<=C.ChillRadius*C.ChillRadius)UCombatStatusFormula::GetOrAdd(Target)->AddChill(C.ChillStacks,C.ChillDuration,C.ChillSlow);
++        if(X*X+Y*Y<=C.ChillRadius*C.ChillRadius)UCombatStatusFormula::GetOrAdd(Target)->AddChill(C.ChillStacks,C.ChillDuration);
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -1,0 +2,2 @@
++#include "../Weapons/Kukri/KukriBerserkerComponent.h"
++#include "../Weapons/Kukri/KukriFrostRavenComponent.h"
+@@ -107 +109 @@
+-    const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::EquippedModifiers(this);
++    const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::QuickCombatModifiers(this);
+@@ -109 +111 @@
+-    C.DamageMultiplier=float((1.+Mods.QuickCombatDamageAdd)*Mods.AllAttackDamage);
++    C.DamageMultiplier=float((1.+Mods.QuickCombatDamageAdd)*Mods.AllAttackDamage*Mods.MartialDamage);
+@@ -110,0 +113,3 @@
++    const auto* QuickItem=ActiveProductionTool()?ActiveProductionTool():Equipped();
++    if(QuickItem&&ColdSteelInventory::IsDualPistol(*QuickItem))QuickItem=ColdSteelMelee::PairedOneHandedWeapon(QuickItem,this);
++    C.Damage*=UKukriBerserkerComponent::DamageMultiplier(QuickItem,this);
+@@ -115 +120 @@
+-    C.RangeCM=T.RangeCM;
++    C.RangeCM=T.RangeCM*Mods.MartialRange;
+@@ -123 +128 @@
+-    const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::EquippedModifiers(this);
++    const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::QuickCombatModifiers(this);
+@@ -327 +332 @@
+-    const float ToughnessScale=bToughnessBlocked?0.f:Shot.ToughnessDamageMultiplier*PanChiToughness;
++    const float ToughnessScale=bToughnessBlocked?0.f:Shot.ToughnessDamageMultiplier*PanChiToughness*UKukriFrostRavenComponent::ToughnessMultiplier(Shot,this);
+@@ -404,0 +410,7 @@
++    // The attack's existing target deduplication owns contact frequency. Keep
++    // bleed in this authoritative settlement so offhand and skill hits agree;
++    // status ticks and secondary damage never enter this melee contact branch.
++    if(bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
++        &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet
++        &&Shot.MeleeHitBleedStacks>0&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++        UCombatStatusFormula::GetOrAdd(Victim)->AddBleedingHit(Shooter,Shot.MeleeHitBleedStacks,Hit);
+@@ -410 +422 @@
+-            UCombatStatusFormula::GetOrAdd(Victim)->AddBleeding(Shooter,Shot.AmmoBleedStacks);
++            UCombatStatusFormula::GetOrAdd(Victim)->AddBleedingHit(Shooter,Shot.AmmoBleedStacks,Hit);
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -2 +2,4 @@
+-#include "../Monsters/M66IncineratorMonster.h"
++#include "../Combat/CombatChill.h"
++#include "../Weapons/Kukri/KukriBerserkerComponent.h"
++#include "../Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "../Monsters/MonsterCombatComponent.h"
+@@ -175 +178 @@
+-        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillSeconds=Num(TEXT("chillSeconds"),2.5);F.ChillSlow=Num(TEXT("chillSlowPercent"),.035);
++        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillSeconds=Num(TEXT("chillSeconds"),2.5);F.ChillSlow=CombatChill::SlowPerStack;
+@@ -201 +204 @@
+-        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillDuration=Num(TEXT("chillDuration"),2.5);F.ChillSlow=Num(TEXT("chillSlowPercent"),.035);
++        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillDuration=Num(TEXT("chillDuration"),2.5);F.ChillSlow=CombatChill::SlowPerStack;
+@@ -469 +472 @@
+-    if(const FColdSteelItem* Source=Item?Item:nullptr)Shot.ItemDefinition=Source->Definition;
++    if(const FColdSteelItem* Source=Item?Item:nullptr){Shot.ItemDefinition=Source->Definition;Shot.ItemInstance=Source->InstanceId;}
+@@ -500,0 +504 @@
++            if(Shot.ItemInstance.IsEmpty())Shot.ItemInstance=I->InstanceId;
+@@ -521 +525,4 @@
+-                // Equipped passive crit is already included by Derived(crit).
++                // Two-handed passive crit is already included by Derived(crit).
++                // One-handed parts belong to this attack's blade, never the other hand.
++                if(ColdSteelInventory::IsOneHandedMelee(*I))
++                    Shot.CriticalChance+=float(Melee.Modifiers.CriticalChanceAdd);
+@@ -524,0 +532 @@
++                Shot.MeleeHitBleedStacks=Melee.Modifiers.MeleeHitBleedStacks;
+@@ -630,0 +639,4 @@
++        const bool bWolf=Shot.ItemDefinition==TEXT("ue_kukri")&&Shot.bMelee&&!Shot.bRicochet&&Shooter->HasAuthority()
++            &&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
++        float WolfHealth=0.f,WolfMaxHealth=0.f;FText WolfName;
++        if(bWolf)if(const auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())Combat->GetVitals(WolfHealth,WolfMaxHealth,WolfName);
+@@ -631,0 +644,5 @@
++        if(bWolf&&WolfHealth>0.f&&Applied>0.f)
++        {
++            if(auto* Rune=Shooter->FindComponentByClass<UKukriBerserkerComponent>())Rune->ConfirmHit(Shot,FMath::Min(Applied,WolfHealth));
++            if(auto* Rune=Shooter->FindComponentByClass<UKukriFrostRavenComponent>())Rune->ConfirmHit(Shot,Hit.GetActor(),FMath::Min(Applied,WolfHealth));
++        }
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -117,0 +118,2 @@
++    // Freeze the actual blade instance in the authoritative hit snapshot.
++    FString ItemInstance;
+@@ -144,0 +147,2 @@
++    /** Direct melee contacts only; rebuilt from the attacker's item on the server. */
++    int32 MeleeHitBleedStacks = 0;
+--- a/Source/FPSGAME/Skills/DashAttackTypes.h
++++ b/Source/FPSGAME/Skills/DashAttackTypes.h
+@@ -19,0 +20 @@
++    float ToughnessMultiplier=1.f;
+--- a/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp
+@@ -166 +166 @@
+-        UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,C.ChillSeconds,C.SlowPerStack,true);
++        UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,C.ChillSeconds,true);
+@@ -182 +182 @@
+-    if(Melee&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Source)->AddChill(1,C.ChillSeconds,C.SlowPerStack,true);
++    if(Melee&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Source)->AddChill(1,C.ChillSeconds,true);
+--- a/Source/FPSGAME/Skills/IceArmorTypes.h
++++ b/Source/FPSGAME/Skills/IceArmorTypes.h
+@@ -2,0 +3 @@
++#include "../Combat/CombatChill.h"
+@@ -11 +12 @@
+-    float RadiusBase=175,RadiusGrowth=75,PulseSeconds=2,ChillSeconds=2.5f,ChillGrowth=1,SlowPerStack=.03f;
++    float RadiusBase=175,RadiusGrowth=75,PulseSeconds=2,ChillSeconds=2.5f,ChillGrowth=1,SlowPerStack=CombatChill::SlowPerStack;
+@@ -27 +28 @@
+-    UPROPERTY() float SlowPerStack=.03f;
++    UPROPERTY() float SlowPerStack=CombatChill::SlowPerStack;
+--- a/Source/FPSGAME/Skills/IceSpikeTypes.h
++++ b/Source/FPSGAME/Skills/IceSpikeTypes.h
+@@ -19,0 +20 @@
++    UPROPERTY() bool bRefreshChillDuration=false;
+--- a/Source/FPSGAME/Skills/IceWallTypes.h
++++ b/Source/FPSGAME/Skills/IceWallTypes.h
+@@ -2,0 +3 @@
++#include "../Combat/CombatChill.h"
+@@ -18 +19 @@
+-    float ChillDuration=2.5f, ChillSlow=.035f;
++    float ChillDuration=2.5f, ChillSlow=CombatChill::SlowPerStack;
+@@ -33 +34 @@
+-    UPROPERTY() float ChillRadius=150; UPROPERTY() float ChillInterval=1; UPROPERTY() float ChillDuration=2.5f; UPROPERTY() float ChillSlow=.035f;
++    UPROPERTY() float ChillRadius=150; UPROPERTY() float ChillInterval=1; UPROPERTY() float ChillDuration=2.5f; UPROPERTY() float ChillSlow=CombatChill::SlowPerStack;
+--- a/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+@@ -5,0 +6 @@
++#include "../Combat/CombatChill.h"
+@@ -468 +469 @@
+-        default:return FString::Printf(TEXT("%d 层 / %.1f s / 每层 %.1f%%"),E.ChillStacks,E.ChillSeconds,E.ChillSlow*100);
++        default:return FString::Printf(TEXT("%d层 / %.1fs / 每层移速−%.0f%%"),E.ChillStacks,E.ChillSeconds,CombatChill::SlowPerStack*100);
+@@ -877 +878,3 @@
+-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("保留原版伤害：向下取整〔10 + 10×等级 + 智力×（1 + 0.25×等级）+ 精神×（1 + 0.25×等级）〕，按物防结算。段数5 + 2×（等级−1）；持续10 + 0.5×（等级−1）秒。凝聚只扣一次蓝，发射开始冷却，切换形态不重复扣费。未发射的凝聚到期、死亡或优先权打断退还实际蓝耗；已发射的不退。墙体、飞行种子和预览不跨读档恢复。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++            const auto& T=Definition(SelectedSkill).IceWall;
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(FString::Printf(TEXT("寒冷：每层移动速度−%.0f%%；所有来源共用层数，达到%d层触发冻结并消耗%d层。"),CombatChill::SlowPerStack*100.f,CombatChill::FreezeThreshold,CombatChill::FreezeCost),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(FString::Printf(TEXT("令 K＝等级−1：砸落伤害＝向下取整〔%.0f+%.0f×K+智力×(%.2f+%.2f×K)+精神×(%.2f+%.2f×K)〕，再计链式增伤，按目标物防结算。每个目标只结算一次砸落。段数、持续时间与墙体生命继续随等级成长。凝聚只扣一次蓝，发射开始冷却；未发射取消退还实际蓝耗，已发射不退。"),T.DamageBase,T.DamagePerLevel,T.IntelligenceBase,T.IntelligencePerLevel,T.WisdomBase,T.WisdomPerLevel),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+--- a/Source/FPSGAME/UI/ColdSteelStaffModificationUI.h
++++ b/Source/FPSGAME/UI/ColdSteelStaffModificationUI.h
+@@ -23 +23 @@
+-        {TEXT("magicCritPercent"),TEXT("法术暴击率加成"),100,1,TEXT("%"),false,true},
++        {TEXT("magicCritPercent"),TEXT("法术暴击率"),100,1,TEXT("%"),false,true},
+--- a/Source/FPSGAME/UI/ColdSteelWeaponText.h
++++ b/Source/FPSGAME/UI/ColdSteelWeaponText.h
+@@ -41 +41,2 @@
+-inline constexpr const TCHAR* CriticalBonus=TEXT("暴击伤害加成");
++inline constexpr const TCHAR* CriticalChance=TEXT("暴击率");
++inline constexpr const TCHAR* CriticalBonus=TEXT("暴击伤害");
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -144 +144 @@
+-    auto AddValue = [&](const TCHAR* Name,double Base,double Final,int32 Digits,const TCHAR* Unit,bool Lower=false,double Percent=0.)
++    auto AddValue = [&](const TCHAR* Name,double Base,double Final,int32 Digits,const TCHAR* Unit,bool Lower=false,double Percent=0.,const TCHAR* UnchangedNote=nullptr)
+@@ -147,2 +147,3 @@
+-        if (FMath::Abs(Delta) < .00001) return;
+-        const FString PercentText=FMath::IsNearlyZero(Percent,.01)?FString():FString::Printf(TEXT("（%+.0f%%）"),Percent);
++        const bool Unchanged=FMath::Abs(Delta)<.00001;
++        if (Unchanged&&!UnchangedNote) return;
++        const FString PercentText=FMath::IsNearlyZero(Percent,.01)?FString():FString::Printf(TEXT("%+.0f%%"),Percent);
+@@ -152 +153,3 @@
+-        const auto Color = ((Delta>0)!=Lower) ? ColdSteelUI::Success : ColdSteelUI::Danger;
++        const auto Color = Unchanged ? GunsmithUI::Muted : (((Delta>0)!=Lower) ? ColdSteelUI::Success : ColdSteelUI::Danger);
++        const auto PercentColor = Unchanged ? (((Percent>0)!=Lower) ? ColdSteelUI::Success : ColdSteelUI::Danger) : Color;
++        const FString DeltaText=Unchanged?FString::Printf(TEXT("%.*f%s"),Digits,0.,Unit):FString::Printf(TEXT("%+.*f%s"),Digits,Delta,Unit);
+@@ -161,2 +164,2 @@
+-                        +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(4,0,0,0)
+-                        [SNew(STextBlock).Text(FText::FromString(PercentText)).Font(GunsmithUI::NumberFont(13)).ColorAndOpacity(Color)]]
++                        +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
++                        [SNew(STextBlock).Text(FText::FromString(PercentText)).Font(GunsmithUI::NumberFont(13)).ColorAndOpacity(PercentColor)]]
+@@ -169 +172 @@
+-                        [SNew(STextBlock).Text(FText::FromString(FString::Printf(TEXT("%+.*f%s"),Digits,Delta,Unit)))
++                        [SNew(STextBlock).Text(FText::FromString(DeltaText))
+@@ -170,0 +174,9 @@
++        if(Unchanged&&UnchangedNote)
++            ModificationList->AddSlot().AutoHeight().Padding(8,0,8,6)
++                [Paragraph(UnchangedNote,12,GunsmithUI::Muted)];
++    };
++    auto AddAttackSpeed = [&](double Base,double Final,double Multiplier)
++    {
++        // Keep the catalog modifier visible even when the effective rate is clamped.
++        const TCHAR* UnchangedNote=FMath::IsNearlyEqual(Multiplier,1.)?nullptr:TEXT("攻速受限，当前实际变化为 0。");
++        AddValue(ColdSteelWeaponText::AttackSpeedMultiplier,Base,Final,2,TEXT("×"),false,(Multiplier-1.)*100.,UnchangedNote);
+@@ -296 +308,4 @@
+-        AddValue(TEXT("攻击速度倍率"),Was.AttackRate,Now.AttackRate,2,TEXT("×"),false,Percent(M.AttackSpeed));
++        AddAttackSpeed(Was.AttackSpeedMultiplier(*Item),Now.AttackSpeedMultiplier(*Item),M.AttackSpeed);
++        if(!FMath::IsNearlyEqual(M.AttackSpeed,1.))
++            ModificationList->AddSlot().AutoHeight().Padding(8,0,8,6)
++                [Paragraph(TEXT("倍率以本武器原厂间隔为基准；1.00×表示无攻速加成。"),12,GunsmithUI::Muted)];
+@@ -299,2 +314,2 @@
+-        if(M.KillStaminaMaxRatio>0.)AddEffect(FString::Printf(TEXT("击杀恢复｜击杀目标后，恢复最大体力的%.0f%%。"),M.KillStaminaMaxRatio*100.));
+-        AddValue(TEXT("改造暴击率"),Was.Modifiers.CriticalChanceAdd,Now.Modifiers.CriticalChanceAdd,0,TEXT("%"),false,M.CriticalChanceAdd);
++        if(M.KillStaminaMaxRatio>0.)AddEffect(FString::Printf(TEXT("击杀恢复｜装备本武器期间，你每击杀一个目标，恢复最大体力的%.0f%%；双持时两把武器分别结算。"),M.KillStaminaMaxRatio*100.));
++        AddValue(ColdSteelWeaponText::CriticalChance,Was.Modifiers.CriticalChanceAdd,Now.Modifiers.CriticalChanceAdd,0,TEXT("%"),false,M.CriticalChanceAdd);
+@@ -319,2 +334,3 @@
+-        AddValue(TEXT("重击伤害倍率"),Was.HeavyMultiplier,Now.HeavyMultiplier,2,TEXT("×"),false,Ratio(Was.HeavyMultiplier,Now.HeavyMultiplier));
+-        AddValue(TEXT("重击蓄力速度加成"),Was.HeavyChargeSpeedBonus*100.,Now.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
++        if(!FMath::IsNearlyEqual(M.HeavyDamage,1.)||!FMath::IsNearlyZero(M.HeavyDamageAdd))
++            AddValue(TEXT("重击伤害倍率"),Was.HeavyMultiplier,Now.HeavyMultiplier,2,TEXT("×"),false,Ratio(Was.HeavyMultiplier,Now.HeavyMultiplier));
++        AddValue(TEXT("重击蓄力速度加成"),Was.HeavyChargeSpeedBonus*100.,Now.HeavyChargeSpeedBonus*100.,0,TEXT("%"),false,M.HeavyChargeSpeedBonus*100.);
+@@ -324 +340 @@
+-        if(!FMath::IsNearlyZero(M.QuickCombatDamageAdd))AddValue(TEXT("快速近战伤害倍率"),Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier,2,TEXT("×"),false,Ratio(Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier));
++        if(!FMath::IsNearlyZero(M.QuickCombatDamageAdd))AddValue(TEXT("快速近战伤害倍率"),Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier,2,TEXT("×"),false,M.QuickCombatDamageAdd*100.);
+@@ -336,0 +353,4 @@
++        AddValue(TEXT("所有技能冷却倍率"),Was.Modifiers.SkillCooldown,Now.Modifiers.SkillCooldown,2,TEXT("×"),true,Percent(M.SkillCooldown));
++        if(!FMath::IsNearlyEqual(M.MartialCooldown,1.))AddValue(TEXT("武技冷却倍率"),Was.Modifiers.MartialCooldownMultiplier(),Now.Modifiers.MartialCooldownMultiplier(),2,TEXT("×"),true,Percent(M.MartialCooldown));
++        AddValue(TEXT("武技伤害倍率"),Was.Modifiers.MartialDamage,Now.Modifiers.MartialDamage,2,TEXT("×"),false,Percent(M.MartialDamage));
++        AddValue(TEXT("武技判定范围倍率"),Was.Modifiers.MartialRange,Now.Modifiers.MartialRange,2,TEXT("×"),false,Percent(M.MartialRange));
+--- a/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
++++ b/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
+@@ -38,0 +39,26 @@
++    if(Item.Definition==TEXT("ue_kukri"))
++    {
++        const auto Before=ColdSteelMelee::Evaluate(Item,Profile,&Parts);
++        const auto After=ColdSteelMelee::Evaluate(Item,Profile,&Model()->Draft());
++        Row(ColdSteelWeaponText::TotalDamage,Before.Damage,After.Damage,2,TEXT(""));
++        Row(ColdSteelWeaponText::AttackInterval,Before.AttackSeconds*1000.,After.AttackSeconds*1000.,0,TEXT(" ms"),true);
++        Row(TEXT("攻击距离"),Before.BaseReach/100.,After.BaseReach/100.,2,TEXT(" m"));
++        Row(TEXT("普通攻击体力消耗"),Before.AttackStamina,After.AttackStamina,1,TEXT(""),true);
++        if(Before.Modifiers.CriticalChanceAdd!=0.||After.Modifiers.CriticalChanceAdd!=0.)
++            Row(ColdSteelWeaponText::CriticalChance,Before.Modifiers.CriticalChanceAdd,After.Modifiers.CriticalChanceAdd,0,TEXT("%"));
++        Row(ColdSteelWeaponText::ToughnessMultiplier,Before.Modifiers.ToughnessDamage,After.Modifiers.ToughnessDamage,2,TEXT("×"));
++        Row(TEXT("重击蓄力速度加成"),Before.HeavyChargeSpeedBonus*100.,After.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
++        if(Before.Modifiers.MartialDamage!=1.||After.Modifiers.MartialDamage!=1.)
++            Row(TEXT("武技伤害倍率"),Before.Modifiers.MartialDamage,After.Modifiers.MartialDamage,2,TEXT("×"));
++        if(Before.Modifiers.HeavyToughness!=1.||After.Modifiers.HeavyToughness!=1.)
++            Row(TEXT("重击韧性伤害倍率"),Before.Modifiers.HeavyToughnessMultiplier(),After.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"));
++        if(Before.Modifiers.QuickCombatDamageAdd!=0.||After.Modifiers.QuickCombatDamageAdd!=0.)
++            Row(TEXT("快速近战伤害倍率"),Before.QuickCombat.DamageMultiplier,After.QuickCombat.DamageMultiplier,2,TEXT("×"));
++        if(Before.Modifiers.QuickCombatToughness!=1.||After.Modifiers.QuickCombatToughness!=1.)
++            Row(TEXT("快速近战韧性伤害倍率"),Before.QuickCombat.ToughnessMultiplier,After.QuickCombat.ToughnessMultiplier,2,TEXT("×"));
++        if(Before.Modifiers.QuickCombatKnockback!=1.||After.Modifiers.QuickCombatKnockback!=1.)
++            Row(TEXT("快速近战击退距离"),Before.QuickCombat.KnockbackCM,After.QuickCombat.KnockbackCM,1,TEXT(" cm"));
++        if(Before.Modifiers.MartialCooldown!=1.||After.Modifiers.MartialCooldown!=1.)
++            Row(TEXT("武技冷却倍率"),Before.Modifiers.MartialCooldownMultiplier(),After.Modifiers.MartialCooldownMultiplier(),2,TEXT("×"),true);
++        return;
++    }
+@@ -40 +66 @@
+-        Row(TEXT("改造暴击率加成"),Before.Modifiers.CriticalChanceAdd,After.Modifiers.CriticalChanceAdd,0,TEXT("%"));
++        Row(ColdSteelWeaponText::CriticalChance,Before.Modifiers.CriticalChanceAdd,After.Modifiers.CriticalChanceAdd,0,TEXT("%"));
+@@ -86,0 +113,6 @@
++    Row(TEXT("所有技能冷却倍率"),Before.Modifiers.SkillCooldown,After.Modifiers.SkillCooldown,2,TEXT("×"),true);
++    Row(TEXT("武技冷却倍率"),Before.Modifiers.MartialCooldown,After.Modifiers.MartialCooldown,2,TEXT("×"),true);
++    if(Before.Modifiers.MartialDamage!=1.||After.Modifiers.MartialDamage!=1.)
++        Row(TEXT("武技伤害倍率"),Before.Modifiers.MartialDamage,After.Modifiers.MartialDamage,2,TEXT("×"));
++    if(Before.Modifiers.MartialRange!=1.||After.Modifiers.MartialRange!=1.)
++        Row(TEXT("武技判定范围倍率"),Before.Modifiers.MartialRange,After.Modifiers.MartialRange,2,TEXT("×"));
+--- a/Source/FPSGAME/UI/StatusEffectsComponent.cpp
++++ b/Source/FPSGAME/UI/StatusEffectsComponent.cpp
+@@ -120 +120,17 @@
+- for(const auto& R:Records){auto V=R.View;if(!V.Persistent&&V.Battles<0){V.Remaining=FMath::Max(0.f,float(R.End-Now));if(V.Remaining<=0)continue;}if(V.Battles==0)continue;if(!Result.ContainsByPredicate([&](const auto& E){return E.Type==V.Type;}))Result.Add(V);}
++ const auto* CombatStatus=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
++ for(const auto& R:Records)
++ {
++  auto V=R.View;
++  if(!V.Persistent&&V.Battles<0)V.Remaining=FMath::Max(0.f,float(R.End-Now));
++  if(V.Type==TEXT("chill")&&CombatStatus)
++  {
++   V.Stacks=CombatStatus->ChillCount();V.Remaining=CombatStatus->ChillRemaining();
++   if(V.Stacks<=0)continue;
++   V.Description=FString::Printf(TEXT("每层移动速度−%.0f%%。当前%d层：移动速度−%.0f%%。达到%d层触发冻结并消耗%d层；冻结期间不再叠加寒冷，寒冷到期清空余层。"),
++    CombatChill::SlowPerStack*100.f,V.Stacks,(1.f-CombatStatus->ChillMovementMultiplier())*100.f,CombatChill::FreezeThreshold,CombatChill::FreezeCost);
++  }
++  else if(V.Type==TEXT("frozen")&&CombatStatus)V.Remaining=CombatStatus->FrozenRemaining();
++  if(!V.Persistent&&V.Battles<0&&V.Remaining<=0.f)continue;
++  if(V.Battles==0)continue;
++  if(!Result.ContainsByPredicate([&](const auto& E){return E.Type==V.Type;}))Result.Add(V);
++ }
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
+@@ -24,2 +24,2 @@
+-    constexpr int32 Starts[] = {0,48,72,104,128,224,228};
+-    constexpr int32 Counts[] = {48,24,32,24,96,4,4};
++    constexpr int32 Starts[] = {0,48,72,104,128,224,228,232,264};
++    constexpr int32 Counts[] = {48,24,32,24,96,4,4,32,160};
+@@ -69,0 +70,3 @@
++    ConstructorHelpers::FObjectFinder<UMaterialInterface> BleedMist(TEXT("/Game/Combat/Bleeding20261027/M_BleedBurstMist.M_BleedBurstMist"));
++    ConstructorHelpers::FObjectFinder<UMaterialInterface> BleedDrop(TEXT("/Game/Combat/Bleeding20261027/M_BleedBurstDrop.M_BleedBurstDrop"));
++    ParticleMaterials.Add(BleedMist.Object);ParticleMaterials.Add(BleedDrop.Object);
+@@ -586 +589,2 @@
+-            const float Drag=Group==3?6.f:Group==4?1.6f:Group==1?5.f:0.f;
++            const bool bMist=Group==3||Group==7,bDrop=Group==4||Group==8;
++            const float Drag=bMist?6.f:bDrop?1.6f:Group==1?5.f:0.f;
+@@ -600 +604 @@
+-                Rotation=(Group==0 || Group==4)?FRotationMatrix::MakeFromZY(Facing,Velocity).ToQuat()
++                Rotation=(Group==0 || bDrop)?FRotationMatrix::MakeFromZY(Facing,Velocity).ToQuat()
+@@ -603 +607 @@
+-            const float SizeScale=Group==1?.65f+Life*1.5f:Group==3?.70f+Life*1.25f:1.f;
++            const float SizeScale=Group==1?.65f+Life*1.5f:bMist?.70f+Life*1.25f:1.f;
+@@ -605 +609 @@
+-            if(Group==4)
++            if(bDrop)
+@@ -612,2 +616,2 @@
+-            float Fade=Group==4?1.f-FMath::SmoothStep(.78f,1.f,Life):Group==2?1.f-FMath::SmoothStep(.5f,1.f,Life):FMath::Square(1.f-Life);
+-            if(Group==3)Fade=FMath::SmoothStep(0.f,.035f,Life)*(1.f-FMath::SmoothStep(.20f,1.f,Life));
++            float Fade=bDrop?1.f-FMath::SmoothStep(.78f,1.f,Life):Group==2?1.f-FMath::SmoothStep(.5f,1.f,Life):FMath::Square(1.f-Life);
++            if(bMist)Fade=FMath::SmoothStep(0.f,.035f,Life)*(1.f-FMath::SmoothStep(.20f,1.f,Life));
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
+@@ -26,0 +27 @@
++    void SpawnBleedingBurst(const FVector& Position,const FVector& Normal,int32 Stacks,AActor* BleedingActor);
+@@ -50,3 +51,5 @@
+-    static constexpr int32 MaxActiveParticles = 192;
+-    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots + PressureWaveSlots;
+-    static constexpr int32 ParticleGroups = 7;
++    static constexpr int32 BleedMistSlots = 32;
++    static constexpr int32 BleedDropSlots = 160;
++    static constexpr int32 MaxActiveParticles = 384;
++    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots + PressureWaveSlots + BleedMistSlots + BleedDropSlots;
++    static constexpr int32 ParticleGroups = 9;
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -259,0 +260 @@
++            R.Melee.MartialDamage*=M.MartialDamage;R.Melee.MartialRange*=M.MartialRange;
+@@ -291,0 +293 @@
++            R.Melee.MeleeHitBleedStacks+=M.MeleeHitBleedStacks;
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.h
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.h
+@@ -15,0 +16,2 @@
++    // Guaranteed contact stacks, captured from the attacking weapon only.
++    int32 MeleeHitBleedStacks=0;
+--- a/Source/FPSGAME/Weapons/Kukri/KukriDashAttack.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriDashAttack.cpp
+@@ -93,0 +94 @@
++    Shot.ToughnessDamageMultiplier=Cast.ToughnessMultiplier;
+--- a/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
+@@ -278,0 +279 @@
++    if(++NetworkHeavyReleaseSerial==0)++NetworkHeavyReleaseSerial;
+--- a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp
+@@ -80,0 +81 @@
++    MainModules.Clear(Blade);OffhandModules.Clear(OffhandBlade);
+@@ -127 +128 @@
+-    if(NewId==InstanceId)return;
++    if(NewId==InstanceId){if(!NewId.IsEmpty())MainModules.Refresh(Blade,Item);RefreshOffhand(Profile);return;}
+@@ -128,0 +130 @@
++    MainModules.Clear(Blade);OffhandModules.Clear(OffhandBlade);
+@@ -175,0 +178 @@
++    MainModules.Refresh(Blade,Item);
+@@ -433,0 +437,2 @@
++    // Visual length affects scenery contacts only; enemy reach remains BladeReach.
++    const auto& BladeModules=Left?OffhandModules:MainModules;
+@@ -438 +443 @@
+-        const FVector Local=FMath::Lerp(KukriRhythm::BladeRoot,KukriRhythm::BladeTip,Segment/3.f);
++        const FVector Local=FMath::Lerp(BladeModules.TraceBase,BladeModules.TraceTip,Segment/3.f);
+--- a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h
+@@ -6,0 +7 @@
++#include "KukriModuleVisual.h"
+@@ -71,0 +73 @@
++    uint32 GetNetworkHeavyReleaseSerial() const {return NetworkHeavyReleaseSerial;}
+@@ -150,0 +153 @@
++    FKukriModuleVisual MainModules,OffhandModules;
+--- a/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.cpp
+@@ -220 +220 @@
+-    if(Active==bEquipped)return;
++    if(Active==bEquipped){if(Active&&Blade&&Blade->GetStaticMesh())Modules.Refresh(Blade,Knife);return;}
+@@ -226,0 +227 @@
++        Modules.Clear(Blade);
+@@ -242,0 +244,2 @@
++    Modules.Clear(Blade);
++    if(Model.IsValid())Modules.Refresh(Blade,Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11));
+@@ -431,0 +435 @@
++    Modules.Clear(Blade);
+--- a/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h
++++ b/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h
+@@ -5,0 +6 @@
++#include "KukriModuleVisual.h"
+@@ -86,0 +88 @@
++    FKukriModuleVisual Modules;
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+@@ -1,0 +2 @@
++#include "Kukri/KukriBerserkerComponent.h"
+@@ -21,0 +23,6 @@
++double FMeleeWeaponStats::AttackSpeedMultiplier(const FColdSteelItem& Item) const
++{
++    const double BaseAttackSeconds=FMath::Max(.1,ColdSteelInventory::Number(Item,TEXT("attack_seconds"),RuneSwordRhythm::AttackEnd));
++    return BaseAttackSeconds/AttackSeconds;
++}
++
+@@ -29,0 +37,2 @@
++    const bool Berserker=UKukriBerserkerComponent::Active(&Item,Profile);
++    if(Berserker)R.Modifiers.Stamina=0.;
+@@ -47,4 +56,4 @@
+-    // Per-weapon base duration: attack_seconds scales the whole swing clock
+-    // (animation, contact window, camera, lunge) through AttackRate.
+-    const double WeaponSpeed=RuneSwordRhythm::AttackEnd/FMath::Max(.1,ColdSteelInventory::Number(Item,TEXT("attack_seconds"),RuneSwordRhythm::AttackEnd));
+-    R.AttackRate=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd")))/Berserk:1.)*R.Modifiers.AttackSpeed*Temporary.AttackSpeed*WeaponSpeed/
++    const double BaseAttackSeconds=FMath::Max(.1,ColdSteelInventory::Number(Item,TEXT("attack_seconds"),RuneSwordRhythm::AttackEnd));
++    // Limit bonuses relative to this weapon's own base interval. A naturally fast
++    // blade must not spend its speed allowance on conversion to the sword clock.
++    const double AttackSpeedMultiplier=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd")))/Berserk:1.)*R.Modifiers.AttackSpeed*Temporary.AttackSpeed/
+@@ -52,2 +61,5 @@
+-        (Profile?1-Profile->MasteryEffect(TEXT("swordMastery")).CooldownReduction:1.),.2,4.)*Berserk;
+-    R.AttackSeconds=RuneSwordRhythm::AttackEnd/R.AttackRate;
++        (Profile?Profile->MeleeMasteryIntervalMultiplier(Item):1.),.2,4.)*Berserk;
++    R.AttackSeconds=BaseAttackSeconds/(AttackSpeedMultiplier*(Berserker?1.25:1.));
++    // Animation, contact windows, camera and movement retain their shared clock.
++    // Convert only after applying the one per-weapon speed limit above.
++    R.AttackRate=RuneSwordRhythm::AttackEnd/R.AttackSeconds;
+@@ -57,0 +70,7 @@
++    if(ColdSteelInventory::IsOneHandedMelee(Item))
++    {
++        // The kukri executor consumes its own blade reach, without the sword's scale.
++        R.BaseReach*=R.Modifiers.Range;
++        R.SlashReach=R.BaseReach;
++        R.ThrustReach=R.BaseReach;
++    }
+@@ -73 +92 @@
+-    if(!Item||!ColdSteelInventory::IsTwoHandedSword(*Item))return 0.;
++    if(!Item||(!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsOneHandedMelee(*Item)))return 0.;
+@@ -75,2 +94,9 @@
+-    const double ThrustReach=RuneSwordCombatTuning::ScaledReach(BaseReach,RuneSwordThrustRhythm::ReachBonus)*EquippedModifiers(Profile).Range;
+-    return ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier;
++    const auto Modifiers=EquippedModifiers(Profile);
++    // The kukri's uppercut reaches from its plain blade reach (KukriUppercut.cpp BeginUppercut).
++    if(ColdSteelInventory::IsOneHandedMelee(*Item))
++    {
++        const auto Stats=Evaluate(*Item,Profile);
++        return Stats.BaseReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier*Stats.Modifiers.MartialRange;
++    }
++    const double ThrustReach=RuneSwordCombatTuning::ScaledReach(BaseReach,RuneSwordThrustRhythm::ReachBonus)*Modifiers.Range;
++    return ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier*Modifiers.MartialRange;
+@@ -81,0 +108,28 @@
++}
++
++FMeleeModifiers ColdSteelMelee::ItemModifiers(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)
++{
++    const auto* GI=Profile?Profile->GetGameInstance():nullptr;
++    const auto* G=GI?GI->GetSubsystem<UGunsmithSystem>():nullptr;
++    auto Result=Item&&G?G->Calculate(Item->Definition,G->Installed(*Item)).Melee:FMeleeModifiers{};
++    if(UKukriBerserkerComponent::Active(Item,Profile))Result.Stamina=0.;
++    return Result;
++}
++
++const FColdSteelItem* ColdSteelMelee::PairedOneHandedWeapon(const FColdSteelItem* Main,const UColdSteelStatusModel* Profile)
++{
++    const auto* Active=Profile?Profile->Equipped():nullptr;
++    if(!Main||!Active||Main->InstanceId!=Active->InstanceId||Profile->ActiveProductionTool()||
++        !(ColdSteelInventory::IsOneHandedMelee(*Main)||ColdSteelInventory::IsDualPistol(*Main)))return nullptr;
++    const auto* First=Profile->Equipped(6);
++    const auto* Off=Profile->Equipped(First&&First->InstanceId==Main->InstanceId?8:11);
++    return Off&&Off->InstanceId!=Main->InstanceId&&ColdSteelInventory::IsOneHandedMelee(*Off)?Off:nullptr;
++}
++
++FMeleeModifiers ColdSteelMelee::QuickCombatModifiers(const UColdSteelStatusModel* Profile)
++{
++    const auto* Tool=Profile?Profile->ActiveProductionTool():nullptr;
++    const auto* Item=Tool?Tool:Profile?Profile->Equipped():nullptr;
++    if(!Tool&&Item&&ColdSteelInventory::IsDualPistol(*Item))Item=PairedOneHandedWeapon(Item,Profile);
++    return Item&&(ColdSteelInventory::IsMeleeWeapon(*Item)||ColdSteelInventory::IsTwoHandedBlunt(*Item))?
++        ItemModifiers(Item,Profile):FMeleeModifiers{};
+@@ -107,0 +162,2 @@
++    // Explicit free attacks bypass the ordinary reduction floor for this knife only.
++    if(UKukriBerserkerComponent::Active(Item,Profile))return 0.;
+@@ -130 +186,19 @@
+-double ColdSteelMelee::HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)
++double ColdSteelMelee::ComboAttackStamina(const FColdSteelItem* Main,const UColdSteelStatusModel* Profile,bool BothBlades)
++{
++    const double MainCost=AttackStamina(Main,Profile);
++    // Preserve the existing combined action's base cost, billing each blade's half
++    // through its own equipment/modifier/floor calculation. Never multiply the two.
++    const auto* Off=BothBlades?PairedOneHandedWeapon(Main,Profile):nullptr;
++    return Main&&ColdSteelInventory::IsOneHandedMelee(*Main)&&Off?
++        .5*MainCost+.5*AttackStamina(Off,Profile):MainCost;
++}
++
++double ColdSteelMelee::HeavyChargeSeconds(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,bool BothBlades)
++{
++    const double MainSeconds=Evaluate(Item,Profile).HeavyChargeSeconds;
++    const auto* Off=BothBlades&&ColdSteelInventory::IsOneHandedMelee(Item)?PairedOneHandedWeapon(&Item,Profile):nullptr;
++    // Simultaneous blades share one pose clock: average the independently computed durations.
++    return Off?.5*MainSeconds+.5*Evaluate(*Off,Profile).HeavyChargeSeconds:MainSeconds;
++}
++
++double ColdSteelMelee::HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile,bool BothBlades)
+@@ -133 +207 @@
+-    return AttackStamina(Item,Profile)*(Item&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item)?2.:1.);
++    return ComboAttackStamina(Item,Profile,BothBlades)*(Item&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item)?2.:1.);
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.h
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.h
+@@ -12,0 +13,3 @@
++    // Player-facing speed relative to this item's unmodified attack_seconds.
++    // AttackRate remains the shared animation clock, not a displayed multiplier.
++    double AttackSpeedMultiplier(const FColdSteelItem& Item) const;
+@@ -33,0 +37,5 @@
++    FMeleeModifiers ItemModifiers(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile);
++    // The active set's other blade only; never an inactive loadout or the same item twice.
++    const FColdSteelItem* PairedOneHandedWeapon(const FColdSteelItem* Main,const UColdSteelStatusModel* Profile);
++    // Quick melee uses the active weapon, or the left blade beside a pistol.
++    FMeleeModifiers QuickCombatModifiers(const UColdSteelStatusModel* Profile);
+@@ -40 +48,3 @@
+-    double HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile);
++    double ComboAttackStamina(const FColdSteelItem* Main,const UColdSteelStatusModel* Profile,bool BothBlades);
++    double HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile,bool BothBlades=false);
++    double HeavyChargeSeconds(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,bool BothBlades=false);
+--- a/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp
++++ b/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp
+@@ -34 +34 @@
+-    for(const TCHAR* CatalogFile:{TEXT("warhammer-gunsmith.json"),TEXT("runebound-warhammer-gunsmith.json")})
++    for(const TCHAR* CatalogFile:{TEXT("warhammer-gunsmith.json"),TEXT("kukri-gunsmith.json"),TEXT("runebound-warhammer-gunsmith.json")})
+@@ -41,2 +41,3 @@
+-    if(!ColdSteelInventory::IsTwoHandedBlunt(Item))continue;
+-    FGunsmithWeapon Weapon;Weapon.Id=Item.Definition;Weapon.Model=TEXT("two_handed_blunt");
++    const bool Kukri=Item.Definition==TEXT("ue_kukri");
++    if(!Kukri&&!ColdSteelInventory::IsTwoHandedBlunt(Item))continue;
++    FGunsmithWeapon Weapon;Weapon.Id=Item.Definition;Weapon.Model=Kukri?TEXT("kukri"):TEXT("two_handed_blunt");
+@@ -45,2 +46,2 @@
+-    Weapon.Base.Interval=ColdSteelInventory::Number(Item,TEXT("swing_seconds"));
+-    Weapon.Base.Range=ColdSteelInventory::Number(Item,TEXT("combat_reach_cm"))/100.;
++    Weapon.Base.Interval=ColdSteelInventory::Number(Item,Kukri?TEXT("attack_seconds"):TEXT("swing_seconds"));
++    Weapon.Base.Range=ColdSteelInventory::Number(Item,Kukri?TEXT("melee_reach_cm"):TEXT("combat_reach_cm"))/100.;
+@@ -91,0 +93 @@
++                (*Stats)->TryGetNumberField(TEXT("range_mult"),Part.Melee.Range);
+@@ -92,0 +95,2 @@
++                (*Stats)->TryGetNumberField(TEXT("kill_stamina_max_ratio"),Part.Melee.KillStaminaMaxRatio);
++                (*Stats)->TryGetNumberField(TEXT("critical_chance_add"),Part.Melee.CriticalChanceAdd);
+@@ -93,0 +98 @@
++                (*Stats)->TryGetNumberField(TEXT("melee_hit_bleed_stacks"),Part.Melee.MeleeHitBleedStacks);
+@@ -97,0 +103,4 @@
++                (*Stats)->TryGetNumberField(TEXT("heavy_toughness_mult"),Part.Melee.HeavyToughness);
++                (*Stats)->TryGetNumberField(TEXT("quick_combat_damage_add"),Part.Melee.QuickCombatDamageAdd);
++                (*Stats)->TryGetNumberField(TEXT("quick_combat_knockback_mult"),Part.Melee.QuickCombatKnockback);
++                (*Stats)->TryGetNumberField(TEXT("quick_combat_toughness_mult"),Part.Melee.QuickCombatToughness);
+@@ -99,0 +109 @@
++                (*Stats)->TryGetNumberField(TEXT("martial_damage_mult"),Part.Melee.MartialDamage);
+--- a/Source/FPSGAME/Weapons/WeaponDamagePanel.cpp
++++ b/Source/FPSGAME/Weapons/WeaponDamagePanel.cpp
+@@ -1,0 +2 @@
++#include "Kukri/KukriBerserkerComponent.h"
+@@ -68 +69 @@
+-    return Melee?R.Scaled(Melee->AllAttackDamage):R;
++    return R.Scaled((Melee?Melee->AllAttackDamage:1.)*UKukriBerserkerComponent::DamageMultiplier(&Item,Profile));

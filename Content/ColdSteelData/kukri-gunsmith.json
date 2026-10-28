@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "weapon": "ue_kukri",
+  "columns": [
+    {
+      "key": "blade_1",
+      "name": "刀身",
+      "default": "原装刀身",
+      "description": "前倾弯曲钢刃，保留锤纹刃面与原有切削轮廓。",
+      "options": [
+        {
+          "id": "hunter_blade",
+          "name": "猎手刀身",
+          "description": "加长弧形刀身，石墨灰缎面钢材配细磨银色刃口。",
+          "appearance": "加长弧形刀身，石墨灰缎面钢材配细磨银色刃口。",
+          "effects": [
+            {
+              "text": "攻击距离+25%",
+              "benefit": 1
+            },
+            {
+              "text": "物理伤害+10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗+25%",
+              "benefit": -1
+            }
+          ],
+          "stats": {
+            "range_mult": 1.25,
+            "physical_damage_mult": 1.1,
+            "stamina_mult": 1.25
+          }
+        },
+        {
+          "id": "canine_blade",
+          "name": "犬牙刀身",
+          "description": "弧形刃口开出连续犬牙锯齿，深灰钢面衬以银色齿刃。",
+          "appearance": "弧形刃口开出连续犬牙锯齿，深灰钢面衬以银色齿刃。",
+          "effects": [
+            {
+              "text": "物理伤害+20%",
+              "benefit": 1
+            },
+            {
+              "text": "韧性伤害−50%",
+              "benefit": -1
+            }
+          ],
+          "special_effects": [
+            "流血｜本刀每次攻击命中敌人叠加1层流血，适用于普通攻击和武技；同次攻击对同一目标仅触发一次，双持各刀独立结算。",
+            "叠层｜每秒按目标当前生命值的1%×流血层数造成伤害；新增层数刷新衰减计时，之后每10秒减少1层。"
+          ],
+          "stats": {
+            "physical_damage_mult": 1.2,
+            "toughness_damage_mult": 0.5,
+            "melee_hit_bleed_stacks": 1
+          }
+        }
+      ],
+      "options_library": "shared-knife-blade-options.json"
+    },
+    {
+      "key": "grip",
+      "name": "握柄",
+      "default": "原装木柄",
+      "description": "木质握面与固定铆钉成组装配，保留现有握持轮廓。",
+      "options": [],
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "grip"
+    },
+    {
+      "key": "pommel",
+      "name": "柄尾",
+      "default": "原装柄尾",
+      "description": "外扩木质尾座与内部刀茎末段，保留挂绳穿孔。",
+      "options": [],
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "pommel"
+    },
+    {
+      "key": "lanyard",
+      "name": "挂绳／挂饰",
+      "default": "原装挂绳",
+      "description": "穿过柄尾孔的短挂绳，安装位置跟随柄尾。",
+      "options": [
+        {
+          "id": "no_lanyard",
+          "name": "无挂绳",
+          "description": "卸下挂绳，保留柄尾穿孔。",
+          "appearance": "原装柄尾 · 空置穿孔",
+          "effects": [],
+          "stats": {}
+        }
+      ],
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "lanyard"
+    },
+    {
+      "key": "blade_2",
+      "name": "刀身符文",
+      "default": "无附加符文",
+      "description": "保留原有锤纹刀面，不添加额外符文。",
+      "options": [
+        {
+          "id": "berserker_rune",
+          "name": "狂战士符文",
+          "tier": "legendary",
+          "description": "血红狼首与獠牙纹样沿刀面自然展开，细长血痕连接下缘，纹路带有微弱呼吸红光。",
+          "appearance": "血红狼首与獠牙纹样沿刀面自然展开，细长血痕连接下缘，纹路带有微弱呼吸红光。",
+          "effects": [
+            {
+              "text": "物理伤害+10%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "physical_damage_mult": 1.1
+          },
+          "special_effects": [
+            "蓄能｜本刀成功出手命中敌人累计12次后进入狂战士状态，持续20s；同次出手命中多个敌人仅计1次。",
+            "狂战士｜本刀攻击和武技不消耗体力，攻击速度+25%、攻击伤害+25%；直接攻击按实际造成伤害的10%恢复生命，移动速度+15%。",
+            "双持｜两把刀都安装本符文时共用蓄能槽与状态，效果不叠加；只安装一枚时，仅对应刀享受攻击强化与免体力消耗。",
+            "周期｜状态期间不续时、不再次蓄能；切换武器立即退出狂战士并清空蓄能，切回后重新累计；死亡同样清空。"
+          ]
+        },
+        {
+          "id": "frost_raven_rune",
+          "name": "霜鸦符文",
+          "tier": "legendary",
+          "description": "冰蓝鸦喙与三道羽翼沿刀面展开，银灰纹边包裹晶莹的霜光。",
+          "appearance": "冰蓝鸦喙与三道羽翼沿刀面展开，银灰纹边包裹晶莹的霜光。",
+          "stats": {
+            "critical_chance_add": 20
+          },
+          "effects": [
+            {
+              "text": "暴击率+20%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "蓄能｜本刀成功出手命中敌人累计8次后进入霜狱，持续16s；同次出手命中多个目标仅计1次。",
+            "霜狱｜本刀直接攻击和武技韧性伤害+35%；每次出手对每个命中的敌人叠加4层寒冷，同次双刀命中同一目标不重复叠加。",
+            "寒冷｜每层移动速度−5%，本符文刷新4s持续时间；已有更长剩余时间不缩短。达到20层触发冻结并消耗10层；本符文触发的冻结持续4s。冻结期间不再叠加寒冷。",
+            "双持｜两把都安装霜鸦时共用蓄能与状态，效果不叠加；只安装一枚时，仅对应刀提供激活加成。",
+            "周期｜触发霜狱的当次出手只负责蓄能；状态期间不续时、不蓄能。切换武器或死亡清空蓄能和状态，目标已有寒冷自行计时。"
+          ]
+        }
+      ],
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "blade_2"
+    }
+  ]
+}

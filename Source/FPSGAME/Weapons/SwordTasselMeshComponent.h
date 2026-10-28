@@ -22,6 +22,7 @@ private:
     TArray<FCapsule> Capsules;
     FTransform PreviousFrame;
     bool bInitialized=false;
+    double Damping=3.0,HeavyDamping=3.8,ParticleRadius=.18;
     UPROPERTY(Transient) TArray<TObjectPtr<UMaterialInstanceDynamic>> DynamicMaterials;
     void Publish();
 };

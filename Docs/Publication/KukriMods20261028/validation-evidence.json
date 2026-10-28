@@ -1,0 +1,19 @@
+{
+  "scope": "Historical local Frost Raven and unified chill review; not rerun for publication",
+  "report": "SourceAssets/KukriFrostRaven20261028/NetworkReview20261028/review.md",
+  "result": {
+    "status": "source_and_isolated_audit_complete_pending_multiplayer_acceptance",
+    "editor_build": "Succeeded",
+    "isolated_checks": 57,
+    "failures": 0,
+    "assets_present": 18,
+    "cook_directory_registered": true,
+    "real_multiplayer_tested": false,
+    "visuals_tested": false,
+    "package_tested": false,
+    "audit_receipt": "audit-result.json",
+    "build_log": "build-editor.log"
+  },
+  "gameplay_or_udp_tests_run_this_publication": false,
+  "public_slice_built": false
+}

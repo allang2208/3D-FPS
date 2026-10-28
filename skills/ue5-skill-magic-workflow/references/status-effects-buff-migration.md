@@ -35,3 +35,9 @@
 ## 5. 新增一个状态的标准步骤
 
 1. `status_effects.json` 加条目（type/icon/name/color/description；emoji 占位）。2. `UCombatStatusFormula` 加 `AddXxx`（IsImmune 闸门＋卡片＋数值字段）与消费点（乘区/Tick/MovementMultiplier）。3. 若走控制：并入 `BlocksMovement`/`PurgeTransient`/`CleanseDebuffs` 白名单（净化清单见旧 SUPPORT_CLEANSE_TYPES 11 项，感电连层数硬置零）。4. 生产者缺失时机制照迁、卡片照挂，在矩阵标 ⚠️ 宿主。5. 构建绿即交付，声明未测试。
+
+## 寒冷统一口径（2026-10-28 用户确定）
+
+所有来源每层统一减速 5%，真相集中在 CombatChill::SlowPerStack 与 UCombatStatusFormula::AddChill；覆盖旧资料中各来源 3%、3.5%、30% 及按来源加权减速的规则。来源只决定层数、时长和累加／刷新策略，不再携带不同的每层减速权重。
+
+寒冷达到 20 层消耗 10 层并冻结，冻结期间拒绝新寒冷，免疫闸门在统一入口执行。霜鸦每次有效出手每目标加 4 层、刷新至少 4s，并不把其他来源的剩余时间截短。寒冷与冻结分别复制层数和服务器结束时间；显示从活状态读取，不只改技能说明或 HUD。检查时枚举冰箭、冰墙与其光环、暴风雪、冰甲反击／光环、吊坠和近战符文的真实入口，不能只搜到一个 AddChill 就声称全来源完成。

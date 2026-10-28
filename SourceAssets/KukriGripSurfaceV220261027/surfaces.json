@@ -1,0 +1,70 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Kukri_Components_Editable.blend",
+  "normal_convention": "OpenGL tangent, UE green flip",
+  "geometry_changed": false,
+  "uv_changed": false,
+  "numeric_changes": false,
+  "runtime_tested": false,
+  "variants": [
+    {
+      "id": "knife_grip_checkered",
+      "name": "棱纹胶柄",
+      "kind": "GripCheckered",
+      "slot": "grip",
+      "object": "SM_Kukri_GripCheckered",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripCheckered.SM_Kukri_GripCheckered",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripCheckered.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripCheckered_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripCheckered_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripCheckered_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripCheckered.M_Kukri_GripCheckered",
+      "icon_key": "grip_knife_grip_checkered",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Icons\\grip_knife_grip_checkered.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Kukri_Grip_SurfaceV2_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\IconInputs\\grip_knife_grip_checkered.png"
+    },
+    {
+      "id": "knife_grip_leather",
+      "name": "缠革握柄",
+      "kind": "GripLeather",
+      "slot": "grip",
+      "object": "SM_Kukri_GripLeather",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripLeather.SM_Kukri_GripLeather",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripLeather.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripLeather_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripLeather_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripLeather_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripLeather.M_Kukri_GripLeather",
+      "icon_key": "grip_knife_grip_leather",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Icons\\grip_knife_grip_leather.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Kukri_Grip_SurfaceV2_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\IconInputs\\grip_knife_grip_leather.png"
+    },
+    {
+      "id": "knife_grip_laminate",
+      "name": "层压木柄",
+      "kind": "GripLaminate",
+      "slot": "grip",
+      "object": "SM_Kukri_GripLaminate",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripLaminate.SM_Kukri_GripLaminate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripLaminate.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripLaminate_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripLaminate_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Textures\\T_Kukri_GripLaminate_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripLaminate.M_Kukri_GripLaminate",
+      "icon_key": "grip_knife_grip_laminate",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Icons\\grip_knife_grip_laminate.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\Kukri_Grip_SurfaceV2_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriGripSurfaceV220261027\\IconInputs\\grip_knife_grip_laminate.png"
+    }
+  ]
+}

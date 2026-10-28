@@ -1,0 +1,74 @@
+[
+  {
+    "kind": "Factory",
+    "center_cm": [
+      3.655397571726806,
+      18.0
+    ],
+    "angle_radians": 0.414313062655427,
+    "width_cm": 5.252549999999999,
+    "height_cm": 6.565687499999999,
+    "source_aspect": 0.8,
+    "score": 0.065481875
+  },
+  {
+    "kind": "Swift",
+    "center_cm": [
+      3.404689123854041,
+      18.0
+    ],
+    "angle_radians": 0.42412904270451396,
+    "width_cm": 3.93015,
+    "height_cm": 4.9126875,
+    "source_aspect": 0.8,
+    "score": 0.04895187499999999
+  },
+  {
+    "kind": "HeavyBack",
+    "center_cm": [
+      4.016331320938965,
+      18.0
+    ],
+    "angle_radians": 0.4123178450600567,
+    "width_cm": 5.678849999999999,
+    "height_cm": 7.098562499999998,
+    "source_aspect": 0.8,
+    "score": 0.07081062499999999
+  },
+  {
+    "kind": "FoldedBalanced",
+    "center_cm": [
+      2.8657030691910124,
+      16.5
+    ],
+    "angle_radians": 0.4511262170295404,
+    "width_cm": 5.513549999999999,
+    "height_cm": 6.891937499999997,
+    "source_aspect": 0.8,
+    "score": 0.06821937499999997
+  },
+  {
+    "kind": "Hunter",
+    "center_cm": [
+      2.7127204902677073,
+      21.0
+    ],
+    "angle_radians": 0.3143114721191013,
+    "width_cm": 5.678849999999999,
+    "height_cm": 7.098562499999998,
+    "source_aspect": 0.8,
+    "score": 0.07011062499999998
+  },
+  {
+    "kind": "Canine",
+    "center_cm": [
+      3.4726171262769236,
+      18.0
+    ],
+    "angle_radians": 0.3538218069299692,
+    "width_cm": 3.14715,
+    "height_cm": 3.9339374999999994,
+    "source_aspect": 0.8,
+    "score": 0.039164374999999994
+  }
+]

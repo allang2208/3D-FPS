@@ -2,10 +2,23 @@
 #include "CoreMinimal.h"
 #include "GunsmithSystem.h"
 class UStaticMeshComponent;
+class UStaticMesh;
+class FJsonObject;
 
 // Shared assembly contract for held, workbench, inventory and dropped swords.
 namespace ColdSteelModularSword
 {
+    struct FModuleGeometry
+    {
+        FString Slot,Mesh;
+        TArray<FString> Materials;
+        FTransform RelativeTransform=FTransform::Identity;
+        bool bRoot=false;
+    };
+    // Inventory-backed geometry for remote holders that have no first-person components.
+    TArray<FModuleGeometry> DescribeGeometry(const FColdSteelItem& Item);
+    // Shared local/remote cosmetic settings, resolved only when creating a part.
+    TSharedPtr<FJsonObject> HangingDynamics(const UStaticMesh* Mesh);
     void ResetCatalogCache();
     bool Supports(const FColdSteelItem& Item);
     FString ArmsMesh(const FColdSteelItem& Item);

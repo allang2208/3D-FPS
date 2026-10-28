@@ -1,0 +1,76 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBladeVariants20261026\\Kukri_Blade_Variants_Editable.blend",
+  "vertex_positions_changed": false,
+  "corner_normals_refined": true,
+  "uv0_changed": false,
+  "stats_authored": false,
+  "runtime_tested": false,
+  "variants": [
+    {
+      "id": "swift_blade",
+      "name": "轻型迅刃",
+      "kind": "Swift",
+      "object": "SM_Kukri_Blade_Swift",
+      "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_Swift.SM_Kukri_Blade_Swift",
+      "material": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_Swift.M_Kukri_Swift",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBladeSurfaceV220261026\\Export\\SM_Kukri_Blade_Swift.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_Swift_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_Swift_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_Swift_Normal.png"
+      },
+      "triangles": 10528,
+      "vertices": 5266,
+      "icon_key": "blade_1_swift_blade",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\blade_1_swift_blade.png",
+      "edge_finish_width_m": 0.0042,
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\blade_1_swift_blade.png",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriRefinement20261027"
+    },
+    {
+      "id": "heavy_back_blade",
+      "name": "厚背重刃",
+      "kind": "HeavyBack",
+      "object": "SM_Kukri_Blade_HeavyBack",
+      "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_HeavyBack.SM_Kukri_Blade_HeavyBack",
+      "material": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_HeavyBack.M_Kukri_HeavyBack",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBladeSurfaceV220261026\\Export\\SM_Kukri_Blade_HeavyBack.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_HeavyBack_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_HeavyBack_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_HeavyBack_Normal.png"
+      },
+      "triangles": 10528,
+      "vertices": 5266,
+      "icon_key": "blade_1_heavy_back_blade",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\blade_1_heavy_back_blade.png",
+      "edge_finish_width_m": 0.0064,
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\blade_1_heavy_back_blade.png",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriRefinement20261027"
+    },
+    {
+      "id": "folded_balanced_blade",
+      "name": "百炼均衡刃",
+      "kind": "FoldedBalanced",
+      "object": "SM_Kukri_Blade_FoldedBalanced",
+      "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_FoldedBalanced.SM_Kukri_Blade_FoldedBalanced",
+      "material": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_FoldedBalanced.M_Kukri_FoldedBalanced",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBladeSurfaceV220261026\\Export\\SM_Kukri_Blade_FoldedBalanced.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_FoldedBalanced_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_FoldedBalanced_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_FoldedBalanced_Normal.png"
+      },
+      "triangles": 10528,
+      "vertices": 5266,
+      "icon_key": "blade_1_folded_balanced_blade",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\blade_1_folded_balanced_blade.png",
+      "edge_finish_width_m": 0.005,
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\blade_1_folded_balanced_blade.png",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriRefinement20261027"
+    }
+  ]
+}

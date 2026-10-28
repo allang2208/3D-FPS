@@ -1,0 +1,58 @@
+{
+  "runes": [
+    {
+      "id": "knife_mark_wing",
+      "kind": "RuneWing",
+      "slot": "blade_2",
+      "name": "折翼纹",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Factory_RuneWing.png",
+      "icon_key": "blade_2_knife_mark_wing",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Icons\\blade_2_knife_mark_wing.png",
+      "object": "Icon_RuneWing",
+      "blade_masks": {
+        "Factory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Factory_RuneWing.png",
+        "Swift": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Swift_RuneWing.png",
+        "HeavyBack": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_HeavyBack_RuneWing.png",
+        "FoldedBalanced": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_FoldedBalanced_RuneWing.png",
+        "Canine": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriCanineBlade20261027\\Textures\\T_KukriMask_Canine_RuneWing.png"
+      }
+    },
+    {
+      "id": "knife_mark_knot",
+      "kind": "RuneKnot",
+      "slot": "blade_2",
+      "name": "环结纹",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Factory_RuneKnot.png",
+      "icon_key": "blade_2_knife_mark_knot",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Icons\\blade_2_knife_mark_knot.png",
+      "object": "Icon_RuneKnot",
+      "blade_masks": {
+        "Factory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Factory_RuneKnot.png",
+        "Swift": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Swift_RuneKnot.png",
+        "HeavyBack": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_HeavyBack_RuneKnot.png",
+        "FoldedBalanced": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_FoldedBalanced_RuneKnot.png",
+        "Canine": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriCanineBlade20261027\\Textures\\T_KukriMask_Canine_RuneKnot.png"
+      }
+    },
+    {
+      "id": "knife_mark_peaks",
+      "kind": "RunePeaks",
+      "slot": "blade_2",
+      "name": "三峰纹",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Factory_RunePeaks.png",
+      "icon_key": "blade_2_knife_mark_peaks",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Icons\\blade_2_knife_mark_peaks.png",
+      "object": "Icon_RunePeaks",
+      "blade_masks": {
+        "Factory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Factory_RunePeaks.png",
+        "Swift": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_Swift_RunePeaks.png",
+        "HeavyBack": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_HeavyBack_RunePeaks.png",
+        "FoldedBalanced": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRuneNatural20261027\\Textures\\T_KukriMask_FoldedBalanced_RunePeaks.png",
+        "Canine": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriCanineBlade20261027\\Textures\\T_KukriMask_Canine_RunePeaks.png"
+      }
+    }
+  ],
+  "stats_authored": false,
+  "runtime_tested": false,
+  "surface_revision": "canine-isometric-per-blade-20261027"
+}

@@ -1,0 +1,2538 @@
+[
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/__pycache__/kukri_mesh_import.cpython-311.pyc",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/__pycache__/kukri_mesh_import.cpython-311.pyc",
+    "bytes": 6659,
+    "sha256": "6230b6e88ea91f10c530d2f69aa5b93781b7467c619658f0e98be9a35c2f2bac",
+    "reason": "Regenerable cache or superseded authoring backup.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/Kukri_Blade_SurfaceV2_Editable.blend",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/Kukri_Blade_SurfaceV2_Editable.blend",
+    "bytes": 1554710,
+    "sha256": "68b8ca1827c84aca297be3737decdbbf876a6b4cf3831860ebf6d26bb3885d9c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_FoldedBalanced.fbx",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_FoldedBalanced.fbx",
+    "bytes": 699228,
+    "sha256": "2942b664903d2b18ad4045edd8df1257347af8351ffc608ab7116a7ef8bfe2f9",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_FoldedBalanced.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_FoldedBalanced.uasset",
+    "bytes": 532233,
+    "sha256": "2084d8409421517e0f84a8e0a6a99941942dc7cb4c42a3b1ab171f953f3f4fad",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_HeavyBack.fbx",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_HeavyBack.fbx",
+    "bytes": 704700,
+    "sha256": "3a9b181adc476ee95173142d1bd7396ec484007ab69ed4aea655f19d507de242",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_HeavyBack.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_HeavyBack.uasset",
+    "bytes": 534276,
+    "sha256": "b8afac22e6046221d35a9534dd704212b442c277f5854637cc575ff662c56d42",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_Swift.fbx",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_Swift.fbx",
+    "bytes": 701628,
+    "sha256": "53b8c7e4e9f79fa7f28caf17697b3d284fa0a10eee5ceedaed2009d1a7091736",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_Swift.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_Blade_Swift.uasset",
+    "bytes": 533920,
+    "sha256": "5cf20eec18badb4de0bbd71f595c2f6902a8d438421f3c368c03f122972f0953",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_GripCheckered.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_GripCheckered.uasset",
+    "bytes": 71509,
+    "sha256": "25e77002818e658655a105f1e58188ba6aaa168a8c3d816aaedd18517d3a35a2",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_GripLaminate.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_GripLaminate.uasset",
+    "bytes": 71653,
+    "sha256": "28fbca0071f3f6c62925b88d10cf0246851eb9126dcd46c5fa16a4fb92a1a88b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_GripLeather.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_GripLeather.uasset",
+    "bytes": 71541,
+    "sha256": "91a5a7ddae1a2762dc3ba504c0007d3d53f9109533f4d0079e59fcfee4cf7d36",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_LanyardBraid.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_LanyardBraid.uasset",
+    "bytes": 71301,
+    "sha256": "1ff9f27315fbe2cb8f3c1021ce467054a1ee92df4c8f2c230203db4d3b6611e7",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_LanyardTag.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_LanyardTag.uasset",
+    "bytes": 71591,
+    "sha256": "495793bf50667ada6bd61d065b963ce54bf8db96b019eac315494b0109014ba9",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_LanyardTassel.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_LanyardTassel.uasset",
+    "bytes": 70222,
+    "sha256": "f1b87e448315f883731e3ddf996c3f812205ce2c327bc4792791838dcf54115e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_PommelFaceted.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_PommelFaceted.uasset",
+    "bytes": 71696,
+    "sha256": "ca46787b03a0b51f55149ef576ae919ad74a16dcaf265ca93c5dbea893c72963",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_PommelRinged.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_PommelRinged.uasset",
+    "bytes": 71482,
+    "sha256": "b8ec7249ace050ff8266842ebd0b6b092bf6f3fd3ad5f3a0853abc71d0d85289",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_PommelSteel.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAssetRepair20261026/Before/SM_Kukri_PommelSteel.uasset",
+    "bytes": 71447,
+    "sha256": "f1fcb6f431af282db75ba64338bc25805c97a697bbf5149785b6f947f5b7f78c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriAttackSpeedCard20261027/Before/M4GunsmithSelectedDetails.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriAttackSpeedCard20261027/Before/M4GunsmithSelectedDetails.cpp",
+    "bytes": 37821,
+    "sha256": "2c5130977df20afee9574b439bc1cf9040bf28508a54cd4e837f9f307464f803",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/Before/Content/ColdSteelData/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/Before/Content/ColdSteelData/kukri-gunsmith.json",
+    "bytes": 3698,
+    "sha256": "7971a38b030936394883f54d5cc1d1efa75b474a167776ca33aa129a5f33b72b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/Before/Content/ColdSteelData/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/Before/Content/ColdSteelData/kukri-modules.json",
+    "bytes": 22438,
+    "sha256": "3e077b7ebe1042d852cac69d7a04de3a74dba4365a23b80d7157d5c3bf1706ee",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/Before/SourceAssets/KukriComponentVariants20261026/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/Before/SourceAssets/KukriComponentVariants20261026/kukri-gunsmith.json",
+    "bytes": 3698,
+    "sha256": "7971a38b030936394883f54d5cc1d1efa75b474a167776ca33aa129a5f33b72b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "bytes": 13756,
+    "sha256": "7d19e11b4acf5e57526ffe5ffbaec3294472cdd1bdb94905f3589bb0d9ab9a8c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/author_rune_geometry.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/author_rune_geometry.py",
+    "bytes": 2491,
+    "sha256": "6e8bf5255926fbbdb02067c96563a3d4144ce5d78cfac0dc434ecfe1744919a1",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/bake-production.log",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/bake-production.log",
+    "bytes": 986,
+    "sha256": "b8fabfe16f4a5da5a75bdd6ead3eafb093f0310cbb470d27bc0184a759737393",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/bake_rune_relief.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/bake_rune_relief.py",
+    "bytes": 3122,
+    "sha256": "d853308d503248929237d3fb811b733fbc255c863d64c892b2735d461cb8e590",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/BerserkerOriginalReliefHud.hlsl",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/BerserkerOriginalReliefHud.hlsl",
+    "bytes": 13203,
+    "sha256": "56294ceb48f3dbadc08fc23d1b99fc11b2a9ac00effb90ac96f5b1722575fbe2",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/compose_hud.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/compose_hud.py",
+    "bytes": 1625,
+    "sha256": "17c752bb5f168becfa818110c297a0a2bcf788ab1f817ea88acd7732f1353079",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/geometry-source.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/geometry-source.json",
+    "bytes": 392,
+    "sha256": "b46b40672dd35e6cea086a1a62cbe7e08b8eca9590e563b04c31519dd4d7e89e",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/install-queued.ps1",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/install-queued.ps1",
+    "bytes": 1697,
+    "sha256": "2c957f43cd94b4afdaa20f551afbb8aa4ed7c80968f25104d4771f67aedb0a9c",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/install-receipt.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/install-receipt.json",
+    "bytes": 428,
+    "sha256": "7057e4059d98c28efbc11f839248465c6688eeb2dab0c6db38a55a43bef7e9ae",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/install_rune_relief-commandlet.log",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/install_rune_relief-commandlet.log",
+    "bytes": 288507,
+    "sha256": "d3f5f73d8a0994033037d4eff64adcb53a4df08a11cec5d86c361a97fa773556",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/install_rune_relief-console.log",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/install_rune_relief-console.log",
+    "bytes": 34863,
+    "sha256": "612cbf5bcbe6157c6356a4583522d63716843addc6d77eb2592371be304d1e27",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/install_rune_relief.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/install_rune_relief.py",
+    "bytes": 3850,
+    "sha256": "6076b9791ba7d3a8fbd70c4aae642cfeeda27d4964b5f36bacf0a75fe83a84e2",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/Original_Wolf_Sigil_Relief.blend",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/Original_Wolf_Sigil_Relief.blend",
+    "bytes": 23763132,
+    "sha256": "5c6af4636d13e715001eac595edc2f7e65062f895afc5a936edafa4d7496b1c3",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/README.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/README.md",
+    "bytes": 1577,
+    "sha256": "b520a39ccd22e80a432076c3847ad4e4c0e428c0eaf8741427934eb158d58519",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/run-background.ps1",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/run-background.ps1",
+    "bytes": 1119,
+    "sha256": "be54f3bfc3bc3193e1b32e48255c7e71c153237d4717598c41e1bbe2a88b7c05",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/Textures/T_BerserkerRuneRelief.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/Textures/T_BerserkerRuneRelief.png",
+    "bytes": 607703,
+    "sha256": "b24f6d0ca0a4ca47c9dfff95d4a6a579dbfa7f4657ee9aff104c4200d15b6179",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/RuneRelief/WolfSigil_Relief_Geometry.npz",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/RuneRelief/WolfSigil_Relief_Geometry.npz",
+    "bytes": 6814845,
+    "sha256": "e51686ccdf6754162e5caed0930d70f6af54dfcb4b046127095f94474da44424",
+    "reason": "Rejected line-relief HUD; superseded by WolfHeadComposite.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/VolumeRefine/author_volume_hud.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/VolumeRefine/author_volume_hud.py",
+    "bytes": 10604,
+    "sha256": "0b4d600b15a553cdbc23646e58710873292c975d853b57239f337939920343a7",
+    "reason": "Rejected complete vessel redesign; active projection donor retained in VolumeRefine.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/VolumeRefine/Berserker_WolfBlood_Vessel_Editable.blend",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/VolumeRefine/Berserker_WolfBlood_Vessel_Editable.blend",
+    "bytes": 679168,
+    "sha256": "92346b4963729aece62bc769e8c8ea4d0d0f75c1cb1a27fc079a70b919cb3f72",
+    "reason": "Rejected complete vessel redesign; active projection donor retained in VolumeRefine.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/VolumeRefine/BerserkerVolumeHud.hlsl",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/VolumeRefine/BerserkerVolumeHud.hlsl",
+    "bytes": 4741,
+    "sha256": "02e1b8c7f4ff96257842f7f1f7dc617c734385ad59a769bed3ce4c6f7708c00e",
+    "reason": "Rejected complete vessel redesign; active projection donor retained in VolumeRefine.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/VolumeRefine/hud-author.log",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/VolumeRefine/hud-author.log",
+    "bytes": 1632,
+    "sha256": "63460cdde652afc431d264b2477955f502e4343dd979b12de91d7d7041704efe",
+    "reason": "Rejected complete vessel redesign; active projection donor retained in VolumeRefine.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/VolumeRefine/hud-layout.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/VolumeRefine/hud-layout.json",
+    "bytes": 348,
+    "sha256": "2799162333818c8c5c7fe7a583a11342b5e86d35719c9d86b1930c2ed9bfc291",
+    "reason": "Rejected complete vessel redesign; active projection donor retained in VolumeRefine.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Empty.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Empty.png",
+    "bytes": 900940,
+    "sha256": "4453460b76dcdc87e1756611e9ef04dc8de9213f9d6238a033b7154110d40d65",
+    "reason": "Baked texture for rejected vessel redesign; current WolfHeadComposite retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Full.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Full.png",
+    "bytes": 912664,
+    "sha256": "5985204712d1e6f892acdee6848a12c53929d31487294cc8c98f943714d55ded",
+    "reason": "Baked texture for rejected vessel redesign; current WolfHeadComposite retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBerserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Mask.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBerserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Mask.png",
+    "bytes": 520707,
+    "sha256": "1a306327121469e1328c9328701363e008b8547564b92acb31f01295ded035c9",
+    "reason": "Baked texture for rejected vessel redesign; current WolfHeadComposite retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Content/ColdSteelData/shared-knife-blade-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Content/ColdSteelData/shared-knife-blade-options.json",
+    "bytes": 965,
+    "sha256": "719dc411a86ba4fc9553bc040e310b071f7c5e2c99796769510041e62662fa5e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "bytes": 13470,
+    "sha256": "a187d4258833f047741a70933461a86c2927e73d857180c9d6b765eb5e683917",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "bytes": 134625,
+    "sha256": "18248286fe599084d176e4592a2011d5a150d33c49720d8786dfe05d9036af37",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+    "bytes": 3533,
+    "sha256": "2fb49fac1e0c02f35c220fc58c8d205f32324b6910955780962e571caa23506d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "bytes": 39396,
+    "sha256": "6da27a0385a882c1549cfd138592e2f8ac2cf102ac3758c96783b85768c7c0d0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Skills/DashAttackTypes.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Skills/DashAttackTypes.h",
+    "bytes": 810,
+    "sha256": "24d4563911cb2c9f6134c9e85bb28bff5cc7cafafb61409b3b193411d3a39a35",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "bytes": 16262,
+    "sha256": "d4745dfbec0edd92f70f18bda25128e0938b4e742337569d30a91f2463734e77",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriDashAttack.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriDashAttack.cpp",
+    "bytes": 10681,
+    "sha256": "813b6885e196a3afdeebffff59443638ca8d95b5317484128d23487fe787eadb",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "bytes": 46867,
+    "sha256": "4df2bb6f3e06028deb28d0eacb9e0d35f289ac49abc09b600809641fb572a227",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+    "bytes": 16343,
+    "sha256": "1acf33f7c64e5e02e23be7bde9ba205aaa26fabaecb73f7810e1c8b35d29e8b2",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "bytes": 10645,
+    "sha256": "575155ea225e09cf9b276dd8748fb70e7c41f9c8baa7e738678fb045bd3c3bbf",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+    "bytes": 2397,
+    "sha256": "aa6b4ce119cc569d3f718fccb7d7fe3dd5a7eedd6e2832f8da3d168eb9c4db18",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/SourceAssets/KukriBladeVariants20261026/publish_variants.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/SourceAssets/KukriBladeVariants20261026/publish_variants.py",
+    "bytes": 3466,
+    "sha256": "e659a158c6a6d468862aaaa387953114515806c58d4b1d3e3607d94f4541cca9",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeBalance20261027/Before/SourceAssets/KukriBladeVariants20261026/shared-knife-blade-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeBalance20261027/Before/SourceAssets/KukriBladeVariants20261026/shared-knife-blade-options.json",
+    "bytes": 965,
+    "sha256": "719dc411a86ba4fc9553bc040e310b071f7c5e2c99796769510041e62662fa5e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_folded_balanced_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_folded_balanced_blade.png",
+    "bytes": 3027727,
+    "sha256": "1aa176be4fcf9f5cee468c2d45abd25cf6e94b22ed7e64549967167a8c1d79f1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_folded_balanced_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_folded_balanced_blade.uasset",
+    "bytes": 2663165,
+    "sha256": "6935183f794cf5e1397a5da112588402a32fe92ba0fa1bd041e8996ee2c2f55a",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_heavy_back_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_heavy_back_blade.png",
+    "bytes": 3014274,
+    "sha256": "c2c3289bf63caff9cc266dd2a8a231c943d19397754633b1805e6e8fd5a5c63d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_heavy_back_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_heavy_back_blade.uasset",
+    "bytes": 2632100,
+    "sha256": "755edf9c53b4dc5c89df5309de4addceeb27c1e9a30f35a8f4bc1cc33404975e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_swift_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_swift_blade.png",
+    "bytes": 2979924,
+    "sha256": "dd4df8028174648ff37b13c247edbed759a8afb1b7a5ddbe7a4a3828ebe61a8d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_swift_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/blade_1_swift_blade.uasset",
+    "bytes": 2613860,
+    "sha256": "7240e50e7f4f7ca24760f9c5303c1757e49be3d43957b642e7afad48afa9d9ad",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/final-icon-manifest.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/final-icon-manifest.json",
+    "bytes": 27529,
+    "sha256": "be523fef4a15d3a5477e4636aff538e0c7a5f26a5d88fd4f02c369c9784d20a2",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/SM_Kukri_Blade_FoldedBalanced.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/SM_Kukri_Blade_FoldedBalanced.uasset",
+    "bytes": 530265,
+    "sha256": "afadf56a5923b3e14a85c894774d55584f4c8812d60ffcf903aa562bab299419",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/SM_Kukri_Blade_HeavyBack.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/SM_Kukri_Blade_HeavyBack.uasset",
+    "bytes": 531365,
+    "sha256": "e4a088f30aeb0ab81f1d7e4d5e22cf8fd82817acc61d51b461399ba3f2dfa10c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/SM_Kukri_Blade_Swift.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/SM_Kukri_Blade_Swift.uasset",
+    "bytes": 530788,
+    "sha256": "7d42761dd81dcf4ed7203511e64450dc7435b1536ebf6d4d1b9217e4273eba7b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_FoldedBalanced_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_FoldedBalanced_BaseColor.uasset",
+    "bytes": 883425,
+    "sha256": "e35418ae871c154e93ee75c3af6a510fee3295d590c2c5cf8329be9916a035c1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_FoldedBalanced_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_FoldedBalanced_Normal.uasset",
+    "bytes": 401103,
+    "sha256": "c399ed23bb8655371629fc87c149b1aac1378890b37fffc107da168d76ac3023",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_FoldedBalanced_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_FoldedBalanced_ORM.uasset",
+    "bytes": 754326,
+    "sha256": "9c85eac1a726f5814f3a0f317e19bcd6a93b751ec3592d538d25cfa428f1b153",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_HeavyBack_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_HeavyBack_BaseColor.uasset",
+    "bytes": 715965,
+    "sha256": "8e2af61b7af4304ee647070716dfa7362e1509ba216ac964eb274f3195acca63",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_HeavyBack_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_HeavyBack_Normal.uasset",
+    "bytes": 15666,
+    "sha256": "ab1862aa7fe714b97f2e25093e0edf6464912d9a9b6476c2be35696c14f81f6b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_HeavyBack_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_HeavyBack_ORM.uasset",
+    "bytes": 599208,
+    "sha256": "15f7317ee07af343496c5664a1c72afb0b83b3bbfcc71b205f2eeff0bb42cda1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_Swift_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_Swift_BaseColor.uasset",
+    "bytes": 808122,
+    "sha256": "d6d343a96a3c549fbc2e76597de546734a2657af3b18116acd96b76dc1280682",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_Swift_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_Swift_Normal.uasset",
+    "bytes": 307323,
+    "sha256": "25017917501903746d078d149d7f1a0e33cf2a10220d2de701c7ed17f671a064",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_Swift_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Before/T_Kukri_Swift_ORM.uasset",
+    "bytes": 679570,
+    "sha256": "92eba8452cc0f71d704631784d1f7ebc6dcec26dbdc7c48a11ec96c3fdf75859",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Kukri_Blade_SurfaceV2_Editable.blend1",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Kukri_Blade_SurfaceV2_Editable.blend1",
+    "bytes": 1554710,
+    "sha256": "68b8ca1827c84aca297be3737decdbbf876a6b4cf3831860ebf6d26bb3885d9c",
+    "reason": "Regenerable cache or superseded authoring backup.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeSurfaceV220261026/Kukri_Blade_SurfaceV2_Icons_Editable.blend1",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeSurfaceV220261026/Kukri_Blade_SurfaceV2_Icons_Editable.blend1",
+    "bytes": 1611912,
+    "sha256": "63803723f2064fe7662f80d886b013f6806e5869baa489b00126acb848d0fa3b",
+    "reason": "Regenerable cache or superseded authoring backup.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeVariants20261026/Before/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeVariants20261026/Before/kukri-gunsmith.json",
+    "bytes": 1380,
+    "sha256": "f62db7fe668382b4ee1195209002f2f812d9da903d02bb526d09c373517e895f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeVariants20261026/Before/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeVariants20261026/Before/kukri-modules.json",
+    "bytes": 2490,
+    "sha256": "3b01aca06e716388cec14f3a78b2c644f3fadb89029cdcb118a55e7ba54b0621",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriBladeVariants20261026/Kukri_Blade_Icons_Editable.blend1",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriBladeVariants20261026/Kukri_Blade_Icons_Editable.blend1",
+    "bytes": 1203253,
+    "sha256": "2e923dfc2a5ac290ff8ca82a31ce6f52b4d9dcda4f5bd8879dd930fecab32ad8",
+    "reason": "Regenerable cache or superseded authoring backup.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriCanineBlade20261027/__pycache__/serrate_mesh.cpython-313.pyc",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriCanineBlade20261027/__pycache__/serrate_mesh.cpython-313.pyc",
+    "bytes": 10246,
+    "sha256": "1efd997caf9718d3a0386b59526ab5bd4ba665b5f9fe5da6e4bef28e286ef7aa",
+    "reason": "Regenerable cache or superseded authoring backup.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriCanineBlade20261027/Before/Content/ColdSteelData/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriCanineBlade20261027/Before/Content/ColdSteelData/kukri-gunsmith.json",
+    "bytes": 2624,
+    "sha256": "177c7f88ba7ecb91703595d92eff6c72177aa3c7a0521f667717fc7f41188f44",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriCanineBlade20261027/Before/Content/ColdSteelData/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriCanineBlade20261027/Before/Content/ColdSteelData/kukri-modules.json",
+    "bytes": 21131,
+    "sha256": "db8db4fcace4050f473d49125d6e5eae4e329dee08c2dd63bbb081fcefcf1cfb",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriCanineBlade20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriCanineBlade20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-gunsmith.json",
+    "bytes": 2624,
+    "sha256": "177c7f88ba7ecb91703595d92eff6c72177aa3c7a0521f667717fc7f41188f44",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriCanineBlade20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriCanineBlade20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "bytes": 12449,
+    "sha256": "246347ce017191fc35b31b3190ab8ecb29abc3f68f1014186b629127f4bf39dd",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriComponentVariants20261026/__pycache__/asset_tools.cpython-313.pyc",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriComponentVariants20261026/__pycache__/asset_tools.cpython-313.pyc",
+    "bytes": 18345,
+    "sha256": "ff8034fdfa490d4b1f465f20ce77a53aa2b1ba47c8ccbadb2b6f20fb51cd9390",
+    "reason": "Regenerable cache or superseded authoring backup.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriComponentVariants20261026/Before/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriComponentVariants20261026/Before/kukri-gunsmith.json",
+    "bytes": 1441,
+    "sha256": "887f9cca84097bdb80d348bbd752ee1d18a4961ff40402f7c449a81c9efa0220",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriComponentVariants20261026/Before/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriComponentVariants20261026/Before/kukri-modules.json",
+    "bytes": 4271,
+    "sha256": "b6d836801bf64908bfb0eabe8a0ec4ca950ac7dee887ba3d45fcfcd16d05ca0b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_1_folded_balanced_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_1_folded_balanced_blade.png",
+    "bytes": 309978,
+    "sha256": "d3787c521bf774709fa6cd8dd5712b8bda430d313a5a4608742b797359045614",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_1_folded_balanced_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_1_folded_balanced_blade.uasset",
+    "bytes": 257512,
+    "sha256": "70ff3967918787aab6870fa048fa8aa5fcf9243c3740c539d881d4c0ae61d588",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_1_heavy_back_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_1_heavy_back_blade.png",
+    "bytes": 302784,
+    "sha256": "b339304db00e506be56a76c250cd158cb9fc8bb0330f0ccc117ea1499c15824f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_1_heavy_back_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_1_heavy_back_blade.uasset",
+    "bytes": 248711,
+    "sha256": "d42f2abe626eca769ab4e7701f7c44744f882b3e3a0520cbb9db85d17d952a03",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_1_swift_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_1_swift_blade.png",
+    "bytes": 298683,
+    "sha256": "0761f2de9910f81e14790e62ea83dca903a10ed42bb2f962a282f3461dc05a74",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_1_swift_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_1_swift_blade.uasset",
+    "bytes": 245129,
+    "sha256": "6f4ae81f29ad4e530c90d7c864a3954bd3cf84e473753c9013f1d6f7d2d4ab06",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_knot.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_knot.png",
+    "bytes": 307277,
+    "sha256": "4ff8f79864c8799f194c112a959e99169f25ab35284c474b930ca77d67de6093",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_knot.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_knot.uasset",
+    "bytes": 251729,
+    "sha256": "17eaca54cf6a10c9dc1d5c410b967d4d8d87cfd61f743c82c9f21976a47d2169",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_peaks.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_peaks.png",
+    "bytes": 285754,
+    "sha256": "08e6cef1b8eda1175157e0a0aad5f3309301246c69cb4e976b1dc4aad66ebced",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_peaks.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_peaks.uasset",
+    "bytes": 236066,
+    "sha256": "1aab1870dca66b1e6d4b1a4abcde9ef9b5347388ee545a10e789eb159728d782",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_wing.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_wing.png",
+    "bytes": 307994,
+    "sha256": "e1aec878d2dc4b63c4e21c53b766a307b0e300866ea23b1137c7ca0b7edb3b2f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_wing.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/blade_2_knife_mark_wing.uasset",
+    "bytes": 251912,
+    "sha256": "807a3444cd61802ca5c8f372efd0c25cc4c5937f195271b6f06324f29d2eb645",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_checkered.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_checkered.png",
+    "bytes": 338010,
+    "sha256": "9d2a03caa053c52a0befcb52a76f91b86499a14e389c0ee880154e2b6833e1c6",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_checkered.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_checkered.uasset",
+    "bytes": 269148,
+    "sha256": "0d57eb3d5622ca79e3c8a87ea0e13cf50265ab7fec679f16adad507fe4e326ce",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_laminate.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_laminate.png",
+    "bytes": 339442,
+    "sha256": "347ed2049645a4d914de121bade2f64a5f8cd5fa279e193530c9315cb872d1ba",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_laminate.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_laminate.uasset",
+    "bytes": 280843,
+    "sha256": "5dbee10620598d3be383c92117135bd8b2c8cd6751f25e498058de6ec8fdb028",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_leather.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_leather.png",
+    "bytes": 312316,
+    "sha256": "375f247739282faf32344f61c976ada56494e3d946027a0a749e78b7535fa979",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_leather.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/grip_knife_grip_leather.uasset",
+    "bytes": 251165,
+    "sha256": "96a153f9e5599f17b37ca98a5b3974c3ad5e2044194e974b612caf90e274f53c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_braid.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_braid.png",
+    "bytes": 301216,
+    "sha256": "be36f041489c7b2279b3d35d8015fe3d8a9ea1b3c0eb725548ac502fd1f4fa5c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_braid.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_braid.uasset",
+    "bytes": 246017,
+    "sha256": "ae7f08049c9ad867fd1ce9c43759a5e1e8a932cb9aa860f33d3d93ffc7d3c95c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_tag.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_tag.png",
+    "bytes": 302175,
+    "sha256": "771d5a452792f04cf7e7a39d9b88b9471d0f18ea5b7ea00872dee6e181e8d636",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_tag.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_tag.uasset",
+    "bytes": 250585,
+    "sha256": "7907e8c33d78305b894c54f876d86c492ba9cc0fdd0f2cb05d2aec9b2c2026b7",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_tassel.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_tassel.png",
+    "bytes": 308418,
+    "sha256": "595c8a5f8479489393182057436b059cbcbbae29370edb243d82f4a17cc3abbf",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_tassel.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/lanyard_knife_lanyard_tassel.uasset",
+    "bytes": 257054,
+    "sha256": "26dc99007b028c171c71a5c16920e14822d0d200ddba9e81d8c50db81ef80c4d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_faceted.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_faceted.png",
+    "bytes": 370031,
+    "sha256": "8ef6554ed134ec335ee2d83d7467f92d19c6f70c6a370633c37a0ace2372ede5",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_faceted.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_faceted.uasset",
+    "bytes": 295957,
+    "sha256": "ef8ccbe882720b7f65eb5c9fc209c7a1da0601ce3a6a8617499c8984a2b678a0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_ringed.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_ringed.png",
+    "bytes": 348311,
+    "sha256": "cb972e5af6b189fb64828aa6161d446149c0b0088abe2b4826f9ecd09518878b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_ringed.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_ringed.uasset",
+    "bytes": 279189,
+    "sha256": "394cf6c0f3b4558fd0dc4a3236fd11b4c894f405716a5e32acf6ebe509c07850",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_steel.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_steel.png",
+    "bytes": 366181,
+    "sha256": "efd41ee2d673ec9c8438e37910634a0053e7d14f968fb08c5e7c3e0d7838adc3",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_steel.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/pommel_knife_pommel_steel.uasset",
+    "bytes": 294091,
+    "sha256": "9d85a78ca7f5a345e163156713e23ce739ebf4ced7324021f0fb55e6911a2054",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_blade_1_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_blade_1_false.png",
+    "bytes": 2988731,
+    "sha256": "18f35db69e297450821a72127892262860efc70bcef33f6ddc94c603d4eec0dd",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_blade_1_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_blade_1_false.uasset",
+    "bytes": 2622073,
+    "sha256": "8fa4eeb1f6cec68e29f0cba39813303ad8a41de079c889fac7e68d26b76ba9ae",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_blade_2_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_blade_2_false.png",
+    "bytes": 2733959,
+    "sha256": "f28bfb5664c57b691c7d4940144b925d5b294524f25921a562c634f66a624a64",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_blade_2_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_blade_2_false.uasset",
+    "bytes": 2613901,
+    "sha256": "464a68adb2c9895710995be68493468bcf90809c8ae17c8f940bd9c706d9aa44",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_blade_1.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_blade_1.png",
+    "bytes": 2988731,
+    "sha256": "18f35db69e297450821a72127892262860efc70bcef33f6ddc94c603d4eec0dd",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_blade_1.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_blade_1.uasset",
+    "bytes": 2622140,
+    "sha256": "240ab8a87dc276416304dac9b6ef948be8df4e54452900b77b4c2863a5918b29",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_blade_2.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_blade_2.png",
+    "bytes": 2733959,
+    "sha256": "f28bfb5664c57b691c7d4940144b925d5b294524f25921a562c634f66a624a64",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_blade_2.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_blade_2.uasset",
+    "bytes": 2613967,
+    "sha256": "bd1515a236729c2ce10a42a744eac3b192498bbad261558a3ece67ae7eb3e1fe",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_grip.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_grip.png",
+    "bytes": 274560,
+    "sha256": "61ccd4a272874b7ed44093374843cc2eb1c632af5c2cf0cc36126d9ec3b69292",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_grip.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_grip.uasset",
+    "bytes": 255639,
+    "sha256": "e95261926e7c712fcc4ef0f1e4c6bb3674809ab560ab441c126808bc42e5e58d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_lanyard.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_lanyard.png",
+    "bytes": 2935906,
+    "sha256": "d383adf597037f8850b2c3c3b6d6d7d1ff718c94e7471e9a3ffc4d4189b44159",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_lanyard.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_lanyard.uasset",
+    "bytes": 2593727,
+    "sha256": "e10ed4901bace63ada361d14af515886436e80bf07df856c9f5194aa32db09d0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_pommel.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_pommel.png",
+    "bytes": 403774,
+    "sha256": "39c3c84d7718be28783363f424ed23e2db355eab59b68035ba067d596a93aee6",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_pommel.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_category_pommel.uasset",
+    "bytes": 335004,
+    "sha256": "0b28cb3525d366715cfb3d85e92c4f830b9341b82b8c4b5d249ac469ae37ba9c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_grip_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_grip_false.png",
+    "bytes": 274560,
+    "sha256": "61ccd4a272874b7ed44093374843cc2eb1c632af5c2cf0cc36126d9ec3b69292",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_grip_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_grip_false.uasset",
+    "bytes": 255570,
+    "sha256": "1e1e16cc73f80b5af11dc555a684504271446e8fc27745e9d66bb1d7935572bb",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_lanyard_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_lanyard_false.png",
+    "bytes": 2935906,
+    "sha256": "d383adf597037f8850b2c3c3b6d6d7d1ff718c94e7471e9a3ffc4d4189b44159",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_lanyard_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_lanyard_false.uasset",
+    "bytes": 2593658,
+    "sha256": "03c18179c2c42eb1d92e3a892bc784f83eac075f67cb245b3bbf215371291e42",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_lanyard_no_lanyard.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_lanyard_no_lanyard.png",
+    "bytes": 2733959,
+    "sha256": "f28bfb5664c57b691c7d4940144b925d5b294524f25921a562c634f66a624a64",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_lanyard_no_lanyard.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_lanyard_no_lanyard.uasset",
+    "bytes": 2614017,
+    "sha256": "fe7eef919f946223b3337e7a5fc44664785bcdc186942167367f83289d05b29c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_pommel_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_pommel_false.png",
+    "bytes": 403774,
+    "sha256": "39c3c84d7718be28783363f424ed23e2db355eab59b68035ba067d596a93aee6",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_pommel_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFinalIntegration20261026/Before/ue_kukri_pommel_false.uasset",
+    "bytes": 334935,
+    "sha256": "29d9ca90d8ffc7aa879595421d58c75065e5f1aba06bf445a0cb88b43d7ad2e9",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Before/Content/ColdSteelData/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/Before/Content/ColdSteelData/kukri-gunsmith.json",
+    "bytes": 5039,
+    "sha256": "aff07979b8382b6f23007bcba71b06a7d07cef0b2f44ff87393ad6e1202394a4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Before/Content/ColdSteelData/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/Before/Content/ColdSteelData/kukri-modules.json",
+    "bytes": 23448,
+    "sha256": "3eeee79ae2aed1a432cf7ddc9f6c1ef1a1350d31bb75b06fe0930787739a18fc",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Before/SourceAssets/KukriComponentVariants20261026/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/Before/SourceAssets/KukriComponentVariants20261026/kukri-gunsmith.json",
+    "bytes": 5039,
+    "sha256": "aff07979b8382b6f23007bcba71b06a7d07cef0b2f44ff87393ad6e1202394a4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "bytes": 14766,
+    "sha256": "7c969ecc3d519cb6dff43f196a0ba57c07247ba3e76bf19f85c7e6754e7a6205",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/prepare_runtime.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/prepare_runtime.py",
+    "bytes": 5625,
+    "sha256": "141e863a3135cc105c174f63e572a982d97c133d8cacbc5ca7e9481d615a77fa",
+    "reason": "Retired one-time bootstrap; maintained C++ is the current source of truth.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Content/ColdSteelData/shared-knife-component-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Content/ColdSteelData/shared-knife-component-options.json",
+    "bytes": 4127,
+    "sha256": "9cdc9be023d689e0ce7434979c5cb72d577c41c431322b10d3db37c954dd48a5",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "bytes": 13696,
+    "sha256": "e46396fb789b067dec37dd51b484d0b592c699d40537134376974d7ebfa799f6",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "bytes": 37664,
+    "sha256": "9dcb91d2301411a7f00823aa04b4a5c25fbb27234fc79e3bdcb367fe726c7136",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "bytes": 16395,
+    "sha256": "de5b7896042f877a4fd241b66ede06d8b55fbf9f45685c574c3c543998820858",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+    "bytes": 17220,
+    "sha256": "8ce850b3791b46e81971f97a658ed3b3aefdda6928a5a461d9cb1a1fa44e554f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "bytes": 48766,
+    "sha256": "0d7ea0e9473db8356fc32dea0f05e87a4654936d803dd9d691ebf975a85283d6",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+    "bytes": 17274,
+    "sha256": "f830e8f4afb9788140b4d3eb41a7e323e4c269127c2379aa7e90edb19a4a43ce",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "bytes": 12709,
+    "sha256": "e91f21b7db91869f46954e4fdfe839dfaed273afb7be9ced5aee09d5c336afbb",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+    "bytes": 2973,
+    "sha256": "562b5b3efc57714ef05647bb9ae70a7bcbdf0588e739a62a802546fa82598f80",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/publish_components.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/publish_components.py",
+    "bytes": 4590,
+    "sha256": "c2855a0be042ed52dc8b0c296a34413ca90c4800d70c90769ec0df671deb6a3f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/shared-knife-component-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/shared-knife-component-options.json",
+    "bytes": 4127,
+    "sha256": "9cdc9be023d689e0ce7434979c5cb72d577c41c431322b10d3db37c954dd48a5",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/components.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/components.json",
+    "bytes": 10576,
+    "sha256": "1a4e22887203c34af9214dfaeea39305ffe9bae39eab52cc1fe30a8c81700d5e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/final-icon-manifest.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/final-icon-manifest.json",
+    "bytes": 27709,
+    "sha256": "8f6c7789d4d3ac8863c371013823e67a2feaee50a4dfc18ce8e7257cee177b5a",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_checkered.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_checkered.png",
+    "bytes": 3052248,
+    "sha256": "73a51b516d118d4603816c2d1f6f8a674086cc996cceb24bc15763f039532bdb",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_checkered.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_checkered.uasset",
+    "bytes": 2626821,
+    "sha256": "f9cdc7490285a58b44c85f3767b82b8f9f5bc99f5a5bf3c7fe2995fa01ec2d54",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_laminate.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_laminate.png",
+    "bytes": 3051052,
+    "sha256": "f88874e9e674f8c361373550b56da1ea28180c9b19275585064aefcf2afb889d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_laminate.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_laminate.uasset",
+    "bytes": 2663928,
+    "sha256": "cb019b8d41f2dc1c4e72c4f14f077fb7d674168727dbc182e9dbb60fb41fc51f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_leather.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_leather.png",
+    "bytes": 3112484,
+    "sha256": "0482d3da0f3fd386c1586b6942ec63aaa35ed6e45a223f8e06d01022bac92ba2",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_leather.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/grip_knife_grip_leather.uasset",
+    "bytes": 2684646,
+    "sha256": "5be13d30cee47ddb4ee62d6604a4a625b5377a327627b024b0c271567572225c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripCheckered_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripCheckered_BaseColor.uasset",
+    "bytes": 1549448,
+    "sha256": "1284f56f3cf12148b7bb01a82a64af6e05be43815d2e553199c1af6a16837d6c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripCheckered_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripCheckered_Normal.uasset",
+    "bytes": 1184450,
+    "sha256": "73664030129f65b1c05055ca8842d6d9ffc83ad2649c0c9dc6edf301e8fc99e0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripCheckered_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripCheckered_ORM.uasset",
+    "bytes": 626062,
+    "sha256": "7f31b0b8e69fe9966f2d447c3eff816f4376f649cf76925041d274ea42d5c205",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLaminate_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLaminate_BaseColor.uasset",
+    "bytes": 1810067,
+    "sha256": "b9e5d943818a9ff5f39f37235d23f67715390b6d584dddfe1d4d39e076893aec",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLaminate_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLaminate_Normal.uasset",
+    "bytes": 1217387,
+    "sha256": "aacec6a651613b2c2692a40a9d14030efcc7dd7d09e2d17955debe5448abfd11",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLaminate_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLaminate_ORM.uasset",
+    "bytes": 547051,
+    "sha256": "b3fd8a625c7c4aab094fc44b4725ff8470395bc6fd0b467223e4e0b63681fe69",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLeather_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLeather_BaseColor.uasset",
+    "bytes": 1488769,
+    "sha256": "e72c7d2b018e9158a70e67f30abb814cd05552281a088b9c1a7a2eecd1943645",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLeather_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLeather_Normal.uasset",
+    "bytes": 806085,
+    "sha256": "31f0afd5932af2f32c1628253c9960d051de6cdcc1e60d7bfef62d7057b9c0b3",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLeather_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriGripSurfaceV220261027/Before/T_Kukri_GripLeather_ORM.uasset",
+    "bytes": 624871,
+    "sha256": "22ff142ebb099d100514095b8ae7a47034215049b00bbc36a3134ce291076cdb",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriHunterBlade20261027/Before/Content/ColdSteelData/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriHunterBlade20261027/Before/Content/ColdSteelData/kukri-gunsmith.json",
+    "bytes": 1841,
+    "sha256": "69c6d1daf8f0525f6848156269fe7588bee36c1dbf8c70e65fa38c2456cdfb2c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriHunterBlade20261027/Before/Content/ColdSteelData/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriHunterBlade20261027/Before/Content/ColdSteelData/kukri-modules.json",
+    "bytes": 19830,
+    "sha256": "f5b6a9c2609c0063e542b28a6b78cab7cc617e6922d95b549872331e465b9d47",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriHunterBlade20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriHunterBlade20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-gunsmith.json",
+    "bytes": 1841,
+    "sha256": "69c6d1daf8f0525f6848156269fe7588bee36c1dbf8c70e65fa38c2456cdfb2c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriHunterBlade20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriHunterBlade20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "bytes": 11148,
+    "sha256": "8e0c71b1c46da14398d671a388b866180f02837d888b94445d20d48e71f11f5f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriLanyardBalance20261027/Before/Content/ColdSteelData/shared-knife-component-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriLanyardBalance20261027/Before/Content/ColdSteelData/shared-knife-component-options.json",
+    "bytes": 6183,
+    "sha256": "4b9320376113626361765f4e19203e5005de18bcc5c58cfea73cfaad8606c903",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "bytes": 14213,
+    "sha256": "792e5005e42bf443e7f5d789bd40ec1934cdb481424a6062f9ec4f4cd4226c08",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "bytes": 71117,
+    "sha256": "4d9cb7c9d5697101eb8d9002234820e70b9cfea9a3cd4a77645992910590f665",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "bytes": 38661,
+    "sha256": "19d23c121023c76c9ff16e146faec6ad7dbda377ed12d67a7c4401b707316ebc",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "bytes": 17525,
+    "sha256": "5587ddbb44feebf56ced3b2eee20b5cf445e7015d852cb9d13ea7c85af2cb185",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriLanyardBalance20261027/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+    "bytes": 9118,
+    "sha256": "c0ba853f9cf6752395c236001470c3b5c7448e5af6e950af1e8273d88daff041",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriLanyardBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/publish_components.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriLanyardBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/publish_components.py",
+    "bytes": 4820,
+    "sha256": "6441b44bee5b51af9b7775a79f5191f3345ee174474c0547269f4830692561c4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriLanyardBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/shared-knife-component-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriLanyardBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/shared-knife-component-options.json",
+    "bytes": 6183,
+    "sha256": "4b9320376113626361765f4e19203e5005de18bcc5c58cfea73cfaad8606c903",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriPommelBalance20261027/Before/Content/ColdSteelData/shared-knife-component-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriPommelBalance20261027/Before/Content/ColdSteelData/shared-knife-component-options.json",
+    "bytes": 5066,
+    "sha256": "c3071f000887dc33b3331c65143f378c5a5da3af89a22dcc93731e2bd49737d5",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriPommelBalance20261027/Before/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriPommelBalance20261027/Before/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+    "bytes": 3484,
+    "sha256": "8264877da59206f8e38d6259017858d6f7b667d2cecbfd89598f6838a22aaaa4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriPommelBalance20261027/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriPommelBalance20261027/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "bytes": 37760,
+    "sha256": "719b38dc95b02b78559e700f1a186bc906469dc97f7f7d85a4507ab3f57ab690",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriPommelBalance20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriPommelBalance20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "bytes": 16831,
+    "sha256": "b66dc8730411fe5fe0f623ec01e3129aea6a31ad2f851bac37079c08832832ca",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriPommelBalance20261027/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriPommelBalance20261027/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+    "bytes": 8580,
+    "sha256": "da7ce7863b20cd712bea3874871ab75c516409bb5ed6df9272e05a891e477acd",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriPommelBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/shared-knife-component-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriPommelBalance20261027/Before/SourceAssets/KukriComponentVariants20261026/shared-knife-component-options.json",
+    "bytes": 5066,
+    "sha256": "c3071f000887dc33b3331c65143f378c5a5da3af89a22dcc93731e2bd49737d5",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/__pycache__/import_mesh.cpython-311.pyc",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/__pycache__/import_mesh.cpython-311.pyc",
+    "bytes": 6652,
+    "sha256": "0c7d1066286e28d0a2792a45342c0e860d887d25438b75d306c1c8644b127481",
+    "reason": "Regenerable cache or superseded authoring backup.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_folded_balanced_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_folded_balanced_blade.png",
+    "bytes": 3011263,
+    "sha256": "30655a122e7beed11d6fec0623b32137f8d1ae96d9a6fb397b1c64056fe43f7c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_folded_balanced_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_folded_balanced_blade.uasset",
+    "bytes": 2654491,
+    "sha256": "b1e961ae2a4793f6b1a9ac5e8f1590ef02b593be95054c9dda0c1f2501262133",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_heavy_back_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_heavy_back_blade.png",
+    "bytes": 3004128,
+    "sha256": "9e540cbf1f82e7966b59995edfb3fc17ad6b8aa974efe1d216ea63b030950045",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_heavy_back_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_heavy_back_blade.uasset",
+    "bytes": 2642207,
+    "sha256": "776a603d3a8f613e1fad5c0507ec9a9e33a362e6805dd56d1de0c25c61f856d6",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_swift_blade.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_swift_blade.png",
+    "bytes": 3031439,
+    "sha256": "548c13a21e77a771a380c0cf1c08b281b6302f8163c3a4b94777aa9da1cdb0ef",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_swift_blade.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_1_swift_blade.uasset",
+    "bytes": 2675643,
+    "sha256": "bae8da9d9c760a7ac641298cf06a4c8584cea9ea9d7c00aa631206eac334fc5f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_knot.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_knot.png",
+    "bytes": 3030415,
+    "sha256": "3bad6d7772184c6af9df8805bf5ba45595bb1ce18e13c84bf4bd78d3f818bbc7",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_knot.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_knot.uasset",
+    "bytes": 2658222,
+    "sha256": "0e8f31e12d38066702124e5fdb035efca0e5458dac06cdab8dcc9fdd70967cc0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_peaks.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_peaks.png",
+    "bytes": 3039331,
+    "sha256": "4d1facb5e42abff294b90ad4d402dda8a27fea235df0b3049b9c3012e41718b4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_peaks.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_peaks.uasset",
+    "bytes": 2688562,
+    "sha256": "1915c2ec2fea3d16a7b46c3aaa45dfb9650f0aadb2d842752d652544ecfa4ec7",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_wing.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_wing.png",
+    "bytes": 3085774,
+    "sha256": "428b2d1eace9ef4d5965ffb11bb9654370752ddc018a6df3c89deb63d7bd853c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_wing.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_knife_mark_wing.uasset",
+    "bytes": 2685310,
+    "sha256": "e259e0e0ef15e47c2bc929dfea1c86d3f2b36179dc713a67fab709b53c7b2814",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_checkered.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_checkered.png",
+    "bytes": 332865,
+    "sha256": "1caa11caa49c326486b652755946260701f6bc0ea7e3566bff4babb106ede543",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_checkered.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_checkered.uasset",
+    "bytes": 257726,
+    "sha256": "3515a2d6537a5164ebc3999b0211f512657fb48fc30e289187ca411ce1e307c6",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_laminate.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_laminate.png",
+    "bytes": 280642,
+    "sha256": "f035449a07105fadf0b2b3906f0c5e54c273dc26d1fbc2c6ae19017e5fed9f04",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_laminate.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_laminate.uasset",
+    "bytes": 226357,
+    "sha256": "6374fac1cd4c4a6ccc48b32d75f647c246be5693b21e502867246f1bf7432394",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_leather.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_leather.png",
+    "bytes": 327400,
+    "sha256": "2a55c581cb9d79d6cf8fec9cb61c54ff8022c1c284e43d91745a4db655f56df0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_leather.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/grip_knife_grip_leather.uasset",
+    "bytes": 260248,
+    "sha256": "4e18754b292ed125421d7bd117e38f3f2060c7bda7900acce9228f6ab1d32934",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_braid.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_braid.png",
+    "bytes": 3118040,
+    "sha256": "6c0eb996693ca2dc6aef4c3d7db8e33449f7181cd7c598bcb0f96a6599a499c4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_braid.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_braid.uasset",
+    "bytes": 2725840,
+    "sha256": "090f0632e1fbc43146f21f9bef3900d2fa48b588f1b145cbb3a9098f5c1f5d49",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_tag.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_tag.png",
+    "bytes": 3098593,
+    "sha256": "70f7bdd1f5d69b9e013eaa5f9256147e8cce5e1f2af7754437fe2087577bd5b5",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_tag.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_tag.uasset",
+    "bytes": 2729675,
+    "sha256": "d875b8c7084d39721fc35f8cab9b56c99e03bc57f4403e23ef635003e6c0cf45",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_tassel.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_tassel.png",
+    "bytes": 3064890,
+    "sha256": "13bb148bb5acf0e06c6393f9a8b00ab3a5f37742d344c18516205d4638c40994",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_tassel.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/lanyard_knife_lanyard_tassel.uasset",
+    "bytes": 2699582,
+    "sha256": "d46b29580131be5e42b9a7f4354aeab2e38426476e61d5372804b7749e654558",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_faceted.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_faceted.png",
+    "bytes": 3171882,
+    "sha256": "349a5ef09e3f1cdae24f06fe789ee3f65aeb75643f0a5396d66331cc99322416",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_faceted.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_faceted.uasset",
+    "bytes": 2754380,
+    "sha256": "bf39152353edb3e6cd967fc49ed07646b6eb88f8fd98c4b5e5cfc88d5b87c8ac",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_ringed.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_ringed.png",
+    "bytes": 3036817,
+    "sha256": "3c0c2c02cc02dc0454f366fe59ca5109f8e36f8bd17e31bc815b5d13c867e6f4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_ringed.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_ringed.uasset",
+    "bytes": 2637727,
+    "sha256": "dd2f4cec178080ce08dc56b1b9dcbd5bd0fc57e9c9344d36e74ce0c01c7afd67",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_steel.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_steel.png",
+    "bytes": 3120230,
+    "sha256": "de073847774993e80505e953367ebba222d6ff05b6d9aadc38232ba553aeb7ee",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_steel.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/pommel_knife_pommel_steel.uasset",
+    "bytes": 2730948,
+    "sha256": "2162b05cfafc91f722d63ee8c3ce80d5bc5e6209a6d2b18d72106e4ea7609571",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_blade_1_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_blade_1_false.png",
+    "bytes": 2988731,
+    "sha256": "18f35db69e297450821a72127892262860efc70bcef33f6ddc94c603d4eec0dd",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_blade_1_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_blade_1_false.uasset",
+    "bytes": 2622221,
+    "sha256": "6085bacbd53dbdb3ca5b20834d248458560ad0d2b10b94fa3db2fb71b98067bc",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_blade_2_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_blade_2_false.png",
+    "bytes": 2733959,
+    "sha256": "f28bfb5664c57b691c7d4940144b925d5b294524f25921a562c634f66a624a64",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_blade_2_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_blade_2_false.uasset",
+    "bytes": 2613933,
+    "sha256": "76a30c77fe923bb57c4219ab1cdf3ad3f6e5dabd85ea608410fb3fa769f251e8",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_blade_1.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_blade_1.png",
+    "bytes": 2988731,
+    "sha256": "18f35db69e297450821a72127892262860efc70bcef33f6ddc94c603d4eec0dd",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_blade_1.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_blade_1.uasset",
+    "bytes": 2622259,
+    "sha256": "6bc0563aa7e5feba1271befc6788dd60fbf35917d1eac7ac40276add18ee5e6a",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_blade_2.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_blade_2.png",
+    "bytes": 3085774,
+    "sha256": "428b2d1eace9ef4d5965ffb11bb9654370752ddc018a6df3c89deb63d7bd853c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_blade_2.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_blade_2.uasset",
+    "bytes": 2685334,
+    "sha256": "208f43fd3c5c950f928ffe709b7c190dc7c820d60cb69369c9e2bc0bf6709b8f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_grip.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_grip.png",
+    "bytes": 3052725,
+    "sha256": "0a9a53a0c51e152f3b1042fbeda9e0b92a574e6c90c7d11ca2c02b0213f879f7",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_grip.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_grip.uasset",
+    "bytes": 2655032,
+    "sha256": "2269c6e481b94c661d185c571ac0f1946f92282366f3f6f5d485991d4b748697",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_lanyard.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_lanyard.png",
+    "bytes": 2935906,
+    "sha256": "d383adf597037f8850b2c3c3b6d6d7d1ff718c94e7471e9a3ffc4d4189b44159",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_lanyard.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_lanyard.uasset",
+    "bytes": 2593847,
+    "sha256": "0b94e0cd9813dbcde7ece6fa0be481c5ec3f57705a6b8068489d63dad70e2d7e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_pommel.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_pommel.png",
+    "bytes": 2931537,
+    "sha256": "6883ae1ac6bbb4243b140542f7554c6fc0b4a27a226ffa87de551538b578e79e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_pommel.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_category_pommel.uasset",
+    "bytes": 2566704,
+    "sha256": "cb3a0580c332c211ceb022603959879455614525b517abd346a3a3d027fb7808",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_grip_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_grip_false.png",
+    "bytes": 3052725,
+    "sha256": "0a9a53a0c51e152f3b1042fbeda9e0b92a574e6c90c7d11ca2c02b0213f879f7",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_grip_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_grip_false.uasset",
+    "bytes": 2654990,
+    "sha256": "1b149ec2cbdf4dc7828bfd8357174e500ac620bb39adb55204a06a51fa39fbd8",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_lanyard_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_lanyard_false.png",
+    "bytes": 2935906,
+    "sha256": "d383adf597037f8850b2c3c3b6d6d7d1ff718c94e7471e9a3ffc4d4189b44159",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_lanyard_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_lanyard_false.uasset",
+    "bytes": 2593805,
+    "sha256": "287bb60b183da89f6303e92d196b5182250b34608b18783955c6ee837c2211b1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_lanyard_no_lanyard.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_lanyard_no_lanyard.png",
+    "bytes": 2733959,
+    "sha256": "f28bfb5664c57b691c7d4940144b925d5b294524f25921a562c634f66a624a64",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_lanyard_no_lanyard.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_lanyard_no_lanyard.uasset",
+    "bytes": 2614003,
+    "sha256": "0918237da6cadbf95c449a398abe93b0b3f8be3c4c7453908d3438b23eb0cd02",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_pommel_false.png",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_pommel_false.png",
+    "bytes": 2931537,
+    "sha256": "6883ae1ac6bbb4243b140542f7554c6fc0b4a27a226ffa87de551538b578e79e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_pommel_false.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_kukri_pommel_false.uasset",
+    "bytes": 2566661,
+    "sha256": "f1b9aed1713223c15c801973519f12b03573059ba63f281bb8efd36c9c8107e0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/ColdSteelData/kukri-modules.json",
+    "bytes": 10909,
+    "sha256": "cc3e430a76a2e237431d429a2ba1e531d3c6a10dd84db264ed0d30ec8a358aa1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_FoldedBalanced_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_FoldedBalanced_BaseColor.uasset",
+    "bytes": 1050283,
+    "sha256": "f670164e47ef9dec1872c5c0070bf2024ce99ce8844138c1d11aa6cbe403ad9d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_FoldedBalanced_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_FoldedBalanced_Normal.uasset",
+    "bytes": 18281,
+    "sha256": "9994a9fdb6586a6d3746cc68cf32087093ba60943cb849c7d0b7f8315eb955dc",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_FoldedBalanced_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_FoldedBalanced_ORM.uasset",
+    "bytes": 636040,
+    "sha256": "935baf7f5b9b2d788b918854a59053a50f4e653d216f2fc46623aa1d1500640b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_HeavyBack_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_HeavyBack_BaseColor.uasset",
+    "bytes": 846044,
+    "sha256": "132a26c8059fcad30238e2f9393689ef978bd19b6293dd7b7794f8395135db07",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_HeavyBack_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_HeavyBack_Normal.uasset",
+    "bytes": 17903,
+    "sha256": "bf9368b22038d1e10ebc84232fbb7b24a301d62b6c86fc37fada5c1799509c77",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_HeavyBack_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_HeavyBack_ORM.uasset",
+    "bytes": 602810,
+    "sha256": "57f8cea94bc45464db1a43c5485ed9422a0c5f21bad21a8bf3f4af16db62c79c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_Swift_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_Swift_BaseColor.uasset",
+    "bytes": 813279,
+    "sha256": "c4fa9855d4bb5e4a19c5f061d3978dde6607dbefe36a15f2800d6b98d0a59124",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_Swift_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_Swift_Normal.uasset",
+    "bytes": 17563,
+    "sha256": "a89bda658c210fad479866904486680f8c761eb9c989f125fe399ab22c0ef5c2",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_Swift_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/BladeVariants20261026/Textures/T_Kukri_Swift_ORM.uasset",
+    "bytes": 593159,
+    "sha256": "cf831facfac3a89496520f1b11be6c655534839ec0a490a241d1e3d730edf2f1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/M_KukriMark_Factory.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/M_KukriMark_Factory.uasset",
+    "bytes": 19462,
+    "sha256": "2764bae6a46973f67e859a338ea66d74d510ff47a5a3d73785967b81b2c6e8d0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/M_KukriMark_FoldedBalanced.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/M_KukriMark_FoldedBalanced.uasset",
+    "bytes": 17183,
+    "sha256": "ad06b819521ff0ef3b71a059ae111828d8cda3532b0763c383c6be5906526342",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/M_KukriMark_HeavyBack.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/M_KukriMark_HeavyBack.uasset",
+    "bytes": 17060,
+    "sha256": "e075195bc43fe9a192710398b943e323bc5767487d15811649523c8e6c4d863d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/M_KukriMark_Swift.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/M_KukriMark_Swift.uasset",
+    "bytes": 17047,
+    "sha256": "2b10fef3940ed3dace9b095b02864a030b74761480de1442d007ae960cc67398",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripCheckered_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripCheckered_BaseColor.uasset",
+    "bytes": 1170178,
+    "sha256": "a634026c439ddffa81b6a80af6a2e47ee273f46f2e869ddc751e446d92b59f15",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripCheckered_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripCheckered_Normal.uasset",
+    "bytes": 3185244,
+    "sha256": "d6bc3e9ecdb51478bb1321767b9d607d757636ebe19a006c95277d995038a158",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripCheckered_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripCheckered_ORM.uasset",
+    "bytes": 1681541,
+    "sha256": "031caaa303ebc728fa2ad60d9eea1c15de2b519fc6c2ddb95c7ee0014e7aa475",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLaminate_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLaminate_BaseColor.uasset",
+    "bytes": 811317,
+    "sha256": "ecb67fe07b6fa10cebf811776baa29282b404b47cc6928b9092e3d2ddb2dd7e8",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLaminate_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLaminate_Normal.uasset",
+    "bytes": 848695,
+    "sha256": "6614dbe274299a25dc88fcac1590c183d4f6be10c980eade386ec370082d5440",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLaminate_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLaminate_ORM.uasset",
+    "bytes": 740648,
+    "sha256": "fec6f731c34ef8fed8fccc06dd03b8ecef017380eeedc8a07a013334ebcae622",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLeather_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLeather_BaseColor.uasset",
+    "bytes": 1332785,
+    "sha256": "c5d5a904a95293cc4c636a695fdc9538624c44398f7125549756dd8cce27e2ae",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLeather_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLeather_Normal.uasset",
+    "bytes": 4010679,
+    "sha256": "77ba75bddbd1c2e78f48454b9ec5277dc1c4e8a53e5bcd1b71f69f118cb1d24c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLeather_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_GripLeather_ORM.uasset",
+    "bytes": 1565481,
+    "sha256": "3f2e8d5f70e9cf861342c037ea9ea56b224dbb30985c7e3772e93fd6eac6937e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelFaceted_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelFaceted_BaseColor.uasset",
+    "bytes": 660681,
+    "sha256": "4f39b07d4ad5ae3aca02c0afa30d3661802234f16cb09983fb5b8a7a145b09c4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelFaceted_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelFaceted_Normal.uasset",
+    "bytes": 443672,
+    "sha256": "4d887f5dbdb2d0346e22d252213dd924d4662bc7c71c15fb56f2141d0db3c79a",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelFaceted_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelFaceted_ORM.uasset",
+    "bytes": 343953,
+    "sha256": "5730cd04f259bbe49a83f60294c3ff095d8f23a47c47a2e504f269616d8b7767",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelRinged_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelRinged_BaseColor.uasset",
+    "bytes": 250350,
+    "sha256": "17d3c284d85450f945e90e156afee31e8fd22766e5524b14804f8611ac9092db",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelRinged_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelRinged_Normal.uasset",
+    "bytes": 104654,
+    "sha256": "2ff6b85246e988e042dce4bf247260c41c9cc60889f6c894ee9ac92bc580dea4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelRinged_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelRinged_ORM.uasset",
+    "bytes": 360815,
+    "sha256": "86fa839f6c02812edd9745cee2619f4caea729c0070968a79af18cb69f12f79c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelSteel_BaseColor.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelSteel_BaseColor.uasset",
+    "bytes": 644672,
+    "sha256": "04db3314f9cfa5a556f4ec567c31f7ddc24c95df21bdde3276aa25c972c3950f",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelSteel_Normal.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelSteel_Normal.uasset",
+    "bytes": 445667,
+    "sha256": "bfd10ef253980ffe2450d2a4a5a2b8f782e2b0e77c39c85725da53b6814f174d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelSteel_ORM.uasset",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/Content/Weapons/Kukri20261020/ComponentVariants20261026/Textures/T_Kukri_PommelSteel_ORM.uasset",
+    "bytes": 360147,
+    "sha256": "fc337da2384b466d3400eef378f5ec6fd28cf7612185ce6fa00acc51ad4018f4",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/FPSPlayerBodyEquipment.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/FPSPlayerBodyEquipment.cpp",
+    "bytes": 67102,
+    "sha256": "a32929ecf73f468722cbdee2a71155bba869c65cdf242a94bf8db690a6f9ea64",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/ModularSwordVisual.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/ModularSwordVisual.cpp",
+    "bytes": 26652,
+    "sha256": "c1bbdcb787dd2aa44ba5c02ee4b15c3ee9966b077d7f60c69d33df6b86773c49",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/ModularSwordVisual.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/ModularSwordVisual.h",
+    "bytes": 1797,
+    "sha256": "93a772bbbb695429e6c201022c20178bb6737632ac710cfe8df1023eedfc7c2b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/SourceAssets/KukriBladeSurfaceV220261026/surfaces.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/SourceAssets/KukriBladeSurfaceV220261026/surfaces.json",
+    "bytes": 4169,
+    "sha256": "0a52c6b98629847677c8c56bef29d92d9498dc4c9e07c2099e424d714c2fe45b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/SourceAssets/KukriComponentVariants20261026/components.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/SourceAssets/KukriComponentVariants20261026/components.json",
+    "bytes": 11071,
+    "sha256": "072bbde12bfa51b5fdb491a7f1388346b6188c50a1514b921bfbac6f9bc261f8",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/SourceAssets/KukriFinalIntegration20261026/manifest.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/SourceAssets/KukriFinalIntegration20261026/manifest.json",
+    "bytes": 29803,
+    "sha256": "3be90e95307edf0f0914085b71b0f1c3834b209c2210d59097c3ff4304ae3fe3",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/SwordTasselMeshComponent.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/SwordTasselMeshComponent.cpp",
+    "bytes": 7104,
+    "sha256": "783917e99822902036698881aaefeab5bf6236e25b3d570e8470f1eb37bb5ec5",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRefinement20261027/Before/SwordTasselMeshComponent.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRefinement20261027/Before/SwordTasselMeshComponent.h",
+    "bytes": 920,
+    "sha256": "23227fdbf1814e5a0ea1797e7164c5a444f942c692c9d909e879ca11783eaceb",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/AGENTS.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/AGENTS.md",
+    "bytes": 16235,
+    "sha256": "52d3354b6e76c3dba520311ff0956e4e8724246f4de80bf1ae158a331e319fde",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Content/ColdSteelData/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Content/ColdSteelData/kukri-modules.json",
+    "bytes": 19616,
+    "sha256": "c6072cdddf39aedd5375b4d590aadd4865f70f66e35db47175bf5de930cec494",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Content/ColdSteelData/melee-gunsmith.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Content/ColdSteelData/melee-gunsmith.json",
+    "bytes": 43806,
+    "sha256": "2698c08f56792322c486febf223389a887230fe1c07857697c5491dd40d64698",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Content/ColdSteelData/shared-knife-component-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Content/ColdSteelData/shared-knife-component-options.json",
+    "bytes": 7132,
+    "sha256": "df91460a20f8256c665010d96e85112e7441c49da3249d1d0c7b66be9e5866f1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/PersonalSkills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/PersonalSkills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md",
+    "bytes": 5281,
+    "sha256": "45e867fa701e862c43dac9ef025398667b018a433aa80b4340324cf8c1dcba7c",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/PersonalSkills/ue5-ui-umg-slate/SKILL.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/PersonalSkills/ue5-ui-umg-slate/SKILL.md",
+    "bytes": 13791,
+    "sha256": "cddd19f38de2ff4823031dc62b838ce097cffa5fcf8f51da761657bf1f1175dc",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/PersonalSkills/ue5-weapon-workflow/references/attachment-detail-presentation.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/PersonalSkills/ue5-weapon-workflow/references/attachment-detail-presentation.md",
+    "bytes": 8949,
+    "sha256": "bffc40d7edfdefaedaae9cc5745f8952d922e2363e37fe2a754b6f7553da472b",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/PersonalSkills/ue5-weapon-workflow/SKILL.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/PersonalSkills/ue5-weapon-workflow/SKILL.md",
+    "bytes": 23061,
+    "sha256": "ef8b1bc9f1421421298d7bbd3368998bee794817915838ccde8610a841b9e1e7",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/rune_import_receipt.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/rune_import_receipt.json",
+    "bytes": 6034,
+    "sha256": "cb5ed94514ecd7294dae22afbf1458d09de52e7a745ef0436ee289378d79d038",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/runes.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/runes.json",
+    "bytes": 1419,
+    "sha256": "1013a9f6ac2e48e85419864cb6925e16d8684d780f16b0768d67a8a3b0e642f2",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/skills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/skills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md",
+    "bytes": 10164,
+    "sha256": "9daf34b58cb75cc90b2c450ad3c8c6e8402dd13c09bbe46f61b327ab32df7b73",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/skills/ue5-ui-umg-slate/SKILL.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/skills/ue5-ui-umg-slate/SKILL.md",
+    "bytes": 2004,
+    "sha256": "c5f7b7b114f49a1f4f34afcc201e618476f5144357b5121817194a476b136b54",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/skills/ue5-weapon-workflow/references/attachment-detail-presentation.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/skills/ue5-weapon-workflow/references/attachment-detail-presentation.md",
+    "bytes": 8941,
+    "sha256": "122257efe4ee98c8562b91a6c30c8b004c9fabb57f86fef48bf455655e3fd393",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/skills/ue5-weapon-workflow/SKILL.md",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/skills/ue5-weapon-workflow/SKILL.md",
+    "bytes": 4162,
+    "sha256": "ddd65486fa9079a2de7fd2acb1f64624562ec452c9ca6618b2c016b056c42b88",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "bytes": 72168,
+    "sha256": "adbaad19068282a9bcd65d68b3d2348d1e624e42d44a537344f19bb7adb5692d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "bytes": 148995,
+    "sha256": "ae69c3180e104c7389a702ccc47d435d6bc795441e44fd9675281223f5dbd31d",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/ColdSteelStaffModificationUI.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/ColdSteelStaffModificationUI.h",
+    "bytes": 3754,
+    "sha256": "cd241fe62db6995883c9186e33e06e6ddf8de2c09858aaef343268e1891c5cf0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/ColdSteelWeaponText.h",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/ColdSteelWeaponText.h",
+    "bytes": 5104,
+    "sha256": "72c0f3a8d26a911bbea4080fb6788e8e794d4f0fa6343079a440f09f8244c0c7",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "bytes": 38730,
+    "sha256": "d5fb40b92735314962c75dfa5380ca2b1167dd424990cbb6a65e1dc07f0bd707",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "bytes": 17738,
+    "sha256": "f631c1a615014aa91fe557c078c04330311a916166cea56b01ffb9a1337da0f0",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "bytes": 13569,
+    "sha256": "baf50f45eb2314aefd6846ffe740abe14f0b3bbc41e5fd46585ea2716ec73714",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+    "bytes": 9329,
+    "sha256": "ea0d95c9fbb2484eae838cf4d0d4b60aa3c26550633d1a4667727dad1a62ad86",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriComponentVariants20261026/author_runes.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriComponentVariants20261026/author_runes.py",
+    "bytes": 4378,
+    "sha256": "a2e708525fc7149ee8513657fcb0451adda2750e9a10bdbbd71cb26b5e647a94",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriComponentVariants20261026/import_runes.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriComponentVariants20261026/import_runes.py",
+    "bytes": 6496,
+    "sha256": "701675294403b6ce62b93cc538a45ad945263e5f78d7fd027bedb5ae34bf88b3",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriComponentVariants20261026/kukri-modules.json",
+    "bytes": 10909,
+    "sha256": "cc3e430a76a2e237431d429a2ba1e531d3c6a10dd84db264ed0d30ec8a358aa1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriComponentVariants20261026/shared-knife-component-options.json",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriComponentVariants20261026/shared-knife-component-options.json",
+    "bytes": 7132,
+    "sha256": "df91460a20f8256c665010d96e85112e7441c49da3249d1d0c7b66be9e5866f1",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriLanyardBalance20261027/apply_catalog.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriLanyardBalance20261027/apply_catalog.py",
+    "bytes": 2087,
+    "sha256": "ef101c42bc6bce2232588b6210426bf60912879dcd5483f5b7ef252c0af29c0e",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriPommelBalance20261027/apply_catalog.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/KukriPommelBalance20261027/apply_catalog.py",
+    "bytes": 1974,
+    "sha256": "fba1f2a356c67607157ca4306a8a0b881e64a2556a48a3a9134e20abab7fb795",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  },
+  {
+    "source": "SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/ZhenmoRune20261005/catalog_extension.py",
+    "target": "trash/kukri-mods-retired-20261028/SourceAssets/KukriRuneNatural20261027/Before/SourceAssets/ZhenmoRune20261005/catalog_extension.py",
+    "bytes": 2529,
+    "sha256": "2bec33314107a05337efdf8b1e4088090b05eb44fe3e0cbeea4c50819a7a72da",
+    "reason": "Superseded pre-change snapshot; current production inputs and receipts retained.",
+    "replacement": "Current source, catalog and production inputs listed in README.md"
+  }
+]

@@ -1,0 +1,968 @@
+{
+  "revision": "KukriRefinement20261027",
+  "numeric_changes": false,
+  "runtime_tested": false,
+  "variants": [
+    {
+      "id": "swift_blade",
+      "name": "轻型迅刃",
+      "kind": "Swift",
+      "object": "SM_Kukri_Blade_Swift",
+      "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_Swift.SM_Kukri_Blade_Swift",
+      "material": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_Swift.M_Kukri_Swift",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBladeSurfaceV220261026\\Export\\SM_Kukri_Blade_Swift.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_Swift_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_Swift_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_Swift_Normal.png"
+      },
+      "triangles": 10528,
+      "vertices": 5266,
+      "icon_key": "blade_1_swift_blade",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\blade_1_swift_blade.png",
+      "edge_finish_width_m": 0.0042,
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\blade_1_swift_blade.png",
+      "slot": "blade_1",
+      "texture_root": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Textures",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend"
+    },
+    {
+      "id": "heavy_back_blade",
+      "name": "厚背重刃",
+      "kind": "HeavyBack",
+      "object": "SM_Kukri_Blade_HeavyBack",
+      "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_HeavyBack.SM_Kukri_Blade_HeavyBack",
+      "material": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_HeavyBack.M_Kukri_HeavyBack",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBladeSurfaceV220261026\\Export\\SM_Kukri_Blade_HeavyBack.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_HeavyBack_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_HeavyBack_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_HeavyBack_Normal.png"
+      },
+      "triangles": 10528,
+      "vertices": 5266,
+      "icon_key": "blade_1_heavy_back_blade",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\blade_1_heavy_back_blade.png",
+      "edge_finish_width_m": 0.0064,
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\blade_1_heavy_back_blade.png",
+      "slot": "blade_1",
+      "texture_root": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Textures",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend"
+    },
+    {
+      "id": "folded_balanced_blade",
+      "name": "百炼均衡刃",
+      "kind": "FoldedBalanced",
+      "object": "SM_Kukri_Blade_FoldedBalanced",
+      "mesh": "/Game/Weapons/Kukri20261020/BladeVariants20261026/SM_Kukri_Blade_FoldedBalanced.SM_Kukri_Blade_FoldedBalanced",
+      "material": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Materials/M_Kukri_FoldedBalanced.M_Kukri_FoldedBalanced",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBladeSurfaceV220261026\\Export\\SM_Kukri_Blade_FoldedBalanced.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_FoldedBalanced_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_FoldedBalanced_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_FoldedBalanced_Normal.png"
+      },
+      "triangles": 10528,
+      "vertices": 5266,
+      "icon_key": "blade_1_folded_balanced_blade",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\blade_1_folded_balanced_blade.png",
+      "edge_finish_width_m": 0.005,
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\blade_1_folded_balanced_blade.png",
+      "slot": "blade_1",
+      "texture_root": "/Game/Weapons/Kukri20261020/BladeVariants20261026/Textures",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend"
+    },
+    {
+      "id": "knife_grip_checkered",
+      "name": "棱纹胶柄",
+      "kind": "GripCheckered",
+      "slot": "grip",
+      "object": "SM_Kukri_GripCheckered",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripCheckered.SM_Kukri_GripCheckered",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripCheckered.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripCheckered_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripCheckered_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripCheckered_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripCheckered.M_Kukri_GripCheckered",
+      "icon_key": "grip_knife_grip_checkered",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\grip_knife_grip_checkered.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriGripSurfaceV220261027",
+      "texture_root": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Textures",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\grip_knife_grip_checkered.png"
+    },
+    {
+      "id": "knife_grip_leather",
+      "name": "缠革握柄",
+      "kind": "GripLeather",
+      "slot": "grip",
+      "object": "SM_Kukri_GripLeather",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripLeather.SM_Kukri_GripLeather",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripLeather.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLeather_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLeather_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLeather_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripLeather.M_Kukri_GripLeather",
+      "icon_key": "grip_knife_grip_leather",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\grip_knife_grip_leather.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriGripSurfaceV220261027",
+      "texture_root": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Textures",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\grip_knife_grip_leather.png"
+    },
+    {
+      "id": "knife_grip_laminate",
+      "name": "层压木柄",
+      "kind": "GripLaminate",
+      "slot": "grip",
+      "object": "SM_Kukri_GripLaminate",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_GripLaminate.SM_Kukri_GripLaminate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_GripLaminate.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLaminate_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLaminate_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_GripLaminate_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_GripLaminate.M_Kukri_GripLaminate",
+      "icon_key": "grip_knife_grip_laminate",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\grip_knife_grip_laminate.png",
+      "triangles": 23232,
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "surface_revision": "KukriGripSurfaceV220261027",
+      "texture_root": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Textures",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\grip_knife_grip_laminate.png"
+    },
+    {
+      "id": "knife_pommel_steel",
+      "name": "包钢柄尾",
+      "kind": "PommelSteel",
+      "slot": "pommel",
+      "object": "SM_Kukri_PommelSteel",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelSteel.SM_Kukri_PommelSteel",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_PommelSteel.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelSteel_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelSteel_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelSteel_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_PommelSteel.M_Kukri_PommelSteel",
+      "icon_key": "pommel_knife_pommel_steel",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\pommel_knife_pommel_steel.png",
+      "triangles": 4848,
+      "texture_root": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Textures",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\pommel_knife_pommel_steel.png"
+    },
+    {
+      "id": "knife_pommel_faceted",
+      "name": "棱面柄尾",
+      "kind": "PommelFaceted",
+      "slot": "pommel",
+      "object": "SM_Kukri_PommelFaceted",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelFaceted.SM_Kukri_PommelFaceted",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_PommelFaceted.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelFaceted_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelFaceted_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelFaceted_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_PommelFaceted.M_Kukri_PommelFaceted",
+      "icon_key": "pommel_knife_pommel_faceted",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\pommel_knife_pommel_faceted.png",
+      "triangles": 4848,
+      "texture_root": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Textures",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\pommel_knife_pommel_faceted.png"
+    },
+    {
+      "id": "knife_pommel_ringed",
+      "name": "环纹柄尾",
+      "kind": "PommelRinged",
+      "slot": "pommel",
+      "object": "SM_Kukri_PommelRinged",
+      "mesh": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/SM_Kukri_PommelRinged.SM_Kukri_PommelRinged",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Export\\SM_Kukri_PommelRinged.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelRinged_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelRinged_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_PommelRinged_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Materials/M_Kukri_PommelRinged.M_Kukri_PommelRinged",
+      "icon_key": "pommel_knife_pommel_ringed",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\pommel_knife_pommel_ringed.png",
+      "triangles": 4848,
+      "texture_root": "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Textures",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\pommel_knife_pommel_ringed.png"
+    },
+    {
+      "id": "knife_lanyard_braid",
+      "name": "编织短绳",
+      "kind": "LanyardBraid",
+      "slot": "lanyard",
+      "object": "SM_Kukri_LanyardBraid_PhysicsV1",
+      "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardBraid_PhysicsV1.SM_Kukri_LanyardBraid_PhysicsV1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Export\\SM_Kukri_LanyardBraid_PhysicsV1.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardBraid_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardBraid_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardBraid_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardBraid_PhysicsV1.M_Kukri_LanyardBraid_PhysicsV1",
+      "icon_key": "lanyard_knife_lanyard_braid",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\lanyard_knife_lanyard_braid.png",
+      "triangles": 1280,
+      "texture_root": "/Game/Weapons/Kukri20261020/Refinement20261027/Textures",
+      "dynamics": {
+        "guides_cm": [
+          [
+            0.09420221904292703,
+            0.005048590537626296,
+            -1.7999999225139618
+          ],
+          [
+            0.10072342120110989,
+            -0.008890864410204813,
+            -2.4000000208616257
+          ],
+          [
+            0.17122168792411685,
+            -0.02245845244033262,
+            -2.9999999329447746
+          ],
+          [
+            0.4002045840024948,
+            -0.008635769336251542,
+            -3.700000047683716
+          ],
+          [
+            1.0131246410310268,
+            0.10299169225618243,
+            -4.500000178813934
+          ],
+          [
+            1.8710054457187653,
+            0.4099693614989519,
+            -5.200000107288361
+          ],
+          [
+            2.7133047580718994,
+            0.6967747583985329,
+            -5.799999833106995
+          ],
+          [
+            2.6858413591980934,
+            0.8059915155172348,
+            -6.134095788002014
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8
+      },
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\lanyard_knife_lanyard_braid.png",
+      "author_bounds_cm": [
+        [
+          -0.38733603432774544,
+          -1.132067944854498,
+          -6.134095788002014
+        ],
+        [
+          3.182065486907959,
+          1.1735646985471249,
+          0.023650380899198353
+        ]
+      ],
+      "runtime_dynamics": {
+        "guides_cm": [
+          [
+            0.09420221904292703,
+            -0.005048590537626296,
+            -1.7999999225139618
+          ],
+          [
+            0.10072342120110989,
+            0.008890864410204813,
+            -2.4000000208616257
+          ],
+          [
+            0.17122168792411685,
+            0.02245845244033262,
+            -2.9999999329447746
+          ],
+          [
+            0.4002045840024948,
+            0.008635769336251542,
+            -3.700000047683716
+          ],
+          [
+            1.0131246410310268,
+            -0.10299169225618243,
+            -4.500000178813934
+          ],
+          [
+            1.8710054457187653,
+            -0.4099693614989519,
+            -5.200000107288361
+          ],
+          [
+            2.7133047580718994,
+            -0.6967747583985329,
+            -5.799999833106995
+          ],
+          [
+            2.6858413591980934,
+            -0.8059915155172348,
+            -6.134095788002014
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8
+      }
+    },
+    {
+      "id": "knife_lanyard_tassel",
+      "name": "铜环短穗",
+      "kind": "LanyardTassel",
+      "slot": "lanyard",
+      "object": "SM_Kukri_LanyardTassel_PhysicsV1",
+      "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardTassel_PhysicsV1.SM_Kukri_LanyardTassel_PhysicsV1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Export\\SM_Kukri_LanyardTassel_PhysicsV1.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTassel_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTassel_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTassel_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTassel_PhysicsV1.M_Kukri_LanyardTassel_PhysicsV1",
+      "icon_key": "lanyard_knife_lanyard_tassel",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\lanyard_knife_lanyard_tassel.png",
+      "triangles": 3952,
+      "texture_root": "/Game/Weapons/Kukri20261020/Refinement20261027/Textures",
+      "dynamics": {
+        "guides_cm": [
+          [
+            0.06237968918867409,
+            -0.059774843975901604,
+            -1.7999999225139618
+          ],
+          [
+            0.2547837560996413,
+            -0.031101377680897713,
+            -2.3000000044703484
+          ],
+          [
+            0.9908656589686871,
+            0.08793039596639574,
+            -2.800000086426735
+          ],
+          [
+            2.5707416236400604,
+            0.656075868755579,
+            -3.400000184774399
+          ],
+          [
+            2.7839824557304382,
+            0.7378362584859133,
+            -3.9000000804662704
+          ],
+          [
+            2.7839824557304382,
+            0.7378362584859133,
+            -4.800000041723251
+          ],
+          [
+            2.830405905842781,
+            0.7378362119197845,
+            -6.1000000685453415
+          ],
+          [
+            2.6766277849674225,
+            0.7378362584859133,
+            -7.144417613744736
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8
+      },
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\lanyard_knife_lanyard_tassel.png",
+      "author_bounds_cm": [
+        [
+          -0.38733603432774544,
+          -1.132067944854498,
+          -7.144417613744736
+        ],
+        [
+          3.5089824348688126,
+          1.1735646985471249,
+          0.023650380899198353
+        ]
+      ],
+      "runtime_dynamics": {
+        "guides_cm": [
+          [
+            0.06237968918867409,
+            0.059774843975901604,
+            -1.7999999225139618
+          ],
+          [
+            0.2547837560996413,
+            0.031101377680897713,
+            -2.3000000044703484
+          ],
+          [
+            0.9908656589686871,
+            -0.08793039596639574,
+            -2.800000086426735
+          ],
+          [
+            2.5707416236400604,
+            -0.656075868755579,
+            -3.400000184774399
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -3.9000000804662704
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -4.800000041723251
+          ],
+          [
+            2.830405905842781,
+            -0.7378362119197845,
+            -6.1000000685453415
+          ],
+          [
+            2.6766277849674225,
+            -0.7378362584859133,
+            -7.144417613744736
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8
+      }
+    },
+    {
+      "id": "knife_lanyard_tag",
+      "name": "方牌挂饰",
+      "kind": "LanyardTag",
+      "slot": "lanyard",
+      "object": "SM_Kukri_LanyardTag_PhysicsV1",
+      "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardTag_PhysicsV1.SM_Kukri_LanyardTag_PhysicsV1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Export\\SM_Kukri_LanyardTag_PhysicsV1.fbx",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTag_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTag_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardTag_Normal.png"
+      },
+      "material": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTag_PhysicsV1.M_Kukri_LanyardTag_PhysicsV1",
+      "icon_key": "lanyard_knife_lanyard_tag",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\lanyard_knife_lanyard_tag.png",
+      "triangles": 3312,
+      "texture_root": "/Game/Weapons/Kukri20261020/Refinement20261027/Textures",
+      "dynamics": {
+        "guides_cm": [
+          [
+            0.06237968918867409,
+            -0.059774843975901604,
+            -1.7999999225139618
+          ],
+          [
+            0.2547837560996413,
+            -0.031101377680897713,
+            -2.3000000044703484
+          ],
+          [
+            0.9908656589686871,
+            0.08793039596639574,
+            -2.800000086426735
+          ],
+          [
+            2.5707416236400604,
+            0.656075868755579,
+            -3.400000184774399
+          ],
+          [
+            2.7839824557304382,
+            0.7378362584859133,
+            -3.9000000804662704
+          ],
+          [
+            2.743704989552498,
+            0.7378362584859133,
+            -4.1999999433755875
+          ],
+          [
+            2.7660395950078964,
+            0.7275934796780348,
+            -6.589999794960022
+          ],
+          [
+            2.7660395950078964,
+            0.7275934796780348,
+            -6.700000166893005
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          1,
+          0.7,
+          0.45,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 4.6,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8
+      },
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\lanyard_knife_lanyard_tag.png",
+      "author_bounds_cm": [
+        [
+          -0.38733603432774544,
+          -1.132067944854498,
+          -6.590048968791962
+        ],
+        [
+          3.5339824855327606,
+          1.1735646985471249,
+          0.023650380899198353
+        ]
+      ],
+      "runtime_dynamics": {
+        "guides_cm": [
+          [
+            0.06237968918867409,
+            0.059774843975901604,
+            -1.7999999225139618
+          ],
+          [
+            0.2547837560996413,
+            0.031101377680897713,
+            -2.3000000044703484
+          ],
+          [
+            0.9908656589686871,
+            -0.08793039596639574,
+            -2.800000086426735
+          ],
+          [
+            2.5707416236400604,
+            -0.656075868755579,
+            -3.400000184774399
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -3.9000000804662704
+          ],
+          [
+            2.743704989552498,
+            -0.7378362584859133,
+            -4.1999999433755875
+          ],
+          [
+            2.7660395950078964,
+            -0.7275934796780348,
+            -6.589999794960022
+          ],
+          [
+            2.7660395950078964,
+            -0.7275934796780348,
+            -6.700000166893005
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          1,
+          0.7,
+          0.45,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 4.6,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8
+      }
+    },
+    {
+      "id": "factory",
+      "kind": "LanyardFactory",
+      "slot": "lanyard",
+      "name": "原装挂绳",
+      "object": "SM_Kukri_LanyardFactory_PhysicsV1",
+      "mesh": "/Game/Weapons/Kukri20261020/Refinement20261027/Meshes/SM_Kukri_LanyardFactory_PhysicsV1.SM_Kukri_LanyardFactory_PhysicsV1",
+      "icon_key": "ue_kukri_lanyard_false",
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardFactory_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardFactory_ORM.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Textures\\T_Kukri_LanyardFactory_Normal.png"
+      },
+      "texture_root": "/Game/Weapons/Kukri20261020/Refinement20261027/Textures",
+      "dynamics": {
+        "guides_cm": [
+          [
+            0.024230910639744252,
+            -0.015206677198875695,
+            -1.7999999225139618
+          ],
+          [
+            0.08337259059771895,
+            -0.03952937840949744,
+            -2.4000000208616257
+          ],
+          [
+            0.13138232752680779,
+            -0.04490091523621231,
+            -2.9999999329447746
+          ],
+          [
+            0.36003736313432455,
+            -0.01369539531879127,
+            -3.700000047683716
+          ],
+          [
+            1.0137020610272884,
+            0.10478449985384941,
+            -4.500000178813934
+          ],
+          [
+            2.0135268568992615,
+            0.4598500672727823,
+            -5.200000107288361
+          ],
+          [
+            2.6064570993185043,
+            0.67445058375597,
+            -5.799999833106995
+          ],
+          [
+            2.6710527017712593,
+            0.7033315021544695,
+            -6.052754446864128
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8
+      },
+      "material": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardFactory_PhysicsV1.M_Kukri_LanyardFactory_PhysicsV1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Export\\SM_Kukri_LanyardFactory_PhysicsV1.fbx",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Kukri_Refinement_Editable.blend",
+      "icon_input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\IconInputs\\ue_kukri_lanyard_false.png",
+      "icon": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriRefinement20261027\\Icons\\ue_kukri_lanyard_false.png",
+      "author_bounds_cm": [
+        [
+          -0.38733603432774544,
+          -1.132067944854498,
+          -6.052754446864128
+        ],
+        [
+          3.095274418592453,
+          1.1320680379867554,
+          0.023650380899198353
+        ]
+      ],
+      "runtime_dynamics": {
+        "guides_cm": [
+          [
+            0.024230910639744252,
+            0.015206677198875695,
+            -1.7999999225139618
+          ],
+          [
+            0.08337259059771895,
+            0.03952937840949744,
+            -2.4000000208616257
+          ],
+          [
+            0.13138232752680779,
+            0.04490091523621231,
+            -2.9999999329447746
+          ],
+          [
+            0.36003736313432455,
+            0.01369539531879127,
+            -3.700000047683716
+          ],
+          [
+            1.0137020610272884,
+            -0.10478449985384941,
+            -4.500000178813934
+          ],
+          [
+            2.0135268568992615,
+            -0.4598500672727823,
+            -5.200000107288361
+          ],
+          [
+            2.6064570993185043,
+            -0.67445058375597,
+            -5.799999833106995
+          ],
+          [
+            2.6710527017712593,
+            -0.7033315021544695,
+            -6.052754446864128
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8
+      }
+    }
+  ]
+}

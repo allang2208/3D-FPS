@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "weapon": "ue_kukri",
+  "columns": [
+    {
+      "key": "blade_1",
+      "name": "刀身",
+      "default": "原装刀身",
+      "description": "前倾弯曲钢刃，保留锤纹刃面与原有切削轮廓。",
+      "options": []
+    },
+    {
+      "key": "grip",
+      "name": "握柄",
+      "default": "原装木柄",
+      "description": "木质握面与固定铆钉成组装配，保留现有握持轮廓。",
+      "options": []
+    },
+    {
+      "key": "pommel",
+      "name": "柄尾",
+      "default": "原装柄尾",
+      "description": "外扩木质尾座与内部刀茎末段，保留挂绳穿孔。",
+      "options": []
+    },
+    {
+      "key": "lanyard",
+      "name": "挂绳／挂饰",
+      "default": "原装挂绳",
+      "description": "穿过柄尾孔的短挂绳，安装位置跟随柄尾。",
+      "options": [
+        {
+          "id": "no_lanyard",
+          "name": "无挂绳",
+          "description": "卸下挂绳，保留柄尾穿孔。",
+          "appearance": "原装柄尾 · 空置穿孔",
+          "effects": [],
+          "stats": {}
+        }
+      ]
+    },
+    {
+      "key": "blade_2",
+      "name": "刀身符文",
+      "default": "无附加符文",
+      "description": "保留原有锤纹刀面，不添加额外符文。",
+      "options": []
+    }
+  ]
+}

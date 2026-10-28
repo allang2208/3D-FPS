@@ -1,0 +1,267 @@
+{
+  "version": 1,
+  "family": "knife_components",
+  "columns": [
+    {
+      "key": "grip",
+      "options": [
+        {
+          "id": "knife_grip_checkered",
+          "name": "棱纹胶柄",
+          "description": "石墨灰胶质握面布满细密棱纹，保留金属铆钉。",
+          "appearance": "石墨灰胶质握面布满细密棱纹，保留金属铆钉。",
+          "stats": {
+            "martial_damage_mult": 1.2,
+            "stamina_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "武技伤害+20%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗+10%",
+              "benefit": -1
+            }
+          ]
+        },
+        {
+          "id": "knife_grip_leather",
+          "name": "缠革握柄",
+          "description": "深栗色皮革斜向包覆握面，浅缝衔接原有轮廓。",
+          "appearance": "深栗色皮革斜向包覆握面，浅缝衔接原有轮廓。",
+          "stats": {
+            "attack_speed_mult": 1.1,
+            "stamina_mult": 0.9
+          },
+          "effects": [
+            {
+              "text": "攻击速度+10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗-10%",
+              "benefit": 1
+            }
+          ]
+        },
+        {
+          "id": "knife_grip_laminate",
+          "name": "层压木柄",
+          "description": "深浅木层形成流动纹理，表面呈细腻缎光。",
+          "appearance": "深浅木层形成流动纹理，表面呈细腻缎光。",
+          "stats": {
+            "heavy_charge_speed_bonus": 0.2,
+            "heavy_toughness_mult": 1.2
+          },
+          "effects": [
+            {
+              "text": "重击蓄力速度+20%",
+              "benefit": 1
+            },
+            {
+              "text": "重击削韧+20%",
+              "benefit": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "pommel",
+      "options": [
+        {
+          "id": "knife_pommel_steel",
+          "name": "包钢柄尾",
+          "description": "包钢尾座衔接银灰边缘，保留原有穿绳孔。",
+          "appearance": "包钢尾座衔接银灰边缘，保留原有穿绳孔。",
+          "stats": {
+            "quick_combat_damage_add": 0.3,
+            "quick_combat_toughness_mult": 1.25,
+            "quick_combat_knockback_mult": 1.5
+          },
+          "effects": [
+            {
+              "text": "快速打击伤害+30%",
+              "benefit": 1
+            },
+            {
+              "text": "快速打击削韧+25%",
+              "benefit": 1
+            },
+            {
+              "text": "快速打击击退距离+50%",
+              "benefit": 1
+            }
+          ]
+        },
+        {
+          "id": "knife_pommel_faceted",
+          "name": "棱面柄尾",
+          "description": "古铜色尾座采用宽阔棱面，保留原有穿绳孔。",
+          "appearance": "古铜色尾座采用宽阔棱面，保留原有穿绳孔。",
+          "stats": {
+            "attack_speed_mult": 1.1,
+            "stamina_mult": 0.9
+          },
+          "effects": [
+            {
+              "text": "攻击速度+10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗-10%",
+              "benefit": 1
+            }
+          ]
+        },
+        {
+          "id": "knife_pommel_ringed",
+          "name": "环纹柄尾",
+          "description": "深灰尾座下沿环绕三道浅纹，银灰边缘清晰分层。",
+          "appearance": "深灰尾座下沿环绕三道浅纹，银灰边缘清晰分层。",
+          "stats": {
+            "martial_cooldown_mult": 0.9,
+            "stamina_mult": 0.95
+          },
+          "effects": [
+            {
+              "text": "武技冷却-10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗-5%",
+              "benefit": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "lanyard",
+      "options": [
+        {
+          "id": "knife_lanyard_braid",
+          "name": "编织短绳",
+          "description": "深橄榄色短绳呈交错编织纹理。",
+          "appearance": "深橄榄色短绳呈交错编织纹理。",
+          "stats": {
+            "stamina_mult": 0.9,
+            "kill_stamina_max_ratio": 0.1
+          },
+          "effects": [
+            {
+              "text": "攻击体力消耗-10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "击杀恢复｜装备本武器期间，你每击杀一个目标，恢复最大体力的10%；双持时两把武器分别结算。"
+          ]
+        },
+        {
+          "id": "knife_lanyard_tassel",
+          "name": "铜环短穗",
+          "description": "短绳连接古铜环，下垂四条短皮穗。",
+          "appearance": "短绳连接古铜环，下垂四条短皮穗。",
+          "stats": {
+            "martial_cooldown_mult": 0.9,
+            "physical_damage_mult": 1.05
+          },
+          "effects": [
+            {
+              "text": "武技冷却-10%",
+              "benefit": 1
+            },
+            {
+              "text": "物理伤害+5%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": []
+        },
+        {
+          "id": "knife_lanyard_tag",
+          "name": "方牌挂饰",
+          "description": "短绳与金属扣环连接方牌，两道细银纹装饰牌面。",
+          "appearance": "短绳与金属扣环连接方牌，两道细银纹装饰牌面。",
+          "stats": {
+            "critical_chance_add": 10
+          },
+          "effects": [
+            {
+              "text": "暴击率+10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": []
+        }
+      ]
+    },
+    {
+      "key": "blade_2",
+      "options": [
+        {
+          "id": "knife_mark_wing",
+          "name": "折翼纹",
+          "description": "暖金色折翼纹样沿刀面展开。",
+          "appearance": "暖金色折翼纹样沿刀面展开。",
+          "stats": {
+            "range_mult": 1.15,
+            "stamina_mult": 1.05
+          },
+          "effects": [
+            {
+              "text": "攻击距离+15%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗+5%",
+              "benefit": -1
+            }
+          ]
+        },
+        {
+          "id": "knife_mark_knot",
+          "name": "环结纹",
+          "description": "银灰环结纹样交错排列，保留通透留白。",
+          "appearance": "银灰环结纹样交错排列，保留通透留白。",
+          "stats": {
+            "martial_damage_mult": 1.1,
+            "martial_cooldown_mult": 0.95
+          },
+          "effects": [
+            {
+              "text": "武技伤害+10%",
+              "benefit": 1
+            },
+            {
+              "text": "武技冷却-5%",
+              "benefit": 1
+            }
+          ]
+        },
+        {
+          "id": "knife_mark_peaks",
+          "name": "三峰纹",
+          "description": "深灰三峰纹样与小菱形印记点缀刀面。",
+          "appearance": "深灰三峰纹样与小菱形印记点缀刀面。",
+          "stats": {
+            "physical_armor_penetration": 0.1,
+            "toughness_damage_mult": 1.15
+          },
+          "effects": [
+            {
+              "text": "物理防御穿透+10%",
+              "benefit": 1
+            },
+            {
+              "text": "削韧+15%",
+              "benefit": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

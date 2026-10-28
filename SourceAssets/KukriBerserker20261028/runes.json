@@ -1,0 +1,18 @@
+{
+  "runes": [
+    {
+      "id": "berserker_rune",
+      "kind": "Berserker",
+      "blade_masks": {
+        "Factory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBerserker20261028\\Textures\\T_KukriMask_Factory_Berserker.png",
+        "Swift": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBerserker20261028\\Textures\\T_KukriMask_Swift_Berserker.png",
+        "HeavyBack": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBerserker20261028\\Textures\\T_KukriMask_HeavyBack_Berserker.png",
+        "FoldedBalanced": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBerserker20261028\\Textures\\T_KukriMask_FoldedBalanced_Berserker.png",
+        "Hunter": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBerserker20261028\\Textures\\T_KukriMask_Hunter_Berserker.png",
+        "Canine": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBerserker20261028\\Textures\\T_KukriMask_Canine_Berserker.png"
+      },
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriBerserker20261028\\Textures\\T_KukriMask_Factory_Berserker.png"
+    }
+  ],
+  "surface_revision": "berserker-per-blade-20261028"
+}

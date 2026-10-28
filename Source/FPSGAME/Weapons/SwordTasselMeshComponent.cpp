@@ -1,5 +1,6 @@
 #include "SwordTasselMeshComponent.h"
 #include "RuneSwordComponent.h"
+#include "Kukri/KukriWeaponComponent.h"
 #include "Dom/JsonObject.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
@@ -29,6 +30,12 @@ void USwordTasselMeshComponent::Configure(const TSharedPtr<FJsonObject>& Spec)
     }
     Lengths.Reset();for(int32 I=0;I<7;++I)Lengths.Add(FVector::Dist(Rest[I],Rest[I+1]));
     InverseMass={0.,1.,.30,.30,.65,1.,1.,1.};
+    Damping=3.0;HeavyDamping=3.8;ParticleRadius=.18;
+    Spec->TryGetNumberField(TEXT("damping_per_second"),Damping);
+    Spec->TryGetNumberField(TEXT("heavy_damping_per_second"),HeavyDamping);
+    Spec->TryGetNumberField(TEXT("particle_radius_cm"),ParticleRadius);
+    Damping=FMath::Clamp(Damping,0.,30.);HeavyDamping=FMath::Clamp(HeavyDamping,0.,30.);
+    ParticleRadius=FMath::Clamp(ParticleRadius,0.,2.);
     // Other hanging ornaments can supply their own mass distribution while
     // the ZhenYue jade/cord balance keeps its original defaults.
     const TArray<TSharedPtr<FJsonValue>>* Masses=nullptr;
@@ -51,6 +58,7 @@ void USwordTasselMeshComponent::Configure(const TSharedPtr<FJsonObject>& Spec)
     {
         AddTickPrerequisiteActor(Owner);
         if(auto* Sword=Owner->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
+        if(auto* Kukri=Owner->FindComponentByClass<UKukriWeaponComponent>())AddTickPrerequisiteComponent(Kukri);
     }
     SetComponentTickEnabled(Game);
 }
@@ -101,7 +109,7 @@ void USwordTasselMeshComponent::TickComponent(float Delta,ELevelTick Type,FActor
         FVector Before[8];for(int32 I=0;I<8;++I)Before[I]=Position[I];
         for(int32 I=1;I<8;++I)
         {
-            Velocity[I]*=FMath::Exp(-(I==2||I==3?3.8:3.0)*Dt);
+            Velocity[I]*=FMath::Exp(-(I==2||I==3?HeavyDamping:Damping)*Dt);
             Velocity[I]+=Gravity*Dt;Position[I]+=Velocity[I]*Dt;
         }
         const auto PushOutside=[&](const FVector& P)
@@ -111,7 +119,7 @@ void USwordTasselMeshComponent::TickComponent(float Delta,ELevelTick Type,FActor
             {
                 const FVector A=Current.TransformPosition(C.A),B=Current.TransformPosition(C.B);
                 const FVector Nearest=FMath::ClosestPointOnSegment(Out,A,B);
-                const FVector D=Out-Nearest;const double R=(C.Radius+.18)*Scale;
+                const FVector D=Out-Nearest;const double R=(C.Radius+ParticleRadius)*Scale;
                 if(D.SizeSquared()<R*R)Out=Nearest+D.GetSafeNormal(UE_SMALL_NUMBER,Current.GetUnitAxis(EAxis::Y))*R;
             }
             return Out;
