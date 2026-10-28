@@ -1,0 +1,32 @@
+{
+  "Source/FPSGAME/FPSGAMECharacter.cpp": {
+    "patch": "Docs/Publication/DualKukri20261028/Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+    "preimage_sha256_lf_utf8": "4237800b55eb6a01693c3736e210090db893aa9da8781395ecda07a154884bfc",
+    "result_sha256_lf_utf8": "68f003832618a6e9ea08b59c43eee36287b9249e46760e5709587e50ef37bc79",
+    "requires": "与本批相对 HEAD 的结果一致；前批 DualPistolKukri20261025 的同文件补丁给这一行加过 IsLoneOffhandPistol/UOffhandKukriComponent，若已合入，本补丁就是\"只再加 UKukriWeaponComponent::IsDualOn(this)\"。"
+  },
+  "Source/FPSGAME/Items/FPSPotionUseComponent.cpp": {
+    "patch": "Docs/Publication/DualKukri20261028/Integration/Source__FPSGAME__Items__FPSPotionUseComponent.cpp.patch",
+    "preimage_sha256_lf_utf8": "c1fd607185bc4cdc74636d166fa9e562dcd9533894830bc6ee5f9758d269647b",
+    "result_sha256_lf_utf8": "e52f1d929a8b5c347da6c54d4e611b7d6549a1e9d904ac3bdda47bb27bc0ed58",
+    "requires": "包含前批的 UOffhandKukriComponent::IsEquippedOn 与本批的 UKukriWeaponComponent::IsDualOn；已合入前批时按语义只补第二个条件。"
+  },
+  "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp": {
+    "patch": "Docs/Publication/DualKukri20261028/Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+    "preimage_sha256_lf_utf8": "56fd93a0b5f2b8ab64427c823c784169c5af110482dbdd4b8f49b09a46209b6e",
+    "result_sha256_lf_utf8": "a184602287b20f9c38d163d806466da9f5943c49880e897e9791509fb8999b97",
+    "requires": "前批 DualPistolKukri20261025 已有同位置 AutoSlot（只认双持手枪）；本版多 Main->Definition==TEXT(\"ue_kukri\")，合入时取本版。"
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": {
+    "patch": "Docs/Publication/DualKukri20261028/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+    "preimage_sha256_lf_utf8": "bb3f7f4830a8d3a5b0cd0b616a779256da780fe8b5508f03606b9ab412b81e87",
+    "result_sha256_lf_utf8": "27f42bac3601a6bf15259416fa2d3ad332146fd93e97fc7e5cee2ec02b6ebbe4",
+    "requires": "需要 ColdSteelMelee::PairedOneHandedWeapon 与 ValidateHitReport 的 KukriAttack 回执框架（本机版本由另一会话维护，未随本批发布）；只含射速令牌折半一行。"
+  },
+  "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp": {
+    "patch": "Docs/Publication/DualKukri20261028/Integration/Source__FPSGAME__Movement__FPSMeleeMovementNetwork.cpp.patch",
+    "preimage_sha256_lf_utf8": "1619db50af0fdc3ba427c2a8d00635a58c260861026627ee2d64f501a781157c",
+    "result_sha256_lf_utf8": "0525f792d08c9f265d6a6711755fb6c33ff8ccf1c28a166647e2ee9b896676c8",
+    "requires": "只加一个查询函数；ServerMeleeKind / ServerMeleeWindowUntil / bServerMeleeBlocked 已在 HEAD 的位移授权里。"
+  }
+}

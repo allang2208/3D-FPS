@@ -1,0 +1,18 @@
+{
+  "revision": "Kukri_V12_Stab_20261022",
+  "assets": [
+    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_DualEquip.A_Kukri_DualEquip"
+  ],
+  "animations": {
+    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_DualEquip": {
+      "frames": 111,
+      "fps": 120,
+      "seconds": 0.9166666666666666,
+      "play_length": 0.9166666865348816,
+      "contact": null,
+      "loop": false
+    }
+  },
+  "runtime_tested": false,
+  "complete": true
+}

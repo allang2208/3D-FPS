@@ -42,9 +42,15 @@ bool UKukriWeaponComponent::CanBeginHeavyCharge() const
     const auto* Item=Profile?Profile->Equipped():nullptr;
     return P&&IsEquipped()&&!IsBusy()&&CanUse()&&Viewmodel&&Item&&Item->InstanceId==InstanceId&&!Profile->ActiveProductionTool()&&
         Profile->MasteryProgress(TEXT("heavyStrike")).Level>=1&&Profile->Stamina()>0.f&&
-        Profile->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Item,Profile))&&
+        Profile->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Item,Profile,DualHeavyReady()))&&
         !UBoundCongregateCaptureComponent::IsCaptured(P)&&!P->IsCastBlockingLeftHandAction()&&!P->IsSpellGestureBlocking()&&
-        Animations.FindRef(KukriHeavyRhythm::ChargeClip)&&Animations.FindRef(KukriHeavyRhythm::ReleaseClip);
+        ((Animations.FindRef(KukriHeavyRhythm::ChargeClip)&&Animations.FindRef(KukriHeavyRhythm::ReleaseClip))||DualHeavyReady());
+}
+
+bool UKukriWeaponComponent::DualHeavyReady() const
+{
+    // The dual kukri's X (KukriHeavyRhythm::DualCharge*, KukriRhythm::DualHeavy*); without its clips the pair charges single.
+    return IsDual()&&Animations.FindRef(KukriHeavyRhythm::DualChargeClip)&&Animations.FindRef(KukriHeavyRhythm::DualReleaseClip);
 }
 
 void UKukriWeaponComponent::BeginHeavyCharge()
@@ -53,12 +59,15 @@ void UKukriWeaponComponent::BeginHeavyCharge()
     const auto* Item=Profile?Profile->Equipped():nullptr;
     if(!Item||!GetWorld())return;
     // The charge clock starts at the press (the sword's rule); the skill tier is fixed for this charge.
-    HeavyRequiredSeconds=FMath::Max(.3f,float(ColdSteelMelee::Evaluate(*Item,Profile).HeavyChargeSeconds));
+    bDualHeavy=DualHeavyReady();
+    const auto* Off=bDualHeavy?ColdSteelMelee::PairedOneHandedWeapon(Item,Profile):nullptr;
+    bDualHeavy=Off!=nullptr;HeavyOffhandWeapon=Off?Off->InstanceId:FString();
+    HeavyRequiredSeconds=FMath::Max(.3f,float(ColdSteelMelee::HeavyChargeSeconds(*Item,Profile,bDualHeavy)));
     HeavyMultiplier=float(Profile->MasteryEffect(TEXT("heavyStrike")).HeavyMultiplier);
     HeavyChargeStartedAt=GetWorld()->GetTimeSeconds();
     bHeavyAuto=bHeavyFull=false;bQueued=false;
     SetHeavyCharging(true,false);
-    SetClip(KukriHeavyRhythm::ChargeClip,false,KukriRhythm::EntryBlendSeconds);
+    SetClip(bDualHeavy?KukriHeavyRhythm::DualChargeClip:KukriHeavyRhythm::ChargeClip,false,KukriRhythm::EntryBlendSeconds);
 }
 
 bool UKukriWeaponComponent::TriggerHeavySkill()
@@ -80,16 +89,16 @@ void UKukriWeaponComponent::SetHeavyCharging(bool bCharging,bool bRelease)
     if(bHeavyCharging==bCharging)return;
     bHeavyCharging=bCharging;
     const auto* P=Pawn();
-    if(P&&P->IsLocallyControlled()&&!P->HasAuthority())ServerSetKukriHeavyCharge(InstanceId,bCharging,bRelease);
+    if(P&&P->IsLocallyControlled()&&!P->HasAuthority())ServerSetKukriHeavyCharge(InstanceId,bCharging,bRelease,bDualHeavy);
 }
 
 void UKukriWeaponComponent::CancelHeavyCharge(bool bNotifyServer)
 {
     if(!bHeavyCharging)return;
     // The view eases out of the charge camera instead of snapping back.
-    KukriHeavyRhythm::ChargeCamera(Elapsed,CameraCarry,CameraCarryFov);CameraCarryAge=0.f;
+    (bDualHeavy?KukriHeavyRhythm::DualChargeCamera:KukriHeavyRhythm::ChargeCamera)(Elapsed,CameraCarry,CameraCarryFov);CameraCarryAge=0.f;
     if(bNotifyServer)SetHeavyCharging(false,false);else bHeavyCharging=false;
-    bHeavyAuto=bHeavyFull=false;
+    bHeavyAuto=bHeavyFull=bDualHeavy=false;
     if(IsEquipped()&&Viewmodel)SetClip(LocomotionClip(),true,KukriHeavyRhythm::CancelBlendSeconds);
 }
 
@@ -104,8 +113,8 @@ void UKukriWeaponComponent::ReleasePrimaryAttack()
     if(Held>=HeavyRequiredSeconds){ReleaseHeavyCharge();return;}
     // A tap or a short hold is the ordinary click: the combo stage enters from the current pose on its entry blend
     // (a tap never left the stance -- the raise waits TapSeconds).
-    KukriHeavyRhythm::ChargeCamera(Elapsed,CameraCarry,CameraCarryFov);CameraCarryAge=0.f;
-    SetHeavyCharging(false,false);bHeavyAuto=bHeavyFull=false;
+    (bDualHeavy?KukriHeavyRhythm::DualChargeCamera:KukriHeavyRhythm::ChargeCamera)(Elapsed,CameraCarry,CameraCarryFov);CameraCarryAge=0.f;
+    SetHeavyCharging(false,false);bHeavyAuto=bHeavyFull=bDualHeavy=false;
     StartComboClick();
     if(!bAttacking&&IsEquipped()&&Viewmodel)SetClip(LocomotionClip(),true,KukriHeavyRhythm::CancelBlendSeconds);
 }
@@ -115,8 +124,10 @@ void UKukriWeaponComponent::AdvanceHeavyCharge(float Delta)
     auto* P=Pawn();
     const auto* Profile=KukriHeavyProfile(GetWorld());
     const auto* Item=Profile?Profile->Equipped():nullptr;
+    const auto* Off=bDualHeavy?ColdSteelMelee::PairedOneHandedWeapon(Item,Profile):nullptr;
     if(!P||!Item||Item->InstanceId!=InstanceId||!CanUse()||P->IsCastBlockingLeftHandAction()||Profile->Stamina()<=0.f)
     {CancelHeavyCharge(true);return;}
+    if(bDualHeavy&&(!Off||Off->InstanceId!=HeavyOffhandWeapon)){CancelHeavyCharge(true);return;}
     const float Held=float(GetWorld()->GetTimeSeconds()-HeavyChargeStartedAt);
     // A left-button press waits TapSeconds before the raise, so a click does not bob the hand; the quick bar raises at once.
     const float Delay=bHeavyAuto?0.f:KukriHeavyRhythm::TapSeconds;
@@ -138,8 +149,10 @@ void UKukriWeaponComponent::ReleaseHeavyCharge()
     auto* Profile=KukriHeavyProfile(GetWorld());
     const auto* Item=Profile?Profile->Equipped():nullptr;
     if(!P||!Item||Item->InstanceId!=InstanceId){CancelHeavyCharge(true);return;}
+    const auto* Off=bDualHeavy?ColdSteelMelee::PairedOneHandedWeapon(Item,Profile):nullptr;
+    if(bDualHeavy&&(!Off||Off->InstanceId!=HeavyOffhandWeapon)){CancelHeavyCharge(true);return;}
     // One attack's stamina on the release (the sword's HeavyReleaseStamina); the server bills its shadow on the same release.
-    if(!Profile->SpendStamina(ColdSteelMelee::HeavyReleaseStamina(Item,Profile))){CancelHeavyCharge(true);return;}
+    if(!Profile->SpendStamina(ColdSteelMelee::HeavyReleaseStamina(Item,Profile,bDualHeavy))){CancelHeavyCharge(true);return;}
     SetHeavyCharging(false,true);bHeavyAuto=bHeavyFull=false;
     // Snapshot at the release: damage, reach and toughness stay fixed for this swing.
     const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
@@ -150,14 +163,28 @@ void UKukriWeaponComponent::ReleaseHeavyCharge()
     Shot.AttackForm=KukriRhythm::Form;
     Shot.AttackMeta=0x10;                          // heavy: the authority re-derives the multiplier and checks the receipt
     Shot.ToughnessDamageMultiplier*=float(Stats.Modifiers.HeavyToughness);
+    if(Off)
+    {
+        const auto OffStats=ColdSteelMelee::Evaluate(*Off,Profile);
+        OffhandSwingDamage=float(OffStats.Damage*OffStats.Modifiers.HeavyMultiplier(HeavyMultiplier));
+        OffhandReach=float((OffStats.BaseReach>0.?OffStats.BaseReach:KukriRhythm::DefaultReachCM)*OffStats.Modifiers.MartialRange);
+        OffhandShot=ColdSteelSkills::Snapshot(P,Off);
+        OffhandShot.bRifle=false;OffhandShot.bPistol=false;OffhandShot.WeakpointPercent=0;OffhandShot.bMeleeStrike=true;
+        OffhandShot.AttackForm=KukriRhythm::Form;OffhandShot.AttackMeta=0x10;
+        OffhandShot.ToughnessDamageMultiplier*=float(OffStats.Modifiers.HeavyToughness);
+        // One release, one mastery serial: the authority trains each victim of the X once across both blades.
+        OffhandShot.MasteryAttackSerial=Shot.MasteryAttackSerial;
+    }
     Stage=KukriRhythm::HeavyStage;
     bHeavyAttack=true;bHeavyTrainingPending=true;HeavyHits=HeavyKills=0;
     bSwingPlayed=bImpactConfirmed=bWallHit=false;HitActors.Reset();HitStop=0.f;ImpactAge=-1.f;
     ResetStrike();StrikeAge=-1.f;CameraCarryAge=-1.f;StopRift();
     // The swing combo starts over after the heavy strike.
     NextStage=0;LastAttackEnd=-1.;
-    SetClip(KukriHeavyRhythm::ReleaseClip,false,KukriHeavyRhythm::ReleaseEntryBlend);
+    SetClip(bDualHeavy?KukriHeavyRhythm::DualReleaseClip:KukriHeavyRhythm::ReleaseClip,false,KukriHeavyRhythm::ReleaseEntryBlend);
     PreviousBlade=BladeFrame();bHavePreviousBlade=true;
+    // The dual X: the left blade traces the same window with its own contact set.
+    OffhandHitActors.Reset();if(bDualHeavy)PreviousOffhandBlade=OffhandBladeFrame();
 }
 
 void UKukriWeaponComponent::AdvanceHeavy(float Delta)
@@ -166,7 +193,13 @@ void UKukriWeaponComponent::AdvanceHeavy(float Delta)
     const auto* Profile=KukriHeavyProfile(GetWorld());
     const auto* Item=Profile?Profile->Equipped():nullptr;
     if(!P||!Item||Item->InstanceId!=InstanceId){CancelAction();return;}
-    const auto& S=KukriRhythm::Swings[Stage];
+    KukriRhythm::FSwing S=KukriRhythm::Swings[Stage];
+    if(bDualHeavy)
+    {
+        // The dual X runs on its own authored phases and rift (KukriRhythm::DualHeavy*, two crossing crescents).
+        S.SwingSound=KukriRhythm::DualHeavySwingSound;
+        S.ContactStart=KukriRhythm::DualHeavyContactStart;S.ContactEnd=KukriRhythm::DualHeavyContactEnd;
+    }
     const float Rate=FMath::Max(.05f,LightningHaste::ActionSpeed(P));
     float Remaining=Delta;
     int32 Guard=0;
@@ -179,9 +212,9 @@ void UKukriWeaponComponent::AdvanceHeavy(float Delta)
             continue;
         }
         const float Length=CurrentAnimation?CurrentAnimation->GetPlayLength():S.Length;
-        const float StageRate=Rate*KukriRhythm::StageTempo(Stage,Elapsed);
+        const float StageRate=Rate*(bDualHeavy?KukriRhythm::SampleTempo(KukriRhythm::DualHeavyTempo,Elapsed):KukriRhythm::StageTempo(Stage,Elapsed));
         float Step=FMath::Min(Remaining*StageRate,1.f/120.f);
-        const float StrikeAt=KukriRhythm::Strikes[Stage].At, RiftAt=KukriRhythm::Rifts[Stage].Start;
+        const float StrikeAt=StrikeProfile().At, RiftAt=bDualHeavy?KukriRhythm::DualHeavyRift.Start:KukriRhythm::Rifts[Stage].Start;
         for(const float Boundary:{S.SwingSound,S.ContactStart,S.ContactEnd,StrikeAt,RiftAt,Length})
             if(Elapsed<Boundary-UE_KINDA_SMALL_NUMBER)Step=FMath::Min(Step,Boundary-Elapsed);
         Step=FMath::Max(Step,1e-4f);
@@ -194,12 +227,19 @@ void UKukriWeaponComponent::AdvanceHeavy(float Delta)
         {
             // A sharp whoosh on the cut with the item's own swing sound a little lower underneath.
             bSwingPlayed=true;
-            const bool bWhoosh=KukriRhythm::Strikes[Stage].bWhoosh&&StabWhooshSound;
+            const bool bWhoosh=StrikeProfile().bWhoosh&&StabWhooshSound;
             if(USoundBase* Cue=bWhoosh?StabWhooshSound.Get():SwingSound.Get())
                 UGameplayStatics::PlaySound2D(this,Cue,bWhoosh?KukriRhythm::StabWhooshVolume*1.1f:.6f,S.SwingPitch);
             if(bWhoosh&&SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.5f,S.SwingPitch*.85f);
         }
-        if(bHavePreviousBlade&&Before>=S.ContactStart-UE_KINDA_SMALL_NUMBER&&Before<S.ContactEnd)TraceBlade(PreviousBlade,Now);
+        const bool bInContact=Before>=S.ContactStart-UE_KINDA_SMALL_NUMBER&&Before<S.ContactEnd;
+        if(bHavePreviousBlade&&bInContact)TraceBlade(PreviousBlade,Now);
+        if(bDualHeavy)
+        {
+            const FTransform NowLeft=OffhandBladeFrame();
+            if(bInContact){Swap(HitActors,OffhandHitActors);TraceBlade(PreviousOffhandBlade,NowLeft,true);Swap(HitActors,OffhandHitActors);}
+            PreviousOffhandBlade=NowLeft;
+        }
         PreviousBlade=Now;bHavePreviousBlade=true;
         if(StrikeAt>0.f&&!bStrikeDone&&Elapsed>=StrikeAt-UE_KINDA_SMALL_NUMBER)ArriveStrike();
         if(!bRiftStarted&&Elapsed>=RiftAt-UE_KINDA_SMALL_NUMBER){bRiftStarted=true;StartRift();}
@@ -208,7 +248,7 @@ void UKukriWeaponComponent::AdvanceHeavy(float Delta)
         {
             bHeavyAttack=false;
             FinishHeavy(true);
-            HitActors.Reset();
+            HitActors.Reset();OffhandHitActors.Reset();bDualHeavy=false;
             Stage=0;
             SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);
         }
@@ -230,9 +270,16 @@ bool UKukriWeaponComponent::IsHeavyCharging() const
     return P&&(P->IsLocallyControlled()?bHeavyCharging:(P->HasAuthority()&&bServerHeavyCharging));
 }
 
+bool UKukriWeaponComponent::IsDualHeavyCharging() const
+{
+    const auto* P=Pawn();
+    return P&&(P->IsLocallyControlled()?(bHeavyCharging&&bDualHeavy):
+        (P->HasAuthority()&&bServerHeavyCharging&&!ServerHeavyOffhandWeapon.IsEmpty()));
+}
+
 // ----------------------------------------------------------------------------- authority (remote owner)
 
-void UKukriWeaponComponent::ServerSetKukriHeavyCharge_Implementation(const FString& Weapon,bool bCharging,bool bRelease)
+void UKukriWeaponComponent::ServerSetKukriHeavyCharge_Implementation(const FString& Weapon,bool bCharging,bool bRelease,bool BothBlades)
 {
     auto* P=Pawn();
     if(!P||!P->HasAuthority()||P->IsLocallyControlled()||!GetWorld())return;
@@ -245,9 +292,10 @@ void UKukriWeaponComponent::ServerSetKukriHeavyCharge_Implementation(const FStri
     }
     auto* Model=ColdSteelAuthority::ForPawn(P);
     const auto* Item=Model?Model->Equipped():nullptr;
+    const auto* Off=BothBlades?ColdSteelMelee::PairedOneHandedWeapon(Item,Model):nullptr;
     if(!Item||Item->InstanceId!=Weapon||!IsKukri(*Item)||Model->ActiveProductionTool()||
         Model->MasteryProgress(TEXT("heavyStrike")).Level<1||Model->Stamina()<=0.f||
-        !Model->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Item,Model))||UBoundCongregateCaptureComponent::IsCaptured(P))
+        (BothBlades&&!Off)||!Model->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Item,Model,BothBlades))||UBoundCongregateCaptureComponent::IsCaptured(P))
     {
         bServerHeavyCharging=false;ServerHeavyStartedAt=-1.;
         ClientCancelKukriHeavyCharge(Weapon);return;
@@ -256,7 +304,8 @@ void UKukriWeaponComponent::ServerSetKukriHeavyCharge_Implementation(const FStri
     if(!bServerHeavyCharging)
     {
         ServerHeavyStartedAt=GetWorld()->GetTimeSeconds();
-        ServerHeavyRequired=ColdSteelMelee::Evaluate(*Item,Model).HeavyChargeSeconds;
+        ServerHeavyRequired=FMath::Max(.3,ColdSteelMelee::HeavyChargeSeconds(*Item,Model,BothBlades));
+        ServerHeavyOffhandWeapon=Off?Off->InstanceId:FString();
         NetworkHeavyReleaseUntil=-1.;
     }
     bServerHeavyCharging=true;ServerHeavyWeapon=Weapon;
@@ -272,7 +321,10 @@ bool UKukriWeaponComponent::PayServerHeavyRelease()
     auto* Model=ColdSteelAuthority::ForPawn(Pawn());
     const auto* Item=Model?Model->Equipped():nullptr;
     if(!Item||Item->InstanceId!=ServerHeavyWeapon)return false;
-    const double Cost=ColdSteelMelee::HeavyReleaseStamina(Item,Model);
+    const bool BothBlades=!ServerHeavyOffhandWeapon.IsEmpty();
+    const auto* Off=BothBlades?ColdSteelMelee::PairedOneHandedWeapon(Item,Model):nullptr;
+    if(BothBlades&&(!Off||Off->InstanceId!=ServerHeavyOffhandWeapon)){ClientCancelKukriHeavyCharge(ServerHeavyWeapon);return false;}
+    const double Cost=ColdSteelMelee::HeavyReleaseStamina(Item,Model,BothBlades);
     if(!Model->CanSpendStamina(Cost)){ClientCancelKukriHeavyCharge(ServerHeavyWeapon);return false;}
     Model->SpendStamina(Cost);
     NetworkHeavyReleaseUntil=Now+KukriHeavyRhythm::ReleaseWindowSeconds;
@@ -283,13 +335,14 @@ bool UKukriWeaponComponent::IsNetworkHeavyReleaseWindowOpen(const FString& Weapo
 {
     const auto* World=GetWorld();
     return GetOwner()&&GetOwner()->HasAuthority()&&World&&World->GetTimeSeconds()<=NetworkHeavyReleaseUntil&&
-        !Weapon.IsEmpty()&&Weapon==ServerHeavyWeapon;
+        !Weapon.IsEmpty()&&(Weapon==ServerHeavyWeapon||Weapon==ServerHeavyOffhandWeapon);
 }
 
 bool UKukriWeaponComponent::ConsumeNetworkHeavyChargeForRelease(const FString& Weapon)
 {
     // The hit report travels on the player state and can overtake the release RPC: settle the release from the charge.
-    if(!GetOwner()||!GetOwner()->HasAuthority()||Weapon.IsEmpty()||Weapon!=ServerHeavyWeapon)return false;
+    if(!GetOwner()||!GetOwner()->HasAuthority()||Weapon.IsEmpty()||
+        (Weapon!=ServerHeavyWeapon&&Weapon!=ServerHeavyOffhandWeapon))return false;
     return PayServerHeavyRelease();
 }
 
@@ -298,7 +351,9 @@ void UKukriWeaponComponent::TickServerHeavyCharge()
     auto* P=Pawn();
     auto* Model=ColdSteelAuthority::ForPawn(P);
     const auto* Item=Model?Model->Equipped():nullptr;
-    if(!P||!Item||Item->InstanceId!=ServerHeavyWeapon||Model->Stamina()<=0.f||UBoundCongregateCaptureComponent::IsCaptured(P))
+    const auto* Off=ServerHeavyOffhandWeapon.IsEmpty()?nullptr:ColdSteelMelee::PairedOneHandedWeapon(Item,Model);
+    if(!P||!Item||Item->InstanceId!=ServerHeavyWeapon||Model->Stamina()<=0.f||UBoundCongregateCaptureComponent::IsCaptured(P)||
+        (!ServerHeavyOffhandWeapon.IsEmpty()&&(!Off||Off->InstanceId!=ServerHeavyOffhandWeapon)))
     {
         bServerHeavyCharging=false;ServerHeavyStartedAt=-1.;
         ClientCancelKukriHeavyCharge(ServerHeavyWeapon);

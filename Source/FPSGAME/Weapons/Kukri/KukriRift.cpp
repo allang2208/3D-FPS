@@ -2,6 +2,7 @@
 #include "KukriArmsMeshComponent.h"
 #include "KukriRhythm.h"
 #include "KukriRiftRibbons.h"
+#include "KukriDualRiftRibbons.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../FPSGAMECharacter.h"
 #include "Camera/CameraComponent.h"
@@ -20,9 +21,13 @@ namespace
 {
     using FRibbon=const float (*)[2][3];
 
-    /** Ribbons of one stage: the slashes have one crescent, the stab two crossed narrow ribbons. */
-    int32 StageRibbons(int32 Stage,FRibbon Out[2])
+    static_assert(KukriDualRiftRibbons::Stations==KukriRiftRibbons::Stations,"one station count for all rift ribbons");
+
+    /** Ribbons of one stage: the slashes have one crescent, the stab two crossed narrow ribbons, the dual heavy's X one
+     *  crescent per blade (bDual). */
+    int32 StageRibbons(int32 Stage,bool bDual,FRibbon Out[2])
     {
+        if(bDual){Out[0]=KukriDualRiftRibbons::HeavyRight;Out[1]=KukriDualRiftRibbons::HeavyLeft;return 2;}
         if(Stage==0){Out[0]=KukriRiftRibbons::Sweep;return 1;}
         if(Stage==1){Out[0]=KukriRiftRibbons::Diag;return 1;}
         if(Stage==KukriRhythm::UppercutStage){Out[0]=KukriRiftRibbons::Upper;return 1;}
@@ -30,14 +35,16 @@ namespace
         Out[0]=KukriRiftRibbons::StabEdge;Out[1]=KukriRiftRibbons::StabFlat;return 2;
     }
 
-    UE::Geometry::FDynamicMesh3 BuildRibbons(int32 Stage)
+    /** bMirror: the ribbon mirrored left-right about the view (mesh X = camera right) -- the dual sweep's left blade cuts
+     *  the mirror image of the first stage (SourceAssets/DualKukriIdle20261025/author_dual_attack.py). */
+    UE::Geometry::FDynamicMesh3 BuildRibbons(int32 Stage,bool bMirror,bool bDual)
     {
         using namespace UE::Geometry;
         FDynamicMesh3 Mesh;Mesh.EnableAttributes();
         FDynamicMeshUVOverlay* UV=Mesh.Attributes()->PrimaryUV();
         FDynamicMeshNormalOverlay* Normals=Mesh.Attributes()->PrimaryNormals();
         FRibbon Ribbons[2]={};
-        const int32 Count=StageRibbons(Stage,Ribbons);
+        const int32 Count=StageRibbons(Stage,bDual,Ribbons);
         constexpr int32 N=KukriRiftRibbons::Stations;
         for(int32 R=0;R<Count;++R)
         {
@@ -46,7 +53,7 @@ namespace
                 for(int32 E=0;E<2;++E)
                 {
                     const float* P=Ribbons[R][S][E];
-                    Mesh.AppendVertex(FVector3d(P[0],P[1],P[2]));
+                    Mesh.AppendVertex(FVector3d(bMirror?-P[0]:P[0],P[1],P[2]));
                     UV->AppendElement(FVector2f(float(S)/(N-1),float(E)));
                     Normals->AppendElement(FVector3f(0.f,0.f,1.f));   // unlit two-sided material: the normal is unused
                 }
@@ -81,11 +88,18 @@ void UKukriWeaponComponent::StartRift()
         RiftVisual->SetMaterial(0,RiftMID);
         RiftStage=INDEX_NONE;
     }
-    if(RiftStage!=Stage){RiftVisual->SetMesh(BuildRibbons(Stage));RiftVisual->SetMaterial(0,RiftMID);RiftStage=Stage;}
+    const bool bDualRift=bDualHeavy&&bHeavyAttack;
+    if(RiftStage!=Stage||bRiftMirrored!=bOffhandSwing||bRiftDual!=bDualRift)
+    {
+        RiftVisual->SetMesh(BuildRibbons(Stage,bOffhandSwing,bDualRift));RiftVisual->SetMaterial(0,RiftMID);
+        RiftStage=Stage;bRiftMirrored=bOffhandSwing;bRiftDual=bDualRift;
+    }
+    // The dual sweep's left blade reveals its ribbon on the same window, its stage's DualSweepOffset later.
+    RiftTimeOffset=bOffhandSwing?KukriRhythm::DualSweepOffset(Stage):0.f;
     // Freeze the authored crescent where the viewmodel is now, so it stays in the world while the view moves on.
     RiftOrigin=Viewmodel->GetComponentTransform();RiftDirection=Camera->GetForwardVector();
     RiftAge=0.f;RiftFadeAge=-1.f;bRiftActive=true;
-    const auto& R=KukriRhythm::Rifts[Stage];
+    const auto& R=bRiftDual?KukriRhythm::DualHeavyRift:KukriRhythm::Rifts[Stage];
     RiftMID->SetScalarParameterValue(TEXT("RiftStrength"),R.Strength);
     RiftMID->SetScalarParameterValue(TEXT("RiftFade"),1.f);
     RiftMID->SetScalarParameterValue(TEXT("SweepProgress"),0.f);
@@ -96,10 +110,11 @@ void UKukriWeaponComponent::StartRift()
 void UKukriWeaponComponent::TickRift(float Delta)
 {
     if(!bRiftActive||!RiftVisual||!RiftMID)return;
-    const auto& R=KukriRhythm::Rifts[RiftStage==INDEX_NONE?Stage:RiftStage];
+    const auto& R=bRiftDual?KukriRhythm::DualHeavyRift:KukriRhythm::Rifts[RiftStage==INDEX_NONE?Stage:RiftStage];
     RiftAge+=Delta;
     // Reveal on the swing's author clock while it plays (frozen through a hit-stop); the fade is real time.
-    const float Reveal=(bAttacking||bUppercut||bHeavyAttack)&&Stage==RiftStage?FMath::Clamp((Elapsed-R.Start)/FMath::Max(.01f,R.End-R.Start),0.f,1.f):1.f;
+    const float Reveal=(bAttacking||bUppercut||bHeavyAttack)&&Stage==RiftStage?
+        FMath::Clamp((Elapsed-RiftTimeOffset-R.Start)/FMath::Max(.01f,R.End-R.Start),0.f,1.f):1.f;
     if(Reveal>=1.f&&RiftFadeAge<0.f)RiftFadeAge=0.f;
     else if(RiftFadeAge>=0.f)RiftFadeAge+=Delta;
     const float Recovery=RiftFadeAge<0.f?0.f:FMath::Clamp(RiftFadeAge/R.Dissolve,0.f,1.f);

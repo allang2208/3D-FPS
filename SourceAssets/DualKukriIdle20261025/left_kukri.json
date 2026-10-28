@@ -1,0 +1,16 @@
+{
+ "note": "SM_Kukri on hand_l (UE mesh/bone space, cm, unit scale): kukri = rel * hand_l.  Mirror of the accepted right grip (WPN_root = kukri = hand_rel^-1 * hand_r); runtime: UKukriWeaponComponent OffhandHandToBlade (location / 100, scale 0.01).",
+ "rel_to_hand_l": {
+  "location": [
+   7.248824324523856,
+   -2.25942531066233,
+   0.22540463086782303
+  ],
+  "rotation_wxyz": [
+   0.02831518202729777,
+   -0.9836647600887598,
+   -0.16943776775659583,
+   -0.053784134128436134
+  ]
+ }
+}

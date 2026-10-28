@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -650,6 +650,10 @@
+         // A single flechette cartridge can legitimately report two bodies per dart.
+         HitTokenCost=1.f/(ShadowModel->AmmoProjectileCount(*OutDeclaredItem,Super90WeaponAssets::PelletCount)*(1+ExtraTargets));
+     }
++    // Dual one-handed melee (two kukris): each blade of one swing reports its own contact with every target, so the
++    // pair spends what one blade does (the same allowance as the paired pistols above).
++    if(OutDeclaredItem&&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem)
++        &&ColdSteelMelee::PairedOneHandedWeapon(ShadowModel->Equipped(Active),ShadowModel))HitTokenCost*=.5f;
+     if (FireTokenBucket < HitTokenCost) { OutReason = TEXT("rate"); return false; }
+ 
+     // 几何合理性（抗明显伪造）。投射物（箭/法杖弹/裂斩波/弹道弹）的 TraceStart 是

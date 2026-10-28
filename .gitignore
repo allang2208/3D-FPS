@@ -5749,3 +5749,15 @@ __pycache__/
 !/SourceAssets/KukriFrostRaven20261028/CrystalCrownV3/crown-layout.json
 !/SourceAssets/KukriFrostRaven20261028/BladeSigilV2/prompt.json
 !/SourceAssets/KukriFrostRaven20261028/BladeSigilV2/projection-layouts.json
+
+# Dual kukri (SourceAssets/DualKukriIdle20261025): publish the authoring scripts, fitted keys and prose; dense clips,
+# renders, previews and reference media stay on the workstation.
+/SourceAssets/DualKukriIdle20261025/**
+!/SourceAssets/DualKukriIdle20261025/*/
+!/SourceAssets/DualKukriIdle20261025/**/*.py
+!/SourceAssets/DualKukriIdle20261025/**/*.json
+!/SourceAssets/DualKukriIdle20261025/**/*.md
+/SourceAssets/DualKukriIdle20261025/Work/
+/SourceAssets/DualKukriIdle20261025/Clips/
+/SourceAssets/DualKukriIdle20261025/Previews/
+/SourceAssets/DualKukriIdle20261025/**/__pycache__/

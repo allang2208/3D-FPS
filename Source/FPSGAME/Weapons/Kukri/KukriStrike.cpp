@@ -13,6 +13,13 @@
 // MissStop.  Contacts found earlier keep their damage but hold their cue (hit-stop, sound, blood) for that frame, so
 // the stop, the sound and the blood land where the blade is.
 
+const KukriRhythm::FStrike& UKukriWeaponComponent::StrikeProfile() const
+{
+    if(bDualThrust)return KukriRhythm::DualThrustStrike;
+    if(bDualHeavy&&bHeavyAttack)return KukriRhythm::DualHeavyStrike;
+    return KukriRhythm::Strikes[Stage];
+}
+
 void UKukriWeaponComponent::ResetStrike()
 {
     bStrikeDone=false;bPendingFlesh=false;bPendingWall=false;bPressIn=false;bRiftStarted=false;
@@ -29,7 +36,7 @@ void UKukriWeaponComponent::ArriveStrike()
     else if(!bImpactConfirmed&&!bWallHit)
     {
         // A miss still stops dead: a short freeze and a light jolt instead of the flesh hit-stop.
-        HitStop=FMath::Max(HitStop,KukriRhythm::Strikes[Stage].MissStop);
+        HitStop=FMath::Max(HitStop,StrikeProfile().MissStop);
         ImpactAge=0.f;ImpactKick=KukriRhythm::StrikeKick;bPressIn=false;
     }
     for(const auto& Pending:PendingFX)SpawnContactFX(Pending.Hit,Pending.bWorld);
@@ -38,7 +45,7 @@ void UKukriWeaponComponent::ArriveStrike()
 
 void UKukriWeaponComponent::QueueContactFX(const FHitResult& Hit,bool bWorld)
 {
-    if(KukriRhythm::Strikes[Stage].At>0.f&&!bStrikeDone){PendingFX.Add({Hit,bWorld});return;}
+    if(StrikeProfile().At>0.f&&!bStrikeDone){PendingFX.Add({Hit,bWorld});return;}
     SpawnContactFX(Hit,bWorld);
 }
 
@@ -59,7 +66,8 @@ FVector UKukriWeaponComponent::StrikeViewmodelOffset() const
     // A confirmed hit carries the blade on through the hit-stop (stab: pressed in; slashes: dragged along the cut),
     // then lets go.
     if(!bPressIn||bDashAttack||ImpactAge<0.f)return FVector::ZeroVector;
-    const auto& K=KukriRhythm::Strikes[Stage];
+    const auto& K=StrikeProfile();
     const float A=ImpactAge<PressStop?FMath::SmoothStep(0.f,PressStop,ImpactAge):FMath::Exp(-(ImpactAge-PressStop)*12.f);
-    return FVector(K.PressX,K.PressY,K.PressZ)*A;
+    // The dual sweep's left blade drags the other way along its cut.
+    return FVector(K.PressX,bOffhandSwing?-K.PressY:K.PressY,K.PressZ)*A;
 }

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -3636,7 +3636,7 @@
+ }
+ bool AFPSGAMECharacter::HasOffhandSpellbook() const {return Spellbook&&Spellbook->IsEquipped();}
+ bool AFPSGAMECharacter::IsOffhandSpellbookPresented() const {return Spellbook&&Spellbook->OwnsLeftHand();}
+-bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook(); }
++bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook()||IsLoneOffhandPistol()||UOffhandKukriComponent::IsEquippedOn(this)||UKukriWeaponComponent::IsDualOn(this); }
+ void AFPSGAMECharacter::SuspendWeaponForMenu()
+ {
+     CancelOffhandReload();

@@ -336,6 +336,130 @@ namespace KukriRhythm
         Fov=SampleCurve(bDiag?DiagFov:CameraFov,T)*Gain;
     }
 
+    /**
+     * 双持弯刀三连击前两段（2026-10-26，用户：第一下参考单持右上→左下的挥法，双持时左手为镜像，先挥右手再到左手；第二段同样方式）。
+     * clip "DualAttack"（1.733 s）/ "DualAttack2"（1.767 s），SourceAssets/DualKukriIdle20261025/author_dual_attack.py：
+     * 右刀按单持该段动作挥一刀（相位、命中窗、打击时刻、剑气、镜头、节奏都与单持该段相同），劈完沉到画面下方；左刀先让开
+     * （第一段：蓄势到左上画外；第二段：先把刀从右刀上滑开、再沉到下方垂手位，因为右刀的反手蓄势要贴着镜头横过左侧），
+     * 在 DualSweepOffsets[段] 之后按镜像的单持该段再挥一刀（第一段从左向右横劈，第二段右上→左下斜劈）。左刀阶段用同一张表
+     * 加该偏移，镜头、视模冲击和打击时刻的左右分量取反。两刀各自对每个目标结算一次，伤害与单持该段相同。
+     */
+    inline constexpr int32 DualSweepStages=2;
+    inline const TCHAR* DualSweepClips[DualSweepStages]={TEXT("DualAttack"),TEXT("DualAttack2")};
+    inline constexpr float DualSweepOffsets[DualSweepStages]={56.f/120.f,60.f/120.f};
+    inline float DualSweepOffset(int32 Stage){return DualSweepOffsets[FMath::Clamp(Stage,0,DualSweepStages-1)];}
+    /** Play-rate tempo of a dual sweep: the right swing's stage tempo, then the left swing's from the stage's offset. */
+    inline float DualSweepTempo(int32 Stage,float T)
+    {
+        const float Offset=DualSweepOffset(Stage);
+        return StageTempo(Stage,T<Offset?T:T-Offset);
+    }
+    /** Dual sweep camera: the stage's curve for the right swing plus its mirror (yaw/roll negated) for the left one, the
+     *  stage's offset later -- the right swing's settle runs on under the left swing. */
+    inline void DualSweepCamera(int32 Stage,float T,FRotator& Rotation,float& Fov)
+    {
+        const float Offset=DualSweepOffset(Stage);
+        FRotator Left;float LeftFov=0.f;
+        SwingCamera(Stage,T,Rotation,Fov);
+        if(T<=Offset)return;
+        SwingCamera(Stage,T-Offset,Left,LeftFov);
+        Rotation+=FRotator(Left.Pitch,-Left.Yaw,-Left.Roll);Fov+=LeftFov;
+    }
+
+    /**
+     * 双持弯刀三连击第三下：双刀同时刺入（2026-10-26，用户：参考视频 1:25-1:26 的攻击姿势，双手持剑向前同时突刺，
+     * 争取 100% 复刻，包括屏幕抖动和冲击力）。参考 BV19dUqBJECT 近战动作 #5「双刃断川·破军势」，文件 84.20-85.33 s。
+     * clip "DualAttack3"（SourceAssets/DualKukriIdle20261025/author_dual_attack.py + fit_dual_thrust.py，2.05 s）。
+     * R8（用户：适当放慢；检查刀的方向、手握和手腕）：按参考打击帧 2534-2539，右拳从右侧打进准星右边，刀身横着指向准星；
+     * R9（用户：左手也参考右手做向前突刺，刀刃向前）：左拳改成右拳的镜像。R10（用户：刀刃再向前一些，手腕自然衔接，
+     * 强化突刺，两只手都优化）：两拳从画面下角蓄力，沿刀身方向直刺到准星两侧略低处，手臂几乎伸直，刀身离正前方约 48°、
+     * 向上约 16° 指向准星（R8/R9 约 70°，平放），左右完全镜像。两只手都是锤握，刀从拇指一侧伸出，手腕在认可的握姿附近
+     * （R7 两刀直指画面深处，手腕尺偏 43°）。比 R7 慢：基础攻速下 0.38 s 刺中（R7 0.30 s），刺出 0.10 作者秒，停留更久。
+     *  0.00-0.22 两拳各沉到自己一侧的画面下角、刀尖朝里；0.22-0.50 再收 3 cm 蓄力，同时向前突进 1 m（0.24-0.60）；
+     *  0.50-0.60 加速刺出；0.60 打击；0.60-0.66 过冲（手臂已伸直，约 1.5 cm）；0.66-0.84 回到打击位停住；
+     *  0.84-1.00 右拳向右下、左拳向左下抽出画面；1.70-2.05 抬回双持握姿。不再叠快慢曲线。
+     * 运行时：两把刀在同一个命中窗里同时扫（每把刀对每个目标各结算一次，伤害、Shot 同单持第三段），命中加强顿帧、冲击、
+     * 翻滚抖动和击退；镜头为参考背景配准（Reference/camera_thrust.py → curve_thrust.py，按 R8 的阶段时间重映射）：
+     * 突进时略右转、低头、逆时针滚、视场收窄，刺中那一下猛向左甩约 5°、视场冲开约 11°、翻滚来回抖，约 1.17 s 回正。
+     */
+    inline const TCHAR* DualThrustClip=TEXT("DualAttack3");
+    // Clips/DualAttack3.json: 247 keys at 120 Hz, shared by playback and network recovery.
+    inline constexpr float DualThrustSeconds=246.f/120.f;
+    inline constexpr float DualThrustSwingSound=.48f, DualThrustContactStart=.54f, DualThrustContactEnd=.72f, DualThrustStrikeAt=.60f;
+    inline constexpr float DualThrustBufferOpen=.84f;                     // a click buffers once the blades are back on the impact
+    /** The forward stride (cm, author s): the shared melee-lunge movement's Thrust kind, within the sword thrust's 1 m budget. */
+    inline constexpr float DualThrustLungeStart=.24f, DualThrustLungeEnd=.60f, DualThrustLungeCM=100.f;
+    /** Confirmed hit: hit-stop / shake / FOV punch multipliers (the single stab: 2.0 / 1.25), roll rattle, knockback (cm). */
+    inline constexpr float DualThrustHitStopScale=2.4f, DualThrustImpactScale=1.6f, DualThrustHitRoll=2.0f, DualThrustKnockbackCM=150.f;
+    /** R10（用户：继续强化突刺的效果）：双刀刺入的打击时刻比单持戳刺（Strikes[2]）更重：挥空硬停 0.05 s、视场放宽 2.2°、
+     *  镜头前推 4 cm，确认命中时视模再往里压 2.4 cm。 */
+    inline constexpr FStrike DualThrustStrike={DualThrustStrikeAt,.050f, 2.2f,4.0f, .6f,0.f, 2.4f,0.f,0.f, true};
+    inline constexpr int32 DualThrustSamples=62;
+    inline constexpr float DualThrustYaw[DualThrustSamples]={0.00f,0.43f,0.84f,1.14f,1.42f,1.60f,1.75f,1.86f,1.95f,1.99f,2.01f,2.02f,2.16f,2.39f,1.55f,0.38f,-1.38f,-3.28f,-5.18f,-4.19f,-3.16f,-2.75f,-2.46f,-2.59f,-2.71f,-2.84f,-2.96f,-2.95f,-2.32f,-1.58f,-1.09f,-0.69f,-0.44f,-0.23f,-0.08f,-0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f};
+    inline constexpr float DualThrustPitch[DualThrustSamples]={0.00f,-0.26f,-0.53f,-0.87f,-1.24f,-1.81f,-2.38f,-3.00f,-3.52f,-3.81f,-4.03f,-4.15f,-4.22f,-4.24f,-4.27f,-4.30f,-3.63f,-2.86f,-4.19f,-2.66f,-1.08f,-2.36f,-3.52f,-2.94f,-2.36f,-1.77f,-1.20f,-0.60f,-0.97f,-1.42f,-1.55f,-1.47f,-1.20f,-0.69f,-0.23f,-0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f};
+    inline constexpr float DualThrustRoll[DualThrustSamples]={0.00f,-0.64f,-1.28f,-1.98f,-2.66f,-3.30f,-3.93f,-4.48f,-4.94f,-5.18f,-5.30f,-5.30f,-4.48f,-3.14f,-1.91f,-0.71f,-2.05f,-3.69f,-5.32f,-1.07f,1.94f,2.27f,1.31f,0.65f,0.16f,-0.32f,-0.78f,-0.72f,0.38f,1.34f,1.06f,0.39f,0.11f,0.04f,0.01f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f};
+    inline constexpr float DualThrustFov[DualThrustSamples]={0.00f,-0.42f,-0.83f,-1.18f,-1.54f,-1.92f,-2.28f,-2.61f,-2.85f,-2.89f,-2.96f,-3.05f,-3.29f,-3.61f,-3.55f,-3.38f,-0.86f,1.99f,9.68f,10.63f,11.61f,9.29f,6.96f,5.84f,4.71f,3.59f,2.48f,1.31f,1.09f,1.05f,1.00f,0.83f,0.53f,0.27f,0.09f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f};
+    inline float SampleDualThrust(const float (&Curve)[DualThrustSamples],float Time)
+    {
+        const float X=FMath::Clamp(Time*30.f,0.f,float(DualThrustSamples-1));
+        const int32 I=FMath::Min(int32(X),DualThrustSamples-2);
+        return FMath::Lerp(Curve[I],Curve[I+1],X-I);
+    }
+    /** Double-thrust camera (degrees: pitch/yaw/roll + vertical FOV delta) at author time T. */
+    inline void DualThrustCamera(float T,FRotator& Rotation,float& Fov)
+    {
+        Rotation=FRotator(SampleDualThrust(DualThrustPitch,T),SampleDualThrust(DualThrustYaw,T),SampleDualThrust(DualThrustRoll,T))*CameraScale;
+        Fov=SampleDualThrust(DualThrustFov,T)*CameraScale;
+    }
+
+    /**
+     * 双持弯刀重击出手（2026-10-27，KukriHeavy.cpp；蓄力见 KukriHeavyRhythm::DualCharge*）：参考 BV19dUqBJECT 近战动作 #3「X」
+     * 文件 78.47-79.30 s。R12（用户：应该是左右交叉的 X 斩）：两只手同时斜劈、手臂在身前交叉——右手从右上劈到左下，左手从左上
+     * 劈到右下，右手略快、略高；两刀都拖在拳后面，指回各自出发的那一侧，所以两拳交叉到对侧时两刀在上方交叉成 X。
+     * clip "DualHeavyRelease"（1.0 s，马上接蓄满的姿势）：0.033 两拳在身前高处、刀在肩后 → 0.067 右拳到准星、左拳在左侧略低，
+     *  两刀从中间向两侧上方张开 → 0.083 打击时刻 → 0.10 右拳到最左下、左拳越过中线到右下，两刀在上方交叉成 X → R14（用户：
+     *  交叉幅度不够，X 斩后双手和刀应该出到屏幕下方，再恢复待机）：0.133-0.20 交叉着继续往下出画 → 画外右手先收到身前（0.27），
+     *  左手先回自己一侧（0.27-0.40），右手再回（0.36-0.50）→ 0.70-1.00 从画面下方抬回双持握姿。
+     *  R15（用户：刀再往屏幕下方退出多一些，顿挫感明显）：关键姿势按参考 2355-2359 每帧的拳位等速重排（0.037/0.068/0.109/
+     *  0.136/0.158），整段用一条 C2 曲线插值（不在每个键上减速）；0.158 两拳到屏幕下方 1.7-1.85、刀转向前下方一起出画；
+     *  画外右手 0.24 收到身前，左手 0.24-0.37 先回、右手 0.33-0.47 再回。
+     * 两刀各自扫各自的命中（每把刀对每个目标各结算一次），两条交叉的空间扰动带（DualHeavyRift）；顿帧、冲击沿用重击表
+     * Swings[HeavyStage]，视模冲击只往上顶。
+     * 镜头：参考 0.30-1.13 s 配准（Reference/curve_heavy_x.py）：从蓄满镜头 0.10 s 内顺着劈下抬头约 4.5°、视场冲开约 6°、
+     *  翻滚来回抖（参考爆闪帧只有链式估计，R15 改为五点平滑、翻滚 ×0.7），约 0.6 s 回正。
+     */
+    inline const TCHAR* DualHeavyClip=TEXT("DualHeavyRelease");
+    inline constexpr float DualHeavySwingSound=.010f, DualHeavyContactStart=.033f, DualHeavyContactEnd=.133f, DualHeavyStrikeAt=.083f;
+    /** Impact moment of the X: a harder miss stop, a wide FOV accent, the view nodding down with the chop, the viewmodel pressed
+     *  down through a confirmed hit-stop (symmetric: no yaw). */
+    inline constexpr FStrike DualHeavyStrike={DualHeavyStrikeAt,0.f, 3.0f,3.0f, -1.5f,0.f, .4f,0.f,-1.8f, true};
+    /** R15（用户：顿挫感比较明显，参考里是一气呵成）：双持 X 斩挥空不硬停（MissStop 0），确认命中顿帧只 ×1.2（0.09 s，
+     *  单持重击 ×3.0 = 0.225 s）；不叠单持重击的快慢曲线 HeavyTempo（它让刀在 0.035-0.135 快 1.6 倍、0.15 起又慢到 0.9），
+     *  画面里按作者时间原速走（作者键已按参考每帧的拳位等速排好），出画后加快，抬回握姿时恢复原速。 */
+    inline constexpr float DualHeavyHitStopScale=1.2f;
+    inline constexpr FTempoKnot DualHeavyTempo[]={{0.f,1.f},{.20f,1.f},{.26f,1.8f},{.66f,1.8f},{.70f,1.f}};
+    /** R13（用户：参考现有的挥砍加入空间扰动）：两条交叉成 X 的扰动带（KukriDualRiftRibbons.h，
+     *  SourceAssets/DualKukriIdle20261025/author_dual_rift.py）；R15（用户：做成标准的直线）改为眼前 55 cm 处两条笔直的带，
+     *  右上→左下、左上→右下，在准星交叉，随两刀划过画面展开。强度、溶解、前漂同单持重击。 */
+    inline constexpr FRift DualHeavyRift={.045f,.125f,.150f,.32f,120.f};
+    inline constexpr int32 DualHeavySamples=31;
+    inline constexpr float DualHeavyYaw[DualHeavySamples]={-0.97f,-1.01f,-1.17f,-1.48f,-1.63f,-1.37f,-0.98f,-0.91f,-1.03f,-0.99f,-0.74f,-0.35f,0.13f,0.44f,0.32f,0.21f,0.25f,0.16f,-0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f};
+    inline constexpr float DualHeavyPitch[DualHeavySamples]={-3.47f,-2.22f,1.69f,4.52f,4.57f,4.59f,4.28f,3.14f,1.61f,0.31f,-0.58f,-1.10f,-1.42f,-1.43f,-1.26f,-1.06f,-0.79f,-0.47f,-0.23f,-0.10f,-0.02f,-0.00f,-0.00f,-0.00f,-0.00f,-0.00f,-0.00f,-0.00f,-0.00f,-0.00f,0.00f};
+    inline constexpr float DualHeavyRoll[DualHeavySamples]={0.91f,1.88f,0.10f,-1.33f,-1.67f,-1.73f,-1.37f,-0.87f,-0.64f,-0.44f,-0.15f,0.05f,-0.10f,-0.12f,0.10f,0.05f,-0.02f,0.02f,0.04f,0.03f,0.01f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f,0.00f};
+    inline constexpr float DualHeavyFov[DualHeavySamples]={-3.57f,-1.86f,2.52f,5.78f,6.31f,6.23f,5.54f,5.03f,4.33f,2.88f,1.30f,0.28f,-0.30f,-0.07f,-0.43f,-0.57f,-0.34f,-0.36f,-0.45f,-0.19f,-0.04f,-0.00f,-0.00f,-0.00f,-0.00f,-0.00f,0.00f,0.00f,0.00f,0.00f,0.00f};
+    inline float SampleDualHeavy(const float (&Curve)[DualHeavySamples],float Time)
+    {
+        const float X=FMath::Clamp(Time*30.f,0.f,float(DualHeavySamples-1));
+        const int32 I=FMath::Min(int32(X),DualHeavySamples-2);
+        return FMath::Lerp(Curve[I],Curve[I+1],X-I);
+    }
+    /** Dual heavy release camera (degrees: pitch/yaw/roll + vertical FOV delta) at author time T; starts on DualLoaded*. */
+    inline void DualHeavyCamera(float T,FRotator& Rotation,float& Fov)
+    {
+        Rotation=FRotator(SampleDualHeavy(DualHeavyPitch,T),SampleDualHeavy(DualHeavyYaw,T),SampleDualHeavy(DualHeavyRoll,T))*CameraScale;
+        Fov=SampleDualHeavy(DualHeavyFov,T)*CameraScale;
+    }
+
     /** 命中附加抖动：快速起振、单次回弹后衰减的阻尼振荡（真实秒）。 */
     inline float HitShake(float Age)
     {

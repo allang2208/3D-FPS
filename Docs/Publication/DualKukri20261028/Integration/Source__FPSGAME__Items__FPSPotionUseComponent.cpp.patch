@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
++++ b/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
+@@ -214,7 +214,8 @@
+     const auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();
+     bBowSupport=!Motion.bTwoHanded&&Bow&&Bow->IsEquipped()&&UseHands==Bow->ArmsMesh();
+     bWaitingForBow=bBowSupport&&!Bow->IsCastHandoffReady();
+-    bStowOffhand=Motion.bTwoHanded||Player->HasOffhandPistol()||Player->HasOffhandSpellbook();
++    bStowOffhand=Motion.bTwoHanded||Player->HasOffhandPistol()||Player->HasOffhandSpellbook()||UOffhandKukriComponent::IsEquippedOn(Player)
++        ||UKukriWeaponComponent::IsDualOn(Player);
+     bCommitted=bUncapped=bDiscarded=false;
+     // Keep every authored contact/audio/release time relative to actual use;
+     // the leading equipment transition must never consume the item early.

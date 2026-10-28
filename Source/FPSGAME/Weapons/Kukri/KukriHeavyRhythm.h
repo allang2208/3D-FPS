@@ -64,4 +64,28 @@ namespace KukriHeavyRhythm
             FMath::Lerp(SampleCharge(ChargeRoll,T),LoadedRoll,Load));
         Fov=FMath::Lerp(SampleCharge(ChargeFov,T),LoadedFov,Load);
     }
+
+    /**
+     * 双持弯刀重击（2026-10-27，用户：参考视频 1:19-1:20 的 X 姿势同时挥砍，做双持重击出手，力求 100% 还原；蓄力阶段的手和
+     * 手臂也要自然衔接）。参考 BV19dUqBJECT 近战动作 #3「X」，文件 78.20-79.30 s。作者源 SourceAssets/DualKukriIdle20261025/
+     * fit_dual_heavy.py → heavy_keys.json → author_dual_heavy.py（clip DualHeavyCharge 2.0 s / DualHeavyRelease 1.0 s）。
+     * 蓄力与单持同一套时长（RaiseEnd、ChargeLength、ChargePoseTime）：0-0.10 X 握姿向两侧打开、两刀各自朝外竖起；0.10-0.20
+     *  两拳沿两侧抬起；0.20-0.40 两只手腕像抡锤一样后扳，刀身放到两肩后、刀把朝前，两拳在画面上缘两侧、前臂沿两边竖着；
+     *  0.40-2.00 两拳再往后上收一点（蓄力，拉伸到实际蓄力秒数）。左手是右手的镜像，手腕都在认可握姿附近。
+     * 蓄力镜头：参考 0-0.30 s 远景配准（Reference/camera_heavy_x.py → curve_heavy_x.py）：X 打开时略抬头、视场放宽，
+     *  双臂上举时低头约 3°、视场收窄约 3°、略左转右滚；蓄满时到 DualLoaded*，出手曲线 KukriRhythm::DualHeavy* 从这里接上。
+     */
+    inline const FName DualChargeClip(TEXT("DualHeavyCharge")), DualReleaseClip(TEXT("DualHeavyRelease"));
+    inline constexpr float DualChargeYaw[ChargeSamples]={-0.00f,-0.15f,-0.07f,0.01f,-0.13f,-0.29f,-0.51f,-0.75f,-1.00f,-1.06f,-1.17f,-1.13f,-0.78f};
+    inline constexpr float DualChargePitch[ChargeSamples]={0.00f,0.30f,0.72f,1.05f,1.08f,0.47f,-0.37f,-1.27f,-2.10f,-2.49f,-2.73f,-2.93f,-3.16f};
+    inline constexpr float DualChargeRoll[ChargeSamples]={0.00f,0.01f,-0.22f,-0.37f,-0.07f,0.15f,0.34f,0.55f,0.85f,0.71f,0.82f,0.92f,0.76f};
+    inline constexpr float DualChargeFov[ChargeSamples]={0.00f,0.06f,0.92f,1.88f,2.27f,1.76f,0.75f,-0.49f,-1.73f,-2.52f,-3.27f,-3.52f,-2.86f};
+    inline constexpr float DualLoadedYaw=-0.97f, DualLoadedPitch=-3.47f, DualLoadedRoll=0.91f, DualLoadedFov=-3.57f;
+    inline void DualChargeCamera(float T,FRotator& Rotation,float& Fov)
+    {
+        const float Load=FMath::SmoothStep(RaiseEnd,ChargeLength,T);
+        Rotation=FRotator(FMath::Lerp(SampleCharge(DualChargePitch,T),DualLoadedPitch,Load),
+            FMath::Lerp(SampleCharge(DualChargeYaw,T),DualLoadedYaw,Load),FMath::Lerp(SampleCharge(DualChargeRoll,T),DualLoadedRoll,Load));
+        Fov=FMath::Lerp(SampleCharge(DualChargeFov,T),DualLoadedFov,Load);
+    }
 }

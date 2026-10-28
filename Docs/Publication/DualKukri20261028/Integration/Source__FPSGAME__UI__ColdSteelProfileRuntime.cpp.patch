@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -1181,8 +1181,16 @@
+         Message=I.Definition.StartsWith(TEXT("enchant_scroll_"))?TEXT("附魔卷轴请在强化台的附魔页使用"):TEXT("强化道具请在强化台使用");
+         return false;
+     }
+-    for(int32 S=0;S<SlotNames().Num();++S)if(CanEquip(I,S)&&!Equipped(S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
+-    for(int32 S=0;S<SlotNames().Num();++S)if(CanEquip(I,S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
++    // Quick equip keeps the kukri a main-hand weapon unless that set already holds a dual-capable pistol or a
++    // kukri (dual kukri).
++    const auto AutoSlot=[&](int32 S)
++    {
++        if(!CanEquip(I,S)||Locked(Current.Items,S))return false;
++        if(I.Definition!=TEXT("ue_kukri")||(S!=8&&S!=11))return true;
++        const auto* Main=Equipped(S==8?6:9);return Main&&(IsDualPistol(*Main)||Main->Definition==TEXT("ue_kukri"));
++    };
++    for(int32 S=0;S<SlotNames().Num();++S)if(AutoSlot(S)&&!Equipped(S))return MoveItem(Id,1,S);
++    for(int32 S=0;S<SlotNames().Num();++S)if(AutoSlot(S))return MoveItem(Id,1,S);
+     Message=TEXT("该物品不能穿戴或使用");return false;
+ }
+ void UColdSteelStatusModel::SyncRuntime()

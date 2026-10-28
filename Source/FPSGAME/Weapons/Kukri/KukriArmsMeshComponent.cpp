@@ -52,11 +52,32 @@ void UKukriArmsMeshComponent::CaptureEntry(float Seconds)
     EntryTime=0.f;EntryDuration=FMath::Max(.01f,Seconds);
 }
 
+void UKukriArmsMeshComponent::CaptureLeftEntry(float Seconds)
+{
+    CacheBones();
+    const auto* Mesh=GetSkeletalMeshAsset();
+    const auto& Pose=GetComponentSpaceTransforms();
+    LeftEntryLocal.Reset();
+    if(!Mesh||Pose.Num()!=Mesh->GetRefSkeleton().GetNum()||LeftChain.IsEmpty())return;
+    const auto& Ref=Mesh->GetRefSkeleton();
+    for(const int32 I:LeftChain)
+    {
+        const int32 Parent=Ref.GetParentIndex(I);
+        LeftEntryLocal.Add(Parent>=0?Pose[I].GetRelativeTransform(Pose[Parent]):Pose[I]);
+    }
+    LeftEntryTime=0.f;LeftEntryDuration=FMath::Max(.01f,Seconds);
+}
+
 void UKukriArmsMeshComponent::AdvanceEntry(float Delta)
 {
+    if(!LeftEntryLocal.IsEmpty())
+    {
+        LeftEntryTime+=FMath::Max(0.f,Delta);
+        if(LeftEntryTime>=LeftEntryDuration){LeftEntryLocal.Reset();LeftEntryTime=LeftEntryDuration=0.f;}
+    }
     if(EntryLocal.IsEmpty())return;
     EntryTime+=FMath::Max(0.f,Delta);
-    if(EntryTime>=EntryDuration)ClearEntry();
+    if(EntryTime>=EntryDuration){EntryLocal.Reset();EntryTime=EntryDuration=0.f;}
 }
 
 void UKukriArmsMeshComponent::FinalizeBoneTransform()
@@ -101,15 +122,37 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
             // swim against the fist.  The WPN subtree is carried rigidly.
             // Where the clip itself takes the knife out of the fist (the draw's toss), the lock fades out with the
             // authored deviation and the flight plays as authored; it fades back in as the catch closes on the grip.
+            // Dual kukri run: the same fist holds the kukri turned about its grip-frame axis (reverse grip); while the
+            // dual hold drives the flip the lock never releases, so the blade turns in the fist during the change.
             const FTransform Old=Pose[Weapon];
-            const FTransform Locked=KukriGrip::HandToWeapon()*Pose[HandR];
+            const FTransform Flip(FQuat(GripFlipAxis,GripFlipAngle));
+            const FTransform Locked=Flip*KukriGrip::HandToWeapon()*Pose[HandR];
             const float Deviation=FVector::Dist(Old.GetLocation(),Locked.GetLocation())
                 +FMath::RadiansToDegrees(Old.GetRotation().AngularDistance(Locked.GetRotation()))*KukriGrip::DegreeToCm;
-            const float Free=FMath::SmoothStep(KukriGrip::HoldBand,KukriGrip::ReleaseBand,Deviation);
+            const float Free=bGripFlipHold?0.f:FMath::SmoothStep(KukriGrip::HoldBand,KukriGrip::ReleaseBand,Deviation);
             FTransform Final=Locked;
             if(Free>0.f)Final.Blend(Locked,Old,Free);
             for(const int32 I:WeaponChain)Pose[I]=Pose[I].GetRelativeTransform(Old)*Final;
             Pose[Weapon]=Final;
+        }
+        if(LeftEntryLocal.Num()==LeftChain.Num()&&LeftEntryDuration>0.f)
+        {
+            // Dual kukri hold in/out: the left arm and the kukri on hand_l travel in parent space over their own time.
+            // LeftChain is in bone order (parents first) and rooted at clavicle_l, whose parent is outside it.
+            const float X=FMath::Clamp(LeftEntryTime/LeftEntryDuration,0.f,1.f);
+            const float Alpha=X*X*X*(X*(X*6.f-15.f)+10.f);
+            TArray<FTransform> Local;Local.SetNum(LeftChain.Num());
+            for(int32 K=0;K<LeftChain.Num();++K)
+            {
+                const int32 Parent=Ref.GetParentIndex(LeftChain[K]);
+                const FTransform Target=Parent>=0?Pose[LeftChain[K]].GetRelativeTransform(Pose[Parent]):Pose[LeftChain[K]];
+                Local[K].Blend(LeftEntryLocal[K],Target,Alpha);
+            }
+            for(int32 K=0;K<LeftChain.Num();++K)
+            {
+                const int32 Parent=Ref.GetParentIndex(LeftChain[K]);
+                Pose[LeftChain[K]]=Parent>=0?Local[K]*Pose[Parent]:Local[K];
+            }
         }
         if(OffhandLeft&&!LeftChain.IsEmpty())
         {

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Movement/FPSCharacterMovementComponent.h
++++ b/Source/FPSGAME/Movement/FPSCharacterMovementComponent.h
+@@ -113,6 +113,8 @@
+     void CancelHammerSprintMove(uint32 AttackId);
+     bool IsMeleeMoveRejected(uint32 Sequence) const {return RejectedMeleeSequence!=0&&RejectedMeleeSequence==Sequence;}
+     void RecordMeleeLungeStep(float Distance);
++    /** Server-only: an authorized (not rejected) melee move of this kind started within its 0.75 s window. */
++    bool IsNetworkMeleeMoveWindowOpen(EFPSMeleeMove Kind) const;
+     bool IsMeleeLungeRejected() const {return RejectedMeleeSequence!=0&&RejectedMeleeSequence==MeleeRequest.Sequence;}
+     FFPSMeleeMoveRequest MeleeRequest;
+     float PendingMeleeStep=0.f;

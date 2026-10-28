@@ -23,6 +23,8 @@ namespace KukriDrawRhythm
     inline const TCHAR* CatchSound=TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick");
     inline constexpr float TossAt=Release, TossVolume=.42f, TossPitch=1.12f;
     inline constexpr float CatchAt=Catch, CatchVolume=.22f, CatchPitch=1.35f;
+    /** 双持拔刀（clip "DualEquip"）：左手晚 KukriDualEquipBlade::LeftDelay 抛接，同样两声，音量与音高按此倍率略降以区分两只手。 */
+    inline constexpr float OffhandVolume=.85f, OffhandPitch=.94f;
 
     /** 整体镜头幅度（1 = 参考原幅）。 */
     inline constexpr float CameraScale=1.f;

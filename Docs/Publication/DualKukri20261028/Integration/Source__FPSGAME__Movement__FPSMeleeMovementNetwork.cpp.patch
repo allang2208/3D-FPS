@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
++++ b/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
+@@ -69,6 +69,14 @@
+         &&GetWorld()->GetTimeSeconds()<=ServerMeleeWindowUntil;
+ }
+ 
++bool UFPSCharacterMovementComponent::IsNetworkMeleeMoveWindowOpen(EFPSMeleeMove Kind) const
++{
++    // The dual kukri's double thrust (KukriWeaponComponent::AdvanceDualThrustLunge) pushes its targets back; a remote
++    // owner's contacts carry that push only while its authorized Thrust stride is in flight (ColdSteelPlayerState).
++    return GetOwner()&&GetOwner()->HasAuthority()&&GetWorld()&&ServerMeleeKind==Kind&&!bServerMeleeBlocked
++        &&GetWorld()->GetTimeSeconds()<=ServerMeleeWindowUntil;
++}
++
+ void UFPSCharacterMovementComponent::ProcessMeleeNetworkMove(const FFPSNetworkMoveData& Data,bool Authority)
+ {
+     const auto& R=Data.MeleeRequest;if(!R.Sequence||!CharacterOwner)return;
