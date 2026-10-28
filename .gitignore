@@ -5743,3 +5743,9 @@ __pycache__/
 !/Content/ColdSteelData/kukri-modules.json
 !/Content/ColdSteelData/shared-knife-blade-options.json
 !/Content/ColdSteelData/shared-knife-component-options.json
+
+# Kukri final crown and fine blade-sigil authoring parameters (2026-10-28)
+!/SourceAssets/KukriFrostRaven20261028/CrystalCrownV3/prompt.json
+!/SourceAssets/KukriFrostRaven20261028/CrystalCrownV3/crown-layout.json
+!/SourceAssets/KukriFrostRaven20261028/BladeSigilV2/prompt.json
+!/SourceAssets/KukriFrostRaven20261028/BladeSigilV2/projection-layouts.json

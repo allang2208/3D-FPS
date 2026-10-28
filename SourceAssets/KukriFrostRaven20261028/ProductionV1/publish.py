@@ -4,7 +4,7 @@ from pathlib import Path
 P=Path(__file__).resolve().parent;ROOT=P.parents[2]
 r=json.loads((P/'import-receipt.json').read_text('utf-8'))
 if not r['complete']:raise RuntimeError('Save UE assets before publishing')
-appearance='冰蓝鸦喙与三道羽翼沿刀面展开，银灰纹边包裹晶莹的霜光。'
+appearance='冰蓝鸟首与层叠羽纹沿刀面展开，细密刻线和镂空纹路交织成霜光。'
 option={'id':'frost_raven_rune','name':'霜鸦符文','tier':'legendary','description':appearance,'appearance':appearance,
     'stats':{'critical_chance_add':20},'effects':[{'text':'暴击率+20%','benefit':1}],
     'special_effects':[

@@ -38,7 +38,8 @@ public:
         Brush.ImageSize=FVector2D(AzureDragonHud::QuadWidth,AzureDragonHud::QuadHeight);
     }
     void SetMaterial(UMaterialInstanceDynamic* Material){Brush.SetResourceObject(Material);}
-    void SetFrame(bool InShown,float InAlpha,const FVector2f& InOffset){bShown=InShown;Alpha=InAlpha;Offset=InOffset;}
+    void SetFrame(bool InShown,float InAlpha,const FVector2f& InOffset,bool InRightAligned)
+    {bShown=InShown;Alpha=InAlpha;Offset=InOffset;bRightAligned=InRightAligned;}
     virtual int32 OnPaint(const FPaintArgs&,const FGeometry& Geometry,const FSlateRect&,FSlateWindowElementList& Out,
         int32 Layer,const FWidgetStyle&,bool) const override
     {
@@ -47,7 +48,10 @@ public:
         const float H=Geometry.GetLocalSize().Y;
         const float Unit=BarHeight*H/(ApexY-HornY);
         const FVector2f Size(QuadWidth*Unit,QuadHeight*Unit);
-        const FVector2f Position(CenterFromLeft*H-CenterX*Unit+Offset.X*H,HornFromTop*H-(HornY-QuadTop)*Unit+Offset.Y*H);
+        const float LeftX=CenterFromLeft*H-CenterX*Unit+Offset.X*H;
+        // Reflect placement within this player's viewport, retaining the artwork's orientation.
+        const float X=bRightAligned?Geometry.GetLocalSize().X-LeftX-Size.X:LeftX;
+        const FVector2f Position(X,HornFromTop*H-(HornY-QuadTop)*Unit+Offset.Y*H);
         FSlateDrawElement::MakeBox(Out,Layer,Geometry.ToPaintGeometry(Size,FSlateLayoutTransform(Position)),&Brush,
             ESlateDrawEffect::NoGamma|ESlateDrawEffect::NoPixelSnapping,FLinearColor(1.f,1.f,1.f,Alpha));
         return Layer;
@@ -55,7 +59,7 @@ public:
     virtual FVector2D ComputeDesiredSize(float) const override{return FVector2D::ZeroVector;}
 private:
     FSlateBrush Brush;
-    bool bShown=false;
+    bool bShown=false,bRightAligned=false;
     float Alpha=0.f;
     FVector2f Offset=FVector2f::ZeroVector;
 };
@@ -91,18 +95,27 @@ void UAzureDragonEnergyComponent::ClearEnergy()
     TargetEnergy=DisplayEnergy=0.f;HitAge=FlareAge=10.f;
 }
 
+void UAzureDragonEnergyComponent::ConfigureMaterial(const FSoftObjectPath& Path)
+{
+    if(MaterialPath==Path)return;
+    if(AssetLoad)AssetLoad->CancelHandle();
+    AssetLoad.Reset();RemoveDisplay();HudMaterial=nullptr;bRequested=false;MaterialPath=Path;
+    if(bEnabled)RequestAssets();
+}
+
 void UAzureDragonEnergyComponent::RequestAssets()
 {
     if(bRequested)return;
     bRequested=true;
+    const FSoftObjectPath Path=MaterialPath.IsNull()?AzureDragonHud::HudMaterialPath:MaterialPath;
     TWeakObjectPtr<UAzureDragonEnergyComponent> Weak(this);
     // The material references its five baked layers, so one async request streams the whole HUD.
-    AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(AzureDragonHud::HudMaterialPath,
-        FStreamableDelegate::CreateLambda([Weak]()
+    AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Path,
+        FStreamableDelegate::CreateLambda([Weak,Path]()
         {
             if(!Weak.IsValid())return;
             auto* Self=Weak.Get();
-            Self->HudMaterial=Cast<UMaterialInterface>(AzureDragonHud::HudMaterialPath.ResolveObject());
+            Self->HudMaterial=Cast<UMaterialInterface>(Path.ResolveObject());
             if(Self->bEnabled&&Self->HudMaterial)Self->CreateDisplay();
         }));
 }
@@ -125,7 +138,7 @@ void UAzureDragonEnergyComponent::CreateDisplay()
 
 void UAzureDragonEnergyComponent::HideDisplay()
 {
-    if(HudWidget)HudWidget->SetFrame(false,0.f,FVector2f::ZeroVector);
+    if(HudWidget)HudWidget->SetFrame(false,0.f,FVector2f::ZeroVector,bRightAligned);
 }
 
 void UAzureDragonEnergyComponent::RemoveDisplay()
@@ -160,8 +173,8 @@ void UAzureDragonEnergyComponent::TickComponent(float Delta,ELevelTick Type,FAct
     const float YawSpeed=bHaveYaw?FMath::FindDeltaAngleDegrees(LastYaw,View.Yaw)/FMath::Max(.001f,Delta):0.f;
     LastYaw=View.Yaw;bHaveYaw=true;
     Sway=FMath::FInterpTo(Sway,FMath::Clamp(-YawSpeed*.000025f,-.006f,.006f),Delta,6.f);
-    const FVector2f Offset(Sway,.0035f*FMath::Sin(Age*1.73f+.6f));
-    HudWidget->SetFrame(true,FMath::SmoothStep(0.f,.24f,EntryAge),Offset);
+    const FVector2f Offset(Sway+HorizontalOffset,.0035f*FMath::Sin(Age*1.73f+.6f));
+    HudWidget->SetFrame(true,FMath::SmoothStep(0.f,.24f,EntryAge),Offset,bRightAligned);
     HudMID->SetScalarParameterValue(TEXT("Fill"),DisplayEnergy);
     HudMID->SetScalarParameterValue(TEXT("Age"),Age);
     HudMID->SetScalarParameterValue(TEXT("Pulse"),FMath::Exp(-HitAge*10.f));

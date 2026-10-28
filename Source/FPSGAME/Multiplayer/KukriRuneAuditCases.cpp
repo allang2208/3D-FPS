@@ -2,7 +2,10 @@
 #include "ColdSteelPlayerState.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../UI/StatusEffectsComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "../Weapons/Kukri/KukriFrostRavenComponent.h"
+#include "../Weapons/Kukri/KukriBerserkerComponent.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -102,4 +105,72 @@ void UKukriNetworkAuditCommandlet::CheckRunes(AColdSteelPlayerState* PS,AFPSGAME
     Check(Upper!=Quick&&Upper==PS->ResolveKukriRuneAttackSerial(Report,10009),TEXT("uppercut uses its own accepted action identity"));
     PS->UppercutActiveSequence=0;
     Check(PS->ResolveKukriRuneAttackSerial(Report,10010)==0,TEXT("missing accepted action cannot supply a rune identity"));
+
+    auto* Wolf=Pawn->FindComponentByClass<UKukriBerserkerComponent>();
+    Check(Wolf!=nullptr,TEXT("berserker rune default subobject exists"));if(!Wolf)return;
+    Model->AdoptNetMirror(Mixed);Wolf->Configure(Model);Rune->Configure(Model);
+    const double PlainInterval=ColdSteelMelee::Evaluate(*Model->Equipped(),Model).AttackSeconds;
+    Shot=ColdSteelSkills::Snapshot(Pawn,Model->Equipped());Shot.bMelee=true;Shot.bRicochet=false;
+    for(uint32 I=200;I<211;++I){Shot.MasteryAttackSerial=I;Wolf->ConfirmHit(Shot,10.f);Wolf->ConfirmHit(Shot,10.f);}
+    Check(Wolf->State.Charge==11&&Wolf->Remaining()==0.f,TEXT("berserker repeated area contacts charge once per action"));
+    Shot.MasteryAttackSerial=211;Wolf->ConfirmHit(Shot,10.f);
+    Check(Wolf->Remaining()>19.9f,TEXT("twelfth berserker action starts twenty seconds"));
+    Check(ColdSteelMelee::AttackStamina(Model->Equipped(),Model)==0.&&ColdSteelMelee::AttackStamina(Model->Equipped(8),Model)>0.,
+        TEXT("mixed dual knives preserve separate stamina costs"));
+    Check(FMath::IsNearlyEqual(ColdSteelMelee::ComboAttackStamina(Model->Equipped(),Model,true),.5*ColdSteelMelee::AttackStamina(Model->Equipped(8),Model)),
+        TEXT("mixed normal and heavy bill only the non-berserker half"));
+    Check(Model->QuickCombatStaminaCost()==0.f&&Model->SwordUppercutStaminaCost()==0.f&&Model->WhirlwindStats().StaminaCost==0.f,
+        TEXT("berserker quick hit uppercut and whirlwind are free"));
+    Check(Model->DashAttackStats().StaminaCost>0.f,TEXT("mixed dual dash still pays the other knife share"));
+    Check(FMath::IsNearlyEqual(UKukriBerserkerComponent::DamageMultiplier(Model->Equipped(),Model),1.25f)&&
+        UKukriBerserkerComponent::DamageMultiplier(Model->Equipped(8),Model)==1.f,TEXT("berserker damage stays on its knife"));
+    Check(FMath::IsNearlyEqual(ColdSteelMelee::Evaluate(*Model->Equipped(),Model).AttackSeconds,PlainInterval/1.25),
+        TEXT("berserker speed scales this knife interval"));
+    const double WolfEnd=Wolf->State.EndsAt;Health->Health=Health->MaxHealth*.5f;const float BeforeLeech=Health->Health;
+    Shot.MasteryAttackSerial=212;Wolf->ConfirmHit(Shot,10.f);
+    Check(FMath::IsNearlyEqual(Health->Health,BeforeLeech+1.f)&&Wolf->State.EndsAt==WolfEnd&&Wolf->State.Charge==12,
+        TEXT("active berserker heals actual damage share without extending or precharging"));
+    Check(FMath::IsNearlyEqual(UKukriBerserkerComponent::MovementMultiplier(Pawn),1.15f),TEXT("berserker movement bonus is fifteen percent"));
+    auto WolfAway=Mixed;WolfAway.ActiveWeaponSlot=9;Model->AdoptNetMirror(WolfAway);Wolf->Configure(Model);
+    Model->AdoptNetMirror(Mixed);Wolf->Configure(Model);
+    Check(Wolf->Remaining()==0.f&&Wolf->State.Charge==0,TEXT("berserker switch away and back cancels old activation"));
+    auto DoubleWolf=Mixed;DoubleWolf.Items={MixedMain,Item(8,TEXT("berserker_rune"))};
+    Model->AdoptNetMirror(DoubleWolf);Wolf->Configure(Model);
+    for(uint32 I=300;I<312;++I){Shot.ItemInstance=MixedMain.InstanceId;Shot.MasteryAttackSerial=I;Wolf->ConfirmHit(Shot,10.f);
+        Shot.ItemInstance=DoubleWolf.Items[1].InstanceId;Wolf->ConfirmHit(Shot,10.f);}
+    Check(Wolf->State.Instances.Num()==2&&Wolf->State.Charge==12&&Wolf->Remaining()>0.f&&
+        Model->DashAttackStats().StaminaCost==0.f&&FMath::IsNearlyEqual(UKukriBerserkerComponent::MovementMultiplier(Pawn),1.15f),
+        TEXT("two berserker knives share charge free dash and non-stacking movement"));
+    Health->Health=0.f;Wolf->Configure(Model);
+    Check(Wolf->State.Instances.IsEmpty()&&Wolf->Remaining()==0.f,TEXT("berserker death clears state"));Health->Health=Health->MaxHealth;
+    Wolf->GetClass()->SetUpRuntimeReplicationData();Props.Reset();Wolf->GetLifetimeReplicatedProps(Props);
+    const auto* WolfField=FindFProperty<FProperty>(Wolf->GetClass(),TEXT("State"));
+    Check(WolfField&&Props.ContainsByPredicate([&](const auto& P){return P.RepIndex==WolfField->RepIndex&&P.Condition==COND_None;}),
+        TEXT("berserker activation replication includes observers"));
+
+    auto CanineOff=Item(8,TEXT("")),PlainMain=Item(6,TEXT(""));
+    const auto Canine=[](FColdSteelItem& Blade)
+    {
+        TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Blade.Data),Data);
+        Data->GetObjectField(TEXT("gunsmith_parts"))->SetStringField(TEXT("blade_1"),TEXT("canine_blade"));
+        Blade.Data.Reset();FJsonSerializer::Serialize(Data,TJsonWriterFactory<>::Create(&Blade.Data));
+    };
+    Canine(CanineOff);auto BleedSeed=Seed;BleedSeed.Items={PlainMain,CanineOff};
+    Model->AdoptNetMirror(BleedSeed);Wolf->Configure(Model);Rune->Configure(Model);
+    const auto BleedCount=[&]()
+    {
+        const auto Views=UStatusEffectsComponent::GetOrCreate(Victim)->Snapshot();
+        const auto* View=Views.FindByPredicate([](const auto& V){return V.Type==TEXT("bleed");});
+        return View?View->Stacks:0;
+    };
+    Shot=ColdSteelSkills::Snapshot(Pawn,Model->Equipped());Shot.bMelee=true;Shot.bRicochet=false;Shot.AttackMeta=0;
+    const FHitResult BleedHit(Victim,Victim->GetCapsuleComponent(),Victim->GetActorLocation(),FVector::ForwardVector);
+    ColdSteelSkills::ApplyHit(Pawn,BleedHit,1.f,FVector::ForwardVector,Shot);
+    Check(BleedCount()==0,TEXT("normal main knife does not borrow canine offhand bleed"));
+    Shot.AttackMeta=0x16;ColdSteelSkills::ApplyHit(Pawn,BleedHit,1.f,FVector::ForwardVector,Shot);
+    Check(BleedCount()==1,TEXT("combined dash includes canine offhand bleed"));
+    Canine(PlainMain);BleedSeed.Items={PlainMain,CanineOff};Model->AdoptNetMirror(BleedSeed);
+    Shot=ColdSteelSkills::Snapshot(Pawn,Model->Equipped());Shot.bMelee=true;Shot.bRicochet=false;Shot.AttackMeta=0x16;
+    ColdSteelSkills::ApplyHit(Pawn,BleedHit,1.f,FVector::ForwardVector,Shot);
+    Check(BleedCount()==3,TEXT("combined dash counts each canine blade once"));
 }

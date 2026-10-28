@@ -40,6 +40,7 @@ protected:
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
+    friend class UKukriNetworkAuditCommandlet;
     double Clock() const;
     bool MatchesEquipment() const;
     void Present();

@@ -1,0 +1,279 @@
+{
+  "date": "2026-10-28",
+  "root": "D:/FPS3D/FPSGAME",
+  "archive": "trash/kukri-refinements-retired-20261028",
+  "files": [
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/compose_head.py",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/compose_head.py",
+      "bytes": 3098,
+      "sha256": "9f87335b075d82ceaba1708a0ad851d785723fcbd43ad97db16c125a9a530fbf",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/crown-layout.json",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/crown-layout.json",
+      "bytes": 528,
+      "sha256": "d88aa1b6af20030f067efeb1497869f51101e99ef9bf080eb26c360b50fbd400",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/CrownJoin.hlsl",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/CrownJoin.hlsl",
+      "bytes": 3076,
+      "sha256": "e7684b8baa1b88ae1443ad8cfdc10b0d6905f4f3fdefe30597a1f8ca4ad53d84",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/delivery.json",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/delivery.json",
+      "bytes": 1284,
+      "sha256": "2c5487d73fff25ae1d6597bbf48df71bc363fb6d4c26456980703376b4e48c77",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/end_play_for_save.py",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/end_play_for_save.py",
+      "bytes": 223,
+      "sha256": "1b57c7449b4f825e06000e291691861b2faf2ff28a81eb0500017afb9b6c1bab",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/finalize_delivery.py",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/finalize_delivery.py",
+      "bytes": 1940,
+      "sha256": "f4835b2c0d400d547a56e87c123a94a8259bc7a3b66fa04ad4a7bfc4972c6c93",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/FrostRavenCrownHud.hlsl",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/FrostRavenCrownHud.hlsl",
+      "bytes": 17168,
+      "sha256": "a93d7e8efdf95944206808f350d61e30835d5c2061c70de0f5e7b14f599b4083",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install_head.py",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install_head.py",
+      "bytes": 3943,
+      "sha256": "816b5903f8c591655fbf279b3714b5f5f045ae58bb8d3510bfb677a0b726fb6a",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install_join.py",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install_join.py",
+      "bytes": 2364,
+      "sha256": "5549c684797759c848aeebf02b243db44b33d67c5e33bdb4fc8af626156b3f42",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-background.ps1",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-background.ps1",
+      "bytes": 1959,
+      "sha256": "ace7747e05d31cd40a5562bfc160cd46d753d21279f352d02c2c0fbe383efff1",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-bridge-1054bacf9e0b44a799210bf92e7ee905.txt",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-bridge-1054bacf9e0b44a799210bf92e7ee905.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-bridge-v2.txt",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-bridge-v2.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-commandlet.log",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-commandlet.log",
+      "bytes": 301866,
+      "sha256": "97afe9fce4ac502e6eca1e7de6c71f1a76198f23e41fae560b4dc5d07fb32cbc",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-console.log",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-console.log",
+      "bytes": 38201,
+      "sha256": "f6ff5588302a1e50e2faaee819a50fae4bffae555d1d3cc5f450b5ddc280a533",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-queued.ps1",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-queued.ps1",
+      "bytes": 512,
+      "sha256": "97a13bd92cb2bb4c3149b805acafe89bda8c907a2e733f7349ab171926ed331d",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-receipt.json",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-receipt.json",
+      "bytes": 1416,
+      "sha256": "03c9db54600e4134c7f6b86d7b698c83fe47a0689237a5de4841528b7121b270",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-stderr.log",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/install-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/join-bridge-2ed6ffc1c7f643db9bd3ec3534918c89.txt",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/join-bridge-2ed6ffc1c7f643db9bd3ec3534918c89.txt",
+      "bytes": 458,
+      "sha256": "a4d31d101abd69ea7f753ee94cf3c5990613d5af8ea0f716f51d140d53f0f503",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/join-install-receipt.json",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/join-install-receipt.json",
+      "bytes": 685,
+      "sha256": "7d8182c1e20d41e329d8e46b878adfd9953c421719da1a3e058e6edfa24450db",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/join-save-43052e2d2e154e19b7321e6c8d8c4476.txt",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/join-save-43052e2d2e154e19b7321e6c8d8c4476.txt",
+      "bytes": 491,
+      "sha256": "8c5fb30bf7b2b569a249938581d2aea30c7f7489ba5872642daee54f2f8b6afa",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/join-stop-b9bbe48fa59348898381e2b3cc06cc8e.txt",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/join-stop-b9bbe48fa59348898381e2b3cc06cc8e.txt",
+      "bytes": 127,
+      "sha256": "2b71ca44bc74cc7ebdba8fb8f207e9722592f392dfc74392de99c04d0b1d0ef8",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/prompt.json",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/prompt.json",
+      "bytes": 2369,
+      "sha256": "2cc6b5f3514dd5e360ac051ce9cf47f173f29c032b3d82589c3fce970dc0990d",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/README.md",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/README.md",
+      "bytes": 4226,
+      "sha256": "bdde26dba8edf6324ace2d6073fa2f12ae1f3e11bfb62f38a5cadab2c6b6aaf1",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/resume_join_save.py",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/resume_join_save.py",
+      "bytes": 1546,
+      "sha256": "06556000099457c31640bd2a3c2ec58a57f1f31082b16df28455433359e07d7d",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/CrownImageV2/Art/FrostRavenCrown.png",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/CrownImageV2/Art/FrostRavenCrown.png",
+      "bytes": 2169517,
+      "sha256": "b30817cbd3b8167fea2a79e5ae3c36d185202a217826065b1f45ee2db1836e38",
+      "reason": "Rejected silver/metal crown and separate collar; superseded by unified sapphire crystal crown",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/author_art.py",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/author_art.py",
+      "bytes": 8495,
+      "sha256": "c619bcde368e99dc553573a38f8defb7e1889577f400f383fdaca6c2f0320a53",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/FrostRaven_Crown_Editable.blend",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/FrostRaven_Crown_Editable.blend",
+      "bytes": 224018,
+      "sha256": "d8a5eee58bbc1fa570aedef0d7e77252ed943a047c40e5f72a0ee5a4b82a6b87",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/FrostRaven_Rune_Editable.blend",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/FrostRaven_Rune_Editable.blend",
+      "bytes": 229365,
+      "sha256": "7a824fc5e974fdafc301fd1d01fd5333737fc02703faf94433d1531c2228a9b4",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/SM_FrostRaven_Crown.fbx",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/SM_FrostRaven_Crown.fbx",
+      "bytes": 741372,
+      "sha256": "86443973a62cd63f7cff518afc51c8e63e3c4695448a1e13cd4a426cf49249be",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenCrown.png",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenCrown.png",
+      "bytes": 1640830,
+      "sha256": "d4a1eb897bd25afd32d4be17b677b603f89c6526bcf976f549c4899004f8fc19",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenSigil.png",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenSigil.png",
+      "bytes": 541044,
+      "sha256": "6d18d5fbad0e600f96d5b72749376156ab00c9dbc3da401d418064ec5cd3377c",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenSigilRelief.png",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/Art/RavenSigilRelief.png",
+      "bytes": 924905,
+      "sha256": "e2e4b4b16ef09fb8352714f18094647e520321e5fc39a9e21043a4ae6433f5b9",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/art-receipt.json",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/art-receipt.json",
+      "bytes": 258,
+      "sha256": "fb15adeb97f93c20ce68b7020e1010ba358278031fb9338c522e86dc660ca41a",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    },
+    {
+      "source": "SourceAssets/KukriFrostRaven20261028/ProductionV1/author-art.log",
+      "destination": "trash/kukri-refinements-retired-20261028/SourceAssets/KukriFrostRaven20261028/ProductionV1/author-art.log",
+      "bytes": 1412,
+      "sha256": "7962cd9e1ca9b988f62ae79f006ccd310853ba8f089c7fef10cf92bf22be9c10",
+      "reason": "Superseded coarse procedural eagle/glyph, editable source or its production evidence",
+      "replacement": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3; SourceAssets/KukriFrostRaven20261028/BladeSigilV2"
+    }
+  ]
+}

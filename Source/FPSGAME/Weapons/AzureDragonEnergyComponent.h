@@ -17,6 +17,9 @@ class FPSGAME_API UAzureDragonEnergyComponent : public UActorComponent
 public:
     UAzureDragonEnergyComponent();
     void Configure(bool Enabled);
+    void ConfigureMaterial(const FSoftObjectPath& Path);
+    void SetHorizontalOffset(float ViewHeightFraction){HorizontalOffset=ViewHeightFraction;}
+    void SetRightAligned(bool Enabled){bRightAligned=Enabled;}
     void SetEnergy(float NormalizedEnergy,bool Summoned=false,bool ContactPulse=true);
     void ClearEnergy();
 protected:
@@ -28,9 +31,12 @@ private:
     void HideDisplay();
     void RemoveDisplay();
     bool bEnabled=false,bRequested=false,bHaveYaw=false;
+    bool bRightAligned=false;
     float TargetEnergy=0.f,DisplayEnergy=0.f,Age=0.f,EntryAge=0.f;
     float HitAge=10.f,FlareAge=10.f,LastYaw=0.f,Sway=0.f;
+    float HorizontalOffset=0.f;
     TSharedPtr<FStreamableHandle> AssetLoad;
+    FSoftObjectPath MaterialPath;
     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> HudMaterial;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> HudMID;
     TSharedPtr<SAzureDragonEnergyHud> HudWidget;

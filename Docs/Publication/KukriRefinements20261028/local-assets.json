@@ -1,0 +1,121 @@
+{
+  "root": "D:/FPS3D/FPSGAME",
+  "content_junction_target": "F:/FPSGAMEData/Content",
+  "files": [
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/ActiveFX/M_FrostRavenEmber.uasset",
+      "bytes": 11213,
+      "sha256": "6cd05aa66398e905f8b2cbbb1a254c82595c569d9f44d88dc298859e7ce1a73c",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/ActiveFX/M_FrostRavenWeaponGlow.uasset",
+      "bytes": 10965,
+      "sha256": "85eac10083a63b7224973ace809c68217906342b7b148a4256806a7d74d40416",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/M_FrostRavenEnergyHud.uasset",
+      "bytes": 39123,
+      "sha256": "153ec395c8fc4d17251d2bd468873b9dc4b4f2da3a0971bb422ed2910311aff7",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/M_FrostRaven_Canine.uasset",
+      "bytes": 19895,
+      "sha256": "76648aeef4ac037196d024a9664a62f4f98f19f45ea9cb57e9e636866c0fa98c",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/M_FrostRaven_Factory.uasset",
+      "bytes": 19790,
+      "sha256": "047bf22c93706a4147174f0d975d71f0333af07a5ff7dcbb3fda207ade1b99c3",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/M_FrostRaven_FoldedBalanced.uasset",
+      "bytes": 19981,
+      "sha256": "82bff674efc46d8c25ed45e2984777fd30982bdfe54815ad5d587a3f7778b19c",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/M_FrostRaven_HeavyBack.uasset",
+      "bytes": 19926,
+      "sha256": "25024aed665345a946b62174dcce44c957ce1b23b43711da4ff19a65a492021e",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/M_FrostRaven_Hunter.uasset",
+      "bytes": 19895,
+      "sha256": "178e957d1ea74ad5c1ee089a5777a0c13adf1bb2358df2bf1e493a9c9630d69a",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/M_FrostRaven_Swift.uasset",
+      "bytes": 19882,
+      "sha256": "7f827ad9324a9b69d9febe286c1c77cacbf97d666c7a52fa1a530f7744e6c52a",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Canine.uasset",
+      "bytes": 5381,
+      "sha256": "58bb5177d14f01ca60d3c12df92627ac90bf458a1ec91e3525f90fe4d72f7b2b",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Factory.uasset",
+      "bytes": 5392,
+      "sha256": "dab56b49a9f8456d9c2c873d12a21a634937c775fb4f7fb38803fe40c9ea35ca",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_FoldedBalanced.uasset",
+      "bytes": 5469,
+      "sha256": "7632048d3f9d8dc38bbe7c4df4cdd348249cc06f8d621906c9db25f48c9e9798",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_HeavyBack.uasset",
+      "bytes": 5414,
+      "sha256": "5968845c3ce4f33a5eea4ae1a2482f3e2b1eda1312ce2c54db8573fbb93867f0",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Hunter.uasset",
+      "bytes": 5381,
+      "sha256": "af701ddfad9d641b6583898b4aa78ab4878bfedbdb89d1c20cbe0441286e4924",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Swift.uasset",
+      "bytes": 5370,
+      "sha256": "aa577d03c0a928794d9de21b0c28eeae1671507c9f076070bcaa8e5a0317aea4",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Textures/T_FrostRavenCrown.uasset",
+      "bytes": 2101464,
+      "sha256": "1034abbfcc1e6d1392bd5c719aa8edd40409b07469fde4812c99ed42e0c40631",
+      "publication": "local_only"
+    },
+    {
+      "path": "Content/Weapons/Kukri20261020/FrostRaven20261028/Textures/T_FrostRavenGlyph.uasset",
+      "bytes": 914653,
+      "sha256": "2892ac2f67810fb6ba07379af8524dc97b4c3151d4295de5b0b04b4d6662567a",
+      "publication": "local_only"
+    },
+    {
+      "path": "SourceAssets/KukriFrostRaven20261028/BladeSigilV2/Art/RavenSigilFine.png",
+      "bytes": 978363,
+      "sha256": "7b066a1b450670d0b54eafa8877dc0ea295663bf079720442ce6b315170f271d",
+      "publication": "local_only"
+    },
+    {
+      "path": "SourceAssets/KukriFrostRaven20261028/CrystalCrownV3/Art/FrostRavenCrystal.png",
+      "bytes": 2048869,
+      "sha256": "72ef961e7981fbcee7e75761fda4a631c8a8a021eca2cc398e91fd7c0ac94ef6",
+      "publication": "local_only"
+    }
+  ],
+  "unchanged_sources": "See ../KukriMods20261028/local-assets.json for existing blades, icons, normal maps and donors."
+}

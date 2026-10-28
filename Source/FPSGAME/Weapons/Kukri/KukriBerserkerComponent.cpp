@@ -73,6 +73,9 @@ double UKukriBerserkerComponent::Clock() const
 }
 bool UKukriBerserkerComponent::MatchesEquipment() const
 {
+    const auto* Pawn=Cast<APawn>(GetOwner());
+    // Observers resolve replicated instances against their world weapon meshes.
+    if(Pawn&&!Pawn->HasAuthority()&&!Pawn->IsLocallyControlled())return !State.Instances.IsEmpty();
     return !EquippedInstances.IsEmpty()&&State.Instances==EquippedInstances&&State.EquipmentKey==EquippedKey&&
         State.EquipmentRevision>=RequiredEquipmentRevision;
 }
@@ -137,8 +140,10 @@ void UKukriBerserkerComponent::ConfirmHit(const FColdSteelSkillShot& Shot,float 
 void UKukriBerserkerComponent::Present()
 {
     const auto* Pawn=Cast<APawn>(GetOwner());
-    if(!Pawn||!Pawn->IsLocallyControlled()||GetNetMode()==NM_DedicatedServer)return;
-    const bool Enabled=!EquippedInstances.IsEmpty();
+    if(!Pawn||GetNetMode()==NM_DedicatedServer)return;
+    const bool Local=Pawn->IsLocallyControlled();
+    const auto& Instances=Local?EquippedInstances:State.Instances;
+    const bool Enabled=!Instances.IsEmpty();
     if(Enabled&&!ActiveVFX)
     {ActiveVFX=NewObject<UKukriBerserkerVFXComponent>(GetOwner());ActiveVFX->RegisterComponent();}
     const float Seconds=Remaining();
@@ -149,8 +154,9 @@ void UKukriBerserkerComponent::Present()
         const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,Model);
         if(Main&&EquippedInstances.Contains(Main->InstanceId))Hands|=1;
         if(Off&&EquippedInstances.Contains(Off->InstanceId))Hands|=2;
-        ActiveVFX->SetState(Enabled,Seconds,Hands);
+        ActiveVFX->SetState(Enabled,Seconds,Hands,Instances);
     }
+    if(!Local)return; // Only the wielder receives a gauge and screen-edge effect.
     if(Enabled&&!Hud)
     {
         Hud=NewObject<UAzureDragonEnergyComponent>(GetOwner());
@@ -176,8 +182,9 @@ void UKukriBerserkerComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     }
     Present();
 }
-void UKukriBerserkerComponent::OnRep_State(){Present();}
+void UKukriBerserkerComponent::OnRep_State()
+{SetComponentTickEnabled(!State.Instances.IsEmpty()||!EquippedInstances.IsEmpty());Present();}
 void UKukriBerserkerComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME_CONDITION(UKukriBerserkerComponent,State,COND_OwnerOnly);}
+{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(UKukriBerserkerComponent,State);}
 void UKukriBerserkerComponent::EndPlay(const EEndPlayReason::Type Reason)
 {if(ActiveVFX){ActiveVFX->DestroyComponent();ActiveVFX=nullptr;}if(Hud){Hud->DestroyComponent();Hud=nullptr;}Super::EndPlay(Reason);}

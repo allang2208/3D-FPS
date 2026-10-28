@@ -1,15 +1,12 @@
 """Derive independent production shaders and projection fitting from the current accepted pipeline."""
 from pathlib import Path
 import shutil
+import runpy
 P=Path(__file__).resolve().parent
 S=P.parents[1]
 B=S/'KukriBerserker20261028'
 shutil.copy2(B/'blade-layout-source.json',P/'blade-layout-source.json')
-fit=(B/'VolumeRefine/fit_rune_projection.py').read_text('utf-8')
-fit=fit.replace("P.parent/'blade-layout-source.json'","P/'blade-layout-source.json'").replace("P.parent/'Art/WolfSigil.png'","P/'Art/RavenSigil.png'")
-start=fit.index('    # Record the old UV allocation')
-end=fit.index('    results.append(best)',start)
-fit=fit[:start]+fit[end:]
+fit="from pathlib import Path\nimport runpy\nrunpy.run_path(str(Path(__file__).resolve().parent.parent/'BladeSigilV2/fit_projection.py'),run_name='__main__')\n"
 (P/'fit_projection.py').write_text(fit,encoding='utf-8')
 shutil.copy2(B/'VolumeRefine/RuneProjection.hlsl',P/'RuneProjection.hlsl')
 hud=(B/'WolfHeadComposite/BerserkerWolfHeadHud.hlsl').read_text('utf-8')
@@ -31,6 +28,8 @@ float seam=(1-Fn.SS(.016,.045,min(division,1-division)))*inner*zone;
 col*=1-seam*.34;
 '''+hud[end:]
 hud=hud.replace('11.0 / 12.0','7.0 / 8.0')
+compose=runpy.run_path(str(P.parent/'CrystalCrownV3/compose_head.py'))
+hud=compose['apply_crown_layout'](hud)
 (P/'FrostRavenEnergyHud.hlsl').write_text(hud,encoding='utf-8')
 active=(B/'ActiveFX/author_materials.py').read_text('utf-8')
 active=active.replace("P=Path(globals().get('__file__') or r'D:/FPS3D/FPSGAME/SourceAssets/KukriBerserker20261028/ActiveFX/author_materials.py').resolve().parent","P=Path(__file__).resolve().parent")

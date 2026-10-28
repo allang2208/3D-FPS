@@ -1,0 +1,39 @@
+{
+  "image": "Art/FrostRavenCrystal.png",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "shoulder_sample_y": 1050,
+  "shoulder_span_x": [
+    484,
+    907
+  ],
+  "root_sample_y": 1125,
+  "root_span_x": [
+    500,
+    833
+  ],
+  "origin_px": [
+    -30.831347517730478,
+    28.12765957446811
+  ],
+  "extent_px": [
+    539.6646808510637,
+    539.6646808510637
+  ],
+  "uniform_scale": 0.430354609929078,
+  "join_y": 480.0,
+  "root_width_before_px": 143.30808510638298,
+  "root_width_target_px": 182.04,
+  "root_width_scale": 1.2702702702702702,
+  "root_width_blend_y": [
+    458.4822695035461,
+    512.2765957446809
+  ],
+  "root_fade_y": [
+    520.0,
+    540.0
+  ],
+  "method": "Original head placement and RGBA retained; only the lower throat smoothly widens to the column width"
+}

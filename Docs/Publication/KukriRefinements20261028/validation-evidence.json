@@ -1,0 +1,68 @@
+{
+  "status": "implemented_saved_and_scoped_audits_passed",
+  "production_fixes": [
+    "Berserker activation now replicates to observers; world-body particles and full matching-knife glow use replicated weapon instances. HUD and screen-edge overlay remain local.",
+    "Combined Kukri dash includes canine offhand bleed. Ordinary separate contacts do not borrow the other blade effect; two canine blades each contribute one stack."
+  ],
+  "catalog": {
+    "modifications": 19,
+    "saved_asset_references": 67,
+    "missing_assets": 0,
+    "receipt": "assets.json"
+  },
+  "build": {
+    "result": "Succeeded",
+    "log": "20261028-172321/build-editor.log"
+  },
+  "isolated_authority_checks": {
+    "total": 75,
+    "failed": 0,
+    "process_exit_code": 0,
+    "receipt": "20261028-172321/isolated.json"
+  },
+  "wire": {
+    "passed": true,
+    "cases": 6,
+    "transport": "UDP listen host and client",
+    "lag_ms_configured_each_peer": 60,
+    "loss_percent_configured_each_peer": 3,
+    "receipt": "20261028-171529/host.json",
+    "scope": "Production rune state replication using isolated fixture profiles and authority confirmation calls; owner and observers checked. Completed before the separate canine hit-settlement fix; rune replication code unchanged afterward."
+  },
+  "not_covered": [
+    "Rendered appearance and particle visibility",
+    "End-to-end network combat input and damage RPCs (authority receipt paths checked in isolation)",
+    "Dedicated server, reconnect, and packaged-build acceptance"
+  ],
+  "prior_attempts": "Earlier logs retained. Fixture initialization/compiler errors and the death setup ordering were corrected; final isolated and wire results above are the successful runs.",
+  "publication_date": "2026-10-28",
+  "tests_repeated_for_publication": false,
+  "evidence_root": "SourceAssets/KukriFrostRaven20261028/CompletionAudit",
+  "evidence_files": [
+    {
+      "path": "SourceAssets/KukriFrostRaven20261028/CompletionAudit/result.json",
+      "bytes": 1664,
+      "sha256": "046f4533bc1fe2fb0459c252a508c9aa7893b6dec179eb8bd0957834e5a7fa16"
+    },
+    {
+      "path": "SourceAssets/KukriFrostRaven20261028/CompletionAudit/assets.json",
+      "bytes": 6500,
+      "sha256": "f0f373d71593da9210970baa3571eb858b3e6eb8d6e5a86c95b6630243a70c0b"
+    },
+    {
+      "path": "SourceAssets/KukriFrostRaven20261028/CompletionAudit/20261028-172321/isolated.json",
+      "bytes": 6919,
+      "sha256": "0a6cccd9e361fa13a5cbf28741c2eb8037ce43868a1bb9ec7411e214d1f4f580"
+    },
+    {
+      "path": "SourceAssets/KukriFrostRaven20261028/CompletionAudit/20261028-172321/build-editor.log",
+      "bytes": 26560,
+      "sha256": "80d83f8495b022c361941842aff31fe7dbd2051a2ea0b4ddf4979d27b7fc4354"
+    },
+    {
+      "path": "SourceAssets/KukriFrostRaven20261028/CompletionAudit/20261028-171529/host.json",
+      "bytes": 2216,
+      "sha256": "5e7f7e6bf789183f993a4703ffae1b6ca6c2c9c7e76a41c55cba039178ec75b1"
+    }
+  ]
+}

@@ -12,6 +12,12 @@ namespace ColdSteelModification
 {
 inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
 {
+    if(Weapon==TEXT("ue_kukri")&&SlotKey==TEXT("blade_2")&&
+        (Id==TEXT("frost_raven_rune")||Id==TEXT("berserker_rune")))
+        return EGunsmithModificationTier::Legendary;
+    if(Weapon==TEXT("ue_kukri")&&SlotKey==TEXT("blade_1")&&
+        (Id==TEXT("hunter_blade")||Id==TEXT("canine_blade")))
+        return EGunsmithModificationTier::Special;
     if((Weapon==TEXT("ue_steel_warhammer")||Weapon==TEXT("ue_runebound_warhammer"))&&
         SlotKey==TEXT("head_mount")&&(Id==TEXT("ancient_breaking_seal_seat")||Id==TEXT("storm_drive_seat")))
         return EGunsmithModificationTier::Special;

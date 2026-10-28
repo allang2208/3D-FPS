@@ -1,0 +1,17 @@
+[
+  {
+    "path": "Source/FPSGAME/Multiplayer/KukriNetworkAuditCommandlet.h",
+    "sha256": "594b7575e9d9b7a755c467d49e2640404f32f7b225e7a74464623953d4465ab9",
+    "publication": "existing parallel-owned host framework; not included in this increment"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/KukriNetworkAuditCommandlet.cpp",
+    "sha256": "bc0b26a4fc3caac95953d59d13b8a2f8379313599c584a283b10ffc1fbd09214",
+    "publication": "existing parallel-owned host framework; not included in this increment"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp",
+    "sha256": "1a7873f96bf7b56a308d2a1ea356cd9033ee1d82f2b60796fe566a4e0644ef43",
+    "publication": "existing parallel-owned host framework; not included in this increment"
+  }
+]

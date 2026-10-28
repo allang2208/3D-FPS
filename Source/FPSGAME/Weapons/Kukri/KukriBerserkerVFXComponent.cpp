@@ -67,12 +67,12 @@ bool UKukriBerserkerVFXComponent::UsesWorldBody() const
 {
     const auto* Pawn=Cast<APawn>(GetOwner());
     const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
-    return bFrostRaven&&Pawn&&(!Pawn->IsLocallyControlled()||(Body&&Body->IsThirdPersonViewEnabled()));
+    return Pawn&&(!Pawn->IsLocallyControlled()||(Body&&Body->IsThirdPersonViewEnabled()));
 }
 void UKukriBerserkerVFXComponent::SetState(bool Equipped,float Seconds,uint8 Hands,const TArray<FString>& Instances)
 {
     const auto* Pawn=Cast<APawn>(GetOwner());
-    bEquipped=Equipped&&Pawn&&(Pawn->IsLocallyControlled()||bFrostRaven)&&GetNetMode()!=NM_DedicatedServer;
+    bEquipped=Equipped&&Pawn&&GetNetMode()!=NM_DedicatedServer;
     if(WeaponInstances!=Instances){WeaponInstances=Instances;ResolveAge=0.f;}
     const bool Active=bEquipped&&Seconds>0.f;
     if(Active&&!bActive){Age=EntryAge=ResolveAge=0.f;ResolveHands();}
@@ -238,12 +238,19 @@ void UKukriBerserkerVFXComponent::RefreshWeaponOverlays()
                     !Mesh->IsVisible()||Mesh->bHiddenInGame)continue;
                 // Equipment and rune snapshots may arrive on different frames.
                 // A former activation cannot illuminate a replacement rune.
-                bool FrostSurface=false;
+                bool RuneSurface=false;
+                const TCHAR* Prefix=bFrostRaven?TEXT("M_FrostRaven_"):TEXT("M_Berserker_");
                 for(int32 I=0;I<Mesh->GetNumMaterials();++I)
-                    if(auto* M=Mesh->GetMaterial(I);M&&M->GetBaseMaterial()&&M->GetBaseMaterial()->GetName().StartsWith(TEXT("M_FrostRaven_")))FrostSurface=true;
-                if(!FrostSurface)continue;
+                    if(auto* M=Mesh->GetMaterial(I);M&&M->GetBaseMaterial()&&M->GetBaseMaterial()->GetName().StartsWith(Prefix))RuneSurface=true;
+                if(!RuneSurface)continue;
                 HandMask|=1<<Part.Hand;Targets.AddUnique(Mesh);
             }
+            // Berserker illuminates the complete matching knife, while frost
+            // stays on its blade. Never spill either overlay onto the other hand.
+            if(!bFrostRaven)for(const auto& Part:Parts)
+                if((HandMask&(1<<Part.Hand))&&WeaponInstances.Contains(Part.Instance))
+                    if(auto* Mesh=Cast<UStaticMeshComponent>(Part.Mesh);Mesh&&Mesh->IsVisible()&&!Mesh->bHiddenInGame)
+                        Targets.AddUnique(Mesh);
         }
     }
     else for(int32 Side=0;Side<2;++Side)
@@ -288,12 +295,12 @@ void UKukriBerserkerVFXComponent::TickComponent(float Delta,ELevelTick Type,FAct
     Super::TickComponent(Delta,Type,Tick);
     auto* Pawn=Cast<APawn>(GetOwner());auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
-    if(!bEquipped||!Pawn||(!Pawn->IsLocallyControlled()&&!bFrostRaven)||(Health&&Health->IsDead()))
+    if(!bEquipped||!Pawn||(Health&&Health->IsDead()))
     {Strength=0.f;Hide();SetComponentTickEnabled(false);return;}
     Age+=Delta;EntryAge+=Delta;
     Strength=FMath::FInterpConstantTo(Strength,bActive?1.f:0.f,Delta,bActive?5.f:2.5f);
     if(Strength<=.001f){Hide();SetComponentTickEnabled(false);return;}
-    if((!bFrostRaven&&!Overlay)||Emitters.Num()!=2)CreatePresentation();
+    if((!bFrostRaven&&Pawn->IsLocallyControlled()&&!Overlay)||Emitters.Num()!=2)CreatePresentation();
     const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
     const bool WorldView=UsesWorldBody();
     const bool ViewVisible=WorldView||(PC&&PC->GetViewTarget()==Pawn&&(!PC->MyHUD||PC->MyHUD->bShowHUD)&&(!Body||!Body->IsThirdPersonViewEnabled()));

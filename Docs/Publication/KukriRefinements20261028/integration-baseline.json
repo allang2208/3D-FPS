@@ -1,0 +1,9 @@
+{
+  "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+  "base_commit": "531ad50575f475d62c854506967a4d54680347ba",
+  "apply_after": "../KukriMods20261028/modification-integration.patch",
+  "before_sha256_lf": "7aee917a8b08d915888016ee819b60761720ee811e010a963d4621a761fce570",
+  "after_sha256_lf": "6746a10262dd8c1c009d8080f09a4cf849cf8e0c0d9e2cfd06259202a36819b6",
+  "local_full_file_sha256": "0a80d46a75578dcea683a2e2ba288a4659877d33207fc33376dc49361dd9f181",
+  "scope": "Only combined kukri dash per-blade bleeding. Local full file contains other unpublished work; do not reapply on this machine."
+}

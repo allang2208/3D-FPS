@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -415,2 +415,12 @@
+-        &&Shot.MeleeHitBleedStacks>0&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+-        UCombatStatusFormula::GetOrAdd(Victim)->AddBleedingHit(Shooter,Shot.MeleeHitBleedStacks,Hit);
++        &&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++    {
++        int32 BleedStacks=Shot.MeleeHitBleedStacks;
++        // The kukri dash settles both blades as one damage contact. Its snapshot
++        // describes the main hand, so include the participating offhand here.
++        // Ordinary/heavy dual contacts already carry separate blade snapshots.
++        if(Shot.ItemDefinition==TEXT("ue_kukri")&&Shot.AttackMeta==0x16)
++            if(const auto* Main=Equipped();Main&&Main->InstanceId==Shot.ItemInstance)
++                if(const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,this))
++                    BleedStacks+=ColdSteelMelee::ItemModifiers(Off,this).MeleeHitBleedStacks;
++        if(BleedStacks>0)UCombatStatusFormula::GetOrAdd(Victim)->AddBleedingHit(Shooter,BleedStacks,Hit);
++    }

@@ -1,5 +1,4 @@
 #include "KukriFrostRavenComponent.h"
-#include "KukriBerserkerComponent.h"
 #include "../../Combat/CombatStatusFormula.h"
 #include "KukriBerserkerVFXComponent.h"
 #include "../AzureDragonEnergyComponent.h"
@@ -167,17 +166,10 @@ void UKukriFrostRavenComponent::Present()
     {
         Hud=NewObject<UAzureDragonEnergyComponent>(GetOwner());
         Hud->ConfigureMaterial(FSoftObjectPath(TEXT("/Game/Weapons/Kukri20261020/FrostRaven20261028/M_FrostRavenEnergyHud.M_FrostRavenEnergyHud")));
+        Hud->SetRightAligned(true);
         Hud->RegisterComponent();
     }
     if(!Hud)return;
-    // Keep both independent gauges readable when the other knife carries berserker.
-    bool OtherGauge=false;
-    if(const auto* Model=Profile.Get())
-    {
-        const auto* Main=Model->Equipped();const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,Model);
-        OtherGauge=(Main&&UKukriBerserkerComponent::Installed(*Main))||(Off&&UKukriBerserkerComponent::Installed(*Off));
-    }
-    Hud->SetHorizontalOffset(OtherGauge?.20f:0.f);
     Hud->Configure(Enabled);
     const int32 Charge=MatchesEquipment()?State.Charge:0;
     const bool Activated=Seconds>0.f&&ShownActivation!=State.EndsAt;
