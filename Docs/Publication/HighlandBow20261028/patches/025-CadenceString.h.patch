@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Weapons/Bow/CadenceString.h
++++ b/Source/FPSGAME/Weapons/Bow/CadenceString.h
+@@ -0,0 +1,12 @@
++#pragma once
++#include "CoreMinimal.h"
++
++namespace CadenceString
++{
++inline constexpr const TCHAR* Weapon=TEXT("bow_woodsteel");
++inline constexpr const TCHAR* Option=TEXT("highland_cadence");
++inline constexpr const TCHAR* Status=TEXT("bowCadence");
++inline constexpr const TCHAR* HUDMaterial=TEXT("/Game/Weapons/WoodSteelLongbow20261026/CadenceV1/M_Cadence_HUD.M_Cadence_HUD");
++inline constexpr int32 MaximumStacks=5;
++inline constexpr float StackSeconds=6.f,SpeedPerStack=.20f,HipSpreadScale=.5f,PhysicalScale=1.2f;
++}

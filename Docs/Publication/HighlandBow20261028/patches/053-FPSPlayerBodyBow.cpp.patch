@@ -1,0 +1,59 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
+@@ -5,10 +5,13 @@
+ #include "FPSBodyBowMotion.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Bow/BowMountainEchoComponent.h"
++#include "../Weapons/Bow/BowCadenceComponent.h"
+ #include "../Weapons/Bow/BowArmsMeshComponent.h"
+ #include "../Weapons/Bow/BowPartComponent.h"
+ #include "../Weapons/Bow/BowFlexMeshComponent.h"
+ #include "../Skills/FPSFireballComponent.h"
++#include "../Skills/FPSQuickCombatComponent.h"
+ #include "../Skills/BowHeldMagicVisual.h"
+ #include "../Items/FPSPotionUseComponent.h"
+ #include "Animation/AnimSequence.h"
+@@ -95,7 +98,10 @@
+     case EBowStage::Nocking:State.BowClipRate=Rate(Bow.NockSeconds);break;
+     case EBowStage::DrawEntry:State.BowClipRate=State.BowClip==TEXT("Draw")?0.f:Rate(Bow.DrawEntrySeconds);break;
+     case EBowStage::Equip:State.BowClipRate=Rate(Bow.EquipSeconds);break;
+-    case EBowStage::QuickCombat:State.BowClipRate=1.f;break;
++    case EBowStage::QuickCombat:
++        State.BowClipRate=Character.IsValid()&&Character->QuickCombatPistol
++            ?Character->QuickCombatPistol->GetBowSourcePlaybackRate():0.f;
++        break;
+     default:break;
+     }
+     State.BowNock=Bow.NockPoint();State.bAiming=Bow.IsAimHeld();
+@@ -258,7 +264,14 @@
+     FVector Upper=BowSettings.UpperTip,Lower=BowSettings.LowerTip;
+     Riser->ApplyStringLoad(Nock,BowSettings.Brace,BowSettings.FlexDistribution);Riser->FlexTips(Upper,Lower);
+     if(auto* String=Find(TEXT("string")))
+-    {String->SetPartVisible(true);String->StretchRod(0,Upper,Nock,BowSettings.StringRadius);String->StretchRod(1,Lower,Nock,BowSettings.StringRadius);}
++    {
++        String->SetPartVisible(true);
++        const auto* Echo=GetOwner()->FindComponentByClass<UBowMountainEchoComponent>();
++        const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();
++        const int32 Charges=Cadence&&Cadence->IsEquippedFor(BowItemInstance)?Cadence->ChargesFor(BowItemInstance):Echo?Echo->ChargesFor(BowItemInstance):0;
++        if(!String->PoseString(Upper,Nock,Lower,Charges))
++        {String->StretchRod(0,Upper,Nock,BowSettings.StringRadius);String->StretchRod(1,Lower,Nock,BowSettings.StringRadius);}
++    }
+     if(auto* Arrow=Find(TEXT("arrow")))
+     {
+         Arrow->SetPartVisible(DisplayState.bBowArrow);
+@@ -340,7 +353,13 @@
+     FVector Upper=BowSettings.UpperTip,Lower=BowSettings.LowerTip;
+     Riser->ApplyStringLoad(Nock,BowSettings.Brace,BowSettings.FlexDistribution);Riser->FlexTips(Upper,Lower);
+     if(auto* String=Find(TEXT("string")))
+-    {String->StretchRod(0,Upper,Nock,BowSettings.StringRadius);String->StretchRod(1,Lower,Nock,BowSettings.StringRadius);}
++    {
++        const auto* Echo=GetOwner()->FindComponentByClass<UBowMountainEchoComponent>();
++        const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();
++        const int32 Charges=Cadence&&Cadence->IsEquippedFor(BowItemInstance)?Cadence->ChargesFor(BowItemInstance):Echo?Echo->ChargesFor(BowItemInstance):0;
++        if(!String->PoseString(Upper,Nock,Lower,Charges))
++        {String->StretchRod(0,Upper,Nock,BowSettings.StringRadius);String->StretchRod(1,Lower,Nock,BowSettings.StringRadius);}
++    }
+     if(auto* Arrow=Find(TEXT("arrow"));Arrow&&DisplayState.bBowArrow)
+     {
+         FVector Tail=Nock,Axis=(BowSettings.ArrowRest-Nock).GetSafeNormal();

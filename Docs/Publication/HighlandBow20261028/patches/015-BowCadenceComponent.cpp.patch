@@ -1,0 +1,132 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowCadenceComponent.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowCadenceComponent.cpp
+@@ -0,0 +1,129 @@
++#include "BowCadenceComponent.h"
++#include "CadenceString.h"
++#include "../GunsmithSystem.h"
++#include "../../FPSGAMECharacter.h"
++#include "../../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../../Monsters/FPSCombatHealthComponent.h"
++#include "../../UI/ColdSteelStatusModel.h"
++#include "../../UI/StatusEffectsComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/World.h"
++#include "Engine/GameInstance.h"
++#include "GameFramework/GameStateBase.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Net/UnrealNetwork.h"
++
++UBowCadenceComponent::UBowCadenceComponent()
++{
++    SetIsReplicatedByDefault(true);PrimaryComponentTick.bCanEverTick=true;
++    PrimaryComponentTick.bStartWithTickEnabled=false;PrimaryComponentTick.TickInterval=.1f;
++}
++double UBowCadenceComponent::ServerTime() const
++{
++    const auto* World=GetWorld();
++    if(const auto* GS=World?World->GetGameState():nullptr)return GS->GetServerWorldTimeSeconds();
++    return World?World->GetTimeSeconds():0.;
++}
++void UBowCadenceComponent::RefreshEquipment(const UColdSteelStatusModel* Model)
++{
++    if(!GetOwner()->HasAuthority())return;
++    const auto* Item=Model?Model->ActiveBow():nullptr;
++    const auto* G=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++    const FString Key=Item&&Item->Definition==CadenceString::Weapon&&G&&
++        G->Installed(*Item).FindRef(TEXT("string"))==CadenceString::Option?Item->InstanceId:FString();
++    if(Key==State.Instance)return;
++    State.Instance=Key;ClearStacks();
++}
++bool UBowCadenceComponent::IsEquippedFor(const FString& Instance) const
++{return !Instance.IsEmpty()&&Instance==State.Instance;}
++float UBowCadenceComponent::Remaining() const
++{
++    const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
++    if(State.Instance.IsEmpty()||State.Stacks<=0||!Health||Health->IsDead())return 0.f;
++    return FMath::Clamp(float(State.EndServerTime-ServerTime()),0.f,CadenceString::StackSeconds);
++}
++int32 UBowCadenceComponent::Charges() const
++{return Remaining()>0.f?FMath::Clamp(State.Stacks,0,CadenceString::MaximumStacks):0;}
++int32 UBowCadenceComponent::ChargesFor(const FString& Instance) const
++{return IsEquippedFor(Instance)?Charges():0;}
++bool UBowCadenceComponent::HasAutomaticRhythmFor(const FString& Instance) const
++{return ChargesFor(Instance)==CadenceString::MaximumStacks;}
++float UBowCadenceComponent::SpeedBonus() const{return Charges()*CadenceString::SpeedPerStack;}
++float UBowCadenceComponent::PhysicalMultiplier() const{return Charges()==CadenceString::MaximumStacks?CadenceString::PhysicalScale:1.f;}
++float UBowCadenceComponent::SpreadMultiplier() const{return Charges()==CadenceString::MaximumStacks?CadenceString::HipSpreadScale:1.f;}
++const UBowCadenceComponent* UBowCadenceComponent::ForItem(const UColdSteelStatusModel* Model,const FColdSteelItem& Item)
++{
++    if(!Model||Item.Definition!=CadenceString::Weapon)return nullptr;
++    const auto* Pawn=Model->RuntimePawn();
++    const auto* Component=Pawn?Pawn->FindComponentByClass<UBowCadenceComponent>():nullptr;
++    const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++    return Component&&Component->IsEquippedFor(Item.InstanceId)&&G&&
++        G->Installed(Item).FindRef(TEXT("string"))==CadenceString::Option?Component:nullptr;
++}
++void UBowCadenceComponent::ClearStacks()
++{
++    State.Stacks=0;State.EndServerTime=0.;++State.Revision;
++    OnRep_State();GetOwner()->ForceNetUpdate();
++}
++void UBowCadenceComponent::CommitRelease(const FString& Instance,bool Perfect)
++{
++    if(!GetOwner()->HasAuthority())return;
++    RefreshEquipment(ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner())));
++    if(!IsEquippedFor(Instance))return;
++    const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
++    const bool SuccessfulRhythm=Perfect||HasAutomaticRhythmFor(Instance);
++    if(!SuccessfulRhythm||!Health||Health->IsDead()){if(State.Stacks>0)ClearStacks();return;}
++    // Called only after the successful arrow snapshot/resource transaction.
++    State.Stacks=FMath::Min(Charges()+1,CadenceString::MaximumStacks);
++    State.EndServerTime=ServerTime()+CadenceString::StackSeconds;++State.Revision;
++    OnRep_State();GetOwner()->ForceNetUpdate();
++}
++void UBowCadenceComponent::OnRep_State()
++{
++    SetComponentTickEnabled(!State.Instance.IsEmpty());
++    const double Now=GetWorld()->GetTimeSeconds();
++    if(PresentedInstance!=State.Instance)
++    {
++        PresentedInstance=State.Instance;PresentedStacks=0;LastGainAt=LastReadyAt=LastPulseAt=-1000.;
++        if(MaterialLoad)MaterialLoad->CancelHandle();MaterialLoad.Reset();Material=nullptr;
++        if(!State.Instance.IsEmpty()&&GetNetMode()!=NM_DedicatedServer)
++        {
++            const FSoftObjectPath Path(CadenceString::HUDMaterial);
++            MaterialLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Path,
++                FStreamableDelegate::CreateWeakLambda(this,[this,Path]
++                {
++                    if(auto* Parent=Cast<UMaterialInterface>(Path.ResolveObject()))
++                        Material=UMaterialInstanceDynamic::Create(Parent,this);
++                }));
++        }
++    }
++    const int32 Count=Charges();
++    if(Count>0&&State.Revision!=PresentedRevision)LastPulseAt=Now;
++    if(Count>PresentedStacks||(Count>0&&!HadVisibleStacks))LastGainAt=Now;
++    if(Count==CadenceString::MaximumStacks&&PresentedStacks<CadenceString::MaximumStacks)LastReadyAt=Now;
++    if(Count<CadenceString::MaximumStacks)LastReadyAt=-1000.;
++    PresentedStacks=Count;PresentedRevision=State.Revision;HadVisibleStacks=Count>0;
++    UStatusEffectsComponent::Notify(GetOwner());
++}
++float UBowCadenceComponent::GainAge() const{return float(GetWorld()->GetTimeSeconds()-LastGainAt);}
++float UBowCadenceComponent::PulseAge() const{return float(GetWorld()->GetTimeSeconds()-LastPulseAt);}
++float UBowCadenceComponent::ReadyAge() const{return float(GetWorld()->GetTimeSeconds()-LastReadyAt);}
++void UBowCadenceComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++    Super::TickComponent(Delta,Type,Tick);
++    if(GetOwner()->HasAuthority())
++    {
++        RefreshEquipment(ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner())));
++        if(State.Stacks>0&&Remaining()<=0.f)ClearStacks();
++    }
++    const bool Visible=Charges()>0;
++    if(HadVisibleStacks!=Visible){HadVisibleStacks=Visible;UStatusEffectsComponent::Notify(GetOwner());}
++}
++void UBowCadenceComponent::EndPlay(const EEndPlayReason::Type Reason)
++{
++    if(MaterialLoad)MaterialLoad->CancelHandle();MaterialLoad.Reset();Material=nullptr;
++    State=FBowCadenceState();Super::EndPlay(Reason);
++}
++void UBowCadenceComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(UBowCadenceComponent,State);}

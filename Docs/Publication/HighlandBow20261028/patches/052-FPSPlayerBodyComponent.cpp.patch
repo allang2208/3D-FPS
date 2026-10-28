@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -5,6 +5,7 @@
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Weapons/WeaponBipodDeploymentComponent.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Bow/BowScopeOptics.h"
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../UI/FPSPerformanceMetrics.h"
+@@ -358,16 +359,20 @@
+     // scaling a sleeve alone would reverse its depth order against the hand.
+     const auto ViewmodelType=(Character->IsLocallyControlled()&&Character->IsPistolWeapon())||UsesWarhammerFirstPersonPass()
+         ?EFirstPersonPrimitiveType::FirstPerson:EFirstPersonPrimitiveType::None;
++    const auto* Bow=Character->FindComponentByClass<UBowWeaponComponent>();
++    const auto* BowOptics=Bow?Bow->ScopeOptics():nullptr;
+     const auto ApplyFirstPersonVisibility=[&](USceneComponent* Child,EFirstPersonPrimitiveType PrimitiveType)
+     {
+         auto* Primitive=Cast<UPrimitiveComponent>(Child);if(!Primitive)return;
++        if(BowOptics&&BowOptics->OwnsPrimitive(Primitive))PrimitiveType=EFirstPersonPrimitiveType::FirstPerson;
+         if(Primitive->FirstPersonPrimitiveType!=PrimitiveType)Primitive->SetFirstPersonPrimitiveType(PrimitiveType);
+         // Every setter below marks the primitive's render state dirty and
+         // re-registers it in the shadow scene, so only touch what actually
+         // changed: this runs again on every camera update and every 0.2 s.
+         // The scope owns its recorded hide request until it releases it. Clearing
+         // it here every 0.2 s exposes the rifle/arms for a frame during scoped ADS.
+-        const bool bHideFromOwner=bThirdPerson||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||Character->ScopeHiddenParts.Contains(Primitive);
++        const bool bHideFromOwner=bThirdPerson||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||Character->ScopeHiddenParts.Contains(Primitive)
++            ||(BowOptics&&BowOptics->HidesPrimitive(Primitive));
+         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
+         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
+     };

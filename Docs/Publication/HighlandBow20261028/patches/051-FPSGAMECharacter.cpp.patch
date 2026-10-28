@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -39,6 +39,8 @@
+ #include "Weapons/RuneSwordComponent.h"
+ #include "Weapons/RuneOrbBladesComponent.h"
+ #include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
+ #include "Weapons/Staff/StaffWeaponComponent.h"
+ #include "Weapons/Kukri/KukriWeaponComponent.h"
+ #include "Weapons/Kukri/OffhandKukriComponent.h"
+@@ -289,6 +291,8 @@
+     CreateDefaultSubobject<UJingangRuneComponent>(TEXT("JingangRuneEffects"));
+     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
+     Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
++    CreateDefaultSubobject<UBowMountainEchoComponent>(TEXT("BowMountainEcho"));
++    CreateDefaultSubobject<UBowCadenceComponent>(TEXT("BowCadence"));
+     Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));
+     // 尼泊尔弯刀（单手近战）：按组件类查找，不新增角色成员。
+     CreateDefaultSubobject<UKukriWeaponComponent>(TEXT("Kukri"));
+@@ -2400,6 +2404,7 @@
+         + (KukriFOV+OffhandKukriFOV)*CameraMotionScale*CameraShakeScale.GetValueOnGameThread());
+     TargetHorizontalFOV = FMath::Lerp(TargetHorizontalFOV, SprintFieldOfView, SprintCameraFactor * (1.0f - CameraADSFactor));
+     FirstPersonCamera->SetFieldOfView(TargetHorizontalFOV);
++    if (Bow) Bow->UpdateScopeCamera();
+     if (ActionCamera)
+     {
+         EM4CameraAction CameraAction = EM4CameraAction::None;
+@@ -4119,7 +4124,7 @@
+ {
+     // Match screen-space motion across magnification; mouse deltas stay raw (no aim smoothing).
+     const float AimVerticalFOV = Bow && Bow->IsEquipped()
+-        ? Bow->AimVerticalFOV(BaseVerticalFieldOfView) : EffectiveADSVerticalFOV();
++        ? Bow->OpticalAimVerticalFOV(BaseVerticalFieldOfView) : EffectiveADSVerticalFOV();
+     const float Ratio = FMath::Tan(FMath::DegreesToRadians(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor)) * 0.5f)
+         / FMath::Tan(FMath::DegreesToRadians(BaseVerticalFieldOfView) * 0.5f);
+     float Scale = FMath::Lerp(1.0f, Ratio * ADSMouseSensitivity, CameraADSFactor);

@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowScopeReticle.h
++++ b/Source/FPSGAME/Weapons/Bow/BowScopeReticle.h
+@@ -0,0 +1,18 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Rendering/DrawElements.h"
++
++struct FBowScopeReticleState
++{
++    float Draw=0.f,Full=0.f,Perfect=0.f,Piercing=0.f,Release=0.f,Zoom=0.f;
++    float Age=0.f,PixelsPerMil=1.f,Power=3.f;
++    bool bRain=false,bRainValid=false;
++};
++
++namespace BowScopeReticle
++{
++int32 Paint(const FGeometry& Geometry,FSlateWindowElementList& Elements,int32 Layer,
++    const FLinearColor& Tint,const FVector2D& Aim,double SafeRadius,double Pixel,
++    const FVector2D& Eye,const FBowScopeReticleState& State,
++    TArray<FSlateVertex>& Vertices,TArray<SlateIndex>& Indices);
++}

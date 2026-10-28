@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -1113,8 +1113,8 @@
+         // session check and inflate arrow damage.
+         double CatalogValue=0.;
+         for(const TCHAR* Key:{TEXT("damage"),TEXT("full_damage"),TEXT("draw_seconds"),TEXT("nock_seconds"),
+-            TEXT("hold_seconds"),TEXT("full_speed_cm"),TEXT("stamina_cost"),TEXT("sway_amplitude_cm"),
+-            TEXT("bow_hip_spread"),TEXT("bow_ads_in_seconds")})
++            TEXT("full_speed_cm"),TEXT("stamina_cost"),TEXT("sway_amplitude_cm"),
++            TEXT("bow_hip_spread"),TEXT("bow_ads_in_seconds"),TEXT("range_cm"),TEXT("critDamageBonus")})
+         {
+             if(!Catalog->TryGetNumberField(Key,CatalogValue))continue;
+             double Stored=0.;

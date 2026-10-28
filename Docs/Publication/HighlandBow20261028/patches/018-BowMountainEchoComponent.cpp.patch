@@ -1,0 +1,131 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.cpp
+@@ -0,0 +1,128 @@
++#include "BowMountainEchoComponent.h"
++#include "MountainEchoString.h"
++#include "BowArrow.h"
++#include "../GunsmithSystem.h"
++#include "../../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../../Monsters/FPSCombatHealthComponent.h"
++#include "../../UI/ColdSteelStatusModel.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/World.h"
++#include "Engine/GameInstance.h"
++#include "GameFramework/Pawn.h"
++#include "GameFramework/GameStateBase.h"
++#include "Materials/MaterialInterface.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Net/UnrealNetwork.h"
++
++UBowMountainEchoComponent::UBowMountainEchoComponent()
++{
++    SetIsReplicatedByDefault(true);PrimaryComponentTick.bCanEverTick=true;
++    PrimaryComponentTick.bStartWithTickEnabled=false;PrimaryComponentTick.TickInterval=.1f;
++}
++double UBowMountainEchoComponent::ServerTime() const
++{
++    if(const auto* GS=GetWorld()->GetGameState())return GS->GetServerWorldTimeSeconds();
++    return GetWorld()->GetTimeSeconds();
++}
++void UBowMountainEchoComponent::RefreshEquipment(UColdSteelStatusModel* Model)
++{
++    if(!GetOwner()->HasAuthority())return;
++    const auto* Item=Model?Model->ActiveBow():nullptr;
++    auto* G=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++    const FString Key=Item&&Item->Definition==MountainEchoString::Weapon&&G&&
++        G->Installed(*Item).FindRef(TEXT("string"))==MountainEchoString::Option?Item->InstanceId:FString();
++    if(Key==EquippedInstance)return;
++    ++Epoch;EquippedInstance=Key;ClearStacks();bWasDead=false;
++    SetComponentTickEnabled(!Key.IsEmpty());
++    GetOwner()->ForceNetUpdate();
++}
++void UBowMountainEchoComponent::ClearStacks()
++{Stacks=0;ExpiresAt=0;OnRep_Resonance();GetOwner()->ForceNetUpdate();}
++void UBowMountainEchoComponent::OnRep_Resonance()
++{
++    if(PresentedInstance!=EquippedInstance)
++    {
++        PresentedInstance=EquippedInstance;PresentedStacks=0;PresentedExpiresAt=0.;LastGainAt=LastReadyAt=-1000.;
++        if(MaterialLoad)MaterialLoad->CancelHandle();MaterialLoad.Reset();ArrowMaterial=nullptr;HUDMaterial=nullptr;
++        // Retain the async handle while equipped, preloading flight and contact
++        // together on each rendering peer before its first echo is released.
++        if(!EquippedInstance.IsEmpty()&&GetNetMode()!=NM_DedicatedServer)
++        {
++            const FSoftObjectPath Path(MountainEchoString::ArrowMaterial);
++            const FSoftObjectPath HUDPath(MountainEchoString::HUDMaterial);
++            const TArray<FSoftObjectPath> Paths{Path,FSoftObjectPath(MountainEchoString::FlightFX),
++                FSoftObjectPath(MountainEchoString::ImpactFX),FSoftObjectPath(MountainEchoString::ImpactSound),HUDPath};
++            MaterialLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
++                FStreamableDelegate::CreateWeakLambda(this,[this,Path,HUDPath]
++                {
++                    ArrowMaterial=Cast<UMaterialInterface>(Path.ResolveObject());
++                    if(auto* Parent=Cast<UMaterialInterface>(HUDPath.ResolveObject()))
++                        HUDMaterial=UMaterialInstanceDynamic::Create(Parent,this);
++                }));
++        }
++    }
++    const double Now=GetWorld()->GetTimeSeconds();
++    const int32 Count=ChargesFor(EquippedInstance);
++    const bool NewHit=Count>0&&ExpiresAt!=PresentedExpiresAt;
++    if(Count>PresentedStacks||NewHit)LastGainAt=Now;
++    if(Count>=MountainEchoString::MaximumStacks&&(PresentedStacks<MountainEchoString::MaximumStacks||NewHit))LastReadyAt=Now;
++    if(Count<MountainEchoString::MaximumStacks)LastReadyAt=-1000.;
++    PresentedStacks=Count;PresentedExpiresAt=ExpiresAt;
++}
++float UBowMountainEchoComponent::GainAge() const
++{return float(GetWorld()->GetTimeSeconds()-LastGainAt);}
++float UBowMountainEchoComponent::ReadyAge() const
++{return float(GetWorld()->GetTimeSeconds()-LastReadyAt);}
++bool UBowMountainEchoComponent::CanEcho(uint32 ReleasedEpoch) const
++{
++    if(!GetOwner()->HasAuthority()||ReleasedEpoch!=Epoch||EquippedInstance.IsEmpty())return false;
++    const auto* Model=ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner()));
++    const auto* Item=Model?Model->ActiveBow():nullptr;
++    const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
++    const auto* G=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++    return Item&&Item->InstanceId==EquippedInstance&&G&&
++        G->Installed(*Item).FindRef(TEXT("string"))==MountainEchoString::Option&&Health&&!Health->IsDead();
++}
++void UBowMountainEchoComponent::CommitArrow(ABowArrow* Arrow,const FString& Instance,float Charge,const FVector& Eye)
++{
++    if(!Arrow||!GetOwner()->HasAuthority()||Charge<1.f-UE_KINDA_SMALL_NUMBER)return;
++    RefreshEquipment(ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner())));
++    if(Instance!=EquippedInstance||!CanEcho(Epoch))return;
++    if(Stacks>0&&ServerTime()>=ExpiresAt)ClearStacks();
++    const bool Ready=Stacks>=MountainEchoString::MaximumStacks;
++    if(Ready)ClearStacks();
++    Arrow->ArmMountainEcho(this,Epoch,!Ready,Ready,Eye);
++}
++void UBowMountainEchoComponent::ConfirmHit(uint32 ReleasedEpoch)
++{
++    if(!CanEcho(ReleasedEpoch))return;
++    const double Now=ServerTime();
++    if(Now>=ExpiresAt)Stacks=0;
++    Stacks=FMath::Min(Stacks+1,MountainEchoString::MaximumStacks);ExpiresAt=Now+MountainEchoString::StackSeconds;
++    OnRep_Resonance();
++    GetOwner()->ForceNetUpdate();
++}
++int32 UBowMountainEchoComponent::ChargesFor(const FString& Instance) const
++{
++    const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
++    return IsEquippedFor(Instance)&&Health&&!Health->IsDead()&&ServerTime()<ExpiresAt?
++        FMath::Clamp(Stacks,0,MountainEchoString::MaximumStacks):0;
++}
++void UBowMountainEchoComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++    Super::TickComponent(Delta,Type,Tick);
++    if(!GetOwner()->HasAuthority())return;
++    const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
++    const bool Dead=!Health||Health->IsDead();
++    if(Dead&&!bWasDead){++Epoch;ClearStacks();}bWasDead=Dead;
++    if(Stacks>0&&ServerTime()>=ExpiresAt)ClearStacks();
++}
++void UBowMountainEchoComponent::EndPlay(const EEndPlayReason::Type Reason)
++{++Epoch;if(MaterialLoad)MaterialLoad->CancelHandle();MaterialLoad.Reset();HUDMaterial=nullptr;Super::EndPlay(Reason);}
++void UBowMountainEchoComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME(UBowMountainEchoComponent,EquippedInstance);DOREPLIFETIME(UBowMountainEchoComponent,Stacks);
++    DOREPLIFETIME(UBowMountainEchoComponent,ExpiresAt);
++}

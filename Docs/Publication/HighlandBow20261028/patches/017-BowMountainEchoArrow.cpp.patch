@@ -1,0 +1,73 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowMountainEchoArrow.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowMountainEchoArrow.cpp
+@@ -0,0 +1,70 @@
++#include "BowArrow.h"
++#include "BowMountainEchoComponent.h"
++#include "../../Combat/CombatFormulaRuntime.h"
++#include "../../Monsters/MonsterCombatComponent.h"
++#include "../../Monsters/FPSCombatHealthComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/World.h"
++#include "Kismet/GameplayStatics.h"
++#include "GameFramework/Pawn.h"
++
++void ABowArrow::ArmMountainEcho(UBowMountainEchoComponent* Source,uint32 Epoch,bool Gain,bool Release,const FVector& Eye)
++{
++    if(!HasAuthority()||!Source)return;
++    MountainSource=Source;MountainEpoch=Epoch;bMountainGain=Gain;
++    if(!Release)return;
++    MountainImpact=MakeShared<MountainEchoString::FImpact>();
++    FActorSpawnParameters Spawn;Spawn.Owner=GetOwner();Spawn.Instigator=GetInstigator();
++    Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    auto* Echo=GetWorld()->SpawnActor<ABowArrow>(GetActorLocation(),GetActorRotation(),Spawn);
++    if(!Echo)return;
++    FColdSteelSkillShot Clean;
++    Clean.ItemDefinition=Shot.ItemDefinition;Clean.ItemInstance=Shot.ItemInstance;
++    Clean.ArmorPenetration=Shot.ArmorPenetration;
++    const double PanelTotal=Shot.DamagePanel.Total();
++    Clean.DamagePanel=PanelTotal>0?Shot.DamagePanel.Scaled(Damage/PanelTotal):FWeaponDamageParts{Damage,0,0,0};
++    Clean.DamagePanel.BaseMagic=Clean.DamagePanel.AddedMagic=0;
++    Echo->Configure(Clean.DamagePanel.Total(),Speed,GravityCM,MaxDistanceCM,Clean,Presentation.Shaft,
++        Presentation.Head,Presentation.Radius,Presentation.Length,FString(),false,8.f);
++    Echo->Presentation.bMountainEcho=true;Echo->Presentation.bFlameArmor=false;
++    Echo->Presentation.EchoMaterial=Source->EchoMaterial();Echo->MountainImpact=MountainImpact;
++    Echo->MountainSource=Source;Echo->MountainEpoch=Epoch;Echo->bEchoPending=true;
++    Echo->ApplyEchoPresentation();Echo->OnRep_EchoPending();
++    Echo->GetWorldTimerManager().SetTimer(Echo->EchoDelay,FTimerDelegate::CreateWeakLambda(Echo,[Echo,Eye]
++    {
++        if(!Echo->MountainSource.IsValid()||!Echo->MountainSource->CanEcho(Echo->MountainEpoch)){Echo->Destroy();return;}
++        Echo->bEchoPending=false;Echo->OnRep_EchoPending();Echo->ForceNetUpdate();Echo->ResolveLaunchObstruction(Eye);
++    }),MountainEchoString::DelaySeconds,false);
++}
++void ABowArrow::OnRep_EchoPending()
++{
++    if(!Presentation.bMountainEcho)return;
++    SetActorHiddenInGame(bEchoPending);
++    SetActorTickEnabled(!bEchoPending&&!MountainContact.bHit&&HasAuthority());
++    ApplyEchoPresentation();
++}
++float ABowArrow::ApplyEchoHit(const FHitResult& Hit,FWeaponDamageResult& Result)
++{
++    auto* Victim=Hit.GetActor();auto* Pawn=GetInstigator();
++    auto* Combat=Victim?Victim->FindComponentByClass<UMonsterCombatComponent>():nullptr;
++    const auto* Health=Victim?Victim->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    const bool Alive=(Combat&&!Combat->IsDead())||(Health&&!Health->IsDead());
++    FWeaponDamageParts Physical=Shot.DamagePanel;
++    bool Critical=false;
++    if(MountainImpact&&MountainImpact->bRecorded)
++    {Physical=MountainImpact->Physical;Critical=MountainImpact->bCritical;}
++    // A missed original has no critical result to inherit. The echo never
++    // evaluates critical chance/resistance or weakpoints on its own contact.
++    Physical.BaseMagic=Physical.AddedMagic=0;Physical=Physical.Scaled(MountainEchoString::DamageScale);
++    CombatFormulaRuntime::WeaponHit Contact;Contact.Target=Victim;Contact.Incoming=Physical;
++    Contact.PhysicalPenetration=Shot.ArmorPenetration;
++    TGuardValue<CombatFormulaRuntime::WeaponHit*> Scope(CombatFormulaRuntime::ActiveWeaponHit,&Contact);
++    auto Apply=[&](){return UGameplayStatics::ApplyPointDamage(Victim,float(Physical.Total()),Velocity.GetSafeNormal(),
++        Hit,Pawn?Pawn->GetController():nullptr,Pawn,nullptr);};
++    // A separate physical receipt, without skill-training or on-hit proc scopes.
++    const float Applied=Combat?Combat->ApplyHitWithToughnessScale(0.f,Apply):Apply();
++    Result.BeforeDefense=Physical;Result.AfterDefense=Contact.Mitigated;Result.Applied=Contact.Mitigated.LimitedTo(Applied);
++    Result.bResolved=Contact.bResolved;Result.bCritical=Critical;
++    Result.bKilled=Alive&&Applied>0&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||(Combat&&Combat->IsDead())||(Health&&Health->IsDead()));
++    return Applied;
++}

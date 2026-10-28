@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -3,11 +3,13 @@
+ #include "ColdSteelUIStyle.h"
+ #include "ColdSteelHUDLayout.h"
+ #include "ColdSteelBowRhythm.h"
++#include "ColdSteelBowResonance.h"
+ #include "HAL/PlatformTime.h"
+ #include "ColdSteelWorldInteraction.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/KVScopeAssets.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Bow/BowScopeOptics.h"
+ #include "../Weapons/Bow/BowStats.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+ #include "GameFramework/PlayerController.h"
+@@ -21,7 +23,13 @@
+ {
+     auto* PC=GetOwningPlayer();
+     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
+-    int32 Result=Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled);
++    // The optical mask belongs behind all HUD children, including the buff bar
++    // and XP feed. Only the owner-local scope paints here; menus suppress it.
++    int32 OpticLayer=Layer;
++    if(Character&&!bInventoryOpen&&!bExternalDrawerOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
++        if(const auto* Bow=Character->FindComponentByClass<UBowWeaponComponent>();Bow&&Bow->ScopeOptics())
++            OpticLayer=Bow->ScopeOptics()->Paint(Geometry,Elements,Layer,Style.GetColorAndOpacityTint());
++    int32 Result=Super::NativePaint(Args,Geometry,Clip,Elements,OpticLayer+1,Style,Enabled);
+     Result=PaintHUDNavigation(Geometry,Elements,Result,Style);
+     Result=ColdSteelExplosiveWarnings::Paint(PC,Geometry,Elements,Result,Style.GetColorAndOpacityTint());
+     if(!Character||bInventoryOpen||bExternalDrawerOpen||bWarehouseOpen||PC->bShowMouseCursor||Character->IsAmmoWheelOpen())return Result;
+@@ -212,6 +220,7 @@
+     if(bBow&&!Character->IsTraversing())
+     {
+         Result=ColdSteelBowRhythm::Paint(*Bow,Geometry,Elements,Result+2,Style,1.f/ColdSteelUI::PixelScale(this));
++        Result=ColdSteelBowResonance::Paint(*Bow,Geometry,Elements,Result+2,Style,1.f/ColdSteelUI::PixelScale(this));
+     }
+     if(Character->IsTraversing() || (bBow ? !Bow->ShouldShowCrosshair() : !Character->HasInventoryWeapon()&&!Character->HasOffhandPistol()))return Result+2;
+     const bool bKVScope=Character->GetGunsmithOpticVariant()==KVScopeAssets::Id;

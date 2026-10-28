@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -31,6 +31,11 @@
+         ||A.bBowTwoHandConsume!=B.bBowTwoHandConsume
+         ||((A.BowStowWeight>=1.f-UE_KINDA_SMALL_NUMBER)!=(B.BowStowWeight>=1.f-UE_KINDA_SMALL_NUMBER))
+         ||((A.BowClipRate<0.f)!=(B.BowClipRate<0.f))||(A.BowStringContact>0.f)!=(B.BowStringContact>0.f)
++        // A 45 ms bow contact stop can fall between periodic pose snapshots.
++        // Send both stop and resume as reliable edges, without treating every
++        // small draw-rate change as a transition.
++        ||(A.BowClip==TEXT("QuickCombat")&&B.BowClip==A.BowClip
++            &&FMath::IsNearlyZero(A.BowClipRate)!=FMath::IsNearlyZero(B.BowClipRate))
+         ||A.bHasHandholds!=B.bHasHandholds||A.bDual!=B.bDual||A.bOffhandPistol!=B.bOffhandPistol
+         ||A.RightHand.bReloading!=B.RightHand.bReloading||A.LeftHand.bReloading!=B.LeftHand.bReloading
+         ||(A.RightHand.bReloading&&!FMath::IsNearlyEqual(A.RightHand.ReloadStartedAt,B.RightHand.ReloadStartedAt,.01f))

@@ -1,0 +1,123 @@
+{
+  "Content/ColdSteelData/woodworking.json": [
+    {
+      "path": [
+        "patterns",
+        2
+      ],
+      "entry": {
+        "id": "bow_woodsteel_limb",
+        "name": "弓 · 高地长弓",
+        "craftRecipe": "woodwork_bow_woodsteel",
+        "outline": [
+          [
+            0.07,
+            0.239519499
+          ],
+          [
+            0.93,
+            0.39
+          ],
+          [
+            0.9525,
+            0.435
+          ],
+          [
+            0.884641016,
+            0.570717968
+          ],
+          [
+            0.79,
+            0.68
+          ],
+          [
+            0.678038476,
+            0.74
+          ],
+          [
+            0.539899097,
+            0.74
+          ],
+          [
+            0.43,
+            0.66
+          ],
+          [
+            0.07,
+            0.324258486
+          ]
+        ],
+        "connections": [
+          [
+            0.14,
+            0.3
+          ],
+          [
+            0.48,
+            0.62
+          ],
+          [
+            0.88,
+            0.51
+          ]
+        ],
+        "description": "加工长木弓胎并装配金属结构，加工达标后返回工作面板领取高地长弓。",
+        "instructions": "01 自由调整并对准长边，沿目标线外侧保留少量余量，按空格进入切割。\n02 每切完一边按空格切回调整，自由转向下一条边，再进入切割。\n03 修去端部余料，保持两端与中段相连。",
+        "difficulty": "进阶 · 多段直线",
+        "timeSeconds": 150,
+        "requiredClearance": 0.8,
+        "maximumDamage": 0.2
+      }
+    }
+  ],
+  "Content/ColdSteelData/woodworking-recipes.json": [
+    {
+      "path": [
+        "recipes",
+        2
+      ],
+      "entry": {
+        "id": "woodwork_bow_woodsteel",
+        "inputs": [
+          {
+            "item": "wood",
+            "count": 2
+          },
+          {
+            "item": "search_resin_adhesive",
+            "count": 1
+          },
+          {
+            "item": "search_laminated_strip",
+            "count": 1
+          },
+          {
+            "item": "ironIngot",
+            "count": 2
+          }
+        ],
+        "output": {
+          "item": "bow_woodsteel",
+          "count": 1
+        }
+      }
+    }
+  ],
+  "Content/ColdSteelData/status_effects.json": [
+    {
+      "path": [
+        "effects",
+        140
+      ],
+      "entry": {
+        "type": "bowCadence",
+        "icon": "cadence",
+        "name": "律动",
+        "kind": "buff",
+        "group": "triggered",
+        "color": "#8FBFD6",
+        "description": "疾律弓弦：节拍判定窗口+100%；节拍放箭叠加律动，每层拉弓速度+20%，最多5层（满层+100%），持续6秒。满层腰射扩散−50%、物理伤害+20%，成功射出任意手动箭即触发节拍并刷新6秒。未满层非节拍放箭、超时、切换武器或死亡时清空。"
+      }
+    }
+  ]
+}

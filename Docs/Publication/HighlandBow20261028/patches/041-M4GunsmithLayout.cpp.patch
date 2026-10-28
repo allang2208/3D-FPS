@@ -1,0 +1,56 @@
+--- a/Source/FPSGAME/UI/M4GunsmithLayout.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithLayout.cpp
+@@ -18,6 +18,7 @@
+ #include "Engine/Texture2D.h"
+ #include "ImageUtils.h"
+ #include "Misc/Paths.h"
++#include "Dom/JsonObject.h"
+ #include "Materials/MaterialInstanceDynamic.h"
+ #include "Widgets/Layout/SBorder.h"
+ #include "Widgets/Layout/SBox.h"
+@@ -61,14 +62,22 @@
+     {
+         if(Key!=TEXT("enhance")&&!IsCategoryAvailable(Key))continue;
+         const FString IconSlot=TacticalDeviceVariants::IconSlot(Key);
++        FString CategoryIconKey=Model()->Definition()+TEXT("_category_")+IconSlot;
++        if(IsBowWorkbench())
++            if(const auto* Catalog=Model()->ModifiableWeapon(Model()->Definition());Catalog&&Catalog->Source)
++            {
++                const TSharedPtr<FJsonObject>* Sources=nullptr;
++                if(Catalog->Source->TryGetObjectField(TEXT("category_icon_sources"),Sources))
++                    (*Sources)->TryGetStringField(IconSlot,CategoryIconKey);
++            }
+         FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
+         const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
+         const FString SharedFramedPath=FramedDirectory/(TEXT("category_")+IconSlot+TEXT(".png"));
+         const bool SharedFirearmCategory=!IsStandaloneWorkbench()&&FPaths::FileExists(SharedFramedPath);
+-        if(SharedFirearmCategory||((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png")))
+-            ||(!FPaths::FileExists(IconDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png")))
++        if(SharedFirearmCategory||((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(CategoryIconKey+TEXT(".png")))
++            ||(!FPaths::FileExists(IconDirectory/(CategoryIconKey+TEXT(".png")))
+                 &&FPaths::FileExists(SharedFramedPath)))))IconDirectory=FramedDirectory;
+-        const FString WeaponIconPath=IconDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png"));
++        const FString WeaponIconPath=IconDirectory/(CategoryIconKey+TEXT(".png"));
+         // 近战新改造件允许缺武器专属图：回退通用分类图/SMeleePartIcon，不再整卡隐藏。
+         const FString IconPath=SharedFirearmCategory?SharedFramedPath:FPaths::FileExists(WeaponIconPath)?WeaponIconPath:IconDirectory/(TEXT("category_")+IconSlot+TEXT(".png"));
+         if(auto* Texture=FImageUtils::ImportFileAsTexture2D(IconPath))
+@@ -350,7 +359,18 @@
+         :Weapon==TEXT("ue_m870")&&SlotKey==TEXT("magazine")&&Id==TEXT("m870_tube_extension")?TEXT("super90_extended_tube"):Id;
+     const FString IconSlot=ColdSteelFrostRunes::IsWarhammer(Weapon)&&SlotKey==TEXT("rune")&&Id!=TEXT("false")?
+         TEXT("blade_2"):TacticalDeviceVariants::IconSlot(SlotKey);
+-    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+IconSlot+TEXT("_")+IconId;
++    FString IconWeapon=Model()->Definition();
++    if(IsBowWorkbench()&&Id!=TEXT("false")&&!Exclusive&&!Legendary)
++        if(const auto* Catalog=Model()->ModifiableWeapon(Model()->Definition());Catalog&&Catalog->Source)
++            Catalog->Source->TryGetStringField(TEXT("shared_icon_weapon"),IconWeapon);
++    FString WeaponIconKey=IconWeapon+TEXT("_")+IconSlot+TEXT("_")+IconId;
++    if(IsBowWorkbench()&&Id==TEXT("false"))
++        if(const auto* Catalog=Model()->ModifiableWeapon(Model()->Definition());Catalog&&Catalog->Source)
++        {
++            const TSharedPtr<FJsonObject>* Sources=nullptr;
++            if(Catalog->Source->TryGetObjectField(TEXT("factory_icon_sources"),Sources))
++                (*Sources)->TryGetStringField(IconSlot,WeaponIconKey);
++        }
+     // Numeric trigger kits share the established lightweight-trigger pictogram.
+     const FString CommonIconKey=Weapon==TEXT("ue_m24")&&Id==TEXT("none")?(SlotKey==TEXT("optic")?TEXT("optic_m24_palma_iron"):TEXT("tactical_false"))
+         :SlotKey==TEXT("trigger")&&(Id==TEXT("pit_viper_lightweight_fast")

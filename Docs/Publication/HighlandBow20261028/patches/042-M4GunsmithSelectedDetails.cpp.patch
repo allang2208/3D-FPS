@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -205,13 +205,19 @@
+         const auto& B=Option->Bow;
+         auto Percent=[](double Mult){return (Mult-1.)*100.;};
+         auto Ratio=[](double W,double N){return W>.00001?(N/W-1.)*100.:0.;};
+-        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage.Total(),Now.Damage.Total(),2,TEXT(""),false,Percent(B.Damage));
++        if(!FMath::IsNearlyEqual(B.PhysicalDamage,1.))
++            AddValue(TEXT("物理伤害"),Was.Damage.BasePhysical+Was.Damage.AddedPhysical,Now.Damage.BasePhysical+Now.Damage.AddedPhysical,2,TEXT(""),false,Percent(B.PhysicalDamage));
++        else
++            AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage.Total(),Now.Damage.Total(),2,TEXT(""),false,Ratio(Was.Damage.Total(),Now.Damage.Total()));
++        AddValue(ColdSteelWeaponText::FlightLimit,Was.Range,Now.Range,2,TEXT(" m"),false,Percent(B.Range));
++        AddValue(ColdSteelWeaponText::CriticalBonus,Was.CriticalDamageBonus*100.,Now.CriticalDamageBonus*100.,0,TEXT("%"));
+         AddValue(ColdSteelWeaponText::DrawTime,Was.Draw,Now.Draw,2,TEXT(" s"),true,Ratio(Was.Draw,Now.Draw));
+         AddValue(TEXT("拉弓速度加成"),Was.DrawSpeedBonus*100.,Now.DrawSpeedBonus*100.,1,TEXT("%"));
++        AddValue(ColdSteelWeaponText::RhythmWindow,Was.RhythmWindow,Now.RhythmWindow,2,TEXT(" s"),false,B.RhythmWindowBonus*100.);
+         AddValue(ColdSteelWeaponText::NockTime,Was.Nock,Now.Nock,2,TEXT(" s"),true,Percent(B.Nock));
+         AddValue(ColdSteelWeaponText::ProjectileSpeed,Was.Speed,Now.Speed,1,TEXT(" m/s"),false,Percent(B.Speed));
+         AddValue(ColdSteelWeaponText::StaminaCost,Was.Stamina,Now.Stamina,2,TEXT(""),true,Percent(B.Stamina));
+-        AddValue(ColdSteelWeaponText::HoldTime,Was.Hold,Now.Hold,2,TEXT(" s"),false,Percent(B.Hold));
++        AddValue(ColdSteelWeaponText::BowChargeStamina,Was.ChargeStamina,Now.ChargeStamina,2,TEXT(" /s"),true,Percent(B.ChargeStamina));
+         AddValue(ColdSteelWeaponText::Sway,Was.Sway,Now.Sway,2,TEXT(""),true,Percent(B.Sway));
+         AddValue(ColdSteelWeaponText::HipSpreadAngle,FMath::RadiansToDegrees(FMath::Atan(Was.Spread)),FMath::RadiansToDegrees(FMath::Atan(Now.Spread)),2,TEXT("°"),true,Percent(B.Spread));
+         AddValue(ColdSteelWeaponText::ADS,Was.ADS*1000,Now.ADS*1000,0,TEXT(" ms"),true,Percent(B.ADS));

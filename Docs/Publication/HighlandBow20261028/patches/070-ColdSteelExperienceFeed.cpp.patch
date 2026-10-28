@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/UI/ColdSteelExperienceFeed.cpp
++++ b/Source/FPSGAME/UI/ColdSteelExperienceFeed.cpp
+@@ -1,6 +1,11 @@
+ #include "ColdSteelExperienceFeed.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelUIStyle.h"
++#include "ColdSteelBowResonance.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Bow/BowScopeOptics.h"
++#include "../Weapons/Bow/BowMountainEchoComponent.h"
++#include "../Weapons/Bow/BowCadenceComponent.h"
+ #include "GameFramework/Pawn.h"
+ #include "Blueprint/WidgetTree.h"
+ #include "Components/CanvasPanel.h"
+@@ -142,7 +147,13 @@
+     const FLinearColor Tint=InWidgetStyle.GetColorAndOpacityTint();
+     const float Gap=XpFeedTextGap/Scale;
+     const auto* Pawn=GetOwningPlayerPawn();
+-    const float BaseY=ViewHeight*.5f+XpFeedBaseOffset/Scale;
++    const auto* Bow=Pawn?Pawn->FindComponentByClass<UBowWeaponComponent>():nullptr;
++    const auto* Echo=Pawn?Pawn->FindComponentByClass<UBowMountainEchoComponent>():nullptr;
++    const auto* Cadence=Pawn?Pawn->FindComponentByClass<UBowCadenceComponent>():nullptr;
++    const bool AlpineVisible=Bow&&Bow->IsEquipped()&&((Echo&&Echo->IsEquippedFor(Bow->EquippedInstance()))
++        ||(Cadence&&Cadence->IsEquippedFor(Bow->EquippedInstance())));
++    const FVector2D ScopeOffset=Bow&&Bow->ScopeOptics()?Bow->ScopeOptics()->CueOffset(AllottedGeometry,1.f/Scale):FVector2D::ZeroVector;
++    const float BaseY=ViewHeight*.5f+ScopeOffset.Y+(AlpineVisible?ColdSteelBowResonance::AlpineExperienceOffset:XpFeedBaseOffset)/Scale;
+     const float ShadowOffset=1.5f/Scale;
+     const FVector2D ShadowShift(ShadowOffset);
+     const float FramePadX=XpFeedFramePadX/Scale;
+@@ -161,7 +172,7 @@
+         const float Total=Line.Width+Gap+UnitWidth;
+         const float FrameWidth=Total+2.f*FramePadX;
+         const float FrameHeight=AmountHeight+2.f*FramePadY;
+-        const float FrameLeft=ViewWidth*.5f-FrameWidth*.5f;
++        const float FrameLeft=ViewWidth*.5f+ScopeOffset.X-FrameWidth*.5f;
+         const float FrameTop=Y-FramePadY;
+         TArray<FVector2D> Points;
+         Points.Reserve(5);

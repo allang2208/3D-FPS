@@ -1,0 +1,186 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowScopeReticle.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowScopeReticle.cpp
+@@ -0,0 +1,183 @@
++#include "BowScopeReticle.h"
++#include "../../UI/ColdSteelUIStyle.h"
++#include "Framework/Application/SlateApplication.h"
++#include "Rendering/SlateRenderer.h"
++#include "Styling/CoreStyle.h"
++
++namespace
++{
++// A single ordered triangle batch for the etched core, feathered edges and
++// restrained illumination. Buffers are retained by the owning optic.
++struct FReticleCanvas
++{
++    const FGeometry& G;
++    FVector2D Aim;
++    double Radius,Pixel;
++    FLinearColor Tint;
++    TArray<FSlateVertex>& V;
++    TArray<SlateIndex>& I;
++
++    void Vertex(const FVector2D& P,FLinearColor C)
++    {
++        V.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(G.GetAccumulatedRenderTransform(),
++            FVector2f(P),FVector2f(.5f,.5f),(C*Tint).ToFColor(true)));
++    }
++    void Quad(int32 A,int32 B,int32 C,int32 D)
++    { I.Append({SlateIndex(A),SlateIndex(B),SlateIndex(C),SlateIndex(C),SlateIndex(B),SlateIndex(D)}); }
++
++    void Line(FVector2D A,FVector2D B,FLinearColor C,double Width)
++    {
++        if(C.A<=.002f)return;
++        // Clip the stroke before feathering. The circle lies inside every lens
++        // edge, including tilted/partially raised views and non-square viewports.
++        const FVector2D D=B-A,Q=A-Aim;
++        const double Length2=D.SizeSquared();if(Length2<.0001)return;
++        const double Limit=FMath::Max(0.,Radius-Width*.5-Pixel);
++        const double BTerm=FVector2D::DotProduct(Q,D);
++        const double Discriminant=BTerm*BTerm-Length2*(Q.SizeSquared()-Limit*Limit);
++        if(Discriminant<=0.)return;
++        const double Root=FMath::Sqrt(Discriminant);
++        const double T0=FMath::Max(0.,(-BTerm-Root)/Length2),T1=FMath::Min(1.,(-BTerm+Root)/Length2);
++        if(T1<=T0)return;
++        B=A+D*T1;A+=D*T0;
++        const FVector2D N=FVector2D(-D.Y,D.X).GetSafeNormal();
++        const double H=FMath::Max(.25*Pixel,Width*.5),AA=Pixel*.75;
++        const int32 Base=V.Num();FLinearColor Clear=C;Clear.A=0.f;
++        Vertex(A-N*(H+AA),Clear);Vertex(B-N*(H+AA),Clear);
++        Vertex(A-N*H,C);Vertex(B-N*H,C);
++        Vertex(A+N*H,C);Vertex(B+N*H,C);
++        Vertex(A+N*(H+AA),Clear);Vertex(B+N*(H+AA),Clear);
++        for(int32 Band=0;Band<3;++Band)Quad(Base+Band*2,Base+Band*2+1,Base+Band*2+2,Base+Band*2+3);
++    }
++
++    void Etch(FVector2D A,FVector2D B,double Width=1.,float Opacity=1.f)
++    {
++        Line(A,B,FLinearColor(.73f,.76f,.70f,.32f*Opacity),(Width+1.1)*Pixel);
++        Line(A,B,FLinearColor(.014f,.022f,.021f,.88f*Opacity),Width*Pixel);
++    }
++
++    void Light(FVector2D A,FVector2D B,FLinearColor C,double Width=1.)
++    {
++        FLinearColor Halo=C;Halo.A*=.055f;Line(A,B,Halo,(Width+5.)*Pixel);
++        Halo.A=C.A*.15f;Line(A,B,Halo,(Width+2.)*Pixel);
++        Line(A,B,C,Width*Pixel);
++    }
++
++    void Arc(FVector2D Center,double R,double Start,double End,FLinearColor C,double Width,bool Glow=false)
++    {
++        if(C.A<=.002f||End<=Start)return;
++        const int32 Steps=FMath::Clamp(FMath::CeilToInt(FMath::DegreesToRadians(End-Start)*R/(2.4*Pixel)),4,64);
++        auto At=[&](double Angle){const double A=FMath::DegreesToRadians(Angle);return Center+FVector2D(FMath::Cos(A),FMath::Sin(A))*R;};
++        FVector2D Last=At(Start);
++        for(int32 Step=1;Step<=Steps;++Step)
++        {
++            const FVector2D Next=At(FMath::Lerp(Start,End,double(Step)/Steps));
++            if(Glow)Light(Last,Next,C,Width);else Line(Last,Next,C,Width*Pixel);
++            Last=Next;
++        }
++    }
++
++    void Dot(FLinearColor C)
++    {
++        constexpr int32 Steps=16;
++        const int32 Base=V.Num();Vertex(Aim,C);
++        for(int32 Ring=0;Ring<2;++Ring)for(int32 Step=0;Step<=Steps;++Step)
++        {
++            const double A=2.*PI*Step/Steps,R=(Ring==0?.72:1.6)*Pixel;
++            FLinearColor Color=C;if(Ring==1)Color.A=0;
++            Vertex(Aim+FVector2D(FMath::Cos(A),FMath::Sin(A))*R,Color);
++            if(Step<Steps)
++            {
++                if(Ring==0)I.Append({SlateIndex(Base),SlateIndex(Base+1+Step),SlateIndex(Base+2+Step)});
++                else Quad(Base+1+Step,Base+2+Step,Base+1+Steps+1+Step,Base+2+Steps+1+Step);
++            }
++        }
++    }
++};
++}
++
++int32 BowScopeReticle::Paint(const FGeometry& G,FSlateWindowElementList& Out,int32 Layer,
++    const FLinearColor& Tint,const FVector2D& Aim,double SafeRadius,double Pixel,
++    const FVector2D& Eye,const FBowScopeReticleState& S,
++    TArray<FSlateVertex>& Vertices,TArray<SlateIndex>& Indices)
++{
++    if(SafeRadius<7.*Pixel||Tint.A<=.001f)return Layer;
++    Vertices.Reset();Indices.Reset();Vertices.Reserve(12000);Indices.Reserve(30000);
++    FReticleCanvas P{G,Aim,SafeRadius*.96,Pixel,Tint,Vertices,Indices};
++    const double R=P.Radius,Gap=FMath::Clamp(R*.075,2.8*Pixel,5.*Pixel);
++    const float Pulse=.5f+.5f*FMath::Cos(S.Age*2.f*PI*1.15f);
++    FLinearColor Ready=FMath::Lerp(ColdSteelUI::HUDGold,ColdSteelUI::BowPiercingReady,FMath::Max(S.Full,S.Piercing));
++    if(S.bRain)Ready=S.bRainValid?FLinearColor(.12f,.85f,.38f):FLinearColor(.65f,.16f,.12f);
++
++    // Open top and a small lower needle preserve the silhouette of small targets.
++    // These guides do not shift or ease the actual aiming point.
++    for(int32 Sign:{-1,1})
++    {
++        P.Etch(Aim+FVector2D(Sign*Gap,0),Aim+FVector2D(Sign*R*.80,0),.72);
++        P.Etch(Aim+FVector2D(Sign*R*.66,0),Aim+FVector2D(Sign*R*.86,0),1.35,.72f);
++        P.Etch(Aim+FVector2D(0,Gap*.85),Aim+FVector2D(Sign*Gap*.8,Gap*1.65),.85);
++    }
++    // Reserve the lower aperture for the bow's draw track and string motif.
++    P.Etch(Aim+FVector2D(0,Gap*1.85),Aim+FVector2D(0,R*.50),.72);
++
++    // First-focal-plane angular references: 2 mrad major ticks, 1 mrad minor.
++    // Do not label these as metre/drop compensation for different arrow types.
++    const double Mil=FMath::Max(.01f,S.PixelsPerMil)*Pixel;
++    const float Minor=FMath::SmoothStep(2.8f,4.8f,float(Mil/Pixel));
++    const int32 MajorStride=Mil<1.8*Pixel?4:2;
++    for(int32 Mark=1;Mark<=12;++Mark)
++    {
++        const double At=Mark*Mil;if(At>R*.73)break;
++        if(At<Gap*1.8)continue;
++        const bool Major=Mark%MajorStride==0;
++        const float Opacity=Major?.92f:Minor*.65f;if(Opacity<.01f)continue;
++        const double Half=FMath::Min((Major?2.5:1.35)*Pixel,R*.07);
++        for(int32 Sign:{-1,1})
++            P.Etch(Aim+FVector2D(Sign*At,-Half),Aim+FVector2D(Sign*At,Half),.7,Opacity);
++        if(At<R*.47)P.Etch(Aim+FVector2D(-Half,At),Aim+FVector2D(Half,At),.7,Opacity);
++    }
++
++    if(R>20.*Pixel)
++    {
++        // A separate pair of tension arcs closes with draw; no fake spread is
++        // added to the central optical marks. Cosmetic eye motion is outer-only.
++        const FVector2D Ornament=Aim+Eye.GetClampedToMaxSize(.06)*(R*.35);
++        const double TensionR=R*FMath::Lerp(.56,.40,double(S.Draw))+R*.075*S.Release;
++        const float Lit=.13f+.30f*S.Draw+.18f*S.Full*(.5f+.5f*Pulse)+.20f*S.Piercing;
++        FLinearColor ArcColor=Ready;ArcColor.A=FMath::Min(.80f,Lit+S.Release*.3f);
++        for(double Start:{140.,-40.})
++        {
++            P.Arc(Ornament,TensionR,Start,Start+80.,FLinearColor(.025f,.03f,.025f,.24f),1.1);
++            const double Span=FMath::Lerp(12.,80.,double(S.Draw));
++            P.Arc(Ornament,TensionR,Start+40.-Span*.5,Start+40.+Span*.5,ArcColor,.85,true);
++        }
++        // Fine top shoulder engraving, with a quiet indication of zoom movement.
++        FLinearColor Rim=ColdSteelUI::HUDGoldDim;Rim.A=.17f+.25f*S.Zoom;
++        P.Arc(Ornament,R*.80,224.,256.,Rim,.7);
++        P.Arc(Ornament,R*.80,284.,316.,Rim,.7);
++        const double Power=FMath::Clamp((S.Power-3.)/3.,0.,1.);
++        for(int32 Mark=0;Mark<7;++Mark)
++        {
++            const double Angle=FMath::DegreesToRadians(246.+Mark*8.);
++            const FVector2D Direction(FMath::Cos(Angle),FMath::Sin(Angle));
++            FLinearColor C=Rim;C.A*=Mark/6.<=Power?1.f:.4f;
++            P.Line(Ornament+Direction*(R*.83),Ornament+Direction*(R*.87),C,.75*Pixel);
++        }
++        // Perfect release has its own gold cue; full draw / piercing stay red.
++        if(S.Perfect>.01f)for(int32 Sign:{-1,1})
++        {
++            FLinearColor Gold=ColdSteelUI::HUDGoldLight;Gold.A=.85f*S.Perfect;
++            P.Light(Aim+FVector2D(Sign*R*.28,-3.*Pixel),Aim+FVector2D(Sign*R*.28,3.*Pixel),Gold,1.1);
++        }
++        if(S.Piercing>.01f)
++        {
++            FLinearColor Red=ColdSteelUI::BowPiercingReady;Red.A=S.Piercing*(.48f+.20f*Pulse);
++            P.Arc(Aim,FMath::Max(Gap*1.6,R*.17),210.,250.,Red,.9,true);
++            P.Arc(Aim,FMath::Max(Gap*1.6,R*.17),290.,330.,Red,.9,true);
++        }
++    }
++    Ready.A=.88f+.1f*S.Full;P.Dot(Ready);
++    const auto Resource=FSlateApplication::Get().GetRenderer()->GetResourceHandle(*FCoreStyle::Get().GetBrush("WhiteBrush"));
++    FSlateDrawElement::MakeCustomVerts(Out,Layer,Resource,Vertices,Indices,nullptr,0,0);
++    return Layer;
++}

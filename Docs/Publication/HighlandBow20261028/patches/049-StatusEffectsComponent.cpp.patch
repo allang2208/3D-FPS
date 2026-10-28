@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/UI/StatusEffectsComponent.cpp
++++ b/Source/FPSGAME/UI/StatusEffectsComponent.cpp
+@@ -1,4 +1,6 @@
+ #include "StatusEffectsComponent.h"
++#include "../Weapons/Bow/BowCadenceComponent.h"
++#include "../Weapons/Bow/CadenceString.h"
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "../Weapons/PanChiGuardComponent.h"
+ #include "../Weapons/ZhenmoRuneComponent.h"
+@@ -57,6 +59,14 @@
+ TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
+ {
+  TArray<FStatusEffectView> Result;if(auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>())if(H->IsDead())return Result;
++ if(const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();Cadence&&Cadence->Charges()>0)
++ {
++  auto V=Definition(CadenceString::Status);V.Stacks=Cadence->Charges();
++  V.Duration=CadenceString::StackSeconds;V.Remaining=Cadence->Remaining();
++  V.Description=FString::Printf(TEXT("节拍放箭叠层并刷新%.0f秒，最多5层。当前律动拉弓速度+%d%%（满层+100%%）。满层成功射箭即触发节拍并刷新持续时间。未满层非节拍放箭、超时或切换武器清空。"),CadenceString::StackSeconds,FMath::RoundToInt(Cadence->SpeedBonus()*100.f));
++  if(V.Stacks==CadenceString::MaximumStacks){V.Name=TEXT("律动·合拍");V.Color=FLinearColor(.95f,.79f,.43f);V.Description+=TEXT(" 满层：腰射扩散−50%、物理伤害+20%。");}
++  Result.Add(V);
++ }
+  if(const auto* Capture=GetOwner()->FindComponentByClass<UBoundCongregateCaptureComponent>();Capture&&Capture->IsHeld())
+  {
+   auto V=Definition(TEXT("tentacleEntangled"));V.Persistent=true;V.DurationText=TEXT("挣脱或拖至近身解除");

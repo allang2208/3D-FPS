@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/FPSMagicArrowRainComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSMagicArrowRainComponent.cpp
+@@ -150,6 +150,7 @@
+     const FString Ammo=M->AmmoDefinitionFor(*M->ActiveBow());
+     if(!M->ReleaseMagicArrowRain(Cast,!P->HasInfiniteReserveAmmoFor(Ammo)))
+     {Rain->Destroy();Reject(TEXT("资源不足，已收弓"));return;}
++    if(auto* PS=P->GetPlayerState<AColdSteelPlayerState>())PS->ResetBowPerfectSpeedBonus();
+     Rain->Launch(M,Cast,Muzzle,Point,Air);bServerPrepared=bServerDrawing=false;DrawStartedAt=-1.;SendResources();ClientReleased(true,FString());
+ }
+ void UFPSMagicArrowRainComponent::ClientReleased_Implementation(bool Accepted,const FString& Reason)

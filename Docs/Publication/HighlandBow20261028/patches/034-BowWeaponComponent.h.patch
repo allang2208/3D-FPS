@@ -1,0 +1,106 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
+@@ -12,6 +12,7 @@
+ class UBowArmsMeshComponent;
+ class AFPSGAMECharacter;
+ class UBowPartComponent;
++class UBowScopeOptics;
+ class UCameraComponent;
+ class UAnimSequence;
+ class UAudioComponent;
+@@ -44,8 +45,12 @@
+ 
+ struct FBowDrawRhythm
+ {
++    static constexpr float ReleaseFeedbackSeconds=.15f;
+     float Elapsed=0.f,FullDrawSeconds=1.4f,Opacity=1.f;
+-    bool bPerfect=false,bReleased=false;
++    float ReleaseAge=0.f;
++    float PerfectWindowSeconds=.20f;
++    bool bPerfect=false,bReleased=false,bSpeedBoosted=false;
++    bool bAutomaticRhythm=false;
+     bool bPiercingAvailable=false,bPiercingReady=false;
+     float PiercingSeconds=3.f;
+     bool bMagicArrowRain=false,bMagicRainValid=false;
+@@ -66,6 +71,7 @@
+     friend class UFPSConsumableAuditCommandlet;
+     friend class UBowSkillTrainingAuditCommandlet;
+     friend class AShotgunWireAuditController;
++    friend class UBowScopeOptics;
+ 
+ public:
+     UBowArmsMeshComponent* ArmsMesh() const;
+@@ -80,6 +86,7 @@
+     void ShowFeedback(const FString& Message);
+ 
+     UFUNCTION(BlueprintPure, Category="Bow") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
++    const FString& EquippedInstance() const { return InstanceId; }
+     UFUNCTION(BlueprintPure, Category="Bow") bool IsBusy() const { return Stage != EBowStage::Ready||CastTransferAlpha>0.f; }
+     UFUNCTION(BlueprintPure, Category="Bow") bool IsDrawing() const
+     { return Stage == EBowStage::Drawing || Stage == EBowStage::Holding; }
+@@ -89,8 +96,12 @@
+     bool GetDrawRhythm(FBowDrawRhythm& Out) const;
+     bool GetMagicArrowEndpoints(FVector& Tail,FVector& Tip) const;
+     void FinishMagicArrowRainRelease(bool bSuccess);
++    bool HasPerfectDrawSpeedBonus() const;
+     /** 服务器拒绝射击时清除本机预测的加速与成功反馈，不改变放弦动作时钟。 */
+     void ClearPerfectSpeedPending() { bPerfectSpeedPending = false; bLastPerfectRelease = bLastPiercingRelease = false; }
++    FGuid NetworkDrawId() const { return ActiveDrawId; }
++    void ConfirmNetworkDraw(const FString& Weapon,FGuid DrawId,float FullDrawSeconds,bool PerfectSpeed);
++    void ConfirmNetworkRelease(const FString& Weapon,FGuid DrawId,bool Accepted,bool Perfect,bool Piercing);
+     UFUNCTION(BlueprintPure, Category="Bow") EBowStage GetStage() const { return Stage; }
+     UFUNCTION(BlueprintPure, Category="Bow") int32 ArrowsInPouch() const;
+ 
+@@ -111,8 +122,14 @@
+     bool IsAimHeld() const { return IsEquipped() && bSteadyHeld; }
+     float AimAlpha() const { return AimProgress; }
+     float AimVerticalFOV(float BaseFOV) const;
++    float OpticalAimVerticalFOV(float BaseFOV) const;
++    float DisplayedScopeMagnification() const { return IsEquipped() && bHasAimSight ? DisplayedOpticalMagnification : 1.f; }
++    bool IsScopeOpticalPresentationEnabled() const;
++    void UpdateScopeCamera();
++    const UBowScopeOptics* ScopeOptics() const { return Optics; }
+     float ScopeMagnification() const { return IsEquipped() && bHasAimSight ? OpticalMagnification : 1.f; }
+     bool HasOpticalSight() const { return ScopeMagnification() > 1.f; }
++    bool AdjustScopeMagnification(float Delta);
+     /** Camera-right/up slope, shared by the HUD projection and the release ray. */
+     float ShotSpread() const;
+     bool ShouldShowCrosshair() const;
+@@ -184,7 +201,8 @@
+     // 节奏（秒）：作者值由 bows.json 覆盖，参考轨迹按阶段归一化映射到实际片段时长。
+     float StageActionRate=1.f;
+     FHeartPiercingArrowStats PiercingDrawStats;
+-    float NockSeconds = .68f, DrawSeconds = 1.4f, HoldSeconds = 2.2f, ReleaseSeconds = .3f,
++    float PerfectWindowSeconds=.20f;
++    float NockSeconds = .68f, DrawSeconds = 1.4f, ReleaseSeconds = .3f,
+           RecoverSeconds = .34f;
+     // 数值。`critical_chance` / `toughness_multiplier` 缺省即不覆盖射击瞬间的修炼快照。
+     float FullDamage = 69.f, FullSpeedCM = 9800.f, MinSpeedRatio = .35f,
+@@ -206,8 +224,9 @@
+     FRotator ArmsRotation = FRotator::ZeroRotator;
+     bool bUsesArms = false, bArrowNocked = false, bSteadyHeld = false, bTriggerHeld = false,
+          bHasRightHandBone = false;
+-    /** 完美节拍命中后的下一次拉弓 +25%（本地即时置位；联机另读服务器复制标记）。 */
++    /** 完美节拍命中后的下一次拉弓 +25%（本地预测，由对应射击回执确认）。 */
+     bool bPerfectSpeedPending = false;
++    FGuid ActiveDrawId,LastReleasedDrawId;
+ 
+     static const TCHAR* ClipIdle;
+     static const TCHAR* ClipDraw;
+@@ -324,6 +343,15 @@
+     float TurnFollow = 0.f, TurnFollowVelocity = 0.f, PreviousViewYaw = 0.f;
+     bool bHaveViewYaw = false;
+     void AdvanceLocomotion(float Delta, bool bUsable);
+-    // Resolved once on equipment changes; ordinary sights always reset to 1x.
++    // Same equipped instance and optic retain zoom through profile refresh and ADS.
+     float OpticalMagnification = 1.f;
++    float DisplayedOpticalMagnification = 1.f;
++    bool bPeakwatchScope = false;
++    UPROPERTY(Transient) TObjectPtr<UBowScopeOptics> Optics;
++    float OpticalMinimum = 1.f, OpticalMaximum = 1.f;
++    FString OpticalSelectionKey;
++    FVector ScopeRingLocationCM = FVector::ZeroVector;
++    FRotator ScopeRingRotation = FRotator::ZeroRotator;
++    float ScopeRingScale = 1.f, ScopeRingDegreesPerPower = 0.f;
++    void UpdateScopeRing();
+ };

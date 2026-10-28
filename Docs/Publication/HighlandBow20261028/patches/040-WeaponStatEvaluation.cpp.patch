@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp
++++ b/Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp
+@@ -4,6 +4,7 @@
+ #include "TubeShotgunAssets.h"
+ #include "WeaponDamagePanel.h"
+ #include "Bow/BowDamageTuning.h"
++#include "Bow/BowCadenceComponent.h"
+ #include "GunsmithSystem.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+@@ -17,16 +18,25 @@
+ 
+ FWeaponDamageParts ColdSteelWeaponStats::DamageParts(const FColdSteelItem& Item,const UColdSteelStatusModel* Model,double Base)
+ {
++    double ShotDamage=1.,PhysicalDamage=1.;
+     if(Model&&ColdSteelInventory::IsBow(Item))
+-        if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())Base*=G->Calculate(Item.Definition,G->Installed(Item)).Bow.Damage;
++        if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
++        {
++            const auto Mods=G->Calculate(Item.Definition,G->Installed(Item)).Bow;
++            Base*=Mods.Damage;ShotDamage=Mods.ShotDamage;PhysicalDamage=Mods.PhysicalDamage;
++        }
+     const float Attack=Model?Model->Derived(TEXT("atk")):0;
+     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+-    return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack,-1,Model):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item));
++    auto Parts=ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack,-1,Model):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item)).Scaled(ShotDamage);
++    if(const auto* Cadence=UBowCadenceComponent::ForItem(Model,Item))PhysicalDamage*=Cadence->PhysicalMultiplier();
++    Parts.BasePhysical*=PhysicalDamage;Parts.AddedPhysical*=PhysicalDamage;
++    return Parts;
+ }
+ double ColdSteelWeaponStats::BowDrawSpeedBonus(const FColdSteelItem* Item,const UColdSteelStatusModel* Model)
+ {
+     if(!Item||!Model||!ColdSteelInventory::IsBow(*Item))return 0.;
+     double Bonus=Model->EquipmentBonus(TEXT("bowDrawSpeed"))+Model->DexterousHandsEffect().BowDrawSpeed;
++    if(const auto* Cadence=UBowCadenceComponent::ForItem(Model,*Item))Bonus+=Cadence->SpeedBonus();
+     if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+         Bonus+=G->Calculate(Item->Definition,G->Installed(*Item)).Bow.DrawSpeedBonus;
+     if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())

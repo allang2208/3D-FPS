@@ -1,0 +1,105 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
+@@ -1,4 +1,5 @@
+ #include "BowArrow.h"
++#include "BowMountainEchoComponent.h"
+ #include "../FPSMeleeLightningComponent.h"
+ #include "../../Combat/RangedAttackQuery.h"
+ #include "../../Dungeons/WardBreakableGlass.h"
+@@ -7,6 +8,7 @@
+ #include "../../Skills/FPSFireMagicComponent.h"
+ #include "../../Monsters/MonsterDamageAlert.h"
+ #include "../../Monsters/MonsterCombatComponent.h"
++#include "../../Props/FPSPracticeTarget.h"
+ #include "../../UI/ColdSteelStatusModel.h"
+ #include "../../UI/ColdSteelWorldInteraction.h"
+ #include "Components/CapsuleComponent.h"
+@@ -131,6 +133,7 @@
+ void ABowArrow::Tick(float Delta)
+ {
+     Super::Tick(Delta);
++    if(bEchoPending||MountainContact.bHit)return;
+     if(!HasAuthority()){UpdateFlameVisual(Delta);UpdateElementVisual(Delta);UpdateIlluminationVisual(Delta);return;}
+     Delta = FMath::Max(0.f, Delta);
+     Age += Delta;
+@@ -204,6 +207,7 @@
+     // Continue flight through the removed pane instead of pinning an arrow in empty air.
+     if(UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal()))
+     {
++        if(Presentation.bMountainEcho){FinishMountainEchoHit(Hit);return false;}
+         return true;
+     }
+     auto* Target=Hit.GetActor();
+@@ -211,6 +215,13 @@
+     ApplyIlluminationImpact(Hit);
+     const auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+     const auto* Health=Target?Target->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    // Practice targets receive point damage without monster/health components.
++    // They must also earn resonance and provide the original hit's crit receipt.
++    const bool bEchoPracticeTarget=IsValid(Target)&&Target->IsA<AFPSPracticeTarget>()&&
++        Target->CanBeDamaged()&&!Target->IsActorBeingDestroyed();
++    const bool bEchoEligible=bEchoPracticeTarget||
++        (((Combat&&!Combat->IsDead())||(Health&&!Health->IsDead()))&&
++        UFPSMeleeLightningComponent::IsEnemy(Target,GetInstigator()));
+     // Capture life before damage: a lethal arrow may still pass through its victim.
+     const bool bCanPierce=RemainingPenetrations>0&&((Combat&&!Combat->IsDead())||(Health&&!Health->IsDead()));
+     if(Target)
+@@ -226,8 +237,23 @@
+                 // Bow release/impact never reports a hearing stimulus. Keep
+                 // the local audio, and resolve group alarms only after death.
+                 const MonsterDamageAlert::FScopedSilentShot SilentShot(Target);
+-                // Illumination uses the ordinary-arrow damage snapshot.
+-                Applied = ColdSteelSkills::ApplyHit(Pawn, Hit, Damage, Direction, Shot, &Result);
++                // Illumination uses this ordinary-arrow damage snapshot and shared
++                // armour/critical/status calculation, with no extra skill damage.
++                Applied = Presentation.bMountainEcho?ApplyEchoHit(Hit,Result):ColdSteelSkills::ApplyHit(Pawn, Hit, Damage, Direction, Shot, &Result);
++            }
++            if(!Presentation.bMountainEcho&&bEchoEligible)
++            {
++                if(MountainImpact&&!MountainImpact->bRecorded)
++                {
++                    MountainImpact->Physical=Result.BeforeDefense;
++                    MountainImpact->Physical.BaseMagic=MountainImpact->Physical.AddedMagic=0;
++                    MountainImpact->bCritical=Result.bCritical;MountainImpact->bRecorded=true;
++                }
++                if(bMountainGain)
++                {
++                    bMountainGain=false;
++                    if(MountainSource.IsValid())MountainSource->ConfirmHit(MountainEpoch);
++                }
+             }
+             if (auto* Character = Cast<AFPSGAMECharacter>(Pawn))
+             {
+@@ -238,6 +264,7 @@
+         }
+     }
+     BurstElement(Hit);
++    if(Presentation.bMountainEcho){FinishMountainEchoHit(Hit);return false;}
+     if(bCanPierce){--RemainingPenetrations;return true;}
+     bResolved=true;
+     SetActorLocation(Hit.ImpactPoint+Velocity.GetSafeNormal()*2.f);
+@@ -271,6 +298,8 @@
+ 
+ void ABowArrow::EndPlay(const EEndPlayReason::Type Reason)
+ {
++    GetWorldTimerManager().ClearTimer(EchoDelay);
++    ReleaseMountainEchoVisual();
+     GetWorldTimerManager().ClearTimer(RecoveryTimer);
+     StopFlameVisual();
+     Super::EndPlay(Reason);
+@@ -388,12 +417,14 @@
+     DOREPLIFETIME_CONDITION(ABowArrow,Presentation,COND_InitialOnly);
+     DOREPLIFETIME(ABowArrow,bStuck);DOREPLIFETIME(ABowArrow,bRecoverable);
+     DOREPLIFETIME(ABowArrow,bElementBurst);
++    DOREPLIFETIME(ABowArrow,bEchoPending);
++    DOREPLIFETIME(ABowArrow,MountainContact);
+ }
+ void ABowArrow::OnRep_Presentation()
+ {
+     Configure(1,600,0,400,FColdSteelSkillShot{},Presentation.Shaft,Presentation.Head,
+         Presentation.Radius,Presentation.Length,Presentation.Ammo,bRecoverable,120);
+-    OnRep_Stuck();
++    ApplyEchoPresentation();OnRep_Stuck();OnRep_EchoPending();OnRep_MountainContact();
+ }
+ void ABowArrow::OnRep_Stuck()
+ {

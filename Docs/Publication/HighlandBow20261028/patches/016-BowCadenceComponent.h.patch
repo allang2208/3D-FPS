@@ -1,0 +1,63 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowCadenceComponent.h
++++ b/Source/FPSGAME/Weapons/Bow/BowCadenceComponent.h
+@@ -0,0 +1,60 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "BowCadenceComponent.generated.h"
++
++class UColdSteelStatusModel;
++class UMaterialInstanceDynamic;
++struct FStreamableHandle;
++struct FColdSteelItem;
++
++USTRUCT()
++struct FBowCadenceState
++{
++    GENERATED_BODY()
++    UPROPERTY() FString Instance;
++    UPROPERTY() int32 Stacks=0;
++    UPROPERTY() double EndServerTime=0.;
++    UPROPERTY() uint32 Revision=0;
++};
++
++/** One server-owned release chain per equipped string; never stored in the profile. */
++UCLASS()
++class FPSGAME_API UBowCadenceComponent : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    UBowCadenceComponent();
++    void RefreshEquipment(const UColdSteelStatusModel* Model);
++    void CommitRelease(const FString& Instance,bool Perfect);
++    static const UBowCadenceComponent* ForItem(const UColdSteelStatusModel* Model,const FColdSteelItem& Item);
++    bool IsEquippedFor(const FString& Instance) const;
++    bool HasAutomaticRhythmFor(const FString& Instance) const;
++    int32 ChargesFor(const FString& Instance) const;
++    int32 Charges() const;
++    float Remaining() const;
++    float SpeedBonus() const;
++    float PhysicalMultiplier() const;
++    float SpreadMultiplier() const;
++    float GainAge() const;
++    float PulseAge() const;
++    float ReadyAge() const;
++    UMaterialInstanceDynamic* HUDMaterial() const{return Material;}
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
++protected:
++    virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++private:
++    friend class UBowSkillTrainingAuditCommandlet;
++    UPROPERTY(ReplicatedUsing=OnRep_State) FBowCadenceState State;
++    UFUNCTION() void OnRep_State();
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> Material;
++    TSharedPtr<FStreamableHandle> MaterialLoad;
++    FString PresentedInstance;
++    uint32 PresentedRevision=0;
++    int32 PresentedStacks=0;
++    double LastGainAt=-1000.,LastReadyAt=-1000.,LastPulseAt=-1000.;
++    bool HadVisibleStacks=false;
++    double ServerTime() const;
++    void ClearStacks();
++};

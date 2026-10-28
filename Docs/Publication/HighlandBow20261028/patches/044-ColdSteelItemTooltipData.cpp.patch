@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -360,12 +360,17 @@
+             else if(G->IsBow(I.Definition))
+             {
+                 Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Bow.Damage-1)*100,TEXT("%"));
++                Delta(C,ColdSteelWeaponText::TotalDamage,(S.Bow.ShotDamage-1)*100,TEXT("%"));
++                Delta(C,TEXT("物理伤害"),(S.Bow.PhysicalDamage-1)*100,TEXT("%"));
++                Delta(C,ColdSteelWeaponText::FlightLimit,(S.Bow.Range-1)*100,TEXT("%"));
++                Delta(C,ColdSteelWeaponText::CriticalBonus,S.Bow.CriticalDamageBonus*100,TEXT("%"));
+                 Delta(C,TEXT("拉弓速度"),S.Bow.DrawSpeedBonus*100,TEXT("%"));
++                Delta(C,ColdSteelWeaponText::RhythmWindow,S.Bow.RhythmWindowBonus*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::DrawTime,(S.Bow.Draw-1)*100,TEXT("%"),true);
+                 Delta(C,ColdSteelWeaponText::NockTime,(S.Bow.Nock-1)*100,TEXT("%"),true);
+                 Delta(C,ColdSteelWeaponText::ProjectileSpeed,(S.Bow.Speed-1)*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::StaminaCost,(S.Bow.Stamina-1)*100,TEXT("%"),true);
+-                Delta(C,ColdSteelWeaponText::HoldTime,(S.Bow.Hold-1)*100,TEXT("%"));
++                Delta(C,ColdSteelWeaponText::BowChargeStamina,(S.Bow.ChargeStamina-1)*100,TEXT("%"),true);
+                 Delta(C,ColdSteelWeaponText::Sway,(S.Bow.Sway-1)*100,TEXT("%"),true);
+                 Delta(C,ColdSteelWeaponText::HipSpreadMultiplier,(S.Bow.Spread-1)*100,TEXT("%"),true);
+                 Delta(C,ColdSteelWeaponText::ADS,(S.Bow.ADS-1)*100,TEXT("%"),true);
+@@ -620,17 +625,15 @@
+         const double Base=Number(O,TEXT("full_damage"),69)*(G?G->Calculate(I.Definition,Parts).Bow.Damage:1.);
+         AppendColdSteelTooltipAttackFormula(I,Model,Base,Main);
+         DamageRows(Main,BowDamage);
+-        if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
++        if(const double CritBonus=Bow.CriticalDamageBonus;CritBonus>0)
+             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
+         Row(Main,ColdSteelWeaponText::DrawTime,N(Bow.Draw)+TEXT(" s"));
+-        Note(Main,TEXT("完美节拍"),FString::Printf(TEXT("满拉后 %.2f s 内手动松手，下一次拉弓速度 +%.0f%%；力竭自动放箭无加成"),
+-            ColdSteelBow::PerfectReleaseWindow,ColdSteelBow::PerfectNextDrawSpeedBonus*100.f));
+         Row(Main,TEXT("拉弓速度加成"),N(Bow.DrawSpeedBonus*100.)+TEXT("%"));
+         Row(Main,ColdSteelWeaponText::NockTime,N(Bow.Nock)+TEXT(" s"));
+         Row(Main,ColdSteelWeaponText::ProjectileSpeed,N(Bow.Speed)+TEXT(" m/s"));
+-        Row(Main,ColdSteelWeaponText::FlightLimit,N(Number(O,TEXT("range_cm"),3200)/100)+TEXT(" m"));
++        Row(Main,ColdSteelWeaponText::FlightLimit,N(Bow.Range)+TEXT(" m"));
+         Row(Main,ColdSteelWeaponText::StaminaCost,N(Bow.Stamina));
+-        Row(Main,ColdSteelWeaponText::HoldTime,N(Bow.Hold)+TEXT(" s"));
++        Row(Main,ColdSteelWeaponText::BowChargeStamina,N(Bow.ChargeStamina)+TEXT(" /s"));
+         Row(Main,ColdSteelWeaponText::Sway,N(Bow.Sway));
+         Row(Main,ColdSteelWeaponText::HipSpreadAngle,N(FMath::RadiansToDegrees(FMath::Atan(Bow.Spread)))+TEXT("°"));
+         Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(Bow.ADS*1000*(Model?Model->ADSTimeMultiplier():1.)))+TEXT(" ms"));

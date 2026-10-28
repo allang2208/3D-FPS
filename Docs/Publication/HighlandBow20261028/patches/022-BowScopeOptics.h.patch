@@ -1,0 +1,55 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowScopeOptics.h
++++ b/Source/FPSGAME/Weapons/Bow/BowScopeOptics.h
+@@ -0,0 +1,52 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "UObject/Object.h"
++#include "Rendering/DrawElements.h"
++#include "BowScopeReticle.h"
++#include "BowScopeOptics.generated.h"
++
++class UBowWeaponComponent;
++class UPrimitiveComponent;
++class UCameraComponent;
++
++struct FBowScopePrimitiveState
++{
++    TWeakObjectPtr<UPrimitiveComponent> Component;
++    uint8 Type=0;
++    bool bOwnerNoSee=false;
++};
++
++/** Owner-local Peakwatch optics. Uses the firing camera, never changes the shot ray. */
++UCLASS()
++class UBowScopeOptics : public UObject
++{
++    GENERATED_BODY()
++public:
++    static bool Enabled();
++    void UpdateCamera(UBowWeaponComponent& Bow);
++    void Update(UBowWeaponComponent& Bow,float Delta,bool Present);
++    void InvalidateAssembly(UBowWeaponComponent& Bow);
++    void Release(UBowWeaponComponent& Bow);
++    bool OwnsPrimitive(const UPrimitiveComponent* Primitive) const;
++    bool HidesPrimitive(const UPrimitiveComponent* Primitive) const;
++    float PresentationAlpha() const { return Alpha; }
++    FVector2D CueOffset(const FGeometry& Geometry,float PixelToLocal) const;
++    int32 Paint(const FGeometry& Geometry,FSlateWindowElementList& Elements,int32 Layer,const FLinearColor& Tint) const;
++
++private:
++    TWeakObjectPtr<UCameraComponent> OwnedCamera;
++    TArray<FBowScopePrimitiveState> Primitives;
++    bool bSavedCamera=false,bWasFirstPersonFOV=false,bWasActive=false,bHideViewmodel=false;
++    float SavedFirstPersonFOV=90.f,Alpha=0.f;
++    FVector2D AimCenter=FVector2D(.5,.5),ViewSize=FVector2D(1,1),ConstrainedSize=FVector2D(1,1);
++    FVector2D Eye=FVector2D::ZeroVector;
++    FRotator PreviousView=FRotator::ZeroRotator;
++    FBowScopeReticleState Reticle;
++    mutable TArray<FSlateVertex> Vertices;
++    mutable TArray<SlateIndex> Indices;
++    void RestoreCamera();
++    void RestoreAssembly(UBowWeaponComponent& Bow);
++    double ApertureRadius(const FGeometry& Geometry) const;
++    void UpdateReticle(const UBowWeaponComponent& Bow,float Delta);
++};

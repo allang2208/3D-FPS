@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.h
++++ b/Source/FPSGAME/FPSGAMEPlayerController.h
+@@ -81,8 +81,6 @@
+     /** -VoxelBuildAudit 时创建的建筑系统验收运行器。 */
+     UPROPERTY(Transient) TObjectPtr<class UVoxelBuildAudit> VoxelBuildAudit;
+     FTimerHandle VoxelBuildAuditTimer;
+-    bool bScopePanelsHidden=false;
+-    TMap<TWeakObjectPtr<class UUserWidget>,uint8> ScopePanelVisibility;
+     UPROPERTY(Transient) TObjectPtr<class UM4GunsmithWidget> GunsmithPanel;
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelEnhancementWidget> EnhancementPanel;
+     bool bEnhancementReturnToInventory=false;

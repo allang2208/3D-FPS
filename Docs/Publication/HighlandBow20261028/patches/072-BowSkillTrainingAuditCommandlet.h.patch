@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h
++++ b/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h
+@@ -23,4 +23,6 @@
+     int32 RunMagicArrowRain(const FString& Params);
+     int32 RunBowNetworkReview(const FString& Params);
+     int32 RunElementalHoldReview(const FString& Params);
++    int32 RunBowResonanceReview(const FString& Params);
++    int32 RunBowPresentationReview(const FString& Params);
+ };

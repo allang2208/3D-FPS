@@ -1,0 +1,44 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -13,6 +13,7 @@
+ #include "../UI/ColdSteelPickup.h"
+ #include "../UI/ColdSteelWarehouseChest.h"
+ #include "../Weapons/Bow/BowArrow.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "../Skills/FPSElementalArrowComponent.h"
+ #include "../Skills/FPSIlluminationArrowComponent.h"
+ #include "../FPSGAMECharacter.h"
+@@ -210,7 +211,8 @@
+         // Retire the same pawn's preparation and draw on every failed shot.
+         if(Request.bIlluminationArrow)if(auto* Light=Pawn->FindComponentByClass<UFPSIlluminationArrowComponent>())Light->ShotCommitted();
+         if(Request.ArrowElement!=EArrowElement::None)if(auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>())Element->ShotRejected();
+-        BowDrawStartedAt=-1.;BowDrawPawn.Reset();BowDrawWeapon.Reset();
++        if(Request.BowDrawId==BowDrawId)
++        {BowDrawStartedAt=-1.;BowDrawPawn.Reset();BowDrawWeapon.Reset();BowDrawId.Invalidate();}
+     }
+     if(Reason.IsEmpty())Reason=TEXT("物品已变化或当前无法使用");
+     const auto After=Model?Model->Snapshot():Before;
+@@ -229,6 +231,13 @@
+     auto* Reply=NewObject<UColdSteelInventoryReply>();
+     Reply->Sequence=Request.Sequence;Reply->Revision=After.CampfireInventoryRevision;
+     Reply->bSuccess=Success;Reply->Message=Reason;Reply->WorldReceipts=After.CampfireWorldReceipts;
++    if(Request.Action==EColdSteelInventoryAction::BowShot)
++    {
++        // A refused shot preserves the last actually earned bonus. The owner
++        // receives it explicitly; unchanged replicated bools cannot undo prediction.
++        RefreshBowPerfectOwner();Reply->bBowPerfect=bBowPerfectSpeedBonus;
++        Reply->bBowPiercing=Success&&bLastBowShotPiercing;
++    }
+     Reply->FoodClockId=After.FoodClockId;Reply->FoodClockDay=After.FoodClockDay;
+     if(Request.Action==EColdSteelInventoryAction::Planting)
+         if(auto* Bed=Cast<AVoxelBuildPrefabActor>(Request.Target);Bed&&Bed->GetWorld()==GetWorld())
+@@ -372,6 +381,9 @@
+     if(PendingInventoryRequest.Action==EColdSteelInventoryAction::BowShot)
+         if(auto* ShotPawn=InventoryRequestPawn.Get())
+         {
++            if(Decoded&&ShotPawn==GetPawn())if(auto* Bow=ShotPawn->FindComponentByClass<UBowWeaponComponent>())
++                Bow->ConfirmNetworkRelease(PendingInventoryRequest.Item,PendingInventoryRequest.BowDrawId,
++                    Reply->bSuccess,Reply->bBowPerfect,Reply->bBowPiercing);
+             if(PendingInventoryRequest.bIlluminationArrow)if(auto* Light=ShotPawn->FindComponentByClass<UFPSIlluminationArrowComponent>())Light->ResolveShotReply();
+             if(PendingInventoryRequest.ArrowElement!=EArrowElement::None)if(auto* Element=ShotPawn->FindComponentByClass<UFPSElementalArrowComponent>())Element->ResolveShotReply();
+         }

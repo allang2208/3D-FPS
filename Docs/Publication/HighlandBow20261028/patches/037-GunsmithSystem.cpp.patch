@@ -1,0 +1,62 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -29,6 +29,12 @@
+ double Num(const TSharedPtr<FJsonObject>& O,const TCHAR* K,double Default=0){double V=Default;O->TryGetNumberField(K,V);return V;}
+ TArray<FString> Strings(const TSharedPtr<FJsonObject>& O,const TCHAR* K){TArray<FString> R;for(const auto& V:O->GetArrayField(K))R.Add(V->AsString());return R;}
+ FString Part(const FGunsmithParts& P,const FString& S){const FString* V=P.Find(S);return V?*V:TEXT("false");}
++bool HasRetiredHandmadeBowBody(const FColdSteelItem& Item)
++{
++    if(!ColdSteelInventory::IsBow(Item))return false;
++    const auto Data=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Parts=nullptr;FString Riser;
++    return Data&&Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&(*Parts)->TryGetStringField(TEXT("riser"),Riser)&&Riser==TEXT("woodcrafted_heavy");
++}
+ }
+ bool UGunsmithSystem::HasUnsupportedForegrip(const FColdSteelItem& Item) const
+ {
+@@ -179,6 +185,7 @@
+             ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;
+         if(D==RSH12WeaponAssets::Definition && Slot==TEXT("optic"))Id=RSH12OpticAssets::Upgrade(Id);
+         if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");
++        if(IsBow(D)&&Slot==TEXT("riser")&&Id==TEXT("woodcrafted_heavy"))Id=TEXT("heavy_limb");
+         if(Id!=TEXT("false")&&Option(D,Slot,Id))Result.Add(Slot,Id);
+     }
+     // Named factory parts are real options with stats. Resolve legacy empty /
+@@ -231,13 +238,17 @@
+         {
+             const auto& M=Option(D,Pair.Key,Pair.Value)->Bow;
+             R.Bow.Damage*=M.Damage;R.Bow.Speed*=M.Speed;R.Bow.Stamina*=M.Stamina;
++            R.Bow.ShotDamage*=M.ShotDamage;R.Bow.PhysicalDamage*=M.PhysicalDamage;R.Bow.Range*=M.Range;R.Bow.CriticalDamageBonus+=M.CriticalDamageBonus;
+             // Legacy draw_mult is a duration factor: /0.8 means +25% speed.
+             R.Bow.DrawSpeedBonus+=M.DrawSpeedBonus+1./FMath::Max(.05,M.Draw)-1.;
+-            R.Bow.Nock*=M.Nock;R.Bow.Hold*=M.Hold;R.Bow.Sway*=M.Sway;R.Bow.Spread*=M.Spread;R.Bow.ADS*=M.ADS;
++            R.Bow.RhythmWindowBonus+=M.RhythmWindowBonus;
++            R.Bow.Nock*=M.Nock;R.Bow.ChargeStamina*=M.ChargeStamina;R.Bow.Sway*=M.Sway;R.Bow.Spread*=M.Spread;R.Bow.ADS*=M.ADS;
++            R.Bow.PiercingDamage*=M.PiercingDamage;
+             ++R.ActiveParts;
+         }
+         R.Bow.Draw=1./FMath::Max(.05,1.+R.Bow.DrawSpeedBonus);
+         R.Damage*=R.Bow.Damage;R.Interval*=R.Bow.Draw;R.Speed*=R.Bow.Speed;R.ADS*=R.Bow.ADS;
++        R.Damage*=R.Bow.ShotDamage*R.Bow.PhysicalDamage;R.Range*=R.Bow.Range;
+         return R;
+     }
+     if(IsMelee(D))
+@@ -448,7 +459,7 @@
+     }
+     if(IsBow(DefinitionId))
+     {
+-        bool MaterialChange=false;
++        bool MaterialChange=HasRetiredHandmadeBowBody(*I);
+         for(const auto& Slot:Slots(DefinitionId))if(Part(Original,Slot)!=Part(Preview,Slot))
+         {
+             const auto* Old=Option(DefinitionId,Slot,Part(Original,Slot));const auto* New=Option(DefinitionId,Slot,Part(Preview,Slot));
+@@ -461,6 +472,10 @@
+ bool UGunsmithSystem::PreparePartMaterials(FColdSteelProfile& State,FString& Reason) const
+ {
+     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();TMap<FString,int64> Delta;
++    // A retired handmade body behaves as the standard heavy body. Return its
++    // two paid limbs on the next successful Apply, atomically with the new parts.
++    if(const auto* Item=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==InstanceId;});Item&&HasRetiredHandmadeBowBody(*Item))
++        Delta.FindOrAdd(TEXT("woodworked_bow_limb"))+=2;
+     for(const auto& Slot:Slots(DefinitionId))if(Part(Original,Slot)!=Part(Preview,Slot))
+     {
+         const auto* Old=Option(DefinitionId,Slot,Part(Original,Slot));const auto* New=Option(DefinitionId,Slot,Part(Preview,Slot));

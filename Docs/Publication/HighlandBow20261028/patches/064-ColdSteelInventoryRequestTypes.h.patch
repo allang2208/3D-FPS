@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
+@@ -61,6 +61,7 @@
+     UPROPERTY() float BowReleaseElapsed=-1.f;
+     // All releases report their continuous draw clock; damage remains server-derived.
+     UPROPERTY() float BowChargeElapsed=-1.f;
++    UPROPERTY() FGuid BowDrawId;
+     UPROPERTY() EArrowElement ArrowElement=EArrowElement::None;
+     UPROPERTY() bool bIlluminationArrow=false;
+     UPROPERTY() int64 ContainerRevision=0;
+@@ -93,6 +94,9 @@
+     UPROPERTY() uint32 Sequence = 0;
+     UPROPERTY() int64 Revision = 0;
+     UPROPERTY() bool bSuccess = false;
++    // Explicit outcome even when the replicated perfect flag did not change.
++    UPROPERTY() bool bBowPerfect=false;
++    UPROPERTY() bool bBowPiercing=false;
+     UPROPERTY() FString Message;
+     UPROPERTY() TArray<FColdSteelItem> Changed;
+     UPROPERTY() TArray<FString> Removed;

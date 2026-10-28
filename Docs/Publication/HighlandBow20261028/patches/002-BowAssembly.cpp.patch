@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowAssembly.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowAssembly.cpp
+@@ -10,7 +10,7 @@
+ namespace
+ {
+ const FName RootTag(TEXT("BowAssembly")),PartTag(TEXT("BowAssemblyPart"));
+-const TCHAR* BowAssemblySlots[]={TEXT("riser"),TEXT("grip"),TEXT("arrow_rest"),TEXT("sight"),TEXT("string")};
++const TCHAR* BowAssemblySlots[]={TEXT("riser"),TEXT("grip"),TEXT("arrow_rest"),TEXT("sight"),TEXT("sight_zoom"),TEXT("string")};
+ const TCHAR* BowAssemblyCylinder=TEXT("/Engine/BasicShapes/Cylinder.Cylinder");
+ FString Field(const TCHAR* Slot,const TCHAR* Suffix){return FString::Printf(TEXT("bow_part_%s_%s"),Slot,Suffix);}
+ FString Text(const FColdSteelItem& I,const TCHAR* Slot,const TCHAR* Suffix){return ColdSteelInventory::Text(I,*Field(Slot,Suffix));}

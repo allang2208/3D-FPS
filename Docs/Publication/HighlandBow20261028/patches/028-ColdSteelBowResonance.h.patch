@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelBowResonance.h
++++ b/Source/FPSGAME/UI/ColdSteelBowResonance.h
+@@ -0,0 +1,15 @@
++#pragma once
++#include "CoreMinimal.h"
++
++class UBowWeaponComponent;
++class FSlateWindowElementList;
++class FWidgetStyle;
++struct FGeometry;
++
++namespace ColdSteelBowResonance
++{
++// Includes the feed's upward drift and frame padding below the alpine cutout.
++inline constexpr float AlpineExperienceOffset=136.f;
++int32 Paint(const UBowWeaponComponent& Bow,const FGeometry& Geometry,
++    FSlateWindowElementList& Elements,int32 Layer,const FWidgetStyle& Style,float PixelToLocal);
++}

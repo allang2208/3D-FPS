@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.h
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.h
+@@ -57,11 +57,14 @@
+     uint32 GetActionSerial() const { return Serial; }
+     float GetSourceLength() const { return ClipLength; }
+     float GetContactFraction() const { return ClipLength>0.f?ContactTime/ClipLength:.45f; }
++    float GetBowRecoilCM() const;
++    float GetBowSourcePlaybackRate() const;
+ protected:
+     virtual void BeginPlay() override;
+     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+ private:
++    friend class UBowSkillTrainingAuditCommandlet;
+     bool IsPistolStyle() const { return Style==EQuickCombatStyle::Pistol || Style==EQuickCombatStyle::DualPistol || Style==EQuickCombatStyle::StaffOffhandPistol; }
+     bool IsRifleStyle() const { return Style==EQuickCombatStyle::Rifle || Style==EQuickCombatStyle::M4ReferenceRifle; }
+     EQuickCombatStyle Style=EQuickCombatStyle::Pistol;

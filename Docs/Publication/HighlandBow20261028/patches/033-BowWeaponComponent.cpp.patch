@@ -1,0 +1,399 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
+@@ -1,4 +1,6 @@
+ #include "BowWeaponComponent.h"
++#include "BowMountainEchoComponent.h"
++#include "BowCadenceComponent.h"
+ #include "../../Skills/FPSMagicArrowRainComponent.h"
+ #include "../../Skills/FPSElementalArrowComponent.h"
+ #include "../../Skills/FPSIlluminationArrowComponent.h"
+@@ -9,6 +11,7 @@
+ #include "../../Characters/FPSPlayerBodyComponent.h"
+ #include "BowArmsMeshComponent.h"
+ #include "BowPartComponent.h"
++#include "BowScopeOptics.h"
+ #include "BowQuickCombatMotion.h"
+ #include "BowStats.h"
+ #include "../../Skills/FPSQuickCombatComponent.h"
+@@ -166,6 +169,7 @@
+     Character = Pawn;
+     AddTickPrerequisiteActor(Pawn);
+     Camera = Pawn->FindComponentByClass<UCameraComponent>();
++    Optics = NewObject<UBowScopeOptics>(this);
+     Pivot = NewObject<USceneComponent>(Pawn, TEXT("BowPivot"));
+     Pawn->AddInstanceComponent(Pivot);
+     Pivot->SetupAttachment(Camera);
+@@ -211,6 +215,7 @@
+ 
+ void UBowWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
+ {
++    if (Optics) Optics->Release(*this);
+     StopDrawAudio();
+     StopHandlingAudio();
+     if (LoadHandle)
+@@ -228,6 +233,8 @@
+ 
+ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
+ {
++    if(auto* Echo=GetOwner()->FindComponentByClass<UBowMountainEchoComponent>())Echo->RefreshEquipment(Profile);
++    if(auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>())Cadence->RefreshEquipment(Profile);
+     if(!Character.IsValid())Character=Cast<AFPSGAMECharacter>(GetOwner());
+     if(!Character.IsValid()||(!Character->HasAuthority()&&!Character->IsLocallyControlled()))return;
+     // Authority needs equipped assets/parts for the replicated world bow, but
+@@ -237,6 +244,9 @@
+     if (!Part(SlotRiser) || !Pivot) return;
+     const auto* Item = Profile ? Profile->ActiveBow() : nullptr;
+     const FString NewId = Item ? Item->InstanceId : FString();
++    if(NewId!=InstanceId){ClearPerfectSpeedPending();LastReleasedDrawId.Invalidate();}
++    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
++        {ClearPerfectSpeedPending();LastReleasedDrawId.Invalidate();}
+     const FString NewArrow = Item ? Profile->AmmoDefinitionFor(*Item) : FString();
+     const bool bArrowTypeChanged=ArrowId!=NewArrow;
+     // LoadedAmmoType lives outside Item.Data. A type-only change must invalidate
+@@ -326,6 +336,10 @@
+     }
+     if (!Item)
+     {
++        OpticalSelectionKey.Reset();
++        OpticalMagnification = DisplayedOpticalMagnification = OpticalMinimum = OpticalMaximum = 1.f;
++        bPeakwatchScope = false;
++        if (Optics) Optics->Release(*this);
+         Stage = EBowStage::Stowed;
+         Elapsed = -1.f;
+         // 卸下弓时丢弃待生效的完美节拍加速，避免长时间挂起后换回弓仍生效。
+@@ -451,7 +465,6 @@
+         ? Character->GetNetShadowProfile() : GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if (!IsDrawing())
+         DrawSeconds = FMath::Max(.3f, float(ColdSteelWeaponStats::Interval(Item, Profile, Number(TEXT("draw_seconds"), 1.4f))));
+-    HoldSeconds = FMath::Max(0.f, Number(TEXT("hold_seconds"), 2.2f));
+     ReleaseSeconds = FMath::Max(.08f, Number(TEXT("release_seconds"), .3f));
+     RecoverSeconds = FMath::Max(.08f, Number(TEXT("recover_seconds"), .34f));
+     EquipSeconds = FMath::Max(.1f, Number(TEXT("equip_seconds"), .45f));
+@@ -490,7 +503,15 @@
+     AimInSeconds = FMath::Max(.01f, Number(TEXT("bow_ads_in_seconds"), .18f));
+     AimOutSeconds = FMath::Max(.01f, Number(TEXT("bow_ads_out_seconds"), .16f));
+     AimFOVScale = FMath::Clamp(Number(TEXT("bow_ads_fov_scale"), .9f), .5f, 1.f);
+-    OpticalMagnification = FMath::Clamp(Number(TEXT("bow_scope_magnification"), 1.f), 1.f, 4.f);
++    const float DefaultPower = FMath::Clamp(Number(TEXT("bow_scope_magnification"), 1.f), 1.f, 6.f);
++    OpticalMinimum = FMath::Clamp(Number(TEXT("bow_scope_min_magnification"), DefaultPower), 1.f, 6.f);
++    OpticalMaximum = FMath::Clamp(Number(TEXT("bow_scope_max_magnification"), DefaultPower), OpticalMinimum, 6.f);
++    const FString ScopeKey = Item->InstanceId + TEXT("|") + ColdSteelInventory::Text(*Item,TEXT("bow_part_sight_mesh"));
++    OpticalMagnification = FMath::Clamp(ScopeKey==OpticalSelectionKey?OpticalMagnification:DefaultPower, OpticalMinimum, OpticalMaximum);
++    if (ScopeKey != OpticalSelectionKey) DisplayedOpticalMagnification = OpticalMagnification;
++    bPeakwatchScope = EquippedDefinition == TEXT("bow_woodsteel") && ScopeKey.Contains(TEXT("/Scope3to6V11/SM_Highland_Peakwatch3to6"));
++    OpticalSelectionKey = ScopeKey;
++    ScopeRingDegreesPerPower = Number(TEXT("bow_scope_ring_degrees_per_power"), 0.f);
+     CrouchInSeconds = FMath::Max(.01f, Number(TEXT("bow_crouch_in_seconds"), .18f));
+     CrouchOutSeconds = FMath::Max(.01f, Number(TEXT("bow_crouch_out_seconds"), .22f));
+     CrouchCantDegrees = Number(TEXT("bow_crouch_cant_deg"), -55.f);
+@@ -503,7 +524,7 @@
+     if (Stage != EBowStage::Nocking)
+         NockSeconds = FMath::Max(.12f, Number(TEXT("nock_seconds"), .68f))*Mods.Nock
+             / float(ColdSteelBow::NockSpeedMultiplier(Profile));
+-    HoldSeconds*=Mods.Hold;FullDamage*=Mods.Damage;
++    FullDamage*=Mods.Damage*Mods.ShotDamage*Mods.PhysicalDamage;RangeCM*=Mods.Range;
+     FullSpeedCM*=Mods.Speed;StaminaCost*=Mods.Stamina;SwayAmplitudeCM*=Mods.Sway;
+     HipSpread*=Mods.Spread;MoveSpreadMax*=Mods.Spread;AirSpreadMax*=Mods.Spread;
+     ShotSpreadStep*=Mods.Spread;SpreadRecovery*=Mods.Spread;
+@@ -520,6 +541,11 @@
+     ReadVector3(Item, TEXT("arrow_rest_cm"), ArrowRestCM);
+     ReadVector3(Item, TEXT("bow_location_cm"), BowLocationCM);
+     ReadVector3(Item, TEXT("bow_grip_trim_cm"), GripTrimCM);
++    FVector ReferenceBrace(-24.081,.123,1.5),ReferenceDraw(-52.581,.123,1.5);
++    ReadVector3(Item,TEXT("bow_reference_brace_cm"),ReferenceBrace);
++    ReadVector3(Item,TEXT("bow_reference_draw_cm"),ReferenceDraw);
++    Viewmodel->SetContactFit(Number(TEXT("bow_fit_shared_contact"),0.f)>0.f,
++        ReferenceBrace,ReferenceDraw,BraceNockCM,DrawAnchorCM);
+     FVector Rotation;
+     if (ReadVector3(Item, TEXT("bow_ads_rotation_deg"), Rotation))
+         AimBowRotation = FRotator(Rotation.X, Rotation.Y, Rotation.Z);
+@@ -571,9 +597,42 @@
+ 
+ float UBowWeaponComponent::AimVerticalFOV(float BaseFOV) const
+ {
++    return OpticalAimVerticalFOV(BaseFOV);
++}
++
++float UBowWeaponComponent::OpticalAimVerticalFOV(float BaseFOV) const
++{
+     const float OnePowerFOV = BaseFOV * AimFOVScale;
+     return FMath::RadiansToDegrees(2.f * FMath::Atan(
+-        FMath::Tan(FMath::DegreesToRadians(OnePowerFOV) * .5f) / ScopeMagnification()));
++        FMath::Tan(FMath::DegreesToRadians(OnePowerFOV) * .5f) / DisplayedScopeMagnification()));
++}
++
++bool UBowWeaponComponent::IsScopeOpticalPresentationEnabled() const
++{
++    return IsEquipped() && bHasAimSight && bPeakwatchScope && UBowScopeOptics::Enabled();
++}
++
++void UBowWeaponComponent::UpdateScopeCamera()
++{
++    if (Optics) Optics->UpdateCamera(*this);
++}
++
++bool UBowWeaponComponent::AdjustScopeMagnification(float Delta)
++{
++    if(!IsAimHeld()||!CanUse()||!bHasAimSight||OpticalMaximum<=OpticalMinimum)return false;
++    OpticalMagnification=FMath::Clamp(OpticalMagnification+Delta,OpticalMinimum,OpticalMaximum);
++    // Consume scroll at either limit too, so it cannot also switch equipment.
++    return true;
++}
++
++void UBowWeaponComponent::UpdateScopeRing()
++{
++    if(auto* Ring=Part(TEXT("sight_zoom")))
++    {
++        FRotator Rotation=ScopeRingRotation;
++        Rotation.Roll+=(DisplayedOpticalMagnification-OpticalMinimum)*ScopeRingDegreesPerPower;
++        Ring->SetMount(ScopeRingLocationCM,Rotation,ScopeRingScale);
++    }
+ }
+ 
+ FString UBowWeaponComponent::PresentationSignature(const FColdSteelItem* Item) const
+@@ -649,6 +708,12 @@
+             ReadVector3(Item, *PartKey(Slot, TEXT("rotation_deg")), Rotation);
+             Component->SetMount(Location, FRotator(Rotation.X, Rotation.Y, Rotation.Z),
+                 Number(*PartKey(Slot, TEXT("scale")), 1.f));
++            if(Slot==TEXT("sight_zoom"))
++            {
++                ScopeRingLocationCM=Location;
++                ScopeRingRotation=FRotator(Rotation.X,Rotation.Y,Rotation.Z);
++                ScopeRingScale=Number(*PartKey(Slot,TEXT("scale")),1.f);
++            }
+         }
+     }
+     // 细杆粗细同样两键并存：新键优先，旧平铺键兜底。
+@@ -658,6 +723,8 @@
+     if (Riser) Riser->SetRelativeScale3D(FVector(BowScale));
+     for (auto& Pair : Parts) if (!SlotOrder.Contains(Pair.Key) && Pair.Value) Pair.Value->SetPartVisible(false);
+     CollectPartAssets(Item);
++    if (Optics) Optics->InvalidateAssembly(*this);
++    UpdateScopeRing();
+ }
+ 
+ bool UBowWeaponComponent::CanPresent(bool bAllowDoorPushPresentation) const
+@@ -707,11 +774,36 @@
+         : Stage == EBowStage::Drawing ? Elapsed : 0.f;
+ }
+ 
++bool UBowWeaponComponent::HasPerfectDrawSpeedBonus() const
++{
++    return bPerfectSpeedPending;
++}
++
++void UBowWeaponComponent::ConfirmNetworkDraw(const FString& Weapon,FGuid DrawId,float FullDrawSeconds,bool PerfectSpeed)
++{
++    if(Weapon!=InstanceId||DrawId!=ActiveDrawId||!IsDrawing()||!FMath::IsFinite(FullDrawSeconds)||FullDrawSeconds<=0.f)return;
++    // Keep elapsed seconds, not the predicted fraction. The authority fixes the
++    // action duration once, including a cadence stack expiring during transit.
++    const float Age=DrawElapsed();DrawSeconds=FullDrawSeconds;bPerfectSpeedPending=PerfectSpeed;
++    Stage=Age>=DrawSeconds?EBowStage::Holding:EBowStage::Drawing;
++    Elapsed=Stage==EBowStage::Holding?Age-DrawSeconds:Age;
++    HoldElapsed=Stage==EBowStage::Holding?Elapsed:0.f;
++    if(const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
++        PiercingDrawStats=HeartPiercingArrow::ForModel(Profile,INDEX_NONE,DrawSeconds);
++}
++void UBowWeaponComponent::ConfirmNetworkRelease(const FString& Weapon,FGuid DrawId,bool Accepted,bool Perfect,bool Piercing)
++{
++    if(Weapon!=InstanceId||DrawId!=LastReleasedDrawId)return;
++    bPerfectSpeedPending=Perfect;
++    if(!IsDrawing()){bLastPerfectRelease=Accepted&&Perfect;bLastPiercingRelease=Accepted&&Piercing;}
++}
++
+ bool UBowWeaponComponent::GetDrawRhythm(FBowDrawRhythm& Out) const
+ {
+     if (!IsEquipped()) return false;
+     Out = FBowDrawRhythm();
+     Out.FullDrawSeconds = DrawSeconds;
++    Out.PerfectWindowSeconds=PerfectWindowSeconds;
+     Out.bPiercingAvailable=PiercingDrawStats.bLearned;
+     Out.PiercingSeconds=PiercingDrawStats.ChargeSeconds;
+     if(const auto* Rain=GetOwner()->FindComponentByClass<UFPSMagicArrowRainComponent>();Rain&&Rain->IsPrepared()&&IsDrawing())
+@@ -719,19 +811,28 @@
+         Out.bMagicArrowRain=true;Out.bMagicRainValid=Rain->PreviewValid();
+         Out.bPiercingAvailable=false;Out.Elapsed=DrawElapsed();return true;
+     }
++    const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();
++    Out.bAutomaticRhythm=Cadence&&Cadence->HasAutomaticRhythmFor(InstanceId);
+     if (IsDrawing())
+     {
+         Out.Elapsed = DrawElapsed();
+-        Out.bPerfect = IsDrawing() && DrawFraction() >= 1.f && ColdSteelBow::IsPerfectRelease(Out.Elapsed, DrawSeconds);
++        Out.bSpeedBoosted = HasPerfectDrawSpeedBonus();
++        Out.bPerfect = Out.bAutomaticRhythm?DrawFraction()>=ColdSteelBow::MinimumFireDrawFraction:
++            DrawFraction()>=1.f&&ColdSteelBow::IsPerfectRelease(Out.Elapsed,DrawSeconds,PerfectWindowSeconds);
+         Out.bPiercingReady=IsDrawing()&&HeartPiercingArrow::IsCharged(PiercingDrawStats,Out.Elapsed,DrawFraction());
+         return true;
+     }
+     if ((Stage == EBowStage::Release || Stage == EBowStage::Recover)
+-        && bLastPerfectRelease && ReleaseFeedbackAge >= 0.f && ReleaseFeedbackAge < .45f)
++        && (bLastPerfectRelease || bLastPiercingRelease)
++        && ReleaseFeedbackAge >= 0.f && ReleaseFeedbackAge < FBowDrawRhythm::ReleaseFeedbackSeconds)
+     {
+         Out.Elapsed = LastReleaseElapsed;
+-        Out.bPerfect = Out.bReleased = true;
+-        Out.Opacity = FMath::Clamp((.45f - ReleaseFeedbackAge) / .15f, 0.f, 1.f);
++        Out.bReleased = true;
++        Out.bPerfect = bLastPerfectRelease;
++        Out.bPiercingReady = bLastPiercingRelease;
++        Out.ReleaseAge = ReleaseFeedbackAge;
++        Out.bSpeedBoosted = HasPerfectDrawSpeedBonus();
++        Out.Opacity = 1.f - ReleaseFeedbackAge / FBowDrawRhythm::ReleaseFeedbackSeconds;
+         return true;
+     }
+     return false;
+@@ -743,7 +844,7 @@
+     bNetworkDrawActive = false;
+     if (auto* Pawn = Character.Get())
+         if (auto* PS = Pawn->GetPlayerState<AColdSteelPlayerState>())
+-            PS->ServerSetBowDraw(Pawn, InstanceId, false, 0.f);
++            PS->ServerSetBowDraw(Pawn, InstanceId, false, 0.f,ActiveDrawId);
+ }
+ 
+ int32 UBowWeaponComponent::ArrowsInPouch() const
+@@ -805,19 +906,16 @@
+     StopDrawAudio();
+     if (Next == EBowStage::Drawing)
+     {
+-        // 完美节拍奖励：下一次拉弓速度 +25%。本地即时置位（服务器确认前也能
+-        // 让本机动作先对齐），联机同时读服务器复制标记，保证满拉时长一致。
+-        bool bSpeedBonus = bPerfectSpeedPending;
+-        if (!bSpeedBonus)
+-            if (auto* Pawn = Character.Get())
+-                if (auto* PS = Pawn->GetPlayerState<AColdSteelPlayerState>())
+-                    bSpeedBonus = PS->BowPerfectSpeedBonusPending();
++        // Predict immediately; the matching authority draw receipt fixes this
++        // action's duration, and the shot receipt reconciles perfect success.
++        const bool bSpeedBonus = HasPerfectDrawSpeedBonus();
+         if (const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+         {
+             if (const auto* Item = Profile->ActiveBow())
+             {
+                 const auto Stats=ColdSteelBow::Evaluate(*Item,Profile);
+                 DrawSeconds=float(Stats.Draw)*ColdSteelBow::DrawSpeedScale(bSpeedBonus);
++                PerfectWindowSeconds=float(Stats.RhythmWindow);
+             }
+             PiercingDrawStats=HeartPiercingArrow::ForModel(Profile,INDEX_NONE,DrawSeconds);
+         }
+@@ -828,7 +926,8 @@
+         if (auto* Pawn = Character.Get(); !MagicRain && Pawn && Pawn->GetNetMode() == NM_Client)
+             if (auto* PS = Pawn->GetPlayerState<AColdSteelPlayerState>())
+             {
+-                PS->ServerSetBowDraw(Pawn, InstanceId, true, FMath::Max(0.f, StartSeconds));
++                ActiveDrawId=FGuid::NewGuid();
++                PS->ServerSetBowDraw(Pawn, InstanceId, true, FMath::Max(0.f, StartSeconds),ActiveDrawId);
+                 bNetworkDrawActive = true;
+             }
+     }
+@@ -997,8 +1096,9 @@
+     UpdateBowGeometry();
+     ReleasedNockCM = NockPoint();
+     const float ReleasedAt = DrawElapsed();
+-    const bool bPerfect = !bAutomatic && ReleaseRatio >= 1.f
+-        && ColdSteelBow::IsPerfectRelease(ReleasedAt, DrawSeconds);
++    const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();
++    const bool bPerfect = (Cadence&&Cadence->HasAutomaticRhythmFor(InstanceId))
++        || (ReleaseRatio>=1.f&&ColdSteelBow::IsPerfectRelease(ReleasedAt,DrawSeconds,PerfectWindowSeconds));
+     if (LooseArrow(ReleaseRatio, bPerfect))
+     {
+         bLastPerfectRelease = bPerfect;
+@@ -1199,8 +1299,10 @@
+         Request.Item=InstanceId;Request.Eye=CameraOrigin;Request.Origin=Muzzle;Request.Direction=LaunchDirection;Request.Charge=Ratio;
+         Request.BowReleaseElapsed=bPerfect?DrawElapsed():-1.f;
+         Request.BowChargeElapsed=DrawElapsed();
++        Request.BowDrawId=ActiveDrawId;
+         Request.ArrowElement=ArrowElement;Request.bIlluminationArrow=bIllumination;
+         if(!PS||!PS->RequestInventoryAction(Request)){ShowFeedback(TEXT("物品操作正在同步，请稍候"));return false;}
++        LastReleasedDrawId=ActiveDrawId;
+     }
+     else if (auto* Arrow = GetWorld()->SpawnActor<ABowArrow>(Muzzle, Direction, Spawn))
+     {
+@@ -1237,6 +1339,8 @@
+         Arrow->SetElementalCast(ElementCast);
+         if(bIllumination){Arrow->SetIlluminationCast(LightCast);Light->ShotCommitted();}
+         if(Element&&ArrowElement!=EArrowElement::None)Element->ShotCommitted();
++        if(auto* Echo=Character->FindComponentByClass<UBowMountainEchoComponent>())Echo->CommitArrow(Arrow,InstanceId,Clamped,CameraOrigin);
++        if(auto* Cadence=Character->FindComponentByClass<UBowCadenceComponent>())Cadence->CommitRelease(InstanceId,bPerfect);
+         Arrow->ResolveLaunchObstruction(CameraOrigin);
+     }
+     else return false;
+@@ -1385,6 +1489,13 @@
+ {
+     // A contact query refreshes the camera with Delta=0. Do not re-enter the action clock.
+     if (!Character.IsValid() || !Character->IsLocallyControlled() || !IsEquipped() || Delta <= 0.f) return;
++    // One displayed power drives the lens, mouse sensitivity and mechanical ring.
++    // 95% of a wheel step settles in 150 ms, independent of frame rate.
++    DisplayedOpticalMagnification = FMath::Lerp(DisplayedOpticalMagnification, OpticalMagnification, 1.f-FMath::Exp(-20.f*Delta));
++    if (FMath::Abs(DisplayedOpticalMagnification-OpticalMagnification)<.001f) DisplayedOpticalMagnification=OpticalMagnification;
++    UpdateScopeRing();
++    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
++        {ClearPerfectSpeedPending();LastReleasedDrawId.Invalidate();}
+     const auto* Magic=Character->FindComponentByClass<UFPSFireballComponent>();
+     const auto* Use=Character->FindComponentByClass<UFPSPotionUseComponent>();
+     const bool CastCarry=(Magic&&Magic->IsOccupyingLeftHand())||(Use&&Use->UsesBowSupport())||Viewmodel->IsReturningLeftHand();
+@@ -1544,8 +1655,10 @@
+ float UBowWeaponComponent::ShotSpread() const
+ {
+     const float Low = FMath::SmoothStep(0.f, 1.f, CrouchProgress);
++    const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();
++    const float CadenceScale=Cadence&&Cadence->IsEquippedFor(InstanceId)?Cadence->SpreadMultiplier():1.f;
+     return (HipSpread + MoveSpread + AirSpread + ShotBloom)
+-        * FMath::Lerp(1.f, CrouchSpreadScale, Low) * (1.f - AimAlpha());
++        * FMath::Lerp(1.f, CrouchSpreadScale, Low) * (1.f - AimAlpha()) * CadenceScale;
+ }
+ 
+ bool UBowWeaponComponent::ShouldShowCrosshair() const
+@@ -1585,7 +1698,8 @@
+     if (Stage == EBowStage::Holding)
+     {
+         // 满拉保持的呼吸抖动随保持时长上升；右键稳持把幅度压到配置比例。
+-        const float Grow = FMath::Clamp(HoldElapsed / FMath::Max(.2f, HoldSeconds), 0.f, 1.f);
++        // Cosmetic breathing ramp only; stamina owns the duration of a held bow.
++        const float Grow = FMath::Clamp(HoldElapsed / 2.2f, 0.f, 1.f);
+         const float Amplitude = SwayAmplitudeCM * (.35f + .65f * Grow)
+             * FMath::Lerp(1.f, SteadySwayScale, AimAlpha()) * Scale;
+         Rotation.Yaw += (FMath::Sin(VisualTime * 1.05f) + .18f * FMath::Sin(VisualTime * 4.13f)) * Amplitude * .1f;
+@@ -1761,8 +1875,14 @@
+     if (auto* BowString = Part(SlotString))
+     {
+         BowString->SetPartVisible(true);
+-        BowString->StretchRod(RodFor(SlotString, 0), Upper, Nock, StringRadiusCM);
+-        BowString->StretchRod(RodFor(SlotString, 1), Lower, Nock, StringRadiusCM);
++        const auto* Echo=GetOwner()->FindComponentByClass<UBowMountainEchoComponent>();
++        const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();
++        const int32 Charges=Cadence&&Cadence->IsEquippedFor(InstanceId)?Cadence->ChargesFor(InstanceId):Echo?Echo->ChargesFor(InstanceId):0;
++        if(!BowString->PoseString(Upper,Nock,Lower,Charges))
++        {
++            BowString->StretchRod(RodFor(SlotString, 0), Upper, Nock, StringRadiusCM);
++            BowString->StretchRod(RodFor(SlotString, 1), Lower, Nock, StringRadiusCM);
++        }
+     }
+     if (auto* ArrowRest = Part(SlotArrow))
+     {
+@@ -1811,6 +1931,17 @@
+         Animations.FindRef(bLoadedCarry ? TEXT("LoadedWalk") : TEXT("Walk")),
+         Animations.FindRef(bLoadedCarry ? TEXT("LoadedRun") : TEXT("Run")),
+         GaitPhase, CarryWeight, SprintBlend, bCarry && bLoadedCarry, BraceNockCM);
++    float ContactWeight=0.f;
++    if(CastTransferAlpha<=0.f)
++    {
++        if(Stage==EBowStage::Drawing||Stage==EBowStage::Holding||Stage==EBowStage::LetDown)
++            ContactWeight=1.f;
++        else if(Stage==EBowStage::Nocking)
++            ContactWeight=FMath::SmoothStep(.55f,NockContactFraction,Elapsed/FMath::Max(.001f,NockSeconds));
++        else if(Stage==EBowStage::DrawEntry)
++            ContactWeight=bEntryNeedsArrow?FMath::SmoothStep(.50f,.90f,Elapsed/FMath::Max(.001f,DrawEntrySeconds)):1.f;
++    }
++    Viewmodel->SetContactFitWeight(ContactWeight);
+     // 与采集工具同一口径：只 PlayAnimation 一次，之后置零播放速率手动采样，
+     // 否则每帧重新起播会让手臂停在片段开头。
+     if (CurrentClip != Name)
+@@ -1918,6 +2049,7 @@
+         UpdateBowGeometry();
+         UpdateDoorPushPresentation();
+     }
++    if (Optics) Optics->Update(*this, Delta, Present);
+     FeedbackSeconds = FMath::Max(0.f, FeedbackSeconds - Delta);
+     HintCountdown -= Delta;
+     if (HintCountdown <= 0.f)

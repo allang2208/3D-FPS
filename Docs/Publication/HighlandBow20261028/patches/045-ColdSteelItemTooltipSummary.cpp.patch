@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+@@ -178,11 +178,12 @@
+         Add(TEXT("damage"),ColdSteelWeaponText::TotalDamage,Damage.Total(),TEXT(""),2);
+         Add(TEXT("draw_seconds"),ColdSteelWeaponText::DrawTime,Bow.Draw,TEXT(" s"),2,true);
+         Add(TEXT("draw_speed_bonus"),TEXT("拉弓速度加成"),Bow.DrawSpeedBonus*100.,TEXT("%"),1,false,false);
++        Add(TEXT("rhythm_window"),ColdSteelWeaponText::RhythmWindow,Bow.RhythmWindow,TEXT(" s"),2,false,false);
+         Add(TEXT("nock_seconds"),ColdSteelWeaponText::NockTime,Bow.Nock,TEXT(" s"),2,true);
+-        Add(TEXT("flight_limit"),ColdSteelWeaponText::FlightLimit,ColdSteelInventory::Number(Item,TEXT("range_cm"),3200)/100,TEXT(" m"),2);
++        Add(TEXT("flight_limit"),ColdSteelWeaponText::FlightLimit,Bow.Range,TEXT(" m"),2);
+         Add(TEXT("projectile_speed"),ColdSteelWeaponText::ProjectileSpeed,Bow.Speed,TEXT(" m/s"),2,false,false);
+         Add(TEXT("bow_stamina"),ColdSteelWeaponText::StaminaCost,Bow.Stamina,TEXT(""),2,true,false);
+-        Add(TEXT("bow_hold"),ColdSteelWeaponText::HoldTime,Bow.Hold,TEXT(" s"),2,false,false);
++        Add(TEXT("bow_charge_stamina"),ColdSteelWeaponText::BowChargeStamina,Bow.ChargeStamina,TEXT(" /s"),2,true,false);
+         Add(TEXT("bow_sway"),ColdSteelWeaponText::Sway,Bow.Sway,TEXT(""),2,true,false);
+         Add(TEXT("ads"),ColdSteelWeaponText::ADS,Bow.ADS*1000*(Model?Model->ADSTimeMultiplier():1.),TEXT(" ms"),0,true,false);
+         Add(TEXT("base_physical_damage"),ColdSteelWeaponText::BasePhysical,Damage.BasePhysical,TEXT(""),2,false,false);

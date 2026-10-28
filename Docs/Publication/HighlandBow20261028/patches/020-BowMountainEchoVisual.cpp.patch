@@ -1,0 +1,116 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowMountainEchoVisual.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowMountainEchoVisual.cpp
+@@ -0,0 +1,113 @@
++#include "BowArrow.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/World.h"
++#include "Materials/MaterialInterface.h"
++#include "NiagaraComponent.h"
++#include "NiagaraFunctionLibrary.h"
++#include "NiagaraSystem.h"
++#include "Kismet/GameplayStatics.h"
++#include "Sound/SoundBase.h"
++
++void ABowArrow::ApplyEchoPresentation()
++{
++    if(!Presentation.bMountainEcho||GetNetMode()==NM_DedicatedServer)return;
++    Shaft->SetVisibility(!MountainContact.bHit);Head->SetVisibility(!MountainContact.bHit);
++    if(!bMountainFXRequested)
++    {
++        bMountainFXRequested=true;
++        const TArray<FSoftObjectPath> Paths{FSoftObjectPath(MountainEchoString::ArrowMaterial),
++            FSoftObjectPath(MountainEchoString::FlightFX),FSoftObjectPath(MountainEchoString::ImpactFX),
++            FSoftObjectPath(MountainEchoString::ImpactSound)};
++        MountainFXLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
++            FStreamableDelegate::CreateWeakLambda(this,[this]{ApplyEchoPresentation();}));
++    }
++    auto* Material=Cast<UMaterialInterface>(FSoftObjectPath(MountainEchoString::ArrowMaterial).ResolveObject());
++    if(!Material)Material=Presentation.EchoMaterial;
++    if(Material)for(auto* Mesh:{Shaft.Get(),Head.Get()})
++        for(int32 I=0;I<Mesh->GetNumMaterials();++I)Mesh->SetMaterial(I,Material);
++    if(MountainContact.bHit)
++    {
++        StopMountainEchoVisual();
++        // Keep sound and VFX completion separate: an async load can finish after
++        // either presentation has already arrived on this rendering peer.
++        if(!bMountainContactSoundPlayed)
++        {
++            if(auto* Sound=Cast<USoundBase>(FSoftObjectPath(MountainEchoString::ImpactSound).ResolveObject()))
++            {
++                bMountainContactSoundPlayed=true;
++                UGameplayStatics::PlaySoundAtLocation(this,Sound,FVector(MountainContact.Position));
++            }
++        }
++        auto* System=Cast<UNiagaraSystem>(FSoftObjectPath(MountainEchoString::ImpactFX).ResolveObject());
++        if(System&&!bMountainContactPlayed)
++        {
++            bMountainContactPlayed=true;
++            const FVector Normal=FVector(MountainContact.Normal).GetSafeNormal(UE_SMALL_NUMBER,FVector::UpVector);
++            const FRotator SurfaceRotation=FRotationMatrix::MakeFromZ(Normal).Rotator();
++            if(auto* Impact=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),System,
++                FVector(MountainContact.Position)+Normal*2.f,SurfaceRotation,
++                FVector::OneVector,true,false,ENCPoolMethod::AutoRelease,true))
++            {
++                Impact->SetVariableVec3(TEXT("User.LocalUp"),SurfaceRotation.UnrotateVector(FVector::UpVector));
++                Impact->Activate(true);
++            }
++        }
++        return;
++    }
++    if(bEchoPending||MountainFlightFX)return;
++    if(auto* System=Cast<UNiagaraSystem>(FSoftObjectPath(MountainEchoString::FlightFX).ResolveObject()))
++    {
++        MountainFlightFX=UNiagaraFunctionLibrary::SpawnSystemAttached(System,Root,NAME_None,
++            FVector::ZeroVector,FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,
++            true,false,ENCPoolMethod::None,true);
++        if(MountainFlightFX)
++        {
++            MountainFlightFX->SetVariableFloat(TEXT("User.Length"),Presentation.Length);
++            MountainFlightFX->SetVariableFloat(TEXT("User.Flying"),1.f);
++            MountainFlightFX->AddTickPrerequisiteActor(this);
++            MountainFlightFX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
++            MountainFlightFX->SetVisibleInRayTracing(false);
++            MountainFlightFX->SetCastShadow(false);MountainFlightFX->Activate(true);
++        }
++    }
++}
++
++void ABowArrow::FinishMountainEchoHit(const FHitResult& Hit)
++{
++    bResolved=true;
++    MountainContact.bHit=true;MountainContact.Position=Hit.ImpactPoint;
++    MountainContact.Normal=Hit.ImpactNormal.GetSafeNormal(UE_SMALL_NUMBER,-Velocity.GetSafeNormal());
++    Velocity=FVector::ZeroVector;SetActorLocation(Hit.ImpactPoint);
++    OnRep_MountainContact();ForceNetUpdate();
++    // Keep the contact in the actor's first network bunch, including point-blank
++    // obstruction hits. Detached, finite Niagara particles finish independently.
++    SetLifeSpan(1.5f);
++}
++
++void ABowArrow::OnRep_MountainContact()
++{
++    if(!MountainContact.bHit)return;
++    SetActorTickEnabled(false);SetActorEnableCollision(false);
++    ApplyEchoPresentation();
++}
++
++void ABowArrow::StopMountainEchoVisual()
++{
++    if(MountainFlightFX)
++    {
++        // The arrow glow stops now; already emitted world-space strokes finish
++        // their short fade behind the impact instead of disappearing in one frame.
++        MountainFlightFX->SetVariableFloat(TEXT("User.Flying"),0.f);
++        MountainFlightFX->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++        MountainFlightFX->SetAutoDestroy(true);
++        MountainFlightFX->Deactivate();MountainFlightFX=nullptr;
++    }
++}
++
++void ABowArrow::ReleaseMountainEchoVisual()
++{
++    StopMountainEchoVisual();
++    if(MountainFXLoad)MountainFXLoad->CancelHandle();MountainFXLoad.Reset();
++}

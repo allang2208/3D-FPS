@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -19,6 +19,14 @@
+         return EGunsmithModificationTier::Legendary;
+     if(Weapon==TEXT("ue_kukri")&&SlotKey==TEXT("blade_1")&&
+         (Id==TEXT("hunter_blade")||Id==TEXT("canine_blade")))
++        return EGunsmithModificationTier::Special;
++    if(Weapon==TEXT("bow_woodsteel")&&SlotKey==TEXT("string")&&
++        (Id==TEXT("highland_mountain_echo")||Id==TEXT("highland_cadence")))
++        return EGunsmithModificationTier::Legendary;
++    if(Weapon==TEXT("bow_woodsteel")&&SlotKey==TEXT("sight")&&Id==TEXT("highland_peakwatch_3_6x"))
++        return EGunsmithModificationTier::Special;
++    if(Weapon==TEXT("bow_woodsteel")&&SlotKey==TEXT("riser")&&
++        (Id==TEXT("highland_far_peak")||Id==TEXT("highland_cloudpiercer")))
+         return EGunsmithModificationTier::Special;
+     if(ColdSteelFrostRunes::IsWarhammer(Weapon)&&
+         SlotKey==TEXT("head_mount")&&(Id==TEXT("ancient_breaking_seal_seat")||Id==TEXT("storm_drive_seat")))

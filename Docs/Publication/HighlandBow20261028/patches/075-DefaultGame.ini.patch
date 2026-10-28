@@ -1,0 +1,10 @@
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -73,6 +73,7 @@
+ +DirectoriesToAlwaysCook=(Path="/Game/WorldGeneration/GrassDeform")
+ +DirectoriesToAlwaysCook=(Path="/Game/Items/CraftingMaterialTiers20261026")
+ 
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/WoodSteelLongbow20261026")
+ 
+ +DirectoriesToAlwaysCook=(Path="/Game/Skills/MagicArrowRain20261026")
+ 

@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowQuickCombatMotion.h
++++ b/Source/FPSGAME/Weapons/Bow/BowQuickCombatMotion.h
+@@ -21,10 +21,33 @@
+     constexpr float StrikeRate = 2.f;
+     constexpr float FollowRate = 1.5f;
+     constexpr float RecoveryRate = 1.6f;
+-    constexpr float HitStopSeconds = .035f;
+-    constexpr float ImpactTimeScale = 1.25f;
+-    constexpr float AxialImpactScale = .55f;
+-    constexpr float PitchImpactScale = .44f;
++    constexpr float HitStopSeconds = .045f;
++
++    inline float SourceRate(float Time,float SourceLength)
++    {
++        const float T=Time*Length/FMath::Max(.05f,SourceLength);
++        return T<Grip?ReachRate:T<Cock?CockRate:T<Contact?StrikeRate:T<Follow?FollowRate:RecoveryRate;
++    }
++
++    inline float RecoilCM(float ImpactAge)
++    {
++        const float T=ImpactAge-HitStopSeconds;
++        if(T<=0.f||T>=.16f)return 0.f;
++        // The authored free follow-through advances about 2 cm. Counter it
++        // with 5 cm of whole-pose recoil, then rejoin the existing recovery.
++        return -5.f*FMath::SmoothStep(0.f,.045f,T)*(1.f-FMath::SmoothStep(.055f,.16f,T));
++    }
++
++    inline void ImpactCamera(float Age,float Strength,FVector& Location,FRotator& Rotation)
++    {
++        if(Age<0.f||Age>=.18f||Strength<=0.f)return;
++        const float Stop=(1.f-FMath::Exp(-Age/.004f))*FMath::Exp(-Age/.038f);
++        const float Settle=.24f*FMath::Exp(-FMath::Square((Age-.075f)/.03f));
++        const float Fade=1.f-FMath::SmoothStep(.12f,.18f,Age);
++        const float Drive=(Stop-Settle)*Fade*Strength;
++        Location+=FVector(-8.f,.25f,.45f)*Drive;
++        Rotation+=FRotator(-4.5f,.28f,.40f)*Drive;
++    }
+ 
+     inline float PlaybackSeconds(float SourceSeconds,float SourceLength)
+     {

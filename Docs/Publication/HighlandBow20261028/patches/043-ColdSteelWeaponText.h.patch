@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/UI/ColdSteelWeaponText.h
++++ b/Source/FPSGAME/UI/ColdSteelWeaponText.h
+@@ -28,8 +28,9 @@
+ inline constexpr const TCHAR* AmmoEffect=TEXT("弹种效果");
+ inline constexpr const TCHAR* AmmoAdjustedDamage=TEXT("弹药修正后伤害");
+ inline constexpr const TCHAR* DrawTime=TEXT("拉弓耗时");
++inline constexpr const TCHAR* RhythmWindow=TEXT("节拍判定窗口");
+ inline constexpr const TCHAR* NockTime=TEXT("搭箭耗时");
+-inline constexpr const TCHAR* HoldTime=TEXT("满弓保持时间");
++inline constexpr const TCHAR* BowChargeStamina=TEXT("持续拉弓耗体");
+ inline constexpr const TCHAR* Sway=TEXT("瞄准晃动强度");
+ inline constexpr const TCHAR* HipSpreadAngle=TEXT("腰射散布半角");
+ inline constexpr const TCHAR* HipSpreadMultiplier=TEXT("腰射散布倍率");
+@@ -39,7 +40,7 @@
+ inline constexpr const TCHAR* Reload=TEXT("普通换弹");
+ inline constexpr const TCHAR* EmptyReload=TEXT("空仓换弹");
+ inline constexpr const TCHAR* CriticalChance=TEXT("暴击率");
+-inline constexpr const TCHAR* CriticalBonus=TEXT("暴击伤害加成");
++inline constexpr const TCHAR* CriticalBonus=TEXT("暴击伤害");
+ // 同一数值在主卡、改造合计卡和核心属性摘要三处共用一个名字；改措辞只改这里。
+ inline constexpr const TCHAR* RecoilIndex=TEXT("后坐力指数");
+ inline constexpr const TCHAR* Stability=TEXT("枪械稳定性");
+@@ -66,5 +67,5 @@
+ inline constexpr const TCHAR* HarvestYieldMultiplier=TEXT("采集产出倍率");
+ inline constexpr const TCHAR* HarvestDistance=TEXT("采集距离");
+ inline constexpr const TCHAR* HarvestRadius=TEXT("命中宽容半径");
+-inline constexpr const TCHAR* BowScope=TEXT("按当前角色、强化和改造计算；弓以满弓单箭为准，武器总伤害已计满弓蓄力倍率，拉弓耗时、子弹速度和体力消耗也以满弓为准。未计弹种倍率、暴击和目标防御；腰射散布取站立静止值。");
++inline constexpr const TCHAR* BowScope=TEXT("按当前角色、强化和改造计算；弓以满弓单箭为准，武器总伤害已计满弓蓄力倍率。普通拉弓与穿心箭共用拉弓速度。体力分别显示单次出箭与每秒持续拉弓消耗；拉弓暂停自然回体，耗尽收弓不射箭。未计弹种倍率、穿心箭倍率、暴击和目标防御；腰射散布取站立静止值。");
+ }

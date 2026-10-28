@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Weapons/Bow/MountainEchoString.h
++++ b/Source/FPSGAME/Weapons/Bow/MountainEchoString.h
+@@ -0,0 +1,22 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "../../Combat/WeaponDamageTypes.h"
++
++namespace MountainEchoString
++{
++inline constexpr const TCHAR* Weapon=TEXT("bow_woodsteel");
++inline constexpr const TCHAR* Option=TEXT("highland_mountain_echo");
++inline constexpr const TCHAR* ArrowMaterial=TEXT("/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/M_MountainEcho_GoldenArrow.M_MountainEcho_GoldenArrow");
++inline constexpr const TCHAR* FlightFX=TEXT("/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/NS_MountainEcho_GoldenFlight.NS_MountainEcho_GoldenFlight");
++inline constexpr const TCHAR* ImpactFX=TEXT("/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/NS_MountainEcho_GoldenImpact.NS_MountainEcho_GoldenImpact");
++inline constexpr const TCHAR* ImpactSound=TEXT("/Game/Weapons/WoodSteelLongbow20261026/MountainEchoAudioB4/S_MountainEcho_EnergyImpact.S_MountainEcho_EnergyImpact");
++inline constexpr const TCHAR* HUDMaterial=TEXT("/Game/Weapons/WoodSteelLongbow20261026/MountainEchoAlpineV23/M_MountainEcho_AlpineHUD.M_MountainEcho_AlpineHUD");
++inline constexpr int32 MaximumStacks=3;
++inline constexpr float StackSeconds=10.f,DelaySeconds=.18f,DamageScale=.8f;
++// Shared only by the authoritative original arrow and its one delayed echo.
++struct FImpact
++{
++    FWeaponDamageParts Physical;
++    bool bRecorded=false,bCritical=false;
++};
++}

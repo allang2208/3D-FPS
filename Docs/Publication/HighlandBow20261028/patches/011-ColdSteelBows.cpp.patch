@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/UI/ColdSteelBows.cpp
++++ b/Source/FPSGAME/UI/ColdSteelBows.cpp
+@@ -144,16 +144,19 @@
+             bUpdated=true;
+         }
+         // Weapon-owned traits have a separate migration from presentation.
+-        // Bring existing bows onto the sniper's additive critical bonus field
+-        // without resetting upgrades, custom parts or the other combat stats.
++        // Critical bonus and arrow range are catalogue-owned passives. Refresh
++        // both when a trait revision replaces one passive with another, while
++        // preserving upgrades, custom parts and all other combat stats.
+         double TraitVersion = 0., LatestTraits = 0.;
+         Data->TryGetNumberField(TEXT("bow_traits_revision"), TraitVersion);
+         Defaults->TryGetNumberField(TEXT("bow_traits_revision"), LatestTraits);
+         if (TraitVersion < LatestTraits)
+         {
+-            double CriticalBonus = 0.;
+-            if (Defaults->TryGetNumberField(TEXT("critDamageBonus"), CriticalBonus))
+-                Data->SetNumberField(TEXT("critDamageBonus"), CriticalBonus);
++            for (const TCHAR* Key : { TEXT("critDamageBonus"), TEXT("range_cm") })
++            {
++                double Value = 0.;
++                if (Defaults->TryGetNumberField(Key, Value)) Data->SetNumberField(Key, Value);
++            }
+             Data->SetNumberField(TEXT("bow_traits_revision"), LatestTraits);
+             bUpdated = true;
+         }

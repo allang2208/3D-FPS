@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.cpp
+@@ -4,7 +4,8 @@
+ void UBowFlexMeshComponent::SetFlexMesh(USkeletalMesh* Mesh)
+ {
+     SetSkeletalMesh(Mesh);SetComponentTickEnabled(false);SetBoundsScale(1.8f);
+-    bFlexReady=false;ReferenceCS.Reset();LastDistribution=-1.f;
++    bFlexReady=false;bStringReady=false;ReferenceCS.Reset();LastDistribution=-1.f;
++    for(auto& Position:LastString)Position=FVector(BIG_NUMBER);
+     if(!Mesh)return;
+     const auto& Ref=Mesh->GetRefSkeleton();ReferenceCS=Ref.GetRefBonePose();BoneSpaceTransforms=ReferenceCS;
+     for(int32 I=0;I<ReferenceCS.Num();++I)
+@@ -15,7 +16,23 @@
+         const FString Name=FString(S==0?TEXT("upper"):TEXT("lower"))+(I==4?TEXT("_tip"):FString::Printf(TEXT("_%02d"),I+1));
+         Chain[S][I]=Ref.FindBoneIndex(FName(Name));Valid&=Chain[S][I]!=INDEX_NONE;
+     }
+-    bFlexReady=Valid;MarkRefreshTransformDirty();RefreshBoneTransforms();
++    bFlexReady=Valid;
++    const FName Names[]={TEXT("string_upper"),TEXT("string_nock"),TEXT("string_lower")};
++    bStringReady=true;
++    for(int32 I=0;I<3;++I){StringBones[I]=Ref.FindBoneIndex(Names[I]);bStringReady&=StringBones[I]!=INDEX_NONE;}
++    MarkRefreshTransformDirty();RefreshBoneTransforms();
++}
++bool UBowFlexMeshComponent::PoseString(const FVector& Upper,const FVector& Nock,const FVector& Lower)
++{
++    if(!bStringReady)return false;
++    if(Upper.Equals(LastString[0],.0001)&&Nock.Equals(LastString[1],.0001)&&Lower.Equals(LastString[2],.0001))return true;
++    LastString[0]=Upper;LastString[1]=Nock;LastString[2]=Lower;
++    TArray<FTransform,TInlineAllocator<16>> Pose;Pose.Append(ReferenceCS);
++    for(int32 I=0;I<3;++I)Pose[StringBones[I]].SetLocation(LastString[I]);
++    const auto& Ref=GetSkinnedAsset()->GetRefSkeleton();
++    for(int32 I=0;I<Pose.Num();++I)
++    {const int32 Parent=Ref.GetParentIndex(I);BoneSpaceTransforms[I]=Parent==INDEX_NONE?Pose[I]:Pose[I].GetRelativeTransform(Pose[Parent]);}
++    MarkRefreshTransformDirty();RefreshBoneTransforms();return true;
+ }
+ FVector UBowFlexMeshComponent::TipPosition(int32 Side,float Angle,float Distribution) const
+ {

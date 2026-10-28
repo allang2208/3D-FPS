@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -240,14 +240,15 @@
+ 
+     /** One reliable start/cancel per draw; no per-frame timing reports. */
+     UFUNCTION(Server, Reliable)
+-    void ServerSetBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,bool bDrawing,float CarriedSeconds);
+-
+-    /** 完美节拍奖励是否待生效：下一条箭拉弓速度 +25%（服务器判定，拥有者同步）。 */
+-    bool BowPerfectSpeedBonusPending() const { return bBowPerfectSpeedBonus; }
+-
+-    /** 射击被拒时清除拥有者本机预测的完美节拍加速，避免之后每箭都按基础时长判定。 */
++    void ServerSetBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,bool bDrawing,float CarriedSeconds,FGuid DrawId);
++
++    bool IsBowDrawActive(const AFPSGAMECharacter* Character) const;
++    void CancelBowDraw(bool bExhausted=false);
++    void ResetBowPerfectSpeedBonus();
+     UFUNCTION(Client, Reliable)
+-    void ClientClearBowPerfectSpeedBonus();
++    void ClientCancelBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,FGuid DrawId,bool bExhausted);
++    UFUNCTION(Client, Reliable)
++    void ClientConfirmBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,FGuid DrawId,float FullDrawSeconds,bool PerfectSpeed);
+ 
+     /** 施法意图上报：见 FColdSteelNetCastRequest。 */
+     UFUNCTION(Server, Reliable)
+@@ -469,8 +470,13 @@
+     FString BowDrawWeapon;
+     double BowDrawStartedAt=-1.;
+     float BowDrawSeconds=0.f;
+-    /** 完美节拍奖励：服务器判定后复制给拥有者，下一条箭的拉弓速度 +25%。 */
+-    UPROPERTY(Replicated) bool bBowPerfectSpeedBonus=false;
++    FGuid BowDrawId;
++    TWeakObjectPtr<APawn> BowPerfectPawn;
++    FString BowPerfectWeapon;
++    void RefreshBowPerfectOwner();
++    bool bLastBowShotPiercing=false;
++    /** Authority-only; the exact release receipt reconciles the owner's prediction. */
++    bool bBowPerfectSpeedBonus=false;
+     TWeakObjectPtr<APawn> InventoryRequestPawn;
+     uint32 InventoryRequestSequence=0,LastInventoryRequestSequence=0,ReplySequence=0;
+     TArray<uint8> InventoryReplyOutgoing,InventoryReplyIncoming;

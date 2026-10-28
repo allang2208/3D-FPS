@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowPartComponent.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowPartComponent.cpp
+@@ -94,6 +94,8 @@
+ 
+ void UBowPartComponent::SetSkeletalMesh(USkeletalMesh* Mesh)
+ {
++    StringCharges=INDEX_NONE;
++    for(const auto& Rod:Rods)if(Rod)Rod->SetVisibility(false);
+     PartMesh=nullptr;if(Visual){Visual->SetStaticMesh(nullptr);Visual->SetVisibility(false);}
+     if(!FlexVisual&&Mesh)
+     {
+@@ -107,6 +109,13 @@
+ void UBowPartComponent::ApplyStringLoad(const FVector& NockCM,const FVector& BraceCM,float Distribution,float RingDegrees)
+ {if(FlexVisual)FlexVisual->ApplyStringLoad(NockCM,BraceCM,Distribution,RingDegrees);}
+ bool UBowPartComponent::FlexTips(FVector& Upper,FVector& Lower) const{return FlexVisual&&FlexVisual->Tips(Upper,Lower);}
++bool UBowPartComponent::PoseString(const FVector& Upper,const FVector& Nock,const FVector& Lower,int32 Charges)
++{
++    if(!FlexVisual||!FlexVisual->PoseString(Upper,Nock,Lower))return false;
++    for(const auto& Rod:Rods)if(Rod&&Rod->IsVisible())Rod->SetVisibility(false);
++    if(Charges!=StringCharges){StringCharges=Charges;FlexVisual->SetCustomPrimitiveDataFloat(0,float(Charges));}
++    return true;
++}
+ 
+ int32 UBowPartComponent::AddRod(const TCHAR* Label)
+ {

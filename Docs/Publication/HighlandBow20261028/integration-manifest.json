@@ -1,0 +1,766 @@
+{
+  "normalization": "UTF-8 without BOM, LF",
+  "head_reference": "465b34687949c03f2ed6d419b62f5a51205a9e1a",
+  "entries": [
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.cpp",
+      "patch": "patches/000-BowArmsMeshComponent.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "6662d7e533bcad7a8034f76e8de97b13f54695fb949d1e4e70ac1ae3466a31ba",
+      "result_sha256": "8d7de4917ed579a286b26008ebf8ad271d5a06cc71683e85103eea9a983b43d6",
+      "patch_sha256": "fe061332fb538e76be9a6b165b3897cf365e59d7583f5e9d11fcc1b206419a35",
+      "local_complete_sha256": "8d7de4917ed579a286b26008ebf8ad271d5a06cc71683e85103eea9a983b43d6",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.h",
+      "patch": "patches/001-BowArmsMeshComponent.h.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "09defb7f8be0329d846b0053c2c0f24992baa8ea563d4e10b27ddfa61f7c8f63",
+      "result_sha256": "25139c9065d7c19b46b71d6fe7f48cebdf8c40d7d944bdb136d254558996c3b9",
+      "patch_sha256": "6bca8659a0bafc9249c40930b9585b2778334ce82e7bd1ba765db9af43692d65",
+      "local_complete_sha256": "25139c9065d7c19b46b71d6fe7f48cebdf8c40d7d944bdb136d254558996c3b9",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowAssembly.cpp",
+      "patch": "patches/002-BowAssembly.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "3e304f2dd2b7b0bf28f27663f95e4ea184cf3827537c99c85c918dbe19a37bb9",
+      "result_sha256": "aeafa71cb7139226cb70d506b7adcf318540aaf72355aee8f23ee64dcbe9c7c1",
+      "patch_sha256": "cba7227590f4e2e3d7b40783f06b66efd170ef0d60f06c2f006e13e07d172c7f",
+      "local_complete_sha256": "aeafa71cb7139226cb70d506b7adcf318540aaf72355aee8f23ee64dcbe9c7c1",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.cpp",
+      "patch": "patches/003-BowFlexMeshComponent.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "9680cc0dd8fc07dbd981af1f02d138ae760e0485c4296dc13091d8745549c528",
+      "result_sha256": "3cd54103ea077fb06d94f0fd1eef0525fb26c9bca3437b65467bfe94bca76f49",
+      "patch_sha256": "76e5be22a60ed2bd2e6e5de8df1d56854453c5177480e28842db60534b60e08d",
+      "local_complete_sha256": "3cd54103ea077fb06d94f0fd1eef0525fb26c9bca3437b65467bfe94bca76f49",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.h",
+      "patch": "patches/004-BowFlexMeshComponent.h.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "a8113b0a94454ba134a333351cebb36b2905c727eaf04b09537aa39ed0f85ff4",
+      "result_sha256": "b19c16557ee51910287d0ae52ec2751e8e3c17224ce054e9114b30e262a34374",
+      "patch_sha256": "d2f8e3b90147e250e0d725a8d1a4f59639252e5804d4ed869c8a5b3d6ede9c22",
+      "local_complete_sha256": "b19c16557ee51910287d0ae52ec2751e8e3c17224ce054e9114b30e262a34374",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowPartComponent.cpp",
+      "patch": "patches/005-BowPartComponent.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "8b41b20370b7108e22cb1090157cd6aa4224b81073067bb4a8274830fd39f0d7",
+      "result_sha256": "112ae6d1166c8461f7ee2d7fda1ed76cbf603333fe9870da7eb5bc1d60fdbb67",
+      "patch_sha256": "4e3cd6c0f84664d5c9da4d7c72114d50bcea8f26f715bfebe0426ef912781d7c",
+      "local_complete_sha256": "112ae6d1166c8461f7ee2d7fda1ed76cbf603333fe9870da7eb5bc1d60fdbb67",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowPartComponent.h",
+      "patch": "patches/006-BowPartComponent.h.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "6b2686448b4e7e74e8e7bf674473faeb2b44865e89fcb04d388c4ff85a8991c8",
+      "result_sha256": "9f873f71308c9a20158252b3e89303d76e676a1d4527d1f014fd05f33cd55887",
+      "patch_sha256": "583f271202f6e01f187e8a56cf894e7b4246f2399f159dc9aa0514adc01c4a57",
+      "local_complete_sha256": "9f873f71308c9a20158252b3e89303d76e676a1d4527d1f014fd05f33cd55887",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowQuickCombatMotion.h",
+      "patch": "patches/007-BowQuickCombatMotion.h.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "d036d2c6d6a2b4fe89548103c290153883e2ae6631b5f3555fd185cbb2f161f8",
+      "result_sha256": "51a526d68f70a67cfcf47914c88c80caee20872f1a471d3eb9c6821863ebd3b6",
+      "patch_sha256": "7db6c672581cbbc24581e09f376de91bce09d0310eb2fe32110bac4b8af99d53",
+      "local_complete_sha256": "51a526d68f70a67cfcf47914c88c80caee20872f1a471d3eb9c6821863ebd3b6",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowGunsmith.cpp",
+      "patch": "patches/008-BowGunsmith.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "4de6edf47cb0dd41a305f1a39046f41af9774a87788e8e6f9c7d593d1e14cddb",
+      "result_sha256": "b172f54b1a3714d9372a8f497368b94ae7a7c64209309b03170ab72069ba9f27",
+      "patch_sha256": "3280ecabfefed18c16090f6209781b7b5d3e8b0e345e26bb035e12bda38837c7",
+      "local_complete_sha256": "b172f54b1a3714d9372a8f497368b94ae7a7c64209309b03170ab72069ba9f27",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowStats.cpp",
+      "patch": "patches/009-BowStats.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "54d2941e385e895148366a00b0576421541c6453f0260682586c3d0f63211189",
+      "result_sha256": "56273758bf0d56f001629a38c8e812d8e9ee9e00dc60d4593879d4a2a77ae283",
+      "patch_sha256": "3aae2c2acd8341590e1277ab41c5a7c1e7d9304f913502c2465d2a5039339493",
+      "local_complete_sha256": "56273758bf0d56f001629a38c8e812d8e9ee9e00dc60d4593879d4a2a77ae283",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowStats.h",
+      "patch": "patches/010-BowStats.h.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "7f8cf8c89f3eab24b82e9d6b01ca3fbdfc78bfabe9f8a39d9b8ae8a006a19d2d",
+      "result_sha256": "42b423da05c590894a3be5d377de648dc8d20f043a3468e84e9666404ef48ee5",
+      "patch_sha256": "48a2a1b817b9db6999f52967f2a79e96d7a96b87ea9a3bf2f86d75be39666c56",
+      "local_complete_sha256": "42b423da05c590894a3be5d377de648dc8d20f043a3468e84e9666404ef48ee5",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelBows.cpp",
+      "patch": "patches/011-ColdSteelBows.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "31c0b18000ba4d89ae293e6ad6da0805f98331900106fa1e8e368d1bb192a8da",
+      "result_sha256": "1663afd4e6212565ae49d8b3002d0ce1e9b4897d7b5539dac414834df265f34e",
+      "patch_sha256": "1ccef21f04d3fb68b9c57357669ca8dfc3df22d40d163261cd155f6a1ec0fe3d",
+      "local_complete_sha256": "1663afd4e6212565ae49d8b3002d0ce1e9b4897d7b5539dac414834df265f34e",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4BowGunsmith.cpp",
+      "patch": "patches/012-M4BowGunsmith.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "75e508e52f73e76bf6fbb5e7ebe724597abcb3769efa0eb1e65fd4db316f8603",
+      "result_sha256": "2ff252d63a082343a58336af2497437e3705917dd7e2fad09b09dee911c37e3f",
+      "patch_sha256": "b4e5506b09dacbe50f967a68dbb96b35c3738fdb42e378bba1f8710c2941712a",
+      "local_complete_sha256": "2ff252d63a082343a58336af2497437e3705917dd7e2fad09b09dee911c37e3f",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ScopeOpticDrawing.h",
+      "patch": "patches/013-ScopeOpticDrawing.h.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "fb46abb69f29ef822d7e73a02f7fb4a713a1e9354208f4172485bea384dd6d01",
+      "result_sha256": "833871ca9ec6a7048256257f8a6c44568a76c59f979ec7f6d29a2f835e033439",
+      "patch_sha256": "97e716f0d92b94287a5d7cb03f027da8eccb6549ee1295148f40ae498a548f3b",
+      "local_complete_sha256": "833871ca9ec6a7048256257f8a6c44568a76c59f979ec7f6d29a2f835e033439",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/StatusEffectsHUD.cpp",
+      "patch": "patches/014-StatusEffectsHUD.cpp.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "d155d7c95c74880a4c81c2e12325666573845c7ae4ab9bf730e0bd5956a80f72",
+      "result_sha256": "a9b37d95007a8843256b6e05b63aa9ec56cc7931c6d6a2a7ad22d03a78d4d1cf",
+      "patch_sha256": "fee09acaab4de8b633cdffa1cb50eb193c12cca85f8919517d23b7d9277b3f76",
+      "local_complete_sha256": "a9b37d95007a8843256b6e05b63aa9ec56cc7931c6d6a2a7ad22d03a78d4d1cf",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowCadenceComponent.cpp",
+      "patch": "patches/015-BowCadenceComponent.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "8147ce1c0ce8df8293f7bb549141499c86ddf84b07919d245b07ce47cf2af501",
+      "patch_sha256": "23ec3d62134967cf0068f0c75b45c94ab593b274f013d8ac72d677417b4c5eac",
+      "local_complete_sha256": "8147ce1c0ce8df8293f7bb549141499c86ddf84b07919d245b07ce47cf2af501",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowCadenceComponent.h",
+      "patch": "patches/016-BowCadenceComponent.h.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "eb491b7ca72bdeaca834f784e06e8e9a61f8b45cb34d4500c438a482c6cb8939",
+      "patch_sha256": "3b76f44689e41b97b68a87eb53eadd148af95982d50be68f793e2acf2a2809b3",
+      "local_complete_sha256": "eb491b7ca72bdeaca834f784e06e8e9a61f8b45cb34d4500c438a482c6cb8939",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowMountainEchoArrow.cpp",
+      "patch": "patches/017-BowMountainEchoArrow.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "1982b7637cb1b8e7c2425bf12096f3b276ebb1917f3d5afa62b93bfddea8e476",
+      "patch_sha256": "fc2046b2399e90b79d4911fd690ac1168987c14395329d61b89bc91aa70a60d6",
+      "local_complete_sha256": "1982b7637cb1b8e7c2425bf12096f3b276ebb1917f3d5afa62b93bfddea8e476",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.cpp",
+      "patch": "patches/018-BowMountainEchoComponent.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "bab5b70d66fc5e4cf9ed63d9026842e57b6c6641eca80b89cd00dcbda76a67a9",
+      "patch_sha256": "231024f8422382285eb9fc5cf998591f7ec10274ed8f52fd08d2610b5a892a2f",
+      "local_complete_sha256": "bab5b70d66fc5e4cf9ed63d9026842e57b6c6641eca80b89cd00dcbda76a67a9",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.h",
+      "patch": "patches/019-BowMountainEchoComponent.h.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "42e3ee1b6d56776b31988ee0e0eefd11f87a54537a0d4a3bfb09d7e54b00b393",
+      "patch_sha256": "097ca8d5ee8fb96899763ba314b64765942c2c9ca914ad04c5fc011b05943569",
+      "local_complete_sha256": "42e3ee1b6d56776b31988ee0e0eefd11f87a54537a0d4a3bfb09d7e54b00b393",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowMountainEchoVisual.cpp",
+      "patch": "patches/020-BowMountainEchoVisual.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "5f85f201a110f6f517be067c0f6665234c0d5d2991bf5fc0065a70d087f3307a",
+      "patch_sha256": "61b11cdc96328c54f0c2deca275106ea35a77111b9608b0d1ddb87f437066199",
+      "local_complete_sha256": "5f85f201a110f6f517be067c0f6665234c0d5d2991bf5fc0065a70d087f3307a",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+      "patch": "patches/021-BowScopeOptics.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ca82382b25ede668317c14dedbe5daea8c068a2e33c50b7a8e94d7f59dc57714",
+      "patch_sha256": "784fc27eb699eddd7f23202745efde2586736f49538c4d8ef5d72f54bf2f621b",
+      "local_complete_sha256": "ca82382b25ede668317c14dedbe5daea8c068a2e33c50b7a8e94d7f59dc57714",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowScopeOptics.h",
+      "patch": "patches/022-BowScopeOptics.h.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4a9a26c13ca4ba6aabe569dec0c2e425baa5fb29f56706ff04f34db753ea016b",
+      "patch_sha256": "584306cbcc965788b29d76d58a23e65555416e90b456b51bc75dc46b315d03c9",
+      "local_complete_sha256": "4a9a26c13ca4ba6aabe569dec0c2e425baa5fb29f56706ff04f34db753ea016b",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowScopeReticle.cpp",
+      "patch": "patches/023-BowScopeReticle.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "cf21ea17fd97e4b624e40d430aac74a4c6ff027f201a5887a95b32d697b4e35b",
+      "patch_sha256": "6dfc4b4217a7331ccb41b8c668c24a0c57330f9e45a5d03ebe62f456471c054a",
+      "local_complete_sha256": "cf21ea17fd97e4b624e40d430aac74a4c6ff027f201a5887a95b32d697b4e35b",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowScopeReticle.h",
+      "patch": "patches/024-BowScopeReticle.h.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ee3382f59b6ab2294709da2766461035b5072206165c940ad9e3477b6aaffd34",
+      "patch_sha256": "36d8f759febbb9d5d44f9a03d77a419763c0515df6ef834233687871c4974933",
+      "local_complete_sha256": "ee3382f59b6ab2294709da2766461035b5072206165c940ad9e3477b6aaffd34",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/CadenceString.h",
+      "patch": "patches/025-CadenceString.h.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "a3dde422d0061e92379806ff24f37f319e6691b7d5e341c5f946e4e9d184e34d",
+      "patch_sha256": "71a0767914f549fe734601a0524c060dde0216589e496eb1ffc75d61bb2b183c",
+      "local_complete_sha256": "a3dde422d0061e92379806ff24f37f319e6691b7d5e341c5f946e4e9d184e34d",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/MountainEchoString.h",
+      "patch": "patches/026-MountainEchoString.h.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "5ecedd819a1849caa1f84c0aecb651eae5b3827c1f423774546b5a71fc37b0c2",
+      "patch_sha256": "653af6654c189c457ecad96552991ed7a6ab7071d8a6942a73060c51aa7617c5",
+      "local_complete_sha256": "5ecedd819a1849caa1f84c0aecb651eae5b3827c1f423774546b5a71fc37b0c2",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelBowResonance.cpp",
+      "patch": "patches/027-ColdSteelBowResonance.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "6c96929bd046480d9109859d3237ba3324b6a69b2bbc32aebf31db33a56425e6",
+      "patch_sha256": "78caa87754cc49a45b73104b96c5eebb0dc715ba49b72d81b34e66ac1eb638c1",
+      "local_complete_sha256": "6c96929bd046480d9109859d3237ba3324b6a69b2bbc32aebf31db33a56425e6",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelBowResonance.h",
+      "patch": "patches/028-ColdSteelBowResonance.h.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "51e9d0fc782eda6bbc0d8da45e67daac4fa3ed2d6fe39da974969341496cde7c",
+      "patch_sha256": "c2564e771ebb0668aa6ef5858d240244f3ce1fae869c611ef7c087bed59e4b7a",
+      "local_complete_sha256": "51e9d0fc782eda6bbc0d8da45e67daac4fa3ed2d6fe39da974969341496cde7c",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelCadenceBadge.cpp",
+      "patch": "patches/029-ColdSteelCadenceBadge.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "87d00c5f2e2cf1dcf1c645c409b09ab79a0111449c31e4cc59436d0633ddea06",
+      "patch_sha256": "dc177c44a4cdf7db98df5445999df0f7634bad7b8e3a20a74b182ccd0570f232",
+      "local_complete_sha256": "87d00c5f2e2cf1dcf1c645c409b09ab79a0111449c31e4cc59436d0633ddea06",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelCadenceBadge.h",
+      "patch": "patches/030-ColdSteelCadenceBadge.h.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "92b7f7182830f7156ba2d78a4ec7bbd6c2e99f2daf7732042e632549fe211749",
+      "patch_sha256": "43ca2c91f79a5c1a3008ceef2b284d6948ae3a8f7b06a7d8dfff1cd501dfdca7",
+      "local_complete_sha256": "92b7f7182830f7156ba2d78a4ec7bbd6c2e99f2daf7732042e632549fe211749",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowResonanceReview.cpp",
+      "patch": "patches/031-BowResonanceReview.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b2912f4a15d1b74384464ecaf2fdb99f1bf760dc2630dbb792dbba2af751200a",
+      "patch_sha256": "3cc12a208de8946d6e23d9672721218166c7fa9616a25ae244cd5837d8d8fc43",
+      "local_complete_sha256": "b2912f4a15d1b74384464ecaf2fdb99f1bf760dc2630dbb792dbba2af751200a",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowPresentationReview.cpp",
+      "patch": "patches/032-BowPresentationReview.cpp.patch",
+      "prerequisite": "new owned source; current host prerequisites required",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "8784f6c7373f3ee2e203cb9d54c4333512cc95d00b7b4212cfb0192c256626ab",
+      "patch_sha256": "f162f3d09839488689a57d6359332ea2e9c6b929afb8239ff4f1399559866373",
+      "local_complete_sha256": "8784f6c7373f3ee2e203cb9d54c4333512cc95d00b7b4212cfb0192c256626ab",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "patch": "patches/033-BowWeaponComponent.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "581aa208ce2ccf4b726142baf26fc35a373a3386db0688412374722d94cd98f3",
+      "result_sha256": "734ba9194c0d9da8b987128f525f7df2b3ea588d443abfdcdd773910412652f0",
+      "patch_sha256": "66428abd0cc6c79b8131b3f06d369a7c0f449c6db225400bf921a29930c96f14",
+      "local_complete_sha256": "734ba9194c0d9da8b987128f525f7df2b3ea588d443abfdcdd773910412652f0",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "patch": "patches/034-BowWeaponComponent.h.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "4f048d68be9c5c1f80f0c4e9a1f24df0a6331fa7747d7ffbc69f9e35c9f8e022",
+      "result_sha256": "ee7740fe4e2e162783ce4a9287a55845b9ca530848805403577b7b0f9269c965",
+      "patch_sha256": "94c4af8a4aa7f939e442258b45ca08355f9ef86e1046de74224a0a9937800849",
+      "local_complete_sha256": "ee7740fe4e2e162783ce4a9287a55845b9ca530848805403577b7b0f9269c965",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+      "patch": "patches/035-BowArrow.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "f15cbaf86d39c4aab1a4dc609389056b8229831dcfd17f2464d75423f61f6bf0",
+      "result_sha256": "9dce08d958cc6ef56ca7d2e3fe79345203ae58a055ee1fa973c0639df998c50a",
+      "patch_sha256": "1c96614868bc8795a2a5d8df9b011f09de169d9639cdcd4ec608a47a17e9b8af",
+      "local_complete_sha256": "9dce08d958cc6ef56ca7d2e3fe79345203ae58a055ee1fa973c0639df998c50a",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowArrow.h",
+      "patch": "patches/036-BowArrow.h.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "b4f8e2c7211d8bb23d7bca84827749da92206fa7e794ffe207bf08d79b9b714c",
+      "result_sha256": "e476b49514afcd480df9390f5f4b80afe95b6e1dad8e221953ea1935ecf24b84",
+      "patch_sha256": "0f0b55110e8b249cc3c9f0258a81911ad2f4b42a70485eef1cae830c08d2421f",
+      "local_complete_sha256": "e476b49514afcd480df9390f5f4b80afe95b6e1dad8e221953ea1935ecf24b84",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "patch": "patches/037-GunsmithSystem.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "cf25f1c6eb8989b33c9c15f77b33439244dea6ec1cdd6f7bce2ca61696930f6e",
+      "result_sha256": "4c152aac556af2a7ca94d8549b0b2e27ab4967291dfb56b027b3ab45058530ac",
+      "patch_sha256": "c815a7c906501e1f18c11a725c8220b7b05001c46ed97d05102c8dddc62a08a1",
+      "local_complete_sha256": "4c152aac556af2a7ca94d8549b0b2e27ab4967291dfb56b027b3ab45058530ac",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "patch": "patches/038-GunsmithSystem.h.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "ced6e2285d5bc5065f03d21b07edfc784091ad676593b7aef6356a4b5071b1a8",
+      "result_sha256": "41a2230adff9e64a4f38ab0bd15961b20fb1d355bd11da00380a83ff08d2cdd2",
+      "patch_sha256": "f5eae0fdb6cd16718f06c3c4198a86b49c42132f4a20102074b57faef17f698a",
+      "local_complete_sha256": "41a2230adff9e64a4f38ab0bd15961b20fb1d355bd11da00380a83ff08d2cdd2",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "patch": "patches/039-GunsmithModificationTier.h.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "b3b438a020f39e1fc7e136f359eacfee56c102884db321af8256b51e0324c0bc",
+      "result_sha256": "c9a9bf9a1e2a5e5c6a18546c19cbdf424f2ebd488a8dc50d20fe350422d6033f",
+      "patch_sha256": "8adcd30395e9eec39cd90eb9758519a591ca391df2f81d9e1ce51bada5fdfcf3",
+      "local_complete_sha256": "c9a9bf9a1e2a5e5c6a18546c19cbdf424f2ebd488a8dc50d20fe350422d6033f",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp",
+      "patch": "patches/040-WeaponStatEvaluation.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "f320f453632388ff45e956e80c518e76bbf7db0cd47cbc251c73a7bbcd4ebaa8",
+      "result_sha256": "805b088ec0610459dd33ec1665c406d64d1fbf53e306a22be64acf6018a41a23",
+      "patch_sha256": "14efbcf907960e005c84ed8b9e4e83588109a61d49474b4de7d849db9fe0bd0e",
+      "local_complete_sha256": "805b088ec0610459dd33ec1665c406d64d1fbf53e306a22be64acf6018a41a23",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "patch": "patches/041-M4GunsmithLayout.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "b0f2267d8cae3a841993d141d99bf4239cd101a5cf2ca047b31f3ba536f5268c",
+      "result_sha256": "727e451b91ef886071fd0be3db22fef02fb3a19cfda4e0da3469a14d792c5dae",
+      "patch_sha256": "c3fa13512df098de53d1f38ede40430013ac7e1ed80e1f646d8d4bc413f3a290",
+      "local_complete_sha256": "727e451b91ef886071fd0be3db22fef02fb3a19cfda4e0da3469a14d792c5dae",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "patch": "patches/042-M4GunsmithSelectedDetails.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "48765337a7f200103e6c8fad2b76cf73a6f65bfd2310480e2adcf9794f5cdbbf",
+      "result_sha256": "9679c66026612c3d3561c3c0ac29eb0f90b60234d2a0384991ee846396619750",
+      "patch_sha256": "3a709eafad7d2008210a47cdd3db4f6fced6ba0e9db0894bb59c2066f5b6e14d",
+      "local_complete_sha256": "9679c66026612c3d3561c3c0ac29eb0f90b60234d2a0384991ee846396619750",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelWeaponText.h",
+      "patch": "patches/043-ColdSteelWeaponText.h.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "8da9c204d09de3b70a939d4dda75291d2aeb2d581b58f847df133aa8525a7a97",
+      "result_sha256": "a03527696f2f95eece5d0c1f94227646dbf36a715125f85db293c498baf004d5",
+      "patch_sha256": "96017585ea8f82142473330f7858c62d43b126972e088a2e547fe0fe6a9f15e3",
+      "local_complete_sha256": "a03527696f2f95eece5d0c1f94227646dbf36a715125f85db293c498baf004d5",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "patch": "patches/044-ColdSteelItemTooltipData.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "c3e04faa775a4f6a51e91a28540a37fcbfd6abaef0ea18cd050713ca826edaf6",
+      "result_sha256": "c745ff0964b32192335cd62e2f65ef6be5b6c70eadde4589e6dba9e113fc9fd7",
+      "patch_sha256": "c11021a529ba678198308a51b6c6aeac1b0b6dcf6da1671535898ee9a92e7708",
+      "local_complete_sha256": "c745ff0964b32192335cd62e2f65ef6be5b6c70eadde4589e6dba9e113fc9fd7",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "patch": "patches/045-ColdSteelItemTooltipSummary.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "48132391a7c2e9914e7cb7450be88304de05fc26e40cd00b885792cc688a9b89",
+      "result_sha256": "d41f7a6127475233904941dd3ce174aebc75976ab432a04b3b6e4d297a1d5c5c",
+      "patch_sha256": "a612b542eee6a99289aea2cd7803c38637b2c3c024fbf4341f3456b83e20dd16",
+      "local_complete_sha256": "d41f7a6127475233904941dd3ce174aebc75976ab432a04b3b6e4d297a1d5c5c",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp",
+      "patch": "patches/046-ColdSteelItemTooltipFormula.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "14c77fca836fc828ec0e7e81e7f978f77eef0581dc9fd73c2fb3715c22d938c3",
+      "result_sha256": "395ec9c8632cac3985845be28ffb221d847f274b9a0474f91fc496ae50aa1d73",
+      "patch_sha256": "ca8931b6a109cb3fc11afaa00f5cae9ac2a64013cd3ec555de695d761df76291",
+      "local_complete_sha256": "395ec9c8632cac3985845be28ffb221d847f274b9a0474f91fc496ae50aa1d73",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "patch": "patches/047-ColdSteelSkillRules.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "fda6cbd0ef86d48d3c48aa51839ee13e6c65f3a910b23e425617d78f4be7a6bb",
+      "result_sha256": "790f79db20402ef09371068064c826c5edb70cf2a07dd97f71c8786db54bbfe0",
+      "patch_sha256": "09a8416d32a3a83a913e13782ce09c098e3922bea553cf90ac9a98766f80785a",
+      "local_complete_sha256": "790f79db20402ef09371068064c826c5edb70cf2a07dd97f71c8786db54bbfe0",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "patch": "patches/048-ColdSteelProfileRuntime.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "7e2d0f110b38d140cb1d0db94c7afa6113bc6dbd901b68e72b207fd44f19a98b",
+      "result_sha256": "ea2eee040c34175f75268fa97a691b81791d2ae4587c5fae7ba225b9977d596b",
+      "patch_sha256": "fd191e6e74eaf3ed1116773d523ee3723ccd13a34a2bc13069348eefdeed7366",
+      "local_complete_sha256": "ea2eee040c34175f75268fa97a691b81791d2ae4587c5fae7ba225b9977d596b",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+      "patch": "patches/049-StatusEffectsComponent.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "31ead6c183ee7385c72f22796d87bdbc57f3851c98fd169f100df7770aa74d89",
+      "result_sha256": "564f15919c6525aed914cdf81a964371186dd4864417f39e11f98c1d474db29e",
+      "patch_sha256": "3cdc11072615bbcf15fbded67290b21cf1fd9f3164b40019dd97f557d0ffc529",
+      "local_complete_sha256": "564f15919c6525aed914cdf81a964371186dd4864417f39e11f98c1d474db29e",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/StatusEffectIconPainter.cpp",
+      "patch": "patches/050-StatusEffectIconPainter.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "f5686aab0fb0ac0f132d7482370c3daa69bad280ff67d53d78efde6e1ed105f1",
+      "result_sha256": "15454b7abffab3767858db67a2b77d9c6386fc32c07799c403bfba2ce0ff830a",
+      "patch_sha256": "39b00f4c71ddd8dbf9c67a0b40532d835bb5c4c8ed60c98bfd0d8c03f48258da",
+      "local_complete_sha256": "15454b7abffab3767858db67a2b77d9c6386fc32c07799c403bfba2ce0ff830a",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "patch": "patches/051-FPSGAMECharacter.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "4ac2e11959d1ea44985333b119ab37534a9e6e5a6437991d0ae57ce420bf21ec",
+      "result_sha256": "5721dcf777cc694a7243f98f9a4d8574932cc452a9205fe28f6dcc30500bd5f1",
+      "patch_sha256": "03784994deaf411719a64c2b0a85098164565740b4ba3334d78eb56c58b48810",
+      "local_complete_sha256": "5721dcf777cc694a7243f98f9a4d8574932cc452a9205fe28f6dcc30500bd5f1",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "patch": "patches/052-FPSPlayerBodyComponent.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "960d918ddc9517f1fc2b00f0eb1dfab35c0424b8829534d0b87acff79c490e1f",
+      "result_sha256": "259869176e596fa296837f6e1c0fd837b0eff05e6e94575088cad84acc01192f",
+      "patch_sha256": "5750036c4a8739bf9ccc2490ba519abe2c48a191023276ac80c04063c47ecce7",
+      "local_complete_sha256": "259869176e596fa296837f6e1c0fd837b0eff05e6e94575088cad84acc01192f",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "patch": "patches/053-FPSPlayerBodyBow.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "bf2e820b487f8346b627a56b04b957ef52b5c75ff06393e1d8950dca20bf0a9f",
+      "result_sha256": "01859b173a58b009dec9dcec93f472f1f1f5872d14c91f74b47603f7b32ada5f",
+      "patch_sha256": "1a6ab9c8d7836ffd89dc4a4debe88cb4716e48533466b2d1fb5cb77506a4b714",
+      "local_complete_sha256": "01859b173a58b009dec9dcec93f472f1f1f5872d14c91f74b47603f7b32ada5f",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "patch": "patches/054-ColdSteelCrosshair.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "123869c652b87d168bcea95e3a632081269a696ecce73ba8ff98df95f63d87f6",
+      "result_sha256": "4448fc82138a3b348118d6b3fe65ecc6b9ffeb7b1f1d7daec55e943e632c0eaf",
+      "patch_sha256": "d9d225b85e04ef1cab8c8deacc33c7e386b776bac2eda1b14e45f909737981b1",
+      "local_complete_sha256": "4448fc82138a3b348118d6b3fe65ecc6b9ffeb7b1f1d7daec55e943e632c0eaf",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+      "patch": "patches/055-ColdSteelUIStyle.h.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "7ddf37ff31ec48fe919359b9126341f90e73e0bd6b5f4f21879b40db383b2a50",
+      "result_sha256": "bcb5c47eee51c5169b8bc21e077a44213518ff8c5f836f5859f4b7c6361ae68d",
+      "patch_sha256": "3bb23a05192674b3e129c99c348009b41c6a4c64914ba10047c42245f168bfb1",
+      "local_complete_sha256": "bcb5c47eee51c5169b8bc21e077a44213518ff8c5f836f5859f4b7c6361ae68d",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "patch": "patches/056-FPSQuickCombatComponent.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "74eba4bb12ca84ce3d6dc0db5fbbd5327170bae2562d68e4eba6e0a6c7debe34",
+      "result_sha256": "9439c3c5d121b2be68a5cc371af522d742a247abe887bca2757dba069ab246fb",
+      "patch_sha256": "e7bdf9a0f828eda8a36aa19ee166d113c669362835df64b9a78fdb2a9877b049",
+      "local_complete_sha256": "9439c3c5d121b2be68a5cc371af522d742a247abe887bca2757dba069ab246fb",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+      "patch": "patches/057-FPSQuickCombatComponent.h.patch",
+      "prerequisite": "reconstructed prerequisite: bow recoil/rate and audit friend removed",
+      "base_sha256": "c6819415c7473ef0e7a2780ed80bf5e4b861f1907149ccf94f676e9e786391a1",
+      "result_sha256": "6e6ac07b61b3833d8fcc7a2bd691b210ddd428b357d970e65b7092f344413df5",
+      "patch_sha256": "43eee56631bddc2a198fd3599d69cdfe9a4d6f567046783317f97a8603519ac8",
+      "local_complete_sha256": "6e6ac07b61b3833d8fcc7a2bd691b210ddd428b357d970e65b7092f344413df5",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+      "patch": "patches/058-M4GunsmithVisual.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "f70cbad82facd6c1713d0588f2627ff2af00761db81f81052a5298e0779af63c",
+      "result_sha256": "62ad2584880e62b66536db2abdb5589992552945c84de78900f3c2b854cb87a4",
+      "patch_sha256": "60686346fcccf891c23d59134898551d03389c1ec3f0016bee1dc0787bff302a",
+      "local_complete_sha256": "62ad2584880e62b66536db2abdb5589992552945c84de78900f3c2b854cb87a4",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "patch": "patches/059-FPSPlayerBodyNetwork.cpp.patch",
+      "prerequisite": "SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "base_sha256": "e7a224f6d41413ab59e9895f205e332fe9b0376570ff5be66cdf216e687feb80",
+      "result_sha256": "6669b63ed6e6a15497c845126c6cd9525198287d4d7ff9edc9ea995c00f74517",
+      "patch_sha256": "a5eb2f207dd20c580eef174db5c44446d1e910ef00dd33619a41acc304224906",
+      "local_complete_sha256": "6669b63ed6e6a15497c845126c6cd9525198287d4d7ff9edc9ea995c00f74517",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "patch": "patches/060-FPSGAMEPlayerController.cpp.patch",
+      "prerequisite": "SourceAssets/ScopeCombatHUD20261028/Before/Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "base_sha256": "1aa6d8907d80b51ed5d84dc57b8ca276293ece4b4d4435f10af542f37918dbbb",
+      "result_sha256": "5c988c66ff8b15edce956100acca4d44426616dc07f9ffa3f2f5ead36ae5bbbe",
+      "patch_sha256": "64a106f0f0583571fc5597b61d704cb82d02cb998a61818a128d89890c8c427a",
+      "local_complete_sha256": "5c988c66ff8b15edce956100acca4d44426616dc07f9ffa3f2f5ead36ae5bbbe",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "patch": "patches/061-FPSGAMEPlayerController.h.patch",
+      "prerequisite": "SourceAssets/ScopeCombatHUD20261028/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+      "base_sha256": "3b8811e7b0f65ebdcb46fe0babbb0f0c5f9ac189dc2d5719417b9b353c20f397",
+      "result_sha256": "98087edb50ba42ccf28a4d5665d79ba6b9799e211f7b9ecb9f22ab4b8a35eb0e",
+      "patch_sha256": "8bb7de11f91e6d09e5b2fd4b5635910e7fb6ba10a2df9763407e9e724c0aaae0",
+      "local_complete_sha256": "98087edb50ba42ccf28a4d5665d79ba6b9799e211f7b9ecb9f22ab4b8a35eb0e",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp",
+      "patch": "patches/062-ColdSteelBowAuthority.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "b532436f91634839ce9cc191b9555f1a3311ff93cab1e6a56ca47ad9a6215ecb",
+      "result_sha256": "e933d64e3edf99055957a3bcd3ef46849c4db10895b41a3bc519a89399332c1c",
+      "patch_sha256": "1b2b0c2a98ffa9745a1da30bcc78082673c484bcc0a1332adffff98fea1713d3",
+      "local_complete_sha256": "e933d64e3edf99055957a3bcd3ef46849c4db10895b41a3bc519a89399332c1c",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "patch": "patches/063-ColdSteelPlayerState.h.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "a6eeb1b9bdf80001888a940d53573321e524ebaecd73d9f4e4c0335d3966a12b",
+      "result_sha256": "a1860fbcdeeaf74387b5d1db931a0d755e41ac92a195b950a809f4bc214aee95",
+      "patch_sha256": "65ca517f415b35d6af35117ce1ac236e457f3ba83166b38153030a3aa136e5ba",
+      "local_complete_sha256": "a1860fbcdeeaf74387b5d1db931a0d755e41ac92a195b950a809f4bc214aee95",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "patch": "patches/064-ColdSteelInventoryRequestTypes.h.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "659d414a3978669e286dc32704f62e03643750e7c706a8283b81ee7a880a48e7",
+      "result_sha256": "c361e9772a1f283b3229add765e292550d626cc512450e51c15660b29bb14332",
+      "patch_sha256": "c9aeae1f8bf19897118ad7e4ad373ceed01eebbc8e595d87f9338bf15f3b659f",
+      "local_complete_sha256": "c361e9772a1f283b3229add765e292550d626cc512450e51c15660b29bb14332",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "patch": "patches/065-ColdSteelInventoryRequests.cpp.patch",
+      "prerequisite": "reconstructed current prerequisite: only this bow batch removed; other in-flight features retained",
+      "base_sha256": "18464e9bd1d419c420a9a5b132a45a1aa4627a4ac6f1c92ac9dc5e0820a5b93b",
+      "result_sha256": "03e18a9dfe25df58100b98352f61a15a137f4bfe3678e80a5da579ac4b456260",
+      "patch_sha256": "41808d24efd46711cf01b711b5e97b84519d721f479a105b358c44e506cfc9a9",
+      "local_complete_sha256": "03e18a9dfe25df58100b98352f61a15a137f4bfe3678e80a5da579ac4b456260",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "patch": "patches/066-ColdSteelPlayerState.cpp.patch",
+      "prerequisite": "reconstructed prerequisite: previous bow perfect bool replication",
+      "base_sha256": "f7e265f54ecf84524b661cb1e43468e84a10938c4f815ef4720bd10e8b70270e",
+      "result_sha256": "b7de691573e503973d65499db2444e041a434cbe0e447d2ad9ab579e9da097ec",
+      "patch_sha256": "53ed44b8cdc90be78507987333fb1d00831234e1152f1f4da33298b6b90cd14c",
+      "local_complete_sha256": "b7de691573e503973d65499db2444e041a434cbe0e447d2ad9ab579e9da097ec",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelBowRhythm.cpp",
+      "patch": "patches/067-ColdSteelBowRhythm.cpp.patch",
+      "prerequisite": "published prepared-skill result: Docs/Publication/BowSkills20261027/patches/071-ColdSteelBowRhythm.cpp.patch",
+      "base_sha256": "2c2996e8f77c41935449eba743c9a7b5041055d5e07be5bd2df0c57342247eef",
+      "result_sha256": "e09ba990c812100c8cff4afa185094383bfdd2899ffa9850863fe1a8da202409",
+      "patch_sha256": "cfd19c98f7f7591252a5e5fe9c4e4c58f315d9a72be7de245141766739ebad40",
+      "local_complete_sha256": "e09ba990c812100c8cff4afa185094383bfdd2899ffa9850863fe1a8da202409",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/FPSMagicArrowRainComponent.cpp",
+      "patch": "patches/068-FPSMagicArrowRainComponent.cpp.patch",
+      "prerequisite": "published prepared-skill result: Docs/Publication/BowSkills20261027/patches/051-FPSMagicArrowRainComponent.cpp.patch",
+      "base_sha256": "74994bddc3ad27a7147e53e9c871e85d6693d3d65f0fc87fba039336535d0988",
+      "result_sha256": "58fde0b6b2338d7130dc41284f9b446d03f8b453b19328fd6bbe2711ea609bb4",
+      "patch_sha256": "47f9fb7c78b8c21768f276a42d46ed9403ece63571c63206aa5200d2f946df37",
+      "local_complete_sha256": "58fde0b6b2338d7130dc41284f9b446d03f8b453b19328fd6bbe2711ea609bb4",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/Bow/BowMagicArrowRain.cpp",
+      "patch": "patches/069-BowMagicArrowRain.cpp.patch",
+      "prerequisite": "published prepared-skill result: Docs/Publication/BowSkills20261027/patches/089-BowMagicArrowRain.cpp.patch",
+      "base_sha256": "856ffc9a3625c1663f7d50597f77d1f499f8fbdd17ec8237d4efdc22781a37e5",
+      "result_sha256": "4623a145744e12a3c45f2dbbce2ffe975b6c7e3acdc33054f355b816253e8e6e",
+      "patch_sha256": "861ff2e4274fbaa76a0e6b9d94ed15053d6f122c14dbecc865098b789ba61eb0",
+      "local_complete_sha256": "4623a145744e12a3c45f2dbbce2ffe975b6c7e3acdc33054f355b816253e8e6e",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelExperienceFeed.cpp",
+      "patch": "patches/070-ColdSteelExperienceFeed.cpp.patch",
+      "prerequisite": "reconstructed prerequisite: existing experience feed without bow offset integration",
+      "base_sha256": "a6fdefac39a791c56f7bfa12ac0f8fa211aa8a16ab7d88a4b143f6b54a45d2ab",
+      "result_sha256": "94a4e36e393c5f642eb9e91ae34d31516ab8fde8e93c1cb7c87fa7607a0be46a",
+      "patch_sha256": "89e2e74c5bc8a073cb9efa6b8dd2de45cbb5695a2f79e0a07dcba81775133312",
+      "local_complete_sha256": "94a4e36e393c5f642eb9e91ae34d31516ab8fde8e93c1cb7c87fa7607a0be46a",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp",
+      "patch": "patches/071-BowSkillTrainingAuditCommandlet.cpp.patch",
+      "prerequisite": "reconstructed prerequisite: existing BowSkillTrainingAudit commandlet",
+      "base_sha256": "8dfe47583fa67d7c99155e2ee6011a482b7d818980b20e12b668fbfa3d05be91",
+      "result_sha256": "dc9adb4972d32e42db3ad1d4da19486b86a3cd5b6ea2471564cff86a40fcac52",
+      "patch_sha256": "95a887b875b644146cf18227c4ed9cf17737110d3b22ec11f5355aba8ddbc9e6",
+      "local_complete_sha256": "dc9adb4972d32e42db3ad1d4da19486b86a3cd5b6ea2471564cff86a40fcac52",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h",
+      "patch": "patches/072-BowSkillTrainingAuditCommandlet.h.patch",
+      "prerequisite": "reconstructed prerequisite: existing BowSkillTrainingAudit commandlet",
+      "base_sha256": "f4cd13631379f0db0c249fbcf419e190ae26863f2b838bf2f7e32eb72cd93e2c",
+      "result_sha256": "2c9702414c7c770d94002ae5bf559774d36a43ceb126b51d886442fb3c1eb3ef",
+      "patch_sha256": "c995cb0794829590988b7f1e3fd9b8e02b3f2d5c3852fcbb3c3093e13c98a937",
+      "local_complete_sha256": "2c9702414c7c770d94002ae5bf559774d36a43ceb126b51d886442fb3c1eb3ef",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Content/ColdSteelData/bows.json",
+      "patch": "patches/073-bows.json.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "52613a7134af628ccdb8e39232e2367f53e2ff69db07bfcd548c8d438ebdace8",
+      "result_sha256": "de2ec7d7c7a58e27cbc51b57ba7d86da779c3f74bbec0a9c999b98123b79e71e",
+      "patch_sha256": "e0d1e03d92f9fd32f86051e39e771a64c8b30b73e2c3faaeba1d0fb5e113fd2d",
+      "local_complete_sha256": "de2ec7d7c7a58e27cbc51b57ba7d86da779c3f74bbec0a9c999b98123b79e71e",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Content/ColdSteelData/bow-gunsmith.json",
+      "patch": "patches/074-bow-gunsmith.json.patch",
+      "prerequisite": "HEAD 465b34687949c03f2ed6d419b62f5a51205a9e1a",
+      "base_sha256": "80c65a8809107a398df4a1f55271c8443d3618ecfab8e297fe9f85854acde66e",
+      "result_sha256": "f5e03ec892e5f0219f681463695209a8591b6b7ce57750c0087d2ea42828fab8",
+      "patch_sha256": "9d03efdef0c2c1cc9a08de5f7ca396cdf42b413bc9660292ec0c5b6cf30ae6e3",
+      "local_complete_sha256": "f5e03ec892e5f0219f681463695209a8591b6b7ce57750c0087d2ea42828fab8",
+      "publication": "manual integration; never overwrite the shared working source"
+    },
+    {
+      "target": "Config/DefaultGame.ini",
+      "patch": "patches/075-DefaultGame.ini.patch",
+      "prerequisite": "reconstructed prerequisite: Highland bow AlwaysCook directory removed",
+      "base_sha256": "4642d789c05e5c271c6db51ac61ae388e2d321478428a1c5bb5c046a275ffe88",
+      "result_sha256": "8075b8b5febcd0d3b43bd98f2aac6c737ecaaf55fe5906e251daf97949c9cf30",
+      "patch_sha256": "2e3f8029cb7b0520b75e7fcbe54cecac442a482596cea924c39a58a1f9eb24a6",
+      "local_complete_sha256": "8075b8b5febcd0d3b43bd98f2aac6c737ecaaf55fe5906e251daf97949c9cf30",
+      "publication": "manual integration; never overwrite the shared working source"
+    }
+  ]
+}

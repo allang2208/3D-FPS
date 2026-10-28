@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/UI/ColdSteelCadenceBadge.h
++++ b/Source/FPSGAME/UI/ColdSteelCadenceBadge.h
+@@ -0,0 +1,13 @@
++#pragma once
++#include "CoreMinimal.h"
++
++struct FGeometry;
++class FSlateWindowElementList;
++
++namespace ColdSteelCadenceBadge
++{
++    // Stack count is authoritative; reveal/pulse only animate its presentation.
++    int32 Paint(const FGeometry& Geometry,FSlateWindowElementList& Elements,int32 Layer,
++        FVector2D Position,float Size,const FLinearColor& Tint,int32 Stacks,
++        float Reveal=1.f,float Pulse=0.f,float Breath=0.f,bool Number=true);
++}

@@ -1,0 +1,1418 @@
+[
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/047-ColdSteelProfileRuntime.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/047-ColdSteelProfileRuntime.cpp.patch",
+    "bytes": 792,
+    "sha256": "fd191e6e74eaf3ed1116773d523ee3723ccd13a34a2bc13069348eefdeed7366",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/048-StatusEffectsComponent.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/048-StatusEffectsComponent.cpp.patch",
+    "bytes": 1667,
+    "sha256": "3cdc11072615bbcf15fbded67290b21cf1fd9f3164b40019dd97f557d0ffc529",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/049-StatusEffectIconPainter.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/049-StatusEffectIconPainter.cpp.patch",
+    "bytes": 1946,
+    "sha256": "39b00f4c71ddd8dbf9c67a0b40532d835bb5c4c8ed60c98bfd0d8c03f48258da",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/050-FPSGAMECharacter.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/050-FPSGAMECharacter.cpp.patch",
+    "bytes": 2221,
+    "sha256": "03784994deaf411719a64c2b0a85098164565740b4ba3334d78eb56c58b48810",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/051-FPSPlayerBodyComponent.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/051-FPSPlayerBodyComponent.cpp.patch",
+    "bytes": 2361,
+    "sha256": "5750036c4a8739bf9ccc2490ba519abe2c48a191023276ac80c04063c47ecce7",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/052-FPSPlayerBodyBow.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/052-FPSPlayerBodyBow.cpp.patch",
+    "bytes": 3477,
+    "sha256": "1a6ab9c8d7836ffd89dc4a4debe88cb4716e48533466b2d1fb5cb77506a4b714",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/053-ColdSteelCrosshair.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/053-ColdSteelCrosshair.cpp.patch",
+    "bytes": 2323,
+    "sha256": "d9d225b85e04ef1cab8c8deacc33c7e386b776bac2eda1b14e45f909737981b1",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/054-ColdSteelUIStyle.h.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/054-ColdSteelUIStyle.h.patch",
+    "bytes": 950,
+    "sha256": "3bb23a05192674b3e129c99c348009b41c6a4c64914ba10047c42245f168bfb1",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/055-FPSQuickCombatComponent.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/055-FPSQuickCombatComponent.cpp.patch",
+    "bytes": 13356,
+    "sha256": "affc6f42b9439a45a2db8c8abe53473a743d1ef3dd31ae3c704ec739e68a12c9",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/056-FPSQuickCombatComponent.h.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/056-FPSQuickCombatComponent.h.patch",
+    "bytes": 1556,
+    "sha256": "962887c6a833464f2136b1f63a046fe8f61a4f097e16be3f42572e716e2b554f",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/057-FPSPlayerBodyNetwork.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/057-FPSPlayerBodyNetwork.cpp.patch",
+    "bytes": 1083,
+    "sha256": "a5eb2f207dd20c580eef174db5c44446d1e910ef00dd33619a41acc304224906",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/058-FPSGAMEPlayerController.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/058-FPSGAMEPlayerController.cpp.patch",
+    "bytes": 2219,
+    "sha256": "64a106f0f0583571fc5597b61d704cb82d02cb998a61818a128d89890c8c427a",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/059-FPSGAMEPlayerController.h.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/059-FPSGAMEPlayerController.h.patch",
+    "bytes": 625,
+    "sha256": "8bb7de11f91e6d09e5b2fd4b5635910e7fb6ba10a2df9763407e9e724c0aaae0",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/060-M4GunsmithVisual.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/060-M4GunsmithVisual.cpp.patch",
+    "bytes": 1007,
+    "sha256": "77f7f14ee26f652b057d57d91e0bc7489a5b787f822e3d5fc545eaa64d52f82c",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/061-ColdSteelBowAuthority.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/061-ColdSteelBowAuthority.cpp.patch",
+    "bytes": 10273,
+    "sha256": "1b2b0c2a98ffa9745a1da30bcc78082673c484bcc0a1332adffff98fea1713d3",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/062-ColdSteelPlayerState.h.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/062-ColdSteelPlayerState.h.patch",
+    "bytes": 2218,
+    "sha256": "65ca517f415b35d6af35117ce1ac236e457f3ba83166b38153030a3aa136e5ba",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/063-ColdSteelInventoryRequestTypes.h.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/063-ColdSteelInventoryRequestTypes.h.patch",
+    "bytes": 942,
+    "sha256": "c9aeae1f8bf19897118ad7e4ad373ceed01eebbc8e595d87f9338bf15f3b659f",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/064-ColdSteelInventoryRequests.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/064-ColdSteelInventoryRequests.cpp.patch",
+    "bytes": 2899,
+    "sha256": "41808d24efd46711cf01b711b5e97b84519d721f479a105b358c44e506cfc9a9",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/065-ColdSteelPlayerState.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/065-ColdSteelPlayerState.cpp.patch",
+    "bytes": 537,
+    "sha256": "53ed44b8cdc90be78507987333fb1d00831234e1152f1f4da33298b6b90cd14c",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/066-ColdSteelBowRhythm.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/066-ColdSteelBowRhythm.cpp.patch",
+    "bytes": 5305,
+    "sha256": "cfd19c98f7f7591252a5e5fe9c4e4c58f315d9a72be7de245141766739ebad40",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/067-FPSMagicArrowRainComponent.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/067-FPSMagicArrowRainComponent.cpp.patch",
+    "bytes": 694,
+    "sha256": "47f9fb7c78b8c21768f276a42d46ed9403ece63571c63206aa5200d2f946df37",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/068-BowMagicArrowRain.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/068-BowMagicArrowRain.cpp.patch",
+    "bytes": 477,
+    "sha256": "861ff2e4274fbaa76a0e6b9d94ed15053d6f122c14dbecc865098b789ba61eb0",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/069-ColdSteelExperienceFeed.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/069-ColdSteelExperienceFeed.cpp.patch",
+    "bytes": 1663,
+    "sha256": "09049bcba1fa2b390fa2b9e094b584a006c2c2ff6bbc3f336f607a77a4fd0004",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/070-BowSkillTrainingAuditCommandlet.cpp.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/070-BowSkillTrainingAuditCommandlet.cpp.patch",
+    "bytes": 696,
+    "sha256": "95a887b875b644146cf18227c4ed9cf17737110d3b22ec11f5355aba8ddbc9e6",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/071-BowSkillTrainingAuditCommandlet.h.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/071-BowSkillTrainingAuditCommandlet.h.patch",
+    "bytes": 429,
+    "sha256": "c995cb0794829590988b7f1e3fd9b8e02b3f2d5c3852fcbb3c3093e13c98a937",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/072-bows.json.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/072-bows.json.patch",
+    "bytes": 6248,
+    "sha256": "e0d1e03d92f9fd32f86051e39e771a64c8b30b73e2c3faaeba1d0fb5e113fd2d",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "Docs/Publication/HighlandBow20261028/patches/073-bow-gunsmith.json.patch",
+    "trash": "trash/HighlandBow20261028/Docs/Publication/HighlandBow20261028/patches/073-bow-gunsmith.json.patch",
+    "bytes": 28756,
+    "sha256": "9d03efdef0c2c1cc9a08de5f7ca396cdf42b413bc9660292ec0c5b6cf30ae6e3",
+    "reason": "Intermediate scoped export superseded by final numbered manifest",
+    "replacement": "Docs/Publication/HighlandBow20261028/integration-manifest.json"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/Content/ColdSteelData/bow-gunsmith.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/Content/ColdSteelData/bow-gunsmith.json",
+    "bytes": 33454,
+    "sha256": "1dea79442c117eadbedc8e0cad1d5b36eb15dc8d366a29afddcf7f9fd66f9deb",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/HostSkills/first-person-bow-parts.md",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/HostSkills/first-person-bow-parts.md",
+    "bytes": 14549,
+    "sha256": "2c417a54da49325fb042ca7fe4899b243d3b4484a8af4c2f002357091083d5f7",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/HostSkills/weapon-tooltip-schema.md",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/HostSkills/weapon-tooltip-schema.md",
+    "bytes": 5603,
+    "sha256": "ce146f778d3403f2e4d331a90294e006491debff0e816ba5a37e9071c72c3305",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "bytes": 17867,
+    "sha256": "e9b2a735c9fa17aa7249f32e621b70f0bbb617c77afd7a172eb90a511af7c040",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp",
+    "bytes": 15085,
+    "sha256": "76ff4519d16c40e1c15bc160f5c09683ddf5cf63b7dc0f8d2dead838e53bbd1d",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h",
+    "bytes": 890,
+    "sha256": "310d329ac7723ec3b6c638939f23fc673ae88e2cd260d2fe795c755b6522b868",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "bytes": 38233,
+    "sha256": "a2a6c281045a6386f300558396587a16e1e39b2b554d74904dd7ca1b143970fe",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+    "bytes": 5286,
+    "sha256": "0871cf7ebb0f1cf2464445d2021938e7f47eba187f0fb7580570644f397477ab",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "bytes": 72724,
+    "sha256": "d3e169d0e4bf5668839a374454f53ff0e4544bf64fcf4f85d002959886be09e2",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/skills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/skills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md",
+    "bytes": 10538,
+    "sha256": "42561c55d37bab4023d1fa37683091aa578ce1ded56711b6e727f7f8566fd0e6",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowPresentationReview20261028/Before/skills/ue5-weapon-workflow/references/first-person-bow-parts.md",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowPresentationReview20261028/Before/skills/ue5-weapon-workflow/references/first-person-bow-parts.md",
+    "bytes": 14549,
+    "sha256": "de5bac94fba297a03bf316ac4eba761d9ef417149f81594c43aec52028a51937",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowQuickCombatImpact20261028/Before/A_Bow_QuickCombat.uasset",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowQuickCombatImpact20261028/Before/A_Bow_QuickCombat.uasset",
+    "bytes": 1016699,
+    "sha256": "b517dc1ec8d0da23d5c5f0fb5b2ea96947afed5904ca87c6cb8610c226450f31",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+    "bytes": 24130,
+    "sha256": "a41dde544ec9e01f2f741e71c06f61dae0d444e7ec3194beecbd51959c20bbca",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "bytes": 36194,
+    "sha256": "e5b5be8a3b6720545a3ac758a2b418d8c158eda7179f66dfadd28712843d994c",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+    "bytes": 5202,
+    "sha256": "444b7f4f033defa1dd1935a6127092f61b1ddb7cad661d7db14cee1ea5eacddf",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.cpp",
+    "bytes": 12853,
+    "sha256": "e7bf809db5fd7365ab274d4675f91ba77056bea250b0a3ff1f8d0f6cb1aa3fd5",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Weapons/Bow/BowQuickCombatMotion.h",
+    "trash": "trash/HighlandBow20261028/SourceAssets/BowQuickCombatImpact20261028/Before/Source/FPSGAME/Weapons/Bow/BowQuickCombatMotion.h",
+    "bytes": 2412,
+    "sha256": "d036d2c6d6a2b4fe89548103c290153883e2ae6631b5f3555fd185cbb2f161f8",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/ScopeCombatHUD20261028/Before/Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/ScopeCombatHUD20261028/Before/Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "bytes": 42757,
+    "sha256": "2a4fb047ddf5659c1a64c4cb86b65cc415d3368898ae7b4712ea590e66213595",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/ScopeCombatHUD20261028/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+    "trash": "trash/HighlandBow20261028/SourceAssets/ScopeCombatHUD20261028/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+    "bytes": 5294,
+    "sha256": "3b8811e7b0f65ebdcb46fe0babbb0f0c5f9ac189dc2d5719417b9b353c20f397",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/ScopeCombatHUD20261028/Before/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/ScopeCombatHUD20261028/Before/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "bytes": 30577,
+    "sha256": "ca52c49cc1192ee4aecbdfd2b991a437d4ed0f66926bbf2b3baeabdbe824eed5",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/BalanceV5/Before-20261026-224259262261/bow-gunsmith.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/BalanceV5/Before-20261026-224259262261/bow-gunsmith.json",
+    "bytes": 28035,
+    "sha256": "6aac69ffc6165ebb7509c7a63fb0ee4598b0af050cc52a1ceb94b7be2bf60d94",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/BalanceV5/Before-20261026-224259262261/bows.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/BalanceV5/Before-20261026-224259262261/bows.json",
+    "bytes": 11322,
+    "sha256": "3b4a2910b54dcd7972371baec8d8e80e9829e9ab50371c03fdcc70045624c03a",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/DefaultGame.ini",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/DefaultGame.ini",
+    "bytes": 33011,
+    "sha256": "b3d9ca9106b57071ec91b39e2acc3f30de1cd46ee78f26fa9e1a0458cb81351b",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/bow-gunsmith.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/bow-gunsmith.json",
+    "bytes": 17015,
+    "sha256": "80c65a8809107a398df4a1f55271c8443d3618ecfab8e297fe9f85854acde66e",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/bows.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/bows.json",
+    "bytes": 5767,
+    "sha256": "084f57820bf95fa116deec3629b81febf9a41a6a1fd1ed6dc5872ba92b714dcb",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/woodworking-recipes.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/woodworking-recipes.json",
+    "bytes": 974,
+    "sha256": "944dd24194e4729381dbe75e8427222e9147d0fe55e87c36f2322693aed6084a",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/woodworking.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/Before/20261026-160614-059191/woodworking.json",
+    "bytes": 3534,
+    "sha256": "4cf7abe0004bd622f9aef6e9cbdd525549796433fd288680c1706885305928fa",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/CadenceBadgeV2_20261028/update_sources.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/CadenceBadgeV2_20261028/update_sources.py",
+    "bytes": 1241,
+    "sha256": "f13eaedcb647d5d1c980d3d1b67fd757d3842f4bd591befb96de845f73fd21aa",
+    "reason": "Superseded one-time mutation helper",
+    "replacement": "current source and dedicated author/import scripts"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/CadenceRhythmV3_20261028/update_sources.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/CadenceRhythmV3_20261028/update_sources.py",
+    "bytes": 1683,
+    "sha256": "fb263468b397758d5534638ebe051a7b99a49c50a6d6e58f60ac700ad70024d1",
+    "reason": "Superseded one-time mutation helper",
+    "replacement": "current source and dedicated author/import scripts"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/CadenceTuningV4_20261028/update_sources.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/CadenceTuningV4_20261028/update_sources.py",
+    "bytes": 2253,
+    "sha256": "ebc28b6ce75d653086b78c64609fe4ea32e1c30faae8a8175668ff7e6b50d5d9",
+    "reason": "Superseded one-time mutation helper",
+    "replacement": "current source and dedicated author/import scripts"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/CadenceV1/bow-gunsmith.before.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/CadenceV1/bow-gunsmith.before.json",
+    "bytes": 31842,
+    "sha256": "8da1f8e7734644d5a93c739edc290dcfd494d093b4e222edd355c2a237c9a2d9",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/CadenceV1/status_effects.before.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/CadenceV1/status_effects.before.json",
+    "bytes": 41871,
+    "sha256": "fce23a641fb0136e3d4131f28c8c0422f01faa24ffa69d7f8282295b2dfdb52d",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/CloudpiercerV9/before-bow-gunsmith-20261027-170141-290021.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/CloudpiercerV9/before-bow-gunsmith-20261027-170141-290021.json",
+    "bytes": 26549,
+    "sha256": "eada2ae816a03547f61fbe1ee492a05997ce05d29b476f3b97fb403efecc8c75",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/CloudpiercerV9/before-bow-gunsmith-20261027-175527-849360.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/CloudpiercerV9/before-bow-gunsmith-20261027-175527-849360.json",
+    "bytes": 27477,
+    "sha256": "3995bb8071e2074675f2fa845724bd360670f5ce839ceed176c5f7ce71042c3f",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/CloudpiercerV9/before-concept-design.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/CloudpiercerV9/before-concept-design.json",
+    "bytes": 1124,
+    "sha256": "cb37338c32c48293fe5410c30a0389e1e2caa031980cbfa9e51147d91868ff98",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/FarPeakV4/before-bow-gunsmith-20261026-220754572712.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/FarPeakV4/before-bow-gunsmith-20261026-220754572712.json",
+    "bytes": 27394,
+    "sha256": "2da1379a4e815ce93bcebfd0f815cecd89eb3db390fc34c2e796f0d0adc9c2f1",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/FarPeakV4/before-bow-gunsmith-20261027-175527754476.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/FarPeakV4/before-bow-gunsmith-20261027-175527754476.json",
+    "bytes": 27590,
+    "sha256": "239263a3ad52efa68c46b9bb38b9a35622157aecdb81e23d5dea8e440e82fe66",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/FarPeakV4/before-catalog-receipt-20261027-175527636.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/FarPeakV4/before-catalog-receipt-20261027-175527636.json",
+    "bytes": 1245,
+    "sha256": "fa887b8592e9d1206bfdfc60fb941a0f24a7c7d9d02c743ab4335fce71163d9e",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-catalog-20261026-213947/bow-gunsmith.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-catalog-20261026-213947/bow-gunsmith.json",
+    "bytes": 27445,
+    "sha256": "b43740bd110954b10c8d72905fcee038b5bddd441842f9c5fdf9e72ddaf4c887",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-catalog-20261026-213947/bows.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-catalog-20261026-213947/bows.json",
+    "bytes": 11264,
+    "sha256": "b0927dfc61aea6f2131ae022bb8f3c4a7205171628ad6cc42e7e0407d644b6c5",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-catalog-20261026-213947/woodworking.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-catalog-20261026-213947/woodworking.json",
+    "bytes": 4765,
+    "sha256": "0b16693f3a1c997452254edfeb6250a05c5cfd93f1dceab7b7be1d200240c72f",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-source/ColdSteelBows.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-source/ColdSteelBows.cpp",
+    "bytes": 10915,
+    "sha256": "31c0b18000ba4d89ae293e6ad6da0805f98331900106fa1e8e368d1bb192a8da",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-source/ColdSteelProfileRuntime.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-source/ColdSteelProfileRuntime.cpp",
+    "bytes": 109004,
+    "sha256": "cb9034c76d9e34974f3fad0f63353b5d169415822a480ff529c2f90125066b0c",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-source/install_catalog.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/HighlandV3/Before-source/install_catalog.py",
+    "bytes": 8359,
+    "sha256": "084c5cedc3db6bbac2512f407cd559a59efa049449bf1048b5a2cf55b66edf0a",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/HighlandV3/compile_existing.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/HighlandV3/compile_existing.py",
+    "bytes": 763,
+    "sha256": "749ca8836cdb4f4e796227ee432fedb7d227bc0b6ead2b8b3849a2f51bce661a",
+    "reason": "Superseded one-time mutation helper",
+    "replacement": "current source and dedicated author/import scripts"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/Auditions/A_MagicSmite.wav",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/Auditions/A_MagicSmite.wav",
+    "bytes": 584388,
+    "sha256": "2ecaab98f8d1bdec7a27f62f5fb917460bef00f011a14dc2662f42356c487aea",
+    "reason": "Unselected audio auditions",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/Auditions/B_LaserMagicImpacts.wav",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/Auditions/B_LaserMagicImpacts.wav",
+    "bytes": 1116044,
+    "sha256": "68e6f8d627d458a71c79d0c4b909fc6c9810876837c73764f07dc161de1180c5",
+    "reason": "Unselected audio auditions",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/Auditions/C_MagicalHit.wav",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/Auditions/C_MagicalHit.wav",
+    "bytes": 477076,
+    "sha256": "bc54d27f15d2687f82615200697b627d114defe5ab2932810f8674ee47d28ee7",
+    "reason": "Unselected audio auditions",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/BowSemanticV2/B2_GoldenBow_Impact.wav",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/BowSemanticV2/B2_GoldenBow_Impact.wav",
+    "bytes": 236204,
+    "sha256": "e8c7b2667339cb914a2f967f359611abb3714129245ccecb1d5a574d9c2076e0",
+    "reason": "Unselected V2 audition; DSP helper retained",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/BowSemanticV2/B2_GoldenBow_Impact_2x.wav",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/BowSemanticV2/B2_GoldenBow_Impact_2x.wav",
+    "bytes": 439724,
+    "sha256": "4bedf24859a035efe7a35ee12122421aa1cde0c6080b4b57624072545e3b5dc1",
+    "reason": "Unselected V2 audition; DSP helper retained",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/EnergyFusionV4/B4_GoldenArrow_EnergyImpact_2x.wav",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/EnergyFusionV4/B4_GoldenArrow_EnergyImpact_2x.wav",
+    "bytes": 545324,
+    "sha256": "9e592b5c2688382f65e8e9dcc77cde7eb4fd8b7c2963c69af6b1b938a3eb3e50",
+    "reason": "Duplicate two-play audition",
+    "replacement": "SelectedB4 single game impact"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/B3_GoldenArrow_HeavyImpact.wav",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/B3_GoldenArrow_HeavyImpact.wav",
+    "bytes": 213164,
+    "sha256": "3048aad6b51d8ad6a6de5e6463d0994f4c80222866878db30243163e120db70d",
+    "reason": "Unselected impact audio candidate",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/B3_GoldenArrow_HeavyImpact_2x.wav",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/B3_GoldenArrow_HeavyImpact_2x.wav",
+    "bytes": 428204,
+    "sha256": "27f4c5f8fa8c5aecce936da54166f6198ac18db282eeb26c2673f9a67ea29354",
+    "reason": "Unselected impact audio candidate",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/CREDITS.txt",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/CREDITS.txt",
+    "bytes": 636,
+    "sha256": "c4ba0f974360cd2461d33ce4fb883d87498238c68386efecde9fe4976afc3851",
+    "reason": "Unselected impact audio candidate",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/author_heavy_impact.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/author_heavy_impact.py",
+    "bytes": 6365,
+    "sha256": "3ff4d9e8fffe34e1c64fc109c019d0503bb21c11f176cb9ed75c31f0d54676fb",
+    "reason": "Unselected impact audio candidate",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/manifest.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoAudioCandidates20261028/HeavyImpactV3/manifest.json",
+    "bytes": 3099,
+    "sha256": "e182372f4ba7924bfc87ad24194b34b7bcfe4dbf908da4dabb9b7d1816d895f9",
+    "reason": "Unselected impact audio candidate",
+    "replacement": "MountainEchoAudioCandidates20261028/SelectedB4"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/README.md",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/README.md",
+    "bytes": 1505,
+    "sha256": "6dead743666ed21acc7f5ba287c17b9a1222b70d81e403651281f8c5dec25b4e",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/asset-receipt.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/asset-receipt.json",
+    "bytes": 883,
+    "sha256": "ac604fcd4ca5051fc0e1d234010212c89d4e995de0fbcdca7f7031de09234af4",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build-FPSGAME.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build-FPSGAME.json",
+    "bytes": 222,
+    "sha256": "d3b07e99a269a63103e1d8a8cdf0974e45988326da10b53aa0cc63f266f01b3f",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build-FPSGAME.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build-FPSGAME.log",
+    "bytes": 24782,
+    "sha256": "d0ee62562a3a9cab5b63e622432f1c4c7a2db7059fbecc5933b6bb27163d87f0",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build-FPSGAMEEditor.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build-FPSGAMEEditor.json",
+    "bytes": 234,
+    "sha256": "d6dadf0107076b8f8ece23829f8b982d97a3af1d8f38240ffc09c145852a33e0",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build-FPSGAMEEditor.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build-FPSGAMEEditor.log",
+    "bytes": 20876,
+    "sha256": "6892a19f3a0c559d52ea47646931b9b998c7868d87025da2ff586ad618fdac69",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build.ps1",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/build.ps1",
+    "bytes": 2117,
+    "sha256": "558269caaf39d3244968d65b74581938b5d94e34ab681331c65b54cdef3556e6",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/mountain_echo_impact_v17-commandlet.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/mountain_echo_impact_v17-commandlet.json",
+    "bytes": 62,
+    "sha256": "35191f3f74d0dd038a036e7a2e68d03b6d4ed67a7a488996f6f0e17d09649162",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/mountain_echo_impact_v17-console.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/mountain_echo_impact_v17-console.log",
+    "bytes": 317298,
+    "sha256": "ac0e8b6dbc943d41928ce2e7241379f95d57a763739015b26f6afecdc0197530",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/mountain_echo_impact_v17-engine.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/mountain_echo_impact_v17-engine.log",
+    "bytes": 317389,
+    "sha256": "49586d61f1a029e9b97668c5c85a7a73a4cec1bb2270e037fcd0e7ce83407104",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/mountain_echo_impact_v17.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/mountain_echo_impact_v17.py",
+    "bytes": 10571,
+    "sha256": "16bf3657a452fcd1c2bed1a07a197f8ae40f09aa71a93bbbf9d154a935e551f9",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/previous_v14_author.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/previous_v14_author.py",
+    "bytes": 8466,
+    "sha256": "bd3a0e11a7fda041f47b67a07e090b535cb077bf05dd8cc4c4977c2f2451686e",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/ubt-FPSGAME.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/ubt-FPSGAME.json",
+    "bytes": 72194,
+    "sha256": "549e3d320bb1f553152ebf461a4d7155403f8749d15118ed79ea367a1fc52877",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/ubt-FPSGAME.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/ubt-FPSGAME.log",
+    "bytes": 30106,
+    "sha256": "31c7f556e72676a6728a396787315a0ffdd83971c512aa68c0276ecc9987843c",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/ubt-FPSGAMEEditor.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/ubt-FPSGAMEEditor.json",
+    "bytes": 60334,
+    "sha256": "dd6ae00bc853ca1b78d11312c939cc9a3965373b15ef62936d4620b1a8deb119",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/ubt-FPSGAMEEditor.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV17/ubt-FPSGAMEEditor.log",
+    "bytes": 25738,
+    "sha256": "b3d985b291d1c9e98219601c28414b32faf0b3f3072ed2dd8b3de63f3e01c719",
+    "reason": "Retired impact candidate",
+    "replacement": "MountainEchoImpactV18"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV18/before-inspection.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoImpactV18/before-inspection.json",
+    "bytes": 230854,
+    "sha256": "65125d052f035020fbfc5a930c6597859f887e4740f0fe0b0ea1a4cd9b15b1ab",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build-FPSGAME.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build-FPSGAME.json",
+    "bytes": 221,
+    "sha256": "37b9b88cae3dd4924485447866b97c9204a8c6e10eae0dd09e49ac39bc82eb7f",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build-FPSGAME.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build-FPSGAME.log",
+    "bytes": 21978,
+    "sha256": "26b9e7f66bd261cac3251b01d812e43ec5f21f03a4a8367c6dc72dc4b9a8dcf6",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build-FPSGAMEEditor.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build-FPSGAMEEditor.json",
+    "bytes": 233,
+    "sha256": "e59efc9aefecd6ae00e2d6dc6439bb75cc2a05016c108375626dac4b56a7f2b1",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build-FPSGAMEEditor.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build-FPSGAMEEditor.log",
+    "bytes": 20961,
+    "sha256": "8472f0710a1573a879b5293600d5e3a03e00f5afc9468caaabaf3611ac301f9c",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build.ps1",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/build.ps1",
+    "bytes": 2117,
+    "sha256": "558269caaf39d3244968d65b74581938b5d94e34ab681331c65b54cdef3556e6",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/compile_existing_editor.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/compile_existing_editor.py",
+    "bytes": 1336,
+    "sha256": "04f4759deb67bdab968c0da190f153a9a46a7b6af50a5163a6a1a34654f040cb",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/live-bridge-20261028-091615505.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/live-bridge-20261028-091615505.log",
+    "bytes": 563,
+    "sha256": "98ca2dd3271368149fe8e6cd49a21d448b5a5b1c8c42bc9519d73103a072950a",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/live-bridge-20261028-091628247.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/live-bridge-20261028-091628247.log",
+    "bytes": 300,
+    "sha256": "1e33879a76a2521e3c5f58f9ddec70214f4df439c10cdd927673202c3c0e7ca8",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/live-compile.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/live-compile.log",
+    "bytes": 194,
+    "sha256": "cade0103edd19d885ef452fafb7229c8d31c0d69c1349c142f45a2803eb0ec36",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/live-request.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/live-request.json",
+    "bytes": 250,
+    "sha256": "0770a25bea83e91a10a3714ab023793ed30400a534535dc35f9b04a129cf8294",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/mountain_echo_marks_v20_design.png",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/mountain_echo_marks_v20_design.png",
+    "bytes": 375375,
+    "sha256": "8ca7c62799111801a9dc640d0c48ad2a9c8dc572cbeb142d22dfe1ea54505d8d",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/render_design.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/render_design.py",
+    "bytes": 5856,
+    "sha256": "8ab238f2d6ef9a4666f34d040d0adf1efefc6babc792cacb046ba41997028cf4",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/ubt-FPSGAME.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/ubt-FPSGAME.json",
+    "bytes": 80354,
+    "sha256": "061e34d183fd1b0bae8b1496184bcd4ef7988c756458dc2c730d80dabe9a60e0",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/ubt-FPSGAME.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/ubt-FPSGAME.log",
+    "bytes": 32149,
+    "sha256": "b9886d33ba0dc321485045246f695495f94890c455aee35db61994f03d863b07",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/ubt-FPSGAMEEditor.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/ubt-FPSGAMEEditor.json",
+    "bytes": 60448,
+    "sha256": "859c01147c6a3d7ef7fad940492cbfdaa8506db497b25bda26a38ff416345c60",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/ubt-FPSGAMEEditor.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV20/ubt-FPSGAMEEditor.log",
+    "bytes": 25805,
+    "sha256": "5db6e5a0c717f1f09db6d1f9c35e7cfd5832011987ff0239f5105e5b7e1ed2b8",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build-FPSGAME.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build-FPSGAME.json",
+    "bytes": 221,
+    "sha256": "fffee4e28e4c66e717d06d0f2ef636d4e975cbf8d0954586dcd68d8ebf854a47",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build-FPSGAME.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build-FPSGAME.log",
+    "bytes": 20831,
+    "sha256": "1b15927b65539035da35be2c4798b01b182dc8ff34c40bd0c0ce8e61173e70b0",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build-FPSGAMEEditor.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build-FPSGAMEEditor.json",
+    "bytes": 233,
+    "sha256": "7992e43f2726e36ead30d8781103b001c0c9cdf7bfb40afb76c1bc327b437f4a",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build-FPSGAMEEditor.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build-FPSGAMEEditor.log",
+    "bytes": 20961,
+    "sha256": "e81769b2d5b34471a01cde1ef7575c7e77de3b53e32806512c349df6f5b0cb5d",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build.ps1",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/build.ps1",
+    "bytes": 2117,
+    "sha256": "558269caaf39d3244968d65b74581938b5d94e34ab681331c65b54cdef3556e6",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/mountain_echo_range_v21_design.png",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/mountain_echo_range_v21_design.png",
+    "bytes": 428256,
+    "sha256": "037ba5a39febeb887266a186662325aca64c7de92a89c8c73a865ac88e17c04b",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/mountain_echo_range_v21_lighting.gif",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/mountain_echo_range_v21_lighting.gif",
+    "bytes": 4119553,
+    "sha256": "cd07b79815ac7f172b1c2bb33eb61902a113b94fd51d6956907921690102c8c6",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/render_design.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/render_design.py",
+    "bytes": 6520,
+    "sha256": "f90343d5c45b1dd87aad2142903665b72e27d33faee994d8484ec98a3e497bd4",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/ubt-FPSGAME.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/ubt-FPSGAME.json",
+    "bytes": 58626,
+    "sha256": "e6685b76fdf1bc3312c055906bf4eb36ec10ac00ab4a053defc4b1e76b44a392",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/ubt-FPSGAME.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/ubt-FPSGAME.log",
+    "bytes": 25220,
+    "sha256": "742570d9b11b052961cf3a3517f3dd20ed00262454afe94a2bb6f10736975358",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/ubt-FPSGAMEEditor.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/ubt-FPSGAMEEditor.json",
+    "bytes": 60448,
+    "sha256": "a468cebdc741857f7fbeed96b56c818e0e75f9b6138c56c99d0bc48ed2c11d24",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/ubt-FPSGAMEEditor.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV21/ubt-FPSGAMEEditor.log",
+    "bytes": 25805,
+    "sha256": "828c824ec02a1572667c91f98c57c9be47af391caaa25f6dc1aa01e46a659e6b",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ColdSteelBowResonance.source.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ColdSteelBowResonance.source.cpp",
+    "bytes": 13297,
+    "sha256": "3615b87ac06ebdcf0e3949a691890f0cb975969bbb08903659d0957083227710",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build-FPSGAME.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build-FPSGAME.json",
+    "bytes": 221,
+    "sha256": "747d42f1d714e33e2cd33e9d347bc962b84d3ad18830f2a6cfc08f45fa961bc7",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build-FPSGAME.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build-FPSGAME.log",
+    "bytes": 20723,
+    "sha256": "94a3c4ed78c687bb32b1a6b919df1ec01a5869563ab39e62452a14a359a78543",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build-FPSGAMEEditor.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build-FPSGAMEEditor.json",
+    "bytes": 233,
+    "sha256": "1e766b4eee80fb12ed8532ee3e296d987f1c93dc90d1b854802c37a0c5a55706",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build-FPSGAMEEditor.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build-FPSGAMEEditor.log",
+    "bytes": 20961,
+    "sha256": "4f8a633273a7e76605b47d2944675cd1d9c82fc0896a797b4fbfd1ebcfa1e6c8",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build.ps1",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/build.ps1",
+    "bytes": 2117,
+    "sha256": "558269caaf39d3244968d65b74581938b5d94e34ab681331c65b54cdef3556e6",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/live-result-20261028-094657198.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/live-result-20261028-094657198.log",
+    "bytes": 496,
+    "sha256": "156eb121378d200767b03eecc66bafded400e550f43b11cd5e9b072a8134865b",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/live-schema-20261028-094634966.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/live-schema-20261028-094634966.log",
+    "bytes": 721,
+    "sha256": "d4e6916c22063b617f8cffdc9361c66a1aa6149bdb0684de947a9916cabfc53f",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/live_compile.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/live_compile.json",
+    "bytes": 115,
+    "sha256": "1160665acc7c2ecceba809940629033999b474e6e69162add6c77782c59b3db4",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/mountain_echo_range_v22_design.png",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/mountain_echo_range_v22_design.png",
+    "bytes": 404894,
+    "sha256": "1d2426c957ce7df097eb881771653182c19009700c81b292600f2cb4bbad56fe",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/mountain_echo_range_v22_lighting.gif",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/mountain_echo_range_v22_lighting.gif",
+    "bytes": 3920242,
+    "sha256": "bf62b15f97f75b6ace6cceb286eee169402b1068cf468f5762b51aaca0a0c258",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/render_design.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/render_design.py",
+    "bytes": 7064,
+    "sha256": "d3679b1079244846d2f8243bda62836eea38309182267a61e39bf140a5a979f0",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ubt-FPSGAME.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ubt-FPSGAME.json",
+    "bytes": 59066,
+    "sha256": "4882f819a113148a776dbd525a03f1095bcaf777772b651905881cd0db88a3fb",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ubt-FPSGAME.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ubt-FPSGAME.log",
+    "bytes": 25243,
+    "sha256": "f27a9c191b141448c1b50b935dedcc5478bc89d4b5e5b72bba9d78b82b68dd6b",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ubt-FPSGAMEEditor.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ubt-FPSGAMEEditor.json",
+    "bytes": 60484,
+    "sha256": "2c472be3e75da978eda4643d24eda08184502f4c685af7e2a914ace00cb234e8",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ubt-FPSGAMEEditor.log",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoMarksV22/ubt-FPSGAMEEditor.log",
+    "bytes": 25823,
+    "sha256": "45e04bb95a060339d0a5bbb3f13782aa459b5325a99569aa75a2021a1c00895a",
+    "reason": "Retired straight-line HUD marks",
+    "replacement": "MountainEchoAlpineV23"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoPracticeV16/compile_existing_editor.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoPracticeV16/compile_existing_editor.py",
+    "bytes": 1361,
+    "sha256": "412d7ab2e595efcdf368420534ac0594e8d1ee45f1649a3fb53c1158f9b8a775",
+    "reason": "Superseded one-time mutation helper",
+    "replacement": "current source and dedicated author/import scripts"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/MountainEchoV13/bow-gunsmith.before.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/MountainEchoV13/bow-gunsmith.before.json",
+    "bytes": 29351,
+    "sha256": "39885ec442745305aff669a2dbc6a2d9736fd8b0e0cc7fd740948e8b6ea4ed2c",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/Export/SM_WoodSteelLongbow_Grip_Linen.fbx",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/Export/SM_WoodSteelLongbow_Grip_Linen.fbx",
+    "bytes": 1023788,
+    "sha256": "a220b5c9b4cb6e8c3f7c8ab0094ab2aae72c11fd16d5b6c77bb9770114cb3b21",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/Export/SM_WoodSteelLongbow_Optic2x.fbx",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/Export/SM_WoodSteelLongbow_Optic2x.fbx",
+    "bytes": 1124284,
+    "sha256": "db71952f61a8aca772ae9463eee9da2eaf084b593d590b1b7ef18f58e50c91e7",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/Export/SM_WoodSteelLongbow_Optic4x.fbx",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/Export/SM_WoodSteelLongbow_Optic4x.fbx",
+    "bytes": 1245388,
+    "sha256": "e65ddd8b4825e051d65013519ec7d3460bafc76d30312c6cf3f072b299b14e97",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/WoodSteelLongbow_Editable.blend",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/WoodSteelLongbow_Editable.blend",
+    "bytes": 103423353,
+    "sha256": "94f3dd74b2dc3fba690abb1d19d87fc852dae5a66a00ae8bdb5fcd0ed1d41010",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/author_assets.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/author_assets.py",
+    "bytes": 10984,
+    "sha256": "929724f4954f553296aad684cfc4edb8b9051d4694de1911d021d81817142fbe",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/author_optics.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/author_optics.py",
+    "bytes": 4914,
+    "sha256": "e242f68120ad4a33861a29767c9055df1ed1c21ef66bc7f4b0fd18e6b6b9d9cf",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/authoring.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/authoring.json",
+    "bytes": 4987,
+    "sha256": "edfb10ee5acb0d0933012a58c72bc61424557aee0515140ac6e6bee906ae7483",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/import-receipt.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/import-receipt.json",
+    "bytes": 5502,
+    "sha256": "a9a16376648bee7e8f9c8cc46ffcbdd8ce0048e8ef5fcbfa6a58657996b12fbd",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/import_assets.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/import_assets.py",
+    "bytes": 7995,
+    "sha256": "4c1a04ef7f639b4b8c1c68f3db3819bf880ed657bafd7beef9dcb2f87ecdb4aa",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/install_catalog.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-20261026-210927/install_catalog.py",
+    "bytes": 8078,
+    "sha256": "5298c59591ec4a7d043b9b5f7c0ed5f7b87202a6c6073a9b1bddbebb6816ad54",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-Catalog-20261026-211451/bow-gunsmith.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-Catalog-20261026-211451/bow-gunsmith.json",
+    "bytes": 27100,
+    "sha256": "a98f9ecdbc0ddec80c592349f6be661b4694c2091afedd3004714568dad54a7a",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-Catalog-20261026-211451/bows.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-Catalog-20261026-211451/bows.json",
+    "bytes": 11261,
+    "sha256": "3e635faa085967a4d78d3c3090e470e50fc8268551f7c55b591cf3b3e3dcd830",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-UE/M_WoodSteelLongbow_Linen_Static.uasset",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-UE/M_WoodSteelLongbow_Linen_Static.uasset",
+    "bytes": 6539,
+    "sha256": "7fa42bb86adb4330d83971469d9ce23a6f1ad17bcb3ed0fd6c84cf4f753a307a",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-UE/SM_WoodSteelLongbow_Grip_Linen.uasset",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-UE/SM_WoodSteelLongbow_Grip_Linen.uasset",
+    "bytes": 820525,
+    "sha256": "ce63b28e396904ebc84f87a4995e94d333d643407c371212baf2ff97accd16a9",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-UE/SM_WoodSteelLongbow_Optic2x.uasset",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-UE/SM_WoodSteelLongbow_Optic2x.uasset",
+    "bytes": 822299,
+    "sha256": "f2f62efe7de0a591143ae7d846703aaaba0322cc700a0cff406736ea71e4a2af",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-UE/SM_WoodSteelLongbow_Optic4x.uasset",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/Before-UE/SM_WoodSteelLongbow_Optic4x.uasset",
+    "bytes": 947110,
+    "sha256": "f1ea3abfe38f6901d48c74410cdf968915d1e2fb5ff1749f12406356d213cb56",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/RepairsV2/end_play_for_import.py",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/RepairsV2/end_play_for_import.py",
+    "bytes": 172,
+    "sha256": "531745a9874af3ba7059baf59f75fbb49093b9f2a158f9e66f54e2c772f4e678",
+    "reason": "Superseded one-time mutation helper",
+    "replacement": "current source and dedicated author/import scripts"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/Scope3to6V11/before-bow-gunsmith-20261027-195634-189609.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/Scope3to6V11/before-bow-gunsmith-20261027-195634-189609.json",
+    "bytes": 27518,
+    "sha256": "4f3fc7581797935ba8173ccffb294c3b35efc7c143eb0585f757adfd0202af99",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "bytes": 27441,
+    "sha256": "ec29ac3a824c1bfe6a7acf60e9b9b80a3891dc38b7ae75c3f655520ab3007530",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/UI/ColdSteelBowResonance.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/UI/ColdSteelBowResonance.cpp",
+    "bytes": 3569,
+    "sha256": "c2d83a21b6b960c15fac44a9b49071062bd30bca7d7ac5fc807a1beea745125c",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/UI/ColdSteelBowRhythm.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/UI/ColdSteelBowRhythm.cpp",
+    "bytes": 15339,
+    "sha256": "a0a1b6c5c073b5079bcfeacc08d62f5984593f718be9761fea0426d6c5fcc3bf",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "bytes": 19361,
+    "sha256": "9848323abe8b0d0d0980360c906319f991567b49dc49322c0444047f9b0b7986",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/UI/ColdSteelExperienceFeed.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/UI/ColdSteelExperienceFeed.cpp",
+    "bytes": 10059,
+    "sha256": "b9f62fc43f7c9e639b630ad385cee84845dd494fad16856742ecc17482553be6",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+    "bytes": 14308,
+    "sha256": "f6c7d7cf236198f088b36d71e0c870cc6a719536983adebc4f85a7fe6e79dc52",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowScopeOptics.h",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowScopeOptics.h",
+    "bytes": 1959,
+    "sha256": "9a0266e7862bdb87d64a7456aa507440f0cd8ac02193f3d26133534adcb58a78",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowScopeReticle.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowScopeReticle.cpp",
+    "bytes": 8697,
+    "sha256": "f1700acba278db5a03c48b432eb0822e7925b166d3f738d3387e4645a5c0aa74",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+    "bytes": 110372,
+    "sha256": "0fd9e84f66efbcb3e60a4bdafe45e53fab886aed53b5b8e645c70b584a4460e5",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeMainCameraV4_20261028/before/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+    "bytes": 19280,
+    "sha256": "c1fb167298502122e516820691f80de2ec75c0c9ca0fac496d49c15a12e90b0e",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeOpenPeripheryV5_20261028/Before/Source/FPSGAME/UI/ScopeOpticDrawing.h",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeOpenPeripheryV5_20261028/Before/Source/FPSGAME/UI/ScopeOpticDrawing.h",
+    "bytes": 10272,
+    "sha256": "fb46abb69f29ef822d7e73a02f7fb4a713a1e9354208f4172485bea384dd6d01",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/ScopeOpenPeripheryV5_20261028/Before/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/ScopeOpenPeripheryV5_20261028/Before/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+    "bytes": 10523,
+    "sha256": "4b82428a67799bd76c65570fd8fe14fcb8f737ea6a16d509c650cb43884cf38d",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  },
+  {
+    "original": "SourceAssets/WoodSteelLongbow20261026/StrongDrawV7/Before-20261027-145823-702187/bow-gunsmith.json",
+    "trash": "trash/HighlandBow20261028/SourceAssets/WoodSteelLongbow20261026/StrongDrawV7/Before-20261027-145823-702187/bow-gunsmith.json",
+    "bytes": 26720,
+    "sha256": "0577028cf18b8d0ac7ee4f1b0af0b0819486c6d5b39596fc93b737882449b2ad",
+    "reason": "Superseded pre-edit snapshot; exact recovery retained",
+    "replacement": "current working source/assets and publication patches"
+  }
+]

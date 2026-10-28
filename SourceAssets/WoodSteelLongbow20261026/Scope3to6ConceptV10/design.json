@@ -1,0 +1,31 @@
+{
+  "name": "观峰变倍镜",
+  "name_status": "暂定",
+  "weapon": "bow_woodsteel",
+  "slot": "sight",
+  "tier": "Special",
+  "magnification_min": 3,
+  "magnification_max": 6,
+  "stage": "concept_only",
+  "user_approved": false,
+  "runtime_integrated": false,
+  "balance_values": null,
+  "concept_image": "Highland_Scope3to6_Concept_v1.png",
+  "editable_source": "Highland_Scope3to6_Concept_v1.blend",
+  "generation": "Blender native concept blockout and requested render",
+  "imagegen_attempt": {
+    "status": "rejected",
+    "category": "violence",
+    "request_id": "619bed79-613f-4677-a444-e49d99765504",
+    "prompt": "imagegen-prompt.txt"
+  },
+  "features": [
+    "圆形清透镜片",
+    "3–6 倍倍率刻度环",
+    "望远镜式调节环与微调旋钮",
+    "细刻线准星",
+    "偏置钢制安装座"
+  ],
+  "mounting": "Conceptual saddle follows existing upper socket arrangement; exact dimensions reserved for production modeling.",
+  "gameplay_tested": false
+}

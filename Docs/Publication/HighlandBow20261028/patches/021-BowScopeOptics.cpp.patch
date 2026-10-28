@@ -1,0 +1,209 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp
+@@ -0,0 +1,206 @@
++#include "BowScopeOptics.h"
++#include "BowWeaponComponent.h"
++#include "BowPartComponent.h"
++#include "../../FPSGAMECharacter.h"
++#include "../../Characters/FPSPlayerBodyComponent.h"
++#include "../../UI/ScopeOpticDrawing.h"
++#include "../../UI/ColdSteelBowRhythm.h"
++#include "Camera/CameraComponent.h"
++#include "Components/PrimitiveComponent.h"
++#include "Engine/LocalPlayer.h"
++#include "Engine/GameViewportClient.h"
++#include "GameFramework/PlayerController.h"
++#include "HAL/IConsoleManager.h"
++#include "SceneView.h"
++
++namespace BowScopeOptics
++{
++TAutoConsoleVariable<int32> OpticalPresentation(TEXT("fps.Bow.Scope.OpticalPresentation"),1,
++    TEXT("Peakwatch 3-6x owner-local optical housing. World zoom always uses the main camera."));
++constexpr double ApertureFraction=.34; // 68% diameter of the constrained viewport's short axis.
++}
++
++bool UBowScopeOptics::Enabled() { return BowScopeOptics::OpticalPresentation.GetValueOnGameThread()!=0; }
++
++bool UBowScopeOptics::OwnsPrimitive(const UPrimitiveComponent* Primitive) const
++{
++    return bSavedCamera&&Primitives.ContainsByPredicate([Primitive](const auto& State){return State.Component.Get()==Primitive;});
++}
++
++bool UBowScopeOptics::HidesPrimitive(const UPrimitiveComponent* Primitive) const
++{
++    if(!bSavedCamera)return false;
++    const auto* State=Primitives.FindByPredicate([Primitive](const auto& Entry){return Entry.Component.Get()==Primitive;});
++    return State&&(bHideViewmodel||State->bOwnerNoSee);
++}
++
++void UBowScopeOptics::RestoreCamera()
++{
++    if (bSavedCamera) if (auto* Camera=OwnedCamera.Get())
++    {
++        Camera->SetEnableFirstPersonFieldOfView(bWasFirstPersonFOV);
++        Camera->SetFirstPersonFieldOfView(SavedFirstPersonFOV);
++    }
++    bSavedCamera=false;OwnedCamera.Reset();
++}
++
++void UBowScopeOptics::RestoreAssembly(UBowWeaponComponent& Bow)
++{
++    bHideViewmodel=false;
++    if(Primitives.IsEmpty())return;
++    auto Previous=MoveTemp(Primitives);
++    for(const auto& State:Previous)if(auto* Primitive=State.Component.Get())
++    {
++        Primitive->SetFirstPersonPrimitiveType(static_cast<EFirstPersonPrimitiveType>(State.Type));
++        if(Primitive->bOwnerNoSee!=State.bOwnerNoSee)Primitive->SetOwnerNoSee(State.bOwnerNoSee);
++    }
++    // Let death, rest and third-person viewing reapply their own hide requests.
++    if(auto* Pawn=Bow.Character.Get())if(auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>())Body->RefreshViewMode();
++    for(const auto& State:Previous)if(State.bOwnerNoSee)if(auto* Primitive=State.Component.Get())
++        if(!Primitive->bOwnerNoSee)Primitive->SetOwnerNoSee(true);
++}
++
++void UBowScopeOptics::InvalidateAssembly(UBowWeaponComponent& Bow)
++{
++    Release(Bow);
++}
++
++void UBowScopeOptics::Release(UBowWeaponComponent& Bow)
++{
++    Alpha=0.f;bWasActive=false;RestoreCamera();RestoreAssembly(Bow);Reticle=FBowScopeReticleState();
++}
++
++void UBowScopeOptics::UpdateCamera(UBowWeaponComponent& Bow)
++{
++    auto* Pawn=Bow.Character.Get();auto* Camera=Bow.Camera.Get();
++    const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
++    const auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
++    if(!Pawn||!Pawn->IsLocallyControlled()||!Camera||!PC||PC->bShowMouseCursor||Pawn->IsAmmoWheelOpen()||
++        !Bow.IsScopeOpticalPresentationEnabled()||!Bow.CanPresent(true)||Bow.AimAlpha()<=.001f||
++        !Bow.Pivot||(Body&&Body->IsThirdPersonViewEnabled()))
++    {Release(Bow);return;}
++    if(!bSavedCamera)
++    {
++        OwnedCamera=Camera;bSavedCamera=true;
++        bWasFirstPersonFOV=Camera->bEnableFirstPersonFieldOfView;
++        SavedFirstPersonFOV=Camera->FirstPersonFieldOfView;
++    }
++    if(Primitives.IsEmpty())
++    {
++        // Cache only this bow's camera assembly, never replicated world meshes.
++        TArray<USceneComponent*> Children;Bow.Pivot->GetChildrenComponents(true,Children);
++        for(auto* Child:Children)if(auto* Primitive=Cast<UPrimitiveComponent>(Child))
++        {
++            Primitives.Add({Primitive,static_cast<uint8>(Primitive->FirstPersonPrimitiveType),bool(Primitive->bOwnerNoSee)});
++            if(Primitive->FirstPersonPrimitiveType!=EFirstPersonPrimitiveType::FirstPerson)
++                Primitive->SetFirstPersonPrimitiveType(EFirstPersonPrimitiveType::FirstPerson);
++        }
++    }
++    // Independent viewmodel framing: wheel magnification never changes the
++    // housing's size. The base camera FOV is read separately from world zoom.
++    const float FramingPower=FMath::Lerp(1.f,Bow.OpticalMinimum,Bow.AimAlpha());
++    const float FramingFOV=FMath::RadiansToDegrees(2.f*FMath::Atan(
++        FMath::Tan(FMath::DegreesToRadians(Pawn->BaseLookHorizontalFOV())*.5f)/FramingPower));
++    if(!Camera->bEnableFirstPersonFieldOfView)Camera->SetEnableFirstPersonFieldOfView(true);
++    if(!FMath::IsNearlyEqual(Camera->FirstPersonFieldOfView,FramingFOV,.001f))Camera->SetFirstPersonFieldOfView(FramingFOV);
++}
++
++void UBowScopeOptics::Update(UBowWeaponComponent& Bow,float Delta,bool Present)
++{
++    if(!Present){Release(Bow);return;}
++    UpdateCamera(Bow);
++    if(!bSavedCamera)return;
++    auto* Pawn=Bow.Character.Get();auto* Camera=Bow.Camera.Get();
++    auto* PC=Cast<APlayerController>(Pawn->GetController());
++    auto* LP=PC?PC->GetLocalPlayer():nullptr;
++    auto* Sight=Bow.Part(TEXT("sight"));
++    if(!LP||!LP->ViewportClient||!LP->ViewportClient->Viewport||!Sight||!Sight->HasMesh())
++    {Release(Bow);return;}
++    FSceneViewProjectionData Projection;
++    if(!LP->GetProjectionData(LP->ViewportClient->Viewport,Projection)){Release(Bow);return;}
++    const FIntRect View=Projection.GetViewRect(),Constrained=Projection.GetConstrainedViewRect();
++    ViewSize=FVector2D(View.Width(),View.Height());
++    ConstrainedSize=FVector2D(Constrained.Width(),Constrained.Height());
++    if(ViewSize.X<1||ViewSize.Y<1||ConstrainedSize.X<1||ConstrainedSize.Y<1){Release(Bow);return;}
++    AimCenter=FVector2D((Constrained.Min.X+Constrained.Max.X)*.5-View.Min.X,
++        (Constrained.Min.Y+Constrained.Max.Y)*.5-View.Min.Y)/ViewSize;
++    // The physical raising animation leads; the eye-level aperture takes over
++    // late in ADS, expanding only 4%, regardless of selected magnification.
++    Alpha=FMath::SmoothStep(.58f,.94f,Bow.AimAlpha());
++    if(!bWasActive)
++    {
++        PreviousView=Camera->GetComponentRotation();Eye=FVector2D::ZeroVector;
++        Reticle.Power=Bow.DisplayedScopeMagnification();Reticle.Zoom=0.f;
++    }
++    const FRotator ViewRotation=Camera->GetComponentRotation();
++    const FRotator Turn=(ViewRotation-PreviousView).GetNormalized();PreviousView=ViewRotation;
++    const FVector2D EyeTarget=(FVector2D(-Turn.Yaw,Turn.Pitch)/FMath::Max(.001f,Delta)).GetClampedToMaxSize(80.)*.00045;
++    Eye=FMath::Lerp(Eye,EyeTarget,1.-FMath::Exp(-14.*FMath::Max(0.f,Delta)));
++    // Main-camera projection defines both the angular marks and firing ray.
++    // No copied scene, render target, additional zoom or independent exposure.
++    Reticle.PixelsPerMil=float(Constrained.Width()*.5*Projection.ProjectionMatrix.M[0][0]*.001);
++    UpdateReticle(Bow,Delta);
++    const bool Hide=Alpha>.5f;
++    if(Hide!=bHideViewmodel)
++    {
++        bHideViewmodel=Hide;
++        if(auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>())Body->RefreshViewMode();
++        else for(const auto& State:Primitives)if(auto* Primitive=State.Component.Get())
++        {
++            const bool OwnerNoSee=Hide||State.bOwnerNoSee;
++            if(Primitive->bOwnerNoSee!=OwnerNoSee)Primitive->SetOwnerNoSee(OwnerNoSee);
++        }
++    }
++    bWasActive=true;
++}
++
++void UBowScopeOptics::UpdateReticle(const UBowWeaponComponent& Bow,float Delta)
++{
++    FBowDrawRhythm Rhythm;
++    const bool Drawing=Bow.GetDrawRhythm(Rhythm);
++    const float Draw=Drawing?FMath::Clamp(Rhythm.Elapsed/FMath::Max(.001f,Rhythm.FullDrawSeconds),0.f,1.f):0.f;
++    const float Response=1.f-FMath::Exp(-30.f*FMath::Max(0.f,Delta));
++    Reticle.Draw=FMath::Lerp(Reticle.Draw,Draw,Response);
++    Reticle.Full=FMath::Lerp(Reticle.Full,Drawing&&!Rhythm.bMagicArrowRain&&Draw>=1.f?1.f:0.f,Response);
++    Reticle.Perfect=FMath::Lerp(Reticle.Perfect,Drawing&&Rhythm.bPerfect?1.f:0.f,Response);
++    Reticle.Piercing=FMath::Lerp(Reticle.Piercing,Drawing&&Rhythm.bPiercingReady?1.f:0.f,Response);
++    Reticle.bRain=Drawing&&Rhythm.bMagicArrowRain;Reticle.bRainValid=Rhythm.bMagicRainValid;
++    Reticle.Release=Bow.ReleaseFeedbackAge>=0.f?FMath::Square(1.f-FMath::Clamp(Bow.ReleaseFeedbackAge/.24f,0.f,1.f)):0.f;
++    Reticle.Age=Bow.VisualTime;
++    const float Power=Bow.DisplayedScopeMagnification();
++    const float Zoom=FMath::Clamp(FMath::Abs(Power-Reticle.Power)/FMath::Max(.001f,Delta)*.07f,0.f,1.f);
++    Reticle.Zoom=FMath::Lerp(Reticle.Zoom,Zoom,1.f-FMath::Exp(-16.f*FMath::Max(0.f,Delta)));
++    Reticle.Power=Power;
++}
++
++double UBowScopeOptics::ApertureRadius(const FGeometry& G) const
++{
++    const FVector2D Size=ConstrainedSize/ViewSize*G.GetLocalSize();
++    return FMath::Min(Size.X,Size.Y)*BowScopeOptics::ApertureFraction*FMath::Lerp(.96,1.,double(Alpha));
++}
++
++FVector2D UBowScopeOptics::CueOffset(const FGeometry& G,float PixelToLocal) const
++{
++    if(Alpha<=0.f||!bWasActive)return FVector2D::ZeroVector;
++    const FVector2D Size=G.GetLocalSize(),Aim=AimCenter*Size;
++    const double BaseTrack=ColdSteelBowRhythm::TrackY*PixelToLocal;
++    // Leave room for the mountain/cadence motif and three existing XP lines.
++    const double MaxTrack=FMath::Max(BaseTrack,Size.Y-Aim.Y-200.*PixelToLocal);
++    const double Track=FMath::Clamp(ApertureRadius(G)*.76,BaseTrack,MaxTrack);
++    return (Aim-Size*.5+FVector2D(0,Track-BaseTrack))*Alpha;
++}
++
++int32 UBowScopeOptics::Paint(const FGeometry& G,FSlateWindowElementList& Out,int32 Layer,const FLinearColor& Tint) const
++{
++    if(Alpha<=0.f||!bWasActive||!FSlateApplication::IsInitialized())return Layer;
++    const FVector2D Aim=AimCenter*G.GetLocalSize();
++    const double Radius=ApertureRadius(G);
++    const double Pixel=1./FMath::Max(.1f,G.GetAccumulatedLayoutTransform().GetScale());
++    const float MetalScale=FMath::Max(float(Pixel*.7),float(Radius/.34/900.));
++    // Both inside and outside the ring show the same magnified main-camera
++    // scene. Keep the eyepiece/reticle, without the opaque peripheral surround.
++    ScopeOpticDrawing::PaintHousing(Out,Layer,G,FVector2f(Aim),float(Radius),MetalScale,
++        Alpha*Tint.A,false,FVector2f(Eye),false);
++    FLinearColor ReticleTint=Tint;ReticleTint.A*=Alpha;
++    return BowScopeReticle::Paint(G,Out,Layer+1,ReticleTint,Aim,Radius,Pixel,Eye,Reticle,Vertices,Indices);
++}

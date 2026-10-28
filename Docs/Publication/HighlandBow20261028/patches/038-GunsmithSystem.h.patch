@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.h
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.h
+@@ -92,9 +92,13 @@
+     // Bow factors are independent from firearm handling and magazine rules.
+     struct FBowModifiers
+     {
+-        double Damage=1,Draw=1,Speed=1,Stamina=1,Nock=1,Hold=1,Sway=1,Spread=1,ADS=1;
++        double Damage=1,Draw=1,Speed=1,Stamina=1,Nock=1,ChargeStamina=1,Sway=1,Spread=1,ADS=1;
++        // Damage adjusts the base formula; ShotDamage scales the complete arrow panel.
++        double ShotDamage=1,PhysicalDamage=1,Range=1,CriticalDamageBonus=0;
+         // Additive speed increment; Draw retains the equivalent duration factor.
+         double DrawSpeedBonus=0;
++        double RhythmWindowBonus=0;
++        double PiercingDamage=1;
+     } Bow;
+     FMeleeModifiers Melee;
+     FToolModifiers Tool;

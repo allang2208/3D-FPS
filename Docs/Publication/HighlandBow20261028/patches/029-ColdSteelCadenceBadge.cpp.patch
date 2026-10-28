@@ -1,0 +1,193 @@
+--- a/Source/FPSGAME/UI/ColdSteelCadenceBadge.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCadenceBadge.cpp
+@@ -0,0 +1,190 @@
++#include "ColdSteelCadenceBadge.h"
++#include "ColdSteelUIStyle.h"
++#include "../Weapons/Bow/CadenceString.h"
++#include "Framework/Application/SlateApplication.h"
++#include "Fonts/FontMeasure.h"
++#include "Layout/Geometry.h"
++#include "Rendering/DrawElements.h"
++#include "Rendering/SlateRenderer.h"
++#include "Styling/CoreStyle.h"
++
++namespace
++{
++struct FBadgeCanvas
++{
++    const FGeometry& Geometry;
++    FVector2D Origin;
++    float Scale;
++    FLinearColor Tint;
++    TArray<FSlateVertex>& Vertices;
++    TArray<SlateIndex>& Indices;
++
++    void Vertex(FVector2D P,FLinearColor C)
++    {
++        Vertices.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(Geometry.GetAccumulatedRenderTransform(),
++            FVector2f(Origin+P*Scale),FVector2f(.5f,.5f),(C*Tint).ToFColor(true)));
++    }
++    void Quad(int32 A,int32 B,int32 C,int32 D)
++    {Indices.Append({SlateIndex(A),SlateIndex(B),SlateIndex(C),SlateIndex(C),SlateIndex(B),SlateIndex(D)});}
++    void Triangle(FVector2D A,FVector2D B,FVector2D C,FLinearColor Color)
++    {
++        const int32 Base=Vertices.Num();Vertex(A,Color);Vertex(B,Color);Vertex(C,Color);
++        Indices.Append({SlateIndex(Base),SlateIndex(Base+1),SlateIndex(Base+2)});
++    }
++    void Line(FVector2D A,FVector2D B,FLinearColor C,float Width)
++    {
++        if(C.A<.002f||(B-A).SizeSquared()<.00001)return;
++        const FVector2D N=FVector2D(-(B-A).Y,(B-A).X).GetSafeNormal();
++        const float Half=Width*.5f,Feather=.52f;
++        const int32 Base=Vertices.Num();auto Clear=C;Clear.A=0;
++        Vertex(A-N*(Half+Feather),Clear);Vertex(B-N*(Half+Feather),Clear);
++        Vertex(A-N*Half,C);Vertex(B-N*Half,C);
++        Vertex(A+N*Half,C);Vertex(B+N*Half,C);
++        Vertex(A+N*(Half+Feather),Clear);Vertex(B+N*(Half+Feather),Clear);
++        for(int32 Band=0;Band<3;++Band)Quad(Base+2*Band,Base+2*Band+1,Base+2*Band+2,Base+2*Band+3);
++    }
++    void Light(FVector2D A,FVector2D B,FLinearColor C,float Width)
++    {
++        auto Halo=C;Halo.A*=.055f;Line(A,B,Halo,Width+5.f);
++        Halo.A=C.A*.16f;Line(A,B,Halo,Width+2.f);Line(A,B,C,Width);
++    }
++    void Arc(FVector2D Center,float Radius,float Start,float End,FLinearColor C,float Width,bool Glow=false)
++    {
++        const int32 Steps=FMath::Max(1,FMath::CeilToInt((End-Start)/4.f));
++        auto At=[&](float Angle){const float A=FMath::DegreesToRadians(Angle);return Center+FVector2D(FMath::Cos(A),FMath::Sin(A))*Radius;};
++        auto Last=At(Start);
++        for(int32 I=1;I<=Steps;++I)
++        {
++            const auto Next=At(FMath::Lerp(Start,End,float(I)/Steps));
++            if(Glow)Light(Last,Next,C,Width);else Line(Last,Next,C,Width);
++            Last=Next;
++        }
++    }
++    void Disc(FVector2D Center,float Radius,FLinearColor C)
++    {
++        constexpr int32 Steps=32;
++        const int32 Base=Vertices.Num();Vertex(Center,C);
++        for(int32 I=0;I<=Steps;++I)
++        {const float A=2.f*PI*I/Steps;Vertex(Center+FVector2D(FMath::Cos(A),FMath::Sin(A))*Radius,C);}
++        for(int32 I=0;I<Steps;++I)Indices.Append({SlateIndex(Base),SlateIndex(Base+1+I),SlateIndex(Base+2+I)});
++    }
++    void Diamond(FVector2D Center,float W,float H,FLinearColor C)
++    {Triangle(Center-FVector2D(0,H),Center-FVector2D(W,0),Center+FVector2D(0,H),C);
++     Triangle(Center-FVector2D(0,H),Center+FVector2D(0,H),Center+FVector2D(W,0),C);}
++};
++
++struct FCordPoint {FVector2D Position,Normal;float Weave;};
++const TArray<FCordPoint>& Cord()
++{
++    // Smooth closed bowstring loop with baked strand offsets, built once.
++    static const TArray<FCordPoint> Points=[]
++    {
++        TArray<FCordPoint> Result;Result.Reserve(73);
++        auto Curve=[&](FVector2D A,FVector2D B,FVector2D C,FVector2D D)
++        {
++            for(int32 I=0;I<18;++I)
++            {
++                const double T=I/18.,U=1.-T;
++                const FVector2D P=A*(U*U*U)+B*(3.*U*U*T)+C*(3.*U*T*T)+D*(T*T*T);
++                const FVector2D V=(B-A)*(3.*U*U)+(C-B)*(6.*U*T)+(D-C)*(3.*T*T);
++                Result.Add({P,FVector2D(-V.Y,V.X).GetSafeNormal(),float(FMath::Sin(Result.Num()*PI*.74))});
++            }
++        };
++        Curve({17,43},{-4,39},{8,29},{14,36});
++        Curve({14,36},{26,54},{43,29},{46,23});
++        Curve({46,23},{53,8},{62,20},{50,30});
++        Curve({50,30},{36,48},{24,48},{17,43});
++        const FCordPoint Closing=Result[0];Result.Add(Closing);return Result;
++    }();
++    return Points;
++}
++}
++
++int32 ColdSteelCadenceBadge::Paint(const FGeometry& G,FSlateWindowElementList& Out,int32 Layer,
++    FVector2D Position,float Size,const FLinearColor& Tint,int32 Stacks,float Reveal,float Pulse,float Breath,bool Number)
++{
++    if(Size<=0.f||Tint.A<.001f)return Layer;
++    // Scratch is local to each paint thread, reused by HUD and buff tiles. No
++    // resource loads, material updates or gameplay state are stored here.
++    static thread_local TArray<FSlateVertex> Vertices;
++    static thread_local TArray<SlateIndex> Indices;
++    Vertices.Reset();Indices.Reset();Vertices.Reserve(20000);Indices.Reserve(50000);
++    FBadgeCanvas P{G,Position,Size/64.f,Tint,Vertices,Indices};
++    const int32 Count=FMath::Clamp(Stacks,0,CadenceString::MaximumStacks);
++    const bool Full=Count==CadenceString::MaximumStacks;
++    const FLinearColor Blue(.25f,.68f,.98f),Silver(.66f,.73f,.76f);
++    const FLinearColor Active=Full?ColdSteelUI::HUDGoldLight:Blue;
++    FLinearColor Metal=ColdSteelUI::HUDGoldDim;Metal.A=.72f;
++    const FVector2D Center(32,31);
++    P.Disc(Center,28,FLinearColor(.012f,.018f,.022f,.46f));
++    P.Arc(Center,28.2f,0,360,FLinearColor(.24f,.29f,.30f,.42f),.45f);
++    P.Arc(Center,23.5f,0,360,FLinearColor(.32f,.38f,.40f,.34f),.4f);
++    for(int32 X:{-1,1})for(int32 Y:{-1,1})
++    {
++        auto At=[&](float A,float B){return FVector2D(32+X*A,32+Y*B);};
++        P.Line(At(30,30),At(8,30),Metal,.4f);P.Line(At(30,30),At(30,8),Metal,.4f);
++        P.Line(At(28.6f,28.6f),At(19,28.6f),Metal,.3f);P.Line(At(28.6f,28.6f),At(28.6f,19),Metal,.3f);
++        P.Line(At(29,24),At(24,29),Metal,.5f);P.Line(At(28,28),At(23,23),Metal,.45f);
++        P.Diamond(At(28,28),.8f,.8f,Silver);
++        P.Line(At(24,26),At(24,22),Metal,.35f);P.Line(At(26,24),At(22,24),Metal,.35f);
++    }
++    for(int32 Segment=0;Segment<CadenceString::MaximumStacks;++Segment)
++    {
++        const float Start=-90.f+Segment*72.f+2.f,End=Start+68.f;
++        P.Arc(Center,26,Start,End,FLinearColor(.11f,.17f,.22f,.8f),1.5f);
++        const float Amount=Segment<Count-1?1.f:Segment==Count-1?FMath::Clamp(Reveal,0.f,1.f):0.f;
++        if(Amount>0.f)
++        {
++            auto C=Active;C.A=.80f+.12f*Pulse+(Full?.08f*Breath:0.f);
++            P.Arc(Center,26,Start,FMath::Lerp(Start,End,Amount),C,1.35f,true);
++            C=FMath::Lerp(Active,FLinearColor::White,.55f);C.A=.85f;
++            P.Arc(Center,26.45f,Start,FMath::Lerp(Start,End,Amount),C,.32f);
++        }
++    }
++    if(Full)
++    {
++        auto Halo=Active;Halo.A=.12f+.1f*Breath+.2f*Pulse;
++        P.Arc(Center,28.4f+Pulse*1.2f,0,360,Halo,.65f,true);
++    }
++    // Two softly shaded crossing strands preserve the woven material at HUD size.
++    const auto& Thread=Cord();
++    for(int32 I=1;I<Thread.Num();++I)
++    {
++        const auto& A=Thread[I-1];const auto& B=Thread[I];
++        P.Line(A.Position,B.Position,FLinearColor(.01f,.018f,.024f,.93f),3.3f);
++        P.Line(A.Position-A.Normal*.55,B.Position-B.Normal*.55,FLinearColor(.20f,.29f,.34f,.94f),1.15f);
++        P.Line(A.Position+A.Normal*(A.Weave*.75),B.Position+B.Normal*(B.Weave*.75),Silver,.65f);
++        P.Line(A.Position-A.Normal*(A.Weave*.75),B.Position-B.Normal*(B.Weave*.75),ColdSteelUI::HUDGold,.5f);
++    }
++    auto Glyph=Full?ColdSteelUI::HUDGoldLight:Silver;Glyph.A=Count>0?.96f:.55f;
++    P.Triangle({32,12},{29.7,20},{32,24},Glyph);
++    P.Triangle({32,12},{32,24},{34.3,20},FMath::Lerp(Glyph,FLinearColor::White,.4f));
++    for(float Y:{23.f,27.f})
++    {P.Light({26.5,Y},{32,Y+5.f},Glyph,.65f);P.Light({32,Y+5.f},{37.5,Y},Glyph,.65f);}
++    for(int32 I=0;I<5;++I)
++    {
++        auto C=I<Count?Active:FLinearColor(.17f,.21f,.24f,.65f);
++        P.Diamond({23.f+I*4.5f,56},.8f,Full?2.4f:1.65f,C);
++        if(Full){C.A=.25f+.22f*Breath;P.Light({23.f+I*4.5f,54},{23.f+I*4.5f,58},C,.55f);}
++    }
++    if(Number)
++    {
++        P.Disc({55,53},7.4f,FLinearColor(.015f,.021f,.025f,.96f));
++        P.Arc({55,53},7.4f,0,360,Full?Active:Silver,.65f);
++        P.Arc({55,53},6.6f,0,360,Metal,.25f);
++    }
++    auto Renderer=FSlateApplication::Get().GetRenderer();
++    const auto Resource=Renderer->GetResourceHandle(*FCoreStyle::Get().GetBrush("WhiteBrush"));
++    FSlateDrawElement::MakeCustomVerts(Out,Layer,Resource,Vertices,Indices,nullptr,0,0);
++    if(Number)
++    {
++        static const FString Digits[]={TEXT("0"),TEXT("1"),TEXT("2"),TEXT("3"),TEXT("4"),TEXT("5")};
++        const auto Font=ColdSteelUI::NumberFont(13.f);
++        const auto Extent=Renderer->GetFontMeasureService()->Measure(Digits[Count],Font);
++        const FVector2D Origin=Position+(FVector2D(55,53)-Extent*.5)*P.Scale;
++        FSlateDrawElement::MakeText(Out,Layer+1,G.ToPaintGeometry(Extent,FSlateLayoutTransform(P.Scale,Origin)),
++            Digits[Count],Font,ESlateDrawEffect::None,ColdSteelUI::TextPrimary*Tint);
++        return Layer+1;
++    }
++    return Layer;
++}

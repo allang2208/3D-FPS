@@ -1,0 +1,43 @@
+{
+  "name": "穿云弓体",
+  "name_status": "正式",
+  "host_weapon": "高地长弓",
+  "host_id": "bow_woodsteel",
+  "slot": "riser",
+  "stage": "assets_and_catalog_saved_build_blocked",
+  "requested_focus": [
+    "暴击伤害",
+    "最远射程"
+  ],
+  "balance_values": {
+    "range_mult": 1.45,
+    "crit_damage_bonus": 0.75,
+    "physical_damage_mult": 1.1,
+    "draw_speed_bonus": -0.35,
+    "stamina_mult": 1.55,
+    "charge_stamina_mult": 1.55
+  },
+  "visual_design": "深烟褐胡桃木层压弓臂、浅色层压边线、连续银钢双脊、收束盾形弓根护片与细小菱纹。",
+  "interface_intent": "正式模型保留原 11 骨骨架、中央握持区、箭台、瞄具及上下弦挂点。",
+  "views": [
+    "弓面",
+    "垂直侧面",
+    "反面"
+  ],
+  "source_reference": [
+    "SourceAssets/WoodSteelLongbow20261026/HighlandV3/HighlandLongbow_FarPeak_Concept_v2.png",
+    "SourceAssets/WoodSteelLongbow20261026/FarPeakIconV6/far_peak_actual_part.png"
+  ],
+  "generated_by": "built-in imagegen",
+  "original_image": "C:/Users/allan/.codex/generated_images/01a1767e-a054-7ac3-9096-1a5de77fc746/exec-2817af6b-8058-49bc-8257-fa45b8138f6b.png",
+  "image": "Cloudpiercer_BowBody_Concept_v1.png",
+  "prompt": "imagegen-prompt.txt",
+  "user_approved": true,
+  "runtime_integrated": true,
+  "tier": "Special",
+  "option_id": "highland_cloudpiercer",
+  "production_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WoodSteelLongbow20261026\\CloudpiercerV9",
+  "native_build_complete": false,
+  "gameplay_tested": false,
+  "production_receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WoodSteelLongbow20261026\\CloudpiercerV9\\completion.json"
+}

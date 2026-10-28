@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp
+@@ -45,6 +45,12 @@
+     double ForgeMultiplier=ColdSteelForgeQuality::Multiplier(Item)*ColdSteelAssemblyQuality::Multiplier(Item);
+     // Bow physical quality is applied after damage channels are separated in WeaponDamagePanel.
+     ForgeMultiplier*=ColdSteelWoodQuality::Multiplier(Item,ColdSteelWoodQuality::EChannel::Physical);
++    if(ColdSteelInventory::IsBow(Item))
++        if(const auto* Gunsmith=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
++        {
++            const auto Mods=Gunsmith->Calculate(Item.Definition,Gunsmith->Installed(Item)).Bow;
++            ForgeMultiplier*=Mods.ShotDamage*Mods.PhysicalDamage;
++        }
+     auto WithForging=[&](const FString& Expression)
+     {return FMath::IsNearlyEqual(ForgeMultiplier,1.)?Expression:TEXT("(")+Expression+TEXT(")×")+FormulaNumber(ForgeMultiplier);};
+     if(const auto Formula=Enhancement->AttackFormula(Item))

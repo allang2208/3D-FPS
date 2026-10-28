@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/UI/StatusEffectIconPainter.cpp
++++ b/Source/FPSGAME/UI/StatusEffectIconPainter.cpp
+@@ -2,6 +2,7 @@
+ #include "HAL/PlatformTime.h"
+ #include "StatusEffectsComponent.h"
+ #include "ColdSteelUIStyle.h"
++#include "ColdSteelCadenceBadge.h"
+ #include "Rendering/DrawElementTypes.h"
+ 
+ namespace
+@@ -10,13 +11,14 @@
+ {
+     Dragon, Phoenix, Shield, Drop, Skull, Eye, Spiral, Reticle, Diamond, Star, Hourglass,
+     Snow, Flame, Chain, Stride, Leaf, Flask, Lightning, Stone, Ledger, Pick, Mountain,
+-    Wave, Antlers, Music, Root, Armor, Lotus, Taiji, Crystal, Cloud, Arrow, Bone, Fang, Sun
++    Wave, Antlers, Music, Root, Armor, Lotus, Taiji, Crystal, Cloud, Arrow, Bone, Fang, Sun, Cadence
+ };
+ struct FIcon { EGlyph Glyph; uint8 Variant=0; };
+ FIcon ResolveIcon(const FStatusEffectView& V)
+ {
+     // Explicit identities: related effects share an engraved motif with different secondary marks.
+     static const TMap<FName,FIcon> Icons={
++        {TEXT("bowCadence"),{EGlyph::Cadence,0}},
+         {TEXT("tangDragonMight"),{EGlyph::Dragon,0}}, {TEXT("tangPhoenixDance"),{EGlyph::Phoenix,0}},
+         {TEXT("physicalVulnerability"),{EGlyph::Armor,1}}, {TEXT("breakingSeal"),{EGlyph::Armor,2}}, {TEXT("tigerRoar"),{EGlyph::Fang,1}},
+         {TEXT("fountainBlessing"),{EGlyph::Drop,0}}, {TEXT("sanityCollapse"),{EGlyph::Eye,1}},
+@@ -86,6 +88,9 @@
+ int32 ColdSteelUI::PaintStatusEffectIcon(const FGeometry& G,FSlateWindowElementList& Out,
+     int32 Layer,FVector2D Offset,float Size,const FStatusEffectView& View,const FLinearColor& Tint)
+ {
++    if(View.Type==TEXT("bowCadence"))
++        return ColdSteelCadenceBadge::Paint(G,Out,Layer,Offset,Size,Tint,View.Stacks,
++            1.f,0.f,View.Stacks>=5?.5f+.5f*FMath::Sin(float(FPlatformTime::Seconds()*4.)):0.f,false);
+     const float S=Size/32.f;
+     const auto Icon=ResolveIcon(View);
+     const auto Plate=RoundedBrush(FLinearColor::White,5*S,FLinearColor::Transparent,0);

@@ -1,0 +1,81 @@
+{
+  "name": "山鸣弓弦",
+  "name_status": "提案",
+  "host_weapon": "高地长弓",
+  "host_id": "bow_woodsteel",
+  "slot": "string",
+  "tier": "Legendary",
+  "stage": "concept_and_effect_proposal_complete",
+  "user_approved": false,
+  "runtime_integrated": false,
+  "balance_status": "proposed_not_applied",
+  "stats_proposed": {
+    "draw_speed_bonus": 0.15,
+    "speed_mult": 1.2,
+    "stamina_mult": 1.25,
+    "charge_stamina_mult": 1.25
+  },
+  "direct_attribute_copy": [
+    "拉弓速度 +15%",
+    "箭矢速度 +20%",
+    "体力消耗 +25%",
+    "持续拉弓耗体 +25%"
+  ],
+  "special_effects_proposed": [
+    "弦鸣｜满弓箭命中敌人积攒1层弦鸣，最多3层，持续10秒；再次积攒刷新持续时间，每次射击最多获得1层。",
+    "山谷回响｜拥有3层弦鸣时，下一次满弓射击消耗全部层数，0.18秒后沿原发射方向补出一支弦影箭，造成原箭80%的物理伤害，不额外消耗箭矢或体力。",
+    "弦影｜继承原箭的暴击结果，不再次判定暴击；不叠加弦鸣，不复制贯穿、元素、照明或其他技能附效。穿心箭仅带入物理伤害。"
+  ],
+  "mechanic_rules_proposed": {
+    "full_draw_required": true,
+    "learned_heart_piercing_required": false,
+    "gain_per_player_shot_max": 1,
+    "stack_cap": 3,
+    "stack_duration_seconds": 10.0,
+    "refresh_on_eligible_hit": true,
+    "consume_on_next_full_draw_release": true,
+    "consuming_shot_gains_stack": false,
+    "partial_draw_consumes_stack": false,
+    "echo_delay_seconds": 0.18,
+    "echo_physical_damage_factor": 0.8,
+    "echo_path": "snapshot of the original projectile launch position, direction, speed, gravity and flight range; delayed independent projectile, no homing",
+    "echo_damage_basis": "original outgoing physical component including its physical skill multipliers; target mitigation applies normally to the echo hit",
+    "echo_critical": "inherit originating shot critical result; no second roll or repeated crit multiplier",
+    "echo_magic_damage": 0,
+    "echo_extra_targets": 0,
+    "echo_on_hit_procs": false,
+    "echo_grants_ammunition_or_skill_training": false,
+    "echo_extra_ammo_or_stamina_cost": false,
+    "clear_on_unequip_or_death": true,
+    "stack_persistence": "transient per equipped weapon instance; no saving stacks",
+    "draw_speed_policy": "one shared draw-speed modifier for ordinary and Heart-Piercing draws; no separate skill-speed modifier"
+  },
+  "visual_design": {
+    "cord": "graphite-grey and silver-white tightly braided fibres, fine buried antique-gold filament",
+    "ends": "flexible woven loops with short silver-and-brass sleeves and subtle three-peak engraving",
+    "center": "matte charcoal finger-contact serving, narrow nocking locator; no protruding hardware under the fingers",
+    "charge_readout": "three gold-thread chevrons above the serving illuminate one by one; full charge produces a thin warm-gold filament",
+    "release": "brief paired afterglow, no large screen-covering flash",
+    "interfaces": "preserve original upper/lower limb string anchors, brace nock and draw-hand contact; production fit deferred until model authorization"
+  },
+  "views_requested": [
+    "front",
+    "side",
+    "rear",
+    "upper loop detail",
+    "braid and charge marks",
+    "serving and nocking point"
+  ],
+  "design_rationale": "Reward deliberate full-draw accuracy with periodic physical burst; the independent string slot complements Far Peak and Cloudpiercer body choices. Holding duration is not used as a benefit.",
+  "source_context": [
+    "Content/ColdSteelData/bow-gunsmith.json",
+    "Content/ColdSteelData/skills.json"
+  ],
+  "image_prompt": "imagegen-prompt.txt",
+  "gameplay_tested": false,
+  "generated_by": "Blender native 3D concept sheet",
+  "image": "MountainEcho_String_Concept_v1.png",
+  "editable_source": "MountainEcho_String_Concept_v1.blend",
+  "imagegen_result": "Output rejected by the image service; no generated image used",
+  "imagegen_request_id": "417471b9-d3f0-4505-8393-b08e4f7a54d9"
+}

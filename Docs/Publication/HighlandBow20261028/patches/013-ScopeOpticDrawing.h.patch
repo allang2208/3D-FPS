@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/UI/ScopeOpticDrawing.h
++++ b/Source/FPSGAME/UI/ScopeOpticDrawing.h
+@@ -52,7 +52,7 @@
+ }
+ 
+ inline void PaintHousing(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
+-    const FVector2f& Center,float R,float S,float Alpha,bool PSO,const FVector2f& Eye)
++    const FVector2f& Center,float R,float S,float Alpha,bool PSO,const FVector2f& Eye,bool bMaskPeriphery=true)
+ {
+     TArray<FSlateVertex> Verts;TArray<SlateIndex> Indices;
+     Verts.Reserve(11*(Segments+1));Indices.Reserve(9*Segments*6);
+@@ -80,7 +80,10 @@
+     AddRing(R+4.3f*S,PSO?FLinearColor(.09f,.087f,.07f,1):FLinearColor(.078f,.087f,.095f,1),.055f);
+     AddRing(R+6.2f*S,FLinearColor(.016f,.019f,.021f,1),.009f);
+     AddRing(R+(PSO?13.f:10.f)*S,FLinearColor(.004f,.005f,.005f,1),0.f);
+-    AddRing(FVector2f(G.GetLocalSize()).Size(),FLinearColor::Black,0.f);
++    // Peakwatch keeps the main-camera scene outside its eyepiece. End that
++    // housing with a narrow transparent edge; other optics retain their mask.
++    AddRing(bMaskPeriphery?FVector2f(G.GetLocalSize()).Size():R+(PSO?14.f:11.f)*S,
++        bMaskPeriphery?FLinearColor::Black:FLinearColor::Transparent,0.f);
+     for(int32 Band=0;Band<6;++Band)Join(Band*(Segments+1),(Band+1)*(Segments+1));
+ 
+     // A shallow directional crescent makes eye alignment legible without

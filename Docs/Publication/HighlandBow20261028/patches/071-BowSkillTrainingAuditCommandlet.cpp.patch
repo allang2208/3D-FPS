@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp
++++ b/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp
+@@ -25,6 +25,8 @@
+ 
+ int32 UBowSkillTrainingAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("BowPresentationReview")))return RunBowPresentationReview(Params);
++    if(FParse::Param(*Params,TEXT("BowResonanceReview")))return RunBowResonanceReview(Params);
+     if(FParse::Param(*Params,TEXT("ElementalHoldReview")))return RunElementalHoldReview(Params);
+     if(FParse::Param(*Params,TEXT("BowNetworkReview")))return RunBowNetworkReview(Params);
+     if(FParse::Param(*Params,TEXT("MagicArrowRain")))return RunMagicArrowRain(Params);

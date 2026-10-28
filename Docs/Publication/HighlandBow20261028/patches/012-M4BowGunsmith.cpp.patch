@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/UI/M4BowGunsmith.cpp
++++ b/Source/FPSGAME/UI/M4BowGunsmith.cpp
+@@ -68,13 +68,16 @@
+             Same?TEXT("—"):FString::Printf(TEXT("%+.*f%s"),Digits,D,Unit),Same?0:((D>0)!=Lower?1:-1)});
+     };
+     Row(ColdSteelWeaponText::TotalDamage,A.Damage.Total(),B.Damage.Total(),2,TEXT(""));
++    Row(ColdSteelWeaponText::FlightLimit,A.Range,B.Range,2,TEXT(" m"));
++    if(A.CriticalDamageBonus!=0||B.CriticalDamageBonus!=0)Row(ColdSteelWeaponText::CriticalBonus,A.CriticalDamageBonus*100.,B.CriticalDamageBonus*100.,0,TEXT("%"));
+     Row(ColdSteelWeaponText::BasePhysical,A.Damage.BasePhysical,B.Damage.BasePhysical,2,TEXT(""));
+     if(A.Damage.AddedPhysical>0||B.Damage.AddedPhysical>0)Row(ColdSteelWeaponText::AddedPhysical,A.Damage.AddedPhysical,B.Damage.AddedPhysical,2,TEXT(""));
+     if(A.Damage.AddedMagic>0||B.Damage.AddedMagic>0)Row(ColdSteelWeaponText::AddedMagic,A.Damage.AddedMagic,B.Damage.AddedMagic,2,TEXT(""));
+     Row(ColdSteelWeaponText::DrawTime,A.Draw,B.Draw,2,TEXT(" s"),true);Row(ColdSteelWeaponText::NockTime,A.Nock,B.Nock,2,TEXT(" s"),true);
+     Row(TEXT("拉弓速度加成"),A.DrawSpeedBonus*100.,B.DrawSpeedBonus*100.,1,TEXT("%"));
++    Row(ColdSteelWeaponText::RhythmWindow,A.RhythmWindow,B.RhythmWindow,2,TEXT(" s"));
+     Row(ColdSteelWeaponText::ProjectileSpeed,A.Speed,B.Speed,1,TEXT(" m/s"));Row(ColdSteelWeaponText::StaminaCost,A.Stamina,B.Stamina,2,TEXT(""),true);
+-    Row(ColdSteelWeaponText::HoldTime,A.Hold,B.Hold,2,TEXT(" s"));Row(ColdSteelWeaponText::Sway,A.Sway,B.Sway,2,TEXT(""),true);
++    Row(ColdSteelWeaponText::BowChargeStamina,A.ChargeStamina,B.ChargeStamina,2,TEXT(" /s"),true);Row(ColdSteelWeaponText::Sway,A.Sway,B.Sway,2,TEXT(""),true);
+     Row(ColdSteelWeaponText::HipSpreadAngle,FMath::RadiansToDegrees(FMath::Atan(A.Spread)),FMath::RadiansToDegrees(FMath::Atan(B.Spread)),2,TEXT("°"),true);
+     Row(ColdSteelWeaponText::ADS,A.ADS*1000,B.ADS*1000,0,TEXT(" ms"),true);
+     Overview.Add({TEXT("伤害条件"),TEXT("满弓单箭"),TEXT("满弓单箭"),TEXT("—"),0});

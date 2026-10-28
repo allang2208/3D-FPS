@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/UI/StatusEffectsHUD.cpp
++++ b/Source/FPSGAME/UI/StatusEffectsHUD.cpp
+@@ -20,6 +20,7 @@
+ #include "TimerManager.h"
+ #include "Widgets/Layout/SDPIScaler.h"
+ #include "Rendering/DrawElementTypes.h"
++#include "Rendering/DrawElements.h"
+ 
+ namespace
+ {
+@@ -134,7 +135,14 @@
+   const double Now=GetWorld()?GetWorld()->GetTimeSeconds():SampledAt;
+   const auto Fill=FMath::Lerp(View.Color,ColdSteelUI::TextPrimary,.25f);
+   auto Deep=View.Color*.45f;Deep.A=1.f;
+-  Result=ColdSteelUI::PaintResourceMeter(G,Out,Result+1,{5,76},{62,4},ProgressAt(Now),Fill,Deep,ColdSteelUI::Border,Tint);
++  if(View.Type==TEXT("bowCadence"))
++  {
++   TArray<FVector2D> Ring;const float Progress=ProgressAt(Now);
++   for(int32 I=0;I<=64;++I)
++   {const float A=-PI*.5f+2.f*PI*Progress*I/64.f;Ring.Add(FVector2D(27,23)+FVector2D(FMath::Cos(A),FMath::Sin(A))*18.5f);}
++   FSlateDrawElement::MakeLines(Out,++Result,G.ToPaintGeometry(),Ring,ESlateDrawEffect::None,Fill*Tint,true,1.15f);
++  }
++  else Result=ColdSteelUI::PaintResourceMeter(G,Out,Result+1,{5,76},{62,4},ProgressAt(Now),Fill,Deep,ColdSteelUI::Border,Tint);
+  }
+  return Result;
+ }

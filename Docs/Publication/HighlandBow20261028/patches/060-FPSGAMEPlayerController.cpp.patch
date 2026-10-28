@@ -1,0 +1,44 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -19,7 +19,6 @@
+ #include "UI/ColdSteelHUDWidget.h"
+ #include "UI/ColdSteelGameMenuWidget.h"
+ #include "UI/LPVOScopeWidget.h"
+-#include "Blueprint/WidgetBlueprintLibrary.h"
+ #include "UI/ColdSteelStatusModel.h"
+ #include "UI/ColdSteelPickup.h"
+ #include "UI/ColdSteelDamageNumberSubsystem.h"
+@@ -291,6 +290,8 @@
+     GameMenu = CreateWidget<UColdSteelGameMenuWidget>(this, UColdSteelGameMenuWidget::StaticClass());
+     if (GameMenu) GameMenu->AddToPlayerScreen(90);
+     ScopeOverlay=CreateWidget<ULPVOScopeWidget>(this,ULPVOScopeWidget::StaticClass());
++    // All opaque scope surrounds stay below the combat HUD: damage numbers,
++    // target health, player status, hotbar and weapon readouts remain readable.
+     if(ScopeOverlay){ScopeOverlay->SetVisibility(ESlateVisibility::HitTestInvisible);ScopeOverlay->AddToPlayerScreen(10);}
+     if (ColdSteelHUD)
+     {
+@@ -638,21 +639,9 @@
+                 Loading->ReleaseToGameplay();
+         }
+     }
+-    const auto* ScopeCharacter=Cast<AFPSGAMECharacter>(GetPawn());
+-    const bool Hide=IsLocalController()&&!bShowMouseCursor&&ScopeCharacter&&ScopeCharacter->GetScopePresentationAlpha()>.5f;
+-    if(Hide==bScopePanelsHidden)return;
+-    bScopePanelsHidden=Hide;
+-    if(Hide){
+-        TArray<UUserWidget*> Panels;
+-        UWidgetBlueprintLibrary::GetAllWidgetsOfClass(this,Panels,UUserWidget::StaticClass(),true);
+-        for(auto* Panel:Panels)if(Panel!=ScopeOverlay&&Panel->GetOwningPlayer()==this){
+-            ScopePanelVisibility.Add(Panel,static_cast<uint8>(Panel->GetVisibility()));
+-            Panel->SetVisibility(ESlateVisibility::Hidden);
+-        }
+-    }else{
+-        for(const auto& Entry:ScopePanelVisibility)if(Entry.Key.IsValid())Entry.Key->SetVisibility(static_cast<ESlateVisibility>(Entry.Value));
+-        ScopePanelVisibility.Reset();
+-    }
++    // ADS changes only the optical presentation. Each panel retains its own
++    // visibility lifecycle (inventory, menus, death, wheel and loading states).
++    // Never blanket-hide/restore top-level widgets when the scope changes.
+ }
+ 
+ void AFPSGAMEPlayerController::ToggleInventory()

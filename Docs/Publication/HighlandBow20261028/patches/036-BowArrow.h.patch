@@ -1,0 +1,70 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.h
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.h
+@@ -6,6 +6,7 @@
+ #include "GameFramework/Actor.h"
+ #include "TimerManager.h"
+ #include "../../Skills/ColdSteelSkillTypes.h"
++#include "MountainEchoString.h"
+ #include "BowArrow.generated.h"
+ 
+ class USceneComponent;
+@@ -15,6 +16,7 @@
+ class USphereComponent;
+ class UPrimitiveComponent;
+ class UNiagaraComponent;
++class UBowMountainEchoComponent;
+ class UMaterialInterface;
+ struct FStreamableHandle;
+ 
+@@ -31,6 +33,18 @@
+     UPROPERTY() bool bFlameArmor=false;
+     UPROPERTY() EArrowElement Element=EArrowElement::None;
+     UPROPERTY() bool bIllumination=false;
++    UPROPERTY() bool bMountainEcho=false;
++    UPROPERTY() TObjectPtr<UMaterialInterface> EchoMaterial=nullptr;
++};
++
++/** A short-lived contact snapshot survives the initial replication of close hits. */
++USTRUCT()
++struct FBowMountainEchoContact
++{
++    GENERATED_BODY()
++    UPROPERTY() bool bHit=false;
++    UPROPERTY() FVector_NetQuantize Position=FVector::ZeroVector;
++    UPROPERTY() FVector_NetQuantizeNormal Normal=FVector::UpVector;
+ };
+ 
+ UCLASS()
+@@ -53,6 +67,7 @@
+     void ResolveLaunchObstruction(const FVector& CameraOrigin);
+     void SetIlluminationCast(const FIlluminationArrowCast& Snapshot);
+     void SetElementalCast(const FElementalArrowCast& Snapshot);
++    void ArmMountainEcho(UBowMountainEchoComponent* Source,uint32 Epoch,bool Gain,bool Release,const FVector& Eye);
+     bool CanRecover() const { return bStuck && bRecoverable && !IsActorBeingDestroyed(); }
+     FString RecoveryPrompt() const;
+     bool TryRecover(APawn* Pawn);
+@@ -60,6 +75,24 @@
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ 
+ private:
++    TWeakObjectPtr<UBowMountainEchoComponent> MountainSource;
++    TSharedPtr<MountainEchoString::FImpact> MountainImpact;
++    uint32 MountainEpoch=0;
++    bool bMountainGain=false;
++    UPROPERTY(ReplicatedUsing=OnRep_EchoPending) bool bEchoPending=false;
++    FTimerHandle EchoDelay;
++    UFUNCTION() void OnRep_EchoPending();
++    void ApplyEchoPresentation();
++    UPROPERTY(ReplicatedUsing=OnRep_MountainContact) FBowMountainEchoContact MountainContact;
++    UFUNCTION() void OnRep_MountainContact();
++    void FinishMountainEchoHit(const FHitResult& Hit);
++    void StopMountainEchoVisual();
++    void ReleaseMountainEchoVisual();
++    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> MountainFlightFX;
++    TSharedPtr<FStreamableHandle> MountainFXLoad;
++    bool bMountainFXRequested=false,bMountainContactPlayed=false;
++    bool bMountainContactSoundPlayed=false;
++    float ApplyEchoHit(const FHitResult& Hit,FWeaponDamageResult& Result);
+     FIlluminationArrowCast IlluminationCast;
+     UPROPERTY(Transient) TObjectPtr<class UIlluminationArrowVisual> IlluminationVisual;
+     FVector LastIlluminationScan=FVector::ZeroVector;double NextIlluminationScan=0;

@@ -1,0 +1,33 @@
+{
+  "weapon_id": "bow_woodsteel",
+  "weapon_name": "高地长弓",
+  "passive": {
+    "label": "有效射程 +50%",
+    "previous_range_cm": 3200,
+    "range_cm": 4800,
+    "replaces": "暴击伤害加成 +50%"
+  },
+  "exclusive_part": {
+    "name": "远峰重弓体",
+    "slot": "riser",
+    "stage": "integrated",
+    "directions": {
+      "range": "increase",
+      "damage": "increase",
+      "draw_speed": "decrease",
+      "stamina_cost": "increase"
+    },
+    "balance_values": {
+      "range_mult": 1.3,
+      "shot_damage_mult": 1.25,
+      "draw_speed_bonus": -0.25,
+      "stamina_mult": 1.4,
+      "charge_stamina_mult": 1.4
+    },
+    "construction": "加厚层压木芯、分段弹性钢背、强化叶形弓梢；保留当前握把、箭台、瞄具与弓弦接口。",
+    "runtime_integrated": true,
+    "option_id": "highland_far_peak",
+    "production_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WoodSteelLongbow20261026\\FarPeakV4\\HighlandLongbow_FarPeak_Production.blend"
+  },
+  "gameplay_tested": false
+}

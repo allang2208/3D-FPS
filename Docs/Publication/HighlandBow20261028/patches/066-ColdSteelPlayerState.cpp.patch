@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -116,7 +116,6 @@
+     DOREPLIFETIME_CONDITION(AColdSteelPlayerState,SessionDoorKeys,COND_OwnerOnly);
+     DOREPLIFETIME_CONDITION(AColdSteelPlayerState,FoodClockState,COND_OwnerOnly);
+     DOREPLIFETIME_CONDITION(AColdSteelPlayerState,PlantingUtcTicks,COND_OwnerOnly);
+-    DOREPLIFETIME_CONDITION(AColdSteelPlayerState,bBowPerfectSpeedBonus,COND_OwnerOnly);
+ }
+ 
+ void AColdSteelPlayerState::Tick(float DeltaSeconds)

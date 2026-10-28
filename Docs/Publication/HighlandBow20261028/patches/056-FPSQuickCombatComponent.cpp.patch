@@ -1,0 +1,182 @@
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
+@@ -18,6 +18,7 @@
+ #include "../Weapons/DualPistolQuickCombatMotion.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "../Weapons/Bow/BowQuickCombatMotion.h"
++#include "../Weapons/FPSImpactFXSubsystem.h"
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
+ #include "../Weapons/Staff/StaffQuickCombatMotion.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+@@ -94,6 +95,18 @@
+     AttackEnd=ClipLength;
+ }
+ 
++float UFPSQuickCombatComponent::GetBowRecoilCM() const
++{
++    return Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand()&&ImpactStrength>0.f
++        ?BowQuickCombatMotion::RecoilCM(ImpactAge)*ImpactStrength:0.f;
++}
++
++float UFPSQuickCombatComponent::GetBowSourcePlaybackRate() const
++{
++    return Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand()&&!IsImpactPaused()
++        ?BowQuickCombatMotion::SourceRate(ActionAge,ClipLength)*ActionRate:0.f;
++}
++
+ void UFPSQuickCombatComponent::ConfigureForStaffPunch()
+ {
+     Style=EQuickCombatStyle::StaffPunch;
+@@ -248,23 +261,19 @@
+     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;
+     const auto* CameraOwner=Cast<AFPSGAMECharacter>(GetOwner());
+     const bool bM24=CameraOwner&&CameraOwner->IsM24Weapon()&&IsRifleStyle();
+-    // The bow shove shares the impact timing, with a smaller axial kick and
+-    // restrained lateral motion. Apply the same gain to the residual tail.
++    // Bow contact has a short damped impulse; free follow-through is supplied
++    // by the action camera below and must not imitate a collision on a miss.
+     const auto AddImpact=[&]()
+     {
+         if(!bContactDone)return;
++        if(Style==EQuickCombatStyle::Bow)
++        {
++            BowQuickCombatMotion::ImpactCamera(ImpactAge,ImpactStrength,Location,Rotation);
++            return;
++        }
+         FVector ImpactLocation=FVector::ZeroVector;
+         FRotator ImpactRotation=FRotator::ZeroRotator;
+-        const float ShakeAge=Style==EQuickCombatStyle::Bow
+-            ?ImpactAge*BowQuickCombatMotion::ImpactTimeScale:ImpactAge;
+-        QuickCombatImpactShake::Add(ShakeAge,ImpactLocation,ImpactRotation);
+-        if(Style==EQuickCombatStyle::Bow)
+-        {
+-            ImpactLocation*=FVector(BowQuickCombatMotion::AxialImpactScale,.16f,.25f);
+-            ImpactRotation.Pitch*=BowQuickCombatMotion::PitchImpactScale;
+-            ImpactRotation.Yaw*=.16f;
+-            ImpactRotation.Roll*=.16f;
+-        }
++        QuickCombatImpactShake::Add(ImpactAge,ImpactLocation,ImpactRotation);
+         if(bM24)
+         {
+             const float Weight=M24QuickMeleeMotion::ImpactScale*FMath::Clamp(ImpactStrength,0.f,1.f);
+@@ -320,26 +329,27 @@
+     }
+     if(Style==EQuickCombatStyle::Bow)
+     {
+-        // Short backward loading, a straight forward drive, then recoil.
++        // Shoulder-led loading and a small forward/down arc. Only a real
++        // contact adds the short opposite impulse and rigid assembly recoil.
+         const float T=PhaseFraction();
+         const float K=FMath::SmoothStep(0.f,1.f,T);
+         switch(Phase)
+         {
+         case EQuickCombatBashPhase::Release:
+-            Location=FVector(-.3f,0.f,.2f)*K;
+-            Rotation=FRotator(.2f,0.f,0.f)*K;break;
++            Location=FVector(-.3f,.05f,.15f)*K;
++            Rotation=FRotator(.15f,.08f,.12f)*K;break;
+         case EQuickCombatBashPhase::Cock:
+-            Location=FMath::Lerp(FVector(-.3f,0.f,.2f),FVector(-1.2f,0.f,.35f),K);
+-            Rotation=FMath::Lerp(FRotator(.2f,0.f,0.f),FRotator(.65f,0.f,0.f),K);break;
++            Location=FMath::Lerp(FVector(-.3f,.05f,.15f),FVector(-1.3f,.15f,.3f),K);
++            Rotation=FMath::Lerp(FRotator(.15f,.08f,.12f),FRotator(.45f,.2f,.25f),K);break;
+         case EQuickCombatBashPhase::Smash:
+-            Location=FMath::Lerp(FVector(-1.2f,0.f,.35f),FVector(4.2f,0.f,-.25f),T*T);
+-            Rotation=FMath::Lerp(FRotator(.65f,0.f,0.f),FRotator(-1.5f,0.f,0.f),T*T);break;
++            Location=FMath::Lerp(FVector(-1.3f,.15f,.3f),FVector(3.2f,.28f,-.35f),T*T);
++            Rotation=FMath::Lerp(FRotator(.45f,.2f,.25f),FRotator(-.85f,-.25f,-.3f),T*T);break;
+         case EQuickCombatBashPhase::Follow:
+-            Location=FMath::Lerp(FVector(4.2f,0.f,-.25f),FVector(.45f,0.f,-.1f),K);
+-            Rotation=FMath::Lerp(FRotator(-1.5f,0.f,0.f),FRotator(-.3f,0.f,0.f),K);break;
++            Location=FMath::Lerp(FVector(3.2f,.28f,-.35f),FVector(.35f,.05f,-.1f),K);
++            Rotation=FMath::Lerp(FRotator(-.85f,-.25f,-.3f),FRotator(-.2f,-.05f,-.06f),K);break;
+         default:
+-            Location=FVector(.45f,0.f,-.1f)*(1.f-K);
+-            Rotation=FRotator(-.3f,0.f,0.f)*(1.f-K);break;
++            Location=FVector(.35f,.05f,-.1f)*(1.f-K);
++            Rotation=FRotator(-.2f,-.05f,-.06f)*(1.f-K);break;
+         }
+         AddImpact();
+         return;
+@@ -583,8 +593,9 @@
+             // The F contact strikes the coil around us, instead of also sweeping
+             // through a second target in front. Keep the held weapon's hit feel.
+             ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();
+-            if(ImpactSound)UGameplayStatics::PlaySound2D(this,ImpactSound,.9f,.9f);
+-            if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.8f,1.f);
++            const bool BowContact=Style==EQuickCombatStyle::Bow;
++            if(ImpactSound)UGameplayStatics::PlaySound2D(this,ImpactSound,BowContact?1.1f:.9f,BowContact?.84f:.9f);
++            if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,BowContact?.32f:.8f,1.f);
+             return;
+         }
+     }
+@@ -639,8 +650,8 @@
+     const float Radius=bBook?SpellbookAuthoredStrike::QueryRadiusCM:bPunch?StaffQuickCombatMotion::QueryRadiusCM:bBow?BowQuickCombatMotion::QueryRadiusCM
+         :bRifle?QuickCombatRifleMotion::QueryRadiusCM:QuickCombatPistolMotion::QueryRadiusCM;
+     const bool bHit=MeleeSmallTargets::QueryQuickContact(GetWorld(),Player,Aim,Start,Stats.RangeCM,Radius,Hit);
+-    // One impulse per damage query, including misses. Keep hit confirmation
+-    // separate so ASH and bow only pause their animation after actual damage.
++    // Other quick-melee styles retain their query-frame impulse. Bow collision
++    // feedback is gated by physical contact or damage, never by a free swing.
+     ImpactAge=0.f;
+     Player->RefreshQuickCombatCamera();
+     AActor* Target=bHit?Hit.GetActor():nullptr;
+@@ -651,19 +662,27 @@
+         bProbe?(bBook?TEXT("书页外沿"):bUnarmed?(Hands->GetPunchSide()==1?TEXT("右拳指节"):TEXT("左拳指节")):bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
+         *Start.ToCompactString(),*Direction.ToCompactString(),Stats.RangeCM,*TargetName);
+     if(bHit && UWardBreakableGlass::BreakHit(Hit,Direction))
+-    {ImpactAge=0.f;ImpactStrength=1.f;return;}
++    {ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();return;}
+     auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+     const bool bM24Stock=Player->IsM24Weapon()&&IsRifleStyle();
+-    if(bM24Stock&&bHit&&Hit.bBlockingHit&&!Combat&&!Cast<APawn>(Target))
++    if((bBow||bM24Stock)&&bHit&&Hit.bBlockingHit&&!Combat&&!Cast<APawn>(Target))
+     {
+         // A blocked shove has local resistance but no invented damage,
+         // training credit or bullet hole. The existing pooled surface effect
+         // provides its material sound and a few wood/stone chips or sparks.
+         ImpactAge=0.f;ImpactStrength=.8f;
+         Player->RefreshQuickCombatCamera();
++        if(bBow)
++            if(auto* FX=GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>())
++                FX->SpawnImpact(Hit,Player->FirstPersonCamera,true,false);
+         return;
+     }
+     if(!Combat||Combat->IsDead())return;
++    // Bow resistance is a physical-contact prediction. Client ApplyHit only
++    // forwards to authority and returns zero; waiting on that return suppressed
++    // the owner's hit stop, recoil and contact audio in multiplayer. Damage,
++    // knockback, training and hit markers still require the authoritative result.
++    if(bBow){ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();}
+     const bool Eligible=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
+     FColdSteelSkillShot Shot;
+     if(bPunch)
+@@ -688,19 +707,20 @@
+     if(Applied>0.f||bKilled)Player->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult,false);
+     // Pure push: ReceiveStun would still interrupt attacks even with zero seconds.
+     if(Applied>0.f||bKilled)Combat->ReceiveMeleeKnockback(Player,Stats.KnockbackCM);
+-    // 有效命中控制 ASH／弓的短停顿；镜头冲量已在伤害查询帧触发。
+-    if(Applied>0.f||bKilled){ImpactAge=0.f;ImpactStrength=1.f;}
++    // ASH uses confirmed damage; bow resistance was already predicted from contact.
++    if(Applied>0.f||bKilled){ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();}
+     if(!bUnarmed&&Eligible&&bKilled)bKillPending=true;
+-    if((Applied>0.f||bKilled)&&ImpactSound)
+-    {
+-        UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Hit.ImpactPoint,bBow?1.f:.9f,bBow?.88f:.9f);
++    if((bBow||Applied>0.f||bKilled)&&ImpactSound)
++    {
++        UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Hit.ImpactPoint,bBow?1.1f:.9f,bBow?.84f:.9f);
+         UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 命中音播放=%s 目标=%s 伤害=%.1f 位置=%s"),
+             *ImpactSound->GetName(),*TargetName,Applied,*Hit.ImpactPoint.ToCompactString());
+     }
+     // 用户 2026-09-19：这枚挥击音从「松握即播」改到伤害确认时刻——挥空整段不出声，
+-    // 音效继续要求有效命中，独立于判定帧镜头强震（音量仍为 0.8）。
+-    if((Applied>0.f||bKilled)&&SwingSound)
+-        UGameplayStatics::PlaySound2D(this,SwingSound,.8f,1.f);
++    // Bow uses physical contact, including the owner's pending network hit;
++    // other styles keep their damage-confirmed gate. Misses remain silent.
++    if((bBow||Applied>0.f||bKilled)&&SwingSound)
++        UGameplayStatics::PlaySound2D(this,SwingSound,bBow?.32f:.8f,1.f);
+ }
+ 
+ void UFPSQuickCombatComponent::FinishAction()

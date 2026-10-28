@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowMagicArrowRain.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowMagicArrowRain.cpp
+@@ -13,6 +13,7 @@
+ {
+     if(!Success){CancelAction(false);return;}
+     bArrowNocked=false;bLastPerfectRelease=bLastPiercingRelease=bPerfectSpeedPending=false;
++    LastReleasedDrawId.Invalidate();
+     ReleaseRatio=1.f;ReleaseKick=1.f;ReleaseFeedbackAge=0.f;
+     StopDrawAudio();StopHandlingAudio();SetStage(EBowStage::Release,ReleaseSeconds);EndNetworkDraw();
+ }
