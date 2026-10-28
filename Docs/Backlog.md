@@ -35,9 +35,9 @@
   - 还没处理：参考起跑是两把刀带残影的整圈转刀（16.13–16.87 s）；冲刺步频 0.667 s，参考约 0.5 s。
 - [x] 完整性与联机复查（2026-10-27，见[记录](Weapons/dual-kukri-idle-20261025.md)）：修了双刀突刺击退联机无效、双持命中令牌消耗翻倍、双持重击训练重复计数、副手收起后左刀仍判定、第三人称远端动作时钟五处；未联机实测。共享宿主 `ColdSteelPlayerState.cpp`、`FPSMeleeMovementNetwork.cpp`、`FPSCharacterMovementComponent.h` 按 Integration 补丁发布。
 - [ ] **R16 待用户实机确认**（2026-10-27）：双持待机两刀前倾、分开，按猎手刀身（长刀身）包络重拟合，间距 2.46 cm；双刀突刺左手低 3 cm、双持重击出手左手错开，长刀身下也不穿模；8 条双持动作已重新导入。第三人称双持套猎手刀身未检查。
-- [ ] **R17 双持拔刀待用户实机确认**（2026-10-27）：`A_Kukri_DualEquip`，右手单持抛刀接刀，左手镜像、晚 0.067 s，两拳各往外 6 cm、接刀前后前后错开，自然进双持握姿；左刀飞行按 60 Hz 表驱动（`KukriDualEquipBlade.h`）。第三人称拔刀左手不抛。
+- [x] **R17 双持拔刀**（2026-10-27～28，用户「合格了，工作结束了」）：`A_Kukri_DualEquip`，右手单持抛刀接刀，左手镜像、晚 0.067 s，两拳各往外 6 cm、接刀前后前后错开，自然进双持握姿；左刀飞行按 60 Hz 表驱动（`KukriDualEquipBlade.h`）。第三人称拔刀左手不抛。
 - [ ] 双持下的上挑、冲刺攻击（双手跳劈）、F 刀把仍用单持动作，左手垂到画外；大旋风已接入双持判断但动作未核对；第三人称远端能看到左手弯刀，但双持动作仍套单持的第三人称动作；副手弯刀的耐久等结算未核对。
-- [ ] 未提交 Git。共享宿主（`FPSGAMECharacter.cpp`、`FPSPotionUseComponent.cpp`、`ColdSteelProfileRuntime.cpp` 各一处）发布时按 Integration 补丁处理；改前备份与差异在 `Saved/TaskBackups/DualKukri-20261025-224430/`。`NOTE.md` 标明了 `ColdSteelProfileRuntime.cpp` 里另一会话的近战数值段，不属于本任务。
+- [x] 已发布：提交 `859910f7` 推到 `origin/main`（2026-10-28）。共享宿主（`FPSGAMECharacter.cpp`、`FPSPotionUseComponent.cpp`、`ColdSteelProfileRuntime.cpp`、`ColdSteelPlayerState.cpp`、`FPSMeleeMovementNetwork.cpp`、`FPSCharacterMovementComponent.h`）按 `Docs/Publication/DualKukri20261028/Integration` 的 6 份补丁处理；改前备份与差异在 `Saved/TaskBackups/DualKukri-20261025-224430/`。`NOTE.md` 标明了 `ColdSteelProfileRuntime.cpp` 里另一会话的近战数值段，不属于本任务。
 
 ## 五款背包当前状态与整理（2026-10-23）
 
