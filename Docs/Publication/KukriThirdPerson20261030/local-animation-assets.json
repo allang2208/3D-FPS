@@ -1,0 +1,635 @@
+{
+  "redistribution": "Local only; source and derived animation redistribution not cleared.",
+  "assets": [
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Idle",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Idle.A_KukriBody_Idle",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Idle.uasset",
+      "exists": true,
+      "bytes": 537696,
+      "sha256": "fc6bc6d97a2628ab6289cdef99e916fdf2f374dc198b287e9796e80d351f3a03"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Equip",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Equip_Completion.A_Kukri_FullBody_Equip_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Equip_Completion.uasset",
+      "exists": true,
+      "bytes": 663893,
+      "sha256": "8497193901d0b4f3cb3d84416178f74411631b2896b95eedc35bd4e5be3befe6"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Slash1",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Slash1.A_KukriCombo_Slash1",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Slash1.uasset",
+      "exists": true,
+      "bytes": 748737,
+      "sha256": "b8ea7da43b445b2dc11a9a4da1f16e11f712548729e122f68f5bf7f05b513df7"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Slash2",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Slash2.A_KukriCombo_Slash2",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Slash2.uasset",
+      "exists": true,
+      "bytes": 635394,
+      "sha256": "724f6b5a359edc751f70a07c5cf3663db2370d3c6921cd95ec3ca30ea6c3789e"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Thrust",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/ThrustSourceArmV6/A_KukriCombo_ThrustSourceArm.A_KukriCombo_ThrustSourceArm",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/ThrustSourceArmV6/A_KukriCombo_ThrustSourceArm.uasset",
+      "exists": true,
+      "bytes": 852640,
+      "sha256": "a2fe0e0e3e5247b93d79058a956be792323a486011a4b1ce43d3556facb27efc"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Charge",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/HeavyV4/A_Kukri_HeavyCharge_ShoulderBack.A_Kukri_HeavyCharge_ShoulderBack",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/HeavyV4/A_Kukri_HeavyCharge_ShoulderBack.uasset",
+      "exists": true,
+      "bytes": 1149123,
+      "sha256": "78c6edab6027c8833a5b61c2e99c2553bf066a1c85c238e9cfa1c37ce3ce2821"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Heavy",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/HeavyV4/A_Kukri_HeavyRelease_Diagonal.A_Kukri_HeavyRelease_Diagonal",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/HeavyV4/A_Kukri_HeavyRelease_Diagonal.uasset",
+      "exists": true,
+      "bytes": 1300931,
+      "sha256": "d444877e085c70ea3db4a9eb01e1a1395ec228464a120bcb4ad7e677b545f824"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dash",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DashFreeArmV4/A_Kukri_Dash_FreeArm.A_Kukri_Dash_FreeArm",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DashFreeArmV4/A_Kukri_Dash_FreeArm.uasset",
+      "exists": true,
+      "bytes": 1243361,
+      "sha256": "ce5900b24a3244e81848dcb0d41a6d55b759940f8600a78a9ed2c05243794696"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Uppercut",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/UppercutSingleLegsV1/A_Kukri_Uppercut_SupportedLegs.A_Kukri_Uppercut_SupportedLegs",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/UppercutSingleLegsV1/A_Kukri_Uppercut_SupportedLegs.uasset",
+      "exists": true,
+      "bytes": 1406882,
+      "sha256": "3ee9d2eb95c09bae06afe6bec35c2f3c45858cd70667ae3b4a3e78a6beb32199"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Pommel",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/QuickFirstPersonV3/A_Kukri_Pommel_FirstPersonArms.A_Kukri_Pommel_FirstPersonArms",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/QuickFirstPersonV3/A_Kukri_Pommel_FirstPersonArms.uasset",
+      "exists": true,
+      "bytes": 1032952,
+      "sha256": "85e108827c81296e2ae813a35b9c12d7342915ac22239d310efb169cc4ff77b5"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Whirlwind.Start",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Start_SingleWindmillRepair.A_Kukri_Whirlwind_Start_SingleWindmillRepair",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Start_SingleWindmillRepair.uasset",
+      "exists": true,
+      "bytes": 533934,
+      "sha256": "9a1ef7738970ebf7f0437c026f47bda1faab06b064bbb1e6966b652d0e1c42bf"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Whirlwind.Loop",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Loop_SingleWindmillRepair.A_Kukri_Whirlwind_Loop_SingleWindmillRepair",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Loop_SingleWindmillRepair.uasset",
+      "exists": true,
+      "bytes": 963051,
+      "sha256": "293e7bd7784ccf02a3089747c139a740a2beaf7a20a5a4dade8f7800941a09ff"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Whirlwind.End",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_End_SingleWindmillRepair.A_Kukri_Whirlwind_End_SingleWindmillRepair",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_End_SingleWindmillRepair.uasset",
+      "exists": true,
+      "bytes": 810695,
+      "sha256": "97394f17cb39727cba36753d2d89a7142729ea0fdee6ba045a85e996a32634ef"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Recover1",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Recover1.A_KukriCombo_Recover1",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Recover1.uasset",
+      "exists": true,
+      "bytes": 485188,
+      "sha256": "e9f4cec5d7f7104d3e9706045afa949a44ad0a069e786668ee52417ddb1d2e45"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Recover2",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Recover2.A_KukriCombo_Recover2",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Recover2.uasset",
+      "exists": true,
+      "bytes": 488164,
+      "sha256": "c8dbc0b69668fd398ed25dfaf8321fa9f97498724b43651b0a85778b6553de11"
+    },
+    {
+      "body": "jason",
+      "key": "Pistol.KukriCarry.Hip",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Hip.A_Pistol_KukriCarry_Hip",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Hip.uasset",
+      "exists": true,
+      "bytes": 311633,
+      "sha256": "2451f18c92611722b5a03d68eaf7807561dd03d30ea348f3f21c8473c01f3c18"
+    },
+    {
+      "body": "jason",
+      "key": "Pistol.KukriCarry.Aim",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Aim.A_Pistol_KukriCarry_Aim",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Aim.uasset",
+      "exists": true,
+      "bytes": 311637,
+      "sha256": "34d80b378150734e37bc0c2dfb3f2392ed10f76c397e21ecfb8458d6157a0bd7"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Whirlwind.Start",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Start_DualCarry.A_Kukri_Dual_Whirlwind_Start_DualCarry",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Start_DualCarry.uasset",
+      "exists": true,
+      "bytes": 533839,
+      "sha256": "1302dd832e65ff8b036cecc29db491d7e78aa1485ca95c61c435ba59ee223423"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Whirlwind.Loop",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Loop_DualCarry.A_Kukri_Dual_Whirlwind_Loop_DualCarry",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Loop_DualCarry.uasset",
+      "exists": true,
+      "bytes": 723531,
+      "sha256": "5f1ed5181350f0319001ea78b4388dc9da42ee6603eba79400e91aa033cb0483"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Whirlwind.End",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_End_DualCarry.A_Kukri_Dual_Whirlwind_End_DualCarry",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_End_DualCarry.uasset",
+      "exists": true,
+      "bytes": 635207,
+      "sha256": "5a12e880377e944cd018f2a88d362b4bc62ac7c93fbb911e94489eaec4289878"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Idle",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Idle_DualCarry.A_Kukri_Dual_Idle_DualCarry",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Idle_DualCarry.uasset",
+      "exists": true,
+      "bytes": 857009,
+      "sha256": "cc2960c23b3253eb463692b3577f525271634f842ff537953a456d65d2785733"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Uppercut",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/UppercutDualLegsV1/A_Kukri_Dual_Uppercut_SupportedLegs.A_Kukri_Dual_Uppercut_SupportedLegs",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/UppercutDualLegsV1/A_Kukri_Dual_Uppercut_SupportedLegs.uasset",
+      "exists": true,
+      "bytes": 1368909,
+      "sha256": "bbf4e45db2037f1cb4598796bf5812d5295f6211aaf924073b0866d8fec34476"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Dash",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DashHandsV3/A_Kukri_Dual_Dash_Hands.A_Kukri_Dual_Dash_Hands",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DashHandsV3/A_Kukri_Dual_Dash_Hands.uasset",
+      "exists": true,
+      "bytes": 1011588,
+      "sha256": "c1d46ee4eecd32ab1cd2d007f31f8d5adae3357058aebe953188b6e6dc6ddac1"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Slash1",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualFree3D20261029/A_Kukri_Dual_Slash1_Free3DV1.A_Kukri_Dual_Slash1_Free3DV1",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualFree3D20261029/A_Kukri_Dual_Slash1_Free3DV1.uasset",
+      "exists": true,
+      "bytes": 1036057,
+      "sha256": "50ee475c676e6ef1b559580d1a4d03555605f6fc540d13f60be83f478186c94b"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Slash2",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualFree3DSecondV220261029/A_Kukri_Dual_Slash2_Free3DSecondV2.A_Kukri_Dual_Slash2_Free3DSecondV2",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualFree3DSecondV220261029/A_Kukri_Dual_Slash2_Free3DSecondV2.uasset",
+      "exists": true,
+      "bytes": 1048355,
+      "sha256": "f016f989d2483e17eed8ed88cc873fbb202f0bbbe6bec5391e0c74d01823d126"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Thrust",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/ThrustNaturalV220261029/A_Kukri_Dual_Thrust_NaturalV2.A_Kukri_Dual_Thrust_NaturalV2",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/ThrustNaturalV220261029/A_Kukri_Dual_Thrust_NaturalV2.uasset",
+      "exists": true,
+      "bytes": 1180649,
+      "sha256": "eff186f0adf142d3725cc2f1d15a8d18586de3eb0e8b818906098cabf0a47108"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Charge",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCombat20261028/A_Kukri_Dual_Charge_Combat.A_Kukri_Dual_Charge_Combat",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCombat20261028/A_Kukri_Dual_Charge_Combat.uasset",
+      "exists": true,
+      "bytes": 1133856,
+      "sha256": "8c643f1fc0f788991eb9da462ed532832a66261ebfeb661d09797a14b4142d2c"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Heavy",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCombat20261028/A_Kukri_Dual_Heavy_Combat.A_Kukri_Dual_Heavy_Combat",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCombat20261028/A_Kukri_Dual_Heavy_Combat.uasset",
+      "exists": true,
+      "bytes": 776829,
+      "sha256": "ebba9be623fcd31061113d65ae1cd1968b8ea00b4566ce0024470ac4d4149191"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Recover1",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover1_Completion.A_Kukri_FullBody_Dual_Recover1_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover1_Completion.uasset",
+      "exists": true,
+      "bytes": 561464,
+      "sha256": "ff222dc27e67be1d6a2d7d5a4d58ebac84dc5df26af2cc618218f5b7e3c8200d"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Recover2",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover2_Completion.A_Kukri_FullBody_Dual_Recover2_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover2_Completion.uasset",
+      "exists": true,
+      "bytes": 555628,
+      "sha256": "0711222743c066e0ed4f3cc6967668fe46b4f6dfc2ea63b597212d3d243a4e3a"
+    },
+    {
+      "body": "jason",
+      "key": "Pistol.KukriQuickCombat",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/PistolKukriThrustV1/A_Pistol_KukriThrust.A_Pistol_KukriThrust",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/PistolKukriThrustV1/A_Pistol_KukriThrust.uasset",
+      "exists": true,
+      "bytes": 452180,
+      "sha256": "821f4d27f212a9466dc9ac13e1b3dacf9bfed7608d56df727234380cd2772cf1"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Equip",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Equip_Completion.A_Kukri_FullBody_Dual_Equip_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Equip_Completion.uasset",
+      "exists": true,
+      "bytes": 1012337,
+      "sha256": "c5e00519af813aec61c78f33649450caa15217933a36b98d455cf13cd5131b46"
+    },
+    {
+      "body": "jason",
+      "key": "Pistol.KukriUppercut",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.A_Pistol_KukriUppercut_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.uasset",
+      "exists": true,
+      "bytes": 1274850,
+      "sha256": "94ce5a2946b359d66815ee6194fe0d0076370a5b59cffab5d9aa744eaeeaf8f5"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Pommel",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.A_Kukri_FullBody_Dual_Pommel_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.uasset",
+      "exists": true,
+      "bytes": 765304,
+      "sha256": "d7c04bef9a00d17bffde712c50501dcb232439fc223c6be8182a4f15a61f88b4"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Run",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.A_Kukri_FullBody_Dual_Run_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.uasset",
+      "exists": true,
+      "bytes": 443174,
+      "sha256": "0c0d93f6fe082666586dfd13f6afa3fb58a3882c9b45727b8a7d4e9760d53224"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Idle",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Idle.K_A_KukriBody_Idle",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Idle.uasset",
+      "exists": true,
+      "bytes": 631324,
+      "sha256": "889de59f1dfa3525348c41c2e629a9c27db441fa16dacaf2ac1758ed7fb3425d"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Equip",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Equip_Completion.A_Kukri_FullBody_Equip_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Equip_Completion.uasset",
+      "exists": true,
+      "bytes": 614294,
+      "sha256": "65b2a7746ab70e2bb8d700e5fc9c85c489f6348e6411a5145fcc5b86283c4ec4"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Slash1",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Slash1.A_KukriCombo_Slash1",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Slash1.uasset",
+      "exists": true,
+      "bytes": 2633771,
+      "sha256": "15d57a15c2c3003b11bb97801947bba373d8ab13d4d274f22df724278d32392f"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Slash2",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Slash2.A_KukriCombo_Slash2",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Slash2.uasset",
+      "exists": true,
+      "bytes": 618220,
+      "sha256": "f49c1922b7b8e658775516f8abd277890915ffe3f5245f166c0291136de90b98"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Thrust",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/ThrustSourceArmV6/A_KukriCombo_ThrustSourceArm.A_KukriCombo_ThrustSourceArm",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/ThrustSourceArmV6/A_KukriCombo_ThrustSourceArm.uasset",
+      "exists": true,
+      "bytes": 2735212,
+      "sha256": "6b221ae18dc6b33964a0a5daf852ee109dc2123b08ccfac95161440e8c9b0c36"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Charge",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/HeavyV4/A_Kukri_HeavyCharge_ShoulderBack.A_Kukri_HeavyCharge_ShoulderBack",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/HeavyV4/A_Kukri_HeavyCharge_ShoulderBack.uasset",
+      "exists": true,
+      "bytes": 4099661,
+      "sha256": "a161c966f2899b94339118507c1fac0ce844f9f64a6ee1a8b2a83a849135d700"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Heavy",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/HeavyV4/A_Kukri_HeavyRelease_Diagonal.A_Kukri_HeavyRelease_Diagonal",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/HeavyV4/A_Kukri_HeavyRelease_Diagonal.uasset",
+      "exists": true,
+      "bytes": 4734637,
+      "sha256": "e35d00426f45e7de5e3884b88ca7e9187f5a59e2e7efe511ac0304220d650a03"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dash",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DashFreeArmV4/A_Kukri_Dash_FreeArm.A_Kukri_Dash_FreeArm",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DashFreeArmV4/A_Kukri_Dash_FreeArm.uasset",
+      "exists": true,
+      "bytes": 1078563,
+      "sha256": "1f4c0ad88cafb3c7675473f96f777811c4a80e99d3c379a98eca197a80b7143e"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Uppercut",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/UppercutSingleLegsV1/A_Kukri_Uppercut_SupportedLegs.A_Kukri_Uppercut_SupportedLegs",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/UppercutSingleLegsV1/A_Kukri_Uppercut_SupportedLegs.uasset",
+      "exists": true,
+      "bytes": 4011676,
+      "sha256": "ec63ac8f8cf6ac4407a8d190dce3aaa004ceb695d390b227d230233cdeb996dc"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Pommel",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/QuickFirstPersonV3/A_Kukri_Pommel_FirstPersonArms.A_Kukri_Pommel_FirstPersonArms",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/QuickFirstPersonV3/A_Kukri_Pommel_FirstPersonArms.uasset",
+      "exists": true,
+      "bytes": 978818,
+      "sha256": "0e7a043248b12f440676d3f7c1d49774db4580201dbbd535945add1238d965c0"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Whirlwind.Start",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Start_SingleWindmillRepair.A_Kukri_Whirlwind_Start_SingleWindmillRepair",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Start_SingleWindmillRepair.uasset",
+      "exists": true,
+      "bytes": 502766,
+      "sha256": "f00b331abf8ac3df9b3a36b7306bc5ff801c50b32554564dbc5fe5f3ce7ee323"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Whirlwind.Loop",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Loop_SingleWindmillRepair.A_Kukri_Whirlwind_Loop_SingleWindmillRepair",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Loop_SingleWindmillRepair.uasset",
+      "exists": true,
+      "bytes": 825515,
+      "sha256": "6118fe2c82c26695c84eac514f90251bda47e3863116de2d91dd10c794a47453"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Whirlwind.End",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_End_SingleWindmillRepair.A_Kukri_Whirlwind_End_SingleWindmillRepair",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_End_SingleWindmillRepair.uasset",
+      "exists": true,
+      "bytes": 746247,
+      "sha256": "b1c9fd8f3674cf70d2e96f4e87fe0895137667786907109ecb62f9e98af80e35"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Recover1",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Recover1.A_KukriCombo_Recover1",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Recover1.uasset",
+      "exists": true,
+      "bytes": 1243151,
+      "sha256": "51f43b31132772358208ddccccf74484ee42e5e111fce25ae775bd6ce9ccaab8"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Recover2",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Recover2.A_KukriCombo_Recover2",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Recover2.uasset",
+      "exists": true,
+      "bytes": 1246127,
+      "sha256": "236a13fa92823a2aba2eb81bc5ac917de73b1b2b07e7a3dbbc384c7d1ece4d8f"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Pistol.KukriCarry.Hip",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Hip.A_Pistol_KukriCarry_Hip",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Hip.uasset",
+      "exists": true,
+      "bytes": 311707,
+      "sha256": "982e3d4c258a5a20a4e1f272e57cb3beeaef9453c7dfd1a0f5b509ed5c0172a9"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Pistol.KukriCarry.Aim",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Aim.A_Pistol_KukriCarry_Aim",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Aim.uasset",
+      "exists": true,
+      "bytes": 311711,
+      "sha256": "1ce7412d3ada25eb64afa21fc76c6482ce1a29d31ccd702919c4ab03be72991a"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Whirlwind.Start",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Start_DualCarry.A_Kukri_Dual_Whirlwind_Start_DualCarry",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Start_DualCarry.uasset",
+      "exists": true,
+      "bytes": 502671,
+      "sha256": "23fad0c7267cb88a2bde1a24514c350e3c80db40bd1006d4b9deefb061aa7d0f"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Whirlwind.Loop",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Loop_DualCarry.A_Kukri_Dual_Whirlwind_Loop_DualCarry",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Loop_DualCarry.uasset",
+      "exists": true,
+      "bytes": 585996,
+      "sha256": "fa446a2af693d2f6f8071cd624df19ad05b3469db13c5589cfac8dc8d729e23d"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Whirlwind.End",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_End_DualCarry.A_Kukri_Dual_Whirlwind_End_DualCarry",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_End_DualCarry.uasset",
+      "exists": true,
+      "bytes": 570760,
+      "sha256": "045bf14d67bfac9be176f0e57a2d84b8bdad0870b3f3240f2f4ff7b30d5cdd98"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Idle",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Idle_DualCarry.A_Kukri_Dual_Idle_DualCarry",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Idle_DualCarry.uasset",
+      "exists": true,
+      "bytes": 836478,
+      "sha256": "b70d2e6f57514253cc6407197371372c76e7ce1dccdaf88762ef1fca6beb0c85"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Uppercut",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/UppercutDualLegsV1/A_Kukri_Dual_Uppercut_SupportedLegs.A_Kukri_Dual_Uppercut_SupportedLegs",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/UppercutDualLegsV1/A_Kukri_Dual_Uppercut_SupportedLegs.uasset",
+      "exists": true,
+      "bytes": 2792354,
+      "sha256": "6818c08cad77aa06981559a919a233ba50cb79ebe966192b938ec54ded3d90f6"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Dash",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DashHandsV3/A_Kukri_Dual_Dash_Hands.A_Kukri_Dual_Dash_Hands",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DashHandsV3/A_Kukri_Dual_Dash_Hands.uasset",
+      "exists": true,
+      "bytes": 846790,
+      "sha256": "84aa45bacf5c0b4007317afb88f444b266747bb42050fa2b81627ba7ecc315de"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Slash1",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualFree3D20261029/A_Kukri_Dual_Slash1_Free3DV1.A_Kukri_Dual_Slash1_Free3DV1",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualFree3D20261029/A_Kukri_Dual_Slash1_Free3DV1.uasset",
+      "exists": true,
+      "bytes": 942489,
+      "sha256": "8cb9bcee3dff9723201b4b9a41ebeea7ca5237c1e221e4ad76038023a9296ee6"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Slash2",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualFree3DSecondV220261029/A_Kukri_Dual_Slash2_Free3DSecondV2.A_Kukri_Dual_Slash2_Free3DSecondV2",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualFree3DSecondV220261029/A_Kukri_Dual_Slash2_Free3DSecondV2.uasset",
+      "exists": true,
+      "bytes": 952995,
+      "sha256": "80b25c5eb1c412c6cc095fce9da96a17f6ead5cd445f3232a56dee34588c82da"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Thrust",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/ThrustNaturalV220261029/A_Kukri_Dual_Thrust_NaturalV2.A_Kukri_Dual_Thrust_NaturalV2",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/ThrustNaturalV220261029/A_Kukri_Dual_Thrust_NaturalV2.uasset",
+      "exists": true,
+      "bytes": 3267466,
+      "sha256": "ac85c1e752c19a953451bc5933565a45225461fdaf5184852d3cb2a7d86e0426"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Charge",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCombat20261028/A_Kukri_Dual_Charge_Combat.A_Kukri_Dual_Charge_Combat",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCombat20261028/A_Kukri_Dual_Charge_Combat.uasset",
+      "exists": true,
+      "bytes": 3146752,
+      "sha256": "8005c86611bf06914f1089af2ce982a47d7db87695035e535ccf4f14ca1bcd62"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Heavy",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCombat20261028/A_Kukri_Dual_Heavy_Combat.A_Kukri_Dual_Heavy_Combat",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCombat20261028/A_Kukri_Dual_Heavy_Combat.uasset",
+      "exists": true,
+      "bytes": 1787485,
+      "sha256": "508e7f193198780239a778ef0d414c221d549802c966dd569be705a2c47a5bee"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Recover1",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover1_Completion.A_Kukri_FullBody_Dual_Recover1_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover1_Completion.uasset",
+      "exists": true,
+      "bytes": 543962,
+      "sha256": "8b2c325f86ea9364b1a4129b098f2cb32159acfe0dedafcb08f6ed722c647918"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Recover2",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover2_Completion.A_Kukri_FullBody_Dual_Recover2_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover2_Completion.uasset",
+      "exists": true,
+      "bytes": 530318,
+      "sha256": "30c4be40cbc178eccc82db3bb9d542d77dbbf31cee120de843d6b2648a2a80c2"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Pistol.KukriQuickCombat",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/PistolKukriThrustV1/A_Pistol_KukriThrust.A_Pistol_KukriThrust",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/PistolKukriThrustV1/A_Pistol_KukriThrust.uasset",
+      "exists": true,
+      "bytes": 412832,
+      "sha256": "4f132e421c2a52ff0903daf724beaad2c4b58d3b95ce37e5a3f6633ed0cdae98"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Equip",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Equip_Completion.A_Kukri_FullBody_Dual_Equip_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Equip_Completion.uasset",
+      "exists": true,
+      "bytes": 955569,
+      "sha256": "42fca5872ae116ecb427492df393a6504ee0a3593d2945c68dacf1e01178616a"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Pistol.KukriUppercut",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.A_Pistol_KukriUppercut_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.uasset",
+      "exists": true,
+      "bytes": 1191684,
+      "sha256": "dd4a1c79017a4b5f356baadccfd26571f18e2d2e880226fdfccc04e40d53b6b8"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Pommel",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.A_Kukri_FullBody_Dual_Pommel_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.uasset",
+      "exists": true,
+      "bytes": 1481690,
+      "sha256": "aca23252b782a28ebc12ddd28545933488d0011011c84fd0e4113b5f655f6106"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Run",
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.A_Kukri_FullBody_Dual_Run_Completion",
+      "local_path": "Content/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.uasset",
+      "exists": true,
+      "bytes": 424294,
+      "sha256": "13b2734e7d2f4a137c7ccbcbd19d35433661927e359103adbf202dace1af7e73"
+    }
+  ]
+}

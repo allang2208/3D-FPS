@@ -1,0 +1,51 @@
+{
+  "policy": "Commercial-use permission is not assumed to permit source redistribution. No vendor FBX/GLB/ZIP, dense motion tracks or licensed UE assets are included.",
+  "records": [
+    {
+      "file": "SourceAssets/KukriDualFree3D20261029/source-provenance.json",
+      "data": {
+        "provider": "Free3D.jp",
+        "source_page": "https://www.free3d.jp/",
+        "source_downloads": [
+          "https://www.free3d.jp/download.php?id=43",
+          "https://www.free3d.jp/download.php?id=48"
+        ],
+        "license_evidence": "Source site homepage states commercially usable humanoid animations. Original homepage retained at SourceAssets/DualBladeSourceSearch20261029/free3d.html. No CC0 claim.",
+        "sources": [
+          {
+            "role": "Kukri.FullBody.Dual.Slash1",
+            "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualBladeSourceSearch20261029\\Free3D_Cross_Attack.fbx",
+            "sha256": "490fbe7676904c1ba5f34e0f0489f757b321dc1d0a568fe19912a00917e302a9",
+            "duration_seconds": 3.2666666666666666,
+            "source_fps": 30.0
+          },
+          {
+            "role": "Kukri.FullBody.Dual.Slash2",
+            "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualBladeSourceSearch20261029\\Free3D_Heavy_Attack.fbx",
+            "sha256": "1599209fc3bf5e77f8eeeca21cf31f357b43125e3a19eadcb208c689ff8cdb97",
+            "duration_seconds": 1.6666666666666667,
+            "source_fps": 30.0
+          }
+        ],
+        "bodies": [
+          "Jason",
+          "Kaitlin"
+        ],
+        "asset_count": 4,
+        "adaptation": [
+          "Complete donor body and native anatomical frame retargeting",
+          "Cross Attack first two cuts; overhead third finisher omitted",
+          "Heavy Attack complete take with 0.5 second offhand delay in donor chest space",
+          "Native grip finger tracks retained; arm twist helpers recomputed",
+          "Source gross travel removed; actor movement and gameplay hit windows preserved",
+          "Both action endpoints use current dual idle"
+        ],
+        "first_person_changed": false,
+        "gameplay_changed": false,
+        "cpp_changed": false,
+        "runtime_tested": false,
+        "rendered": false
+      }
+    }
+  ]
+}

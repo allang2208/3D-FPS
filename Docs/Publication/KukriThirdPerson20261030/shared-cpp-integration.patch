@@ -1,0 +1,513 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -6,0 +7,6 @@
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
++#include "../Weapons/Kukri/OffhandKukriAuthoredStrike.h"
++#include "../Weapons/Kukri/OffhandKukriAuthoredUppercut.h"
++#include "../Weapons/Kukri/KukriRhythm.h"
++#include "../Skills/LightningHasteSpeed.h"
+@@ -142,0 +149,2 @@
++    if(const auto* Kukri=Pawn->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())
++        SampleKukriState(*Kukri,State,Now);
+@@ -189,0 +198,25 @@
++    }
++    if(const auto* Knife=Pawn->FindComponentByClass<UOffhandKukriComponent>();
++        Knife&&Knife->IsEquipped()&&(Knife->IsQuickCombatActive()||Knife->IsUppercutActive()))
++    {
++        const float Rate=FMath::Max(.05f,LightningHaste::ActionSpeed(Pawn));
++        if(Knife->IsUppercutActive())
++        {
++            const float Age=Knife->GetUppercutAge();
++            Timed(EFPSBodyAction::HeavyStrike,Age,OffhandKukriUpper::Length,
++                Rate*KukriRhythm::StageTempo(KukriRhythm::UppercutStage,Age));
++            State.ActionVariant=TEXT("OffhandKukriUppercut");
++            State.ContactFraction=OffhandKukriUpper::ContactStart/OffhandKukriUpper::Length;
++            State.ReleaseFraction=OffhandKukriUpper::ContactEnd/OffhandKukriUpper::Length;
++            State.bUppercutLungeBlocked=Knife->IsUppercutLungeBlocked();
++            if(Knife->IsUppercutPaused())State.ActionProgressRate=0.f;
++        }
++        else
++        {
++            Timed(EFPSBodyAction::Thrust,Knife->GetQuickCombatAge(),OffhandKukriStrike::Length,Rate);
++            State.ActionVariant=TEXT("OffhandKukriThrust");
++            State.ContactFraction=OffhandKukriStrike::Contacts[0]/OffhandKukriStrike::Length;
++            State.ReleaseFraction=.32f/OffhandKukriStrike::Length;
++            if(Knife->IsQuickCombatPaused())State.ActionProgressRate=0.f;
++        }
++        State.bAiming=false;State.bSprinting=false;
+@@ -255,0 +289,3 @@
++    if(const auto* Profile=Pawn->GetNetShadowProfile())
++        if(const auto* Item=Profile->Equipped();Item&&UKukriWeaponComponent::IsKukri(*Item))
++        {State.Family=TEXT("Kukri");State.Weapon=TEXT("ue_kukri");}
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -6,0 +7,1 @@
++#include "FPSBodyKukriMotion.h"
+@@ -148,0 +150,1 @@
++    FSinglePistolSupportFit KukriSupportFit;
+@@ -149,0 +152,5 @@
++    FPoseLink KukriCarryHip,KukriCarryAim;
++    bool bKukriCarryActive=false,bHadKukriCarry=false,bKukriQuickActive=false,bHadKukriQuick=false;
++    float KukriCarryAge=0.f,KukriCarryBlendSeconds=.24f;
++    FString KukriCarryInstance;
++    TArray<FTransform> KukriCarryEntryPose,KukriCarryLastPose;
+@@ -200,0 +208,2 @@
++    bool bKukriAuthoredStep=false;
++    bool bKukriAuthoredDigits=false;
+@@ -253,1 +262,1 @@
+-    virtual void Initialize_AnyThread(const FAnimationInitializeContext& C) override { Source.Initialize(C);Neutral.Initialize(C);Grip.Initialize(C);Sword.Initialize(C);StaffCast.Initialize(C);StaffCarry.Initialize(C);BookCarry.Initialize(C);BookPush.Initialize(C);Consume.Initialize(C);BowNative.Initialize(C); }
++    virtual void Initialize_AnyThread(const FAnimationInitializeContext& C) override { Source.Initialize(C);Neutral.Initialize(C);Grip.Initialize(C);Sword.Initialize(C);StaffCast.Initialize(C);StaffCarry.Initialize(C);BookCarry.Initialize(C);BookPush.Initialize(C);KukriCarryHip.Initialize(C);KukriCarryAim.Initialize(C);Consume.Initialize(C);BowNative.Initialize(C); }
+@@ -256,1 +265,1 @@
+-        Source.CacheBones(C);Neutral.CacheBones(C);Grip.CacheBones(C);Sword.CacheBones(C);StaffCast.CacheBones(C);StaffCarry.CacheBones(C);BookCarry.CacheBones(C);BookPush.CacheBones(C);Consume.CacheBones(C);bHasHandHistory=false;bHadSwordPair=false;bHasSwordRestTorso=false;const auto& Bones=C.AnimInstanceProxy->GetRequiredBones();
++        Source.CacheBones(C);Neutral.CacheBones(C);Grip.CacheBones(C);Sword.CacheBones(C);StaffCast.CacheBones(C);StaffCarry.CacheBones(C);BookCarry.CacheBones(C);BookPush.CacheBones(C);KukriCarryHip.CacheBones(C);KukriCarryAim.CacheBones(C);bHadKukriCarry=false;KukriCarryAge=0.f;KukriCarryEntryPose.Reset();Consume.CacheBones(C);bHasHandHistory=false;bHadSwordPair=false;bHasSwordRestTorso=false;const auto& Bones=C.AnimInstanceProxy->GetRequiredBones();
+@@ -263,0 +273,2 @@
++        KukriSupportFit.Initialize(Bones);KukriSupportFit.Reset();
++        bHadKukriQuick=false;KukriCarryLastPose.Reset();
+@@ -358,1 +369,1 @@
+-    virtual void Update_AnyThread(const FAnimationUpdateContext& C) override { Source.Update(C);Neutral.Update(C);Grip.Update(C);if(SwordWeight>ZERO_ANIMWEIGHT_THRESH)Sword.Update(C);if(bStaffCastActive)StaffCast.Update(C);if(bStaffCarryActive)StaffCarry.Update(C);if(bBookCarryActive)BookCarry.Update(C);if(bBookPushActive)BookPush.Update(C);if(ConsumeWeight>ZERO_ANIMWEIGHT_THRESH)Consume.Update(C);if(NativeBowWeight>ZERO_ANIMWEIGHT_THRESH)BowNative.Update(C); }
++    virtual void Update_AnyThread(const FAnimationUpdateContext& C) override { Source.Update(C);Neutral.Update(C);Grip.Update(C);if(SwordWeight>ZERO_ANIMWEIGHT_THRESH)Sword.Update(C);if(bStaffCastActive)StaffCast.Update(C);if(bStaffCarryActive)StaffCarry.Update(C);if(bBookCarryActive)BookCarry.Update(C);if(bBookPushActive)BookPush.Update(C);if(bKukriCarryActive){KukriCarryHip.Update(C);KukriCarryAim.Update(C);}if(ConsumeWeight>ZERO_ANIMWEIGHT_THRESH)Consume.Update(C);if(NativeBowWeight>ZERO_ANIMWEIGHT_THRESH)BowNative.Update(C); }
+@@ -365,0 +377,1 @@
++    void BlendOffhandKukriCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+@@ -847,0 +860,1 @@
++        BlendOffhandKukriCarry(Out,Pose);
+@@ -874,0 +888,5 @@
++                // Draw release/catch and mixed uppercut grip changes belong to
++                // their native take. A final equipment fist would erase them.
++                if(bKukriAuthoredDigits&&(State.Family==TEXT("Kukri")||Side==1)&&
++                    !(LibraryPreserveHands&(1<<Side)))
++                {GripWeights[Side]=1.f;continue;}
+@@ -887,0 +906,1 @@
++                if(Side==1&&bHadKukriCarry)Contact=1.f;
+@@ -931,0 +951,1 @@
++#include "FPSBodyOffhandKukriPose.inl"
+@@ -944,0 +965,1 @@
++    FAnimNode_SequenceEvaluator_Standalone KukriCarryHip,KukriCarryAim;
+@@ -952,0 +974,3 @@
++    float KukriLowerWeight=0.f;
++    FPSBodyKukriMotion::FComboRecovery KukriRecovery;
++    bool bZhufengSwordTake=false;
+@@ -980,0 +1005,2 @@
++        Controls.KukriCarryHip.SetLinkNode(&KukriCarryHip);
++        Controls.KukriCarryAim.SetLinkNode(&KukriCarryAim);
+@@ -992,1 +1018,1 @@
+-        &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&BowNative,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
++        &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&BowNative,&KukriCarryHip,&KukriCarryAim,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
+@@ -1030,1 +1056,8 @@
+-        SmoothedSpeed=FMath::FInterpTo(SmoothedSpeed,D->Speed,Dt,10.f);
++        const bool MatchingOffhandKukri=FPSBodyKukriMotion::MatchesOffhand(D->BodyState,
++            D->bOffhandKukriEquipment,D->OffhandKukriEquipmentInstance);
++        const bool SprintKukriGait=D->BodyState.Family==TEXT("Kukri")&&
++            (D->BodyState.OffhandInstance.IsEmpty()||(MatchingOffhandKukri&&D->Clips.FindRef(TEXT("Kukri.FullBody.Dual.Dash"))))&&
++            D->BodyState.Action==EFPSBodyAction::HeavyStrike&&D->BodyState.ActionVariant==TEXT("SprintAttack");
++        // Sprint input is released by the attack, while CMC retains and brakes
++        // its real velocity. Keep that running stride until it actually stops.
++        SmoothedSpeed=SprintKukriGait?D->Speed:FMath::FInterpTo(SmoothedSpeed,D->Speed,Dt,10.f);
+@@ -1047,1 +1080,1 @@
+-        const float JogTarget=D->BodyState.bSprinting&&!D->BodyState.bAiming?
++        const float JogTarget=(D->BodyState.bSprinting||SprintKukriGait)&&!D->BodyState.bAiming?
+@@ -1108,1 +1141,1 @@
+-        if(D->BodyState.Family!=TEXT("Rifle")&&D->BodyState.Family!=TEXT("Pistol")&&D->BodyState.Family!=TEXT("Staff")&&D->BodyState.Family!=TEXT("Bow")&&D->BodyState.Family!=TEXT("Tool")&&D->BodyState.Family!=TEXT("Melee"))Controls.EquipmentGripHands=0;
++        if(D->BodyState.Family!=TEXT("Rifle")&&D->BodyState.Family!=TEXT("Pistol")&&D->BodyState.Family!=TEXT("Staff")&&D->BodyState.Family!=TEXT("Bow")&&D->BodyState.Family!=TEXT("Tool")&&D->BodyState.Family!=TEXT("Melee")&&D->BodyState.Family!=TEXT("Kukri"))Controls.EquipmentGripHands=0;
+@@ -1113,1 +1146,10 @@
+-        const FName NextSwordKey=HandAttackKey.IsNone()?FPSBodySwordMotion::Clip(D->BodyState):HandAttackKey;
++        const FName KukriBaseKey=KukriRecovery.Advance(D->BodyState,Dt);
++        const FName DualKukriKey=FPSBodyKukriMotion::DualClip(KukriBaseKey);
++        FName KukriKey=!DualKukriKey.IsNone()&&MatchingOffhandKukri&&D->Clips.FindRef(DualKukriKey)?
++            DualKukriKey:KukriBaseKey;
++        const bool KukriRun=KukriKey==TEXT("Kukri.FullBody.Dual.Idle")&&
++            D->SprintAlpha>KINDA_SMALL_NUMBER&&D->Clips.FindRef(TEXT("Kukri.FullBody.Dual.Run"));
++        if(KukriRun)KukriKey=TEXT("Kukri.FullBody.Dual.Run");
++        if(KukriKey==TEXT("Pistol.KukriUppercut")&&!MatchingOffhandKukri)KukriKey=NAME_None;
++        const FName NextSwordKey=!KukriKey.IsNone()?KukriKey:
++            HandAttackKey.IsNone()?FPSBodySwordMotion::Clip(D->BodyState):HandAttackKey;
+@@ -1115,0 +1158,6 @@
++        const bool HasKukriAction=HasSwordAction&&!KukriKey.IsNone();
++        const bool KukriCarry=HasKukriAction&&KukriBaseKey==TEXT("Kukri.FullBody.Idle");
++        const bool KukriRecover=HasKukriAction&&!KukriRecovery.Active.IsNone();
++        Controls.bKukriAuthoredStep=HasKukriAction&&!KukriCarry;
++        Controls.bKukriAuthoredDigits=HasKukriAction&&(KukriKey==TEXT("Kukri.FullBody.Equip")||
++            KukriKey==TEXT("Kukri.FullBody.Dual.Equip")||KukriKey==TEXT("Pistol.KukriUppercut"));
+@@ -1120,2 +1168,10 @@
+-             SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Start")||SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Loop"));
+-        Controls.bSwordChanged=HasSwordAction&&NextSwordKey!=SwordKey&&!WhirlwindPhaseChange;
++             SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Start")||SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Loop")||
++             SwordKey==TEXT("Kukri.FullBody.Whirlwind.Start")||SwordKey==TEXT("Kukri.FullBody.Whirlwind.Loop")||
++             SwordKey==TEXT("Kukri.FullBody.Dual.Whirlwind.Start")||SwordKey==TEXT("Kukri.FullBody.Dual.Whirlwind.Loop"));
++        const bool KukriMatchedRelease=HasKukriAction&&
++            ((NextSwordKey==TEXT("Kukri.FullBody.Heavy")&&SwordKey==TEXT("Kukri.FullBody.Charge"))||
++             (NextSwordKey==TEXT("Kukri.FullBody.Dual.Heavy")&&SwordKey==TEXT("Kukri.FullBody.Dual.Charge")));
++        Controls.SwordTransitionSeconds=KukriCarry?.16f:.08f;
++        const bool KukriRunChange=(KukriKey==TEXT("Kukri.FullBody.Dual.Run")&&SwordKey==TEXT("Kukri.FullBody.Dual.Idle"))||
++            (KukriKey==TEXT("Kukri.FullBody.Dual.Idle")&&SwordKey==TEXT("Kukri.FullBody.Dual.Run"));
++        Controls.bSwordChanged=HasSwordAction&&NextSwordKey!=SwordKey&&!WhirlwindPhaseChange&&!KukriMatchedRelease&&!KukriRunChange;
+@@ -1126,1 +1182,6 @@
+-            Controls.LibraryPreserveHands=Controls.bHandAttackLibrary?FPSBodyHandAttackMotion::PreserveHands(D->BodyState):0;
++            Controls.LibraryPreserveHands=HasKukriAction?FPSBodyKukriMotion::PreserveHands(D->BodyState,MatchingOffhandKukri):
++                Controls.bHandAttackLibrary?FPSBodyHandAttackMotion::PreserveHands(D->BodyState):0;
++            // Loaded dual skills own their complete offhand blade chain.
++            // Generic offhand preservation would discard this authored motion.
++            if(HasKukriAction&&!KukriCarry&&MatchingOffhandKukri&&KukriKey==DualKukriKey)
++                Controls.LibraryPreserveHands=0;
+@@ -1143,1 +1204,8 @@
+-            if(S.Action==EFPSBodyAction::Whirlwind)Sample=FPSBodySwordMotion::WhirlwindSample(S,P);
++            if(KukriRecover)
++                Sample=FMath::Clamp(KukriRecovery.Seconds/FMath::Max(.01f,SwordAsset->GetPlayLength()),0.f,1.f);
++            else if(KukriRun)Sample=FMath::Clamp(D->SprintAlpha,0.f,1.f);
++            else if(KukriCarry)
++                Sample=FMath::Fmod(D->Clock,FMath::Max(.01f,SwordAsset->GetPlayLength()))/FMath::Max(.01f,SwordAsset->GetPlayLength());
++            else if(HasKukriAction&&FPSBodyKukriMotion::UsesAuthoredClock(KukriKey))Sample=P;
++            else if(HasKukriAction&&(S.Action==EFPSBodyAction::Charge||S.Action==EFPSBodyAction::Equip))Sample=P;
++            else if(S.Action==EFPSBodyAction::Whirlwind)Sample=FPSBodySwordMotion::WhirlwindSample(S,P);
+@@ -1157,1 +1225,1 @@
+-            Set(Sword,SwordAsset,Sample*SwordAsset->GetPlayLength(),false);
++            Set(Sword,SwordAsset,Sample*SwordAsset->GetPlayLength(),KukriCarry&&!KukriRun);
+@@ -1160,1 +1228,1 @@
+-            Controls.State.Action=EFPSBodyAction::None;Controls.State.ActionVariant=NAME_None;
++            if(!KukriCarry){Controls.State.Action=EFPSBodyAction::None;Controls.State.ActionVariant=NAME_None;}
+@@ -1164,1 +1232,1 @@
+-        const float SwordTarget=HasSwordAction?FMath::Clamp(D->BodyState.ActionWeight,0.f,1.f):0.f;
++        const float SwordTarget=(KukriCarry||KukriRecover)?1.f-.15f*Movement.Alpha:HasSwordAction?FMath::Clamp(D->BodyState.ActionWeight,0.f,1.f):0.f;
+@@ -1181,0 +1250,10 @@
++        // The blade, pelvis and attack step use the same donor sample. Only
++        // carry and the moving attack's entry/recovery hand back to gait.
++        if(HasKukriAction)
++        {
++            const float Target=(KukriCarry||KukriRecover)?CarryLegs:FPSBodyKukriMotion::AttackLegWeight(
++                D->BodyState,SmoothedSpeed,KukriKey==TEXT("Kukri.FullBody.Dual.Dash"));
++            KukriLowerWeight=FMath::FInterpConstantTo(KukriLowerWeight,Target,Dt,SprintKukriGait?12.5f:8.f);
++            Controls.SwordLegWeight=KukriLowerWeight*(1.f-D->MotionAlpha)*(1.f-D->AirAlpha);
++        }
++        else KukriLowerWeight=0.f;
+@@ -1186,0 +1265,14 @@
++        auto* KukriHip=Clip(TEXT("Pistol.KukriCarry.Hip"));
++        auto* KukriAim=Clip(TEXT("Pistol.KukriCarry.Aim"));
++        Controls.bKukriCarryActive=MatchingOffhandKukri&&Casting.Family==TEXT("Pistol")&&
++            !Casting.bDual&&!Casting.bOffhandPistol&&KukriHip&&KukriAim&&IdleClip&&
++            KukriHip->GetSkeleton()==IdleClip->GetSkeleton()&&KukriAim->GetSkeleton()==IdleClip->GetSkeleton();
++        // Both mixed-weapon attacks retain the actual pistol grip fitter while
++        // the uppercut's full-body take also supplies its torso and planted step.
++        auto* KukriQuick=Clip(FPSBodyKukriMotion::IsOffhandUppercut(Casting)?TEXT("Pistol.KukriUppercut"):TEXT("Pistol.KukriQuickCombat"));
++        Controls.bKukriQuickActive=Controls.bKukriCarryActive&&
++            (FPSBodyKukriMotion::IsOffhandThrust(Casting)||FPSBodyKukriMotion::IsOffhandUppercut(Casting))&&
++            KukriQuick&&KukriQuick->GetSkeleton()==IdleClip->GetSkeleton();
++        Set(KukriCarryHip,Controls.bKukriQuickActive?KukriQuick:Controls.bKukriCarryActive?KukriHip:IdleClip,
++            Controls.bKukriQuickActive?FPSBodyPoses::Progress(Casting,D->Clock)*KukriQuick->GetPlayLength():0.f,false);
++        Set(KukriCarryAim,Controls.bKukriCarryActive?KukriAim:IdleClip,0.f,false);
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h
+@@ -43,0 +44,2 @@
++    bool bOffhandKukriEquipment = false;
++    FString OffhandKukriEquipmentInstance;
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -10,0 +11,2 @@
++#include "FPSBodyKukriMotion.h"
++#include "FPSBodyKukriRifts.h"
+@@ -14,0 +17,1 @@
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
+@@ -178,0 +182,1 @@
++    if(auto* Kukri=Character->FindComponentByClass<UKukriWeaponComponent>())AddTickPrerequisiteComponent(Kukri);
+@@ -204,0 +209,1 @@
++    if(ObserverKukriRifts){ObserverKukriRifts->Clear(GetOwner());ObserverKukriRifts.Reset();}
+@@ -369,0 +375,1 @@
++    if(ObserverKukriRifts)ObserverKukriRifts->Advance(GetWorld()->GetTimeSeconds());
+@@ -417,2 +423,5 @@
+-    if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))OffhandWeaponHiddenUntil=Now+.1f;
+-    if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Consume&&DisplayState.ActionWeight>UE_KINDA_SMALL_NUMBER)
++    const bool StowableLeft=DisplayState.bDual||DisplayState.bOffhandPistol||
++        (BodyAnimation&&FPSBodyKukriMotion::MatchesOffhand(DisplayState,
++            BodyAnimation->bOffhandKukriEquipment,BodyAnimation->OffhandKukriEquipmentInstance));
++    if(StowableLeft&&DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))OffhandWeaponHiddenUntil=Now+.1f;
++    if(StowableLeft&&DisplayState.Action==EFPSBodyAction::Consume&&DisplayState.ActionWeight>UE_KINDA_SMALL_NUMBER)
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -93,0 +94,1 @@
++    friend class UKukriNetworkAuditCommandlet;
+@@ -160,0 +162,2 @@
++    void SampleKukriState(const class UKukriWeaponComponent& Kukri,FFPSBodyState& State,float Now) const;
++    void BuildKukriGrip(const FFPSBodyWeapon& Definition,class UStaticMeshComponent& Blade);
+@@ -270,0 +274,3 @@
++    void UpdateKukriPresentation();
++    void UpdateObserverKukriRifts();
++    TSharedPtr<struct FFPSBodyKukriRifts> ObserverKukriRifts;
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
+@@ -1,0 +2,2 @@
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "Components/DynamicMeshComponent.h"
+@@ -103,0 +106,2 @@
++    UpdateKukriPresentation();
++    UpdateObserverKukriRifts();
+@@ -104,0 +109,21 @@
++    // The owner-view whirlwind uses the actual world blade after this frame's
++    // hand pose is finalized, alongside the other post-pose weapon effects.
++    if(Character.IsValid()&&Character->IsLocallyControlled()&&IsThirdPersonViewEnabled())
++    {
++        auto* Kukri=Character->FindComponentByClass<UKukriWeaponComponent>();
++        if(Kukri&&Kukri->SkillRift==EKukriSkillRift::Whirlwind&&Kukri->bWhirlwind)
++        {
++            bool Found=false;
++            for(const auto& Binding:MotionBindings)
++            {
++                const auto& W=Binding.Definition;
++                if(W.PoseFamily!=TEXT("Kukri")||W.AttachHand!=0||W.ItemInstance!=Kukri->InstanceId)continue;
++                auto* Blade=Binding.Static.Get();
++                if(!Blade||!Blade->IsVisible()||Blade->bHiddenInGame||IsWorldWeaponStowed(Blade))break;
++                auto* Parent=Blade->GetAttachParent();if(!Parent)break;
++                const FTransform Knife=Blade->GetRelativeTransform()*Parent->GetSocketTransform(Blade->GetAttachSocketName(),RTS_World);
++                Kukri->UpdateWhirlwindRiftPose(Knife);Found=true;break;
++            }
++            if(!Found&&Kukri->SkillRiftVisual)Kukri->SkillRiftVisual->SetVisibility(false);
++        }
++    }
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -4,0 +5,4 @@
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/KukriRhythm.h"
++#include "../Weapons/ModularSwordVisual.h"
++#include "../Weapons/Kukri/OffhandKukriAuthoredPose.h"
+@@ -53,0 +58,18 @@
++// Read the same modular recipe on local and remote pawns. No owner viewmodel is
++// required, and the existing body equipment serializer carries the individual parts.
++void DescribeKukri(FFPSBodyWeapon& Weapon,const FColdSteelItem& Item)
++{
++    for(const auto& Module:ColdSteelModularSword::DescribeGeometry(Item))
++    {
++        if(Module.bRoot)
++        {
++            Weapon.StaticMesh=FSoftObjectPath(Module.Mesh);Weapon.Materials.Reset();
++            for(const FString& Material:Module.Materials)Weapon.Materials.Emplace(FSoftObjectPath(Material));
++            continue;
++        }
++        FFPSBodyAttachment Part;Part.Mesh=FSoftObjectPath(Module.Mesh);
++        Part.RelativeTransform=Module.RelativeTransform;Part.Slot=FName(*Module.Slot);
++        for(const FString& Material:Module.Materials)Part.Materials.Emplace(FSoftObjectPath(Material));
++        Weapon.Parts.Add(MoveTemp(Part));
++    }
++}
+@@ -261,0 +284,26 @@
++    else if(WeatherMain&&UKukriWeaponComponent::IsKukri(*WeatherMain))
++    {
++        // Inventory identity also exists on the server's remote pawn, whose
++        // first-person Kukri component intentionally creates no viewmodel.
++        FFPSBodyWeapon Entry;Entry.PoseFamily=TEXT("Kukri");Entry.GripBone=TEXT("hand_r");
++        Entry.StaticMesh=FSoftObjectPath(KukriRhythm::BladeMesh);
++        Entry.Mesh=FSoftObjectPath(ColdSteelInventory::Text(*WeatherMain,TEXT("viewmodel_mesh")));
++        FPSBodyEquipment::DescribeKukri(Entry,*WeatherMain);
++        Weapons.Add(MoveTemp(Entry));
++        if(Pawn->HasOffhandPistol()&&Pawn->DualPistols)
++        {
++            const auto& Hand=Pawn->DualPistols->Hand(1);
++            Weapons.Add(CaptureWeapon(Hand.Mesh,Hand.Clips.FindRef(TEXT("idle")),TEXT("hand_l")));
++            Weapons.Last().AttachHand=1;Weapons.Last().GripProfile=Hand.PoseProfiles.FindRef(TEXT("base"));
++        }
++        else if(WeatherOff&&UKukriWeaponComponent::IsKukri(*WeatherOff))
++        {
++            // Inventory-backed world equipment also covers remote pawns,
++            // whose owner-only dual viewmodel is intentionally absent.
++            FFPSBodyWeapon Left;Left.PoseFamily=TEXT("KukriDual");Left.GripBone=TEXT("hand_l");Left.AttachHand=1;
++            Left.StaticMesh=FSoftObjectPath(KukriRhythm::BladeMesh);
++            Left.Mesh=FSoftObjectPath(ColdSteelInventory::Text(*WeatherMain,TEXT("viewmodel_mesh")));
++            FPSBodyEquipment::DescribeKukri(Left,*WeatherOff);
++            Weapons.Add(MoveTemp(Left));
++        }
++    }
+@@ -324,0 +373,11 @@
++    if(WeatherHeld&&WeatherOff&&ColdSteelInventory::IsDualPistol(*WeatherHeld)&&WeatherOff->Definition==TEXT("ue_kukri"))
++    {
++        // World equipment is derived from the authoritative pair, including
++        // remote pawns without an owner-only first-person kukri component.
++        FFPSBodyWeapon Entry;Entry.StaticMesh=FSoftObjectPath(KukriRhythm::BladeMesh);
++        Entry.Mesh=FSoftObjectPath(TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7"));
++        Entry.GripBone=TEXT("hand_l");Entry.AttachHand=1;Entry.PoseFamily=TEXT("OffhandKukri");
++        Entry.StaticGrip=OffhandKukriPose::KukriInHand;
++        FPSBodyEquipment::DescribeKukri(Entry,*WeatherOff);
++        Weapons.Add(MoveTemp(Entry));
++    }
+@@ -357,0 +417,1 @@
++        if(W.PoseFamily==TEXT("KukriDual"))Schema+=TEXT("|DualKukriCarry20261027");
+@@ -441,0 +502,1 @@
++    if(BodyAnimation){BodyAnimation->bOffhandKukriEquipment=false;BodyAnimation->OffhandKukriEquipmentInstance.Reset();}
+@@ -453,0 +515,2 @@
++            if(Definition.PoseFamily==TEXT("Kukri")||Definition.PoseFamily==TEXT("KukriDual")||Definition.PoseFamily==TEXT("OffhandKukri"))
++                Part->ComponentTags.AddUnique(TEXT("SwordSlot=blade_1"));
+@@ -454,0 +518,17 @@
++            if(Definition.PoseFamily==TEXT("Kukri")||Definition.PoseFamily==TEXT("KukriDual"))BuildKukriGrip(Definition,*Part);
++            if(Definition.PoseFamily==TEXT("KukriDual"))Part->ComponentTags.Add(TEXT("KukriDual"));
++            if(Definition.PoseFamily==TEXT("OffhandKukri"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
++            {
++                const auto& Ref=Native->GetRefSkeleton();auto Pose=Ref.GetRefBonePose();
++                for(const auto& Finger:OffhandKukriPose::Digits)
++                    if(const int32 I=Ref.FindBoneIndex(Finger.Name);I>=0)Pose[I].SetRotation(Finger.LocalRotation.GetNormalized());
++                for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
++                FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),BodyHand);
++                if(Grip.IsValid())
++                {
++                    Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=2;
++                    Part->SetRelativeTransform(OffhandKukriPose::KukriInHand*Grip.Mount);
++                    Part->ComponentTags.Add(TEXT("OffhandKukri"));BodyAnimation->bOffhandKukriEquipment=true;
++                    BodyAnimation->OffhandKukriEquipmentInstance=Definition.ItemInstance;
++                }
++            }
+@@ -653,0 +734,4 @@
++    if(Mesh&&Mesh->ComponentHasTag(TEXT("OffhandKukri"))&&
++        (DisplayState.Action==EFPSBodyAction::Equip||DisplayState.Action==EFPSBodyAction::Inspect||
++         DisplayState.Action==EFPSBodyAction::GunBash||DisplayState.Action==EFPSBodyAction::DoorPush||
++         DisplayState.Action==EFPSBodyAction::Cast))return true;
+@@ -656,1 +740,2 @@
+-    return Hand&&*Hand==1&&(((DisplayState.bDual||DisplayState.bOffhandPistol)&&BusyLeft)||Now<OffhandWeaponHiddenUntil);
++    const bool DualKukri=Mesh&&Mesh->ComponentHasTag(TEXT("KukriDual"));
++    return Hand&&*Hand==1&&(((DisplayState.bDual||DisplayState.bOffhandPistol||DualKukri)&&BusyLeft)||Now<OffhandWeaponHiddenUntil);
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -19,0 +20,1 @@
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+@@ -187,0 +189,3 @@
++        // The body-native pair owns the reversed knife. Never publish an FPS
++        // camera wrist/root over its anatomically mapped static attachment.
++        if(D.PoseFamily==TEXT("OffhandKukri"))continue;
+@@ -286,1 +290,1 @@
+-        if(I==0&&(LocalWeapons.Num()==1||BookStowed)&&D.PoseFamily!=TEXT("Staff")&&D.PoseFamily!=TEXT("Spellbook"))
++        if(I==0&&(LocalWeapons.Num()==1||BookStowed)&&D.PoseFamily!=TEXT("Staff")&&D.PoseFamily!=TEXT("Spellbook")&&!UOffhandKukriComponent::PresentsLeftHand(Pawn))
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -1,0 +2,1 @@
++#include "FPSBodyKukriMotion.h"
+@@ -32,0 +34,2 @@
++        ||(FPSBodyKukriMotion::HasExecutorClock(A)&&FPSBodyKukriMotion::HasExecutorClock(B)
++            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+@@ -69,1 +72,6 @@
+-            DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
++        {
++            // The knife executor supplies its exact haste / hit-stop rate.
++            // Finite differencing would advance a just-paused contact remotely.
++            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState))
++                DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
++        }
+@@ -94,1 +102,2 @@
+-        const bool MeleeRelease=(DisplayState.Action==EFPSBodyAction::Strike||DisplayState.Action==EFPSBodyAction::HeavyStrike)
++        const bool MeleeRelease=(DisplayState.Action==EFPSBodyAction::Strike||DisplayState.Action==EFPSBodyAction::HeavyStrike||
++            (DisplayState.Family==TEXT("Kukri")&&DisplayState.Action==EFPSBodyAction::Thrust))
+diff --git a/Source/FPSGAME/FPSGAMECharacter.h b/Source/FPSGAME/FPSGAMECharacter.h
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -55,0 +56,1 @@
++    friend class AKukriCombatWireController;
+@@ -66,0 +68,1 @@
++    friend class UOffhandKukriComponent;
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -10,0 +11,1 @@
++#include "../Weapons/Kukri/KukriAttackReceipt.h"
+@@ -68,0 +70,2 @@
++    UPROPERTY() uint32 MasteryAttackSerial = 0;
++    UPROPERTY() uint32 KukriAttackSerial = 0;
+@@ -331,0 +335,8 @@
++    uint32 RequestKukriAttack(const FString& Main,const FString& Offhand,uint8 Stage,bool Dash,const FVector& Direction,uint32 MasterySerial);
++    void FinishKukriAttack(uint32 Serial,bool Cancelled);
++    bool GetKukriMovement(uint32 Serial,uint8 Kind,FVector& Direction,float& Limit,float& Recovery) const;
++    bool IsKukriMovementPending(uint32 Serial) const;
++    UFUNCTION(Server,Reliable) void ServerBeginKukriAttack(uint32 Serial,APawn* Pawn,const FString& Main,
++        const FString& Offhand,uint8 Stage,bool Dash,FVector_NetQuantizeNormal Direction,uint32 MasterySerial,double ClientStartedAt);
++    UFUNCTION(Server,Reliable) void ServerFinishKukriAttack(uint32 Serial,APawn* Pawn,bool Cancelled);
++    UFUNCTION(Client,Reliable) void ClientKukriAttackResult(uint32 Serial,APawn* Pawn,bool Accepted,double TotalSpent);
+@@ -341,0 +353,13 @@
++    friend class UKukriNetworkAuditCommandlet;
++    void TickKukriAuthority(float Delta);
++    void ClearKukriAttack();
++    bool MatchesKukriEquipment() const;
++    bool ValidateKukriHit(const FColdSteelNetHitReport& Report,const AFPSGAMECharacter* Pawn,FString& Reason) const;
++    void ConfirmKukriHit(const FColdSteelNetHitReport& Report,AFPSGAMECharacter* Pawn,float Applied,bool Killed,bool TrainingEligible);
++    FKukriAttackReceipt KukriAttack;
++    uint32 KukriSequence=0,KukriReceivedSequence=0,KukriReceiptSequence=0;
++    double KukriReadyAt=0.,KukriChainUntil=0.,KukriDashReadyUntil=-1.;
++    uint8 KukriNextStage=0;
++    float KukriSprintSeconds=0.f;
++    FString KukriChainKey,KukriSprintKey;
++    TWeakObjectPtr<APawn> KukriSprintPawn;
+@@ -349,0 +374,3 @@
++    uint32 ResolveKukriRuneAttackSerial(const FColdSteelNetHitReport& Report,uint32 SnapshotSerial);
++    TWeakObjectPtr<APawn> KukriRunePawn;
++    uint32 KukriRuneSequences[5]={},KukriRuneAttackIds[5]={};
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -40,0 +41,3 @@
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/KukriRhythm.h"
++#include "../Weapons/Kukri/OffhandKukriThrust.h"
+@@ -130,0 +134,1 @@
++        TickKukriAuthority(DeltaSeconds);
+@@ -678,1 +682,4 @@
+-    if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
++    // Kukri uppercut: short blade reach plus the 120 cm stride slack.
++    if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem))
++        MaxRange=static_cast<float>(ColdSteelMelee::UppercutReachCM(ShadowModel))*1.25f+120.f;
++    else if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
+@@ -816,0 +824,5 @@
++    // Damage, mastery and rune callbacks can publish a new inventory, replacing
++    // its backing array. Keep the validated item alive for this entire receipt,
++    // including quick-combat bleed resolution after ApplyHit has returned.
++    FColdSteelItem DeclaredSnapshot;
++    if(Declared){DeclaredSnapshot=*Declared;Declared=&DeclaredSnapshot;}
+@@ -1288,0 +1301,2 @@
++    Report.MasteryAttackSerial=Shot.MasteryAttackSerial;
++    Report.KukriAttackSerial=Shot.KukriAttackSerial;
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h
+--- a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h
+@@ -51,0 +52,2 @@
++    uint32 NetworkAttackSerial() const { return (bAttacking||bDashAttack)?Shot.KukriAttackSerial:0; }
++    void RejectNetworkAttack(uint32 Serial);
+@@ -82,0 +85,2 @@
++    friend class UFPSPlayerBodyComponent;
++    friend class UKukriNetworkAuditCommandlet;
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp
+--- a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp
+@@ -1,0 +2,1 @@
++#include "KukriAttackTiming.h"
+@@ -556,1 +557,1 @@
+-    PlayRate=FMath::Clamp(float(Stats.AttackRate)*KukriRhythm::AttackSeconds/RuneSwordRhythm::AttackEnd,.3f,3.f);
++    PlayRate=KukriAttackTiming::PlayRate(Stats.AttackRate);
+@@ -566,1 +567,1 @@
+-        OffhandPlayRate=FMath::Clamp(float(OffStats.AttackRate)*KukriRhythm::AttackSeconds/RuneSwordRhythm::AttackEnd,.3f,3.f);
++        OffhandPlayRate=KukriAttackTiming::PlayRate(OffStats.AttackRate);
+@@ -573,1 +574,9 @@
+-        if(DualThrust)PlayRate=.5f*(PlayRate+OffhandPlayRate);
++        // Sequential sweeps use each hand's own rate, switching at BeginOffhandSwing.
++        if(DualThrust)PlayRate=KukriAttackTiming::PairedPlayRate(PlayRate,OffhandPlayRate);
++    }
++    if(Net)
++    {
++        Shot.KukriAttackSerial=Net->RequestKukriAttack(InstanceId,OffItem?OffItem->InstanceId:FString(),
++            uint8(NewStage),false,P->GetMeleeAimTransform().GetUnitAxis(EAxis::X),Shot.MasteryAttackSerial);
++        OffhandShot.KukriAttackSerial=Shot.KukriAttackSerial;
++        if(!Shot.KukriAttackSerial)return;
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp b/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
+--- a/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
+@@ -333,0 +334,11 @@
++bool UKukriWeaponComponent::IsNetworkHeavyTargetNew(const FString& Weapon,AActor* Target) const
++{
++    return IsValid(Target)&&IsNetworkHeavyReleaseWindowOpen(Weapon)&&
++        !NetworkHeavyTargets[Weapon==ServerHeavyWeapon?0:1].Contains(Target);
++}
++
++void UKukriWeaponComponent::RecordNetworkHeavyTarget(const FString& Weapon,AActor* Target)
++{
++    if(IsNetworkHeavyTargetNew(Weapon,Target))NetworkHeavyTargets[Weapon==ServerHeavyWeapon?0:1].Add(Target);
++}
++

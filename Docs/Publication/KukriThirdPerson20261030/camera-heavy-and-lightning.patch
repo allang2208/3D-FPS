@@ -1,0 +1,77 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp b/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
+index 4e285ddb..bd59faad 100644
+--- a/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
+@@ -85,5 +85,5 @@
+-    // The shared world pose pitches the chest forward when looking down.
+-    // Keep the eye ahead of that posed torso, not merely ahead of the capsule.
+-    // Native shirt depth is covered by the clearance; no vertex scans or extra
+-    // pose evaluation are needed. The camera's existing interpolation remains
+-    // the sole smoothing stage, and melee reuses the resulting stable offset.
++    // Idle breathing belongs to the body, not the eye. Use an input-pitched
++    // reference envelope while stationary; reading animated chest positions
++    // here makes the first-person view chase every breath/weight shift.
++    // Moving/actions retain their posed clearance and the existing camera
++    // interpolation and collision sweep. Melee reuses this same eye offset.
+@@ -91,0 +92,13 @@
++        const bool StableIdle=DisplayState.Action==EFPSBodyAction::None&&DisplayState.Motion==EFPSBodyMotion::Ground
++            &&Character->GetVelocity().SizeSquared2D()<25.f&&Body->GetSkeletalMeshAsset();
++        const auto ReferencePosition=[&](int32 BoneIndex)
++        {
++            const auto& Ref=Body->GetSkeletalMeshAsset()->GetRefSkeleton();
++            FTransform Transform=Ref.GetRefBonePose()[BoneIndex];
++            for(int32 ParentIndex=Ref.GetParentIndex(BoneIndex);ParentIndex>=0;ParentIndex=Ref.GetParentIndex(ParentIndex))
++                Transform=Transform*Ref.GetRefBonePose()[ParentIndex];
++            return Transform.GetLocation();
++        };
++        const int32 HipIndex=Body->GetBoneIndex(TEXT("pelvis"));
++        const FVector ReferenceHip=StableIdle&&HipIndex!=INDEX_NONE?ReferencePosition(HipIndex):FVector::ZeroVector;
++        const FQuat IdleLean(FVector::ForwardVector,FMath::DegreesToRadians(-FMath::Clamp(Pitch,-70.f,70.f)*.65f));
+@@ -95,2 +108,6 @@
+-            if(Body->GetBoneIndex(Bone)==INDEX_NONE)continue;
+-            const FVector PosedTorso=ParentWorld.InverseTransformPosition(Body->GetBoneLocation(Bone));
++            const int32 BoneIndex=Body->GetBoneIndex(Bone);
++            if(BoneIndex==INDEX_NONE)continue;
++            const FVector TorsoWorld=StableIdle
++                ?Body->GetComponentTransform().TransformPosition(ReferenceHip+IdleLean.RotateVector(ReferencePosition(BoneIndex)-ReferenceHip))
++                :Body->GetBoneLocation(Bone);
++            const FVector PosedTorso=ParentWorld.InverseTransformPosition(TorsoWorld);
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp b/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
+index 0f507922..ff861068 100644
+--- a/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
+@@ -330,0 +331,2 @@
++    if(++NetworkHeavyReleaseSerial==0)++NetworkHeavyReleaseSerial;
++    for(auto& Targets:NetworkHeavyTargets)Targets.Reset();
+@@ -333,0 +336,11 @@
++bool UKukriWeaponComponent::IsNetworkHeavyTargetNew(const FString& Weapon,AActor* Target) const
++{
++    return IsValid(Target)&&IsNetworkHeavyReleaseWindowOpen(Weapon)&&
++        !NetworkHeavyTargets[Weapon==ServerHeavyWeapon?0:1].Contains(Target);
++}
++
++void UKukriWeaponComponent::RecordNetworkHeavyTarget(const FString& Weapon,AActor* Target)
++{
++    if(IsNetworkHeavyTargetNew(Weapon,Target))NetworkHeavyTargets[Weapon==ServerHeavyWeapon?0:1].Add(Target);
++}
++
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h
+--- a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h
+@@ -77,0 +78,3 @@
++    uint32 GetNetworkHeavyReleaseSerial() const {return NetworkHeavyReleaseSerial;}
++    bool IsNetworkHeavyTargetNew(const FString& Weapon,AActor* Target) const;
++    void RecordNetworkHeavyTarget(const FString& Weapon,AActor* Target);
+@@ -253,0 +257,2 @@
++    uint32 NetworkHeavyReleaseSerial=0;
++    TSet<TWeakObjectPtr<AActor>> NetworkHeavyTargets[2];
+diff --git a/Source/FPSGAME/Production/ProductionStormDriveLightning.cpp b/Source/FPSGAME/Production/ProductionStormDriveLightning.cpp
+--- a/Source/FPSGAME/Production/ProductionStormDriveLightning.cpp
++++ b/Source/FPSGAME/Production/ProductionStormDriveLightning.cpp
+@@ -95,0 +96,3 @@
++    // A live component can lose its static mesh during equipment replacement.
++    UStaticMesh* SeatAsset=IsValid(Seat)&&Seat->IsRegistered()?Seat->GetStaticMesh():nullptr;
++    if(!IsValid(SeatAsset)){StormDriveSeat.Reset();StormDriveSeatRefresh=0.f;Seat=nullptr;SeatAsset=nullptr;}
+@@ -134,1 +137,1 @@
+-            const FBox Box=Seat->GetStaticMesh()->GetBoundingBox();const FVector C=Box.GetCenter(),E=Box.GetExtent();
++            const FBox Box=SeatAsset->GetBoundingBox();const FVector C=Box.GetCenter(),E=Box.GetExtent();

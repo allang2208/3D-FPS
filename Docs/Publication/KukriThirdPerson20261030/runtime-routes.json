@@ -1,0 +1,707 @@
+{
+  "base": "610c3b6a046eb9b57b1017958365c509d97b3149",
+  "file": "Content/ColdSteelData/player_body.json",
+  "owned_fields": [
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Idle",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Idle"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Idle.A_KukriBody_Idle"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Equip",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Equip"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Equip_Completion.A_Kukri_FullBody_Equip_Completion"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Slash1",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Slash1"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Slash1.A_KukriCombo_Slash1"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Slash2",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Slash2"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Slash2.A_KukriCombo_Slash2"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Thrust",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Thrust"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/ThrustSourceArmV6/A_KukriCombo_ThrustSourceArm.A_KukriCombo_ThrustSourceArm"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Charge",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Charge"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/HeavyV4/A_Kukri_HeavyCharge_ShoulderBack.A_Kukri_HeavyCharge_ShoulderBack"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Heavy",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Heavy"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/HeavyV4/A_Kukri_HeavyRelease_Diagonal.A_Kukri_HeavyRelease_Diagonal"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dash",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dash"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DashFreeArmV4/A_Kukri_Dash_FreeArm.A_Kukri_Dash_FreeArm"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Uppercut",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Uppercut"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/UppercutSingleLegsV1/A_Kukri_Uppercut_SupportedLegs.A_Kukri_Uppercut_SupportedLegs"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Pommel",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Pommel"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/QuickFirstPersonV3/A_Kukri_Pommel_FirstPersonArms.A_Kukri_Pommel_FirstPersonArms"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Whirlwind.Start",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Whirlwind.Start"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Start_SingleWindmillRepair.A_Kukri_Whirlwind_Start_SingleWindmillRepair"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Whirlwind.Loop",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Whirlwind.Loop"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Loop_SingleWindmillRepair.A_Kukri_Whirlwind_Loop_SingleWindmillRepair"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Whirlwind.End",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Whirlwind.End"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_End_SingleWindmillRepair.A_Kukri_Whirlwind_End_SingleWindmillRepair"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Recover1",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Recover1"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Recover1.A_KukriCombo_Recover1"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Recover2",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Recover2"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/A_KukriCombo_Recover2.A_KukriCombo_Recover2"
+    },
+    {
+      "body": "jason",
+      "key": "Pistol.KukriCarry.Hip",
+      "field": [
+        "clips",
+        "Pistol.KukriCarry.Hip"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Hip.A_Pistol_KukriCarry_Hip"
+    },
+    {
+      "body": "jason",
+      "key": "Pistol.KukriCarry.Aim",
+      "field": [
+        "clips",
+        "Pistol.KukriCarry.Aim"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Aim.A_Pistol_KukriCarry_Aim"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Whirlwind.Start",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Whirlwind.Start"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Start_DualCarry.A_Kukri_Dual_Whirlwind_Start_DualCarry"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Whirlwind.Loop",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Whirlwind.Loop"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Loop_DualCarry.A_Kukri_Dual_Whirlwind_Loop_DualCarry"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Whirlwind.End",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Whirlwind.End"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_End_DualCarry.A_Kukri_Dual_Whirlwind_End_DualCarry"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Idle",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Idle"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCarry20261027/A_Kukri_Dual_Idle_DualCarry.A_Kukri_Dual_Idle_DualCarry"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Uppercut",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Uppercut"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/UppercutDualLegsV1/A_Kukri_Dual_Uppercut_SupportedLegs.A_Kukri_Dual_Uppercut_SupportedLegs"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Dash",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Dash"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DashHandsV3/A_Kukri_Dual_Dash_Hands.A_Kukri_Dual_Dash_Hands"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Slash1",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Slash1"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualFree3D20261029/A_Kukri_Dual_Slash1_Free3DV1.A_Kukri_Dual_Slash1_Free3DV1"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Slash2",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Slash2"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualFree3DSecondV220261029/A_Kukri_Dual_Slash2_Free3DSecondV2.A_Kukri_Dual_Slash2_Free3DSecondV2"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Thrust",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Thrust"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/ThrustNaturalV220261029/A_Kukri_Dual_Thrust_NaturalV2.A_Kukri_Dual_Thrust_NaturalV2"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Charge",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Charge"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCombat20261028/A_Kukri_Dual_Charge_Combat.A_Kukri_Dual_Charge_Combat"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Heavy",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Heavy"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/DualCombat20261028/A_Kukri_Dual_Heavy_Combat.A_Kukri_Dual_Heavy_Combat"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Recover1",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Recover1"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover1_Completion.A_Kukri_FullBody_Dual_Recover1_Completion"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Recover2",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Recover2"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover2_Completion.A_Kukri_FullBody_Dual_Recover2_Completion"
+    },
+    {
+      "body": "jason",
+      "key": "Pistol.KukriQuickCombat",
+      "field": [
+        "clips",
+        "Pistol.KukriQuickCombat"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/PistolKukriThrustV1/A_Pistol_KukriThrust.A_Pistol_KukriThrust"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Equip",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Equip"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Equip_Completion.A_Kukri_FullBody_Dual_Equip_Completion"
+    },
+    {
+      "body": "jason",
+      "key": "Pistol.KukriUppercut",
+      "field": [
+        "clips",
+        "Pistol.KukriUppercut"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.A_Pistol_KukriUppercut_Completion"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Pommel",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Pommel"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.A_Kukri_FullBody_Dual_Pommel_Completion"
+    },
+    {
+      "body": "jason",
+      "key": "Kukri.FullBody.Dual.Run",
+      "field": [
+        "clips",
+        "Kukri.FullBody.Dual.Run"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.A_Kukri_FullBody_Dual_Run_Completion"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Idle",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Idle"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Idle.K_A_KukriBody_Idle"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Equip",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Equip"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Equip_Completion.A_Kukri_FullBody_Equip_Completion"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Slash1",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Slash1"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Slash1.A_KukriCombo_Slash1"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Slash2",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Slash2"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Slash2.A_KukriCombo_Slash2"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Thrust",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Thrust"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/ThrustSourceArmV6/A_KukriCombo_ThrustSourceArm.A_KukriCombo_ThrustSourceArm"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Charge",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Charge"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/HeavyV4/A_Kukri_HeavyCharge_ShoulderBack.A_Kukri_HeavyCharge_ShoulderBack"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Heavy",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Heavy"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/HeavyV4/A_Kukri_HeavyRelease_Diagonal.A_Kukri_HeavyRelease_Diagonal"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dash",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dash"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DashFreeArmV4/A_Kukri_Dash_FreeArm.A_Kukri_Dash_FreeArm"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Uppercut",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Uppercut"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/UppercutSingleLegsV1/A_Kukri_Uppercut_SupportedLegs.A_Kukri_Uppercut_SupportedLegs"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Pommel",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Pommel"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/QuickFirstPersonV3/A_Kukri_Pommel_FirstPersonArms.A_Kukri_Pommel_FirstPersonArms"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Whirlwind.Start",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Whirlwind.Start"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Start_SingleWindmillRepair.A_Kukri_Whirlwind_Start_SingleWindmillRepair"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Whirlwind.Loop",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Whirlwind.Loop"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_Loop_SingleWindmillRepair.A_Kukri_Whirlwind_Loop_SingleWindmillRepair"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Whirlwind.End",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Whirlwind.End"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/WhirlwindSingleV18/A_Kukri_Whirlwind_End_SingleWindmillRepair.A_Kukri_Whirlwind_End_SingleWindmillRepair"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Recover1",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Recover1"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Recover1.A_KukriCombo_Recover1"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Recover2",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Recover2"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/A_KukriCombo_Recover2.A_KukriCombo_Recover2"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Pistol.KukriCarry.Hip",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Pistol.KukriCarry.Hip"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Hip.A_Pistol_KukriCarry_Hip"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Pistol.KukriCarry.Aim",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Pistol.KukriCarry.Aim"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/OffhandCarryV1/A_Pistol_KukriCarry_Aim.A_Pistol_KukriCarry_Aim"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Whirlwind.Start",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Whirlwind.Start"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Start_DualCarry.A_Kukri_Dual_Whirlwind_Start_DualCarry"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Whirlwind.Loop",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Whirlwind.Loop"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_Loop_DualCarry.A_Kukri_Dual_Whirlwind_Loop_DualCarry"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Whirlwind.End",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Whirlwind.End"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Whirlwind_End_DualCarry.A_Kukri_Dual_Whirlwind_End_DualCarry"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Idle",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Idle"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCarry20261027/A_Kukri_Dual_Idle_DualCarry.A_Kukri_Dual_Idle_DualCarry"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Uppercut",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Uppercut"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/UppercutDualLegsV1/A_Kukri_Dual_Uppercut_SupportedLegs.A_Kukri_Dual_Uppercut_SupportedLegs"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Dash",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Dash"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DashHandsV3/A_Kukri_Dual_Dash_Hands.A_Kukri_Dual_Dash_Hands"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Slash1",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Slash1"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualFree3D20261029/A_Kukri_Dual_Slash1_Free3DV1.A_Kukri_Dual_Slash1_Free3DV1"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Slash2",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Slash2"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualFree3DSecondV220261029/A_Kukri_Dual_Slash2_Free3DSecondV2.A_Kukri_Dual_Slash2_Free3DSecondV2"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Thrust",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Thrust"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/ThrustNaturalV220261029/A_Kukri_Dual_Thrust_NaturalV2.A_Kukri_Dual_Thrust_NaturalV2"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Charge",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Charge"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCombat20261028/A_Kukri_Dual_Charge_Combat.A_Kukri_Dual_Charge_Combat"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Heavy",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Heavy"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/DualCombat20261028/A_Kukri_Dual_Heavy_Combat.A_Kukri_Dual_Heavy_Combat"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Recover1",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Recover1"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover1_Completion.A_Kukri_FullBody_Dual_Recover1_Completion"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Recover2",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Recover2"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover2_Completion.A_Kukri_FullBody_Dual_Recover2_Completion"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Pistol.KukriQuickCombat",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Pistol.KukriQuickCombat"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/PistolKukriThrustV1/A_Pistol_KukriThrust.A_Pistol_KukriThrust"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Equip",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Equip"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Equip_Completion.A_Kukri_FullBody_Dual_Equip_Completion"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Pistol.KukriUppercut",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Pistol.KukriUppercut"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.A_Pistol_KukriUppercut_Completion"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Pommel",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Pommel"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.A_Kukri_FullBody_Dual_Pommel_Completion"
+    },
+    {
+      "body": "kaitlin",
+      "key": "Kukri.FullBody.Dual.Run",
+      "field": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Kukri.FullBody.Dual.Run"
+      ],
+      "asset": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.A_Kukri_FullBody_Dual_Run_Completion"
+    }
+  ],
+  "local_config_modified_by_publication": false
+}

@@ -1,0 +1,116 @@
+{
+  "public_base": "610c3b6a046eb9b57b1017958365c509d97b3149",
+  "public_overlays": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "base_git_blob": "1d0f07b85ee6c12a44348f8ae3428c3686725816",
+      "local_worktree_sha256": "1bdadfbfa682908b356dd665250d78204e3fdeb25db72fd1e5636eb9d33ada8f",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "base_git_blob": "e79d1dba0b3c531bceb5dd2c035562737bf7db47",
+      "local_worktree_sha256": "d99c378f0de5c45d9bffea492bf1f1f22ea2e8cf8e3c20c789e4b03b9cdb7e8f",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h",
+      "base_git_blob": "e52aff0d7a728f31fa4ce466a5d973fca8e6cc16",
+      "local_worktree_sha256": "91045b37beef916512f67dc18569e714fe17fe9873f4c38c0dc67f46532ef847",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "base_git_blob": "f291743db90aefd05b53e38bf653d56d03a2f1b4",
+      "local_worktree_sha256": "191672aeac931bf9219a5d5a69f34ee262bfa2bc8fd9928ea7c90cf1c7747d80",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "base_git_blob": "221d117b25a700a474a0449c7089f479f141c324",
+      "local_worktree_sha256": "f08cefb9b2e3eee5c3e670c6959335bf0eff9ab4955fbda18997129d2bb874e2",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "base_git_blob": "03429c20843b283bb61d058f89d841918756ce8f",
+      "local_worktree_sha256": "6fb7c14174c0101b1063047e4ee6f1fc5201da0816df79c5ba98054ad30cf784",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "base_git_blob": "a0d826ed6376ddcb430e3cc9fc3cf33c6d380784",
+      "local_worktree_sha256": "01b7afaf039f3533c57f5afae9185d1162ac1a78f927f8b04dd1ff7af3c8575e",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "base_git_blob": "ca4f7ca3b574494e27dc0a3938b1c0de83869b82",
+      "local_worktree_sha256": "3f7b5a252631d585ce24706505ad2c66ca77c6e3dae509a46c573328400d16f5",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "base_git_blob": "1f24cb452fadb45c0e4e44dc6ba785ff9b2023b9",
+      "local_worktree_sha256": "1669298ed65b2d33e27b0bf6a5daab95fabc6c08faa6a7c45ef9c6b2838ac1db",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "base_git_blob": "5a17adf8ffc7f5c9992c078e462ab7bcb8367f5c",
+      "local_worktree_sha256": "6ae3bad1ab2ba1f4975c0f5ea8466fd9a0308216595c87949a2f862cde0f0490",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "base_git_blob": "dc60e95d8fef5e0ef4e48d26a5472bdf92fa599a",
+      "local_worktree_sha256": "fde68f1ff82cc5e677377b66e6055ced991198fbb44dffe3e8814b4bae1a7baa",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "base_git_blob": "4b037a810334040d51e67499660c526b05af747f",
+      "local_worktree_sha256": "a5dd2cecfc3ab8a52077187878db191a127b422aa15d9acc4c202a3cbd97f916",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+      "base_git_blob": "ba220fbd37b607bf44a2dac29d05d8eb5e16084b",
+      "local_worktree_sha256": "6bc32ddcd41f0b7e7ec40378d6fe809c8401ded56f32be0ca5e6f968f368db62",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+      "base_git_blob": "e2fe0e3bc165ecf41f5c30da2e1fc61c2ba997a7",
+      "local_worktree_sha256": "8448b5a3017c84ebf23d6a02c175f5e30392878853c0db0f95ea943ca8fd025f",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+      "base_git_blob": "0f5079220c8d2d903c97ec608e09b75110aae603",
+      "local_worktree_sha256": "2db4fdb80a66d32cd91228f92d90fda715556487eadedbf02ff61400ccd3b149",
+      "mode": "task-only overlay on named public base; integrate with required shared framework, not replacement for current working file"
+    }
+  ],
+  "local_baselines": [
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+      "baseline_file": "Saved/KukriFollowupAudit20261029/Before/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+      "baseline_sha256": "8f44fc10ad9c64663df3ec3121161d1e4f3f525144c0de90c67f8cedf832a10f",
+      "current_sha256": "60e3b6fa08303142d3fa662d55ddb1c72de3ffa7d35c588b26675110a0380802"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp",
+      "baseline_file": "Saved/KukriFollowupAudit20261029/Before/Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp",
+      "baseline_sha256": "3b1b4e78891cb9387fc66fe3bc732df57c0bd0be8860a8cc20c4a5d891c63174",
+      "current_sha256": "36a7cc335bf7e53c252fc367603e6be1f8004a23655a24c3f0e3d034e87f095c"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillPreparation.cpp",
+      "baseline_file": "Saved/KukriNetworkFinish20261029/Before/Skills/PlayerSkillPreparation.cpp",
+      "baseline_sha256": "ceaea390c5f46ec20c983db8fc4200c3e9e054ffc2878e07e2a384e5281a0d1b",
+      "current_sha256": "e0790e36fcf6af64a14cb6ed2f155bc4126fc687b24fbc365ca2c3e0cf109238"
+    }
+  ],
+  "warning": "These are source integration records, not a claim that this public snapshot builds independently. Shared uncommitted pistol, melee, animation and skill frameworks plus local licensed assets remain required. Do not apply to the current host; its implementation already contains the changes."
+}

@@ -1,0 +1,43 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp b/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
+@@ -105,1 +105,3 @@
+-    if(!Pawn||Pawn!=ActionPawn||!Pawn->IsLocallyControlled()||!Model)return;
++    if(!Model)return;
++    // Accepted costs/cooldowns belong to the profile even if this pawn has
++    // already died or been replaced. Only action cancellation is pawn-bound.
+@@ -108,1 +110,1 @@
+-        auto* Exhaustion=Pawn->FindComponentByClass<UFPSExhaustionComponent>();
++        auto* Exhaustion=Pawn?Pawn->FindComponentByClass<UFPSExhaustionComponent>():nullptr;
+@@ -114,4 +116,6 @@
+-    const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():ServerAt;
+-    Model->Current.SwordUppercutCooldown=FMath::Max(0.f,Cooldown-float(FMath::Max(0.,Now-ServerAt)));
+-    Model->Current.SwordUppercutCooldownDuration=Duration;
+-    Model->Current.MartialCooldownRevision=FMath::Max(Model->Current.MartialCooldownRevision,Revision);
++    if(Revision>=Model->Current.MartialCooldownRevision)
++    {
++        const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():ServerAt;
++        Model->Current.SwordUppercutCooldown=FMath::Max(0.f,Cooldown-float(FMath::Max(0.,Now-ServerAt)));
++        Model->Current.SwordUppercutCooldownDuration=Duration;Model->Current.MartialCooldownRevision=Revision;
++    }
+@@ -118,0 +123,1 @@
++    if(!Pawn||Pawn!=ActionPawn||!Pawn->IsLocallyControlled())return;
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp b/Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp
+@@ -197,1 +197,2 @@
+-    if(!Pawn||Pawn!=ActionPawn||!Pawn->IsLocallyControlled()||!Model)return;
++    if(!Model)return;
++    // A late accepted cast still debits the profile after pawn replacement.
+@@ -200,1 +201,1 @@
+-        auto* Exhaustion=Pawn->FindComponentByClass<UFPSExhaustionComponent>();
++        auto* Exhaustion=Pawn?Pawn->FindComponentByClass<UFPSExhaustionComponent>():nullptr;
+@@ -211,0 +213,1 @@
++    if(!Pawn||Pawn!=ActionPawn||!Pawn->IsLocallyControlled())return;
+diff --git a/Source/FPSGAME/Skills/PlayerSkillPreparation.cpp b/Source/FPSGAME/Skills/PlayerSkillPreparation.cpp
+--- a/Source/FPSGAME/Skills/PlayerSkillPreparation.cpp
++++ b/Source/FPSGAME/Skills/PlayerSkillPreparation.cpp
+@@ -50,1 +50,2 @@
+-    return FParse::Param(FCommandLine::Get(),TEXT("BackpackWireAudit"))||FParse::Param(FCommandLine::Get(),TEXT("PistolPresentationWire"))||FParse::Param(FCommandLine::Get(),TEXT("PistolAmmoWire"))||
++    return FParse::Param(FCommandLine::Get(),TEXT("KukriCombatWireAudit"))||
++        FParse::Param(FCommandLine::Get(),TEXT("BackpackWireAudit"))||FParse::Param(FCommandLine::Get(),TEXT("PistolPresentationWire"))||FParse::Param(FCommandLine::Get(),TEXT("PistolAmmoWire"))||

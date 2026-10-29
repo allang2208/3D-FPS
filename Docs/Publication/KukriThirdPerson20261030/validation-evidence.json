@@ -1,0 +1,737 @@
+{
+  "date": "2026-10-29",
+  "reused_previous_evidence": true,
+  "new_tests_run_during_publication": false,
+  "native_checks": 184,
+  "native_failures": 0,
+  "builds": [
+    {
+      "completed": "2026-10-29T22:17:52.1395771+08:00",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\KukriNetworkFinish20261029\\FPSGAMEEditor-build.log",
+      "exit_code": 0,
+      "target": "FPSGAMEEditor"
+    },
+    {
+      "completed": "2026-10-29T22:19:00.4361994+08:00",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\KukriNetworkFinish20261029\\FPSGAME-build.log",
+      "exit_code": 0,
+      "target": "FPSGAME"
+    }
+  ],
+  "previous_asset_route_checks": {
+    "count": 70,
+    "rerun": false,
+    "source": "Saved/KukriFollowupAudit20261029/engine-assets.json"
+  },
+  "udp_runs": [
+    {
+      "mode": "Listen",
+      "run": "Listen-20261029-221101",
+      "peer_exit_codes": [
+        0,
+        0,
+        0
+      ],
+      "result": {
+        "cases": [
+          {
+            "case": "single/combo123",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 3,
+            "damage_contacts": 3,
+            "expected_contacts": 3,
+            "damage": 266,
+            "hit_reports_including_two_replays": 5,
+            "ledger_before": 0,
+            "ledger_authority": 22.5,
+            "ledger_owner": 22.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 47,
+            "rift_frames": 21,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/heavy",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 187,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 22.5,
+            "ledger_authority": 22.5,
+            "ledger_owner": 22.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 89,
+            "rift_frames": 10,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/uppercut",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 131,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 22.5,
+            "ledger_authority": 47.5,
+            "ledger_owner": 47.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 33,
+            "rift_frames": 13,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/whirlwind",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 186,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 47.5,
+            "ledger_authority": 68.5,
+            "ledger_owner": 68.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 51,
+            "rift_frames": 24,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/quick",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 20,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 68.5,
+            "ledger_authority": 68.5,
+            "ledger_owner": 68.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 1,
+            "body_frames": 30,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/dash",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 134,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 68.5,
+            "ledger_authority": 88.5,
+            "ledger_owner": 88.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 39,
+            "rift_frames": 12,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/combo123",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 3,
+            "damage_contacts": 6,
+            "expected_contacts": 6,
+            "damage": 532,
+            "hit_reports_including_two_replays": 8,
+            "ledger_before": 88.5,
+            "ledger_authority": 111,
+            "ledger_owner": 111,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 86,
+            "rift_frames": 68,
+            "left_rift_frames": 33,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/heavy",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 2,
+            "expected_contacts": 2,
+            "damage": 374,
+            "hit_reports_including_two_replays": 4,
+            "ledger_before": 111,
+            "ledger_authority": 111,
+            "ledger_owner": 111,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 83,
+            "rift_frames": 14,
+            "left_rift_frames": 7,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/uppercut",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 131,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 111,
+            "ledger_authority": 136,
+            "ledger_owner": 136,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 33,
+            "rift_frames": 13,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/whirlwind",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 120,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 136,
+            "ledger_authority": 157,
+            "ledger_owner": 157,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 51,
+            "rift_frames": 48,
+            "left_rift_frames": 24,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/quick",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 20,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 157,
+            "ledger_authority": 157,
+            "ledger_owner": 157,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 1,
+            "body_frames": 30,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/dash",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 269,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 157,
+            "ledger_authority": 177,
+            "ledger_owner": 177,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 39,
+            "rift_frames": 24,
+            "left_rift_frames": 12,
+            "vfx_routing": true
+          },
+          {
+            "case": "pawn_replacement_owner_and_authority_rebound",
+            "passed": true
+          },
+          {
+            "case": "same_profile_reconnect",
+            "passed": true,
+            "spent_before": 177,
+            "spent_after": 177
+          }
+        ],
+        "passed": true,
+        "dedicated": false,
+        "udp": true,
+        "injected_authority_hitch_ms": 650,
+        "actual_authority_lag_ms": 60,
+        "actual_authority_loss_percent": 3,
+        "entry": "native Kukri input handlers; real executors, traces, hit RPC, damage and profile upload"
+      }
+    },
+    {
+      "mode": "Dedicated",
+      "run": "Dedicated-20261029-212211",
+      "peer_exit_codes": [
+        0,
+        0,
+        0
+      ],
+      "result": {
+        "cases": [
+          {
+            "case": "single/combo123",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 3,
+            "damage_contacts": 3,
+            "expected_contacts": 3,
+            "damage": 225,
+            "hit_reports_including_two_replays": 5,
+            "ledger_before": 0,
+            "ledger_authority": 22.5,
+            "ledger_owner": 22.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 48,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/heavy",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 290,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 22.5,
+            "ledger_authority": 22.5,
+            "ledger_owner": 22.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 89,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/uppercut",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 131,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 22.5,
+            "ledger_authority": 47.5,
+            "ledger_owner": 47.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 33,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/whirlwind",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 120,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 47.5,
+            "ledger_authority": 68.5,
+            "ledger_owner": 68.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 50,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/quick",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 20,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 68.5,
+            "ledger_authority": 68.5,
+            "ledger_owner": 68.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 1,
+            "body_frames": 30,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "single/dash",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 134,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 68.5,
+            "ledger_authority": 88.5,
+            "ledger_owner": 88.5,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 39,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/combo123",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 3,
+            "damage_contacts": 6,
+            "expected_contacts": 6,
+            "damage": 450,
+            "hit_reports_including_two_replays": 8,
+            "ledger_before": 88.5,
+            "ledger_authority": 111,
+            "ledger_owner": 111,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 88,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/heavy",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 2,
+            "expected_contacts": 2,
+            "damage": 477,
+            "hit_reports_including_two_replays": 4,
+            "ledger_before": 111,
+            "ledger_authority": 111,
+            "ledger_owner": 111,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 84,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/uppercut",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 131,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 111,
+            "ledger_authority": 136,
+            "ledger_owner": 136,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 34,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/whirlwind",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 120,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 136,
+            "ledger_authority": 157,
+            "ledger_owner": 157,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 51,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/quick",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 31,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 157,
+            "ledger_authority": 157,
+            "ledger_owner": 157,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 1,
+            "body_frames": 30,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "dual/dash",
+            "passed": true,
+            "executor_completed": true,
+            "input_count": 1,
+            "damage_contacts": 1,
+            "expected_contacts": 1,
+            "damage": 269,
+            "hit_reports_including_two_replays": 3,
+            "ledger_before": 157,
+            "ledger_authority": 177,
+            "ledger_owner": 177,
+            "ledger_matches": true,
+            "replay_during_action": true,
+            "inventory_reallocations_during_damage": 0,
+            "body_frames": 39,
+            "rift_frames": 0,
+            "left_rift_frames": 0,
+            "vfx_routing": true
+          },
+          {
+            "case": "pawn_replacement_owner_and_authority_rebound",
+            "passed": true
+          },
+          {
+            "case": "same_profile_reconnect",
+            "passed": true,
+            "spent_before": 177,
+            "spent_after": 177
+          }
+        ],
+        "passed": true,
+        "dedicated": true,
+        "udp": true,
+        "injected_authority_hitch_ms": 650,
+        "actual_authority_lag_ms": 60,
+        "actual_authority_loss_percent": 3,
+        "entry": "native Kukri input handlers; real executors, traces, hit RPC, damage and profile upload"
+      }
+    }
+  ],
+  "visual_review": {
+    "reviewed_at": "2026-10-29T22:29:00+08:00",
+    "acceptance_complete": false,
+    "method": "Manual review of actual third-person observer screenshots. Each sheet contains up to eight executor-progress bins; it is not continuous video or an artist acceptance certificate.",
+    "evidence": [
+      {
+        "rig": "Jason",
+        "run": "D:/FPS3D/FPSGAME/Saved/KukriNetworkFinish20261029/Listen-20261029-215631",
+        "reviewed_sheets": [
+          "Review/00_Attack.jpg",
+          "Review/00_Attack2.jpg",
+          "Review/01_HeavyRelease.jpg",
+          "Review/04_QuickPommel.jpg",
+          "Review/05_SprintAttack.jpg",
+          "Review/06_DualAttack.jpg",
+          "Review/06_DualAttack2.jpg",
+          "Review/07_DualHeavyRelease.jpg",
+          "Review/08_Uppercut.jpg",
+          "Review/09_DualWhirlwind.jpg",
+          "Review/10_QuickPommel.jpg",
+          "Review/11_SprintAttack.jpg"
+        ]
+      },
+      {
+        "rig": "Jason",
+        "run": "D:/FPS3D/FPSGAME/Saved/KukriNetworkFinish20261029/Listen-20261029-214318",
+        "reviewed_sheets": [
+          "Review/00_Attack3.jpg",
+          "Review/02_Uppercut.jpg",
+          "Review/03_Whirlwind.jpg"
+        ]
+      },
+      {
+        "rig": "Jason",
+        "run": "D:/FPS3D/FPSGAME/Saved/KukriNetworkFinish20261029/Listen-20261029-200438",
+        "reviewed_sheets": [
+          "Review/06_DualAttack3.jpg"
+        ],
+        "limitation": "Full thrust sequence exists, but motion blur and contrast limit finger/wrist inspection."
+      },
+      {
+        "rig": "Kaitlin",
+        "run": "D:/FPS3D/FPSGAME/Saved/KukriNetworkFinish20261029/Listen-20261029-215936",
+        "reviewed_sheets": [
+          "Review/00_Attack.jpg",
+          "Review/00_Attack2.jpg",
+          "Review/00_Attack3.jpg",
+          "Review/02_Uppercut.jpg",
+          "Review/03_Whirlwind.jpg",
+          "Review/06_DualAttack.jpg",
+          "Review/06_DualAttack2.jpg",
+          "Review/07_DualHeavyRelease.jpg",
+          "Review/08_Uppercut.jpg",
+          "Review/09_DualWhirlwind.jpg",
+          "Review/10_QuickPommel.jpg",
+          "Review/11_SprintAttack.jpg"
+        ],
+        "limitation": "Single actions captured a temporary default body before appearance finished. Those sheets are excluded as evidence of the Kaitlin rig. Dual Attack2 has only two bins and DualAttack3 was not captured."
+      },
+      {
+        "rig": "Kaitlin",
+        "run": "D:/FPS3D/FPSGAME/Saved/KukriNetworkFinish20261029/Listen-20261029-221948",
+        "appearance_ready_gate": true,
+        "reviewed_sheets": [
+          "Review/00_Attack.jpg",
+          "Review/00_Attack2.jpg",
+          "Review/00_Attack3.jpg",
+          "Review/01_HeavyRelease.jpg",
+          "Review/02_Uppercut.jpg",
+          "Review/03_Whirlwind.jpg",
+          "Review/04_QuickPommel.jpg",
+          "Review/05_SprintAttack.jpg",
+          "Review/06_DualAttack.jpg",
+          "Review/06_DualAttack2.jpg",
+          "Review/06_DualAttack3.jpg",
+          "Review/09_DualWhirlwind.jpg",
+          "Review/11_SprintAttack.jpg"
+        ],
+        "full_resolution_frames": [
+          "Frames/frame_06_DualAttack3_3.png"
+        ],
+        "limitation": "Single thrust contains only two progress bins. Dual thrust has all eight; both weapon hands remain attached and no gross wrist inversion is visible from this angle."
+      }
+    ],
+    "observations": [
+      "Jason single and dual dash show overhead lift, downward cut and recovery; the support arm stays connected through the sampled frames.",
+      "Jason dual slash 1 and 2 show separate arm arcs and weight transfer; no obvious detached wrist or large chest penetration was seen at this camera angle.",
+      "Single and dual whirlwind show the extended blade arm(s), bent support knees, lower centre of mass and recovery. Visible ribbons follow the blades rather than forming a persistent full ring.",
+      "The older Jason double-thrust capture shows both hands extending; it does not settle fine wrist/finger quality because of motion blur.",
+      "Kaitlin loaded dual clips show the selected female body and ST6 outfit. Her hair swings across the face and exposes the scalp in the slowed offscreen capture; this is not a visual pass for hair.",
+      "Appearance-ready recapture shows the actual Kaitlin body and ST6 outfit from the first action. Single cut, heavy, uppercut, whirlwind, quick melee and dash are visibly routed; dual cuts, complete double thrust and dual dash are captured. The hair instability remains visible."
+    ],
+    "capture_run_network_failures": [
+      {
+        "run": "D:/FPS3D/FPSGAME/Saved/KukriNetworkFinish20261029/Listen-20261029-215631",
+        "passed": false,
+        "reason": "Synchronous rendered screenshots perturbed authority clock; dual combo had two accepted damage contacts rather than six."
+      },
+      {
+        "run": "D:/FPS3D/FPSGAME/Saved/KukriNetworkFinish20261029/Listen-20261029-215936",
+        "passed": false,
+        "reason": "Cold appearance assets and screenshot-related clock stalls. Captures are not a passing network test."
+      },
+      {
+        "run": "D:/FPS3D/FPSGAME/Saved/KukriNetworkFinish20261029/Listen-20261029-221948",
+        "passed": false,
+        "reason": "First four single-hand cases failed their combat criteria under screenshot-induced clock drift. Remaining cases, including six-contact dual combo, passed. This run is still NOT counted as a passing network acceptance run."
+      }
+    ],
+    "pending": [
+      "Normal-speed reproduction and diagnosis of Kaitlin hair instability; slow offscreen capture is insufficient to attribute its cause to animation, grooming or the fixture.",
+      "Fine wrist/finger acceptance at additional camera angles. Jason full dual-thrust evidence has motion blur; loaded Kaitlin single thrust has only two sampled bins.",
+      "Internet and packaged-dedicated-server verification were not performed."
+    ],
+    "review_completed": true
+  },
+  "verification_boundary": [
+    "Local UDP peers with simulated lag/loss; not an Internet session",
+    "Dedicated engine mode in UnrealEditor-Cmd; not a packaged dedicated server executable",
+    "Rendered review is reported separately from normal-speed network acceptance; screenshot readbacks stall authority and some capture runs failed timestamp validation",
+    "Rendered review uses the recorded rigs, outfit and camera angles; not every outfit combination"
+  ],
+  "fixes": [
+    "observer-local third-person blade rifts with expiry and cleanup",
+    "both blades of dual sweep and heavy release",
+    "sparse pose and first release packet crossing the VFX window",
+    "bounded client start/contact timeline for queued reliable attack messages after a host hitch",
+    "retain validated weapon snapshot across ApplyHit inventory rebuild callbacks to prevent quick-melee server crash"
+  ],
+  "earlier_fixes": [
+    {
+      "issue": "impact envelope duration treated as remaining hit-stop",
+      "file": "Characters/FPSPlayerBodyKukri.cpp"
+    },
+    {
+      "issue": "body sender overwrote executor pause/resume rate; short stops were not reliable transitions",
+      "file": "Characters/FPSPlayerBodyNetwork.cpp"
+    },
+    {
+      "issue": "charge preview extrapolated during tap delay and used average rather than per-phase speed",
+      "file": "Characters/FPSPlayerBodyKukri.cpp"
+    },
+    {
+      "issue": "uppercut and whirlwind accepted profile receipts discarded while pawn absent or replaced",
+      "files": [
+        "Multiplayer/ColdSteelUppercutAuthority.cpp",
+        "Multiplayer/ColdSteelWhirlwindAuthority.cpp"
+      ]
+    },
+    {
+      "issue": "old uppercut cooldown receipt overwrote newer mirrored cooldown",
+      "file": "Multiplayer/ColdSteelUppercutAuthority.cpp"
+    },
+    {
+      "files": [
+        "Weapons/Kukri/KukriHeavy.cpp",
+        "Multiplayer/ColdSteelPlayerState.cpp"
+      ],
+      "issue": "heavy release accepted repeated reports for the same blade and target; now recorded once per committed release"
+    }
+  ],
+  "storm_lightning": {
+    "previous_fix_present": true,
+    "recent_lifecycle_checks": 43,
+    "repeat_run_this_turn": false,
+    "authority": "RecordStormDriveHit requires authority; transient impacts use multicast and shared server clock; charging boolean is replicated; dedicated server skips visuals"
+  },
+  "user_accepted_for_publication": "2026-10-30",
+  "visual_acceptance_complete": false
+}

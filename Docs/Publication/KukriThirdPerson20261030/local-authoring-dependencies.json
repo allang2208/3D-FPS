@@ -1,0 +1,3802 @@
+{
+  "files": [
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/adapted-actions.json",
+      "bytes": 47984929,
+      "sha256": "e96f02611bf74aeed73da68c6bdf4212ba838145c12ec2e61bbfae26158bd023",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/retargeted-poses.json",
+      "bytes": 33875215,
+      "sha256": "74b8651a908817cb6dacabcde403d4dd13f68f7b68699560689ad16852d9a26a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/inputs.json",
+      "bytes": 5030353,
+      "sha256": "5f4f84994adad0f687e28be73261da81cc455e0039d7306a044bc8a773c3badf",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/jason-actions.json",
+      "bytes": 17664383,
+      "sha256": "57ebf349990186b109039b415c3a6051cb375106f5615eb499a12bf5a42de1ae",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/kaitlin-actions.json",
+      "bytes": 18557836,
+      "sha256": "c74da0c59bd8d8d6e4a4045a0630efc613bff167c700e2a2adf8518483a61fef",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/adapted-actions.json",
+      "bytes": 47984213,
+      "sha256": "7f3741e2b527e44f6f082880e5352dade2a9156bfcd65053d42183104b980c3c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/native-graph-after.json",
+      "bytes": 1590083,
+      "sha256": "210318137fa1d6bc498d1e68afce061aae15f7be8c9a6b1477e30c98bc76d3db",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/post-process-off.json",
+      "bytes": 1944327,
+      "sha256": "49e5e2f58a7c0e4b6c479d19f952c4256fa408a8404caa68c38b0b5a7952087c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/post-process-on.json",
+      "bytes": 1944326,
+      "sha256": "2aa4493fb5d2a97dccb9f86f4f15c3423769d5b3f46a0bc5d5f4b68ccb2d40f2",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/jason-actions.json",
+      "bytes": 4638314,
+      "sha256": "d1e31cd307bc383c7b737d76a6fad9df6d92a7b67718bb9aba7f74654fd231f6",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/kaitlin-actions.json",
+      "bytes": 4796824,
+      "sha256": "3f6320e129547bb220e8359fdd4d097a0d002dd294fd21b3256ea8530d939cf1",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/jason-actions.json",
+      "bytes": 4522337,
+      "sha256": "042ede22f0ff0b2fab9ca001f4258c1c3c18bef639a9b4f87774a71eba8cbc5c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/jason-current.json",
+      "bytes": 4622258,
+      "sha256": "c801fa900c4cb20f3ccdbccf154ae0ed851e00a8ad63a48e8db6ef459d5f6ede",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/kaitlin-actions.json",
+      "bytes": 4103434,
+      "sha256": "5eb2922b4e0815e8e2b1574a4b85a6f38fc5dbdb68323d58961d4ceadbd9ccda",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/kaitlin-current.json",
+      "bytes": 4204823,
+      "sha256": "5aa954552a909641dbb90ec65ba83299357a5359b60e025f5fa08d7918b92778",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/jason-actions.json",
+      "bytes": 4523120,
+      "sha256": "ed67492f0e254c9acaa9fd65fab0d3b04024ef7e7e959e79eb610a3da3874b83",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/jason-current.json",
+      "bytes": 4515356,
+      "sha256": "f814c83fa0f57a5852ceae4b6fa970e710d3ff42a44cb30b75f89785946772cf",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/kaitlin-actions.json",
+      "bytes": 4228183,
+      "sha256": "1a86e2f1c8d58735a9b6947a90eac285c656527f620f768e6b95fac91574295a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/kaitlin-current.json",
+      "bytes": 4220121,
+      "sha256": "3c1af3a5b29153a1a78cc5453d1ab3613260697aefb4db9472a22ae0604e9823",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriUppercut20261025/jason-actions.json",
+      "bytes": 4653132,
+      "sha256": "aa03a1a7adb3149382eb0cd5b5bc2bf5b481fa25ef48aac56d29c8505837f4a1",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriUppercut20261025/kaitlin-actions.json",
+      "bytes": 4859584,
+      "sha256": "5fad450a7ec2c77197a7962deb4f1d2a0003234a21f89d991603c6c8af10ba32",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriHeavy20261025/jason-actions.json",
+      "bytes": 15715894,
+      "sha256": "45bcc45b009f853342d5a8b7788fae0ef3b9ffada505237946e05a5f322fe62e",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriHeavy20261025/kaitlin-actions.json",
+      "bytes": 16194556,
+      "sha256": "9fda2c318a2a26b91095231def78d1188a274aaa0d5c0ba9db138fb1f90a343c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/jason-actions.json",
+      "bytes": 11563725,
+      "sha256": "3a076d60861a0f57cd1b81812f6007d1115d1b9d8769ed52fde0a384033e8df0",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/kaitlin-actions.json",
+      "bytes": 11824972,
+      "sha256": "49bbd1b2788999bf7af80841bd6ea0c2a920671bf8e58c344d38c2cdf508e39c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/source-c.json",
+      "bytes": 1523510,
+      "sha256": "29edf5dff5a8591a84dfbb8365c84704a79f0e220ffb647bf98c5b6653e7266e",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindGuard20261025/jason-actions.json",
+      "bytes": 11565697,
+      "sha256": "0aa3a73f574c3ca1a1e64d868dabf4cbec2e4f42bf3183ee918184074a37a891",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindGuard20261025/kaitlin-actions.json",
+      "bytes": 11827553,
+      "sha256": "ed29202bf43351036ee6a329d49a363f705d680d17d25d2f663403baeddb97b6",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/active-inputs.json",
+      "bytes": 15232622,
+      "sha256": "76c8aebe2d62f25d150df1dbad86b7003c10c6a31540721984cdeab23a414d21",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/jason-actions.json",
+      "bytes": 15874026,
+      "sha256": "9e5035d4fb71f15ed2cfb028047766e8a711d48fb69f2f82c4a66ec734ede1d2",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/jason-preview.npz",
+      "bytes": 19691848,
+      "sha256": "0926def617e1667a0e2594ec7ca9d2b82b53658c2559a5451cdb785714430028",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/kaitlin-actions.json",
+      "bytes": 15364717,
+      "sha256": "2454edee2522b248c84f5ceb07d31bd5abbff69073aa33ba2c8c378bda57ecf2",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/kaitlin-preview.npz",
+      "bytes": 19676294,
+      "sha256": "c70a8f963352500ae891372e0ffcfbfdd86e5937cc0238bae42485e15697107a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/saved-compressed.json",
+      "bytes": 2370130,
+      "sha256": "7cc52e69574ebf2ed4269eb52ef69fd85bde1e1fcabd7349651ea29d1d11af36",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/jason-actions.json",
+      "bytes": 11604886,
+      "sha256": "f6b1c47d19bee96ee7ac983d8548bac476fbd837bdb38a317a3dd5d3ad93c5c2",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/kaitlin-actions.json",
+      "bytes": 12169033,
+      "sha256": "3b8a042791542c232595e25dffaf6d3335790a1558489deb8eaee9c5da826ea4",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/Meshy_Gray_Mannequin_All_Animations.glb",
+      "bytes": 18582008,
+      "sha256": "c37de264fd1e1641c8b447fe104368fbe00a416679c217395d204380c0f4a52e",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/source.json",
+      "bytes": 1309869,
+      "sha256": "18b0989138f2a240ab331bdff4b70a20e09955cb5f71089862610165ea00222d",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/jason-actions.json",
+      "bytes": 9238712,
+      "sha256": "21efd4f436593bce9ec471ec81728af40e00b5f3ea0a52451dd22069766d3f64",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/kaitlin-actions.json",
+      "bytes": 9619595,
+      "sha256": "61d3ef9aed5c4bac2f76fd927a066b13d994bec9a5d7c5e4eaf4f6da5dc8690f",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/Meshy_Gray_Mannequin_All_Animations.glb",
+      "bytes": 18679600,
+      "sha256": "9ccf015178135e78474f29798b700af64d0805f4cadb6331a42ee19a5b23b71d",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/source.json",
+      "bytes": 1658625,
+      "sha256": "d5d4b7bbc701911293ec1123467ab353962ffe378672f8c896149de41c091f0d",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/inputs.json",
+      "bytes": 25263986,
+      "sha256": "c2b4595ea420348182602753c90be8980e3b649d2b5b3281ed6021b2d4b1d794",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/jason-actions.json",
+      "bytes": 7226011,
+      "sha256": "182e2f2714de485fc0a4962635adc902858f4a11275f4558a4dd6d2870ccd11f",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/kaitlin-actions.json",
+      "bytes": 6037589,
+      "sha256": "99742394a42486df37b3e92e588601d4254066dfce00134991d38938b9b490b4",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmill20261026/jason-actions.json",
+      "bytes": 14940611,
+      "sha256": "e1762a56b4eefd6e382d9ec6de6e5905d66cae574db16abfa81ccfb71954c794",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmill20261026/kaitlin-actions.json",
+      "bytes": 12572677,
+      "sha256": "e9e4c509293a3bb333d5e3a89a6b9bbd0e989bfab630ed476355d797fcde82f7",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/jason-actions.json",
+      "bytes": 12403292,
+      "sha256": "3cb25c941cd1fb00a6784df64e5302aab3f9537e61be90882fd4b89e930b7db9",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/jason-gif-preview.npz",
+      "bytes": 17933347,
+      "sha256": "be28a8e832298500e55cc289481957fc91a7c9f16538e4663047b06be0743e2c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/jason-V16-detail.npz",
+      "bytes": 6048296,
+      "sha256": "5a7182e963cf339c2ec0e4d46ec3fc8a8dc435a2d110dec1799c84d1db4081c1",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/jason-V17-detail.npz",
+      "bytes": 6047232,
+      "sha256": "648a4388c38329e34e7db264c17aca60477aba4856f47fe8f22b5fd57364b7e9",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/kaitlin-actions.json",
+      "bytes": 10438503,
+      "sha256": "3bcbd9c22045354b56326831adde1b4cd57d7c8ff61fcce14ce4cfa75325a23c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/kaitlin-gif-preview.npz",
+      "bytes": 17912484,
+      "sha256": "c00babe6ed1d64a76632b2bd5ac13f9f4d9071ec34ee163edd29ab6440eee5b8",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/kaitlin-V16-detail.npz",
+      "bytes": 6034416,
+      "sha256": "7a2b09c97fa58454991b104eab7716d8027452cd393724db3ffe1c7b83070ca3",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/kaitlin-V17-detail.npz",
+      "bytes": 6034526,
+      "sha256": "c4f065819045037ee1b5fb9ab01505e955be1a7e99873f8be03a212df9b1dfd0",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/jason-actions.json",
+      "bytes": 12412408,
+      "sha256": "6bba30566cc7701af19c37408db39aa4b2b08b19967108e97c75834ff738bc90",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/jason-gif-preview.npz",
+      "bytes": 17966351,
+      "sha256": "74f63f20c758a7c2b32cbf9ec8cf73d13f58de2062b157f80329ac5325a72c0a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/kaitlin-actions.json",
+      "bytes": 10443499,
+      "sha256": "e0e17b80f0602c82c35c82ea2a58d3f109e6385d00073978b8ac4ace83e9db0c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/kaitlin-gif-preview.npz",
+      "bytes": 17942702,
+      "sha256": "e27b28250e3dbcbf8fe8210e8d8f283b62f0cf3879b546356aac736e89fddc65",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/preview-compressed.json",
+      "bytes": 12180942,
+      "sha256": "f9962cc78f2fb8a7d3ac2194f85b675aecd897e3296f76dfd0dba0b04c5f750e",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillFlow20261026/jason-actions.json",
+      "bytes": 14939874,
+      "sha256": "3d9c9f37700737cd7e37c8b16f928ee9adcd8afa2797908a201ae0ca0e717c00",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillFlow20261026/kaitlin-actions.json",
+      "bytes": 12571901,
+      "sha256": "301feab402b06c5f43ad84e48f8a21bec274b39f9c69326cef5e9a80742bf65e",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/jason-actions.json",
+      "bytes": 12398817,
+      "sha256": "1403f82177e541b2f6d5dfe3c956240fda9857807c8d6c736d3d994e9fcd5552",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/jason-gif-preview.npz",
+      "bytes": 17935036,
+      "sha256": "d466cc926b7688344d174e91a58c2c190d8c36d384ad76a420119e1fb3701819",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/kaitlin-actions.json",
+      "bytes": 10436555,
+      "sha256": "edd3e91c74116e614ee4c16eab29f25ddab056feb850fc01d11a8a1a479f1a32",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/kaitlin-gif-preview.npz",
+      "bytes": 17910639,
+      "sha256": "aac8c8a697a8001c2b08f908d70f406f5b22f7f06f519382d16e82ec9748405e",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/preview-compressed.json",
+      "bytes": 12175227,
+      "sha256": "61942682fa2961968cec21bb76bb61854115f2d8e2679a7d0e46dab94962e4b1",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/jason-actions.json",
+      "bytes": 14955839,
+      "sha256": "e2480b2d5059d8eec7c944684c809b8d363fd6c69cb77f8438ed62ed7ac71050",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/jason-gif-preview.npz",
+      "bytes": 21702708,
+      "sha256": "fff03a76ce6231df831b7e29bca99ad56f01051e7eae6619655ae19ea2a2ab0f",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/kaitlin-actions.json",
+      "bytes": 12580431,
+      "sha256": "7dc07c308d2626336d206747beb0cf85e06733c828a719618a1fcc23152fd4d1",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/kaitlin-gif-preview.npz",
+      "bytes": 21693714,
+      "sha256": "49d01ed681e7ffeb6c69cbd090290a73139f83538b51396f1bf5f0800b91d458",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/preview-compressed.json",
+      "bytes": 14714357,
+      "sha256": "0ff573830c353b051c7c1ee469c379a3f902304fda23ab1a5e6fdf38ec401cd3",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/jason-actions.json",
+      "bytes": 14946774,
+      "sha256": "733c06c4bd5329d208a8b0d809c0ff1e35f5e7e7aecc9308366ddcc7b6bcff24",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/jason-gif-preview.npz",
+      "bytes": 21521890,
+      "sha256": "4d2759441474a1305fb54872f26d77f718d5569b1e4205e1a83a85fce04b1137",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/kaitlin-actions.json",
+      "bytes": 12569765,
+      "sha256": "3a381f5cacaceec0de4b2b8119399a22f095153f13bd910c412a60dc6257d21e",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/kaitlin-gif-preview.npz",
+      "bytes": 21520995,
+      "sha256": "d1c88326c1a0f6aa377b955ea9a24ceb51c31ec279a023ee65df7909080059f3",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/preview-compressed.json",
+      "bytes": 14670126,
+      "sha256": "dd03306528942cbadd6932ae38e07a1d6d7e4deb0c23d80895ec7d6ce4c3a539",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/jason-actions.json",
+      "bytes": 12414216,
+      "sha256": "338da8e3d21c239c5c3b5cfe4fa1918cf7af5c5fd0a1c275a6fd6d0c5456cce9",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/kaitlin-actions.json",
+      "bytes": 10443419,
+      "sha256": "0d5c8c3ea9d8916d032081f40ef9462ec46232d6421a6279f9132331a714c302",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/jason-actions.json",
+      "bytes": 12412481,
+      "sha256": "893f719bdf1bf72d8c2519100144768fa21b417ee634e7682896aefbc317fb41",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/kaitlin-actions.json",
+      "bytes": 10443341,
+      "sha256": "292ff40da9cd25558e96c2bf5c19643dfac0021717da78ffe639382abcf52d15",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillSync20261026/jason-actions.json",
+      "bytes": 12397965,
+      "sha256": "8c29b33ff1ff443a5ed6749bc39ca9d3c18c430178f7d3abb573e3149018361f",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillSync20261026/kaitlin-actions.json",
+      "bytes": 10435202,
+      "sha256": "70f83bc8f80598f815a858434bd5654198e851d65705c139ec2a64c2bd8726ee",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/jason-actions.json",
+      "bytes": 12492078,
+      "sha256": "74e386e30b74ef66a67bae7dcbd632c00fa85c6f6313e8499367e725eb709b32",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/kaitlin-actions.json",
+      "bytes": 10470472,
+      "sha256": "857c6719369e9a381762f864c863e8be8bf33fd96a77ec839d4ea6bd5ab30992",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/after-compressed.json",
+      "bytes": 24098860,
+      "sha256": "5c1403331673d964b7efd81934e980fb865f801b12f98337c757bcf2450015ee",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/before-compressed.json",
+      "bytes": 24110730,
+      "sha256": "22b53728a6bf907ece74c52ba2af6ece550867b8dc420eca0b8e4be7662d4bd1",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/jason-actions.json",
+      "bytes": 12495760,
+      "sha256": "6416a8e86ed0636fe2c3024a6a091ca1c0403af9cffd2a102d921283cc66c849",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/jason-after-review.npz",
+      "bytes": 3258241,
+      "sha256": "4b1c05e29d0c9bafbafe82a443cf1bb97b020ee4a8cb59ff76b67e5d910a60af",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/jason-before-review.npz",
+      "bytes": 3252541,
+      "sha256": "ba912ee3dcca0ab2325dcfd2a02e031b9680c4abf7b731d39696a81105810340",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/kaitlin-actions.json",
+      "bytes": 10545963,
+      "sha256": "effcab6d888186452a0e5a797dc859692b0ea9f101f9f986bfe8c1097543f78b",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/kaitlin-after-review.npz",
+      "bytes": 3254999,
+      "sha256": "4a1a38d3fa2965758053ade645017c6c0e8c924db55c2dd98be1a58ec6a333c9",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/kaitlin-before-review.npz",
+      "bytes": 3244247,
+      "sha256": "0d4256af270f325b79553b92a6bd834eddd656210f0084705df5da14afe2a65b",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/outfit-after-ue_chainmail_shirt.npz",
+      "bytes": 4072291,
+      "sha256": "a901fba191a110a50e60c45637171df43161985c3b901ebc6c37757dd05a690a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/outfit-after-ue_field_sweater_charcoal.npz",
+      "bytes": 3602637,
+      "sha256": "e97766e15deb90613ca90ac1633dc9b5da2a00983b5fadeabeb478ff60ba9c12",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/outfit-after-ue_st6_sleeves.npz",
+      "bytes": 3230181,
+      "sha256": "f23c0dda0666f4b2d4b402792dd2f9a1bff92b3d9534022cf81f1f0e89ecfbb4",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/outfit-before-ue_chainmail_shirt.npz",
+      "bytes": 4056947,
+      "sha256": "a9f75d96d99e34a7b2aa81ace830357f01f0302456a47c96401add0aca84198a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/outfit-before-ue_field_sweater_charcoal.npz",
+      "bytes": 3594052,
+      "sha256": "c55c42a085e6a7807b9b90925db396d5311337751e50839b1291d7480ccd92ba",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/outfit-before-ue_st6_sleeves.npz",
+      "bytes": 3220165,
+      "sha256": "61915bfe978c311f6fa4f7d6e17dd8d2d0ab7944bea924def59bfe9b5fe24fa9",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleWhirlwindRepair20261027/jason-actions.json",
+      "bytes": 12406375,
+      "sha256": "4266c0e0314c0ce8ffd1b62c02147085790914fa18f47114067d735fe9f6b788",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleWhirlwindRepair20261027/kaitlin-actions.json",
+      "bytes": 10510337,
+      "sha256": "2e4668c50bcd9b2f4c6544d11015bd52daa5fb8cf15292a3f64bf754caa51652",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/inputs.json",
+      "bytes": 17409908,
+      "sha256": "e52e6aea85aec4057c211286f1908d8d9c84eebddec547a8e0cdd31b08cb64ce",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/jason-actions.json",
+      "bytes": 22076651,
+      "sha256": "7c2d1fca1d829a2b757ff772b51ae67183f71cdbd29279063d0ea3018aeb85a4",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/kaitlin-actions.json",
+      "bytes": 18527587,
+      "sha256": "55f99e94106630c999287d397572c00829a61200baa742e70a28660d29cf50ad",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/jason-actions.json",
+      "bytes": 9222917,
+      "sha256": "afc89420cc6622db089c7901b3b8637d20856b3ef784d6cabba7aac84fa2dbde",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/kaitlin-actions.json",
+      "bytes": 8814422,
+      "sha256": "30ae8f06b2f85bdc445b6a1b24d84fe4f5c913a6196caa53c0794be6582617b2",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/jason-actions.json",
+      "bytes": 18411348,
+      "sha256": "4b7c4336010a9ccc09b3ed732262b47d3d03d0b5b3923860a88df848cdeaf1e2",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/kaitlin-actions.json",
+      "bytes": 17737635,
+      "sha256": "e8512e4ec7de7d309ca69398b5d027e0b8aa55d22afaeb3ba3bc23a425d5c79c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/sword-lower-inputs.json",
+      "bytes": 19199145,
+      "sha256": "7a88da290532dc737c32d009579f52b6c32a89dbc9f2f3836ca6ad71c349a254",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/sword-stride-inputs.json",
+      "bytes": 23045044,
+      "sha256": "e7adaa9c842d7b1ea632c95c4c6bf0ae49c6c5621b7188e0a4d1b2f59e65a361",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/inputs.json",
+      "bytes": 27002002,
+      "sha256": "874c9a83dae29c440c009e8d41c29c15d66d45c90167be110ef8e62488dd9d2d",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/jason-actions.json",
+      "bytes": 8890555,
+      "sha256": "649dc1883eeb4e12427d51502572217460cf29fb9df9148e2e1f824ecdc0524e",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/kaitlin-actions.json",
+      "bytes": 7648116,
+      "sha256": "59cf1551b69339c50724fd3828c5375e136db17d2f71b40f7371380aee4e35e2",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/inputs.json",
+      "bytes": 16744904,
+      "sha256": "6cf7b7a3a38b3ceae950afe7c0c3e2ed99021bd66d887983b544116f6800a0d3",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/jason-actions.json",
+      "bytes": 8854283,
+      "sha256": "ce8550e66bb1d448a9971769cb8ddeec24df8d00c868e28842f38f543b384053",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/kaitlin-actions.json",
+      "bytes": 7672409,
+      "sha256": "89ce427a5ab09f383d25bb66124e74427098cec05221c0b2b8b7eefbb2176880",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/inputs.json",
+      "bytes": 16744899,
+      "sha256": "e6333fd9839a015d3e4f9423034cc8c359c951a2c7a0a11f988857f6aed82260",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/jason-actions.json",
+      "bytes": 8865314,
+      "sha256": "8539961a9207a3de181caa7c3f181a04f17621bba11497d9ebb7617dc6ce1133",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/kaitlin-actions.json",
+      "bytes": 7663869,
+      "sha256": "4eb7e594f4e336838e8a9ca562c817f8e416ea0a1532d0de6376cdeef208d033",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/inputs.json",
+      "bytes": 49075140,
+      "sha256": "e0531d390faf05d71ab1449b4ebc938e0b7758b9492c1052b2ca65aee71acba1",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/jason-actions.json",
+      "bytes": 9499443,
+      "sha256": "3fa7f5ab507fbcc3ecb4258316d9226272211ad69d132776dfebccaf827a4f44",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/kaitlin-actions.json",
+      "bytes": 8003059,
+      "sha256": "ee849bd434b88ec353689a615e0243aedb33d6336e6fa973584fe38d9f739e29",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/jason-actions.json",
+      "bytes": 9498104,
+      "sha256": "b3c5af3b22c912ead95884b4355d6f234c9bcd0ad1e23f58fc0f10c6d7616764",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/kaitlin-actions.json",
+      "bytes": 8003366,
+      "sha256": "3b42363e2085bee5f199da980ad45107d1f1c8eab692fa84e3fd05564208de0a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/jason-actions.json",
+      "bytes": 19082476,
+      "sha256": "90cc194045771e0e7b2f9c96ecfb4b70b50227fedbb0a275774103a5e85fabfe",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/kaitlin-actions.json",
+      "bytes": 16044890,
+      "sha256": "329b840a3d31ea418d5d86dfb2363a5790c45c381c54ac6ce39404effa752d15",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/jason-actions.json",
+      "bytes": 9500663,
+      "sha256": "ddd86cf3edc5afd11664d8344d35e71e968dea5d587b5353dcd6df56e698ea34",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/kaitlin-actions.json",
+      "bytes": 8008234,
+      "sha256": "9587f92765cd51fb91d8bbf931bffa42575df7d456ea14b4acf457b85c1c43a8",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/inputs.json",
+      "bytes": 92603717,
+      "sha256": "713ad8f69e53cfe0d22b2076445a987a99696556fed7eb8c2ae93a02526b7439",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/jason-actions.json",
+      "bytes": 68958392,
+      "sha256": "19b9fb970ad502f0bb1a64f1983f1e23797f1c1789ee7dcc5ac60775a89d6aa5",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/kaitlin-actions.json",
+      "bytes": 62036993,
+      "sha256": "b39d029297a0861d8f5597250eec6e344c4489969d6578076031b9d04698798c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/jason-actions.json",
+      "bytes": 25138341,
+      "sha256": "3894032a20ce80759a3f3285b70cc43bc5fff376bdbef08319e6f65bf68cab4b",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/jason-after-review.npz",
+      "bytes": 2913303,
+      "sha256": "a69254a1734980f4e9f18973f579e02aa6381ef1846c1c7a84d4a0efd1e6a87f",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/jason-before-review.npz",
+      "bytes": 2936418,
+      "sha256": "d9a3919d9abdee1e07f4c8b43a42d04cb482c14fdc3e934e1addacb0678679d0",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/kaitlin-actions.json",
+      "bytes": 20925296,
+      "sha256": "013e2dfc30225138eb8dcf07f62a9d45a59c67cde63ba09273f21539a665b7e9",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/kaitlin-after-review.npz",
+      "bytes": 2905574,
+      "sha256": "6d21a16ff0b0ad0ac99979651ec12601ed90635f497324b39ba1be505042a462",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/kaitlin-before-review.npz",
+      "bytes": 2929622,
+      "sha256": "725a7a1715d72ee042e105cd8d852be5118c10ad58ab6dcf159aa6b9a38ca5bd",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/Free3D_Cross_Attack.blend",
+      "bytes": 2121392,
+      "sha256": "f90440e4fed86b851608a445b3c7ffa888dd4ed2aff54ba7dc9ff4a9ca4cb341",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/Free3D_Cross_Attack.fbx",
+      "bytes": 4433568,
+      "sha256": "490fbe7676904c1ba5f34e0f0489f757b321dc1d0a568fe19912a00917e302a9",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/Free3D_Heavy_Attack.blend",
+      "bytes": 1954394,
+      "sha256": "f92acea4ca10c3373638506a71b23922dda223df41555a5c2b682a70685ab944",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/Free3D_Heavy_Attack.fbx",
+      "bytes": 4007760,
+      "sha256": "1599209fc3bf5e77f8eeeca21cf31f357b43125e3a19eadcb208c689ff8cdb97",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit/KayKit_Character_Animations_1.1/Animations/fbx/Rig_Large/Rig_Large_CombatMelee.fbx",
+      "bytes": 2673100,
+      "sha256": "7f1f8ef318b1226425714d58121b12ad90c7d80294f9ba1ca17b0ba769b9cc54",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit/KayKit_Character_Animations_1.1/Animations/fbx/Rig_Medium/Rig_Medium_CombatMelee.fbx",
+      "bytes": 3313740,
+      "sha256": "018ba1c4f2ad30e9d4b051f12c46eb3fa3da01c1d4cba3603f673dca3bf899ca",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit/KayKit_Character_Animations_1.1/Animations/gltf/Rig_Large/Rig_Large_CombatMelee.glb",
+      "bytes": 1025388,
+      "sha256": "485dcde864e015f76901b0832d9dceadecfa3fc1f9fa31df2423a6af9ec66ad8",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit/KayKit_Character_Animations_1.1/Animations/gltf/Rig_Medium/Rig_Medium_CombatMelee.glb",
+      "bytes": 999416,
+      "sha256": "c55e6ec1c79e83ae21d46fe1cd921c1b64be8b9a524a24517e51c6ba99231459",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit/KayKit_Character_Animations_1.1/Mannequin Character/characters/Mannequin_Large.fbx",
+      "bytes": 513836,
+      "sha256": "84ca6b93ae3d7be5686567a918a1f8b7eaff2e1207df481d0b496e4fa52b2eaa",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit/KayKit_Character_Animations_1.1/Mannequin Character/characters/Mannequin_Large.glb",
+      "bytes": 541784,
+      "sha256": "21a55e38b9d989dc243a7dd2bbf3c21766695925b875c33da9423e6a07e8528a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/raw-fbx-curves.json",
+      "bytes": 1630205,
+      "sha256": "938b75b169b0a599e0ef3e5b76e803b904e4140d7cd9b6fcb6445c81bc66c37b",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/Original/Animations/DualSword_Attack_Cross_Slash.fbx",
+      "bytes": 711024,
+      "sha256": "10d4a08b1283510743d4311aecbedf51d103cc9e1723cb44581ac115d0cba1c8",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/Original/Animations/DualSword_Attack_Slash_01.fbx",
+      "bytes": 754304,
+      "sha256": "3457c7a64900c1e9c564aa4acc2d728a9b8cdfd8d5662efd2b01b7bf1caeb7f6",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/Original/Animations/DualSword_Idle_Combat.fbx",
+      "bytes": 2572224,
+      "sha256": "dd41b0c35f0f077802382237fbb40776d928ddfc35c76d3bf7322b5b3a0fb3ca",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/Original/Animations/DualSword_Walk_Combat_B.fbx",
+      "bytes": 1188576,
+      "sha256": "c153ceda695bc8151937455ba706c61e3410bb032802103160b3eaf8be57b8b2",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/Original/Animations/DualSword_Walk_Combat_F.fbx",
+      "bytes": 1188560,
+      "sha256": "0803d42aeaa2684460c19ecd517636f2c74e6f6b1f52dae968726924242c2437",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/jason-actions.json",
+      "bytes": 25425884,
+      "sha256": "69d33f97c77ed8a3879028f35bd6f11c58f67748a6d5b105cc964558f7d0c37c",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/kaitlin-actions.json",
+      "bytes": 20967955,
+      "sha256": "b02b1066d02d65b17f0bd61f5c67441e821db6a5e79ae82355d3481005edb3a4",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/Slash1-source.json",
+      "bytes": 5205657,
+      "sha256": "4bdf496d68cad184b9e6950c24543f02494ddd15ee4a08f87dc4221b4126d9d1",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/Slash2-source.json",
+      "bytes": 2672175,
+      "sha256": "eb29740e9800236852efd3abbc51d3afea5b3130b921d1731bff4752e51d625f",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/Preview/author-poses.json",
+      "bytes": 4651137,
+      "sha256": "41dea429a7b1b41526060ea75750447df980069997524eb3e94738eee13b54a4",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/Preview/Dual.Slash1.npz",
+      "bytes": 25455743,
+      "sha256": "69299850af689687f45b535cf7b3798d023d76548c12f9601d11f32c6ba86928",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/Preview/Dual.Slash2.npz",
+      "bytes": 26152422,
+      "sha256": "eece87c2664f8df7c623378a36e33ae91e5b8ef110776a36640f21554274d9b3",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/Preview/head-weighted.json",
+      "bytes": 8330110,
+      "sha256": "cf8f43f311a5377083e5d212cfb758638998b08e92efb707b907b68c519baf21",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/Preview/saved-poses.json",
+      "bytes": 4418676,
+      "sha256": "706f2cb588c9e452f0586d496f041a1eca0f904b8e06f72da6499de594d32fb0",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/SecondAttackV2/jason-actions.json",
+      "bytes": 12835611,
+      "sha256": "1b231e530a25cff6efcfea55643570dc9727b8d9b0e847aa86b20f28fc250931",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/SecondAttackV2/kaitlin-actions.json",
+      "bytes": 10585559,
+      "sha256": "c1cfb7030079a06d9f8659268e38e6facf9d7adb4e4318c337ef48877aedc694",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/inputs.json",
+      "bytes": 87251110,
+      "sha256": "3c6e5e6a575e36ece5857ea6cb19eac36f7b9e092083bcc067eaf2a80e74a9c3",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/jason-actions.json",
+      "bytes": 14984830,
+      "sha256": "1d02180068a4c00e6ef488f6a7eddae452525e91445eb455797573f26e60feeb",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/kaitlin-actions.json",
+      "bytes": 12350180,
+      "sha256": "827aa159dd2efc784459090218f5ddc98341026dba4c4c530e4a581e4ce98b85",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/saved-poses.json",
+      "bytes": 27568962,
+      "sha256": "d57890c6ecfcb79a951eb1d0baffb6b8cce36f50dd13e9d35546a7f8910c1f35",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/Preview/jason-after-Kukri.FullBody.Dual.Thrust.npz",
+      "bytes": 43340063,
+      "sha256": "8e1c54c54ae0418f03816a60be364200c2f310b1627d41c9129cbbeb96af463a",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/Preview/jason-before-Kukri.FullBody.Dual.Thrust.npz",
+      "bytes": 6745773,
+      "sha256": "1a0c306ebbcbcc90ec806389da7c5a1452334ccbeeb2d460ba142a2d1b97fbcd",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/Preview/kaitlin-after-Kukri.FullBody.Dual.Thrust.npz",
+      "bytes": 43298911,
+      "sha256": "27228192187c14c29f7b5d2fa3a10c46a3d1b2cf92bffb42a7330f76f5e7217d",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/inputs.json",
+      "bytes": 57810381,
+      "sha256": "eef948d6fe86081f2057ec51f43942d0e95d0148751ec977c027acd3bc0cf97d",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/jason-actions.json",
+      "bytes": 37947541,
+      "sha256": "824b02668a4179b8782def899da2601b3e9f3ac3583241876401a29dc94db808",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/kaitlin-actions.json",
+      "bytes": 33192657,
+      "sha256": "872c60a9fa25bfa3471c09a3f190f54f391a9a4542abc5b50c5ec62ce5f9c986",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/saved-poses.json",
+      "bytes": 12494000,
+      "sha256": "a53bebd66f1bdb81e0af0468676c31701d92e6b8170180c503ead914b4594322",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/Preview/jason-Kukri.FullBody.Dual.Equip.npz",
+      "bytes": 13595755,
+      "sha256": "781921f44dc576367295401ff34116f4f8d1ca93d55c404d492f84ddf711f6a9",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/Preview/jason-Kukri.FullBody.Dual.Pommel.npz",
+      "bytes": 15014381,
+      "sha256": "4458b9572a7da36b4c572b46b4c755744a9cc75b5b4cb2da8e5645b042a155cc",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/Preview/jason-Kukri.FullBody.Dual.Recover1.npz",
+      "bytes": 8092480,
+      "sha256": "1afdc8e2986d9c7d11e35b73db34b0402c7d8b55aead9d58b8b20f820e182475",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/Preview/jason-Kukri.FullBody.Dual.Recover2.npz",
+      "bytes": 8092091,
+      "sha256": "d2b27796d40fccd10a0e92831ad51499080c8bddeb611696f1495685a6be6a00",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/Preview/jason-Kukri.FullBody.Dual.Run.npz",
+      "bytes": 5339407,
+      "sha256": "827518f87afe9cfc632aee1035be00e5869aa298729ddd0e199071fe24faa6c7",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/Preview/jason-Kukri.FullBody.Equip.npz",
+      "bytes": 12210325,
+      "sha256": "a8a874d1d43d525a9c09fc7221faf6ee92e0ecd203e69e0bdd1910f7a221e3ea",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/Preview/jason-Pistol.KukriUppercut.npz",
+      "bytes": 18643585,
+      "sha256": "742136abe4391d12387188c2006377bbd11b61e2c69c11034d43ab5e1bfc32a5",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/inputs.json",
+      "bytes": 9340559,
+      "sha256": "b084fe1c2d9183dc3309cf120e7e385c201c1fef84e842ad905562bb309d7ab7",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/jason-actions.json",
+      "bytes": 4534256,
+      "sha256": "b8970eed25521e6b5bdc5c6b326e0be02a5bf60735529ca1b0b36c1af7105e19",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/kaitlin-actions.json",
+      "bytes": 4211521,
+      "sha256": "fc3a6c65c3a70f921a1d3b62634daa3d85eb5f9441149fc99230565f1a150be8",
+      "publication": "local-only authoring dependency; do not remove"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriGripData.h",
+      "bytes": 4799,
+      "sha256": "0522bf6a930049a0e5eef71c93206bb2c470b5d3479dda80a6ba283a7c039be2",
+      "publication": "generated pose table retained locally; export recipe published"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriDualGripData.h",
+      "bytes": 4750,
+      "sha256": "d98b9f9a1506d021f1de83e2059329b859720989dfa6ffa87c10c32dd07e6fe3",
+      "publication": "generated pose table retained locally; export recipe published"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriPresentationData.h",
+      "bytes": 85748,
+      "sha256": "edac7e3cefcb1b5d37a1c479e7db4320b1af8b955d078064c9f771db4fc572d2",
+      "publication": "generated pose table retained locally; export recipe published"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/assets-saved.json",
+      "bytes": 5866,
+      "sha256": "42de0efd700e7080fa8e8ef35125905e57e3314b0e89c4b95debe08c593bb490",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/authoring-receipt.json",
+      "bytes": 3314,
+      "sha256": "86817ea546ac73cb5d1e4eb82479b4dc2329e4ce2114caa3f3d671ddd92e4181",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/build-FPSGAME.json",
+      "bytes": 63168,
+      "sha256": "c5ad4dafcef87c2cf722f2a838246799e3ee474cc2de20dcb29aaad8c40cabc0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/build-FPSGAMEEditor.json",
+      "bytes": 63783,
+      "sha256": "771a957729468c6e86e2c6a98a1762f1d688cfb534f733e316e9a48549243e96",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/build-receipt.json",
+      "bytes": 427,
+      "sha256": "a8577a3388427de199cfd9c5717081bc805d1fdf287403081189545dda7ffc72",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/kaitlin-assets-saved.json",
+      "bytes": 2128,
+      "sha256": "88cc909da8781bfa276be8ed731d4452c51385b2d8dea392e0827745544be964",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/native-grip.json",
+      "bytes": 6533,
+      "sha256": "45cca2b9f254d32f1032bfd3ff1d160cd75224947fd25191baca0565876ffa69",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/prepare_sources-commandlet.json",
+      "bytes": 108,
+      "sha256": "0dc1a00ee3fbf3f1583b780e0a376a199f6f571076ff85a436c1f4ccb466057c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/published.json",
+      "bytes": 8609,
+      "sha256": "9f387d027018cf955ab7acbf160503a252d734b5fcb2489aa0a34d769836f2a7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/save_actions-commandlet.json",
+      "bytes": 105,
+      "sha256": "396ab692f72d84e920444fcd411ceea0bf727a3f715660d8f88f46a916c5c3f9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/save_kaitlin-commandlet.json",
+      "bytes": 105,
+      "sha256": "17ab76d30724ca0ac18574e7a66556be8dc6bd6b2b756aff13fa422dcadc48fc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/selection.json",
+      "bytes": 1846,
+      "sha256": "5d2e3c38bda6243ae803240355c59814028bee6527324a8edb5140075fdfc797",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/source-motion-summary.json",
+      "bytes": 31861,
+      "sha256": "649bb15de52628b506599fe1aebdb5ef5a9e0b3486f2f24796e123f0922bcb2d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/sources-ready.json",
+      "bytes": 2100,
+      "sha256": "a5f8e7c4d8f45caf82cfd85a47a46240ce6841b541f80b86acc654b6a61aba73",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/assets-saved.json",
+      "bytes": 3078,
+      "sha256": "32adac883f6fe6196b90b29238a590b49ccaa4c331d056cb45760fc10742ec9e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/authoring.json",
+      "bytes": 4255,
+      "sha256": "1be2ad671891ba18a9765dd430b8cafe51baa84ccf45779c477da9e758eda301",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/build-FPSGAME.json",
+      "bytes": 64533,
+      "sha256": "5e9f3edff5b55236e071959dd283205882f9ea75f250b90183412385e98e4d56",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/build-FPSGAMEEditor-backup-2026.10.24-15.16.02.json",
+      "bytes": 61156,
+      "sha256": "645438e9d0eeb174d587e5f778ddba0b1d67998b3a4b2ee182a478d236b59f67",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/build-FPSGAMEEditor-backup-2026.10.24-15.23.06.json",
+      "bytes": 152075,
+      "sha256": "ac9700e910bdb0e0ed38296edd48e2855715175e8a2b8d32190e05f20950d6bf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/build-FPSGAMEEditor.json",
+      "bytes": 17660,
+      "sha256": "f9fef526296f4204fbd6d7248be616d7c0a104329c06593dfaeb189746951cb2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/build-receipt-FPSGAME.json",
+      "bytes": 201,
+      "sha256": "09199323222788e182b7f01defc23dfdcf85e1151b1a45e7b874b1902e872295",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/build-receipt-FPSGAMEEditor.json",
+      "bytes": 213,
+      "sha256": "e3f378a3bbac661f32afd586f9da9c15f433e6cc40b38bd8c0fa076ac4ca3469",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/delivery.json",
+      "bytes": 3937,
+      "sha256": "90eb41279b3dbe0ee86f140b35e1ec3a9d2a20dcf7228e821ce4cfdb4a2b3e11",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/prepare-commandlet.json",
+      "bytes": 100,
+      "sha256": "41e959054da72f9ebb1c3235b008ff6684a4bac95037091f5dc1ee3bd2419254",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/published.json",
+      "bytes": 5707,
+      "sha256": "c5486e4a8a035006f6b7f4e9b14913b7889b8e9a78109f466d8f817e4bbee504",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/ComboV3/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "625331ef1a545d996fa4d451bf88c0533cba3c46eb45fde4aae2d18719b6aa4f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/assets-saved.json",
+      "bytes": 5867,
+      "sha256": "6ae98257d1db802b0213dd55452653f43ae9fef10408a1542821acdced7e6627",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/audit_graph-commandlet.json",
+      "bytes": 104,
+      "sha256": "21e4799123cfc6461208d3eab7bc3181c7bdf8cebc3b70434c29690ff2b148b6",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/authoring-report.json",
+      "bytes": 2057,
+      "sha256": "ee5fa7f5af8108ef95ed831fc70529cb7632a0eb376b2dfa63f7d05bf7131304",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/build-FPSGAME-backup-2026.10.24-12.43.49.json",
+      "bytes": 65513,
+      "sha256": "8624bbd29e1425dbd7755f5b58f4ea7a8ab690f22385f0d1f915d032704114ff",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/build-FPSGAME-backup-2026.10.24-12.46.55.json",
+      "bytes": 56160,
+      "sha256": "cd401cccff6f412eb5797fd4929140ffb5d0ef719446e106b071167656bb93d7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/build-FPSGAME.json",
+      "bytes": 57277,
+      "sha256": "b4671cfc6c417714b93ad5d0877cddfe38913ed64f8a42469a88d32efcf8a500",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/build-FPSGAMEEditor-backup-2026.10.24-12.50.31.json",
+      "bytes": 85416,
+      "sha256": "c6c19c990d31a5629daf5c750d0cb8c0dc55d305a22a3815ea6679f33c8874ab",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/build-FPSGAMEEditor.json",
+      "bytes": 57336,
+      "sha256": "64f508bf489121cbfca3feeb46932831ab786d5ac1da45199a124abcd2402800",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/build-receipt.json",
+      "bytes": 451,
+      "sha256": "1943028aff6f682dcec0be848350bd07cef7c2841b4399b0bbda0d7e443a8855",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/build-runtime-diagnosis.json",
+      "bytes": 57424,
+      "sha256": "a7f9e6d68df70d4cbf1b5d896f106d72a69602b4575f3c1fd846b4e2afb96a4d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/final-builds.json",
+      "bytes": 235,
+      "sha256": "7130e7c8c6d7b70a378a02c09199645d9b9fbaff80985b6160771d9868b707ba",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/kaitlin-assets-saved.json",
+      "bytes": 2271,
+      "sha256": "133d25686574572452d0c1d64b3a7813ddad5d4c1ce32c392400384f1092f852",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/live-body.json",
+      "bytes": 24228,
+      "sha256": "bac481092eed96d07dbbd0fedd1aee19119e71c6809fee64f5135ec445d6d6de",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/live-route-evidence.json",
+      "bytes": 3320,
+      "sha256": "18b5bd9c6410097587a1f8f310c74df80706f67a98552fa865de86f9bd251da0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/native-graph-summary.json",
+      "bytes": 11410,
+      "sha256": "249770ce3db4e36eb50a1dc56aa51d9085ad73f64e0e07907260566ef9e44b70",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/post-process-comparison.json",
+      "bytes": 259,
+      "sha256": "d556251672ce8cdeac16d0ce58dac7e83fd1713e28d92611ed27161e51a19b11",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/published.json",
+      "bytes": 9837,
+      "sha256": "7df1974e80f41bb902aefe430b93e4f641130657197b2152b5ef2ff900e4a048",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/save_actions-commandlet.json",
+      "bytes": 105,
+      "sha256": "a9d5f95b11f8e94576e7c782319515b6aff12d885dbf2c6c72edf61a084aee87",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/save_kaitlin-commandlet.json",
+      "bytes": 105,
+      "sha256": "11361787d01e462317ede1b08fb057d5417b54344afe5d70eb2e38517b873d57",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/tracks-after.json",
+      "bytes": 7224,
+      "sha256": "786749b78fd25ae9d6763caa2c408e916803ddaf1a8583bf3cd8c90e191db6e7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPerson20261024/FullBodyV2/tracks-before.json",
+      "bytes": 16016,
+      "sha256": "22f600e9ba490f667dc1bb809b0992bb357d863724a76bc44995196d1a9335f3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMesh2MotionPreview20261024/inspected-clips.json",
+      "bytes": 2089,
+      "sha256": "9d7c725a472d45aa342131f14b8df24b2f113087f0259f13f257298ae159ca3e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMesh2MotionPreview20261024/motion-captures.json",
+      "bytes": 141,
+      "sha256": "d0c1d290f8d494262d289684e24576c6b36c3f93fe82c229eac4f5d860f86bb4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMesh2MotionPreview20261024/online-source-durations.json",
+      "bytes": 872,
+      "sha256": "58573eb859fdc758da5540d3dc528072202636bfaa8957dac441c85aa2003f08",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMesh2MotionPreview20261024/selection.json",
+      "bytes": 4201,
+      "sha256": "92951e68c457024432b6d65f8e88bccc5f24d030be196799de75a7d360565f2f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustReferences20261024/selection.json",
+      "bytes": 3941,
+      "sha256": "e71084c087248302e1bf30f2dec512248e12bbc9b6e7256d6e440ceff2a17e1d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/assets-saved.json",
+      "bytes": 978,
+      "sha256": "7ebfec211f6527231542779aee054ffc0914a705f86ec5ff0c174006681c9172",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/authoring.json",
+      "bytes": 7423,
+      "sha256": "9287e7ad29395dbbefe16f48f73644edf6ccb07dd7c4e9a284f3dff2d98684df",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/build-FPSGAME.json",
+      "bytes": 57245,
+      "sha256": "1038907272cd12e306682bbdae744ff21ece3cb21aa83a4d3a067b7df7696e2b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/build-FPSGAMEEditor.json",
+      "bytes": 153914,
+      "sha256": "d25a4f82fa197a3810f7da74df81dbb1bf676cd7326f4fbb42d29150a450c426",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/build-receipt-FPSGAME.json",
+      "bytes": 191,
+      "sha256": "7e16a8dcc8d4494164c09fd5ba66dce8bf3cae90944b13f11185e6d072f83a9c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/build-receipt-FPSGAMEEditor.json",
+      "bytes": 203,
+      "sha256": "412b3cd450354e331f53c9c570511f4d3a43ebc2fdcadf3f184a9fbbcbf2fc49",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/delivery.json",
+      "bytes": 1734,
+      "sha256": "c8c3c7ca690cbbef254e387e6739899c9e99a4d463883a202743eca2085b89f3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/livecoding.json",
+      "bytes": 103,
+      "sha256": "c52c4b938c1ef89364e65d6bb85b117039e220924696f47dff39209ddc3b22e9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/published.json",
+      "bytes": 2111,
+      "sha256": "3596ea5f6d64238b7b8b3dd7bf1cca11b3a18ac1e0feaa7425ff9b0b24f79cf2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustHand20261025/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "a3d5ada1bbafa9f1ed08911f77fd60bcb249e70132f8e65346460a3db8471a3e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/assets-saved.json",
+      "bytes": 984,
+      "sha256": "2fde675c086f46792960b354eca0eb2d28fead870300f6a946f207fe78c0e7a3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/authoring.json",
+      "bytes": 2590,
+      "sha256": "5a417ee907d947e46359e88ce7a5147b2f1e6a3909fa64bb9b9eca5d7562cfda",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/delivery.json",
+      "bytes": 2491,
+      "sha256": "9d4abb503404fa20a4f3692cb04a9ad56c25ae5a1950361b4f3c563437514e65",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/prepare-commandlet.json",
+      "bytes": 100,
+      "sha256": "ca1a42c18fde674b7f24b213201d4cabbbabb4176103546fca0c8b56e0237366",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/published.json",
+      "bytes": 2094,
+      "sha256": "ce75c3b2e7dd5243f51dafbd376e92f9eaba0cac067c6a3e0b20e0fff09e18c5",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustWrist20261025/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "82f8d9faa6424e609ea5e5956d90f1e22224d7ea44cac72e378f8af2bea2753c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/assets-saved.json",
+      "bytes": 980,
+      "sha256": "09e73d94e26b538df5f60c3ddee11f00477031f44e51862dd1b26397bb9fb35d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/authoring.json",
+      "bytes": 2622,
+      "sha256": "446595286be91a141f4194b8ef09569eeecc97e02168ad541956da621740fb48",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/delivery.json",
+      "bytes": 2380,
+      "sha256": "a600592c7bd05633656e46100ae65221bb89bcc91f203891bfde694709781954",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/kaykit-stab-source.json",
+      "bytes": 456714,
+      "sha256": "bdb09ef27f33fed7665eb7eaf810feea25ec9cd971892f28eccdb1cc960ad473",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/prepare-commandlet.json",
+      "bytes": 100,
+      "sha256": "cccd960b5ec9513715bdaf304d89bc18382e8b679b636ec34900e7273794b986",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/published.json",
+      "bytes": 2094,
+      "sha256": "c9464500d9ba64a336fe151c69f60f9d5618189b14abe905b4a6dff97642e0c3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThrustSourceArm20261025/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "78a8714633a22025fc1b80219dbdf6262914ffb6eca941a701bb5d8ac3f5e9dc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercut20261025/assets-saved.json",
+      "bytes": 966,
+      "sha256": "037628152ea86ebf3d02bd6dc1d9f0bffb04a6b55ee6abe88e978ca18737a14a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercut20261025/authoring.json",
+      "bytes": 11982,
+      "sha256": "bc34891b869b0cfdd70309f5bada1d3b93210f253742f85b351ea0f108e789a1",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercut20261025/delivery.json",
+      "bytes": 1325,
+      "sha256": "bb370e20c30fd9f6f9a3322291f0b7358e5990beb756f43aff4d69289d898829",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercut20261025/published.json",
+      "bytes": 2105,
+      "sha256": "5e4924ec252a736cc335c083d24fe280bc5938f31b04124dc2a3535ce76d4e33",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercut20261025/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "da172cadaf361c4d52d5820d40b83d3925e0e04f354d01764cfec6cd8d8bb11f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriHeavy20261025/assets-saved.json",
+      "bytes": 1338,
+      "sha256": "e029b8b2d6dea156f22488f67750d9d2466fb4e4abdf59f0cb72f88ef2cbce42",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriHeavy20261025/authoring.json",
+      "bytes": 3326,
+      "sha256": "c40d310a5801b3602947562aaa26562cf89bb429069f73b70ffee3986112e3b2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriHeavy20261025/delivery.json",
+      "bytes": 1761,
+      "sha256": "55ace30891269ab1920e7b87be5609f048b3e6f43683d76ab9d60533db20e57f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriHeavy20261025/published.json",
+      "bytes": 2810,
+      "sha256": "88923bc465660edc57c5e2a6e8f1c869bab6dd7ce0c9fbda7fb8e0a305bdd557",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriHeavy20261025/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "7e3c44aed97a51b5ee93880df1890f9d8f572fc446856a3fb60c14c75e287705",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/assets-saved.json",
+      "bytes": 1824,
+      "sha256": "af83c205f890e9112c9fe2bbc52c2833f24fdb31096044b2d2f54f35db81d9a8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/authoring.json",
+      "bytes": 3735,
+      "sha256": "db261501f2cb26e5f8cd6bf4bd5e05a3d2d4e62da2b1a7fc63824ead19c2a2a7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/delivery.json",
+      "bytes": 2247,
+      "sha256": "610accc2bda3186b1c457c2c6a588202d5ea6a47f6e062540e54128080524784",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/prepare-commandlet.json",
+      "bytes": 100,
+      "sha256": "2358b4c23cd36c7a42befd3efac228feaf5e169467ca3cdb449dd925ba806edc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/published.json",
+      "bytes": 3772,
+      "sha256": "e5c08af7c5b8fabbff1d1a77146e852a4e3f4ec176177ae8223045e3579b86a9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwind20261025/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "3af1b7fcb8fa19ec5578bb004f5655bceb4399f8445bebccfedaef9b80a40f35",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindGuard20261025/assets-saved.json",
+      "bytes": 1878,
+      "sha256": "ba34472cd641fe7e68bb0f741596e30ec7ce41844d13a16aa75bdefc08444656",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindGuard20261025/authoring.json",
+      "bytes": 3490,
+      "sha256": "e837fed7d6de2a820e054c09e5d8d37ed3b27b1ca20ccf6b0d56887c2db4c758",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindGuard20261025/delivery.json",
+      "bytes": 4117,
+      "sha256": "4f0aa02b2421c28a816fc212b1c9d78addd10bd9397e29eb8cfab5fe215bdb10",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindGuard20261025/published.json",
+      "bytes": 3831,
+      "sha256": "515eea0e656ecd697a476113a8ee32182caf9fd0b1a18f07309e880470b524e4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindGuard20261025/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "3152282a9327dfd00ef76f54e2d4aa431eeb44dd9e9db2107d21577a10bc5fe0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindRiftFade20261025/build-FPSGAME.json",
+      "bytes": 57399,
+      "sha256": "57e011fdf75e057bc670a93b5eb74f8ed58af0d3fcd736d0e9783ad6a6c1ea93",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindRiftFade20261025/build-FPSGAMEEditor.json",
+      "bytes": 56799,
+      "sha256": "b172a188401d865405fbe72edb5a6d7e47ab0015a9dbe80f33ea5b325eb2299a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindRiftFade20261025/build-receipt-FPSGAME.json",
+      "bytes": 198,
+      "sha256": "a07c89a93d5e8f59a4195f2f9035e90c0ef4c281999c4f2f69263521090087e1",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindRiftFade20261025/build-receipt-FPSGAMEEditor.json",
+      "bytes": 210,
+      "sha256": "f81b9876ed3eb5c6d6513eec65bd2c3e88d2bd872c7b304c054b50ce0d5ef484",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindRiftFade20261025/delivery.json",
+      "bytes": 806,
+      "sha256": "ed5097477acb2c0d311eec0960c41fd25dedf2feca2830f7707c881c44ce1ae6",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/assets-saved.json",
+      "bytes": 1866,
+      "sha256": "c95473ad579ad17e8456e446b9e06804a59f599b5e49aa93d8ff45dc6869764b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/authoring.json",
+      "bytes": 5130,
+      "sha256": "ea552f643acf431f319c0fde82f0a0dfbb11fbdd66abd1470705d67a65f6f31c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/inspection.json",
+      "bytes": 4112,
+      "sha256": "749811b9dbc790e85f5dd32b9148a9eca90452333f119ed4b50e38f6b03e702b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/preview-manifest.json",
+      "bytes": 9745,
+      "sha256": "16af7b12b753560344d43e9a69c3086aa229765a6a2420af23cc11d73f5daa2e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/published.json",
+      "bytes": 3826,
+      "sha256": "2377148f918718a73aa6180e38cbe41cc4c03cc6c86bf3e641f12b537b59bbd0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/save-r1-commandlet.json",
+      "bytes": 106,
+      "sha256": "d4568a6b69c2b6b359568f9837324077971363f4c985f8e515c950d2e83b36cb",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/save_and_read-commandlet.json",
+      "bytes": 106,
+      "sha256": "ea944adfefba1e2e5e4bffcc8e7e5c12632a6b64e3fa75f41a590fb5ef57d619",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWhirlwindSourceMotion20261025/source-preview.json",
+      "bytes": 230,
+      "sha256": "4f5431093575d5f3959ce706bf563360f550b5012b98d883a15376448382ab5d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/assets-saved.json",
+      "bytes": 1830,
+      "sha256": "c220e0923c9edea97386fb3c7cbf8b5e147056f52747d8962f1dcb8522e1933d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/authoring.json",
+      "bytes": 6138,
+      "sha256": "76d5c473208ab988c62f923aee387b5c361242ea97aca410d2eeacc4b7723189",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/delivery.json",
+      "bytes": 1834,
+      "sha256": "a164a297bfaf38c9675938891fbd173eea2726886c1d513c636be40d2121c740",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/published.json",
+      "bytes": 3783,
+      "sha256": "34a0e729d86622aa18fb59addf57821b1b5ff71f9e5f573d0a030bda97639ee2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyWhirlwind20261025/save_assets-commandlet.json",
+      "bytes": 116,
+      "sha256": "41bacf2409e7f8697be28e7a12d5e71c842d647e1a515c44a99074db83d6c321",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/assets-saved.json",
+      "bytes": 1000,
+      "sha256": "d2c956c8f4520433dd4000de38703bae34dbeb4c517e4a7184caf077fe5abc40",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/authoring.json",
+      "bytes": 5991,
+      "sha256": "ffbcb950f19af933f49446e77416d5eceb945fb9e30f4de386ab109fecb5e9ef",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/delivery.json",
+      "bytes": 1048,
+      "sha256": "6b8c3b0e7d2033990d7f68692924dd0a88ad652a66cfa2f4ac84aa8d30d32e0f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/published.json",
+      "bytes": 2120,
+      "sha256": "e987c140ee524687d23ab6c41deadcdb09592f63fd061bad27145ee18fc9d872",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriMeshyUppercut20261025/save_assets-commandlet.json",
+      "bytes": 116,
+      "sha256": "cc5ff028d84d8f7a555538d8d4980ea8e753b50f108eee584481e3b89c97f3fe",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/assets-saved.json",
+      "bytes": 990,
+      "sha256": "974fa60cceb846de8b3b61282efeea314b4f51528e56d9dbe8f0beb24afffaa4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/authoring.json",
+      "bytes": 14688,
+      "sha256": "2746fb68ca0a9aa8f9c9f69c28f3ad2b38b53e8a83c411e4cba443a4396d21ac",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/delivery.json",
+      "bytes": 1129,
+      "sha256": "fccfb6955b1fecc9eb46aa713d744a4f660c85225ce48fd74c8222de1b049935",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/prepare-commandlet.json",
+      "bytes": 112,
+      "sha256": "2d233660533e78d5eb68391fb92a07d4ab9ebc9ef26b44bfb7605d14c3477ad8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/published.json",
+      "bytes": 2105,
+      "sha256": "e858e7264cab2fe856c111c2be38caa7ac2b7f3abb503cdbd7ccc18659083226",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriQuickFirstPerson20261025/save_assets-commandlet.json",
+      "bytes": 116,
+      "sha256": "094664f813ec0d78e274f7c2f6cae9078134acd283603755d7347aae1a7089b9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriInventory20261025/build.json",
+      "bytes": 518,
+      "sha256": "8b952a3d877429e8daa57b31e9f4d87c621c7feabdb8fa0f2580308346bc0ac0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriInventory20261025/delivery.json",
+      "bytes": 985,
+      "sha256": "3a0b64e6894e5ed1c5d82020b77943fa5cafccc1e9e260d1d15590262d871d5a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriInventory20261025/FPSGAME-build.json",
+      "bytes": 76087,
+      "sha256": "cf84435adf525890fa01ecbc6b65adbe2a931d29e85dcf13dc25dddcffaf98ca",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriInventory20261025/FPSGAMEEditor-build.json",
+      "bytes": 78839,
+      "sha256": "26b18ecb7f3a8b170759fd59410a2877aef748d82a974085cc793ed8cc761465",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/assets-saved.json",
+      "bytes": 1308,
+      "sha256": "d61ea451d95b7d9e193862d253e17ae05d4966bd0ec4d4fda149e396e0898851",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/authoring.json",
+      "bytes": 3362,
+      "sha256": "a1ccfff93028d4e747be375c341e372ebdc9cb1b7fd5bad1cf6b96862ae982a7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/build-first.json",
+      "bytes": 292,
+      "sha256": "4cc6c1ec55895300a642a303c6ec3c30f49beadbba8f26cb2eef33c196bdf995",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/build.json",
+      "bytes": 520,
+      "sha256": "ef6195a97fcb1718245a4a38e1e4595576934626e24c2420e851302eb77a172d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/FPSGAME-build-backup-2026.10.25-12.34.13.json",
+      "bytes": 83507,
+      "sha256": "21a2515f2a95ba94fedaffcc01151915d105ecfa42b06e4249ba028358c3be9d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/FPSGAME-build.json",
+      "bytes": 77440,
+      "sha256": "fbd4491534c18058103dce49eb5f00d3ae17736f8c91f58a529620d8ab1ceec0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/FPSGAMEEditor-build.json",
+      "bytes": 89167,
+      "sha256": "ab52229cf92943addbe1e7550032a437465a8757c5f6027651170d0d837976ad",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/inputs.json",
+      "bytes": 484920,
+      "sha256": "f899c9efba47f9099e225761ec899cecbdac59750c67d2929d418d85274cead1",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/jason-actions.json",
+      "bytes": 243192,
+      "sha256": "7c57cc16b935bc4764714044c50f927a2551a2e5f52377b355fb0818db12d096",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/kaitlin-actions.json",
+      "bytes": 203606,
+      "sha256": "f6227e2927670d16b75df8cf50d96028cf0fc40c1dbf3620a6a1d569b1485d9a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/prepare-commandlet.json",
+      "bytes": 100,
+      "sha256": "196ab8ea2de00e8fa6e9c48c34354d75d06977147cdb92d40b1cc8b20391c99c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/published.json",
+      "bytes": 2789,
+      "sha256": "de2eccf9d3492a110e69275c991b3102e375ef8f98e089745457d0e18a9012ef",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "e5d27f7317334329a5dc5be398333346284e8b854b7619606e5572eba635341d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/BuildCompletionR1/build.json",
+      "bytes": 323,
+      "sha256": "b9199b5943b75209d5cb061a30ed9be8f888bf5611c9d5d00c0f58e68f0ae9ee",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/BuildCompletionR1/FPSGAMEEditor-build.json",
+      "bytes": 163147,
+      "sha256": "31ca452d936f35f048ae24cac658543e5fd88f282f2b60f9eced5a676f94fa54",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/BuildCompletionR2/build.json",
+      "bytes": 323,
+      "sha256": "29adf8d36dbfc78f2f38bdabe79802baa963afc85a4b864b2a03cd82f08aa268",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/BuildCompletionR2/FPSGAMEEditor-build.json",
+      "bytes": 65825,
+      "sha256": "d2280468ffed52eecaa626b9734e5c7d8e0af04cf1945624e886cc97d2f6b9ea",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/BuildCompletionR3/build.json",
+      "bytes": 323,
+      "sha256": "d6951df6e8757f7fe9f0e8ad1da33a42ebe7fcc2529ef4077da518cca2681208",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriBody20261025/BuildCompletionR3/FPSGAMEEditor-build.json",
+      "bytes": 123176,
+      "sha256": "692379172f4694ee1ebb71a18ea4701bd62dd46beef9fbb4193801e69bc3708d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmill20261026/assets-saved.json",
+      "bytes": 1836,
+      "sha256": "db4943df2373c6199b4a74524d85b4eb00c031c2a8339113234ea2ae2d4b4523",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmill20261026/authoring.json",
+      "bytes": 3332,
+      "sha256": "09fd6534162e548cd59c9789acf7f0d0d91ac3b44b59d2d5b313b2f561fd7f7f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmill20261026/published.json",
+      "bytes": 3783,
+      "sha256": "bf66cf2d7240a36c5816d82dfd38e1ae02615dd304d6c4421919b1a33eb65045",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmill20261026/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "dcbadbd1bc54ddc9d393ab2c8eed6c40237a3f8b19686c51a7f6911eef48af24",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/assets-saved.json",
+      "bytes": 1914,
+      "sha256": "13053848cd3df0874c7aaa1d556444b2ebf3c4bf903eb60c6b88614af67783cd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/authoring.json",
+      "bytes": 5369,
+      "sha256": "87ace565c07a871b07d5688027ed484830f47943d981b10e7f025fbfce952ea0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/delivery-status.json",
+      "bytes": 652,
+      "sha256": "972b79c3598019e1836dc2055f368cc40769119535a5d1a121c0309b366df4ff",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/detail-comparison.json",
+      "bytes": 1659,
+      "sha256": "8813ec6642104a2f354540f8d381d53bf76415c9b2cfb1c505237b435cbed444",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/gif-preview.json",
+      "bytes": 3807,
+      "sha256": "55b2e303faae7010f6fb3e42c2fe0676a80459ef5b8e5c53fe63137efd85e85d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/motion.json",
+      "bytes": 4713,
+      "sha256": "2cc7b331ec159a354886b1dde62ad801554272c29a08edc5a03d5059d384c91c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/pose-diagnosis.json",
+      "bytes": 1676,
+      "sha256": "11cd5ce19048091f6ec9393e9f4bdcd277286d35e1a0075f85f4f15b41c515cf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/published.json",
+      "bytes": 3867,
+      "sha256": "d08c2ece06d2376fac87b89b13f49ff8b3afe65bed6c91d96d6c8a1f51cac133",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillDetail20261026/save_all-commandlet.json",
+      "bytes": 113,
+      "sha256": "9151941ffaa9f512151272dbc3797f62b12babb1855b94d839f050a5c734b09c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/assets-saved.json",
+      "bytes": 1902,
+      "sha256": "9af6a30a7cb8912de07556062c6be79106ce405ba9ff0baf29f9c2ba6b6b29cb",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/authoring.json",
+      "bytes": 5371,
+      "sha256": "b1d1f91f0dd9260b41b1b92eb1aeaa952483cb790aa9f483b4aaf252cc89a52a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/build-editor-result.json",
+      "bytes": 137,
+      "sha256": "33a3f0af167a0377cd17693cf8a25ec460f2954461d7c8b25e841a310796f1d1",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/build-editor.json",
+      "bytes": 17771,
+      "sha256": "a54c12e3895d546342243efec06f32e10fb134954a10be09beb33cdb3a58ee11",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/gif-preview.json",
+      "bytes": 4746,
+      "sha256": "cb7ed972030522ab4a048e75ff491a2b06d8a588f258e7b3d8dcfa8f3e9fbae0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/livecoding-batch.json",
+      "bytes": 195,
+      "sha256": "6da42fe5c8991f8adcea405b68a14cb7e8559be90bd55cc91ad8a098bb7e95b4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/livecoding-result.json",
+      "bytes": 144,
+      "sha256": "21f8a91c3aebdd7e37ebb94a5a8bea55bf2756910b04d23de695617bf627bf72",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/motion.json",
+      "bytes": 4606,
+      "sha256": "4039895aced774f5b4506e89422421e872d75e6b5b31c730bbef1b3a61429ef2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/pose-authoring-notes.json",
+      "bytes": 451,
+      "sha256": "2ef73904e957caa92aa9d2b22c8933158de6781d7679514f198d52050ed67ed3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/pre-save-state-batch.json",
+      "bytes": 185,
+      "sha256": "ca1e22bbabd26cb1a7c472780dd04876e179ebf2755fcce66b25686a8a7b3674",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/pre-save-state-result.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/published.json",
+      "bytes": 3854,
+      "sha256": "8693dd362992c7b0dddd7b1db028ae00f59e25ea94b7ca5225cedc935033d6d2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillElbow20261026/save_and_preview-commandlet.json",
+      "bytes": 121,
+      "sha256": "4134ef5b7b5c48808edbb1d6fc8c48657e264e7c36bd8ba883c3642d548d29cd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillFlow20261026/assets-saved.json",
+      "bytes": 1884,
+      "sha256": "864ae27c049834c06cab70d33ca772ca4f1cd466f0fe5bf5c8594fe99a2d6d0b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillFlow20261026/authoring.json",
+      "bytes": 3137,
+      "sha256": "2acc72d5b03cd044dacffc1104d876c6631d40b562b620655603c632da49775a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillFlow20261026/published.json",
+      "bytes": 3835,
+      "sha256": "42ced5ef760f966a76e2de3783fdb705e91cf35d599b69b0450849c3054cefcc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillFlow20261026/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "7b45828bea4fc60c65d23445f43d09ffaa1d3ef5699a8b5bd3ba00754d8f1faa",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/assets-saved.json",
+      "bytes": 1890,
+      "sha256": "1f0b1073fc6d53de1281de335eb112e0f4976fd92bf44782f0d178fc60e792c7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/authoring.json",
+      "bytes": 5401,
+      "sha256": "3b70841fad52047196aa4656ad30d37e317108b2e33e6c2d8b76fcd7b733c817",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/gif-preview.json",
+      "bytes": 4736,
+      "sha256": "6da060feac10ce9e6c243006927ddb857b247dfb4503edfc17da9c5042838ff9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/hands-compressed.json",
+      "bytes": 1667,
+      "sha256": "5a75c16f69ccb5eecb86bd4c601740d1a54a87911782fd939bfd0abbf1587a92",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/motion.json",
+      "bytes": 4664,
+      "sha256": "8f46258fa7d2dfe79fb00af951bb35219e79b9fd848a052a71715cf8b98a9482",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/pose-diagnosis.json",
+      "bytes": 1678,
+      "sha256": "dfbd125319e2e1e7e80cd2e87d97611f318a7bd93b2eaecde9b715684b7fc585",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/published.json",
+      "bytes": 3841,
+      "sha256": "d52f63fa66109465984fc362cf7cd3f33454a3480f00299137060fbb9ca80345",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillGrip20261026/save_and_preview-commandlet.json",
+      "bytes": 109,
+      "sha256": "77e9804f2b75220031229a56069497deb1cb951b17668f487268aadaa57529a9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/assets-saved.json",
+      "bytes": 1938,
+      "sha256": "45a2081ce7a493275fe49b12f129e4af9274b51033a7949411526b6e9300393a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/authoring.json",
+      "bytes": 3318,
+      "sha256": "402a55fb292d55939ca44e308b5dcf8febd2824878b217fedb130f8059beaf06",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/gif-preview.json",
+      "bytes": 5015,
+      "sha256": "077f1f0cfcd02afa60c317371c13f122eb12a7361765c0e7e1c7c916742bac3a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/motion.json",
+      "bytes": 4602,
+      "sha256": "6d58996e7ec0cdadbc01c731549292750ef51936f79af575b00fb0d331ca3d91",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/published.json",
+      "bytes": 3893,
+      "sha256": "265c217e2b812d47115ba0686bed169bd44235798b4a6789bd08a2d5a5a48522",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillLowering20261026/save_and_preview-commandlet.json",
+      "bytes": 109,
+      "sha256": "f7f52f532895e049d3a15cf0be05c6c0d8a4c250f9aa5adc1a1994d94ae9dbcf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/assets-saved.json",
+      "bytes": 1914,
+      "sha256": "7e4ded273591946c6248117269370555d67e806513fc83d4e57caf8dc0da4436",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/authoring.json",
+      "bytes": 3106,
+      "sha256": "7dae996d6fa02ca5539df2fb51f6f4e523c670a5f773c410a9547f64b606eb1b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/gif-preview.json",
+      "bytes": 4188,
+      "sha256": "b8f86a8dc0fac51e161d646c9da7ba9d29606bd794f8d9609c047b6067662766",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/motion.json",
+      "bytes": 1806,
+      "sha256": "cc2fb5bb5071449d3ddbdfd7891843ba6f7939d81576d0561e7fceea78a0243d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/published.json",
+      "bytes": 3867,
+      "sha256": "d30ad8ba4da59e43ad2847813caf1fc23852cd536b6da2343a8b09888da2d277",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/read_preview-commandlet.json",
+      "bytes": 105,
+      "sha256": "ede0b12547a7a76fe87c469a372d04ccaa5f4fa94a9503cdd9f17b75c71fbbf2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillMaster20261026/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "013dcfa514d6b5223082c30bf91e33296b9854bfa2c802299f097dbfbf7231d2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/assets-saved.json",
+      "bytes": 1926,
+      "sha256": "7f586acb142776f6279848078213874e26ee5a94a0cdb648b589a074e616e134",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/authoring.json",
+      "bytes": 5327,
+      "sha256": "395df418cd770ad6523486591f7b5a946e505cb303619d1c9961326a8a78fa44",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/build-editor-result.json",
+      "bytes": 137,
+      "sha256": "54b379d219bc8a1741a2fce8ad30348c9da3c95553e567fd7da19bfae2eabf1f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/build-editor.json",
+      "bytes": 16666,
+      "sha256": "29cbf59191bbb6c678c920a738780f42f6f91a79cb566f32e13ca6ee6d36e507",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/build-game-result.json",
+      "bytes": 119,
+      "sha256": "a829e44999782db96538676ca3a629d5703ab31b75a49cd628d1b58bd1b9da0a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/build-game.json",
+      "bytes": 17399,
+      "sha256": "9c94e7791cb0649db8957baa7fb46939aa2275f0b14832eb435838897e746ffa",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/editor-schema.json",
+      "bytes": 20128,
+      "sha256": "4742457e4164b516542a9c79e5c45b9caf75cf77e7218b22fc5143c408a26173",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/livecoding-batch.json",
+      "bytes": 195,
+      "sha256": "6da42fe5c8991f8adcea405b68a14cb7e8559be90bd55cc91ad8a098bb7e95b4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/livecoding-result.json",
+      "bytes": 144,
+      "sha256": "21f8a91c3aebdd7e37ebb94a5a8bea55bf2756910b04d23de695617bf627bf72",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/motion.json",
+      "bytes": 4612,
+      "sha256": "ad90e3ede38ac5d9817f15f8fe97604e1143e0d27eaca8c14bb653f37b95695d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/published.json",
+      "bytes": 3880,
+      "sha256": "57b9e8a6c2d5d45c903901013443af812ffefaf44aabc03c0671c7a374d41afd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/resume_save_after_pie-commandlet.json",
+      "bytes": 126,
+      "sha256": "02ff1329ca44ef176910cfa39077181390e625ef1c008407ea2870de12082bcf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/save-after-pie-result.json",
+      "bytes": 1918,
+      "sha256": "1c64f47e50cd1b8ff43c6e2024c6b1fde93956c7b2be8411358633fb6e51addd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/save-final-result-2.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/save-final-result.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/save-result.json",
+      "bytes": 1089,
+      "sha256": "e32670bf75d01e767381db93a3f4a8cdcf0dbf6c731409bdce25785fa43f6939",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/stop-pie-batch.json",
+      "bytes": 180,
+      "sha256": "2c88e71f8b0ab4d9ce12d4f7b16dce3208b3d289eebef290d381406859604318",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/stop-pie-result.json",
+      "bytes": 49,
+      "sha256": "7ace7a5de08bb10348800a27d0677ac4eae2ddc52b3f00c1f0d82aa47fa4113b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/assets-saved.json",
+      "bytes": 1938,
+      "sha256": "9f96728feb8dbdcfd122ecff96b8da01b4177a899d70b2b9edfbb6a08d6cbe05",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/authoring.json",
+      "bytes": 5357,
+      "sha256": "8034764589949f51b567472d7809ae7c0e8018e01b5e5f1d25bdd6bec44fa0cc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/motion.json",
+      "bytes": 4642,
+      "sha256": "e1fd1e502497669e38db43527dcbf3a09df8a0fdbe2e518cd5ba4018635e2162",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/pre-save-state-batch.json",
+      "bytes": 185,
+      "sha256": "ca1e22bbabd26cb1a7c472780dd04876e179ebf2755fcce66b25686a8a7b3674",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/pre-save-state-result.json",
+      "bytes": 50,
+      "sha256": "77b1689a288d4dae1ffcd89f21294874ccfe21ffea9fb9805ee935cf50ad464d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/published.json",
+      "bytes": 3893,
+      "sha256": "f87149d87432f63121f6779f02cac499ee693a71c25c80b82396790e240b797c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/save-after-pie-result.json",
+      "bytes": 13196,
+      "sha256": "640e94ed4bce44f2c1799e3b58b4ad84205fe6a395458e09f495ef45d1008e69",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/save-result.json",
+      "bytes": 1093,
+      "sha256": "5db983f4bac333b303b55257f8af66b0ff5eb5ed86f51762f1b5a14c8229287d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/stop-pie-batch.json",
+      "bytes": 180,
+      "sha256": "b9aa6b79199517de42c9b96d499f5c865350aa97b7e085c8ac104428aabac8e7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillShoulder20261026/stop-pie-result.json",
+      "bytes": 49,
+      "sha256": "7ace7a5de08bb10348800a27d0677ac4eae2ddc52b3f00c1f0d82aa47fa4113b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillSync20261026/assets-saved.json",
+      "bytes": 1890,
+      "sha256": "65005a9fb812322d695c1edc0bb96ee95220b8cd09b38774f8e0f78339aa1391",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillSync20261026/authoring.json",
+      "bytes": 5415,
+      "sha256": "14a51b25ee1f6edf0139f91a73c69566f8f17774690cc48863f516d098cc3b88",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillSync20261026/motion.json",
+      "bytes": 4723,
+      "sha256": "72b84c91f8c4537d04281e88f822f80b59370e082b8b5ef49c66cc1bc0160aab",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillSync20261026/published.json",
+      "bytes": 3841,
+      "sha256": "0a7fbfc9d0dc35d5f723ccbad31712f5b3484c87b91aa75b9feaaa1e7aa3fc0a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriWindmillSync20261026/save_all-commandlet.json",
+      "bytes": 113,
+      "sha256": "ed7edb5de94faff61e7e16396e7b405e2ee7949aaf88a0ae22d83f805279b398",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/assets-saved.json",
+      "bytes": 1950,
+      "sha256": "c109cc902f0bd3104854ad07478a7e678608138129a163652c1b5813d26c4a85",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/authoring.json",
+      "bytes": 3012,
+      "sha256": "6351b6198f605daa623bc6adaf7714cedc72aee719f6f7eac5a47cf333cc04b5",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/build-editor-backup-2026.10.26-07.56.55.json",
+      "bytes": 182020,
+      "sha256": "0d6b418575c1e6dfc7401a72a6f4ca5695f7f83f1e67cd777fc0fdfa08109cf6",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/build-editor-result.json",
+      "bytes": 125,
+      "sha256": "71eabd76581c6a7967e04bd7020e86ba9f3a5a12cb7e45f25524c3a9a467d1c4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/build-editor.json",
+      "bytes": 64706,
+      "sha256": "a32b13ec19977d00f1957838f7d571c06f8a27f8d3933b92bca9115e822cd710",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/delivery-status.json",
+      "bytes": 516,
+      "sha256": "09935612f467f64abd7bf2e2ca74b7d6f736df6dacac04539e31b02b261f2a9d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/native-left-grip.json",
+      "bytes": 11537,
+      "sha256": "48f7b57a4090c289ed1f0d4500cda635223e15ea4422f74f7b4e9f6403f4f084",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/published.json",
+      "bytes": 3962,
+      "sha256": "1b3573e2ba7219b3c621873dd9c7fea6b207ad16e6ac44a833ae04fdf9eb8a1f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwind20261026/save_all-commandlet.json",
+      "bytes": 113,
+      "sha256": "b9aacc018a25e98d8023cc404be7ff8bf4da52d8537096d94c38b4f0373c2453",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/assets-saved.json",
+      "bytes": 2022,
+      "sha256": "8cf6ce80dd08ae8ae584a0fef15ca69945d648cd98ef1367fba98aaa8c9c97e1",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/authored-pose-diagnostics.json",
+      "bytes": 3541,
+      "sha256": "a8142678e74eafbf839b4badfc3dfb8e7e5bc1e13329ceda21e82d4d6255345b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/authoring.json",
+      "bytes": 3663,
+      "sha256": "e54bbb3bdc1941c59788a962e40ad95fe433e8cfd58ec8f30c218e9a95d4f6cf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/current-session.json",
+      "bytes": 47,
+      "sha256": "e17c71adba45c310964893998fcb15a4cb1b7c1c9d627342f91a620a9bd955ad",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/delivery-status.json",
+      "bytes": 2096,
+      "sha256": "d8bdba269228ca986172db2d752bfb40aaf1027525933d8a9a5cafc7ab95807a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/editor-tools-02.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/editor-tools.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/outfit-after-sources.json",
+      "bytes": 1737,
+      "sha256": "74f7d2952e80129d4bf260c4c3d75b5373f7229d67f9a8f977ab4ef680204f42",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/outfit-before-sources.json",
+      "bytes": 1737,
+      "sha256": "74f7d2952e80129d4bf260c4c3d75b5373f7229d67f9a8f977ab4ef680204f42",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/published.json",
+      "bytes": 4040,
+      "sha256": "d55b9270d364aab76f907a2a577322a8f84ef4520334ef2d1c9fc0ad3ee0dee5",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/read-active-result-02.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/read-active-result.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/saved-pose-comparison.json",
+      "bytes": 3386,
+      "sha256": "d46da2f370491cf98d0424a8d662b14d52a028669bea4f1489d34b3caee073f9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualWhirlwindRepair20261026/save_and_read-commandlet.json",
+      "bytes": 106,
+      "sha256": "3203069d2350637f1b0d10c63f04b483e7387fabff589e428d40ac2dfda46d62",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleWhirlwindRepair20261027/assets-saved.json",
+      "bytes": 1974,
+      "sha256": "3027d2766b5c449a0e416bd8704711b31a8438814a1b7ca8d63ec10aea84e06d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleWhirlwindRepair20261027/authoring.json",
+      "bytes": 4771,
+      "sha256": "b2b1f0ad9aeb1f803c0d095e00616cb864ed3c73a66a28d7220ff27612091c5c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleWhirlwindRepair20261027/published.json",
+      "bytes": 3934,
+      "sha256": "5912a45d2e021b27c0390f1c533c2817d569ba72000b54dd3e1322e222cf1569",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleWhirlwindRepair20261027/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "33585925d25b8807046d09a93fe0ccd9833521940c27d9b99fa5440ecb53dcbf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/assets-saved.json",
+      "bytes": 2308,
+      "sha256": "cc83a0780bfe1d0eb410528e58b387f006a3056d14c9f4e3212596ae7ed7fbc2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/authoring.json",
+      "bytes": 4473,
+      "sha256": "5ee7930b98cd961d2967a85303c898f676d79c8dd41abd0c3cb3be1afee1c551",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/delivery.json",
+      "bytes": 774,
+      "sha256": "ae75fe37b3aab44240742417f2cd67d5f3d7bd6f2b54157433584b823cd935cd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/prepare-commandlet.json",
+      "bytes": 100,
+      "sha256": "6c5c36759eb0b78514cd14c4d15d69be2e91a03e744fa4daae9acd94c61b27fd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/published.json",
+      "bytes": 4710,
+      "sha256": "96c9641697a27c105441ad10218086cb0dd83f160150a75af5f6ed738b9f647a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualIdleThirdPerson20261027/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "66787fe73b75c707720c52d3d8ad97146b10f30b6bd1f6ea06af5eac3deb1657",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/assets-saved.json",
+      "bytes": 1020,
+      "sha256": "da0b20d40f4362d8da2fc7f0c542fb0109cd35e7513e2ac445c1be1d872bf54c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/authoring.json",
+      "bytes": 1565,
+      "sha256": "15c226c0eef983177be58bb8a45b0058897d2b6f4222cb1a0167dcd9530d503b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/compile-request.json",
+      "bytes": 118,
+      "sha256": "ed563057333c145f2a38e53e24406234f8e19e183696e089b82028685475aa3a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/compile-result.json",
+      "bytes": 117,
+      "sha256": "1069ed2a1267f77759852caa10c61b4164c043f4092ae1660ffffa8b17c09cc2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/delivery.json",
+      "bytes": 1050,
+      "sha256": "556cb7b4ff1dc6a8c78617ab51bc98fca28134059efbe3af872496e1912565a5",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/editor-build-20261027-180722.json",
+      "bytes": 187283,
+      "sha256": "5e763bc074359fb22a0a2e7db6802b35bfe0ad04950805c5f815546612ec4e25",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/editor-build-result.json",
+      "bytes": 260,
+      "sha256": "633ee04251dcb87de87ab888bd7d46a2410c51a988c68ef4a9fb79556449a0c0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/editor-build-resume-20261027-183716.json",
+      "bytes": 73636,
+      "sha256": "794241ac6023a47857dba6a8d25ff4312aa4ed135bb38702a80d725942b1ec92",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/editor-build-resume-result.json",
+      "bytes": 615,
+      "sha256": "8617eca7d693ca1a0fd3467d45080931fcf927b634a8e7a9bd4281deb109af65",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/published.json",
+      "bytes": 2159,
+      "sha256": "edf5b093f0be41d5dde632176d480c2bd7d101d060f9479453360368a81cdc20",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercut20261027/save-editor-result.json",
+      "bytes": 648,
+      "sha256": "84cff41decd1346a6e3c244143254b49f738e0de92b671b75ad5dacdfe0ac0cb",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/assets-saved.json",
+      "bytes": 1458,
+      "sha256": "7afc088fbf58f95340b89530472c5608db4fd70b4b9e5ef74e9dc0500fc94012",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/authoring.json",
+      "bytes": 70939,
+      "sha256": "b3fb35b1a3a714de93b631a01b81b7f80b75ebf40c474e4a4b91e57c2d57c86b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/compile-request.json",
+      "bytes": 118,
+      "sha256": "ed563057333c145f2a38e53e24406234f8e19e183696e089b82028685475aa3a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/delivery.json",
+      "bytes": 2356,
+      "sha256": "bfbf639947a36215e808103c2958b094c13cc2529371bcfc9d97b1e90c7d2896",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/editor-build-resume-20261027-192120.json",
+      "bytes": 126994,
+      "sha256": "996c652f45f542b0f25295b4b9b0f9a1ee45fccc506db911b02318111fa01555",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/editor-build-resume-result.json",
+      "bytes": 618,
+      "sha256": "afd60b43171084a62bd2c4b72b5e6e12192d98e047cf92f55f9c8d9e68e44cbb",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/prepare-editor-result.json",
+      "bytes": 726,
+      "sha256": "d7c90630c690fcd2fd1bb520b783dc82a04585117bd8ed3efae650a6976fb648",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/prepare-stride-editor-result.json",
+      "bytes": 596,
+      "sha256": "983013f7c6b357d8d31ccd01f7c428c658a1490937cc21bf9d3451566fbbd718",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/published.json",
+      "bytes": 2983,
+      "sha256": "87e448dbd7e7c25df6ebe0a2040227a5134a05ffa68f8db9a79ecfcac54c56c8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/save-editor-result.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriUppercutSwordLower20261027/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "4e18b448b62e1cb0d769b89941daca633253762178330767c74dab52057c1235",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/assets-saved.json",
+      "bytes": 980,
+      "sha256": "27cfa58a2bf72cf51576f4b6401af46190525a0d146d4205b1da6feb8ac5894c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/authoring.json",
+      "bytes": 18455,
+      "sha256": "e3f98cf2ec609061a56d7e43cfda62b8938ccac157e8f23b1b4e2d8a985dc87d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/delivery.json",
+      "bytes": 3754,
+      "sha256": "0af08101ab9da478a41ccfa0bd2ae166df9a37c48e64f626f6a4b52d1962d4fb",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/prepare-editor-result.json",
+      "bytes": 130,
+      "sha256": "8ef883f2cf96b2170099277e60d2e4a5df93be2db8316daacb24db4ac47e7445",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/published.json",
+      "bytes": 2104,
+      "sha256": "eaeaf20568f0ffcdd824af5de5d66e8062286bea2ea3866ffdb60fba060c9744",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutArm20261027/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "36816d6bae2a7e3569fb7c03395f801d3db1d6b958efd5c0d77b4a405cf0defb",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/assets-saved.json",
+      "bytes": 998,
+      "sha256": "8abbf630b862084abdc79b731c5eeb35caa228a3ed7ab8a321b0477440e20625",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/authoring.json",
+      "bytes": 14913,
+      "sha256": "acfc7c33c7e25370a832417f5feb959024b9844662a942c7d9921e1b2d430cfb",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/delivery.json",
+      "bytes": 7694,
+      "sha256": "d2fe83cdfa8a2722aecaef1b6af58e073010c09788a432addc22cb09a1503609",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/prepare-editor-result.json",
+      "bytes": 131,
+      "sha256": "e4f06056e3ee58ef4df6a9378256d998bfdcb4e34c51da624223c77338b05f46",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/published.json",
+      "bytes": 2123,
+      "sha256": "cc9976fd6fcf5eab5afdf46dd6b5fe97f9a857d76667d499fed8624746d2135b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/save-editor-result.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "d0dfcec51228dea2a8f00d84c918bea6b818bec75cfe915f3dbd4934a5d0cc0d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleUppercutLegs20261027/source-diagnosis.json",
+      "bytes": 1640,
+      "sha256": "6c56bb49d524405fa3f181a0aa9e00f2a40f518bb553ff842603b3bda03914e5",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/assets-saved.json",
+      "bytes": 1024,
+      "sha256": "dcedd5da6c0828efa315309b4c5037866092ae030fe7486d6e72f333f77f7db0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/authoring.json",
+      "bytes": 5317,
+      "sha256": "7e772c05a7c1223dce0825aca8f9ebc4080b4b6edcfa9dc18e4dad34ede9403f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/delivery.json",
+      "bytes": 3817,
+      "sha256": "0cff469e5b7dd958e7bdc7d4988e4aefd0826b941f629e5d6eed24a5a1f4c8aa",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/prepare-editor-result.json",
+      "bytes": 129,
+      "sha256": "e5d5c8dd2dcd4672471d8cc2cef5388121e8bfa58acc96c2eb05f8e5e80250fc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/published.json",
+      "bytes": 2167,
+      "sha256": "c6a93ced5595b33b0524d42f4fe00d7e7b8467261fdad46a1ef8ed7b4cff0831",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualUppercutLegs20261028/save-editor-result.json",
+      "bytes": 672,
+      "sha256": "3d9e5f9234c8142e50c2a465cf75a6c7abdb418252be93d70820e79a27af8008",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/assets-saved.json",
+      "bytes": 962,
+      "sha256": "e0d1601bd458c87c2a18fa7d46e426930c02643df3a3e8332c2b9cbeb4c967a9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/authoring.json",
+      "bytes": 27380,
+      "sha256": "8e3cc8d246b9a2817995f280b5922486f084eda86dff83fd370aac280ec7ab4e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/delivery.json",
+      "bytes": 4437,
+      "sha256": "c3c74d8cdad298e1515f54a541f03a253349e73871680d29e7c5f6ab06ef72b5",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/editor-build-resume-20261028-002000.json",
+      "bytes": 69552,
+      "sha256": "14407e7990e44ca87e2aed62aea91ed6a63ea5b28cedde7788a65531f3c40ba2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/editor-build-resume-20261028-002201.json",
+      "bytes": 26222,
+      "sha256": "1938e35d7bc91f28a064a29dcf7c30111106c0fb375afb9c6203509e82c68df8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/editor-build-resume-result.json",
+      "bytes": 602,
+      "sha256": "70b965e1653fa97f8fc0cefa3bc68a4e67aff8d944d62548d93870e7ca7e9df9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/prepare-commandlet.json",
+      "bytes": 100,
+      "sha256": "e2912ef01de9b04f2d162cc7ec7b400aeb03e283acb6c51ed02da6cacb3fa143",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/prepare-editor-result.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/published.json",
+      "bytes": 2063,
+      "sha256": "09cd07e154e54f089d46c8e63b8960da149e069906aa205ac1c9347893ecba1d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDash20261028/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "6e13abbd42f0462e59c3aa18d29c03a7a4345d81504313e97f8e96dee75d27a9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/assets-saved.json",
+      "bytes": 974,
+      "sha256": "f98094378aa346b76ad5a9d7db743b6d3dbf526077752fcc74b4039624944436",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/authoring.json",
+      "bytes": 42870,
+      "sha256": "3c05f5231579992a6c766b8b7322689f4522d55db548cabebf33a0885e4b43a7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/delivery.json",
+      "bytes": 4621,
+      "sha256": "a17d230fe3c70f40740696ec40733c22e99498a605186572d9fa302ec81125bc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/editor-build-resume-20261028-092907.json",
+      "bytes": 62468,
+      "sha256": "ad1ba399570e4ddf0afd6b49dcac32ff1f6355930be0442fdb90dbcfebc636ad",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/editor-build-resume-result.json",
+      "bytes": 614,
+      "sha256": "293b6611d2649c4b5e7e1aef2cfa3cb49256fd7b28d6be102632d731d82f4028",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/joint-review.json",
+      "bytes": 5082,
+      "sha256": "d89534f10f871e7379a098cff9d51468a1553edc344ca6ca3848b9d787ef8568",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/published.json",
+      "bytes": 2081,
+      "sha256": "7a03bd349d166ec04c6ed2c3d2164a7cb56165ecfd3bae2ddc177b4ea9d47189",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDashImpact20261028/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "cb65ec4611423e44aedfb38b2fe6d037161a05d84dad43225caf10603db02c4a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/assets-saved.json",
+      "bytes": 1278,
+      "sha256": "bf075ed695575763f6160851d88a478ea92bf06bdf629fcb301fe42c8f93eb04",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/authoring.json",
+      "bytes": 19486,
+      "sha256": "05e11279e256e1d99d3fe41690bec5007c8da6d7d7ee49ffe3a45822fb5c2b46",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/delivery.json",
+      "bytes": 5512,
+      "sha256": "17392a3e7b712325b78757b1e3f59c9b7bf3368c58d2c2018d59426a2f61ef8a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/editor-build-resume-20261028-100151.json",
+      "bytes": 103581,
+      "sha256": "feeb2297b2ad8ba8ada0251a1da2dc455d4fc6410c6019ab44500d45078bdfd2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/editor-build-resume-result.json",
+      "bytes": 600,
+      "sha256": "8e0a2aa7e6093b53e53f21043f7935d4dcd5e4aea4f2c5d662dd9ff1e53550dd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/livecoding-args.json",
+      "bytes": 118,
+      "sha256": "db3702672dfd94d1f2fdd4303b2bf36a7dff62c0e1feb9fe3081bc207552cec7",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/published.json",
+      "bytes": 2762,
+      "sha256": "21852cc23697e237877529d35b45d17c8607528cb93177720a81d61cf898fe9c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "f91876ca0fe3bcef761bb9798e9042ce79afde0e084fdaa04c9faacf3d1e1a98",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashHands20261028/save_all-headless-guard-failure.json",
+      "bytes": 101,
+      "sha256": "c7ed3181bcac982376ef0200b6fed26a717609a266aa59c3ab586f045bdd681f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/assets-saved.json",
+      "bytes": 936,
+      "sha256": "648b55ba46b55c48f78d21cc7a3c715308e97d2883ba1787bed569721fe81df8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/authoring.json",
+      "bytes": 790,
+      "sha256": "1db536da243b2f12d78836adf716d2a0b4822508a97c38bc4467d36c1fba38cb",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/delivery.json",
+      "bytes": 10169,
+      "sha256": "e0b7d4e7143176eb09b716ee4c308e113d8fc52c65f6c7a008913072dd7031da",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/diagnosis.json",
+      "bytes": 4999,
+      "sha256": "2ae5d1daa223692bc3ce5a7d3f6250d4b6ddaf15c2a7dedde47aa9af3c1535bd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/installed-before.json",
+      "bytes": 11503,
+      "sha256": "633a84b78beaae0d83eff023d228ee89d309166115e332ad01019e52c224067e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/published.json",
+      "bytes": 2038,
+      "sha256": "95c171c3018eb8388e525cdbf9ba908b358cb1c3dff5c434c0df9b4ec5dad098",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/saved-comparison.json",
+      "bytes": 1082,
+      "sha256": "fcf09aa7062c0da526e13f4974a54c5a26228d0c498b6ac1a9381ca8e40f721e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/saved-samples.json",
+      "bytes": 11591,
+      "sha256": "bc53541296976048493d27c13ef3b77016b57d86a18117bbd335af8d1c508571",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDashFreeArm20261028/save_all-commandlet.json",
+      "bytes": 101,
+      "sha256": "12aa26644329af1cf7fa760d4ad62898ed280fd587b19fb7e4bf699d83de636e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDualAudit20261028/audit-delivery.json",
+      "bytes": 925,
+      "sha256": "eea3e26c69f625e1cac501984a5a5ce83ddded3f84d1df5c30c278828afa2160",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDualAudit20261028/game-build-result.json",
+      "bytes": 819,
+      "sha256": "9f96ca4a1ce1fd38bd112d5ccc14e209b4389c2878f32fdef99021fcae9d7eb2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDualAudit20261028/game-build.json",
+      "bytes": 91485,
+      "sha256": "821d2eaf3079304fbab653406a72f9c9a654f6f3390dc2bea26bceaebde1b0b3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriSingleDualAudit20261028/inventory.json",
+      "bytes": 22274,
+      "sha256": "ac49a183994cea792e5f776639068f55b920317c1f05b644805100f4d90cf0c0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/Assets-result.json",
+      "bytes": 393,
+      "sha256": "0e1e3430b50d9938d5c3fa4a0e262e245dce26c13f8439da6735680b578a3ebe",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/Audit-result.json",
+      "bytes": 390,
+      "sha256": "f09829ab9cc276bcc53e400f1fc62b0af7c8a8103e3edbbd6c0cb1440aed5b02",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/authority-checks.json",
+      "bytes": 3022,
+      "sha256": "b089741d683a0b626bc15aa7b150759e89a8698c2566c15765d3f4b6f92265ca",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/delivery.json",
+      "bytes": 6541,
+      "sha256": "bf5eb4ff7b5c3a1139fc25651ae79331e733fb353be020396a0b5139f3992b81",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/Editor-20261028-130926.json",
+      "bytes": 62054,
+      "sha256": "76803fc263258aa4c91db27f2e62a8de1f6cc151139e2a76026080d5e8227115",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/Editor-result.json",
+      "bytes": 369,
+      "sha256": "f35d1cb9343a4baa0e6b8d68f90ae72f68ad43596fa200d02fedc82e8edb740f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/engine-assets.json",
+      "bytes": 22895,
+      "sha256": "e8164c8a7e3f434a8243f22e7b2ac5c11b588ddb2900d5e177bd8f3125f97b12",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/Game-20261028-131610.json",
+      "bytes": 141753,
+      "sha256": "f8c4edea60fc52b2dd497cf85efe8577e354727c990cfee530c35b40b525bfd3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriNetworkClosure20261028/Game-result.json",
+      "bytes": 387,
+      "sha256": "4d584ac6e5ca18780a3d8416a9bf26665bb49cb724dd2002482c754c845e519b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriReach20261028/delivery.json",
+      "bytes": 624,
+      "sha256": "fe998855ce4ecc5c3130cad59c0bb2d77d50089736d550f3159323cd3dc4515f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/assets-saved.json",
+      "bytes": 3714,
+      "sha256": "cdf90822f6d63385496c04798d5c5e8c8039b32fc80ed280c3b302f20f5036d6",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/authoring.json",
+      "bytes": 2294,
+      "sha256": "bb92d373c5e52457d2e1e74659b00b152d0c407ab3a40338c4f4be231706a288",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/FPSGAME-build-result.json",
+      "bytes": 129,
+      "sha256": "4e70364ad7085b38638122d2507f697ebed2331c50699a07947169aeec152932",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/FPSGAME-build.json",
+      "bytes": 18999,
+      "sha256": "1502ec715970f62d1efce5f680ae78568096051a0014e334fc0fffea9f9e6848",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/FPSGAMEEditor-build-result.json",
+      "bytes": 135,
+      "sha256": "9bbe254b9979007bcef74c47f101d1fbb5f5031ffceb46b2d103fda95bc0604b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/FPSGAMEEditor-build.json",
+      "bytes": 18385,
+      "sha256": "eca3d071ec8b604cdf8ea32a983df813ffc250d8fac5ba4d2db61e4686d7b547",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/published.json",
+      "bytes": 7186,
+      "sha256": "0c916d419934b6fee6aa9a7c8027e2a9df51a58595ac76df132ad8a1e1f20351",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualCombatThirdPerson20261028/save-commandlet.json",
+      "bytes": 77,
+      "sha256": "418fa9a1d8b7ad1b163889f4c425195b6390f8e1365e3d8702df4894874fd94d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/after-diagnostics.json",
+      "bytes": 15305,
+      "sha256": "21f8e7bd692142d687763d97d490daa389637053ce8457cd0dba40de02a51cbd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/after-saved-read.json",
+      "bytes": 1349,
+      "sha256": "dfc4875c5b70ad7a816f6be18fa7bcf1260b59bc1fe3cc21ed9c51ab7f2649bf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/assets-saved.json",
+      "bytes": 1558,
+      "sha256": "8e16d01487345aa943046fa0396bbc07e3c5ef71cc97c08e12ba52f71a375dbe",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/authoring.json",
+      "bytes": 1240,
+      "sha256": "0207056d1694d414aa284c50a283329b1beb89c703279fbc8080c9541f154286",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/before-diagnostics.json",
+      "bytes": 16375,
+      "sha256": "012fb0515be01e82b378f325f8286a919f24ccb6ad67db983b98f54b54aa288b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/before-saved-read.json",
+      "bytes": 1319,
+      "sha256": "c416b775e6358230a7f130459ecc91d92c26c54806834c27d0c33370731c8cf0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/published.json",
+      "bytes": 3052,
+      "sha256": "f5584c3506273a3e5a262c29312525d46aeb6067102953e8a72caeb3a44f216c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualComboRepair20261028/review-times.json",
+      "bytes": 184,
+      "sha256": "b24462cbf77308c18949dafd89cdd98c234924fec14e7397650494dc7dd0759b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/candidate-manifest.json",
+      "bytes": 1913,
+      "sha256": "adf6bb88fcdbe3828547418e991aa3814cca8a8066c78bcf527e1ee780d63722",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/free3d-inspection.json",
+      "bytes": 13653,
+      "sha256": "ce79550ff1aab86e6fd813746622a9af64c528f99bb0c8cb426172acf6609615",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/free3d-motion-evidence.json",
+      "bytes": 36210,
+      "sha256": "5c194c606f4521e306bf711542ed9fb2460fdd3c595347bb9071b0ea1ad71cc3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/kaykit-motion-evidence.json",
+      "bytes": 7417,
+      "sha256": "6265bdc6e3ac1e052091a8300c1f5b14efc056e3976e1b6afbd93bbd562fdeba",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/kaykit-source-receipt.json",
+      "bytes": 225,
+      "sha256": "b1ba50d658eb7c1da5e4c97df6b6b650d8c973c08af3b49ab8fcc5d433c7268d",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit_Character_Animations_Free_1_1.zip",
+      "bytes": 14858957,
+      "sha256": "65882f31f905ad2e953819648a59287cdeab8f623908d5ef701971d3758be20f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit/KayKit_Character_Animations_1.1/Mannequin Character/characters/Mannequin_Medium.fbx",
+      "bytes": 426812,
+      "sha256": "2f2c10c52d5e06255f6b79fc5b7e74afd290a32c976b48510d12ac6d9709a7f0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/DualBladeSourceSearch20261029/KayKit/KayKit_Character_Animations_1.1/Mannequin Character/characters/Mannequin_Medium.glb",
+      "bytes": 420044,
+      "sha256": "368a4c0733280bc810c004b81f31408f43c00e307cf914061e80f192ba25685b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/DualSword_Attack_Cross_Slash-sample.json",
+      "bytes": 132658,
+      "sha256": "dcdb84db960d04d28e85e895480d78bb21b16b7798880e11d29b35303be6df73",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/DualSword_Attack_Cross_Slash.blend",
+      "bytes": 171210,
+      "sha256": "e26e5d50a002bfc6bf31154f4deaf507320a222b9f120ef1e53ac4933a61854e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/DualSword_Attack_Slash_01-sample.json",
+      "bytes": 156830,
+      "sha256": "6eb20ac84d8748c9fc7daa836581faace780a48eabbb4443e07eee7feb5932cc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/DualSword_Attack_Slash_01.blend",
+      "bytes": 197911,
+      "sha256": "b8862119f54a9a3f3599ee414beaf6ee12da479f6acdaa1959ecc0f610c69323",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/inspection-result.json",
+      "bytes": 1348,
+      "sha256": "46ad99800e13c5611e76cf8d47fd5a0597473e56d806b600c2b432634f4734a0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/inspection.json",
+      "bytes": 348316,
+      "sha256": "abbaae3c7089a07d64be9f0a1cbe01bc72eba62c7dcdda9e94739f11d18c8c67",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/raw-arm-evidence.json",
+      "bytes": 5605,
+      "sha256": "0b5dbcd44cf9f89e7d1aae981f0afa4da189d575ba299ad4f9fd56ddd664259e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/source-receipt.json",
+      "bytes": 701,
+      "sha256": "a3b7f1b2e3fd964eaf3d1a7e48fc5e53292aaea8eccca7b3ab10ed8c3eca823c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualSource20261029/Original/Bonus_3D_Weapon/LowPoly_Iron_Shortsword.fbx",
+      "bytes": 41612,
+      "sha256": "9e044dd05df36bfd9ca5af986be0ecaf7dad38dbcb86d8fdab5e30d3b5d50a1f",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/assets-saved.json",
+      "bytes": 1546,
+      "sha256": "40578c4e668e960cdfb5cead55ff3b875b4078653ce9cc9f371e3a630fd0f6c4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/authoring.json",
+      "bytes": 1250,
+      "sha256": "8a056436ff77e404ffcbb0f8d7013b17cde4154684ec4b5b4b19a5084cb540c9",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/published.json",
+      "bytes": 3035,
+      "sha256": "5b06469524b157ce464e8c87dc243c87c4f5b1140801cde33df1dd6bfe4d67d5",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/save-commandlet.json",
+      "bytes": 77,
+      "sha256": "5506a3dd1e128cb9b27753da37819cc68ec79033975e44605b0009351b33def8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/source-provenance.json",
+      "bytes": 1742,
+      "sha256": "5f083c1b4ea9db1264a7c3f5139de26ce87232e69536d36d9f69a5aeaaff1668",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/SecondAttackV2/assets-saved.json",
+      "bytes": 1146,
+      "sha256": "98410b0d128787359979ea54a1dd346ffb36cf8772731c6c782ce2663ab565ee",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/SecondAttackV2/authoring.json",
+      "bytes": 899,
+      "sha256": "0a9b09c9235c4f08ee464ec236e0e6bc3f7c5ac7178b882be0ec62145dc60f39",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/SecondAttackV2/published.json",
+      "bytes": 2259,
+      "sha256": "205896df288ca50428626ed18612365be8c8e5ca8ae427bcb5c8401ba4956c50",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualFree3D20261029/SecondAttackV2/save-commandlet.json",
+      "bytes": 77,
+      "sha256": "7d2535b9ce8c170d99f35a716a82becea85e31283c3c19559dd4fe0196080f0a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/after-metrics.json",
+      "bytes": 8975,
+      "sha256": "e39f7d2f1985530662dcd2cbc46ced15124a00c50c2af13229e825cac1d8f250",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/assets-saved.json",
+      "bytes": 1150,
+      "sha256": "aba078c8222c6a20765499e27a6efd841636ed4ba886b6b5e92c4cb7e2c79ca3",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/before-metrics.json",
+      "bytes": 9012,
+      "sha256": "16d9eec33c6f25ef7feee652dd14bb9e0a21ab68f6c30a64eccb83bb87efff82",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/delivery.json",
+      "bytes": 2592,
+      "sha256": "ffdbfccf8722f918516342915a4a21f3e9e822a6c82ded8f13fea0d849224213",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/editor-state.json",
+      "bytes": 62,
+      "sha256": "4d6374a96931eac9572deb2a3d30d5f7f4e7b54fb79e08715fe3eaa8674bf1a0",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/published.json",
+      "bytes": 2253,
+      "sha256": "1fe2124ed0428a4c24d67a48f62684776ba185656fa344050bb161d42c4cdd8c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/read-bridge.json",
+      "bytes": 840,
+      "sha256": "d6e8c259e6b72ed51efaebca6dade62a2aeab256e6b6582c0a6a99b73a658ae8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/read-saved-bridge.json",
+      "bytes": 184,
+      "sha256": "535f033e1d314cddbefe87492eb703e8f9193624c72be7ee7e846bdd0e0d32dc",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/save-read-bridge.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/save-read-existing-editor.json",
+      "bytes": 893,
+      "sha256": "229bf50a367b824be8f18f722d043e366894eeaf3b1b8b83cb4bd85be2e76fe8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/saved-checks.json",
+      "bytes": 11577,
+      "sha256": "f9ec67a3a6a41b1d39b7e48760c01c6cd8809d40cc1d85cdb33eb3867ca08085",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/source-checks.json",
+      "bytes": 4910,
+      "sha256": "4ae09b95b6475fa15b6889efe02b62570efe04d3dee7290cc9aae54cfb5e8065",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriDualThrustRepair20261029/Preview/index.json",
+      "bytes": 3649,
+      "sha256": "f760362047b939ee4514f2d919cff5a454ea476a46f143f91c386b7d5522cbf4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/asset-manifest.json",
+      "bytes": 8431,
+      "sha256": "30fd81ca6e5e19f7e88db99518e5cf56d216fd0bb93680f5ba3f4f413b2d5d75",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/assets-saved.json",
+      "bytes": 4168,
+      "sha256": "2c73dc724b0df0fbbce48fddb115a6c770cafb8adc1d6e149beb8e685cbe2d24",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/authoring.json",
+      "bytes": 96002,
+      "sha256": "498691aea018a17361752d1775d70ae1996d2686b5aa62f3b9d1ddcd4e66955b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/build.json",
+      "bytes": 542,
+      "sha256": "74823b6f7b5046419181c128832699f736089d8c354868a4f7cffe3a33ef61bf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/delivery.json",
+      "bytes": 1545,
+      "sha256": "2fddb7ebcf2dfddadec1e473b1371df5b25a5e9aef13bc74f4bdc95f2c359e59",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAME-build-backup-2026.10.29-04.56.07.json",
+      "bytes": 77018,
+      "sha256": "478e1d15bed8becc742ed48d4ea2235643f84d9627dffd5d9d8c5e27b26592ca",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAME-build.json",
+      "bytes": 60644,
+      "sha256": "339718b819c5b48ea6a01a5ed659f89fe0c8cfaf084e674715f15bae2fcf4ccf",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAMEEditor-build-backup-2026.10.29-04.53.35.json",
+      "bytes": 78558,
+      "sha256": "ffa5aed7f39f8af295962edc525a093894959af49833ebc7fff75785e5abaa61",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAMEEditor-build-backup-2026.10.29-05.04.22.json",
+      "bytes": 61558,
+      "sha256": "3ed0d14b80833e52800353a64de1aa719e14cfaf60057bf67e293591918552ba",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAMEEditor-build-backup-2026.10.29-05.06.56.json",
+      "bytes": 61354,
+      "sha256": "7bd2aef17a2f18d38ab22e9e55230abff5778d97fb2d8d6d3f294680ce05cf73",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAMEEditor-build-backup-2026.10.29-05.08.54.json",
+      "bytes": 61355,
+      "sha256": "f7bebef30d7d85ce6513678ab5e4533a9676c089f885fadab8475c5218cf9595",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAMEEditor-build-backup-2026.10.29-05.11.14.json",
+      "bytes": 61476,
+      "sha256": "19c9fd67f46475d48a37dc8e2599a631ada4b9a6e9c33bc57cc2cc71b59f029b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAMEEditor-build-backup-2026.10.29-05.13.48.json",
+      "bytes": 61476,
+      "sha256": "27abe0e7732952e21478a8a7e1c3c34f8358ee0cf20883b160f70b768cd8dff2",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/FPSGAMEEditor-build.json",
+      "bytes": 17553,
+      "sha256": "6bdfb1c79f1d40011b5579df5a2195ffd26610efaca67d51c061968631160cf6",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/network-checks.json",
+      "bytes": 7643,
+      "sha256": "c2b9473d6622a3415544ed3a677f223059aa23289e0dba7958b06d9612dd49bd",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/presentation.json",
+      "bytes": 127637,
+      "sha256": "be54f82fa762aad88a5a7a3cb315904b25a014ecbe74dfb4e20c21d7206e7e0b",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/published.json",
+      "bytes": 7580,
+      "sha256": "df5c54ad2f46dfe540ff1e0f5c6310909d88adb2ea3c52bc882e407955469108",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/saved-checks.json",
+      "bytes": 3785,
+      "sha256": "1bea71899783cf1666fd845636c3ea173fe04f1d048e707497335cb1a575cb67",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/source-checks.json",
+      "bytes": 16646,
+      "sha256": "3dff58a038f706677f7b3786aaebe0810861868bb97e807726b2566f587c998e",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/uppercut-diagnostic.json",
+      "bytes": 10666,
+      "sha256": "e9102286a4cd6e234484a1e8b60d971673dbdeae8db0f9ba901022e991956a07",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/uppercut-final-pose-checks.json",
+      "bytes": 51987,
+      "sha256": "9990182d7e63fc0cfd23d6e86c5214644bb76aab39fa69ee08b4504262dc4a47",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/Preview/index.json",
+      "bytes": 3080,
+      "sha256": "71237bd95e9565c9a34f29cb0db42deabed6c8c791c9f0ce053d5b5d6d793207",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/assets-saved.json",
+      "bytes": 956,
+      "sha256": "5c9d645c37faf0d453fccfaf9b68fcc86744c11a912dd000625e8d04c4cd297c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/authoring.json",
+      "bytes": 1033,
+      "sha256": "01ac20a545e828ea55b01036f75869266d8ac24a212e68d14bab530c143b5716",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/delivery.json",
+      "bytes": 589,
+      "sha256": "a704d721c8b1fa317d4763ff2873b6b17585816bfb9786ca2aaada98ad494a81",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/pose-review-before-fit.json",
+      "bytes": 34140,
+      "sha256": "af3aa2a1156bb237ec49b54b51203cc185bdd1f059836d3ecc3ac740482e1e28",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/pose-review-before-wrist-fit.json",
+      "bytes": 34010,
+      "sha256": "da959345f8815de713942ba16887c8fe6a61e4cde77a5d9d03e05b6d8e058e90",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/pose-review-fixture.json",
+      "bytes": 2633,
+      "sha256": "601862fed8ba2d22a0846dab18c84f2e016e7a609acb87da018a4732dfdb8807",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/pose-review.json",
+      "bytes": 38911,
+      "sha256": "7be754a98e99dbf5d989208a5c103f59483fa0660fd7774466c4a8e5bb4f1e73",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/prepare-commandlet.json",
+      "bytes": 100,
+      "sha256": "7dd50ee80b86dfdf119cad8dc4f4c88cdc6c4d8254ac641c85d0baa464c358c4",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/published.json",
+      "bytes": 2079,
+      "sha256": "e2287367e7bca71e2ee8d5428a5d5fabd69a2b00655b704454ef258a15123a7c",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/review-commandlet.json",
+      "bytes": 77,
+      "sha256": "8abd84037816695be51619112bee3984eb4045c58097e7d125d3e287ff71e5f8",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    },
+    {
+      "path": "SourceAssets/PistolKukriThrustBody20261029/save_assets-commandlet.json",
+      "bytes": 104,
+      "sha256": "bad96caae5c032261b9b1f7e9825b6d3dc00c74a23125d9614fdef810c31f5de",
+      "publication": "local-only source/parameter/receipt; retain with authoring chain"
+    }
+  ]
+}
