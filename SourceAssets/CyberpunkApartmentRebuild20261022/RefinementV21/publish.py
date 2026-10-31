@@ -99,7 +99,36 @@ def apply_upgrade(world):
   if not comp:continue
   old=comp.get_material(row['slot'])
   if old and old.get_path_name() in [row['source'],row['material']]:actor.modify();comp.set_material(row['slot'],u.load_asset(row['material']));restored.append(row['actor'])
- return dict(clock_material_slots=len(restored))
+ result=dict(clock_material_slots=len(restored))
+ bedroom=R.parent/'BedroomPilot20261024/Integration20261024'
+ if (bedroom/'installed.json').exists():
+  import runpy
+  result['bedroom']=runpy.run_path(str(bedroom/'install_level.py'))['apply_upgrade'](world)
+ exterior=PROJECT/'SourceAssets/CyberpunkExteriorUpgrade20261025'
+ if (exterior/'installed.json').exists():
+  import runpy
+  result['exterior']=runpy.run_path(str(exterior/'install_level.py'))['apply_upgrade'](world)
+ kitchen_repair=PROJECT/'SourceAssets/CyberpunkKitchenRepair20261026'
+ if (kitchen_repair/'installed.json').exists() and 'KP_Counter' in actors:
+  import runpy
+  result['kitchen_repair']=runpy.run_path(str(kitchen_repair/'install_level.py'))['apply_upgrade'](world)
+ traffic=PROJECT/'SourceAssets/CyberpunkTrafficUpgrade20261026'
+ if (traffic/'installed.json').exists():
+  import runpy
+  result['traffic']=runpy.run_path(str(traffic/'install_level.py'))['apply_upgrade'](world)
+ apartment_cables=PROJECT/'SourceAssets/CyberpunkApartmentCables20261027'
+ if (apartment_cables/'installed.json').exists():
+  import runpy
+  result['apartment_cables']=runpy.run_path(str(apartment_cables/'install_level.py'))['apply_upgrade'](world)
+ near_bank=PROJECT/'SourceAssets/CyberpunkNearBank20261028'
+ if (near_bank/'installed.json').exists():
+  import runpy
+  result['near_bank']=runpy.run_path(str(near_bank/'install_level.py'))['apply_upgrade'](world)
+ native_near_bank=PROJECT/'SourceAssets/NearBankPCGRepair20261028'
+ if (native_near_bank/'installed.json').exists():
+  import runpy
+  result['native_near_bank']=runpy.run_path(str(native_near_bank/'install_level.py'))['apply_upgrade'](world)
+ return result
 def audit(world):
  actors={a.get_actor_label():a for a in u.GameplayStatics.get_all_actors_of_class(world,u.Actor)};report=dict(map=MAP,doors=[],containers=[],controls=[],atmosphere=[],furniture=[],balcony={},revision_actors={});issues=[]
  def fail(condition,reason):

@@ -1,0 +1,13 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.8",
+  "DisableEnginePluginsByDefault": true,
+  "Modules": [{"Name":"CityAuthoring","Type":"Editor","LoadingPhase":"Default"}],
+  "AdditionalPluginDirectories": ["D:/FPS3D/FPSGAME/城市示例/Plugins/Experimental"],
+  "Plugins": [
+    {"Name":"PythonScriptPlugin","Enabled":true},
+    {"Name":"EditorScriptingUtilities","Enabled":true},
+    {"Name":"CitySamplePCG","Enabled":true},
+    {"Name":"GeometryScripting","Enabled":true}
+  ]
+}

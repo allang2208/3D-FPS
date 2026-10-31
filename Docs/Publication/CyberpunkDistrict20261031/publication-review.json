@@ -1,0 +1,19 @@
+{
+  "scope": "Git publication only",
+  "whitespace_fixes": [
+    "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/bedding.py",
+    "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/bedding.py",
+    "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/install_level.py",
+    "SourceAssets/CyberpunkUrbanLandscape20261025/layout_primitives.py"
+  ],
+  "syntax_review": "All staged Python parsed without executing authoring or tests",
+  "sensitive_pattern_findings": 0,
+  "binary_payloads": 0,
+  "licensed_assets_included": false,
+  "third_party_libraries_included": false,
+  "gameplay_tests_run": false,
+  "editor_started": false,
+  "performance_measurements_run": false,
+  "archive_files": 225,
+  "archive_sha256_readback": true
+}

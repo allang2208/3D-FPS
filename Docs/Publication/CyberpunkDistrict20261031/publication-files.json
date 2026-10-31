@@ -1,0 +1,1517 @@
+[
+  {
+    "path": "Docs/Art/CyberpunkExterior-FabUpgrade-Plan-20261025.md",
+    "bytes": 16885,
+    "sha256": "a77a97929869a1f31c10a5bca7b0199792505bdb918fa08d319a7c9ea4cb69d9"
+  },
+  {
+    "path": "Docs/Art/CyberpunkUrbanLandscape-Masterplan-20261025.md",
+    "bytes": 19933,
+    "sha256": "d2a0f2032e4258f24f023f3ca5f8a39392483a64194f5a8e67f2fe6503db5d88"
+  },
+  {
+    "path": "Docs/CyberpunkApartment-BedReuse-20261025.md",
+    "bytes": 2333,
+    "sha256": "1eecfa94f3d729b717710f44ca9cba25fbd6344f93cbfcf688b7a943b64d08ec"
+  },
+  {
+    "path": "Docs/CyberpunkApartment-POSITION-AND-TODO.md",
+    "bytes": 14168,
+    "sha256": "8f4ea67ba408c7658992ade0bdb01256ad5e59900840dd512ac935fc050f1321"
+  },
+  {
+    "path": "Docs/CyberpunkBedroom-Integration-20261024.md",
+    "bytes": 2168,
+    "sha256": "559d6446690369320ad8ba9ad747ae2a50c9506295707965099078edd7ba5d03"
+  },
+  {
+    "path": "Docs/CyberpunkBedroom-Pilot20261024.md",
+    "bytes": 2192,
+    "sha256": "5464bc66d1b4b88c7153ae2927eea634b779cc510329a7b3b15d3664a8b7e8b0"
+  },
+  {
+    "path": "Docs/CyberpunkBedroom-PilotV2-20261024.md",
+    "bytes": 5924,
+    "sha256": "ba15ab3790f728f6dfdc0750afe88276116d5ba7aec00415e1ebdf01219a606b"
+  },
+  {
+    "path": "Docs/CyberpunkBedroom-PilotV3-20261024.md",
+    "bytes": 5528,
+    "sha256": "521ad01bc5f6b37dfe49d4f38fae73c7e5e47d4bca6b3c825801c8135f50cb1b"
+  },
+  {
+    "path": "Docs/Publication/CyberpunkDistrict20261031/README.md",
+    "bytes": 6440,
+    "sha256": "5d7263945ae83a32baead9bf5488f2b7db77c43e49ac6850f96d3984088b62eb"
+  },
+  {
+    "path": "Docs/Publication/CyberpunkDistrict20261031/archive-manifest.json",
+    "bytes": 129958,
+    "sha256": "5cfd731d9343dc097bd8254578e558d1d2f1ca6c29ce6591f5727fb627c928bb"
+  },
+  {
+    "path": "Docs/Publication/CyberpunkDistrict20261031/archive-receipt.json",
+    "bytes": 206,
+    "sha256": "464f0bd6bbc09c5b767556e018d4ab8c30d499844242cbcf4aadd1c2eca0b91c"
+  },
+  {
+    "path": "Docs/Publication/CyberpunkDistrict20261031/historical-performance.json",
+    "bytes": 1940,
+    "sha256": "bfbe7378c3a4b997e22012e691ee518f9341041f120b0025942a5b4973854ff8"
+  },
+  {
+    "path": "Docs/Publication/CyberpunkDistrict20261031/publication-review.json",
+    "bytes": 829,
+    "sha256": "8d1f9372762d73007dc07c6920ca8c9c3a7a9bf74311f994380249a9cafe6ecc"
+  },
+  {
+    "path": "Source/FPSGAME/Development/ApartmentExteriorAuthoringTools.cpp",
+    "bytes": 4401,
+    "sha256": "cabcb5cefa281a4556fca4e6d1d8b48565f44af574f870ec14f8bce9f383cd14"
+  },
+  {
+    "path": "Source/FPSGAME/Development/ApartmentExteriorAuthoringTools.h",
+    "bytes": 621,
+    "sha256": "d4ae4b74bda1023f36782a797cc0f07c31d9c5456d0c12d1b2384e1ae6749db5"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentCables20261027/.gitignore",
+    "bytes": 307,
+    "sha256": "018aba368d39d4fefe6f57358dad3f4803c04068a1c57af11214f2909fb6e7fd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentCables20261027/author.py",
+    "bytes": 8491,
+    "sha256": "d503a60444c0d5353e5f3b159a3f3913d83d0eae6dcc2f18548b298940ad3d81"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentCables20261027/capture_layout.py",
+    "bytes": 2217,
+    "sha256": "fcccb714d42d5ec0be31d319c0c8e6bbc4f7fb5e5e25a7dbf998292b049122c0"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentCables20261027/install_level.py",
+    "bytes": 10873,
+    "sha256": "e1d4af9b2caad5f76e4a136dcf5614ebced0eca685613e4af107a0b3b5b8a3c8"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentCables20261027/layout.py",
+    "bytes": 5164,
+    "sha256": "dc00178d0c98b4b8ec38bc1eeba7e9e4c113e82a9ccbc374d86387a4f19b36aa"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentCables20261027/run_background.ps1",
+    "bytes": 2021,
+    "sha256": "4191ec06079b6cb59ab5fedaaf10565ea3ac9651aeec83418ba059f799fdba2f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/README.md",
+    "bytes": 2333,
+    "sha256": "1eecfa94f3d729b717710f44ca9cba25fbd6344f93cbfcf688b7a943b64d08ec"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/end_play_for_save.py",
+    "bytes": 760,
+    "sha256": "b3e10720a4c0446670684bcd7ed15be42b26434944674336f4eb07d24ff33d87"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/install_level.py",
+    "bytes": 6703,
+    "sha256": "f2f2f13a2f0be481d01ce4ac7838fd9995419adabff97228d0da7f19e35f6e67"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/prepare_install.py",
+    "bytes": 603,
+    "sha256": "adab6a0749bdfe0a534d72b3e796edce360afe3354fd2c2ee4c317476d222475"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/publish.py",
+    "bytes": 289,
+    "sha256": "e420f49b320df5acf366d981e75672a2f683fc73280bd26fde0e71e442c6f747"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/read_remaining_beds.py",
+    "bytes": 1244,
+    "sha256": "f9504de62b19906bc1d323f883b95c4fc0993eb30e98cef67fbff6e2e8e3a381"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/read_source.py",
+    "bytes": 2174,
+    "sha256": "925f2bc7ae321955f56c9f5dba599d90ceacdca4faae063d4a8f3f749de49ef1"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/resume_install.py",
+    "bytes": 1813,
+    "sha256": "9b9945fbda54f3c88965f827a252416de60f600e212b9f846e7a3d79c14154d5"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/write_handoff.py",
+    "bytes": 2989,
+    "sha256": "5c84cb9303ea9ba769a4290fb5eea44144c505d7b5703f54e416435098aa8c14"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/README.md",
+    "bytes": 2037,
+    "sha256": "052f8aaf2e4da3b6047f5f1efc13aae13e6634cac00ebffb18b58af073968040"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/end_play_for_install.py",
+    "bytes": 834,
+    "sha256": "b975f35fb51debc973b7ca1514556a645241e60b063b4a4bbcdc492a47bb69b6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/finalize_retirement.ps1",
+    "bytes": 3506,
+    "sha256": "fdc155658c432f6fd0f164d93cad485f9da0a66c38cde4d1756b6d931314522f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/finish_documents.py",
+    "bytes": 4312,
+    "sha256": "048e2a1b987d6e8a4c4770ec51db507fb3bba526fac821ab169cc2c212d39ffd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/install_level.py",
+    "bytes": 10195,
+    "sha256": "dab2398dfa439227b8207d5707421bc520a5aa489a2d6c943159a7c3e7daf9f4"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/read_context.py",
+    "bytes": 865,
+    "sha256": "b99295ab6ebaaa89191b2ed55a001f0503fcb1f9ad608b508d3227bf9801945e"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/retire_pilot.py",
+    "bytes": 3534,
+    "sha256": "69b34c93a41d020980dfff31a109a686109f5a9b79add96659033a78a2f5372a"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/route_production.py",
+    "bytes": 2700,
+    "sha256": "b1082a5c41e0c385b0b163a4b276af9cacf90d0b0aeeae599b751498d6436c85"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/README.md",
+    "bytes": 3684,
+    "sha256": "4e7eb6350853d2b4390ae779ebd62d15874512fed2c771938ab02a5a8811d6a8"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/README.md",
+    "bytes": 5788,
+    "sha256": "94ab9d3a708dcd10c05f25f11c2dc0df4f0a9e9dc5e540f01f5248fc09b616ff"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/audit_geometry.py",
+    "bytes": 7683,
+    "sha256": "508c8b9c2fe14cfc153b560617fdd48409fa00ee288df80d174fee2d9239d338"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/author.py",
+    "bytes": 18377,
+    "sha256": "46e75d27c3b287a4515a1516a1f2f62ef2ac42cb1c57939a1b6c8f7e63280749"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/basket_cloth.py",
+    "bytes": 1527,
+    "sha256": "3f04cc79d6600f80bdec0d7126912ac0d85c24783cadfff675c4168c3f5b8b9e"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/bedding.py",
+    "bytes": 4253,
+    "sha256": "e71c3a99c706d11f86c8c6b955f028f1f71773262777ec51c1936c63b5b3ffc4"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/capture_after.py",
+    "bytes": 152,
+    "sha256": "7df554d2ba20b19ab886f82701cccd503c31634700a45737aed88e75caef8435"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/capture_geometry.py",
+    "bytes": 4200,
+    "sha256": "427f77d26bb7723e901765610aa828329af7136d77a1a0dfb90926dff2399a6b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/check_clearances.py",
+    "bytes": 7495,
+    "sha256": "1022ce28a6a07a784f11bdc110586f9f571e3280069563feaa9153c175c9b873"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/debug_drawer.py",
+    "bytes": 1683,
+    "sha256": "ec9f7ba720127efe2cdc6f5510ee328535d360bc69737760a03d17c29e6913bf"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/design.py",
+    "bytes": 499,
+    "sha256": "6e1e6dd10ee520ddf54791868c8ac397dab26359efb53de4b403e829f555473d"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/import_assets.py",
+    "bytes": 3313,
+    "sha256": "6e32f2e88957973ecfcfaf8f4bba13159ed42d75dc5ba2346b5778e3076ff4cc"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/install_level.py",
+    "bytes": 423,
+    "sha256": "9f5d3c0f352e02052bce23d5ac1c96408262783eb314717b3fc865ac82a2b230"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/live_context.py",
+    "bytes": 518,
+    "sha256": "a03522c983f82572306da404fbfb3c30f52a7998b3ba45f701afe882caff8590"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/placements.py",
+    "bytes": 1188,
+    "sha256": "646c84e8eb06162b22d8f112d158f58a041b84f4cb3b8834e969ae64f7e9016c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/prepare_review.py",
+    "bytes": 2692,
+    "sha256": "ce6718307f12cdeb5bf4de37b15c5e4c81ebff8b87d321f62c1637aa0566e7c7"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/publish.py",
+    "bytes": 301,
+    "sha256": "7b1585a070ccbcd0232cf520605704c8166438109a3f37e02ac9c371affe25e6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/publish_and_capture.py",
+    "bytes": 282,
+    "sha256": "207cb5a4d279948fc5dd399858363f8f8df1493057154b5f5d4cc2e71fbfeeb3"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/render_top.py",
+    "bytes": 871,
+    "sha256": "c949869a66829a1f6045d6a8412eb05e0ae8e26b62a6d459e4ec4bd0c484de76"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/save_layout_and_capture.py",
+    "bytes": 182,
+    "sha256": "8329b0da3a00719cbf1096ada04e78cd7d6f5365ff3b4c813198093a7d54e10c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/seat_desktop_details.py",
+    "bytes": 1181,
+    "sha256": "dd3366dad9701cb8d3ea700c371a61bbf35c859d5389d9deab9e23d133d1aa34"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/write_report.py",
+    "bytes": 8516,
+    "sha256": "61db09576fba607505ba3453d191451e0faeb039ca64fc9951dec96c83dc1508"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/README.md",
+    "bytes": 5528,
+    "sha256": "521ad01bc5f6b37dfe49d4f38fae73c7e5e47d4bca6b3c825801c8135f50cb1b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/audit_geometry.py",
+    "bytes": 7683,
+    "sha256": "508c8b9c2fe14cfc153b560617fdd48409fa00ee288df80d174fee2d9239d338"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/author.py",
+    "bytes": 19772,
+    "sha256": "ac65eed10137de6d49c028af05e18d3c830b8b1f5d09eadaf2c964392d258937"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/basket_cloth.py",
+    "bytes": 1527,
+    "sha256": "3f04cc79d6600f80bdec0d7126912ac0d85c24783cadfff675c4168c3f5b8b9e"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/bedding.py",
+    "bytes": 4480,
+    "sha256": "07826f0772732c123aad859337a8faa104e0dbd75963190d3046dad5e5614a9a"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/build_assets.py",
+    "bytes": 10728,
+    "sha256": "808c9ac5edcfaf057813979695f32bb59a9156ec4960f54825e4f3103e31f4d5"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/capture_after.py",
+    "bytes": 152,
+    "sha256": "7df554d2ba20b19ab886f82701cccd503c31634700a45737aed88e75caef8435"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/capture_geometry.py",
+    "bytes": 4200,
+    "sha256": "427f77d26bb7723e901765610aa828329af7136d77a1a0dfb90926dff2399a6b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/check_clearances.py",
+    "bytes": 7495,
+    "sha256": "1022ce28a6a07a784f11bdc110586f9f571e3280069563feaa9153c175c9b873"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/check_source.py",
+    "bytes": 1057,
+    "sha256": "8bc444b6fe95a5b8c2069751f7ade5a1ad5c9f7b4a03531286b3cad54504e9fa"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/complete_publication.py",
+    "bytes": 231,
+    "sha256": "fe5a941d8cdc9e445c899d9a1d3f0da67d0f220278f0cb38b3671ab3a9564a48"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/design.py",
+    "bytes": 2135,
+    "sha256": "6897401b143c5096090c70be905a078ff248e596d79f5c6b03ecf296ef87113b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/final_assets.py",
+    "bytes": 520,
+    "sha256": "200b6444b29662f235368662f66b7a0e37a3b4272211404ffe14893614a25d6b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/finish_source.py",
+    "bytes": 410,
+    "sha256": "91c91a31c62d17a8b8db9cd2257db8fc4eed8c6eae2193922260aa56ca222550"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/inspect_texture_data.py",
+    "bytes": 863,
+    "sha256": "4e80b5ac591585198dc062023f1115ffcc96284cf42f43d27ef0be0c4fbabd50"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/install_level.py",
+    "bytes": 423,
+    "sha256": "9f5d3c0f352e02052bce23d5ac1c96408262783eb314717b3fc865ac82a2b230"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/locate_typography_edges.py",
+    "bytes": 683,
+    "sha256": "4425170c450a8abe01808ae951719f2ac57075fbb1a6bfd43d557fe2a5911056"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/make_surfaces.py",
+    "bytes": 3014,
+    "sha256": "d3535a6920d72c5fb02ec8b879a85528c71fe6599c4ac27dd0e2cc8073cdf162"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/placements.py",
+    "bytes": 1251,
+    "sha256": "cfb8ed24c7384648a06f42fafd444b2a4565373b2136663a63c7055e7bee95c6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/precision.py",
+    "bytes": 9317,
+    "sha256": "4494c452c7fd9f51fbe769d2f15ecc0285ce15103d7fd69d70c957de00bf8b99"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/prepare_review.py",
+    "bytes": 2751,
+    "sha256": "b323e762a1dbf6af725a9e1e45ffae37e166824ef2996250c84e8dd831105c69"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/publish.py",
+    "bytes": 205,
+    "sha256": "7ab26f9205599e9ba45086e14776d12385e7ada6fbeb0699664b896f528a0899"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/publish_and_capture.py",
+    "bytes": 361,
+    "sha256": "83cf8a4f88f383edb90458ccd8ad37406ce97884c560ea53d3f99349fd0a218f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/read_live_context.py",
+    "bytes": 646,
+    "sha256": "349ed7fbb95948fe0d730fd2a2be32bca428f084aad95fe6f31eee47e48a357e"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/read_materials.py",
+    "bytes": 1676,
+    "sha256": "638e427cbfb7e13bf0d9e87a7488917cf73e335e11fd1fb07623e2322036e58e"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/read_saved_assets.py",
+    "bytes": 1932,
+    "sha256": "1f4fcc402c8629e99b4898433a9b181f7a5734d5779830a9dd5a8b651fedc5e7"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/refresh_meshes.py",
+    "bytes": 411,
+    "sha256": "c937d613d9e4b74089ab8a5a8ce2788ebcd151c8bfcde11f33ddd5863d6e2023"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/review_pbr.py",
+    "bytes": 4935,
+    "sha256": "4513e54e8b0aef6667fa5f47ff3f35e264aa538a7a3455c6d89d035bf80dd015"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/upgrade_sources.py",
+    "bytes": 3782,
+    "sha256": "1f9afccb70f476e118cb2c7a3e6404beab7052b753337c4b803d8d35be8082ed"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/write_report.py",
+    "bytes": 7471,
+    "sha256": "087b0bdd241707df84a7abb7157fb5ed148dca90347b4c7fbe0512742993766d"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/author.py",
+    "bytes": 16193,
+    "sha256": "9a00254a1951e91adf330e007474917749d879fe7191708bcda5f1cdaf8e1c8b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/build_assets.py",
+    "bytes": 7898,
+    "sha256": "d2bcd8b99ca864827253cb805510cfdbd0afd6cd38333e3368591583d9f89403"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/design.py",
+    "bytes": 3522,
+    "sha256": "124145126276c2e5a76b133e25a9abc55acb04d1e52e55edeb93f543f654ae65"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/install_level.py",
+    "bytes": 416,
+    "sha256": "547d1938533e3074f05def3f11ddbe9e5ee30468a5d86528990c15f5c5584694"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/publish.py",
+    "bytes": 294,
+    "sha256": "12fdf96230570b871f0cdb847521e045360c1dd5744186b9b44f9e594f017b4c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/read_source.py",
+    "bytes": 3117,
+    "sha256": "1020a1aebf97e276bc26d59bc04719ae7add4c2f6f08c931f9d9a4463a8236b5"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/run_background.ps1",
+    "bytes": 1671,
+    "sha256": "208f161695abf0e7d36792e55cbf9443ee7b26e3aaf7fe0f2a3c8908b391a46c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/INTEGRATION_NOTES.md",
+    "bytes": 9126,
+    "sha256": "5ef94d23fdc6204fcdc80448346e19f769e512fb03c232faed071578077fdedb"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/PENDING_INTEGRATION.md",
+    "bytes": 13742,
+    "sha256": "42691a028ba0af7e262791db70bb8012a9fe5fead1ef9602aa92bb8dc56e8524"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/bridge_context.py",
+    "bytes": 1149,
+    "sha256": "e8618f69b7d465476a269927f85d39d9336edd44d547d2c1cbb3f3b522672309"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/bridge_probe.py",
+    "bytes": 957,
+    "sha256": "c855a3f1408c2e4f9569db3d4b0a9bc91b2c174fb34cdfc2d582ae23135922ac"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/bridge_status.py",
+    "bytes": 1014,
+    "sha256": "b3632538c35202b373c808f95d10de94e6c1b95d6a7bde14288bc135ab009769"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/build_assets.py",
+    "bytes": 13727,
+    "sha256": "53d6bd9d724f61e6efa67f34737b3406756c0f8d2eeae1d3ce825fc0f7eab4e6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/build_kitchen.py",
+    "bytes": 29825,
+    "sha256": "4c531028bb70bedc3b3f4188c5ea4c6f3c12d21f301714009f64a6ae36953c56"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/check_fixtures.py",
+    "bytes": 8080,
+    "sha256": "b4997a78e5395eff482906882f00c145ea1a571c3ea4c842490402b773d53eb5"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/check_supports.py",
+    "bytes": 5534,
+    "sha256": "e350ae34abc581c14b5a38e93eecd5a1a3ca28fee87e7ec51dbefb7edf5c2abe"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/inspect_current_v2.py",
+    "bytes": 3536,
+    "sha256": "8819c8340dc95d5476e61223e86cfe43faf90c0d81cabded3a35449af263f20c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/inspect_ue.py",
+    "bytes": 4833,
+    "sha256": "3469997536e4fb7bb0f21181147d298332ccccc22ecd78e85ac9dd5f0863ad85"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/install_editor_entry.py",
+    "bytes": 773,
+    "sha256": "f736bded0e3b5e7da803f3dbe67834d14960e9cc5ac64319a4e4bfa67a264b98"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/install_level.py",
+    "bytes": 32724,
+    "sha256": "c2ea5456c10acafe21fe33e91c2070ddf5751c773b9cc90e0d5a3bdcea9bd675"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/make_audit.py",
+    "bytes": 6645,
+    "sha256": "e923092c95d66afd92f5cc917bebde0aa74fadde65c7a47e63607220a7f49164"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/make_surfaces.py",
+    "bytes": 5403,
+    "sha256": "07f344ce914b766d0e1278c21e0e6e81fb4aece87ab1711c86084d3b03a95fc1"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/materials.py",
+    "bytes": 4733,
+    "sha256": "65f8d7c35281cf60e9acf9db550ea9528bd2fd92c2ea7dc39dbf008a6e6b320f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/model.py",
+    "bytes": 20569,
+    "sha256": "8b7148d70053b84cf1bb5f975884538291d60a94ac9198e06268df2aeec19352"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/probe_asset_api.py",
+    "bytes": 2047,
+    "sha256": "f10eba30b61eff4369af615c7445e81ff3840d0a98c3bf868407f225a1281473"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/probe_editor.py",
+    "bytes": 893,
+    "sha256": "75301678cd72017a07bfcd98b1bc78ed69a100ab7f0ed33d8d0868904eddfd30"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/probe_reflection.py",
+    "bytes": 2232,
+    "sha256": "caf13b013fb18c1d750748793792e7c764d4a1fbf337623e81b69398f206b571"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/probe_subobjects.py",
+    "bytes": 4403,
+    "sha256": "5a1f9a5cc809265ba0a4b3d98fd1da82ee0ce587e168775aed9e7e97be33cdca"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/publish_assets_entry.py",
+    "bytes": 439,
+    "sha256": "6744eee62af09b4c2f36f3e731f91f740be4f32ed9c7b24928de4eaeeb96e363"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/publish_background.ps1",
+    "bytes": 2431,
+    "sha256": "0050bf5f631b2e236ac7e0530eafb3c630cfddca0521272662249ae2c78049cc"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/publish_level_entry.py",
+    "bytes": 244,
+    "sha256": "efa1d51f0891b4baec4d94e2705bc9191ae9803651b6fac7c4d107e52e5e25d7"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/read_editor.py",
+    "bytes": 805,
+    "sha256": "15667b68fccb8598f0f1bf1ce78a263376a39dc094940a5bc4d132e0eb934551"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/reimport_trim_entry.py",
+    "bytes": 1488,
+    "sha256": "9382f69e1c282fb6d5dc248eaef8a5f31fabc57a0d3e70515ad747695491abb6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/spec.py",
+    "bytes": 6408,
+    "sha256": "b82d9ef4906972d32421f55cfc7c7191c003657d0ec8c00bd99ea334fc46b796"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/test_pure_contracts.py",
+    "bytes": 4289,
+    "sha256": "29d250de5d5153808eea6844b5401bb1dd7b6f7812a7d0ab68ca9cd5843cc1a3"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV18/PLAN.md",
+    "bytes": 1852,
+    "sha256": "7ce5fa0643a1dd72abfedaccd581eacda2cae33b8d3ba3ebc284669842a09230"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/PLAN.md",
+    "bytes": 1457,
+    "sha256": "3285d54df5a5a1e33aef148ada9757f5a3ce0e61d7048b34a0e913258d03db86"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV20/README.md",
+    "bytes": 1100,
+    "sha256": "3ffcf4b98679eabaa400c56694ffcd5c55cedebfd4698fcf54c07cb2ac999e42"
+  },
+  {
+    "path": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/publish.py",
+    "bytes": 14588,
+    "sha256": "43d87cefcdfe53c1a1d9377428d794690a50ca5dce9d277bfda69f6cf1eb3f3c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/.gitignore",
+    "bytes": 307,
+    "sha256": "018aba368d39d4fefe6f57358dad3f4803c04068a1c57af11214f2909fb6e7fd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/author_remainder.py",
+    "bytes": 6144,
+    "sha256": "f0b4c3ce8913e80df88d52661212f16ee34b3da28487988cd08e27437235941d"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/author_service_platform.py",
+    "bytes": 2636,
+    "sha256": "71b1c01e2664911ab040326eb876dbd337201984d0b7287d779c29e9b314f6bd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/build_assets.py",
+    "bytes": 12953,
+    "sha256": "579e15cc29358552bdf632d78d89dc971b09823bac337b360abae24453b9e50b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/build_native.ps1",
+    "bytes": 585,
+    "sha256": "9868ac8fed4129f704b03b2c707d9e6ca8c7918402a2fcddb47c9c44cb41de28"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/install_level.py",
+    "bytes": 7033,
+    "sha256": "6de13f707578a33be4210e3c742a6512df4ef79f81b759199d0497fe9dd20200"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/make_layout.py",
+    "bytes": 5756,
+    "sha256": "7872a4cffdab4e371197b601363a83e9b0197129609c2a6fa8d0b8245be4272c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/publish.py",
+    "bytes": 6232,
+    "sha256": "efa946a107bfdbd4bed7fb9ff58c8395c0e4218bdbcb0d14b6ee41286f6d19d4"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/read_groundfloors.py",
+    "bytes": 2843,
+    "sha256": "d26d1e47dab581f87246e62cd5c181611dfbef00afc1a27eb529e1438f8df24c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/read_sources.py",
+    "bytes": 4356,
+    "sha256": "3b51300169064bee241ae9ed426d12a41b7ae68f56182a51f42536d497b1d216"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/repair_landmark_uv.py",
+    "bytes": 1150,
+    "sha256": "0720dfb4278d13413e7c81d12014726c2e00b73c31c78c78256a9b2d249b1e88"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/run_background.ps1",
+    "bytes": 1975,
+    "sha256": "145a5f404ba2eb8775590c710c4f625316f6a365def43611329299bc8e6a8a45"
+  },
+  {
+    "path": "SourceAssets/CyberpunkExteriorUpgrade20261025/save_refined_geometry.py",
+    "bytes": 567,
+    "sha256": "a5348ab8918999455b9727d69e69ac6ebc43ccdc8d96845a9ed1c87fd939f3e6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/.gitignore",
+    "bytes": 307,
+    "sha256": "018aba368d39d4fefe6f57358dad3f4803c04068a1c57af11214f2909fb6e7fd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/author.py",
+    "bytes": 8117,
+    "sha256": "afd953e6a5a685392848fc5f8f5a4deea17ce4e2232abadfac9405dc57cfc6ee"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/author_cable_v2.py",
+    "bytes": 1538,
+    "sha256": "275a178c61128da980aea49ead8ad81319213f9763494d019ca54dcf15762011"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/cable_route.py",
+    "bytes": 5522,
+    "sha256": "405a6a2895dde3d0661c5982c3822a6cc1cfd8ae6854054aeee34e0c3e59b7a9"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/check_requested_layout.py",
+    "bytes": 2210,
+    "sha256": "057c8fb17f3e8052d82549bc95875891a344ba46471c50a8ac1d45dd73fa748b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/inspect_scene.py",
+    "bytes": 1520,
+    "sha256": "6934807fbceab0d7d28c4c7ec8cf8a6d22b956a5de12146d3451779f6c568da7"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/install_level.py",
+    "bytes": 15796,
+    "sha256": "94cfa63985597721b354d82deb3cda786e4a01241e61eb076f40566f41abac19"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/publish_cable_v2.py",
+    "bytes": 1744,
+    "sha256": "e77370d0118d9d6077c4380d3031db5d959d76bd9946c6947e9eee3af619e93f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/read_cable_contact.py",
+    "bytes": 1700,
+    "sha256": "d0a2a528da7268ad2ab1ede51f12e6f28e57ceb7333c4d7fa4580eb8a8c50078"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/read_saved_kitchen.py",
+    "bytes": 1756,
+    "sha256": "85257ae1c516722288ff2830a58d900a33178d41e5f50eb5519f9c45770aebd1"
+  },
+  {
+    "path": "SourceAssets/CyberpunkKitchenRepair20261026/run_background.ps1",
+    "bytes": 2021,
+    "sha256": "4191ec06079b6cb59ab5fedaaf10565ea3ac9651aeec83418ba059f799fdba2f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkNearBank20261028/.gitignore",
+    "bytes": 307,
+    "sha256": "018aba368d39d4fefe6f57358dad3f4803c04068a1c57af11214f2909fb6e7fd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkNearBank20261028/author.py",
+    "bytes": 11615,
+    "sha256": "6ff49d5d6615bb3e3705fce0f4fc6f3c52bbc96c61c324776d03d7d6f6f342ef"
+  },
+  {
+    "path": "SourceAssets/CyberpunkNearBank20261028/build_assets.py",
+    "bytes": 10607,
+    "sha256": "c06f11ac1713162243bfd62c33a0bbefdb6b87f60bcca466bc060acdf354473a"
+  },
+  {
+    "path": "SourceAssets/CyberpunkNearBank20261028/design.py",
+    "bytes": 2286,
+    "sha256": "33e8860c3102849e6bf4af3a5c5d764c8f50559edd904bc45b4f820cd0729fab"
+  },
+  {
+    "path": "SourceAssets/CyberpunkNearBank20261028/install_level.py",
+    "bytes": 5409,
+    "sha256": "f5929fa15307f5ff9f4f0ed15ef55a03bef8c2857769b3707d1f01893cdca2bf"
+  },
+  {
+    "path": "SourceAssets/CyberpunkNearBank20261028/publish_reflection.py",
+    "bytes": 2745,
+    "sha256": "0217f44fc0d5692e22b6161fa71cae9296a28e728e5fec1c48ed1cd6195e427c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkNearBank20261028/read_context.py",
+    "bytes": 1471,
+    "sha256": "cb79cb2ea22637a9aad7db883b3167dc515d9ee4bb4e9cd5e0f7f90195d1c2a9"
+  },
+  {
+    "path": "SourceAssets/CyberpunkNearBank20261028/run_background.ps1",
+    "bytes": 2002,
+    "sha256": "b5168c6b78ac405736a7c3c29ab95fa2c8e6272242085c76d2d07c66c0d23743"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/.gitignore",
+    "bytes": 307,
+    "sha256": "018aba368d39d4fefe6f57358dad3f4803c04068a1c57af11214f2909fb6e7fd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/author.py",
+    "bytes": 17147,
+    "sha256": "0959086e01ee2fe9e6dee4ebe6d7c28a1492714ad3499133383aefe4bccde455"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/diagnose_import_basis.py",
+    "bytes": 1275,
+    "sha256": "3d5c6b5da7500cdb616882d18c11cd841c5873f7bd2da8b1d8702c943b976a88"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/import_meshes.py",
+    "bytes": 2469,
+    "sha256": "21fc02339e1ef69e9fc0e491d535115ebe0a6612d2acc37373a5d7c75306f1fb"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/install_level.py",
+    "bytes": 3668,
+    "sha256": "897c6ecbc0c02b0ae53a1175a360713d82f715ff1b3354f0fbcb1c9574cf94a7"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/materials.py",
+    "bytes": 6930,
+    "sha256": "6e66f7eb7d794d0fe595aaa14d4c7f10dca80f84fe24304a103c06d7ea744562"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/production_all.py",
+    "bytes": 239,
+    "sha256": "a55559363bd15bd7b41a2bbfcb12c028dfbc83bc8b762b0b230b62de4cfd52cc"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/production_meshes.py",
+    "bytes": 191,
+    "sha256": "16656ed3ca48eb8d8592010c97cf0c5553a2371dcc9cb74da4063eace0ab09a7"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/read_current.py",
+    "bytes": 1265,
+    "sha256": "5619ce3ea0586a5aad09c1722e95669c38b2bc3be8fd3be2d3b3dbfc8c97b4a5"
+  },
+  {
+    "path": "SourceAssets/CyberpunkTrafficUpgrade20261026/run_background.ps1",
+    "bytes": 2021,
+    "sha256": "4191ec06079b6cb59ab5fedaaf10565ea3ac9651aeec83418ba059f799fdba2f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/.gitignore",
+    "bytes": 307,
+    "sha256": "018aba368d39d4fefe6f57358dad3f4803c04068a1c57af11214f2909fb6e7fd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/Revisions/BeforeRiverfront20261026/make_layout.py",
+    "bytes": 13600,
+    "sha256": "461f6c2355d3c2d81517143c8c6ca5a55c82b7a7412ba4c9e1384626e3453813"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/Revisions/BeforeRiverfront20261026/sync_delivery.py",
+    "bytes": 11471,
+    "sha256": "c8a14e31dc898dc9c4f494bf1876ba3ff754636541303fd77ce8ba08084254cc"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/author_geometry.py",
+    "bytes": 13270,
+    "sha256": "51d94f8ad7c67f57afbd3f9afe129c7316b0cdc357ff4123fddbf98c7d6d7346"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/author_textures.py",
+    "bytes": 1632,
+    "sha256": "b08a5d2a2a8dd3e7736fc244f4c38340a2ed64086106b0992fb43472e99c4575"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_00.py",
+    "bytes": 176,
+    "sha256": "b5d28a753ade09f1afe28c70fa3043c66086b0b43ff14757ba5662632b101cdd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_01.py",
+    "bytes": 182,
+    "sha256": "cbf11aabc21bb7283b0a6890047e47d1bfaa76a1a7c29e5b49270b7b5cd4be57"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_02.py",
+    "bytes": 182,
+    "sha256": "2c7d1ef7aaa4c701697a5eef21e525b835bfce75f68295870b129e50f6833a1a"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_03.py",
+    "bytes": 182,
+    "sha256": "61ef13b4339479de236eb2611f2affdb168f18801eac2c0ce150e65d60ac7dfe"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_04.py",
+    "bytes": 184,
+    "sha256": "891884d3d66ef0f83a00ccd96932f92c3c6988be66589341b1bc7ab3ee07ea86"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_05.py",
+    "bytes": 184,
+    "sha256": "d613a43a9b53c478e67db9542addc6e30f4b0dc681577b3c7fe1efeddcb189d4"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_06.py",
+    "bytes": 182,
+    "sha256": "f98ea05793b99011d8573aa6aa8e7e91a372eeb697d4b706b20bca169a099a94"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_07.py",
+    "bytes": 183,
+    "sha256": "d229e6349bf39fae682671d3bba6be282d1c2868ed8eaea84b35528b92f14c23"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_08.py",
+    "bytes": 173,
+    "sha256": "11af284fb5dcf0ff4eaa5853f8547021b389a0acc4f5848bc9657c20d14c327a"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_09.py",
+    "bytes": 177,
+    "sha256": "a5754e1f421bd2080eb0f374072ca0af99f59c9e58309ed9b6ba41252ae502e6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_10.py",
+    "bytes": 178,
+    "sha256": "7fa17168216dce4787413dac53c83695f71c6c96c3690ab7c41f905afd3ca1a2"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_11.py",
+    "bytes": 178,
+    "sha256": "5fb7efca1dbbaf44f91563ae61a36016c01d0fb5b4c9b97c0d3129252f0747e7"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_12.py",
+    "bytes": 179,
+    "sha256": "55f3024a25f08bbd818c8cf1a173597d630e3a505b2167da715134a21f490daf"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_13.py",
+    "bytes": 180,
+    "sha256": "d4fe5f20c2e802fd34829b939c8c80051756d515fb9ceb3955dc7ca837cd7631"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_14.py",
+    "bytes": 180,
+    "sha256": "72fea4fac78a28086d7f588fc7c102617557a6360803a8ae755032f378e40c11"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_15.py",
+    "bytes": 180,
+    "sha256": "d963f970305291769f0becd89d36ccb5b1a45898ec6df2a8069f11c10a47207f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_16.py",
+    "bytes": 180,
+    "sha256": "11a01c4126378eedb5c343e68f57df6892d714233015796311b9dceb869782a5"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_17.py",
+    "bytes": 181,
+    "sha256": "8596a8de652c7f35f29075700d8c99bc4f4a25da197c65a2a20c5f26cedd1413"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_18.py",
+    "bytes": 181,
+    "sha256": "a012af5d0a687723e625df6457112d8417764e2c8389600b995052de36a1aaeb"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_19.py",
+    "bytes": 181,
+    "sha256": "ecbad46b9a379af1695f3e5adcf739c66bd6f66b7eca7e3f1487b73f683504ac"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_20.py",
+    "bytes": 181,
+    "sha256": "c4ab6ab64ebcca81e79599c301ab44bf5d00c53ab2a083f2a2c17eb76f315b35"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_21.py",
+    "bytes": 181,
+    "sha256": "cd1703bbd2664c240b5390e02ec43301b7a37c5951d5fa3671e69805b560719b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_22.py",
+    "bytes": 181,
+    "sha256": "25695590a2fc3d8e176fa8ba7290666aacb9e2e65cae83af4fd1095b062cf4f9"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/batch_23.py",
+    "bytes": 175,
+    "sha256": "0daafd6f245858d4434d0205deacb13dd678fb041dabce2dcef49ca37f7ca4bc"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/build_assets.py",
+    "bytes": 13590,
+    "sha256": "0ae285d14de8348081d4be62dd68b615ec21b33f900395d6b2dcf9831d52006b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/end_play.py",
+    "bytes": 758,
+    "sha256": "0bef0a130b2c3936166374bcbcd47cce387664eb291700c21819baadd060059c"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/finalize_riverfront_author.py",
+    "bytes": 1356,
+    "sha256": "9036b9ba9e8d0b2346fd5b8fdd863f85aefe17844d21b50d72972cd5df5bf400"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/finalize_riverfront_live.py",
+    "bytes": 283,
+    "sha256": "3729309ba3771d375520cf8f213b5a2bcd5bc63f2abfafb18d9a8d04f6161efa"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/install_level.py",
+    "bytes": 6602,
+    "sha256": "486328fb2ee8b94faaf9f86160a4485d5c50fbc07f52d9420f414799b19f1c9e"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/layout_primitives.py",
+    "bytes": 5324,
+    "sha256": "a178eef731486d8a8f401ad47c6442f1fa02fc60ff4dec9de5c17166fef6ae1f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/layout_riverfront.py",
+    "bytes": 8593,
+    "sha256": "f4c43b178d93244f38cf73a08ea58f67957c818d4ada97933723e533d5c88b8a"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/make_batches.py",
+    "bytes": 621,
+    "sha256": "299971daae8354f4a20dbbe1644ef788ffe877aae9f72a3df488665432346ce6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/make_layout.py",
+    "bytes": 215,
+    "sha256": "4ff308c23a8729cf08f89d1f4fb6c76f93939c08eb6403a6d49966e3b13963db"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/make_riverfront_batches.py",
+    "bytes": 682,
+    "sha256": "0d757fb43d7146f284533ef39e99ec4db2da92b45c0c8595c62a77a5e314a9bd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/prepare_riverfront.py",
+    "bytes": 1048,
+    "sha256": "1413184489153accef4e7559e86afca77a4c590be157a0f3b703cd7f0d32de90"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/production_all.py",
+    "bytes": 586,
+    "sha256": "0c96bf64084b600bb2274d2d0e80e77660c37a6ee63f6da2915035566c9b1dfa"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/publish.py",
+    "bytes": 3914,
+    "sha256": "b24ae646a7d807da853940a9e2aa1b97d3e82a260380da28918470588c3c9f50"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/publish_current.py",
+    "bytes": 669,
+    "sha256": "82f4eee6a53dcf07d16eb597e80c1edea03e58cf8e0fddd7e91e315cd21465f4"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/read_inputs.py",
+    "bytes": 4528,
+    "sha256": "2b401e352def01cc3a1000259d8ac263f724d95deaa790f3c6288b211573fb89"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/read_riverfront_inputs.py",
+    "bytes": 4593,
+    "sha256": "577b508caeb60a0fd9609c0ab7f28b840c38cbe91140c92f562c029b91e37803"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/read_view_origin.py",
+    "bytes": 936,
+    "sha256": "625c78546fc62f1cdcc59ac8ce3d96908fe29c93a1179b657a8faf154b111e14"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_00.py",
+    "bytes": 264,
+    "sha256": "1fe18217cda5bae63954efbb4c5ba4983b71d4253339bc62b29a73b4ff1dc914"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_01.py",
+    "bytes": 264,
+    "sha256": "b162b51e6ab89a6542a2cb3f7b0ece6ce90f7daab9d9fa24cdbd98606cdc81f5"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_02.py",
+    "bytes": 264,
+    "sha256": "61e7132b347e29094928abb4aec1f29e29fcd258c4cdd69eebd25a0b1df422fa"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_03.py",
+    "bytes": 264,
+    "sha256": "1f593b4ca90e5240127c6c7eb24ee5847a27a481969cc93ec0d6da9e39d67842"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_04.py",
+    "bytes": 264,
+    "sha256": "2991987e3670994dfeb465a63f7b4a7939048438c3b9e9b31fc9fdf5ffa82340"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_05.py",
+    "bytes": 186,
+    "sha256": "0d29fb0dc3d1d8adacb9d8fb6a856943336820a0c90cf789063dbc08394c064e"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_06.py",
+    "bytes": 186,
+    "sha256": "c600f24fbdf6157e2d58534d23fb929daa22dbfe888ddc85e54547ebae9b1d84"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_07.py",
+    "bytes": 186,
+    "sha256": "647ca8eaa6db38d35ccf9f4fea723c3e7daa9478ef5fb3fce82f4627aa8faff1"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_08.py",
+    "bytes": 186,
+    "sha256": "de010f01bed4c180f059f25e7ad9193205502da848feff4160a90d40747ed0b6"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_09.py",
+    "bytes": 186,
+    "sha256": "dfc626c140c54adbf4a20643c280cfa652597990dd2f3cad9239b3bd50d7dda0"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_10.py",
+    "bytes": 187,
+    "sha256": "9311b3028a6e56978ebe6bead606ad25c78654cd8f5935307152b348b128e8df"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_batch_11.py",
+    "bytes": 181,
+    "sha256": "83d9b2926fd5de02eb60ca5c0793f85915c45b8cfd0d493eb1e379af970a3493"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_publish_background.py",
+    "bytes": 367,
+    "sha256": "af977298fca2b7ff957e7c6c7c0e89a7e8fffd029723af52c357083bac077500"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront_save_ground.py",
+    "bytes": 432,
+    "sha256": "c5cfd948320ecd05ba09787aaf2e44f89a8178d029e0dc796ca9dc537e45bd3b"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/run_background.ps1",
+    "bytes": 2021,
+    "sha256": "4191ec06079b6cb59ab5fedaaf10565ea3ac9651aeec83418ba059f799fdba2f"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/run_batches.ps1",
+    "bytes": 667,
+    "sha256": "9d21b7de5ee15935e918cc0d978a90a1d791db954100f57479baca03090f7b87"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/run_riverfront_batches.ps1",
+    "bytes": 599,
+    "sha256": "a1b0eec49ea9feada3ae38eee8c17a4990c420fbf1e4f271f0902ec33b63e7db"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscape20261025/sync_delivery.py",
+    "bytes": 14440,
+    "sha256": "81874113a95236f873d47bf31b3e88a26dd96b8c31fbbd2f428b23d4f0a02655"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscapePlan20261025/.gitignore",
+    "bytes": 307,
+    "sha256": "018aba368d39d4fefe6f57358dad3f4803c04068a1c57af11214f2909fb6e7fd"
+  },
+  {
+    "path": "SourceAssets/CyberpunkUrbanLandscapePlan20261025/build_plan.py",
+    "bytes": 24034,
+    "sha256": "ffbf34f524f6a4fdff5b60afb3506794f395956ccbfb44cddf0991fae3196d91"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/.gitignore",
+    "bytes": 506,
+    "sha256": "d5249975599955988bc6e17c87380a546144d70b7c382533f45807deac6e64aa"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Audit/analyze_scene.py",
+    "bytes": 12032,
+    "sha256": "0d8db4b6be10e789d6e027e0b8ada6e789ab6984ef974c5b3bd3b30dc2892fee"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Audit/audit_roof_support.py",
+    "bytes": 2108,
+    "sha256": "df9887d8267bcef78bae475a04fd611c2d91bfdc81461b17226dbd164f08b9e7"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Audit/confirm_prop_contacts.py",
+    "bytes": 3250,
+    "sha256": "7b6f10614c40f3cbae640814c7ce726cb357628b81e30e7fdb01c781f9baa77f"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Audit/export_geometry.py",
+    "bytes": 2319,
+    "sha256": "52ee08f838ffae6a9d832797889fdaba6266b84c396488d8eeb316c51168bac7"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Audit/export_scene.py",
+    "bytes": 4298,
+    "sha256": "a00deefcd107589e9c5b972f364f785db74b1f74c4fa7be993bf895349c1213e"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Audit/plot_findings.py",
+    "bytes": 3433,
+    "sha256": "cd892ce488ab8cf937095b684648dc69adbc12a64b9698fcdf45c771bd2897f0"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Audit/run_audit.ps1",
+    "bytes": 2482,
+    "sha256": "167edbab8bd6246c53ded86f641e3636a8b241c1673d28c7e0cc7a3266065da2"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/AuthoringHost/CityAuthoring.uproject",
+    "bytes": 484,
+    "sha256": "1f2c8ea690d70eec874cd481c88956597eb75485e78ccc8e4472c4defcbd309a"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/AuthoringHost/Config/DefaultGame.ini",
+    "bytes": 305,
+    "sha256": "d8d01eae734275660035e8f35279765d799109eb9ca73e1bf713285d8fc65c4e"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/AuthoringHost/Source/CityAuthoring/CityAuthoring.Build.cs",
+    "bytes": 391,
+    "sha256": "98844c813c5f0878216d61ce6c64949f91ab517b3bc9d4b192ebf2319d4b9788"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/AuthoringHost/Source/CityAuthoring/CityAuthoring.cpp",
+    "bytes": 122,
+    "sha256": "76a3e10e69eefe18ffea772575c018dd10d7176d9239cffe2339a543c60ff5e9"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/AuthoringHost/Source/CityAuthoring/NearBankPCGAuthoringTools.cpp",
+    "bytes": 5194,
+    "sha256": "e2676a6feb28e10ef62acf516af5332b5346a22622c9ef6f26f1324e4e99d196"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/AuthoringHost/Source/CityAuthoring/NearBankPCGAuthoringTools.h",
+    "bytes": 886,
+    "sha256": "df062861072aa564876fac68d64fc713a573ef1065a6f723711251ab08d8bbd2"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/AuthoringHost/Source/CityAuthoringEditor.Target.cs",
+    "bytes": 368,
+    "sha256": "517cfa3ceb6af811de927270c973a07a169d9563267b2ac1037a83110c490e82"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Performance/author_roads.py",
+    "bytes": 686,
+    "sha256": "d9e7683ac7fb66dda58fe1928d08aaa196f0aa86f053a86868cbe477abced5ce"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Performance/component_policy.py",
+    "bytes": 2276,
+    "sha256": "b09a38b4fa9d8d75f9a1ca5a68a997d1abd1be4de94cf0a4783780dac8964018"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Performance/inventory.py",
+    "bytes": 3194,
+    "sha256": "831ac9cf8fc8d1b99fb564a9614fd6bb5970945fc10f6073973482ecd028b60c"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Performance/manifest_policy.py",
+    "bytes": 1429,
+    "sha256": "485976da364fecb73767869293c26c0ee0e87610fe11061137dab8195d15c4fc"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Performance/prepare.py",
+    "bytes": 2067,
+    "sha256": "0d317fd3ea782c4cd06fb0856e7faf233043d4680878857d1365edef70a97966"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Performance/publish.py",
+    "bytes": 1679,
+    "sha256": "0e2429f901497490acf09ddfdd7c62abf539baf81a2de1826ac3b54531292aa2"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Performance/publish_background.py",
+    "bytes": 289,
+    "sha256": "3be26d3dc579c36d2f10274acbde0f138163fffca2de9cf6c0bb6ca331849d29"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Performance/simplify_colliders.py",
+    "bytes": 1617,
+    "sha256": "8c3ce6824b784445abc5b285f9381435c5254b504f92338a4968a2fc43d268de"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/author_meshes.py",
+    "bytes": 2584,
+    "sha256": "3ff34bf3d69236bec1f80a54fbb9620c959405a6bc081f0b0c3b7b5c49ee6bfc"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/compose_repairs.py",
+    "bytes": 21086,
+    "sha256": "cccf6d5c009f10de4dd577989d25284fed86a43ad508958808b578cb150862a4"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/editor_state.py",
+    "bytes": 542,
+    "sha256": "aa3447147d3da4fb304baac6ed6ea58124d724ff6aa94bb0807864ded534d74c"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/end_play_for_publication.py",
+    "bytes": 145,
+    "sha256": "a06ff1672d1bb6886c906ba0e3bf7804dde3593563812d3c30939ab7a7dbbd3b"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/finish_geometry.py",
+    "bytes": 288,
+    "sha256": "a4d960fc2126f58682929a9f87d0392ab3b27029f3dedaec42ac066849f6c3ca"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/finish_reflection.py",
+    "bytes": 964,
+    "sha256": "3b8b90c59fe58984c1975acc1d11aa7848b2fe555266074d1b54e555bf76694e"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/prepare_publication.py",
+    "bytes": 1717,
+    "sha256": "5f8dc47ba61e550f4b8b810436ae88c56a9cd466e66442fce28213845143e67e"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/publish_repairs.py",
+    "bytes": 3611,
+    "sha256": "ccace3c4ee409303799e0fb71e73748ef9163d3610f6c7063b152cd764a2ca9d"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/readback.py",
+    "bytes": 2015,
+    "sha256": "9b3ce50ef22f7c82714440ec24987f98c8c39131ad85260ab5e209d2aafec32e"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/retire_road_lamp.py",
+    "bytes": 897,
+    "sha256": "99246e35791b2c659595bc9d1fbe6ddd1c36b932f6187cff018a5858ee239bf6"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/Repair/validate_repairs.py",
+    "bytes": 5873,
+    "sha256": "3bc414c570f2d0ad60175e0e5d976b53ce49e7ee24be104c5c0ea67e06398362"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/attach_native_attributes.py",
+    "bytes": 1360,
+    "sha256": "d254676046f55c88013fcb38e998b3804bc1421948596b3b82859ee1ca73391c"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/build_authoring.ps1",
+    "bytes": 1147,
+    "sha256": "61ab62b08878f17d702f3c3931a08ea0f47e3b9764c4b88f6261f9e104add7ac"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/build_publish_assets.py",
+    "bytes": 5216,
+    "sha256": "b0340eb71a9fc6e50b60cdca6afb4543aab0497f9f3eccc5b5609e8018856d6d"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/compose_publish.py",
+    "bytes": 2217,
+    "sha256": "92e31eee4c2c82afe81f40a59b2f80dddccf0134f9cbe61259bb7563bed31039"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/editor_context.py",
+    "bytes": 667,
+    "sha256": "4797d3d5fc519139508debe6a1305266c2303d6fb707562f151abd3e50ddcc65"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/export_native.py",
+    "bytes": 4061,
+    "sha256": "cd55a732fd38eaf25c1c9aafe90669119fec64354087ff7dd0ae9dc5979043fb"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/export_native_attributes.py",
+    "bytes": 891,
+    "sha256": "eda0da3241e6ced79c8b723deffbbf12686d9ccafbb37c1b8df99ab88a241391"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/finalize_attributes_in_editor.py",
+    "bytes": 4538,
+    "sha256": "688275c4eb89cf108468a65cc2c6120ef13fcd732e693998d849f2c169e3f2a3"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/finish_atlas_tier.ps1",
+    "bytes": 1754,
+    "sha256": "bf9d96b3331b20d2b44a08055ed5dbe82423dd2013f011e8e6cc0b1f8a8cdd7b"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/finish_atlas_tier.py",
+    "bytes": 1302,
+    "sha256": "aa119c884ac244ac1d043bf0e0839c3d36a45d76f57d0b29f1a6a9aa41efa1ef"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/finish_native_details.py",
+    "bytes": 2146,
+    "sha256": "ffd82d82013a81595dfa0ef2d9152ade0749315a2239d978e8243c8dea18d8d9"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/generate_native.py",
+    "bytes": 11764,
+    "sha256": "39ce945a3274bbce8715efe0330a66d7607c7829364cb17a3fc52dd94c9aa616"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/install_level.py",
+    "bytes": 3110,
+    "sha256": "5964f6eb03ff61939dabb557017303ca880091c0e5c1d349eee6252675071978"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/make_inputs.py",
+    "bytes": 2068,
+    "sha256": "6e605881138b33325d6433174ce836dc8ff2fe43c21e1f5b733378791b82287f"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/prepare_atlas_tier.py",
+    "bytes": 1428,
+    "sha256": "966e1761f19c9a543d754e9e86bcdb076cfa404d7beedb3564fccc6e23550790"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/prepare_publication_host.ps1",
+    "bytes": 1419,
+    "sha256": "a1c1cccec1c02945a7efdfb76876330aac7424c74a2dd1777c29893c308b8b3c"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/publish_attributes_clone.py",
+    "bytes": 1103,
+    "sha256": "e0a860d75b5f3cb9f81bf8112f3d993e2d8ef94670716911f61f13ac1e562545"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/publish_native.ps1",
+    "bytes": 2034,
+    "sha256": "bf85c8ca5fa8d5eb382fa793e1eadba82f284a05409ce2ba9fdca078379167ce"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/publish_native.py",
+    "bytes": 2250,
+    "sha256": "dc97640c6db5d72697cbb2c5f054a297eba023be6576f07ebafa39967369e043"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/publish_native_attributes.py",
+    "bytes": 708,
+    "sha256": "e270bd9ecda1abf41c83aa1e86f342610eaf64ffcb81b95e223e765ea7035b70"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/publish_unloaded_attribute_payload.py",
+    "bytes": 2464,
+    "sha256": "e8c4fc9cc5244792ecbc9fc96c3fe0a77dcc66fee2aa3b20a1ca82ce82534c69"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/read_generation_interfaces.py",
+    "bytes": 1534,
+    "sha256": "af16329a6d4fb7d2c9ab7f32b0717fc4298ee0a9214a6e603940870002bc6569"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/read_sample_graphs.py",
+    "bytes": 2503,
+    "sha256": "0d3a9a31ff508afb84b8999ba602d306e5191880f8fcb2835fe845a1f1361da8"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/read_saved_scene.py",
+    "bytes": 1747,
+    "sha256": "7366e21638360ef7cf57025a4e45b7da56d249a5168f176e4c494a9e48eb1041"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/repair_foliage.py",
+    "bytes": 1171,
+    "sha256": "568a0baf151b1d56fafd29d8a5ed8ead82ebb2b149178e5307cbf8bfefb8cce9"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/run_background.ps1",
+    "bytes": 2629,
+    "sha256": "4d06641866e79cbd55ebf698db754b9296e42647fe8b6407080c10b7c892145e"
+  },
+  {
+    "path": "SourceAssets/NearBankPCGRepair20261028/stage_assets.py",
+    "bytes": 5710,
+    "sha256": "cf3173dbc678c386f94086493bcbd747169d8fd6dde704f22f73af480789a1ab"
+  },
+  {
+    "path": "skills/ue5-pcg-building/SKILL.md",
+    "bytes": 1948,
+    "sha256": "8d2067713435c69718235f729ae8bb792818140a6f96f20807e821e156c9053a"
+  },
+  {
+    "path": "skills/ue5-pcg-building/references/apartment-contact-and-cables.md",
+    "bytes": 2247,
+    "sha256": "af5873646520fd7a5df25b1d665e22749898fbdbee185e3ead03c1782d41d291"
+  },
+  {
+    "path": "skills/ue5-pcg-building/references/city-district-production.md",
+    "bytes": 4469,
+    "sha256": "147c808f378e6f94b731e8da65360effdb3dc3a46ec17f3183965ca200a82f6b"
+  },
+  {
+    "path": "skills/ue5-performance-packaging/SKILL.md",
+    "bytes": 1934,
+    "sha256": "4b5ffb2e6c125ab3cba759afe5514b90dfe0e3982ff6daa150e78a6611c70b36"
+  },
+  {
+    "path": "skills/ue5-performance-packaging/references/scene-geometry-cost-and-lod.md",
+    "bytes": 6560,
+    "sha256": "b0267de41550b37302e5cb54200f59d84787a0cb00278e553f78f45678e59d75"
+  }
+]

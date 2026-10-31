@@ -1,5 +1,7 @@
 # 赛博朋克公寓 · 位置记录与待办
 
+> 卧室 V3 已正式接入此公寓，独立试点已退役；见 [卧室正式接入记录](CyberpunkBedroom-Integration-20261024.md)。
+
 > 历史定位记录：下文各处“当前”指当时的修订，不再作为最新恢复入口。当前 V19–V21 场景、阳台栏杆、联机修补及后续独立动作精修的边界，以 [2026-10-24 发布说明](Publication/CyberpunkApartment20261024/README.md) 为准；不要用这里的早期整库脚本覆盖现有公寓。
 
 > 最新外观为 [V4 柜体与 PBR 升级](CyberpunkApartment-RefinementV4-20261022.md)：保留 V3 空间与交互，重做柜门嵌入结构，23 类表面接入法线与粗糙度；275 组件逐项清单在 V4 源目录。实际落盘以 `RefinementV4/installed.json` 为准。
@@ -294,3 +296,6 @@ D:\CyberpunkApartment\build\s13_finish.py         瓷砖墙裙缺口
 6. **`UnrealEditor-Cmd` 无头模式不初始化物理**：所有 `LineTrace` 返回空，
    不能作为碰撞验证依据。离线几何审计（`18_structure_audit.py`）只能验证尺寸关系，
    实际站不站得住仍需 PIE。
+
+
+> 2026-10-25：其余现有卧室已复用升级床铺，见 [床铺复用记录](CyberpunkApartment-BedReuse-20261025.md)。

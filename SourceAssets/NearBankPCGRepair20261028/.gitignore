@@ -1,0 +1,27 @@
+# Original recipes only; licensed content, geometry, local outputs and receipts stay local.
+*
+!*/
+!.gitignore
+!*.py
+!*.ps1
+!*.hlsl
+!*.md
+Backups/
+Backup/
+Before/
+__pycache__/
+PythonDeps/
+BlenderDeps/
+pythonlib/
+DerivedDataCache/
+PublicationHost/
+Binaries/
+Intermediate/
+Saved/
+Plugins/
+!AuthoringHost/CityAuthoring.uproject
+!AuthoringHost/Source/**/*.cpp
+!AuthoringHost/Source/**/*.h
+!AuthoringHost/Source/**/*.cs
+!AuthoringHost/Source/*.cs
+!AuthoringHost/Config/DefaultGame.ini

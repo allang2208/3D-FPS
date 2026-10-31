@@ -18,3 +18,7 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 ## 固定观景点的城市远景与栏杆
 
 公寓海湾建筑分层、办公条形窗灯、动态广告/水面反射、侧挡板替换玻璃栏杆及增量重建，读取 [远景与栏杆制作](references/layered-harbor-and-balcony.md)。保留当前天气和共享资产，版本编号不作为退役依据。
+
+## 城市街区与室内接触
+
+围绕公寓生成街道、楼群、沿岸绿化，修复道路衔接、停车穿插及实例成本时，读取 [城市分区制作](references/city-district-production.md)。灯具厚度、厨房接触和自然电线走线读 [公寓接触与线材](references/apartment-contact-and-cables.md)。

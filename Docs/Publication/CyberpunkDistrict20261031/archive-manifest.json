@@ -1,0 +1,1827 @@
+{
+  "scope": [
+    "SourceAssets/CyberpunkExteriorUpgrade20261025",
+    "SourceAssets/CyberpunkKitchenRepair20261026",
+    "SourceAssets/CyberpunkTrafficUpgrade20261026",
+    "SourceAssets/CyberpunkApartmentCables20261027",
+    "SourceAssets/CyberpunkUrbanLandscape20261025",
+    "SourceAssets/CyberpunkNearBank20261028",
+    "SourceAssets/NearBankPCGRepair20261028",
+    "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024",
+    "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025",
+    "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024"
+  ],
+  "files": [
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/install-background-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/install-background-01-console.log",
+      "bytes": 35924,
+      "sha256": "35b8e6ecb63603d9d84a2492a7cf64dd22143529740d344bdd3bd69604a23364",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/install-background-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/Backups/20261025-173348/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/Backups/20261025-173348/L_CyberpunkApartment.umap",
+      "bytes": 1160992,
+      "sha256": "7d49abc03588099e51a60a43352a3885b3fc0ef2e7d4b701fa8cb6ec256e92b7",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedReuse20261025/Backups/20261025-174419"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/assets-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/assets-02-console.log",
+      "bytes": 115534,
+      "sha256": "e8764b95a0a98f486804f1eb568cb4760c2c60c1e1c486b2b4be07ae017082f1",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/assets-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/map-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/map-01-console.log",
+      "bytes": 39010,
+      "sha256": "73a2e650d47ea4b5d6a97ab9e47d5a03873a3eb76172ed99fd48fc0b6cbd158f",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/map-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/map-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/map-02-console.log",
+      "bytes": 36771,
+      "sha256": "1fd5adc5acefef5651a189043cfdd874518df6f0882b79c8cea3efc258925733",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/map-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/source-saved-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/source-saved-01-console.log",
+      "bytes": 35914,
+      "sha256": "878237b2b8785202a8d27825d58a58d7f488799d9728f79328aacaa91d0e1cfd",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/source-saved-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/integrate-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/integrate-01-console.log",
+      "bytes": 101076,
+      "sha256": "834285d837e884d94c68f1d7e0c42f8a6708adae3f10f4f00e88a32fc78bf7bd",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/integrate-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/integrate-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/integrate-02-console.log",
+      "bytes": 42269,
+      "sha256": "7b0544bb6a88cc508dfe83e9a2c529da078c2ee992ba3ce0346a2ccc190e09e4",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/integrate-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/retire-background-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/retire-background-01-console.log",
+      "bytes": 37673,
+      "sha256": "530b475afa2c55a87b1e76e65ab27fec289d2d45cb4a9a6746f53710c3a4558b",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/retire-background-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/Backups/20261024-190132/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/Backups/20261024-190132/L_CyberpunkApartment.umap",
+      "bytes": 1098681,
+      "sha256": "20db9a6ed09988eb5209dae5559a5b363d81b2dd8c0bc8356691aab2c1a5c548",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/Backups/20261024-191130"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/Backups/20261024-190854/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/Backups/20261024-190854/L_CyberpunkApartment.umap",
+      "bytes": 1098681,
+      "sha256": "20db9a6ed09988eb5209dae5559a5b363d81b2dd8c0bc8356691aab2c1a5c548",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/Integration20261024/Backups/20261024-191130"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/capture-before-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/capture-before-01-console.log",
+      "bytes": 35467,
+      "sha256": "e460010a77c301161f7cdd6adcf775faa9b30eccf02bb86e66ca8ab542a26cd1",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/capture-before-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-01-console.log",
+      "bytes": 35960,
+      "sha256": "9b124cde0541784b839ad55919c1e110c9f76921640bcbf23920a24e4c1430cb",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-02-console.log",
+      "bytes": 35591,
+      "sha256": "34d88440517ab2f060af95171d9a9f3632b637c1c260f358b5b2a59ef7472dd3",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-03-console.log",
+      "bytes": 35592,
+      "sha256": "1b23c357f3570adbd03326511ff3086136fbbb988548431e8731811acdc2ff6b",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/final-layout-03.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/publish-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/publish-01-console.log",
+      "bytes": 59731,
+      "sha256": "86203fa012a90e700aafe011c2c25baca5e6923ef6e1443c47ef76185d86b852",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/publish-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/publish-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/publish-02-console.log",
+      "bytes": 56824,
+      "sha256": "7160432af4d21f492c6e37da6d51370035526666d907bbd41ccdb1e125ada1b8",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/publish-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-134833/apartment_furniture_rest.json",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-134833/apartment_furniture_rest.json",
+      "bytes": 214913,
+      "sha256": "40c9f9ad927fce153a01b478831e1d44297fbddf6960e94ecbbed96d959a87ae",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-142225"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-134833/L_CyberpunkBedroom_Pilot20261024.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-134833/L_CyberpunkBedroom_Pilot20261024.umap",
+      "bytes": 1148688,
+      "sha256": "04af2aaedc491628dc70974c6609ef79250add4a0ad6890612c7aee7e594b26e",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-142225"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-135214/apartment_furniture_rest.json",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-135214/apartment_furniture_rest.json",
+      "bytes": 215345,
+      "sha256": "0d5e612f07d564cb99e776d733d14b2f5f26c18d7f370fa6690a3b40c53ced55",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-142225"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-135214/L_CyberpunkBedroom_Pilot20261024.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-135214/L_CyberpunkBedroom_Pilot20261024.umap",
+      "bytes": 1151812,
+      "sha256": "c3e463801b4117b9b410b0aa8ea98577691ae1a492b8cbf45ed9310828581c2f",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-142225"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-140648/apartment_furniture_rest.json",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-140648/apartment_furniture_rest.json",
+      "bytes": 215345,
+      "sha256": "169a5300d04075f782232674f4ec5423d06f700db6adb4691478e9844f660cc2",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-142225"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-140648/L_CyberpunkBedroom_Pilot20261024.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-140648/L_CyberpunkBedroom_Pilot20261024.umap",
+      "bytes": 1151812,
+      "sha256": "ee96a78458a91fd6de62f5b98de0b1a3b3db17039e84c9b2b02307309c7b2273",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-142225"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-141946/apartment_furniture_rest.json",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-141946/apartment_furniture_rest.json",
+      "bytes": 215345,
+      "sha256": "169a5300d04075f782232674f4ec5423d06f700db6adb4691478e9844f660cc2",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-142225"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-141946/L_CyberpunkBedroom_Pilot20261024.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-141946/L_CyberpunkBedroom_Pilot20261024.umap",
+      "bytes": 1151812,
+      "sha256": "68551b3b05c005d98869f7bf9edc3043f5d798526147b7119c414467dc8ead51",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/Backups/20261024-142225"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/__pycache__/design.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/__pycache__/design.cpython-311.pyc",
+      "bytes": 1159,
+      "sha256": "1f385ed38517f8caa9f8b3631d867c289b610092ecd6f6dae95defbe94d90e13",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/__pycache__/design.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/__pycache__/design.cpython-313.pyc",
+      "bytes": 1075,
+      "sha256": "8a2aa9dfb27c7c77a92ecc95c875061a50b4b9785504b5331ca2fca9204e6039",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/__pycache__/placements.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/__pycache__/placements.cpython-311.pyc",
+      "bytes": 2610,
+      "sha256": "447e198fde15a512e05a56d46b867b82273e5713d4d6c83c62f8cdc38d06294b",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/__pycache__/placements.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV2/__pycache__/placements.cpython-313.pyc",
+      "bytes": 2017,
+      "sha256": "1896ae88a3db3e18d3d391691ff7f07828e85140ce7203ebbf5a997b772383a3",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/assets-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/assets-01-console.log",
+      "bytes": 207005,
+      "sha256": "e9e0895267ded7c652469f317a5bb43b9d0de67bb6f447e94488e9509b7ff9fc",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/assets-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/assets-final-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/assets-final-01-console.log",
+      "bytes": 61645,
+      "sha256": "dd7ccea6a61c6bc9fac46883ef1a6fa9c1a69a2693c1519b7d22615eb0a4a3a4",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/assets-final-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/map-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/map-01-console.log",
+      "bytes": 36331,
+      "sha256": "f245bfc7b995252af070c51e23e522ae4b7ede037fac035b1e185edb05d42f58",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/map-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/production-final-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/production-final-console.log",
+      "bytes": 163471,
+      "sha256": "2ef686a8d77cebe6df5d67005173c9d2b306d0c6bb15c91a1503c94150f443c1",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/production-final.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/Backups/20261024-161129/apartment_furniture_rest.json",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/Backups/20261024-161129/apartment_furniture_rest.json",
+      "bytes": 215345,
+      "sha256": "169a5300d04075f782232674f4ec5423d06f700db6adb4691478e9844f660cc2",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/Backups/20261024-161906"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/Backups/20261024-161129/L_CyberpunkBedroom_Pilot20261024.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/Backups/20261024-161129/L_CyberpunkBedroom_Pilot20261024.umap",
+      "bytes": 1151958,
+      "sha256": "f30bf8fe51914cad2b081ea2ef1c3905ab7f7ef07fa6189ad046771fd7d808cd",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/Backups/20261024-161906"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/build_assets.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/build_assets.cpython-311.pyc",
+      "bytes": 21141,
+      "sha256": "3c2ac598eef76c9640bb40c4acea325b8db9abdfa9e12925e167eef6ab33df39",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/design.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/design.cpython-311.pyc",
+      "bytes": 3166,
+      "sha256": "d0d874074890fcfb6e906824bfcf0b8ed3dd0b98e5cee5fbc1024a122dceff30",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/design.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/design.cpython-313.pyc",
+      "bytes": 2950,
+      "sha256": "9b184489f6dfdcd66591bdb53fe7074656766494c059e3651ddd8ce59ab678e3",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/placements.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/placements.cpython-311.pyc",
+      "bytes": 2669,
+      "sha256": "025b587f9fb5596d1f8a56363a6baeac2e341a5e393a36e99ae8d8c24b9803f9",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/placements.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/RefinementV3/__pycache__/placements.cpython-313.pyc",
+      "bytes": 2139,
+      "sha256": "27bc09c9a8a7808ae395408508e9c0cece4b66c8e96b7832c9bf14ca3cc320cd",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/__pycache__/design.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/__pycache__/design.cpython-311.pyc",
+      "bytes": 4472,
+      "sha256": "3fadd4619de5a310efda8abe0835d50b4763b73f86f5162c192334f190b65b0a",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/__pycache__/design.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/BedroomPilot20261024/__pycache__/design.cpython-313.pyc",
+      "bytes": 4021,
+      "sha256": "71423e982198f7dbf036cc1802b8b71681acc6bebdd8a977ba711905520f9398",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-01-console.log",
+      "bytes": 94874,
+      "sha256": "1dc3ebe8bf418dfcc6d76136da3418ed7e08a44d50596407d8ff00f82052bb40",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-02-console.log",
+      "bytes": 96590,
+      "sha256": "6ebf97d7e28cc74da85c8b79536eb54001b0f6bbe844d5a60da4e26a32cdaed0",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-03-console.log",
+      "bytes": 109934,
+      "sha256": "26603bdf567365979c042b60d478c9de9e96c367c318a274384e6198e8033f08",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-03.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-04-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-04-console.log",
+      "bytes": 104932,
+      "sha256": "e1f7e1f529a3f52c5906f7d7072c75909fbee8e40424e7c0e1a134157b282dfb",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/assets-background-04.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/inspect-current-v2-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/inspect-current-v2-console.log",
+      "bytes": 69958,
+      "sha256": "3ff44d3533487e22b8c831c4bd7cbba8f45981a736f314dc693da93959b10491",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/inspect-current-v2.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/KitchenDetailV1.blend1",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/KitchenDetailV1.blend1",
+      "bytes": 39976207,
+      "sha256": "666a49783ca3a600134dbedd2d063adf413d35f58bcf9866ddb17613a65a23ba",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "SourceAssets\\CyberpunkApartmentRebuild20261022\\KitchenPilot20261024\\KitchenDetailV1.blend"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-02-console.log",
+      "bytes": 31266,
+      "sha256": "a577f5dbf8148611fa31fbc2d9a8a92ae8546c88c064000717b974a514da929e",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-03-console.log",
+      "bytes": 45582,
+      "sha256": "3084013a539d1256d1c5a5a194a29ca9aaabce51496bacefa025788089f3fe77",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-03.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-04-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-04-console.log",
+      "bytes": 126346,
+      "sha256": "b6f97749b7c95ede3345c1d6240a59530dc6ab62b2982843d11cc690babed29b",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-04.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-05-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-05-console.log",
+      "bytes": 81108,
+      "sha256": "4f7c4fce91e6b32a2f7e96d258a95d7398f20687e842b8f077ccc3036b65e558",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-05.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-06-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-06-console.log",
+      "bytes": 79876,
+      "sha256": "aa8b152d7dcbb40f0693894d9bdc6eb2ca3ce2720d9c8d1c49d72230d819811c",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-06.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-07-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-07-console.log",
+      "bytes": 84540,
+      "sha256": "b8cb64be7ef0fac7b092a63920c5818e9520a15ab5a9178333135e24fd844f7a",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-07.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-08-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-08-console.log",
+      "bytes": 81540,
+      "sha256": "053ec1ddd3260903043d5661ed717001560cecbaff35c652324f6cb2eb3fa8af",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-08.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-09-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-09-console.log",
+      "bytes": 85438,
+      "sha256": "2b96e9460020b513d454d86a19086fa6a240bd2860b36d481b42278020f7df74",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-09.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-10-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-10-console.log",
+      "bytes": 85442,
+      "sha256": "7364153e93ee659fe0e509a7180ed4972c5621ebd8e99926409c7cc731503072",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-10.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-11-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-11-console.log",
+      "bytes": 100756,
+      "sha256": "aadf0824dc434b5487b9efa01f49a297421cea0d2ecdb48cbd72d8448c5cd8b7",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/level-background-11.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-01-console.log",
+      "bytes": 72132,
+      "sha256": "a6ef270fe7c5dda7c671c1e5aa54528e1222edfbcc33708858a763721e58c4d6",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-02-console.log",
+      "bytes": 69416,
+      "sha256": "2cdf9f338c091ed1906bc10c9bb74658ed793aebf752282e2edbc41f4b5fa663",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-03-console.log",
+      "bytes": 69700,
+      "sha256": "72a39b64b766e1309425dd88cabee0f1916853f38c6b9a9fd5763cfbd11e8175",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-03.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-04-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-04-console.log",
+      "bytes": 71954,
+      "sha256": "8e32e41cd8df1e822a56db71f3aac725e47877457630d0adeaa1c9828eae803a",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/scope-04.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-assets-20261025-202143-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-assets-20261025-202143-console.log",
+      "bytes": 76444,
+      "sha256": "e8deeff1e79e70123f20ae90a7dbcd09013e65f3479b76746682c7ffabcd647b",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-assets-20261025-202143.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-203646-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-203646-console.log",
+      "bytes": 75290,
+      "sha256": "ffa71451a7c78f49fec7d3d0b3003baa00c2484d624c42ee3737b8ea208cb8a3",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-203646.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-204908-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-204908-console.log",
+      "bytes": 72130,
+      "sha256": "a891767f923ec7cce4b31ee79248ab501becfa70ce8cace95ceacfd08b40827b",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-204908.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-211300-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-211300-console.log",
+      "bytes": 80582,
+      "sha256": "424ee848d2df5152504109cad3ecb6d85684e798a4583c3b4703b754ff629f6e",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-211300.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-225759-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-225759-console.log",
+      "bytes": 81846,
+      "sha256": "355f617e7c7dd8b59476c9ee3f6ff77176e219ec617e8d7a92c7260680d79401",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-225759.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-230053-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-230053-console.log",
+      "bytes": 74016,
+      "sha256": "5ceea6bb0c3d426ea419a7bb90ec099adc0a4490e2bfe1863f42d14e27c48215",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-level-20261025-230053.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-trim-20261025-201424-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-trim-20261025-201424-console.log",
+      "bytes": 67628,
+      "sha256": "faa4b35defc2915242f5e93476ee285343788ea2b26877e2547205091ed3fc67",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/v2-trim-20261025-201424.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-221159/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-221159/L_CyberpunkApartment.umap",
+      "bytes": 1146506,
+      "sha256": "5616890451ef1ce72a87be0a5647a86408cea7f95c3e231bb00ae0795245c41d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225021/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225021/L_CyberpunkApartment.umap",
+      "bytes": 1146506,
+      "sha256": "5616890451ef1ce72a87be0a5647a86408cea7f95c3e231bb00ae0795245c41d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225141/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225141/L_CyberpunkApartment.umap",
+      "bytes": 1146506,
+      "sha256": "5616890451ef1ce72a87be0a5647a86408cea7f95c3e231bb00ae0795245c41d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225247/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225247/L_CyberpunkApartment.umap",
+      "bytes": 1146506,
+      "sha256": "5616890451ef1ce72a87be0a5647a86408cea7f95c3e231bb00ae0795245c41d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225334/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225334/L_CyberpunkApartment.umap",
+      "bytes": 1146506,
+      "sha256": "5616890451ef1ce72a87be0a5647a86408cea7f95c3e231bb00ae0795245c41d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225452/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225452/L_CyberpunkApartment.umap",
+      "bytes": 1146506,
+      "sha256": "5616890451ef1ce72a87be0a5647a86408cea7f95c3e231bb00ae0795245c41d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225550/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-225550/L_CyberpunkApartment.umap",
+      "bytes": 1146506,
+      "sha256": "5616890451ef1ce72a87be0a5647a86408cea7f95c3e231bb00ae0795245c41d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-230532/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261024-230532/L_CyberpunkApartment.umap",
+      "bytes": 1146506,
+      "sha256": "5616890451ef1ce72a87be0a5647a86408cea7f95c3e231bb00ae0795245c41d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-213622/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-213622/L_CyberpunkApartment.umap",
+      "bytes": 18176468,
+      "sha256": "f8f5ae6b8e1378ae215e025fd551ac25db0d2ee84b3b502a8ecc62b0b099da01",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-225949/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-225949/L_CyberpunkApartment.umap",
+      "bytes": 18175261,
+      "sha256": "92703e6d1e0ef47e587f9c483a4766d55a52d860867452f50daedb953051ca88",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/Backups/20261025-230301"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/install_level.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/install_level.cpython-311.pyc",
+      "bytes": 32142,
+      "sha256": "bd9407490f02d4c4216127a020ad69b53efe13fbc90c1d3ebf544dc491381b1e",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/install_level.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/install_level.cpython-313.pyc",
+      "bytes": 28151,
+      "sha256": "7213dde51f870a8e902eaa55bb7e18a581c31f7fc52fd72c29fb8761a11a02ad",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/materials.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/materials.cpython-313.pyc",
+      "bytes": 9156,
+      "sha256": "5f65129fd0d96bb73c75d8cdc37fc838bc96cde69582aaa757c710bfd5a6a6fa",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/model.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/model.cpython-311.pyc",
+      "bytes": 29829,
+      "sha256": "5b74b780c278dfddb71d48c4ba821c8e07a6037a449ab0b3aa02bba2625bc6ee",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/model.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/model.cpython-313.pyc",
+      "bytes": 47903,
+      "sha256": "9519f794fc20a81721bc1c8c2171d993590d83210ba5b36dc5d218d72a44ddb2",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/spec.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/spec.cpython-311.pyc",
+      "bytes": 7995,
+      "sha256": "c227e8cf0f3ff73b8aa54588d38914c651cc927f816f77dcd206f23db5826105",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/spec.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/spec.cpython-313.pyc",
+      "bytes": 7141,
+      "sha256": "06ed6fbf41190cf35c8f190b804f3bc3da3ff360a0076296155a9d2c13020731",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/test_pure_contracts.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/test_pure_contracts.cpython-311.pyc",
+      "bytes": 9428,
+      "sha256": "97be6b9afa7bf005d1d22783d93af64c2bb56d625ec301ea4721fd0a462cc815",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/test_pure_contracts.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentRebuild20261022/KitchenPilot20261024/__pycache__/test_pure_contracts.cpython-313.pyc",
+      "bytes": 8056,
+      "sha256": "1bf1123a65374b118fc6fda9c4c410ade19be587823ef6960033138d3ebe7e1f",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/assets-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/assets-01-console.log",
+      "bytes": 69027,
+      "sha256": "c7f1160cb1d7c512db22abf38e92dff82e646afcb85ecb39d822fee0961fa5c6",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkExteriorUpgrade20261025/assets-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/ExteriorRemainder_Source.blend1",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/ExteriorRemainder_Source.blend1",
+      "bytes": 16333366,
+      "sha256": "3511680921e5461c1cbc2ff158c424868d79f9a18b98e0cdec5401f46a1c3038",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "SourceAssets\\CyberpunkExteriorUpgrade20261025\\ExteriorRemainder_Source.blend"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/landmark-uv-save-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/landmark-uv-save-01-console.log",
+      "bytes": 47004,
+      "sha256": "961799fd2773a18a535fad872a5d399cb89fa084ab835b89face78ca9839d711",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkExteriorUpgrade20261025/landmark-uv-save-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/publish-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/publish-01-console.log",
+      "bytes": 361613,
+      "sha256": "eb3e25d5832da8f4770e3792bf9d7f9dfbdf7fed1dedb9a129fc20280d9fa2b9",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkExteriorUpgrade20261025/publish-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/publish-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/publish-02-console.log",
+      "bytes": 249220,
+      "sha256": "258103390ff61fa2af578562a7c1b7f91eb99e475251783a7fd2f0015617074f",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkExteriorUpgrade20261025/publish-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/ServicePlatform_Source.blend1",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/ServicePlatform_Source.blend1",
+      "bytes": 138370,
+      "sha256": "2ebb7381ec22453b27c3a411c712c4469b264f4c3fe5d4ec775bb6b09168f848",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "SourceAssets\\CyberpunkExteriorUpgrade20261025\\ServicePlatform_Source.blend"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/sources-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/sources-01-console.log",
+      "bytes": 287582,
+      "sha256": "75c10c57fbc80c7c4d3a248fd4829af718a0dc7fb61ffcaf040f283d06572964",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkExteriorUpgrade20261025/sources-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/sources-ground-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/sources-ground-01-console.log",
+      "bytes": 55966,
+      "sha256": "39b4846df705ff94e66233b6cd69af64e0133a05db4ff4615a276b056fcd462f",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkExteriorUpgrade20261025/sources-ground-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkExteriorUpgrade20261025/Backups/20261025-210003/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkExteriorUpgrade20261025/Backups/20261025-210003/L_CyberpunkApartment.umap",
+      "bytes": 1162757,
+      "sha256": "51d0133dd3e2da85011b73b311025008fba1315506a9712a9125fdafc76acf0c",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkExteriorUpgrade20261025/Backups/20261025-213857"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/cable-contact-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/cable-contact-01-console.log",
+      "bytes": 38527,
+      "sha256": "ca90bb3942575c2439a90250c08184682a0b3359721a2641ac5cab373d93ffc0",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/cable-contact-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/cable-publish-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/cable-publish-01-console.log",
+      "bytes": 37651,
+      "sha256": "ec2b7dedfd1f4474f53dde8f080eb733a08b5036d7937ab3c9495949bff7e830",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/cable-publish-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/inspect-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/inspect-01-console.log",
+      "bytes": 35677,
+      "sha256": "63fed48c29c2fa445bdf4adb847ad7c1299b4232d93d44668411412b56f57bb4",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/inspect-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/install-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/install-01-console.log",
+      "bytes": 36010,
+      "sha256": "f21aa13dc00dedd7114325d3dfef9ea0d2ab4cd31d901106affb3919f5039275",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/install-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/install-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/install-02-console.log",
+      "bytes": 36445,
+      "sha256": "cec8e0820cd5d93038313ee33c43c3821b7437508ac5092492d295395cad4b66",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/install-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/install-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/install-03-console.log",
+      "bytes": 41060,
+      "sha256": "463887d80d681014495a6cbec6858bb0f516a53eb642166fe1f0b443a1aff3df",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/install-03.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/install-04-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/install-04-console.log",
+      "bytes": 40921,
+      "sha256": "a15db0ba8b54eebb8f875a2316d1bfb55152f6e8ff3ce4759973f7d53ea5a0c9",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/install-04.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/install-05-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/install-05-console.log",
+      "bytes": 38330,
+      "sha256": "826c71033d847984dd67a1b57407ff71dd6aa2e00c50b279ab0ee71522affd49",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/install-05.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/install-06-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/install-06-console.log",
+      "bytes": 41678,
+      "sha256": "477eb38b0333d984b2222284bb2fd4a99c99f69f7a02c6c4c57fd9d1ee3d12f6",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/install-06.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/KitchenRepair.blend1",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/KitchenRepair.blend1",
+      "bytes": 1217805,
+      "sha256": "d63ef653d8173cf49de7a6cdb48ead9a93df417bd73d6592ddb5ac2ec0cc4da7",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "SourceAssets\\CyberpunkKitchenRepair20261026\\KitchenRepair.blend"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/readback-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/readback-01-console.log",
+      "bytes": 35686,
+      "sha256": "7a14967bb34c8452ced234f01d5cb3ae73faecbcb618887ee01927e33cbb642b",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/readback-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-011950/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-011950/L_CyberpunkApartment.umap",
+      "bytes": 19339141,
+      "sha256": "31ac71a4159a530bdd8f795a9ef87478f4cfdcd73a2bfc469df57079f6cf9ab8",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-012456"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-012120/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-012120/L_CyberpunkApartment.umap",
+      "bytes": 19339141,
+      "sha256": "31ac71a4159a530bdd8f795a9ef87478f4cfdcd73a2bfc469df57079f6cf9ab8",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-012456"
+    },
+    {
+      "source": "SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-012229/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-012229/L_CyberpunkApartment.umap",
+      "bytes": 19339141,
+      "sha256": "31ac71a4159a530bdd8f795a9ef87478f4cfdcd73a2bfc469df57079f6cf9ab8",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkKitchenRepair20261026/Backups/20261026-012456"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/production-02-console.log",
+      "bytes": 53647,
+      "sha256": "d016775f696256e3457463edef54b3acceae8b01e7ce1d6551042ca18a20f9b8",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/production-03-console.log",
+      "bytes": 55702,
+      "sha256": "5547e535be03eca49ce898463b6711750aa909ed43d97c66ff5564b2cdc095e2",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-03.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-04-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/production-04-console.log",
+      "bytes": 421583,
+      "sha256": "f22130ced5de02fd86c29eeb8ee42ef86697d6cf9608b321ece00b7f4178069e",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-04.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-05-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/production-05-console.log",
+      "bytes": 96419,
+      "sha256": "e974f841fa050c278d6fb48c0e871595d851c28aceaf029c7664a06bc522a677",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-05.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-06-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/production-06-console.log",
+      "bytes": 67573,
+      "sha256": "9adb7b999d37c4a589eee12bb40f98fb131a7608450bc11064be09460b424552",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-06.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-07-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/production-07-console.log",
+      "bytes": 87948,
+      "sha256": "1f63eeaa43b6dd078153ab590c344dc25b33a93ede14185afed736a7144c6ac5",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/production-07.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/Traffic_Source.blend1",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/Traffic_Source.blend1",
+      "bytes": 26280504,
+      "sha256": "9353ef4c8d79a2f106378e46906cca393901a2759cb15b6df517200eabc30d14",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "SourceAssets\\CyberpunkTrafficUpgrade20261026\\Traffic_Source.blend"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-115653/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-115653/L_CyberpunkApartment.umap",
+      "bytes": 19351196,
+      "sha256": "06c45932325350fdfb06b32268a0252c3f1ed1b12392a0bc2832a984eb5390e8",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-121106"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-120029/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-120029/L_CyberpunkApartment.umap",
+      "bytes": 19351920,
+      "sha256": "c85fcb16fbc08da0904a9ebdf9605507a7bc7d9412a73542497b5733337d89c0",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-121106"
+    },
+    {
+      "source": "SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-120535/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-120535/L_CyberpunkApartment.umap",
+      "bytes": 19351920,
+      "sha256": "4893c76aeff5bc720070ff8b35d5e2eea9e9e829d5f35101e7a8e1ffc0b5cdb6",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkTrafficUpgrade20261026/Backups/20261026-121106"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentCables20261027/ApartmentCables_Source.blend1",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentCables20261027/ApartmentCables_Source.blend1",
+      "bytes": 3898174,
+      "sha256": "83e18f74b27e856cc39dfdae0aec0b2dcf87778da63351db28d9ed55d3f38d51",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "SourceAssets\\CyberpunkApartmentCables20261027\\ApartmentCables_Source.blend"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentCables20261027/capture-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentCables20261027/capture-01-console.log",
+      "bytes": 35688,
+      "sha256": "756cc7efbabd560cfc85f2580a6f4947e2d57818890edb5660ceb18b6e3f49e3",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentCables20261027/capture-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentCables20261027/production-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentCables20261027/production-01-console.log",
+      "bytes": 40007,
+      "sha256": "b28beedfa4105cf549c8ee2c92b11d2b7781c3b80fd8ee4be709ba366462c920",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentCables20261027/production-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentCables20261027/production-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentCables20261027/production-02-console.log",
+      "bytes": 48408,
+      "sha256": "7460bc355011ff3496fcffb73c22d3288d24bf110d7e826a7c65acfa4db009d2",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkApartmentCables20261027/production-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentCables20261027/__pycache__/layout.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkApartmentCables20261027/__pycache__/layout.cpython-313.pyc",
+      "bytes": 8522,
+      "sha256": "536e137317ab2bebc9e162e58eca8ed07ab0f656eff3b2af64cc4a1fa6a7ca4b",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/production-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/production-01-console.log",
+      "bytes": 124231,
+      "sha256": "1ce6d388017d8a8e3914fa20f2162619c9f5de39821bb6fe25a04c8cd4db7b06",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkUrbanLandscape20261025/production-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/publish-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/publish-01-console.log",
+      "bytes": 60135,
+      "sha256": "2b0a3103d34e2b87a38964204aafc1d939908709bf3f13281fb7ea2ed536c142",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkUrbanLandscape20261025/publish-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/publish-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/publish-02-console.log",
+      "bytes": 53827,
+      "sha256": "2768fff14ebbe5b35e1f2ff9508f5a11b4b32114d3d4a943b558e7f55cbe2c27",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkUrbanLandscape20261025/publish-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront-final-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/riverfront-final-03-console.log",
+      "bytes": 49269,
+      "sha256": "26c987f0a6cc6d7d0c78f1b0359d9b1db6c41f974ea988bc61340e2b6dccca59",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront-final-03.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront-publish-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/riverfront-publish-01-console.log",
+      "bytes": 58604,
+      "sha256": "d7d22887b916233145d7a3bc64eb6949e5c720438903a4f33f2fa7b4964ae3f2",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkUrbanLandscape20261025/riverfront-publish-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/UrbanLandscape_Source.blend1",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/UrbanLandscape_Source.blend1",
+      "bytes": 2695681,
+      "sha256": "9773ae5a4fb49e4e730bec0c43f67b501f28bc4114f3b82c4639d3f272ab6d97",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "SourceAssets\\CyberpunkUrbanLandscape20261025\\UrbanLandscape_Source.blend"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261025-235554/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261025-235554/L_CyberpunkApartment.umap",
+      "bytes": 18175261,
+      "sha256": "63ccf479f2d6a361da17b1dca31a79265b6e6492a4ce3f5a2cf36d63f56c2dfb",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261026-005418"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261026-000029/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261026-000029/L_CyberpunkApartment.umap",
+      "bytes": 19520205,
+      "sha256": "3869fdf6266218028ea896bcbabb09e75f7dcfaabdb19c4cc0c5e836653688f1",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261026-005418"
+    },
+    {
+      "source": "SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261026-004016/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261026-004016/L_CyberpunkApartment.umap",
+      "bytes": 19526800,
+      "sha256": "5b7090a84a59a8563a7dd6739e0c04ec22e0ff438fcb57f356700d4be8d09d4a",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkUrbanLandscape20261025/Backups/20261026-005418"
+    },
+    {
+      "source": "SourceAssets/CyberpunkNearBank20261028/assets-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkNearBank20261028/assets-01-console.log",
+      "bytes": 37449,
+      "sha256": "cb1f6f7f2f4cee3107055d9e7ab0da319a242f1d06845261c42b03f837c44f77",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkNearBank20261028/assets-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkNearBank20261028/assets-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkNearBank20261028/assets-02-console.log",
+      "bytes": 69241,
+      "sha256": "bb0d56b5467db5aa574e5caa18fb4929b00319a0d14942614ec608cf8e10f219",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkNearBank20261028/assets-02.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkNearBank20261028/NearBank_Source.blend1",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkNearBank20261028/NearBank_Source.blend1",
+      "bytes": 2554050,
+      "sha256": "2170a4bda6466f2935a223692045322c0bc63ccbd215264e30c6be6bc6f29fb0",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "SourceAssets\\CyberpunkNearBank20261028\\NearBank_Source.blend"
+    },
+    {
+      "source": "SourceAssets/CyberpunkNearBank20261028/publish-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkNearBank20261028/publish-01-console.log",
+      "bytes": 36181,
+      "sha256": "1edc552ab4cc37681c75ef3911fe241663b0941caf1845533de19924379c89b7",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkNearBank20261028/publish-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkNearBank20261028/reflection-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkNearBank20261028/reflection-01-console.log",
+      "bytes": 266739,
+      "sha256": "3f66cbf5b7a62fda05c2f29c2736375a70c583dfd9220b2a5a6f116bee18dffe",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/CyberpunkNearBank20261028/reflection-01.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkNearBank20261028/Backups/20261028-093743/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkNearBank20261028/Backups/20261028-093743/L_CyberpunkApartment.umap",
+      "bytes": 19478393,
+      "sha256": "42ce777a340c643c269235edac8fcb9d41803ea38b4bf8045fcc5cee509d3ccf",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/CyberpunkNearBank20261028/Backups/20261028-101705"
+    },
+    {
+      "source": "SourceAssets/CyberpunkNearBank20261028/__pycache__/design.cpython-311.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkNearBank20261028/__pycache__/design.cpython-311.pyc",
+      "bytes": 7521,
+      "sha256": "34cbb18cec094a58b0b374f18fedad792820f0fa9c42d81649ddb34ac3595300",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/CyberpunkNearBank20261028/__pycache__/design.cpython-313.pyc",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/CyberpunkNearBank20261028/__pycache__/design.cpython-313.pyc",
+      "bytes": 6223,
+      "sha256": "65ce6b82603053050aabde545bb1756ee372ca96e9e31b4c8c26b824ba248d64",
+      "reason": "Regenerable Python cache or superseded Blender autosave",
+      "replacement": "Retained source Python scripts"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/atlas-tier-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/atlas-tier-01-console.log",
+      "bytes": 65572,
+      "sha256": "21a22557da3e783e242e58c99d864ab2310603e171de1e1934a3246e6e0f4c2c",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/atlas-tier-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/foliage-repair-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/foliage-repair-01-console.log",
+      "bytes": 235030,
+      "sha256": "42888c6ec222abcca837ee847aca37d4f7e356bf3fefd6f39bccab445ae8e137",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/foliage-repair-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/generation-interfaces-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/generation-interfaces-01-console.log",
+      "bytes": 35217,
+      "sha256": "26e226cccf6238d5153a6cab1979ec8428bf741afd0bea4536db157b9d2a302a",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/generation-interfaces-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-attributes-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-attributes-01-console.log",
+      "bytes": 35014,
+      "sha256": "47cb5ab4503e4d8f92507a4341c58aa5997c7edc3724d9c9cbf7cedbb1fe2f3c",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-attributes-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-attributes-clone-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-attributes-clone-01-console.log",
+      "bytes": 517640,
+      "sha256": "2476dd25ffc0035814c14f1ab19a0f7e80f72374b8c933d8805a0844c04729e0",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-attributes-clone-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-attributes-final-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-attributes-final-01-console.log",
+      "bytes": 510499,
+      "sha256": "2166e2250163ee3db2bef4e33fee10cdd9f74c53d37e0235e7b5f5d77e3d414a",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-attributes-final-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-details-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-details-01-console.log",
+      "bytes": 294552,
+      "sha256": "a19f875f57cdef4a7c9f69b7345d61d03fe0cc1b94c653f347226d6716bd4e2b",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-details-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-generate-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-generate-01-console.log",
+      "bytes": 43775,
+      "sha256": "f1df20e1403c71c3a3032a960ffc3e145f854ddfc151e4a2cb8d4568f54d4a9c",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-generate-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-generate-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-generate-02-console.log",
+      "bytes": 129550,
+      "sha256": "74dfa81928af480356ee83d5a91e8f920d6df39b08a9f918b25f0e7e8a33a2bb",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-generate-02.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-generate-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-generate-03-console.log",
+      "bytes": 246813,
+      "sha256": "612cdcd272b5f5027bbcf511b34684fb6a7ab430cfdb4044b02c6065202697d8",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-generate-03.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-generate-04-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-generate-04-console.log",
+      "bytes": 238323,
+      "sha256": "32be171046fa95ea82d6bba5d82e324475a3dde3358914bf92bf1f1f5ea27d4d",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-generate-04.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-generate-05-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-generate-05-console.log",
+      "bytes": 270729,
+      "sha256": "fcdca7723e0c057cc65ef564d4b9e24f819bfc0f6323b134e9bfb351c21e853a",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-generate-05.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-generate-06-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-generate-06-console.log",
+      "bytes": 1254759,
+      "sha256": "063f86c18426f4a41ea939733782c179d8e0a8033f690119e4dcc66b88ade8f0",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-generate-06.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-generate-07-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-generate-07-console.log",
+      "bytes": 461605,
+      "sha256": "b8ea2f014fc4a3539bd97365e3be3d70622c71b43fbc82a3a46f571d22920af9",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-generate-07.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/native-publish-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/native-publish-01-console.log",
+      "bytes": 315944,
+      "sha256": "069e24f8f57a180cea4d6f1bb268e9756682c8dceda00d4fb3316e15f4b05719",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/native-publish-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/performance-author-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/performance-author-01-console.log",
+      "bytes": 49075,
+      "sha256": "da1896bcf7edf8c949ed1fd287fcea705899977010c20ccd8e60f0eae9efde9c",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/performance-author-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/performance-author-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/performance-author-02-console.log",
+      "bytes": 124948,
+      "sha256": "c0893ff99511405d42d0266611e4fffc3be3e7182d88a8a3d70df43a0929e9f4",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/performance-author-02.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/repair-author-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/repair-author-01-console.log",
+      "bytes": 37600,
+      "sha256": "fde8c0b08edebeaa175177b0ee26d2c0e9327c04f0895827a917147dab368bc5",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/repair-author-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/repair-author-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/repair-author-02-console.log",
+      "bytes": 91455,
+      "sha256": "29e075e66631532ac3a44e24320cefcd5338fc82c5f1023fd410454da1fc005b",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/repair-author-02.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/repair-author-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/repair-author-03-console.log",
+      "bytes": 43112,
+      "sha256": "c050052dcf47bf18fb5195960fd5e4793342b715f9b1b470b7a3bd508197a3a8",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/repair-author-03.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/repair-readback-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/repair-readback-01-console.log",
+      "bytes": 36387,
+      "sha256": "91a752981d5eda3113e3342a66adfea49b0298eac7ccdadcaa76ead6fb48e228",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/repair-readback-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/sample-read-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/sample-read-01-console.log",
+      "bytes": 31637,
+      "sha256": "645ffe9e18364b2e8ad0ef841214d64701df19dd7e4ace41fb17f4397c667552",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/sample-read-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/sample-read-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/sample-read-02-console.log",
+      "bytes": 31650,
+      "sha256": "6273de88b1e5c0d57b2adda39ffef92f1d109d9bdead4209d64f9c12fb44cd06",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/sample-read-02.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/sample-read-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/sample-read-03-console.log",
+      "bytes": 31290,
+      "sha256": "f8ace6d1a69cebeb876de651e58ce896b709f361cd1505f0251ec97c3bbe047f",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/sample-read-03.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/sample-read-04-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/sample-read-04-console.log",
+      "bytes": 35739,
+      "sha256": "2652b1483b053b61840984cc1603701c515ae73c2eb51050227da686d21ae77c",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/sample-read-04.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/scene-read-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/scene-read-02-console.log",
+      "bytes": 236206,
+      "sha256": "ec0b75933abec0fc74360e715c729dfeddffb3434edd05da70e45b45e37eedb2",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/scene-read-02.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/scene-read-03-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/scene-read-03-console.log",
+      "bytes": 234633,
+      "sha256": "94544715218a02c9bc8451305f451928ab7d34afe9b95fd2ed0b29c7f76b8797",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/scene-read-03.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Audit/capture-01-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Audit/capture-01-console.log",
+      "bytes": 39227,
+      "sha256": "d03dbfaee174f6e27ecc72c54bb9c9d8502376efea48d5e6d0eedb1e69bf587a",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Audit/capture-01.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Audit/capture-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Audit/capture-02-console.log",
+      "bytes": 38022,
+      "sha256": "3800a85121a46c34abeb403ea954777dc92d36e6d304236ed591ab6265381acf",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Audit/capture-02.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Audit/geometry-02-console.log",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Audit/geometry-02-console.log",
+      "bytes": 34464,
+      "sha256": "bab5b99878d9b3a7bae747f65b07715985b9402065356301ce232d7ff07a7482",
+      "reason": "Duplicate console transcript; detailed engine log retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Audit/geometry-02.log"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_06.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_06.uasset",
+      "bytes": 36591,
+      "sha256": "2045835f8ea48f5822e725fa6a2bfb8f2ae67c285a16d84b4027569ad524165a",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_07.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_07.uasset",
+      "bytes": 51298,
+      "sha256": "7b8ec1da1721a2ca540125ebfab5eac9cc521feea00de00e03014a25c6f4df22",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_08.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_08.uasset",
+      "bytes": 54133,
+      "sha256": "61090148fd6b391552b2274c9fee2f2100d93e212cd5c865532fa5bb52bca59b",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_09.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_09.uasset",
+      "bytes": 55943,
+      "sha256": "3cc5b8e78b31378695dd2794e58313843f1945c012531914ec18c6051810354d",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_10.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_10.uasset",
+      "bytes": 55394,
+      "sha256": "b181a9d1b696be0b9411a4b8ce23722fda2976527041348bb46f6afabe2538c6",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_11.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_11.uasset",
+      "bytes": 53041,
+      "sha256": "76db3b0e9ee3dfbd4d7a3966c08c588302cc4af96e22437c6fdf5b500f3e0f73",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_12.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_12.uasset",
+      "bytes": 52136,
+      "sha256": "1fb34450d18f8456c0fdefb29032e247d7c40a558cf2377723c8ef7a27b18205",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_13.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-101704/BP_NB_Cell_13.uasset",
+      "bytes": 38466,
+      "sha256": "4761212e4e87596d11e7892a019a124fcf4cf96c58c54a9ebea9e7596e9a4995",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-113515/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-113515/L_CyberpunkApartment.umap",
+      "bytes": 20786927,
+      "sha256": "92e228fb0d64fb23f61baadfb8eb8fbbf140e5f1aa3dba86fc8abf5349fd76e9",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-115755/MaterialAttributes/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-115755/MaterialAttributes/L_CyberpunkApartment.umap",
+      "bytes": 51449213,
+      "sha256": "6f9d0a02079a18e0557bfdc8e2e54adccf4c382771ea5959ddeb38d6af9a463e",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-115840/MaterialAttributes/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-115840/MaterialAttributes/L_CyberpunkApartment.umap",
+      "bytes": 51449213,
+      "sha256": "6f9d0a02079a18e0557bfdc8e2e54adccf4c382771ea5959ddeb38d6af9a463e",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-121515/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-121515/L_CyberpunkApartment.umap",
+      "bytes": 51449213,
+      "sha256": "6f9d0a02079a18e0557bfdc8e2e54adccf4c382771ea5959ddeb38d6af9a463e",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/GameMaps/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/GameMaps/L_CyberpunkApartment.umap",
+      "bytes": 51770243,
+      "sha256": "b654bd1bff115e025302a3be0ebee097a730c716298e45b653d31dfe213e35f7",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_17_17.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_17_17.uasset",
+      "bytes": 987740,
+      "sha256": "8197cf30b3aea981fbb88984660e5fe21d342393e03f5dd42d5946edf0aca4b9",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_17_18.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_17_18.uasset",
+      "bytes": 1765625,
+      "sha256": "6da488155f8f7af1e5e441deacac0c96bb1b26218688efd9e9d7fc8f1187b1da",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_17_19.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_17_19.uasset",
+      "bytes": 1515912,
+      "sha256": "1cf4ff57791c8d82089705884d678598d9d791742e58ac8d8176b9e24653c834",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_17_20.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_17_20.uasset",
+      "bytes": 404193,
+      "sha256": "dbe7055fe9dbb100c5e9b8bf7b9adb0500b052bdf7ebd02a11a9f6ff85d6b143",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_18_17.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_18_17.uasset",
+      "bytes": 2244033,
+      "sha256": "b8428a2c8f9cdcfd8f77af0bf36cfde567ea0c4bec9530aa733bc1bbfede7d42",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_18_18.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_18_18.uasset",
+      "bytes": 3004369,
+      "sha256": "6883b9869fb1d49105b798726260dffc9a55bbebd9ec52b99ec8b9ac5be81be2",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_18_19.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_18_19.uasset",
+      "bytes": 2633534,
+      "sha256": "ce1007c37017ea72b6d1e2176980d6a09096e853752b5a7d6703545a02dd5fcc",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_18_20.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_18_20.uasset",
+      "bytes": 484579,
+      "sha256": "d04e6504956292c7f61e8101848c760995467b14777ee76f42d2d2d43fa908e2",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_19_17.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_19_17.uasset",
+      "bytes": 1743872,
+      "sha256": "2fea7cbc517337b167438346090da9a57f0a4c80678050f555ae7f43c37a313b",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_19_18.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_19_18.uasset",
+      "bytes": 1430265,
+      "sha256": "fccf52e4db27c015af2ab4d895e97908abd8236a88031b5c23ef592d881c2954",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_19_19.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_19_19.uasset",
+      "bytes": 2269309,
+      "sha256": "589cddc9a6bca02f8a897de8c28665306de4831434104a73f6d73092bb82eee9",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_19_20.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_19_20.uasset",
+      "bytes": 395815,
+      "sha256": "ff0d5e890a4ac0cbf9abf9ee286330f281b00b2cb661afdd2d5d9a8f042a2d15",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_20_17.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_20_17.uasset",
+      "bytes": 1798510,
+      "sha256": "53846d75903cab1f53917bcc76e3f76b4ac5db148c1e691e59dbf89f1e39a8ba",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_20_18.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_20_18.uasset",
+      "bytes": 2303460,
+      "sha256": "85a9824d78cd838dcbfbc9fb0a123514c55a2fb53b5b23fa49e790c1e3372e91",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_20_19.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_20_19.uasset",
+      "bytes": 2094413,
+      "sha256": "cd5da92fb8e32f163ae4598f79b2a43921b4be5cb1d93ca0f44ab1f7bd6380db",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_20_20.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_20_20.uasset",
+      "bytes": 423843,
+      "sha256": "84c3128ba6d86f7dd10db1df03155aa66dc0b222d1f6532138b972c7dd13b635",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_21_17.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_21_17.uasset",
+      "bytes": 1835330,
+      "sha256": "8f1e71299514f0334a7d14a50d3299a4ddf774609ad64ca202e1424abaceda70",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_21_18.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_21_18.uasset",
+      "bytes": 2311476,
+      "sha256": "114f8c53ea9af39f8c9f4fe9aa5da70524cf0d3b7850c6dadee8946dd28a0cd0",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_21_19.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_21_19.uasset",
+      "bytes": 2561075,
+      "sha256": "8662ed61db698f0c389ec8aa7462c3a467311a02d7af9e14ec1641b1e4a72e73",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_21_20.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_21_20.uasset",
+      "bytes": 193972,
+      "sha256": "43eff6495f9dc27f859ce932cadf8ada6efadd9566d07d3512c2ca9485379d1f",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_22_17.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_22_17.uasset",
+      "bytes": 920179,
+      "sha256": "ab5f0c8b306943954f4f9cacbf7e0da7b2738e8d3e552b69c5c4ae3a2b6cbb30",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_22_18.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_22_18.uasset",
+      "bytes": 1516496,
+      "sha256": "3190f7cb3cbafc139a8f780053287a8651598f2db175d93d37c45ed1221d41bb",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_22_19.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_22_19.uasset",
+      "bytes": 1312591,
+      "sha256": "a7101e82dc6a9918d9c17ec390289140e2347d5fd34341de0857c2a17025c772",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_22_20.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Blocks/BP_NativeBlock_22_20.uasset",
+      "bytes": 86424,
+      "sha256": "b6fa4474461cbdda77cab5ad2d8dadbf3827b82cd1f70af323b38c615eb676d5",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Meshes/BuildingPads.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Meshes/BuildingPads.uasset",
+      "bytes": 30799,
+      "sha256": "fe614c811223d8360fd091fcd80d9496975ce34b46896bc14e960076bec3c732",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Meshes/JunctionAsphalt.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Meshes/JunctionAsphalt.uasset",
+      "bytes": 36405,
+      "sha256": "d1daabf57f646c2a3f4f4559e887e3f25759c0cca4a3e110082386e64db99121",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Meshes/ParkGround.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Meshes/ParkGround.uasset",
+      "bytes": 13935,
+      "sha256": "b85d13a2dfeb9d7aa737726bc33a0656fb3a22eb7032d5ef0f5f97818bc4ab24",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Meshes/RoofSurfaces.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/NativeNearBank20261028/Meshes/RoofSurfaces.uasset",
+      "bytes": 23426,
+      "sha256": "3a16f21f4a6a0bc8984e70d107f0f1f1d576c5af122dd46bd52f6c12aac76c38",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_06.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_06.uasset",
+      "bytes": 36472,
+      "sha256": "af4314cdcb23405e21e2eca66e60da6aa58209cf0210471465b88ee522898652",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_07.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_07.uasset",
+      "bytes": 51886,
+      "sha256": "be3b5041089486d58b1400f022f3593178194c6bcbaadb3fc1e526c28d53a3fe",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_08.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_08.uasset",
+      "bytes": 54721,
+      "sha256": "661b20218e08ce41bbf70241bbd986a4dcc04cea0ff68aab244add02d24d2772",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_09.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_09.uasset",
+      "bytes": 56531,
+      "sha256": "a41f438fe0b7de6d0ae106698568761e7268ad3d660d5571c566d32093597dd8",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_10.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_10.uasset",
+      "bytes": 55982,
+      "sha256": "34cd13e5c2e4d56d80967ed6c865b780f61a72ba8c0ec138f0edcdd3cc9463b1",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_11.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_11.uasset",
+      "bytes": 53629,
+      "sha256": "45623db9fc5bd834b04193cec3c4ecaef0c267532505d8391c2828a6ed892c2e",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_12.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_12.uasset",
+      "bytes": 52724,
+      "sha256": "731a4325fc2fdf7d34c2ce7c7f35a054277c3dd310d1d5553797d6dd2bb17254",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_13.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Blueprints/BP_NB_Cell_13.uasset",
+      "bytes": 39054,
+      "sha256": "670cb311812fab90a5e76e7d9e4db668ce300a7b9ce6c16f1641c4fc9ac3f9c7",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Materials/MI_NB_BayWater.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Materials/MI_NB_BayWater.uasset",
+      "bytes": 31373,
+      "sha256": "c729b0367b1a52a9647dd83611eea75a44de3472e3aa94852d185a4c6fd1738e",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Textures/T_NB_CityReflection.uasset",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-144624/RoadRepair/Props/CyberpunkNearBank20261028/Textures/T_NB_CityReflection.uasset",
+      "bytes": 30502865,
+      "sha256": "fb1f93f645ebd0af35fe3c217eb85899d487cd02822d2d3a8297c4b53801ccf0",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    },
+    {
+      "source": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-150349/L_CyberpunkApartment.umap",
+      "target": "trash/CyberpunkDistrict20261031/SourceAssets/NearBankPCGRepair20261028/Backups/20261028-150349/L_CyberpunkApartment.umap",
+      "bytes": 52244714,
+      "sha256": "e86657137cd0a78b816481b0c216086f14d2a162c510bec08959c61dff76db31",
+      "reason": "Superseded rollback snapshot; current source and latest rollback retained",
+      "replacement": "SourceAssets/NearBankPCGRepair20261028/Backups/20261028-153733"
+    }
+  ],
+  "file_count": 225,
+  "bytes": 701943989,
+  "retained": [
+    "All current Content assets and formal map",
+    "Current Blend/FBX/textures and active earlier-version authoring dependencies",
+    "NearBank Audit saved_scene and WKB geometry, Repair source manifests, Performance sources",
+    "Latest rollback per Backups directory, pre-performance snapshot and original vehicle collision",
+    "UrbanLandscape Revisions/BeforeRiverfront20261026: active input of layout_riverfront.py and prepare_riverfront.py",
+    "Local libraries and authoring hosts"
+  ],
+  "boundary": "Only exact regular files listed here; no Content, junction traversal, other task, or permanent deletion"
+}

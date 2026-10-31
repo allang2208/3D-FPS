@@ -1,0 +1,60 @@
+{
+  "before": {
+    "components": 3576,
+    "instances": 156483,
+    "collision_instances": 104682,
+    "overlap_instances": 156483,
+    "navigation_instances": 156483,
+    "shadow_instances": 155790,
+    "distance_limited_instances": 1223
+  },
+  "after_templates": {
+    "components": 3539,
+    "instances": 122558,
+    "collision_instances": 10374,
+    "overlap_instances": 0,
+    "navigation_instances": 10374,
+    "shadow_instances": 109889,
+    "distance_limited_instances": 50338
+  },
+  "after_saved_scene": {
+    "components": 3539,
+    "instances": 122558,
+    "collision_instances": 10374,
+    "overlap_instances": 0,
+    "navigation_instances": 10374,
+    "shadow_instances": 109889,
+    "distance_limited_instances": 50338
+  },
+  "vehicle_collision_triangles": {
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_00.SM_VehicleEnvelope_00": [
+      276
+    ],
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_01.SM_VehicleEnvelope_01": [
+      276
+    ],
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_02.SM_VehicleEnvelope_02": [
+      276
+    ],
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_03.SM_VehicleEnvelope_03": [
+      276
+    ],
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_04.SM_VehicleEnvelope_04": [
+      276
+    ],
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_05.SM_VehicleEnvelope_05": [
+      276
+    ],
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_06.SM_VehicleEnvelope_06": [
+      276
+    ],
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_07.SM_VehicleEnvelope_07": [
+      276
+    ],
+    "/Game/NativeNearBank20261028/Repair/Collision/SM_VehicleEnvelope_08.SM_VehicleEnvelope_08": [
+      276
+    ]
+  },
+  "gameplay_test": false,
+  "framerate_measured": false
+}
