@@ -40,7 +40,9 @@ private:
     UPROPERTY(Replicated) FVector_NetQuantize NetStart;
     UPROPERTY(Replicated) FVector_NetQuantize NetEnd;
     UPROPERTY(Replicated) FLightningCast NetSpell;
-    UPROPERTY(Replicated) float NetWidth=1.f,NetBrightness=50.f,NetChargeRatio=1.f;
+    UPROPERTY(Replicated) float NetWidth=1.f;
+    UPROPERTY(Replicated) float NetBrightness=50.f;
+    UPROPERTY(Replicated) float NetChargeRatio=1.f;
     UPROPERTY(Replicated) bool NetContactLight=true;
     bool bNetInit=false;
     // 本地生成（蓄力汇聚弧等）的弧不再等复制字段，直接走本地 Tick。

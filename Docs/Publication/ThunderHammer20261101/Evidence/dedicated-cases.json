@@ -1,0 +1,71 @@
+{
+	"passed": true,
+	"cases": [
+		{
+			"case": "guest_throw_four_bolts",
+			"passed": true,
+			"client": "age=8.00 waves=4 arcs=0 away=wire_thor thrown=1 return=0 catches=0 audio=0 mana=100.00 stamina=135.00 revision=0",
+			"authority": true
+		},
+		{
+			"case": "switch_preserves_ground_hammer",
+			"passed": true,
+			"client": "age=0.70 waves=0 arcs=0 away=wire_thor thrown=1 return=0 catches=0 audio=0 mana=100.00 stamina=135.00 revision=0",
+			"authority": true
+		},
+		{
+			"case": "switch_back_recall_and_catch",
+			"passed": true,
+			"client": "age=1.80 waves=0 arcs=0 away= thrown=0 return=1 catches=1 audio=1 mana=100.00 stamina=135.00 revision=0",
+			"authority": true
+		},
+		{
+			"case": "second_throw",
+			"passed": true,
+			"client": "age=8.01 waves=4 arcs=0 away=wire_thor thrown=1 return=0 catches=0 audio=0 mana=100.00 stamina=135.00 revision=0",
+			"authority": true
+		},
+		{
+			"case": "unequip_retires_both_peers",
+			"passed": true,
+			"client": "age=0.70 waves=0 arcs=0 away= thrown=0 return=0 catches=0 audio=0 mana=100.00 stamina=135.00 revision=0",
+			"authority": true
+		},
+		{
+			"case": "jilei_rpc_resources_and_four_bolts",
+			"passed": true,
+			"client": "age=6.70 waves=4 arcs=0 away= thrown=0 return=0 catches=0 audio=0 mana=86.32 stamina=126.02 revision=1",
+			"authority": true
+		},
+		{
+			"case": "echo_and_inspiration_replication",
+			"passed": true,
+			"client": "age=1.03 waves=0 arcs=0 away= thrown=0 return=0 catches=0 audio=0 mana=100.00 stamina=150.00 revision=1",
+			"authority": true
+		},
+		{
+			"case": "static_field_heavy_status_replication",
+			"passed": true,
+			"client": "age=5.52 waves=1 arcs=0 away= thrown=0 return=0 catches=0 audio=0 mana=100.00 stamina=135.00 revision=1",
+			"authority": true
+		},
+		{
+			"case": "coil_heavy_damage_arc_replication",
+			"passed": true,
+			"client": "age=5.50 waves=1 arcs=1 away= thrown=0 return=0 catches=0 audio=0 mana=100.00 stamina=135.00 revision=1",
+			"authority": true
+		},
+		{
+			"case": "throw_before_disconnect",
+			"passed": true,
+			"client": "age=8.01 waves=4 arcs=0 away=wire_thor thrown=1 return=0 catches=0 audio=0 mana=100.00 stamina=135.00 revision=1",
+			"authority": true
+		},
+		{
+			"case": "disconnect_retires_ground_hammer",
+			"passed": true
+		}
+	],
+	"net_mode": 1,
+	"scope": "real UDP component RPCs, throw/recall/destruction, JiLei resources, effects and status replication; deterministic isolated profiles, no inventory UI/upload or rendering/audio audition"
+}

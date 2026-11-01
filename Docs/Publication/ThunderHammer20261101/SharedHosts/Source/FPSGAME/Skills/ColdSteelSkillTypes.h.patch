@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -206,6 +206,19 @@
+     float QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
+     /** Warhammer direct hits and its committed slam wave share this rune snapshot. */
+     float BluntRuneVulnerability=0, BluntRuneVulnerabilitySeconds=0;
++    /** Actual attacking hammer's rune/status snapshot, including thrown/recall hits. */
++    FLightningCast HammerLightning;
++    int32 HammerNativeStacks=0;
++    bool bHammerRuneContact=false;
++    /** Electric share of this weapon receipt, excluding ordinary physical hits. */
++    float HammerElectricDamage=0.f;
++    /** Committed charged-heavy continuation; zero for normals, sprint and secondary waves. */
++    FVector ZhenTingForward=FVector::ZeroVector;
++    /** Actual charged-heavy grip snapshot, preserved by delayed JiLei continuations. */
++    bool bHammerStaticField=false;
++    /** Coil's independent lightning-skill snapshot, not the heavy slam damage. */
++    bool bHammerCoil=false;
++    FLightningCast HammerCoilLightning;
+     /** Azure Dragon: direct sword contact only; a second point-damage transaction. */
+     float AzureDragonPhysicalMultiplier=1.f,AzureDragonMagicDamage=0.f;
+ };

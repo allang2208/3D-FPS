@@ -10,4 +10,5 @@ class UWarhammerNetworkAuditCommandlet : public UCommandlet
 public:
     virtual int32 Main(const FString& Params) override;
     int32 AuditSprint(const FString& Params);
+    int32 AuditConductiveGrips(const FString& Params);
 };

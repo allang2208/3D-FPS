@@ -224,7 +224,12 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
     };
     if(ColdSteelFrostRunes::IsWarhammer(Item.Definition)&&ColdSteelFrostRunes::IsWarhammerRune(Item.Definition,Parts.FindRef(TEXT("rune"))))
     {
-        Add(ColdSteelFrostRunes::WarhammerRuneMaterial(Item.Definition));
+        Add(ColdSteelFrostRunes::WarhammerRuneMaterial(Item.Definition,Parts.FindRef(TEXT("rune"))));
+        if(ColdSteelFrostRunes::IsThunderExclusive(Parts.FindRef(TEXT("rune"))))
+        {
+            Add(TEXT("/Game/Weapons/ThunderGodHammer20261028/ExclusiveRunesV1/Textures/T_Normal_")+Parts.FindRef(TEXT("rune")));
+            Add(TEXT("/Game/Weapons/ThunderGodHammer20261028/ExclusiveRunesV1/Textures/T_Roughness_")+Parts.FindRef(TEXT("rune")));
+        }
         Add(TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+Parts.FindRef(TEXT("rune")));
     }
     if(ColdSteelFrostRunes::SupportsEasternRunes(Item.Definition)&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::AuspiciousCloud)

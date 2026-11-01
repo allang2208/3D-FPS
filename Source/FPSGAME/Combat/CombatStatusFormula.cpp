@@ -447,13 +447,18 @@ void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,float SlowPerStac
     }
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("chill"),ChillTime,ChillStacks);
 }
-bool UCombatStatusFormula::AddElectrified(int32 Stacks,float Seconds,int32 OverloadThreshold,float BonusPerStack)
+bool UCombatStatusFormula::AddElectrified(int32 Stacks,float Seconds,int32 OverloadThreshold,float BonusPerStack,int32 RetainedStacks)
 {
     if(IsImmune()||Stacks<=0||Seconds<=0)return false;
     ElectrifiedStacks+=Stacks;ElectrifiedTime+=Seconds;ElectrifiedBonus=BonusPerStack;
     auto* Display=UStatusEffectsComponent::GetOrCreate(GetOwner());
     if(ElectrifiedStacks>=FMath::Max(1,OverloadThreshold))
-    {ElectrifiedStacks=0;ElectrifiedTime=0;Display->Remove(TEXT("electrified"));return true;}
+    {
+        ElectrifiedStacks=FMath::Clamp(RetainedStacks,0,FMath::Max(0,OverloadThreshold-1));
+        if(ElectrifiedStacks>0)Display->SetTimed(TEXT("electrified"),ElectrifiedTime,ElectrifiedStacks);
+        else {ElectrifiedTime=0;Display->Remove(TEXT("electrified"));}
+        return true;
+    }
     Display->SetTimed(TEXT("electrified"),ElectrifiedTime,ElectrifiedStacks);return false;
 }
 void UCombatStatusFormula::AddHaste(int32 Stacks,float Seconds)

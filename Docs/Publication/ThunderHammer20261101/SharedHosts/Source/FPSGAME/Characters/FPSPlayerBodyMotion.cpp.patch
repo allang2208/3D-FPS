@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -381,6 +381,12 @@
+             Sample.Hands[0].Wrist=FTransform((Frame*Current.GetRotation()).GetNormalized(),ReadyPosition*Scale+Offset);
+             if(Sample.HasSupportGrip)
+                 Sample.Hands[1].Wrist=Sample.SupportGrip*Sample.Hands[0].Wrist;
++            if(State.ActionVariant==TEXT("WarhammerCallCharge")||State.ActionVariant==TEXT("WarhammerCallRelease"))
++            {
++                // Both targets above came from the same authored take, but the
++                // lowered left arm must not constrain the raised right wrist.
++                Sample.CoupledWrists=false;Sample.HasSupportGrip=false;
++            }
+         }
+         if(((Rifle&&FPSBodyRifleMotion::UsesHoldSpace(State)&&Sample.CoupledWrists)||(SupportPistol&&FPSBodyPistolMotion::UsesPrimaryReload(State)))&&Drive&&
+             MotionBindings.IsValidIndex(I)&&MotionBindings[I].FrozenPose.IsValidIndex(SourceHand))
+@@ -706,7 +712,11 @@
+             for(int32 P=0;P<R.Parts.Num();++P)Smooth.Parts[P].Blend(Smooth.Parts[P],R.Parts[P],Alpha);
+         }
+         Root->SetRelativeTransform(Smooth.Root);
+-        const bool Visible=R.Visible&&!IsWorldWeaponStowed(Root)&&!FPSPlayerBodyWorldBodyHidden();
++        const auto* Tool=GetOwner()->FindComponentByClass<UProductionToolComponent>();
++        // Remote clients have no inventory model for this pawn. Compare the
++        // replicated equipment instance directly with the authoritative throw.
++        const bool Thrown=Tool&&!Tool->ThunderAwayInstance.IsEmpty()&&Binding.Definition.ItemInstance==Tool->ThunderAwayInstance;
++        const bool Visible=R.Visible&&!Thrown&&!IsWorldWeaponStowed(Root)&&!FPSPlayerBodyWorldBodyHidden();
+         if(Root->IsVisible()!=Visible)Root->SetVisibility(Visible);
+         if(Root->bHiddenInGame==Visible)Root->SetHiddenInGame(!Visible);
+         if(auto* Prop=Binding.ReloadProp.Get())

@@ -7,12 +7,20 @@ namespace ColdSteelFrostRunes
     inline constexpr const TCHAR* SpiritBurst=TEXT("spirit_burst_rune");
     inline constexpr const TCHAR* Warhammer=TEXT("ue_steel_warhammer");
     inline constexpr const TCHAR* RuneboundWarhammer=TEXT("ue_runebound_warhammer");
+    inline constexpr const TCHAR* ThunderGodHammer=TEXT("ue_thunder_god_hammer");
+    inline bool IsThunderExclusive(const FString& Rune){return Rune==TEXT("lei_ming_rune")||Rune==TEXT("hui_xiang_rune");}
     inline constexpr const TCHAR* SwiftMana=TEXT("swift_mana_rune");
     inline constexpr const TCHAR* DestructionMana=TEXT("destruction_mana_rune");
-    inline bool IsWarhammer(const FString& Weapon){return Weapon==Warhammer||Weapon==RuneboundWarhammer;}
+    inline bool IsWarhammer(const FString& Weapon){return Weapon==Warhammer||Weapon==RuneboundWarhammer||Weapon==ThunderGodHammer;}
     inline const TCHAR* Slot(const FString& Weapon){return IsWarhammer(Weapon)?TEXT("rune"):TEXT("blade_2");}
-    inline const TCHAR* WarhammerRuneMaterial(const FString& Weapon)
+    inline const TCHAR* WarhammerRuneMaterial(const FString& Weapon,const FString& Rune=FString())
     {
+        if(Weapon==ThunderGodHammer&&Rune==TEXT("lei_ming_rune"))
+            return TEXT("/Game/Weapons/ThunderGodHammer20261028/LeiMingRefineV2/M_SilverRuneSurface_LeiMingRefineV2");
+        if(Weapon==ThunderGodHammer&&IsThunderExclusive(Rune))
+            return TEXT("/Game/Weapons/ThunderGodHammer20261028/ExclusiveRunesV1/M_SilverRuneSurface_ThunderExclusiveV1");
+        if(Weapon==ThunderGodHammer)
+            return TEXT("/Game/Weapons/ThunderGodHammer20261028/ModulesV1/Runes/M_SilverRuneSurface_ThunderGodHammerShaftV1");
         return Weapon==RuneboundWarhammer?
             TEXT("/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/Runes/M_SilverRuneSurface_RuneboundWarhammerShaftV1"):
             TEXT("/Game/Weapons/SteelWarhammer20261014/Runes/ShaftWrapV2/M_SilverRuneSurface_WarhammerShaftV2");
@@ -23,7 +31,7 @@ namespace ColdSteelFrostRunes
             Rune==TEXT("erosion_rune")||Rune==TEXT("conduction_rune");
     }
     inline bool IsWarhammerRune(const FString& Weapon,const FString& Rune)
-    {return IsCommon(Rune)||(Weapon==RuneboundWarhammer&&(Rune==SwiftMana||Rune==DestructionMana));}
+    {return IsCommon(Rune)||(Weapon==ThunderGodHammer&&IsThunderExclusive(Rune))||(Weapon==RuneboundWarhammer&&(Rune==SwiftMana||Rune==DestructionMana));}
     inline constexpr const TCHAR* TangDao=TEXT("ue_tang_dao");
     inline constexpr const TCHAR* XuanChi=TEXT("ue_xuanchi_zhenyue");
     inline constexpr const TCHAR* AuspiciousCloud=TEXT("auspicious_cloud_rune");
@@ -44,6 +52,7 @@ namespace ColdSteelFrostRunes
     // Shared by catalog normalization, saved items and every sword visual.
     inline FString Upgrade(const FString& Weapon,const FString& Rune)
     {
+        if(IsThunderExclusive(Rune)&&Weapon!=ThunderGodHammer)return {};
         if(IsWarhammer(Weapon)&&!IsWarhammerRune(Weapon,Rune))return {};
         if(Rune==Beiwei&&Weapon!=Zhanmadao)return {};
         if((Rune==Zhenmo||Rune==Jingang)&&Weapon!=XuanChi)return {};

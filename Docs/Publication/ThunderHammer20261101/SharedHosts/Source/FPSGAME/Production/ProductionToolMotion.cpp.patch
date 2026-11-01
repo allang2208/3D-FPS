@@ -1,0 +1,142 @@
+--- a/Source/FPSGAME/Production/ProductionToolMotion.cpp
++++ b/Source/FPSGAME/Production/ProductionToolMotion.cpp
+@@ -1,4 +1,5 @@
+ #include "ProductionToolComponent.h"
++#include "ThunderHammerThrown.h"
+ #include "../Skills/LightningHasteSpeed.h"
+ #include "../Weapons/RuneSwordWhirlwindFeel.h"
+ #include "../Weapons/RuneSwordUppercutMotion.h"
+@@ -66,6 +67,10 @@
+         for(const TCHAR* Clip:{TEXT("SprintCarry"),TEXT("HeavyCharge"),TEXT("HeavyRelease")})
+             if(!Motions.FindRef(FName(Clip)))return false;
+         if(bFinalTollHead&&!Motions.FindRef(TEXT("FinalTollHeavy")))return false;
++        if(bThunderThrowSeat)for(const TCHAR* Clip:{TEXT("ThunderCharge"),TEXT("ThunderThrow"),TEXT("ThunderRecallReady"),TEXT("ThunderCatch")})
++            if(!Motions.FindRef(Clip))return false;
++        if(bThunderCallSeat)for(const TCHAR* Clip:{TEXT("ThunderCallCharge"),TEXT("ThunderCallRelease")})
++            if(!Motions.FindRef(Clip))return false;
+     }
+     for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Swing"),TEXT("HitRecover")})
+         if((!UsesTwoHandMotion() || FName(Clip)!=TEXT("Walk")) && !Motions.FindRef(FName(Clip)))return false;
+@@ -74,7 +79,7 @@
+ 
+ bool UProductionToolComponent::GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const
+ {
+-    if(!IsEquipped()||!Viewmodel||!Viewmodel->IsVisible()||Viewmodel->bHiddenInGame||!Viewmodel->DoesSocketExist(TEXT("WPN_root")))return false;
++    if(IsThunderHammerAway()||!IsEquipped()||!Viewmodel||!Viewmodel->IsVisible()||Viewmodel->bHiddenInGame||!Viewmodel->DoesSocketExist(TEXT("WPN_root")))return false;
+     // Derived from the imported rigid tool vertices; cached before combat begins.
+     const auto* Anchor=ElectricAnchors.Find(Kind);if(!Anchor)return false;
+     const FTransform Weapon=Viewmodel->GetSocketTransform(TEXT("WPN_root"));
+@@ -97,6 +102,8 @@
+     if(!Motion || !Viewmodel)return;
+     if(CurrentMotion!=Motion)
+     {
++        const bool RecallClip=Clip==TEXT("ThunderCatch")||Clip==TEXT("ThunderRecallReady");
++        if(RecallClip)if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
+         const bool GuardClip=Clip==TEXT("GuardEnter")||Clip==TEXT("GuardHold")||Clip==TEXT("GuardHit")||Clip==TEXT("GuardBreak")||Clip==TEXT("GuardExit");
+         const bool MatchedNormal=Kind==TEXT("warhammer")&&!bBluntHeavy&&CurrentMotion&&
+             (Clip==TEXT("ActiveSwing")||Clip==TEXT("ActiveHitRecover"))&&
+@@ -107,7 +114,7 @@
+         const bool ContactEntry=Clip==TEXT("ActiveHitRecover")&&CurrentMotion==Motions.FindRef(TEXT("ActiveSwing"));
+         // An interrupted inspect can be mid-turn with loose palms: hand off around the shaft.
+         const bool LeavingInspect=CurrentMotion&&(CurrentMotion==Motions.FindRef(TEXT("Inspect"))||CurrentMotion==Motions.FindRef(TEXT("InspectWalk")));
+-        if(Kind==TEXT("warhammer")&&CurrentMotion&&!GuardClip&&Clip!=TEXT("QuickCombat")&&Clip!=TEXT("Uppercut")&&Clip!=TEXT("Whirlwind")&&Clip!=TEXT("HitRecover")&&!ContactEntry&&!MatchedNormal&&
++        if(Kind==TEXT("warhammer")&&CurrentMotion&&!RecallClip&&!GuardClip&&Clip!=TEXT("QuickCombat")&&Clip!=TEXT("Uppercut")&&Clip!=TEXT("Whirlwind")&&Clip!=TEXT("HitRecover")&&!ContactEntry&&!MatchedNormal&&
+             !(bBluntHeavy&&Clip==TEXT("ActiveSwing")))
+             if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(
+                 // A visual chain hands the turnaround into the next cut's load around the shaft.
+@@ -157,6 +164,11 @@
+ void UProductionToolComponent::UpdateHandPresentation(float Delta)
+ {
+     VisualTime+=Delta;
++    // Also retire a draw already started before the replicated away state
++    // arrived; the away/catch branches below do not advance its clock.
++    if(IsThunderHammerAway())EquipElapsed=-1.f;
++    if(PresentThunderCatch(Delta))return;
++    if(IsThunderHammerAway()&&Elapsed<0.f)return;
+     // Every action, sprint, jump or dodge takes over from the cosmetic inspect.
+     if(InspectElapsed>=0.f&&ShouldBreakInspect())InspectElapsed=-1.f;
+     if(PresentGuardPose())return;
+@@ -195,7 +207,7 @@
+         SprintBlend=FMath::Lerp(SprintBlend,SprintTarget,1.f-FMath::Exp(-14.f*Delta));
+         Viewmodel->SetRelativeLocation(FVector(-3,0,-6)*SprintBlend);
+     }
+-    if(bBluntHeavy&&!UsesFinalTollHeavy()&&Elapsed>=0.f)
++    if(bBluntHeavy&&!UsesFinalTollHeavy()&&!UsesThunderThrowHeavy()&&Elapsed>=0.f)
+     {
+         // The strike remains in its stable forward frame as the camera follows
+         // the head down. Camera feedback must not rotate the grounded hammer.
+@@ -205,13 +217,16 @@
+             Rotation*FRotator(0,90,0).Quaternion());
+     }
+     if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))
+-        Arms->SetFloorContact(BluntFloorPoint,bBluntHeavy&&!UsesFinalTollHeavy()&&bBluntFloorTarget?WarhammerHeavy::FloorWeight(AuthoredElapsed()):0.f);
++        Arms->SetFloorContact(BluntFloorPoint,bBluntHeavy&&!UsesFinalTollHeavy()&&!UsesThunderThrowHeavy()&&bBluntFloorTarget?WarhammerHeavy::FloorWeight(AuthoredElapsed()):0.f);
+     if(bBluntCharging||bBluntReturningCharge)
+     {
+-        if(bFinalTollHead)
++        if(bThunderCallSeat)SampleMotion(TEXT("ThunderCallCharge"),BluntChargePoseSeconds());
++        else if(bThunderThrowSeat)SampleMotion(TEXT("ThunderCharge"),BluntChargePoseSeconds());
++        else if(bFinalTollHead)
+             SampleMotion(TEXT("Slash1"),FinalTollHeavy::ChargeSource(BluntChargePoseSeconds()/WarhammerHeavy::ChargeSeconds));
+         else SampleMotion(TEXT("HeavyCharge"),BluntChargePoseSeconds());
+     }
++    else if(ThunderCallReleaseAge>=0.f)SampleMotion(TEXT("ThunderCallRelease"),ThunderCallReleaseAge);
+     else if(Elapsed>=0)
+     {
+         // Pose, whoosh and the one authoritative contact share the same clock.
+@@ -282,6 +297,38 @@
+ void UProductionToolComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) const
+ {
+     Location=FVector::ZeroVector; Rotation=FRotator::ZeroRotator;
++    const bool ThunderDocking=IsThunderHammerAway()&&ThrownHammer&&ThrownHammer->IsCatching();
++    if(bThunderThrowSeat&&IsEquipped()&&CanPresent()&&(ThunderDocking||ThunderCatchAge>=0.f))
++    {
++        // Same .025 s palm-load event as RecallWeightV4. Read the committed
++        // catch clock across the projectile/held-mesh handoff; never retrigger.
++        const float Age=ThunderDocking?ThrownHammer->CatchAge():float(RuneboundClock()-ThunderCatchStartedAt);
++        const float T=Age-.025f;
++        if(T>0.f&&T<.50f)
++        {
++            const auto* Shake=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Camera.Shake"));
++            const float Scale=Shake?FMath::Max(0.f,Shake->GetFloat()):1.f;
++            // One readable body jolt, a short loaded dip, then recovery.
++            // The high-frequency shock rides on this weight transfer; it
++            // must not be the entire catch, as it decays before it reads.
++            static const ProductionPickaxeImpact::FCameraKey CatchLoadV4[]={
++                {0.f,{0,0,0},{0,0,0}},
++                {.035f,{-4.f,.45f,-1.15f},{-3.f,.30f,-1.8f}},
++                {.090f,{-3.1f,.25f,-.65f},{-2.2f,.20f,-1.3f}},
++                {.150f,{-1.7f,0,-.3f},{-1.2f,0,-.7f}},
++                {.230f,{.65f,-.15f,.20f},{.3f,-.05f,.2f}},
++                {.350f,{0,0,0},{0,0,0}},
++                {.500f,{0,0,0},{0,0,0}}};
++            const auto Load=ProductionPickaxeImpact::CameraCurve(CatchLoadV4,T);
++            const float Envelope=FMath::Exp(-16.f*T)*FMath::SmoothStep(0.f,.006f,T)*
++                (1.f-FMath::SmoothStep(.24f,.40f,T));
++            const float Shock=FMath::Sin(69.f*T)*Envelope;
++            Location=(Load.Position+FVector(-.9f*Shock,.28f*FMath::Sin(87.f*T)*Envelope,-.55f*Shock))*Scale;
++            Rotation=(FRotator(Load.Angles.X,Load.Angles.Y,Load.Angles.Z)+
++                FRotator(-1.8f*Shock,.32f*FMath::Sin(79.f*T)*Envelope,.7f*FMath::Sin(83.f*T)*Envelope))*Scale;
++        }
++        return;
++    }
+     if(bBluntUppercut)
+     {
+         WarhammerUppercutMotion::Camera(BluntUppercutTime,!bBluntUppercutLungeBlocked,Location,Rotation);
+@@ -298,9 +345,16 @@
+     if(bBluntCharging||bBluntReturningCharge)
+     {
+         const float W=FMath::SmoothStep(0.f,WarhammerHeavy::ChargeSeconds,BluntChargePoseSeconds());
++        if(bThunderCallSeat){Location=FVector(-1.f,0,.5f)*W;return;}
++        if(bThunderThrowSeat){Location=FVector(-3.f,0,1.5f)*W;Rotation=FRotator(3.f,0,0)*W;return;}
+         Location=FVector(-13.f,6.f,3.f)*W;Rotation=FRotator(7.8f,6.f,5.f)*W;return;
+     }
+     if(Elapsed<0.f||!IsEquipped()||!CanUse(true))return;
++    if(UsesThunderThrowHeavy())
++    {
++        const float T=AuthoredElapsed(),W=FMath::Exp(-8.f*FMath::Max(0.f,T-ThunderHammerThrow::Release))*FMath::SmoothStep(0.f,ThunderHammerThrow::Release,T);
++        Location=FVector(2.5f,0,-2.f)*W;Rotation=FRotator(-3.5f,0,0)*W;return;
++    }
+     if(UsesFinalTollHeavy())
+     {
+         const float T=Elapsed;

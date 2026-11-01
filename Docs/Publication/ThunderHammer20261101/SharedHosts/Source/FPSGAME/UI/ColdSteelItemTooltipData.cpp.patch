@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -20,6 +20,7 @@
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Weapons/Kukri/KukriEnchantment.h"
+ #include "../Production/RuneboundHammerTuning.h"
++#include "../Production/ThunderHammerTuning.h"
+ #include "../Weapons/ModularSwordVisual.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
+ #include "../Weapons/Bow/BowStats.h"
+@@ -391,6 +392,7 @@
+                 Delta(C,TEXT("暴击率"),S.Melee.CriticalChanceAdd+S.Melee.MeleeCriticalChanceAdd,TEXT("%"));
+                 Delta(C,TEXT("暴击伤害"),S.Melee.MeleeCriticalDamageBonus*100.,TEXT("%"));
+                 Delta(C,TEXT("物理伤害"),(S.Melee.PhysicalDamage-1)*100,TEXT("%"));
++                Delta(C,TEXT("物理攻击力"),S.Melee.PhysicalAttackAdd,TEXT(""));
+                 Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Melee.Damage-1)*100,TEXT("%"));
+                 Delta(C,TEXT("全部近战攻击伤害"),(S.Melee.AllAttackDamage-1)*100,TEXT("%"));
+                 Delta(C,TEXT("所有技能冷却"),(S.Melee.SkillCooldown-1)*100,TEXT("%"),true);
+@@ -552,6 +554,12 @@
+         Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Blunt.SwingSeconds*1000))+TEXT(" ms"));
+         Row(Main,ColdSteelWeaponText::AttackDistance,N(Blunt.CombatReachCM/100)+TEXT(" m"));
+         Row(Main,ColdSteelWeaponText::StaminaCost,N(Blunt.StaminaCost));
++        if(I.Definition==ThunderHammer::Definition)
++        {
++            Row(Main,TEXT("蓄满重击·天雷"),TEXT("落点范围物理重击 + ")+N(ThunderHammer::MagicAttackScale*100)+TEXT("% 魔攻"));
++            Row(Main,TEXT("天雷半径"),N(ThunderHammer::RadiusCM/100)+TEXT(" m"));
++            Row(Main,TEXT("天雷眩晕"),N(ThunderHammer::StunSeconds)+TEXT(" s · 普通敌人或破韧目标"));
++        }
+         if(!FMath::IsNearlyEqual(Blunt.HeavyReleaseStaminaCost,Blunt.StaminaCost))
+             Row(Main,TEXT("重击出手体力消耗"),N(Blunt.HeavyReleaseStaminaCost));
+         if(!FMath::IsNearlyEqual(Blunt.ToughnessDamage,1.))Row(Main,ColdSteelWeaponText::ToughnessMultiplier,N(Blunt.ToughnessDamage)+TEXT("×"));

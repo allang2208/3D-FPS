@@ -284,6 +284,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
 
             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
             R.Melee.HeavyChargeSpeedBonus+=M.HeavyChargeSpeedBonus;
+            R.Melee.PhysicalAttackAdd+=M.PhysicalAttackAdd;
             R.Melee.HeavyReleaseStamina*=M.HeavyReleaseStamina;
             R.Melee.HeavyToughness*=M.HeavyToughness;
             R.Melee.CooldownReduceSecondsPerHit+=M.CooldownReduceSecondsPerHit;

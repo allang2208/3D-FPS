@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -377,6 +377,7 @@
+         {
+             auto& Entry=Weapons.Add_GetRef(CaptureWeapon(Tool->Viewmodel,Tool->Motions.FindRef(TEXT("Idle")),TEXT("hand_r")));
+             Entry.PoseFamily=TEXT("Tool");Tool->GetEnchantmentBladeSpan(Entry.ToolEdgeBase,Entry.ToolEdgeTip);
++            if(const auto* Arms=Cast<URuneSwordMeshComponent>(Tool->Viewmodel))Entry.GripProfile=Arms->GetGripProfile();
+         }
+         else if(Tool->ToolMesh&&Tool->ToolMesh->GetStaticMesh())
+         {

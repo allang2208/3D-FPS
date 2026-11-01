@@ -1,0 +1,198 @@
+--- a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+@@ -3,6 +3,10 @@
+ #include "WarhammerHeavyMotion.h"
+ #include "WarhammerCombat.h"
+ #include "RuneboundHammerTuning.h"
++#include "ThunderHammerTuning.h"
++#include "ThunderHammerZhenTing.h"
++#include "ThunderHammerStaticField.h"
++#include "ThunderHammerCoil.h"
+ #include "WarhammerShockwave.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "../FPSGAMECharacter.h"
+@@ -33,7 +37,7 @@
+     const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
+     return Pawn&&Pawn->HasAuthority()&&Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item)&&PC&&
+         !Pawn->IsTraversing()&&!Pawn->IsCastBlockingLeftHandAction()&&(!Health||!Health->IsDead())&&
+-        (!Sword||!Sword->IsGuarding())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
++        (!Sword||!Sword->IsGuarding())&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
+         !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Building||!Building->IsBuilding());
+ }
+ }
+@@ -66,6 +70,12 @@
+     {ClientBluntAttackResult(AttackId,0,false,false,false);return;}
+     Character=Pawn;BluntServerAttackId=AttackId;bBluntServerCharging=true;
+     ApplyToolStats(Profile->ActiveProductionTool(),Profile);
++    if(bThunderCallSeat)
++    {
++        if(!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f){bBluntServerCharging=false;ClientBluntAttackResult(AttackId,0,false,false,false);return;}
++        bThunderCallCharging=bThunderCallResourcesDirty=true;
++        ThunderCallVisualStartedAt=RuneboundClock();ThunderCallVisualSeconds=BluntChargeSeconds;Pawn->ForceNetUpdate();
++    }
+     BluntServerChargeStartedAt=GetWorld()->GetTimeSeconds();
+     BluntServerChargeInstance=Profile->ActiveProductionTool()->InstanceId;
+ }
+@@ -99,8 +109,10 @@
+     Character=Pawn;ApplyToolStats(Item,Profile);
+     const bool Heavy=bSprintAttack||(bReleaseCharge&&Held>=BluntChargeSeconds);
+     const bool Toll=Heavy&&!bSprintAttack&&bFinalTollHead;
++    const bool Throw=Heavy&&!bSprintAttack&&bThunderThrowSeat;
+     const float Resume=Heavy||bSprintAttack?0.f:BluntChargeResume(Held);
+     bBluntServerCharging=false;
++    if(bThunderCallSeat){bThunderCallCharging=false;FinishThunderCallResources();}
+     const FProductionToolStats Stats=ToolStats;
+     const double AttackCost=Heavy&&!bSprintAttack?Stats.HeavyReleaseStaminaCost:Stats.StaminaCost;
+     if(!Profile->SpendStamina(float(AttackCost))){Reject();return;}
+@@ -116,18 +128,29 @@
+     if(bSprintAttack)BluntSprintLungeDistance=Profile->DashAttackStats().DistanceCM;
+     AxeStrike=ColdSteelSkills::Snapshot(Pawn,Item);AxeStrike.bMelee=true;
+     AxeStrike.DamagePanel=WarhammerCombat::Damage(Stats.Damage,Profile,bSprintAttack,Heavy,BluntHeavyMultiplier,Stage);
++    // Snapshot only a fully charged release. Add this magic at ground contact,
++    // after the physical heavy multiplier; sprint attacks never call down thunder.
++    const float ThunderMagic=Heavy&&!bSprintAttack&&Item->Definition==ThunderHammer::Definition?
++        ThunderHammer::LightningMagic(*Item,Profile):-1.f;
+     AxeStrike.ToughnessDamageMultiplier=float(Stats.ToughnessDamage);
++    if(Heavy&&!bSprintAttack)
++    {
++        ThunderHammerZhenTing::Commit(AxeStrike,Item,Pawn->GetViewRotation().Vector());
++        ThunderHammerStaticField::Commit(AxeStrike,Item);
++        ThunderHammerCoil::Commit(AxeStrike,Item,Profile);
++    }
+     const float ActionRate=Toll?HasteActionRate:bSprintAttack?HasteActionRate:Heavy?RateScale*BluntMasteryInterval:RateScale;
+     if(Toll)FinalTollActionRate=ActionRate;
+     const float Lift=bSprintAttack?WarhammerSprint::LiftSeconds/HasteActionRate:0.f;
+     BluntServerSprintStartedAt=Now;
+-    const float Contact=float(Early)+(Toll?FinalTollHeavy::FirstContact/ActionRate:Heavy?Lift+WarhammerHeavy::Contact/ActionRate:float(Stats.ContactSeconds)-Resume);
++    const float Contact=float(Early)+(Throw?ThunderHammerThrow::Release/ActionRate:Toll?FinalTollHeavy::FirstContact/ActionRate:Heavy?Lift+WarhammerHeavy::Contact/ActionRate:float(Stats.ContactSeconds)-Resume);
+     BluntServerSprintMoveUntil=bSprintAttack?Now+FMath::Min(Lift+.15f,Contact):0.;
+-    BluntServerReadyAt=Now+Early+(Toll?FinalTollHeavy::Duration/ActionRate:Heavy?Lift+WarhammerHeavy::RealDuration(ActionRate):Stats.SwingSeconds-Resume);
++    BluntServerReadyAt=Now+Early+(Throw?ThunderHammerThrow::Duration/ActionRate:Toll?FinalTollHeavy::Duration/ActionRate:Heavy?Lift+WarhammerHeavy::RealDuration(ActionRate):Stats.SwingSeconds-Resume);
+     FinalTollHeavySerial=Toll?AxeStrike.MasteryAttackSerial:0;FinalTollCommitUntil=RuneboundClock()+FinalTollHeavy::Duration/ActionRate+.1;
+-    BluntServerGroundSlamUntil=Heavy&&!Toll?BluntServerReadyAt:0.;
++    BluntServerGroundSlamUntil=Heavy&&!Toll&&!Throw?BluntServerReadyAt:0.;
+     BluntServerSprintContactAt=bSprintAttack?Now+Contact:0.;
+-    if(Heavy&&!Toll)
++    if(Throw)Pawn->StopMovementForMeleeSkill();
++    if(Heavy&&!Toll&&!Throw)
+     {
+         BluntSlamRotation=FRotator(0.f,Pawn->GetControlRotation().Yaw,0.f).Quaternion();
+         BluntSlamEye=Pawn->GetMeleeAimTransform().GetLocation();
+@@ -151,10 +174,10 @@
+     }
+     BluntServerComboExpires=BluntServerReadyAt+ProductionBluntCombo::ResetSeconds;
+     ClientBluntAttackResult(AttackId,Stage,true,false,Heavy,bSprintAttack);
+-    const float StunSeconds=Heavy&&!bSprintAttack?BluntHeavyStunSeconds:0.f;
++    const float StunSeconds=ThunderMagic>=0.f?ThunderHammer::StunSeconds:Heavy&&!bSprintAttack?BluntHeavyStunSeconds:0.f;
+     const FString CommittedData=Item->Data;
+     const auto Committed=AxeStrike;
+-    World->GetTimerManager().SetTimer(BluntContactTimer,FTimerDelegate::CreateWeakLambda(this,[this,SourceInstance,AttackId,Stage,Heavy,bSprintAttack,StunSeconds,Toll,CommittedData,Committed]()
++    World->GetTimerManager().SetTimer(BluntContactTimer,FTimerDelegate::CreateWeakLambda(this,[this,SourceInstance,AttackId,Stage,Heavy,bSprintAttack,StunSeconds,Toll,Throw,CommittedData,Committed,ThunderMagic]()
+     {
+         auto* OwnerPawn=Character.Get();auto* OwnerProfile=ColdSteelAuthority::ForPawn(OwnerPawn);
+         const auto* Current=OwnerProfile?OwnerProfile->ActiveProductionTool():nullptr;
+@@ -162,10 +185,11 @@
+         if(!CanCommitBlunt(OwnerPawn,OwnerProfile,true)||!Current||Current->InstanceId!=SourceInstance)
+         {BluntServerNextStage=0;BluntServerGroundSlamUntil=0.;bBluntServerSprintAttack=false;BluntServerSprintContactAt=0.;ClientBluntAttackResult(AttackId,Stage,false,false,Heavy,bSprintAttack);return;}
+         if(Toll&&(BluntServerAttackId!=AttackId||Current->Data!=CommittedData||!RuneboundHammer::HasFinalToll(*Current)))return;
+-        if(Toll)AxeStrike=Committed;
++        if(Throw&&(Current->Data!=CommittedData||!ThunderHammerThrow::Installed(*Current,OwnerProfile)))return;
++        if(Toll||ThunderMagic>=0.f)AxeStrike=Committed;
+         ColdSteelAuthority::FScope Scope(OwnerProfile);
+         if(bSprintAttack){UpdateBluntSprintAnchor(true);BluntServerSprintContactAt=0.;}
+-        const bool Confirmed=Toll?ResolveBluntContact():Heavy?BeginBluntShockwave(StunSeconds):ResolveBluntContact();
++        const bool Confirmed=Throw?LaunchThunderHammer(Committed,ThunderMagic):Toll?ResolveBluntContact():Heavy?BeginBluntShockwave(StunSeconds,ThunderMagic):ResolveBluntContact();
+         if(Confirmed)
+         {
+             if(!Heavy)BluntServerReadyAt=FMath::Max(BluntServerReadyAt,double(GetWorld()->GetTimeSeconds()+ProductionBluntCombo::HitRecoverSeconds/RateScale));
+@@ -187,11 +211,19 @@
+             if(Confirmed)ClientBluntAttackResult(AttackId,Stage,true,true,true,false);
+         }),FinalTollHeavy::SecondContact/ActionRate,false);
+     }
++    // A pulse may overload a target and transact rewards/inventory. Complete
++    // all borrowed item reads and attack setup before invoking those callbacks.
++    if(Heavy&&!bSprintAttack)
++    {
++        ThunderHammerStaticField::Released(Pawn,Committed,Throw||bThunderCallSeat);
++        ThunderHammerCoil::Released(Pawn,Committed,Throw||bThunderCallSeat);
++    }
+ }
+ 
+ void UProductionToolComponent::ServerCancelBluntAttack_Implementation(uint32 AttackId)
+ {
+     if(AttackId!=BluntServerAttackId)return;
++    bThunderCallCharging=false;FinishThunderCallResources();
+     if(auto* Pawn=Character.Get())
+         if(auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))Move->CancelHammerSprintMove(AttackId);
+     FinishBluntWhirlwind();
+@@ -204,8 +236,51 @@
+     bBluntServerSprintAttack=false;BluntServerSprintContactAt=0.;bBluntSprintLungeBlocked=true;
+ }
+ 
++void UProductionToolComponent::ServerReleaseThunderCall_Implementation(uint32 AttackId,FVector_NetQuantize Point)
++{
++    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
++    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
++    const auto Reject=[&]()
++    {
++        bBluntServerCharging=bThunderCallCharging=false;FinishThunderCallResources();
++        ClientThunderCallResult(AttackId,false);
++    };
++    if(!Pawn||!GetWorld()||!Item||!ThunderHammerCall::Installed(*Item)||!CanCommitBlunt(Pawn,Profile,bBluntServerCharging)||
++        int32(AttackId-BluntLastServerRequestId)<=0||GetWorld()->GetTimeSeconds()<BluntServerReadyAt)
++    {Reject();return;}
++    const bool Local=Pawn->IsLocallyControlled();
++    if(!(Local?bBluntCharging:bBluntServerCharging)||(!Local&&(BluntServerAttackId!=AttackId||BluntServerChargeInstance!=Item->InstanceId)))
++    {Reject();return;}
++    Character=Pawn;ApplyToolStats(Item,Profile);
++    const float Held=float(GetWorld()->GetTimeSeconds()-(Local?BluntChargeStartedAt:BluntServerChargeStartedAt));
++    FVector GroundPoint=Point,GroundNormal=FVector::UpVector;FString GroundFailure;
++    if(Held<BluntChargeSeconds||Profile->Stamina()<=0.f||(!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f)||
++        !MeteorGround::Validate(Pawn,ThunderHammerCall::RangeCM,GroundPoint,GroundNormal,true,GroundFailure))
++    {Reject();return;}
++    BluntLastServerRequestId=BluntServerAttackId=AttackId;
++    bBluntServerCharging=bThunderCallCharging=false;
++    BluntServerReadyAt=GetWorld()->GetTimeSeconds()+ThunderHammerCall::ReleaseSeconds/HasteActionRate;
++    BluntServerNextStage=0;BluntServerComboExpires=0.;
++    auto Shot=ColdSteelSkills::Snapshot(Pawn,Item);Shot.bMelee=true;Shot.AttackMeta=0x10;
++    // JiLei takes the complete ordinary heavy attack. The wave adds the native
++    // thunder once, then converts the whole receipt to magic before contact.
++    Shot.DamagePanel=WarhammerCombat::Damage(ToolStats.Damage,Profile,false,true,BluntHeavyMultiplier,0);
++    Shot.ToughnessDamageMultiplier=float(ToolStats.ToughnessDamage);
++    ThunderHammerZhenTing::Commit(Shot,Item,Pawn->GetViewRotation().Vector());
++    ThunderHammerStaticField::Commit(Shot,Item);
++    ThunderHammerCoil::Commit(Shot,Item,Profile);
++    const float Magic=ThunderHammer::LightningMagic(*Item,Profile);
++    FActorSpawnParameters Params;Params.Owner=Pawn;Params.Instigator=Pawn;
++    Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    if(auto* Wave=GetWorld()->SpawnActor<AWarhammerShockwave>(GroundPoint+GroundNormal*2.f,FRotationMatrix::MakeFromZ(GroundNormal).Rotator(),Params))
++    {Wave->Setup(Shot,ThunderHammerCall::RadiusCM,ThunderHammer::StunSeconds,Magic,true);ClientThunderCallResult(AttackId,true);}
++    else ClientThunderCallResult(AttackId,false);
++    FinishThunderCallResources();Pawn->ForceNetUpdate();
++}
++
+ void UProductionToolComponent::ClientBluntAttackResult_Implementation(uint32 AttackId,int32 Stage,bool bAccepted,bool bConfirmed,bool bHeavy,bool bSprint)
+ {
++    if(!bAccepted&&AttackId==BluntAttackId&&!ThrownHammer)ThunderAwayInstance.Reset();
+     // Cancellation still retires the matching movement after the local pose has finished.
+     if(!bAccepted)if(auto* Pawn=Character.Get())
+         if(auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))Move->CancelHammerSprintMove(AttackId);
+@@ -215,15 +290,15 @@
+     // The server owns the combo stage; a chained cut predicted another stage.
+     if(Stage!=BluntStage&&BluntStartClip>0.f){BluntStartClip=0.f;HandOffBluntPose();}
+     bBluntHeavy=bHeavy;bBluntSprintAttack=bSprint;BluntStage=Stage;
+-    if(bHeavy&&!UsesFinalTollHeavy()&&!bBluntFloorTarget)
++    if(bHeavy&&!UsesFinalTollHeavy()&&!UsesThunderThrowHeavy()&&!bBluntFloorTarget)
+     {
+         FHitResult Floor;bBluntFloorTarget=FindBluntGround(Floor);
+         if(bBluntFloorTarget){BluntFloorPoint=Floor.ImpactPoint;BluntFloorNormal=Floor.ImpactNormal;}
+         BluntSlamRotation=FRotator(0.f,Character->GetControlRotation().Yaw,0.f).Quaternion();
+         BluntSlamEye=Character->GetMeleeAimTransform().GetLocation();
+     }
+-    SwingSeconds=UsesFinalTollHeavy()?FinalTollHeavy::Duration:bHeavy?WarhammerHeavy::Duration:float(ToolStats.SwingSeconds*RateScale);
+-    ContactSeconds=UsesFinalTollHeavy()?FinalTollHeavy::FirstContact:bHeavy?WarhammerHeavy::Contact:float(ToolStats.ContactSeconds*RateScale);
++    SwingSeconds=UsesThunderThrowHeavy()?ThunderHammerThrow::Duration:UsesFinalTollHeavy()?FinalTollHeavy::Duration:bHeavy?WarhammerHeavy::Duration:float(ToolStats.SwingSeconds*RateScale);
++    ContactSeconds=UsesThunderThrowHeavy()?ThunderHammerThrow::Release:UsesFinalTollHeavy()?FinalTollHeavy::FirstContact:bHeavy?WarhammerHeavy::Contact:float(ToolStats.ContactSeconds*RateScale);
+     SelectBluntMotion();
+     if(bConfirmed&&Elapsed>=0.f)
+     {

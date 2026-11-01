@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
+@@ -255,6 +255,9 @@
+ {
+     if(!InitializeAuthority()||bCommitting||!Model||Model->HasUnconfirmedTransactionSave()||!Model->RuntimePawn()||!Model->RuntimePawn()->HasAuthority())
+     {Reason=TEXT("共享库存尚未就绪或保存待恢复");return false;}
++    // A denied hand/equipment action must not create a recovery journal.
++    if(const auto* Tool=Model->RuntimePawn()->FindComponentByClass<UProductionToolComponent>();
++        Tool&&!Tool->ValidateThunderEquipmentChange(Model->Snapshot(),Profile,Reason))return false;
+     TGuardValue<bool> Guard(bCommitting,true);
+     const auto Now=ColdSteelFood::Clock(this);
+     ColdSteelFood::RebaseProfile(Profile,Now);

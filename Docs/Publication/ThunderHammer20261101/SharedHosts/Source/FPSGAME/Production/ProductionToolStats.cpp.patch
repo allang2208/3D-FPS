@@ -1,0 +1,69 @@
+--- a/Source/FPSGAME/Production/ProductionToolStats.cpp
++++ b/Source/FPSGAME/Production/ProductionToolStats.cpp
+@@ -24,11 +24,22 @@
+     const auto* Enhance=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+     R.bModifiable=Gunsmith&&Gunsmith->IsTool(Item.Definition);
+     if(R.bModifiable)R.Modifiers=Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Tool;
++    const bool Blunt=ColdSteelInventory::IsTwoHandedBlunt(Item);
++    FMeleeModifiers BluntModifiers;
++    if(Blunt&&Gunsmith)
++    {
++        R.bModifiable=Gunsmith->IsMelee(Item.Definition);
++        BluntModifiers=Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Melee;
++        R.Modifiers.Damage=BluntModifiers.Damage;
++    }
+ 
+     // 自卫伤害：工具自己的基础数值 × 改造倍率，再走与剑类相同的附魔／加工后处理。
+     // 不借用剑类 Evaluate，避免把连击、格挡与精通口径带进采集工具。
+     const double Base=ColdSteelInventory::Number(Item,TEXT("melee_damage"),12);
+     double Attack=Profile?Profile->Derived(TEXT("atk")):0;
++    // Replace the held grip's flat attack with this item's selected/draft grip.
++    // This also keeps inventory previews from inheriting another held grip.
++    Attack+=(Blunt?BluntModifiers.PhysicalAttackAdd:0.)-(Profile?ColdSteelMelee::EquippedModifiers(Profile).PhysicalAttackAdd:0.);
+     if(Profile&&Preview&&Item.Definition==RuneboundHammer::Definition)
+     {
+         const auto* Active=Profile->ActiveProductionTool();
+@@ -37,8 +48,9 @@
+             RuneboundHammer::StarOathAttackMultiplier:1.;
+         Attack=Attack/Installed*Draft;
+     }
++    R.PhysicalAttack=Attack;
+     const double Processed=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage,Profile):Base*R.Modifiers.Damage+Attack;
+-    R.Damage=ColdSteelWeaponDamage::Evaluate(Item,Profile,Processed);
++    R.Damage=ColdSteelWeaponDamage::Evaluate(Item,Profile,Processed,Blunt?&BluntModifiers:nullptr);
+ 
+     R.RateScale=FMath::Clamp(R.Modifiers.AttackSpeed,.25,4.)*(Profile?Profile->BerserkAttackSpeedMultiplier():1.f);
+     R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.1)/R.RateScale;
+@@ -57,17 +69,26 @@
+     R.ToughnessDamage=R.Modifiers.ToughnessDamage;
+     R.CriticalChanceAdd=R.Modifiers.CriticalChanceAdd;
+     R.HarvestHitsAdd=R.Modifiers.HarvestHitsAdd;
+-    if(ColdSteelInventory::IsTwoHandedBlunt(Item))
++    if(Blunt)
+     {
+         const auto* Enhancement=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+-        R.RateScale=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd"))):1.)/
+-            FMath::Max(.1,Enhancement?Enhancement->Effect(Item,TEXT("attackIntervalMul"),1):1.),.2,4.);
++        R.RateScale=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd"))):1.)*BluntModifiers.AttackSpeed/
++            FMath::Max(.1,Enhancement?Enhancement->Effect(Item,TEXT("attackIntervalMul"),1):1.),.2,4.)/
++            (Profile?Profile->MeleeMasteryIntervalMultiplier(Item):1.f);
+         R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.16)/R.RateScale;
+         R.ContactSeconds=ColdSteelInventory::Number(Item,TEXT("contact_seconds"),.6)/R.RateScale;
+-        const auto BluntCostModifiers=Gunsmith?Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Melee:FMeleeModifiers{};
+-        R.StaminaCost=ColdSteelMelee::AttackStamina(&Item,Profile,&BluntCostModifiers);
++        const auto Heavy=Profile?Profile->MasteryEffect(TEXT("heavyStrike")):FColdSteelSkillEffect{};
++        R.HeavyDamageMultiplier=BluntModifiers.HeavyMultiplier(Profile?Heavy.HeavyMultiplier:WarhammerHeavy::DamageMultiplier);
++        R.HeavyChargeSpeedBonus=BluntModifiers.HeavyChargeSpeedBonus+
++            (Enhance?Enhance->Effect(Item,TEXT("heavyChargeSpeedBonus")):0.)+
++            ColdSteelInventory::Number(Item,TEXT("heavy_charge_speed_bonus"),0.);
++        R.HeavyChargeSeconds=FMath::Max(.2,(Profile?Heavy.HeavyChargeSeconds:WarhammerHeavy::ChargeSeconds)/
++            FMath::Max(.1,1.+R.HeavyChargeSpeedBonus));
++        // Supply draft parts before applying the final floor; rescaling an
++        // already-clamped installed cost would make the preview inaccurate.
++        R.StaminaCost=ColdSteelMelee::AttackStamina(&Item,Profile,&BluntModifiers);
+         R.HarvestReachCM=R.HarvestRadiusCM=0.;
+-        R.ToughnessDamage=ColdSteelInventory::Number(Item,TEXT("toughness_damage_mult"),1.);
++        R.ToughnessDamage=ColdSteelInventory::Number(Item,TEXT("toughness_damage_mult"),1.)*BluntModifiers.ToughnessDamage;
+     }
+     const float Haste=LightningHaste::ActionSpeed(Profile?Profile->RuntimePawn():nullptr);
+     R.RateScale*=Haste;R.SwingSeconds/=Haste;R.ContactSeconds/=Haste;R.HeavyChargeSeconds/=Haste;

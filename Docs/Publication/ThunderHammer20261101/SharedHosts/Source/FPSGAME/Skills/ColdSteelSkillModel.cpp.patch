@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -25,6 +25,8 @@
+ #include "../Weapons/GunsmithSystem.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Weapons/FPSMeleeLightningComponent.h"
++#include "../Production/ThunderHammerRunes.h"
++#include "../Production/ThunderHammerPommel.h"
+ #include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/TangDaoGuardComponent.h"
+ #include "../Weapons/PanChiGuardComponent.h"
+@@ -403,6 +405,11 @@
+             PairedHeavy->Applied[I]=Total>0.?Applied*Share/Total:0.f;
+         }
+     }
++    // Native slam, thrown landing, JiLei and overload retain the attacking
++    // hammer's snapshot. A physical-only kill must not grant the electric buff.
++    if(bAliveBefore&&Shot.HammerElectricDamage>0.f)
++        ThunderHammerPommel::ConfirmElectricDamage(Shooter,Shot.HammerLightning,
++            float(AppliedParts.BaseMagic+AppliedParts.AddedMagic));
+     // A real second damage transaction, with its own magic defense and remaining
+     // HP. Share the original training/kill scope, but never recurse through
+     // ApplyHit (which would duplicate crit rolls, affixes, charge and training).
+@@ -426,6 +433,9 @@
+         Applied+=MagicApplied;
+     }
+     const bool bDirectKill=bAliveBefore&&Applied>0.f&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||Combat->IsDead());
++    if(bAliveBefore&&Applied>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()&&!Combat->IsDead()
++        &&(Shot.bHammerRuneContact||Shot.HammerNativeStacks>0))
++        ThunderHammerRunes::OnHit(Shooter,Victim,Shot);
+     if(bGuardContact)TangGuard->ConfirmBladeHit(Shot);
+     if(bAliveBefore&&Applied>0.f&&First.Critical&&!Shot.bRicochet&&Shot.bMelee
+         &&!Shot.ZhenmoSourceInstance.IsEmpty()&&Shooter&&Shooter->HasAuthority()

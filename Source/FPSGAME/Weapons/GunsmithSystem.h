@@ -73,6 +73,8 @@ struct FMeleeModifiers
     // Blade physical channel, after base/attribute/additional damage is assembled.
     // Separate from Damage (weapon base) and AllAttackDamage (all channels/actions).
     double PhysicalDamage=1;
+    // Flat equipped physical attack; separate from weapon base damage and multipliers.
+    double PhysicalAttackAdd=0;
 
 };
 /**

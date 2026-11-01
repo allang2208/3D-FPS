@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -21,6 +21,17 @@
+     if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("body")&&Id==TEXT("m24_advanced_action"))
+         return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("bolt")&&Id==TEXT("m24_carbon_light_bolt"))
++        return EGunsmithModificationTier::Special;
++    if(Weapon==TEXT("ue_thunder_god_hammer")&&SlotKey==TEXT("head_mount")&&
++        (Id==TEXT("guan_lei_seat")||Id==TEXT("ji_lei_seat")))
++        return EGunsmithModificationTier::Legendary;
++    if(Weapon==TEXT("ue_thunder_god_hammer")&&SlotKey==TEXT("pommel")&&
++        (Id==TEXT("lei_xi_pommel")||Id==TEXT("zhen_ting_pommel")))
++        return EGunsmithModificationTier::Special;
++    if(Weapon==TEXT("ue_thunder_god_hammer")&&SlotKey==TEXT("rune")&&
++        (Id==TEXT("lei_ming_rune")||Id==TEXT("hui_xiang_rune")))
++        return EGunsmithModificationTier::Special;
++    if(Weapon==TEXT("ue_thunder_god_hammer")&&SlotKey==TEXT("grip")&&(Id==TEXT("static_field_grip")||Id==TEXT("coil_grip")))
+         return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_kukri")&&SlotKey==TEXT("blade_1")&&
+         (Id==TEXT("hunter_blade")||Id==TEXT("canine_blade")))

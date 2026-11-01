@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -90,6 +90,8 @@
+ { return float(SetEffect(TEXT("actionStaminaCost"))); }
+ float UColdSteelStatusModel::HeavyChargeStaminaPerSecond() const
+ {
++    if(const auto* Tool=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UProductionToolComponent>():nullptr;Tool&&Tool->IsThunderCalling())
++        return ThunderHammerCall::StaminaPerSecond*ActionStaminaMultiplier();
+     const auto* Item=Equipped();
+     double BladeCost=!ActiveProductionTool()&&Item&&ColdSteelInventory::IsOneHandedMelee(*Item)?
+         ColdSteelMelee::ItemModifiers(Item,this).Stamina:1.;

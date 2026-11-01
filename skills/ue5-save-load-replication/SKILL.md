@@ -61,3 +61,4 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 篝火食品保鲜、共享订单、F6 免食材与回执锁定，读取 [篝火食品与交易回执](references/campfire-food-transactions.md)。
 
 - M24 不同试装历史的部件身份、原生轴与 FX socket，以及本地 UDP 的覆盖边界：[M24 表现身份](references/m24-presentation-identity.md)。
+- 复制字段遗漏、短暂接触事件与真实 UDP 覆盖：读取[复制字段遗漏、短暂接触事件与真实 UDP 覆盖](references/replicated-terminal-events.md)。

@@ -1,0 +1,73 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -389,8 +389,8 @@
+     if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Client)
+         ColdSteelFood::RebaseProfile(State,ColdSteelFood::Clock(this));
+     ColdSteelItemRarity::Normalize(State.Items);
+-    // Equipment has the highest action priority. Only a successfully published
+-    // equipment change interrupts the outgoing action in ApplyColdSteelProfile.
++    // Equipment normally has highest priority. Thunder recall/catch reserves
++    // the hands until its receipt; reject before saving or interrupting poses.
+     ColdSteelSkills::Migrate(State);
+     ColdSteelQuickBar::Migrate(State);
+     ColdSteelQuickBar::MirrorLegacy(State);
+@@ -401,6 +401,8 @@
+     State.Mana=FMath::Clamp(double(State.Mana)+ResourceMaximum(State,true)-ResourceMaximum(Current,true),0.,ResourceMaximum(State,true));
+     if(!ColdSteelWarehouse::MigrateLayout(State)){Message=TEXT("仓库布局迁移失败，原存档保留");return false;}
+     FString Reason;if(!Validate(State,Reason)){Message=Reason;return false;}
++    auto* Tool=RuntimePawn()?RuntimePawn()->FindComponentByClass<UProductionToolComponent>():nullptr;
++    if(Tool&&!Tool->ValidateThunderEquipmentChange(Current,State,Message))return false;
+     if(bStagingNetworkContainer){Publish(State);return true;}
+     if(bAudit&&AuditFailNextSave){AuditFailNextSave=false;Message=TEXT("验收注入：保存失败，操作未提交");return false;}
+     State.Version=2;
+@@ -414,6 +416,7 @@
+             {bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("客机交易写入未确认，已保留原存档等待恢复");return false;}
+         }
+         Publish(State);
++        if(Tool)Tool->CommitThunderEquipmentChange(Current);
+         if(bApplyPawn)ApplyToPawn();
+         OnChanged.Broadcast();return true;
+     }
+@@ -428,6 +431,7 @@
+     QueueProgressNotices(Current,State);
+     QueueAcquisitionNotices(Current,State);
+     Publish(State);Message=TEXT("已保存");
++    if(Tool)Tool->CommitThunderEquipmentChange(Current);
+     if(bApplyPawn)ApplyToPawn();
+     OnChanged.Broadcast();return true;
+ }
+@@ -1021,6 +1025,8 @@
+ {const auto* Item=Equipped();return Item&&!ActiveProductionTool()&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff");}
+ bool UColdSteelStatusModel::CycleWeapon()
+ {
++    if(auto* Pawn=RuntimePawn())if(auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->QueueThunderWeaponSwitch())
++    {Message=TEXT("接锤后切换武器");return true;}
+     if(!Current.ActiveProductionTool.IsEmpty())return StowProductionTool();
+     SyncRuntime();auto P=Snapshot();
+     // Cycle the two equipment loadouts even when the destination has no weapon.
+@@ -1490,6 +1496,9 @@
+     // Capture the hold before stamina exhaustion can cancel the preparation.
+     if(Delta>0.f&&Pawn->HasAuthority())if(auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>();Element&&Element->IsManaDraining())
+         Element->NoteHoldResourcesSpent();
++    const auto* ThunderTool=Pawn->FindComponentByClass<UProductionToolComponent>();
++    const bool ThunderDrawing=ThunderTool&&ThunderTool->IsThunderCalling();
++    if(ThunderDrawing&&Pawn->HasAuthority())Pawn->FindComponentByClass<UProductionToolComponent>()->NoteThunderCallResourcesSpent();
+     TickStamina(Delta,Pawn);
+     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=Health->Health;
+     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){
+@@ -1497,12 +1506,13 @@
+         const bool RainDrawing=Rain&&Rain->IsManaDraining();
+         const auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>();
+         const bool ElementDrawing=Element&&Element->IsManaDraining();
+-        const float HoldCost=RainDrawing?MasteryDefinition(TEXT("magicArrowRain")).MagicArrowRain.ManaPerSecond
++        const float HoldCost=ThunderDrawing?ThunderHammerCall::ManaPerSecond:RainDrawing?MasteryDefinition(TEXT("magicArrowRain")).MagicArrowRain.ManaPerSecond
+             :ElementDrawing?MasteryDefinition(TEXT("elementalArrow")).ElementalArrow.ManaPerSecond:0.f;
+-        const float ManaDelta=(RainDrawing||ElementDrawing)?(HasInfiniteMana()?0.f:-HoldCost):float(Derived(TEXT("mpRegen")));
++        const float ManaDelta=(ThunderDrawing||RainDrawing||ElementDrawing)?(HasInfiniteMana()?0.f:-HoldCost):float(Derived(TEXT("mpRegen")));
+         Current.Mana=FMath::Clamp(Current.Mana+ManaDelta*Delta,0.f,float(Derived(TEXT("maxMp"))));
+         // Stamina exhaustion can end the hold inside TickStamina. Include this
+         // final frame's mana debit in the next authority resource checkpoint.
++        if(ThunderDrawing&&Pawn->HasAuthority())Pawn->FindComponentByClass<UProductionToolComponent>()->NoteThunderCallResourcesSpent();
+         if(Pawn->HasAuthority())Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
+         // 白玉/人参击杀回复：KillProc* 按 1 秒窗口折算成每秒量，窗口内步进结清。
+         if(KillProcTime>0){const float Step=FMath::Min(Delta,KillProcTime);KillProcTime-=Step;

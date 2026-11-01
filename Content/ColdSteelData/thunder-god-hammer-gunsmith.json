@@ -1,0 +1,266 @@
+{
+  "version": 1,
+  "weapon": "ue_thunder_god_hammer",
+  "traits": [
+    {
+      "icon": "special",
+      "text": "点按左键施展前方群体三连击，以双向斜挥衔接过顶下砸。"
+    },
+    {
+      "icon": "special",
+      "text": "按住左键蓄力，蓄满后松开释放重击；落点产生冲击波和雷击。安装贯雷锤座后改为向前投掷，落地后按左键召回。"
+    },
+    {
+      "icon": "magic",
+      "text": "重击、贯雷投掷落地与疾雷召引的雷击命中均叠加2层感电；累积5层清空并触发过载放电。"
+    },
+    {
+      "icon": "neutral",
+      "text": "改造栏包含双侧锤头、中央锤座、符文、握持包覆与柄尾配重。"
+    }
+  ],
+  "columns": [
+    {
+      "key": "hammer_heads",
+      "name": "双侧锤头",
+      "default": "原装双侧锤头",
+      "description": "两端层叠锤面成对装配，保留银色编纹与蓝色原生刻纹。",
+      "options": [],
+      "options_library": "common-hammer-heads.json"
+    },
+    {
+      "key": "head_mount",
+      "name": "中央锤座",
+      "default": "原装中央锤座",
+      "description": "中央圆形雷纹徽记连接双侧锤头，北欧编织纹沿金属边框收束。",
+      "options": [
+        {
+          "id": "guan_lei_seat",
+          "name": "贯雷锤座",
+          "tier": "legendary",
+          "weapons": [
+            "ue_thunder_god_hammer"
+          ],
+          "description": "雷神之锤专属。双侧流线锻肩在顶部连续闭合，嵌银回环与北欧编结护住原厂雷纹圆徽；将蓄满重击化为可召回的旋转飞锤。",
+          "appearance": "原厂雷纹圆徽 · 连体闭合顶冠 · 双侧流线嵌银回环",
+          "stats": {
+            "physical_damage_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "物理伤害+10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "贯雷投掷｜蓄满重击后出现抛物线指示器；松开攻击键，将头顶举起的战锤向前竖劈投出，飞行中持续翻转。",
+            "雷霆落锤｜落地释放重击冲击波与垂直雷击；半径3米内结算原有重击物理伤害和100%魔法攻击力的魔法伤害，并叠加2层感电、施加1.5秒眩晕。精英控制遵循破韧规则。",
+            "雷锤召回｜落地后按普通攻击键召回，战锤旋转飞回，对沿途每个敌人造成一次普通攻击的物理伤害；右手伸掌接住握柄，左手扶回后恢复持握。冲刺攻击保持原有招式。"
+          ]
+        },
+        {
+          "id": "ji_lei_seat",
+          "name": "疾雷锤座",
+          "tier": "legendary",
+          "weapons": [
+            "ue_thunder_god_hammer"
+          ],
+          "description": "雷神之锤专属。连体折肩承接低矮锻冠，内嵌银线与聚雷刻纹收束至原厂圆徽；单手举锤蓄力，指向地面召下疾雷。",
+          "appearance": "原厂雷纹圆徽 · 连体折肩与短冠 · 内嵌聚雷纹路",
+          "stats": {
+            "attack_speed_mult": 1.2
+          },
+          "effects": [
+            {
+              "text": "攻击速度+20%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "疾雷召引｜按住普通攻击键，右手逐渐单手举起战锤，锤身雷电环绕。蓄满后显示地面范围指示器；松开按键，在选定落点降下粗壮雷柱。",
+            "落雷轰击｜最远20米，半径3米，将当前完整重击伤害转为魔法伤害，并附加2层感电和1.5秒眩晕。精英控制遵循破韧规则。",
+            "持续引雷｜蓄力每秒消耗8点体力和6点魔法；体力消耗受装备消耗倍率影响。资源耗尽时中止蓄力，蓄满前松开仍为普通攻击。",
+            "感电过载｜每层增加3%受到的电系伤害；累积5层时清空感电并触发过载，对周围目标放电，过载眩晕1.2秒。"
+          ]
+        }
+      ],
+      "options_library": "common-hammer-seats.json",
+      "excluded_options": [
+        "ancient_breaking_seal_seat",
+        "storm_drive_seat"
+      ]
+    },
+    {
+      "key": "rune",
+      "name": "符文",
+      "default": "无附加符文",
+      "description": "保留原生雷纹，可在长柄上附加通用符文或雷神之锤专属符文。",
+      "options": [
+        {
+          "id": "lei_ming_rune",
+          "name": "雷鸣符文",
+          "tier": "special",
+          "weapons": [
+            "ue_thunder_god_hammer"
+          ],
+          "stats": {},
+          "effects": [],
+          "description": "雷神之锤专属。折雷主印由双侧编结环抱，嵌银笔画沿锤柄向下收束。",
+          "appearance": "北欧折雷主印 · 双侧编结 · 蓝白流光",
+          "special_effects": [
+            "雷鸣附印｜该武器任何形式的有效攻击命中均有50%概率额外叠加1层感电，每个目标独立判定。落雷原有2层感电与本次触发合并结算。"
+          ]
+        },
+        {
+          "id": "hui_xiang_rune",
+          "name": "回响符文",
+          "tier": "special",
+          "weapons": [
+            "ue_thunder_god_hammer"
+          ],
+          "stats": {},
+          "effects": [],
+          "description": "雷神之锤专属。相向回环围绕菱形主印，两枚留存印记承接过载后的余雷。",
+          "appearance": "双回环主印 · 双留存印记 · 冰青流光",
+          "special_effects": [
+            "过载回响｜持有此武器以任何形式触发5层感电过载时，过载眩晕额外延长0.25秒；触发后保留2层感电。伤害、范围及其他控制规则沿用原有效果。"
+          ]
+        }
+      ],
+      "options_library": "melee-gunsmith.json",
+      "options_column": "blade_2"
+    },
+    {
+      "key": "grip",
+      "name": "握持包覆",
+      "default": "原装握持包覆",
+      "description": "连续皮革缠裹保留双手接触范围，两端以窄金属环收口。",
+      "options": [
+        {
+          "id": "static_field_grip",
+          "name": "静电场",
+          "tier": "special",
+          "weapons": [
+            "ue_thunder_god_hammer"
+          ],
+          "description": "雷神之锤专属。细银导体沉入缝合皮革，两端以编结锻箍收束，环状雷印将积蓄的电荷向周围释放。",
+          "appearance": "深棕缝合皮革 · 沉入式双向银纹 · 北欧编结环印",
+          "stats": {
+            "heavy_charge_speed_bonus": 0.15,
+            "physical_attack_add": 5
+          },
+          "effects": [
+            {
+              "text": "重击蓄力速度+15%",
+              "benefit": 1
+            },
+            {
+              "text": "物理攻击力+5",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "静电扩散｜释放蓄满的普通重击时，为自身周围半径30米内的敌对目标叠加2层感电。",
+            "贯雷驻场｜投出时释放一次静电，随后以场上锤子为中心，每3秒为半径30米内的敌对目标叠加2层感电，直至开始召回或锤子消失。切换当前武器不会中断。",
+            "疾雷激荡｜每道疾雷在实际落点周围半径10米内叠加5层感电；震霆配重由近及远的三道附加落雷分别触发。",
+            "感电联动｜仅影响敌对目标；叠层与过载眩晕沿用现有感电规则，并继承回响符文的延长眩晕与保留层数效果。"
+          ]
+        },
+        {
+          "id": "coil_grip",
+          "name": "线圈",
+          "tier": "special",
+          "weapons": [
+            "ue_thunder_god_hammer"
+          ],
+          "description": "雷神之锤专属。铜绕组收束于钛合金护肋之间，蓝白电荷沿绝缘握柄导流，在重击释放后寻找附近的敌人。",
+          "appearance": "分段绝缘握持 · 连续铜线圈 · 钛合金护肋与蓝白导光槽",
+          "stats": {
+            "heavy_charge_speed_bonus": 0.15,
+            "attack_speed_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "重击蓄力速度+15%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击速度+10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "线圈放电｜释放蓄满的普通重击时，向自身周围半径30米内的随机敌对目标释放1道闪电。",
+            "闪电等级｜按自身闪电等级释放，最低按10级计算；沿用闪电的伤害、传导和感电规则，不消耗额外魔法、不占用主动闪电冷却。",
+            "贯雷驻场｜投出时放电一次，随后以场上锤子为中心，每6秒向半径30米内的随机敌对目标释放1道闪电，直至开始召回或锤子消失。切换当前武器不会中断。",
+            "疾雷迸发｜每道疾雷在实际落点周围半径10米内随机寻找敌人，释放2道闪电；震霆配重的三道后续落雷也分别触发。两道闪电独立选敌，可以命中同一存活目标。",
+            "武器联动｜闪电继承本次重击锁定的雷神之锤符文与配重效果；雷击叠加2层感电，无目标时不产生空击。"
+          ]
+        }
+      ],
+      "options_library": "common-hammer-grips.json"
+    },
+    {
+      "key": "pommel",
+      "name": "柄尾配重",
+      "default": "原装柄尾配重",
+      "description": "刻有细小雷纹的多面金属配重，与握区下端连续衔接。",
+      "options": [
+        {
+          "id": "lei_xi_pommel",
+          "name": "雷息配重",
+          "tier": "special",
+          "weapons": [
+            "ue_thunder_god_hammer"
+          ],
+          "description": "雷神之锤专属。多面锻钢配重收拢雷能，菱形雷窗与嵌银回流编结接续原厂接颈。",
+          "appearance": "原厂编纹接颈 · 菱形内藏雷核 · 嵌银回流编结",
+          "stats": {
+            "attack_speed_mult": 1.15,
+            "stamina_mult": 0.85
+          },
+          "effects": [
+            {
+              "text": "攻击速度+15%",
+              "benefit": 1
+            },
+            {
+              "text": "体力消耗-15%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "雷息激励｜使用此武器造成有效雷电伤害时，获得10秒魔法激励（攻击速度提高25%）；再次触发刷新为10秒，不叠加。",
+            "雷能回流｜包括闪电、雷电领域、武器附加闪电、雷神之锤重击雷击、贯雷落地雷击、疾雷落雷和感电过载。普通物理命中不触发。"
+          ]
+        },
+        {
+          "id": "zhen_ting_pommel",
+          "name": "震霆配重",
+          "tier": "special",
+          "weapons": [
+            "ue_thunder_god_hammer"
+          ],
+          "description": "雷神之锤专属。三阶锻肩汇聚重击雷能，三重折雷纹沿前方引出连续落雷。",
+          "appearance": "原厂编纹接颈 · 三阶锻肩 · 三重折雷纹 · 底部雷印",
+          "stats": {
+            "heavy_charge_speed_bonus": 0.3
+          },
+          "effects": [
+            {
+              "text": "重击蓄力速度+30%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "震霆连落｜满蓄力重击保留原有落雷，沿释放方向由近及远额外落下3道雷击，每道间隔0.25秒；半径3米，中心间距6米，从原落点向前6、12、18米展开，遇墙或断崖停止。",
+            "贯雷协同｜搭配贯雷锤座，最大投掷距离+50%；在落地位置沿投出方向追加3道落雷，抛物线预览同步延长。",
+            "疾雷协同｜搭配疾雷锤座，保留指定位置的正常落雷，从该位置沿释放方向由近及远追加3道同款魔法落雷，每道间隔0.25秒。",
+            "雷击判定｜普通重击和贯雷追加雷只造成原雷击的魔法伤害；疾雷追加雷沿用疾雷重击魔法伤害。每道雷击叠加2层感电并眩晕1.5秒。普通攻击、冲刺攻击和召回不触发连落。"
+          ]
+        }
+      ],
+      "options_library": "common-hammer-pommels.json"
+    }
+  ]
+}

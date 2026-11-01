@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp
+@@ -32,8 +32,9 @@
+     const auto* Build=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
+     const auto* PS=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+     const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
++    const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
+     return Pawn&&Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item)&&PC&&
+-        (!Sword||!Sword->IsGuarding())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
++        (!Sword||!Sword->IsGuarding())&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
+         !Pawn->IsTraversing()&&!Pawn->IsDodging()&&!Pawn->IsSliding()&&!Pawn->IsCastBlockingLeftHandAction()&&
+         !UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&(!Health||!Health->IsDead())&&
+         !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Build||!Build->IsBuilding());

@@ -57,7 +57,7 @@ bool UProductionToolComponent::FindBluntGround(FHitResult& Hit) const
     return false;
 }
 
-bool UProductionToolComponent::BeginBluntShockwave(float StunSeconds)
+bool UProductionToolComponent::BeginBluntShockwave(float StunSeconds,float ThunderMagic)
 {
     auto* Pawn=Character.Get();if(!Pawn||!Pawn->HasAuthority())return false;
     FHitResult Floor;if(!FindBluntGround(Floor))return ResolveBluntContact(StunSeconds);
@@ -66,7 +66,7 @@ bool UProductionToolComponent::BeginBluntShockwave(float StunSeconds)
     if(auto* Wave=GetWorld()->SpawnActor<AWarhammerShockwave>(AWarhammerShockwave::StaticClass(),
         Floor.ImpactPoint+Floor.ImpactNormal*2.f,FRotationMatrix::MakeFromZ(Floor.ImpactNormal).Rotator(),Params))
     {
-        Wave->Setup(AxeStrike,BluntWaveRadius,StunSeconds);return true;
+        Wave->Setup(AxeStrike,BluntWaveRadius,StunSeconds,ThunderMagic);return true;
     }
     return false;
 }

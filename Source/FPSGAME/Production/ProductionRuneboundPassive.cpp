@@ -107,6 +107,12 @@ void UProductionToolComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProper
     DOREPLIFETIME(UProductionToolComponent,RuneboundActiveUntil);
     DOREPLIFETIME(UProductionToolComponent,RuneboundActivationSeconds);
     DOREPLIFETIME(UProductionToolComponent,FinalTollSealState);
+    DOREPLIFETIME(UProductionToolComponent,ThunderAwayInstance);
+    DOREPLIFETIME(UProductionToolComponent,ThunderCatchStartedAt);
+    DOREPLIFETIME(UProductionToolComponent,ThrownHammer);
+    DOREPLIFETIME(UProductionToolComponent,bThunderCallCharging);
+    DOREPLIFETIME(UProductionToolComponent,ThunderCallVisualStartedAt);
+    DOREPLIFETIME(UProductionToolComponent,ThunderCallVisualSeconds);
 }
 
 double UProductionToolComponent::RuneboundClock() const

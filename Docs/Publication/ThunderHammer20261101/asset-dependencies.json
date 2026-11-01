@@ -1,0 +1,48 @@
+{
+  "source_root": "SourceAssets/ThunderGodHammer20261028",
+  "runtime_paths": [
+    "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1.SK_Warhammer_BareArmsSprintV1",
+    "/Game/Weapons/ThunderGodHammer20261028/CoilGripV1/Meshes/SM_ThunderGodHammer_grip_coil.SM_ThunderGodHammer_grip_coil",
+    "/Game/Weapons/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Meshes/SM_ThunderGodHammer_head_mount_guan_lei_seat_V12_UV2.SM_ThunderGodHammer_head_mount_guan_lei_seat_V12_UV2",
+    "/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Meshes/SM_ThunderGodHammer_head_mount_ji_lei_seat_V14.SM_ThunderGodHammer_head_mount_ji_lei_seat_V14",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_bias_speed_wrap.SM_ThunderGodHammer_grip_bias_speed_wrap",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_diamond_power_wrap.SM_ThunderGodHammer_grip_diamond_power_wrap",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_factory.SM_ThunderGodHammer_grip_factory",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_layered_cushion_wrap.SM_ThunderGodHammer_grip_layered_cushion_wrap",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_factory.SM_ThunderGodHammer_hammer_heads_factory",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_flanged_breaker.SM_ThunderGodHammer_hammer_heads_flanged_breaker",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_heavy_forged.SM_ThunderGodHammer_hammer_heads_heavy_forged",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_light_drum.SM_ThunderGodHammer_hammer_heads_light_drum",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_pointed_hammer.SM_ThunderGodHammer_hammer_heads_pointed_hammer",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_head_mount_factory.SM_ThunderGodHammer_head_mount_factory",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_neck_factory.SM_ThunderGodHammer_neck_factory",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_caged_agility.SM_ThunderGodHammer_pommel_caged_agility",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_factory.SM_ThunderGodHammer_pommel_factory",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_no_pommel.SM_ThunderGodHammer_pommel_no_pommel",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_octagonal_impact.SM_ThunderGodHammer_pommel_octagonal_impact",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_twin_disc_balance.SM_ThunderGodHammer_pommel_twin_disc_balance",
+    "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_shaft_factory.SM_ThunderGodHammer_shaft_factory",
+    "/Game/Weapons/ThunderGodHammer20261028/PommelClosedRefineV2/LeiXi/Meshes/SM_ThunderGodHammer_pommel_lei_xi_v2.SM_ThunderGodHammer_pommel_lei_xi_v2",
+    "/Game/Weapons/ThunderGodHammer20261028/PommelClosedRefineV2/ZhenTing/Meshes/SM_ThunderGodHammer_pommel_zhen_ting_v2.SM_ThunderGodHammer_pommel_zhen_ting_v2",
+    "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper.SM_ThunderGodHammer_head_mount_laminated_damper",
+    "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block.SM_ThunderGodHammer_head_mount_reinforced_block",
+    "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light.SM_ThunderGodHammer_head_mount_ribbed_light",
+    "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV3Game/Meshes/SM_ThunderGodHammer_grip_static_field_V3Game.SM_ThunderGodHammer_grip_static_field_V3Game"
+  ],
+  "media_publication": "Local only; original model, PBR, animations, audio, icons and UE packages not redistributed",
+  "keep_authoring_dependencies": [
+    "GuanLeiPrecisionV11",
+    "JiLeiPrecisionV13",
+    "StaticFieldGripV1",
+    "StaticFieldGripV2",
+    "ModulesV1",
+    "Original",
+    "JiLeiSeatV1",
+    "RecallAudioV1",
+    "RecallAudioUserV4"
+  ],
+  "current_seats": [
+    "GuanLeiClosedCrownV12/Meshes/SM_ThunderGodHammer_head_mount_guan_lei_seat_V12_UV2",
+    "JiLeiInlaidLightningV14/Meshes/SM_ThunderGodHammer_head_mount_ji_lei_seat_V14"
+  ]
+}

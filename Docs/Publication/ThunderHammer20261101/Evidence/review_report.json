@@ -1,0 +1,170 @@
+{
+  "date": "2026-11-01 12:54:22.489036",
+  "scope": "Thor hammer complete feature audit, emphasizing multiplayer",
+  "fixes": [
+    {
+      "issue": "GuanLei actor replication crashed the server: RecallAt/CaughtAt were not reflected",
+      "files": [
+        "Production/ThunderHammerThrown.h"
+      ]
+    },
+    {
+      "issue": "Shared lightning arc had the same unreflected NetBrightness/NetChargeRatio fields",
+      "files": [
+        "Skills/FPSLightningArc.h"
+      ]
+    },
+    {
+      "issue": "100ms catch phase could be skipped before actor destruction under network loss",
+      "fix": "Ordered reliable catch receipt; existing one-shot guard prevents duplicates",
+      "files": [
+        "Production/ThunderHammerRecall.cpp",
+        "Production/ThunderHammerRecallAudio.cpp"
+      ]
+    },
+    {
+      "issue": "Catch/flight audio waited for the entire high-resolution visual load",
+      "fix": "Independent high-priority sound load plus equipped-weapon preloading",
+      "files": [
+        "Production/ThunderHammerThrown.cpp",
+        "Production/ProductionToolComponent.cpp"
+      ]
+    },
+    {
+      "issue": "Outbound hammer could fall past world bounds and leave the weapon permanently away",
+      "fix": "Authority retires below KillZ/outside bounds; grounded hammers still have no timeout",
+      "files": [
+        "Production/ThunderHammerThrown.cpp"
+      ]
+    },
+    {
+      "issue": "Recall and heavy shockwave used incomplete friendly filtering",
+      "fix": "Use shared enemy predicate, including companion/team protection",
+      "files": [
+        "Production/ThunderHammerRecall.cpp",
+        "Production/WarhammerShockwave.cpp"
+      ]
+    },
+    {
+      "issue": "JiLei V14 mesh suffix no longer matched the aura finder",
+      "files": [
+        "Production/ProductionStormDriveLightning.cpp"
+      ]
+    },
+    {
+      "issue": "LeiXi buff replicated but remote equipment core brightness was not updated",
+      "files": [
+        "Production/ThunderHammerPommel.cpp",
+        "Production/ProductionStormDriveLightning.cpp"
+      ]
+    },
+    {
+      "issue": "Approved GuanLei V12 closed-crown model was not published; catalog still used V9",
+      "fix": "Saved V12 mesh/PBR and regenerated the matching framed production icon; updated the actual catalog"
+    },
+    {
+      "issue": "GuanLei collapsed UVs and both seats invalid tangent frames/fallback settings",
+      "fix": "Repaired 32717 UV polygons; baked orthogonal tangents while retaining original source geometry/normals; explicitly selected full-detail Nanite fallback",
+      "evidence": "seat_tangent_receipt.json"
+    },
+    {
+      "issue": "Prior conductive-grip audit found duplicate listen-host release procs, mutable item snapshots, stale field pulses, missing remote grip profile and arc publication dependent on cosmetic loading",
+      "evidence": "../ConductiveGripAudit20261101/repair.json"
+    }
+  ],
+  "contracts": [
+    "Heavy attack multiplier follows player heavy-strike skill level.",
+    "GuanLei landing = heavy physical component + native lightning magic component; native lightning uses 100% magic attack with the applicable damage modifiers, without a second heavy multiplier.",
+    "JiLei converts the ordinary heavy plus its native lightning into the intended magic payload once.",
+    "Native, thrown and JiLei lightning add 2 electrified stacks; overload threshold is 5. Echo adds 0.25s to base overload stun and retains 2 stacks.",
+    "LeiXi grants existing magic inspiration for 10s; additional receipts refresh, never stack.",
+    "ZhenTing extra strikes use diameter spacing and 0.25/0.50/0.75s sequencing; committed launch direction and item snapshot survive switching.",
+    "Switching active slots preserves the equipped thrown instance. Removing it from equipment retires the world actor.",
+    "Recall is nonblocking and lasts 1s; each enemy is hit once. Beyond 60m the entire return is transport only.",
+    "Static Field and Coil use enemy-only targeting and authoritative release/pulse processing."
+  ],
+  "validation": {
+    "editor_build": "Succeeded",
+    "native": [
+      {
+        "case": "heavy-formula",
+        "checks": 477,
+        "failures": 0,
+        "receipt": "heavy-formula.json"
+      },
+      {
+        "case": "thor-assets-mods",
+        "checks": 319,
+        "failures": 0,
+        "receipt": "thor-assets-mods.json"
+      },
+      {
+        "case": "zhenting",
+        "checks": 18,
+        "failures": 0,
+        "receipt": "zhenting.json"
+      },
+      {
+        "case": "recall",
+        "checks": 128,
+        "failures": 0,
+        "receipt": "recall.json"
+      },
+      {
+        "case": "switch",
+        "checks": 32,
+        "failures": 0,
+        "receipt": "switch.json"
+      },
+      {
+        "case": "preview",
+        "checks": 10,
+        "failures": 0,
+        "receipt": "preview.json"
+      },
+      {
+        "case": "storm-lifecycle",
+        "checks": 43,
+        "failures": 0,
+        "receipt": "storm-lifecycle.json"
+      },
+      {
+        "case": "conductive-grips",
+        "checks": 44,
+        "failures": 0,
+        "receipt": "../ConductiveGripAudit20261101/audit.json"
+      }
+    ],
+    "native_total": 1071,
+    "network": [
+      {
+        "mode": "Listen",
+        "cases": 11,
+        "passed": true,
+        "receipt": "Listen-20261101-125017\\receipt.json",
+        "results": "Listen-20261101-125017\\host.json",
+        "lag_ms_each_peer": 60,
+        "loss_percent_each_peer": 3
+      },
+      {
+        "mode": "Dedicated",
+        "cases": 11,
+        "passed": true,
+        "receipt": "Dedicated-20261101-125027\\receipt.json",
+        "results": "Dedicated-20261101-125027\\host.json",
+        "lag_ms_each_peer": 60,
+        "loss_percent_each_peer": 3
+      }
+    ],
+    "saved_seat_basis_invalid_axes": 0,
+    "gui_editor_opened": false,
+    "profiles": "Isolated audit profiles; UDP peers use private per-run UserDir save roots"
+  },
+  "limits": [
+    "NullRHI/NoSound network runs check actors, RPCs, status/damage and audio event dispatch. They do not accept rendered hand animation, material appearance or audible mixing.",
+    "Wire fixtures seed deterministic profiles and exercise production combat RPCs; complete inventory UI/profile-upload transactions are not covered.",
+    "Level-transition cleanup was checked via EndPlay fixture, not live ServerTravel. Rejoin/late observer joins and more than one client were not exercised.",
+    "No FPS/VRAM benchmark. Both seats retain their detailed Nanite source and full-detail fallback; this is not a low-poly optimization claim.",
+    "Earlier failed receipts are retained. Test-only fixes covered initial queued movement, unresolved target references, duplicate delegate binding and counting previous fading effects."
+  ]
+}

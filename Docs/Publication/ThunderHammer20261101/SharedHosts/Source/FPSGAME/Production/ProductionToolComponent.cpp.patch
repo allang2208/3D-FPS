@@ -1,0 +1,250 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.cpp
++++ b/Source/FPSGAME/Production/ProductionToolComponent.cpp
+@@ -9,6 +9,13 @@
+ #include "../Skills/FPSQuickCombatComponent.h"
+ #include "ProductionBluntCombo.h"
+ #include "WarhammerHeavyMotion.h"
++#include "ThunderHammerTuning.h"
++#include "ThunderHammerZhenTing.h"
++#include "ThunderHammerStaticField.h"
++#include "ThunderHammerCoil.h"
++#include "ThunderHammerPommel.h"
++#include "ThunderHammerThrown.h"
++#include "ThunderHammerRecallAudio.h"
+ #include "Components/LineBatchComponent.h"
+ #include "Components/DecalComponent.h"
+ #include "../Skills/FPSMagicPreview.h"
+@@ -139,6 +146,8 @@
+ void UProductionToolComponent::ApplyToolStats(const FColdSteelItem* Item,UColdSteelStatusModel* Profile)
+ {
+     bFinalTollHead=Item&&RuneboundHammer::HasFinalToll(*Item);
++    bThunderThrowSeat=Item&&ThunderHammerThrow::Installed(*Item,Profile);
++    bThunderCallSeat=Item&&ThunderHammerCall::Installed(*Item);
+     ToolStats=Item?ColdSteelTool::Evaluate(*Item,Profile):FProductionToolStats{};
+     RateScale=float(ToolStats.RateScale);
+     BluntMasteryInterval=Item&&Profile?Profile->MeleeMasteryIntervalMultiplier(*Item):1.f;
+@@ -184,6 +193,7 @@
+         ToolMesh->ComponentHasTag(FName(*(TEXT("FrostSwordVisual=")+ColdSteelModularSword::Key(*Item))));
+     if (Id==EquippedId && Item && (!bUsesArms||SameArms)&&SameModules) { EquippedDataHash=DataHash; ApplyToolStats(Item,Profile); return; }
+     CancelUse(); EquippedId=Id; EquippedDataHash=DataHash; Kind.Reset(); Feedback.Reset(); ScheduleWalkInspect(false);
++    LeiXiCoreMaterial.Reset();bLeiXiCoreActive=false;
+     ColdSteelModularSword::Clear(ToolMesh);
+     ToolMesh->ComponentTags.Remove(TEXT("WarhammerModule"));
+     ToolMesh->AttachToComponent(Pivot,FAttachmentTransformRules::KeepRelativeTransform);
+@@ -224,8 +234,12 @@
+     const FString BluntMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/SprintDragV1/A_Warhammer_");
+     const FString ComboMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_");
+     const FString HeavyMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/HeavySlamV4/A_Warhammer_");
++    // These grips use native ordinary cuts with a baked left-palm contact fit.
++    // The profile retains the common clearance layers and the authored hand swap.
++    const bool ConductiveGrip=ThunderHammerStaticField::Installed(Item)||ThunderHammerCoil::Installed(Item);
+     const FSoftObjectPath BluntGripPath(Kind==TEXT("warhammer")?
+-        TEXT("/Game/Weapons/SteelWarhammer20261014/RhythmClearanceV2/DA_Warhammer_Clearance.DA_Warhammer_Clearance"):TEXT(""));
++        (ConductiveGrip?TEXT("/Game/Weapons/ThunderGodHammer20261028/NormalGripFix20261031/DA_ThunderHammer_ConductiveGrip.DA_ThunderHammer_ConductiveGrip"):
++        TEXT("/Game/Weapons/SteelWarhammer20261014/RhythmClearanceV2/DA_Warhammer_Clearance.DA_Warhammer_Clearance")):TEXT(""));
+     bUsesArms=!ViewmodelPath.IsNull();
+     TArray<FSoftObjectPath> Paths={SoundPath,DustPath};
+     if(ColdSteelModularSword::Supports(*Item))ColdSteelModularSword::GatherVisualResources(*Item,Paths);
+@@ -246,6 +260,10 @@
+         Paths.Add(WarhammerWhirlwindPath);
+         Paths.Add(WarhammerUppercutPath);
+         if(bFinalTollHead)Paths.Add(FSoftObjectPath(FinalTollHeavy::Asset));
++        if(Item&&Item->Definition==ThunderHammer::Definition)
++            for(const TCHAR* Path:{ThunderHammerThrow::Charge,ThunderHammerThrow::Throw,ThunderHammerThrow::RecallReady,ThunderHammerThrow::Catch,ThunderHammerCall::Charge,ThunderHammerCall::Release,ThunderHammerCall::ChargeSound,ThunderHammerRecallAudio::Metal,ThunderHammerRecallAudio::Air,ThunderHammerRecallAudio::Catch})Paths.Add(FSoftObjectPath(Path));
++        if(Item&&Item->Definition==ThunderHammer::Definition)
++            Paths.Add(FSoftObjectPath(TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/M_JiLeiAim.M_JiLeiAim")));
+         Paths.Add(WarhammerInspectPath);
+         Paths.Add(WarhammerInspectWalkPath);
+         // The walking-inspect air cue stays resident with the hammer; never load on cue.
+@@ -280,6 +298,13 @@
+                     Motions.Add(TEXT("Whirlwind"),Cast<UAnimSequence>(WarhammerWhirlwindPath.ResolveObject()));
+                     Motions.Add(TEXT("Uppercut"),Cast<UAnimSequence>(WarhammerUppercutPath.ResolveObject()));
+                     Motions.Add(TEXT("FinalTollHeavy"),Cast<UAnimSequence>(FSoftObjectPath(FinalTollHeavy::Asset).ResolveObject()));
++                    Motions.Add(TEXT("ThunderCharge"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerThrow::Charge).ResolveObject()));
++                    Motions.Add(TEXT("ThunderCallCharge"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerCall::Charge).ResolveObject()));
++                    Motions.Add(TEXT("ThunderCallRelease"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerCall::Release).ResolveObject()));
++                    ThunderCallChargeSound=Cast<USoundBase>(FSoftObjectPath(ThunderHammerCall::ChargeSound).ResolveObject());
++                    Motions.Add(TEXT("ThunderThrow"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerThrow::Throw).ResolveObject()));
++                    Motions.Add(TEXT("ThunderCatch"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerThrow::Catch).ResolveObject()));
++                    Motions.Add(TEXT("ThunderRecallReady"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerThrow::RecallReady).ResolveObject()));
+                     Motions.Add(TEXT("Inspect"),Cast<UAnimSequence>(WarhammerInspectPath.ResolveObject()));
+                     Motions.Add(TEXT("InspectWalk"),Cast<UAnimSequence>(WarhammerInspectWalkPath.ResolveObject()));
+                     Motions.Add(TEXT("QuickCombat"),Cast<UAnimSequence>(FSoftObjectPath(WarhammerQuickCombat::Asset).ResolveObject()));
+@@ -294,7 +319,10 @@
+                 if(HasReadyPresentation())
+                 {
+                     const bool Local=Character.IsValid()&&Character->IsLocallyControlled();
+-                    EquipElapsed=Local?0.f:-1.f;SampleMotion(Local?TEXT("Equip"):TEXT("Idle"),0.f);
++                    // Returning to an already-thrown instance cannot draw it
++                    // into the hand. Leave primary input available for recall.
++                    const bool Draw=Local&&!IsThunderHammerAway();
++                    EquipElapsed=Draw?0.f:-1.f;SampleMotion(Draw?TEXT("Equip"):TEXT("Idle"),0.f);
+                 }
+             }
+             else ToolMesh->SetStaticMesh(Cast<UStaticMesh>(MeshPath.ResolveObject()));
+@@ -321,6 +349,7 @@
+                             }
+                 }
+                 ProductionToolAppearance::ApplyLevel(ToolMesh,*Current);
++                LeiXiCoreMaterial=ThunderHammerPommel::BindVisual(ToolMesh);bLeiXiCoreActive=false;
+                 ProductionToolAppearance::ApplyLevel(Viewmodel,*Current);
+             }
+             HitSound=Cast<USoundBase>(SoundPath.ResolveObject()); ImpactDust=Cast<UParticleSystem>(DustPath.ResolveObject());
+@@ -344,11 +373,13 @@
+ {
+     const auto* PC=Character.IsValid()?Cast<APlayerController>(Character->GetController()):nullptr;
+     const auto* Building=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
+-    return CanPresent() && !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC)) && (!Building || !Building->IsBuilding());
++    return CanPresent() && (bContinuing||!IsThunderRecallLocked()) && !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC)) && (!Building || !Building->IsBuilding())
++        &&(!IsThunderHammerAway()||UsesThunderThrowHeavy());
+ }
+ 
+ void UProductionToolComponent::BeginUse()
+ {
++    if(IsThunderHammerAway()||ThunderCatchAge>=0.f||ThunderCallReleaseAge>=0.f)return;
+     if(Character.IsValid()&&Character->RuneSword&&Character->RuneSword->IsToolGuardRequested())return;
+     if(bBluntCharging||bBluntReturningCharge||bBluntWhirlwind||bBluntUppercut)return;
+     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedBluntAttack=false;return;}
+@@ -370,6 +401,7 @@
+         BluntStage=bBluntSprintAttack?2:NextBluntStage;
+     }
+     AxeStrike={};
++    ThunderMagicSnapshot=-1.f;
+     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+     {
+         if(const auto* Item=Profile->ActiveProductionTool())
+@@ -389,7 +421,24 @@
+                 AxeStrike.DamagePanel=Kind==TEXT("warhammer")?
+                     WarhammerCombat::Damage(ToolStats.Damage,Profile,bBluntSprintAttack,bBluntHeavy,BluntHeavyMultiplier,BluntStage):ToolStats.Damage;
+                 AxeStrike.ToughnessDamageMultiplier=float(ToolStats.ToughnessDamage);
++                if(bBluntHeavy&&!bBluntSprintAttack&&AttackItem&&AttackItem->Definition==ThunderHammer::Definition)
++                {
++                    ThunderMagicSnapshot=ThunderHammer::LightningMagic(*AttackItem,Profile);
++                    // Standalone contacts use this snapshot directly, without
++                    // passing through ServerBeginBluntAttack's heavy commit.
++                    ThunderHammerZhenTing::Commit(AxeStrike,AttackItem,Character->GetViewRotation().Vector());
++                    ThunderHammerStaticField::Commit(AxeStrike,AttackItem);
++                    ThunderHammerCoil::Commit(AxeStrike,AttackItem,Profile);
++                }
+                 AxeStrike.CriticalChance=float(FMath::Clamp(double(AxeStrike.CriticalChance)+ToolStats.CriticalChanceAdd,0.,100.));
++                // Listen hosts also enter the authoritative RPC below. Only
++                // standalone consumes procs here, after all item reads finish.
++                if(GetNetMode()==NM_Standalone&&bBluntHeavy&&!bBluntSprintAttack)
++                {
++                    const auto Committed=AxeStrike;
++                    ThunderHammerStaticField::Released(Character.Get(),Committed,bThunderThrowSeat||bThunderCallSeat);
++                    ThunderHammerCoil::Released(Character.Get(),Committed,bThunderThrowSeat||bThunderCallSeat);
++                }
+             }
+         }
+         else if(GetNetMode()==NM_Standalone&&!Profile->SpendStamina(Profile->StaminaSettings().HarvestCost*Profile->ActionStaminaMultiplier()))
+@@ -409,7 +458,12 @@
+     FinalTollStrikes=0;FinalTollHeavySerial=UsesFinalTollHeavy()?AxeStrike.MasteryAttackSerial:0;
+     FinalTollCommitUntil=RuneboundClock()+FinalTollHeavy::Duration/FinalTollActionRate+.1;
+     if(UsesFinalTollHeavy()){SwingSeconds=FinalTollHeavy::Duration;ContactSeconds=FinalTollHeavy::FirstContact;bBluntFloorTarget=false;}
+-    if(bBluntHeavy&&!UsesFinalTollHeavy())
++    if(UsesThunderThrowHeavy())
++    {
++        SwingSeconds=ThunderHammerThrow::Duration;ContactSeconds=ThunderHammerThrow::Release;bBluntFloorTarget=false;
++        Character->StopMovementForMeleeSkill();
++    }
++    else if(bBluntHeavy&&!UsesFinalTollHeavy())
+     {
+         SwingSeconds=WarhammerHeavy::Duration;ContactSeconds=WarhammerHeavy::Contact;
+         BluntSlamRotation=FRotator(0.f,Character->GetControlRotation().Yaw,0.f).Quaternion();
+@@ -438,7 +492,7 @@
+ 
+ void UProductionToolComponent::SelectBluntMotion()
+ {
+-    Motions.Add(TEXT("ActiveSwing"),Motions.FindRef(UsesFinalTollHeavy()?FName(TEXT("FinalTollHeavy")):bBluntHeavy?FName(TEXT("HeavyRelease")):ProductionBluntCombo::Swing(BluntStage)));
++    Motions.Add(TEXT("ActiveSwing"),Motions.FindRef(UsesThunderThrowHeavy()?FName(TEXT("ThunderThrow")):UsesFinalTollHeavy()?FName(TEXT("FinalTollHeavy")):bBluntHeavy?FName(TEXT("HeavyRelease")):ProductionBluntCombo::Swing(BluntStage)));
+     Motions.Add(TEXT("ActiveHitRecover"),Motions.FindRef(ProductionBluntCombo::Recovery(BluntStage)));
+ }
+ 
+@@ -470,6 +524,9 @@
+ 
+ void UProductionToolComponent::CancelUse()
+ {
++    ThunderCallReleaseAge=-1.f;bThunderCallCharging=false;ClearThunderCallVisual();FinishThunderCallResources();
++    FPSMagicPreview::Clear(ThunderPreview);ThunderCatchAge=-1.f;
++    bThunderRecallPending=false;ThunderReachAge=-1.f;
+     if(Character.IsValid())
+         if(auto* Move=Cast<UFPSCharacterMovementComponent>(Character->GetCharacterMovement()))
+         {
+@@ -525,9 +582,11 @@
+     // Multiplayer blunt contact is traced and settled once by its server timer.
+     if(Kind==TEXT("warhammer")&&GetNetMode()!=NM_Standalone)
+     {
++        if(UsesThunderThrowHeavy()&&!GetOwner()->HasAuthority())ThunderAwayInstance=EquippedId;
+         return false;
+     }
+-    if(Kind==TEXT("warhammer"))return bBluntHeavy?BeginBluntShockwave(bBluntSprintAttack?0.f:BluntHeavyStunSeconds):ResolveBluntContact();
++    if(UsesThunderThrowHeavy())return LaunchThunderHammer(AxeStrike,ThunderMagicSnapshot);
++    if(Kind==TEXT("warhammer"))return bBluntHeavy?BeginBluntShockwave(bBluntSprintAttack?0.f:BluntHeavyStunSeconds,ThunderMagicSnapshot):ResolveBluntContact();
+     FProductionResource Target; FHitResult Hit; FString Reason;
+     const bool bCombatTool=UsesTwoHandMotion();
+     const bool Found=bCombatTool?TraceAxeContact(Target,Hit,Reason):TraceResource(Target,Hit,Reason);
+@@ -611,6 +670,8 @@
+     }
+     if(!CanUse(true))
+     {
++        // Awaiting/receiving a recalled hammer is an active hand presentation.
++        if(IsThunderHammerAway()){if(Elapsed>=0.f)FinishUse();return;}
+         CancelUse();return;
+     }
+     if(IsQuickCombatActive()){Character->QuickCombatPistol->AdvanceAction(Delta);return;}
+@@ -618,6 +679,12 @@
+     if(bBluntUppercut){TickBluntUppercut(Delta);return;}
+     AdvanceBluntSprintReadiness(Delta);
+     AdvanceBluntCharge(Delta);
++    if(ThunderCallReleaseAge>=0.f)
++    {
++        ThunderCallReleaseAge+=Delta*HasteActionRate;
++        if(ThunderCallReleaseAge>=ThunderHammerCall::ReleaseSeconds){ThunderCallReleaseAge=-1.f;VisualTime=0.f;}
++        return;
++    }
+     if(Elapsed>=0.f&&UsesFinalTollHeavy()){AdvanceFinalTollHeavy(Delta);return;}
+     if (Elapsed>=0)
+     {
+@@ -681,7 +748,7 @@
+ void UProductionToolComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
+ {
+     Super::TickComponent(Delta,Type,Tick);
+-    InitializeLocalTool();TickRunebound(Delta);TickAuthorityBluntCharge();
++    InitializeLocalTool();TickRunebound(Delta);TickAuthorityBluntCharge();TickThunderThrow(Delta);TickThunderCall(Delta);
+     if(Character.IsValid()&&Character->HasAuthority()&&!Character->IsLocallyControlled()&&bBluntServerSprintAttack)
+     {
+         const double Now=GetWorld()->GetTimeSeconds();
+@@ -698,11 +765,14 @@
+     if(!Character.IsValid()||!Character->IsLocallyControlled())
+     {UpdateRuneboundPresentation(Delta,!RuneboundInstance.IsEmpty());UpdateStormDriveLightning(Delta);return;}
+     const bool Present=IsEquipped() && CanPresent();
++    ThunderHammerPommel::UpdateVisual(Character.Get(),LeiXiCoreMaterial.Get(),bLeiXiCoreActive);
+     const bool Usable=IsEquipped() && CanUse(true);
+-    if (ToolMesh) ToolMesh->SetVisibility(Present && (!bUsesArms||ToolMesh->GetAttachParent()==Viewmodel) && ToolMesh->GetStaticMesh(),true);
+-    if (Viewmodel) Viewmodel->SetVisibility(Present && bUsesArms && HasReadyPresentation());
++    const bool Away=IsThunderHammerAway();
++    const bool Catching=ThunderCatchAge>=0.f||(Away&&(bThunderRecallPending||(ThrownHammer&&(ThrownHammer->IsReturning()||ThrownHammer->IsCatching()))));
++    if (ToolMesh) ToolMesh->SetVisibility(Present && !Away && (!bUsesArms||ToolMesh->GetAttachParent()==Viewmodel) && ToolMesh->GetStaticMesh(),true);
++    if (Viewmodel) Viewmodel->SetVisibility(Present && bUsesArms && HasReadyPresentation()&&(!Away||UsesThunderThrowHeavy()||Catching));
+     const bool GuardBreakPresentation=Present&&Character->RuneSword&&Character->RuneSword->IsToolGuardBreakActive();
+-    if (!Usable&&!GuardBreakPresentation) CancelUse();
++    if (!Usable&&!GuardBreakPresentation&&!Away&&!Catching) CancelUse();
+     if(Present && bUsesArms && HasReadyPresentation())UpdateHandPresentation(Delta);
+     TickWarhammerRifts(Delta,Present);
+     FeedbackSeconds=FMath::Max(0.f,FeedbackSeconds-Delta);
+@@ -722,6 +792,14 @@
+ 
+ void UProductionToolComponent::EndPlay(const EEndPlayReason::Type Reason)
+ {
++    bThunderCallCharging=false;FinishThunderCallResources();StopThunderCallAudio();
++    if(ThunderCallChargeAudio){ThunderCallChargeAudio->DestroyComponent();ThunderCallChargeAudio=nullptr;}
++    if(ThunderCallDecal)ThunderCallDecal->DestroyComponent();
++    if(ThunderPreview)ThunderPreview->DestroyComponent();
++    if(GetOwner()->HasAuthority()&&ThrownHammer)
++    {
++        ThrownHammer->ReturnToStorage();
++    }
+     ClearWarhammerRifts(true);
+     ClearRuneboundPresentation();
+     ClearStormDriveLightning();

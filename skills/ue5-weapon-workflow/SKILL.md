@@ -47,3 +47,4 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 装备近战体力／施法法力减耗、强化与聚能叠加，读取 [资源费用乘区与最低费用](../ue5-item-asset-workflow/references/resource-cost-multipliers.md)；同件加法、跨件乘法，最终保留正基础费用的 20%，执行与预览共用。
 
 - M24 的独立枪托/后握把、原厂分区、局部表面修订与恢复链：[M24 模块化与恢复](references/m24-modular-recovery.md)。
+- 雷神之锤、贯雷留场召回、疾雷及多改造攻击入口：读取[雷神之锤、贯雷留场召回、疾雷及多改造攻击入口](references/thunder-hammer-lifecycle.md)。

@@ -11,6 +11,8 @@
 #include "../FPSGAMECharacter.h"
 #include "ColdSteelSkillRules.h"
 #include "LightningDamage.h"
+#include "../Production/ThunderHammerRunes.h"
+#include "../Production/ThunderHammerPommel.h"
 #include "Components/PrimitiveComponent.h"
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
@@ -32,6 +34,7 @@ FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel,bool bApplyFo
     C.Duration=T.Duration;C.Fade=T.Fade;C.Segments=T.Segments;C.Jitter=T.Jitter;
     C.ElectrifyStacks=T.ElectrifyStacks;C.ElectrifyDuration=T.ElectrifyDuration;C.ElectricBonusPerStack=T.ElectricBonusPerStack;
     C.OverloadStacks=T.OverloadStacks;C.OverloadStun=T.OverloadStun;C.OverloadRange=T.OverloadRange*T.UnitsToCM;
+    ThunderHammerRunes::Configure(C,ActiveProductionTool()?ActiveProductionTool():Equipped());
     C.OverloadDamage=FMath::FloorToFloat(T.OverloadBase+Matk*T.OverloadMagic+Intelligence*T.OverloadIntelligence);
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
@@ -95,6 +98,7 @@ bool UColdSteelStatusModel::ApplyLightningHit(APawn* Shooter,AActor* Target,cons
     const float Applied=UGameplayStatics::ApplyPointDamage(Target,Damage,(End-Origin).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,ULightningDamage::StaticClass());
     for(const auto& K:Rewards.Kills)Batch.KillRewards.FindOrAdd(K.Key)=K.Value;
     if(Applied<=0)return false;
+    ThunderHammerPommel::ConfirmElectricDamage(Shooter,Spell,Applied);
     // The bell extends an existing stun; overload splash receives only the bell,
     // not the direct lightning strike's native stun.
     if(!Combat->IsDead()&&(bTrain||Spell.StunExtensionSeconds>0))

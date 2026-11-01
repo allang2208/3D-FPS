@@ -48,7 +48,7 @@ public:
     /** 状态免疫（计时版）：免疫一切增减益状态；到期自动解除。旧 applyStatusImmune。 */
     UFUNCTION(BlueprintCallable) void AddStatusImmune(float Seconds);
     // Returns true once at the overload threshold. The spell owns the resulting chain.
-    bool AddElectrified(int32 Stacks,float Seconds,int32 OverloadThreshold,float BonusPerStack);
+    bool AddElectrified(int32 Stacks,float Seconds,int32 OverloadThreshold,float BonusPerStack,int32 RetainedStacks=0);
     float ElectricMultiplier()const{return ElectrifiedTime>0?1+ElectrifiedStacks*ElectrifiedBonus:1.f;}
     int32 ElectrifiedCount()const{return ElectrifiedTime>0?ElectrifiedStacks:0;}
 

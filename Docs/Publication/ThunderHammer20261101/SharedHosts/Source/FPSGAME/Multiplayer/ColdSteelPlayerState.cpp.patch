@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -418,7 +418,8 @@
+         const auto* UpkeepPawn=GetPawn();
+         const auto* ElementHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UFPSElementalArrowComponent>():nullptr;
+         const auto* RainHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UFPSMagicArrowRainComponent>():nullptr;
+-        if((ElementHold&&ElementHold->OwnsHoldResources())||(RainHold&&RainHold->HasPreparedArrow()))
++        const auto* ThunderHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UProductionToolComponent>():nullptr;
++        if((ElementHold&&ElementHold->OwnsHoldResources())||(RainHold&&RainHold->HasPreparedArrow())||(ThunderHold&&ThunderHold->OwnsThunderCallResources()))
+         {
+             Adopted.Mana=Prev.Mana;Adopted.Stamina=Prev.Stamina;Adopted.StaminaRecoveryDelay=Prev.StaminaRecoveryDelay;Adopted.bSprintExhausted=Prev.bSprintExhausted;
+             Adopted.SpellbookFocusManaLoss=Prev.SpellbookFocusManaLoss;Adopted.UppercutStaminaSpent=Prev.UppercutStaminaSpent;
+@@ -523,7 +524,12 @@
+         if(!ColdSteelInventory::MigrateAuthoredGridFootprints(Adopted,FootprintChanged,FootprintReason))
+         {ClientProfileSyncRejected(FootprintReason);return false;}
+         const bool TubeCapacityChanged=Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision;
++        auto* ThunderTool=GetPawn()?GetPawn()->FindComponentByClass<UProductionToolComponent>():nullptr;
++        FString ThunderReason;
++        if(ThunderTool&&!ThunderTool->ValidateThunderEquipmentChange(Prev,Adopted,ThunderReason))
++        {ClientProfileSyncRejected(ThunderReason);return false;}
+         ShadowModel->AdoptNetMirror(Adopted);
++        if(ThunderTool)ThunderTool->CommitThunderEquipmentChange(Adopted);
+         if(TubeCapacityChanged)
+         {
+             RecordSuper90PouchChange(Prev,Adopted);

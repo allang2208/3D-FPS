@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -2,6 +2,8 @@
+ #include "../Weapons/Kukri/KukriRelentlessComponent.h"
+ #include "../Weapons/Kukri/KukriPairedHeavyHit.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Production/ThunderHammerRunes.h"
++#include "../Production/ThunderHammerTuning.h"
+ #include "../Combat/CombatChill.h"
+ #include "../Weapons/Kukri/KukriBerserkerComponent.h"
+ #include "../Weapons/Kukri/KukriEnchantment.h"
+@@ -657,6 +659,11 @@
+             }
+             if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
+             if(Shot.ItemInstance.IsEmpty())Shot.ItemInstance=I->InstanceId;
++            if(I->Definition==ThunderHammer::Definition)
++            {
++                Shot.HammerLightning=M->LightningStats();ThunderHammerRunes::Configure(Shot.HammerLightning,I);
++                Shot.bHammerRuneContact=Shot.HammerLightning.RuneElectrifyChance>0.f;
++            }
+             const auto Wager=ColdSteelCombat::BigBlind(Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),I);
+             if(Wager.Enabled)
+             {Shot.WagerCriticalBonusPerStack=Wager.CriticalBonusPerStack;Shot.WagerSeconds=Wager.Seconds;Shot.WagerMaxStacks=Wager.MaxStacks;}
+@@ -844,7 +851,7 @@
+                 // bypasses the roll; later lightning kill fan-out never rolls.
+                 const bool bMeleeKill=Result?Result->bKilled:Receipt.bKilled;
+                 if(bMeleeKill||FMath::FRand()<.25f)
+-                    Lightning->QueueDischarge(Hit,Shot.ElectrifiedRadiusCM,Shot.ElectrifiedMinLevel);
++                    Lightning->QueueDischarge(Hit,Shot.ElectrifiedRadiusCM,Shot.ElectrifiedMinLevel,Shot.HammerLightning);
+             }
+         if(bPairedEnemy&&PairedHeavy->Second.Damage>0.f)
+         {
+@@ -852,7 +859,7 @@
+             if(Other.ElectrifiedRadiusCM>0.f&&Other.ElectrifiedMinLevel>0)
+                 if(auto* Lightning=Shooter->FindComponentByClass<UFPSMeleeLightningComponent>())
+                     if((Result?Result->bKilled:Receipt.bKilled)||FMath::FRand()<.25f)
+-                        Lightning->QueueDischarge(PairedHeavy->Second.Hit,Other.ElectrifiedRadiusCM,Other.ElectrifiedMinLevel);
++                        Lightning->QueueDischarge(PairedHeavy->Second.Hit,Other.ElectrifiedRadiusCM,Other.ElectrifiedMinLevel,Other.HammerLightning);
+         }
+         if(bShatter)
+             if(auto* Ballistics=Shot.BulletSource.IsValid()?Shot.BulletSource.Get():Shooter->FindComponentByClass<UFPSBallisticsComponent>())

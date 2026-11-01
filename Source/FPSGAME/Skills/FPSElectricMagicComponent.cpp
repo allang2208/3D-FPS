@@ -1,4 +1,5 @@
 #include "FPSElectricMagicComponent.h"
+#include "../Production/ThunderHammerRunes.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSFireballComponent.h"
@@ -419,7 +420,7 @@ void UFPSElectricMagicComponent::ApplyStatus(AActor* Target,const FLightningCast
     auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();if(!C||C->IsDead())return;
     auto* S=UCombatStatusFormula::GetOrAdd(Target);if(S->IsImmune())return;
     // Native stun and bell extension are shared by all electric damage hits.
-    if(S->AddElectrified(Spell.ElectrifyStacks,Spell.ElectrifyDuration,Spell.OverloadStacks,Spell.ElectricBonusPerStack))Overload(Target,Spell,Rewards);
+    if(S->AddElectrified(ThunderHammerRunes::Stacks(Spell,Spell.ElectrifyStacks),Spell.ElectrifyDuration,Spell.OverloadStacks,Spell.ElectricBonusPerStack,Spell.OverloadRetainedStacks))Overload(Target,Spell,Rewards);
 }
 void UFPSElectricMagicComponent::Strike()
 {

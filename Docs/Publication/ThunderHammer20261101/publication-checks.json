@@ -1,0 +1,60 @@
+{
+  "scope": "Publication only; no editor, build or gameplay launched",
+  "files": 523,
+  "syntax": {
+    "python": 270,
+    "powershell": 85
+  },
+  "json": 12,
+  "problems": [],
+  "shared_patches_replayed_exactly": 26,
+  "navigation_links": 13,
+  "largest_files": [
+    {
+      "bytes": 1058090,
+      "path": "Docs/Publication/ThunderHammer20261101/cleanup-manifest.json"
+    },
+    {
+      "bytes": 314346,
+      "path": ".gitignore"
+    },
+    {
+      "bytes": 211064,
+      "path": "Content/ColdSteelData/items.json"
+    },
+    {
+      "bytes": 138728,
+      "path": "Docs/AssetSetup.md"
+    },
+    {
+      "bytes": 70935,
+      "path": "Docs/Publication/ThunderHammer20261101/source-manifest.json"
+    },
+    {
+      "bytes": 45739,
+      "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp"
+    }
+  ],
+  "suffix_counts": {
+    "": 1,
+    ".json": 12,
+    ".md": 62,
+    ".patch": 26,
+    ".cpp": 37,
+    ".h": 25,
+    ".py": 270,
+    ".ps1": 85,
+    ".hlsl": 3
+  },
+  "binary_payloads": 0,
+  "whitespace": "git diff --cached --check passed; 15 historical recipes normalized; Python AST unchanged",
+  "shared_index": "Preparation used a private index; final commit guard preserves unrelated staged entries",
+  "git_checks": {
+    "base": "0efd7dcc368bf9395f99fe25d35093c2d3032952",
+    "target": "https://github.com/allang2208/3D-FPS.git",
+    "branch": "main",
+    "push": "ordinary non-force HEAD:main; remote readback recorded after push in local receipt"
+  },
+  "private_assets": "No raw media, UE packages, dense animation data or third-party binaries staged",
+  "fresh_build_or_gameplay_test": false
+}

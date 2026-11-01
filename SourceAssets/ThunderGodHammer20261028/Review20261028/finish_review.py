@@ -1,0 +1,57 @@
+"""Summarize actual user-requested check results and binary delivery boundaries."""
+import json,hashlib,datetime
+from pathlib import Path
+P=Path(__file__).resolve().parent;T=P.parent;ROOT=T.parents[1]
+def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
+catalog=read(P/'catalog-result.json');assets=read(P/'assets-result.json');geometry=read(P/'geometry-result.json')
+native=read(P/'native-result.json');native_run=read(P/'native-execution.json');game=read(T/'build-game-receipt.json');editor=read(T/'build-editor-receipt.json')
+summary={'definition':'ue_thunder_god_hammer','requested_by_user':True,
+ 'completed':datetime.datetime.now().isoformat(),
+ 'catalog':{'checks':catalog['count'],'failures':len(catalog['failures'])},
+ 'saved_assets':{'checks':assets['count'],'loaded':len(assets['assets']),'failures':len(assets['failures'])},
+ 'geometry':{'checks':geometry['count'],'failures':len(geometry['failures'])},
+ 'native':{'checks':native['count'],'failures':native['failures'],'process_exit':native_run['exit_code']},
+ 'fixes':[read(P/'first-finding.json'),read(P/'rune-finding.json')],'game_build':game,'editor_build':editor,
+ 'build_unblock':'BowCadenceComponent GetLifetimeReplicatedProps parameter renamed to OutLifetimeProps, as required by DOREPLIFETIME',
+ 'primary_editor_binary_updated':editor['exit_code']==0,
+ 'editor_delivery':'Primary Editor DLL built after the existing interactive editor exited independently; final native checks use this DLL.',
+ 'real_network_transport_tested':False,'live_animation_visual_tested':False,
+ 'user_profile_modified':False,'interactive_editor_started':False,
+ 'native_execution':native_run,'historical_isolated_build':read(P/'isolated-build.json')}
+summary['checks_passed']=all(v['failures']==0 for v in (summary['catalog'],summary['saved_assets'],summary['geometry'],summary['native'])) and native_run['exit_code']==game['exit_code']==editor['exit_code']==0
+(P/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+text=f'''# 雷神之锤检查记录（2026-10-28）
+
+用户明确要求“自己检查一遍”后执行。检查对象为 `ue_thunder_god_hammer` 的当前目录、已保存资产、实际模块几何与隔离原生运行接口。
+
+## 发现与修复
+
+发现鸣雷疾驱座电弧的部件识别漏接。原 `ProductionStormDriveLightning.cpp` 只接受包含 `Warhammer_StormDrive_` 的模型名，新锤部件名为 `SM_ThunderGodHammer_head_mount_storm_drive_seat`，因此无法进入已装备锤座的电弧显示分支。已增加该确切模型名，保留两把旧锤的识别条件。未修改配件数值、伤害或镇魂钟专属命中电弧条件。首个失败证据见 `first-finding.json` 与修改前源码副本。
+
+原生调用另发现附加符文未显示：材质资源和数值可用，但 `MeleeRuneVisual.cpp` 的长柄材质名单不包含 `M_ThunderGodHammerSurface`，生成的符文载体数为 0，第三人称也无法捕获。已补齐材质识别和本锤覆盖材质的复用名称。首轮实际失败保存在 `native-before-rune-fix.json`；新增五种符文逐项检查，覆盖载体、选中 ID、重复应用复用 MID、原装恢复和观察者重建。
+
+完整构建遇到与本锤无关的 `BowCadenceComponent.cpp` 参数命名错误：`DOREPLIFETIME` 要求 `OutLifetimeProps`，原函数使用 `Out`。仅重命名该参数及父类调用，解除编译阻塞，未改变弓的玩法逻辑。
+
+## 检查结果
+
+- 当前目录与依赖文件：{catalog['count']} 项，失败 {len(catalog['failures'])}。覆盖独立物品／公式、五栏枪匠、共享选项、图标、作者表与运行表一致性、动作资源路径和烹饪目录。
+- UE 独立进程读回：加载 {len(assets['assets'])} 个资源，{assets['count']} 项检查，失败 {len(assets['failures'])}。覆盖材质槽、PBR 纹理引用／色彩空间、法线绿通道、符文局部坐标、动画长度与骨架、Nanite 完整回退。
+- 实际 Blender 几何：{geometry['count']} 项，失败 {len(geometry['failures'])}。覆盖六模块的原整模表面和包围尺寸、16 件通用部件的真实连接截面、UV 与材质；未重存作者模型。
+- 隔离原生调用：{native['count']} 项，失败 {native['failures']}，进程退出码 {native_run['exit_code']}。覆盖发放幂等、各可选配件归一化／数值、六模块装配与恢复、符文观察者数据序列化及颜色、普通／重击／冲刺扣体与去重、三个锤宿主的鸣雷锤座识别和隐藏退出。
+
+材质首轮读取使用 NullRHI 下的已编译纹理资源清单，返回空清单；改为读取保存的材质 TextureSample 引用后通过。初始记录保留在 `assets-first-nullrhi-query.*`，不把该探针限制记为产品缺陷。
+
+## 构建与边界
+
+Game 构建退出码：{game['exit_code']}；主工程 Editor 构建退出码：{editor['exit_code']}。原先运行的编辑器由外部自行退出，本任务未关闭或重启它。首次原生检查在独立 DLL 中运行并发现符文问题；最终复查使用已常规编译的主工程 Editor DLL，实际路径与散列见 `native-execution.json`。
+
+构建首轮曾遇到 M24 头文件尚未落盘，文件出现后继续编译；相关失败日志保留。私有宿主第一次初始化等待 SDK，取消该次进程后设置项目既有跳过 SDK 初始化选项；共享互斥繁忙期间未启动测试，均未计为通过。
+
+检查未改动个人存档。原生测试调用真实处理器但未进行真实 UDP 主客机测试；读取了共享动作资产并查看已有原生背包图标，未进行连续手臂动画、第一／第三人称画面或实机粒子观感验收。
+
+私有 `Host/Content`、`Host/Plugins` 是指向主工程的目录 Junction，只用于读取资产。宿主的 DLL、配置和 Saved 为独立文件，已由本目录 `.gitignore` 排除；不要递归移动或删除其链接目标。
+'''
+(P/'review.md').write_text(text,encoding='utf-8')
+delivery=read(T/'delivery.json');delivery['user_requested_review']=str(P/'summary.json')
+(T/'delivery.json').write_text(json.dumps(delivery,ensure_ascii=False,indent=2),encoding='utf-8')
+print(json.dumps({k:summary[k] for k in ('checks_passed','catalog','saved_assets','geometry','native')},ensure_ascii=False))

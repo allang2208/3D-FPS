@@ -59,7 +59,10 @@ namespace FPSMagicPreview
      * (`fps.Magic.PreviewDashCM` / `PreviewGapCM`), and the end touching the spell fades in from
      * invisible and is thinner there, so the attachment reads as a soft lead-in.
      */
-    void DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArray<FVector>& Points);
+    // The default preserves spell styling. A centred weapon throw can opt into
+    // a stronger lead-in so a short first dash does not disappear completely.
+    void DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArray<FVector>& Points,
+        float Thickness=LineThickness,float MinimumOpacity=0.f);
     /** Stops drawing immediately: pending segments are dropped. */
     void Clear(ULineBatchComponent* Lines);
 }

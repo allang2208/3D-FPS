@@ -1,0 +1,24 @@
+"""Render each actual finished model as production input for its framed icon."""
+import bpy,sys,json
+from pathlib import Path
+from mathutils import Vector
+P=Path(__file__).resolve().parent
+sys.path.insert(0,'C:/Users/allan/.codex/skills/ue5-weapon-workflow/scripts')
+from apply_modification_icon_grayscale import apply_grayscale,neutral_output
+rows=json.loads((P/'model_manifest.json').read_text(encoding='utf-8'))['parts']
+for row in rows:
+ bpy.ops.wm.read_factory_settings(use_empty=True);bpy.context.preferences.filepaths.save_version=0
+ with bpy.data.libraries.load(str(P/'ThunderSeats_DistinctV9.blend'),link=False) as(a,b):b.objects=[row['mesh']]
+ obj=b.objects[0];bpy.context.collection.objects.link(obj);obj.hide_render=False;obj.hide_set(False);apply_grayscale([obj])
+ scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.use_denoising=True;neutral_output(scene)
+ scene.render.resolution_x=scene.render.resolution_y=1024;scene.render.resolution_percentage=100
+ scene.render.film_transparent=True;scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGBA'
+ scene.world=bpy.data.worlds.new('Neutral icon studio');scene.world.use_nodes=True
+ bg=scene.world.node_tree.nodes.get('Background');bg.inputs[0].default_value=(.12,.12,.12,1);bg.inputs[1].default_value=.25
+ lo=Vector(row['bounds_m'][0]);hi=Vector(row['bounds_m'][1]);scale=1.25/max(hi-lo);obj.scale=(scale,)*3;obj.location=-(lo+hi)*.5*scale
+ bpy.ops.object.camera_add(location=(1.10,-4.1,.65));cam=bpy.context.object;cam.rotation_euler=(-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.type='ORTHO';cam.data.ortho_scale=1.62;scene.camera=cam
+ for loc,power,size in [((-2,-3,3),230,3),((2,-2,1),110,2),((0,1,2),220,2)]:
+  bpy.ops.object.light_add(type='AREA',location=loc);o=bpy.context.object;o.data.energy=power;o.data.size=size;o.rotation_euler=(-o.location).to_track_quat('-Z','Y').to_euler()
+ scene.render.filepath=str(P/'Icons'/(row['id']+'_source.png'));bpy.ops.render.render(write_still=True)
+ bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(P/'Icons'/(row['id']+'_source.blend')))
+ print('ICON_SOURCE_SAVED',row['id'],flush=True)

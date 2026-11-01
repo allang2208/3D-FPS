@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.cpp
+@@ -128,7 +128,7 @@
+     const float JingangDefense=Jingang?Jingang->DefenseMultiplier():1.f;
+     const auto* IceArmor=(Key==TEXT("def")||Key==TEXT("mdef"))&&RuntimePawn()?RuntimePawn()->FindComponentByClass<UFPSIceArmorComponent>():nullptr;
+     const float IceDefense=IceArmor?IceArmor->DefenseBonus(Key==TEXT("mdef")):0.f;
+-    if (Key == TEXT("atk")) return AdjustCombatStat(Key,S.Atk+CoreCombatFormula::Round(EquipmentBonus(Key)))*RuneboundHammer::AttackMultiplier(Current);
++    if (Key == TEXT("atk")) return AdjustCombatStat(Key,S.Atk+CoreCombatFormula::Round(EquipmentBonus(Key)))*RuneboundHammer::AttackMultiplier(Current)+ColdSteelMelee::EquippedModifiers(this).PhysicalAttackAdd;
+     if (Key == TEXT("def")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT("defensePercent"))));return AdjustCombatStat(Key,Value)*JingangDefense+IceDefense;}
+     if (Key == TEXT("matk")) return AdjustCombatStat(Key,S.Matk+CoreCombatFormula::Round(EquipmentBonus(Key))+EquipmentMagicAttack())*RuneboundHammer::AttackMultiplier(Current);
+     if (Key == TEXT("mdef")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->MagicDefense(Item);return AdjustCombatStat(Key,S.Mdef+Equipment)*JingangDefense+IceDefense;}

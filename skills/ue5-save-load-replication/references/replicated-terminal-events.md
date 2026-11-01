@@ -1,0 +1,22 @@
+# 复制字段与短暂终止事件
+
+适用投掷物接回、短暂命中/接触阶段，以及带异步表现资源的复制 Actor。2026-11-01 雷神之锤案例；历史检查不触发自动测试。
+
+## 字段声明必须逐个反射
+
+每个复制成员独立声明 `UPROPERTY`。不要写 `UPROPERTY(Replicated) float A, B, C;` 后对三个名称分别 `DOREPLIFETIME`：本例 UHT 仅反射首个成员，后两个直到真实网络通道注册时才触发致命错误。头文件能编译、直接调用 `_Implementation` 的隔离夹具通过，都不能证明真实复制布局有效。
+
+## 状态与瞬时事件分开
+
+接锤阶段仅持续 100ms；客户端可能在 Actor 销毁前未看到该状态。保留复制状态供轨迹恢复，同时在销毁前按序发送可靠接触事件；事件与 `OnRep` 共用一次性标记，避免音效/震动重复。不要用可靠 RPC 替代整个持久状态，也不要因为 RPC 可靠就宣称覆盖未关联客户端、晚加入或断线恢复。
+
+音效独立异步加载并在装备阶段预取。视觉资源尚未到达时权威逻辑、复制和音频不能被网格请求阻塞；延迟回调应遵守阶段/生命周期与去重标记，EndPlay 取消相关句柄。
+
+## 用户要求联机检查时
+
+- 区分直接函数/单世界权威夹具与两个独立进程的实际 UDP；监听服务器和专用服务器分别记录。延迟、丢包参数与场景数量写明，不等同公网验收。
+- 隔离存档和输入：独立 UserDir、确定性档案；禁用移动应使用 MovementMode，而非仅停 Tick，已有 ServerMove 包仍会进来。
+- 等待目标 NetGUID 及引用解析；重复绑定使用唯一委托；延迟断言只计本轮释放后的 FX，不把上轮尚未消失的 Actor 算入本轮。
+- 记录未测范围：渲染/听感、背包 UI 事务、晚加入、重连、真实换图、多客机与性能。World EndPlay 单元路径不等于真实 ServerTravel 已测。
+
+本例入口：工程 `Source/FPSGAME/Development/ThunderHammerWireAudit.*` 和 `SourceAssets/ThunderGodHammer20261028/FullNetworkReview20261101/`。玩法身份规则见[雷神之锤生命周期](../../ue5-weapon-workflow/references/thunder-hammer-lifecycle.md)。

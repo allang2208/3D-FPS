@@ -1,0 +1,381 @@
+{
+  "version": 1,
+  "weapon": "ue_thunder_god_hammer",
+  "interface": "thunder_god_hammer_modular_v1",
+  "arms_mesh": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1.SK_Warhammer_BareArmsSprintV1",
+  "root_slot": "head_mount",
+  "module_slots": [
+    "head_mount",
+    "hammer_heads",
+    "neck",
+    "shaft",
+    "grip",
+    "pommel"
+  ],
+  "drive_bone": "WPN_root",
+  "bone_mount": {
+    "location_cm": [
+      2.340870872418089e-08,
+      2.9104042001995044e-08,
+      -4.4859800020166056e-08
+    ],
+    "scale": [
+      0.009999999526628238,
+      0.010000003102907606,
+      0.010000000718721076
+    ],
+    "rotation_xyzw": [
+      -1.0325357424885687e-07,
+      1.4323398885712768e-07,
+      6.75819938650594e-08,
+      0.999999999999982
+    ]
+  },
+  "slots": {
+    "head_mount": {
+      "factory": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_head_mount_factory.SM_ThunderGodHammer_head_mount_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "appearance": "原装中央锤座"
+      },
+      "reinforced_block": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block.SM_ThunderGodHammer_head_mount_reinforced_block",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "原厂雷纹圆徽 · 厚肩锻体 · 宽槽嵌银雷纹",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "ThorSeatsInlaidC6",
+        "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
+        "design_reference": "SeatNorseConceptV5/C_InlaidThunder.png"
+      },
+      "ribbed_light": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light.SM_ThunderGodHammer_head_mount_ribbed_light",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "原厂雷纹圆徽 · 内收镂空肩部 · 单路嵌银雷纹",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "ThorSeatsInlaidC6",
+        "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
+        "design_reference": "SeatNorseConceptV5/C_InlaidThunder.png"
+      },
+      "laminated_damper": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper.SM_ThunderGodHammer_head_mount_laminated_damper",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "原厂雷纹圆徽 · 内嵌缓冲层缝 · 折槽嵌银雷纹",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "ThorSeatsInlaidC6",
+        "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
+        "design_reference": "SeatNorseConceptV5/C_InlaidThunder.png"
+      },
+      "guan_lei_seat": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Meshes/SM_ThunderGodHammer_head_mount_guan_lei_seat_V12_UV2.SM_ThunderGodHammer_head_mount_guan_lei_seat_V12_UV2",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "原厂雷纹圆徽 · 连体闭合顶冠 · 双侧流线嵌银回环",
+        "interface": "thunder_god_hammer_modular_v1",
+        "model_revision": "GuanLeiClosedCrownV12",
+        "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
+        "design_reference": "GuanLeiClosedCrownV12/GuanLei_V12_Editable.blend"
+      },
+      "ji_lei_seat": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Meshes/SM_ThunderGodHammer_head_mount_ji_lei_seat_V14.SM_ThunderGodHammer_head_mount_ji_lei_seat_V14",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "原厂雷纹圆徽 · 连体折肩与短冠 · 内嵌聚雷纹路",
+        "interface": "thunder_god_hammer_modular_v1",
+        "model_revision": "JiLeiInlaidLightningV14",
+        "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
+        "design_reference": "JiLeiInlaidLightningV14/JiLei_V14_Editable.blend"
+      }
+    },
+    "hammer_heads": {
+      "factory": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_factory.SM_ThunderGodHammer_hammer_heads_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000085830688
+        ],
+        "appearance": "原装双侧锤头"
+      },
+      "heavy_forged": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_heavy_forged.SM_ThunderGodHammer_hammer_heads_heavy_forged",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000000000001
+        ],
+        "appearance": "宽方锤面 · 阶梯锤肩 · 成对锻钢头",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerHeads_heavy_forged_DesignV2"
+      },
+      "flanged_breaker": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_flanged_breaker.SM_ThunderGodHammer_hammer_heads_flanged_breaker",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000000000001
+        ],
+        "appearance": "八道纵向棱翼 · 收边端面 · 成对棱锤",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerHeads_flanged_breaker_DesignV2"
+      },
+      "light_drum": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_light_drum.SM_ThunderGodHammer_hammer_heads_light_drum",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000000000001
+        ],
+        "appearance": "紧凑鼓形 · 环槽束腰 · 内凹端面",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerHeads_light_drum_DesignV2"
+      },
+      "pointed_hammer": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_pointed_hammer.SM_ThunderGodHammer_hammer_heads_pointed_hammer",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000000000001
+        ],
+        "appearance": "双侧直尖 · 纵向棱槽 · 锻钢收肩",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerHeads_pointed_hammer_V1"
+      }
+    },
+    "neck": {
+      "factory": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_neck_factory.SM_ThunderGodHammer_neck_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          84.20000076293945
+        ],
+        "appearance": "原装锤颈套箍"
+      }
+    },
+    "shaft": {
+      "factory": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_shaft_factory.SM_ThunderGodHammer_shaft_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          77.99999713897705
+        ],
+        "appearance": "原装木柄与雕花护套"
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_factory.SM_ThunderGodHammer_grip_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.50000011920929
+        ],
+        "appearance": "原装握持包覆"
+      },
+      "bias_speed_wrap": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_bias_speed_wrap.SM_ThunderGodHammer_grip_bias_speed_wrap",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.5
+        ],
+        "appearance": "灰褐织带 · 连续螺旋搭接 · 窄边收口",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerGrip_bias_speed_wrap_V1"
+      },
+      "layered_cushion_wrap": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_layered_cushion_wrap.SM_ThunderGodHammer_grip_layered_cushion_wrap",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.5
+        ],
+        "appearance": "棕色皮革 · 分节软垫 · 侧面缝线",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerGrip_layered_cushion_wrap_V1"
+      },
+      "diamond_power_wrap": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_diamond_power_wrap.SM_ThunderGodHammer_grip_diamond_power_wrap",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.5
+        ],
+        "appearance": "黑褐编革 · 菱纹交叠 · 金属收口",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerGrip_diamond_power_wrap_V1"
+      },
+      "static_field_grip": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV3Game/Meshes/SM_ThunderGodHammer_grip_static_field_V3Game.SM_ThunderGodHammer_grip_static_field_V3Game",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.50000011920929
+        ],
+        "appearance": "深棕缝合皮革 · 沉入式双向银纹 · 北欧编结环印",
+        "interface": "thunder_god_hammer_modular_v1",
+        "model_revision": "StaticFieldGripV3Game",
+        "source_mesh": "SM_ThunderGodHammer_grip_factory",
+        "design_reference": "StaticFieldGripV3Game/StaticField_Editable.blend"
+      },
+      "coil_grip": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/CoilGripV1/Meshes/SM_ThunderGodHammer_grip_coil.SM_ThunderGodHammer_grip_coil",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.50000011920929
+        ],
+        "appearance": "分段绝缘握持 · 连续铜线圈 · 钛合金护肋与蓝白导光槽",
+        "interface": "thunder_god_hammer_modular_v1",
+        "model_revision": "CoilGripV1",
+        "source_mesh": "SM_ThunderGodHammer_grip_factory",
+        "design_reference": "CoilGripV1/Design/Coil_ThreeViews.png"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_factory.SM_ThunderGodHammer_pommel_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.500000089406967
+        ],
+        "appearance": "原装柄尾配重"
+      },
+      "octagonal_impact": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_octagonal_impact.SM_ThunderGodHammer_pommel_octagonal_impact",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.5
+        ],
+        "appearance": "八棱锻钢 · 宽倒角 · 齐平锁盖",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerPommel_octagonal_impact_V1"
+      },
+      "caged_agility": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_caged_agility.SM_ThunderGodHammer_pommel_caged_agility",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.5
+        ],
+        "appearance": "六肋镂笼 · 贯通窗口 · 内凹紧固件",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerPommel_caged_agility_V1"
+      },
+      "twin_disc_balance": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_twin_disc_balance.SM_ThunderGodHammer_pommel_twin_disc_balance",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.5
+        ],
+        "appearance": "双盘配重 · 刚性短芯 · 同心车纹",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerPommel_twin_disc_balance_V1"
+      },
+      "no_pommel": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_no_pommel.SM_ThunderGodHammer_pommel_no_pommel",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.5
+        ],
+        "appearance": "无配重坠体 · 轻薄平整收口",
+        "interface": "thunder_god_hammer_modular_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "ThunderGodHostSectionFitV1",
+        "source_mesh": "SM_CommonHammerPommel_NoWeightCap_V1"
+      },
+      "lei_xi_pommel": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/PommelClosedRefineV2/LeiXi/Meshes/SM_ThunderGodHammer_pommel_lei_xi_v2.SM_ThunderGodHammer_pommel_lei_xi_v2",
+        "location_cm": [
+          0,
+          0,
+          -8.500000089406967
+        ],
+        "appearance": "原厂接颈 · 四面菱形雷窗 · 嵌银回流编结",
+        "interface": "thunder_god_hammer_modular_v1",
+        "model_revision": "PommelClosedRefineV2/LeiXi"
+      },
+      "zhen_ting_pommel": {
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/PommelClosedRefineV2/ZhenTing/Meshes/SM_ThunderGodHammer_pommel_zhen_ting_v2.SM_ThunderGodHammer_pommel_zhen_ting_v2",
+        "location_cm": [
+          0,
+          0,
+          -8.500000089406967
+        ],
+        "appearance": "原厂接颈 · 三阶锻肩 · 三重折雷纹 · 底部雷印",
+        "interface": "thunder_god_hammer_modular_v1",
+        "model_revision": "PommelClosedRefineV2/ZhenTing"
+      }
+    },
+    "rune": {
+      "factory": {
+        "appearance": "保留原生雷纹 · 不附加符文"
+      },
+      "haste_rune": {
+        "appearance": "疾风折纹 · 黄色流光"
+      },
+      "resonance_rune": {
+        "appearance": "共鸣环印 · 青绿呼吸微光"
+      },
+      "erosion_rune": {
+        "appearance": "侵蚀裂纹 · 紫色渐隐"
+      },
+      "conduction_rune": {
+        "appearance": "导魔回路 · 蓝色流光"
+      },
+      "strength_rune": {
+        "appearance": "中轴重印 · 赤红微光"
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -283,6 +283,16 @@
+                 if(Guard->bReturningGuard)State.ActionProgressRate=-1.f/WarhammerGuard::ExitSeconds;
+             }
+         }
++        else if((Tool->IsThunderHammerAway()&&Tool->ThunderReachAge>=0.f)||Tool->ThunderCatchAge>=0.f)
++        {
++            // Let the native recall contact packet drive the outstretched palm;
++            // a generic hammer carry take would pull it back to the chest.
++            const bool Caught=Tool->ThunderCatchAge>=0.f;
++            Timed(EFPSBodyAction::Equip,Caught?Tool->ThunderCatchAge:Tool->ThunderReachAge,
++                Caught?ThunderHammerThrow::CatchSeconds:ThunderHammerThrow::RecallReadySeconds);
++            State.ActionVariant=Caught?TEXT("WarhammerRecallCatch"):TEXT("WarhammerRecallReach");
++            if(!Caught&&Tool->ThunderReachAge>=ThunderHammerThrow::RecallReadySeconds)State.ActionProgressRate=0.f;
++        }
+         else if(Tool->bBluntWhirlwind)
+         {
+             const auto& W=Tool->BluntWhirlwindTuning;const float End=W.ReadySeconds+W.SpinSeconds+W.RecoverSeconds;
+@@ -309,13 +319,18 @@
+         {
+             Timed(EFPSBodyAction::Charge,Tool->BluntChargePoseSeconds(),WarhammerHeavy::ChargeSeconds,
+                 WarhammerHeavy::ChargeSeconds/FMath::Max(.01f,Tool->BluntChargeSeconds));
+-            State.ActionVariant=Tool->bFinalTollHead?TEXT("WarhammerFinalTollCharge"):TEXT("WarhammerCharge");
++            State.ActionVariant=Tool->bThunderCallSeat?TEXT("WarhammerCallCharge"):Tool->bThunderThrowSeat?TEXT("WarhammerThrowCharge"):Tool->bFinalTollHead?TEXT("WarhammerFinalTollCharge"):TEXT("WarhammerCharge");
+             if(Tool->bBluntReturningCharge)
+             {
+                 State.ActionProgressRate=0.f;
+                 State.ActionProgress=FMath::Clamp(Tool->BluntChargeReturnFrom/WarhammerHeavy::ChargeSeconds,0.f,1.f);
+                 State.ActionWeight=1.f-FMath::SmoothStep(0.f,Tool->BluntChargeReturnDuration,Tool->BluntChargeReturnAge);
+             }
++        }
++        else if(Tool->ThunderCallReleaseAge>=0.f)
++        {
++            Timed(EFPSBodyAction::HeavyStrike,Tool->ThunderCallReleaseAge,ThunderHammerCall::ReleaseSeconds,Tool->HasteActionRate);
++            State.ActionVariant=TEXT("WarhammerCallRelease");
+         }
+         else if(Tool->EquipElapsed>=0.f)
+         {
+@@ -331,7 +346,8 @@
+             const float ToolTime=Tool->AuthoredElapsed();
+             const bool SprintLift=Tool->bBluntSprintAttack&&ToolTime<0.f;
+             if(Tool->UsesFinalTollHeavy())State.ActionVariant=TEXT("WarhammerFinalToll");
+-            const bool GroundHold=Tool->bBluntHeavy&&!Tool->UsesFinalTollHeavy()&&ToolTime>=WarhammerHeavy::Contact&&ToolTime<=WarhammerHeavy::HoldEnd;
++            if(Tool->UsesThunderThrowHeavy())State.ActionVariant=TEXT("WarhammerThrow");
++            const bool GroundHold=Tool->bBluntHeavy&&!Tool->UsesFinalTollHeavy()&&!Tool->UsesThunderThrowHeavy()&&ToolTime>=WarhammerHeavy::Contact&&ToolTime<=WarhammerHeavy::HoldEnd;
+             Timed(Diagonal?EFPSBodyAction::Strike:EFPSBodyAction::HeavyStrike,ToolTime,Tool->SwingSeconds,GroundHold?1.f:Tool->BluntMotionRate());
+             if(Tool->UsesFinalTollHeavy())
+             {

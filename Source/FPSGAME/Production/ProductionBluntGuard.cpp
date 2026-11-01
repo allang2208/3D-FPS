@@ -14,19 +14,19 @@ bool UProductionToolComponent::IsGuardActive() const
 }
 bool UProductionToolComponent::HasAuthorityAttackInFlight() const
 {
-    return bBluntServerCharging||bBluntUppercut||bBluntWhirlwind||
+    return IsThunderHammerAway()||bBluntServerCharging||bBluntUppercut||bBluntWhirlwind||
         (GetWorld()&&GetWorld()->GetTimeSeconds()<BluntServerReadyAt);
 }
 bool UProductionToolComponent::CanQueueGuard() const
 {
-    if(!IsWarhammerEquipped()||!CanUse()||!HasReadyPresentation()||bBluntUppercut||bBluntWhirlwind
+    if(IsThunderHammerAway()||ThunderCatchAge>=0.f||!IsWarhammerEquipped()||!CanUse()||!HasReadyPresentation()||bBluntUppercut||bBluntWhirlwind
         ||(bBluntSprintAttack&&Elapsed>=0.f)||IsQuickCombatActive())return false;
     for(const TCHAR* Clip:WarhammerGuard::Clips)if(!Motions.FindRef(Clip))return false;
     return true;
 }
 bool UProductionToolComponent::CanStartGuard() const
 {
-    return CanQueueGuard()&&Elapsed<0.f&&EquipElapsed<0.f&&!bBluntCharging&&!bBluntReturningCharge&&
+    return CanQueueGuard()&&Elapsed<0.f&&EquipElapsed<0.f&&ThunderCallReleaseAge<0.f&&!bBluntCharging&&!bBluntReturningCharge&&
         (!Character->HasAuthority()||!HasAuthorityAttackInFlight());
 }
 void UProductionToolComponent::PrepareGuard()

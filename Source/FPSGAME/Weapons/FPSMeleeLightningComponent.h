@@ -22,16 +22,19 @@ class FPSGAME_API UFPSMeleeLightningComponent : public UActorComponent
 public:
     UFPSMeleeLightningComponent();
     static bool IsEnemy(AActor* Target,AActor* Owner);
-    void QueueDischarge(const FHitResult& Hit,float RadiusCM,int32 MinimumLevel);
+    void QueueDischarge(const FHitResult& Hit,float RadiusCM,int32 MinimumLevel,const FLightningCast& RuneSource);
+    void QueueRandomLightning(const FVector& Center,float RadiusCM,const FLightningCast& Spell,int32 Bolts);
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
 private:
+    friend class UWarhammerNetworkAuditCommandlet;
     struct FChain
     {
         FLightningCast Spell;
         float Radius=500.f;
+        bool bSkillChain=false;
         TSet<TWeakObjectPtr<AActor>> Visited;
     };
     struct FWave

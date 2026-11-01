@@ -18,6 +18,11 @@ USTRUCT()
 struct FLightningCast
 {
     GENERATED_BODY()
+    UPROPERTY() float RuneElectrifyChance=0.f;
+    UPROPERTY() int32 OverloadRetainedStacks=0;
+    UPROPERTY() bool bEchoRune=false;
+    /** Captured from the source weapon at cast/attack commit; not borrowed at impact. */
+    UPROPERTY() bool bLeiXiPommel=false;
     UPROPERTY() double DamageBase=0; UPROPERTY() double MagicMultiplier=0; UPROPERTY() double IntelligenceMultiplier=0;
     UPROPERTY() float Damage=0; UPROPERTY() float OverloadDamage=0; UPROPERTY() float ManaCost=30; UPROPERTY() float Cooldown=12; UPROPERTY() float Range=900; UPROPERTY() float AimRadius=300; UPROPERTY() float ChainRange=300;
     UPROPERTY() float ChainDecay=.1f; UPROPERTY() float StunSeconds=.75f; UPROPERTY() float Duration=.5f; UPROPERTY() float Fade=.25f; UPROPERTY() float Jitter=.09f;

@@ -17,7 +17,7 @@ bool UProductionToolComponent::BeginQuickCombat()
 {
     auto* Pawn=Character.Get();
     auto* Quick=Pawn?Pawn->QuickCombatPistol.Get():nullptr;
-    if(!IsWarhammerEquipped()||!Pawn||!Quick||!CanUse()||!HasReadyPresentation()
+    if(IsThunderHammerAway()||ThunderCatchAge>=0.f||!IsWarhammerEquipped()||!Pawn||!Quick||!CanUse()||!HasReadyPresentation()
         ||!Motions.FindRef(TEXT("QuickCombat"))||!Pawn->CanStartQuickCombatPriority())return false;
     Pawn->InterruptActionsForPriority(false);
     Pawn->ExitSprintForWeapon();

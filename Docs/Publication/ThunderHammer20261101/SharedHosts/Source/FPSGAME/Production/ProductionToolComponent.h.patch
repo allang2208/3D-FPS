@@ -1,0 +1,141 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -6,6 +6,8 @@
+ #include "ProductionToolStats.h"
+ #include "WarhammerHeavyMotion.h"
+ #include "FinalTollHeavyMotion.h"
++#include "ThunderHammerThrow.h"
++#include "ThunderHammerCall.h"
+ #include "WarhammerRiftState.h"
+ #include "RuneboundSealState.h"
+ #include "../Skills/ColdSteelSkillTypes.h"
+@@ -27,6 +29,8 @@
+ class UColdSteelStatusModel;
+ class UAzureDragonEnergyComponent;
+ class UDynamicMeshComponent;
++class AThunderHammerThrown;
++class ULineBatchComponent;
+ struct FColdSteelItem;
+ struct FStreamableHandle;
+ 
+@@ -37,11 +41,15 @@
+     GENERATED_BODY()
+     friend class UFPSConsumableAuditCommandlet;
+     friend class UWarhammerSprintAuditCommandlet;
++    friend class UWarhammerModificationAuditCommandlet;
++    friend class UThunderHammerRecallAuditCommandlet;
+     friend class URuneSwordAuditCommandlet;
+     friend class USkillNetworkAuditCommandlet;
+     friend class URuneboundReviewAuditCommandlet;
+     friend class ARuneboundReviewController;
+     friend class ARuneboundReviewGameMode;
++    friend class AThunderHammerWireController;
++    friend class AThunderHammerWireGameMode;
+ public:
+     UProductionToolComponent();
+     virtual void BeginPlay() override;
+@@ -53,7 +61,7 @@
+     void RecordRuneboundHit(const FColdSteelSkillShot& Shot,const FHitResult& Hit);
+     void RecordStormDriveHit(const FColdSteelSkillShot& Shot,const FHitResult& Hit);
+     bool IsEquipped() const { return !EquippedId.IsEmpty(); }
+-    bool IsBusy() const { return Elapsed>=0.f || EquipElapsed>=0.f || bBluntCharging || bBluntReturningCharge || bBluntWhirlwind || bBluntUppercut || IsQuickCombatActive() || IsGuardActive(); }
++    bool IsBusy() const { return IsThunderRecallLocked() || Elapsed>=0.f || EquipElapsed>=0.f || ThunderCallReleaseAge>=0.f || ThunderCatchAge>=0.f || bBluntCharging || bBluntReturningCharge || bBluntWhirlwind || bBluntUppercut || IsQuickCombatActive() || IsGuardActive(); }
+     bool IsWarhammerEquipped() const { return IsEquipped() && Kind==TEXT("warhammer"); }
+     bool IsGuardActive() const;
+     bool HasAuthorityAttackInFlight() const;
+@@ -78,8 +86,18 @@
+     void BeginUse();
+     void BeginPrimaryAttack();
+     void ReleasePrimaryAttack();
++    bool IsThunderHammerAway() const;
++    bool IsThunderRecallLocked() const;
++    bool QueueThunderWeaponSwitch();
++    bool ValidateThunderEquipmentChange(const FColdSteelProfile& Before,const FColdSteelProfile& After,FString& Reason) const;
++    void CommitThunderEquipmentChange(const FColdSteelProfile& State);
++    bool GetThunderCatchFrame(FTransform& Frame) const;
++    void ThunderHammerReturned(AThunderHammerThrown* Hammer,bool bCaught);
+     float HeavyChargeFraction() const;
+     bool IsHeavyCharging() const;
++    bool IsThunderCalling() const {return bThunderCallSeat&&IsHeavyCharging();}
++    bool OwnsThunderCallResources() const {return IsThunderCalling()||bThunderCallResourcesDirty;}
++    void NoteThunderCallResourcesSpent(){bThunderCallResourcesDirty=true;}
+     void CancelHeavyCharge();
+     float DashReadyFraction() const;
+     bool TryBeginSprintAttack();
+@@ -111,6 +129,46 @@
+     UPROPERTY(EditAnywhere,Category="Production|Pickaxe Locomotion") FRotator PickaxeWalkAngles=FRotator(.3f,.3f,.55f);
+     UPROPERTY(EditAnywhere,Category="Production|Pickaxe Locomotion") FRotator PickaxeRunAngles=FRotator(1.f,1.f,2.f);
+ private:
++    bool bThunderCallSeat=false,bThunderCallResourcesDirty=false;
++    float ThunderCallReleaseAge=-1.f,ThunderCallPreviewWait=0.f;
++    int64 ThunderCallResourceRevision=0;
++    UPROPERTY(Replicated) bool bThunderCallCharging=false;
++    UPROPERTY(Replicated) double ThunderCallVisualStartedAt=0.;
++    UPROPERTY(Replicated) float ThunderCallVisualSeconds=2.f;
++    UPROPERTY(Transient) TObjectPtr<class UDecalComponent> ThunderCallDecal;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> ThunderCallAimMID;
++    UPROPERTY(Transient) TObjectPtr<USoundBase> ThunderCallChargeSound;
++    UPROPERTY(Transient) TObjectPtr<class UAudioComponent> ThunderCallChargeAudio;
++    bool bThunderCallAudioActive=false;
++    float ThunderCallChargeProgress() const;
++    void TickThunderCallAudio();
++    void StopThunderCallAudio();
++    void TickThunderCall(float Delta);
++    void ReleaseThunderCall();
++    void FinishThunderCallResources();
++    void ClearThunderCallVisual();
++    UFUNCTION(Server,Reliable) void ServerReleaseThunderCall(uint32 AttackId,FVector_NetQuantize Point);
++    UFUNCTION(Client,Reliable) void ClientThunderCallResult(uint32 AttackId,bool Accepted);
++    UFUNCTION(Client,Reliable) void ClientThunderCallResources(int64 Revision,float Mana,float Stamina,float RecoveryDelay,bool Exhausted);
++    bool bThunderThrowSeat=false,bThunderRecallPending=false;
++    bool bThunderSwitchQueued=false;
++    FString ThunderActionInstance;
++    void ServiceThunderLifecycle();
++    float ThunderMagicSnapshot=-1.f,ThunderCatchAge=-1.f,ThunderReachAge=-1.f,ThunderPreviewWait=0.f;
++    UPROPERTY(ReplicatedUsing=OnRep_ThunderAway) FString ThunderAwayInstance;
++    UPROPERTY(ReplicatedUsing=OnRep_ThunderCatch) double ThunderCatchStartedAt=-100.;
++    UPROPERTY(Replicated) TObjectPtr<AThunderHammerThrown> ThrownHammer;
++    UPROPERTY(Transient) TObjectPtr<ULineBatchComponent> ThunderPreview;
++    TArray<FVector> ThunderPreviewPoints;
++    bool UsesThunderThrowHeavy() const {return bThunderThrowSeat&&bBluntHeavy&&!bBluntSprintAttack;}
++    bool HandleThunderPrimary();
++    bool LaunchThunderHammer(const FColdSteelSkillShot& Shot,float Magic);
++    void TickThunderThrow(float Delta);
++    bool PresentThunderCatch(float Delta);
++    UFUNCTION() void OnRep_ThunderAway(const FString& Previous);
++    UFUNCTION() void OnRep_ThunderCatch();
++    UFUNCTION(Server,Reliable) void ServerRecallThunderHammer();
++    UFUNCTION(Client,Reliable) void ClientThunderRecallRejected();
+     bool UsesFinalTollHeavy() const;
+     void AdvanceFinalTollHeavy(float Delta);
+     void RecordFinalTollHit(const FColdSteelSkillShot& Shot,const FHitResult& Hit);
+@@ -308,7 +366,7 @@
+     float BluntChainAge=0.f,BluntChainSpan=0.f,BluntChainStartClip=0.f,BluntChainBlend=.3f;
+     bool ResolveBluntContact(float StunSeconds=0.f);
+     bool FindBluntGround(FHitResult& Hit) const;
+-    bool BeginBluntShockwave(float StunSeconds);
++    bool BeginBluntShockwave(float StunSeconds,float ThunderMagic=-1.f);
+     void AdvanceBluntCharge(float Delta);
+     void SelectBluntMotion();
+     void FinishUse();
+@@ -322,6 +380,8 @@
+     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;
+     UPROPERTY(Transient) TObjectPtr<USceneComponent> Pivot;
+     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> ToolMesh;
++    TWeakObjectPtr<UMaterialInstanceDynamic> LeiXiCoreMaterial;
++    bool bLeiXiCoreActive=false;
+     UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> Viewmodel;
+     UPROPERTY(Transient) TMap<FName,TObjectPtr<UAnimSequence>> Motions;
+     UPROPERTY(Transient) TObjectPtr<UAnimSequence> CurrentMotion;
+@@ -360,9 +420,9 @@
+     /** 作者节奏（SwingSeconds/ContactSeconds 与镜头关键帧）换算成真实时间。 */
+     float BluntMotionRate() const { return UsesFinalTollHeavy()?FinalTollActionRate:bBluntSprintAttack?HasteActionRate:bBluntHeavy?RateScale*BluntMasteryInterval:RateScale; }
+     float BluntLiftSeconds() const { return bBluntHeavy&&bBluntSprintAttack?WarhammerSprint::LiftSeconds/HasteActionRate:0.f; }
+-    float AuthoredElapsed() const { return UsesFinalTollHeavy()?Elapsed:bBluntHeavy?WarhammerHeavy::SourceTime(Elapsed-BluntLiftSeconds(),BluntMotionRate()):Elapsed*RateScale; }
++    float AuthoredElapsed() const { return UsesThunderThrowHeavy()?Elapsed*BluntMotionRate():UsesFinalTollHeavy()?Elapsed:bBluntHeavy?WarhammerHeavy::SourceTime(Elapsed-BluntLiftSeconds(),BluntMotionRate()):Elapsed*RateScale; }
+     float RealContactSeconds() const { return UsesFinalTollHeavy()?FinalTollHeavy::FirstContact/FinalTollActionRate:BluntLiftSeconds()+ContactSeconds/BluntMotionRate(); }
+-    float RealSwingSeconds() const { return UsesFinalTollHeavy()?FinalTollHeavy::Duration/FinalTollActionRate:bBluntHeavy?BluntLiftSeconds()+WarhammerHeavy::RealDuration(BluntMotionRate()):SwingSeconds/RateScale; }
++    float RealSwingSeconds() const { return UsesThunderThrowHeavy()?ThunderHammerThrow::Duration/BluntMotionRate():UsesFinalTollHeavy()?FinalTollHeavy::Duration/FinalTollActionRate:bBluntHeavy?BluntLiftSeconds()+WarhammerHeavy::RealDuration(BluntMotionRate()):SwingSeconds/RateScale; }
+     void ApplyToolStats(const FColdSteelItem* Item,UColdSteelStatusModel* Profile);
+     bool CanPresent() const;
+     bool CanUse(bool bContinuing = false) const;

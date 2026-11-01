@@ -41,6 +41,12 @@ void ApplyCommonRunePalette(UMaterialInstanceDynamic* Material,const FString& Ru
     };
     SetColor(TEXT("ConductionCoreColor"),FLinearColor(.90f,.68f,.008f,1.f),FLinearColor(.82f,.012f,.018f,1.f));
     SetColor(TEXT("ConductionGlowColor"),FLinearColor(1.f,.82f,.012f,1.f),FLinearColor(1.f,.025f,.032f,1.f));
+    if(ColdSteelFrostRunes::IsThunderExclusive(Rune))
+    {
+        const bool Echo=Rune==TEXT("hui_xiang_rune");
+        Material->SetVectorParameterValue(TEXT("ConductionCoreColor"),Echo?FLinearColor(.22f,.62f,.75f,1):FLinearColor(.35f,.52f,.84f,1));
+        Material->SetVectorParameterValue(TEXT("ConductionGlowColor"),Echo?FLinearColor(.32f,.85f,.94f,1):FLinearColor(.56f,.76f,1.f,1));
+    }
 }
 
 UMaterialInterface* FactoryMaterial(UMeshComponent* Mesh,int32 Slot)
@@ -84,7 +90,8 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bBeiwei=Definition==ColdSteelFrostRunes::Zhanmadao&&VisualRune==ColdSteelFrostRunes::Beiwei;
     const bool bMana=Definition==ColdSteelFrostRunes::RuneboundWarhammer&&
         (VisualRune==ColdSteelFrostRunes::SwiftMana||VisualRune==ColdSteelFrostRunes::DestructionMana);
-    const int32 Mode=bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(bMana||VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
+    const bool bThunderExclusive=Definition==ColdSteelFrostRunes::ThunderGodHammer&&ColdSteelFrostRunes::IsThunderExclusive(VisualRune);
+    const int32 Mode=bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(bThunderExclusive||bMana||VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -155,18 +162,20 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
         }
         const bool Blade=Name.Contains(TEXT("FrostCrystalSword"))||Name.Contains(TEXT("AzureRunesword"))||Name==TEXT("M_HighlandClaymoreSurface")||Name==TEXT("M_TangDaoSurface")||
             (bWarhammer&&Mesh->ComponentHasTag(TEXT("SwordSlot=shaft"))&&
-                (Name==TEXT("M_SteelWarhammerSurface")||Name==TEXT("M_RuneboundWarhammerSurface")||
+                (Name==TEXT("M_SteelWarhammerSurface")||Name==TEXT("M_RuneboundWarhammerSurface")||Name==TEXT("M_ThunderGodHammerSurface")||
                  Name==TEXT("M_RuneboundAwakeSurface")||Name==TEXT("M_RuneboundSwiftRuneSurface")||
                  Name==TEXT("M_RuneboundDestructionRuneSurface")));
         if(Mode<0||!Blade){if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);continue;}
         auto* MID=IsOurs(Current)?Cast<UMaterialInstanceDynamic>(Current):nullptr;
-        const FString DesiredBase=bWarhammer?(Definition==ColdSteelFrostRunes::RuneboundWarhammer?
+        const FString DesiredBase=bThunderExclusive?(VisualRune==TEXT("lei_ming_rune")?
+            TEXT("M_SilverRuneSurface_LeiMingRefineV2"):TEXT("M_SilverRuneSurface_ThunderExclusiveV1")):bWarhammer?(Definition==ColdSteelFrostRunes::ThunderGodHammer?
+            TEXT("M_SilverRuneSurface_ThunderGodHammerShaftV1"):Definition==ColdSteelFrostRunes::RuneboundWarhammer?
             TEXT("M_SilverRuneSurface_RuneboundWarhammerShaftV1"):TEXT("M_SilverRuneSurface_WarhammerShaftV2")):bWild?TEXT("M_SilverRuneSurface_HighlandWild"):bSpirit?TEXT("M_SilverRuneSurface_FrostSpirit"):TEXT("M_SilverRuneSurfaceV2");
         if(MID&&MID->GetBaseMaterial()->GetName()!=DesiredBase)MID=nullptr;
         if(!MID)
         {
             auto* Material=LoadObject<UMaterialInterface>(nullptr,bWarhammer?
-                ColdSteelFrostRunes::WarhammerRuneMaterial(Definition):bWild?
+                ColdSteelFrostRunes::WarhammerRuneMaterial(Definition,VisualRune):bWild?
                 TEXT("/Game/Weapons/HighlandClaymore20260922/WildRune/M_SilverRuneSurface_HighlandWild"):bSpirit?
                 TEXT("/Game/Weapons/FrostSpiritBurst20260922/M_SilverRuneSurface_FrostSpirit"):
                 TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/M_SilverRuneSurfaceV2"));
@@ -175,8 +184,14 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
         }
         MID->SetScalarParameterValue(TEXT("GoldenTint"),bGolden?1.f:0.f);
         ApplyCommonRunePalette(MID,VisualRune);
-        MID->SetScalarParameterValue(TEXT("BaseBrightness"),bMana?1.05f:bInnate?.65f:.85f);
-        MID->SetScalarParameterValue(TEXT("GlowStrength"),bMana?1.65f:bInnate?.75f:1.25f);
+        MID->SetScalarParameterValue(TEXT("BaseBrightness"),bThunderExclusive?.18f:bMana?1.05f:bInnate?.65f:.85f);
+        MID->SetScalarParameterValue(TEXT("GlowStrength"),bThunderExclusive?.65f:bMana?1.65f:bInnate?.75f:1.25f);
+        if(bThunderExclusive)
+        {
+            const FString Root=TEXT("/Game/Weapons/ThunderGodHammer20261028/ExclusiveRunesV1/Textures/");
+            MID->SetTextureParameterValue(TEXT("RuneNormal"),LoadObject<UTexture>(nullptr,*(Root+TEXT("T_Normal_")+VisualRune)));
+            MID->SetTextureParameterValue(TEXT("RuneRoughness"),LoadObject<UTexture>(nullptr,*(Root+TEXT("T_Roughness_")+VisualRune)));
+        }
         // Refresh the selected mask even when the previous rune used this palette.
         {
             // Other swords retain their existing projected rune appearance.

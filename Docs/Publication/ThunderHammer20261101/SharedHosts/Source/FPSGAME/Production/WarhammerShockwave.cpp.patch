@@ -1,0 +1,133 @@
+--- a/Source/FPSGAME/Production/WarhammerShockwave.cpp
++++ b/Source/FPSGAME/Production/WarhammerShockwave.cpp
+@@ -3,8 +3,18 @@
+ #include "WarhammerHeavyMotion.h"
+ #include "WarhammerCombat.h"
+ #include "WarhammerSlamFXSubsystem.h"
++#include "ThunderHammerTuning.h"
++#include "ThunderHammerFX.h"
++#include "ThunderHammerCall.h"
++#include "ThunderHammerZhenTing.h"
++#include "ThunderHammerStaticField.h"
++#include "ThunderHammerCoil.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "../Skills/FPSLightningArc.h"
++#include "NiagaraSystem.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Monsters/MonsterCombatComponent.h"
++#include "../Weapons/FPSMeleeLightningComponent.h"
+ #include "../Skills/ColdSteelSkillRules.h"
+ #include "../Skills/MagicOcclusion.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -35,9 +45,49 @@
+     if(const auto* State=GetWorld()->GetGameState())return State->GetServerWorldTimeSeconds();
+     return GetWorld()->GetTimeSeconds();
+ }
+-void AWarhammerShockwave::Setup(const FColdSteelSkillShot& InShot,float Radius,float StunSeconds)
++void AWarhammerShockwave::Setup(const FColdSteelSkillShot& InShot,float Radius,float StunSeconds,float ThunderMagic,bool ThunderCall)
+ {
+-    Shot=InShot;MaxRadius=Radius;HeavyStunSeconds=StunSeconds;StartedAt=Clock();bConfigured=true;ForceNetUpdate();
++    Shot=InShot;MaxRadius=Radius;HeavyStunSeconds=StunSeconds;StartedAt=Clock();bConfigured=true;
++    bThunder=ThunderMagic>=0.f;
++    bThunderCall=ThunderCall&&bThunder;
++    NativeThunderMagic=bThunder?ThunderMagic:0.f;
++    if(bThunder)
++    {
++        // The common hit receipt combines native stacks and a rune proc once.
++        Shot.HammerNativeStacks=ThunderHammer::ElectrifyStacks;
++        MaxRadius=ThunderHammer::RadiusCM;HeavyStunSeconds=ThunderHammer::StunSeconds;
++        Shot.DamagePanel.AddedMagic+=NativeThunderMagic;
++        // JiLei changes damage type, not the heavy attack's amount. Preserve
++        // base/additional receipts and include the native thunder exactly once.
++        if(bThunderCall)
++            Shot.DamagePanel={0.,Shot.DamagePanel.Base(),0.,Shot.DamagePanel.Additional()};
++        Shot.HammerElectricDamage=bThunderCall?Shot.DamagePanel.Total():NativeThunderMagic;
++        ThunderSeed=int32(Shot.MasteryAttackSerial)^GetTypeHash(GetActorLocation());
++        ThunderHeight=ThunderHammer::SkyHeightCM;
++        FCollisionQueryParams Q(SCENE_QUERY_STAT(ThunderHammerCeiling),false,GetOwner());
++        const FVector Start=GetActorLocation()+FVector(0,0,12);
++        FHitResult Ceiling;
++        // Indoor strikes end below the ceiling, always along world Z. Bodies
++        // cannot act as ceilings; this trace never chooses damage targets.
++        for(int32 Pass=0;Pass<16;++Pass)
++        {
++            if(!MagicOcclusion::TraceBlocker(GetWorld(),Start,Start+FVector(0,0,ThunderHeight),Q,Ceiling))break;
++            auto* Actor=Ceiling.GetActor();
++            if(Actor&&(Actor->IsA<APawn>()||Actor->FindComponentByClass<UMonsterCombatComponent>())){Q.AddIgnoredActor(Actor);continue;}
++            ThunderHeight=FMath::Max(8.f,float(Ceiling.ImpactPoint.Z-GetActorLocation().Z)-8.f);break;
++        }
++        // One server receipt per victim at the contact instant. The remaining
++        // ground ring is cosmetic; walking into its afterglow cannot hit again.
++        ApplyWave(MaxRadius);
++        if(bThunderCall)
++        {
++            ThunderHammerStaticField::Pulse(GetOwner(),GetActorLocation(),Shot,ThunderHammerStaticField::CallRadiusCM,5);
++            ThunderHammerCoil::Discharge(GetOwner(),GetActorLocation(),Shot,ThunderHammerCoil::CallRadiusCM,2);
++        }
++        ThunderHammerZhenTing::ContinueLightning(this,Shot,MaxRadius,
++            bThunderCall?float(Shot.DamagePanel.Total()):NativeThunderMagic,bThunderCall);
++    }
++    ForceNetUpdate();
+ }
+ void AWarhammerShockwave::BeginPlay()
+ {
+@@ -50,6 +100,16 @@
+ void AWarhammerShockwave::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+ {
+     Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AWarhammerShockwave,MaxRadius);DOREPLIFETIME(AWarhammerShockwave,StartedAt);
++    DOREPLIFETIME(AWarhammerShockwave,bThunder);DOREPLIFETIME(AWarhammerShockwave,ThunderHeight);DOREPLIFETIME(AWarhammerShockwave,ThunderSeed);
++    DOREPLIFETIME(AWarhammerShockwave,bThunderCall);
++}
++FWeaponDamageParts AWarhammerShockwave::DamageWithElectricMultiplier(float Multiplier) const
++{
++    if(!bThunder)return Shot.DamagePanel;
++    if(bThunderCall)return Shot.DamagePanel.Scaled(Multiplier);
++    auto Damage=Shot.DamagePanel;
++    Damage.AddedMagic+=NativeThunderMagic*(Multiplier-1.f);
++    return Damage;
+ }
+ void AWarhammerShockwave::ApplyWave(float Radius)
+ {
+@@ -65,9 +125,7 @@
+     {
+         auto* Target=Overlap.GetActor();auto* Shape=Overlap.GetComponent();
+         auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+-        if(!Shape||!Combat||Combat->IsDead()||Target==Pawn||HitActors.Contains(Target)||!Target->CanBeDamaged()
+-            ||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Player")))continue;
+-        if(const auto* Body=Cast<APawn>(Target);Body&&Body->IsPlayerControlled())continue;
++        if(!Shape||!Combat||HitActors.Contains(Target)||!UFPSMeleeLightningComponent::IsEnemy(Target,Pawn))continue;
+         const auto Bounds=Shape->Bounds;
+         if(FMath::Abs(Bounds.Origin.Z-Bounds.BoxExtent.Z-Origin.Z)>70.f)continue;
+         FVector Point;
+@@ -87,6 +145,8 @@
+         FWeaponDamageResult Result;
+         const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(Pawn,Target);
+         auto HitShot=Shot;HitShot.ExtraMasteryExperience=Eligible&&MasteryHits==1&&Profile?Profile->MasteryDefinition(Shot.MasteryId).MultiHitExperience:0;
++        if(bThunder)if(const auto* Status=Target->FindComponentByClass<UCombatStatusFormula>())
++            HitShot.DamagePanel=DamageWithElectricMultiplier(Status->ElectricMultiplier());
+         const float Damage=ColdSteelSkills::ApplyHit(Pawn,Hit,HitShot.DamagePanel.Total(),(Point-Origin).GetSafeNormal(),HitShot,&Result);
+         if(Eligible&&(Damage>0.f||Result.bKilled))++MasteryHits;
+         if(Damage>0.f||Combat->IsDead())Pawn->NotifyConfirmedWeaponHit(Target,Damage,&Result);
+@@ -97,9 +157,10 @@
+ {
+     Super::Tick(Delta);
+     if(StartedAt<=0.||(HasAuthority()&&!bConfigured))return;
+-    const float T=FMath::Clamp(float((Clock()-StartedAt)/WarhammerHeavy::WaveSeconds),0.f,1.f);
++    const float Age=FMath::Max(0.f,float(Clock()-StartedAt));
++    const float T=FMath::Clamp(Age/WarhammerHeavy::WaveSeconds,0.f,1.f);
+     const float Radius=FMath::Lerp(12.f,MaxRadius,T);
+-    if(HasAuthority()){ApplyWave(Radius);PreviousRadius=Radius;}
++    if(HasAuthority()&&!bThunder){ApplyWave(Radius);PreviousRadius=Radius;}
+     // Scale only the visual component; replication owns the impact transform.
+     Ring->SetRelativeScale3D(FVector(Radius/50.f,Radius/50.f,1.f));
+     if(Material)Material->SetScalarParameterValue(TEXT("Opacity"),FMath::Pow(1.f-T,1.15f));
+@@ -112,5 +173,8 @@
+         // Keep the supplied impact's pitch and cache it before the impact tick.
+         if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation(),1.f,1.f);
+     }
+-    if(T>=1.f&&HasAuthority())Destroy();
++    if(bThunder&&!bThunderVisualPlayed&&GetNetMode()!=NM_DedicatedServer)
++        if(auto* FX=GetWorld()->GetSubsystem<UThunderHammerFXSubsystem>())
++            bThunderVisualPlayed=FX->Emit(GetActorLocation()-GetActorUpVector()*2.f,GetActorUpVector(),ThunderHeight,ThunderSeed,Age,bThunderCall?ThunderHammerCall::VisualScale:1.f);
++    if(HasAuthority()&&Age>=(bThunder?ThunderHammer::VisualSeconds+.1f:WarhammerHeavy::WaveSeconds))Destroy();
+ }

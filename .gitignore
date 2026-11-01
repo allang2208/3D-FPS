@@ -5857,3 +5857,22 @@ __pycache__/
 /SourceAssets/SwordBladeMaterialStats20261031/**
 !/SourceAssets/SwordBladeMaterialStats20261031/build.ps1
 !/SourceAssets/SwordBladeMaterialStats20261031/install_stats.py
+
+# Thor hammer publication: reviewed code and recipes only; private media,
+# saved UE packages, dense clips, receipts and derived data remain local.
+/SourceAssets/ThunderGodHammer20261028/**
+!/SourceAssets/ThunderGodHammer20261028/**/
+!/SourceAssets/ThunderGodHammer20261028/**/*.py
+!/SourceAssets/ThunderGodHammer20261028/**/*.ps1
+!/SourceAssets/ThunderGodHammer20261028/**/*.md
+!/SourceAssets/ThunderGodHammer20261028/**/*.hlsl
+/SourceAssets/ThunderGodHammer20261028/**/__pycache__/
+/SourceAssets/ThunderGodHammer20261028/**/Before/
+/SourceAssets/ThunderGodHammer20261028/**/Backups/
+/SourceAssets/ThunderGodHammer20261028/**/AssetBackups/
+/SourceAssets/ThunderGodHammer20261028/**/Host/
+/SourceAssets/ThunderGodHammer20261028/**/NativeSandbox/
+/SourceAssets/ThunderGodHammer20261028/**/host/
+/SourceAssets/ThunderGodHammer20261028/**/client/
+!/Content/ColdSteelData/thunder-god-hammer-gunsmith.json
+!/Content/ColdSteelData/thunder-god-hammer-modules.json

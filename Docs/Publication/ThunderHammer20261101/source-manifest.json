@@ -1,0 +1,1866 @@
+{
+  "base_commit": "0efd7dcc368bf9395f99fe25d35093c2d3032952",
+  "date": "2026-11-01",
+  "shared_host_warning": "Forward patches require their exact recorded local prerequisite, not bare Git HEAD. Never overwrite a dirty working file with a cropped publication file.",
+  "files": {
+    "Source/FPSGAME/Production/ThunderHammerCall.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerCall.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerCatchFrames.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerCoil.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerCoil.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerConductiveGripAudit.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerFX.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerFX.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerLifecycle.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerPommel.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerPommel.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerRecall.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerRecallAudio.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerRecallAudio.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerRecallAuditCommandlet.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerRecallAuditCommandlet.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerRunes.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerRunes.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerStaticField.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerStaticField.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrow.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrow.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrowLaunch.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrown.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrown.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerTuning.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerZhenTing.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerZhenTing.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ThunderHammerZhenTingAudit.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ProductionThunderCall.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ProductionThunderThrow.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Development/ThunderHammerWireAudit.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Development/ThunderHammerWireAudit.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.h": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/WarhammerHeavyFormulaAudit.cpp": {
+      "kind": "direct-exclusive"
+    },
+    "Content/ColdSteelData/thunder-god-hammer-gunsmith.json": {
+      "kind": "direct-exclusive"
+    },
+    "Content/ColdSteelData/thunder-god-hammer-modules.json": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/guan-lei-recall-throw-whoosh-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/guan-lei-recall-weapon-switch-fix-20261031.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/guan-lei-throw-lifecycle-20261031.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-exclusive-runes-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-god-hammer-20261028.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-god-hammer-heavy-thunder-20261028.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-hammer-electrified-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-hammer-guan-lei-throw-20261028.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-hammer-interaction-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-legendary-seat-passives-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-lei-xi-pommel-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-pommel-closed-refine-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-special-modification-tiers-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-zhen-ting-pommel-20261030.md": {
+      "kind": "direct-exclusive"
+    },
+    "Docs/Weapons/thunder-zhen-ting-standalone-fix-20261031.md": {
+      "kind": "direct-exclusive"
+    },
+    "Source/FPSGAME/Production/ProductionBluntGuard.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0,
+        1,
+        2
+      ]
+    },
+    "Source/FPSGAME/Production/ProductionBluntQuickCombat.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0
+      ]
+    },
+    "Source/FPSGAME/Production/ProductionRuneboundPassive.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0
+      ]
+    },
+    "Source/FPSGAME/Production/ProductionStormDriveLightning.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    "Source/FPSGAME/Production/ProductionBluntContact.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        6,
+        7
+      ]
+    },
+    "Source/FPSGAME/Production/WarhammerNetworkAuditCommandlet.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0
+      ]
+    },
+    "Source/FPSGAME/Production/WarhammerNetworkAuditCommandlet.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0
+      ]
+    },
+    "Source/FPSGAME/Skills/FPSLightningArc.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0
+      ]
+    },
+    "Source/FPSGAME/Skills/LightningTypes.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0
+      ]
+    },
+    "Source/FPSGAME/Weapons/FPSMeleeLightningComponent.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "Source/FPSGAME/Weapons/FPSMeleeLightningComponent.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0,
+        1,
+        2
+      ]
+    },
+    "Source/FPSGAME/Combat/CombatStatusFormula.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        18,
+        19
+      ]
+    },
+    "Source/FPSGAME/Combat/CombatStatusFormula.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        5
+      ]
+    },
+    "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0,
+        1,
+        3
+      ]
+    },
+    "Source/FPSGAME/Weapons/GunsmithSystem.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        2
+      ]
+    },
+    "Source/FPSGAME/Weapons/GunsmithSystem.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        15
+      ]
+    },
+    "Source/FPSGAME/Weapons/MeleeGunsmith.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        1
+      ]
+    },
+    "Source/FPSGAME/Weapons/ModularSwordVisual.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        4
+      ]
+    },
+    "Source/FPSGAME/Production/ProductionToolStats.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0,
+        1
+      ]
+    },
+    "Source/FPSGAME/Weapons/FrostSwordRunes.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        3,
+        4,
+        5
+      ]
+    },
+    "Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        3
+      ]
+    },
+    "Source/FPSGAME/Skills/FPSLightningComponent.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        3,
+        5
+      ]
+    },
+    "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        1,
+        3,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "Source/FPSGAME/Production/ProductionBluntHeavy.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/ProductionBluntHeavy.cpp.patch",
+      "prerequisite_sha256_lf": "6dfb4b96f09eed34cc145220c6b1236bd284c843b1dca5cc6fd72e20a0d8917a",
+      "result_sha256_lf": "4238fb80a43911583fe0e157a0acd733ac557257f0ae0c7ff9ee88432f960d6a",
+      "hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        11,
+        12
+      ],
+      "manual_edits": 0
+    },
+    "Source/FPSGAME/Production/ProductionBluntUppercut.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/ProductionBluntUppercut.cpp.patch",
+      "prerequisite_sha256_lf": "728136b932fab24e208f1ee76d0a31bae8234ef02d96e7e3dad55510fe40837a",
+      "result_sha256_lf": "f892ed89b780bac9f36dd76a51f6b4ed834ea17a6bdda1abddac706188ae7e2c",
+      "hunks": [
+        1,
+        2
+      ],
+      "manual_edits": 0
+    },
+    "Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp.patch",
+      "prerequisite_sha256_lf": "94b1c0084ea05d7874d852949b19cf31d191f3d6d15989d673475515d7a882dd",
+      "result_sha256_lf": "fc83e2e468bab5868e0e7ec7ee6440c3adaf67d445397756a1f87c463e055095",
+      "hunks": [
+        1,
+        2
+      ],
+      "manual_edits": 0
+    },
+    "Source/FPSGAME/Production/WarhammerShockwave.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/WarhammerShockwave.cpp.patch",
+      "prerequisite_sha256_lf": "e219613371e2ef1cdf9b921659efc6de6d77ddb67d837b4e2240c07bebdee560",
+      "result_sha256_lf": "fef8b7488ed5657839e80fda0d94bf05c38448218ad5e0797ff92d434f62abb3",
+      "hunks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10
+      ],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/Production/WarhammerShockwave.h": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/WarhammerShockwave.h.patch",
+      "prerequisite_sha256_lf": "475a9a53c47cf88cb2d7c5648dfcf48522b8724c7d64f9dc08ac667f83052e5c",
+      "result_sha256_lf": "6e88ac2bb8cfadeb461e050cf1adf3a99cc8cd9e6e1562504958bb80f1c6770f",
+      "hunks": [
+        0,
+        1,
+        2,
+        3,
+        5
+      ],
+      "manual_edits": 0
+    },
+    "Source/FPSGAME/Skills/ColdSteelSkillTypes.h": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Skills/ColdSteelSkillTypes.h.patch",
+      "prerequisite_sha256_lf": "3b3aad52f45c011d956885efca8ec0f93564cc2cfdc3e4f2d731bac4dea9e15f",
+      "result_sha256_lf": "40de26a069389b4a99dbd3e6e2b7ad88c3a2af572136027e35f34af2f545cf69",
+      "hunks": [],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp.patch",
+      "prerequisite_sha256_lf": "c5dce2912a7a4b9d5f9ab44564beac3ddc18a5a882316e9b932d65898d5150af",
+      "result_sha256_lf": "3bf2b61c6af0913ca2114d9b27a4d0a02b462f94870e907df773d921d36893d2",
+      "hunks": [
+        3,
+        25
+      ],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp.patch",
+      "prerequisite_sha256_lf": "9b67d16aedbb96b1eab11a1e12f8b17979452a8bc3a0b62cc5125b2de893b7c3",
+      "result_sha256_lf": "d9026e044d772170bbd09e4c60976086d62463ec775a74eed9468eb57c99d942",
+      "hunks": [
+        40
+      ],
+      "manual_edits": 4
+    },
+    "Source/FPSGAME/Production/ProductionToolComponent.h": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/ProductionToolComponent.h.patch",
+      "prerequisite_sha256_lf": "e278ceafd2e17583922bca0c8b4402c85af09dfafcd040ae8535e55d9077b788",
+      "result_sha256_lf": "a58d22caa467b9e210ba097745cc4d062b16f6fb8760b5db3a27481cc33b709a",
+      "hunks": [
+        12
+      ],
+      "manual_edits": 16
+    },
+    "Source/FPSGAME/Production/ProductionToolComponent.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/ProductionToolComponent.cpp.patch",
+      "prerequisite_sha256_lf": "ea34a2befcd0fa6436cb6c7f4b892fb1c10cf06407b4699674e775733b83f41c",
+      "result_sha256_lf": "753762783573f3448b7729f0241d9bac61b045368bd1f6ae7178adceb077a6d9",
+      "hunks": [
+        19,
+        21,
+        27,
+        32,
+        33
+      ],
+      "manual_edits": 39
+    },
+    "Source/FPSGAME/Production/ProductionToolMotion.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/ProductionToolMotion.cpp.patch",
+      "prerequisite_sha256_lf": "24963fcb7db4670437e0c2e6f3ff4041a388fe46342337f2aa86092ef10ce63e",
+      "result_sha256_lf": "0648ab50189b3fb4a4bdef82a70e998b9a3711aa9f455873b29e7b9cd7b7cdd0",
+      "hunks": [
+        6
+      ],
+      "manual_edits": 13
+    },
+    "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp.patch",
+      "prerequisite_sha256_lf": "79c230750fafde7496ec29b39503a4a46b3baa7c30aeb283069feec1b8e41846",
+      "result_sha256_lf": "e94417635aead0ebdfdf82d7107808b28e43b4c627e61126ada924e59277cc9d",
+      "hunks": [],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/Weapons/GunsmithModificationTier.h": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Weapons/GunsmithModificationTier.h.patch",
+      "prerequisite_sha256_lf": "9d0657abd45d5ba26b0ddaafe1feada89fdd4eeb72f998223cb846feee10a1ce",
+      "result_sha256_lf": "39c84dbcdd9a5decb4040d5ccf530b7c8a2cba737b4c01c9da2898cea9cf2b64",
+      "hunks": [
+        4
+      ],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/Production/ProductionToolStats.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/ProductionToolStats.cpp.patch",
+      "prerequisite_sha256_lf": "d83441fe44fe82de1b7dc607a3c43517c2296fe0c1eb958836b3bade07581dc8",
+      "result_sha256_lf": "fc95b649b15098e76be697905199f83094036f08ea99fc6c706fb761e4273162",
+      "hunks": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "manual_edits": 2
+    },
+    "Source/FPSGAME/UI/ColdSteelStatusModel.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/UI/ColdSteelStatusModel.cpp.patch",
+      "prerequisite_sha256_lf": "a518fef597a67d814c143a976ad069db8bb8f7023b1e48e8907c4c528592343c",
+      "result_sha256_lf": "3866f731bcbb2c5ed19e1fbf3fbf495e8d828821414e2cc94b79f8b07c74bec9",
+      "hunks": [],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp.patch",
+      "prerequisite_sha256_lf": "4efe19daeca1dafae66343419480934ebbaa9ce00128511cf242febbcb290e73",
+      "result_sha256_lf": "7c6b1c0369e40164707610c931c8d35b3a6898020d59e80c8ba570aa550e249d",
+      "hunks": [
+        31,
+        33,
+        36,
+        61
+      ],
+      "manual_edits": 5
+    },
+    "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp.patch",
+      "prerequisite_sha256_lf": "5fd46baa15897678852142862e6337356c747298a8a69b010a407b634e35b873",
+      "result_sha256_lf": "b8bc951048c0e3daf49619b121d451dacfee3c380b3d944c5b6f73033ac8e518",
+      "hunks": [],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp.patch",
+      "prerequisite_sha256_lf": "f9a0df218487cb21fbbc2ff56152d5abdd25892f8e8cb47293a9db0b08bf1e67",
+      "result_sha256_lf": "ca471de9511d5f782241bd17f3740e96099349bee7e25499625cf65254381d3f",
+      "hunks": [
+        18
+      ],
+      "manual_edits": 2
+    },
+    "Source/FPSGAME/Movement/FPSStaminaModel.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Movement/FPSStaminaModel.cpp.patch",
+      "prerequisite_sha256_lf": "8de94a937352f041b0aca6216d5515170d0167147f65466e89252fbfab3941bf",
+      "result_sha256_lf": "671cd5f66256d614f2af82d50c5d3512e57081fdd17e28c6ac5223b196481097",
+      "hunks": [],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/Production/ProductionBluntAuthority.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Production/ProductionBluntAuthority.cpp.patch",
+      "prerequisite_sha256_lf": "a32c95b43adb74c5dae23ef67257738b708a5e231106207cbceeb5a98e3c0e27",
+      "result_sha256_lf": "269dff28cf83ac15d4560257088eb5923c055ef19840ec6f7b627f81eaa38209",
+      "hunks": [],
+      "manual_edits": 28
+    },
+    "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp.patch",
+      "prerequisite_sha256_lf": "7ceea9ddc2e21a93733d98074f70664dcdb6cd723b48f72440c54a0f3013ce4f",
+      "result_sha256_lf": "1bdadfbfa682908b356dd665250d78204e3fdeb25db72fd1e5636eb9d33ada8f",
+      "hunks": [],
+      "manual_edits": 5
+    },
+    "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp.patch",
+      "prerequisite_sha256_lf": "11ca30aa510637eb4894917e66f8a16060c5c9ba31cc90507da70bd1b86f752d",
+      "result_sha256_lf": "3f7b5a252631d585ce24706505ad2c66ca77c6e3dae509a46c573328400d16f5",
+      "hunks": [],
+      "manual_edits": 3
+    },
+    "Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h.patch",
+      "prerequisite_sha256_lf": "31b4e29fef994e1c939842ddfe1655deba4992b4f8ec948da0c11bd57c761874",
+      "result_sha256_lf": "eb41d1c8cad3277d9aa88a10daa9aa6e9ea845a01045ac805b50641c50780c2e",
+      "hunks": [],
+      "manual_edits": 4
+    },
+    "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp.patch",
+      "prerequisite_sha256_lf": "4a03938faa7b320c8e64696e72de498a2e4948ad73c3fb3934bdfa1a796f8c5f",
+      "result_sha256_lf": "11a103650aeb3707d058f1fd4adc085582345df4a1d84c4b30d9080141194b80",
+      "hunks": [],
+      "manual_edits": 1
+    },
+    "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp.patch",
+      "prerequisite_sha256_lf": "baeaac1ae2a0101022187b66e3984261b42645523a92d9203d1fd2ef7250972d",
+      "result_sha256_lf": "f50ac17f0bd539313b2a2eb0d93b9825040d5a3ed87483b3307b793d7139d28f",
+      "hunks": [],
+      "manual_edits": 4
+    },
+    "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp": {
+      "kind": "shared-host-patch",
+      "patch": "Docs/Publication/ThunderHammer20261101/SharedHosts/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp.patch",
+      "prerequisite_sha256_lf": "10f7a2d3407612d4b6465c1ac3324e738f1dc652dc997abb7aa82425c404c582",
+      "result_sha256_lf": "0fc59260b7ef0eb83b6fb7e4957c42e8352fc90e3ce01efee048a3eb26402724",
+      "hunks": [],
+      "manual_edits": 2
+    },
+    "Source/FPSGAME/Skills/FPSMagicPreview.cpp": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0,
+        1,
+        2
+      ]
+    },
+    "Source/FPSGAME/Skills/FPSMagicPreview.h": {
+      "kind": "direct-scoped",
+      "hunks": [
+        0
+      ]
+    },
+    "SourceAssets/ThunderGodHammer20261028/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/author_icon.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/build.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/build_game.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/import_base.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/import_icon.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/record_delivery.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/register.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/run_assets.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/run_inventory.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ChargeRestoreV6/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ChargeRestoreV6/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ChargeRestoreV6/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ChargeRestoreV6/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ChargeSightClearanceV8/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/build.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/design_sheet.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/finalize.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/install.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/make_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/prepare_pipeline.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ConductiveGripAudit20261101/run.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ElectrifiedV2_20261030/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ExclusiveRunesV1/author_patterns.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ExclusiveRunesV1/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ExclusiveRunesV1/import_all.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ExclusiveRunesV1/import_all.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FactoryIconsV2/import_icons.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FactoryIconsV2/publish_icons.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FactoryIconsV2/read_render_settings.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FactoryIconsV2/render_references.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullNetworkReview20261101/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullNetworkReview20261101/repair_seat_tangents.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullNetworkReview20261101/run-native.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullNetworkReview20261101/run-wire.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullNetworkReview20261101/write_report.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/finalize_view.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/make_sheets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/make_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/render.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Integration20261101/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Integration20261101/install.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Integration20261101/prepare_materials.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Integration20261101/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Integration20261101/repair_uv.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/author_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/design.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/finish_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/import_icon.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/import_icon.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/prepare_scripts.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiInlaidC7/render_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiPrecisionV11/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiPrecisionV11/finalize_view.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiPrecisionV11/inspect_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiPrecisionV11/make_sheets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiPrecisionV11/make_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiPrecisionV11/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiPrecisionV11/render.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiRebuildV2/author_model.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiRebuildV2/import_model.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiRebuildV2/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiRebuildV2/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiRebuildV2/render_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/author_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/design.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/finish_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/import_icon.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/import_icon.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiReturnC8/render_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/HeadForwardSpin20261028/apply_live.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/HeadForwardSpin20261028/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/HeavyDamageFix20261030/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/HeavyDamageFix20261030/check_heavy_formula.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/HeavyThunderV1/author.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/HeavyThunderV1/author_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/HeavyThunderV1/build.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/import_all.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/import_all.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/import_motion_audio.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/prepare_sources.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiChargeAudioV1/author_audio.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiChargeAudioV1/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiChargeAudioV1/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/finalize_view.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/make_sheets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/make_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/render.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Integration20261031/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Integration20261031/install.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Integration20261031/prepare_materials.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Integration20261031/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Integration20261031/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/inspect_pose.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/probe_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/read.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/read_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/render_review.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/render_saved.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/review_native.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/solve_target.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV2/source_for_surface.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV3/author_lightning.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV3/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV3/compile_live.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV3/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV3/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV3/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/inspect_pose.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/probe_hinge.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/readback.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/read_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/read_runtime.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/render_review.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/review_native.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/run.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV4/source_for_surface.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV5/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV5/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV5/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMotionV5/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiPrecisionV13/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiPrecisionV13/finalize_view.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiPrecisionV13/make_sheets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiPrecisionV13/make_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiPrecisionV13/render.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/author_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/design.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/finish_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/import_all.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/import_motion_ui.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/prepare_authors.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/prepare_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiSeatV1/render_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiMingRefineV2/author_relief.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiMingRefineV2/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiMingRefineV2/import_all.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiMingRefineV2/import_all.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiMingRefineV2/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiMingRefineV2/rune_emission.hlsl": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiMingRefineV2/rune_normal.hlsl": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiXiPommelV1/author_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiXiPommelV1/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiXiPommelV1/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiXiPommelV1/finalize_delivery.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiXiPommelV1/import_all.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiXiPommelV1/import_all.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiXiPommelV1/prepare_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LeiXiPommelV1/render_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ModulesV1/author_adapted.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ModulesV1/author_factory.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ModulesV1/author_icons.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ModulesV1/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ModulesV1/shaft_runes.hlsl": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/analyze_native.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/author_contact.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/build.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/check_saved_contact.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/probe_blend.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/probe_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/probe_surface.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/read_native.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/repair.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/NormalGripFix20261031/run_asset.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/closed_body.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/collar_profile.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/collar_refine.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/diagnose_sources.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/export_model.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/finalize_delivery.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/import_all.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/import_all.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/mesh_helpers.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/ornaments.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/prepare_imports.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/prepare_models.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/LeiXi/author_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/LeiXi/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/LeiXi/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/LeiXi/render_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/ZhenTing/author_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/ZhenTing/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/ZhenTing/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/PommelClosedRefineV2/ZhenTing/render_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioUserV4/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioUserV4/import_audio.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioUserV4/prepare_audio.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioUserV4/publish_assets.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioUserV4/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioV1/author_audio.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioV1/import_audio.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioV1/publish.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallAudioV1/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallCatchV2/author_recall.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallCatchV2/build.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallCatchV2/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallCatchV2/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallFixedTime20261031/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallFixedTime20261031/compile_existing_editor.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/audit-assets.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/audit_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/build_isolated.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/import-corrected.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/import_corrected.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/inspect_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/inspect_wrists.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/isolated-audit.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/probe_grips.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/render_keyframes.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallReview20261028/runtime-audit.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallThrowWhoosh20261030/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeaponSwitchFix20261031/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeaponSwitchFix20261031/run_diagnosis.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV3/author_recall.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV3/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV3/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV3/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV4/apply_live.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV4/author_recall.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV4/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV4/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/RecallWeightV4/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/Review20261028/audit_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/Review20261028/audit_catalog.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/Review20261028/audit_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/Review20261028/build_isolated.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/Review20261028/finish_review.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/Review20261028/review.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/Review20261028/run.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatConceptV10/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/author_models.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/import_icons.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/import_icons.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/render_icons.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/retire_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatDistinctV9/retire_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/author_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/design.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/finish_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatInlaidC6/write_delivery.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatLegendary20261030/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatLegendary20261030/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatNorseConceptV5/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/author_precision.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/inspect_tangents.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/make_report.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/probe_cap_repair.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/probe_tangent_scale.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatPrecisionV4/render_details.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/audit_icons.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/author_seats.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/make_report.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/probe_factory.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatRefineV3/render_comparison.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SpecialTier20261030/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SpecialTier20261030/compile_live.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/finalize.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/install.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/make_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/prepare_integration.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/read_host.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/finalize.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/finish_mesh.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/finish_mesh.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/install.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/make_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/prepare_pipeline.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/surface.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/RequestedBudgetAudit20261031/read_assets.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/RequestedBudgetAudit20261031/read_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/RequestedBudgetAudit20261031/read_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV2/RequestedPreview20261031/render.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/author.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/bake_leather.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/finalize.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/install.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/prepare.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/prepare_import.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV3Game/surface.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowFollowThroughV7/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowFollowThroughV7/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowFollowThroughV7/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowFollowThroughV7/read.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowFollowThroughV7/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowFollowThroughV7/read_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowFollowThroughV7/render_review.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowFollowThroughV7/review_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowLifecycle20261031/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowPreviewFix20261028/diagnose.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowPreviewFix20261028/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV3/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV3/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV3/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV3/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/fit_contacts.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/fit_contacts_inverted.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/fit_contacts_short_grip.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/fit_contacts_supported.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/inspect_pose.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV4/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV5/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV5/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV5/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowRefineV5/README.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowReviewV4/read.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowReviewV4/read_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowReviewV4/render_native.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowReviewV4/REVIEW.md": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThrowReviewV4/verify_native.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThunderThrowV1/author_icon.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThunderThrowV1/author_motion.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThunderThrowV1/author_seat.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThunderThrowV1/build.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThunderThrowV1/import.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThunderThrowV1/import_assets.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ThunderThrowV1/publish.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingLightningFix20261031/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingLightningFix20261031/inspect_existing_world.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingLightningFix20261031/probe_ground.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingLightningFix20261031/run_diagnosis.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/author_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/author_textures.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/body_geometry.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/build_editor.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/finalize_delivery.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/import_all.ps1": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/import_all.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/prepare_sources.py": {
+      "kind": "authoring-recipe"
+    },
+    "SourceAssets/ThunderGodHammer20261028/ZhenTingPommelV1/render_icon_source.py": {
+      "kind": "authoring-recipe"
+    },
+    "Content/ColdSteelData/items.json": {
+      "kind": "scoped-config",
+      "keys": [
+        "ue_thunder_god_hammer"
+      ]
+    },
+    "Content/ColdSteelData/combat-weapon-formulas.json": {
+      "kind": "scoped-config",
+      "keys": [
+        "ue_thunder_god_hammer"
+      ]
+    },
+    "skills/ue5-weapon-workflow/references/thunder-hammer-lifecycle.md": {
+      "kind": "skill-reference"
+    },
+    "skills/ue5-weapon-workflow/SKILL.md": {
+      "kind": "skill-route"
+    },
+    "skills/ue5-save-load-replication/references/replicated-terminal-events.md": {
+      "kind": "skill-reference"
+    },
+    "skills/ue5-save-load-replication/SKILL.md": {
+      "kind": "skill-route"
+    },
+    "skills/asset-model-workflow/references/saved-static-mesh-tangent-basis.md": {
+      "kind": "skill-reference"
+    },
+    "skills/asset-model-workflow/SKILL.md": {
+      "kind": "skill-route"
+    },
+    ".gitignore": {
+      "kind": "ignore-rules"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h
++++ b/Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h
+@@ -17,6 +17,9 @@
+ {
+     if(S.Family!=TEXT("Tool")||S.Weapon!=TEXT("warhammer")||
+         S.Motion==EFPSBodyMotion::Vault||S.Motion==EFPSBodyMotion::Mantle)return NAME_None;
++    // The single-hand conductor uses the authored native wrist/finger stream,
++    // rebased onto each body by CaptureMotion, rather than the two-hand slam.
++    if(S.ActionVariant==TEXT("WarhammerCallCharge")||S.ActionVariant==TEXT("WarhammerCallRelease"))return NAME_None;
+     if(IsCarry(S)&&S.Motion==EFPSBodyMotion::Ground)
+         return S.ActionVariant==TEXT("WarhammerSprintReady")?TEXT("Warhammer.FullBody.SprintCarry"):TEXT("Warhammer.FullBody.Carry");
+     if(S.Action==EFPSBodyAction::Strike||S.Action==EFPSBodyAction::HeavyStrike||S.Action==EFPSBodyAction::ToolRecover)
+@@ -26,12 +29,14 @@
+         if(S.ActionVariant==TEXT("WarhammerSlash1"))return TEXT("Warhammer.FullBody.Slash1");
+         if(S.ActionVariant==TEXT("WarhammerSlash2"))return TEXT("Warhammer.FullBody.Slash2");
+         if(S.ActionVariant==TEXT("WarhammerSlash3"))return TEXT("Warhammer.FullBody.Slash3");
++        if(S.ActionVariant==TEXT("WarhammerThrow"))return TEXT("Warhammer.FullBody.Slash3");
+         if(S.ActionVariant==TEXT("WarhammerFinalToll"))return TEXT("Warhammer.FullBody.FinalTollHeavy");
+         if(S.ActionVariant==TEXT("WarhammerSlam"))return TEXT("Warhammer.FullBody.Slam");
+         if(S.ActionVariant==TEXT("WarhammerSprintSlam"))return TEXT("Warhammer.FullBody.SprintSlam");
+         if(S.ActionVariant==TEXT("WarhammerUppercut"))return TEXT("Warhammer.FullBody.Uppercut");
+     }
+     if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerCharge"))return TEXT("Warhammer.FullBody.Charge");
++    if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerThrowCharge"))return TEXT("Warhammer.FullBody.Slash3");
+     if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerFinalTollCharge"))return TEXT("Warhammer.FullBody.FinalTollCharge");
+     if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerSprintLift"))return TEXT("Warhammer.FullBody.SprintLift");
+     if(S.Action==EFPSBodyAction::Whirlwind)
+@@ -89,7 +94,7 @@
+             return Seconds;
+         }
+         const bool Windup=S.Action==EFPSBodyAction::Charge;
+-        const bool Release=S.ActionVariant==TEXT("WarhammerSlam")||S.ActionVariant==TEXT("WarhammerSprintSlam");
++        const bool Release=S.ActionVariant==TEXT("WarhammerSlam")||S.ActionVariant==TEXT("WarhammerSprintSlam")||S.ActionVariant==TEXT("WarhammerThrow");
+         const float LoadedTime=FMath::Clamp(Contact*.5f,0.f,Length);
+         const float Follow=FMath::Clamp(FollowThrough,Contact,Length);
+         const auto Ease=[](float U){U=FMath::Clamp(U,0.f,1.f);return U*U*(3.f-2.f*U);};

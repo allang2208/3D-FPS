@@ -21,10 +21,12 @@ struct FProductionToolStats
     FToolModifiers Modifiers;
     /** 自卫伤害面板：工具基础公式 × 改造倍率，再走附魔／加工／附加伤害后处理。 */
     FWeaponDamageParts Damage;
+    double PhysicalAttack=0;
     /** 作者节奏 ÷ 挥砍速度倍率；组件按 RateScale 在作者时间与真实时间之间换算。 */
     double SwingSeconds=1.1, ContactSeconds=.48, RateScale=1;
     double StaminaCost=10;
     double HeavyReleaseStaminaCost=10;
+    /** Final heavy multiplier: character skill, multiplicative/flat parts, then martial damage. */
     double HeavyDamageMultiplier=1.;
     /** Warhammer charge clock is independent of its ordinary attack-rate clock. */
     double HeavyChargeSpeedBonus=0, HeavyChargeSeconds=2;

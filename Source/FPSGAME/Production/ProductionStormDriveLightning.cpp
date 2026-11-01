@@ -1,5 +1,7 @@
 #include "ProductionToolComponent.h"
 #include "RuneboundHammerTuning.h"
+#include "ThunderHammerCall.h"
+#include "ThunderHammerPommel.h"
 #include "../FPSGAMECharacter.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -14,11 +16,28 @@
 #include "Engine/StaticMesh.h"
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Sound/SoundBase.h"
 
 namespace StormDriveFX
 {
 constexpr int32 Arcs=8,Steps=18,Sides=4,Rings=Steps+1,Pool=5;
 constexpr float BurstSeconds=.46f;
+const FSoftObjectPath JiLeiLightning(TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/M_JiLei_BlueWhiteLightning.M_JiLei_BlueWhiteLightning"));
+bool IsCallSeat(const UStaticMesh* Mesh)
+{
+    if(!Mesh)return false;
+    const FString Name=Mesh->GetName();
+    return Name==TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat")||
+        Name.StartsWith(TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat_"));
+}
+UStaticMesh* ResolveSeatMesh(UStaticMeshComponent* Part,const AFPSGAMECharacter* Pawn)
+{
+    UStaticMesh* Mesh=IsValid(Part)&&Part->IsRegistered()?Part->GetStaticMesh():nullptr;
+    if(!IsValid(Mesh)||!Part->IsVisible()||Part->bHiddenInGame||
+        (Pawn->IsLocallyControlled()?Part->bOwnerNoSee:Part->bOnlyOwnerSee))return nullptr;
+    return Mesh->GetName().Contains(TEXT("Warhammer_StormDrive_"))||
+        IsCallSeat(Mesh)?Mesh:nullptr;
+}
 UE::Geometry::FDynamicMesh3 Topology()
 {
     using namespace UE::Geometry;
@@ -51,6 +70,8 @@ void Tube(UE::Geometry::FDynamicMesh3& Mesh,int32 Arc,const FVector* Points,floa
 }
 bool Installed(const FColdSteelItem& Item)
 {
+    // Retired from Thor's equipment; stale save selections must not retain its FX/passive.
+    if(Item.Definition==TEXT("ue_thunder_god_hammer"))return false;
     const auto Data=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Parts=nullptr;FString Id;
     return Data&&Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&(*Parts)->TryGetStringField(TEXT("head_mount"),Id)&&Id==TEXT("storm_drive_seat");
 }
@@ -88,25 +109,38 @@ void UProductionToolComponent::UpdateStormDriveLightning(float Delta)
         StormDriveSeatRefresh=.25f;StormDriveSeat.Reset();
         TInlineComponentArray<UStaticMeshComponent*> Parts(Pawn);
         for(auto* Part:Parts)
-            if(Part->GetStaticMesh()&&Part->GetStaticMesh()->GetName().Contains(TEXT("Warhammer_StormDrive_"))&&
-                Part->IsVisible()&&!Part->bHiddenInGame&&!(Pawn->IsLocallyControlled()?Part->bOwnerNoSee:Part->bOnlyOwnerSee))
-                StormDriveSeat=Part;
+        {
+            if(ResolveSeatMesh(Part,Pawn))StormDriveSeat=Part;
+            // Remote bodies have no local tool pivot. Use the replicated buff
+            // on their actual visible assembly during the existing discovery pass.
+            if(Part->IsVisible()&&!Part->bHiddenInGame&&
+                (Pawn->IsLocallyControlled()?!Part->bOwnerNoSee:!Part->bOnlyOwnerSee))
+                ThunderHammerPommel::RefreshWorldCore(Pawn,Part);
+        }
     }
     auto* Seat=StormDriveSeat.Get();
+    // Equipment refresh can reuse a live component while clearing/replacing its mesh.
+    // A valid weak component pointer does not keep the cached seat asset valid.
+    auto* SeatAsset=ResolveSeatMesh(Seat,Pawn);
+    if(Seat&&!SeatAsset){StormDriveSeat.Reset();StormDriveSeatRefresh=0.f;Seat=nullptr;}
+    const bool CallSeat=IsCallSeat(SeatAsset);
     auto* Viewer=UGameplayStatics::GetPlayerCameraManager(Pawn,0);
     const double Now=RuneboundClock();
-    const bool ShowSeat=Seat&&Seat->IsVisible()&&!Seat->bHiddenInGame&&Viewer&&
+    const bool ShowSeat=SeatAsset&&(!CallSeat||bThunderCallCharging)&&Viewer&&
         FVector::DistSquared(Viewer->GetCameraLocation(),Seat->GetComponentLocation())<FMath::Square(3500.f);
     bool HasBurst=false;for(const auto& Burst:StormDriveBursts)HasBurst|=Now-Burst.ServerAt>=0.&&Now-Burst.ServerAt<BurstSeconds;
     if(!ShowSeat&&!HasBurst){for(const auto& Mesh:StormDriveMeshes)if(Mesh)Mesh->SetVisibility(false);return;}
-    if(!StormDriveMaterial)
+    if(!StormDriveMaterial||(CallSeat&&(!JiLeiLightning.ResolveObject()||!ThunderCallChargeSound)))
     {
-        if(!StormDriveLoad)
+        if(!StormDriveLoad||StormDriveLoad->HasLoadCompleted())
         {
             const FSoftObjectPath Path(RuneboundHammer::FinalTollLightning);
+            const FSoftObjectPath CallAudio(ThunderHammerCall::ChargeSound);
             TWeakObjectPtr<UProductionToolComponent> Weak(this);
-            StormDriveLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Path,FStreamableDelegate::CreateLambda([Weak,Path]()
-            {if(Weak.IsValid())Weak->StormDriveMaterial=Cast<UMaterialInterface>(Path.ResolveObject());}));
+            StormDriveLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(TArray<FSoftObjectPath>{Path,JiLeiLightning,CallAudio},FStreamableDelegate::CreateLambda([Weak,Path,CallAudio]()
+            {if(Weak.IsValid())
+                {Weak->StormDriveMaterial=Cast<UMaterialInterface>(Path.ResolveObject());Weak->ThunderCallChargeSound=Cast<USoundBase>(CallAudio.ResolveObject());}
+            }));
         }
         return;
     }
@@ -126,26 +160,51 @@ void UProductionToolComponent::UpdateStormDriveLightning(float Delta)
     if(ShowSeat)
     {
         Ensure(0);auto* Mesh=StormDriveMeshes[0].Get();Mesh->SetVisibility(true);
+        auto* SeatMaterial=CallSeat?Cast<UMaterialInterface>(JiLeiLightning.ResolveObject()):StormDriveMaterial.Get();
+        if(SeatMaterial&&StormDriveMIDs[0]->Parent!=SeatMaterial)
+        {
+            StormDriveMIDs[0]=UMaterialInstanceDynamic::Create(SeatMaterial,this);
+            Mesh->SetMaterial(0,StormDriveMIDs[0]);
+        }
         Mesh->SetOnlyOwnerSee(Seat->bOnlyOwnerSee);Mesh->SetOwnerNoSee(Seat->bOwnerNoSee);
         Mesh->SetWorldTransform(Seat->GetComponentTransform());
-        StormDriveMIDs[0]->SetScalarParameterValue(TEXT("Strength"),.75f);
+        const float Charge=CallSeat?ThunderCallChargeProgress():0.f;
+        const float Energy=FMath::SmoothStep(0.f,1.f,Charge);
+        const float Flash=FMath::Pow(FMath::Max(0.f,FMath::Sin(Time*27.f)),8.f);
+        StormDriveMIDs[0]->SetScalarParameterValue(TEXT("Strength"),CallSeat?(.35f+5.65f*Energy+2.4f*Flash*Energy*Energy):.75f);
         if(Shape)
         {
-            const FBox Box=Seat->GetStaticMesh()->GetBoundingBox();const FVector C=Box.GetCenter(),E=Box.GetExtent();
+            const FBox Box=SeatAsset->GetBoundingBox();const FVector C=Box.GetCenter();FVector E=Box.GetExtent();
+            if(CallSeat){E.X*=FMath::Lerp(1.15f,3.35f,Energy);E.Y*=FMath::Lerp(1.05f,1.65f,Energy);E.Z*=FMath::Lerp(.85f,1.45f,Energy);}
             Mesh->GetDynamicMesh()->EditMesh([&](UE::Geometry::FDynamicMesh3& Geo)
             {
                 for(int32 A=0;A<Arcs;++A)
                 {
-                    FVector Points[Rings];const float Beat=Time*6.f+A*.29f,Seed=FMath::FloorToFloat(Beat)*3.71f+A*2.13f;
-                    const float Pulse=FMath::Clamp((.66f-FMath::Frac(Beat))*8.f,0.f,1.f);
+                    FVector Points[Rings];const float Beat=Time*(CallSeat?8.f:6.f)+A*.29f,Seed=FMath::FloorToFloat(Beat)*3.71f+A*2.13f;
+                    const float ArcGain=CallSeat?(A<2?1.f:FMath::SmoothStep(0.f,1.f,(Charge-(A-1)*.10f)/.24f)):1.f;
+                    const float Pulse=CallSeat?.32f+.68f*FMath::Clamp((.78f-FMath::Frac(Beat))*8.f,0.f,1.f):FMath::Clamp((.66f-FMath::Frac(Beat))*8.f,0.f,1.f);
                     for(int32 I=0;I<Rings;++I)
                     {
                         const float U=float(I)/Steps,Angle=U*PI*1.25f+Seed*.35f;
                         const float J=.45f*FMath::Sin(I*2.31f+Seed)+.23f*FMath::Sin(I*5.17f-Seed);
-                        if(A<4)Points[I]=C+FVector(FMath::Cos(Angle)*(E.X+.6f)+J,(A%2?-1.f:1.f)*(E.Y+.5f)+J*.4f,FMath::Sin(Angle)*(E.Z*.90f)+J);
+                        if(CallSeat)
+                        {
+                            const float Wrap=U*PI*1.75f+A*PI*.5f+Time*(A%2?1.8f:-1.6f);
+                            const float Jag=J*(A<4?2.8f:1.8f)*FMath::Lerp(.28f,1.15f,Energy);
+                            if(A<4)
+                                Points[I]=C+FVector(FMath::Cos(Wrap)*(E.X+1.6f)+Jag,
+                                    FMath::Sin(Wrap)*(E.Y+1.3f)+Jag*.6f,(U-.5f)*E.Z*1.7f+Jag);
+                            else if(A<6)
+                                Points[I]=C+FVector((U-.5f)*E.X*2.15f+Jag,
+                                    (A%2?-1.f:1.f)*(E.Y+.9f)+Jag*.6f,FMath::Sin(U*PI*2.f+Seed)*E.Z*.65f+Jag);
+                            else
+                                Points[I]=C+FVector(FMath::Cos(Wrap)*(3.4f+U*2.4f)+Jag,
+                                    FMath::Sin(Wrap)*(3.4f+U*2.4f)+Jag*.55f,-U*(E.Z+28.f)+Jag);
+                        }
+                        else if(A<4)Points[I]=C+FVector(FMath::Cos(Angle)*(E.X+.6f)+J,(A%2?-1.f:1.f)*(E.Y+.5f)+J*.4f,FMath::Sin(Angle)*(E.Z*.90f)+J);
                         else Points[I]=C+FVector((U-.5f)*E.X*.75f+J,(A%2?-1.f:1.f)*(E.Y+.25f)+J*.4f,(U*2.f-1.f)*E.Z*.67f+J);
                     }
-                    Tube(Geo,A,Points,(A<4?.048f:.032f)*Pulse);
+                    Tube(Geo,A,Points,(CallSeat?(A<4?.32f:.19f):(A<4?.048f:.032f))*Pulse*(CallSeat?.16f+.84f*Energy:1.f)*ArcGain);
                 }
             },EDynamicMeshChangeType::DeformationEdit,EDynamicMeshAttributeChangeFlags::VertexPositions);
         }

@@ -1,4 +1,5 @@
 #include "FPSMeleeLightningComponent.h"
+#include "../Production/ThunderHammerRunes.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "RuneSwordComponent.h"
@@ -62,13 +63,18 @@ bool UFPSMeleeLightningComponent::IsEnemy(AActor* Target,AActor* Owner)
     return Combat&&!Combat->IsDead();
 }
 
-void UFPSMeleeLightningComponent::QueueDischarge(const FHitResult& Hit,float RadiusCM,int32 MinimumLevel)
+void UFPSMeleeLightningComponent::QueueDischarge(const FHitResult& Hit,float RadiusCM,int32 MinimumLevel,const FLightningCast& RuneSource)
 {
     const auto* Pawn=Cast<APawn>(GetOwner());auto* M=ColdSteelAuthority::ForPawn(Pawn);
     if(!M||!Pawn||!Pawn->HasAuthority()||!Pawn->IsPlayerControlled()||RadiusCM<=0.f||MinimumLevel<=0)return;
     // Called only after a confirmed melee hit. The original victim may already be dead.
     FWave Wave;Wave.Chain=MakeShared<FChain>();Wave.Chain->Radius=RadiusCM;
     Wave.Chain->Spell=M->LightningStats(FMath::Max(MinimumLevel,M->LightningProgress().Level));
+    auto& Spell=Wave.Chain->Spell;
+    Spell.OverloadStun+=(RuneSource.bEchoRune?.25f:0.f)-(Spell.bEchoRune?.25f:0.f);
+    Spell.bEchoRune=RuneSource.bEchoRune;Spell.OverloadRetainedStacks=RuneSource.OverloadRetainedStacks;
+    Spell.RuneElectrifyChance=RuneSource.RuneElectrifyChance;
+    Spell.bLeiXiPommel=RuneSource.bLeiXiPommel;
     Wave.Origin=Hit.GetActor();Wave.Start=IsValid(Hit.GetActor())?Hit.GetActor()->GetActorLocation():FVector(Hit.ImpactPoint);Wave.bRandomFirst=true;
     if(Hit.GetActor())Wave.Chain->Visited.Add(Hit.GetActor());
     Wave.Due=GetWorld()->GetTimeSeconds();Waves.Add(MoveTemp(Wave));SetComponentTickEnabled(true);
@@ -76,15 +82,30 @@ void UFPSMeleeLightningComponent::QueueDischarge(const FHitResult& Hit,float Rad
     // mastery/armor procs, and no manipulation of the active spell's snapshot.
 }
 
+void UFPSMeleeLightningComponent::QueueRandomLightning(const FVector& Center,float RadiusCM,const FLightningCast& Spell,int32 Bolts)
+{
+    const auto* Pawn=Cast<APawn>(GetOwner());
+    if(!Pawn||!Pawn->HasAuthority()||!Pawn->IsPlayerControlled()||RadiusCM<=0.f||!GetWorld())return;
+    for(int32 I=0;I<Bolts;++I)
+    {
+        FWave Wave;Wave.Chain=MakeShared<FChain>();Wave.Chain->Radius=RadiusCM;
+        Wave.Chain->Spell=Spell;Wave.Chain->bSkillChain=true;
+        Wave.Start=Center;Wave.bRandomFirst=true;Wave.Due=GetWorld()->GetTimeSeconds();
+        Waves.Add(MoveTemp(Wave));
+    }
+    SetComponentTickEnabled(!Waves.IsEmpty()||bBladeEnabled);
+}
+
 void UFPSMeleeLightningComponent::Gather(const FWave& Wave,TArray<AActor*>& Out) const
 {
-    const float Radius=Wave.bOverload?Wave.Chain->Spell.OverloadRange:Wave.Chain->Radius;
+    const float Radius=Wave.bOverload?Wave.Chain->Spell.OverloadRange:
+        Wave.Chain->bSkillChain&&Wave.Depth>0?Wave.Chain->Spell.ChainRange:Wave.Chain->Radius;
     if(Radius<=0.f)return;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(ElectrifiedMeleeTargets),false,GetOwner());
     if(Wave.Origin.IsValid())Query.AddIgnoredActor(Wave.Origin.Get());
     TArray<FOverlapResult> Overlaps;
     GetWorld()->OverlapMultiByObjectType(Overlaps,Wave.Start,FQuat::Identity,
-        FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(Radius),Query);
+        Wave.Chain->bSkillChain?FCollisionObjectQueryParams(FCollisionObjectQueryParams::AllDynamicObjects):FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(Radius),Query);
     FCollisionQueryParams Sight(SCENE_QUERY_STAT(ElectrifiedMeleeSight),true,GetOwner());
     if(Wave.Origin.IsValid())Sight.AddIgnoredActor(Wave.Origin.Get());
     for(const auto& Previous:Wave.Chain->Visited)if(Previous.IsValid())Sight.AddIgnoredActor(Previous.Get());
@@ -105,9 +126,17 @@ void UFPSMeleeLightningComponent::Gather(const FWave& Wave,TArray<AActor*>& Out)
 void UFPSMeleeLightningComponent::ProcessWave(const FWave& Wave)
 {
     auto* Pawn=Cast<APawn>(GetOwner());auto* M=ColdSteelAuthority::ForPawn(Pawn);if(!M||!Pawn||!Pawn->HasAuthority()||!Wave.Chain)return;
+    ColdSteelAuthority::FScope Scope(M);
     TArray<AActor*> Targets;Gather(Wave,Targets);
     if(Wave.bRandomFirst&&!Targets.IsEmpty())
     {AActor* Chosen=Targets[FMath::RandHelper(Targets.Num())];Targets.Reset();Targets.Add(Chosen);}
+    else if(Wave.Chain->bSkillChain&&!Wave.bOverload&&!Targets.IsEmpty())
+    {
+        AActor* Nearest=Targets[0];
+        for(auto* Target:Targets)
+            if(FVector::DistSquared(Wave.Start,Target->GetActorLocation())<FVector::DistSquared(Wave.Start,Nearest->GetActorLocation()))Nearest=Target;
+        Targets.Reset();Targets.Add(Nearest);
+    }
     const auto& Spell=Wave.Chain->Spell;
     const float Damage=Wave.bOverload?Spell.OverloadDamage:
         FMath::FloorToFloat(Spell.Damage*FMath::Pow(1.f-Spell.ChainDecay,Wave.Depth));
@@ -126,13 +155,16 @@ void UFPSMeleeLightningComponent::ProcessWave(const FWave& Wave)
         const bool Killed=!IsValid(Target)||Target->IsActorBeingDestroyed()||(Combat&&Combat->IsDead());
         FWave Next;Next.Chain=Wave.Chain;Next.Origin=Target;Next.Start=End;
         Next.Depth=Wave.Depth+1;Next.Due=GetWorld()->GetTimeSeconds()+.06;
-        if(Killed){Waves.Add(MoveTemp(Next));continue;}
+        // Coil follows the lightning skill's target count, chain range and decay.
+        // It is separate from the existing enchant's overload-only continuation.
+        if(Wave.Chain->bSkillChain&&!Wave.bOverload&&Next.Depth<Spell.Count)Waves.Add(Next);
+        if(Killed){if(!Wave.Chain->bSkillChain)Waves.Add(MoveTemp(Next));continue;}
         if(!Combat)continue;
         auto* Status=UCombatStatusFormula::GetOrAdd(Target);
         if(Status->IsImmune())continue;
         if(!Wave.bOverload){Combat->ReceiveStun(Pawn,Spell.StunSeconds,0);Status->AddStun(Spell.StunSeconds);}
-        if(Status->AddElectrified(Wave.bOverload?1:Spell.ElectrifyStacks,Spell.ElectrifyDuration,
-            Spell.OverloadStacks,Spell.ElectricBonusPerStack))
+        if(Status->AddElectrified(ThunderHammerRunes::Stacks(Spell,Wave.bOverload?1:Spell.ElectrifyStacks),Spell.ElectrifyDuration,
+            Spell.OverloadStacks,Spell.ElectricBonusPerStack,Spell.OverloadRetainedStacks))
         {
             Combat->ReceiveStun(Pawn,Spell.OverloadStun,0);Status->AddStun(Spell.OverloadStun);
             Next.bOverload=true;Waves.Add(MoveTemp(Next));
@@ -143,7 +175,9 @@ void UFPSMeleeLightningComponent::ProcessWave(const FWave& Wave)
 
 void UFPSMeleeLightningComponent::ShowArc(const FVector& Start,const FVector& End,const FLightningCast& Spell,bool bOverload)
 {
-    if(!ChainSystem&&GetNetMode()!=NM_DedicatedServer)return;
+    // The server publishes the arc even while its own cosmetic assets load.
+    // Observers resolve their Niagara asset independently from the replicated arc.
+    if(!ChainSystem&&!GetOwner()->HasAuthority())return;
     WorldArcs.RemoveAll([](const auto& Arc){return !Arc.IsValid();});
     // A cosmetic budget only: every eligible enemy still receives damage.
     if(WorldArcs.Num()>=32){if(auto* Old=WorldArcs[0].Get())Old->Destroy();WorldArcs.RemoveAt(0);}

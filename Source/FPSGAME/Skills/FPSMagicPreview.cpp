@@ -102,7 +102,8 @@ void FPSMagicPreview::BeginRefresh(TObjectPtr<ULineBatchComponent>& Lines,AActor
     Lines->Flush();
 }
 
-void FPSMagicPreview::DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArray<FVector>& Points)
+void FPSMagicPreview::DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArray<FVector>& Points,
+    float Thickness,float MinimumOpacity)
 {
     if(!Lines||Points.Num()<2)return;
     const FLinearColor Color=LineColor();
@@ -134,10 +135,11 @@ void FPSMagicPreview::DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArr
                 // paints opaque dark red over the background, which reads as a shadow band
                 // instead of a fade (2026-09-17 round 3 tried exactly that).
                 const float Progress=FMath::Clamp((Travelled+Consumed)/Total,0.f,1.f);
-                const float Fade=Progress<FadeInFraction?FMath::Clamp(Progress/FadeInFraction,0.f,1.f):1.f;
+                const float Fade=FMath::Max(FMath::Clamp(MinimumOpacity,0.f,1.f),
+                    Progress<FadeInFraction?FMath::Clamp(Progress/FadeInFraction,0.f,1.f):1.f);
                 Lines->DrawLine(Start+Step*Consumed,Start+Step*(Consumed+Piece),
                     FLinearColor(Color.R,Color.G,Color.B,Color.A*Fade),
-                    0,LineThickness*FMath::Lerp(.3f,1.f,Fade),0.f);
+                    0,Thickness*FMath::Lerp(.3f,1.f,Fade),0.f);
             }
             Consumed+=Piece;Phase+=Piece;
             if(Phase>=PhaseLength-UE_KINDA_SMALL_NUMBER){Phase=0.f;bDash=!bDash;}

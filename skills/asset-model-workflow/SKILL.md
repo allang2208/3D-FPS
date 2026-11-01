@@ -14,3 +14,4 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 - 连续靴体、脚踝断面、渲染 LOD 及旧装备实例外观：读取[连续长靴与渲染 LOD](references/continuous-boots-and-render-lods.md)。保留近景与原生权重，区分几何检查、联网检查和帧率实测。
 
 - 枪械尾座连续面、donor 角点法线和切线回写：[M24 材质与法线修订](../ue5-weapon-workflow/references/m24-modular-recovery.md#材质与法线修订)。
+- 已保存硬表面网格的切线、UV 与 Nanite 回退修复：读取[已保存硬表面网格的切线、UV 与 Nanite 回退修复](references/saved-static-mesh-tangent-basis.md)。

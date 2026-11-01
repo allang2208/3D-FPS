@@ -31,7 +31,7 @@ const TArray<FString>& UGunsmithSystem::Defaults(const FString& Definition) cons
 void UGunsmithSystem::LoadWarhammerCatalog()
 {
     WarhammerColumns().Reset();
-    for(const TCHAR* CatalogFile:{TEXT("warhammer-gunsmith.json"),TEXT("runebound-warhammer-gunsmith.json")})
+    for(const TCHAR* CatalogFile:{TEXT("warhammer-gunsmith.json"),TEXT("runebound-warhammer-gunsmith.json"),TEXT("thunder-god-hammer-gunsmith.json")})
     {
     FString Text;TSharedPtr<FJsonObject> Root;
     if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/CatalogFile))||
@@ -54,6 +54,10 @@ void UGunsmithSystem::LoadWarhammerCatalog()
         Columns.Defaults.Add(Factory.Name);Weapon.Options.Add(Key,{Factory});
         FString LibraryFile;const TArray<TSharedPtr<FJsonValue>>* Options=nullptr;
         TArray<TSharedPtr<FJsonValue>> AllOptions;
+        TSet<FString> Excluded;
+        const TArray<TSharedPtr<FJsonValue>>* ExcludedValues=nullptr;
+        if(Column->TryGetArrayField(TEXT("excluded_options"),ExcludedValues))
+            for(const auto& Id:*ExcludedValues)Excluded.Add(Id->AsString());
         TSharedPtr<FJsonObject> Library;
         if(Column->TryGetArrayField(TEXT("options"),Options))AllOptions.Append(*Options);
         if(Column->TryGetStringField(TEXT("options_library"),LibraryFile))
@@ -77,6 +81,7 @@ void UGunsmithSystem::LoadWarhammerCatalog()
         for(const auto& OptionValue:AllOptions)
         {
             const auto Data=OptionValue->AsObject();if(!Data)continue;
+            if(Excluded.Contains(Data->GetStringField(TEXT("id"))))continue;
             if(Key==TEXT("rune")&&!ColdSteelFrostRunes::IsWarhammerRune(Item.Definition,Data->GetStringField(TEXT("id"))))continue;
             FGunsmithOption Part;Part.Id=Data->GetStringField(TEXT("id"));Part.Name=Data->GetStringField(TEXT("name"));
             Part.Description=Data->GetStringField(TEXT("description"));Data->TryGetStringField(TEXT("appearance"),Part.Appearance);
@@ -88,6 +93,7 @@ void UGunsmithSystem::LoadWarhammerCatalog()
             if(Data->TryGetObjectField(TEXT("stats"),Stats))
             {
                 (*Stats)->TryGetNumberField(TEXT("physical_damage_mult"),Part.Melee.PhysicalDamage);
+                (*Stats)->TryGetNumberField(TEXT("physical_attack_add"),Part.Melee.PhysicalAttackAdd);
                 (*Stats)->TryGetNumberField(TEXT("attack_speed_mult"),Part.Melee.AttackSpeed);
                 (*Stats)->TryGetNumberField(TEXT("stamina_mult"),Part.Melee.Stamina);
                 (*Stats)->TryGetNumberField(TEXT("toughness_damage_mult"),Part.Melee.ToughnessDamage);

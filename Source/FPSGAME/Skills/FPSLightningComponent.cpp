@@ -1,4 +1,5 @@
 #include "FPSLightningComponent.h"
+#include "../Production/ThunderHammerRunes.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
@@ -149,7 +150,7 @@ void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards,
         M->ApplyLightningHit(Player,Target,Start,CastSnapshot,CastSnapshot.OverloadDamage,Rewards,false);
         // 旧 _triggerElectrifiedOverload：传导电击给每个被链到的敌人 +1 感电层（其自身满层可再过载，级联同旧行为）。
         if(auto* S=UCombatStatusFormula::GetOrAdd(Target))
-            if(!S->IsImmune()&&S->AddElectrified(1,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards,M);
+            if(!S->IsImmune()&&S->AddElectrified(ThunderHammerRunes::Stacks(CastSnapshot,1),CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack,CastSnapshot.OverloadRetainedStacks))Overload(Target,Rewards,M);
     }
 }
 void UFPSLightningComponent::ReleaseAtContact()
@@ -218,7 +219,7 @@ void UFPSLightningComponent::RunChain(APawn* Player,UColdSteelStatusModel* M,AAc
                 if(!Status->IsImmune())
                 {
                     // Native stun and bell extension were applied once with damage.
-                    if(Status->AddElectrified(CastSnapshot.ElectrifyStacks,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards,M);
+                    if(Status->AddElectrified(ThunderHammerRunes::Stacks(CastSnapshot,CastSnapshot.ElectrifyStacks),CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack,CastSnapshot.OverloadRetainedStacks))Overload(Target,Rewards,M);
                 }
             }
         From=End;

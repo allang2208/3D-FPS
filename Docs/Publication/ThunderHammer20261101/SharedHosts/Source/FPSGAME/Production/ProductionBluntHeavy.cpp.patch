@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
+@@ -10,8 +10,9 @@
+ 
+ void UProductionToolComponent::BeginPrimaryAttack()
+ {
++    if(HandleThunderPrimary())return;
+     if(Character.IsValid()&&Character->RuneSword&&Character->RuneSword->IsToolGuardRequested())return;
+-    if(bBluntWhirlwind||bBluntUppercut)return;
++    if(bBluntWhirlwind||bBluntUppercut||ThunderCatchAge>=0.f||ThunderCallReleaseAge>=0.f)return;
+     if(Kind!=TEXT("warhammer")){BeginUse();return;}
+     if(Elapsed>=0.f){BeginUse();return;}
+     if(bBluntCharging||bBluntReturningCharge||EquipElapsed>=0.f||!CanUse()||!HasReadyPresentation()||
+@@ -20,16 +21,27 @@
+     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+     if(!Item)return;
+     ApplyToolStats(Item,Profile);
+-    if(Profile->Stamina()<=0.f||!Profile->CanSpendStamina(float(ToolStats.StaminaCost)))return;
++    if(Profile->Stamina()<=0.f||(!bThunderCallSeat&&!Profile->CanSpendStamina(float(ToolStats.StaminaCost))))return;
++    if(bThunderCallSeat&&!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f)return;
+     bBluntCharging=true;bBluntHeavy=bBluntSprintAttack=false;bQueuedBluntAttack=false;
+     BluntSprintSeconds=0.f;
+     BluntChargeStartedAt=GetWorld()->GetTimeSeconds();
+     ++BluntAttackId;
++    if(bThunderCallSeat)
++    {
++        bThunderCallCharging=true;
++        if(Character->HasAuthority())
++        {
++            bThunderCallResourcesDirty=true;ThunderCallVisualStartedAt=RuneboundClock();
++            ThunderCallVisualSeconds=BluntChargeSeconds;Character->ForceNetUpdate();
++        }
++    }
+     if(GetNetMode()!=NM_Standalone)ServerBeginBluntCharge(BluntAttackId);
+ }
+ 
+ float UProductionToolComponent::BluntChargeResume(float Held) const
+ {
++    if(bThunderThrowSeat||bThunderCallSeat)return 0.f;
+     if(bFinalTollHead)
+         return ProductionBluntCombo::RealForWindupClip(
+             FinalTollHeavy::ChargeSource(Held/FMath::Max(.01f,BluntChargeSeconds)),
+@@ -52,9 +64,12 @@
+     if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
+     {CancelHeavyCharge();return;}
+     const float Held=float(GetWorld()->GetTimeSeconds()-BluntChargeStartedAt);
++    if(bThunderCallSeat&&Held>=BluntChargeSeconds){ReleaseThunderCall();return;}
+     bBluntCharging=false;bBluntReleaseCharge=true;
+     bBluntHeavy=Held>=BluntChargeSeconds;
+     if(Held>.20f)NextBluntStage=0;
++    if((bThunderThrowSeat||bThunderCallSeat)&&!bBluntHeavy)HandOffBluntPose();
++    if(bThunderCallSeat){bThunderCallCharging=false;ClearThunderCallVisual();FinishThunderCallResources();}
+     BeginUse();
+     if(Elapsed<0.f){bBluntCharging=true;CancelUse();return;}
+     bBluntReleaseCharge=false;
+@@ -112,13 +127,13 @@
+ 
+ bool UProductionToolComponent::IsGroundSlamActive() const
+ {
+-    return (bBluntHeavy&&!UsesFinalTollHeavy()&&Elapsed>=0.f)||(Character.IsValid()&&Character->HasAuthority()&&
++    return (bBluntHeavy&&!UsesFinalTollHeavy()&&!UsesThunderThrowHeavy()&&Elapsed>=0.f)||(Character.IsValid()&&Character->HasAuthority()&&
+         GetWorld()&&GetWorld()->GetTimeSeconds()<BluntServerGroundSlamUntil);
+ }
+ 
+ bool UProductionToolComponent::GetGroundSlamCameraLocation(FVector& Point) const
+ {
+-    if(!bBluntHeavy||UsesFinalTollHeavy()||Elapsed<0.f||!CanUse())return false;
++    if(!bBluntHeavy||UsesFinalTollHeavy()||UsesThunderThrowHeavy()||Elapsed<0.f||!CanUse(true))return false;
+     const float Time=AuthoredElapsed();
+     // A posture displacement, not recoil: do not scale it by camera shake or
+     // feed the posed chest clearance back into this committed eye anchor.

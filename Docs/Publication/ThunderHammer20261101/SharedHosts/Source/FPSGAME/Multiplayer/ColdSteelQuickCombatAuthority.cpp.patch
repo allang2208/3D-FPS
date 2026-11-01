@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+@@ -57,8 +57,9 @@
+     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const auto* Book=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;
+     const auto* Broken=Pawn?Pawn->FindComponentByClass<UPlayerGuardBreakComponent>():nullptr;
++    const auto* Hammer=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
+     if(Busy||IsSwordWhirlwindExecuting(Pawn)||!Pawn||ActionPawn!=Pawn||!Health||Health->IsDead()||!ShadowModel
+-        ||!FMath::IsFinite(Duration)||Duration<.1f||Duration>5.f||Pawn->IsTraversing()
++        ||!FMath::IsFinite(Duration)||Duration<.1f||Duration>5.f||Pawn->IsTraversing()||(Hammer&&Hammer->IsThunderHammerAway())
+         ||(Book&&Book->IsFocusActive())||(Broken&&Broken->IsActive())||!ShadowModel->SpendStamina(ShadowModel->QuickCombatStaminaCost()))
+     {ClientQuickCombatRejected(Sequence);return;}
+     if(const auto* Item=ShadowModel->ActiveProductionTool();Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item))

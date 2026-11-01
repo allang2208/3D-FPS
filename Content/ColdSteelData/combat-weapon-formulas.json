@@ -491,5 +491,22 @@
         "perEnhance": 0.4375
       }
     ]
+  },
+  "ue_thunder_god_hammer": {
+    "source": "THUNDER_GOD_HAMMER_STR_CON_20261028",
+    "base": 40.5,
+    "enhanceFlat": 5.04,
+    "attrs": [
+      {
+        "key": "str",
+        "base": 4.59,
+        "perEnhance": 0.909
+      },
+      {
+        "key": "con",
+        "base": 3.6,
+        "perEnhance": 0.621
+      }
+    ]
   }
 }

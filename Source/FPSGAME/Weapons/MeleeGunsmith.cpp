@@ -92,6 +92,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("heavy_damage_add"),Part.Melee.HeavyDamageAdd);
             Stats->TryGetNumberField(TEXT("whirlwind_damage_add"),Part.Melee.WhirlwindDamageAdd);
             Stats->TryGetNumberField(TEXT("heavy_charge_speed_bonus"),Part.Melee.HeavyChargeSpeedBonus);
+            Stats->TryGetNumberField(TEXT("physical_attack_add"),Part.Melee.PhysicalAttackAdd);
             Stats->TryGetNumberField(TEXT("knockback_mult"),Part.Melee.Knockback);
             Stats->TryGetNumberField(TEXT("all_attack_knockback_mult"),Part.Melee.AllAttackKnockback);
             Stats->TryGetNumberField(TEXT("all_attack_damage_mult"),Part.Melee.AllAttackDamage);
