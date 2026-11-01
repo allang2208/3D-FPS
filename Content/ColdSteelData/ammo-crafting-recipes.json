@@ -481,6 +481,27 @@
         "item": "ammo_12g_slug",
         "count": 8
       }
+    },
+    {
+      "id": "craft_ammo_m24_762x51",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_m24_762x51",
+        "count": 20
+      }
     }
   ]
 }

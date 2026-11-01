@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -250,11 +250,26 @@
+     }
+     if(Character->IsTraversing() || (bBow ? !Bow->ShouldShowCrosshair() : !Character->HasInventoryWeapon()&&!Character->HasOffhandPistol()))return Result+2;
+     const bool bKVScope=Character->GetGunsmithOpticVariant()==KVScopeAssets::Id;
+-    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsAiming()&&(Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")||bKVScope)&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){
++    const bool bThermalScope=Character->HasThermalScope();
++    const bool bM24Dual=Character->HasM24FactoryScope();
++    if(const float UpperAlpha=Character->GetM24UpperSightReticleAlpha();UpperAlpha>0.f)
++    {
++        // Collimated upper-sight dot shares the camera ray with the 6x reticle.
++        const float Dot=FMath::Max(4.f,5.f*Scale);
++        const float Rim=FMath::Max(.8f,1.f*Scale);
++        const float OuterDot=Dot+Rim*2.f;
++        const auto OuterBrush=ColdSteelUI::RoundedBrush(FLinearColor::White,OuterDot*.5f,FLinearColor::Transparent,0.f);
++        FSlateDrawElement::MakeBox(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(OuterDot),FSlateLayoutTransform(Center-FVector2D(OuterDot*.5f))),
++            &OuterBrush,ESlateDrawEffect::None,FLinearColor(.008f,.003f,.002f,.85f*UpperAlpha));
++        const auto Brush=ColdSteelUI::RoundedBrush(FLinearColor::White,Dot*.5f,FLinearColor::Transparent,0.f);
++        FSlateDrawElement::MakeBox(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(Dot),FSlateLayoutTransform(Center-FVector2D(Dot*.5f))),
++            &Brush,ESlateDrawEffect::None,FLinearColor(1.f,.22f,.12f,UpperAlpha));
++    }
++    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsAiming()&&(Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")||bKVScope||bM24Dual||bThermalScope)&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){
+         const FVector2D Size=Geometry.GetLocalSize();
+         FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(FVector2D(150,24),FSlateLayoutTransform(FVector2D(Size.X*.5f-75,Size.Y*.87f-3))),FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")),ESlateDrawEffect::None,FLinearColor(0,0,0,.65f));
+         FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(220,24),FSlateLayoutTransform(FVector2D(Size.X*.5f-65,Size.Y*.87f))),
+-            bKVScope?FString::Printf(TEXT("%.0f×  |  滚轮切倍率"),Character->GetOpticMagnification()):FString::Printf(TEXT("%.1f×  |  滚轮调倍率"),Character->GetOpticMagnification()),FCoreStyle::GetDefaultFontStyle("Regular",12),ESlateDrawEffect::None,FLinearColor::White);
++            bM24Dual?FString::Printf(TEXT("%.0f×  |  滚轮切瞄具"),Character->GetOpticMagnification()):bKVScope?FString::Printf(TEXT("%.0f×  |  滚轮切倍率"),Character->GetOpticMagnification()):bThermalScope?FString::Printf(TEXT("%.1f×  |  滚轮切倍率"),Character->GetOpticMagnification()):FString::Printf(TEXT("%.1f×  |  滚轮调倍率"),Character->GetOpticMagnification()),FCoreStyle::GetDefaultFontStyle("Regular",12),ESlateDrawEffect::None,FLinearColor::White);
+         return Result+2;
+     }
+     if(!bBow&&Character->IsAiming())return Result+2;

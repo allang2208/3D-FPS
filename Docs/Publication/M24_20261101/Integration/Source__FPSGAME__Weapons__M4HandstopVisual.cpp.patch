@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/Weapons/M4HandstopVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4HandstopVisual.cpp
+@@ -1,4 +1,6 @@
+ #include "Saiga12KAttachments.h"
++#include "M24Attachments.h"
++#include "SniperSkeletonStock.h"
+ #include "HK416Attachments.h"
+ #include "HK416WeaponAssets.h"
+ #include "LMG201Attachments.h"
+@@ -59,6 +61,22 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
+ {
++    if(IsM24Weapon())
++    {
++        // M24 has no foregrip slot. Reuse this managed attachment channel for
++        // its chassis so visibility, world snapshots and cleanup stay shared.
++        PrismHandstop=M24Attachments::Configure(this,AKMViewmodel,PrismHandstop,Variant,
++            bInventoryWeaponReady&&Variant==M24Attachments::AdvancedAction);
++        const bool Independent=SniperSkeletonStock::UsesM24DirectStock(StockAttachment);
++        if(PrismHandstop&&Independent)
++            if(auto* Front=LoadObject<UStaticMesh>(nullptr,*SniperSkeletonStock::M24FrontMeshPath()))
++            {PrismHandstop->EmptyOverrideMaterials();PrismHandstop->SetStaticMesh(Front);}
++        // Hide the native front only after its replacement actually loaded.
++        // The factory buttstock, wrist and independent rear grips remain.
++        M24Attachments::FactoryChassisSections(AKMViewmodel,PrismHandstop==nullptr);
++        if(Independent)SniperSkeletonStock::FactorySections(AKMViewmodel,false);
++        return;
++    }
+     if(SVCHWeaponAssets::Matches(AKMViewmodel))
+     {
+         AngledForegrip=SVCHForegripAssets::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));
+@@ -168,5 +186,5 @@
+ 
+ bool AFPSGAMECharacter::HasPrismHandstop() const
+ {
+-    return PrismHandstop&&PrismHandstop->IsVisible()&&PrismHandstop->GetStaticMesh();
++    return !IsM24Weapon()&&PrismHandstop&&PrismHandstop->IsVisible()&&PrismHandstop->GetStaticMesh();
+ }

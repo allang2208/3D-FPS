@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/M4TacticalSprintComponent.h
++++ b/Source/FPSGAME/Weapons/M4TacticalSprintComponent.h
+@@ -8,7 +8,7 @@
+ class UFPSGunplayAnimInstance;
+ 
+ enum class EM4SprintGrip : uint8 { Base, Drum, Angled, Vertical, Canted, Prism };
+-enum class ERifleSprintWeapon : uint8 { None, M4, AKM, QBZ191, ASH12, M16, PKM, SVD, Super90, M870 };
++enum class ERifleSprintWeapon : uint8 { None, M4, AKM, QBZ191, ASH12, M16, PKM, SVD, Super90, M870, M24 };
+ 
+ // Presentation only: the character retains ownership of speed and fire timing.
+ UCLASS()

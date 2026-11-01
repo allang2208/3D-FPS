@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/Weapons/M4DrumVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4DrumVisual.cpp
+@@ -14,6 +14,7 @@
+ #include "LMG201WeaponAssets.h"
+ #include "Super90TubeMagazineAssets.h"
+ #include "M870TubeMagazineAssets.h"
++#include "M24Attachments.h"
+ #include "Saiga12KMagazineAssets.h"
+ #include "Components/StaticMeshComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+@@ -60,6 +61,18 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
+ {
++    if(IsM24Weapon())
++    {
++        const bool Extended=bInventoryWeaponReady&&Id==M24Attachments::ExtendedMagazine;
++        LargeDrum=M24Attachments::Configure(this,AKMViewmodel,LargeDrum,Id,Extended);
++        const bool Present=Extended&&LargeDrum&&LargeDrum->GetStaticMesh()
++            &&LargeDrum->GetStaticMesh()->GetPathName().StartsWith(M24Attachments::MeshPath(Id));
++        MagazineAttachmentId=Present?Id:FString();
++        bDrumVisual=bDrumReleasedDuringReload=bDrumMagazineHidden=false;
++        M24Attachments::FactoryMagazineSections(AKMViewmodel,!Present);
++        if(LargeDrum){DrumMount=LargeDrum->GetRelativeTransform();LargeDrum->SetVisibility(Present&&AKMViewmodel->IsVisible());}
++        return;
++    }
+     if (SVCHWeaponAssets::Matches(AKMViewmodel))
+     {
+         const bool Extended = Id == TEXT("ext_mag");
+@@ -296,6 +309,12 @@
+ void AFPSGAMECharacter::UpdateDrumDropVisual()
+ {
+     if(!LargeDrum)return;
++    if(IsM24Weapon())
++    {
++        bDrumReleasedDuringReload=bDrumMagazineHidden=false;
++        LargeDrum->SetVisibility(bInventoryWeaponReady&&AKMViewmodel->IsVisible()&&MagazineAttachmentId==M24Attachments::ExtendedMagazine);
++        return;
++    }
+     // The lone pistol's magazine belongs to its left rig. The retained main
+     // attachment must not be re-enabled by the generic ext_mag branch below.
+     if(IsLoneOffhandPistol())

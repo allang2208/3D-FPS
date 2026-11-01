@@ -1,0 +1,1413 @@
+{
+  "scope": "Only M24-owned retired copies; active assets, authoring inputs, before-pose JSON/GZ and comparison evidence retained.",
+  "files": [
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/Backups/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/Backups/SK_M24_MotionV9.uasset",
+      "bytes": 8792365,
+      "sha256": "da47d80862f1bad903724345c3bdc391aa77a91bd384916c7e09244908cb85b6",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/MI_M24_AAS_CoatedMetal.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/MI_M24_AAS_CoatedMetal.uasset",
+      "bytes": 13509,
+      "sha256": "5b2726d3fb93d83fbf9d4f644ecce65379b7f6b8edb2367361672814652b2c8a",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/MI_M24_AAS_ContactPolymer.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/MI_M24_AAS_ContactPolymer.uasset",
+      "bytes": 13528,
+      "sha256": "255169ceae642a6ff42ba85fd1f79a4ac8a9ca8e9a0723672556903c3275d4b4",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/MI_M24_AAS_Rubber.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/MI_M24_AAS_Rubber.uasset",
+      "bytes": 13488,
+      "sha256": "cbb75ec9220060d018fca3ee3a2bf723678259117c200d7e10ff2e4368802487",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/MI_M24_AAS_SatinSteel.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/MI_M24_AAS_SatinSteel.uasset",
+      "bytes": 13504,
+      "sha256": "d28e5e4171757c14d21023959b19e2275e4dfd30d0cf0858c591cd75e13147bf",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/M_M24AdvancedSurface.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Materials/M_M24AdvancedSurface.uasset",
+      "bytes": 42573,
+      "sha256": "76e5834323daa680849becd3c313346675625fdde653b342c0502a4be3a68393",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Meshes/SM_M24_m24_advanced_action.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Meshes/SM_M24_m24_advanced_action.uasset",
+      "bytes": 728717,
+      "sha256": "e0efe272cd2e282270dc0407e2048897880dac19eeb7da5e2887839a03cc31bc",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Meshes/SM_M24_m24_advanced_cheekrest.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Meshes/SM_M24_m24_advanced_cheekrest.uasset",
+      "bytes": 71438,
+      "sha256": "d55e85b8ffae1331f429c7f62c126ea34f05275e45136004b4a297b46ca221ed",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Textures/T_M24_AAS_Metal_N.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Textures/T_M24_AAS_Metal_N.uasset",
+      "bytes": 134789,
+      "sha256": "20d89f37e77179aa2dd927bd9134999215703a9ecb516f15b923ff55c412c36f",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Textures/T_M24_AAS_Polymer_N.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Textures/T_M24_AAS_Polymer_N.uasset",
+      "bytes": 447708,
+      "sha256": "4ce5af867d85a0c8c4ce662465303fd8593ddce2287c9797f56d65fdd52337e0",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Textures/T_M24_AAS_SurfaceMask.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/DetailV2/Before/Assets/Textures/T_M24_AAS_SurfaceMask.uasset",
+      "bytes": 11269,
+      "sha256": "e718b7f0610c2b67305c231c9fde2292aa8cd572c1f48594b283f3488a258c15",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/Before/Content/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_m24_advanced_action.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/FullBodyV3/Before/Content/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_m24_advanced_action.uasset",
+      "bytes": 3332181,
+      "sha256": "c85858c63b7d43490f3ce639bdad7133293fe8aa49982715ec06a9dd86c67064",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/Before/Content/Weapons/M24/Bipod20261029/SM_M24_Bipod_Base.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/FullBodyV3/Before/Content/Weapons/M24/Bipod20261029/SM_M24_Bipod_Base.uasset",
+      "bytes": 34884,
+      "sha256": "02d8a095593ef7f4f1ee661f73c84e7ed433a7d98a819fee85923777445da3c6",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/Before/Content/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24AdvancedAction20261029/FullBodyV3/Before/Content/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.uasset",
+      "bytes": 8793295,
+      "sha256": "ac47516cd5b35271b8e143868daf0a4cd05e7595625a1a22ec5c1d945b0b589f",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ArmRebuild20261027/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ArmRebuild20261027/Backups/DA_M24_Mag10.uasset",
+      "bytes": 313602,
+      "sha256": "3188fe187c32d90157a6f4190d14b5f3046d6a7a39a9d22b9e10c8ca706364e6",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ArmRebuild20261027/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ArmRebuild20261027/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 290967,
+      "sha256": "a1c0b13c540c38e9f774ce7c4e8998b62b2dc0440f53a74c98dfb8db72a0ece9",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ArmRoot20261031/Before/DA_M24_skeleton_base.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ArmRoot20261031/Before/DA_M24_skeleton_base.uasset",
+      "bytes": 6167341,
+      "sha256": "ca071064dd5c0f822e17355eba939ad3b6dc6b22d1994ca4b3bbbc8b4f167f02",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ArmRoot20261031/Before/DA_M24_skeleton_mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ArmRoot20261031/Before/DA_M24_skeleton_mag10.uasset",
+      "bytes": 6167348,
+      "sha256": "ebfa7b849b6532c8850925e6fb4b18a8373eb63b039098af0c43f04e7f68afcb",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Backups/UnrealEditor-FPSGAME-20261029-114137.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Backups/UnrealEditor-FPSGAME-20261029-114137.dll",
+      "bytes": 40418816,
+      "sha256": "a97c14d255823137aed7df4a65eb3d392aaf906e0ef238a6da662c7fe6d3ceb0",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Quick048/Before/A_M24_Bipod_base.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Quick048/Before/A_M24_Bipod_base.uasset",
+      "bytes": 577769,
+      "sha256": "95f8ffd011e508a761f37919a4179996a88b3c19687c27f53952879797fa82ac",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Quick048/Before/A_M24_Bipod_mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Quick048/Before/A_M24_Bipod_mag10.uasset",
+      "bytes": 577773,
+      "sha256": "90915c4307d351edcd2c1af4eb729e4349bc780558ecef06dcf94e08ebe387d6",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Quick048/Before/DA_M24_Bipod.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Quick048/Before/DA_M24_Bipod.uasset",
+      "bytes": 2195,
+      "sha256": "10d4cf00a8cb3b73658d77ccfbae658b9c8c1346f7cf96023e4490dca30e18c3",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Quick048/Build/Backups/UnrealEditor-FPSGAME-20261029-165937.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Quick048/Build/Backups/UnrealEditor-FPSGAME-20261029-165937.dll",
+      "bytes": 40638464,
+      "sha256": "76b588f0c941d1d6c88f8f4cc7c7b22ce46c25e4ada1ee655b3ae5396b4c6408",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-121348.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-121348.dll",
+      "bytes": 40452096,
+      "sha256": "6fd70cb88b4abe77c3c0969b704b0a94b5bcc0ae3272cea6aa0448fdc91c49a0",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-123045.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-123045.dll",
+      "bytes": 40469504,
+      "sha256": "36bc58d61930e1b97bdcf1ab456af91b9f8f760f06f997f702f6af5a4841a2d3",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-123253.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-123253.dll",
+      "bytes": 40469504,
+      "sha256": "18c147da6f50d27046d73d9052dd30df96a68a76602adac66064ca23e2bd8168",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-123500.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-123500.dll",
+      "bytes": 40471040,
+      "sha256": "367072b738a8636c64334ba0264786f2614b6225806fc7bf6d5a58f073930e10",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-123745.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-123745.dll",
+      "bytes": 40471040,
+      "sha256": "3624231bda95f3899eb7f9a59de9eacbda8dab98f0782df01958455831f13c10",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-124012.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Bipod20261029/Review/Build/Backups/UnrealEditor-FPSGAME-20261029-124012.dll",
+      "bytes": 40471552,
+      "sha256": "cb35accd7a7d10935c06849dfe9ea34e275d7602ab257986fd8be76161a77225",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Backups/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Backups/SK_M24_MotionV9.uasset",
+      "bytes": 9487582,
+      "sha256": "a26623ebb78240b977898d3626d4987db118622fb09ea70773540bb029fdb1e5",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Before/A_M24_Bipod_base.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Before/A_M24_Bipod_base.uasset",
+      "bytes": 269229,
+      "sha256": "9693a639ee44c3696879c659b8e1e59b9eceecad7e389d690911a8ee70b19e17",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Before/A_M24_Bipod_mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Before/A_M24_Bipod_mag10.uasset",
+      "bytes": 267889,
+      "sha256": "58efbe9b3d3238af384e4a6b55ac8c0029432e5e61c8e6bd26bb108829eb1f80",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Before/DA_M24_Bipod.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Before/DA_M24_Bipod.uasset",
+      "bytes": 2254,
+      "sha256": "8eb6867a9b21169dbe5d35a7190dd1b28d5460dfeafd42e6d074cecb6d236d8a",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Review/Before/Assets/A_M24_Bipod_base.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Review/Before/Assets/A_M24_Bipod_base.uasset",
+      "bytes": 309811,
+      "sha256": "079dfeda5ab99037f6baffe1f19088c896929686748f7b395613249327fdd634",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Review/Before/Assets/A_M24_Bipod_mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Review/Before/Assets/A_M24_Bipod_mag10.uasset",
+      "bytes": 308471,
+      "sha256": "d5422e61dae61e725d5eadb121cf25690aabe8c5bcb41fa1fc6add2fe01ecf88",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Review/Before/Assets/DA_M24_Bipod.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Review/Before/Assets/DA_M24_Bipod.uasset",
+      "bytes": 2254,
+      "sha256": "8eb6867a9b21169dbe5d35a7190dd1b28d5460dfeafd42e6d074cecb6d236d8a",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Review/Before/Assets/SK_M24_HoldV9_Skeleton.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Review/Before/Assets/SK_M24_HoldV9_Skeleton.uasset",
+      "bytes": 50202,
+      "sha256": "b7f10719cf63e9a9be571c01003ce0d7c49024bc4e25811f39a1f07238aee07f",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BipodHands20261030/Review/Before/Assets/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BipodHands20261030/Review/Before/Assets/SK_M24_MotionV9.uasset",
+      "bytes": 8799088,
+      "sha256": "a08aab32eaecf2ec6dbac382bb92880f09c7e1ac0c793c5bc4fc1256b2768782",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BoltMotionReuse20261031/Before/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltMotionReuse20261031/Before/DA_M24_Mag10.uasset",
+      "bytes": 3588734,
+      "sha256": "03dbaf1b5a2cf51c1efa8fc2708112fc8ceba2d4811e4c4bcebad1bbcbf3ebd6",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BoltMotionReuse20261031/Before/DA_M24_skeleton_base.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltMotionReuse20261031/Before/DA_M24_skeleton_base.uasset",
+      "bytes": 6146899,
+      "sha256": "185f8e6cd4737a4348b3b6a0ae20e924cd850a143cebd127010f9467b1f0ec7b",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BoltMotionReuse20261031/Before/DA_M24_skeleton_mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltMotionReuse20261031/Before/DA_M24_skeleton_mag10.uasset",
+      "bytes": 6146906,
+      "sha256": "cd1fdbbb34eede11e508ed6d309c89ce3491a6ca11699c27fdcd5e76da141d53",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BoltMotionReuse20261031/Before/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltMotionReuse20261031/Before/DA_M24_SupportGrip.uasset",
+      "bytes": 3588755,
+      "sha256": "a1ac02fd655c4a794eceed4a02591c838159b7d277cd90661bcc151b71921a9f",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/Backups/DA_M24_Mag10.uasset",
+      "bytes": 519069,
+      "sha256": "b628484e5d26c7966052b06b46a0d01e291ea121ccabc96791253b75d540f169",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 518784,
+      "sha256": "907ecded1193f1f5091be3be39680528f9eaa7c64a91acdcd1ff24f1ac6ceb32",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/0.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/0.png",
+      "bytes": 447817,
+      "sha256": "06fb05c4ef8cfff3909b3e1f94f3c95693034216d6d7c1ab561f0c0311055a0e",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/16.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/16.png",
+      "bytes": 447999,
+      "sha256": "8002451274fb7da723cdaec6ef693ad4ba3c14c0e2ddf1af82227b92b939c5ed",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/19.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/19.png",
+      "bytes": 447951,
+      "sha256": "2c96dd1cc314c40d2ee43c970845d3c94d361acbbb9004ac1020801dae1455e0",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/24.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/24.png",
+      "bytes": 455241,
+      "sha256": "fa038d3fa957de7e9b362e65a426e5da33b452477cfc6d7440b9a70c0aaa3226",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/29.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/29.png",
+      "bytes": 472809,
+      "sha256": "a6a919cd9ea2f9b7986df30e220a011a7e6e1fb05eadb45b03e95f86b69ea20e",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/34.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/34.png",
+      "bytes": 458438,
+      "sha256": "c99cb216ca250b773380c6e6e0db214ebd6a5c7c16f03daee5954c6224c9e650",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/39.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/39.png",
+      "bytes": 448130,
+      "sha256": "aa3a184a3f7e6dd535ac78a00415660890b98cc140f4c072b6e51b4e1e69218f",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/45.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/45.png",
+      "bytes": 450625,
+      "sha256": "c84b73031b7b502b7e16690f98bb1f6585520800091d17be2a8bd257931b9477",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/49.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/49.png",
+      "bytes": 447509,
+      "sha256": "556ee66db4646f8962fd3857f3c3f352b017849c1beaf13fe5692571f50551dc",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/9.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24BoltRematch20261027/ReferenceFrames/rejected/9.png",
+      "bytes": 447566,
+      "sha256": "993cc2a608ca3fd09a32aa811ce6496f22d1e5279acb828ba1779f7b36d73ddc",
+      "reason": "Explicitly rejected bolt reference frames; retained accepted authoring source replaces them.",
+      "replacement": "SourceAssets/M24BoltRematch20261027/ and later M24ThumbAnatomy20261028 authoring sources"
+    },
+    {
+      "source": "SourceAssets/M24CarbonBolt20261029/Build/Backups/UnrealEditor-FPSGAME-20261029-172336.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24CarbonBolt20261029/Build/Backups/UnrealEditor-FPSGAME-20261029-172336.dll",
+      "bytes": 40644608,
+      "sha256": "9aa3b8be2a30e18a58238121efb92988dc82956085b913f607dbda0fc7164a59",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24DualOptic20261029/Backups/SM_M24_m24_custom_scope_6x.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24DualOptic20261029/Backups/SM_M24_m24_custom_scope_6x.uasset",
+      "bytes": 1299113,
+      "sha256": "593f1e1b47ec50a9434ee029393957a18a91f054ac0cecfefc9d1c036248d432",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24DualOptic20261029/Backups/UnrealEditor-FPSGAME-20261029-101048.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24DualOptic20261029/Backups/UnrealEditor-FPSGAME-20261029-101048.dll",
+      "bytes": 40411136,
+      "sha256": "78fd223c0de9d9ae472b674794c80e6d9a1f6308ef7721b6554278eedd0b7139",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24DualOptic20261029/Backups/UnrealEditor-FPSGAME-20261029-101906.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24DualOptic20261029/Backups/UnrealEditor-FPSGAME-20261029-101906.dll",
+      "bytes": 40415744,
+      "sha256": "4f3eaf7a588ac0f0a6434e172cefcc5cb2746d04b86a7744db7c559572396690",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24EmptyReloadAnchor20261030/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24EmptyReloadAnchor20261030/Backups/DA_M24_Mag10.uasset",
+      "bytes": 1527633,
+      "sha256": "d7dd8f52c7ca1c3e0d208683d01c2323ac492759d664d8dc47e2aa27237f0668",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24EmptyReloadAnchor20261030/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24EmptyReloadAnchor20261030/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 1527700,
+      "sha256": "2589aa56864c93cd2546de76e3ff124227c0987f70b1df4874ad6d4b72da1081",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24EquipBoltOnly20261028/Backups/A_M24_equip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24EquipBoltOnly20261028/Backups/A_M24_equip.uasset",
+      "bytes": 733693,
+      "sha256": "007082454e5360a45575b6a636da0b8858a8126519c48cbc984a2862593c152b",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24EquipBoltOnly20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24EquipBoltOnly20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 855658,
+      "sha256": "2459ed452e982fd2cebb5c26c706c09f1dd738b6170976c34e804420b052e99c",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24EquipBoltOnly20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24EquipBoltOnly20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 838982,
+      "sha256": "b3b281230f4f02e802468a4530fa81c94ca40cc7c6ee2ee19e9038bcd61d8317",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24EquipDirect20261031/Before/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24EquipDirect20261031/Before/DA_M24_Mag10.uasset",
+      "bytes": 3405705,
+      "sha256": "b664b5e31305d75c03cea8fe274904d292df1704b6a0b6776f58892bb498bc77",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24EquipDirect20261031/Before/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24EquipDirect20261031/Before/DA_M24_SupportGrip.uasset",
+      "bytes": 3405726,
+      "sha256": "7cd5f1f1d2ee071d1b379feb83cc3d0e923eb5db6509b8d2d4862a19bbb169fc",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24GripFinish20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24GripFinish20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 586169,
+      "sha256": "76a74ed11c2528c3714b3dbd58ffaff0aba81dd976632901f3fcac070fc34fd1",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24GripFinish20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24GripFinish20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 585532,
+      "sha256": "666ab57f2595f8459a0d733a97e3c8ce577d08b17fcd30caaa36e12b980732b5",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24GripOutfit20261030/Before/A_M24_aim.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24GripOutfit20261030/Before/A_M24_aim.uasset",
+      "bytes": 107142,
+      "sha256": "ba9ce9771a42bc3121ecd27cc9c54035a24d82fd44d03b80a02355772116fc6e",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24GripOutfit20261030/Before/A_M24_idle.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24GripOutfit20261030/Before/A_M24_idle.uasset",
+      "bytes": 161362,
+      "sha256": "2b0d42624342d131284ddec1a0a9869ef45aa103b4f98e6d9c48a670c245b7aa",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24GripOutfit20261030/Before/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24GripOutfit20261030/Before/DA_M24_Mag10.uasset",
+      "bytes": 1753895,
+      "sha256": "6ab7340b90aecaf1f479f9839cdf2595e9562061fb7326e865c16f7d7ca0819f",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24GripOutfit20261030/Before/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24GripOutfit20261030/Before/DA_M24_SupportGrip.uasset",
+      "bytes": 1753872,
+      "sha256": "9674710f0e94c4fe0275e81b07739f3c0e4105f96d348dbb5ee1809accea08f8",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24GripOutfit20261030/Before/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24GripOutfit20261030/Before/SK_M24_MotionV9.uasset",
+      "bytes": 9942242,
+      "sha256": "219640fa9442ae291b660384f1340111982499b9ca6cff9c72c2b6fbff087599",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/body_m24_advanced_action.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/body_m24_advanced_action.png",
+      "bytes": 949274,
+      "sha256": "adc73cc652bb9dddef1aa541db81be8dfed843ba6c3a6e9774e9274b40ba0d5e",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/bolt_m24_carbon_light_bolt.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/bolt_m24_carbon_light_bolt.png",
+      "bytes": 958742,
+      "sha256": "2c1e20009d69f35a6afb96b6a1807a7f2d11fa5aea5467578c9b5dfbb9a50f53",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/category_body.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/category_body.png",
+      "bytes": 949274,
+      "sha256": "adc73cc652bb9dddef1aa541db81be8dfed843ba6c3a6e9774e9274b40ba0d5e",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/stock_m24_cheekrest.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/stock_m24_cheekrest.png",
+      "bytes": 953701,
+      "sha256": "b857f7736575efc4308fec84cd14bbfa51b48a3dd5c8a8f671d447f913275f05",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/stock_sniper_skeleton_stock.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/stock_sniper_skeleton_stock.png",
+      "bytes": 957635,
+      "sha256": "7909322aa684c5ad652251dec890ce3696e8785a0189b917d656d93551d31bbf",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_body_false.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_body_false.png",
+      "bytes": 962248,
+      "sha256": "c3edcdd3a6160a58e3d18343796d397861f211e82accbfe09c5f57e73b9a38c8",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_body_m24_advanced_action.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_body_m24_advanced_action.png",
+      "bytes": 949274,
+      "sha256": "adc73cc652bb9dddef1aa541db81be8dfed843ba6c3a6e9774e9274b40ba0d5e",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_bolt_false.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_bolt_false.png",
+      "bytes": 966267,
+      "sha256": "e13700d4a9444d9349f912766d02d935ad9cd4d8535dcb6e0fcf307dcfb67126",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_bolt_m24_carbon_light_bolt.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_bolt_m24_carbon_light_bolt.png",
+      "bytes": 958742,
+      "sha256": "2c1e20009d69f35a6afb96b6a1807a7f2d11fa5aea5467578c9b5dfbb9a50f53",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_category_body.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_category_body.png",
+      "bytes": 949274,
+      "sha256": "adc73cc652bb9dddef1aa541db81be8dfed843ba6c3a6e9774e9274b40ba0d5e",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_category_bolt.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_category_bolt.png",
+      "bytes": 966267,
+      "sha256": "e13700d4a9444d9349f912766d02d935ad9cd4d8535dcb6e0fcf307dcfb67126",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_reargrip_false.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_reargrip_false.png",
+      "bytes": 915241,
+      "sha256": "032ee51f7125dd5113691fb408d10f932b46ec114b5828393210df4e05228a7c",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_stock_m24_cheekrest.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_m24_stock_m24_cheekrest.png",
+      "bytes": 953701,
+      "sha256": "b857f7736575efc4308fec84cd14bbfa51b48a3dd5c8a8f671d447f913275f05",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_svch_stock_false.png",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/PNG/ue_svch_stock_false.png",
+      "bytes": 948831,
+      "sha256": "a44c3309d9fd95102c7176570f4309a0938b20a2d37f7ce78580e6519368e826",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_body_m24_advanced_action.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_body_m24_advanced_action.uasset",
+      "bytes": 783176,
+      "sha256": "5a2fd8df27a1ab48542c02abe2a5ad47df4a745d1e0753fb98eb28ba41a7ebca",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_bolt_m24_carbon_light_bolt.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_bolt_m24_carbon_light_bolt.uasset",
+      "bytes": 787681,
+      "sha256": "1e42a195f057693cd52c478728b09e7ee8f890e8cc44c93a95c14b4afc3e43aa",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_category_body.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_category_body.uasset",
+      "bytes": 782992,
+      "sha256": "e71d2a3bfb9b67949802aeca922a13ec03149e4459d4fb81dd9c9d7414d91c6e",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_stock_m24_cheekrest.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_stock_m24_cheekrest.uasset",
+      "bytes": 786799,
+      "sha256": "d696ab2ad428c270f83e0c10beb10dd795a26e76b54cb3c77fb0f38b4fafacd7",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_stock_sniper_skeleton_stock.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_stock_sniper_skeleton_stock.uasset",
+      "bytes": 793986,
+      "sha256": "0f967d272fba41d0ed0497c9870094fadbbbc6920e7b78c803607aa3e92941c2",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_body_false.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_body_false.uasset",
+      "bytes": 790902,
+      "sha256": "9237310a369f3967ac1a6231709ae5d97d1aa1a5d71da9fe61c7fff7ba9b88d6",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_body_m24_advanced_action.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_body_m24_advanced_action.uasset",
+      "bytes": 783332,
+      "sha256": "beba77c1503abefa246c93618909c3ca2a2efe4fc9feebad181a26566dfa01fc",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_bolt_false.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_bolt_false.uasset",
+      "bytes": 795457,
+      "sha256": "7ea6c4e389faaf11b4282f55a5e9eae2d01f839b995ca99d593e61d59ec692a9",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_bolt_m24_carbon_light_bolt.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_bolt_m24_carbon_light_bolt.uasset",
+      "bytes": 787836,
+      "sha256": "b79a907b54d91a3eba2cefbd548678841bc0b99c260ed91abf4da806cbecaaf2",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_category_body.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_category_body.uasset",
+      "bytes": 783090,
+      "sha256": "02e58bbdfa4b13f6e0d18848f06ba4bc0428df3d939b2fd9156f144b3324af6b",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_category_bolt.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_category_bolt.uasset",
+      "bytes": 795451,
+      "sha256": "ef93ec0e479b25fb07f23735be83bf3019e2b57731099fad024bbbd1f55b7e6a",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_reargrip_false.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_reargrip_false.uasset",
+      "bytes": 758166,
+      "sha256": "cafff4a161b1b2d7c9e8cc1519afc7e2f6f1f3bd8188f461f2af49a47f3c58d1",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_stock_m24_cheekrest.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_m24_stock_m24_cheekrest.uasset",
+      "bytes": 786873,
+      "sha256": "7d37e3adb7b4c0955a197c5cffbd5db4a986707bca54a2eefd35dc72d3decd15",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_svch_stock_false.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IconsRebuild20261031/Before/Textures/T_ue_svch_stock_false.uasset",
+      "bytes": 784258,
+      "sha256": "864a507cf53c36157bbcef2dbaa32982424202fbc49163883435e8b97e640748",
+      "reason": "Superseded M24 attachment icon before the standards-based rebuild.",
+      "replacement": "SourceAssets/M24IconsRebuild20261031 and installed current icon catalog"
+    },
+    {
+      "source": "SourceAssets/M24IdleArm20261030/Before/A_M24_aim.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IdleArm20261030/Before/A_M24_aim.uasset",
+      "bytes": 107142,
+      "sha256": "ba9ce9771a42bc3121ecd27cc9c54035a24d82fd44d03b80a02355772116fc6e",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24IdleArm20261030/Before/A_M24_idle.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IdleArm20261030/Before/A_M24_idle.uasset",
+      "bytes": 161362,
+      "sha256": "2b0d42624342d131284ddec1a0a9869ef45aa103b4f98e6d9c48a670c245b7aa",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24IdleArm20261030/Before/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IdleArm20261030/Before/DA_M24_Mag10.uasset",
+      "bytes": 1536747,
+      "sha256": "5027860e95061a65e49ae13714ce17c83d4f8f2512a602175387b5394f124456",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24IdleArm20261030/Before/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IdleArm20261030/Before/DA_M24_SupportGrip.uasset",
+      "bytes": 1536820,
+      "sha256": "81c790bff3bcc85cee079ca47c3b0d5b59ad216fd2030a38e1f870d3642b4bdc",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24IdleArm20261030/Before/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24IdleArm20261030/Before/SK_M24_MotionV9.uasset",
+      "bytes": 9942242,
+      "sha256": "219640fa9442ae291b660384f1340111982499b9ca6cff9c72c2b6fbff087599",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24LeftElbowReview20261028/Backups/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24LeftElbowReview20261028/Backups/SK_M24_MotionV9.uasset",
+      "bytes": 8507965,
+      "sha256": "fcbd102582faa07799d69c1e8508a01eb791fa775581b17e61d87330c8e8afc1",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24MagazineGraspEquip20261028/Backups/A_M24_equip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24MagazineGraspEquip20261028/Backups/A_M24_equip.uasset",
+      "bytes": 233514,
+      "sha256": "95e29242795642e7eeec7842cd133c6ec29671337ada4678a9e7bdc00c6384c6",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24MagazineGraspEquip20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24MagazineGraspEquip20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 842559,
+      "sha256": "242cf4814a80ebe838a354447b8186507104f8cfde86efebfe23f701af94e803",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24MagazineGraspEquip20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24MagazineGraspEquip20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 842098,
+      "sha256": "77a4717ee9d58a5204f126ff5102b475c3b728b15c5336cf30bea0f72fc31c65",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24QuickMelee20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24QuickMelee20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 919945,
+      "sha256": "3287a3b1a121ca70456e9432587f1263b64733e2362b2ee3b0aee4c9a402bb7a",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24QuickMelee20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24QuickMelee20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 919836,
+      "sha256": "6bf9aaa8084c264c6ef4abf77b41d916d0796d089d24d4afcc29f0c2da1291f1",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24QuickMeleeContact20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24QuickMeleeContact20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 1365048,
+      "sha256": "782ca76dc56a5dd418d74bddcc710dd70362610d22e6ba9f20c6de8c820b9421",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24QuickMeleeContact20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24QuickMeleeContact20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 1365115,
+      "sha256": "69d8d9f0294fc4b077d5017cde2fa63deab8fb6d213525e58c9c8c81864eb97c",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24RearGrip20261029/Build/Backups/UnrealEditor-FPSGAME-20261029-174526.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24RearGrip20261029/Build/Backups/UnrealEditor-FPSGAME-20261029-174526.dll",
+      "bytes": 40649728,
+      "sha256": "cf12eaf83bf56a07f48a5750cab0acca438f2bec58f248c0db0b0bc88fecb9c3",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReceiverContinuityV220261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReceiverContinuityV220261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "bytes": 4000207,
+      "sha256": "264094395acf7092cf8fd8218cd947d7ab16c72e196fb0020c5b3180c0f03491",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReceiverContinuityV220261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReceiverContinuityV220261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset",
+      "bytes": 14848496,
+      "sha256": "91506e85cc36f3158d37b7a6107a1c364840a95d8acffd37a8ce47517d943620",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReceiverGripRebuild20261031/Before/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReceiverGripRebuild20261031/Before/SK_M24_MotionV9.uasset",
+      "bytes": 9945497,
+      "sha256": "93722b58f399fa8c8526a387f573f07419da0afc141277c73908c039271d853d",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Recoil20261029/Backups/UnrealEditor-FPSGAME-20261029-110028.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Recoil20261029/Backups/UnrealEditor-FPSGAME-20261029-110028.dll",
+      "bytes": 40415744,
+      "sha256": "2be08e98934012e60c21bebee3c06eabaa4a3c81107a0511e934a36aace50b72",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadBoltFix20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadBoltFix20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 660145,
+      "sha256": "3cd290f70dd6f4ffcc872f31c40b7b17cf933499a85fe50733f524dac27a7718",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadBoltFix20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadBoltFix20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 659684,
+      "sha256": "93763f2c3e9bc6cbc2631a2d22c86b1179b944a89d6b4ac9499e882f34301e9b",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadBoltFix20261028/Backups/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadBoltFix20261028/Backups/SK_M24_MotionV9.uasset",
+      "bytes": 8713205,
+      "sha256": "6e6ad108361c1ca442d453712c12099fa3d43538487da6b0f83df293e242c0e5",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadCrisp20261030/Before/A_M24_aim.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadCrisp20261030/Before/A_M24_aim.uasset",
+      "bytes": 107142,
+      "sha256": "ba9ce9771a42bc3121ecd27cc9c54035a24d82fd44d03b80a02355772116fc6e",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadCrisp20261030/Before/A_M24_idle.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadCrisp20261030/Before/A_M24_idle.uasset",
+      "bytes": 161362,
+      "sha256": "2b0d42624342d131284ddec1a0a9869ef45aa103b4f98e6d9c48a670c245b7aa",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadCrisp20261030/Before/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadCrisp20261030/Before/DA_M24_Mag10.uasset",
+      "bytes": 1885670,
+      "sha256": "6563c44a48e34391c3f49fb8f4a39020c905e4cb5796667b7f865642788bff2b",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadCrisp20261030/Before/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadCrisp20261030/Before/DA_M24_SupportGrip.uasset",
+      "bytes": 1885697,
+      "sha256": "fc0d81fcd9e013aefbac0c92a9307b5c027251206a56b4a3e22d9182c621fd50",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadCrisp20261030/Before/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadCrisp20261030/Before/SK_M24_MotionV9.uasset",
+      "bytes": 9942242,
+      "sha256": "219640fa9442ae291b660384f1340111982499b9ca6cff9c72c2b6fbff087599",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadFlow20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadFlow20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 1262528,
+      "sha256": "4f08b2a14f9a0b1769e03c64fd790188301098af0e901525094c5b8ef838bae2",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadFlow20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadFlow20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 1262419,
+      "sha256": "6b5cea80a2f60b42a4b76016a457a466f11a97611448504ff0e06600ab10b149",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadGap20261029/Backups/UnrealEditor-FPSGAME.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadGap20261029/Backups/UnrealEditor-FPSGAME.dll",
+      "bytes": 40411648,
+      "sha256": "4d7d5e21efcf37d080b305318ffcfa52fb158bab9f562485a84393d32877d693",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadRefine20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadRefine20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 581857,
+      "sha256": "6aefdefa862db78595438a729bc9c5749c0d2f42e94b11c6d5f17cc8d80f8fb5",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadRefine20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadRefine20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 581308,
+      "sha256": "70d02df210e8a3747ccb7e18c453b474b4e51f62bed8b6b18cb1d4c40ee653c3",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadRelease20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadRelease20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 839003,
+      "sha256": "8dc4a42aef984a40e7558edb9c1e9a86132802f57fd1e5ca7948d2aa0314d646",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ReloadRelease20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ReloadRelease20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 838982,
+      "sha256": "5ef85447c2bd160472f8874613ae1df311bd9357458f9ef2e53a90f2373f35e2",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24RightGripFit20261031/Before/DA_M24_skeleton_base.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24RightGripFit20261031/Before/DA_M24_skeleton_base.uasset",
+      "bytes": 6276901,
+      "sha256": "9b48283325ad8a291a11e73e260e333409751b8ca834cf60c890b8c2f5a449df",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24RightGripFit20261031/Before/DA_M24_skeleton_mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24RightGripFit20261031/Before/DA_M24_skeleton_mag10.uasset",
+      "bytes": 6276908,
+      "sha256": "1cb4d0017e6d602ee9a112c9fa3d5cce1fe9d59c99856bf030ab8b93478c4093",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SniperSuppressor20261029/Backups/UnrealEditor-FPSGAME-20261029-103220.dll",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SniperSuppressor20261029/Backups/UnrealEditor-FPSGAME-20261029-103220.dll",
+      "bytes": 40415744,
+      "sha256": "0799bee26349d1f83d0b707d1d25885bc3e29a8773cebaa3a2057060263072d1",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintArm20261031/Before/A_M24_aim.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintArm20261031/Before/A_M24_aim.uasset",
+      "bytes": 107142,
+      "sha256": "ba9ce9771a42bc3121ecd27cc9c54035a24d82fd44d03b80a02355772116fc6e",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintArm20261031/Before/A_M24_idle.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintArm20261031/Before/A_M24_idle.uasset",
+      "bytes": 161362,
+      "sha256": "2b0d42624342d131284ddec1a0a9869ef45aa103b4f98e6d9c48a670c245b7aa",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintArm20261031/Before/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintArm20261031/Before/DA_M24_Mag10.uasset",
+      "bytes": 3253377,
+      "sha256": "76801612362fa20f5b8682fcc37b1cf6e5c0ea29bd2aec543e92ad03d6bc37d0",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintArm20261031/Before/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintArm20261031/Before/DA_M24_SupportGrip.uasset",
+      "bytes": 3253398,
+      "sha256": "73467d4a94a1371b76e6538f9c6835f9f0be90b73afc6300ddd3f83ec21705a3",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintArm20261031/Before/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintArm20261031/Before/SK_M24_MotionV9.uasset",
+      "bytes": 9942242,
+      "sha256": "219640fa9442ae291b660384f1340111982499b9ca6cff9c72c2b6fbff087599",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintShoulder20261031/Before/A_M24_aim.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintShoulder20261031/Before/A_M24_aim.uasset",
+      "bytes": 107142,
+      "sha256": "ba9ce9771a42bc3121ecd27cc9c54035a24d82fd44d03b80a02355772116fc6e",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintShoulder20261031/Before/A_M24_idle.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintShoulder20261031/Before/A_M24_idle.uasset",
+      "bytes": 161362,
+      "sha256": "2b0d42624342d131284ddec1a0a9869ef45aa103b4f98e6d9c48a670c245b7aa",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintShoulder20261031/Before/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintShoulder20261031/Before/DA_M24_Mag10.uasset",
+      "bytes": 3392901,
+      "sha256": "fa3f1827db623aa6d84e8294b2b83a0be3927569a1989a7a8de716a9ecdf1549",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintShoulder20261031/Before/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintShoulder20261031/Before/DA_M24_SupportGrip.uasset",
+      "bytes": 3392922,
+      "sha256": "4b6a936a5bc082044014ed17fd362719d41b20189451eb3ce4e1b7b9330697ac",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintShoulder20261031/Before/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintShoulder20261031/Before/SK_M24_MotionV9.uasset",
+      "bytes": 9942242,
+      "sha256": "219640fa9442ae291b660384f1340111982499b9ca6cff9c72c2b6fbff087599",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintSupport20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintSupport20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 623613,
+      "sha256": "589678d33171e1f0fdaf8fa762bb118b54cd2273b857d57181432f3bbdbf5695",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SprintSupport20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SprintSupport20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 623152,
+      "sha256": "3843354dbc3a1015aae64ccd18b4b52dcda2212e81f972cf3ec7f46097e1ac35",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_m24_advanced_action.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_m24_advanced_action.uasset",
+      "bytes": 5281054,
+      "sha256": "00590f624caf96db5fff5409bdb2595028722c64cee8d0a4d5df16a017bf62fc",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.uasset",
+      "bytes": 9948658,
+      "sha256": "be43654dd470934503eaf3d7346de2d5a43295abbc50c0dff5f5ebd5eb86d353",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "bytes": 4000446,
+      "sha256": "f1e4ca2ac63600aeb0f20d11daf3c03ac07322637736741dcf245e4dd560df0f",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_balanced.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_balanced.uasset",
+      "bytes": 5613123,
+      "sha256": "9a669f8c54c4065351e6ccfdd71a218bbbbc2c150ba75c6b1a86739f6fba1b31",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_Default.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_Default.uasset",
+      "bytes": 96124,
+      "sha256": "f9e68a42f3d4e72d8d206e0a344894204d1a4adfb03687efb804140a2e5ce522",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_phantom.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_phantom.uasset",
+      "bytes": 11617320,
+      "sha256": "e5c7c6739847338183965a56592edbad81a447b61fd7dae629949e72b2106c47",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_stable.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_stable.uasset",
+      "bytes": 4629493,
+      "sha256": "ae6990e0f2725b972eb3253c0829bd4f5b2086f17f14a6aceb74697fe097e917",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset",
+      "bytes": 13894955,
+      "sha256": "5b131659356ee930a7b465db39ed3b417f78afb0670e649bb2124e6b4555d4f1",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Native.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Native.uasset",
+      "bytes": 13928513,
+      "sha256": "0c64981a7e2918cfd96e6b0196a7740f81ea1ed00eccb5fb93a80930353904ee",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/Surface20261027/SM_M24_m24_custom_scope_6x.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockContinuity20261031/Before/Weapons/M24/Surface20261027/SM_M24_m24_custom_scope_6x.uasset",
+      "bytes": 1304050,
+      "sha256": "14faa76e419e462cb8e63cd08e9f3a9221a4cc18a466cbf245afe8aeb96a7ebb",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockMetalFinish20261031/Before/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_m24_advanced_action.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockMetalFinish20261031/Before/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_m24_advanced_action.uasset",
+      "bytes": 5281054,
+      "sha256": "00590f624caf96db5fff5409bdb2595028722c64cee8d0a4d5df16a017bf62fc",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockMetalFinish20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockMetalFinish20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "bytes": 3672938,
+      "sha256": "b1fe751fc451b57ef064c591a7cae8f6bc37c5b354832caa29db6fd99eb458f4",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24StockMetalFinish20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24StockMetalFinish20261031/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset",
+      "bytes": 16528497,
+      "sha256": "8846d775e0257e8c453d2bbac13b35208dbe69fead97df0980064109aaab809a",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "bytes": 3673301,
+      "sha256": "e1038b02e343e3a3fe83e378e567c943c41e9a9922e7cf4a0a8203c9e047ca75",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset",
+      "bytes": 16528508,
+      "sha256": "a3ab56647ec8619bad105a62976e877c2e24646cc8c60aa97cceb95c7637a7fc",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_anodized.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_anodized.uasset",
+      "bytes": 19651,
+      "sha256": "30e355bbd80bef35e12c8137f51732f966b1ecf5ce7eceb1810f04fad1ff345c",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_steel.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_steel.uasset",
+      "bytes": 19636,
+      "sha256": "2969114c733dcd0e59be4e5b5691836c93381ba1fd81f6d8bec0780e8313fabb",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_seat_seat.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_seat_seat.uasset",
+      "bytes": 19614,
+      "sha256": "929e32f356ca61972b8ac749d94f0228d736b8e075abdfdbc089b53ac8602bfe",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_anodized.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_anodized.uasset",
+      "bytes": 16056,
+      "sha256": "67c58b271743bf2ef03dd9e85c76c387e1952eded1c0103c5fc1eeadbaa2a8c7",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_steel.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/Before/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_steel.uasset",
+      "bytes": 16041,
+      "sha256": "e4d10c8ace1042ad849210f2f2672e1f52b5b3e70b591bc6f53d56871797e75b",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/BeforeTangentFinalize/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/BeforeTangentFinalize/SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "bytes": 4370305,
+      "sha256": "4f3eed8bf2ef1c875d78b5b48a0c451a9bebd9c1259a2cdb068f3ce42f3c1785",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24SurfaceRefine20261101/BeforeTangentFinalize/SM_M24_ReceiverStock_Advanced.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24SurfaceRefine20261101/BeforeTangentFinalize/SM_M24_ReceiverStock_Advanced.uasset",
+      "bytes": 15126563,
+      "sha256": "a7b73cf6336c81117b206eaa729210ccffe1d23a313ed9570ef0c37e61a6eb05",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Thumb20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Thumb20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 576049,
+      "sha256": "fbd5ef3d7d13cc64fdb4524e221e8d15b283a3aaddfe4dd29f88d9d2c57fb5b9",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24Thumb20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24Thumb20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 575544,
+      "sha256": "3612ecc3c0a5aeb5287c570ecdcac6eb9534b6d25a8c85e36b78dad1114cddc1",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ThumbAnatomy20261028/Backups/DA_M24_Mag10.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ThumbAnatomy20261028/Backups/DA_M24_Mag10.uasset",
+      "bytes": 580493,
+      "sha256": "9ef14fae3aead9d2b4c1ecebcf3d11b6a6f0b7d7a50e6fa98c64d4c45927cff0",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/M24ThumbAnatomy20261028/Backups/DA_M24_SupportGrip.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/M24ThumbAnatomy20261028/Backups/DA_M24_SupportGrip.uasset",
+      "bytes": 579988,
+      "sha256": "b584f0910cb81eac3d56d97ccec5add0e004cd78bcd9b27d0abf0a99af72980d",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/SkeletonSniperStock20261031/Before/SK_M24_MotionV9.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/SkeletonSniperStock20261031/Before/SK_M24_MotionV9.uasset",
+      "bytes": 9942242,
+      "sha256": "219640fa9442ae291b660384f1340111982499b9ca6cff9c72c2b6fbff087599",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    },
+    {
+      "source": "SourceAssets/SkeletonSniperStock20261031/Before/SM_SniperSkeleton_SVD_before_basis.uasset",
+      "destination": "trash/m24-retired-20261101/SourceAssets/SkeletonSniperStock20261031/Before/SM_SniperSkeleton_SVD_before_basis.uasset",
+      "bytes": 9485413,
+      "sha256": "340e5fd4e82767d3617be0372ab349db94f4ac0d258f63015a4789f18bfc2fae",
+      "reason": "Superseded saved-asset or DLL rollback copy; current production package remains in Content/Binaries.",
+      "replacement": "Current Content/Weapons/M24 and Content/Weapons/SkeletonSniperStock20261031; final receipts listed in README."
+    }
+  ]
+}

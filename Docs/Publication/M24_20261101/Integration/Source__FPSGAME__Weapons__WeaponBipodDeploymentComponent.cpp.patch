@@ -1,0 +1,346 @@
+--- a/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp
++++ b/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp
+@@ -1,5 +1,11 @@
+ #include "WeaponBipodDeploymentComponent.h"
+ #include "LMG201WeaponAssets.h"
++#include "M24Bipod.h"
++#include "M24WeaponAssets.h"
++#include "M24Attachments.h"
++#include "WeaponGripProfile.h"
++#include "FPSGunplayAnimInstance.h"
++#include "GunsmithSystem.h"
+ #include "PKMBipodComponent.h"
+ #include "PKMLowpolyWeaponAssets.h"
+ #include "WeaponHandling.h"
+@@ -46,6 +52,47 @@
+     PrimaryComponentTick.TickGroup=TG_PostPhysics;
+ }
+ 
++bool UWeaponBipodDeploymentComponent::IsM24() const
++{
++    const auto* C=Character.Get();
++    return C&&(C->IsLocallyControlled()?C->IsM24Weapon():EquippedDefinition()==M24WeaponAssets::Definition);
++}
++
++float UWeaponBipodDeploymentComponent::TransitionDuration(bool bDeploy) const
++{return IsM24()?M24Bipod::Duration:(bDeploy?.32f:.16f);}
++
++float UWeaponBipodDeploymentComponent::PlacementBlend() const
++{return IsM24()?M24Bipod::Seat(Blend):Blend;}
++
++float UWeaponBipodDeploymentComponent::AimPresentationWeight() const
++{return IsM24()&&(bRequested||Blend>UE_SMALL_NUMBER)?PlacementBlend():1.f;}
++
++bool UWeaponBipodDeploymentComponent::BlocksFire() const
++{return (bRequested||(IsM24()&&Blend>UE_SMALL_NUMBER))&&!IsDeployed();}
++
++void UWeaponBipodDeploymentComponent::ApplyHandPose(UFPSGunplayAnimInstance& Animation) const
++{
++    const auto* C=Character.Get();
++    if(!IsM24()||!C||Blend<=UE_SMALL_NUMBER||Blend>=.9999f||C->WeaponState!=EAKMWeaponState::Idle)return;
++    const auto* Entry=C->WeaponGripProfiles.Find(TEXT("bipod"));
++    const auto* Profile=Entry?Entry->Get():nullptr;
++    const int32 Index=C->MagazineAttachmentId==M24Attachments::ExtendedMagazine?1:0;
++    if(!Profile||!Profile->Clips.IsValidIndex(Index))return;
++    Animation.ActionClip=Profile->Clips[Index].Playback();
++    Animation.ActionTime=Blend*M24Bipod::Duration;
++    Animation.ActionAlpha=M24Bipod::Ease(0.f,.025f,Animation.ActionTime)*(1.f-PlacementBlend());
++    Animation.ActionGripProfile=nullptr;Animation.bGripAction=false;Animation.bGripActionAim=false;
++}
++
++bool UWeaponBipodDeploymentComponent::DeferReload()
++{
++    auto* C=Character.Get();if(!IsM24()||!C||(!bRequested&&Blend<=UE_SMALL_NUMBER))return false;
++    // The left hand finishes folding before it becomes the magazine hand.
++    C->bAimHeld=false;C->SetAimingState(false);Release();
++    PendingReloadWeapon=C->ActiveInventoryWeapon;bPendingReaim=false;
++    return true;
++}
++
+ FWeaponHandling UWeaponBipodDeploymentComponent::ApplyStability(const FWeaponHandling& Base) const
+ {
+     const float Weight=HandlingBlend();
+@@ -55,6 +102,13 @@
+ void UWeaponBipodDeploymentComponent::FireDeployCue(bool bSeat)
+ {
+     auto* C=Character.Get();if(!C||!GetWorld())return;
++    if(IsM24())
++    {
++        // Cached M24 mechanical clicks: contacts share the hand/hinge clock.
++        USoundBase* Sound=bSeat?C->MagSeatSound.Get():C->MagOutSound.Get();
++        if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound,C->FirstPersonCamera->GetComponentLocation(),bSeat?.42f:.25f,1.12f);
++        return;
++    }
+     // 复用 PKM 换弹处理弹链的两段录音：抬带（起手）与坐带咔哒（落位）。
+     const FString Path=PKMLowpolyWeaponAssets::ReloadSoundPath(bSeat?TEXT("BeltSeat"):TEXT("BeltLift"));
+     auto* Sound=LoadObject<USoundBase>(nullptr,*Path);
+@@ -81,7 +135,7 @@
+ UPKMBipodComponent* UWeaponBipodDeploymentComponent::EquippedBipod() const
+ {
+     auto* C=Character.Get();
+-    if(!C || !C->bInventoryWeaponReady || (!PKMLowpolyWeaponAssets::Matches(C->AKMViewmodel)&&!LMG201WeaponAssets::Matches(C->AKMViewmodel)))return nullptr;
++    if(!C || !C->bInventoryWeaponReady || (!PKMLowpolyWeaponAssets::Matches(C->AKMViewmodel)&&!LMG201WeaponAssets::Matches(C->AKMViewmodel)&&!M24Bipod::Matches(C->AKMViewmodel)))return nullptr;
+     auto* Part=Cast<UPKMBipodComponent>(PKMLowpolyWeaponAssets::FindBipod(C));
+     return Part && Part->IsVisible() && !Part->bHiddenInGame ? Part : nullptr;
+ }
+@@ -114,7 +168,8 @@
+     if(!bCheckWeapon)return true;
+     // Preserve the barrel/receiver corridor. Feet may touch the obstacle, the
+     // weapon above them may not be moved through it by the placement correction.
+-    return !GetWorld()->SweepSingleByChannel(Hit,Hinge-Forward*36.f,Hinge+Forward*30.f,
++    const FVector Center=Hinge+(IsM24()?FVector::UpVector*(11.4-M24Bipod::Hinge.Z):FVector::ZeroVector);
++    return !GetWorld()->SweepSingleByChannel(Hit,Center-Forward*(IsM24()?65.f:36.f),Center+Forward*(IsM24()?70.f:30.f),
+         FQuat::Identity,SupportChannel,FCollisionShape::MakeSphere(3.2f),Params);
+ }
+ 
+@@ -182,6 +237,17 @@
+         const FVector Delta=(Candidate.Feet[0]+Candidate.Feet[1]-RestFeet[0]-RestFeet[1])*.5;
+         if(Delta.SizeSquared()>FMath::Square(MaximumCameraReach))return false;
+         Candidate.Anchor=Hinge+Delta;
++        if(IsM24())
++        {
++            for(int32 I=0;I<2;++I)
++            {
++                const FVector Pivot=LevelPoint(Part.GetRestPivotWorld(I));
++                if(!M24Bipod::CanReachLeg(RestFeet[I]-Pivot,Candidate.Feet[I]-Pivot-Delta))return false;
++                FHitResult Block;
++                if(GetWorld()->LineTraceSingleByChannel(Block,LevelFrame.GetLocation(),Candidate.Feet[I]+FVector::UpVector*4.,SupportChannel,Params))return false;
++            }
++            if(!ClearPlacement(LevelFrame.GetLocation(),Delta,Candidate.Anchor,Forward))return false;
++        }
+         const double Cost=Delta.SizeSquared();
+         if(Cost<BestCost){BestCost=Cost;Out=Candidate;}
+         bFound=true;return true;
+@@ -294,7 +360,7 @@
+     // level-mounted aim window over the same .32 s as the placement blend;
+     // do not snap the view or lock the finished mount toward the ground/sky.
+     const float EntryPitchDelta=FMath::FindDeltaAngleDegrees(InitialAim.Pitch,EntryAimPitch);
+-    const float Weight=FMath::SmoothStep(0.f,1.f,Blend);
++    const float Weight=FMath::SmoothStep(0.f,1.f,PlacementBlend());
+     const float MinPitch=FMath::Lerp(FMath::Min(-PitchLimitDegrees,EntryPitchDelta),-PitchLimitDegrees,Weight);
+     const float MaxPitch=FMath::Lerp(FMath::Max(PitchLimitDegrees,EntryPitchDelta),PitchLimitDegrees,Weight);
+     Aim.Pitch=InitialAim.Pitch+FMath::Clamp(FMath::FindDeltaAngleDegrees(InitialAim.Pitch,Aim.Pitch),MinPitch,MaxPitch);
+@@ -305,16 +371,21 @@
+ {
+     auto* C=Character.Get();auto* Part=EquippedBipod();
+     if(!Eligible() || !C || !C->bIsAiming || C->bFireHeld || !Part)return false;
++    if(IsM24()&&(!C->WeaponGripProfiles.Contains(TEXT("bipod"))||C->IsRevolverFireActionPlaying()))return false;
+     if(bRequested)return true;
+     // A quick release/re-aim is another deliberate ADS entry. Finish the old
+     // release before measuring new support instead of losing that input.
+-    if(Blend>UE_SMALL_NUMBER)Release(true);
++    if(Blend>UE_SMALL_NUMBER)
++    {
++        if(IsM24()){bPendingReaim=PendingReloadWeapon.IsEmpty();return false;}
++        Release(true);
++    }
+     RestoreCameraOffset();FSupport Candidate;
+     if(!FindSupport(*Part,Candidate)){bCandidate=false;return false;}
+     Bipod=Part;Support=Candidate;InitialAim=C->GetControlRotation();
+     EntryAimPitch=FRotator::NormalizeAxis(InitialAim.Pitch);
+     InitialAim.Pitch=0.f;InitialAim.Roll=0.f;
+-    PawnAnchor=C->GetActorLocation();bRequested=true;bCandidate=false;bSeatFired=false;
++    PawnAnchor=C->GetActorLocation();bRequested=true;bCandidate=false;bSeatFired=false;bM24PlacementReady=false;bPendingReaim=false;
+     NextSupportProbe=GetWorld()->GetTimeSeconds()+BipodSupportInterval;
+     // Consume the input accumulated before the ADS event. Otherwise a held W
+     // can move the pawn once more before the new movement lock takes effect.
+@@ -324,7 +395,7 @@
+     ++LocalSequence;
+     ServerDeploy(LocalSequence,Support.Feet[0],Support.Feet[1],Support.Anchor,InitialAim);
+     if(!bRequested)return false;
+-    FireDeployCue(false); // 抬弹链：架起动作的起手机械声
++    if(!IsM24())FireDeployCue(false);
+     SetComponentTickEnabled(true);return true;
+ }
+ 
+@@ -337,12 +408,13 @@
+         if(C->IsLocallyControlled())ServerRelease(++LocalSequence);
+         else if(C->HasAuthority())PublishRelease();
+     }
+-    bRequested=false;bCandidate=false;bSeatFired=false;SettleClock=-1.f;
++    bRequested=false;bCandidate=false;bSeatFired=false;SettleClock=-1.f;bM24PlacementReady=false;
+     if(auto* Part=Bipod.Get())Part->SetLegsFrozen(false); // 解除即恢复两腿自然摆动，防止冻结泄漏
+     if(bImmediate)
+     {
++        PendingReloadWeapon.Reset();bPendingReaim=false;
+         Blend=0.f;RestoreCameraOffset();
+-        if(auto* Part=Bipod.Get())Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);
++        if(auto* Part=Bipod.Get()){Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);Part->SetM24DeploymentTime(0.f);}
+         Bipod.Reset();SetComponentTickEnabled(false);
+     }
+ }
+@@ -353,24 +425,49 @@
+     if(!C->IsLocallyControlled())
+     {
+         if(C->HasAuthority())AdvanceRemoteAuthority(DeltaSeconds);
+-        else {bRequested=NetDeployment.bActive;Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,bRequested?1.f/.32f:1.f/.16f);}
++        else {bRequested=NetDeployment.bActive;Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,1.f/TransitionDuration(bRequested));}
++        if(IsM24())if(auto* Part=EquippedBipod())Part->SetM24DeploymentTime(Blend*M24Bipod::Duration);
+         return;
+     }
+     const bool Allowed=Eligible(bRequested);const double Now=GetWorld()->GetTimeSeconds();
++    if(!PendingReloadWeapon.IsEmpty()&&C->ActiveInventoryWeapon!=PendingReloadWeapon)PendingReloadWeapon.Reset();
++    if(!C->bAimHeld)bPendingReaim=false;
+     const bool Probe=bRequested && Now>=NextSupportProbe;
+     if(Probe)NextSupportProbe=Now+BipodSupportInterval;
+     if(bRequested && (!Allowed || !C->bIsAiming || Bipod.Get()!=EquippedBipod()
+         || FVector::DistSquared(C->GetActorLocation(),PawnAnchor)>4. || !SupportStillValid(Probe)))Release();
+     // 锁定兜底：击退等外力给到的速度每帧掐掉，角色钉在架设点（>2cm 位移仍走解除）。
+     if(bRequested){if(auto* M=C->GetCharacterMovement();!M->Velocity.IsNearlyZero())M->StopMovementImmediately();}
+-    Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,bRequested?1.f/.32f:1.f/.16f);
++    const float PreviousSeconds=Blend*M24Bipod::Duration;
++    // Complete the native right-hand bolt cycle before the left hand folds.
++    if(!(IsM24()&&!bRequested&&C->IsRevolverFireActionPlaying()))
++        Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,1.f/TransitionDuration(bRequested));
++    if(auto* Part=Bipod.Get())Part->SetM24DeploymentTime(Blend*M24Bipod::Duration);
++    if(IsM24())
++    {
++        const float Seconds=Blend*M24Bipod::Duration;
++        for(const float Contact:{M24Bipod::GripContact,M24Bipod::PullComplete})
++            if((PreviousSeconds<Contact&&Seconds>=Contact)||(PreviousSeconds>Contact&&Seconds<=Contact))
++                FireDeployCue(bRequested?Contact==M24Bipod::PullComplete:Contact==M24Bipod::GripContact);
++    }
+     if(bRequested)ClampAim();
+     // 完全落位的瞬间：坐弹链咔哒 + 起枪身衰减抖（表现"架在固体上"的沉降）。
+-    if(bRequested&&!bSeatFired&&Blend>=.999f){bSeatFired=true;SettleClock=0.f;FireDeployCue(true);}
++    if(bRequested&&!bSeatFired&&Blend>=.999f){bSeatFired=true;SettleClock=0.f;if(!IsM24())FireDeployCue(true);}
+     if(SettleClock>=0.f){SettleClock+=DeltaSeconds;if(SettleClock>.9f)SettleClock=-1.f;}
+     if(!bRequested && Blend<=UE_SMALL_NUMBER)
+     {
++        const bool bReaim=IsM24()&&Bipod.IsValid()&&bPendingReaim;
++        const bool bReload=!PendingReloadWeapon.IsEmpty()&&PendingReloadWeapon==C->ActiveInventoryWeapon;
+         if(Bipod.IsValid() || !AppliedCameraOffset.IsNearlyZero())Release(true);
++        PendingReloadWeapon.Reset();bPendingReaim=false;
++        if(bReload)C->ReloadPressed();
++        else if(bReaim&&Allowed&&C->bAimHeld&&C->bIsAiming)
++        {
++            // A re-aim during folding queues a fresh, continuous acquisition.
++            C->SetAimingState(false);
++            C->ADSProgress=C->ADSStartProgress=0.f;C->ADSStartedAt=Now;
++            C->SetAimingState(true);
++        }
+         if(Allowed && Now>=NextHintProbe)
+         {
+             NextHintProbe=Now+BipodHintInterval;
+@@ -397,18 +494,19 @@
+     if(!C || !Part || Part!=EquippedBipod()){Release(true);return;}
+     if(Blend<=UE_SMALL_NUMBER)return;
+     if(bRequested && (!C->bIsAiming || !Eligible(true)))Release();
+-    const FVector Full=(Support.Anchor-Part->GetHingeWorld())*FMath::SmoothStep(0.f,1.f,Blend);
++    const FVector Full=(Support.Anchor-Part->GetHingeWorld())*FMath::SmoothStep(0.f,1.f,PlacementBlend());
+     const FVector Eye=C->FirstPersonCamera->GetComponentLocation();
+     // 窗口内的视角旋转会带动枪体姿态：净空扫掠失败不是支撑失效，不能解除架枪
+     // （解除只由 Advance 里的结构性检查负责）。先把校正量减半退让，仍不行这一帧
+     // 干脆不平移，保持架设状态；两腿固定默认下垂，脚掌落点仅用于支撑判定。
+     FVector Delta=Full;bool bPlaced=false;
+-    for(int32 Attempt=0;Attempt<4;++Attempt)
++    for(int32 Attempt=0;Attempt<(IsM24()?1:4);++Attempt)
+     {
+         if(ClearPlacement(Eye,Delta,Part->GetHingeWorld()+Delta,C->GetEffectiveMuzzleForward(),bAfterPose)){bPlaced=true;break;}
+         Delta*=.5f;
+         if(Delta.IsNearlyZero(1.f)){Delta=FVector::ZeroVector;break;}
+     }
++    if(IsM24()&&!bPlaced)bM24PlacementReady=false;
+     // Both camera moves need a fresh sweep: the second follows skeletal and
+     // world physics updates. The weapon corridor is checked once, at the final
+     // pose, instead of also querying the previous bone pose before firing.
+@@ -420,11 +518,24 @@
+     }
+     // 2026-09-23 用户要求：架设期间不再对脚架做动画——两腿固定在默认下垂姿态，不随
+     // 枪体旋转/平移解算接触点（穿模可接受）；解除后恢复正常摆动表现。
+-    Part->SetLegsFrozen(bRequested);
+-    if(!bRequested)Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);
++    if(IsM24())
++    {
++        if(bAfterPose)
++        {
++            bM24PlacementReady=bPlaced&&Part->CanReachContacts(Support.Feet[0],Support.Feet[1],FVector::ZeroVector);
++            if(bRequested&&Blend>=.9999f&&!bM24PlacementReady)Release();
++        }
++        Part->SetM24DeploymentTime(Blend*M24Bipod::Duration);
++        Part->SetDeploymentContacts(Support.Feet[0],Support.Feet[1],PlacementBlend());
++    }
++    else
++    {
++        Part->SetLegsFrozen(bRequested);
++        if(!bRequested)Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);
++    }
+     // 落位沉降抖：骨骼姿态与相机修正都定稿之后再叠加，只动枪身——两腿钉死在默认
+     // 下垂，视觉上是枪体坐实在架点上，镜头与手臂不受扰。
+-    if(bAfterPose&&SettleClock>=0.f&&C->AKMViewmodel)
++    if(bAfterPose&&!IsM24()&&SettleClock>=0.f&&C->AKMViewmodel)
+     {
+         const float Decay=FMath::Exp(-SettleClock*7.5f);
+         if(Decay>.01f)
+@@ -474,9 +585,11 @@
+     const auto* C=Character.Get();
+     if(!C||!bRequested||!NetDeployment.bActive||
+         (C->IsLocallyControlled()&&NetDeployment.Sequence!=LocalSequence))return 0.f;
++    if(IsM24()&&C->IsLocallyControlled()&&!bM24PlacementReady)return 0.f;
+     const auto* State=GetWorld()->GetGameState();
+     const double Now=State?State->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+-    return FMath::Min(Blend,float(FMath::Clamp((Now-NetDeployment.StartedAt)/.32,0.,1.)));
++    const float Confirmed=FMath::Min(Blend,float(FMath::Clamp((Now-NetDeployment.StartedAt)/TransitionDuration(true),0.,1.)));
++    return IsM24()?M24Bipod::Seat(Confirmed):Confirmed;
+ }
+ 
+ FString UWeaponBipodDeploymentComponent::EquippedDefinition() const
+@@ -492,7 +605,15 @@
+ {
+     const auto* C=Character.Get();if(!C||!C->HasAuthority()||!C->Controller)return false;
+     const FString Definition=EquippedDefinition();
+-    if(Definition!=PKMLowpolyWeaponAssets::Definition&&Definition!=LMG201WeaponAssets::Definition)return false;
++    if(Definition!=PKMLowpolyWeaponAssets::Definition&&Definition!=LMG201WeaponAssets::Definition&&Definition!=M24WeaponAssets::Definition)return false;
++    if(Definition==M24WeaponAssets::Definition)
++    {
++        const auto* Model=C->GetNetShadowProfile();
++        if(!Model&&C->IsLocallyControlled())Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        const auto* Item=Model?Model->Equipped():nullptr;
++        const auto* Gunsmith=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++        if(!Item||!Gunsmith||Gunsmith->Installed(*Item).FindRef(TEXT("bipod"))!=M24Bipod::Id)return false;
++    }
+     const auto* Move=Cast<UFPSCharacterMovementComponent>(C->GetCharacterMovement());
+     if(!Move||!Move->IsMovingOnGround()||Move->bWantsToSlide||Move->bWantsToSprint||C->GetVelocity().SizeSquared()>100.f)return false;
+     if(C->IsTraversing()||C->IsDodging()||C->IsSliding()||C->IsSwitchingWeapon()||
+@@ -516,7 +637,8 @@
+     // horizontal intent and all world-space support/reach/occlusion checks.
+     if(FMath::Abs(FMath::FindDeltaAngleDegrees(ServerAim.Yaw,Proposed.Aim.Yaw))>30.f)return false;
+     const bool LMG=EquippedDefinition()==LMG201WeaponAssets::Definition;
+-    const float Span=LMG?float((LMG201WeaponAssets::BipodPivotsCm[0]+LMG201WeaponAssets::BipodFeetCm[0]
++    const bool Sniper=EquippedDefinition()==M24WeaponAssets::Definition;
++    const float Span=Sniper?float((M24Bipod::Pivots[0]+M24Bipod::Tips[0]-M24Bipod::Pivots[1]-M24Bipod::Tips[1]).Size()):LMG?float((LMG201WeaponAssets::BipodPivotsCm[0]+LMG201WeaponAssets::BipodFeetCm[0]
+         -LMG201WeaponAssets::BipodPivotsCm[1]-LMG201WeaponAssets::BipodFeetCm[1]).Size()):12.469f;
+     const double Width=FVector::Dist2D(Proposed.FeetA,Proposed.FeetB);
+     if(Width<Span*.5||Width>Span*1.5+4.||FMath::Abs(Proposed.FeetA.Z-Proposed.FeetB.Z)>MaximumHeightSnap*3.f)return false;
+@@ -527,6 +649,21 @@
+     const float MinNormal=FMath::Cos(FMath::DegreesToRadians(MaximumSlopeDegrees));
+     const FVector Forward=FRotator(0,Proposed.Aim.Yaw,0).Vector();
+     const FVector Right=FVector::CrossProduct(FVector::UpVector,Forward);
++    if(Sniper)
++    {
++        // Remote rigs are not evaluated. Bound leg reach in the level mount frame
++        // with 2 cm allowance for the accepted idle roll and network quantization.
++        if(FMath::Abs(Proposed.FeetA.Z-Proposed.FeetB.Z)>3.5||Width<Span-2.5||Width>Span+2.5)return false;
++        for(int32 I=0;I<2;++I)
++        {
++            const FVector Pivot=FVector(Proposed.Anchor)+Right*M24Bipod::Pivots[I].X;
++            const FVector Target=Feet[I]-Pivot;
++            const double Length=Target.Size();
++            if(Length<M24Bipod::Tips[I].Size()*.95-2.||Length>M24Bipod::Tips[I].Size()*1.05+2.
++                || FVector::DotProduct(Target.GetSafeNormal(),-FVector::UpVector)<.85)return false;
++        }
++        if(!ClearPlacement(Eye,FVector::ZeroVector,Proposed.Anchor,Forward))return false;
++    }
+     for(int32 I=0;I<2;++I)
+     {
+         if(FVector::DistSquared(Eye,Feet[I])>FMath::Square(110.f+MaximumCameraReach))return false;
+@@ -623,6 +760,8 @@
+         else Character->GetCharacterMovement()->StopMovementImmediately();
+     }
+     bRequested=NetDeployment.bActive;
+-    Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,bRequested?1.f/.32f:1.f/.16f);
++    Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,1.f/TransitionDuration(bRequested));
+     if(bRequested)ClampAim();
+ }
++
++#include "M24BipodValidation.inl"

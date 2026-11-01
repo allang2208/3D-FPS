@@ -1,0 +1,44 @@
+{
+  "meshes": [
+    {
+      "path": "Content\\Weapons\\M24\\ReceiverGripRebuild20261031\\Meshes\\SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+      "sha256": "f183ed2f7d1db9d235547269b3b1e3e25738fe038234501a4ed0d5608b6fa094",
+      "matches_receipt": true
+    },
+    {
+      "path": "Content\\Weapons\\M24\\ReceiverGripRebuild20261031\\Meshes\\SM_M24_ReceiverStock_Advanced.uasset",
+      "sha256": "a5f3a6d5a18e42fcba899327255b4988fd918c563ed289e9428ab7a074d37499",
+      "matches_receipt": true
+    }
+  ],
+  "stock_options": [
+    {
+      "id": "m24_cheekrest",
+      "name": "M24 原厂枪托"
+    },
+    {
+      "id": "sniper_skeleton_stock",
+      "name": "骨架狙击枪托"
+    }
+  ],
+  "defaults": {
+    "optic": "m24_custom_scope_6x",
+    "muzzle": "none",
+    "stock": "m24_cheekrest",
+    "magazine": "false",
+    "bipod": "false",
+    "bolt": "false",
+    "reargrip": "false",
+    "body": "false"
+  },
+  "allowed": [
+    "optic",
+    "muzzle",
+    "stock",
+    "magazine",
+    "bipod",
+    "bolt",
+    "reargrip",
+    "body"
+  ]
+}

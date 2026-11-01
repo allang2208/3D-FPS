@@ -1,0 +1,65 @@
+{
+  "complete": true,
+  "saved": [
+    "/Game/Weapons/SkeletonSniperStock20261031/Textures/T_SniperStock_Color.T_SniperStock_Color",
+    "/Game/Weapons/SkeletonSniperStock20261031/Textures/T_SniperStock_Normal.T_SniperStock_Normal",
+    "/Game/Weapons/SkeletonSniperStock20261031/Textures/T_SniperStock_Roughness.T_SniperStock_Roughness",
+    "/Game/Weapons/SkeletonSniperStock20261031/Textures/T_SniperStock_Metallic.T_SniperStock_Metallic",
+    "/Game/Weapons/SkeletonSniperStock20261031/Textures/T_SniperStock_Mask.T_SniperStock_Mask",
+    "/Game/Weapons/SkeletonSniperStock20261031/Materials/M_SniperStockSurface.M_SniperStockSurface",
+    "/Game/Weapons/SkeletonSniperStock20261031/Materials/MI_SniperStock_MeshySurface.MI_SniperStock_MeshySurface",
+    "/Game/Weapons/SkeletonSniperStock20261031/Materials/MI_SniperStock_Interface.MI_SniperStock_Interface",
+    "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_M24.SM_SniperSkeleton_M24",
+    "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_SVD.SM_SniperSkeleton_SVD",
+    "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_SVCH.SM_SniperSkeleton_SVCH",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_stock_sniper_skeleton_stock.T_stock_sniper_skeleton_stock",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_m24_bolt_false.T_ue_m24_bolt_false",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_m24_category_bolt.T_ue_m24_category_bolt",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_bolt_m24_carbon_light_bolt.T_bolt_m24_carbon_light_bolt",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_m24_bolt_m24_carbon_light_bolt.T_ue_m24_bolt_m24_carbon_light_bolt",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_m24_reargrip_false.T_ue_m24_reargrip_false",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_body_m24_advanced_action.T_body_m24_advanced_action",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_m24_body_m24_advanced_action.T_ue_m24_body_m24_advanced_action",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_m24_category_body.T_ue_m24_category_body",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_category_body.T_category_body",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_m24_body_false.T_ue_m24_body_false",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_stock_m24_cheekrest.T_stock_m24_cheekrest",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_m24_stock_m24_cheekrest.T_ue_m24_stock_m24_cheekrest",
+    "/Game/UI/AttachmentIcons20260913/FramedFirearms/T_ue_svch_stock_false.T_ue_svch_stock_false"
+  ],
+  "runtime_tested": false,
+  "host_partitioned": false,
+  "icon_mapping": {
+    "stock_sniper_skeleton_stock": [
+      "stock_sniper_skeleton_stock"
+    ],
+    "ue_m24_bolt_false": [
+      "ue_m24_bolt_false",
+      "ue_m24_category_bolt"
+    ],
+    "bolt_m24_carbon_light_bolt": [
+      "bolt_m24_carbon_light_bolt",
+      "ue_m24_bolt_m24_carbon_light_bolt"
+    ],
+    "ue_m24_reargrip_false": [
+      "ue_m24_reargrip_false"
+    ],
+    "body_m24_advanced_action": [
+      "body_m24_advanced_action",
+      "ue_m24_body_m24_advanced_action",
+      "ue_m24_category_body",
+      "category_body"
+    ],
+    "ue_m24_body_false": [
+      "ue_m24_body_false"
+    ],
+    "stock_m24_cheekrest": [
+      "stock_m24_cheekrest",
+      "ue_m24_stock_m24_cheekrest"
+    ],
+    "ue_svch_stock_false": [
+      "ue_svch_stock_false"
+    ]
+  },
+  "source_triangles": 198545
+}

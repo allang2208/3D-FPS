@@ -1,0 +1,509 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -107,6 +107,9 @@
+ #include "Weapons/ASH12WeaponAssets.h"
+ #include "Weapons/SVDWeaponAssets.h"
+ #include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
+ #include "Weapons/SniperSuppressorAssets.h"
+ #include "Weapons/Saiga12KWeaponAssets.h"
+ #include "Weapons/SVDAttachments.h"
+@@ -136,6 +139,7 @@
+ #include "Sound/SoundBase.h"
+ #include "Sound/SoundConcurrency.h"
+ #include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
+ #include "Weapons/RifleAxialRecoil.h"
+ #include "Weapons/WeaponBipodDeploymentComponent.h"
+ #include "Weapons/PistolLocomotionAssets.h"
+@@ -665,6 +669,14 @@
+         ADSRearEyeDistance=18.f;
+         if(!bPresentationOnly)QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*(IsM870Weapon()?M870WeaponAssets::AnimationPath(TEXT("quick_melee")):Super90WeaponAssets::AnimationPath(TEXT("quick_melee"))));
+     }
++    if(IsM24Weapon())
++    {
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,M24WeaponAssets::MeshPath);
++        bUsingM4Infima=ViewmodelMesh!=nullptr;
++        bSingleShotTrigger=true;bPistolShotPending=false;
++        HipViewmodelLocation=M4HipViewmodelLocation;ADSRearEyeDistance=9.f;
++        if(!bPresentationOnly)QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*M24WeaponAssets::AnimationPath(TEXT("quick_melee")));
++    }
+     bUsingReplacement = ViewmodelMesh != nullptr;
+     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel"));
+     if (ViewmodelMesh)
+@@ -695,14 +707,15 @@
+     AKMViewmodel->SetRelativeRotation(RifleHipFraming.Rotation(GetViewmodelBaseRotation().Quaternion()));
+     if (bPresentationOnly)
+     {
+-        // RSH's mesh keeps the shared 715 bind pose. Its private base layer is
+-        // part of the mechanical assembly, including in icons and pickups.
++        // RSH's native base pose and M24's support grasp belong to their
++        // presentation too; retain these shared layers for icons and pickups.
+         WeaponGripProfiles.Reset();
+-        if (IsRSH12Weapon())
++        if (IsRSH12Weapon() || IsM24Weapon())
+         {
+             TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
+             InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
+-            AimAnimation = IdleAnimation;
++            if(IsM24Weapon())InitializeWeaponGripFamily(TEXT("mag10"), BaseSupport);
++            if(IsRSH12Weapon())AimAnimation = IdleAnimation;
+         }
+         // Callers pose the preview explicitly; combat, audio and FX stay unloaded.
+         AKMViewmodel->SetAnimationMode(EAnimationMode::AnimationSingleNode);
+@@ -723,8 +736,8 @@
+     }
+     ReloadAnimation = LoadAKMAnimation(TEXT("A_AKM_reload"));
+     ReloadEmptyAnimation = LoadAKMAnimation(TEXT("A_AKM_reload_empty"));
+-    DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):(IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel)||SVCHWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
+-    DrumReloadEmptyAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload_empty"))):(IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel)||SVCHWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
++    DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):(IsM24Weapon()||IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel)||SVCHWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
++    DrumReloadEmptyAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload_empty"))):(IsM24Weapon()||IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel)||SVCHWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
+     if(AKMSoviet::Matches(AKMViewmodel)){
+         ReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload"));
+         ReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty"));
+@@ -748,15 +761,16 @@
+         DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload_empty")));
+     }
+     // DW715 retains its original inspect; M1911 uses that clip's native-grip adaptation.
+-    InspectAnimation = IsTubeShotgunWeapon() || IsHK416Weapon() || IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel) || bUseM16 || PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
++    InspectAnimation = IsM24Weapon() || IsTubeShotgunWeapon() || IsHK416Weapon() || IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel) || bUseM16 || PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
+     if(bUseM1911 && DualPistols)DualPistols->PrepareSingleInspect();
+     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
+     DrumSupportAnimations.Reset();
+     WeaponGripProfiles.Reset();
+-    if (LMG201WeaponAssets::Matches(AKMViewmodel) || IsRSH12Weapon() || SVCHWeaponAssets::Matches(AKMViewmodel) || IsSaiga12KWeapon())
++    if (LMG201WeaponAssets::Matches(AKMViewmodel) || IsRSH12Weapon() || SVCHWeaponAssets::Matches(AKMViewmodel) || IsSaiga12KWeapon() || IsM24Weapon())
+     {
+         TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
+         InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
++        if(IsM24Weapon())InitializeWeaponGripFamily(TEXT("mag10"), BaseSupport);
+     }
+     const bool bSharedDrum=InitializeWeaponGripFamily(TEXT("drum"),DrumSupportAnimations);
+     if(!bSharedDrum && IsHK416Weapon())
+@@ -766,7 +780,7 @@
+             if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(Pair.Value,TEXT("drum"))))DrumSupportAnimations.Add(Pair.Key,Clip);
+     }
+ 
+-    if (!bSharedDrum && bUsingM4Infima && !IsTubeShotgunWeapon() && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
++    if (!bSharedDrum && bUsingM4Infima && !IsM24Weapon() && !IsTubeShotgunWeapon() && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
+         for (UAnimSequence* Base : {IdleAnimation.Get(), AimAnimation.Get(), FireAnimation.Get(), AimFireAnimation.Get(), EquipAnimation.Get()})
+             if (Base)
+             {
+@@ -817,6 +831,7 @@
+     AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
+     if (auto* Sprint = FindComponentByClass<UM4TacticalSprintComponent>())
+         Sprint->Configure(IsPistolWeapon() ? ERifleSprintWeapon::None
++            : IsM24Weapon() ? ERifleSprintWeapon::M24
+             : IsM870Weapon() ? ERifleSprintWeapon::M870
+             : IsSuper90Weapon() ? ERifleSprintWeapon::Super90
+             : SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::SVD
+@@ -893,7 +908,7 @@
+             const FString FirePath = bUseQBZ191
+                 ? Base + FString::Printf(TEXT("Fire_%02d"), Index)
+                 : FString::Printf(TEXT("/Game/Weapons/M4OriginalAudio20260913/S_M4_Original_%02d"), Index);
+-            if (!bUseASH12 && !bUseM16 && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel))
++            if (!IsM24Weapon() && !bUseASH12 && !bUseM16 && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel))
+                 if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *FirePath))
+                     RifleFireVariants.Add(Sound);
+             const FString SuppressedPath = bUseM16
+@@ -1045,6 +1060,7 @@
+     ServicePendingReloadCycle();
+     ServiceReloadAfterCasting();
+     UpdateM870PumpAudio();
++    UpdateM24CycleAudio();
+     ServiceRevolverReloadAfterFire();
+     // Also recover an empty magazine loaded from a saved profile after equipping.
+     if (!IsDualWieldingPistols() && (HasInfiniteReserveAmmo() || (bUseM16 && ReserveAmmo > 0))
+@@ -1067,6 +1083,8 @@
+     if (IsLocallyControlled()) UpdateFoldingSights(DeltaSeconds); // M4: 表现
+     static const bool bSVDFirstReloadCapture = FParse::Param(FCommandLine::Get(), TEXT("SVDFirstReloadAudit"));
+     if (bSVDFirstReloadCapture) RunSVDFirstReloadCapture(DeltaSeconds);
++    static const bool bM24ActionReview = FParse::Param(FCommandLine::Get(), TEXT("M24ActionAudit"));
++    if (bM24ActionReview && IsLocallyControlled()) RunM24ActionReview(DeltaSeconds);
+     if (bRunWeaponAudit) RunWeaponAudit(DeltaSeconds);
+     if (bRunInfiniteAmmoAudit) RunInfiniteAmmoAudit();
+     if (bRunDrumGripAudit) RunDrumGripAudit();
+@@ -1410,6 +1428,7 @@
+     if(IsTubeShotgunWeapon()){BeginSuper90Reload();return;}
+     const bool ResumeCycle=PendingAmmoType.IsEmpty() && NeedsReloadCycle();
+     if (!bInventoryWeaponReady || (IsWeaponBusy() && !IsRevolverFireActionPlaying()) || (!ResumeCycle && PendingAmmoType.IsEmpty() && (MagazineAmmo >= MagazineCapacity || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0)))) return;
++    if(BipodDeployment&&BipodDeployment->DeferReload())return;
+     if (IsRevolverFireActionPlaying())
+     {
+         // A fired round makes the magazine empty while the recoil clip is
+@@ -1553,7 +1572,14 @@
+     if (bUsingM4Infima)
+     {
+         // Source animation seconds, evaluated by the very same clock as the pose.
+-        if (PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
++        if(IsM24Weapon())
++        {
++            MechanicalCueTimes={M24WeaponAssets::MagazineOut,M24WeaponAssets::MagazineInsert,M24WeaponAssets::MagazineSeat};
++            MechanicalCueSounds={MagOutSound,MagInsertSound,MagSeatSound};
++            if(bPendingEmptyReload)
++            {MechanicalCueTimes.Append({M24WeaponAssets::ChargePull,M24WeaponAssets::ChargeRelease});MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});}
++        }
++        else if (PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
+         {
+             // Dedicated reference cuts, scheduled on the pose's source clock.
+             // The queue holds the loaded objects for the entire reload action.
+@@ -1860,6 +1886,7 @@
+ 
+ UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
+ {
++    if(IsM24Weapon())return QuickCombatAnimation;
+     if(IsTubeShotgunWeapon())return QuickCombatAnimation;
+     if(const auto* Profile=WeaponGripProfileFor(Grip))
+         if(const auto* Layer=Profile->FindAction(TEXT("quick_melee")))return Layer->Playback();
+@@ -1964,13 +1991,14 @@
+         WeaponStateElapsed=0.0f;
+         WeaponStateDuration=PlaybackDuration;
+         PlayWeaponAnimation(Clip,false,PlayRate);
+-        if((bUseASH12||IsM870Weapon()||SVCHWeaponAssets::Matches(AKMViewmodel))&&GunplayAnimation)
++        if((IsM24Weapon()||bUseASH12||IsM870Weapon()||SVCHWeaponAssets::Matches(AKMViewmodel))&&GunplayAnimation)
+         {
+             // The contact sampler can run on the first update after a hitch.
+             // Publish this action now so it cannot evaluate an earlier fire clip.
+             GunplayAnimation->ActionClip=Clip;
+             GunplayAnimation->ActionTime=0.f;
+             GunplayAnimation->ActionAlpha=0.f;
++            if(IsM24Weapon())GunplayAnimation->ActionGripProfile=WeaponGripProfileFor(Grip);
+         }
+     }
+     static const TCHAR* const GripNames[]={TEXT("Base"),TEXT("Drum"),TEXT("Angled"),TEXT("Vertical"),TEXT("Canted"),TEXT("Prism")};
+@@ -2101,7 +2129,7 @@
+     // These rifles share the executor's source clock with their pose. SVCH
+     // must also follow action haste; a separate wall clock cuts recovery short.
+     // Cached gun flags must not take ownership of a later tool/hand action.
+-    const bool bDrivenRifleQuickCombat=(bUseASH12||SVCHWeaponAssets::Matches(AKMViewmodel))&&QuickCombatPistol&&
++    const bool bDrivenRifleQuickCombat=(IsM24Weapon()||bUseASH12||SVCHWeaponAssets::Matches(AKMViewmodel))&&QuickCombatPistol&&
+         (QuickCombatPistol->GetStyle()==EQuickCombatStyle::Rifle||
+          QuickCombatPistol->GetStyle()==EQuickCombatStyle::M4ReferenceRifle);
+     if(bDrivenRifleQuickCombat&&WeaponState!=EAKMWeaponState::QuickCombat)
+@@ -2241,6 +2269,7 @@
+     if(auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>())OffhandKukri->AdvanceActionBeforeCamera(DeltaSeconds);
+     UpdateADSProgress();
+     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
++    if(BipodDeployment)CameraADSFactor*=BipodDeployment->AimPresentationWeight();
+     WeaponADSFactor = CameraADSFactor;
+     AdvanceScopeOptics(DeltaSeconds);
+     // Bow owns its sight pose/clock; keep rifle pose state independent while
+@@ -2467,7 +2496,8 @@
+             ReloadTracks[0].FollowAction=CameraAction;
+             ReloadTracks[0].FollowContacts.Append(CameraContacts.GetData(),CameraContacts.Num());
+         }
+-        const float ActionCameraWeight = CameraMotionScale * (1.f - CameraADSFactor);
++        // M24 bolt contacts remain subtle through ADS; aim and viewmodel anchors are unchanged.
++        const float ActionCameraWeight = CameraMotionScale * (1.f - CameraADSFactor * (IsM24Weapon() ? .85f : 1.f));
+         ActionCamera->Apply(*FirstPersonCamera, CameraAction, SourceTime, SourceEnd,
+             CameraContacts, ActionCameraWeight, ReloadTracks, DeltaSeconds);
+     }
+@@ -2547,7 +2577,10 @@
+     // this weapon's hip anchor and must not visit the centered action framing.
+     const bool bPKMReloadFraming = PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
+     const bool bClothReloadFraming=HasLMG201ClothBox()&&IsReloading();
+-    const bool bUseActionFraming = !IsTubeShotgunWeapon() && (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
++    // M24's complete action family is authored at its calibrated hip anchor.
++    // The M4 anchor would pull it 22.5 cm toward the eye and lift it 20.7 cm,
++    // including during the bolt cycle while the gameplay state is still Idle.
++    const bool bUseActionFraming = !IsM24Weapon() && !IsTubeShotgunWeapon() && (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
+         && !IsPistolWeapon() && !IsTraversing() && !Traversal->IsWeaponRecovering()
+         && !IsDoorPushActive() && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping;
+     float ActionFramingTarget = bUseActionFraming ? 1.0f : 0.0f;
+@@ -2654,19 +2687,21 @@
+     // motion reads the reference punch here instead, so both present the same
+     // recoil. It is added after the spring clamps: it stands in for authored
+     // animation motion and must not be flattened by a spring limit.
+-    const auto RecoilProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
++    const bool bM24Recoil=IsM24Weapon();
++    const auto RecoilProfile=bM24Recoil?M24Recoil::VisualProfile():FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
+     // A negative multiplier flips the whole compensation, which is how the
+     // direction of the added motion is checked in game without a rebuild.
+     const auto AxialProfile=RifleAxialRecoil::ForWeapon(ActiveInventoryWeaponDefinition);
+     const bool bReferenceAxialRecoil=AxialProfile!=RifleAxialRecoil::EProfile::None;
+     // The compensated pulse and authored fire clip must start at the actual
+     // shot, not at the beginning of the frame in which it happened.
+-    const float ClipAge=bReferenceAxialRecoil&&ClipRecoilSeconds>=0.f
++    const float ClipAge=(bReferenceAxialRecoil||bM24Recoil)&&ClipRecoilSeconds>=0.f
+         ?static_cast<float>(FMath::Max(0.0,GetWorld()->GetTimeSeconds()-LastShotWorldTime)):ClipRecoilSeconds;
+     // ASH-12 already carries the full reference motion in its fire sequences.
+     // Remove only the duplicate clip layer; keep its heavier spring profile.
+-    const float ClipGain=bUseASH12?0.f:ClipRecoilScale.GetValueOnGameThread()*BipodRecoil;
+-    const float ClipWave=FPSVisualRecoil::ClipWave(ClipAge)*ClipGain;
++    const float ClipGain=bUseASH12?0.f:ClipRecoilScale.GetValueOnGameThread()*BipodRecoil
++        *(bM24Recoil?WeaponHandling.RecoilScale/M24Recoil::ReferenceRecoilScale:1.f);
++    const float ClipWave=(bM24Recoil?M24Recoil::Pulse(ClipAge):FPSVisualRecoil::ClipWave(ClipAge))*ClipGain;
+     FVector ClipPosition=RecoilProfile.ClipPosition*ClipWave;
+     const FVector ClipRotation=RecoilProfile.ClipRotation*ClipWave;
+     FVector ClipADSPosition=RecoilProfile.ClipADSPosition*ClipWave;
+@@ -2698,11 +2733,15 @@
+     const float SprintSide = FMath::Cos(M4SprintPhase);
+     const float SprintStep = FMath::Cos(2.0f * M4SprintPhase);
+     const float RifleSprintAlpha = FMath::SmoothStep(0.f, 1.f, SprintPoseFactor);
++    // The long M24 and its optic need a right-side carry corridor. The M4's
++    // inward yaw places this rifle across the centre during the whole sprint.
++    const FVector RifleSprintOffset = IsM24Weapon() ? FVector(6.f,9.f,-11.f) : M4SprintOffset;
+     const FVector SprintOffset = bPistol ? PistolLocomotionOffset : bUsingM4Infima && !bAuthoredRifleSprint
+-        ? (M4SprintOffset + FVector(0.25f * SprintStep, M4SprintSwayCM * SprintSide, -0.45f * SprintStep) * GroundLocomotionWeight) * RifleSprintAlpha
++        ? (RifleSprintOffset + FVector(0.25f * SprintStep, M4SprintSwayCM * SprintSide, -0.45f * SprintStep) * GroundLocomotionWeight) * RifleSprintAlpha
+             + M4SprintMidpointOffset * (4.f * RifleSprintAlpha * (1.f - RifleSprintAlpha))
+         : FVector::ZeroVector;
+-    const FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress * BipodMotion + ClipPosition;
++    FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress * BipodMotion + ClipPosition;
++    if(bM24Recoil)GodotPose.Z=FMath::Clamp(GodotPose.Z,-.01f,.055f);
+     const FVector UEHipPose(-GodotPose.Z * 100.0f, GodotPose.X * 100.0f, GodotPose.Y * 100.0f);
+     const float ScopeWeight=GetScopePresentationAlpha();
+     const float ScopeConvergence=FMath::Lerp(1.f,FMath::Clamp(
+@@ -2722,7 +2761,8 @@
+     const float WallTarget = bNearWall ? (1.0f - FMath::Clamp((WallHit.Distance - 25.0f) / 55.0f, 0.0f, 1.0f))
+         * (1.f-(BipodDeployment?BipodDeployment->GetDeploymentBlend():0.f)) : 0.0f;
+     NearWallAlpha = FMath::Lerp(NearWallAlpha, WallTarget, 1.0f - FMath::Exp(-12.0f * DeltaSeconds));
+-    const FVector ADSTarget = bSightCalibrated ? CalibratedADSLocation : ADSViewmodelLocation;
++    const FVector ADSTarget = (bSightCalibrated ? CalibratedADSLocation : ADSViewmodelLocation)
++        + M24UpperSightADSOffset();
+     // Standard magazine and drum share the same camera-space framing.
+     const FVector HipLocation = RifleHipFraming.Location(HipViewmodelLocation);
+     // Keep each existing action's working space; AKM/A762 previously used their hip anchor.
+@@ -2749,10 +2789,13 @@
+     const FRotator BaseRotation = RifleHipFraming.IsReady() ? FQuat::Slerp(
+         RifleHipFraming.Rotation(GetViewmodelBaseRotation().Quaternion()),
+         GetViewmodelBaseRotation().Quaternion(), M4ActionFramingAlpha).Rotator() : GetViewmodelBaseRotation();
+-    const FRotator HipRotation(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z));
++    const FQuat HipRotation=bM24Recoil
++        ?FRotator(FMath::RadiansToDegrees(GodotAngles.X),-FMath::RadiansToDegrees(GodotAngles.Y),-FMath::RadiansToDegrees(GodotAngles.Z)).Quaternion()*BaseRotation.Quaternion()
++        :FRotator(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z)).Quaternion();
+     // Premultiply in camera space: adding pitch to a mesh already yawed 90 degrees
+     // rotates about the wrong axis and fails to raise the muzzle.
+-    const FRotator SprintAngles = M4SprintRotation + FRotator(-0.8f * SprintStep, 2.3f * SprintSide, 1.6f * FMath::Sin(M4SprintPhase)) * GroundLocomotionWeight;
++    const FRotator RifleSprintRotation = IsM24Weapon() ? FRotator(30.f,8.f,-10.f) : M4SprintRotation;
++    const FRotator SprintAngles = RifleSprintRotation + FRotator(-0.8f * SprintStep, 2.3f * SprintSide, 1.6f * FMath::Sin(M4SprintPhase)) * GroundLocomotionWeight;
+     const FQuat SprintRotation = bPistol ? PistolLocomotionRotation.Quaternion() : bUsingM4Infima && !bAuthoredRifleSprint
+         ? FQuat::Slerp(FQuat::Identity, SprintAngles.Quaternion(), RifleSprintAlpha)
+         : FQuat::Identity;
+@@ -2761,7 +2804,7 @@
+     TargetLocation+=FVector(-2.f,0.f,-6.f)*DodgePresentationWeight();
+     const FQuat InertiaRotation = FRotator(RifleInertiaAngles.X, RifleInertiaAngles.Y, RifleInertiaAngles.Z).Quaternion();
+     FQuat TargetRotation = FQuat::Slerp(FQuat::Identity, InertiaRotation, RifleMotionWeight)
+-        * FQuat::Slerp(SprintRotation * HipRotation.Quaternion(), ADSRotation, WeaponADSFactor);
++        * FQuat::Slerp(SprintRotation * HipRotation, ADSRotation, WeaponADSFactor);
+     ApplyWeaponCrouchPose(TargetLocation, TargetRotation, bPistol);
+     const FTransform JumpPose = GetWeaponJumpTransform(bPistol ? EFirstPersonJumpRig::Pistol : EFirstPersonJumpRig::Rifle);
+     TargetLocation = JumpPose.TransformPosition(TargetLocation);
+@@ -2959,7 +3002,9 @@
+             ?FMath::Min(Animation->GetPlayLength(),22.f/60.f):Animation->GetPlayLength();
+         ShotAnimationRate=FMath::Max(HasteShotRate,ShotLength/FMath::Max(.01f,float(ShotInterval)));
+     }
++    if(Animation&&IsM24Weapon())ShotAnimationRate=M24CyclePlayRate();
+     PlayWeaponAnimation(Animation, false, ShotAnimationRate);
++    if(IsM24Weapon()){M24CycleCueMask=0;M24PendingCasingWeapons.Remove(ActiveInventoryWeapon);NextAllowedShotTime=Now+FMath::Max(ShotInterval,double(ActionDuration));}
+     if(IsM870Weapon()){M870PumpCueMask=0;M870PendingCasingWeapons.Remove(ActiveInventoryWeapon);}
+     if(IsRSH12Weapon())
+     {
+@@ -3099,7 +3144,7 @@
+     LastVisualShotAt=VisualNow;
+     ClipRecoilSeconds=0.f;
+     VisualRecoverAt=VisualNow+FMath::Clamp(static_cast<double>(FireInterval)*.8,.065,.12);
+-    const auto VisualProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
++    const auto VisualProfile=IsM24Weapon()?M24Recoil::VisualProfile():FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
+     const float CameraShake=FMath::Max(0.f,CameraShakeScale.GetValueOnGameThread())*(IsRSH12Weapon()?1.12f:1.f);
+     // A defined first pulse followed by smaller settled pulses, rather than
+     // increasing random tumbling as the automatic burst continues.
+@@ -3138,7 +3183,8 @@
+     CameraJitterPositionVelocity += PositionImpulse * 0.11f * AKMSource::FeedbackScale * CameraShake;
+     CameraJitterRotationVelocity += RotationImpulse * 0.34f * AKMSource::FeedbackScale * CameraShake;
+     const float ImpulseScale = FMath::Lerp(13.0f, 19.0f, WeaponADSFactor) * VisualRecoilScale * FeedbackHandling.ShakeScale * CameraShake * BipodRecoil * ComposureRecoil;
+-    CameraKickPitchVelocity += (Pattern.X + FMath::FRandRange(-0.0012f, 0.0012f)) * ImpulseScale * AKMSource::FeedbackScale;
++    CameraKickPitchVelocity += (Pattern.X + FMath::FRandRange(-0.0012f, 0.0012f)) * ImpulseScale * AKMSource::FeedbackScale
++        *(IsM24Weapon()?M24Recoil::CameraPitchGain:1.f);
+     CameraKickYawVelocity += (Pattern.Y + FMath::FRandRange(-0.0008f, 0.0008f)) * ImpulseScale * AKMSource::FeedbackScale;
+     FOVPunch = (IsRSH12Weapon()?FMath::Lerp(.75f,.32f,WeaponADSFactor):FMath::Lerp(1.2f, 0.4f, WeaponADSFactor)) * CameraShake * BipodRecoil * ComposureRecoil;
+     // Trauma is squared when rendered: sqrt keeps a single-shot amplitude linear,
+@@ -3279,8 +3325,8 @@
+     // 必须继续往下走精确瞄准分支，否则开镜后弹道仍锁死在相机正前方、对不上瞄具。
+     if(HasOffhandPistol()&&!IsLoneLeftHandRig())return FirstPersonCamera->GetForwardVector();
+     const bool bPreciseAim = bIsAiming || WeaponADSFactor > 0.98f;
+-    // The optical overlay is camera-centered, including recoil feedback.
+-    if (bPreciseAim && GetScopePresentationAlpha() > .5f)
++    // Lens and angular reticle use the firing camera throughout ADS and zoom.
++    if (bPreciseAim && UsesPhysicalScope())
+         return FirstPersonCamera->GetForwardVector();
+     if(bPreciseAim && IsLoneLeftHandRig())return DualPistols->LoneAimDirection();
+     if (bHolographicOptic && bPreciseAim)
+@@ -3431,6 +3477,11 @@
+         MechanicalCueSounds = {ChargePullSound, ChargeReleaseSound};
+         UE_LOG(LogTemp, Display, TEXT("AKM_EQUIP_CHARGE: clip=%s magazine=attached left=idle duration=%.3f"), *EquipAnimation->GetPathName(), EquipAnimation->GetPlayLength());
+     }
++    else if (IsM24Weapon())
++    {
++        MechanicalCueTimes={M24WeaponAssets::EquipBoltPull,M24WeaponAssets::EquipBoltClosed};
++        MechanicalCueSounds={ChargePullSound,ChargeReleaseSound};
++    }
+     else if (SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
+     {
+         MechanicalCueTimes={SVDWeaponAssets::EquipPull,SVDWeaponAssets::EquipRelease};
+@@ -3468,7 +3519,7 @@
+     if (EquipAnimation)
+     {
+         // PKM's video-authored raise/catch/settle uses its own clip clock.
+-        WeaponStateDuration = bUsingM4Infima && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel)
++        WeaponStateDuration = bUsingM4Infima && !IsM24Weapon() && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel)
+             && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? 0.72f : EquipAnimation->GetPlayLength();
+         const float EquipRate=FirearmEquipRate*LightningHaste::ActionSpeed(this);
+         WeaponStateDuration /= EquipRate;
+@@ -3651,6 +3702,14 @@
+ 
+ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
+ {
++    if(IsM24Weapon())
++    {
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if(Clip==TEXT("walk")||Clip==TEXT("run"))Clip=TEXT("idle");
++        else if(Clip==TEXT("aim_fire")||Clip==TEXT("fire_last"))Clip=TEXT("fire");
++        else if(Clip.StartsWith(TEXT("equip")))Clip=TEXT("equip");
++        return LoadObject<UAnimSequence>(nullptr,*M24WeaponAssets::AnimationPath(*Clip));
++    }
+     if(IsSaiga12KWeapon())
+     {
+         FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
+@@ -3764,6 +3823,13 @@
+ 
+ USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
+ {
++    if(IsM24Weapon())
++    {
++        FString Cue(AssetName);Cue.RemoveFromStart(TEXT("S_AKM_"));
++        if(Cue==TEXT("Fire"))return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::FireSoundPath(1));
++        if(Cue.StartsWith(TEXT("Mag"))||Cue.StartsWith(TEXT("Charge")))
++            return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::MechanicalSoundPath(*Cue));
++    }
+     if(IsSaiga12KWeapon())
+     {
+         if(FCString::Strcmp(AssetName,TEXT("S_AKM_Fire"))==0)
+@@ -4034,14 +4100,14 @@
+ }
+ bool AFPSGAMECharacter::IsRevolverFireActionPlaying() const
+ {
+-    return (bUseDanWesson715 || IsTubeShotgunWeapon()) && ActiveActionAnimation
++    return (IsM24Weapon() || bUseDanWesson715 || IsTubeShotgunWeapon()) && ActiveActionAnimation
+         && (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || (IsTubeShotgunWeapon()&&ActiveActionAnimation==PistolFireLastAnimation))
+         && GetWorld()->GetTimeSeconds() < LastShotWorldTime + ActionDuration;
+ }
+ void AFPSGAMECharacter::ServiceRevolverReloadAfterFire()
+ {
+     if (!bRevolverReloadAfterFire) return;
+-    if (!bInventoryWeaponReady || (!bUseDanWesson715&&!IsTubeShotgunWeapon()) || MagazineAmmo >= MagazineCapacity
++    if (!bInventoryWeaponReady || (!IsM24Weapon()&&!bUseDanWesson715&&!IsTubeShotgunWeapon()) || MagazineAmmo >= MagazineCapacity
+         || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0))
+     {
+         bRevolverReloadAfterFire = false;
+@@ -4063,7 +4129,7 @@
+ bool AFPSGAMECharacter::IsDoorPushActive() const {return DoorPush&&DoorPush->IsActive();}
+ bool AFPSGAMECharacter::IsWeaponBusy(bool bAllowInspection) const
+ {
+-    const bool bPumpBusy=IsM870Weapon()&&IsRevolverFireActionPlaying();
++    const bool bPumpBusy=(IsM24Weapon()||IsM870Weapon())&&IsRevolverFireActionPlaying();
+     return bPumpBusy || IsWeaponBusyForAim(bAllowInspection);
+ }
+ bool AFPSGAMECharacter::IsWeaponBusyForAim(bool bAllowInspection) const
+@@ -4093,6 +4159,14 @@
+     const float Ratio = FMath::Tan(FMath::DegreesToRadians(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor)) * 0.5f)
+         / FMath::Tan(FMath::DegreesToRadians(BaseVerticalFieldOfView) * 0.5f);
+     float Scale = FMath::Lerp(1.0f, Ratio * ADSMouseSensitivity, CameraADSFactor);
++    if (UsesPhysicalScope())
++    {
++        // Relative/centre-screen matching: the main camera stays wide in PiP,
++        // but its physical lens adds optical magnification. Include that gain
++        // exactly once; equal cm/360 would feel six times faster inside 6x.
++        Scale = Ratio * FMath::Lerp(1.f, ADSMouseSensitivity, CameraADSFactor)
++            / GetPhysicalScopeMagnification();
++    }
+     // Voxel building snaps to 20 cm cells, so full FPS sensitivity overshoots the cell the player is
+     // aiming at. Scale the look down while build mode is active; tune live with the console variable.
+     if (const auto* PC = Cast<APlayerController>(Controller))
+@@ -4197,7 +4271,7 @@
+             Root=Root*Local;
+         }
+         const FTransform Mount=HolographicMount*Root;
+-        if ((HasThermalScope() || IsTubeShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic") || OpticVariant == TEXT("kv_scope_4x")) && HolographicOptic && HolographicOptic->GetStaticMesh())
++        if ((IsM24Weapon() || HasThermalScope() || IsShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic") || OpticVariant == TEXT("kv_scope_4x")) && HolographicOptic && HolographicOptic->GetStaticMesh())
+         {
+             const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
+             const auto* R=OpticMesh->FindSocket(TEXT("SightRear"));
+@@ -4223,7 +4297,7 @@
+     CalibratedADSRotation = FQuat::FindBetweenNormals(Base.RotateVector(Axis), FVector::ForwardVector) * Base;
+     // Mapping a single axis leaves roll unconstrained. Align the complete optic
+     // frame with camera forward/up so ADS is level without twisting it off the rail.
+-    if ((IsPistolWeapon() || IsHK416Weapon() || IsTubeShotgunWeapon() || bUseQBZ191) && !bHolographicOptic)
++    if ((IsM24Weapon() || IsPistolWeapon() || IsHK416Weapon() || IsTubeShotgunWeapon() || bUseQBZ191) && !bHolographicOptic)
+     {
+         FTransform Root = FTransform::Identity;
+         for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
+@@ -4232,14 +4306,14 @@
+             AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
+             Root=Root*Local;
+         }
+-        SightUp=Root.GetRotation().RotateVector(IsTubeShotgunWeapon() ? -FVector::RightVector : FVector::UpVector);
++        SightUp=Root.GetRotation().RotateVector(IsM24Weapon() ? M24WeaponAssets::SightUp : IsTubeShotgunWeapon() ? -FVector::RightVector : FVector::UpVector);
+     }
+     // QBZ191's aim carries about 4.88 degrees of left roll. Its iron sights need
+     // the gun-root up axis, just as hip framing does, while retaining their own
+     // sight line and eye distance. The location below uses this corrected frame.
+-    if(bHolographicOptic || IsTubeShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
++    if(IsM24Weapon() || bHolographicOptic || IsShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
+     // Keep the revolver at arm's length; its ocular is not a rifle eye box.
+-    const float EyeDistance = HasHandgunScope() ? 42.f : bHolographicOptic && !IsPistolWeapon() ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance;
++    const float EyeDistance = IsM24Weapon() ? M24Attachments::EyeDistanceCM(OpticVariant,ADSRearEyeDistance) : HasHandgunScope() ? 42.f : bHolographicOptic && !IsPistolWeapon() ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance;
+     CalibratedADSLocation = FVector(EyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
+     bSightCalibrated = true;
+     UE_LOG(LogTemp, Display, TEXT("GUNPLAY_ADS_CALIBRATED rear=%s front=%s offset=%s rotation=%s"), *Rear.ToCompactString(), *Front.ToCompactString(), *CalibratedADSLocation.ToCompactString(), *CalibratedADSRotation.Rotator().ToCompactString());
+@@ -4248,6 +4322,12 @@
+ float AFPSGAMECharacter::ReloadSourceTime(float RuntimeTime) const
+ {
+     if(IsTubeShotgunWeapon())return Super90ReloadSourceTime(RuntimeTime);
++    if(IsM24Weapon())
++    {
++        const float Length=ActiveActionAnimation?ActiveActionAnimation->GetPlayLength()
++            :(bPendingEmptyReload?110.f/30.f:60.f/30.f);
++        return M24ReloadTiming::SourceSeconds(RuntimeTime/FMath::Max(WeaponStateDuration,.01f),Length);
++    }
+     if (bUsingM4Infima)
+     {
+         const UAnimSequence* Clip = ActiveActionAnimation;
+@@ -4444,7 +4524,7 @@
+         const bool bQuickCombatAction = WeaponState == EAKMWeaponState::QuickCombat;
+         // Pit Viper's fast slide cycle shares the actual shot clock; input may
+         // arrive after the interval covered by this frame's DeltaSeconds.
+-        if ((bUseDanWesson715 || bPKMWeapon || IsPitViperWeapon() || IsTubeShotgunWeapon()
++        if ((IsM24Weapon() || bUseDanWesson715 || bPKMWeapon || IsPitViperWeapon() || IsTubeShotgunWeapon()
+             || bUseASH12 || RifleAxialRecoil::ForWeapon(ActiveInventoryWeaponDefinition)!=RifleAxialRecoil::EProfile::None) && bFireAction)
+             ActionElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime));
+         else if (bQuickCombatAction || IsReloading() || WeaponState == EAKMWeaponState::Inspecting || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
+@@ -4455,7 +4535,7 @@
+         // SVCH's authored clip includes the existing entry/recovery result.
+         // Blending those local chains a second time separates the palm from
+         // the grip. One authored pose owns contact until its exact idle end.
+-        const bool bAuthoredSVCHQuick = bQuickCombatAction && SVCHWeaponAssets::Matches(AKMViewmodel);
++        const bool bAuthoredSVCHQuick = bQuickCombatAction && (IsM24Weapon()||SVCHWeaponAssets::Matches(AKMViewmodel));
+         const float In = bAuthoredSVCHQuick ? 1.f
+             : FMath::Clamp((ActionElapsed-(IsReloading()?ReloadResumeElapsed:0.f)) / (ActionBlendIn * BlendScale), 0.0f, 1.0f);
+         const float Out = bAuthoredSVCHQuick ? 1.f : bQuickCombatAction
+@@ -4494,7 +4574,7 @@
+         // new box/belt back toward the parked idle props during the last frames.
+         // The equip starts below the view and ends at the exact family idle.
+         // Blending against visible idle would shorten the authored lifting arc.
+-        if (bPKMWeapon && WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation)
++        if ((bPKMWeapon || IsM24Weapon()) && WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation)
+             GunplayAnimation->ActionAlpha=1.0f;
+         // At the end of a feed, identical visible belt units occupy the prior
+         // unit's slot. Fading indexed bones back to idle would reverse the feed.
+@@ -4528,6 +4608,7 @@
+             && GunplayAnimation->ActionClip == ActionBase && GripRouted(ActionBase);
+         GunplayAnimation->bGripActionAim = ActionBase && (ActionBase == AimAnimation || ActionBase == AimFireAnimation);
+     }
++    if(BipodDeployment)BipodDeployment->ApplyHandPose(*GunplayAnimation);
+     GunplayAnimation->bRevolver = bUseDanWesson715;
+     GunplayAnimation->RevolverLiveRounds = bPistolWorkbench ? MagazineCapacity : MagazineAmmo;
+     GunplayAnimation->RevolverCartridges = bPistolWorkbench ? MagazineCapacity : RevolverCaseCount;

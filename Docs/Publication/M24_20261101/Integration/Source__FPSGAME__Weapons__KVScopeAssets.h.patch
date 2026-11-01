@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/KVScopeAssets.h
++++ b/Source/FPSGAME/Weapons/KVScopeAssets.h
+@@ -20,7 +20,7 @@
+     return D==TEXT("ue_m4a1")||D==TEXT("ue_akm")||D==TEXT("ue_qbz191")||D==TEXT("ue_rsh12")
+         ||D==TEXT("ue_ash12")||D==TEXT("ue_m16a2")||D==TEXT("ue_a762")||D==TEXT("ue_svd")
+         ||D==TEXT("ue_pkm_lowpoly")||D==TEXT("ue_lmg201")||D==TEXT("ue_hk416")
+-        ||D==TEXT("ue_super90")||D==TEXT("ue_m870")||D==TEXT("ue_svch")||D==TEXT("ue_saiga12k");
++        ||D==TEXT("ue_super90")||D==TEXT("ue_m870")||D==TEXT("ue_svch")||D==TEXT("ue_saiga12k")||D==TEXT("ue_m24");
+ }
+ inline FString MeshPath(const FString& D)
+ {

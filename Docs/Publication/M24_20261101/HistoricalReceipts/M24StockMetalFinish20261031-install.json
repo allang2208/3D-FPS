@@ -1,0 +1,302 @@
+{
+  "complete": true,
+  "saved": [
+    "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_anodized.MI_M24_standard_anodized",
+    "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_interior.MI_M24_standard_interior",
+    "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_steel.MI_M24_standard_steel",
+    "/Game/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_m24_advanced_action.SM_M24_m24_advanced_action",
+    "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_anodized.MI_M24_skeleton_front_anodized",
+    "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_interior.MI_M24_skeleton_front_interior",
+    "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_steel.MI_M24_skeleton_front_steel",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.SM_M24_AdvancedFront_ForIndependentGrip",
+    "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_seat_seat.MI_M24_skeleton_seat_seat",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.SM_M24_ReceiverStock_Advanced"
+  ],
+  "bindings": {
+    "/Game/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_m24_advanced_action": [
+      {
+        "slot": "M24_AAS_CoatedMetal",
+        "material": "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_anodized.MI_M24_standard_anodized",
+        "family": "anodized",
+        "source": "/Game/Weapons/M24/AdvancedAction20261029/Materials/MI_M24_AAS_CoatedMetal.MI_M24_AAS_CoatedMetal",
+        "scalars": {
+          "Metallic": 1.0,
+          "EdgeMetallic": 1.0,
+          "Specular": 0.5,
+          "Roughness": 0.36000001430511475,
+          "SourceRoughnessWeight": 0.8500000238418579,
+          "SourceRoughnessPivot": 0.5,
+          "SourceColorWeight": 0.0,
+          "GrainRoughness": 0.00800000037997961,
+          "MottleRoughness": 0.0,
+          "MottleColor": 0.0,
+          "EdgeWear": 0.0,
+          "EdgeHighlight": 0.054999999701976776,
+          "ScratchAmount": 0.0,
+          "Stipple": 0.0,
+          "HandlingPolish": 0.0,
+          "CavityDarken": 0.02500000037252903,
+          "CavityRoughness": 0.017999999225139618,
+          "AOStrength": 0.44999998807907104,
+          "WeaponWetness": 0.0
+        },
+        "normal": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_Metal_N.T_M24_AAS_V3_Metal_N",
+        "mask": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_SurfaceMask.T_M24_AAS_V3_SurfaceMask",
+        "mask_uv": 1.0
+      },
+      {
+        "slot": "M24_AAS_Interior",
+        "material": "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_interior.MI_M24_standard_interior",
+        "family": "interior",
+        "source": "/Game/Weapons/M24/AdvancedAction20261029/Materials/MI_M24_AAS_Interior.MI_M24_AAS_Interior",
+        "scalars": {
+          "Metallic": 0.0,
+          "EdgeMetallic": 0.0,
+          "Specular": 0.5,
+          "Roughness": 0.6000000238418579,
+          "SourceRoughnessWeight": 0.699999988079071,
+          "SourceRoughnessPivot": 0.5,
+          "SourceColorWeight": 0.0,
+          "GrainRoughness": 0.004000000189989805,
+          "MottleRoughness": 0.0,
+          "MottleColor": 0.0,
+          "EdgeWear": 0.0,
+          "EdgeHighlight": 0.009999999776482582,
+          "ScratchAmount": 0.0,
+          "Stipple": 0.0,
+          "HandlingPolish": 0.0,
+          "CavityDarken": 0.02500000037252903,
+          "CavityRoughness": 0.017999999225139618,
+          "AOStrength": 0.44999998807907104,
+          "WeaponWetness": 0.0
+        },
+        "normal": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_Interior_N.T_M24_AAS_V3_Interior_N",
+        "mask": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_SurfaceMask.T_M24_AAS_V3_SurfaceMask",
+        "mask_uv": 1.0
+      },
+      {
+        "slot": "M24_AAS_SatinSteel",
+        "material": "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_standard_steel.MI_M24_standard_steel",
+        "family": "steel",
+        "source": "/Game/Weapons/M24/AdvancedAction20261029/Materials/MI_M24_AAS_SatinSteel.MI_M24_AAS_SatinSteel",
+        "scalars": {
+          "Metallic": 1.0,
+          "EdgeMetallic": 1.0,
+          "Specular": 0.5,
+          "Roughness": 0.28999999165534973,
+          "SourceRoughnessWeight": 0.800000011920929,
+          "SourceRoughnessPivot": 0.5,
+          "SourceColorWeight": 0.0,
+          "GrainRoughness": 0.006000000052154064,
+          "MottleRoughness": 0.0,
+          "MottleColor": 0.0,
+          "EdgeWear": 0.0,
+          "EdgeHighlight": 0.03999999910593033,
+          "ScratchAmount": 0.0,
+          "Stipple": 0.0,
+          "HandlingPolish": 0.0,
+          "CavityDarken": 0.02500000037252903,
+          "CavityRoughness": 0.017999999225139618,
+          "AOStrength": 0.44999998807907104,
+          "WeaponWetness": 0.0
+        },
+        "normal": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_Steel_N.T_M24_AAS_V3_Steel_N",
+        "mask": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_SurfaceMask.T_M24_AAS_V3_SurfaceMask",
+        "mask_uv": 1.0
+      }
+    ],
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip": [
+      {
+        "slot": "M24_Advanced_0",
+        "material": "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_anodized.MI_M24_skeleton_front_anodized",
+        "family": "anodized",
+        "source": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_0.MI_M24_Advanced_0",
+        "scalars": {
+          "Metallic": 1.0,
+          "EdgeMetallic": 1.0,
+          "Specular": 0.5,
+          "Roughness": 0.36000001430511475,
+          "SourceRoughnessWeight": 0.8500000238418579,
+          "SourceRoughnessPivot": 0.5,
+          "SourceColorWeight": 0.0,
+          "GrainRoughness": 0.00800000037997961,
+          "MottleRoughness": 0.0,
+          "MottleColor": 0.0,
+          "EdgeWear": 0.0,
+          "EdgeHighlight": 0.054999999701976776,
+          "ScratchAmount": 0.0,
+          "Stipple": 0.0,
+          "HandlingPolish": 0.0,
+          "CavityDarken": 0.02500000037252903,
+          "CavityRoughness": 0.017999999225139618,
+          "AOStrength": 0.44999998807907104,
+          "WeaponWetness": 0.0,
+          "ContinuityNormalStrength": 1.0
+        },
+        "normal": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_Metal_N.T_M24_AAS_V3_Metal_N",
+        "mask": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_SurfaceMask.T_M24_AAS_V3_SurfaceMask",
+        "mask_uv": 1.0
+      },
+      {
+        "slot": "M24_Advanced_1",
+        "material": "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_interior.MI_M24_skeleton_front_interior",
+        "family": "interior",
+        "source": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_1.MI_M24_Advanced_1",
+        "scalars": {
+          "Metallic": 0.0,
+          "EdgeMetallic": 0.0,
+          "Specular": 0.5,
+          "Roughness": 0.6000000238418579,
+          "SourceRoughnessWeight": 0.699999988079071,
+          "SourceRoughnessPivot": 0.5,
+          "SourceColorWeight": 0.0,
+          "GrainRoughness": 0.004000000189989805,
+          "MottleRoughness": 0.0,
+          "MottleColor": 0.0,
+          "EdgeWear": 0.0,
+          "EdgeHighlight": 0.009999999776482582,
+          "ScratchAmount": 0.0,
+          "Stipple": 0.0,
+          "HandlingPolish": 0.0,
+          "CavityDarken": 0.02500000037252903,
+          "CavityRoughness": 0.017999999225139618,
+          "AOStrength": 0.44999998807907104,
+          "WeaponWetness": 0.0,
+          "ContinuityNormalStrength": 1.0
+        },
+        "normal": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_Interior_N.T_M24_AAS_V3_Interior_N",
+        "mask": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_SurfaceMask.T_M24_AAS_V3_SurfaceMask",
+        "mask_uv": 1.0
+      },
+      {
+        "slot": "M24_Advanced_2",
+        "material": "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_front_steel.MI_M24_skeleton_front_steel",
+        "family": "steel",
+        "source": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_2.MI_M24_Advanced_2",
+        "scalars": {
+          "Metallic": 1.0,
+          "EdgeMetallic": 1.0,
+          "Specular": 0.5,
+          "Roughness": 0.28999999165534973,
+          "SourceRoughnessWeight": 0.800000011920929,
+          "SourceRoughnessPivot": 0.5,
+          "SourceColorWeight": 0.0,
+          "GrainRoughness": 0.006000000052154064,
+          "MottleRoughness": 0.0,
+          "MottleColor": 0.0,
+          "EdgeWear": 0.0,
+          "EdgeHighlight": 0.03999999910593033,
+          "ScratchAmount": 0.0,
+          "Stipple": 0.0,
+          "HandlingPolish": 0.0,
+          "CavityDarken": 0.02500000037252903,
+          "CavityRoughness": 0.017999999225139618,
+          "AOStrength": 0.44999998807907104,
+          "WeaponWetness": 0.0,
+          "ContinuityNormalStrength": 1.0
+        },
+        "normal": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_Steel_N.T_M24_AAS_V3_Steel_N",
+        "mask": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_SurfaceMask.T_M24_AAS_V3_SurfaceMask",
+        "mask_uv": 1.0
+      }
+    ],
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced": [
+      {
+        "slot": "M24_NewReceiverMetal",
+        "material": "/Game/Weapons/M24/StockMetalFinish20261031/Materials/MI_M24_skeleton_seat_seat.MI_M24_skeleton_seat_seat",
+        "family": "seat",
+        "source": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_NewReceiverMetal.MI_M24_NewReceiverMetal",
+        "scalars": {
+          "Metallic": 1.0,
+          "EdgeMetallic": 1.0,
+          "Specular": 0.5,
+          "Roughness": 0.36000001430511475,
+          "SourceRoughnessWeight": 0.8500000238418579,
+          "SourceRoughnessPivot": 0.5,
+          "SourceColorWeight": 0.0,
+          "GrainRoughness": 0.00800000037997961,
+          "MottleRoughness": 0.0,
+          "MottleColor": 0.0,
+          "EdgeWear": 0.0,
+          "EdgeHighlight": 0.0,
+          "ScratchAmount": 0.0,
+          "Stipple": 0.0,
+          "HandlingPolish": 0.0,
+          "CavityDarken": 0.0,
+          "CavityRoughness": 0.0,
+          "AOStrength": 0.0,
+          "WeaponWetness": 0.0,
+          "ContinuityNormalStrength": 1.0
+        },
+        "normal": "/Game/Weapons/M24/AdvancedAction20261029/Textures/T_M24_AAS_V3_Metal_N.T_M24_AAS_V3_Metal_N",
+        "mask": "/Game/Weapons/M24/RearGrip20261029/Textures/T_M24_GripSurfaceMask.T_M24_GripSurfaceMask",
+        "mask_uv": 0.0
+      },
+      {
+        "slot": "SniperStock_MeshySurface",
+        "material": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_SniperStock_MeshySurface.MI_SniperStock_MeshySurface",
+        "preserved": true
+      }
+    ]
+  },
+  "runtime_tested": false,
+  "geometry_changed": false,
+  "animations_changed": false,
+  "shared_materials_changed": false,
+  "recipe": {
+    "anodized": {
+      "color": [
+        0.026,
+        0.028,
+        0.03
+      ],
+      "metal": 1.0,
+      "rough": 0.36,
+      "source_rough": 0.85,
+      "grain": 0.008,
+      "edge": 0.055
+    },
+    "steel": {
+      "color": [
+        0.058,
+        0.062,
+        0.066
+      ],
+      "metal": 1.0,
+      "rough": 0.29,
+      "source_rough": 0.8,
+      "grain": 0.006,
+      "edge": 0.04
+    },
+    "interior": {
+      "color": [
+        0.009,
+        0.01,
+        0.011
+      ],
+      "metal": 0.0,
+      "rough": 0.6,
+      "source_rough": 0.7,
+      "grain": 0.004,
+      "edge": 0.01
+    },
+    "seat": {
+      "color": [
+        0.026,
+        0.028,
+        0.03
+      ],
+      "metal": 1.0,
+      "rough": 0.36,
+      "source_rough": 0.85,
+      "grain": 0.008,
+      "edge": 0.0
+    }
+  },
+  "stock_catalog": {
+    "factory_id_preserved": "m24_cheekrest",
+    "removed_option": "none",
+    "factory_includes_cheekrest": true,
+    "legacy_resolution": "UGunsmithSystem::Normalize rejects the removed option, then restores default_parts.stock"
+  }
+}

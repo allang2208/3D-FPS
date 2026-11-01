@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -21,6 +21,7 @@
+ #include "../Weapons/WeaponGripProfile.h"
+ #include "../Weapons/Super90WeaponAssets.h"
+ #include "../Weapons/SVCHWeaponAssets.h"
++#include "../Weapons/SniperSkeletonStock.h"
+ #include "../Weapons/TubeShotgunAssets.h"
+ #include "../Weapons/WeaponPresentationMaterials.h"
+ #include "../Weapons/TacticalDeviceComponent.h"
+@@ -179,6 +180,8 @@
+         Result.Materials.Add(FPSBodyEquipment::PersistentMaterial(Source->GetMaterial(I)));
+         const auto& NativeMaterial=Asset->GetMaterials()[I];
+         const FName Slot=NativeMaterial.MaterialSlotName;
++        if(SniperSkeletonStock::IsFactorySlot(Slot)&&!Source->IsMaterialSectionShown(I,0))
++            Result.HiddenMaterials.AddUnique(I);
+         // Reload cartridge visibility is carried by the motion section mask.
+         // Only arms and intentionally replaced factory parts stay hidden.
+         // Use the authored material as well as the display slot: slot labels can
+@@ -188,6 +191,9 @@
+             Result.HiddenMaterials.Add(I);
+         if((Slot==TEXT("M870_FactoryFurniture")||Slot==TEXT("M870_FactoryTubeCap"))
+             &&!Source->IsMaterialSectionShown(I,0))Result.HiddenMaterials.AddUnique(I);
++        if(Asset->GetPathName().StartsWith(TEXT("/Game/Weapons/M24/"))
++            &&Slot==TEXT("M24_FactoryFront")&&!Source->IsMaterialSectionShown(I,0))
++            Result.HiddenMaterials.AddUnique(I);
+         if((Slot==TEXT("Saiga12K_Stock")||Slot==TEXT("Saiga12K_StockPad")||Slot==TEXT("Saiga12K_RearGrip")||Slot==TEXT("Saiga12K_Magazine"))
+             &&!Source->IsMaterialSectionShown(I,0))Result.HiddenMaterials.AddUnique(I);
+         if(SVCHWeaponAssets::Matches(Source)&&(Slot==TEXT("KVInhibitor_mag")||Slot==TEXT("bullet_338lp")||Slot==TEXT("SVCH_New_FactorySights"))
+@@ -201,7 +207,7 @@
+             Result.HiddenMaterials.AddUnique(I);
+     }
+     TArray<USceneComponent*> Children;Source->GetChildrenComponents(true,Children);
+-    if(Character.IsValid()&&Source==Character->AKMViewmodel&&(Character->IsSaiga12KWeapon()||SVCHWeaponAssets::Matches(Source)))
++    if(Character.IsValid()&&Source==Character->AKMViewmodel&&(Character->IsSaiga12KWeapon()||Character->IsM24Weapon()||SVCHWeaponAssets::Matches(Source)))
+     {
+         // Component creation order follows local gunsmith history, which need
+         // not match a server receiving only the final loadout. Use asset/socket

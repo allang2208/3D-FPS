@@ -389,6 +389,19 @@
       "projectile_count": 1,
       "range_multiplier": 2.0,
       "target_penetration": 0
+    },
+    {
+      "id": "ammo_m24_762x51",
+      "group": "ammo_m24_762x51",
+      "group_name": "7.62×51mm NATO",
+      "name": "标准弹",
+      "description": "用于 7.62×51mm 枪械的标准弹种。",
+      "icon": "Icons/ammo_762.png",
+      "order": 75,
+      "enabled": true,
+      "allow_infinite_reserve": true,
+      "damage_multiplier": 1.0,
+      "physical_armor_penetration": 0.0
     }
   ]
 }

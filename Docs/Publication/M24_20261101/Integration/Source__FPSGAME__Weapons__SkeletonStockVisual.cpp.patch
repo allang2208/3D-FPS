@@ -1,0 +1,51 @@
+--- a/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp
++++ b/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp
+@@ -1,8 +1,10 @@
+ #include "Saiga12KAttachments.h"
++#include "M24Attachments.h"
+ #include "HK416Attachments.h"
+ #include "HK416WeaponAssets.h"
+ #include "AR416Furniture.h"
+ #include "LegendaryTacticalStock.h"
++#include "SniperSkeletonStock.h"
+ #include "Super90StockAssets.h"
+ #include "M870FurnitureAssets.h"
+ #include "Super90WeaponAssets.h"
+@@ -48,6 +50,37 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
+ {
++    const FString M24Grip=IsM24Weapon()?SniperSkeletonStock::M24GripVariant(RearGripAttachment):FString();
++    const bool M24Advanced=IsM24Weapon()&&PrismHandstop&&PrismHandstop->IsVisible();
++    if(SniperSkeletonStock::Supports(ActiveInventoryWeaponDefinition))
++    {
++        if(Variant==SniperSkeletonStock::Id&&bInventoryWeaponReady)
++        {
++            StockAttachment=SniperSkeletonStock::Configure(this,AKMViewmodel,StockAttachment,ActiveInventoryWeaponDefinition,M24Advanced);
++            bSkeletonStock=StockAttachment&&StockAttachment->IsVisible();
++            if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();
++            if(IsM24Weapon())
++            {
++                TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> Unused;
++                for(const FName Family:{FName(TEXT("skeleton_base")),FName(TEXT("skeleton_mag10"))})
++                    if(!WeaponGripProfiles.Contains(Family))InitializeWeaponGripFamily(Family,Unused);
++                if(M24Advanced)SetGunsmithHandstop(M24Attachments::AdvancedAction);
++                SetGunsmithRearGrip(M24Grip);
++            }
++            return;
++        }
++        SniperSkeletonStock::FactorySections(AKMViewmodel,true);
++    }
++    if(IsM24Weapon())
++    {
++        StockAttachment=M24Attachments::Configure(this,AKMViewmodel,StockAttachment,Variant,
++            bInventoryWeaponReady&&Variant==M24Attachments::CheekRest);
++        bSkeletonStock=StockAttachment&&StockAttachment->IsVisible();
++        if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();
++        if(M24Advanced)SetGunsmithHandstop(M24Attachments::AdvancedAction);
++        SetGunsmithRearGrip(M24Grip);
++        return;
++    }
+     if (IsPistolWeapon()) return;
+     if(IsSaiga12KWeapon())
+     {

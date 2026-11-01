@@ -1,0 +1,45 @@
+--- a/Source/FPSGAME/Weapons/RifleHipFraming.cpp
++++ b/Source/FPSGAME/Weapons/RifleHipFraming.cpp
+@@ -2,6 +2,8 @@
+ #include "AKMSovietCalibration.h"
+ #include "Saiga12KWeaponAssets.h"
+ #include "SVCHWeaponAssets.h"
++#include "M24WeaponAssets.h"
++#include "SniperSkeletonStock.h"
+ #include "WeaponGripProfile.h"
+ #include "Animation/AnimSequence.h"
+ #include "Animation/Skeleton.h"
+@@ -15,7 +17,7 @@
+         || Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_akm")
+         || Definition == TEXT("ue_m16a2") || Definition == TEXT("ue_ash12")
+         || Definition == TEXT("ue_a762") || Definition == TEXT("ue_svd")
+-        || Definition == TEXT("ue_svch") || Definition == TEXT("ue_saiga12k");
++        || Definition == TEXT("ue_svch") || Definition == TEXT("ue_m24") || Definition == TEXT("ue_saiga12k");
+ }
+ 
+ FVector PresentationOffset(const FString& Definition)
+@@ -27,6 +29,7 @@
+     // idle places the receiver lower relative to hand_r. Baked from saved idles
+     // in SourceAssets/M870HipFraming20261017/hip-calibration.json.
+     if (Definition == TEXT("ue_m870")) return FVector(-1.900510f, 1.680418f, 9.498009f);
++    if (Definition == M24WeaponAssets::Definition) return M24WeaponAssets::HipPresentationOffset;
+     float Forward = 0.f;
+     if (Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_m16a2")) Forward = 5.f;
+     else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762") || Definition == TEXT("ue_saiga12k")) Forward = 9.f;
+@@ -72,6 +75,8 @@
+     const FVector Axis = ((Front - Rear) * Scale).GetSafeNormal();
+     const FVector Up = (RootPose.GetRotation().RotateVector(GunUpAxis) * Scale).GetSafeNormal();
+     Hand = HandPose.GetLocation() * Scale;
++    if(Profile&&Profile->GetPathName().StartsWith(FString(SniperSkeletonStock::M24Root)+TEXT("/Profiles/")))
++        Hand=SniperSkeletonStock::M24PresentationHand*Scale;
+     if (Axis.IsNearlyZero() || (Axis ^ Up).IsNearlyZero() || Hand.ContainsNaN()) return false;
+     AxisFrame = FRotationMatrix::MakeFromXZ(Axis, Up).ToQuat();
+     return true;
+@@ -98,6 +103,7 @@
+     // The shared M4 ruler above still uses its own bone-local Z.
+     GunUpAxis = (Definition == TEXT("ue_super90") || Definition == TEXT("ue_m870")) ? -FVector::RightVector : FVector::UpVector;
+     if (Definition == SVCHWeaponAssets::Definition) GunUpAxis = SVCHWeaponAssets::SightUp;
++    if (Definition == M24WeaponAssets::Definition) GunUpAxis = M24WeaponAssets::SightUp;
+     const FVector ReferenceHand = Anchor + BaseRotation.RotateVector(Hand);
+     TargetHand = ReferenceHand + RifleHipFraming::PresentationOffset(Definition);
+     TargetAxis = BaseRotation.Quaternion() * Axis;

@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Weapons/WeaponReloadStages.cpp
++++ b/Source/FPSGAME/Weapons/WeaponReloadStages.cpp
+@@ -4,6 +4,7 @@
+ #include "ASH12WeaponAssets.h"
+ #include "SVDWeaponAssets.h"
+ #include "SVCHWeaponAssets.h"
++#include "M24WeaponAssets.h"
+ #include "M16WeaponAssets.h"
+ #include "PKMLowpolyWeaponAssets.h"
+ #include "../UI/ColdSteelInventoryTypes.h"
+@@ -25,6 +26,8 @@
+         const float Scale = Empty ? EmptyReload / NormalReload : 1.f;
+         return {Seat * Scale, 2.68f * Scale, Close * Scale};
+     }
++    if (Definition == M24WeaponAssets::Definition)
++        return {M24WeaponAssets::MagazineSeat,M24WeaponAssets::ChargeStart,Empty?M24WeaponAssets::ChargeRelease:M24WeaponAssets::MagazineSeat};
+     if (Definition == SVDWeaponAssets::Definition)
+         return {SVDWeaponAssets::MagazineInsert,SVDWeaponAssets::ChargeStart,Empty?SVDWeaponAssets::ChargeRelease:SVDWeaponAssets::MagazineInsert};
+     if (Definition == SVCHWeaponAssets::Definition)

@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp
+@@ -100,7 +100,9 @@
+ 
+ void UFPSPlayerBodyComponent::ReportGunShot(uint8 Hand,USoundBase* Sound,float Volume,float Pitch,bool Aiming)
+ {
+-    FFPSGunEvent E;E.Hand=Hand;E.Sound=Sound;E.Volume=Volume;E.Pitch=Pitch;E.bAiming=Aiming;SendGunEvent(E);
++    FFPSGunEvent E;E.Hand=Hand;E.Sound=Sound;E.Volume=Volume;E.Pitch=Pitch;E.bAiming=Aiming;
++    if(Character.IsValid()&&Character->IsM24Weapon())E.PumpRate=Character->M24CyclePlayRate();
++    SendGunEvent(E);
+ }
+ void UFPSPlayerBodyComponent::ReportGunMechanical(uint8 Hand,USoundBase* Sound,float Volume,float StartTime)
+ {
+@@ -146,6 +148,8 @@
+     if(E.Kind!=EFPSGunEvent::Shot&&E.Kind!=EFPSGunEvent::Mechanical)return false;
+     if(!E.Sound.IsNull()&&!W.GunSounds.Contains(E.Sound))return false;
+     if(E.Kind==EFPSGunEvent::Shot&&TubeShotgunAssets::Supports(W.GunDefinition))return false;
++    if(E.Kind==EFPSGunEvent::Shot&&Character.IsValid()&&Character->IsM24Weapon())
++        E.PumpRate=Character->M24CyclePlayRate();
+     Received=E.Sequence;return true;
+ }
+ void UFPSPlayerBodyComponent::RelayGunEvent(const FFPSGunEvent& Event)

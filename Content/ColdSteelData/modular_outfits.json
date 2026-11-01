@@ -3804,6 +3804,116 @@
       "native_bare_arms": false,
       "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_SVD_OriginalGlovedArms.SK_SVD_OriginalGlovedArms",
       "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_SVD_GlovedSource.SK_SVD_GlovedSource"
+    },
+    "/Game/Weapons/M24/Gameplay20261026/SK_M24_V9.SK_M24_V9": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        3,
+        4
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M4",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
+    },
+    "/Game/Weapons/M24/Modular20261027/SK_M24_ModularV9.SK_M24_ModularV9": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        0,
+        1
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M4",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
+    },
+    "/Game/Weapons/M24/Repair20261027/SK_M24_RepairedV9.SK_M24_RepairedV9": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        0,
+        1
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M4",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
+    },
+    "/Game/Weapons/M24/Hold20261027/SK_M24_HoldV9.SK_M24_HoldV9": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        0,
+        1
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M4",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
+    },
+    "/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        0,
+        1
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M4",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
     }
   },
   "native_bare_hands_default": false,
@@ -7700,6 +7810,28 @@
           "base_hide_materials": [
             6
           ]
+        },
+        "/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9": {
+          "base": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/ViewSkin/SK_KaitlinView_M4_2d7cb8abb4.SK_KaitlinView_M4_2d7cb8abb4",
+          "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+          "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+          "hide_source_materials": [
+            0,
+            1
+          ],
+          "shirt_covers": [
+            0,
+            1
+          ],
+          "glove_covers": [
+            2
+          ],
+          "rig_profile": "M4",
+          "native_bare_skin": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/ViewSkin/SK_KaitlinView_M4_2d7cb8abb4.SK_KaitlinView_M4_2d7cb8abb4",
+          "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/ViewSkin/SK_KaitlinView_M4_2d7cb8abb4.SK_KaitlinView_M4_2d7cb8abb4",
+          "native_bare_arms": false,
+          "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+          "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
         }
       }
     }

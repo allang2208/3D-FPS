@@ -1,0 +1,93 @@
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSQuickCombatComponent.h"
++#include "../Weapons/M24QuickMeleeMotion.h"
+ #include "LightningHasteSpeed.h"
+ #include "PlayerSkillPreparation.h"
+ #include "../Dungeons/WardBreakableGlass.h"
+@@ -69,6 +70,14 @@
+     ContactTime=ClipLength*(bM4Reference?M4ReferenceContactFraction:ContactFraction);
+     FollowEnd=ClipLength*(bM4Reference?M4ReferenceFollowFraction:FollowFraction);
+     AttackEnd=ClipLength;
++    if(const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());Player&&Player->IsM24Weapon())
++    {
++        const float Scale=ClipLength/M24QuickMeleeMotion::Length;
++        ReleaseEnd=M24QuickMeleeMotion::Release*Scale;
++        CockEnd=M24QuickMeleeMotion::Cock*Scale;
++        ContactTime=M24QuickMeleeMotion::Contact*Scale;
++        FollowEnd=M24QuickMeleeMotion::Follow*Scale;
++    }
+     // 步枪是双手持枪的整枪动作，命中探针改用枪身（见 ContactHit），
+     // 其余结算口径与手枪版完全一致：同一体力、修炼与击退公式。
+     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 步枪砸击时钟 总长=%.3f 接触=%.3f"),AttackEnd,ContactTime);
+@@ -250,6 +259,8 @@
+ {
+     using namespace QuickCombatPistolMotion;
+     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;
++    const auto* CameraOwner=Cast<AFPSGAMECharacter>(GetOwner());
++    const bool bM24=CameraOwner&&CameraOwner->IsM24Weapon()&&IsRifleStyle();
+     // Bow contact has a short damped impulse; free follow-through is supplied
+     // by the action camera below and must not imitate a collision on a miss.
+     const auto AddImpact=[&]()
+@@ -263,6 +274,11 @@
+         FVector ImpactLocation=FVector::ZeroVector;
+         FRotator ImpactRotation=FRotator::ZeroRotator;
+         QuickCombatImpactShake::Add(ImpactAge,ImpactLocation,ImpactRotation);
++        if(bM24)
++        {
++            const float Weight=M24QuickMeleeMotion::ImpactScale*FMath::Clamp(ImpactStrength,0.f,1.f);
++            ImpactLocation*=Weight;ImpactRotation*=Weight;
++        }
+         if(Style==EQuickCombatStyle::Warhammer)
+         {
+             ImpactLocation*=FVector(.55f,.15f,.25f);
+@@ -278,6 +294,11 @@
+     if(Style==EQuickCombatStyle::Warhammer)
+     {
+         WarhammerQuickCombat::Camera(ActionAge,Location,Rotation);
++        AddImpact();return;
++    }
++    if(bM24)
++    {
++        M24QuickMeleeMotion::Camera(ActionAge,ClipLength,Location,Rotation);
+         AddImpact();return;
+     }
+     if(Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::UnarmedPunch||Style==EQuickCombatStyle::SpellbookPush)
+@@ -412,7 +433,7 @@
+ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
+ {
+     Super::TickComponent(Delta,Type,Tick);
+-    // The character advances ASH/SVCH before sampling the pose and camera. Never
++    // The character advances ASH/SVCH/M24 before sampling the pose and camera. Never
+     // advance twice or let the wall-clock state finish through a hit stop.
+     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+     if(Style==EQuickCombatStyle::UnarmedPunch&&Player)return; // advanced once before the character camera
+@@ -422,7 +443,7 @@
+     if(Style==EQuickCombatStyle::StaffPunch&&Player)
+         if(const auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return;
+     if(Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand())return;
+-    if(Player&&(Player->bUseASH12||SVCHWeaponAssets::Matches(Player->AKMViewmodel))&&IsRifleStyle()&&IsOccupyingLeftHand())return;
++    if(Player&&(Player->IsM24Weapon()||Player->bUseASH12||SVCHWeaponAssets::Matches(Player->AKMViewmodel))&&IsRifleStyle()&&IsOccupyingLeftHand())return;
+     AdvanceAction(Delta);
+ }
+ 
+@@ -586,7 +607,7 @@
+     FVector Start=Aim.GetLocation();
+     FVector ProbeOrigin=FVector::ZeroVector;
+     auto* Viewmodel=Player->FindComponentByClass<UFPSCastingMeshComponent>();
+-    if((Player->bUseASH12||Player->IsM870Weapon()||SVCHWeaponAssets::Matches(Viewmodel))&&Viewmodel&&IsRifleStyle())
++    if((Player->IsM24Weapon()||Player->bUseASH12||Player->IsM870Weapon()||SVCHWeaponAssets::Matches(Viewmodel))&&Viewmodel&&IsRifleStyle())
+     {
+         // Evaluate the exact contact pose once before the sweep. The faster
+         // entry must not trace from the previous frame's wind-up position.
+@@ -643,7 +664,8 @@
+     if(bHit && UWardBreakableGlass::BreakHit(Hit,Direction))
+     {ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();return;}
+     auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+-    if(bBow&&bHit&&Hit.bBlockingHit&&!Combat&&!Cast<APawn>(Target))
++    const bool bM24Stock=Player->IsM24Weapon()&&IsRifleStyle();
++    if((bBow||bM24Stock)&&bHit&&Hit.bBlockingHit&&!Combat&&!Cast<APawn>(Target))
+     {
+         // A blocked shove has local resistance but no invented damage,
+         // training credit or bullet hole. The existing pooled surface effect

@@ -474,5 +474,22 @@
         "perEnhance": 0.621
       }
     ]
+  },
+  "ue_m24": {
+    "source": "M24_NATIVE_BALANCE_20261028",
+    "base": 40,
+    "enhanceFlat": 2.75,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 2.5,
+        "perEnhance": 0.275
+      },
+      {
+        "key": "wis",
+        "base": 5.0,
+        "perEnhance": 0.4375
+      }
+    ]
   }
 }

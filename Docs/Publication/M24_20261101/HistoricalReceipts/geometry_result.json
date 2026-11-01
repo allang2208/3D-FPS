@@ -1,0 +1,132 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "mesh": "skeleton_front",
+      "lod": 0,
+      "triangles": 48967,
+      "geometry_and_material_ids_equal": true,
+      "missing_faces": 0,
+      "added_faces": 0,
+      "uv_channel_count_unchanged": true,
+      "invalid_corner_normals": 0,
+      "basis": {
+        "invalid_triangles": 0,
+        "zero_vectors": 0,
+        "nonfinite_vectors": 0,
+        "max_normal_tangent_dot": 9.92808249500321e-08
+      },
+      "build_settings": {
+        "recompute_normals": false,
+        "recompute_tangents": false
+      },
+      "passed": true
+    },
+    {
+      "mesh": "skeleton_front",
+      "lod": 1,
+      "triangles": 24483,
+      "geometry_and_material_ids_equal": true,
+      "missing_faces": 0,
+      "added_faces": 0,
+      "uv_channel_count_unchanged": true,
+      "invalid_corner_normals": 0,
+      "basis": {
+        "invalid_triangles": 0,
+        "zero_vectors": 0,
+        "nonfinite_vectors": 0,
+        "max_normal_tangent_dot": 9.547860094216709e-08
+      },
+      "build_settings": {
+        "recompute_normals": false,
+        "recompute_tangents": false
+      },
+      "passed": true
+    },
+    {
+      "mesh": "skeleton_front",
+      "lod": 2,
+      "triangles": 9793,
+      "geometry_and_material_ids_equal": true,
+      "missing_faces": 0,
+      "added_faces": 0,
+      "uv_channel_count_unchanged": true,
+      "invalid_corner_normals": 0,
+      "basis": {
+        "invalid_triangles": 0,
+        "zero_vectors": 0,
+        "nonfinite_vectors": 0,
+        "max_normal_tangent_dot": 9.010620183325102e-08
+      },
+      "build_settings": {
+        "recompute_normals": false,
+        "recompute_tangents": false
+      },
+      "passed": true
+    },
+    {
+      "mesh": "skeleton_seat",
+      "lod": 0,
+      "triangles": 231267,
+      "geometry_and_material_ids_equal": true,
+      "missing_faces": 0,
+      "added_faces": 0,
+      "uv_channel_count_unchanged": true,
+      "invalid_corner_normals": 0,
+      "basis": {
+        "invalid_triangles": 0,
+        "zero_vectors": 0,
+        "nonfinite_vectors": 0,
+        "max_normal_tangent_dot": 1.0574531517093533e-07
+      },
+      "build_settings": {
+        "recompute_normals": false,
+        "recompute_tangents": false
+      },
+      "passed": true
+    },
+    {
+      "mesh": "skeleton_seat",
+      "lod": 1,
+      "triangles": 115633,
+      "geometry_and_material_ids_equal": true,
+      "missing_faces": 0,
+      "added_faces": 0,
+      "uv_channel_count_unchanged": true,
+      "invalid_corner_normals": 0,
+      "basis": {
+        "invalid_triangles": 0,
+        "zero_vectors": 0,
+        "nonfinite_vectors": 0,
+        "max_normal_tangent_dot": 1.0010551232397802e-07
+      },
+      "build_settings": {
+        "recompute_normals": false,
+        "recompute_tangents": false
+      },
+      "passed": true
+    },
+    {
+      "mesh": "skeleton_seat",
+      "lod": 2,
+      "triangles": 46254,
+      "geometry_and_material_ids_equal": true,
+      "missing_faces": 0,
+      "added_faces": 0,
+      "uv_channel_count_unchanged": true,
+      "invalid_corner_normals": 0,
+      "basis": {
+        "invalid_triangles": 0,
+        "zero_vectors": 0,
+        "nonfinite_vectors": 0,
+        "max_normal_tangent_dot": 9.960753039051085e-08
+      },
+      "build_settings": {
+        "recompute_normals": false,
+        "recompute_tangents": false
+      },
+      "passed": true
+    }
+  ],
+  "scope": "All source LOD triangles, winding, material IDs, UV channel count, normal and tangent validity. Does not compare UV coordinates or rendered appearance."
+}

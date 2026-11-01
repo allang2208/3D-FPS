@@ -1,0 +1,150 @@
+--- a/Source/FPSGAME/Weapons/PKMBipodComponent.cpp
++++ b/Source/FPSGAME/Weapons/PKMBipodComponent.cpp
+@@ -1,6 +1,9 @@
+ #include "PKMBipodComponent.h"
+ #include "LMG201WeaponAssets.h"
+ #include "PKMBipodContacts.h"
++#include "M24Bipod.h"
++#include "M24Attachments.h"
++#include "WeaponGripProfile.h"
+ #include "WeaponBipodDeploymentComponent.h"
+ #include "PKMLowpolyWeaponAssets.h"
+ #include "../FPSGAMECharacter.h"
+@@ -15,9 +18,9 @@
+ 
+ namespace
+ {
+-FVector BipodPivot(const USkeletalMeshComponent* Rifle,int32 I){return LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodPivotsCm[I]:PKMBipodLegPivotsCm[I];}
+-FVector BipodTip(const USkeletalMeshComponent* Rifle,int32 I){return LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodFeetCm[I]:(I==0?PKMBipodContacts::LegA:PKMBipodContacts::LegB);}
+-FVector BipodHinge(const USkeletalMeshComponent* Rifle){return LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodHingeCm:PKMBipodHingeCm;}
++FVector BipodPivot(const USkeletalMeshComponent* Rifle,int32 I){return M24Bipod::Matches(Rifle)?M24Bipod::Pivots[I]:LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodPivotsCm[I]:PKMBipodLegPivotsCm[I];}
++FVector BipodTip(const USkeletalMeshComponent* Rifle,int32 I){return M24Bipod::Matches(Rifle)?M24Bipod::Tips[I]:LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodFeetCm[I]:(I==0?PKMBipodContacts::LegA:PKMBipodContacts::LegB);}
++FVector BipodHinge(const USkeletalMeshComponent* Rifle){return M24Bipod::Matches(Rifle)?M24Bipod::Hinge:LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodHingeCm:PKMBipodHingeCm;}
+ }
+ 
+ UPKMBipodComponent::UPKMBipodComponent()
+@@ -32,13 +35,13 @@
+ 
+ bool UPKMBipodComponent::Configure(USkeletalMeshComponent* Rifle,bool Enabled)
+ {
+-    if(!Enabled || (!PKMLowpolyWeaponAssets::Matches(Rifle)&&!LMG201WeaponAssets::Matches(Rifle)))
++    if(!Enabled || (!PKMLowpolyWeaponAssets::Matches(Rifle)&&!LMG201WeaponAssets::Matches(Rifle)&&!M24Bipod::Matches(Rifle)))
+     {
+         SetVisibility(false,true);SetComponentTickEnabled(false);ResetMotion();return true;
+     }
+-    auto* BaseMesh=LoadObject<UStaticMesh>(nullptr,LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT("BipodBase")):PKMBipodAssets::Base);
+-    auto* MeshA=LoadObject<UStaticMesh>(nullptr,LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT("BipodLegA")):PKMBipodAssets::LegA);
+-    auto* MeshB=LoadObject<UStaticMesh>(nullptr,LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT("BipodLegB")):PKMBipodAssets::LegB);
++    auto* BaseMesh=LoadObject<UStaticMesh>(nullptr,M24Bipod::Matches(Rifle)?M24Bipod::Base:LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT("BipodBase")):PKMBipodAssets::Base);
++    auto* MeshA=LoadObject<UStaticMesh>(nullptr,M24Bipod::Matches(Rifle)?M24Bipod::LegA:LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT("BipodLegA")):PKMBipodAssets::LegA);
++    auto* MeshB=LoadObject<UStaticMesh>(nullptr,M24Bipod::Matches(Rifle)?M24Bipod::LegB:LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT("BipodLegB")):PKMBipodAssets::LegB);
+     if(!BaseMesh || !MeshA || !MeshB)
+     {
+         SetVisibility(false,true);SetComponentTickEnabled(false);
+@@ -54,7 +57,8 @@
+         AddTickPrerequisiteComponent(Deployment);
+     if(GetStaticMesh()!=BaseMesh){EmptyOverrideMaterials();SetStaticMesh(BaseMesh);}
+     // The new exports use the current weapon-root frame, like GripMount25.
+-    SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01)));
++    SetRelativeTransform(M24Bipod::Matches(Rifle)?M24Attachments::Mount(Rifle):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01)));
++    SetOnlyOwnerSee(Rifle->bOnlyOwnerSee);SetFirstPersonPrimitiveType(Rifle->FirstPersonPrimitiveType);
+     const auto MakeLeg=[&](TObjectPtr<UStaticMeshComponent>& Leg,UStaticMesh* Asset,const TCHAR* Name,int32 Index)
+     {
+         if(!Leg)
+@@ -65,6 +69,7 @@
+         }
+         if(Leg->GetStaticMesh()!=Asset){Leg->EmptyOverrideMaterials();Leg->SetStaticMesh(Asset);}
+         Leg->SetRelativeTransform(FTransform(FQuat::Identity,BipodPivot(Rifle,Index)));
++        Leg->SetOnlyOwnerSee(Rifle->bOnlyOwnerSee);Leg->SetFirstPersonPrimitiveType(Rifle->FirstPersonPrimitiveType);
+     };
+     MakeLeg(FirstLeg,MeshA,TEXT("PKMBipodLegA"),0);MakeLeg(SecondLeg,MeshB,TEXT("PKMBipodLegB"),1);
+     ContactWeight=0.f;ResetMotion();SetVisibility(true,true);SetComponentTickEnabled(true);return true;
+@@ -80,6 +85,11 @@
+     const int32 I=FMath::Clamp(Leg,0,1);
+     const FVector Tip=BipodTip(Weapon.Get(),I);
+     return GetComponentTransform().TransformPosition(BipodPivot(Weapon.Get(),I)+Tip);
++}
++
++FVector UPKMBipodComponent::GetRestPivotWorld(int32 Leg) const
++{
++    return GetComponentTransform().TransformPosition(BipodPivot(Weapon.Get(),FMath::Clamp(Leg,0,1)));
+ }
+ 
+ bool UPKMBipodComponent::CanReachContacts(const FVector& A,const FVector& B,const FVector& MountDelta) const
+@@ -91,6 +101,11 @@
+         const FVector Pivot=Frame.TransformPosition(BipodPivot(Weapon.Get(),I))+MountDelta;
+         const FVector Rest=Frame.TransformVector(Tip);
+         const FVector Target=Goals[I]-Pivot;
++        if(M24Bipod::Matches(Weapon.Get()))
++        {
++            if(!M24Bipod::CanReachLeg(Rest,Target))return false;
++            continue;
++        }
+         const double Ratio=Target.Size()/FMath::Max(.01,Rest.Size());
+         // 2026-09-23 放宽架设判定：腿长适应 ±5%→±8%，方向容差 cos .82→.78。
+         if(Ratio<.92 || Ratio>1.08 || FVector::DotProduct(Rest.GetSafeNormal(),Target.GetSafeNormal())<.78)return false;
+@@ -102,7 +117,7 @@
+ {
+     const float Previous=ContactWeight;ContactWeight=FMath::Clamp(Weight,0.f,1.f);
+     ContactPoints[0]=A;ContactPoints[1]=B;
+-    if(Previous>0.f && ContactWeight<=0.f)ResetMotion();
++    if(Previous>0.f && ContactWeight<=0.f && !M24Bipod::Matches(Weapon.Get()))ResetMotion();
+     ApplyAngle();
+ }
+ 
+@@ -120,7 +135,7 @@
+     UStaticMeshComponent* Legs[]={FirstLeg,SecondLeg};
+     for(int32 I=0;I<2;++I)if(auto* Leg=Legs[I])
+     {
+-        const FQuat FreeRotation(FVector::ForwardVector,Angles[I]);
++        const FQuat FreeRotation=M24Bipod::Matches(Weapon.Get())?M24Bipod::LegRotation(I,Angles[I]):FQuat(FVector::ForwardVector,Angles[I]);
+         FQuat Rotation=FreeRotation;double LengthScale=1.;
+         if(ContactWeight>0.f)
+         {
+@@ -134,8 +149,16 @@
+     }
+ }
+ 
++void UPKMBipodComponent::SetM24DeploymentTime(float Seconds)
++{
++    if(!M24Bipod::Matches(Weapon.Get()))return;
++    for(int32 I=0;I<2;++I)Angles[I]=M24Bipod::LegWeight(I,Seconds);
++    ApplyAngle();
++}
++
+ void UPKMBipodComponent::SetLegsFrozen(bool bFrozen)
+ {
++    if(M24Bipod::Matches(Weapon.Get()))return;
+     if(bLegsFrozen==bFrozen)return;
+     bLegsFrozen=bFrozen;
+     if(bFrozen)
+@@ -150,6 +173,7 @@
+ void UPKMBipodComponent::TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* Tick)
+ {
+     Super::TickComponent(DeltaTime,TickType,Tick);
++    if(M24Bipod::Matches(Weapon.Get()))return;
+     if(bLegsFrozen)return; // 架设中两腿钉死在默认下垂，不跟随枪体移动
+     const auto* World=GetWorld();const auto* Rifle=Weapon.Get();
+     if(!World || !World->IsGameWorld() || !Rifle || !Rifle->IsVisible() || Rifle->bHiddenInGame ||
+@@ -220,7 +244,7 @@
+     auto* Part=Cast<UPKMBipodComponent>(FindBipod(Owner));
+     // Remove the whole assembly when unequipped so a later recursive weapon
+     // visibility refresh cannot reveal an attachment the player did not equip.
+-    if(!Enabled || (!Matches(Weapon)&&!LMG201WeaponAssets::Matches(Weapon))){if(Part)Part->DestroyComponent();return;}
++    if(!Enabled || (!Matches(Weapon)&&!LMG201WeaponAssets::Matches(Weapon)&&!M24Bipod::Matches(Weapon))){if(Part)Part->DestroyComponent();return;}
+     if(!Part)
+     {
+         Part=NewObject<UPKMBipodComponent>(Owner);Owner->AddInstanceComponent(Part);
+@@ -231,5 +255,10 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithBipod(const FString& Variant)
+ {
+-    PKMLowpolyWeaponAssets::ConfigureBipod(this,AKMViewmodel,bInventoryWeaponReady&&(LMG201WeaponAssets::Matches(AKMViewmodel)?Variant!=TEXT("lmg201_no_bipod"):Variant==TEXT("pkm_bipod")));
+-}
++    const bool bM24=M24Bipod::Matches(AKMViewmodel);
++    const bool Enabled=bInventoryWeaponReady&&(bM24?Variant==M24Bipod::Id:LMG201WeaponAssets::Matches(AKMViewmodel)?Variant!=TEXT("lmg201_no_bipod"):Variant==TEXT("pkm_bipod"));
++    if(bM24&&Enabled&&!WeaponGripProfiles.Contains(TEXT("bipod")))
++        if(auto* Profile=LoadObject<UWeaponGripProfile>(nullptr,M24Bipod::Profile))WeaponGripProfiles.Add(TEXT("bipod"),Profile);
++    if(BipodDeployment&&(!Enabled||bM24))BipodDeployment->Release(true);
++    PKMLowpolyWeaponAssets::ConfigureBipod(this,AKMViewmodel,Enabled);
++}

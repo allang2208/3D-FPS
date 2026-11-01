@@ -6329,5 +6329,40 @@
         "value": "单次使用"
       }
     ]
+  },
+  "ue_m24": {
+    "id": "ue_m24",
+    "name": "M24",
+    "category": "weapon",
+    "type": "武器",
+    "equipSlot": "weapon",
+    "weaponType": "sniper",
+    "weaponTypeTag": "栓动狙击步枪",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 5,
+    "grid_h": 2,
+    "icon": "Icons/ue_m24.png",
+    "ue_icon": "Icons/ue_m24.png",
+    "stats": [
+      {
+        "name": "弹匣容量",
+        "value": "5"
+      }
+    ],
+    "desc": "源自雷明顿栓动步枪体系的军用狙击步枪。本款采用定制光学瞄具、消音器与可拆卸弹匣，击发后由右手完成抬栓、退壳和闭锁。适合稳定瞄准后逐发射击，换位与补枪需要留出操作枪栓的时间。",
+    "critDamageBonus": 1.0
+  },
+  "ammo_m24_762x51": {
+    "id": "ammo_m24_762x51",
+    "category": "material",
+    "type": "弹药",
+    "name": "7.62×51mm NATO",
+    "desc": "7.62×51mm NATO 步枪弹，自动计入弹药袋。",
+    "icon": "Icons/ammo_762.png",
+    "ue_icon": "Icons/ammo_762.png",
+    "icon_fallback": "▥",
+    "rarity": "common",
+    "stack_max": 999
   }
 }

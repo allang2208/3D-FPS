@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelAmmoRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAmmoRuntime.cpp
+@@ -205,6 +205,15 @@
+     return CommitState(MoveTemp(State));
+ }
+ 
++void UColdSteelStatusModel::MarkM24CycleInterrupted(const FString& WeaponId)
++{
++    // The outgoing instance can differ from the newly published equipment.
++    auto State=Snapshot();
++    auto* Gun=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==WeaponId&&I.Definition==TEXT("ue_m24");});
++    if(!Gun||WeaponReloadStages::NeedsCycle(*Gun)||!WeaponReloadStages::SetNeedsCycle(*Gun,1))return;
++    if(!PersistState(State,false))Publish(State);
++}
++
+ void UColdSteelStatusModel::MarkM870PumpInterrupted(const FString& WeaponId)
+ {
+     // Do not call SyncRuntime here: equipment publication can already refer

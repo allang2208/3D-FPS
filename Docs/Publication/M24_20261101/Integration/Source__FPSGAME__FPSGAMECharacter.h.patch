@@ -1,0 +1,76 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -22,6 +22,7 @@
+ class UWeaponGripProfile;
+ struct FGunsmithWeapon;
+ struct FSuper90NetAmmoState;
++struct FPhysicalScopeView;
+ 
+ enum class EFirstPersonJumpRig : uint8 { Rifle, Pistol, Sword };
+ 
+@@ -65,6 +66,7 @@
+     friend class UFPSPlayerBodyComponent;
+     friend class AColdSteelPlayerState; // 联机：命中校验读 EffectiveFireInterval/汇聚弹数打点
+     friend class UWeaponBipodDeploymentComponent;
++    friend struct FM24BipodValidation;
+     friend class UBowWeaponComponent;
+     friend class UStaffWeaponComponent;
+     friend class UFPSUnarmedIdleComponent;
+@@ -90,6 +92,12 @@
+     bool IsG18Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_g18"); }
+     bool IsPitViperWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_pit_viper2011"); }
+     bool IsSuper90Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_super90"); }
++    bool IsM24Weapon() const { return ActiveInventoryWeaponDefinition==TEXT("ue_m24"); }
++    float M24CyclePlayRate() const;
++    void UpdateM24CycleAudio();
++    void PreserveInterruptedM24Cycle();
++    uint8 M24CycleCueMask=0;
++    TSet<FString> M24PendingCasingWeapons;
+     bool IsM870Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_m870"); }
+     bool IsTubeShotgunWeapon() const { return IsSuper90Weapon() || IsM870Weapon(); }
+     bool IsSaiga12KWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_saiga12k"); }
+@@ -206,6 +214,12 @@
+     void SetGunsmithOptic(bool bHolographic);
+     void SetGunsmithOpticVariant(const FString& Variant);
+     const FString& GetGunsmithOpticVariant() const { return OpticVariant; }
++    bool HasM24FactoryScope() const { return IsM24Weapon() && OpticVariant==TEXT("m24_custom_scope_6x"); }
++    float GetM24UpperSightAlpha() const { return HasM24FactoryScope()?FMath::Clamp((6.f-DisplayedLPVOMagnification)/5.f,0.f,1.f):0.f; }
++    float GetM24UpperSightReticleAlpha() const;
++    UStaticMeshComponent* GetM24FactoryOptic() const;
++    float GetM24LensMagnification() const;
++    FVector M24UpperSightADSOffset() const;
+     bool HasSVDFactoryScope() const { return ActiveInventoryWeaponDefinition==TEXT("ue_svd") && !bHolographicOptic; }
+     bool HasPSO1Scope() const { return HasSVDFactoryScope() || (bHolographicOptic && OpticVariant==TEXT("pso1_4x")); }
+     bool HasHandgunScope() const { return bUseDanWesson715 && bHolographicOptic && OpticVariant==TEXT("dw715_handgun_scope_2x"); }
+@@ -218,6 +232,10 @@
+     bool AdjustOpticMagnification(float Delta);
+     void SetLPVOMagnification(float Value);
+     float GetScopePresentationAlpha() const;
++    bool UsesPhysicalScope() const;
++    bool GetPhysicalScopeView(FPhysicalScopeView& Out) const;
++    float GetPhysicalScopeMagnification() const;
++    class UMaterialInterface* GetPhysicalThermalMaterial() const;
+     // Optic-layer firing presentation facts. Read-only: they never write
+     // ControlRotation, the shot direction or the trace.
+     float GetLastShotAgeSeconds() const;
+@@ -262,7 +280,7 @@
+     FVector GetEffectiveMuzzleForward() const;
+     float GetShotgunPelletSpreadMultiplier() const;
+     bool HasShotgunDuckbill() const;
+-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||((ActiveInventoryWeaponDefinition==TEXT("ue_svd")||ActiveInventoryWeaponDefinition==TEXT("ue_svch"))&&MuzzleVariant==TEXT("sniper_heavy_suppressor"))||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||((IsSuper90Weapon()||IsSaiga12KWeapon())&&MuzzleVariant==TEXT("shotgun_suppressor"));}
++    bool IsMuzzleSuppressed() const {return (IsM24Weapon()&&MuzzleVariant==TEXT("m24_factory_suppressor"))||MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||((ActiveInventoryWeaponDefinition==TEXT("ue_svd")||ActiveInventoryWeaponDefinition==TEXT("ue_svch"))&&MuzzleVariant==TEXT("sniper_heavy_suppressor"))||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||((IsSuper90Weapon()||IsSaiga12KWeapon())&&MuzzleVariant==TEXT("shotgun_suppressor"));}
+     void SetGunsmithInspection(bool bInspect);
+     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
+     bool HasGunsmithDrum() const {return bDrumVisual;}
+@@ -671,9 +689,11 @@
+     void SetRSH12Optic(const FString& Variant);
+     void SetSuper90Optic(const FString& Variant);
+     void SetM870Optic(const FString& Variant);
++    void SetM24Optic(const FString& Variant);
+     void SetSaiga12KOptic(const FString& Variant);
+     void SetM1911Muzzle(const FString& Variant);
+     void RunEquipFramingAcceptance(float DeltaSeconds);
++    void RunM24ActionReview(float DeltaSeconds);
+     void FinishWeaponAction();
+     void FinishReload();
+     bool NeedsReloadCycle() const;

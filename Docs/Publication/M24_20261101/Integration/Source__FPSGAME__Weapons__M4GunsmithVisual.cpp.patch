@@ -1,0 +1,78 @@
+--- a/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp
+@@ -1,4 +1,5 @@
+ #include "LMG201WeaponAssets.h"
++#include "M24Attachments.h"
+ #include "HK416WeaponAssets.h"
+ #include "HK416Attachments.h"
+ #include "CommonHK416Parts.h"
+@@ -36,6 +37,7 @@
+ }
+ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
+ {
++    if(IsM24Weapon()){SetM24Optic(Variant);return;}
+     if (SVCHWeaponAssets::Matches(AKMViewmodel))
+         SVCHWeaponAssets::FactorySights(AKMViewmodel, !bInventoryWeaponReady || Variant.IsEmpty() || Variant == TEXT("false") || Variant == TEXT("none"));
+     if(Variant==KVScopeAssets::Id)
+@@ -313,7 +315,14 @@
+ }
+ FVector AFPSGAMECharacter::OpticLocalAimPoint() const
+ {
+-    if ((HasThermalScope()||OpticVariant==KVScopeAssets::Id)&&HolographicOptic&&HolographicOptic->GetStaticMesh())
++    if(HasM24FactoryScope()&&HolographicOptic&&HolographicOptic->GetStaticMesh())
++    {
++        const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
++        const auto* Main=OpticMesh->FindSocket(TEXT("SightRear"));
++        const auto* Upper=OpticMesh->FindSocket(TEXT("TopSightRear"));
++        if(Main&&Upper)return FMath::Lerp(Main->RelativeLocation,Upper->RelativeLocation,GetM24UpperSightAlpha());
++    }
++    if ((IsM24Weapon()||HasThermalScope()||OpticVariant==KVScopeAssets::Id)&&HolographicOptic&&HolographicOptic->GetStaticMesh())
+         if(const auto* Center=HolographicOptic->GetStaticMesh()->FindSocket(TEXT("SightRear")))return Center->RelativeLocation;
+     if (IsPitViperWeapon() && HolographicOptic && HolographicOptic->GetStaticMesh())
+         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("AimCenter")))
+@@ -334,6 +343,9 @@
+ }
+ float AFPSGAMECharacter::EffectiveADSVerticalFOV() const
+ {
++    // The M24's 6x image is now inside its captured lens. The surrounding
++    // scene uses the same normal ADS framing as its upper 1x sight.
++    if(UsesPhysicalScope())return ADSVerticalFieldOfView;
+     return FMath::RadiansToDegrees(2.f*FMath::Atan(FMath::Tan(FMath::DegreesToRadians(ADSVerticalFieldOfView)*.5f)/GetDisplayedOpticMagnification()));
+ }
+ bool AFPSGAMECharacter::ValidateGunsmithSight(float& PixelError) const
+@@ -375,6 +387,12 @@
+ bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
+ {
+     if(Bow && Bow->IsEquipped())return Bow->AdjustScopeMagnification(Delta);
++    if(HasM24FactoryScope()&&IsAiming())
++    {
++        if(!FMath::IsNearlyZero(Delta))LPVOMagnification=Delta>0.f?6.f:1.f;
++        // Consume the wheel even at an endpoint, so it cannot also switch weapons.
++        return true;
++    }
+     if(OpticVariant==KVScopeAssets::Id&&IsAiming())
+     {
+         // Reuse the selected optic value without rotating elevation/windage drums.
+@@ -397,8 +415,9 @@
+     // paints its mask below HUD children and owns its viewmodel visibility.
+     // This shared gun-scope alpha must never hide the game's combat HUD.
+     if(Bow && Bow->IsEquipped())return 0.f;
+-    if((!HasThermalScope()&&!HasPSO1Scope()&&!HasHandgunScope()&&OpticVariant!=TEXT("lpvo_1_6x")&&OpticVariant!=KVScopeAssets::Id)||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
+-    return FMath::SmoothStep(.65f,.98f,CameraADSFactor);
++    if(!UsesPhysicalScope()||!bInventoryWeaponReady||IsTraversing()||(IsM24Weapon()?IsWeaponBusyForAim():IsWeaponBusy()))return 0.f;
++    const float ScopeWeight=HasM24FactoryScope()?FMath::SmoothStep(.35f,.90f,1.f-GetM24UpperSightAlpha()):1.f;
++    return FMath::SmoothStep(.65f,.98f,CameraADSFactor)*ScopeWeight;
+ }
+ 
+ // Seconds since the last shot, or a large value so callers can treat it as
+@@ -422,7 +441,9 @@
+ {
+     UpdateScopeLensMaterial();
+     UpdateThermalPresentation();
+-    const bool bScopeHidesViewmodel=GetScopePresentationAlpha()>.5f;
++    // M24 renders into its original ocular glass. Its gun, hands and scope
++    // remain physical, including their existing recoil and action motion.
++    const bool bScopeHidesViewmodel=!UsesPhysicalScope()&&GetScopePresentationAlpha()>.5f;
+     if(!bScopeHidesViewmodel&&ScopeHiddenParts.IsEmpty())return;
+     const auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>();
+     const bool bThirdPerson=Body&&Body->IsThirdPersonViewEnabled();

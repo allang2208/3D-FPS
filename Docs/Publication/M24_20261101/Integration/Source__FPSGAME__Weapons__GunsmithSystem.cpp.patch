@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -1,5 +1,6 @@
+ #include "GunsmithSystem.h"
+ #include "FullAutoTrigger.h"
++#include "M24Attachments.h"
+ #include "TacticalDeviceVariants.h"
+ #include "G18WeaponAssets.h"
+ #include "PitViper2011WeaponAssets.h"
+@@ -151,6 +152,7 @@
+ const FGunsmithWeapon* UGunsmithSystem::Weapon(const FString& D)const{return Weapons.Find(D);}
+ FString UGunsmithSystem::CategoryLabel(const FString& Definition,const FString& Slot) const
+ {
++    if(Definition==TEXT("ue_m24")&&Slot==TEXT("stock"))return TEXT("枪托");
+     if(Slot==TacticalDeviceVariants::PrimarySlot&&TacticalDeviceVariants::SupportsSecondary(Definition))return TEXT("战术挂件Ⅰ");
+     if(Slot==TEXT("reargrip") && PistolGripSurface::Supports(Weapon(Definition)))return TEXT("握把防滑纹");
+     const int32 Index=Slots(Definition).IndexOfByKey(Slot);
+@@ -182,6 +184,8 @@
+         }
+         FString Id=(Slot==TEXT("blade_2")||(ColdSteelFrostRunes::IsWarhammer(D)&&Slot==TEXT("rune")))?
+             ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;
++        // M24's named iron sight and its no-optic option use the same assembly.
++        if(D==TEXT("ue_m24")&&Slot==TEXT("optic")&&Id==TEXT("m24_palma_iron"))Id=TEXT("none");
+         if(D==RSH12WeaponAssets::Definition && Slot==TEXT("optic"))Id=RSH12OpticAssets::Upgrade(Id);
+         if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");
+         if(IsBow(D)&&Slot==TEXT("riser")&&Id==TEXT("woodcrafted_heavy"))Id=TEXT("heavy_limb");
+@@ -200,6 +204,10 @@
+             if(!Result.Contains(Slot) && P.Value->TryGetString(Id) && Option(D,Slot,Id))
+                 Result.Add(Slot,Id);
+         }
++    // The factory M24 has no interchangeable rear-grip interface. Normalize
++    // both drafts and older saved combinations before stats or visuals consume them.
++    if(D==TEXT("ue_m24")&&!M24Attachments::RearGripUnlocked(Result))
++        Result.Add(TEXT("reargrip"),TEXT("false"));
+     return Result;
+ }
+ FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
+@@ -377,6 +385,7 @@
+         NormalizedParts.FindRef(TacticalDeviceVariants::PrimarySlot),NormalizedParts.FindRef(TacticalDeviceVariants::SecondarySlot));
+     for(const auto& Pair:NormalizedParts)
+     {
++        if(D==TEXT("ue_m24")&&Pair.Value==TEXT("none"))continue;
+         auto A=*Option(D,Pair.Key,Pair.Value);
+         // Installed geometry still counts, but only the strongest laser supplies
+         // its entire modifier set. Removing it automatically activates the other.
+@@ -415,6 +424,12 @@
+     InstanceId=Id;DefinitionId=I->Definition;Original=Installed(*I);Preview=Original;bOpen=true;DraftEnhanceLevelValue=0;
+     Status=TEXT("选择配件预览，应用后保存");OnChanged.Broadcast();return true;
+ }
++FString UGunsmithSystem::OptionLockReason(const FString& Slot,const FString& Id) const
++{
++    if(DefinitionId==TEXT("ue_m24")&&Slot==TEXT("reargrip")&&Id!=TEXT("false")
++        &&!M24Attachments::RearGripUnlocked(Preview))return TEXT("需先安装先进枪机系统");
++    return FString();
++}
+ bool UGunsmithSystem::Select(const FString& Slot,const FString& Id)
+ {
+     if(!bOpen||!Option(DefinitionId,Slot,Id))return false;
+@@ -423,7 +438,11 @@
+     if(Part(Preview,Slot)==Id)return true;
+     const bool HadRearGrip=Part(Preview,TEXT("reargrip"))!=TEXT("false");
+     if(Id==TEXT("false"))Preview.Remove(Slot);else Preview.Add(Slot,Id);
+-    Status=TEXT("预览已更新，应用后保存");OnChanged.Broadcast();return true;
++    if(DefinitionId==TEXT("ue_m24"))Preview=Normalize(DefinitionId,Preview);
++    Status=DefinitionId==TEXT("ue_m24")&&Slot==TEXT("body")&&HadRearGrip
++        &&!M24Attachments::RearGripUnlocked(Preview)
++        ?TEXT("已恢复原厂枪机并撤下后握把改造，应用后保存")
++        :TEXT("预览已更新，应用后保存");OnChanged.Broadcast();return true;
+ }
+ int32 UGunsmithSystem::CurrentEnhanceLevel()const
+ {

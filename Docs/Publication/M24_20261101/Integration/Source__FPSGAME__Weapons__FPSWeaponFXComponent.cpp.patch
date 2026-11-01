@@ -1,0 +1,63 @@
+--- a/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
++++ b/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
+@@ -4,6 +4,7 @@
+ #include "Super90WeaponAssets.h"
+ #include "TubeShotgunAssets.h"
+ #include "Saiga12KWeaponAssets.h"
++#include "M24WeaponAssets.h"
+ #include "ShotgunBirdcageAssets.h"
+ #include "FPSImpactFXSubsystem.h"
+ #include "NiagaraComponent.h"
+@@ -386,12 +387,17 @@
+         AddTickPrerequisiteComponent(Body);
+         if(auto* Mesh=Body->GetBodyMesh())AddTickPrerequisiteComponent(Mesh);
+     }
++    // M24 retains its authored port bone instead of the shared socket alias.
++    // Resolve per mesh so switching away never changes another gun's settings.
++    const bool bM24=WeaponMesh->GetSkeletalMeshAsset()
++        &&WeaponMesh->GetSkeletalMeshAsset()->GetPathName()==M24WeaponAssets::MeshPath;
++    const FName ResolvedEjectSocket=bM24?FName(TEXT("WPN_Eject")):EjectSocket;
+     bReady = CardMesh && CylinderMesh && FlashMaterial && SmokeMaterial && BrassMaterial
+-        && WeaponMesh->DoesSocketExist(MuzzleSocket) && WeaponMesh->DoesSocketExist(EjectSocket);
++        && WeaponMesh->DoesSocketExist(MuzzleSocket) && WeaponMesh->DoesSocketExist(ResolvedEjectSocket);
+     if (!bReady)
+     {
+         UE_LOG(LogTemp, Error, TEXT("GUNPLAY_FX_NOT_READY materials=%d muzzle=%d eject=%d. Run Tools/AssetPipeline/build_gunplay_fx.py."),
+-            !!(FlashMaterial && SmokeMaterial && BrassMaterial), WeaponMesh->DoesSocketExist(MuzzleSocket), WeaponMesh->DoesSocketExist(EjectSocket));
++            !!(FlashMaterial && SmokeMaterial && BrassMaterial), WeaponMesh->DoesSocketExist(MuzzleSocket), WeaponMesh->DoesSocketExist(ResolvedEjectSocket));
+         return;
+     }
+     if (!FlashLight)
+@@ -428,7 +434,7 @@
+     // in the mesh bind pose, never from the camera or animated folding sights.
+     const FVector Up = Rear.GetLocation() - Bone(TEXT("WPN_SOCKET_Muzzle")).GetLocation();
+     CasingFrameInRoot = Root.GetRotation().Inverse() * FRotationMatrix::MakeFromXZ(Forward, Up).ToQuat();
+-    CasingAnchorSocket = EjectSocket;
++    CasingAnchorSocket = ResolvedEjectSocket;
+     CasingPortInAnchor = FVector::ZeroVector;
+     CasingOutwardSide = 1.0f;
+     if (const auto* Port = CasingPortCalibration::Find(WeaponMesh->GetSkeletalMeshAsset()->GetPathName()))
+@@ -1210,7 +1216,9 @@
+ 
+ void UFPSWeaponFXComponent::SchedulePumpEjection(float Rate,float ShotAge)
+ {
+-    const float Delay=M870WeaponAssets::PumpEject/FMath::Max(.01f,Rate)-FMath::Max(0.f,ShotAge);
++    const bool M24=bWorldGun?WorldGunDefinition==FName(M24WeaponAssets::Definition):
++        WeaponMesh&&WeaponMesh->GetSkeletalMeshAsset()&&WeaponMesh->GetSkeletalMeshAsset()->GetPathName()==M24WeaponAssets::MeshPath;
++    const float Delay=(M24?M24WeaponAssets::BoltEject:M870WeaponAssets::PumpEject)/FMath::Max(.01f,Rate)-FMath::Max(0.f,ShotAge);
+     GetWorld()->GetTimerManager().ClearTimer(PumpEjectTimer);
+     if(Delay<=0.f){SpawnCasing();return;}
+     const TWeakObjectPtr<USkeletalMeshComponent> FiredMesh=WeaponMesh;
+@@ -1269,10 +1277,10 @@
+         }
+     }
+     const auto* OwnerCharacter=Cast<AFPSGAMECharacter>(GetOwner());
+-    const bool Pump=bWorldGun?WorldGunDefinition==FName(M870WeaponAssets::Definition):OwnerCharacter&&OwnerCharacter->IsM870Weapon();
++    const bool Pump=bWorldGun?(WorldGunDefinition==FName(M870WeaponAssets::Definition)||WorldGunDefinition==FName(M24WeaponAssets::Definition)):OwnerCharacter&&(OwnerCharacter->IsM870Weapon()||OwnerCharacter->IsM24Weapon());
+     if(Pump)
+     {
+-        const float Rate=AcceptedPumpRate>0.f?AcceptedPumpRate:OwnerCharacter?OwnerCharacter->M870PumpPlayRate():1.f;
++        const float Rate=AcceptedPumpRate>0.f?AcceptedPumpRate:OwnerCharacter?(OwnerCharacter->IsM24Weapon()?OwnerCharacter->M24CyclePlayRate():OwnerCharacter->M870PumpPlayRate()):1.f;
+         SchedulePumpEjection(Rate,ShotAge);
+     }
+     else if(bWorldGun?!bWorldRevolver:(bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter||!OwnerCharacter->bUseDanWesson715)))SpawnCasing();

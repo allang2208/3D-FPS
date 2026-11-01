@@ -1,0 +1,52 @@
+{
+  "complete": true,
+  "saved": [
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_NewPistolGrip.MI_M24_NewPistolGrip",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_balanced_0.MI_M24_Grip_balanced_0",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_balanced_1.MI_M24_Grip_balanced_1",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_phantom_0.MI_M24_Grip_phantom_0",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_phantom_1.MI_M24_Grip_phantom_1",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_stable_0.MI_M24_Grip_stable_0",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_stable_1.MI_M24_Grip_stable_1",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_SniperStock_MeshySurface.MI_SniperStock_MeshySurface",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_NewReceiverMetal.MI_M24_NewReceiverMetal",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_0.MI_M24_Advanced_0",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_1.MI_M24_Advanced_1",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_2.MI_M24_Advanced_2",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/M_M24GripSurface.M_M24GripSurface",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/M_M24StockSurface.M_M24StockSurface",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/M_M24MetalSurface.M_M24MetalSurface",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Regional_host.MI_M24_Regional_host",
+    "/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Regional_scope.MI_M24_Regional_scope",
+    "/Game/Weapons/M24/Surface20261027/SM_M24_m24_custom_scope_6x.SM_M24_m24_custom_scope_6x",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/M_M24Regional_host.M_M24Regional_host",
+    "/Game/Weapons/M24/StockContinuity20261031/Materials/M_M24Regional_scope.M_M24Regional_scope",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_Default.SM_M24_PistolGrip_Default",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_balanced.SM_M24_PistolGrip_balanced",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_phantom.SM_M24_PistolGrip_phantom",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_PistolGrip_stable.SM_M24_PistolGrip_stable",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Native.SM_M24_ReceiverStock_Native",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.SM_M24_ReceiverStock_Advanced",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.SM_M24_AdvancedFront_ForIndependentGrip"
+  ],
+  "materials": {
+    "M24_NewPistolGrip": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_NewPistolGrip.MI_M24_NewPistolGrip",
+    "M24_Grip_balanced_0": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_balanced_0.MI_M24_Grip_balanced_0",
+    "M24_Grip_balanced_1": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_balanced_1.MI_M24_Grip_balanced_1",
+    "M24_Grip_phantom_0": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_phantom_0.MI_M24_Grip_phantom_0",
+    "M24_Grip_phantom_1": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_phantom_1.MI_M24_Grip_phantom_1",
+    "M24_Grip_stable_0": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_stable_0.MI_M24_Grip_stable_0",
+    "M24_Grip_stable_1": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Grip_stable_1.MI_M24_Grip_stable_1",
+    "SniperStock_MeshySurface": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_SniperStock_MeshySurface.MI_SniperStock_MeshySurface",
+    "M24_NewReceiverMetal": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_NewReceiverMetal.MI_M24_NewReceiverMetal",
+    "M24_Advanced_0": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_0.MI_M24_Advanced_0",
+    "M24_Advanced_1": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_1.MI_M24_Advanced_1",
+    "M24_Advanced_2": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Advanced_2.MI_M24_Advanced_2"
+  },
+  "runtime_tested": false,
+  "regional": {
+    "host": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Regional_host.MI_M24_Regional_host",
+    "scope": "/Game/Weapons/M24/StockContinuity20261031/Materials/MI_M24_Regional_scope.MI_M24_Regional_scope"
+  }
+}

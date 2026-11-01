@@ -1,0 +1,460 @@
+[
+  {
+    "target": "Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSBodyRifleHold.cpp.patch",
+    "preimage_sha256": "324b1f0b21f12815f26097bd6e2e9439d056116d86651596b6d985d63f73ed8e",
+    "result_sha256": "85a717cc4113825713a53b8b4634815f3f52a9b8ca722205a08d9afa5f278585",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 4
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSBodyRifleMotion.h",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSBodyRifleMotion.h.patch",
+    "preimage_sha256": "d6b7a6178eccffc28bd165107920123dee21e7f94c731f26ebd6a9cb2c310c0b",
+    "result_sha256": "5556b1cb59163359d308991c606df7f22175c7f7c7c5171ec2dfdf8765c4b805",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+    "preimage_sha256": "fdade1430f5230c46f17859fb3552f2330c3f1ef83f2cf9c728c8f18d3b923aa",
+    "result_sha256": "e94417635aead0ebdfdf82d7107808b28e43b4c627e61126ada924e59277cc9d",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 4
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyGunEffects.cpp.patch",
+    "preimage_sha256": "90f881ef3d7ee8a4c2aed506da0b6df51840693d1338440121d653fdbca60e88",
+    "result_sha256": "e930572b94cabd7d417afc1b55b30b23f07628fad78f5a33d03c1c3894e408ad",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyMotion.cpp.patch",
+    "preimage_sha256": "f6ca913e77499de9a3cbe9c2edb495d789be34575c8b855d4947bc0850167a70",
+    "result_sha256": "3f7b5a252631d585ce24706505ad2c66ca77c6e3dae509a46c573328400d16f5",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+    "preimage_sha256": "80a6649f30c9f892d9c1a3b97b65c23f7b775bbd0d3459911e5800f270321c73",
+    "result_sha256": "d1552da5cc26e740f2652592a1ff702a9cef7a9bdd0e29a8a79b5ba914411252",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 57
+  },
+  {
+    "target": "Source/FPSGAME/FPSGAMECharacter.h",
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacter.h.patch",
+    "preimage_sha256": "f9231020df903ab8236913bc0a0204c1b4a3d23aa3817b23e54a079c2f40c4b5",
+    "result_sha256": "666b4e5ef831e21b012c47c67eab0b829b959b588acb23fc7adb2d035eeddec2",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 8
+  },
+  {
+    "target": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacterActionPriority.cpp.patch",
+    "preimage_sha256": "a9be1028401f23f993e647f2bb4f05172648efdc7903492bc2bba93dfca4dd24",
+    "result_sha256": "b9e07e28f8a3ff272b97773c5a1d39c9dfdede9e073deae9b522b4e270647b8b",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacterProfile.cpp.patch",
+    "preimage_sha256": "e3846e82deebb05ed76e5a177d0a568404bccbe057d6f80563d879e8f0a09bd4",
+    "result_sha256": "1340d9d1a2f6400ede14ce50d1760dab8e3f1c15fd12abf816efcc64b4efd769",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 4
+  },
+  {
+    "target": "Source/FPSGAME/FPSGAMECharacterReloadCamera.cpp",
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacterReloadCamera.cpp.patch",
+    "preimage_sha256": "f5d89bfb9fa19102e269ba4c2ff9d30482a8bdba95cceaa2217d0a51fdb4ba36",
+    "result_sha256": "ca1827085dc2bedb1cb1909572baabab615a62d542c82fedc09c4f1189e3aa9e",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 3
+  },
+  {
+    "target": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Skills__FPSQuickCombatComponent.cpp.patch",
+    "preimage_sha256": "9da15971395705d23feb03fe69e8a36fa9e3e48da024de8480e3247531d6c88a",
+    "result_sha256": "7e05b280225e3f9915997dcc7978d680c91bd3a7166477dc88a446b4d08f79b1",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 10
+  },
+  {
+    "target": "Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+    "patch": "Integration/Source__FPSGAME__Skills__FPSQuickCombatComponent.h.patch",
+    "preimage_sha256": "504571a3648a0c47b8befdec1bd5f6b1a335df26685ebc2493fb252cf795de5d",
+    "result_sha256": "6e6ac07b61b3833d8fcc7a2bd691b210ddd428b357d970e65b7092f344413df5",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelAmmoRuntime.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelAmmoRuntime.cpp.patch",
+    "preimage_sha256": "2b1e1d66caf727602508e728d100f7ca14c3cd6cf012eae9d7a61f011d1788ec",
+    "result_sha256": "c2e73010b4250d404b68955c518fb96e3ba0d0f2e4172306f13cf3ba955e9117",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+    "preimage_sha256": "3c50903267994898ab1fcfe8b376d53ceb2a00dbb71e3bef36193216c709b9a8",
+    "result_sha256": "6ff6c743ab58eb638ee0a354e249c1e0ec679286dc2c13aaed197e669f46c892",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelIconResources.cpp.patch",
+    "preimage_sha256": "7dc6a0215e8a898ded536e29c6f59ff210e21e3fc264e1333f30f019bd272866",
+    "result_sha256": "2eff74c4bd88a3bc91f112ab0f4582741c5142d62c7d1664005ce2e68432ea81",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 5
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelPickupStudio.cpp.patch",
+    "preimage_sha256": "7ceed7b7d493ebaa6bd788adef0480b5db9d05845a6b9809be0fea6212b023a5",
+    "result_sha256": "d4786be5c4ffe4c223750356585ddeebee6b7fd053d4b5896d313ede67298530",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelPickupWeapon.cpp.patch",
+    "preimage_sha256": "9912f9d741d3656d171bf99f86f0471c5676550909900d5347720112bd2cb4e1",
+    "result_sha256": "2e4cb02be8d51101c454cfd6a10718aee9dc412385e9634b55e43a5d637d0845",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+    "preimage_sha256": "a02ebd7c3b49b6c01438f19ffebd981ec7bd5e260a64fd60bb4470f2a2fdb4da",
+    "result_sha256": "7c6b1c0369e40164707610c931c8d35b3a6898020d59e80c8ba570aa550e249d",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+    "preimage_sha256": "fa3a0f9c1785c42ade99d2f69b9c54e3e8690d4603db8dadca7d76b9c68a1b9d",
+    "result_sha256": "e757af40030c27fb55ddeeed07c181866de9c71ab2bf6c623cffac32bcab9a4a",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelWarehouseModel.cpp.patch",
+    "preimage_sha256": "4d94ec2b5507af2c75066f80a9d7c4bb4d2d5ca360a7ff08ba7d230b1f0cb85f",
+    "result_sha256": "b8bc951048c0e3daf49619b121d451dacfee3c380b3d944c5b6f73033ac8e518",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 3
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelWeaponIconCatalogCommandlet.cpp.patch",
+    "preimage_sha256": "e19a375a198d9cdfc3c473bab4abfc91883119780aaa724802c1b148b96dad06",
+    "result_sha256": "c816998f9a262efee417fc5c2a2648733f5f81a3ae158628fb15778b2cff3c7e",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelWeaponIcons.cpp.patch",
+    "preimage_sha256": "68e23ba745008127e044bf299cf98c4cc52cea9f02ea32f2d57f0d93c0a47c69",
+    "result_sha256": "42b4ade71b4c2713e549e0ac0ba898ad90150e235397edd5d1e1d62804779bcc",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 7
+  },
+  {
+    "target": "Source/FPSGAME/UI/LPVOScopeWidget.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__LPVOScopeWidget.cpp.patch",
+    "preimage_sha256": "f7e282069d2ac24d0cde6b21bebdd0df01f74326d96b448efdc7cb65e524f8a0",
+    "result_sha256": "905c5184231c95da87ca1bff958001671b7f01e6cb3a04fc341e96544a1dae23",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 8
+  },
+  {
+    "target": "Source/FPSGAME/UI/LPVOScopeWidget.h",
+    "patch": "Integration/Source__FPSGAME__UI__LPVOScopeWidget.h.patch",
+    "preimage_sha256": "1b3409718e2f102c978b2a8cc2de1207a803ff01dd05e071ee10bf8d84bceed9",
+    "result_sha256": "a17b3e1e74e513c2504f194e0b766774e016fdf05d67092835045fddb34b96bb",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 3
+  },
+  {
+    "target": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__M4GunsmithLayout.cpp.patch",
+    "preimage_sha256": "e657d793b80a6779be52e630ffcb06a0eef2acd9dbca8691fc1e9056ede662bb",
+    "result_sha256": "e559272996dadaec1e4fc5a85489695b6933832c1803f3b3d16f691850485865",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/UI/M4StandalonePreview.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__M4StandalonePreview.cpp.patch",
+    "preimage_sha256": "2023317ae133633ed230cf66a406911de0e02ca7d8089aa8f7a531778777e352",
+    "result_sha256": "80de7299979891dcad14e77853cc4b45b8dc293d0dc0b478fdf56988c883532a",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/UI/ScopeOpticDrawing.h",
+    "patch": "Integration/Source__FPSGAME__UI__ScopeOpticDrawing.h.patch",
+    "preimage_sha256": "fb46abb69f29ef822d7e73a02f7fb4a713a1e9354208f4172485bea384dd6d01",
+    "result_sha256": "833871ca9ec6a7048256257f8a6c44568a76c59f979ec7f6d29a2f835e033439",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/CasingPortCalibration.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__CasingPortCalibration.h.patch",
+    "preimage_sha256": "e81c52158054bb18a7ea7e46e007aad83ea3511a48579a99dd84fdf9c48ef513",
+    "result_sha256": "1e9ccd617ec643b80664a387bba85b01ac0edba1c868e99f84ac58420b74c6c3",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/FPSGAMECharacterVisualRecoil.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__FPSGAMECharacterVisualRecoil.cpp.patch",
+    "preimage_sha256": "beadf8731f141ed8b0da37dd39e1fe417eae68d4e270d853d9a7da35d9f2e811",
+    "result_sha256": "adcffe2211e397c5458fc3279eec7e0994d41cde08dad288fcbad1e79a3055af",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__FPSWeaponFXComponent.cpp.patch",
+    "preimage_sha256": "1fb077ec75753fed847a701b80db5bd87b1de072a854edb21ae84e9e24cffbc8",
+    "result_sha256": "13c95a3a2ed189a8ad18efb885ea3c775c6af44379c4d0cf014ad15eb69f8482",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 8
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__GunsmithModificationTier.h.patch",
+    "preimage_sha256": "87ac632e5d1b770aadf81613bea4086021f6ac73ec32e766e18d9d7efc589eeb",
+    "result_sha256": "39c84dbcdd9a5decb4040d5ccf530b7c8a2cba737b4c01c9da2898cea9cf2b64",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch",
+    "preimage_sha256": "b7fe7055e6c088209fb847a992994746d584abc370c0608c72a96d311f45d2c5",
+    "result_sha256": "a8a90e100309be7b06848e28c9bc526759d7958b730b0c860d6c37f5a09b57df",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 7
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/KVScopeAssets.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__KVScopeAssets.h.patch",
+    "preimage_sha256": "f61bbf34ab39266175aefe9786046050c88f5142d629fed1f57d46da3eca6ccc",
+    "result_sha256": "7e867531495ea20716177449d09b8f844b1559e33329ec46065710cbce9c97a0",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__M4DrumVisual.cpp.patch",
+    "preimage_sha256": "944303616087c7aab10414d4c583a250beeb46e01300f383ee4139f021fef590",
+    "result_sha256": "913f6b47e4d8856cc727ddbeb4cbbdfd432f3b1ea8d16c3bf33210cd313bebe7",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 3
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__M4GunsmithVisual.cpp.patch",
+    "preimage_sha256": "ef60ce019d47d956a15a83a13c7c6cd3a45920675af543df10fbf5d8d2ba4bd8",
+    "result_sha256": "2510226ab5a7e76a5b94a78049f63de68b9bd7e89974fcad29286bc553b9458b",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 7
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__M4HandstopVisual.cpp.patch",
+    "preimage_sha256": "6671087c47131e686b7e117cf94f619a91212676ad58f733a0247865eaee762d",
+    "result_sha256": "2198616dae5d8bfd60c64373df0ce8c6639b620caec035334bc837ecbb618c61",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 3
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__M4MuzzleVisual.cpp.patch",
+    "preimage_sha256": "b03b329fea4c09119d9472ce2ca5932b660c743e02cb3cc7a5a0b822f3037087",
+    "result_sha256": "3f226165d3b442b92ee02f005b2ad9420a2f6722ff913dc6d8a0f2a9a30daff5",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 4
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/M4TacticalSprintComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__M4TacticalSprintComponent.cpp.patch",
+    "preimage_sha256": "34d49e22c0c2df17d0229766b1dd2087ea1d8c7e26b4c33973aac09108667393",
+    "result_sha256": "76de9c51d6d5aa12718b60e226aa514c593e612a37c81f12a72969c36770a7f4",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/M4TacticalSprintComponent.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__M4TacticalSprintComponent.h.patch",
+    "preimage_sha256": "a53308a4d044390b8c0fc1216b8c19472951ce7230e30d30dcf955d99e1cc87a",
+    "result_sha256": "be44b3d7dddcf75bd60987027478b612fdbee1da90cc223c9f0a89ca2273e715",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/PKMBipodComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__PKMBipodComponent.cpp.patch",
+    "preimage_sha256": "c95c6b32f03e0406196cd491c5970af4ecae3062a2ed8169ce8dc4094e3c02fb",
+    "result_sha256": "86b09996871e27455d31a96217ae40a8fedb0c071fce3c4bf29e8921605bbb5f",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 15
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/PKMBipodComponent.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__PKMBipodComponent.h.patch",
+    "preimage_sha256": "1bb86ad97284eb351a88bf642a8084c8b762b571ea166816aa5cbad526bd9659",
+    "result_sha256": "e5e4faa46a13ee5751ea73e371894511597f0ec99ae256014422f3e884bfc9fd",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 3
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__PhantomRearGripVisual.cpp.patch",
+    "preimage_sha256": "c45241d6a290f548d675c8ea4dc7066df6c41050012e0c3f9a1fc388016bcdda",
+    "result_sha256": "d1092f666092e4913ff9219b2cdd96291ce2a24cc6f7df264a1efd678db4e830",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/RifleHipFraming.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__RifleHipFraming.cpp.patch",
+    "preimage_sha256": "17eb25451bcdf0d2fdca3836a1dc181e0413fd1fae09857aed06adf54b4ea24d",
+    "result_sha256": "7f9c2b2054039c3cdfe50d7ab5ebc77fc4822ab2cbb7c5040d4e20f7addee7ea",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 5
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__SVDGripProfiles.cpp.patch",
+    "preimage_sha256": "dda8ca223bc30c6396fc479b248e35eb960517b0b2105866a82c485e574806f3",
+    "result_sha256": "bf375c64e0c95ea725f5771208a632b85d499ead9e9ef9b862f6328074029646",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 3
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__ScopeOpticalPresentation.cpp.patch",
+    "preimage_sha256": "1a80f2382f145d6571333550ffa7de386b49c699caaa3a0c283c019f716cf3ba",
+    "result_sha256": "e0d4163f402ff30b1936fc475d78e3340665b3c3f2cc471fc6f5c93c54a84d66",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 11
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__SkeletonStockVisual.cpp.patch",
+    "preimage_sha256": "ab2c7ac0e0d3ac46f1cd37dc610f680da6594af89d820c4bb4eaa38a1b9c591a",
+    "result_sha256": "c7109bba76a92c03bd5838306c339c0a6e8758f502e96c32ad717494f8cb44ed",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 3
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__WeaponBipodDeploymentComponent.cpp.patch",
+    "preimage_sha256": "25ed0d12f5bd979b75523baae2d27e9a1e5d2cb7e322eb6937acfa3fe19d2db1",
+    "result_sha256": "2cb81d39f6bbf37589ed3e6d38f850f0b50215c7cde55c78e3c733fc62e2c8bd",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 32
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__WeaponBipodDeploymentComponent.h.patch",
+    "preimage_sha256": "9f1c3e314b98568e9487921e534ea8332ff932d767ae2be4e5814d6291f42c46",
+    "result_sha256": "c02b22229b27f925c73a1c72ce044de3f9f1d4d2667ed1e711f752e052e8cd8f",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 6
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__WeaponReloadStages.cpp.patch",
+    "preimage_sha256": "5c1f723fb5ffcd13edb94349ca03ea6bd5035f2560aa54ccf77d4138331396a7",
+    "result_sha256": "d7ab9e9c2f9762095bb817b0d2eb12ac31071529332a480d51f22f2c7af1bbff",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 2
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/WeaponSurfaceStandard.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__WeaponSurfaceStandard.h.patch",
+    "preimage_sha256": "df127159522b258e9e8b35218d74b8346b6b33d0310b2908263ae86389a1699d",
+    "result_sha256": "a87b77c11c9f5946e5252ee136da12924a6bc69d4de0879e00eeb449f28de587",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private reconstructed host; not a published revision",
+    "edits": 1
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__M870PresentationWireAudit.cpp.patch",
+    "preimage_sha256": "2bb29e4900af3bc992d33a1111459568751e4344bbd6a41f1830b35199859ae7",
+    "result_sha256": "efe8b56bdc77e0e21d0b86c1db11efb5c2264c9b0f0fa21f91229458ecaf9fb0",
+    "encoding": "UTF-8 LF",
+    "preimage": "Private Shotgun/S12K/SVCH fixture; not distributed in full"
+  }
+]

@@ -1,0 +1,46 @@
+--- a/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp
+@@ -1,4 +1,5 @@
+ #include "Saiga12KAttachments.h"
++#include "M24Attachments.h"
+ #include "LMG201WeaponAssets.h"
+ #include "HK416WeaponAssets.h"
+ #include "HK416Attachments.h"
+@@ -41,6 +42,18 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
+ {
++    if(IsM24Weapon())
++    {
++        const bool Enabled=bInventoryWeaponReady&&Variant==M24Attachments::Suppressor;
++        MuzzleAttachment=M24Attachments::Configure(this,AKMViewmodel,MuzzleAttachment,Variant,Enabled);
++        MuzzleVariant=Enabled?Variant:FString();
++        if(MuzzleAttachment)
++        {
++            if(const auto* Tip=MuzzleAttachment->GetStaticMesh()->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
++            MuzzleLocalAxis=FVector(0,-1,0);
++        }
++        return;
++    }
+     if(IsSaiga12KWeapon())
+     {
+         SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
+@@ -357,7 +370,8 @@
+     }
+     else
+     {
+-        if(bUseM16)Position=AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
++        if(IsM24Weapon())Position=M24Attachments::BareMuzzle(AKMViewmodel);
++        else if(bUseM16)Position=AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
+         else if(IsSaiga12KWeapon())Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(Saiga12KWeaponAssets::Muzzle);
+         else if(AKMSoviet::Matches(AKMViewmodel))Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
+         // The SVCh carries its own measured muzzle: the shared WPN_SOCKET_Muzzle bone
+@@ -366,7 +380,7 @@
+         else Position=AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
+         if(bUseM16)Forward=AKMViewmodel->GetSocketQuaternion(M16WeaponAssets::MuzzleMountBone).GetAxisY();
+         else if(IsSaiga12KWeapon())Forward=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformVectorNoScale(Saiga12KWeaponAssets::Front-Saiga12KWeaponAssets::Rear).GetSafeNormal();
+-        else if(IsPistolWeapon()||IsTubeShotgunWeapon())Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
++        else if(IsM24Weapon()||IsPistolWeapon()||IsTubeShotgunWeapon())Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+         else if(SVCHWeaponAssets::Matches(AKMViewmodel))Forward=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformVectorNoScale(SVCHWeaponAssets::FrontSight-SVCHWeaponAssets::RearSight).GetSafeNormal();
+         else
+         {

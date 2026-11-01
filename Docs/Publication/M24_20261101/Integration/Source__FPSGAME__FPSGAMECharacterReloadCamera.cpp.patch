@@ -1,0 +1,52 @@
+--- a/Source/FPSGAME/FPSGAMECharacterReloadCamera.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterReloadCamera.cpp
+@@ -7,6 +7,7 @@
+ #include "Weapons/PKMLowpolyWeaponAssets.h"
+ #include "Weapons/Super90WeaponAssets.h"
+ #include "Weapons/M870WeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
+ #include "Weapons/Super90SpeedloaderAssets.h"
+ #include "Skills/FPSCastingMeshComponent.h"
+ #include "Animation/AnimSequence.h"
+@@ -48,6 +49,19 @@
+ {
+     Tracks.Reset();
+     if(!IsLocallyControlled()||bGunsmithInspection||IsTraversing())return;
++    if(bInventoryWeaponReady&&IsM24Weapon()&&!IsReloading()
++        &&IsRevolverFireActionPlaying()&&!IsCastBlockingLeftHandAction())
++    {
++        // Use the same absolute source clock as the M24's bolt and audio.
++        // This only feeds the existing additive camera layer; viewmodel roots stay fixed.
++        auto& Track=Tracks.AddDefaulted_GetRef();
++        Track.Time=ActionStartPosition+float(GetWorld()->GetTimeSeconds()-LastShotWorldTime)*ActionPlayRate;
++        Track.End=ActiveActionAnimation->GetPlayLength();
++        Track.Add(M24WeaponAssets::BoltLift,E::BoltLift);
++        Track.Add(M24WeaponAssets::BoltPull,E::BoltPull);
++        Track.Add(M24WeaponAssets::BoltPush,E::BoltPush);
++        Track.Add(M24WeaponAssets::BoltClosed,E::BoltLock);
++    }
+     if(bInventoryWeaponReady&&IsReloading()&&ActiveActionAnimation&&!HasOffhandPistol())
+     {
+         auto& Track=Tracks.AddDefaulted_GetRef();
+@@ -57,7 +71,20 @@
+             (IsTubeShotgunWeapon()||bUseASH12||IsRSH12Weapon()||PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel))
+                 ?WeaponReloadCamera::HeavyScale:WeaponReloadCamera::RifleScale;
+         if(IsRSH12Weapon())Track.FamilyScale=WeaponReloadCamera::RifleScale;
+-        if(IsTubeShotgunWeapon())
++        if(IsM24Weapon())
++        {
++            Track.Add(M24WeaponAssets::MagazineOut,E::MagazineOut);
++            Track.Add(M24WeaponAssets::MagazineInsert,E::Insert);
++            Track.Add(M24WeaponAssets::MagazineSeat,E::Seat);
++            if(bPendingEmptyReload)
++            {
++                Track.Add(M24WeaponAssets::ChargeLift,E::BoltLift);
++                Track.Add(M24WeaponAssets::ChargePull,E::BoltPull);
++                Track.Add(M24WeaponAssets::ChargePush,E::BoltPush);
++                Track.Add(M24WeaponAssets::ChargeRelease,E::BoltLock);
++            }
++        }
++        else if(IsTubeShotgunWeapon())
+         {
+             using namespace Super90WeaponAssets;
+             if(bSuper90SpeedReload)

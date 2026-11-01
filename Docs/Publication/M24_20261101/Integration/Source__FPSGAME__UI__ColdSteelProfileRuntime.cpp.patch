@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -53,13 +53,15 @@
+ using namespace ColdSteelInventory;
+ namespace
+ {
++// Catalog-owned tuning must also reach guest shadows and returned loot. Local
++// disk migration alone leaves old SVD/SVCH/M24 copies on stale rifle/crit rules.
+ void RefreshSniperTuning(FColdSteelProfile& State,const TMap<FString,FString>& Definitions)
+ {
+     for(auto& Item:State.Items)
+     {
+         // 枪械的类别、暴击与非枪械的固有要害/穿甲都按目录调校；旧实例缺项时读 0，
+         // 会把 M1911 的要害特化、Viper 的穿甲和狙击的弱点收益整段吞掉。
+-        if(Item.Definition!=TEXT("ue_svd")&&Item.Definition!=TEXT("ue_svch")
++        if(Item.Definition!=TEXT("ue_svd")&&Item.Definition!=TEXT("ue_svch")&&Item.Definition!=TEXT("ue_m24")
+             &&Item.Definition!=TEXT("ue_m1911")&&Item.Definition!=TEXT("ue_pit_viper2011"))continue;
+         const auto* Definition=Definitions.Find(Item.Definition);if(!Definition)continue;
+         TSharedPtr<FJsonObject> Data,Catalog;

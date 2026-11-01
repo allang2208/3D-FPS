@@ -1,0 +1,4040 @@
+[
+  {
+    "path": "SourceAssets/M24ActionLayout20261027/author_bolt_grip.py",
+    "bytes": 4251,
+    "sha256": "f4d0efd676aff88a6f9dd9d3ff8e44841c59b3205faa6117e05882bb44fb4207",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ActionLayout20261027/import_grip.py",
+    "bytes": 1961,
+    "sha256": "d6a37557ed649f07f9d018fae46c474c58bd6abeb4840a9590479f890a09b6b0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ActionLayout20261027/measure_bolt_grip.py",
+    "bytes": 1481,
+    "sha256": "3151631feba62e789cc4c2e2b90bb266f3db7c32aafbc1cf340b601e6c2ef505",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ActionLayout20261027/package_review.py",
+    "bytes": 3158,
+    "sha256": "5d7258b95108f453c539cddf6b813dd15bad51556158d1918dd533d20dcc113e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ActionLayout20261027/read_runtime.py",
+    "bytes": 1882,
+    "sha256": "5863c83564ab26f401e8d048d8dd83f613dc39f9eb6606355d9baac20c709815",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ActionLayout20261027/run_import.ps1",
+    "bytes": 1810,
+    "sha256": "db23aa2dd0ececb0df383a99d1f34867f4947da0f19f0ef64d8494500c77762d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ActionLayout20261027/run_review.ps1",
+    "bytes": 1888,
+    "sha256": "817d351b2d3d811fb82956ad511413a2d9a0cb651f76b1792359e75ebe858a3c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/DetailV2/README.md",
+    "bytes": 2936,
+    "sha256": "7e7215264cfa566139d4099243288efb8ccc8d17083ddd6b4929b4c36e4d526d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/DetailV2/author.py",
+    "bytes": 11408,
+    "sha256": "c43459e3bf6151c80f8a49c405d45005ad7c3b098c5c96ee0979e5c32509bcb2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/DetailV2/author_icons.py",
+    "bytes": 1531,
+    "sha256": "46a76ab7e017e0a4d66c83884b074b048b670d2984b532d3c0b0450f9a621bef",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/DetailV2/bake_masks.py",
+    "bytes": 4755,
+    "sha256": "b540f0ad9dc9af445dabc850ed54ea8012664edd228a8d6b89eb5a66f8f88db0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/DetailV2/install.py",
+    "bytes": 8638,
+    "sha256": "d0878be405378d89d3e8080d1b9ae839a7ccd1c4e57841ba0ff086f6d7542741",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/DetailV2/publish.py",
+    "bytes": 1870,
+    "sha256": "200cd9ce555109b62b80d8ea2a3ad364a44972036c6c510dc94cce353f595de0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/DetailV2/run_assets.ps1",
+    "bytes": 2251,
+    "sha256": "1a4e43af392193119ed3a73f7e0e0ffa5e0933c90a630ed04a9ad221318d23c6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/DetailV2/textures.py",
+    "bytes": 1691,
+    "sha256": "07c425b85dad85c2d8bc763ccf8dfbde6bd187eb1d29d1b2dfc51f735b8d3e81",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/README.md",
+    "bytes": 1895,
+    "sha256": "191b567f74c7d0d5174d6d183e4aaf3260d4a8f52e27b9e7652b5eb92b38fa9e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/author.py",
+    "bytes": 8588,
+    "sha256": "e83fcaa639962d67307c2f16e85799b79c09e17fae952c82a4ddfbb4e6b24486",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/author_bipod.py",
+    "bytes": 1958,
+    "sha256": "db64237b4476758a357e949ea23feb81ded0bea210e0cf0a7d84a03319d37ccf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/author_icons.py",
+    "bytes": 1556,
+    "sha256": "775bba9d4dd8b82d9fca860e46365b1299ac4ada8c23fdbf2748eedc2c8d4138",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/bake_bipod.py",
+    "bytes": 4807,
+    "sha256": "991bf8850262525e16d4bf7f121767d98323efee31db9637f71574d6bebc28c5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/bake_masks.py",
+    "bytes": 4816,
+    "sha256": "78a140c14ba8c6527d6f1eda3704844ba57006810323097a0208298d4fb0fbc2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/bipod_fit.py",
+    "bytes": 2131,
+    "sha256": "124443545cf19b38c118496fc9701b9869b3e53e9b37026be775b2a518a26ca0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/install.py",
+    "bytes": 12294,
+    "sha256": "2eb539b4b8df934775b56418347c581cdca8b26c8c3552197f836dee43a4c761",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/measure.py",
+    "bytes": 2676,
+    "sha256": "f75f5d81aed3bfa86615dd6895e9266acc8999bee6e7b33d431b06d6f3f6f4dd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/prepare_pipeline.py",
+    "bytes": 1406,
+    "sha256": "edaddb579e0d4dc0b2de7530bdf58dd549b08be78da8562e97f9cef10887c002",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/publish.py",
+    "bytes": 1882,
+    "sha256": "065a79957b42c71719bd02ce9129c6854363bb0f03db4fa74384c12d56d04e69",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/run_assets.ps1",
+    "bytes": 2276,
+    "sha256": "7eb0793af4a6f93288db5dc299de8b369fe4788b5e84c638489c185b3c30c219",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/FullBodyV3/textures.py",
+    "bytes": 1717,
+    "sha256": "336a4a98dc999219e7bd47d1d41c0bde29476effc00d0f5a1f0e9debdb85c50c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/README.md",
+    "bytes": 1773,
+    "sha256": "f910fd65d95b900316b81f1c5603f75b2fc3a527f0b534c908932c5f2e169009",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/author.py",
+    "bytes": 8774,
+    "sha256": "7a3efe7d76aeacc8a338daa635897f6eb106f1984dab82b6cdf041ffc906eb50",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/author_icons.py",
+    "bytes": 2002,
+    "sha256": "f59816f9f4241cd9f6ba18627c264d4d08c399eb2a933b48bc2d6fea227efcf0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/build.ps1",
+    "bytes": 1502,
+    "sha256": "7d26015089e3e56369c0cf5e2f055785104b335f78f160f3f847d057a0c5e91a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/catalog.py",
+    "bytes": 1305,
+    "sha256": "7696284ac2529b07db6534c011457a753b0810e5cf3686f57dc2699390b682d7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/install.py",
+    "bytes": 271,
+    "sha256": "13ed80054cc2b183f6638e5d50d5a74801dd5b70868483ff46192674cbeb8519",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/register.py",
+    "bytes": 809,
+    "sha256": "a4300a5598ce18b65b6ffd96b64d582d5b72119fe35c4e3b4718da59e84fff22",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/run_assets.ps1",
+    "bytes": 1604,
+    "sha256": "4cb76832201d123c460e80c958e3573635b7fceacc1c5620b89621cde36b5314",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24AdvancedAction20261029/textures.py",
+    "bytes": 817,
+    "sha256": "12f9d6a3801c1f62ee6d7f77208b6a1e13a043a0abdbf62b48e9a39ac227a5e6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/README.md",
+    "bytes": 4384,
+    "sha256": "aef6a14f0bedb0e64d6cf878e13b83c5d8c2618bfdd2e211eae3ba5a502f8569",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/author.py",
+    "bytes": 11533,
+    "sha256": "3f3a55501ba82508bc900014e41e350f3a772f80c6000ca5e1fe72decbfabfba",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/build.ps1",
+    "bytes": 810,
+    "sha256": "dfa360e68256444d12b95ec15059cd8bc4d332e5b492154963471bbbf3f42162",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/compare_after.py",
+    "bytes": 1246,
+    "sha256": "44e1058412157ab6770e7d53ce03802aa9dd1181b658f68540a9ce5464c10224",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/compare_saved.py",
+    "bytes": 1574,
+    "sha256": "13860dc048be2cf064a485204dc18d1e740cc3b771ed8c1384c051dbb7ab6338",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/compare_saved_payload.py",
+    "bytes": 723,
+    "sha256": "5261d2b5a7843ecab32982c67debd7f1772a2bc6105ecbc100730b1fc183e944",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/fit_bolt_grip.py",
+    "bytes": 4325,
+    "sha256": "54246d81b8b6bae408cb0caf75c68f9f643cba00b14890b9b9bd004b81435a6b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/inspect_source.py",
+    "bytes": 2281,
+    "sha256": "e9a7332e73716a0a311181534a3d57d5de646f95c402898e536e2e65038e8710",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/install.py",
+    "bytes": 5817,
+    "sha256": "5d1b0ab097d73bece701992fd304de273134531dd0c3d9e466e83e6b047e8f0e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/make_sheets.py",
+    "bytes": 576,
+    "sha256": "3ea0b3f7a2f1a094a6c2cb18a72acd2a74dab6b9f3be645496183c6f0ea038c8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/preview.py",
+    "bytes": 3742,
+    "sha256": "5541c0e0d8074e34ae233415c5689a6a429997bddff944ff010d887377d72bbb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/read_after.py",
+    "bytes": 930,
+    "sha256": "7c0d1e8333fcba6fb9e6c7d0deba8d6a490cf3cbab669c3af9a67bd24c92c47a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/read_assets.py",
+    "bytes": 1650,
+    "sha256": "656f9c47490f1d1a942ac59d124ef3f67827815e7883d83e713a479b0529b6d4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/review_camera.py",
+    "bytes": 633,
+    "sha256": "36c1b08cba9ca009fa955a11d47ca7189b9e6cd3d71256aad8c0eba40d7f09c4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/review_motion.py",
+    "bytes": 1569,
+    "sha256": "cd5f06451c2e5c4a721f5250b342e7eccdae4988ed3a8e230e7ee48be8a93a0d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRebuild20261027/run.ps1",
+    "bytes": 1918,
+    "sha256": "a4925083d1957f60e1206887e232acd385c833ca685e1c622a649884d0c348d9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/README.md",
+    "bytes": 1916,
+    "sha256": "d42eacf14aab5c2931401663c681e15f9720e11d4dc742a85ca29d97bfdc4369",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/author.py",
+    "bytes": 2134,
+    "sha256": "4e0f3e0b3b03f9a767b590d98cdf0abf02b6169e081c0994c533f230ed44766f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/diagnose.py",
+    "bytes": 2379,
+    "sha256": "728abf755c9386087632ef33bc85158e12a299ee9d583520ac314c6fc0aff916",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/inspect_saved.py",
+    "bytes": 562,
+    "sha256": "d46d2cd5f72cdc31b0dc24ff774acf4207cf7e06f333d5267784ed33425518f1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/install.py",
+    "bytes": 2647,
+    "sha256": "b04841ea9ddb9760870477b908463ac0124f68dc5eeeed50a87e8b3bf768716b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/motion.py",
+    "bytes": 1756,
+    "sha256": "d4ee402bae995f6cf82a77a26ba4582904cbe004a5829ac739f52bf7db1939a9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/preview.py",
+    "bytes": 1417,
+    "sha256": "7ae72333986d86a8b1ba680107fc331559f17e2aff4dc189ab53659ff2a45f58",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/read_inputs.py",
+    "bytes": 2022,
+    "sha256": "81909ecbb0f72052b44a03c6eead70480db1b73fddbc165f34210a926d6246ea",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/review.py",
+    "bytes": 5881,
+    "sha256": "91a31bc25aef5b75acacf6af8103d291cdc6646af969367be1c95b8ec02bdb06",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/run_assets.ps1",
+    "bytes": 2298,
+    "sha256": "af0f74eedaeaa162fb1744d01d2dd322e948b642d025c650adfcb776558c2330",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/search.py",
+    "bytes": 2262,
+    "sha256": "146b558be6b753065ccf00bcfee8546b6e6915c9689e57a9bfae59f49eda3897",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ArmRoot20261031/solve.py",
+    "bytes": 1764,
+    "sha256": "9913c68ad77ea756fba28f9b678bde068444ac4b78d9b2ab3016ae945c20774b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/Quick048/README.md",
+    "bytes": 1513,
+    "sha256": "140794c8d0c1fa37f71cd33c52c378a8e18b9fef215a2d3fa9ecac62391b5de2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/Quick048/compile_existing.py",
+    "bytes": 683,
+    "sha256": "21591001446f15ac4fe28dcef43f61b9ce6259e3a5318a6aa2c946a244c78e52",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/Quick048/register.py",
+    "bytes": 1402,
+    "sha256": "0461f6becd01fecdd3233e10cf3a9447438fe3e92fb25e146a17716e1874960c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/README.md",
+    "bytes": 3352,
+    "sha256": "6b64f50dccf161dc90f4598c90c8f7636baeeb0e5ed67f3da55c0885e8adb9ce",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/Review/hands_before_contact_refine.py",
+    "bytes": 12588,
+    "sha256": "34a995c775f79e9bf96d2ef40e8ecb1428793972f2720d51744d4b19b265924d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/audit_assets.py",
+    "bytes": 2737,
+    "sha256": "671a9b9258966e9a747fd963da05f74d95a80fed495b3661294f7ffc727b8217",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/author_geometry.py",
+    "bytes": 2773,
+    "sha256": "7b85d61b05643c5479d0ad9d8ed769822a07fd58409ca784177ab0b43d332c82",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/author_hands.py",
+    "bytes": 13286,
+    "sha256": "b0abb0a5a14eb6603363ef6fe17e040cbe2dc9ffd4cc4d14eeb49dadb8828b45",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/catalog.py",
+    "bytes": 802,
+    "sha256": "7ef25babb94730e1d3f33d5355de248d56ed8015afd739931bfdf91662e4dbbf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/hand_frame.py",
+    "bytes": 847,
+    "sha256": "5f04d7b230bb519986eac0e619dfad4bff3a39b83acb1004ab30427505c685fb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/install.py",
+    "bytes": 5437,
+    "sha256": "ef497a5bdf6dbd7564e173686409e827b2a6a6b2d94ef3460393249a2e3df123",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/install_quick.py",
+    "bytes": 224,
+    "sha256": "c85aa552720b09cfb03e334b2dda3c1536a2d60ccc5d44650227f0a2055dae19",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/measure_mount.py",
+    "bytes": 1661,
+    "sha256": "0512bb28969fc0cdcc58b7dd7054ad3644cdae35d21ea7f90446a276fe0ea00d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/measure_source.py",
+    "bytes": 863,
+    "sha256": "d19150345a7bf6069606789c66049205692ae97f9680405739276decd9dc3a9d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/native_audit.py",
+    "bytes": 552,
+    "sha256": "e3e5c5a12190f222e6d9c043204a9edc9ef46774873c4015d8db124032cdd435",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/patch_runtime.py",
+    "bytes": 8567,
+    "sha256": "49ca032459301aa24ec4fa310e383bdd830ee2cad883d9940030ddbb04aa1547",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/read_assets.py",
+    "bytes": 1414,
+    "sha256": "1ae1c8a5b67819bfa4cbe931e104184a3a58718ba8d883144134e992868802f6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/register.py",
+    "bytes": 1419,
+    "sha256": "26624aa5ac1a5ca34499927b8fe0b1710b056e04d4b5d2c9419c85a9025c97fc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/review_before_metrics.py",
+    "bytes": 540,
+    "sha256": "1df4f2729d3b932df11a353a2da1b575809e035366d70394d898fa41e8461b03",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/review_pose.py",
+    "bytes": 5011,
+    "sha256": "09dc4d30cf21a46aa303658349149276821bfd2a5a3dd546bafc33c2a8ebeae8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/review_result.py",
+    "bytes": 3794,
+    "sha256": "ea7537bb8fd3df6b3cb97e9ab26c1e72163215b931a1a348bdf7ccb83053aaf2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/review_surface.py",
+    "bytes": 3147,
+    "sha256": "58233be5880a3ddd855df83c619767e43d89fb44464e4b54bb7c2638d08b95ce",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/run_assets.ps1",
+    "bytes": 2004,
+    "sha256": "f699ad3907425309363b0569ec02d4b103e9976c3d6a5b04472367b21e9cdfa2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Bipod20261029/stop_play.py",
+    "bytes": 221,
+    "sha256": "0e5102b46b3d2a009e76eb9eda124bad0d41a1463df78033650dc677fb9e47e9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/AnatomyBefore/author_hands.py",
+    "bytes": 16248,
+    "sha256": "9a64bacdab49bbcbd0c977a4aa19958842dd3c27ecc666bbc6018b687d7b752e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/AnatomyBefore/author_relative_roll.py",
+    "bytes": 16912,
+    "sha256": "f3f4062591f280490757bd4df4a12b7fbde722a605d34202fe142f0685f32fc9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/README.md",
+    "bytes": 5434,
+    "sha256": "4cfee886409d3058e6e86f147d041a116ad72a8a93b3882bf54d45fcd65c0f71",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/anatomy_scan.py",
+    "bytes": 2576,
+    "sha256": "0980ecfa0f45091e962b87619b1103825ff08e8c7bf2bf2348a59935cd5948a2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/apply_elbow.py",
+    "bytes": 2536,
+    "sha256": "4998979d301bf65e83768bd28f50bbfcddb5bb15faf0550985d93db7f42aa5eb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/author_elbow.py",
+    "bytes": 3676,
+    "sha256": "e1df01c82d73982976ec54e8967d9e3479a8abe895d190a5a7a487e43e08585d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/author_hands.py",
+    "bytes": 17361,
+    "sha256": "ae2bb0eebc92278fa07056efeca7cd537414543b0aced69a6fa2a7b88f0903b6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/contact_check.py",
+    "bytes": 1996,
+    "sha256": "eb9cf0676b888b12e847e27e7f1cac6f8fdfcbd486455a82fec2dc283569aa57",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/export_elbow.py",
+    "bytes": 1182,
+    "sha256": "0b0fc0e519acac668489cf142bdf221b9f798a956cdd60d9bd4904acd912824a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/inspect_anatomy_surface.py",
+    "bytes": 903,
+    "sha256": "488753758090c712998653cd4502e9d5b7cc5e1f1aa79ec2258e2ae4095e2be3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/inspect_approach.py",
+    "bytes": 1621,
+    "sha256": "b034e13b811c909c0870770d345a65f272960f17d1ee5ef8b37c2eaac0265a0e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/install.py",
+    "bytes": 4312,
+    "sha256": "66d72f2491a361d0358da8b7a62cfca7c3dbe3624cc8fdcaa95375df8bba9583",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/install_review.py",
+    "bytes": 398,
+    "sha256": "42c6009c32bf0d4fe1cb84efdde4eea6a760ba7bd25c4f50ed92d3a88daae30d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/make_anatomy_comparison.py",
+    "bytes": 1372,
+    "sha256": "6bad2baa082adacb42f83e43ea24c3f89ecae5b89e9af2c03e34fe374f6919ac",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/motion_review.py",
+    "bytes": 750,
+    "sha256": "d386d3cc48056224bc53e9ed23a528c17c9470d04ce1884815cef1d50dd1d1a6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/package_elbow.py",
+    "bytes": 228,
+    "sha256": "4555cb2f10f994a8e5004c93036d7c2fcd18e84cbcf03aaad77ab5bdaf8db1ca",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/read_assets.py",
+    "bytes": 1827,
+    "sha256": "235fca579b3d0f788250c63fb0d4dee349176902d46d1ad4abb1f62fc6e3f06e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/read_saved.py",
+    "bytes": 3630,
+    "sha256": "eab6d0f8f0a4919d2e0d292bf6c24efb7e9895bd78baa87bc06d943b9a0e501d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/read_skin.py",
+    "bytes": 705,
+    "sha256": "149243180453af17519bacd7652e813129247111b7b5eafbfec8831aa535b8ac",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/refine_contacts.py",
+    "bytes": 5846,
+    "sha256": "5b77fb08655b8d0dfb610bdf650f3c4d763793f1aea56a17ace832368e357430",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/review.py",
+    "bytes": 6292,
+    "sha256": "589baa76d4c43cd7cff9bf5087f2574d3dd56f60daf181dbb44532a17da65aec",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/run_assets.ps1",
+    "bytes": 2127,
+    "sha256": "d251cb60e5794c0cc6b996503c06a09fe22df4b8abee86ee22749f96183dcc1f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/saved_surface_check.py",
+    "bytes": 1491,
+    "sha256": "a2a1ab580d66758b87e8e91c0ee9a50b347a7f4892f4d73febcf86ebcce9bbbf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/scan_elbow_native.py",
+    "bytes": 396,
+    "sha256": "92f4d264235940c2d9b697644cf38c752c318be19c6afd684ffbc5256e219a6e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/study.py",
+    "bytes": 1040,
+    "sha256": "f777f86c8663db4808b335432b3fe0f59372c9dd56c40c8cf3c405db3d4c9c70",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/summarize_anatomy.py",
+    "bytes": 2526,
+    "sha256": "476af2a6552337edd0caa4d58bd600db509aa08e0f1d09b61763f20c8736c402",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BipodHands20261030/variants.py",
+    "bytes": 2581,
+    "sha256": "4cabd034ed15e41c59006c2d87dcc317495ea38a6403f71c08438787f1257f46",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltMotionReuse20261031/README.md",
+    "bytes": 1245,
+    "sha256": "85299a5be20784832c5c8b409ff1c68f79626a7dcf6e44f6c7e6d2a5ac99183f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltMotionReuse20261031/author.py",
+    "bytes": 2696,
+    "sha256": "ba50632954adc80cd01b3519926c1616b25fb10cfc51adedbc98b092ab0694e4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltMotionReuse20261031/install.py",
+    "bytes": 4008,
+    "sha256": "1b2b9aa2b24deafcb2f16e2587fda7e5d76861a2a9df9f14a611af7a62175fb8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltMotionReuse20261031/motion.py",
+    "bytes": 1756,
+    "sha256": "d4ee402bae995f6cf82a77a26ba4582904cbe004a5829ac739f52bf7db1939a9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltMotionReuse20261031/read_inputs.py",
+    "bytes": 2007,
+    "sha256": "8d7d64b180120d9f262a1924fa9f37ac10f0807643be01be6166c6aa32134a16",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltMotionReuse20261031/run_assets.ps1",
+    "bytes": 2268,
+    "sha256": "5e730c424a8eb45bef601ff6a5310ce40bc6c91fe3441e1b6b7a7e55bc40c8dc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltMotionReuse20261031/shoulder_source.py",
+    "bytes": 689,
+    "sha256": "733fb04a1690fadce71f90769d752545f83e610d7bda8f64fe7440d7c60426a1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/README.md",
+    "bytes": 3009,
+    "sha256": "adb38a72b1d383a1e0dbdff2dc5fe8e46d21bf1c6790959d4f2257be2606b701",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/author_candidate.py",
+    "bytes": 5393,
+    "sha256": "7cb2e7c87296c8e354b135996989b2fbb5838a10266263b9fab3fa47e4cd812e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/diagnose_raw.py",
+    "bytes": 1205,
+    "sha256": "0e1d4430a76fe94468ddf8cb67282f78057ec368b7e8ea5c93e24a4d4fd08557",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/export_final.py",
+    "bytes": 1850,
+    "sha256": "853e4dcfab863c93d8348bcd4ada30e2c8b8e0d7c845f3ef739635a748eff074",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/fit_clearance.py",
+    "bytes": 3528,
+    "sha256": "f1f00f27f543955be2308a4616d673922f41abe1a6237d11352078ce667178b1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/install.py",
+    "bytes": 5116,
+    "sha256": "a5de8662d9d0deae321fcdf94e47ec5ff9d7ccc344bee4e1192ba51f46346c16",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/package_preview.py",
+    "bytes": 627,
+    "sha256": "c16e23b4937b9009878d64ee142241e4bb409993511bfb714b6bb8d6d0e09f3c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/probe_mapping.py",
+    "bytes": 777,
+    "sha256": "c491a01a31b2f628aeb1862b96cab5808114e3626bd233a3d50b7771d242c325",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/project_clearance.py",
+    "bytes": 1996,
+    "sha256": "f3ed561239693f2d343cff3e3460f2ffea1c6ffc051cbcb99cf7707e1b415544",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/read_fingertips.py",
+    "bytes": 1104,
+    "sha256": "026a1230ed51dba316470ab3bc6d4f147f372774ceed143c6eba692313627906",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/read_native.py",
+    "bytes": 2664,
+    "sha256": "609a10fa3effc85b3e8be7ce477782ec58c176760d2861ab0df0dc115c10232f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/read_raw.py",
+    "bytes": 1968,
+    "sha256": "99db6805eeb6959cdd218bdca7a1352c1062881a138cc56e20c678bcc04a1d52",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/refine_digits.py",
+    "bytes": 2700,
+    "sha256": "3ddbfea0981ca748869b45cfcbe7599328a9df65298673c8ca62e4cc419801b8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/refine_motion.py",
+    "bytes": 5863,
+    "sha256": "7eb2387d9cc2427d6a0e548324142c84146c3c4ed636f9943893053cac1f35f7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/render_candidate.py",
+    "bytes": 1036,
+    "sha256": "812356f4dd07c360cf99c96200eb940b04cd871b1b3fff2992f234b1e1a710ce",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/render_playback.py",
+    "bytes": 967,
+    "sha256": "9f2e1fcadf83392ad08e4f9d154195e7269ed35f2c115e1140eb8bc1392cfa65",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/run.ps1",
+    "bytes": 1919,
+    "sha256": "f7edd594f5ca241e4ca8d2855b24d5daa5392855c1733f2ab9500f6b13c1ff8f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/surface_after.py",
+    "bytes": 1064,
+    "sha256": "73740ea5fb4c8c609ad7cca9205f2df93804822607a522d5db68131a346224af",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24BoltRematch20261027/surface_contact.py",
+    "bytes": 2472,
+    "sha256": "28bf320a1ee96c4120a5a3ef2c5a0ef1deeabdc536fd342663a0cca9d9839290",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/README.md",
+    "bytes": 1997,
+    "sha256": "67ac37a76841546389dc845063adc998214814bb97d0743676a31f97d43b6ffd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/author_icons.py",
+    "bytes": 4196,
+    "sha256": "3cb443a5dbaca124d5ccdafc85d637079db0cd7d5a2cd182861372001d1c51cd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/author_surface.py",
+    "bytes": 4743,
+    "sha256": "46b47a3b04e7d3a734447db434a49d75ab04193e8456e75cd40756a09bed4907",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/build.ps1",
+    "bytes": 470,
+    "sha256": "c968387655d89a8abf73061c1f9639b7a867faaf56756dfa631939018eece424",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/catalog.py",
+    "bytes": 1081,
+    "sha256": "8e480c724e23968908c84cbc7a6fbed6d98515d1ab8f4cb29e9d47ced5242b17",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/install.py",
+    "bytes": 5134,
+    "sha256": "b4b01abc08417865c37fef23c82993133b997cea442183c57342ab249ecd025f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/read_inputs.py",
+    "bytes": 928,
+    "sha256": "a17c22f6ee1f75a941a55f36cb04e944df91c7500c52024d4c8c96997e1627e8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/register.py",
+    "bytes": 916,
+    "sha256": "ef1dd7664d38412d9a9c1c84c15e7038842d7d449f55090fd23fe6bfb2bf9083",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/run_assets.ps1",
+    "bytes": 1653,
+    "sha256": "174bce15e09c9744672cc2cee8b7cf766cf7a989e40cc84910cd9d3edfcdb316",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CarbonBolt20261029/save_imported_mask.py",
+    "bytes": 341,
+    "sha256": "276975ebe86db162de2c01f135a67481700675ee8528c388809dabb6c20d4041",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CommonOptics20261028/author_fit.py",
+    "bytes": 3148,
+    "sha256": "95eb1a8f5fb9b2caa871b1e64118c27ff8b4c1ef3282664e2ab3a5989c3f0671",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CommonOptics20261028/build.ps1",
+    "bytes": 1936,
+    "sha256": "b47c00b860c2ca5e20acb72e86c19034fa15dafca6c7afae015d8c62c06872e0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CommonOptics20261028/install.py",
+    "bytes": 2971,
+    "sha256": "31ceccf9237bf832d6a869b6f87b1aeefb309fd91bf44f97b7efc0251c3d3d23",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CommonOptics20261028/measure_interfaces.py",
+    "bytes": 3159,
+    "sha256": "f244b2fbd965f01ffd531b89bb8b665646386d64c547c9afcfd77322fcb51842",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CommonOptics20261028/read_sources.py",
+    "bytes": 2660,
+    "sha256": "026c7ee1812eb2d5eba4dd419245b1215e14ceb1ae0e7578c5873694705dbee2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CommonOptics20261028/register_catalog.py",
+    "bytes": 2048,
+    "sha256": "c2b5fec80d7f92393195f5c12654c6ba287fcfe35a9bba673d3ee120efe4fba5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CommonOptics20261028/run_assets.ps1",
+    "bytes": 1682,
+    "sha256": "3165df47d8626166578cd905ec90b888f4944ed524717d0a79dadb29f1015017",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/ATTRIBUTION.md",
+    "bytes": 2932,
+    "sha256": "e7e866a2690b9fd14db4ad03853223e6033fdc278c8ff5018ca25f274a4ad410",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/author_assets.py",
+    "bytes": 10976,
+    "sha256": "65b6d4c593d39a621f679b24cd76d21bc9cbf89b51c3edd692f122567cd4bb8e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/author_gameplay.py",
+    "bytes": 16227,
+    "sha256": "9aa1aa004f5b1fce58ee749bbfe975b298c60ae84e502676fd2b11b56ace2db2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/author_icon.py",
+    "bytes": 2373,
+    "sha256": "cebf0e7a29a633035f92a1970a040070b8f838152123a6e696d54c21b8ec90e3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/bind_source_materials.py",
+    "bytes": 3493,
+    "sha256": "1ebe4cd4eda0c01337ecc631d085dde76b64bd5e2253455b72a731c88e544575",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/connect_runtime.py",
+    "bytes": 10746,
+    "sha256": "cfa5d1a999abca89e5abf5ddad65217a054d60ab37b7502fd6f6538619207028",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/export_v9.py",
+    "bytes": 1222,
+    "sha256": "6eb91f8e9896f17ad92644192f3d483a7e75224182b7f9cacba923143f29feec",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/import_assets.py",
+    "bytes": 11061,
+    "sha256": "1caeff3b4433d823fae91bcd7ce6e3e2b9070893f259b2e71f5e252a490bf505",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/import_gameplay.py",
+    "bytes": 4074,
+    "sha256": "58604d6f9b6fab2f75246b2d26a82d3a806ea853afad96346c97239063e71dbc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/install.ps1",
+    "bytes": 1871,
+    "sha256": "457f368c643b7df0f22f1704b620e3eabf144b26c30ceb73e6b4d683519e4cb7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24CustomScope20261026/register_data.py",
+    "bytes": 4277,
+    "sha256": "73656b985765f3a520a81ce4733e3031b798a09688386c86a8c6347cef8312ba",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DamageBalance20261028/apply_balance.py",
+    "bytes": 3234,
+    "sha256": "517f6bf4f7961e0ce677f21db5fc8be026a18509cb541a0a7a69f2a6233cf3eb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DamageBalance20261028/build.ps1",
+    "bytes": 1937,
+    "sha256": "04e9a37def4931cf6252724d3c2b28a3a657ee36ee4eca82ecaeef4b227bff23",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DualOptic20261029/README.md",
+    "bytes": 2207,
+    "sha256": "37399ec3f310711a648048bd4cfd14d4d667fb63fe2887eff67f7bb3fe284a53",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DualOptic20261029/build_incremental.ps1",
+    "bytes": 4433,
+    "sha256": "ff40ba0a8df4fda2757244421a6790c024e77d90ac0102df8e8ac6be0d7d533b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DualOptic20261029/editor_save_context.py",
+    "bytes": 188,
+    "sha256": "22280f875e343afc142097f73b9e4442a85769f8033465786acd9eea013bd9a9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DualOptic20261029/install.py",
+    "bytes": 2035,
+    "sha256": "3ef8a8ba08b2219445dee76d4437e6cf042d2332b02eb9a73957ed98fe2e3b7f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DualOptic20261029/measure_top.py",
+    "bytes": 725,
+    "sha256": "4c8ee2ddbd59af868c563cd79cdd5e5fa810c3c54e0f7aa8cf5c6ea036f26f38",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DualOptic20261029/read_assets.py",
+    "bytes": 602,
+    "sha256": "0d0811268e500422cc3f05f5367bd8b2d410b2af80c48d9946a455059a409334",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24DualOptic20261029/run_assets.ps1",
+    "bytes": 1950,
+    "sha256": "1ef59311c39e41f42a5410cf48180e2fdd67f89791bd4d457b02475b1fd76786",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EmptyReloadAnchor20261030/README.md",
+    "bytes": 1557,
+    "sha256": "8dfd253a78abe124155c64c6110833f1a3c97869eb28efe632052f4eff422fc8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EmptyReloadAnchor20261030/author.py",
+    "bytes": 1876,
+    "sha256": "89a322e9dc810c55b4e6df9ab866efa33533fd9603b078c1706d45d96becdde0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EmptyReloadAnchor20261030/install.py",
+    "bytes": 2883,
+    "sha256": "c500d3d6bd33eb15fcc449fb5709fe6e797fc39c6d9bc41c5b7b99dea6acb906",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EmptyReloadAnchor20261030/read_assets.py",
+    "bytes": 2012,
+    "sha256": "7f40d4d5f371f66403cb5aa7e3ef03d1359bd3092fb4f4a3a886d713dbf1d060",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EmptyReloadAnchor20261030/source_motion.py",
+    "bytes": 2116,
+    "sha256": "f68adba90d5c477baa5dd006f23f7e97c12f4108a5dc71cd7c979640beadf02f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipBoltOnly20261028/README.md",
+    "bytes": 1022,
+    "sha256": "2108a366f468469b88a6cab6f7f79cac9119841159777b222cb87c3001763daa",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipBoltOnly20261028/author.py",
+    "bytes": 2151,
+    "sha256": "8165efa5a9ef03e01866339bbdd192f46c034101b3a19f02529d1ae65a6cbdb6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipBoltOnly20261028/build.ps1",
+    "bytes": 1937,
+    "sha256": "a43ce087188822d7a2d337bfe895baf917b254b6bf9bfd7730c532dd969bda76",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipBoltOnly20261028/install.py",
+    "bytes": 4274,
+    "sha256": "07f72bd2eff8e7cfc3b910669a619c21936a8c9018903b67ed4560aca0ee2a9f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipBoltOnly20261028/read_assets.py",
+    "bytes": 1133,
+    "sha256": "a3d9ec815457ac9922925cb27768ea81b05d491f89d4c950e29f0c3a2c289c7a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipBoltOnly20261028/run_assets.ps1",
+    "bytes": 2112,
+    "sha256": "d55e7fb2735c25a6cc1c3d0a34f4d9f35f9df4aaf897a51160c6ef4f67c8bd13",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipBoltOnly20261028/stop_play.py",
+    "bytes": 307,
+    "sha256": "097b037fc7fd2476209be167a2b4b295c0659735d14500d7146663676136212a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipDirect20261031/README.md",
+    "bytes": 1679,
+    "sha256": "a1ff0410b60bafd766493c1ca2dd0ffea75836f4669f25794f76ad60a6a58a40",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipDirect20261031/author.py",
+    "bytes": 6252,
+    "sha256": "b580b68335cfccbf064e9c83ce4893361b23fbb9f14081df51f1d33d3addcf32",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipDirect20261031/install.py",
+    "bytes": 2804,
+    "sha256": "1e6ab0701f44da590baa75cbd5ee138dbe3e3a53070bff1f9094a1ea3ab6d03f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipDirect20261031/motion.py",
+    "bytes": 1754,
+    "sha256": "54cfa8be6d3e01b50b5e08860d080c6fc7a3226de0ea132faac8b8bbee358017",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipDirect20261031/read_inputs.py",
+    "bytes": 1680,
+    "sha256": "89d81b6ec8c3ac4c91d194c3765f4ed7095bedca126f5f5028a175b4ba7e791f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24EquipDirect20261031/run_assets.ps1",
+    "bytes": 2260,
+    "sha256": "3582684f664255dec0b9683b2ed6c9d0474caf0f98245097a06185feb61f7a37",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/README.md",
+    "bytes": 4313,
+    "sha256": "444b14020230e69089d99311facc855c13472d1fcad9aa6cc5c2a8d588c8d24b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/author_finish.py",
+    "bytes": 9507,
+    "sha256": "479571ff24e88c9e6a004e2984bc37449e9e18e068b4fcd63cfabb294c64f605",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/body_surface.py",
+    "bytes": 1361,
+    "sha256": "2a7c85532600fae2d1b01fd54cdd28e9af3150a47d755db0910da6d8c9e9435e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/build_grip_field.py",
+    "bytes": 979,
+    "sha256": "64d35a980a75af15fa9efec760a790849d7e8c7e9c3a934be613e0750e053086",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/check_finish.py",
+    "bytes": 1431,
+    "sha256": "aa41be4c9ddf480a042452736bb955607d7e6dac0ba03c23ec57725774bcaa7a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/compare_import.py",
+    "bytes": 1157,
+    "sha256": "c03f89ddb11dcbb9a77d7de5fb5da94faba866d91b6f633de031da52b91027da",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/diagnose_field.py",
+    "bytes": 758,
+    "sha256": "28c0deb2bb951c4b95652f8c4f9a6fb4cfef2294f168a2d16e13f6bab2ca3dd6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/field_contact.py",
+    "bytes": 1002,
+    "sha256": "076a4f1945fde0df04fcc0a972d4c33630b2d01400e288694f7e0319a6e1d110",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/fit_grip.py",
+    "bytes": 3134,
+    "sha256": "f71e785be2bc150560e78c3eb1bb913cd6ceb51116b41586a4417ebe4845b568",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/fit_grip_contact.py",
+    "bytes": 2968,
+    "sha256": "fe9856138e9e9f470455baa8eb4b6416a2bde439d6ed195406554575969b6352",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/fit_native_grip.py",
+    "bytes": 2931,
+    "sha256": "e27494feab578ade57f9be33dc1a4266d44a565034055d5785798742fba202e0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/grip_depths.py",
+    "bytes": 548,
+    "sha256": "61f733fbe47834830b8e017e6374d7f22e8c98c99089f4fc4657ae6b6b7bc879",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/inspect_grip.py",
+    "bytes": 1470,
+    "sha256": "ccb4a35f37ccd55e0d2848bf8ca98e9d886a75caaaa56551ff642d8a7405d60e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/inspect_poles.py",
+    "bytes": 840,
+    "sha256": "52f325d793e8e95f3ad9a68623520124d2bab26bb4fee058211a999586624212",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/install.py",
+    "bytes": 5189,
+    "sha256": "27ff6ea2b683cf0479fa66644c58473995b75f1e903d15a2a9cdac0f47123af6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/library.py",
+    "bytes": 2391,
+    "sha256": "928413f575d5a665a964e4fa162e3d40f07b6ddd3a211625cf1b8e7471172560",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/package_preview.py",
+    "bytes": 635,
+    "sha256": "aecc61f3d935e02514d5ed903be68256f2f1edf5430f79ef3298a503da8cbcfe",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/preview_finish.py",
+    "bytes": 965,
+    "sha256": "9cf75eaaf77f08ee6d9f9104660910537b47d81d97bead658e9aaba580a073ed",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/read_after.py",
+    "bytes": 453,
+    "sha256": "8c746c570516a2a1cb7ca51b9b4997e1c9949a3f865b8e242ca1b9083fce0d9f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/read_assets.py",
+    "bytes": 711,
+    "sha256": "7d36d0ebce36f584e114b2e364a33a936ab83d2a2aa5ddee835e6d03a365c581",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/read_donor_grip.py",
+    "bytes": 957,
+    "sha256": "72820366cec62d16789a5899bf4c7b28f816ee7c71d62a90f8b32afb39d0906a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/render_grip.py",
+    "bytes": 371,
+    "sha256": "bc24690a9a3a4bd835276e1c32320d96b1a0e81be44cd0226019dd57779a9008",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripFinish20261028/run.ps1",
+    "bytes": 1918,
+    "sha256": "72cf7726b947a4cff63894c8f16ac73ef402bf72a23f609f0c45bda0429d5256",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/README.md",
+    "bytes": 2850,
+    "sha256": "bc93ed2606ca45cc4c4a2e994878a4194888729dcfcc78732a6b863b4b61b10b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/author.py",
+    "bytes": 4979,
+    "sha256": "062680dd96fc8abb3f26b2943738f9a55021180e80a3c9b139b7140d88550619",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/contact_mask.py",
+    "bytes": 1107,
+    "sha256": "4d1487a07946453074107fd7b96d5335a5f26cf62f9f1c5cac846e7f96291404",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/diagnose.py",
+    "bytes": 2207,
+    "sha256": "e6b8de1c15bfe0a14da4c694097323c7fc6eeac1cbe2ce6a883fbeab15115ebd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/fit_right_thumb.py",
+    "bytes": 1567,
+    "sha256": "f8d919f5974d4fa1560db99ddcbd5bb8fe37071a43be6be7cda9c4d9bfd3a588",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/frame_probe.py",
+    "bytes": 883,
+    "sha256": "45a0b4da2976357e0cc42fb24602915beef1a59684a3953e7b4e8cf61559aa87",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/inspect_arm.py",
+    "bytes": 4346,
+    "sha256": "bec9c34a963b0589801f72e5def8bf3c29c6a85080e657bff333fcd16cb9c53a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/install.py",
+    "bytes": 884,
+    "sha256": "65382976e3bdb06926c92923ddfba7a85f910c156aedad89f6b795afbc9605ac",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/patch_outfit.py",
+    "bytes": 1493,
+    "sha256": "98f444c6014a96783f287dafb07d119fd5ceca596a4f8888261cba861dccda4c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/read_context.py",
+    "bytes": 1111,
+    "sha256": "afacd5585739043d8d857bf1cd5c11688aa8ed28e569b58a42e09f130dc5ff9c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/read_inputs.py",
+    "bytes": 2098,
+    "sha256": "c863b4d3682ca23c38f627e678e5bfee11193f2ce6187596fab30f489432ef4f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/read_outfit_geometry.py",
+    "bytes": 2254,
+    "sha256": "4401e944801d2cd937278b65e226d63047531b08f891c580537a5162029c7b2d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/read_saved.py",
+    "bytes": 147,
+    "sha256": "93450fe42a4bbd3101bbe057d9006ff3e6e573745b947be1d9593ba7982436b4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/review.py",
+    "bytes": 5179,
+    "sha256": "b368eb38665c83105f98d0d84e2b737a62d7d01f5b59c666593ca49288b88f36",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/review_metrics.py",
+    "bytes": 234,
+    "sha256": "a120797c51bf23ad82ca3458b6232cadee2d9d0f94af2cdf4f628d67ca4185eb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/right_thumb.py",
+    "bytes": 1032,
+    "sha256": "44a5bec35afe54da516d307c82d72d4c500df99982a74d47a48eaa76071d3e5e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/run_assets.ps1",
+    "bytes": 2127,
+    "sha256": "d251cb60e5794c0cc6b996503c06a09fe22df4b8abee86ee22749f96183dcc1f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/setup.py",
+    "bytes": 3175,
+    "sha256": "05886345b17669be23d89077b53071acb8d8273a9c6e3dafbfc939ce3baf856d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24GripOutfit20261030/thumb.py",
+    "bytes": 3676,
+    "sha256": "349c30401519ca993681431a012b4e4ce7f046187d61c875696fb326a35c6b11",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/author_hold.py",
+    "bytes": 6850,
+    "sha256": "253568a7e5bfa5d54e08129a7114cbae36d0319ec657a3baa07404b41e8fd9ef",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/build.ps1",
+    "bytes": 895,
+    "sha256": "0e0ccf7e5ab675c3cae9343d024042f2f753de957b322731a05642033bfaf75c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/calibrate_hold.py",
+    "bytes": 2068,
+    "sha256": "ca6f53f533b256d3097c5a8373d7725532b7e2946c5c1dd5cbb0d4d01c93c265",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/diagnose_retarget.py",
+    "bytes": 1996,
+    "sha256": "d28bb9d63916d91f01f3277e0104d55b3100937ddf30898281ab228e4b5979f8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/export_hold.py",
+    "bytes": 2066,
+    "sha256": "bf88a6b73515a128bc2eb19581db61b210895078a3590c6c512c6228ec26f6b1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/finish_delivery.py",
+    "bytes": 2291,
+    "sha256": "c03cacf39e71361507c081b760d77303f31a82e1875be69e9a25f30730e37b6b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/import_actions.py",
+    "bytes": 3888,
+    "sha256": "ee4905ea34f81ea2aded4d1680e2604ef6db16cb71f8c0fe03baf0861d5d2a73",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/inspect_hold.py",
+    "bytes": 5216,
+    "sha256": "66a1aea1b34be91d0eb3c486137f06a98ed22a2882eeb2334241ab0251c293f3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/read_donor.py",
+    "bytes": 1027,
+    "sha256": "5707fb4468c8efb97b57802508097b85d282ce5107449ee91678f923cb5f8c66",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/read_inputs.py",
+    "bytes": 2768,
+    "sha256": "91971558e37cc48fd419b041067534240102cc6d4af9c05e3cc3b83125837c0c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/read_saved.py",
+    "bytes": 2586,
+    "sha256": "9be0f2ec4cfcf83b1da78fbe7f6df587b01a6f878bd0945a1abf1f40174770aa",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/register.py",
+    "bytes": 1022,
+    "sha256": "cf68ad87dfda5216d85d1e5b58a884eeb82281e31e01a4e2fd154923dbb1cb5c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/render_candidate.py",
+    "bytes": 2303,
+    "sha256": "a6ece89d1c55e48dbf39cce6233bb1e0a6412e604065b8b023e7176b400a6649",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/render_review.ps1",
+    "bytes": 1195,
+    "sha256": "814173718fdbbb6ece3a739afbd4c686d86f0be1d31b188c4d236ab1f4e498e8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Hold20261027/run.ps1",
+    "bytes": 1837,
+    "sha256": "361a172f6fc595eea324c7a9755d114168773398b5d4a4a7a353f50067f7a37c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IconsRebuild20261031/install.py",
+    "bytes": 3720,
+    "sha256": "29ea4c0098e866186495b21dc53f881f8177d558afe7b0ca64dfc2c255fbe923",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IconsRebuild20261031/prepare.py",
+    "bytes": 1808,
+    "sha256": "45e6c8b736109201464a8e302971a908472778a3fff604e6db4212cd9b539a06",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IconsRebuild20261031/run_assets.ps1",
+    "bytes": 2298,
+    "sha256": "af0f74eedaeaa162fb1744d01d2dd322e948b642d025c650adfcb776558c2330",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/README.md",
+    "bytes": 3238,
+    "sha256": "133f0140456ae5f7e68dc72d32f2fa12c8cf3f43707bf442a886bff6ab9162cd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/author_profiles.py",
+    "bytes": 4869,
+    "sha256": "53564e2f5863836c7e1034f3331020961af6959fe444f9d64d62e240ccb3d1f9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/check_handoff.py",
+    "bytes": 2218,
+    "sha256": "1e8f23762b44c01ff89b22ce17ffdfb2701cb1527576dd2e5e8be38d9ae6c4b9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/check_template.py",
+    "bytes": 2371,
+    "sha256": "1c06f01c880f091729242b6f8f399e795aa961154920c4b77ca192d8b9309a00",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/contact_check.py",
+    "bytes": 2080,
+    "sha256": "4b78441f6022dc251d9169cd4fb0da628115cd069896ef3bd40dede4edf7b36f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/fit_grip.py",
+    "bytes": 3294,
+    "sha256": "7fe5c5a673f18e31b912b8c7ffdd614f995fa3104279f8eb29705d3f4bc2bc2b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/inspect.py",
+    "bytes": 3223,
+    "sha256": "58fd9877e746a437335e1462f2eea6ef01df1353067277ac89ea92f67fc4ea84",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/install.py",
+    "bytes": 2369,
+    "sha256": "4a5e0bae9e107038406ccc52ead2e3ad8f6c49cec22c2a5f88d7f2b783ca8241",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/make_comparison.py",
+    "bytes": 626,
+    "sha256": "05df4938ace88ab923958094a325ec8a54ee253912cebe91e73a3d1f7fcac99a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/read_inputs.py",
+    "bytes": 1989,
+    "sha256": "140458a2e8203c86800e734943e198ab39367d81c3a7cfeee6f2ccb83e247dd4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/read_roles.py",
+    "bytes": 1011,
+    "sha256": "737aa75a31739a5ee2c96733bf8574eaf32a2d0a7de9a7cb6edac515a6039034",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/read_saved.py",
+    "bytes": 1533,
+    "sha256": "53bd57f7d77a02139f6411c1f68d0e2867c89b90b0f37eb738f80e157830da08",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/render_saved.py",
+    "bytes": 1660,
+    "sha256": "ba5738d70930890854dae37136a0ea8f11f0118b1a8f389f63184c06df5b2db7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/review_patch.py",
+    "bytes": 2565,
+    "sha256": "f107efa4ac6f7ccbe9fc10472a9d244ea8420353227b44f31f8d8da60a1b3015",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/run_assets.ps1",
+    "bytes": 2127,
+    "sha256": "d251cb60e5794c0cc6b996503c06a09fe22df4b8abee86ee22749f96183dcc1f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IdleArm20261030/solve.py",
+    "bytes": 5760,
+    "sha256": "654e717497b7391e83c902a3dc47c8b88815b81a28a2256b64bb6614821366d5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IronSights20261027/author_sights.py",
+    "bytes": 7641,
+    "sha256": "49ab09245501712652724a19b9b0fda324043916f8b9c2339c1c89a1e0671200",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IronSights20261027/build.ps1",
+    "bytes": 810,
+    "sha256": "91da66d9765078bcb4eadfc065205cbe3398e7fb04c3badfb69a4700372b7e0d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IronSights20261027/finish_delivery.py",
+    "bytes": 1054,
+    "sha256": "7bb3b2090ade5e8edb3db24e816c87026b4e0171e7a7029f516700fff5ca2492",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IronSights20261027/install.py",
+    "bytes": 3727,
+    "sha256": "8cd4fa9839f4b76a31ebbf7d8efe3456cd54c70e5969f7651b2dc55d53a5f602",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IronSights20261027/register.py",
+    "bytes": 1597,
+    "sha256": "89fcb01268819a9435b5c658cac5559f7155a44409024fbe973361f5ae36854f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24IronSights20261027/run.ps1",
+    "bytes": 1904,
+    "sha256": "f34f33f6515a63f5d2fd9b97e3178c579ab6d0a7a8f8483e879544a323eb4652",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/apply_author.py",
+    "bytes": 724,
+    "sha256": "8846d85da4e11c59b9e0f3fc5e3237f083d205c8f00042102a544caa2f895e84",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/author_correctives.py",
+    "bytes": 4658,
+    "sha256": "465345a4fc9ab5ad965e7796fde8e1c6a51d441247440ea4f5f61b9cda9c0408",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/compare_mesh.py",
+    "bytes": 2777,
+    "sha256": "db4e3504e351fbab98f680f4e80d139ff0ae8909287a4bca1459cfba70ba7740",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/compare_saved.py",
+    "bytes": 1829,
+    "sha256": "0a176a9fafbdf1ffa86186f3522eb900715974660321d066d441810a260d1197",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/export_corrective_source.py",
+    "bytes": 1659,
+    "sha256": "6aa026ca88d51dda52c09847bf20c4d8367600370d03248010178b06b74e2119",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/install.py",
+    "bytes": 4585,
+    "sha256": "2ef774c640d5bb67f3735674e8c37cac4359c829ea7c327a7b1778f7ea34999f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/joint_scan.py",
+    "bytes": 2393,
+    "sha256": "f057833d0109f3c4975e667a1e110a014adcf634c906395d301974fe0586982d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/library.py",
+    "bytes": 3133,
+    "sha256": "93e1da06b551da9bdbd6f962e7a7ee53a3ac8b70bf58d37d1ba41f95a0e63be2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/mesh_probe.py",
+    "bytes": 952,
+    "sha256": "62651e61468d6412d8adf3af3521e20e2b274a5859f7fde66611a3f28f5216a3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/package_correctives.py",
+    "bytes": 1908,
+    "sha256": "d86d66c91df37da52fec956e9a34d1a13b3a0bb79439ba2083b71feeeadb8f24",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/preview_elbow.py",
+    "bytes": 625,
+    "sha256": "53705ba95d2a8cab9bfe1b4fb4b0259f424a771e0f013ae42d40b599cac4a92a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/read_assets.py",
+    "bytes": 2862,
+    "sha256": "3b7488558ff0c6c97ef424ab7c9aa090542dc04a59ba4cf78941cc7bbc8b9114",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/read_geometry.py",
+    "bytes": 1710,
+    "sha256": "1e9f90b07402618965b1971b322d7c31c2667e170364d0d4bf1976cccbf52300",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/review.py",
+    "bytes": 4311,
+    "sha256": "b2df421a84f93ef9e684795ca294b147f400fce18d5df896364b854852bebef5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/run_assets.ps1",
+    "bytes": 1920,
+    "sha256": "135fd4865ba3bb3a2448b1eab0e9b81f5674eb7637d87339e64cc4fe6a63aaaf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/surface_scan.py",
+    "bytes": 6325,
+    "sha256": "815fd8f42886110994b51272a8202d18451abd27743a218cba7e52bf3e4fdeb2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24LeftElbowReview20261028/verify_saved.py",
+    "bytes": 987,
+    "sha256": "1475952ea90954a0e40dccad444be3bece41dd8c7f8dad7cb59439a19066bfab",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/README.md",
+    "bytes": 3200,
+    "sha256": "68e35568d902187af8b2a2e5a487db4d430c85bc4ea09f16e15dfe2517865a1c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/author_actions.py",
+    "bytes": 5422,
+    "sha256": "d17d824a633ad3883f72c922ed90f797e394115abb041ee7aaa76bac15f94eda",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/build.ps1",
+    "bytes": 1942,
+    "sha256": "f609313e4db2d9ef6a8b1d018eda00910ad1125d872d886f2be61f8dc45dddd7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/contact_pose.py",
+    "bytes": 8517,
+    "sha256": "62f78c718acfb4ef62f78fbbb31640f441c1bd9c2906e0a71c5c6d8879adddc1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/inspect_contact.py",
+    "bytes": 1459,
+    "sha256": "ee930a06f8f4150e84235679a99a27fc8a2a2736a23b96c752c638e3a7bf066f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/install.py",
+    "bytes": 6105,
+    "sha256": "83568d8b8dd5779d9199ef28d8c9987283a86be95a5cccee4efeffdf8696baa1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/library.py",
+    "bytes": 3060,
+    "sha256": "a2bed3306d94237fc29c6f80aed2b48081959380253590afa41a61f3129dbe10",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/read_assets.py",
+    "bytes": 3231,
+    "sha256": "a988641ff4b042613a17aa7b086693a31faa4d1d452fd2f1dfca788c0c456322",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MagazineGraspEquip20261028/run_assets.ps1",
+    "bytes": 2117,
+    "sha256": "f920d959bf56fda71d4517d38f8a6f44f8e4808060511b591660a42376dcdaff",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Modular20261027/author_icons.py",
+    "bytes": 4449,
+    "sha256": "08f6d913f27842cff141eaf6167d489ebdf79506a0069de55224ada436fff040",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Modular20261027/author_modular.py",
+    "bytes": 4597,
+    "sha256": "2a79f7661ca5e6b0b26d4a90faa9d7f49d14e9b402d23405a6c0f9883f104c64",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Modular20261027/import_assets.py",
+    "bytes": 4820,
+    "sha256": "3e88c53473aeace3f28f9c9f72a3ae3ebcb94cec2095bd6cd62568d072b3b444",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Modular20261027/import_icons.py",
+    "bytes": 1661,
+    "sha256": "fef0898e9c5c54b0eba1205ad8e94c781a033231c7edb307fbf3c1cc44eb2131",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Modular20261027/install.ps1",
+    "bytes": 1867,
+    "sha256": "186b9ec3ce1aa59fed3a4a0386f0fe02f5c190140341a0f1ce432c844e7f30f0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Modular20261027/register.py",
+    "bytes": 4085,
+    "sha256": "df04e7ab87b5a31d4c8523d18a6104cda61936855ef94c20ca7f238a23dd37c3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/author.py",
+    "bytes": 11486,
+    "sha256": "ea19cb6ca37e2c0cfdaeade1f5827f20a6caf08446ab3274a2f4b3a760bb42e9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/author_icons.py",
+    "bytes": 4974,
+    "sha256": "1a1d345137569ec2fdadfd8c7fbaa971785f0cb585140f275911d1b755f13e6a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/build.ps1",
+    "bytes": 814,
+    "sha256": "6676c8f621f250a69eba6019f58fe3e7d97561dfbb06a5e4736a7bef573e0845",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/finish_delivery.py",
+    "bytes": 1236,
+    "sha256": "7332614d615d3e35491602740c9ceb375070166656c6aa74b84c75d58acf0876",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/import_icons.py",
+    "bytes": 2118,
+    "sha256": "809a23c6f93eb94fd75c56f4ed9e79e2f65525a5ca567e1559631f5c3784aa09",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/install.py",
+    "bytes": 6215,
+    "sha256": "87d99373579d4d9e27d2d473946c17ae0876d915b0bbb23f3c2c805741baed56",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/prepare_icons.py",
+    "bytes": 1049,
+    "sha256": "87222ecb8ed7449c226138a9d21e80900aba9740a332e4b12cc7316047a882b1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/read_authoring_inputs.py",
+    "bytes": 1181,
+    "sha256": "23008db4aeb4cfd2aa7bc5455b8eb2c67826a714d0c0fccb855790859cdde538",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/register.py",
+    "bytes": 2630,
+    "sha256": "abc53383e77253951ca900454e7902ca325e4e4907dea179922d5d21e76e6afd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionMagazine20261027/run.ps1",
+    "bytes": 1908,
+    "sha256": "8e002b52e3247064261407ebb03e172b0ebf95cb0ec9195188d59e151681bdfc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/README.md",
+    "bytes": 2697,
+    "sha256": "94929c1937d06c1a8b7642d26de98ba572db0d72c86ff149db928f35b44c40d9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/author_motion.py",
+    "bytes": 10205,
+    "sha256": "ef0a1c5fd2593197a6d000e3f491bd0eb74d6cbdf6f7bd3d88be558ea3990c4e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/author_sights.py",
+    "bytes": 8136,
+    "sha256": "036af740848e2dc236261ed562f1a7d81af57f8ff8ca9821199a7a7abe972257",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/build.ps1",
+    "bytes": 812,
+    "sha256": "77270499a68f6e12f1d0c2605da764049398f48e6b74f6fc2873e34c3ad1070b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/contact_report.py",
+    "bytes": 1251,
+    "sha256": "e2aaed1610e613eb979c019269300215fd911b74b50cf0e4d634e914ec67dca3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/diagnose.py",
+    "bytes": 3661,
+    "sha256": "cdcae1d910df75f41d2cc6665efd8335f8bbd0d1ef7679af1709b06cef851d7e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/diagnose_after.py",
+    "bytes": 3629,
+    "sha256": "c1ff3138b07b48f631ff2d2cfc6972221a0caac7f7386c188971bb84415dd527",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/fit_bolt_grip.py",
+    "bytes": 4287,
+    "sha256": "02d1dd92c08b17a8ed154daa95f8db0275157d9555e49e496ef4894700c99c7a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/grip_data.py",
+    "bytes": 1037,
+    "sha256": "251b5d06811ffe2498bb7b58dd8b07b5efa23dbdc8cc35d23439c691ea758424",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/install.py",
+    "bytes": 5318,
+    "sha256": "fc00dc7676aec4cf1b475dec6ffca4671faec941c80f301771c6bf84cf485a5d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/install_sights.py",
+    "bytes": 5225,
+    "sha256": "4fb70a84b39844f035059b0d6dc85e69d729d75e688962ce1110e99640254b74",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/read_assets.py",
+    "bytes": 532,
+    "sha256": "95a2bd7aa58d37e36f6a11351121511797e86eff93203b5591a3eceaac6c921c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/read_frames.py",
+    "bytes": 1058,
+    "sha256": "7dc19c7979087826faeb6d2898c95605df6ffe72a92c888ef4721a45c2c0f219",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/render_sights.py",
+    "bytes": 1735,
+    "sha256": "b9876bbd5514e843d1f845be292967a09dd0745537faa4d5a3ec0d7672d7e5ed",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24MotionPolish20261027/run.ps1",
+    "bytes": 1906,
+    "sha256": "a5ef839536fcffd47acf2e4df7aad6382888093e0914574b6af9f2144e5f8395",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PIPScope20261029/README.md",
+    "bytes": 1890,
+    "sha256": "50df7d2d3ef99e6b22093ed19bade29c13c6cae8d621ff0ab11701c470a6966b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PIPScope20261029/build_editor.ps1",
+    "bytes": 3394,
+    "sha256": "f9a7320dcf5780504ed1cd38506ea95bd112c7aae9f5a9a5e1a69527e602c0ed",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PhysicalScope20261030/README.md",
+    "bytes": 3183,
+    "sha256": "3f70dada2e433310d6cdcc57e30e033b16cd2450feb17479c38500486421e4cc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PhysicalScope20261030/author_labels.py",
+    "bytes": 821,
+    "sha256": "a77fff29ab8760f8858da9ca72a9aab9525034de2b3c090a5543b8485be306a5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PhysicalScope20261030/build_editor.ps1",
+    "bytes": 3410,
+    "sha256": "79d490c8515129a59465480896b1d8b76513faba7b732538998a067b91c3ba3d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PhysicalScope20261030/install.py",
+    "bytes": 5840,
+    "sha256": "1eb437c77c275098a7836c1fc4ef9713d54c5ba71c287b6bb4482cfb8bc59832",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PhysicalScope20261030/lens.hlsl",
+    "bytes": 2073,
+    "sha256": "45c176bf9c89bf2a30e6d9588ae41a745ac6a61411509b502ea8a0ed85358abd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PhysicalScope20261030/read_inputs.py",
+    "bytes": 993,
+    "sha256": "e3022550053cfdca081fb6a35120f9496c8f9cb29542508ef5878d94d7a6d956",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24PhysicalScope20261030/run_assets.ps1",
+    "bytes": 1721,
+    "sha256": "455bca4559361ae51d3b8e5ec78ebefe19f8a27d93b3f8f74828adeceaaaa669",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMelee20261028/README.md",
+    "bytes": 3196,
+    "sha256": "85e2ecea0ee2d25e6ec9df66e359fd1899cc6c49ae80dd6115dd3fa5aba03759",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMelee20261028/author.py",
+    "bytes": 11739,
+    "sha256": "9fd3849afcb868576ba8c1607803c97feb3f222582ba63db70a6ad6676cf354c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMelee20261028/build.ps1",
+    "bytes": 1934,
+    "sha256": "cc5ac0d34fa493ea6cbc478c8f95821093af646a1d490fe176659ea41d3701d6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMelee20261028/install.py",
+    "bytes": 3052,
+    "sha256": "84574a22f19a06274af23e59b1f28de87889d587b3eccc65f42329a625f6227c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMelee20261028/library.py",
+    "bytes": 3312,
+    "sha256": "341e3684cb7ca4d3135a5947dccb8ade2dae941cb2bd767c551983f75f128b97",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMelee20261028/read_assets.py",
+    "bytes": 2052,
+    "sha256": "f4bb687e75e391a914a7db7ab8f07e3155195461a0fb887304a9ea6129b6cbfc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMelee20261028/run_assets.ps1",
+    "bytes": 1951,
+    "sha256": "a4c928539f34c0717d98884dd6dc97eca26a95131cb0375c96a1e1886aa65d6f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/README.md",
+    "bytes": 3266,
+    "sha256": "906b38daf595ad55a2874c621ec57a4aea0940bd8eaf6c59b4eb9d452312ca49",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/assemble_preview.py",
+    "bytes": 791,
+    "sha256": "eb1bd76663bad04a5b324f8b670013c857c0cab35d6886163905a9efe3736fb9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/author_regrip.py",
+    "bytes": 6565,
+    "sha256": "19aee79cc668515c98bf0fd13d8ab016d428e487a561340bc0d9ad6b36c79557",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/build.ps1",
+    "bytes": 1941,
+    "sha256": "9458b5487c6d952e32b9f681949486c5e29a1ddde3b3dfe49cfa02b4d35d12fd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/fit_club_angle.py",
+    "bytes": 1183,
+    "sha256": "2c82ed0decc4fa18dfa264ebdcf60465de33bffd9f2d16481b6687493ad0a501",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/fit_club_surface.py",
+    "bytes": 7336,
+    "sha256": "256bc075fb8c667b9dbf0e75e9ca8642ed72dfdbb3286bc27d6f5f02e34dabad",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/fit_grip_position.py",
+    "bytes": 2241,
+    "sha256": "dbeb8589462a498538893b22ceb990ae9044935a05cb4002793a7ba7579dd9f3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/fit_handle_turn.py",
+    "bytes": 1121,
+    "sha256": "c0433ffcdf9965348c57aa2310afd26ede2dc200eda20cebb5315ca577057402",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/fit_registered_grip.py",
+    "bytes": 1162,
+    "sha256": "00e945ea51994803aa5d4af64668cd47a663c856adceac33a957413c20b6300c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/fit_transition.py",
+    "bytes": 3796,
+    "sha256": "355935e89b348dc30af00abc93afb9f6f9be19c92062895bdba794851e44eb01",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/grip_surface.py",
+    "bytes": 3009,
+    "sha256": "7021749afd4bee35ad6a1cb46d690cfd7d898db3252f039bdea4abd59839b08e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/hand_layout.py",
+    "bytes": 1016,
+    "sha256": "41a6a2f966862cc2634292ddf5e122e5f8a887e35b41f87f858ed2dd9b7faa9c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/inspect.py",
+    "bytes": 3585,
+    "sha256": "d91b4b56b9cad3a5af060db4d6d23363b83c0927ff4823b881d4238ba09e9420",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/install.py",
+    "bytes": 3063,
+    "sha256": "25dc042cdbcae887c4802becce7b04028557cef553e55d265f21c48177cac7a4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/library.py",
+    "bytes": 3306,
+    "sha256": "69de6a4efbfbf1fa5a18cde3fe00b2f3514b93651051f76b0f326617de746f74",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/preview_club.py",
+    "bytes": 1454,
+    "sha256": "2de63fd6f228a98cf9b40df01095a22f9778d3e40c29756db9d7bb2cbe05e7c1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/read_assets.py",
+    "bytes": 2052,
+    "sha256": "f4bb687e75e391a914a7db7ab8f07e3155195461a0fb887304a9ea6129b6cbfc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/readback.py",
+    "bytes": 2446,
+    "sha256": "6a2e630a618b6c9642f7fa536ded8cfbb7a3798392209da61f53ac5aed7a3b6a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/review.py",
+    "bytes": 1017,
+    "sha256": "b165b1521dced2013870746d8192af1d230634f8cf792b0b308c45f23e759643",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/run_assets.ps1",
+    "bytes": 1981,
+    "sha256": "6fd8baaca45f92d6807fe41cb4a6b0a351a18abad3e1beac077b26a7271b664b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/sheets.py",
+    "bytes": 576,
+    "sha256": "b9e1e85ee35074ee822ef39b97accb230b3c3bba59c5e577e126dfe4fe4896bf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/solve_right.py",
+    "bytes": 3611,
+    "sha256": "40691db04593e10a328b865ca7b12c2ee93eac7aa3328da41fd08c051f7c2bdd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/stop_play.py",
+    "bytes": 307,
+    "sha256": "097b037fc7fd2476209be167a2b4b295c0659735d14500d7146663676136212a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24QuickMeleeContact20261028/transition_surface.py",
+    "bytes": 483,
+    "sha256": "daf126da5f816f00678dd39c96cae4ab289b90bd3db9ffbd21b6d2421c744e5b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/README.md",
+    "bytes": 3190,
+    "sha256": "269180aba2bb28730090e2685ba133fa56a0aecabc68b59e361ebb9e2103597d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/author.py",
+    "bytes": 5623,
+    "sha256": "24b1f3eca63d076805e65196251562f3ab7425043f4be2f3b76085a1638d0fc6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/author_icon.py",
+    "bytes": 1202,
+    "sha256": "b3ced3617013753185163078682be06a75a8b540ebe93e8faebcd32665f2dc7a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/build.ps1",
+    "bytes": 376,
+    "sha256": "4860a3194393b529132c00916ddd0af712b9dfcdba893ec23450d12ac71e97aa",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/catalog.py",
+    "bytes": 1130,
+    "sha256": "627fa436a80c64dbfff96aa3a9bf57cc819660da6a399bd670976c8664aefdda",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/install.py",
+    "bytes": 5561,
+    "sha256": "948581c8734044e4c287b481b1621477b57111923a2476409d70b97c9e5938da",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/register.py",
+    "bytes": 885,
+    "sha256": "a8dc2e7feae7b3d31785c559ac06b3c715c99664c51014f86005cb39712ea7e3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/run_assets.ps1",
+    "bytes": 1598,
+    "sha256": "11198d154f1302fe70ee4f02b5c58e8438d3aad19fd3c4c83a6f1a95711395ca",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/source_layout.py",
+    "bytes": 1718,
+    "sha256": "ca2989cb2910dda12d04bdc21c71151a72457ee14c1bc57d52a9dba64485cd3f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RearGrip20261029/textures.py",
+    "bytes": 1384,
+    "sha256": "2b2cb9e210db7269da70313741cb164bdc1532728dcb37818046db84a9be9334",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/README.md",
+    "bytes": 2159,
+    "sha256": "cabde00594dfcfa0d383995f42a2e21bdbce4106d6eb8521d8389dccc8083b67",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/author.py",
+    "bytes": 11362,
+    "sha256": "3a57b4316c7bdf45549c44e5f613afa0023e810abb1579a5d96ae1a835cda6e5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/components.py",
+    "bytes": 946,
+    "sha256": "d3a403c5f0c9429811e74ca747e96d0089fd984e84ffa2661a9f8c406493de45",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/inspect_geometry.py",
+    "bytes": 1909,
+    "sha256": "75f5dd66ff2397f77fb2c4cb606c21a6db62af560f9cfc6bfb57fe0dc3f84d3a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/install.py",
+    "bytes": 3824,
+    "sha256": "f6dc990934eb98e37faa12a8d63d41eb5eca58ab43dcbaeedbca00da7fb3e306",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/preview.py",
+    "bytes": 1779,
+    "sha256": "027a10978026a26cebc69c51ab949f32082f28fe4292de00c15981a729853150",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/probe.py",
+    "bytes": 676,
+    "sha256": "73c42e6b10f5c5385f54bbd82fa3d6ee5e24408bf4b771dc55ca28f0ecb2cc61",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/read_inputs.py",
+    "bytes": 3752,
+    "sha256": "5eed0b078eb2ec0d27f992d6e50da66d35c5c908704fa340381087ac0654d487",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverContinuityV220261031/run_assets.ps1",
+    "bytes": 2298,
+    "sha256": "af0f74eedaeaa162fb1744d01d2dd322e948b642d025c650adfcb776558c2330",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/README.md",
+    "bytes": 2018,
+    "sha256": "6868f1922c6c9db634cb84783d634e705aa8ebebe8c37efc041c17f7681237ee",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/author_geometry.py",
+    "bytes": 13300,
+    "sha256": "17fb7bea81c2585721e6db5317482a0f20df4352d9ad769f874cac81353711a2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/author_grasp.py",
+    "bytes": 7901,
+    "sha256": "1a28e9bd3451cc125b8d674d9040b990e7463d94b11ea47c8ddbfa90ddb6044e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/finish_surfaces.py",
+    "bytes": 745,
+    "sha256": "88c686ed20e25447a62931548b519492624eebed396868b85a644691fa570544",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/import_frames.py",
+    "bytes": 774,
+    "sha256": "521009ec16fff96f64995cc7595fe452bf747aa034204abd59bcf9a94295c5bf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/install.py",
+    "bytes": 7269,
+    "sha256": "cd9c51bf413b015e0a3c40ef2cb25587a540edb775086b2b77988e8241f6fdbc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/layout.py",
+    "bytes": 1451,
+    "sha256": "9a7bb3fabd17b642328dc3ae02c266927e8266b06e3918f09bcdf465d5c8c276",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/read_inputs.py",
+    "bytes": 3758,
+    "sha256": "b7dc36f5527f1e0fcdd24fef9bd982935168a5498919416c3f374e316d154c80",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReceiverGripRebuild20261031/run_assets.ps1",
+    "bytes": 2283,
+    "sha256": "303a4f84003d6b08643b28da5b69e659d1796c26a3771e609c7676e60b1dde3b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Recoil20261029/README.md",
+    "bytes": 1461,
+    "sha256": "8a1237ee36b6cccdd7273e1c18a6df4a4226f331a0017ab2979fe26973d47c04",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Recoil20261029/build.ps1",
+    "bytes": 326,
+    "sha256": "9d164c166f772a1e024ed0de5ddf1e292905eacb14935eea4f738a4495aa95cf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/audit_bolt.py",
+    "bytes": 2127,
+    "sha256": "d0330685ec821533b2c8e1059bfbe40e78942023aa44543b93b29fbff3baa8fa",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/author_correctives.py",
+    "bytes": 4692,
+    "sha256": "8864fa0544c885b34b24fb698e6995917bd0f74fc0632ff7c02ae459d30dd02e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/author_root.py",
+    "bytes": 4602,
+    "sha256": "4dbb60b6376a644f53508e75eaad559fd1cb26c26ca701fd6c866750b08496b4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/check_root.py",
+    "bytes": 1305,
+    "sha256": "7650fe2ed3bcdc4725d2849214c04b8e48c92f6a1b1a8495ebb57dc4f52470bf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/compare_saved.py",
+    "bytes": 1857,
+    "sha256": "ac63d1faf229cdc3beb23840ecf7de856c8f3e9d1b5a6b8779c2417ea47caade",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/export_corrective_source.py",
+    "bytes": 1825,
+    "sha256": "4268a15ef2899d4b3e813b3aa0e3cf74f7010bedbe78e99bc8aa07ffb1caaeb0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/finish.py",
+    "bytes": 2765,
+    "sha256": "de0fbf5ab0aa220552ea8cbaf47399854aa50c8ddae16c6c41d7732928d5e73d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/fit_root.py",
+    "bytes": 2574,
+    "sha256": "ede73aa9a4a895d263af6adbbea1a78cb2cb518f2b709ff6cbc0f9db91b0d174",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/install.py",
+    "bytes": 3734,
+    "sha256": "4c3f717ebba164fa0d4c52c06b24d5e1bb0ce5c87806304d55c34fee6fff61ce",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/install_morphs.py",
+    "bytes": 5187,
+    "sha256": "1d9b2254273cd6547ba78673f69d05c47523600661088f2b5f78efea637954c4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/library.py",
+    "bytes": 3068,
+    "sha256": "6e105afa2c8b453d2d5cdbc798e817c7ebd3207ee9dfc91b4564e5215635c901",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/package_correctives.py",
+    "bytes": 1942,
+    "sha256": "9c050f46f7ce19a4226d558f6fe1ac179a50fa9a2d59cee70257fa3c29924bd0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/read_assets.py",
+    "bytes": 3231,
+    "sha256": "a988641ff4b042613a17aa7b086693a31faa4d1d452fd2f1dfca788c0c456322",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/read_geometry.py",
+    "bytes": 1710,
+    "sha256": "1e9f90b07402618965b1971b322d7c31c2667e170364d0d4bf1976cccbf52300",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/read_save.py",
+    "bytes": 732,
+    "sha256": "7fd15b11da78a350c2390d0a81430996d77e738072f86f0a586a82eeb20f7af3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/read_save_bytes.py",
+    "bytes": 1053,
+    "sha256": "a3301ef541897106da46778a00172b562587dace9a57bf3159daa3ad604fc6e2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/review.py",
+    "bytes": 4311,
+    "sha256": "b2df421a84f93ef9e684795ca294b147f400fce18d5df896364b854852bebef5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/run_assets.ps1",
+    "bytes": 2112,
+    "sha256": "1e24d15d04550b365fc6f6bd3e9e133eb2fa3077405cc93811a374a1e3163a3e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/run_review.ps1",
+    "bytes": 1886,
+    "sha256": "8585293548821f448f8aaa70137e3bb2506aded96da28b725f26d00156b07ac3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/search_clearance.py",
+    "bytes": 875,
+    "sha256": "b718388d6c7419603ac1a1f148deb2925d265fb3d4e6f61aa037598bafa17871",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/stop_play.py",
+    "bytes": 729,
+    "sha256": "48ccf9f29509580330abd55d00762f9e31e536e1893a9ab1bdc2cfac49fc78e6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/validate_saved_pose.py",
+    "bytes": 1793,
+    "sha256": "ef8886e27609753f0afbccca270eae492a0fc7da85673e7e6b82847e5890bbd2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadBoltFix20261028/verify_saved.py",
+    "bytes": 2163,
+    "sha256": "78fb40c0080bab71760f8c22cc7cb1932c6359afb812c729815d4f2202e8eba9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/README.md",
+    "bytes": 2762,
+    "sha256": "6993814ed281abc03b316ffaa62ea4dc8c22ab8f5c5eae209bb9a7ab39cbc169",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/author.py",
+    "bytes": 5962,
+    "sha256": "1eaf8b1ae38c6968c1852e146527c4be90550579ba771b4d8088fa30dab63f8a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/diagnose.py",
+    "bytes": 1924,
+    "sha256": "a4fc1c891556196d68bddc146491f503281456fcc3f057508201529c437e90cb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/diagnose_cache.py",
+    "bytes": 730,
+    "sha256": "90c67dfeb11200332523df5fdbce51880c304fcc387f558ceb9df0e2d3a4cbfc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/inspect_support.py",
+    "bytes": 635,
+    "sha256": "3e8a4e60e1edcec479218bd05a4eaf4185fb4de1138ac71899134243c7379078",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/install.py",
+    "bytes": 726,
+    "sha256": "e2e66a9e7136edc13c4111e5a6df339b9a51f8d2e9ebe77a3a7e0af708c277e1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/read_inputs.py",
+    "bytes": 521,
+    "sha256": "70738455dabfcde2d6c2579500a4a780cc4cb48ed989a7cfbcfe27be6243e977",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/review.py",
+    "bytes": 6093,
+    "sha256": "4f02e967bd822ceb3140313fadbb70f0f01c097f8f5d47db67b9deaedf22e51a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/run_assets.ps1",
+    "bytes": 2127,
+    "sha256": "d251cb60e5794c0cc6b996503c06a09fe22df4b8abee86ee22749f96183dcc1f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadCrisp20261030/setup.py",
+    "bytes": 462,
+    "sha256": "19a5b09d21b58ba7c7b54928994cf49e8d4c6dc4385751754fa52cfbb9fa1bef",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/README.md",
+    "bytes": 3394,
+    "sha256": "c12b3c04ae1f2ef57911f11c1c1c2478f392153299554381f0f0895a4d41c8a5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/author_flow.py",
+    "bytes": 8792,
+    "sha256": "d83a19b777dd50539b500046a754bcb4642ca3e75d2b0be6f8a0e6bb398602f7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/contact_sheet.py",
+    "bytes": 917,
+    "sha256": "d0583609574a43f9ee2a055f041bfd5cd4a97d05aa197f736df060b8ae67d7b7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/debug_pose.py",
+    "bytes": 1882,
+    "sha256": "841891c97edaf80466a555554dfa5057e961a0ec851a379f9538a0c06c17d74a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/inspect_source.py",
+    "bytes": 1120,
+    "sha256": "b04b182a5543d7b1a3cb485f3943ab534c4b92895623860c86ebd4ae6fa6c132",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/install.py",
+    "bytes": 3524,
+    "sha256": "18b479294127f21df9ccc1d7feb88bb34a9bf0213cdcf03bbf5b1c50b2e94431",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/library.py",
+    "bytes": 3058,
+    "sha256": "cbf050ffc18bbb22c8fdbe9d6a555490f76e593c31a610468d80dd3009ed1f81",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/motion_review.py",
+    "bytes": 4919,
+    "sha256": "806052adc2cfe20e1b43d040e4c201042693bd76cf2ae7fb683bf1b0f12118ed",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/package_preview.py",
+    "bytes": 675,
+    "sha256": "5f8ee448221af9e245a0154e922c29edd9776ce793077b2cd44327126978c6e1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/read_assets.py",
+    "bytes": 3231,
+    "sha256": "a988641ff4b042613a17aa7b086693a31faa4d1d452fd2f1dfca788c0c456322",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/readback.py",
+    "bytes": 2103,
+    "sha256": "eaa7c1f402f4e5df8a246376603bd6cd8bf46bdd74d04c502ba6fd685b4ed0d7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/review_flow.py",
+    "bytes": 2900,
+    "sha256": "be2f1466f94f0d14abfb930036343407cb62de1e9814bb4af7fd109cf93a204b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/run_assets.ps1",
+    "bytes": 1974,
+    "sha256": "30940e7fc4069f8f3aa77fded6c72ed8caf0a141c88129dd4989b1e25a7faacb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadFlow20261028/stop_play.py",
+    "bytes": 307,
+    "sha256": "097b037fc7fd2476209be167a2b4b295c0659735d14500d7146663676136212a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadGap20261029/README.md",
+    "bytes": 1686,
+    "sha256": "c3a124dff642793dbdec23cd4b64840a8f4193b1d30bdb91c6a0d8a9af801a33",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadGap20261029/build.ps1",
+    "bytes": 1933,
+    "sha256": "1420adb322cb0f1125389f71f070db4df2c323a6dd8e12d7b2a649b3ad5c12fd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadGap20261029/build_incremental.ps1",
+    "bytes": 3806,
+    "sha256": "fe49272328260ef935698084e21cdb875e1c33131fb8d2e440961bca1f6b6d0c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadGap20261029/update_catalog.py",
+    "bytes": 1223,
+    "sha256": "aa030f1ff4ee80fd9af411cbaaad5f4bb77f41a71e63b45c97022cd91bfd3f42",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/author_reload.py",
+    "bytes": 4017,
+    "sha256": "0c92d742f33f0791c1c3db46d02ed74e7f3f34cbe4fceef9bbb003bda3328765",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/build.ps1",
+    "bytes": 1936,
+    "sha256": "e3db3a657e0e365ec402af273d28a9d03fa39463d15b6b503e15f4f398729ba5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/contact_study.py",
+    "bytes": 1047,
+    "sha256": "7502f6859d6baf4fb8228de567202f1149caefbb139b31af3d56eef6e128a208",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/fit_grasp.py",
+    "bytes": 4152,
+    "sha256": "3a6ee39128a54d3ac1e530d43de328f655102e0f3987598a2c762cf8780815fa",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/grasp_candidates.py",
+    "bytes": 1043,
+    "sha256": "8cae7a872b4616ceea5fc1483d872202f4096119123882802d20678056848c44",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/inspect_source.py",
+    "bytes": 889,
+    "sha256": "a21488ff4142f11aadc77abe777222810f1ea8eab2e74eaf8c488c703e7138e4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/install.py",
+    "bytes": 4304,
+    "sha256": "194e28b870f95dad7fa370c44677559c8bf69ad8057f81e5205fd2861807ad1a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/library.py",
+    "bytes": 3059,
+    "sha256": "871fe90e12583bfc2c074c3a6d8efcf5ff094a3ebc19ab2c26b229d4656320de",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/package_review.py",
+    "bytes": 1724,
+    "sha256": "dad72bd96856810e5b459201f53f9e868891c54d098681839c38c476f3e612f8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/prepare_cached_source.py",
+    "bytes": 601,
+    "sha256": "649c4569344e33097314ea4e15437fce0735ca37d7ed62cfe3ec71ff16fd0e6b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/read_assets.py",
+    "bytes": 159,
+    "sha256": "d57f08992f30ad0952fcd6b599c4d5d9d98876b237b038208b2f463dcadccfee",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/register_timing.py",
+    "bytes": 738,
+    "sha256": "699b7d25302140bddee01272957f8228d36e663449b5564da78a55087e4cd73b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/review_motion.py",
+    "bytes": 3201,
+    "sha256": "5cc92e9aa82ac98ab50e9bd9f11e729a8c3124ed02526625efef1aa15cbc78c3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRefine20261028/run_assets.ps1",
+    "bytes": 1738,
+    "sha256": "573e4aefb0a511e71c2b822d39be64f0bda4e47c6a009af2ef4217ead065354d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/README.md",
+    "bytes": 2417,
+    "sha256": "c1d8d56b9f3f319e4e88738d76e142cbf39fad9cafa12dfa01cbbcb280e21def",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/author_release.py",
+    "bytes": 7135,
+    "sha256": "cb5df43adfce3fdb3ef288337d56751b936603c8271552259d041f834b6eaa2a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/build.ps1",
+    "bytes": 1937,
+    "sha256": "4c6c17764bf8d31da19c0340b6e22969f34df1d03e7cdc3ab0eb856317fa43e8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/install.py",
+    "bytes": 3432,
+    "sha256": "c9cc091e6615aeec9698c3ffea8ad25aa72f48b362a1869c6fe9e51b48a80f41",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/library.py",
+    "bytes": 3065,
+    "sha256": "977b8b24d0084eab7902b66bed52482eb9c8e1575e0c8821f939acbf709a1470",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/read_assets.py",
+    "bytes": 3231,
+    "sha256": "a988641ff4b042613a17aa7b086693a31faa4d1d452fd2f1dfca788c0c456322",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/read_reference.py",
+    "bytes": 2055,
+    "sha256": "728792646fd0d35f64971c6149df755cb10aeb08d9f63b92c1d3d93ab12e1ee0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/register_timing.py",
+    "bytes": 1893,
+    "sha256": "e6fa87e483cbcaa230c9c4c50aea0f32bc9b955f9a4385c1d5915a6d9783df8e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ReloadRelease20261028/run_assets.ps1",
+    "bytes": 2112,
+    "sha256": "b706568ebbc32cccaa2e14bd004d5d0c1ec1c9b2966b77491de34a552042992d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/author_icons.py",
+    "bytes": 4450,
+    "sha256": "1a75961f47264b47b5d010ab90fcd0b83aada74a8f9e75e49453f7cb26e5d611",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/author_repair.py",
+    "bytes": 6161,
+    "sha256": "eea5257f5453207f13a5ce634152a83ae46ea7f2afbcb708845cd6a3b51a8bbe",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/compare_sources.py",
+    "bytes": 2447,
+    "sha256": "6c5e9b3a8691c59bccfa655356081773352afc3e7a90caaa8b0f2d607fe12b15",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/finish_delivery.py",
+    "bytes": 3406,
+    "sha256": "ad61f6eb185f8e30cd4ecb4a2807809f50841dd3d649bfbfba78eed28a7f8209",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/import_icons.py",
+    "bytes": 1815,
+    "sha256": "a11eac6d124f0936df22f9893ec96f5ef85401ebc53a3c54bb5bf00f7ce03813",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/read_blender.py",
+    "bytes": 1531,
+    "sha256": "0c87e752b29309e6554e8f0762dd2d97732127d867598490b54aeed7055c4639",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/read_ue.py",
+    "bytes": 3126,
+    "sha256": "594381c61ee70791d9c415baea56ef1728ca8063c77f99a42133a04100e7fa96",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/register.py",
+    "bytes": 1170,
+    "sha256": "bdb6817931bf6b62621e526062c31fa7d4f37bde68fdfa24537d066bfdb93cd2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/render_catalog.ps1",
+    "bytes": 1243,
+    "sha256": "daf3dab591e3506009ee40bd4ab6cb0fe4f6d4e69a00e7f43b2d68b9c366d1ea",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/repair_assets.py",
+    "bytes": 7086,
+    "sha256": "c736e94831b53c86d36955379592b9c98541ad7b6cb0e0ba64f2d9ce9d94c1af",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/repair_glass.py",
+    "bytes": 2432,
+    "sha256": "ca98dfe66a6aa5dec670ff0da76e3accf0ae65ecc286fc2b4ad8c4b8d84f9a64",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/run.ps1",
+    "bytes": 1882,
+    "sha256": "209f86dc4438e60e7adb5aa53132289afb8d31fccc0d069465232aeca89a4761",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Repair20261027/validate_ue.py",
+    "bytes": 2359,
+    "sha256": "ed120d911862db5840a739f7479e6970b14154f355c55c0fa38e15fe3d96dbb1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripCheck20261031/audit.py",
+    "bytes": 5762,
+    "sha256": "477774ebef5a01885ce0ee763da9f7d721c2db23d8cb42e67532ab2ece7aed62",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripCheck20261031/corrected.py",
+    "bytes": 5700,
+    "sha256": "8fb0ab2df99cd4950b09b0bb5825268da7c37477bbd3aca192517d35f9c209d1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripCheck20261031/motion.py",
+    "bytes": 1756,
+    "sha256": "d4ee402bae995f6cf82a77a26ba4582904cbe004a5829ac739f52bf7db1939a9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripCheck20261031/read_inputs.py",
+    "bytes": 3030,
+    "sha256": "35e3d799aae91978798f02bf21ea107d2acb499cceda14a024de9684f19a74ff",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripCheck20261031/read_materials.py",
+    "bytes": 950,
+    "sha256": "1ad8b1f2fdc516080b5282d9dd41a538cbc9e93ae76d1dc0d23f8d2072a74bb9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripCheck20261031/run_assets.ps1",
+    "bytes": 2332,
+    "sha256": "b0baa281788196f0ac9d3fc5ef3d8c76a748d918b3392c2ef8bf92c94239baad",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripCheck20261031/sweep.py",
+    "bytes": 2461,
+    "sha256": "b02c54fefcaf716527514191da03c5fd5be441b78fa1dcd4c6270bc364398274",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripCheck20261031/variants.py",
+    "bytes": 843,
+    "sha256": "e9a6f07accfafaffb7e89110c7c99c9bc352e50a57494b29e74d380ca23d2d41",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripFit20261031/author.py",
+    "bytes": 4418,
+    "sha256": "341ee1c2de64c0c5aff18ea4f192e50077b6c1a7497bb6d255e3d500c2092ebb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripFit20261031/fit.py",
+    "bytes": 8738,
+    "sha256": "b41341c767bbd5b91bf268fb1c385d1416f44e7ac30c15db08585e3e0b555f68",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripFit20261031/install.py",
+    "bytes": 3550,
+    "sha256": "7b55f8e20b72e0893531b9bb3d31e67e76f2de652203617e9e4f04288f629f83",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripFit20261031/outfit_contact.py",
+    "bytes": 1157,
+    "sha256": "ed80d81ce2e47beb5e019e0b86a97cb51e4e3b06250d42ea165ac31eeab0c0f8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripFit20261031/run_assets.ps1",
+    "bytes": 2298,
+    "sha256": "af0f74eedaeaa162fb1744d01d2dd322e948b642d025c650adfcb776558c2330",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24RightGripFit20261031/thumb_polish.py",
+    "bytes": 1719,
+    "sha256": "e88818401722ded5247dc9c0023039c412a8c3c7daf99f1276c8a5db9fad30ec",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ScopeDetail20261028/README.md",
+    "bytes": 2691,
+    "sha256": "3ae8e6616cc41bc4c10be7915a6c36348126660ce954ced0fdf31a873511972b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ScopeDetail20261028/author_finish.py",
+    "bytes": 2460,
+    "sha256": "074288ad49a7bb73f1622c9495b2dbb40da4940c3c3ee777b5e70bf0a2952838",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ScopeDetail20261028/build.ps1",
+    "bytes": 1935,
+    "sha256": "df84f878a60ac639dd676aaa5e77c2494b8c90f12a1c3b3a0321de15e01bac48",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ScopeDetail20261028/install.py",
+    "bytes": 7315,
+    "sha256": "a5778fa931727ef1b934faa2cbacbf12b767c20bdb143319d597332e757bb8b4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ScopeDetail20261028/read_assets.py",
+    "bytes": 1534,
+    "sha256": "a85b779fb853fdfa93cd861e1bafc6ab2bfc5752bc0199a12d4b3037d747788b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ScopeDetail20261028/read_source.py",
+    "bytes": 1560,
+    "sha256": "13a598d05452e8533f1249644e2856337d2e656eb1ea2bda70b7191e109aca09",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ScopeDetail20261028/run_assets.ps1",
+    "bytes": 1952,
+    "sha256": "386d0317865cd7949e7dfd759015aa273a37c91fee5361f90b593baab98b61bc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SkeletonStockViews20261031/README.md",
+    "bytes": 1463,
+    "sha256": "7b41c554bba9d9cff4c55b4711d7825a98c0f1729aea02330ed9c77c8f81527c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SkeletonStockViews20261031/build_reference.py",
+    "bytes": 12535,
+    "sha256": "bb891e1c45d7433fe82e0c5a6a2dc9e33ada89d14b0eb69de9f7393eaf3f9b67",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SniperSuppressor20261029/README.md",
+    "bytes": 1770,
+    "sha256": "8ab5175c803e331605eee3114ac6a936285242cca7bd9fab5f607271f8420beb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SniperSuppressor20261029/build.ps1",
+    "bytes": 324,
+    "sha256": "de3479a547e7b57f2aab71c014eafaece143e044e77dbea564571471d7bdc8e1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SniperSuppressor20261029/catalog.py",
+    "bytes": 958,
+    "sha256": "9cd5f7ca7181f75e527005203c1f722f941c42f3bd38b5565c10fdaa5243bdad",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/README.md",
+    "bytes": 2510,
+    "sha256": "04d78f4f799841dcc6a5e55f5fcd5f65b213f131fe1b73f66a267060e2ff9e0e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/author.py",
+    "bytes": 3497,
+    "sha256": "c8a722cae313679dd5031b4fcb6e738fb6abe86bf80a65618eb972f498a4d560",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/diagnose.py",
+    "bytes": 2270,
+    "sha256": "153412bc5e0d106952a57f79d8013f466d476a5e37053cd32e2647b4ae320cc1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/diagnose_saved.py",
+    "bytes": 352,
+    "sha256": "de608b2ae4a0db97d1af5708201c169ac49c97225510fc27e3399ea0c50c0e1f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/install.py",
+    "bytes": 733,
+    "sha256": "ca52577ca141b78f9df47732c78b5e904e7b12e4708c02188ebacee5c37dc1b4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/read_inputs.py",
+    "bytes": 521,
+    "sha256": "70738455dabfcde2d6c2579500a4a780cc4cb48ed989a7cfbcfe27be6243e977",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/review.py",
+    "bytes": 3548,
+    "sha256": "cdaaa536cb172e822572666f8f9250c59cda8264053851a349c26bc6d344bd4a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/run_assets.ps1",
+    "bytes": 2127,
+    "sha256": "d251cb60e5794c0cc6b996503c06a09fe22df4b8abee86ee22749f96183dcc1f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/setup.py",
+    "bytes": 462,
+    "sha256": "19a5b09d21b58ba7c7b54928994cf49e8d4c6dc4385751754fa52cfbb9fa1bef",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintArm20261031/solve.py",
+    "bytes": 2186,
+    "sha256": "748a94ac5c26d2466ee410fde5fca077801de1de3562ffdbb3a0b894a2aa9866",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintReview20261028/library.py",
+    "bytes": 3059,
+    "sha256": "b24c60cba7bdfb2d3eecdce053bd70796eec62a0a9c5e0fedc5bd91bad7e1d42",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintReview20261028/package_preview.py",
+    "bytes": 1310,
+    "sha256": "d0c2393f5f252f39f73a4cd2a5d5632644167f714c8a26bca19b4e7452c2f3a3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintReview20261028/read_assets.py",
+    "bytes": 2300,
+    "sha256": "256293462586d0116361b841fc51cbbed3999e198c976b8cf1918b0c4c457878",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintReview20261028/review.py",
+    "bytes": 4311,
+    "sha256": "b2df421a84f93ef9e684795ca294b147f400fce18d5df896364b854852bebef5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintReview20261028/run_assets.ps1",
+    "bytes": 1738,
+    "sha256": "e510877161298c0212af65f08bb2dfc3b58b629fbcdcfd1089bca7dd291b6c31",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintReview20261028/skin_review.py",
+    "bytes": 2161,
+    "sha256": "fe72e095bb4ad531ed993f5e6a81dba8029f51ca5045fc272e23fc3b4c3dd7d0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintReview20261028/timeline.py",
+    "bytes": 2149,
+    "sha256": "b40d921eb2dcd13595ddd882b1cab444f1fa22e7209308f9c5c8bf70510de570",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/README.md",
+    "bytes": 2983,
+    "sha256": "c65d3ab785beebf14cdb83e1abf251383db3151e9d33c848de966546d65d8a39",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/author.py",
+    "bytes": 3583,
+    "sha256": "162437ac83bceb392be6fdf4159771ac3764ccc2ec20fe5fbec37186afb0ef95",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/diagnose.py",
+    "bytes": 2270,
+    "sha256": "153412bc5e0d106952a57f79d8013f466d476a5e37053cd32e2647b4ae320cc1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/install.py",
+    "bytes": 718,
+    "sha256": "ed8125a0f049c342161c20e11e32ab725beca84cb57ed7ffe76ee495d44271c2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/probe_body.py",
+    "bytes": 1495,
+    "sha256": "d227a729c2d7a09ffaf4223202702dc772cb0e998e7629d9654ff8f979386ab4",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/probe_saved.py",
+    "bytes": 445,
+    "sha256": "d00fec11af95d7cd96e045cb500f0fc4f8925971bed4a5f89fe1984dee2d37bb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/read_inputs.py",
+    "bytes": 521,
+    "sha256": "70738455dabfcde2d6c2579500a4a780cc4cb48ed989a7cfbcfe27be6243e977",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/review.py",
+    "bytes": 3939,
+    "sha256": "b3404d68d9ff44fdca3adf8c003befc122c09affdfa80e9a03ec9ddb22973a8e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/run_assets.ps1",
+    "bytes": 2127,
+    "sha256": "d251cb60e5794c0cc6b996503c06a09fe22df4b8abee86ee22749f96183dcc1f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/setup.py",
+    "bytes": 771,
+    "sha256": "859759b1c6e1646db91deb92bddecab4dea6105b99ab3847d890db417c20349a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/solve.py",
+    "bytes": 2307,
+    "sha256": "52ae5554dc491c29cf3b381c8f8f683d584e542fe99f3ac160f24b8416988381",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintShoulder20261031/surface_review.py",
+    "bytes": 2583,
+    "sha256": "7a34ed265f65687ec695d116bf9891a09743c647f1c4b8379dfa1dfbfb942a76",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintSupport20261028/author_sprint.py",
+    "bytes": 9254,
+    "sha256": "74cd0c271937041e9cad3d283317d2c61e5919ea204d556d15e069532bb86233",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintSupport20261028/extract_reference.py",
+    "bytes": 981,
+    "sha256": "a6509087878991f3140d28693de9f3be0b284b7351a537ad9b5ebf4f08b879b1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintSupport20261028/fit_carry.py",
+    "bytes": 719,
+    "sha256": "2452a38ce2ef59cd31490168fa5479606853a153d070b3c60536dd25a8e550db",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintSupport20261028/install.py",
+    "bytes": 2872,
+    "sha256": "787368fd839ac1c9631727d6afce8b7e44217854130567e42d1199a048c73402",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintSupport20261028/library.py",
+    "bytes": 3059,
+    "sha256": "b24c60cba7bdfb2d3eecdce053bd70796eec62a0a9c5e0fedc5bd91bad7e1d42",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintSupport20261028/read_assets.py",
+    "bytes": 159,
+    "sha256": "d57f08992f30ad0952fcd6b599c4d5d9d98876b237b038208b2f463dcadccfee",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SprintSupport20261028/run_assets.ps1",
+    "bytes": 1739,
+    "sha256": "0094e474f98196581fce3274145d88bcda154a160ecbb8d438fca408044f7567",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockContinuity20261031/README.md",
+    "bytes": 1319,
+    "sha256": "99b984a119a1907bec2879e6fb502c6a9be454e5f322b434816923490d59ef8a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockContinuity20261031/author.py",
+    "bytes": 9946,
+    "sha256": "4454ab7ecfc4fabe2c4070f741b51b71b765dffd15bfbea11e3084bac820a5ec",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockContinuity20261031/inspect_source.py",
+    "bytes": 2470,
+    "sha256": "208594afd4a4da7e9f7fc9ff2f697ab380f2f961f71e25a83d1c43f3c5a333fd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockContinuity20261031/install.py",
+    "bytes": 8881,
+    "sha256": "9ea2a0fa91a30c49b0a84c9ca9fa270c1800b7f1f9db0e97883614bb0b44321d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockContinuity20261031/preview.py",
+    "bytes": 1611,
+    "sha256": "529376f40f0ce91c3960f883538a49939d9ce86f426e92cf2b640ee46a97fd6e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockContinuity20261031/read_inputs.py",
+    "bytes": 3752,
+    "sha256": "5eed0b078eb2ec0d27f992d6e50da66d35c5c908704fa340381087ac0654d487",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockContinuity20261031/read_materials.py",
+    "bytes": 1036,
+    "sha256": "60c239ab804f27e028f3643f2d5e546801e3f7703d580dc32d64f9853ad8c0d5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockContinuity20261031/run_assets.ps1",
+    "bytes": 2298,
+    "sha256": "af0f74eedaeaa162fb1744d01d2dd322e948b642d025c650adfcb776558c2330",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/capture.py",
+    "bytes": 338,
+    "sha256": "18c4dcca5e207d2b83f74ca7f89291728e4f2ad8e9cef7b0046bdd7abc496253",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/capture_frames.py",
+    "bytes": 6137,
+    "sha256": "a2a12ea4f0c156fb0194b54b967a40eefb2ea8559be5a506e2954d833413aa10",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/compare.py",
+    "bytes": 3763,
+    "sha256": "83d3d9a8a292f2ebf5f4cdf0c336e7e3022f9536f0494690bf4636c11432b922",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/finish_review.py",
+    "bytes": 338,
+    "sha256": "18c4dcca5e207d2b83f74ca7f89291728e4f2ad8e9cef7b0046bdd7abc496253",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/read_inputs.py",
+    "bytes": 2351,
+    "sha256": "6b671ec8cac0827c283c8c1aca158efa0334a944bafebdf809291c079a8557cd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/repair.py",
+    "bytes": 2636,
+    "sha256": "a2f76a18bd6866646e98dcdbca6226335c87ab432bcfb62063352afde8018632",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/repair_weather.py",
+    "bytes": 1856,
+    "sha256": "270dc51d649e34b7bc9553c6b2187d2a319e42a728cf77c1518e20c36281656e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/run_assets.ps1",
+    "bytes": 2324,
+    "sha256": "fedfe253b7c32753ae21a0599bde7d1b34fcc57cca3c297fb59e3d9697ca351f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/run_capture.ps1",
+    "bytes": 2349,
+    "sha256": "2749526d7bdbf71fa1cbc478ea10b5fff9e50609c5771015f87e1c9f7b71195c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/Review/run_native.ps1",
+    "bytes": 2359,
+    "sha256": "03ab0a873f9a4d12e259e70753aa87234b325903da6d925accfa81774b7aa396",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/install.py",
+    "bytes": 6486,
+    "sha256": "433348d2763e4b14f8741993a0b178c9e2048cc112b62dc4359cfd1062453bc0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/read_inputs.py",
+    "bytes": 2351,
+    "sha256": "6b671ec8cac0827c283c8c1aca158efa0334a944bafebdf809291c079a8557cd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24StockMetalFinish20261031/run_assets.ps1",
+    "bytes": 2298,
+    "sha256": "af0f74eedaeaa162fb1744d01d2dd322e948b642d025c650adfcb776558c2330",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SupportGrip20261027/author_grip.py",
+    "bytes": 8361,
+    "sha256": "ba9fb80df6cf9e698fbd1d76e23807fe7246d3d083c125e92b7a99ae153d7e20",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SupportGrip20261027/build.ps1",
+    "bytes": 811,
+    "sha256": "646326ddc904f6dcd9fa9133cac795a95b62d5d76afd3ce55326757fd46b6a79",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SupportGrip20261027/finish_delivery.py",
+    "bytes": 1108,
+    "sha256": "fcecb5b6ea4aedd68e0dd7eec56002ea6817f21932048aff719da4d77704852a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SupportGrip20261027/install.py",
+    "bytes": 5251,
+    "sha256": "c27a3e00a721664d0d3a1de1f579a164bbbf918ed22b6f1997da51a7ac477f59",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SupportGrip20261027/read_inputs.py",
+    "bytes": 1807,
+    "sha256": "6cc6c12960727f5a5b953bc982447a5f9a0b1af37bf34a2c9b211d7b5ca43c40",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SupportGrip20261027/run.ps1",
+    "bytes": 1905,
+    "sha256": "5233d3477f38faffcdee36f942aac1977b6aa9297cb57d519592ea0e4c073f50",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/author_icons.py",
+    "bytes": 5150,
+    "sha256": "da073c31407ca2627afeaa68ce7926a43c9ce20832e8444372082ff2f67dcb26",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/author_sights.py",
+    "bytes": 7354,
+    "sha256": "5686f06c49bc78a4f7a6897c6f719655bbc98b1165f552e3c6be5da7daa3f689",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/bake_regions.py",
+    "bytes": 2593,
+    "sha256": "32cf9c886c7e83bbd6c8f7a712d2c5265c579fed03ae96313ce8842f18497078",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/bake_surface.py",
+    "bytes": 2956,
+    "sha256": "2ca416c8746c73266d3418d1f97fcd619d0b19b7a1fad344f442ab9786b99b97",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/build.ps1",
+    "bytes": 807,
+    "sha256": "92adbf43edfa72a6fc576e6d768c1c2de374ed13f301884fd5063cdb726bb8a8",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/import_icons.py",
+    "bytes": 2299,
+    "sha256": "2442ca3bed04502d43bbd416ecbe337715dc567bd8b3231f34f7dac45df2e708",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/install.py",
+    "bytes": 11941,
+    "sha256": "de9331ebfc6418648a84cc19e1a0daca366d78361168bde5b3a721b74e66c23d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/pack_masks.py",
+    "bytes": 1234,
+    "sha256": "9341e54938671a16658670bb934a455735bf4d5a1e739fd71205a93e8500c9d5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/read_assets.py",
+    "bytes": 1484,
+    "sha256": "54350124e6a0628df325ed965c636bd1508d34e22bee2c7ce223ccc9c0648c8a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/read_source.py",
+    "bytes": 874,
+    "sha256": "29e7746df8512a2db5cc1a275b2470c897ff1aa8379a2667d318bc8abdb4bacf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Surface20261027/run.ps1",
+    "bytes": 1830,
+    "sha256": "8578b1089a5c1fb10ad12581b1fbfabca05ce221b043a953213cdab40348cea9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceNetworkReview20261101/compare_geometry.py",
+    "bytes": 2160,
+    "sha256": "25e4fa7ea054caef4f329ad3cee4313bb49a74b2e0a8c59192bd835f1f766e78",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceNetworkReview20261101/read_inputs.py",
+    "bytes": 4778,
+    "sha256": "d51281a45e5c3bd3917ca4383e46f786ab3586080b270cd1869cd5f5c6d48fac",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceNetworkReview20261101/read_stock_contact.py",
+    "bytes": 2625,
+    "sha256": "6a406f4559712b1bc3d667a2a64143338034528e1ac0fb114c98fa392ffcc4b9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceNetworkReview20261101/run_assets.ps1",
+    "bytes": 2305,
+    "sha256": "568819fa5f43803347e379056d96c10b0fa26d76c6febc6ec64f2121cd7b256e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceNetworkReview20261101/run_render.ps1",
+    "bytes": 2359,
+    "sha256": "03ab0a873f9a4d12e259e70753aa87234b325903da6d925accfa81774b7aa396",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceNetworkReview20261101/run_wire.ps1",
+    "bytes": 5791,
+    "sha256": "a72e0e8ecedc85e00c0e2c7f1490883fe8f033f5164c620353e9a0b074f8f4c0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceRefine20261101/author.py",
+    "bytes": 6676,
+    "sha256": "c112b4f2a4ee66e2637cfc72b109dca648bd4afbb32fb59fa37445097dc1dc0f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceRefine20261101/finalize_basis.py",
+    "bytes": 1563,
+    "sha256": "a8587a17e0261b4f066c0144d41a85ecc0eccfb585e63f1da1ae39971744dcb0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceRefine20261101/install.py",
+    "bytes": 5660,
+    "sha256": "bf53fd4e3bec89ec5cbf27037d962eb582e259baaa129f6de13adb124b91d3d3",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceRefine20261101/read_inputs.py",
+    "bytes": 3873,
+    "sha256": "cbdf4f1991017ce7762e8c924480901f0319b71d2115154d22dea54797d27b65",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24SurfaceRefine20261101/run_assets.ps1",
+    "bytes": 2282,
+    "sha256": "fde93414591122155efb8cd86487cdb26cd3e6ff78cf55f6dca2d670d443db1d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/README.md",
+    "bytes": 2964,
+    "sha256": "69d3faa2064409695257bf0426922b71755b37c605f633567686a79aeae6a942",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/SourceBackups/author_candidate.py",
+    "bytes": 5324,
+    "sha256": "ad8a8b93fc3aafe363d4e918cc0754cd6f38460a2f87ed7bcc514565768835ba",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/SourceBackups/author_finish.py",
+    "bytes": 9506,
+    "sha256": "c69b6fecb91af34fc24f6f13b5ec820a412984b594eda0e804ac93b1b145eca5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/author_thumb.py",
+    "bytes": 5916,
+    "sha256": "8e28cadabaff282ea05cd4a90086c34004cdf1205b07c4e2a55acca3e6f2d821",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/check_saved.py",
+    "bytes": 2098,
+    "sha256": "1204f4378da45a2a388481ba8b1786069ef5430cecb51ac3f08c7271e6fa3dcc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/inspect_thumb.py",
+    "bytes": 1236,
+    "sha256": "419dd38cfd5ebae4af2877b9f0f9545165f11d110a033801dc2e34f34ea8d647",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/install.py",
+    "bytes": 5130,
+    "sha256": "afbbb029ec772484208e7b925031060c8360a89e07b54be5eb38e70e474008e0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/library.py",
+    "bytes": 664,
+    "sha256": "65265074a175a897044533c4b64127f8957cdbecbffb89eb45fd182bbb7923cb",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/make_compare.py",
+    "bytes": 705,
+    "sha256": "105c22a8510d6b20cd88d5cfc199719005cbfb704b14256a62dd05d7b7009ee5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/probe_axes.py",
+    "bytes": 1604,
+    "sha256": "7824275f0790d2d7b28e52898ac44768943111f112cda59c9e40d18b4034cc74",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/probe_flex.py",
+    "bytes": 881,
+    "sha256": "ba71476c11b0a8697f1cb481614cefcd0c5bf886218a919ee1cc2c89c5c1aaa1",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/probe_ring.py",
+    "bytes": 885,
+    "sha256": "1c60ad36d052881b5ffa424844e3b1cafa151db758e154b4778767933abbd88f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/read_after.py",
+    "bytes": 634,
+    "sha256": "dcb679da85c6cd14928f0b87ec9f97f0f3b21cd8281e458a4f31f36f75aca353",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/read_assets.py",
+    "bytes": 172,
+    "sha256": "ec0ba36ca4fdc0db4af48c86eab8a8eb9eafad2a91f1237bbb3640962906324a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/render_compare.py",
+    "bytes": 1033,
+    "sha256": "dd5a14d4c4eac3cd529b529ff87bb607cd7bf72a8558f91bcc2ae43938834b0f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/repair_candidates.py",
+    "bytes": 1783,
+    "sha256": "a4a19faca364031b99530d0227590d8418dd4ee0543238ef59c0f8cd717f9e90",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/review_intermediate.py",
+    "bytes": 1417,
+    "sha256": "d5b6b09d36bd509d628f9bae4f52c23f4816323a3992e140a250be0957f76524",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/review_thumb.py",
+    "bytes": 1664,
+    "sha256": "1ec5d9d09393d6448c38f796b850f9b78a2d73ec1e277e059e3608cca2eb6cb5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24Thumb20261028/run.ps1",
+    "bytes": 1913,
+    "sha256": "aa8146b15a47ff45dc6c9993ab5e2ac6b1785fe92a09bafff74a48c40ae24951",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/README.md",
+    "bytes": 3185,
+    "sha256": "9e52318fc5905c3f40fb22a21415744e837f7737e5bdbd1c02c5166968ce4e84",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/author_anatomy.py",
+    "bytes": 3237,
+    "sha256": "ea8a8aa3676b705900a87d1defa6871e48e3fc12cabbccd668700d2522423ec2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/check_saved.py",
+    "bytes": 2098,
+    "sha256": "1204f4378da45a2a388481ba8b1786069ef5430cecb51ac3f08c7271e6fa3dcc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/closed_pose.py",
+    "bytes": 1638,
+    "sha256": "bc3f47f835af5d8490ed21db325bc51d28943f0950b34d8a05386dfa69205cc7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/fit_pose.py",
+    "bytes": 2023,
+    "sha256": "e491eb5c5a3e9474adec455a121d7024d3034c9d64b0674d475478af4abc142f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/hand_study.py",
+    "bytes": 1883,
+    "sha256": "159d208cda7c9271dd67740ac26a46d9778b061ce7adc3f216beff88dcb486c9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/inspect.py",
+    "bytes": 1924,
+    "sha256": "654f5f2e8f3fd961adbad0609ec6ff8e994c50405e98f2226f911c7571c5f5cf",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/install.py",
+    "bytes": 5138,
+    "sha256": "8ef9d55112030746a293f2700e7c83ec93ef1621b93e2ff15e33312dee28ca27",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/library.py",
+    "bytes": 1049,
+    "sha256": "ba3fd9b43f37e01a5b77266b1c8ee9b8bb7d12a657e2fc49f1f871aca8782c0e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/make_compare.py",
+    "bytes": 774,
+    "sha256": "1f910439345969ed340ac4cd3563bf6b9613f08364cde46f7c384f6daf2a4ec7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/read_after.py",
+    "bytes": 634,
+    "sha256": "dcb679da85c6cd14928f0b87ec9f97f0f3b21cd8281e458a4f31f36f75aca353",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/read_assets.py",
+    "bytes": 172,
+    "sha256": "ec0ba36ca4fdc0db4af48c86eab8a8eb9eafad2a91f1237bbb3640962906324a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/render_delivery.py",
+    "bytes": 1244,
+    "sha256": "4bec10d0a538121bd94f2fba34846d9b4b3796c41e2e00c4987ec64a5a79ca9c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/review_final.py",
+    "bytes": 2736,
+    "sha256": "70488d30e8c4f2f79057a9d8649d90b60903da8d0096fb2a4484c9f8a64d07d9",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/roll_study.py",
+    "bytes": 1396,
+    "sha256": "685e1963f43cee031da295752c36dbdccc9a77b85f114f021f0a4bd582c8571e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/run.ps1",
+    "bytes": 1920,
+    "sha256": "1e44611b573092517f968cd66a95bfd20f6840a6d34ed3084bf8a4bbd580760a",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/M24ThumbAnatomy20261028/transfer_pose.py",
+    "bytes": 2053,
+    "sha256": "64a6b397c77406e79adfc991608c36f8607536414fc440ac7903a382535ff3f6",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/README.md",
+    "bytes": 3281,
+    "sha256": "a7c9825968006dbb4b0d36059ab47c34a9dec8aecddbf800720d62d0fc43a7f0",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/author_glyphs.py",
+    "bytes": 627,
+    "sha256": "2e02a30a1fb7c758be3ff84514af6a23ba91a201ca3506236e9d192bacd8cfde",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/build_assets.py",
+    "bytes": 161,
+    "sha256": "66c8759ca3574caad020c1ae18f1ef837b2b1fcf4c453fc6026f05c4836327c7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/build_editor.ps1",
+    "bytes": 1881,
+    "sha256": "69665dde6eaa7e3b3c65fef568952062473d0f2537ebeb6697dfaa36a4cf82f7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/compile_materials.py",
+    "bytes": 1438,
+    "sha256": "1a4fd84388b589a57f52e15c9e880d6b38b73b9eee966974e1a50d906fdd5511",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/install.py",
+    "bytes": 5922,
+    "sha256": "608e12a42f7e9ffc4793b0dda1310515c04c92fbd4e7fbf24bc4e6373060c50f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/lens.hlsl",
+    "bytes": 6845,
+    "sha256": "92b0884094f3db61ddb931aa8fc49aa655e40074d8b5e2e895c95f8f322ff2dc",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/read_authoring.py",
+    "bytes": 2559,
+    "sha256": "c094d1f6abd14ed6c089cecc261be3ac00f2dc613d43b56646e0d777e1fd385c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/read_svd.py",
+    "bytes": 416,
+    "sha256": "28a695697b78e4110374d7ce8dee65be29da754eee9f27bd08353d303ba49588",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/run_assets.ps1",
+    "bytes": 2127,
+    "sha256": "d251cb60e5794c0cc6b996503c06a09fe22df4b8abee86ee22749f96183dcc1f",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SharedPhysicalOptics20261030/thermal_scene.hlsl",
+    "bytes": 5485,
+    "sha256": "2380b3593209b9803e71c1840824c32d8d43e2ce13c758fe9f475ec3c77043a2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/M24Direct20261031/author.py",
+    "bytes": 7991,
+    "sha256": "ba09abd25a60caad80e8b58b1253737dda0445e1d5436c00cf08cb23e41e4100",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/M24Direct20261031/install.py",
+    "bytes": 3773,
+    "sha256": "b0652e13b59cc6f6e49180d961906d9af53214941700306dba5b772427cf3972",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/M24Direct20261031/run_assets.ps1",
+    "bytes": 2247,
+    "sha256": "c54b99656b182023967443aed59e571687c59c2e98dac2648314e27d595720cd",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/README.md",
+    "bytes": 4921,
+    "sha256": "35aa71e82944d8beacb8eb8eafd061ce98274d3afa6fa16d3ec5737ac40deb6d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/Review20261031/check_connections.py",
+    "bytes": 1328,
+    "sha256": "638ecb47e4412b4fc7b79396f5e097f7d2790a2edef4297c8d092c027f2ffa9b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/Review20261031/inspect_fit.py",
+    "bytes": 5350,
+    "sha256": "a16c3b46f5ac9641ff771edbea520e0f1ed815c11bb4b97ab69ea5e7830ce541",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/Review20261031/read_assets.py",
+    "bytes": 2794,
+    "sha256": "074d5af61733a41c57c07cee639776962718efc6c6fdfca8859f5b5d01889bae",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/Review20261031/report.py",
+    "bytes": 2884,
+    "sha256": "4dbd95f8ca948b80b42dca36979e19599a3a829cef33427e37f789c457b2d9ef",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/Review20261031/run_review.ps1",
+    "bytes": 2255,
+    "sha256": "e43a2e6b3fcca655f26d263efcd3a8a2a405cd275b3491dfda3ea53280ad891d",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/author_fitted.py",
+    "bytes": 7654,
+    "sha256": "a4a45f8a96d93f1e68b1d39407f78328b345254f2edf49929b4cba5c966da8e2",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/author_icons.py",
+    "bytes": 8149,
+    "sha256": "af05c0444255c9c063a364ff415dd8cb2595491a36866bee83e9002809a1d7a7",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/bake_svd_basis.py",
+    "bytes": 816,
+    "sha256": "7acc6606318173e0d44d0563b57b2d8a657bbf0beb834a45f6441cf1fe7d0844",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/finish_install.py",
+    "bytes": 3257,
+    "sha256": "dce160e04efd5de702ada284b19cd757aef6ed23036faf9a39e3eb3a975a2829",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/finish_svd_basis.py",
+    "bytes": 864,
+    "sha256": "c08e11346868ed6307dccedcb121bd47efe436398c45bd69cead3428c0307a95",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/inspect_icons.py",
+    "bytes": 2218,
+    "sha256": "3901be8aea693b9dffaa9c54b62e18ef350e15f89f3554e5722712c77a06be4b",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/install_assets.py",
+    "bytes": 7254,
+    "sha256": "df3e1136c9e3a1fc3ac42d9b70dca43fff9a5e763ce1245dd52c5ad3995d7069",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/install_svd_finish.py",
+    "bytes": 2160,
+    "sha256": "b251a7411be95a0f3ee6f5583f3fd610df009a2fe85ebb378f055897b793604c",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/prepare_source.py",
+    "bytes": 872,
+    "sha256": "ccbdb0ab962fc123320cd36a8e0c3f30d20ed15c7e645c64ca2228e3aef57811",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/read_degenerate_faces.py",
+    "bytes": 743,
+    "sha256": "dd17ade62eb2d9120daef5e1d5e4af3ed041ce45e44585d7eee6b6496a330903",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/read_hosts.py",
+    "bytes": 2335,
+    "sha256": "da4b8285df8c887a382253d37747879f00e5bd6bd7c6510801061dc3b26bc8be",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/repair_svd_interface.py",
+    "bytes": 2324,
+    "sha256": "dee618fc151bfa8aa212fa7a6649340556917adbba34275134561e4a7d14da7e",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  },
+  {
+    "path": "SourceAssets/SkeletonSniperStock20261031/run_assets.ps1",
+    "bytes": 2335,
+    "sha256": "3b2cc78d11221353dcc16d8dfae09ab7f9d60fb9324c2b5ad2cf5b80bc44ebb5",
+    "role": "Historical authoring/diagnostic recipe; follow recovery order, not chronological bulk execution"
+  }
+]

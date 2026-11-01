@@ -1,0 +1,72 @@
+--- a/Source/FPSGAME/UI/ColdSteelIconResources.cpp
++++ b/Source/FPSGAME/UI/ColdSteelIconResources.cpp
+@@ -4,6 +4,7 @@
+ #include "../Weapons/HK416WeaponAssets.h"
+ #include "../Weapons/AR416Furniture.h"
+ #include "../Weapons/LegendaryTacticalStock.h"
++#include "../Weapons/SniperSkeletonStock.h"
+ #include "../Weapons/CommonHK416Parts.h"
+ #include "../Weapons/ThermalScopeAssets.h"
+ #include "../Weapons/KVScopeAssets.h"
+@@ -31,6 +32,9 @@
+ #include "../Weapons/ASH12WeaponAssets.h"
+ #include "../Weapons/SVDWeaponAssets.h"
+ #include "../Weapons/SVCHWeaponAssets.h"
++#include "../Weapons/M24WeaponAssets.h"
++#include "../Weapons/M24Attachments.h"
++#include "../Weapons/M24Bipod.h"
+ #include "../Weapons/Saiga12KWeaponAssets.h"
+ #include "../Weapons/SVDAttachments.h"
+ #include "../Weapons/M1911WeaponAssets.h"
+@@ -158,6 +162,11 @@
+         else if(D==TEXT("ue_svd")){Add(SVDWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
+         // The SVCh renders its icon from the same shared-Manny idle the SVD uses,
+         // so it needs the same preloaded pair.
++        else if(D==TEXT("ue_m24"))
++        {
++            Add(M24WeaponAssets::MeshPath,true);Add(M24WeaponAssets::AnimationPath(TEXT("idle")),true);
++            Add(M24WeaponAssets::SupportGripProfile,true);Add(M24WeaponAssets::ExtendedMagazineProfile,true);
++        }
+         else if(D==TEXT("ue_svch")){Add(SVCHWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
+         else if(D==TEXT("ue_saiga12k")){Add(Saiga12KWeaponAssets::MeshPath,true);Add(Saiga12KWeaponAssets::AnimationPath(TEXT("idle")),true);}
+         else if(D==TEXT("ue_lmg201"))
+@@ -192,11 +201,38 @@
+             Add(TEXT("/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative"),true);
+             Add(TEXT("/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_idle"),true);
+         }
+-        const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(Item);
++        const auto Parts=bCatalogExport?(D==M24WeaponAssets::Definition?M24WeaponAssets::FactoryParts():FGunsmithParts()):GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(Item);
++        if(D==M24WeaponAssets::Definition&&!Parts.Contains(TEXT("optic")))Add(M24Attachments::MeshPath(M24Attachments::IronSight),true);
+         const FString Family=D==TEXT("ue_akm")?TEXT("AKM"):D==TEXT("ue_qbz191")?TEXT("QBZ191"):D==TEXT("ue_ash12")?TEXT("ASH12"):TEXT("M4");
+         for(const auto& Part:Parts)
+         {
+             FString Key=Part.Value;
++            if(Part.Key==TEXT("stock")&&Key==SniperSkeletonStock::Id&&SniperSkeletonStock::Supports(D))
++            {
++                Add(SniperSkeletonStock::MeshPath(D,Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction),true);
++                if(D==TEXT("ue_m24"))
++                {
++                    Add(SniperSkeletonStock::M24GripMeshPath(Parts.FindRef(TEXT("reargrip"))),true);
++                    Add(SniperSkeletonStock::M24ProfilePath(SniperSkeletonStock::M24GripFamilyForVariant(Parts.FindRef(TEXT("reargrip")),false)),true);
++                    Add(SniperSkeletonStock::M24ProfilePath(SniperSkeletonStock::M24GripFamilyForVariant(Parts.FindRef(TEXT("reargrip")),true)),true);
++                    if(Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction)Add(SniperSkeletonStock::M24FrontMeshPath(),true);
++                }
++                continue;
++            }
++            if(D==TEXT("ue_m24"))
++            {
++                if(Part.Key==TEXT("reargrip")&&Parts.FindRef(TEXT("stock"))==SniperSkeletonStock::Id)continue;
++                if(Part.Key==TEXT("bolt")&&Key==M24Attachments::CarbonBolt)Add(M24Attachments::CarbonBoltMaterial,true);
++                if(Key==M24Bipod::Id){Add(M24Bipod::Base,true);Add(M24Bipod::LegA,true);Add(M24Bipod::LegB,true);Add(M24Bipod::Profile,true);}
++                if(Part.Key==TEXT("optic"))Key=M24Attachments::OpticPart(Key);
++                if(M24Attachments::IsPart(Key))Add(M24Attachments::MeshPath(Key),true);
++                if(Part.Key==TEXT("optic"))
++                {
++                    const FString Moving=M24Attachments::MovingOpticPart(Key);
++                    if(!Moving.IsEmpty())Add(M24Attachments::MeshPath(Moving),true);
++                }
++                continue;
++            }
+             if(Part.Key==TEXT("optic")&&Key==KVScopeAssets::Id)
+             {
+                 Add(KVScopeAssets::MeshPath(D),true);Add(KVScopeAssets::SeatPath(D),true);

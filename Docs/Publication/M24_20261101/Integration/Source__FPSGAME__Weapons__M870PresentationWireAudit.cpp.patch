@@ -1,0 +1,187 @@
+--- a/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp
++++ b/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp
+@@ -4,6 +4,10 @@
+ #include "Saiga12KMagazineAssets.h"
+ #include "Saiga12KSpecialStockAssets.h"
+ #include "SVCHWeaponAssets.h"
++#include "M24WeaponAssets.h"
++#include "M24Attachments.h"
++#include "FPSWeaponFXComponent.h"
++#include "SniperSkeletonStock.h"
+ #include "SniperSuppressorAssets.h"
+ #include "FPSGunplayAnimInstance.h"
+ #include "TacticalDeviceComponent.h"
+@@ -32,16 +36,62 @@
+ {
+ bool Saiga(){return FParse::Param(FCommandLine::Get(),TEXT("Saiga12K"));}
+ bool SVCH(){return FParse::Param(FCommandLine::Get(),TEXT("SVCH"));}
+-bool ProfileRifle(){return Saiga()||SVCH();}
+-int32 Capacity(int32 P){return SVCH()?(P==0||P==5?10:20):(P==0?8:P==5?12:20);}
++bool M24(){return FParse::Param(FCommandLine::Get(),TEXT("M24"));}
++bool ProfileRifle(){return Saiga()||SVCH()||M24();}
++int32 Capacity(int32 P){return M24()?(P==3||P==4?10:5):SVCH()?(P==0||P==5?10:20):(P==0?8:P==5?12:20);}
+ bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("M870PresentationWire"));}
+ float Pitch(int32 P){return P==0?25.f:P==1?-30.f:P==2?40.f:-15.f;}
+ bool Pump(int32 P){return !ProfileRifle()&&(P==2||P==3);}
+ bool ChannelMatches(const FFPSBodyState& S,int32 P)
+-{return ProfileRifle()?S.Contacts.Channel==(P==2?FName(TEXT("Inspect")):P==3||((SVCH())&&P==5)?FName(TEXT("Reload")):NAME_None):(S.Contacts.Channel==TEXT("Pump"))==Pump(P);}
++{return ProfileRifle()?S.Contacts.Channel==(P==2?FName(TEXT("Inspect")):P==3||((SVCH()||M24())&&P==5)?FName(TEXT("Reload")):NAME_None):(S.Contacts.Channel==TEXT("Pump"))==Pump(P);}
+ bool Recipe(const FFPSBodyWeapon& W,int32 P)
+ {
+-
++    if(M24())
++    {
++        const bool Advanced=P>0&&P<5,Skeleton=P>=2;
++        const auto Has=[&](const FString& Name){return W.Parts.ContainsByPredicate([&](const FFPSBodyAttachment& Part){return Part.bVisible&&Part.Mesh.ToSoftObjectPath().ToString().Contains(Name);});};
++        const FString Grip=P==1?TEXT("phantom_reargrip"):P==2?TEXT("balanced_reargrip"):P==3||P==4?TEXT("stable_antislip_reargrip"):TEXT("false");
++        bool Wet=true;
++        const auto WetMaterial=[&](const TSoftObjectPtr<UMaterialInterface>& Ref)
++        {
++            const FString Path=Ref.ToSoftObjectPath().ToString();
++            if(Path.Contains(TEXT("/StockContinuity20261031/"))||Path.Contains(TEXT("/StockMetalFinish20261031/")))
++            {
++                auto* Material=Ref.LoadSynchronous();float Value=0;
++                // Match WeatherViewEffectsComponent::ResolveWet: contemporary
++                // surface masters self-route through the exposed wet parameter.
++                Wet&=Material&&Material->GetScalarParameterValue(FMaterialParameterInfo(TEXT("WeaponWetness")),Value);
++            }
++        };
++        for(const auto& Ref:W.Materials)WetMaterial(Ref);
++        for(const auto& Part:W.Parts)for(const auto& Ref:Part.Materials)WetMaterial(Ref);
++        const bool Body=Has(TEXT("SM_M24_AdvancedFront_ForIndependentGrip"))==(Advanced&&Skeleton)
++            &&Has(TEXT("SM_M24_m24_advanced_action"))==(Advanced&&!Skeleton)
++            &&Has(TEXT("SM_M24_ReceiverStock_Advanced"))==(Advanced&&Skeleton)
++            &&Has(TEXT("SM_M24_ReceiverStock_Native"))==(!Advanced&&Skeleton);
++        const bool Rear=Skeleton?Has(SniperSkeletonStock::M24GripMeshPath(Grip)):!Has(TEXT("/SM_M24_PistolGrip_"));
++        const bool Profile=!Skeleton||W.GripProfile.ToSoftObjectPath().GetLongPackageName()==SniperSkeletonStock::M24ProfilePath(SniperSkeletonStock::M24GripFamilyForVariant(Grip,P==3||P==4));
++        bool Finish=true,Sections=true;
++        for(const auto& Part:W.Parts)
++        {
++            const FString Mesh=Part.Mesh.ToSoftObjectPath().GetAssetName();
++            if(Mesh==TEXT("SM_M24_m24_advanced_action")||Mesh==TEXT("SM_M24_AdvancedFront_ForIndependentGrip")||Mesh==TEXT("SM_M24_ReceiverStock_Advanced"))
++                Finish&=!Part.Materials.IsEmpty()&&Part.Materials[0].ToSoftObjectPath().ToString().Contains(TEXT("/StockMetalFinish20261031/"));
++        }
++        if(const auto* Mesh=W.Mesh.LoadSynchronous())
++        {
++            for(int32 I=0;I<Mesh->GetMaterials().Num();++I)
++            {
++                const FName Slot=Mesh->GetMaterials()[I].MaterialSlotName;
++                if(Slot==TEXT("M24_FactoryFront"))Sections&=W.HiddenMaterials.Contains(I)==Advanced;
++                if(Slot==TEXT("M24_FactoryRearSeat"))Sections&=W.HiddenMaterials.Contains(I)==(Advanced||Skeleton);
++                if(Slot==TEXT("M24_FactoryStock")||Slot==TEXT("M24_FactoryChassis"))Sections&=W.HiddenMaterials.Contains(I)==Skeleton;
++            }
++        }
++        else Sections=false;
++        if(!(Body&&Rear&&Wet&&Profile&&Finish&&Sections))UE_LOG(LogTemp,Warning,TEXT("M24_WIRE_RECIPE phase=%d body=%d rear=%d wet=%d profile=%d finish=%d sections=%d grip=%s"),P,Body,Rear,Wet,Profile,Finish,Sections,*W.GripProfile.ToString());
++        return W.GunDefinition==M24WeaponAssets::Definition&&Body&&Rear&&Wet&&Profile&&Finish&&Sections;
++    }
+     if(SVCH())
+     {
+         const bool Modified=P>0&&P<5;
+@@ -64,11 +114,18 @@
+ FColdSteelProfile Seed(UColdSteelStatusModel* Model,const FString& Id,int32 Phase)
+ {
+     auto S=Model->Snapshot();S.Items.Reset();S.ActiveWeaponSlot=6;S.ActiveProductionTool.Reset();S.DungeonRun={};
+-    auto W=Model->CreateItem(SVCH()?SVCHWeaponAssets::Definition:Saiga()?Saiga12KWeaponAssets::Definition:M870WeaponAssets::Definition);W.InstanceId=Id;W.Place=1;W.Cell=6;W.Magazine=ProfileRifle()?Capacity(Phase):7;
++    auto W=Model->CreateItem(M24()?M24WeaponAssets::Definition:SVCH()?SVCHWeaponAssets::Definition:Saiga()?Saiga12KWeaponAssets::Definition:M870WeaponAssets::Definition);W.InstanceId=Id;W.Place=1;W.Cell=6;W.Magazine=ProfileRifle()?Capacity(Phase):7;
+     TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(W.Data),Data);
+     auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("tactical"),Phase==1?TEXT("blessed_laser"):TEXT("laser"));
+-
+-    if(SVCH())
++    if(M24())
++    {
++        Parts->RemoveField(TEXT("tactical"));
++        Parts->SetStringField(TEXT("body"),Phase>0&&Phase<5?M24Attachments::AdvancedAction:TEXT("false"));
++        Parts->SetStringField(TEXT("stock"),Phase>=2?SniperSkeletonStock::Id:TEXT("none")); // Legacy factory selection.
++        Parts->SetStringField(TEXT("reargrip"),Phase==2?TEXT("balanced_reargrip"):Phase==3||Phase==4?TEXT("stable_antislip_reargrip"):TEXT("phantom_reargrip")); // Must clear when native.
++        Parts->SetStringField(TEXT("magazine"),Phase==3||Phase==4?M24Attachments::ExtendedMagazine:TEXT("false"));
++    }
++    else if(SVCH())
+     {
+         Parts->SetStringField(TEXT("underbarrel"),Phase==5?TEXT("vertical_foregrip"):TEXT("angled_foregrip"));
+         Parts->SetStringField(TEXT("magazine"),Phase>0&&Phase<5?TEXT("ext_mag"):TEXT("false"));
+@@ -117,9 +174,9 @@
+     if(M870Wire::ProfileRifle())
+     {
+         Pawn->bInventoryWeaponReady=true;
+-        const bool Normal=(M870Wire::SVCH())&&Phase==5;
++        const bool Normal=(M870Wire::SVCH()||M870Wire::M24())&&Phase==5;
+         Pawn->WeaponState=Normal?EAKMWeaponState::Reloading:Phase==2?EAKMWeaponState::Inspecting:Phase==3?EAKMWeaponState::ReloadingEmpty:EAKMWeaponState::Idle;
+-        auto* Clip=Normal?Pawn->ReloadAnimation.Get():Phase==2?Pawn->InspectAnimation.Get():Phase==3?((M870Wire::SVCH())?Pawn->ReloadEmptyAnimation.Get():Pawn->DrumReloadEmptyAnimation.Get()):Pawn->IdleAnimation.Get();
++        auto* Clip=Normal?Pawn->ReloadAnimation.Get():Phase==2?Pawn->InspectAnimation.Get():Phase==3?((M870Wire::SVCH()||M870Wire::M24())?Pawn->ReloadEmptyAnimation.Get():Pawn->DrumReloadEmptyAnimation.Get()):Pawn->IdleAnimation.Get();
+         Pawn->ActiveActionAnimation=Phase==2||Phase==3||Normal?Clip:nullptr;Pawn->bPendingEmptyReload=Phase==3;
+         Pawn->ActionPlayRate=1.f;Pawn->ActionStartPosition=0.f;Pawn->WeaponStateDuration=Pawn->ActionDuration=Clip?Clip->GetPlayLength():1.f;
+         Pawn->WeaponStateElapsed=(Phase==2?.5f:Phase==3?.88f:0.f)*Pawn->WeaponStateDuration;
+@@ -151,11 +208,24 @@
+         Model->Current=M870Wire::Seed(Model,Id,Phase);Model->CurrentPawn=Subject;Subject->ApplyColdSteelProfile(Model);
+         // Only the client previews these. A coalesced server loadout must not
+         // retain a different schema because of local component creation order.
+-
++        if(M870Wire::M24())
++        {
++            Subject->SetGunsmithStock(SniperSkeletonStock::Id);
++            Subject->SetGunsmithHandstop(M24Attachments::AdvancedAction);
++            Subject->SetGunsmithRearGrip(TEXT("balanced_reargrip"));
++            Subject->SetGunsmithStock(M24Attachments::CheekRest);
++        }
+         else for(const TCHAR* Grip:{TEXT("canted_foregrip"),TEXT("prism_handstop"),TEXT("vertical_foregrip")})Subject->SetGunsmithHandstop(Grip);
+         Subject->bWeaponVisualPartsApplied=false;
+     }
+-
++    if(M870Wire::M24()&&Phase>0&&Phase<5)
++    {
++        // Deliberately create the final stock before the body on the owner.
++        // Authority uses the normal body -> stock -> grip application order.
++        Subject->SetGunsmithStock(Phase>=2?SniperSkeletonStock::Id:M24Attachments::CheekRest);
++        Subject->SetGunsmithHandstop(M24Attachments::AdvancedAction);
++        Subject->bWeaponVisualPartsApplied=false;
++    }
+     Model->Current=M870Wire::Seed(Model,Id,Phase);Model->CurrentPawn=Subject;
+     Subject->AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());Subject->ApplyColdSteelProfile(Model);
+     Subject->SetActorLocationAndRotation(FVector(0,0,500),FRotator::ZeroRotator);
+@@ -184,6 +254,7 @@
+     const bool Pump=M870Wire::ChannelMatches(State,Current);
+     FFPSBodyLaserSample Laser;bool Beam=false;
+     if(State.Lasers.Num()==1)Beam=Seen->ResolveLaserSample(0,State.Lasers[0].PartIndex,State.Lasers[0].Schema,Laser);
++    if(M870Wire::M24())Beam=State.Lasers.IsEmpty(); // M24 has no tactical device slot.
+     const bool Applied=Seen->BodyAnimation&&Seen->BodyAnimation->LeftGripFromRight.GetLocation().Equals(State.Contacts.SupportGrip.GetLocation(),.15);
+     auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("phase"),Current);
+     Row->SetBoolField(TEXT("remote_aim"),Aim);Row->SetBoolField(TEXT("remote_rig"),Rig);Row->SetBoolField(TEXT("remote_pump"),Pump);
+@@ -192,10 +263,14 @@
+     Row->SetNumberField(TEXT("grip_error_cm"),Seen->BodyAnimation?FVector::Distance(Seen->BodyAnimation->LeftGripFromRight.GetLocation(),State.Contacts.SupportGrip.GetLocation()):-1.);
+     const bool Parts=Seen->MotionBindings.Num()==1&&M870Wire::Recipe(Seen->MotionBindings[0].Definition,Current)
+         &&(!M870Wire::ProfileRifle()||Subject->GetMagazineCapacity()==M870Wire::Capacity(Current));
++    const bool FXReady=!M870Wire::M24()||(Subject->WeaponFX&&Subject->WeaponFX->IsReady()
++        &&Seen->RemoteGunHands[0].FX&&Seen->RemoteGunHands[0].FX->IsReady());
++    Row->SetBoolField(TEXT("owner_fx_ready"),FXReady);
++    Row->SetBoolField(TEXT("stock_socket_present"),Subject->AKMViewmodel->DoesSocketExist(TEXT("WPN_StockContact")));
+     Row->SetBoolField(TEXT("equipment_recipe"),Parts);
+-    Results.Add(MakeShared<FJsonValueObject>(Row));bAllPassed&=Aim&&Rig&&Pump&&Beam&&Applied&&Parts;bReported=true;
++    Results.Add(MakeShared<FJsonValueObject>(Row));bAllPassed&=Aim&&Rig&&Pump&&Beam&&Applied&&Parts&&FXReady;bReported=true;
+     const FVector OwnerEnd=Own->DisplayState.Lasers.Num()==1?FVector(Own->DisplayState.Lasers[0].End):FVector::ZeroVector;
+-    ServerPresentationResult(Current,Aim&&Rig&&Pump&&Beam&&Applied&&Parts,Laser.End,OwnerEnd,Own->DisplayState.Contacts.SupportGrip.GetLocation());
++    ServerPresentationResult(Current,Aim&&Rig&&Pump&&Beam&&Applied&&Parts&&FXReady,Laser.End,OwnerEnd,Own->DisplayState.Contacts.SupportGrip.GetLocation());
+     ShotgunWire::Save(Results,bAllPassed,TEXT("client"));
+     return true;
+ }
+@@ -222,11 +297,16 @@
+                 &&M870Wire::ChannelMatches(State,Phase);
+             // Inspection/reload stop sight convergence, not the physical ray.
+             // The observer still receives the owner's actual emitter ray.
+-            Laser=State.Lasers.Num()==1&&FVector(State.Lasers[0].End).Equals(OwnerLaser,.5);
+-        }
+-        HostEnd=HostBody->DisplayState.Lasers.Num()==1&&FVector(HostBody->DisplayState.Lasers[0].End).Equals(HostLaser,.5);
++            Laser=M870Wire::M24()?State.Lasers.IsEmpty():State.Lasers.Num()==1&&FVector(State.Lasers[0].End).Equals(OwnerLaser,.5);
++        }
++        HostEnd=M870Wire::M24()?HostBody->DisplayState.Lasers.IsEmpty():HostBody->DisplayState.Lasers.Num()==1&&FVector(HostBody->DisplayState.Lasers[0].End).Equals(HostLaser,.5);
+         Identity&=Body->LocalWeapons.Num()==1&&M870Wire::Recipe(Body->LocalWeapons[0],Phase);
+-
++        if(M870Wire::M24())
++        {
++            Identity&=Subject->WeaponFX&&Subject->WeaponFX->IsReady();
++            Identity&=Body->RemoteGunHands[0].FX&&Body->RemoteGunHands[0].FX->IsReady();
++            if(auto* Host=Cast<AFPSGAMECharacter>(HostBody->GetOwner()))Identity&=Host->WeaponFX&&Host->WeaponFX->IsReady();
++        }
+     }
+     auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("phase"),Phase);
+     Row->SetBoolField(TEXT("client_observer"),ObserverOK);Row->SetBoolField(TEXT("server_identity"),Identity);Row->SetBoolField(TEXT("server_aim"),Aim);

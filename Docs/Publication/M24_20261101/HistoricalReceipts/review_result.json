@@ -1,0 +1,229 @@
+{
+  "scope": "Recent M24 chassis/stock/rear-grip materials and multiplayer equipment presentation",
+  "fixes": [
+    "Deterministic M24 attachment indices after different local preview histories",
+    "Use native M24 sight-up axis for third-person hold; retain existing stock-contact socket",
+    "Resolve authored WPN_Eject for M24 owner and world FX initialization without changing other weapons",
+    "Explicit cook inclusion for the recent chassis, rear-grip, stock and surface directories"
+  ],
+  "build": {
+    "passed": true,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M24SurfaceNetworkReview20261101\\Receipts\\Wire\\20261101-112055\\build-editor.log",
+    "dll_sha256": "dbd66cd23e60f003bba84492a266d2ee061e5ae8c45d012e6b3fe870c37303e6"
+  },
+  "wire": {
+    "port": 19881,
+    "rendered": false,
+    "lag_ms_each_peer": 60,
+    "loss_percent_each_peer": 5,
+    "passed": true,
+    "transport": "real local UDP listen host + client + fresh reconnect",
+    "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M24SurfaceNetworkReview20261101\\Receipts\\Wire\\20261101-112055"
+  },
+  "host_cases": 12,
+  "client_cases": 6,
+  "rejoin_cases": 6,
+  "case_scope": [
+    "legacy factory stock normalization",
+    "advanced body with factory stock",
+    "advanced body with skeleton stock and balanced grip / inspect",
+    "advanced body with skeleton stock and stable grip / ten-round empty reload",
+    "expired owner contact stream",
+    "return to native body with skeleton stock / normal reload"
+  ],
+  "fx_initialization": {
+    "owner_and_remote_ready": true,
+    "stock_socket_preserved": true,
+    "eject_not_ready_log_count": 0
+  },
+  "geometry": {
+    "passed": true,
+    "rows": [
+      {
+        "mesh": "skeleton_front",
+        "lod": 0,
+        "triangles": 48967,
+        "geometry_and_material_ids_equal": true,
+        "missing_faces": 0,
+        "added_faces": 0,
+        "uv_channel_count_unchanged": true,
+        "invalid_corner_normals": 0,
+        "basis": {
+          "invalid_triangles": 0,
+          "zero_vectors": 0,
+          "nonfinite_vectors": 0,
+          "max_normal_tangent_dot": 9.92808249500321e-08
+        },
+        "build_settings": {
+          "recompute_normals": false,
+          "recompute_tangents": false
+        },
+        "passed": true
+      },
+      {
+        "mesh": "skeleton_front",
+        "lod": 1,
+        "triangles": 24483,
+        "geometry_and_material_ids_equal": true,
+        "missing_faces": 0,
+        "added_faces": 0,
+        "uv_channel_count_unchanged": true,
+        "invalid_corner_normals": 0,
+        "basis": {
+          "invalid_triangles": 0,
+          "zero_vectors": 0,
+          "nonfinite_vectors": 0,
+          "max_normal_tangent_dot": 9.547860094216709e-08
+        },
+        "build_settings": {
+          "recompute_normals": false,
+          "recompute_tangents": false
+        },
+        "passed": true
+      },
+      {
+        "mesh": "skeleton_front",
+        "lod": 2,
+        "triangles": 9793,
+        "geometry_and_material_ids_equal": true,
+        "missing_faces": 0,
+        "added_faces": 0,
+        "uv_channel_count_unchanged": true,
+        "invalid_corner_normals": 0,
+        "basis": {
+          "invalid_triangles": 0,
+          "zero_vectors": 0,
+          "nonfinite_vectors": 0,
+          "max_normal_tangent_dot": 9.010620183325102e-08
+        },
+        "build_settings": {
+          "recompute_normals": false,
+          "recompute_tangents": false
+        },
+        "passed": true
+      },
+      {
+        "mesh": "skeleton_seat",
+        "lod": 0,
+        "triangles": 231267,
+        "geometry_and_material_ids_equal": true,
+        "missing_faces": 0,
+        "added_faces": 0,
+        "uv_channel_count_unchanged": true,
+        "invalid_corner_normals": 0,
+        "basis": {
+          "invalid_triangles": 0,
+          "zero_vectors": 0,
+          "nonfinite_vectors": 0,
+          "max_normal_tangent_dot": 1.0574531517093533e-07
+        },
+        "build_settings": {
+          "recompute_normals": false,
+          "recompute_tangents": false
+        },
+        "passed": true
+      },
+      {
+        "mesh": "skeleton_seat",
+        "lod": 1,
+        "triangles": 115633,
+        "geometry_and_material_ids_equal": true,
+        "missing_faces": 0,
+        "added_faces": 0,
+        "uv_channel_count_unchanged": true,
+        "invalid_corner_normals": 0,
+        "basis": {
+          "invalid_triangles": 0,
+          "zero_vectors": 0,
+          "nonfinite_vectors": 0,
+          "max_normal_tangent_dot": 1.0010551232397802e-07
+        },
+        "build_settings": {
+          "recompute_normals": false,
+          "recompute_tangents": false
+        },
+        "passed": true
+      },
+      {
+        "mesh": "skeleton_seat",
+        "lod": 2,
+        "triangles": 46254,
+        "geometry_and_material_ids_equal": true,
+        "missing_faces": 0,
+        "added_faces": 0,
+        "uv_channel_count_unchanged": true,
+        "invalid_corner_normals": 0,
+        "basis": {
+          "invalid_triangles": 0,
+          "zero_vectors": 0,
+          "nonfinite_vectors": 0,
+          "max_normal_tangent_dot": 9.960753039051085e-08
+        },
+        "build_settings": {
+          "recompute_normals": false,
+          "recompute_tangents": false
+        },
+        "passed": true
+      }
+    ],
+    "scope": "All source LOD triangles, winding, material IDs, UV channel count, normal and tangent validity. Does not compare UV coordinates or rendered appearance."
+  },
+  "saved_assets": {
+    "meshes": [
+      {
+        "path": "Content\\Weapons\\M24\\ReceiverGripRebuild20261031\\Meshes\\SM_M24_AdvancedFront_ForIndependentGrip.uasset",
+        "sha256": "f183ed2f7d1db9d235547269b3b1e3e25738fe038234501a4ed0d5608b6fa094",
+        "matches_receipt": true
+      },
+      {
+        "path": "Content\\Weapons\\M24\\ReceiverGripRebuild20261031\\Meshes\\SM_M24_ReceiverStock_Advanced.uasset",
+        "sha256": "a5f3a6d5a18e42fcba899327255b4988fd918c563ed289e9428ab7a074d37499",
+        "matches_receipt": true
+      }
+    ],
+    "stock_options": [
+      {
+        "id": "m24_cheekrest",
+        "name": "M24 原厂枪托"
+      },
+      {
+        "id": "sniper_skeleton_stock",
+        "name": "骨架狙击枪托"
+      }
+    ],
+    "defaults": {
+      "optic": "m24_custom_scope_6x",
+      "muzzle": "none",
+      "stock": "m24_cheekrest",
+      "magazine": "false",
+      "bipod": "false",
+      "bolt": "false",
+      "reargrip": "false",
+      "body": "false"
+    },
+    "allowed": [
+      "optic",
+      "muzzle",
+      "stock",
+      "magazine",
+      "bipod",
+      "bolt",
+      "reargrip",
+      "body"
+    ]
+  },
+  "visual_review": {
+    "images": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M24SurfaceNetworkReview20261101\\Native",
+    "improvement": "Previously conspicuous striped specular artifacts reduced in the latest chassis render",
+    "remaining": "Skeleton stock remains noticeably brighter than the chassis; complete finish uniformity is not signed off"
+  },
+  "weather": "Runtime resolves exposed WeaponWetness. The initial whitelist-based test was obsolete and was corrected; no runtime wet-routing change was required.",
+  "not_covered": [
+    "packaged client cook/play test",
+    "WAN or separate physical machines",
+    "live rendered multiplayer arm anatomy",
+    "damage/ballistics and ammunition authority combat regression",
+    "gunsmith transaction RPC end-to-end"
+  ],
+  "asset_writes_this_audit": false
+}

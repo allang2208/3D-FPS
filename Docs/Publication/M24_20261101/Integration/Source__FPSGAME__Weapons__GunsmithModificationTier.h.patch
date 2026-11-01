@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -18,6 +18,10 @@
+         return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_kukri")&&SlotKey==TEXT("lanyard")&&(Id==TEXT("kukri_lanyard_relentless")||Id==TEXT("kukri_lanyard_decisive")))
+         return EGunsmithModificationTier::Legendary;
++    if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("body")&&Id==TEXT("m24_advanced_action"))
++        return EGunsmithModificationTier::Special;
++    if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("bolt")&&Id==TEXT("m24_carbon_light_bolt"))
++        return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_thunder_god_hammer")&&SlotKey==TEXT("head_mount")&&
+         (Id==TEXT("guan_lei_seat")||Id==TEXT("ji_lei_seat")))
+         return EGunsmithModificationTier::Legendary;

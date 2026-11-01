@@ -76,7 +76,9 @@
     "战术挂件Ⅱ",
     "前握把",
     "装填装置",
-    "脚架"
+    "脚架",
+    "栓机",
+    "枪身主体"
   ],
   "defaults": [
     "原厂瞄具",
@@ -89,7 +91,9 @@
     "未安装",
     "无前握把",
     "逐发装填",
-    "无脚架"
+    "无脚架",
+    "原装栓机",
+    "原装枪身"
   ],
   "fixtures": [],
   "slots": [
@@ -103,7 +107,9 @@
     "tactical_secondary",
     "underbarrel",
     "reload_device",
-    "bipod"
+    "bipod",
+    "bolt",
+    "body"
   ],
   "version": 1,
   "weapons": [
@@ -7022,6 +7028,30 @@
               "ads_percent": -0.1,
               "hip_spread_mult": 1.15
             }
+          },
+          {
+            "id": "sniper_skeleton_stock",
+            "name": "骨架狙击枪托",
+            "description": "镂空金属托架配可调贴腮板、调节轮与橡胶肩垫，按各枪型连接端独立适配。",
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 1.2,
+              "ads_percent": 0.05
+            },
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ]
           }
         ],
         "magazine": [
@@ -11747,6 +11777,30 @@
               "ads_percent": -0.1,
               "hip_spread_mult": 1.15
             }
+          },
+          {
+            "id": "sniper_skeleton_stock",
+            "name": "骨架狙击枪托",
+            "description": "镂空金属托架配可调贴腮板、调节轮与橡胶肩垫，按各枪型连接端独立适配。",
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 1.2,
+              "ads_percent": 0.05
+            },
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ]
           }
         ],
         "magazine": [
@@ -11809,6 +11863,448 @@
           "text": "狙击枪暴击加成与暴击技能加成相加后单次结算。"
         }
       ]
+    },
+    {
+      "id": "ue_m24",
+      "model": "M24",
+      "name": "M24",
+      "allowed": [
+        "optic",
+        "muzzle",
+        "stock",
+        "magazine",
+        "bipod",
+        "bolt",
+        "reargrip",
+        "body"
+      ],
+      "options": {
+        "optic": [
+          {
+            "id": "m24_custom_scope_6x",
+            "name": "M24 定制六倍瞄准镜",
+            "description": "长镜筒、双环安装座与独立调节鼓组成完整瞄具总成。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [
+              "双瞄具｜瞄准时滚轮向上切换主体6倍镜，向下切换上方1倍镜。"
+            ]
+          },
+          {
+            "id": "none",
+            "name": "M24 觇孔机械瞄具",
+            "description": "取下光学瞄准镜，使用侧置调节座、觇孔照门与护筒准星组成的机械瞄具总成。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [
+              "机械瞄准｜使用觇孔照门与前准星，不提供光学放大。"
+            ]
+          },
+          {
+            "id": "holographic",
+            "name": "全息瞄准镜",
+            "description": "1×环形分划全息瞄准镜；安装在 M4 顶部导轨，保持原枪开镜速度。",
+            "effects": [
+              {
+                "text": "1×全息瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          },
+          {
+            "id": "panoramic_red_dot",
+            "name": "全景薄框红点瞄具",
+            "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+            "effects": [
+              {
+                "text": "1×红点瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "prism_scope_2x",
+            "name": "紧凑型二倍棱镜瞄具",
+            "description": "固定 2× 放大，短镜筒、镀膜镜片与中心十字分划，配窄导轨底座。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05
+            }
+          },
+          {
+            "id": "lpvo_1_6x",
+            "name": "1–6× 低倍可变瞄准镜",
+            "description": "长镜筒、双环悬臂座与倍率拨杆；瞄准时滚轮调节 1～6×，每格 0.5×。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1
+            }
+          },
+          {
+            "id": "kv_scope_4x",
+            "name": "KV 战术瞄准镜",
+            "description": "长目镜筒、独立调节鼓与双脚导轨座，采用中心十字分划；瞄准时滚轮切换 1×、2×、4× 三档倍率。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性提高5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "stability_mult": 1.05
+            }
+          },
+          {
+            "id": "thermal_scope",
+            "name": "热成像瞄准镜",
+            "description": "传说级电子热成像瞄具，适用于枪械。默认1.5倍，开镜时滚轮切换1.5/3/8倍；显示怪物、隐身怪物与真实火源的热轮廓，实体墙壁仍会遮挡。",
+            "appearance": "thermal_scope",
+            "effects": [
+              {
+                "text": "1.5/3/8倍电子变倍",
+                "benefit": 1
+              },
+              {
+                "text": "识别怪物、隐身目标与火源",
+                "benefit": 1
+              }
+            ],
+            "stats": {}
+          }
+        ],
+        "muzzle": [
+          {
+            "id": "none",
+            "name": "裸枪口",
+            "description": "原装枪管前端，不安装枪口配件。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "m24_factory_suppressor",
+            "name": "狙击枪消音器",
+            "description": "哑黑长筒外壳与尾部连接环。",
+            "effects": [
+              {
+                "text": "后坐力降低30%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高20%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低10%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.7,
+              "stability_mult": 1.2,
+              "bullet_speed_mult": 0.9,
+              "ads_percent": 0.1
+            },
+            "special_effects": [
+              "消音｜降低开火声与枪口火光。"
+            ]
+          }
+        ],
+        "stock": [
+          {
+            "id": "m24_cheekrest",
+            "name": "M24 原厂枪托",
+            "description": "原厂复合材料枪托与托腮板成套安装，保留原有肩托和握持轮廓。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "sniper_skeleton_stock",
+            "name": "骨架狙击枪托",
+            "description": "镂空金属托架配可调贴腮板、调节轮与橡胶肩垫，按各枪型连接端独立适配。",
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 1.2,
+              "ads_percent": 0.05
+            },
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ]
+          }
+        ],
+        "magazine": [
+          {
+            "id": "false",
+            "name": "5发原厂弹匣",
+            "description": "紧凑短壳体与独立底板，保留原装插接段。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "m24_extended_mag_10",
+            "name": "10发扩容弹匣",
+            "description": "加长金属壳体与下移底板，沿用原装插接段。",
+            "effects": [
+              {
+                "text": "弹匣容量增加5发",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "mag_delta": 5
+            },
+            "special_effects": []
+          }
+        ],
+        "bipod": [
+          {
+            "id": "false",
+            "name": "不安装脚架",
+            "description": "保留原装枪管与护木。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "m24_foldable_bipod",
+            "name": "M24 折叠脚架",
+            "description": "双腿金属脚架，收起时沿枪管下侧前折，夹环固定在护木前方。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [
+              "架枪｜静止靠近有效支撑面时瞄准，由左手展开脚架并落位；取消瞄准时收起。",
+              "架设状态｜后坐力-66%，稳定性+66%，散布-45%；展开和收起期间不可开火。"
+            ]
+          }
+        ],
+        "bolt": [
+          {
+            "id": "false",
+            "name": "M24 原装栓机",
+            "description": "原装金属栓体、拉柄与尾帽，保留原有机械表面。",
+            "stats": {},
+            "effects": [],
+            "special_effects": []
+          },
+          {
+            "id": "m24_carbon_light_bolt",
+            "name": "碳纤维轻型栓机",
+            "description": "沿用原装栓机轮廓与拉柄，外覆细密斜纹碳纤维，保留金属端面与接合环。",
+            "stats": {
+              "fire_interval_mult": 0.7692307692307692
+            },
+            "effects": [
+              {
+                "text": "拉栓速度+30%",
+                "benefit": 1
+              }
+            ],
+            "special_effects": [
+              "轻型栓机｜拉栓速度+30%，同步缩短射击间隔；换弹和装备动作保持原有节奏。"
+            ]
+          }
+        ],
+        "reargrip": [
+          {
+            "id": "false",
+            "name": "M24 原装后握",
+            "description": "枪托与握持颈部连成一体，保留原装聚合物表面。",
+            "stats": {},
+            "effects": []
+          },
+          {
+            "id": "phantom_reargrip",
+            "name": "幻影后握把",
+            "description": "贴合枪托颈部的薄型包覆，表面带有分段横向防滑肋纹。",
+            "effects": [
+              {
+                "text": "开镜耗时增加15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.15,
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 1.1
+            }
+          },
+          {
+            "id": "stable_antislip_reargrip",
+            "name": "稳固防滑后握",
+            "description": "沿原枪托曲面贴合的橡胶握持覆层，表面带细密防滑颗粒。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15
+            }
+          },
+          {
+            "id": "balanced_reargrip",
+            "name": "均衡后握把",
+            "description": "贴合原握持轮廓的聚合物覆层，带细横纹与收薄边缘。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
+          }
+        ],
+        "body": [
+          {
+            "id": "false",
+            "name": "M24 原装枪身",
+            "description": "原装一体式枪托与前护木，保留原有握持轮廓。",
+            "stats": {},
+            "effects": []
+          },
+          {
+            "id": "m24_advanced_action",
+            "name": "先进枪机系统",
+            "description": "重构机匣、弹匣口与完整上下护木的金属底盘，配有镂空散热槽、连续导轨与沉孔紧固件，沿用原装枪托。",
+            "special_effects": [
+              "后握把接口｜安装后解锁后握把改造；切回原厂枪身时自动撤下后握把改造。"
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 1.2,
+              "ads_percent": 0.1
+            },
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ]
+          }
+        ]
+      },
+      "inherit_common_options": false,
+      "base": {
+        "ammo_item_id": "ammo_m24_762x51",
+        "mag_size": 5,
+        "ads_smooth": 8.0,
+        "recoil": 260,
+        "camera_shake": 150,
+        "spread_mult": 5.0,
+        "fire_interval": 1.8333333333333333,
+        "reload_time": 4.7,
+        "empty_reload_time": 6.366666666666666,
+        "damage": 150,
+        "bullet_speed": 820,
+        "effective_range": 650,
+        "stability_mult": 1.3
+      },
+      "traits": [
+        {
+          "icon": "mechanic",
+          "text": "栓动；每次扣扳机击发一发，完成拉栓后才能再次射击。"
+        },
+        {
+          "icon": "mechanic",
+          "text": "原厂六倍镜、机械瞄具与通用光学瞄具可互换；狙击枪消音器和贴腮板可独立拆装，新枪默认使用裸枪口。"
+        },
+        {
+          "icon": "special",
+          "text": "暴击伤害+100%。"
+        }
+      ],
+      "default_parts": {
+        "optic": "m24_custom_scope_6x",
+        "muzzle": "none",
+        "stock": "m24_cheekrest",
+        "magazine": "false",
+        "bipod": "false",
+        "bolt": "false",
+        "reargrip": "false",
+        "body": "false"
+      }
     }
   ],
   "common_options": {

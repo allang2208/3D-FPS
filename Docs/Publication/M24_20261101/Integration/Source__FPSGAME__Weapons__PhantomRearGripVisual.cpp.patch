@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp
++++ b/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp
+@@ -1,4 +1,6 @@
+ #include "Saiga12KAttachments.h"
++#include "M24Attachments.h"
++#include "SniperSkeletonStock.h"
+ #include "HK416Attachments.h"
+ #include "Super90RearGripAssets.h"
+ #include "M870FurnitureAssets.h"
+@@ -30,6 +32,29 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon, const FString& GripBody)
+ {
++    if(IsM24Weapon())
++    {
++        // The body is assembled first for equipped, preview and pickup rigs.
++        // A direct skeleton stock still needs its default grip when locked.
++        const FString GripVariant=PrismHandstop?Variant:FString();
++        if(bInventoryWeaponReady&&SniperSkeletonStock::UsesM24DirectStock(StockAttachment))
++        {
++            RearGripAttachment=SniperSkeletonStock::ConfigureM24Grip(this,AKMViewmodel,RearGripAttachment,GripVariant);
++            TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> Unused;
++            for(const bool Extended:{false,true})
++            {
++                const FName Family=SniperSkeletonStock::M24GripFamily(RearGripAttachment,Extended);
++                if(!WeaponGripProfiles.Contains(Family))InitializeWeaponGripFamily(Family,Unused);
++            }
++            return;
++        }
++        // Factory furniture retains its fitted skins; the skeleton-stock
++        // assembly above replaces the complete independent pistol-grip mesh.
++        if(RearGripAttachment)RearGripAttachment->EmptyOverrideMaterials();
++        RearGripAttachment=M24Attachments::Configure(this,AKMViewmodel,RearGripAttachment,
++            GripVariant,bInventoryWeaponReady&&M24Attachments::IsRearGrip(GripVariant));
++        return;
++    }
+     if(IsSaiga12KWeapon())
+     {
+         RearGripAttachment=Saiga12KAttachments::Configure(this,AKMViewmodel,RearGripAttachment,Variant,bInventoryWeaponReady&&Saiga12KAttachments::SupportsRearGrip(Variant));

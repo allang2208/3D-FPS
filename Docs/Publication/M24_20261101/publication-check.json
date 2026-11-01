@@ -1,0 +1,48 @@
+{
+  "base": "cfb07caaea701e95318da0d9b8478226038489a7",
+  "files": 795,
+  "text_bytes": 3996808,
+  "largest": [
+    [
+      558559,
+      "Content/ColdSteelData/modular_outfits.json"
+    ],
+    [
+      380743,
+      "Content/ColdSteelData/gunsmith.json"
+    ],
+    [
+      208929,
+      "Content/ColdSteelData/items.json"
+    ],
+    [
+      192981,
+      "Docs/Publication/M24_20261101/recipe-manifest.json"
+    ],
+    [
+      106301,
+      "Docs/Publication/M24_20261101/archive-manifest.json"
+    ],
+    [
+      67346,
+      "Docs/Publication/M24_20261101/archive-receipt.json"
+    ],
+    [
+      38135,
+      "Docs/Publication/M24_20261101/Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch"
+    ],
+    [
+      30135,
+      "Config/DefaultGame.ini"
+    ]
+  ],
+  "binary_payloads": 0,
+  "credential_pattern_findings": 0,
+  "whitespace_pass": true,
+  "integration_patch_applicability": true,
+  "config_scope_pass": true,
+  "real_index_unchanged": true,
+  "gameplay_retested": false,
+  "retired_files": 176,
+  "preparation_files_archived": 81
+}

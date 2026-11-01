@@ -1,0 +1,32 @@
+{
+  "mesh": "/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9",
+  "sha256": "5f51c8022559348c85150bfdd8e3a358331aa571bf9e191318fb2a3685bd08c7",
+  "has_stock_contact_socket": true,
+  "has_eject_bone": true,
+  "has_generic_eject_socket": false,
+  "stock_root": [
+    -2.8820230462126124e-08,
+    0.007762689739465643,
+    0.3521536612354091
+  ],
+  "stock_cs": [
+    1.9660237971344632e-07,
+    36.03858962125959,
+    2.987535238265991
+  ],
+  "forward_cs": [
+    -8.74227765734985e-08,
+    -0.9999999999999962,
+    2.220446049250305e-16
+  ],
+  "up_cs": [
+    0.0,
+    2.220446049250313e-16,
+    1.0000000000000002
+  ],
+  "source_slots": [
+    "M24_FactoryStock"
+  ],
+  "contact_width_cm": 5.032184123992568,
+  "contact_height_cm": 15.03981447219849
+}

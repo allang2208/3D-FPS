@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Weapons/WeaponSurfaceStandard.h
++++ b/Source/FPSGAME/Weapons/WeaponSurfaceStandard.h
+@@ -26,6 +26,12 @@
+     const FName Package=Base->GetOutermost()->GetFName();
+     // SUPER90 rear grips use the same wet layer with a vertex-masked polymer/metal finish.
+     static const FName Super90RearGripMaster(TEXT("/Game/Weapons/Super90/RearGrips20261012/Materials/M_Super90RearGripSurface"));
+-    return Package==MasterPackage()||Package==Super90RearGripMaster?Asset:nullptr;
++    // M24 keeps the shared wet layer and resolves its mixed UV0 material regions before it.
++    static const FName M24SurfaceMaster(TEXT("/Game/Weapons/M24/Surface20261027/Materials/M_M24RegionalSurface"));
++    static const FName M24StaticSurfaceMaster(TEXT("/Game/Weapons/M24/Surface20261027/Materials/M_M24RegionalSurface_Static"));
++    static const FName M24IronSurfaceMaster(TEXT("/Game/Weapons/M24/Surface20261027/Materials/M_M24IronSurface"));
++    static const FName M24ChassisSurfaceMaster(TEXT("/Game/Weapons/M24/AdvancedAction20261029/Materials/M_M24AdvancedSurface"));
++    static const FName SniperStockSurfaceMaster(TEXT("/Game/Weapons/SkeletonSniperStock20261031/Materials/M_SniperStockSurface"));
++    return Package==MasterPackage()||Package==Super90RearGripMaster||Package==M24SurfaceMaster||Package==M24StaticSurfaceMaster||Package==M24IronSurfaceMaster||Package==M24ChassisSurfaceMaster||Package==SniperStockSurfaceMaster?Asset:nullptr;
+ }
+ }

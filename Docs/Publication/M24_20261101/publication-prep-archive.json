@@ -1,0 +1,571 @@
+{
+  "files": [
+    {
+      "source": "SourceAssets/M24Publication20261101/check_and_stage.py",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/check_and_stage.py",
+      "bytes": 5785,
+      "sha256": "b012ce0c71670a565e402219669bfa7ab16dff51dd439e08a999c71998787667",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/direct-pathspec.txt",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/direct-pathspec.txt",
+      "bytes": 42784,
+      "sha256": "696266891b0d6c5d3b5026b48d242b38e7e57d501d32e3a6bfdeb99097dfe8dd",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/export_integration.py",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/export_integration.py",
+      "bytes": 5805,
+      "sha256": "10b639a9bd70947c779d52454ed3c0d08a71e54e82c373897d970758a1cc180f",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/export_wire.py",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/export_wire.py",
+      "bytes": 2583,
+      "sha256": "fbe7a34e47683a27c9014629f24b5ea0a1638b0ef5c9385bae04a3635fe67fcf",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/inventory.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/inventory.json",
+      "bytes": 1876647,
+      "sha256": "8c8945196fddfc2ff14b4b77f2c384019c1c8da4af9cf8a1be183c733b8c2cd3",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/mixed_edits.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/mixed_edits.json",
+      "bytes": 38768,
+      "sha256": "a82f743aa1e5bb4e8bcfd1c795c2809752ca74cfea7adf4e0c1af44fb9912a80",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/plan_archive.py",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/plan_archive.py",
+      "bytes": 1736,
+      "sha256": "4ee07e97f53483e627f33cefe938c60fc9c2888bf32e6a64e3e7fbea2d043019",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/prepare_inventory.py",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/prepare_inventory.py",
+      "bytes": 2918,
+      "sha256": "21541652e98cbe669fffb40b82ec13622f66fe1a072a184e8c29ba348f3534e2",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/prepare_release.py",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/prepare_release.py",
+      "bytes": 5956,
+      "sha256": "cb72d1ad0cbd39706d0b36c64f506492b9df334e9282228f4a830daea00232ff",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/prepare_shared.py",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/prepare_shared.py",
+      "bytes": 2016,
+      "sha256": "e2cc6a56df5fa287da91ea78ba0ffe67d63e3e9f5e388644d1162571a983e31b",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/publication_candidates.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/publication_candidates.json",
+      "bytes": 676796,
+      "sha256": "e827a7bc568799f303bea1cf454de3716d06bb818ef5ff84b908524ce39bcb51",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/reviewed_edits.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/reviewed_edits.json",
+      "bytes": 221078,
+      "sha256": "75e8f211b702d3d5ab5d7baeec285c222a619c791187aaa996f8d57c7e96477a",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/shared_candidates.txt",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/shared_candidates.txt",
+      "bytes": 327189,
+      "sha256": "3076f66c6ef5761ac7807e69eabbcca4333834fe13587fa5088811fcc419894c",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/shared_edits.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/shared_edits.json",
+      "bytes": 158873,
+      "sha256": "4e5df77ef0cf66f0e174fd2e7b62a207df50e33428a5973fb6bc80fb7f4304bd",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/skill-additions.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/skill-additions.json",
+      "bytes": 832,
+      "sha256": "7727a2a927a5c6ac712a33f8b67b5995254909e421ed41ec292d6768f93f9a29",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/update_skills.py",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/update_skills.py",
+      "bytes": 1712,
+      "sha256": "e0b6a4d69109b51d5cc644e30462d21aef7cee81f27ed0b4886fb4f8f1fca3c1",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/whitespace-check.txt",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/whitespace-check.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/workspace_status.txt",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/workspace_status.txt",
+      "bytes": 224510,
+      "sha256": "cd783c60817cd44d75eed71ebf9450ca923e3c522c83aaca373f2497e777c3a9",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 287020,
+      "sha256": "80a6649f30c9f892d9c1a3b97b65c23f7b775bbd0d3459911e5800f270321c73",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacter.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacter.h",
+      "bytes": 58416,
+      "sha256": "f9231020df903ab8236913bc0a0204c1b4a3d23aa3817b23e54a079c2f40c4b5",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "bytes": 6819,
+      "sha256": "a9be1028401f23f993e647f2bb4f05172648efdc7903492bc2bba93dfca4dd24",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "bytes": 20952,
+      "sha256": "e3846e82deebb05ed76e5a177d0a568404bccbe057d6f80563d879e8f0a09bd4",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacterReloadCamera.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/FPSGAMECharacterReloadCamera.cpp",
+      "bytes": 6563,
+      "sha256": "f5d89bfb9fa19102e269ba4c2ff9d30482a8bdba95cceaa2217d0a51fdb4ba36",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+      "bytes": 4678,
+      "sha256": "324b1f0b21f12815f26097bd6e2e9439d056116d86651596b6d985d63f73ed8e",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSBodyRifleMotion.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSBodyRifleMotion.h",
+      "bytes": 773,
+      "sha256": "d6b7a6178eccffc28bd165107920123dee21e7f94c731f26ebd6a9cb2c310c0b",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "bytes": 68034,
+      "sha256": "fdade1430f5230c46f17859fb3552f2330c3f1ef83f2cf9c728c8f18d3b923aa",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp",
+      "bytes": 18194,
+      "sha256": "90f881ef3d7ee8a4c2aed506da0b6df51840693d1338440121d653fdbca60e88",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "bytes": 52472,
+      "sha256": "f6ca913e77499de9a3cbe9c2edb495d789be34575c8b855d4947bc0850167a70",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "bytes": 37077,
+      "sha256": "9da15971395705d23feb03fe69e8a36fa9e3e48da024de8480e3247531d6c88a",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+      "bytes": 5242,
+      "sha256": "504571a3648a0c47b8befdec1bd5f6b1a335df26685ebc2493fb252cf795de5d",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelAmmoRuntime.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelAmmoRuntime.cpp",
+      "bytes": 13372,
+      "sha256": "2b1e1d66caf727602508e728d100f7ca14c3cd6cf012eae9d7a61f011d1788ec",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "bytes": 21510,
+      "sha256": "3c50903267994898ab1fcfe8b376d53ceb2a00dbb71e3bef36193216c709b9a8",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+      "bytes": 31302,
+      "sha256": "7dc6a0215e8a898ded536e29c6f59ff210e21e3fc264e1333f30f019bd272866",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+      "bytes": 5736,
+      "sha256": "7ceed7b7d493ebaa6bd788adef0480b5db9d05845a6b9809be0fea6212b023a5",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+      "bytes": 7668,
+      "sha256": "9912f9d741d3656d171bf99f86f0471c5676550909900d5347720112bd2cb4e1",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "bytes": 112258,
+      "sha256": "a02ebd7c3b49b6c01438f19ffebd981ec7bd5e260a64fd60bb4470f2a2fdb4da",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "bytes": 46843,
+      "sha256": "fa3a0f9c1785c42ade99d2f69b9c54e3e8690d4603db8dadca7d76b9c68a1b9d",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "bytes": 16470,
+      "sha256": "4d94ec2b5507af2c75066f80a9d7c4bb4d2d5ca360a7ff08ba7d230b1f0cb85f",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+      "bytes": 2727,
+      "sha256": "e19a375a198d9cdfc3c473bab4abfc91883119780aaa724802c1b148b96dad06",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "bytes": 39392,
+      "sha256": "68e23ba745008127e044bf299cf98c4cc52cea9f02ea32f2d57f0d93c0a47c69",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/LPVOScopeWidget.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/LPVOScopeWidget.cpp",
+      "bytes": 24370,
+      "sha256": "f7e282069d2ac24d0cde6b21bebdd0df01f74326d96b448efdc7cb65e524f8a0",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/LPVOScopeWidget.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/LPVOScopeWidget.h",
+      "bytes": 594,
+      "sha256": "1b3409718e2f102c978b2a8cc2de1207a803ff01dd05e071ee10bf8d84bceed9",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "bytes": 35781,
+      "sha256": "e657d793b80a6779be52e630ffcb06a0eef2acd9dbca8691fc1e9056ede662bb",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/M4StandalonePreview.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/M4StandalonePreview.cpp",
+      "bytes": 4470,
+      "sha256": "2023317ae133633ed230cf66a406911de0e02ca7d8089aa8f7a531778777e352",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ScopeOpticDrawing.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/UI/ScopeOpticDrawing.h",
+      "bytes": 10272,
+      "sha256": "fb46abb69f29ef822d7e73a02f7fb4a713a1e9354208f4172485bea384dd6d01",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/CasingPortCalibration.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/CasingPortCalibration.h",
+      "bytes": 2560,
+      "sha256": "e81c52158054bb18a7ea7e46e007aad83ea3511a48579a99dd84fdf9c48ef513",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/FPSGAMECharacterVisualRecoil.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/FPSGAMECharacterVisualRecoil.cpp",
+      "bytes": 2076,
+      "sha256": "beadf8731f141ed8b0da37dd39e1fe417eae68d4e270d853d9a7da35d9f2e811",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+      "bytes": 96242,
+      "sha256": "1fb077ec75753fed847a701b80db5bd87b1de072a854edb21ae84e9e24cffbc8",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "bytes": 8528,
+      "sha256": "87ac632e5d1b770aadf81613bea4086021f6ac73ec32e766e18d9d7efc589eeb",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "bytes": 37536,
+      "sha256": "b7fe7055e6c088209fb847a992994746d584abc370c0608c72a96d311f45d2c5",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/KVScopeAssets.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/KVScopeAssets.h",
+      "bytes": 1775,
+      "sha256": "f61bbf34ab39266175aefe9786046050c88f5142d629fed1f57d46da3eca6ccc",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+      "bytes": 22781,
+      "sha256": "944303616087c7aab10414d4c583a250beeb46e01300f383ee4139f021fef590",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+      "bytes": 29919,
+      "sha256": "ef60ce019d47d956a15a83a13c7c6cd3a45920675af543df10fbf5d8d2ba4bd8",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+      "bytes": 13854,
+      "sha256": "6671087c47131e686b7e117cf94f619a91212676ad58f733a0247865eaee762d",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+      "bytes": 26752,
+      "sha256": "b03b329fea4c09119d9472ce2ca5932b660c743e02cb3cc7a5a0b822f3037087",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4TacticalSprintComponent.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4TacticalSprintComponent.cpp",
+      "bytes": 10354,
+      "sha256": "34d49e22c0c2df17d0229766b1dd2087ea1d8c7e26b4c33973aac09108667393",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4TacticalSprintComponent.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M4TacticalSprintComponent.h",
+      "bytes": 1345,
+      "sha256": "a53308a4d044390b8c0fc1216b8c19472951ce7230e30d30dcf955d99e1cc87a",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+      "bytes": 19518,
+      "sha256": "2bb29e4900af3bc992d33a1111459568751e4344bbd6a41f1830b35199859ae7",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp",
+      "bytes": 6735,
+      "sha256": "c45241d6a290f548d675c8ea4dc7066df6c41050012e0c3f9a1fc388016bcdda",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/PKMBipodComponent.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/PKMBipodComponent.cpp",
+      "bytes": 11912,
+      "sha256": "c95c6b32f03e0406196cd491c5970af4ecae3062a2ed8169ce8dc4094e3c02fb",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/PKMBipodComponent.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/PKMBipodComponent.h",
+      "bytes": 2104,
+      "sha256": "1bb86ad97284eb351a88bf642a8084c8b762b571ea166816aa5cbad526bd9659",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/RifleHipFraming.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/RifleHipFraming.cpp",
+      "bytes": 6544,
+      "sha256": "17eb25451bcdf0d2fdca3836a1dc181e0413fd1fae09857aed06adf54b4ea24d",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp",
+      "bytes": 8763,
+      "sha256": "1a80f2382f145d6571333550ffa7de386b49c699caaa3a0c283c019f716cf3ba",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+      "bytes": 11941,
+      "sha256": "ab2c7ac0e0d3ac46f1cd37dc610f680da6594af89d820c4bb4eaa38a1b9c591a",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+      "bytes": 3154,
+      "sha256": "dda8ca223bc30c6396fc479b248e35eb960517b0b2105866a82c485e574806f3",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+      "bytes": 33770,
+      "sha256": "25ed0d12f5bd979b75523baae2d27e9a1e5d2cb7e322eb6937acfa3fe19d2db1",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h",
+      "bytes": 6609,
+      "sha256": "9f1c3e314b98568e9487921e534ea8332ff932d767ae2be4e5814d6291f42c46",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+      "bytes": 4075,
+      "sha256": "5c1f723fb5ffcd13edb94349ca03ea6bd5035f2560aa54ccf77d4138331396a7",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/WeaponSurfaceStandard.h",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PrivatePreimages/Source/FPSGAME/Weapons/WeaponSurfaceStandard.h",
+      "bytes": 1353,
+      "sha256": "df127159522b258e9e8b35218d74b8346b6b33d0310b2908263ae86389a1699d",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/.gitattributes",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/.gitattributes",
+      "bytes": 2641,
+      "sha256": "7dbf42ad438cd981c73a887222511da32d9d9b84852079944d72f83d7c153ddf",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/Config/DefaultGame.ini",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/Config/DefaultGame.ini",
+      "bytes": 30135,
+      "sha256": "99a519530b9ccd861133f60247b3822869781ba403b9189a392db6f52fc82c76",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/ammo-crafting-recipes.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/ammo-crafting-recipes.json",
+      "bytes": 9037,
+      "sha256": "546f7a023ea83dd68089c0e5162fc3685ae5f281e3efc8e2617ec5302ec47825",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/ammo_types.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/ammo_types.json",
+      "bytes": 13021,
+      "sha256": "28bdb87d9352d34e7529065258cb7009a2c7d374fd0132bf3b12002153a402a2",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/combat-weapon-formulas.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/combat-weapon-formulas.json",
+      "bytes": 8857,
+      "sha256": "e00bf02e85817c9ce8325e4243f89295fd7b7c61345d04dbe2748e5dfbecf41f",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/gunsmith.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/gunsmith.json",
+      "bytes": 380743,
+      "sha256": "d88b000a0df58449633532d64c69c90ffb51742e67c5fb0011a0ce056ed15828",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/items.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/items.json",
+      "bytes": 208929,
+      "sha256": "ff732559ea7825b5ba05d6e49ac6426d7a7b30840f7576891f0442bc5d8bcb8e",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/modular_outfits.json",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/Content/ColdSteelData/modular_outfits.json",
+      "bytes": 558559,
+      "sha256": "7934959704af2b19a6c5bd6c3a04fd9dcec0e28edcde08640647f1f832558b86",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/skills/asset-model-workflow/SKILL.md",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/skills/asset-model-workflow/SKILL.md",
+      "bytes": 1275,
+      "sha256": "b54aaa73724b88aaed572dd2481299e76a7989c5285d5196217e010a0f7cc1ca",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/skills/ue5-fps-arms-animation/SKILL.md",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 6371,
+      "sha256": "16531ccea0a503122f8965deaa75f75e2e7b235e926c67d9c85457baeb6cf209",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/skills/ue5-save-load-replication/SKILL.md",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/skills/ue5-save-load-replication/SKILL.md",
+      "bytes": 5182,
+      "sha256": "6ddec4af67060a96117466b827e38dcc697d190272ef52104d20f792e083a238",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    },
+    {
+      "source": "SourceAssets/M24Publication20261101/PublicBlobs/skills/ue5-weapon-workflow/SKILL.md",
+      "destination": "trash/m24-publication-prep-20261101/SourceAssets/M24Publication20261101/PublicBlobs/skills/ue5-weapon-workflow/SKILL.md",
+      "bytes": 4447,
+      "sha256": "692405f02745770baf2fd4d68ca2dd0ea07c714d6159bac4163ae634084f8b15",
+      "reason": "Completed publication preparation or private reconstructed host baseline; active worktree unchanged."
+    }
+  ]
+}
