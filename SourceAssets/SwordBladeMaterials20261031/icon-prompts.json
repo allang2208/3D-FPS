@@ -1,0 +1,18 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_1_false.png",
+  "prompts": [
+    {
+      "id": "folded_steel",
+      "prompt": "Edit the supplied existing game modification icon. Preserve EXACT metal outer square frame, four rivets, silver inner circular ring, recessed dark background, transparency outside frame, horizontal blade pointing LEFT, blade silhouette, engraved geometric glyph shapes, perspective and composition. Change ONLY the metal finish of the blade, not the glyph shapes. Strict neutral grayscale icon, no hue, no text, no glow, no new geometry. Physically believable detailed metal, with restrained highlights, avoid white clipping. Folded layered steel: restrained flowing parallel Damascus-like forging laminations on the steel flats, medium silver-gray satin metal, delicate grain and polished thin bevels. The original glyph strip remains legible and structurally unchanged."
+    },
+    {
+      "id": "dark_iron",
+      "prompt": "Edit the supplied existing game modification icon. Preserve EXACT metal outer square frame, four rivets, silver inner circular ring, recessed dark background, transparency outside frame, horizontal blade pointing LEFT, blade silhouette, engraved geometric glyph shapes, perspective and composition. Change ONLY the metal finish of the blade, not the glyph shapes. Strict neutral grayscale icon, no hue, no text, no glow, no new geometry. Physically believable detailed metal, with restrained highlights, avoid white clipping. Dark forged iron: very dark charcoal/graphite metallic blade flats with fine directional brushing, subtle pewter edge highlights and subdued microtexture. Keep the engraved glyph strip in a slightly lighter silver gray for readability. NOT plastic, NOT rust, NOT pure black silhouette."
+    },
+    {
+      "id": "mithril",
+      "prompt": "Edit the supplied existing game modification icon. Preserve EXACT metal outer square frame, four rivets, silver inner circular ring, recessed dark background, transparency outside frame, horizontal blade pointing LEFT, blade silhouette, engraved geometric glyph shapes, perspective and composition. Change ONLY the metal finish of the blade, not the glyph shapes. Strict neutral grayscale icon, no hue, no text, no glow, no new geometry. Physically believable detailed metal, with restrained highlights, avoid white clipping. Mithril: luminous looking silver-white metal without actual emission, very fine elegant longitudinal brushed grain, cool neutral silver-gray subtle anisotropic highlights, pristine smoother surface. Preserve gray shading and polished edge highlights without clipping to flat white. The geometric glyph strip stays engraved and legible."
+    }
+  ]
+}

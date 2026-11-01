@@ -1,0 +1,6 @@
+{
+  "prompt": "Edit the supplied game attachment icon. Preserve the exact square beveled metal frame, four corner rivets, inner circular rim, inset dark backing, blade geometry, blade pointing left, visible native rune shapes and framing. Change ONLY the blade's steel finish into finely polished etched Damascus steel. Use a clearly legible flowing water and irregular twisted-layer pattern: alternating dark graphite-grey layers and bright silver steel layers, wavering nested ribbons with occasional elongated eddy/eye shapes, varied spacing, coherent along the blade. This must look like etched layers integral to smooth steel, with shallow relief and soft moving-light highlights, not cracks, marble, stone, or heavily hammered roughness. Stronger dark/light layer separation than the original folded steel. Preserve central native rune shapes without coating over them. Fully neutral grayscale, no colors, no added text, logos, extra objects, sparks, glow, or UI state badge. Existing framing is unchanged, thin outside margin transparent, opaque dark background within frame. Produce one production game icon.",
+  "reference": "D:/FPS3D/FPSGAME/SourceAssets/SwordBladeMaterials20261031/Icons/folded_steel.png",
+  "tool": "built-in image_gen",
+  "purpose": "shared blade_material_damascus_steel attachment icon"
+}

@@ -173,7 +173,15 @@ struct FFPSBodyAttachment
     UPROPERTY() FString RuneDefinition;
     UPROPERTY() FString RuneId;
     UPROPERTY() FName RuneSlot;
+    // Persistent material references omit MID parameters. Carry the selected
+    // blade finish independently of whether an active rune is installed.
+    UPROPERTY() uint8 BladeFinishMode=0;
+    UPROPERTY() bool bBladeFinishGuardRoot=false;
     UPROPERTY() FVector RuneDimensions=FVector(12,10,63);
+    UPROPERTY() FVector BeiweiBladeBase=FVector::ZeroVector;
+    UPROPERTY() FVector BeiweiBladeTip=FVector::ZeroVector;
+    UPROPERTY() bool bChixiaoBlade=false;
+    UPROPERTY() bool bZhufengBlade=false;
 };
 
 USTRUCT()

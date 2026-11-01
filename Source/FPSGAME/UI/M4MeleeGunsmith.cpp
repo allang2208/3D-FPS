@@ -36,8 +36,11 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
         Overview.Add({Name,FString::Printf(TEXT("%.*f%s"),Digits,Base,Unit),FString::Printf(TEXT("%.*f%s"),Digits,Final,Unit),
             Same?TEXT("—"):FString::Printf(TEXT("%+.*f%s"),Digits,Delta,Unit),Same?0:((Delta>0)!=Lower?1:-1)});
     };
-    if(Before.Modifiers.CriticalChanceAdd>0.||After.Modifiers.CriticalChanceAdd>0.)
-        Row(TEXT("改造暴击率加成"),Before.Modifiers.CriticalChanceAdd,After.Modifiers.CriticalChanceAdd,0,TEXT("%"));
+    if(Before.Modifiers.CriticalChanceAdd+Before.Modifiers.MeleeCriticalChanceAdd>0.||After.Modifiers.CriticalChanceAdd+After.Modifiers.MeleeCriticalChanceAdd>0.)
+        Row(ColdSteelWeaponText::CriticalChance,Before.Modifiers.CriticalChanceAdd+Before.Modifiers.MeleeCriticalChanceAdd,
+            After.Modifiers.CriticalChanceAdd+After.Modifiers.MeleeCriticalChanceAdd,0,TEXT("%"));
+    if(Before.Modifiers.MeleeCriticalDamageBonus!=0.||After.Modifiers.MeleeCriticalDamageBonus!=0.)
+        Row(TEXT("暴击伤害"),Before.Modifiers.MeleeCriticalDamageBonus*100.,After.Modifiers.MeleeCriticalDamageBonus*100.,0,TEXT("%"));
     if(Before.Modifiers.ZhenmoSeconds>0.||After.Modifiers.ZhenmoSeconds>0.)
     {
         Row(TEXT("镇魔阵持续时间"),Before.Modifiers.ZhenmoSeconds,After.Modifiers.ZhenmoSeconds,0,TEXT(" s"));

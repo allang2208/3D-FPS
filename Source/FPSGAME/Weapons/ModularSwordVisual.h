@@ -29,6 +29,8 @@ namespace ColdSteelModularSword
     bool UsesZhufengWhirlwind(const FColdSteelItem& Item);
     void GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft=nullptr);
     FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
+    uint8 BladeFinishMode(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
+    void ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot);
     bool Apply(UStaticMeshComponent* Blade,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     void Clear(UStaticMeshComponent* Blade);
     TArray<UStaticMeshComponent*> Components(UStaticMeshComponent* Blade);

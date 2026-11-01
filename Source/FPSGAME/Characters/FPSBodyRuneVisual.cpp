@@ -24,6 +24,13 @@ UMaterialInstanceDynamic* RuneMaterial(UMaterialInterface* Material)
 void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelItem* Item,FFPSBodyAttachment& Out)
 {
     if(!Source||!Item||(!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsTwoHandedBlunt(*Item)))return;
+    const bool Blade=Source->ComponentHasTag(TEXT("SwordSlot=blade_1"));
+    const bool Guard=Source->ComponentHasTag(TEXT("SwordSlot=guard"));
+    if(Item->Definition==TEXT("ue_rune_sword")&&(Blade||Guard))
+    {
+        Out.BladeFinishMode=ColdSteelModularSword::BladeFinishMode(*Item);
+        Out.bBladeFinishGuardRoot=Guard;
+    }
     Out.bChixiaoBlade=Source->ComponentTags.Contains(FName(TEXT("SwordSlot=blade_1")))&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item);
     Out.bZhufengBlade=Source->ComponentTags.Contains(FName(TEXT("SwordSlot=blade_1")))&&ColdSteelModularSword::UsesZhufengWhirlwind(*Item);
     if(Out.bChixiaoBlade||Out.bZhufengBlade)
@@ -55,9 +62,12 @@ void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelIte
 
 void FPSBodyRuneVisual::Apply(UStaticMeshComponent* Mesh,const FFPSBodyAttachment& Description)
 {
-    if(!Mesh||Description.RuneDefinition.IsEmpty())return;
+    if(!Mesh)return;
     if(!Description.RuneSlot.IsNone())Mesh->ComponentTags.AddUnique(Description.RuneSlot);
-    ColdSteelMeleeRune::Apply(Mesh,Description.RuneId,Description.RuneDefinition);
+    if(!Description.RuneDefinition.IsEmpty())
+        ColdSteelMeleeRune::Apply(Mesh,Description.RuneId,Description.RuneDefinition);
+    // Native rune selection may replace the material, so finish settings come last.
+    ColdSteelModularSword::ApplyBladeFinish(Mesh,Description.BladeFinishMode,Description.bBladeFinishGuardRoot);
     const auto& D=Description.RuneDimensions;
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -70,8 +80,11 @@ void FPSBodyRuneVisual::Apply(UStaticMeshComponent* Mesh,const FFPSBodyAttachmen
 
 FString FPSBodyRuneVisual::Key(const FFPSBodyAttachment& Description)
 {
-    return Description.RuneDefinition.IsEmpty()&&!Description.bChixiaoBlade&&!Description.bZhufengBlade?FString():TEXT("|rune:")+Description.RuneDefinition+
+    FString Result=Description.RuneDefinition.IsEmpty()&&!Description.bChixiaoBlade&&!Description.bZhufengBlade?FString():TEXT("|rune:")+Description.RuneDefinition+
         TEXT(":")+Description.RuneId+TEXT(":")+Description.RuneSlot.ToString()+TEXT(":")+Description.RuneDimensions.ToString()+
         TEXT(":")+Description.BeiweiBladeBase.ToString()+TEXT(":")+Description.BeiweiBladeTip.ToString()+
         (Description.bChixiaoBlade?TEXT(":chixiao"):TEXT(""))+(Description.bZhufengBlade?TEXT(":zhufeng"):TEXT(""));
+    if(Description.BladeFinishMode!=0||Description.bBladeFinishGuardRoot)
+        Result+=FString::Printf(TEXT("|bladeFinishRootV1:%u:%d"),Description.BladeFinishMode,Description.bBladeFinishGuardRoot);
+    return Result;
 }

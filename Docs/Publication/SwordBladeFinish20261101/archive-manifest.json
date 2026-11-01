@@ -1,0 +1,751 @@
+{
+  "scope": "Five blade-material authoring folders only; no other task files",
+  "file_count": 93,
+  "bytes": 1693010,
+  "files": [
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/audit-only.stderr.log",
+      "destination": "trash/SwordBladeFinish20261101/audit-only.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/audit-only.stdout.log",
+      "destination": "trash/SwordBladeFinish20261101/audit-only.stdout.log",
+      "bytes": 216,
+      "sha256": "990b4b0ffa906733f211e14e06d954a30a16b552a58a79ca8e128ebe28a4d9be",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/audit.stderr.log",
+      "destination": "trash/SwordBladeFinish20261101/audit.stderr.log",
+      "bytes": 526,
+      "sha256": "cf7c878ca23f2871c2e901e965257d6c30bc33e4c859bccc34fb3502c9f1bbec",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/audit.stdout.log",
+      "destination": "trash/SwordBladeFinish20261101/audit.stdout.log",
+      "bytes": 1090,
+      "sha256": "bdb8d192f9b173d635f32c63732bacb9694fe9ec7f0d109ff4de5a7efe69e33f",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/audit_only.ps1",
+      "destination": "trash/SwordBladeFinish20261101/audit_only.ps1",
+      "bytes": 550,
+      "sha256": "6b7cb7a72614c659529002be65a26dc1949e74df959fb580d16f4bcddceb0216",
+      "reason": "Redundant one-time orchestration wrapper; direct launcher retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/run_audit.ps1"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/audit_saved_materials-20261101-111927.console.log",
+      "destination": "trash/SwordBladeFinish20261101/audit_saved_materials-20261101-111927.console.log",
+      "bytes": 71090,
+      "sha256": "fb71b917058bcf71e93a8c8f6b7d066b2163ae1cee3e99992cdf8b3eb7219415",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/audit_saved_materials-20261101-111927.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/BeforeAssets/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "destination": "trash/SwordBladeFinish20261101/BeforeAssets/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "bytes": 32487,
+      "sha256": "952d73a90741f0837c23393e3bf46e5927dcde427527cfbd13477f419bc755fb",
+      "reason": "Superseded pre-install asset backup; retained in trash for recovery.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/material-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/BeforeAssets/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "destination": "trash/SwordBladeFinish20261101/BeforeAssets/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "bytes": 52896,
+      "sha256": "d9dc0b63b432d4a32eabd695efa49534a137dbd11dd5ef7a43cbd5cd578df136",
+      "reason": "Superseded pre-install asset backup; retained in trash for recovery.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/material-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/build-editor-20261101-104745.log",
+      "destination": "trash/SwordBladeFinish20261101/build-editor-20261101-104745.log",
+      "bytes": 79266,
+      "sha256": "a9e4cdb484247cc07e20136705fc2d7dcd97e8aeedd9ca4f6b8ec1c7d959c9db",
+      "reason": "Failed preparation build, superseded by successful build; not a pass receipt.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-editor-20261101-110832.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/complete.stderr.log",
+      "destination": "trash/SwordBladeFinish20261101/complete.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/complete.stdout.log",
+      "destination": "trash/SwordBladeFinish20261101/complete.stdout.log",
+      "bytes": 1269,
+      "sha256": "477e574e2db6cabe27eb4bdfc74c1e3736ac1ab928a51b6e2412a4ca3b63c0cb",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/finish_audit.ps1",
+      "destination": "trash/SwordBladeFinish20261101/finish_audit.ps1",
+      "bytes": 450,
+      "sha256": "49c3901087967de1ccce80b3e8fc605370b99c3545dd208720d0d10e0b49f836",
+      "reason": "Redundant one-time orchestration wrapper; direct launcher retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/run_audit.ps1"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/install_materials-20261101-103814.console.log",
+      "destination": "trash/SwordBladeFinish20261101/install_materials-20261101-103814.console.log",
+      "bytes": 82248,
+      "sha256": "55ec67ddb63e1db5a0bcf0c8abacef29609046527bce6f579bdd97d4453e4398",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/install_materials-20261101-103814.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/network-audit-20261101-111730.console.log",
+      "destination": "trash/SwordBladeFinish20261101/network-audit-20261101-111730.console.log",
+      "bytes": 73130,
+      "sha256": "36c073294d1af1695055031a7e6247af503482a2056c7ba7cf1f8742d6ef1d38",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/network-audit-20261101-111730.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/network-build.stderr.log",
+      "destination": "trash/SwordBladeFinish20261101/network-build.stderr.log",
+      "bytes": 452,
+      "sha256": "d730ba6b845a3693af67cc82a291556a1390f295028d683fc796b62adbcd1f11",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/network-build.stdout.log",
+      "destination": "trash/SwordBladeFinish20261101/network-build.stdout.log",
+      "bytes": 1134,
+      "sha256": "9a0d2ab1fceea928f33db8b3dba4865d9f22fbd6f5dd28aa598e300d35593530",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/build-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-113718/build-editor.log",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-113718/build-editor.log",
+      "bytes": 47638,
+      "sha256": "e19a14bf8f87317080ac028cd1510b748a7afd0dbc2e043c7097c00cd5d5c05c",
+      "reason": "Failed initial fixture compilation, superseded by successful build.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-113919/build-editor.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/Config/CrashReportClient/UECC-Windows-2B834D8E4B45253DE37B1D9EB10D7473/CrashReportClient.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/Config/CrashReportClient/UECC-Windows-2B834D8E4B45253DE37B1D9EB10D7473/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/Config/WindowsEditor/Editor.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/Config/WindowsEditor/Editor.ini",
+      "bytes": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 49597,
+      "sha256": "77aa0fd1620fbf98efee46c66fa2ae6138e01a43e11f95ff719b7626146ef351",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/Config/WindowsEditor/Engine.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/Config/WindowsEditor/Engine.ini",
+      "bytes": 111,
+      "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "bytes": 1380,
+      "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_client_A.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_client_A.sav",
+      "bytes": 14585,
+      "sha256": "a62bbfc57543fb25af41e652de10d52ab1164933cc1ca6b71410db1bd9ee5c1a",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_client_A.sha1",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_client_A.sha1",
+      "bytes": 40,
+      "sha256": "886a0f095570d28e627d01d919760e42fbd1ee35aaf17df7ecb5b257a91a99b0",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_client_B.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_client_B.sav",
+      "bytes": 14585,
+      "sha256": "3c35f043b9463d85a2b2ef72703285ddd6aff3ccdd6bdd54c3b4897f28b4dd48",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/client/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_client_B.sha1",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/client/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_client_B.sha1",
+      "bytes": 40,
+      "sha256": "283afa92a6f73f0f4e0ea50304de04fffe9b951afda68e25e312a62885ed81f0",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/Config/CrashReportClient/UECC-Windows-04436E4B4E69324BDFB2B4B6F0124914/CrashReportClient.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/Config/CrashReportClient/UECC-Windows-04436E4B4E69324BDFB2B4B6F0124914/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/Config/WindowsEditor/Editor.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/Config/WindowsEditor/Editor.ini",
+      "bytes": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 49847,
+      "sha256": "b90ab5c5a455d85856b8ba65d03aa4dee11834a22e5af93952f0e7b10ac31bfa",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "bytes": 1380,
+      "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_A.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_A.sav",
+      "bytes": 14707,
+      "sha256": "c68f37f252ecb2feb3c7dd7469bb7fd38443b89419ea6246de79c0ab7386699f",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_A.sha1",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_A.sha1",
+      "bytes": 40,
+      "sha256": "c53def920692ce2642e72d92ca6d340833bff789d8b600b72d5fee7d824f3169",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_B.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_B.sav",
+      "bytes": 14707,
+      "sha256": "f498b58518c657309df6cd699b20fd5d4eb1476c9a4f5cca12dabd25336992da",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_B.sha1",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_B.sha1",
+      "bytes": 40,
+      "sha256": "f0d5385dd5b3a7c16e49c359732f2666aef6f6ec5865d7a3f4ea2a4f08a30fb1",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_Shared_d76a53d8.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_host_Shared_d76a53d8.sav",
+      "bytes": 2312,
+      "sha256": "06c2d62883867417f9add1bc692c4a936a849f58669c36213b85c39e984678a4",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP243A_6cb3b0ee.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP243A_6cb3b0ee.sav",
+      "bytes": 14504,
+      "sha256": "772d0fd8053f156ecc413f3dea0b58cd3d77794e66b1d2d44e180433d3c0d70a",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBPEE23_fc5f5e90.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBPEE23_fc5f5e90.sav",
+      "bytes": 14504,
+      "sha256": "772d0fd8053f156ecc413f3dea0b58cd3d77794e66b1d2d44e180433d3c0d70a",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/Config/CrashReportClient/UECC-Windows-74A9970F425E9DC1A38901884E2600E5/CrashReportClient.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/Config/CrashReportClient/UECC-Windows-74A9970F425E9DC1A38901884E2600E5/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+      "bytes": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 49597,
+      "sha256": "caf5e4e3dee425d1d77df0abb22403f4ca32be259b3621576e1f2914371ac807",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+      "bytes": 111,
+      "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "bytes": 1380,
+      "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_rejoin_A.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_rejoin_A.sav",
+      "bytes": 14585,
+      "sha256": "8b7582f81cdadf83172a75a97d0873f454eb4299fb9375033793e28622206fbe",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_rejoin_A.sha1",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_rejoin_A.sha1",
+      "bytes": 40,
+      "sha256": "30eef5a02291ac6de58a386e2006fbfdaf9a7fe0d4f099b64a047e02a747a944",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_rejoin_B.sav",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_rejoin_B.sav",
+      "bytes": 14585,
+      "sha256": "3404926c963b27373cb99013efe279e3cf78e22073bcbeab901c3162e34949ec",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/rejoin/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_rejoin_B.sha1",
+      "destination": "trash/SwordBladeFinish20261101/Wire/20261101-114052/rejoin/Saved/SaveGames/ColdSteel_SwordFinishWireAudit_20261101-114052_rejoin_B.sha1",
+      "bytes": 40,
+      "sha256": "295907950c6183154a6d1bee027d310e33aee972051dd2fe8943c007fcfc72f4",
+      "reason": "Completed isolated test process user directory; canonical reports and logs retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/Wire/20261101-114052/host.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/wire-launch.stderr.log",
+      "destination": "trash/SwordBladeFinish20261101/wire-launch.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/wire-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/wire-launch.stdout.log",
+      "destination": "trash/SwordBladeFinish20261101/wire-launch.stdout.log",
+      "bytes": 212,
+      "sha256": "6c9eacfa9eb9b4a0d79ac946dc0b75fe595b436761de8446d3bbdf81b919973f",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/wire-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/wire-retry.stderr.log",
+      "destination": "trash/SwordBladeFinish20261101/wire-retry.stderr.log",
+      "bytes": 622,
+      "sha256": "eff21c58c582b2970be11406a25e03d842ca263d8d12e44a31e47ab190a09242",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/wire-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/wire-retry.stdout.log",
+      "destination": "trash/SwordBladeFinish20261101/wire-retry.stdout.log",
+      "bytes": 99,
+      "sha256": "98743b18368b8021e0265fe459575ac75e7b24b837b35e24282a72d435f695f9",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/wire-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/wire.stderr.log",
+      "destination": "trash/SwordBladeFinish20261101/wire.stderr.log",
+      "bytes": 657,
+      "sha256": "abf391960528f07b5b319ffcac6af62334c21309c50b603b1c1ac827e28cb92e",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/wire-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeFullSurface20261101/wire.stdout.log",
+      "destination": "trash/SwordBladeFinish20261101/wire.stdout.log",
+      "bytes": 99,
+      "sha256": "65037969e9f031ffbfb16f89cacffb568d76c846ae621a7dee304e0bfaf30a13",
+      "reason": "Completed launcher output; final structured receipt and canonical log retained.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/wire-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/Before/melee-gunsmith.json",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/Before/melee-gunsmith.json",
+      "bytes": 47026,
+      "sha256": "77f0c1ddd3fdb7cfbbdda3c0ec90fc86f4aa5d36e9d945603cd6656eaedb1d4d",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "Content/ColdSteelData/melee-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/Before/rune-sword-modules.json",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/Before/rune-sword-modules.json",
+      "bytes": 8678,
+      "sha256": "1c69806d92529478150d225db994a1e869d23ee093d366588d582ac0cd840779",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "Content/ColdSteelData/melee-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/BeforeAssets/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/BeforeAssets/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "bytes": 16074,
+      "sha256": "cc3c3c0bc3e4598f1b79857826cd50749736d956af32d5f8ee7d61e475c4b214",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/material-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/BeforeAssets/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/BeforeAssets/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "bytes": 36739,
+      "sha256": "ae7f88d95f0c67d4b24dffb5926a6344167f37e4ad0adfe9d7a933e4b3855fae",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/material-receipt.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/install_icons-20261031-172638.console.log",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/install_icons-20261031-172638.console.log",
+      "bytes": 39246,
+      "sha256": "ae06935d8646907bb3b18e63f2fcb529881838f4f14ba847679d631a37324678",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeMaterials20261031/install_icons-20261031-172638.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/install_materials-20261031-172516.console.log",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/install_materials-20261031-172516.console.log",
+      "bytes": 37740,
+      "sha256": "7345a8d7f33a844244a584fd3fb1eb94b317303329f50ba33742ea96113d0c06",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeMaterials20261031/install_materials-20261031-172516.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/install_materials-20261031-172750.console.log",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/install_materials-20261031-172750.console.log",
+      "bytes": 47039,
+      "sha256": "f570e6f09f231fa516819786d04b7f68332bd98f3aa73687a86d64479174be56",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeMaterials20261031/install_materials-20261031-172750.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/install_materials-20261031-173202.console.log",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/install_materials-20261031-173202.console.log",
+      "bytes": 90596,
+      "sha256": "f7c346ce5695fdb57fff7a1eda792023d2ae5e151efb41776d56b9bb41a6e126",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeMaterials20261031/install_materials-20261031-173202.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/read_material_inputs-20261031-172029.console.log",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/read_material_inputs-20261031-172029.console.log",
+      "bytes": 39203,
+      "sha256": "1c5fb3cc3e461462cb5144a6d88943128290c931a3ab8f5bb0cb0a1bd32826ad",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeMaterials20261031/read_material_inputs-20261031-172029.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterials20261031/read_material_inputs-20261031-172117.console.log",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterials20261031/read_material_inputs-20261031-172117.console.log",
+      "bytes": 35865,
+      "sha256": "467691b0375cd50d739c8c4af88fad90760f95e62d0fd4d1074a1957339c29bd",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/SwordBladeMaterials20261031/read_material_inputs-20261031-172117.log"
+    },
+    {
+      "source": "SourceAssets/DamascusBladeMaterial20261031/Before/melee-gunsmith.json",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/DamascusBladeMaterial20261031/Before/melee-gunsmith.json",
+      "bytes": 48352,
+      "sha256": "ab76c693e95ca6a04b77e56ca250abead0031740b2b8ae055a0861c651eea059",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "Content/ColdSteelData/melee-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/DamascusBladeMaterial20261031/Before/rune-sword-modules.json",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/DamascusBladeMaterial20261031/Before/rune-sword-modules.json",
+      "bytes": 9243,
+      "sha256": "a7745da0d9a90af98f14a106af71ca8eaa26aed494623e2df48f66f9fbe3bf9c",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "Content/ColdSteelData/melee-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/DamascusBladeMaterial20261031/BeforeAssets/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/DamascusBladeMaterial20261031/BeforeAssets/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "bytes": 25991,
+      "sha256": "216afc13009e711698ddc8ad07e3d7ef3a9e95a019d5a430c6f432363dce08ce",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/material-receipt.json"
+    },
+    {
+      "source": "SourceAssets/DamascusBladeMaterial20261031/BeforeAssets/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/DamascusBladeMaterial20261031/BeforeAssets/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "bytes": 46400,
+      "sha256": "e0dc8c0f548b868fcf6fd8888f3d907ea2a6fd47b54bb96f2facd2929acb2382",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/material-receipt.json"
+    },
+    {
+      "source": "SourceAssets/DamascusBladeMaterial20261031/install_assets-20261031-175018.console.log",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/DamascusBladeMaterial20261031/install_assets-20261031-175018.console.log",
+      "bytes": 77820,
+      "sha256": "d2c5428e0aced82d4ed38b9233c0de2cd10797606d2f64568f5bb7216c9b55ea",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/DamascusBladeMaterial20261031/install_assets-20261031-175018.log"
+    },
+    {
+      "source": "SourceAssets/MeteoricIronBladeMaterial20261031/Before/melee-gunsmith.json",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/MeteoricIronBladeMaterial20261031/Before/melee-gunsmith.json",
+      "bytes": 48724,
+      "sha256": "f8c593592df436b71405b0c1fd156d558704c7b79ddfeae31f93746c83e8e09c",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "Content/ColdSteelData/melee-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/MeteoricIronBladeMaterial20261031/Before/rune-sword-modules.json",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/MeteoricIronBladeMaterial20261031/Before/rune-sword-modules.json",
+      "bytes": 9376,
+      "sha256": "f7126681b86f82b1cd19558038f610c11643b6aea2574c4a27a65c3fc8349059",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "Content/ColdSteelData/melee-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/MeteoricIronBladeMaterial20261031/BeforeAssets/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/MeteoricIronBladeMaterial20261031/BeforeAssets/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "bytes": 28447,
+      "sha256": "d5a84191cbe7460d5b8b8a8da5a519fabb65d70ef5fe188912d7b22a0657b22b",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/material-receipt.json"
+    },
+    {
+      "source": "SourceAssets/MeteoricIronBladeMaterial20261031/BeforeAssets/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/MeteoricIronBladeMaterial20261031/BeforeAssets/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "bytes": 48856,
+      "sha256": "1a245197167e675cea8d75dc3643feae91e4d52130e09942468538e7318286b8",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "SourceAssets/SwordBladeFullSurface20261101/material-receipt.json"
+    },
+    {
+      "source": "SourceAssets/MeteoricIronBladeMaterial20261031/install_assets-20261031-183731.console.log",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/MeteoricIronBladeMaterial20261031/install_assets-20261031-183731.console.log",
+      "bytes": 77836,
+      "sha256": "0ac8b38dcf189d8d4a6a9f84cfde0c037a11ce277a418bc3be2001a988d82314",
+      "reason": "Duplicate console transcript; canonical engine log retained.",
+      "retained": "SourceAssets/MeteoricIronBladeMaterial20261031/install_assets-20261031-183731.log"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterialStats20261031/Before/melee-gunsmith.json",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterialStats20261031/Before/melee-gunsmith.json",
+      "bytes": 49089,
+      "sha256": "6403ac3a2a300cebb3d465de79e0b54bd40ffe0d16ce759b8552dee0b3dcd1e9",
+      "reason": "Superseded material/catalog backup; retained in trash for recovery.",
+      "retained": "Content/ColdSteelData/melee-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterialStats20261031/close_editor.py",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterialStats20261031/close_editor.py",
+      "bytes": 1284,
+      "sha256": "e1cf18357faf28293d5b0279d89e5f68e753ede6cfbb23ceedf0de475a066595",
+      "reason": "Completed one-time editor-close helper/output; not part of material reproduction.",
+      "retained": "SourceAssets/SwordBladeMaterialStats20261031/deployment-status.json"
+    },
+    {
+      "source": "SourceAssets/SwordBladeMaterialStats20261031/editor-close-response-1.txt",
+      "destination": "trash/SwordBladeFinish20261101/EarlierSources/SwordBladeMaterialStats20261031/editor-close-response-1.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed one-time editor-close helper/output; not part of material reproduction.",
+      "retained": "SourceAssets/SwordBladeMaterialStats20261031/deployment-status.json"
+    }
+  ]
+}

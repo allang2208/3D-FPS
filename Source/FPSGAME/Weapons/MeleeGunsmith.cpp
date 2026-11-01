@@ -32,10 +32,13 @@ void UGunsmithSystem::LoadMeleeCatalog()
     {
         const auto Column=Value->AsObject();
         const FString Key=Column->GetStringField(TEXT("key"));
-        MeleeSlotKeys.Add(Key);MeleeCategoryNames.Add(Column->GetStringField(TEXT("name")));
+        MeleeSlotKeys.Add(Key);MeleeCategoryNames.Add(Key==TEXT("blade_1")?TEXT("剑身"):Key==TEXT("blade_2")?TEXT("符文"):Column->GetStringField(TEXT("name")));
         FGunsmithOption Factory;Factory.Id=TEXT("false");
-        Factory.Name=Column->GetStringField(TEXT("default"));
+        Factory.Name=Key==TEXT("blade_1")?TEXT("原装剑身"):Key==TEXT("blade_2")?TEXT("原厂符文"):Column->GetStringField(TEXT("default"));
         Factory.Description=Column->GetStringField(TEXT("description"));
+        const TArray<TSharedPtr<FJsonValue>>* FactoryWeapons=nullptr;
+        if(Column->TryGetArrayField(TEXT("weapons"),FactoryWeapons))
+            for(const auto& Id:*FactoryWeapons)Factory.CompatibleWeapons.Add(Id->AsString());
         MeleeDefaultNames.Add(Factory.Name);
         FactoryOptions.Add(Key,{Factory});
         const TArray<TSharedPtr<FJsonValue>>* Options=nullptr;
@@ -116,6 +119,8 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("cloven_physical_mult"),Part.Melee.ClovenPhysical);
             Stats->TryGetNumberField(TEXT("cloven_toughness_mult"),Part.Melee.ClovenToughness);
             Stats->TryGetNumberField(TEXT("critical_chance_add"),Part.Melee.CriticalChanceAdd);
+            Stats->TryGetNumberField(TEXT("melee_critical_chance_add"),Part.Melee.MeleeCriticalChanceAdd);
+            Stats->TryGetNumberField(TEXT("melee_critical_damage_bonus"),Part.Melee.MeleeCriticalDamageBonus);
             Stats->TryGetNumberField(TEXT("zhenmo_seconds"),Part.Melee.ZhenmoSeconds);
             Stats->TryGetNumberField(TEXT("zhenmo_radius_cm"),Part.Melee.ZhenmoRadiusCM);
             Stats->TryGetNumberField(TEXT("zhenmo_damage_taken_bonus"),Part.Melee.ZhenmoDamageTakenBonus);

@@ -29,6 +29,9 @@ bool UM4GunsmithWidget::IsCategoryAvailable(const FString& SlotKey) const
     if(SlotKey==TEXT("enhance"))return IsToolWorkbench()&&!ColdSteelToolEnhance::Levels().IsEmpty();
     const auto* Weapon = Model()->ModifiableWeapon(Model()->Definition());
     const auto* Options = Weapon ? Weapon->Options.Find(SlotKey) : nullptr;
+    // Keep an empty surface slot visible on swords awaiting material authoring.
+    if(SlotKey==TEXT("blade_material")&&IsMeleeWorkbench())
+        return Weapon&&Weapon->Allowed.Contains(SlotKey)&&Options;
     return Weapon && Weapon->Allowed.Contains(SlotKey) && Options &&
         (IsStandaloneWorkbench()?!Options->IsEmpty():Options->ContainsByPredicate([](const FGunsmithOption& Option){return Option.Id != TEXT("false");}));
 }
@@ -90,7 +93,8 @@ void UM4GunsmithWidget::RefreshSelectedOption()
             }
             return;
         }
-        ModificationList->AddSlot().AutoHeight()[Paragraph(TEXT("当前武器没有可选改造项目。"),14,GunsmithUI::Secondary)];
+        ModificationList->AddSlot().AutoHeight()[Paragraph(SelectedCategory==TEXT("blade_material")?
+            TEXT("暂无可用剑身材质。"):TEXT("当前武器没有可选改造项目。"),14,GunsmithUI::Secondary)];
         return;
     }
     FString Installed = Item ? Gunsmith->Installed(*Item).FindRef(SelectedCategory) : FString();
@@ -297,7 +301,10 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(ColdSteelWeaponText::AttackDistance,Was.ThrustReach/100,Now.ThrustReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::StaminaCost,Was.AttackStamina,Now.AttackStamina,2,TEXT(""),true,Percent(M.Stamina));
         if(M.KillStaminaMaxRatio>0.)AddEffect(FString::Printf(TEXT("击杀恢复｜击杀目标后，恢复最大体力的%.0f%%。"),M.KillStaminaMaxRatio*100.));
-        AddValue(TEXT("改造暴击率"),Was.Modifiers.CriticalChanceAdd,Now.Modifiers.CriticalChanceAdd,0,TEXT("%"),false,M.CriticalChanceAdd);
+        AddValue(ColdSteelWeaponText::CriticalChance,Was.Modifiers.CriticalChanceAdd+Was.Modifiers.MeleeCriticalChanceAdd,
+            Now.Modifiers.CriticalChanceAdd+Now.Modifiers.MeleeCriticalChanceAdd,0,TEXT("%"),false,M.CriticalChanceAdd+M.MeleeCriticalChanceAdd);
+        AddValue(TEXT("暴击伤害"),Was.Modifiers.MeleeCriticalDamageBonus*100.,Now.Modifiers.MeleeCriticalDamageBonus*100.,
+            0,TEXT("%"),false,M.MeleeCriticalDamageBonus*100.);
         AddValue(ColdSteelWeaponText::BlockStaminaCost,Was.BlockStamina,Now.BlockStamina,2,TEXT(""),true,Percent(M.BlockStamina));
         AddValue(TEXT("格挡伤害减免"),Was.BlockReduction*100,Now.BlockReduction*100,1,TEXT("%"),false,Percent(M.BlockReduction));
         AddValue(TEXT("所受伤害倍率（乘法叠加）"),Was.Modifiers.DamageTaken,Now.Modifiers.DamageTaken,2,TEXT("×"),true,Percent(M.DamageTaken));

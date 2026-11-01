@@ -518,6 +518,10 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
             {
                 const auto Melee=ColdSteelMelee::Evaluate(*I,M);
                 Shot.DamagePanel=Melee.DamageParts;
+                // Captured from this attack's item on both client and authority;
+                // never exported to the character's global spell critical stats.
+                Shot.CriticalChance+=float(Melee.Modifiers.MeleeCriticalChanceAdd);
+                Shot.CriticalDamageBonus+=float(Melee.Modifiers.MeleeCriticalDamageBonus);
                 // Equipped passive crit is already included by Derived(crit).
                 if(Melee.Modifiers.ZhenmoSeconds>0.)Shot.ZhenmoSourceInstance=I->InstanceId;
                 Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+float(Melee.Modifiers.PhysicalArmorPenetration),0.f,1.f);

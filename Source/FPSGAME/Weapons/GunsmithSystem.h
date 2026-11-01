@@ -62,6 +62,9 @@ struct FMeleeModifiers
     // Full direct attack damage, including attribute/added damage and quick combat.
     double AllAttackDamage=1;
     double CriticalChanceAdd=0;
+    // Weapon-contact bonuses: chance uses percent units, damage uses an added
+    // ratio. Keep these out of Derived(crit), which is also consumed by magic.
+    double MeleeCriticalChanceAdd=0, MeleeCriticalDamageBonus=0;
     double ZhenmoSeconds=0,ZhenmoRadiusCM=0,ZhenmoDamageTakenBonus=0,ZhenmoSlow=0;
     double JingangBonus=0,JingangHighThreshold=0,JingangLowThreshold=0,JingangLeechSeconds=0,JingangLeechRatio=0;
     double PanChiSeconds=0,PanChiMaxStacks=0,PanChiToughnessPerStack=0,PanChiCooldown=0;

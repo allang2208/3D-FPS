@@ -111,6 +111,10 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         Add(TEXT("hit_reaction"),TEXT("命中硬直时间倍率"),S.Modifiers.HitReaction,TEXT("×"),2,false,false);
         Add(TEXT("toughness_damage"),ColdSteelWeaponText::ToughnessMultiplier,S.Modifiers.ToughnessDamage,TEXT("×"),2,false,false);
         Add(TEXT("melee_armor_penetration"),TEXT("改造物理防御穿透"),S.Modifiers.PhysicalArmorPenetration*100,TEXT("%"),0,false,false);
+        if(!FMath::IsNearlyZero(S.Modifiers.MeleeCriticalChanceAdd))
+            Add(TEXT("melee_critical_chance"),TEXT("近战暴击率加成"),S.Modifiers.MeleeCriticalChanceAdd,TEXT("%"),0,false,false);
+        if(!FMath::IsNearlyZero(S.Modifiers.MeleeCriticalDamageBonus))
+            Add(TEXT("melee_critical_damage"),TEXT("近战暴击伤害加成"),S.Modifiers.MeleeCriticalDamageBonus*100.,TEXT("%"),0,false,false);
     }
     else if(ColdSteelInventory::IsEquippedProductionTool(Item))
     {

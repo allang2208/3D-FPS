@@ -3,8 +3,8 @@
   "columns": [
     {
       "key": "blade_1",
-      "name": "剑身Ⅰ",
-      "default": "原装剑身Ⅰ",
+      "name": "剑身",
+      "default": "原装剑身",
       "description": "剑刃与刃口结构。保留这把剑原有的刃形、长度和切削轮廓，使用当前攻击伤害与判定。",
       "options": [
         {
@@ -249,9 +249,155 @@
       ]
     },
     {
+      "key": "blade_material",
+      "name": "剑身材质",
+      "default": "原厂材质",
+      "description": "保留剑身原有材质与纹理。",
+      "weapons": [
+        "ue_rune_sword"
+      ],
+      "options": [
+        {
+          "id": "folded_steel",
+          "name": "折叠纹钢",
+          "description": "细密层叠锻纹沿刃面延伸，银灰钢面保留柔和高光。",
+          "tier": "common",
+          "weapons": [
+            "ue_rune_sword"
+          ],
+          "effects": [
+            {
+              "text": "物理伤害+10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗-5%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "physical_damage_mult": 1.1,
+            "stamina_mult": 0.95
+          },
+          "special_effects": []
+        },
+        {
+          "id": "dark_iron",
+          "name": "玄铁",
+          "description": "深灰黑金属配细拉丝，刃口呈现克制的银亮反光。",
+          "tier": "common",
+          "weapons": [
+            "ue_rune_sword"
+          ],
+          "effects": [
+            {
+              "text": "格挡体力消耗-20%",
+              "benefit": 1
+            },
+            {
+              "text": "韧性伤害+15%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "block_stamina_mult": 0.8,
+            "toughness_damage_mult": 1.15
+          },
+          "special_effects": []
+        },
+        {
+          "id": "mithril",
+          "name": "秘银",
+          "description": "银白刃面带细腻纵向纹理，光泽清透而柔和。",
+          "tier": "common",
+          "weapons": [
+            "ue_rune_sword"
+          ],
+          "effects": [
+            {
+              "text": "近战攻击速度+10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗-10%",
+              "benefit": 1
+            },
+            {
+              "text": "物理伤害-5%",
+              "benefit": -1
+            }
+          ],
+          "stats": {
+            "attack_speed_mult": 1.1,
+            "stamina_mult": 0.9,
+            "physical_damage_mult": 0.95
+          },
+          "special_effects": []
+        },
+        {
+          "id": "damascus_steel",
+          "name": "大马士革钢",
+          "description": "银亮与深灰钢层交织，呈现流动水纹与细腻蚀刻。",
+          "tier": "special",
+          "weapons": [
+            "ue_rune_sword"
+          ],
+          "stats": {
+            "melee_critical_chance_add": 10.0,
+            "melee_critical_damage_bonus": 0.2,
+            "stamina_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "暴击率+10%",
+              "benefit": 1
+            },
+            {
+              "text": "暴击伤害+20%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗+10%",
+              "benefit": -1
+            }
+          ],
+          "special_effects": []
+        },
+        {
+          "id": "meteoric_iron",
+          "name": "陨铁",
+          "description": "深灰剑面交织银白晶纹，细腻金属光泽随角度变化。",
+          "tier": "special",
+          "weapons": [
+            "ue_rune_sword"
+          ],
+          "stats": {
+            "physical_damage_mult": 1.15,
+            "toughness_damage_mult": 1.25,
+            "attack_speed_mult": 0.9
+          },
+          "effects": [
+            {
+              "text": "物理伤害+15%",
+              "benefit": 1
+            },
+            {
+              "text": "韧性伤害+25%",
+              "benefit": 1
+            },
+            {
+              "text": "近战攻击速度-10%",
+              "benefit": -1
+            }
+          ],
+          "special_effects": []
+        }
+      ]
+    },
+    {
       "key": "blade_2",
-      "name": "剑身Ⅱ",
-      "default": "原装剑身Ⅱ",
+      "name": "符文",
+      "default": "原厂符文",
       "description": "剑刃表面的符文改造。原装保留这把剑已有的刃面纹样，不叠加改造符文。",
       "options": [
         {

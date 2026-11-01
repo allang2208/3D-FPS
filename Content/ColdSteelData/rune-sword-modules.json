@@ -238,6 +238,32 @@
         ],
         "interface": "azure_hilt_v1"
       }
+    },
+    "blade_material": {
+      "factory": {
+        "mode": 0,
+        "appearance": "原有金属与刃面纹理"
+      },
+      "folded_steel": {
+        "mode": 1,
+        "appearance": "细密层叠锻纹沿刃面延伸，银灰钢面保留柔和高光。"
+      },
+      "dark_iron": {
+        "mode": 2,
+        "appearance": "深灰黑金属配细拉丝，刃口呈现克制的银亮反光。"
+      },
+      "mithril": {
+        "mode": 3,
+        "appearance": "银白刃面带细腻纵向纹理，光泽清透而柔和。"
+      },
+      "damascus_steel": {
+        "mode": 4,
+        "appearance": "水波扭绞纹 · 明暗钢层 · 浅蚀刻金属"
+      },
+      "meteoric_iron": {
+        "mode": 5,
+        "appearance": "交错晶纹 · 银灰晶带 · 细腻金属光泽"
+      }
     }
   },
   "bone_mount": {

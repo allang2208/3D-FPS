@@ -263,6 +263,8 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.AllAttackKnockback*=M.AllAttackKnockback;
             R.Melee.AllAttackDamage*=M.AllAttackDamage;
             R.Melee.CriticalChanceAdd+=M.CriticalChanceAdd;
+            R.Melee.MeleeCriticalChanceAdd+=M.MeleeCriticalChanceAdd;
+            R.Melee.MeleeCriticalDamageBonus+=M.MeleeCriticalDamageBonus;
             R.Melee.ZhenmoSeconds+=M.ZhenmoSeconds;
             R.Melee.ZhenmoRadiusCM+=M.ZhenmoRadiusCM;
             R.Melee.ZhenmoDamageTakenBonus+=M.ZhenmoDamageTakenBonus;

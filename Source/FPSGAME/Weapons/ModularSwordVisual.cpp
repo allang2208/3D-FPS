@@ -281,6 +281,8 @@ FString ColdSteelModularSword::Key(const FColdSteelItem& Item,const FGunsmithPar
             Result+=FString(TEXT("|"))+Slot+TEXT("=")+Parts.FindRef(Slot)+FString::Printf(TEXT(":%08x"),FCrc::StrCrc32(*Settings));
         }
     if(IncludeRune)Result+=TEXT("|rune=")+Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition));
+    if(Item.Definition==TEXT("ue_rune_sword"))
+        Result+=TEXT("|blade_material=")+Parts.FindRef(TEXT("blade_material"))+TEXT("|bladeFinishScope=root20261101");
     if(ColdSteelFrostRunes::IsWarhammer(Item.Definition))Result+=TEXT("|runePlacement=shaft-wrap-v2");
     if(Item.Definition==ColdSteelFrostRunes::Definition)Result+=TEXT("|innateErosion=spirit20260922");
     if(IncludeRune&&Item.Definition==TEXT("ue_rune_sword")&&Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune"))
@@ -301,6 +303,28 @@ void ColdSteelModularSword::Clear(UStaticMeshComponent* Blade)
     if(!Blade)return;
     for(auto* Mesh:Components(Blade))if(Mesh!=Blade){if(auto* Owner=Mesh->GetOwner())Owner->RemoveInstanceComponent(Mesh);Mesh->DestroyComponent();}
     Blade->ComponentTags.RemoveAll([](FName Tag){return Tag.ToString().StartsWith(KeyPrefix);});
+}
+
+uint8 ColdSteelModularSword::BladeFinishMode(const FColdSteelItem& Item,const FGunsmithParts* Draft)
+{
+    double Mode=0.;
+    if(Item.Definition==TEXT("ue_rune_sword"))
+        if(const auto Finish=Part(Item,TEXT("blade_material"),Installed(Item,Draft)))Finish->TryGetNumberField(TEXT("mode"),Mode);
+    return uint8(FMath::Clamp(Mode,0.,5.));
+}
+
+void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot)
+{
+    if(!Mesh)return;
+    for(int32 Index=0;Index<Mesh->GetNumMaterials();++Index)
+    {
+        auto* Material=Mesh->GetMaterial(Index);float Existing=0.f;
+        if(!Material||!Material->GetScalarParameterValue(FMaterialParameterInfo(TEXT("BladeFinishMode")),Existing))continue;
+        auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material);
+        if(!Dynamic){Dynamic=UMaterialInstanceDynamic::Create(Material,Mesh);Mesh->SetMaterial(Index,Dynamic);}
+        Dynamic->SetScalarParameterValue(TEXT("BladeFinishMode"),float(Mode));
+        Dynamic->SetScalarParameterValue(TEXT("BladeFinishGuardRoot"),GuardRoot?1.f:0.f);
+    }
 }
 
 bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelItem& Item,const FGunsmithParts* Draft,bool IncludeRune)
@@ -411,9 +435,22 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
     }
     else ColdSteelMeleeRune::Apply(Blade,SelectedRune,Item.Definition);
     if(Item.Definition==TEXT("ue_rune_sword"))
-        for(auto* Module:Components(Blade))if(Module->ComponentHasTag(TEXT("SwordSlot=guard")))
-            ColdSteelMeleeRune::Apply(Module,IncludeRune&&Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune")?
-                TEXT("golden_glow_rune"):FString(),Item.Definition);
+    {
+        const auto Modules=Components(Blade);
+        for(auto* Module:Modules)if(Module->ComponentHasTag(TEXT("SwordSlot=guard")))
+            ColdSteelMeleeRune::Apply(Module,IncludeRune&&(Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune")||Parts.FindRef(TEXT("blade_2"))==TEXT("silver_glow_rune"))?
+                Parts.FindRef(TEXT("blade_2")):FString(),Item.Definition);
+        const uint8 FinishMode=BladeFinishMode(Item,Draft);
+        // The native blade root lives in the guard mesh below the 12.5 cm cut.
+        // Apply after both rune selections; the guard UV mask limits the finish
+        // to that carrier, leaving the emblem/wings and Meshy gems independent.
+        for(auto* Module:Modules)
+        {
+            const bool GuardRoot=Module->ComponentHasTag(TEXT("SwordSlot=guard"));
+            if(Module!=Blade&&!GuardRoot)continue;
+            ApplyBladeFinish(Module,FinishMode,GuardRoot);
+        }
+    }
     bool TraceFromAnimation=false;Catalog(Item)->TryGetBoolField(TEXT("trace_from_animation"),TraceFromAnimation);
     const FName TraceTag(TEXT("SwordTraceFromAnimation"));
     if(TraceFromAnimation)Blade->ComponentTags.AddUnique(TraceTag);else Blade->ComponentTags.Remove(TraceTag);

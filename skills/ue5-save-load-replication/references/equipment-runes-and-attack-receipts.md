@@ -60,3 +60,9 @@ UE 持久材质指针不能保存 MID 的选项、遮罩、颜色和 Overlay。�
 监听主机停顿后，同一可靠通道的起手与命中可能集中到达。动作窗口使用受限的客户端起手／接触时间，并继续验证有限值、时间上下界、装备实例、动作编号、连段节奏与每刀每目标去重；不能单纯放宽服务器到包窗口。当前容差属于弯刀合同，其他攻击应按自己的执行器推导。上挑／旋风的已接受扣费回执即使 Pawn 临时缺失仍须合并，旧冷却回执不得覆盖较新镜像值。
 
 实现位置：`ColdSteelKukriAuthority.cpp`、`ColdSteelPlayerState.cpp`、`KukriAttackReceipt.*`；定向证据及未覆盖边界见仓库 `Docs/Publication/KukriThirdPerson20261030/README.md`。整理发布本身不触发重跑。
+
+## 剑身材质复制与断线恢复（2026-11-01）
+
+剥离临时 MID 后，持久父材质不包含剑身材质模式。`FFPSBodyAttachment` 独立记录 `BladeFinishMode`、`bBladeFinishGuardRoot`，从该玩家权威物品捕获；没有安装符文也必须捕获和应用，不能在空 `RuneDefinition` 时提前返回。观察者先恢复符文再调用共用 `ApplyBladeFinish`，缓存键同时包含模式与区域。继续走 `ReplicatedWeapons` 当前状态，避免新增一次性切材质 RPC；原厂恢复也必须覆盖旧 MID 参数。
+
+用户授权真实传输检查时，分别记录首次相关前已装备、只改材质、符文／护手组合、恢复原厂、卸装重装及断线重连。重连用服务端保留的同一实例，不重新种一件装备冒充存档恢复。`SwordFinishWireAudit` 案例实际运行本机 UDP，7 个阶段通过；每端配置 60 ms 延迟与 3% 丢包，并非实测 RTT。库存由夹具设置，未覆盖改造台上传事务、攻击 RPC、服务器重启存档、专用服务器或渲染。另有 1344 组装配／反射回读、24480 项断言，属于隔离证据，不能称为真实网络组合覆盖。记录见工程 `Docs/Weapons/sword-full-blade-finish-20261101.md`；整理发布不触发重跑。

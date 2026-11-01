@@ -1,0 +1,224 @@
+{
+  "recorded_date": "2026-11-01",
+  "context": "Previously authorized checks in complete local working tree; not rerun for publication",
+  "retested_for_publication": false,
+  "combination": {
+    "cases": 1344,
+    "checks": 24480,
+    "failures": 0,
+    "errors": [],
+    "actual_network_transport": false,
+    "visual_rendering": false,
+    "scope": "all 4 blades x 6 guards x 8 rune states x 6 finishes plus factory reset; reflected equipment snapshot and production observer reconstruction"
+  },
+  "saved_materials": {
+    "checks": [
+      {
+        "check": "saved packed coverage mask",
+        "pass": true
+      },
+      {
+        "check": "coverage is linear",
+        "pass": true
+      },
+      {
+        "check": "coverage mask compression",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword saved master",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword revision",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword all PBR outputs",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword full blade default scope",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword BladeFinish20261031V1 <MaterialProperty.MP_BASE_COLOR: 5> uses root coverage",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword packed texture linked",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword BladeFinish20261031V1 <MaterialProperty.MP_ROUGHNESS: 8> uses root coverage",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword packed texture linked",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword BladeFinish20261031V1 <MaterialProperty.MP_NORMAL: 10> uses root coverage",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword packed texture linked",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword BladeFinish20261031V1 <MaterialProperty.MP_METALLIC: 6> uses root coverage",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword packed texture linked",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword Substrate connected",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword emission retained",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold saved master",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold revision",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold all PBR outputs",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold full blade default scope",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold BladeFinish20261031V1 <MaterialProperty.MP_BASE_COLOR: 5> uses root coverage",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold packed texture linked",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold BladeFinish20261031V1 <MaterialProperty.MP_ROUGHNESS: 8> uses root coverage",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold packed texture linked",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold BladeFinish20261031V1 <MaterialProperty.MP_NORMAL: 10> uses root coverage",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold packed texture linked",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold BladeFinish20261031V1 <MaterialProperty.MP_METALLIC: 6> uses root coverage",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold packed texture linked",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold Substrate connected",
+        "pass": true
+      },
+      {
+        "check": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold emission retained",
+        "pass": true
+      }
+    ],
+    "failures": 0,
+    "rendered": false
+  },
+  "wire": {
+    "passed": true,
+    "cases": [
+      {
+        "case": "late_join_existing_finish",
+        "passed": true,
+        "client": "instance=SwordFinishAudit_GuestSword mode=4 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1 | host observer: instance=SwordFinishAudit_HostSword mode=2 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0",
+        "server_host": "instance=SwordFinishAudit_HostSword mode=2 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1",
+        "server_guest": "instance=SwordFinishAudit_GuestSword mode=4 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0"
+      },
+      {
+        "case": "finish_only_change",
+        "passed": true,
+        "client": "instance=SwordFinishAudit_GuestSword mode=1 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1 | host observer: instance=SwordFinishAudit_HostSword mode=3 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0",
+        "server_host": "instance=SwordFinishAudit_HostSword mode=3 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1",
+        "server_guest": "instance=SwordFinishAudit_GuestSword mode=1 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0"
+      },
+      {
+        "case": "native_rune_and_guard_change",
+        "passed": true,
+        "client": "instance=SwordFinishAudit_GuestSword mode=2 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1 | host observer: instance=SwordFinishAudit_HostSword mode=5 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0",
+        "server_host": "instance=SwordFinishAudit_HostSword mode=5 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1",
+        "server_guest": "instance=SwordFinishAudit_GuestSword mode=2 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0"
+      },
+      {
+        "case": "factory_finish_restore",
+        "passed": true,
+        "client": "instance=SwordFinishAudit_GuestSword mode=0 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1 | host observer: instance=SwordFinishAudit_HostSword mode=0 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0",
+        "server_host": "instance=SwordFinishAudit_HostSword mode=0 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1",
+        "server_guest": "instance=SwordFinishAudit_GuestSword mode=0 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0"
+      },
+      {
+        "case": "unequip",
+        "passed": true,
+        "client": "instance=SwordFinishAudit_GuestSword mode=2 snapshots=0 snapshot_ok=1 world_parts=0 surface_ok=1 ink_ok=1 local=1 | host observer: instance=SwordFinishAudit_HostSword mode=5 snapshots=0 snapshot_ok=1 world_parts=0 surface_ok=1 ink_ok=1 local=0",
+        "server_host": "instance=SwordFinishAudit_HostSword mode=5 snapshots=0 snapshot_ok=1 world_parts=0 surface_ok=1 ink_ok=1 local=1",
+        "server_guest": "instance=SwordFinishAudit_GuestSword mode=2 snapshots=0 snapshot_ok=1 world_parts=0 surface_ok=1 ink_ok=1 local=0"
+      },
+      {
+        "case": "reequip",
+        "passed": true,
+        "client": "instance=SwordFinishAudit_GuestSword mode=2 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1 | host observer: instance=SwordFinishAudit_HostSword mode=5 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0",
+        "server_host": "instance=SwordFinishAudit_HostSword mode=5 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1",
+        "server_guest": "instance=SwordFinishAudit_GuestSword mode=2 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0"
+      },
+      {
+        "case": "reconnect_retained_equipment",
+        "passed": true,
+        "client": "instance=SwordFinishAudit_GuestSword mode=2 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1 | host observer: instance=SwordFinishAudit_HostSword mode=5 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0",
+        "server_host": "instance=SwordFinishAudit_HostSword mode=5 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=1",
+        "server_guest": "instance=SwordFinishAudit_GuestSword mode=2 snapshots=2 snapshot_ok=1 world_parts=2 surface_ok=1 ink_ok=1 local=0"
+      }
+    ],
+    "actual_network_transport": true,
+    "rendered": false,
+    "reconnected": true,
+    "scope": "production body equipment capture/replication/OnRep reconstruction over UDP; same retained server-side item instances after reconnect; fixture-seeded inventory, no attack RPC or inventory upload",
+    "lag_ms_per_peer": 60,
+    "loss_percent_per_peer": 3
+  },
+  "transport": "real local UDP listen host + guest + reconnect",
+  "configured_each_peer": {
+    "PktLag_ms": 60,
+    "PktLoss_percent": 3
+  },
+  "process_exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "limitations": [
+    "fixture-seeded inventory",
+    "no inventory upload transaction",
+    "no attack RPC",
+    "no dedicated server",
+    "no server restart/save restore",
+    "no cross-machine or internet transport",
+    "no rendered visual acceptance",
+    "public scoped snapshot not separately built"
+  ]
+}

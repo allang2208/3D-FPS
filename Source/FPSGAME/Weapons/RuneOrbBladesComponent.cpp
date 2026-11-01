@@ -49,7 +49,13 @@ bool URuneOrbBladesComponent::NoAbilityCooldown() const
 float URuneOrbBladesComponent::BladeDamage(const UColdSteelStatusModel* Profile)
 {
     const auto* Item = Profile->Equipped();
-    const double Weapon = ColdSteelMelee::Evaluate(*Item, Profile).Damage;
+    // Blade finishes affect melee contacts, not the weapon input of this spell.
+    // Re-evaluate with only that slot removed; keep runes, guards and all other
+    // existing contributors.
+    const auto* Gunsmith=Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+    FGunsmithParts SpellParts=Gunsmith?Gunsmith->Installed(*Item):FGunsmithParts{};
+    SpellParts.Remove(TEXT("blade_material"));
+    const double Weapon = ColdSteelMelee::Evaluate(*Item, Profile, &SpellParts).Damage;
     return FMath::FloorToFloat(float(Weapon + Profile->Derived(TEXT("matk"))) * BladeDamageMultiplier);
 }
 

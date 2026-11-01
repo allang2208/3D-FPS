@@ -97,6 +97,8 @@ FString UM4GunsmithWidget::CategoryPartName(const FString& Key) const
 {
     const auto* W=Model()->ModifiableWeapon(Model()->Definition());
     if(!W||!W->Allowed.Contains(Key))return TEXT("待扩展");
+    if(Key==TEXT("blade_material"))
+        if(const auto* Options=W->Options.Find(Key);!Options||Options->IsEmpty())return TEXT("暂无材质");
     const FString Id=Model()->Draft().FindRef(Key);
     if(const auto* O=Model()->Option(Model()->Definition(),Key,Id.IsEmpty()?TEXT("false"):Id))return O->Name;
     return TEXT("原厂配置");

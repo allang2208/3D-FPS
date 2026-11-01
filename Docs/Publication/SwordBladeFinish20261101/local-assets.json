@@ -1,0 +1,47 @@
+{
+  "status": "local retained recovery dependencies; redistribution not cleared",
+  "files": [
+    {
+      "path": "SourceAssets/RuneSwordVisualPolish20260922/surface_mapping.npz",
+      "bytes": 27310714,
+      "sha256": "08fb103158e85a66825b6b735e63f2c6c85f00119fd9942ce5cb883aa3b5f762",
+      "public_payload": false
+    },
+    {
+      "path": "SourceAssets/RuneSwordVisualPolish20260922/T_RuneSword_NativeMask.png",
+      "bytes": 249795,
+      "sha256": "3c2e263750deb14f105407f4b12f716ee5ba7f03cec9cb01f327e098c1f64684",
+      "public_payload": false
+    },
+    {
+      "path": "SourceAssets/RuneSwordVisualPolish20260922/T_RuneSword_GuardNativeMask.png",
+      "bytes": 72714,
+      "sha256": "dbeb77a516a38c1c783d6c202c8646dea524528fd93a0bf3d1761ccba8b2af1c",
+      "public_payload": false
+    },
+    {
+      "path": "SourceAssets/SwordBladeFullSurface20261101/T_RuneSword_FullBladeFinishMask.png",
+      "bytes": 73997,
+      "sha256": "14a8ece9875f30d2b01c3cf04407aba03c7063a5b7d83ddf33f6d38de189220d",
+      "public_payload": false
+    },
+    {
+      "path": "Content/Weapons/AzureRunesword20260913/M_AzureRunesword.uasset",
+      "bytes": 34464,
+      "sha256": "5f3d6e93d2c98ed4cbb93c9cc0c6caae77973e38d3e16586b73e13ef35ef8218",
+      "public_payload": false
+    },
+    {
+      "path": "Content/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold.uasset",
+      "bytes": 55069,
+      "sha256": "1950b53d25c83cbecfa34caf5dca5df4dab0524442d145db782da4d512dcc4f0",
+      "public_payload": false
+    },
+    {
+      "path": "Content/Weapons/AzureRunesword20260913/BladeFinishes20261031/T_RuneSword_FullBladeFinishMask.uasset",
+      "bytes": 84758,
+      "sha256": "232ada8ee6a45fe87ab5ce32b3c795ea4dacc22ec4a3b9b374eb69d747ca5b07",
+      "public_payload": false
+    }
+  ]
+}

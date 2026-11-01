@@ -12,6 +12,8 @@ namespace ColdSteelModification
 {
 inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
 {
+    if(SlotKey==TEXT("blade_material")&&(Id==TEXT("damascus_steel")||Id==TEXT("meteoric_iron")))
+        return EGunsmithModificationTier::Special;
     if(Weapon==TEXT("ue_kukri")&&SlotKey==TEXT("blade_2")&&
         (Id==TEXT("frost_raven_rune")||Id==TEXT("berserker_rune")))
         return EGunsmithModificationTier::Legendary;
