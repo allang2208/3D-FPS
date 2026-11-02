@@ -1,0 +1,29 @@
+{
+ "_doc": "V85 keyframes = BV1hCJFzQEyR #10 绕手 frames played in reverse (counter-clockwise); R4: t is only a record — v85_keys.py gives each key the time at which its continuous speed clock reaches phi (hang keys N2w/N3 removed, user: R3 rhythm weird). phi: sword turn (deg, CCW on screen, 0 = blade up). hand_turn: hand turn in the spin plane (deg, CCW +, 0 = idle). supinate: hand roll about the forearm axis (deg, - = back of the hand toward the lens). extend: wrist pitch (deg). lift/fwd: hand-group offset (m, up / forward). depth/right: world offsets (m, + = away from the lens / to the right). grip: 1 = idle hand-to-hilt transform. contact: free hilt contact weights (palm = across the palm at the finger roots, web = thumb-index web). side: hilt offset along the hand's back normal (m, - = palm side). station: hilt slide along its axis (m, - = toward the pommel). roll: fraction of the in-plane guard roll. fingers: curl as a fraction of the idle fist per joint (01/02/03), spread deg (+ = toward the thumb); thumb adds an opposition value.",
+ "keys": [
+  {"name": "N0", "ref": 2288, "t": 0.395, "phi": -12, "hand_turn": -12, "supinate": 0, "extend": 0, "lift": -0.03, "fwd": 0.04, "grip": 1.0,
+   "contact": {"palm": 1.0}, "side": 0.0, "station": 0.0, "roll": 0, "depth": 0.0, "right": 0.0,
+   "fingers": {"thumb": [1, 1, 1, 0, 0], "index": [1, 1, 1, 0], "middle": [1, 1, 1, 0], "ring": [1, 1, 1, 0], "pinky": [1, 1, 1, 0]}},
+  {"name": "N1", "ref": 2287, "t": 0.4951, "phi": 90, "hand_turn": -85, "supinate": 10, "extend": 10, "lift": 0.03, "fwd": 0.0, "grip": 0.0,
+   "contact": {"palm": 1.0}, "side": -0.025, "station": -0.07, "roll": 1.0, "depth": -0.1, "right": 0.0,
+   "fingers": {"thumb": [0.5, 0.3, 0.2, 10, 0], "index": [0.15, 0.6, 0.7, 2], "middle": [0.15, 0.55, 0.65, 0], "ring": [0.1, 0.5, 0.6, -2], "pinky": [0.1, 0.45, 0.55, -4]}},
+  {"name": "N2", "ref": 2286, "t": 0.5822, "phi": 182, "hand_turn": -20, "supinate": 0, "extend": 15, "lift": 0.0, "fwd": 0.0, "grip": 0.0,
+   "contact": {"web": 1.0}, "side": -0.04, "station": -0.04, "roll": 1, "depth": -0.1, "right": 0.0,
+   "fingers": {"thumb": [0.6, 0.5, 0.4, 15, 0], "index": [-0.05, 0.05, 0.1, 9], "middle": [-0.05, 0.05, 0.1, 1], "ring": [-0.03, 0.08, 0.1, -7], "pinky": [0.0, 0.1, 0.12, -15]}},
+  {"name": "N4", "ref": 2284, "t": 0.6438, "phi": 212, "hand_turn": -50, "supinate": -80, "extend": 15, "lift": 0.02, "fwd": 0.0, "grip": 0.0,
+   "contact": {"web": 1.0}, "side": -0.02, "station": -0.065, "roll": 2.8, "depth": -0.15, "right": 0.02,
+   "fingers": {"thumb": [0.3, 0.2, 0.15, 22, 0], "index": [-0.1, -0.04, 0.0, 12], "middle": [-0.1, -0.04, 0.0, 2], "ring": [-0.08, -0.02, 0.02, -9], "pinky": [-0.05, 0.0, 0.05, -18]}},
+  {"name": "N5", "ref": 2283, "t": 0.6992, "phi": 238, "hand_turn": -88, "supinate": -155, "extend": 10, "lift": 0.045, "fwd": 0.0, "grip": 0.0,
+   "contact": {"web": 0.5, "palm": 0.5}, "side": -0.03, "station": -0.05, "roll": 2.6, "depth": -0.17, "right": 0.02,
+   "fingers": {"thumb": [0.8, 0.7, 0.6, 5, 0], "index": [0.45, 0.7, 0.7, 2], "middle": [0.35, 0.6, 0.6, 0], "ring": [0.3, 0.55, 0.55, -2], "pinky": [0.3, 0.5, 0.5, -4]}},
+  {"name": "N6", "ref": 2282, "t": 0.7463, "phi": 266, "hand_turn": -84, "supinate": -145, "extend": 10, "lift": 0.05, "fwd": 0.0, "grip": 0.0,
+   "contact": {"palm": 1.0}, "side": -0.03, "station": -0.05, "roll": 1.6, "depth": -0.17, "right": 0.02,
+   "fingers": {"thumb": [0.6, 0.5, 0.4, 5, 0], "index": [0.12, 0.35, 0.5, 0], "middle": [0.12, 0.35, 0.5, 0], "ring": [0.12, 0.35, 0.45, 0], "pinky": [0.12, 0.3, 0.45, 0]}},
+  {"name": "N7", "ref": 2281, "t": 0.8146, "phi": 318, "hand_turn": -10, "supinate": -70, "extend": 5, "lift": 0.035, "fwd": 0.0, "grip": 0.3,
+   "contact": {"palm": 1.0}, "side": -0.02, "station": -0.05, "roll": 0.5, "depth": -0.08, "right": 0.01,
+   "fingers": {"thumb": [0.85, 0.85, 0.85, 0, 0], "index": [0.15, 0.25, 0.3, 4], "middle": [0.3, 0.45, 0.5, 2], "ring": [0.8, 0.85, 0.85, 0], "pinky": [0.9, 0.9, 0.9, 0]}},
+  {"name": "N8", "ref": 2280, "t": 0.88, "phi": 360, "hand_turn": 0, "supinate": 0, "extend": 0, "lift": 0.02, "fwd": 0.0, "grip": 1.0,
+   "contact": {"palm": 1.0}, "side": 0.0, "station": 0.0, "roll": 0, "depth": -0.05, "right": 0.0,
+   "fingers": {"thumb": [1, 1, 1, 0, 0], "index": [1, 1, 1, 0], "middle": [1, 1, 1, 0], "ring": [1, 1, 1, 0], "pinky": [1, 1, 1, 0]}}
+ ]
+}

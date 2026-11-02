@@ -1,0 +1,9054 @@
+{
+ "revision": "InspectReverseV85",
+ "variant": "Standard",
+ "idle_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordWristLocked20260920\\Standard\\Sword_Idle_WristLockedV4.blend",
+ "reference": "BV1hCJFzQEyR #10 绕手, file 76.00-76.30 s, frames played in reverse (counter-clockwise)",
+ "seconds": 1.55,
+ "fps": 120,
+ "tempo": 1.25,
+ "spin_window_s": [
+  0.4938,
+  1.1
+ ],
+ "spin_axis": [
+  -0.6683,
+  -0.7426,
+  -0.0446
+ ],
+ "roll_inplane_deg": 21.0,
+ "contacts": {
+  "web": {
+   "vid": 10887,
+   "z": -0.03717,
+   "d": 0.01106,
+   "bone": "thumb_01_r",
+   "dir": [
+    -0.5396958589553833,
+    -0.40679752826690674,
+    -0.7370496988296509
+   ],
+   "gap_idle_m": 0.0007
+  },
+  "index": {
+   "vid": 17142,
+   "z": -0.03722,
+   "d": 0.01837,
+   "bone": "index_01_r",
+   "dir": [
+    0.6934162378311157,
+    -0.705241858959198,
+    0.1476753056049347
+   ],
+   "gap_idle_m": 0.02216
+  },
+  "hook": {
+   "vid": 16146,
+   "z": -0.05982,
+   "d": 0.02437,
+   "bone": "middle_02_r",
+   "dir": [
+    -0.003760460764169693,
+    -0.9984856247901917,
+    0.05488542467355728
+   ],
+   "gap_idle_m": 0.00572
+  }
+ },
+ "min_tip_depth_m": 0.0661,
+ "min_blade_in_view_depth_m": 0.3046,
+ "max_wrist_bend_r_deg": 39.14,
+ "max_wrist_trim_r_deg": 0.0,
+ "max_abs_elbow_axial_r_deg": 50.84,
+ "hand_roll_v9_r_range_deg": [
+  -89.03,
+  66.64
+ ],
+ "max_reach_clamp_m": 0.0195,
+ "max_hilt_in_hand_free_mm": 45.78,
+ "keys": [
+  {
+   "name": "N0",
+   "ref": 2288,
+   "t": 0.4938,
+   "phi": -12,
+   "hand_turn": -12,
+   "supinate": 0,
+   "extend": 0,
+   "lift": -0.03,
+   "fwd": 0.04,
+   "grip": 1.0,
+   "contact": {
+    "palm": 1.0
+   },
+   "side": 0.0,
+   "station": 0.0,
+   "roll": 0,
+   "depth": 0.0,
+   "right": 0.0,
+   "fingers": {
+    "thumb": [
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "index": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "middle": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "ring": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "pinky": [
+     1,
+     1,
+     1,
+     0
+    ]
+   }
+  },
+  {
+   "name": "N1",
+   "ref": 2287,
+   "t": 0.6189,
+   "phi": 90,
+   "hand_turn": -85,
+   "supinate": 10,
+   "extend": 10,
+   "lift": 0.03,
+   "fwd": 0.0,
+   "grip": 0.0,
+   "contact": {
+    "palm": 1.0
+   },
+   "side": -0.025,
+   "station": -0.07,
+   "roll": 1.0,
+   "depth": -0.1,
+   "right": 0.0,
+   "fingers": {
+    "thumb": [
+     0.5,
+     0.3,
+     0.2,
+     10,
+     0
+    ],
+    "index": [
+     0.15,
+     0.6,
+     0.7,
+     2
+    ],
+    "middle": [
+     0.15,
+     0.55,
+     0.65,
+     0
+    ],
+    "ring": [
+     0.1,
+     0.5,
+     0.6,
+     -2
+    ],
+    "pinky": [
+     0.1,
+     0.45,
+     0.55,
+     -4
+    ]
+   }
+  },
+  {
+   "name": "N2",
+   "ref": 2286,
+   "t": 0.7278,
+   "phi": 182,
+   "hand_turn": -20,
+   "supinate": 0,
+   "extend": 15,
+   "lift": 0.0,
+   "fwd": 0.0,
+   "grip": 0.0,
+   "contact": {
+    "web": 1.0
+   },
+   "side": -0.04,
+   "station": -0.04,
+   "roll": 1,
+   "depth": -0.1,
+   "right": 0.0,
+   "fingers": {
+    "thumb": [
+     0.6,
+     0.5,
+     0.4,
+     15,
+     0
+    ],
+    "index": [
+     -0.05,
+     0.05,
+     0.1,
+     9
+    ],
+    "middle": [
+     -0.05,
+     0.05,
+     0.1,
+     1
+    ],
+    "ring": [
+     -0.03,
+     0.08,
+     0.1,
+     -7
+    ],
+    "pinky": [
+     0.0,
+     0.1,
+     0.12,
+     -15
+    ]
+   }
+  },
+  {
+   "name": "N4",
+   "ref": 2284,
+   "t": 0.8048,
+   "phi": 212,
+   "hand_turn": -50,
+   "supinate": -80,
+   "extend": 15,
+   "lift": 0.02,
+   "fwd": 0.0,
+   "grip": 0.0,
+   "contact": {
+    "web": 1.0
+   },
+   "side": -0.02,
+   "station": -0.065,
+   "roll": 2.8,
+   "depth": -0.15,
+   "right": 0.02,
+   "fingers": {
+    "thumb": [
+     0.3,
+     0.2,
+     0.15,
+     22,
+     0
+    ],
+    "index": [
+     -0.1,
+     -0.04,
+     0.0,
+     12
+    ],
+    "middle": [
+     -0.1,
+     -0.04,
+     0.0,
+     2
+    ],
+    "ring": [
+     -0.08,
+     -0.02,
+     0.02,
+     -9
+    ],
+    "pinky": [
+     -0.05,
+     0.0,
+     0.05,
+     -18
+    ]
+   }
+  },
+  {
+   "name": "N5",
+   "ref": 2283,
+   "t": 0.874,
+   "phi": 238,
+   "hand_turn": -88,
+   "supinate": -155,
+   "extend": 10,
+   "lift": 0.045,
+   "fwd": 0.0,
+   "grip": 0.0,
+   "contact": {
+    "web": 0.5,
+    "palm": 0.5
+   },
+   "side": -0.03,
+   "station": -0.05,
+   "roll": 2.6,
+   "depth": -0.17,
+   "right": 0.02,
+   "fingers": {
+    "thumb": [
+     0.8,
+     0.7,
+     0.6,
+     5,
+     0
+    ],
+    "index": [
+     0.45,
+     0.7,
+     0.7,
+     2
+    ],
+    "middle": [
+     0.35,
+     0.6,
+     0.6,
+     0
+    ],
+    "ring": [
+     0.3,
+     0.55,
+     0.55,
+     -2
+    ],
+    "pinky": [
+     0.3,
+     0.5,
+     0.5,
+     -4
+    ]
+   }
+  },
+  {
+   "name": "N6",
+   "ref": 2282,
+   "t": 0.9329,
+   "phi": 266,
+   "hand_turn": -84,
+   "supinate": -145,
+   "extend": 10,
+   "lift": 0.05,
+   "fwd": 0.0,
+   "grip": 0.0,
+   "contact": {
+    "palm": 1.0
+   },
+   "side": -0.03,
+   "station": -0.05,
+   "roll": 1.6,
+   "depth": -0.17,
+   "right": 0.02,
+   "fingers": {
+    "thumb": [
+     0.6,
+     0.5,
+     0.4,
+     5,
+     0
+    ],
+    "index": [
+     0.12,
+     0.35,
+     0.5,
+     0
+    ],
+    "middle": [
+     0.12,
+     0.35,
+     0.5,
+     0
+    ],
+    "ring": [
+     0.12,
+     0.35,
+     0.45,
+     0
+    ],
+    "pinky": [
+     0.12,
+     0.3,
+     0.45,
+     0
+    ]
+   }
+  },
+  {
+   "name": "N7",
+   "ref": 2281,
+   "t": 1.0183,
+   "phi": 318,
+   "hand_turn": -10,
+   "supinate": -70,
+   "extend": 5,
+   "lift": 0.035,
+   "fwd": 0.0,
+   "grip": 0.3,
+   "contact": {
+    "palm": 1.0
+   },
+   "side": -0.02,
+   "station": -0.05,
+   "roll": 0.5,
+   "depth": -0.08,
+   "right": 0.01,
+   "fingers": {
+    "thumb": [
+     0.85,
+     0.85,
+     0.85,
+     0,
+     0
+    ],
+    "index": [
+     0.15,
+     0.25,
+     0.3,
+     4
+    ],
+    "middle": [
+     0.3,
+     0.45,
+     0.5,
+     2
+    ],
+    "ring": [
+     0.8,
+     0.85,
+     0.85,
+     0
+    ],
+    "pinky": [
+     0.9,
+     0.9,
+     0.9,
+     0
+    ]
+   }
+  },
+  {
+   "name": "N8",
+   "ref": 2280,
+   "t": 1.1,
+   "phi": 360,
+   "hand_turn": 0,
+   "supinate": 0,
+   "extend": 0,
+   "lift": 0.02,
+   "fwd": 0.0,
+   "grip": 1.0,
+   "contact": {
+    "palm": 1.0
+   },
+   "side": 0.0,
+   "station": 0.0,
+   "roll": 0,
+   "depth": -0.05,
+   "right": 0.0,
+   "fingers": {
+    "thumb": [
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "index": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "middle": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "ring": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "pinky": [
+     1,
+     1,
+     1,
+     0
+    ]
+   }
+  }
+ ],
+ "idle_hilt_in_hand_mm": 12.27,
+ "max_guard_in_hand_mm": 26.77,
+ "max_sword_in_forearm_mm": 37.73,
+ "max_shoulder_r_delta_m": 0.0059,
+ "end_translation_error_m": 0.0,
+ "twist_rule": "V9: lowerarm_twist_01 100 %, lowerarm_twist_02 50 % of hand roll vs lowerarm and bind",
+ "testing": "Authoring metrics only; no game or editor test. User tests.",
+ "samples": [
+  {
+   "seconds": 0.0,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.0
+  },
+  {
+   "seconds": 0.0083,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.0067
+  },
+  {
+   "seconds": 0.0167,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.0133
+  },
+  {
+   "seconds": 0.025,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.02
+  },
+  {
+   "seconds": 0.0333,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.0267
+  },
+  {
+   "seconds": 0.0417,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.0333
+  },
+  {
+   "seconds": 0.05,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.04
+  },
+  {
+   "seconds": 0.0583,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.0467
+  },
+  {
+   "seconds": 0.0667,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.0533
+  },
+  {
+   "seconds": 0.075,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "idle_hold": true,
+   "motion_s": 0.06
+  },
+  {
+   "seconds": 0.0833,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.926,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0161,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.18,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.9,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.51,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.99,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.1973,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.3948,
+    0.2404,
+    -0.1803
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.0667
+  },
+  {
+   "seconds": 0.0917,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.927,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0162,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.18,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.89,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.52,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.97,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.1984,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.3954,
+    0.2399,
+    -0.1804
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.0733
+  },
+  {
+   "seconds": 0.1,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.928,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0163,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.18,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.87,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.53,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.94,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2001,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.3964,
+    0.2391,
+    -0.1805
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.08
+  },
+  {
+   "seconds": 0.1083,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.929,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0164,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.18,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.84,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.55,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.9,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2023,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.3976,
+    0.2381,
+    -0.1808
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.0867
+  },
+  {
+   "seconds": 0.1167,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.931,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0166,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.19,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.81,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.56,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.85,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2051,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.3991,
+    0.2369,
+    -0.1811
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.0933
+  },
+  {
+   "seconds": 0.125,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.933,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0168,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.19,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.8,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.58,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.79,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2083,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4009,
+    0.2355,
+    -0.1814
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1
+  },
+  {
+   "seconds": 0.1333,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.936,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.017,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.2,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.79,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.59,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.72,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 166,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2118,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4028,
+    0.2339,
+    -0.1818
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1067
+  },
+  {
+   "seconds": 0.1417,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.938,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0173,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.2,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.8,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.6,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.64,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2157,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4048,
+    0.2321,
+    -0.1822
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1133
+  },
+  {
+   "seconds": 0.15,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.941,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0175,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.21,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.83,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.61,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.56,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2199,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4069,
+    0.2302,
+    -0.1826
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.12
+  },
+  {
+   "seconds": 0.1583,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.943,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0178,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.21,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.89,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.62,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.48,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2243,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4091,
+    0.2282,
+    -0.1831
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1267
+  },
+  {
+   "seconds": 0.1667,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.946,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.018,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.22,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 15.98,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.62,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.39,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2288,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4114,
+    0.2262,
+    -0.1836
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1333
+  },
+  {
+   "seconds": 0.175,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.948,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0183,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.23,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 16.09,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.62,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.29,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2334,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4136,
+    0.2241,
+    -0.184
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.14
+  },
+  {
+   "seconds": 0.1833,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.951,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0186,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.23,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 16.24,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.61,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.2,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.238,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4157,
+    0.2221,
+    -0.1845
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1467
+  },
+  {
+   "seconds": 0.1917,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.953,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0188,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.24,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 16.41,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.6,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.1,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2425,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4178,
+    0.22,
+    -0.185
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1533
+  },
+  {
+   "seconds": 0.2,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.955,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0191,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.25,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 16.6,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.58,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 59.01,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2469,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4198,
+    0.2181,
+    -0.1855
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.16
+  },
+  {
+   "seconds": 0.2083,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.958,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0193,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.25,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 16.85,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.56,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.91,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2518,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4219,
+    0.2159,
+    -0.186
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1667
+  },
+  {
+   "seconds": 0.2167,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.96,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0196,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.26,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 17.19,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.53,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.78,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2576,
+    0.4234,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4243,
+    0.2133,
+    -0.1866
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1733
+  },
+  {
+   "seconds": 0.225,
+   "phi_deg": 0.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.963,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.02,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7302,
+   "tip_ndc_x_over_depth": 0.27,
+   "pommel_depth_m": 0.3899,
+   "wrist_bend_r_deg": 17.63,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.48,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.64,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2642,
+    0.4235,
+    -0.1383
+   ],
+   "elbow_r": [
+    0.427,
+    0.2105,
+    -0.1873
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.18
+  },
+  {
+   "seconds": 0.2333,
+   "phi_deg": -0.04,
+   "hand_turn_deg": -0.04,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.966,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0204,
+   "fingers_screen_deg": -169.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.7299,
+   "tip_ndc_x_over_depth": 0.28,
+   "pommel_depth_m": 0.3901,
+   "wrist_bend_r_deg": 18.13,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.42,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.48,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2713,
+    0.4235,
+    -0.1383
+   ],
+   "elbow_r": [
+    0.4298,
+    0.2074,
+    -0.1881
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1867
+  },
+  {
+   "seconds": 0.2417,
+   "phi_deg": -0.14,
+   "hand_turn_deg": -0.14,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4954,
+   "dorsum_to_camera": -0.969,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0208,
+   "fingers_screen_deg": -169.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.729,
+   "tip_ndc_x_over_depth": 0.29,
+   "pommel_depth_m": 0.3904,
+   "wrist_bend_r_deg": 18.66,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.33,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.33,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0002,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2789,
+    0.4236,
+    -0.1383
+   ],
+   "elbow_r": [
+    0.4325,
+    0.2043,
+    -0.1889
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.1933
+  },
+  {
+   "seconds": 0.25,
+   "phi_deg": -0.3,
+   "hand_turn_deg": -0.3,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4953,
+   "dorsum_to_camera": -0.972,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0212,
+   "fingers_screen_deg": -170.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.7275,
+   "tip_ndc_x_over_depth": 0.31,
+   "pommel_depth_m": 0.3909,
+   "wrist_bend_r_deg": 19.22,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.22,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.18,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0011,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2866,
+    0.4237,
+    -0.1383
+   ],
+   "elbow_r": [
+    0.4352,
+    0.2011,
+    -0.1896
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2
+  },
+  {
+   "seconds": 0.2583,
+   "phi_deg": -0.52,
+   "hand_turn_deg": -0.52,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4952,
+   "dorsum_to_camera": -0.975,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0216,
+   "fingers_screen_deg": -170.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.7255,
+   "tip_ndc_x_over_depth": 0.32,
+   "pommel_depth_m": 0.3916,
+   "wrist_bend_r_deg": 19.82,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.09,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.04,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0028,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2944,
+    0.4238,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4378,
+    0.198,
+    -0.1904
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2067
+  },
+  {
+   "seconds": 0.2667,
+   "phi_deg": -0.79,
+   "hand_turn_deg": -0.79,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4951,
+   "dorsum_to_camera": -0.978,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.022,
+   "fingers_screen_deg": -170.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.7231,
+   "tip_ndc_x_over_depth": 0.34,
+   "pommel_depth_m": 0.3924,
+   "wrist_bend_r_deg": 20.45,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.95,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.92,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.005,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3021,
+    0.4241,
+    -0.1384
+   ],
+   "elbow_r": [
+    0.4401,
+    0.1951,
+    -0.1911
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2133
+  },
+  {
+   "seconds": 0.275,
+   "phi_deg": -1.1,
+   "hand_turn_deg": -1.1,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4949,
+   "dorsum_to_camera": -0.98,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0223,
+   "fingers_screen_deg": -171.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.7203,
+   "tip_ndc_x_over_depth": 0.35,
+   "pommel_depth_m": 0.3934,
+   "wrist_bend_r_deg": 21.08,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.79,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.81,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0076,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3095,
+    0.4243,
+    -0.1385
+   ],
+   "elbow_r": [
+    0.4422,
+    0.1924,
+    -0.1918
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.22
+  },
+  {
+   "seconds": 0.2833,
+   "phi_deg": -1.45,
+   "hand_turn_deg": -1.45,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4948,
+   "dorsum_to_camera": -0.982,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0227,
+   "fingers_screen_deg": -171.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.7172,
+   "tip_ndc_x_over_depth": 0.37,
+   "pommel_depth_m": 0.3946,
+   "wrist_bend_r_deg": 21.7,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.62,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.73,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0101,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3164,
+    0.4246,
+    -0.1385
+   ],
+   "elbow_r": [
+    0.4441,
+    0.19,
+    -0.1924
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2267
+  },
+  {
+   "seconds": 0.2917,
+   "phi_deg": -1.84,
+   "hand_turn_deg": -1.84,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4946,
+   "dorsum_to_camera": -0.984,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.023,
+   "fingers_screen_deg": -172.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.7137,
+   "tip_ndc_x_over_depth": 0.39,
+   "pommel_depth_m": 0.3959,
+   "wrist_bend_r_deg": 22.28,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.45,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.67,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0125,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3227,
+    0.425,
+    -0.1386
+   ],
+   "elbow_r": [
+    0.4456,
+    0.1879,
+    -0.193
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2333
+  },
+  {
+   "seconds": 0.3,
+   "phi_deg": -2.26,
+   "hand_turn_deg": -2.26,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4945,
+   "dorsum_to_camera": -0.985,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0233,
+   "fingers_screen_deg": -172.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.7101,
+   "tip_ndc_x_over_depth": 0.4,
+   "pommel_depth_m": 0.3973,
+   "wrist_bend_r_deg": 22.78,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.28,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.64,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0147,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3282,
+    0.4254,
+    -0.1386
+   ],
+   "elbow_r": [
+    0.4468,
+    0.1863,
+    -0.1936
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.24
+  },
+  {
+   "seconds": 0.3083,
+   "phi_deg": -2.7,
+   "hand_turn_deg": -2.7,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4944,
+   "dorsum_to_camera": -0.986,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0235,
+   "fingers_screen_deg": -173.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.7062,
+   "tip_ndc_x_over_depth": 0.42,
+   "pommel_depth_m": 0.3988,
+   "wrist_bend_r_deg": 23.18,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.12,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.65,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0164,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3328,
+    0.4259,
+    -0.1387
+   ],
+   "elbow_r": [
+    0.4477,
+    0.1851,
+    -0.194
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2467
+  },
+  {
+   "seconds": 0.3167,
+   "phi_deg": -3.15,
+   "hand_turn_deg": -3.15,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4943,
+   "dorsum_to_camera": -0.987,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0237,
+   "fingers_screen_deg": -174.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.7022,
+   "tip_ndc_x_over_depth": 0.43,
+   "pommel_depth_m": 0.4004,
+   "wrist_bend_r_deg": 23.42,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.96,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.68,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0176,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3362,
+    0.4264,
+    -0.1389
+   ],
+   "elbow_r": [
+    0.4483,
+    0.1843,
+    -0.1943
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2533
+  },
+  {
+   "seconds": 0.325,
+   "phi_deg": -3.62,
+   "hand_turn_deg": -3.62,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4942,
+   "dorsum_to_camera": -0.988,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0239,
+   "fingers_screen_deg": -174.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.6981,
+   "tip_ndc_x_over_depth": 0.44,
+   "pommel_depth_m": 0.402,
+   "wrist_bend_r_deg": 23.47,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.82,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.76,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0183,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3383,
+    0.4269,
+    -0.1391
+   ],
+   "elbow_r": [
+    0.4486,
+    0.1839,
+    -0.1944
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.26
+  },
+  {
+   "seconds": 0.3333,
+   "phi_deg": -4.1,
+   "hand_turn_deg": -4.1,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4941,
+   "dorsum_to_camera": -0.988,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.024,
+   "fingers_screen_deg": -175.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.694,
+   "tip_ndc_x_over_depth": 0.46,
+   "pommel_depth_m": 0.4037,
+   "wrist_bend_r_deg": 23.38,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.68,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.85,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0187,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3397,
+    0.4275,
+    -0.1395
+   ],
+   "elbow_r": [
+    0.4486,
+    0.1838,
+    -0.1943
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2667
+  },
+  {
+   "seconds": 0.3417,
+   "phi_deg": -4.58,
+   "hand_turn_deg": -4.58,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4941,
+   "dorsum_to_camera": -0.988,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.024,
+   "fingers_screen_deg": -176.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.6899,
+   "tip_ndc_x_over_depth": 0.47,
+   "pommel_depth_m": 0.4055,
+   "wrist_bend_r_deg": 23.27,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.52,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 57.95,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0191,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.341,
+    0.4282,
+    -0.1401
+   ],
+   "elbow_r": [
+    0.4486,
+    0.1837,
+    -0.1941
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2733
+  },
+  {
+   "seconds": 0.35,
+   "phi_deg": -5.05,
+   "hand_turn_deg": -5.05,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4942,
+   "dorsum_to_camera": -0.989,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0241,
+   "fingers_screen_deg": -176.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.6859,
+   "tip_ndc_x_over_depth": 0.48,
+   "pommel_depth_m": 0.4073,
+   "wrist_bend_r_deg": 23.11,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.34,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.05,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0193,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3421,
+    0.4289,
+    -0.1409
+   ],
+   "elbow_r": [
+    0.4486,
+    0.1837,
+    -0.1937
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.28
+  },
+  {
+   "seconds": 0.3583,
+   "phi_deg": -5.52,
+   "hand_turn_deg": -5.52,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4943,
+   "dorsum_to_camera": -0.989,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0242,
+   "fingers_screen_deg": -177.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.682,
+   "tip_ndc_x_over_depth": 0.49,
+   "pommel_depth_m": 0.4092,
+   "wrist_bend_r_deg": 22.91,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.12,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.16,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0195,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.343,
+    0.4296,
+    -0.142
+   ],
+   "elbow_r": [
+    0.4486,
+    0.1837,
+    -0.1931
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2867
+  },
+  {
+   "seconds": 0.3667,
+   "phi_deg": -5.97,
+   "hand_turn_deg": -5.97,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4945,
+   "dorsum_to_camera": -0.989,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0243,
+   "fingers_screen_deg": -178.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.6784,
+   "tip_ndc_x_over_depth": 0.5,
+   "pommel_depth_m": 0.411,
+   "wrist_bend_r_deg": 22.68,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 41.87,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.28,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0195,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3437,
+    0.4305,
+    -0.1435
+   ],
+   "elbow_r": [
+    0.4485,
+    0.1837,
+    -0.1923
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.2933
+  },
+  {
+   "seconds": 0.375,
+   "phi_deg": -6.4,
+   "hand_turn_deg": -6.4,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4948,
+   "dorsum_to_camera": -0.989,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0243,
+   "fingers_screen_deg": -178.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.675,
+   "tip_ndc_x_over_depth": 0.51,
+   "pommel_depth_m": 0.413,
+   "wrist_bend_r_deg": 22.4,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 41.59,
+   "humerus_roll_r_deg": 0.0,
+   "hand_roll_v9_r_deg": 58.4,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0195,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3442,
+    0.4314,
+    -0.1453
+   ],
+   "elbow_r": [
+    0.4483,
+    0.1838,
+    -0.1913
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3
+  },
+  {
+   "seconds": 0.3833,
+   "phi_deg": -6.81,
+   "hand_turn_deg": -6.81,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4952,
+   "dorsum_to_camera": -0.988,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0243,
+   "fingers_screen_deg": -179.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.6715,
+   "tip_ndc_x_over_depth": 0.52,
+   "pommel_depth_m": 0.415,
+   "wrist_bend_r_deg": 22.12,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.75,
+   "humerus_roll_r_deg": -2.4,
+   "hand_roll_v9_r_deg": 58.48,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0194,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3444,
+    0.4324,
+    -0.1474
+   ],
+   "elbow_r": [
+    0.448,
+    0.184,
+    -0.1901
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3067
+  },
+  {
+   "seconds": 0.3917,
+   "phi_deg": -7.2,
+   "hand_turn_deg": -7.18,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.988,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0243,
+   "fingers_screen_deg": -179.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.6662,
+   "tip_ndc_x_over_depth": 0.53,
+   "pommel_depth_m": 0.4178,
+   "wrist_bend_r_deg": 21.9,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.86,
+   "humerus_roll_r_deg": -4.8,
+   "hand_roll_v9_r_deg": 58.34,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0192,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3444,
+    0.4337,
+    -0.1498
+   ],
+   "elbow_r": [
+    0.4475,
+    0.1845,
+    -0.189
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3133
+  },
+  {
+   "seconds": 0.4,
+   "phi_deg": -7.63,
+   "hand_turn_deg": -7.52,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4957,
+   "dorsum_to_camera": -0.986,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0243,
+   "fingers_screen_deg": 179.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.6577,
+   "tip_ndc_x_over_depth": 0.53,
+   "pommel_depth_m": 0.4218,
+   "wrist_bend_r_deg": 21.79,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.31,
+   "humerus_roll_r_deg": -6.25,
+   "hand_roll_v9_r_deg": 57.85,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0189,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3441,
+    0.4353,
+    -0.1524
+   ],
+   "elbow_r": [
+    0.4467,
+    0.1854,
+    -0.1886
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.32
+  },
+  {
+   "seconds": 0.4083,
+   "phi_deg": -8.11,
+   "hand_turn_deg": -7.83,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4956,
+   "dorsum_to_camera": -0.983,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0242,
+   "fingers_screen_deg": 179.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.6453,
+   "tip_ndc_x_over_depth": 0.53,
+   "pommel_depth_m": 0.427,
+   "wrist_bend_r_deg": 21.8,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.26,
+   "humerus_roll_r_deg": -7.0,
+   "hand_roll_v9_r_deg": 56.96,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0186,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 166,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3437,
+    0.4373,
+    -0.1551
+   ],
+   "elbow_r": [
+    0.4458,
+    0.1869,
+    -0.189
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3267
+  },
+  {
+   "seconds": 0.4167,
+   "phi_deg": -8.62,
+   "hand_turn_deg": -8.12,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4952,
+   "dorsum_to_camera": -0.978,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0241,
+   "fingers_screen_deg": 178.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.6292,
+   "tip_ndc_x_over_depth": 0.52,
+   "pommel_depth_m": 0.4335,
+   "wrist_bend_r_deg": 21.91,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.3,
+   "humerus_roll_r_deg": -8.0,
+   "hand_roll_v9_r_deg": 55.69,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0182,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 166,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.343,
+    0.4396,
+    -0.1578
+   ],
+   "elbow_r": [
+    0.4446,
+    0.1889,
+    -0.1906
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3333
+  },
+  {
+   "seconds": 0.425,
+   "phi_deg": -9.14,
+   "hand_turn_deg": -8.41,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4947,
+   "dorsum_to_camera": -0.972,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0239,
+   "fingers_screen_deg": 178.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.6098,
+   "tip_ndc_x_over_depth": 0.51,
+   "pommel_depth_m": 0.4412,
+   "wrist_bend_r_deg": 22.1,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.29,
+   "humerus_roll_r_deg": -9.0,
+   "hand_roll_v9_r_deg": 54.11,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0178,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.342,
+    0.4422,
+    -0.1605
+   ],
+   "elbow_r": [
+    0.4432,
+    0.1913,
+    -0.1934
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.34
+  },
+  {
+   "seconds": 0.4333,
+   "phi_deg": -9.66,
+   "hand_turn_deg": -8.7,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.494,
+   "dorsum_to_camera": -0.963,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0237,
+   "fingers_screen_deg": 177.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.5881,
+   "tip_ndc_x_over_depth": 0.5,
+   "pommel_depth_m": 0.4496,
+   "wrist_bend_r_deg": 22.36,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.24,
+   "humerus_roll_r_deg": -10.0,
+   "hand_roll_v9_r_deg": 52.33,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0175,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3408,
+    0.4449,
+    -0.163
+   ],
+   "elbow_r": [
+    0.4416,
+    0.1941,
+    -0.1972
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3467
+  },
+  {
+   "seconds": 0.4417,
+   "phi_deg": -10.16,
+   "hand_turn_deg": -9.01,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4931,
+   "dorsum_to_camera": -0.953,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0234,
+   "fingers_screen_deg": 177.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.5653,
+   "tip_ndc_x_over_depth": 0.49,
+   "pommel_depth_m": 0.4583,
+   "wrist_bend_r_deg": 22.67,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.35,
+   "humerus_roll_r_deg": -11.25,
+   "hand_roll_v9_r_deg": 50.48,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3396,
+    0.4477,
+    -0.1652
+   ],
+   "elbow_r": [
+    0.4399,
+    0.197,
+    -0.2017
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3533
+  },
+  {
+   "seconds": 0.45,
+   "phi_deg": -10.63,
+   "hand_turn_deg": -9.34,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4921,
+   "dorsum_to_camera": -0.942,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0231,
+   "fingers_screen_deg": 176.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.5428,
+   "tip_ndc_x_over_depth": 0.48,
+   "pommel_depth_m": 0.4667,
+   "wrist_bend_r_deg": 22.99,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.34,
+   "humerus_roll_r_deg": -12.25,
+   "hand_roll_v9_r_deg": 48.7,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3384,
+    0.4503,
+    -0.1672
+   ],
+   "elbow_r": [
+    0.4381,
+    0.1997,
+    -0.2064
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.36
+  },
+  {
+   "seconds": 0.4583,
+   "phi_deg": -11.06,
+   "hand_turn_deg": -9.72,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4911,
+   "dorsum_to_camera": -0.931,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0229,
+   "fingers_screen_deg": 176.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.5217,
+   "tip_ndc_x_over_depth": 0.47,
+   "pommel_depth_m": 0.4744,
+   "wrist_bend_r_deg": 23.27,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.24,
+   "humerus_roll_r_deg": -13.0,
+   "hand_roll_v9_r_deg": 47.13,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3372,
+    0.4525,
+    -0.169
+   ],
+   "elbow_r": [
+    0.4364,
+    0.2022,
+    -0.2111
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3667
+  },
+  {
+   "seconds": 0.4667,
+   "phi_deg": -11.42,
+   "hand_turn_deg": -10.14,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4898,
+   "dorsum_to_camera": -0.922,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0226,
+   "fingers_screen_deg": 175.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.503,
+   "tip_ndc_x_over_depth": 0.47,
+   "pommel_depth_m": 0.4808,
+   "wrist_bend_r_deg": 23.47,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.24,
+   "humerus_roll_r_deg": -13.75,
+   "hand_roll_v9_r_deg": 45.88,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.336,
+    0.4541,
+    -0.1704
+   ],
+   "elbow_r": [
+    0.435,
+    0.2042,
+    -0.2152
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3733
+  },
+  {
+   "seconds": 0.475,
+   "phi_deg": -11.71,
+   "hand_turn_deg": -10.63,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4881,
+   "dorsum_to_camera": -0.914,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0225,
+   "fingers_screen_deg": 174.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.4871,
+   "tip_ndc_x_over_depth": 0.47,
+   "pommel_depth_m": 0.4855,
+   "wrist_bend_r_deg": 23.52,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.37,
+   "humerus_roll_r_deg": -14.5,
+   "hand_roll_v9_r_deg": 45.02,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.335,
+    0.4549,
+    -0.1715
+   ],
+   "elbow_r": [
+    0.4341,
+    0.2054,
+    -0.2185
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.38
+  },
+  {
+   "seconds": 0.4833,
+   "phi_deg": -11.91,
+   "hand_turn_deg": -11.19,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4806,
+   "dorsum_to_camera": -0.909,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0225,
+   "fingers_screen_deg": 174.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.4741,
+   "tip_ndc_x_over_depth": 0.48,
+   "pommel_depth_m": 0.4882,
+   "wrist_bend_r_deg": 23.39,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.35,
+   "humerus_roll_r_deg": -14.75,
+   "hand_roll_v9_r_deg": 44.56,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3342,
+    0.4546,
+    -0.1722
+   ],
+   "elbow_r": [
+    0.4338,
+    0.2057,
+    -0.2211
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3867
+  },
+  {
+   "seconds": 0.4917,
+   "phi_deg": -12.0,
+   "hand_turn_deg": -11.83,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4737,
+   "dorsum_to_camera": -0.907,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0225,
+   "fingers_screen_deg": 173.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.4631,
+   "tip_ndc_x_over_depth": 0.5,
+   "pommel_depth_m": 0.4891,
+   "wrist_bend_r_deg": 23.09,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.36,
+   "humerus_roll_r_deg": -14.75,
+   "hand_roll_v9_r_deg": 44.48,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3337,
+    0.4532,
+    -0.1724
+   ],
+   "elbow_r": [
+    0.4344,
+    0.2051,
+    -0.2228
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.3933
+  },
+  {
+   "seconds": 0.5,
+   "phi_deg": -11.93,
+   "hand_turn_deg": -13.01,
+   "supinate": 0.1,
+   "grip": 0.993,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": 0.4693,
+   "dorsum_to_camera": -0.907,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0227,
+   "fingers_screen_deg": 171.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.458,
+   "tip_ndc_x_over_depth": 0.51,
+   "pommel_depth_m": 0.486,
+   "wrist_bend_r_deg": 22.65,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.42,
+   "humerus_roll_r_deg": -14.75,
+   "hand_roll_v9_r_deg": 44.81,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 21.64,
+   "clear_hand": {
+    "hilt_max_mm": 12.35,
+    "hilt_n_over_3mm": 137,
+    "guard_max_mm": 19.4,
+    "guard_n": 313
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3332,
+    0.4508,
+    -0.1726
+   ],
+   "elbow_r": [
+    0.4355,
+    0.2037,
+    -0.225
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4
+  },
+  {
+   "seconds": 0.5083,
+   "phi_deg": -11.2,
+   "hand_turn_deg": -15.79,
+   "supinate": 0.4,
+   "grip": 0.962,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": 0.4673,
+   "dorsum_to_camera": -0.909,
+   "hilt_side_m": -0.0272,
+   "hilt_to_camera_m": 0.023,
+   "fingers_screen_deg": 168.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.4593,
+   "tip_ndc_x_over_depth": 0.5,
+   "pommel_depth_m": 0.4778,
+   "wrist_bend_r_deg": 22.28,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.26,
+   "humerus_roll_r_deg": -14.75,
+   "hand_roll_v9_r_deg": 45.79,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 19.89,
+   "clear_hand": {
+    "hilt_max_mm": 12.64,
+    "hilt_n_over_3mm": 134,
+    "guard_max_mm": 19.7,
+    "guard_n": 319
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3325,
+    0.4478,
+    -0.1737
+   ],
+   "elbow_r": [
+    0.4364,
+    0.2023,
+    -0.2305
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4067
+  },
+  {
+   "seconds": 0.5167,
+   "phi_deg": -9.19,
+   "hand_turn_deg": -20.23,
+   "supinate": 1.0,
+   "grip": 0.912,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": 0.468,
+   "dorsum_to_camera": -0.912,
+   "hilt_side_m": -0.0272,
+   "hilt_to_camera_m": 0.0238,
+   "fingers_screen_deg": 162.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.4707,
+   "tip_ndc_x_over_depth": 0.44,
+   "pommel_depth_m": 0.4635,
+   "wrist_bend_r_deg": 22.24,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.28,
+   "humerus_roll_r_deg": -15.5,
+   "hand_roll_v9_r_deg": 47.36,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 14.82,
+   "clear_hand": {
+    "hilt_max_mm": 13.36,
+    "hilt_n_over_3mm": 134,
+    "guard_max_mm": 19.8,
+    "guard_n": 307
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3312,
+    0.4445,
+    -0.1756
+   ],
+   "elbow_r": [
+    0.4365,
+    0.2015,
+    -0.2397
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4133
+  },
+  {
+   "seconds": 0.525,
+   "phi_deg": -5.62,
+   "hand_turn_deg": -25.99,
+   "supinate": 1.7,
+   "grip": 0.844,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": 0.461,
+   "dorsum_to_camera": -0.915,
+   "hilt_side_m": -0.0276,
+   "hilt_to_camera_m": 0.0253,
+   "fingers_screen_deg": 155.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.4954,
+   "tip_ndc_x_over_depth": 0.35,
+   "pommel_depth_m": 0.4426,
+   "wrist_bend_r_deg": 22.79,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.33,
+   "humerus_roll_r_deg": -16.75,
+   "hand_roll_v9_r_deg": 49.35,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 10.18,
+   "clear_hand": {
+    "hilt_max_mm": 45.78,
+    "hilt_n_over_3mm": 176,
+    "guard_max_mm": 18.94,
+    "guard_n": 279
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3293,
+    0.4409,
+    -0.1778
+   ],
+   "elbow_r": [
+    0.4353,
+    0.2012,
+    -0.2523
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.42
+  },
+  {
+   "seconds": 0.5333,
+   "phi_deg": -0.57,
+   "hand_turn_deg": -32.19,
+   "supinate": 2.6,
+   "grip": 0.763,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": 0.4545,
+   "dorsum_to_camera": -0.917,
+   "hilt_side_m": -0.0288,
+   "hilt_to_camera_m": 0.0281,
+   "fingers_screen_deg": 149.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.5336,
+   "tip_ndc_x_over_depth": 0.23,
+   "pommel_depth_m": 0.4167,
+   "wrist_bend_r_deg": 23.8,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.27,
+   "humerus_roll_r_deg": -18.0,
+   "hand_roll_v9_r_deg": 51.41,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 9.07,
+   "clear_hand": {
+    "hilt_max_mm": 13.48,
+    "hilt_n_over_3mm": 206,
+    "guard_max_mm": 17.95,
+    "guard_n": 220
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.327,
+    0.4369,
+    -0.1793
+   ],
+   "elbow_r": [
+    0.4323,
+    0.2016,
+    -0.2674
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4267
+  },
+  {
+   "seconds": 0.5417,
+   "phi_deg": 5.59,
+   "hand_turn_deg": -38.39,
+   "supinate": 3.4,
+   "grip": 0.672,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": 0.4494,
+   "dorsum_to_camera": -0.918,
+   "hilt_side_m": -0.0312,
+   "hilt_to_camera_m": 0.0322,
+   "fingers_screen_deg": 142.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.5821,
+   "tip_ndc_x_over_depth": 0.1,
+   "pommel_depth_m": 0.3882,
+   "wrist_bend_r_deg": 24.96,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.37,
+   "humerus_roll_r_deg": -19.75,
+   "hand_roll_v9_r_deg": 53.43,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 16.88,
+   "clear_hand": {
+    "hilt_max_mm": 14.14,
+    "hilt_n_over_3mm": 255,
+    "guard_max_mm": 15.01,
+    "guard_n": 150
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 1.75,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3245,
+    0.4323,
+    -0.1796
+   ],
+   "elbow_r": [
+    0.4269,
+    0.2027,
+    -0.2847
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4333
+  },
+  {
+   "seconds": 0.55,
+   "phi_deg": 12.56,
+   "hand_turn_deg": -44.78,
+   "supinate": 4.3,
+   "grip": 0.575,
+   "recover": 0.0,
+   "search_m": 0.008,
+   "blade_in_view_min_depth_m": 0.4447,
+   "dorsum_to_camera": -0.917,
+   "hilt_side_m": -0.0363,
+   "hilt_to_camera_m": 0.0392,
+   "fingers_screen_deg": 137.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.6361,
+   "tip_ndc_x_over_depth": -0.03,
+   "pommel_depth_m": 0.3579,
+   "wrist_bend_r_deg": 26.22,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.3,
+   "humerus_roll_r_deg": -21.75,
+   "hand_roll_v9_r_deg": 55.59,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 22.94,
+   "clear_hand": {
+    "hilt_max_mm": 15.96,
+    "hilt_n_over_3mm": 243,
+    "guard_max_mm": 10.69,
+    "guard_n": 155
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 29.42,
+    "hilt_n_over_3mm": 131,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3217,
+    0.4276,
+    -0.1791
+   ],
+   "elbow_r": [
+    0.417,
+    0.2056,
+    -0.305
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.44
+  },
+  {
+   "seconds": 0.5583,
+   "phi_deg": 20.31,
+   "hand_turn_deg": -51.29,
+   "supinate": 5.2,
+   "grip": 0.476,
+   "recover": 0.0,
+   "search_m": 0.012,
+   "blade_in_view_min_depth_m": 0.4415,
+   "dorsum_to_camera": -0.915,
+   "hilt_side_m": -0.043,
+   "hilt_to_camera_m": 0.048,
+   "fingers_screen_deg": 131.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.695,
+   "tip_ndc_x_over_depth": -0.14,
+   "pommel_depth_m": 0.3278,
+   "wrist_bend_r_deg": 27.76,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.29,
+   "humerus_roll_r_deg": -24.0,
+   "hand_roll_v9_r_deg": 57.87,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 37.79,
+   "clear_hand": {
+    "hilt_max_mm": 14.07,
+    "hilt_n_over_3mm": 186,
+    "guard_max_mm": 15.67,
+    "guard_n": 148
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 28.77,
+    "hilt_n_over_3mm": 137,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3185,
+    0.4229,
+    -0.1777
+   ],
+   "elbow_r": [
+    0.4043,
+    0.2095,
+    -0.3237
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4467
+  },
+  {
+   "seconds": 0.5667,
+   "phi_deg": 28.81,
+   "hand_turn_deg": -57.71,
+   "supinate": 6.1,
+   "grip": 0.377,
+   "recover": 0.0,
+   "search_m": 0.016,
+   "blade_in_view_min_depth_m": 0.4399,
+   "dorsum_to_camera": -0.911,
+   "hilt_side_m": -0.0509,
+   "hilt_to_camera_m": 0.0583,
+   "fingers_screen_deg": 126.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.756,
+   "tip_ndc_x_over_depth": -0.24,
+   "pommel_depth_m": 0.299,
+   "wrist_bend_r_deg": 29.48,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.27,
+   "humerus_roll_r_deg": -26.4,
+   "hand_roll_v9_r_deg": 60.26,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 33.2,
+   "clear_hand": {
+    "hilt_max_mm": 12.64,
+    "hilt_n_over_3mm": 243,
+    "guard_max_mm": 16.65,
+    "guard_n": 106
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 37.73,
+    "hilt_n_over_3mm": 118,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3152,
+    0.4185,
+    -0.1754
+   ],
+   "elbow_r": [
+    0.3888,
+    0.2144,
+    -0.3403
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4533
+  },
+  {
+   "seconds": 0.575,
+   "phi_deg": 37.95,
+   "hand_turn_deg": -63.77,
+   "supinate": 7.0,
+   "grip": 0.283,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.4394,
+   "dorsum_to_camera": -0.905,
+   "hilt_side_m": -0.0595,
+   "hilt_to_camera_m": 0.0696,
+   "fingers_screen_deg": 121.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.815,
+   "tip_ndc_x_over_depth": -0.33,
+   "pommel_depth_m": 0.2728,
+   "wrist_bend_r_deg": 31.34,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.29,
+   "humerus_roll_r_deg": -28.0,
+   "hand_roll_v9_r_deg": 62.36,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.88,
+   "clear_hand": {
+    "hilt_max_mm": 12.07,
+    "hilt_n_over_3mm": 291,
+    "guard_max_mm": 8.92,
+    "guard_n": 32
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 21.64,
+    "hilt_n_over_3mm": 52,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3119,
+    0.4142,
+    -0.1725
+   ],
+   "elbow_r": [
+    0.3768,
+    0.2182,
+    -0.3503
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.46
+  },
+  {
+   "seconds": 0.5833,
+   "phi_deg": 47.59,
+   "hand_turn_deg": -69.25,
+   "supinate": 7.8,
+   "grip": 0.196,
+   "recover": 0.0,
+   "search_m": 0.016,
+   "blade_in_view_min_depth_m": 0.4439,
+   "dorsum_to_camera": -0.898,
+   "hilt_side_m": -0.0619,
+   "hilt_to_camera_m": 0.0751,
+   "fingers_screen_deg": 117.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.872,
+   "tip_ndc_x_over_depth": -0.39,
+   "pommel_depth_m": 0.2547,
+   "wrist_bend_r_deg": 33.21,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.26,
+   "humerus_roll_r_deg": -28.75,
+   "hand_roll_v9_r_deg": 64.03,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.39,
+   "clear_hand": {
+    "hilt_max_mm": 11.86,
+    "hilt_n_over_3mm": 291,
+    "guard_max_mm": 3.13,
+    "guard_n": 21
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3088,
+    0.4102,
+    -0.1691
+   ],
+   "elbow_r": [
+    0.3685,
+    0.221,
+    -0.3559
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4667
+  },
+  {
+   "seconds": 0.5917,
+   "phi_deg": 57.54,
+   "hand_turn_deg": -73.91,
+   "supinate": 8.4,
+   "grip": 0.121,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.4432,
+   "dorsum_to_camera": -0.89,
+   "hilt_side_m": -0.0699,
+   "hilt_to_camera_m": 0.0856,
+   "fingers_screen_deg": 114.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.9126,
+   "tip_ndc_x_over_depth": -0.44,
+   "pommel_depth_m": 0.2361,
+   "wrist_bend_r_deg": 34.9,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.33,
+   "humerus_roll_r_deg": -29.5,
+   "hand_roll_v9_r_deg": 65.39,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 14.09,
+   "clear_hand": {
+    "hilt_max_mm": 13.41,
+    "hilt_n_over_3mm": 331,
+    "guard_max_mm": 4.75,
+    "guard_n": 6
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3063,
+    0.4064,
+    -0.1656
+   ],
+   "elbow_r": [
+    0.361,
+    0.2236,
+    -0.3601
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4733
+  },
+  {
+   "seconds": 0.6,
+   "phi_deg": 67.56,
+   "hand_turn_deg": -77.51,
+   "supinate": 9.0,
+   "grip": 0.061,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.443,
+   "dorsum_to_camera": -0.883,
+   "hilt_side_m": -0.074,
+   "hilt_to_camera_m": 0.0916,
+   "fingers_screen_deg": 112.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.9398,
+   "tip_ndc_x_over_depth": -0.46,
+   "pommel_depth_m": 0.2243,
+   "wrist_bend_r_deg": 36.32,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.28,
+   "humerus_roll_r_deg": -29.5,
+   "hand_roll_v9_r_deg": 66.24,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 12.84,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 293,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3045,
+    0.4029,
+    -0.1625
+   ],
+   "elbow_r": [
+    0.3568,
+    0.225,
+    -0.3623
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.48
+  },
+  {
+   "seconds": 0.6083,
+   "phi_deg": 77.52,
+   "hand_turn_deg": -79.84,
+   "supinate": 9.3,
+   "grip": 0.02,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.4401,
+   "dorsum_to_camera": -0.876,
+   "hilt_side_m": -0.0773,
+   "hilt_to_camera_m": 0.0956,
+   "fingers_screen_deg": 111.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.9491,
+   "tip_ndc_x_over_depth": -0.47,
+   "pommel_depth_m": 0.2164,
+   "wrist_bend_r_deg": 37.3,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.4,
+   "humerus_roll_r_deg": -29.5,
+   "hand_roll_v9_r_deg": 66.64,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 10.98,
+   "clear_hand": {
+    "hilt_max_mm": 11.42,
+    "hilt_n_over_3mm": 193,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3036,
+    0.3994,
+    -0.1601
+   ],
+   "elbow_r": [
+    0.3551,
+    0.2254,
+    -0.3634
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4867
+  },
+  {
+   "seconds": 0.6167,
+   "phi_deg": 87.37,
+   "hand_turn_deg": -80.75,
+   "supinate": 9.5,
+   "grip": 0.001,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.4338,
+   "dorsum_to_camera": -0.87,
+   "hilt_side_m": -0.0799,
+   "hilt_to_camera_m": 0.0975,
+   "fingers_screen_deg": 110.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.9398,
+   "tip_ndc_x_over_depth": -0.46,
+   "pommel_depth_m": 0.2118,
+   "wrist_bend_r_deg": 37.69,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.65,
+   "humerus_roll_r_deg": -29.5,
+   "hand_roll_v9_r_deg": 66.63,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 8.06,
+   "clear_hand": {
+    "hilt_max_mm": 8.11,
+    "hilt_n_over_3mm": 85,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3038,
+    0.3958,
+    -0.1587
+   ],
+   "elbow_r": [
+    0.3556,
+    0.2245,
+    -0.3642
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.4933
+  },
+  {
+   "seconds": 0.625,
+   "phi_deg": 97.02,
+   "hand_turn_deg": -80.14,
+   "supinate": 9.6,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.4243,
+   "dorsum_to_camera": -0.865,
+   "hilt_side_m": -0.0818,
+   "hilt_to_camera_m": 0.0975,
+   "fingers_screen_deg": 111.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.9129,
+   "tip_ndc_x_over_depth": -0.44,
+   "pommel_depth_m": 0.2102,
+   "wrist_bend_r_deg": 37.41,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.76,
+   "humerus_roll_r_deg": -29.0,
+   "hand_roll_v9_r_deg": 66.28,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.991,
+    "web": 0.009,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 3.11,
+   "clear_hand": {
+    "hilt_max_mm": 3.11,
+    "hilt_n_over_3mm": 2,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3051,
+    0.3921,
+    -0.1583
+   ],
+   "elbow_r": [
+    0.358,
+    0.2224,
+    -0.3648
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5
+  },
+  {
+   "seconds": 0.6333,
+   "phi_deg": 106.45,
+   "hand_turn_deg": -78.0,
+   "supinate": 9.5,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.4126,
+   "dorsum_to_camera": -0.861,
+   "hilt_side_m": -0.0839,
+   "hilt_to_camera_m": 0.0968,
+   "fingers_screen_deg": 113.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.8708,
+   "tip_ndc_x_over_depth": -0.41,
+   "pommel_depth_m": 0.2121,
+   "wrist_bend_r_deg": 36.57,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.72,
+   "humerus_roll_r_deg": -27.75,
+   "hand_roll_v9_r_deg": 65.54,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.952,
+    "web": 0.048,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3076,
+    0.388,
+    -0.1588
+   ],
+   "elbow_r": [
+    0.3633,
+    0.2185,
+    -0.3648
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5067
+  },
+  {
+   "seconds": 0.6417,
+   "phi_deg": 115.62,
+   "hand_turn_deg": -74.45,
+   "supinate": 9.2,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.3993,
+   "dorsum_to_camera": -0.858,
+   "hilt_side_m": -0.086,
+   "hilt_to_camera_m": 0.0959,
+   "fingers_screen_deg": 116.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.816,
+   "tip_ndc_x_over_depth": -0.35,
+   "pommel_depth_m": 0.2171,
+   "wrist_bend_r_deg": 35.32,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.8,
+   "humerus_roll_r_deg": -26.0,
+   "hand_roll_v9_r_deg": 64.41,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.887,
+    "web": 0.113,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3113,
+    0.3834,
+    -0.1601
+   ],
+   "elbow_r": [
+    0.3722,
+    0.2125,
+    -0.3634
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5133
+  },
+  {
+   "seconds": 0.65,
+   "phi_deg": 124.49,
+   "hand_turn_deg": -69.71,
+   "supinate": 8.8,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.3847,
+   "dorsum_to_camera": -0.856,
+   "hilt_side_m": -0.088,
+   "hilt_to_camera_m": 0.0949,
+   "fingers_screen_deg": 120.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.7511,
+   "tip_ndc_x_over_depth": -0.28,
+   "pommel_depth_m": 0.2247,
+   "wrist_bend_r_deg": 33.84,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.91,
+   "humerus_roll_r_deg": -23.6,
+   "hand_roll_v9_r_deg": 62.99,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.802,
+    "web": 0.198,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3159,
+    0.3784,
+    -0.1615
+   ],
+   "elbow_r": [
+    0.384,
+    0.2047,
+    -0.3601
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.52
+  },
+  {
+   "seconds": 0.6583,
+   "phi_deg": 133.05,
+   "hand_turn_deg": -64.03,
+   "supinate": 8.3,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.3693,
+   "dorsum_to_camera": -0.855,
+   "hilt_side_m": -0.0897,
+   "hilt_to_camera_m": 0.0939,
+   "fingers_screen_deg": 125.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.6788,
+   "tip_ndc_x_over_depth": -0.19,
+   "pommel_depth_m": 0.2343,
+   "wrist_bend_r_deg": 32.34,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 45.23,
+   "humerus_roll_r_deg": -21.200000000000003,
+   "hand_roll_v9_r_deg": 61.48,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.701,
+    "web": 0.299,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3213,
+    0.373,
+    -0.1628
+   ],
+   "elbow_r": [
+    0.3966,
+    0.1958,
+    -0.3555
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5267
+  },
+  {
+   "seconds": 0.6667,
+   "phi_deg": 141.22,
+   "hand_turn_deg": -57.73,
+   "supinate": 7.7,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.3538,
+   "dorsum_to_camera": -0.854,
+   "hilt_side_m": -0.0911,
+   "hilt_to_camera_m": 0.093,
+   "fingers_screen_deg": 130.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.6026,
+   "tip_ndc_x_over_depth": -0.07,
+   "pommel_depth_m": 0.2454,
+   "wrist_bend_r_deg": 31.11,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 45.59,
+   "humerus_roll_r_deg": -18.800000000000004,
+   "hand_roll_v9_r_deg": 60.03,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.591,
+    "web": 0.409,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 0.23,
+   "clear_hand": {
+    "hilt_max_mm": 0.07,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.23,
+    "guard_n": 2
+   },
+   "hand_r": [
+    0.3271,
+    0.3674,
+    -0.1634
+   ],
+   "elbow_r": [
+    0.408,
+    0.1869,
+    -0.3508
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5333
+  },
+  {
+   "seconds": 0.675,
+   "phi_deg": 148.81,
+   "hand_turn_deg": -51.16,
+   "supinate": 7.0,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.3388,
+   "dorsum_to_camera": -0.855,
+   "hilt_side_m": -0.0922,
+   "hilt_to_camera_m": 0.0923,
+   "fingers_screen_deg": 136.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.5267,
+   "tip_ndc_x_over_depth": 0.09,
+   "pommel_depth_m": 0.2572,
+   "wrist_bend_r_deg": 30.21,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 46.7,
+   "humerus_roll_r_deg": -16.400000000000006,
+   "hand_roll_v9_r_deg": 58.1,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.477,
+    "web": 0.523,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 3.73,
+   "clear_hand": {
+    "hilt_max_mm": 3.41,
+    "hilt_n_over_3mm": 3,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 3.73,
+    "guard_n": 5
+   },
+   "hand_r": [
+    0.3329,
+    0.3618,
+    -0.1633
+   ],
+   "elbow_r": [
+    0.4255,
+    0.1745,
+    -0.3382
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.54
+  },
+  {
+   "seconds": 0.6833,
+   "phi_deg": 155.69,
+   "hand_turn_deg": -44.67,
+   "supinate": 6.1,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.3249,
+   "dorsum_to_camera": -0.856,
+   "hilt_side_m": -0.0931,
+   "hilt_to_camera_m": 0.0917,
+   "fingers_screen_deg": 142.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.4546,
+   "tip_ndc_x_over_depth": 0.28,
+   "pommel_depth_m": 0.2687,
+   "wrist_bend_r_deg": 29.7,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 47.79,
+   "humerus_roll_r_deg": -14.000000000000005,
+   "hand_roll_v9_r_deg": 56.26,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.363,
+    "web": 0.637,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 7.38,
+   "clear_hand": {
+    "hilt_max_mm": 7.38,
+    "hilt_n_over_3mm": 20,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 4.34,
+    "guard_n": 8
+   },
+   "hand_r": [
+    0.3384,
+    0.3565,
+    -0.1623
+   ],
+   "elbow_r": [
+    0.4409,
+    0.1623,
+    -0.3237
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5467
+  },
+  {
+   "seconds": 0.6917,
+   "phi_deg": 161.83,
+   "hand_turn_deg": -38.58,
+   "supinate": 5.1,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": 0.3124,
+   "dorsum_to_camera": -0.856,
+   "hilt_side_m": -0.0938,
+   "hilt_to_camera_m": 0.0913,
+   "fingers_screen_deg": 148.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.3886,
+   "tip_ndc_x_over_depth": 0.52,
+   "pommel_depth_m": 0.2796,
+   "wrist_bend_r_deg": 29.66,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 48.63,
+   "humerus_roll_r_deg": -11.600000000000005,
+   "hand_roll_v9_r_deg": 54.53,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.257,
+    "web": 0.743,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 9.8,
+   "clear_hand": {
+    "hilt_max_mm": 9.8,
+    "hilt_n_over_3mm": 46,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 4.82,
+    "guard_n": 11
+   },
+   "hand_r": [
+    0.3434,
+    0.3516,
+    -0.1606
+   ],
+   "elbow_r": [
+    0.4525,
+    0.1517,
+    -0.3103
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5533
+  },
+  {
+   "seconds": 0.7,
+   "phi_deg": 167.27,
+   "hand_turn_deg": -33.22,
+   "supinate": 3.9,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.856,
+   "hilt_side_m": -0.0943,
+   "hilt_to_camera_m": 0.0911,
+   "fingers_screen_deg": 153.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.3293,
+   "tip_ndc_x_over_depth": 0.81,
+   "pommel_depth_m": 0.2895,
+   "wrist_bend_r_deg": 29.97,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 49.22,
+   "humerus_roll_r_deg": -9.200000000000005,
+   "hand_roll_v9_r_deg": 52.8,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.162,
+    "web": 0.838,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 12.41,
+   "clear_hand": {
+    "hilt_max_mm": 12.41,
+    "hilt_n_over_3mm": 64,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 5.62,
+    "guard_n": 14
+   },
+   "hand_r": [
+    0.3475,
+    0.3473,
+    -0.1586
+   ],
+   "elbow_r": [
+    0.4611,
+    0.1428,
+    -0.2985
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.56
+  },
+  {
+   "seconds": 0.7083,
+   "phi_deg": 172.17,
+   "hand_turn_deg": -28.87,
+   "supinate": 2.5,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.854,
+   "hilt_side_m": -0.0949,
+   "hilt_to_camera_m": 0.0912,
+   "fingers_screen_deg": 158.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.2758,
+   "tip_ndc_x_over_depth": 1.18,
+   "pommel_depth_m": 0.2987,
+   "wrist_bend_r_deg": 30.4,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 49.55,
+   "humerus_roll_r_deg": -6.800000000000004,
+   "hand_roll_v9_r_deg": 50.89,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.084,
+    "web": 0.916,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 12.86,
+   "clear_hand": {
+    "hilt_max_mm": 12.86,
+    "hilt_n_over_3mm": 68,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 5.5,
+    "guard_n": 14
+   },
+   "hand_r": [
+    0.3509,
+    0.3435,
+    -0.1566
+   ],
+   "elbow_r": [
+    0.4673,
+    0.1354,
+    -0.2886
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5667
+  },
+  {
+   "seconds": 0.7167,
+   "phi_deg": 176.65,
+   "hand_turn_deg": -25.74,
+   "supinate": 0.6,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.847,
+   "hilt_side_m": -0.0955,
+   "hilt_to_camera_m": 0.0917,
+   "fingers_screen_deg": 161.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.2273,
+   "tip_ndc_x_over_depth": 1.66,
+   "pommel_depth_m": 0.3073,
+   "wrist_bend_r_deg": 30.65,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 49.62,
+   "humerus_roll_r_deg": -4.400000000000004,
+   "hand_roll_v9_r_deg": 48.61,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.029,
+    "web": 0.971,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.53,
+   "clear_hand": {
+    "hilt_max_mm": 13.53,
+    "hilt_n_over_3mm": 76,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 5.3,
+    "guard_n": 7
+   },
+   "hand_r": [
+    0.3535,
+    0.3402,
+    -0.155
+   ],
+   "elbow_r": [
+    0.4719,
+    0.1294,
+    -0.2806
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5733
+  },
+  {
+   "seconds": 0.725,
+   "phi_deg": 180.74,
+   "hand_turn_deg": -23.94,
+   "supinate": -2.1,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.835,
+   "hilt_side_m": -0.0959,
+   "hilt_to_camera_m": 0.0924,
+   "fingers_screen_deg": 163.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.1836,
+   "tip_ndc_x_over_depth": 2.31,
+   "pommel_depth_m": 0.3155,
+   "wrist_bend_r_deg": 30.48,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 49.44,
+   "humerus_roll_r_deg": -2.000000000000004,
+   "hand_roll_v9_r_deg": 45.69,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.002,
+    "web": 0.998,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.69,
+   "clear_hand": {
+    "hilt_max_mm": 13.69,
+    "hilt_n_over_3mm": 83,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 3.7,
+    "guard_n": 4
+   },
+   "hand_r": [
+    0.3554,
+    0.3373,
+    -0.1539
+   ],
+   "elbow_r": [
+    0.4751,
+    0.1244,
+    -0.2748
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.58
+  },
+  {
+   "seconds": 0.7333,
+   "phi_deg": 184.48,
+   "hand_turn_deg": -23.46,
+   "supinate": -5.8,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.813,
+   "hilt_side_m": -0.0958,
+   "hilt_to_camera_m": 0.0931,
+   "fingers_screen_deg": 164.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.1449,
+   "tip_ndc_x_over_depth": 3.21,
+   "pommel_depth_m": 0.3234,
+   "wrist_bend_r_deg": 29.65,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 49.05,
+   "humerus_roll_r_deg": 0.3999999999999959,
+   "hand_roll_v9_r_deg": 41.83,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.94,
+   "clear_hand": {
+    "hilt_max_mm": 13.94,
+    "hilt_n_over_3mm": 101,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3568,
+    0.3346,
+    -0.1535
+   ],
+   "elbow_r": [
+    0.4775,
+    0.1201,
+    -0.2707
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5867
+  },
+  {
+   "seconds": 0.7417,
+   "phi_deg": 187.93,
+   "hand_turn_deg": -24.2,
+   "supinate": -10.9,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.778,
+   "hilt_side_m": -0.0946,
+   "hilt_to_camera_m": 0.0931,
+   "fingers_screen_deg": 163.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.1103,
+   "tip_ndc_x_over_depth": 4.55,
+   "pommel_depth_m": 0.3313,
+   "wrist_bend_r_deg": 28.07,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 48.51,
+   "humerus_roll_r_deg": 2.799999999999996,
+   "hand_roll_v9_r_deg": 36.79,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.41,
+   "clear_hand": {
+    "hilt_max_mm": 13.41,
+    "hilt_n_over_3mm": 116,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3577,
+    0.3319,
+    -0.1538
+   ],
+   "elbow_r": [
+    0.4793,
+    0.1163,
+    -0.2678
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.5933
+  },
+  {
+   "seconds": 0.75,
+   "phi_deg": 191.21,
+   "hand_turn_deg": -25.97,
+   "supinate": -17.3,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.02,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.725,
+   "hilt_side_m": -0.092,
+   "hilt_to_camera_m": 0.0919,
+   "fingers_screen_deg": 161.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.0791,
+   "tip_ndc_x_over_depth": 6.79,
+   "pommel_depth_m": 0.3399,
+   "wrist_bend_r_deg": 25.74,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 47.88,
+   "humerus_roll_r_deg": 5.199999999999996,
+   "hand_roll_v9_r_deg": 30.53,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.57,
+   "clear_hand": {
+    "hilt_max_mm": 13.57,
+    "hilt_n_over_3mm": 121,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3582,
+    0.3292,
+    -0.1545
+   ],
+   "elbow_r": [
+    0.4808,
+    0.1128,
+    -0.2658
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6
+  },
+  {
+   "seconds": 0.7583,
+   "phi_deg": 194.43,
+   "hand_turn_deg": -28.58,
+   "supinate": -25.1,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.016,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.652,
+   "hilt_side_m": -0.0851,
+   "hilt_to_camera_m": 0.0849,
+   "fingers_screen_deg": 158.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.0661,
+   "tip_ndc_x_over_depth": 8.69,
+   "pommel_depth_m": 0.3499,
+   "wrist_bend_r_deg": 22.89,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 47.19,
+   "humerus_roll_r_deg": 7.599999999999996,
+   "hand_roll_v9_r_deg": 23.19,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.59,
+   "clear_hand": {
+    "hilt_max_mm": 13.59,
+    "hilt_n_over_3mm": 113,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3583,
+    0.3265,
+    -0.1553
+   ],
+   "elbow_r": [
+    0.4819,
+    0.1098,
+    -0.2649
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6067
+  },
+  {
+   "seconds": 0.7667,
+   "phi_deg": 197.63,
+   "hand_turn_deg": -31.81,
+   "supinate": -33.9,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.012,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.558,
+   "hilt_side_m": -0.0786,
+   "hilt_to_camera_m": 0.0755,
+   "fingers_screen_deg": 153.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.0747,
+   "tip_ndc_x_over_depth": 8.22,
+   "pommel_depth_m": 0.3572,
+   "wrist_bend_r_deg": 19.87,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 46.41,
+   "humerus_roll_r_deg": 9.999999999999996,
+   "hand_roll_v9_r_deg": 15.05,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.19,
+   "clear_hand": {
+    "hilt_max_mm": 13.19,
+    "hilt_n_over_3mm": 79,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.358,
+    0.3239,
+    -0.1562
+   ],
+   "elbow_r": [
+    0.4822,
+    0.108,
+    -0.2668
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6133
+  },
+  {
+   "seconds": 0.775,
+   "phi_deg": 200.81,
+   "hand_turn_deg": -35.5,
+   "supinate": -43.6,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.008,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.445,
+   "hilt_side_m": -0.0726,
+   "hilt_to_camera_m": 0.0644,
+   "fingers_screen_deg": 147.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.0836,
+   "tip_ndc_x_over_depth": 7.83,
+   "pommel_depth_m": 0.3662,
+   "wrist_bend_r_deg": 17.1,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 45.57,
+   "humerus_roll_r_deg": 12.399999999999997,
+   "hand_roll_v9_r_deg": 6.43,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 9.06,
+   "clear_hand": {
+    "hilt_max_mm": 9.06,
+    "hilt_n_over_3mm": 32,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3572,
+    0.3214,
+    -0.157
+   ],
+   "elbow_r": [
+    0.4815,
+    0.1075,
+    -0.2712
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.62
+  },
+  {
+   "seconds": 0.7833,
+   "phi_deg": 203.97,
+   "hand_turn_deg": -39.5,
+   "supinate": -53.7,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.32,
+   "hilt_side_m": -0.0674,
+   "hilt_to_camera_m": 0.052,
+   "fingers_screen_deg": 140.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.0923,
+   "tip_ndc_x_over_depth": 7.53,
+   "pommel_depth_m": 0.3767,
+   "wrist_bend_r_deg": 15.3,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.73,
+   "humerus_roll_r_deg": 14.75,
+   "hand_roll_v9_r_deg": -2.44,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 4.73,
+   "clear_hand": {
+    "hilt_max_mm": 4.73,
+    "hilt_n_over_3mm": 6,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.356,
+    0.3192,
+    -0.1574
+   ],
+   "elbow_r": [
+    0.4802,
+    0.1081,
+    -0.2769
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6267
+  },
+  {
+   "seconds": 0.7917,
+   "phi_deg": 207.11,
+   "hand_turn_deg": -43.74,
+   "supinate": -64.1,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.186,
+   "hilt_side_m": -0.0646,
+   "hilt_to_camera_m": 0.0417,
+   "fingers_screen_deg": 132.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.0976,
+   "tip_ndc_x_over_depth": 7.51,
+   "pommel_depth_m": 0.385,
+   "wrist_bend_r_deg": 15.22,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.78,
+   "humerus_roll_r_deg": 14.75,
+   "hand_roll_v9_r_deg": -11.37,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 6.09,
+   "clear_hand": {
+    "hilt_max_mm": 6.09,
+    "hilt_n_over_3mm": 46,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.94,
+    "guard_n": 3
+   },
+   "hand_r": [
+    0.3543,
+    0.3174,
+    -0.1575
+   ],
+   "elbow_r": [
+    0.478,
+    0.1101,
+    -0.2839
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6333
+  },
+  {
+   "seconds": 0.8,
+   "phi_deg": 210.24,
+   "hand_turn_deg": -48.2,
+   "supinate": -74.5,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.008,
+   "blade_in_view_min_depth_m": null,
+   "dorsum_to_camera": -0.049,
+   "hilt_side_m": -0.062,
+   "hilt_to_camera_m": 0.0337,
+   "fingers_screen_deg": 123.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.0997,
+   "tip_ndc_x_over_depth": 7.71,
+   "pommel_depth_m": 0.391,
+   "wrist_bend_r_deg": 17.1,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.71,
+   "humerus_roll_r_deg": 14.75,
+   "hand_roll_v9_r_deg": -20.35,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.0,
+    "web": 1.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 8.91,
+   "clear_hand": {
+    "hilt_max_mm": 8.91,
+    "hilt_n_over_3mm": 43,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 6.23,
+    "guard_n": 55
+   },
+   "hand_r": [
+    0.3519,
+    0.3161,
+    -0.1572
+   ],
+   "elbow_r": [
+    0.4746,
+    0.1137,
+    -0.2923
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.64
+  },
+  {
+   "seconds": 0.8083,
+   "phi_deg": 213.36,
+   "hand_turn_deg": -52.91,
+   "supinate": -85.1,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.008,
+   "blade_in_view_min_depth_m": 0.3094,
+   "dorsum_to_camera": 0.09,
+   "hilt_side_m": -0.0562,
+   "hilt_to_camera_m": 0.0212,
+   "fingers_screen_deg": 115.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.1047,
+   "tip_ndc_x_over_depth": 7.71,
+   "pommel_depth_m": 0.4005,
+   "wrist_bend_r_deg": 20.46,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.47,
+   "humerus_roll_r_deg": 14.75,
+   "hand_roll_v9_r_deg": -29.43,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.003,
+    "web": 0.997,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 19.05,
+   "clear_hand": {
+    "hilt_max_mm": 9.2,
+    "hilt_n_over_3mm": 97,
+    "guard_max_mm": 5.15,
+    "guard_n": 16
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 19.05,
+    "guard_n": 161
+   },
+   "hand_r": [
+    0.349,
+    0.3154,
+    -0.1565
+   ],
+   "elbow_r": [
+    0.4697,
+    0.1193,
+    -0.3023
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6467
+  },
+  {
+   "seconds": 0.8167,
+   "phi_deg": 216.46,
+   "hand_turn_deg": -57.86,
+   "supinate": -95.8,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.004,
+   "blade_in_view_min_depth_m": 0.3208,
+   "dorsum_to_camera": 0.227,
+   "hilt_side_m": -0.0496,
+   "hilt_to_camera_m": 0.004,
+   "fingers_screen_deg": 106.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.1129,
+   "tip_ndc_x_over_depth": 7.51,
+   "pommel_depth_m": 0.4132,
+   "wrist_bend_r_deg": 22.88,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.32,
+   "humerus_roll_r_deg": 12.75,
+   "hand_roll_v9_r_deg": -38.81,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.026,
+    "web": 0.974,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 25.58,
+   "clear_hand": {
+    "hilt_max_mm": 7.86,
+    "hilt_n_over_3mm": 87,
+    "guard_max_mm": 17.14,
+    "guard_n": 153
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 25.58,
+    "guard_n": 295
+   },
+   "hand_r": [
+    0.3455,
+    0.3154,
+    -0.1553
+   ],
+   "elbow_r": [
+    0.4585,
+    0.1305,
+    -0.3206
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6533
+  },
+  {
+   "seconds": 0.825,
+   "phi_deg": 219.56,
+   "hand_turn_deg": -63.02,
+   "supinate": -106.5,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": 0.0,
+   "blade_in_view_min_depth_m": 0.3314,
+   "dorsum_to_camera": 0.36,
+   "hilt_side_m": -0.0446,
+   "hilt_to_camera_m": -0.0133,
+   "fingers_screen_deg": 99.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.1208,
+   "tip_ndc_x_over_depth": 7.37,
+   "pommel_depth_m": 0.425,
+   "wrist_bend_r_deg": 25.1,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.77,
+   "humerus_roll_r_deg": 10.35,
+   "hand_roll_v9_r_deg": -48.3,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.07,
+    "web": 0.93,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 26.77,
+   "clear_hand": {
+    "hilt_max_mm": 6.7,
+    "hilt_n_over_3mm": 81,
+    "guard_max_mm": 26.77,
+    "guard_n": 312
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 25.82,
+    "guard_n": 254
+   },
+   "hand_r": [
+    0.3414,
+    0.3161,
+    -0.1537
+   ],
+   "elbow_r": [
+    0.4422,
+    0.1451,
+    -0.3404
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.66
+  },
+  {
+   "seconds": 0.8333,
+   "phi_deg": 222.65,
+   "hand_turn_deg": -68.2,
+   "supinate": -116.9,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.004,
+   "blade_in_view_min_depth_m": 0.34,
+   "dorsum_to_camera": 0.483,
+   "hilt_side_m": -0.0434,
+   "hilt_to_camera_m": -0.0292,
+   "fingers_screen_deg": 92.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.1274,
+   "tip_ndc_x_over_depth": 7.34,
+   "pommel_depth_m": 0.4343,
+   "wrist_bend_r_deg": 27.58,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.88,
+   "humerus_roll_r_deg": 7.949999999999999,
+   "hand_roll_v9_r_deg": -57.55,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.131,
+    "web": 0.869,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 21.14,
+   "clear_hand": {
+    "hilt_max_mm": 10.02,
+    "hilt_n_over_3mm": 46,
+    "guard_max_mm": 21.14,
+    "guard_n": 272
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 12.61,
+    "guard_n": 91
+   },
+   "hand_r": [
+    0.3371,
+    0.3173,
+    -0.1515
+   ],
+   "elbow_r": [
+    0.4229,
+    0.1607,
+    -0.3574
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6667
+  },
+  {
+   "seconds": 0.8417,
+   "phi_deg": 225.74,
+   "hand_turn_deg": -73.15,
+   "supinate": -126.6,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.008,
+   "blade_in_view_min_depth_m": 0.3458,
+   "dorsum_to_camera": 0.591,
+   "hilt_side_m": -0.0473,
+   "hilt_to_camera_m": -0.0424,
+   "fingers_screen_deg": 86.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.1323,
+   "tip_ndc_x_over_depth": 7.4,
+   "pommel_depth_m": 0.4404,
+   "wrist_bend_r_deg": 29.74,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 41.7,
+   "humerus_roll_r_deg": 5.549999999999999,
+   "hand_roll_v9_r_deg": -66.09,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.203,
+    "web": 0.797,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 16.09,
+   "clear_hand": {
+    "hilt_max_mm": 12.72,
+    "hilt_n_over_3mm": 73,
+    "guard_max_mm": 16.09,
+    "guard_n": 145
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3327,
+    0.3188,
+    -0.1489
+   ],
+   "elbow_r": [
+    0.4011,
+    0.1767,
+    -0.3711
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6733
+  },
+  {
+   "seconds": 0.85,
+   "phi_deg": 228.82,
+   "hand_turn_deg": -77.58,
+   "supinate": -135.2,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.012,
+   "blade_in_view_min_depth_m": 0.3489,
+   "dorsum_to_camera": 0.678,
+   "hilt_side_m": -0.0555,
+   "hilt_to_camera_m": -0.0522,
+   "fingers_screen_deg": 82.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.1355,
+   "tip_ndc_x_over_depth": 7.55,
+   "pommel_depth_m": 0.4435,
+   "wrist_bend_r_deg": 31.1,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 40.29,
+   "humerus_roll_r_deg": 3.149999999999999,
+   "hand_roll_v9_r_deg": -73.32,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.281,
+    "web": 0.719,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.1,
+   "clear_hand": {
+    "hilt_max_mm": 13.1,
+    "hilt_n_over_3mm": 84,
+    "guard_max_mm": 5.9,
+    "guard_n": 20
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3288,
+    0.3203,
+    -0.146
+   ],
+   "elbow_r": [
+    0.3772,
+    0.1922,
+    -0.3816
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.68
+  },
+  {
+   "seconds": 0.8583,
+   "phi_deg": 231.92,
+   "hand_turn_deg": -81.22,
+   "supinate": -142.2,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.016,
+   "blade_in_view_min_depth_m": 0.3504,
+   "dorsum_to_camera": 0.742,
+   "hilt_side_m": -0.0652,
+   "hilt_to_camera_m": -0.0587,
+   "fingers_screen_deg": 78.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.1375,
+   "tip_ndc_x_over_depth": 7.74,
+   "pommel_depth_m": 0.4445,
+   "wrist_bend_r_deg": 33.41,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 39.67,
+   "humerus_roll_r_deg": 0.7499999999999991,
+   "hand_roll_v9_r_deg": -79.27,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.361,
+    "web": 0.639,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 11.67,
+   "clear_hand": {
+    "hilt_max_mm": 11.67,
+    "hilt_n_over_3mm": 62,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3255,
+    0.3215,
+    -0.143
+   ],
+   "elbow_r": [
+    0.3617,
+    0.2023,
+    -0.3854
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6867
+  },
+  {
+   "seconds": 0.8667,
+   "phi_deg": 235.09,
+   "hand_turn_deg": -83.92,
+   "supinate": -147.2,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3512,
+   "dorsum_to_camera": 0.784,
+   "hilt_side_m": -0.0742,
+   "hilt_to_camera_m": -0.0628,
+   "fingers_screen_deg": 76.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.1392,
+   "tip_ndc_x_over_depth": 7.93,
+   "pommel_depth_m": 0.4448,
+   "wrist_bend_r_deg": 36.66,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 40.23,
+   "humerus_roll_r_deg": -1.6500000000000008,
+   "hand_roll_v9_r_deg": -84.12,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.439,
+    "web": 0.561,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 6.72,
+   "clear_hand": {
+    "hilt_max_mm": 6.72,
+    "hilt_n_over_3mm": 29,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3231,
+    0.3223,
+    -0.1402
+   ],
+   "elbow_r": [
+    0.3578,
+    0.2064,
+    -0.3844
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.6933
+  },
+  {
+   "seconds": 0.875,
+   "phi_deg": 238.38,
+   "hand_turn_deg": -85.66,
+   "supinate": -150.4,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3496,
+   "dorsum_to_camera": 0.809,
+   "hilt_side_m": -0.078,
+   "hilt_to_camera_m": -0.0625,
+   "fingers_screen_deg": 75.2,
+   "idle_hold": false,
+   "tip_depth_m": 0.1382,
+   "tip_ndc_x_over_depth": 8.22,
+   "pommel_depth_m": 0.4428,
+   "wrist_bend_r_deg": 38.48,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 40.9,
+   "humerus_roll_r_deg": -4.050000000000001,
+   "hand_roll_v9_r_deg": -87.24,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.508,
+    "web": 0.492,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 5.64,
+   "clear_hand": {
+    "hilt_max_mm": 5.64,
+    "hilt_n_over_3mm": 23,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3215,
+    0.3227,
+    -0.1378
+   ],
+   "elbow_r": [
+    0.3545,
+    0.2096,
+    -0.3836
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7
+  },
+  {
+   "seconds": 0.8833,
+   "phi_deg": 241.83,
+   "hand_turn_deg": -86.56,
+   "supinate": -152.0,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3488,
+   "dorsum_to_camera": 0.821,
+   "hilt_side_m": -0.0807,
+   "hilt_to_camera_m": -0.0616,
+   "fingers_screen_deg": 74.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.1376,
+   "tip_ndc_x_over_depth": 8.47,
+   "pommel_depth_m": 0.4417,
+   "wrist_bend_r_deg": 39.14,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 41.66,
+   "humerus_roll_r_deg": -6.450000000000001,
+   "hand_roll_v9_r_deg": -88.77,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.585,
+    "web": 0.415,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 4.95,
+   "clear_hand": {
+    "hilt_max_mm": 4.95,
+    "hilt_n_over_3mm": 19,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3206,
+    0.3228,
+    -0.136
+   ],
+   "elbow_r": [
+    0.3519,
+    0.212,
+    -0.383
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7067
+  },
+  {
+   "seconds": 0.8917,
+   "phi_deg": 245.47,
+   "hand_turn_deg": -86.8,
+   "supinate": -152.2,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3489,
+   "dorsum_to_camera": 0.823,
+   "hilt_side_m": -0.0826,
+   "hilt_to_camera_m": -0.0603,
+   "fingers_screen_deg": 74.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.1373,
+   "tip_ndc_x_over_depth": 8.66,
+   "pommel_depth_m": 0.4416,
+   "wrist_bend_r_deg": 38.97,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 42.48,
+   "humerus_roll_r_deg": -8.850000000000001,
+   "hand_roll_v9_r_deg": -89.03,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.676,
+    "web": 0.324,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 4.07,
+   "clear_hand": {
+    "hilt_max_mm": 4.07,
+    "hilt_n_over_3mm": 12,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3204,
+    0.3228,
+    -0.1346
+   ],
+   "elbow_r": [
+    0.35,
+    0.2137,
+    -0.3826
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7133
+  },
+  {
+   "seconds": 0.9,
+   "phi_deg": 249.3,
+   "hand_turn_deg": -86.56,
+   "supinate": -151.5,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3498,
+   "dorsum_to_camera": 0.818,
+   "hilt_side_m": -0.0842,
+   "hilt_to_camera_m": -0.0586,
+   "fingers_screen_deg": 74.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.1372,
+   "tip_ndc_x_over_depth": 8.81,
+   "pommel_depth_m": 0.4426,
+   "wrist_bend_r_deg": 38.25,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.34,
+   "humerus_roll_r_deg": -11.250000000000002,
+   "hand_roll_v9_r_deg": -88.35,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.77,
+    "web": 0.23,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 3.04,
+   "clear_hand": {
+    "hilt_max_mm": 3.04,
+    "hilt_n_over_3mm": 1,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3205,
+    0.3229,
+    -0.1337
+   ],
+   "elbow_r": [
+    0.3488,
+    0.2149,
+    -0.3823
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.72
+  },
+  {
+   "seconds": 0.9083,
+   "phi_deg": 253.31,
+   "hand_turn_deg": -85.91,
+   "supinate": -150.1,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3516,
+   "dorsum_to_camera": 0.808,
+   "hilt_side_m": -0.0856,
+   "hilt_to_camera_m": -0.0566,
+   "fingers_screen_deg": 75.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.1374,
+   "tip_ndc_x_over_depth": 8.89,
+   "pommel_depth_m": 0.4447,
+   "wrist_bend_r_deg": 37.15,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.23,
+   "humerus_roll_r_deg": -13.650000000000002,
+   "hand_roll_v9_r_deg": -87.0,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.858,
+    "web": 0.142,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 1.36,
+   "clear_hand": {
+    "hilt_max_mm": 1.36,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.321,
+    0.3232,
+    -0.1331
+   ],
+   "elbow_r": [
+    0.3481,
+    0.2155,
+    -0.382
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7267
+  },
+  {
+   "seconds": 0.9167,
+   "phi_deg": 257.47,
+   "hand_turn_deg": -84.79,
+   "supinate": -148.2,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3542,
+   "dorsum_to_camera": 0.795,
+   "hilt_side_m": -0.0865,
+   "hilt_to_camera_m": -0.0545,
+   "fingers_screen_deg": 76.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.1377,
+   "tip_ndc_x_over_depth": 8.89,
+   "pommel_depth_m": 0.4479,
+   "wrist_bend_r_deg": 35.67,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.28,
+   "humerus_roll_r_deg": -13.75,
+   "hand_roll_v9_r_deg": -85.1,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.932,
+    "web": 0.068,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 3.71,
+   "clear_hand": {
+    "hilt_max_mm": 3.71,
+    "hilt_n_over_3mm": 6,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3219,
+    0.3238,
+    -0.133
+   ],
+   "elbow_r": [
+    0.348,
+    0.2158,
+    -0.3818
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7333
+  },
+  {
+   "seconds": 0.925,
+   "phi_deg": 261.79,
+   "hand_turn_deg": -83.03,
+   "supinate": -145.7,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3577,
+   "dorsum_to_camera": 0.777,
+   "hilt_side_m": -0.0869,
+   "hilt_to_camera_m": -0.0523,
+   "fingers_screen_deg": 77.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.1383,
+   "tip_ndc_x_over_depth": 8.79,
+   "pommel_depth_m": 0.4523,
+   "wrist_bend_r_deg": 33.8,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.41,
+   "humerus_roll_r_deg": -13.75,
+   "hand_roll_v9_r_deg": -82.75,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 0.983,
+    "web": 0.017,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 7.44,
+   "clear_hand": {
+    "hilt_max_mm": 7.44,
+    "hilt_n_over_3mm": 43,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3233,
+    0.3248,
+    -0.1333
+   ],
+   "elbow_r": [
+    0.3493,
+    0.2152,
+    -0.3815
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.74
+  },
+  {
+   "seconds": 0.9333,
+   "phi_deg": 266.27,
+   "hand_turn_deg": -80.33,
+   "supinate": -142.6,
+   "grip": 0.0,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3622,
+   "dorsum_to_camera": 0.753,
+   "hilt_side_m": -0.0862,
+   "hilt_to_camera_m": -0.0505,
+   "fingers_screen_deg": 79.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.1392,
+   "tip_ndc_x_over_depth": 8.59,
+   "pommel_depth_m": 0.458,
+   "wrist_bend_r_deg": 32.39,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.69,
+   "humerus_roll_r_deg": -12.25,
+   "hand_roll_v9_r_deg": -80.25,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 9.91,
+   "clear_hand": {
+    "hilt_max_mm": 9.91,
+    "hilt_n_over_3mm": 77,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3254,
+    0.3258,
+    -0.134
+   ],
+   "elbow_r": [
+    0.3578,
+    0.2111,
+    -0.379
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7467
+  },
+  {
+   "seconds": 0.9417,
+   "phi_deg": 270.93,
+   "hand_turn_deg": -76.43,
+   "supinate": -138.5,
+   "grip": 0.005,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3675,
+   "dorsum_to_camera": 0.723,
+   "hilt_side_m": -0.0835,
+   "hilt_to_camera_m": -0.0485,
+   "fingers_screen_deg": 82.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.1403,
+   "tip_ndc_x_over_depth": 8.29,
+   "pommel_depth_m": 0.4648,
+   "wrist_bend_r_deg": 30.63,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 45.06,
+   "humerus_roll_r_deg": -9.85,
+   "hand_roll_v9_r_deg": -77.22,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 10.98,
+   "clear_hand": {
+    "hilt_max_mm": 11.02,
+    "hilt_n_over_3mm": 108,
+    "guard_max_mm": 2.23,
+    "guard_n": 4
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3286,
+    0.327,
+    -0.1349
+   ],
+   "elbow_r": [
+    0.3707,
+    0.2045,
+    -0.3747
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7533
+  },
+  {
+   "seconds": 0.95,
+   "phi_deg": 275.75,
+   "hand_turn_deg": -71.14,
+   "supinate": -133.6,
+   "grip": 0.018,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.373,
+   "dorsum_to_camera": 0.686,
+   "hilt_side_m": -0.0777,
+   "hilt_to_camera_m": -0.0457,
+   "fingers_screen_deg": 87.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.1413,
+   "tip_ndc_x_over_depth": 7.91,
+   "pommel_depth_m": 0.4719,
+   "wrist_bend_r_deg": 29.36,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 46.26,
+   "humerus_roll_r_deg": -7.449999999999999,
+   "hand_roll_v9_r_deg": -73.68,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 9.23,
+   "clear_hand": {
+    "hilt_max_mm": 9.16,
+    "hilt_n_over_3mm": 185,
+    "guard_max_mm": 5.24,
+    "guard_n": 16
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.333,
+    0.328,
+    -0.1357
+   ],
+   "elbow_r": [
+    0.3918,
+    0.193,
+    -0.365
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.76
+  },
+  {
+   "seconds": 0.9583,
+   "phi_deg": 280.73,
+   "hand_turn_deg": -64.5,
+   "supinate": -127.6,
+   "grip": 0.037,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.378,
+   "dorsum_to_camera": 0.639,
+   "hilt_side_m": -0.0678,
+   "hilt_to_camera_m": -0.0413,
+   "fingers_screen_deg": 92.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.1419,
+   "tip_ndc_x_over_depth": 7.48,
+   "pommel_depth_m": 0.4786,
+   "wrist_bend_r_deg": 27.46,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 47.65,
+   "humerus_roll_r_deg": -5.049999999999999,
+   "hand_roll_v9_r_deg": -69.17,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 11.84,
+   "clear_hand": {
+    "hilt_max_mm": 11.09,
+    "hilt_n_over_3mm": 227,
+    "guard_max_mm": 6.7,
+    "guard_n": 42
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3384,
+    0.3289,
+    -0.136
+   ],
+   "elbow_r": [
+    0.4144,
+    0.1791,
+    -0.3506
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7667
+  },
+  {
+   "seconds": 0.9667,
+   "phi_deg": 285.84,
+   "hand_turn_deg": -56.77,
+   "supinate": -120.8,
+   "grip": 0.063,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3516,
+   "dorsum_to_camera": 0.581,
+   "hilt_side_m": -0.0535,
+   "hilt_to_camera_m": -0.0351,
+   "fingers_screen_deg": 99.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.1413,
+   "tip_ndc_x_over_depth": 7.05,
+   "pommel_depth_m": 0.4837,
+   "wrist_bend_r_deg": 24.42,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 48.91,
+   "humerus_roll_r_deg": -2.649999999999999,
+   "hand_roll_v9_r_deg": -63.72,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 12.92,
+   "clear_hand": {
+    "hilt_max_mm": 11.44,
+    "hilt_n_over_3mm": 221,
+    "guard_max_mm": 11.53,
+    "guard_n": 98
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3446,
+    0.3298,
+    -0.1352
+   ],
+   "elbow_r": [
+    0.4347,
+    0.1651,
+    -0.3327
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7733
+  },
+  {
+   "seconds": 0.975,
+   "phi_deg": 291.04,
+   "hand_turn_deg": -48.39,
+   "supinate": -113.2,
+   "grip": 0.094,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3525,
+   "dorsum_to_camera": 0.511,
+   "hilt_side_m": -0.0362,
+   "hilt_to_camera_m": -0.0266,
+   "fingers_screen_deg": 106.5,
+   "idle_hold": false,
+   "tip_depth_m": 0.1392,
+   "tip_ndc_x_over_depth": 6.67,
+   "pommel_depth_m": 0.4863,
+   "wrist_bend_r_deg": 20.7,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 49.98,
+   "humerus_roll_r_deg": -0.2499999999999991,
+   "hand_roll_v9_r_deg": -57.56,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.6,
+   "clear_hand": {
+    "hilt_max_mm": 11.19,
+    "hilt_n_over_3mm": 171,
+    "guard_max_mm": 16.16,
+    "guard_n": 191
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3509,
+    0.3311,
+    -0.133
+   ],
+   "elbow_r": [
+    0.452,
+    0.1518,
+    -0.3115
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.78
+  },
+  {
+   "seconds": 0.9833,
+   "phi_deg": 296.28,
+   "hand_turn_deg": -39.89,
+   "supinate": -105.1,
+   "grip": 0.13,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3509,
+   "dorsum_to_camera": 0.427,
+   "hilt_side_m": -0.0187,
+   "hilt_to_camera_m": -0.0162,
+   "fingers_screen_deg": 115.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.1352,
+   "tip_ndc_x_over_depth": 6.36,
+   "pommel_depth_m": 0.4862,
+   "wrist_bend_r_deg": 16.95,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 50.76,
+   "humerus_roll_r_deg": 2.150000000000001,
+   "hand_roll_v9_r_deg": -50.93,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.33,
+   "clear_hand": {
+    "hilt_max_mm": 15.84,
+    "hilt_n_over_3mm": 120,
+    "guard_max_mm": 21.43,
+    "guard_n": 275
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3567,
+    0.3331,
+    -0.1295
+   ],
+   "elbow_r": [
+    0.4657,
+    0.1398,
+    -0.2876
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7867
+  },
+  {
+   "seconds": 0.9917,
+   "phi_deg": 301.52,
+   "hand_turn_deg": -31.84,
+   "supinate": -96.7,
+   "grip": 0.168,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3476,
+   "dorsum_to_camera": 0.327,
+   "hilt_side_m": -0.0048,
+   "hilt_to_camera_m": -0.0044,
+   "fingers_screen_deg": 124.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.1298,
+   "tip_ndc_x_over_depth": 6.09,
+   "pommel_depth_m": 0.484,
+   "wrist_bend_r_deg": 12.44,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 50.84,
+   "humerus_roll_r_deg": 4.550000000000001,
+   "hand_roll_v9_r_deg": -44.19,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.92,
+   "clear_hand": {
+    "hilt_max_mm": 17.17,
+    "hilt_n_over_3mm": 75,
+    "guard_max_mm": 24.05,
+    "guard_n": 328
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 1.08,
+    "guard_n": 2
+   },
+   "hand_r": [
+    0.3615,
+    0.3359,
+    -0.1251
+   ],
+   "elbow_r": [
+    0.4728,
+    0.133,
+    -0.269
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.7933
+  },
+  {
+   "seconds": 1.0,
+   "phi_deg": 306.73,
+   "hand_turn_deg": -24.68,
+   "supinate": -88.3,
+   "grip": 0.208,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3122,
+   "dorsum_to_camera": 0.213,
+   "hilt_side_m": 0.0034,
+   "hilt_to_camera_m": 0.0079,
+   "fingers_screen_deg": 133.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.1237,
+   "tip_ndc_x_over_depth": 5.86,
+   "pommel_depth_m": 0.481,
+   "wrist_bend_r_deg": 9.41,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 50.38,
+   "humerus_roll_r_deg": 6.950000000000001,
+   "hand_roll_v9_r_deg": -37.42,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 16.28,
+   "clear_hand": {
+    "hilt_max_mm": 11.28,
+    "hilt_n_over_3mm": 73,
+    "guard_max_mm": 24.59,
+    "guard_n": 332
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 9.29,
+    "guard_n": 37
+   },
+   "hand_r": [
+    0.365,
+    0.3397,
+    -0.1206
+   ],
+   "elbow_r": [
+    0.4763,
+    0.1302,
+    -0.2547
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8
+  },
+  {
+   "seconds": 1.0083,
+   "phi_deg": 311.9,
+   "hand_turn_deg": -18.73,
+   "supinate": -79.8,
+   "grip": 0.25,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3079,
+   "dorsum_to_camera": 0.087,
+   "hilt_side_m": 0.005,
+   "hilt_to_camera_m": 0.0196,
+   "fingers_screen_deg": 143.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.1176,
+   "tip_ndc_x_over_depth": 5.6,
+   "pommel_depth_m": 0.4784,
+   "wrist_bend_r_deg": 9.77,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 49.5,
+   "humerus_roll_r_deg": 9.350000000000001,
+   "hand_roll_v9_r_deg": -30.55,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 15.26,
+   "clear_hand": {
+    "hilt_max_mm": 11.06,
+    "hilt_n_over_3mm": 98,
+    "guard_max_mm": 23.76,
+    "guard_n": 313
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 9.8,
+    "guard_n": 58
+   },
+   "hand_r": [
+    0.3672,
+    0.3441,
+    -0.1166
+   ],
+   "elbow_r": [
+    0.4779,
+    0.1293,
+    -0.2426
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8067
+  },
+  {
+   "seconds": 1.0167,
+   "phi_deg": 317.0,
+   "hand_turn_deg": -14.07,
+   "supinate": -71.3,
+   "grip": 0.292,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3046,
+   "dorsum_to_camera": -0.046,
+   "hilt_side_m": 0.0011,
+   "hilt_to_camera_m": 0.0298,
+   "fingers_screen_deg": 152.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.1124,
+   "tip_ndc_x_over_depth": 5.3,
+   "pommel_depth_m": 0.4768,
+   "wrist_bend_r_deg": 12.2,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 48.26,
+   "humerus_roll_r_deg": 11.750000000000002,
+   "hand_roll_v9_r_deg": -23.5,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 14.61,
+   "clear_hand": {
+    "hilt_max_mm": 11.65,
+    "hilt_n_over_3mm": 108,
+    "guard_max_mm": 24.38,
+    "guard_n": 271
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 9.37,
+    "guard_n": 47
+   },
+   "hand_r": [
+    0.3683,
+    0.3489,
+    -0.1136
+   ],
+   "elbow_r": [
+    0.4782,
+    0.13,
+    -0.2329
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8133
+  },
+  {
+   "seconds": 1.025,
+   "phi_deg": 322.03,
+   "hand_turn_deg": -10.58,
+   "supinate": -62.8,
+   "grip": 0.342,
+   "recover": 0.0,
+   "search_m": -0.02,
+   "blade_in_view_min_depth_m": 0.3084,
+   "dorsum_to_camera": -0.183,
+   "hilt_side_m": -0.0065,
+   "hilt_to_camera_m": 0.0374,
+   "fingers_screen_deg": 159.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.1256,
+   "tip_ndc_x_over_depth": 4.27,
+   "pommel_depth_m": 0.472,
+   "wrist_bend_r_deg": 15.04,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 46.72,
+   "humerus_roll_r_deg": 14.150000000000002,
+   "hand_roll_v9_r_deg": -16.18,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.6,
+   "clear_hand": {
+    "hilt_max_mm": 11.35,
+    "hilt_n_over_3mm": 110,
+    "guard_max_mm": 21.42,
+    "guard_n": 238
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 5.36,
+    "guard_n": 10
+   },
+   "hand_r": [
+    0.3686,
+    0.3538,
+    -0.1116
+   ],
+   "elbow_r": [
+    0.4778,
+    0.1316,
+    -0.2256
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.82
+  },
+  {
+   "seconds": 1.0333,
+   "phi_deg": 326.98,
+   "hand_turn_deg": -8.01,
+   "supinate": -54.2,
+   "grip": 0.413,
+   "recover": 0.0,
+   "search_m": -0.016,
+   "blade_in_view_min_depth_m": 0.3215,
+   "dorsum_to_camera": -0.321,
+   "hilt_side_m": -0.017,
+   "hilt_to_camera_m": 0.0447,
+   "fingers_screen_deg": 166.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.1684,
+   "tip_ndc_x_over_depth": 2.85,
+   "pommel_depth_m": 0.4578,
+   "wrist_bend_r_deg": 17.75,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.99,
+   "humerus_roll_r_deg": 16.55,
+   "hand_roll_v9_r_deg": -8.57,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.02,
+   "clear_hand": {
+    "hilt_max_mm": 11.89,
+    "hilt_n_over_3mm": 120,
+    "guard_max_mm": 17.71,
+    "guard_n": 187
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3685,
+    0.3584,
+    -0.1105
+   ],
+   "elbow_r": [
+    0.4769,
+    0.1338,
+    -0.2202
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8267
+  },
+  {
+   "seconds": 1.0417,
+   "phi_deg": 331.83,
+   "hand_turn_deg": -6.09,
+   "supinate": -45.5,
+   "grip": 0.499,
+   "recover": 0.0,
+   "search_m": -0.012,
+   "blade_in_view_min_depth_m": 0.3359,
+   "dorsum_to_camera": -0.454,
+   "hilt_side_m": -0.0275,
+   "hilt_to_camera_m": 0.0492,
+   "fingers_screen_deg": 171.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.213,
+   "tip_ndc_x_over_depth": 1.99,
+   "pommel_depth_m": 0.4445,
+   "wrist_bend_r_deg": 20.25,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.47,
+   "humerus_roll_r_deg": 16.5,
+   "hand_roll_v9_r_deg": -0.76,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.06,
+   "clear_hand": {
+    "hilt_max_mm": 11.41,
+    "hilt_n_over_3mm": 187,
+    "guard_max_mm": 13.38,
+    "guard_n": 168
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.368,
+    0.3627,
+    -0.11
+   ],
+   "elbow_r": [
+    0.4759,
+    0.1361,
+    -0.2162
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8333
+  },
+  {
+   "seconds": 1.05,
+   "phi_deg": 336.58,
+   "hand_turn_deg": -4.59,
+   "supinate": -36.9,
+   "grip": 0.594,
+   "recover": 0.0,
+   "search_m": -0.008,
+   "blade_in_view_min_depth_m": 0.3518,
+   "dorsum_to_camera": -0.578,
+   "hilt_side_m": -0.0359,
+   "hilt_to_camera_m": 0.0504,
+   "fingers_screen_deg": 175.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.2594,
+   "tip_ndc_x_over_depth": 1.43,
+   "pommel_depth_m": 0.4326,
+   "wrist_bend_r_deg": 22.39,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.38,
+   "humerus_roll_r_deg": 15.75,
+   "hand_roll_v9_r_deg": 7.09,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 14.3,
+   "clear_hand": {
+    "hilt_max_mm": 13.12,
+    "hilt_n_over_3mm": 261,
+    "guard_max_mm": 10.86,
+    "guard_n": 173
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3674,
+    0.3664,
+    -0.1099
+   ],
+   "elbow_r": [
+    0.4751,
+    0.1378,
+    -0.212
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.84
+  },
+  {
+   "seconds": 1.0583,
+   "phi_deg": 341.15,
+   "hand_turn_deg": -3.35,
+   "supinate": -28.6,
+   "grip": 0.692,
+   "recover": 0.0,
+   "search_m": -0.004,
+   "blade_in_view_min_depth_m": 0.3588,
+   "dorsum_to_camera": -0.686,
+   "hilt_side_m": -0.0408,
+   "hilt_to_camera_m": 0.0486,
+   "fingers_screen_deg": 179.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.3066,
+   "tip_ndc_x_over_depth": 1.05,
+   "pommel_depth_m": 0.4225,
+   "wrist_bend_r_deg": 24.19,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.33,
+   "humerus_roll_r_deg": 15.0,
+   "hand_roll_v9_r_deg": 14.8,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.46,
+   "clear_hand": {
+    "hilt_max_mm": 13.82,
+    "hilt_n_over_3mm": 330,
+    "guard_max_mm": 14.93,
+    "guard_n": 193
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3667,
+    0.37,
+    -0.1101
+   ],
+   "elbow_r": [
+    0.4743,
+    0.1391,
+    -0.2069
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8467
+  },
+  {
+   "seconds": 1.0667,
+   "phi_deg": 345.45,
+   "hand_turn_deg": -2.22,
+   "supinate": -20.2,
+   "grip": 0.786,
+   "recover": 0.0,
+   "search_m": -0.008,
+   "blade_in_view_min_depth_m": 0.3836,
+   "dorsum_to_camera": -0.782,
+   "hilt_side_m": -0.0399,
+   "hilt_to_camera_m": 0.0425,
+   "fingers_screen_deg": -176.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.3552,
+   "tip_ndc_x_over_depth": 0.78,
+   "pommel_depth_m": 0.4165,
+   "wrist_bend_r_deg": 25.81,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.37,
+   "humerus_roll_r_deg": 14.0,
+   "hand_roll_v9_r_deg": 22.61,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 13.49,
+   "clear_hand": {
+    "hilt_max_mm": 13.81,
+    "hilt_n_over_3mm": 408,
+    "guard_max_mm": 17.26,
+    "guard_n": 228
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3658,
+    0.3738,
+    -0.1106
+   ],
+   "elbow_r": [
+    0.4733,
+    0.1404,
+    -0.2012
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8533
+  },
+  {
+   "seconds": 1.075,
+   "phi_deg": 349.46,
+   "hand_turn_deg": -1.23,
+   "supinate": -12.0,
+   "grip": 0.87,
+   "recover": 0.0,
+   "search_m": -0.008,
+   "blade_in_view_min_depth_m": 0.4071,
+   "dorsum_to_camera": -0.86,
+   "hilt_side_m": -0.0367,
+   "hilt_to_camera_m": 0.0363,
+   "fingers_screen_deg": -174.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.4009,
+   "tip_ndc_x_over_depth": 0.59,
+   "pommel_depth_m": 0.4111,
+   "wrist_bend_r_deg": 27.26,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.28,
+   "humerus_roll_r_deg": 13.25,
+   "hand_roll_v9_r_deg": 30.26,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 12.54,
+   "clear_hand": {
+    "hilt_max_mm": 13.36,
+    "hilt_n_over_3mm": 418,
+    "guard_max_mm": 18.96,
+    "guard_n": 271
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3648,
+    0.3774,
+    -0.1114
+   ],
+   "elbow_r": [
+    0.4723,
+    0.1416,
+    -0.1956
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.86
+  },
+  {
+   "seconds": 1.0833,
+   "phi_deg": 353.18,
+   "hand_turn_deg": -0.53,
+   "supinate": -5.4,
+   "grip": 0.938,
+   "recover": 0.0,
+   "search_m": -0.004,
+   "blade_in_view_min_depth_m": 0.419,
+   "dorsum_to_camera": -0.911,
+   "hilt_side_m": -0.0324,
+   "hilt_to_camera_m": 0.0307,
+   "fingers_screen_deg": -172.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.4427,
+   "tip_ndc_x_over_depth": 0.45,
+   "pommel_depth_m": 0.4053,
+   "wrist_bend_r_deg": 28.39,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.31,
+   "humerus_roll_r_deg": 12.5,
+   "hand_roll_v9_r_deg": 36.45,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 14.63,
+   "clear_hand": {
+    "hilt_max_mm": 12.71,
+    "hilt_n_over_3mm": 348,
+    "guard_max_mm": 18.84,
+    "guard_n": 301
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3638,
+    0.3801,
+    -0.1123
+   ],
+   "elbow_r": [
+    0.4714,
+    0.1425,
+    -0.1913
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8667
+  },
+  {
+   "seconds": 1.0917,
+   "phi_deg": 356.66,
+   "hand_turn_deg": -0.13,
+   "supinate": -1.4,
+   "grip": 0.983,
+   "recover": 0.0,
+   "search_m": 0.0,
+   "blade_in_view_min_depth_m": 0.4251,
+   "dorsum_to_camera": -0.937,
+   "hilt_side_m": -0.0288,
+   "hilt_to_camera_m": 0.0268,
+   "fingers_screen_deg": -171.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.4797,
+   "tip_ndc_x_over_depth": 0.34,
+   "pommel_depth_m": 0.3979,
+   "wrist_bend_r_deg": 29.08,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.25,
+   "humerus_roll_r_deg": 12.25,
+   "hand_roll_v9_r_deg": 40.25,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {
+    "palm": 1.0,
+    "web": 0.0,
+    "dorsal": 0.0
+   },
+   "push_residual_mm": 18.88,
+   "clear_hand": {
+    "hilt_max_mm": 12.14,
+    "hilt_n_over_3mm": 243,
+    "guard_max_mm": 19.0,
+    "guard_n": 308
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3633,
+    0.3815,
+    -0.1128
+   ],
+   "elbow_r": [
+    0.4709,
+    0.1429,
+    -0.1887
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.8733
+  },
+  {
+   "seconds": 1.1,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4284,
+   "dorsum_to_camera": -0.945,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0251,
+   "fingers_screen_deg": -170.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.5125,
+   "tip_ndc_x_over_depth": 0.25,
+   "pommel_depth_m": 0.3884,
+   "wrist_bend_r_deg": 29.31,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.33,
+   "humerus_roll_r_deg": 12.0,
+   "hand_roll_v9_r_deg": 41.55,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0172,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3631,
+    0.3819,
+    -0.1129
+   ],
+   "elbow_r": [
+    0.4707,
+    0.143,
+    -0.1878
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 0.88
+  },
+  {
+   "seconds": 1.1083,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.0,
+   "blade_in_view_min_depth_m": 0.4321,
+   "dorsum_to_camera": -0.943,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0247,
+   "fingers_screen_deg": -166.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.5415,
+   "tip_ndc_x_over_depth": 0.18,
+   "pommel_depth_m": 0.381,
+   "wrist_bend_r_deg": 29.31,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.93,
+   "humerus_roll_r_deg": 12.0,
+   "hand_roll_v9_r_deg": 41.56,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0171,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.24,
+    "hilt_n_over_3mm": 168,
+    "guard_max_mm": 19.13,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3631,
+    0.3819,
+    -0.1158
+   ],
+   "elbow_r": [
+    0.4727,
+    0.1405,
+    -0.1785
+   ],
+   "shoulder_r_delta_m": 0.0021,
+   "motion_s": 0.8867
+  },
+  {
+   "seconds": 1.1167,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.002,
+   "blade_in_view_min_depth_m": 0.4348,
+   "dorsum_to_camera": -0.941,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0244,
+   "fingers_screen_deg": -163.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.5631,
+   "tip_ndc_x_over_depth": 0.13,
+   "pommel_depth_m": 0.3755,
+   "wrist_bend_r_deg": 29.28,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.61,
+   "humerus_roll_r_deg": 12.0,
+   "hand_roll_v9_r_deg": 41.61,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.017,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.22,
+    "hilt_n_over_3mm": 171,
+    "guard_max_mm": 19.02,
+    "guard_n": 311
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3629,
+    0.382,
+    -0.118
+   ],
+   "elbow_r": [
+    0.4739,
+    0.139,
+    -0.1716
+   ],
+   "shoulder_r_delta_m": 0.0037,
+   "motion_s": 0.8933
+  },
+  {
+   "seconds": 1.125,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.005,
+   "blade_in_view_min_depth_m": 0.4368,
+   "dorsum_to_camera": -0.941,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0242,
+   "fingers_screen_deg": -161.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.5789,
+   "tip_ndc_x_over_depth": 0.11,
+   "pommel_depth_m": 0.3715,
+   "wrist_bend_r_deg": 29.21,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.38,
+   "humerus_roll_r_deg": 12.0,
+   "hand_roll_v9_r_deg": 41.73,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0167,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.2,
+    "hilt_n_over_3mm": 177,
+    "guard_max_mm": 18.92,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3623,
+    0.3821,
+    -0.1196
+   ],
+   "elbow_r": [
+    0.4744,
+    0.1383,
+    -0.1669
+   ],
+   "shoulder_r_delta_m": 0.0048,
+   "motion_s": 0.9
+  },
+  {
+   "seconds": 1.1333,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.012,
+   "blade_in_view_min_depth_m": 0.4385,
+   "dorsum_to_camera": -0.941,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.024,
+   "fingers_screen_deg": -160.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.5905,
+   "tip_ndc_x_over_depth": 0.09,
+   "pommel_depth_m": 0.3689,
+   "wrist_bend_r_deg": 29.08,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.23,
+   "humerus_roll_r_deg": 12.0,
+   "hand_roll_v9_r_deg": 41.94,
+   "hand_roll_v9_l_deg": -60.0,
+   "reach_clamp_m": 0.0163,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.19,
+    "hilt_n_over_3mm": 185,
+    "guard_max_mm": 18.84,
+    "guard_n": 314
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3612,
+    0.3824,
+    -0.1207
+   ],
+   "elbow_r": [
+    0.4745,
+    0.1384,
+    -0.164
+   ],
+   "shoulder_r_delta_m": 0.0055,
+   "motion_s": 0.9067
+  },
+  {
+   "seconds": 1.1417,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.022,
+   "blade_in_view_min_depth_m": 0.44,
+   "dorsum_to_camera": -0.943,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0239,
+   "fingers_screen_deg": -159.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.5994,
+   "tip_ndc_x_over_depth": 0.08,
+   "pommel_depth_m": 0.3672,
+   "wrist_bend_r_deg": 28.88,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.15,
+   "humerus_roll_r_deg": 12.0,
+   "hand_roll_v9_r_deg": 42.28,
+   "hand_roll_v9_l_deg": -60.03,
+   "reach_clamp_m": 0.0157,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.17,
+    "hilt_n_over_3mm": 190,
+    "guard_max_mm": 18.78,
+    "guard_n": 315
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3596,
+    0.3828,
+    -0.1215
+   ],
+   "elbow_r": [
+    0.4743,
+    0.1391,
+    -0.1626
+   ],
+   "shoulder_r_delta_m": 0.0058,
+   "motion_s": 0.9133
+  },
+  {
+   "seconds": 1.15,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.035,
+   "blade_in_view_min_depth_m": 0.4415,
+   "dorsum_to_camera": -0.944,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0238,
+   "fingers_screen_deg": -159.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.6068,
+   "tip_ndc_x_over_depth": 0.08,
+   "pommel_depth_m": 0.3661,
+   "wrist_bend_r_deg": 28.6,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.27,
+   "humerus_roll_r_deg": 11.75,
+   "hand_roll_v9_r_deg": 42.74,
+   "hand_roll_v9_l_deg": -60.1,
+   "reach_clamp_m": 0.0151,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.17,
+    "hilt_n_over_3mm": 196,
+    "guard_max_mm": 18.74,
+    "guard_n": 315
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3573,
+    0.3834,
+    -0.122
+   ],
+   "elbow_r": [
+    0.4738,
+    0.1404,
+    -0.1623
+   ],
+   "shoulder_r_delta_m": 0.0059,
+   "motion_s": 0.92
+  },
+  {
+   "seconds": 1.1583,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.054,
+   "blade_in_view_min_depth_m": 0.4432,
+   "dorsum_to_camera": -0.947,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0237,
+   "fingers_screen_deg": -159.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.6138,
+   "tip_ndc_x_over_depth": 0.08,
+   "pommel_depth_m": 0.3655,
+   "wrist_bend_r_deg": 28.24,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.26,
+   "humerus_roll_r_deg": 11.75,
+   "hand_roll_v9_r_deg": 43.34,
+   "hand_roll_v9_l_deg": -60.22,
+   "reach_clamp_m": 0.0146,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.16,
+    "hilt_n_over_3mm": 197,
+    "guard_max_mm": 18.73,
+    "guard_n": 315
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3542,
+    0.3842,
+    -0.1225
+   ],
+   "elbow_r": [
+    0.473,
+    0.1422,
+    -0.1627
+   ],
+   "shoulder_r_delta_m": 0.0059,
+   "motion_s": 0.9267
+  },
+  {
+   "seconds": 1.1667,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.076,
+   "blade_in_view_min_depth_m": 0.4451,
+   "dorsum_to_camera": -0.95,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0236,
+   "fingers_screen_deg": -159.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.6216,
+   "tip_ndc_x_over_depth": 0.09,
+   "pommel_depth_m": 0.3649,
+   "wrist_bend_r_deg": 27.81,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.4,
+   "humerus_roll_r_deg": 11.5,
+   "hand_roll_v9_r_deg": 44.06,
+   "hand_roll_v9_l_deg": -60.4,
+   "reach_clamp_m": 0.014,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.17,
+    "hilt_n_over_3mm": 197,
+    "guard_max_mm": 18.74,
+    "guard_n": 314
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3505,
+    0.3851,
+    -0.123
+   ],
+   "elbow_r": [
+    0.4719,
+    0.1446,
+    -0.1635
+   ],
+   "shoulder_r_delta_m": 0.0057,
+   "motion_s": 0.9333
+  },
+  {
+   "seconds": 1.175,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.104,
+   "blade_in_view_min_depth_m": 0.4475,
+   "dorsum_to_camera": -0.953,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0235,
+   "fingers_screen_deg": -159.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.6311,
+   "tip_ndc_x_over_depth": 0.09,
+   "pommel_depth_m": 0.3642,
+   "wrist_bend_r_deg": 27.31,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.53,
+   "humerus_roll_r_deg": 11.25,
+   "hand_roll_v9_r_deg": 44.91,
+   "hand_roll_v9_l_deg": -60.63,
+   "reach_clamp_m": 0.0133,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.17,
+    "hilt_n_over_3mm": 195,
+    "guard_max_mm": 18.75,
+    "guard_n": 315
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.346,
+    0.3863,
+    -0.1237
+   ],
+   "elbow_r": [
+    0.4706,
+    0.1473,
+    -0.1642
+   ],
+   "shoulder_r_delta_m": 0.0055,
+   "motion_s": 0.94
+  },
+  {
+   "seconds": 1.1833,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.135,
+   "blade_in_view_min_depth_m": 0.4502,
+   "dorsum_to_camera": -0.956,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0233,
+   "fingers_screen_deg": -159.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.642,
+   "tip_ndc_x_over_depth": 0.1,
+   "pommel_depth_m": 0.3633,
+   "wrist_bend_r_deg": 26.73,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.63,
+   "humerus_roll_r_deg": 11.0,
+   "hand_roll_v9_r_deg": 45.86,
+   "hand_roll_v9_l_deg": -60.9,
+   "reach_clamp_m": 0.0123,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.17,
+    "hilt_n_over_3mm": 193,
+    "guard_max_mm": 18.76,
+    "guard_n": 315
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3408,
+    0.3876,
+    -0.1245
+   ],
+   "elbow_r": [
+    0.469,
+    0.1505,
+    -0.1649
+   ],
+   "shoulder_r_delta_m": 0.0054,
+   "motion_s": 0.9467
+  },
+  {
+   "seconds": 1.1917,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.171,
+   "blade_in_view_min_depth_m": 0.4532,
+   "dorsum_to_camera": -0.959,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0231,
+   "fingers_screen_deg": -159.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.6534,
+   "tip_ndc_x_over_depth": 0.11,
+   "pommel_depth_m": 0.3626,
+   "wrist_bend_r_deg": 26.1,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.86,
+   "humerus_roll_r_deg": 10.5,
+   "hand_roll_v9_r_deg": 46.91,
+   "hand_roll_v9_l_deg": -61.18,
+   "reach_clamp_m": 0.0109,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.17,
+    "hilt_n_over_3mm": 190,
+    "guard_max_mm": 18.78,
+    "guard_n": 315
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3349,
+    0.3891,
+    -0.1254
+   ],
+   "elbow_r": [
+    0.4671,
+    0.1542,
+    -0.1656
+   ],
+   "shoulder_r_delta_m": 0.0052,
+   "motion_s": 0.9533
+  },
+  {
+   "seconds": 1.2,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.21,
+   "blade_in_view_min_depth_m": 0.4563,
+   "dorsum_to_camera": -0.961,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0228,
+   "fingers_screen_deg": -159.8,
+   "idle_hold": false,
+   "tip_depth_m": 0.6649,
+   "tip_ndc_x_over_depth": 0.11,
+   "pommel_depth_m": 0.3621,
+   "wrist_bend_r_deg": 25.41,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 43.93,
+   "humerus_roll_r_deg": 10.25,
+   "hand_roll_v9_r_deg": 48.01,
+   "hand_roll_v9_l_deg": -61.47,
+   "reach_clamp_m": 0.0092,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.18,
+    "hilt_n_over_3mm": 189,
+    "guard_max_mm": 18.8,
+    "guard_n": 315
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3284,
+    0.3907,
+    -0.1262
+   ],
+   "elbow_r": [
+    0.4649,
+    0.1583,
+    -0.1665
+   ],
+   "shoulder_r_delta_m": 0.0049,
+   "motion_s": 0.96
+  },
+  {
+   "seconds": 1.2083,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.253,
+   "blade_in_view_min_depth_m": 0.4595,
+   "dorsum_to_camera": -0.964,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0225,
+   "fingers_screen_deg": -160.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.6763,
+   "tip_ndc_x_over_depth": 0.12,
+   "pommel_depth_m": 0.3618,
+   "wrist_bend_r_deg": 24.68,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.11,
+   "humerus_roll_r_deg": 9.75,
+   "hand_roll_v9_r_deg": 49.17,
+   "hand_roll_v9_l_deg": -61.76,
+   "reach_clamp_m": 0.0071,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.18,
+    "hilt_n_over_3mm": 187,
+    "guard_max_mm": 18.83,
+    "guard_n": 314
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3213,
+    0.3925,
+    -0.1272
+   ],
+   "elbow_r": [
+    0.4623,
+    0.1628,
+    -0.1673
+   ],
+   "shoulder_r_delta_m": 0.0046,
+   "motion_s": 0.9667
+  },
+  {
+   "seconds": 1.2167,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.298,
+   "blade_in_view_min_depth_m": 0.4629,
+   "dorsum_to_camera": -0.965,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0222,
+   "fingers_screen_deg": -160.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.6874,
+   "tip_ndc_x_over_depth": 0.13,
+   "pommel_depth_m": 0.3617,
+   "wrist_bend_r_deg": 23.91,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.26,
+   "humerus_roll_r_deg": 9.25,
+   "hand_roll_v9_r_deg": 50.33,
+   "hand_roll_v9_l_deg": -62.05,
+   "reach_clamp_m": 0.0048,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.19,
+    "hilt_n_over_3mm": 184,
+    "guard_max_mm": 18.86,
+    "guard_n": 314
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3137,
+    0.3944,
+    -0.1281
+   ],
+   "elbow_r": [
+    0.4594,
+    0.1676,
+    -0.168
+   ],
+   "shoulder_r_delta_m": 0.0043,
+   "motion_s": 0.9733
+  },
+  {
+   "seconds": 1.225,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.347,
+   "blade_in_view_min_depth_m": 0.4662,
+   "dorsum_to_camera": -0.966,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0219,
+   "fingers_screen_deg": -160.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.698,
+   "tip_ndc_x_over_depth": 0.13,
+   "pommel_depth_m": 0.3619,
+   "wrist_bend_r_deg": 23.1,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.39,
+   "humerus_roll_r_deg": 8.75,
+   "hand_roll_v9_r_deg": 51.49,
+   "hand_roll_v9_l_deg": -62.34,
+   "reach_clamp_m": 0.0026,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.19,
+    "hilt_n_over_3mm": 179,
+    "guard_max_mm": 18.89,
+    "guard_n": 312
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.3057,
+    0.3964,
+    -0.1291
+   ],
+   "elbow_r": [
+    0.4561,
+    0.1726,
+    -0.1686
+   ],
+   "shoulder_r_delta_m": 0.004,
+   "motion_s": 0.98
+  },
+  {
+   "seconds": 1.2333,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.397,
+   "blade_in_view_min_depth_m": 0.4695,
+   "dorsum_to_camera": -0.966,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0215,
+   "fingers_screen_deg": -161.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.7078,
+   "tip_ndc_x_over_depth": 0.14,
+   "pommel_depth_m": 0.3624,
+   "wrist_bend_r_deg": 22.29,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.63,
+   "humerus_roll_r_deg": 8.0,
+   "hand_roll_v9_r_deg": 52.62,
+   "hand_roll_v9_l_deg": -62.63,
+   "reach_clamp_m": 0.0009,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.2,
+    "hilt_n_over_3mm": 177,
+    "guard_max_mm": 18.92,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2974,
+    0.3985,
+    -0.1301
+   ],
+   "elbow_r": [
+    0.4526,
+    0.1779,
+    -0.1691
+   ],
+   "shoulder_r_delta_m": 0.0036,
+   "motion_s": 0.9867
+  },
+  {
+   "seconds": 1.2417,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.448,
+   "blade_in_view_min_depth_m": 0.4728,
+   "dorsum_to_camera": -0.965,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0211,
+   "fingers_screen_deg": -161.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.7167,
+   "tip_ndc_x_over_depth": 0.15,
+   "pommel_depth_m": 0.3632,
+   "wrist_bend_r_deg": 21.47,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.69,
+   "humerus_roll_r_deg": 7.5,
+   "hand_roll_v9_r_deg": 53.7,
+   "hand_roll_v9_l_deg": -62.91,
+   "reach_clamp_m": 0.0001,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.21,
+    "hilt_n_over_3mm": 173,
+    "guard_max_mm": 18.95,
+    "guard_n": 311
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2889,
+    0.4006,
+    -0.131
+   ],
+   "elbow_r": [
+    0.4487,
+    0.1833,
+    -0.1694
+   ],
+   "shoulder_r_delta_m": 0.0033,
+   "motion_s": 0.9933
+  },
+  {
+   "seconds": 1.25,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.5,
+   "blade_in_view_min_depth_m": 0.4758,
+   "dorsum_to_camera": -0.964,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0206,
+   "fingers_screen_deg": -161.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.7245,
+   "tip_ndc_x_over_depth": 0.15,
+   "pommel_depth_m": 0.3642,
+   "wrist_bend_r_deg": 20.67,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.87,
+   "humerus_roll_r_deg": 6.75,
+   "hand_roll_v9_r_deg": 54.71,
+   "hand_roll_v9_l_deg": -63.15,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.21,
+    "hilt_n_over_3mm": 171,
+    "guard_max_mm": 18.98,
+    "guard_n": 312
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2802,
+    0.4028,
+    -0.132
+   ],
+   "elbow_r": [
+    0.4446,
+    0.1887,
+    -0.1697
+   ],
+   "shoulder_r_delta_m": 0.003,
+   "motion_s": 1.0
+  },
+  {
+   "seconds": 1.2583,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.552,
+   "blade_in_view_min_depth_m": 0.4788,
+   "dorsum_to_camera": -0.962,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0202,
+   "fingers_screen_deg": -162.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.7312,
+   "tip_ndc_x_over_depth": 0.15,
+   "pommel_depth_m": 0.3655,
+   "wrist_bend_r_deg": 19.92,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.89,
+   "humerus_roll_r_deg": 6.25,
+   "hand_roll_v9_r_deg": 55.64,
+   "hand_roll_v9_l_deg": -63.32,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.22,
+    "hilt_n_over_3mm": 171,
+    "guard_max_mm": 19.02,
+    "guard_n": 311
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2716,
+    0.4049,
+    -0.1329
+   ],
+   "elbow_r": [
+    0.4403,
+    0.1942,
+    -0.1699
+   ],
+   "shoulder_r_delta_m": 0.0027,
+   "motion_s": 1.0067
+  },
+  {
+   "seconds": 1.2667,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.603,
+   "blade_in_view_min_depth_m": 0.4815,
+   "dorsum_to_camera": -0.959,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0197,
+   "fingers_screen_deg": -162.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.7366,
+   "tip_ndc_x_over_depth": 0.16,
+   "pommel_depth_m": 0.3671,
+   "wrist_bend_r_deg": 19.23,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 45.02,
+   "humerus_roll_r_deg": 5.5,
+   "hand_roll_v9_r_deg": 56.47,
+   "hand_roll_v9_l_deg": -63.41,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.23,
+    "hilt_n_over_3mm": 169,
+    "guard_max_mm": 19.05,
+    "guard_n": 311
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.263,
+    0.407,
+    -0.1338
+   ],
+   "elbow_r": [
+    0.4359,
+    0.1995,
+    -0.1702
+   ],
+   "shoulder_r_delta_m": 0.0024,
+   "motion_s": 1.0133
+  },
+  {
+   "seconds": 1.275,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.653,
+   "blade_in_view_min_depth_m": 0.484,
+   "dorsum_to_camera": -0.956,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0193,
+   "fingers_screen_deg": -163.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.7407,
+   "tip_ndc_x_over_depth": 0.16,
+   "pommel_depth_m": 0.3688,
+   "wrist_bend_r_deg": 18.62,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.98,
+   "humerus_roll_r_deg": 5.0,
+   "hand_roll_v9_r_deg": 57.19,
+   "hand_roll_v9_l_deg": -63.4,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.23,
+    "hilt_n_over_3mm": 169,
+    "guard_max_mm": 19.09,
+    "guard_n": 312
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2547,
+    0.4091,
+    -0.1346
+   ],
+   "elbow_r": [
+    0.4314,
+    0.2048,
+    -0.1706
+   ],
+   "shoulder_r_delta_m": 0.0021,
+   "motion_s": 1.02
+  },
+  {
+   "seconds": 1.2833,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.702,
+   "blade_in_view_min_depth_m": 0.4862,
+   "dorsum_to_camera": -0.952,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0188,
+   "fingers_screen_deg": -164.0,
+   "idle_hold": false,
+   "tip_depth_m": 0.7437,
+   "tip_ndc_x_over_depth": 0.16,
+   "pommel_depth_m": 0.3707,
+   "wrist_bend_r_deg": 18.09,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 45.07,
+   "humerus_roll_r_deg": 4.25,
+   "hand_roll_v9_r_deg": 57.82,
+   "hand_roll_v9_l_deg": -63.31,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.24,
+    "hilt_n_over_3mm": 168,
+    "guard_max_mm": 19.12,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2467,
+    0.4111,
+    -0.1353
+   ],
+   "elbow_r": [
+    0.4268,
+    0.2098,
+    -0.1711
+   ],
+   "shoulder_r_delta_m": 0.0019,
+   "motion_s": 1.0267
+  },
+  {
+   "seconds": 1.2917,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.747,
+   "blade_in_view_min_depth_m": 0.4882,
+   "dorsum_to_camera": -0.949,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0184,
+   "fingers_screen_deg": -164.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.7456,
+   "tip_ndc_x_over_depth": 0.16,
+   "pommel_depth_m": 0.3728,
+   "wrist_bend_r_deg": 17.64,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 45.0,
+   "humerus_roll_r_deg": 3.75,
+   "hand_roll_v9_r_deg": 58.34,
+   "hand_roll_v9_l_deg": -63.13,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.24,
+    "hilt_n_over_3mm": 168,
+    "guard_max_mm": 19.15,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2391,
+    0.413,
+    -0.136
+   ],
+   "elbow_r": [
+    0.4224,
+    0.2145,
+    -0.1717
+   ],
+   "shoulder_r_delta_m": 0.0016,
+   "motion_s": 1.0333
+  },
+  {
+   "seconds": 1.3,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.79,
+   "blade_in_view_min_depth_m": 0.4899,
+   "dorsum_to_camera": -0.945,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.018,
+   "fingers_screen_deg": -165.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.7464,
+   "tip_ndc_x_over_depth": 0.16,
+   "pommel_depth_m": 0.3749,
+   "wrist_bend_r_deg": 17.26,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.94,
+   "humerus_roll_r_deg": 3.25,
+   "hand_roll_v9_r_deg": 58.77,
+   "hand_roll_v9_l_deg": -62.88,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.25,
+    "hilt_n_over_3mm": 167,
+    "guard_max_mm": 19.17,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2319,
+    0.4148,
+    -0.1367
+   ],
+   "elbow_r": [
+    0.4181,
+    0.2189,
+    -0.1724
+   ],
+   "shoulder_r_delta_m": 0.0014,
+   "motion_s": 1.04
+  },
+  {
+   "seconds": 1.3083,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.829,
+   "blade_in_view_min_depth_m": 0.4914,
+   "dorsum_to_camera": -0.942,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0176,
+   "fingers_screen_deg": -165.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7463,
+   "tip_ndc_x_over_depth": 0.16,
+   "pommel_depth_m": 0.377,
+   "wrist_bend_r_deg": 16.95,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.88,
+   "humerus_roll_r_deg": 2.75,
+   "hand_roll_v9_r_deg": 59.11,
+   "hand_roll_v9_l_deg": -62.58,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.25,
+    "hilt_n_over_3mm": 168,
+    "guard_max_mm": 19.2,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2254,
+    0.4164,
+    -0.1372
+   ],
+   "elbow_r": [
+    0.414,
+    0.223,
+    -0.1731
+   ],
+   "shoulder_r_delta_m": 0.0012,
+   "motion_s": 1.0467
+  },
+  {
+   "seconds": 1.3167,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.865,
+   "blade_in_view_min_depth_m": 0.4926,
+   "dorsum_to_camera": -0.939,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0173,
+   "fingers_screen_deg": -166.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.7456,
+   "tip_ndc_x_over_depth": 0.17,
+   "pommel_depth_m": 0.3791,
+   "wrist_bend_r_deg": 16.69,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.83,
+   "humerus_roll_r_deg": 2.25,
+   "hand_roll_v9_r_deg": 59.37,
+   "hand_roll_v9_l_deg": -62.25,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.26,
+    "hilt_n_over_3mm": 168,
+    "guard_max_mm": 19.22,
+    "guard_n": 309
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2195,
+    0.4179,
+    -0.1376
+   ],
+   "elbow_r": [
+    0.4102,
+    0.2266,
+    -0.1739
+   ],
+   "shoulder_r_delta_m": 0.001,
+   "motion_s": 1.0533
+  },
+  {
+   "seconds": 1.325,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.896,
+   "blade_in_view_min_depth_m": 0.4936,
+   "dorsum_to_camera": -0.936,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.017,
+   "fingers_screen_deg": -166.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.7442,
+   "tip_ndc_x_over_depth": 0.17,
+   "pommel_depth_m": 0.3811,
+   "wrist_bend_r_deg": 16.48,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.8,
+   "humerus_roll_r_deg": 1.75,
+   "hand_roll_v9_r_deg": 59.57,
+   "hand_roll_v9_l_deg": -61.92,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.26,
+    "hilt_n_over_3mm": 166,
+    "guard_max_mm": 19.24,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2142,
+    0.4191,
+    -0.138
+   ],
+   "elbow_r": [
+    0.4067,
+    0.2298,
+    -0.1747
+   ],
+   "shoulder_r_delta_m": 0.0008,
+   "motion_s": 1.06
+  },
+  {
+   "seconds": 1.3333,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.924,
+   "blade_in_view_min_depth_m": 0.4943,
+   "dorsum_to_camera": -0.933,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0167,
+   "fingers_screen_deg": -167.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.7424,
+   "tip_ndc_x_over_depth": 0.17,
+   "pommel_depth_m": 0.3829,
+   "wrist_bend_r_deg": 16.32,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.66,
+   "humerus_roll_r_deg": 1.5,
+   "hand_roll_v9_r_deg": 59.72,
+   "hand_roll_v9_l_deg": -61.58,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.26,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.25,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2097,
+    0.4203,
+    -0.1383
+   ],
+   "elbow_r": [
+    0.4037,
+    0.2325,
+    -0.1756
+   ],
+   "shoulder_r_delta_m": 0.0006,
+   "motion_s": 1.0667
+  },
+  {
+   "seconds": 1.3417,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.946,
+   "blade_in_view_min_depth_m": 0.4949,
+   "dorsum_to_camera": -0.931,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0165,
+   "fingers_screen_deg": -167.9,
+   "idle_hold": false,
+   "tip_depth_m": 0.7404,
+   "tip_ndc_x_over_depth": 0.17,
+   "pommel_depth_m": 0.3846,
+   "wrist_bend_r_deg": 16.19,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.7,
+   "humerus_roll_r_deg": 1.0,
+   "hand_roll_v9_r_deg": 59.82,
+   "hand_roll_v9_l_deg": -61.26,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2059,
+    0.4212,
+    -0.1385
+   ],
+   "elbow_r": [
+    0.4011,
+    0.2348,
+    -0.1764
+   ],
+   "shoulder_r_delta_m": 0.0005,
+   "motion_s": 1.0733
+  },
+  {
+   "seconds": 1.35,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.965,
+   "blade_in_view_min_depth_m": 0.4952,
+   "dorsum_to_camera": -0.929,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0164,
+   "fingers_screen_deg": -168.3,
+   "idle_hold": false,
+   "tip_depth_m": 0.7383,
+   "tip_ndc_x_over_depth": 0.17,
+   "pommel_depth_m": 0.3861,
+   "wrist_bend_r_deg": 16.09,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.62,
+   "humerus_roll_r_deg": 0.75,
+   "hand_roll_v9_r_deg": 59.89,
+   "hand_roll_v9_l_deg": -60.96,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2029,
+    0.422,
+    -0.1386
+   ],
+   "elbow_r": [
+    0.399,
+    0.2367,
+    -0.1772
+   ],
+   "shoulder_r_delta_m": 0.0003,
+   "motion_s": 1.08
+  },
+  {
+   "seconds": 1.3583,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.978,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.927,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0162,
+   "fingers_screen_deg": -168.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7362,
+   "tip_ndc_x_over_depth": 0.17,
+   "pommel_depth_m": 0.3873,
+   "wrist_bend_r_deg": 16.02,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.44,
+   "humerus_roll_r_deg": 0.75,
+   "hand_roll_v9_r_deg": 59.94,
+   "hand_roll_v9_l_deg": -60.69,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.2005,
+    0.4225,
+    -0.1386
+   ],
+   "elbow_r": [
+    0.3973,
+    0.2382,
+    -0.178
+   ],
+   "shoulder_r_delta_m": 0.0002,
+   "motion_s": 1.0867
+  },
+  {
+   "seconds": 1.3667,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.988,
+   "blade_in_view_min_depth_m": 0.4956,
+   "dorsum_to_camera": -0.927,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0162,
+   "fingers_screen_deg": -169.1,
+   "idle_hold": false,
+   "tip_depth_m": 0.7343,
+   "tip_ndc_x_over_depth": 0.17,
+   "pommel_depth_m": 0.3883,
+   "wrist_bend_r_deg": 15.97,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.44,
+   "humerus_roll_r_deg": 0.5,
+   "hand_roll_v9_r_deg": 59.97,
+   "hand_roll_v9_l_deg": -60.45,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.1989,
+    0.4229,
+    -0.1386
+   ],
+   "elbow_r": [
+    0.3961,
+    0.2392,
+    -0.1787
+   ],
+   "shoulder_r_delta_m": 0.0002,
+   "motion_s": 1.0933
+  },
+  {
+   "seconds": 1.375,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.995,
+   "blade_in_view_min_depth_m": 0.4956,
+   "dorsum_to_camera": -0.926,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0161,
+   "fingers_screen_deg": -169.4,
+   "idle_hold": false,
+   "tip_depth_m": 0.7326,
+   "tip_ndc_x_over_depth": 0.17,
+   "pommel_depth_m": 0.389,
+   "wrist_bend_r_deg": 15.94,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.34,
+   "humerus_roll_r_deg": 0.5,
+   "hand_roll_v9_r_deg": 59.99,
+   "hand_roll_v9_l_deg": -60.26,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.1978,
+    0.4232,
+    -0.1386
+   ],
+   "elbow_r": [
+    0.3953,
+    0.2399,
+    -0.1793
+   ],
+   "shoulder_r_delta_m": 0.0001,
+   "motion_s": 1.1
+  },
+  {
+   "seconds": 1.3833,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 0.998,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.926,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0161,
+   "fingers_screen_deg": -169.6,
+   "idle_hold": false,
+   "tip_depth_m": 0.7313,
+   "tip_ndc_x_over_depth": 0.18,
+   "pommel_depth_m": 0.3895,
+   "wrist_bend_r_deg": 15.92,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.42,
+   "humerus_roll_r_deg": 0.25,
+   "hand_roll_v9_r_deg": 60.0,
+   "hand_roll_v9_l_deg": -60.12,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.1972,
+    0.4233,
+    -0.1385
+   ],
+   "elbow_r": [
+    0.3948,
+    0.2403,
+    -0.1798
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 1.1067
+  },
+  {
+   "seconds": 1.3917,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "blade_in_view_min_depth_m": 0.4955,
+   "dorsum_to_camera": -0.926,
+   "hilt_side_m": -0.0274,
+   "hilt_to_camera_m": 0.0161,
+   "fingers_screen_deg": -169.7,
+   "idle_hold": false,
+   "tip_depth_m": 0.7305,
+   "tip_ndc_x_over_depth": 0.18,
+   "pommel_depth_m": 0.3898,
+   "wrist_bend_r_deg": 15.91,
+   "wrist_trim_r_deg": 0.0,
+   "elbow_axial_r_deg": 44.38,
+   "humerus_roll_r_deg": 0.25,
+   "hand_roll_v9_r_deg": 60.0,
+   "hand_roll_v9_l_deg": -60.03,
+   "reach_clamp_m": 0.0,
+   "contact_weights": {},
+   "push_residual_mm": 0.0,
+   "clear_hand": {
+    "hilt_max_mm": 12.27,
+    "hilt_n_over_3mm": 165,
+    "guard_max_mm": 19.26,
+    "guard_n": 310
+   },
+   "clear_forearm": {
+    "hilt_max_mm": 0.0,
+    "hilt_n_over_3mm": 0,
+    "guard_max_mm": 0.0,
+    "guard_n": 0
+   },
+   "hand_r": [
+    0.197,
+    0.4234,
+    -0.1385
+   ],
+   "elbow_r": [
+    0.3946,
+    0.2405,
+    -0.1801
+   ],
+   "shoulder_r_delta_m": 0.0,
+   "motion_s": 1.1133
+  },
+  {
+   "seconds": 1.4,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.12
+  },
+  {
+   "seconds": 1.4083,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.1267
+  },
+  {
+   "seconds": 1.4167,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.1333
+  },
+  {
+   "seconds": 1.425,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.14
+  },
+  {
+   "seconds": 1.4333,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.1467
+  },
+  {
+   "seconds": 1.4417,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.1533
+  },
+  {
+   "seconds": 1.45,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.16
+  },
+  {
+   "seconds": 1.4583,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.1667
+  },
+  {
+   "seconds": 1.4667,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.1733
+  },
+  {
+   "seconds": 1.475,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.18
+  },
+  {
+   "seconds": 1.4833,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.1867
+  },
+  {
+   "seconds": 1.4917,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.1933
+  },
+  {
+   "seconds": 1.5,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.2
+  },
+  {
+   "seconds": 1.5083,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.2067
+  },
+  {
+   "seconds": 1.5167,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.2133
+  },
+  {
+   "seconds": 1.525,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.22
+  },
+  {
+   "seconds": 1.5333,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.2267
+  },
+  {
+   "seconds": 1.5417,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.2333
+  },
+  {
+   "seconds": 1.55,
+   "phi_deg": 360.0,
+   "hand_turn_deg": 0.0,
+   "supinate": 0.0,
+   "grip": 1.0,
+   "recover": 1.0,
+   "idle_hold": true,
+   "motion_s": 1.24
+  }
+ ]
+}

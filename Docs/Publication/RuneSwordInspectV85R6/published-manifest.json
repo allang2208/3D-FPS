@@ -1,0 +1,34 @@
+{
+ "files": [
+  {
+   "path": "SourceAssets/RuneSword20260913/InspectReverseV85/keys_v85.json",
+   "bytes": 4372,
+   "sha256": "14148a0bed899bcc0871d9c33fb7450d9ef66084489a20601f2b532a2f0cfd0a"
+  },
+  {
+   "path": "SourceAssets/RuneSword20260913/InspectReverseV85/author_inspect_r6.py",
+   "bytes": 16821,
+   "sha256": "b72303f4a6b66a1048b7d5e3e6fc124ceac1887343e9ce68aa4c1347aee40788"
+  },
+  {
+   "path": "SourceAssets/RuneSword20260913/InspectReverseV85/import_receipt_v85.json",
+   "bytes": 2316,
+   "sha256": "bd8bbd0f0573936c7617c75fc0544421502c312469b7c8156aab2a5f7e60e9d3"
+  },
+  {
+   "path": "Source/FPSGAME/Weapons/RuneSwordInspectFeel.h",
+   "bytes": 3157,
+   "sha256": "db9a6ae3491bf706ceb715d0ba4852261259428f8df03df9ff6255d624f341e5"
+  },
+  {
+   "path": "Docs/Weapons/runesword-inspect-v85-20261031.md",
+   "bytes": 25395,
+   "sha256": "cbae3d25df8e8574df5d4f32d5335ed945cacf01bcab2cf121f567d5852025be"
+  },
+  {
+   "path": "Docs/Publication/RuneSwordInspectV85R6/Integration/Source__FPSGAME__Weapons__RuneSwordComponent.cpp.patch",
+   "bytes": 3556,
+   "sha256": "6bd32642ab846e9b36dedd47a7d93b834a2a2160b3c71456c1715635ad7c08a2"
+  }
+ ]
+}

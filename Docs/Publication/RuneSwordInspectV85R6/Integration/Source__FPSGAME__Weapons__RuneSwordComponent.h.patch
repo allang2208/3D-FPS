@@ -1,0 +1,14 @@
+diff --git a/Source/FPSGAME/Weapons/RuneSwordComponent.h b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -139,6 +139,10 @@
+     UPROPERTY(Transient) TObjectPtr<USoundBase> BlockSound;
+     UPROPERTY(Transient) TObjectPtr<USoundBase> BlockSoundAlternate;
+     UPROPERTY(Transient) TObjectPtr<USoundBase> ParrySound;
++    UPROPERTY(Transient) TObjectPtr<USoundBase> InspectWhipSound;   // inspect: the hilt leaves the fist
++    UPROPERTY(Transient) TObjectPtr<USoundBase> InspectSnapSound;   // inspect: last half turn
++    UPROPERTY(Transient) TObjectPtr<USoundBase> InspectGripSound;   // inspect: gauntlet on the hilt
++    bool bInspectWhipCue=false, bInspectLandCue=false, bInspectSnapCue=false, bInspectCatchCue=false;
+     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> RiftVisual;
+     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> RiftMaterial;
+     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMesh>> RiftMeshes;

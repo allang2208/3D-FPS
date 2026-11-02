@@ -8,6 +8,7 @@
 #include "RuneSwordWhirlwindFeel.h"
 #include "RuneSwordOverheadFeel.h"
 #include "RuneSwordUppercutMotion.h"
+#include "RuneSwordInspectFeel.h"
 #include "RuneSwordRisingDragon.h"
 #include "MeleeRuneVisual.h"
 #include "MeleeGuardAssets.h"
@@ -210,6 +211,9 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     BlockSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_01.S_MeleeBlock_01"));
     BlockSoundAlternate=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02.S_MeleeBlock_02"));
     ParrySound=LoadObject<USoundBase>(nullptr,*(SoundFolder+TEXT("/S_RuneSword_Parry")));
+    InspectWhipSound=LoadObject<USoundBase>(nullptr,RuneSwordInspectFeel::WhipSoundPath);
+    InspectSnapSound=LoadObject<USoundBase>(nullptr,RuneSwordInspectFeel::SnapSoundPath);
+    InspectGripSound=LoadObject<USoundBase>(nullptr,RuneSwordInspectFeel::GripSoundPath);
     if(!RiftMaterial)
     {
         const FString FXFolder=TEXT("/Game/Weapons/AzureRunesword20260913/WristRiftV3/");
@@ -331,6 +335,7 @@ void URuneSwordComponent::BeginInspect()
     // Cosmetic action: its own real-time clock, no attack rate, stamina or hit window.
     // Inspect is interruptible and does not occupy combat IsBusy.
     bInspecting=true;bQueuedAttack=false;StopRift();
+    bInspectWhipCue=bInspectLandCue=bInspectSnapCue=bInspectCatchCue=false;
     ScheduleWalkInspect(true);
     SetClip(TEXT("Inspect"),false);
 }
@@ -856,6 +861,10 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
         const float Gather=FMath::SmoothStep(0.f,RuneSwordHeavyRhythm::ChargeSeconds,Elapsed);
         Location=FVector(-13.f,7.8f,3.12f)*Gather;
         Rotation=FRotator(7.8f,9.1f,6.5f)*Gather;
+    }
+    else if(bInspecting)
+    {
+        RuneSwordInspectFeel::Camera(Elapsed,Location,Rotation);
     }
     else if(bAttacking && bOverheadAttack)
     {
@@ -1536,6 +1545,29 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     else if(bInspecting)
     {
         Elapsed=FMath::Min(End,Elapsed+Delta);SamplePose(Elapsed);
+        // Inspect V85 cues.
+        if(!bInspectWhipCue&&Elapsed>=RuneSwordInspectFeel::WhipCue)
+        {
+            bInspectWhipCue=true;
+            if(InspectWhipSound)UGameplayStatics::PlaySound2D(this,InspectWhipSound,RuneSwordInspectFeel::WhipVolume,RuneSwordInspectFeel::WhipPitch);
+        }
+        if(!bInspectLandCue&&Elapsed>=RuneSwordInspectFeel::LandCue)
+        {
+            bInspectLandCue=true;
+            if(InspectGripSound)UGameplayStatics::PlaySound2D(this,InspectGripSound,RuneSwordInspectFeel::LandVolume,RuneSwordInspectFeel::LandPitch);
+        }
+        if(!bInspectSnapCue&&Elapsed>=RuneSwordInspectFeel::SnapCue)
+        {
+            bInspectSnapCue=true;
+            if(USoundBase* Snap=InspectSnapSound?InspectSnapSound.Get():SwingSound.Get())
+                UGameplayStatics::PlaySound2D(this,Snap,RuneSwordInspectFeel::SnapVolume,RuneSwordInspectFeel::SnapPitch);
+        }
+        if(!bInspectCatchCue&&Elapsed>=RuneSwordInspectFeel::CatchAt)
+        {
+            bInspectCatchCue=true;
+            if(PommelHitSound)UGameplayStatics::PlaySound2D(this,PommelHitSound,RuneSwordInspectFeel::CatchVolume,RuneSwordInspectFeel::CatchPitch);
+            if(InspectGripSound)UGameplayStatics::PlaySound2D(this,InspectGripSound,RuneSwordInspectFeel::CatchRattleVolume,RuneSwordInspectFeel::CatchRattlePitch);
+        }
         if(Elapsed>=End)
         {
             bInspecting=false;

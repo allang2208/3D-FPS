@@ -840,6 +840,20 @@ __pycache__/
 !/SourceAssets/RuneSword20260913/InspectFollowThroughV82/**/*.md
 /SourceAssets/RuneSword20260913/InspectFollowThroughV82/**/__pycache__/
 
+# Rune sword inspect V85/R6 (2026-11-02): authoring scripts, keys, receipts and prose only. Blend sources, FBX,
+# preview renders, reference crops, trace images and the V82 rollback packages stay on the workstation.
+/SourceAssets/RuneSword20260913/InspectReverseV85/**
+!/SourceAssets/RuneSword20260913/InspectReverseV85/*.py
+!/SourceAssets/RuneSword20260913/InspectReverseV85/*.sh
+!/SourceAssets/RuneSword20260913/InspectReverseV85/*.ps1
+!/SourceAssets/RuneSword20260913/InspectReverseV85/*.md
+!/SourceAssets/RuneSword20260913/InspectReverseV85/*.json
+/SourceAssets/RuneSword20260913/InspectReverseV85/**/__pycache__/
+/SourceAssets/RuneSword20260913/InspectReverseV85/BeforeV85/
+/SourceAssets/RuneSword20260913/InspectReverseV85/ExportV85/
+/SourceAssets/RuneSword20260913/InspectReverseV85/Final/
+/SourceAssets/RuneSword20260913/InspectReverseV85/Work/
+
 # Monster hands publication: recipes only; generated assets and receipts stay local.
 /SourceAssets/FleshHand20260926/**
 !/SourceAssets/FleshHand20260926/**/

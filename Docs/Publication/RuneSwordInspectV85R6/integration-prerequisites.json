@@ -1,0 +1,16 @@
+{
+  "Source/FPSGAME/Weapons/RuneSwordComponent.cpp": {
+    "preimage_sha256_lf_utf8": "507f78e6f990cff19338cdd5bcecc8d1687b8fe1aa6c4d9c731e8a7893f26b67",
+    "result_sha256_lf_utf8": "d4fc6c00709e6eb44b849d78626976bf487fc59da7a74a61394f092ec44ec5b6",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordComponent.cpp.patch",
+    "runtime_tree_applied": false,
+    "requires": "RuneSwordInspectFeel.h (new file, same commit). The patch adds only the inspect cues and the inspect camera branch to the HEAD file; it does not carry other sessions' pending changes in the same host (LightningHaste include/ActionSpeed, StarMarrow/Beiwei includes, charge refactor, guard copy-on-write). Apply on a HEAD-matching file; if the preimage hash differs, merge the semantics instead of overwriting."
+  },
+  "Source/FPSGAME/Weapons/RuneSwordComponent.h": {
+    "preimage_sha256_lf_utf8": "04b5889145377f422cbbc8f4f2c45193cdd84f9684e98a0d15da04b4eb511349",
+    "result_sha256_lf_utf8": "cb92301cf6b4ae4916adc6f442cf4c9401b60b251bb949007d3bc25a71681c82",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordComponent.h.patch",
+    "runtime_tree_applied": false,
+    "requires": "Pairs with the .cpp patch; declares the three inspect sounds and four cue flags used there."
+  }
+}

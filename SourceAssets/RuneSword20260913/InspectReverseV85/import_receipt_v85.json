@@ -1,0 +1,46 @@
+{
+  "revision": "InspectReverseV85",
+  "spin_window_seconds": [
+    0.4,
+    0.7
+  ],
+  "assets": [
+    {
+      "variant": "Standard",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect",
+      "author_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\ExportV85\\A_RuneSword_Inspect.fbx",
+      "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\BeforeV85\\Standard\\A_RuneSword_Inspect.uasset",
+      "saved": true,
+      "before_sha256": "4c7228e5108203821bf686f874e473a10cbeb5c77a5bf7f919355c57ab87e270",
+      "after_sha256": "34dede2d328148fd622d2b57928248a9ac9716b53b58ee3472e908f46a63530e",
+      "frames": 139,
+      "seconds": 1.1583333015441895,
+      "idle_offset_cm": [
+        -1.1231849576631703e-05,
+        5.999995410196334,
+        -1.2000079559447556
+      ],
+      "full_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\Final\\Standard\\A_RuneSword_Inspect.fbx",
+      "handoff_keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\Final\\Standard\\Inspect_idle_handoff_keys.json"
+    },
+    {
+      "variant": "LongGrip",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect",
+      "author_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\ExportV85\\LongGrip\\A_RuneSword_Inspect.fbx",
+      "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\BeforeV85\\LongGrip\\A_RuneSword_Inspect.uasset",
+      "saved": true,
+      "before_sha256": "3d045200641ff258ced5a2b82fcbbd6d9127123c7cdb8ea50fbf6e03d8369b4f",
+      "after_sha256": "cb9f8932f47af30ab2965132d04951dd859e2c72742a5c7a583d06ec4b48bf35",
+      "frames": 139,
+      "seconds": 1.1583333015441895,
+      "idle_offset_cm": [
+        -1.1231849576631703e-05,
+        5.999995410196334,
+        -1.2000079559447556
+      ],
+      "full_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\Final\\LongGrip\\A_RuneSword_Inspect.fbx",
+      "handoff_keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\Final\\LongGrip\\Inspect_idle_handoff_keys.json"
+    }
+  ],
+  "runtime_tested": false
+}
