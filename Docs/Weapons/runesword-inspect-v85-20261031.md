@@ -9,7 +9,7 @@
 - 剑在画面上：甩出峰值约 2155°/s（V82 约 2000°/s），掌心段到手背段最低约 520°/s，推剑约 1080°/s。逐帧无跳变；右手转速最快约 2930°/s（翻到手背那一下），转刀中右手速度不超过 1.3 m/s。穿插位置与 R6 相同，因为更快，停留的帧数更少。
 - 声音与镜头：`Tempo = 1`，`Motion` 直接写片段时间：松拳 0.414 s，剑柄落在掌心 0.528 s，推剑 0.701 s，握死 0.822 s。
 - **接入**：普通柄 `4c7228e5…`→`34dede2d…`，长柄 `3d045200…`→`cb9f8932…`；长柄档案 Inspect 条目已重烘（1.158 s），`DA_Sword_LongGrip` → `ac702f2c…`。R6 回执另存为 `import_receipt_v85_r6.json`。对比图 `rhythm_v82_r6_r6b.png`。
-- **编译**：另一会话 17:3x 的构建因其 `RiftPiercerProjectile.cpp` 报错失败；18:03 本会话 FPSGAMEEditor 构建成功（`Saved/BuildEditor/build-20261102-175527.log`），已重新编译 `RuneSwordComponent.cpp`。M 键仍是原始 V82。没有运行游戏测试。
+- **编译**：另一会话 17:3x 的构建因其 `RiftPiercerProjectile.cpp` 报错失败；18:03 本会话 FPSGAMEEditor 构建成功（`Saved/BuildEditor/build-20261102-175527.log`），已重新编译 `RuneSwordComponent.cpp`。M 键当时仍是原始 V82（已在正式落盘时移除）。没有运行游戏测试。
 
 ## R6（2026-11-02）：V85 起手与收尾 + V82 掌心托剑（L 键）
 
@@ -33,9 +33,18 @@
 - 穿插（120 Hz）：松拳 0.55–0.575 s 柄尾嵌入前臂 17–38 mm，与 R5 相同；推剑 1.017–1.033 s 护手嵌入前臂 8–11 mm；V82 掌心段及两次交接中，护手离掌心或手指 22–27 mm（待机基准约 19 mm，V82 原动画同样如此），交接段没有剑与前臂穿插。
 - 声音与镜头（`RuneSwordInspectFeel.h`，改为 `Motion` 时钟乘 `Tempo`）：松拳风声 0.51 s，剑柄落在掌心的轻响 0.68 s，推剑大挥 0.95 s，握死 1.13 s。
 - **接入**：2026-11-02 两套 Inspect 已用 commandlet 导入保存：普通柄 `cdf8108b…`→`4c7228e5…`，长柄 `1b85b848…`→`3d045200…`，190 个 120 Hz 帧间隔。长柄档案的 Inspect 条目已按新的两套资产重烘（1.583 s，左臂 5 根骨骼），`DA_Sword_LongGrip` `471d3ffb…`→`c5c0815e…`。R5 的导出 FBX 与作者记录保存在 `Work/ExportR5/`、`Work/authoring_r5_*.json`，R5 回执为 `import_receipt_v85_r5.json`；R6 作者源为 `AzureRunesword_InspectHybridR6[_LongGrip].blend`。
-- **编译**：2026-11-02 13:31 FPSGAMEEditor 构建成功（`Saved/BuildEditor/build-20261102-132404.log`）。M 键对比钩子保留：M 仍是原始 V82，L 是 R6。没有运行游戏测试。
+- **编译**：2026-11-02 13:31 FPSGAMEEditor 构建成功（`Saved/BuildEditor/build-20261102-132404.log`）。M 键对比钩子当时保留：M 是原始 V82，L 是 R6（已在正式落盘时移除）。没有运行游戏测试。
 
-## 对比接入（2026-11-02）：M 键播放原始 V82
+## 正式落盘（2026-11-02）：M 键对比钩子已移除
+
+用户结论「基本达标」，要求作为正式版落盘。处理：
+
+- **移除对比钩子**：`AFPSGAMECharacter::InspectOriginalPressed`、`BindKey(EKeys::M)`、`URuneSwordComponent::BeginInspectOriginal()` 与镜头里的片段判断已全部删除，C++ 只剩正式的检视音效与镜头。15:5x 起 `RuneSwordComponent.cpp` 的 `RuneSwordInspectFeel` 挂接只依赖 `GET` 代码，无 Playback。20:20 的 FPSGAMEEditor 构建成功（`Saved/BuildEditor/build-20261102-201303.log`，`FPSGAMECharacter.cpp` 与 `RuneSwordComponent.cpp` 均已重编）。
+- **V82 对比资产**：`A_RuneSword_InspectV82`（普通柄、长柄）保留在本机 Content 中，不再被代码引用；不必删除。对比脚本目录 `CompareV82/` 已归档到 `trash/runesword-inspect-v85-20261102/`。
+- **归档**：V84 作者目录（已撤回）、V85 的 R2–R6 迭代预览、7 份旧导入日志共 1682 个文件、1.35 GB 移入 `trash/runesword-inspect-v85-20261102/`，逐文件清单 `archive-manifest.json`。`v85_keys.py` 不再依赖 `InspectWrapV84`（`Hermite` 已内置），V85 作者源可独立运行。
+- **Git**：提交 `abe1a823` 已推送 `origin/main`（`https://github.com/allang2208/3D-FPS.git`），42 个文件：作者源、`RuneSwordInspectFeel.h`、文档、技能沉淀、`.gitignore` 白名单，以及 `RuneSwordComponent.cpp/.h` 的 `Integration/` 补丁（本机工作区还混有其他会话未发布的改动，整文件不提交）。发布说明 `Docs/Publication/RuneSwordInspectV85R6/README.md`，前置/结果散列见同目录 `integration-prerequisites.json`；两份补丁在 HEAD 文件上应用后的散列已核对一致。
+
+## 对比接入（2026-11-02）：M 键播放原始 V82（已随正式落盘移除）
 
 用户要求「接入一开始没有修改过的原始版，快捷键为 M，检查对比」。这是临时审阅钩子，L 仍是 V85（R5）。
 
