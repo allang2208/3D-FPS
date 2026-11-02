@@ -42,7 +42,7 @@
 - **移除对比钩子**：`AFPSGAMECharacter::InspectOriginalPressed`、`BindKey(EKeys::M)`、`URuneSwordComponent::BeginInspectOriginal()` 与镜头里的片段判断已全部删除，C++ 只剩正式的检视音效与镜头。15:5x 起 `RuneSwordComponent.cpp` 的 `RuneSwordInspectFeel` 挂接只依赖 `GET` 代码，无 Playback。20:20 的 FPSGAMEEditor 构建成功（`Saved/BuildEditor/build-20261102-201303.log`，`FPSGAMECharacter.cpp` 与 `RuneSwordComponent.cpp` 均已重编）。
 - **V82 对比资产**：`A_RuneSword_InspectV82`（普通柄、长柄）保留在本机 Content 中，不再被代码引用；不必删除。对比脚本目录 `CompareV82/` 已归档到 `trash/runesword-inspect-v85-20261102/`。
 - **归档**：V84 作者目录（已撤回）、V85 的 R2–R6 迭代预览、7 份旧导入日志共 1682 个文件、1.35 GB 移入 `trash/runesword-inspect-v85-20261102/`，逐文件清单 `archive-manifest.json`。`v85_keys.py` 不再依赖 `InspectWrapV84`（`Hermite` 已内置），V85 作者源可独立运行。
-- **Git**：提交 `abe1a823` 已推送 `origin/main`（`https://github.com/allang2208/3D-FPS.git`），42 个文件：作者源、`RuneSwordInspectFeel.h`、文档、技能沉淀、`.gitignore` 白名单，以及 `RuneSwordComponent.cpp/.h` 的 `Integration/` 补丁（本机工作区还混有其他会话未发布的改动，整文件不提交）。发布说明 `Docs/Publication/RuneSwordInspectV85R6/README.md`，前置/结果散列见同目录 `integration-prerequisites.json`；两份补丁在 HEAD 文件上应用后的散列已核对一致。
+- **Git**：提交 `abe1a823`（正文）、`cbfd1f1e`（本段记录）、`801bdf2e`（技能索引入口）已推送 `origin/main`（`https://github.com/allang2208/3D-FPS.git`），42 个文件：作者源、`RuneSwordInspectFeel.h`、文档、技能沉淀、`.gitignore` 白名单，以及 `RuneSwordComponent.cpp/.h` 的 `Integration/` 补丁（本机工作区还混有其他会话未发布的改动，整文件不提交）。发布说明 `Docs/Publication/RuneSwordInspectV85R6/README.md`，前置/结果散列见同目录 `integration-prerequisites.json`；两份补丁在 HEAD 文件上应用后的散列已核对一致。
 
 ## 对比接入（2026-11-02）：M 键播放原始 V82（已随正式落盘移除）
 
