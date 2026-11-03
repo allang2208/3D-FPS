@@ -23,6 +23,8 @@ public:
     UFUNCTION(Client,Reliable) void ClientCase(int32 Phase,AActor* Target);
     UFUNCTION(Server,Reliable) void ServerResult(int32 Phase,bool OK,const FString& Detail);
     UFUNCTION(Client,Reliable) void ClientFinish();
+    UFUNCTION(Client,Reliable) void ClientObserverReport();
+    UFUNCTION(Server,Reliable) void ServerObserverReport(bool SawCharge,bool SawStop,bool SawEmbeddedHammer,bool SawMeshySeat);
     UFUNCTION() void HammerDestroyed(AActor* Actor);
     static void Prepare(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Model,int32 Phase);
     int32 Finished=0;
@@ -35,7 +37,12 @@ private:
     TSet<TWeakObjectPtr<AActor>> Hammers;
     TSet<TWeakObjectPtr<AActor>> Arcs;
     int32 Current=INDEX_NONE,Catches=0,AudioCatches=0;
-    bool Released=false,Sent=false,SawReturn=false,ChargeSent=false;
+    bool Released=false,Sent=false,SawReturn=false,ChargeSent=false,HoldSent=false;
+    bool UnexpectedCharge=false,SawConfirmedCharge=false;
+    bool SawChargeResourceDebit=false;
+    int64 InitialResourceRevision=0;
+    bool ObserverCharge=false,ObserverStop=false,ObserverEmbedded=false,ObserverMeshy=false,ObserverReported=false;
+    TWeakObjectPtr<AActor> ObserverChargePawn;
     double Started=0.,ExitAt=-1.,DiagnosticAt=-1.;
 };
 UCLASS()
@@ -49,6 +56,7 @@ public:
     virtual void Logout(AController* Exiting) override;
 private:
     UPROPERTY() TObjectPtr<AThunderHammerWireController> Guest;
+    UPROPERTY() TObjectPtr<AThunderHammerWireController> Observer;
     UPROPERTY() TObjectPtr<UColdSteelStatusModel> GuestModel;
     UPROPERTY() TObjectPtr<AActor> Subject;
     int32 Prepared=INDEX_NONE;

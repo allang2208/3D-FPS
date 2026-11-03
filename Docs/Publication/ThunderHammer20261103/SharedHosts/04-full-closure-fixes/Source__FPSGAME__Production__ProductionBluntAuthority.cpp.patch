@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+@@ -24,6 +24,9 @@
+ #include "GameFramework/PlayerController.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "Engine/World.h"
++#include "TimerManager.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
+ 
+ namespace
+ {
+@@ -283,9 +286,22 @@
+     Character=Pawn;ApplyToolStats(Item,Profile);
+     const float Held=float(GetWorld()->GetTimeSeconds()-(Local?BluntChargeStartedAt:BluntServerChargeStartedAt));
+     FVector GroundPoint=Point,GroundNormal=FVector::UpVector;FString GroundFailure;
++    if(FParse::Param(FCommandLine::Get(),TEXT("ThunderHammerClosureAudit")))
++        UE_LOG(LogTemp,Display,TEXT("THUNDER_CLOSURE_RELEASE id=%u held=%.6f full=%.6f stamina=%.2f mana=%.2f point=%s"),AttackId,Held,BluntChargeSeconds,Profile->Stamina(),Profile->Mana(),*GroundPoint.ToString());
++    const float Remaining=BluntChargeSeconds-Held;
++    if(!Local&&Remaining>0.f&&Remaining<=.25f)
++    {
++        // Press and release packets can have different transit times. A full
++        // local release may therefore arrive just before the server deadline.
++        // Wait for that deadline, retaining resource charging and all identity,
++        // death, cancellation and ground checks; never grant an early strike.
++        GetWorld()->GetTimerManager().SetTimer(BluntContactTimer,FTimerDelegate::CreateWeakLambda(this,[this,AttackId,Point]()
++        {ServerReleaseThunderCall_Implementation(AttackId,Point);}),Remaining+.005f,false);
++        return;
++    }
+     if(Held<BluntChargeSeconds||Profile->Stamina()<=0.f||(!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f)||
+         !MeteorGround::Validate(Pawn,ThunderHammerCall::RangeCM,GroundPoint,GroundNormal,true,GroundFailure))
+-    {Reject();return;}
++    {if(FParse::Param(FCommandLine::Get(),TEXT("ThunderHammerClosureAudit")))UE_LOG(LogTemp,Display,TEXT("THUNDER_CLOSURE_RELEASE_REJECT ground=%s"),*GroundFailure);Reject();return;}
+     BluntLastServerRequestId=BluntServerAttackId=AttackId;
+     bBluntServerCharging=bThunderCallCharging=false;
+     BluntServerReadyAt=GetWorld()->GetTimeSeconds()+ThunderHammerCall::ReleaseSeconds/HasteActionRate;

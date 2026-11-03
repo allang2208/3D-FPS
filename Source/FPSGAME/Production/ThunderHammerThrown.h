@@ -48,6 +48,7 @@ private:
     UPROPERTY(Replicated) FVector RecallAxis=FVector::RightVector;
     UPROPERTY(Replicated) FQuat InitialRotation=FQuat::Identity;
     UPROPERTY(Replicated) float FlightYaw=0.f;
+    UPROPERTY(Replicated) FQuat GroundRotation=FQuat::Identity;
     FColdSteelSkillShot DamageShot;
     FColdSteelSkillShot RecallShot;
     TSet<TWeakObjectPtr<AActor>> RecallHits;

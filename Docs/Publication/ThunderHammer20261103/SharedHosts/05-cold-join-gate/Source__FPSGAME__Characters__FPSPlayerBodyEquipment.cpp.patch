@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -845,7 +845,7 @@
+ 
+ void UFPSPlayerBodyComponent::UpdateWorldWeaponPresentation()
+ {
+-    const bool BodyVisible=!FPSPlayerBodyWorldBodyHidden();
++    const bool BodyVisible=!IsWorldBodyPresentationHidden();
+     const bool BodyShadow=ShouldWorldBodyCastShadow();
+     const auto Apply=[&](UPrimitiveComponent* Mesh)
+     {

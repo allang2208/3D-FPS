@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -189,12 +189,13 @@
+     TArray<uint8> MirrorBlob;
+     UFUNCTION() void OnRep_MirrorBlob();
+     UFUNCTION(Client, Reliable)
+-    void ClientReceiveProfileChunk(uint32 TransferId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt);
++    void ClientReceiveProfileChunk(uint32 TransferId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt,uint32 GunsmithSequence);
+ 
+     /** 档案快照分块上行（客户端→服务端）。TMap 不能直接 RPC，序列化成字节流按 1KB 分片。 */
+     UFUNCTION(Server, Reliable)
+-    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn,uint32 UploadPistolRevision,uint32 PistolIntentSequence);
++    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn,uint32 UploadPistolRevision,uint32 PistolIntentSequence,uint32 GunsmithSequence);
+     UFUNCTION(Client,Reliable) void ClientRetryProfileUpload(int32 UploadId);
++    void NotifyGunsmithApplied(const FString& InstanceId);
+     void NotifyMagicCrystalMana(AFPSGAMECharacter* Character,double Total);
+     UFUNCTION(Client,Reliable) void ClientMagicCrystalMana(AFPSGAMECharacter* Character,double Total);
+ 
+@@ -652,6 +653,13 @@
+     // from the last complete upload separate from the rebased inventory blobs.
+     FName UploadedHeadId,UploadedHairId,PendingUploadHeadId,PendingUploadHairId;
+     bool bHasUploadedAppearance=false;
++    // Freeze the customization identity with each upload and mirror. Sending
++    // the last chunk is not acknowledgement that a paced mirror contains it.
++    uint32 LocalGunsmithSequence=0,ProcessedGunsmithSequence=0,UploadedGunsmithSequence=0;
++    uint32 PendingUploadGunsmithSequence=0,IncomingGunsmithSequence=0;
++    uint32 PendingMirrorGunsmithSequence=0,ReceivingMirrorGunsmithSequence=0;
++    bool bGunsmithReplyPending=false;
++    TSet<FString> PendingGunsmithInstances;
+     bool bHasLastSent = false;
+     /** 最近分片发送的真实时间；整块完成后也作为 30s 生命体征补传的基准。 */
+     double LastUploadAt = 0.0;

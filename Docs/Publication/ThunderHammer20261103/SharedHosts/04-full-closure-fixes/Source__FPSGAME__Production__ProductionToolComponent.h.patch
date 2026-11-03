@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -50,6 +50,8 @@
+     friend class ARuneboundReviewGameMode;
+     friend class AThunderHammerWireController;
+     friend class AThunderHammerWireGameMode;
++    friend class AThunderHammerClosureController;
++    friend class AThunderHammerClosureGameMode;
+ public:
+     UProductionToolComponent();
+     virtual void BeginPlay() override;

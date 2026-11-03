@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Production/ProductionToolMotion.cpp
++++ b/Source/FPSGAME/Production/ProductionToolMotion.cpp
+@@ -218,7 +218,7 @@
+     }
+     if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))
+         Arms->SetFloorContact(BluntFloorPoint,bBluntHeavy&&!UsesFinalTollHeavy()&&!UsesThunderThrowHeavy()&&bBluntFloorTarget?WarhammerHeavy::FloorWeight(AuthoredElapsed()):0.f);
+-    if(bBluntCharging||bBluntReturningCharge)
++    if(bBluntReturningCharge||(bBluntCharging&&(!bThunderCallSeat||IsThunderCalling())))
+     {
+         if(bThunderCallSeat)SampleMotion(TEXT("ThunderCallCharge"),BluntChargePoseSeconds());
+         else if(bThunderThrowSeat)SampleMotion(TEXT("ThunderCharge"),BluntChargePoseSeconds());

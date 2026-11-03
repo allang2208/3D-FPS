@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.cpp
++++ b/Source/FPSGAME/Production/ProductionToolComponent.cpp
+@@ -524,7 +524,7 @@
+ 
+ void UProductionToolComponent::CancelUse()
+ {
+-    ThunderCallReleaseAge=-1.f;bThunderCallCharging=false;ClearThunderCallVisual();FinishThunderCallResources();
++    ThunderCallReleaseAge=-1.f;bThunderCallCharging=false;bThunderCallHoldConfirmed=false;ClearThunderCallVisual();FinishThunderCallResources();
+     FPSMagicPreview::Clear(ThunderPreview);ThunderCatchAge=-1.f;
+     bThunderRecallPending=false;ThunderReachAge=-1.f;
+     if(Character.IsValid())

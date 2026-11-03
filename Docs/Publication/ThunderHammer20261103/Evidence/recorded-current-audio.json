@@ -1,0 +1,78 @@
+{
+  "revision": "JiLeiRecordedCurrentV2",
+  "source": "D:\\FPS3D\\资产\\音效\\疾雷重击蓄力.mp3",
+  "original_copy": "Original/JiLei_Charge_User.mp3",
+  "source_sha256": "ad44e7ccd3617d9dee7d09b609ad214f7dcc1c142f067e63328f4ddd863a53b7",
+  "decoded_seconds": 10.104,
+  "sample_rate": 48000,
+  "channels": 2,
+  "encoding": "PCM_16",
+  "gain_db": 10.862333696812962,
+  "edge_fade_ms": 2,
+  "provenance": "User-provided recording; not claimed as original synthesis or public-domain material",
+  "selection": "Six uneven contiguous source cuts; runtime random choice avoids previous two segments",
+  "playback": "MetaSound Wave Player, On Nearly Finished through delayed trigger variable; native pitch",
+  "gameplay_tested": false,
+  "clips": [
+    {
+      "file": "Waves/S_JiLei_Current_01.wav",
+      "name": "S_JiLei_Current_01",
+      "start_sample": 1920,
+      "end_sample": 69890,
+      "start_seconds": 0.04,
+      "end_seconds": 1.4560416666666667,
+      "seconds": 1.4160416666666666,
+      "sha256": "5880eb5404df3850e03963e8949708e52c71f891af250e441065a3b8882ef6f2"
+    },
+    {
+      "file": "Waves/S_JiLei_Current_02.wav",
+      "name": "S_JiLei_Current_02",
+      "start_sample": 69890,
+      "end_sample": 160649,
+      "start_seconds": 1.4560416666666667,
+      "end_seconds": 3.3468541666666667,
+      "seconds": 1.8908125,
+      "sha256": "646dcb37bd6a512f103bb0dc54f380d9cb38dd3ada62b2a3ddca334a558137ae"
+    },
+    {
+      "file": "Waves/S_JiLei_Current_03.wav",
+      "name": "S_JiLei_Current_03",
+      "start_sample": 160649,
+      "end_sample": 249904,
+      "start_seconds": 3.3468541666666667,
+      "end_seconds": 5.206333333333333,
+      "seconds": 1.8594791666666666,
+      "sha256": "993d207ca58951827b9797b720a56e5d125ad0c08686e44b1b83d2e125b172a4"
+    },
+    {
+      "file": "Waves/S_JiLei_Current_04.wav",
+      "name": "S_JiLei_Current_04",
+      "start_sample": 249904,
+      "end_sample": 331888,
+      "start_seconds": 5.206333333333333,
+      "end_seconds": 6.914333333333333,
+      "seconds": 1.708,
+      "sha256": "ca4fffa030e74d51017572a3eace9bf08d99a0634780648d9ec41dea89de415a"
+    },
+    {
+      "file": "Waves/S_JiLei_Current_05.wav",
+      "name": "S_JiLei_Current_05",
+      "start_sample": 331888,
+      "end_sample": 400088,
+      "start_seconds": 6.914333333333333,
+      "end_seconds": 8.335166666666666,
+      "seconds": 1.4208333333333334,
+      "sha256": "e6afd75b84c583c4e33dc281ed9a47f45edc837a6dfa0a95d7fa2ffc59d23b30"
+    },
+    {
+      "file": "Waves/S_JiLei_Current_06.wav",
+      "name": "S_JiLei_Current_06",
+      "start_sample": 400088,
+      "end_sample": 483360,
+      "start_seconds": 8.335166666666666,
+      "end_seconds": 10.07,
+      "seconds": 1.7348333333333332,
+      "sha256": "f8be7c70dbc2f560841d7219b9d7f11f97159af38b84eb38a80c0dd4ed0ca0ee"
+    }
+  ]
+}

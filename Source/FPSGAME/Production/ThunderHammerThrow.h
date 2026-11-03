@@ -12,7 +12,9 @@ namespace ThunderHammerThrow
     inline constexpr float Release=.24f,Duration=.86f,RecallReadySeconds=.32f,CatchSeconds=.60f,CatchAttachSeconds=.10f;
     inline constexpr float RecallSpeed=2300.f,RecallHitRadius=34.f;
     inline constexpr float Speed=1700.f,Gravity=1400.f,Step=1.f/60.f,Radius=14.f;
-    inline constexpr float CenterZ=70.f,GroundLift=36.f;
+    inline constexpr float CenterZ=70.f;
+    // GroundPitch also defines the authored contact anchors in GroundContacts.
+    inline constexpr float GroundPitch=135.f,GroundEmbedCM=4.f;
     inline constexpr const TCHAR* Charge=TEXT("/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_ThrowCharge.A_ThunderHammer_ThrowCharge");
     inline constexpr const TCHAR* Throw=TEXT("/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_ThrowRelease.A_ThunderHammer_ThrowRelease");
     inline constexpr const TCHAR* RecallReady=TEXT("/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_RecallReady_V2.A_ThunderHammer_RecallReady_V2");

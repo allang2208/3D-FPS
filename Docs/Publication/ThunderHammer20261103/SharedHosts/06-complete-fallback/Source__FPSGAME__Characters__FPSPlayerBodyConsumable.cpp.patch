@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
+@@ -102,6 +102,7 @@
+ }
+ void UFPSPlayerBodyComponent::OnBodyPoseFinalized()
+ {
++    UpdateAppearanceFallbackPose();
+     UpdateSwordGripMount();
+     UpdateKukriPresentation();
+     UpdateObserverKukriRifts();

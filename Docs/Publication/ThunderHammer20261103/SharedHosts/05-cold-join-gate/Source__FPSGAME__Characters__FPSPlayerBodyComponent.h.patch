@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -97,6 +97,7 @@
+     UFUNCTION(BlueprintPure, Category="Player Body") FName GetBodyType() const;
+     bool CanUseBodyType(FName BodyId) const;
+     bool IsAppearanceLoading() const { return AppearanceLoad.IsValid(); }
++    bool IsWorldBodyPresentationHidden() const;
+     bool SampleFurnitureEye(FName Clip,float Seconds,FVector& Eye) const;
+ 
+ private:
+@@ -246,6 +247,10 @@
+     TSharedPtr<struct FStreamableHandle> AppearanceLoad;
+     FFPSBodyAppearance AppliedAppearance;
+     uint32 AppearanceRequest = 0;
++    // Local render readiness only; gameplay and network state keep advancing.
++    bool bInitialAppearancePending = false;
++    FDelegateHandle InitialHeadPoseHandle;
++    void FinishInitialAppearance();
+     UFUNCTION() void OnRep_Appearance();
+     FFPSBodyAppearance ResolveAppearance(FFPSBodyAppearance Appearance) const;
+     void RefreshAppearance(class UColdSteelStatusModel* Profile);

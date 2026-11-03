@@ -22,3 +22,12 @@
 工程源码为 `Source/FPSGAME/Production/ThunderHammer*`、`ProductionThunderThrow/Call`，目录为 `Content/ColdSteelData/thunder-god-hammer-{modules,gunsmith}.json`。源资产根 `SourceAssets/ThunderGodHammer20261028/`：贯雷 `GuanLeiClosedCrownV12/Integration20261101` 使用 `V12_UV2`，疾雷 `JiLeiInlaidLightningV14`。旧 `JiLeiSeatV1` 与 `RecallAudioV1` 仍含运行依赖，不能按版本号整目录清理。
 
 本次记录位于工程 `Docs/Publication/ThunderHammer20261101/`。历史 1071 项隔离检查与监听/专用服务器各 11 项本地 UDP 场景分开列示；无画面、静音运行不代表动作/音效认可，也未覆盖真正换图、重连或帧率表现。
+
+## 后续输入与恢复入口（2026-11-03）
+
+- 疾雷共享按键先进入待判定阶段，短按仍走普通连段，明确确认长按后才进入单手举锤蓄力。放下支撑手、蓄力特效与音频应由同一意图阶段驱动；取消/重按清理上一轮阶段，不靠单独延长左手动画掩盖冲突。入口为 `ThunderHammerCallIntent.h`。
+- 落地/吸附位置按当前装配锤头的真实支撑点及地面法线求解，保留设计要求的嵌入深度。不要用整个武器包围盒中心或固定高度代替接触面；更换锤头必须同步接触数据。当前贯雷采用约 4 cm 嵌入，这只是该设计参数。
+- 当前模型为 `GuanLeiClosedCrownV12/MeshyV13`、`JiLeiInlaidLightningV14/MeshyV15`；通用座为 `CommonSeatsStructuralV7_20261102`，轻型座由 `LightSeatWindowFixV8_20261102` 修正横杠。旧作者版本若仍为输入，不能因版本较小而退役。
+- 当前疾雷蓄力声为用户录音六片段 `JiLeiRecordedCurrentV2/MS_JiLei_CurrentRandom`；旧电磁声及未采用的合成试听已归档，不从历史批处理恢复。片段衔接见 [武器音频](weapon-audio.md)。
+
+当前接入索引为工程 `Docs/Weapons/thunder-hammer-current-20261102.md`，发布边界为 `Docs/Publication/ThunderHammer20261103/`。上文 11 月 1 日路径与检查数保留为历史，不代表后续版本的验收。

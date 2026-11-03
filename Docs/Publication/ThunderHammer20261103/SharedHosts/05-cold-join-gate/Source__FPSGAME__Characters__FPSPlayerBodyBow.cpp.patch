@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
+@@ -382,7 +382,7 @@
+         ||DisplayState.Action==EFPSBodyAction::DoorPush||DisplayState.Family!=TEXT("Bow")||BowItemInstance!=DisplayState.WeaponInstance;
+     for(auto Part:WorldBowParts)if(Part)
+     {
+-        const bool Hidden=Stowed||FPSPlayerBodyWorldBodyHidden();
++        const bool Hidden=Stowed||IsWorldBodyPresentationHidden();
+         if(Part->bHiddenInGame!=Hidden)Part->SetHiddenInGame(Hidden,true);
+         TArray<USceneComponent*> Children;Part->GetChildrenComponents(true,Children);
+         for(auto* Child:Children)if(auto* Primitive=Cast<UPrimitiveComponent>(Child))

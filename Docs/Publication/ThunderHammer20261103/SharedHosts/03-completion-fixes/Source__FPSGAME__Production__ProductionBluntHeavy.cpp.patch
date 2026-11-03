@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
+@@ -23,7 +23,7 @@
+     if(!Item)return;
+     ApplyToolStats(Item,Profile);
+     if(Profile->Stamina()<=0.f||(!bThunderCallSeat&&!Profile->CanSpendStamina(float(ToolStats.StaminaCost))))return;
+-    if(bThunderCallSeat&&!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f)return;
++    bThunderCallHoldConfirmed=false;
+     bBluntCharging=true;bBluntHeavy=bBluntSprintAttack=false;bQueuedBluntAttack=false;
+     BluntSprintSeconds=0.f;
+     BluntChargeStartedAt=GetWorld()->GetTimeSeconds();

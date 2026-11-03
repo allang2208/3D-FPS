@@ -1,0 +1,241 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -15,6 +15,7 @@
+ #include "ColdSteelNetSessionSubsystem.h"
+ #include "../Combat/ProgressiveInfectionComponent.h"
+ #include "ColdSteelProfileTransfer.h"
++#include "Serialization/JsonSerializer.h"
+ #include "ColdSteelProfileMerge.h"
+ #include "UppercutStaminaReceipt.h"
+ #include "../Building/WoodworkingQuality.h"
+@@ -666,7 +667,7 @@
+     Character->NetShadowProfile = ShadowModel;
+     // 影子档绑定服务端 pawn：TickRuntime（冷却/回复）据此承认该 pawn，
+     // ApplyToPawn 内部幂等（装备比对不重复换装）。
+-    if(ShadowModel->RuntimePawn()!=Character)
++    if(ShadowPawn.Get()!=Character||ShadowModel->RuntimePawn()!=Character)
+     {
+         ServerGunLedgers.Reset();RegisteredPistolShots.Reset();
+         StopPistolAuthority();
+@@ -712,13 +713,14 @@
+         const double FoodDay=Save->Profile.FoodClockDay;
+         Save->Profile.FoodClockDay=0.;
+         TArray<uint8> WithoutFoodTime;
+-        if(!SaveToBlob(Save,WithoutFoodTime)||WithoutFoodTime==LastMirrorWithoutFoodTime)return;
++        if(!SaveToBlob(Save,WithoutFoodTime)||(!bGunsmithReplyPending&&WithoutFoodTime==LastMirrorWithoutFoodTime))return;
+         Save->Profile.FoodClockDay=FoodDay;
+         TArray<uint8> Blob;
+-        if (!SaveToBlob(Save, Blob) || Blob == LastAppliedBlob || Blob == LastMirrorBlob) return;
++        if (!SaveToBlob(Save, Blob) || (!bGunsmithReplyPending&&(Blob == LastAppliedBlob || Blob == LastMirrorBlob))) return;
+         LastMirrorWithoutFoodTime=MoveTemp(WithoutFoodTime);
+         PendingMirrorBlob = MoveTemp(Blob);
+         PendingMirrorPawn=GetPawn();PendingMirrorCastSequence=ProcessedCastSequence;
++        PendingMirrorGunsmithSequence=ProcessedGunsmithSequence;bGunsmithReplyPending=false;
+         const auto* GS=GetWorld()->GetGameState();
+         PendingMirrorCapturedAt=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+         NextMirrorChunk = 0;
+@@ -738,7 +740,7 @@
+     const int32 Start = NextMirrorChunk * ProfileChunkSize;
+     TArray<uint8> Chunk;
+     Chunk.Append(PendingMirrorBlob.GetData() + Start, FMath::Min(ProfileChunkSize, PendingMirrorBlob.Num() - Start));
+-    ClientReceiveProfileChunk(MirrorTransferId, NextMirrorChunk, Total, Chunk,PendingMirrorPawn.Get(),PendingMirrorCastSequence,PendingMirrorCapturedAt);
++    ClientReceiveProfileChunk(MirrorTransferId, NextMirrorChunk, Total, Chunk,PendingMirrorPawn.Get(),PendingMirrorCastSequence,PendingMirrorCapturedAt,PendingMirrorGunsmithSequence);
+     LastMirrorChunkAt = Now;
+     if (++NextMirrorChunk == Total)
+     {
+@@ -748,7 +750,7 @@
+ }
+ 
+ void AColdSteelPlayerState::ClientReceiveProfileChunk_Implementation(uint32 TransferId, int32 ChunkIndex,
+-    int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt)
++    int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt,uint32 GunsmithSequence)
+ {
+     const auto* PC = Cast<APlayerController>(GetOwner());
+     if (!PC || !PC->IsLocalController() || TotalChunks <= 0 || TotalChunks > ColdSteelProfileTransfer::MaxChunks ||
+@@ -759,10 +761,11 @@
+         ReceivingMirrorTotal = TotalChunks;
+         ReceivingMirrorPawn=SourcePawn;bMirrorReady=false;
+         ReceivingMirrorCastSequence=CastSequence;ReceivingMirrorCapturedAt=CapturedAt;
++        ReceivingMirrorGunsmithSequence=GunsmithSequence;
+         MirrorBlob.Reset();
+     }
+     if (TransferId != ReceivingMirrorId || TotalChunks != ReceivingMirrorTotal || ReceivingMirrorPawn.Get()!=SourcePawn ||
+-        ChunkIndex * ProfileChunkSize != MirrorBlob.Num()) return;
++        ReceivingMirrorGunsmithSequence!=GunsmithSequence||ChunkIndex * ProfileChunkSize != MirrorBlob.Num()) return;
+     MirrorBlob.Append(Chunk);
+     if (ChunkIndex + 1 == TotalChunks)
+     {
+@@ -873,7 +876,7 @@
+             ScratchSave->Profile = Model->Snapshot(); // 复位供别处复用
+             const double Now = GetWorld()->GetRealTimeSeconds();
+             // 两级判脏：结构字段变了立刻上行；结构没变但超 30s → 兜底把漂移的生命体征带上去。
+-            const bool bStructural = !bHasLastSent
++            const bool bStructural = !bHasLastSent || LocalGunsmithSequence!=UploadedGunsmithSequence
+                 || NormBlob != (PendingUpload.Num() > 0 ? PendingNormBlob : LastSentNormBlob);
+             const bool bVitalFlush = bHasLastSent && (Now - LastUploadAt >= VitalFlushInterval)
+                 && Blob != LastSentBlob;
+@@ -881,6 +884,7 @@
+             {
+                 PendingUpload = MoveTemp(Blob);
+                 PendingUploadHeadId=ScratchSave->Profile.PlayerHeadId;
++                PendingUploadGunsmithSequence=LocalGunsmithSequence;
+                 PendingUploadHairId=ScratchSave->Profile.PlayerHairId;
+                 PendingUploadPawn=PC->GetPawn();
+                 PendingSuper90Revision=Super90AppliedRevision;
+@@ -909,7 +913,7 @@
+             const int32 Count = FMath::Min(ProfileChunkSize, PendingUpload.Num() - Start);
+             TArray<uint8> Chunk;
+             Chunk.Append(PendingUpload.GetData() + Start, Count);
+-            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk,PendingSuper90Revision,PendingUploadPawn.Get(),PendingPistolAmmoRevision,PendingPistolIntent);
++            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk,PendingSuper90Revision,PendingUploadPawn.Get(),PendingPistolAmmoRevision,PendingPistolIntent,PendingUploadGunsmithSequence);
+             ++NextChunkIndex;
+             LastUploadAt = Now;
+         }
+@@ -918,6 +922,7 @@
+             LastSentBlob = MoveTemp(PendingUpload);
+             LastSentNormBlob = MoveTemp(PendingNormBlob);
+             UploadedHeadId=PendingUploadHeadId;UploadedHairId=PendingUploadHairId;bHasUploadedAppearance=true;
++            UploadedGunsmithSequence=PendingUploadGunsmithSequence;
+             bHasLastSent = true;
+             LastUploadAt = Now;
+             PendingUpload.Reset();
+@@ -927,6 +932,31 @@
+     }
+ }
+ 
++namespace
++{
++bool CopyThunderCustomization(FColdSteelItem& TargetItem,const FColdSteelItem& SourceItem)
++{
++    if(TargetItem.InstanceId!=SourceItem.InstanceId||TargetItem.Definition!=TEXT("ue_thunder_god_hammer")||TargetItem.Definition!=SourceItem.Definition)return false;
++    TSharedPtr<FJsonObject> Target,Source;
++    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(TargetItem.Data),Target)||!Target||
++        !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(SourceItem.Data),Source)||!Source)return false;
++    bool Changed=false;
++    for(const TCHAR* Key:{TEXT("gunsmith_parts"),TEXT("gunsmith_version"),TEXT("tool_enhance_level")})
++    {
++        const auto Before=Target->TryGetField(Key),Value=Source->TryGetField(Key);
++        if((!Before&&!Value)||(Before&&Value&&FJsonValue::CompareEqual(*Before,*Value)))continue;
++        Changed=true;if(Value)Target->SetField(Key,Value);else Target->RemoveField(Key);
++    }
++    if(Changed){TargetItem.Data.Reset();FJsonSerializer::Serialize(Target.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&TargetItem.Data));}
++    return Changed;
++}
++}
++void AColdSteelPlayerState::NotifyGunsmithApplied(const FString& InstanceId)
++{
++    if(GetNetMode()!=NM_Client||InstanceId.IsEmpty())return;
++    if(++LocalGunsmithSequence==0)++LocalGunsmithSequence;
++    PendingGunsmithInstances.Add(InstanceId);HeartbeatTimer=0.f;
++}
+ void AColdSteelPlayerState::ClientRetryProfileUpload_Implementation(int32 UploadId)
+ {
+     // The client keeps its local inventory intent and captures it again on the new pawn.
+@@ -975,6 +1005,25 @@
+     // A slow full mirror is not a new owner-side shot or magazine reload.
+     if(Save->Profile.CampfireInventoryRevision==CurrentInventory.CampfireInventoryRevision)
+         Save->Profile.AmmoPouch=CurrentInventory.AmmoPouch;
++    // A local Apply can happen while an older, same-revision mirror is in
++    // flight. Protect only those customized fields until a server snapshot
++    // explicitly resolves that Apply; rejected edits then roll back normally.
++    TSet<FString> ResolvedGunsmithInstances;
++    bool bGunsmithResolvedChanged=false;
++    if(ReceivingMirrorGunsmithSequence==LocalGunsmithSequence)
++    {
++        ResolvedGunsmithInstances=MoveTemp(PendingGunsmithInstances);
++        for(auto Item:CurrentInventory.Items)if(ResolvedGunsmithInstances.Contains(Item.InstanceId))
++            if(const auto* ServerItem=Save->Profile.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId;}))
++                bGunsmithResolvedChanged|=CopyThunderCustomization(Item,*ServerItem);
++    }
++    else if(Save->Profile.CampfireInventoryRevision>=CurrentInventory.CampfireInventoryRevision)
++        for(auto& Item:Save->Profile.Items)
++        {
++            if(!PendingGunsmithInstances.Contains(Item.InstanceId))continue;
++            const auto* Local=CurrentInventory.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId&&E.Definition==Item.Definition;});
++            if(Local)CopyThunderCustomization(Item,*Local);
++        }
+     for(auto& I:Save->Profile.Items)
+         if(const auto* Local=CurrentInventory.Items.FindByPredicate([&](const auto& E){return E.InstanceId==I.InstanceId;}))
+         ColdSteelProfileRecovery::LoadedAmmo(I,*Local);
+@@ -1059,6 +1108,11 @@
+     else
+     {
+         FColdSteelProfile Merged = Model->Snapshot();
++        // Resolve accepted/rejected customization even while unrelated local
++        // health or training changes make the full-profile comparison dirty.
++        for(auto& Item:Merged.Items)if(ResolvedGunsmithInstances.Contains(Item.InstanceId))
++            if(const auto* ServerItem=Save->Profile.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId;}))
++                CopyThunderCustomization(Item,*ServerItem);
+         if(bCampfireInventoryChanged)
+         {
+             auto ServerItems=Save->Profile.Items;
+@@ -1093,9 +1147,9 @@
+         PreservePistolClientAmmo(Merged);
+         Model->AdoptNetMirror(Merged,true);
+     }
+-    if(bCampfireInventoryChanged)
++    if(bCampfireInventoryChanged||bGunsmithResolvedChanged)
+         if(auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn()))Pawn->ApplyColdSteelProfile(Model);
+-    if(bCampfireInventoryChanged||
++    if(bCampfireInventoryChanged||bGunsmithResolvedChanged||
+         !FColdSteelForgeJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.ForgeJob,&Save->Profile.ForgeJob,0)||
+         !FColdSteelGunAssemblyJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.GunAssemblyJob,&Save->Profile.GunAssemblyJob,0)||
+         !FColdSteelWoodworkingJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.WoodworkingJob,&Save->Profile.WoodworkingJob,0)||
+@@ -1107,7 +1161,7 @@
+     MirrorBlob.Reset();
+ }
+ 
+-void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn,uint32 UploadPistolRevision,uint32 PistolIntentSequence)
++void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn,uint32 UploadPistolRevision,uint32 PistolIntentSequence,uint32 GunsmithSequence)
+ {
+     if (GetLocalRole() != ROLE_Authority || TotalChunks <= 0 || TotalChunks > ColdSteelProfileTransfer::MaxChunks ||
+         ChunkIndex < 0 || ChunkIndex >= TotalChunks || Chunk.Num() <= 0 || Chunk.Num() > ProfileChunkSize)
+@@ -1123,10 +1177,11 @@
+         IncomingTotal = TotalChunks;
+         IncomingSuper90Revision=AmmoRevision;IncomingUploadPawn=SourcePawn;
+         IncomingPistolAmmoRevision=UploadPistolRevision;IncomingPistolIntent=PistolIntentSequence;
++        IncomingGunsmithSequence=GunsmithSequence;
+     }
+     // reliable 同 actor 通道保序：按到达顺序尾接即可，偏移不符说明丢包/重放，丢弃该包。
+     if (ChunkIndex * ProfileChunkSize != IncomingBlob.Num()||IncomingTotal!=TotalChunks||IncomingSuper90Revision!=AmmoRevision||IncomingUploadPawn.Get()!=SourcePawn
+-        ||IncomingPistolAmmoRevision!=UploadPistolRevision||IncomingPistolIntent!=PistolIntentSequence)
++        ||IncomingPistolAmmoRevision!=UploadPistolRevision||IncomingPistolIntent!=PistolIntentSequence||IncomingGunsmithSequence!=GunsmithSequence)
+     {
+         return;
+     }
+@@ -1141,11 +1196,22 @@
+         const auto* Health=GetPawn()?GetPawn()->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+         if(!SourcePawn||SourcePawn!=GetPawn()||(Health&&Health->IsDead()))
+         {ClientRetryProfileUpload(UploadId);return;}
+-        if (Completed == LastAppliedBlob) {LastAcceptedUploadId=UploadId;SendInventoryBaseline();return;}
++        auto ResolveGunsmith=[&]()
++        {
++            if(ProcessedGunsmithSequence==GunsmithSequence)return;
++            ProcessedGunsmithSequence=GunsmithSequence;bGunsmithReplyPending=true;ShadowMirrorTimer=3.f;
++        };
++        if (Completed == LastAppliedBlob&&ProcessedGunsmithSequence==GunsmithSequence) {LastAcceptedUploadId=UploadId;SendInventoryBaseline();return;}
+         if (UColdSteelProfileSave* Save = BlobToSave(Completed))
+         {
+             UE_LOG(LogTemp, Warning, TEXT("MPTEST profile upload complete: %d bytes"), Completed.Num());
+-            if(ApplyGuestProfile(Save->Profile,true)){LastAcceptedUploadId=UploadId;LastAppliedBlob=MoveTemp(Completed);SendInventoryBaseline();}
++            const bool StaleInventory=ShadowModel&&Save->Profile.CampfireInventoryRevision!=ShadowModel->Snapshot().CampfireInventoryRevision;
++            const bool Applied=ApplyGuestProfile(Save->Profile,true);
++            if(Applied){LastAcceptedUploadId=UploadId;LastAppliedBlob=MoveTemp(Completed);SendInventoryBaseline();}
++            // A revision reconciliation discarded uploaded inventory, so it
++            // cannot acknowledge the new parts. Return the new inventory first;
++            // the owner rebases surviving instances and uploads them normally.
++            if(!Applied||!StaleInventory)ResolveGunsmith();
+         }
+     }
+ }
+@@ -1686,7 +1752,10 @@
+         else if((Shot.AttackMeta&0x0F)==3)Shot.ToughnessDamageMultiplier*=Modifiers.ComboThirdToughness;
+     }
+     if(Report.AttackMeta==0x16&&Declared&&ColdSteelInventory::IsOneHandedMelee(*Declared))
++    {
+         Shot.ToughnessDamageMultiplier=ShadowModel->DashAttackStats().ToughnessMultiplier;
++        ColdSteelSkills::CapturePairedDash(Shot,Shooter,ShadowModel);
++    }
+     // The pistol + off-hand kukri F is a blade thrust (OffhandKukriStrike.cpp); every other quick melee is a blunt blow.
+     if((Report.AttackMeta&0x80)&&OffhandKukriThrust::IsOffhandThrust(ShadowModel,Declared))Shot.AttackForm=EMonsterAttackForm::Blade;
+     else if((Report.AttackMeta&0x80)||Report.AttackMeta==UnarmedPunch::AttackMeta)Shot.AttackForm=EMonsterAttackForm::Blunt;

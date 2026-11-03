@@ -1,0 +1,97 @@
+--- a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+@@ -4,6 +4,7 @@
+ #include "WarhammerCombat.h"
+ #include "RuneboundHammerTuning.h"
+ #include "ThunderHammerTuning.h"
++#include "ThunderHammerCallIntent.h"
+ #include "ThunderHammerZhenTing.h"
+ #include "ThunderHammerStaticField.h"
+ #include "ThunderHammerCoil.h"
+@@ -65,18 +66,41 @@
+ 
+ void UProductionToolComponent::ServerBeginBluntCharge_Implementation(uint32 AttackId)
+ {
++    if(int32(AttackId-BluntServerAttackId)<=0||int32(AttackId-BluntLastServerRequestId)<=0)return;
+     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
+     if(!GetWorld()||bBluntUppercut||bBluntWhirlwind||!CanCommitBlunt(Pawn,Profile)||Profile->Stamina()<=0.f||GetWorld()->GetTimeSeconds()<BluntServerReadyAt)
+     {ClientBluntAttackResult(AttackId,0,false,false,false);return;}
+-    Character=Pawn;BluntServerAttackId=AttackId;bBluntServerCharging=true;
++    Character=Pawn;BluntServerAttackId=AttackId;bBluntServerCharging=true;bThunderCallHoldConfirmed=false;
+     ApplyToolStats(Profile->ActiveProductionTool(),Profile);
+     if(bThunderCallSeat)
+     {
+-        if(!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f){bBluntServerCharging=false;ClientBluntAttackResult(AttackId,0,false,false,false);return;}
+         bThunderCallCharging=false; // The server tracks the press while the tap/hold decision is pending.
+     }
+     BluntServerChargeStartedAt=GetWorld()->GetTimeSeconds();
+     BluntServerChargeInstance=Profile->ActiveProductionTool()->InstanceId;
++}
++
++void UProductionToolComponent::ServerConfirmThunderCall_Implementation(uint32 AttackId)
++{
++    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
++    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
++    if(!bBluntServerCharging||AttackId!=BluntServerAttackId)return;
++    if(!CanCommitBlunt(Pawn,Profile,true)||!Item||Item->InstanceId!=BluntServerChargeInstance||
++        !ThunderHammerCall::Installed(*Item)||Profile->Stamina()<=0.f||(!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f))
++    {
++        ServerCancelBluntAttack_Implementation(AttackId);
++        ClientBluntAttackResult(AttackId,0,false,false,false);return;
++    }
++    if(!bThunderCallHoldConfirmed)
++    {
++        // Credit the pending click window and bounded packet/frame jitter.
++        // A client cannot idle an unconfirmed press, then confirm and instantly
++        // release a full charge without paying the active hold duration.
++        constexpr double ConfirmationGrace=.12;
++        BluntServerChargeStartedAt=FMath::Max(BluntServerChargeStartedAt,
++            GetWorld()->GetTimeSeconds()-ThunderHammerCallIntent::PendingSeconds(BluntChargeSeconds)-ConfirmationGrace);
++    }
++    bThunderCallHoldConfirmed=true;
+ }
+ 
+ void UProductionToolComponent::ServerBeginBluntAttack_Implementation(uint32 AttackId,bool bReleaseCharge,bool bSprintAttack)
+@@ -90,7 +114,7 @@
+     };
+     const bool NewRequest=int32(AttackId-BluntLastServerRequestId)>0;
+     if(NewRequest)BluntLastServerRequestId=AttackId;
+-    if(bSprintAttack&&!NewRequest)return; // duplicates cannot reopen movement or cancel the accepted pose
++    if(!NewRequest)return; // A repeated receipt cannot spend again or cancel a newer action.
+     // A buffered cut leaves the owner on the frame its previous cut ends, so
+     // network jitter (or float/double clock drift on a listen host) can land
+     // it a few ms before this clock. Accept such an ordinary cut but start its
+@@ -106,6 +130,8 @@
+     if(bReleaseCharge&&(!bBluntServerCharging||BluntServerAttackId!=AttackId||BluntServerChargeInstance!=SourceInstance||Profile->Stamina()<=0.f)){Reject();return;}
+     const float Held=bReleaseCharge?float(World->GetTimeSeconds()-BluntServerChargeStartedAt):0.f;
+     Character=Pawn;ApplyToolStats(Item,Profile);
++    if(bThunderCallSeat&&bReleaseCharge&&bThunderCallHoldConfirmed)
++    {ServerCancelBluntAttack_Implementation(AttackId);Reject();return;}
+     // JiLei's charged release has its own RPC; a tap must remain a normal cut
+     // even if the server receives its release after a long network delay.
+     const bool Heavy=bSprintAttack||(!bThunderCallSeat&&bReleaseCharge&&Held>=BluntChargeSeconds);
+@@ -224,6 +250,7 @@
+ void UProductionToolComponent::ServerCancelBluntAttack_Implementation(uint32 AttackId)
+ {
+     if(AttackId!=BluntServerAttackId)return;
++    bThunderCallHoldConfirmed=false;
+     bThunderCallCharging=false;FinishThunderCallResources();
+     if(auto* Pawn=Character.Get())
+         if(auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))Move->CancelHammerSprintMove(AttackId);
+@@ -239,6 +266,7 @@
+ 
+ void UProductionToolComponent::ServerReleaseThunderCall_Implementation(uint32 AttackId,FVector_NetQuantize Point)
+ {
++    if(int32(AttackId-BluntServerAttackId)<0||int32(AttackId-BluntLastServerRequestId)<=0)return;
+     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
+     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+     const auto Reject=[&]()
+@@ -250,7 +278,7 @@
+         int32(AttackId-BluntLastServerRequestId)<=0||GetWorld()->GetTimeSeconds()<BluntServerReadyAt)
+     {Reject();return;}
+     const bool Local=Pawn->IsLocallyControlled();
+-    if(!(Local?bBluntCharging:bBluntServerCharging)||(!Local&&(BluntServerAttackId!=AttackId||BluntServerChargeInstance!=Item->InstanceId)))
++    if(!(Local?bBluntCharging:bBluntServerCharging)||(!Local&&(!bThunderCallHoldConfirmed||BluntServerAttackId!=AttackId||BluntServerChargeInstance!=Item->InstanceId)))
+     {Reject();return;}
+     Character=Pawn;ApplyToolStats(Item,Profile);
+     const float Held=float(GetWorld()->GetTimeSeconds()-(Local?BluntChargeStartedAt:BluntServerChargeStartedAt));

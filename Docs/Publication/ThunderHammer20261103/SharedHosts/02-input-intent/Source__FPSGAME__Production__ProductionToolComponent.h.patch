@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -95,7 +95,7 @@
+     void ThunderHammerReturned(AThunderHammerThrown* Hammer,bool bCaught);
+     float HeavyChargeFraction() const;
+     bool IsHeavyCharging() const;
+-    bool IsThunderCalling() const {return bThunderCallSeat&&IsHeavyCharging();}
++    bool IsThunderCalling() const;
+     bool OwnsThunderCallResources() const {return IsThunderCalling()||bThunderCallResourcesDirty;}
+     void NoteThunderCallResourcesSpent(){bThunderCallResourcesDirty=true;}
+     void CancelHeavyCharge();

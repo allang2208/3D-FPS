@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Characters/FPSModularOutfitComponent.h
++++ b/Source/FPSGAME/Characters/FPSModularOutfitComponent.h
+@@ -50,6 +50,9 @@
+     void ResetBodyPresentation();
+     void SetBodyType(FName BodyId);
+     void CollectBodyAssets(FName BodyId,const FString& BodyMesh,TArray<FSoftObjectPath>& Out) const;
++    /** Readiness of this pawn's current world outfit only, excluding viewmodel loads. */
++    bool IsWorldPresentationReady() const { return bWorldPresentationReady; }
++    void RefreshWorldVisibility();
+     /** Local visual pose layers use the current equipment, never inventory copies. */
+     bool IsSteelGauntletEquipped() const;
+     bool IsChainmailEquipped() const;
+@@ -89,6 +92,7 @@
+     float DiscoverCountdown = 0.f;
+     bool bDirty = true;
+     bool bEnding = false;
++    bool bWorldPresentationReady = false;
+     float RobeStairUntil = -1.f;
+     bool bHideRobeCalves = false;
+     void UpdateRobeStairVisibility();

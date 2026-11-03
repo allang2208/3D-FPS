@@ -1,0 +1,337 @@
+{
+  "completed": true,
+  "status": "audit_completed_with_open_visual_finding",
+  "updated": "2026-11-03T18:37:09.356793+08:00",
+  "confirmed_gameplay_fix": "Thunder hammer customization overwritten by stale owner profile mirrors; matching customization receipts now preserve pending intent and resolve rejection.",
+  "builds": {
+    "FPSGAMEEditor": {
+      "completed": "2026-11-03T11:08:20.1862507+08:00",
+      "target": "FPSGAMEEditor",
+      "exit_code": 0
+    },
+    "FPSGAME": {
+      "completed": "2026-11-03T11:17:20.2232266+08:00",
+      "target": "FPSGAME",
+      "exit_code": 0
+    }
+  },
+  "native": {
+    "jilei-intent": {
+      "checks": 33,
+      "failures": 0
+    },
+    "heavy-formula": {
+      "checks": 477,
+      "failures": 0
+    },
+    "thor-assets-mods": {
+      "checks": 370,
+      "failures": 0
+    },
+    "zhenting": {
+      "checks": 18,
+      "failures": 0
+    },
+    "recall": {
+      "checks": 128,
+      "failures": 0
+    },
+    "switch": {
+      "checks": 32,
+      "failures": 0
+    },
+    "preview": {
+      "checks": 10,
+      "failures": 0
+    },
+    "storm-lifecycle": {
+      "checks": 57,
+      "failures": 0
+    },
+    "profile-receipts": {
+      "checks": 118,
+      "failures": 0
+    }
+  },
+  "native_total": 1243,
+  "asset_readback": {
+    "checks": 75,
+    "passed": true,
+    "modified_assets": false
+  },
+  "real_udp": {
+    "passed_cases": 24,
+    "total_planned": 24,
+    "passed": true,
+    "mode": "Dedicated editor authority with packaged client and late observer; same-profile process restart and ServerTravel",
+    "run": "Packaged-Dedicated-20261103-101313",
+    "status": "Dedicated 24/24 passed; Listen 24/24 passed; all eight process exits zero",
+    "release_jitter_evidence": "phase 8 server held 1.583805s of 1.739130s on receipt; deferred to 1.769443s and committed once",
+    "respawn_evidence": "phase 18 owner health=200 actor_tick=1 input=1 charging=1",
+    "listen_run": "Packaged-Listen-20261103-102311"
+  },
+  "package": {
+    "cook_stage_archive_exit_code": 0,
+    "iostore_direct_packages": 72,
+    "missing": 0,
+    "random_current_cuts": 6,
+    "scope": "isolated hammer Development package, not full-game release",
+    "functional_run": "13/13 standalone passed; 72 dependencies confirmed in actual IoStore",
+    "ufs_data_and_icons": {
+      "passed": true,
+      "method": "UnrealPak -List of the actual archived FPSGAME-Windows.pak; UFS entries do not require loose copies",
+      "checks": 4,
+      "files": [
+        {
+          "path": "ColdSteelData/thunder-god-hammer-modules.json",
+          "source_exists": true,
+          "loose_staged_exists": false,
+          "present_in_actual_pak": true,
+          "pak_path": "FPSGAME/Content/ColdSteelData/thunder-god-hammer-modules.json",
+          "pak_entry": "\"FPSGAME/Content/ColdSteelData/thunder-god-hammer-modules.json\" offset: 2629265408, size: 2876 bytes, sha1: 6C7939C778FF652CD2AC95AAF430B25466D3BA0A, compression: Oodle."
+        },
+        {
+          "path": "ColdSteelData/thunder-god-hammer-gunsmith.json",
+          "source_exists": true,
+          "loose_staged_exists": false,
+          "present_in_actual_pak": true,
+          "pak_path": "FPSGAME/Content/ColdSteelData/thunder-god-hammer-gunsmith.json",
+          "pak_entry": "\"FPSGAME/Content/ColdSteelData/thunder-god-hammer-gunsmith.json\" offset: 2629259264, size: 4161 bytes, sha1: 09128B2426F3EF26CADEAE90DA1579641D8A5AC7, compression: Oodle."
+        },
+        {
+          "path": "ColdSteelData/AttachmentIcons20260913/ue_thunder_god_hammer_grip_static_field_grip.png",
+          "source_exists": true,
+          "loose_staged_exists": false,
+          "present_in_actual_pak": true,
+          "pak_path": "FPSGAME/Content/ColdSteelData/AttachmentIcons20260913/ue_thunder_god_hammer_grip_static_field_grip.png",
+          "pak_entry": "\"FPSGAME/Content/ColdSteelData/AttachmentIcons20260913/ue_thunder_god_hammer_grip_static_field_grip.png\" offset: 2309163008, size: 3127112 bytes, sha1: 35C7730691AD06398F295ABFCDC10DD89057BC78, compression: Oodle."
+        },
+        {
+          "path": "ColdSteelData/AttachmentIcons20260913/ue_thunder_god_hammer_grip_coil_grip.png",
+          "source_exists": true,
+          "loose_staged_exists": false,
+          "present_in_actual_pak": true,
+          "pak_path": "FPSGAME/Content/ColdSteelData/AttachmentIcons20260913/ue_thunder_god_hammer_grip_coil_grip.png",
+          "pak_entry": "\"FPSGAME/Content/ColdSteelData/AttachmentIcons20260913/ue_thunder_god_hammer_grip_coil_grip.png\" offset: 2302732288, size: 3114272 bytes, sha1: 0B768D8E802A281B811C287F19810A136FC36C56, compression: Oodle."
+        }
+      ]
+    }
+  },
+  "render_audio_performance": {
+    "passed": true,
+    "run": "Visual-20261103-102338",
+    "phases_passed": 13,
+    "phases_total": 13,
+    "icons": "static field and coil visible in workbench_04.png; checked",
+    "audio": {
+      "file": "JiLeiRuntimeCurrent.wav",
+      "sample_rate": 48000,
+      "channels": 2,
+      "seconds": 14.506666666666666,
+      "peak": 0.630645751953125,
+      "clipped_samples": 0,
+      "matched_source_cuts": [
+        {
+          "clip": "S_JiLei_Current_06.wav",
+          "start_seconds": 4.117333333333334,
+          "correlation": 0.9357830699185996,
+          "clip_seconds": 1.7348333333333332
+        },
+        {
+          "clip": "S_JiLei_Current_02.wav",
+          "start_seconds": 5.847333333333333,
+          "correlation": 0.999970992413171,
+          "clip_seconds": 1.8908333333333334
+        },
+        {
+          "clip": "S_JiLei_Current_05.wav",
+          "start_seconds": 7.737333333333333,
+          "correlation": 0.99999639304861,
+          "clip_seconds": 1.4208333333333334
+        },
+        {
+          "clip": "S_JiLei_Current_03.wav",
+          "start_seconds": 9.157333333333334,
+          "correlation": 0.9948453668955826,
+          "clip_seconds": 1.8595
+        }
+      ],
+      "overlapping_match_candidates_removed": 1,
+      "note": "Waveform matches demonstrate recorded cuts in the mixer output; human listening is still required for preference."
+    },
+    "images": 63,
+    "scope": "Local first-person/workbench, empty-scene timings and captured audio only. Remote presentation has a separate open cold-load finding. Human sound preference not evaluated."
+  },
+  "pending": [],
+  "boundary": "No UE GUI launched; no unrelated process stopped; no cross-chat messages; no commit or push.",
+  "packaged_standalone": {
+    "passed": true,
+    "completed": 13,
+    "total": 13,
+    "run": "Packaged-20261103-090802",
+    "scope": "real local input/save/load; no multiplayer or rendering proof"
+  },
+  "resource_interrupted_captures": [
+    "Packaged-Dedicated-20261103-102413",
+    "Packaged-Listen-20261103-103405",
+    "Listen-20261103-112953",
+    "Listen-20261103-113158"
+  ],
+  "remote_partial": {
+    "run": "Packaged-Listen-20261103-110035",
+    "host_input_cases_passed": 15,
+    "ground_image_reviewed": "ObserverFrames/remote_000.png",
+    "ground_contact": "hammer intersects visible surface; consistent with native 4cm embed checks",
+    "overall_passed": false,
+    "remaining": "fixture body suppression disabled presentation publishing; fixture host exited before observer delayed exit and observer loaded fallback world. Body publishing restored and host exit delayed; awaiting rebuild/capture.",
+    "superseded_by": "Listen-20261103-114146"
+  },
+  "completion_meaning": "Requested audit and reporting complete; the cold-join visual finding below remains unresolved.",
+  "confirmed_gameplay_fixes": [
+    "Pending hammer customization survives stale profile mirrors and resolves matching receipts/rejections.",
+    "Near-boundary remote full-charge release waits on cancellable server timer before committing once.",
+    "Respawn binds and resets the new pawn profile before initial replication; old-life mirrors and ledgers still reset."
+  ],
+  "remote_presentation": {
+    "run": "Listen-20261103-114146",
+    "functional_passed": true,
+    "functional_cases": 15,
+    "process_exits": [
+      {
+        "exit_code": 0,
+        "pid": 69520
+      },
+      {
+        "exit_code": 0,
+        "pid": 59380
+      }
+    ],
+    "same_code_on_both_peers": true,
+    "dll_sha256": "47C8D6F8A1A494CFD9120E2F1ABB43A48653A8B255862C9369462A5406E180DA",
+    "network_checksum_failure_assert_fatal_matches": [],
+    "screenshots": 11,
+    "grounded_hammer_reviewed": "ObserverFrames/remote_000.png",
+    "recalled_equipped_hammer_reviewed": "ObserverFrames/remote_010.png",
+    "ground_and_final_held_state_visible": true,
+    "cold_join_visual_transition_passed": false,
+    "fixture": {
+      "clips_retained": 95,
+      "clips_before": 281,
+      "target": "D:/FPS3D/ThunderHammerHeadlessBodyHost20261103",
+      "body_mesh": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Base.SK_Jason_Base",
+      "source": "D:/FPS3D/ThunderHammerFullReviewHost20261102",
+      "scope": "Unrendered host retains original body and hammer/generic locomotion clips; other weapon/furniture clips omitted. Real input and state replication remain active. Observer uses untouched full content. No production content modified."
+    },
+    "scope": "Two frozen Editor-Cmd peers, real host input and observer rendering; no reconnect/travel coverage in this final capture."
+  },
+  "open_findings": [
+    {
+      "id": "remote-cold-join-presentation",
+      "priority": "P2",
+      "resolved": false,
+      "observation": "Confirmed missing head during initial cold appearance load. Body is visible before the independently loaded head is created; final frame has complete appearance.",
+      "evidence": [
+        "Listen-20261103-114146/ObserverFrames/remote_005.png",
+        "Listen-20261103-114146/ObserverFrames/remote_006.png",
+        "Listen-20261103-114146/ObserverFrames/remote_007.png",
+        "Listen-20261103-114146/ObserverFrames/remote_008.png",
+        "Listen-20261103-114146/ObserverFrames/remote_009.png",
+        "Listen-20261103-114146/ObserverFrames/remote_010.png"
+      ],
+      "log_evidence": "observer.log 03:43:32.154 still waits for SKM_Jason_head skinned asset readiness.",
+      "cause_status": "InitializeBody exposes the separate body mesh before ApplyAppearance async completion. Head components are created only in that completion callback; no initial-appearance readiness barrier or complete fallback presentation covers the gap.",
+      "next_scope": "User runtime check of initial fallback, atomic outfit reveal, cold late join, respawn and reconnect; prior captures predate V2.",
+      "corrections": [
+        "Empty hands before recall are intentional. Stage 14 waits two seconds before input; production flight is one second plus catch handoff. These screenshots do not establish abnormal weapon loading delay.",
+        "The blurred object in remote_008 occurs in the recall interval and does not establish a detached head. Head misalignment is unproven; only missing head is confirmed."
+      ],
+      "diagnosis": "ColdJoinDiagnosis20261103/README.md",
+      "code_fix_applied": true,
+      "runtime_verified": false,
+      "status": "v2_implemented_and_built_awaiting_user_test",
+      "implementation": "ColdJoinPresentationV2_20261103/README.md"
+    }
+  ],
+  "excluded_capture_attempts": {
+    "Packaged-Listen-20261103-111720": "Mixed target builds captured concurrent network component edits; checksum mismatch; owned run stopped and excluded.",
+    "Listen-20261103-113856": "Artificial missing-body catalog triggered appearance null access; discarded fixture, real body restored in final run."
+  },
+  "limits": [
+    "Same-machine real UDP with injected latency/loss, not cross-machine internet testing.",
+    "Dedicated authority used Editor-Cmd, not a separately packaged Server target.",
+    "Hammer-scoped Development package and empty scene, not full-game release or combat performance certification.",
+    "Audio preference and full continuous animation judgement remain subjective."
+  ],
+  "followup_diagnosis": {
+    "completed": true,
+    "method": "Existing real-UDP capture/logs and source trace, compared with preserved review source snapshot. No new runtime test.",
+    "sources_matching_preserved_snapshot": 7,
+    "source_files_compared": 7,
+    "new_runtime_tests": false,
+    "functional_fix_applied": false,
+    "remaining": [
+      "No functional fix applied in this diagnosis.",
+      "The existing log cannot split head wait time into async queue, I/O, groom/material and skinned-asset preparation costs.",
+      "Preload-disabled, uncooked offscreen capture does not establish production-default or packaged cold-join duration."
+    ]
+  },
+  "cold_join_fix": {
+    "date": "2026-11-03T18:07:01.600557+08:00",
+    "implemented": true,
+    "compiled": true,
+    "build": {
+      "completed": "2026-11-03T18:05:50.4021805+08:00",
+      "compiled": true,
+      "outputs": [
+        {
+          "bytes": 41956352,
+          "path": "D:/FPS3D/FPSGAME/Binaries/Win64/UnrealEditor-FPSGAME.dll",
+          "sha256": "FA4607FE43D333E80A8285C3E0AEC747ADFE66C4699460F9890E009DF4610C98"
+        },
+        {
+          "bytes": 371896832,
+          "path": "D:/FPS3D/FPSGAME/Binaries/Win64/FPSGAME.exe",
+          "sha256": "BF96437444124438976DBAD87B859BE07F094F7D80943454E43FFFACC8846392"
+        }
+      ],
+      "editor_launched": false,
+      "runtime_tested": false,
+      "owned_sources_unchanged_during_build": true
+    },
+    "runtime_tested": false,
+    "status": "implemented_and_built_awaiting_user_visual_test",
+    "scope": "Initial world-body appearance waits for selected head assembly and its first finalized bone pose. Existing complete appearance remains while switching. No weapon gameplay/network protocol changes.",
+    "readiness": "Per-instance render state started only in game BeginPlay, not constructor/previews/dedicated server. Body/head bones continue updating while hidden.",
+    "failure_behavior": "Invalid/missing catalog assets retain diagnostics and release the initial display gate to avoid permanently invisible players; asset repair is outside this change."
+  },
+  "cold_join_presentation_v2": {
+    "date": "2026-11-03T18:37:09.356793+08:00",
+    "implemented": true,
+    "compiled": true,
+    "runtime_tested": false,
+    "status": "implemented_and_built_awaiting_user_test",
+    "source_files": 9,
+    "build": {
+      "runtime_tested": false,
+      "owned_sources_unchanged_during_build": true,
+      "completed": "2026-11-03T18:37:01.8807729+08:00",
+      "outputs": [
+        {
+          "path": "D:/FPS3D/FPSGAME/Binaries/Win64/UnrealEditor-FPSGAME.dll",
+          "bytes": 41971712,
+          "sha256": "6D1642896EC924B30B3F2CD4C2E44C885C42F21658FCD1DD57285D6B8FAE3E29"
+        },
+        {
+          "path": "D:/FPS3D/FPSGAME/Binaries/Win64/FPSGAME.exe",
+          "bytes": 371909120,
+          "sha256": "FE4CDE77C38E295A20233AC3B35D6D8DB09C77A2A76985122D05215FE33F8846"
+        }
+      ],
+      "compiled": true,
+      "editor_launched": false
+    },
+    "scope": "Complete animated fallback during initial loading; aggregate head/outfit/helmet/modular readiness; retain fallback on asset failure. No new RPC or replicated fields.",
+    "imported_assets": false,
+    "fallback_asset": "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple.SKM_Manny_Simple"
+  }
+}

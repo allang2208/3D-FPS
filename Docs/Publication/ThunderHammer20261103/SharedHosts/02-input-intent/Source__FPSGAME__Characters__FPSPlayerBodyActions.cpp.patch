@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "../Production/ThunderHammerCallIntent.h"
+ #include "../Skills/BowHeldMagicVisual.h"
+ #include "FPSBodySinglePistolSource.h"
+ #include "FPSPlayerDeathMotion.h"
+@@ -315,10 +316,11 @@
+             if(Tool->BluntUppercutPause>UE_SMALL_NUMBER)State.ActionProgressRate=0.f;
+             State.bUppercutLungeBlocked=Tool->bBluntUppercutLungeBlocked;
+         }
+-        else if(Tool->bBluntCharging||Tool->bBluntReturningCharge)
+-        {
++        else if(Tool->bBluntReturningCharge||(Tool->bBluntCharging&&(!Tool->bThunderCallSeat||Tool->IsThunderCalling())))
++        {
++            const float ChargeSeconds=Tool->bThunderCallSeat?ThunderHammerCallIntent::LiftSeconds(Tool->BluntChargeSeconds):Tool->BluntChargeSeconds;
+             Timed(EFPSBodyAction::Charge,Tool->BluntChargePoseSeconds(),WarhammerHeavy::ChargeSeconds,
+-                WarhammerHeavy::ChargeSeconds/FMath::Max(.01f,Tool->BluntChargeSeconds));
++                WarhammerHeavy::ChargeSeconds/FMath::Max(.01f,ChargeSeconds));
+             State.ActionVariant=Tool->bThunderCallSeat?TEXT("WarhammerCallCharge"):Tool->bThunderThrowSeat?TEXT("WarhammerThrowCharge"):Tool->bFinalTollHead?TEXT("WarhammerFinalTollCharge"):TEXT("WarhammerCharge");
+             if(Tool->bBluntReturningCharge)
+             {

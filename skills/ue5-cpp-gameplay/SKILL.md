@@ -152,3 +152,5 @@ FPSGAME first/third person animation, world equipment and outfits: [player world
 
 - [装备套装效果的三层数据](references/equipment-set-effect-layers.md)：`items.json`／`source-combat-items` 覆盖层／`SetEffect()` 各拥有什么；覆盖层只补缺失字段、套装识别只认三槽、单件属性与五件套效果的分界、新增比例词条的加减乘口径。
 - 原生身体/性别变体、MetaHuman 头发装配、换装与家具相机：[身体变体工作流](references/native-body-variants.md)。
+
+- 人物冷加载缺头、整人隐藏及衣物晚到：读取 [首次外观就绪](references/initial-appearance-readiness.md)。

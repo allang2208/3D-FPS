@@ -1,0 +1,118 @@
+{
+  "scope": "Two explicitly superseded charge-audio source/preview groups; no Content packages moved",
+  "files": [
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiChargeAudioV1\\audio_manifest.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiChargeAudioV1\\audio_manifest.json",
+      "bytes": 472,
+      "sha256": "741BADFFA780463EB7DC3E6D32F35B571414607D04F6B678F645B0B50A9611C5",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiChargeAudioV1\\author_audio.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiChargeAudioV1\\author_audio.py",
+      "bytes": 1719,
+      "sha256": "5718055103D03608D09293584E33112D3C5FD390F79E23E7EA03C4CCBB4785B4",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiChargeAudioV1\\import_assets.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiChargeAudioV1\\import_assets.py",
+      "bytes": 1642,
+      "sha256": "40EAB842A331B036C0D799B4B6DDCA652020E853475D7ABA3EA47405BA2A9E95",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiChargeAudioV1\\import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiChargeAudioV1\\import_receipt.json",
+      "bytes": 271,
+      "sha256": "B70F76D8B646FFACDC788E3A22E220AF49494060C9B5B333277A6CFF5F3A973A",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiChargeAudioV1\\import.ps1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiChargeAudioV1\\import.ps1",
+      "bytes": 1954,
+      "sha256": "D3F27F9C51EC6D6171A2A5BF8CC9B6885754F205AC1AEC0DD4C2B3A4A2D81CDB",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiChargeAudioV1\\S_JiLei_ChargeElectromagnetic.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiChargeAudioV1\\S_JiLei_ChargeElectromagnetic.wav",
+      "bytes": 384044,
+      "sha256": "35A589BD9169B390CDC8E40406338CF3D9218B2C6BCC1EC7F88DB31FA649D34E",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiElectricAudition20261101\\A_SteadyCurrent_Listen.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiElectricAudition20261101\\A_SteadyCurrent_Listen.wav",
+      "bytes": 1152044,
+      "sha256": "A13304F88D6448D79E07D2CA3F89E14ECA7C47B4EEDB45FBF3C686473997F458",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiElectricAudition20261101\\A_SteadyCurrent_Loop.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiElectricAudition20261101\\A_SteadyCurrent_Loop.wav",
+      "bytes": 1152044,
+      "sha256": "CD9BF3F46196FFACC0850A1F8A9DDEAEFF9447E82DC5317038D1FA5F4697CE0D",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiElectricAudition20261101\\audio_manifest.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiElectricAudition20261101\\audio_manifest.json",
+      "bytes": 1183,
+      "sha256": "54539496BF6BF3FF3154F7EC93BBBF489E079E441DB22A4D86C00062564ECD28",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiElectricAudition20261101\\author_audio.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiElectricAudition20261101\\author_audio.py",
+      "bytes": 4559,
+      "sha256": "6014CA6A0458620B00B75C4CD6523BA3B957630E4CE7A49F2F68ED8079E4C1AE",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiElectricAudition20261101\\B_LivelyArcs_Listen.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiElectricAudition20261101\\B_LivelyArcs_Listen.wav",
+      "bytes": 1152044,
+      "sha256": "DF2C3B5C3AD7D062AA59EE6CCD4B1D093743F72D6CADE068F1CFA34D4756E993",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiElectricAudition20261101\\B_LivelyArcs_Loop.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiElectricAudition20261101\\B_LivelyArcs_Loop.wav",
+      "bytes": 1152044,
+      "sha256": "64BAF35A2106AA9ED00C3A01EA81E621DAC2712887B143467E283F1767BE02FD",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiElectricAudition20261101\\README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\thunder-hammer-retired-20261103\\JiLeiElectricAudition20261101\\README.md",
+      "bytes": 1262,
+      "sha256": "5CC42F36B89C5B28326ED91FD03E630C77A2FEB28862895DE5E58D9B42A0DB1F",
+      "reason": "Superseded by user-provided current recording; no longer imported",
+      "replacement": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2"
+    }
+  ],
+  "total_files": 13,
+  "total_bytes": 5005282,
+  "retained": [
+    "Active models and authoring dependencies",
+    "User source MP3 and current six cuts",
+    "Current UE Content packages",
+    "Build, network and visual evidence",
+    "Before snapshots and recovery archive"
+  ]
+}

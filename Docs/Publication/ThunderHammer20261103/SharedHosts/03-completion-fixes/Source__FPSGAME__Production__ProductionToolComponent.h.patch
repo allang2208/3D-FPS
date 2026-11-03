@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -97,6 +97,7 @@
+     bool IsHeavyCharging() const;
+     bool IsThunderCalling() const;
+     bool OwnsThunderCallResources() const {return IsThunderCalling()||bThunderCallResourcesDirty;}
++    bool IsHeavyChargeConsumingStamina() const {return bThunderCallSeat?IsThunderCalling():IsHeavyCharging();}
+     void NoteThunderCallResourcesSpent(){bThunderCallResourcesDirty=true;}
+     void CancelHeavyCharge();
+     float DashReadyFraction() const;
+@@ -130,6 +131,7 @@
+     UPROPERTY(EditAnywhere,Category="Production|Pickaxe Locomotion") FRotator PickaxeRunAngles=FRotator(1.f,1.f,2.f);
+ private:
+     bool bThunderCallSeat=false,bThunderCallResourcesDirty=false;
++    bool bThunderCallHoldConfirmed=false;
+     float ThunderCallReleaseAge=-1.f,ThunderCallPreviewWait=0.f;
+     int64 ThunderCallResourceRevision=0;
+     UPROPERTY(Replicated) bool bThunderCallCharging=false;
+@@ -147,6 +149,7 @@
+     void ReleaseThunderCall();
+     void FinishThunderCallResources();
+     void ClearThunderCallVisual();
++    UFUNCTION(Server,Reliable) void ServerConfirmThunderCall(uint32 AttackId);
+     UFUNCTION(Server,Reliable) void ServerReleaseThunderCall(uint32 AttackId,FVector_NetQuantize Point);
+     UFUNCTION(Client,Reliable) void ClientThunderCallResult(uint32 AttackId,bool Accepted);
+     UFUNCTION(Client,Reliable) void ClientThunderCallResources(int64 Revision,float Mana,float Stamina,float RecoveryDelay,bool Exhausted,double CrystalManaTotal);

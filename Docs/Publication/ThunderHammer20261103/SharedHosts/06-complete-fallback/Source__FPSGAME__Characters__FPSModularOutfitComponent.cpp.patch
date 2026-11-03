@@ -1,0 +1,102 @@
+--- a/Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp
+@@ -96,7 +96,7 @@
+     TMap<int32,FName> Next;
+     for(const auto& Item:Model->Items())if(Item.Place==1&&(Item.Cell==3||Item.Cell==7||Item.Cell==10||Item.Cell==13||Item.Cell==15))Next.Add(Item.Cell,FName(*Item.Definition));
+     if(Next.OrderIndependentCompareEqual(Equipped))return;
+-    Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;
++    Equipped=MoveTemp(Next);bWorldPresentationReady=false;bDirty=true;DiscoverCountdown=0.f;
+ }
+ bool UFPSModularOutfitComponent::IsSteelGauntletEquipped() const
+ {
+@@ -114,7 +114,7 @@
+     if(Pawn&&Pawn->IsLocallyControlled()){RefreshInventory();return;}
+     TMap<int32,FName> Next;
+     for(const auto& Item:Outfit)if(Item.Slot==3||Item.Slot==7||Item.Slot==10||Item.Slot==13||Item.Slot==15)Next.Add(Item.Slot,Item.Definition);
+-    if(!Next.OrderIndependentCompareEqual(Equipped)){Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;}
++    if(!Next.OrderIndependentCompareEqual(Equipped)){Equipped=MoveTemp(Next);bWorldPresentationReady=false;bDirty=true;DiscoverCountdown=0.f;}
+ }
+ void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
+ {
+@@ -164,6 +164,10 @@
+         if(Part->FirstPersonPrimitiveType!=Source->FirstPersonPrimitiveType)Part->SetFirstPersonPrimitiveType(Source->FirstPersonPrimitiveType);
+     }
+ }
++void UFPSModularOutfitComponent::RefreshWorldVisibility()
++{
++    for(auto& P:Presentations)if(P.bWorld)FollowVisibility(P);
++}
+ void UFPSModularOutfitComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
+ {
+     Super::TickComponent(Delta,Type,Tick);
+@@ -188,6 +192,7 @@
+ }
+ void UFPSModularOutfitComponent::ResetBodyPresentation()
+ {
++    bWorldPresentationReady=false;
+     for(auto& Load:PendingLoads)if(Load.Value)Load.Value->CancelHandle();
+     PendingLoads.Reset();FailedLoads.Reset();
+     for(auto& Presentation:Presentations)ReleasePresentation(Presentation);
+@@ -288,6 +293,7 @@
+ {
+     using namespace FPSModularOutfit;
+     if(!Configuration||bEnding)return;
++    bWorldPresentationReady=false;
+     if(!InventoryChanged.IsValid())RefreshInventory();
+     const auto Recipes=Object(Configuration,TEXT("items"));
+     const auto GloveRecipe=Object(Recipes,Equipped.FindRef(3).ToString());
+@@ -311,7 +317,7 @@
+         for(auto& Load:PendingLoads)if(Load.Value)Load.Value->CancelHandle();
+         PendingLoads.Reset();
+         for(auto& P:Presentations)ReleasePresentation(P);
+-        Presentations.Reset();
++        Presentations.Reset();bWorldPresentationReady=true;
+         return;
+     }
+     const auto Profiles=Object(Configuration,TEXT("profiles"));if(!Profiles)return;
+@@ -323,7 +329,7 @@
+             &&!String(Profile,TEXT("bare_arms_candidate")).IsEmpty();
+     };
+     TSet<FString> CurrentKeys;
+-    for(auto* Source:Sources)if(Source&&Source->GetSkeletalMeshAsset()&&!Source->ComponentHasTag(TEXT("ModularOutfit"))
++    for(auto* Source:Sources)if(Source&&Source->GetSkeletalMeshAsset()&&!Source->ComponentHasTag(TEXT("ModularOutfit"))&&!Source->ComponentHasTag(TEXT("InitialAppearanceFallback"))
+         &&(Source==Body||(Source->IsVisible()&&!Source->bHiddenInGame)
+             ||(Source->bOnlyOwnerSee&&Source->ComponentHasTag(TEXT("PreloadModularOutfit")))))
+     {
+@@ -343,8 +349,11 @@
+     TSet<USkeletalMeshComponent*> ActiveSources;
+     for(auto* Source:Sources)
+     {
+-        if(!IsValid(Source)||!Source->GetSkeletalMeshAsset()||Source->ComponentHasTag(TEXT("ModularOutfit")))continue;
++        if(!IsValid(Source)||!Source->GetSkeletalMeshAsset()||Source->ComponentHasTag(TEXT("ModularOutfit"))||Source->ComponentHasTag(TEXT("InitialAppearanceFallback")))continue;
+         const bool bWorld=Source==Body;
++        // No participating profile/garment is a complete bare-body presentation.
++        // UpdatePresentation below turns this false until its current key commits.
++        if(bWorld)bWorldPresentationReady=true;
+         const bool bLowerBody=Source==LowerBody;
+         const bool bHasLegs=bWorld||bLowerBody;
+         if(bWorld&&FPSPlayerBodyWorldBodySuppressed())continue;
+@@ -401,6 +410,7 @@
+ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Source,const TSharedPtr<FJsonObject>& Profile,bool bWorld,bool bLowerBody)
+ {
+     using namespace FPSModularOutfit;
++    if(bWorld)bWorldPresentationReady=false;
+     const bool bHasLegs=bWorld||bLowerBody;
+     const auto Recipes=Object(Configuration,TEXT("items"));
+     auto Shirt=Flag(Profile,TEXT("restore_original_gloves"))?nullptr:Object(Recipes,Equipped.FindRef(7).ToString());
+@@ -421,6 +431,7 @@
+     auto* Existing=Presentations.FindByPredicate([Source](const auto& P){return P.Source==Source;});
+     if(Existing&&Existing->Key==Key)
+     {
++        if(bWorld)bWorldPresentationReady=true;
+         // Other equipment refreshes can restore source sections; conceal only
+         // the arm/body sections owned by this presentation, never weapon parts.
+         for(int32 L=0;L<Existing->PreviouslyVisible.Num();++L)for(int32 M:Existing->HiddenMaterials)
+@@ -687,6 +698,7 @@
+             {if(Source->IsMaterialSectionShown(M,L))Visible.Add(M);Section(Source,M,L,false);}
+         }
+     FollowVisibility(*Existing);
++    if(bWorld)bWorldPresentationReady=true;
+     if (auto* Body = Cast<UFPSPlayerBodyMeshComponent>(Source)) Body->UpdateModularRenderOwnership();
+     // Completed stale loads cannot apply an old recipe: source identity and the
+     // current equipment are re-read by DiscoverSources, never captured on commit.

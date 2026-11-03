@@ -1,0 +1,62 @@
+[
+  {
+    "variant": "factory",
+    "mesh": "SM_ThunderGodHammer_hammer_heads_factory",
+    "mesh_local_contact_cm": [
+      -15.94286784529686,
+      0.06859036017885956,
+      4.723412394523621
+    ],
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\ModulesV1\\ThunderGodHammer_Modular_Editable.blend",
+    "pitch_degrees": 135.0,
+    "support_tolerance_cm": 0.05
+  },
+  {
+    "variant": "heavy_forged",
+    "mesh": "SM_ThunderGodHammer_hammer_heads_heavy_forged",
+    "mesh_local_contact_cm": [
+      -20.59452086687088,
+      -0.03299563739834944,
+      6.476837396621704
+    ],
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\ModulesV1\\ThunderGodHammer_SharedParts_Editable.blend",
+    "pitch_degrees": 135.0,
+    "support_tolerance_cm": 0.05
+  },
+  {
+    "variant": "flanged_breaker",
+    "mesh": "SM_ThunderGodHammer_hammer_heads_flanged_breaker",
+    "mesh_local_contact_cm": [
+      -19.54452097415924,
+      0.13346718478715047,
+      6.026430241763592
+    ],
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\ModulesV1\\ThunderGodHammer_SharedParts_Editable.blend",
+    "pitch_degrees": 135.0,
+    "support_tolerance_cm": 0.05
+  },
+  {
+    "variant": "light_drum",
+    "mesh": "SM_ThunderGodHammer_hammer_heads_light_drum",
+    "mesh_local_contact_cm": [
+      -18.24452131986618,
+      -0.08151432054794648,
+      4.154428568753329
+    ],
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\ModulesV1\\ThunderGodHammer_SharedParts_Editable.blend",
+    "pitch_degrees": 135.0,
+    "support_tolerance_cm": 0.05
+  },
+  {
+    "variant": "pointed_hammer",
+    "mesh": "SM_ThunderGodHammer_hammer_heads_pointed_hammer",
+    "mesh_local_contact_cm": [
+      -23.84524991114934,
+      0.09001830497557724,
+      0.4769666857707004
+    ],
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\ModulesV1\\ThunderGodHammer_SharedParts_Editable.blend",
+    "pitch_degrees": 135.0,
+    "support_tolerance_cm": 0.05
+  }
+]

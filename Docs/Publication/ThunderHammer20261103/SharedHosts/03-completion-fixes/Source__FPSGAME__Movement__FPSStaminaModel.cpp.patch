@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -35,7 +35,7 @@
+     const auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
+     const auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();
+     if((Rain&&Rain->IsManaDraining())||(Bow&&Bow->IsDrawing())||(PS&&PS->IsBowDrawActive(Pawn)))return EStaminaActivity::Charging;
+-    if((Sword&&Sword->IsHeavyCharging())||(Tool&&Tool->IsHeavyCharging())||(Kukri&&Kukri->IsHeavyCharging()))return EStaminaActivity::Charging;
++    if((Sword&&Sword->IsHeavyCharging())||(Tool&&Tool->IsHeavyChargeConsumingStamina())||(Kukri&&Kukri->IsHeavyCharging()))return EStaminaActivity::Charging;
+     if(Sword&&Sword->IsGuarding())return EStaminaActivity::Guarding;
+     const auto* PC=Cast<APlayerController>(Pawn->GetController());
+     if(Tuning.SprintPerSecond>0&&Pawn->IsSprinting()&&Pawn->GetVelocity().SizeSquared2D()>2500&&!AFPSGAMEPlayerController::BlocksOngoingActions(PC))

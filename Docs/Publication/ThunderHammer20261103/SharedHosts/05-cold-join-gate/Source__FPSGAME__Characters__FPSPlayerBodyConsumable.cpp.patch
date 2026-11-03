@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
+@@ -85,7 +85,7 @@
+     for(int32 I=0;I<ConsumableParts.Num();++I)if(auto* Part=ConsumableParts[I].Get())
+     {
+         Part->SetRelativeTransform(Sample.Props[I]);
+-        const bool Show=(Sample.PropVisibility&(1<<I))&&!FPSPlayerBodyWorldBodyHidden();
++        const bool Show=(Sample.PropVisibility&(1<<I))&&!IsWorldBodyPresentationHidden();
+         if(Part->IsVisible()!=Show)Part->SetVisibility(Show);
+         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,false,OwnerFirst);
+         FPSBodyEquipment::ApplyShadowFlags(Part,Show&&ShouldWorldBodyCastShadow());

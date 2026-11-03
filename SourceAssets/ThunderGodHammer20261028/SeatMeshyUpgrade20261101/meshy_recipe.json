@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-01",
+  "stage": "reference_prepared_not_submitted",
+  "endpoint": "https://api.meshy.ai/openapi/v1/image-to-3d",
+  "documentation": [
+    "https://docs.meshy.ai/en/api/image-to-3d",
+    "https://docs.meshy.ai/en/api/pricing"
+  ],
+  "payload_common": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "2k",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "4k",
+    "should_remesh": false,
+    "target_formats": [
+      "glb",
+      "fbx"
+    ],
+    "texture_prompt": "Dark charcoal hand-forged steel, satin silver recessed Norse ribbon inlays, clean beveled edges, restrained fine hammer marks and localized wear, very narrow icy blue inlaid channels. No gemstones, no rock cracks, no painted illumination or deep shadows, no heavy rust. Preserve material distinction."
+  },
+  "candidates": [
+    {
+      "id": "guan_lei_seat",
+      "image_file": "GuanLei_MeshyReference.png"
+    },
+    {
+      "id": "ji_lei_seat",
+      "image_file": "JiLei_MeshyReference.png"
+    }
+  ],
+  "request_note": "Encode one local image as data:image/png;base64,... in image_url; submit each part separately. These single views do not constrain the hidden rear. Do not submit a concept collage as one image.",
+  "budget": {
+    "expected_credits_each": 35,
+    "expected_credits_total": 70,
+    "spent_credits": 0,
+    "task_ids": []
+  },
+  "auth": {
+    "env_name": "MESHY_API_KEY",
+    "present_in_process_user_machine": false,
+    "key_saved": false
+  },
+  "postprocess": {
+    "donor_blend": "../GuanLeiClosedCrownV12/GuanLei_V12_Editable.blend",
+    "preserve_objects": [
+      "01_HeadInterfaceLoadWeb",
+      "01_HeadInterfaceLoadWeb.001",
+      "11_RecessedRuneMedallion",
+      "15_OriginalRuneRelief",
+      "20_NativeLeftHeadInterface",
+      "21_NativeRightHeadInterface",
+      "22_NativeNeckInterface"
+    ],
+    "note": "Reuse original medallion and mating faces/UV/normals/transforms. Generated medallion, mounting faces and illustrated collar are visual placeholders, not exact replacements. Fit ornamental body locally to native interfaces, not overall bounding box. Keep original hammer heads and neck.",
+    "emission": "Meshy 7.1 PBR does not include an emission map. Author a separate blue-channel emissive mask and retain existing JiLei charge behavior.",
+    "geometry": "Preserve raw high-resolution master; no automatic simplification. Generated faces are not a runtime performance guarantee."
+  },
+  "status": {
+    "concept_generated": true,
+    "user_selected": false,
+    "meshy_generated": false,
+    "model_fitted": false,
+    "ue_imported": false,
+    "runtime_tested": false
+  }
+}

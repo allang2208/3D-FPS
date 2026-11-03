@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+@@ -47,6 +47,10 @@
+ 
+ void UFPSPlayerBodyComponent::UpdateWorldOwnerVisibility(bool bHideFromOwner)
+ {
++    // The fallback includes its head in the same mesh; keep it out of the
++    // first-person death camera just as the separate real head would be.
++    FPSBodyEquipment::ApplyOwnerVisibilityFlags(InitialAppearanceFallback,false,
++        bHideFromOwner||(IsDeathViewActive()&&!IsThirdPersonViewEnabled()));
+     // 这条路径由 CalcCamera 每帧驱动，是「每帧重注册」的主要嫌疑位置。
+     UFPSPerformanceMetricsSubsystem::CountWorldVisibilityUpdate(this);
+     FFPSPerformanceScope PerformanceScope(this,TEXT("PlayerBody.WorldVisibility"));

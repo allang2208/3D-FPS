@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-02",
+  "weapon": "ue_thunder_god_hammer",
+  "slot": "head_mount",
+  "revision": "CommonSeatsStructuralV7",
+  "concept": "CommonSeats_Structural_Concept.png",
+  "concept_source": "built-in image_gen",
+  "scope": ["reinforced_block", "ribbed_light", "laminated_damper"],
+  "preserve": ["native central medallion", "native three-knot emblem", "left and right head mating faces", "neck mating face", "unchanged JiLei and GuanLei assets", "gameplay and saved modification IDs"],
+  "structural_features": {
+    "reinforced_block": "Solid stepped forged shoulders integrated into native casting, locally increased mass and broad edge highlights",
+    "ribbed_light": "True paired through-windows above the medallion with complete inner walls and solid forged ribs",
+    "laminated_damper": "Three visible stepped shoulder laminae separated by two recessed dark buffering interlayers"
+  },
+  "runtime_tested": false
+}

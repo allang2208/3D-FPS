@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Production/ProductionThunderCall.cpp
++++ b/Source/FPSGAME/Production/ProductionThunderCall.cpp
+@@ -15,6 +15,8 @@
+ {
+     const auto* Pawn=Character.Get();
+     if(!bThunderCallSeat||!IsHeavyCharging()||!Pawn||!GetWorld())return false;
++    // A delayed tap-release packet is not evidence that the owner held input.
++    if(!Pawn->IsLocallyControlled()&&!bThunderCallHoldConfirmed)return false;
+     const double StartedAt=Pawn->IsLocallyControlled()?BluntChargeStartedAt:BluntServerChargeStartedAt;
+     return ThunderHammerCallIntent::Phase(float(GetWorld()->GetTimeSeconds()-StartedAt),BluntChargeSeconds)
+         !=ThunderHammerCallIntent::EPhase::TapPending;
+@@ -77,6 +79,11 @@
+ {
+     auto* Pawn=Character.Get();if(!Pawn)return;
+     auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
++    if(Pawn->IsLocallyControlled()&&IsThunderCalling()&&!bThunderCallHoldConfirmed)
++    {
++        bThunderCallHoldConfirmed=true;
++        if(GetNetMode()!=NM_Standalone)ServerConfirmThunderCall(BluntAttackId);
++    }
+     if(Pawn->HasAuthority()||Pawn->IsLocallyControlled())
+     {
+         const bool Charging=IsThunderCalling();

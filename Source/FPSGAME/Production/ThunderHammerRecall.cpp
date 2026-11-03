@@ -99,7 +99,7 @@ FQuat AThunderHammerThrown::RecallRotation() const
 {
     const float T=FMath::Clamp(RecallAge()/RecallDuration,0.f,1.f),W=Settle(T);
     const auto* Pawn=Cast<APawn>(GetOwner());const FQuat Catch=ThunderHammerThrow::CatchFrame(Pawn).GetRotation();
-    const FQuat Base=FQuat::Slerp(FRotator(135.f,FlightYaw,0).Quaternion(),Catch,W).GetNormalized();
+    const FQuat Base=FQuat::Slerp(GroundRotation,Catch,W).GetNormalized();
     // Keep the head-led forward turn on recall, then complete whole turns
     // and slow down into the exact authored grip frame.
     return (FQuat(RecallAxis.GetSafeNormal(),2.f*PI*RecallSpinTurns())*Base).GetNormalized();

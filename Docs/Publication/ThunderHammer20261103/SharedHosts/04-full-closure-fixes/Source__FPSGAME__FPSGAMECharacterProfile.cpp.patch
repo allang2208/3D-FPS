@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -298,7 +298,10 @@
+             if (UColdSteelStatusModel* Shadow = PS->GetShadowModel())
+             {
+                 NetShadowProfile = Shadow;
+-                ApplyColdSteelProfile(Shadow);
++                // Reset the previous life's dead snapshot before this pawn's
++                // first replication. Applying it first can send Health=0 and
++                // permanently disable the new owner's input/tick on receipt.
++                Shadow->AttachPawn(this);
+             }
+         }
+     }

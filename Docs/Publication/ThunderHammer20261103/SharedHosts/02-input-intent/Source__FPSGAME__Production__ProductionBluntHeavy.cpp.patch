@@ -1,0 +1,75 @@
+--- a/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
+@@ -1,6 +1,7 @@
+ #include "ProductionToolComponent.h"
+ #include "ProductionBluntCombo.h"
+ #include "WarhammerHeavyMotion.h"
++#include "ThunderHammerCallIntent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/RuneSwordComponent.h"
+ #include "../UI/ColdSteelStatusModel.h"
+@@ -27,15 +28,7 @@
+     BluntSprintSeconds=0.f;
+     BluntChargeStartedAt=GetWorld()->GetTimeSeconds();
+     ++BluntAttackId;
+-    if(bThunderCallSeat)
+-    {
+-        bThunderCallCharging=true;
+-        if(Character->HasAuthority())
+-        {
+-            bThunderCallResourcesDirty=true;ThunderCallVisualStartedAt=RuneboundClock();
+-            ThunderCallVisualSeconds=BluntChargeSeconds;Character->ForceNetUpdate();
+-        }
+-    }
++    if(bThunderCallSeat)bThunderCallCharging=false; // TapPending: input ownership only, no charge pose/FX.
+     if(GetNetMode()!=NM_Standalone)ServerBeginBluntCharge(BluntAttackId);
+ }
+ 
+@@ -64,11 +57,18 @@
+     if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
+     {CancelHeavyCharge();return;}
+     const float Held=float(GetWorld()->GetTimeSeconds()-BluntChargeStartedAt);
+-    if(bThunderCallSeat&&Held>=BluntChargeSeconds){ReleaseThunderCall();return;}
++    if(bThunderCallSeat)
++    {
++        const auto Phase=ThunderHammerCallIntent::Phase(Held,BluntChargeSeconds);
++        if(Phase==ThunderHammerCallIntent::EPhase::Ready){ReleaseThunderCall();return;}
++        // Once the lift has begun, an early release returns to grip instead of
++        // splicing the one-handed charge pose into a two-handed normal attack.
++        if(Phase==ThunderHammerCallIntent::EPhase::Charging){CancelHeavyCharge();return;}
++    }
+     bBluntCharging=false;bBluntReleaseCharge=true;
+     bBluntHeavy=Held>=BluntChargeSeconds;
+-    if(Held>.20f)NextBluntStage=0;
+-    if((bThunderThrowSeat||bThunderCallSeat)&&!bBluntHeavy)HandOffBluntPose();
++    if(!bThunderCallSeat&&Held>.20f)NextBluntStage=0;
++    if(bThunderThrowSeat&&!bBluntHeavy)HandOffBluntPose();
+     if(bThunderCallSeat){bThunderCallCharging=false;ClearThunderCallVisual();FinishThunderCallResources();}
+     BeginUse();
+     if(Elapsed<0.f){bBluntCharging=true;CancelUse();return;}
+@@ -80,7 +80,10 @@
+ {
+     if(bBluntReturningCharge)
+         return BluntChargeReturnFrom*(1.f-FMath::SmoothStep(0.f,BluntChargeReturnDuration,BluntChargeReturnAge));
+-    return FMath::Clamp(float(GetWorld()->GetTimeSeconds()-BluntChargeStartedAt)/BluntChargeSeconds,0.f,1.f)*WarhammerHeavy::ChargeSeconds;
++    const float Held=float(GetWorld()->GetTimeSeconds()-BluntChargeStartedAt);
++    const float Progress=bThunderCallSeat?ThunderHammerCallIntent::Progress(Held,BluntChargeSeconds):
++        FMath::Clamp(Held/BluntChargeSeconds,0.f,1.f);
++    return Progress*WarhammerHeavy::ChargeSeconds;
+ }
+ 
+ void UProductionToolComponent::CancelHeavyCharge()
+@@ -91,9 +94,11 @@
+         ServerCancelBluntAttack_Implementation(BluntServerAttackId);
+         ClientBluntAttackResult(BluntServerAttackId,0,false,false,false);return;
+     }
+-    const float From=BluntChargePoseSeconds();
++    const float From=bThunderCallSeat&&CurrentMotion!=Motions.FindRef(TEXT("ThunderCallCharge"))?
++        0.f:BluntChargePoseSeconds();
+     CancelUse();
+-    // Retrace the supported two-hand charge, keeping the camera on that same clock.
++    if(bThunderCallSeat&&From<=UE_SMALL_NUMBER)return; // No lift occurred during a pending click.
++    // Return along the charge pose that was actually presented.
+     bBluntReturningCharge=true;BluntChargeReturnFrom=From;BluntChargeReturnAge=0.f;
+     BluntChargeReturnDuration=FMath::Clamp(From*.25f,.1f,.45f);
+ }

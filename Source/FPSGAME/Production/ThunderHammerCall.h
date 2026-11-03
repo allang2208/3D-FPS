@@ -10,7 +10,7 @@ namespace ThunderHammerCall
     inline constexpr float ReleaseSeconds=.72f,VisualScale=1.65f;
     inline constexpr const TCHAR* Charge=TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallCharge.A_ThunderHammer_CallCharge");
     inline constexpr const TCHAR* Release=TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallRelease.A_ThunderHammer_CallRelease");
-    inline constexpr const TCHAR* ChargeSound=TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiChargeAudioV1/S_JiLei_ChargeElectromagnetic.S_JiLei_ChargeElectromagnetic");
+    inline constexpr const TCHAR* ChargeSound=TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/MS_JiLei_CurrentRandom.MS_JiLei_CurrentRandom");
     bool Installed(const FColdSteelItem& Item);
     bool SelectGround(const APawn* Pawn,FHitResult& Hit);
 }

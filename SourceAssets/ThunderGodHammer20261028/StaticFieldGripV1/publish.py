@@ -1,4 +1,10 @@
 """Publish only Static Field's grip option and exact native module mount."""
+# Apply the shared workbench copy standard when publishing catalogs.
+from pathlib import Path as _WorkbenchCopyPath
+import runpy as _workbench_copy_runpy
+_workbench_copy_root = next(p for p in _WorkbenchCopyPath(__file__).resolve().parents if (p / 'FPSGAME.uproject').exists())
+_apply_workbench_copy = _workbench_copy_runpy.run_path(str(_workbench_copy_root / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['apply_for_target']
+
 from pathlib import Path
 import datetime,json,os,shutil
 P=Path(__file__).resolve().parent;R=P.parents[2]
@@ -7,7 +13,7 @@ if not receipt['complete']:raise RuntimeError('Static Field asset import is inco
 backup=P/'Backups'/('Catalog-'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'));backup.mkdir(parents=True,exist_ok=True)
 appearance='深棕缝合皮革 · 沉入式双向银纹 · 北欧编结环印'
 option=dict(id='static_field_grip',name='静电场',tier='special',weapons=['ue_thunder_god_hammer'],
- description='雷神之锤专属。细银导体沉入缝合皮革，两端以编结锻箍收束，环状雷印将积蓄的电荷向周围释放。',appearance=appearance,
+ description='雷神之锤专属。细银导体沉入缝合皮革，两端以编结锻箍收束。',appearance=appearance,
  stats=dict(heavy_charge_speed_bonus=.15,physical_attack_add=5),
  effects=[dict(text='重击蓄力速度+15%',benefit=1),dict(text='物理攻击力+5',benefit=1)],
  special_effects=[
@@ -30,7 +36,7 @@ for file in ('thunder-god-hammer-modules.json','thunder-god-hammer-gunsmith.json
         item=option
     if path.read_bytes()!=raw:raise RuntimeError('Concurrent catalog edit; preserved: '+file)
     shutil.copy2(path,backup/file)
-    pending=path.with_name(file+'.static-field-pending');pending.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');os.replace(pending,path)
+    pending=path.with_name(file+'.static-field-pending');pending.write_text(json.dumps(_apply_workbench_copy(pending, data),ensure_ascii=False,indent=2)+'\n',encoding='utf-8');os.replace(pending,path)
     changes.append(dict(file=str(path),before=before,after=item,backup=str(backup/file)))
-(P/'publication_receipt.json').write_text(json.dumps(dict(complete=True,revision='StaticFieldGripV1',changes=changes,runtime_tested=False),ensure_ascii=False,indent=2),encoding='utf-8')
+(P/'publication_receipt.json').write_text(json.dumps(_apply_workbench_copy(P/'publication_receipt.json', dict(complete=True,revision='StaticFieldGripV1',changes=changes,runtime_tested=False)),ensure_ascii=False,indent=2),encoding='utf-8')
 print('STATIC_FIELD_CATALOG_PUBLISHED')

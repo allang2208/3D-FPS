@@ -1,0 +1,93 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -11,6 +11,8 @@
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../UI/FPSPerformanceMetrics.h"
+ #include "FPSPlayerBodyAnimInstance.h"
++#include "FPSBodyWeaponMeshComponent.h"
++#include "UObject/ConstructorHelpers.h"
+ #include "FPSBodyKukriMotion.h"
+ #include "FPSBodyKukriRifts.h"
+ #include "FPSPlayerBodyPoses.h"
+@@ -134,11 +136,11 @@
+ {
+     if(!Character.IsValid())return;
+     const bool bCast=ShouldWorldBodyCastShadow();
+-    FPSBodyEquipment::ApplyShadowFlags(GetBodyMesh(),bCast);
++    FPSBodyEquipment::ApplyShadowFlags(GetBodyMesh(),bCast&&!bInitialAppearancePending);
+     for(const TObjectPtr<USkeletalMeshComponent>& Outfit:OutfitMeshes)
+-        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast);
++        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast&&!bInitialAppearancePending);
+     for(const TObjectPtr<UStaticMeshComponent>& Outfit:OutfitStaticMeshes)
+-        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast);
++        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast&&!bInitialAppearancePending);
+     // Weapons use the same policy plus traversal / per-hand occupancy.
+     UpdateWorldWeaponPresentation();
+     UpdateAppearanceVisibility();
+@@ -162,7 +164,7 @@
+ {
+     // Equipment is handled separately with its hand-occupancy rules; never briefly
+     // unhide a stowed weapon here before hiding it again later in the same frame.
+-    const bool bHidden=IsWorldBodyPresentationHidden();
++    const bool bHidden=IsWorldBodyPresentationHidden()||bInitialAppearancePending;
+     TArray<UPrimitiveComponent*> Targets;
+     if(auto* Body=GetBodyMesh())Targets.Add(Body);
+     // These arrays hold TObjectPtr, so the element type must be spelled out rather than
+@@ -188,6 +190,7 @@
+     }
+     // Apply each primitive's final shadow state, including stowed equipment.
+     ApplyWorldBodyShadow();
++    UpdateAppearanceFallbackVisibility();
+     UpdateFirstPersonLowerBodyVisibility();
+ }
+ 
+@@ -196,6 +199,10 @@
+     PrimaryComponentTick.bCanEverTick=true;
+     PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
+     SetIsReplicatedByDefault(true);
++    // One small, complete mesh is held by the class before pawns enter the world.
++    // The selected MetaHuman face/hair never becomes a prerequisite for visibility.
++    static ConstructorHelpers::FObjectFinder<USkeletalMesh> Fallback(TEXT("/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple.SKM_Manny_Simple"));
++    InitialAppearanceFallbackAsset=Fallback.Object;
+ }
+ void UFPSPlayerBodyComponent::BeginPlay()
+ {
+@@ -248,6 +255,7 @@
+     if(AppearanceLoad){AppearanceLoad->CancelHandle();AppearanceLoad.Reset();}
+     if(HeadMesh&&InitialHeadPoseHandle.IsValid())HeadMesh->UnregisterOnBoneTransformsFinalizedDelegate(InitialHeadPoseHandle);
+     InitialHeadPoseHandle.Reset();
++    if(InitialAppearanceFallback){InitialAppearanceFallback->DestroyComponent();InitialAppearanceFallback=nullptr;}
+     ClearOutfitPresentation();
+     if(Character.IsValid()&&Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+         Profile->OnChanged.Remove(ProfileChanged);
+@@ -261,10 +269,12 @@
+         UE_LOG(LogTemp,Display,TEXT("PlayerBody: world body suppressed by fps.body.WorldBodySuppress 1 (capture isolation)"));
+         SetComponentTickEnabled(false);return;
+     }
++    InitializeAppearanceFallback();
+     const FString MeshPath=Configuration->GetStringField(TEXT("body_mesh"));
+     auto* Mesh=LoadObject<USkeletalMesh>(nullptr,*MeshPath);
+     if(!Mesh){UE_LOG(LogTemp,Error,TEXT("PlayerBody: cannot load %s"),*MeshPath);return;}
+     Body->SetSkeletalMeshAsset(Mesh);
++    FallbackPoseSource.Reset();
+     // World weapon rigs were authored for Manny's hand axes. Retargeting the
+     // body does not change those rigs; convert their mounts to the new bind axes.
+     FString ReferencePath;
+@@ -290,7 +300,8 @@
+     Body->SetGenerateOverlapEvents(false);
+     Body->SetOnlyOwnerSee(false);Body->SetOwnerNoSee(true);
+     Body->SetCastShadow(true);Body->bCastHiddenShadow=true;
+-    Body->SetVisibility(!IsWorldBodyPresentationHidden());Body->SetHiddenInGame(IsWorldBodyPresentationHidden());
++    const bool bHideAssembly=IsWorldBodyPresentationHidden()||bInitialAppearancePending;
++    Body->SetVisibility(!bHideAssembly);Body->SetHiddenInGame(bHideAssembly);
+     Body->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+     Body->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+     Body->SetAnimInstanceClass(UFPSPlayerBodyAnimInstance::StaticClass());
+@@ -538,4 +549,6 @@
+             BodyAnimation->Direction=0.f;
+         }
+     }
+-}
++    // Existing component tick only; the readiness check performs no loading or discovery.
++    if(bInitialAppearancePending)FinishInitialAppearance();
++}

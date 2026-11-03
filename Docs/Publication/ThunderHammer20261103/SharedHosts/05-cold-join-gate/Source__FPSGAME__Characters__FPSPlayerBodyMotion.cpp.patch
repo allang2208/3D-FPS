@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -716,7 +716,7 @@
+         // Remote clients have no inventory model for this pawn. Compare the
+         // replicated equipment instance directly with the authoritative throw.
+         const bool Thrown=Tool&&!Tool->ThunderAwayInstance.IsEmpty()&&Binding.Definition.ItemInstance==Tool->ThunderAwayInstance;
+-        const bool Visible=R.Visible&&!Thrown&&!IsWorldWeaponStowed(Root)&&!FPSPlayerBodyWorldBodyHidden();
++        const bool Visible=R.Visible&&!Thrown&&!IsWorldWeaponStowed(Root)&&!IsWorldBodyPresentationHidden();
+         if(Root->IsVisible()!=Visible)Root->SetVisibility(Visible);
+         if(Root->bHiddenInGame==Visible)Root->SetHiddenInGame(!Visible);
+         if(auto* Prop=Binding.ReloadProp.Get())
+@@ -813,7 +813,7 @@
+     }
+     if(WorldStaffLight)
+     {
+-        const bool Visible=Incoming.Light>0.f&&(!Local||IsThirdPersonViewEnabled())&&!FPSPlayerBodyWorldBodyHidden();
++        const bool Visible=Incoming.Light>0.f&&(!Local||IsThirdPersonViewEnabled())&&!IsWorldBodyPresentationHidden();
+         if(WorldStaffLight->IsVisible()!=Visible)WorldStaffLight->SetVisibility(Visible);
+     }
+ }

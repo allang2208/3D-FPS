@@ -41,8 +41,8 @@
           "weapons": [
             "ue_thunder_god_hammer"
           ],
-          "description": "雷神之锤专属。双侧流线锻肩在顶部连续闭合，嵌银回环与北欧编结护住原厂雷纹圆徽；将蓄满重击化为可召回的旋转飞锤。",
-          "appearance": "原厂雷纹圆徽 · 连体闭合顶冠 · 双侧流线嵌银回环",
+          "description": "雷神之锤专属。圆弧锻冠与双侧回环连续收束，北欧编结和蓝色导雷纹护住三结圆徽。",
+          "appearance": "北境三结圆徽 · 圆弧闭冠 · 双侧回环导雷纹",
           "stats": {
             "physical_damage_mult": 1.1
           },
@@ -65,8 +65,8 @@
           "weapons": [
             "ue_thunder_god_hammer"
           ],
-          "description": "雷神之锤专属。连体折肩承接低矮锻冠，内嵌银线与聚雷刻纹收束至原厂圆徽；单手举锤蓄力，指向地面召下疾雷。",
-          "appearance": "原厂雷纹圆徽 · 连体折肩与短冠 · 内嵌聚雷纹路",
+          "description": "雷神之锤专属。北境三结圆徽嵌入厚实锻座，折肩与低冠的蓝色导雷纹汇聚雷息。",
+          "appearance": "北境三结圆徽 · 聚雷折肩与短冠 · 蓝色内嵌导雷纹",
           "stats": {
             "attack_speed_mult": 1.2
           },
@@ -143,7 +143,7 @@
           "weapons": [
             "ue_thunder_god_hammer"
           ],
-          "description": "雷神之锤专属。细银导体沉入缝合皮革，两端以编结锻箍收束，环状雷印将积蓄的电荷向周围释放。",
+          "description": "雷神之锤专属。细银导体沉入缝合皮革，两端以编结锻箍收束。",
           "appearance": "深棕缝合皮革 · 沉入式双向银纹 · 北欧编结环印",
           "stats": {
             "heavy_charge_speed_bonus": 0.15,
@@ -173,7 +173,7 @@
           "weapons": [
             "ue_thunder_god_hammer"
           ],
-          "description": "雷神之锤专属。铜绕组收束于钛合金护肋之间，蓝白电荷沿绝缘握柄导流，在重击释放后寻找附近的敌人。",
+          "description": "雷神之锤专属。铜绕组收束于钛合金护肋之间，蓝白电荷沿绝缘握柄导流。",
           "appearance": "分段绝缘握持 · 连续铜线圈 · 钛合金护肋与蓝白导光槽",
           "stats": {
             "heavy_charge_speed_bonus": 0.15,

@@ -1,0 +1,172 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
+@@ -1,6 +1,7 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "FPSBodyOutfitResources.h"
+ #include "FPSPlayerHeadAnimInstance.h"
++#include "FPSBodyWeaponMeshComponent.h"
+ #include "FPSHeadEquipmentMeshComponent.h"
+ #include "FPSModularOutfitComponent.h"
+ #include "UObject/UnrealType.h"
+@@ -46,16 +47,93 @@
+ 
+ bool UFPSPlayerBodyComponent::IsWorldBodyPresentationHidden() const
+ {
+-    return FPSPlayerBodyWorldBodyHidden()||bInitialAppearancePending;
++    // Combat equipment remains visible on the fallback's animated hands.
++    return FPSPlayerBodyWorldBodyHidden();
++}
++void UFPSPlayerBodyComponent::InitializeAppearanceFallback()
++{
++    if(!bInitialAppearancePending||InitialAppearanceFallback||!InitialAppearanceFallbackAsset)return;
++    auto* Body=GetBodyMesh();if(!Body)return;
++    InitialAppearanceFallback=NewObject<UFPSBodyWeaponMeshComponent>(GetOwner(),NAME_None,RF_Transient);
++    GetOwner()->AddInstanceComponent(InitialAppearanceFallback);
++    InitialAppearanceFallback->ComponentTags.Add(TEXT("InitialAppearanceFallback"));
++    InitialAppearanceFallback->SetupAttachment(Body);
++    InitialAppearanceFallback->SetSkeletalMeshAsset(InitialAppearanceFallbackAsset);
++    InitialAppearanceFallback->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    InitialAppearanceFallback->SetGenerateOverlapEvents(false);
++    InitialAppearanceFallback->SetOwnerNoSee(true);
++    InitialAppearanceFallback->RegisterComponent();
++    InitialAppearanceFallback->SetComponentTickEnabled(false);
++    UpdateAppearanceFallbackVisibility();
++}
++void UFPSPlayerBodyComponent::UpdateAppearanceFallbackPose()
++{
++    if(!InitialAppearanceFallback||!bInitialAppearancePending)return;
++    const auto* Body=GetBodyMesh();auto* Source=Body?Body->GetSkeletalMeshAsset():nullptr;
++    if(!Source||!InitialAppearanceFallbackAsset)return;
++    const auto& TargetRef=InitialAppearanceFallbackAsset->GetRefSkeleton();
++    const auto& SourceRef=Source->GetRefSkeleton();
++    const auto& Incoming=Body->GetComponentSpaceTransforms();
++    if(FallbackPoseSource.Get()!=Source)
++    {
++        // Manny and the native bodies have different bind axes. LeaderPose/CopyPose
++        // by bone name alone twists the fallback; remove the native bind rotation.
++        TArray<FTransform> SourceBind=SourceRef.GetRefBonePose(),TargetBind=TargetRef.GetRefBonePose();
++        for(int32 I=0;I<SourceBind.Num();++I)
++            if(const int32 Parent=SourceRef.GetParentIndex(I);Parent!=INDEX_NONE)SourceBind[I]=SourceBind[I]*SourceBind[Parent];
++        for(int32 I=0;I<TargetBind.Num();++I)
++            if(const int32 Parent=TargetRef.GetParentIndex(I);Parent!=INDEX_NONE)TargetBind[I]=TargetBind[I]*TargetBind[Parent];
++        FallbackBoneMap.SetNum(TargetBind.Num());FallbackBindCorrections.SetNum(TargetBind.Num());FallbackPose.SetNum(TargetBind.Num());
++        for(int32 I=0;I<TargetBind.Num();++I)
++        {
++            const int32 Index=SourceRef.FindBoneIndex(TargetRef.GetBoneName(I));FallbackBoneMap[I]=Index;
++            FallbackBindCorrections[I]=Index!=INDEX_NONE?SourceBind[Index].GetRotation().Inverse()*TargetBind[I].GetRotation():FQuat::Identity;
++        }
++        FallbackPoseSource=Source;
++    }
++    for(int32 I=0;I<FallbackPose.Num();++I)
++    {
++        const int32 Index=FallbackBoneMap[I];
++        if(Incoming.IsValidIndex(Index))
++            FallbackPose[I]=FTransform((Incoming[Index].GetRotation()*FallbackBindCorrections[I]).GetNormalized(),Incoming[Index].GetTranslation(),Incoming[Index].GetScale3D());
++        else
++        {
++            const int32 Parent=TargetRef.GetParentIndex(I);
++            FallbackPose[I]=Parent!=INDEX_NONE?TargetRef.GetRefBonePose()[I]*FallbackPose[Parent]:TargetRef.GetRefBonePose()[I];
++        }
++    }
++    InitialAppearanceFallback->PublishMechanicalPose(FallbackPose);
++}
++void UFPSPlayerBodyComponent::UpdateAppearanceFallbackVisibility()
++{
++    if(!InitialAppearanceFallback)return;
++    const bool Visible=bInitialAppearancePending&&!FPSPlayerBodyWorldBodyHidden();
++    if(InitialAppearanceFallback->IsVisible()!=Visible)InitialAppearanceFallback->SetVisibility(Visible);
++    if(InitialAppearanceFallback->bHiddenInGame==Visible)InitialAppearanceFallback->SetHiddenInGame(!Visible);
++    FPSBodyEquipment::ApplyShadowFlags(InitialAppearanceFallback,Visible&&ShouldWorldBodyCastShadow());
++    const auto ShadowType=UsesWarhammerFirstPersonPass()?EFirstPersonPrimitiveType::WorldSpaceRepresentation:EFirstPersonPrimitiveType::None;
++    if(InitialAppearanceFallback->FirstPersonPrimitiveType!=ShadowType)InitialAppearanceFallback->SetFirstPersonPrimitiveType(ShadowType);
++}
++void UFPSPlayerBodyComponent::OnInitialHeadPoseReady()
++{
++    if(HeadMesh&&InitialHeadPoseHandle.IsValid())HeadMesh->UnregisterOnBoneTransformsFinalizedDelegate(InitialHeadPoseHandle);
++    InitialHeadPoseHandle.Reset();bInitialHeadPoseReady=true;
++    FinishInitialAppearance();
+ }
+ void UFPSPlayerBodyComponent::FinishInitialAppearance()
+ {
+-    if(HeadMesh&&InitialHeadPoseHandle.IsValid())HeadMesh->UnregisterOnBoneTransformsFinalizedDelegate(InitialHeadPoseHandle);
+-    InitialHeadPoseHandle.Reset();
+-    if(!bInitialAppearancePending)return;
++    if(!bInitialAppearancePending||!bInitialHeadPoseReady||AppearanceLoad.IsValid()||bAppearanceLoadFailed
++        ||!bInitialOutfitReady||!bHeadEquipmentReady)return;
++    auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>();
++    if(Modular&&!Modular->IsWorldPresentationReady())return;
+     bInitialAppearancePending=false;
+     ApplyWorldBodyVisibility();
+     UpdateOwnerVisibility();
++    // Follow visibility now, rather than exposing a bare body until its next tick.
++    if(Modular)Modular->RefreshWorldVisibility();
++    if(InitialAppearanceFallback)
++    {InitialAppearanceFallback->DestroyComponent();InitialAppearanceFallback=nullptr;}
++    FallbackPoseSource.Reset();FallbackBoneMap.Reset();FallbackBindCorrections.Reset();FallbackPose.Reset();
+ }
+ 
+ FFPSBodyAppearance UFPSPlayerBodyComponent::ResolveAppearance(FFPSBodyAppearance Value) const
+@@ -97,11 +175,21 @@
+     using namespace FPSBodyAppearance;
+     auto* Body=GetBodyMesh();if(!Body||FPSPlayerBodyWorldBodySuppressed())return;
+     Value=ResolveAppearance(Value);
+-    if(Value==AppliedAppearance&&(HeadMesh||AppearanceLoad.IsValid()))return;
++    if(Value==AppliedAppearance&&(HeadMesh||AppearanceLoad.IsValid()||bAppearanceLoadFailed))return;
+     const auto Selected=ConfigurationForHead(Value.HeadId);
+     const bool bChangeBody=Selected!=Configuration;
+     const auto Head=Object(Object(Selected,TEXT("heads")),Value.HeadId.ToString());
+-    if(!Head){FinishInitialAppearance();return;}
++    AppliedAppearance=Value;bAppearanceLoadFailed=false;
++    const uint32 Request=++AppearanceRequest;
++    if(AppearanceLoad){AppearanceLoad->CancelHandle();AppearanceLoad.Reset();}
++    if(bInitialAppearancePending)
++    {
++        bInitialHeadPoseReady=false;
++        if(HeadMesh&&InitialHeadPoseHandle.IsValid())HeadMesh->UnregisterOnBoneTransformsFinalizedDelegate(InitialHeadPoseHandle);
++        InitialHeadPoseHandle.Reset();
++    }
++    if(!Head)
++    {bAppearanceLoadFailed=true;UE_LOG(LogTemp,Error,TEXT("Player head recipe unavailable: %s; complete fallback retained"),*Value.HeadId.ToString());return;}
+     const FString MeshPath=Text(Head,TEXT("mesh"));
+     const auto MaterialOverrides=Object(Head,TEXT("materials"));
+     TArray<TSharedPtr<FJsonObject>> GroomRecipes;Grooms(Head,GroomRecipes);
+@@ -144,9 +232,6 @@
+             if(Headwear)AssetPaths(Headwear->TryGetField(Slot.Definition.ToString()),Paths);
+         }
+     }
+-    AppliedAppearance=Value;
+-    const uint32 Request=++AppearanceRequest;
+-    if(AppearanceLoad)AppearanceLoad->CancelHandle();
+     AppearanceLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
+         FStreamableDelegate::CreateWeakLambda(this,[this,Value,Request,MeshPath,GroomRecipes,Materials,ScalpStart,Selected,bChangeBody,Paths]()
+     {
+@@ -154,9 +239,9 @@
+         auto* Parent=GetBodyMesh();
+         auto* Mesh=Cast<USkeletalMesh>(FSoftObjectPath(MeshPath).ResolveObject());
+         if(!Parent||!Parent->GetSkeletalMeshAsset()||!Mesh)
+-        {UE_LOG(LogTemp,Error,TEXT("Player head/body unavailable: %s"),*MeshPath);AppearanceLoad.Reset();AppliedAppearance={};FinishInitialAppearance();return;}
++        {UE_LOG(LogTemp,Error,TEXT("Player head/body unavailable: %s; complete presentation retained"),*MeshPath);AppearanceLoad.Reset();bAppearanceLoadFailed=true;return;}
+         for(const auto& Path:Paths)if(Path.IsValid()&&!Path.ResolveObject())
+-        {UE_LOG(LogTemp,Error,TEXT("Player appearance unavailable: %s"),*Path.ToString());AppearanceLoad.Reset();AppliedAppearance={};FinishInitialAppearance();return;}
++        {UE_LOG(LogTemp,Error,TEXT("Player appearance unavailable: %s; complete presentation retained"),*Path.ToString());AppearanceLoad.Reset();bAppearanceLoadFailed=true;return;}
+         if(bChangeBody)
+         {
+             if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->ResetBodyPresentation();
+@@ -281,7 +366,7 @@
+         // Later changes keep the previous complete appearance during streaming.
+         if(bInitialAppearancePending)
+             InitialHeadPoseHandle=HeadMesh->RegisterOnBoneTransformsFinalizedDelegate(
+-                FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::FinishInitialAppearance));
++                FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::OnInitialHeadPoseReady));
+         AppearanceLoad.Reset();
+     }));
+ }
+@@ -301,7 +386,7 @@
+     {
+         const bool HideHead=Body->bOwnerNoSee||(IsDeathViewActive()&&!IsThirdPersonViewEnabled());
+         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,false,HideHead);
+-        FPSBodyEquipment::ApplyShadowFlags(Part,ShouldWorldBodyCastShadow());
++        FPSBodyEquipment::ApplyShadowFlags(Part,ShouldWorldBodyCastShadow()&&!bInitialAppearancePending);
+         const bool PartVisible=Visible&&!(bHeadEquipmentCoversHair&&Part->ComponentHasTag(TEXT("HeadScalpHair")));
+         if(Part->IsVisible()!=PartVisible)Part->SetVisibility(PartVisible);
+         if(Part->bHiddenInGame==PartVisible)Part->SetHiddenInGame(!PartVisible);

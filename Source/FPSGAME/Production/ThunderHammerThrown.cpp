@@ -1,5 +1,6 @@
 #include "ThunderHammerThrown.h"
 #include "ThunderHammerThrow.h"
+#include "ThunderHammerGroundContacts.h"
 #include "ThunderHammerTuning.h"
 #include "ThunderHammerStaticField.h"
 #include "ThunderHammerCoil.h"
@@ -112,7 +113,27 @@ void AThunderHammerThrown::BuildVisual()
 }
 void AThunderHammerThrown::Land(const FHitResult& Hit)
 {
-    Phase=1;Velocity=FVector::ZeroVector;SetActorLocation(Hit.ImpactPoint+FVector(0,0,ThunderHammerThrow::GroundLift));ForceNetUpdate();
+    const FVector Normal=Hit.ImpactNormal.GetSafeNormal(UE_SMALL_NUMBER,FVector::UpVector);
+    FVector Forward=FVector::VectorPlaneProject(Velocity,Normal).GetSafeNormal();
+    if(Forward.IsNearlyZero())
+        Forward=FVector::VectorPlaneProject(FRotator(0,FlightYaw,0).Vector(),Normal).GetSafeNormal();
+    const FQuat SurfaceFrame=FRotationMatrix::MakeFromXZ(Forward,Normal).ToQuat();
+    GroundRotation=(SurfaceFrame*FRotator(ThunderHammerThrow::GroundPitch,0,0).Quaternion()).GetNormalized();
+
+    // Use a surface point on the installed striking head, not an assembly AABB
+    // or the flight sphere. Baked anchors keep dedicated servers mesh-free and
+    // produce the same pose even when a client's visual assets arrive late.
+    FVector Contact=ThunderHammerThrow::GroundHeadContact(FString())+FVector(0,0,91.6f);
+    for(const auto& Part:ColdSteelModularSword::DescribeGeometry(Weapon))
+        if(Part.Slot==TEXT("hammer_heads"))
+        {
+            Contact=Part.RelativeTransform.TransformPosition(ThunderHammerThrow::GroundHeadContact(Part.Mesh));
+            break;
+        }
+    Contact.Z-=ThunderHammerThrow::CenterZ;
+    Phase=1;Velocity=FVector::ZeroVector;
+    SetActorLocation(Hit.ImpactPoint-Normal*ThunderHammerThrow::GroundEmbedCM-GroundRotation.RotateVector(Contact));
+    Visual->SetRelativeLocation(FVector::ZeroVector);Visual->SetWorldRotation(GroundRotation);ForceNetUpdate();
     FActorSpawnParameters Params;Params.Owner=GetOwner();Params.Instigator=GetInstigator();Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if(auto* Wave=GetWorld()->SpawnActor<AWarhammerShockwave>(Hit.ImpactPoint+Hit.ImpactNormal*2.f,FRotationMatrix::MakeFromZ(Hit.ImpactNormal).Rotator(),Params))
         Wave->Setup(DamageShot,ThunderHammer::RadiusCM,ThunderHammer::StunSeconds,MagicDamage);
@@ -193,7 +214,7 @@ void AThunderHammerThrown::Tick(float Delta)
         const FQuat HeadForward=InitialRotation*FQuat(FVector::UpVector,HALF_PI*Align);
         Rotation=FQuat(Axis,FMath::DegreesToRadians(Age*1080.f))*HeadForward;
     }
-    else if(Phase==1)Rotation=FRotator(135.f,FlightYaw,0).Quaternion();
+    else if(Phase==1)Rotation=GroundRotation;
     else Rotation=RecallRotation();
     Visual->SetRelativeLocation(FVector::ZeroVector);
     // While awaiting the authoritative catch receipt, finish the owner's tiny
@@ -222,6 +243,7 @@ void AThunderHammerThrown::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AThunderHammerThrown,Weapon);DOREPLIFETIME(AThunderHammerThrown,Phase);
     DOREPLIFETIME(AThunderHammerThrown,StartedAt);DOREPLIFETIME(AThunderHammerThrown,InitialRotation);DOREPLIFETIME(AThunderHammerThrown,FlightYaw);
+    DOREPLIFETIME(AThunderHammerThrown,GroundRotation);
     DOREPLIFETIME(AThunderHammerThrown,RecallAt);DOREPLIFETIME(AThunderHammerThrown,RecallDuration);DOREPLIFETIME(AThunderHammerThrown,RecallFrom);
     DOREPLIFETIME(AThunderHammerThrown,CaughtAt);DOREPLIFETIME(AThunderHammerThrown,RecallAxis);
 }

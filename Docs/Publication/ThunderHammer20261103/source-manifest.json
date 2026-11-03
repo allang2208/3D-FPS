@@ -1,0 +1,909 @@
+{
+  "base_commit": "19d733c3360e7eb9ece50167d3d30bbebd78dc17",
+  "date": "2026-11-03",
+  "shared_host_warning": "Ordered forward patches require each recorded local prerequisite, not clean Git HEAD. They are preservation artifacts, not integrated shared-host source. Never overwrite dirty files with cropped publication versions.",
+  "files": {
+    "Source/FPSGAME/Development/ThunderHammerClosureAudit.cpp": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "7895d8b51d21a4bc5ab078d655ac12449ca2687df1ddcb4a207add15e98d3b6b"
+    },
+    "Source/FPSGAME/Development/ThunderHammerClosureAudit.h": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "d492e80b1171a75743fd6f3c06e061b389ba49fd21807e2e5598e71eb4850d7f"
+    },
+    "Source/FPSGAME/Development/ThunderHammerWireAudit.cpp": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "5e90f4933a8f717389d81597d194bffb152237762e8327de41f7de43546d5f7c"
+    },
+    "Source/FPSGAME/Development/ThunderHammerWireAudit.h": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "bdcf758d120cdfddf17e51cce71227e5cdd7865cecd7027600a07c6e7ebe79a5"
+    },
+    "Source/FPSGAME/Production/ThunderHammerCall.h": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "016095858ad70e059a5e90e6eeca0aa7888e38824bd4fb4276db06aa89625da7"
+    },
+    "Source/FPSGAME/Production/ThunderHammerCallIntent.h": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "4c9ea8997eecc468f88738cf61e8583844cfc4141093166bc9faabb0adefbcdb"
+    },
+    "Source/FPSGAME/Production/ThunderHammerGroundContacts.h": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "e3e6d0850d6fbee6f50c63d0e080f2736a6167567910a57903ff8abf05182ff1"
+    },
+    "Source/FPSGAME/Production/ThunderHammerIntentAudit.cpp": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "4a4229f1470dbac2edceaa6d5a4f21c7c9fe14acb03ede3488cf5a296665f82c"
+    },
+    "Source/FPSGAME/Production/ThunderHammerRecall.cpp": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "be919054189d615d70a55029a5af1dc0fc183fb0cd0ab79e937143a79ebb1ec9"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrow.cpp": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "86d13fbb4949f2ae3f1a4d9edb91a104447dd3bf05a7ef399c9dd17392443e74"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrow.h": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "e0cbd580bdc2715cdd28c7ddb05723c7b2b0873091150d01dcd6a06e7fff9008"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrown.cpp": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "0b572595a1e10a6877eb25b4e46056c6356b4e239177ba31250041980bcca839"
+    },
+    "Source/FPSGAME/Production/ThunderHammerThrown.h": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "c5b6e5c9ba91972d722b9a133750e1635a81d5280dd96ed1465707df5d58586c"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CoilGripV1/publish.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "661ee1a7e49ad28b47f5391613cacd60f665044680db3bc64b67ca7db512258f"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "74947ac6eba095d0903eaeadf85cbe4e7f3452b8d9048f01c52dec44b232b00b"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/author.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "926fea824e941f6b328b7db0c695f3262cc60380f56438e7a51d77cfe88a81bd"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/import_assets.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "b1798143e6f8e4776f2dfae065fc17573f89fe828a41604d33e7ef7e7828e9b6"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/install.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "10a521b18683585a5ed5eb6590c8d50ac34d0615e611543f9dacb63868dc4f86"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/publish.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "26ad533c2c122186032bf17b7d769adea9670159d9a2526cc762aa5f5dc10aad"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/read_source.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "d6f0509d3b735c13ea4382ab57f37d0f7c9acea7fe44f370c573ca34e7b08a76"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "4431f5b7c77d734bb5fc54bea10a9ab45c7639c5d4841019ae55c67bc855e11b"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/audit_assets.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "58ab6358e8a27f46ed29f0e0d7646b3946d1cc64991440900974c69c83bbc13d"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/finish_build.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "752b52690f504e830689d0ee54f6b29c9316ddac59ddf41900fe05be6e856b5b"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/inventory.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "20a485b65247ff72004bd96fa6682e23c9afe619181f69426872cbaf6f6384e6"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/repair_audio_metadata.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "09e7eb1df995c454576771162c3e285bfad4d01b6757a603d338fcc388354981"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/repair_seat_tangents.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "75a087ced650867e32e0c41a1e1a040871cba8f70de3d8cd620c6488492ca90a"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/run-assets.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "a59cb39aed421765ee27a3665eaf8477aba1fca4085b85116ef22b71eb56853e"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/run-native.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "356bf246143c6211e155c34e3c75496c0f75de7010c60a5453c22297d2c17d87"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/run-wire.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "241bddd1d5aa6bc52fd9706cbd1bafdad9a6bceb627ff313fc821e5a84992203"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/write_report.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "06c446f99fa898e7e02a6fa20ea21efaaef70330ce44a5fc7a15c3f338aea106"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinDiagnosis20261103/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "0f3e66a579e04bbf3c4ba93a77f19d6a28c2aee866ee0208c8a4362c14f7ed16"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinDiagnosis20261103/analyze.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "3bd72e6bcfb08cedc225803c3048774db888731f098eb0be9f70d6e516ed1613"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinFix20261103/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "5ca23c4f084eb68cf36e1dbc5e5859c1b9dd301682c45c9f17182889b08b5ca3"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinFix20261103/build.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "a59259b5c594b662bad8fce3be5e92b8aaddde57a0f7363623d12beeb9d89822"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinFix20261103/record_delivery.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "31669b457f1d81d083b02c5e69333ffa69d9d974b7636741ffce8b2306799c46"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinFix20261103/snapshot.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "e3cff2269af8e88dff0f564fc3b88809ba229f50b8d187f225c263b482707086"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinPresentationV2_20261103/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "8bb41d64fff7bc040c409e8ea766088928226a1da0fb8ead3af5296647cdddb0"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinPresentationV2_20261103/build.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "a59259b5c594b662bad8fce3be5e92b8aaddde57a0f7363623d12beeb9d89822"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinPresentationV2_20261103/record_delivery.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "5c95cb41ff00799adf7c2a5ceda136628144c71e404ccdf195ef183b7af64b81"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "fc962817c43a8ed18b3bc7ac328121855943503ceae24bef2417225b6b5379e4"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/analyze_capture.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "fe5da908b7591db8b5ca75271c3a0bfcf3769d993af3d9d1bb7c63d89e6e6a8c"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/audit_assets.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "58ab6358e8a27f46ed29f0e0d7646b3946d1cc64991440900974c69c83bbc13d"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/build.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "1a5742d9c75d019a5a01d0264013b2cd4cbd6cbccd57260829891235cefe4d3d"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/check_container.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "96514ce7e3ad8f6547e44d917abc56c8b4105a7f944e1a01afd8b015fd6bab28"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/check_packaged_data.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "1e29c3f58d13e2aee1bf5a5d7f2740d08d4d02ba2126135d47f176eb77a8767c"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/finalize_status.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "1d73a35a139bd4326785325801caeaecd2cebeaa53fef3eaf9771469e4d6ee23"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/package.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "ce62314e5e4aef3d95aca314894e4a27a3901e87411d1df2450ae16f51e4fe6a"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/preflight.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "c7e76970f4050405531a3b0ab23e55eea1ad99e5fcc932689ae7e43ee3f6e9cc"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/prepare_headless_body_host.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "07d014e952302823bf55587bbb63d315d7fc40567eff34880f09aa031249a6cb"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/prepare_host.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "3c1e9a342cf193cf40b63cd84880853c7c44151d8caaabb337c1d4a5cc98bd2e"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/prepare_package.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "9a02976064a564d1d42dd9ba789527be62dc086e52e6f1021f5fc5cbfec999b6"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/run_closure.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "505d1c1c9d7c294636e8876248d7705ace8f84a3ff6c1d49f4f9d2f908e579b1"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/run_native.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "c823b57ada9af447ae9c503d520d6eeeffff0877b09fc7bba10d209a4aa1a06f"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/run_packaged.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "0842aed7cf41b550fce8941f5c9673beb28da4e4762adca8e043834e3aa1e032"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/run_visual.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "2f1b7b9e6d62431679a31778e3439d555f741a4bcf8ff885c5f21a831ea89a55"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/snapshot_changes.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "a1639fb17c4e38a79f78e8375a01639162a93e0cf589e22fd8ab2ef1b4e53d13"
+    },
+    "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/snapshot_recovery.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "4f99700246094fd07b64392c30be986ad7613651998def5744b125e5aaefdd1c"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GripIcons20261101/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "a41abb959bba15039d99e8fbe3879b30f56b8c0fb18e81cf32ba748be80c90e8"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GripIcons20261101/author.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "f4ef572fd9cd3cced910e81bc68573ab74ac2f1199dfb1939df11f8a94ae2512"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GripIcons20261101/import_assets.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "09cde430f3eb2bd61ba89a053e6748777ded48f2da587bab9a2ca941b709211a"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GripIcons20261101/install.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "d43dbb8d40578b272190c3c78889e72e48bda8be0c46e660e96b160dfb740a96"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GroundEmbed20261101/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "8189d81d605f16d987521a34edc7e91dd3aa8ff70f7758d5583950fff688e842"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GroundEmbed20261101/author_contacts.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "a6a69431b5fccb35bc6238e67946e5b7ca49d5b12882fb066f0b311ff7a7dc1f"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GroundEmbed20261101/build.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "49367e92b9bc0ffbce59e2914d1c78ec716dd3114270dd6ce352a99dcad03b5b"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/Integration/import_assets.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "2a7ef85c99290c153ecf2ed158bc02c8b99d9836729061bec8d37d2c48a455a0"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/Integration/install.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "0b202f7bee06667436f4af5ebdf5faddc9d7240680ffa7fef8833f0e268f9017"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/Integration/publish.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "8a805ecdf4caedb5eb484a15226f2a759623a54acfd5f058359b192f6bacbc2d"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "66b3e99d97b1540604cf476e1e589da50966236b1a9eec7c4719c11a32355329"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/author.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "aed98a4e216ea17e3496e427bed2baa7b3c6b6fc88c69240562d234da2e30518"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/bootstrap.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "e7d5014f3d2458c579260d0180ab8b876477fa1ed98de1e5e8b371010766d227"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/intake.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "4bf09f75930bc7c6c1e8bd42ba1e44b3866d0d88ecf478850b45e4874c74ead0"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/read_geometry.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "04e1f80d78b97646063041539d5be889c079342b0810d6bfba0130c19163c678"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13/render_icon.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "e452e1f6a88731e97763f6aabdd7ad8e7cd51254c2138321da2c42f2bc890a55"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "d03f65dec59884b48232390dbbc40e3cbd1400b9d2dfd7bde04d57cf63855357"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/import_all.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "8ea3cfc155d873e54c9fca2b41b324087c0915ef0dc02445e5df92b9dfa8be07"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/import_motion_audio.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "cc158e9cb0864cd9afd26db9837e41592ae5fbf71155c3c322a3196cbf2a8f73"
+    },
+    "SourceAssets/ThunderGodHammer20261028/InteractionV5_20261030/prepare_sources.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "da22e49077ee2a75a4f31ecdef2a80181b7cb3f825453cc113a2abfe4566d1ba"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiChargeAudioV1/author_audio.py": {
+      "kind": "retired-deletion",
+      "archive": "trash/thunder-hammer-retired-20261103"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiChargeAudioV1/import.ps1": {
+      "kind": "retired-deletion",
+      "archive": "trash/thunder-hammer-retired-20261103"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiChargeAudioV1/import_assets.py": {
+      "kind": "retired-deletion",
+      "archive": "trash/thunder-hammer-retired-20261103"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInputIntent20261102/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "db454e86ef00a29b5edeb423e646fe4903ac20668310065dba80f6a8f9fe0ac1"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiInputIntent20261102/finish_build.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "490641d18ea15be2a288bb00d4e3270afde88737a2fd6a565b10497f04f6cbbc"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMeshyV15/Integration/import_assets.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "561ef03e5be37bccf6cc7b7cac8f1aeac59102fedfd33643623f360f5f802d51"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMeshyV15/Integration/install.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "0e0af4b89927cb42a7df8c71e0f04c35417cb55ae640e8fbe907fc3f63f1c01d"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMeshyV15/Integration/publish.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "5379cefc69068b3849dd6cdb7fcc6cc3f01cca40bb800a290547aafd513ed085"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMeshyV15/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "8020d31593e48381c811ed5a3f343a90a75b75e47835d5374e541d3d0468135d"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMeshyV15/author.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "af200dfd4982355303334d32fa7c92c9e9f8e6a8cc81ad069aa2ef38588c8d54"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMeshyV15/intake.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "fe26e2e88577c95956b448eee1c8bb514b2d4167e95a260edf2f9618eac4ca67"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMeshyV15/read_geometry.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "2d4922b816c5b1cf789fbfe83d9153e013a30af07498d42856820ee52d4c4366"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiMeshyV15/render_icon.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "99fb252614bd5d0926cc6b89cd2b2bd2deb279cf3df1afe8dc7bc0876735343f"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "e141c96fdce2892e847f76f8529431817f9fc61193cecfc686f2f32ffd42cb9b"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/finish_build.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "78e650ebc2819ff502c014c1fc9e7fee9c72095bd1d452a1a216818bc8a34aef"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/import_assets.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "55058ba627987361f6bb1f585ce4959cf41ed60b4b8d5f8f88fa73223ed2f58b"
+    },
+    "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/prepare_audio.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "0fc20e6783461145797a5909b72e0309bdbe9978494e76100747af2f166b8ddc"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LightSeatWindowFixV8_20261102/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "042358630201ddcbf8c8a32eb6c1071c3a6ba19443dcadec081a0ac6a86fe176"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LightSeatWindowFixV8_20261102/author.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "31358beb77a45691ec8aeaf9876fe4072330d2e2651d45a3afafc635c11f6c43"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LightSeatWindowFixV8_20261102/import_assets.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "b91d82c4a9edc165b2e156be8512d312433ca9d8fa8fc6077d7cff27a7c37080"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LightSeatWindowFixV8_20261102/install.ps1": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "10a521b18683585a5ed5eb6590c8d50ac34d0615e611543f9dacb63868dc4f86"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LightSeatWindowFixV8_20261102/publish.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "c9b761e71c3398ed1d100d65335ef8a9bc6d80c6582547f3dba6a011bbeec900"
+    },
+    "SourceAssets/ThunderGodHammer20261028/LightSeatWindowFixV8_20261102/read_geometry.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "fbf840f1824e26eecb09e8f57458d05f9f99c9ddba1123dd9fb1e6a9cbe834a5"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatMeshyUpgrade20261101/README.md": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "4d778b1c22efcb652c8a632e43fc7d89bd3d04dcf6e5c521c72f9ca2b9422ca1"
+    },
+    "SourceAssets/ThunderGodHammer20261028/StaticFieldGripV1/publish.py": {
+      "kind": "direct-exclusive",
+      "sha256_lf": "b6b295983bdfcb626759daa059312290989542e1f9593052862444d33c006b2e"
+    },
+    "Content/ColdSteelData/thunder-god-hammer-modules.json": {
+      "kind": "dedicated-config-or-index",
+      "sha256_lf": "2cacc4f793623011560431d3e888cd70b4765103cdedeb3e078843b5340b4212"
+    },
+    "Docs/Weapons/thunder-hammer-current-20261102.md": {
+      "kind": "dedicated-config-or-index",
+      "sha256_lf": "56842360e60fd8be143dd7209f1ee43707997600667542c9eef24cc84fa94e80"
+    },
+    "Docs/Publication/ThunderHammer20261101/README.md": {
+      "kind": "dedicated-config-or-index",
+      "sha256_lf": "d1ff0180c2a1a002a808a0aa6390fdf57908872b322f9ea63bec165b2d321a9a"
+    },
+    "Content/ColdSteelData/thunder-god-hammer-gunsmith.json": {
+      "kind": "owned-config-keys-only",
+      "keys": [
+        "head_mount/guan_lei_seat/description",
+        "head_mount/guan_lei_seat/appearance",
+        "head_mount/ji_lei_seat/description",
+        "head_mount/ji_lei_seat/appearance",
+        "grip/static_field_grip/description",
+        "grip/coil_grip/description"
+      ],
+      "sha256_lf": "b64136b76620b170d1a81b13ed35a62f7a3e81c5ef1624b2ffbc8a8c5a68b3c6"
+    },
+    "SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/design_contract.json": {
+      "kind": "authoring-recipe",
+      "sha256_lf": "8cfbb02d8cc6e8a13b52c7d5087cfe99b9e376e748b26a5b729ce29e1ab22995"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GripIcons20261101/mapping.json": {
+      "kind": "authoring-recipe",
+      "sha256_lf": "4798577b7521a5f2441f8dadeb10efa753e0dbcf1e1ac89c3bfd19cf63edd838"
+    },
+    "SourceAssets/ThunderGodHammer20261028/GroundEmbed20261101/contacts.json": {
+      "kind": "authoring-recipe",
+      "sha256_lf": "509f9cf52fde22bb870eb11c034a0ef76c627c1b2f41c3bbe863ba44d0adcc73"
+    },
+    "SourceAssets/ThunderGodHammer20261028/SeatMeshyUpgrade20261101/meshy_recipe.json": {
+      "kind": "authoring-recipe",
+      "sha256_lf": "97e8f6b28042a175fc7936e846931bbdd167cf22e81c8fc931dc1ccf6bac5bc8"
+    },
+    ".gitignore": {
+      "kind": "scoped-recipes-and-generated-exclusions",
+      "sha256_lf": "7f420a852bd649f0abd17446ce1d1a2388a9742e3ef0601e311d70e782a9561a"
+    },
+    "skills/ue5-cpp-gameplay/SKILL.md": {
+      "kind": "owned-skill-addition",
+      "sha256_lf": "bf5b9bbd488d17f38d482a4dc269c0615453aae1214baa8a63c6053ce122e6b3"
+    },
+    "skills/ue5-save-load-replication/references/replicated-terminal-events.md": {
+      "kind": "owned-skill-addition",
+      "sha256_lf": "e676e42d87baf8505795d632dde5140bb65e545219edeb8a494aa916895b7520"
+    },
+    "skills/ue5-weapon-workflow/references/thunder-hammer-lifecycle.md": {
+      "kind": "owned-skill-addition",
+      "sha256_lf": "aed2e02d36ed8adb89af5428d683e2ac3e8e8a1288ee7bdeaaa10f57497aa8fb"
+    },
+    "skills/ue5-weapon-workflow/references/weapon-audio.md": {
+      "kind": "owned-skill-addition",
+      "sha256_lf": "6148f0da96872733dced81c7684e947498862621aa8d819d94314cb6baec7388"
+    },
+    "skills/asset-model-workflow/references/modular-part-interfaces.md": {
+      "kind": "owned-skill-addition",
+      "sha256_lf": "e112995ba268589c947b95b2acadeff46c65acb38c61aba9b7ce4a1235890039"
+    },
+    "skills/asset-model-workflow/SKILL.md": {
+      "kind": "owned-skill-addition",
+      "sha256_lf": "cb1c9e151efb309b1fea64f90a405644897031337845119cefc8ee28fa8d2566"
+    },
+    "skills/ue5-cpp-gameplay/references/initial-appearance-readiness.md": {
+      "kind": "new-skill-reference",
+      "sha256_lf": "44de4ac4729fbd603c123f2b3d13b337db569666be61c42d5675a0fec6e33d1d"
+    },
+    ".gitattributes": {
+      "kind": "scoped-patch-whitespace",
+      "sha256_lf": "6d8c908b05c3d20a419d7c2d67bf39b4baed4f6e2ba6940881ecc45de0483f27"
+    },
+    "Docs/AssetSetup.md": {
+      "kind": "owned-asset-setup-entry",
+      "sha256_lf": "0fc5e7a1bd59bd1d9687aa5cea27490543273a83c305beadb92144cb4d42714a"
+    }
+  },
+  "patches": [
+    {
+      "file": "Source/FPSGAME/Production/ProductionThunderCall.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/01-recorded-audio/Source__FPSGAME__Production__ProductionThunderCall.cpp.patch",
+      "phase": "01-recorded-audio",
+      "before_sha256_lf": "4c6af0d788396ab729c72d254e2b7f0d5d50b455043b2e5cb8fa8856352fbc1e",
+      "after_sha256_lf": "69b9972747a2ea6639339034caa4a45d752b1c032e3a9ff7096107f5bc7c9ba6",
+      "patch_sha256": "248e7325312007dd4d718a4d49fff6e116f73c11baed22734ae4a4293fcaf2a5"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/02-input-intent/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+      "phase": "02-input-intent",
+      "before_sha256_lf": "a177fe61a658a2c7636afd1265bfb3cb8a9f62dd79c28b65a18a800bd3860472",
+      "after_sha256_lf": "e02523104cf245aaaaa31cc546eb860ca27022ac6a067c6e3ed54c903b6c216c",
+      "patch_sha256": "94f387c668f52673c00140e5b637c37b17fc3cc9ef702b6f21bf05aeb2cff7fd"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/02-input-intent/Source__FPSGAME__Production__ProductionBluntAuthority.cpp.patch",
+      "phase": "02-input-intent",
+      "before_sha256_lf": "269dff28cf83ac15d4560257088eb5923c055ef19840ec6f7b627f81eaa38209",
+      "after_sha256_lf": "c7e06f990b18dfa4cd74ea0274f70271780c44c9f5b332db3af2b11264b13fe0",
+      "patch_sha256": "b3ad7c9da47a09b54f49fd7b7eb44dd0435a26268779b309cb189ff8b4c44076"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/02-input-intent/Source__FPSGAME__Production__ProductionBluntHeavy.cpp.patch",
+      "phase": "02-input-intent",
+      "before_sha256_lf": "4238fb80a43911583fe0e157a0acd733ac557257f0ae0c7ff9ee88432f960d6a",
+      "after_sha256_lf": "c3433d59c73271525e2113468393e963b48b936d71742c5eb0ede0ff7aef951a",
+      "patch_sha256": "80da7c7563efe087e3b3856c7f7365eaedf9557bbcba999a504cecee39f2fa6e"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionThunderCall.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/02-input-intent/Source__FPSGAME__Production__ProductionThunderCall.cpp.patch",
+      "phase": "02-input-intent",
+      "before_sha256_lf": "69b9972747a2ea6639339034caa4a45d752b1c032e3a9ff7096107f5bc7c9ba6",
+      "after_sha256_lf": "5a22c6d138e3cdef147909de9926b1cab2ca54d537efd955966b086fa5da43b8",
+      "patch_sha256": "8ac2ea776ebde148cba7dbafd46fbb747439d7285541e563b4b9fde25e0bd96f"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/02-input-intent/Source__FPSGAME__Production__ProductionToolComponent.h.patch",
+      "phase": "02-input-intent",
+      "before_sha256_lf": "9b7938ccdae346b807a2dedbd1f2f1f7ef845aa4d38f54b7cdf422f563e29f7b",
+      "after_sha256_lf": "fa8cc04610c0d20eca505da3eefd4bcfe8ff541513258c0ffe0567f122c7f2e5",
+      "patch_sha256": "0e3ed452be338764483cb72e9321ad7c7c1be92e33e966e120d828bf43d1d6a0"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/02-input-intent/Source__FPSGAME__Production__ProductionToolMotion.cpp.patch",
+      "phase": "02-input-intent",
+      "before_sha256_lf": "0648ab50189b3fb4a4bdef82a70e998b9a3711aa9f455873b29e7b9cd7b7cdd0",
+      "after_sha256_lf": "4f9a0aeaaf4c803f5de81571804a1407b8e5afe39086adb5f2317b39e6fe6447",
+      "patch_sha256": "efec6e612dd0b5e624b781fed20ab043a66e095bfa8fe00c13095fd7c9711ecd"
+    },
+    {
+      "file": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Movement__FPSStaminaModel.cpp.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "671cd5f66256d614f2af82d50c5d3512e57081fdd17e28c6ac5223b196481097",
+      "after_sha256_lf": "09556a142a29675bca3aab7f0d5ce70ae39461487922010b5fee94957e6c3f5b",
+      "patch_sha256": "a3951fbe35eef21a877c7fa66977b958707764ba92c59eac1d0ed52d14e8271c"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Production__ProductionBluntAuthority.cpp.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "c7e06f990b18dfa4cd74ea0274f70271780c44c9f5b332db3af2b11264b13fe0",
+      "after_sha256_lf": "59f058e902f45d44bfc168a86f78245322bf8338b7d3a64160185f3a9598427a",
+      "patch_sha256": "94f7aac66936f567c9f226b3087026a4403af32d857aa2b1064fa18a50f02aab"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Production__ProductionBluntHeavy.cpp.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "c3433d59c73271525e2113468393e963b48b936d71742c5eb0ede0ff7aef951a",
+      "after_sha256_lf": "a901483c6326c2d90c38ecff379c8ef7f6cb13fc514715838c8a348a9e026daa",
+      "patch_sha256": "67200b1bcaefbb7c5c43183cb9d3dc0d27cdef14f18f1e996b6747c018c2730c"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionRuneboundPassive.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Production__ProductionRuneboundPassive.cpp.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "d15ef6356b8dc275d1caafde152167b169a034a27c52092e7aa355a4424ddf00",
+      "after_sha256_lf": "a958859a95904ed7adcf9edef0ab6b0d4b1bcb15c6bd1cc9b5da6dea9f012f48",
+      "patch_sha256": "7ceebb9493ddafa0f9e585a45145a76656044d25d5dc303dad68bfc4ada7cdf3"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionThunderCall.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Production__ProductionThunderCall.cpp.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "5a22c6d138e3cdef147909de9926b1cab2ca54d537efd955966b086fa5da43b8",
+      "after_sha256_lf": "24276fec4b62eb77b4d53e7e3fdd875d2b21951b9e1d26de81264e8cb92c7f44",
+      "patch_sha256": "4bdc629a2237cf875e49c1dc90fd19f78cabeb2df8dfe2f95a305188ec24a139"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Production__ProductionToolComponent.cpp.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "753762783573f3448b7729f0241d9bac61b045368bd1f6ae7178adceb077a6d9",
+      "after_sha256_lf": "23d537ccb6d2e8f50ef4c8204998deadcc991e08ea8172c43c9cbb0ccf0c2328",
+      "patch_sha256": "5c39929ca4c74af745f9d4a676e8cd73e33b0bc7ae380b80c0b819d5193aad96"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Production__ProductionToolComponent.h.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "fa8cc04610c0d20eca505da3eefd4bcfe8ff541513258c0ffe0567f122c7f2e5",
+      "after_sha256_lf": "7bdcd6a092863c8d960835df1e5773d9a169a60becd00970f970afdd2f23254c",
+      "patch_sha256": "4efeffddb2af429e78b8a471401306bc6815e1c44c75e1d1180ca4ba6528b5c8"
+    },
+    {
+      "file": "Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Production__WarhammerModificationAuditCommandlet.cpp.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "da52b43c134518b760dc98a43a33060772fb9f83a7bf2c9439b443d5867440d9",
+      "after_sha256_lf": "b9b6c2c6acc85f415ca61ee465a0e69b3efa23df1b1d072e3c53d7980d2476a8",
+      "patch_sha256": "1af80cbcba1230a323e7b2fd64704a958e85bcb4644beee32b49a5f0ae01d95a"
+    },
+    {
+      "file": "Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.h",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/03-completion-fixes/Source__FPSGAME__Production__WarhammerModificationAuditCommandlet.h.patch",
+      "phase": "03-completion-fixes",
+      "before_sha256_lf": "243188130298a7fda157f1a5d871a9fabe7370f592eee9ce510f375383e53f60",
+      "after_sha256_lf": "1fd4cfdb7ed048c84eb5a4e83fc606315ac08d8086516d885cdc52f0d1b08184",
+      "patch_sha256": "4a34f12083615cab9c8025009c2f64adf1f4c547ededf6cfd0f9705c6f73d746"
+    },
+    {
+      "file": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__FPSGAMECharacterProfile.cpp.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "d308ce634c1f5635563a9771529a5a19331d74c170dc15e84332c98996ceb7fb",
+      "after_sha256_lf": "f92acc45e551b0eb411c3a8e0d74c51ce67e85c080db47fc3521d189455e41e8",
+      "patch_sha256": "ccc7f212342f0a1b04f5232b73eaf8fdef3f0f8cae129737c4abcd8ce3e64bc4"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__Production__ProductionBluntAuthority.cpp.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "59f058e902f45d44bfc168a86f78245322bf8338b7d3a64160185f3a9598427a",
+      "after_sha256_lf": "52aa8f2e9558ea7638e384819b52320a96004a7d29e840be3ce464c8bdfe7d95",
+      "patch_sha256": "8c4872ee7da54b4a8866917b7a4069c2c036999bbfc9d649fe645fa60c6739ac"
+    },
+    {
+      "file": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__Production__ProductionToolComponent.h.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "7bdcd6a092863c8d960835df1e5773d9a169a60becd00970f970afdd2f23254c",
+      "after_sha256_lf": "1ffb26ffc3f1ced8ba7166285db7dba55f04a7195eb77ca32edd43167e371bae",
+      "patch_sha256": "23ad931e75dd4cd953f5d9646980b9be317cdade031eadf8f04cdefeaaa24bba"
+    },
+    {
+      "file": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "4b9bbabd274aa08ba18570237545a32bc1150c704b1a506b047a411e01c4293a",
+      "after_sha256_lf": "7f8eb8346784241c51096a8d162008a04cf0949a3935ae97326824fa5b4d739e",
+      "patch_sha256": "a2d52179beb0236e64a2a2d51f5d566ce2a81d16564e6896311efef350fed979"
+    },
+    {
+      "file": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "b1c157e3655a82f28f82c97bce01ef02b17adcfe2aae93c6fed6dff578004e01",
+      "after_sha256_lf": "5a99b88ba3db7c860acd457527643ffdc1c481149d95068761f22a9246831caf",
+      "patch_sha256": "9e84d3512070ff093b3ea19fc18d5f7832a894ba2ee2a97cff3433d4c9253933"
+    },
+    {
+      "file": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__Multiplayer__ColdSteelInventoryRequests.cpp.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "03e18a9dfe25df58100b98352f61a15a137f4bfe3678e80a5da579ac4b456260",
+      "after_sha256_lf": "16a0c423511c85b9e24d323bd1e01ad96147331f4e70a58cca7c249ef03cd41d",
+      "patch_sha256": "f3f4baae790f36ce383d5da03998d59557c7c5b2a32d99099aafa7d598464b6c"
+    },
+    {
+      "file": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__Multiplayer__ColdSteelCampfireRequests.cpp.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "e7d773c029a09fe47c2ed56074bf08da483d8402be028c521b0784d74d094019",
+      "after_sha256_lf": "0ed6196df6f89613a7975330e2f1062721fbc85f53e52bb9576fda4881b74b98",
+      "patch_sha256": "9a1019fd7c8a235d06abbfb0397007f269b4e3da4ffe9e1a81992c21c3833a7e"
+    },
+    {
+      "file": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "b9600cc2d41d13a675547c7a37dea04fc7159f76ccfba76dd6156cb7412dc69a",
+      "after_sha256_lf": "bd4bbe1cbcf122b301bf4ae1d10dad31f42c2ba45154f02e310a47c3ffdf264e",
+      "patch_sha256": "65fa7c3b892cb46ace5b975a81bfad9a165d93de2e6bb64f020a63e3fa537f32"
+    },
+    {
+      "file": "Source/FPSGAME/UI/ColdSteelAcquisitionAuditCommandlet.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/04-full-closure-fixes/Source__FPSGAME__UI__ColdSteelAcquisitionAuditCommandlet.cpp.patch",
+      "phase": "04-full-closure-fixes",
+      "before_sha256_lf": "e939a270f56a8b1e2a6fc8e64beb6b2b3229f4afc48d27a31ca6ee6ea627e55e",
+      "after_sha256_lf": "b64a5abc7df6a7f1f4139ada194bb94c0764a1bef7da37b658f9e5ab633acacf",
+      "patch_sha256": "89c2fa50fa1eff7b09112275313f3f867401aecf49311f51cd566b6cf9e6b7cc"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyAppearance.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "b85f09b4b1745e300161c667d0f8669a4ad2e45bc2bbd30e6bd2cd8d4b9a2621",
+      "after_sha256_lf": "e26ed24a4a8b55f057508c1e6e337a3e919062846e0ddbca0da62dda44f4cfc6",
+      "patch_sha256": "42f367fe54e5649817e6b2cc96b0dd662b3be7b84e4f658539ed7baabb7987ee"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyBow.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "01859b173a58b009dec9dcec93f472f1f1f5872d14c91f74b47603f7b32ada5f",
+      "after_sha256_lf": "7e4d1f32ccb14ddb7399b8bcc213efbb255e75fcddfe6a0e0a0b41b822644bdc",
+      "patch_sha256": "dfd50d73da5f06aee254b114873273a3581bca1ca3b2a810f12957982daa96d1"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyBowMagic.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "9c72ef7ef3993ec3b8eb11acbe5e1ac5d2c16f0c33a4af24be65f1f1dee3b467",
+      "after_sha256_lf": "9b92551a591eca662a4a0fa326a179679afe8004b9b645501ebc770cc9de2fe1",
+      "patch_sha256": "5a31be26fa95f56461775bf6f8a280c83076fe8ba01d4c780bf014894af8478b"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyCamera.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "588e6f06ab31d063131f56b7947c9097c757368f9512cc1d373feafbb7c68e21",
+      "after_sha256_lf": "4a4f9db8e59eac1368685fc7eb5915b1484c77e8a0cf61693f66d9cf1ec4a559",
+      "patch_sha256": "dadb74b525644ddedbda54b75644d6ce0515fff1ddcf640af0c5c42d1bfa97f9"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyComponent.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "0263e82fa1e1d727a95331460e474813f87403949bad994948106e9d73d6c457",
+      "after_sha256_lf": "29f384fee84b27a7d8e425a7e8afc97e385ce2b725828eeea2968d776edb9741",
+      "patch_sha256": "063071c612fa8b8f9e351b048cb9a3a21770b0afdae4914058dfc6dc30a96897"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "477b0b355da4bac4759fef1fd48e974495d829ce9b53da03fffe0a8a2994b63c",
+      "after_sha256_lf": "a28c7c98f8134e4df3ed12336895b730ef73472cd8be2220314cee85793a2a4d",
+      "patch_sha256": "e8fb063eee2c4d1a74b541660eef309561d648e9caa0ee722167be630502ea3e"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyConsumable.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "bf849217dbd9ec7a5b2530b8c858e1163d5f63c04ff0bc1f68e47949a4938c30",
+      "after_sha256_lf": "091002f32c37e95c7520cde4e04fb64cdfe8a899d9971b00240349bff1961b1d",
+      "patch_sha256": "744a4519126232786d817ca57f1bd2e0a577a0afd1026450c2d458ee5f2a6a51"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "a68c71cda053afda33d176910a247d706385c89c46c5a1ae63e395bd20350177",
+      "after_sha256_lf": "8ef0a848c07ce26c208a943c8bc1767a896eb76c015cdc617e6a09bf133911e1",
+      "patch_sha256": "1b553ac75f6a449dfdf610885eae694850ba08e8ca9918da8576be93f6ae4545"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodyMotion.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "3f7b5a252631d585ce24706505ad2c66ca77c6e3dae509a46c573328400d16f5",
+      "after_sha256_lf": "b8eda3f8f97505a3bb0d62dc41f25c7fd7bfbfffcaa54517e1d6a099ad92dbdd",
+      "patch_sha256": "787f36df2f70b3316525a7e067cebd15502decae73286ed5093321b1d8c413b9"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodySpellbook.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/05-cold-join-gate/Source__FPSGAME__Characters__FPSPlayerBodySpellbook.cpp.patch",
+      "phase": "05-cold-join-gate",
+      "before_sha256_lf": "989a006d3bafaa0cdd4272237c5fd33588c5bb5e405632bcd8718fe616a11dde",
+      "after_sha256_lf": "a3dcced082ab9d71fcaaab17e3f844afa5be9fffd50c1c5ad7607cd4befdee39",
+      "patch_sha256": "6a50e5cc7a8269d389b84af05aca61bcc8301bd14a97a9bc32fbb463bd85b5cb"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSModularOutfitComponent.cpp.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "9e2605f09f85b85aa7055e882b2bc9cd35fb31fe12053dd808ec4645bcf20fbe",
+      "after_sha256_lf": "55ac5a6c59c826a732435f99f8895efb36e4749b9359e635412a224559bc52a0",
+      "patch_sha256": "d5efd02ef5b148425bdcefc6859818a913f017f1833f4459e8f428a68abce325"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSModularOutfitComponent.h",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSModularOutfitComponent.h.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "66cf3ac4aa8e6b101f548539059a5b24404add9ead87f04a9cfdc0da44a5ccc9",
+      "after_sha256_lf": "42f69eb6673cbd57b94dc50ca26ebb7062d7428297421609ad8c3da8ec035f51",
+      "patch_sha256": "760466f4668dae766a4bb42dc80ac77a72abf88cbdd6a834cc5fe7e08c9c3969"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSPlayerBodyAppearance.cpp.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "e26ed24a4a8b55f057508c1e6e337a3e919062846e0ddbca0da62dda44f4cfc6",
+      "after_sha256_lf": "e8fc35f7955ca955f665cb7adac58d51ad56f2814acc85a37601fe9b23e9724e",
+      "patch_sha256": "a92a5a7a8aa145691c2d9a257f4eeff656f53f2b6caaa4ceaa906058616d6e65"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSPlayerBodyCamera.cpp.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "4a4f9db8e59eac1368685fc7eb5915b1484c77e8a0cf61693f66d9cf1ec4a559",
+      "after_sha256_lf": "fc0ade2e6938ff3a9b2a8d54155d94e624bb38f9d0507d10f7872eb766ecbe0e",
+      "patch_sha256": "a37ff4e51d5c0cee445fdf25a756cdf47984e6df511c9261d3c2ee585c719af9"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSPlayerBodyComponent.cpp.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "29f384fee84b27a7d8e425a7e8afc97e385ce2b725828eeea2968d776edb9741",
+      "after_sha256_lf": "521d223751a3ebd0df78a1943b7d87b2ea4b119b1b1e3bc22b943a17772331f1",
+      "patch_sha256": "f28f17c4608f714488e586439fdf55a9e8615737f2b4f7af232497b3d46f4dd0"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "a28c7c98f8134e4df3ed12336895b730ef73472cd8be2220314cee85793a2a4d",
+      "after_sha256_lf": "9746691ce08fd59c2e225925ba7d30e52354baafb6fdfd49052f4b3c0a0ff103",
+      "patch_sha256": "744fbd32e9e1ea392e273c3b176ce3a9e19424894590aa40d5eed4931be1fbf9"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSPlayerBodyConsumable.cpp.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "091002f32c37e95c7520cde4e04fb64cdfe8a899d9971b00240349bff1961b1d",
+      "after_sha256_lf": "f6864fc6934ae3e7ca92c16431dc1c52a9a3a8ef9e4cfe33808e00c21aec86f9",
+      "patch_sha256": "9f5492bc50922aaf629e98d0df363a8be9b7c95cd1f23a42e346ac06435a1276"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "8ef0a848c07ce26c208a943c8bc1767a896eb76c015cdc617e6a09bf133911e1",
+      "after_sha256_lf": "9e66614c2819d323d7837cd19a2142bc1ca938e729e8ef03bbe16891c926fb41",
+      "patch_sha256": "c032886c520d34a99ec870c3e2d77df815f97d907326827d7e54857e8722a0ae"
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerHeadEquipment.cpp",
+      "patch": "Docs/Publication/ThunderHammer20261103/SharedHosts/06-complete-fallback/Source__FPSGAME__Characters__FPSPlayerHeadEquipment.cpp.patch",
+      "phase": "06-complete-fallback",
+      "before_sha256_lf": "ae196ac6334905cdd6cda59423679d9977b580abe71943f7a92753ca7d8da95e",
+      "after_sha256_lf": "47fdb33688e993b1bb6587acfec5ca86ca345a43645a8c859c2602e7b35dfa92",
+      "patch_sha256": "cd40d0a0e848a735e7b8aaef69c5f15b81a9d32eb7487caaf0a0da47c4b64467"
+    }
+  ],
+  "evidence": [
+    {
+      "source": "SourceAssets/ThunderGodHammer20261028/CompletionReview20261102/review_report.json",
+      "copy": "Docs/Publication/ThunderHammer20261103/Evidence/completion-review.json",
+      "sha256_lf": "a51fb6a55f03ca772f6c7089f12fd93716402d17c5914e4fa076ec5ac5b5a91d"
+    },
+    {
+      "source": "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/review-status.json",
+      "copy": "Docs/Publication/ThunderHammer20261103/Evidence/full-review-status.json",
+      "sha256_lf": "9037a63cce703494125c5efa473f2d72349d33461a2833c9876c6d5eaa7644c0"
+    },
+    {
+      "source": "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/asset-readback-receipt.json",
+      "copy": "Docs/Publication/ThunderHammer20261103/Evidence/asset-readback.json",
+      "sha256_lf": "0d3e4a3d57631697f908630c1da419529ad47dcb95796b7e72ba26ad5dc6e14e"
+    },
+    {
+      "source": "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/package-dependencies.json",
+      "copy": "Docs/Publication/ThunderHammer20261103/Evidence/package-dependencies.json",
+      "sha256_lf": "4a05f4f41829a4d19e233b1b3b5d384a8d55ce6896d4f163ba00211d7c589cec"
+    },
+    {
+      "source": "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinFix20261103/build-receipt.json",
+      "copy": "Docs/Publication/ThunderHammer20261103/Evidence/cold-join-gate-build.json",
+      "sha256_lf": "205e9477ae6aa382862e75899c8e7a787b290065fe24e0d01df6ab749e7f15a5"
+    },
+    {
+      "source": "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinPresentationV2_20261103/build-receipt.json",
+      "copy": "Docs/Publication/ThunderHammer20261103/Evidence/cold-join-v2-build.json",
+      "sha256_lf": "49065de62387cadf160230c520de57708720189984bf3647dc5c875f6f6d8ab7"
+    },
+    {
+      "source": "SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/ColdJoinPresentationV2_20261103/delivery.json",
+      "copy": "Docs/Publication/ThunderHammer20261103/Evidence/cold-join-v2-delivery.json",
+      "sha256_lf": "60a382997191540c7697ef0a9040ffb4e7e69ac6cfc7e7cc9e59937a5937ec6d"
+    },
+    {
+      "source": "SourceAssets/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/audio_manifest.json",
+      "copy": "Docs/Publication/ThunderHammer20261103/Evidence/recorded-current-audio.json",
+      "sha256_lf": "e2229121b8287c6129ef27ddf4370bc66a7f5315c87fb1ab98895e3e79d22bb8"
+    }
+  ],
+  "excluded": [
+    {
+      "file": "Source/FPSGAME/Weapons/Kukri/HatchetDualChopRhythm.h",
+      "reason": "Unrelated hatchet helper changes, outside hammer publication"
+    },
+    {
+      "file": "SourceAssets/HatchetChop20261102/author_hatchet_dual_chop.py",
+      "reason": "Unrelated hatchet helper changes, outside hammer publication"
+    },
+    {
+      "file": "Source/FPSGAME/Weapons/Kukri/HatchetSprintRhythm.h",
+      "reason": "Unrelated hatchet helper changes, outside hammer publication"
+    },
+    {
+      "file": "SourceAssets/HatchetSprint20261103/author_hatchet_sprint.py",
+      "reason": "Unrelated hatchet helper changes, outside hammer publication"
+    }
+  ]
+}

@@ -43,72 +43,72 @@
         "appearance": "原装中央锤座"
       },
       "reinforced_block": {
-        "mesh": "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block.SM_ThunderGodHammer_head_mount_reinforced_block",
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block_V7.SM_ThunderGodHammer_head_mount_reinforced_block_V7",
         "location_cm": [
           0.0,
           0.0,
           0.0
         ],
-        "appearance": "原厂雷纹圆徽 · 厚肩锻体 · 宽槽嵌银雷纹",
+        "appearance": "原厂三结圆徽 · 双阶厚壁锻肩 · 加厚顶沿",
         "interface": "thunder_god_hammer_modular_v1",
         "shared_option_library": "common-hammer-seats.json",
-        "model_revision": "ThorSeatsInlaidC6",
+        "model_revision": "CommonSeatsStructuralV7",
         "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
-        "design_reference": "SeatNorseConceptV5/C_InlaidThunder.png"
+        "design_reference": "CommonSeatsStructuralV7_20261102/CommonSeats_Structural_Concept.png"
       },
       "ribbed_light": {
-        "mesh": "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light.SM_ThunderGodHammer_head_mount_ribbed_light",
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/LightSeatWindowFixV8/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light_V8.SM_ThunderGodHammer_head_mount_ribbed_light_V8",
         "location_cm": [
           0.0,
           0.0,
           0.0
         ],
-        "appearance": "原厂雷纹圆徽 · 内收镂空肩部 · 单路嵌银雷纹",
+        "appearance": "原厂三结圆徽 · 双侧贯穿减重窗 · 连续承力锻肋",
         "interface": "thunder_god_hammer_modular_v1",
         "shared_option_library": "common-hammer-seats.json",
-        "model_revision": "ThorSeatsInlaidC6",
+        "model_revision": "LightSeatWindowFixV8",
         "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
-        "design_reference": "SeatNorseConceptV5/C_InlaidThunder.png"
+        "design_reference": "CommonSeatsStructuralV7_20261102/CommonSeats_Structural_Concept.png"
       },
       "laminated_damper": {
-        "mesh": "/Game/Weapons/ThunderGodHammer20261028/SeatInlaidC6/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper.SM_ThunderGodHammer_head_mount_laminated_damper",
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper_V7.SM_ThunderGodHammer_head_mount_laminated_damper_V7",
         "location_cm": [
           0.0,
           0.0,
           0.0
         ],
-        "appearance": "原厂雷纹圆徽 · 内嵌缓冲层缝 · 折槽嵌银雷纹",
+        "appearance": "原厂三结圆徽 · 三阶锻钢叠层 · 双道内嵌缓冲层",
         "interface": "thunder_god_hammer_modular_v1",
         "shared_option_library": "common-hammer-seats.json",
-        "model_revision": "ThorSeatsInlaidC6",
+        "model_revision": "CommonSeatsStructuralV7",
         "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
-        "design_reference": "SeatNorseConceptV5/C_InlaidThunder.png"
+        "design_reference": "CommonSeatsStructuralV7_20261102/CommonSeats_Structural_Concept.png"
       },
       "guan_lei_seat": {
-        "mesh": "/Game/Weapons/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Meshes/SM_ThunderGodHammer_head_mount_guan_lei_seat_V12_UV2.SM_ThunderGodHammer_head_mount_guan_lei_seat_V12_UV2",
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/GuanLeiClosedCrownV12/MeshyV13/Meshes/SM_ThunderGodHammer_head_mount_guan_lei_seat_V13.SM_ThunderGodHammer_head_mount_guan_lei_seat_V13",
         "location_cm": [
           0,
           0,
           0
         ],
-        "appearance": "原厂雷纹圆徽 · 连体闭合顶冠 · 双侧流线嵌银回环",
+        "appearance": "北境三结圆徽 · 圆弧闭冠 · 双侧回环导雷纹",
         "interface": "thunder_god_hammer_modular_v1",
-        "model_revision": "GuanLeiClosedCrownV12",
+        "model_revision": "GuanLeiMeshyV13",
         "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
-        "design_reference": "GuanLeiClosedCrownV12/GuanLei_V12_Editable.blend"
+        "design_reference": "GuanLeiMeshyV13/GuanLei_V13_Editable.blend"
       },
       "ji_lei_seat": {
-        "mesh": "/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Meshes/SM_ThunderGodHammer_head_mount_ji_lei_seat_V14.SM_ThunderGodHammer_head_mount_ji_lei_seat_V14",
+        "mesh": "/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/MeshyV15/Meshes/SM_ThunderGodHammer_head_mount_ji_lei_seat_V15.SM_ThunderGodHammer_head_mount_ji_lei_seat_V15",
         "location_cm": [
           0,
           0,
           0
         ],
-        "appearance": "原厂雷纹圆徽 · 连体折肩与短冠 · 内嵌聚雷纹路",
+        "appearance": "北境三结圆徽 · 聚雷折肩与短冠 · 蓝色内嵌导雷纹",
         "interface": "thunder_god_hammer_modular_v1",
-        "model_revision": "JiLeiInlaidLightningV14",
+        "model_revision": "JiLeiMeshyV15",
         "source_mesh": "SM_ThunderGodHammer_head_mount_factory",
-        "design_reference": "JiLeiInlaidLightningV14/JiLei_V14_Editable.blend"
+        "design_reference": "JiLeiMeshyV15/JiLei_V15_Editable.blend"
       }
     },
     "hammer_heads": {

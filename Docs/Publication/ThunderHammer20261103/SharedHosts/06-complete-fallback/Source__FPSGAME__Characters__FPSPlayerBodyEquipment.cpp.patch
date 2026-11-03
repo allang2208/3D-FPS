@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -867,6 +867,7 @@
+ 
+ void UFPSPlayerBodyComponent::ClearOutfitPresentation()
+ {
++    bInitialOutfitReady=false;
+     ++OutfitLoadGeneration;OutfitLoadKey.Reset();
+     if(OutfitLoad)OutfitLoad->CancelHandle();OutfitLoad.Reset();
+     if(auto* Motion=GetOwner()->FindComponentByClass<UFPSBackpackMotionComponent>())Motion->Clear();
+@@ -876,6 +877,7 @@
+ 
+ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit)
+ {
++    bInitialOutfitReady=false;
+     if(FPSPlayerBodyWorldBodySuppressed())
+     {
+         if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->SetWorldOutfit(Outfit);
+@@ -944,7 +946,8 @@
+     if(Render)for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
+         Body->ShowMaterialSection(Render->LODRenderData[L].RenderSections[S].MaterialIndex,S,true,L);
+     const TSharedPtr<FJsonObject>* Definitions=nullptr;
+-    if(!Configuration->TryGetObjectField(TEXT("outfits"),Definitions))return;
++    if(!Configuration->TryGetObjectField(TEXT("outfits"),Definitions))
++    {bInitialOutfitReady=true;ApplyWorldBodyVisibility();return;}
+     const auto Remember=[&](UMeshComponent* Mesh)
+     {
+         if(OriginalMaterials.Contains(Mesh))return;
+@@ -1044,5 +1047,6 @@
+             }
+         }
+     }
++    bInitialOutfitReady=true;
+     ApplyWorldBodyVisibility();
+ }

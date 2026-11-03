@@ -1,0 +1,98 @@
+{
+  "revision": "GripIcons20261101",
+  "resolution": [
+    1024,
+    1024
+  ],
+  "items": [
+    {
+      "id": "static_field_grip",
+      "name": "静电场",
+      "revision": "StaticFieldGripV3Game",
+      "blend": "StaticField_Editable.blend",
+      "mesh": "SM_ThunderGodHammer_grip_static_field_V3Game",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\StaticFieldGripV3Game\\StaticField_Editable.blend",
+      "object": "SM_ThunderGodHammer_grip_static_field_V3Game",
+      "runtime_mesh": "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV3Game/Meshes/SM_ThunderGodHammer_grip_static_field_V3Game",
+      "source_render": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\GripIcons20261101\\static_field_grip_source.png",
+      "source_dimensions_m": [
+        0.03686800226569176,
+        0.03767000138759613,
+        0.49000003933906555
+      ],
+      "frame_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmFramedIcons20260930\\muzzle_brake_framed_v2.png",
+      "key": "ue_thunder_god_hammer_grip_static_field_grip",
+      "camera": {
+        "type": "ORTHO",
+        "position": [
+          0.2800000011920929,
+          -1.0,
+          0.0
+        ],
+        "scale": 0.5568182468414307,
+        "up": "+Z",
+        "mechanical_axis": "+Z",
+        "view": "front, 15.6 degrees around shaft; level"
+      },
+      "grayscale_materials": [
+        "IconGray_M_StaticField_NativeInterface",
+        "IconGray_M_StaticField_Recess",
+        "IconGray_M_StaticField_Leather",
+        "IconGray_M_StaticField_Silver",
+        "IconGray_M_StaticField_Steel",
+        "IconGray_M_StaticField_IonInlay"
+      ],
+      "baseline": []
+    },
+    {
+      "id": "coil_grip",
+      "name": "线圈",
+      "revision": "CoilGripV1",
+      "blend": "Coil_Editable.blend",
+      "mesh": "SM_ThunderGodHammer_grip_coil",
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\CoilGripV1\\Coil_Editable.blend",
+      "object": "SM_ThunderGodHammer_grip_coil",
+      "runtime_mesh": "/Game/Weapons/ThunderGodHammer20261028/CoilGripV1/Meshes/SM_ThunderGodHammer_grip_coil",
+      "source_render": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\GripIcons20261101\\coil_grip_source.png",
+      "source_dimensions_m": [
+        0.03830000013113022,
+        0.03830000013113022,
+        0.49000003933906555
+      ],
+      "frame_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmFramedIcons20260930\\muzzle_brake_framed_v2.png",
+      "key": "ue_thunder_god_hammer_grip_coil_grip",
+      "camera": {
+        "type": "ORTHO",
+        "position": [
+          0.2800000011920929,
+          -1.0,
+          0.0
+        ],
+        "scale": 0.5568182468414307,
+        "up": "+Z",
+        "mechanical_axis": "+Z",
+        "view": "front, 15.6 degrees around shaft; level"
+      },
+      "grayscale_materials": [
+        "IconGray_M_Coil_NativeInterface",
+        "IconGray_M_Coil_Titanium",
+        "IconGray_M_Coil_Rubber",
+        "IconGray_M_Coil_Copper",
+        "IconGray_M_Coil_IonGlass"
+      ],
+      "baseline": [
+        {
+          "path": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_thunder_god_hammer_grip_coil_grip.png",
+          "bytes": 436696,
+          "sha256": "faa59c6f1dcf3e17c80153a562c59824629e3bb2b9587b3b992ae59e28d26645"
+        },
+        {
+          "path": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_thunder_god_hammer_grip_coil_grip.uasset",
+          "bytes": 364019,
+          "sha256": "693b526fb00e4b627f3164bc07a7baf7f0f6487a3592110ecf274d72d9b828bc"
+        }
+      ]
+    }
+  ],
+  "runtime_tested": false
+}

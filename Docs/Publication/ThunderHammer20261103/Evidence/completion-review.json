@@ -1,0 +1,133 @@
+{
+  "at": "2026-11-02T21:24:28.566334",
+  "passed": true,
+  "native": [
+    {
+      "name": "jilei-intent",
+      "count": 27,
+      "passed": true,
+      "report": "jilei-intent.json"
+    },
+    {
+      "name": "heavy-formula",
+      "count": 477,
+      "passed": true,
+      "report": "heavy-formula.json"
+    },
+    {
+      "name": "thor-assets-mods",
+      "count": 370,
+      "passed": true,
+      "report": "thor-assets-mods.json"
+    },
+    {
+      "name": "zhenting",
+      "count": 18,
+      "passed": true,
+      "report": "zhenting.json"
+    },
+    {
+      "name": "recall",
+      "count": 128,
+      "passed": true,
+      "report": "recall.json"
+    },
+    {
+      "name": "switch",
+      "count": 32,
+      "passed": true,
+      "report": "switch.json"
+    },
+    {
+      "name": "preview",
+      "count": 10,
+      "passed": true,
+      "report": "preview.json"
+    },
+    {
+      "name": "storm-lifecycle",
+      "count": 57,
+      "passed": true,
+      "report": "storm-lifecycle.json"
+    }
+  ],
+  "native_count": 1119,
+  "asset_count": 75,
+  "assets_passed": true,
+  "wire": [
+    {
+      "mode": "Listen",
+      "passed": true,
+      "cases": 15,
+      "report": "Listen-20261102-211851\\host.json",
+      "receipt": "Listen-20261102-211851\\receipt.json",
+      "lag_ms": 60,
+      "packet_loss_percent": 3,
+      "peers": 3
+    },
+    {
+      "mode": "Dedicated",
+      "passed": true,
+      "cases": 15,
+      "report": "Dedicated-20261102-212105\\host.json",
+      "receipt": "Dedicated-20261102-212105\\receipt.json",
+      "lag_ms": 60,
+      "packet_loss_percent": 3,
+      "peers": 3
+    }
+  ],
+  "build": {
+    "complete": true,
+    "targets": [
+      {
+        "exit_code": 0,
+        "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\CompletionReview20261102\\FPSGAMEEditor-build.log",
+        "target": "FPSGAMEEditor"
+      },
+      {
+        "exit_code": 0,
+        "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\CompletionReview20261102\\FPSGAME-build.log",
+        "target": "FPSGAME"
+      }
+    ],
+    "runtime_tested": false,
+    "editor_started": false
+  },
+  "saved_asset_repairs": {
+    "saved": true,
+    "assets": [
+      {
+        "asset": "/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block_V7",
+        "before": "<NaniteFallbackTarget.AUTO: 0>",
+        "after": "<NaniteFallbackTarget.PERCENT_TRIANGLES: 1>",
+        "geometry_reimported": false
+      },
+      {
+        "asset": "/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper_V7",
+        "before": "<NaniteFallbackTarget.AUTO: 0>",
+        "after": "<NaniteFallbackTarget.PERCENT_TRIANGLES: 1>",
+        "geometry_reimported": false
+      },
+      {
+        "asset": "/Game/Weapons/ThunderGodHammer20261028/LightSeatWindowFixV8/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light_V8",
+        "before": "<NaniteFallbackTarget.AUTO: 0>",
+        "after": "<NaniteFallbackTarget.PERCENT_TRIANGLES: 1>",
+        "geometry_reimported": false
+      }
+    ],
+    "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\CompletionReview20261102\\AssetBackups\\20261102-205244"
+  },
+  "audio_metadata": {
+    "before": "",
+    "after": "ad44e7ccd3617d9dee7d09b609ad214f7dcc1c142f067e63328f4ddd863a53b7",
+    "graph_modified": false,
+    "source_sha256": "ad44e7ccd3617d9dee7d09b609ad214f7dcc1c142f067e63328f4ddd863a53b7"
+  },
+  "limitations": [
+    "No rendered hand animation or visual acceptance",
+    "No audio audition",
+    "No real inventory upload/UI integration in the isolated network fixture",
+    "No reconnect or map travel test"
+  ],
+  "editor_dll_sha256": "a4c60af6fefbcfb7a088f9a2fba7165f4bbb0141a115cd48c9bdacc95be000b0"
+}

@@ -1,0 +1,59 @@
+--- a/Source/FPSGAME/Production/ProductionThunderCall.cpp
++++ b/Source/FPSGAME/Production/ProductionThunderCall.cpp
+@@ -1,5 +1,6 @@
+ #include "ProductionToolComponent.h"
+ #include "ThunderHammerTuning.h"
++#include "ThunderHammerCallIntent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -10,11 +11,21 @@
+ #include "Materials/MaterialInstanceDynamic.h"
+ #include "Engine/World.h"
+ 
++bool UProductionToolComponent::IsThunderCalling() const
++{
++    const auto* Pawn=Character.Get();
++    if(!bThunderCallSeat||!IsHeavyCharging()||!Pawn||!GetWorld())return false;
++    const double StartedAt=Pawn->IsLocallyControlled()?BluntChargeStartedAt:BluntServerChargeStartedAt;
++    return ThunderHammerCallIntent::Phase(float(GetWorld()->GetTimeSeconds()-StartedAt),BluntChargeSeconds)
++        !=ThunderHammerCallIntent::EPhase::TapPending;
++}
++
+ float UProductionToolComponent::ThunderCallChargeProgress() const
+ {
+     if(!bThunderCallCharging)return 0.f;
+     const auto* Pawn=Character.Get();
+-    if(Pawn&&Pawn->IsLocallyControlled())return HeavyChargeFraction();
++    if(Pawn&&Pawn->IsLocallyControlled())
++        return ThunderHammerCallIntent::Progress(float(GetWorld()->GetTimeSeconds()-BluntChargeStartedAt),BluntChargeSeconds);
+     return FMath::Clamp(float(RuneboundClock()-ThunderCallVisualStartedAt)/FMath::Max(.01f,ThunderCallVisualSeconds),0.f,1.f);
+ }
+ 
+@@ -66,6 +77,26 @@
+ {
+     auto* Pawn=Character.Get();if(!Pawn)return;
+     auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
++    if(Pawn->HasAuthority()||Pawn->IsLocallyControlled())
++    {
++        const bool Charging=IsThunderCalling();
++        if(bThunderCallCharging!=Charging)
++        {
++            bThunderCallCharging=Charging;
++            if(Pawn->HasAuthority())
++            {
++                if(Charging)
++                {
++                    const double StartedAt=Pawn->IsLocallyControlled()?BluntChargeStartedAt:BluntServerChargeStartedAt;
++                    const float Held=float(GetWorld()->GetTimeSeconds()-StartedAt);
++                    ThunderCallVisualStartedAt=RuneboundClock()-Held+ThunderHammerCallIntent::PendingSeconds(BluntChargeSeconds);
++                    ThunderCallVisualSeconds=ThunderHammerCallIntent::LiftSeconds(BluntChargeSeconds);
++                    bThunderCallResourcesDirty=true;
++                }
++                Pawn->ForceNetUpdate();
++            }
++        }
++    }
+     if(!IsThunderCalling()&&bThunderCallResourcesDirty)FinishThunderCallResources();
+     if(IsThunderCalling()&&Profile&&!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f)
+     {CancelHeavyCharge();return;}

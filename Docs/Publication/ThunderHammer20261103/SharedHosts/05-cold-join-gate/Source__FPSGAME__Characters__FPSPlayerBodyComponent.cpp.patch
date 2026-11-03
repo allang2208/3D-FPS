@@ -1,0 +1,61 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -120,7 +120,7 @@
+ {
+     // The diagnostic shadow switch controls the local first-person body only.
+     const bool FirstPersonOwner=Character.IsValid()&&Character->IsLocallyControlled()&&!IsThirdPersonViewEnabled();
+-    return !FPSPlayerBodyWorldBodyHidden()&&(!FirstPersonOwner||FPSPlayerBodyWorldBodyShadowEnabled());
++    return !IsWorldBodyPresentationHidden()&&(!FirstPersonOwner||FPSPlayerBodyWorldBodyShadowEnabled());
+ }
+ 
+ bool UFPSPlayerBodyComponent::UsesWarhammerFirstPersonPass() const
+@@ -162,7 +162,7 @@
+ {
+     // Equipment is handled separately with its hand-occupancy rules; never briefly
+     // unhide a stowed weapon here before hiding it again later in the same frame.
+-    const bool bHidden=FPSPlayerBodyWorldBodyHidden();
++    const bool bHidden=IsWorldBodyPresentationHidden();
+     TArray<UPrimitiveComponent*> Targets;
+     if(auto* Body=GetBodyMesh())Targets.Add(Body);
+     // These arrays hold TObjectPtr, so the element type must be spelled out rather than
+@@ -181,7 +181,8 @@
+     {
+         const bool bDrawn=!bHidden&&Character.IsValid()&&(!Character->IsLocallyControlled()||IsThirdPersonViewEnabled()
+             ||ShouldWorldBodyCastShadow()||(FirstPersonLowerBody&&ShouldShowFirstPersonLowerBody()));
+-        const auto Wanted=bDrawn?EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones
++        // The first head CopyPose must run while the assembly is still hidden.
++        const auto Wanted=(bDrawn||bInitialAppearancePending)?EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones
+                                 :EVisibilityBasedAnimTickOption::AlwaysTickPose;
+         if(Body->VisibilityBasedAnimTickOption!=Wanted)Body->VisibilityBasedAnimTickOption=Wanted;
+     }
+@@ -217,7 +218,11 @@
+     if(!Configuration.IsValid())
+     {UE_LOG(LogTemp,Error,TEXT("PlayerBody: missing Content/ColdSteelData/player_body.json"));SetComponentTickEnabled(false);return;}
+     InitializeBodyConfigurations();
+-    if(GetNetMode()!=NM_DedicatedServer){InitializeDeathPresentation();InitializeBody();}
++    if(GetNetMode()!=NM_DedicatedServer)
++    {
++        bInitialAppearancePending=true;
++        InitializeDeathPresentation();InitializeBody();
++    }
+     if(Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+         ProfileChanged=Profile->OnChanged.AddWeakLambda(this,[this]()
+         {
+@@ -241,6 +246,8 @@
+     ClearHeadEquipment();
+     ++AppearanceRequest;
+     if(AppearanceLoad){AppearanceLoad->CancelHandle();AppearanceLoad.Reset();}
++    if(HeadMesh&&InitialHeadPoseHandle.IsValid())HeadMesh->UnregisterOnBoneTransformsFinalizedDelegate(InitialHeadPoseHandle);
++    InitialHeadPoseHandle.Reset();
+     ClearOutfitPresentation();
+     if(Character.IsValid()&&Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+         Profile->OnChanged.Remove(ProfileChanged);
+@@ -283,7 +290,7 @@
+     Body->SetGenerateOverlapEvents(false);
+     Body->SetOnlyOwnerSee(false);Body->SetOwnerNoSee(true);
+     Body->SetCastShadow(true);Body->bCastHiddenShadow=true;
+-    Body->SetVisibility(true);Body->SetHiddenInGame(false);
++    Body->SetVisibility(!IsWorldBodyPresentationHidden());Body->SetHiddenInGame(IsWorldBodyPresentationHidden());
+     Body->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+     Body->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+     Body->SetAnimInstanceClass(UFPSPlayerBodyAnimInstance::StaticClass());

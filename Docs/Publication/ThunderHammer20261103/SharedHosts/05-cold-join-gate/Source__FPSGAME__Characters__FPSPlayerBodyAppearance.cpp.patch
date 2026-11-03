@@ -1,0 +1,67 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
+@@ -44,6 +44,20 @@
+ }
+ }
+ 
++bool UFPSPlayerBodyComponent::IsWorldBodyPresentationHidden() const
++{
++    return FPSPlayerBodyWorldBodyHidden()||bInitialAppearancePending;
++}
++void UFPSPlayerBodyComponent::FinishInitialAppearance()
++{
++    if(HeadMesh&&InitialHeadPoseHandle.IsValid())HeadMesh->UnregisterOnBoneTransformsFinalizedDelegate(InitialHeadPoseHandle);
++    InitialHeadPoseHandle.Reset();
++    if(!bInitialAppearancePending)return;
++    bInitialAppearancePending=false;
++    ApplyWorldBodyVisibility();
++    UpdateOwnerVisibility();
++}
++
+ FFPSBodyAppearance UFPSPlayerBodyComponent::ResolveAppearance(FFPSBodyAppearance Value) const
+ {
+     using namespace FPSBodyAppearance;
+@@ -87,7 +101,7 @@
+     const auto Selected=ConfigurationForHead(Value.HeadId);
+     const bool bChangeBody=Selected!=Configuration;
+     const auto Head=Object(Object(Selected,TEXT("heads")),Value.HeadId.ToString());
+-    if(!Head)return;
++    if(!Head){FinishInitialAppearance();return;}
+     const FString MeshPath=Text(Head,TEXT("mesh"));
+     const auto MaterialOverrides=Object(Head,TEXT("materials"));
+     TArray<TSharedPtr<FJsonObject>> GroomRecipes;Grooms(Head,GroomRecipes);
+@@ -139,9 +153,10 @@
+         if(Request!=AppearanceRequest||!Character.IsValid())return;
+         auto* Parent=GetBodyMesh();
+         auto* Mesh=Cast<USkeletalMesh>(FSoftObjectPath(MeshPath).ResolveObject());
+-        if(!Parent||!Mesh){UE_LOG(LogTemp,Error,TEXT("Player head unavailable: %s"),*MeshPath);AppearanceLoad.Reset();AppliedAppearance={};return;}
++        if(!Parent||!Parent->GetSkeletalMeshAsset()||!Mesh)
++        {UE_LOG(LogTemp,Error,TEXT("Player head/body unavailable: %s"),*MeshPath);AppearanceLoad.Reset();AppliedAppearance={};FinishInitialAppearance();return;}
+         for(const auto& Path:Paths)if(Path.IsValid()&&!Path.ResolveObject())
+-        {UE_LOG(LogTemp,Error,TEXT("Player appearance unavailable: %s"),*Path.ToString());AppearanceLoad.Reset();AppliedAppearance={};return;}
++        {UE_LOG(LogTemp,Error,TEXT("Player appearance unavailable: %s"),*Path.ToString());AppearanceLoad.Reset();AppliedAppearance={};FinishInitialAppearance();return;}
+         if(bChangeBody)
+         {
+             if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->ResetBodyPresentation();
+@@ -167,6 +182,8 @@
+         // All requested assets stay held until the replacement components own them.
+         if(AppearanceLODSync)AppearanceLODSync->DestroyComponent();
+         for(auto Groom:HeadGrooms)if(Groom)Groom->DestroyComponent();HeadGrooms.Reset();
++        if(HeadMesh&&InitialHeadPoseHandle.IsValid())HeadMesh->UnregisterOnBoneTransformsFinalizedDelegate(InitialHeadPoseHandle);
++        InitialHeadPoseHandle.Reset();
+         if(HeadMesh)HeadMesh->DestroyComponent();
+         HeadMesh=NewObject<USkeletalMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+         GetOwner()->AddInstanceComponent(HeadMesh);HeadMesh->SetupAttachment(Parent);
+@@ -259,6 +276,12 @@
+             AppearanceLODSync->CustomLODMapping.Add(Groom->GetFName(),ValidAuthored?*Authored:Mapping(GroomLODs));
+         }
+         AppearanceLODSync->RegisterComponent();UpdateAppearanceVisibility();
++        // Streaming completion alone does not mean CopyPose has evaluated. Reveal
++        // the initial assembly from the head's first finalized pose, not a timer.
++        // Later changes keep the previous complete appearance during streaming.
++        if(bInitialAppearancePending)
++            InitialHeadPoseHandle=HeadMesh->RegisterOnBoneTransformsFinalizedDelegate(
++                FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::FinishInitialAppearance));
+         AppearanceLoad.Reset();
+     }));
+ }

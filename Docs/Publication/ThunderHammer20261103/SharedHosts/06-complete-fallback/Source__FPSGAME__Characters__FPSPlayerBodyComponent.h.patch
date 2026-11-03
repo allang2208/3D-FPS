@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -96,7 +96,7 @@
+     UFUNCTION(BlueprintCallable, Category="Player Body") bool SetBodyType(FName BodyId);
+     UFUNCTION(BlueprintPure, Category="Player Body") FName GetBodyType() const;
+     bool CanUseBodyType(FName BodyId) const;
+-    bool IsAppearanceLoading() const { return AppearanceLoad.IsValid(); }
++    bool IsAppearanceLoading() const { return bInitialAppearancePending||AppearanceLoad.IsValid(); }
+     bool IsWorldBodyPresentationHidden() const;
+     bool SampleFurnitureEye(FName Clip,float Seconds,FVector& Eye) const;
+ 
+@@ -247,9 +247,23 @@
+     TSharedPtr<struct FStreamableHandle> AppearanceLoad;
+     FFPSBodyAppearance AppliedAppearance;
+     uint32 AppearanceRequest = 0;
+-    // Local render readiness only; gameplay and network state keep advancing.
++    // The complete fallback stays visible while the real assembly is prepared.
++    UPROPERTY() TObjectPtr<class USkeletalMesh> InitialAppearanceFallbackAsset;
++    UPROPERTY(Transient) TObjectPtr<class UFPSBodyWeaponMeshComponent> InitialAppearanceFallback;
++    TWeakObjectPtr<class USkeletalMesh> FallbackPoseSource;
++    TArray<int32> FallbackBoneMap;
++    TArray<FQuat> FallbackBindCorrections;
++    TArray<FTransform> FallbackPose;
+     bool bInitialAppearancePending = false;
++    bool bInitialHeadPoseReady = false;
++    bool bInitialOutfitReady = false;
++    bool bHeadEquipmentReady = false;
++    bool bAppearanceLoadFailed = false;
+     FDelegateHandle InitialHeadPoseHandle;
++    void InitializeAppearanceFallback();
++    void UpdateAppearanceFallbackVisibility();
++    void UpdateAppearanceFallbackPose();
++    void OnInitialHeadPoseReady();
+     void FinishInitialAppearance();
+     UFUNCTION() void OnRep_Appearance();
+     FFPSBodyAppearance ResolveAppearance(FFPSBodyAppearance Appearance) const;

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodySpellbook.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodySpellbook.cpp
+@@ -46,7 +46,7 @@
+         WorldFloatingBook->AttachToComponent(GetBodyMesh(),FAttachmentTransformRules::SnapToTargetNotIncludingScale,TEXT("hand_l"));
+         SmoothedBookPose.Reset();
+     }
+-    const bool Show=Sample.FloatingBook&&!FPSPlayerBodyWorldBodyHidden()
++    const bool Show=Sample.FloatingBook&&!IsWorldBodyPresentationHidden()
+         &&Sample.BookPose.Num()==WorldFloatingBook->GetSkeletalMeshAsset()->GetRefSkeleton().GetNum();
+     FPSBodyEquipment::ApplyOwnerVisibilityFlags(WorldFloatingBook,false,!IsThirdPersonViewEnabled());
+     FPSBodyEquipment::ApplyShadowFlags(WorldFloatingBook,Show&&ShouldWorldBodyCastShadow());

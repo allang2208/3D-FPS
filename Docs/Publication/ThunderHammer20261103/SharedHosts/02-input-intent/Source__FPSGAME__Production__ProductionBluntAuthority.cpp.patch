@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+@@ -73,8 +73,7 @@
+     if(bThunderCallSeat)
+     {
+         if(!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f){bBluntServerCharging=false;ClientBluntAttackResult(AttackId,0,false,false,false);return;}
+-        bThunderCallCharging=bThunderCallResourcesDirty=true;
+-        ThunderCallVisualStartedAt=RuneboundClock();ThunderCallVisualSeconds=BluntChargeSeconds;Pawn->ForceNetUpdate();
++        bThunderCallCharging=false; // The server tracks the press while the tap/hold decision is pending.
+     }
+     BluntServerChargeStartedAt=GetWorld()->GetTimeSeconds();
+     BluntServerChargeInstance=Profile->ActiveProductionTool()->InstanceId;
+@@ -107,7 +106,9 @@
+     if(bReleaseCharge&&(!bBluntServerCharging||BluntServerAttackId!=AttackId||BluntServerChargeInstance!=SourceInstance||Profile->Stamina()<=0.f)){Reject();return;}
+     const float Held=bReleaseCharge?float(World->GetTimeSeconds()-BluntServerChargeStartedAt):0.f;
+     Character=Pawn;ApplyToolStats(Item,Profile);
+-    const bool Heavy=bSprintAttack||(bReleaseCharge&&Held>=BluntChargeSeconds);
++    // JiLei's charged release has its own RPC; a tap must remain a normal cut
++    // even if the server receives its release after a long network delay.
++    const bool Heavy=bSprintAttack||(!bThunderCallSeat&&bReleaseCharge&&Held>=BluntChargeSeconds);
+     const bool Toll=Heavy&&!bSprintAttack&&bFinalTollHead;
+     const bool Throw=Heavy&&!bSprintAttack&&bThunderThrowSeat;
+     const float Resume=Heavy||bSprintAttack?0.f:BluntChargeResume(Held);
+@@ -119,7 +120,7 @@
+     ClientBluntStaminaSpent(AttackId,float(AttackCost));
+     Item=Profile->ActiveProductionTool();
+     if(!Item||Item->InstanceId!=SourceInstance){Reject();return;}
+-    if(BluntServerInstance!=SourceInstance||World->GetTimeSeconds()>BluntServerComboExpires||Held>.20f)BluntServerNextStage=0;
++    if(BluntServerInstance!=SourceInstance||World->GetTimeSeconds()>BluntServerComboExpires||(!bThunderCallSeat&&Held>.20f))BluntServerNextStage=0;
+     const int32 Stage=bSprintAttack?2:BluntServerNextStage;
+     BluntServerNextStage=Heavy||bSprintAttack?0:(Stage+1)%3;
+     BluntSprintSeconds=0.f;BluntSprintReadyAt=-100.;

@@ -6,7 +6,6 @@ P=Path(__file__).resolve().parent
 S=P.parent
 model=S/'GuanLeiReturnC8'; model.mkdir(exist_ok=True)
 motion=S/'JiLeiMotionV5'; motion.mkdir(exist_ok=True)
-audio=S/'JiLeiChargeAudioV1'; audio.mkdir(exist_ok=True)
 for name in ['author_geometry.py','author_textures.py','finish_source.py','import_assets.py','import.ps1',
              'render_icon_source.py','import_icon.py','import_icon.ps1','publish.py']:
     text=(S/'GuanLeiInlaidC7'/name).read_text(encoding='utf-8-sig')
@@ -23,7 +22,7 @@ for name in ['import_assets.py']:
                       'V5 full-charge progressive right-hand lift; supported elbow; arm-driven grip and continuous recovery')
     text=text.replace('JI_LEI_V4','JI_LEI_V5')
     (motion/name).write_text(text,encoding='utf-8')
-for dst in [motion,audio]:shutil.copy2(model/'import.ps1',dst/'import.ps1')
+shutil.copy2(model/'import.ps1',motion/'import.ps1')
 
 # Retain V4's solved shoulder/elbow/wrist and exact grip while replacing the
 # early-finished trajectory. The last 8 cm of lift are shared by shoulder and
@@ -60,4 +59,4 @@ text=text.replace("'shoulder':list(s1),'elbow':list(e1),'wrist':list(h1)",
 text=text.replace("'gameplay_run':False}","'extra_lift_cm':8,'extra_forward_cm':10.5,'lift_completion_seconds':2,'gameplay_run':False}")
 text=text.replace('JI_LEI_V4_AUTHORED','JI_LEI_V5_AUTHORED')
 (motion/'author_motion.py').write_text(text,encoding='utf-8')
-print('Author sources prepared:',model,motion,audio)
+print('Historical model/motion sources prepared:',model,motion)

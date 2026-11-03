@@ -1,0 +1,294 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "package": "/Game/Audio/MeleeBlock20260927/S_MeleeBlock_01",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/EasyBuildingSystem/Effects/PS_Dust",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Equip",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_HitRecover",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Idle",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Swing",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Skills/Lightning/NS_LightningChain",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Skills/Whirlwind20260920/M_WhirlwindFocus",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/S_RuneSword_Parry",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/WristRiftV3/M_RuneRift",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_FinalToll_YellowLightning",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/CrackReliefV3/M_WarhammerFractureRelief",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/GroundImpactAudioV1/S_Warhammer_GroundImpact",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/HeavySlamV1/M_WarhammerGroundWave",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_Inspect",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_InspectWalk",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/NormalSwingAudioV1/S_Warhammer_NormalSwing",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/QuickCombatLeftWristV7/A_Warhammer_QuickCombat",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/RhythmClearanceV2/DA_Warhammer_Clearance",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/SlamFXV2/M_WarhammerDebris",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/SlamFXV2/M_WarhammerDust",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/SlamFXV2/SM_WarhammerDebris",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/UppercutAudioV1/S_Warhammer_Uppercut",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/UppercutV1/A_Warhammer_Uppercut",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/WhirlwindV1/A_Warhammer_Whirlwind",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/CoilGripV1/Meshes/SM_ThunderGodHammer_grip_coil",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper_V7",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block_V7",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/GuanLeiClosedCrownV12/MeshyV13/Meshes/SM_ThunderGodHammer_head_mount_guan_lei_seat_V13",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/HeavyThunderV1/NS_ThunderHammerBolt",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/HeavyThunderV1/NS_ThunderHammerImpact",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/HeavyThunderV1/S_ThunderHammerStrike",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/MeshyV15/Meshes/SM_ThunderGodHammer_head_mount_ji_lei_seat_V15",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/MS_JiLei_CurrentRandom",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallCharge",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallRelease",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/M_JiLeiAim",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/M_JiLei_BlueWhiteLightning",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/LightSeatWindowFixV8/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light_V8",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_bias_speed_wrap",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_diamond_power_wrap",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_factory",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_grip_layered_cushion_wrap",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_factory",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_flanged_breaker",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_heavy_forged",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_light_drum",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_hammer_heads_pointed_hammer",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_head_mount_factory",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_neck_factory",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_caged_agility",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_factory",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_no_pommel",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_octagonal_impact",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_pommel_twin_disc_balance",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ModulesV1/SM_ThunderGodHammer_shaft_factory",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/NormalGripFix20261031/DA_ThunderHammer_ConductiveGrip",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/PommelClosedRefineV2/LeiXi/Meshes/SM_ThunderGodHammer_pommel_lei_xi_v2",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/PommelClosedRefineV2/ZhenTing/Meshes/SM_ThunderGodHammer_pommel_zhen_ting_v2",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/RecallAudioV1/S_GuanLei_RecallAirLoop",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/RecallAudioV1/S_GuanLei_RecallCatch",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/RecallAudioV1/S_GuanLei_RecallMetalLoop",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_Catch_V2",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_RecallReady_V2",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/SM_ThunderGodHammer",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV3Game/Meshes/SM_ThunderGodHammer_grip_static_field_V3Game",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_ThrowCharge",
+      "in_iostore": true
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_ThrowRelease",
+      "in_iostore": true
+    }
+  ],
+  "scope": "actual scoped Development container, including catalog-derived shared motion dependencies"
+}

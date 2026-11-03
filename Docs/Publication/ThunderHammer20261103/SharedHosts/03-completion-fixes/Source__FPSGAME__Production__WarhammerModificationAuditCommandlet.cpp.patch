@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp
++++ b/Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp
+@@ -53,7 +53,9 @@
+ {
+ #if WITH_EDITOR
+     if(!Mesh||(!Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/GuanLeiClosedCrownV12/"))&&
+-        !Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/"))))return false;
++        !Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/"))&&
++        !Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/"))&&
++        !Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/LightSeatWindowFixV8/"))))return false;
+     FStaticMeshCompilingManager::Get().FinishCompilation({Mesh});
+     const auto* Source=Mesh->GetMeshDescription(0);if(!Source)return false;
+     FMeshDescription Description=*Source;
+@@ -85,6 +87,7 @@
+ 
+ int32 UWarhammerModificationAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("JiLeiIntent")))return AuditJiLeiIntent(Params);
+     if(FParse::Param(*Params,TEXT("ZhenTing")))return AuditZhenTing(Params);
+     if(FParse::Param(*Params,TEXT("HeavyFormula")))return AuditHeavyFormula(Params);
+     FString Definition=TEXT("ue_steel_warhammer");
+@@ -115,7 +118,8 @@
+             auto* OtherMesh=NewObject<UStaticMesh>(GetTransientPackage(),TEXT("StormLifecycleOtherWeapon"));
+             for(const TCHAR* Name:{TEXT("Warhammer_StormDrive_Lifecycle"),
+                 TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat"),
+-                TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat_V14")})
++                TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat_V14"),
++                TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat_V15")})
+             {
+                 auto* Asset=NewObject<UStaticMesh>(GetTransientPackage(),Name);
+                 auto* Seat=NewObject<UStaticMeshComponent>(Pawn);Pawn->AddInstanceComponent(Seat);
+@@ -211,7 +215,7 @@
+             Check(Geometry.Num()==6,TEXT("six-module remote recipe ")+Part.Id,Geometry.Num(),6);
+             bool Loaded=true;for(const auto& Module:Geometry)Loaded&=LoadObject<UStaticMesh>(nullptr,*Module.Mesh)!=nullptr;
+             Check(Loaded,TEXT("every selected module loads ")+Part.Id);
+-            if(Part.Id==TEXT("guan_lei_seat")||Part.Id==TEXT("ji_lei_seat"))
++            if(Column.Key==TEXT("head_mount"))
+             {
+                 for(const auto& Module:Geometry)if(Module.Mesh.Contains(TEXT("head_mount_")+Part.Id))
+                 {

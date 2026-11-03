@@ -5890,3 +5890,11 @@ __pycache__/
 /SourceAssets/ThunderGodHammer20261028/**/client/
 !/Content/ColdSteelData/thunder-god-hammer-gunsmith.json
 !/Content/ColdSteelData/thunder-god-hammer-modules.json
+
+# Thunder hammer 2026-11-03: exact authoring recipes only.
+!/SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/design_contract.json
+!/SourceAssets/ThunderGodHammer20261028/GripIcons20261101/mapping.json
+!/SourceAssets/ThunderGodHammer20261028/GroundEmbed20261101/contacts.json
+!/SourceAssets/ThunderGodHammer20261028/SeatMeshyUpgrade20261101/meshy_recipe.json
+/SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/Package/
+/SourceAssets/ThunderGodHammer20261028/RecallReview20261028/original/

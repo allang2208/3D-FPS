@@ -1,0 +1,19 @@
+{
+  "completed": "2026-11-03T18:05:50.4021805+08:00",
+  "compiled": true,
+  "outputs": [
+    {
+      "bytes": 41956352,
+      "path": "D:/FPS3D/FPSGAME/Binaries/Win64/UnrealEditor-FPSGAME.dll",
+      "sha256": "FA4607FE43D333E80A8285C3E0AEC747ADFE66C4699460F9890E009DF4610C98"
+    },
+    {
+      "bytes": 371896832,
+      "path": "D:/FPS3D/FPSGAME/Binaries/Win64/FPSGAME.exe",
+      "sha256": "BF96437444124438976DBAD87B859BE07F094F7D80943454E43FFFACC8846392"
+    }
+  ],
+  "editor_launched": false,
+  "runtime_tested": false,
+  "owned_sources_unchanged_during_build": true
+}

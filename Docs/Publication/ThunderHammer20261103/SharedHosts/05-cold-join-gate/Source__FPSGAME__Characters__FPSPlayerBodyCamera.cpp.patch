@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+@@ -53,7 +53,7 @@
+     // fps.body.WorldBody 0 keeps these components hidden regardless of the view mode.
+     // This path runs from CalcCamera on every camera update, so without the early out
+     // it would put the body straight back on screen.
+-    if (FPSPlayerBodyWorldBodyHidden())
++    if (IsWorldBodyPresentationHidden())
+     {
+         ApplyWorldBodyVisibility();
+         return;

@@ -1,0 +1,67 @@
+{
+  "scope": "Publication checks only; no UE launch, runtime tests or new build.",
+  "base_commit": "19d733c3360e7eb9ece50167d3d30bbebd78dc17",
+  "paths": 176,
+  "cached_diff_check": "passed",
+  "stats": {
+    "python_ast": 50,
+    "json": 17,
+    "powershell": 21,
+    "deleted": 3,
+    "text_files": 173,
+    "total_bytes": 1175569,
+    "maximum_file_bytes": 315726
+  },
+  "patches_reconstructed": 44,
+  "sensitive_scan_findings": [],
+  "local_only_document_links": [],
+  "license_scope": "Text source, original recipes, patch and compact evidence only. User media, UE packages and third-party package output excluded.",
+  "latest_cold_join_v2_runtime_tested": false,
+  "powershell_parser": {
+    "count": 21,
+    "failures": []
+  },
+  "skill_validation": [
+    {
+      "skill": "ue5-cpp-gameplay",
+      "exit": 0,
+      "output": "Skill is valid!",
+      "error": ""
+    },
+    {
+      "skill": "ue5-save-load-replication",
+      "exit": 0,
+      "output": "Skill is valid!",
+      "error": ""
+    },
+    {
+      "skill": "ue5-weapon-workflow",
+      "exit": 0,
+      "output": "Skill is valid!",
+      "error": ""
+    },
+    {
+      "skill": "asset-model-workflow",
+      "exit": 0,
+      "output": "Skill is valid!",
+      "error": ""
+    }
+  ],
+  "stats_scope": "176 content/deletion paths checked; this generated receipt is an additional JSON path.",
+  "generated_at": "2026-11-03T19:05:59.961605+08:00",
+  "root_staged_entries_unchanged": true,
+  "skill_additions_saved": [
+    "ue5-cpp-gameplay/references/initial-appearance-readiness.md",
+    "ue5-cpp-gameplay/SKILL.md",
+    "ue5-save-load-replication/references/replicated-terminal-events.md",
+    "ue5-weapon-workflow/references/thunder-hammer-lifecycle.md",
+    "ue5-weapon-workflow/references/weapon-audio.md",
+    "asset-model-workflow/references/modular-part-interfaces.md",
+    "asset-model-workflow/SKILL.md"
+  ],
+  "outgoing_before_commit": [],
+  "remote_before_push": [
+    "19d733c3360e7eb9ece50167d3d30bbebd78dc17\trefs/heads/main",
+    "49cec1dd11d65295f43c737bac327de829cfd7b1\trefs/tags/archive/godot-before-ue5-20260910"
+  ]
+}

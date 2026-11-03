@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -17,6 +17,7 @@
+ #include "Super90SpeedloaderAssets.h"
+ #include "Animation/AnimSequence.h"
+ #include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../UI/ColdSteelItemReadCache.h"
+ #include "../Production/ProductionToolEnhance.h"
+ #include "../FPSGAMECharacter.h"
+@@ -561,6 +562,11 @@
+     // Staff customization follows the same free apply/save transaction as firearms.
+     if(IsStaff(DefinitionId))I=ColdSteelStaff::Resolve(I);
+     if(!Profile->CommitState(State)){Status=Profile->ResultMessage();return false;}
++    // Thunder parts are free owner customizations. Material-consuming weapon
++    // recipes retain their inventory transaction flow.
++    if(DefinitionId==TEXT("ue_thunder_god_hammer"))
++        if(auto* Pawn=Profile->RuntimePawn())
++            if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->NotifyGunsmithApplied(InstanceId);
+     Original=Preview;DraftEnhanceLevelValue=0;Status=TEXT("已应用改造并保存");OnChanged.Broadcast();return true;
+ }
+ void UGunsmithSystem::Undo(){Preview=Original;DraftEnhanceLevelValue=0;Status=TEXT("已撤销预览");OnChanged.Broadcast();}

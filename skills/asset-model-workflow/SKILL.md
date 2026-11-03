@@ -15,3 +15,5 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 
 - 枪械尾座连续面、donor 角点法线和切线回写：[M24 材质与法线修订](../ue5-weapon-workflow/references/m24-modular-recovery.md#材质与法线修订)。
 - 已保存硬表面网格的切线、UV 与 Nanite 回退修复：读取[已保存硬表面网格的切线、UV 与 Nanite 回退修复](references/saved-static-mesh-tangent-basis.md)。
+
+- 生成部件的精确安装端、局部形变和布尔开窗残片：读取 [模块连接面](references/modular-part-interfaces.md)。

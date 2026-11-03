@@ -10,6 +10,7 @@
 #include "../Skills/FPSMagicPreview.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Combat/RangedAttackQuery.h"
+#include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
 
@@ -64,7 +65,23 @@ bool ThunderHammerThrow::Advance(const APawn* Pawn,const AActor* Ignore,FVector&
         auto* Actor=Hit.GetActor();
         if(Actor&&(Actor->IsA<APawn>()||Actor->FindComponentByClass<UMonsterCombatComponent>())){Q.AddIgnoredActor(Actor);continue;}
         Position=Hit.Location+Hit.ImpactNormal*1.f;
-        if(Hit.ImpactNormal.Z>=.5f){Floor=Hit;return true;}
+        if(Hit.ImpactNormal.Z>=.5f)
+        {
+            Floor=Hit;
+            // The flight sphere may hit simplified collision above the visible
+            // floor. Resolve the actual surface on that same component once;
+            // this is shared by the aiming preview and authoritative landing.
+            if(auto* Surface=Hit.GetComponent())
+            {
+                FCollisionQueryParams ContactQuery(SCENE_QUERY_STAT(ThunderThrowContact),true,Pawn);
+                FHitResult Contact;
+                const FVector N=Hit.ImpactNormal.GetSafeNormal();
+                if(Surface->LineTraceComponent(Contact,Hit.ImpactPoint+N*(Radius+20.f),
+                    Hit.ImpactPoint-N*(Radius+40.f),ContactQuery)&&Contact.ImpactNormal.Z>=.5f)
+                    Floor=Contact;
+            }
+            return true;
+        }
         // Walls/ceilings arrest the throw; the hammer then drops to the floor.
         Velocity=FVector(0,0,FMath::Min(0.,Velocity.Z))+Accel*Step;return false;
     }

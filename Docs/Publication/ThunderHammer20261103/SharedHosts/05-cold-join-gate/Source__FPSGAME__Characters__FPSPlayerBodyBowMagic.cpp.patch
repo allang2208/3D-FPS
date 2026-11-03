@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp
+@@ -11,7 +11,7 @@
+     UStaticMeshComponent* Rod=nullptr;
+     if(DisplayState.BowMagic&&DisplayState.bBowArrow&&!IsDeathViewActive()
+         &&DisplayState.Family==TEXT("Bow")&&BowItemInstance==DisplayState.WeaponInstance
+-        &&!UBowHeldMagicVisual::ShowFirstPerson(Character.Get())&&!FPSPlayerBodyWorldBodyHidden())
++        &&!UBowHeldMagicVisual::ShowFirstPerson(Character.Get())&&!IsWorldBodyPresentationHidden())
+     {
+         for(auto Part:WorldBowParts)if(Part&&Part->SlotName==TEXT("arrow")&&Part->IsPartVisible()&&!Part->bHiddenInGame)
+         {Rod=Part->RodVisual(0);break;}
