@@ -7,7 +7,7 @@
 
 class AFPSGAMECharacter;
 class UPKMBipodComponent;
-class UPrimitiveComponent;
+class UPrimitiveComponent; class UFPSGunplayAnimInstance;
 struct FWeaponHandling;
 
 UENUM(BlueprintType)
@@ -22,6 +22,7 @@ struct FWeaponBipodNetState
     GENERATED_BODY()
     UPROPERTY() uint16 Sequence=0;
     UPROPERTY() bool bActive=false;
+    UPROPERTY() FString WeaponInstance;
     UPROPERTY() FVector_NetQuantize100 FeetA=FVector::ZeroVector;
     UPROPERTY() FVector_NetQuantize100 FeetB=FVector::ZeroVector;
     UPROPERTY() FVector_NetQuantize100 Anchor=FVector::ZeroVector;
@@ -46,9 +47,12 @@ public:
     FString GetHint() const;
     float RecoilMultiplier() const { return FMath::Lerp(1.f,MountedRecoilScale,HandlingBlend()); }
     float SpreadMultiplier() const { return FMath::Lerp(1.f,MountedSpreadScale,HandlingBlend()); }
-    float MotionMultiplier() const { return FMath::Lerp(1.f,.16f,Blend); }
+    float MotionMultiplier() const { return FMath::Lerp(1.f,.16f,PlacementBlend()); }
     FWeaponHandling ApplyStability(const FWeaponHandling& Base) const;
-    bool BlocksFire() const { return bRequested && !IsDeployed(); }
+    bool BlocksFire() const;
+    float AimPresentationWeight() const;
+    void ApplyHandPose(UFPSGunplayAnimInstance& Animation) const;
+    bool DeferReload();
     // 架枪锁定：部署请求或解除过渡期间移动/跳跃/冲刺/滑铲输入被忽略（非解除）。
     bool BlocksMovement() const { return bRequested || Blend>UE_SMALL_NUMBER; }
 
@@ -74,6 +78,7 @@ public:
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Handling", meta=(ClampMin="1")) float MountedStabilityMultiplier=1.66f;
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Handling", meta=(ClampMin="0.1",ClampMax="1")) float MountedSpreadScale=.55f;
 private:
+    friend struct FM24BipodValidation;
     struct FSupport
     {
         FVector Feet[2]={FVector::ZeroVector,FVector::ZeroVector};
@@ -81,7 +86,7 @@ private:
         TWeakObjectPtr<UPrimitiveComponent> Components[2];
         FTransform Transforms[2];
     };
-    bool Eligible() const;
+    bool Eligible(bool bContinuing = false) const;
     UPKMBipodComponent* EquippedBipod() const;
     // Coarse HUD hint only. ADS entry always performs FindSupport in full.
     bool HasSupportHint(UPKMBipodComponent& Part) const;
@@ -107,19 +112,30 @@ private:
     bool bRequested=false;
     bool bCandidate=false;
     float HandlingBlend() const;
-    bool AuthorityEligible() const;
+    bool IsM24() const;
+    float TransitionDuration(bool bDeploy) const;
+    float PlacementBlend() const;
+    bool AuthorityEligible(bool bContinuing = false) const;
     FString EquippedDefinition() const;
+    FString EquippedInstance() const;
     bool ResolveServerSupport(const FWeaponBipodNetState& Proposed,FSupport& Out) const;
     void AdvanceRemoteAuthority(float DeltaSeconds);
     void PublishRelease();
-    UFUNCTION(Server,Reliable) void ServerDeploy(uint16 Sequence,FVector_NetQuantize100 FeetA,
+    UFUNCTION(Server,Reliable) void ServerDeploy(uint16 Sequence,const FString& WeaponInstance,FVector_NetQuantize100 FeetA,
         FVector_NetQuantize100 FeetB,FVector_NetQuantize100 Anchor,FRotator Aim);
     UFUNCTION(Server,Reliable) void ServerRelease(uint16 Sequence);
     UFUNCTION(Client,Reliable) void ClientDeploymentResult(const FWeaponBipodNetState& State);
     UFUNCTION() void OnRep_Deployment();
+    void ApplyOwnerDeployment(const FWeaponBipodNetState& State);
     UPROPERTY(ReplicatedUsing=OnRep_Deployment) FWeaponBipodNetState NetDeployment;
+    // RPCs and property updates can interleave; never use an older property
+    // snapshot to revoke the owner's newer confirmed generation.
+    FWeaponBipodNetState ConfirmedDeployment;
     uint16 LocalSequence=0;
     bool bApplyingNet=false;
     double LastDeployRequest=-1.;
     FString MountedDefinition;
+    // Consume queued actions on actual fold completion, including stalled bolt cycles.
+    FString PendingReloadWeapon;
+    bool bPendingReaim=false;
 };

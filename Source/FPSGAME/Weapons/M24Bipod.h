@@ -7,11 +7,15 @@
 namespace M24Bipod
 {
 inline constexpr const TCHAR* Id=TEXT("m24_foldable_bipod");
-inline constexpr const TCHAR* Profile=TEXT("/Game/Weapons/M24/Bipod20261029/DA_M24_Bipod");
+inline constexpr const TCHAR* Profile=TEXT("/Game/Weapons/M24/ContactRepair20261101/DA_M24_Bipod");
 inline constexpr const TCHAR* Base=TEXT("/Game/Weapons/M24/Bipod20261029/SM_M24_Bipod_Base");
 inline constexpr const TCHAR* LegA=TEXT("/Game/Weapons/M24/Bipod20261029/SM_M24_Bipod_LegA");
 inline constexpr const TCHAR* LegB=TEXT("/Game/Weapons/M24/Bipod20261029/SM_M24_Bipod_LegB");
-inline constexpr float Duration=.48f, GripContact=.12f, PullComplete=.30f, HandReturned=.44f;
+// Animation remains in its authored 0.48 s clock; the reversible action plays
+// over 0.72 s. Seat while the hand returns, rather than snapping in the last 40 ms.
+inline constexpr float PoseDuration=.48f;
+inline constexpr float Duration=.72f, GripContact=.18f, PullComplete=.45f, HandReturned=.66f;
+inline constexpr double MinimumLegScale=.92,MaximumLegScale=1.08,MinimumLegDirectionDot=.78;
 inline const FVector Hinge(0,-45,2.2);
 inline const FVector Pivots[]={FVector(-2.2345008,-45,2.2),FVector(2.2454996,-45,2.2)};
 inline const FVector Tips[]={FVector(-4.187518,-.4112539,-23.36971),FVector(4.1875196,-.4112545,-23.369718)};
@@ -26,11 +30,11 @@ inline FQuat LegRotation(int32 I,float OpenWeight)
     const FQuat Closed=FQuat::FindBetweenNormals(Tips[I].GetSafeNormal(),FVector(I==0?-.5:.5,-Tips[I].Size(),0).GetSafeNormal());
     return FQuat::Slerp(Closed,FQuat::Identity,OpenWeight);
 }
-inline float Seat(float Phase){return Ease(HandReturned,Duration,Phase*Duration);}
+inline float Seat(float Phase){return Ease(PullComplete,Duration,Phase*Duration);}
 inline bool CanReachLeg(const FVector& Rest,const FVector& Target)
 {
     const double Ratio=Target.Size()/FMath::Max(.01,Rest.Size());
-    return Ratio>=.95&&Ratio<=1.05
-        && FVector::DotProduct(Rest.GetSafeNormal(),Target.GetSafeNormal())>=.906307787;
+    return Ratio>=MinimumLegScale&&Ratio<=MaximumLegScale
+        && FVector::DotProduct(Rest.GetSafeNormal(),Target.GetSafeNormal())>=MinimumLegDirectionDot;
 }
 }

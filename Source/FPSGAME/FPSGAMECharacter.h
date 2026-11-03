@@ -60,6 +60,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UFPSPlayerBodyComponent;
     friend class AColdSteelPlayerState; // 联机：命中校验读 EffectiveFireInterval/汇聚弹数打点
     friend class UWeaponBipodDeploymentComponent;
+    friend struct FM24BipodValidation;
     friend class UBowWeaponComponent;
     friend class UStaffWeaponComponent;
     friend class UFPSUnarmedIdleComponent;
@@ -84,6 +85,7 @@ public:
     bool IsG18Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_g18"); }
     bool IsPitViperWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_pit_viper2011"); }
     bool IsSuper90Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_super90"); }
+    bool IsM24Weapon() const { return ActiveInventoryWeaponDefinition==TEXT("ue_m24"); }
     bool IsM870Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_m870"); }
     bool IsTubeShotgunWeapon() const { return IsSuper90Weapon() || IsM870Weapon(); }
     float M870PumpPlayRate() const;

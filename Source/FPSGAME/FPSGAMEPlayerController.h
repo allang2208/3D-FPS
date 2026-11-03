@@ -32,6 +32,9 @@ public:
     /** ALT exposes the HUD cursor without suspending the held weapon/action. */
     bool IsCursorOnlyInteraction() const;
     static bool BlocksOngoingActions(const APlayerController* Player);
+    /** Browsing panels own new input, but do not revoke an action already begun. */
+    bool IsActionPreservingPanelOpen() const;
+    static bool BlocksActionContinuation(const APlayerController* Player);
     bool OpenGunsmith(const FString& Instance=TEXT(""));
     void CloseGunsmith();
     bool OpenWoodworking(AActor* Station,bool PracticeOnly=false);

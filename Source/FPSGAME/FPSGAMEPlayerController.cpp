@@ -626,6 +626,22 @@ bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Pla
     return Player->bShowMouseCursor && (!FPSPlayer || !FPSPlayer->IsCursorOnlyInteraction());
 }
 
+bool AFPSGAMEPlayerController::IsActionPreservingPanelOpen() const
+{
+    if(IsGameMenuOpen()||AlchemyPanel||WoodworkingPanel)return false;
+    if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return false;
+    return (ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen())||GunsmithPanel||EnhancementPanel||ExpeditionPanel||
+        (WeatherPanel&&WeatherPanel->IsPanelOpen());
+}
+
+bool AFPSGAMEPlayerController::BlocksActionContinuation(const APlayerController* Player)
+{
+    if(!Player||UFPSFurnitureRestComponent::IsResting(Player->GetPawn()))return true;
+    const auto* FPSPlayer=Cast<AFPSGAMEPlayerController>(Player);
+    if(FPSPlayer&&FPSPlayer->IsActionPreservingPanelOpen())return false;
+    return BlocksOngoingActions(Player);
+}
+
 void AFPSGAMEPlayerController::ToggleTimelineInteraction()
 {
     if (IsGameMenuOpen()) return;

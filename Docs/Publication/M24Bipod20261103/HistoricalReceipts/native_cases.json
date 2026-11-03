@@ -1,0 +1,305 @@
+{
+  "mounted_recoil": 0.3400000333786011,
+  "mounted_weight": 1,
+  "world_time": 0,
+  "is_local": true,
+  "failures": 0,
+  "cases": [
+    {
+      "name": "valid broad static surface",
+      "pass": true
+    },
+    {
+      "name": "entry pitch does not move the support search",
+      "pass": true
+    },
+    {
+      "name": "authority accepts high and low entry pitch",
+      "pass": true
+    },
+    {
+      "name": "entry pitch does not move the support search",
+      "pass": true
+    },
+    {
+      "name": "authority accepts high and low entry pitch",
+      "pass": true
+    },
+    {
+      "name": "retained support",
+      "pass": true
+    },
+    {
+      "name": "removed support is rejected",
+      "pass": true
+    },
+    {
+      "name": "long barrel obstruction",
+      "pass": true
+    },
+    {
+      "name": "barrel clearance does not veto shared support acquisition",
+      "pass": true
+    },
+    {
+      "name": "hint uses the same support acquisition",
+      "pass": true
+    },
+    {
+      "name": "authority also accepts support with blocked barrel correction",
+      "pass": true
+    },
+    {
+      "name": "occluded contacts cannot mount",
+      "pass": true
+    },
+    {
+      "name": "authority rejects occluded contacts",
+      "pass": true
+    },
+    {
+      "name": "camera correction obstruction",
+      "pass": true
+    },
+    {
+      "name": "single foot cannot mount",
+      "pass": true
+    },
+    {
+      "name": "steep support rejected",
+      "pass": true
+    },
+    {
+      "name": "out of height reach",
+      "pass": true
+    },
+    {
+      "name": "native contacts reachable",
+      "pass": true
+    },
+    {
+      "name": "M24 accepts seven percent leg extension",
+      "pass": true
+    },
+    {
+      "name": "M24 rejects excessive leg extension",
+      "pass": true
+    },
+    {
+      "name": "M24 accepts thirty degree leg adjustment",
+      "pass": true
+    },
+    {
+      "name": "M24 rejects fifty degree leg adjustment",
+      "pass": true
+    },
+    {
+      "name": "unequal foot heights rejected",
+      "pass": true
+    },
+    {
+      "name": "sideways foot span rejected",
+      "pass": true
+    },
+    {
+      "name": "contact release preserves unfolding clock",
+      "pass": true
+    },
+    {
+      "name": "reverse hinge sequence 240 Hz",
+      "pass": true
+    },
+    {
+      "name": "authority accepts physical contacts",
+      "pass": true
+    },
+    {
+      "name": "authority rejects unreachable anchor",
+      "pass": true
+    },
+    {
+      "name": "moving support releases",
+      "pass": true
+    },
+    {
+      "name": "both magazine clips saved",
+      "pass": true
+    },
+    {
+      "name": "unconfirmed support has no handling bonus",
+      "pass": true
+    },
+    {
+      "name": "unfolding rifle still blocks fire",
+      "pass": true
+    },
+    {
+      "name": "confirmed seated rifle receives mounted bonus",
+      "pass": true
+    },
+    {
+      "name": "camera stays inside shared yaw and pitch limits",
+      "pass": true
+    },
+    {
+      "name": "aim limits preserve deployed state and handling bonus",
+      "pass": true
+    },
+    {
+      "name": "deployed legs use authored rest pose without contact IK",
+      "pass": true
+    },
+    {
+      "name": "camera stays inside shared yaw and pitch limits",
+      "pass": true
+    },
+    {
+      "name": "aim limits preserve deployed state and handling bonus",
+      "pass": true
+    },
+    {
+      "name": "deployed legs use authored rest pose without contact IK",
+      "pass": true
+    },
+    {
+      "name": "camera stays inside shared yaw and pitch limits",
+      "pass": true
+    },
+    {
+      "name": "aim limits preserve deployed state and handling bonus",
+      "pass": true
+    },
+    {
+      "name": "deployed legs use authored rest pose without contact IK",
+      "pass": true
+    },
+    {
+      "name": "camera stays inside shared yaw and pitch limits",
+      "pass": true
+    },
+    {
+      "name": "aim limits preserve deployed state and handling bonus",
+      "pass": true
+    },
+    {
+      "name": "deployed legs use authored rest pose without contact IK",
+      "pass": true
+    },
+    {
+      "name": "blocked camera correction preserves mount and bonus",
+      "pass": true
+    },
+    {
+      "name": "base magazine selects matching hands",
+      "pass": true
+    },
+    {
+      "name": "extended magazine selects matching hands",
+      "pass": true
+    },
+    {
+      "name": "half deployment samples authored midpoint",
+      "pass": true
+    },
+    {
+      "name": "deployment retains current grip corrections",
+      "pass": true
+    },
+    {
+      "name": "reload queue completes once, dt 0.06667",
+      "pass": true
+    },
+    {
+      "name": "reload queue completes once, dt 0.03333",
+      "pass": true
+    },
+    {
+      "name": "reload queue completes once, dt 0.01667",
+      "pass": true
+    },
+    {
+      "name": "reload queue completes once, dt 0.00694",
+      "pass": true
+    },
+    {
+      "name": "reload queue completes once, dt 0.40000",
+      "pass": true
+    },
+    {
+      "name": "bolt holds folding and pending reload",
+      "pass": true
+    },
+    {
+      "name": "weapon change clears pending actions",
+      "pass": true
+    },
+    {
+      "name": "support loss does not re-acquire while aim held",
+      "pass": true
+    },
+    {
+      "name": "owner RPC confirms exact weapon generation",
+      "pass": true
+    },
+    {
+      "name": "older replicated property preserves newer RPC bonus",
+      "pass": true
+    },
+    {
+      "name": "older RPC cannot cancel a newer generation",
+      "pass": true
+    },
+    {
+      "name": "matching authority release clears mount and bonus",
+      "pass": true
+    },
+    {
+      "name": "late acceptance cannot revive released generation",
+      "pass": true
+    },
+    {
+      "name": "previous acceptance cannot confirm a pending new mount",
+      "pass": true
+    },
+    {
+      "name": "receipt for a different M24 instance releases prediction",
+      "pass": true
+    },
+    {
+      "name": "authority rejects delayed request for previous M24 instance",
+      "pass": true
+    },
+    {
+      "name": "stale cancellation does not rewind authority generation",
+      "pass": true
+    },
+    {
+      "name": "authority cancellation handles sequence wrap",
+      "pass": true
+    },
+    {
+      "name": "authority recognizes installed bipod",
+      "pass": true
+    },
+    {
+      "name": "authority rejects removed or missing bipod",
+      "pass": true
+    },
+    {
+      "name": "authority recognizes installed bipod",
+      "pass": true
+    },
+    {
+      "name": "authority rejects removed or missing bipod",
+      "pass": true
+    },
+    {
+      "name": "authority recognizes installed bipod",
+      "pass": true
+    },
+    {
+      "name": "authority rejects removed or missing bipod",
+      "pass": true
+    }
+  ]
+}

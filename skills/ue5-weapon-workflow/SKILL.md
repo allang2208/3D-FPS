@@ -48,3 +48,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 - M24 的独立枪托/后握把、原厂分区、局部表面修订与恢复链：[M24 模块化与恢复](references/m24-modular-recovery.md)。
 - 雷神之锤、贯雷留场召回、疾雷及多改造攻击入口：读取[雷神之锤、贯雷留场召回、疾雷及多改造攻击入口](references/thunder-hammer-lifecycle.md)。
+
+- M24、PKM、LMG201 的支撑判定、镜头限位与展开／收架交接，读取 [共用脚架部署](references/shared-bipod-deployment.md)；保持显示约束与权威资格分离。

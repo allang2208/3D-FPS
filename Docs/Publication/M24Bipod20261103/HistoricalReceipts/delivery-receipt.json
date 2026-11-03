@@ -1,0 +1,71 @@
+{
+  "scope": "M24 shared bipod multiplayer source review",
+  "created_utc": "2026-11-03T09:55:24.0518325Z",
+  "editor_build": "Succeeded",
+  "commandlet_exit_code": 0,
+  "native_cases": 74,
+  "native_failures": 0,
+  "real_network_transport_tested": false,
+  "latency_loss_late_join_tested": false,
+  "remote_visuals_tested": false,
+  "animation_assets_changed": false,
+  "player_saves_changed": false,
+  "sdk_setup_skip": "Process-local UE_SKIP_UBT_SDK_SETUP=1",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h",
+      "bytes": 7545,
+      "modified_utc": "2026-11-03T09:33:54.0319177Z",
+      "sha256": "706CB7068C5CBCB62B44F4D56AC4426E1181D096ABF523E9FA0DCD9F68FCF2B4"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+      "bytes": 42519,
+      "modified_utc": "2026-11-03T09:35:36.8945287Z",
+      "sha256": "0C3F065D2B6987D70C7AD77628F032D7F408CA7534A7C3B9DC78C3E25CD635DB"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M24BipodValidation.inl",
+      "bytes": 18659,
+      "modified_utc": "2026-11-03T09:35:36.8955288Z",
+      "sha256": "EE3BB06A2C76AE7BA41E51B2BB05932C2EECCC97F3BE9F13D940D525825DA0BA"
+    },
+    {
+      "path": "Docs/Weapons/m24-bipod-network-review-20261103.md",
+      "bytes": 4409,
+      "modified_utc": "2026-11-03T09:55:03.1549620Z",
+      "sha256": "2196951DEB9CA838477838C5186F1DBDB77BEC731F5485971000FF9F2D57FD96"
+    },
+    {
+      "path": "Binaries/Win64/UnrealEditor-FPSGAME.dll",
+      "bytes": 41953792,
+      "modified_utc": "2026-11-03T09:42:43.6995712Z",
+      "sha256": "5C621F811F7181088730490A0420594C1DFEF4CA3C436D32F925D8FE09D1237C"
+    },
+    {
+      "path": "Saved/M24BipodNetworkReview20261103/shared-build-40648.log",
+      "bytes": 35462,
+      "modified_utc": "2026-11-03T09:42:45.1771499Z",
+      "sha256": "EB166940621BEF74D7F39088212B3447F96231E6D085666DE871F12F459D20D5"
+    },
+    {
+      "path": "Saved/M24BipodNetworkReview20261103/native_check.py",
+      "bytes": 1156,
+      "modified_utc": "2026-11-03T09:40:12.8644469Z",
+      "sha256": "3F0A55348E081EF8BF806B94955F1E9442B0B9D7A543F982911E32875A369C92"
+    },
+    {
+      "path": "Saved/M24BipodNetworkReview20261103/native_check.log",
+      "bytes": 291037,
+      "modified_utc": "2026-11-03T09:54:16.4281881Z",
+      "sha256": "1D7E2CA13D3A1EF89C843C9B268C57F0B81306C086DE1A92A64DCC77E0F3FB64"
+    },
+    {
+      "path": "Saved/M24BipodNetworkReview20261103/native_cases.json",
+      "bytes": 6398,
+      "modified_utc": "2026-11-03T09:54:14.8537788Z",
+      "sha256": "F728137222DBBAF7F4C9F4A61F30D94A8E75AC318585632A98DEE61EA3A37096"
+    }
+  ],
+  "note": "Historical local-host results before publication; no fresh clean-checkout build or real network test."
+}

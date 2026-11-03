@@ -62,3 +62,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 
 - M24 不同试装历史的部件身份、原生轴与 FX socket，以及本地 UDP 的覆盖边界：[M24 表现身份](references/m24-presentation-identity.md)。
 - 复制字段遗漏、短暂接触事件与真实 UDP 覆盖：读取[复制字段遗漏、短暂接触事件与真实 UDP 覆盖](references/replicated-terminal-events.md)。
+
+- 架枪请求绑定、RPC 与属性回执交错、取消和服务器安装资格，读取 [脚架请求与确认](references/bipod-request-confirmation.md)。

@@ -21,14 +21,18 @@ public:
     UPKMBipodComponent();
     bool Configure(USkeletalMeshComponent* Rifle, bool Enabled);
     FVector GetHingeWorld() const;
+    FVector GetRestPivotWorld(int32 Leg) const;
     FVector GetRestFootWorld(int32 Leg) const;
     bool CanReachContacts(const FVector& A,const FVector& B,const FVector& MountDelta) const;
     void SetDeploymentContacts(const FVector& A,const FVector& B,float Weight);
+    // M24's hand clip drives the two folding hinges, in source seconds.
+    void SetM24DeploymentTime(float Seconds);
     // 架设期间把两腿固定在默认下垂姿态：不随枪旋转解算、不做摆动动力学，允许穿模。
     void SetLegsFrozen(bool bFrozen);
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
     virtual void OnComponentDestroyed(bool bDestroyingHierarchy) override;
 private:
+    friend struct FM24BipodValidation;
     void ResetMotion();
     void ApplyAngle();
     TWeakObjectPtr<USkeletalMeshComponent> Weapon;

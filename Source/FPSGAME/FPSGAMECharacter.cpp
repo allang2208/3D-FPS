@@ -1267,6 +1267,7 @@ void AFPSGAMECharacter::ReloadPressed()
     if(IsTubeShotgunWeapon()){BeginSuper90Reload();return;}
     const bool ResumeCycle=PendingAmmoType.IsEmpty() && NeedsReloadCycle();
     if (!bInventoryWeaponReady || (IsWeaponBusy() && !IsRevolverFireActionPlaying()) || (!ResumeCycle && PendingAmmoType.IsEmpty() && (MagazineAmmo >= MagazineCapacity || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0)))) return;
+    if(BipodDeployment&&BipodDeployment->DeferReload())return;
     if (IsRevolverFireActionPlaying())
     {
         // A fired round makes the magazine empty while the recoil clip is
@@ -2082,6 +2083,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     if(Spellbook)Spellbook->AdvanceActionBeforeCamera(DeltaSeconds);
     UpdateADSProgress();
     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
+    if(BipodDeployment)CameraADSFactor*=BipodDeployment->AimPresentationWeight();
     WeaponADSFactor = CameraADSFactor;
     AdvanceScopeOptics(DeltaSeconds);
     // Bow owns its sight pose/clock; keep rifle pose state independent while
@@ -3701,7 +3703,7 @@ void AFPSGAMECharacter::ServiceReloadAfterCasting()
 }
 bool AFPSGAMECharacter::IsRevolverFireActionPlaying() const
 {
-    return (bUseDanWesson715 || IsTubeShotgunWeapon()) && ActiveActionAnimation
+    return (IsM24Weapon() || bUseDanWesson715 || IsTubeShotgunWeapon()) && ActiveActionAnimation
         && (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || (IsTubeShotgunWeapon()&&ActiveActionAnimation==PistolFireLastAnimation))
         && GetWorld()->GetTimeSeconds() < LastShotWorldTime + ActionDuration;
 }
@@ -4190,6 +4192,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         GunplayAnimation->bGripAction = ActionBase && GunplayAnimation->ActionClip == ActionBase && GripRouted(ActionBase);
         GunplayAnimation->bGripActionAim = ActionBase && (ActionBase == AimAnimation || ActionBase == AimFireAnimation);
     }
+    if(BipodDeployment)BipodDeployment->ApplyHandPose(*GunplayAnimation);
     GunplayAnimation->bRevolver = bUseDanWesson715;
     GunplayAnimation->RevolverLiveRounds = bPistolWorkbench ? MagazineCapacity : MagazineAmmo;
     GunplayAnimation->RevolverCartridges = bPistolWorkbench ? MagazineCapacity : RevolverCaseCount;
