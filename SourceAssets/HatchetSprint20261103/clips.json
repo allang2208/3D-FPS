@@ -1,0 +1,19 @@
+{
+  "clips": {
+    "HatchetDualSprintReady": {
+      "loop": "HatchetDualSprintReady",
+      "enter": "HatchetDualSprintEnter",
+      "exit": "HatchetDualSprintExit",
+      "seconds": [
+        0.3,
+        0.6666666666666666,
+        0.25
+      ],
+      "head_eye": [
+        0.344,
+        -0.925
+      ],
+      "source": "author_hatchet_ready_run.py"
+    }
+  }
+}

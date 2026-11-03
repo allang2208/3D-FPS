@@ -1,0 +1,27 @@
+{
+  "clips": {
+    "HatchetAttack3": {
+      "length": 1.2667,
+      "frames": 153,
+      "max_reach": 0.661,
+      "twist": [
+        -91.7,
+        40.1
+      ],
+      "ext": [
+        8.3,
+        29.6
+      ],
+      "uln": [
+        4.6,
+        27.1
+      ],
+      "wrist_max": 14.9,
+      "impact_head": [
+        0.006,
+        0.307
+      ],
+      "source": "author_hatchet_chop.py"
+    }
+  }
+}

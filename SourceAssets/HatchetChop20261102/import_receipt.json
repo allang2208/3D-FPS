@@ -1,0 +1,19 @@
+{
+  "revision": "HatchetChop_V1_Overhead_20261102",
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_Attack3.A_TacticalHatchet_Attack3"
+  ],
+  "animations": {
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_Attack3": {
+      "frames": 153,
+      "fps": 120,
+      "seconds": 1.2666666666666666,
+      "play_length": 1.2666666507720947,
+      "release": null,
+      "catch": null,
+      "loop": false
+    }
+  },
+  "runtime_tested": false,
+  "complete": true
+}

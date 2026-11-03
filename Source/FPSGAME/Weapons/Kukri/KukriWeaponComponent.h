@@ -143,12 +143,24 @@ private:
     FVector StrikeViewmodelOffset() const;
     /** Impact-moment profile of the current swing: the stage's Strikes row, the dual thrust's or the dual heavy's. */
     const KukriRhythm::FStrike& StrikeProfile() const;
+    /** Presentation rows of the current swing: KukriRhythm::Swings / Rifts[Stage], or the hatchet's own chop on combo stage 3
+     *  (HatchetChopRhythm.h, on stage 3's gameplay clock: same windows, impact moment and receipts). */
+    const KukriRhythm::FSwing& SwingProfile() const;
+    const KukriRhythm::FRift& RiftProfile() const;
+    bool IsHatchetChop() const;
+    /** Two hatchets: the double thrust's clock plays both hatchets chopping down together (HatchetDualChopRhythm.h). */
+    bool IsHatchetDualChop() const;
+    /** Swing camera of InStage at author time T (the hatchet chop's curve on its stage, KukriRhythm::SwingCamera otherwise). */
+    void StageSwingCamera(int32 InStage,float T,FRotator& Rotation,float& Fov,FVector* Location=nullptr) const;
     void ResetStrike();
     /** Swing rift / sword qi (KukriRift.cpp, KukriRhythm::Rifts): the rune sword's M_RuneRift crescent on every swing. */
     void StartRift();
     void TickRift(float Delta);
     void StopRift();
     FName LocomotionClip() const;
+    /** Dual hatchets' sprint-ready run (HatchetReadyRhythm.h): enter from the idle hand gesture, loop while ready, exit
+     *  back.  Returns true when it owns the clip this frame. */
+    bool TickReadyRun(float Delta);
     /** Dual kukri (SourceAssets/DualKukriIdle20261025): off-hand slot of the active set, second blade on hand_l. */
     void RefreshOffhand(UColdSteelStatusModel* Profile);
     void UpdateOffhandBlade();
@@ -189,6 +201,12 @@ private:
     FString InstanceId;
     FString OffhandInstanceId;  // dual kukri: the off-hand kukri of the active weapon set (empty = single)
     bool bDual=false;
+    bool bHatchetChop=false;    // main item is the hatchet and its chop clip loaded: combo stage 3 plays HatchetAttack3
+    bool bHatchetReadyRun=false;  // main item is the hatchet and the ready-run clips loaded: a ready dual sprint shows them
+    bool bDualHatchet=false;      // both hands hold hatchets (the dual sprints' own variants apply)
+    // Sprint-ready run set (HatchetReadyRhythm.h): 0 none, 1 enter, 2 loop, 3 exit.
+    int32 ReadyRunPhase=0;
+    bool bDualChop=false;       // this double thrust is two hatchets: it plays HatchetDualAttack3 (fixed at the swing start)
     // Right kukri turned in the fist (rad about its grip Y): 0 = forward grip, pi = the dual run's reverse grip.
     float DualTwirlAngle=0.f, DualTwirlFrom=0.f, DualTwirlProgress=1.f;
     bool bDualTwirlIn=false;
@@ -235,6 +253,7 @@ private:
     int32 RiftStage=INDEX_NONE;          // stage whose ribbon is in RiftVisual
     bool bRiftMirrored=false;            // RiftVisual holds the ribbon mirrored left-right (the dual sweep's left blade)
     bool bRiftDual=false;                // RiftVisual holds the dual heavy's two crossing crescents (KukriRhythm::DualHeavyRift)
+    bool bRiftChop=false;                // RiftVisual holds the hatchet chop's crescent (HatchetChopRhythm::Ribbon)
     float RiftTimeOffset=0.f;            // author seconds the revealing ribbon's window is shifted by (left blade: DualSweepOffset(Stage))
     // Uppercut (stage KukriRhythm::UppercutStage): martial clock, paid at the release, trained once per cast.
     bool bUppercut=false, bUppercutReleased=false, bUppercutTrainingPending=false, bUppercutLungeStarted=false, bUppercutLungeBlocked=false;

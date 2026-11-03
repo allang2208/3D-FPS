@@ -1,0 +1,19 @@
+{
+  "revision": "HatchetEquip_V2_ReferenceToss_20261102",
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_Equip.A_TacticalHatchet_Equip"
+  ],
+  "animations": {
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_Equip": {
+      "frames": 109,
+      "fps": 120,
+      "seconds": 0.9,
+      "play_length": 0.8999999761581421,
+      "release": 0.18333,
+      "catch": 0.38333,
+      "loop": false
+    }
+  },
+  "runtime_tested": false,
+  "complete": true
+}

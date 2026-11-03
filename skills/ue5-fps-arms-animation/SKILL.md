@@ -56,6 +56,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - 把一只手的剪辑镜像到另一只手（缩放矩阵归一化、按绑定逐骨修正、刀身/指节误差验收）、副手抬臂时手肘翻转与上臂变细（肩根随剪辑、锁骨份额）、`FTransform` 乘法顺序，以及装备入场/换弹下沉弧线与原生支撑手接入：[副手刀镜像、手臂修正与衔接](references/offhand-blade-mirror-and-handoff.md)。
 
 - 左右各一把同时打（双持）：左臂按镜像右臂解、双刀动作错开编排与真实网格清隙、第二把刀的抛接飞行表：[双持弯刀镜像与双刀编排](references/dual-kukri-mirror-and-pairing.md)。
+- 武器共用弯刀动作族但要有专属动作（如单手斧的抛接、第三段劈砍、冲刺就绪跑姿）：只换 clip 与呈现、用 static_assert 钉住原时钟；锤握够不到正下方、双斧交叉与穿模排查：[单手斧专属动作](references/hatchet-dedicated-actions.md)。
 
 ## 手枪第三人称源动作
 

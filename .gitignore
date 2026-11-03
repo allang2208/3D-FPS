@@ -5776,6 +5776,41 @@ __pycache__/
 /SourceAssets/DualKukriIdle20261025/Previews/
 /SourceAssets/DualKukriIdle20261025/**/__pycache__/
 
+# Tactical hatchet (SourceAssets/Hatchet*2026*): publish the authoring scripts, regenerated rhythm headers and prose;
+# dense clips, preview frames, probe renders and reference media stay on the workstation.
+/SourceAssets/HatchetEquip20261101/**
+!/SourceAssets/HatchetEquip20261101/*/
+!/SourceAssets/HatchetEquip20261101/**/*.py
+!/SourceAssets/HatchetEquip20261101/**/*.json
+!/SourceAssets/HatchetEquip20261101/**/*.md
+/SourceAssets/HatchetEquip20261101/Work/
+/SourceAssets/HatchetEquip20261101/Clips/
+/SourceAssets/HatchetEquip20261101/Previews/
+/SourceAssets/HatchetEquip20261101/Reference/frames/
+/SourceAssets/HatchetEquip20261101/**/__pycache__/
+/SourceAssets/HatchetChop20261102/**
+!/SourceAssets/HatchetChop20261102/*/
+!/SourceAssets/HatchetChop20261102/**/*.py
+!/SourceAssets/HatchetChop20261102/**/*.json
+!/SourceAssets/HatchetChop20261102/**/*.md
+/SourceAssets/HatchetChop20261102/Work/
+/SourceAssets/HatchetChop20261102/WorkDual/
+/SourceAssets/HatchetChop20261102/WorkSprint/
+/SourceAssets/HatchetChop20261102/Clips/
+/SourceAssets/HatchetChop20261102/Previews/
+/SourceAssets/HatchetChop20261102/PreviewsDual/
+/SourceAssets/HatchetChop20261102/**/__pycache__/
+/SourceAssets/HatchetSprint20261103/**
+!/SourceAssets/HatchetSprint20261103/*/
+!/SourceAssets/HatchetSprint20261103/**/*.py
+!/SourceAssets/HatchetSprint20261103/**/*.json
+!/SourceAssets/HatchetSprint20261103/**/*.md
+/SourceAssets/HatchetSprint20261103/Work/
+/SourceAssets/HatchetSprint20261103/WorkReady/
+/SourceAssets/HatchetSprint20261103/Clips/
+/SourceAssets/HatchetSprint20261103/PreviewsReady/
+/SourceAssets/HatchetSprint20261103/**/__pycache__/
+
 # Highland bow publication (2026-10-28): original recipes only; media and receipts remain local.
 /SourceAssets/WoodSteelLongbow20261026/**
 !/SourceAssets/WoodSteelLongbow20261026/**/
@@ -5890,11 +5925,3 @@ __pycache__/
 /SourceAssets/ThunderGodHammer20261028/**/client/
 !/Content/ColdSteelData/thunder-god-hammer-gunsmith.json
 !/Content/ColdSteelData/thunder-god-hammer-modules.json
-
-# Thunder hammer 2026-11-03: exact authoring recipes only.
-!/SourceAssets/ThunderGodHammer20261028/CommonSeatsStructuralV7_20261102/design_contract.json
-!/SourceAssets/ThunderGodHammer20261028/GripIcons20261101/mapping.json
-!/SourceAssets/ThunderGodHammer20261028/GroundEmbed20261101/contacts.json
-!/SourceAssets/ThunderGodHammer20261028/SeatMeshyUpgrade20261101/meshy_recipe.json
-/SourceAssets/ThunderGodHammer20261028/FullClosureReview20261102/Package/
-/SourceAssets/ThunderGodHammer20261028/RecallReview20261028/original/

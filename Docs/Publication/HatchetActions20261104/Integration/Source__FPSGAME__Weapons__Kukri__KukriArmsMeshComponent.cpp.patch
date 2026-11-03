@@ -1,0 +1,68 @@
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.cpp b/Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.cpp
+--- a/Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "KukriArmsMeshComponent.h"
++#include "KukriLeftRest.h"
+ #include "../../FPSGAMECharacter.h"
+ #include "Engine/SkeletalMesh.h"
+ 
+@@ -68,8 +69,24 @@
+     LeftEntryTime=0.f;LeftEntryDuration=FMath::Max(.01f,Seconds);
+ }
+ 
++void UKukriArmsMeshComponent::SetLeftArmRest(float Weight,float Seconds)
++{
++    Weight=FMath::Clamp(Weight,0.f,1.f);
++    if(FMath::IsNearlyEqual(Weight,LeftRestTarget,1e-4f))return;
++    LeftRestFrom=LeftRestWeight;LeftRestTarget=Weight;
++    LeftRestSeconds=FMath::Max(.01f,Seconds);LeftRestTime=0.f;
++}
++
+ void UKukriArmsMeshComponent::AdvanceEntry(float Delta)
+ {
++    if(FMath::IsNearlyEqual(LeftRestWeight,LeftRestTarget,1e-4f)==false)
++    {
++        LeftRestTime+=FMath::Max(0.f,Delta);
++        const float X=FMath::Clamp(LeftRestTime/FMath::Max(.01f,LeftRestSeconds),0.f,1.f);
++        const float E=X*X*X*(X*(X*6.f-15.f)+10.f);
++        LeftRestWeight=FMath::Lerp(LeftRestFrom,LeftRestTarget,E);
++        if(X>=1.f){LeftRestWeight=LeftRestTarget;LeftRestTime=0.f;LeftRestSeconds=.01f;}
++    }
+     if(!LeftEntryLocal.IsEmpty())
+     {
+         LeftEntryTime+=FMath::Max(0.f,Delta);
+@@ -161,6 +178,33 @@
+             const FTransform Hidden(FQuat::Identity,Pose[LeftChain[0]].GetLocation(),FVector::ZeroVector);
+             for(const int32 I:LeftChain)Pose[I]=Hidden;
+         }
++        if(FMath::Abs(LeftRestWeight)>UE_KINDA_SMALL_NUMBER&&!LeftChain.IsEmpty())
++        {
++            // Dual-wield whirlwind: the clip raises the free left arm as a guard fist, and a dual-wield off-hand weapon
++            // rides hand_l -- it filled the upper view.  Blend the whole left chain to the single-hand Idle's hanging arm
++            // (KukriLeftRest.h), in parent space so every segment keeps its length and the shoulder stays anchored.
++            const float W=FMath::Clamp(LeftRestWeight,0.f,1.f);
++            TArray<FTransform> Local;Local.SetNum(Pose.Num());
++            for(const int32 I:LeftChain)
++            {
++                const int32 Parent=Ref.GetParentIndex(I);
++                Local[I]=Parent>=0?Pose[I].GetRelativeTransform(Pose[Parent]):Pose[I];
++            }
++            for(const KukriLeftRest::FBone& Bone:KukriLeftRest::Bones)
++            {
++                const int32 I=Ref.FindBoneIndex(Bone.Name);
++                if(I==INDEX_NONE||!LeftChain.Contains(I))continue;
++                const FTransform Rest(FQuat(Bone.Q[0],Bone.Q[1],Bone.Q[2],Bone.Q[3]),
++                    FVector(Bone.P[0],Bone.P[1],Bone.P[2]),FVector::OneVector);
++                FTransform Blend;Blend.Blend(Local[I],Rest,W);
++                Local[I]=Blend;
++            }
++            for(const int32 I:LeftChain)
++            {
++                const int32 Parent=Ref.GetParentIndex(I);
++                Pose[I]=Parent>=0?Local[I]*Pose[Parent]:Local[I];
++            }
++        }
+     }
+     Super::FinalizeBoneTransform();
+ }

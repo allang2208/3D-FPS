@@ -1,5 +1,7 @@
 #include "KukriWeaponComponent.h"
 #include "KukriRhythm.h"
+#include "HatchetChopRhythm.h"
+#include "HatchetDualChopRhythm.h"
 #include "../FPSImpactFXSubsystem.h"
 #include "../../FPSGAMECharacter.h"
 #include "Camera/CameraComponent.h"
@@ -15,9 +17,41 @@
 
 const KukriRhythm::FStrike& UKukriWeaponComponent::StrikeProfile() const
 {
-    if(bDualThrust)return KukriRhythm::DualThrustStrike;
+    if(bDualThrust)return IsHatchetDualChop()?HatchetDualChopRhythm::Strike:KukriRhythm::DualThrustStrike;
     if(bDualHeavy&&bHeavyAttack)return KukriRhythm::DualHeavyStrike;
+    if(IsHatchetChop())return HatchetChopRhythm::Strike;
     return KukriRhythm::Strikes[Stage];
+}
+
+// The hatchet's last combo hit is its own overhead chop (2026-11-02): only the clip and its presentation change; the
+// stage keeps KukriRhythm's gameplay clock (static_asserts in HatchetChopRhythm.h), so receipts and windows match.
+bool UKukriWeaponComponent::IsHatchetChop() const
+{
+    return bHatchetChop&&bAttacking&&Stage==HatchetChopRhythm::Stage&&!bDualThrust&&!bDualSweep;
+}
+
+// Two hatchets: the double thrust becomes both hatchets chopping down together; it keeps the double thrust's gameplay
+// clock (KukriRhythm::DualThrust*, static_assert in HatchetDualChopRhythm.h), only the clip and presentation change.
+bool UKukriWeaponComponent::IsHatchetDualChop() const
+{
+    return bDualThrust&&bDualChop;
+}
+
+const KukriRhythm::FSwing& UKukriWeaponComponent::SwingProfile() const
+{
+    // The dual chop takes the single chop's row for its swing pitch and viewmodel kick (its windows are the dual thrust's).
+    return IsHatchetChop()||IsHatchetDualChop()?HatchetChopRhythm::Swing:KukriRhythm::Swings[Stage];
+}
+
+const KukriRhythm::FRift& UKukriWeaponComponent::RiftProfile() const
+{
+    return IsHatchetChop()?HatchetChopRhythm::Rift:KukriRhythm::Rifts[Stage];
+}
+
+void UKukriWeaponComponent::StageSwingCamera(int32 InStage,float T,FRotator& Rotation,float& Fov,FVector* Location) const
+{
+    if(bHatchetChop&&InStage==HatchetChopRhythm::Stage&&!bDualThrust&&!bDualSweep)HatchetChopRhythm::Camera(T,Rotation,Fov,Location);
+    else KukriRhythm::SwingCamera(InStage,T,Rotation,Fov,Location);
 }
 
 void UKukriWeaponComponent::ResetStrike()

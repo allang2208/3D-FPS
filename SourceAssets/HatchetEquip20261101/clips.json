@@ -1,0 +1,30 @@
+{
+  "clips": {
+    "HatchetEquip": {
+      "version": "V2 reference toss",
+      "length": 0.9,
+      "frames": 109,
+      "release": 0.1833,
+      "catch": 0.3833,
+      "stance": 0.8496666666666666,
+      "max_reach": 0.845,
+      "twist": [
+        -69.4,
+        38.1
+      ],
+      "ext": [
+        8.7,
+        17.7
+      ],
+      "uln": [
+        2.5,
+        27.5
+      ],
+      "wrist_max_held": 12.8,
+      "wrist_max": 12.8,
+      "head_depth_min": 15.7,
+      "hand_err_max": 0.0,
+      "source": "author_hatchet_equip.py"
+    }
+  }
+}

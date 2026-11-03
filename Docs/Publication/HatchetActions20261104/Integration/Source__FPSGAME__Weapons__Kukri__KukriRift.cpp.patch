@@ -1,0 +1,62 @@
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriRift.cpp b/Source/FPSGAME/Weapons/Kukri/KukriRift.cpp
+--- a/Source/FPSGAME/Weapons/Kukri/KukriRift.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriRift.cpp
+@@ -3,6 +3,8 @@
+ #include "KukriRhythm.h"
+ #include "KukriRiftRibbons.h"
+ #include "KukriDualRiftRibbons.h"
++#include "HatchetChopRhythm.h"
++#include "HatchetDualChopRhythm.h"
+ #include "../../FPSGAMECharacter.h"
+ #include "../../FPSGAMECharacter.h"
+ #include "Camera/CameraComponent.h"
+@@ -22,12 +24,16 @@
+     using FRibbon=const float (*)[2][3];
+ 
+     static_assert(KukriDualRiftRibbons::Stations==KukriRiftRibbons::Stations,"one station count for all rift ribbons");
++    static_assert(HatchetChopRhythm::Stations==KukriRiftRibbons::Stations,"one station count for all rift ribbons");
++    static_assert(HatchetDualChopRhythm::Stations==KukriRiftRibbons::Stations,"one station count for all rift ribbons");
+ 
+     /** Ribbons of one stage: the slashes have one crescent, the stab two crossed narrow ribbons, the dual heavy's X one
+      *  crescent per blade (bDual). */
+     int32 StageRibbons(int32 Stage,bool bDual,FRibbon Out[2])
+     {
++        if(bDual&&bChop){Out[0]=HatchetDualChopRhythm::RibbonRight;Out[1]=HatchetDualChopRhythm::RibbonLeft;return 2;}  // two hatchets
+         if(bDual){Out[0]=KukriDualRiftRibbons::HeavyRight;Out[1]=KukriDualRiftRibbons::HeavyLeft;return 2;}
++        if(bChop){Out[0]=HatchetChopRhythm::Ribbon;return 1;}         // the hatchet chop: one crescent swept by its head
+         if(Stage==0){Out[0]=KukriRiftRibbons::Sweep;return 1;}
+         if(Stage==1){Out[0]=KukriRiftRibbons::Diag;return 1;}
+         if(Stage==KukriRhythm::UppercutStage){Out[0]=KukriRiftRibbons::Upper;return 1;}
+@@ -88,8 +94,10 @@
+         RiftVisual->SetMaterial(0,RiftMID);
+         RiftStage=INDEX_NONE;
+     }
+-    const bool bDualRift=bDualHeavy&&bHeavyAttack;
+-    if(RiftStage!=Stage||bRiftMirrored!=bOffhandSwing||bRiftDual!=bDualRift)
++    // Two hatchets' chop: one crescent per head (bDual and bChop together).
++    const bool bDualChopRift=bAttacking&&IsHatchetDualChop();
++    const bool bDualRift=(bDualHeavy&&bHeavyAttack)||bDualChopRift, bChopRift=IsHatchetChop()||bDualChopRift;
++    if(RiftStage!=Stage||bRiftMirrored!=bOffhandSwing||bRiftDual!=bDualRift||bRiftChop!=bChopRift)
+     {
+         RiftVisual->SetMesh(BuildRibbons(Stage,bOffhandSwing,bDualRift));RiftVisual->SetMaterial(0,RiftMID);
+         RiftStage=Stage;bRiftMirrored=bOffhandSwing;bRiftDual=bDualRift;
+@@ -99,7 +107,8 @@
+     // Freeze the authored crescent where the viewmodel is now, so it stays in the world while the view moves on.
+     RiftOrigin=Viewmodel->GetComponentTransform();RiftDirection=Camera->GetForwardVector();
+     RiftAge=0.f;RiftFadeAge=-1.f;bRiftActive=true;
+-    const auto& R=bRiftDual?KukriRhythm::DualHeavyRift:KukriRhythm::Rifts[Stage];
++    const auto& R=bRiftDual&&bRiftChop?HatchetDualChopRhythm::Rift:bRiftDual?KukriRhythm::DualHeavyRift:
++        bRiftChop?HatchetChopRhythm::Rift:KukriRhythm::Rifts[Stage];
+     RiftMID->SetScalarParameterValue(TEXT("RiftStrength"),R.Strength);
+     RiftMID->SetScalarParameterValue(TEXT("RiftFade"),1.f);
+     RiftMID->SetScalarParameterValue(TEXT("SweepProgress"),0.f);
+@@ -110,7 +119,8 @@
+ void UKukriWeaponComponent::TickRift(float Delta)
+ {
+     if(!bRiftActive||!RiftVisual||!RiftMID)return;
+-    const auto& R=bRiftDual?KukriRhythm::DualHeavyRift:KukriRhythm::Rifts[RiftStage==INDEX_NONE?Stage:RiftStage];
++    const auto& R=bRiftDual&&bRiftChop?HatchetDualChopRhythm::Rift:bRiftDual?KukriRhythm::DualHeavyRift:
++        bRiftChop?HatchetChopRhythm::Rift:KukriRhythm::Rifts[RiftStage==INDEX_NONE?Stage:RiftStage];
+     RiftAge+=Delta;
+     // Reveal on the swing's author clock while it plays (frozen through a hit-stop); the fade is real time.
+     const float Reveal=(bAttacking||bUppercut||bHeavyAttack)&&Stage==RiftStage?

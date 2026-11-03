@@ -1,0 +1,33 @@
+{
+  "revision": "HatchetReadyRun_V2_ThreeClips_20261103",
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_DualSprintEnter.A_TacticalHatchet_DualSprintEnter",
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_DualSprintReady.A_TacticalHatchet_DualSprintReady",
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_DualSprintExit.A_TacticalHatchet_DualSprintExit"
+  ],
+  "animations": {
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_DualSprintEnter": {
+      "frames": 37,
+      "fps": 120,
+      "seconds": 0.3,
+      "play_length": 0.30000001192092896,
+      "loop": false
+    },
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_DualSprintReady": {
+      "frames": 81,
+      "fps": 120,
+      "seconds": 0.6666666666666666,
+      "play_length": 0.6666666865348816,
+      "loop": true
+    },
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_DualSprintExit": {
+      "frames": 31,
+      "fps": 120,
+      "seconds": 0.25,
+      "play_length": 0.25,
+      "loop": false
+    }
+  },
+  "runtime_tested": false,
+  "complete": true
+}

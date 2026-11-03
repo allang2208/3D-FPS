@@ -25,6 +25,9 @@ public:
     /** Dual kukri run: the kukri turned in the right fist (reverse grip) by Angle (rad) about its grip-frame Axis.
      *  bHold keeps the grip lock on the turned relation instead of releasing to the clip's own WPN_root. */
     void SetGripFlip(float Angle,const FVector& Axis,bool bHold){GripFlipAngle=Angle;GripFlipAxis=Axis;bGripFlipHold=bHold;}
+    /** Drop the whole left arm to a natural hanging pose (KukriLeftRest.h) over Seconds; 0 restores the clip's own arm.
+     *  Used by the dual-wield whirlwind, whose clip raises the free arm into the sightline. */
+    void SetLeftArmRest(float Weight,float Seconds);
     virtual void FinalizeBoneTransform() override;
 private:
     void CacheBones();
@@ -39,5 +42,7 @@ private:
     float GripFlipAngle=0.f;
     FVector GripFlipAxis=FVector::YAxisVector;
     bool bGripFlipHold=false;
+    // Left arm rest (dual-wield whirlwind): Weight 0 = the clip's own arm, 1 = the natural hanging pose.
+    float LeftRestWeight=0.f, LeftRestTarget=0.f, LeftRestFrom=0.f, LeftRestSeconds=.01f, LeftRestTime=0.f;
     bool bLeftCollapsed=false;
 };
