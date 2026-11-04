@@ -151,7 +151,11 @@ void UFPSHolyLightComponent::ReleaseAtContact()
     FHolyLightRewards Rewards;
     if(HolyLightTargets::IsFriendly(Target))
     {M->ApplyHolyLightHealing(Target,CastSnapshot,Rewards);Feedback(TEXT("圣光治疗"));}
-    else M->ApplyHolyLightHit(Player,Target,Camera->GetComponentLocation(),CastSnapshot,CastSnapshot.Damage,Rewards);
+    else
+    {
+        StarMarrow::CaptureSpell(Player,CastSnapshot.StarMarrow);
+        M->ApplyHolyLightHit(Player,Target,Camera->GetComponentLocation(),CastSnapshot,CastSnapshot.Damage,Rewards);
+    }
     FActorSpawnParameters P;P.Owner=Player;P.Instigator=Player;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if(auto* Effect=GetWorld()->SpawnActor<AFPSHolyLightEffect>(Target->GetActorLocation(),FRotator::ZeroRotator,P))
     {Effect->InitializeLight(Target,MoteSystem,CastSnapshot);Effects.Add(Effect);}
@@ -194,7 +198,11 @@ bool UFPSHolyLightComponent::NetRelease(APawn* Caster,const FColdSteelNetCastReq
     if(HolyLightTargets::IsFriendly(Target)||bSelf)
         Shadow->ApplyHolyLightHealing(Target,Spell,Rewards);
     else
-        Shadow->ApplyHolyLightHit(Caster,Target,Caster->GetPawnViewLocation(),Spell,Spell.Damage,Rewards);
+        {
+        auto ReleasedSpell=Spell;
+        StarMarrow::CaptureSpell(Caster,ReleasedSpell.StarMarrow);
+        Shadow->ApplyHolyLightHit(Caster,Target,Caster->GetPawnViewLocation(),ReleasedSpell,ReleasedSpell.Damage,Rewards);
+    }
     Shadow->FinishHolyLightCast(Rewards);
     FActorSpawnParameters P;P.Owner=Caster;P.Instigator=Caster;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if(auto* Effect=GetWorld()->SpawnActor<AFPSHolyLightEffect>(Target->GetActorLocation(),FRotator::ZeroRotator,P))

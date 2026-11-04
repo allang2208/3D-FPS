@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1,0 +2 @@
++#include "Weapons/StarMarrowComponent.h"
+@@ -13,0 +15 @@
++#include "Weapons/TimeSandEchoComponent.h"
+@@ -291,0 +294 @@
++    CreateDefaultSubobject<UStarMarrowComponent>(TEXT("StarMarrow"));
+@@ -294,0 +298 @@
++    CreateDefaultSubobject<UTimeSandEchoComponent>(TEXT("TimeSandEcho"));
+@@ -1827,0 +1832 @@
++    if(auto* Core=FindComponentByClass<UStarMarrowComponent>();Core&&Core->IsEquipped()){Core->Trigger();return;}
+@@ -2389 +2394 @@
+-    FirstPersonCamera->SetRelativeLocation((bSlamPosture || IsTraversing() || Traversal->IsCameraRecovering() || (RuneSword && RuneSword->IsWhirlwindActive()) || (WhirlKukri && WhirlKukri->IsWhirlwindActive()) || (ProductionTools && (ProductionTools->IsWhirlwindActive()||ProductionTools->IsUppercutActive())))?TargetLocation:
++    FirstPersonCamera->SetRelativeLocation((bSlamPosture || IsTraversing() || Traversal->IsCameraRecovering() || (RuneSword && (RuneSword->IsWhirlwindActive()||RuneSword->IsStarMarrowChargeMotionPlaying())) || (WhirlKukri && WhirlKukri->IsWhirlwindActive()) || (ProductionTools && (ProductionTools->IsWhirlwindActive()||ProductionTools->IsUppercutActive())))?TargetLocation:

@@ -1,0 +1,62 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -1,0 +2 @@
++#include "../Weapons/StarMarrowComponent.h"
+@@ -81,0 +83 @@
++#include "../Weapons/MagicCrystalMana.h"
+@@ -426 +428 @@
+-            Adopted.Mana=Prev.Mana;Adopted.Stamina=Prev.Stamina;Adopted.StaminaRecoveryDelay=Prev.StaminaRecoveryDelay;Adopted.bSprintExhausted=Prev.bSprintExhausted;
++            Adopted.Mana=Prev.Mana;Adopted.StarMarrowManaSpent=Prev.StarMarrowManaSpent;Adopted.MagicCrystalManaRestored=Prev.MagicCrystalManaRestored;Adopted.Stamina=Prev.Stamina;Adopted.StaminaRecoveryDelay=Prev.StaminaRecoveryDelay;Adopted.bSprintExhausted=Prev.bSprintExhausted;
+@@ -439 +441 @@
+-            Adopted.Mana=Prev.Mana;Adopted.Stamina=Prev.Stamina;
++            Adopted.Mana=Prev.Mana;Adopted.StarMarrowManaSpent=Prev.StarMarrowManaSpent;Adopted.MagicCrystalManaRestored=Prev.MagicCrystalManaRestored;Adopted.Stamina=Prev.Stamina;
+@@ -482,0 +485,4 @@
++        if(Adopted.MagicCrystalManaRestored<Prev.MagicCrystalManaRestored)
++            MagicCrystalMana::Merge(Adopted,Prev.MagicCrystalManaRestored,float(UColdSteelStatusModel::ResourceMaximum(Adopted,true)));
++        Adopted.StarMarrowManaSpent=FMath::Clamp(Adopted.StarMarrowManaSpent,0.,Prev.StarMarrowManaSpent);
++        Adopted.MergeStarMarrowSpend(Prev.StarMarrowManaSpent);
+@@ -592,0 +599 @@
++    if(!FMath::IsFinite(Profile.StarMarrowManaSpent)||Profile.StarMarrowManaSpent<0.||Profile.StarMarrowManaSpent>1.e12)Profile.StarMarrowManaSpent=0.;
+@@ -985,0 +993,2 @@
++    const double MirrorStarMarrowSpend=Save->Profile.StarMarrowManaSpent;
++    const double MirrorCrystalMana=Save->Profile.MagicCrystalManaRestored;
+@@ -1036,0 +1046,2 @@
++        Save->Profile.StarMarrowManaSpent=CurrentInventory.StarMarrowManaSpent;
++        Save->Profile.MagicCrystalManaRestored=CurrentInventory.MagicCrystalManaRestored;
+@@ -1040,0 +1052,2 @@
++    Save->Profile.MergeStarMarrowSpend(FMath::Max(MirrorStarMarrowSpend,CurrentInventory.StarMarrowManaSpent));
++    MagicCrystalMana::Merge(Save->Profile,FMath::Max(MirrorCrystalMana,CurrentInventory.MagicCrystalManaRestored),Model->Derived(TEXT("maxMp")));
+@@ -1095 +1108,2 @@
+-    if (bLocalClean&&!bInventoryRequestPending&&!bCampfireInventoryChanged&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
++    // An otherwise clean upload may already include a later cast. Preserve its balance through the partial merge.
++    if (bLocalClean&&ReceivingMirrorCastSequence==LocalCastSequence&&!bInventoryRequestPending&&!bCampfireInventoryChanged&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
+@@ -1121,0 +1136,2 @@
++        Merged.MergeStarMarrowSpend(Save->Profile.StarMarrowManaSpent);
++        MagicCrystalMana::Merge(Merged,Save->Profile.MagicCrystalManaRestored,Model->Derived(TEXT("maxMp")));
+@@ -2109 +2125 @@
+-    { TEXT("stormDomain") }, { TEXT("thunderLance") },
++    { TEXT("stormDomain") }, { TEXT("thunderLance") }, { TEXT("starMarrowCharge") },
+@@ -2134,0 +2151,5 @@
++    if(Request.SkillId==TEXT("starMarrowCharge"))
++    {
++        const auto* Weapon=ShadowModel->Equipped();
++        if(Request.Phase!=0||Request.WeaponInstance.IsEmpty()||!Weapon||Request.WeaponInstance!=Weapon->InstanceId){Reject(2);return;}
++    }
+@@ -2178,0 +2200,8 @@
++    if(Request.SkillId==TEXT("starMarrowCharge"))
++    {
++        auto* Core=Pawn->FindComponentByClass<UStarMarrowComponent>();
++        if(!PendingCastSkill.IsNone()||!Core||!Core->ActivateCharge(ShadowModel)){Reject(6);return;}
++        ClientStarMarrowSpend(Pawn,ShadowModel->Snapshot().StarMarrowManaSpent);
++        ShadowMirrorTimer=3.f;Accept();return;
++    }
++
+@@ -2353,0 +2383,6 @@
++void AColdSteelPlayerState::ClientStarMarrowSpend_Implementation(AFPSGAMECharacter* Character,double Total)
++{
++    if(!Character||Character!=GetPawn())return;
++    if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->ReconcileStarMarrowSpend(Total);
++}
++
+@@ -2358,0 +2394 @@
++    if(SkillId==TEXT("starMarrowCharge")){if(auto* Core=Pawn->FindComponentByClass<UStarMarrowComponent>())Core->NetCastResult(Sequence,Code);return;}

@@ -518,6 +518,24 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
             {
                 const auto Melee=ColdSteelMelee::Evaluate(*I,M);
                 Shot.DamagePanel=Melee.DamageParts;
+                if(I->Definition==TEXT("ue_highland_claymore"))
+                    if(const auto* Gunsmith=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+                    {
+                        const FString Material=Gunsmith->Installed(*I).FindRef(TEXT("blade_material"));
+                        Shot.bBlackthornCriticalWeakness=Material==TEXT("blackthorn_steel");
+                        Shot.bWhitehartCriticalVulnerability=Material==TEXT("whitehart_mithril");
+                    }
+                if(I->Definition==TEXT("ue_frost_crystal_sword"))
+                {
+                    Shot.HitHealthReturnRatio=float(Melee.Modifiers.HitHealthReturnRatio);
+                    Shot.HitManaReturnRatio=float(Melee.Modifiers.HitManaReturnRatio);
+                }
+                if(I->Definition==TEXT("ue_rune_sword"))
+                {
+                    Shot.TimeSandEchoRatio=float(Melee.Modifiers.TimeSandEchoRatio);
+                    Shot.TimeSandEchoDelay=float(Melee.Modifiers.TimeSandEchoDelay);
+                    Shot.TimeSandCooldownReward=.5f+float(Melee.Modifiers.CooldownReduceSecondsPerHit);
+                }
                 // Captured from this attack's item on both client and authority;
                 // never exported to the character's global spell critical stats.
                 Shot.CriticalChance+=float(Melee.Modifiers.MeleeCriticalChanceAdd);
@@ -632,7 +650,23 @@ float ColdSteelSkills::ApplyHit(AActor* Shooter,const FHitResult& Hit,float Dama
             &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
         const bool bBerserk=Shot.bMelee&&Shot.BerserkMaxStacks>0&&Damage>0.f
             &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+        const bool bCrystal=Shot.ItemDefinition==TEXT("ue_frost_crystal_sword")&&Shot.bMelee&&!Shot.bRicochet
+            &&(Shot.HitHealthReturnRatio>0.f||Shot.HitManaReturnRatio>0.f)&&Shooter->HasAuthority()
+            &&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+        float CrystalHealth=0.f,CrystalMaxHealth=0.f;FText CrystalName;
+        if(bCrystal)if(const auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())
+            Combat->GetVitals(CrystalHealth,CrystalMaxHealth,CrystalName);
         const float Applied=M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result?Result:&Receipt);
+        // Every actual enemy contact contributes; overkill cannot restore resources.
+        if(bCrystal&&CrystalHealth>0.f&&Applied>0.f)
+        {
+            float Remaining=0.f;
+            if(IsValid(Hit.GetActor()))
+                if(const auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())
+                    Combat->GetVitals(Remaining,CrystalMaxHealth,CrystalName);
+            const float Effective=FMath::Min(Applied,FMath::Clamp(CrystalHealth-Remaining,0.f,CrystalHealth));
+            M->RestoreMagicCrystalResources(Shooter,Effective*Shot.HitHealthReturnRatio,Effective*Shot.HitManaReturnRatio);
+        }
         if(bBerserk)GrantBerserkOnWeaponHit(Shooter,Shot);
         if(bElectrified&&Damage>0.f)
             if(auto* Lightning=Shooter->FindComponentByClass<UFPSMeleeLightningComponent>())

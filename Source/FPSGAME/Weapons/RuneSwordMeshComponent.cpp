@@ -3,6 +3,8 @@
 #include "Engine/SkeletalMesh.h"
 #include "TwoBoneIK.h"
 #include "WeaponGripProfile.h"
+#include "ModularSwordVisual.h"
+#include "../UI/ColdSteelInventoryTypes.h"
 #include "Animation/AnimSingleNodeInstance.h"
 #include "Animation/AnimSequence.h"
 
@@ -113,7 +115,13 @@ void URuneSwordMeshComponent::AdvanceLocomotionEntry(float Delta)
 void URuneSwordMeshComponent::FinalizeBoneTransform()
 {
     if(auto* Single=GetSingleNodeInstance())
+    {
         GripLayer.Apply(GripProfile,Cast<UAnimSequence>(Single->GetCurrentAsset()),GetPosition(),*this);
+        if(bRefreshGripIdle&&Single->GetCurrentAsset()&&Single->GetCurrentAsset()->GetName().EndsWith(TEXT("_Idle")))
+        {bCaptureRecoveryIdle=true;bRefreshGripIdle=false;}
+    }
+    if(bCaptureRecoveryIdle)GripClearance.CaptureIdle(*this);
+    GripClearance.Apply(*this);
     if(bCaptureRecoveryIdle)
     {
         // Capture the sampled idle before any action/casting overlay is applied.
@@ -129,6 +137,18 @@ void URuneSwordMeshComponent::FinalizeBoneTransform()
     if(!EntryPose.IsEmpty())ApplyWhirlwindEntry();
     if(RecoveryWeight>0.f)ApplyQuickCombatRecovery();
     Super::FinalizeBoneTransform();
+}
+
+void URuneSwordMeshComponent::SetGripClearance(const FColdSteelItem* Item)
+{
+    if(!Item)
+    {
+        GripFitDefinition.Reset();GripFitData.Reset();GripClearance.Configure({});return;
+    }
+    if(GripFitDefinition==Item->Definition&&GripFitData==Item->Data)return;
+    GripFitDefinition=Item->Definition;GripFitData=Item->Data;
+    if(GripClearance.Configure(ColdSteelModularSword::GripClearance(*Item)))
+    {RecoveryMesh.Reset();RecoveryIdlePose.Reset();bRefreshGripIdle=true;}
 }
 
 void URuneSwordMeshComponent::CacheQuickCombatIdlePose()

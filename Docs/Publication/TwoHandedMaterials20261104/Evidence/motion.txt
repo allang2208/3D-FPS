@@ -1,0 +1,39 @@
+CHARGE_AUDIT PASS isolated fixture has local control and usable action context
+CHARGE_AUDIT PASS Standard saved rig, idle and charge load
+CHARGE_AUDIT PASS Standard duration matches charge motion
+CHARGE_AUDIT PASS Standard compressed poses: authored wrist travel 10.9106 cm, error 0.0006 cm, bone length error 0.0000 cm
+CHARGE_AUDIT PASS Standard final pose matches installed idle
+CHARGE_AUDIT PASS Standard native motion starts
+CHARGE_AUDIT PASS motion owns both hands
+CHARGE_AUDIT PASS confirm during playback does not rewind
+CHARGE_AUDIT PASS cancel releases action ownership
+CHARGE_AUDIT PASS stale motion is skipped
+CHARGE_AUDIT PASS Standard completes and returns idle at 30 FPS
+CHARGE_AUDIT PASS Standard completes and returns idle at 60 FPS
+CHARGE_AUDIT PASS Standard completes and returns idle at 144 FPS
+CHARGE_AUDIT PASS LongGrip saved rig, idle and charge load
+CHARGE_AUDIT PASS LongGrip duration matches charge motion
+CHARGE_AUDIT PASS LongGrip compressed poses: authored wrist travel 10.9106 cm, error 0.0006 cm, bone length error 0.0000 cm
+CHARGE_AUDIT PASS LongGrip final pose matches installed idle
+CHARGE_AUDIT PASS LongGrip native motion starts
+CHARGE_AUDIT PASS motion owns both hands
+CHARGE_AUDIT PASS confirm during playback does not rewind
+CHARGE_AUDIT PASS cancel releases action ownership
+CHARGE_AUDIT PASS stale motion is skipped
+CHARGE_AUDIT PASS LongGrip completes and returns idle at 30 FPS
+CHARGE_AUDIT PASS LongGrip completes and returns idle at 60 FPS
+CHARGE_AUDIT PASS LongGrip completes and returns idle at 144 FPS
+CHARGE_AUDIT PASS G ability entry starts charge and native motion
+CHARGE_AUDIT PASS activation spends 20 percent maximum mana once
+CHARGE_AUDIT PASS repeat activation does not pay again
+CHARGE_AUDIT PASS duplicate state after interruption does not restart
+CHARGE_AUDIT PASS late confirmation consumes interrupted prediction without replay
+CHARGE_AUDIT PASS fresh unpredicted confirmation starts motion
+CHARGE_AUDIT PASS confirmed state waits for delayed clip
+CHARGE_AUDIT PASS late clip presents once at authoritative age
+CHARGE_AUDIT PASS death cancels charge and revival does not resume it
+CHARGE_AUDIT PASS duplicate and older spend receipts debit exactly once
+CHARGE_AUDIT PASS insufficient mana starts neither charge nor motion
+CHARGE_AUDIT PASS camera envelope returns exactly to zero
+CHARGE_AUDIT PASS presentation shake leaves control rotation unchanged
+RESULT checks=38 failures=0; isolated native world; no live network or gameplay render

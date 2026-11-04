@@ -82,9 +82,17 @@ void UGunsmithSystem::LoadWarhammerCatalog()
         {
             const auto Data=OptionValue->AsObject();if(!Data)continue;
             if(Excluded.Contains(Data->GetStringField(TEXT("id"))))continue;
+            const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;
+            if(Key==TEXT("blade_material")&&Data->TryGetArrayField(TEXT("weapons"),Compatible)&&!Compatible->IsEmpty()&&
+                !Compatible->ContainsByPredicate([&](const auto& Id){return Id->AsString()==Item.Definition;}))continue;
             if(Key==TEXT("rune")&&!ColdSteelFrostRunes::IsWarhammerRune(Item.Definition,Data->GetStringField(TEXT("id"))))continue;
             FGunsmithOption Part;Part.Id=Data->GetStringField(TEXT("id"));Part.Name=Data->GetStringField(TEXT("name"));
             Part.Description=Data->GetStringField(TEXT("description"));Data->TryGetStringField(TEXT("appearance"),Part.Appearance);
+            if(Key==TEXT("blade_material"))
+            {
+                Part.Description=Part.Description.Replace(TEXT("刃面"),TEXT("锤面")).Replace(TEXT("剑面"),TEXT("锤面")).Replace(TEXT("刃口"),TEXT("锤缘"));
+                Part.Appearance=Part.Description;
+            }
             Part.ReadSpecialEffects(Data);
             const TArray<TSharedPtr<FJsonValue>>* Effects=nullptr;
             if(Data->TryGetArrayField(TEXT("effects"),Effects))for(const auto& Effect:*Effects)

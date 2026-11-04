@@ -1,6 +1,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelQuickSlot.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
+#include "../Weapons/StarMarrowComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "Components/Border.h"
 #include "Components/Overlay.h"
@@ -22,7 +23,8 @@ void UColdSteelHUDWidget::RefreshQuickBar()
     {
         const auto* Blades=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<URuneOrbBladesComponent>():nullptr;
         const auto* Staff=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStaffWeaponComponent>():nullptr;
-        const bool bShow=(Blades&&Blades->SwordEquipped())||(Staff&&Staff->HasIlluminationSpecial());
+        const auto* Charge=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStarMarrowComponent>():nullptr;
+        const bool bShow=(Blades&&Blades->SwordEquipped())||(Staff&&Staff->HasIlluminationSpecial())||(Charge&&Charge->IsEquipped());
         const auto Visible=bShow?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed;
         if(RuneBladesSlotSurface->GetVisibility()!=Visible)
         {RuneBladesSlotSurface->SetVisibility(Visible);RuneBladesDivider->SetVisibility(Visible);}

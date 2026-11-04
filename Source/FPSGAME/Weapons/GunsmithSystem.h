@@ -19,8 +19,11 @@ struct FMeleeModifiers
     double MartialCooldown=1;
     double MartialDamage=1, MartialRange=1;
     double MartialCooldownMultiplier() const {return SkillCooldown*MartialCooldown;}
+    double MagicAttack=1;
     double MagicCooldown=1, MagicDamage=1, MagicCost=1, RuneIntelligence=0, RuneWisdom=0;
     double InnateErosionMultiplier=1;
+    double TimeSandEchoRatio=0,TimeSandEchoDelay=0;
+    double HitHealthReturnRatio=0,HitManaReturnRatio=0;
     // Flat additions affect the action multiplier, not the panel damage.
     // Knockback distance is independent of hit-reaction duration.
     double HeavyDamage=1, HeavyDamageAdd=0, Knockback=1;

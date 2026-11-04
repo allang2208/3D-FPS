@@ -114,6 +114,7 @@ void AFPSFireballProjectile::Launch()
     SetAimPreviewActive(false);
     // Launch from the actual hovering position, including any wall clearance;
     // the remote hand gesture does not pull or teleport the orb toward the hand.
+    StarMarrow::CaptureSpell(Shooter.Get(),Cast.StarMarrow);
     bFlying=true;FlightAge=0.f;
     LaunchPosition=GetActorLocation();
     LaunchVelocity=FPSMagicPreview::LaunchVelocity(LaunchPosition,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());

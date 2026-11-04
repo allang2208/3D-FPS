@@ -276,7 +276,14 @@
         ],
         "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
         "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Grip_long_twohand.SM_Highland_Grip_long_twohand",
-        "interface": "highland_hilt_v1"
+        "interface": "highland_hilt_v1",
+        "hand_fit": {
+          "left_offset_cm": [
+            0,
+            0,
+            -1.6
+          ]
+        }
       },
       "iron_spine_power_grip": {
         "mesh": "/Game/Weapons/SharedSwordGrips20260927/Highland/SM_HighlandGrip_iron_spine_power_grip.SM_HighlandGrip_iron_spine_power_grip",
@@ -386,6 +393,38 @@
           "interface": "highland_hilt_v1_to_frost_hilt_v1"
         }
       }
+    }
+  },
+  "hand_fit": {
+    "right_offset_cm": [
+      0,
+      0,
+      -2.65
+    ],
+    "left_offset_cm": [
+      1,
+      1,
+      -1.95
+    ],
+    "digits": {
+      "thumb_01_r": [
+        1.0958568927660143e-06,
+        -0.03139815945339378,
+        -0.36818883475337666,
+        0.9292207151934835
+      ],
+      "thumb_02_r": [
+        4.533656994589984e-06,
+        -0.21368300379227453,
+        0.4021602431431643,
+        0.8902846245469971
+      ],
+      "thumb_01_l": [
+        3.046317463822602e-07,
+        0.058557894120004395,
+        -0.26753106482019595,
+        0.9617682165637986
+      ]
     }
   }
 }

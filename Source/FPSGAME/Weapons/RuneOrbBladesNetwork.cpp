@@ -39,3 +39,12 @@ void URuneOrbBladesComponent::ClientBladeKill_Implementation()
 {
     if(auto* Model=Profile())Model->ReduceAllAbilityCooldowns(.5f);
 }
+
+void URuneOrbBladesComponent::ClientMeleeCooldownReward_Implementation(float Seconds,float BladeRemaining)
+{
+    if(auto* Model=Profile())Model->ReduceMagicCooldowns(Seconds);
+    // Authority supplies the remaining G clock: do not subtract the hit twice
+    // after client prediction or let network transit lengthen an existing clock.
+    const float Reduced=FMath::Min(Cooldown,FMath::Max(0.f,BladeRemaining));
+    if(Reduced<Cooldown){Cooldown=Reduced;++CooldownReductionSerial;}
+}

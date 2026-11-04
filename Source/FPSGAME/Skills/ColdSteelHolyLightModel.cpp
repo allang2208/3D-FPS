@@ -90,7 +90,9 @@ bool UColdSteelStatusModel::ApplyHolyLightHit(APawn* Shooter,AActor* Target,cons
     const FVector End=Target->GetActorLocation();
     FHitResult Hit(Target,Cast<UPrimitiveComponent>(Target->GetRootComponent()),End,(Origin-End).GetSafeNormal());
     Hit.TraceStart=Origin;Hit.TraceEnd=End;
+    StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Spell.StarMarrow);
     const float Applied=UGameplayStatics::ApplyPointDamage(Target,FMath::FloorToFloat(Damage*(HolyLightTargets::IsZombie(Target)?Spell.ZombieMultiplier:1.f)),(End-Origin).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,UHolyLightDamage::StaticClass());
+    CrystalRecovery.Finish(Applied);
     for(const auto& K:Rewards.Kills)Batch.KillRewards.FindOrAdd(K.Key)=K.Value;
     if(Applied<=0)return false;
     if(auto* Player=Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);

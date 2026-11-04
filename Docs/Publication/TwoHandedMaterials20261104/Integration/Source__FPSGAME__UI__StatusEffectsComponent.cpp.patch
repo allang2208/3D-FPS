@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/UI/StatusEffectsComponent.cpp
++++ b/Source/FPSGAME/UI/StatusEffectsComponent.cpp
+@@ -159,0 +160,12 @@
++  else if(V.Type==TEXT("weakness")&&CombatStatus)
++  {
++   V.Stacks=CombatStatus->WeaknessCount();V.Remaining=CombatStatus->WeaknessRemaining();
++   if(V.Stacks<=0)continue;
++   V.Description+=FString::Printf(TEXT(" 当前%d层：输出−%d%%。"),V.Stacks,V.Stacks*10);
++  }
++  else if(V.Type==TEXT("criticalVulnerability")&&CombatStatus)
++  {
++   V.Stacks=CombatStatus->CriticalVulnerabilityCount();V.Remaining=CombatStatus->CriticalVulnerabilityRemaining();
++   if(V.Stacks<=0)continue;
++   V.Description+=FString::Printf(TEXT(" 当前%d层：被暴击率+%d%%。"),V.Stacks,V.Stacks*5);
++  }

@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Weapons/StarMarrowSpell.h"
 #include "FireMagicTypes.generated.h"
 
 namespace FireMagic
@@ -25,6 +26,7 @@ USTRUCT()
 struct FFireMagicCast
 {
     GENERATED_BODY()
+    FStarMarrowSpell StarMarrow;
     UPROPERTY() FName Skill=TEXT("meteor");
     UPROPERTY() float Damage=0; UPROPERTY() float AuraDamage=0; UPROPERTY() float MagicAttack=0; UPROPERTY() float Radius=0; UPROPERTY() float AuraRadius=0; UPROPERTY() float ManaCost=0; UPROPERTY() float Cooldown=0; UPROPERTY() float Duration=0; UPROPERTY() float Range=0;
     UPROPERTY() float FallSeconds=.65f; UPROPERTY() float TickSeconds=.5f; UPROPERTY() float StunSeconds=0; UPROPERTY() float BurnSeconds=0; UPROPERTY() float BurnMultiplier=0; UPROPERTY() float AuraBurnSeconds=0; UPROPERTY() float AuraBurnMultiplier=0;

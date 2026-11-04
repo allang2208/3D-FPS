@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.cpp
+@@ -43,0 +44,3 @@
++    if(FParse::Param(*Params,TEXT("StarMarrowFireCapture")))return CaptureStarMarrowFire(Params);
++    if(FParse::Param(*Params,TEXT("StarMarrowSurfaceOnly")))return AuditStarMarrowSurface(Params);
++    if(FParse::Param(*Params,TEXT("StarMarrowMotionOnly")))return AuditStarMarrowMotion(Params);

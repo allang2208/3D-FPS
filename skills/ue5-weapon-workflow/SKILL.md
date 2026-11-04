@@ -10,6 +10,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 # 本机维护源入口
 
+- 双手剑、锤的通用与专属材质，剑火随装备复制，以及握把轨迹检查，见 [模块剑接口与材质](references/modular-sword-materials.md)。
+
 本机共用流程统一读取[ue5-weapon-workflow](C:/Users/allan/.codex/skills/ue5-weapon-workflow/SKILL.md)，不要叠加旧镜像流程。
 
 工程专属规则以当前 AGENTS.md、WORKFLOW.md 和本次用户要求为准。维护源不可用或需要查找未合入的工程经验时，读取[整理前工程资料](LOCAL-HISTORY.md)及原 references；其中历史测试与协调条款不构成执行授权。

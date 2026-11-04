@@ -257,7 +257,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.ComboThirdToughness*=M.ComboThirdToughness;
             R.Melee.SkillCooldown*=M.SkillCooldown;
             R.Melee.MartialCooldown*=M.MartialCooldown;
-            R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;
+            R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;R.Melee.MagicAttack*=M.MagicAttack;
             R.Melee.MagicCost*=M.MagicCost;
             R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
             R.Melee.AllAttackKnockback*=M.AllAttackKnockback;
@@ -301,6 +301,10 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.bQuickCombatAOE|=M.bQuickCombatAOE;
             R.Melee.RuneIntelligence+=M.RuneIntelligence;R.Melee.RuneWisdom+=M.RuneWisdom;
             R.Melee.InnateErosionMultiplier*=M.InnateErosionMultiplier;
+            R.Melee.TimeSandEchoRatio=FMath::Max(R.Melee.TimeSandEchoRatio,M.TimeSandEchoRatio);
+            R.Melee.TimeSandEchoDelay=FMath::Max(R.Melee.TimeSandEchoDelay,M.TimeSandEchoDelay);
+            R.Melee.HitHealthReturnRatio+=M.HitHealthReturnRatio;
+            R.Melee.HitManaReturnRatio+=M.HitManaReturnRatio;
             R.Melee.RuneVulnerability=FMath::Max(R.Melee.RuneVulnerability,M.RuneVulnerability);
             R.Melee.RuneVulnerabilitySeconds=FMath::Max(R.Melee.RuneVulnerabilitySeconds,M.RuneVulnerabilitySeconds);
             R.Melee.ParryWindow*=M.ParryWindow;R.Melee.RiposteSpeed*=M.RiposteSpeed;R.Melee.RiposteStamina*=M.RiposteStamina;

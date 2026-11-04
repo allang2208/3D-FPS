@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -282 +282 @@
+-            R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;
++            R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;R.Melee.MagicAttack*=M.MagicAttack;
+@@ -333,0 +334,4 @@
++            R.Melee.TimeSandEchoRatio=FMath::Max(R.Melee.TimeSandEchoRatio,M.TimeSandEchoRatio);
++            R.Melee.TimeSandEchoDelay=FMath::Max(R.Melee.TimeSandEchoDelay,M.TimeSandEchoDelay);
++            R.Melee.HitHealthReturnRatio+=M.HitHealthReturnRatio;
++            R.Melee.HitManaReturnRatio+=M.HitManaReturnRatio;

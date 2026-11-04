@@ -30,6 +30,7 @@ void UM4GunsmithWidget::SetStandaloneMeleeItem(const FColdSteelItem& Item)
             Studio->AddComponent(StandaloneMelee,FTransform::Identity);
         }
         if(!ColdSteelModularSword::Apply(StandaloneMelee,Item,Draft?&Model()->Draft():nullptr))return;
+        if(!ColdSteelModularSword::ApplyGlassPreview(StandaloneMelee))return;
         if(StandaloneKey!=Key){StandaloneKey=Key;bPreviewStreamingDirty=true;PreviewMotion=1.f;}
         if(Created)SetSidePreview(true);
         return;

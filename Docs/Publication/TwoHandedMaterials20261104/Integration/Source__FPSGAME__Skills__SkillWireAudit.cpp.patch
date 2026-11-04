@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.cpp
++++ b/Source/FPSGAME/Skills/SkillWireAudit.cpp
+@@ -63,0 +64 @@
++    if(FParse::Param(FCommandLine::Get(),TEXT("StarMarrowWireAudit"))){Super::Tick(Delta);TickStarMarrow();return;}
+@@ -132,0 +134 @@
++    if(FParse::Param(FCommandLine::Get(),TEXT("StarMarrowWireAudit"))){Super::Tick(Delta);TickStarMarrow(Delta);return;}

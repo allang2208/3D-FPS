@@ -19,8 +19,11 @@
 #include "Misc/Paths.h"
 #include "Misc/Parse.h"
 
+int32 RunSharedTwoHandFinishAudit(const FString& Params);
+
 int32 USwordBladeFinishAuditCommandlet::Main(const FString& Params)
 {
+    if(FParse::Param(*Params,TEXT("Shared")))return RunSharedTwoHandFinishAudit(Params);
     const FString Original=FCommandLine::Get();
     const FString Profile=TEXT("SwordBladeFinishAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
     FCommandLine::Set(*(TEXT("SwordBladeFinishAudit -ColdSteelProfile=")+Profile));

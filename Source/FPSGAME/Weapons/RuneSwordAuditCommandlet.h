@@ -9,5 +9,8 @@ class URuneSwordAuditCommandlet : public UCommandlet
 public:
     virtual int32 Main(const FString& Params) override;
 private:
+    int32 AuditStarMarrowMotion(const FString& Params);
+    int32 AuditStarMarrowSurface(const FString& Params);
+    int32 CaptureStarMarrowFire(const FString& Params);
     int32 AuditXuanChiRunes();
 };

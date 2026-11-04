@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Weapons/StarMarrowSpell.h"
 
 struct FFireballTuning
 {
@@ -15,6 +16,7 @@ struct FFireballTuning
 // One immutable cast: later level-ups and equipment/attribute changes do not alter it.
 struct FFireballCast
 {
+    FStarMarrowSpell StarMarrow;
     float CriticalChance=0, CriticalDamageBonus=0, MagicPenetration=0, MagicDamageBonus=0;
     // Radius is the single world-space extent shared by damage and impact presentation.
     float Damage=0, Radius=0, Speed=0, Range=0, MagicMultiplier=0;

@@ -1,0 +1,5 @@
+--- a/Source/FPSGAME/Combat/CombatFormulaRuntime.h
++++ b/Source/FPSGAME/Combat/CombatFormulaRuntime.h
+@@ -29,0 +30,2 @@
++    // A delayed receipt already includes the original defense/critical roll.
++    bool bDamageAlreadyMitigated=false;

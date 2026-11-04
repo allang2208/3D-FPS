@@ -1,0 +1,5 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -459,0 +460,2 @@
++    if(!FMath::IsFinite(P.MagicCrystalManaRestored)||P.MagicCrystalManaRestored<0.)
++    {Reason=TEXT("魔晶回魔记录无效");return false;}

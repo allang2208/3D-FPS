@@ -1,4 +1,5 @@
 #include "CombatFormulaRuntime.h"
+#include "../Weapons/StarMarrowComponent.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "CoreCombatFormula.h"
@@ -59,14 +60,28 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     const APawn* Attacker=Cast<APawn>(Source);
     if(!Attacker&&Source)Attacker=Source->GetInstigator();
     const auto* AttackerModel=Attacker&&Attacker->IsPlayerControlled()?ColdSteelAuthority::ForPawn(Attacker):nullptr;
-    if(Type&&Type->IsA<UCombatDirectDamage>())
+    if(ActiveWeaponHit&&ActiveWeaponHit->Target==Target&&ActiveWeaponHit->bDamageAlreadyMitigated)
+    {
+        ActiveWeaponHit->Mitigated=ActiveWeaponHit->Incoming;
+        ActiveWeaponHit->bResolved=true;
+        return ActiveWeaponHit->Mitigated.Total();
+    }
+    const bool Charged=Source!=Target&&UStarMarrowComponent::ChargesDamage(Source);
+    if(Type&&Type->IsA<UCombatDirectDamage>()&&!Charged)
     {
         const auto* Field=Target->FindComponentByClass<UCombatStatusFormula>();
-        return Damage*(Field?Field->ZhenmoDamageMultiplier():1.f);
+        const auto* SourceStatus=UCombatStatusFormula::ForDamageSource(Source);
+        return Damage*(SourceStatus?SourceStatus->WeaknessDamageMultiplier():1.f)*(Field?Field->ZhenmoDamageMultiplier():1.f);
     }
     if(ActiveWeaponHit&&ActiveWeaponHit->Target==Target&&!ActiveWeaponHit->bResolved&&!IsMagic(Type))
     {
         auto& Hit=*ActiveWeaponHit;
+        if(Charged)
+        {
+            const auto Convert=[](FWeaponDamageParts& P)
+            {P={0.,P.Base()*UStarMarrowComponent::DamageMultiplier,0.,P.Additional()*UStarMarrowComponent::DamageMultiplier};};
+            Convert(Hit.Incoming);
+        }
         const auto* Status=Target->FindComponentByClass<UCombatStatusFormula>();
         const auto* SourceStatus=Source?Source->FindComponentByClass<UCombatStatusFormula>():nullptr;
         double Common=UJingangRuneComponent::OutgoingMultiplier(Source);
@@ -91,7 +106,8 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
         Hit.bResolved=true;
         return Hit.Mitigated.Total();
     }
-    const bool Magic=IsMagic(Type);double Penetration=0;
+    const bool Magic=IsMagic(Type)||Charged;double Penetration=0;
+    if(Charged)Damage*=UStarMarrowComponent::DamageMultiplier;
     const auto* Player=Cast<APawn>(Source);
     if(const auto* P=AttackerModel)
         if(const auto* I=P->Equipped())if(auto* E=Source->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
@@ -111,7 +127,7 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     if(!Magic&&Status&&Status->FrozenRemaining()>0)Result=std::floor(Result*1.5);
     if(Magic&&ActiveMagicHit)
     {
-        const double CritChance=ActiveMagicHit->Chance+(Status?Status->DroneCritBonusPercent(Source):0);
+        const double CritChance=ActiveMagicHit->Chance+(Status?Status->DroneCritBonusPercent(Source)+Status->CriticalVulnerabilityBonusPercent():0);
         const bool Critical=ActiveMagicHit->bWeakpoint||FMath::FRand()*100<CoreCombatFormula::CriticalChance(CritChance,MonsterCriticalResistance(Target));
         if(ActiveMagicHit->CriticalResult)*ActiveMagicHit->CriticalResult=Critical;
         if(Critical)Result=CoreCombatFormula::CriticalDamage(Result,ActiveMagicHit->Bonus);

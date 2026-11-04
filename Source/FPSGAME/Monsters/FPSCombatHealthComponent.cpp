@@ -1,4 +1,5 @@
 #include "FPSCombatHealthComponent.h"
+#include "../Weapons/StarMarrowComponent.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/JingangRuneComponent.h"
@@ -149,8 +150,11 @@ bool UFPSCombatHealthComponent::GetLagPose(double ServerTime, FVector& OutCenter
 
 float UFPSCombatHealthComponent::DamageAfterArmor(float Damage,const UDamageType* Type,AActor* Attacker) const
 {
-    if(Type&&Type->IsA<UCombatDirectDamage>())return Damage;
-    const bool bMagic=CombatFormulaRuntime::IsMagic(Type);
+    const auto* AttackerStatus=UCombatStatusFormula::ForDamageSource(Attacker);
+    const bool Charged=Attacker!=GetOwner()&&UStarMarrowComponent::ChargesDamage(Attacker);
+    if(Type&&Type->IsA<UCombatDirectDamage>()&&!Charged)return Damage*(AttackerStatus?AttackerStatus->WeaknessDamageMultiplier():1.f);
+    const bool bMagic=CombatFormulaRuntime::IsMagic(Type)||Charged;
+    if(Charged)Damage*=UStarMarrowComponent::DamageMultiplier;
     const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
     const auto* AttackerStatus=Attacker?Attacker->FindComponentByClass<UCombatStatusFormula>():nullptr;
     // 联机：远端玩家的防御走影子档案；主机玩家（监听服下 NetShadowProfile 恒空）/单机回退单例。

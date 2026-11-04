@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.h
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.h
+@@ -23,0 +24 @@
++    double MagicAttack=1;
+@@ -29,0 +31,2 @@
++    double TimeSandEchoRatio=0,TimeSandEchoDelay=0;
++    double HitHealthReturnRatio=0,HitManaReturnRatio=0;

@@ -127,6 +127,12 @@ struct FColdSteelSkillShot
     float ToughnessDamageMultiplier=1;
     float MagicPenetration=0;
     FWeaponDamageParts DamagePanel;
+    // Captured from the attacking rune sword; authority reconstructs these.
+    float TimeSandEchoRatio=0.f,TimeSandEchoDelay=0.f,TimeSandCooldownReward=0.f;
+    float HitHealthReturnRatio=0.f,HitManaReturnRatio=0.f;
+    // Captured from this Highland sword's material, reconstructed by authority.
+    bool bBlackthornCriticalWeakness=false;
+    bool bWhitehartCriticalVulnerability=false;
     float CriticalChance = 0;
     /** 开火时预掷的暴击样本 [0,1)：同一次射击的多弹丸/穿透目标共用一次判定，
      *  面板暴击率即这一发的真实概率。负数 = 未预掷（近战/快捷进战按接触点各掷）。 */

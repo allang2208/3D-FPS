@@ -95,7 +95,9 @@ bool UColdSteelStatusModel::ApplyLightningHit(APawn* Shooter,AActor* Target,cons
     FHitResult Hit(Target,Cast<UPrimitiveComponent>(Target->GetRootComponent()),End,(Origin-End).GetSafeNormal());
     if(DirectHit&&DirectHit->GetActor()==Target)Hit=*DirectHit;
     Hit.TraceStart=Origin;Hit.TraceEnd=End;
+    StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Spell.StarMarrow);
     const float Applied=UGameplayStatics::ApplyPointDamage(Target,Damage,(End-Origin).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,ULightningDamage::StaticClass());
+    CrystalRecovery.Finish(Applied);
     for(const auto& K:Rewards.Kills)Batch.KillRewards.FindOrAdd(K.Key)=K.Value;
     if(Applied<=0)return false;
     ThunderHammerPommel::ConfirmElectricDamage(Shooter,Spell,Applied);

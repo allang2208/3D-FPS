@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
++++ b/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
+@@ -49,0 +50 @@
++            if(Key==TEXT("blade_material"))Part.Appearance=Part.Description;
+@@ -88,0 +90 @@
++            Stats->TryGetNumberField(TEXT("magic_attack_mult"),Part.Melee.MagicAttack);
+@@ -119,0 +122,4 @@
++            Stats->TryGetNumberField(TEXT("time_sand_echo_ratio"),Part.Melee.TimeSandEchoRatio);
++            Stats->TryGetNumberField(TEXT("time_sand_echo_delay"),Part.Melee.TimeSandEchoDelay);
++            Stats->TryGetNumberField(TEXT("hit_health_return_ratio"),Part.Melee.HitHealthReturnRatio);
++            Stats->TryGetNumberField(TEXT("hit_mana_return_ratio"),Part.Melee.HitManaReturnRatio);
+@@ -167 +173,3 @@
+-                (*Runes)[0].Description=TEXT("寒晶自带紫色侵蚀裂纹，近战附加智力与精神转化的魔法伤害；其他符文改造仍保留此效果。");
++                (*Runes)[0].Description=FString::Printf(TEXT("魔晶双手剑自带侵蚀：近战攻击附加智力×%g%%＋精神×%g%%的魔法伤害；其他符文改造仍保留此效果。"),
++                    100.*ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence")),
++                    100.*ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom")));

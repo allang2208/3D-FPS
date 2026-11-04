@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp
++++ b/Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp
+@@ -14,0 +15 @@
++#include "../Weapons/MeleeWeaponStats.h"
+@@ -199 +200,5 @@
+-    if(Key==TEXT("matk"))Value=std::floor(Value*(1.+EquipmentBonus(TEXT("magicAttackPercent"))+SetEffect(TEXT("magicAttack"))));
++    if(Key==TEXT("matk"))
++    {
++        const double WeaponMagicAttack=ColdSteelMelee::EquippedModifiers(this).MagicAttack;
++        Value=std::floor(Value*(1.+EquipmentBonus(TEXT("magicAttackPercent"))+SetEffect(TEXT("magicAttack")))*WeaponMagicAttack);
++    }

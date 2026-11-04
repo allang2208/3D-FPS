@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/UI/StatusEffectIconPainter.cpp
++++ b/Source/FPSGAME/UI/StatusEffectIconPainter.cpp
+@@ -24,0 +25 @@
++        {TEXT("criticalVulnerability"),{EGlyph::Reticle,4}},
+@@ -46 +47 @@
+-        {TEXT("camelFright"),{EGlyph::Fang,2}}, {TEXT("magicResistanceShred"),{EGlyph::Diamond,1}},
++        {TEXT("camelFright"),{EGlyph::Fang,2}}, {TEXT("weakness"),{EGlyph::Fang,3}}, {TEXT("magicResistanceShred"),{EGlyph::Diamond,1}},

@@ -55,6 +55,8 @@ void UFPSStatusReplicationComponent::TickComponent(float Delta,ELevelTick Type,F
         Next.BerserkDecayAt=C->BerserkDecayAt>0.?Quantize(C->BerserkDecayAt):0.;
         Next.WagerEndsAt=C->WagerEndsAt>0.?Quantize(C->WagerEndsAt):0.;
         Next.ComposureEndsAt=C->ComposureEndsAt>0.?Quantize(C->ComposureEndsAt):0.;
+        Next.WeaknessEndsAt=C->WeaknessEndsAt>0.?Quantize(C->WeaknessEndsAt):0.;
+        Next.CriticalVulnerabilityEndsAt=C->CriticalVulnerabilityEndsAt>0.?Quantize(C->CriticalVulnerabilityEndsAt):0.;
         Next.ElectrifiedBonus=C->ElectrifiedBonus;
         Next.ChillSlow=C->ChillSlow;
         Next.CorrosionDuration=C->CorrosionDuration;
@@ -92,6 +94,8 @@ void UFPSStatusReplicationComponent::TickComponent(float Delta,ELevelTick Type,F
         Next.BerserkLimit=C->BerserkLimit;
         Next.WagerStacks=C->WagerStacks;
         Next.ComposureStacks=C->ComposureStacks;
+        Next.WeaknessStacks=C->WeaknessCount();
+        Next.CriticalVulnerabilityStacks=C->CriticalVulnerabilityCount();
     }
     if(const auto* I=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())
     {Next.Infection=I->State;Next.InfectedAt=Next.Infection.bActive?Quantize(Now-Next.Infection.ElapsedSeconds):0.;Next.Infection.ElapsedSeconds=0.f;}
@@ -146,6 +150,8 @@ void UFPSStatusReplicationComponent::ApplyState(bool bPublishDisplay)
         C->BerserkDecayAt=State.BerserkDecayAt>0.?LocalNow+State.BerserkDecayAt-Now:0.;
         C->WagerEndsAt=State.WagerEndsAt>0.?LocalNow+State.WagerEndsAt-Now:0.;
         C->ComposureEndsAt=State.ComposureEndsAt>0.?LocalNow+State.ComposureEndsAt-Now:0.;
+        C->WeaknessEndsAt=State.WeaknessEndsAt>0.?LocalNow+State.WeaknessEndsAt-Now:0.;
+        C->CriticalVulnerabilityEndsAt=State.CriticalVulnerabilityEndsAt>0.?LocalNow+State.CriticalVulnerabilityEndsAt-Now:0.;
         C->ElectrifiedBonus=State.ElectrifiedBonus;
         C->ChillSlow=State.ChillSlow;
         C->CorrosionDuration=State.CorrosionDuration;
@@ -183,6 +189,8 @@ void UFPSStatusReplicationComponent::ApplyState(bool bPublishDisplay)
         C->BerserkLimit=State.BerserkLimit;
         C->WagerStacks=State.WagerStacks;
         C->ComposureStacks=State.ComposureStacks;
+        C->WeaknessStacks=State.WeaknessStacks;
+        C->CriticalVulnerabilityStacks=State.CriticalVulnerabilityStacks;
 
     }
     if(State.Infection.bActive||GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())

@@ -16,6 +16,14 @@ namespace
 {
 const FName PartTag(TEXT("FrostSwordModule"));
 const FString KeyPrefix=TEXT("FrostSwordVisual=");
+const TCHAR* CrystalSurface=TEXT("/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/M_FrostCrystalSword_SeamlessBronze.M_FrostCrystalSword_SeamlessBronze");
+const TCHAR* CrystalGlass=TEXT("/Game/Weapons/FrostCrystalSword20260915/HighEnergyGlass20261102/M_FrostCrystalSword_HighEnergyGlass.M_FrostCrystalSword_HighEnergyGlass");
+const TCHAR* CrystalGlassPreview=TEXT("/Game/Weapons/FrostCrystalSword20260915/HighEnergyGlass20261102/M_FrostCrystalSword_HighEnergyGlass_Preview.M_FrostCrystalSword_HighEnergyGlass_Preview");
+UMaterialInterface* PersistentMaterial(UMaterialInterface* Material)
+{
+    while(auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material))Material=Dynamic->Parent;
+    return Material;
+}
 TMap<FString,TSharedPtr<FJsonObject>>& ResolvedCatalogs()
 {
     static TMap<FString,TSharedPtr<FJsonObject>> Cache;
@@ -256,6 +264,13 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
                 for(const auto& Pair:(*Materials)->Values){FString Path;if(Pair.Value->TryGetString(Path))Add(Path);}
     };
     if(const auto Rune=Part(Item,ColdSteelFrostRunes::Slot(Item.Definition),Parts))Gather(Rune);
+    if(Item.Definition==TEXT("ue_frost_crystal_sword")&&Parts.FindRef(TEXT("blade_material"))==TEXT("high_energy_magic_crystal"))
+    {
+        Add(CrystalGlass);Add(CrystalGlassPreview);
+    }
+    if(Item.Definition==TEXT("ue_frost_crystal_sword")&&Parts.FindRef(TEXT("blade_1"))==TEXT("rift_piercer"))
+        for(const TCHAR* Name:{TEXT("M_RiftPiercer_Phantom"),TEXT("SM_RiftPiercer_Mote"),TEXT("M_RiftPiercer_Mote")})
+            Add(FString(TEXT("/Game/Weapons/FrostCrystalSword20260915/RiftPiercer20261102/"))+Name);
     for(const FString& Slot:ModuleSlots(Item))
         if(const auto Spec=Part(Item,*Slot,Parts))
         {
@@ -280,6 +295,37 @@ FString ColdSteelModularSword::AnimationFolder(const FColdSteelItem& Item)
     return Path.IsEmpty()?ColdSteelInventory::Text(Item,TEXT("animation_folder")):Path;
 }
 
+FSwordGripFit ColdSteelModularSword::GripClearance(const FColdSteelItem& Item)
+{
+    FSwordGripFit Result;
+    const auto Root=Catalog(Item);const auto Parts=Installed(Item,nullptr);
+    const auto Read=[&](const TSharedPtr<FJsonObject>& Spec)
+    {
+        const TSharedPtr<FJsonObject>* Fit=nullptr;
+        if(Spec&&Spec->TryGetObjectField(TEXT("hand_fit"),Fit))
+        {
+            for(int32 Side=0;Side<2;++Side)
+            {
+                const FString Prefix=Side==0?TEXT("right"):TEXT("left");
+                const TArray<TSharedPtr<FJsonValue>>* Values=nullptr;
+                if((*Fit)->TryGetArrayField(Prefix+TEXT("_offset_cm"),Values)&&Values->Num()==3)
+                    Result.Offset[Side]=FVector((*Values)[0]->AsNumber(),(*Values)[1]->AsNumber(),(*Values)[2]->AsNumber());
+                if((*Fit)->TryGetArrayField(Prefix+TEXT("_rotation"),Values)&&Values->Num()==4)
+                    Result.Rotation[Side]=FQuat((*Values)[0]->AsNumber(),(*Values)[1]->AsNumber(),(*Values)[2]->AsNumber(),(*Values)[3]->AsNumber()).GetNormalized();
+            }
+            const TSharedPtr<FJsonObject>* Digits=nullptr;
+            if((*Fit)->TryGetObjectField(TEXT("digits"),Digits))for(const auto& Pair:(*Digits)->Values)
+            {
+                const TArray<TSharedPtr<FJsonValue>>* Q=nullptr;
+                if(Pair.Value->TryGetArray(Q)&&Q->Num()==4)
+                    Result.Digits.Add(FName(*Pair.Key),FQuat((*Q)[0]->AsNumber(),(*Q)[1]->AsNumber(),(*Q)[2]->AsNumber(),(*Q)[3]->AsNumber()).GetNormalized());
+            }
+        }
+    };
+    Read(Root);Read(Part(Item,TEXT("grip"),Parts));Read(Part(Item,TEXT("guard"),Parts));
+    return Result;
+}
+
 FString ColdSteelModularSword::Key(const FColdSteelItem& Item,const FGunsmithParts* Draft,bool IncludeRune)
 {
     if(!Supports(Item))return {};
@@ -291,8 +337,10 @@ FString ColdSteelModularSword::Key(const FColdSteelItem& Item,const FGunsmithPar
             Result+=FString(TEXT("|"))+Slot+TEXT("=")+Parts.FindRef(Slot)+FString::Printf(TEXT(":%08x"),FCrc::StrCrc32(*Settings));
         }
     if(IncludeRune)Result+=TEXT("|rune=")+Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition));
-    if(Item.Definition==TEXT("ue_rune_sword"))
-        Result+=TEXT("|blade_material=")+Parts.FindRef(TEXT("blade_material"))+TEXT("|bladeFinishScope=root20261101");
+    if(ColdSteelInventory::IsTwoHandedSword(Item)||ColdSteelInventory::IsTwoHandedBlunt(Item))
+        Result+=TEXT("|blade_material=")+Parts.FindRef(TEXT("blade_material"))+TEXT("|bladeFinishScope=shared20261101");
+    if(Item.Definition==TEXT("ue_frost_crystal_sword")&&Parts.FindRef(TEXT("blade_material"))==TEXT("high_energy_magic_crystal"))
+        Result+=TEXT("|crystalGlass=20261102-v2");
     if(ColdSteelFrostRunes::IsWarhammer(Item.Definition))Result+=TEXT("|runePlacement=shaft-wrap-v2");
     if(Item.Definition==ColdSteelFrostRunes::Definition)Result+=TEXT("|innateErosion=spirit20260922");
     if(IncludeRune&&Item.Definition==TEXT("ue_rune_sword")&&Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune"))
@@ -317,10 +365,28 @@ void ColdSteelModularSword::Clear(UStaticMeshComponent* Blade)
 
 uint8 ColdSteelModularSword::BladeFinishMode(const FColdSteelItem& Item,const FGunsmithParts* Draft)
 {
-    double Mode=0.;
+    if(!ColdSteelInventory::IsTwoHandedSword(Item)&&!ColdSteelInventory::IsTwoHandedBlunt(Item))return 0;
+    const FString Selected=Installed(Item,Draft).FindRef(TEXT("blade_material"));
+    if(Item.Definition==TEXT("ue_frost_crystal_sword"))
+        return Selected==TEXT("red_magic_crystal")?8:Selected==TEXT("high_energy_magic_crystal")?9:0;
+    if(Item.Definition==TEXT("ue_highland_claymore"))
+    {
+        if(Selected==TEXT("blackthorn_steel"))return 10;
+        if(Selected==TEXT("whitehart_mithril"))return 11;
+    }
+    static const TArray<FString> Common={TEXT("folded_steel"),TEXT("dark_iron"),TEXT("mithril"),TEXT("damascus_steel"),TEXT("meteoric_iron")};
+    const int32 Index=Common.IndexOfByKey(Selected);if(Index!=INDEX_NONE)return uint8(Index+1);
     if(Item.Definition==TEXT("ue_rune_sword"))
-        if(const auto Finish=Part(Item,TEXT("blade_material"),Installed(Item,Draft)))Finish->TryGetNumberField(TEXT("mode"),Mode);
-    return uint8(FMath::Clamp(Mode,0.,5.));
+        return Selected==TEXT("frost_crystal")?6:Selected==TEXT("time_sand_gold")?7:0;
+    return 0;
+}
+
+bool ColdSteelModularSword::IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item)
+{
+    if(!Mesh)return false;
+    if(ColdSteelInventory::IsTwoHandedBlunt(Item))return Mesh->ComponentHasTag(TEXT("SwordSlot=hammer_heads"));
+    return ColdSteelInventory::IsTwoHandedSword(Item)&&(Mesh->ComponentHasTag(TEXT("SwordSlot=blade_1"))||
+        (Item.Definition==TEXT("ue_rune_sword")&&Mesh->ComponentHasTag(TEXT("SwordSlot=guard"))));
 }
 
 void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot)
@@ -330,11 +396,48 @@ void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mo
     {
         auto* Material=Mesh->GetMaterial(Index);float Existing=0.f;
         if(!Material||!Material->GetScalarParameterValue(FMaterialParameterInfo(TEXT("BladeFinishMode")),Existing))continue;
+        const auto* Persistent=PersistentMaterial(Material);
+        const FString Path=Persistent?Persistent->GetPathName():FString();
+        const bool IsGlass=Path==CrystalGlass||Path==CrystalGlassPreview;
+        const bool IsCrystal=Path==CrystalSurface||IsGlass||
+            Path==TEXT("/Game/Skills/Whirlwind20260920/ForegroundV3/M_FrostCrystalSword_SeamlessBronze_4b9af578_WhirlwindV3.M_FrostCrystalSword_SeamlessBronze_4b9af578_WhirlwindV3");
+        if(IsCrystal)
+        {
+            const TCHAR* Desired=Mode==9?CrystalGlass:CrystalSurface;
+            if((Mode==9&&Path!=CrystalGlass)||(Mode!=9&&IsGlass))
+                if(auto* Surface=LoadObject<UMaterialInterface>(nullptr,Desired))
+                {
+                    auto* Replacement=UMaterialInstanceDynamic::Create(Surface,Mesh);
+                    Replacement->CopyMaterialUniformParameters(Material);
+                    Mesh->SetMaterial(Index,Replacement);Material=Replacement;
+                }
+            // Translucent crystal uses the authored non-Nanite fallback mesh.
+            if(Mesh->bDisallowNanite!=(Mode==9))
+            {Mesh->bDisallowNanite=Mode==9;Mesh->MarkRenderStateDirty();}
+        }
         auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material);
         if(!Dynamic){Dynamic=UMaterialInstanceDynamic::Create(Material,Mesh);Mesh->SetMaterial(Index,Dynamic);}
         Dynamic->SetScalarParameterValue(TEXT("BladeFinishMode"),float(Mode));
         Dynamic->SetScalarParameterValue(TEXT("BladeFinishGuardRoot"),GuardRoot?1.f:0.f);
     }
+}
+
+bool ColdSteelModularSword::ApplyGlassPreview(UStaticMeshComponent* Blade)
+{
+    if(!Blade)return false;
+    for(auto* Mesh:Components(Blade))for(int32 Index=0;Index<Mesh->GetNumMaterials();++Index)
+    {
+        auto* Source=Mesh->GetMaterial(Index);
+        const auto* Persistent=PersistentMaterial(Source);
+        if(!Persistent||Persistent->GetPathName()!=CrystalGlass)continue;
+        // Icon studios preload this asset; the workbench also supports direct
+        // assembly initialization, like its existing module material loading.
+        auto* Preview=LoadObject<UMaterialInterface>(nullptr,CrystalGlassPreview);
+        if(!Preview)return false;
+        auto* Replacement=UMaterialInstanceDynamic::Create(Preview,Mesh);
+        Replacement->CopyMaterialUniformParameters(Source);Mesh->SetMaterial(Index,Replacement);
+    }
+    return true;
 }
 
 bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelItem& Item,const FGunsmithParts* Draft,bool IncludeRune)
@@ -450,17 +553,12 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
         for(auto* Module:Modules)if(Module->ComponentHasTag(TEXT("SwordSlot=guard")))
             ColdSteelMeleeRune::Apply(Module,IncludeRune&&(Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune")||Parts.FindRef(TEXT("blade_2"))==TEXT("silver_glow_rune"))?
                 Parts.FindRef(TEXT("blade_2")):FString(),Item.Definition);
-        const uint8 FinishMode=BladeFinishMode(Item,Draft);
-        // The native blade root lives in the guard mesh below the 12.5 cm cut.
-        // Apply after both rune selections; the guard UV mask limits the finish
-        // to that carrier, leaving the emblem/wings and Meshy gems independent.
-        for(auto* Module:Modules)
-        {
-            const bool GuardRoot=Module->ComponentHasTag(TEXT("SwordSlot=guard"));
-            if(Module!=Blade&&!GuardRoot)continue;
-            ApplyBladeFinish(Module,FinishMode,GuardRoot);
-        }
     }
+    // Rune selection happens first. Only authored blade/head carriers receive
+    // the finish; the rune sword additionally retains its UV-isolated root.
+    const uint8 FinishMode=BladeFinishMode(Item,Draft);
+    for(auto* Module:Components(Blade))if(IsBladeFinishCarrier(Module,Item))
+        ApplyBladeFinish(Module,FinishMode,Item.Definition==TEXT("ue_rune_sword")&&Module->ComponentHasTag(TEXT("SwordSlot=guard")));
     bool TraceFromAnimation=false;Catalog(Item)->TryGetBoolField(TEXT("trace_from_animation"),TraceFromAnimation);
     const FName TraceTag(TEXT("SwordTraceFromAnimation"));
     if(TraceFromAnimation)Blade->ComponentTags.AddUnique(TraceTag);else Blade->ComponentTags.Remove(TraceTag);

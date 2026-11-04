@@ -252,6 +252,7 @@ void AFPSIceSpikeVolley::Launch()
     const bool bUsePreview=bPreviewLaunchLocked;
     const FVector AimPoint=bUsePreview?PreviewAimPoint:FPSMagicPreview::AimPoint(Shooter.Get(),this);
     SetAimPreviewActive(false);
+    StarMarrow::CaptureSpell(Shooter.Get(),Cast.StarMarrow);
     bFlying=true;FlightAge=0;
     for(int32 I=0;I<Flights.Num();++I)
     {

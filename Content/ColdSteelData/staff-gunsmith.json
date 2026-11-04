@@ -24,7 +24,7 @@
       "key": "head_crystal",
       "name": "杖头",
       "default": "白水晶杖头",
-      "description": "恢复本槽原装部件。",
+      "description": "保留原装晶体杖头。",
       "factory_mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_false.SM_Staff_head_crystal_false",
       "options": [
         {
@@ -37,7 +37,9 @@
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_frozen_crystal.SM_Staff_head_crystal_frozen_crystal",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_frozen_crystal.T_frozen_crystal",
-          "special_effects": []
+          "special_effects": [
+            "杖头专精｜赋予冰系专精，可激活匹配的杖冠。"
+          ]
         },
         {
           "id": "magma_core",
@@ -49,7 +51,9 @@
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_magma_core.SM_Staff_head_crystal_magma_core",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_magma_core.T_magma_core",
-          "special_effects": []
+          "special_effects": [
+            "杖头专精｜赋予火系专精，可激活匹配的杖冠。"
+          ]
         },
         {
           "id": "jade_spirit_crystal",
@@ -63,6 +67,7 @@
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_jade_spirit_crystal.SM_Staff_head_crystal_jade_spirit_crystal",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_jade_spirit_crystal.T_jade_spirit_crystal",
           "special_effects": [
+            "杖头专精｜赋予光系专精，可激活匹配的杖冠。",
             "续疗｜圣光治疗友方后附加1层续疗，并增加3秒持续时间；每层每秒恢复1%最大生命。"
           ]
         },
@@ -76,7 +81,9 @@
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_storm_core.SM_Staff_head_crystal_storm_core",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_storm_core.T_storm_core",
-          "special_effects": []
+          "special_effects": [
+            "杖头专精｜赋予电系专精，可激活匹配的杖冠。"
+          ]
         }
       ]
     },
@@ -84,7 +91,7 @@
       "key": "crown",
       "name": "杖冠",
       "default": "无杖冠",
-      "description": "恢复本槽原装部件。",
+      "description": "不加装杖冠。",
       "factory_mesh": "",
       "options": [
         {
@@ -149,7 +156,7 @@
       "key": "shaft_rune",
       "name": "杖身",
       "default": "无符文",
-      "description": "恢复本槽原装部件。",
+      "description": "不添加杖身符文。",
       "factory_mesh": "",
       "options": [
         {
@@ -194,7 +201,7 @@
       "key": "grip_lining",
       "name": "握柄",
       "default": "原木握柄",
-      "description": "恢复本槽原装部件。",
+      "description": "保留原装握柄。",
       "factory_mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_grip_lining_false.SM_Staff_grip_lining_false",
       "options": [
         {
@@ -235,7 +242,7 @@
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_grip_lining_sandalwood_grip.SM_Staff_grip_lining_sandalwood_grip",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_sandalwood_grip.T_sandalwood_grip",
           "special_effects": [
-            "余韵加速｜施法后获得1层移动加速，并增加5秒持续时间。"
+            "余韵加速｜施法后获得1层移动加速，每层移动速度+10%，最多10层；每次增加5秒持续时间，到期后全部层数消失。"
           ]
         }
       ]
@@ -244,7 +251,7 @@
       "key": "tail_charm",
       "name": "尾坠",
       "default": "无尾坠",
-      "description": "恢复本槽原装部件。",
+      "description": "不加装尾坠。",
       "factory_mesh": "",
       "options": [
         {
@@ -285,7 +292,7 @@
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_tail_charm_purification_vine.SM_Staff_tail_charm_purification_vine",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_purification_vine.T_purification_vine",
           "special_effects": [
-            "净化加速｜光系法术治疗友方时赋予2层移动加速；每层增加5秒持续时间。"
+            "净化加速｜光系法术治疗友方时，赋予目标2层移动加速，每层移动速度+10%，最多10层；每次增加10秒持续时间，到期后全部层数消失。"
           ]
         },
         {
@@ -309,7 +316,7 @@
       "key": "mana_line",
       "name": "导魔",
       "default": "无导魔线",
-      "description": "恢复本槽原装部件。",
+      "description": "保留原装导魔结构。",
       "factory_mesh": "",
       "options": [
         {

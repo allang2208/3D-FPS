@@ -1,3 +1,4 @@
+#include "../Weapons/MagicCrystalMana.h"
 #include "../Dungeon/DungeonLayout.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "ColdSteelStatusModel.h"
@@ -255,6 +256,9 @@ void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External)
     if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&Migrated.FoodClockId==Current.FoodClockId)
         Migrated.FoodClockDay=FMath::Max(Migrated.FoodClockDay,Current.FoodClockDay);
     ColdSteelItemRarity::Normalize(Migrated.Items);
+    Migrated.MergeStarMarrowSpend(Current.StarMarrowManaSpent);
+    if(Migrated.MagicCrystalManaRestored<Current.MagicCrystalManaRestored)
+        MagicCrystalMana::Merge(Migrated,Current.MagicCrystalManaRestored,float(ResourceMaximum(Migrated,true)));
     Publish(Migrated);
 }
 bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
@@ -1384,4 +1388,43 @@ void UColdSteelStatusModel::RefreshDrops()
     const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
     // Harvest drops stream independently with a world GUID, range and spawn budget.
     for(const auto& I:Current.Items)if(I.Place==2&&!I.HarvestWorldId.IsValid()&&I.Map==Map&&!Existing.Contains(I.InstanceId)){FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;auto* A=GetWorld()->SpawnActor<AColdSteelPickup>(I.Position,I.WorldRotation,Spawn);if(A)A->InitializeItem(I);}
+}
+
+void UColdSteelStatusModel::ReduceMagicCooldowns(float Seconds,bool bNotifyReduction)
+{
+    if(Seconds<=0.f)return;
+    auto Reduce=[&](float& Remaining,FName Skill)
+    {
+        const float Before=Remaining;
+        Remaining=FMath::Max(0.f,Remaining-Seconds);
+        if(bNotifyReduction&&Remaining<Before)++CooldownReductionRevisions.FindOrAdd(Skill);
+    };
+    for(auto& Pair:Current.ElectricCooldowns)
+        if(!Current.ElectricReservedMana.Contains(Pair.Key))Reduce(Pair.Value,Pair.Key);
+    // Reserved casts have not started their clock. Only running magic clocks
+    // emit feedback; the G weapon clock is added only by the melee-hit entry.
+    if(!Current.bFireballReserved)Reduce(Current.FireballCooldown,TEXT("fireball"));
+    if(!Current.bIceSpikeReserved)Reduce(Current.IceSpikeCooldown,TEXT("iceSpike"));
+    if(!Current.bIceWallReserved)Reduce(Current.IceWallCooldown,TEXT("iceWall"));
+    if(!Current.bBlizzardReserved)Reduce(Current.BlizzardCooldown,TEXT("blizzard"));
+    Reduce(Current.LightningCooldown,TEXT("lightningStrike"));
+    Reduce(Current.HolyLightCooldown,TEXT("holyLight"));
+    Reduce(Current.MeteorCooldown,TEXT("meteor"));
+    Reduce(Current.FlameArmorCooldown,TEXT("flameArmor"));
+    if(!Current.bDragonBreathReserved)Reduce(Current.DragonBreathCooldown,TEXT("dragonBreath"));
+}
+
+void UColdSteelStatusModel::ReduceRuneSwordHitCooldowns(float Seconds)
+{
+    if(Seconds<=0.f||!CurrentPawn.IsValid())return;
+    // Remote melee rewards are confirmed once by the existing attack serial
+    // gates on the server, then delivered to the owning player's HUD.
+    if(CurrentPawn->GetNetMode()==NM_Client)return;
+    ReduceMagicCooldowns(Seconds);
+    if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())
+    {
+        Blades->ReduceCooldown(Seconds,true);
+        if(!CurrentPawn->IsLocallyControlled())
+            Blades->ClientMeleeCooldownReward(Seconds,Blades->CooldownRemaining());
+    }
 }

@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/UI/ColdSteelExperienceFeed.cpp
++++ b/Source/FPSGAME/UI/ColdSteelExperienceFeed.cpp
+@@ -4,0 +5,2 @@
++#include "ColdSteelStarMarrow.h"
++#include "../Weapons/StarMarrowComponent.h"
+@@ -156,2 +158,5 @@
+-    const float CueOffset=AlpineVisible?ColdSteelBowResonance::AlpineExperienceOffset:XpFeedBaseOffset;
+-    const float CuePixelToLocal=1.f/Scale;
++    const auto* Core=Pawn?Pawn->FindComponentByClass<UStarMarrowComponent>():nullptr;
++    const bool StarMarrowVisible=Core&&Core->HUDVisible();
++    const float CueOffset=StarMarrowVisible?ColdSteelStarMarrow::ExperienceOffset:
++        AlpineVisible?ColdSteelBowResonance::AlpineExperienceOffset:XpFeedBaseOffset;
++    const float CuePixelToLocal=StarMarrowVisible?ColdSteelStarMarrow::LayoutScale(1.f/Scale,ViewHeight*.5f):1.f/Scale;

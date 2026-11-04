@@ -21,6 +21,7 @@ struct WeaponHit
     FWeaponDamageParts Incoming,Mitigated;
     double PhysicalPenetration=0,MagicPenetration=0;
     bool bResolved=false;
+    bool bDamageAlreadyMitigated=false;
     bool bMelee=false;
 };
 extern thread_local WeaponHit* ActiveWeaponHit;

@@ -1,4 +1,5 @@
 #include "RuneSwordComponent.h"
+#include "StarMarrowChargeMotion.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "SprintCameraMotion.h"
@@ -169,6 +170,7 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     const bool bSameAnimationFolder=NewId.IsEmpty()||EquippedAnimationFolder==NewAnimationFolder;
     if(NewId==InstanceId&&NewMeshPath==EquippedMeshPath&&bSameAnimationFolder){RefreshModularSword(NewId.IsEmpty()?nullptr:Item);ColdSteelMeleeRune::Apply(Viewmodel,NewId.IsEmpty()||Modular?FString():ColdSteelMeleeRune::Selected(*Item),Item?Item->Definition:FString());return;}
     CancelAction();InstanceId=NewId;EquippedMeshPath=NewMeshPath;NextSlash=0;
+    if(StarMarrowMotionLoad)StarMarrowMotionLoad->CancelHandle();StarMarrowMotionLoad.Reset();
     Viewmodel->SetVisibility(false,true);
     if(NewId.IsEmpty())
     {
@@ -200,6 +202,7 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         Animations.Add(FName(Clip),LoadClip(Clip,Folder+TEXT("/A_RuneSword_")+Clip+(FCString::Strcmp(Clip,TEXT("Whirlwind"))==0?TEXT("V5"):TEXT(""))));
     for(const TCHAR* Clip:{TEXT("SprintEnter"),TEXT("SprintLoop"),TEXT("SprintExit"),TEXT("SprintOverhead")})
         Animations.Add(FName(Clip),LoadClip(Clip,Folder+TEXT("/TacticalSprint20260921/A_RuneSword_")+Clip));
+    LoadStarMarrowMotion(Item->Definition,Folder);
     if(!HasTacticalSprintAnimations())
         UE_LOG(LogTemp,Warning,TEXT("Sword tactical sprint clips missing in %s; using the previous locomotion pose."),*Folder);
     SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("swing_sound")));
@@ -246,6 +249,7 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
 
 void URuneSwordComponent::RefreshModularSword(const FColdSteelItem* Item)
 {
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripClearance(Item);
     if(!Item||!ColdSteelModularSword::Supports(*Item))
     {
         if(ModularSword){ColdSteelModularSword::Clear(ModularSword);Character->RemoveInstanceComponent(ModularSword);ModularSword->DestroyComponent();ModularSword=nullptr;}
@@ -289,7 +293,7 @@ void URuneSwordComponent::SetClip(FName Name,bool bLoop)
     const bool bLocomotionTarget=Name==TEXT("Idle")||Name==TEXT("Walk");
     const bool bReadySource=CurrentClip==TEXT("Idle")||CurrentClip==TEXT("Walk")||CurrentClip==TEXT("Inspect");
     const bool bWindupTarget=Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust")||
-        Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("Uppercut")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard");
+        Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("Uppercut")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard")||Name==TEXT("StarMarrowCharge");
     const bool bChargeWindup=CurrentClip==TEXT("HeavyCharge")&&
         (Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust"));
     // Whirlwind owns its entry clock. Heavy release starts dealing damage at
@@ -456,6 +460,13 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     const int32 ComboStage=Clip==TEXT("Slash2")?2:Clip==TEXT("Thrust")?3:1;
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* Item=Profile?Profile->Equipped():nullptr;
+    bRiftPiercerSwing=!Heavy&&Item&&Item->Definition==TEXT("ue_frost_crystal_sword")&&
+        (Clip==TEXT("Slash1")||Clip==TEXT("Slash2")||Clip==TEXT("Thrust"));
+    if(bRiftPiercerSwing)
+    {
+        const auto* Gunsmith=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+        bRiftPiercerSwing=Gunsmith&&Gunsmith->Installed(*Item).FindRef(TEXT("blade_1"))==TEXT("rift_piercer");
+    }
     const bool OverheadFinisher=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesOverheadFinisher(*Item);
     const bool RisingDragon=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesRisingDragonFinisher(*Item);
     if(OverheadFinisher)Clip=TEXT("Overhead");
@@ -852,6 +863,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     }
     if(GetGuardCameraMotion(Location,Rotation))return;
     if(!CanUse())return;
+    if(IsStarMarrowChargeMotionPlaying()){StarMarrowChargeMotion::Camera(Elapsed,Location,Rotation);return;}
     if(bUppercut||IsRisingDragonFinisher())
     {
         RuneSwordUppercutMotion::Camera(Elapsed,bLungeStarted,Location,Rotation,bUppercut);
@@ -1410,6 +1422,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             // Carry the strike rift with the actual step, including collision stops.
             RiftOrigin.AddToTranslation(LungeMoved);TickRift(0.f);
         }
+        const bool ReleaseRiftPiercerThisFrame=!bSwingCuePlayed&&Next>=ContactStart;
         if(!bSwingCuePlayed && Next>=ContactStart)
         {
             bSwingCuePlayed=true;
@@ -1499,6 +1512,9 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
                 ApplySwingHits(LowHits,EndFrame.GetUnitAxis(EAxis::X));
             }
         }
+        // Resolve the real blade first, then the instant extension in the same frame.
+        // Its launch must not lift a nearby victim out of the original thrust's contact.
+        if(ReleaseRiftPiercerThisFrame)ReleaseRiftPiercer(AimNow);
         if(bHeavyTrainingPending&&Next>=ContactEnd)FinishHeavyTraining();
         SamplePose(Next);PreviousAimFrame=AimNow;
         Elapsed=Next;
@@ -1578,7 +1594,9 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     }
     else if(bEquipping)
     {
-        Elapsed=FMath::Min(End,Elapsed+Delta);SamplePose(Elapsed);
+        Elapsed=FMath::Min(End,Elapsed+Delta);
+        if(IsStarMarrowChargeMotionPlaying())Character->RefreshQuickCombatCamera();
+        SamplePose(Elapsed);
         if(Elapsed>=End){const bool Queued=bQueuedAttack;bEquipping=bQueuedAttack=false;SetClip(TEXT("Idle"),true);if(Queued)BeginAttack();}
     }
     else if(!TickTacticalSprintPose(Delta))
@@ -1596,6 +1614,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
 
 void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if(StarMarrowMotionLoad)StarMarrowMotionLoad->CancelHandle();StarMarrowMotionLoad.Reset();
     DestroyAzureDragon();
     FinishHeavyTraining();
     bUppercut=false;

@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -0,0 +1 @@
++#include "../Weapons/MagicCrystalMana.h"
+@@ -334,0 +336,3 @@
++    Migrated.MergeStarMarrowSpend(Current.StarMarrowManaSpent);
++    if(Migrated.MagicCrystalManaRestored<Current.MagicCrystalManaRestored)
++        MagicCrystalMana::Merge(Migrated,Current.MagicCrystalManaRestored,float(ResourceMaximum(Migrated,true)));

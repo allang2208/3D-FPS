@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Weapons/StarMarrowSpell.h"
 #include "IceSpikeTypes.generated.h"
 
 struct FIceSpikeTuning
@@ -17,6 +18,8 @@ USTRUCT()
 struct FIceSpikeCast
 {
     GENERATED_BODY()
+    FStarMarrowSpell StarMarrow;
+    UPROPERTY() bool bRefreshChillDuration=false;
     UPROPERTY() double DamageBase=0; UPROPERTY() double MagicMultiplier=0; UPROPERTY() double MagicContribution=0;
     UPROPERTY() float Damage=0; UPROPERTY() float CriticalChance=0; UPROPERTY() float CriticalDamageBonus=0; UPROPERTY() float MagicPenetration=0; UPROPERTY() float MagicDamageBonus=0;
     UPROPERTY() float ManaCost=30; UPROPERTY() float Cooldown=12; UPROPERTY() float HoverDuration=30; UPROPERTY() float Speed=2400; UPROPERTY() float Range=1200; UPROPERTY() float CastSpeed=1;

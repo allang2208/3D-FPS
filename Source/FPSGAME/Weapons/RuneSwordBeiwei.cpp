@@ -13,10 +13,12 @@ void URuneSwordComponent::RefreshBeiwei(const FColdSteelItem* Item)
     const bool Enabled=Item&&Item->Definition==ColdSteelFrostRunes::Zhanmadao&&
         ColdSteelMeleeRune::Selected(*Item)==ColdSteelFrostRunes::Beiwei;
     const bool Zhufeng=Item&&ColdSteelModularSword::UsesZhufengWhirlwind(*Item);
-    const bool HasTrail=Enabled||Zhufeng||(Item&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item));
+    const bool TimeSand=Item&&ColdSteelModularSword::BladeFinishMode(*Item)==7;
+    const bool HasTrail=Enabled||Zhufeng||TimeSand||(Item&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item));
     if(!HasTrail||Item->InstanceId!=InstanceId)if(BeiweiTrail)BeiweiTrail->Clear();
     BeiweiInstance=Enabled?Item->InstanceId:FString();
     ZhufengTrailInstance=Zhufeng?Item->InstanceId:FString();
+    TimeSandTrailInstance=TimeSand?Item->InstanceId:FString();
     if(HasTrail&&!BeiweiTrail&&GetNetMode()!=NM_DedicatedServer&&Character.IsValid()&&Character->IsLocallyControlled())
     {
         BeiweiTrail=NewObject<UBeiweiSwordTrailComponent>(GetOwner());GetOwner()->AddInstanceComponent(BeiweiTrail);
@@ -25,6 +27,12 @@ void URuneSwordComponent::RefreshBeiwei(const FColdSteelItem* Item)
 }
 bool URuneSwordComponent::IsBeiweiMartialReleasing() const
 {
+    // Reuse the gold ribbon and its replicated active flag for this material.
+    if(!TimeSandTrailInstance.IsEmpty()&&TimeSandTrailInstance==InstanceId&&CanPresent()&&CanUse())
+    {
+        if(bWhirlwind)return Elapsed>=WhirlwindTuning.ReadySeconds&&Elapsed<=WhirlwindTuning.ReadySeconds+WhirlwindTuning.SpinSeconds;
+        return (bAttacking||bUppercut)&&!bPommelAttack&&!bQuickCombatStrike&&Elapsed>=ContactStart-.04f&&Elapsed<=ContactEnd+.06f;
+    }
     if(BeiweiInstance.IsEmpty()||BeiweiInstance!=InstanceId||!CanPresent()||!CanUse())return false;
     if(bChixiaoHeavy&&bAttacking)return RuneSwordChixiaoRhythm::IsContact(Elapsed);
     if(bWhirlwind)return Elapsed>=WhirlwindTuning.ReadySeconds&&Elapsed<=WhirlwindTuning.ReadySeconds+WhirlwindTuning.SpinSeconds;

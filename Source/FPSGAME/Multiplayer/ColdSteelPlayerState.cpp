@@ -1,4 +1,5 @@
 #include "ColdSteelPlayerState.h"
+#include "../Weapons/StarMarrowComponent.h"
 #include "../Monsters/HeQueMonster.h"
 #include "../UI/ColdSteelProfileRecovery.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -46,6 +47,7 @@
 #include "../Weapons/Staff/StaffQuickCombatMotion.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/Spellbook/SpellbookFocusMana.h"
+#include "../Weapons/MagicCrystalMana.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/WeaponDamageFalloff.h"
@@ -310,6 +312,10 @@ void AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProf
         if(!RebaseSuper90Upload(Adopted,Prev)){SendSuper90Ammo(true);return;}
         // A profile upload may have been captured before the focus-break RPC.
         ColdSteelProfileRecovery::NetworkSpells(Adopted,Prev);
+        if(Adopted.MagicCrystalManaRestored<Prev.MagicCrystalManaRestored)
+            MagicCrystalMana::Merge(Adopted,Prev.MagicCrystalManaRestored,float(UColdSteelStatusModel::ResourceMaximum(Adopted,true)));
+        Adopted.StarMarrowManaSpent=FMath::Clamp(Adopted.StarMarrowManaSpent,0.,Prev.StarMarrowManaSpent);
+        Adopted.MergeStarMarrowSpend(Prev.StarMarrowManaSpent);
         SpellbookFocusMana::Merge(Adopted,Prev.SpellbookFocusManaLoss);
         // Ongoing survival is server-owned; inventory uploads must not refill or rewind it.
         Adopted.Survival=Prev.Survival;
@@ -526,7 +532,9 @@ void AColdSteelPlayerState::OnRep_MirrorBlob()
         SaveToBlob(ScratchSave, CurrentBlob);
         bLocalClean = (CurrentBlob == LastSentBlob);
     }
-    if (bLocalClean&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
+    Save->Profile.MergeStarMarrowSpend(Model->Snapshot().StarMarrowManaSpent);
+    MagicCrystalMana::Merge(Save->Profile,Model->Snapshot().MagicCrystalManaRestored,Model->Derived(TEXT("maxMp")));
+    if (bLocalClean&&ReceivingMirrorCastSequence==LocalCastSequence&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
     {
         PreserveSuper90ClientAmmo(Save->Profile);
         Model->AdoptNetMirror(Save->Profile);
@@ -534,6 +542,8 @@ void AColdSteelPlayerState::OnRep_MirrorBlob()
     else
     {
         FColdSteelProfile Merged = Model->Snapshot();
+        Merged.MergeStarMarrowSpend(Save->Profile.StarMarrowManaSpent);
+        MagicCrystalMana::Merge(Merged,Save->Profile.MagicCrystalManaRestored,Model->Derived(TEXT("maxMp")));
         SpellbookFocusMana::Merge(Merged,Save->Profile.SpellbookFocusManaLoss);
         Merged.Survival=Save->Profile.Survival;
         Merged.Level = Save->Profile.Level;
@@ -1002,7 +1012,7 @@ struct FNetCastSkill { FName Id; };
 const FNetCastSkill NetCastSkills[] = {
     { TEXT("fireball") }, { TEXT("iceSpike") }, { TEXT("iceWall") }, { TEXT("blizzard") },
     { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") }, { TEXT("dragonBreath") },
-    { TEXT("stormDomain") }, { TEXT("thunderLance") },
+    { TEXT("stormDomain") }, { TEXT("thunderLance") }, { TEXT("starMarrowCharge") },
 };
 bool IsNetCastSkill(FName Id)
 {
@@ -1026,6 +1036,11 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
     const bool Dragon=Request.SkillId==TEXT("dragonBreath");
     const bool Identified=Dragon||Request.SkillId==TEXT("stormDomain");
     if (!IsNetCastSkill(Request.SkillId)||Request.Phase>(Dragon?4:3)) { Reject(2); return; }
+    if(Request.SkillId==TEXT("starMarrowCharge"))
+    {
+        const auto* Weapon=ShadowModel->Equipped();
+        if(Request.Phase!=0||Request.WeaponInstance.IsEmpty()||!Weapon||Request.WeaponInstance!=Weapon->InstanceId){Reject(2);return;}
+    }
     if(Identified&&(!Request.CastId||(Request.Phase==0&&Request.CastId!=Request.Sequence))){Reject(2);return;}
     const double Now = GetWorld()->GetTimeSeconds();
 
@@ -1069,6 +1084,14 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
     // Restraint blocks both prepare and release, while cancellation/refunds
     // above remain available. Firearm reports use their separate hit path.
     if(UBoundCongregateCaptureComponent::IsCaptured(Pawn)){Reject(8);return;}
+
+    if(Request.SkillId==TEXT("starMarrowCharge"))
+    {
+        auto* Core=Pawn->FindComponentByClass<UStarMarrowComponent>();
+        if(!PendingCastSkill.IsNone()||!Core||!Core->ActivateCharge(ShadowModel)){Reject(6);return;}
+        ClientStarMarrowSpend(Pawn,ShadowModel->Snapshot().StarMarrowManaSpent);
+        ShadowMirrorTimer=3.f;Accept();return;
+    }
 
     // ── Phase 1 释放：按技能分派到组件服务端入口（影子档案校验在里面）。 ──
     if (Request.Phase == 1)
@@ -1213,11 +1236,18 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
     Accept();
 }
 
+void AColdSteelPlayerState::ClientStarMarrowSpend_Implementation(AFPSGAMECharacter* Character,double Total)
+{
+    if(!Character||Character!=GetPawn())return;
+    if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->ReconcileStarMarrowSpend(Total);
+}
+
 void AColdSteelPlayerState::ClientCastResult_Implementation(FName SkillId, uint8 Phase, uint8 Code,APawn* SourcePawn,uint32 Sequence,uint32 CastId)
 {
     APlayerController* PC = Cast<APlayerController>(GetOwner());
     AFPSGAMECharacter* Pawn = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
     if (!Pawn||Pawn!=SourcePawn) return;
+    if(SkillId==TEXT("starMarrowCharge")){if(auto* Core=Pawn->FindComponentByClass<UStarMarrowComponent>())Core->NetCastResult(Sequence,Code);return;}
     if(SkillId==TEXT("dragonBreath"))
     {
         if(auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->NetDragonCastResult(Phase,Code,CastId);

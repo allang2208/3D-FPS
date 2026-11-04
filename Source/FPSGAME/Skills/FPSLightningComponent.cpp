@@ -194,6 +194,7 @@ void UFPSLightningComponent::ReleaseAtContact()
 // 链式结算主体：本地释放与服务端权威释放共用（M 可为影子档案，Start 可来自服务端视角位）。
 void UFPSLightningComponent::RunChain(APawn* Player,UColdSteelStatusModel* M,AActor* First,const FVector& Start,FLightningRewards& Rewards)
 {
+    StarMarrow::CaptureSpell(Player,CastSnapshot.StarMarrow);
     TArray<TWeakObjectPtr<AActor>> Chain;Chain.Add(First);AActor* Cursor=First;
     while(!UWardBreakableGlass::IntactPane(First) && Chain.Num()<CastSnapshot.Count)
     {

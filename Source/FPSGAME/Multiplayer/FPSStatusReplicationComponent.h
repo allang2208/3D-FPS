@@ -62,6 +62,8 @@ struct FFPSStatusNetState
     UPROPERTY() double BerserkDecayAt=0.;
     UPROPERTY() double WagerEndsAt=0.;
     UPROPERTY() double ComposureEndsAt=0.;
+    UPROPERTY() double WeaknessEndsAt=0.;
+    UPROPERTY() double CriticalVulnerabilityEndsAt=0.;
     UPROPERTY() float ElectrifiedBonus=0.f;
     UPROPERTY() float ChillSlow=0.f;
     UPROPERTY() float CorrosionDuration=0.f;
@@ -99,6 +101,8 @@ struct FFPSStatusNetState
     UPROPERTY() int32 BerserkLimit=0;
     UPROPERTY() int32 WagerStacks=0;
     UPROPERTY() int32 ComposureStacks=0;
+    UPROPERTY() int32 WeaknessStacks=0;
+    UPROPERTY() int32 CriticalVulnerabilityStacks=0;
 };
 
 /** One small relevant-actor replica; existing components remain gameplay owners. */

@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Weapons/StarMarrowSpell.h"
 #include "LightningTypes.generated.h"
 
 // World-122 lightning: keep the original formula; 1 source unit = 1.5 cm.
@@ -18,6 +19,7 @@ USTRUCT()
 struct FLightningCast
 {
     GENERATED_BODY()
+    FStarMarrowSpell StarMarrow;
     UPROPERTY() float RuneElectrifyChance=0.f;
     UPROPERTY() int32 OverloadRetainedStacks=0;
     UPROPERTY() bool bEchoRune=false;

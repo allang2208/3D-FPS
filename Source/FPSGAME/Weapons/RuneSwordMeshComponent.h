@@ -2,6 +2,7 @@
 
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "WeaponGripComponentLayer.h"
+#include "SwordGripClearance.h"
 #include "RuneSwordMeshComponent.generated.h"
 
 class UWeaponGripProfile;
@@ -13,6 +14,7 @@ class FPSGAME_API URuneSwordMeshComponent : public UFPSCastingMeshComponent
 public:
     UWeaponGripProfile* GetGripProfile() const {return GripProfile;}
     void SetGripProfile(UWeaponGripProfile* Profile) {GripProfile=Profile;}
+    void SetGripClearance(const FColdSteelItem* Item);
     void CaptureWhirlwindEntry();
     void SetWhirlwindEntryTime(float Seconds);
     void ClearWhirlwindEntry();
@@ -38,4 +40,7 @@ private:
     float EntryDuration=EntrySeconds;
     UPROPERTY(Transient) TObjectPtr<class UWeaponGripProfile> GripProfile;
     FWeaponGripComponentLayer GripLayer;
+    FSwordGripClearance GripClearance;
+    FString GripFitDefinition,GripFitData;
+    bool bRefreshGripIdle=false;
 };

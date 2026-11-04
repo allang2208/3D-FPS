@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -11,0 +12 @@
++#include "../Weapons/TimeSandEchoComponent.h"
+@@ -261 +262 @@
+-        const float CriticalChance=Shot.CriticalChance;
++        const float CriticalChance=Shot.CriticalChance+(TargetStatus?TargetStatus->CriticalVulnerabilityBonusPercent():0.f);
+@@ -462,0 +464,10 @@
++    if(bAliveBefore&&Applied>0.f&&First.Critical&&(Shot.bBlackthornCriticalWeakness||Shot.bWhitehartCriticalVulnerability)
++        &&Shot.bMelee&&!Shot.bRicochet&&Shot.ItemDefinition==TEXT("ue_highland_claymore")
++        &&Shooter&&Shooter->HasAuthority()&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
++        &&!Combat->IsDead()&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++    {
++        // Apply after this hit's critical roll and damage; new layers benefit subsequent attacks.
++        auto* Status=UCombatStatusFormula::GetOrAdd(Victim);
++        if(Shot.bBlackthornCriticalWeakness)Status->AddWeakness();
++        if(Shot.bWhitehartCriticalVulnerability)Status->AddCriticalVulnerability();
++    }
+@@ -558,0 +570,6 @@
++    if(bAliveBefore&&Applied>0.f&&Shot.TimeSandEchoRatio>0.f&&Shooter&&Shooter->HasAuthority()
++        &&Shot.ItemDefinition==TEXT("ue_rune_sword")&&Shot.bMelee&&!Shot.bRicochet
++        &&Shot.AttackForm==EMonsterAttackForm::Blade&&!(Shot.AttackMeta&0xC0)
++        &&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++        if(auto* Echo=Shooter->FindComponentByClass<UTimeSandEchoComponent>())
++            Echo->Queue(this,Hit,Shot,AppliedParts,Training.bCritical);

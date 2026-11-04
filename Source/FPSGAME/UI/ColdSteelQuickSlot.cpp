@@ -3,6 +3,7 @@
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
+#include "../Weapons/StarMarrowComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
@@ -177,18 +178,31 @@ void UColdSteelQuickSlot::Refresh()
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Model||!Icon)return;
     // 专属槽不读混放绑定，恒显固定技能；其余数据（图标、冷却、变暗）走同一条显示路径。
     const auto* Staff=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStaffWeaponComponent>():nullptr;
+    const auto* StarCharge=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStarMarrowComponent>():nullptr;
     const auto Binding=FixedSkill.IsNone()?Model->QuickBinding(Index):[&]
-    {FColdSteelQuickBinding B;B.Skill=FixedSkill==TEXT("runeBlades")&&Staff&&Staff->HasIlluminationSpecial()?FName(TEXT("staffLight")):FixedSkill;return B;}();
+    {
+        FColdSteelQuickBinding B;B.Skill=FixedSkill;
+        if(FixedSkill==TEXT("runeBlades"))
+        {
+            if(StarCharge&&StarCharge->IsEquipped())B.Skill=TEXT("starMarrowCharge");
+            else if(Staff&&Staff->HasIlluminationSpecial())B.Skill=TEXT("staffLight");
+        }
+        return B;
+    }();
     const auto* Item=Model->ResolveQuickItem(Index);
     const FString WaterIcon=Item&&Item->Definition==TEXT("mineral_water")?ColdSteelInventory::Text(*Item,TEXT("ue_icon")):FString();
-    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon;
+    const bool ChargeSlot=Binding.Skill==TEXT("starMarrowCharge");
+    auto* ChargeIcon=ChargeSlot&&StarCharge?StarCharge->ShortcutIcon():nullptr;
+    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon
+        ||(ChargeSlot&&Texture.Get()!=ChargeIcon);
     if(BindingChanged)
     {
         bLoaded=true;Displayed=Binding;DisplayedWaterIcon=WaterIcon;FString Path,Name;
         if(const auto* D=Model->QuickSkillDefinition(Binding.Skill)){Path=D->Icon;Name=D->Name;}
         else if(!Binding.ItemDefinition.IsEmpty())
         {const auto Template=Item?*Item:Model->CreateItem(Binding.ItemDefinition);Path=ColdSteelInventory::Text(Template,TEXT("ue_icon"));Name=ColdSteelInventory::Text(Template,TEXT("name"));}
-        Texture=nullptr;
+        Texture=ChargeIcon;
+        if(ChargeSlot){Path.Reset();Name=TEXT("充能");}
         if(!Path.IsEmpty())
         {
             if(auto* Found=Textures.Find(Path))Texture=*Found;
@@ -198,11 +212,16 @@ void UColdSteelQuickSlot::Refresh()
         const float Pixels=Binding.Skill.IsNone()?40.f:48.f;
         IconFrame->SetWidthOverride(Pixels/ColdSteelUI::PixelScale(this));IconFrame->SetHeightOverride(Pixels/ColdSteelUI::PixelScale(this));
         FallbackIcon->SetVisibility(!Texture&&!Binding.IsEmpty()?ESlateVisibility::HitTestInvisible:ESlateVisibility::Hidden);
+        FallbackIcon->SetText(FText::FromString(ChargeSlot?TEXT("充"):TEXT("?")));
         const FString KeyText=FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel;
         SetToolTipText(FText::FromString(FixedSkill.IsNone()?(Binding.IsEmpty()?FString::Printf(TEXT("%s · 拖入主动技能或消耗品"),*KeyText):
             FString::Printf(TEXT("%s · %s\n拖到空槽移动，拖到其他内容交换；拖出快捷栏解绑"),*Name,*KeyText)):
             Binding.Skill==TEXT("staffLight")?FString::Printf(TEXT("%s · %s\n按 G 开启／关闭照明；无冷却、无消耗"),*KeyText,*Name):
             FString::Printf(TEXT("%s · %s\n按 %s 直接触发；冷却结束后可用"),*KeyText,*Name,*KeyText)));
+        if(ChargeSlot)SetToolTipText(FText::FromString(FString::Printf(
+            TEXT("G · 充能\n消耗最大魔法值的 %.0f%%，持续 %.0f s。\n伤害+%.0f%%，全部伤害转为魔法伤害。\n充能结束后可再次使用。"),
+            UStarMarrowComponent::ManaFraction*100.f,UStarMarrowComponent::Duration,
+            (UStarMarrowComponent::DamageMultiplier-1.)*100.)));
     }
     FString Message;float Fraction=0,Remaining=0;bool Dim=false;
     bGoldPrepared=false;
@@ -334,6 +353,19 @@ void UColdSteelQuickSlot::Refresh()
     {
         Dim=!Staff||!Staff->HasIlluminationSpecial();
         if(Staff&&Staff->IsIlluminationOn()){Message=TEXT("已点亮");bGoldPrepared=true;}
+    }
+    else if(ChargeSlot)
+    {
+        Remaining=StarCharge?StarCharge->Remaining():0.f;
+        Fraction=Remaining/UStarMarrowComponent::Duration;
+        const bool Enough=Model->CanSpendMana(FMath::Max(0.f,Model->Derived(TEXT("maxMp")))*UStarMarrowComponent::ManaFraction);
+        const bool Pending=StarCharge&&StarCharge->IsActivationPending();
+        const bool Ready=StarCharge&&StarCharge->CanActivate()&&!Pending&&Enough;
+        Dim=!Ready;bGoldPrepared=Ready;
+        if(Remaining>0.f)Count->SetText(FText::FromString(TEXT("充能中")));
+        else if(Pending)Message=TEXT("释放中");
+        else if(!Enough)Message=TEXT("魔法不足");
+        else if(!Ready)Message=TEXT("暂不可用");
     }
     else if(Binding.Skill==TEXT("runeBlades"))
     {

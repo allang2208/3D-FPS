@@ -1,0 +1,6 @@
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -27,0 +28,3 @@
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/FrostCrystalSword20260915/StarMarrowCharge20261103")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/FrostCrystalSword20260915/StarMarrowChargeHUD20261103")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/FrostCrystalSword20260915/StarMarrowChargeMotion20261103")

@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/UI/ColdSteelMeleeIcon.cpp
++++ b/Source/FPSGAME/UI/ColdSteelMeleeIcon.cpp
+@@ -43,0 +44 @@
++        if(!ColdSteelModularSword::ApplyGlassPreview(MeleeMesh))return false;

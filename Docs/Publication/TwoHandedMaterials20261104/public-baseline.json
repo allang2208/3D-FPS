@@ -1,0 +1,10 @@
+{
+  "accuracy": "local editor build and UDP results apply to full host, not a fresh public build",
+  "public_cooldown_fields_absent": [
+    "    Reduce(Current.IceArmorCooldown,TEXT(\"iceArmor\"));",
+    "    Reduce(Current.IlluminationArrowCooldown,TEXT(\"illuminationArrow\"));",
+    "    Reduce(Current.MagicArrowRainCooldown,TEXT(\"magicArrowRain\"));",
+    "    Reduce(Current.LightningHasteCooldown,TEXT(\"lightningHaste\"));"
+  ],
+  "TimeSandEchoComponent.cpp": "Equivalent equipped-sword accessor on the public baseline"
+}

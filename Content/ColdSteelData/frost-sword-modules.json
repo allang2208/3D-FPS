@@ -104,6 +104,55 @@
           100.00002186825377
         ],
         "appearance": "收窄削薄 · 轻巧刃形"
+      },
+      "rift_piercer": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/RiftPiercer20261102/SM_FrostSword_Blade_rift_piercer",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1",
+        "appearance": "裂穹长锋 · 细长晶脊",
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          100
+        ],
+        "rune_dimensions_cm": [
+          10,
+          10,
+          69.3
+        ]
+      },
+      "star_marrow": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/StarMarrow20261102/SM_FrostSword_Blade_star_marrow",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1",
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          100
+        ],
+        "rune_dimensions_cm": [
+          12,
+          10,
+          78.75
+        ]
       }
     },
     "guard": {
@@ -195,7 +244,14 @@
           0,
           -2.8000000000000003
         ],
-        "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations"
+        "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
+        "hand_fit": {
+          "left_offset_cm": [
+            0,
+            0,
+            -1.6
+          ]
+        }
       },
       "iron_spine_power_grip": {
         "mesh": "/Game/Weapons/SharedSwordGrips20260927/Frost/SM_FrostGrip_iron_spine_power_grip.SM_FrostGrip_iron_spine_power_grip",
@@ -305,6 +361,38 @@
           1
         ]
       }
+    }
+  },
+  "hand_fit": {
+    "right_offset_cm": [
+      0,
+      0,
+      -2.65
+    ],
+    "left_offset_cm": [
+      1,
+      1,
+      -1.95
+    ],
+    "digits": {
+      "thumb_01_r": [
+        1.0958568927660143e-06,
+        -0.03139815945339378,
+        -0.36818883475337666,
+        0.9292207151934835
+      ],
+      "thumb_02_r": [
+        4.533656994589984e-06,
+        -0.21368300379227453,
+        0.4021602431431643,
+        0.8902846245469971
+      ],
+      "thumb_01_l": [
+        3.046317463822602e-07,
+        0.058557894120004395,
+        -0.26753106482019595,
+        0.9617682165637986
+      ]
     }
   }
 }

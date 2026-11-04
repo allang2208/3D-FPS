@@ -23,7 +23,8 @@
               "text": "攻击体力消耗+10%",
               "benefit": -1
             }
-          ]
+          ],
+          "special_effects": []
         },
         {
           "id": "knife_grip_leather",
@@ -43,7 +44,8 @@
               "text": "攻击体力消耗-10%",
               "benefit": 1
             }
-          ]
+          ],
+          "special_effects": []
         },
         {
           "id": "knife_grip_laminate",
@@ -63,7 +65,8 @@
               "text": "重击削韧+20%",
               "benefit": 1
             }
-          ]
+          ],
+          "special_effects": []
         }
       ]
     },
@@ -82,18 +85,19 @@
           },
           "effects": [
             {
-              "text": "快速打击伤害+30%",
+              "text": "快速近战伤害倍率+0.3",
               "benefit": 1
             },
             {
-              "text": "快速打击削韧+25%",
+              "text": "快速近战削韧+25%",
               "benefit": 1
             },
             {
-              "text": "快速打击击退距离+50%",
+              "text": "快速近战击退距离+50%",
               "benefit": 1
             }
-          ]
+          ],
+          "special_effects": []
         },
         {
           "id": "knife_pommel_faceted",
@@ -113,7 +117,8 @@
               "text": "攻击体力消耗-10%",
               "benefit": 1
             }
-          ]
+          ],
+          "special_effects": []
         },
         {
           "id": "knife_pommel_ringed",
@@ -133,7 +138,8 @@
               "text": "攻击体力消耗-5%",
               "benefit": 1
             }
-          ]
+          ],
+          "special_effects": []
         }
       ]
     },
@@ -219,7 +225,8 @@
               "text": "攻击体力消耗+5%",
               "benefit": -1
             }
-          ]
+          ],
+          "special_effects": []
         },
         {
           "id": "knife_mark_knot",
@@ -239,7 +246,8 @@
               "text": "武技冷却-5%",
               "benefit": 1
             }
-          ]
+          ],
+          "special_effects": []
         },
         {
           "id": "knife_mark_peaks",
@@ -259,7 +267,8 @@
               "text": "削韧+15%",
               "benefit": 1
             }
-          ]
+          ],
+          "special_effects": []
         }
       ]
     }

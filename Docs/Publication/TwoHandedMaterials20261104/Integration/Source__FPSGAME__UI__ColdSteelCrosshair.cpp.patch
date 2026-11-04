@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -6,0 +7 @@
++#include "ColdSteelStarMarrow.h"
+@@ -11,0 +13 @@
++#include "../Weapons/StarMarrowComponent.h"
+@@ -189,0 +192,4 @@
++    // This charge cue also stays visible while offensive magic uses its own reticle.
++    if(!Character->IsTraversing())
++        if(const auto* Core=Character->FindComponentByClass<UStarMarrowComponent>())
++            Result=ColdSteelStarMarrow::Paint(*Core,Geometry,Elements,Result+2,Style,1.f/ColdSteelUI::PixelScale(this));

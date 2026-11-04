@@ -3,6 +3,7 @@
 #include "../Combat/AncientBreakingSealComponent.h"
 #include "../Monsters/RootCrownRigPreview.h"
 #include "../Weapons/ZhenmoRuneComponent.h"
+#include "../Weapons/TimeSandEchoComponent.h"
 #include "../Weapons/DealerEnchantmentComponent.h"
 #include "MeleeToughnessTuning.h"
 #include "SwordUppercutTuning.h"
@@ -226,7 +227,7 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     // 枪械在开火时预掷一次（霰弹多弹丸、穿透多目标共用），近战/快捷进战仍按接触点各掷。
     const float CriticalRoll=Shot.CriticalRoll>=0.f?Shot.CriticalRoll:FMath::FRand();
     Training.bCritical=Shot.bRicochet?Shot.bInheritedCritical:
-        (Weakpoint||(Combat&&CriticalRoll*100.f<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
+        (Weakpoint||(Combat&&CriticalRoll*100.f<CoreCombatFormula::CriticalChance(Shot.CriticalChance+(Victim->FindComponentByClass<UCombatStatusFormula>()?Victim->FindComponentByClass<UCombatStatusFormula>()->CriticalVulnerabilityBonusPercent():0.f),CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
     // 要害加成按数值生效：步枪精通与枪械自带（M1911「要害特化」）共用同一乘区，
     // 未声明要害加成的武器 WeakpointPercent 为 0，行为与旧版按 bRifle 判定完全一致。
     float Amount=Damage*(Weakpoint&&Shot.WeakpointPercent>0?1+Shot.WeakpointPercent:1);
@@ -352,6 +353,16 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     }
     const bool bDirectKill=bAliveBefore&&Applied>0.f&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||Combat->IsDead());
     if(bGuardContact)TangGuard->ConfirmBladeHit(Shot);
+    if(bAliveBefore&&Applied>0.f&&Training.bCritical&&(Shot.bBlackthornCriticalWeakness||Shot.bWhitehartCriticalVulnerability)
+        &&Shot.bMelee&&!Shot.bRicochet&&Shot.ItemDefinition==TEXT("ue_highland_claymore")
+        &&Shooter&&Shooter->HasAuthority()&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
+        &&!Combat->IsDead()&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+    {
+        // Apply after this hit's critical roll and damage; new layers benefit subsequent attacks.
+        auto* Status=UCombatStatusFormula::GetOrAdd(Victim);
+        if(Shot.bBlackthornCriticalWeakness)Status->AddWeakness();
+        if(Shot.bWhitehartCriticalVulnerability)Status->AddCriticalVulnerability();
+    }
     if(bAliveBefore&&Applied>0.f&&Training.bCritical&&!Shot.bRicochet&&Shot.bMelee
         &&!Shot.ZhenmoSourceInstance.IsEmpty()&&Shooter&&Shooter->HasAuthority()
         &&Victim&&!Victim->ActorHasTag(TEXT("Friendly"))&&!Victim->ActorHasTag(TEXT("Companion")))
@@ -415,6 +426,12 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
             for(int32 Stack=0;Stack<Shot.AmmoPoisonStacks;++Stack)Poison->AddStack(Shooter);
         }
     }
+    if(bAliveBefore&&Applied>0.f&&Shot.TimeSandEchoRatio>0.f&&Shooter&&Shooter->HasAuthority()
+        &&Shot.ItemDefinition==TEXT("ue_rune_sword")&&Shot.bMelee&&!Shot.bRicochet
+        &&Shot.AttackForm==EMonsterAttackForm::Blade&&!(Shot.AttackMeta&0xC0)
+        &&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+        if(auto* Echo=Shooter->FindComponentByClass<UTimeSandEchoComponent>())
+            Echo->Queue(this,Hit,Shot,AppliedParts,Training.bCritical);
     if(Result)
     {
         Result->BeforeDefense=WeaponHit.Incoming;Result->AfterDefense=WeaponHit.Mitigated;

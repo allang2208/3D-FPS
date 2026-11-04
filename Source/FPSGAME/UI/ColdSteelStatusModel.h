@@ -21,6 +21,8 @@ UCLASS()
 class FPSGAME_API UColdSteelStatusModel : public UGameInstanceSubsystem
 {
     GENERATED_BODY()
+    friend class ASkillWireAuditController;
+    friend class ASkillWireAuditGameMode;
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Character") FString CharacterName = TEXT("轮回者");
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Character") FString CharacterClass = TEXT("初心者");
@@ -213,10 +215,14 @@ public:
     float FireballCooldownDuration() const { return Current.FireballCooldownDuration; }
     bool HasInfiniteMana() const;
     bool CanSpendMana(float Amount) const;
+    bool BeginStarMarrowCharge();
+    void ReconcileStarMarrowSpend(double Total);
     bool HasNoAbilityCooldown() const;
     void RefreshDevelopmentTuning();
     bool BeginFireballCast();
     bool RefundInterruptedSpellMana(float PaidMana);
+    void RestoreMagicCrystalResources(AActor* Shooter,float HealthAmount,float ManaAmount);
+    void ReconcileMagicCrystalMana(double Total);
     /** 手势已扣蓝并起冷却，但法术没有放出时退回。Skill 为空则只退蓝。 */
     bool RefundUnreleasedCast(float PaidMana, FName Skill);
     void FinishFireballCast();
@@ -398,6 +404,8 @@ public:
     void TickRuntime(float Delta,class AFPSGAMECharacter* Pawn);
     /** 2D 符文长剑合同：近战出手/飞剑击杀把全部技能冷却各减 Seconds（保留 reserved 语义）。 */
     void ReduceAllAbilityCooldowns(float Seconds);
+    void ReduceMagicCooldowns(float Seconds,bool bNotifyReduction=true);
+    void ReduceRuneSwordHitCooldowns(float Seconds);
     void SyncRuntime();
     FString AmmoDefinitionFor(const FColdSteelItem& Item) const;
     const TArray<FColdSteelAmmoType>& AmmoCatalog() const { return AmmoTypes; }
@@ -512,6 +520,7 @@ private:
     FTrainingHit* ActiveTrainingHit=nullptr;
     void QueueProgressNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
     FColdSteelProfile Current;
+    TMap<FName,uint32> CooldownReductionRevisions;
     TMap<FString,FString> Definitions;
     // 开发面板目录：首次读取时按 items.json 的类别归纳并排序，之后只读复用。
     mutable TArray<FColdSteelCatalogEntry> ItemCatalogCache;

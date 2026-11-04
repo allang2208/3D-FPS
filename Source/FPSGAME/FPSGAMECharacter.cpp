@@ -1,5 +1,6 @@
 #include "FPSGAMECharacter.h"
 #include "Movement/FPSFurnitureRestComponent.h"
+#include "Weapons/StarMarrowComponent.h"
 #include "Weapons/Super90WeaponAssets.h"
 #include "Weapons/TubeShotgunAssets.h"
 #include "Weapons/ShotgunSuppressorAssets.h"
@@ -9,6 +10,7 @@
 #include "Weapons/TangDaoGuardComponent.h"
 #include "Weapons/PanChiGuardComponent.h"
 #include "Weapons/ZhenmoRuneComponent.h"
+#include "Weapons/TimeSandEchoComponent.h"
 #include "Windows/AllowWindowsPlatformTypes.h"
 #include <Windows.h>
 #include "Windows/HideWindowsPlatformTypes.h"
@@ -241,9 +243,11 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UWeaponActionCameraComponent>(TEXT("WeaponActionCamera"));
     BipodDeployment=CreateDefaultSubobject<UWeaponBipodDeploymentComponent>(TEXT("BipodDeployment"));
     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
+    CreateDefaultSubobject<UStarMarrowComponent>(TEXT("StarMarrow"));
     CreateDefaultSubobject<UTangDaoGuardComponent>(TEXT("TangDaoGuardEffects"));
     CreateDefaultSubobject<UPanChiGuardComponent>(TEXT("PanChiGuardEffects"));
     CreateDefaultSubobject<UZhenmoRuneComponent>(TEXT("ZhenmoRuneEffects"));
+    CreateDefaultSubobject<UTimeSandEchoComponent>(TEXT("TimeSandEcho"));
     CreateDefaultSubobject<UJingangRuneComponent>(TEXT("JingangRuneEffects"));
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
@@ -1649,6 +1653,7 @@ void AFPSGAMECharacter::RuneBladesPressed()
     if(Staff&&Staff->IsEquipped()){Staff->ToggleIllumination();return;}
     if(RuneSword && RuneSword->IsInspecting())RuneSword->CancelAction();
     if(RuneSword && RuneSword->IsBusy())return;
+    if(auto* Core=FindComponentByClass<UStarMarrowComponent>();Core&&Core->IsEquipped()){Core->Trigger();return;}
     if(RuneOrbBlades)RuneOrbBlades->Trigger();
 }
 
@@ -2180,7 +2185,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     // contact holds. Do not smooth its camera position against the previous
     // action frame while rotation and attached arms use the current frame.
     const auto* WhirlKukri = FindComponentByClass<UKukriWeaponComponent>();
-    FirstPersonCamera->SetRelativeLocation((IsTraversing() || Traversal->IsCameraRecovering() || (RuneSword && RuneSword->IsWhirlwindActive()) || (WhirlKukri && WhirlKukri->IsWhirlwindActive()))?TargetLocation:
+    FirstPersonCamera->SetRelativeLocation((IsTraversing() || Traversal->IsCameraRecovering() || (RuneSword && (RuneSword->IsWhirlwindActive()||RuneSword->IsStarMarrowChargeMotionPlaying())) || (WhirlKukri && WhirlKukri->IsWhirlwindActive()))?TargetLocation:
         FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
 
     const float NoisePitch = FMath::PerlinNoise1D(FeedbackTime * 9.0f + 17.0f) * 0.03f * TraumaStrength;

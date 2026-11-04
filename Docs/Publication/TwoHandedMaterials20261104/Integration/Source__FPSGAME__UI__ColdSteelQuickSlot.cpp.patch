@@ -1,0 +1,43 @@
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+@@ -10,0 +11 @@
++#include "../Weapons/StarMarrowComponent.h"
+@@ -198,0 +200 @@
++    const auto* StarCharge=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStarMarrowComponent>():nullptr;
+@@ -202 +204,5 @@
+-        if(FixedSkill==TEXT("runeBlades")&&Staff&&Staff->HasIlluminationSpecial())B.Skill=TEXT("staffLight");
++        if(FixedSkill==TEXT("runeBlades"))
++        {
++            if(StarCharge&&StarCharge->IsEquipped())B.Skill=TEXT("starMarrowCharge");
++            else if(Staff&&Staff->HasIlluminationSpecial())B.Skill=TEXT("staffLight");
++        }
+@@ -210 +216,4 @@
+-    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon||ElementIcon!=DisplayedElementIcon;
++    const bool ChargeSlot=Binding.Skill==TEXT("starMarrowCharge");
++    auto* ChargeIcon=ChargeSlot&&StarCharge?StarCharge->ShortcutIcon():nullptr;
++    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon||ElementIcon!=DisplayedElementIcon
++        ||(ChargeSlot&&Texture.Get()!=ChargeIcon);
+@@ -217,0 +227,2 @@
++        Texture=ChargeIcon;
++        if(ChargeSlot){Path.Reset();Name=TEXT("充能");}
+@@ -226,0 +238 @@
++        FallbackIcon->SetText(FText::FromString(ChargeSlot?TEXT("充"):TEXT("?")));
+@@ -233,0 +246,4 @@
++        if(ChargeSlot)SetToolTipText(FText::FromString(FString::Printf(
++            TEXT("G · 充能\n消耗最大魔法值的 %.0f%%，持续 %.0f s。\n伤害+%.0f%%，全部伤害转为魔法伤害。\n充能结束后可再次使用。"),
++            UStarMarrowComponent::ManaFraction*100.f,UStarMarrowComponent::Duration,
++            (UStarMarrowComponent::DamageMultiplier-1.)*100.)));
+@@ -425,0 +442,13 @@
++    else if(ChargeSlot)
++    {
++        Remaining=StarCharge?StarCharge->Remaining():0.f;
++        Fraction=Remaining/UStarMarrowComponent::Duration;
++        const bool Enough=Model->CanSpendMana(FMath::Max(0.f,Model->Derived(TEXT("maxMp")))*UStarMarrowComponent::ManaFraction);
++        const bool Pending=StarCharge&&StarCharge->IsActivationPending();
++        const bool Ready=StarCharge&&StarCharge->CanActivate()&&!Pending&&Enough;
++        Dim=!Ready;bGoldPrepared=Ready;
++        if(Remaining>0.f)Count->SetText(FText::FromString(TEXT("充能中")));
++        else if(Pending)Message=TEXT("释放中");
++        else if(!Enough)Message=TEXT("魔法不足");
++        else if(!Ready)Message=TEXT("暂不可用");
++    }

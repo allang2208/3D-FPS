@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GunsmithSystem.h"
+#include "SwordGripClearance.h"
 class UStaticMeshComponent;
 class UStaticMesh;
 class FJsonObject;
@@ -23,6 +24,7 @@ namespace ColdSteelModularSword
     bool Supports(const FColdSteelItem& Item);
     FString ArmsMesh(const FColdSteelItem& Item);
     FString AnimationFolder(const FColdSteelItem& Item);
+    FSwordGripFit GripClearance(const FColdSteelItem& Item);
     bool UsesOverheadFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
     bool UsesRisingDragonFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
     bool UsesChixiaoDoubleHeavy(const FColdSteelItem& Item);
@@ -30,7 +32,10 @@ namespace ColdSteelModularSword
     void GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft=nullptr);
     FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     uint8 BladeFinishMode(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
+    bool IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item);
     void ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot);
+    // Colored glass transmission needs an alpha-coverage adapter in UI captures.
+    bool ApplyGlassPreview(UStaticMeshComponent* Blade);
     bool Apply(UStaticMeshComponent* Blade,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     void Clear(UStaticMeshComponent* Blade);
     TArray<UStaticMeshComponent*> Components(UStaticMeshComponent* Blade);

@@ -92,7 +92,9 @@ void UColdSteelStatusModel::ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hi
     bool Critical=false;
     const CombatFormulaRuntime::MagicHit Context{Cast.CriticalChance,Cast.CriticalDamageBonus,Cast.MagicPenetration,Cast.MagicDamageBonus,&Critical,ColdSteelSkills::IsCriticalHit(Hit)};
     TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(CombatFormulaRuntime::ActiveMagicHit,&Context);
+    StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Cast.StarMarrow);
     const float Applied=UGameplayStatics::ApplyPointDamage(Target,Cast.Damage,(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,UIceSpikeDamage::StaticClass());
+    CrystalRecovery.Finish(Applied);
     for(const auto& K:Rewards.Kills)Batch.KillRewards.FindOrAdd(K.Key)=K.Value;
     if(Applied<=0)return;
     if(Cast.ChillSlow>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,Cast.ChillDuration,Cast.ChillSlow);

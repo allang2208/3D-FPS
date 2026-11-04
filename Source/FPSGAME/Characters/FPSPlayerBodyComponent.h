@@ -25,6 +25,7 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
 
     UFUNCTION(BlueprintPure, Category="Player Body") FFPSBodyState GetBodyState() const { return DisplayState; }
+    const FString& DisplayedWeaponInstance() const { return DisplayState.WeaponInstance; }
     /** Future authoritative combat adapters publish here; this is deliberately not a client RPC. */
     UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Player Body")
     void SetAuthoritativeState(const FFPSBodyState& State);

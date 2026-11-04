@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+@@ -1,0 +2 @@
++#include "../Weapons/StarMarrowComponent.h"
+@@ -153,2 +154,5 @@
+-    if(Type&&Type->IsA<UCombatDirectDamage>())return Damage;
+-    const bool bMagic=CombatFormulaRuntime::IsMagic(Type);
++    const auto* AttackerStatus=UCombatStatusFormula::ForDamageSource(Attacker);
++    const bool Charged=Attacker!=GetOwner()&&UStarMarrowComponent::ChargesDamage(Attacker);
++    if(Type&&Type->IsA<UCombatDirectDamage>()&&!Charged)return Damage*(AttackerStatus?AttackerStatus->WeaknessDamageMultiplier():1.f);
++    const bool bMagic=CombatFormulaRuntime::IsMagic(Type)||Charged;
++    if(Charged)Damage*=UStarMarrowComponent::DamageMultiplier;

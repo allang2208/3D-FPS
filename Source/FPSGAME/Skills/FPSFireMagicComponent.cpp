@@ -219,6 +219,7 @@ void UFPSFireMagicComponent::ReleaseAtContact()
 void UFPSFireMagicComponent::StartArmor()
 {
     EndArmor(true);ArmorSnapshot=CastSnapshot;ArmorTime=ArmorSnapshot.Duration;AuraTimer=0;
+    StarMarrow::CaptureSpell(GetOwner(),ArmorSnapshot.StarMarrow);
     SpawnArmorFX();
     TickArmor(0);
     if(AuraFX)AuraFX->Activate(true);if(WeaponFX)WeaponFX->Activate(true);

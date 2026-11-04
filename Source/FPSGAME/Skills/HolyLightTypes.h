@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Weapons/StarMarrowSpell.h"
 #include "HolyLightTypes.generated.h"
 
 struct FHolyLightTuning
@@ -14,6 +15,7 @@ USTRUCT()
 struct FHolyLightCast
 {
     GENERATED_BODY()
+    FStarMarrowSpell StarMarrow;
     UPROPERTY() double AmountBase=0; UPROPERTY() double MagicMultiplier=0; UPROPERTY() double IntelligenceMultiplier=0; UPROPERTY() double WisdomMultiplier=0;
     UPROPERTY() float Damage=0; UPROPERTY() float Healing=0; UPROPERTY() float ManaCost=30; UPROPERTY() float Cooldown=10; UPROPERTY() float Range=900; UPROPERTY() float AimRadius=300; UPROPERTY() float ZombieMultiplier=2;
     UPROPERTY() float Duration=2; UPROPERTY() float Fade=.4f; UPROPERTY() float TopWidth=90; UPROPERTY() float BottomWidth=165; UPROPERTY() float Height=2100; UPROPERTY() float DissolveRatio=.28f;

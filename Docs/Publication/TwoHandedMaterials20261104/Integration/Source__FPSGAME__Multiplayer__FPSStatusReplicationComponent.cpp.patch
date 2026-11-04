@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp
++++ b/Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp
+@@ -65,0 +66,2 @@
++        Next.WeaknessEndsAt=C->WeaknessEndsAt>0.?Quantize(C->WeaknessEndsAt):0.;
++        Next.CriticalVulnerabilityEndsAt=C->CriticalVulnerabilityEndsAt>0.?Quantize(C->CriticalVulnerabilityEndsAt):0.;
+@@ -102,0 +105,2 @@
++        Next.WeaknessStacks=C->WeaknessCount();
++        Next.CriticalVulnerabilityStacks=C->CriticalVulnerabilityCount();
+@@ -159,0 +164,2 @@
++        C->WeaknessEndsAt=State.WeaknessEndsAt>0.?LocalNow+State.WeaknessEndsAt-Now:0.;
++        C->CriticalVulnerabilityEndsAt=State.CriticalVulnerabilityEndsAt>0.?LocalNow+State.CriticalVulnerabilityEndsAt-Now:0.;
+@@ -196,0 +203,2 @@
++        C->WeaknessStacks=State.WeaknessStacks;
++        C->CriticalVulnerabilityStacks=State.CriticalVulnerabilityStacks;

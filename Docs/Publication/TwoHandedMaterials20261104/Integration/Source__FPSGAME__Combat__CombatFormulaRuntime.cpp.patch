@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp
++++ b/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp
+@@ -1,0 +2 @@
++#include "../Weapons/StarMarrowComponent.h"
+@@ -64 +65,8 @@
+-    if(Type&&Type->IsA<UCombatDirectDamage>())
++    if(ActiveWeaponHit&&ActiveWeaponHit->Target==Target&&ActiveWeaponHit->bDamageAlreadyMitigated)
++    {
++        ActiveWeaponHit->Mitigated=ActiveWeaponHit->Incoming;
++        ActiveWeaponHit->bResolved=true;
++        return ActiveWeaponHit->Mitigated.Total();
++    }
++    const bool Charged=Source!=Target&&UStarMarrowComponent::ChargesDamage(Source);
++    if(Type&&Type->IsA<UCombatDirectDamage>()&&!Charged)
+@@ -67 +75,2 @@
+-        return Damage*(1.f)*(Field?Field->ZhenmoDamageMultiplier():1.f)*(1.f+UIlluminationMarkComponent::DamageBonus(Target));
++        const auto* SourceStatus=UCombatStatusFormula::ForDamageSource(Source);
++        return Damage*(SourceStatus?SourceStatus->WeaknessDamageMultiplier():1.f)*(Field?Field->ZhenmoDamageMultiplier():1.f)*(1.f+UIlluminationMarkComponent::DamageBonus(Target));
+@@ -71,0 +81,6 @@
++        if(Charged)
++        {
++            const auto Convert=[](FWeaponDamageParts& P)
++            {P={0.,P.Base()*UStarMarrowComponent::DamageMultiplier,0.,P.Additional()*UStarMarrowComponent::DamageMultiplier};};
++            Convert(Hit.Incoming);for(auto& Part:Hit.Contributions)Convert(Part.Incoming);
++        }
+@@ -100 +115,2 @@
+-    const bool Magic=IsMagic(Type);double Penetration=0;
++    const bool Magic=IsMagic(Type)||Charged;double Penetration=0;
++    if(Charged)Damage*=UStarMarrowComponent::DamageMultiplier;
+@@ -120 +136 @@
+-        const double CritChance=ActiveMagicHit->Chance+(Status?Status->DroneCritBonusPercent(Source):0);
++        const double CritChance=ActiveMagicHit->Chance+(Status?Status->DroneCritBonusPercent(Source)+Status->CriticalVulnerabilityBonusPercent():0);

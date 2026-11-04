@@ -1,0 +1,510 @@
+{
+  "sources": [
+    "Source/FPSGAME/Skills/StarMarrowWireAudit.cpp",
+    "Source/FPSGAME/UI/ColdSteelStarMarrow.cpp",
+    "Source/FPSGAME/UI/ColdSteelStarMarrow.h",
+    "Source/FPSGAME/Weapons/MagicCrystalMana.h",
+    "Source/FPSGAME/Weapons/MagicCrystalRecovery.cpp",
+    "Source/FPSGAME/Weapons/RiftPiercerThrust.cpp",
+    "Source/FPSGAME/Weapons/RiftPiercerThrust.h",
+    "Source/FPSGAME/Weapons/RuneSwordRiftPiercer.cpp",
+    "Source/FPSGAME/Weapons/RuneSwordStarMarrowAudit.cpp",
+    "Source/FPSGAME/Weapons/RuneSwordStarMarrowFireCapture.cpp",
+    "Source/FPSGAME/Weapons/RuneSwordStarMarrowMotion.cpp",
+    "Source/FPSGAME/Weapons/RuneSwordStarMarrowSurfaceAudit.cpp",
+    "Source/FPSGAME/Weapons/SharedTwoHandFinishAudit.cpp",
+    "Source/FPSGAME/Weapons/StarMarrowChargeMotion.h",
+    "Source/FPSGAME/Weapons/StarMarrowComponent.cpp",
+    "Source/FPSGAME/Weapons/StarMarrowComponent.h",
+    "Source/FPSGAME/Weapons/StarMarrowFlames.cpp",
+    "Source/FPSGAME/Weapons/StarMarrowSpell.cpp",
+    "Source/FPSGAME/Weapons/StarMarrowSpell.h",
+    "Source/FPSGAME/Weapons/SwordGripClearance.cpp",
+    "Source/FPSGAME/Weapons/SwordGripClearance.h",
+    "Source/FPSGAME/Weapons/TimeSandEchoComponent.cpp",
+    "Source/FPSGAME/Weapons/TimeSandEchoComponent.h"
+  ],
+  "recipes": [
+    "SourceAssets/RuneSwordFrostMaterial20261101/bake_transfer.py",
+    "SourceAssets/RuneSwordFrostMaterial20261101/extract_source.py",
+    "SourceAssets/RuneSwordFrostMaterial20261101/install_materials.py",
+    "SourceAssets/RuneSwordFrostMaterial20261101/read_source.py",
+    "SourceAssets/RuneSwordFrostMaterial20261101/set_coefficients_50.py",
+    "SourceAssets/SharedTwoHandMaterials20261101/install_catalog.py",
+    "SourceAssets/SharedTwoHandMaterials20261101/install_materials.py",
+    "SourceAssets/SharedTwoHandMaterials20261101/read_surfaces.py",
+    "SourceAssets/SharedTwoHandMaterials20261101/common-recipes.json",
+    "SourceAssets/SharedTwoHandMaterials20261101/surface-inventory.json",
+    "SourceAssets/TimeSandMaterial20261101/install_catalog.py",
+    "SourceAssets/TimeSandMaterial20261101/install_materials.py",
+    "SourceAssets/TimeSandPolish20261101/install_materials.py",
+    "SourceAssets/MagicCrystalSword20261101/install_catalog.py",
+    "SourceAssets/MagicCrystalSword20261101/install_materials.py",
+    "SourceAssets/MagicCrystalSword20261101/GlassV2/install_glass.py",
+    "SourceAssets/MagicCrystalSword20261101/DenseCrystalV4/install_materials.py",
+    "SourceAssets/MagicCrystalSword20261101/DenseCrystalV4/read_inputs.py",
+    "SourceAssets/HighlandExclusiveMaterials20261103/install_materials.py",
+    "SourceAssets/HighlandExclusiveMaterials20261103/publish_data.py",
+    "SourceAssets/WhitehartCriticalVulnerability20261103/definition.py",
+    "SourceAssets/WhitehartCriticalVulnerability20261103/publish_data.py",
+    "SourceAssets/AllWeaponRuneFlow20261102/install_materials.py",
+    "SourceAssets/AllWeaponRuneFlow20261102/finish_temporal.py",
+    "SourceAssets/AllWeaponRuneFlow20261102/read_materials.py",
+    "SourceAssets/AllWeaponRuneFlow20261102/read_knife.py",
+    "SourceAssets/AllWeaponRuneFlow20261102/knife_material.py",
+    "SourceAssets/WorkbenchCopy20261101/apply_copy.py",
+    "SourceAssets/WorkbenchCopy20261101/copy_rules.py",
+    "SourceAssets/WorkbenchCopy20261101/audit_copy.py",
+    "SourceAssets/WorkbenchCopy20261101/sync_authors.py",
+    "SourceAssets/StarMarrowBlade20261102/author_blade.py",
+    "SourceAssets/StarMarrowBlade20261102/author_icon.py",
+    "SourceAssets/StarMarrowBlade20261102/install_assets.py",
+    "SourceAssets/StarMarrowBlade20261102/install_catalog.py",
+    "SourceAssets/RiftPiercerBlade20261102/author_blade.py",
+    "SourceAssets/RiftPiercerBlade20261102/author_icon.py",
+    "SourceAssets/RiftPiercerBlade20261102/install_assets.py",
+    "SourceAssets/RiftPiercerBlade20261102/install_catalog.py",
+    "SourceAssets/RiftPiercerBlade20261102/InstantThrustV2/apply_instant_materials.py",
+    "SourceAssets/RiftPiercerBlade20261102/InstantThrustV2/publish_copy.py",
+    "SourceAssets/StarMarrowCharge20261103/install_flames.py",
+    "SourceAssets/StarMarrowCharge20261103/VariationV2/install_variation.py",
+    "SourceAssets/StarMarrowCharge20261103/DenseFlowV3/install_dense_flow.py",
+    "SourceAssets/StarMarrowCharge20261103/DenseFlowV3/save_assets.ps1",
+    "SourceAssets/StarMarrowCharge20261103/DenseFlowV3/Review/assemble.py",
+    "SourceAssets/StarMarrowCharge20261103/DenseFlowV3/Review/render.ps1",
+    "SourceAssets/StarMarrowChargeHUD20261103/install_hud.py",
+    "SourceAssets/StarMarrowChargeHUD20261103/charge_bar.hlsl",
+    "SourceAssets/StarMarrowChargeHUD20261103/ShaderFixV3/repair_hud.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/AuditV2/contact_skin.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/AuditV3/motion_math.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/AuditV3/extract_rig.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/RhythmV4/rhythm.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/FirstMotionV6/read_first.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/FirstMotionV6/solve_motion.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/FirstMotionV6/open_hand.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/DirectRecoverV7/export_motion.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/DirectRecoverV7/solve_motion.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/DirectRecoverV7/install_tracks.py",
+    "SourceAssets/StarMarrowChargeMotion20261103/DirectRecoverV7/save_tracks.ps1",
+    "SourceAssets/SwordIdleGrip20261104/apply_fit.py",
+    "SourceAssets/SwordIdleGrip20261104/fit-settings.json",
+    "SourceAssets/SwordIdleGrip20261104/fit_math.py",
+    "SourceAssets/SwordIdleGrip20261104/pose_metrics.py",
+    "SourceAssets/StarMarrowCharge20261103/NetworkReview20261104/run_wire.ps1",
+    "SourceAssets/StarMarrowCharge20261103/NetworkReview20261104/run_native.ps1",
+    "SourceAssets/StarMarrowCharge20261103/NetworkReview20261104/run_finishes.ps1",
+    "SourceAssets/StarMarrowCharge20261103/NetworkReview20261104/render.ps1",
+    "SourceAssets/StarMarrowCharge20261103/NetworkReview20261104/build.ps1"
+  ],
+  "host_integration": [
+    {
+      "host": "Config/DefaultGame.ini",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Config__DefaultGame.ini.patch",
+      "before_sha256": "74a3f20d929f0b539a9c39659c7578ed1c26a75839511b58ccbf4d3a64af0c11",
+      "after_sha256": "7746290946c46b0b9142bc6ff9f879d5fdc3cc81121b12152b8fbc176ec16c6a",
+      "patch_sha256": "a9dd4ba341ba8c742a66b5daea37523f60ce7cc3dc80d2b81329c0606250982f"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSBodyRuneVisual.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch",
+      "before_sha256": "9746691ce08fd59c2e225925ba7d30e52354baafb6fdfd49052f4b3c0a0ff103",
+      "after_sha256": "cb8930215e243110f640139f26756765336d258fa11f3091493ec7c1bfc015dd",
+      "patch_sha256": "46af270a1c5a06a554d52187e2f6c91cbf66ee4823f1886e1577fea25555d7ec"
+    },
+    {
+      "host": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+      "before_sha256": "82af93ebc5536309bbe8797f2c33d1ed3c2aaaba46315173da1b65afc918d01a",
+      "after_sha256": "5a924e107c936c26c33efd153716c3a2afdd27efa9507b560bc4b06045e7d48a",
+      "patch_sha256": "ee2f814300cc44e139ea1c63617b175cc1c51481408f080c2e59905c9b8fa09b"
+    },
+    {
+      "host": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__FPSGAMECharacterProfile.cpp.patch",
+      "before_sha256": "b6a1a22d1ecf9f009b39c318f570f13907e1357b62cec7c5a018d1c86bba404a",
+      "after_sha256": "862e5ea45a326d180a11f793741eed166521f793903358cab30775c7d0e3c353",
+      "patch_sha256": "f382432c1fe8fa3aaab305a49b8141984865a025d1448c5b682504c231386d2d"
+    },
+    {
+      "host": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Monsters__FPSCombatHealthComponent.cpp.patch",
+      "before_sha256": "c9aeb0dacb6bd4ace6550ba683e2195002ad8069dcf6f9f67fd659db42de5625",
+      "after_sha256": "3530a05249e1adfe1d0dfc2895b191ceb721fc578ee342a933c5e81637201c16",
+      "patch_sha256": "e7468247b666f2d4c3730d72a43f1725a8c8a23c31aa14e17b8a1f9b959901a4"
+    },
+    {
+      "host": "Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Combat__CombatFormulaRuntime.cpp.patch",
+      "before_sha256": "b1901b53800e087a63a194da47c7e4d54a0db1def685f01c7f2f13214b229d86",
+      "after_sha256": "3e60496c86a90ba8be39012ec0ea178c3804e709ec4d1a9e0ca4e0b4ba3fece6",
+      "patch_sha256": "1f62d917dc9481b18780e58536ceb2c9e07f8489a8c0d450c0428a93e06e2da2"
+    },
+    {
+      "host": "Source/FPSGAME/Combat/CombatFormulaRuntime.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Combat__CombatFormulaRuntime.h.patch",
+      "before_sha256": "bacaaff86dd87b2722f70a7fe73f66ec6f2fba083497ad90e5057db3f41cd7a6",
+      "after_sha256": "ea6a5115913028a4226eef41cee7a9880e2260652131b2dca3f2e79aee4a9db7",
+      "patch_sha256": "5647f1a3e51e1c69c3220343890d9278a745ae9468118b16715aa6c17b2af2d4"
+    },
+    {
+      "host": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Combat__CombatStatusFormula.h.patch",
+      "before_sha256": "e37380cbed5189251fe55600bc4f0dfca76dfb296d1cb62be76341c79ed4473f",
+      "after_sha256": "028d776f584738463e1ba67603f8df55036fec8fcdb492a83552df251aed4f3b",
+      "patch_sha256": "92c30e564332ee9b2286e60db9bbd099d85f8b0b572f49e024423f56aa324c93"
+    },
+    {
+      "host": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Combat__CombatStatusFormula.cpp.patch",
+      "before_sha256": "e068045ca7ac04f0c26ef5a94b37dc146a47590504de74ebbe0632703cbdaec0",
+      "after_sha256": "25c1f7521bf1fbdfe17bcf235acc8e6924db4ca4fe77bee0ff0d26eaf0041803",
+      "patch_sha256": "ded1831fc4e09275d26971afed7aa9ae7167df4e608c35ce260acb325f821146"
+    },
+    {
+      "host": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Multiplayer__FPSStatusReplicationComponent.cpp.patch",
+      "before_sha256": "caa3e76fefcb62add91ffb67b969033ae95ad84f8ba590566c92889e91671797",
+      "after_sha256": "379b65f903d4dcca26c52092e972706b8e66ea5f1f86efe25526a3d3c60f4bfe",
+      "patch_sha256": "8296c6b693292c0b4185636da0496bdb3fe844a61778b324428f4fbe1de1349d"
+    },
+    {
+      "host": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Multiplayer__FPSStatusReplicationComponent.h.patch",
+      "before_sha256": "aa806ff53cb622d6f9c654f21e8b654976c30718a57adbb3a7be6b21651de3fd",
+      "after_sha256": "81d5cf98df6aec28630dc3a4704dee1898b97d7d2cff157bf4f3db97d5c7e8b9",
+      "patch_sha256": "337989b91b46b5062b200c832aed6b56926400858c1a6bf6b65f60fb984313fc"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Skills__ColdSteelSkillModel.cpp.patch",
+      "before_sha256": "43594495c47e2877992bba3868109ee6857dec4c910a15c27aa624e9081ea174",
+      "after_sha256": "6418382cd55feb743fe7bc2de6071e37db222f3798b651f08e296983839da47f",
+      "patch_sha256": "c4e8a746059aa788aeef913c46009f370074b49b2c0ec277a5c04ad781795f69"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Skills__ColdSteelSkillRules.cpp.patch",
+      "before_sha256": "919b5251c4a580d970616fd4dec40ff581e63d2875b7e9d6cd76a87ecbec12f5",
+      "after_sha256": "5d93fe59d3ae33e0583feda0d95288e1a70fa4cc69e002b3470d574fec1b0969",
+      "patch_sha256": "b28e10a90c0e04f35e66a8cec62c1005d67068de93110aebe67963f9ad469628"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Skills__ColdSteelSkillTypes.h.patch",
+      "before_sha256": "ffb8a23c93f52cb4dbc337391b77510e302244f901b187dc39560293cc9e41f3",
+      "after_sha256": "f03a4b5ff0547149da4a796a7fa3a052f85887bbac30a48febbee7f0096a67cc",
+      "patch_sha256": "8682b353e9d3f94003a7b72ad2dba5a76397d047c4dbd4735ad590586377a9e5"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/FireballTypes.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/FireMagicTypes.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/HolyLightTypes.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/IceSpikeTypes.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/LightningTypes.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/FPSFireballProjectile.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/FPSHolyLightComponent.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/FPSLightningComponent.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Skills__FPSFireMagicComponent.cpp.patch",
+      "before_sha256": "28250164f54a73ed3b97417130e01db2d0e107c9c9c1260618e0e4a964b96961",
+      "after_sha256": "40b6bc2071ede034a7dbab607e2193a48f9cdc1dece9d13ea0d3ca00f6f67eb7",
+      "patch_sha256": "820ad64dd316acd015f0ff869266ab8f5e1d699ee98a6c7138e15005b3e1f356"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+      "before_sha256": "6ff6c743ab58eb638ee0a354e249c1e0ec679286dc2c13aaed197e669f46c892",
+      "after_sha256": "f90b34914113e6abf6f95e7a0388aeb69485c7f180f3326029cd5aaf0802e661",
+      "patch_sha256": "0acbd86bd0f75a307bb442cbc3fc042c1f533bcb42dc5aa14e5f2f3cae192a78"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelFireballHUD.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__ColdSteelInventoryRules.cpp.patch",
+      "before_sha256": "95fd577fcde62fd590c5da5f03a4694b9526b1dcf01326cc564d5d06292dc30d",
+      "after_sha256": "dd3aa143d932882d5e7157ee1ef411d19b211d239068870d9b7a9336d460d9b0",
+      "patch_sha256": "36d726f278bfd665f51eb6793422ef62087d2782ae9becc2022927dfb9277b93"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+      "before_sha256": "d7753a6300c18e3ea942652ff54d36fcc06b18e37a7c3ede08b27088fc110f13",
+      "after_sha256": "68543a9620b6cdda9602ba722dcb50f0177d2f517fec385dfc52ef859f2f3288",
+      "patch_sha256": "e80ed267300a98a3591abbe6dd2403195cf9ee9749be37dcf81e9d7ad265d21e"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__ColdSteelQuickSlot.cpp.patch",
+      "before_sha256": "7bbba611a4bc1cf46974706b052ab6ffc3ff22a250ceb97ed8d40b885150ea38",
+      "after_sha256": "dc082fc5d1b0561f21461414d753af06d2bbd016ff56076ce2b9a9f817028ba4",
+      "patch_sha256": "9cdcba1239aa27b94ddd2737b58098876cb10a5ae88b893bb0df6ad6c16ec383"
+    },
+    {
+      "host": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__StatusEffectsComponent.cpp.patch",
+      "before_sha256": "a0d19718eaf48fa10a29181bd5ee4e788ead831079e30719d8f3378a743b1f92",
+      "after_sha256": "d0a9fec411914cbf89d14ff309648f2faf6fbd07b395e117159af0b50d245676",
+      "patch_sha256": "83f0260cd14e21d6a9d2f3378828882fbc486a709d533ffd6e16b1f154422ac9"
+    },
+    {
+      "host": "Source/FPSGAME/UI/StatusEffectIconPainter.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__StatusEffectIconPainter.cpp.patch",
+      "before_sha256": "02263f3fb8268ac8fff26832f65aa71f749f88194fbd24554f95256acde7df90",
+      "after_sha256": "8a73420ffe49e773d6bb07cafaf495f13ab1260b8266daf811a3977445ec9954",
+      "patch_sha256": "b4df0c321d4cf72a9ffaa75e44b6d3ceb84e0a1ad8ca24fbb3f91603972a2301"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch",
+      "before_sha256": "b2cebd6e6ddacf9554ae68c2c6ff10ba474530c8e967a91e493d31234d60dfd5",
+      "after_sha256": "2fe29a4f57a2ba962ab12da1853b81b575698659d139a9b465420c934b8fb66d",
+      "patch_sha256": "b5fafee405fc653578380af6c8bfe2fce88cb26b9623b06ffa1679d172da101f"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__GunsmithSystem.h.patch",
+      "before_sha256": "adcbd456e15d726a940a8c479c76bce0b293680931f2ead20c75535379af0f1e",
+      "after_sha256": "ad2f8a5c9769f43cfab037bd3546201971edb866e201ba2f810a0c13fa04d23d",
+      "patch_sha256": "a3f3f38705a6331b699747a821de54a3f341c4894d05a858f14ec9edb360f137"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__MeleeGunsmith.cpp.patch",
+      "before_sha256": "792a4be4501e5718a058ad2ba663d587af2e5f19cd1ca648d8275b91a8db053a",
+      "after_sha256": "d6378254a20750cda8a0b3c0a86be73260f7b7d1bf180112d6f3f50f3dfa8d3e",
+      "patch_sha256": "560fda00b6489789270633d269008e8535298bf1e7079752595b7b7ab01e3c30"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__GunsmithModificationTier.h.patch",
+      "before_sha256": "ce463e277be39f89a522ab076b3039c6f6c77252d0277544998c873df8d09f6a",
+      "after_sha256": "b572d43155cb181a7121d8753eb834a00bfd9ced106e21520aa8abf41c7f821a",
+      "patch_sha256": "b9c3d807c499ceb6d264b084450610f9d19cfa10bd045e1fb7c011d1ec5ea055"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__ModularSwordVisual.cpp.patch",
+      "before_sha256": "85b02d5bf8b089de5b40e10f3709322432cb54e7eda8aff65aca146c20aa3772",
+      "after_sha256": "489c7be5cc55db666513a74c3b82a70b700083f2778d8430f7a5c9e171be9609",
+      "patch_sha256": "47e152f2fe1b51d93fead10e71601c85f4f5a0e0c780cea8367882c8e639be43"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/ModularSwordVisual.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__RuneSwordAuditCommandlet.cpp.patch",
+      "before_sha256": "a865e840e22a8ca7750b59de7d7a12beee19927acdbc187405843533b1e2e605",
+      "after_sha256": "6b5c717a9cee698293c5b30448d6cb306db00b3c305cef89067302be2ba8a24c",
+      "patch_sha256": "4c221ea6542d3235f42c14313da687ce98c2b6525922669115d15c46ea6c830e"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__RuneSwordAuditCommandlet.h.patch",
+      "before_sha256": "6da94e88c901da07268bcb8fefd64f3028ce72166939af785ce108ecf8450593",
+      "after_sha256": "572cde26a7b020a15d119ceca4cf33599da86c0e11534c8ecbb547def4f9a2f0",
+      "patch_sha256": "9dd064a0fa343912239b1e4b57989326a4eeb7dc451d92f0aa438b72052c9cb6"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__RuneSwordComponent.cpp.patch",
+      "before_sha256": "b802546146d6404cd17c940bc59c1f40b464be80b5eed9cc30c374d30eb637c7",
+      "after_sha256": "b071c7820177b137a6aff2fde4d1c9059b92e0ee0908969957779e00316d97fc",
+      "patch_sha256": "74ea52134a15203231c386336a8f06d3e51afe53781720116423bc6771078299"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Weapons__RuneSwordComponent.h.patch",
+      "before_sha256": "6cb46304eb0e30b575244ee96ad596c6a34bd6c1aa343e59b014737289f1d774",
+      "after_sha256": "859f97647658b96011179973e07c164bb670577697ce388b4ce9f59e00a67dce",
+      "patch_sha256": "96799dee21f93609516634576d573632626d1dda8cef6970a82ea50c3fde5eb4"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/RuneSwordMeshComponent.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/RuneSwordMeshComponent.h",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "before_sha256": "166e98a24345baa66a8d69d7f83ded4928edc2e8584b369e293bdd5e989dcd2c",
+      "after_sha256": "6deaf7eadbcf9a3efa03bc1c1afcbc7e5660eaeda0f43607ac98c2c107af1196",
+      "patch_sha256": "17879c50caf4a2cb6f8f95a55a2f17bfa04635ccbfc0a88c0c6cb7a1edab4fa2"
+    },
+    {
+      "host": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "before_sha256": "8a326c4c7e1b579d423d28c9f3d2b630aa4c180f5bf7155fa0e8e1d2b98d92b9",
+      "after_sha256": "98cd9154251b49b24c627dd9d4bc69bab3dde7d7a323212bc490042b1f5806de",
+      "patch_sha256": "04b34a280c6bfe9f48ce178fdade7c93b4a4c260f8bf8bfed2cf989041a09dc0"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Skills__SkillWireAudit.cpp.patch",
+      "before_sha256": "1031c325a0e0ca7b7fcb6df0d5338e5c923ff5561e6ad4fd4469b00cf5efc575",
+      "after_sha256": "ec2a9d4be83a30e93900472a05ca3209d53b3ff9d798fa7d75bcb33121ff5ee7",
+      "patch_sha256": "c52a786e963e472f27c901733b0c92601773583c144a9dd6931eff24ed4094ca"
+    },
+    {
+      "host": "Source/FPSGAME/Skills/SkillWireAudit.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Skills__SkillWireAudit.h.patch",
+      "before_sha256": "c86f7c6c4a2c56ee9b177754af72767420c3fe9c9f5371fc85686ffe97992284",
+      "after_sha256": "a614585ad6bc3c708eda768a165cc8953ad4eaff1e4daf89ee07db91a1d603d6",
+      "patch_sha256": "a6cc5b157024356aebf48cf33535f245b2f0698096f40b15dd1447898e6db0b2"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelExperienceFeed.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__ColdSteelExperienceFeed.cpp.patch",
+      "before_sha256": "a90149a732fff20738fe3031d3408b992fbe55a86023c060cd781816aed71474",
+      "after_sha256": "713f21240e1fdda99b3de223d19389267a1c08b06b304a8ca4304f322edd8206",
+      "patch_sha256": "5a33ee6a4a2f17b70ebafc4500072b83c1484c5ba7c3a345abd31e4695c3efec"
+    },
+    {
+      "host": "Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+      "delivery": "source + exact local-host patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__Combat__ColdSteelFormulaBonuses.cpp.patch",
+      "before_sha256": "da275151e1b538b9af0230508c84c698a398eaccfbacc4e6cd32eac0b154b05d",
+      "after_sha256": "b5abd43bfadaefa5dcf7282ef4e1a15707d33f66c8f1e496b041b9eedcdbe0be",
+      "patch_sha256": "cdf2f82fa08b194d2c489a6d51258d4d7b5fd04ad2913bb13a806f0b9b8b21b9"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/UI/M4MeleePreview.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/UI/ColdSteelMeleeIcon.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__ColdSteelMeleeIcon.cpp.patch",
+      "before_sha256": "5b2147758edf2f3f3a348f24c17e2797035c6c745fd7d8cb7c4ec7f2e5240aaf",
+      "after_sha256": "0b21c6aa59be1b104e8a5e1127e6fb704833c9a2857aae91f64abf36f86c53be",
+      "patch_sha256": "49a9ac2b8cf2c1e06cf34b89e669ec476fd88dbe99b6fb6a51d1025be455029f"
+    },
+    {
+      "host": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/TwoHandedMaterials20261104/Integration/Source__FPSGAME__UI__M4GunsmithLayout.cpp.patch",
+      "before_sha256": "55ab6e69912818f85d1a83976cc4057d488359235d3b7bd6368e06a2969a7e04",
+      "after_sha256": "4eef4ca6ba6eaa85919c8248e663707a5319782d396bf639f7a68102fa036326",
+      "patch_sha256": "a5ab7106b9a75e4012ac89a710657b1963ead1db76a69c94b462b8a7cd10326c"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/RuneSwordBeiwei.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSPlayerBodyBeiwei.cpp",
+      "delivery": "source"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/SwordBladeFinishAuditCommandlet.cpp",
+      "delivery": "source"
+    }
+  ],
+  "public_base": "ec0f9738579e5df5ac4494d129e1ed5c0da22ac0"
+}

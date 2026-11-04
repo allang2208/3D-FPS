@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.h
++++ b/Source/FPSGAME/Skills/SkillWireAudit.h
+@@ -31,0 +32,8 @@
++    void TickStarMarrow();
++    UFUNCTION(Client,Reliable) void ClientStarStep(int32 Step,class AFPSGAMECharacter* ObserverPawn);
++    UFUNCTION(Server,Reliable) void ServerStarStep(int32 Step,bool Passed);
++    int32 StarStep=0,StarReportedStep=0;
++    bool bStarPassed=true,bLateSeen=false,bStarSent=false,bStartedMotion=false,bSawStatusCap=false,bSawRefresh=false;
++    double StarStatusFirstSeen=-1.;
++    float StarInitialMana=0.f,StarManaCost=0.f;
++    UPROPERTY() TObjectPtr<class AFPSGAMECharacter> StarObservedPawn;
+@@ -61,0 +70 @@
++    void TickStarMarrow(float Delta);
+@@ -62,0 +72,5 @@
++    UPROPERTY() TObjectPtr<UColdSteelStatusModel> StarObserverProfile;
++    bool bStarPassed=true,bSawThirdPersonMotion=false,bSawThirdPersonFlame=false;
++    double StarGrantedAt=-1.,StarHostSpend=0.,StarStatusAt=-1.;
++    float StarInitialMana=0.f,StarManaCost=0.f;
++    UPROPERTY() TObjectPtr<class AFPSGAMECharacter> StarObservedPawn;

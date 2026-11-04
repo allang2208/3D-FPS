@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -68,0 +69,4 @@
++    bool IsStarMarrowChargeMotionReady() const;
++    bool IsStarMarrowChargeMotionPlaying() const;
++    bool BeginStarMarrowChargeMotion(float Age=0.f);
++    void CancelStarMarrowChargeMotion();
+@@ -130,0 +135 @@
++    const FString& DisplayedSwordInstance() const { return InstanceId; }
+@@ -140,0 +146,2 @@
++    void LoadStarMarrowMotion(const FString& Definition,const FString& Folder);
++    TSharedPtr<FStreamableHandle> StarMarrowMotionLoad;
+@@ -145,0 +153 @@
++    FString TimeSandTrailInstance;
+@@ -187,0 +196,9 @@
++    // Crystal sword's independent legendary blade: ordinary combo release only.
++    bool bRiftPiercerSwing=false;
++    uint32 RiftPiercerSerial=0,RiftPiercerAcceptedSerial=0;
++    uint8 RiftPiercerAcceptedStage=0;
++    double RiftPiercerAcceptedAt=-100.;
++    FString RiftPiercerAcceptedWeapon,RiftPiercerAcceptedData;
++    void ReleaseRiftPiercer(const FTransform& Aim);
++    void SpawnRiftPiercer(const FTransform& Aim,const struct FColdSteelItem& Item,float ThirdDamage,float ThrustReach,const FColdSteelSkillShot& Snapshot);
++    UFUNCTION(Server,Reliable) void ServerRiftPiercerRelease(uint32 Serial,const FString& Weapon,uint8 Stage,FVector_NetQuantize Origin,FVector_NetQuantizeNormal Direction,bool AzureDragon);

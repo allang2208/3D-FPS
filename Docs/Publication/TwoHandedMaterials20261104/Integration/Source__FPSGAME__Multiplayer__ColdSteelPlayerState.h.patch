@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -102,0 +103 @@
++    UPROPERTY() FString WeaponInstance; // Required by equipped-item casts.
+@@ -197,0 +199,3 @@
++    UFUNCTION(Client,Reliable) void ClientStarMarrowSpend(AFPSGAMECharacter* Character,double Total);
++    void NotifyMagicCrystalMana(AFPSGAMECharacter* Character,double Total);
++    UFUNCTION(Client,Reliable) void ClientMagicCrystalMana(AFPSGAMECharacter* Character,double Total);

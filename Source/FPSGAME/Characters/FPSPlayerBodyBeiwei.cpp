@@ -14,8 +14,8 @@ void UFPSPlayerBodyComponent::PresentBeiweiTrail()
         for(int32 I=0;I<W.Parts.Num();++I)
         {
             const auto& P=W.Parts[I];
-            const bool Gold=P.RuneDefinition==ColdSteelFrostRunes::Zhanmadao&&P.RuneId==ColdSteelFrostRunes::Beiwei&&
-                P.RuneSlot==TEXT("SwordSlot=blade_1");
+            const bool Gold=(P.RuneDefinition==ColdSteelFrostRunes::Zhanmadao&&P.RuneId==ColdSteelFrostRunes::Beiwei&&
+                P.RuneSlot==TEXT("SwordSlot=blade_1"))||(P.BladeFinishMode==7&&!P.bBladeFinishGuardRoot);
             if((!Gold&&!P.bChixiaoBlade&&!P.bZhufengBlade)||!Binding.Parts.IsValidIndex(I))continue;
             auto* Blade=Binding.Parts[I].Get();if(!Blade)continue;
             if(!BeiweiWorldTrail)

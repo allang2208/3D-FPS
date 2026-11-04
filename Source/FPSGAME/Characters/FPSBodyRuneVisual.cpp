@@ -26,14 +26,14 @@ void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelIte
     if(!Source||!Item||(!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsTwoHandedBlunt(*Item)))return;
     const bool Blade=Source->ComponentHasTag(TEXT("SwordSlot=blade_1"));
     const bool Guard=Source->ComponentHasTag(TEXT("SwordSlot=guard"));
-    if(Item->Definition==TEXT("ue_rune_sword")&&(Blade||Guard))
+    if(ColdSteelModularSword::IsBladeFinishCarrier(Source,*Item))
     {
         Out.BladeFinishMode=ColdSteelModularSword::BladeFinishMode(*Item);
-        Out.bBladeFinishGuardRoot=Guard;
+        Out.bBladeFinishGuardRoot=Item->Definition==TEXT("ue_rune_sword")&&Guard;
     }
     Out.bChixiaoBlade=Source->ComponentTags.Contains(FName(TEXT("SwordSlot=blade_1")))&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item);
     Out.bZhufengBlade=Source->ComponentTags.Contains(FName(TEXT("SwordSlot=blade_1")))&&ColdSteelModularSword::UsesZhufengWhirlwind(*Item);
-    if(Out.bChixiaoBlade||Out.bZhufengBlade)
+    if(Out.bChixiaoBlade||Out.bZhufengBlade||(Blade&&Out.BladeFinishMode==7))
     {
         // Blade-specific trails also work with no rune material installed.
         Out.BeiweiBladeBase=ColdSteelModularSword::BladePoint(*Item,false);

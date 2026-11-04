@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+@@ -387,0 +388 @@
++    StarMarrow::CaptureSpell(GetOwner(),ArmorSnapshot.StarMarrow);

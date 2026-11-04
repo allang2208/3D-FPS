@@ -31,7 +31,8 @@
             "range_mult": 1.25,
             "physical_damage_mult": 1.1,
             "stamina_mult": 1.25
-          }
+          },
+          "special_effects": []
         },
         {
           "id": "canine_blade",
@@ -91,7 +92,8 @@
           "description": "卸下挂绳，保留柄尾穿孔。",
           "appearance": "原装柄尾 · 空置穿孔",
           "effects": [],
-          "stats": {}
+          "stats": {},
+          "special_effects": []
         }
       ],
       "options_library": "shared-knife-component-options.json",

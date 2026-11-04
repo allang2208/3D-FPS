@@ -99,7 +99,9 @@ bool UColdSteelStatusModel::ApplyFireMagicHit(APawn* Shooter,AActor* Target,cons
     bool Critical=false;
     const CombatFormulaRuntime::MagicHit Context{Spell.CriticalChance,Spell.CriticalDamageBonus,Spell.MagicPenetration,Spell.MagicDamageBonus,&Critical,false};
     TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(CombatFormulaRuntime::ActiveMagicHit,&Context);
+    StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Spell.StarMarrow);
     const float Applied=UGameplayStatics::ApplyDamage(Target,Damage,Shooter->GetController(),Shooter,UFireMagicDamage::StaticClass());
+    CrystalRecovery.Finish(Applied);
     if(Applied<=0)return false;
     // Keep the pendant's burn separate from the meteor's native burn stacks.
     if(Spell.PendantBurnMultiplier>0&&!Combat->IsDead())

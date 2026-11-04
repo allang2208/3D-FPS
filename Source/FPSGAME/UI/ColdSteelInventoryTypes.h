@@ -230,6 +230,15 @@ struct FColdSteelProfile
     UPROPERTY() float Mana = 250;
     /** Cumulative focus-break charges already included in Mana; legacy saves default to zero. */
     UPROPERTY() double SpellbookFocusManaLoss = 0;
+    /** Server-confirmed crystal mana recovery already included in Mana. */
+    UPROPERTY() double MagicCrystalManaRestored = 0.;
+    UPROPERTY() double StarMarrowManaSpent = 0.;
+    void MergeStarMarrowSpend(double Total)
+    {
+        if(!FMath::IsFinite(Total)||Total<=StarMarrowManaSpent)return;
+        Mana=float(FMath::Max(0.,double(Mana)-(Total-StarMarrowManaSpent)));
+        StarMarrowManaSpent=Total;
+    }
     UPROPERTY() int32 StaminaVersion = 0;
     UPROPERTY() float Stamina = 100;
     UPROPERTY() float StaminaRecoveryDelay = 0;

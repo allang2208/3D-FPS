@@ -66,6 +66,10 @@ public:
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginInspect();
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsInspecting() const { return bInspecting; }
     bool IsEquipping() const { return bEquipping; }
+    bool IsStarMarrowChargeMotionReady() const;
+    bool IsStarMarrowChargeMotionPlaying() const;
+    bool BeginStarMarrowChargeMotion(float Age=0.f);
+    void CancelStarMarrowChargeMotion();
     bool CanReleaseSupportHand() const
     { return !(bUppercut || bWhirlwind || bAttacking || bEquipping || bCharging || bReturningCharge || bGuardReacting || bGuardBreakPose); }
     USkeletalMeshComponent* ArmsMesh() const { return Viewmodel; }
@@ -108,6 +112,7 @@ public:
     void CancelAction();
     bool GetFireMagicBladePoints(FVector& Base,FVector& Tip) const;
     /** Presentation attachment, independent of the combat-only Blade_Base/Tip animation tracks. */
+    const FString& DisplayedSwordInstance() const { return InstanceId; }
     bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
     /** Online clients resolve hits on the server: its receipt stands in for the local result when charging Azure Dragon. */
     void NotifyAzureDragonNetHit(AActor* Target,float Applied,bool bKilled);
@@ -118,7 +123,10 @@ public:
     /** Online: another player's claws on this machine, from their replicated body state (source seconds). */
     void PresentAzureDragonRemote(uint8 Flags,float Source,float StrikeContactStart,float StrikeContactEnd,float Entry,float Held);
 private:
+    void LoadStarMarrowMotion(const FString& Definition,const FString& Folder);
+    TSharedPtr<FStreamableHandle> StarMarrowMotionLoad;
     void InitializePresentation();
+    FString TimeSandTrailInstance;
     friend class URuneSwordAuditCommandlet;
     friend class UFPSConsumableAuditCommandlet;
     friend class UFPSPlayerBodyComponent;
@@ -155,6 +163,15 @@ private:
     TSharedPtr<FStreamableHandle> SlashWaveLoad;
     float SwingWaveRange=0.f,SwingWaveScale=0.f,SwingWaveSpeed=1800.f;
     void ReleaseSlashWave(const FTransform& Aim);
+    // Crystal sword's independent legendary blade: ordinary combo release only.
+    bool bRiftPiercerSwing=false;
+    uint32 RiftPiercerSerial=0,RiftPiercerAcceptedSerial=0;
+    uint8 RiftPiercerAcceptedStage=0;
+    double RiftPiercerAcceptedAt=-100.;
+    FString RiftPiercerAcceptedWeapon,RiftPiercerAcceptedData;
+    void ReleaseRiftPiercer(const FTransform& Aim);
+    void SpawnRiftPiercer(const FTransform& Aim,const struct FColdSteelItem& Item,float ThirdDamage,float ThrustReach,const FColdSteelSkillShot& Snapshot);
+    UFUNCTION(Server,Reliable) void ServerRiftPiercerRelease(uint32 Serial,const FString& Weapon,uint8 Stage,FVector_NetQuantize Origin,FVector_NetQuantizeNormal Direction,bool AzureDragon);
     FString InstanceId;
     FString EquippedMeshPath;
     FMeleeModifiers MeleeModifiers;

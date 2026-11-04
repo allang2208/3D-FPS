@@ -423,6 +423,8 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
 }
 static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool AllowLegacyWood,bool UseSavedBackpackLayout=false)
 {
+    if(!FMath::IsFinite(P.MagicCrystalManaRestored)||P.MagicCrystalManaRestored<0.)
+    {Reason=TEXT("魔晶回魔记录无效");return false;}
     if(!FMath::IsFinite(P.SpellbookFocusManaLoss)||P.SpellbookFocusManaLoss<0.0)
     {Reason=TEXT("专注打断扣魔记录无效");return false;}
     if(P.SoulCurrencyVersion<0||P.SoulCurrencyVersion>1||P.Souls<0||P.Souls>9007199254740991ll||P.ServerSoulCredits<0||P.ServerSoulCredits>9007199254740991ll||P.ServerSoulDebits<0||P.ServerSoulDebits>9007199254740991ll)

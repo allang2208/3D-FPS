@@ -12,7 +12,15 @@ namespace ColdSteelModification
 {
 inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
 {
+    if(Weapon==TEXT("ue_rune_sword")&&SlotKey==TEXT("blade_material")&&(Id==TEXT("time_sand_gold")||Id==TEXT("frost_crystal")))
+        return EGunsmithModificationTier::Legendary;
+    if(Weapon==TEXT("ue_frost_crystal_sword")&&SlotKey==TEXT("blade_material")&&
+        (Id==TEXT("red_magic_crystal")||Id==TEXT("high_energy_magic_crystal")))
+        return EGunsmithModificationTier::Special;
     if(SlotKey==TEXT("blade_material")&&(Id==TEXT("damascus_steel")||Id==TEXT("meteoric_iron")))
+        return EGunsmithModificationTier::Special;
+    if(Weapon==TEXT("ue_highland_claymore")&&SlotKey==TEXT("blade_material")&&
+        (Id==TEXT("blackthorn_steel")||Id==TEXT("whitehart_mithril")))
         return EGunsmithModificationTier::Special;
     if(Weapon==TEXT("ue_kukri")&&SlotKey==TEXT("blade_2")&&
         (Id==TEXT("frost_raven_rune")||Id==TEXT("berserker_rune")))
@@ -43,6 +51,8 @@ inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotK
     if(TacticalDeviceVariants::IsSlot(SlotKey)&&Id==TacticalDeviceVariants::BlessedLaser)
         return EGunsmithModificationTier::Legendary;
     if(Weapon==TEXT("ue_xuanchi_zhenyue")&&SlotKey==TEXT("blade_2")&&(Id==TEXT("zhenmo_rune")||Id==TEXT("jingang_rune")))
+        return EGunsmithModificationTier::Legendary;
+    if(Weapon==TEXT("ue_frost_crystal_sword")&&SlotKey==TEXT("blade_1")&&(Id==TEXT("star_marrow")||Id==TEXT("rift_piercer")))
         return EGunsmithModificationTier::Legendary;
     if(SlotKey==TEXT("hammer_heads")&&Id==TEXT("pointed_hammer"))
         return EGunsmithModificationTier::Special;

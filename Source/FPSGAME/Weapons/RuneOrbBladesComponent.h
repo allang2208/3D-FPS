@@ -34,7 +34,14 @@ public:
     void InterruptPending(bool bGathering);
     // Blade kills trim all running ability cooldowns through the shared profile path.
     void NotifyBladeResult(bool bKilled);
-    void ReduceCooldown(float Seconds) { Cooldown = FMath::Max(0.f, Cooldown - FMath::Max(0.f, Seconds)); }
+    void ReduceCooldown(float Seconds,bool bNotifyReduction=false)
+    {
+        const float Before=Cooldown;
+        Cooldown=FMath::Max(0.f,Cooldown-FMath::Max(0.f,Seconds));
+        if(bNotifyReduction&&Cooldown<Before)++CooldownReductionSerial;
+    }
+    uint32 CooldownReductionRevision() const { return CooldownReductionSerial; }
+    UFUNCTION(Client,Reliable) void ClientMeleeCooldownReward(float Seconds,float BladeRemaining);
     // Per-summon affix snapshot consumed by the flying blades (2D craft-affix bridge).
     float BladeRangeCM() const { return ActiveRangeCM; }
     int32 BladeVulnerabilityStacks() const { return VulnerabilityStacks; }
@@ -72,6 +79,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> BladeMesh;
     float Elapsed = 0.f;
     float Cooldown = 0.f;
+    uint32 CooldownReductionSerial=0;
     // Captured at summon so stowing the sword cannot change this cast's cooldown.
     float CooldownDuration = BaseCooldownDuration;
     bool bActive = false;

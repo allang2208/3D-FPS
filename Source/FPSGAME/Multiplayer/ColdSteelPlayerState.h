@@ -86,6 +86,7 @@ struct FColdSteelNetCastRequest
     UPROPERTY() TObjectPtr<APawn> SourcePawn=nullptr;
     UPROPERTY() uint32 Sequence=0;
     UPROPERTY() uint32 CastId=0; // Dragon/Storm prepare sequence; stable through release/cancellation.
+    UPROPERTY() FString WeaponInstance; // Required by equipped-item casts.
     UPROPERTY() uint8 Phase = 0;
     UPROPERTY() FVector_NetQuantize AimPoint = FVector::ZeroVector;
     UPROPERTY() FVector_NetQuantizeNormal AimNormal = FVector::UpVector;
@@ -133,6 +134,8 @@ UCLASS()
 class FPSGAME_API AColdSteelPlayerState : public APlayerState
 {
     GENERATED_BODY()
+    friend class ASkillWireAuditController;
+    friend class ASkillWireAuditGameMode;
     friend class UBowSkillTrainingAuditCommandlet;
 
 public:
@@ -180,6 +183,9 @@ public:
     void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn);
     UFUNCTION(Client,Reliable) void ClientRetryProfileUpload(int32 UploadId);
 
+    UFUNCTION(Client,Reliable) void ClientStarMarrowSpend(AFPSGAMECharacter* Character,double Total);
+    void NotifyMagicCrystalMana(AFPSGAMECharacter* Character,double Total);
+    UFUNCTION(Client,Reliable) void ClientMagicCrystalMana(AFPSGAMECharacter* Character,double Total);
     uint32 RequestSuper90Shot(const FString& Weapon,const FVector& Eye,const FVector& Muzzle,const FVector& Aim,bool Aiming,int32 PredictedRounds);
     void RequestSuper90Reload(const FString& Weapon,const FString& Ammo);
     void CancelSuper90Reload(bool Soft);

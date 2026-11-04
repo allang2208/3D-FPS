@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h
++++ b/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h
+@@ -11,0 +12,3 @@
++    int32 AuditStarMarrowMotion(const FString& Params);
++    int32 AuditStarMarrowSurface(const FString& Params);
++    int32 CaptureStarMarrowFire(const FString& Params);

@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Weapons/StarMarrowComponent.h"
 #include "Weapons/FullAutoTrigger.h"
 #include "Weapons/JingangRuneComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -8,6 +9,7 @@
 #include "Weapons/TangDaoGuardComponent.h"
 #include "Weapons/PanChiGuardComponent.h"
 #include "Weapons/ZhenmoRuneComponent.h"
+#include "Weapons/TimeSandEchoComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
 #include "Weapons/Kukri/KukriWeaponComponent.h"
@@ -78,9 +80,11 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     // Possession can publish a shadow profile before component initialization.
     // BeginPlay consumes NetShadowProfile after creating the base viewmodel.
     if(!HasActorBegunPlay() || !Profile || bResolvingActionInterrupt)return;
+    if(auto* Core=FindComponentByClass<UStarMarrowComponent>())Core->Configure(Profile);
     if(auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())Guard->Configure(Profile);
     if(auto* Guard=FindComponentByClass<UPanChiGuardComponent>())Guard->Configure(Profile);
     if(auto* Rune=FindComponentByClass<UZhenmoRuneComponent>())Rune->Configure(Profile);
+    if(auto* Echo=FindComponentByClass<UTimeSandEchoComponent>())Echo->Configure(Profile);
     if(auto* Rune=FindComponentByClass<UJingangRuneComponent>())Rune->Configure(Profile);
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
     const FString Definition=I?I->Definition:TEXT("");

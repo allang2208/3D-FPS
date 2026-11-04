@@ -20,6 +20,22 @@ class FPSGAME_API UCombatStatusFormula : public UActorComponent
 public:
     UCombatStatusFormula();
     UFUNCTION(BlueprintCallable) static UCombatStatusFormula* GetOrAdd(AActor* Target);
+    /** Resolve an attack actor back to its owning combatant (projectiles/hazards included). */
+    static const UCombatStatusFormula* ForDamageSource(const AActor* Source);
+    /** 虚弱：每层输出-10%，上限5层；叠加刷新8秒，到期整组清除。 */
+    UFUNCTION(BlueprintCallable) void AddWeakness(int32 Stacks=1);
+    int32 WeaknessCount() const;
+    float WeaknessRemaining() const;
+    float WeaknessDamageMultiplier() const{return 1.f-.1f*WeaknessCount();}
+    static constexpr float WeaknessDuration=8.f;
+    static constexpr int32 WeaknessMaxStacks=5;
+    /** 暴击易伤：每层被暴击率+5%，上限5层；叠加刷新8秒，到期整组清除。 */
+    UFUNCTION(BlueprintCallable) void AddCriticalVulnerability(int32 Stacks=1);
+    int32 CriticalVulnerabilityCount() const;
+    float CriticalVulnerabilityRemaining() const;
+    float CriticalVulnerabilityBonusPercent() const{return 5.f*CriticalVulnerabilityCount();}
+    static constexpr float CriticalVulnerabilityDuration=8.f;
+    static constexpr int32 CriticalVulnerabilityMaxStacks=5;
     UFUNCTION(BlueprintCallable) void AddCorrosion(int32 Stacks=1,float Seconds=5,float ReductionPerStack=.05f);
     UFUNCTION(BlueprintCallable) void AddMagicResistanceShred(float Ratio,float Seconds);
     UFUNCTION(BlueprintCallable) void AddHolyWard(float Multiplier,float Seconds);
@@ -140,6 +156,12 @@ private:
     TArray<TWeakObjectPtr<UZhenmoRuneComponent>> ZhenmoSources;
     void InterruptOwnerActions(float Seconds);
     bool bImmune=false;
+    void ClearWeakness();
+    int32 WeaknessStacks=0;
+    double WeaknessEndsAt=0.;
+    void ClearCriticalVulnerability();
+    int32 CriticalVulnerabilityStacks=0;
+    double CriticalVulnerabilityEndsAt=0.;
     float NetworkZhenmoMovement=1.f;
     int32 ElectrifiedStacks=0;
     float ElectrifiedTime=0,ElectrifiedBonus=.03f;

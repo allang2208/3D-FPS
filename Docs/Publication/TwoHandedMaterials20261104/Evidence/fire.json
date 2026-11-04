@@ -1,0 +1,50 @@
+{
+  "170": {
+    "blue_pixels": 4848,
+    "length_bins_with_blue": 18,
+    "length_bins_total": 18,
+    "counts": [
+      "24",
+      "18",
+      "6",
+      "0",
+      "0"
+    ]
+  },
+  "250": {
+    "blue_pixels": 5265,
+    "length_bins_with_blue": 18,
+    "length_bins_total": 18,
+    "counts": [
+      "24",
+      "14",
+      "7",
+      "1",
+      "0"
+    ]
+  },
+  "354": {
+    "blue_pixels": 3971,
+    "length_bins_with_blue": 18,
+    "length_bins_total": 18,
+    "counts": [
+      "24",
+      "16",
+      "7",
+      "0",
+      "0"
+    ]
+  },
+  "382": {
+    "blue_pixels": 38,
+    "length_bins_with_blue": 0,
+    "length_bins_total": 18,
+    "counts": [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  }
+}

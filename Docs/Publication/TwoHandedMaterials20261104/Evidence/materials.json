@@ -1,0 +1,73 @@
+{
+  "cases": 4182,
+  "checks": 113422,
+  "failures": 0,
+  "errors": [],
+  "weapons": [
+    {
+      "weapon": "ue_rune_sword",
+      "parts": 4,
+      "rune_states": 8,
+      "material_states": 8,
+      "cases": 1728
+    },
+    {
+      "weapon": "ue_frost_crystal_sword",
+      "parts": 6,
+      "rune_states": 6,
+      "material_states": 3,
+      "cases": 144
+    },
+    {
+      "weapon": "ue_highland_claymore",
+      "parts": 6,
+      "rune_states": 7,
+      "material_states": 8,
+      "cases": 378
+    },
+    {
+      "weapon": "ue_tang_dao",
+      "parts": 6,
+      "rune_states": 8,
+      "material_states": 6,
+      "cases": 336
+    },
+    {
+      "weapon": "ue_xuanchi_zhenyue",
+      "parts": 4,
+      "rune_states": 10,
+      "material_states": 6,
+      "cases": 280
+    },
+    {
+      "weapon": "ue_zhanmadao",
+      "parts": 8,
+      "rune_states": 7,
+      "material_states": 6,
+      "cases": 392
+    },
+    {
+      "weapon": "ue_steel_warhammer",
+      "parts": 6,
+      "rune_states": 6,
+      "material_states": 6,
+      "cases": 252
+    },
+    {
+      "weapon": "ue_runebound_warhammer",
+      "parts": 7,
+      "rune_states": 8,
+      "material_states": 6,
+      "cases": 392
+    },
+    {
+      "weapon": "ue_thunder_god_hammer",
+      "parts": 5,
+      "rune_states": 8,
+      "material_states": 6,
+      "cases": 280
+    }
+  ],
+  "actual_network_transport": false,
+  "visual_rendering": false
+}

@@ -1,3 +1,6 @@
+#include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Building/WoodworkingQuality.h"
@@ -145,6 +148,9 @@ double UColdSteelStatusModel::DungeonEffect(FName Key)const
 }
 double UColdSteelStatusModel::AdjustCombatStat(FName Key,double Value)const
 {
+    if(Key==TEXT("matk"))Value=std::floor(Value*ColdSteelMelee::EquippedModifiers(this).MagicAttack);
+    if(Key==TEXT("matk"))Value=std::floor(Value*ColdSteelMelee::EquippedModifiers(this).MagicAttack);
+    if(Key==TEXT("matk"))Value=std::floor(Value*ColdSteelMelee::EquippedModifiers(this).MagicAttack);
     if(Key==TEXT("atk"))Value=std::floor(Value*(1+SetEffect(TEXT("atk"))));
     if(Key==TEXT("crit"))Value+=SetEffect(TEXT("crit"));
     const FName Percent(*(Key.ToString()+TEXT("Percent")));

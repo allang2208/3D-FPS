@@ -34,6 +34,63 @@ UCombatStatusFormula* UCombatStatusFormula::GetOrAdd(AActor* Target)
     auto* C=Target->FindComponentByClass<UCombatStatusFormula>();
     if(!C){C=NewObject<UCombatStatusFormula>(Target);Target->AddInstanceComponent(C);C->RegisterComponent();}return C;
 }
+const UCombatStatusFormula* UCombatStatusFormula::ForDamageSource(const AActor* Source)
+{
+    for(int32 Depth=0;IsValid(Source)&&Depth<4;++Depth)
+    {
+        if(const auto* Status=Source->FindComponentByClass<UCombatStatusFormula>())return Status;
+        if(const auto* Instigator=Source->GetInstigator();Instigator&&Instigator!=Source)
+            if(const auto* Status=Instigator->FindComponentByClass<UCombatStatusFormula>())return Status;
+        const AActor* Owner=Source->GetOwner();if(Owner==Source)break;Source=Owner;
+    }
+    return nullptr;
+}
+int32 UCombatStatusFormula::WeaknessCount() const
+{
+    if(WeaknessStacks<=0||!GetWorld()||GetWorld()->GetTimeSeconds()>=WeaknessEndsAt)return 0;
+    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())return 0;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return 0;
+    return WeaknessStacks;
+}
+float UCombatStatusFormula::WeaknessRemaining() const
+{return WeaknessCount()>0?FMath::Max(0.f,float(WeaknessEndsAt-GetWorld()->GetTimeSeconds())):0.f;}
+void UCombatStatusFormula::AddWeakness(int32 Stacks)
+{
+    if(!GetOwner()->HasAuthority()||!GetWorld()||IsImmune()||Stacks<=0)return;
+    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())return;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+    WeaknessStacks=FMath::Min(WeaknessMaxStacks,WeaknessCount()+FMath::Min(Stacks,WeaknessMaxStacks));
+    WeaknessEndsAt=GetWorld()->GetTimeSeconds()+WeaknessDuration;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("weakness"),WeaknessDuration,WeaknessStacks);
+}
+void UCombatStatusFormula::ClearWeakness()
+{
+    WeaknessStacks=0;WeaknessEndsAt=0.;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("weakness"));
+}
+int32 UCombatStatusFormula::CriticalVulnerabilityCount() const
+{
+    if(CriticalVulnerabilityStacks<=0||!GetWorld()||GetWorld()->GetTimeSeconds()>=CriticalVulnerabilityEndsAt)return 0;
+    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())return 0;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return 0;
+    return CriticalVulnerabilityStacks;
+}
+float UCombatStatusFormula::CriticalVulnerabilityRemaining() const
+{return CriticalVulnerabilityCount()>0?FMath::Max(0.f,float(CriticalVulnerabilityEndsAt-GetWorld()->GetTimeSeconds())):0.f;}
+void UCombatStatusFormula::AddCriticalVulnerability(int32 Stacks)
+{
+    if(!GetOwner()->HasAuthority()||!GetWorld()||IsImmune()||Stacks<=0)return;
+    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())return;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+    CriticalVulnerabilityStacks=FMath::Min(CriticalVulnerabilityMaxStacks,CriticalVulnerabilityCount()+FMath::Min(Stacks,CriticalVulnerabilityMaxStacks));
+    CriticalVulnerabilityEndsAt=GetWorld()->GetTimeSeconds()+CriticalVulnerabilityDuration;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("criticalVulnerability"),CriticalVulnerabilityDuration,CriticalVulnerabilityStacks);
+}
+void UCombatStatusFormula::ClearCriticalVulnerability()
+{
+    CriticalVulnerabilityStacks=0;CriticalVulnerabilityEndsAt=0.;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("criticalVulnerability"));
+}
 void UCombatStatusFormula::AddCorrosion(int32 Stacks,float Seconds,float Reduction)
 {
     if(IsImmune()||Stacks<=0)return;
@@ -298,7 +355,7 @@ float UCombatStatusFormula::OutgoingDamageMultiplier()const
     // Player weapons/spells already read the reduced six attributes. Monster
     // attacks retain explicit authored damage, so apply their attribute ratio here.
     if(!Pawn||!Pawn->IsPlayerControlled())Multiplier*=UProgressiveInfectionComponent::AttributeMultiplier(GetOwner());
-    return Multiplier;
+    return Multiplier*WeaknessDamageMultiplier();
 }
 void UCombatStatusFormula::AddZhenmoSource(UZhenmoRuneComponent* Source)
 {
@@ -340,6 +397,8 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     AdvanceBerserk();
     if(WagerStacks>0&&WagerCount()==0)ConsumeWager();
     if(ComposureStacks>0&&ComposureCount()==0)ClearComposure();
+    if(WeaknessStacks>0&&WeaknessCount()==0)ClearWeakness();
+    if(CriticalVulnerabilityStacks>0&&CriticalVulnerabilityCount()==0)ClearCriticalVulnerability();
     const bool WardWas=WardTime>0;ShredTime=FMath::Max(0.f,ShredTime-Delta);WardTime=FMath::Max(0.f,WardTime-Delta);
     if(WardWas&&WardTime<=0)UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("holyWard"));
     auto Expire=[&](float& Time,int32& Stacks,FName Name){if(Time<=0)return;Time=FMath::Max(0.f,Time-Delta);if(Time==0){Stacks=0;UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(Name);}};
@@ -565,6 +624,8 @@ void UCombatStatusFormula::PurgeTransient()
     WagerStacks=0;WagerEndsAt=0.;
     ComposureStacks=0;ComposureEndsAt=0.;
     TigerRoarBonus=0.f;TigerRoarEndsAt=0.;
+    WeaknessStacks=0;WeaknessEndsAt=0.;
+    CriticalVulnerabilityStacks=0;CriticalVulnerabilityEndsAt=0.;
     PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;
     if(auto* Seal=GetOwner()->FindComponentByClass<UAncientBreakingSealComponent>())Seal->Clear();
     ChillTime=HasteTime=ChainTime=ElectrifiedTime=CorrosionTime=VulnerabilityTime=BleedTime=BurnTick=0;
@@ -575,7 +636,7 @@ void UCombatStatusFormula::PurgeTransient()
     if(auto* Display=GetOwner()->FindComponentByClass<UStatusEffectsComponent>())
         for(FName Type:{TEXT("chill"),TEXT("frozen"),TEXT("haste"),TEXT("chainSpell"),TEXT("electrified"),TEXT("corrosion"),
             TEXT("bleed"),TEXT("burn"),TEXT("stun"),TEXT("bind"),TEXT("slow"),TEXT("waxSealSlow"),TEXT("weaponHaste"),
-            TEXT("petrified"),TEXT("marked"),TEXT("inspire"),TEXT("camelFright"),TEXT("statusImmune"),TEXT("minePoison"),
+            TEXT("petrified"),TEXT("marked"),TEXT("inspire"),TEXT("camelFright"),TEXT("weakness"),TEXT("criticalVulnerability"),TEXT("statusImmune"),TEXT("minePoison"),
             TEXT("droneVulnerability"),TEXT("holyWard"),TEXT("holyRenewal"),TEXT("runeMagicVulnerability"),TEXT("riposteInspiration"),TEXT("tigerRoar"),TEXT("physicalVulnerability")})Display->Remove(Type);
     // In-place revival clears the actual controllers as well as their status
     // clocks. Their existing replication paths release the owning client too.
@@ -605,6 +666,8 @@ int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
     if (Take()) if (auto* Mist = Owner->FindComponentByClass<USlagMistViewComponent>(); Mist && Mist->BlindRemaining() > 0.f)
     { Mist->ClearBlindness(); ++Cleansed; }
     if(Take()&&TigerRoarRemaining()>0.f){TigerRoarBonus=0.f;TigerRoarEndsAt=0.;Clear(TEXT("tigerRoar"));++Cleansed;}
+    if(Take()&&WeaknessCount()>0){ClearWeakness();++Cleansed;}
+    if(Take()&&CriticalVulnerabilityCount()>0){ClearCriticalVulnerability();++Cleansed;}
     if(Take()&&PhysicalVulnerabilityRemaining()>0.f){PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;Clear(TEXT("physicalVulnerability"));++Cleansed;}
     if(Take()&&BreakingSealRemaining()>0.f){if(auto* Seal=GetOwner()->FindComponentByClass<UAncientBreakingSealComponent>())Seal->Clear();++Cleansed;}
     return Cleansed;

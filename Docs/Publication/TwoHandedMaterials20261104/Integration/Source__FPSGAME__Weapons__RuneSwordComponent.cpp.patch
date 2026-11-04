@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -1,0 +2 @@
++#include "StarMarrowChargeMotion.h"
+@@ -182,0 +184 @@
++    if(StarMarrowMotionLoad)StarMarrowMotionLoad->CancelHandle();StarMarrowMotionLoad.Reset();
+@@ -213,0 +216 @@
++    LoadStarMarrowMotion(Item->Definition,Folder);
+@@ -259,0 +263 @@
++    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripClearance(Item);
+@@ -303 +307 @@
+-        Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("Uppercut")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard");
++        Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("Uppercut")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard")||Name==TEXT("StarMarrowCharge");
+@@ -482,0 +487,7 @@
++    bRiftPiercerSwing=!Heavy&&Item&&Item->Definition==TEXT("ue_frost_crystal_sword")&&
++        (Clip==TEXT("Slash1")||Clip==TEXT("Slash2")||Clip==TEXT("Thrust"));
++    if(bRiftPiercerSwing)
++    {
++        const auto* Gunsmith=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++        bRiftPiercerSwing=Gunsmith&&Gunsmith->Installed(*Item).FindRef(TEXT("blade_1"))==TEXT("rift_piercer");
++    }
+@@ -901,0 +913 @@
++    if(IsStarMarrowChargeMotionPlaying()){StarMarrowChargeMotion::Camera(Elapsed,Location,Rotation);return;}
+@@ -1472,0 +1485 @@
++        const bool ReleaseRiftPiercerThisFrame=!bSwingCuePlayed&&Next>=ContactStart;
+@@ -1561,0 +1575,3 @@
++        // Resolve the real blade first, then the instant extension in the same frame.
++        // Its launch must not lift a nearby victim out of the original thrust's contact.
++        if(ReleaseRiftPiercerThisFrame)ReleaseRiftPiercer(AimNow);
+@@ -1647 +1663 @@
+-        const float Rate=LightningHaste::ActionSpeed(GetOwner());
++        const float Rate=IsStarMarrowChargeMotionPlaying()?1.f:LightningHaste::ActionSpeed(GetOwner());
+@@ -1648,0 +1665 @@
++        if(IsStarMarrowChargeMotionPlaying())Character->RefreshQuickCombatCamera();
+@@ -1666,0 +1684 @@
++    if(StarMarrowMotionLoad)StarMarrowMotionLoad->CancelHandle();StarMarrowMotionLoad.Reset();

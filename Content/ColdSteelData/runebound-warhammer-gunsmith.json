@@ -45,11 +45,11 @@
           },
           "effects": [
             {
-              "text": "物理攻击力 +10%",
+              "text": "物理攻击力+10%",
               "benefit": 1
             },
             {
-              "text": "魔法攻击力 +10%",
+              "text": "魔法攻击力+10%",
               "benefit": 1
             }
           ],
@@ -74,11 +74,11 @@
           },
           "effects": [
             {
-              "text": "重击伤害 +15%",
+              "text": "重击伤害+15%",
               "benefit": 1
             },
             {
-              "text": "重击出手体力消耗 +100%",
+              "text": "重击出手体力消耗+100%",
               "benefit": -1
             }
           ],
@@ -93,10 +93,23 @@
       "options_library": "common-hammer-heads.json"
     },
     {
+      "key": "blade_material",
+      "name": "锤部材质",
+      "default": "原装锤部材质",
+      "description": "选择锤部材质，保留锤座、握持结构及符文。",
+      "options_library": "melee-gunsmith.json",
+      "options_column": "blade_material",
+      "excluded_options": [
+        "frost_crystal",
+        "time_sand_gold"
+      ],
+      "options": []
+    },
+    {
       "key": "head_mount",
       "name": "中央锤座",
       "default": "原装中央锤座",
-      "description": "保留原装符文锤座；通用锤座按本锤真实侧接面与锤颈接口装配。",
+      "description": "原装符文锤座连接双侧锤头与长柄。",
       "options": [],
       "options_library": "common-hammer-seats.json"
     },
@@ -120,7 +133,7 @@
           },
           "effects": [
             {
-              "text": "攻击速度 +10%",
+              "text": "攻击速度+10%",
               "benefit": 1
             }
           ],
@@ -144,11 +157,11 @@
           },
           "effects": [
             {
-              "text": "精神 +10%",
+              "text": "精神+10%",
               "benefit": 1
             },
             {
-              "text": "智力 +10%",
+              "text": "智力+10%",
               "benefit": 1
             }
           ],
@@ -165,7 +178,7 @@
       "key": "grip",
       "name": "握持包覆",
       "default": "原装握持包覆",
-      "description": "沿用现有双手接触位置，替换下段包覆并保留两端安装截面。",
+      "description": "双手握持区覆以原装包覆，两端连接金属收口。",
       "options": [],
       "options_library": "common-hammer-grips.json"
     },
@@ -202,7 +215,7 @@
           "stats": {},
           "effects": [],
           "special_effects": [
-            "星潮续醒｜符文唤醒期间，每次命中目标使持续时间增加0.5秒，持续时间无上限。"
+            "星潮续醒｜符文苏醒期间，每次对敌人造成有效攻击伤害，持续时间增加0.5秒，无上限；群攻命中的不同目标及连续有效命中分别延长。"
           ]
         }
       ],

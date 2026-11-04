@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -153,0 +154,6 @@
++    // Captured from the attacking rune sword; authority reconstructs these.
++    float TimeSandEchoRatio=0.f,TimeSandEchoDelay=0.f,TimeSandCooldownReward=0.f;
++    float HitHealthReturnRatio=0.f,HitManaReturnRatio=0.f;
++    // Captured from this Highland sword's material, reconstructed by authority.
++    bool bBlackthornCriticalWeakness=false;
++    bool bWhitehartCriticalVulnerability=false;

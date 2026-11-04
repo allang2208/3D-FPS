@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/M4GunsmithLayout.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithLayout.cpp
+@@ -64 +64,2 @@
+-        const FString IconSlot=TacticalDeviceVariants::IconSlot(Key);
++        const FString IconSlot=Key==TEXT("blade_material")&&ColdSteelFrostRunes::IsWarhammer(Model()->Definition())?
++            TEXT("hammer_heads"):TacticalDeviceVariants::IconSlot(Key);
+@@ -362 +363,3 @@
+-    const FString IconSlot=ColdSteelFrostRunes::IsWarhammer(Weapon)&&SlotKey==TEXT("rune")&&Id!=TEXT("false")?
++    const FString IconSlot=SlotKey==TEXT("blade_material")&&Id==TEXT("false")?
++        (ColdSteelFrostRunes::IsWarhammer(Weapon)?TEXT("hammer_heads"):TEXT("blade_1")):
++        ColdSteelFrostRunes::IsWarhammer(Weapon)&&SlotKey==TEXT("rune")&&Id!=TEXT("false")?

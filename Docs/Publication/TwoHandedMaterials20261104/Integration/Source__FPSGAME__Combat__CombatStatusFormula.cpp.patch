@@ -1,0 +1,75 @@
+--- a/Source/FPSGAME/Combat/CombatStatusFormula.cpp
++++ b/Source/FPSGAME/Combat/CombatStatusFormula.cpp
+@@ -38,0 +39,57 @@
++const UCombatStatusFormula* UCombatStatusFormula::ForDamageSource(const AActor* Source)
++{
++    for(int32 Depth=0;IsValid(Source)&&Depth<4;++Depth)
++    {
++        if(const auto* Status=Source->FindComponentByClass<UCombatStatusFormula>())return Status;
++        if(const auto* Instigator=Source->GetInstigator();Instigator&&Instigator!=Source)
++            if(const auto* Status=Instigator->FindComponentByClass<UCombatStatusFormula>())return Status;
++        const AActor* Owner=Source->GetOwner();if(Owner==Source)break;Source=Owner;
++    }
++    return nullptr;
++}
++int32 UCombatStatusFormula::WeaknessCount() const
++{
++    if(WeaknessStacks<=0||!GetWorld()||GetWorld()->GetTimeSeconds()>=WeaknessEndsAt)return 0;
++    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())return 0;
++    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return 0;
++    return WeaknessStacks;
++}
++float UCombatStatusFormula::WeaknessRemaining() const
++{return WeaknessCount()>0?FMath::Max(0.f,float(WeaknessEndsAt-GetWorld()->GetTimeSeconds())):0.f;}
++void UCombatStatusFormula::AddWeakness(int32 Stacks)
++{
++    if(!GetOwner()->HasAuthority()||!GetWorld()||IsImmune()||Stacks<=0)return;
++    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())return;
++    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
++    WeaknessStacks=FMath::Min(WeaknessMaxStacks,WeaknessCount()+FMath::Min(Stacks,WeaknessMaxStacks));
++    WeaknessEndsAt=GetWorld()->GetTimeSeconds()+WeaknessDuration;
++    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("weakness"),WeaknessDuration,WeaknessStacks);
++}
++void UCombatStatusFormula::ClearWeakness()
++{
++    WeaknessStacks=0;WeaknessEndsAt=0.;
++    UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("weakness"));
++}
++int32 UCombatStatusFormula::CriticalVulnerabilityCount() const
++{
++    if(CriticalVulnerabilityStacks<=0||!GetWorld()||GetWorld()->GetTimeSeconds()>=CriticalVulnerabilityEndsAt)return 0;
++    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())return 0;
++    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return 0;
++    return CriticalVulnerabilityStacks;
++}
++float UCombatStatusFormula::CriticalVulnerabilityRemaining() const
++{return CriticalVulnerabilityCount()>0?FMath::Max(0.f,float(CriticalVulnerabilityEndsAt-GetWorld()->GetTimeSeconds())):0.f;}
++void UCombatStatusFormula::AddCriticalVulnerability(int32 Stacks)
++{
++    if(!GetOwner()->HasAuthority()||!GetWorld()||IsImmune()||Stacks<=0)return;
++    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())return;
++    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
++    CriticalVulnerabilityStacks=FMath::Min(CriticalVulnerabilityMaxStacks,CriticalVulnerabilityCount()+FMath::Min(Stacks,CriticalVulnerabilityMaxStacks));
++    CriticalVulnerabilityEndsAt=GetWorld()->GetTimeSeconds()+CriticalVulnerabilityDuration;
++    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("criticalVulnerability"),CriticalVulnerabilityDuration,CriticalVulnerabilityStacks);
++}
++void UCombatStatusFormula::ClearCriticalVulnerability()
++{
++    CriticalVulnerabilityStacks=0;CriticalVulnerabilityEndsAt=0.;
++    UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("criticalVulnerability"));
++}
+@@ -341 +398 @@
+-    return Multiplier;
++    return Multiplier*WeaknessDamageMultiplier();
+@@ -383,0 +441,2 @@
++    if(WeaknessStacks>0&&WeaknessCount()==0)ClearWeakness();
++    if(CriticalVulnerabilityStacks>0&&CriticalVulnerabilityCount()==0)ClearCriticalVulnerability();
+@@ -612,0 +672,2 @@
++    WeaknessStacks=0;WeaknessEndsAt=0.;
++    CriticalVulnerabilityStacks=0;CriticalVulnerabilityEndsAt=0.;
+@@ -625 +686 @@
+-            TEXT("petrified"),TEXT("marked"),TEXT("inspire"),TEXT("camelFright"),TEXT("statusImmune"),TEXT("minePoison"),
++            TEXT("petrified"),TEXT("marked"),TEXT("inspire"),TEXT("camelFright"),TEXT("weakness"),TEXT("criticalVulnerability"),TEXT("statusImmune"),TEXT("minePoison"),
+@@ -655,0 +717,2 @@
++    if(Take()&&WeaknessCount()>0){ClearWeakness();++Cleansed;}
++    if(Take()&&CriticalVulnerabilityCount()>0){ClearCriticalVulnerability();++Cleansed;}

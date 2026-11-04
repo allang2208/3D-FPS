@@ -2,10 +2,12 @@
 #include "ColdSteelExplosiveWarnings.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDLayout.h"
+#include "ColdSteelStarMarrow.h"
 #include "HAL/PlatformTime.h"
 #include "ColdSteelWorldInteraction.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/KVScopeAssets.h"
+#include "../Weapons/StarMarrowComponent.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "../Skills/FPSElectricMagicComponent.h"
@@ -223,6 +225,10 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
                 ESlateDrawEffect::None,bHasFeedback&&Feedback.bKilled?ColdSteelUI::Success.CopyWithNewOpacity(HitAlpha):FLinearColor(1,1,1,HitAlpha),true,2.f*Scale);
         }
     }
+    // This charge cue also stays visible while offensive magic uses its own reticle.
+    if(!Character->IsTraversing())
+        if(const auto* Core=Character->FindComponentByClass<UStarMarrowComponent>())
+            Result=ColdSteelStarMarrow::Paint(*Core,Geometry,Elements,Result+2,Style,1.f/ColdSteelUI::PixelScale(this));
     // Delayed projectiles and magic can confirm a hit after the weapon is put away.
     if(const auto* Electric=Character->FindComponentByClass<UFPSElectricMagicComponent>();Electric&&Electric->IsCharging())
     {

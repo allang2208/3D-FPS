@@ -36,28 +36,41 @@
           },
           "effects": [
             {
-              "text": "物理伤害 +40%",
+              "text": "物理伤害+40%",
               "benefit": 1
             },
             {
-              "text": "攻击速度 -15%",
+              "text": "攻击速度-15%",
               "benefit": -1
             },
             {
-              "text": "体力消耗 +25%",
+              "text": "体力消耗+25%",
               "benefit": -1
             },
             {
-              "text": "韧性伤害 +40%",
+              "text": "韧性伤害+40%",
               "benefit": 1
             }
           ],
           "special_effects": [
-            "震荡扩散｜重击与冲刺攻击的冲击波范围增加50%。"
+            "震荡扩散｜重击与冲刺攻击的冲击波范围+50%。"
           ]
         }
       ],
       "options_library": "common-hammer-heads.json"
+    },
+    {
+      "key": "blade_material",
+      "name": "锤部材质",
+      "default": "原装锤部材质",
+      "description": "选择锤部材质，保留锤座、握持结构及符文。",
+      "options_library": "melee-gunsmith.json",
+      "options_column": "blade_material",
+      "excluded_options": [
+        "frost_crystal",
+        "time_sand_gold"
+      ],
+      "options": []
     },
     {
       "key": "head_mount",

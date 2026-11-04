@@ -196,7 +196,9 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
         TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(CombatFormulaRuntime::ActiveMagicHit,&MagicContext);
         // 火球是爆炸：按冲击折算削韧。
         const MonsterToughness::FScopedForm FormScope(EMonsterAttackForm::Impact);
+        StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Cast.StarMarrow);
         const float Applied=UGameplayStatics::ApplyDamage(Target,FMath::FloorToFloat(Cast.Damage*(1.f-.5f*Ratio)),Shooter->GetController(),Shooter,UFireballDamage::StaticClass());
+        CrystalRecovery.Finish(Applied);
         Rewards.Victim=nullptr;
         if(Applied<=0)continue;
         if(Cast.BurnMultiplier>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Cast.BurnMagicAttack,1,Cast.BurnSeconds,Cast.BurnMultiplier,Cast.BurnTick);

@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -33,0 +34 @@
++    const FString& DisplayedWeaponInstance() const { return DisplayState.WeaponInstance; }

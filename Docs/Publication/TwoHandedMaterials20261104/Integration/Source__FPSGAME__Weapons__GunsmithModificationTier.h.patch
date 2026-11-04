@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -23,0 +24,5 @@
++    if(Weapon==TEXT("ue_rune_sword")&&SlotKey==TEXT("blade_material")&&(Id==TEXT("time_sand_gold")||Id==TEXT("frost_crystal")))
++        return EGunsmithModificationTier::Legendary;
++    if(Weapon==TEXT("ue_frost_crystal_sword")&&SlotKey==TEXT("blade_material")&&
++        (Id==TEXT("red_magic_crystal")||Id==TEXT("high_energy_magic_crystal")))
++        return EGunsmithModificationTier::Special;
+@@ -24,0 +30,3 @@
++        return EGunsmithModificationTier::Special;
++    if(Weapon==TEXT("ue_highland_claymore")&&SlotKey==TEXT("blade_material")&&
++        (Id==TEXT("blackthorn_steel")||Id==TEXT("whitehart_mithril")))
+@@ -85,0 +94,2 @@
++    if(Weapon==TEXT("ue_frost_crystal_sword")&&SlotKey==TEXT("blade_1")&&(Id==TEXT("star_marrow")||Id==TEXT("rift_piercer")))
++        return EGunsmithModificationTier::Legendary;
