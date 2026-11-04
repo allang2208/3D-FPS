@@ -1,0 +1,24 @@
+{
+  "published": true,
+  "definition": "ue_tactical_hatchet",
+  "id": "hatchet_falcon_edge",
+  "name": "隼喙凿锋斧刃",
+  "slot": "blade_1",
+  "modification_tier": "Special",
+  "stats": {
+    "physical_damage_mult": 1.2,
+    "melee_critical_damage_bonus": 0.35,
+    "attack_speed_mult": 0.9,
+    "stamina_mult": 1.15
+  },
+  "saved_assets": [
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_BaseColor.T_TacticalHatchet_Head_FalconEdge_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_ORM.T_TacticalHatchet_Head_FalconEdge_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_Normal.T_TacticalHatchet_Head_FalconEdge_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Materials/M_TacticalHatchet_Head_FalconEdge.M_TacticalHatchet_Head_FalconEdge",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FalconEdge.SM_TacticalHatchet_Head_FalconEdge",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_blade_1_hatchet_falcon_edge.ue_tactical_hatchet_blade_1_hatchet_falcon_edge"
+  ],
+  "existing_grip_pommel_lanyard_recipes_retained": true,
+  "runtime_tested": false
+}

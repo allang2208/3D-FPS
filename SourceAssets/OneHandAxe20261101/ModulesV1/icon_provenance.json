@@ -1,0 +1,20 @@
+{
+  "tool": "built-in image_gen",
+  "source_files": {
+    "blade_1": "exec-1b7aaf3a-57cc-4097-bc12-aa1740727ddf.png",
+    "grip": "exec-125350b1-20a1-4e4b-a1b4-e63fb2377105.png",
+    "pommel": "exec-ce9e5dfc-2a82-4886-8f83-1673ae55e7c5.png"
+  },
+  "prompt_file": "icon_prompts.json",
+  "frame_reference": "SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+  "part_inputs": "IconInputs",
+  "shared_options_reused": [
+    "grip_knife_grip_checkered",
+    "grip_knife_grip_leather",
+    "grip_knife_grip_laminate",
+    "pommel_knife_pommel_steel",
+    "pommel_knife_pommel_faceted",
+    "pommel_knife_pommel_ringed"
+  ],
+  "runtime_tested": false
+}

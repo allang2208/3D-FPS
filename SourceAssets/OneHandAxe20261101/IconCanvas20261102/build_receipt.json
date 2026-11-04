@@ -1,0 +1,16 @@
+[
+  {
+    "target": "FPSGAMEEditor Win64 Development",
+    "result": "Succeeded",
+    "reuse_shared_build": true,
+    "log": "build-FPSGAMEEditor-success.log",
+    "output": "Binaries/Win64/UnrealEditor-FPSGAME.dll"
+  },
+  {
+    "target": "FPSGAME Win64 Development",
+    "result": "Succeeded",
+    "reuse_shared_build": true,
+    "log": "build-FPSGAME-success.log",
+    "output": "Binaries/Win64/FPSGAME.exe"
+  }
+]

@@ -1,0 +1,70 @@
+{
+  "id": "hatchet_falcon_edge",
+  "kind": "FalconEdge",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\TacticalHatchet_FalconEdge_Editable.blend",
+  "object": "SM_TacticalHatchet_Head_FalconEdge",
+  "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Textures\\T_TacticalHatchet_Head_FalconEdge_BaseColor.png",
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FalconEdge.SM_TacticalHatchet_Head_FalconEdge",
+  "slot": "M_TacticalHatchet_Head_FalconEdge",
+  "material": "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Materials/M_TacticalHatchet_Head_FalconEdge.M_TacticalHatchet_Head_FalconEdge",
+  "target_slot": "M_TacticalHatchet_Head_FalconEdge",
+  "placements": [
+    {
+      "id": "knife_mark_wing",
+      "kind": "RuneWing",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_FalconEdge_RuneWing.png",
+      "center_m": [
+        0.11300000000000006,
+        0.25100000000000006
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    },
+    {
+      "id": "knife_mark_knot",
+      "kind": "RuneKnot",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_FalconEdge_RuneKnot.png",
+      "center_m": [
+        0.11300000000000006,
+        0.25100000000000006
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    },
+    {
+      "id": "knife_mark_peaks",
+      "kind": "RunePeaks",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_FalconEdge_RunePeaks.png",
+      "center_m": [
+        0.11300000000000006,
+        0.25100000000000006
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    }
+  ]
+}

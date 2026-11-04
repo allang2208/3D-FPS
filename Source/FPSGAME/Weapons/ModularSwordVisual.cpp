@@ -27,6 +27,7 @@ TSharedPtr<FJsonObject> Catalog(const FColdSteelItem& Item)
     if(File.IsEmpty())File=ColdSteelInventory::Text(Item,TEXT("modular_sword_catalog"));
     if(File.IsEmpty()&&Item.Definition==TEXT("ue_steel_warhammer"))File=TEXT("warhammer-modules.json");
     if(File.IsEmpty()&&Item.Definition==TEXT("ue_kukri"))File=TEXT("kukri-modules.json");
+    if(File.IsEmpty()&&Item.Definition==TEXT("ue_tactical_hatchet"))File=TEXT("tactical-hatchet-modules.json");
     if(File.IsEmpty())File=Item.Definition==TEXT("ue_frost_crystal_sword")?TEXT("frost-sword-modules.json"):
         Item.Definition==TEXT("ue_rune_sword")?TEXT("rune-sword-modules.json"):FString();
     if(File.IsEmpty())return nullptr;
@@ -129,8 +130,12 @@ FTransform ModuleTransform(const FColdSteelItem& Item,const FString& Slot,const 
 
 TSharedPtr<FJsonObject> ColdSteelModularSword::HangingDynamics(const UStaticMesh* Mesh)
 {
-    if(!Mesh||!Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/Kukri20261020/")))return nullptr;
-    FColdSteelItem Item;Item.Definition=TEXT("ue_kukri");
+    if(!Mesh)return nullptr;
+    const FString MeshPath=Mesh->GetPathName();
+    FColdSteelItem Item;
+    if(MeshPath.StartsWith(TEXT("/Game/Weapons/Kukri20261020/")))Item.Definition=TEXT("ue_kukri");
+    else if(MeshPath.StartsWith(TEXT("/Game/Weapons/TacticalHatchet20261101/")))Item.Definition=TEXT("ue_tactical_hatchet");
+    else return nullptr;
     const auto Root=Catalog(Item);
     const TSharedPtr<FJsonObject>* Slots=nullptr,*Choices=nullptr;
     if(!Root||!Root->TryGetObjectField(TEXT("slots"),Slots)||!(*Slots)->TryGetObjectField(TEXT("lanyard"),Choices))return nullptr;

@@ -1,0 +1,41 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_BaseColor.T_TacticalHatchet_Head_SwiftCrescent_R4_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_ORM.T_TacticalHatchet_Head_SwiftCrescent_R4_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_Normal.T_TacticalHatchet_Head_SwiftCrescent_R4_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R4.M_TacticalHatchet_Head_SwiftCrescent_R4",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.blade_1_axe_swift_crescent"
+  ],
+  "parts": [
+    {
+      "slot": "blade_1",
+      "id": "axe_swift_crescent",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R4.M_TacticalHatchet_Head_SwiftCrescent_R4",
+      "material_slot_names": [
+        "M_TacticalHatchet_Head_SwiftCrescent_R4"
+      ],
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "trace_base_cm": [
+        8.998483831393335,
+        -0.06362,
+        15.629123045201457
+      ],
+      "trace_tip_cm": [
+        7.792933528604816,
+        -0.06362,
+        30.976280969804336
+      ]
+    }
+  ],
+  "icons": [
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.blade_1_axe_swift_crescent"
+  ],
+  "runtime_tested": false
+}

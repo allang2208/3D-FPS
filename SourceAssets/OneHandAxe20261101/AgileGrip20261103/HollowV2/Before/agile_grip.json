@@ -1,0 +1,38 @@
+{
+  "id": "hatchet_grip_agile",
+  "name": "破阵握柄",
+  "slot": "grip",
+  "object": "SM_TacticalHatchet_GripAgile",
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgile.SM_TacticalHatchet_GripAgile",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\AgileGrip20261103\\Export\\SM_TacticalHatchet_GripAgile.fbx",
+  "origin_cm": [
+    0,
+    0,
+    11.5
+  ],
+  "pommel_offset_cm": [
+    0,
+    0,
+    0
+  ],
+  "factory_grip_length_cm": 19.25,
+  "grip_length_cm": 19.25,
+  "extension_cm": 0,
+  "interface": "both factory end surfaces unchanged; shallow recessed palm texture; original pommel/lanyard mount",
+  "material_slot": "M_TacticalHatchet_GripAgile",
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\AgileGrip20261103\\Textures\\T_TacticalHatchet_GripAgile_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\AgileGrip20261103\\Textures\\T_TacticalHatchet_GripAgile_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\AgileGrip20261103\\Textures\\T_TacticalHatchet_GripAgile_Normal.png"
+  },
+  "triangles": 64078,
+  "stats": {
+    "physical_armor_penetration": 0.25,
+    "toughness_damage_mult": 1.2,
+    "stamina_mult": 1.15
+  },
+  "modification_tier": "Special",
+  "normal_convention": "OpenGL tangent bake; one UE green-channel flip",
+  "runtime_tested": false,
+  "design_revision": "armor_break_20261103"
+}

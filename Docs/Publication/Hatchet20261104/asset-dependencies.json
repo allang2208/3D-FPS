@@ -1,0 +1,409 @@
+{
+  "binary_assets_uploaded": false,
+  "content_physical_root": "F:/FPSGAMEData/Content",
+  "source_root": "SourceAssets/OneHandAxe20261101",
+  "retained_source": "Original GLB, active Blend/FBX/PBR/icon masters and referenced historic inputs remain in local source tree",
+  "license_boundary": "User-provided/generated assets and shared third-party prerequisites have no new raw redistribution authorization in this task",
+  "runtime_assets": [
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/Sword_Hit",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 53235,
+      "sha256": "2f7c80ff8acc26d31576335020c7a091527665244c55bed27fdd12371236e74a"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/Sword_Swing",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 10669,
+      "sha256": "4c51d76759729f92e252e13147a39c9708f3f5e8f0e1ec5d1c1bff46905ffc0a"
+    },
+    {
+      "package": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8297038,
+      "sha256": "5264744ef4d4c623e0bde276c6f9bc79fa06256df883e9f5f445d014ca64282f"
+    },
+    {
+      "package": "/Game/Weapons/Kukri20261020/Animations",
+      "kind": "directory",
+      "local_exists": true,
+      "bytes": null,
+      "sha256": null
+    },
+    {
+      "package": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardBraid_PhysicsV1",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 33126,
+      "sha256": "5ded106987dfee912c1686be3ddd2cdb447b5050becdf708142b361d38422ea2"
+    },
+    {
+      "package": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTag_PhysicsV1",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 33104,
+      "sha256": "05106cf3752d778a314f872119e84b39fb487904825f1f60b4a30d86ce6203a1"
+    },
+    {
+      "package": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTassel_PhysicsV1",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 33137,
+      "sha256": "d33ab5f5db70483fc4ab3067fcc248a8e700ffe051e86bada609ed78e56fb51e"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RuneKnot",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4242,
+      "sha256": "738591c129b87f2f58cf0a95d4682bed6ca3d888729bddbbc5a29eb105b51d52"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RunePeaks",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4249,
+      "sha256": "c85fa1761b1059e627230de16adc915374a645f820b60db84024fe120bff3884"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RuneWing",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4242,
+      "sha256": "d60f518d3cf80271fc14d721eb663261a5ffa550887fa4661f6331956dcfb75c"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RuneKnot",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4275,
+      "sha256": "edd57e3d3098090a68729bffbaa5e95e36cbc49f4a67da0a36a6bb66613fa494"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RunePeaks",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4282,
+      "sha256": "cd0262ab0e4d4a72b101354767074ac20702cf02fd19ff407962bcec094d5e8d"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RuneWing",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4275,
+      "sha256": "75cfedce16dc0db7ebc761029b318de40ed16db373e6e7a8d499e858a08b6c3c"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RuneKnot",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4201,
+      "sha256": "a30078d9a8d577ced62fba159fd97e81b3524ae6991bdd682fa14994d401de8c"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RunePeaks",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4208,
+      "sha256": "af84d8fb43451b9ef967d360ea1f0b7f5544e36b2dacbc77b986ecc1b71aaec1"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RuneWing",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4201,
+      "sha256": "51f3cd172df25b1acb3edca64c66f6b253a07ef828112052790fe973b506ae9c"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RuneKnot",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4234,
+      "sha256": "fb52be00187af883af17fecd94f992bb7a4d4dab05a5ae713f4f2f52a165fe1c"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RunePeaks",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4241,
+      "sha256": "34a4e2323b387d0454ccb2f96b5a661792f69542cea655e8dfa3ca210b3229d4"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RuneWing",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4234,
+      "sha256": "2b8ab1aa02fc51433b1a5a102c865bc7dc8852c2aefbca3f0b95d7e6d76872b3"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RuneKnot",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4245,
+      "sha256": "b961d5aa0c102a2a1c1c960a49b230b07aa007d8728d6dca4fd17b94c4ab15e3"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RunePeaks",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4252,
+      "sha256": "7c1efca1cbd2776a1bbad59946e8d6273f3ea3c9a7c70466da5dfc039b55bd46"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RuneWing",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4245,
+      "sha256": "17e3c42d0b01883f6cca50b054ba94f8e91c4ea1ea8d99020ea47e1b302931e2"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Materials/M_TacticalHatchet_Head_FalconEdge",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8094,
+      "sha256": "e60def84f2983a28e4ed3670e97955232ef09f9ba9f97bbd42a5ec1fbe23597f"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8102,
+      "sha256": "424e071cebbfbced66e9fef8aaa35940c9e408c3ba4aa8be3bbdfba7911dde59"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripAgileHollowV2",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8071,
+      "sha256": "c487afd8ef18513b604e2a2174650b00a118dfbdc9501264e248c5b411d74604"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripCheckered",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8027,
+      "sha256": "661e34044944b53bfbbb69f86f7e9ca567d0dd227359247ba3a678eda056bc4f"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLaminate",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8016,
+      "sha256": "2a833b58f3f9046a4be72aa812695ed49c7ae197b282eeb90e9ea5f8dde9f822"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLeather",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8005,
+      "sha256": "7a2faea8151bbad15483e15c5cba5933091d67397108c95a17baeb6902db5cbf"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLong",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 7972,
+      "sha256": "5fafa02fd217267dea5d18d30efe6c55da2519dacd2b8874c750c92141543f25"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc_R5",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8029,
+      "sha256": "3b26633ff26462f180b8d1deaf0a61dcdde465c7a53cdd4e40cca1579cd76a6d"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver_R5",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8062,
+      "sha256": "54f15be3dc1811588a13ea34fe79c66d360c76c5cd61635908089cce7f45d607"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R4",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8073,
+      "sha256": "292414c7f532a43ce1bf09199c3ca057226899656cdaf00183d922c132ed8cf0"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelFaceted",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8027,
+      "sha256": "0ba188af396424270f76521bee876c16d513eefec2d4f3776ce9ff38365aef91"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelRinged",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8016,
+      "sha256": "f44e7a9d111dd82e9d5421ff3a40690fabbb4d91a25493a748f6975e948eeb8a"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelSteel",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 8005,
+      "sha256": "a65972ec74659e6093ede02a1bc9dd0b6b7f455d677eab42c7c43bfb373a1c88"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgileHollowV2",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 3617440,
+      "sha256": "3bd9cd890422a9737ed297ee722548f25d766290ffa979f430b84b249f6d66a5"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripCheckered",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4105709,
+      "sha256": "bf730deba945c08d44b20d4a43cf817284e26d3ee195fd0c712e920857638c04"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLaminate",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4105697,
+      "sha256": "73ce3abb24b4e6d372df6e3d07879d6c99c7f6c6b9feb8248afa4ffdf46a9b5e"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLeather",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4105685,
+      "sha256": "d43970c93e0c049c3534f15c6110fdfc2d841ddf3654df8a06264ec611068217"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLong",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4110278,
+      "sha256": "89011b22e7f81770d162c1b6fffd34473c33cb96d75176d983f805a5ae76fe6e"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Grip_Factory",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 4010128,
+      "sha256": "e425c916974730dea67a67dafe759300471fcdf8071b47106c60604567a761e4"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 6379565,
+      "sha256": "2cd56585f217a983fcf49f8154c59da0e63fee7c0ff47fd7796784b8c1abdfd3"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory_RuneCarrier",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 6379680,
+      "sha256": "e3bf8b98fb1025b6b81c0cce531f98f7756d6730ccee0760f0efbedd7226c8b7"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FalconEdge",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 6272450,
+      "sha256": "7d6e74bf7ddbe11e5719865527eacffc63efd249f666219b6451603dcc1016bd"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R5",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 1301152,
+      "sha256": "b49b3acde398ba97b5d12672440dd4c9ec35996342ac71f770d77081300bd05f"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R5",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 1329694,
+      "sha256": "3a6823b8f1a47508a429837a0a6a2cdc5522a4cfb51aa6f3314c409eb08f8b74"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 1301435,
+      "sha256": "98af74b810bb9276492211b9618a2f6845565f98f560201faa8d0a31f8e21cc1"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelFaceted",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 879500,
+      "sha256": "da037112648c1d203cb5ef2ca7a6f773ca8d3efa80ea7a2efa075d487c3f70b8"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelRinged",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 880549,
+      "sha256": "a89ed40a44f0748adaa7cb8d7ae33ee2651470f79269467aad3504850dcd4407"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelSteel",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 878097,
+      "sha256": "c8ef62a6988591e41d9c4d6f376a25e0de09d65692c5cc87f0e439c31129a1bf"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Pommel_Factory",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 808157,
+      "sha256": "714cc286389af8b23263db343e1c69dd26928220c08f040064f47a8b9a231d3c"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/M_TacticalHatchet_PendantCord_FitV2",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 6661,
+      "sha256": "94b00fcdb5f4df6ad5d33822737a43ca880b272800e1b489568ff6720db702fc"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardBraid_FitV2",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 693549,
+      "sha256": "d6ab962f83148bbea678b5a09d43669d3e235f642750d02899c2641b657e2e99"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardTag_FitV2",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 601575,
+      "sha256": "51aea5a46952200200b3dd44c4d4d855fa05fb2da371e98fb07d31be7c6cdebd"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardTassel_FitV2",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 626423,
+      "sha256": "81689d201cf012d29528727cc7b1a81672cdf697a3a0efe7ada0cdaf6eac8e28"
+    },
+    {
+      "package": "/Game/Weapons/TacticalHatchet20261101/SM_TacticalHatchet",
+      "kind": "asset",
+      "local_exists": true,
+      "bytes": 9346327,
+      "sha256": "1bfaf20d5b84874411d2128931131d0fe68427482c829a36d47374b1d2da743e"
+    }
+  ],
+  "required_shared_layers": [
+    "shared-knife-component-options.json",
+    "shared knife pendant definitions",
+    "KukriComponentVariants20261026 author helpers",
+    "approved framed icon master",
+    "current native body/weapon asset libraries",
+    "shared one-handed melee / paired-heavy / UI classification code; see integration-prerequisites.json"
+  ]
+}

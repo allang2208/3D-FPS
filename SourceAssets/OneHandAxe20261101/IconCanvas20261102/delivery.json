@@ -1,0 +1,17 @@
+{
+  "status": "saved_and_built",
+  "definition": "ue_tactical_hatchet",
+  "date": "2026-11-02",
+  "change": "Retain authored 2x3 canvas and transparent clearance in both catalog and live icon brushes",
+  "catalog_png_rebuilt_and_deployed": true,
+  "editor_build": "Succeeded",
+  "game_build": "Succeeded",
+  "source_files": [
+    "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+    "Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp"
+  ],
+  "icon": "Content/ColdSteelData/Icons/ue_tactical_hatchet.png",
+  "receipts": ["build_receipt.json", "export_receipt.json"],
+  "editor_ui_started": false,
+  "gameplay_tested": false
+}

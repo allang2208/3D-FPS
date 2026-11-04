@@ -1,0 +1,24 @@
+{
+  "published": true,
+  "definition": "ue_tactical_hatchet",
+  "slot": "grip",
+  "id": "hatchet_grip_agile",
+  "name": "破阵握柄",
+  "model_revision": "hollow_v2_20261103",
+  "stats_unchanged": true,
+  "stats": {
+    "physical_armor_penetration": 0.25,
+    "toughness_damage_mult": 1.2,
+    "stamina_mult": 1.15
+  },
+  "existing_id_and_tier_retained": true,
+  "saved_assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgileHollowV2_BaseColor.T_TacticalHatchet_GripAgileHollowV2_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgileHollowV2_ORM.T_TacticalHatchet_GripAgileHollowV2_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgileHollowV2_Normal.T_TacticalHatchet_GripAgileHollowV2_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripAgileHollowV2.M_TacticalHatchet_GripAgileHollowV2",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgileHollowV2.SM_TacticalHatchet_GripAgileHollowV2",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_agile.ue_tactical_hatchet_grip_hatchet_grip_agile"
+  ],
+  "runtime_tested": false
+}

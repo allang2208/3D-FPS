@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "weapon": "ue_tactical_hatchet",
+  "columns": [
+    {
+      "key": "blade_1",
+      "name": "斧头",
+      "default": "原装斧头",
+      "description": "深灰碳钢斧头与一体斧颈，保留银色磨刃及原有攻击轮廓。",
+      "options": [
+        {
+          "id": "hatchet_falcon_edge",
+          "name": "隼喙凿锋斧刃",
+          "appearance": "下探钩刃与短背喙夹出开阔斧面，三角减重孔贯穿厚脊，哑光碳钢衔接银色凿磨刃口。",
+          "stats": {
+            "physical_damage_mult": 1.2,
+            "melee_critical_damage_bonus": 0.35,
+            "attack_speed_mult": 0.9,
+            "stamina_mult": 1.15
+          },
+          "effects": [
+            {
+              "text": "物理伤害+20%",
+              "benefit": 1
+            },
+            {
+              "text": "暴击伤害+35%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击速度-10%",
+              "benefit": -1
+            },
+            {
+              "text": "攻击体力消耗+15%",
+              "benefit": -1
+            }
+          ],
+          "special_effects": [],
+          "description": "下探钩刃与短背喙夹出开阔斧面，三角减重孔贯穿厚脊，哑光碳钢衔接银色凿磨刃口。"
+        }
+      ],
+      "options_library": "shared-axe-blade-options.json"
+    },
+    {
+      "key": "blade_2",
+      "options": [],
+      "name": "斧面符文",
+      "default": "无附加符文",
+      "description": "保留斧头主体钢材，不添加额外符文。",
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "blade_2"
+    },
+    {
+      "key": "grip",
+      "name": "握柄",
+      "default": "原装握柄",
+      "description": "黑色防滑握片包覆原装柄骨，保留铆钉与既有握持尺寸。",
+      "options": [
+        {
+          "id": "hatchet_grip_long",
+          "name": "长柄握把",
+          "description": "加长碳钢芯骨衔接黑色棱纹握片，两道窄金属带环绕下段，保留原装上下接面。",
+          "appearance": "加长碳钢芯骨衔接黑色棱纹握片，两道窄金属带环绕下段，保留原装上下接面。",
+          "stats": {
+            "range_mult": 1.25,
+            "physical_damage_mult": 1.1,
+            "stamina_mult": 1.1,
+            "attack_speed_mult": 0.95
+          },
+          "effects": [
+            {
+              "text": "攻击距离+25%",
+              "benefit": 1
+            },
+            {
+              "text": "物理攻击+10%",
+              "benefit": 1
+            },
+            {
+              "text": "体力消耗+10%",
+              "benefit": -1
+            },
+            {
+              "text": "攻击速度-5%",
+              "benefit": -1
+            }
+          ],
+          "special_effects": []
+        },
+        {
+          "id": "hatchet_grip_agile",
+          "name": "破阵握柄",
+          "description": "长圆贯穿孔夹在连续金属侧框之间，银灰孔缘衔接黑色碳纤维握片，两端保留原装连接座与紧固件。",
+          "appearance": "长圆贯穿孔夹在连续金属侧框之间，银灰孔缘衔接黑色碳纤维握片，两端保留原装连接座与紧固件。",
+          "stats": {
+            "stamina_mult": 0.75,
+            "attack_speed_mult": 1.15,
+            "heavy_charge_speed_bonus": 0.15,
+            "martial_cooldown_mult": 0.8
+          },
+          "effects": [
+            {
+              "text": "体力消耗-25%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击速度+15%",
+              "benefit": 1
+            },
+            {
+              "text": "重击蓄力速度+15%",
+              "benefit": 1
+            },
+            {
+              "text": "武技冷却时间-20%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": []
+        }
+      ],
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "grip"
+    },
+    {
+      "key": "pommel",
+      "name": "柄尾",
+      "default": "原装柄尾",
+      "description": "弧形原装柄尾衔接掌根，保留穿绳孔。",
+      "options": [],
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "pommel"
+    },
+    {
+      "key": "lanyard",
+      "options": [],
+      "name": "挂坠",
+      "default": "无挂坠",
+      "description": "挂坠穿过柄尾孔，安装位置跟随柄尾；可选用通用挂绳与挂饰。",
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "lanyard"
+    }
+  ]
+}

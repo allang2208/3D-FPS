@@ -1,0 +1,70 @@
+{
+  "id": "axe_swift_crescent",
+  "kind": "SwiftCrescent",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\SwiftCrescent_Editable.blend",
+  "object": "SM_TacticalHatchet_Head_SwiftCrescent_R4",
+  "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\FactoryFinish20261104\\Textures\\T_TacticalHatchet_Head_SwiftCrescent_R4_BaseColor.png",
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+  "slot": "M_TacticalHatchet_Head_SwiftCrescent_R4",
+  "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R4.M_TacticalHatchet_Head_SwiftCrescent_R4",
+  "target_slot": "M_TacticalHatchet_Head_SwiftCrescent_R4",
+  "placements": [
+    {
+      "id": "knife_mark_wing",
+      "kind": "RuneWing",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_SwiftCrescent_RuneWing.png",
+      "center_m": [
+        0.06500000000000003,
+        0.225
+      ],
+      "width_m": 0.044,
+      "height_m": 0.044,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003508771929824561,
+        0.003508771929824561
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    },
+    {
+      "id": "knife_mark_knot",
+      "kind": "RuneKnot",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_SwiftCrescent_RuneKnot.png",
+      "center_m": [
+        0.06500000000000003,
+        0.225
+      ],
+      "width_m": 0.044,
+      "height_m": 0.044,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003508771929824561,
+        0.003508771929824561
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    },
+    {
+      "id": "knife_mark_peaks",
+      "kind": "RunePeaks",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_SwiftCrescent_RunePeaks.png",
+      "center_m": [
+        0.06500000000000003,
+        0.225
+      ],
+      "width_m": 0.044,
+      "height_m": 0.044,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003508771929824561,
+        0.003508771929824561
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    }
+  ]
+}

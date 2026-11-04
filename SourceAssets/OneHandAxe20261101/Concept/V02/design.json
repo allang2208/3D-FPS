@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-01",
+  "status": "image_generation_blocked",
+  "base_image": "../V01/carbon_steel_axe_design_v01.png",
+  "user_request": "参考两张附件的材质设计语言优化现有单手斧，不照抄。",
+  "category": "单手近战武器",
+  "preserve": [
+    "原设计的斧头轮廓、紧凑斧背与握柄比例",
+    "左右手共用的握持轮廓",
+    "后续复用尼泊尔弯刀的攻击模组、动作模组和主副手规则"
+  ],
+  "changes": [
+    "深石墨灰细哑光钢面，去除大片斑驳旧化与粗颗粒",
+    "银色磨刃采用细密定向拉丝，明确刃口和主体分区",
+    "收窄并统一边缘倒角高光，保留金属厚度感",
+    "深炭黑握片采用细防滑纹理、沉头紧固件和克制的原创浅面变化"
+  ],
+  "do_not_copy": [
+    "参考图斧头轮廓",
+    "三角镂空",
+    "带齿圆形缺口",
+    "长尖斧背",
+    "握柄成排圆形凹点",
+    "品牌标记"
+  ],
+  "references": [
+    "material_reference_01.png",
+    "material_reference_02.png"
+  ],
+  "generation": {
+    "tool": "built-in image_gen",
+    "result": "no_image_generated",
+    "error_code": "moderation_blocked",
+    "category": "violence",
+    "request_id": "e03cb3d7-84d8-4aa7-842a-94feeac74e06"
+  },
+  "prompt": "prompt.txt",
+  "runtime_changes": false
+}

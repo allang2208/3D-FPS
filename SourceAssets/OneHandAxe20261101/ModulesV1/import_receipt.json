@@ -1,0 +1,167 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory.SM_TacticalHatchet_Head_Factory",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Grip_Factory.SM_TacticalHatchet_Grip_Factory",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Pommel_Factory.SM_TacticalHatchet_Pommel_Factory",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripCheckered_BaseColor.T_TacticalHatchet_GripCheckered_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripCheckered_ORM.T_TacticalHatchet_GripCheckered_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripCheckered_Normal.T_TacticalHatchet_GripCheckered_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripCheckered.M_TacticalHatchet_GripCheckered",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripCheckered.SM_TacticalHatchet_GripCheckered",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLeather_BaseColor.T_TacticalHatchet_GripLeather_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLeather_ORM.T_TacticalHatchet_GripLeather_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLeather_Normal.T_TacticalHatchet_GripLeather_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLeather.M_TacticalHatchet_GripLeather",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLeather.SM_TacticalHatchet_GripLeather",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLaminate_BaseColor.T_TacticalHatchet_GripLaminate_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLaminate_ORM.T_TacticalHatchet_GripLaminate_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLaminate_Normal.T_TacticalHatchet_GripLaminate_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLaminate.M_TacticalHatchet_GripLaminate",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLaminate.SM_TacticalHatchet_GripLaminate",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelSteel_BaseColor.T_TacticalHatchet_PommelSteel_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelSteel_ORM.T_TacticalHatchet_PommelSteel_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelSteel_Normal.T_TacticalHatchet_PommelSteel_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelSteel.M_TacticalHatchet_PommelSteel",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelSteel.SM_TacticalHatchet_PommelSteel",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelFaceted_BaseColor.T_TacticalHatchet_PommelFaceted_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelFaceted_ORM.T_TacticalHatchet_PommelFaceted_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelFaceted_Normal.T_TacticalHatchet_PommelFaceted_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelFaceted.M_TacticalHatchet_PommelFaceted",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelFaceted.SM_TacticalHatchet_PommelFaceted",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelRinged_BaseColor.T_TacticalHatchet_PommelRinged_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelRinged_ORM.T_TacticalHatchet_PommelRinged_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_PommelRinged_Normal.T_TacticalHatchet_PommelRinged_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelRinged.M_TacticalHatchet_PommelRinged",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelRinged.SM_TacticalHatchet_PommelRinged"
+  ],
+  "parts": [
+    {
+      "slot": "blade_1",
+      "id": "factory",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory.SM_TacticalHatchet_Head_Factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+      "material_slot_names": [
+        "M_TacticalHatchet"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "slot": "grip",
+      "id": "factory",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Grip_Factory.SM_TacticalHatchet_Grip_Factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+      "material_slot_names": [
+        "M_TacticalHatchet"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        11.5
+      ]
+    },
+    {
+      "slot": "pommel",
+      "id": "factory",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Pommel_Factory.SM_TacticalHatchet_Pommel_Factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+      "material_slot_names": [
+        "M_TacticalHatchet"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        -7.75
+      ]
+    },
+    {
+      "slot": "grip",
+      "id": "knife_grip_checkered",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripCheckered.SM_TacticalHatchet_GripCheckered",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripCheckered.M_TacticalHatchet_GripCheckered",
+      "material_slot_names": [
+        "M_TacticalHatchet_GripCheckered"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        11.5
+      ]
+    },
+    {
+      "slot": "grip",
+      "id": "knife_grip_leather",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLeather.SM_TacticalHatchet_GripLeather",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLeather.M_TacticalHatchet_GripLeather",
+      "material_slot_names": [
+        "M_TacticalHatchet_GripLeather"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        11.5
+      ]
+    },
+    {
+      "slot": "grip",
+      "id": "knife_grip_laminate",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLaminate.SM_TacticalHatchet_GripLaminate",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLaminate.M_TacticalHatchet_GripLaminate",
+      "material_slot_names": [
+        "M_TacticalHatchet_GripLaminate"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        11.5
+      ]
+    },
+    {
+      "slot": "pommel",
+      "id": "knife_pommel_steel",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelSteel.SM_TacticalHatchet_PommelSteel",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelSteel.M_TacticalHatchet_PommelSteel",
+      "material_slot_names": [
+        "M_TacticalHatchet_PommelSteel"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        -7.75
+      ]
+    },
+    {
+      "slot": "pommel",
+      "id": "knife_pommel_faceted",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelFaceted.SM_TacticalHatchet_PommelFaceted",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelFaceted.M_TacticalHatchet_PommelFaceted",
+      "material_slot_names": [
+        "M_TacticalHatchet_PommelFaceted"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        -7.75
+      ]
+    },
+    {
+      "slot": "pommel",
+      "id": "knife_pommel_ringed",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelRinged.SM_TacticalHatchet_PommelRinged",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelRinged.M_TacticalHatchet_PommelRinged",
+      "material_slot_names": [
+        "M_TacticalHatchet_PommelRinged"
+      ],
+      "location_cm": [
+        0.0,
+        0.0,
+        -7.75
+      ]
+    }
+  ],
+  "runtime_tested": false
+}

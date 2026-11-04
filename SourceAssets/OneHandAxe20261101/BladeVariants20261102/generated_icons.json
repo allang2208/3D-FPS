@@ -1,0 +1,26 @@
+[
+  {
+    "id": "axe_swift_crescent",
+    "path": "C:\\Users\\allan\\.codex\\generated_images\\01a195a9-36a2-73c3-b35d-e1ea19859acf\\exec-35ef999c-8a8b-41b2-9132-8f733d0620b2.png",
+    "prompt_file": "icon_prompts.json",
+    "input": "IconInputs/axe_swift_crescent.png",
+    "frame_reference": "SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+    "tool": "image_gen.imagegen"
+  },
+  {
+    "id": "axe_heavy_cleaver",
+    "path": "C:\\Users\\allan\\.codex\\generated_images\\01a195a9-36a2-73c3-b35d-e1ea19859acf\\exec-8f1fc485-fde3-4854-82ff-e30856e6dc27.png",
+    "prompt_file": "icon_prompts.json",
+    "input": "IconInputs/axe_heavy_cleaver.png",
+    "frame_reference": "SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+    "tool": "image_gen.imagegen"
+  },
+  {
+    "id": "axe_folded_arc",
+    "path": "C:\\Users\\allan\\.codex\\generated_images\\01a195a9-36a2-73c3-b35d-e1ea19859acf\\exec-a5f76f50-efb5-4d0b-8554-a0c07b11446d.png",
+    "prompt_file": "icon_prompts.json",
+    "input": "IconInputs/axe_folded_arc.png",
+    "frame_reference": "SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+    "tool": "image_gen.imagegen"
+  }
+]

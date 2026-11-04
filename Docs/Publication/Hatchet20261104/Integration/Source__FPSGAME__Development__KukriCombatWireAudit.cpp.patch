@@ -1,0 +1,145 @@
+--- a/Source/FPSGAME/Development/KukriCombatWireAudit.cpp
++++ b/Source/FPSGAME/Development/KukriCombatWireAudit.cpp
+@@ -38,6 +38,17 @@
+ bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("KukriCombatWireAudit"));}
+ double HitchAt=-1.;
+ bool HitchInjected=false;
++int32 HeavyCyclesDone=0;
++double ChargeLagRestoreAt=-1.;
++void ChargeLag(UWorld* World,int32 Lag)
++{
++#if DO_ENABLE_NET_TEST
++    if(auto* Driver=World->GetNetDriver())
++    {auto Settings=Driver->PacketSimulationSettings;Settings.PktLag=Lag;Driver->SetPacketSimulationSettings(Settings);
++        UE_LOG(LogTemp,Display,TEXT("KUKRI_CHARGE_LAG_FIXTURE outgoing_ms=%d"),Lag);}
++#endif
++}
++int32 HeavyCycles(){int32 Count=0;FParse::Value(FCommandLine::Get(),TEXT("KukriWireHeavyCycles="),Count);return FMath::Clamp(Count,0,8);}
+ constexpr int32 CaseCount=12;
+ FString Name(int32 Case)
+ {
+@@ -70,6 +81,7 @@
+ void Save(const TArray<TSharedPtr<FJsonValue>>& Rows,bool Passed,UWorld* W)
+ {
+     auto R=MakeShared<FJsonObject>();R->SetArrayField(TEXT("cases"),Rows);R->SetBoolField(TEXT("passed"),Passed);
++    R->SetStringField(TEXT("weapon"),FParse::Param(FCommandLine::Get(),TEXT("HatchetCombatWireAudit"))?TEXT("ue_tactical_hatchet"):TEXT("ue_kukri"));
+     R->SetBoolField(TEXT("dedicated"),W->GetNetMode()==NM_DedicatedServer);R->SetBoolField(TEXT("udp"),W->GetNetDriver()!=nullptr);
+     R->SetNumberField(TEXT("injected_authority_hitch_ms"),HitchInjected?650:0);
+ #if DO_ENABLE_NET_TEST
+@@ -88,12 +100,17 @@
+ {
+     if(KukriCombatWire::Enabled())
+     {
+-        LastContact=Report;++Reports;
++        LastContact=Report;LastWasPaired=false;++Reports;
+         UE_LOG(LogTemp,Display,TEXT("KUKRI_CONTACT_CLOCK serial=%u meta=%u age=%.3f now=%.3f stamp=%.3f"),
+             Report.KukriAttackSerial,Report.AttackMeta,GetWorld()->GetTimeSeconds()-Report.ClientFireTime,
+             GetWorld()->GetTimeSeconds(),Report.ClientFireTime);
+     }
+     Super::ServerReportHit_Implementation(Report);
++}
++void AKukriCombatWireState::ServerReportPairedHeavyHit_Implementation(const FColdSteelNetHitReport& First,const FColdSteelNetHitReport& Second)
++{
++    if(KukriCombatWire::Enabled()){LastContact=First;LastPairedContact=Second;LastWasPaired=true;++Reports;}
++    Super::ServerReportPairedHeavyHit_Implementation(First,Second);
+ }
+ AKukriCombatWireFloor::AKukriCombatWireFloor()
+ {
+@@ -138,6 +155,8 @@
+ {if(KukriCombatWire::Enabled()&&Current==Case&&!Running){Running=true;Started=GetWorld()->GetRealTimeSeconds();NextInput=Started+(Case==0?10.:.5);}}
+ void AKukriCombatWireController::ClientReplay_Implementation(const FColdSteelNetHitReport& Report)
+ {if(KukriCombatWire::Enabled())if(auto* PS=GetPlayerState<AColdSteelPlayerState>()){PS->ServerReportHit(Report);PS->ServerReportHit(Report);}}
++void AKukriCombatWireController::ClientReplayPaired_Implementation(const FColdSteelNetHitReport& First,const FColdSteelNetHitReport& Second)
++{if(KukriCombatWire::Enabled())if(auto* PS=GetPlayerState<AColdSteelPlayerState>()){PS->ServerReportPairedHeavyHit(First,Second);PS->ServerReportPairedHeavyHit(First,Second);}}
+ void AKukriCombatWireController::ClientExit_Implementation()
+ {if(KukriCombatWire::Enabled())ExitAt=GetWorld()->GetRealTimeSeconds()+.5;}
+ void AKukriCombatWireController::ClientCheckReplacement_Implementation(AFPSGAMECharacter* NewPawn,double Spent)
+@@ -167,7 +186,8 @@
+         S.PlayerHeadId=FName(*Head);S.PlayerHairId=NAME_None;
+         S.Stamina=150;S.UppercutStaminaSpent=0.;S.bSprintExhausted=false;S.SwordUppercutCooldown=S.WhirlwindCooldown=0;
+         for(auto& Skill:S.Skills)Skill.Value.Level=FMath::Max(1,Skill.Value.Level);
+-        for(int32 Hand=0;Hand<2;++Hand){auto I=M->CreateItem(TEXT("ue_kukri"));I.InstanceId=Hand?TEXT("wire_kukri_left"):TEXT("wire_kukri_right");I.Place=Hand?0:1;I.Cell=Hand?0:6;S.Items.Add(I);}
++        const TCHAR* Weapon=FParse::Param(FCommandLine::Get(),TEXT("HatchetCombatWireAudit"))?TEXT("ue_tactical_hatchet"):TEXT("ue_kukri");
++        for(int32 Hand=0;Hand<2;++Hand){auto I=M->CreateItem(Weapon);I.InstanceId=Hand?TEXT("wire_kukri_left"):TEXT("wire_kukri_right");I.Place=Hand?0:1;I.Cell=Hand?0:6;S.Items.Add(I);}
+         const TCHAR* Clothes[]={TEXT("ue_st6_sleeves"),TEXT("ue_st6_tactical_pants"),TEXT("ue_st6_tactical_boots")};
+         const int32 Slots[]={7,15,13};
+         for(int32 I=0;I<3;++I){auto Item=M->CreateItem(Clothes[I]);Item.Place=1;Item.Cell=Slots[I];S.Items.Add(Item);}
+@@ -187,6 +207,8 @@
+         P->SetActorLocation(FVector(HasAuthority()?-600.f:0.f,HasAuthority()?600.f:0.f,100));
+     }
+     if(HasAuthority())return;
++    if(KukriCombatWire::ChargeLagRestoreAt>=0.&&Now>=KukriCombatWire::ChargeLagRestoreAt)
++    {KukriCombatWire::ChargeLag(GetWorld(),60);KukriCombatWire::ChargeLagRestoreAt=-1.;}
+     if(!Running&&Now-LastClockProbe>.5)
+     {
+         LastClockProbe=Now;
+@@ -203,7 +225,12 @@
+     {
+         bool Began=false;
+         if(Kind==0){P->FirePressed();P->FireInputReleased();Began=K->IsAttacking();}
+-        if(Kind==1)Began=K->TriggerHeavySkill();
++        if(Kind==1)
++        {
++            int32 Lag=0;FParse::Value(FCommandLine::Get(),TEXT("KukriChargeLagMs="),Lag);
++            if(Lag>0){KukriCombatWire::ChargeLag(GetWorld(),FMath::Clamp(Lag,60,800));KukriCombatWire::ChargeLagRestoreAt=Now+.25;}
++            Began=K->TriggerHeavySkill();
++        }
+         if(Kind==2)Began=K->BeginUppercut();
+         if(Kind==3)Began=K->BeginWhirlwind();
+         if(Kind==4)Began=K->BeginQuickCombat();
+@@ -318,7 +345,7 @@
+     if(Prepared!=Case)
+     {
+         Prepared=Case;Guest->Ready=Guest->Done=false;Contacts=ObservedFrames=RiftFrames=LeftRiftFrames=ReallocatedHits=0;DamageTotal=0.f;Replayed=false;Settling=-1.;LastSetup=-10.;
+-        PS->Reports=0;PS->LastContact={};SpentBefore=PS->ShadowModel->Snapshot().UppercutStaminaSpent;
++        PS->Reports=0;PS->LastContact={};PS->LastPairedContact={};PS->LastWasPaired=false;SpentBefore=PS->ShadowModel->Snapshot().UppercutStaminaSpent;
+         P->SetActorLocationAndRotation(FVector(0,0,100),FRotator::ZeroRotator);P->GetCharacterMovement()->StopMovementImmediately();P->ForceNetUpdate();
+         // A frozen reaction/root-motion target cannot be teleported between
+         // cases while its proxy is still consuming the previous hit reaction.
+@@ -378,16 +405,22 @@
+     for(auto* M:Meshes)if((M->ComponentHasTag(TEXT("KukriObserverRiftRight"))||M->ComponentHasTag(TEXT("KukriObserverRiftLeft")))&&M->IsVisible())++RiftFrames;
+     for(auto* M:Meshes)if(M->ComponentHasTag(TEXT("KukriObserverRiftLeft"))&&M->IsVisible())++LeftRiftFrames;
+     // Replay during the live attack window, not after its authorization expires.
+-    if(!Replayed&&PS->Reports>0){Replayed=true;Guest->ClientReplay(PS->LastContact);}
++    if(!Replayed&&PS->Reports>0)
++    {
++        Replayed=true;
++        if(PS->LastWasPaired)Guest->ClientReplayPaired(PS->LastContact,PS->LastPairedContact);
++        else Guest->ClientReplay(PS->LastContact);
++    }
+     if(!Guest->Done)return;
+     if(Settling<0.){Settling=Now;return;}
+     if(Now-Settling<1.5)return;
+     auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("case"),KukriCombatWire::Name(Case));
+     const double Spent=PS->ShadowModel->Snapshot().UppercutStaminaSpent;
+-    // DashAttackStats combines the paired blades into one area hit; only
+-    // ordinary attacks and heavy release report one contact per blade.
+-    const int32 Expected=Case%6==0?(Dual?6:3):Case%6==1?(Dual?2:1):1;
+-    const bool DamageOK=Contacts==Expected&&DamageTotal>0.f;
++    // Ordinary paired swings settle separately. A paired heavy now carries
++    // two validated blade reports in one RPC and one combined damage event.
++    const int32 Expected=Case%6==0?(Dual?6:3):1;
++    const bool PairOK=!Dual||Case%6!=1||(PS->LastWasPaired&&PS->LastContact.ItemInstance!=PS->LastPairedContact.ItemInstance);
++    const bool DamageOK=Contacts==Expected&&DamageTotal>0.f&&PairOK;
+     const bool LedgerOK=(Case%6==0||Case%6==2||Case%6==3||Case%6==5)?Spent>SpentBefore&&FMath::IsNearlyEqual(Spent,Guest->ClientSpent,.01):true;
+     const bool Dedicated=GetNetMode()==NM_DedicatedServer;
+     const bool NeedLeft=Dual&&Case%6!=2&&Case%6!=4;
+@@ -399,10 +432,17 @@
+     R->SetNumberField(TEXT("damage"),DamageTotal);R->SetNumberField(TEXT("hit_reports_including_two_replays"),PS->Reports);
+     R->SetNumberField(TEXT("ledger_before"),SpentBefore);R->SetNumberField(TEXT("ledger_authority"),Spent);R->SetNumberField(TEXT("ledger_owner"),Guest->ClientSpent);
+     R->SetBoolField(TEXT("ledger_matches"),LedgerOK);R->SetBoolField(TEXT("replay_during_action"),Replayed);
++    R->SetBoolField(TEXT("paired_heavy_report"),PS->LastWasPaired);R->SetBoolField(TEXT("paired_heavy_instances_distinct"),PairOK);
+     R->SetNumberField(TEXT("inventory_reallocations_during_damage"),ReallocatedHits);
+     R->SetNumberField(TEXT("body_frames"),ObservedFrames);R->SetNumberField(TEXT("rift_frames"),RiftFrames);
+     R->SetNumberField(TEXT("left_rift_frames"),LeftRiftFrames);R->SetBoolField(TEXT("vfx_routing"),VfxOK);
+     Rows.Add(MakeShared<FJsonValueObject>(R));AllPassed&=OK;KukriCombatWire::Save(Rows,AllPassed,GetWorld());
+     UE_LOG(LogTemp,Display,TEXT("KUKRI_COMBAT_CASE %d passed=%d contacts=%d/%d damage=%.2f body=%d rift=%d"),Case,OK,Contacts,Expected,DamageTotal,ObservedFrames,RiftFrames);
+     ++Guest->Finished;
+-}
++    if(KukriCombatWire::HeavyCycles()>0)
++    {
++        if(Case==0)Guest->Finished=1;
++        else if(Case==1)Guest->Finished=7;
++        else if(Case==7)Guest->Finished=++KukriCombatWire::HeavyCyclesDone<KukriCombatWire::HeavyCycles()?1:KukriCombatWire::CaseCount;
++    }
++}

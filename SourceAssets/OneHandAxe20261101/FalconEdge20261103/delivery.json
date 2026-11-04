@@ -1,0 +1,44 @@
+{
+  "complete": true,
+  "definition": "ue_tactical_hatchet",
+  "id": "hatchet_falcon_edge",
+  "name": "隼喙凿锋斧刃",
+  "slot": "blade_1",
+  "modification_tier": "Special",
+  "stats": {
+    "physical_damage_mult": 1.2,
+    "melee_critical_damage_bonus": 0.35,
+    "attack_speed_mult": 0.9,
+    "stamina_mult": 1.15
+  },
+  "model_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\TacticalHatchet_FalconEdge_Editable.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Export\\SM_TacticalHatchet_Head_FalconEdge.fbx",
+  "triangles": 119234,
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Textures\\T_TacticalHatchet_Head_FalconEdge_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Textures\\T_TacticalHatchet_Head_FalconEdge_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Textures\\T_TacticalHatchet_Head_FalconEdge_Normal.png"
+  },
+  "saved_assets": [
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_BaseColor.T_TacticalHatchet_Head_FalconEdge_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_ORM.T_TacticalHatchet_Head_FalconEdge_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_Normal.T_TacticalHatchet_Head_FalconEdge_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Materials/M_TacticalHatchet_Head_FalconEdge.M_TacticalHatchet_Head_FalconEdge",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FalconEdge.SM_TacticalHatchet_Head_FalconEdge",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_blade_1_hatchet_falcon_edge.ue_tactical_hatchet_blade_1_hatchet_falcon_edge"
+  ],
+  "model_recipe": "Content/ColdSteelData/tactical-hatchet-modules.json",
+  "option_catalog": "Content/ColdSteelData/tactical-hatchet-gunsmith.json",
+  "native_build": {
+    "log": "build-editor.log",
+    "runtime_tested": false,
+    "target": "FPSGAMEEditor Win64 Development",
+    "exit_code": 0
+  },
+  "editor_ui_opened": false,
+  "runtime_tested": false,
+  "acceptance_rendered": false,
+  "icon_asset_rendered": true,
+  "image_generation": "built-in image_gen; exact inputs and prompt recorded in icon_manifest.json",
+  "notes": "Existing animations, hand rules and modification persistence reused. No gameplay, network or visual acceptance test run."
+}

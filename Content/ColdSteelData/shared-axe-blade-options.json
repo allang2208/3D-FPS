@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "family": "one_handed_axe_blade",
+  "options": [
+    {
+      "id": "axe_swift_crescent",
+      "name": "轻型钩月斧刃",
+      "description": "宽月牙弧形刃面与短后钩；主体沿用原厂深灰石洗钢质感，刃口采用同源浅银磨刃，双凹刃根与柄颈连续衔接。",
+      "appearance": "宽月牙弧形刃面与短后钩；主体沿用原厂深灰石洗钢质感，刃口采用同源浅银磨刃，双凹刃根与柄颈连续衔接。",
+      "effects": [
+        {
+          "text": "物理伤害+5%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度+10%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击体力消耗-5%",
+          "benefit": 1
+        },
+        {
+          "text": "韧性伤害-5%",
+          "benefit": -1
+        }
+      ],
+      "stats": {
+        "physical_damage_mult": 1.05,
+        "attack_speed_mult": 1.1,
+        "stamina_mult": 0.95,
+        "toughness_damage_mult": 0.95
+      },
+      "special_effects": []
+    },
+    {
+      "id": "axe_heavy_cleaver",
+      "name": "厚背重劈斧刃",
+      "description": "宽腹厚背向刃口连续收薄，凸弧磨刃与主体自然衔接，柄颈圆顺过渡；原厂深灰石洗钢配同源浅银刃口。",
+      "appearance": "宽腹厚背向刃口连续收薄，凸弧磨刃与主体自然衔接，柄颈圆顺过渡；原厂深灰石洗钢配同源浅银刃口。",
+      "effects": [
+        {
+          "text": "物理伤害+30%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度-15%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击体力消耗+20%",
+          "benefit": -1
+        },
+        {
+          "text": "韧性伤害+30%",
+          "benefit": 1
+        }
+      ],
+      "stats": {
+        "physical_damage_mult": 1.3,
+        "attack_speed_mult": 0.85,
+        "stamina_mult": 1.2,
+        "toughness_damage_mult": 1.3
+      },
+      "special_effects": []
+    },
+    {
+      "id": "axe_folded_arc",
+      "name": "百炼弧锋斧刃",
+      "description": "弧形斧身向锋缘连续收薄，细弧磨刃与柄颈平顺连接；原厂深灰钢保留低对比细密钢纹，搭配同源浅银刃口。",
+      "appearance": "弧形斧身向锋缘连续收薄，细弧磨刃与柄颈平顺连接；原厂深灰钢保留低对比细密钢纹，搭配同源浅银刃口。",
+      "effects": [
+        {
+          "text": "物理伤害+15%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度-5%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击体力消耗+5%",
+          "benefit": -1
+        },
+        {
+          "text": "韧性伤害+15%",
+          "benefit": 1
+        }
+      ],
+      "stats": {
+        "physical_damage_mult": 1.15,
+        "attack_speed_mult": 0.95,
+        "stamina_mult": 1.05,
+        "toughness_damage_mult": 1.15
+      },
+      "special_effects": []
+    }
+  ]
+}

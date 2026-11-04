@@ -1,0 +1,45 @@
+{
+  "id": "axe_heavy_cleaver",
+  "name": "厚背重劈斧刃",
+  "slot": "blade_1",
+  "kind": "HeavyCleaver",
+  "object": "SM_TacticalHatchet_Head_HeavyCleaver_R2",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Export\\SM_TacticalHatchet_Head_HeavyCleaver_R2.fbx",
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Textures\\T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Textures\\T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Textures\\T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.png"
+  },
+  "origin_cm": [
+    0,
+    0,
+    0
+  ],
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R2.SM_TacticalHatchet_Head_HeavyCleaver_R2",
+  "material_slot": "M_TacticalHatchet_Head_HeavyCleaver_R2",
+  "metrics": {
+    "vertices": 3703,
+    "triangles": 7402,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0,
+    "signed_volume_cm3": 539.7930111681262,
+    "body_thickness_cm": 2.4,
+    "dimensions_cm": [
+      22.383853793144226,
+      2.4000000208616257,
+      19.99993920326233
+    ]
+  },
+  "model_revision": "clean_rebuild_v2_20261103",
+  "trace_base_cm": [
+    12.399999797344208,
+    -0.06362,
+    17.20000058412552
+  ],
+  "trace_tip_cm": [
+    16.8,
+    -0.06362,
+    31.5
+  ]
+}

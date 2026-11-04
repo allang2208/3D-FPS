@@ -1,0 +1,34 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLong_BaseColor.T_TacticalHatchet_GripLong_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLong_ORM.T_TacticalHatchet_GripLong_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLong_Normal.T_TacticalHatchet_GripLong_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLong.M_TacticalHatchet_GripLong",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLong.SM_TacticalHatchet_GripLong",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_long.ue_tactical_hatchet_grip_hatchet_grip_long"
+  ],
+  "parts": [
+    {
+      "id": "hatchet_grip_long",
+      "slot": "grip",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLong.SM_TacticalHatchet_GripLong",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLong.M_TacticalHatchet_GripLong",
+      "material_slot_names": [
+        "M_TacticalHatchet_GripLong"
+      ],
+      "location_cm": [
+        0,
+        0,
+        11.5
+      ],
+      "pommel_offset_cm": [
+        0,
+        0,
+        -8.0
+      ]
+    }
+  ],
+  "runtime_tested": false,
+  "icon": "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_long.ue_tactical_hatchet_grip_hatchet_grip_long"
+}

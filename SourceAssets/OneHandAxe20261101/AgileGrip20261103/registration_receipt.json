@@ -1,0 +1,30 @@
+{
+  "published": true,
+  "definition": "ue_tactical_hatchet",
+  "slot": "grip",
+  "id": "hatchet_grip_agile",
+  "exclusive_option": true,
+  "modification_tier": "Special",
+  "tier_source": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+  "stats": {
+    "physical_armor_penetration": 0.25,
+    "toughness_damage_mult": 1.2,
+    "stamina_mult": 1.15
+  },
+  "design_revision": "armor_break_20261103",
+  "pommel_offset_cm": [
+    0,
+    0,
+    0
+  ],
+  "pendant_follows_parent_pommel": true,
+  "saved_assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgile_BaseColor.T_TacticalHatchet_GripAgile_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgile_ORM.T_TacticalHatchet_GripAgile_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgile_Normal.T_TacticalHatchet_GripAgile_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripAgile.M_TacticalHatchet_GripAgile",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgile.SM_TacticalHatchet_GripAgile",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_agile.ue_tactical_hatchet_grip_hatchet_grip_agile"
+  ],
+  "runtime_tested": false
+}

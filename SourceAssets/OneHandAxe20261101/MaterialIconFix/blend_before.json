@@ -1,0 +1,61 @@
+{
+  "images": [
+    {
+      "name": "normal",
+      "path": "//Textures\\source_image_00.png",
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "texture_0",
+      "path": "//Textures\\source_image_01.png",
+      "colorspace": "sRGB"
+    },
+    {
+      "name": "texture_0_metallic_roughness",
+      "path": "//Textures\\source_image_02.png",
+      "colorspace": "Non-Color"
+    }
+  ],
+  "materials": [
+    {
+      "name": "M_TacticalHatchet",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "texture_0"
+        },
+        {
+          "name": "Separate Color",
+          "type": "SEPARATE_COLOR",
+          "image": null
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "texture_0_metallic_roughness"
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "normal"
+        }
+      ]
+    }
+  ]
+}

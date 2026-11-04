@@ -1,0 +1,25 @@
+{
+  "status": "saved_published_editor_built",
+  "saved_assets": [
+    "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\PendantsV2\\M_TacticalHatchet_PendantCord_FitV2.uasset",
+    "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\PendantsV2\\SM_TacticalHatchet_LanyardBraid_FitV2.uasset",
+    "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\PendantsV2\\SM_TacticalHatchet_LanyardTassel_FitV2.uasset",
+    "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\PendantsV2\\SM_TacticalHatchet_LanyardTag_FitV2.uasset"
+  ],
+  "static_pairs_checked": 12,
+  "intersecting_face_pairs": 0,
+  "penetrating_vertices_gt_0_025mm": 0,
+  "all_pairs_cross_hole_midplane": true,
+  "inspection_source": "FBX exported from saved UE StaticMesh packages",
+  "editor_build": {
+    "target": "FPSGAMEEditor Win64 Development",
+    "exit_code": 0,
+    "log": "build-editor-retry.log",
+    "first_attempt_exit_code": 6,
+    "recovery": "Incremental rebuild after concurrent RuneSword declarations reached the current header; no edits to those files",
+    "artifact": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+    "artifact_modified": "2026-11-02T23:13:09.031629+08:00"
+  },
+  "runtime_animation_tested": false,
+  "completed": "2026-11-02T23:13:58.075905+08:00"
+}

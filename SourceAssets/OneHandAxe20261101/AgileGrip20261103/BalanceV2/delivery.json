@@ -1,0 +1,37 @@
+{
+  "revision": "armor_break_20261103",
+  "definition": "ue_tactical_hatchet",
+  "part_id": "hatchet_grip_agile",
+  "name": "破阵握柄",
+  "modification_tier": "Special",
+  "stats": {
+    "physical_armor_penetration": 0.25,
+    "toughness_damage_mult": 1.2,
+    "stamina_mult": 1.15
+  },
+  "catalog_saved": true,
+  "existing_mesh_material_icon_reused": true,
+  "long_grip_unchanged": true,
+  "native_build": {
+    "target": "FPSGAMEEditor Win64 Development",
+    "exit_code": 0,
+    "receipt": "build_receipt.json"
+  },
+  "configuration_check": "balance_review.json",
+  "native_check": {
+    "commandlet": "HatchetGripAudit",
+    "exit_code": 0,
+    "count": 72,
+    "failures": 0,
+    "receipt": "native-check.json",
+    "isolated_profile": true
+  },
+  "runtime_fixes": [
+    "Staff plus offhand melee quick combat reads the actual offhand stamina and toughness modifiers.",
+    "Paired one-handed dash resolves each captured blade contribution with its own penetration; authority reconstructs from the shadow profile."
+  ],
+  "editor_ui_opened": false,
+  "map_gameplay_started": false,
+  "visual_or_input_tested": false,
+  "real_network_transport_tested": false
+}

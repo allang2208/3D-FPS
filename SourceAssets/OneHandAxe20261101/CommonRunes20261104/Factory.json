@@ -1,0 +1,70 @@
+{
+  "id": "factory",
+  "kind": "Factory",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\ModulesV1\\TacticalHatchet_Modules_Editable.blend",
+  "object": "SM_TacticalHatchet_Head_Factory",
+  "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Textures\\source_image_01.png",
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory.SM_TacticalHatchet_Head_Factory",
+  "slot": "M_TacticalHatchet",
+  "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+  "target_slot": "M_TacticalHatchet_Head_Factory_RuneCarrier",
+  "placements": [
+    {
+      "id": "knife_mark_wing",
+      "kind": "RuneWing",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_Factory_RuneWing.png",
+      "center_m": [
+        0.10400000000000005,
+        0.26300000000000007
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    },
+    {
+      "id": "knife_mark_knot",
+      "kind": "RuneKnot",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_Factory_RuneKnot.png",
+      "center_m": [
+        0.10400000000000005,
+        0.26300000000000007
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    },
+    {
+      "id": "knife_mark_peaks",
+      "kind": "RunePeaks",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_Factory_RunePeaks.png",
+      "center_m": [
+        0.10400000000000005,
+        0.26300000000000007
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    }
+  ]
+}

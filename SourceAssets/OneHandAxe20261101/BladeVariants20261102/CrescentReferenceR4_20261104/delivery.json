@@ -1,0 +1,33 @@
+{
+  "id": "axe_swift_crescent",
+  "model_revision": "approved_reference_draft02_r4_20261104",
+  "design_approved": true,
+  "model_acceptance": "pending_user",
+  "source_authored": true,
+  "fbx_exported": true,
+  "pbr_baked": true,
+  "ue_assets_saved": true,
+  "ue_asset_count": 6,
+  "runtime_recipe_registered": true,
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+  "geometry": {
+    "triangles": 36762,
+    "dimensions_cm": [
+      18.35571825504303,
+      1.7000002786517143,
+      19.883349537849426
+    ],
+    "stock_interface_z_cm": 11.5,
+    "continuous_loft_rings": 12,
+    "design_scale_m": 0.001023967741935484
+  },
+  "shared_icon": "blade_1_axe_swift_crescent",
+  "numerical_stats_changed": false,
+  "runtime_tested": false,
+  "production_render": "shared modification icon only",
+  "editor_ui_opened": false,
+  "material_revision": "factory_finish_20261104",
+  "material_source": "Original hatchet body and cutting edge PBR",
+  "material_update_receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\FactoryFinish20261104\\import_receipt.json",
+  "material_update_saved_assets": 4
+}

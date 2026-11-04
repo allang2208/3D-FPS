@@ -1,0 +1,48 @@
+{
+  "id": "hatchet_grip_agile",
+  "name": "破阵握柄",
+  "slot": "grip",
+  "object": "SM_TacticalHatchet_GripAgileHollowV2",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\AgileGrip20261103\\HollowV2\\Export\\SM_TacticalHatchet_GripAgileHollowV2.fbx",
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\AgileGrip20261103\\HollowV2\\Textures\\T_TacticalHatchet_GripAgileHollowV2_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\AgileGrip20261103\\HollowV2\\Textures\\T_TacticalHatchet_GripAgileHollowV2_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\AgileGrip20261103\\HollowV2\\Textures\\T_TacticalHatchet_GripAgileHollowV2_Normal.png"
+  },
+  "origin_cm": [
+    0,
+    0,
+    11.5
+  ],
+  "pommel_offset_cm": [
+    0,
+    0,
+    0
+  ],
+  "grip_length_cm": 19.25,
+  "window": {
+    "width_cm": 1.3599999999999999,
+    "tip_z_cm": [
+      -14.580000000000002,
+      -5.82
+    ],
+    "through_axis": "Y"
+  },
+  "interface": "Original upper/lower joints and outside hand-contact envelope retained; continuous rails surrounding a central rounded through-window",
+  "stats": {
+    "stamina_mult": 0.75,
+    "attack_speed_mult": 1.15,
+    "heavy_charge_speed_bonus": 0.15,
+    "martial_cooldown_mult": 0.8
+  },
+  "design_revision": "user_tempo_20261103",
+  "model_revision": "hollow_v2_20261103",
+  "modification_tier": "Special",
+  "triangles": 63244,
+  "normal_convention": "OpenGL tangent; one UE green-channel flip",
+  "runtime_tested": false,
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgileHollowV2.SM_TacticalHatchet_GripAgileHollowV2",
+  "factory_grip_length_cm": 19.25,
+  "extension_cm": 0,
+  "material_slot": "M_TacticalHatchet_GripAgileHollowV2"
+}

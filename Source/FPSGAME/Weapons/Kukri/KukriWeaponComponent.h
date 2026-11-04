@@ -106,7 +106,7 @@ private:
     bool PayServerHeavyRelease();
     /** Normal left click (the combo), from a press or from a tap / short charge release. */
     void StartComboClick();
-    UFUNCTION(Server,Reliable) void ServerSetKukriHeavyCharge(const FString& Weapon,bool bCharging,bool bRelease,bool BothBlades);
+    UFUNCTION(Server,Reliable) void ServerSetKukriHeavyCharge(const FString& Weapon,bool bCharging,bool bRelease,bool BothBlades,double ClientStartedAt);
     UFUNCTION(Client,Reliable) void ClientCancelKukriHeavyCharge(const FString& Weapon);
     void AdvanceUppercut(float Delta);
     void AdvanceUppercutLunge(float From,float To);
@@ -272,6 +272,7 @@ private:
     bool bServerHeavyCharging=false;
     FString ServerHeavyWeapon,ServerHeavyOffhandWeapon;
     double ServerHeavyStartedAt=-1., ServerHeavyRequired=2., NetworkHeavyReleaseUntil=-1.;
+    double ServerHeavyReceivedAt=-1., ServerHeavyLastStartedAt=-1.;
     bool bRiftActive=false, bRiftStarted=false;
     // Sprint attack: frozen at release (damage/range/arc/knockback from DashAttackStats), training counted per cast.
     bool bDashAttack=false, bDashTrainingPending=false;

@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-01",
+  "status": "concept_only",
+  "title": "碳钢战斧",
+  "category": "单手近战武器",
+  "classification_decision": "本单手斧及后续采用同类主副手规则的武器，统一归类为单手近战武器。",
+  "workflow": "asset-model-workflow + ue5-weapon-workflow + built-in image_gen",
+  "visual_direction": [
+    "现代碳钢战斧",
+    "深灰金属斧头与银色磨刃",
+    "紧凑短斧背",
+    "黑色防滑握片",
+    "左右手通用握持轮廓"
+  ],
+  "planned_animation_reuse": "沿用现有尼泊尔弯刀攻击模组、动作模组、主副手规则及动作优先级。",
+  "integration_notes": [
+    "后续以现有手模握点适配斧柄，保留既有手部动作时钟。",
+    "斧头接触位置与命中探针需按新外形适配，概念图不代表完成适配。",
+    "本阶段仅交付设计图，未制作或导入三维模型，未修改运行时代码与武器分类数据。"
+  ],
+  "design_image": "carbon_steel_axe_design_v01.png",
+  "prompt": "prompt.txt",
+  "source_image": "C:/Users/allan/.codex/generated_images/01a195a9-36a2-73c3-b35d-e1ea19859acf/exec-661ea79c-7eaa-457e-9031-a29671a3c2db.png"
+}

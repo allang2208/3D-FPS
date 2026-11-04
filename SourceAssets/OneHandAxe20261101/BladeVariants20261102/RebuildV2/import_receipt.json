@@ -1,0 +1,103 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_BaseColor.T_TacticalHatchet_Head_SwiftCrescent_R2_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_ORM.T_TacticalHatchet_Head_SwiftCrescent_R2_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_Normal.T_TacticalHatchet_Head_SwiftCrescent_R2_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R2.M_TacticalHatchet_Head_SwiftCrescent_R2",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R2.SM_TacticalHatchet_Head_SwiftCrescent_R2",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.T_TacticalHatchet_Head_HeavyCleaver_R2_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.T_TacticalHatchet_Head_HeavyCleaver_R2_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver_R2.M_TacticalHatchet_Head_HeavyCleaver_R2",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R2.SM_TacticalHatchet_Head_HeavyCleaver_R2",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.T_TacticalHatchet_Head_FoldedArc_R2_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.T_TacticalHatchet_Head_FoldedArc_R2_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.T_TacticalHatchet_Head_FoldedArc_R2_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc_R2.M_TacticalHatchet_Head_FoldedArc_R2",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R2.SM_TacticalHatchet_Head_FoldedArc_R2",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.blade_1_axe_swift_crescent",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_heavy_cleaver.blade_1_axe_heavy_cleaver",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_folded_arc.blade_1_axe_folded_arc"
+  ],
+  "parts": [
+    {
+      "slot": "blade_1",
+      "id": "axe_swift_crescent",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R2.SM_TacticalHatchet_Head_SwiftCrescent_R2",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R2.M_TacticalHatchet_Head_SwiftCrescent_R2",
+      "material_slot_names": [
+        "M_TacticalHatchet_Head_SwiftCrescent_R2"
+      ],
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "trace_base_cm": [
+        10.100000351667404,
+        -0.06362,
+        18.199999630451202
+      ],
+      "trace_tip_cm": [
+        15.000000596046448,
+        -0.06362,
+        31.299999356269836
+      ]
+    },
+    {
+      "slot": "blade_1",
+      "id": "axe_heavy_cleaver",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R2.SM_TacticalHatchet_Head_HeavyCleaver_R2",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver_R2.M_TacticalHatchet_Head_HeavyCleaver_R2",
+      "material_slot_names": [
+        "M_TacticalHatchet_Head_HeavyCleaver_R2"
+      ],
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "trace_base_cm": [
+        12.399999797344208,
+        -0.06362,
+        17.20000058412552
+      ],
+      "trace_tip_cm": [
+        16.8,
+        -0.06362,
+        31.5
+      ]
+    },
+    {
+      "slot": "blade_1",
+      "id": "axe_folded_arc",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R2.SM_TacticalHatchet_Head_FoldedArc_R2",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc_R2.M_TacticalHatchet_Head_FoldedArc_R2",
+      "material_slot_names": [
+        "M_TacticalHatchet_Head_FoldedArc_R2"
+      ],
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "trace_base_cm": [
+        10.599999874830246,
+        -0.06362,
+        17.59999990463257
+      ],
+      "trace_tip_cm": [
+        15.899999439716339,
+        -0.06362,
+        31.49999976158142
+      ]
+    }
+  ],
+  "icons": [
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.blade_1_axe_swift_crescent",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_heavy_cleaver.blade_1_axe_heavy_cleaver",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_folded_arc.blade_1_axe_folded_arc"
+  ],
+  "runtime_tested": false
+}

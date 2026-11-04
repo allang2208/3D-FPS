@@ -1,0 +1,17 @@
+{
+  "saved": true,
+  "pipeline": "ColdSteelWeaponIconCatalog",
+  "definition": "ue_tactical_hatchet",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\IconCanvas20261102\\Icons\\ue_tactical_hatchet.png",
+  "deployed": [
+    "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\Icons\\ue_tactical_hatchet.png",
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Icons\\ue_tactical_hatchet.png"
+  ],
+  "canvas": [
+    256,
+    384
+  ],
+  "framing": 0.91,
+  "retains_canvas_in_catalog_and_live_brush": true,
+  "gameplay_tested": false
+}

@@ -1,0 +1,28 @@
+{
+  "published": true,
+  "item_id": "ue_tactical_hatchet",
+  "slot": "lanyard",
+  "default": "factory_hidden",
+  "shared_option_ids": [
+    "knife_lanyard_braid",
+    "knife_lanyard_tassel",
+    "knife_lanyard_tag"
+  ],
+  "parent_slot": "pommel",
+  "location_cm": [
+    0.13412195086479184,
+    0,
+    -1.8265980792045593
+  ],
+  "models_materials_physics": "hatchet_fitted_roots_shared_bodies_and_dynamics",
+  "shared_option_icons": [
+    "lanyard_knife_lanyard_braid",
+    "lanyard_knife_lanyard_tassel",
+    "lanyard_knife_lanyard_tag"
+  ],
+  "saved_icon_assets": [
+    "/Game/ColdSteelData/AttachmentIcons20260913/category_lanyard.category_lanyard",
+    "/Game/ColdSteelData/AttachmentIcons20260913/lanyard_false.lanyard_false"
+  ],
+  "runtime_tested": false
+}

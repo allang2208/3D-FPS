@@ -1,0 +1,34 @@
+{
+  "revision": "user_tempo_20261103",
+  "id": "hatchet_grip_agile",
+  "name": "破阵握柄",
+  "role": "减少耗体、提高普通攻击与重击蓄力速度、缩短武技冷却",
+  "stats": {
+    "stamina_mult": 0.75,
+    "attack_speed_mult": 1.15,
+    "heavy_charge_speed_bonus": 0.15,
+    "martial_cooldown_mult": 0.8
+  },
+  "effects": [
+    {
+      "text": "体力消耗-25%",
+      "benefit": 1
+    },
+    {
+      "text": "攻击速度+15%",
+      "benefit": 1
+    },
+    {
+      "text": "重击蓄力速度+15%",
+      "benefit": 1
+    },
+    {
+      "text": "武技冷却时间-20%",
+      "benefit": 1
+    }
+  ],
+  "special_effects": [],
+  "scope_note": "本武器耗体倍率0.75、普通攻速倍率1.15；重击蓄力速度加成0.15，单独生效时蓄力耗时除以1.15；有独立冷却的武技冷却乘0.8，不缩短动作占用、收势或冲刺就绪时长。主副手沿现有动作使用的武器结算。替换原穿甲、削韧与增耗属性。",
+  "appearance": "长圆贯穿孔夹在连续金属侧框之间，银灰孔缘衔接黑色碳纤维握片，两端保留原装连接座与紧固件。",
+  "model_revision": "hollow_v2_20261103"
+}

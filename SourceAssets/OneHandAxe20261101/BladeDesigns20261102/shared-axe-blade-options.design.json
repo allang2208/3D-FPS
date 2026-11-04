@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "status": "implemented_in_blade_variants_20261102",
+  "implementation_receipt": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/delivery.json",
+  "family": "one_handed_axe_blade",
+  "target_library": "shared-axe-blade-options.json",
+  "slot": "blade_1",
+  "reference_library": "Content/ColdSteelData/shared-knife-blade-options.json",
+  "current_host": "ue_tactical_hatchet",
+  "host_interface": "hatchet-factory-cuts-v1",
+  "interface_source": "SourceAssets/OneHandAxe20261101/ModulesV1/modules.json",
+  "options": [
+    {
+      "id": "axe_swift_crescent",
+      "name": "轻型钩月斧刃",
+      "reference_option": "swift_blade",
+      "description": "窄月牙斧刃配短斧须与双浅槽，石墨灰碳钢面衔接窄银色磨刃。",
+      "appearance": "窄月牙斧刃配短斧须与双浅槽，石墨灰碳钢面衔接窄银色磨刃。",
+      "effects": [
+        {"text": "物理伤害+5%", "benefit": 1},
+        {"text": "攻击速度+10%", "benefit": 1},
+        {"text": "攻击体力消耗-5%", "benefit": 1},
+        {"text": "韧性伤害-5%", "benefit": -1}
+      ],
+      "stats": {"physical_damage_mult": 1.05, "attack_speed_mult": 1.1, "stamina_mult": 0.95, "toughness_damage_mult": 0.95},
+      "special_effects": []
+    },
+    {
+      "id": "axe_heavy_cleaver",
+      "name": "厚背重劈斧刃",
+      "reference_option": "heavy_back_blade",
+      "description": "宽腹厚脊衔接三段楔面与截短刃角，深灰锻面映出宽银色刃口。",
+      "appearance": "宽腹厚脊衔接三段楔面与截短刃角，深灰锻面映出宽银色刃口。",
+      "effects": [
+        {"text": "物理伤害+30%", "benefit": 1},
+        {"text": "攻击速度-15%", "benefit": -1},
+        {"text": "攻击体力消耗+20%", "benefit": -1},
+        {"text": "韧性伤害+30%", "benefit": 1}
+      ],
+      "stats": {"physical_damage_mult": 1.3, "attack_speed_mult": 0.85, "stamina_mult": 1.2, "toughness_damage_mult": 1.3},
+      "special_effects": []
+    },
+    {
+      "id": "axe_folded_arc",
+      "name": "百炼弧锋斧刃",
+      "reference_option": "folded_balanced_blade",
+      "description": "圆润扇形弧锋收成短圆斧跟，银灰百炼流纹衔接素面磨刃。",
+      "appearance": "圆润扇形弧锋收成短圆斧跟，银灰百炼流纹衔接素面磨刃。",
+      "effects": [
+        {"text": "物理伤害+15%", "benefit": 1},
+        {"text": "攻击速度-5%", "benefit": -1},
+        {"text": "攻击体力消耗+5%", "benefit": -1},
+        {"text": "韧性伤害+15%", "benefit": 1}
+      ],
+      "stats": {"physical_damage_mult": 1.15, "attack_speed_mult": 0.95, "stamina_mult": 1.05, "toughness_damage_mult": 1.15},
+      "special_effects": []
+    }
+  ]
+}

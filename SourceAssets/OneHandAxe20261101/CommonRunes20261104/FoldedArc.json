@@ -1,0 +1,70 @@
+{
+  "id": "axe_folded_arc",
+  "kind": "FoldedArc",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\FoldedArc_Editable.blend",
+  "object": "SM_TacticalHatchet_Head_FoldedArc_R5",
+  "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\FoldedArc\\Textures\\T_TacticalHatchet_Head_FoldedArc_R5_BaseColor.png",
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R5.SM_TacticalHatchet_Head_FoldedArc_R5",
+  "slot": "M_TacticalHatchet_Head_FoldedArc_R5",
+  "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc_R5.M_TacticalHatchet_Head_FoldedArc_R5",
+  "target_slot": "M_TacticalHatchet_Head_FoldedArc_R5",
+  "placements": [
+    {
+      "id": "knife_mark_wing",
+      "kind": "RuneWing",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_FoldedArc_RuneWing.png",
+      "center_m": [
+        0.09500000000000004,
+        0.2710000000000001
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    },
+    {
+      "id": "knife_mark_knot",
+      "kind": "RuneKnot",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_FoldedArc_RuneKnot.png",
+      "center_m": [
+        0.09500000000000004,
+        0.2710000000000001
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    },
+    {
+      "id": "knife_mark_peaks",
+      "kind": "RunePeaks",
+      "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\CommonRunes20261104\\Textures\\T_HatchetRune_FoldedArc_RunePeaks.png",
+      "center_m": [
+        0.09500000000000004,
+        0.2710000000000001
+      ],
+      "width_m": 0.05,
+      "height_m": 0.05,
+      "source_aspect": 1.0,
+      "centimetres_per_pixel": [
+        0.003987240829346092,
+        0.003987240829346092
+      ],
+      "face_normal_y_min": 0.97,
+      "body_margin_mm": 3,
+      "projection": "head local isometric XZ; outward-readable two sides; baked UV0"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "complete": true,
+  "saved_assets": 18,
+  "modified_blade_ids": [
+    "axe_folded_arc",
+    "axe_heavy_cleaver",
+    "axe_swift_crescent"
+  ],
+  "other_module_fields_retained": true,
+  "numerical_options_retained": true,
+  "model_diagnosis": "export_diagnosis.json",
+  "import_receipt": "import_receipt.json",
+  "registration_receipt": "registration_receipt.json",
+  "gameplay_tested": false,
+  "preview": "Review/ThreeBlades_R2.png",
+  "model_review": "individual front, oblique, thickness and clay views",
+  "asset_files": [
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_SwiftCrescent_R2_BaseColor.uasset",
+      "bytes": 1618195
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_SwiftCrescent_R2_ORM.uasset",
+      "bytes": 1001754
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_SwiftCrescent_R2_Normal.uasset",
+      "bytes": 44940
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Materials\\M_TacticalHatchet_Head_SwiftCrescent_R2.uasset",
+      "bytes": 8073
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SM_TacticalHatchet_Head_SwiftCrescent_R2.uasset",
+      "bytes": 541747
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.uasset",
+      "bytes": 1753534
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.uasset",
+      "bytes": 1063738
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.uasset",
+      "bytes": 34368
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Materials\\M_TacticalHatchet_Head_HeavyCleaver_R2.uasset",
+      "bytes": 8062
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SM_TacticalHatchet_Head_HeavyCleaver_R2.uasset",
+      "bytes": 499219
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.uasset",
+      "bytes": 1801751
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_FoldedArc_R2_ORM.uasset",
+      "bytes": 990731
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Textures\\T_TacticalHatchet_Head_FoldedArc_R2_Normal.uasset",
+      "bytes": 35332
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\Materials\\M_TacticalHatchet_Head_FoldedArc_R2.uasset",
+      "bytes": 8029
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SM_TacticalHatchet_Head_FoldedArc_R2.uasset",
+      "bytes": 493059
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\ColdSteelData\\AttachmentIcons20260913\\blade_1_axe_swift_crescent.uasset",
+      "bytes": 378637
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\ColdSteelData\\AttachmentIcons20260913\\blade_1_axe_heavy_cleaver.uasset",
+      "bytes": 377730
+    },
+    {
+      "path": "F:\\FPSGAMEData\\Content\\ColdSteelData\\AttachmentIcons20260913\\blade_1_axe_folded_arc.uasset",
+      "bytes": 376037
+    }
+  ]
+}

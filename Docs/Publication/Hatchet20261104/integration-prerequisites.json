@@ -1,0 +1,73 @@
+{
+  "base": "d7bea973586df8012e15680e8eb3355d8752e1e9",
+  "scope": "hatchet model/modification source and assets metadata, timing fix, local historical validation",
+  "cleanup": "cleanup-manifest.json",
+  "host_dependent_patches": [
+    {
+      "source": "Source/FPSGAME/Development/KukriCombatWireAudit.cpp",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__KukriCombatWireAudit.cpp.patch",
+      "host_sha256": "d0930ae713ae6a940e1273e72641c317846039391b6647a31b20e8582814a44a",
+      "base_sha256": "eb45438e04e8e0f1a82dbb00f3591f3e83aa5e784ea72a4b07a6364571d22c9a",
+      "requires": "current shared melee authority APIs and body fixture; not present together in public main"
+    },
+    {
+      "source": "Source/FPSGAME/Development/KukriCombatWireAudit.h",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__KukriCombatWireAudit.h.patch",
+      "host_sha256": "4bccaf7057148762e88bee2b90c824ece9bf2156c08ea9ec0f4621ea75f22e98",
+      "base_sha256": "b2e281e9f568a4bd559d4a1dd4fe25f9be8fa61f42ac64a93759dcaac41fb278",
+      "requires": "current shared melee authority APIs and body fixture; not present together in public main"
+    },
+    {
+      "source": "Source/FPSGAME/Multiplayer/KukriNetworkAuditCommandlet.cpp",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriNetworkAuditCommandlet.cpp.patch",
+      "host_sha256": "1888d6d73729804d7c4b1cd3f71d279b00ae250acb395e91abca368d4a56952c",
+      "base_sha256": "076b7c52cb36ee953ff388773bbc135fdf0008ee58c486b32a98675cc227fa92",
+      "requires": "current shared melee authority APIs and body fixture; not present together in public main"
+    },
+    {
+      "source": "Source/FPSGAME/Multiplayer/KukriNetworkAuditCommandlet.h",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriNetworkAuditCommandlet.h.patch",
+      "host_sha256": "de00acf1f10765d2dab4dd0fefa0a9dbf81f409c6e86fb4a9fc48489cda812d1",
+      "base_sha256": "594b7575e9d9b7a755c467d49e2640404f32f7b225e7a74464623953d4465ab9",
+      "requires": "current shared melee authority APIs and body fixture; not present together in public main"
+    },
+    {
+      "source": "Source/FPSGAME/Multiplayer/KukriHeavyClockAudit.cpp",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriHeavyClockAudit.cpp.patch",
+      "host_sha256": "3d326b9dcfda23c435225d8a14c37d6459d715a9133ce7198f4f9bfee2a6cf64",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "requires": "current shared melee authority APIs and body fixture; not present together in public main"
+    },
+    {
+      "source": "Source/FPSGAME/Development/HatchetRuneWireAudit.cpp",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__HatchetRuneWireAudit.cpp.patch",
+      "host_sha256": "11083f983c56449ec420e40239e36dd53343f2a9a8047c68611e685ca658dc4b",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "requires": "current shared melee authority APIs and body fixture; not present together in public main"
+    },
+    {
+      "source": "Source/FPSGAME/Development/HatchetRuneWireAudit.h",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__HatchetRuneWireAudit.h.patch",
+      "host_sha256": "eee2deee986f43a591c1a970bb06e2e7244894b9548d55b330820f4182248416",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "requires": "current shared melee authority APIs and body fixture; not present together in public main"
+    },
+    {
+      "source": "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__UI__ColdSteelInventoryWidget.cpp.patch",
+      "requires": "shared IsOneHandedMelee / OneHandedMeleeArt classifier"
+    },
+    {
+      "source": "Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp",
+      "artifact": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__UI__ColdSteelWeaponIconReadback.cpp.patch",
+      "requires": "shared IsOneHandedMelee / OneHandedMeleeArt classifier"
+    }
+  ],
+  "excluded": [
+    "GhostScythe20261104",
+    "HatchetPairs20261104",
+    "other sessions staged files",
+    "binary uasset/FBX/Blend/PNG/audio/fonts",
+    "all local savegames, caches and logs"
+  ]
+}

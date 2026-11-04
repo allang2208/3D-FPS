@@ -1,0 +1,33 @@
+{
+  "id": "hatchet_falcon_edge",
+  "name": "隼喙凿锋斧刃",
+  "slot": "blade_1",
+  "object": "SM_TacticalHatchet_Head_FalconEdge",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Export\\SM_TacticalHatchet_Head_FalconEdge.fbx",
+  "origin_cm": [
+    0,
+    0,
+    0
+  ],
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Textures\\T_TacticalHatchet_Head_FalconEdge_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Textures\\T_TacticalHatchet_Head_FalconEdge_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Textures\\T_TacticalHatchet_Head_FalconEdge_Normal.png"
+  },
+  "triangles": 119234,
+  "normal_convention": "OpenGL tangent; UE green flip",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\ModulesV1\\TacticalHatchet_Modules_Editable.blend",
+  "frozen_neck_max_z_cm": 18.0,
+  "head_cut_z_cm": 11.5,
+  "runtime_tested": false,
+  "trace_base_cm": [
+    14.250421524047852,
+    -0.0032963992562144995,
+    19.748029708862305
+  ],
+  "trace_tip_cm": [
+    17.05035972595215,
+    -0.01145160011947155,
+    27.03157615661621
+  ]
+}

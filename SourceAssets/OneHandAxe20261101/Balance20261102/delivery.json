@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-02",
+  "definition": "ue_tactical_hatchet",
+  "source_saved": true,
+  "build_status": "editor_and_game_succeeded",
+  "editor_build_log": "FPSGAMEEditor-success.log",
+  "editor_build_source": "shared successful build including current MeleeWeaponStats object",
+  "game_build_log": "FPSGAME-success.log",
+  "formula": "round(32 + 4*L + (3.4 + 0.68*L)*STR + (3 + 0.6*L)*DEX)",
+  "melee_damage": 40,
+  "attack_seconds": 1.05,
+  "melee_stamina": 10,
+  "melee_reach_cm": 220,
+  "old_items": "existing catalog refresh and network sanitization",
+  "blade_designs": "SourceAssets/OneHandAxe20261101/BladeDesigns20261102/shared-axe-blade-options.design.json",
+  "blade_models_imported": false,
+  "concept_images": "tool_rejected",
+  "gameplay_tested": false,
+  "document": "Docs/Weapons/tactical-hatchet-balance-20261102.md"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "axe_swift_crescent",
+  "name": "轻型钩月斧刃",
+  "kind": "SwiftCrescent",
+  "slot": "blade_1",
+  "object": "SM_TacticalHatchet_Head_SwiftCrescent_R4",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\Export\\SM_TacticalHatchet_Head_SwiftCrescent_R4.fbx",
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\Textures\\T_TacticalHatchet_Head_SwiftCrescent_R4_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\Textures\\T_TacticalHatchet_Head_SwiftCrescent_R4_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\Textures\\T_TacticalHatchet_Head_SwiftCrescent_R4_Normal.png"
+  },
+  "origin_cm": [
+    0,
+    0,
+    0
+  ],
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+  "material_slot": "M_TacticalHatchet_Head_SwiftCrescent_R4",
+  "model_revision": "approved_reference_draft02_r4_20261104",
+  "design_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceDraft02\\design.json",
+  "geometry": {
+    "triangles": 36762,
+    "dimensions_cm": [
+      18.35571825504303,
+      1.7000002786517143,
+      19.883349537849426
+    ],
+    "stock_interface_z_cm": 11.5,
+    "continuous_loft_rings": 12,
+    "design_scale_m": 0.001023967741935484
+  },
+  "trace_base_cm": [
+    8.998483831393335,
+    -0.06362,
+    15.629123045201457
+  ],
+  "trace_tip_cm": [
+    7.792933528604816,
+    -0.06362,
+    30.976280969804336
+  ]
+}

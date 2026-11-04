@@ -1,0 +1,53 @@
+[
+  {
+    "id": "axe_swift_crescent",
+    "kind": "SwiftCrescent",
+    "key": "blade_1_axe_swift_crescent",
+    "input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\IconInputs\\SwiftCrescent.png",
+    "model": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\SwiftCrescent_Editable.blend",
+    "frame_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmFramedIcons20260930\\muzzle_brake_framed_v2.png",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\Icons\\blade_1_axe_swift_crescent.png",
+    "method": "imagegen edit: approved frame plus current real-model input",
+    "camera": "+Y orthographic; installed +Z up and +X cutting edge left",
+    "generated_original": "C:\\Users\\allan\\.codex\\generated_images\\01a195a9-36a2-73c3-b35d-e1ea19859acf\\exec-edcdf8e6-762e-4471-b78e-0c87e5b80361.png",
+    "icon_revision": "approved_master_imagegen_r5_20261104",
+    "deployed_pngs": [
+      "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\blade_1_axe_swift_crescent.png"
+    ]
+  },
+  {
+    "id": "axe_heavy_cleaver",
+    "kind": "HeavyCleaver",
+    "key": "blade_1_axe_heavy_cleaver",
+    "input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\IconInputs\\HeavyCleaver.png",
+    "model": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R5.SM_TacticalHatchet_Head_HeavyCleaver_R5",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\HeavyCleaver_Editable.blend",
+    "frame_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmFramedIcons20260930\\muzzle_brake_framed_v2.png",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\Icons\\blade_1_axe_heavy_cleaver.png",
+    "method": "imagegen edit: approved frame plus current real-model input",
+    "camera": "+Y orthographic; installed +Z up and +X cutting edge left",
+    "generated_original": "C:\\Users\\allan\\.codex\\generated_images\\01a195a9-36a2-73c3-b35d-e1ea19859acf\\exec-a6cf57e6-ec5c-408e-9d90-6ad3fd74892d.png",
+    "icon_revision": "approved_master_imagegen_r5_20261104",
+    "deployed_pngs": [
+      "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\blade_1_axe_heavy_cleaver.png"
+    ]
+  },
+  {
+    "id": "axe_folded_arc",
+    "kind": "FoldedArc",
+    "key": "blade_1_axe_folded_arc",
+    "input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\IconInputs\\FoldedArc.png",
+    "model": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R5.SM_TacticalHatchet_Head_FoldedArc_R5",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\FoldedArc_Editable.blend",
+    "frame_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmFramedIcons20260930\\muzzle_brake_framed_v2.png",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\Icons\\blade_1_axe_folded_arc.png",
+    "method": "imagegen edit: approved frame plus current real-model input",
+    "camera": "+Y orthographic; installed +Z up and +X cutting edge left",
+    "generated_original": "C:\\Users\\allan\\.codex\\generated_images\\01a195a9-36a2-73c3-b35d-e1ea19859acf\\exec-0bf844ee-1574-4550-be6c-988f3c9d59cb.png",
+    "icon_revision": "approved_master_imagegen_r5_20261104",
+    "deployed_pngs": [
+      "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\blade_1_axe_folded_arc.png"
+    ]
+  }
+]

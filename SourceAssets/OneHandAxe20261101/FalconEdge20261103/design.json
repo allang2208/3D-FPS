@@ -1,0 +1,26 @@
+{
+  "id": "hatchet_falcon_edge",
+  "name": "隼喙凿锋斧刃",
+  "weapon": "ue_tactical_hatchet",
+  "slot": "blade_1",
+  "tier": "Special",
+  "appearance": "下探钩刃与短背喙夹出开阔斧面，三角减重孔贯穿厚脊，哑光碳钢衔接银色凿磨刃口。",
+  "stats": {
+    "physical_damage_mult": 1.2,
+    "melee_critical_damage_bonus": 0.35,
+    "attack_speed_mult": 0.9,
+    "stamina_mult": 1.15
+  },
+  "effects": [
+    {"text": "物理伤害+20%", "benefit": 1},
+    {"text": "暴击伤害+35%", "benefit": 1},
+    {"text": "攻击速度-10%", "benefit": -1},
+    {"text": "攻击体力消耗+15%", "benefit": -1}
+  ],
+  "special_effects": [],
+  "role": "暴击爆发；保留基础暴击率。与通用轻型的攻速、厚背的削韧和百炼的均衡取向区分。",
+  "scope": "使用既有近战物伤、近战暴击伤害、普攻攻速和攻击耗体合同；不加攻击距离、不加穿透、不改变武技动作时钟。",
+  "references": ["References/user_hatchet_01.png", "References/user_hatchet_02.png"],
+  "reference_use": "参考材质、三角开孔、钩刃及背喙语言；重设轮廓与结构比例，不复制品牌和铭文。",
+  "interface": "preserve factory neck below z=18cm; original root, grip, pommel and lanyard recipes"
+}

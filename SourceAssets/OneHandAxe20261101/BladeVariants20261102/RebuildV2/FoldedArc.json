@@ -1,0 +1,45 @@
+{
+  "id": "axe_folded_arc",
+  "name": "百炼弧锋斧刃",
+  "slot": "blade_1",
+  "kind": "FoldedArc",
+  "object": "SM_TacticalHatchet_Head_FoldedArc_R2",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Export\\SM_TacticalHatchet_Head_FoldedArc_R2.fbx",
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Textures\\T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Textures\\T_TacticalHatchet_Head_FoldedArc_R2_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Textures\\T_TacticalHatchet_Head_FoldedArc_R2_Normal.png"
+  },
+  "origin_cm": [
+    0,
+    0,
+    0
+  ],
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R2.SM_TacticalHatchet_Head_FoldedArc_R2",
+  "material_slot": "M_TacticalHatchet_Head_FoldedArc_R2",
+  "metrics": {
+    "vertices": 3737,
+    "triangles": 7470,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0,
+    "signed_volume_cm3": 320.60327219179254,
+    "body_thickness_cm": 1.7999999999999998,
+    "dimensions_cm": [
+      20.484505593776703,
+      1.7999999225139618,
+      19.99996304512024
+    ]
+  },
+  "model_revision": "clean_rebuild_v2_20261103",
+  "trace_base_cm": [
+    10.599999874830246,
+    -0.06362,
+    17.59999990463257
+  ],
+  "trace_tip_cm": [
+    15.899999439716339,
+    -0.06362,
+    31.49999976158142
+  ]
+}

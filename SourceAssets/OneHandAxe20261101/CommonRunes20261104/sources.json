@@ -1,0 +1,151 @@
+{
+  "heads": [
+    {
+      "id": "factory",
+      "kind": "Factory",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\ModulesV1\\TacticalHatchet_Modules_Editable.blend",
+      "object": "SM_TacticalHatchet_Head_Factory",
+      "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Textures\\source_image_01.png",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory.SM_TacticalHatchet_Head_Factory",
+      "slot": "M_TacticalHatchet",
+      "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+      "target_slot": "M_TacticalHatchet_Head_Factory_RuneCarrier"
+    },
+    {
+      "id": "axe_swift_crescent",
+      "kind": "SwiftCrescent",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\SwiftCrescent_Editable.blend",
+      "object": "SM_TacticalHatchet_Head_SwiftCrescent_R4",
+      "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\FactoryFinish20261104\\Textures\\T_TacticalHatchet_Head_SwiftCrescent_R4_BaseColor.png",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+      "slot": "M_TacticalHatchet_Head_SwiftCrescent_R4",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R4.M_TacticalHatchet_Head_SwiftCrescent_R4",
+      "target_slot": "M_TacticalHatchet_Head_SwiftCrescent_R4"
+    },
+    {
+      "id": "axe_heavy_cleaver",
+      "kind": "HeavyCleaver",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\HeavyCleaver_Editable.blend",
+      "object": "SM_TacticalHatchet_Head_HeavyCleaver_R5",
+      "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\HeavyCleaver\\Textures\\T_TacticalHatchet_Head_HeavyCleaver_R5_BaseColor.png",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R5.SM_TacticalHatchet_Head_HeavyCleaver_R5",
+      "slot": "M_TacticalHatchet_Head_HeavyCleaver_R5",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver_R5.M_TacticalHatchet_Head_HeavyCleaver_R5",
+      "target_slot": "M_TacticalHatchet_Head_HeavyCleaver_R5"
+    },
+    {
+      "id": "axe_folded_arc",
+      "kind": "FoldedArc",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\FoldedArc_Editable.blend",
+      "object": "SM_TacticalHatchet_Head_FoldedArc_R5",
+      "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\FoldedArc\\Textures\\T_TacticalHatchet_Head_FoldedArc_R5_BaseColor.png",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R5.SM_TacticalHatchet_Head_FoldedArc_R5",
+      "slot": "M_TacticalHatchet_Head_FoldedArc_R5",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc_R5.M_TacticalHatchet_Head_FoldedArc_R5",
+      "target_slot": "M_TacticalHatchet_Head_FoldedArc_R5"
+    },
+    {
+      "id": "hatchet_falcon_edge",
+      "kind": "FalconEdge",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\TacticalHatchet_FalconEdge_Editable.blend",
+      "object": "SM_TacticalHatchet_Head_FalconEdge",
+      "basecolor_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\FalconEdge20261103\\Textures\\T_TacticalHatchet_Head_FalconEdge_BaseColor.png",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FalconEdge.SM_TacticalHatchet_Head_FalconEdge",
+      "slot": "M_TacticalHatchet_Head_FalconEdge",
+      "material": "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Materials/M_TacticalHatchet_Head_FalconEdge.M_TacticalHatchet_Head_FalconEdge",
+      "target_slot": "M_TacticalHatchet_Head_FalconEdge"
+    }
+  ],
+  "runes": [
+    {
+      "id": "knife_mark_wing",
+      "name": "折翼纹",
+      "description": "暖金色折翼纹样沿刀面展开。",
+      "appearance": "暖金色折翼纹样沿刀面展开。",
+      "stats": {
+        "range_mult": 1.15,
+        "stamina_mult": 1.05
+      },
+      "effects": [
+        {
+          "text": "攻击距离+15%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击体力消耗+5%",
+          "benefit": -1
+        }
+      ],
+      "special_effects": [],
+      "kind": "RuneWing",
+      "tint": [
+        0.42,
+        0.27,
+        0.09,
+        1
+      ],
+      "glyph": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Concepts\\knife_mark_wing.png",
+      "icon_key": "blade_2_knife_mark_wing"
+    },
+    {
+      "id": "knife_mark_knot",
+      "name": "环结纹",
+      "description": "银灰环结纹样交错排列，保留通透留白。",
+      "appearance": "银灰环结纹样交错排列，保留通透留白。",
+      "stats": {
+        "martial_damage_mult": 1.1,
+        "martial_cooldown_mult": 0.95
+      },
+      "effects": [
+        {
+          "text": "武技伤害+10%",
+          "benefit": 1
+        },
+        {
+          "text": "武技冷却-5%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": [],
+      "kind": "RuneKnot",
+      "tint": [
+        0.6,
+        0.62,
+        0.64,
+        1
+      ],
+      "glyph": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Concepts\\knife_mark_knot.png",
+      "icon_key": "blade_2_knife_mark_knot"
+    },
+    {
+      "id": "knife_mark_peaks",
+      "name": "三峰纹",
+      "description": "深灰三峰纹样与小菱形印记点缀刀面。",
+      "appearance": "深灰三峰纹样与小菱形印记点缀刀面。",
+      "stats": {
+        "physical_armor_penetration": 0.1,
+        "toughness_damage_mult": 1.15
+      },
+      "effects": [
+        {
+          "text": "物理防御穿透+10%",
+          "benefit": 1
+        },
+        {
+          "text": "削韧+15%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": [],
+      "kind": "RunePeaks",
+      "tint": [
+        0.035,
+        0.04,
+        0.045,
+        1
+      ],
+      "glyph": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KukriComponentVariants20261026\\Concepts\\knife_mark_peaks.png",
+      "icon_key": "blade_2_knife_mark_peaks"
+    }
+  ]
+}

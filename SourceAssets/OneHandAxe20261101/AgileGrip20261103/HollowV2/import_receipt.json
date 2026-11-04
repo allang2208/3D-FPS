@@ -1,0 +1,34 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgileHollowV2_BaseColor.T_TacticalHatchet_GripAgileHollowV2_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgileHollowV2_ORM.T_TacticalHatchet_GripAgileHollowV2_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgileHollowV2_Normal.T_TacticalHatchet_GripAgileHollowV2_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripAgileHollowV2.M_TacticalHatchet_GripAgileHollowV2",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgileHollowV2.SM_TacticalHatchet_GripAgileHollowV2",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_agile.ue_tactical_hatchet_grip_hatchet_grip_agile"
+  ],
+  "parts": [
+    {
+      "id": "hatchet_grip_agile",
+      "slot": "grip",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgileHollowV2.SM_TacticalHatchet_GripAgileHollowV2",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripAgileHollowV2.M_TacticalHatchet_GripAgileHollowV2",
+      "material_slot_names": [
+        "M_TacticalHatchet_GripAgileHollowV2"
+      ],
+      "location_cm": [
+        0,
+        0,
+        11.5
+      ],
+      "pommel_offset_cm": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "runtime_tested": false,
+  "icon": "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_agile.ue_tactical_hatchet_grip_hatchet_grip_agile"
+}

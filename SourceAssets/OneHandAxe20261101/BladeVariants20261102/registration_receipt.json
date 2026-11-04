@@ -1,0 +1,13 @@
+{
+  "published": true,
+  "definition": "ue_tactical_hatchet",
+  "slot": "blade_1",
+  "ids": [
+    "axe_swift_crescent",
+    "axe_heavy_cleaver",
+    "axe_folded_arc"
+  ],
+  "shared_library": "shared-axe-blade-options.json",
+  "factory_grip_pommel_retained": true,
+  "runtime_tested": false
+}

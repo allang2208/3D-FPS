@@ -1,0 +1,48 @@
+{
+  "status": "model_pbr_icon_saved_registered_and_editor_built",
+  "weapon": "ue_tactical_hatchet",
+  "slot": "grip",
+  "special_options": [
+    "hatchet_grip_long",
+    "hatchet_grip_agile"
+  ],
+  "new_model": "TacticalHatchet_AgileGrip_Editable.blend",
+  "new_stats": {
+    "attack_speed_mult": 1.15,
+    "stamina_mult": 0.85,
+    "physical_damage_mult": 0.9
+  },
+  "saved_assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgile_BaseColor.T_TacticalHatchet_GripAgile_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgile_ORM.T_TacticalHatchet_GripAgile_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripAgile_Normal.T_TacticalHatchet_GripAgile_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripAgile.M_TacticalHatchet_GripAgile",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgile.SM_TacticalHatchet_GripAgile",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_agile.ue_tactical_hatchet_grip_hatchet_grip_agile"
+  ],
+  "unchanged_long_grip_stats": {
+    "range_mult": 1.25,
+    "physical_damage_mult": 1.1,
+    "stamina_mult": 1.1,
+    "attack_speed_mult": 0.95
+  },
+  "native_build": {
+    "target": "FPSGAMEEditor Win64 Development",
+    "exit_code": 0,
+    "result": "Succeeded",
+    "elapsed_seconds": 821.66,
+    "actions": 817,
+    "changed_source": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+    "log": "build-editor.log",
+    "arguments": [
+      "-NoHotReloadFromIDE",
+      "-NoLiveCoding",
+      "-WaitMutex",
+      "-MaxParallelActions=4"
+    ],
+    "editor_launched": false,
+    "runtime_tested": false
+  },
+  "runtime_tested": false,
+  "acceptance_rendered": false
+}

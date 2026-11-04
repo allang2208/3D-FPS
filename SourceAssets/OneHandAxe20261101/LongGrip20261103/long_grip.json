@@ -1,0 +1,38 @@
+{
+  "id": "hatchet_grip_long",
+  "name": "长柄握把",
+  "slot": "grip",
+  "object": "SM_TacticalHatchet_GripLong",
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLong.SM_TacticalHatchet_GripLong",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\LongGrip20261103\\Export\\SM_TacticalHatchet_GripLong.fbx",
+  "origin_cm": [
+    0,
+    0,
+    11.5
+  ],
+  "pommel_offset_cm": [
+    0,
+    0,
+    -8.0
+  ],
+  "factory_grip_length_cm": 19.25,
+  "grip_length_cm": 27.25,
+  "extension_cm": 8.0,
+  "frozen_hand_zone_local_min_z_cm": -16.5,
+  "frozen_bottom_interface_length_cm": 0.5,
+  "material_slot": "M_TacticalHatchet_GripLong",
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\LongGrip20261103\\Textures\\T_TacticalHatchet_GripLong_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\LongGrip20261103\\Textures\\T_TacticalHatchet_GripLong_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\LongGrip20261103\\Textures\\T_TacticalHatchet_GripLong_Normal.png"
+  },
+  "triangles": 64078,
+  "stats": {
+    "range_mult": 1.25,
+    "physical_damage_mult": 1.1,
+    "stamina_mult": 1.1,
+    "attack_speed_mult": 0.95
+  },
+  "normal_convention": "OpenGL tangent bake; one UE green-channel flip",
+  "runtime_tested": false
+}

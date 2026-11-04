@@ -1,0 +1,124 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/HatchetRuneWireAudit.cpp
+@@ -0,0 +1,121 @@
++#include "HatchetRuneWireAudit.h"
++#include "../FPSGAMECharacter.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Weapons/SwordTasselMeshComponent.h"
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "Engine/StaticMesh.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++#include "UObject/UnrealType.h"
++
++namespace HatchetRuneWire
++{
++bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("HatchetRuneWireAudit"));}
++namespace
++{
++const TCHAR* Heads[]={TEXT("factory"),TEXT("axe_swift_crescent"),TEXT("axe_heavy_cleaver"),TEXT("axe_folded_arc"),TEXT("hatchet_falcon_edge")};
++const TCHAR* Runes[]={TEXT("knife_mark_wing"),TEXT("knife_mark_knot"),TEXT("knife_mark_peaks")};
++const TCHAR* Cords[]={TEXT("knife_lanyard_braid"),TEXT("knife_lanyard_tassel"),TEXT("knife_lanyard_tag")};
++FString Identity(bool Host,int32 Hand){return FString::Printf(TEXT("HatchetRuneAudit_%s_%d"),Host?TEXT("Host"):TEXT("Guest"),Hand);}
++struct FChoice {FString Head,Rune,Grip,Cord;};
++FChoice Choice(int32 Phase,bool Host,int32 Hand)
++{
++    const int32 I=(Host?0:2)+Hand;
++    const int32 First[]={0,1,2,3},Changed[]={4,0,1,2},Last[]={3,4,4,1};
++    const int32 FirstRunes[]={0,1,2,0},SecondRunes[]={1,2,0,1},ChangedRunes[]={2,2,0,1},LastRunes[]={2,0,1,2};
++    const bool Restored=Phase==3;
++    const int32 H=Phase>=5?Last[I]:Phase==2?Changed[I]:First[I];
++    const int32 R=Phase>=5?LastRunes[I]:Phase==2?ChangedRunes[I]:Phase==1?SecondRunes[I]:FirstRunes[I];
++    return {Heads[H],Restored?TEXT("factory"):Runes[R],Restored?TEXT("factory"):Hand?TEXT("hatchet_grip_agile"):TEXT("hatchet_grip_long"),Restored?TEXT("factory"):Cords[I%3]};
++}
++TSharedPtr<FJsonObject> Catalog()
++{
++    static TSharedPtr<FJsonObject> Data;
++    if(!Data){FString Text;FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/tactical-hatchet-modules.json")));
++        FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Data);}
++    return Data;
++}
++FString PersistentPath(UMaterialInterface* Mat)
++{while(auto* MID=Cast<UMaterialInstanceDynamic>(Mat))Mat=MID->Parent;return Mat?Mat->GetPathName():FString();}
++}
++FColdSteelProfile Seed(UColdSteelStatusModel* Model,bool Host)
++{
++    auto State=Model->Snapshot();State.Items.Reset();State.ActiveWeaponSlot=6;State.ActiveProductionTool.Reset();State.DungeonRun={};
++    State.Stamina=150;State.bSprintExhausted=false;
++    for(int32 Hand=0;Hand<2;++Hand){auto Item=Model->CreateItem(TEXT("ue_tactical_hatchet"));Item.Place=1;Item.Cell=Hand?8:6;Item.InstanceId=Identity(Host,Hand);State.Items.Add(Item);}
++    return State;
++}
++void Select(FColdSteelProfile& State,int32 Phase,bool Host)
++{
++    State.ActiveWeaponSlot=Phase==4?9:6;
++    for(int32 Hand=0;Hand<2;++Hand)for(auto& Item:State.Items)if(Item.InstanceId==Identity(Host,Hand))
++    {
++        Item.Place=Phase==4?0:1;Item.Cell=Phase==4?Hand:Hand?8:6;
++        const auto C=Choice(Phase,Host,Hand);
++        TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data);
++        auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("blade_1"),C.Head);Parts->SetStringField(TEXT("blade_2"),C.Rune);
++        Parts->SetStringField(TEXT("grip"),C.Grip);Parts->SetStringField(TEXT("lanyard"),C.Cord);
++        Data->SetObjectField(TEXT("gunsmith_parts"),Parts);Item.Data.Reset();FJsonSerializer::Serialize(Data,TJsonWriterFactory<>::Create(&Item.Data));
++    }
++}
++bool Check(AFPSGAMECharacter* Pawn,int32 Phase,bool Host,FString& Details)
++{
++    auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
++    if(!Body||!Catalog()){Details=TEXT("body/catalog unavailable");return false;}
++    const auto* Property=FindFProperty<FArrayProperty>(Body->GetClass(),TEXT("ReplicatedWeapons"));
++    const auto* Weapons=Property?Property->ContainerPtrToValuePtr<TArray<FFPSBodyWeapon>>(Body):nullptr;
++    TArray<FFPSWeatherWeaponMesh> Meshes;Body->GetWeatherWeaponMeshes(Meshes,true);
++    bool OK=Weapons!=nullptr;int32 Snapshots=0,HeadsSeen=0,CordsSeen=0;Details.Reset();
++    const auto Slots=Catalog()->GetObjectField(TEXT("slots"));
++    for(int32 Hand=0;Hand<2;++Hand)
++    {
++        const auto C=Choice(Phase,Host,Hand);const auto Spec=Slots->GetObjectField(TEXT("blade_1"))->GetObjectField(C.Head);
++        const FString Slot=Spec->GetArrayField(TEXT("material_slot_names"))[0]->AsString();
++        const FString Expected=Spec->GetStringField(TEXT("mesh"));
++        const FString Material=C.Rune==TEXT("factory")?Spec->GetObjectField(TEXT("materials"))->GetStringField(Slot):
++            Slots->GetObjectField(TEXT("blade_2"))->GetObjectField(C.Rune)->GetObjectField(TEXT("surface_materials"))->GetStringField(Slot);
++        int32 Descriptors=0,Roots=0,Tails=0;bool Good=true;
++        if(Weapons)for(const auto& Weapon:*Weapons)if(Weapon.ItemInstance==Identity(Host,Hand))
++        {
++            ++Descriptors;Good&=Weapon.AttachHand==Hand&&Weapon.StaticMesh.ToSoftObjectPath().ToString()==Expected&&
++                Weapon.Materials.Num()==1&&Weapon.Materials[0].ToSoftObjectPath().ToString()==Material;
++        }
++        for(const auto& Entry:Meshes)if(Entry.Instance==Identity(Host,Hand))
++        {
++            auto* Mesh=Cast<UStaticMeshComponent>(Entry.Mesh);if(!Mesh)continue;
++            if(Mesh->ComponentHasTag(TEXT("SwordSlot=blade_1")))
++            {
++                ++Roots;Good&=Mesh->GetStaticMesh()&&Mesh->GetStaticMesh()->GetPathName()==Expected&&PersistentPath(Mesh->GetMaterial(0))==Material;
++            }
++            else
++            {
++                // A head rune must never bleed onto the shared factory grip/pommel.
++                for(int32 I=0;I<Mesh->GetNumMaterials();++I)Good&=!PersistentPath(Mesh->GetMaterial(I)).Contains(TEXT("MI_HatchetMark_"));
++                if(Mesh->ComponentHasTag(TEXT("SwordSlot=lanyard")))
++                {
++                    ++Tails;Good&=Cast<USwordTasselMeshComponent>(Mesh)!=nullptr;
++                    Good&=Mesh->GetStaticMesh()&&Mesh->GetStaticMesh()->GetPathName()==Slots->GetObjectField(TEXT("lanyard"))->GetObjectField(C.Cord)->GetStringField(TEXT("mesh"));
++                }
++            }
++        }
++        const int32 Count=Phase==4?0:1,TailCount=(Phase==4||Phase==3)?0:1;
++        if(Pawn->IsLocallyControlled())
++        {
++            const auto* Kukri=Pawn->FindComponentByClass<UKukriWeaponComponent>();
++            auto* View=Kukri?Kukri->WeaponMesh(Hand==1):nullptr;
++            if(Phase==4)Good&=Kukri&&!Kukri->IsEquipped();
++            else Good&=View&&View->GetStaticMesh()&&View->GetStaticMesh()->GetPathName()==Expected&&PersistentPath(View->GetMaterial(0))==Material;
++        }
++        OK&=Good&&Descriptors==Count&&Roots==Count&&Tails==TailCount;
++        Snapshots+=Descriptors;HeadsSeen+=Roots;CordsSeen+=Tails;
++        Details+=FString::Printf(TEXT("hand=%d %s/%s snap=%d root=%d tail=%d good=%d; "),Hand,*C.Head,*C.Rune,Descriptors,Roots,Tails,Good);
++    }
++    Details+=FString::Printf(TEXT("local=%d totals=%d/%d/%d"),Pawn->IsLocallyControlled(),Snapshots,HeadsSeen,CordsSeen);
++    return OK;
++}
++}

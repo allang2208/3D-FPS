@@ -1,0 +1,71 @@
+{
+  "status": "saved_and_deployed",
+  "source_blend_fixed": true,
+  "corrected_fbx_exported": true,
+  "author_script_fixed": true,
+  "inventory_export_script_uses_existing_ue_pipeline": true,
+  "normal_check": {
+    "corners": 584220,
+    "opposite_before": 547224,
+    "opposite_after": 0,
+    "minimum_dot_after": 0.9999980018474162
+  },
+  "ue_material_bindings_read": true,
+  "ue_mesh_correction_saved": true,
+  "final_inventory_png_deployed": true,
+  "editor_gate_timeouts_seconds": [
+    60,
+    180,
+    600
+  ],
+  "reimport_requests_sent": 0,
+  "pending": [],
+  "gameplay_tested": false,
+  "final_import_mode": "background_commandlet",
+  "startup_sdk_setup_skipped_for_asset_process_only": true,
+  "headless_import_requests_sent": 1,
+  "mesh_save_receipt": {
+    "saved": true,
+    "mesh": "/Game/Weapons/TacticalHatchet20261101/SM_TacticalHatchet.SM_TacticalHatchet",
+    "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+    "nanite_enabled": true,
+    "bounds_cm": {
+      "min": [
+        -4.575973987579346,
+        -1.6568487882614136,
+        -11.059743881225586
+      ],
+      "max": [
+        16.350360870361328,
+        1.5296133756637573,
+        30.940256118774414
+      ]
+    },
+    "change": "Original corner normals captured before deforming vertices; transformed exactly once",
+    "gameplay_tested": false
+  },
+  "icon": {
+    "size": [
+      256,
+      384
+    ],
+    "alpha_bounds": [
+      41,
+      17,
+      215,
+      367
+    ],
+    "dominant_axis_fill": 0.9114583333333334,
+    "alpha_center": [
+      128.0,
+      192.0
+    ],
+    "sha256": "2e5b7974b79062d424f9376b6c47f441cd03b5fb787320188b4b7605efbe95f8",
+    "visually_reviewed": true,
+    "pipeline": "ColdSteelWeaponIconCatalog",
+    "deployed": [
+      "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\Icons\\ue_tactical_hatchet.png",
+      "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Icons\\ue_tactical_hatchet.png"
+    ]
+  }
+}

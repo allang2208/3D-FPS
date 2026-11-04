@@ -1,0 +1,1607 @@
+{
+  "root": "D:\\FPS3D\\FPSGAME",
+  "targets": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\Before",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\Export",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\Export",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\Textures",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\Textures",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\IconInputs",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\IconInputs",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\Icons",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\Icons",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\TacticalHatchet_BladeIcons_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\TacticalHatchet_BladeIcons_Editable.blend",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\TacticalHatchet_BladeVariants_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\TacticalHatchet_BladeVariants_Editable.blend",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\variants.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\variants.json",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Before",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Export",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Export",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Textures",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Textures",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\IconInputs",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\IconInputs",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Icons",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\Icons",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\FoldedArc_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\FoldedArc_Editable.blend",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\FoldedArc_Icon.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\FoldedArc_Icon.blend",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\HeavyCleaver_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\HeavyCleaver_Editable.blend",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\HeavyCleaver_Icon.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\HeavyCleaver_Icon.blend",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\SwiftCrescent_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\SwiftCrescent_Editable.blend",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\SwiftCrescent_Icon.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\SwiftCrescent_Icon.blend",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\ThreeBlades_Review.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\ThreeBlades_Review.blend",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\import_assets.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\import_assets.py",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\register.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\register.py",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\run_import.ps1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\run_import.ps1",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\render_icons.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\RebuildV2\\render_icons.py",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentR3",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentR3",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\OtherBladesFactoryFinish20261104",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\OtherBladesFactoryFinish20261104",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\MaterialIconFix\\Before\\author_hatchet.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\MaterialIconFix\\Before\\author_hatchet.py",
+      "reason": "Superseded incorrect-normal model snapshot; comparison evidence retained"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\MaterialIconFix\\Before\\SM_TacticalHatchet.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\MaterialIconFix\\Before\\SM_TacticalHatchet.fbx",
+      "reason": "Superseded incorrect-normal model snapshot; comparison evidence retained"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\MaterialIconFix\\Before\\SM_TacticalHatchet.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\MaterialIconFix\\Before\\SM_TacticalHatchet.uasset",
+      "reason": "Superseded incorrect-normal model snapshot; comparison evidence retained"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\MaterialIconFix\\Before\\TacticalHatchet_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\SourceAssets\\OneHandAxe20261101\\MaterialIconFix\\Before\\TacticalHatchet_Editable.blend",
+      "reason": "Superseded incorrect-normal model snapshot; comparison evidence retained"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\RegistrationSandbox",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetPublication20261104\\Tools\\HatchetAudit20261104\\RegistrationSandbox",
+      "reason": "Completed isolated registration replay sandbox"
+    }
+  ],
+  "files": [
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Before/tactical-hatchet-gunsmith.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Before/tactical-hatchet-gunsmith.json",
+      "bytes": 915,
+      "sha256": "4750f2da1a61fcff02bef6d2b4cb7b009d7530a30c10caf5a413abeaa82116d9",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Before/tactical-hatchet-modules.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Before/tactical-hatchet-modules.json",
+      "bytes": 6431,
+      "sha256": "e12112e0e166cce7f14a110d483301986c6bd650416a4634ee38e6635008ab66",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Export/SM_TacticalHatchet_Head_FoldedArc.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Export/SM_TacticalHatchet_Head_FoldedArc.fbx",
+      "bytes": 13303916,
+      "sha256": "0d019d5f8e0002092b79c4023709b00a63d6152afd433797704cde4080e9bb68",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Export/SM_TacticalHatchet_Head_HeavyCleaver.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Export/SM_TacticalHatchet_Head_HeavyCleaver.fbx",
+      "bytes": 13365340,
+      "sha256": "987140247f4bf0c65d4df254bf5d174752088c146c6d63b994667fae12905d6e",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Export/SM_TacticalHatchet_Head_SwiftCrescent.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Export/SM_TacticalHatchet_Head_SwiftCrescent.fbx",
+      "bytes": 13363228,
+      "sha256": "9792d628b0e68dfd6e36839c7afdeb0cca0ee0c10188ef6c2fdcd164067bba95",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_FoldedArc_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_FoldedArc_BaseColor.png",
+      "bytes": 1967982,
+      "sha256": "99e10583f9029de7f3ff9c3d8a16481a9e10dfc4456a26a3839eca77603149a0",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_FoldedArc_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_FoldedArc_Normal.png",
+      "bytes": 1048283,
+      "sha256": "1aa56b51d5c2605db887e64b43bdb3b81e9156fb048ec7a9508b0a329972373e",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_FoldedArc_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_FoldedArc_ORM.png",
+      "bytes": 1230071,
+      "sha256": "ce9741a2d94feabb0bb238b29060c4eade2c8b82702d2780d40329c8c3c242b8",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_HeavyCleaver_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_HeavyCleaver_BaseColor.png",
+      "bytes": 1339170,
+      "sha256": "dde785e46fdf7b1e9e964e4288cea6ce4d9b1a90e2c767fcaba28979ec04ec8a",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_HeavyCleaver_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_HeavyCleaver_Normal.png",
+      "bytes": 527181,
+      "sha256": "8ad5bdaf97fe5210ea439309689e19e2b46771bff50c013fd14ad0d513b5062a",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_HeavyCleaver_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_HeavyCleaver_ORM.png",
+      "bytes": 856547,
+      "sha256": "8ba63177457af623dbfd6ef692c6fa46da29aa24d436f92f0d9fdc9218554ef1",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_SwiftCrescent_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_SwiftCrescent_BaseColor.png",
+      "bytes": 1302040,
+      "sha256": "b2cf6aafce8b6fb8807d47c32622ad2fdc3638015dbe44ef5d6d5dfc87a5c572",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_SwiftCrescent_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_SwiftCrescent_Normal.png",
+      "bytes": 600158,
+      "sha256": "faee5784bb73568d688c7401cefcdf233285d1fc5799adebd91592f6eb19555c",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_SwiftCrescent_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Textures/T_TacticalHatchet_Head_SwiftCrescent_ORM.png",
+      "bytes": 794567,
+      "sha256": "1dea3648dc7225d304de9ca6ddfce8219c1bd5dfb3940dc73f1c8ba7a8055350",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/IconInputs/axe_folded_arc.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/IconInputs/axe_folded_arc.png",
+      "bytes": 266543,
+      "sha256": "5b4048d811ea4223e23e13f6f86c1a65479ff4d56cff6e40f1239ee74cb870a1",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/IconInputs/axe_heavy_cleaver.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/IconInputs/axe_heavy_cleaver.png",
+      "bytes": 192568,
+      "sha256": "696a824967aabf5be210e1246448eb95c11cbce888db1fd22af76644f4225050",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/IconInputs/axe_swift_crescent.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/IconInputs/axe_swift_crescent.png",
+      "bytes": 221777,
+      "sha256": "247aebc94fd1786a3060b3a5025a197a2d0bbac19d8cc2eab09a481fabbd076b",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Icons/blade_1_axe_folded_arc.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Icons/blade_1_axe_folded_arc.png",
+      "bytes": 3232184,
+      "sha256": "b1430fcb7e794d596af45fa1ed1930b5f5f27ee8e008bd7a73f59ca3201aad6a",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Icons/blade_1_axe_heavy_cleaver.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Icons/blade_1_axe_heavy_cleaver.png",
+      "bytes": 3218931,
+      "sha256": "7539382270b06b59951ac14b7992163e3134db6eac3506cd8d4e823dde31daa4",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/Icons/blade_1_axe_swift_crescent.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/Icons/blade_1_axe_swift_crescent.png",
+      "bytes": 3225468,
+      "sha256": "fd5c2e74038eff998284f11cfe1991f04351553f58196cdcb1f1aa011800a013",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/TacticalHatchet_BladeIcons_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/TacticalHatchet_BladeIcons_Editable.blend",
+      "bytes": 37330337,
+      "sha256": "55a751b93fb3de187ba91f5719ac72b99c4a8898073bf604a1295c2a1fcce3d8",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/TacticalHatchet_BladeVariants_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/TacticalHatchet_BladeVariants_Editable.blend",
+      "bytes": 65129508,
+      "sha256": "245a0e5e8cb913e9983b6b3bd5c287f4ff49e03b311024a64536d77bce42ceeb",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/variants.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/variants.json",
+      "bytes": 4794,
+      "sha256": "b8ac96a1c5887317b8b4211748f74e6c9500b12da76d5c0d5bf0010a1e4a1982",
+      "reason": "Rejected V1 deformed blades; current entrypoints use R4/R5",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104; CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/blade_1_axe_folded_arc.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/blade_1_axe_folded_arc.uasset",
+      "bytes": 2804116,
+      "sha256": "c9487d696e6137b547ee385024aa30ee41d93ccc65e3f3446262ef2996857643",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/blade_1_axe_heavy_cleaver.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/blade_1_axe_heavy_cleaver.uasset",
+      "bytes": 2716080,
+      "sha256": "399cfd889170c1865c08dbd07bde8858ae05cee26fbb08bff506bc4c02dbb347",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/blade_1_axe_swift_crescent.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/blade_1_axe_swift_crescent.uasset",
+      "bytes": 2679418,
+      "sha256": "000ca29cd12ee4240fe9df2153f99e5679d735beeed62d7e4112f2c25e5f985b",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/shared-axe-blade-options.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/shared-axe-blade-options.json",
+      "bytes": 2642,
+      "sha256": "bdf78e70b142a5dabd6e5da2f88ee67446456da0ebfa8c2dd53236086c74bd65",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/tactical-hatchet-modules.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/tactical-hatchet-modules.json",
+      "bytes": 20409,
+      "sha256": "6a17c0828e6f2332e5c4bbba587fe12e14184d216a99b67041e2ee65abce6e21",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/AttachmentIcons20260913/blade_1_axe_folded_arc.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/AttachmentIcons20260913/blade_1_axe_folded_arc.png",
+      "bytes": 3232184,
+      "sha256": "b1430fcb7e794d596af45fa1ed1930b5f5f27ee8e008bd7a73f59ca3201aad6a",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/AttachmentIcons20260913/blade_1_axe_heavy_cleaver.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/AttachmentIcons20260913/blade_1_axe_heavy_cleaver.png",
+      "bytes": 3218931,
+      "sha256": "7539382270b06b59951ac14b7992163e3134db6eac3506cd8d4e823dde31daa4",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/AttachmentIcons20260913/blade_1_axe_swift_crescent.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/AttachmentIcons20260913/blade_1_axe_swift_crescent.png",
+      "bytes": 3225468,
+      "sha256": "fd5c2e74038eff998284f11cfe1991f04351553f58196cdcb1f1aa011800a013",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/author_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/author_blades.py",
+      "bytes": 8977,
+      "sha256": "2e4f834e280c6ac0060ec44409cf8d5e4ffd7a85af17fb0e8b0d5e9989b42582",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/deploy_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/deploy_icons.py",
+      "bytes": 856,
+      "sha256": "496a55f61890a62e4beb2d75d716fe8884b03dfe491bd543843c8db178d608ce",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/import_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/import_blades.py",
+      "bytes": 2876,
+      "sha256": "9b001e82fd5e128ff47508460bc2ac0d201a5a53ab645d8e0639196f2b6ddd6f",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/import_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/import_icons.py",
+      "bytes": 1893,
+      "sha256": "c4fa797e8bbb9b79e72cad793e5d0937f3a55bee6e519cceb868eb31edf5353d",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/register_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/register_blades.py",
+      "bytes": 2923,
+      "sha256": "7b492d8cebce8e2902484c3a09d45f2fceeed8b6d94701cae6cc92eff5da769c",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/render_icon_inputs.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Before/LegacyScripts/render_icon_inputs.py",
+      "bytes": 3258,
+      "sha256": "51a22df9c6bc82b6ae299fcc5d29f1c65c1c720e37f466938af6d8a00aa2508f",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Export/SM_TacticalHatchet_Head_FoldedArc_R2.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Export/SM_TacticalHatchet_Head_FoldedArc_R2.fbx",
+      "bytes": 904556,
+      "sha256": "20dde7b597ab64256822787ef9943ed85ac6e4d1eeddecdc1b6dadc03bc0e372",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Export/SM_TacticalHatchet_Head_HeavyCleaver_R2.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Export/SM_TacticalHatchet_Head_HeavyCleaver_R2.fbx",
+      "bytes": 897564,
+      "sha256": "e9efb3ce0ff73d28d6fa9f44ab697885b7b6a7249c61adbb64cfa5d41e3f9ad6",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Export/SM_TacticalHatchet_Head_SwiftCrescent_R2.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Export/SM_TacticalHatchet_Head_SwiftCrescent_R2.fbx",
+      "bytes": 1257020,
+      "sha256": "573bfeb61e1fc5f05b004002f7e4baab9247746fffe26447b5dac074e25dda06",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.png",
+      "bytes": 1921429,
+      "sha256": "c483cae5bb7a218670adfaa81c384e293fb29478098c874fab577d38215de72f",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.png",
+      "bytes": 84656,
+      "sha256": "d228cb0e2b59ea3ff8dc3745feaebfd23f9533ed72b921f03894736c1bab6c4d",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.png",
+      "bytes": 1322889,
+      "sha256": "cf4f9ec6c3fa615df1b601f5af9d662bec8711db4a07e71dbb81979c599d2583",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.png",
+      "bytes": 2088255,
+      "sha256": "bb253f734ff5c46191614a88881e2b5d56df3ac90bbb4694bc5f38e140642390",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.png",
+      "bytes": 85448,
+      "sha256": "248405e5968f596a1eb49920a49c5456ea58a1768d4fff1f90442a403ece1bc6",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.png",
+      "bytes": 1419357,
+      "sha256": "3add7f7babfc0444f84299b4565b47e56e9d5851e468255ed7bedde3547cdb59",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_BaseColor.png",
+      "bytes": 1924701,
+      "sha256": "151f7c9ce0bab8b33f34e57681424ea6bc1cd46019c98a59666df8c678905436",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_Normal.png",
+      "bytes": 101649,
+      "sha256": "4c953cc8dbf12c3ff735136d1ad7cb68193de6dfe5a5b2f8bad609bb64187ba4",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Textures/T_TacticalHatchet_Head_SwiftCrescent_R2_ORM.png",
+      "bytes": 1332574,
+      "sha256": "a09b8fed00e903ee52dd6152589d868a0414b3e0dad29a597f48a732e615f629",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Icons/blade_1_axe_folded_arc.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Icons/blade_1_axe_folded_arc.png",
+      "bytes": 448787,
+      "sha256": "3cf58fa111114d6f86e03aca24a95fd582e15857dd0e6cef35495729a1fe6819",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Icons/blade_1_axe_heavy_cleaver.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Icons/blade_1_axe_heavy_cleaver.png",
+      "bytes": 451045,
+      "sha256": "be9cf53fca09eeee0803124635d04b646b570e6ff367d2c306d618da1f1df984",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Icons/blade_1_axe_swift_crescent.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/Icons/blade_1_axe_swift_crescent.png",
+      "bytes": 451669,
+      "sha256": "bfde93b86b352354953b2f905fdc247b3c95fb0a0cc13b7486bb26a0fd78f7f1",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/FoldedArc_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/FoldedArc_Editable.blend",
+      "bytes": 49035970,
+      "sha256": "34881f1e09525a7a06200f2840058eed5fa0f4f8010b00fa272169773e3e09bb",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/FoldedArc_Icon.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/FoldedArc_Icon.blend",
+      "bytes": 21222283,
+      "sha256": "9f27e9843b740223e206d99fd0bcbdd20102e4d6f542766c8fbc7742cd618fbb",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/HeavyCleaver_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/HeavyCleaver_Editable.blend",
+      "bytes": 49032759,
+      "sha256": "a3ab302b1835b229d28ee3b5c37bca1167dcd7014064e59c801f3f9cc4ed7c86",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/HeavyCleaver_Icon.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/HeavyCleaver_Icon.blend",
+      "bytes": 21219601,
+      "sha256": "09b0a8ea5654abd7aebcc5c49c0f3a11e284994c109024bf84437f7222456c8c",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/SwiftCrescent_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/SwiftCrescent_Editable.blend",
+      "bytes": 49048401,
+      "sha256": "e2fd3e5eac6c1605d49df9061c67423dd98b6186ea9f9f39db73c51769ce3f1a",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/SwiftCrescent_Icon.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/SwiftCrescent_Icon.blend",
+      "bytes": 21234181,
+      "sha256": "69a0bf231e5b89d8bb81c44800ccd83aaa0071fb56cfcf06b91ed779dbe53e1f",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/ThreeBlades_Review.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/ThreeBlades_Review.blend",
+      "bytes": 1027423,
+      "sha256": "3d02e6a662528d986bd417a593abde03f500ef7b93896eafa03d734fa2b0691b",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/import_assets.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/import_assets.py",
+      "bytes": 4410,
+      "sha256": "ac20194e16df399ad8c94c2f2a939e4c0769c42a175adfce4ab14b0496859a1f",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/register.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/register.py",
+      "bytes": 3085,
+      "sha256": "e00ad125d1dd6f32e245bc3b1453fcc6b6e0c68431283386bb4503d358ae9e08",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/run_import.ps1",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/run_import.ps1",
+      "bytes": 1404,
+      "sha256": "4d93bd92e2a83ca8c8eceaf265862034353981c0a99afe0b2e85b1571f3885dd",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/render_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/render_icons.py",
+      "bytes": 4840,
+      "sha256": "d947309bb7fda5e099f7641a66fa0a230a48ae6395cbc2915778b0222e57229c",
+      "reason": "Rejected R2 output or retired entry; keep author.py reused by R4/R5 and diagnostic evidence",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/author.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/author.log",
+      "bytes": 1308,
+      "sha256": "34ecd7b0d9bade1b51901af4eba8c7b7dc393db4db96fff090d9746693f4653f",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/author.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/author.py",
+      "bytes": 7065,
+      "sha256": "58862039a0f2d5b37170e8938bc61a7ad8e5e5e7b11659aaa1455e5006e64638",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/icon_deployments.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/icon_deployments.json",
+      "bytes": 722,
+      "sha256": "4dff321d24f628d74c03f51eb875765e45e13be97a7f79787a7be82d2f6a471e",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/import-bridge-result.txt",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/import-bridge-result.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/import_assets.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/import_assets.py",
+      "bytes": 4064,
+      "sha256": "edde79ec8792423ff0bbb050d192268e72349a436b9ee9a1b98f41a0fd7b89b4",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/README.md",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/README.md",
+      "bytes": 2433,
+      "sha256": "57509082891f21b7d7142d6ea6dabfaf291bf344b10b703b8c38a52055a02d5f",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/register.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/register.py",
+      "bytes": 2736,
+      "sha256": "c93caf4297b815bfbe30616d030bfbb58c0a16a1a8408843e712307a782ced97",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/render-icon.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/render-icon.log",
+      "bytes": 1112,
+      "sha256": "2df8b10b74db76a5c6072142c92f6d7a657278c0668c194d2f6c4f4327c53cea",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/render-model.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/render-model.log",
+      "bytes": 1354,
+      "sha256": "b9dd7ed3e9598b8cfca6d8f3ce521ac42e8ebbae2d2287297dbe372167c333e9",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/render_icon.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/render_icon.py",
+      "bytes": 4641,
+      "sha256": "ca9a698bc32df3d5a21140650a135cb661e8ee7012a4e00aea0136ac18baf1a3",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/render_model.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/render_model.py",
+      "bytes": 2778,
+      "sha256": "0a04f6a3d735305cd748f94e1f12e5bc3d06c3ea1237542c71536412ef56ac80",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/run_import.ps1",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/run_import.ps1",
+      "bytes": 1432,
+      "sha256": "704d1cc909d18049623078520fdfa35f5e92c2c45cc24ebd803628760a030f9d",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/SwiftCrescent.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/SwiftCrescent.json",
+      "bytes": 1588,
+      "sha256": "22dbfab29b8908eddcb99ee9fac7314406ff9fe99761f9b27f215ca3130c08e4",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/SwiftCrescent_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/SwiftCrescent_Editable.blend",
+      "bytes": 51474824,
+      "sha256": "1b10140fa08e720abbc90e8a038fb16ace8f47f81c5e7d3dcd20e3c1545c22a2",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/SwiftCrescent_Icon.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/SwiftCrescent_Icon.blend",
+      "bytes": 23659651,
+      "sha256": "99f7f6128730358b260086b0f1d6e570851b71b40a3bd3a00505b86101747435",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/author_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/author_blades.py",
+      "bytes": 341,
+      "sha256": "9fc54f626db23bf95465a99fddf5773de57c4deea713fa493d1f59893288f279",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/deploy_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/deploy_icons.py",
+      "bytes": 294,
+      "sha256": "4f467b6a8319cef3e46204f362a97fa42d313cd3a58b21f2871af5acb2b612ee",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/import_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/import_blades.py",
+      "bytes": 230,
+      "sha256": "8a065ed770bd290753e0c38cc4b3c1e0d9ef9138c8f87ccc7470d125a136d78c",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/import_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/import_icons.py",
+      "bytes": 162,
+      "sha256": "a5438f21a2b36684bb87f8d0585b580aa1c41d3dbcf06f5b7a6650249f8eb248",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/RebuildV2_author.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/RebuildV2_author.py",
+      "bytes": 11517,
+      "sha256": "23ce48018357e5c0609bb63ae60d4b1c02db986c6e6df39c5e4b01737d474b5a",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/RebuildV2_import_assets.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/RebuildV2_import_assets.py",
+      "bytes": 4195,
+      "sha256": "fb545052a307b4488f89742dbb3d169f01d65c0544a64913fe3c150dbbb8331c",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/RebuildV2_register.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/RebuildV2_register.py",
+      "bytes": 2879,
+      "sha256": "4c637950b088a67b4b0c0206b9e9e5fb7f066171df64d9ec60873f37ba8b6185",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/RebuildV2_render_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/RebuildV2_render_icons.py",
+      "bytes": 4617,
+      "sha256": "7b23b5b87f6396137242c0c134e8be524768b086a5dffb055551788f1c312930",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/register_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/register_blades.py",
+      "bytes": 229,
+      "sha256": "5ce7f3a3b8686474b9c961eeb5c3fde69123539803a3b6c04a3dcec4e058754f",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/render_icon_inputs.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Before/EntryScripts/render_icon_inputs.py",
+      "bytes": 222,
+      "sha256": "d2d28b577eb3a3e74e2d039b5c4758d7e5f27dbf95d6eefd469b770039756c25",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Export/SM_TacticalHatchet_Head_SwiftCrescent_R3.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Export/SM_TacticalHatchet_Head_SwiftCrescent_R3.fbx",
+      "bytes": 1397580,
+      "sha256": "0dcecfe56bcd2fe86199822cbe5f38c107cd1245fde7a1dfbc3feb791c415ef9",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Icons/blade_1_axe_swift_crescent.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Icons/blade_1_axe_swift_crescent.png",
+      "bytes": 469928,
+      "sha256": "b2dd15abcd9f4e7390240bc7e008254d051529f8be84b3c5f098682bdcb3bbb2",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Review/SwiftCrescent_model.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Review/SwiftCrescent_model.png",
+      "bytes": 447255,
+      "sha256": "80832c01be506d4a1af417a65a65921314275a6813836b027e6dade349518e57",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Textures/T_TacticalHatchet_Head_SwiftCrescent_R3_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Textures/T_TacticalHatchet_Head_SwiftCrescent_R3_BaseColor.png",
+      "bytes": 1329970,
+      "sha256": "871386f7bd28a71330f5ee691be0c992b3adc434a57ea3dac00f1082acdc30e8",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Textures/T_TacticalHatchet_Head_SwiftCrescent_R3_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Textures/T_TacticalHatchet_Head_SwiftCrescent_R3_Normal.png",
+      "bytes": 85626,
+      "sha256": "4d1ab699495575d7d1a271c26cb9e29f12aa7a0491366e29bae830295022cb19",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Textures/T_TacticalHatchet_Head_SwiftCrescent_R3_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/Textures/T_TacticalHatchet_Head_SwiftCrescent_R3_ORM.png",
+      "bytes": 942181,
+      "sha256": "fcc221ac32f5bd82b91e210c18e37ba654dfe7356dee6349d853a13ca4d7c524",
+      "reason": "Rejected R3 junction; replaced by referenced R4 crescent",
+      "retained_replacement": "BladeVariants20261102/CrescentReferenceR4_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/apply-source.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/apply-source.log",
+      "bytes": 1384,
+      "sha256": "7af0faaad94beea5245cc44dabe149b9dc2ee9fe840dedf15fe2a7c5bee347ec",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/apply_sources.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/apply_sources.py",
+      "bytes": 1518,
+      "sha256": "0e24b5d75d1cf20d9b40365c2109c25fcd720e4c7600b5a785ab6588d53eb7cb",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/author_finish.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/author_finish.py",
+      "bytes": 506,
+      "sha256": "44192d11eaadd8f977f045570be41449db13c02436d703d9d8e500b3797c930d",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/delivery.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/delivery.json",
+      "bytes": 442,
+      "sha256": "c1cb5de3d484f9b460f2cbf91f2ab0a1ea69194756dee8d87195a4ae16201879",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/extract.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/extract.log",
+      "bytes": 864,
+      "sha256": "4446b9b292559b427a85a7698cbe0ef21922acf396ced91370ae64742a7a3a11",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/extract_surfaces.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/extract_surfaces.py",
+      "bytes": 3373,
+      "sha256": "186747358a07831ca59b5b376cc1c17f1996cfacda5f78a1a6f2af3609313749",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc.json",
+      "bytes": 2172,
+      "sha256": "bc9484d99be0b513b7333421c90876bd0a74c35013a640b003948cfd17a32ce5",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc_Editable.blend",
+      "bytes": 53768818,
+      "sha256": "3708dd0a2f3a2db0208960baf0da1d1c34107a2a54501c7e49cf317f2606fe60",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc_Icon.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc_Icon.blend",
+      "bytes": 25955890,
+      "sha256": "448a4b5a54cb16e97caa8cd6b3de946ca3de5ca949d55ade7ac3506e4d1caeda",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver.json",
+      "bytes": 2177,
+      "sha256": "bd00edeb0116ea0b02dd69181615a55595db283519572efd863c5cfd104433b7",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver_Editable.blend",
+      "bytes": 53980908,
+      "sha256": "6614d3feff839e51bf1fe15b705a97ee154a645ff7dee330057da85df48c0aff",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver_Icon.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver_Icon.blend",
+      "bytes": 26167928,
+      "sha256": "e42fd1fb2712c122025538f652e31197f552b8415c4685b53e3583b28ca9ec8d",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/icon_deployments.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/icon_deployments.json",
+      "bytes": 1880,
+      "sha256": "eb04164cbd24ef1e78faae48175fe12fdd2bb130ad998244011ee2014491f718",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/import-console.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/import-console.log",
+      "bytes": 37625,
+      "sha256": "68634c4bd2481ce0bf5ae3af32e0cd546ba313855eb6c40f609f4bbdab4b8376",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/import.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/import.log",
+      "bytes": 296657,
+      "sha256": "6291cebb90662492325db326ee8162a8af050284859f05c90f65d925eda548d0",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/import_assets.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/import_assets.py",
+      "bytes": 3175,
+      "sha256": "485a618949e9c79f9a12603f6efea8df7969e5015e081ae3700fbbd99779649b",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/import_receipt.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/import_receipt.json",
+      "bytes": 1553,
+      "sha256": "cb4ca1b932e0f20ad80be15c9b27a0ce29eff531c93e8ec11a1db205fc4a6b95",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/parts.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/parts.json",
+      "bytes": 4548,
+      "sha256": "b7d3eaca95a7e76d0c35db7f546cc3926a7f2353ff5040e31c0c47c1ff3270f1",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/README.md",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/README.md",
+      "bytes": 2150,
+      "sha256": "af0ed6bb4d7872a4f048e29f99c883adc1b65349df14052e697618b7e448855a",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/register.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/register.py",
+      "bytes": 2532,
+      "sha256": "e15e3bd0093532f3038e43051c9e2fb9319762e51d7691b830c96cad014de497",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/render-icons.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/render-icons.log",
+      "bytes": 1586,
+      "sha256": "3bc7a9a8e53984027fa98935cc25e0b83130b13a5d506451d4b7349c1df701fc",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/render_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/render_icons.py",
+      "bytes": 4666,
+      "sha256": "441c4c56fb7338d2506f20f1bd43671c65b0ae26ad5d6580b9c930b01a68acd8",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/run_import.ps1",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/run_import.ps1",
+      "bytes": 1432,
+      "sha256": "704d1cc909d18049623078520fdfa35f5e92c2c45cc24ebd803628760a030f9d",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/source_receipt.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/source_receipt.json",
+      "bytes": 271,
+      "sha256": "e143fdc04830a4e5994d8cd9b579b4cc6995865db228e42a0a9aefdff96969a1",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/shared-axe-blade-options.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/shared-axe-blade-options.json",
+      "bytes": 2834,
+      "sha256": "b0984850d7cd5a7456d1988b7cd90a348cbd782784f358165c798f3ebcf4ee22",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/tactical-hatchet-modules.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/tactical-hatchet-modules.json",
+      "bytes": 20453,
+      "sha256": "2b57fb0f2efd550b24fdc4bd7d4772018770a84ff04ad27a658aee23b4a53837",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/author_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/author_blades.py",
+      "bytes": 258,
+      "sha256": "37d323341c3435d3d75b7688e15521659fcfe5da09e2e57c1b5c5739b40f6b23",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/deploy_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/deploy_icons.py",
+      "bytes": 188,
+      "sha256": "7f5efb3a21dda3c72a908ff5a5be5570e30e8c742921e7c453b1bb59d13d4f90",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/import_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/import_blades.py",
+      "bytes": 258,
+      "sha256": "fcdfe4e19c7099c90770b5b674b8b8b1ac3cb550a4e4623077f24853d20d5cd5",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/import_icons.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/import_icons.py",
+      "bytes": 188,
+      "sha256": "7f5efb3a21dda3c72a908ff5a5be5570e30e8c742921e7c453b1bb59d13d4f90",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/README.md",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/README.md",
+      "bytes": 3741,
+      "sha256": "18cc87b4ca0f716f9f9739592ed297184c674c27549ea2a1c79c8939937a407a",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/RebuildV2_README.md",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/RebuildV2_README.md",
+      "bytes": 4045,
+      "sha256": "8f496dc661f5d89b3933e5076bd61431fd040b50dd9d2d83c010ee2488a138c3",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/register_blades.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/register_blades.py",
+      "bytes": 253,
+      "sha256": "ba4f0b0e2b960ecd349024c33c4260267b0775454785fe371398619892ede8b4",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/render_icon_inputs.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/EntryScripts/render_icon_inputs.py",
+      "bytes": 238,
+      "sha256": "e695f65cde3e82678854901eac71d65ad2c93773f13ba45063969157aaa144c8",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/PublishedIcons/blade_1_axe_folded_arc.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/PublishedIcons/blade_1_axe_folded_arc.png",
+      "bytes": 448787,
+      "sha256": "3cf58fa111114d6f86e03aca24a95fd582e15857dd0e6cef35495729a1fe6819",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/PublishedIcons/blade_1_axe_heavy_cleaver.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/PublishedIcons/blade_1_axe_heavy_cleaver.png",
+      "bytes": 451045,
+      "sha256": "be9cf53fca09eeee0803124635d04b646b570e6ff367d2c306d618da1f1df984",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/ColdSteelData/AttachmentIcons20260913/blade_1_axe_folded_arc.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/ColdSteelData/AttachmentIcons20260913/blade_1_axe_folded_arc.uasset",
+      "bytes": 376037,
+      "sha256": "e5e621d778533daec3da2f0596c1b87cb2f452acd85acd5cc66a5046745de829",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/ColdSteelData/AttachmentIcons20260913/blade_1_axe_heavy_cleaver.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/ColdSteelData/AttachmentIcons20260913/blade_1_axe_heavy_cleaver.uasset",
+      "bytes": 377730,
+      "sha256": "f2a172f0416f83ee456ce1b8da4d9695564ba8239e8ec3e96eb0f919b66252fd",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.uasset",
+      "bytes": 1801751,
+      "sha256": "5be31c1362035369174e2d63582d4d7b1dae5c7602c45086ff8b517682c392e4",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.uasset",
+      "bytes": 35332,
+      "sha256": "67a9d59569176eee7f9d295e33769d162130c834f937e6e226bb8b4256d3f4b5",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.uasset",
+      "bytes": 990731,
+      "sha256": "af70a6d63139c2409f1a9181a3463aad5bd1fccf410af619f94e50a38aaf9abf",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.uasset",
+      "bytes": 1753534,
+      "sha256": "85cd3be1c26c1675db6e536c3c094f570d492ffd222e5a4f006058ffc858be27",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.uasset",
+      "bytes": 34368,
+      "sha256": "e01ed1873f8500b1884da66f15cd789a2792e22f8f5479fa7b84338dcc53c754",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Before/UE/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.uasset",
+      "bytes": 1063738,
+      "sha256": "578e9c2ade4bf66f8335bfa6ce6a536a1f124dcc614b300c803fc4d63bde394d",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Export/SM_TacticalHatchet_Head_FoldedArc_R2.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Export/SM_TacticalHatchet_Head_FoldedArc_R2.fbx",
+      "bytes": 904732,
+      "sha256": "a552b4a0ac0d30aedb54563a848b181eaefb7599b3bb3be8c891a7ce91fd43a5",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Export/SM_TacticalHatchet_Head_HeavyCleaver_R2.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Export/SM_TacticalHatchet_Head_HeavyCleaver_R2.fbx",
+      "bytes": 897740,
+      "sha256": "cab4f026e962c12fb17211d1a64643f371644e544a6e325cab12177653bc3225",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/surface_source.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/surface_source.json",
+      "bytes": 826,
+      "sha256": "73d2ae06f058c59cfd2c5e2dd1f09792bf97ed99485582ffea54293c8f9fadc1",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/target_surface.npz",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/target_surface.npz",
+      "bytes": 484126,
+      "sha256": "98faa342a56671a24aa6d831b8cfa4f3eb67efeb313ea0768f8503e92c1ab0e4",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/texture_recipe.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/texture_recipe.json",
+      "bytes": 5814,
+      "sha256": "f15ed85fe50faeac9c889c479963bcd990d0c7939be936dada5a3568115f26f1",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/transfer.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/transfer.log",
+      "bytes": 614,
+      "sha256": "0fcf2282198684a206a721fe28a9f2f74620f0c7709651c54a25da5396b4f94f",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/transfer_config.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/transfer_config.json",
+      "bytes": 3355,
+      "sha256": "4fbc67ecbdaf77f589801f7f040ff91656992bff7f878ac0ceffdb8ca7bd02cc",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/FoldedArc.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/FoldedArc.json",
+      "bytes": 1652,
+      "sha256": "c3a8ac2cf3bcd68e240a18ef107fd7113ca67f11a097b13192f78188ff37756a",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/FoldedArc_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/FoldedArc_Editable.blend",
+      "bytes": 49035970,
+      "sha256": "34881f1e09525a7a06200f2840058eed5fa0f4f8010b00fa272169773e3e09bb",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.png",
+      "bytes": 1921429,
+      "sha256": "c483cae5bb7a218670adfaa81c384e293fb29478098c874fab577d38215de72f",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.png",
+      "bytes": 84656,
+      "sha256": "d228cb0e2b59ea3ff8dc3745feaebfd23f9533ed72b921f03894736c1bab6c4d",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Before/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.png",
+      "bytes": 1322889,
+      "sha256": "cf4f9ec6c3fa615df1b601f5af9d662bec8711db4a07e71dbb81979c599d2583",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Textures/T_TacticalHatchet_Head_FoldedArc_R2_BaseColor.png",
+      "bytes": 2034720,
+      "sha256": "6da59a733a2d3ea25e679b7a1378237b2b73fa44d398570f15ce193e2dc60e05",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Textures/T_TacticalHatchet_Head_FoldedArc_R2_Normal.png",
+      "bytes": 1449074,
+      "sha256": "25aa9f17b704130801590fc1d50ad673fd3db09f31acc985156eb094ecaba364",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/FoldedArc/Textures/T_TacticalHatchet_Head_FoldedArc_R2_ORM.png",
+      "bytes": 1248068,
+      "sha256": "d7c06763e1ac966e6bea321da84b7356afd386fc22261b322adea0d68cbb384a",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/surface_source.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/surface_source.json",
+      "bytes": 832,
+      "sha256": "1842961e8841a3b5da58a70b020ffb72dff4db6c9daebb9b72863bbe1ccdb7ba",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/target_surface.npz",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/target_surface.npz",
+      "bytes": 480111,
+      "sha256": "7b33a87ea6220bb022e6ba0fa6556ae1f96bce83b95f93aea6e3b0fb6a1867f1",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/texture_recipe.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/texture_recipe.json",
+      "bytes": 5745,
+      "sha256": "0df562cf476670597b54767a0a8f20e277ab2b5d341c2118393545ff8dff2472",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/transfer.log",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/transfer.log",
+      "bytes": 614,
+      "sha256": "0fcf2282198684a206a721fe28a9f2f74620f0c7709651c54a25da5396b4f94f",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/transfer_config.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/transfer_config.json",
+      "bytes": 3282,
+      "sha256": "b8f981225f7db21700fffd1f785703d3166fdb11c998ead3b7eadcf4f2205130",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/HeavyCleaver.json",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/HeavyCleaver.json",
+      "bytes": 1639,
+      "sha256": "b8c4da860217ee717f9bbfe289f27a74918702a1ca1e9392e364ac3ff9b76256",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/HeavyCleaver_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/HeavyCleaver_Editable.blend",
+      "bytes": 49032759,
+      "sha256": "a3ab302b1835b229d28ee3b5c37bca1167dcd7014064e59c801f3f9cc4ed7c86",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.png",
+      "bytes": 2088255,
+      "sha256": "bb253f734ff5c46191614a88881e2b5d56df3ac90bbb4694bc5f38e140642390",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.png",
+      "bytes": 85448,
+      "sha256": "248405e5968f596a1eb49920a49c5456ea58a1768d4fff1f90442a403ece1bc6",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Before/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.png",
+      "bytes": 1419357,
+      "sha256": "3add7f7babfc0444f84299b4565b47e56e9d5851e468255ed7bedde3547cdb59",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_BaseColor.png",
+      "bytes": 2071316,
+      "sha256": "973b48396e1414c4379e124f8d91c1dd080c402656e690e35fb5f0636437b08c",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_Normal.png",
+      "bytes": 1558156,
+      "sha256": "79b13c2fba3efede80cf548c0e4266ee887e96ab5365806035dacc0f363ce140",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/HeavyCleaver/Textures/T_TacticalHatchet_Head_HeavyCleaver_R2_ORM.png",
+      "bytes": 1317037,
+      "sha256": "34c2979cadd1a3937eb42e9e1aa47484163ed832392cde1ad12b42c60577410a",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Icons/blade_1_axe_folded_arc.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Icons/blade_1_axe_folded_arc.png",
+      "bytes": 488886,
+      "sha256": "14a94e1fec46d9345564592b927b68acfff3141f5235f5cfed21cfed5505ecdd",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Icons/blade_1_axe_heavy_cleaver.png",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/Icons/blade_1_axe_heavy_cleaver.png",
+      "bytes": 495757,
+      "sha256": "aa05a87ac33fa7808ceea73801931d2a026ff413d788a5a2e703cc7d2a16977a",
+      "reason": "Superseded pre-R5 heavy/folded mesh and finish batch",
+      "retained_replacement": "BladeVariants20261102/ContinuousBladesR5_20261104"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/MaterialIconFix/Before/author_hatchet.py",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/MaterialIconFix/Before/author_hatchet.py",
+      "bytes": 5531,
+      "sha256": "120f36677acfcb604f7a761a832ae121e6fd662c64255501f80faf3d4bdd4a7e",
+      "reason": "Superseded incorrect-normal model snapshot; comparison evidence retained",
+      "retained_replacement": "TacticalHatchet_Editable.blend; MaterialIconFix/normal_comparison.json"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/MaterialIconFix/Before/SM_TacticalHatchet.fbx",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/MaterialIconFix/Before/SM_TacticalHatchet.fbx",
+      "bytes": 15492764,
+      "sha256": "a437e171ec84bc1f6ef2cdeecc02d61b81582cbea6dee8f6b7933554112a2436",
+      "reason": "Superseded incorrect-normal model snapshot; comparison evidence retained",
+      "retained_replacement": "TacticalHatchet_Editable.blend; MaterialIconFix/normal_comparison.json"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/MaterialIconFix/Before/SM_TacticalHatchet.uasset",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/MaterialIconFix/Before/SM_TacticalHatchet.uasset",
+      "bytes": 9365906,
+      "sha256": "f1fc09df328ecf65fdb5f8eeaf60df6870da745207468430ce74e886d717811b",
+      "reason": "Superseded incorrect-normal model snapshot; comparison evidence retained",
+      "retained_replacement": "TacticalHatchet_Editable.blend; MaterialIconFix/normal_comparison.json"
+    },
+    {
+      "source": "SourceAssets/OneHandAxe20261101/MaterialIconFix/Before/TacticalHatchet_Editable.blend",
+      "destination": "trash/HatchetPublication20261104/SourceAssets/OneHandAxe20261101/MaterialIconFix/Before/TacticalHatchet_Editable.blend",
+      "bytes": 29154413,
+      "sha256": "0a1206a233cc491b9bfca38b1578436ab80528522337194dbebbc173188ff4b3",
+      "reason": "Superseded incorrect-normal model snapshot; comparison evidence retained",
+      "retained_replacement": "TacticalHatchet_Editable.blend; MaterialIconFix/normal_comparison.json"
+    },
+    {
+      "source": "Tools/HatchetAudit20261104/RegistrationSandbox/Project/Content/ColdSteelData/shared-knife-component-options.json",
+      "destination": "trash/HatchetPublication20261104/Tools/HatchetAudit20261104/RegistrationSandbox/Project/Content/ColdSteelData/shared-knife-component-options.json",
+      "bytes": 8349,
+      "sha256": "74f853138ed5191b06ef19dd0c824a724c9b88a958e37521da3efc124f239e7e",
+      "reason": "Completed isolated registration replay sandbox",
+      "retained_replacement": "Tools/HatchetAudit20261104/catalogs.json"
+    },
+    {
+      "source": "Tools/HatchetAudit20261104/RegistrationSandbox/Project/Content/ColdSteelData/tactical-hatchet-gunsmith.json",
+      "destination": "trash/HatchetPublication20261104/Tools/HatchetAudit20261104/RegistrationSandbox/Project/Content/ColdSteelData/tactical-hatchet-gunsmith.json",
+      "bytes": 4839,
+      "sha256": "0ba720593a397a4c1a1bee556557b9bee4b94126ea1fe0c7c993623af07fee04",
+      "reason": "Completed isolated registration replay sandbox",
+      "retained_replacement": "Tools/HatchetAudit20261104/catalogs.json"
+    },
+    {
+      "source": "Tools/HatchetAudit20261104/RegistrationSandbox/Project/Content/ColdSteelData/tactical-hatchet-modules.json",
+      "destination": "trash/HatchetPublication20261104/Tools/HatchetAudit20261104/RegistrationSandbox/Project/Content/ColdSteelData/tactical-hatchet-modules.json",
+      "bytes": 24615,
+      "sha256": "4ea7d2086d3d8089974980b621752f270986ec8be90ecc616b0734a72ce070d4",
+      "reason": "Completed isolated registration replay sandbox",
+      "retained_replacement": "Tools/HatchetAudit20261104/catalogs.json"
+    },
+    {
+      "source": "Tools/HatchetAudit20261104/RegistrationSandbox/Project/SourceAssets/OneHandAxe20261101/ModulesV1/import_receipt.json",
+      "destination": "trash/HatchetPublication20261104/Tools/HatchetAudit20261104/RegistrationSandbox/Project/SourceAssets/OneHandAxe20261101/ModulesV1/import_receipt.json",
+      "bytes": 8861,
+      "sha256": "18124ed2d2f1a0970156dc03f2f16ae1ed9355742fea4b67af326a8155549d8e",
+      "reason": "Completed isolated registration replay sandbox",
+      "retained_replacement": "Tools/HatchetAudit20261104/catalogs.json"
+    },
+    {
+      "source": "Tools/HatchetAudit20261104/RegistrationSandbox/Project/SourceAssets/OneHandAxe20261101/ModulesV1/registration_receipt.json",
+      "destination": "trash/HatchetPublication20261104/Tools/HatchetAudit20261104/RegistrationSandbox/Project/SourceAssets/OneHandAxe20261101/ModulesV1/registration_receipt.json",
+      "bytes": 237,
+      "sha256": "4cb4cabd2b3df4383d6f7f390ee823c7b21b6762cb25410825bd92dd6c21cdf4",
+      "reason": "Completed isolated registration replay sandbox",
+      "retained_replacement": "Tools/HatchetAudit20261104/catalogs.json"
+    },
+    {
+      "source": "Tools/HatchetAudit20261104/RegistrationSandbox/Project/SourceAssets/OneHandAxe20261101/ModulesV1/Before/tactical-hatchet-gunsmith.json",
+      "destination": "trash/HatchetPublication20261104/Tools/HatchetAudit20261104/RegistrationSandbox/Project/SourceAssets/OneHandAxe20261101/ModulesV1/Before/tactical-hatchet-gunsmith.json",
+      "bytes": 4839,
+      "sha256": "0ba720593a397a4c1a1bee556557b9bee4b94126ea1fe0c7c993623af07fee04",
+      "reason": "Completed isolated registration replay sandbox",
+      "retained_replacement": "Tools/HatchetAudit20261104/catalogs.json"
+    },
+    {
+      "source": "Tools/HatchetAudit20261104/RegistrationSandbox/Project/SourceAssets/OneHandAxe20261101/ModulesV1/Before/tactical-hatchet-modules.json",
+      "destination": "trash/HatchetPublication20261104/Tools/HatchetAudit20261104/RegistrationSandbox/Project/SourceAssets/OneHandAxe20261101/ModulesV1/Before/tactical-hatchet-modules.json",
+      "bytes": 24615,
+      "sha256": "4ea7d2086d3d8089974980b621752f270986ec8be90ecc616b0734a72ce070d4",
+      "reason": "Completed isolated registration replay sandbox",
+      "retained_replacement": "Tools/HatchetAudit20261104/catalogs.json"
+    }
+  ],
+  "retained": [
+    "original GLB and final editable masters",
+    "R2 author.py imported by active R4/R5",
+    "R4 FactoryFinish Before/author.py and source geometry (also used by another active task)",
+    "AgileGrip V1 Blend/textures and HollowV2/Before/agile_grip.json",
+    "all failed/final network logs and receipts",
+    "GhostScythe20261104 and HatchetPairs20261104: outside this chat scope",
+    "all live UE Content assets"
+  ],
+  "files_count": 179,
+  "bytes": 826986462,
+  "completed": true,
+  "verified_utc": "2026-11-04T09:12:02.3721518Z"
+}

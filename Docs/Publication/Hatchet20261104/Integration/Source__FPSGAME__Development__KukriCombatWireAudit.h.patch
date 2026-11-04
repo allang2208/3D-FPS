@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Development/KukriCombatWireAudit.h
++++ b/Source/FPSGAME/Development/KukriCombatWireAudit.h
+@@ -21,7 +21,10 @@
+     GENERATED_BODY()
+ public:
+     virtual void ServerReportHit_Implementation(const FColdSteelNetHitReport& Report) override;
++    virtual void ServerReportPairedHeavyHit_Implementation(const FColdSteelNetHitReport& First,const FColdSteelNetHitReport& Second) override;
+     FColdSteelNetHitReport LastContact;
++    FColdSteelNetHitReport LastPairedContact;
++    bool LastWasPaired=false;
+     int32 Reports=0;
+ };
+ UCLASS()
+@@ -37,6 +40,7 @@
+     UFUNCTION(Client,Reliable) void ClientGo(int32 Case);
+     UFUNCTION(Server,Reliable) void ServerDone(int32 Case,bool OK,int32 Count,double Spent);
+     UFUNCTION(Client,Reliable) void ClientReplay(const FColdSteelNetHitReport& Report);
++    UFUNCTION(Client,Reliable) void ClientReplayPaired(const FColdSteelNetHitReport& First,const FColdSteelNetHitReport& Second);
+     UFUNCTION(Client,Reliable) void ClientExit();
+     UFUNCTION(Client,Reliable) void ClientCheckReplacement(AFPSGAMECharacter* NewPawn,double Spent);
+     UFUNCTION(Server,Reliable) void ServerReplacementReady(bool Passed);

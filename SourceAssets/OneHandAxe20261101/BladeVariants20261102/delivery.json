@@ -1,0 +1,33 @@
+{
+  "complete": true,
+  "ids": [
+    "axe_heavy_cleaver",
+    "axe_folded_arc"
+  ],
+  "model_revision": "continuous_forged_r5_20261104",
+  "material_revision": "factory_finish_20261104",
+  "source_saved": true,
+  "geometry_modified": true,
+  "ue_saved_asset_count": 13,
+  "shared_icons_deployed": [
+    "blade_1_axe_swift_crescent",
+    "blade_1_axe_heavy_cleaver",
+    "blade_1_axe_folded_arc"
+  ],
+  "icon_method": "imagegen edit from approved muzzle_brake_framed_v2 master plus actual model input",
+  "stats_modified": false,
+  "runtime_tested": false,
+  "model_acceptance": "pending user review",
+  "date": "2026-11-04",
+  "definition": "ue_tactical_hatchet",
+  "status": "imported_saved_and_registered",
+  "current_source_directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104",
+  "current_import_receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\import_receipt.json",
+  "retained_crescent_geometry": "CrescentReferenceR4_20261104/SwiftCrescent_Editable.blend",
+  "factory_and_grip_pommel_retained": true,
+  "native_code_changed": false,
+  "native_build_required": false,
+  "editor_ui_started": false,
+  "gameplay_tested": false,
+  "acceptance_rendered": false
+}

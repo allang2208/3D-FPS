@@ -1,0 +1,39 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_BaseColor.T_TacticalHatchet_Head_FalconEdge_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_ORM.T_TacticalHatchet_Head_FalconEdge_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Textures/T_TacticalHatchet_Head_FalconEdge_Normal.T_TacticalHatchet_Head_FalconEdge_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Materials/M_TacticalHatchet_Head_FalconEdge.M_TacticalHatchet_Head_FalconEdge",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FalconEdge.SM_TacticalHatchet_Head_FalconEdge",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_blade_1_hatchet_falcon_edge.ue_tactical_hatchet_blade_1_hatchet_falcon_edge"
+  ],
+  "parts": [
+    {
+      "id": "hatchet_falcon_edge",
+      "slot": "blade_1",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FalconEdge.SM_TacticalHatchet_Head_FalconEdge",
+      "material": "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Materials/M_TacticalHatchet_Head_FalconEdge.M_TacticalHatchet_Head_FalconEdge",
+      "material_slot_names": [
+        "M_TacticalHatchet_Head_FalconEdge"
+      ],
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "trace_base_cm": [
+        14.250421524047852,
+        -0.0032963992562144995,
+        19.748029708862305
+      ],
+      "trace_tip_cm": [
+        17.05035972595215,
+        -0.01145160011947155,
+        27.03157615661621
+      ]
+    }
+  ],
+  "runtime_tested": false,
+  "icon": "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_blade_1_hatchet_falcon_edge.ue_tactical_hatchet_blade_1_hatchet_falcon_edge"
+}

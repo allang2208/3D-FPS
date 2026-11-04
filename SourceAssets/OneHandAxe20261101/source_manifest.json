@@ -1,0 +1,93 @@
+{
+  "source": "C:\\Users\\allan\\Downloads\\Meshy_AI_Tactical_Hatchet_1101133535_texture.glb",
+  "sha256": "af8f801040dd168b0aa1e8d8f4b0a205fd5ae10a4b2e19134ccf74d77b3a6d34",
+  "bytes": 27850792,
+  "meshes": [
+    {
+      "name": "output",
+      "vertices": 146988,
+      "triangles": 194740,
+      "bounds_min": [
+        -0.47409799695014954,
+        -0.9509239792823792,
+        -0.08200496435165405
+      ],
+      "bounds_max": [
+        0.47370901703834534,
+        0.9513630270957947,
+        0.07590600848197937
+      ],
+      "material": 0,
+      "attributes": [
+        "POSITION",
+        "NORMAL",
+        "TEXCOORD_0"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "BakedMaterial",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "file": "source_image_00.png",
+      "mime": "image/png"
+    },
+    {
+      "index": 1,
+      "file": "source_image_01.png",
+      "mime": "image/png"
+    },
+    {
+      "index": 2,
+      "file": "source_image_02.png",
+      "mime": "image/png"
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "output"
+    }
+  ],
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "status": "source_prepared",
+  "source_license": "User-supplied Meshy export; not published",
+  "runtime_tested": false
+}

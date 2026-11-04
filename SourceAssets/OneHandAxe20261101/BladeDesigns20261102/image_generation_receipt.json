@@ -1,0 +1,12 @@
+{
+  "status": "generation_rejected_no_images_saved",
+  "tool": "image_gen.imagegen",
+  "reference_image": "SourceAssets/OneHandAxe20261101/ModulesV1/IconInputs/blade_1.png",
+  "prompts": "prompts.json",
+  "error_code": "moderation_blocked",
+  "moderation_stage": "input",
+  "category": "violence",
+  "request_id": "e173bbe8-3a17-4455-b3a4-b7e3cc56ba32",
+  "design_document": "Docs/Weapons/tactical-hatchet-balance-20261102.md",
+  "models_imported": false
+}

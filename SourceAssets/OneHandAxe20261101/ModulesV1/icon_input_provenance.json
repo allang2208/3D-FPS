@@ -1,0 +1,15 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\ModulesV1\\Export",
+  "factory_parts": [
+    "blade_1",
+    "grip",
+    "pommel"
+  ],
+  "resolution": [
+    1024,
+    1024
+  ],
+  "camera": "orthographic from -Y; +Z up; +X edge; no 2D mirror",
+  "color": "grayscale base only; source PBR retained",
+  "purpose": "production modification icons; no gameplay acceptance rendering"
+}

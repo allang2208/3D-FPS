@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp
+@@ -100,7 +100,9 @@
+         // warning and a transient UTexture2D allocation that GC then has to reap.
+         if(!Texture){FailedIcons.Add(IconKey);continue;}
+         Icons.Add(IconKey,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
+-        if(const auto* P=Presentation.Find(I.InstanceId);(P&&P->StaffArt)||I.Definition==TEXT("ue_m870"))
++        // The broad hatchet head uses its authored 2x3 canvas and 91% framing.
++        // Tight silhouette cropping would remove that clearance and enlarge it in both panels.
++        if(const auto* P=Presentation.Find(I.InstanceId);(P&&(P->StaffArt||P->OneHandedMeleeArt)&&I.Definition!=TEXT("ue_tactical_hatchet"))||I.Definition==TEXT("ue_m870"))
+             ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
+         IconBrushes.Add(IconKey,Brush);
+     }

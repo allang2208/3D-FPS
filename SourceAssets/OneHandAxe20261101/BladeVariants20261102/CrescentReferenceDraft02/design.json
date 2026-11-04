@@ -1,0 +1,143 @@
+{
+  "status": "approved_for_modeling",
+  "revision": "reference_shape_02_20261104",
+  "source": "draw_design.py",
+  "reference": "UserReference.png",
+  "reference_sha256": "c0b9c6eec88232275e5bfe7c59c40e235744a9d4097f87b233c695a8206e3f15",
+  "reference_role": "left axe head silhouette; paired object and its text are not instructions",
+  "retained_shape_features": [
+    "broad crescent outer blade",
+    "concave upper and lower root transition",
+    "short down-curved rear poll",
+    "straight neck axis"
+  ],
+  "finish": "modern graphite carbon steel face and satin silver ground edge",
+  "outline": [
+    [
+      "M",
+      114,
+      46
+    ],
+    [
+      "C",
+      84,
+      43,
+      52,
+      78,
+      49,
+      118
+    ],
+    [
+      "C",
+      46,
+      161,
+      69,
+      200,
+      109,
+      218
+    ],
+    [
+      "C",
+      95,
+      204,
+      94,
+      191,
+      100,
+      177
+    ],
+    [
+      "C",
+      109,
+      160,
+      131,
+      155,
+      148,
+      157
+    ],
+    [
+      "C",
+      151,
+      158,
+      150,
+      174,
+      150,
+      187
+    ],
+    [
+      "L",
+      150,
+      240
+    ],
+    [
+      "L",
+      181,
+      240
+    ],
+    [
+      "L",
+      181,
+      182
+    ],
+    [
+      "C",
+      181,
+      167,
+      180,
+      161,
+      187,
+      160
+    ],
+    [
+      "C",
+      202,
+      160,
+      216,
+      167,
+      228,
+      172
+    ],
+    [
+      "C",
+      225,
+      155,
+      218,
+      138,
+      205,
+      130
+    ],
+    [
+      "C",
+      192,
+      121,
+      178,
+      117,
+      164,
+      115
+    ],
+    [
+      "C",
+      138,
+      113,
+      117,
+      105,
+      112,
+      88
+    ],
+    [
+      "C",
+      108,
+      74,
+      110,
+      59,
+      114,
+      46
+    ],
+    [
+      "Z"
+    ]
+  ],
+  "coordinate_system": "concept coordinates, not final dimensions",
+  "runtime_assets_modified": false,
+  "next_stage": "construct model using original mounting interface; model appearance acceptance remains with user",
+  "approval": "User: 按照这个进行建模构造。"
+}

@@ -1,0 +1,20 @@
+{
+  "saved": true,
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/SM_TacticalHatchet.SM_TacticalHatchet",
+  "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+  "nanite_enabled": true,
+  "bounds_cm": {
+    "min": [
+      -4.575973987579346,
+      -1.6568487882614136,
+      -11.059743881225586
+    ],
+    "max": [
+      16.350360870361328,
+      1.5296133756637573,
+      30.940256118774414
+    ]
+  },
+  "change": "Original corner normals captured before deforming vertices; transformed exactly once",
+  "gameplay_tested": false
+}

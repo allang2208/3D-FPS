@@ -1,0 +1,234 @@
+{
+  "scope": "Static rest geometry, all installed common pendants and pommel variants; no animation/gameplay test",
+  "source": "Actual author meshes used by saved PhysicsV1 and hatchet module FBX exports",
+  "pairs": [
+    {
+      "pommel": "factory",
+      "pendant": "knife_lanyard_braid",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "factory",
+      "pendant": "knife_lanyard_tassel",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "factory",
+      "pendant": "knife_lanyard_tag",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_steel",
+      "pendant": "knife_lanyard_braid",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_steel",
+      "pendant": "knife_lanyard_tassel",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_steel",
+      "pendant": "knife_lanyard_tag",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_faceted",
+      "pendant": "knife_lanyard_braid",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_faceted",
+      "pendant": "knife_lanyard_tassel",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_faceted",
+      "pendant": "knife_lanyard_tag",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_ringed",
+      "pendant": "knife_lanyard_braid",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_ringed",
+      "pendant": "knife_lanyard_tassel",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    },
+    {
+      "pommel": "knife_pommel_ringed",
+      "pendant": "knife_lanyard_tag",
+      "intersecting_face_pairs": 0,
+      "penetrating_vertices_gt_0_025mm": 0,
+      "deepest": [],
+      "cord_vertices_inside_pommel_thickness": 0,
+      "hole_midplane_edge_crossings": 12,
+      "hole_midplane_section_bounds_cm": [
+        [
+          0.05422030226327479,
+          -1.2547438964247704
+        ],
+        [
+          0.2042202977463603,
+          -1.1047439649701118
+        ]
+      ]
+    }
+  ]
+}

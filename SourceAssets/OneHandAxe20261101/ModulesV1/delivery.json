@@ -1,0 +1,26 @@
+{
+  "status": "saved_and_deployed",
+  "date": "2026-11-01",
+  "weapon": "ue_tactical_hatchet",
+  "factory_slots": ["blade_1", "grip", "pommel"],
+  "shared_options": [
+    "knife_grip_checkered", "knife_grip_leather", "knife_grip_laminate",
+    "knife_pommel_steel", "knife_pommel_faceted", "knife_pommel_ringed"
+  ],
+  "saved_meshes": 9,
+  "saved_variant_materials": 6,
+  "saved_variant_pbr_textures": 18,
+  "factory_icon_masters": 3,
+  "saved_factory_category_icon_textures": 6,
+  "shared_option_icons_reused": 6,
+  "native_build": "Succeeded",
+  "asset_import_exit_code": 0,
+  "inventory_export": {"written": true, "size": [256, 384], "exit_code": 0, "pipeline": "ColdSteelWeaponIconCatalog"},
+  "receipts": ["build_receipt.json", "import_receipt.json", "icon_import_receipt.json", "registration_receipt.json"],
+  "catalogs": ["Content/ColdSteelData/tactical-hatchet-modules.json", "Content/ColdSteelData/tactical-hatchet-gunsmith.json"],
+  "editor_ui_started": false,
+  "gameplay_tested": false,
+  "new_axe_head_shapes": false,
+  "numeric_changes": false,
+  "moveset_changes": false
+}

@@ -1,0 +1,1533 @@
+{
+  "base": "d7bea973586df8012e15680e8eb3355d8752e1e9",
+  "paths": [
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+      "reason": "Only heavy start clock, missing-time cost and opt-in trace; excludes unrelated pendant/lone-offhand/paired-hit layers",
+      "sha256": "40b0a95898c2e9d50774f6c1510754468217881562bb5ff5f79acbc0bcf71aca"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+      "reason": "Matching RPC declaration and timing fields only",
+      "sha256": "f43f144c5fe8787df095aea54122e74459e30432809e422fd8900971712926a2"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+      "reason": "Hatchet fallback and shared dynamic pendant routing only",
+      "sha256": "8d0003e8e1f152959a19856c630502b30f3dfe04e15f1f7813e14656f7768f51"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalHatchetImportLibrary.cpp",
+      "reason": "Hatchet-only source-normal preserving importer",
+      "sha256": "028e7124c77633293d53e75ad3e68498d351bf8b5b87ea41958e0ea408a8e650"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalHatchetImportLibrary.h",
+      "reason": "Hatchet-only source-normal preserving importer",
+      "sha256": "221e05347c4e744098e44e76097b58efb008e3b5061aca12e8bcce09ba5cff94"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "reason": "New hatchet item with final balance; no unrelated inventory/catalog changes",
+      "sha256": "25004619611c302556c858702d722b77987a495ebed10396300e57411ee90852"
+    },
+    {
+      "path": "Content/ColdSteelData/tactical-hatchet-modules.json",
+      "reason": "Hatchet modules, grips, shared blades, pendant and rune mappings",
+      "sha256": "6cbe9923f71ca9a876d93ad9a401133f6061c7bffea711f8f8551c4fac4c3ba7"
+    },
+    {
+      "path": "Content/ColdSteelData/tactical-hatchet-gunsmith.json",
+      "reason": "Hatchet modules, grips, shared blades, pendant and rune mappings",
+      "sha256": "e72f33160be1289eed0f38c820dc740f74f30c81beca762683679a94f1dc81d5"
+    },
+    {
+      "path": "Content/ColdSteelData/shared-axe-blade-options.json",
+      "reason": "Hatchet modules, grips, shared blades, pendant and rune mappings",
+      "sha256": "c31c506ced3c43245235447b0f5af5b2daaadf5f95e193c33d7cbfff3832f58a"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "reason": "Only hatchet cook directory",
+      "sha256": "9537e8bacd244cf0b524ad05f209b4cc86b69f44f86fb1d87eac192d314a4a2c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/author_hatchet.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "70ed3f60425ab31788c19bcddd6150fbcc9057061c7ae3cf0609915a8bccf86a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/export_inventory_icon.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "358a4dbc74a420962f76049e3bae33a1f86ba5804a0ff65e7841bf94d4ceb3c3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/finalize_hatchet.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "220d2513e901638eb7ad1c5c37d156aa3a65b83508eb4fae1ab3c32f29562c25"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/import_hatchet.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "c9170992b76385fc5365064ae1c3e95ede2ff07b63f8ffd9273217c8a2cfb5fc"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f2b24c0b59d01e8798641c6180d409969448b18981f2898060affec358fd9242"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/model.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "75b36cf81e9f31e770fb58d29f597d2e9d2c7c04dfac904cd85cbbac377db9d4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/prepare_source.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f821ed48736b6e13b897f4cc76ac66018b43465a6e8c3da6c4a2fa93e5924ef4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/register_hatchet.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ff851764d6cd61663f764cec5954408abc6629337d0585aaa280450b97e018be"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/source_manifest.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "800143b83366df80f3fc58d90ad3ba50e3e301c684dcc1dfcfd21ab9917ecdd3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/active_model.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "510e52a76b3031866d4471d9d5983b1be04b6ca467db1fd481a7d07ac687f856"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/agile_grip.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e19c27b3cdd799c0ad19fcf0b2470fbd7832911857e8a04404ac021490de39a4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/author_agile_grip.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "3f31455a38e87813808252c1281191a86feaa5013ab35a1ab28d29071e218461"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/build_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f4f2bf640b4bf3b128aea87bca73617c18463721df81ecaf0bb7781978b37a53"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8104e6a7f25b2846b69f308553c90ab5261a8c2db77bee657d8564bc93e24c78"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/design.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "5891d8cac7a0918cf667baa1676d8e1bc5e0e7a3b92389ee98697bde862b30d3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/icon_input_provenance.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "adad385b113ad67a5b41da20d86aa7e44c82e6351c0780a2101cef9f461bcc1b"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/icon_manifest.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "336a737ddf4989430f299f41c457768526a9c0dc342c3c21a5b5ea25ac4bc06b"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/icon_prompt.txt",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ed7f191d67fc644a6f043586c309a449f20d95025bf2a2a7355d3bb7b706bdd3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/import_agile_grip.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ab7e32ed0b1f89cda5293534f673e2f47827c2ebf575e27fd7018e19a873bdee"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "5af3f887d8eb3f47097144f034f466d0924392dc5a2c1b9e1f4b07148d54fdb1"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/prepare_pipeline.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "c993fd2fbfb706dd0c8dbb71b1e273f07d48ad8c065575371591e6845e555cea"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a8ce511e3ccf6a9a10c01e99b83bf05e55efc3538cad14e5856b67c80614b11d"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/record_delivery.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6f273ec6451aae5e797c9dfbc10e9a268bbee22b04645dc3c8d2076172de87fd"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/register_agile_grip.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "013f8474c08cd59fa134b7c1da2952f5ec3aa9981ec75a8bbe230d0697ff7079"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "1c721bcc1564f2683ca097e74fb34d8a3ab01f07e11df44ed21f7836894c7c02"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/render_icon_input.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f61afcc305d9b3ca87457b3109b79612630977521906f190d77a3c0e6e8289c6"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "25de7723dd65b6647e11a2dbe2e47f6c5f25ac3cd51cc7a06e2851d38b345438"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/BalanceV2/balance_review.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "deef957d87a49ee7c70ee2640ba345a86f801aeaefd3eea6e2b8b17e23289e75"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/BalanceV2/balance_review.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6347b278d6af344b7d8731de17e57d53031bd09eae660c1131b6e4f2ba6779ac"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/BalanceV2/build_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "2858c05d08b2f271bfee66dc5ad15d0c471d5dadaef38c1a909d3e8f71755237"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/BalanceV2/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a82e2184080313ec1add1e1a2acfd0c26451b0604ea6763286751db074405b87"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/BalanceV2/native-check.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9e5b96c943da35516717218d14a5fbc68e65b700d1b8f1793eddfc366979beff"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/BalanceV2/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "2282d23ad81c7fe05b81aac2c5c674ecb0a0c694b58d418677f52faa65c5bbcd"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/BalanceV2/run_build.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "da6f384ae94f7eda139134a5c375c41e456362215d9920e9f14c228a06fa18a0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/BalanceV2/run_native_audit.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "d580bbf4b41780623dddbbdc0e410d2b09e39b41ba66c499f5514e48f0d4bded"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/author_hollow.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "56e5e83954e32b589d62293742e01c4aaaf2bef59dd982484a4a04535255e66c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9cd88c87e247dfdf046b1639e7b5bd213b4c48e2f9b4411990dc7e6e2352ba07"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/hollow_grip.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e19c27b3cdd799c0ad19fcf0b2470fbd7832911857e8a04404ac021490de39a4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/icon_input_provenance.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a7af8c0521c291fd5e47f17dce878f9e68ef7a3bc571fac86d148a8393620997"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/icon_manifest.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "0c3d1141428ba53c0f8f8a1ac8fefaa992cca8d34885fc419a66c2498392ad31"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/icon_prompt.txt",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "325c853200b0323d15275011b20b840da329f881e1123317bd70be703f637589"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/import_hollow.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "3eefd141beebf1f47bbb8f39b05cf2d1c761109634d53dcc1bb97e544c769c5e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "088898955db08943a4ecba51de0cba891089be4722a19f82129d2fc9d30a5911"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/interface_source.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "5e0f1136899d21c190d744593681a45c263307f2bfc9d7a5171a03fb1ecbf804"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "65dc48b40dc846656a6f5c05a5e5af24a8c935180f2f824e03f65622ff19f480"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/read_interface.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "0b662e4ffd8d18913b5ecacbc82807918715f1a9f1a8a96983d6fa0d1d314375"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/record_delivery.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "73267d84f31bde71f20b3770f27c2fd6b8f4193f3981e05bc778d3737be339c7"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/register_hollow.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "700af8888f4e63813507f8108e798966c1e4aff6f8cef2a207963231cac37aa3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "37e25a322cf72de4e2313a261baff75f20c777b570212b3d154510dc2f0854c5"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/render_icon_input.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "89b376122e1aecaf00b4f7a94e98d4847b371a9c2eaf6855e182cd16ae90315b"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "253db7dd4615c3e3957e20de8dfb43ace56545d099f9c189125e7dcce94b2349"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/AgileGrip20261103/HollowV2/Before/agile_grip.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f777050cf3211dbd1541e6ccc52b9e8b3d9e0927dde55262691d692b6a12d6c8"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Balance20261102/build.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a8a22281e46c2619ad7dc65985f1fc206bfc8fa73f4a63721beb945c09ac227f"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Balance20261102/build_first_attempt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "349e15d22a8254481b008ac0b0ffa7fa4c735add22d809782fdd19dc5017e0fa"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Balance20261102/build_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4f56fa62dcd84ca392bb7d3426519cfb311853e712c9424f4e2c13f444e1d247"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Balance20261102/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ded3689bcd96f5ad004c9725f33827c8c683d2648fae9494c1a5ff1ace75e52d"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeDesigns20261102/image_generation_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "83cd6defc97bac72cc70991904d9db4f85ca7099999676a568c6dc39522be20c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeDesigns20261102/prompts.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b46bda0ea0c7399408f8e2afde1673a6eac4deae6fd9faf888babc92019a5780"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeDesigns20261102/shared-axe-blade-options.design.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ce65ab2c7abfb6333ed900432a88923832560f0824cce5eafb46f6ae95dda906"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/author_blades.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6d62448c1f9c0b9bf2e6a27116fb25c7322364117b2922230c92a12bd68ce0e4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8f13f038b91711f950b7c92e43b7dd52e6658712da87233e44a88f284955e062"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/deploy_icons.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b99f13d46272e6dc9082d59b0a7c12710cdbb27b8c7a157bd0308f3a77b63781"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/generated_icons.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f8270dbe8b3330ff456624dbb10d684980dc832f7208dfca3148477c2453cd9e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/icon_deployments.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "0715026913060e59df0ebb62f55f2918ebfbd924412db3c8f5934a54b6a0c311"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/icon_import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ffd95c66546e0c8f178f98a6987cad444b3508653f95fce2b9078f9d61c20cb9"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/icon_input_provenance.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "69371bb60f87ca6240a25ab4a00a969c75bc6098a2fd06c9df55d1fed7a831d3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/icon_prompts.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ab2aca33302f9678482683d34fb231d236b1fe463a734ca452d634efde0fede2"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/import_blades.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ac3a9516b3ea3ae3754616f23bba8abcaecac1165a99c9d9da7dd8db2b8ffe23"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/import_icons.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b99f13d46272e6dc9082d59b0a7c12710cdbb27b8c7a157bd0308f3a77b63781"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "354ec10b6a53a0d5dfc088de0aef691a37d6b11040276ec44848f312927f5f1c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "320658ff3bdf5196a10a4b7bee94d11232b74e639f524a9d7003cdacaa16297e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/record_delivery.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f4f70860501c696b9694ac4587e1251677acf510f06e15675d6246ba1f37bc21"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/register_blades.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f6c01e10162a56bb40c2c860a92198501db64fe19e0bfb9252cbd39c77c1a7e9"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "5cef5baf852122f3d19e0a863854943bca280b18a8b7e1d34866b63dd9d9a3a9"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/render_icon_inputs.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f3561bd991b1e0bd625c0f63ce95261b7373165bd2a6f7ca6963667d62e29363"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9809f56cdc4b0bfd2f7c16818f1e8044d4420f621c47ee25caef6dcca234cd2c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/apply_sources.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "20981fc25c26050a4970399f41c958d7b9be3451ff15e36248d56d9251e6f7b1"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/author_all.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a756f753c4bfd290b45d7bc29e2d5f73b8bc455fec3c25234f934c3b059342fd"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/author_geometry.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "708181fe2124b0cfd842d02d58d05532c130496eeb0491c8f75a8f2f6ef75433"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/collect_icons.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "d4946562a7f488ef631180a8781e11e2a8df64f792585e7c68d08a2ff9c714b4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "d2841bf4248553740ad16d2459b25bf324fb13499f989968a8d85bcb04754b32"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/FoldedArc.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "37b912142d8da6bd34382d2eafc5c3bb1674994deb9b0378d1c159bff59f03d0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/HeavyCleaver.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b8d8e4c1adb4f562bb4e7020ec86bbe0bd9a4af1c8ebefaa9d51a2acf460f81d"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/icon_deployments.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "43afc487bf01deb4022e015405df0cdcbb51e0be591334e11af84acd5b0d6489"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/icon_jobs.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "322c08ff49c2128bcd545442e27d62371031016d20c7fdf87a54b1a5a49b2280"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/icon_prompts.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e530b95e7f09ec0b312d88d4f73dca554a2a078d38ed4b497e2ef45db3ad8c8a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/import_assets.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f7de9c4cac5882fe7214ead3f06030808470f7d41e2be2b73f6848a8c355e4bf"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a8770c09f33542f6d6ed39b73aeb0116e4ade5548faa56b9189cb4690f7869ef"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/parts.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "384b4c331d3143950f8c77d6eddf04759a771c0e1ffcd4f0105da46ab6166f40"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "92f80a6755995cf4104555d62de72899291ca830320c9eb0bf351469a27179f0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/register.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8ac603397585f9807b017d874cda4a170d7e5c066782b972e38bb96e6ac6edea"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/render_icon_inputs.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "be3aac3977734e1d9ff92cec479b4c00c0aa3a13a8588bed98c87b9527f08ce4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4d93bd92e2a83ca8c8eceaf265862034353981c0a99afe0b2e85b1571f3885dd"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/source_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ff8f38e1593091835f6d72539b8df633352f716b7ec72c648f258e32749d4328"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/FoldedArc/surface_source.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "7f7598ca685778028d1655c3812a9b7aff1e639d4652bb86a4bf4a2b615d73b9"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/FoldedArc/texture_recipe.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "7ef77e2e08be3a8fd21644435698df01ea34f90347303f27858f03457c7ab0ba"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/FoldedArc/transfer_config.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "da69b438f2db2065a295799bf90c47fabe156f962926a0da4606c0b5928a5eff"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/HeavyCleaver/surface_source.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6b35199de7d5d315e1e331b4c727b1ffb121071bd3d2b36868418d890217bf02"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/HeavyCleaver/texture_recipe.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ac109a3ff4fc8c14059b08f5b102422d468528e639e7a090cf11cc14262e3932"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/ContinuousBladesR5_20261104/HeavyCleaver/transfer_config.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "1bd8d2e2afd03b9e240043e6b1402ea8881b8ed23d28da37c6ce36f7acc62c72"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentDesignDraft01/design.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "378bdfd50b1a7dea18ec7ca8601d84d257535a9ec1868257c33c9a8954a3b689"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentDesignDraft01/draw_design.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "d4e8f226835219832b3d95bb47ca7f3214e6e83280567389a7ec80ba3766a456"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentR3/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "376bacfee037b9b441dd500615d3c7113135a1af54cc8eda571a6ebaa8383a7f"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceDraft02/design.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b4865153b892badedd6ff0f02cd65e022651664a98b11e350aea9b853686e4b4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceDraft02/draw_design.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8d32857f751035fb66144e770f2a61e20f944dcb5df8bc5b03bf3944d7c7cff1"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/author.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "0bd5e6ed600366937cd7c322ca4dec8e3293bfffe84f2a42e707656180bf800f"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e3ab1dd37b063a1e90c7300ca875ba2aff02c3e2f47e9a40efd2be37ed2c09fd"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/icon_deployments.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "25a35a5c9435e5a88955bdac081a11f51e3b275fa12546133729a5bc1df91716"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/import_assets.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4a81cbc18c9fa2079d2422822f4b94eb5fc4c58ac1043488ea3a169a1705d084"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6c66a1b7adf928d54a34547b749d092a5073d64c55951b8183410373ac5e2d7c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a60b6d91c3ebc368a7d6311cdf679bb14ada6c6d5b1b9c2769b9d8e140eb6e13"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/register.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "616e3030852c2c7fd33f81cdaaac7d104b63f5fcd0c1a3098846171c02d9fc55"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8955209ae6f6fa5893adc8cfc8f5d681227edac86d47e0d5468b77cabfaf6c43"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/render_icon.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6821901fc9e8aa6da802c1ed941528a1408be84cc23219f2f9f69ddec44f1459"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4d93bd92e2a83ca8c8eceaf265862034353981c0a99afe0b2e85b1571f3885dd"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/SwiftCrescent.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a6e27c0f60c8446b557f9902a6e73cbe1352b3b8c5f07464647ab621974ad97e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/apply_source.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6c1580e1027a76d52be518bdd0265ac9c52f5dd1f71be79fdb6b96a9884750a1"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/author_finish.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9f6877a8f6781b96aa62282567c5a6bdd20b10c73d5f8eebd49d6f18d058c7f0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "59db40f9cf7a3398656d1c378e3040582146244e95201c8236d6750521b3c012"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/extract_surface.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "0745dc8e9e548f452eacb38abaaf85c0920e5f758e8a4b883548a4c6f2b3316a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/import_assets.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "af41c7d29164bd6253575ba1426ade42b76803382213bbfce29af3ea6badda6b"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "cb149895026bf1b9fffb3fee62616886f40fd7b6134457d8331b62d0ff4d1026"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "5ddf43f55724f4189c3ef1da4aabe5bad568bf9957fc3f256eb437829d867647"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/register.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "c2d01514c25e5ff57d1630d2d09fe6c6c2416b9fbcc82fb16193bbc05a44e8da"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4d93bd92e2a83ca8c8eceaf265862034353981c0a99afe0b2e85b1571f3885dd"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/source_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "97556b89a7b86b3fd3824ef4ff3de7c44a3b70bc8577bb7cd72bd7dc70f8a2a7"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/surface_source.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "94c095a1685f83bd26ecce4fef3ce4c5423ff434deced3a20830cb090690087c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/texture_recipe.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ed7f5f0d7634076a4972edb6b53d97495f3d0b1c997f3f1124a4e09830631f55"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/transfer_textures.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "87b32bb49b455bc7d88ab06246ae2eee1d30c7baa663e2e3bf17e94794171e38"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/Before/author.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "98c8cadf8213bf11453f7c330db154beeff641f569eb06e1137e501b9d7e08b4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/CrescentReferenceR4_20261104/FactoryFinish20261104/Before/SwiftCrescent.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8d242ccacd5102f041ec45f527c379c9008929b238a9b064620620b8140e8d60"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/OtherBladesFactoryFinish20261104/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6d44b8eae7aafc1a4473b63957d41ef12a9d4bc5b43e735f7e6ab9adcb85057f"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/author.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "c2a0afc999e67eaeb7b4cc00d1dbf2c2e0115995d1b1e47730468788733df085"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/check_export.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8d5eb6e73671e1eb65bc5f22013b8491b6e3cef07f27cdd43deae87b07efefa1"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "d074a04f688e575e57aa1146adadc287c649f4f5bd2add32b257a5dec1ea4a1a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/diagnose.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "cb9db2ccfeb12645e69eefafa96bfe5a646e25e7c4b57f847a1067a07d8b2b78"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/diagnosis.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4ff405d7e788317f897881ba8f7fb49371341e948d42e228f9a7af6a0d46bfa7"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/export_diagnosis.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e7e28ff0ee4c0ecac6cf72b2a856545bc927cd962306c56dada103a247fb8f02"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/FoldedArc.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8287b78482c90e6018333e8c76524c473f80017a08ce9b97610b598f9e541fb9"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/HeavyCleaver.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f63b3e5bb9cbc1cf9f53cc014d90accd552bfe448ebeed9f3c26f38a86ce6be8"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/icon_deployments.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a000d47ca4ccf2dc892360f22624a0ecb0e0d6bb68b833f065acb5177edbcb13"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "0d913760382510bf1200dde4162e603c1adfbc251607f8344e6f30e7ea3dd06a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/measure_joint.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e1f0d1e429e2c1c596af57502a6eb5a209feb8f6a9be944bf751aa56db60b720"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a304a55bf900d4d6a1118c2c52b96810ca72811ac228e5a4a09a810490cbe502"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b020f624d4e602f4be0a912daba66f6d1f7227545279057a6fa1ad581b98ada5"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/render_lineup.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "2996ec6ce6e8cb4259699837dce02ae0eea4e0ea4f25f7044ea50599c689501e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/render_review.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "baa5d2e5ea8f99dcee294c423c0bb8ae4732509efffc75348d4b1b46115e31cf"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/BladeVariants20261102/RebuildV2/SwiftCrescent.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "11facf260056470d60f5113a720fbbf3c78d3e9b6ed8e4b362a4eb39462bf584"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/bake_runes.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "5f94c483b12b0d90869b0fb55c50922f27469f445a730183ad6b94259a5869a4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b390c9ccf302432049e5189d9a9cc90dd653b682df05cbdec55ea9c91dbf6acc"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/Factory.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4a87da63b2625fa97374a54ebb41f88eaa655203064be3aea0284bd83f849cc7"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/FalconEdge.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a5bc474f0784312b11fc343c4f133af708658a68db2b6d150938a168d89eac8b"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/FoldedArc.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "1a1937ff991e9966c930d9418056d5650cb7bf20e94c09695fe26e29b6e04a62"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/HeavyCleaver.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e7afbca340dc6d43efce83b18519e356740406ed65748662ae35dd7a8d4f42ca"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/import_assets.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "92e062e00c46930810e89e47c4c8578b27a76366432517a91cdfdc41a471df56"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f3df169c8baf39c113fddf2612b8ae8d0742a1ca05c3f8e9d5e646e0582baa8a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/prepare_sources.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "14c97d54b6c4d107117e28349fccb5877fabc7ea1b4523abf720f5684a193d96"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "62c530f503aa31e4b430c42cb0518057f650ce1e277ad25c7e01ec0a939184c3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/register.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "7b09f5c2fb7cf2effa60ad2f99aca5a8e2a7d5df4a57f89153358252eb688a61"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/resume_carrier.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "7205aa3b6a7c2153e4e3501afb9187d55b5d1aab6665ad0c7343c98ca71577e2"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "1527b8ece35792e7439488bde6524c107e125e116e68bf9689289a77936a6285"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/sources.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a3a14b9c334eb78b90a3dd5fe5999887b057c0a6447c19087265957ae2c9a24e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/CommonRunes20261104/SwiftCrescent.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "d02b6df0257461596049720ec6470a897f7bdf3af7f5b68e46612e87577ce7a0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Concept/V01/design.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "1cd087dfbb03407ba8dd783f4ec122392639a1f8998a20351781e93f46243396"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Concept/V01/prompt.txt",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "30846505ad54181d21d93f3ecbeb68adccdbae43f4a5c46688b1e6c28f3e01f8"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Concept/V02/design.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "684c3e642b6f6a31f1ab19871706108eeb520305009f978d76dc084df8f67588"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Concept/V02/prompt.txt",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "535426e0210bce3fe7a47fb1ee0625b93648b879a736eee000d73d4efc0f166f"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/author_falcon.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "91e2987919991cc163158917b1d416d8ebd56c4ddeacf37beead10d1684edcbc"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/build_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "40b657b3d164e88c29fb16543619c95f88034dbec612b03425e23c58dba93ea4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "22ba9bf3b02ccdfdbb32aee2d260525122dbf946cc1bf7ab3f6e36780158183f"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/design.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f913bdc69620e00dea36b111f4b239a19fbd477507e2e273c0b71b96b91029f8"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/falcon_edge.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "161359835b98c5957d89af03047f691c5bfea839a37e0480d437925378edd6ee"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/icon_input_provenance.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "256adaeea4ee47f3fcc24a51542ce18172159b4cd42420559d058f862d43a09b"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/icon_manifest.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "73530d9465eddfae8ba46c4fc4f84b48339ac7d9402d0d1c89b2248176dc2660"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/icon_prompt.txt",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8f7c5fc03dad8d4ec73c9a5bacad37af6771b6409f9764d394c65ac6cb0185ae"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/import_falcon.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f35c5e785006d1ff26352788c9e14afb5acb196d8de80cc80115f0926a433d37"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f70385174554b9011cd5ba7f0f61be9ed6f8a7ff43447fe96ca69ca0249294b4"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "c944d71343462e8648432fc4b3f11670710af15f6c347af4da6b6dc6e6ab0b72"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/read_source.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a2050aa5a1a720d2033f0875b1685713c9de7a10a212dcf384807efa9e72e7c7"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/record_delivery.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a9a4872c7477cdaa3e34bff3f0d16af33870c8546ac7363d613b574d72037a30"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/register_falcon.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "50f067d8bf7d1ef54331f5d611102b3730305db7a0b60bac1b7a6cdf419f369e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b16feed087becae62fda703919c794fe0a5fe14be8c8f8957feaa2265529a433"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/render_icon_input.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9eb482ceafa31cf32796996430682724ffb7947dd5c6345af53f569a232a83f2"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/run_build.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "da6f384ae94f7eda139134a5c375c41e456362215d9920e9f14c228a06fa18a0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "84263345dab9193c75df4bd8df14930bcf7be25e51abc0acbbbbab8754fbcf36"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/FalconEdge20261103/source_sections.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "c398ec965c8cc3a4381560ab255c9ef2b724ed3d9d61af8fa48421b04af0e25a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/IconCanvas20261102/build.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9990a4ecc196c99420532119d9d5770bd961d97a8d6ea5b71978d20fd3cc7e31"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/IconCanvas20261102/build_first_attempt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "57aceb84eae2afe4a184660bd3a048add7c689f0b41d26c4009cc4d668fba29a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/IconCanvas20261102/build_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "52081179a8c24ad98c6b7089278c10b12962dc0fdc2fbabf08b22e474ba974c1"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/IconCanvas20261102/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b98d71339ffd4afc8deef4b6e0cc4fcff7dee68194ad65ccbd2a6b6de5c94efc"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/IconCanvas20261102/editor_build_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f8f0e24e2e6e8432a23ab2d76b63bbf8c132c5cc51df8eb276c374c3b6784294"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/IconCanvas20261102/export_icon.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e630f4bea29bcfd88a5e014e1e70c488b6fc243e282ad66d3a2e13d0f172ae41"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/IconCanvas20261102/export_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "df2b46167d5a0a77ec59a558dc30e7b39fb7bc0db290c8e5e1b7127a3d4f96b6"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/IconCanvas20261102/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6b2ca990eeb90b2fac9e8547029a3a8d811fb1662eeacd42348f1abad4371b92"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/author_long_grip.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9c1c83aac3dc6c4d7fe86b5344fa0ccc869d3872b521afa3013b67bbc73348a9"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "daa8b4384e656497f85a290eafc3648cd7555f17b17bde054c301f70aaade15e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/icon_input_provenance.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "44bd53599841782472ff83f2eed0bbbf9eb3bc48b51cdb2fc1266e904eba89eb"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/icon_manifest.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "bef56e76a0a429f0aed77dcd7170ec5c5a15a8042761fe52378faaa7088cccf6"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/icon_prompt.txt",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "aeff5c89fb23125b7bb7cd1e5acefb14d392e561053c391d142926813c2a19df"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/import_long_grip.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "bacfc873cd831be4fa0df103e79c1190999208e8a7d1187f717cf5339476332e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "922fc94056d626c7c87310f4bcba304c7a03bff26e12caa6c7a60d219b1bec6d"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/long_grip.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a5e6deaae69f5b77a9dca56cec79d72904ea5dfee25651ec93f5e0fb9499e7a7"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8afdf2a68aa30013deb9dfa1e1430942d67c847aabdf133976aa6e235a969d94"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/register_long_grip.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4cfc283bb4d769c6d945a564c6786e7dc3d41eb03623b6ba13c9e9a97d0d0ffb"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b0e0deafa81d50a7a25b7577ae2129e635b099cfb47960dc616e2e709866eeeb"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/render_icon_input.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "2208594fda2032bf04aeee3ef17f2e3a3bd4252354749ff46f20773ab74887a2"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/LongGrip20261103/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "2619410ea649c4d8fab849dc95348ce43c46829f782896edf4d5a2366bdaf7ad"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/blend_before.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "ff561ac5bf35ab48a6b63787646acbbefba9777b96ba4e2329d3c09d89f9b4fa"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b00c2a1ca975ac5af317dde96b8458ec2034312e916618e7df14c0691ad5f5ad"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/deploy_final.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f51b4bc040b64f75d89b4355e34fd52cd180f55337636d23f23275f3e6746b89"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/inspect_blend.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b3e01a73cc6323399848c42a95baf5123978f11015ca9ba50bf4ca64f74e2ff0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/inspect_material.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8b6f3f033d57ecf33501eb0cf354adf1b20533f3d314d79fb4da0ba3df227ef7"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/inspect_normals.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "13a91220261ccf398195516c02a4c68f5b7eb1029d4a56ba450aa88739ad8736"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/material_readback.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "be9b08cd8c1915ab8ba59f1c097f4d565ff2c38fbd3bf92506d58dcf6845117d"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/mesh_save_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f418021fef847df94744584a43b7c57b4cfb1b5666ea848685d7a11b101a5226"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/normal_comparison.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "5b01ef10be2db0a4825f9cbcffd7803270e68c6ffe9feb24553114b38e7e0ef6"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "4633a5208ca8808dcc57e1246ce56978c386491f3dc3d9ab1142040224770c4c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/MaterialIconFix/reimport_corrected_normals.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "6bdf079f9aabf8919631d2d3b4aff74370325f26649c99efd9db96e3eb57c646"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/author_modules.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "d2735e52688c12323ef2d315bb4f475fc4f772e2646c9ed4d729533fc60239a3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/build_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a9d030083df7b622c317d70598f8238978eaae61bfbd090cef410d9490864694"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "77f4039cb24156a31c7f6704369036b4e604c2bbb67bf57317e0ca81948798f5"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/deploy_icons.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8eeaf3bdd4e783484537fbfb8dbc6a60b810219f3301e904f6a6370d35fcefc0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/icon_deployments.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "1996736c65d125928144fe48885eb11dbbdc3c6742953e73c4067a1cf49b5051"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/icon_import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "fc70d900081fd31a1b3e2e25d0b09afb490f49b590b0bfc8d626fc7e6d13a3ee"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/icon_input_provenance.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "d6d5f77357936fd121a0c44ab6ad23e6f62b74dc9656b682ae80a3c69f3901e5"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/icon_prompts.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e8b86fab8fd9709474fc7d30c6f8f569c9e1cc885e92ff13ca4f29093a71f1b0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/icon_provenance.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8f58d066099f21da46821c27370c52d0d092715c3e3a2bf02fc12a3ff7c32f3b"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/import_batch.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "bed58729fab01df9e6e2b3eea8d9b2fa01729b40ddba1551a9025696e65b8105"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/import_icons.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "7e7546aa4272c5e495242377aef4988d43d7bc02b47299ae85ca1eac4591f596"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/import_modules.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "010260a4a4c39d004bbf61beae940c95a28923ad606f86d6f3d6080a2c70ccab"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "948dbffd1f2aa8567f75bd3002b65e6b697f226f1c6fe623eb76a69058d10c9c"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/interface_measurements.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "93359b93eccaa86a3a69280a8445ca68f16a7330e052fafd6abd71d0e3600f5a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/measure_interfaces.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "67a77f0b5ce8a80755abcdb0e07f75c3ccebb8dda2d966b5b1187c87f77b081f"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/modules.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f0a4db59a2f85e0601dec4f4d072f695e7b377697da4ddf5ce84910f175f1456"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "271aff6e4f8208f2ef61c700471d0a37ff61693acfeac32f037ebd357ab5b0b6"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/register_modules.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "7b4d2bb988d3bd41adb596949a6bd1d275d6a55acb712222cca7f6b18d779bcf"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "76dcc1a1bd7254de927a757a60e9a0b3592b4df25b90e1efa670c1e1010696b3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/render_icon_inputs.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "426a2ba056928bdf000527ff6199cfc97429b5dee1574a34a7767c2baa099d8d"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/ModulesV1/run_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "82447582660372e5cc3a91e2971e8b0cd084ac72854602263a98a2421470f761"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/check_mount.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "851ed0be460300d14da8cdca39a2091ae806a2d5334f0ca2a7c8bdd1c2af8821"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/icon_deployments.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a6c8039954fa2cf96a0aef903755f0853bad37522eb1da0366651774cd97c79a"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/icon_import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "1f7d424524cd89f38f5b2be26dd61ce8f39ab3f212f7504060b4a8f179c3a128"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/import_icons.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "0b269e56ca71bbddbfb2980907a2487067ebdd62d72fb2555f624d2afc070ffb"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/measure_mount.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8f24027a5f0c75cfc15e3fed1313c313bb7ec758b203cc80056df3dd8a2f1498"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/mount.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8c9e215a43291f033c7922abd16698d9eb39b1e1b4a8bb04e9a31d21dc20f5ac"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/prepare_icons.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "b46600ea4cb8db29d48b19c99620f46a796eb5d2eaf52267132efdafcd839e10"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/publish_staged_icons.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "7826a0e53caede5647810898c7d4a6aeb99ac7c2367e6b5c625182188d66b19f"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "652fee13421ce2b9db7cfb62d6734dc4232ddf445c18c023ad9744695e68e6ac"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/register_pendants.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f8142b0caedfa8b02c9990c4e0cd69ecd96fb7a5f48c828b2db31183d0ef2edd"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "e23868ca2305a13a3add47ffce78c1f4f16244afff8193d14f4f3af0557c953e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/run_staged_import.ps1",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "f1793025b134413a64c12090a5d201cf1c4d4cce044ef34363e6df546cb20233"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/author_fit.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "203d1c4a69e9442940bf70c5253bdceb5ebc15b292394b6c50c87f00f547ba4e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/build_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "24ede10cf7df212b0b5c7556ba6d9ff0840fa222d077a95102cb5885db1cdead"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/delivery.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "1b1c64870e9342da952fe69719b54572256f8e0381f063382880567f5dd690e1"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/fit.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "3d70ac123ccf90651b58cbd7fe161f2329e053ed536b5950d1f418ed0e461003"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/import_fitted.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9d6096acf7fae0caeb57ec367164fc0b68b1fa5d306fcf58a24055070cc9829e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/import_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "466f376cb3f68dfade88a1a18edd467b422b2a7bccd7681f3a2020188dd5a4e5"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/prepare_staging.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "524f51e4c8ff6f1fb305e401ed003a16fe6c6d3929fd793c68416087df267065"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/publish_fit.py",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "21668edff6b9609b768a84f649b62080934a4665df7a71ade3e22ae2f6a067d3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/README.md",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "8d4af2ee08d7cb4a0821718b8176f120f336b3c0c1d98fea4fc30fd3fb78b53e"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/registration_receipt.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "c58ada58944a95977d3533bd2708a0c91ffa2573539598cbd0ba15c3a5ebcfe3"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/staged_dependencies.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "9be5ef20e2553f56c920574b90757547827e0ad51b6146412267108d7e7ba3a1"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/MountCheck/geometry_report.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "a3ffc38973b5dfafdc874a4fd7757159ef2fa2a1a7c0dd5f4aa368fb05d9edf9"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/FitV2/SavedMeshCheck/geometry_report.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "0017672c73f1c66313f374c5db10eda5f0e70f60ff374069c31b7724063353d0"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/Pendants20261102/MountCheck20261102/geometry_report.json",
+      "reason": "Owned author recipe / parameters / provenance; binaries remain local",
+      "sha256": "89c121a9b437c936c7ae289de3d956467513de20de8896ac59927164bf702400"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/audit_assets.py",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "542c2cfd955f647e993f48cda2ac0e4d2fb7a98e8bc3e414d91846b02ac4b9bf"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/audit_catalogs.py",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "344de10f8cc06f83c6e5122320dac9e6835ab3c0354bbde89942d47074f8db51"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/audit_geometry.py",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "e7384680b729293fc6362678fb1beb71ef1813a9811c134c4b483bf660c05868"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/build.ps1",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "3d56f92915604abe4d51dd35863fb07481b93f0a1054a1ba0c3321d4ebac1edf"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/fix_carrier.py",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "b3b2eb5d5d9af92102e681dd498a428d29e15d08cfbc76ef057582326f9f94d2"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/README.md",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "83afad358a5f62e6f128c8fd1b8b67a6eaf71c580691bf7e91b3835af6f64aa7"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/run_assets.ps1",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "08bd3c0313fd5b9d834ae59578eb16169124379bdefbe0197c96ad79eae1aa51"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/run_combat_wire.ps1",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "81cd7ba711da82ee7e44cdccd086211930a856cbce6e63a04d9aac28efc5cc12"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/run_equipment_wire.ps1",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "0fdd8bfbec37b44ee3a8045af0255c1019031266770fa267e7d46c9effba0871"
+    },
+    {
+      "path": "Tools/HatchetAudit20261104/run_heavy_clock.ps1",
+      "reason": "Reusable explicit-only audit/import tool; no test runs during publication",
+      "sha256": "ce14fc4002f60fceee63b15e2c5044d26511b03a2d12381899d3e0da957619bf"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/equipment-runes-and-attack-receipts.md",
+      "reason": "Only newly distilled section; pre-existing pending changes excluded",
+      "sha256": "602b48e96dbcc6da862bee86d0889d58c2963b565465142efc72bf48ea735829"
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/multi-process-runtime-evidence.md",
+      "reason": "Only newly distilled section; pre-existing pending changes excluded",
+      "sha256": "fd98ea514aaae8cd88cd4af2f7bbf311c05ec9616e0801a347070364b053cf0d"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "reason": "New focused reference routing only",
+      "sha256": "65d54398a7c791e91ae17c09c3ee5aeb3be76d7b4866c004d8136c78c0d120bc"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/hatchet-modules-and-runes.md",
+      "reason": "New reference mirrored byte-for-byte to personal skill",
+      "sha256": "6bddcccb08782734bdc80f1514902cc05a0c79bbcace7597b4796af34b3b947c"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/cleanup-manifest.json",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "122bd41cfca59d95e57c71e835940f0963eff6ac2a5d9df5cf535f2bebb0162b"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/integration-prerequisites.json",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "763230ee655f663cb32604fcee2aa0f34c1df303378339826e971a761c6c6ff7"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/validation-evidence.json",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "a2564545dbbbf51fb1d8c405505801a6b965ac5d0e8669bf82e866721b0501d8"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__HatchetRuneWireAudit.cpp.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "18a8ec64d46e157022253140399bf850db4d4e520eb4c6b8633c93ac4fc3f220"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__HatchetRuneWireAudit.h.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "3ead98a74f1d7161b68f06789126cc8247f9cf04d3c87bc47c629746326b1971"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__KukriCombatWireAudit.cpp.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "60e1aa8aa1f3042936c3e4e669b8cfb665087043dff79b054dcba54f79799f42"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__KukriCombatWireAudit.h.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "dd0a8b7a7565fdea02add9b3ef7fc2c8090f3a366579b8c3a5e3c9893792948a"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriHeavyClockAudit.cpp.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "2055936d55870cfd04d8f64d56da1ac008dce046580ca2d6562b76a2cf2560a6"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriNetworkAuditCommandlet.cpp.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "f6d72accc7fb2f5f2fca2dfd5cc62f6cfc301eb798240b1954dc4df975bce517"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriNetworkAuditCommandlet.h.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "c4bcce4c702d7085faa147efada38538ac99a61218679b4ab12b9540792225a0"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__UI__ColdSteelInventoryWidget.cpp.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "1222893597e92e28fb7ccacec5089f7db6bd23325f53237c81e2315617013edd"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__UI__ColdSteelWeaponIconReadback.cpp.patch",
+      "reason": "Publication record / precise integration patch / recoverable cleanup manifest",
+      "sha256": "3e5cc38e16cb24fda269ff1a7a808fd5cf1075c13c452dac6e6258d6a5c2f914"
+    },
+    {
+      "path": ".gitignore",
+      "reason": "Exact allow-list only; raw logs, cached user dirs and binaries omitted",
+      "sha256": "5844d991b069feda4c3212a023a30197243e1b6da22267e7719242bbff07fde8"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/README.md",
+      "reason": "Current entry and explicit source/integration/validation boundary",
+      "sha256": "322cb9fd76660871f3e2ac877df7f03065f68dba19a8398f535ae9a1d4e912bc"
+    },
+    {
+      "path": "SourceAssets/OneHandAxe20261101/README.md",
+      "reason": "Current entry and explicit source/integration/validation boundary",
+      "sha256": "86420a3eb0ad8ae71607a9376cd0d96c1fb02eb08aec9f0ddccf3c6e92caa9a3"
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/asset-dependencies.json",
+      "reason": "Local asset identity and restoration boundary; no asset binaries uploaded",
+      "sha256": "0612705f09a9273f56cadadfb3bbd1f5b85b4f78976b776f452a7190ff5a32ee"
+    }
+  ],
+  "count": 305,
+  "total_bytes": 1655807,
+  "note": "Hashes describe staged source slices, not all current host files. The manifest and publication check report exclude themselves."
+}

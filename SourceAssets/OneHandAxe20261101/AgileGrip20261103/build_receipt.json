@@ -1,0 +1,12 @@
+{
+  "target": "FPSGAMEEditor Win64 Development",
+  "exit_code": 0,
+  "result": "Succeeded",
+  "elapsed_seconds": 821.66,
+  "actions": 817,
+  "changed_source": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+  "log": "build-editor.log",
+  "arguments": ["-NoHotReloadFromIDE", "-NoLiveCoding", "-WaitMutex", "-MaxParallelActions=4"],
+  "editor_launched": false,
+  "runtime_tested": false
+}

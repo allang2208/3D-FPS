@@ -1,0 +1,25 @@
+{
+  "status": "model_pbr_icon_saved_and_registered",
+  "completed": "2026-11-03T00:17:45.973292+08:00",
+  "model_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\LongGrip20261103\\TacticalHatchet_LongGrip_Editable.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\LongGrip20261103\\Export\\SM_TacticalHatchet_GripLong.fbx",
+  "extension_cm": 8.0,
+  "grip_length_cm": 27.25,
+  "stats": {
+    "range_mult": 1.25,
+    "physical_damage_mult": 1.1,
+    "stamina_mult": 1.1,
+    "attack_speed_mult": 0.95
+  },
+  "saved_assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLong_BaseColor.T_TacticalHatchet_GripLong_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLong_ORM.T_TacticalHatchet_GripLong_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_GripLong_Normal.T_TacticalHatchet_GripLong_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLong.M_TacticalHatchet_GripLong",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLong.SM_TacticalHatchet_GripLong",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_long.ue_tactical_hatchet_grip_hatchet_grip_long"
+  ],
+  "runtime_code_changed": false,
+  "runtime_tested": false,
+  "acceptance_rendered": false
+}

@@ -1,0 +1,14 @@
+{
+  "target": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+  "source_mesh": "SM_TacticalHatchet_Head_Factory",
+  "factory_material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet",
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Textures\\source_image_01.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Textures\\source_image_02.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Textures\\source_image_00.png"
+  },
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\ModulesV1\\TacticalHatchet_Modules_Editable.blend",
+  "geometry_modified": false,
+  "uv_modified": false,
+  "runtime_tested": false
+}

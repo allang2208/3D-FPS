@@ -1,0 +1,662 @@
+{
+  "version": 1,
+  "interface": "kukri-grip-frame-v1-20261026",
+  "root_slot": "blade_1",
+  "module_slots": [
+    "blade_1",
+    "grip",
+    "pommel",
+    "lanyard"
+  ],
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "bone_mount": {
+    "rotation_xyzw": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "location_cm": [
+      0,
+      0,
+      0
+    ],
+    "scale": [
+      0.01,
+      0.01,
+      0.01
+    ]
+  },
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory_RuneCarrier.SM_TacticalHatchet_Head_Factory_RuneCarrier",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_Head_Factory_RuneCarrier"
+        ],
+        "materials": {
+          "M_TacticalHatchet_Head_Factory_RuneCarrier": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet"
+        },
+        "appearance": "深灰碳钢斧头与一体斧颈，保留银色磨刃及原有攻击轮廓。",
+        "trace_base_cm": [
+          14.04892349243164,
+          0.0,
+          19.949527740478516
+        ],
+        "trace_tip_cm": [
+          16.350360870361328,
+          0.0,
+          27.03157615661621
+        ],
+        "rune_carrier_source_mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory.SM_TacticalHatchet_Head_Factory",
+        "rune_surface_revision": "isometric-head-uv0-v1"
+      },
+      "axe_swift_crescent": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_Head_SwiftCrescent_R4"
+        ],
+        "trace_base_cm": [
+          8.998483831393335,
+          -0.06362,
+          15.629123045201457
+        ],
+        "trace_tip_cm": [
+          7.792933528604816,
+          -0.06362,
+          30.976280969804336
+        ],
+        "materials": {
+          "M_TacticalHatchet_Head_SwiftCrescent_R4": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R4.M_TacticalHatchet_Head_SwiftCrescent_R4"
+        },
+        "appearance": "宽月牙弧形刃面与短后钩；主体沿用原厂深灰石洗钢质感，刃口采用同源浅银磨刃，双凹刃根与柄颈连续衔接。",
+        "rune_surface_revision": "isometric-head-uv0-v1"
+      },
+      "axe_heavy_cleaver": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R5.SM_TacticalHatchet_Head_HeavyCleaver_R5",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_Head_HeavyCleaver_R5"
+        ],
+        "trace_base_cm": [
+          12.399999797344208,
+          -0.06362,
+          17.20000058412552
+        ],
+        "trace_tip_cm": [
+          16.8,
+          -0.06362,
+          31.5
+        ],
+        "materials": {
+          "M_TacticalHatchet_Head_HeavyCleaver_R5": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver_R5.M_TacticalHatchet_Head_HeavyCleaver_R5"
+        },
+        "appearance": "宽腹厚背向刃口连续收薄，凸弧磨刃与主体自然衔接，柄颈圆顺过渡；原厂深灰石洗钢配同源浅银刃口。",
+        "rune_surface_revision": "isometric-head-uv0-v1"
+      },
+      "axe_folded_arc": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R5.SM_TacticalHatchet_Head_FoldedArc_R5",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_Head_FoldedArc_R5"
+        ],
+        "trace_base_cm": [
+          10.599999874830246,
+          -0.06362,
+          17.59999990463257
+        ],
+        "trace_tip_cm": [
+          15.899999439716339,
+          -0.06362,
+          31.49999976158142
+        ],
+        "materials": {
+          "M_TacticalHatchet_Head_FoldedArc_R5": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc_R5.M_TacticalHatchet_Head_FoldedArc_R5"
+        },
+        "appearance": "弧形斧身向锋缘连续收薄，细弧磨刃与柄颈平顺连接；原厂深灰钢保留低对比细密钢纹，搭配同源浅银刃口。",
+        "rune_surface_revision": "isometric-head-uv0-v1"
+      },
+      "hatchet_falcon_edge": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FalconEdge.SM_TacticalHatchet_Head_FalconEdge",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_Head_FalconEdge"
+        ],
+        "trace_base_cm": [
+          14.250421524047852,
+          -0.0032963992562144995,
+          19.748029708862305
+        ],
+        "trace_tip_cm": [
+          17.05035972595215,
+          -0.01145160011947155,
+          27.03157615661621
+        ],
+        "materials": {
+          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/FalconEdge20261103/Materials/M_TacticalHatchet_Head_FalconEdge.M_TacticalHatchet_Head_FalconEdge"
+        },
+        "appearance": "下探钩刃与短背喙夹出开阔斧面，三角减重孔贯穿厚脊，哑光碳钢衔接银色凿磨刃口。",
+        "rune_surface_revision": "isometric-head-uv0-v1"
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Grip_Factory.SM_TacticalHatchet_Grip_Factory",
+        "location_cm": [
+          0.0,
+          0.0,
+          11.5
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet"
+        ],
+        "materials": {
+          "M_TacticalHatchet": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet"
+        },
+        "appearance": "黑色防滑握片包覆原装柄骨，保留铆钉与既有握持尺寸。"
+      },
+      "knife_grip_checkered": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripCheckered.SM_TacticalHatchet_GripCheckered",
+        "location_cm": [
+          0.0,
+          0.0,
+          11.5
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_GripCheckered"
+        ],
+        "materials": {
+          "M_TacticalHatchet_GripCheckered": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripCheckered.M_TacticalHatchet_GripCheckered"
+        },
+        "appearance": "石墨灰胶质握面布满细密棱纹，保留金属铆钉。"
+      },
+      "knife_grip_leather": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLeather.SM_TacticalHatchet_GripLeather",
+        "location_cm": [
+          0.0,
+          0.0,
+          11.5
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_GripLeather"
+        ],
+        "materials": {
+          "M_TacticalHatchet_GripLeather": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLeather.M_TacticalHatchet_GripLeather"
+        },
+        "appearance": "深栗色皮革斜向包覆握面，浅缝衔接原有轮廓。"
+      },
+      "knife_grip_laminate": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLaminate.SM_TacticalHatchet_GripLaminate",
+        "location_cm": [
+          0.0,
+          0.0,
+          11.5
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_GripLaminate"
+        ],
+        "materials": {
+          "M_TacticalHatchet_GripLaminate": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLaminate.M_TacticalHatchet_GripLaminate"
+        },
+        "appearance": "深浅木层形成流动纹理，表面呈细腻缎光。"
+      },
+      "hatchet_grip_long": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripLong.SM_TacticalHatchet_GripLong",
+        "location_cm": [
+          0,
+          0,
+          11.5
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          -8.0
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_GripLong"
+        ],
+        "materials": {
+          "M_TacticalHatchet_GripLong": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripLong.M_TacticalHatchet_GripLong"
+        },
+        "appearance": "加长碳钢芯骨衔接黑色棱纹握片，两道窄金属带环绕下段，保留原装上下接面。"
+      },
+      "hatchet_grip_agile": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_GripAgileHollowV2.SM_TacticalHatchet_GripAgileHollowV2",
+        "location_cm": [
+          0,
+          0,
+          11.5
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_GripAgileHollowV2"
+        ],
+        "materials": {
+          "M_TacticalHatchet_GripAgileHollowV2": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_GripAgileHollowV2.M_TacticalHatchet_GripAgileHollowV2"
+        },
+        "appearance": "长圆贯穿孔夹在连续金属侧框之间，银灰孔缘衔接黑色碳纤维握片，两端保留原装连接座与紧固件。"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Pommel_Factory.SM_TacticalHatchet_Pommel_Factory",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.75
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet"
+        ],
+        "materials": {
+          "M_TacticalHatchet": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet"
+        },
+        "appearance": "弧形原装柄尾衔接掌根，保留穿绳孔。"
+      },
+      "knife_pommel_steel": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelSteel.SM_TacticalHatchet_PommelSteel",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.75
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_PommelSteel"
+        ],
+        "materials": {
+          "M_TacticalHatchet_PommelSteel": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelSteel.M_TacticalHatchet_PommelSteel"
+        },
+        "appearance": "包钢尾座衔接银灰边缘，保留原有穿绳孔。"
+      },
+      "knife_pommel_faceted": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelFaceted.SM_TacticalHatchet_PommelFaceted",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.75
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_PommelFaceted"
+        ],
+        "materials": {
+          "M_TacticalHatchet_PommelFaceted": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelFaceted.M_TacticalHatchet_PommelFaceted"
+        },
+        "appearance": "古铜色尾座采用宽阔棱面，保留原有穿绳孔。"
+      },
+      "knife_pommel_ringed": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_PommelRinged.SM_TacticalHatchet_PommelRinged",
+        "location_cm": [
+          0.0,
+          0.0,
+          -7.75
+        ],
+        "material_slot_names": [
+          "M_TacticalHatchet_PommelRinged"
+        ],
+        "materials": {
+          "M_TacticalHatchet_PommelRinged": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_PommelRinged.M_TacticalHatchet_PommelRinged"
+        },
+        "appearance": "深灰尾座下沿环绕三道浅纹，银灰边缘清晰分层。"
+      }
+    },
+    "lanyard": {
+      "factory": {
+        "hidden": true,
+        "appearance": "无挂坠 · 保留柄尾穿绳孔"
+      },
+      "knife_lanyard_braid": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardBraid_FitV2.SM_TacticalHatchet_LanyardBraid_FitV2",
+        "location_cm": [
+          0.13412195086479184,
+          0,
+          -1.8265980792045593
+        ],
+        "appearance": "深橄榄色短绳呈交错编织纹理。",
+        "parent_slot": "pommel",
+        "guides_cm": [
+          [
+            0.09420221904292703,
+            -0.005048590537626296,
+            -1.7999999225139618
+          ],
+          [
+            0.10072342120110989,
+            0.008890864410204813,
+            -2.4000000208616257
+          ],
+          [
+            0.17122168792411685,
+            0.02245845244033262,
+            -2.9999999329447746
+          ],
+          [
+            0.4002045840024948,
+            0.008635769336251542,
+            -3.700000047683716
+          ],
+          [
+            1.0131246410310268,
+            -0.10299169225618243,
+            -4.500000178813934
+          ],
+          [
+            1.8710054457187653,
+            -0.4099693614989519,
+            -5.200000107288361
+          ],
+          [
+            2.7133047580718994,
+            -0.6967747583985329,
+            -5.799999833106995
+          ],
+          [
+            2.6858413591980934,
+            -0.8059915155172348,
+            -6.134095788002014
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -1.35,
+            0,
+            -0.55,
+            1.75,
+            0,
+            -0.55,
+            0.95
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_LanyardBraid_PhysicsV1",
+          "M_TacticalHatchet_PendantCord_FitV2"
+        ],
+        "materials": {
+          "M_Kukri_LanyardBraid_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardBraid_PhysicsV1.M_Kukri_LanyardBraid_PhysicsV1",
+          "M_TacticalHatchet_PendantCord_FitV2": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/M_TacticalHatchet_PendantCord_FitV2.M_TacticalHatchet_PendantCord_FitV2"
+        },
+        "physics": "SwordTasselMeshComponent: bounded gravity, inertia, damping and length constraints",
+        "mount_revision": "HatchetCordFitV2"
+      },
+      "knife_lanyard_tassel": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardTassel_FitV2.SM_TacticalHatchet_LanyardTassel_FitV2",
+        "location_cm": [
+          0.13412195086479184,
+          0,
+          -1.8265980792045593
+        ],
+        "appearance": "短绳连接古铜环，下垂四条短皮穗。",
+        "parent_slot": "pommel",
+        "guides_cm": [
+          [
+            0.06237968918867409,
+            0.059774843975901604,
+            -1.7999999225139618
+          ],
+          [
+            0.2547837560996413,
+            0.031101377680897713,
+            -2.3000000044703484
+          ],
+          [
+            0.9908656589686871,
+            -0.08793039596639574,
+            -2.800000086426735
+          ],
+          [
+            2.5707416236400604,
+            -0.656075868755579,
+            -3.400000184774399
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -3.9000000804662704
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -4.800000041723251
+          ],
+          [
+            2.830405905842781,
+            -0.7378362119197845,
+            -6.1000000685453415
+          ],
+          [
+            2.6766277849674225,
+            -0.7378362584859133,
+            -7.144417613744736
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          0.9,
+          0.65,
+          0.45,
+          0.8,
+          1,
+          1
+        ],
+        "collision_capsules_cm": [
+          [
+            -1.35,
+            0,
+            -0.55,
+            1.75,
+            0,
+            -0.55,
+            0.95
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 5.0,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_LanyardTassel_PhysicsV1",
+          "M_TacticalHatchet_PendantCord_FitV2"
+        ],
+        "materials": {
+          "M_Kukri_LanyardTassel_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTassel_PhysicsV1.M_Kukri_LanyardTassel_PhysicsV1",
+          "M_TacticalHatchet_PendantCord_FitV2": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/M_TacticalHatchet_PendantCord_FitV2.M_TacticalHatchet_PendantCord_FitV2"
+        },
+        "physics": "SwordTasselMeshComponent: bounded gravity, inertia, damping and length constraints",
+        "mount_revision": "HatchetCordFitV2"
+      },
+      "knife_lanyard_tag": {
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardTag_FitV2.SM_TacticalHatchet_LanyardTag_FitV2",
+        "location_cm": [
+          0.13412195086479184,
+          0,
+          -1.8265980792045593
+        ],
+        "appearance": "短绳与金属扣环连接方牌，两道细银纹装饰牌面。",
+        "parent_slot": "pommel",
+        "guides_cm": [
+          [
+            0.06237968918867409,
+            0.059774843975901604,
+            -1.7999999225139618
+          ],
+          [
+            0.2547837560996413,
+            0.031101377680897713,
+            -2.3000000044703484
+          ],
+          [
+            0.9908656589686871,
+            -0.08793039596639574,
+            -2.800000086426735
+          ],
+          [
+            2.5707416236400604,
+            -0.656075868755579,
+            -3.400000184774399
+          ],
+          [
+            2.7839824557304382,
+            -0.7378362584859133,
+            -3.9000000804662704
+          ],
+          [
+            2.743704989552498,
+            -0.7378362584859133,
+            -4.1999999433755875
+          ],
+          [
+            2.7660395950078964,
+            -0.7275934796780348,
+            -6.589999794960022
+          ],
+          [
+            2.7660395950078964,
+            -0.7275934796780348,
+            -6.700000166893005
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          1,
+          0.7,
+          0.45,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "collision_capsules_cm": [
+          [
+            -1.35,
+            0,
+            -0.55,
+            1.75,
+            0,
+            -0.55,
+            0.95
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 4.6,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.06,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_LanyardTag_PhysicsV1",
+          "M_TacticalHatchet_PendantCord_FitV2"
+        ],
+        "materials": {
+          "M_Kukri_LanyardTag_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTag_PhysicsV1.M_Kukri_LanyardTag_PhysicsV1",
+          "M_TacticalHatchet_PendantCord_FitV2": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/M_TacticalHatchet_PendantCord_FitV2.M_TacticalHatchet_PendantCord_FitV2"
+        },
+        "physics": "SwordTasselMeshComponent: bounded gravity, inertia, damping and length constraints",
+        "mount_revision": "HatchetCordFitV2"
+      }
+    },
+    "blade_2": {
+      "factory": {
+        "appearance": "保留原有斧面钢材，不添加额外符文。"
+      },
+      "knife_mark_wing": {
+        "appearance": "暖金色折翼纹样沿斧面展开。",
+        "surface_materials": {
+          "M_TacticalHatchet_Head_Factory_RuneCarrier": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RuneWing.MI_HatchetMark_Factory_RuneWing",
+          "M_TacticalHatchet_Head_SwiftCrescent_R4": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RuneWing.MI_HatchetMark_SwiftCrescent_RuneWing",
+          "M_TacticalHatchet_Head_HeavyCleaver_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RuneWing.MI_HatchetMark_HeavyCleaver_RuneWing",
+          "M_TacticalHatchet_Head_FoldedArc_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RuneWing.MI_HatchetMark_FoldedArc_RuneWing",
+          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RuneWing.MI_HatchetMark_FalconEdge_RuneWing"
+        }
+      },
+      "knife_mark_knot": {
+        "appearance": "银灰环结纹样交错排列，保留通透留白。",
+        "surface_materials": {
+          "M_TacticalHatchet_Head_Factory_RuneCarrier": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RuneKnot.MI_HatchetMark_Factory_RuneKnot",
+          "M_TacticalHatchet_Head_SwiftCrescent_R4": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RuneKnot.MI_HatchetMark_SwiftCrescent_RuneKnot",
+          "M_TacticalHatchet_Head_HeavyCleaver_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RuneKnot.MI_HatchetMark_HeavyCleaver_RuneKnot",
+          "M_TacticalHatchet_Head_FoldedArc_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RuneKnot.MI_HatchetMark_FoldedArc_RuneKnot",
+          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RuneKnot.MI_HatchetMark_FalconEdge_RuneKnot"
+        }
+      },
+      "knife_mark_peaks": {
+        "appearance": "深灰三峰纹样与小菱形印记点缀斧面。",
+        "surface_materials": {
+          "M_TacticalHatchet_Head_Factory_RuneCarrier": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RunePeaks.MI_HatchetMark_Factory_RunePeaks",
+          "M_TacticalHatchet_Head_SwiftCrescent_R4": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RunePeaks.MI_HatchetMark_SwiftCrescent_RunePeaks",
+          "M_TacticalHatchet_Head_HeavyCleaver_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RunePeaks.MI_HatchetMark_HeavyCleaver_RunePeaks",
+          "M_TacticalHatchet_Head_FoldedArc_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RunePeaks.MI_HatchetMark_FoldedArc_RunePeaks",
+          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RunePeaks.MI_HatchetMark_FalconEdge_RunePeaks"
+        }
+      }
+    }
+  },
+  "part_interface": "hatchet-factory-cuts-v1"
+}

@@ -1,0 +1,17 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_BaseColor.T_TacticalHatchet_Head_SwiftCrescent_R4_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_ORM.T_TacticalHatchet_Head_SwiftCrescent_R4_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_Normal.T_TacticalHatchet_Head_SwiftCrescent_R4_Normal",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.blade_1_axe_swift_crescent"
+  ],
+  "icons": [
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.blade_1_axe_swift_crescent"
+  ],
+  "mesh_reimported": false,
+  "material_graph_modified": false,
+  "runtime_tested": false,
+  "factory_material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+  "factory_textures": []
+}

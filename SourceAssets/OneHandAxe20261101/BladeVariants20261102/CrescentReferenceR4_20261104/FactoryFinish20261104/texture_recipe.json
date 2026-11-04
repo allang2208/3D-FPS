@@ -1,0 +1,62 @@
+{
+  "source": {
+    "target": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+    "source_mesh": "SM_TacticalHatchet_Head_Factory",
+    "factory_material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Textures\\source_image_01.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Textures\\source_image_02.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\Textures\\source_image_00.png"
+    },
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\ModulesV1\\TacticalHatchet_Modules_Editable.blend",
+    "geometry_modified": false,
+    "uv_modified": false,
+    "runtime_tested": false
+  },
+  "regions": {
+    "body": {
+      "swatch_pixels": [
+        1120,
+        1148,
+        1406,
+        1434
+      ],
+      "swatch_physical_m": [
+        0.03534488650418724,
+        0.03535616612035504
+      ],
+      "base_linear_mean": [
+        0.04375756159424782,
+        0.04519468545913696,
+        0.047156475484371185
+      ],
+      "roughness_mean": 0.4150645136833191,
+      "metallic_mean": 0.45793774724006653
+    },
+    "edge": {
+      "swatch_pixels": [
+        1544,
+        1152,
+        1646,
+        1254
+      ],
+      "swatch_physical_m": [
+        0.013116828371981262,
+        0.012616810504718246
+      ],
+      "base_linear_mean": [
+        0.48674649000167847,
+        0.486745148897171,
+        0.4865563213825226
+      ],
+      "roughness_mean": 0.41955697536468506,
+      "metallic_mean": 0.7759836316108704
+    }
+  },
+  "size": 2048,
+  "method": "actual factory PBR swatches at measured physical scale; periodic swatch boundary; original R4 edge mask",
+  "normal_convention": "OpenGL, converted through authored tangent frames; flip green once in UE",
+  "geometry_modified": false,
+  "uv_modified": false,
+  "runtime_tested": false
+}

@@ -13,8 +13,11 @@
 #include "Animation/AnimSequence.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "GameFramework/GameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundBase.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 
 // Heavy strike (skill heavyStrike, 2026-10-24) for the kukri: the reference jump melee #12 ↙ (BV1CeYUeSE7b 115.6-117.0 s;
 // SourceAssets/Kukri20261020/fit_heavy.py -> author_kukri_heavy.py, clips "HeavyCharge" 2.0 s and "HeavyRelease" 35/30 s).
@@ -29,6 +32,8 @@
 
 namespace
 {
+bool HeavyNetworkTrace()
+{static const bool Enabled=FParse::Param(FCommandLine::Get(),TEXT("KukriHeavyNetTrace"));return Enabled;}
 UColdSteelStatusModel* KukriHeavyProfile(const UWorld* World)
 {
     return World&&World->GetGameInstance()?World->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
@@ -65,6 +70,7 @@ void UKukriWeaponComponent::BeginHeavyCharge()
     HeavyRequiredSeconds=FMath::Max(.3f,float(ColdSteelMelee::HeavyChargeSeconds(*Item,Profile,bDualHeavy)));
     HeavyMultiplier=float(Profile->MasteryEffect(TEXT("heavyStrike")).HeavyMultiplier);
     HeavyChargeStartedAt=GetWorld()->GetTimeSeconds();
+    if(HeavyNetworkTrace())UE_LOG(LogTemp,Display,TEXT("KUKRI_HEAVY_NET owner_assets now=%.3f required=%.3f dual=%d arms=%d charge=%d release=%d dual_charge=%d dual_release=%d"),HeavyChargeStartedAt,HeavyRequiredSeconds,bDualHeavy,Viewmodel!=nullptr,Animations.FindRef(KukriHeavyRhythm::ChargeClip)!=nullptr,Animations.FindRef(KukriHeavyRhythm::ReleaseClip)!=nullptr,Animations.FindRef(KukriHeavyRhythm::DualChargeClip)!=nullptr,Animations.FindRef(KukriHeavyRhythm::DualReleaseClip)!=nullptr);
     bHeavyAuto=bHeavyFull=false;bQueued=false;
     SetHeavyCharging(true,false);
     SetClip(bDualHeavy?KukriHeavyRhythm::DualChargeClip:KukriHeavyRhythm::ChargeClip,false,KukriRhythm::EntryBlendSeconds);
@@ -89,7 +95,11 @@ void UKukriWeaponComponent::SetHeavyCharging(bool bCharging,bool bRelease)
     if(bHeavyCharging==bCharging)return;
     bHeavyCharging=bCharging;
     const auto* P=Pawn();
-    if(P&&P->IsLocallyControlled()&&!P->HasAuthority())ServerSetKukriHeavyCharge(InstanceId,bCharging,bRelease,bDualHeavy);
+    if(P&&P->IsLocallyControlled()&&!P->HasAuthority())
+    {
+        const auto* World=GetWorld();const auto* GS=World?World->GetGameState():nullptr;
+        ServerSetKukriHeavyCharge(InstanceId,bCharging,bRelease,bDualHeavy,GS?GS->GetServerWorldTimeSeconds():World->GetTimeSeconds());
+    }
 }
 
 void UKukriWeaponComponent::CancelHeavyCharge(bool bNotifyServer)
@@ -279,17 +289,25 @@ bool UKukriWeaponComponent::IsDualHeavyCharging() const
 
 // ----------------------------------------------------------------------------- authority (remote owner)
 
-void UKukriWeaponComponent::ServerSetKukriHeavyCharge_Implementation(const FString& Weapon,bool bCharging,bool bRelease,bool BothBlades)
+void UKukriWeaponComponent::ServerSetKukriHeavyCharge_Implementation(const FString& Weapon,bool bCharging,bool bRelease,bool BothBlades,double ClientStartedAt)
 {
     auto* P=Pawn();
     if(!P||!P->HasAuthority()||P->IsLocallyControlled()||!GetWorld())return;
     if(!bCharging)
     {
+        if(Weapon!=ServerHeavyWeapon)return;
+        if(HeavyNetworkTrace())UE_LOG(LogTemp,Display,TEXT("KUKRI_HEAVY_NET stop now=%.3f release=%d charging=%d started=%.3f expected=%s actual=%s"),GetWorld()->GetTimeSeconds(),bRelease,bServerHeavyCharging,ServerHeavyStartedAt,*ServerHeavyWeapon,*Weapon);
         // Only a real release after a long enough hold bills the release and opens the receipt; a cancel or a click does not.
         if(bRelease&&Weapon==ServerHeavyWeapon)PayServerHeavyRelease();
         bServerHeavyCharging=false;ServerHeavyStartedAt=-1.;
         return;
     }
+    const double Now=GetWorld()->GetTimeSeconds();
+    // Match the ordinary attack's bounded server-clock domain. Arrival-time
+    // subtraction loses honest charge time when only the begin packet is delayed.
+    // A duplicate begin cannot restart, backdate or replace an active charge.
+    if(bServerHeavyCharging||!FMath::IsFinite(ClientStartedAt)||ClientStartedAt<=0.||
+        ClientStartedAt>Now+.1||Now-ClientStartedAt>.9||ClientStartedAt<=ServerHeavyLastStartedAt)return;
     auto* Model=ColdSteelAuthority::ForPawn(P);
     const auto* Item=Model?Model->Equipped():nullptr;
     const auto* Off=BothBlades?ColdSteelMelee::PairedOneHandedWeapon(Item,Model):nullptr;
@@ -297,18 +315,21 @@ void UKukriWeaponComponent::ServerSetKukriHeavyCharge_Implementation(const FStri
         Model->MasteryProgress(TEXT("heavyStrike")).Level<1||Model->Stamina()<=0.f||
         (BothBlades&&!Off)||!Model->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Item,Model,BothBlades))||UBoundCongregateCaptureComponent::IsCaptured(P))
     {
+        if(HeavyNetworkTrace())UE_LOG(LogTemp,Display,TEXT("KUKRI_HEAVY_NET start_denied now=%.3f expected=%s actual=%s off=%s stamina=%.2f"),GetWorld()->GetTimeSeconds(),*Weapon,Item?*Item->InstanceId:TEXT("none"),Off?*Off->InstanceId:TEXT("none"),Model?Model->Stamina():-1.);
         bServerHeavyCharging=false;ServerHeavyStartedAt=-1.;
         ClientCancelKukriHeavyCharge(Weapon);return;
     }
     // The shadow profile's stamina tick bills the charge at the owner's rate (FPSStaminaModel, IsHeavyCharging).
     if(!bServerHeavyCharging)
     {
-        ServerHeavyStartedAt=GetWorld()->GetTimeSeconds();
+        ServerHeavyStartedAt=FMath::Min(ClientStartedAt,Now);
+        ServerHeavyLastStartedAt=ClientStartedAt;ServerHeavyReceivedAt=Now;
         ServerHeavyRequired=FMath::Max(.3,ColdSteelMelee::HeavyChargeSeconds(*Item,Model,BothBlades));
         ServerHeavyOffhandWeapon=Off?Off->InstanceId:FString();
         NetworkHeavyReleaseUntil=-1.;
     }
     bServerHeavyCharging=true;ServerHeavyWeapon=Weapon;
+    if(HeavyNetworkTrace())UE_LOG(LogTemp,Display,TEXT("KUKRI_HEAVY_NET start now=%.3f started=%.3f required=%.3f pair=%s stamina=%.2f animation_count=%d release_clip_loaded=%d"),GetWorld()->GetTimeSeconds(),ServerHeavyStartedAt,ServerHeavyRequired,*ServerHeavyOffhandWeapon,Model->Stamina(),Animations.Num(),Animations.FindRef(BothBlades?KukriHeavyRhythm::DualReleaseClip:KukriHeavyRhythm::ReleaseClip)!=nullptr);
 }
 
 bool UKukriWeaponComponent::PayServerHeavyRelease()
@@ -316,18 +337,29 @@ bool UKukriWeaponComponent::PayServerHeavyRelease()
     if(!GetWorld())return false;
     const double Now=GetWorld()->GetTimeSeconds();
     // Network latency may hide a few frames of an honest full charge; the tolerance never lets a click through.
-    if(!bServerHeavyCharging||ServerHeavyStartedAt<0.||Now-ServerHeavyStartedAt<FMath::Max(.1,ServerHeavyRequired-.15))return false;
-    bServerHeavyCharging=false;ServerHeavyStartedAt=-1.;
+    if(!bServerHeavyCharging||ServerHeavyStartedAt<0.||Now-ServerHeavyStartedAt<FMath::Max(.1,ServerHeavyRequired-.15))
+    {
+        if(HeavyNetworkTrace())UE_LOG(LogTemp,Display,TEXT("KUKRI_HEAVY_NET release_denied charging=%d now=%.3f started=%.3f held=%.3f required=%.3f until=%.3f"),bServerHeavyCharging,Now,ServerHeavyStartedAt,Now-ServerHeavyStartedAt,ServerHeavyRequired,NetworkHeavyReleaseUntil);
+        return false;
+    }
     auto* Model=ColdSteelAuthority::ForPawn(Pawn());
+    // FPSStaminaModel bills only after receipt. On a successful full charge,
+    // also pay the portion of the required hold hidden by delayed delivery.
+    // Do not bill network transit for a cancelled charge / ordinary click.
+    const double UnbilledSeconds=ServerHeavyReceivedAt>=0.?FMath::Max(0.,
+        FMath::Min(ServerHeavyRequired,Now-ServerHeavyStartedAt)-(Now-ServerHeavyReceivedAt)):0.;
+    const double Catchup=Model?UnbilledSeconds*Model->HeavyChargeStaminaPerSecond():0.;
+    bServerHeavyCharging=false;ServerHeavyStartedAt=-1.;
     const auto* Item=Model?Model->Equipped():nullptr;
     if(!Item||Item->InstanceId!=ServerHeavyWeapon)return false;
     const bool BothBlades=!ServerHeavyOffhandWeapon.IsEmpty();
     const auto* Off=BothBlades?ColdSteelMelee::PairedOneHandedWeapon(Item,Model):nullptr;
     if(BothBlades&&(!Off||Off->InstanceId!=ServerHeavyOffhandWeapon)){ClientCancelKukriHeavyCharge(ServerHeavyWeapon);return false;}
-    const double Cost=ColdSteelMelee::HeavyReleaseStamina(Item,Model,BothBlades);
+    const double Cost=ColdSteelMelee::HeavyReleaseStamina(Item,Model,BothBlades)+Catchup;
     if(!Model->CanSpendStamina(Cost)){ClientCancelKukriHeavyCharge(ServerHeavyWeapon);return false;}
     Model->SpendStamina(Cost);
     NetworkHeavyReleaseUntil=Now+KukriHeavyRhythm::ReleaseWindowSeconds;
+    if(HeavyNetworkTrace())UE_LOG(LogTemp,Display,TEXT("KUKRI_HEAVY_NET paid now=%.3f cost=%.2f catchup=%.3f pair=%s until=%.3f"),Now,Cost,Catchup,*ServerHeavyOffhandWeapon,NetworkHeavyReleaseUntil);
     return true;
 }
 
@@ -355,6 +387,7 @@ void UKukriWeaponComponent::TickServerHeavyCharge()
     if(!P||!Item||Item->InstanceId!=ServerHeavyWeapon||Model->Stamina()<=0.f||UBoundCongregateCaptureComponent::IsCaptured(P)||
         (!ServerHeavyOffhandWeapon.IsEmpty()&&(!Off||Off->InstanceId!=ServerHeavyOffhandWeapon)))
     {
+        if(HeavyNetworkTrace())UE_LOG(LogTemp,Display,TEXT("KUKRI_HEAVY_NET cancel now=%.3f expected=%s actual=%s off_expected=%s off_actual=%s stamina=%.2f"),GetWorld()->GetTimeSeconds(),*ServerHeavyWeapon,Item?*Item->InstanceId:TEXT("none"),*ServerHeavyOffhandWeapon,Off?*Off->InstanceId:TEXT("none"),Model?Model->Stamina():-1.);
         bServerHeavyCharging=false;ServerHeavyStartedAt=-1.;
         ClientCancelKukriHeavyCharge(ServerHeavyWeapon);
     }

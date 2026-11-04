@@ -1,0 +1,42 @@
+{
+  "id": "axe_folded_arc",
+  "name": "百炼弧锋斧刃",
+  "kind": "FoldedArc",
+  "slot": "blade_1",
+  "object": "SM_TacticalHatchet_Head_FoldedArc_R5",
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R5.SM_TacticalHatchet_Head_FoldedArc_R5",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\Geometry\\FoldedArc_Editable.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\Export\\SM_TacticalHatchet_Head_FoldedArc_R5.fbx",
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\FoldedArc\\Textures\\T_TacticalHatchet_Head_FoldedArc_R5_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\FoldedArc\\Textures\\T_TacticalHatchet_Head_FoldedArc_R5_ORM.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\ContinuousBladesR5_20261104\\FoldedArc\\Textures\\T_TacticalHatchet_Head_FoldedArc_R5_Normal.png"
+  },
+  "origin_cm": [
+    0,
+    0,
+    0
+  ],
+  "model_revision": "continuous_forged_r5_20261104",
+  "material_revision": "factory_finish_20261104",
+  "material_slot": "M_TacticalHatchet_Head_FoldedArc_R5",
+  "trace_base_cm": [
+    10.599999874830246,
+    -0.06362,
+    17.59999990463257
+  ],
+  "trace_tip_cm": [
+    15.899999439716339,
+    -0.06362,
+    31.49999976158142
+  ],
+  "geometry": {
+    "triangles": 39702,
+    "stock_interface_z_cm": 11.5,
+    "loft_sections": 16,
+    "shoulder_thickness_mm": 18.0,
+    "blade_support_thickness_mm": 8.6,
+    "cutting_edge_thickness_mm": 0.6,
+    "grind_profile": "continuous convex sine profile"
+  }
+}

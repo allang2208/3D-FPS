@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_BaseColor.T_TacticalHatchet_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_Normal.T_TacticalHatchet_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_MetalRough.T_TacticalHatchet_MetalRough",
+    "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+    "/Game/Weapons/TacticalHatchet20261101/SM_TacticalHatchet.SM_TacticalHatchet"
+  ],
+  "runtime_tested": false,
+  "bounds_cm": {
+    "min": [
+      -4.575973987579346,
+      -1.6568487882614136,
+      -11.059743881225586
+    ],
+    "max": [
+      16.350360870361328,
+      1.5296133756637573,
+      30.940256118774414
+    ]
+  },
+  "tangent_basis_authored": true,
+  "normal_correction_saved": true,
+  "inventory_icon_pipeline": "ColdSteelWeaponIconCatalog",
+  "material_icon_fix_receipt": "MaterialIconFix/delivery.json"
+}

@@ -1,0 +1,12 @@
+{
+  "generator": "built-in image_gen",
+  "generated_file": "C:/Users/allan/.codex/generated_images/01a195a9-36a2-73c3-b35d-e1ea19859acf/exec-2c7ed0c4-06e2-473c-ac01-6bce3324315c.png",
+  "saved_file": "Icons/ue_tactical_hatchet_blade_1_hatchet_falcon_edge.png",
+  "frame_reference": "D:/FPS3D/FPSGAME/SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+  "model_reference": "IconInputs/hatchet_falcon_edge.png",
+  "model_source": "TacticalHatchet_FalconEdge_Editable.blend",
+  "prompt": "icon_prompt.txt",
+  "copy_without_postprocessing": true,
+  "purpose": "grayscale modification icon with opaque frame interior and narrow transparent outer border",
+  "runtime_tested": false
+}

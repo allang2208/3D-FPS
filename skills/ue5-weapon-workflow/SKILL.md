@@ -50,3 +50,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 雷神之锤、贯雷留场召回、疾雷及多改造攻击入口：读取[雷神之锤、贯雷留场召回、疾雷及多改造攻击入口](references/thunder-hammer-lifecycle.md)。
 
 - M24、PKM、LMG201 的支撑判定、镜头限位与展开／收架交接，读取 [共用脚架部署](references/shared-bipod-deployment.md)；保持显示约束与权威资格分离。
+
+- 单手斧拆分、连续刃厚、原厂 PBR、图标留白与斧面符文：[单手斧模块与符文](references/hatchet-modules-and-runes.md)。

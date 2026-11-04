@@ -1,0 +1,441 @@
+{
+	"checks": [
+		{
+			"case": "catalog penetration",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "catalog toughness",
+			"pass": true,
+			"actual": 1.2,
+			"expected": 1.2
+		},
+		{
+			"case": "no speed bonus",
+			"pass": true,
+			"actual": 0.8250000141915822,
+			"expected": 0.8250000141915822
+		},
+		{
+			"case": "no raw physical damage penalty or bonus",
+			"pass": true,
+			"actual": 100,
+			"expected": 100
+		},
+		{
+			"case": "standard reach",
+			"pass": true,
+			"actual": 220,
+			"expected": 220
+		},
+		{
+			"case": "ordinary attack cost",
+			"pass": true,
+			"actual": 11.5,
+			"expected": 11.5
+		},
+		{
+			"case": "heavy release cost",
+			"pass": true,
+			"actual": 11.5,
+			"expected": 11.5
+		},
+		{
+			"case": "heavy charge drain",
+			"pass": true,
+			"actual": 2.2999999523162842,
+			"expected": 2.2999999999999998
+		},
+		{
+			"case": "quick combat toughness",
+			"pass": true,
+			"actual": 1.2000000476837158,
+			"expected": 1.2
+		},
+		{
+			"case": "quick combat cost",
+			"pass": true,
+			"actual": 17.25,
+			"expected": 17.25
+		},
+		{
+			"case": "whirlwind cost",
+			"pass": true,
+			"actual": 24.149999618530273,
+			"expected": 24.149999999999999
+		},
+		{
+			"case": "uppercut cost",
+			"pass": true,
+			"actual": 28.75,
+			"expected": 28.749999999999996
+		},
+		{
+			"case": "breaker special tier",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "long special tier",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "axe exclusive option",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "long reach retained",
+			"pass": true,
+			"actual": 275,
+			"expected": 275
+		},
+		{
+			"case": "long damage retained",
+			"pass": true,
+			"actual": 1.1000000000000001,
+			"expected": 1.1000000000000001
+		},
+		{
+			"case": "long speed retained",
+			"pass": true,
+			"actual": 0.94999999999999996,
+			"expected": 0.94999999999999996
+		},
+		{
+			"case": "long cost retained",
+			"pass": true,
+			"actual": 1.1000000000000001,
+			"expected": 1.1000000000000001
+		},
+		{
+			"case": "ue_m1911 slot6 offhand quick toughness",
+			"pass": true,
+			"actual": 1.2000000476837158,
+			"expected": 1.2
+		},
+		{
+			"case": "ue_m1911 slot6 offhand quick cost",
+			"pass": true,
+			"actual": 17.25,
+			"expected": 17.25
+		},
+		{
+			"case": "ue_m1911 slot6 offhand penetration snapshot",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "ue_m1911 slot6 main hand does not borrow penetration",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "ue_m1911 slot9 offhand quick toughness",
+			"pass": true,
+			"actual": 1.2000000476837158,
+			"expected": 1.2
+		},
+		{
+			"case": "ue_m1911 slot9 offhand quick cost",
+			"pass": true,
+			"actual": 17.25,
+			"expected": 17.25
+		},
+		{
+			"case": "ue_m1911 slot9 offhand penetration snapshot",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "ue_m1911 slot9 main hand does not borrow penetration",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "ue_apprentice_staff slot6 offhand quick toughness",
+			"pass": true,
+			"actual": 1.2000000476837158,
+			"expected": 1.2
+		},
+		{
+			"case": "ue_apprentice_staff slot6 offhand quick cost",
+			"pass": true,
+			"actual": 17.25,
+			"expected": 17.25
+		},
+		{
+			"case": "ue_apprentice_staff slot6 offhand penetration snapshot",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "ue_apprentice_staff slot6 main hand does not borrow penetration",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "ue_apprentice_staff slot9 offhand quick toughness",
+			"pass": true,
+			"actual": 1.2000000476837158,
+			"expected": 1.2
+		},
+		{
+			"case": "ue_apprentice_staff slot9 offhand quick cost",
+			"pass": true,
+			"actual": 17.25,
+			"expected": 17.25
+		},
+		{
+			"case": "ue_apprentice_staff slot9 offhand penetration snapshot",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "ue_apprentice_staff slot9 main hand does not borrow penetration",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "armored target fixture",
+			"pass": true,
+			"actual": 12,
+			"expected": 0
+		},
+		{
+			"case": "dual mask0 main penetration",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask0 off penetration",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask0 equal physical contributions",
+			"pass": true,
+			"actual": 100,
+			"expected": 100
+		},
+		{
+			"case": "dual mask0 weighted toughness once",
+			"pass": true,
+			"actual": 1,
+			"expected": 1
+		},
+		{
+			"case": "dual mask0 actual hit transaction resolved",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask0 combined damage not duplicated",
+			"pass": true,
+			"actual": 1000,
+			"expected": 1000
+		},
+		{
+			"case": "dual mask0 per-blade armor settlement",
+			"pass": true,
+			"actual": 832,
+			"expected": 832
+		},
+		{
+			"case": "dual mask0 nonzero actual toughness",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask0 actual weighted toughness",
+			"pass": true,
+			"actual": 832,
+			"expected": 832
+		},
+		{
+			"case": "dual mask1 main penetration",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "dual mask1 off penetration",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask1 equal physical contributions",
+			"pass": true,
+			"actual": 100,
+			"expected": 100
+		},
+		{
+			"case": "dual mask1 weighted toughness once",
+			"pass": true,
+			"actual": 1.1000000238418579,
+			"expected": 1.1000000000000001
+		},
+		{
+			"case": "dual mask1 actual hit transaction resolved",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask1 combined damage not duplicated",
+			"pass": true,
+			"actual": 1000,
+			"expected": 1000
+		},
+		{
+			"case": "dual mask1 per-blade armor settlement",
+			"pass": true,
+			"actual": 850,
+			"expected": 850
+		},
+		{
+			"case": "dual mask1 nonzero actual toughness",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask1 actual weighted toughness",
+			"pass": true,
+			"actual": 935,
+			"expected": 935.00002026557922
+		},
+		{
+			"case": "dual mask2 main penetration",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask2 off penetration",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "dual mask2 equal physical contributions",
+			"pass": true,
+			"actual": 100,
+			"expected": 100
+		},
+		{
+			"case": "dual mask2 weighted toughness once",
+			"pass": true,
+			"actual": 1.1000000238418579,
+			"expected": 1.1000000000000001
+		},
+		{
+			"case": "dual mask2 actual hit transaction resolved",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask2 combined damage not duplicated",
+			"pass": true,
+			"actual": 1000,
+			"expected": 1000
+		},
+		{
+			"case": "dual mask2 per-blade armor settlement",
+			"pass": true,
+			"actual": 850,
+			"expected": 850
+		},
+		{
+			"case": "dual mask2 nonzero actual toughness",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask2 actual weighted toughness",
+			"pass": true,
+			"actual": 935,
+			"expected": 935.00002026557922
+		},
+		{
+			"case": "dual mask3 main penetration",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "dual mask3 off penetration",
+			"pass": true,
+			"actual": 0.25,
+			"expected": 0.25
+		},
+		{
+			"case": "dual mask3 equal physical contributions",
+			"pass": true,
+			"actual": 100,
+			"expected": 100
+		},
+		{
+			"case": "dual mask3 weighted toughness once",
+			"pass": true,
+			"actual": 1.2000000476837158,
+			"expected": 1.2
+		},
+		{
+			"case": "dual mask3 actual hit transaction resolved",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask3 combined damage not duplicated",
+			"pass": true,
+			"actual": 1000,
+			"expected": 1000
+		},
+		{
+			"case": "dual mask3 per-blade armor settlement",
+			"pass": true,
+			"actual": 868,
+			"expected": 868
+		},
+		{
+			"case": "dual mask3 nonzero actual toughness",
+			"pass": true,
+			"actual": 0,
+			"expected": 0
+		},
+		{
+			"case": "dual mask3 actual weighted toughness",
+			"pass": true,
+			"actual": 1041.60009765625,
+			"expected": 1041.6000413894653
+		}
+	],
+	"failures": 0,
+	"count": 72,
+	"isolated_profile": "SkillNetworkAudit_HatchetGrip_18CEB5F74E3D904925D17EABA0059202",
+	"gameplay_started": false,
+	"real_network_transport_tested": false
+}

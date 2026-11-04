@@ -1,0 +1,9 @@
+{
+  "target": "FPSGAMEEditor Win64 Development",
+  "exit_code": 0,
+  "log": "build-editor-retry.log",
+  "first_attempt_exit_code": 6,
+  "recovery": "Incremental rebuild after concurrent RuneSword declarations reached the current header; no edits to those files",
+  "artifact": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+  "artifact_modified": "2026-11-02T23:13:09.031629+08:00"
+}

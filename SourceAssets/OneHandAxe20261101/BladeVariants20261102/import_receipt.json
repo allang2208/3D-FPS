@@ -1,0 +1,95 @@
+{
+  "complete": true,
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_BaseColor.T_TacticalHatchet_Head_SwiftCrescent_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_ORM.T_TacticalHatchet_Head_SwiftCrescent_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_Normal.T_TacticalHatchet_Head_SwiftCrescent_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent.M_TacticalHatchet_Head_SwiftCrescent",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent.SM_TacticalHatchet_Head_SwiftCrescent",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_BaseColor.T_TacticalHatchet_Head_HeavyCleaver_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_ORM.T_TacticalHatchet_Head_HeavyCleaver_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_Normal.T_TacticalHatchet_Head_HeavyCleaver_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver.M_TacticalHatchet_Head_HeavyCleaver",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver.SM_TacticalHatchet_Head_HeavyCleaver",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_BaseColor.T_TacticalHatchet_Head_FoldedArc_BaseColor",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_ORM.T_TacticalHatchet_Head_FoldedArc_ORM",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_Normal.T_TacticalHatchet_Head_FoldedArc_Normal",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc.M_TacticalHatchet_Head_FoldedArc",
+    "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc.SM_TacticalHatchet_Head_FoldedArc"
+  ],
+  "parts": [
+    {
+      "slot": "blade_1",
+      "id": "axe_swift_crescent",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent.SM_TacticalHatchet_Head_SwiftCrescent",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent.M_TacticalHatchet_Head_SwiftCrescent",
+      "material_slot_names": [
+        "M_TacticalHatchet_Head_SwiftCrescent"
+      ],
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "trace_base_cm": [
+        13.599306106567383,
+        -0.004395199008285999,
+        20.601558685302734
+      ],
+      "trace_tip_cm": [
+        15.004870414733887,
+        -0.015268798917531967,
+        27.172103881835938
+      ]
+    },
+    {
+      "slot": "blade_1",
+      "id": "axe_heavy_cleaver",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver.SM_TacticalHatchet_Head_HeavyCleaver",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver.M_TacticalHatchet_Head_HeavyCleaver",
+      "material_slot_names": [
+        "M_TacticalHatchet_Head_HeavyCleaver"
+      ],
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "trace_base_cm": [
+        14.321056365966797,
+        0.007691598031669855,
+        20.133567810058594
+      ],
+      "trace_tip_cm": [
+        18.148900985717773,
+        0.026720400899648666,
+        27.011363983154297
+      ]
+    },
+    {
+      "slot": "blade_1",
+      "id": "axe_folded_arc",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc.SM_TacticalHatchet_Head_FoldedArc",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc.M_TacticalHatchet_Head_FoldedArc",
+      "material_slot_names": [
+        "M_TacticalHatchet_Head_FoldedArc"
+      ],
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "trace_base_cm": [
+        13.991353034973145,
+        0.0014650662196800113,
+        20.193069458007812
+      ],
+      "trace_tip_cm": [
+        16.75035858154297,
+        0.00508960010483861,
+        27.027788162231445
+      ]
+    }
+  ],
+  "runtime_tested": false
+}

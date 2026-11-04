@@ -1,0 +1,17 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/HatchetRuneWireAudit.h
+@@ -0,0 +1,14 @@
++#pragma once
++#include "CoreMinimal.h"
++class AFPSGAMECharacter;
++class UColdSteelStatusModel;
++struct FColdSteelProfile;
++
++// Opt-in payload for the existing seven-phase equipment UDP/reconnect fixture.
++namespace HatchetRuneWire
++{
++bool Enabled();
++FColdSteelProfile Seed(UColdSteelStatusModel* Model,bool Host);
++void Select(FColdSteelProfile& State,int32 Phase,bool Host);
++bool Check(AFPSGAMECharacter* Pawn,int32 Phase,bool Host,FString& Details);
++}

@@ -1,0 +1,76 @@
+{
+  "base": "d7bea973586df8012e15680e8eb3355d8752e1e9",
+  "selected_paths": 307,
+  "python_ast_and_json_parse": "passed",
+  "credential_pattern_scan": "passed",
+  "binary_assets_uploaded": false,
+  "largest_new_file_limit_bytes": 5242880,
+  "diff_check_exit": 0,
+  "new_game_tests": false,
+  "new_ue_build": false,
+  "isolated_index": true,
+  "powershell_syntax": {
+    "scripts": 21,
+    "errors": []
+  },
+  "json_duplicate_keys": [],
+  "relative_document_links": {
+    "count": 55,
+    "missing": [],
+    "local_only_hyperlinks": []
+  },
+  "integration_patch_apply_check": [
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__HatchetRuneWireAudit.cpp.patch",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__HatchetRuneWireAudit.h.patch",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__KukriCombatWireAudit.cpp.patch",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Development__KukriCombatWireAudit.h.patch",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriHeavyClockAudit.cpp.patch",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriNetworkAuditCommandlet.cpp.patch",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__Multiplayer__KukriNetworkAuditCommandlet.h.patch",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__UI__ColdSteelInventoryWidget.cpp.patch",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "path": "Docs/Publication/Hatchet20261104/Integration/Source__FPSGAME__UI__ColdSteelWeaponIconReadback.cpp.patch",
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "local_asset_reference_count": 56,
+  "local_asset_references_present": true,
+  "review_scope": "Publication syntax/content/scope review only; no engine build, gameplay run, asset import or new runtime acceptance",
+  "shared_staged_paths_before": 238,
+  "shared_staged_paths_in_publication": 0,
+  "license": "No asset binaries or unapproved original sources uploaded",
+  "git_transport": "One-shot HTTP/1.1 + OpenSSL backend after schannel handshake failure; certificate verification retained"
+}

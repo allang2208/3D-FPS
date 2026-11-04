@@ -1,0 +1,24 @@
+{
+  "complete": true,
+  "slot": "blade_2",
+  "label": "斧面符文",
+  "rune_ids": [
+    "knife_mark_wing",
+    "knife_mark_knot",
+    "knife_mark_peaks"
+  ],
+  "head_ids": [
+    "factory",
+    "axe_swift_crescent",
+    "axe_heavy_cleaver",
+    "axe_folded_arc",
+    "hatchet_falcon_edge"
+  ],
+  "saved_asset_count": 36,
+  "shared_stats_and_icons_reused": true,
+  "native_code_changed": false,
+  "runtime_tested": false,
+  "editor_ui_started": false,
+  "projection": "isometric local centimetres; per-head UV0; same orientation from either side",
+  "scope": "head body only; factory head unique material slot excludes grip and pommel"
+}

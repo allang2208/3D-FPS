@@ -1,0 +1,17 @@
+[
+  {
+    "id": "axe_swift_crescent",
+    "key": "blade_1_axe_swift_crescent",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\Icons\\blade_1_axe_swift_crescent.png",
+    "model": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+    "scene": "D:\\FPS3D\\FPSGAME\\SourceAssets\\OneHandAxe20261101\\BladeVariants20261102\\CrescentReferenceR4_20261104\\SwiftCrescent_Icon.blend",
+    "method": "direct actual mesh render; modeled metal frame; no concept image",
+    "camera": "+Y orthographic, +Z up, +X cutting edge left",
+    "subject_radius": 0.332,
+    "ring_inner_radius": 0.371,
+    "material_revision": "factory_finish_20261104",
+    "deployed_pngs": [
+      "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\blade_1_axe_swift_crescent.png"
+    ]
+  }
+]

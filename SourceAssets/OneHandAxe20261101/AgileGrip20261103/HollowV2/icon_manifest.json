@@ -1,0 +1,12 @@
+{
+  "generator": "built-in image_gen",
+  "source_model": "TacticalHatchet_GripAgile_HollowV2_Editable.blend",
+  "model_input": "IconInputs/hatchet_grip_agile.png",
+  "frame_reference": "D:/FPS3D/FPSGAME/SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+  "generated_file": "C:/Users/allan/.codex/generated_images/01a195a9-36a2-73c3-b35d-e1ea19859acf/exec-22f5eecb-f0d5-4cfd-b9bf-e9dde27f6ed1.png",
+  "saved_file": "Icons/ue_tactical_hatchet_grip_hatchet_grip_agile.png",
+  "prompt_file": "icon_prompt.txt",
+  "copy_without_postprocessing": true,
+  "first_request": "Service rejected the initial prompt as violence. A second request explicitly clarified the fictional game UI context and succeeded.",
+  "runtime_tested": false
+}

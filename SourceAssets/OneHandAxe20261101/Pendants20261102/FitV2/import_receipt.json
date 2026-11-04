@@ -1,0 +1,63 @@
+{
+  "complete": true,
+  "saved_assets": [
+    "/Game/Weapons/TacticalHatchet20261101/PendantsV2/M_TacticalHatchet_PendantCord_FitV2.M_TacticalHatchet_PendantCord_FitV2",
+    "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardBraid_FitV2.SM_TacticalHatchet_LanyardBraid_FitV2",
+    "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardTassel_FitV2.SM_TacticalHatchet_LanyardTassel_FitV2",
+    "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardTag_FitV2.SM_TacticalHatchet_LanyardTag_FitV2"
+  ],
+  "parts": [
+    {
+      "id": "knife_lanyard_braid",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardBraid_FitV2.SM_TacticalHatchet_LanyardBraid_FitV2",
+      "location_cm": [
+        0.13412195086479184,
+        0,
+        -1.8265980792045593
+      ],
+      "material_slot_names": [
+        "M_Kukri_LanyardBraid_PhysicsV1",
+        "M_TacticalHatchet_PendantCord_FitV2"
+      ],
+      "materials": {
+        "M_Kukri_LanyardBraid_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardBraid_PhysicsV1.M_Kukri_LanyardBraid_PhysicsV1",
+        "M_TacticalHatchet_PendantCord_FitV2": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/M_TacticalHatchet_PendantCord_FitV2.M_TacticalHatchet_PendantCord_FitV2"
+      }
+    },
+    {
+      "id": "knife_lanyard_tassel",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardTassel_FitV2.SM_TacticalHatchet_LanyardTassel_FitV2",
+      "location_cm": [
+        0.13412195086479184,
+        0,
+        -1.8265980792045593
+      ],
+      "material_slot_names": [
+        "M_Kukri_LanyardTassel_PhysicsV1",
+        "M_TacticalHatchet_PendantCord_FitV2"
+      ],
+      "materials": {
+        "M_Kukri_LanyardTassel_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTassel_PhysicsV1.M_Kukri_LanyardTassel_PhysicsV1",
+        "M_TacticalHatchet_PendantCord_FitV2": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/M_TacticalHatchet_PendantCord_FitV2.M_TacticalHatchet_PendantCord_FitV2"
+      }
+    },
+    {
+      "id": "knife_lanyard_tag",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/SM_TacticalHatchet_LanyardTag_FitV2.SM_TacticalHatchet_LanyardTag_FitV2",
+      "location_cm": [
+        0.13412195086479184,
+        0,
+        -1.8265980792045593
+      ],
+      "material_slot_names": [
+        "M_Kukri_LanyardTag_PhysicsV1",
+        "M_TacticalHatchet_PendantCord_FitV2"
+      ],
+      "materials": {
+        "M_Kukri_LanyardTag_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTag_PhysicsV1.M_Kukri_LanyardTag_PhysicsV1",
+        "M_TacticalHatchet_PendantCord_FitV2": "/Game/Weapons/TacticalHatchet20261101/PendantsV2/M_TacticalHatchet_PendantCord_FitV2.M_TacticalHatchet_PendantCord_FitV2"
+      }
+    }
+  ],
+  "gameplay_tested": false
+}

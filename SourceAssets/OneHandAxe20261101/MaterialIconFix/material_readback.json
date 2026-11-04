@@ -1,0 +1,161 @@
+{
+  "mesh": "/Game/Weapons/TacticalHatchet20261101/SM_TacticalHatchet.SM_TacticalHatchet",
+  "slots": [
+    {
+      "slot": "M_TacticalHatchet",
+      "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet"
+    }
+  ],
+  "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+  "properties": {
+    "two_sided": "True",
+    "used_with_nanite": "True",
+    "used_with_skeletal_mesh": "False",
+    "tangent_space_normal": "True",
+    "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "textures": {
+    "BaseColor": {
+      "path": "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_BaseColor.T_TacticalHatchet_BaseColor",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": "True",
+      "compression_settings": "<TextureCompressionSettings.TC_BC7: 11>",
+      "flip_green_channel": "False",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WEAPON: 6>",
+      "never_stream": "False"
+    },
+    "Normal": {
+      "path": "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_Normal.T_TacticalHatchet_Normal",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": "False",
+      "compression_settings": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "flip_green_channel": "True",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WEAPON_NORMAL_MAP: 7>",
+      "never_stream": "False"
+    },
+    "MetalRough": {
+      "path": "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_MetalRough.T_TacticalHatchet_MetalRough",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": "False",
+      "compression_settings": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "flip_green_channel": "False",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WEAPON: 6>",
+      "never_stream": "False"
+    }
+  },
+  "graph": {
+    "MaterialExpressionSubstrateShadingModels_1": {
+      "class": "MaterialExpressionSubstrateShadingModels",
+      "pins": [
+        "BaseColor",
+        "Metallic",
+        "Specular",
+        "Roughness",
+        "Anisotropy",
+        "Emissive Color",
+        "Normal",
+        "Tangent",
+        "Subsurface Color",
+        "Unused",
+        "Unused",
+        "Opacity",
+        "Thin Translucent Transmittance Color",
+        "Water Scattering Coefficients",
+        "Water Absorption Coefficients",
+        "Water Phase G",
+        "Color Scale BehindWater",
+        "Unused",
+        "Custom Tangent",
+        "Thin Translucent Surface Coverage",
+        "Single Shading Model"
+      ],
+      "sources": [
+        "MaterialExpressionTextureSample_3",
+        "MaterialExpressionTextureSample_5",
+        null,
+        "MaterialExpressionTextureSample_5",
+        null,
+        null,
+        "MaterialExpressionTextureSample_4",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "MaterialExpressionTextureSample_3": {
+      "class": "MaterialExpressionTextureSample",
+      "pins": [
+        "UVs",
+        "Tex",
+        "Apply View MipBias"
+      ],
+      "texture": "<Object '/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_BaseColor.T_TacticalHatchet_BaseColor' (0x00000257FFF8F600) Class 'Texture2D'>",
+      "sampler_type": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>",
+      "const_coordinate": "0",
+      "sources": [
+        null,
+        null,
+        null
+      ]
+    },
+    "MaterialExpressionTextureSample_5": {
+      "class": "MaterialExpressionTextureSample",
+      "pins": [
+        "UVs",
+        "Tex",
+        "Apply View MipBias"
+      ],
+      "texture": "<Object '/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_MetalRough.T_TacticalHatchet_MetalRough' (0x00000257FFF89600) Class 'Texture2D'>",
+      "sampler_type": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "const_coordinate": "0",
+      "sources": [
+        null,
+        null,
+        null
+      ]
+    },
+    "MaterialExpressionTextureSample_4": {
+      "class": "MaterialExpressionTextureSample",
+      "pins": [
+        "UVs",
+        "Tex",
+        "Apply View MipBias"
+      ],
+      "texture": "<Object '/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_Normal.T_TacticalHatchet_Normal' (0x00000257FFF8C000) Class 'Texture2D'>",
+      "sampler_type": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>",
+      "const_coordinate": "0",
+      "sources": [
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "outputs": {
+    "MP_FRONT_MATERIAL": "MaterialExpressionSubstrateShadingModels_1",
+    "MP_BASE_COLOR": "MaterialExpressionTextureSample_3",
+    "MP_NORMAL": "MaterialExpressionTextureSample_4",
+    "MP_METALLIC": "MaterialExpressionTextureSample_5",
+    "MP_ROUGHNESS": "MaterialExpressionTextureSample_5"
+  }
+}

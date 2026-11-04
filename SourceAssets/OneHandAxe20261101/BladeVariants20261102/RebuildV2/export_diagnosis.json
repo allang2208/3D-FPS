@@ -1,0 +1,39 @@
+{
+  "complete": true,
+  "parts": [
+    {
+      "kind": "SwiftCrescent",
+      "imported_triangles": 7820,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "stock_mating_vertices": 260,
+      "max_mating_deviation_mm": 0.008311110832437407,
+      "finite_uvs": true,
+      "finite_corner_normals": true
+    },
+    {
+      "kind": "HeavyCleaver",
+      "imported_triangles": 7402,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "stock_mating_vertices": 260,
+      "max_mating_deviation_mm": 0.008409209840465337,
+      "finite_uvs": true,
+      "finite_corner_normals": true
+    },
+    {
+      "kind": "FoldedArc",
+      "imported_triangles": 7470,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "stock_mating_vertices": 260,
+      "max_mating_deviation_mm": 0.008311110832437407,
+      "finite_uvs": true,
+      "finite_corner_normals": true
+    }
+  ],
+  "scope": "exported model only; no gameplay test"
+}

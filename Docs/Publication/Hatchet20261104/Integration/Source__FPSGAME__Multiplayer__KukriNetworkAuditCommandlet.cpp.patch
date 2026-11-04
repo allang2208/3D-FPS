@@ -1,0 +1,72 @@
+--- a/Source/FPSGAME/Multiplayer/KukriNetworkAuditCommandlet.cpp
++++ b/Source/FPSGAME/Multiplayer/KukriNetworkAuditCommandlet.cpp
+@@ -23,6 +23,7 @@
+ #include "Misc/CommandLine.h"
+ #include "Misc/FileHelper.h"
+ #include "Misc/Parse.h"
++#include "Misc/ScopeExit.h"
+ #include "Serialization/JsonSerializer.h"
+
+ namespace FPSBodyNetwork { bool IsTransition(const FFPSBodyState& A,const FFPSBodyState& B); }
+@@ -33,6 +34,11 @@
+     FCommandLine::Set(*(TEXT("KukriNetworkAudit -ColdSteelProfile=")+Slot));
+     auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("KukriReceiptAudit"));
+     auto* World=GI->GetWorld();auto* Host=GI->GetSubsystem<UColdSteelStatusModel>();
++    ON_SCOPE_EXIT
++    {
++        GI->Shutdown();if(World){GEngine->DestroyWorldContext(World);World->DestroyWorld(false);}
++        GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    };
+     if(!World||!Host||!Host->IsAudit()||Host->ProfileSlot()!=TEXT("ColdSteel_")+Slot)return 2;
+     // Use a nonzero fixture clock so past charge starts remain valid timestamps.
+     World->TimeSeconds=10.;
+@@ -42,6 +48,15 @@
+         auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),Name);Row->SetBoolField(TEXT("passed"),OK);
+         Rows.Add(MakeShared<FJsonValueObject>(Row));Failures+=!OK;
+         UE_LOG(LogTemp,Display,TEXT("KUKRI_NETWORK %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),Name);
++    };
++    const auto SaveResult=[&]()
++    {
++        FString Output;if(!FParse::Value(*Params,TEXT("Output="),Output))return 3;
++        auto Result=MakeShared<FJsonObject>();Result->SetArrayField(TEXT("checks"),Rows);Result->SetNumberField(TEXT("failures"),Failures);
++        Result->SetBoolField(TEXT("udp_or_multiplayer_runtime"),false);Result->SetBoolField(TEXT("visuals_tested"),false);
++        FString Json;FJsonSerializer::Serialize(Result,TJsonWriterFactory<>::Create(&Json));
++        const bool Saved=FFileHelper::SaveStringToFile(Json,*Output);
++        return Saved?(Failures?1:0):3;
+     };
+     auto Seed=Host->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();
+     Seed.Stamina=100.f;Seed.bSprintExhausted=false;Seed.UppercutStaminaSpent=0.;
+@@ -53,6 +68,8 @@
+     auto* Pawn=World->SpawnActor<AFPSGAMECharacter>(FVector(0,0,500),FRotator::ZeroRotator);
+     PC->SetPlayerState(PS);PS->SetOwner(PC);PC->Possess(Pawn);Pawn->SetPlayerState(PS);
+     PS->ShadowModel=Model;Pawn->NetShadowProfile=Model;Model->AttachPawn(Pawn);
++    if(FParse::Param(*Params,TEXT("HeavyOnly")))
++    {CheckHeavyClock(PS,Pawn,Check);return SaveResult();}
+     auto* HP=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();HP->Health=HP->MaxHealth;
+     auto* Move=CastChecked<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());
+     auto* Target=World->SpawnActor<AActor>();const float HostStamina=Host->Stamina();
+@@ -310,21 +327,16 @@
+         TEXT("older uppercut cooldown receipt cannot overwrite a newer mirror"));
+     LatePS->ClientSwordUppercutResult_Implementation(1,Pawn,true,12.,15.f,15.f,19,World->GetTimeSeconds());
+     Check(FMath::IsNearlyEqual(Host->Stamina(),88.f),TEXT("duplicate late uppercut receipt does not debit twice"));
+-    LatePS->ClientSwordWhirlwindResult_Implementation(1,Pawn,true,20.,8.f,10.f,21,World->GetTimeSeconds());
++    LatePS->ClientSwordWhirlwindResult_Implementation(1,Pawn,true,false,20.,8.f,10.f,21,World->GetTimeSeconds());
+     Check(FMath::IsNearlyEqual(Host->Stamina(),80.f)&&Host->Snapshot().UppercutStaminaSpent==20.,
+         TEXT("late accepted whirlwind merges cumulative cost without a current pawn"));
+     Check(Host->Snapshot().WhirlwindCooldown==8.f&&Host->Snapshot().MartialCooldownRevision==21,
+         TEXT("late whirlwind preserves accepted cooldown"));
+-    LatePS->ClientSwordWhirlwindResult_Implementation(1,Pawn,true,20.,8.f,10.f,21,World->GetTimeSeconds());
++    LatePS->ClientSwordWhirlwindResult_Implementation(1,Pawn,true,false,20.,8.f,10.f,21,World->GetTimeSeconds());
+     Check(FMath::IsNearlyEqual(Host->Stamina(),80.f),TEXT("duplicate late whirlwind receipt does not debit twice"));
+     LatePS->ClientSwordUppercutResult_Implementation(2,Pawn,false,20.,0.f,0.f,18,World->GetTimeSeconds());
+     Check(Host->Snapshot().SwordUppercutCooldown==12.f&&Host->Snapshot().MartialCooldownRevision==21,
+         TEXT("late rejected uppercut cannot clear a newer cooldown"));
+     LatePS->SetRole(ROLE_Authority);LatePS->Destroy();Host->AdoptNetMirror(HostBeforeReceipt);
+-    FString Output;if(!FParse::Value(*Params,TEXT("Output="),Output))return 3;
+-    auto Result=MakeShared<FJsonObject>();Result->SetArrayField(TEXT("checks"),Rows);Result->SetNumberField(TEXT("failures"),Failures);
+-    Result->SetBoolField(TEXT("udp_or_multiplayer_runtime"),false);Result->SetBoolField(TEXT("visuals_tested"),false);
+-    FString Json;FJsonSerializer::Serialize(Result,TJsonWriterFactory<>::Create(&Json));
+-    const bool Saved=FFileHelper::SaveStringToFile(Json,*Output);FCommandLine::Set(*Original);
+-    return Saved?(Failures?1:0):3;
++    return SaveResult();
+ }

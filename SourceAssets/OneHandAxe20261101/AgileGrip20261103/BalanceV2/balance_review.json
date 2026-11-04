@@ -1,0 +1,150 @@
+{
+  "scope": "configuration calculation; not a measured gameplay DPS result",
+  "assumptions": "same physical attack cycle, no attack-speed cap, no criticals, enchantments or temporary buffs",
+  "previous_agile": {
+    "name": "轻捷握柄",
+    "physical_damage_mult": 0.9,
+    "attack_speed_mult": 1.15,
+    "attack_interval_mult": 0.8695652173913044,
+    "stamina_mult": 0.85,
+    "unarmored_physical_dps_proxy": 1.035,
+    "physical_damage_per_stamina_proxy": 1.0588235294117647,
+    "physical_penetration": 0,
+    "toughness_mult": 1
+  },
+  "leather": {
+    "name": "缠革握柄",
+    "physical_damage_mult": 1,
+    "attack_speed_mult": 1.1,
+    "attack_interval_mult": 0.9090909090909091,
+    "stamina_mult": 0.9,
+    "unarmored_physical_dps_proxy": 1.1,
+    "physical_damage_per_stamina_proxy": 1.1111111111111112,
+    "physical_penetration": 0,
+    "toughness_mult": 1
+  },
+  "old_agile_vs_leather_dps_delta": -0.059090909090909194,
+  "old_agile_vs_leather_efficiency_delta": -0.04705882352941182,
+  "grip_comparison": [
+    {
+      "name": "棱纹胶柄",
+      "physical_damage_mult": 1,
+      "attack_speed_mult": 1,
+      "attack_interval_mult": 1.0,
+      "stamina_mult": 1.1,
+      "unarmored_physical_dps_proxy": 1,
+      "physical_damage_per_stamina_proxy": 0.9090909090909091,
+      "physical_penetration": 0,
+      "toughness_mult": 1
+    },
+    {
+      "name": "缠革握柄",
+      "physical_damage_mult": 1,
+      "attack_speed_mult": 1.1,
+      "attack_interval_mult": 0.9090909090909091,
+      "stamina_mult": 0.9,
+      "unarmored_physical_dps_proxy": 1.1,
+      "physical_damage_per_stamina_proxy": 1.1111111111111112,
+      "physical_penetration": 0,
+      "toughness_mult": 1
+    },
+    {
+      "name": "层压木柄",
+      "physical_damage_mult": 1,
+      "attack_speed_mult": 1,
+      "attack_interval_mult": 1.0,
+      "stamina_mult": 1,
+      "unarmored_physical_dps_proxy": 1,
+      "physical_damage_per_stamina_proxy": 1.0,
+      "physical_penetration": 0,
+      "toughness_mult": 1
+    },
+    {
+      "name": "长柄握把",
+      "physical_damage_mult": 1.1,
+      "attack_speed_mult": 0.95,
+      "attack_interval_mult": 1.0526315789473684,
+      "stamina_mult": 1.1,
+      "unarmored_physical_dps_proxy": 1.045,
+      "physical_damage_per_stamina_proxy": 1.0,
+      "physical_penetration": 0,
+      "toughness_mult": 1
+    },
+    {
+      "name": "破阵握柄",
+      "physical_damage_mult": 1,
+      "attack_speed_mult": 1,
+      "attack_interval_mult": 1.0,
+      "stamina_mult": 1.15,
+      "unarmored_physical_dps_proxy": 1,
+      "physical_damage_per_stamina_proxy": 0.8695652173913044,
+      "physical_penetration": 0.25,
+      "toughness_mult": 1.2
+    }
+  ],
+  "armor_examples": [
+    {
+      "physical_damage_before_defense": 96,
+      "armor": 0,
+      "factory_damage": 96,
+      "breaker_damage": 96
+    },
+    {
+      "physical_damage_before_defense": 96,
+      "armor": 30,
+      "factory_damage": 64,
+      "breaker_damage": 70
+    },
+    {
+      "physical_damage_before_defense": 96,
+      "armor": 60,
+      "factory_damage": 48,
+      "breaker_damage": 54
+    },
+    {
+      "physical_damage_before_defense": 96,
+      "armor": 120,
+      "factory_damage": 32,
+      "breaker_damage": 38
+    },
+    {
+      "physical_damage_before_defense": 96,
+      "armor": 180,
+      "factory_damage": 24,
+      "breaker_damage": 29
+    }
+  ],
+  "checks": {
+    "author_runtime_design_synced": true,
+    "long_option_unchanged": true,
+    "asset_recipe_retained": true,
+    "attack_speed_and_damage_penalty_removed": true
+  },
+  "new_design": {
+    "revision": "armor_break_20261103",
+    "id": "hatchet_grip_agile",
+    "name": "破阵握柄",
+    "role": "对抗护甲与破韧，保留标准距离和攻击速度",
+    "stats": {
+      "physical_armor_penetration": 0.25,
+      "toughness_damage_mult": 1.2,
+      "stamina_mult": 1.15
+    },
+    "effects": [
+      {
+        "text": "物理防御穿透+25%",
+        "benefit": 1
+      },
+      {
+        "text": "韧性伤害+20%",
+        "benefit": 1
+      },
+      {
+        "text": "攻击体力消耗+15%",
+        "benefit": -1
+      }
+    ],
+    "special_effects": [],
+    "scope_note": "穿透只影响本武器直接攻击的物理伤害，削韧不等于必定硬直；主副手分别结算。"
+  }
+}

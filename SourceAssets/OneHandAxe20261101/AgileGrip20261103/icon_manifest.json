@@ -1,0 +1,10 @@
+{
+  "method": "built-in imagegen",
+  "source_render": "IconInputs/hatchet_grip_agile.png",
+  "frame_reference": "D:/FPS3D/FPSGAME/SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+  "generated_source": "C:/Users/allan/.codex/generated_images/01a195a9-36a2-73c3-b35d-e1ea19859acf/exec-03d522fb-a766-4347-94cd-ecee17e53306.png",
+  "production_icon": "Icons/ue_tactical_hatchet_grip_hatchet_grip_agile.png",
+  "runtime_icon": "Content/ColdSteelData/AttachmentIcons20260913/ue_tactical_hatchet_grip_hatchet_grip_agile.png",
+  "prompt": "icon_prompt.txt",
+  "runtime_tested": false
+}
