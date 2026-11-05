@@ -205,6 +205,28 @@ bool UColdSteelStatusModel::CompleteWeaponReloadCycle(const FString& WeaponId)
     return CommitState(MoveTemp(State));
 }
 
+void UColdSteelStatusModel::MarkM24CycleInterrupted(const FString& WeaponId,bool Interrupted,bool CasingPending)
+{
+    // The outgoing instance can differ from the newly published equipment.
+    auto State=Snapshot();
+    auto* Gun=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==WeaponId&&I.Definition==TEXT("ue_m24");});
+    if(!Gun)return;
+    if(WeaponReloadStages::NeedsM24ShotCycle(*Gun)==Interrupted
+        &&WeaponReloadStages::HasM24PendingCasing(*Gun)==CasingPending)return;
+    if(!WeaponReloadStages::SetNeedsCycle(*Gun,Interrupted?WeaponReloadStages::InterruptedM24Shot:0))return;
+    if(Interrupted)
+    {
+        TSharedPtr<FJsonObject> Data;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Gun->Data),Data)||!Data)return;
+        if(CasingPending)Data->SetBoolField(TEXT("m24_pending_casing"),true);
+        else Data->RemoveField(TEXT("m24_pending_casing"));
+        FString Json;
+        if(!FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Json)))return;
+        Gun->Data=MoveTemp(Json);
+    }
+    if(!PersistState(State,false))Publish(State);
+}
+
 void UColdSteelStatusModel::MarkM870PumpInterrupted(const FString& WeaponId)
 {
     // Do not call SyncRuntime here: equipment publication can already refer

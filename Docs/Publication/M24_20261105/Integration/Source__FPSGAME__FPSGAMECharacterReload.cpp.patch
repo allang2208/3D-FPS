@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/FPSGAMECharacterReload.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterReload.cpp
+@@ -171,4 +171,5 @@
+ void AFPSGAMECharacter::ServicePendingReloadCycle()
+ {
++    if(IsM24Weapon()&&bM24DeferReloadTail)return; // An interrupted reload resumes on R/fire, not on draw.
+     if(IsPistolWeapon()&&GetNetMode()==NM_Client)
+         if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsPistolReloadPending(ActiveInventoryWeapon))return;

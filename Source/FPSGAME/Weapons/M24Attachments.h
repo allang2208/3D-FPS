@@ -13,7 +13,7 @@ inline constexpr const TCHAR* CheekRest=TEXT("m24_cheekrest");
 inline constexpr const TCHAR* ExtendedMagazine=TEXT("m24_extended_mag_10");
 inline constexpr const TCHAR* CarbonBolt=TEXT("m24_carbon_light_bolt");
 inline constexpr const TCHAR* AdvancedAction=TEXT("m24_advanced_action");
-inline bool RearGripUnlocked(const TMap<FString,FString>& Parts)
+inline bool AdvancedInterfacesUnlocked(const TMap<FString,FString>& Parts)
 {return Parts.FindRef(TEXT("body"))==AdvancedAction;}
 void FactoryChassisSections(USkeletalMeshComponent* Host,bool Visible);
 inline constexpr const TCHAR* CarbonBoltMaterial=TEXT("/Game/Weapons/M24/CarbonBolt20261029/Materials/MI_M24_CarbonBolt");

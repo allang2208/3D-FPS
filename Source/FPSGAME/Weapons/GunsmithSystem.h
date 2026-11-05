@@ -110,6 +110,7 @@ struct FGunsmithStats
     double SpreadGrowth=1, RecoilLoad=1;
     // 空仓换弹时长系数（1 = 不调整）。小于 1 时动作按比例加速播放，不裁剪动画。
     double EmptyReloadMult=1;
+    double M24BoltDurationScale=1.;
     double Interval=0.13, Reload=1.5, EmptyReload=1.5, Speed=90, Range=40, Spread=1, Damage=25;
     int32 Capacity=30, ActiveParts=0;
     int32 BurstCount=1;

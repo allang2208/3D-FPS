@@ -1,0 +1,121 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -525,5 +525,5 @@
+         if(Prev.Health<=0.f&&Adopted.Health>0.f)
+         {
+-            ServerGunLedgers.Reset();RegisteredPistolShots.Reset();
++            ServerGunLedgers.Reset();RegisteredPistolShots.Reset();M24Launches.Reset();LastM24LaunchSequence=0;
+             StopPistolAuthority();
+             ServerComboStage=0;ServerComboSwingAt=-100.;ServerComboWeapon.Reset();
+@@ -675,5 +675,5 @@
+     if(ShadowPawn.Get()!=Character||ShadowModel->RuntimePawn()!=Character)
+     {
+-        ServerGunLedgers.Reset();RegisteredPistolShots.Reset();
++        ServerGunLedgers.Reset();RegisteredPistolShots.Reset();M24Launches.Reset();LastM24LaunchSequence=0;
+         StopPistolAuthority();
+         ShadowModel->AttachPawn(Character);
+@@ -1352,4 +1352,19 @@
+     if(!OutDeclaredItem)
+         if(const auto* Tool=ShadowModel->ActiveProductionTool();Matches(Tool))OutDeclaredItem=Tool;
++    const auto* M24Launch=FindM24Launch(Report,Shooter);
++    if(M24Launch)
++    {
++        // A stowed weapon is an exception to the held-group check. Restrict
++        // that exception to the original view cone, with near-muzzle parallax.
++        const FVector Travel=FVector(Report.ImpactPoint)-M24Launch->Eye;
++        if(!OutDeclaredItem&&Travel.SizeSquared()>FMath::Square(200.f)
++            &&FVector::DotProduct(Travel.GetSafeNormal(),M24Launch->ViewForward)<FMath::Cos(FMath::DegreesToRadians(25.f)))
++        {OutReason=TEXT("stowed M24 launch direction mismatch");return false;}
++        if(FVector::DistSquared(M24Launch->Eye,FVector(Report.AimOrigin))>FMath::Square(600.f))
++        {OutReason=TEXT("M24 launch origin mismatch");return false;}
++        if(M24Launch->Targets.Num()>=M24Launch->MaxTargets||M24Launch->Targets.Contains(Report.Target.Get()))
++        {OutReason=TEXT("M24 round contacts exhausted");return false;}
++        OutDeclaredItem=&M24Launch->Item;
++    }
+     if(Report.FireSequence&&!(Report.AttackMeta&(0x20|0x80)))
+     {
+@@ -1462,5 +1477,5 @@
+     const bool PistolItem=OutDeclaredItem&&ColdSteelInventory::IsDualPistol(*OutDeclaredItem);
+     const double HeldInterval=PistolItem&&HitGunsmith?ColdSteelWeaponStats::Interval(OutDeclaredItem,ShadowModel,HitGunsmith->CalculateItem(*OutDeclaredItem,HitGunsmith->Installed(*OutDeclaredItem)).Interval)/LightningHaste::ActionSpeed(Shooter):Shooter->EffectiveFireInterval();
+-    const double Interval = bUnarmed?double(StaffQuickCombatMotion::Length)/LightningHaste::ActionSpeed(Shooter):FMath::Max(0.01, HeldInterval);
++    const double Interval = bUnarmed?double(StaffQuickCombatMotion::Length)/LightningHaste::ActionSpeed(Shooter):FMath::Max(0.01,M24Launch?M24Launch->Interval:HeldInterval);
+     FireTokenBucket = FMath::Min(6.f, FireTokenBucket + static_cast<float>((Now - LastFireTokenRefillAt) / Interval));
+     LastFireTokenRefillAt = Now;
+@@ -1506,5 +1521,5 @@
+         || (OutDeclaredItem && (ColdSteelInventory::IsBow(*OutDeclaredItem)
+             || (Gunsmith && Gunsmith->IsStaff(OutDeclaredItem->Definition))))
+-        || Shooter->ProjectileSpeedCM > 0.f);
++        || M24Launch || Shooter->ProjectileSpeedCM > 0.f);
+     if (!bProjectile)
+     {
+@@ -1513,4 +1528,5 @@
+     }
+     float MaxRange = bUnarmed?UnarmedPunch::ReachCM+120.f:Shooter->TraceDistance*1.25f;
++    if(M24Launch)MaxRange=M24Launch->TraceRange*1.25f;
+     if(PistolItem&&Gunsmith)MaxRange=FMath::Max(10000.f,float(Gunsmith->CalculateItem(*OutDeclaredItem,Gunsmith->Installed(*OutDeclaredItem)).Range)*300.f)*1.25f;
+     if(Report.AttackMeta&0x80)MaxRange=ShadowModel->QuickCombatStats().RangeCM+120.f;
+@@ -1544,5 +1560,5 @@
+             MaxRange=FMath::Max(MaxRange,AzureDragonReach::ClawReachCM*1.1f);
+     }
+-    if (FVector::Dist(Shooter->GetActorLocation(), FVector(Report.ImpactPoint)) > MaxRange)
++    if (FVector::Dist(M24Launch?M24Launch->Eye:Shooter->GetActorLocation(), FVector(Report.ImpactPoint)) > MaxRange)
+     { OutReason = TEXT("range"); return false; }
+     const float Range = FVector::Dist(FVector(Report.AimOrigin), FVector(Report.ImpactPoint));
+@@ -1552,5 +1568,5 @@
+     // 弹道武器也检查直线视线；宁可拒绝少数越障弧线，也不接受墙后伪报。
+     {
+-        const FVector ServerEye=Shooter->GetPawnViewLocation();
++        const FVector ServerEye=M24Launch?M24Launch->Eye:Shooter->GetPawnViewLocation();
+         if(FVector::Dist(ServerEye,FVector(Report.ImpactPoint))>MaxRange)
+         { OutReason=TEXT("range"); return false; }
+@@ -1567,5 +1583,5 @@
+         const bool bBlocked=bAreaMelee?
+             !MagicOcclusion::HasExposure(GetWorld(),Report.Target.Get(),Shooter->GetPawnViewLocation(),LOSParams,Shooter):
+-            RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter, LOSHit,Shooter->GetPawnViewLocation(),
++            RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter, LOSHit,ServerEye,
+                 FVector(Report.ImpactPoint),ECC_Visibility,LOSParams);
+         if (bBlocked)
+@@ -1599,5 +1615,5 @@
+             // The client-controlled AimOrigin cannot define the rewind segment;
+             // use the server's eye position and the reported impact point.
+-            FMath::SegmentDistToSegmentSafe(Shooter->GetPawnViewLocation(), FVector(Report.ImpactPoint),
++            FMath::SegmentDistToSegmentSafe(M24Launch?M24Launch->Eye:Shooter->GetPawnViewLocation(), FVector(Report.ImpactPoint),
+                 CapBottom, RewoundTop, OnShot, OnAxis);
+             const float MissDist = FVector::Dist(OnShot, OnAxis);
+@@ -1682,5 +1698,6 @@
+     // 弹种倍率对每种枪都生效（AP ×1.05、独头 ×0.75、箭形 ×0.9）；此前只有霰弹枪乘了它，
+     // 远端客户端打 AP 弹会比单机/主机少 5%。
+-    const float Distance = FVector::Dist(Shooter->GetPawnViewLocation(), FVector(Report.ImpactPoint));
++    const auto* M24Launch=FindM24Launch(Report,Shooter);
++    const float Distance = FVector::Dist(M24Launch?M24Launch->Eye:Shooter->GetPawnViewLocation(),FVector(Report.ImpactPoint));
+     const float AmmoDamage=Item?ShadowModel->AmmoDamageMultiplier(*Item):1.f;
+     const bool bShotgun=Item&&(TubeShotgunAssets::Supports(Item->Definition)||Item->Definition==TEXT("ue_saiga12k"));
+@@ -1688,5 +1705,6 @@
+         /ShadowModel->AmmoProjectileCount(*Item,Super90WeaponAssets::PelletCount):AmmoDamage;
+     return Panel * ConvergenceScale * PelletScale
+-        * WeaponDamageFalloff::Multiplier(Distance, Item&&ColdSteelInventory::IsDualPistol(*Item)&&G?float(G->CalculateItem(*Item,G->Installed(*Item)).Range)*100.f:Shooter->EffectiveWeaponRangeCM);
++        * WeaponDamageFalloff::Multiplier(Distance,M24Launch?M24Launch->EffectiveRange:
++            Item&&ColdSteelInventory::IsDualPistol(*Item)&&G?float(G->CalculateItem(*Item,G->Installed(*Item)).Range)*100.f:Shooter->EffectiveWeaponRangeCM);
+ }
+ 
+@@ -1901,5 +1919,6 @@
+     Hit.HitObjectHandle = FActorInstanceHandle(Report.Target.Get());
+     Hit.bBlockingHit = true;
+-    Hit.TraceStart=Shooter->GetPawnViewLocation();Hit.TraceEnd=Report.ImpactPoint;
++    const auto* ImpactLaunch=FindM24Launch(Report,Shooter);
++    Hit.TraceStart=ImpactLaunch?ImpactLaunch->Eye:Shooter->GetPawnViewLocation();Hit.TraceEnd=Report.ImpactPoint;
+     const bool bCrownTarget=Report.Target&&Cast<ARootCrownRigPreview>(Report.Target.Get());
+     // Organ-pool actors require a bone for their history lookup. Derive it from
+@@ -1957,5 +1976,5 @@
+         {
+             FHitResult Verified;
+-            const FVector TraceStart=Shooter->GetPawnViewLocation();
++            const FVector TraceStart=Hit.TraceStart;
+     const FVector Direction=(FVector(Report.ImpactPoint)-TraceStart).GetSafeNormal();
+             FCollisionQueryParams Query(SCENE_QUERY_STAT(NetGlassHit),true);
+@@ -2015,4 +2034,5 @@
+     Prepared.bHasItem=Declared!=nullptr;if(Declared)Prepared.Item=MoveTemp(DeclaredSnapshot);
+     Prepared.bFiredRound=bFiredRound;Prepared.NewMasteryTarget=NewMasteryTarget;Prepared.MasteryEligible=MasteryEligible;
++    if(FindM24Launch(Report,Shooter))M24Launches.FindChecked(Report.FireSequence).Targets.Add(Report.Target.Get());
+     return true;
+ }

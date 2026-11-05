@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp
++++ b/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp
+@@ -55,7 +55,7 @@
+     if(SniperSkeletonStock::Supports(ActiveInventoryWeaponDefinition))
+     {
+-        if(Variant==SniperSkeletonStock::Id&&bInventoryWeaponReady)
++        if(SniperSkeletonStock::IsReplacement(ActiveInventoryWeaponDefinition,Variant)&&bInventoryWeaponReady)
+         {
+-            StockAttachment=SniperSkeletonStock::Configure(this,AKMViewmodel,StockAttachment,ActiveInventoryWeaponDefinition,M24Advanced);
++            StockAttachment=SniperSkeletonStock::Configure(this,AKMViewmodel,StockAttachment,ActiveInventoryWeaponDefinition,M24Advanced,Variant);
+             bSkeletonStock=StockAttachment&&StockAttachment->IsVisible();
+             if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();

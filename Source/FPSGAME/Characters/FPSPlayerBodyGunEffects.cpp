@@ -7,6 +7,7 @@
 #include "../Weapons/TubeShotgunAssets.h"
 #include "../Weapons/PKMLowpolyWeaponAssets.h"
 #include "../Weapons/LMG201WeaponAssets.h"
+#include "../Weapons/M24WeaponAssets.h"
 #include "Components/AudioComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/AssetManager.h"
@@ -34,6 +35,7 @@ bool UFPSPlayerBodyComponent::CurrentGun(uint8 Hand,FFPSBodyWeapon& W) const
         if(Cached.AttachHand==Hand&&Cached.Source==W.Source&&Cached.GunInstance==Instance)
         {
             W.GunInstance=Cached.GunInstance;W.GunDefinition=Cached.GunDefinition;
+            W.GunFireSound=Cached.GunFireSound;W.GunSuppressedSound=Cached.GunSuppressedSound;
             W.bGunSuppressed=Dual?Character->DualPistols->Hand(Hand).Suppressed:Character->IsMuzzleSuppressed();
             W.GunSounds=Cached.GunSounds;W.GunCartridges=Cached.GunCartridges;return true;
         }
@@ -109,6 +111,10 @@ void UFPSPlayerBodyComponent::ReportGunMechanicalStop(uint8 Hand)
 {
     FFPSGunEvent E;E.Kind=EFPSGunEvent::StopMechanical;E.Hand=Hand;SendGunEvent(E);
 }
+void UFPSPlayerBodyComponent::ReportM24BoltEject()
+{
+    FFPSGunEvent E;E.Kind=EFPSGunEvent::M24BoltEject;SendGunEvent(E);
+}
 void UFPSPlayerBodyComponent::ReportGunCartridge(uint8 Hand,UStaticMesh* Mesh,const FTransform& Frame,const FVector& Velocity,float Age)
 {
     FFPSBodyWeapon W;if(!CurrentGun(Hand,W))return;
@@ -135,6 +141,11 @@ bool UFPSPlayerBodyComponent::AcceptGunEvent(FFPSGunEvent& E)
     const float Age=ServerClock()-E.SentAt;
     if(Age>1.f||Age<-.25f)return false;
     E.SentAt=FMath::Min(E.SentAt,ServerClock());E.Volume=FMath::Clamp(E.Volume,0.f,4.f);E.Pitch=FMath::Clamp(E.Pitch,.5f,2.f);E.StartTime=FMath::Clamp(E.StartTime,0.f,5.f);E.bSuppressed=W.bGunSuppressed;
+    if(E.Kind==EFPSGunEvent::M24BoltEject)
+    {
+        if(E.Hand!=0||W.GunDefinition!=M24WeaponAssets::Definition)return false;
+        Received=E.Sequence;return true;
+    }
     if(E.Kind==EFPSGunEvent::Cartridge)
     {
         const bool Valid=W.GunCartridges.Contains(E.Cartridge)&&!E.Release.ContainsNaN()&&!E.ReleaseVelocity.ContainsNaN()
@@ -142,6 +153,10 @@ bool UFPSPlayerBodyComponent::AcceptGunEvent(FFPSGunEvent& E)
         if(Valid)Received=E.Sequence;return Valid;
     }
     if(E.Kind!=EFPSGunEvent::Shot&&E.Kind!=EFPSGunEvent::Mechanical)return false;
+    // Both M24 banks are preloaded. Choose from the current server loadout if
+    // a suppressor change and its first shot arrived on different channels.
+    if(E.Kind==EFPSGunEvent::Shot&&W.GunDefinition==M24WeaponAssets::Definition)
+        E.Sound=W.bGunSuppressed?W.GunSuppressedSound:W.GunFireSound;
     if(!E.Sound.IsNull()&&!W.GunSounds.Contains(E.Sound))return false;
     if(E.Kind==EFPSGunEvent::Shot&&TubeShotgunAssets::Supports(W.GunDefinition))return false;
     Received=E.Sequence;return true;
@@ -252,6 +267,11 @@ bool UFPSPlayerBodyComponent::PresentGunEvent(const FFPSGunEvent& E,float Age)
         // A fresh equipment property can precede its visible body state. Keep
         // the event briefly instead of consuming that first shot while hidden.
         if(!Mesh->IsVisible()||Mesh->bHiddenInGame||IsWorldWeaponStowed(Mesh))return false;
+        if(E.Kind==EFPSGunEvent::M24BoltEject)
+        {
+            if(B.Definition.GunDefinition==M24WeaponAssets::Definition)H.FX->EjectPumpCasing();
+            return true;
+        }
         if(E.Kind==EFPSGunEvent::Cartridge)
         {
             if(!B.Definition.GunCartridges.Contains(E.Cartridge))return true;

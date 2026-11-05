@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Weapons/TacticalDeviceVariants.h
++++ b/Source/FPSGAME/Weapons/TacticalDeviceVariants.h
+@@ -34,4 +34,5 @@
+ inline FString FittedMeshPath(const FString& Family,const FString& Id,bool OppositeSide)
+ {
++    if(Family==TEXT("M24"))return TEXT("/Game/Weapons/M24/Tactical20261104/SM_")+Id;
+     if(Family==TEXT("Saiga12K"))return FString::Printf(TEXT("/Game/Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_%s_%d"),*Id,OppositeSide?2:1);
+     if(Family==TEXT("Super90"))return Super90MeshPath(Id);
+@@ -43,4 +44,5 @@
+ inline FString BlessedMeshPath(const FString& Family)
+ {
++    if(Family==TEXT("M24"))return FittedMeshPath(Family,BlessedLaser,false);
+     if(Family==TEXT("Super90"))return Super90MeshPath(BlessedLaser);
+     if(Family==TEXT("M870"))return M870TacticalAssets::MeshPath(BlessedLaser);
+@@ -49,4 +51,5 @@
+ inline FString FamilyForDefinition(const FString& Definition)
+ {
++    if(Definition==TEXT("ue_m24"))return TEXT("M24");
+     if(Definition==TEXT("ue_saiga12k"))return TEXT("Saiga12K");
+     if(Definition==TEXT("ue_akm"))return TEXT("AKM");

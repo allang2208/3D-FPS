@@ -23,6 +23,10 @@ for row in data['weapons']:
     options=row['options'].setdefault('stock',[]);options[:]=[v for v in options if v['id']!=option['id']];options.append(copy.deepcopy(option))
     if 'stock' not in row['allowed']:row['allowed'].append('stock')
     if row['id']=='ue_m24':
+        # User-directed M24 balance, 2026-11-04; retain this weapon's own stats.
+        options[-1]['stats']={'stability_mult':1.2,'ads_percent':-.15,'fire_interval_mult':1/1.20}
+        options[-1]['effects']=[{'text':'稳定性+20%','benefit':1},{'text':'开镜耗时-15%','benefit':1},{'text':'拉栓速度+20%','benefit':1}]
+        options[-1]['special_effects']=[]
         factory=next(v for v in options if v['id']=='m24_cheekrest');factory['name']='M24 原装枪托';factory['description']='原装后托与贴腮板，保持原有肩托和握持轮廓。'
     if row['id']=='ue_svch':
         factory=next(v for v in options if v['id']=='false');factory['name']='SVCH 原装枪托';factory['description']='恢复 SVCH 原装后托、贴腮面与肩垫。'

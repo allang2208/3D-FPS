@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -97,6 +97,12 @@
+     void UpdateM24CycleAudio();
+     void PreserveInterruptedM24Cycle();
++    void AdvanceM24EquipBolt();
++    float M24EquipSourceTime(float RuntimeSeconds) const;
++    float M24GearBoltDurationScale=1.f,M24ActionBoltDurationScale=1.f;
++    bool bM24EquipBoltPending=false;
++    bool bM24DeferReloadTail=false;
+     uint8 M24CycleCueMask=0;
+-    TSet<FString> M24PendingCasingWeapons;
++    bool bM24PendingCasing=false;
++    void EjectInterruptedM24Casing();
+     bool IsM870Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_m870"); }
+     bool IsTubeShotgunWeapon() const { return IsSuper90Weapon() || IsM870Weapon(); }

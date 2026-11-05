@@ -86,6 +86,17 @@ public:
     bool IsPitViperWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_pit_viper2011"); }
     bool IsSuper90Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_super90"); }
     bool IsM24Weapon() const { return ActiveInventoryWeaponDefinition==TEXT("ue_m24"); }
+    float M24CyclePlayRate() const;
+    void UpdateM24CycleAudio();
+    void PreserveInterruptedM24Cycle();
+    void AdvanceM24EquipBolt();
+    float M24EquipSourceTime(float RuntimeSeconds) const;
+    float M24GearBoltDurationScale=1.f,M24ActionBoltDurationScale=1.f;
+    bool bM24EquipBoltPending=false;
+    bool bM24DeferReloadTail=false;
+    uint8 M24CycleCueMask=0;
+    bool bM24PendingCasing=false;
+    void EjectInterruptedM24Casing();
     bool IsM870Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_m870"); }
     bool IsTubeShotgunWeapon() const { return IsSuper90Weapon() || IsM870Weapon(); }
     float M870PumpPlayRate() const;

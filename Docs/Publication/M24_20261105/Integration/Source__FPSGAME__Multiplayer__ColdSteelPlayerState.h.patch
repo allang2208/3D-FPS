@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -249,4 +249,6 @@
+     UFUNCTION(Server, Unreliable)
+     void ServerReportShotStamp();
++    UFUNCTION(Server,Reliable)
++    void ServerRememberM24Launch(APawn* SourcePawn,const FString& Instance,uint32 Sequence,int32 Rounds);
+ 
+     /** One reliable start/cancel per draw; no per-frame timing reports. */
+@@ -584,4 +586,18 @@
+     };
+     TMap<FString,FServerGunLedger> ServerGunLedgers;
++    // Short-lived launch context for M24 bullets still in flight after a swap.
++    struct FM24Launch
++    {
++        FColdSteelItem Item;
++        TWeakObjectPtr<APawn> Pawn;
++        FVector Eye,ViewForward;
++        float TraceRange=0.f,EffectiveRange=0.f;
++        double At=0.,Expires=0.,Interval=0.;
++        int32 Rounds=1,MaxTargets=1;
++        TSet<TWeakObjectPtr<AActor>> Targets;
++    };
++    TMap<uint32,FM24Launch> M24Launches;
++    uint32 LastM24LaunchSequence=0;
++    const FM24Launch* FindM24Launch(const FColdSteelNetHitReport& Report,const APawn* Shooter) const;
+     struct FRegisteredPistolShot
+     {

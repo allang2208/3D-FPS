@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -36,4 +36,6 @@
+     if(Weapon==TEXT("ue_kukri")&&SlotKey==TEXT("lanyard")&&(Id==TEXT("kukri_lanyard_relentless")||Id==TEXT("kukri_lanyard_decisive")))
+         return EGunsmithModificationTier::Legendary;
++    if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("stock")&&Id==TEXT("m24_carbon_spine_stock"))
++        return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("body")&&Id==TEXT("m24_advanced_action"))
+         return EGunsmithModificationTier::Special;

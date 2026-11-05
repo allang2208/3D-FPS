@@ -14,6 +14,8 @@
 namespace SniperSkeletonStock
 {
 inline constexpr const TCHAR* Id=TEXT("sniper_skeleton_stock");
+inline constexpr const TCHAR* M24CarbonId=TEXT("m24_carbon_spine_stock");
+inline constexpr const TCHAR* M24CarbonMeshPrefix=TEXT("/Game/Weapons/M24/CarbonSpine20261104/Meshes/SM_M24_CarbonSpine_");
 inline FString Family(const FString& Definition)
 {
     if(Definition==TEXT("ue_m24"))return TEXT("M24");
@@ -23,10 +25,23 @@ inline FString Family(const FString& Definition)
 }
 inline bool Supports(const FString& Definition){return !Family(Definition).IsEmpty();}
 inline constexpr const TCHAR* M24Root=TEXT("/Game/Weapons/M24/ReceiverGripRebuild20261031");
-inline FString MeshPath(const FString& Definition,bool Advanced=false)
-{return Definition==TEXT("ue_m24")?FString(M24Root)+TEXT("/Meshes/SM_M24_ReceiverStock_")+(Advanced?TEXT("Advanced"):TEXT("Native")):TEXT("/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_")+Family(Definition);}
+inline bool IsReplacement(const FString& Definition,const FString& Variant)
+{return (Variant==Id&&Supports(Definition))||(Definition==TEXT("ue_m24")&&Variant==M24CarbonId);}
+inline FString MeshPath(const FString& Definition,bool Advanced=false,const FString& Variant=Id)
+{
+    if(Definition==TEXT("ue_m24"))
+    {
+        const FString Prefix=Variant==M24CarbonId?FString(M24CarbonMeshPrefix):FString(M24Root)+TEXT("/Meshes/SM_M24_ReceiverStock_");
+        return Prefix+(Advanced?TEXT("Advanced"):TEXT("Native"));
+    }
+    return TEXT("/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_")+Family(Definition);
+}
 inline bool UsesM24DirectStock(const UStaticMeshComponent* Part)
-{return Part&&Part->GetStaticMesh()&&Part->GetStaticMesh()->GetPathName().StartsWith(FString(M24Root)+TEXT("/Meshes/SM_M24_ReceiverStock_"))&&Part->IsVisible();}
+{
+    if(!Part||!Part->IsVisible()||!Part->GetStaticMesh())return false;
+    const FString Path=Part->GetStaticMesh()->GetPathName();
+    return Path.StartsWith(FString(M24Root)+TEXT("/Meshes/SM_M24_ReceiverStock_"))||Path.StartsWith(M24CarbonMeshPrefix);
+}
 inline FString M24GripMeshPath(const FString& Variant)
 {
     const TCHAR* Suffix=Variant==TEXT("balanced_reargrip")?TEXT("balanced"):Variant==TEXT("phantom_reargrip")?TEXT("phantom"):Variant==TEXT("stable_antislip_reargrip")?TEXT("stable"):TEXT("Default");
@@ -76,10 +91,10 @@ inline void FactorySections(USkeletalMeshComponent* Host,bool Visible)
         }
     }
 }
-inline UStaticMeshComponent* Configure(AActor* Owner,USkeletalMeshComponent* Host,UStaticMeshComponent* Part,const FString& Definition,bool Advanced=false)
+inline UStaticMeshComponent* Configure(AActor* Owner,USkeletalMeshComponent* Host,UStaticMeshComponent* Part,const FString& Definition,bool Advanced=false,const FString& Variant=Id)
 {
     if(!Host||!Host->GetSkeletalMeshAsset())return Part;
-    auto* Mesh=LoadObject<UStaticMesh>(nullptr,*MeshPath(Definition,Advanced));if(!Mesh)return Part;
+    auto* Mesh=LoadObject<UStaticMesh>(nullptr,*MeshPath(Definition,Advanced,Variant));if(!Mesh)return Part;
     if(!Part)
     {
         Part=NewObject<UStaticMeshComponent>(Owner);

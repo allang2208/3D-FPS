@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Weapons/ShotgunWireAudit.h
++++ b/Source/FPSGAME/Weapons/ShotgunWireAudit.h
+@@ -29,4 +29,5 @@
+     UFUNCTION(Server,Reliable) void ServerPresentationResult(int32 Phase,bool ObserverOK,FVector HostLaser,FVector OwnerLaser,FVector OwnerGrip);
+     bool TickM870Presentation(float Delta);
++    bool bM24CycleCasePassed=true;
+     void SetupM870Presentation(int32 Phase,const FString& Id,AFPSGAMECharacter* Host);
+     static void PoseM870Presentation(AFPSGAMECharacter* Pawn,int32 Phase,bool Muted);

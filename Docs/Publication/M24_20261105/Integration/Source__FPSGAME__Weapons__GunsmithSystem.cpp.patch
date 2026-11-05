@@ -1,0 +1,75 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -2,4 +2,5 @@
+ #include "FullAutoTrigger.h"
+ #include "M24Attachments.h"
++#include "M24ReloadTiming.h"
+ #include "TacticalDeviceVariants.h"
+ #include "G18WeaponAssets.h"
+@@ -77,9 +78,11 @@
+         bool InheritCommonOptions=true;
+         O->TryGetBoolField(TEXT("inherit_common_options"),InheritCommonOptions);
+-        if(InheritCommonOptions&&Catalog->TryGetObjectField(TEXT("common_options"),Common))
++        if((InheritCommonOptions||W.Id==TEXT("ue_m24"))&&Catalog->TryGetObjectField(TEXT("common_options"),Common))
+         {
+             auto Options=O->GetObjectField(TEXT("options"));
+             for(const auto& Slot:(*Common)->Values)
+             {
++                // M24 opts into common tactical devices through its advanced chassis.
++                if(!InheritCommonOptions&&Slot.Key!=TacticalDeviceVariants::PrimarySlot)continue;
+                 W.Allowed.AddUnique(FString(*Slot.Key));
+                 TArray<TSharedPtr<FJsonValue>> Merged;
+@@ -206,8 +209,11 @@
+                 Result.Add(Slot,Id);
+         }
+-    // The factory M24 has no interchangeable rear-grip interface. Normalize
++    // The factory M24 has no interchangeable rear-grip or tactical interface. Normalize
+     // both drafts and older saved combinations before stats or visuals consume them.
+-    if(D==TEXT("ue_m24")&&!M24Attachments::RearGripUnlocked(Result))
++    if(D==TEXT("ue_m24")&&!M24Attachments::AdvancedInterfacesUnlocked(Result))
++    {
+         Result.Add(TEXT("reargrip"),TEXT("false"));
++        Result.Add(TacticalDeviceVariants::PrimarySlot,TEXT("false"));
++    }
+     return Result;
+ }
+@@ -393,4 +399,6 @@
+         if(D==TEXT("ue_m24")&&Pair.Value==TEXT("none"))continue;
+         auto A=*Option(D,Pair.Key,Pair.Value);
++        if(D==M24WeaponAssets::Definition&&(Pair.Key==TEXT("stock")||Pair.Key==TEXT("bolt")))
++            R.M24BoltDurationScale*=FMath::Max(.01,A.Interval);
+         // Installed geometry still counts, but only the strongest laser supplies
+         // its entire modifier set. Removing it automatically activates the other.
+@@ -416,4 +424,7 @@
+     // 角色端按 ClipLength/实际时长 求播放速率，动作与音效一起加速。
+     R.EmptyReload*=FMath::Clamp(R.EmptyReloadMult,.2,3.);
++    if(D==M24WeaponAssets::Definition)
++        R.EmptyReload*=M24ReloadTiming::EmptyPacedFrames(M24ReloadTiming::EmptySourceFrames,float(R.M24BoltDurationScale))
++            /(M24ReloadTiming::EmptySourceFrames+M24ReloadTiming::ExtraMagazineFrames);
+     R.BurstDelay*=R.Interval/FMath::Max(.001,W->Base.Interval);
+     R.ADS=FMath::Max(.001,R.ADS*(1+R.ADSPercent)+R.ADSSeconds);
+@@ -432,6 +443,6 @@
+ FString UGunsmithSystem::OptionLockReason(const FString& Slot,const FString& Id) const
+ {
+-    if(DefinitionId==TEXT("ue_m24")&&Slot==TEXT("reargrip")&&Id!=TEXT("false")
+-        &&!M24Attachments::RearGripUnlocked(Preview))return TEXT("需先安装先进枪机系统");
++    if(DefinitionId==TEXT("ue_m24")&&(Slot==TEXT("reargrip")||Slot==TacticalDeviceVariants::PrimarySlot)&&Id!=TEXT("false")
++        &&!M24Attachments::AdvancedInterfacesUnlocked(Preview))return TEXT("需先安装先进枪机系统");
+     return FString();
+ }
+@@ -442,10 +453,11 @@
+     if(!Locked.IsEmpty()){Status=Locked;OnChanged.Broadcast();return false;}
+     if(Part(Preview,Slot)==Id)return true;
+-    const bool HadRearGrip=Part(Preview,TEXT("reargrip"))!=TEXT("false");
++    const bool HadDependentPart=Part(Preview,TEXT("reargrip"))!=TEXT("false")
++        ||Part(Preview,TacticalDeviceVariants::PrimarySlot)!=TEXT("false");
+     if(Id==TEXT("false"))Preview.Remove(Slot);else Preview.Add(Slot,Id);
+     if(DefinitionId==TEXT("ue_m24"))Preview=Normalize(DefinitionId,Preview);
+-    Status=DefinitionId==TEXT("ue_m24")&&Slot==TEXT("body")&&HadRearGrip
+-        &&!M24Attachments::RearGripUnlocked(Preview)
+-        ?TEXT("已恢复原厂枪机并撤下后握把改造，应用后保存")
++    Status=DefinitionId==TEXT("ue_m24")&&Slot==TEXT("body")&&HadDependentPart
++        &&!M24Attachments::AdvancedInterfacesUnlocked(Preview)
++        ?TEXT("已恢复原厂枪身并撤下依赖改造，应用后保存")
+         :TEXT("预览已更新，应用后保存");OnChanged.Broadcast();return true;
+ }

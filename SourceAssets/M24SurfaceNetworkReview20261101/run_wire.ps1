@@ -1,7 +1,8 @@
-param([switch]$SkipBuild)
+﻿param([switch]$SkipBuild,[string]$OutputRoot)
 $ErrorActionPreference='Stop'
 $m24WireRoot='D:/FPS3D/FPSGAME'
 $m24WireOutputRoot=Join-Path $m24WireRoot 'SourceAssets/M24SurfaceNetworkReview20261101/Receipts'
+if($OutputRoot){$m24WireOutputRoot=[IO.Path]::GetFullPath($OutputRoot)}
 $m24WireStamp=Get-Date -Format 'yyyyMMdd-HHmmss'
 $m24WireDir=Join-Path $m24WireOutputRoot ('Wire/'+$m24WireStamp)
 New-Item -ItemType Directory -Force -Path $m24WireDir | Out-Null

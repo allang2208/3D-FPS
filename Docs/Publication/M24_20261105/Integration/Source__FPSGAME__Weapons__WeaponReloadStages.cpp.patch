@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/Weapons/WeaponReloadStages.cpp
++++ b/Source/FPSGAME/Weapons/WeaponReloadStages.cpp
+@@ -67,4 +67,14 @@
+ }
+ 
++bool WeaponReloadStages::NeedsM24ShotCycle(const FColdSteelItem& Item)
++{
++    TSharedPtr<FJsonObject> Data;
++    bool Pending=false, Shot=false;
++    return Item.Definition==M24WeaponAssets::Definition
++        && FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data) && Data
++        && Data->TryGetBoolField(TEXT("reload_pending_cycle"),Pending) && Pending
++        && Data->TryGetBoolField(TEXT("m24_interrupted_shot"),Shot) && Shot;
++}
++
+ bool WeaponReloadStages::SetNeedsCycle(FColdSteelItem& Item, int32 Pending)
+ {
+@@ -75,4 +85,5 @@
+         Data->SetBoolField(TEXT("reload_pending_cycle"), true);
+         Data->SetBoolField(TEXT("reload_cycle_empty"), Pending!=2);
++        if(Pending==InterruptedM24Shot)Data->SetBoolField(TEXT("m24_interrupted_shot"),true);
+     }
+     else
+@@ -80,4 +91,6 @@
+         Data->RemoveField(TEXT("reload_pending_cycle"));
+         Data->RemoveField(TEXT("reload_cycle_empty"));
++        Data->RemoveField(TEXT("m24_interrupted_shot"));
++        Data->RemoveField(TEXT("m24_pending_casing"));
+     }
+     FString Json;
+@@ -86,2 +99,11 @@
+     return true;
+ }
++
++bool WeaponReloadStages::HasM24PendingCasing(const FColdSteelItem& Item)
++{
++    TSharedPtr<FJsonObject> Data;
++    bool Pending=false;
++    return Item.Definition==M24WeaponAssets::Definition
++        && FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data) && Data
++        && Data->TryGetBoolField(TEXT("m24_pending_casing"),Pending) && Pending;
++}

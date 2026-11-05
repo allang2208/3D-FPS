@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -81,4 +81,5 @@
+     void ReportGunMechanical(uint8 Hand,class USoundBase* Sound,float Volume,float StartTime=0.f);
+     void ReportGunMechanicalStop(uint8 Hand);
++    void ReportM24BoltEject();
+     void ReportGunCartridge(uint8 Hand,class UStaticMesh* Mesh,const FTransform& Frame,const FVector& Velocity,float Age);
+     class UFPSWeaponFXComponent* GetRemoteGunFX() const {return RemoteGunFX;}

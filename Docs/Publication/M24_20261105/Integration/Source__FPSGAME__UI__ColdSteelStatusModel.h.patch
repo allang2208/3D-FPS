@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -506,5 +506,5 @@
+     bool CompleteWeaponReloadCycle(const FString& WeaponId);
+     void MarkM870PumpInterrupted(const FString& WeaponId);
+-    void MarkM24CycleInterrupted(const FString& WeaponId);
++    void MarkM24CycleInterrupted(const FString& WeaponId,bool Interrupted=true,bool CasingPending=false);
+     float AmmoDamageMultiplier(const FColdSteelItem& Item) const;
+     float AmmoArmorPenetration(const FColdSteelItem& Item) const;

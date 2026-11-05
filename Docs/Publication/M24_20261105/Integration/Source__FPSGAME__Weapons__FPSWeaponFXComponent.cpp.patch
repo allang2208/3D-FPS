@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
++++ b/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
+@@ -1221,8 +1221,8 @@
+     const float Delay=(M24?M24WeaponAssets::BoltEject:M870WeaponAssets::PumpEject)/FMath::Max(.01f,Rate)-FMath::Max(0.f,ShotAge);
+     GetWorld()->GetTimerManager().ClearTimer(PumpEjectTimer);
+-    if(Delay<=0.f){SpawnCasing();return;}
++    if(Delay<=0.f){EjectPumpCasing();return;}
+     const TWeakObjectPtr<USkeletalMeshComponent> FiredMesh=WeaponMesh;
+     GetWorld()->GetTimerManager().SetTimer(PumpEjectTimer,FTimerDelegate::CreateWeakLambda(this,[this,FiredMesh]()
+-    {if(FiredMesh.IsValid()&&WeaponMesh==FiredMesh.Get())SpawnCasing();}),Delay,false);
++    {if(FiredMesh.IsValid()&&WeaponMesh==FiredMesh.Get())EjectPumpCasing();}),Delay,false);
+ }
+ 
+@@ -1282,5 +1282,7 @@
+     {
+         const float Rate=AcceptedPumpRate>0.f?AcceptedPumpRate:OwnerCharacter?(OwnerCharacter->IsM24Weapon()?OwnerCharacter->M24CyclePlayRate():OwnerCharacter->M870PumpPlayRate()):1.f;
+-        SchedulePumpEjection(Rate,ShotAge);
++        // M24 may be stowed before extraction. The world gun follows the
++        // actual owner contact, including an extraction on the next draw.
++        if(!bWorldGun||WorldGunDefinition!=M24WeaponAssets::Definition)SchedulePumpEjection(Rate,ShotAge);
+     }
+     else if(bWorldGun?!bWorldRevolver:(bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter||!OwnerCharacter->bUseDanWesson715)))SpawnCasing();
+@@ -1328,4 +1330,7 @@
+ void UFPSWeaponFXComponent::EjectPumpCasing()
+ {
++    if(!bWorldGun)
++        if(const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());Pawn&&Pawn->IsM24Weapon()&&Pawn->IsLocallyControlled())
++            if(auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>())Body->ReportM24BoltEject();
+     SpawnCasing();
+ }

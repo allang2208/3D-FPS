@@ -153,6 +153,7 @@ void AFPSGAMECharacter::InterruptReload()
 
 void AFPSGAMECharacter::ServicePendingReloadCycle()
 {
+    if(IsM24Weapon()&&bM24DeferReloadTail)return; // An interrupted reload resumes on R/fire, not on draw.
     if(IsTubeShotgunWeapon()&&GetNetMode()==NM_Client)
         if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsSuper90ReloadPending())return;
     if(IsDualWieldingPistols() || !bInventoryWeaponReady || IsWeaponBusy() || IsChoosingAmmo()

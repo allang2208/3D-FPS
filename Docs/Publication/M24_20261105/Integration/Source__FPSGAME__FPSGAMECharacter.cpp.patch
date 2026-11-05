@@ -1,0 +1,152 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -906,8 +906,16 @@
+         SuppressedFireSound=LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed);
+     }
++    const bool bM24ShotAudio = IsM24Weapon();
++    if (bM24ShotAudio)
++    {
++        SuppressedFireSound = LoadObject<USoundBase>(nullptr, M24WeaponAssets::SuppressedSoundPath);
++        if (FireSound) RifleFireVariants.Add(FireSound);
++        if (SuppressedFireSound) RifleSuppressedVariants.Add(SuppressedFireSound);
++    }
+     if (bUsingM4Infima && !IsTubeShotgunWeapon() && !IsPistolWeapon() && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
+     {
+         const TCHAR* AudioWeapon = bUseQBZ191 ? TEXT("QBZ191") : TEXT("M4");
+-        for (int32 Index = 1; Index <= 4; ++Index)
++        const int32 SharedVariantCount = bM24ShotAudio ? 0 : 4;
++        for (int32 Index = 1; Index <= SharedVariantCount; ++Index)
+         {
+             const FString Base = FString::Printf(TEXT("/Game/Weapons/FreeFirearmAudio20260913/S_%s_"), AudioWeapon);
+@@ -915,5 +923,5 @@
+                 ? Base + FString::Printf(TEXT("Fire_%02d"), Index)
+                 : FString::Printf(TEXT("/Game/Weapons/M4OriginalAudio20260913/S_M4_Original_%02d"), Index);
+-            if (!IsM24Weapon() && !bUseASH12 && !bUseM16 && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel))
++            if (!bUseASH12 && !bUseM16 && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel))
+                 if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *FirePath))
+                     RifleFireVariants.Add(Sound);
+@@ -1071,5 +1079,6 @@
+     // Also recover an empty magazine loaded from a saved profile after equipping.
+     if (!IsDualWieldingPistols() && (HasInfiniteReserveAmmo() || (bUseM16 && ReserveAmmo > 0))
+-        && bInventoryWeaponReady && MagazineAmmo == 0 && !IsWeaponBusy() && !IsChoosingAmmo()) ReloadPressed();
++        && bInventoryWeaponReady && MagazineAmmo == 0 && !(IsM24Weapon()&&bM24DeferReloadTail)
++        && !IsWeaponBusy() && !IsChoosingAmmo()) ReloadPressed();
+     if(BipodDeployment)BipodDeployment->Advance(DeltaSeconds);
+     if (IsLocallyControlled()) UpdateWeaponFeedback(DeltaSeconds); // M4: 纯表现，远端副本不跑
+@@ -1421,4 +1430,7 @@
+ void AFPSGAMECharacter::ReloadPressed()
+ {
++    // M24 uses the owner's rifle reload transaction and profile upload. A
++    // remote copy's empty-magazine tick must never consume the host's pouch.
++    if(IsM24Weapon()&&!IsLocallyControlled())return;
+     if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
+     if(IsOffhandReloadTransition())return;
+@@ -1449,4 +1461,5 @@
+     if (bUseM16) FireReleased();
+     if(TryBeginOffhandReload())return;
++    if(IsM24Weapon())bM24DeferReloadTail=false;
+     bRevolverReloadAfterFire = false;
+     bReloadAfterCasting=false;
+@@ -1478,4 +1491,5 @@
+             bPendingEmptyReload=WeaponReloadStages::UsesEmptyCycle(*Item);
+     WeaponState = bPendingEmptyReload ? EAKMWeaponState::ReloadingEmpty : EAKMWeaponState::Reloading;
++    if(IsM24Weapon())M24ActionBoltDurationScale=bPendingEmptyReload?M24GearBoltDurationScale:1.f;
+     WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
+     WeaponStateElapsed = 0.0f;
+@@ -2174,4 +2188,5 @@
+     // action for the elapsed interval which preceded the input event.
+     WeaponStateElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - WeaponActionStartedAt));
++    if(bM24EquipBoltPending)AdvanceM24EquipBolt();
+     if(IsReloading() && !AdvanceReloadStages())return;
+     const bool TubeFeedCues=IsTubeShotgunWeapon()&&IsReloading()&&!bSuper90SpeedReload&&!bReloadCycleOnly;
+@@ -2498,8 +2513,9 @@
+                 SourceEnd = ReloadSourceTime(WeaponStateDuration);
+             }
+-            else if (WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation)
++            else if (WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation
++                && (!IsM24Weapon() || !MechanicalCueTimes.IsEmpty()))
+             {
+                 CameraAction = bPKMActionCamera ? EM4CameraAction::PKMEquip : EM4CameraAction::EquipCharge;
+-                SourceTime = ActionStartPosition + WeaponStateElapsed * ActionPlayRate;
++                SourceTime = IsM24Weapon()?M24EquipSourceTime(WeaponStateElapsed):ActionStartPosition+WeaponStateElapsed*ActionPlayRate;
+                 SourceEnd = ActiveActionAnimation->GetPlayLength();
+             }
+@@ -2970,5 +2986,9 @@
+     if (!HasAuthority()&&!PredictSuper90)
+     {
+-        if (auto* PS = GetPlayerState<AColdSteelPlayerState>()) PS->ServerReportShotStamp();
++        if(auto* PS=GetPlayerState<AColdSteelPlayerState>())
++        {
++            if(IsM24Weapon())PS->ServerRememberM24Launch(this,ActiveInventoryWeapon,uint32(ShotsFired),ConvergenceRounds);
++            else PS->ServerReportShotStamp();
++        }
+     }
+     const double ShotInterval = EffectiveFireInterval();
+@@ -3022,5 +3042,5 @@
+     if(Animation&&IsM24Weapon())ShotAnimationRate=M24CyclePlayRate();
+     PlayWeaponAnimation(Animation, false, ShotAnimationRate);
+-    if(IsM24Weapon()){M24CycleCueMask=0;M24PendingCasingWeapons.Remove(ActiveInventoryWeapon);NextAllowedShotTime=Now+FMath::Max(ShotInterval,double(ActionDuration));}
++    if(IsM24Weapon()){M24CycleCueMask=0;bM24PendingCasing=false;NextAllowedShotTime=Now+FMath::Max(ShotInterval,double(ActionDuration));}
+     if(IsM870Weapon()){M870PumpCueMask=0;M870PendingCasingWeapons.Remove(ActiveInventoryWeapon);}
+     if(IsRSH12Weapon())
+@@ -3446,4 +3466,17 @@
+     // an offhand pistol must not enter the inactive main-gun state machine.
+     if(!bInventoryWeaponReady || HasOffhandPistol())return;
++    bM24EquipBoltPending=false;
++    bM24DeferReloadTail=false;
++    if(IsM24Weapon())
++    {
++        const auto* Profile=NetShadowProfile?NetShadowProfile.Get():GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        const auto* Gun=Profile?Profile->FindItem(ActiveInventoryWeapon):nullptr;
++        bM24EquipBoltPending=Gun&&WeaponReloadStages::NeedsM24ShotCycle(*Gun);
++        bM24PendingCasing=bM24EquipBoltPending&&WeaponReloadStages::HasM24PendingCasing(*Gun);
++        M24ActionBoltDurationScale=bM24EquipBoltPending?M24GearBoltDurationScale:1.f;
++        bM24DeferReloadTail=Gun&&!bM24EquipBoltPending&&WeaponReloadStages::NeedsCycle(*Gun);
++        EquipAnimation=bM24EquipBoltPending?LoadAKMAnimation(TEXT("A_AKM_equip")):
++            LoadObject<UAnimSequence>(nullptr,M24WeaponAssets::ReadyEquipPath);
++    }
+     if (bUseM1911)
+     {
+@@ -3497,6 +3530,9 @@
+     else if (IsM24Weapon())
+     {
+-        MechanicalCueTimes={M24WeaponAssets::EquipBoltPull,M24WeaponAssets::EquipBoltClosed};
+-        MechanicalCueSounds={ChargePullSound,ChargeReleaseSound};
++        if(bM24EquipBoltPending)
++        {
++            MechanicalCueTimes={M24WeaponAssets::EquipBoltPull,M24WeaponAssets::EquipBoltClosed};
++            MechanicalCueSounds={ChargePullSound,ChargeReleaseSound};
++        }
+     }
+     else if (SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
+@@ -3540,4 +3576,9 @@
+             && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? 0.72f : EquipAnimation->GetPlayLength();
+         const float EquipRate=FirearmEquipRate*LightningHaste::ActionSpeed(this);
++        if(IsM24Weapon())
++        {
++            WeaponStateDuration=M24ReloadTiming::EquipPacedTime(WeaponStateDuration,M24ActionBoltDurationScale);
++            for(float& Cue:MechanicalCueTimes)Cue=M24ReloadTiming::EquipPacedTime(Cue,M24ActionBoltDurationScale);
++        }
+         WeaponStateDuration /= EquipRate;
+         for(float& Cue : MechanicalCueTimes) Cue /= EquipRate;
+@@ -3844,5 +3885,5 @@
+     {
+         FString Cue(AssetName);Cue.RemoveFromStart(TEXT("S_AKM_"));
+-        if(Cue==TEXT("Fire"))return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::FireSoundPath(1));
++        if(Cue==TEXT("Fire"))return LoadObject<USoundBase>(nullptr,M24WeaponAssets::FireSoundPath);
+         if(Cue.StartsWith(TEXT("Mag"))||Cue.StartsWith(TEXT("Charge")))
+             return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::MechanicalSoundPath(*Cue));
+@@ -4344,5 +4385,5 @@
+         const float Length=ActiveActionAnimation?ActiveActionAnimation->GetPlayLength()
+             :(bPendingEmptyReload?110.f/30.f:60.f/30.f);
+-        return M24ReloadTiming::SourceSeconds(RuntimeTime/FMath::Max(WeaponStateDuration,.01f),Length);
++        return M24ReloadTiming::SourceSeconds(RuntimeTime/FMath::Max(WeaponStateDuration,.01f),Length,M24ActionBoltDurationScale);
+     }
+     if (bUsingM4Infima)
+@@ -4600,4 +4641,6 @@
+         float SourceTime = ActionStartPosition + ActionElapsed * ActionPlayRate;
+         if (IsReloading()) SourceTime = ReloadSourceTime(WeaponStateElapsed);
++        else if(IsM24Weapon()&&WeaponState==EAKMWeaponState::Equipping&&EquipAnimation)
++            SourceTime=M24EquipSourceTime(ActionElapsed);
+         else if (WeaponState == EAKMWeaponState::Equipping && !EquipAnimation)
+             SourceTime = ActionStartPosition + FMath::Max(0.0f, ActionElapsed - 0.18f);

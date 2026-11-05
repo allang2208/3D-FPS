@@ -1,0 +1,172 @@
+{
+  "Source/FPSGAME/Characters/FPSGunPresentationTypes.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "8308100ac6ea17ffc0e7510ff98d83580e4f54ab5e7aec28fbdd53ae0283c006",
+    "private_post_sha256_lf": "633eb1a749c531e8ec5166ea48ce057ad9536ea0af2a5d2c888863d9cfaec245"
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "cb8930215e243110f640139f26756765336d258fa11f3091493ec7c1bfc015dd",
+    "private_post_sha256_lf": "5c25bfbff145abe32f3bf06c47e38577405f728c143d5f80efc6ea8ac8ada1da",
+    "private_patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch"
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "e930572b94cabd7d417afc1b55b30b23f07628fad78f5a33d03c1c3894e408ad",
+    "private_post_sha256_lf": "f06b385aa52d73bb285b27c9a09f86736eea4091a69d346cd6ba22375aacbba4",
+    "private_patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyGunEffects.cpp.patch"
+  },
+  "Source/FPSGAME/FPSGAMECharacter.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "c92e1130a8effd96a5cb6cf4546f157670b2b32a5421169097ff89c2a49fdb7d",
+    "private_post_sha256_lf": "8fc7b265694cd2ad08340b3d448078dee62feae8bba8f1e4898fb956546ab9b1",
+    "private_patch": "Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch"
+  },
+  "Source/FPSGAME/FPSGAMECharacter.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "666b4e5ef831e21b012c47c67eab0b829b959b588acb23fc7adb2d035eeddec2",
+    "private_post_sha256_lf": "3c02fea566acdd5ad799807dafac40f090c4a30ade4de760dd7221fdbda37545",
+    "private_patch": "Integration/Source__FPSGAME__FPSGAMECharacter.h.patch"
+  },
+  "Source/FPSGAME/FPSGAMECharacterM24.cpp": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "1630ba1015fc7ec032aaef0d044c8d0454a1f70441edcf14c7d1715fca49b36c",
+    "private_post_sha256_lf": "cd6501aaf39e005b4ef2420fb6fbc1c24e785c31ffe45339c1514e61fe90abfb"
+  },
+  "Source/FPSGAME/FPSGAMECharacterProfile.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "32ef8ce661521047d074fb431d8378aa23c42718eed7bb91a8f238ac04fbed0e",
+    "private_post_sha256_lf": "c6c03dd71094c69d0ffa0bd17f334ad66d949e0aba8957b719ff4839b269cfb0",
+    "private_patch": "Integration/Source__FPSGAME__FPSGAMECharacterProfile.cpp.patch"
+  },
+  "Source/FPSGAME/FPSGAMECharacterReload.cpp": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "e7c37f7c34def09d8e017e4f343b428add54e0bed1d2a580eb7fe35a62773784",
+    "private_post_sha256_lf": "59bf52dc8aa82325d3f31cadb0b9b31152464db7851408e816526896b9772e25",
+    "private_patch": "Integration/Source__FPSGAME__FPSGAMECharacterReload.cpp.patch"
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelM24Launch.cpp": {
+    "delivery": "new-source",
+    "sha256_lf": "a8698cd4987c3a1f286a6dfd61c5d4e1464e762c17dc500b59002a91432687e8"
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "1dc06e3408bb0c4a07462235b8726c9a876fb629d21bb3953c381625a825926d",
+    "private_post_sha256_lf": "fc44f4af36f0746858821aa46096b4aa27fddcf41dd3723e7ad9da9b2460f243",
+    "private_patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch"
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "5534cffeb30923e1f7ef07149e5e9908a6814dae7bb147964037f5619bf86ca0",
+    "private_post_sha256_lf": "fc327c42eb8033015540e9d8b7097f90b018528b85813ba91942d691911b50af",
+    "private_patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch"
+  },
+  "Source/FPSGAME/UI/ColdSteelAmmoRuntime.cpp": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "c2e73010b4250d404b68955c518fb96e3ba0d0f2e4172306f13cf3ba955e9117",
+    "private_post_sha256_lf": "8462e11f081e2fd48eb68d7fcda69e1fe72582366aa194dd2bdc601ff85ac907",
+    "private_patch": "Integration/Source__FPSGAME__UI__ColdSteelAmmoRuntime.cpp.patch"
+  },
+  "Source/FPSGAME/UI/ColdSteelIconResources.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "2eff74c4bd88a3bc91f112ab0f4582741c5142d62c7d1664005ce2e68432ea81",
+    "private_post_sha256_lf": "e34dbe8beaf240c4a5bbf89a6b1fd0648a6e485fbe5f4463fa31219ba1ac99b7",
+    "private_patch": "Integration/Source__FPSGAME__UI__ColdSteelIconResources.cpp.patch"
+  },
+  "Source/FPSGAME/UI/ColdSteelProfileRecovery.cpp": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "c978e79561a016edb26d25293751c37f083fb99ed21bf2297f783803c3f80441",
+    "private_post_sha256_lf": "12dcab72879621cb76058fdaf6546c215ffc1612eb977eede7419cb17a88097f"
+  },
+  "Source/FPSGAME/UI/ColdSteelStatusModel.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "dbae4febed06d81ee7a15efc6c8d640f270cece0612fb3058e0ef2880bdf782b",
+    "private_post_sha256_lf": "58acc9174cc69a4bb8a9cfd8325ec6588d434a3719615a7c41305b3a3e938e6d",
+    "private_patch": "Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch"
+  },
+  "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "13c95a3a2ed189a8ad18efb885ea3c775c6af44379c4d0cf014ad15eb69f8482",
+    "private_post_sha256_lf": "a1dd5f4b61272064625857fc4d6fa2099c6e759b71c15f6eae8b3fce4cbd2d0a",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__FPSWeaponFXComponent.cpp.patch"
+  },
+  "Source/FPSGAME/Weapons/GunsmithModificationTier.h": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "11a5a30353d7e711a0012fcd0e1e08e10b019993e432eb61a6c380d73f63fef5",
+    "private_post_sha256_lf": "7f351b864605b8410fba3cdb673ad554fea369291eadda575af572dfac45623d",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__GunsmithModificationTier.h.patch"
+  },
+  "Source/FPSGAME/Weapons/GunsmithSystem.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "bd4bbe1cbcf122b301bf4ae1d10dad31f42c2ba45154f02e310a47c3ffdf264e",
+    "private_post_sha256_lf": "23a356fff64457f117de9a0a28514901df0eb2e5c4196f66c6cfb5cb2ac66b31",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch"
+  },
+  "Source/FPSGAME/Weapons/GunsmithSystem.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "ad2f8a5c9769f43cfab037bd3546201971edb866e201ba2f810a0c13fa04d23d",
+    "private_post_sha256_lf": "935fa39697164255dd4de0b875c16338b8a6eea8bbd6e091e551d2672485fa87",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__GunsmithSystem.h.patch"
+  },
+  "Source/FPSGAME/Weapons/M24Attachments.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "0930f28536b7dfce7cc765eb8f26cb36f4d04f18c42dcd7fdda1d487b6587702",
+    "private_post_sha256_lf": "cc88aa80a0fe576822dcb690eedc8bc340d875deb1db486b1a68d25a9ff595ac"
+  },
+  "Source/FPSGAME/Weapons/M24ReloadTiming.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "a3f496b89e8f6342e06c30e8f834df741b976bfbca317db5979f46310e983645",
+    "private_post_sha256_lf": "d74c9ca76174a18a099a155dfdd704f94893606831c9c2f89fa43bb8421599ad"
+  },
+  "Source/FPSGAME/Weapons/M24WeaponAssets.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "523bac774a3dfa435810b2959393b9ffde54d0efc7fd4eb18afdeeb8f8f96639",
+    "private_post_sha256_lf": "3ca1ba9dfdc15c2ab5f96732e7d60d009d5c0c78ab3090bc1f663df05a7d5f67"
+  },
+  "Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "efe8b56bdc77e0e21d0b86c1db11efb5c2264c9b0f0fa21f91229458ecaf9fb0",
+    "private_post_sha256_lf": "5911d53c058f1ba81682b7872c81978c5b0237ee584d15cb320807c7df1777f6",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__M870PresentationWireAudit.cpp.patch"
+  },
+  "Source/FPSGAME/Weapons/ShotgunWireAudit.h": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "55461e09d8f207f57ff21e9e040c1adf075c54d4a1ff3ef38f1201f2224f66b6",
+    "private_post_sha256_lf": "1fe9e1e3c8582385bc46b6042777ee4ad7c01357fdf6b146c68291dba75d34b0",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__ShotgunWireAudit.h.patch"
+  },
+  "Source/FPSGAME/Weapons/SkeletonStockVisual.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "c7109bba76a92c03bd5838306c339c0a6e8758f502e96c32ad717494f8cb44ed",
+    "private_post_sha256_lf": "4652f1020a9f97a23f37dccb4b9a718a2af70b6d7acfaaa588c74030122aa1ea",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__SkeletonStockVisual.cpp.patch"
+  },
+  "Source/FPSGAME/Weapons/SniperSkeletonStock.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "e20ac6ca7dc48a92bb03c52459098aa60294bf18605b2bacf993164959db11a9",
+    "private_post_sha256_lf": "71780c280daa2f9354eb115b7a6d8b5e951404a2ed9e76e74bbb414fe04221ce"
+  },
+  "Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "c1c36dc97bc3042fd4a4d8bb4f53671274e7a0ceb24a3b0fbdf4a19ad2f83b8f",
+    "private_post_sha256_lf": "ad1bad9d10cfa185cd7945b8e8c4c0b6b701c10572cbe006991fe050748845f0",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__TacticalDeviceComponent.cpp.patch"
+  },
+  "Source/FPSGAME/Weapons/TacticalDeviceVariants.h": {
+    "delivery": "host-patch",
+    "private_pre_sha256_lf": "87f2c2c113a6834ef931ecada0ca493c7ddc62484dde179482e1405f5c8567e8",
+    "private_post_sha256_lf": "4cac789c93e7053cc2a323608cb823133d2dbd5f18795445c783ead2795bb580",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__TacticalDeviceVariants.h.patch"
+  },
+  "Source/FPSGAME/Weapons/WeaponReloadStages.cpp": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "d7ab9e9c2f9762095bb817b0d2eb12ac31071529332a480d51f22f2c7af1bbff",
+    "private_post_sha256_lf": "255be2799de4cf1b1b02db78b38d488c1798e70b81123e90af1d8b40315cd135",
+    "private_patch": "Integration/Source__FPSGAME__Weapons__WeaponReloadStages.cpp.patch"
+  },
+  "Source/FPSGAME/Weapons/WeaponReloadStages.h": {
+    "delivery": "projected-source",
+    "private_pre_sha256_lf": "3c3bec426a614349fa09d03206b0a28792d0a857261b11695d4b38e61929a2f9",
+    "private_post_sha256_lf": "1306e2b6faeb0d212bdbb7f47ab4bdcc2def3ecb2d24c1077c200bfd5cf7d861"
+  }
+}

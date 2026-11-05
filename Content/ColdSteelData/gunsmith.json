@@ -12701,7 +12701,8 @@
         "bipod",
         "bolt",
         "reargrip",
-        "body"
+        "body",
+        "tactical"
       ],
       "options": {
         "optic": [
@@ -12894,26 +12895,51 @@
             "special_effects": []
           },
           {
-            "id": "sniper_skeleton_stock",
-            "name": "骨架狙击枪托",
-            "description": "镂空金属托架配可调贴腮板、调节轮与橡胶肩垫，按各枪型连接端独立适配。",
-            "stats": {
-              "recoil_mult": 0.85,
-              "stability_mult": 1.2,
-              "ads_percent": 0.05
-            },
+            "id": "m24_carbon_spine_stock",
+            "name": "玄脊碳纤维枪托",
+            "description": "M24 专属枪托，细斜纹碳壳配宽肩垫，可搭配原厂枪身或先进枪机系统。",
             "effects": [
+              {
+                "text": "稳定性+45%",
+                "benefit": 1
+              },
               {
                 "text": "后坐力-15%",
                 "benefit": 1
               },
               {
+                "text": "换弹速度+30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "stability_mult": 1.45,
+              "recoil_mult": 0.85,
+              "reload_mult": 0.7692307692307692
+            },
+            "special_effects": []
+          },
+          {
+            "id": "sniper_skeleton_stock",
+            "name": "骨架狙击枪托",
+            "description": "镂空金属托架配可调贴腮板、调节轮与橡胶肩垫，按各枪型连接端独立适配。",
+            "stats": {
+              "stability_mult": 1.2,
+              "ads_percent": -0.15,
+              "fire_interval_mult": 0.8333333333333334
+            },
+            "effects": [
+              {
                 "text": "稳定性+20%",
                 "benefit": 1
               },
               {
-                "text": "开镜耗时+5%",
-                "benefit": -1
+                "text": "开镜耗时-15%",
+                "benefit": 1
+              },
+              {
+                "text": "拉栓速度+20%",
+                "benefit": 1
               }
             ],
             "special_effects": []
@@ -13086,12 +13112,12 @@
             "name": "先进枪机系统",
             "description": "重构机匣、弹匣口与完整上下护木的金属底盘，配有镂空散热槽、连续导轨与沉孔紧固件，沿用原装枪托。",
             "special_effects": [
-              "后握把接口｜安装后解锁后握把改造；切回原厂枪身时自动撤下后握把改造。"
+              "后握把接口｜安装后解锁后握把改造；切回原厂枪身时自动撤下后握把改造。",
+              "战术挂件接口｜安装后解锁一个战术挂件槽，可安装通用镭射或手电；切回原厂枪身时自动撤下战术挂件。"
             ],
             "stats": {
               "recoil_mult": 0.85,
-              "stability_mult": 1.2,
-              "ads_percent": 0.1
+              "stability_mult": 1.2
             },
             "effects": [
               {
@@ -13101,11 +13127,86 @@
               {
                 "text": "稳定性+20%",
                 "benefit": 1
+              }
+            ]
+          }
+        ],
+        "tactical": [
+          {
+            "id": "false",
+            "name": "无战术挂件",
+            "description": "卸下战术配件，关闭照明和激光。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "laser",
+            "name": "红色激光镭射",
+            "description": "紧凑激光发射器固定于枪身导轨，投出红色光束。",
+            "effects": [
+              {
+                "text": "腰射随机散布-50%",
+                "benefit": 1
               },
               {
-                "text": "开镜耗时+10%",
+                "text": "开镜耗时-20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "hip_spread_mult": 0.5,
+              "ads_percent": -0.2
+            },
+            "special_effects": [
+              "激光指示｜射程80米；腰射沿发射器方向，开镜时汇聚准星，遇遮挡截断。"
+            ]
+          },
+          {
+            "id": "flashlight",
+            "name": "战术手电筒",
+            "description": "导轨式手电筒配金属外壳与前置透镜。",
+            "effects": [
+              {
+                "text": "提供前向照明",
+                "benefit": 0
+              }
+            ],
+            "stats": {},
+            "special_effects": [
+              "照明｜持枪时提供前向照明，遮挡物会投下阴影；收起武器或卸下手电时关闭。"
+            ]
+          },
+          {
+            "id": "blessed_laser",
+            "name": "赐福激光镭射",
+            "description": "金色光束间流动细丝，发射器贴合枪身导轨。",
+            "effects": [
+              {
+                "text": "腰射随机散布-80%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时-30%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力+15%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性-15%",
                 "benefit": -1
               }
+            ],
+            "stats": {
+              "hip_spread_mult": 0.2,
+              "ads_percent": -0.3,
+              "recoil_mult": 1.15,
+              "stability_mult": 0.85
+            },
+            "special_effects": [
+              "激光指示｜射程80米；腰射沿发射器方向，开镜时汇聚准星，遇遮挡截断。"
             ]
           }
         ]
@@ -13119,8 +13220,8 @@
         "camera_shake": 150,
         "spread_mult": 5.0,
         "fire_interval": 1.8333333333333333,
-        "reload_time": 4.7,
-        "empty_reload_time": 6.366666666666666,
+        "reload_time": 4.1,
+        "empty_reload_time": 5.766666666666667,
         "damage": 150,
         "bullet_speed": 820,
         "effective_range": 650,
@@ -13138,6 +13239,10 @@
         {
           "icon": "special",
           "text": "暴击伤害+100%。"
+        },
+        {
+          "icon": "mechanic",
+          "text": "安装先进枪机系统后解锁后握把和一个战术挂件槽；换回原厂枪身会自动撤下依赖改造。"
         }
       ],
       "default_parts": {
@@ -13148,7 +13253,8 @@
         "bipod": "false",
         "bolt": "false",
         "reargrip": "false",
-        "body": "false"
+        "body": "false",
+        "tactical": "false"
       }
     }
   ],

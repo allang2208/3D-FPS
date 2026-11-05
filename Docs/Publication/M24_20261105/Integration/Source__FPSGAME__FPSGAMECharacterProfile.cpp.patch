@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -78,5 +78,5 @@
+     if(Changed(TEXT("stock"))||(IsM24Weapon()&&Changed(TEXT("body"))))SetGunsmithStock(Parts.FindRef(TEXT("stock")));
+     if(Changed(TEXT("reargrip"))||Changed(TEXT("grip_body"))||(IsM24Weapon()&&(Changed(TEXT("stock"))||Changed(TEXT("body")))))SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),nullptr,Parts.FindRef(TEXT("grip_body")));
+-    if(Changed(TEXT("tactical"))||Changed(TEXT("tactical_secondary")))SetGunsmithTactical(Parts.FindRef(TEXT("tactical")),Parts.FindRef(TEXT("tactical_secondary")));
++    if(Changed(TEXT("tactical"))||Changed(TEXT("tactical_secondary"))||(IsM24Weapon()&&Changed(TEXT("body"))))SetGunsmithTactical(Parts.FindRef(TEXT("tactical")),Parts.FindRef(TEXT("tactical_secondary")));
+     if(Changed(TEXT("reload_device")))SetSuper90Speedloader(IsTubeShotgunWeapon()&&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id);
+     AppliedWeaponVisualParts=Parts;
+@@ -180,4 +180,5 @@
+     ShotgunPelletSpreadMultiplier=1.f;bShotgunDuckbillInstalled=false;
+     FirearmEquipRate=1.f;
++    M24GearBoltDurationScale=1.f;
+     DamagePerShot=Defaults->DamagePerShot+Profile->Derived(TEXT("atk"));
+     FireInterval=Defaults->FireInterval;
+@@ -209,4 +210,5 @@
+         {const auto Stats=Gunsmith->CalculateItem(*I,Parts);ADSInDuration=Stats.ADS*Profile->ADSTimeMultiplier();MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
+             FirearmEquipRate=static_cast<float>(Stats.EquipRate());
++            M24GearBoltDurationScale=float(Stats.M24BoltDurationScale);
+             WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;
+             HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));
+@@ -260,5 +262,5 @@
+         if(ChangedWeapon && bInventoryWeaponReady)
+         {
+-            if(NeedsReloadCycle())ServicePendingReloadCycle();
++            if(!IsM24Weapon()&&NeedsReloadCycle())ServicePendingReloadCycle();
+             else StartEquipCharge();
+         }
+@@ -273,5 +275,9 @@
+     StopMechanicalAudio();
+     // 联机：只有本机玩家的 pawn 才触发档案落盘——服务端远端 pawn 销毁不该写主机单例档。
+-    if(IsLocallyControlled())if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->SaveNow();
++    if(IsLocallyControlled())if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
++    {
++        PreserveInterruptedM24Cycle();
++        Profile->SaveNow();
++    }
+     Super::EndPlay(Reason);
+ }

@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/UI/ColdSteelIconResources.cpp
++++ b/Source/FPSGAME/UI/ColdSteelIconResources.cpp
+@@ -208,7 +208,7 @@
+         {
+             FString Key=Part.Value;
+-            if(Part.Key==TEXT("stock")&&Key==SniperSkeletonStock::Id&&SniperSkeletonStock::Supports(D))
+-            {
+-                Add(SniperSkeletonStock::MeshPath(D,Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction),true);
++            if(Part.Key==TEXT("stock")&&SniperSkeletonStock::IsReplacement(D,Key))
++            {
++                Add(SniperSkeletonStock::MeshPath(D,Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction,Key),true);
+                 if(D==TEXT("ue_m24"))
+                 {
+@@ -222,5 +222,7 @@
+             if(D==TEXT("ue_m24"))
+             {
+-                if(Part.Key==TEXT("reargrip")&&Parts.FindRef(TEXT("stock"))==SniperSkeletonStock::Id)continue;
++                if(Part.Key==TacticalDeviceVariants::PrimarySlot&&(TacticalDeviceVariants::IsLaser(Key)||Key==TEXT("flashlight")))
++                    Add(TacticalDeviceVariants::FittedMeshPath(TEXT("M24"),Key,false),true);
++                if(Part.Key==TEXT("reargrip")&&SniperSkeletonStock::IsReplacement(D,Parts.FindRef(TEXT("stock"))))continue;
+                 if(Part.Key==TEXT("bolt")&&Key==M24Attachments::CarbonBolt)Add(M24Attachments::CarbonBoltMaterial,true);
+                 if(Key==M24Bipod::Id){Add(M24Bipod::Base,true);Add(M24Bipod::LegA,true);Add(M24Bipod::LegB,true);Add(M24Bipod::Profile,true);}

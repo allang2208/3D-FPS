@@ -3,7 +3,7 @@
 #include "FPSGunPresentationTypes.generated.h"
 
 UENUM()
-enum class EFPSGunEvent : uint8 { Shot, Mechanical, StopMechanical, Cartridge };
+enum class EFPSGunEvent : uint8 { Shot, Mechanical, StopMechanical, Cartridge, M24BoltEject };
 
 /** Transient cosmetics only. Assets are checked against the server's equipped gun. */
 USTRUCT()

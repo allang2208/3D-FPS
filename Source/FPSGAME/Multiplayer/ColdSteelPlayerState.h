@@ -221,6 +221,8 @@ public:
     /** 远端身体表现：客户端开火时刻戳（枪响姿势用）。 */
     UFUNCTION(Server, Unreliable)
     void ServerReportShotStamp();
+    UFUNCTION(Server,Reliable)
+    void ServerRememberM24Launch(APawn* SourcePawn,const FString& Instance,uint32 Sequence,int32 Rounds);
 
     /** One reliable start/cancel per draw; no per-frame timing reports. */
     UFUNCTION(Server, Reliable)
@@ -430,6 +432,20 @@ private:
     int32 ServerMagazineAmmo=-1;
     FString ServerAmmoInstance;
     double ServerReloadReadyAt=0.,ServerLastShotClientTime=-1.,ServerLastShotServerAt=-1.;
+    // Short-lived launch context for M24 bullets still in flight after a swap.
+    struct FM24Launch
+    {
+        FColdSteelItem Item;
+        TWeakObjectPtr<APawn> Pawn;
+        FVector Eye,ViewForward;
+        float TraceRange=0.f,EffectiveRange=0.f;
+        double At=0.,Expires=0.,Interval=0.;
+        int32 Rounds=1,MaxTargets=1;
+        TSet<TWeakObjectPtr<AActor>> Targets;
+    };
+    TMap<uint32,FM24Launch> M24Launches;
+    uint32 LastM24LaunchSequence=0;
+    const FM24Launch* FindM24Launch(const FColdSteelNetHitReport& Report,const APawn* Shooter) const;
     int32 ServerComboStage=0,ValidatedComboStage=0;
     double ServerComboAt=-100.,ServerComboSwingAt=-100.;
     FString ServerComboWeapon;

@@ -1,0 +1,83 @@
+{
+  "groups": {
+    "full_finish": {
+      "receipt": "M24FinishUnified20261103/publish_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 136,
+      "missing": []
+    },
+    "factory_stock_joint": {
+      "receipt": "M24FactoryStockSeam20261105/saved.json",
+      "recorded_saved": true,
+      "referenced_packages": 4,
+      "missing": []
+    },
+    "reload_hands": {
+      "receipt": "M24ArmContact20261104/publish_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 10,
+      "missing": []
+    },
+    "magazine_contact": {
+      "receipt": "M24LocalMagazineGrip20261104/publish_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 10,
+      "missing": []
+    },
+    "factory_melee": {
+      "receipt": "M24QuickMeleeFactoryR2_20261104/publish_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 8,
+      "missing": []
+    },
+    "converted_melee": {
+      "receipt": "M24QuickMeleeRightHandR3_20261104/publish_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 8,
+      "missing": []
+    },
+    "bolt_shoulder": {
+      "receipt": "M24BoltShoulder20261104/publish_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 10,
+      "missing": []
+    },
+    "tactical": {
+      "receipt": "M24Tactical20261104/install_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 13,
+      "missing": []
+    },
+    "carbon_stock_existing": {
+      "receipt": "M24CarbonSpineGame20261104/install_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 19,
+      "missing": []
+    },
+    "shot_sounds": {
+      "receipt": "M24FireAudio20261104/import_receipt.json",
+      "recorded_saved": true,
+      "referenced_packages": 2,
+      "missing": []
+    },
+    "conditional_draw": {
+      "receipt": "M24EquipConditional20261104/saved.json",
+      "recorded_saved": true,
+      "referenced_packages": 11,
+      "missing": []
+    }
+  },
+  "unique_packages": 180,
+  "latest_equip_packages": 11,
+  "latest_equip_hash_mismatches": [],
+  "catalog": {
+    "advanced": true,
+    "carbon": true,
+    "skeleton": true,
+    "tactical": true
+  },
+  "draw_durations_seconds": [
+    0.6,
+    1.9333333333333333
+  ]
+}

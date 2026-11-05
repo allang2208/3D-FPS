@@ -5,6 +5,8 @@
 namespace M24WeaponAssets
 {
 inline constexpr const TCHAR* Definition=TEXT("ue_m24");
+inline constexpr const TCHAR* FireSoundPath=TEXT("/Game/Weapons/M24/FireAudio20261104/S_M24_Fire");
+inline constexpr const TCHAR* SuppressedSoundPath=TEXT("/Game/Weapons/M24/FireAudio20261104/S_M24_Suppressed");
 inline constexpr const TCHAR* MeshPath=TEXT("/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9");
 inline constexpr const TCHAR* SupportGripProfile=TEXT("/Game/Weapons/M24/MotionPolish20261027/DA_M24_SupportGrip");
 inline constexpr const TCHAR* ExtendedMagazineProfile=TEXT("/Game/Weapons/M24/MotionPolish20261027/DA_M24_Mag10");
@@ -31,7 +33,10 @@ inline constexpr float ChargePush=87.f/30.f;
 inline constexpr float ChargeRelease=94.f/30.f;
 // EquipBoltOnly20261028: native bolt cycle at the calibrated hip anchor.
 inline constexpr float EquipBoltPull=25.f/30.f;
-inline constexpr float EquipBoltClosed=40.f/30.f;
+inline constexpr float EquipBoltEject=BoltEject+3.f/30.f;
+// The handle starts turning down at frame 40 and is mechanically locked at 42.
+inline constexpr float EquipBoltClosed=42.f/30.f;
+inline constexpr const TCHAR* ReadyEquipPath=TEXT("/Game/Weapons/M24/EquipConditional20261104/A_M24_equip_ready");
 inline FString AnimationPath(const TCHAR* Role)
 {
     const bool SharedHold=FCString::Strcmp(Role,TEXT("idle"))==0||FCString::Strcmp(Role,TEXT("aim"))==0;

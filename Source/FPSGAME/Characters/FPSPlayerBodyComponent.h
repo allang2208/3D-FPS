@@ -67,6 +67,7 @@ public:
     void ReportGunShot(uint8 Hand, class USoundBase* Sound,float Volume,float Pitch,bool bAiming);
     void ReportGunMechanical(uint8 Hand,class USoundBase* Sound,float Volume,float StartTime=0.f);
     void ReportGunMechanicalStop(uint8 Hand);
+    void ReportM24BoltEject();
     void ReportGunCartridge(uint8 Hand,class UStaticMesh* Mesh,const FTransform& Frame,const FVector& Velocity,float Age);
     class UFPSWeaponFXComponent* GetRemoteGunFX() const {return RemoteGunFX;}
     /** Per-rig consume gate, including both lowering and recovery transitions. */
