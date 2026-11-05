@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+@@ -1,6 +1,6 @@
+ #include "StaffWeaponComponent.h"
+ #include "StaffOffhandMeleeComponent.h"
+-
++#include "../../FPSGAMEPlayerController.h"
+ #include "../../Skills/LightningHasteSpeed.h"
+ #include "../../Dungeons/WardBreakableGlass.h"
+ #include "StaffArmsMeshComponent.h"
+@@ -324,7 +324,7 @@
+     const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
+     if(Health&&Health->IsDead()){bIlluminationOn=false;IlluminationBlend=0.f;}
+     UpdateIllumination(Delta);
+-    if((PC&&PC->bShowMouseCursor)||(Health&&Health->IsDead())){CancelAction();return;}
++    if(AFPSGAMEPlayerController::BlocksActionContinuation(PC)||(Health&&Health->IsDead())){CancelAction();return;}
+     if(auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&Quick->GetStyle()==EQuickCombatStyle::StaffPunch)
+         Quick->AdvanceAction(Delta);
+     float Remaining=Delta;
+@@ -376,7 +376,7 @@
+     Super::TickComponent(Delta,Type,Tick);if(!IsEquipped()||!Staff||!Camera)return;
+     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+     const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
+-    if((PC&&PC->bShowMouseCursor)||(Health&&Health->IsDead()))CancelAction();
++    if(AFPSGAMEPlayerController::BlocksActionContinuation(PC)||(Health&&Health->IsDead()))CancelAction();
+     const auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();
+     if(Pawn)Locomotion.Update(*Pawn,Footsteps.Get(),Delta,IsBusy()||IlluminationGestureAge>=0.f||(Magic&&Magic->IsGestureActive())
+         ||Pawn->IsSpellGestureBlocking()||(PC&&PC->bShowMouseCursor)||(Health&&Health->IsDead()));

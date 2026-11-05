@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "../Items/FPSPotionUseComponent.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Skills/FPSFireballComponent.h"
@@ -154,6 +155,7 @@ bool UColdSteelStatusModel::UseQuickBinding(int32 Index)
     if(B.Skill.IsNone()){const auto* I=ResolveQuickItem(Index);return I&&UseItem(I->InstanceId);}
     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
     if(!Player||!CanBindQuickSkill(B.Skill))return false;
+    if(B.Skill!=TEXT("dodge")&&UFPSPotionUseComponent::BlocksWeaponAttack(Player))return false;
     if(B.Skill!=TEXT("quickCombat")&&UBoundCongregateCaptureComponent::IsCaptured(Player))return false;
     if(B.Skill==TEXT("swordUppercut"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->BeginUppercut();
     if(B.Skill==TEXT("heavyStrike"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->TriggerHeavySkill();
@@ -179,6 +181,7 @@ bool UColdSteelStatusModel::UseQuickBinding(int32 Index)
 
 bool UColdSteelStatusModel::BeginSpellAimPreview(int32 Index)
 {
+    if(UFPSPotionUseComponent::BlocksWeaponAttack(UGameplayStatics::GetPlayerPawn(this,0)))return false;
     if(UBoundCongregateCaptureComponent::IsCaptured(UGameplayStatics::GetPlayerPawn(this,0)))return false;
     const FName Skill=QuickBinding(Index).Skill;
     if(Skill==TEXT("thunderLance")){auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);if(!CanBindQuickSkill(Skill)||!Pawn)return false;if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>()){Ability->Trigger(Skill);AimPreviewIndex=Index;AimPreviewPawn=Cast<AFPSGAMECharacter>(Pawn);AimPreviewSkill=Skill;return true;}return false;}

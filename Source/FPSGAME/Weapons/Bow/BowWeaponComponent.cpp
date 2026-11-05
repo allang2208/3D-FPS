@@ -668,13 +668,13 @@ bool UBowWeaponComponent::CanPresent(bool bAllowDoorPushPresentation) const
         && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding() || Building->IsPanelOpen());
 }
 
-bool UBowWeaponComponent::CanUse(bool bAllowDoorPushPresentation) const
+bool UBowWeaponComponent::CanUse(bool bAllowDoorPushPresentation, bool bContinuing) const
 {
     const auto* PC = Character.IsValid() ? Cast<APlayerController>(Character->GetController()) : nullptr;
     const auto* Building = PC ? PC->FindComponentByClass<UVoxelBuildComponent>() : nullptr;
     const auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();
     const auto* Use=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();
-    return CastTransferAlpha<=0.f&&!(Magic&&Magic->IsOccupyingLeftHand())&&!(Use&&(Use->IsActive()||Use->IsReturningBow()))&&CanPresent(bAllowDoorPushPresentation) && !AFPSGAMEPlayerController::BlocksOngoingActions(PC)
+    return CastTransferAlpha<=0.f&&!(Magic&&Magic->IsOccupyingLeftHand())&&!(Use&&(Use->IsActive()||Use->IsReturningBow()))&&CanPresent(bAllowDoorPushPresentation) && !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))
         && (!Building || !Building->IsBuilding());
 }
 
@@ -939,7 +939,7 @@ void UBowWeaponComponent::ReleasePrimaryAttack(bool bAutomatic)
     // Door push starts only from Ready. A physical release during its gesture
     // must not turn that retained/nocked carry pose into a new equip cycle.
     if (Character.IsValid() && Character->IsDoorPushActive() && CanUse(true)) return;
-    if (!IsEquipped() || !CanUse()) { CancelAction(); return; }
+    if (!IsEquipped() || !CanUse(false,true)) { CancelAction(); return; }
     // Releasing before reaching the string cancels without firing or spending.
     if (Stage == EBowStage::DrawEntry) { CancelAction(); return; }
     if (Stage != EBowStage::Drawing && Stage != EBowStage::Holding) return;
@@ -1314,7 +1314,7 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
     }
     // Door push owns input and its separate V7 fist, but the original bow
     // pose/locomotion clocks remain live for the shared return trajectory.
-    const bool bUsable = CanUse(true);
+    const bool bUsable = CanUse(true,true);
     // Aim is advanced once before the camera reads its shaped weight.
     AdvanceAimWeight(Delta, bUsable && bSteadyHeld);
     AdvanceLocomotion(Delta, bUsable);

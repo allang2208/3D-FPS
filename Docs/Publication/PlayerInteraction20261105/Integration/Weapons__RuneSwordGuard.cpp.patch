@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordGuard.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordGuard.cpp
+@@ -128,7 +128,7 @@
+     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     // The break's own input lock is expected; only presentation loss/death or
+     // an actual modal UI may cancel its animation.
+-    if(!CanPresent()||(PC&&PC->bShowMouseCursor&&AFPSGAMEPlayerController::BlocksOngoingActions(PC)) || (Health && Health->IsDead())){CancelAction();return false;}
++    if(!CanPresent()||AFPSGAMEPlayerController::BlocksActionContinuation(PC) || (Health && Health->IsDead())){CancelAction();return false;}
+     FPSComponentVisibility::SetVisibilityTree(Viewmodel,true);
+     if(CurrentAnimation){Elapsed=FMath::Min(CurrentAnimation->GetPlayLength(),Elapsed+Delta);SamplePose(Elapsed);}
+     const auto* Broken=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();

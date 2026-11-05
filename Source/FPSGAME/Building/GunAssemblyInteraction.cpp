@@ -94,6 +94,7 @@ void AGunAssemblyInteraction::Enter()
 {
     auto* Player=PC.Get();if(!Player)return;
     bRunning=true;WorkingPawn=Player->GetPawn();PreviousView=Player->GetViewTarget();bWasCursor=Player->bShowMouseCursor;
+    ColdSteelWorkstationView::BeginIdle(this,WorkingPawn.Get());
     if(auto* Pawn=Cast<AFPSGAMECharacter>(WorkingPawn.Get())){Pawn->SuspendWeaponForMenu();Pawn->GetCharacterMovement()->StopMovementImmediately();}
     Player->FlushPressedKeys();Player->SetIgnoreMoveInput(true);Player->SetIgnoreLookInput(true);bInputLocked=true;
     Player->bShowMouseCursor=false;Player->SetInputMode(FInputModeGameOnly());
@@ -233,11 +234,11 @@ void AGunAssemblyInteraction::PlayContact(float Pitch)
 {if(ContactSound)UGameplayStatics::PlaySound2D(this,ContactSound,.32f,Pitch);}
 void AGunAssemblyInteraction::RestorePlayer()
 {
+    ColdSteelWorkstationView::Restore(PC.Get(),this,WorkingPawn.Get(),PreviousView.Get(),.25f);
     if(auto* Player=PC.Get())
     {
         if(bInputLocked){Player->SetIgnoreMoveInput(false);Player->SetIgnoreLookInput(false);bInputLocked=false;Player->FlushPressedKeys();}
         if(bHiddenPawn){Player->HiddenActors.Remove(WorkingPawn.Get());bHiddenPawn=false;}
-        ColdSteelWorkstationView::Restore(Player,this,WorkingPawn.Get(),PreviousView.Get(),.25f);
         Player->bShowMouseCursor=false;Player->SetInputMode(FInputModeGameOnly());
     }
     if(Prompt){Prompt->RemoveFromParent();Prompt=nullptr;}

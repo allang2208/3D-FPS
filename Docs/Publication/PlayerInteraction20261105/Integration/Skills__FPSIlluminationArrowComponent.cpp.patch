@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Skills/FPSIlluminationArrowComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSIlluminationArrowComponent.cpp
+@@ -61,8 +61,7 @@
+     if(P->IsLocallyControlled())
+     {
+         const auto* PC=Cast<APlayerController>(P->GetController());
+-        if(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()||P->IsChoosingAmmo()
+-            ||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||(FSlateApplication::IsInitialized()&&!FSlateApplication::Get().IsActive()))return false;
++        if(!PC||P->IsChoosingAmmo()||AFPSGAMEPlayerController::BlocksActionContinuation(PC)||(FSlateApplication::IsInitialized()&&!FSlateApplication::Get().IsActive()))return false;
+     }
+     return true;
+ }
+@@ -70,6 +69,8 @@
+ {Notice=Message;NoticeUntil=GetWorld()->GetTimeSeconds()+2.;if(auto* B=Bow())B->ShowFeedback(Message);}
+ bool UFPSIlluminationArrowComponent::Trigger()
+ {
++    const auto* InputPawn=::Cast<APawn>(GetOwner());
++    if(!InputPawn||AFPSGAMEPlayerController::BlocksOngoingActions(::Cast<APlayerController>(InputPawn->GetController())))return false;
+     if(IsPending())return false;
+     if(bPrepared){CancelFromBow();if(auto* B=Bow())B->CancelAction(false);return true;}
+     if(const auto* P=Cast<APawn>(GetOwner()))if(const auto* PS=P->GetPlayerState<AColdSteelPlayerState>();PS&&PS->InventoryRequestPending())return false;

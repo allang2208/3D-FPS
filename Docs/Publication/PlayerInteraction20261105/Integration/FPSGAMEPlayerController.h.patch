@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.h
++++ b/Source/FPSGAME/FPSGAMEPlayerController.h
+@@ -35,6 +35,9 @@
+     /** ALT exposes the HUD cursor without suspending the held weapon/action. */
+     bool IsCursorOnlyInteraction() const;
+     static bool BlocksOngoingActions(const APlayerController* Player);
++    /** Browsing panels own new input, but do not revoke an action already begun. */
++    bool IsActionPreservingPanelOpen() const;
++    static bool BlocksActionContinuation(const APlayerController* Player);
+     bool OpenGunsmith(const FString& Instance=TEXT(""));
+     void CloseGunsmith();
+     bool OpenWoodworking(AActor* Station,bool PracticeOnly=false);
+@@ -62,6 +65,7 @@
+ protected:
+     virtual void BeginPlay() override;
+     virtual void PlayerTick(float DeltaTime) override;
++    virtual void UpdateRotation(float DeltaTime) override;
+     virtual void SetupInputComponent() override;
+     virtual bool InputKey(const FInputKeyEventArgs& Params) override;
+ 

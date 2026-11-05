@@ -1,0 +1,44 @@
+--- a/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp
+@@ -235,10 +235,14 @@
+ }
+ void UColdSteelForgingWidget::SetStation(AVoxelBuildWorld* InWorld,FIntVector InCell)
+ {
+-    World=InWorld;Cell=InCell;Notice.Reset();bMaterialsDirty=true;
++    World=InWorld;Cell=InCell;Notice.Reset();bEntryError=false;bMaterialsDirty=true;
+     if(System&&!System->Active()&&!System->Job().Id.IsEmpty()&&!System->Job().bFinished)System->Finish(Notice);
+     if(System&&!System->Job().Id.IsEmpty())SelectedRecipe=System->Job().Recipe;
+     LoadMold();Refresh();
++}
++void UColdSteelForgingWidget::ShowEntryError(const FString& Reason)
++{
++    Notice=Reason;bEntryError=true;Refresh();
+ }
+ void UColdSteelForgingWidget::SetInputReady(bool bReady)
+ {
+@@ -469,14 +473,22 @@
+     DiscardButton->SetIsEnabled(bInputReady&&Pending&&Job.bFinished&&!Active&&bCanDiscard);
+     FIntVector Furnace;const bool Linked=World.IsValid()&&World->FindCastingFurnace(Cell,Furnace);
+     SmeltingButton->SetIsEnabled(bInputReady&&Linked&&!Active);
+-    SetText(Status,!System->Error().IsEmpty()?System->Error():!Notice.IsEmpty()?Notice:Reason);
++    const FString Message=bEntryError?Notice:!System->Error().IsEmpty()?System->Error():!Notice.IsEmpty()?Notice:Reason;
++    SetText(Status,Message);
++    Status->SetColorAndOpacity(bEntryError?ColdSteelUI::Danger:ColdSteelUI::TextSecondary);
++    ActionButton->SetToolTipText(FText::FromString(Message));
+ }
+ void UColdSteelForgingWidget::HandleAction()
+ {
+     if(!bInputReady||!System||System->Active())return;
+-    Notice.Reset();
++    Notice.Reset();bEntryError=false;
+     if(!System->Job().Id.IsEmpty()){if(System->Job().bFinished)System->Claim(Notice);else System->Finish(Notice);}
+-    else if(HUD&&HUD->StartWorldForging(SelectedRecipe,Notice,SelectedMetal)){Notice.Reset();bMaterialsDirty=true;Refresh();return;}
++    else
++    {
++        if(HUD&&HUD->StartWorldForging(SelectedRecipe,Notice,SelectedMetal)){Notice.Reset();bMaterialsDirty=true;Refresh();return;}
++        if(Notice.IsEmpty())Notice=TEXT("锻造入口尚未就绪，请重新打开铸造面板");
++        bEntryError=true;
++    }
+     bMaterialsDirty=true;SetKeyboardFocus();Refresh();
+ }
+ void UColdSteelForgingWidget::HandleClose(){if(HUD)HUD->CloseForging();}

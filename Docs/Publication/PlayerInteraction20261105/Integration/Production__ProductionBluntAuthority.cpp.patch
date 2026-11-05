@@ -1,0 +1,56 @@
+--- a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+@@ -30,7 +30,7 @@
+ 
+ namespace
+ {
+-bool CanCommitBlunt(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Profile)
++bool CanCommitBlunt(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Profile,bool bContinuing=false)
+ {
+     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+@@ -42,7 +42,7 @@
+     return Pawn&&Pawn->HasAuthority()&&Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item)&&PC&&
+         !Pawn->IsTraversing()&&!Pawn->IsCastBlockingLeftHandAction()&&(!Health||!Health->IsDead())&&
+         (!Sword||!Sword->IsGuarding())&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
+-        !AFPSGAMEPlayerController::BlocksOngoingActions(PC)&&(!Building||!Building->IsBuilding());
++        !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Building||!Building->IsBuilding());
+ }
+ }
+ 
+@@ -126,7 +126,7 @@
+     constexpr double BufferedCutTolerance=.12;
+     const double Now=World?World->GetTimeSeconds():0.;
+     const double Early=bReleaseCharge||bSprintAttack?0.:FMath::Clamp(BluntServerReadyAt-Now,0.,BufferedCutTolerance);
+-    if(!World||bBluntUppercut||bBluntWhirlwind||!CanCommitBlunt(Pawn,Profile)||Now+Early<BluntServerReadyAt){Reject();return;}
++    if(!World||bBluntUppercut||bBluntWhirlwind||!CanCommitBlunt(Pawn,Profile,bBluntServerCharging)||Now+Early<BluntServerReadyAt){Reject();return;}
+     const auto* Item=Profile->ActiveProductionTool();const FString SourceInstance=Item->InstanceId;
+     if(bSprintAttack&&(bReleaseCharge||BluntSprintInstance!=SourceInstance||World->GetTimeSeconds()-BluntSprintReadyAt>.35))
+     {Reject();return;}
+@@ -212,7 +212,7 @@
+         auto* OwnerPawn=Character.Get();auto* OwnerProfile=ColdSteelAuthority::ForPawn(OwnerPawn);
+         const auto* Current=OwnerProfile?OwnerProfile->ActiveProductionTool():nullptr;
+         if(BluntServerAttackId!=AttackId)return;
+-        if(!CanCommitBlunt(OwnerPawn,OwnerProfile)||!Current||Current->InstanceId!=SourceInstance)
++        if(!CanCommitBlunt(OwnerPawn,OwnerProfile,true)||!Current||Current->InstanceId!=SourceInstance)
+         {BluntServerNextStage=0;BluntServerGroundSlamUntil=0.;bBluntServerSprintAttack=false;BluntServerSprintContactAt=0.;ClientBluntAttackResult(AttackId,Stage,false,false,Heavy,bSprintAttack);return;}
+         if(Toll&&(BluntServerAttackId!=AttackId||Current->Data!=CommittedData||!RuneboundHammer::HasFinalToll(*Current)))return;
+         if(Throw&&(Current->Data!=CommittedData||!ThunderHammerThrow::Installed(*Current,OwnerProfile)))return;
+@@ -233,7 +233,7 @@
+         {
+             auto* OwnerPawn=Character.Get();auto* OwnerProfile=ColdSteelAuthority::ForPawn(OwnerPawn);
+             const auto* Current=OwnerProfile?OwnerProfile->ActiveProductionTool():nullptr;
+-            if(BluntServerAttackId!=AttackId||!CanCommitBlunt(OwnerPawn,OwnerProfile)||!Current||Current->InstanceId!=SourceInstance||Current->Data!=CommittedData||!RuneboundHammer::HasFinalToll(*Current))return;
++            if(BluntServerAttackId!=AttackId||!CanCommitBlunt(OwnerPawn,OwnerProfile,true)||!Current||Current->InstanceId!=SourceInstance||Current->Data!=CommittedData||!RuneboundHammer::HasFinalToll(*Current))return;
+             ColdSteelAuthority::FScope Scope(OwnerProfile);
+             AxeStrike=Committed;AxeStrike.MasteryAttackSerial=ColdSteelSkills::Snapshot(OwnerPawn,Current).MasteryAttackSerial;
+             FinalTollHeavySerial=AxeStrike.MasteryAttackSerial;
+@@ -277,7 +277,7 @@
+         bBluntServerCharging=bThunderCallCharging=false;FinishThunderCallResources();
+         ClientThunderCallResult(AttackId,false);
+     };
+-    if(!Pawn||!GetWorld()||!Item||!ThunderHammerCall::Installed(*Item)||!CanCommitBlunt(Pawn,Profile)||
++    if(!Pawn||!GetWorld()||!Item||!ThunderHammerCall::Installed(*Item)||!CanCommitBlunt(Pawn,Profile,bBluntServerCharging)||
+         int32(AttackId-BluntLastServerRequestId)<=0||GetWorld()->GetTimeSeconds()<BluntServerReadyAt)
+     {Reject();return;}
+     const bool Local=Pawn->IsLocallyControlled();

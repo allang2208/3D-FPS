@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Items/FPSPotionUseComponent.h"
 #include "FPSGAMEPlayerController.h"
 #include "UI/ColdSteelAmmoWheel.h"
 #include "UI/ColdSteelStatusModel.h"
@@ -32,6 +33,7 @@ namespace
 
 void AFPSGAMECharacter::ReloadInputPressed()
 {
+    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
     InterruptWeaponInspection();
     if(bReloadInputHeld||IsAmmoWheelOpen())return;
     const auto* PC=Cast<APlayerController>(Controller);

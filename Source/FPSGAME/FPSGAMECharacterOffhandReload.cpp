@@ -105,7 +105,7 @@ void AFPSGAMECharacter::AdvanceOffhandReload()
     const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();
     if(!bInventoryWeaponReady||!IsPistolWeapon()||HasOffhandPistol()||ActiveInventoryWeapon!=OffhandReload.Weapon||
         !Off||Off->InstanceId!=OffhandReload.Offhand||IsTraversing()||(Health&&Health->IsDead())||
-        AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(GetController())))
+        AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(GetController())))
     {
         CancelOffhandReload();InterruptReload();return;
     }

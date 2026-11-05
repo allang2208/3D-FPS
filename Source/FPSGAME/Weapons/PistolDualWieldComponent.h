@@ -97,6 +97,7 @@ public:
     void PrepareSingleInspect();
     UAnimSequence* SingleEmptyInspect() const;
     void InterruptActions();
+    bool HandBusy(int32 Index) const;
     bool LeftBusy() const;
     const FDualPistolHand& Hand(int32 Index) const { return Hands[Index]; }
     // Shared absolute clock for the posed rig and the earlier camera update.

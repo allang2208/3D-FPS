@@ -13,7 +13,7 @@
 void AFPSGAMECharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult)
 {
     Super::CalcCamera(DeltaTime, OutResult);
-    if (const auto* Rest=FindComponentByClass<UFPSFurnitureRestComponent>())Rest->ApplyCamera(OutResult);
+    if (auto* Rest=FindComponentByClass<UFPSFurnitureRestComponent>())Rest->ApplyCamera(OutResult);
     if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>())
     {Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);}
 }

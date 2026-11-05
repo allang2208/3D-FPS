@@ -128,7 +128,7 @@ private:
     FRotator ViewmodelKick() const;
     AFPSGAMECharacter* Pawn() const;
     bool CanPresent() const;
-    bool CanUse() const;
+    bool CanUse(bool bContinuing = false) const;
     void InitializePresentation();
     void SetClip(FName Name,bool bLoop,float Blend);
     void SamplePose(float Time);

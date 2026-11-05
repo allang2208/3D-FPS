@@ -1,4 +1,6 @@
 #include "ColdSteelPlayerState.h"
+#include "../Items/FPSPotionUseComponent.h"
+#include "TimerManager.h"
 #include "../Building/AlchemySystem.h"
 #include "../UI/ColdSteelShopModel.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
@@ -22,6 +24,8 @@
 bool AColdSteelPlayerState::RequestInventoryAction(EColdSteelInventoryAction Action,const FString& Item,AActor* Target)
 {
     FColdSteelInventoryRequest Request;Request.Action=Action;Request.Item=Item;Request.Target=Target;
+    if(Action==EColdSteelInventoryAction::Consume && GetPawn())
+        if(const auto* Use=GetPawn()->FindComponentByClass<UFPSPotionUseComponent>())Request.ConsumableUseId=Use->GetNetworkUseId();
     return RequestInventoryAction(Request);
 }
 TArray<uint8> AColdSteelPlayerState::InventoryBaseline(const FColdSteelProfile& Profile)
@@ -109,12 +113,49 @@ void AColdSteelPlayerState::ServerWarehouseOpen_Implementation(AColdSteelWarehou
     Chest->SetOpenFor(GetPawn(),Open);
 }
 
+void AColdSteelPlayerState::ServerBeginConsumableUse_Implementation(APawn* SourcePawn,FGuid UseId,const FString& Item,FName Definition)
+{
+    if(!SourcePawn || GetPawn()!=SourcePawn || !UseId.IsValid() || Item.IsEmpty() || Item.Len()>128)return;
+    const FString Def=Definition.ToString();
+    const auto* Use=SourcePawn->FindComponentByClass<UFPSPotionUseComponent>();
+    const auto* Health=SourcePawn->FindComponentByClass<UFPSCombatHealthComponent>();
+    if(!Use || !Health || Health->IsDead() || !UFPSPotionUseComponent::IsAnimatedConsumable(Def))return;
+    ConsumablePawn=SourcePawn;ConsumableUseId=UseId;ConsumableItem=Item;ConsumableDefinition=Definition;
+    ConsumableContactAt=GetWorld()->GetTimeSeconds()+Use->MinimumContactDelay(Def);
+}
+
+void AColdSteelPlayerState::ServerCancelConsumableUse_Implementation(FGuid UseId)
+{
+    if(UseId==ConsumableUseId)ConsumableUseId.Invalidate();
+}
+
 void AColdSteelPlayerState::ServerInventoryAction_Implementation(const FColdSteelInventoryRequest& Request)
 {
     auto* PC=Cast<APlayerController>(GetOwner());
     if(!HasAuthority()||!PC||PC->PlayerState!=this||!Request.Sequence
         ||static_cast<int32>(Request.Sequence-LastInventoryRequestSequence)<=0)return;
     LastInventoryRequestSequence=Request.Sequence;
+    if(Request.Action==EColdSteelInventoryAction::Consume && Request.ConsumableUseId.IsValid() &&
+        Request.ConsumableUseId==ConsumableUseId && ConsumablePawn.Get()==PC->GetPawn() &&
+        Request.Pawn==PC->GetPawn() && Request.Item==ConsumableItem)
+    {
+        const double Remaining=ConsumableContactAt-GetWorld()->GetTimeSeconds();
+        if(Remaining>0.)
+        {
+            // Both RPCs use this PlayerState channel. Network jitter may bunch
+            // them together. Settle at the server contact time and recheck state.
+            GetWorld()->GetTimerManager().SetTimer(ConsumableContactTimer,
+                FTimerDelegate::CreateWeakLambda(this,[this,Request](){ProcessInventoryAction(Request);}),float(Remaining),false);
+            return;
+        }
+    }
+    ProcessInventoryAction(Request);
+}
+
+void AColdSteelPlayerState::ProcessInventoryAction(const FColdSteelInventoryRequest& Request)
+{
+    auto* PC=Cast<APlayerController>(GetOwner());
+    if(!PC || Request.Sequence!=LastInventoryRequestSequence)return;
     InvalidateTeamTravelReady();
     auto* Pawn=Cast<AFPSGAMECharacter>(PC->GetPawn());
     auto* Model=PC->IsLocalController()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():ShadowModel.Get();
@@ -134,8 +175,19 @@ void AColdSteelPlayerState::ServerInventoryAction_Implementation(const FColdStee
         Success=ExecuteWorldAction(Request,Model,Reason);
     else if(Request.Action==EColdSteelInventoryAction::Consume)
     {
-        Success=Model->UseConsumableAtContact(Request.Item,true);
-        Reason=Success?TEXT("已使用物品"):Model->ResultMessage();
+        const auto* Item=Model->FindItem(Request.Item);
+        const bool Animated=Item&&UFPSPotionUseComponent::IsAnimatedConsumable(Item->Definition);
+        if(!PC->IsLocalController() && (Animated || Request.ConsumableUseId.IsValid()) &&
+            (!Item || !Request.ConsumableUseId.IsValid() || Request.ConsumableUseId!=ConsumableUseId ||
+             ConsumablePawn.Get()!=Pawn || ConsumableItem!=Request.Item || ConsumableDefinition!=FName(*Item->Definition)))
+        {
+            Reason=TEXT("使用动作已取消或物品已变化");
+        }
+        else
+        {
+            Success=Model->UseConsumableAtContact(Request.Item,true);
+            Reason=Success?TEXT("已使用物品"):Model->ResultMessage();
+        }
     }
     else if(Request.Action==EColdSteelInventoryAction::BowShot)
         Success=ExecuteBowShot(Request,Model,Reason);
@@ -178,6 +230,7 @@ void AColdSteelPlayerState::ServerInventoryAction_Implementation(const FColdStee
         default:Reason=TEXT("未知物品操作");break;
         }
     }
+    if(Request.Action==EColdSteelInventoryAction::Consume && Request.ConsumableUseId==ConsumableUseId)ConsumableUseId.Invalidate();
     if(Reason.IsEmpty())Reason=TEXT("物品已变化或当前无法使用");
     const auto After=Model?Model->Snapshot():Before;
     QueueInventoryReply(Request,Success,Reason,Before,After);
@@ -276,10 +329,16 @@ void AColdSteelPlayerState::ClientInventoryReplyChunk_Implementation(uint32 Sequ
     auto* Reply=NewObject<UColdSteelInventoryReply>();
     const bool Decoded=ColdSteelProfileTransfer::BlobToSaveObject(InventoryReplyIncoming,Reply)&&Reply->Sequence==Sequence;
     InventoryReplyIncoming.Reset();bInventoryRequestPending=bInventoryWaitingUpload=false;
+    bool OwnerAppliedReceipt=false;
     if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
     {
         Model->SetCampfireInventoryPending(false);
         const bool Applied=Decoded&&(!Reply->bSuccess||Model->ApplyNetworkInventoryReply(Reply,InventoryRequestPawn.Get()));
+        OwnerAppliedReceipt=Applied&&Reply->bSuccess;
+        if(PendingInventoryRequest.Action==EColdSteelInventoryAction::Consume && InventoryRequestPawn.IsValid() &&
+            InventoryRequestPawn.Get()==GetPawn())
+            if(auto* Use=InventoryRequestPawn->FindComponentByClass<UFPSPotionUseComponent>())
+                Use->ReceiveContactResult(PendingInventoryRequest.ConsumableUseId,Decoded&&Reply->bSuccess);
         if(PendingInventoryRequest.Mode.StartsWith(TEXT("alchemy.")))
             GetGameInstance()->GetSubsystem<UColdSteelAlchemySystem>()->NetworkFinished(PendingInventoryRequest.Mode,Decoded&&Reply->bSuccess&&Applied,
                 Decoded&&Applied?Reply->Message:TEXT("炼药结果正在重新同步"));
@@ -296,7 +355,7 @@ void AColdSteelPlayerState::ClientInventoryReplyChunk_Implementation(uint32 Sequ
             Model->ApplyNetworkContainerView(Reply,PendingInventoryRequest.Target);
         Model->PostNotice(TEXT("联机物品操作"),Applied?Reply->Message:TEXT("结果正在重新同步"));
     }
-    if(Decoded&&Reply->bSuccess)AcknowledgeInventoryProfile();else {bHasLastSent=false;HeartbeatTimer=0.f;}
+    if(OwnerAppliedReceipt)AcknowledgeInventoryProfile();else {bHasLastSent=false;HeartbeatTimer=0.f;}
     InventoryRequestPawn.Reset();
 }
 void AColdSteelPlayerState::ClientContainerInvalidated_Implementation(AActor* Target)

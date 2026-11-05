@@ -1,0 +1,62 @@
+--- a/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp
++++ b/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp
+@@ -150,12 +150,12 @@
+     return Part && Part->IsVisible() && !Part->bHiddenInGame ? Part : nullptr;
+ }
+ 
+-bool UWeaponBipodDeploymentComponent::Eligible() const
++bool UWeaponBipodDeploymentComponent::Eligible(bool bContinuing) const
+ {
+     const auto* C=Character.Get();
+     if(!C || !C->IsLocallyControlled() || !GetWorld())return false;
+     const auto* PC=Cast<APlayerController>(C->GetController());
+-    if(!PC || AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
++    if(!PC || (bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC)))return false;
+     if(const auto* Push=C->FindComponentByClass<UFPSDoorPushComponent>();Push&&Push->IsActive())return false;
+     if(!EquippedBipod() || !C->GetCharacterMovement()->IsMovingOnGround() || C->GetVelocity().SizeSquared()>100.f)return false;
+     if(C->GetWeaponState()!=EAKMWeaponState::Idle || C->IsChoosingAmmo() || C->bSprintHeld || C->IsSprinting()
+@@ -436,7 +436,7 @@
+         if(IsM24())if(auto* Part=EquippedBipod())Part->SetM24DeploymentTime(Blend*M24Bipod::Duration);
+         return;
+     }
+-    const bool Allowed=Eligible();const double Now=GetWorld()->GetTimeSeconds();
++    const bool Allowed=Eligible(bRequested);const double Now=GetWorld()->GetTimeSeconds();
+     if(!PendingReloadWeapon.IsEmpty()&&C->ActiveInventoryWeapon!=PendingReloadWeapon)PendingReloadWeapon.Reset();
+     if(!C->bAimHeld)bPendingReaim=false;
+     const bool Probe=bRequested && Now>=NextSupportProbe;
+@@ -500,7 +500,7 @@
+     if(Blend<=UE_SMALL_NUMBER && !bRequested)return;
+     if(!C || !Part || Part!=EquippedBipod()){Release(true);return;}
+     if(Blend<=UE_SMALL_NUMBER)return;
+-    if(bRequested && (!C->bIsAiming || !Eligible()))Release();
++    if(bRequested && (!C->bIsAiming || !Eligible(true)))Release();
+     const FVector Full=(Support.Anchor-Part->GetHingeWorld())*FMath::SmoothStep(0.f,1.f,PlacementBlend());
+     const FVector Eye=C->FirstPersonCamera->GetComponentLocation();
+     // 窗口内的视角旋转会带动枪体姿态：净空扫掠失败不是支撑失效，不能解除架枪
+@@ -607,7 +607,7 @@
+     return Item?Item->Definition:FString();
+ }
+ 
+-bool UWeaponBipodDeploymentComponent::AuthorityEligible() const
++bool UWeaponBipodDeploymentComponent::AuthorityEligible(bool bContinuing) const
+ {
+     const auto* C=Character.Get();if(!C||!C->HasAuthority()||!C->Controller)return false;
+     const FString Definition=EquippedDefinition();
+@@ -627,7 +627,7 @@
+         C->IsCastBlockingLeftHandAction()||C->IsSpellGestureBlocking())return false;
+     if(const auto* Push=C->FindComponentByClass<UFPSDoorPushComponent>();Push&&Push->IsActive())return false;
+     if(const auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
+-    if(const auto* PC=Cast<APlayerController>(C->Controller);!PC||AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
++    if(const auto* PC=Cast<APlayerController>(C->Controller);!PC||(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC)))return false;
+     return true;
+ }
+ 
+@@ -766,7 +766,7 @@
+         const auto* Move=Cast<UFPSCharacterMovementComponent>(Character->GetCharacterMovement());
+         const bool Probe=Now>=NextSupportProbe;
+         if(Probe)NextSupportProbe=Now+BipodSupportInterval;
+-        if(!AuthorityEligible()||EquippedDefinition()!=MountedDefinition||EquippedInstance()!=NetDeployment.WeaponInstance||
++        if(!AuthorityEligible(true)||EquippedDefinition()!=MountedDefinition||EquippedInstance()!=NetDeployment.WeaponInstance||
+             (Now-NetDeployment.StartedAt>.35&&(!Move||!Move->bWantsToAim))||
+             FVector::DistSquared(Character->GetActorLocation(),PawnAnchor)>4.||!SupportStillValid(Probe))
+         {PublishRelease();bRequested=false;}

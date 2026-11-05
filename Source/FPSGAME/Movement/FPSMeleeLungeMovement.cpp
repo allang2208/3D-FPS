@@ -1,4 +1,5 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -34,7 +35,7 @@ void UFPSCharacterMovementComponent::CalcVelocity(float DeltaTime,float Friction
         const auto* Status=CharacterOwner?CharacterOwner->FindComponentByClass<UCombatStatusFormula>():nullptr;
         const bool bInputResumed=Player && !Player->IsMeleeSkillMovementLocked() && !Acceleration.IsNearlyZero();
         if(!Player || IsDodging() || (!IsMovingOnGround() && !IsFalling()) ||
-            (Player->Controller && Player->Controller->IsMoveInputIgnored()) ||
+            (Player->Controller && AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->Controller))) ||
             (Status && Status->BlocksMovement()) || bInputResumed)
         {
             bMeleeDashMomentum=false;
@@ -70,7 +71,7 @@ FVector UFPSCharacterMovementComponent::ApplyMeleeLungeStep(const FVector& Direc
         !IsMovingOnGround() || IsDodging() || !CurrentFloor.IsWalkableFloor() || DistanceCM<=0.f)
         return FVector::ZeroVector;
     const auto* Controller=CharacterOwner->GetController();
-    if(!Controller || Controller->IsMoveInputIgnored())return FVector::ZeroVector;
+    if(!Controller || AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Controller)))return FVector::ZeroVector;
 
     const FVector Start=UpdatedComponent->GetComponentLocation();
     const FVector Forward=Direction.GetSafeNormal2D();

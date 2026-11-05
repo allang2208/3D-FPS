@@ -49,6 +49,7 @@ struct FColdSteelInventoryRequest
     UPROPERTY() int64 Revision = 0;
     UPROPERTY() EColdSteelInventoryAction Action = EColdSteelInventoryAction::Consume;
     UPROPERTY() FString Item;
+    UPROPERTY() FGuid ConsumableUseId;
     UPROPERTY() TObjectPtr<AActor> Target = nullptr;
     UPROPERTY() TObjectPtr<APawn> Pawn = nullptr;
     UPROPERTY() FVector_NetQuantize Eye;

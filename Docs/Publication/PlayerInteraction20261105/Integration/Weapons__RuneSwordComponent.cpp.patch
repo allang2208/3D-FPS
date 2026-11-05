@@ -1,0 +1,78 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -299,11 +299,11 @@
+         && (!Build || !Build->IsBuilding() || Build->IsPanelOpen());
+ }
+ 
+-bool URuneSwordComponent::CanUse() const
++bool URuneSwordComponent::CanUse(bool bContinuing) const
+ {
+     const auto* PC=Character.IsValid()?Cast<APlayerController>(Character->GetController()):nullptr;
+     const auto* Build=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
+-    return CanPresent() && !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && (!Build || !Build->IsBuilding());
++    return CanPresent() && !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC)) && (!Build || !Build->IsBuilding());
+ }
+ 
+ void URuneSwordComponent::SetClip(FName Name,bool bLoop)
+@@ -424,14 +424,14 @@
+     if(!bInspecting)WalkInspectDelay=FMath::FRandRange(1.f,2.f);
+ }
+ 
+-void URuneSwordComponent::BeginAttack()
++void URuneSwordComponent::BeginAttack(bool bContinuing)
+ {
+     if(bUppercut||bWhirlwind||bDashAttack)return;
+     if((!IsBroadbladeSweepReady() || bGuardHeld) && TryClovenCounter())return;
+     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
+     // Let the current swing finish; only reject a new swing or queued combo.
+     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedAttack=false;return;}
+-    if(!IsEquipped() || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
++    if(!IsEquipped() || !CanUse(bContinuing) || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
+     if(bInspecting)CancelAction();
+     if(bCharging || bReturningCharge)return;
+     if(bEquipping){bQueuedAttack=true;return;}
+@@ -482,7 +482,7 @@
+ void URuneSwordComponent::ReleasePrimaryAttack()
+ {
+     if(!bCharging)return;
+-    if(!CanUse() || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
++    if(!CanUse(true) || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
+     if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
+     {CancelHeavyCharge();return;}
+     const double HeldSeconds=GetWorld()->GetTimeSeconds()-ChargeStartedAt;
+@@ -490,7 +490,7 @@
+     {
+         // A tap uses the full normal attack and advances the three-part combo.
+         // The two-second charge clock always starts at the original press.
+-        SetHeavyCharging(false);BeginAttack();
++        SetHeavyCharging(false);BeginAttack(true);
+         if(!bAttacking)ReturnFromCharge();
+         return;
+     }
+@@ -838,7 +838,7 @@
+         // capsule. Native falling keeps vertical velocity, gravity and landing;
+         // ordinary thrusts and pommel steps still require ground support.
+         const auto* Controller=Pawn->GetController();
+-        if(!Controller||Controller->IsMoveInputIgnored())
++        if(AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Controller)))
+         {bLungeBlocked=true;return FVector::ZeroVector;}
+         const FVector Before=Pawn->GetActorLocation();
+         FHitResult Hit;
+@@ -882,7 +882,7 @@
+ void URuneSwordComponent::ReleaseHeavyCharge()
+ {
+     if(!bCharging)return;
+-    if(!CanUse() || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
++    if(!CanUse(true) || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
+     if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
+     {CancelHeavyCharge();return;}
+     // Input is dispatched before the component tick: decide from the input's
+@@ -1567,7 +1567,7 @@
+         JumpPresentationRoot->SetRelativeTransform(Character->GetWeaponJumpTransform(EFirstPersonJumpRig::Sword));
+     if(TickGuardBreak(Delta))return;
+     const bool Present=CanPresent();
+-    const bool Usable=CanUse();
++    const bool Usable=CanUse(true);
+     FPSComponentVisibility::SetVisibilityTree(Viewmodel,Present && Viewmodel->GetSkeletalMeshAsset());
+     if(!Usable)ClearClovenCounter();
+     TickClovenCounter(Delta);

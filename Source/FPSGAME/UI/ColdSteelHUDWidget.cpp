@@ -1238,7 +1238,7 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
     bInventoryOpen = bOpen;
     SetVisibility(bOpen?ESlateVisibility::Visible:ESlateVisibility::SelfHitTestInvisible);
     if(auto* Scroll=Cast<UScrollBox>(EquipmentPage))if(auto* Board=Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0)))Board->CancelInteraction();
-    if(bOpen){if(auto* Pawn=GetOwningPlayerPawn<AFPSGAMECharacter>())Pawn->SuspendWeaponForMenu();}
+    if(bOpen){if(auto* Pawn=GetOwningPlayerPawn<AFPSGAMECharacter>())Pawn->PrepareForPanelInput();}
     else UWidgetBlueprintLibrary::CancelDragDrop();
     if (!bOpen)
     {

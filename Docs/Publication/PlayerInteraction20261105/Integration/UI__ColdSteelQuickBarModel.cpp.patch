@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+@@ -2,6 +2,7 @@
+ #include "ColdSteelMagicQuickCast.h"
+ #include "../Monsters/BoundCongregateCaptureComponent.h"
+ #include "../FPSGAMECharacter.h"
++#include "../Items/FPSPotionUseComponent.h"
+ #include "../Skills/FPSFireballComponent.h"
+ #include "../Skills/FPSIceSpikeComponent.h"
+ #include "../Skills/FPSIceWallComponent.h"
+@@ -170,6 +171,7 @@
+ {
+     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+     if(!Player||!CanBindQuickSkill(Skill))return false;
++    if(Skill!=TEXT("dodge")&&UFPSPotionUseComponent::BlocksWeaponAttack(Player))return false;
+     if(Skill!=TEXT("quickCombat")&&UBoundCongregateCaptureComponent::IsCaptured(Player))return false;
+     if(Skill==TEXT("swordUppercut"))
+     {
+@@ -221,6 +223,7 @@
+ 
+ bool UColdSteelStatusModel::BeginSpellAimPreviewForSkill(FName Skill,int32 Index)
+ {
++    if(UFPSPotionUseComponent::BlocksWeaponAttack(UGameplayStatics::GetPlayerPawn(this,0)))return false;
+     if(UBoundCongregateCaptureComponent::IsCaptured(UGameplayStatics::GetPlayerPawn(this,0)))return false;
+     if(!CanBindQuickSkill(Skill))return false;
+     if(Skill!=TEXT("meteor"))if(auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0))

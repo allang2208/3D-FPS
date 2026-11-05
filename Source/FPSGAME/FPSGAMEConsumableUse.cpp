@@ -4,6 +4,7 @@
 #include "Weapons/Bow/BowArmsMeshComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
 #include "Weapons/Spellbook/SpellbookComponent.h"
+#include "Weapons/Kukri/KukriWeaponComponent.h"
 #include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Items/FPSPotionUseComponent.h"
@@ -11,12 +12,14 @@
 
 bool AFPSGAMECharacter::CanBeginConsumableUse() const
 {
+    if(IsDodging() || IsSliding() || IsChoosingAmmo())return false;
     if(IsResolvingActionInterrupt() || IsTraversing() || IsCastBlockingLeftHandAction() || IsSpellGestureBlocking())return false;
     if(const auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->IsReturningBow())return false;
-    if(HasOffhandPistol() && DualPistols->LeftBusy())return false;
+    if(HasOffhandPistol() && (DualPistols->HandBusy(0) || DualPistols->HandBusy(1)))return false;
     // Only the equipped family owns this gate. The inactive firearm clock/ADS
     // and a menu-hidden staff must not lock a sword, tool or empty hand.
     if(RuneSword && RuneSword->IsEquipped())return RuneSword->CanReleaseSupportHand();
+    if(const auto* Blade=FindComponentByClass<UKukriWeaponComponent>();Blade&&Blade->IsEquipped())return !Blade->IsBusy();
     if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool && Tool->IsEquipped())return !Tool->IsBusy();
     if(Bow && Bow->IsEquipped())
     {
@@ -30,7 +33,13 @@ bool AFPSGAMECharacter::CanBeginConsumableUse() const
     }
     if(Staff && Staff->IsEquipped())return !Staff->IsBusy();
     if(HasOffhandPistol())return true; // the offhand controller owns both pistol clocks
-    return !bInventoryWeaponReady || WeaponState==EAKMWeaponState::Idle || WeaponState==EAKMWeaponState::Inspecting;
+    if(!bInventoryWeaponReady)return true;
+    // Single firearms can be in Idle while their trigger or recoil clip is still active.
+    const bool PlayingShot = ActiveActionAnimation && ActionElapsed < ActionDuration &&
+        (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation ||
+         ActiveActionAnimation == PistolFireLastAnimation || ActiveActionAnimation == PistolAimFireLastAnimation);
+    if(bFireHeld || bPistolShotPending || BurstShotsRemaining > 0 || PlayingShot)return false;
+    return WeaponState==EAKMWeaponState::Idle || WeaponState==EAKMWeaponState::Inspecting;
 }
 
 void AFPSGAMECharacter::PrepareForConsumableUse()

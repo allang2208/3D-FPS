@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -96,7 +96,7 @@
+     float AttackSeconds() const { return RuneSwordRhythm::AttackEnd/AttackRate; }
+     /** Camera-local centimetres and degrees, composed with the character's existing feedback. */
+     void GetCameraMotion(FVector& Location, FRotator& Rotation) const;
+-    UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginAttack();
++    UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginAttack(bool bContinuing = false);
+     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginOverhead();
+     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginPrimaryAttack();
+     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleasePrimaryAttack();
+@@ -370,7 +370,7 @@
+     bool ShouldBreakWalkInspect() const;
+     float WalkInspectDelay=0.f;
+     bool CanPresent() const;
+-    bool CanUse() const;
++    bool CanUse(bool bContinuing = false) const;
+     bool StartSwing(FName Clip, bool Heavy, float StaminaOverride=-1.f, bool bUseWeaponAttackSpeed=true);
+     bool StartQuickCombatStrike();
+     void QuickCombatContractHit();

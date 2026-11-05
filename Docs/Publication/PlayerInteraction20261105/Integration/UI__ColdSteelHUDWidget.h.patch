@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -626,7 +626,7 @@
+     bool StartWorldForging(FName Recipe,FString& Reason,FName Metal=FName(TEXT("ironIngot")));
+     bool IsWorldForging() const;
+     bool HandleWorldForgeInput(const struct FInputKeyEventArgs& Event);
+-    void CompleteWorldForging(class AForgeInteraction* Interaction,bool bReturnPanel);
++    void CompleteWorldForging(class AForgeInteraction* Interaction,bool bReturnPanel,const FString& EntryError);
+     bool CanStartGunAssembly(FString& Reason) const;
+     bool StartGunAssembly(FString& Reason);
+     void GunAssemblyStartFinished(bool bSuccess);

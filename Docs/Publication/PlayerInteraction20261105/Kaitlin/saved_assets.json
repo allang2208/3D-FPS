@@ -1,0 +1,552 @@
+{
+  "0a76d7770b73025b": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_0a76d7770b73025b_Warhammer_FullBody_Uppercut.KGrip_0a76d7770b73025b_Warhammer_FullBody_Uppercut",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e5871be1dc_J_Hammer_Refined_Slash1.K_e5871be1dc_J_Hammer_Refined_Slash1",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash1.J_Hammer_Refined_Slash1",
+    "roles": [
+      "Warhammer.FullBody.Uppercut"
+    ],
+    "keys": 73,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "61c0550a1336e25b29d085d693125cb09bf154eb91943b46068d42030398a8e9"
+  },
+  "15ca303c1c2d1702": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_15ca303c1c2d1702_Warhammer_FullBody_Slash2.KGrip_15ca303c1c2d1702_Warhammer_FullBody_Slash2",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_cabbddb03d_J_Hammer_Natural_Slash2.K_cabbddb03d_J_Hammer_Natural_Slash2",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash2.J_Hammer_Natural_Slash2",
+    "roles": [
+      "Warhammer.FullBody.Slash2",
+      "Warhammer.FullBody.Slash2Recover"
+    ],
+    "keys": 77,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "bef6f43d582f0bca89f452afe6b5dea93319d8dee4915f53f734ccde75ddf6d7"
+  },
+  "1f30fab7f4612ac7": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_1f30fab7f4612ac7_Melee_FullBody_Whirlwind_Loop.KGrip_1f30fab7f4612ac7_Melee_FullBody_Whirlwind_Loop",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f5e722e20e_J_Kwang_Whirlwind_Loop.K_f5e722e20e_J_Kwang_Whirlwind_Loop",
+    "male": "/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations/J_Kwang_Whirlwind_Loop.J_Kwang_Whirlwind_Loop",
+    "roles": [
+      "Melee.FullBody.Whirlwind.Loop"
+    ],
+    "keys": 11,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "c66f061027f34f6a42613cb77741eb5f973e2480668ae04e88b7c91c58d13a05"
+  },
+  "24875000fdc28ef6": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_24875000fdc28ef6_Warhammer_FullBody_Carry.KGrip_24875000fdc28ef6_Warhammer_FullBody_Carry",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f075045c14_J_Hammer_Idle.K_f075045c14_J_Hammer_Idle",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Idle.J_Hammer_Idle",
+    "roles": [
+      "Warhammer.FullBody.Carry",
+      "Warhammer.FullBody.SprintCarry",
+      "Warhammer.Idle"
+    ],
+    "keys": 521,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "fce8f5500974ba599c21c3932c784d824552601fd92aaaea92878639fdc82ca2"
+  },
+  "28d0a25ccce98913": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_28d0a25ccce98913_Melee_FullBody_Uppercut.KGrip_28d0a25ccce98913_Melee_FullBody_Uppercut",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_ffe6769ef0_J_Kwang_Uppercut.K_ffe6769ef0_J_Kwang_Uppercut",
+    "male": "/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations/J_Kwang_Uppercut.J_Kwang_Uppercut",
+    "roles": [
+      "Melee.FullBody.Uppercut"
+    ],
+    "keys": 89,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "cc812f2d88596bac6cb5103bcac419a870c293b7086ce85c09b89a205b3ad22a"
+  },
+  "2fd227f690f9db9a": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_2fd227f690f9db9a_Melee_FullBody_Whirlwind_Start.KGrip_2fd227f690f9db9a_Melee_FullBody_Whirlwind_Start",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_5834a85afe_J_Kwang_Whirlwind_Start.K_5834a85afe_J_Kwang_Whirlwind_Start",
+    "male": "/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations/J_Kwang_Whirlwind_Start.J_Kwang_Whirlwind_Start",
+    "roles": [
+      "Melee.FullBody.Whirlwind.Start"
+    ],
+    "keys": 17,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "73791629f5332ac2451f36af74c18c01848f08f184310545d8f67775d6d636f2"
+  },
+  "32ce64c20725f5b8": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_32ce64c20725f5b8_Warhammer_Walk_Fwd.KGrip_32ce64c20725f5b8_Warhammer_Walk_Fwd",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8f07c3b864_J_Hammer_Gait_Fwd.K_8f07c3b864_J_Hammer_Gait_Fwd",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd.J_Hammer_Gait_Fwd",
+    "roles": [
+      "Warhammer.Walk.Fwd",
+      "Warhammer.Jog.Fwd"
+    ],
+    "keys": 107,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "6211fc626e7276277a3bc735e47c77d552efca20ff5c5c2799e341231765f3f2"
+  },
+  "3b9e808ede1af135": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_3b9e808ede1af135_Warhammer_Walk_Left.KGrip_3b9e808ede1af135_Warhammer_Walk_Left",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_082e7feb18_J_Hammer_Gait_Left.K_082e7feb18_J_Hammer_Gait_Left",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Left.J_Hammer_Gait_Left",
+    "roles": [
+      "Warhammer.Walk.Left",
+      "Warhammer.Jog.Left"
+    ],
+    "keys": 89,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "05af6d7409b252f206cf391a1c4de30dc7aa34f4baa31487bf9f5b4b064d71c3"
+  },
+  "40867e1d5cdb3c93": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_40867e1d5cdb3c93_Bow_Sparrow_Draw.KGrip_40867e1d5cdb3c93_Bow_Sparrow_Draw",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_69ae774484_J_SparrowBowV3_Draw.K_69ae774484_J_SparrowBowV3_Draw",
+    "male": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Draw.J_SparrowBowV3_Draw",
+    "roles": [
+      "Bow.Sparrow.Draw"
+    ],
+    "keys": 75,
+    "rate": [
+      30,
+      1
+    ],
+    "authored_sha256": "ecf24cfaf6f821887ad79d9cc11d2eef1018843f2e80b7df517efcf78bd2ae35"
+  },
+  "41f6ee6822aaa818": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_41f6ee6822aaa818_Melee_FullBody_Overhead.KGrip_41f6ee6822aaa818_Melee_FullBody_Overhead",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_7d2645ca9b_J_Kwang_Overhead.K_7d2645ca9b_J_Kwang_Overhead",
+    "male": "/Game/Characters/JasonPlayer20261003/KwangSwordLeftContact20261010/Animations/J_Kwang_Overhead.J_Kwang_Overhead",
+    "roles": [
+      "Melee.FullBody.Overhead"
+    ],
+    "keys": 193,
+    "rate": [
+      120,
+      1
+    ],
+    "authored_sha256": "749ede3288b75ae0c0400967d0dfa36f639703fd7eac194dcae232eb1c864022"
+  },
+  "442b5debaf8bade6": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_442b5debaf8bade6_Warhammer_FullBody_Slash3.KGrip_442b5debaf8bade6_Warhammer_FullBody_Slash3",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_eee1a7f7c1_J_Hammer_Aligned_Slash3.K_eee1a7f7c1_J_Hammer_Aligned_Slash3",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/Slash3AlignmentV18/Animations/J_Hammer_Aligned_Slash3.J_Hammer_Aligned_Slash3",
+    "roles": [
+      "Warhammer.FullBody.Slash3",
+      "Warhammer.FullBody.Slash3Recover"
+    ],
+    "keys": 77,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "6eb129983c5907796b6c50f4cf34575eec541bb22e088cd4c6bba5af0e7e1aca"
+  },
+  "548af5a2b51b96d2": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_548af5a2b51b96d2_Warhammer_FullBody_Slash1.KGrip_548af5a2b51b96d2_Warhammer_FullBody_Slash1",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_be88bd8e47_J_Hammer_Natural_Slash1.K_be88bd8e47_J_Hammer_Natural_Slash1",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash1.J_Hammer_Natural_Slash1",
+    "roles": [
+      "Warhammer.FullBody.Slash1",
+      "Warhammer.FullBody.Slash1Recover"
+    ],
+    "keys": 73,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "199f32bc3432cc9c602512274f792e2460ace8653bc2d4a49fb0186f811d0d00"
+  },
+  "6179a0eda0687f02": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_6179a0eda0687f02_Warhammer_Walk_Right.KGrip_6179a0eda0687f02_Warhammer_Walk_Right",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_80f665ffce_J_Hammer_Gait_Right.K_80f665ffce_J_Hammer_Gait_Right",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Right.J_Hammer_Gait_Right",
+    "roles": [
+      "Warhammer.Walk.Right",
+      "Warhammer.Jog.Right"
+    ],
+    "keys": 93,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "e47d894cf93f86cefb17b9c4b8432235537c5cb40710d7ea43988da1f484c837"
+  },
+  "64ec94dd140561e5": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_64ec94dd140561e5_Bow_Sparrow_Ready.KGrip_64ec94dd140561e5_Bow_Sparrow_Ready",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4d8d279dbe_J_SparrowBowV3_Ready.K_4d8d279dbe_J_SparrowBowV3_Ready",
+    "male": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Ready.J_SparrowBowV3_Ready",
+    "roles": [
+      "Bow.Sparrow.Ready"
+    ],
+    "keys": 2,
+    "rate": [
+      30,
+      1
+    ],
+    "authored_sha256": "175463bb8f4b93bc208c0284d83e4530944006d0d06da7e443df61aa1917f81e"
+  },
+  "6a9ba791de559824": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_6a9ba791de559824_Warhammer_Walk_Fwd_Right.KGrip_6a9ba791de559824_Warhammer_Walk_Fwd_Right",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_045311276f_J_Hammer_Gait_Fwd_Right.K_045311276f_J_Hammer_Gait_Fwd_Right",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Right.J_Hammer_Gait_Fwd_Right",
+    "roles": [
+      "Warhammer.Walk.Fwd_Right",
+      "Warhammer.Jog.Fwd_Right"
+    ],
+    "keys": 100,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "971a1ebd3e97bb845169a05bdf270fd390a2d9c381796d760a7fac9edf7a12cd"
+  },
+  "6be8b1fbc6990f77": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_6be8b1fbc6990f77_Melee_FullBody_TangDao_Whirlwind_End.KGrip_6be8b1fbc6990f77_Melee_FullBody_TangDao_Whirlwind_End",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_5996008e1b_J_TangDao_Whirlwind_End.K_5996008e1b_J_TangDao_Whirlwind_End",
+    "male": "/Game/Characters/JasonPlayer20261003/TangDaoWhirlwind20261010/Animations/J_TangDao_Whirlwind_End.J_TangDao_Whirlwind_End",
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.End"
+    ],
+    "keys": 79,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "bf1f337b61ff44ca785fa25e7d4a93506d256e8976a3b93f369c904ebe67efc5"
+  },
+  "73b31fd44e6b1d31": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_73b31fd44e6b1d31_Bow_Sparrow_Carry.KGrip_73b31fd44e6b1d31_Bow_Sparrow_Carry",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_fbdd7245d0_J_SparrowBowV3_Carry.K_fbdd7245d0_J_SparrowBowV3_Carry",
+    "male": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Carry.J_SparrowBowV3_Carry",
+    "roles": [
+      "Bow.Sparrow.Carry"
+    ],
+    "keys": 276,
+    "rate": [
+      30,
+      1
+    ],
+    "authored_sha256": "d8b31886a2c4e6aebd939a5fe3ca1ae030af75ebbf72bbceae7f373b22c55131"
+  },
+  "78bc71b877c8c9d3": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_78bc71b877c8c9d3_Melee_FullBody_TangDao_Whirlwind_Start.KGrip_78bc71b877c8c9d3_Melee_FullBody_TangDao_Whirlwind_Start",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_337bb21ebb_J_TangDao_Whirlwind_Start.K_337bb21ebb_J_TangDao_Whirlwind_Start",
+    "male": "/Game/Characters/JasonPlayer20261003/TangDaoWhirlwind20261010/Animations/J_TangDao_Whirlwind_Start.J_TangDao_Whirlwind_Start",
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.Start"
+    ],
+    "keys": 17,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "1e6d6346b2330625c177a9ba7b84aef4c9cd442be1151044a7265609eb94d6ed"
+  },
+  "942e08238390df96": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_942e08238390df96_Bow_Sparrow_Release.KGrip_942e08238390df96_Bow_Sparrow_Release",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8bd265273e_J_SparrowBowV3_Release.K_8bd265273e_J_SparrowBowV3_Release",
+    "male": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Release.J_SparrowBowV3_Release",
+    "roles": [
+      "Bow.Sparrow.Release"
+    ],
+    "keys": 21,
+    "rate": [
+      30,
+      1
+    ],
+    "authored_sha256": "8d7ef0f1379e7d8a45242c9ac7e01cc01e2a8e81dd5c011b4ed406af5ed42abf"
+  },
+  "948373132575cc17": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_948373132575cc17_Warhammer_Walk_Fwd_Left.KGrip_948373132575cc17_Warhammer_Walk_Fwd_Left",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_eacf8bc5cb_J_Hammer_Gait_Fwd_Left.K_eacf8bc5cb_J_Hammer_Gait_Fwd_Left",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Left.J_Hammer_Gait_Fwd_Left",
+    "roles": [
+      "Warhammer.Walk.Fwd_Left",
+      "Warhammer.Jog.Fwd_Left"
+    ],
+    "keys": 98,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "3b3f5b64b1d203ced1e3c4b007714b682a61e8b545c959e342be2e1aba93ee63"
+  },
+  "994809ae3a3ed475": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_994809ae3a3ed475_Warhammer_FullBody_Charge.KGrip_994809ae3a3ed475_Warhammer_FullBody_Charge",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_92d3e0b83b_J_Hammer_Refined_Slash3.K_92d3e0b83b_J_Hammer_Refined_Slash3",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "roles": [
+      "Warhammer.FullBody.Charge",
+      "Warhammer.FullBody.Slam",
+      "Warhammer.FullBody.SprintLift",
+      "Warhammer.FullBody.SprintSlam"
+    ],
+    "keys": 77,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "46163615c5c8a2b33b8f45271db2b01a8995f5c3de6642c7f958aef65f16c4c1"
+  },
+  "9dabc433f8da28d3": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_9dabc433f8da28d3_Melee_FullBody_ChixiaoHeavy.KGrip_9dabc433f8da28d3_Melee_FullBody_ChixiaoHeavy",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_a72a57a909_A_Chixiao_DoubleHeavy_Body.K_a72a57a909_A_Chixiao_DoubleHeavy_Body",
+    "male": "/Game/Weapons/Zhanmadao20261018/ChixiaoDoubleHeavyV1/A_Chixiao_DoubleHeavy_Body.A_Chixiao_DoubleHeavy_Body",
+    "roles": [
+      "Melee.FullBody.ChixiaoHeavy"
+    ],
+    "keys": 241,
+    "rate": [
+      240,
+      1
+    ],
+    "authored_sha256": "5f2915546d28ecc0cdf098bf4db763adf1bdc42dd82eeef47bf68b4ecc528d70"
+  },
+  "a9d4d1e3cb2f3d6f": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_a9d4d1e3cb2f3d6f_Warhammer_FullBody_FinalTollCharge.KGrip_a9d4d1e3cb2f3d6f_Warhammer_FullBody_FinalTollCharge",
+    "previous": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_ChargeBodyV5_kaitlin.A_FinalToll_ChargeBodyV5_kaitlin",
+    "male": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_ChargeBodyV5_Default.A_FinalToll_ChargeBodyV5_Default",
+    "roles": [
+      "Warhammer.FullBody.FinalTollCharge"
+    ],
+    "keys": 241,
+    "rate": [
+      120,
+      1
+    ],
+    "authored_sha256": "ef56396cf354d11af4a1c29afba5704c618757032d810a8c9395059136288a24"
+  },
+  "ad7059b0437d5688": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_ad7059b0437d5688_Melee_FullBody_TangDao_Whirlwind_Loop.KGrip_ad7059b0437d5688_Melee_FullBody_TangDao_Whirlwind_Loop",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_131e4098ad_J_TangDao_Whirlwind_Loop.K_131e4098ad_J_TangDao_Whirlwind_Loop",
+    "male": "/Game/Characters/JasonPlayer20261003/TangDaoWhirlwind20261010/Animations/J_TangDao_Whirlwind_Loop.J_TangDao_Whirlwind_Loop",
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.Loop"
+    ],
+    "keys": 11,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "01996a473b7ad99108993aa6f37bbe7bb2f4fc3e87a11a5588c2508a1ea16bb2"
+  },
+  "ae25ec27edcce118": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_ae25ec27edcce118_Warhammer_FullBody_Whirlwind_Start.KGrip_ae25ec27edcce118_Warhammer_FullBody_Whirlwind_Start",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_33560fef1d_J_Hammer_Anatomical_WhirlwindStart.K_33560fef1d_J_Hammer_Anatomical_WhirlwindStart",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindStart.J_Hammer_Anatomical_WhirlwindStart",
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.Start"
+    ],
+    "keys": 17,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "c1d840262a7d050786454dd60b06d9bfcc75a0a3a8900bed5622cf06b4337390"
+  },
+  "af419922ad3d4278": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_af419922ad3d4278_Warhammer_FullBody_QuickMelee.KGrip_af419922ad3d4278_Warhammer_FullBody_QuickMelee",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_d942291841_J_Hammer_Refined_QuickMelee.K_d942291841_J_Hammer_Refined_QuickMelee",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_QuickMelee.J_Hammer_Refined_QuickMelee",
+    "roles": [
+      "Warhammer.FullBody.QuickMelee"
+    ],
+    "keys": 65,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "971aea8e84e4d453257668058191d7739a08834931aa50a33e4da75c50ad9edb"
+  },
+  "b3d6904d2dd59b99": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_b3d6904d2dd59b99_Warhammer_Walk_Bwd_Left.KGrip_b3d6904d2dd59b99_Warhammer_Walk_Bwd_Left",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4dbc7618b5_J_Hammer_Gait_Bwd_Left.K_4dbc7618b5_J_Hammer_Gait_Bwd_Left",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Left.J_Hammer_Gait_Bwd_Left",
+    "roles": [
+      "Warhammer.Walk.Bwd_Left",
+      "Warhammer.Jog.Bwd_Left"
+    ],
+    "keys": 89,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "ca5508ff47ab546d15ba89998ec1c5d21f9f3d13b077b33fd2a178c6dc7baa3c"
+  },
+  "bf852e3be9d269d7": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_bf852e3be9d269d7_Warhammer_FullBody_GuardHit.KGrip_bf852e3be9d269d7_Warhammer_FullBody_GuardHit",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_b55a48bf0b_J_Hammer_Anatomical_GuardHit.K_b55a48bf0b_J_Hammer_Anatomical_GuardHit",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHit.J_Hammer_Anatomical_GuardHit",
+    "roles": [
+      "Warhammer.FullBody.GuardHit",
+      "Warhammer.FullBody.GuardBreak"
+    ],
+    "keys": 65,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "23423cb44a2ddee48b77118d7664d6c3502fc2a837201dbfb1c3b55beb203976"
+  },
+  "c010454f169c3bbb": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_c010454f169c3bbb_Warhammer_FullBody_GuardHold.KGrip_c010454f169c3bbb_Warhammer_FullBody_GuardHold",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6cb17c456c_J_Hammer_Anatomical_GuardHold.K_6cb17c456c_J_Hammer_Anatomical_GuardHold",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHold.J_Hammer_Anatomical_GuardHold",
+    "roles": [
+      "Warhammer.FullBody.GuardHold"
+    ],
+    "keys": 65,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "d84a7e3bd0e27afa33eb26e4b42860cbebac457ef1314a53e5b31d8ec7410f19"
+  },
+  "c13235dd0d7ffa06": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_c13235dd0d7ffa06_Warhammer_Walk_Bwd.KGrip_c13235dd0d7ffa06_Warhammer_Walk_Bwd",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_13486cc373_J_Hammer_Gait_Bwd.K_13486cc373_J_Hammer_Gait_Bwd",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd.J_Hammer_Gait_Bwd",
+    "roles": [
+      "Warhammer.Walk.Bwd",
+      "Warhammer.Jog.Bwd"
+    ],
+    "keys": 89,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "302c5bbb6db526d6c022e7da67162ac781daf3b896ca369f92186bf9e914dc6d"
+  },
+  "c64f2ba8ff677b11": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_c64f2ba8ff677b11_Warhammer_Walk_Bwd_Right.KGrip_c64f2ba8ff677b11_Warhammer_Walk_Bwd_Right",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_70a5e421eb_J_Hammer_Gait_Bwd_Right.K_70a5e421eb_J_Hammer_Gait_Bwd_Right",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Right.J_Hammer_Gait_Bwd_Right",
+    "roles": [
+      "Warhammer.Walk.Bwd_Right",
+      "Warhammer.Jog.Bwd_Right"
+    ],
+    "keys": 91,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "197d1e0642c55d3db2bc9b3cb46e664b3cac537b82eaa8616f37bd9f829caf98"
+  },
+  "c79db0301b5cfecd": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_c79db0301b5cfecd_Warhammer_FullBody_GuardEnter.KGrip_c79db0301b5cfecd_Warhammer_FullBody_GuardEnter",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_66f05c5b52_J_Hammer_Anatomical_GuardEnter.K_66f05c5b52_J_Hammer_Anatomical_GuardEnter",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardEnter.J_Hammer_Anatomical_GuardEnter",
+    "roles": [
+      "Warhammer.FullBody.GuardEnter",
+      "Warhammer.FullBody.GuardExit"
+    ],
+    "keys": 25,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "1760c808c3f73b98a4697a692dd9cf888a5f69534217de357ec8f2c7bf480e35"
+  },
+  "d22e153c3d2ed588": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_d22e153c3d2ed588_Warhammer_FullBody_Whirlwind_End.KGrip_d22e153c3d2ed588_Warhammer_FullBody_Whirlwind_End",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_faf7e5d806_J_Hammer_Anatomical_WhirlwindEnd.K_faf7e5d806_J_Hammer_Anatomical_WhirlwindEnd",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindEnd.J_Hammer_Anatomical_WhirlwindEnd",
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.End"
+    ],
+    "keys": 79,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "45af994956de8f7bd3f3c361f18a880bb1f3e4a389cba5605048508663d21d13"
+  },
+  "d51ff01ae0dbc180": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_d51ff01ae0dbc180_Melee_FullBody_DashOverhead.KGrip_d51ff01ae0dbc180_Melee_FullBody_DashOverhead",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_9f5e12b4e5_J_Kwang_DashOverhead.K_9f5e12b4e5_J_Kwang_DashOverhead",
+    "male": "/Game/Characters/JasonPlayer20261003/KwangSwordLeftContact20261010/Animations/J_Kwang_DashOverhead.J_Kwang_DashOverhead",
+    "roles": [
+      "Melee.FullBody.DashOverhead"
+    ],
+    "keys": 193,
+    "rate": [
+      120,
+      1
+    ],
+    "authored_sha256": "730800ac97d2bd30ee476094f944b380001d22ef5ccdeee84897e615e54c661f"
+  },
+  "d90dea6ca0277666": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_d90dea6ca0277666_Warhammer_FullBody_FinalTollHeavy.KGrip_d90dea6ca0277666_Warhammer_FullBody_FinalTollHeavy",
+    "previous": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_DirectReuseBodyV5_kaitlin.A_FinalToll_DirectReuseBodyV5_kaitlin",
+    "male": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_DirectReuseBodyV5_Default.A_FinalToll_DirectReuseBodyV5_Default",
+    "roles": [
+      "Warhammer.FullBody.FinalTollHeavy"
+    ],
+    "keys": 151,
+    "rate": [
+      120,
+      1
+    ],
+    "authored_sha256": "2b378ade22042bb20bf818d504f025246b742bd46c205068c4f361494c69a757"
+  },
+  "dfaef8521a4ab366": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_dfaef8521a4ab366_Melee_FullBody_Whirlwind_End.KGrip_dfaef8521a4ab366_Melee_FullBody_Whirlwind_End",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_b766afd4b5_J_Kwang_Whirlwind_End.K_b766afd4b5_J_Kwang_Whirlwind_End",
+    "male": "/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations/J_Kwang_Whirlwind_End.J_Kwang_Whirlwind_End",
+    "roles": [
+      "Melee.FullBody.Whirlwind.End"
+    ],
+    "keys": 79,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "2e2e47d3d8aef3fe853ef7f49f0846a5e71cd39a0152c99c78b4478669103e71"
+  },
+  "ed9f44034222ce29": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_ed9f44034222ce29_Bow_Sparrow_Hold.KGrip_ed9f44034222ce29_Bow_Sparrow_Hold",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6ff1be686d_J_SparrowBowV3_Hold.K_6ff1be686d_J_SparrowBowV3_Hold",
+    "male": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Hold.J_SparrowBowV3_Hold",
+    "roles": [
+      "Bow.Sparrow.Hold"
+    ],
+    "keys": 21,
+    "rate": [
+      30,
+      1
+    ],
+    "authored_sha256": "b8430e7d25a541eb9b811b09bc784ad22911ed9dc6407325b2be22ed4c55c031"
+  },
+  "ef42faa139fffbd5": {
+    "asset": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_ef42faa139fffbd5_Warhammer_FullBody_Whirlwind_Loop.KGrip_ef42faa139fffbd5_Warhammer_FullBody_Whirlwind_Loop",
+    "previous": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_17fe5fe77e_J_Hammer_Anatomical_WhirlwindLoop.K_17fe5fe77e_J_Hammer_Anatomical_WhirlwindLoop",
+    "male": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindLoop.J_Hammer_Anatomical_WhirlwindLoop",
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.Loop"
+    ],
+    "keys": 11,
+    "rate": [
+      60,
+      1
+    ],
+    "authored_sha256": "e5ad4dea9f70ff04feae34ab3cd2ba5b7e37f8489a7f40d72370da18c9db466c"
+  }
+}

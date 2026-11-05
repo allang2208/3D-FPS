@@ -45,10 +45,11 @@ void UFPSIceWallComponent::BeginPlay()
 UColdSteelStatusModel* UFPSIceWallComponent::Model() const
 {return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
 UFPSFireballComponent* UFPSIceWallComponent::Hands() const {return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
-bool UFPSIceWallComponent::InputAvailable() const
+bool UFPSIceWallComponent::InputAvailable(bool bContinuing) const
 {
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
-    if(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||Pawn->IsChoosingAmmo())return false;
+    if(!PC||Pawn->IsChoosingAmmo()||(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):
+        (PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC))))return false;
     const auto* Builder=PC->FindComponentByClass<UVoxelBuildComponent>();
     return !Builder||!Builder->IsBuilding();
 }
@@ -151,7 +152,7 @@ void UFPSIceWallComponent::LaunchAtContact()
     if(auto* M=Model();M&&M->IceWallDefinition().IceWall.bRequiresStaff&&!M->HasEquippedStaff())
     {Cancel();Feedback(TEXT("需要法杖"));return;}
     FString Reason;
-    if(!InputAvailable()||!ValidatePlacement(Committed,Seed->Snapshot(),Reason))
+    if(!InputAvailable(true)||!ValidatePlacement(Committed,Seed->Snapshot(),Reason))
     {bReleaseRequested=false;Feedback(Reason.IsEmpty()?TEXT("释放取消"):Reason);PreviewAge=1;return;}
     auto* M=Model();auto* H=Hands();
     if(!M||!H||!M->CommitIceWallRelease()){Cancel();return;}
@@ -310,8 +311,9 @@ void UFPSIceWallComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
     if(Seed.IsValid()||bQueuedGather||bReleaseRequested)
         if(auto* M=Model();M&&M->IceWallDefinition().IceWall.bRequiresStaff&&!M->HasEquippedStaff())
         {Cancel();Feedback(TEXT("需要法杖"));return;}
-    if(!InputAvailable()){bQueuedGather=false;SuspendPreview();return;}
-    ServiceQueue();
+    if(!InputAvailable(true)){bQueuedGather=false;SuspendPreview();return;}
+    if(InputAvailable())ServiceQueue();
+    else {bQueuedGather=false;if(Preview.IsValid())Preview->SetActorHiddenInGame(true);}
     if(!Seed.IsValid())return;
     auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return;
     const auto* H=Hands();float Fraction=1.f;

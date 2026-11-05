@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Weapons/ShotgunWireAudit.h
++++ b/Source/FPSGAME/Weapons/ShotgunWireAudit.h
+@@ -19,6 +19,7 @@
+ class AShotgunWireAuditController : public APlayerController
+ {
+     GENERATED_BODY()
++    friend class AShotgunWireAuditGameMode;
+ public:
+     virtual void Tick(float Delta) override;
+     UFUNCTION(Client,Reliable) void ClientSetup(int32 Case,const FString& Id,AFPSGAMECharacter* HostPawn);
+@@ -38,6 +39,11 @@
+     static bool CheckSparrowPresentation(AFPSGAMECharacter* Pawn,int32 Phase,bool Expired,TSharedPtr<class FJsonObject> Row);
+     bool TickPistolPresentation(float Delta);
+     bool TickPistolAmmo(float Delta);
++    bool TickMealReceipt(float Delta);
++    void SetupMealReceipt(int32 Phase,const FString& Session);
++    UFUNCTION(Server,Reliable) void ServerMealResult(int32 Phase,bool LocalOK,int32 MealCount,int32 WaterUses);
++    FGuid PreviousMealUse;
++    bool bObservedMeal=false;
+     void SetupPistolAmmo(int32 Phase,const FString& Id,AFPSGAMECharacter* Host);
+     UFUNCTION(Server,Reliable) void ServerPistolAmmoResult(int32 Phase,const FString& Report);
+     void SetupPistolPresentation(int32 Phase,const FString& Id,AFPSGAMECharacter* Host);
+@@ -79,6 +85,7 @@
+     bool TickSparrowPresentation(float Delta);
+     bool TickPistolPresentation(float Delta);
+     bool TickPistolAmmo(float Delta);
++    bool TickMealReceipt(float Delta);
+     int32 PresentationConnections=0;
+     bool bPresentationPassed=true;
+     TArray<TSharedPtr<FJsonValue>> PresentationHistory;

@@ -1,0 +1,225 @@
+--- a/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
++++ b/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPotionUseComponent.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "CampfireFoodCatalog.h"
+ #include "../Skills/LightningHasteSpeed.h"
+ #include "PotionVisuals.h"
+@@ -131,16 +132,102 @@
+     FallbackHands->RegisterComponent();FallbackHands->SetComponentTickEnabled(false);
+     FallbackHands->HideBoneByName(TEXT("clavicle_r"),EPhysBodyOp::PBO_None);
+ }
++bool UFPSPotionUseComponent::BlocksWeaponAttack(const AActor* Pawn)
++{
++    const auto* Use = Pawn ? Pawn->FindComponentByClass<UFPSPotionUseComponent>() : nullptr;
++    return Use && (Use->IsActive() || Use->IsReturningBow());
++}
++
++bool UFPSPotionUseComponent::HandlePrimaryPress()
++{
++    bOwnsPrimaryRelease = bActive || IsReturningBow();
++    if (!bOwnsPrimaryRelease) return false;
++    if (!bActive || bReturningFromMeal || !(bFood || bWater || bSoda)) return true;
++
++    if (!bStowOffhand || bWaitingForBow)
++    {
++        Cancel();
++        return true;
++    }
++
++    // Mirror a partially lowered weapon onto its raise curve so a click during
++    // entry or recovery preserves its current height.
++    const float T = Age();
++    const float RaiseAge = T < 0.f
++        ? FMath::Clamp(-T / OffhandLowerSeconds, 0.f, 1.f) * OffhandRaiseSeconds
++        : FMath::Max(0.f, T - Motion.Duration);
++    CancelUnsubmittedContact();
++    bReturningFromMeal = true;
++    StartTime = GetWorld()->GetTimeSeconds() - (Motion.Duration + RaiseAge) / UseRate;
++    StopSwallowAudio();
++    Bottle->SetVisibility(false);
++    Liquid->SetVisibility(false);
++    Stopper->SetVisibility(false);
++    if (ActiveHands == FallbackHands && FallbackHands) FallbackHands->SetVisibility(false);
++    return true;
++}
++
++bool UFPSPotionUseComponent::HandlePrimaryRelease()
++{
++    const bool WasConsumed = bOwnsPrimaryRelease;
++    bOwnsPrimaryRelease = false;
++    return WasConsumed;
++}
++
++bool UFPSPotionUseComponent::EquippedHandsChanged(const UColdSteelStatusModel& Model,int32 ActiveSlot) const
++{
++    if(!bActive || UseWeaponSlot==INDEX_NONE)return false;
++    const auto* Main=Model.Equipped(ActiveSlot);
++    const auto* Off=Model.Equipped(ActiveSlot==6?8:11);
++    return ActiveSlot!=UseWeaponSlot ||
++        (Main ? UseMainItem!=Main->InstanceId : !UseMainItem.IsEmpty()) ||
++        (Off ? UseOffhandItem!=Off->InstanceId : !UseOffhandItem.IsEmpty());
++}
++
++const FPotionUseMotion& UFPSPotionUseComponent::MotionFor(const FString& Definition) const
++{
++    if(const auto* Cooked=CookedFoodMotions.Find(Definition))return *Cooked;
++    if(Definition==TEXT("bread"))return BreadMotion;
++    if(IsFood(Definition))return FoodMotion;
++    if(Definition==TEXT("soda_can"))return SodaMotion;
++    if(Definition==TEXT("mineral_water"))return WaterMotion;
++    return HealthMotion;
++}
++
++float UFPSPotionUseComponent::MinimumContactDelay(const FString& Definition) const
++{
++    const auto& Use=MotionFor(Definition);
++    return (Use.Contact+(Use.bTwoHanded?OffhandLowerSeconds:0.f))/LightningHaste::ActionSpeed(GetOwner());
++}
++
++void UFPSPotionUseComponent::CancelUnsubmittedContact()
++{
++    if(!NetworkUseId.IsValid() || bContactSubmitted || bCommitted)return;
++    if(const auto* Pawn=Cast<APawn>(GetOwner()))
++        if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->ServerCancelConsumableUse(NetworkUseId);
++    NetworkUseId.Invalidate();
++}
++
++void UFPSPotionUseComponent::ReceiveContactResult(FGuid UseId,bool Accepted)
++{
++    if(!UseId.IsValid() || UseId!=NetworkUseId || !bActive || !bContactSubmitted)return;
++    bCommitted=Accepted;
++    if(!Accepted)Cancel();
++}
++
+ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Definition)
+ {
+     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+     auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!Player||!Player->IsLocallyControlled()||!Model||!Bottle||!IsAnimatedConsumable(Definition))return false; // M2: 联机放开（本地档案→通道上行）
+     if(bActive){Model->Message=bFood?TEXT("正在进食"):TEXT("正在饮用");return false;}
++    auto* PS=Player->GetPlayerState<AColdSteelPlayerState>();
++    if(GetNetMode()==NM_Client && (!PS || PS->InventoryRequestPending() || Model->IsCampfireInventoryPending()))
++    {Model->Message=TEXT("库存正在同步，请稍后使用");return false;}
+     // Held equipment yields through a lower/use/raise presentation. Active
+     // attacks, reloads and spells still own the hand until their action ends.
+     if(!Player->CanBeginConsumableUse())
+-    {Model->Message=TEXT("左手当前被占用");return false;}
++    {Model->Message=TEXT("请等当前动作结束后再使用");return false;}
+     const bool bMana=Definition.StartsWith(TEXT("mp_"));
+     const bool Water=Definition==TEXT("mineral_water");
+     const bool Food=IsFood(Definition);
+@@ -180,14 +267,9 @@
+     }
+     // Bottle geometry is shared by HP/MP. Keep a common grasp and the existing
+     // mouth-to-hand distance; height differences move only the bottle's bottom.
+-    Motion=Food?(Definition==TEXT("bread")?BreadMotion:FoodMotion):(Soda?SodaMotion:(Water?WaterMotion:HealthMotion));
+-    if(const auto* FoodProfile=CookedFoodMotions.Find(Definition))Motion=*FoodProfile;
++    Motion=MotionFor(Definition);
+     Motion.GripHeight=Visual.GripHeightCm;
+     if(Motion.Keys.IsEmpty()){Model->Message=TEXT("消耗品动作尚未加载");return false;}
+-    // The general eligibility check reserves the left hand. A two-hand food
+-    // also needs the independent right gun to finish its current action.
+-    if(Motion.bTwoHanded&&Player->HasOffhandPistol()&&Player->DualPistols->HandBusy(0))
+-    {Model->Message=TEXT("右手当前被占用");return false;}
+     // Resolve ownership, not visibility: the inventory temporarily hides native
+     // sword/tool/staff arms, which return as soon as the menu closes.
+     auto* NativeHands=Player->ConsumableHands();
+@@ -237,7 +319,18 @@
+         FallbackHands->UnHideBoneByName(TEXT("clavicle_r"));BeginEquipmentStow();
+     }
+     if(ActiveHands.IsValid())AddTickPrerequisiteComponent(ActiveHands.Get());
++    UseWeaponSlot=Model->Snapshot().ActiveWeaponSlot;
++    const auto* Main=Model->Equipped(UseWeaponSlot);
++    const auto* Off=Model->Equipped(UseWeaponSlot==6?8:11);
++    UseMainItem=Main?Main->InstanceId:FString();
++    UseOffhandItem=Off?Off->InstanceId:FString();
+     bActive=true;SetComponentTickEnabled(true);
++    bContactSubmitted=false;
++    if(GetNetMode()==NM_Client)
++    {
++        NetworkUseId=FGuid::NewGuid();
++        PS->ServerBeginConsumableUse(Player,NetworkUseId,UsingItem,PresentationDefinition);
++    }
+     Model->Message=(bFood?TEXT("食用"):TEXT("饮用"))+ColdSteelInventory::Text(Model->CreateItem(Definition),TEXT("name"));return true;
+ }
+ float UFPSPotionUseComponent::Age() const
+@@ -370,8 +463,8 @@
+     if(!bActive)return;
+     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+     const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
+-    if(!Player||!Health||Health->IsDead()||Player->IsTraversing()||
+-        AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
++    if(!Player||!Health||Health->IsDead()||Player->IsTraversing()||Player->IsDodging()||Player->IsSliding()||
++        AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+     {Cancel();return;}
+     if(bWaitingForBow)
+     {
+@@ -382,7 +475,7 @@
+         // right hand has taken the bow. Do not settle inventory in the lead-in.
+         bWaitingForBow=false;StartTime=GetWorld()->GetTimeSeconds();
+     }
+-    if(ActiveHands==FallbackHands)FallbackHands->SetVisibility(!Motion.bTwoHanded||(Age()>=0.f&&Age()<Motion.Duration));
++    if(ActiveHands==FallbackHands && FallbackHands)FallbackHands->SetVisibility(!bReturningFromMeal&&(!Motion.bTwoHanded||(Age()>=0.f&&Age()<Motion.Duration)));
+     // Some weapon arms are sampled manually and have their component tick
+     // disabled. Keep the drink pose and its held model updating in that case,
+     // without evaluating a normally sampled arm twice in the same frame.
+@@ -399,25 +492,34 @@
+         // Native visibility/equipment state is never overwritten.
+         EquipmentPivot->SetRelativeScale3D(FVector(IsOffhandWeaponHidden()?.0001f:1.f));
+     }
++    if(bReturningFromMeal)
++    {
++        // The skipped part of the timeline must never reach the inventory contact.
++        if(T>=Motion.Duration+OffhandRaiseSeconds)Finish();
++        return;
++    }
+     if(!bSwallowStarted&&T>=Motion.DrinkStart&&T<Motion.DrinkEnd)
+     {
+         bSwallowStarted=true;
+         if(bFood)PlayFoodSwallow();else PlayHydrationAudio(Motion.DrinkEnd-T);
+     }
+     if(!bFood&&!bSoda&&T>=Motion.Uncap&&!bUncapped){bUncapped=true;if(!bWater)Discard(Stopper,FVector(80,-140,160),2.5f);Stopper->SetVisibility(false);}
+-    if(T>=Motion.Contact&&!bCommitted)
++    if(T>=Motion.Contact&&!bCommitted&&!bContactSubmitted)
+     {
+         auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+         // Publication calls ApplyColdSteelProfile and UI listeners synchronously.
+         // Mark contact before that callback so any nested interruption cannot
+         // treat an already consumed bottle as an uncommitted action.
+-        bCommitted=true;
++        // Local authority commits inline. A guest has only submitted an intent
++        // until its PlayerState receives the authority's matching receipt.
++        bContactSubmitted=GetNetMode()==NM_Client;
++        bCommitted=!bContactSubmitted;
+         const bool Applied=Model&&Model->UseConsumableAtContact(UsingItem,true);
+         if(!bActive)return;
+-        if(!Applied){bCommitted=false;Cancel();return;}
++        if(!Applied){bCommitted=false;bContactSubmitted=false;Cancel();return;}
+         if(!bWater)Liquid->SetVisibility(false);
+     }
+-    if(T>=Motion.Release&&!bDiscarded){bDiscarded=true;if(!bWater&&!bFood&&!bSoda)Discard(Bottle,FVector(540,-360,190),7.f);Bottle->SetVisibility(false);Liquid->SetVisibility(false);Stopper->SetVisibility(false);}
++    if(T>=Motion.Release&&!bDiscarded){bDiscarded=true;if(bCommitted&&!bWater&&!bFood&&!bSoda)Discard(Bottle,FVector(540,-360,190),7.f);Bottle->SetVisibility(false);Liquid->SetVisibility(false);Stopper->SetVisibility(false);}
+     if(T>=Motion.Duration+(bStowOffhand?OffhandRaiseSeconds:0.f))Finish();
+ }
+ void UFPSPotionUseComponent::Cancel()
+@@ -437,7 +539,7 @@
+     const auto* Bow=GetOwner()->FindComponentByClass<UBowWeaponComponent>();
+     const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
+     const float ReturnWeight=Motion.bTwoHanded&&Bow&&Bow->IsEquipped()&&Player
+-        &&!Player->IsResolvingActionInterrupt()&&!Player->IsTraversing()&&(!Health||!Health->IsDead())?OffhandLowerWeight():0.f;
++        &&!Player->IsResolvingActionInterrupt()&&!Player->IsTraversing()&&!Player->IsDodging()&&!Player->IsSliding()&&(!Health||!Health->IsDead())?OffhandLowerWeight():0.f;
+     if(ReturnWeight>UE_SMALL_NUMBER)
+     {
+         // Keep the roots under the already lowered parent while Finish hides
+@@ -459,6 +561,9 @@
+ }
+ void UFPSPotionUseComponent::Finish()
+ {
++    CancelUnsubmittedContact();
++    NetworkUseId.Invalidate();bContactSubmitted=false;
++    bReturningFromMeal=false;
+     BowReturnWeight=0.f;
+     if(ActiveHands.IsValid())RemoveTickPrerequisiteComponent(ActiveHands.Get());
+     RestoreEquipment();

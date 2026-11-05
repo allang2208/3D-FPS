@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Building/WoodworkingWorldView.cpp
++++ b/Source/FPSGAME/Building/WoodworkingWorldView.cpp
+@@ -122,6 +122,7 @@
+ {
+     auto* Player=PC.Get();if(!Player||bEntered)return;
+     WorkingPawn=Player->GetPawn();PreviousView=Player->GetViewTarget();bEntered=true;
++    ColdSteelWorkstationView::BeginIdle(this,WorkingPawn.Get());
+     if(WorkingPawn.IsValid()&&!Player->HiddenActors.Contains(WorkingPawn.Get()))
+     {Player->HiddenActors.Add(WorkingPawn.Get());bHiddenPawn=true;}
+     // Immediate entry keeps pointer deprojection and the visible plane identical from first input.
+@@ -134,10 +135,10 @@
+ void AWoodworkingWorldView::RestorePlayer()
+ {
+     if(!bEntered)return;bEntered=false;
++    ColdSteelWorkstationView::Restore(PC.Get(),this,WorkingPawn.Get(),PreviousView.Get(),0.f);
+     if(auto* Player=PC.Get())
+     {
+         if(bHiddenPawn)Player->HiddenActors.Remove(WorkingPawn.Get());
+-        ColdSteelWorkstationView::Restore(Player,this,WorkingPawn.Get(),PreviousView.Get(),0.f);
+     }
+     bHiddenPawn=false;
+ }

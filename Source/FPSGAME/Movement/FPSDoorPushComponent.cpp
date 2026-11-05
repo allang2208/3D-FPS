@@ -210,7 +210,7 @@ void UFPSDoorPushComponent::Advance(float Delta)
         const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
         const auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>();
         if(!ActiveHands.IsValid()||!PC||PC->GetViewTarget()!=Player||Player->IsTraversing()||Player->IsDodging()||Player->IsSliding()||
-            (Health&&Health->IsDead())||AFPSGAMEPlayerController::BlocksOngoingActions(PC))
+            (Health&&Health->IsDead())||AFPSGAMEPlayerController::BlocksActionContinuation(PC))
         {Cancel();return;}
         Age+=Delta;
         if(Age>=DoorPushAuthored20261002::ContactSeconds&&!bContactResolved)

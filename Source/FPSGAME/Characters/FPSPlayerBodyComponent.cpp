@@ -270,7 +270,11 @@ void UFPSPlayerBodyComponent::InitializeBody(bool bRefreshAppearance)
             BodyAnimation->ConsumeMouthInHead=FVector((*Mouth)[0]->AsNumber(),(*Mouth)[1]->AsNumber(),(*Mouth)[2]->AsNumber());
         const TSharedPtr<FJsonObject>* Clips=nullptr;
         if(Configuration->TryGetObjectField(TEXT("clips"),Clips))for(const auto& Pair:(*Clips)->Values)
+        {
+            // Retired world forge choreography stays on disk for recovery only.
+            if(Pair.Key.ToView().StartsWith(TEXT("Forge.")))continue;
             if(auto* Sequence=LoadObject<UAnimSequence>(nullptr,*Pair.Value->AsString()))BodyAnimation->Clips.Add(FName(*Pair.Key),Sequence);
+        }
     }
     Body->AddTickPrerequisiteComponent(this);
     BodyPoseFinalizedHandle=Body->RegisterOnBoneTransformsFinalizedDelegate(FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::OnBodyPoseFinalized));
@@ -293,6 +297,7 @@ void UFPSPlayerBodyComponent::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(UFPSPlayerBodyComponent,ReplicatedState);
+    DOREPLIFETIME_CONDITION(UFPSPlayerBodyComponent,bWorkstationIdle,COND_SkipOwner);
     DOREPLIFETIME(UFPSPlayerBodyComponent,ReplicatedWeapons);
     DOREPLIFETIME(UFPSPlayerBodyComponent,ReplicatedOutfit);
     DOREPLIFETIME(UFPSPlayerBodyComponent,ReplicatedAppearance);
@@ -305,6 +310,30 @@ void UFPSPlayerBodyComponent::SetAuthoritativeState(const FFPSBodyState& State)
 }
 void UFPSPlayerBodyComponent::OnRep_BodyState()
 {if(Character.IsValid()&&!Character->IsLocallyControlled())DisplayState=ReplicatedState;}
+void UFPSPlayerBodyComponent::BeginWorkstationIdle(AActor* View)
+{
+    if(!View||!Character.IsValid()||!Character->IsLocallyControlled())return;
+    WorkstationView=View;bWorkstationIdle=true;
+    if(GetOwner()->HasAuthority())GetOwner()->ForceNetUpdate();else ServerSetWorkstationIdle(true);
+    RefreshViewMode();
+}
+void UFPSPlayerBodyComponent::EndWorkstationIdle(AActor* View)
+{
+    // A delayed EndPlay from an old view must not release a newly opened one.
+    if(!View||WorkstationView!=TWeakObjectPtr<AActor>(View))return;
+    WorkstationView.Reset();bWorkstationIdle=false;
+    if(GetOwner()->HasAuthority())GetOwner()->ForceNetUpdate();else ServerSetWorkstationIdle(false);
+    RefreshViewMode();
+}
+bool UFPSPlayerBodyComponent::IsWorkstationIdle() const
+{return bWorkstationIdle;}
+void UFPSPlayerBodyComponent::ServerSetWorkstationIdle_Implementation(bool bIdle)
+{
+    // Cosmetic only: station systems retain their own reach, job and inventory authority.
+    bWorkstationIdle=bIdle;GetOwner()->ForceNetUpdate();OnRep_WorkstationIdle();
+}
+void UFPSPlayerBodyComponent::OnRep_WorkstationIdle()
+{RefreshViewMode();}
 void UFPSPlayerBodyComponent::SetAuthoritativeEquipment(const TArray<FFPSBodyWeapon>& Weapons,const TArray<FFPSBodyOutfitSlot>& Outfit)
 {
     if(!GetOwner()->HasAuthority())return;
@@ -341,7 +370,7 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
         // changed: this runs again on every camera update and every 0.2 s.
         // The scope owns its recorded hide request until it releases it. Clearing
         // it here every 0.2 s exposes the rifle/arms for a frame during scoped ADS.
-        const bool bHideFromOwner=bThirdPerson||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||Character->ScopeHiddenParts.Contains(Primitive);
+        const bool bHideFromOwner=bThirdPerson||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||IsWorkstationIdle()||Character->ScopeHiddenParts.Contains(Primitive);
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
     };
@@ -410,6 +439,13 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         AdvanceBodyPresentation(DisplayState,ServerClock());
         PresentRecentGunShots(ServerClock());
         PresentRemoteAzureDragon();
+    }
+    // World-body presentation is independent of the minigame's first-person arms.
+    // Keep crouched capsules consistent, and leave death/reaction layers in charge.
+    if(IsWorkstationIdle()&&DisplayState.Action!=EFPSBodyAction::Dead)
+    {
+        const bool Crouched=DisplayState.bCrouched;
+        DisplayState=FFPSBodyState();DisplayState.bCrouched=Crouched;
     }
     // Keep weapons stowed through the short return from an interrupted hand pose.
     const float Now=ServerClock();

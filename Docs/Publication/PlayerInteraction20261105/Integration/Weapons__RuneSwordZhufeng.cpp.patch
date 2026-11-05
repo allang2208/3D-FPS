@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordZhufeng.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordZhufeng.cpp
+@@ -1,4 +1,5 @@
+ #include "RuneSwordComponent.h"
++#include "../FPSGAMEPlayerController.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Movement/FPSCharacterMovementComponent.h"
+ #include "../Combat/CombatStatusFormula.h"
+@@ -15,7 +16,7 @@
+     const auto* Status=Pawn?Pawn->FindComponentByClass<UCombatStatusFormula>():nullptr;
+     if(!Movement||Movement->IsMeleeLungeRejected()||Pawn->IsTraversing()||Pawn->IsDodging()||
+         UBoundCongregateCaptureComponent::IsCaptured(Pawn)||(Status&&Status->BlocksMovement())||
+-        (Pawn->GetController()&&Pawn->GetController()->IsMoveInputIgnored()))
++        AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Pawn->GetController())))
+     {bLungeBlocked=true;return;}
+     const float Requested=ZhufengSpeed*Seconds;
+     FVector Moved;

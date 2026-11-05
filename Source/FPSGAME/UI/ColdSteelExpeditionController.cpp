@@ -40,7 +40,7 @@ bool AFPSGAMEPlayerController::OpenExpedition()
         if (bExpeditionReturnToInventory) ColdSteelHUD->ToggleInventory();
         ColdSteelHUD->SetExternalDrawerOpen(true);
     }
-    if (auto* PawnCharacter = Cast<AFPSGAMECharacter>(GetPawn())) PawnCharacter->SuspendWeaponForMenu();
+    if (auto* PawnCharacter = Cast<AFPSGAMECharacter>(GetPawn())) PawnCharacter->PrepareForPanelInput();
 
     FColdSteelExpeditionDestination Facility;
     Facility.Id = RandomizedDungeonId;

@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/UI/ColdSteelForgingHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelForgingHUD.cpp
+@@ -88,16 +88,27 @@
+ {return ForgeInteraction&&ForgeInteraction->HandleInput(Event);}
+ bool UColdSteelHUDWidget::StartWorldForging(FName Recipe,FString& Reason,FName Metal)
+ {
+-    if(!bForgingOpen||!ForgeInteraction||!ForgeInteraction->Start(Recipe,Reason,Metal))return false;
++    if(!bForgingOpen||!ForgeInteraction){Reason=TEXT("铸造面板尚未就绪，请重新打开");return false;}
++    if(!ForgeInteraction->Start(Recipe,Reason,Metal))
++    {
++        if(Reason.IsEmpty())Reason=TEXT("暂时无法开始锻造，请重新打开铸造面板");
++        UE_LOG(LogTemp,Warning,TEXT("ForgeEntry start rejected: %s"),*Reason);
++        return false;
++    }
++    UE_LOG(LogTemp,Display,TEXT("ForgeEntry accepted: recipe=%s station=%s"),*Recipe.ToString(),*GetNameSafe(ForgingStation.Get()));
+     // Retain the station/job while the same paired drawer slides out. CloseForging must
+     // not finalize the just-started job when SetInventoryOpen closes the inventory.
+     bForgingOpen=false;bForgeRiding=true;ForgingWidget->SetInputReady(false);
+     SetInventoryOpen(false);ForgeInteraction->Enter();return true;
+ }
+-void UColdSteelHUDWidget::CompleteWorldForging(AForgeInteraction* Interaction,bool bReturnPanel)
++void UColdSteelHUDWidget::CompleteWorldForging(AForgeInteraction* Interaction,bool bReturnPanel,const FString& EntryError)
+ {
+     if(ForgeInteraction!=Interaction)return;
+     AActor* Station=ForgingStation.Get();ForgeInteraction=nullptr;
+-    if(bReturnPanel&&Station)OpenForging(Station);
++    if(bReturnPanel&&Station)
++    {
++        OpenForging(Station);
++        if(!EntryError.IsEmpty()&&ForgingWidget)ForgingWidget->ShowEntryError(EntryError);
++    }
+     else HideForgingInstantly();
+ }

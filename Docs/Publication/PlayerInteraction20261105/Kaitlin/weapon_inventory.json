@@ -1,0 +1,274 @@
+[
+  {
+    "id": "ue_m4a1",
+    "name": "M4A1",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_akm",
+    "name": "AKM",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_qbz191",
+    "name": "QBZ-191",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_m1911",
+    "name": "M1911",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → SinglePistolContact / 双持独立手链",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_pit_viper2011",
+    "name": "Pit Viper 2011",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → SinglePistolContact / 双持独立手链",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_g18",
+    "name": "G18",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → SinglePistolContact / 双持独立手链",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_dan_wesson715",
+    "name": "Dan-Wesson 715",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → SinglePistolContact / 双持独立手链",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_rsh12",
+    "name": "RSH-12",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → SinglePistolContact / 双持独立手链",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_ash12",
+    "name": "ASH-12",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_m16a2",
+    "name": "M16A2",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_a762",
+    "name": "A762",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_svd",
+    "name": "SVD",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_pkm_lowpoly",
+    "name": "PKM",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_lmg201",
+    "name": "201轻机枪",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_hk416",
+    "name": "HK416",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_super90",
+    "name": "M4 Super90",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_m870",
+    "name": "M870 Tactical",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_svch",
+    "name": "SVCh",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_saiga12k",
+    "name": "Saiga 12K",
+    "group": "枪械",
+    "route": "FPSPlayerBodyEquipment → FFPSBodyGripRig → FPSBodyRifleHold / FitHandPair",
+    "action": "已逐项核对当前目录和共用消费者；主手挂点、扶握及活动接触按当前身体重新映射，保留现有路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_rune_sword",
+    "name": "苍蓝星辉·双手符文剑",
+    "group": "双手剑／长刀",
+    "route": "FPSBodySwordMotion → NativeSwordGrip / 共用双手求解",
+    "action": "修复原生双手动作的女性掌心关系；普通待机和通用攻击继续使用已有实时握点。唐刀旋风、斩马刀赤霄专用段分别保留。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_frost_crystal_sword",
+    "name": "寒晶·双手剑",
+    "group": "双手剑／长刀",
+    "route": "FPSBodySwordMotion → NativeSwordGrip / 共用双手求解",
+    "action": "修复原生双手动作的女性掌心关系；普通待机和通用攻击继续使用已有实时握点。唐刀旋风、斩马刀赤霄专用段分别保留。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_highland_claymore",
+    "name": "高地·双手剑",
+    "group": "双手剑／长刀",
+    "route": "FPSBodySwordMotion → NativeSwordGrip / 共用双手求解",
+    "action": "修复原生双手动作的女性掌心关系；普通待机和通用攻击继续使用已有实时握点。唐刀旋风、斩马刀赤霄专用段分别保留。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_tang_dao",
+    "name": "唐刀",
+    "group": "双手剑／长刀",
+    "route": "FPSBodySwordMotion → NativeSwordGrip / 共用双手求解",
+    "action": "修复原生双手动作的女性掌心关系；普通待机和通用攻击继续使用已有实时握点。唐刀旋风、斩马刀赤霄专用段分别保留。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_xuanchi_zhenyue",
+    "name": "玄螭镇岳",
+    "group": "双手剑／长刀",
+    "route": "FPSBodySwordMotion → NativeSwordGrip / 共用双手求解",
+    "action": "修复原生双手动作的女性掌心关系；普通待机和通用攻击继续使用已有实时握点。唐刀旋风、斩马刀赤霄专用段分别保留。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_zhanmadao",
+    "name": "斩马刀",
+    "group": "双手剑／长刀",
+    "route": "FPSBodySwordMotion → NativeSwordGrip / 共用双手求解",
+    "action": "修复原生双手动作的女性掌心关系；普通待机和通用攻击继续使用已有实时握点。唐刀旋风、斩马刀赤霄专用段分别保留。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_steel_warhammer",
+    "name": "锻钢战锤",
+    "group": "双手锤",
+    "route": "Warhammer.Idle / Walk / Jog / FullBody → 原生动作",
+    "action": "修复女性待机、移动与全部当前原生战斗段的双手关系；保留沿锤柄滑动、转握和男性动作时钟。符文锤另含终焉双段映射。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_runebound_warhammer",
+    "name": "符文战锤",
+    "group": "双手锤",
+    "route": "Warhammer.Idle / Walk / Jog / FullBody → 原生动作",
+    "action": "修复女性待机、移动与全部当前原生战斗段的双手关系；保留沿锤柄滑动、转握和男性动作时钟。符文锤另含终焉双段映射。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_kukri",
+    "name": "尼泊尔弯刀",
+    "group": "单手近战",
+    "route": "BuildKukriGrip → FFPSBodyGripRig",
+    "action": "已核对独立挂点及当前女性动作映射；按女性手掌重算刀柄和手指，保留当前单手路径。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "bow_dark",
+    "name": "猎手长弓",
+    "group": "弓",
+    "route": "Bow.Sparrow.* → UpdateNativeBowContacts",
+    "action": "修复五段女性动作中沿用男性手骨坐标的握弓／弦接触曲线；使用女性掌心坐标转换。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_apprentice_staff",
+    "name": "学徒长杖",
+    "group": "法杖",
+    "route": "FPSBodyStaffGrip → 当前身体 Mount / StaffHandRotation",
+    "action": "已核对四种握柄变体的同一入口；男性专用手指厚度补偿已有 HasJasonFit 限定，保留女性独立掌心映射。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "ue_alchemy_spellbook",
+    "name": "元素炼金魔法书",
+    "group": "副手书",
+    "route": "SpellbookAuthoredGrip → FFPSBodyGripRig",
+    "action": "已核对持书挂点和指骨使用当前身体；保留手枪／法杖配书及阅读所有权。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "tool_axe",
+    "name": "伐木斧",
+    "group": "采集工具",
+    "route": "BuildShovelGrip / FFPSBodyGripRig → CaptureMotionHand",
+    "action": "已核对斧、镐、铲各自模型入口；双手接触来自实际装备与当前身体映射，未套用战锤的原生待机跳过分支。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "tool_pickaxe",
+    "name": "矿镐",
+    "group": "采集工具",
+    "route": "BuildShovelGrip / FFPSBodyGripRig → CaptureMotionHand",
+    "action": "已核对斧、镐、铲各自模型入口；双手接触来自实际装备与当前身体映射，未套用战锤的原生待机跳过分支。",
+    "visual_acceptance": false
+  },
+  {
+    "id": "tool_shovel",
+    "name": "铁铲",
+    "group": "采集工具",
+    "route": "BuildShovelGrip / FFPSBodyGripRig → CaptureMotionHand",
+    "action": "已核对斧、镐、铲各自模型入口；双手接触来自实际装备与当前身体映射，未套用战锤的原生待机跳过分支。",
+    "visual_acceptance": false
+  }
+]

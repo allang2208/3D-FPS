@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Weapons/ShotgunWireAudit.cpp
++++ b/Source/FPSGAME/Weapons/ShotgunWireAudit.cpp
+@@ -58,6 +58,7 @@
+ }
+ void AShotgunWireAuditController::ClientSetup_Implementation(int32 Case,const FString& Id,AFPSGAMECharacter* Host)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("MealReceiptWire"))){SetupMealReceipt(Case,Id);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("PistolAmmoWire"))){SetupPistolAmmo(Case,Id,Host);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("PistolPresentationWire"))){SetupPistolPresentation(Case,Id,Host);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("BowSparrowWire"))){SetupSparrowPresentation(Case,Id,Host);return;}
+@@ -95,6 +96,7 @@
+ }
+ void AShotgunWireAuditController::Tick(float Delta)
+ {
++    if(TickMealReceipt(Delta))return;
+     if(TickPistolAmmo(Delta))return;
+     if(TickPistolPresentation(Delta))return;
+     if(TickSparrowPresentation(Delta))return;
+@@ -195,6 +197,7 @@
+ {Super::PostLogin(Player);if(ShotgunWire::Enabled()&&!Player->IsLocalController()){Guest=Cast<AShotgunWireAuditController>(Player);Joined=GetWorld()->GetRealTimeSeconds();}}
+ void AShotgunWireAuditGameMode::Tick(float Delta)
+ {
++    if(TickMealReceipt(Delta))return;
+     if(TickPistolAmmo(Delta))return;
+     if(TickPistolPresentation(Delta))return;
+     if(TickSparrowPresentation(Delta))return;

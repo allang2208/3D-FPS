@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Skills/FPSBlizzardComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSBlizzardComponent.cpp
+@@ -46,10 +46,11 @@
+ UColdSteelStatusModel* UFPSBlizzardComponent::Model() const
+ {return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+ UFPSFireballComponent* UFPSBlizzardComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
+-bool UFPSBlizzardComponent::InputAvailable() const
++bool UFPSBlizzardComponent::InputAvailable(bool bContinuing) const
+ {
+     const auto* P=Cast<AFPSGAMECharacter>(GetOwner());const auto* PC=P?Cast<APlayerController>(P->GetController()):nullptr;
+-    if(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||P->IsChoosingAmmo())return false;
++    if(!PC||P->IsChoosingAmmo()||(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):
++        (PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC))))return false;
+     const auto* Builder=PC->FindComponentByClass<UVoxelBuildComponent>();return !Builder||!Builder->IsBuilding();
+ }
+ void UFPSBlizzardComponent::Feedback(const FString& Text){Message=Text;MessageUntil=GetWorld()->GetTimeSeconds()+1.6;}
+@@ -156,7 +157,7 @@
+     auto* P=Cast<APawn>(GetOwner());auto* M=Model();
+     if(M&&CastSnapshot.bRequiresStaff&&!M->HasEquippedStaff())
+     {CancelPending();Feedback(TEXT("需要法杖"));return;}
+-    if(!P||!M||!InputAvailable())
++    if(!P||!M||!InputAvailable(true))
+     {bReleaseRequested=false;Feedback(TEXT("当前无法施法"));return;}
+     FString Failure;
+     if(!ValidateGround(P,CastSnapshot,LockedPoint,LockedNormal,LockedAxis,Failure))
+@@ -360,7 +361,9 @@
+     if((bQueued||bCommitted)&&!bNetAwaitingRelease)
+         if(const auto* M=Model();M&&(bCommitted?CastSnapshot.bRequiresStaff:M->BlizzardDefinition().Blizzard.bRequiresStaff)&&!M->HasEquippedStaff())
+         {CancelPending();Feedback(TEXT("需要法杖"));return;}
+-    if(!InputAvailable())SuspendPreview();else ServiceQueue();
++    if(!InputAvailable(true))SuspendPreview();
++    else if(InputAvailable())ServiceQueue();
++    else {bQueued=false;SetAimPreview(false);}
+     if(bCommitted&&!bNetAwaitingRelease)
+     {
+         UpdateGatherCloud();

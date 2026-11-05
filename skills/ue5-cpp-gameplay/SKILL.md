@@ -154,3 +154,5 @@ FPSGAME first/third person animation, world equipment and outfits: [player world
 - 原生身体/性别变体、MetaHuman 头发装配、换装与家具相机：[身体变体工作流](references/native-body-variants.md)。
 
 - 人物冷加载缺头、整人隐藏及衣物晚到：读取 [首次外观就绪](references/initial-appearance-readiness.md)。
+
+- 消耗品的双手互斥、左键取消、普通面板与工作台待机见[交互动作占用](references/consumable-action-ownership.md)。

@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
+@@ -53,7 +53,7 @@
+ void UProductionToolComponent::ReleasePrimaryAttack()
+ {
+     if(Kind!=TEXT("warhammer")||!bBluntCharging)return;
+-    if(!CanUse()||Character->IsCastBlockingLeftHandAction()){CancelUse();return;}
++    if(!CanUse(true)||Character->IsCastBlockingLeftHandAction()){CancelUse();return;}
+     if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
+     {CancelHeavyCharge();return;}
+     const float Held=float(GetWorld()->GetTimeSeconds()-BluntChargeStartedAt);
+@@ -105,7 +105,7 @@
+ 
+ void UProductionToolComponent::AdvanceBluntCharge(float Delta)
+ {
+-    if((bBluntCharging||bBluntReturningCharge)&&(!CanUse()||Character->IsCastBlockingLeftHandAction()))
++    if((bBluntCharging||bBluntReturningCharge)&&(!CanUse(true)||Character->IsCastBlockingLeftHandAction()))
+     {CancelUse();return;}
+     if(bBluntReturningCharge)
+     {
+@@ -123,7 +123,7 @@
+ 
+ bool UProductionToolComponent::GetGroundSlamCameraPitch(float& Pitch,float& Weight) const
+ {
+-    if(!IsGroundSlamActive()||!bBluntFloorTarget||!CanUse())return false;
++    if(!IsGroundSlamActive()||!bBluntFloorTarget||!CanUse(true))return false;
+     // A fixed, higher presentation pitch leaves the hammer below centre.
+     // Do not look at the impact point or steer the player's viewing yaw.
+     Pitch=WarhammerHeavy::PlantedViewPitch;
+@@ -138,7 +138,7 @@
+ 
+ bool UProductionToolComponent::GetGroundSlamCameraLocation(FVector& Point) const
+ {
+-    if(!bBluntHeavy||UsesFinalTollHeavy()||UsesThunderThrowHeavy()||Elapsed<0.f||!CanUse())return false;
++    if(!bBluntHeavy||UsesFinalTollHeavy()||UsesThunderThrowHeavy()||Elapsed<0.f||!CanUse(true))return false;
+     const float Time=AuthoredElapsed();
+     // A posture displacement, not recoil: do not scale it by camera shake or
+     // feed the posed chest clearance back into this committed eye anchor.

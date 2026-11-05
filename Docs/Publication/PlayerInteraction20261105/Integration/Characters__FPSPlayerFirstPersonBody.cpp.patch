@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
+@@ -2,6 +2,7 @@
+ #include "FPSBodyPoseAnchorComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Building/FPSForgeWorkComponent.h"
+ #include "Camera/CameraComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+ #include "Engine/SkeletalMesh.h"
+@@ -21,7 +22,7 @@
+     return Character.IsValid()&&Character->IsLocallyControlled()&&!IsThirdPersonViewEnabled()
+         &&!FPSPlayerBodyWorldBodyHidden()&&!FPSPlayerBodyWorldBodySuppressed()
+         &&FPSFirstPersonBody::Enabled.GetValueOnGameThread()!=0
+-        &&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing();
++        &&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing()&&!IsWorkstationIdle();
+ }
+ 
+ void UFPSPlayerBodyComponent::InitializeFirstPersonLowerBody()
+@@ -77,6 +78,7 @@
+ {
+     OwnerCameraOffset=FVector::ZeroVector;
+     if(UFPSFurnitureRestComponent::IsResting(Character.Get()))return;
++    if(IsWorkstationIdle())return;
+     if(!FirstPersonLowerBody||!ShouldShowFirstPersonLowerBody()||!Character->FirstPersonCamera)return;
+     const float Pitch=-FRotator::NormalizeAxis(Character->GetBaseAimRotation().Pitch);
+     const float LookDown=FMath::SmoothStep(20.f,80.f,Pitch);

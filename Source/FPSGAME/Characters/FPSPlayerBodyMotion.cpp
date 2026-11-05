@@ -380,7 +380,8 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     if(Potion&&LocalConsumableSerial!=Potion->PresentationSerial)
     {LocalConsumableSerial=Potion->PresentationSerial;PendingDiscardFlags=0;bPendingBottleDrop=false;}
     if(Potion&&!Potion->IsActive()&&ServerClock()>PendingDiscardUntil)PendingDiscardFlags=0;
-    if(Potion&&(Potion->IsActive()||PendingDiscardFlags))
+    if(Potion && State.Action!=EFPSBodyAction::Dead && State.Motion==EFPSBodyMotion::Ground &&
+        (Potion->IsActive()||PendingDiscardFlags))
     {
         // Both views follow the item's real use clock, including offhand stow.
         // Body markers retime the donor; no animation notify consumes an item.

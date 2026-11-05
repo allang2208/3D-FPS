@@ -195,6 +195,7 @@ public:
         AController* EventInstigator, AActor* DamageCauser) override;
     /** Menus swallow the key release, so a held trajectory preview is dropped here too. */
     void SuspendWeaponForMenu();
+    void PrepareForPanelInput();
     void SetGunsmithOptic(bool bHolographic);
     void SetGunsmithOpticVariant(const FString& Variant);
     const FString& GetGunsmithOpticVariant() const { return OpticVariant; }

@@ -20,7 +20,7 @@ bool UFPSPlayerBodyComponent::ShouldShowFirstPersonLowerBody() const
     return Character.IsValid()&&Character->IsLocallyControlled()&&!IsThirdPersonViewEnabled()
         &&!FPSPlayerBodyWorldBodyHidden()&&!FPSPlayerBodyWorldBodySuppressed()
         &&FPSFirstPersonBody::Enabled.GetValueOnGameThread()!=0
-        &&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing();
+        &&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing()&&!IsWorkstationIdle();
 }
 
 void UFPSPlayerBodyComponent::InitializeFirstPersonLowerBody()
@@ -75,6 +75,7 @@ void UFPSPlayerBodyComponent::UpdateFirstPersonLowerBodyVisibility()
 void UFPSPlayerBodyComponent::ApplyOwnerCameraOffset(FVector& Eye)
 {
     OwnerCameraOffset=FVector::ZeroVector;
+    if(IsWorkstationIdle())return;
     if(!FirstPersonLowerBody||!ShouldShowFirstPersonLowerBody()||!Character->FirstPersonCamera)return;
     const float Pitch=-FRotator::NormalizeAxis(Character->GetBaseAimRotation().Pitch);
     const float LookDown=FMath::SmoothStep(20.f,80.f,Pitch);

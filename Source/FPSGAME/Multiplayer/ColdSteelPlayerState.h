@@ -273,6 +273,8 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     bool RequestInventoryAction(EColdSteelInventoryAction Action,const FString& Item=FString(),AActor* Target=nullptr);
     bool RequestInventoryAction(FColdSteelInventoryRequest Request);
+    UFUNCTION(Server,Reliable) void ServerBeginConsumableUse(APawn* SourcePawn,FGuid UseId,const FString& Item,FName Definition);
+    UFUNCTION(Server,Reliable) void ServerCancelConsumableUse(FGuid UseId);
     void AcknowledgeInventoryProfile();
     void SyncMartialCooldowns(const FColdSteelProfile& Profile,bool Immediate);
     UFUNCTION(Server,Reliable) void ServerMartialCooldowns(APawn* SourcePawn,int64 Revision,float Whirlwind,
@@ -377,6 +379,13 @@ private:
     int32 InventoryReplyChunk=0,InventoryReplyTotal=0;
     double LastInventoryReplyAt=0.;
     void TickInventoryReply();
+    void ProcessInventoryAction(const FColdSteelInventoryRequest& Request);
+    TWeakObjectPtr<APawn> ConsumablePawn;
+    FGuid ConsumableUseId;
+    FName ConsumableDefinition;
+    FString ConsumableItem;
+    double ConsumableContactAt=0.;
+    FTimerHandle ConsumableContactTimer;
     void QueueInventoryReply(const FColdSteelInventoryRequest& Request,bool Success,const FString& Reason,
         const FColdSteelProfile& Before,const FColdSteelProfile& After);
     uint32 Super90LocalSequence=0,Super90ProcessedSequence=0,Super90Revision=0,Super90AppliedRevision=0;

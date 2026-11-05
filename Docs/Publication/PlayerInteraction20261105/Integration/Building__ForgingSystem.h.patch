@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Building/ForgingSystem.h
++++ b/Source/FPSGAME/Building/ForgingSystem.h
+@@ -55,7 +55,7 @@
+     const TMap<FName,FColdSteelForgeBlank>& BlankProfiles() const {return Blanks;}
+     const FColdSteelForgeJob& Job() const;
+     bool CanStart(FName Id,FString& Reason,FName Metal=FName(TEXT("ironIngot"))) const;
+-    bool Start(FName Id,FString& Reason,FName Metal=FName(TEXT("ironIngot")));
++    bool Start(FName Id,FString& Reason,FName Metal=FName(TEXT("ironIngot")),AActor* Station=nullptr);
+     bool Finish(FString& Reason);
+     bool Claim(FString& Reason);
+     bool GetPaidMaterials(TMap<FString,int64>& Paid) const;
+@@ -72,7 +72,7 @@
+     int32 TargetIndex() const;
+     // Life is also the visible and accepted radius scale, frozen when the swing starts.
+     bool Target(FVector2D& UV,float& Life) const;
+-    bool BeginStrike(int32 ShownIndex,double ContactDelay,double RecoveryDelay);
++    bool BeginStrike(int32 ShownIndex,double ContactDelay,double RecoveryDelay,const FVector2D& SurfaceUV=FVector2D(.5,.375));
+     bool Strike(int32 ShownIndex,const FVector2D& UV,const FVector2D& RadiusUV);
+     static double Multiplier(const FColdSteelForgeJob& Job) {return ColdSteelForgeQuality::Multiplier(Job);}
+     static FString Quality(int32 Hits) {return ColdSteelForgeQuality::Label(Hits);}

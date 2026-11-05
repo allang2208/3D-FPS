@@ -70,6 +70,12 @@ UPistolDualWieldComponent::UPistolDualWieldComponent()
     Hands.SetNum(2);
 }
 
+bool UPistolDualWieldComponent::HandBusy(int32 Index) const
+{
+    if(!bActive||Index<FirstHand()||!Hands.IsValidIndex(Index))return false;
+    const auto& H=Hands[Index];
+    return H.Reloading||H.Action||H.Held||H.Pending;
+}
 bool UPistolDualWieldComponent::LeftBusy() const
 {
     return bActive && (Hands[1].Reloading || Hands[1].Action || Hands[1].Held || Hands[1].Pending);
@@ -77,6 +83,7 @@ bool UPistolDualWieldComponent::LeftBusy() const
 
 bool UPistolDualWieldComponent::InputAvailable() const
 {
+    if(UFPSPotionUseComponent::BlocksWeaponAttack(Player))return false;
     if(!Player || !bActive || Player->IsTraversing() || IsQuickCombatActive())return false;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;

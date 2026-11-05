@@ -10,6 +10,7 @@
 #include "../Production/ProductionToolComponent.h"
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "Animation/AnimSequence.h"
+#include "Components/StaticMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
@@ -120,6 +121,32 @@ int32 UFPSConsumableAuditCommandlet::Main(const FString& Params)
     Check(CanUse(),TEXT("unarmed idle can consume"));Check(Player->ConsumableHands()==Unarmed->Arms,TEXT("unarmed uses current arms"));
     Potion->bActive=true;Check(!CanUse(),TEXT("active consumable prevents reentry"));Potion->Finish();
     Check(CanUse(),TEXT("finish returns action ownership"));
+    Potion->Bottle=NewObject<UStaticMeshComponent>(Player);
+    Potion->Liquid=NewObject<UStaticMeshComponent>(Player);
+    Potion->Stopper=NewObject<UStaticMeshComponent>(Player);
+    Dual->bActive=true;Dual->bOffhandOnly=false;
+    Dual->Hands[0].Pending=true;
+    Check(!CanUse(),TEXT("a pending right shot prevents starting a meal"));
+    Dual->CancelInputs();
+    for(const FString Id:{FString(TEXT("roasted_large_lamb")),FString(TEXT("bread")),FString(TEXT("mineral_water")),FString(TEXT("soda_can")),FString(TEXT("hp_potion"))})
+    {
+        Potion->bActive=true;Potion->bStowOffhand=true;
+        Potion->bFood=UFPSPotionUseComponent::IsFood(Id);
+        Potion->bSoda=Id==TEXT("soda_can");Potion->bWater=Id==TEXT("mineral_water");
+        Potion->Motion.Duration=6.f;Potion->Motion.Contact=4.65f;Potion->StartTime=World->GetTimeSeconds()-2.f;
+        Player->AimPressed();
+        Player->ReloadInputPressed();
+        Player->FirePressed();
+        Check(!Dual->HasHeldTrigger()&&!Dual->Hands[0].Pending&&!Dual->Hands[1].Pending &&
+            !Player->IsChoosingAmmo()&&!Player->CanStartQuickCombatPriority(),Id+TEXT(" blocks both triggers, reload input and quick combat"));
+        Check(Potion->bReturningFromMeal==(Id!=TEXT("hp_potion")),Id+TEXT(" has the intended cancellation policy"));
+        Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
+        Check(Potion->IsActive()&&!Potion->bCommitted,Id+TEXT(" blocked input cannot commit an item"));
+        Player->FireInputReleased();
+        Check(!Potion->bOwnsPrimaryRelease,Id+TEXT(" consumes the paired release"));
+        Potion->Finish();
+    }
+    Dual->bActive=false;
     for(const TCHAR* Definition:{TEXT("bread"),TEXT("baguette_bread"),TEXT("mineral_water"),TEXT("soda_can"),
         TEXT("hp_potion"),TEXT("hp_potion_high"),TEXT("mp_potion"),TEXT("mp_potion_high")})
         Check(UFPSPotionUseComponent::IsAnimatedConsumable(Definition),FString(Definition)+TEXT(" uses shared action path"));

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -10,6 +10,7 @@
+ #include "FPSPlayerBodyMeshComponent.h"
+ #include "FPSBackpackMotionComponent.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Building/FPSForgeWorkComponent.h"
+ #include "FPSModularOutfitComponent.h"
+ #include "FPSPlayerBodyAnimInstance.h"
+ #include "FPSPlayerBodyPoses.h"
+@@ -833,6 +834,7 @@
+ {
+     const float Now=ServerClock();
+     if(UFPSFurnitureRestComponent::IsResting(Character.Get()))return true;
++    if(IsWorkstationIdle())return true;
+     if(IsDeathViewActive())return true;
+     if(FPSBodyPoses::Traversing(DisplayState.Motion)||Now<WorldWeaponsHiddenUntil)return true;
+     const auto* Hand=WorldEquipmentHands.Find(Mesh);

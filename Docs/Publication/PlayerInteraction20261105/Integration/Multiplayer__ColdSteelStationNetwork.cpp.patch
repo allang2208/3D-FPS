@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp
+@@ -6,6 +6,7 @@
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelWorldInteraction.h"
+ #include "../Building/ForgingSystem.h"
++#include "../Building/FPSForgeWorkComponent.h"
+ #include "../Building/GunAssemblySystem.h"
+ #include "../Building/WoodworkingSystem.h"
+ #include "../Building/AlchemySystem.h"
+@@ -107,8 +108,15 @@
+     }
+     else if(Mode.StartsWith(TEXT("forge.")))
+     {
+-        if(!StationReach(TEXT("forge"))){Reason=TEXT("请靠近铸造台");return false;}
+-        if(Mode==TEXT("forge.start"))Ok=GuestForge->Start(R.Definition,Reason,FName(*R.Item));
++        auto* Work=GetPawn()?GetPawn()->FindComponentByClass<UFPSForgeWorkComponent>():nullptr;
++        if(!StationReach(TEXT("forge"),Work&&Work->IsWorking()?Work->Station():R.Target.Get())){Reason=TEXT("请靠近铸造台");return false;}
++        if(Mode==TEXT("forge.start"))
++        {
++            if(!Work||!Work->IsAligned()||!R.Target||Work->Station()!=R.Target.Get())
++            {Reason=TEXT("请先在这张铸造台旁就位");return false;}
++            Ok=GuestForge->Start(R.Definition,Reason,FName(*R.Item),R.Target.Get());
++            if(Ok)Work->BindJob(GuestForge);
++        }
+         else if(Mode==TEXT("forge.finish"))Ok=GuestForge->Finish(Reason);
+         else if(Mode==TEXT("forge.claim"))Ok=GuestForge->Claim(Reason);
+         else if(Mode==TEXT("forge.discard"))Ok=GuestForge->Discard(Reason);
+@@ -199,7 +207,9 @@
+     }
+     if(System==TEXT("forge"))
+     {
+-        if(Op==0)GuestForge->BeginStrike(Index,FMath::Clamp(A.X,0.,2.),FMath::Clamp(A.Y,0.,3.));
++        auto* Work=GetPawn()?GetPawn()->FindComponentByClass<UFPSForgeWorkComponent>():nullptr;
++        if(!Work||!Work->IsWorking()||!StationReach(TEXT("forge"),Work->Station()))return;
++        if(Op==0)GuestForge->BeginStrike(Index,FMath::Clamp(A.X,0.,2.),FMath::Clamp(A.Y,0.,3.),B);
+         if(Op==1&&B.X>0&&B.Y>0&&B.X<=.25&&B.Y<=.25)GuestForge->Strike(Index,A,B);
+     }
+     else if(System==TEXT("assembly"))

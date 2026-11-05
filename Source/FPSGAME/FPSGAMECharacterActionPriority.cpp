@@ -55,6 +55,7 @@ bool AFPSGAMECharacter::IsSwitchingWeapon() const
 
 bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
 {
+    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return false;
     if(IsOffhandReloadTransition())return false;
     if(Spellbook&&Spellbook->IsFocusActive())return false;
     if(IsDoorPushActive() || IsSwitchingWeapon() || bResolvingActionInterrupt || !IsLocallyControlled())return false;

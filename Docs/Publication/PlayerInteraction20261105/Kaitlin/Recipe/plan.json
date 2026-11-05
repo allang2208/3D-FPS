@@ -1,0 +1,893 @@
+{
+  "ccf8e2bd8150458d": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Idle_ADS.J_MF_Rifle_Idle_ADS",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6a090b598e_J_MF_Rifle_Idle_ADS.K_6a090b598e_J_MF_Rifle_Idle_ADS",
+    "roles": [
+      "Rifle.Idle"
+    ]
+  },
+  "f50ca8f6add999af": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Walk_Fwd.J_MF_Rifle_Walk_Fwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_57d4dc823d_J_MF_Rifle_Walk_Fwd.K_57d4dc823d_J_MF_Rifle_Walk_Fwd",
+    "roles": [
+      "Rifle.Walk.Fwd"
+    ]
+  },
+  "d450ae3d1ee93a3a": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Walk_Fwd_Right.J_MF_Rifle_Walk_Fwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6a37529565_J_MF_Rifle_Walk_Fwd_Right.K_6a37529565_J_MF_Rifle_Walk_Fwd_Right",
+    "roles": [
+      "Rifle.Walk.Fwd_Right"
+    ]
+  },
+  "9e5968e01c71c6e6": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Walk_Right.J_MF_Rifle_Walk_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_36528a30de_J_MF_Rifle_Walk_Right.K_36528a30de_J_MF_Rifle_Walk_Right",
+    "roles": [
+      "Rifle.Walk.Right"
+    ]
+  },
+  "0d59b8050ae57bb6": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Walk_Bwd_Right.J_MF_Rifle_Walk_Bwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_06fb245453_J_MF_Rifle_Walk_Bwd_Right.K_06fb245453_J_MF_Rifle_Walk_Bwd_Right",
+    "roles": [
+      "Rifle.Walk.Bwd_Right"
+    ]
+  },
+  "20903493df55d538": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Walk_Bwd.J_MF_Rifle_Walk_Bwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_dc3bf81adc_J_MF_Rifle_Walk_Bwd.K_dc3bf81adc_J_MF_Rifle_Walk_Bwd",
+    "roles": [
+      "Rifle.Walk.Bwd"
+    ]
+  },
+  "36ff1c4f0516725d": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Walk_Bwd_Left.J_MF_Rifle_Walk_Bwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_960188229e_J_MF_Rifle_Walk_Bwd_Left.K_960188229e_J_MF_Rifle_Walk_Bwd_Left",
+    "roles": [
+      "Rifle.Walk.Bwd_Left"
+    ]
+  },
+  "0fd634e4361ffca8": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Walk_Left.J_MF_Rifle_Walk_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4eb94c76cd_J_MF_Rifle_Walk_Left.K_4eb94c76cd_J_MF_Rifle_Walk_Left",
+    "roles": [
+      "Rifle.Walk.Left"
+    ]
+  },
+  "e6aed82de08b974f": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Walk_Fwd_Left.J_MF_Rifle_Walk_Fwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_2e73d3c589_J_MF_Rifle_Walk_Fwd_Left.K_2e73d3c589_J_MF_Rifle_Walk_Fwd_Left",
+    "roles": [
+      "Rifle.Walk.Fwd_Left"
+    ]
+  },
+  "3bc20cab98fb72ea": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Jog_Fwd.J_MF_Rifle_Jog_Fwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4c71e6a54c_J_MF_Rifle_Jog_Fwd.K_4c71e6a54c_J_MF_Rifle_Jog_Fwd",
+    "roles": [
+      "Rifle.Jog.Fwd"
+    ]
+  },
+  "d5b61650e200a561": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Jog_Fwd_Right.J_MF_Rifle_Jog_Fwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_fd4cd9c9de_J_MF_Rifle_Jog_Fwd_Right.K_fd4cd9c9de_J_MF_Rifle_Jog_Fwd_Right",
+    "roles": [
+      "Rifle.Jog.Fwd_Right"
+    ]
+  },
+  "7d5bf6c34f39268a": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Jog_Right.J_MF_Rifle_Jog_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8cddcdb250_J_MF_Rifle_Jog_Right.K_8cddcdb250_J_MF_Rifle_Jog_Right",
+    "roles": [
+      "Rifle.Jog.Right"
+    ]
+  },
+  "338bcd334b11664d": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Jog_Bwd_Right.J_MF_Rifle_Jog_Bwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_2594662c44_J_MF_Rifle_Jog_Bwd_Right.K_2594662c44_J_MF_Rifle_Jog_Bwd_Right",
+    "roles": [
+      "Rifle.Jog.Bwd_Right"
+    ]
+  },
+  "e88bb18ae701055a": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Jog_Bwd.J_MF_Rifle_Jog_Bwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_333e182a8d_J_MF_Rifle_Jog_Bwd.K_333e182a8d_J_MF_Rifle_Jog_Bwd",
+    "roles": [
+      "Rifle.Jog.Bwd"
+    ]
+  },
+  "fbb0b52bcedb8b99": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Jog_Bwd_Left.J_MF_Rifle_Jog_Bwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f80847f641_J_MF_Rifle_Jog_Bwd_Left.K_f80847f641_J_MF_Rifle_Jog_Bwd_Left",
+    "roles": [
+      "Rifle.Jog.Bwd_Left"
+    ]
+  },
+  "15b4e9cbbe8da2df": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Jog_Left.J_MF_Rifle_Jog_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e862d6313a_J_MF_Rifle_Jog_Left.K_e862d6313a_J_MF_Rifle_Jog_Left",
+    "roles": [
+      "Rifle.Jog.Left"
+    ]
+  },
+  "d9ae0690cb04fe2f": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Rifle_Jog_Fwd_Left.J_MF_Rifle_Jog_Fwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_5679608cbb_J_MF_Rifle_Jog_Fwd_Left.K_5679608cbb_J_MF_Rifle_Jog_Fwd_Left",
+    "roles": [
+      "Rifle.Jog.Fwd_Left"
+    ]
+  },
+  "120dacb01864a9a4": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MM_Rifle_Reload.J_MM_Rifle_Reload",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_216c8a3d58_J_MM_Rifle_Reload.K_216c8a3d58_J_MM_Rifle_Reload",
+    "roles": [
+      "Rifle.Reload"
+    ]
+  },
+  "c7e384086d80c34a": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MM_Rifle_Equip.J_MM_Rifle_Equip",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_ad3c7f0da9_J_MM_Rifle_Equip.K_ad3c7f0da9_J_MM_Rifle_Equip",
+    "roles": [
+      "Rifle.Equip"
+    ]
+  },
+  "a725d0cd868a0ab8": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Idle_ADS.J_MF_Pistol_Idle_ADS",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4f2805e39b_J_MF_Pistol_Idle_ADS.K_4f2805e39b_J_MF_Pistol_Idle_ADS",
+    "roles": [
+      "Pistol.Idle"
+    ]
+  },
+  "af08f9a2098feaad": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Walk_Fwd.J_MF_Pistol_Walk_Fwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f04096fa89_J_MF_Pistol_Walk_Fwd.K_f04096fa89_J_MF_Pistol_Walk_Fwd",
+    "roles": [
+      "Pistol.Walk.Fwd"
+    ]
+  },
+  "4ad1f3e55762a2bd": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Walk_Fwd_Right.J_MF_Pistol_Walk_Fwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e75be1e0b1_J_MF_Pistol_Walk_Fwd_Right.K_e75be1e0b1_J_MF_Pistol_Walk_Fwd_Right",
+    "roles": [
+      "Pistol.Walk.Fwd_Right"
+    ]
+  },
+  "b487ed04a987821d": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Walk_Right.J_MF_Pistol_Walk_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_a7ebea41b2_J_MF_Pistol_Walk_Right.K_a7ebea41b2_J_MF_Pistol_Walk_Right",
+    "roles": [
+      "Pistol.Walk.Right"
+    ]
+  },
+  "d79c57afb22933ed": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Walk_Bwd_Right.J_MF_Pistol_Walk_Bwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e445a6e993_J_MF_Pistol_Walk_Bwd_Right.K_e445a6e993_J_MF_Pistol_Walk_Bwd_Right",
+    "roles": [
+      "Pistol.Walk.Bwd_Right"
+    ]
+  },
+  "fbfaa5c2b3b347b5": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Walk_Bwd.J_MF_Pistol_Walk_Bwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_40d0fbd6dd_J_MF_Pistol_Walk_Bwd.K_40d0fbd6dd_J_MF_Pistol_Walk_Bwd",
+    "roles": [
+      "Pistol.Walk.Bwd"
+    ]
+  },
+  "6d4723912e296aca": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Walk_Bwd_Left.J_MF_Pistol_Walk_Bwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_5146dcd3f3_J_MF_Pistol_Walk_Bwd_Left.K_5146dcd3f3_J_MF_Pistol_Walk_Bwd_Left",
+    "roles": [
+      "Pistol.Walk.Bwd_Left"
+    ]
+  },
+  "5f0bc959f96cc8f1": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Walk_Left.J_MF_Pistol_Walk_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_313003162c_J_MF_Pistol_Walk_Left.K_313003162c_J_MF_Pistol_Walk_Left",
+    "roles": [
+      "Pistol.Walk.Left"
+    ]
+  },
+  "79b98cf85a06cac5": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Walk_Fwd_Left.J_MF_Pistol_Walk_Fwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_2afcb050ce_J_MF_Pistol_Walk_Fwd_Left.K_2afcb050ce_J_MF_Pistol_Walk_Fwd_Left",
+    "roles": [
+      "Pistol.Walk.Fwd_Left"
+    ]
+  },
+  "10496dedb0e33323": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Jog_Fwd.J_MF_Pistol_Jog_Fwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_ad0e50d765_J_MF_Pistol_Jog_Fwd.K_ad0e50d765_J_MF_Pistol_Jog_Fwd",
+    "roles": [
+      "Pistol.Jog.Fwd"
+    ]
+  },
+  "38c6b6259adb0f8f": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Jog_Fwd_Right.J_MF_Pistol_Jog_Fwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_90ea8f34a3_J_MF_Pistol_Jog_Fwd_Right.K_90ea8f34a3_J_MF_Pistol_Jog_Fwd_Right",
+    "roles": [
+      "Pistol.Jog.Fwd_Right"
+    ]
+  },
+  "f1e95244b3758ca9": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Jog_Right.J_MF_Pistol_Jog_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_10d6704f21_J_MF_Pistol_Jog_Right.K_10d6704f21_J_MF_Pistol_Jog_Right",
+    "roles": [
+      "Pistol.Jog.Right"
+    ]
+  },
+  "02d8290f394f99bd": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Jog_Bwd_Right.J_MF_Pistol_Jog_Bwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_af239718b6_J_MF_Pistol_Jog_Bwd_Right.K_af239718b6_J_MF_Pistol_Jog_Bwd_Right",
+    "roles": [
+      "Pistol.Jog.Bwd_Right"
+    ]
+  },
+  "8b1e40d5955101c5": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Jog_Bwd.J_MF_Pistol_Jog_Bwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6f8dd21391_J_MF_Pistol_Jog_Bwd.K_6f8dd21391_J_MF_Pistol_Jog_Bwd",
+    "roles": [
+      "Pistol.Jog.Bwd"
+    ]
+  },
+  "07c6069254f4901d": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Jog_Bwd_Left.J_MF_Pistol_Jog_Bwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6be0b8cc6f_J_MF_Pistol_Jog_Bwd_Left.K_6be0b8cc6f_J_MF_Pistol_Jog_Bwd_Left",
+    "roles": [
+      "Pistol.Jog.Bwd_Left"
+    ]
+  },
+  "c0f8ef854ffdffd2": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Jog_Left.J_MF_Pistol_Jog_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f9276cd835_J_MF_Pistol_Jog_Left.K_f9276cd835_J_MF_Pistol_Jog_Left",
+    "roles": [
+      "Pistol.Jog.Left"
+    ]
+  },
+  "42318cac316d164f": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Pistol_Jog_Fwd_Left.J_MF_Pistol_Jog_Fwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_017c6d6b51_J_MF_Pistol_Jog_Fwd_Left.K_017c6d6b51_J_MF_Pistol_Jog_Fwd_Left",
+    "roles": [
+      "Pistol.Jog.Fwd_Left"
+    ]
+  },
+  "4cc3128a119e7f8e": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MM_Pistol_Reload.J_MM_Pistol_Reload",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8483750ad1_J_MM_Pistol_Reload.K_8483750ad1_J_MM_Pistol_Reload",
+    "roles": [
+      "Pistol.Reload"
+    ]
+  },
+  "e4387ff7f34ee57e": {
+    "source": "/Game/Characters/JasonPlayer20261003/Animations/J_MM_Pistol_Equip.J_MM_Pistol_Equip",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e0575537a8_J_MM_Pistol_Equip.K_e0575537a8_J_MM_Pistol_Equip",
+    "roles": [
+      "Pistol.Equip"
+    ]
+  },
+  "5ac4e41b00151ba5": {
+    "source": "/Game/Characters/JasonPlayer20261003/Grip/A_Jason_SwordGrip.A_Jason_SwordGrip",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_2653edd3ea_A_Jason_SwordGrip.K_2653edd3ea_A_Jason_SwordGrip",
+    "roles": [
+      "Melee.Grip"
+    ]
+  },
+  "5298d1dd19036841": {
+    "source": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_A_Kevin_Attack2H01.J_A_Kevin_Attack2H01",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6b923a7754_J_A_Kevin_Attack2H01.K_6b923a7754_J_A_Kevin_Attack2H01",
+    "roles": [
+      "Melee.FullBody.Slash1",
+      "Melee.FullBody.Slash2",
+      "Melee.FullBody.Thrust",
+      "Melee.FullBody.HeavyRelease",
+      "Melee.FullBody.Charge"
+    ]
+  },
+  "29705f9e5f67ac02": {
+    "source": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_A_Kevin_CombatIdle2H01.J_A_Kevin_CombatIdle2H01",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4c666df5bb_J_A_Kevin_CombatIdle2H01.K_4c666df5bb_J_A_Kevin_CombatIdle2H01",
+    "roles": [
+      "Melee.FullBody.Idle"
+    ]
+  },
+  "41f6ee6822aaa818": {
+    "source": "/Game/Characters/JasonPlayer20261003/KwangSwordLeftContact20261010/Animations/J_Kwang_Overhead.J_Kwang_Overhead",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_7d2645ca9b_J_Kwang_Overhead.K_7d2645ca9b_J_Kwang_Overhead",
+    "roles": [
+      "Melee.FullBody.Overhead"
+    ]
+  },
+  "abb1f9518941ae34": {
+    "source": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin.J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8eac32ade9_J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin.K_8eac32ade9_J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin",
+    "roles": [
+      "Melee.FullBody.Whirlwind"
+    ]
+  },
+  "e868ab9ea6537ac6": {
+    "source": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_Block_Attack.J_SK_KayKit_Medium_Anim_Melee_Block_Attack",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_65a75c9d39_J_SK_KayKit_Medium_Anim_Melee_Block_Attack.K_65a75c9d39_J_SK_KayKit_Medium_Anim_Melee_Block_Attack",
+    "roles": [
+      "Melee.FullBody.Pommel"
+    ]
+  },
+  "c3a75f1fe8a369f2": {
+    "source": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_Block.J_SK_KayKit_Medium_Anim_Melee_Block",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_9eaf66f961_J_SK_KayKit_Medium_Anim_Melee_Block.K_9eaf66f961_J_SK_KayKit_Medium_Anim_Melee_Block",
+    "roles": [
+      "Melee.FullBody.Guard"
+    ]
+  },
+  "811485c508ebcc5d": {
+    "source": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_Block_Hit.J_SK_KayKit_Medium_Anim_Melee_Block_Hit",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_61e54e4729_J_SK_KayKit_Medium_Anim_Melee_Block_Hit.K_61e54e4729_J_SK_KayKit_Medium_Anim_Melee_Block_Hit",
+    "roles": [
+      "Melee.FullBody.GuardHit",
+      "Melee.FullBody.GuardBreak"
+    ]
+  },
+  "28d0a25ccce98913": {
+    "source": "/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations/J_Kwang_Uppercut.J_Kwang_Uppercut",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_ffe6769ef0_J_Kwang_Uppercut.K_ffe6769ef0_J_Kwang_Uppercut",
+    "roles": [
+      "Melee.FullBody.Uppercut"
+    ]
+  },
+  "2fd227f690f9db9a": {
+    "source": "/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations/J_Kwang_Whirlwind_Start.J_Kwang_Whirlwind_Start",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_5834a85afe_J_Kwang_Whirlwind_Start.K_5834a85afe_J_Kwang_Whirlwind_Start",
+    "roles": [
+      "Melee.FullBody.Whirlwind.Start"
+    ]
+  },
+  "1f30fab7f4612ac7": {
+    "source": "/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations/J_Kwang_Whirlwind_Loop.J_Kwang_Whirlwind_Loop",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f5e722e20e_J_Kwang_Whirlwind_Loop.K_f5e722e20e_J_Kwang_Whirlwind_Loop",
+    "roles": [
+      "Melee.FullBody.Whirlwind.Loop"
+    ]
+  },
+  "dfaef8521a4ab366": {
+    "source": "/Game/Characters/JasonPlayer20261003/KwangSwordRecovery20261010/Animations/J_Kwang_Whirlwind_End.J_Kwang_Whirlwind_End",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_b766afd4b5_J_Kwang_Whirlwind_End.K_b766afd4b5_J_Kwang_Whirlwind_End",
+    "roles": [
+      "Melee.FullBody.Whirlwind.End"
+    ]
+  },
+  "78bc71b877c8c9d3": {
+    "source": "/Game/Characters/JasonPlayer20261003/TangDaoWhirlwind20261010/Animations/J_TangDao_Whirlwind_Start.J_TangDao_Whirlwind_Start",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_337bb21ebb_J_TangDao_Whirlwind_Start.K_337bb21ebb_J_TangDao_Whirlwind_Start",
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.Start"
+    ]
+  },
+  "ad7059b0437d5688": {
+    "source": "/Game/Characters/JasonPlayer20261003/TangDaoWhirlwind20261010/Animations/J_TangDao_Whirlwind_Loop.J_TangDao_Whirlwind_Loop",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_131e4098ad_J_TangDao_Whirlwind_Loop.K_131e4098ad_J_TangDao_Whirlwind_Loop",
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.Loop"
+    ]
+  },
+  "6be8b1fbc6990f77": {
+    "source": "/Game/Characters/JasonPlayer20261003/TangDaoWhirlwind20261010/Animations/J_TangDao_Whirlwind_End.J_TangDao_Whirlwind_End",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_5996008e1b_J_TangDao_Whirlwind_End.K_5996008e1b_J_TangDao_Whirlwind_End",
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.End"
+    ]
+  },
+  "d51ff01ae0dbc180": {
+    "source": "/Game/Characters/JasonPlayer20261003/KwangSwordLeftContact20261010/Animations/J_Kwang_DashOverhead.J_Kwang_DashOverhead",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_9f5e12b4e5_J_Kwang_DashOverhead.K_9f5e12b4e5_J_Kwang_DashOverhead",
+    "roles": [
+      "Melee.FullBody.DashOverhead"
+    ]
+  },
+  "25f3e537f38d714d": {
+    "source": "/Game/Characters/JasonPlayer20261003/StaffStrikeCarry20261010/Animations/J_StaffStrike_FromCarry.J_StaffStrike_FromCarry",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8de7a01434_J_StaffStrike_FromCarry.K_8de7a01434_J_StaffStrike_FromCarry",
+    "roles": [
+      "Staff.FullBody.Strike"
+    ]
+  },
+  "e78491bda89b065c": {
+    "source": "/Game/Characters/JasonPlayer20261003/StaffCast20261009/Animations/J_KayKit_Staff_FullBody_CastGather.J_KayKit_Staff_FullBody_CastGather",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_a7b9ba55a7_J_KayKit_Staff_FullBody_CastGather.K_a7b9ba55a7_J_KayKit_Staff_FullBody_CastGather",
+    "roles": [
+      "Staff.FullBody.CastGather"
+    ]
+  },
+  "d681b2be62141b5a": {
+    "source": "/Game/Characters/JasonPlayer20261003/StaffCast20261009/Animations/J_KayKit_Staff_FullBody_CastRelease.J_KayKit_Staff_FullBody_CastRelease",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f22eba91f8_J_KayKit_Staff_FullBody_CastRelease.K_f22eba91f8_J_KayKit_Staff_FullBody_CastRelease",
+    "roles": [
+      "Staff.FullBody.CastRelease"
+    ]
+  },
+  "bcc43afb109ff703": {
+    "source": "/Game/Characters/JasonPlayer20261003/StaffCarryClearance20261010/Animations/J_StaffClearance_Carry.J_StaffClearance_Carry",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_68840330ab_J_StaffClearance_Carry.K_68840330ab_J_StaffClearance_Carry",
+    "roles": [
+      "Staff.NativeArm.Carry"
+    ]
+  },
+  "faf8523990cc2e4e": {
+    "source": "/Game/Characters/JasonPlayer20261003/StaffCarryClearance20261010/Animations/J_StaffClearance_CastGather.J_StaffClearance_CastGather",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_b1ec747040_J_StaffClearance_CastGather.K_b1ec747040_J_StaffClearance_CastGather",
+    "roles": [
+      "Staff.NativeArm.CastGather"
+    ]
+  },
+  "c3aab6aa26416912": {
+    "source": "/Game/Characters/JasonPlayer20261003/StaffCarryClearance20261010/Animations/J_StaffClearance_CastRelease.J_StaffClearance_CastRelease",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_2e8ab65a04_J_StaffClearance_CastRelease.K_2e8ab65a04_J_StaffClearance_CastRelease",
+    "roles": [
+      "Staff.NativeArm.CastRelease"
+    ]
+  },
+  "1c6d88d2161fff2f": {
+    "source": "/Game/Characters/JasonPlayer20261003/BookCarryRelax20261010/Animations/J_BookCarry_Relaxed.J_BookCarry_Relaxed",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8abcc6bd60_J_BookCarry_Relaxed.K_8abcc6bd60_J_BookCarry_Relaxed",
+    "roles": [
+      "Staff.BookCarry"
+    ]
+  },
+  "ca29e261e5260fe3": {
+    "source": "/Game/Characters/JasonPlayer20261003/BookPush20261010/Animations/J_BookPush_NativeArm.J_BookPush_NativeArm",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_7358a1f62a_J_BookPush_NativeArm.K_7358a1f62a_J_BookPush_NativeArm",
+    "roles": [
+      "Staff.BookPush"
+    ]
+  },
+  "73b31fd44e6b1d31": {
+    "source": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Carry.J_SparrowBowV3_Carry",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_fbdd7245d0_J_SparrowBowV3_Carry.K_fbdd7245d0_J_SparrowBowV3_Carry",
+    "roles": [
+      "Bow.Sparrow.Carry"
+    ]
+  },
+  "40867e1d5cdb3c93": {
+    "source": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Draw.J_SparrowBowV3_Draw",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_69ae774484_J_SparrowBowV3_Draw.K_69ae774484_J_SparrowBowV3_Draw",
+    "roles": [
+      "Bow.Sparrow.Draw"
+    ]
+  },
+  "64ec94dd140561e5": {
+    "source": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Ready.J_SparrowBowV3_Ready",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4d8d279dbe_J_SparrowBowV3_Ready.K_4d8d279dbe_J_SparrowBowV3_Ready",
+    "roles": [
+      "Bow.Sparrow.Ready"
+    ]
+  },
+  "ed9f44034222ce29": {
+    "source": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Hold.J_SparrowBowV3_Hold",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6ff1be686d_J_SparrowBowV3_Hold.K_6ff1be686d_J_SparrowBowV3_Hold",
+    "roles": [
+      "Bow.Sparrow.Hold"
+    ]
+  },
+  "942e08238390df96": {
+    "source": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Release.J_SparrowBowV3_Release",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8bd265273e_J_SparrowBowV3_Release.K_8bd265273e_J_SparrowBowV3_Release",
+    "roles": [
+      "Bow.Sparrow.Release"
+    ]
+  },
+  "9dabc433f8da28d3": {
+    "source": "/Game/Weapons/Zhanmadao20261018/ChixiaoDoubleHeavyV1/A_Chixiao_DoubleHeavy_Body.A_Chixiao_DoubleHeavy_Body",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_a72a57a909_A_Chixiao_DoubleHeavy_Body.K_a72a57a909_A_Chixiao_DoubleHeavy_Body",
+    "roles": [
+      "Melee.FullBody.ChixiaoHeavy"
+    ]
+  },
+  "548af5a2b51b96d2": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash1.J_Hammer_Natural_Slash1",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_be88bd8e47_J_Hammer_Natural_Slash1.K_be88bd8e47_J_Hammer_Natural_Slash1",
+    "roles": [
+      "Warhammer.FullBody.Slash1",
+      "Warhammer.FullBody.Slash1Recover"
+    ]
+  },
+  "15ca303c1c2d1702": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash2.J_Hammer_Natural_Slash2",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_cabbddb03d_J_Hammer_Natural_Slash2.K_cabbddb03d_J_Hammer_Natural_Slash2",
+    "roles": [
+      "Warhammer.FullBody.Slash2",
+      "Warhammer.FullBody.Slash2Recover"
+    ]
+  },
+  "442b5debaf8bade6": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/Slash3AlignmentV18/Animations/J_Hammer_Aligned_Slash3.J_Hammer_Aligned_Slash3",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_eee1a7f7c1_J_Hammer_Aligned_Slash3.K_eee1a7f7c1_J_Hammer_Aligned_Slash3",
+    "roles": [
+      "Warhammer.FullBody.Slash3",
+      "Warhammer.FullBody.Slash3Recover"
+    ]
+  },
+  "994809ae3a3ed475": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_92d3e0b83b_J_Hammer_Refined_Slash3.K_92d3e0b83b_J_Hammer_Refined_Slash3",
+    "roles": [
+      "Warhammer.FullBody.Charge",
+      "Warhammer.FullBody.Slam",
+      "Warhammer.FullBody.SprintLift",
+      "Warhammer.FullBody.SprintSlam"
+    ]
+  },
+  "0a76d7770b73025b": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash1.J_Hammer_Refined_Slash1",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e5871be1dc_J_Hammer_Refined_Slash1.K_e5871be1dc_J_Hammer_Refined_Slash1",
+    "roles": [
+      "Warhammer.FullBody.Uppercut"
+    ]
+  },
+  "ae25ec27edcce118": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindStart.J_Hammer_Anatomical_WhirlwindStart",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_33560fef1d_J_Hammer_Anatomical_WhirlwindStart.K_33560fef1d_J_Hammer_Anatomical_WhirlwindStart",
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.Start"
+    ]
+  },
+  "ef42faa139fffbd5": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindLoop.J_Hammer_Anatomical_WhirlwindLoop",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_17fe5fe77e_J_Hammer_Anatomical_WhirlwindLoop.K_17fe5fe77e_J_Hammer_Anatomical_WhirlwindLoop",
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.Loop"
+    ]
+  },
+  "d22e153c3d2ed588": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindEnd.J_Hammer_Anatomical_WhirlwindEnd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_faf7e5d806_J_Hammer_Anatomical_WhirlwindEnd.K_faf7e5d806_J_Hammer_Anatomical_WhirlwindEnd",
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.End"
+    ]
+  },
+  "c79db0301b5cfecd": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardEnter.J_Hammer_Anatomical_GuardEnter",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_66f05c5b52_J_Hammer_Anatomical_GuardEnter.K_66f05c5b52_J_Hammer_Anatomical_GuardEnter",
+    "roles": [
+      "Warhammer.FullBody.GuardEnter",
+      "Warhammer.FullBody.GuardExit"
+    ]
+  },
+  "c010454f169c3bbb": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHold.J_Hammer_Anatomical_GuardHold",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6cb17c456c_J_Hammer_Anatomical_GuardHold.K_6cb17c456c_J_Hammer_Anatomical_GuardHold",
+    "roles": [
+      "Warhammer.FullBody.GuardHold"
+    ]
+  },
+  "bf852e3be9d269d7": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHit.J_Hammer_Anatomical_GuardHit",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_b55a48bf0b_J_Hammer_Anatomical_GuardHit.K_b55a48bf0b_J_Hammer_Anatomical_GuardHit",
+    "roles": [
+      "Warhammer.FullBody.GuardHit",
+      "Warhammer.FullBody.GuardBreak"
+    ]
+  },
+  "24875000fdc28ef6": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Idle.J_Hammer_Idle",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f075045c14_J_Hammer_Idle.K_f075045c14_J_Hammer_Idle",
+    "roles": [
+      "Warhammer.FullBody.Carry",
+      "Warhammer.FullBody.SprintCarry",
+      "Warhammer.Idle"
+    ]
+  },
+  "32ce64c20725f5b8": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd.J_Hammer_Gait_Fwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_8f07c3b864_J_Hammer_Gait_Fwd.K_8f07c3b864_J_Hammer_Gait_Fwd",
+    "roles": [
+      "Warhammer.Walk.Fwd",
+      "Warhammer.Jog.Fwd"
+    ]
+  },
+  "6a9ba791de559824": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Right.J_Hammer_Gait_Fwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_045311276f_J_Hammer_Gait_Fwd_Right.K_045311276f_J_Hammer_Gait_Fwd_Right",
+    "roles": [
+      "Warhammer.Walk.Fwd_Right",
+      "Warhammer.Jog.Fwd_Right"
+    ]
+  },
+  "6179a0eda0687f02": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Right.J_Hammer_Gait_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_80f665ffce_J_Hammer_Gait_Right.K_80f665ffce_J_Hammer_Gait_Right",
+    "roles": [
+      "Warhammer.Walk.Right",
+      "Warhammer.Jog.Right"
+    ]
+  },
+  "c64f2ba8ff677b11": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Right.J_Hammer_Gait_Bwd_Right",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_70a5e421eb_J_Hammer_Gait_Bwd_Right.K_70a5e421eb_J_Hammer_Gait_Bwd_Right",
+    "roles": [
+      "Warhammer.Walk.Bwd_Right",
+      "Warhammer.Jog.Bwd_Right"
+    ]
+  },
+  "c13235dd0d7ffa06": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd.J_Hammer_Gait_Bwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_13486cc373_J_Hammer_Gait_Bwd.K_13486cc373_J_Hammer_Gait_Bwd",
+    "roles": [
+      "Warhammer.Walk.Bwd",
+      "Warhammer.Jog.Bwd"
+    ]
+  },
+  "b3d6904d2dd59b99": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Left.J_Hammer_Gait_Bwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4dbc7618b5_J_Hammer_Gait_Bwd_Left.K_4dbc7618b5_J_Hammer_Gait_Bwd_Left",
+    "roles": [
+      "Warhammer.Walk.Bwd_Left",
+      "Warhammer.Jog.Bwd_Left"
+    ]
+  },
+  "3b9e808ede1af135": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Left.J_Hammer_Gait_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_082e7feb18_J_Hammer_Gait_Left.K_082e7feb18_J_Hammer_Gait_Left",
+    "roles": [
+      "Warhammer.Walk.Left",
+      "Warhammer.Jog.Left"
+    ]
+  },
+  "948373132575cc17": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Left.J_Hammer_Gait_Fwd_Left",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_eacf8bc5cb_J_Hammer_Gait_Fwd_Left.K_eacf8bc5cb_J_Hammer_Gait_Fwd_Left",
+    "roles": [
+      "Warhammer.Walk.Fwd_Left",
+      "Warhammer.Jog.Fwd_Left"
+    ]
+  },
+  "af419922ad3d4278": {
+    "source": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_QuickMelee.J_Hammer_Refined_QuickMelee",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_d942291841_J_Hammer_Refined_QuickMelee.K_d942291841_J_Hammer_Refined_QuickMelee",
+    "roles": [
+      "Warhammer.FullBody.QuickMelee"
+    ]
+  },
+  "df6020154aefd79f": {
+    "source": "/Game/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Idle.A_Jason_DualPistol_Idle",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_97e05489fb_A_Jason_DualPistol_Idle.K_97e05489fb_A_Jason_DualPistol_Idle",
+    "roles": [
+      "DualPistol.Upper.Idle"
+    ]
+  },
+  "9147fdb1daaa3600": {
+    "source": "/Game/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Walk.A_Jason_DualPistol_Walk",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_0a69e0c723_A_Jason_DualPistol_Walk.K_0a69e0c723_A_Jason_DualPistol_Walk",
+    "roles": [
+      "DualPistol.Upper.Walk"
+    ]
+  },
+  "318fde8a5ef0510d": {
+    "source": "/Game/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Sprint.A_Jason_DualPistol_Sprint",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e93b97a149_A_Jason_DualPistol_Sprint.K_e93b97a149_A_Jason_DualPistol_Sprint",
+    "roles": [
+      "DualPistol.Upper.Sprint"
+    ]
+  },
+  "542a268e167f137a": {
+    "source": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Idle.J_Twinblast_Idle",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_bef2f95e9b_J_Twinblast_Idle.K_bef2f95e9b_J_Twinblast_Idle",
+    "roles": [
+      "DualPistol.Source.Idle"
+    ]
+  },
+  "bbb4c94cb0132fa6": {
+    "source": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Walk_Fwd.J_Twinblast_Walk_Fwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_1a3e7a0ffb_J_Twinblast_Walk_Fwd.K_1a3e7a0ffb_J_Twinblast_Walk_Fwd",
+    "roles": [
+      "DualPistol.Source.Walk"
+    ]
+  },
+  "337251b2a95d7d83": {
+    "source": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Jog_Fwd.J_Twinblast_Jog_Fwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_4254368d6a_J_Twinblast_Jog_Fwd.K_4254368d6a_J_Twinblast_Jog_Fwd",
+    "roles": [
+      "DualPistol.Source.Jog"
+    ]
+  },
+  "b978b5364eb928b0": {
+    "source": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Sprint_Fwd.J_Twinblast_Sprint_Fwd",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_bdf37ce6ed_J_Twinblast_Sprint_Fwd.K_bdf37ce6ed_J_Twinblast_Sprint_Fwd",
+    "roles": [
+      "DualPistol.Source.Sprint"
+    ]
+  },
+  "28a5a40e271dce17": {
+    "source": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Rt.J_Twinblast_DoubleShot_Fire_Rt",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_d00cd0566b_J_Twinblast_DoubleShot_Fire_Rt.K_d00cd0566b_J_Twinblast_DoubleShot_Fire_Rt",
+    "roles": [
+      "DualPistol.Source.FireRight"
+    ]
+  },
+  "898139581fa8aaf1": {
+    "source": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Lft.J_Twinblast_DoubleShot_Fire_Lft",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_78bfa5b207_J_Twinblast_DoubleShot_Fire_Lft.K_78bfa5b207_J_Twinblast_DoubleShot_Fire_Lft",
+    "roles": [
+      "DualPistol.Source.FireLeft"
+    ]
+  },
+  "f323776e93eb7fd8": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimIdle.J_GitHub_A_RevolverAimIdle",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_951c2513b7_J_GitHub_A_RevolverAimIdle.K_951c2513b7_J_GitHub_A_RevolverAimIdle",
+    "roles": [
+      "SinglePistol.Source.Idle"
+    ]
+  },
+  "1eb40e2e8e2b5e1c": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimWalk.J_GitHub_A_RevolverAimWalk",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f34b9e07b0_J_GitHub_A_RevolverAimWalk.K_f34b9e07b0_J_GitHub_A_RevolverAimWalk",
+    "roles": [
+      "SinglePistol.Source.Walk"
+    ]
+  },
+  "f403a1e6ad1aaf81": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimShoot.J_GitHub_A_RevolverAimShoot",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_1dd0780e2a_J_GitHub_A_RevolverAimShoot.K_1dd0780e2a_J_GitHub_A_RevolverAimShoot",
+    "roles": [
+      "SinglePistol.Source.Fire"
+    ]
+  },
+  "30d5c2e740307338": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverCrouchAimIdle.J_GitHub_A_RevolverCrouchAimIdle",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_ba6858b0be_J_GitHub_A_RevolverCrouchAimIdle.K_ba6858b0be_J_GitHub_A_RevolverCrouchAimIdle",
+    "roles": [
+      "SinglePistol.Source.Crouch.Idle"
+    ]
+  },
+  "56ccf2f6c8c30cd9": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverCrouchAimWalk.J_GitHub_A_RevolverCrouchAimWalk",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_11a4afc327_J_GitHub_A_RevolverCrouchAimWalk.K_11a4afc327_J_GitHub_A_RevolverCrouchAimWalk",
+    "roles": [
+      "SinglePistol.Source.Crouch.Walk"
+    ]
+  },
+  "ece7ca3784ebd9af": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_Init.J_Pistol_Reload_Init",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_1fedae992f_J_Pistol_Reload_Init.K_1fedae992f_J_Pistol_Reload_Init",
+    "roles": [
+      "SinglePistol.Source.Reload.Init"
+    ]
+  },
+  "a291b48f9a80ac74": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_Loop.J_Pistol_Reload_Loop",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_9b195f8c20_J_Pistol_Reload_Loop.K_9b195f8c20_J_Pistol_Reload_Loop",
+    "roles": [
+      "SinglePistol.Source.Reload.Loop"
+    ]
+  },
+  "6c773f1b1ebf49a7": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_End.J_Pistol_Reload_End",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_b6c24aaba9_J_Pistol_Reload_End.K_b6c24aaba9_J_Pistol_Reload_End",
+    "roles": [
+      "SinglePistol.Source.Reload.End"
+    ]
+  },
+  "1ce158920b626998": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_Init.J_Pistol_Crouch_Reload_Init",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_9d86790234_J_Pistol_Crouch_Reload_Init.K_9d86790234_J_Pistol_Crouch_Reload_Init",
+    "roles": [
+      "SinglePistol.Source.Crouch.Reload.Init"
+    ]
+  },
+  "ed1bbe5448d971fa": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_Loop.J_Pistol_Crouch_Reload_Loop",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_7cfb6f23db_J_Pistol_Crouch_Reload_Loop.K_7cfb6f23db_J_Pistol_Crouch_Reload_Loop",
+    "roles": [
+      "SinglePistol.Source.Crouch.Reload.Loop"
+    ]
+  },
+  "70a8e1ead4e3063d": {
+    "source": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_End.J_Pistol_Crouch_Reload_End",
+    "target": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_c3b612a3b6_J_Pistol_Crouch_Reload_End.K_c3b612a3b6_J_Pistol_Crouch_Reload_End",
+    "roles": [
+      "SinglePistol.Source.Crouch.Reload.End"
+    ]
+  },
+  "d90dea6ca0277666": {
+    "source": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_DirectReuseBodyV5_Default.A_FinalToll_DirectReuseBodyV5_Default",
+    "target": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_DirectReuseBodyV5_kaitlin.A_FinalToll_DirectReuseBodyV5_kaitlin",
+    "roles": [
+      "Warhammer.FullBody.FinalTollHeavy"
+    ]
+  },
+  "a9d4d1e3cb2f3d6f": {
+    "source": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_ChargeBodyV5_Default.A_FinalToll_ChargeBodyV5_Default",
+    "target": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_ChargeBodyV5_kaitlin.A_FinalToll_ChargeBodyV5_kaitlin",
+    "roles": [
+      "Warhammer.FullBody.FinalTollCharge"
+    ]
+  },
+  "4f710b7f96d3f59f": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Idle.A_KukriBody_Idle",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Idle.K_A_KukriBody_Idle",
+    "roles": [
+      "Kukri.FullBody.Idle"
+    ]
+  },
+  "3a712a9d01dadd9a": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Equip.A_KukriBody_Equip",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Equip.K_A_KukriBody_Equip",
+    "roles": [
+      "Kukri.FullBody.Equip"
+    ]
+  },
+  "c708e9cea4f81e11": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Slash1.A_KukriBody_Slash1",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Slash1.K_A_KukriBody_Slash1",
+    "roles": [
+      "Kukri.FullBody.Slash1"
+    ]
+  },
+  "6045db37d470165c": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Slash2.A_KukriBody_Slash2",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Slash2.K_A_KukriBody_Slash2",
+    "roles": [
+      "Kukri.FullBody.Slash2"
+    ]
+  },
+  "f5d654651b356ee6": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Thrust.A_KukriBody_Thrust",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Thrust.K_A_KukriBody_Thrust",
+    "roles": [
+      "Kukri.FullBody.Thrust"
+    ]
+  },
+  "d8bac96501c3563f": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Charge.A_KukriBody_Charge",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Charge.K_A_KukriBody_Charge",
+    "roles": [
+      "Kukri.FullBody.Charge"
+    ]
+  },
+  "68deb9f8f57aece4": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Heavy.A_KukriBody_Heavy",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Heavy.K_A_KukriBody_Heavy",
+    "roles": [
+      "Kukri.FullBody.Heavy"
+    ]
+  },
+  "93bbd327fa37e1c1": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Dash.A_KukriBody_Dash",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Dash.K_A_KukriBody_Dash",
+    "roles": [
+      "Kukri.FullBody.Dash"
+    ]
+  },
+  "05326dd28927b2f7": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Uppercut.A_KukriBody_Uppercut",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Uppercut.K_A_KukriBody_Uppercut",
+    "roles": [
+      "Kukri.FullBody.Uppercut"
+    ]
+  },
+  "3432c33824208609": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Pommel.A_KukriBody_Pommel",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Pommel.K_A_KukriBody_Pommel",
+    "roles": [
+      "Kukri.FullBody.Pommel"
+    ]
+  },
+  "b3c903391c16959e": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Whirlwind_Start.A_KukriBody_Whirlwind_Start",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Whirlwind_Start.K_A_KukriBody_Whirlwind_Start",
+    "roles": [
+      "Kukri.FullBody.Whirlwind.Start"
+    ]
+  },
+  "95be45e0445ae15d": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Whirlwind_Loop.A_KukriBody_Whirlwind_Loop",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Whirlwind_Loop.K_A_KukriBody_Whirlwind_Loop",
+    "roles": [
+      "Kukri.FullBody.Whirlwind.Loop"
+    ]
+  },
+  "4080ca3ef80f2d69": {
+    "source": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Animations/A_KukriBody_Whirlwind_End.A_KukriBody_Whirlwind_End",
+    "target": "/Game/Characters/JasonPlayer20261003/Kukri20261024/FullBodyV2/Kaitlin/Animations/K_A_KukriBody_Whirlwind_End.K_A_KukriBody_Whirlwind_End",
+    "roles": [
+      "Kukri.FullBody.Whirlwind.End"
+    ]
+  }
+}

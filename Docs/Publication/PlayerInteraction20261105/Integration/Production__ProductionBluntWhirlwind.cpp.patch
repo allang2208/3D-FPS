@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp
+@@ -24,7 +24,7 @@
+ 
+ namespace
+ {
+-bool CanWhirlwind(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Profile)
++bool CanWhirlwind(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Profile,bool bContinuing=false)
+ {
+     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+@@ -37,7 +37,7 @@
+         (!Sword||!Sword->IsGuarding())&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
+         !Pawn->IsTraversing()&&!Pawn->IsDodging()&&!Pawn->IsSliding()&&!Pawn->IsCastBlockingLeftHandAction()&&
+         !UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&(!Health||!Health->IsDead())&&
+-        !AFPSGAMEPlayerController::BlocksOngoingActions(PC)&&(!Build||!Build->IsBuilding());
++        !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Build||!Build->IsBuilding());
+ }
+ const FSoftObjectPath Whoosh(TEXT("/Game/Weapons/SteelWarhammer20261014/NormalSwingAudioV1/S_Warhammer_NormalSwing.S_Warhammer_NormalSwing"));
+ }
+@@ -122,7 +122,7 @@
+     auto* Pawn=Character.Get();if(!Pawn)return;
+     auto* Profile=Pawn->HasAuthority()?ColdSteelAuthority::ForPawn(Pawn):GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+-    if(!CanWhirlwind(Pawn,Profile)||!Item||Item->InstanceId!=BluntWhirlwindInstance)
++    if(!CanWhirlwind(Pawn,Profile,true)||!Item||Item->InstanceId!=BluntWhirlwindInstance)
+     {FinishBluntWhirlwind();return;}
+     const auto& T=BluntWhirlwindTuning;
+     Delta*=HasteActionRate;

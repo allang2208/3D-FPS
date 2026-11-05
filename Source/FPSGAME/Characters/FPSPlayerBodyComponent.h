@@ -63,6 +63,10 @@ public:
     void ApplyReactionCamera(float Delta,struct FMinimalViewInfo& View);
     void ApplyInteractionView(FVector& Eye, FRotator& View) const;
     void RefreshViewMode();
+    /** Minigame views own a temporary, empty-handed world-body idle. */
+    void BeginWorkstationIdle(AActor* View);
+    void EndWorkstationIdle(AActor* View);
+    bool IsWorkstationIdle() const;
     void PresentSuper90Shot(const FString& Instance,float FiredAt,bool bAiming,bool bSuppressed,float PumpRate);
     void ReportGunShot(uint8 Hand, class USoundBase* Sound,float Volume,float Pitch,bool bAiming);
     void ReportGunMechanical(uint8 Hand,class USoundBase* Sound,float Volume,float StartTime=0.f);
@@ -94,6 +98,10 @@ private:
     friend class AShotgunWireAuditGameMode;
     friend class UShotgunAttachmentAuditCommandlet;
     UPROPERTY(ReplicatedUsing=OnRep_BodyState) FFPSBodyState ReplicatedState;
+    UPROPERTY(ReplicatedUsing=OnRep_WorkstationIdle) bool bWorkstationIdle=false;
+    TWeakObjectPtr<AActor> WorkstationView;
+    UFUNCTION(Server,Reliable) void ServerSetWorkstationIdle(bool bIdle);
+    UFUNCTION() void OnRep_WorkstationIdle();
     UPROPERTY(ReplicatedUsing=OnRep_Equipment) TArray<FFPSBodyWeapon> ReplicatedWeapons;
     UPROPERTY(ReplicatedUsing=OnRep_Outfit) TArray<FFPSBodyOutfitSlot> ReplicatedOutfit;
     UFUNCTION() void OnRep_BodyState();

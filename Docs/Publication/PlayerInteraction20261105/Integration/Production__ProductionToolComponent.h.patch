@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -430,7 +430,7 @@
+     float RealSwingSeconds() const { return UsesThunderThrowHeavy()?ThunderHammerThrow::Duration/BluntMotionRate():UsesFinalTollHeavy()?FinalTollHeavy::Duration/FinalTollActionRate:bBluntHeavy?BluntLiftSeconds()+WarhammerHeavy::RealDuration(BluntMotionRate()):SwingSeconds/RateScale; }
+     void ApplyToolStats(const FColdSteelItem* Item,UColdSteelStatusModel* Profile);
+     bool CanPresent() const;
+-    bool CanUse() const;
++    bool CanUse(bool bContinuing = false) const;
+     /** Shared single-target query for the hint and the contact event. */
+     bool TraceAxeContact(FProductionResource& Resource,FHitResult& Hit,FString& Reason) const;
+     bool ResolveAxeEnemyContact(const FHitResult& Hit);

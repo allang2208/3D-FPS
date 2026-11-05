@@ -1,0 +1,44 @@
+--- a/Source/FPSGAME/Items/LargeLambMealAuditCommandlet.cpp
++++ b/Source/FPSGAME/Items/LargeLambMealAuditCommandlet.cpp
+@@ -173,6 +173,7 @@
+             &&Model->CountMaterial(TEXT("raw_sausage"))==12,TEXT("validated teardown returns every unfinished ingredient"),Reason);
+     }
+     Check(Model->CommitState(MealProfile),TEXT("meal fixture restored after campfire transaction cases"));
++    if(!FParse::Param(FCommandLine::Get(),TEXT("SkipCampfireWidget")))
+     {
+         auto* Panel=CreateWidget<UColdSteelSmeltingWidget>(GI);auto* ViewFire=World->SpawnActor<AColdSteelCampfire>();
+         // Headless fixtures have no LocalPlayer, so UUserWidget may defer this hook.
+@@ -218,6 +219,13 @@
+     auto Arm=[&](const FString& Id,float Age){Potion->UsingItem=Id;Potion->Motion=Motion;Potion->StartTime=World->GetTimeSeconds()-Age;
+         Potion->bActive=Potion->bFood=true;Potion->bCommitted=Potion->bDiscarded=false;Potion->bSwallowStarted=true;};
+     const float BaseMaximum=Model->MaxStamina(),BaseRate=Model->StaminaRecoveryRate();
++    Arm(Cooked,4.64f);Potion->bStowOffhand=true;
++    Check(Motion.bTwoHanded&&Potion->HandlePrimaryPress(),TEXT("two-hand meal consumes cancel press before contact"));
++    Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
++    Check(Potion->IsActive()&&!Potion->bCommitted&&Model->FindItem(Cooked)&&Near(Survival->LargeLambMealRemaining(),0),
++        TEXT("early raise neither settles nor releases attack ownership"));
++    Potion->StartTime=World->GetTimeSeconds()-Motion.Duration-.27f;Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
++    Check(!Potion->IsActive()&&Potion->HandlePrimaryRelease()&&Model->FindItem(Cooked),TEXT("cancel release after full return cannot attack"));
+     Arm(Cooked,4.64f);Potion->TickComponent(.01f,LEVELTICK_All,nullptr);Potion->Cancel();
+     Check(Model->FindItem(Cooked)&&Near(Survival->LargeLambMealRemaining(),0)&&Near(Model->Stamina(),37),TEXT("pre-contact cancel preserves item, stamina and buff"));
+     Arm(Cooked,4.651f);Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
+@@ -231,8 +239,17 @@
+     Check(Tile&&Tile->Name==TEXT("大份烤羊排")&&Near(Tile->Duration,600)&&Near(Tile->Remaining,600),TEXT("HUD adapter publishes exact name and duration"));
+     Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
+     Check(Near(Model->Snapshot().Survival.Hunger,70)&&Near(Survival->LargeLambMealRemaining(),600),TEXT("duplicate contact tick cannot apply twice"));
+-    Potion->StartTime=World->GetTimeSeconds()-6.001;Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
+-    Check(!Potion->IsActive(),TEXT("six second action finishes"));
++    Potion->bStowOffhand=true;
++    Check(Potion->HandlePrimaryPress(),TEXT("post-contact click is owned by the meal"));
++    Potion->StartTime=World->GetTimeSeconds()-6.27;Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
++    Check(!Potion->IsActive()&&Potion->HandlePrimaryRelease()&&!Model->FindItem(Cooked)&&Near(Model->Snapshot().Survival.Hunger,70),
++        TEXT("post-contact cancel keeps one settlement and completes raise"));
++    // The natural end must also keep both triggers reserved through the raise.
++    Arm(Cooked,6.001f);Potion->bCommitted=true;Potion->bStowOffhand=true;
++    Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
++    Check(Potion->IsActive()&&UFPSPotionUseComponent::BlocksWeaponAttack(Player),TEXT("natural finish reserves both hands during raise"));
++    Potion->StartTime=World->GetTimeSeconds()-6.27f;Potion->TickComponent(.01f,LEVELTICK_All,nullptr);
++    Check(!UFPSPotionUseComponent::BlocksWeaponAttack(Player),TEXT("natural raise releases attack ownership"));
+     auto Advance=[&](int32 Seconds){for(int32 I=0;I<Seconds;++I)World->Tick(LEVELTICK_TimeOnly,1.f);};
+     Advance(120);Check(Near(Survival->LargeLambMealRemaining(),480),TEXT("server gameplay clock advances remaining time"));
+     Model->SyncRuntime();auto Again=Model->Snapshot();Again.Survival.Hunger=Again.Survival.MaxHunger;const FString Second=Put(Again,TEXT("roasted_large_lamb"));

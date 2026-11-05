@@ -67,6 +67,7 @@ bool AAlchemyWorldView::Failed() const {return (bLoadFinished&&!bReady)||(Visual
 void AAlchemyWorldView::Enter()
 {
     if(bEntered||!Ready()||!Player.IsValid())return;bEntered=true;PreviousView=Player->GetViewTarget();
+    ColdSteelWorkstationView::BeginIdle(this,WorkingPawn.Get());
     if(WorkingPawn.IsValid()&&!Player->HiddenActors.Contains(WorkingPawn.Get())){Player->HiddenActors.Add(WorkingPawn.Get());bHidPawn=true;}
     Tick(0);SetActorTickEnabled(true);Arms->SetVisibility(true);Player->SetViewTargetWithBlend(this,.35f,VTBlend_Cubic);
 }

@@ -647,6 +647,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
 
 bool UFPSPlayerBodyComponent::IsWorldWeaponStowed(UPrimitiveComponent* Mesh) const
 {
+    if(IsWorkstationIdle())return true;
     const float Now=ServerClock();
     if(IsDeathViewActive())return true;
     if(FPSBodyPoses::Traversing(DisplayState.Motion)||Now<WorldWeaponsHiddenUntil)return true;

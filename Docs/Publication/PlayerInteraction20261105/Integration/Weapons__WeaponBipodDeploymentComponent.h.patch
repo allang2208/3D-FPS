@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h
++++ b/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h
+@@ -86,7 +86,7 @@
+         TWeakObjectPtr<UPrimitiveComponent> Components[2];
+         FTransform Transforms[2];
+     };
+-    bool Eligible() const;
++    bool Eligible(bool bContinuing = false) const;
+     UPKMBipodComponent* EquippedBipod() const;
+     // Coarse HUD hint only. ADS entry always performs FindSupport in full.
+     bool HasSupportHint(UPKMBipodComponent& Part) const;
+@@ -115,7 +115,7 @@
+     bool IsM24() const;
+     float TransitionDuration(bool bDeploy) const;
+     float PlacementBlend() const;
+-    bool AuthorityEligible() const;
++    bool AuthorityEligible(bool bContinuing = false) const;
+     FString EquippedDefinition() const;
+     FString EquippedInstance() const;
+     bool ResolveServerSupport(const FWeaponBipodNetState& Proposed,FSupport& Out) const;

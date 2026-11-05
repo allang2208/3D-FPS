@@ -85,6 +85,6 @@ private:
     float MoveBlend=0.f,RunBlend=0.f,GaitPhase=0.f;
     bool bTriggerHeld=false;
     int32 NextPunchSide=1,PunchSide=1;
-    bool CanPunch() const;
+    bool CanPunch(bool bContinuing = false) const;
     void RefreshPunchSample();
 };

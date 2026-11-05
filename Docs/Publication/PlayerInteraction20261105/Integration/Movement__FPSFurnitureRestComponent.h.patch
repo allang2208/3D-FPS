@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Movement/FPSFurnitureRestComponent.h
++++ b/Source/FPSGAME/Movement/FPSFurnitureRestComponent.h
+@@ -48,7 +48,9 @@
+     bool Interact();
+     void RequestLeave();
+     void AnimationSample(FName& Clip,float& Seconds,float& Weight) const;
+-    void ApplyCamera(FMinimalViewInfo& View) const;
++    void ApplyCamera(FMinimalViewInfo& View);
++    /** Consume first-person mouse look in the supported body's neck frame. */
++    bool UpdateRestLook(const FRotator& Input,FRotator& OutRotation);
+     float FootDrop() const;
+     bool IsPoseMirrored() const { return IsResting()&&State.bMirror; }
+ private:
+@@ -72,6 +74,22 @@
+     float LastHealth=0.f;
+     double LastFocusTime=-1.;
+     FString CachedPrompt;
++    // Local rendered POV only; furniture/body poses and replicated clocks stay unchanged.
++    bool bRestCameraActive=false,bRestCameraHasView=false;
++    bool bRestCameraLookInitialized=false,bRestCameraLying=false;
++    FRotator RestCameraLook=FRotator::ZeroRotator;
++    FQuat RestCameraLookFrame=FQuat::Identity,RestCameraEntryRotation=FQuat::Identity;
++    FQuat RestCameraLastRotation=FQuat::Identity,RestCameraReturnRotationOffset=FQuat::Identity;
++    float RestCameraLookStarted=0.f;
++    FVector RestCameraEntryLocation=FVector::ZeroVector,RestCameraLastLocation=FVector::ZeroVector;
++    float RestCameraReturnStarted=-1.f;
++    TWeakObjectPtr<class USkeletalMesh> RestCameraMesh;
++    int32 RestCameraTorso=INDEX_NONE,RestCameraNeck=INDEX_NONE,RestCameraPelvis=INDEX_NONE;
++    FVector RestCameraLocalFront=FVector::ForwardVector,RestCameraLocalUp=FVector::UpVector;
++    void BeginRestCamera();
++    void EndRestCamera(bool bDead);
++    void ApplyRestCamera(FMinimalViewInfo& View,class USkeletalMeshComponent& Body,bool bLying);
++    void ApplyRestCameraReturn(FMinimalViewInfo& View);
+     void OutlineLoaded();
+     bool ResolveFocus(FHitResult& Hit,FTransform& Transform,int32& Slot,FName& Kind,FVector& Seat,float& Yaw,bool& bOccupied) const;
+     bool IsSlotOccupied(const UStaticMeshComponent* Mesh,int32 Instance,int32 Slot,const FVector& Location) const;

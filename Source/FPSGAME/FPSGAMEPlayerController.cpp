@@ -67,6 +67,20 @@ void RunMagicScrollAudit(AFPSGAMEPlayerController* PC);
 void RunLootGlowAudit(AFPSGAMEPlayerController* PC);
 void RunIncineratorUIAudit(AFPSGAMEPlayerController* PC);
 
+void AFPSGAMEPlayerController::UpdateRotation(float DeltaTime)
+{
+    FRotator RestLook;
+    if(auto* Rest=GetPawn()?GetPawn()->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr;
+        Rest&&Rest->UpdateRestLook(RotationInput,RestLook))
+    {
+        // The supported body cannot turn with the controller. Neck-local input
+        // also avoids the world's pitch clamp when lying face-up at the zenith.
+        SetControlRotation(RestLook);
+        return;
+    }
+    Super::UpdateRotation(DeltaTime);
+}
+
 AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 {
     VoxelBuilder=CreateDefaultSubobject<UVoxelBuildComponent>(TEXT("VoxelBuilder"));

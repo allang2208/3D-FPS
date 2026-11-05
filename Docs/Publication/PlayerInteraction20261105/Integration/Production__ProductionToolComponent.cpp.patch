@@ -1,0 +1,43 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.cpp
++++ b/Source/FPSGAME/Production/ProductionToolComponent.cpp
+@@ -369,11 +369,11 @@
+         && (!Building || !Building->IsBuilding() || Building->IsPanelOpen());
+ }
+ 
+-bool UProductionToolComponent::CanUse() const
++bool UProductionToolComponent::CanUse(bool bContinuing) const
+ {
+     const auto* PC=Character.IsValid()?Cast<APlayerController>(Character->GetController()):nullptr;
+     const auto* Building=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
+-    return CanPresent() && (bContinuing||!IsThunderRecallLocked()) && !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && (!Building || !Building->IsBuilding())
++    return CanPresent() && (bContinuing||!IsThunderRecallLocked()) && !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC)) && (!Building || !Building->IsBuilding())
+         &&(!IsThunderHammerAway()||UsesThunderThrowHeavy());
+ }
+ 
+@@ -383,7 +383,7 @@
+     if(Character.IsValid()&&Character->RuneSword&&Character->RuneSword->IsToolGuardRequested())return;
+     if(bBluntCharging||bBluntReturningCharge||bBluntWhirlwind||bBluntUppercut)return;
+     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedBluntAttack=false;return;}
+-    if (!IsEquipped() || !CanUse()) return;
++    if (!IsEquipped() || !CanUse(bBluntReleaseCharge)) return;
+     if(Elapsed>=0.f)
+     {
+         if(Kind==TEXT("warhammer")&&Elapsed>=RealContactSeconds()&&!bQueuedBluntAttack)
+@@ -668,7 +668,7 @@
+         Character->RuneSword->AdvanceToolGuard(Delta);
+         if(IsGuardActive())return;
+     }
+-    if(!CanUse())
++    if(!CanUse(true))
+     {
+         // Awaiting/receiving a recalled hammer is an active hand presentation.
+         if(IsThunderHammerAway()){if(Elapsed>=0.f)FinishUse();return;}
+@@ -766,7 +766,7 @@
+     {UpdateRuneboundPresentation(Delta,!RuneboundInstance.IsEmpty());UpdateStormDriveLightning(Delta);return;}
+     const bool Present=IsEquipped() && CanPresent();
+     ThunderHammerPommel::UpdateVisual(Character.Get(),LeiXiCoreMaterial.Get(),bLeiXiCoreActive);
+-    const bool Usable=IsEquipped() && CanUse();
++    const bool Usable=IsEquipped() && CanUse(true);
+     const bool Away=IsThunderHammerAway();
+     const bool Catching=ThunderCatchAge>=0.f||(Away&&(bThunderRecallPending||(ThrownHammer&&(ThrownHammer->IsReturning()||ThrownHammer->IsCatching()))));
+     if (ToolMesh) ToolMesh->SetVisibility(Present && !Away && (!bUsesArms||ToolMesh->GetAttachParent()==Viewmodel) && ToolMesh->GetStaticMesh(),true);

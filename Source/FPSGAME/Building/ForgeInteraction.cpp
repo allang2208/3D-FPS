@@ -157,6 +157,7 @@ void AForgeInteraction::Enter()
 {
     auto* Player=PC.Get();if(!Player)return;
     bRunning=true;WorkingPawn=Player->GetPawn();PreviousView=Player->GetViewTarget();
+    ColdSteelWorkstationView::BeginIdle(this,WorkingPawn.Get());
     if(Station.IsValid())
     {
         auto* Body=Station->Body();
@@ -431,12 +432,12 @@ void AForgeInteraction::SolveArm(bool Right,const FTransform& Hand)
 }
 void AForgeInteraction::RestorePlayer()
 {
+    ColdSteelWorkstationView::Restore(PC.Get(),this,WorkingPawn.Get(),PreviousView.Get(),.25f);
     RestoreQuenchWater();
     if(auto* Player=PC.Get())
     {
         if(bHeldInput){Player->SetIgnoreMoveInput(false);Player->SetIgnoreLookInput(false);bHeldInput=false;Player->FlushPressedKeys();}
         if(bHidPawn){Player->HiddenActors.Remove(WorkingPawn.Get());bHidPawn=false;}
-        ColdSteelWorkstationView::Restore(Player,this,WorkingPawn.Get(),PreviousView.Get(),.25f);
     }
     if(Prompt){Prompt->RemoveFromParent();Prompt=nullptr;}
 }

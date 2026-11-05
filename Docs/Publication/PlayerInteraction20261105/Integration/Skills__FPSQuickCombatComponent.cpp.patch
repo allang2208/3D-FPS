@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
+@@ -468,17 +468,17 @@
+     const auto* Tool=bWarhammer&&Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;
+     const bool bWeaponMatches=Player&&(bWarhammer
+         ?(Tool&&Tool->IsWarhammerEquipped()&&!Player->IsTraversing()&&!Player->IsDoorPushActive()
+-            &&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
++            &&!AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+         :bBook
+         ?(Book&&Book->OwnsLeftHand()&&!Player->IsDoorPushActive()
+-            &&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
++            &&!AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+         :bUnarmed
+         ?(Hands&&Hands->IsEquipped()&&!Player->IsTraversing()
+-            &&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
++            &&!AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+         :bStaff
+         ?(((Staff&&Staff->IsEquipped()&&(Style==EQuickCombatStyle::StaffPunch?!Player->HasOffhandPistol():Dual&&Dual->IsOffhandOnly()))
+             ||(Style==EQuickCombatStyle::StaffOffhandPistol&&Player->IsLoneLeftHandRig()))
+-            &&!Player->IsTraversing()&&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
++            &&!Player->IsTraversing()&&!AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+         :Style==EQuickCombatStyle::Bow
+         ?(Bow&&Bow->IsEquipped())
+         :Style==EQuickCombatStyle::DualPistol

@@ -62,6 +62,7 @@ public:
 protected:
     virtual void BeginPlay() override;
     virtual void PlayerTick(float DeltaTime) override;
+    virtual void UpdateRotation(float DeltaTime) override;
     virtual void SetupInputComponent() override;
     virtual bool InputKey(const FInputKeyEventArgs& Params) override;
 

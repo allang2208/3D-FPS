@@ -137,7 +137,21 @@ def _lock(path):
                 fcntl.flock(handle, fcntl.LOCK_UN)
 
 
-def commit(path, before, candidate, *, owned_paths, producer):
+def _remove_clip(text, key):
+    start, end = _span(text, key)
+    colon = text[:start].rstrip()
+    prefix = colon[:-1].rstrip()
+    token = json.dumps(key[-1], ensure_ascii=False)
+    if not colon.endswith(":") or not prefix.endswith(token):
+        raise ConfigConflict("Cannot locate retired clip member: " + repr(key))
+    left = prefix[:-len(token)].rstrip()
+    if left.endswith(","):
+        return left[:-1] + text[end:]
+    right = text[end:].lstrip()
+    return left + (right[1:] if right.startswith(",") else right)
+
+
+def commit(path, before, candidate, *, owned_paths, producer, retired_clips=None):
     path = Path(path).resolve()
     if path.name != "player_body.json" or path.parent.name != "ColdSteelData" or path.parent.parent.name != "Content":
         raise ValueError("This writer is only for Content/ColdSteelData/player_body.json")
@@ -151,12 +165,20 @@ def commit(path, before, candidate, *, owned_paths, producer):
     edits = list(_changes(original, proposed))
     for key, value in edits:
         if value is _MISSING:
-            raise ConfigConflict("Implicit key removal is forbidden: " + repr(key))
+            retired = retired_clips or {}
+            valid_parent = key[:-1] == ("clips",) or (len(key)==4 and key[0]=="body_variants" and key[2]=="clips")
+            if not valid_parent or key not in scopes or key not in retired:
+                raise ConfigConflict("Implicit key removal is forbidden: " + repr(key))
+            old = original
+            for part in key:
+                old = old[part]
+            if not isinstance(old, str) or old != retired[key]:
+                raise ConfigConflict("Retired clip mapping changed: " + repr(key))
         if not any(key[:len(scope)] == scope for scope in scopes):
             raise ConfigConflict("Change outside declared ownership: " + repr(key))
     text = before.decode("utf-8-sig")
     for key, value in edits:
-        text = _set(text, key, value)
+        text = _remove_clip(text, key) if value is _MISSING else _set(text, key, value)
     result = (b"\xef\xbb\xbf" if before.startswith(b"\xef\xbb\xbf") else b"") + text.encode("utf-8")
     if _load(result) != proposed:
         raise ConfigConflict("Scoped result differs from proposed configuration")

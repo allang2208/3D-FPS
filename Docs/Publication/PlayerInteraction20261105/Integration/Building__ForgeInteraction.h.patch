@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Building/ForgeInteraction.h
++++ b/Source/FPSGAME/Building/ForgeInteraction.h
+@@ -91,6 +91,8 @@
+     TWeakObjectPtr<UColdSteelHUDWidget> HUD;
+     // Cursor rays are stored on the fixed anvil plane, independently of blank height.
+     FVector2D Aim=FVector2D(.5,.375),StrikeAim;
++    FVector StrikeSurface=FVector::ZeroVector;
++    bool bStrikeOnBlank=false;
+     FVector SparkOrigin;
+     FString LoadError;
+     double StrikeAt=-100,FinishAt=-1,LastFeedback=-100;
+@@ -103,6 +105,9 @@
+     float WorkYaw=180,QuenchPitch=-62;
+     int32 StrikeIndex=INDEX_NONE,BlankStage=INDEX_NONE;
+     FName SelectedBlank=TEXT("sword");
++    FName PendingRecipe,PendingMetal;
++    bool bWaitingForJob=false,bStartSent=false;
++    double EnteredAt=0;
+     TMap<FName,int32> BlankMeshOffsets;
+     bool bReady=false,bRunning=false,bContact=false,bHeldInput=false,bHidPawn=false,bLastHit=false,bReturning=false;
+     UPROPERTY(Transient) TObjectPtr<UColdSteelForgingSystem> System;

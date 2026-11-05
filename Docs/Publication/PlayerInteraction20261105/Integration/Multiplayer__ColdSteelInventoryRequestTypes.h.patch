@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
+@@ -62,6 +62,7 @@
+     // All releases report their continuous draw clock; damage remains server-derived.
+     UPROPERTY() float BowChargeElapsed=-1.f;
+     UPROPERTY() FGuid BowDrawId;
++    UPROPERTY() FGuid ConsumableUseId;
+     UPROPERTY() EArrowElement ArrowElement=EArrowElement::None;
+     UPROPERTY() bool bIlluminationArrow=false;
+     UPROPERTY() int64 ContainerRevision=0;

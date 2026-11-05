@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Items/FPSPotionUseComponent.h"
 #include "Weapons/StarMarrowComponent.h"
 #include "Weapons/FullAutoTrigger.h"
 #include "Weapons/JingangRuneComponent.h"
@@ -96,15 +97,17 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     const bool ChangedDual=DualPistols && !DualPistols->MatchesEquipment(Profile,bInventoryWeaponReady);
     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||ActiveInventoryWeaponDefinition!=Definition
         ||WasWeaponReady!=bInventoryWeaponReady||ChangedDual||ActiveProductionToolInstance!=ToolId;
-    if(ChangedWeapon)
+    auto P=Profile->Snapshot();
+    const auto* Consumable=FindComponentByClass<UFPSPotionUseComponent>();
+    if(ChangedWeapon || (Consumable && Consumable->EquippedHandsChanged(*Profile,P.ActiveWeaponSlot)))
     {
         InterruptActionsForPriority(true);
         // Cancellation can publish a refund or finish a reserved cooldown.
         // Item pointers into the previous profile publication are now stale.
         I=Profile->Equipped();
         ActiveProductionToolInstance=ToolId;
+        P=Profile->Snapshot();
     }
-    const auto P=Profile->Snapshot();
     if(auto* Dealer=FindComponentByClass<UDealerEnchantmentComponent>())Dealer->Configure(Profile);
     if(auto* Survival=FindComponentByClass<UFPSSurvivalComponent>())Survival->RestoreState(P.Survival);
     if(HasAuthority())if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}

@@ -72,7 +72,7 @@ private:
     void UpdatePreview();
     void Feedback(const FString& Text);
     void RejectHeldHand();
-    bool InputAvailable() const;
+    bool InputAvailable(bool bContinuing = false) const;
     FVector SeedOrigin() const;
     UColdSteelStatusModel* Model() const;
     UFPSFireballComponent* Hands() const;

@@ -1,0 +1,755 @@
+[
+  {
+    "path": "Source/FPSGAME/Building/AlchemyWorldView.cpp",
+    "preimage_sha256_lf": "bdfa3209c2f6773492f4e562b5764697e77b5f6fcaccdf504c8083b62ad5ee6b",
+    "tested_source_sha256_lf": "191cd6a987d5b5da9287ba9872429aa7eca86165f64387f963bf468fe06e62f8",
+    "mode": "native",
+    "public_base_sha256_lf": "bdfa3209c2f6773492f4e562b5764697e77b5f6fcaccdf504c8083b62ad5ee6b",
+    "public_result_sha256_lf": "191cd6a987d5b5da9287ba9872429aa7eca86165f64387f963bf468fe06e62f8",
+    "patch": "Integration/Building__AlchemyWorldView.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/FPSForgeWorkComponent.cpp",
+    "preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tested_source_sha256_lf": "30e6aa37c1eec11fca0d1f25ed662f3e067a5219f98163a627afc4be2d5d5e1f",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Building__FPSForgeWorkComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/FPSForgeWorkComponent.h",
+    "preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tested_source_sha256_lf": "8812c7ac5b2e1c1b02003ad6f7d80759fba6fa7e15d99185c2f73452587526c4",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Building__FPSForgeWorkComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/ForgeInteraction.cpp",
+    "preimage_sha256_lf": "978640995e65a7546b072c36357abfd49bc84dc2d8f2e72fb59944494c735ad1",
+    "tested_source_sha256_lf": "24174c981319afd43381e772db62752f053fcb2617486b361efe49f568afef94",
+    "mode": "native",
+    "public_base_sha256_lf": "96c9d9ff0a3c9f0b3e68714b21c384061d0a7e76ba6a4003a0c89938e8710d74",
+    "public_result_sha256_lf": "6dcad7678d91c55d0cec5ba21f1f2c27a4cd00379fcd74a4819f43dfb8be2fc7",
+    "patch": "Integration/Building__ForgeInteraction.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/ForgeInteraction.h",
+    "preimage_sha256_lf": "1481eb661fd6812fe572922232e536765fcce6d413f2d8617d7295268561b53e",
+    "tested_source_sha256_lf": "5872127b109f7767fc3ab45f4bd52f4dd5d63662440ee320897fdc9182b4079d",
+    "mode": "deferred",
+    "public_base_sha256_lf": "0df9f9f5bcd62905217d00a7bedba40133151a8a4473613966e78f209a7b2c03",
+    "patch": "Integration/Building__ForgeInteraction.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/ForgeQuenchPresentation.cpp",
+    "preimage_sha256_lf": "d745de14694a6483d2b473274e5f6ce44b95a52d58edc6bdc475eefa863d85ff",
+    "tested_source_sha256_lf": "8bc6cc1ec80f87ead85c79980eb45162c440988d5db8e42abd9788c60b511224",
+    "mode": "deferred",
+    "public_base_sha256_lf": "08518ab1a47fe5d092ea3f9b58768d3b8577414cb850ea42356f91e327fc359a",
+    "patch": "Integration/Building__ForgeQuenchPresentation.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/ForgingSystem.cpp",
+    "preimage_sha256_lf": "7ff17435d22d7ead104ebaa71dc077e14b893a7f30660f6f9ec8742592767d4b",
+    "tested_source_sha256_lf": "3187154e2727dd93bf1a446d5f06106d6b6983e4371ac2b06e4aab2fb88a82a8",
+    "mode": "deferred",
+    "public_base_sha256_lf": "090f64dbd106a9af8b876a5d99724041d11b0a87eedc3b150f1c196d9a03850d",
+    "patch": "Integration/Building__ForgingSystem.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/ForgingSystem.h",
+    "preimage_sha256_lf": "3e5920530283e2729e35d042c0bf6d287cf1d4b283badf4f83d86f6653b75b66",
+    "tested_source_sha256_lf": "d0c3bb1d1476baefe65a17299a0a3c9c074dd20500aefe9a9494f7b37cf3a8c3",
+    "mode": "deferred",
+    "public_base_sha256_lf": "d31b5f77ba09597eb2fc859815acd7eebd9a6a72cbf78b201e81752866a9f6e8",
+    "patch": "Integration/Building__ForgingSystem.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/GunAssemblyInteraction.cpp",
+    "preimage_sha256_lf": "6453ea4b6be066ffec996f44a94e3f84a2608f9c91da2e3014da5e3582b14ef0",
+    "tested_source_sha256_lf": "fe2804043f24d877c9a51609b1ca6e0b022d997655c092c24c5f72864ae07a1a",
+    "mode": "native",
+    "public_base_sha256_lf": "b776fda6649ed1bc0180447363853590788eac18e9806f7b36900797784a7a99",
+    "public_result_sha256_lf": "1634a7f0209c3c636261ab6d7458c471f504cefc2e8302c63f31c9f5f6443e13",
+    "patch": "Integration/Building__GunAssemblyInteraction.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "preimage_sha256_lf": "b82b1a57b4766f147b624115b7162da54084e00ff2eed63821787f6d03a7f028",
+    "tested_source_sha256_lf": "9f48c361de5c75957139dd45bd33c93d6ee6e4e345b107493841dcf027d20eab",
+    "mode": "native",
+    "public_base_sha256_lf": "05de2edeaecab3ffbb1a4fe70ba2f407678333d5493efb502270f29ca68150d3",
+    "public_result_sha256_lf": "2c94aabb38d0f1fb92a1a7aebbba4f5f844ac57db9520aa535903027ae0bb494",
+    "patch": "Integration/Building__WoodworkingWorldView.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Building/WorkstationViewRestore.h",
+    "preimage_sha256_lf": "9b6731c2d086f525541d8a012152366f4f68ea57ff54b62ea5944f1c27a06fc5",
+    "tested_source_sha256_lf": "e85f1f5a2e6a0e46076aac9e8b3d7f1b3a7394b4744c09e35d5e95a85fc27f7b",
+    "mode": "native",
+    "public_base_sha256_lf": "9b6731c2d086f525541d8a012152366f4f68ea57ff54b62ea5944f1c27a06fc5",
+    "public_result_sha256_lf": "e85f1f5a2e6a0e46076aac9e8b3d7f1b3a7394b4744c09e35d5e95a85fc27f7b",
+    "patch": "Integration/Building__WorkstationViewRestore.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+    "preimage_sha256_lf": "f390a6d5b507d55b8019bc04c40682498a8a1fecfe30fc33bc495c817ac747a9",
+    "tested_source_sha256_lf": "e8fc35f7955ca955f665cb7adac58d51ad56f2814acc85a37601fe9b23e9724e",
+    "mode": "native",
+    "public_base_sha256_lf": "24f9a89140fdd4522af6165b13253ff99687162f70118479678d11b03b223df9",
+    "public_result_sha256_lf": "b85f09b4b1745e300161c667d0f8669a4ad2e45bc2bbd30e6bd2cd8d4b9a2621",
+    "patch": "Integration/Characters__FPSPlayerBodyAppearance.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+    "preimage_sha256_lf": "f8ceb57a7d20b7f99d7611aaf5f752ef5957e566ba44fa2b180657ffdb9b1e1e",
+    "tested_source_sha256_lf": "fc0ade2e6938ff3a9b2a8d54155d94e624bb38f9d0507d10f7872eb766ecbe0e",
+    "mode": "native",
+    "public_base_sha256_lf": "ba5cb66ac8b0a7412cf6c441f5b6bcfabdde048891bd493b98eaf62ab12766db",
+    "public_result_sha256_lf": "6d4773dde4cc302a32d179fd11bf09a447ca91f1b1e47eaf4b7d45f5fc5b1521",
+    "patch": "Integration/Characters__FPSPlayerBodyCamera.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "preimage_sha256_lf": "bf91e214d1ef58171885fdbffddf846cec37a6fe681130065188f243d377eb9f",
+    "tested_source_sha256_lf": "90c666d078b5e9a2ca140515d2f3bbda4b3fcdad63ca71c70f55dbec67c4bbde",
+    "mode": "native",
+    "public_base_sha256_lf": "a3f69c92b4ca178a1f61daeecb698bf77ed71658711bdbdc50b818ad54fe2b12",
+    "public_result_sha256_lf": "9cffcadab58817e3e093071ffc11fce01583ce058e2c24592f2ac28684244a8c",
+    "patch": "Integration/Characters__FPSPlayerBodyComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "preimage_sha256_lf": "220e978984c8f1e835748d13687a41d26ec9d77fc84a3faf29744b1f2f19010c",
+    "tested_source_sha256_lf": "fb3fa1fa47249d9994ec073c9e299108ed3a72150bd04cc1f85232d411c28779",
+    "mode": "native",
+    "public_base_sha256_lf": "94dbd181db56cf2f62ac20986448d5631bb54150a7a35a1004bf158e6ee94024",
+    "public_result_sha256_lf": "5f5674f54c96e9149b157a45c0e1e4a734ab97ba1ae28d2ba825c618e1e5ed71",
+    "patch": "Integration/Characters__FPSPlayerBodyComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "preimage_sha256_lf": "ab8d144bd1d8e70470cd15b14bccd5a3c9233369efc5cc4bac9490c42d919970",
+    "tested_source_sha256_lf": "9858db67cb251e5f48f8ab6db98d2f9189cb6e208e86dfa7803537f06e25aeb9",
+    "mode": "native",
+    "public_base_sha256_lf": "c1c631780ab2ab4171426551a95d64797ab432bebacfafc282a6773c02b31f63",
+    "public_result_sha256_lf": "de63e59fcf3b2aad0c7a2bbd1e82485c9cb6d39780d1f71aaf0b9252e6d612e7",
+    "patch": "Integration/Characters__FPSPlayerBodyEquipment.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+    "preimage_sha256_lf": "8f4fc34f75285e12fa8e391d194210682c9b2f6e64a64e6c25443995c9108427",
+    "tested_source_sha256_lf": "7a0fca135bb703beb94dcd0467d5c7ab0bf29464c3fb62120575d39d12edeaa1",
+    "mode": "native",
+    "public_base_sha256_lf": "0da2b2d74214f1bbf74e1ed315dbe9fedd05a7ba9e2bb5d28ab8b635c95842d8",
+    "public_result_sha256_lf": "4083ef5e4d93f22784fb805fdb58a22100a1f04e68880b04ba61b44a4b6c627c",
+    "patch": "Integration/Characters__FPSPlayerBodyMotion.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+    "preimage_sha256_lf": "0598d4632e2f87bf8885025151d17e5d923aed70cc3aaac06e48f57b2fa47e9c",
+    "tested_source_sha256_lf": "fdb13eb3268ada21561be8a648823f7194f28125ca1ac709c6eb0978ef331f27",
+    "mode": "native",
+    "public_base_sha256_lf": "00655044aa9bcd84aa2022d08bd8ef1d2b9ee05f9180071b4d14227d9b6f5c03",
+    "public_result_sha256_lf": "ff79c0c224137ab9f892eb616d4e728be893c59f3060eab86ba6ccebc2164123",
+    "patch": "Integration/Characters__FPSPlayerFirstPersonBody.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "preimage_sha256_lf": "85f1a7db3c6a44c0183d59f72e1cb0e1ae26e7dcfc9f46b236dd1408302dcbf7",
+    "tested_source_sha256_lf": "8fc7b265694cd2ad08340b3d448078dee62feae8bba8f1e4898fb956546ab9b1",
+    "mode": "native",
+    "public_base_sha256_lf": "0f4794bcbe291e7e1f9ef5f9066e2296bf9710c5ec7e1607969bbde3f2921299",
+    "public_result_sha256_lf": "efaeddc2cbf63ee4f1e5fd203d95cdadb5c4c81e1cb30cd4bb093c4d8ea208b7",
+    "patch": "Integration/FPSGAMECharacter.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.h",
+    "preimage_sha256_lf": "01fcf3e13da837d17e3f0e94846dbbe49cf6325705f7912ba59cb6fd84d225e9",
+    "tested_source_sha256_lf": "3c02fea566acdd5ad799807dafac40f090c4a30ade4de760dd7221fdbda37545",
+    "mode": "native",
+    "public_base_sha256_lf": "8698255eaeaf3bc10debd948ad0ae287afac60d58c48c64f7476b26aaed1ab7d",
+    "public_result_sha256_lf": "3683fef91edb54d965c4d9ca45e77a6fe7269c50b1f24023bced94e37238a906",
+    "patch": "Integration/FPSGAMECharacter.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+    "preimage_sha256_lf": "b9e07e28f8a3ff272b97773c5a1d39c9dfdede9e073deae9b522b4e270647b8b",
+    "tested_source_sha256_lf": "9274e481f802b9a8e47d83c3d5d96e80791102620dfafcf3eb8ea9c1cfc916ca",
+    "mode": "native",
+    "public_base_sha256_lf": "b87c31863b4b124fd13723fecba6291b0b45ca10e1b0cc1b7779e7ba4ac58c25",
+    "public_result_sha256_lf": "da972834b0f564bfbba71a9b43b1f28d3c5a7c698bb70b895b2990e9eb7df959",
+    "patch": "Integration/FPSGAMECharacterActionPriority.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterAmmo.cpp",
+    "preimage_sha256_lf": "e0f17e412cf0a229dca286e979c0ed70aa3b589cb3dcb9b25c4b01dc34187fba",
+    "tested_source_sha256_lf": "1dc741497d17f0aced84153c81123c77c413e17648658857898d2a4ab28c485d",
+    "mode": "native",
+    "public_base_sha256_lf": "897d130b75626fcb5cb8e8347bdded7aeb758f9acfedc8cf6380ba434edd145e",
+    "public_result_sha256_lf": "b2ae223b7240f66f66143450c75ec340f422d883230ef8a17abe7ce02a9628f4",
+    "patch": "Integration/FPSGAMECharacterAmmo.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp",
+    "preimage_sha256_lf": "0617bb9fed2aa35e5a44cd88c79857bcc2c44f0d7071972517ab5d20e24f72dd",
+    "tested_source_sha256_lf": "fc4ecd49ad5053219cfa81d3f2a17fce330fa270a00bba8b45685fa1f0fa9743",
+    "mode": "native",
+    "public_base_sha256_lf": "b43bc4022c182b5eea17303c32b8d613d0f78f51a80a2ff9016499462a76595a",
+    "public_result_sha256_lf": "310bab1c72340f457182fc54bba6aee58cb6dc736d92ea24bc29b537e1cae3fa",
+    "patch": "Integration/FPSGAMECharacterOffhandReload.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "preimage_sha256_lf": "113ba3f3dabbc9dd39e8d6f90ecca6cebb9a64f5843c769fab8fa67b3cd2a4f9",
+    "tested_source_sha256_lf": "c6c03dd71094c69d0ffa0bd17f334ad66d949e0aba8957b719ff4839b269cfb0",
+    "mode": "native",
+    "public_base_sha256_lf": "1aefd2e29224c3d2f5545f2854a8366f7ea93a9f558f57659e47c73ca81dfafb",
+    "public_result_sha256_lf": "918ba43e1efa17263b62c77fd3924e8b53abbfca37b09600477f3473a3af3978",
+    "patch": "Integration/FPSGAMECharacterProfile.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMEConsumableUse.cpp",
+    "preimage_sha256_lf": "faac73efe681cc64cfb75da57585fd98db3426d74d76bacb8f64b76f654846bc",
+    "tested_source_sha256_lf": "ba761779b8a2c4580d7da76217150495c52ec589d9b9fd03faf85da460ec865a",
+    "mode": "native",
+    "public_base_sha256_lf": "25f2cecdc55c7dca0d3e70ac85690a6fd01fcd3eff003254477c89e779956d27",
+    "public_result_sha256_lf": "4477526fc6c58034b29d77257e0bc6e89e9f98c2ba8161266595785e042859cc",
+    "patch": "Integration/FPSGAMEConsumableUse.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "preimage_sha256_lf": "a2a527a43d4e17f110f0a37e4829fdd3dcf37c3013f573d55102987d5fd26ef4",
+    "tested_source_sha256_lf": "de2d6cd282d0cf967b9b0ca0181f89de534d3158b737ba824bf389475aa6ac54",
+    "mode": "native",
+    "public_base_sha256_lf": "da06ad97e409bcd1473a83716554902943ffdabbfff495ea5f41dd519790ea44",
+    "public_result_sha256_lf": "252d41a0a4c3031b31cb050b0dbc7f77a9107cd8997ae164ee538345b030ddb7",
+    "patch": "Integration/FPSGAMEPlayerController.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+    "preimage_sha256_lf": "acdfe5d850bbda777bb13134b6f8febd9d74c7a90e5840219f2848cde7d6ed27",
+    "tested_source_sha256_lf": "cd55493d04920af28f240fd1162b8f5278e7d716fcf981689ca50caccf1a4cd9",
+    "mode": "native",
+    "public_base_sha256_lf": "39c41d223f1daf193b9ee947925e1dcc823a7ed41ed6b143c29928b493120b88",
+    "public_result_sha256_lf": "d115b42b5d4f336943c298ab7b8bd2b9788deb7e1b523beb911c30ff42189bca",
+    "patch": "Integration/FPSGAMEPlayerController.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Items/ConsumableReceiptWireAudit.cpp",
+    "preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tested_source_sha256_lf": "5b433732f324bddddda9a04cd65a2eb060c7f8e0e8060f3cec8cc4dd215e6e7e",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Items__ConsumableReceiptWireAudit.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Items/FPSConsumableAuditCommandlet.cpp",
+    "preimage_sha256_lf": "0284bd43ee83a83065ed599aac9ed47c49e154b3bf1a717a304f9991dfb2ae3f",
+    "tested_source_sha256_lf": "8a7603e4064b2ed121a331b425c3837f545c31a4d5be4b812349da416b1cdf37",
+    "mode": "native",
+    "public_base_sha256_lf": "996a0b131008e47a6049d45ae31448682e9342a21bae54a2c5ee4191d783ab2c",
+    "public_result_sha256_lf": "d6700c55b61290674276ea79e09e8940d7295af047a6dbb8f47d4f7291def25a",
+    "patch": "Integration/Items__FPSConsumableAuditCommandlet.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Items/FPSPotionUseComponent.cpp",
+    "preimage_sha256_lf": "e73961ef2d5b1a1a770491f376f589ac226e76c554631e2570ffdd2c3fae11f6",
+    "tested_source_sha256_lf": "0f59d311a5f2a296da1d2aebfe81643f93896a7a6656e42f62b70202bea2f89c",
+    "mode": "native",
+    "public_base_sha256_lf": "c1fd607185bc4cdc74636d166fa9e562dcd9533894830bc6ee5f9758d269647b",
+    "public_result_sha256_lf": "f7a396ad18cc5c04c70620eb6986b3ded3501f90ced9ee40fa05ffa97e7135f1",
+    "patch": "Integration/Items__FPSPotionUseComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Items/FPSPotionUseComponent.h",
+    "preimage_sha256_lf": "6205d9271cb4275d0c53a36413bfb2ffbcd64724bf27616aca94fc6845ab36be",
+    "tested_source_sha256_lf": "7880a9a4b150ac9a62060af0b80e1639e16c2992d45a0342ab3410b156591b29",
+    "mode": "native",
+    "public_base_sha256_lf": "d2986948c05ec9f40ece3c0d024ccde41c419c00ac87f0a14d9d23428bf9fd98",
+    "public_result_sha256_lf": "7880a9a4b150ac9a62060af0b80e1639e16c2992d45a0342ab3410b156591b29",
+    "patch": "Integration/Items__FPSPotionUseComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Items/LargeLambMealAuditCommandlet.cpp",
+    "preimage_sha256_lf": "80359dd931fa141ad949d322094fe580b57bb91d698528435674be02fb117846",
+    "tested_source_sha256_lf": "8beeea8b7e218029777c125a77b2b48bb7a467678f2575cf9b1c840f774eae20",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Items__LargeLambMealAuditCommandlet.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+    "preimage_sha256_lf": "ef5b7f08a405e885ec91424c97160d749dddfa5082d89d2473753a8a8c55e6c2",
+    "tested_source_sha256_lf": "b9524e65b3eb58446bfb32f059d36f918508d572f7965b4cdf871b83ace9e358",
+    "mode": "native",
+    "public_base_sha256_lf": "e17628ba1b07c96dee4e0299059902b5e21679af2c0830883f857639e88479b7",
+    "public_result_sha256_lf": "c674966665d4b14dea979ef8f2be6ae2b933e7b9e07dbf9afb20225085a73bc0",
+    "patch": "Integration/Movement__FPSCharacterMovementComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSDoorPushComponent.cpp",
+    "preimage_sha256_lf": "fec2d3adf717849be8fc5d94dc10d7e091fd95c8dcecb8120c362ef084f5b9d2",
+    "tested_source_sha256_lf": "b67aeef2445c1021c720fb24099eec83966e33ee31460fbacc39b4d1b24fd81d",
+    "mode": "native",
+    "public_base_sha256_lf": "8fda7371abde26562bc6da1260f5893f54a846f9a7fb169b133a98836f3ff15a",
+    "public_result_sha256_lf": "b7434286e9ed765e46d6778002b225657605e56713bb4a8317c80d0227c93de7",
+    "patch": "Integration/Movement__FPSDoorPushComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSFurnitureRestCamera.cpp",
+    "preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tested_source_sha256_lf": "c2ed81eb8d58303f0b1949be71ffd5715378e099dea07c46f4624434abb5856b",
+    "mode": "native",
+    "public_base_sha256_lf": null,
+    "public_result_sha256_lf": "c2ed81eb8d58303f0b1949be71ffd5715378e099dea07c46f4624434abb5856b",
+    "patch": "Integration/Movement__FPSFurnitureRestCamera.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp",
+    "preimage_sha256_lf": "8df84dbe9a01669e84cf7c6a652ec5ff15624a2ce13e682d660a3f17580700fe",
+    "tested_source_sha256_lf": "31f5fb8601f8bd0c31e57bd7f3d8a352a6dc16bca27686bb8f916aa6a6816bc8",
+    "mode": "native",
+    "public_base_sha256_lf": "8df84dbe9a01669e84cf7c6a652ec5ff15624a2ce13e682d660a3f17580700fe",
+    "public_result_sha256_lf": "31f5fb8601f8bd0c31e57bd7f3d8a352a6dc16bca27686bb8f916aa6a6816bc8",
+    "patch": "Integration/Movement__FPSFurnitureRestComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.h",
+    "preimage_sha256_lf": "0cca961a0ca13c0c81f6e5d83c80894d4cbef7403732b506e5ae51f5921aa78d",
+    "tested_source_sha256_lf": "621decf37be488e365cc7ed501055d1872b03771a72c9b4c251360d83b412887",
+    "mode": "native",
+    "public_base_sha256_lf": "0cca961a0ca13c0c81f6e5d83c80894d4cbef7403732b506e5ae51f5921aa78d",
+    "public_result_sha256_lf": "621decf37be488e365cc7ed501055d1872b03771a72c9b4c251360d83b412887",
+    "patch": "Integration/Movement__FPSFurnitureRestComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSMeleeLungeMovement.cpp",
+    "preimage_sha256_lf": "efd6626a764ef7fb4674643f3f9a46c6c81e02b3f0e6a6afd31f9f528bcb409a",
+    "tested_source_sha256_lf": "983e3fb4cd2bb4c045dce06bd654cdad09054946ebeef00784ac4d2d0967f437",
+    "mode": "native",
+    "public_base_sha256_lf": "efd6626a764ef7fb4674643f3f9a46c6c81e02b3f0e6a6afd31f9f528bcb409a",
+    "public_result_sha256_lf": "983e3fb4cd2bb4c045dce06bd654cdad09054946ebeef00784ac4d2d0967f437",
+    "patch": "Integration/Movement__FPSMeleeLungeMovement.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "preimage_sha256_lf": "c361e9772a1f283b3229add765e292550d626cc512450e51c15660b29bb14332",
+    "tested_source_sha256_lf": "3568c5da10cd8c998e2e9cd9605a7e6205a7620e90af89151c554ea26ad5ab70",
+    "mode": "native",
+    "public_base_sha256_lf": "cbd1715c79db9f3c505969303a6b47cbe87f2643c08cfdf7b905bdbb5534088c",
+    "public_result_sha256_lf": "164f51076a819a43fcdcc7ecf5b160593f7aa44d300a2a8de93e07f850fe2fea",
+    "patch": "Integration/Multiplayer__ColdSteelInventoryRequestTypes.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+    "preimage_sha256_lf": "16a0c423511c85b9e24d323bd1e01ad96147331f4e70a58cca7c249ef03cd41d",
+    "tested_source_sha256_lf": "1307bd58d7830467f9aa71421f5ff75be914c4f54a485376d21364d0ed0b30e3",
+    "mode": "native",
+    "public_base_sha256_lf": "ac4458e6c96ea7a3a2b9e4125e9f1f9f5f6f2095f5884aee33a6a7cb039700b7",
+    "public_result_sha256_lf": "924b4d2c44f5d1c0fe897706f6353c91af4f44b4c0623a8263de713eca9b46fa",
+    "patch": "Integration/Multiplayer__ColdSteelInventoryRequests.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "preimage_sha256_lf": "fc327c42eb8033015540e9d8b7097f90b018528b85813ba91942d691911b50af",
+    "tested_source_sha256_lf": "9da70c7f28c3890b494771508056172cfcc2151f6094783e900d1e2e840a236d",
+    "mode": "native",
+    "public_base_sha256_lf": "0c0545b1f0df5ed4321e629d2bfab67f911a75791ad18aea5f89ba381b35e96d",
+    "public_result_sha256_lf": "5e62f155cf57e42bcdd0d7136fe907261466eae2de96967d4759762e2f917061",
+    "patch": "Integration/Multiplayer__ColdSteelPlayerState.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+    "preimage_sha256_lf": "b64c2aa7f99b56e099aa263d6d9e30613f92a854ec513a13aa4cdc679a466d0c",
+    "tested_source_sha256_lf": "8602ed6415a3bf980311c1f8c49021dda56f0b46345f7d81705a77d3da190631",
+    "mode": "deferred",
+    "public_base_sha256_lf": "15d68e6cedb85cf1c1ca9bb0afe83eadd11fff37ba663bc56d35b995197a666f",
+    "patch": "Integration/Multiplayer__ColdSteelStationNetwork.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+    "preimage_sha256_lf": "1e79de7d326a3598cd339fea9f91e11ee8f6751e772370d3ed330f268e6d18c8",
+    "tested_source_sha256_lf": "52aa8f2e9558ea7638e384819b52320a96004a7d29e840be3ce464c8bdfe7d95",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Production__ProductionBluntAuthority.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+    "preimage_sha256_lf": "b35cce4057d8285d7ff62e70d849c6d8fb543bee0b517da2e4fab49b622fb724",
+    "tested_source_sha256_lf": "a901483c6326c2d90c38ecff379c8ef7f6cb13fc514715838c8a348a9e026daa",
+    "mode": "deferred",
+    "public_base_sha256_lf": "0f5a9f82960f3bd3f018322b0aba610560a8def7a54a7d4a8c3d08513e12e15d",
+    "patch": "Integration/Production__ProductionBluntHeavy.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionBluntSprint.cpp",
+    "preimage_sha256_lf": "679e9ac0fadb123bc84c95527a3d337d08bfcfe067dad547ab278806e2df17d4",
+    "tested_source_sha256_lf": "c0a9459b6b6df3ee6db8e35e66c096749c96603932c0011be12d1631201861bc",
+    "mode": "deferred",
+    "public_base_sha256_lf": "679e9ac0fadb123bc84c95527a3d337d08bfcfe067dad547ab278806e2df17d4",
+    "patch": "Integration/Production__ProductionBluntSprint.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionBluntUppercut.cpp",
+    "preimage_sha256_lf": "f38a3c44c9be65e4d69484691e33b686fbbcf79a363a773c6098b9a30b5721b1",
+    "tested_source_sha256_lf": "f892ed89b780bac9f36dd76a51f6b4ed834ea17a6bdda1abddac706188ae7e2c",
+    "mode": "deferred",
+    "public_base_sha256_lf": "f93a9577ac6f8ce7324cb463b8ef1c681b920c96b6d1daf2e54435133d3051f5",
+    "patch": "Integration/Production__ProductionBluntUppercut.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp",
+    "preimage_sha256_lf": "29b81dcc0dc6da58ab2e98afadb54bb3d1cb2b50153950fc7593ccb7b9855e1d",
+    "tested_source_sha256_lf": "fc83e2e468bab5868e0e7ec7ee6440c3adaf67d445397756a1f87c463e055095",
+    "mode": "deferred",
+    "public_base_sha256_lf": "9e6d10926f3d39256f0dd61141004a865610fb38849457258d6f1c2dcc797b8e",
+    "patch": "Integration/Production__ProductionBluntWhirlwind.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionThunderCall.cpp",
+    "preimage_sha256_lf": "10afbf6db3bc97d9829a1587afa5c81b59b5e1479798fe36ed597a5661b0906f",
+    "tested_source_sha256_lf": "24276fec4b62eb77b4d53e7e3fdd875d2b21951b9e1d26de81264e8cb92c7f44",
+    "mode": "deferred",
+    "public_base_sha256_lf": "4c6af0d788396ab729c72d254e2b7f0d5d50b455043b2e5cb8fa8856352fbc1e",
+    "patch": "Integration/Production__ProductionThunderCall.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+    "preimage_sha256_lf": "e13d92ee0173b4ed0c6036d9691c301432137fc0398e16063a51b237fa6ba133",
+    "tested_source_sha256_lf": "23d537ccb6d2e8f50ef4c8204998deadcc991e08ea8172c43c9cbb0ccf0c2328",
+    "mode": "deferred",
+    "public_base_sha256_lf": "73b8716729b154ca718c635d65555a561f4df3ac8c2660e731df0c50d200bce5",
+    "patch": "Integration/Production__ProductionToolComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+    "preimage_sha256_lf": "bebf9e3dcfa870689fb8799da98f779e32e4c84d60f3b37484727c956fde0e8e",
+    "tested_source_sha256_lf": "1ffb26ffc3f1ced8ba7166285db7dba55f04a7195eb77ca32edd43167e371bae",
+    "mode": "deferred",
+    "public_base_sha256_lf": "dffa109cc9739354af2899835b73b50034c84f2e70798561a2e28905e5b96e89",
+    "patch": "Integration/Production__ProductionToolComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionToolMotion.cpp",
+    "preimage_sha256_lf": "dc9bc9e469324973100145749de90942cd764a49b09e4dbb9258bac216ae73b6",
+    "tested_source_sha256_lf": "4f9a0aeaaf4c803f5de81571804a1407b8e5afe39086adb5f2317b39e6fe6447",
+    "mode": "deferred",
+    "public_base_sha256_lf": "00a914abed170682016c07bdd3a202cf59087fa22f50c116cad3c7aef4cd194b",
+    "patch": "Integration/Production__ProductionToolMotion.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.cpp",
+    "preimage_sha256_lf": "7596b485e8a7ddd83fd57028ff934812e1c3a44000f5e259873659595e64aee3",
+    "tested_source_sha256_lf": "8e012dc1615145c3a6bc4bd6542230d0c0c1f8055d71eb676232a0d6c8e4973d",
+    "mode": "deferred",
+    "public_base_sha256_lf": "240aaa7d6d22d0d98246bd098b4bf65d563b88f87028870fa8cc54a6141d6dd9",
+    "patch": "Integration/Skills__FPSBlizzardComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.h",
+    "preimage_sha256_lf": "13885f3dadc6450dba1313a4e084df26d07fd3686c2897e81229ca4d3057822d",
+    "tested_source_sha256_lf": "d1b29b4fe2e3ec520d9479eff3a57892d9845074c6337e392ef2e7917ab7de9a",
+    "mode": "deferred",
+    "public_base_sha256_lf": "13885f3dadc6450dba1313a4e084df26d07fd3686c2897e81229ca4d3057822d",
+    "patch": "Integration/Skills__FPSBlizzardComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp",
+    "preimage_sha256_lf": "571e230b6eeb74804038d8fdfec7f072b004b02bf69aff26eebd6e24b7246002",
+    "tested_source_sha256_lf": "0f505e634909522d48e3ed49e4184dd88cccc499a14c1730b09b7dd228687277",
+    "mode": "native",
+    "public_base_sha256_lf": "29ce7fc3eb7ea1686fe71d9ddc8e20851d5483a285ccaa479017234e769bed96",
+    "public_result_sha256_lf": "59c890d82c06a67222802b0af04ec933df9d9774e4adafabc73fd26371fd5a16",
+    "patch": "Integration/Skills__FPSElectricMagicComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSElementalArrowComponent.cpp",
+    "preimage_sha256_lf": "10936080350ba9f5b3ecf397481f9cbdb66c8b80f203ec9fc3febd3607ceee9e",
+    "tested_source_sha256_lf": "3aca46c8aad3987fbc42fe6a6eb25c156a619ad817fe6f08169f9a97b0f57a21",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Skills__FPSElementalArrowComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSIceWallComponent.cpp",
+    "preimage_sha256_lf": "19ff958123dfc3ad76958b8973c202ffdfa8b8b7c6836faf449efc0cbbb27732",
+    "tested_source_sha256_lf": "696e7a87b8fe17cfafd16cd53edcee7ce55b2eecdb2700f57e2a634aa6c58394",
+    "mode": "native",
+    "public_base_sha256_lf": "39169d41814cdc5a9b052d493928b75226cf96f6078c75a20e331c128aebfe7d",
+    "public_result_sha256_lf": "cf6649d011b00210ddf79404a109eb29714c6a4254b492c7b0e6b091f663799a",
+    "patch": "Integration/Skills__FPSIceWallComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSIceWallComponent.h",
+    "preimage_sha256_lf": "da6d320a6217556dba0af7768e8003c095d7e9622a45be57226e7320fdb749e5",
+    "tested_source_sha256_lf": "703e0e2fc9a8f2d74ad6bdcb460abe87f1943c3be0d49d953c52f65089386a8a",
+    "mode": "native",
+    "public_base_sha256_lf": "da6d320a6217556dba0af7768e8003c095d7e9622a45be57226e7320fdb749e5",
+    "public_result_sha256_lf": "703e0e2fc9a8f2d74ad6bdcb460abe87f1943c3be0d49d953c52f65089386a8a",
+    "patch": "Integration/Skills__FPSIceWallComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSIlluminationArrowComponent.cpp",
+    "preimage_sha256_lf": "ce9a4dbb08dae1ac09c585aca24a43d7beece8f6d746c543f5e2bffc45497c84",
+    "tested_source_sha256_lf": "6e84ac33c49ad0c1fa985b7e333afa87973cb8cfdbc5574efae74b3428a1a282",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Skills__FPSIlluminationArrowComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSMagicArrowRainComponent.cpp",
+    "preimage_sha256_lf": "ea1c8656be7c8168f50e32b9b1384d6a600aad7ec5becf1bb6d1a8cce00bc28f",
+    "tested_source_sha256_lf": "3fcf22bb3227a128b2890ede140d9eb3ea9c0df8a3c6aa6798689f6af375a842",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Skills__FPSMagicArrowRainComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "preimage_sha256_lf": "9439c3c5d121b2be68a5cc371af522d742a247abe887bca2757dba069ab246fb",
+    "tested_source_sha256_lf": "7e05b280225e3f9915997dcc7978d680c91bd3a7166477dc88a446b4d08f79b1",
+    "mode": "deferred",
+    "public_base_sha256_lf": "c21825e4b876e575f463fd7f340e4d41ae339c3b8e3b1ef03ec7e032491ec6bc",
+    "patch": "Integration/Skills__FPSQuickCombatComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "preimage_sha256_lf": "7a103a6fa9c74ecbf543afa12edc8ff173dc338f2cbe615fc03ea9c2e1d7aa77",
+    "tested_source_sha256_lf": "4535a6a1d77994faa15deab396a176e4ad2999b98dda6fe2fdc8da05d344c0a9",
+    "mode": "native",
+    "public_base_sha256_lf": "7a103a6fa9c74ecbf543afa12edc8ff173dc338f2cbe615fc03ea9c2e1d7aa77",
+    "public_result_sha256_lf": "4535a6a1d77994faa15deab396a176e4ad2999b98dda6fe2fdc8da05d344c0a9",
+    "patch": "Integration/UI__ColdSteelEnhancementController.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+    "preimage_sha256_lf": "613ee797f668c319a50624cf356043c7b338fcc6a5f03ea95cdf22d9ed625a20",
+    "tested_source_sha256_lf": "b8bd4e2bc2b798eb69a990a63e8d8057455f389a2b6d45a91c13b15646899d76",
+    "mode": "native",
+    "public_base_sha256_lf": "613ee797f668c319a50624cf356043c7b338fcc6a5f03ea95cdf22d9ed625a20",
+    "public_result_sha256_lf": "b8bd4e2bc2b798eb69a990a63e8d8057455f389a2b6d45a91c13b15646899d76",
+    "patch": "Integration/UI__ColdSteelExpeditionController.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelForgingHUD.cpp",
+    "preimage_sha256_lf": "0fdf6c3ab3a5af8baba888de2aefbf979ff2f0ba660d8dbe59e77643a4c40764",
+    "tested_source_sha256_lf": "7c0e39e14cbf14faaba97a2ad7bc47d15658667f0e43039912a16a0fcda5b58a",
+    "mode": "deferred",
+    "public_base_sha256_lf": "e5a6645170146cabf9e528043f852f5cb95fbbea1a5008ddddb47bf48259e6d0",
+    "patch": "Integration/UI__ColdSteelForgingHUD.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp",
+    "preimage_sha256_lf": "08805990d5170aea90c91fd214e4ef73a89c37f7ae62eb0c08b9fcb9a119bb94",
+    "tested_source_sha256_lf": "7d28ea2c589253cb6efd422323393853facd89306e3fb86ccf97da03a99b5061",
+    "mode": "deferred",
+    "public_base_sha256_lf": "3811fe176f9bc87cd76961ef4485a0520b78a79c3ed33150d416ae01c978275e",
+    "patch": "Integration/UI__ColdSteelForgingWidget.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelForgingWidget.h",
+    "preimage_sha256_lf": "f363ac7e6abd927cc03c6032fcf33eb0697dd021d38b086f9174dffa8a12cf82",
+    "tested_source_sha256_lf": "752405efbd4145f61c55a5971aae462f532b8ac921cecdfbbfedd54847b02ed3",
+    "mode": "deferred",
+    "public_base_sha256_lf": "3b14d1a66653169e1a09329df5a4ad08b7007ce0692b4960a784fa69f38dfa80",
+    "patch": "Integration/UI__ColdSteelForgingWidget.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "preimage_sha256_lf": "d7a8a0a6c875a84f3fbf9594b0249e0acad4c5b148e87f6a76b5b2fc9cabfa34",
+    "tested_source_sha256_lf": "15316e262a603907727c061a60472ca816a48cfa7a1aa9296443246aaaba33d3",
+    "mode": "native",
+    "public_base_sha256_lf": "d964ea237a51d7bb7649779cbcda2c7708c8a1bece61bf93ab6a3eb3b84da7ad",
+    "public_result_sha256_lf": "3dc6ea5f4582a4ffdba4d180b01e58e28439de6f7c2d3452a54655dd309f3dca",
+    "patch": "Integration/UI__ColdSteelHUDWidget.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "preimage_sha256_lf": "6b7f6a50a69b8ce5615903840df9f08d28c2bc3dd8e79def21424063c1a5bd71",
+    "tested_source_sha256_lf": "a42c34c023ca7fff4c78c808d9b8de1f6d213d4113fcd7353033747960cba9ee",
+    "mode": "deferred",
+    "public_base_sha256_lf": "df6257a037b234598bd84f09a73baba760208826aebd1ed27bcd9d9d7ea1810c",
+    "patch": "Integration/UI__ColdSteelHUDWidget.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+    "preimage_sha256_lf": "e4f0a2b866971c4fda960df7431c3286e4fe6f5e8e3151801b1f0ebdd0876ba0",
+    "tested_source_sha256_lf": "6d33e149fb5aa1ac714dbd1eb967c2b7bcc477b8a5c5cd6ccb91ae1ff96e058e",
+    "mode": "native",
+    "public_base_sha256_lf": "85aa78340a3cbac52ae23c757d31c57ea29ae748c1b3317732e3c580069206e1",
+    "public_result_sha256_lf": "835b41fe1d98dfe0b0c97ba717c33a50b229c739dfe818b225509e2029889a08",
+    "patch": "Integration/UI__ColdSteelQuickBarModel.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4GunsmithController.cpp",
+    "preimage_sha256_lf": "773e5103c0bf07fd9379822769dc0fcb85189bda1a1f46099dddd13e361c8da8",
+    "tested_source_sha256_lf": "be231875e6d9c99abb0f30e7019d2ba5d3b3da62229a63333877f9a229a4652a",
+    "mode": "native",
+    "public_base_sha256_lf": "773e5103c0bf07fd9379822769dc0fcb85189bda1a1f46099dddd13e361c8da8",
+    "public_result_sha256_lf": "be231875e6d9c99abb0f30e7019d2ba5d3b3da62229a63333877f9a229a4652a",
+    "patch": "Integration/UI__M4GunsmithController.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/UI/WeatherControlWidget.cpp",
+    "preimage_sha256_lf": "6a99956860ff696e6c5351ac37d988d34bdf86ad434d1f6630aa71279b061326",
+    "tested_source_sha256_lf": "c186fce1fdb1e1ff764531f31f7ea107938d4f4bdaead317610d15d367f6cc51",
+    "mode": "native",
+    "public_base_sha256_lf": "0f8d5dc06f3192d4c0a0010037f72f38377c62d844eb5ee28d4a910b8bf3246a",
+    "public_result_sha256_lf": "dd90c0c27f7e26935d55bb784553aa9086c3a29dd2cdf58ff15bee933afa1f05",
+    "patch": "Integration/UI__WeatherControlWidget.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+    "preimage_sha256_lf": "73b8cca58a1a991b5cb211baaacc309abd2b364f8e5082471bcb5bf457819669",
+    "tested_source_sha256_lf": "5a385d70119b628562b5d93ad7af1849b2b34b870d642a20c9c6885f7e0bd9ae",
+    "mode": "native",
+    "public_base_sha256_lf": "f30014bb0741ed2ad13d34cc841c9c71c0828d4a1793ce4b134dce0b98792543",
+    "public_result_sha256_lf": "b93fc1b5f6cd1ac8c38bb5b6ced6c04987459e84e2c627ca707eb52ee04fe120",
+    "patch": "Integration/Weapons__Bow__BowWeaponComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+    "preimage_sha256_lf": "ee7740fe4e2e162783ce4a9287a55845b9ca530848805403577b7b0f9269c965",
+    "tested_source_sha256_lf": "983a4664905551f9e41041d158cd9f293937b78c1d3bcea75420d139dd483213",
+    "mode": "native",
+    "public_base_sha256_lf": "c30df49d14e6db06d26369061b74f889831a63750445d3facc6a870a0c2cb24c",
+    "public_result_sha256_lf": "5b3c72576a695d9e55a7f5635b5e26dd17d86b29ce4e3d31c56d209fdb80fb1b",
+    "patch": "Integration/Weapons__Bow__BowWeaponComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+    "preimage_sha256_lf": "534caca0760bfd0504f2c4a29320e33fdc2b9b7ee7140ddcee2be1a3eac93595",
+    "tested_source_sha256_lf": "6808ebc885ee5bf0885a1d49ecb5e9f6c6a7453446fae57af895bd4ff63a0911",
+    "mode": "deferred",
+    "public_base_sha256_lf": "40b0a95898c2e9d50774f6c1510754468217881562bb5ff5f79acbc0bcf71aca",
+    "patch": "Integration/Weapons__Kukri__KukriHeavy.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "preimage_sha256_lf": "859e2aaf88d6f185a76280ff8900277dea2c03baf9f109beda09029fc0c3b85f",
+    "tested_source_sha256_lf": "10f9380c44ff63f3a1c123e4eb2759e0905b576e4509a4a7c21048b1dbb17c72",
+    "mode": "native",
+    "public_base_sha256_lf": "3cb7e6d88c0293f65197a298ab6c72224cd42e35e4121ad52540c0cd21940d1a",
+    "public_result_sha256_lf": "aabf254801fa75cddbbb02722941e61a19d53cbe423d17c3c23f2fececc2a88a",
+    "patch": "Integration/Weapons__Kukri__KukriWeaponComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+    "preimage_sha256_lf": "5e7a2ac9d9f4ac358300881a609363e83adcce1aa3c74de1fdd54d24e58e4f1e",
+    "tested_source_sha256_lf": "21d844374ae2409e217c70d0d142b702aca43b17a1d47e5bff683afe9e830c96",
+    "mode": "native",
+    "public_base_sha256_lf": "f43f144c5fe8787df095aea54122e74459e30432809e422fd8900971712926a2",
+    "public_result_sha256_lf": "830033fee8e2d28b889c58ac00d6bb9b4c6dc4b11d11e2f0a13e9e85a380794f",
+    "patch": "Integration/Weapons__Kukri__KukriWeaponComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+    "preimage_sha256_lf": "a27fbf46fc618f87f5c2ccedec7927d4bd8c0be52a8bd0c405407be34d738dcd",
+    "tested_source_sha256_lf": "3884b1c443d3d9935d75baf4f2c8886c1a95131e054d494d88ecca0a44f1ee32",
+    "mode": "native",
+    "public_base_sha256_lf": "00d2050f89ef99e3dbf89803d277120f28bec19d3b5f2cacce8819fe1e598b13",
+    "public_result_sha256_lf": "3878a37aec7b0fbacf1811c51b911b5380ddaa7fbef9d01a89dda4456dcb35c7",
+    "patch": "Integration/Weapons__PistolDualWieldComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "preimage_sha256_lf": "5f6110f8aaacfac040645b6ad1eb69d773fe70ca2156decd8c41f320740d22a6",
+    "tested_source_sha256_lf": "d58d641f201cbc2ceaab2befff5a7975988875eaee3953a448ae635ddac41514",
+    "mode": "deferred",
+    "public_base_sha256_lf": "4ad642b5f90e1cd423c2c0cd935a6d3fb3e7f0434a67dd097bd34d3a096cc39a",
+    "patch": "Integration/Weapons__RuneSwordComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "preimage_sha256_lf": "eb31b0b8ffe3cd9528d29cc22a1783954f848a7905921823f2b45b7fe341d59e",
+    "tested_source_sha256_lf": "b043888ae78479960e85b90bfd105443e3971764bd534c8bed8e3b310600e90b",
+    "mode": "deferred",
+    "public_base_sha256_lf": "2efef35cd8ef51b5fde85c61788367691e750aeda0d56293daa96bb1528ef725",
+    "patch": "Integration/Weapons__RuneSwordComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+    "preimage_sha256_lf": "63d9ee1518dc6304ea44517e6f0a6bf3b97c29d722751b79167ece20e1fa26d4",
+    "tested_source_sha256_lf": "90ef095dd5fdf4d4c3da7ea96ef4aef2f4c33e53104e969b6cd8235d469780c6",
+    "mode": "deferred",
+    "public_base_sha256_lf": "f8de368e6f01870b1b0201a34025059179c2d65805b5f4cd476e0e3723510f70",
+    "patch": "Integration/Weapons__RuneSwordGuard.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordZhufeng.cpp",
+    "preimage_sha256_lf": "3aa10a3a0065d0c096c15d341bd6e2ddce25cb1237c8f96285dd606ff9b31e89",
+    "tested_source_sha256_lf": "de260df247b6fe09d0aa26dfc99e0665767c9590f675c2e560de7aa7cd6e6bce",
+    "mode": "deferred",
+    "public_base_sha256_lf": "3aa10a3a0065d0c096c15d341bd6e2ddce25cb1237c8f96285dd606ff9b31e89",
+    "patch": "Integration/Weapons__RuneSwordZhufeng.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.cpp",
+    "preimage_sha256_lf": "74337575bca41bbc79f7dba931330f2f7b7700e39bacedc060a945fb6921a7df",
+    "tested_source_sha256_lf": "7bacb3fda5a9d663bcdc1afaceae4abe9587cae542fb96f3d24d7cb0becac61e",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Weapons__ShotgunWireAudit.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.h",
+    "preimage_sha256_lf": "1fe9e1e3c8582385bc46b6042777ee4ad7c01357fdf6b146c68291dba75d34b0",
+    "tested_source_sha256_lf": "87bf4c59172b67141c46c79f903133aa7a0e388e41b846e0f6e0267306232aac",
+    "mode": "deferred",
+    "public_base_sha256_lf": null,
+    "patch": "Integration/Weapons__ShotgunWireAudit.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+    "preimage_sha256_lf": "a7af201a0b33e7d606ac070888e27f8d200ac719f4e316e2b20c85bfe5e5e722",
+    "tested_source_sha256_lf": "c1735b0716cbcb4a1e658ea0190b0621122d480c4c89aa6a1cc763777a7de05c",
+    "mode": "deferred",
+    "public_base_sha256_lf": "7562a8cfc373c1c44f8a0729ba2018d617e85685effd33f2eca9cd32d86355c2",
+    "patch": "Integration/Weapons__Staff__StaffWeaponComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp",
+    "preimage_sha256_lf": "10e782b01b9c05a6be7e5a2cce5d05bc549b6b25ccd8da221fce33428ac51a40",
+    "tested_source_sha256_lf": "39d559bc281214f59a261cfe575be1998cbcec7ef1ed131cdcf295f0f853cf86",
+    "mode": "native",
+    "public_base_sha256_lf": "71e8308dc5d3b298ec9cc9bf07cc102b4a8fd6801c5abfe3c005a53f74fe1cf0",
+    "public_result_sha256_lf": "38f17956ee3a1cba7193e87ad21a89c22689672da6c83524e56eb92fa56fecc2",
+    "patch": "Integration/Weapons__Unarmed__FPSUnarmedIdleComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.h",
+    "preimage_sha256_lf": "c05dcba5f1276db9c2913d4e4241ee5390c639a2fe3d2d5f040d9897fc8d9b09",
+    "tested_source_sha256_lf": "49326e44857ba148c006ded67e328cadd13a87a00dfba14c71013a2f0b5f5fe5",
+    "mode": "native",
+    "public_base_sha256_lf": "c05dcba5f1276db9c2913d4e4241ee5390c639a2fe3d2d5f040d9897fc8d9b09",
+    "public_result_sha256_lf": "49326e44857ba148c006ded67e328cadd13a87a00dfba14c71013a2f0b5f5fe5",
+    "patch": "Integration/Weapons__Unarmed__FPSUnarmedIdleComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+    "preimage_sha256_lf": "fc343a566ad5103d910b8827f8a88d99e60bcfc22775f0f672c0a5e809df0719",
+    "tested_source_sha256_lf": "ae8ba1dbbe5c56ea29b1a0c3e70fe298b4146285025669fba8b7fd5777896a20",
+    "mode": "present",
+    "public_base_sha256_lf": "ae8ba1dbbe5c56ea29b1a0c3e70fe298b4146285025669fba8b7fd5777896a20",
+    "public_result_sha256_lf": "ae8ba1dbbe5c56ea29b1a0c3e70fe298b4146285025669fba8b7fd5777896a20",
+    "patch": "Integration/Weapons__WeaponBipodDeploymentComponent.cpp.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h",
+    "preimage_sha256_lf": "5d497105ffae729a9af2a1057accf7fbc1ce65e9dcd113f74b6c41ed6c2a5b77",
+    "tested_source_sha256_lf": "57bc13c5fe0c0cbf82d11d13680fa883e85dd56bf5d67f85a3e972a9dd07c691",
+    "mode": "present",
+    "public_base_sha256_lf": "57bc13c5fe0c0cbf82d11d13680fa883e85dd56bf5d67f85a3e972a9dd07c691",
+    "public_result_sha256_lf": "57bc13c5fe0c0cbf82d11d13680fa883e85dd56bf5d67f85a3e972a9dd07c691",
+    "patch": "Integration/Weapons__WeaponBipodDeploymentComponent.h.patch"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+    "mode": "public-prerequisite",
+    "public_base_sha256_lf": "bc148950c18f0a707e8ab963d7fdb9ecf4cbacdc284527e065bff0fc898e9750",
+    "public_result_sha256_lf": "edb760231e6f8cb174524e78cea42e4cd2848772bd204cd054fce9ae07b4c2d5"
+  }
+]

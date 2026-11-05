@@ -360,12 +360,12 @@ bool UKukriWeaponComponent::CanPresent() const
     return PC&&!P->IsTraversing()&&(!Health||!Health->IsDead())&&(!Build||!Build->IsBuilding()||Build->IsPanelOpen());
 }
 
-bool UKukriWeaponComponent::CanUse() const
+bool UKukriWeaponComponent::CanUse(bool bContinuing) const
 {
     const auto* P=Pawn();
     const auto* PC=P?Cast<APlayerController>(P->GetController()):nullptr;
     const auto* Build=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
-    return CanPresent()&&!AFPSGAMEPlayerController::BlocksOngoingActions(PC)&&(!Build||!Build->IsBuilding());
+    return CanPresent()&&!(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Build||!Build->IsBuilding());
 }
 
 void UKukriWeaponComponent::SetClip(FName Name,bool bLoop,float Blend)
@@ -592,7 +592,7 @@ void UKukriWeaponComponent::BeginPrimaryAttack()
 {
     auto* P=Pawn();
     if(!IsEquipped()||!P||!Viewmodel||!CanUse()||bEquipping||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind||
-        P->IsSpellGestureBlocking())return;
+        P->IsSpellGestureBlocking()||UFPSPotionUseComponent::BlocksWeaponAttack(P))return;
     if(const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(bAttacking)
     {
@@ -925,7 +925,7 @@ void UKukriWeaponComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     UpdateOffhandBlade();
     UpdateDualFlip(Delta);
     Viewmodel->AdvanceEntry(Delta);
-    if((bAttacking||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind)&&!CanUse())CancelAction();
+    if((bAttacking||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind)&&!CanUse(true))CancelAction();
     TickDashReadiness(Delta);
     if(bDashAttack){AdvanceDashAttack(Delta);return;}
     if(bQuickCombat){AdvanceQuickCombat(Delta);return;}

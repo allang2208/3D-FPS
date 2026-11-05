@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
++++ b/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
+@@ -127,9 +127,7 @@
+ bool UPistolDualWieldComponent::InputAvailable() const
+ {
+     if(!Player || !bActive || Player->IsTraversing() || IsQuickCombatActive())return false;
+-    // A two-hand food owns both triggers through lower/use/raise. Ordinary
+-    // drinks retain the existing independent right-pistol behavior.
+-    if(const auto* Use=Player->FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->IsTwoHanded())return false;
++    if(UFPSPotionUseComponent::BlocksWeaponAttack(Player))return false;
+     const auto* PC=Cast<APlayerController>(Player->GetController());
+     if(AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
+     const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();

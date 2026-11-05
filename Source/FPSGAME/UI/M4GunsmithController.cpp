@@ -28,7 +28,7 @@ bool AFPSGAMEPlayerController::OpenGunsmith(const FString& Instance)
     UWidgetBlueprintLibrary::CancelDragDrop();
     if(WeatherPanel&&WeatherPanel->IsPanelOpen())WeatherPanel->SetPanelOpen(false);
     if(ColdSteelHUD){ColdSteelHUD->HideItemTooltip(true);if(ColdSteelHUD->IsInventoryOpen())ColdSteelHUD->ToggleInventory();}
-    if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->SuspendWeaponForMenu();
+    if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->PrepareForPanelInput();
     GunsmithPanel=CreateWidget<UM4GunsmithWidget>(this);
     // RebuildWidget resolves a missing or unavailable category to the first
     // available row. Navigation belongs to this profile and inventory instance.

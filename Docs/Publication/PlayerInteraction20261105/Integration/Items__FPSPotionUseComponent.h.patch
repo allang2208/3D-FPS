@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/Items/FPSPotionUseComponent.h
++++ b/Source/FPSGAME/Items/FPSPotionUseComponent.h
+@@ -30,6 +30,13 @@
+     UFPSPotionUseComponent();
+     bool TryBegin(const FString& ItemId,const FString& Definition);
+     bool IsActive() const { return bActive; }
++    static bool BlocksWeaponAttack(const AActor* Pawn);
++    bool HandlePrimaryPress();
++    bool HandlePrimaryRelease();
++    const FGuid& GetNetworkUseId() const { return NetworkUseId; }
++    float MinimumContactDelay(const FString& Definition) const;
++    void ReceiveContactResult(FGuid UseId,bool Accepted);
++    bool EquippedHandsChanged(const class UColdSteelStatusModel& Model,int32 ActiveSlot) const;
+     bool IsStowingOffhand() const { return bActive && bStowOffhand; }
+     float OffhandLowerWeight() const;
+     bool IsOffhandWeaponHidden() const;
+@@ -77,6 +84,14 @@
+     double StartTime=0;
+     float UseRate=1.f;
+     bool bActive=false,bCommitted=false,bUncapped=false,bDiscarded=false;
++    bool bReturningFromMeal=false;
++    FGuid NetworkUseId;
++    bool bContactSubmitted=false;
++    void CancelUnsubmittedContact();
++    const FPotionUseMotion& MotionFor(const FString& Definition) const;
++    bool bOwnsPrimaryRelease=false;
++    int32 UseWeaponSlot=INDEX_NONE;
++    FString UseMainItem,UseOffhandItem;
+     float Age() const;
+     void Finish();
+     void UpdateBottle(const FTransform& PalmWorld);

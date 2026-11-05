@@ -1,0 +1,62 @@
+--- a/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp
++++ b/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp
+@@ -343,6 +343,7 @@
+         if(Pawn->IsLocallyControlled())Pawn->InterruptActionsForPriority(false);
+         if(auto* PC=Cast<APlayerController>(Pawn->GetController()))
+         {SavedControlRotation=PC->GetControlRotation();PC->SetIgnoreMoveInput(true);LockedController=PC;}
++        BeginRestCamera();
+         Pawn->bUseControllerRotationYaw=false;
+         Move->StopMovementImmediately();Move->DisableMovement();
+         Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+@@ -357,6 +358,7 @@
+         bApplied=false;
+         const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
+         const bool Dead=Health&&Health->IsDead();
++        EndRestCamera(Dead);
+         if(!Dead)Pawn->GetCapsuleComponent()->SetCollisionEnabled(SavedCollision);
+         Pawn->bUseControllerRotationYaw=bSavedControllerYaw;
+         if(!Dead)Move->SetMovementMode(EMovementMode(SavedMovement));
+@@ -429,7 +431,10 @@
+     if(auto* PC=Cast<APlayerController>(Pawn->GetController());PC&&Pawn->IsLocallyControlled())
+     {
+         FRotator Look=PC->GetControlRotation();
+-        // Mouse look is independent of the supported body, including lying down.
++        // First-person neck limits are applied in the body frame by the camera;
++        // keep the ordinary world-space controls for third-person observation.
++        const auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();
++        if(Body&&!Body->IsThirdPersonViewEnabled())return;
+         Look.Yaw=FRotator::NormalizeAxis(Look.Yaw);
+         Look.Pitch=FMath::Clamp(FRotator::NormalizeAxis(Look.Pitch),-85.f,85.f);Look.Roll=0.f;
+         PC->SetControlRotation(Look);
+@@ -443,9 +448,10 @@
+     Seconds=State.Phase==1?0.f:State.Phase==3?FMath::Fmod(Age,PhaseDuration()):FMath::Min(Age,PhaseDuration());
+     Weight=State.Phase==1?FurnitureRest::Ease(Age/.18f):State.Phase==4?1.f-FurnitureRest::Ease((Age-(PhaseDuration()-.18f))/.18f):1.f;
+ }
+-void UFPSFurnitureRestComponent::ApplyCamera(FMinimalViewInfo& View) const
+-{
+-    if(!IsResting()||!Character.IsValid())return;
++void UFPSFurnitureRestComponent::ApplyCamera(FMinimalViewInfo& View)
++{
++    if(!Character.IsValid())return;
++    if(!IsResting()){ApplyRestCameraReturn(View);return;}
+     FName Clip;float Seconds,Weight;AnimationSample(Clip,Seconds,Weight);
+     const auto* Data=FurnitureRest::Library(GetWorld()).Clips.Find(Clip);if(!Data||Data->Eyes.IsEmpty())return;
+     const float Sample=FMath::Clamp(Seconds/Data->Duration,0.f,1.f)*(Data->Eyes.Num()-1);
+@@ -456,10 +462,15 @@
+     Body->SampleFurnitureEye(Clip,Seconds,Eye);
+     if(State.bMirror)Eye.X=-Eye.X;
+     View.Location=FMath::Lerp(View.Location,Body->GetBodyMesh()->GetComponentTransform().TransformPosition(Eye),Weight);
+-    // The authored head track controls eye position only. Adding its pitch/yaw
+-    // to mouse input clamps lying views at the zenith and appears to lock them.
++    // Authored eye tracks supply position; the first-person camera below owns
++    // a bounded neck-local look, without adding authored head Euler angles.
+     if(const auto* PC=Cast<APlayerController>(Character->GetController()))
+         View.Rotation=PC->GetControlRotation();
++    const auto* Type=FurnitureRest::Library(GetWorld()).Types.Find(State.Kind);
++    if(Type&&!Body->IsThirdPersonViewEnabled())
++        ApplyRestCamera(View,*Body->GetBodyMesh(),Type->bLying);
++    else
++        bRestCameraActive=bRestCameraHasView=false;
+     View.bUseFirstPersonParameters=false;
+ }
+ float UFPSFurnitureRestComponent::FootDrop() const

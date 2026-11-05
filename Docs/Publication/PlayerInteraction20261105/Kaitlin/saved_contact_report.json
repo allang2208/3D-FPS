@@ -1,0 +1,281 @@
+{
+  "0a76d7770b73025b": {
+    "roles": [
+      "Warhammer.FullBody.Uppercut"
+    ],
+    "compressed_contact_error_cm": 0.021118917930654155,
+    "compressed_angle_error_degrees": 0.011164082530939872
+  },
+  "15ca303c1c2d1702": {
+    "roles": [
+      "Warhammer.FullBody.Slash2",
+      "Warhammer.FullBody.Slash2Recover"
+    ],
+    "compressed_contact_error_cm": 0.07795229669757306,
+    "compressed_angle_error_degrees": 0.1700244000169975
+  },
+  "1f30fab7f4612ac7": {
+    "roles": [
+      "Melee.FullBody.Whirlwind.Loop"
+    ],
+    "compressed_contact_error_cm": 0.35422177760747975,
+    "compressed_angle_error_degrees": 0.9199008867150172
+  },
+  "24875000fdc28ef6": {
+    "roles": [
+      "Warhammer.FullBody.Carry",
+      "Warhammer.FullBody.SprintCarry",
+      "Warhammer.Idle"
+    ],
+    "compressed_contact_error_cm": 0.0178756074342174,
+    "compressed_angle_error_degrees": 6.923022359960938e-05
+  },
+  "28d0a25ccce98913": {
+    "roles": [
+      "Melee.FullBody.Uppercut"
+    ],
+    "compressed_contact_error_cm": 0.01831419618601528,
+    "compressed_angle_error_degrees": 0.019032354217592713
+  },
+  "2fd227f690f9db9a": {
+    "roles": [
+      "Melee.FullBody.Whirlwind.Start"
+    ],
+    "compressed_contact_error_cm": 0.019375540084068776,
+    "compressed_angle_error_degrees": 0.031212133013527897
+  },
+  "32ce64c20725f5b8": {
+    "roles": [
+      "Warhammer.Walk.Fwd",
+      "Warhammer.Jog.Fwd"
+    ],
+    "compressed_contact_error_cm": 0.02095671702080035,
+    "compressed_angle_error_degrees": 0.02424984283062756
+  },
+  "3b9e808ede1af135": {
+    "roles": [
+      "Warhammer.Walk.Left",
+      "Warhammer.Jog.Left"
+    ],
+    "compressed_contact_error_cm": 0.022092643335989395,
+    "compressed_angle_error_degrees": 0.021763802844379673
+  },
+  "40867e1d5cdb3c93": {
+    "roles": [
+      "Bow.Sparrow.Draw"
+    ],
+    "curve_value_error": 4.732998011292011e-07
+  },
+  "41f6ee6822aaa818": {
+    "roles": [
+      "Melee.FullBody.Overhead"
+    ],
+    "compressed_contact_error_cm": 0.020354205202281185,
+    "compressed_angle_error_degrees": 0.018770460835400356
+  },
+  "442b5debaf8bade6": {
+    "roles": [
+      "Warhammer.FullBody.Slash3",
+      "Warhammer.FullBody.Slash3Recover"
+    ],
+    "compressed_contact_error_cm": 0.03883920910887484,
+    "compressed_angle_error_degrees": 0.061416166334410945
+  },
+  "548af5a2b51b96d2": {
+    "roles": [
+      "Warhammer.FullBody.Slash1",
+      "Warhammer.FullBody.Slash1Recover"
+    ],
+    "compressed_contact_error_cm": 0.021464735689229127,
+    "compressed_angle_error_degrees": 0.02820963750327093
+  },
+  "6179a0eda0687f02": {
+    "roles": [
+      "Warhammer.Walk.Right",
+      "Warhammer.Jog.Right"
+    ],
+    "compressed_contact_error_cm": 0.021748262858054812,
+    "compressed_angle_error_degrees": 0.027064907145649887
+  },
+  "64ec94dd140561e5": {
+    "roles": [
+      "Bow.Sparrow.Ready"
+    ],
+    "curve_value_error": 1.977870640601509e-07
+  },
+  "6a9ba791de559824": {
+    "roles": [
+      "Warhammer.Walk.Fwd_Right",
+      "Warhammer.Jog.Fwd_Right"
+    ],
+    "compressed_contact_error_cm": 0.021851868883595343,
+    "compressed_angle_error_degrees": 0.019761324878421166
+  },
+  "6be8b1fbc6990f77": {
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.End"
+    ],
+    "compressed_contact_error_cm": 0.04978280733428653,
+    "compressed_angle_error_degrees": 0.07300613353164778
+  },
+  "73b31fd44e6b1d31": {
+    "roles": [
+      "Bow.Sparrow.Carry"
+    ],
+    "curve_value_error": 3.290536071176575e-06
+  },
+  "78bc71b877c8c9d3": {
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.Start"
+    ],
+    "compressed_contact_error_cm": 0.019375540084068776,
+    "compressed_angle_error_degrees": 0.031212133013527897
+  },
+  "942e08238390df96": {
+    "roles": [
+      "Bow.Sparrow.Release"
+    ],
+    "curve_value_error": 3.4999170992477957e-06
+  },
+  "948373132575cc17": {
+    "roles": [
+      "Warhammer.Walk.Fwd_Left",
+      "Warhammer.Jog.Fwd_Left"
+    ],
+    "compressed_contact_error_cm": 0.020958540129630828,
+    "compressed_angle_error_degrees": 0.02487042890964448
+  },
+  "994809ae3a3ed475": {
+    "roles": [
+      "Warhammer.FullBody.Charge",
+      "Warhammer.FullBody.Slam",
+      "Warhammer.FullBody.SprintLift",
+      "Warhammer.FullBody.SprintSlam"
+    ],
+    "compressed_contact_error_cm": 0.02206360304164835,
+    "compressed_angle_error_degrees": 0.014830339528875134
+  },
+  "9dabc433f8da28d3": {
+    "roles": [
+      "Melee.FullBody.ChixiaoHeavy"
+    ],
+    "compressed_contact_error_cm": 0.019975545337023753,
+    "compressed_angle_error_degrees": 0.010098210015612962
+  },
+  "a9d4d1e3cb2f3d6f": {
+    "roles": [
+      "Warhammer.FullBody.FinalTollCharge"
+    ],
+    "compressed_contact_error_cm": 0.003617054340766027,
+    "compressed_angle_error_degrees": 0.019517589107457975
+  },
+  "ad7059b0437d5688": {
+    "roles": [
+      "Melee.FullBody.TangDao.Whirlwind.Loop"
+    ],
+    "compressed_contact_error_cm": 0.35422177760747975,
+    "compressed_angle_error_degrees": 0.9199008867150172
+  },
+  "ae25ec27edcce118": {
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.Start"
+    ],
+    "compressed_contact_error_cm": 0.020676851058359053,
+    "compressed_angle_error_degrees": 0.017754857540980596
+  },
+  "af419922ad3d4278": {
+    "roles": [
+      "Warhammer.FullBody.QuickMelee"
+    ],
+    "compressed_contact_error_cm": 0.021396412853096042,
+    "compressed_angle_error_degrees": 0.021752541418908623
+  },
+  "b3d6904d2dd59b99": {
+    "roles": [
+      "Warhammer.Walk.Bwd_Left",
+      "Warhammer.Jog.Bwd_Left"
+    ],
+    "compressed_contact_error_cm": 0.021924656940926143,
+    "compressed_angle_error_degrees": 0.028101554904588072
+  },
+  "bf852e3be9d269d7": {
+    "roles": [
+      "Warhammer.FullBody.GuardHit",
+      "Warhammer.FullBody.GuardBreak"
+    ],
+    "compressed_contact_error_cm": 0.021638277946355974,
+    "compressed_angle_error_degrees": 0.019646260025591365
+  },
+  "c010454f169c3bbb": {
+    "roles": [
+      "Warhammer.FullBody.GuardHold"
+    ],
+    "compressed_contact_error_cm": 0.021020334287033548,
+    "compressed_angle_error_degrees": 0.03528504041753029
+  },
+  "c13235dd0d7ffa06": {
+    "roles": [
+      "Warhammer.Walk.Bwd",
+      "Warhammer.Jog.Bwd"
+    ],
+    "compressed_contact_error_cm": 0.020772925223742095,
+    "compressed_angle_error_degrees": 0.04290320220501665
+  },
+  "c64f2ba8ff677b11": {
+    "roles": [
+      "Warhammer.Walk.Bwd_Right",
+      "Warhammer.Jog.Bwd_Right"
+    ],
+    "compressed_contact_error_cm": 0.02189438907246127,
+    "compressed_angle_error_degrees": 0.017298324739749668
+  },
+  "c79db0301b5cfecd": {
+    "roles": [
+      "Warhammer.FullBody.GuardEnter",
+      "Warhammer.FullBody.GuardExit"
+    ],
+    "compressed_contact_error_cm": 0.01985221327464887,
+    "compressed_angle_error_degrees": 0.014853371983578832
+  },
+  "d22e153c3d2ed588": {
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.End"
+    ],
+    "compressed_contact_error_cm": 0.029235435596212056,
+    "compressed_angle_error_degrees": 0.015121574619361653
+  },
+  "d51ff01ae0dbc180": {
+    "roles": [
+      "Melee.FullBody.DashOverhead"
+    ],
+    "compressed_contact_error_cm": 0.022314236544524566,
+    "compressed_angle_error_degrees": 0.018770460835400356
+  },
+  "d90dea6ca0277666": {
+    "roles": [
+      "Warhammer.FullBody.FinalTollHeavy"
+    ],
+    "compressed_contact_error_cm": 0.009167173862114634,
+    "compressed_angle_error_degrees": 0.020717172881297177
+  },
+  "dfaef8521a4ab366": {
+    "roles": [
+      "Melee.FullBody.Whirlwind.End"
+    ],
+    "compressed_contact_error_cm": 0.04978280733428653,
+    "compressed_angle_error_degrees": 0.07300613353164778
+  },
+  "ed9f44034222ce29": {
+    "roles": [
+      "Bow.Sparrow.Hold"
+    ],
+    "curve_value_error": 3.896834375183289e-07
+  },
+  "ef42faa139fffbd5": {
+    "roles": [
+      "Warhammer.FullBody.Whirlwind.Loop"
+    ],
+    "compressed_contact_error_cm": 0.11483275285351031,
+    "compressed_angle_error_degrees": 0.2071617635821899
+  }
+}

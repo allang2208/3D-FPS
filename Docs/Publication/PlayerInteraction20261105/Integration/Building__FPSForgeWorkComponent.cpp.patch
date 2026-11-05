@@ -1,0 +1,143 @@
+--- /dev/null
++++ b/Source/FPSGAME/Building/FPSForgeWorkComponent.cpp
+@@ -0,0 +1,140 @@
++#include "FPSForgeWorkComponent.h"
++#include "ForgingSystem.h"
++#include "VoxelBuildPrefabActor.h"
++#include "VoxelBuildWorld.h"
++#include "../FPSGAMECharacter.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../UI/ColdSteelWorldInteraction.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/World.h"
++#include "Engine/GameInstance.h"
++#include "EngineUtils.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/GameStateBase.h"
++#include "Net/UnrealNetwork.h"
++
++UFPSForgeWorkComponent::UFPSForgeWorkComponent()
++{
++    SetIsReplicatedByDefault(true);PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;
++    PrimaryComponentTick.TickInterval=.1f;
++}
++void UFPSForgeWorkComponent::BeginPlay()
++{Super::BeginPlay();Character=Cast<AFPSGAMECharacter>(GetOwner());}
++void UFPSForgeWorkComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(UFPSForgeWorkComponent,State);}
++bool UFPSForgeWorkComponent::IsWorking(const AActor* Actor)
++{const auto* Work=Actor?Actor->FindComponentByClass<UFPSForgeWorkComponent>():nullptr;return Work&&Work->IsWorking();}
++float UFPSForgeWorkComponent::Clock() const
++{const auto* W=GetWorld();const auto* S=W?W->GetGameState():nullptr;return S?S->GetServerWorldTimeSeconds():W?W->GetTimeSeconds():0.f;}
++float UFPSForgeWorkComponent::QuenchAge() const
++{return State.QuenchAt>=0?FMath::Min(5.8f,FMath::Max(0.f,Clock()-State.QuenchAt)):-1.f;}
++bool UFPSForgeWorkComponent::ReadyForEntry(FString& Reason) const
++{
++    if(IsWorking()){Reason=TEXT("正在使用铸造台");return false;}
++    return true;
++}
++bool UFPSForgeWorkComponent::CanEnter(AVoxelBuildPrefabActor* Station,FString& Reason) const
++{
++    if(!ReadyForEntry(Reason))return false;
++    const auto* Pawn=Character.Get();const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    const auto* World=Station?Cast<AVoxelBuildWorld>(Station->GetOwner()):nullptr;
++    if(!Pawn||!Station||Station->IsFalling()||!World||!World->HasPrefabAt(Station->AnchorCell())||
++       !ColdSteelWorldInteraction::IsForgingStation(Station)||!Health||Health->IsDead()||UFPSFurnitureRestComponent::IsResting(Pawn))
++    {Reason=TEXT("角色或铸造台当前无法操作");return false;}
++    // Match the station interaction reach. No authored feet, travel corridor,
++    // quench-bucket stance, full-body clips or tool grips are needed to enter.
++    const FVector Eye=Pawn->GetPawnViewLocation();
++    const FVector Near=Station->GetComponentsBoundingBox(true).GetClosestPointTo(Eye);
++    FHitResult Hit;FCollisionQueryParams Query(SCENE_QUERY_STAT(ForgeStationReach),false,Pawn);
++    if(FVector::DistSquared(Eye,Near)>FMath::Square(500.f)||
++       (GetWorld()->LineTraceSingleByChannel(Hit,Eye,Near,ECC_Visibility,Query)&&Hit.GetActor()!=Station))
++    {Reason=TEXT("请靠近可操作的铸造台");return false;}
++    for(TActorIterator<AFPSGAMECharacter> It(GetWorld());It;++It)
++        if(*It!=Pawn)if(const auto* Occupant=It->FindComponentByClass<UFPSForgeWorkComponent>();Occupant&&Occupant->IsWorking()&&Occupant->Station()==Station)
++        {Reason=TEXT("这张铸造台正有人使用");return false;}
++    return true;
++}
++bool UFPSForgeWorkComponent::RequestEnter(AVoxelBuildPrefabActor* Station,FName Blank,FString& Reason)
++{
++    LastError.Reset();
++    if(!CanEnter(Station,Reason))
++    {
++        UE_LOG(LogTemp,Warning,TEXT("ForgeEntry rejected: pawn=%s station=%s reason=%s"),*GetNameSafe(GetOwner()),*GetNameSafe(Station),*Reason);
++        return false;
++    }
++    if(GetOwner()->HasAuthority())ServerEnter_Implementation(Station,Blank);else ServerEnter(Station,Blank);
++    if(!LastError.IsEmpty()){Reason=LastError;return false;}
++    return true;
++}
++void UFPSForgeWorkComponent::ServerEnter_Implementation(AVoxelBuildPrefabActor* Station,FName Blank)
++{
++    FString Reason;const auto* System=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>();
++    if(!System->FindBlank(Blank)||!CanEnter(Station,Reason))
++    {LastError=Reason.IsEmpty()?TEXT("无法使用铸造台"):Reason;ClientEntryFailed(LastError);return;}
++    LastError.Reset();State=FForgeWorkState();State.Station=Station;State.StationFrame=Station->Body()->GetComponentTransform();
++    if(const auto* Health=Character->FindComponentByClass<UFPSCombatHealthComponent>())LastHealth=Health->Health;
++    SetPhase(1);
++}
++void UFPSForgeWorkComponent::ClientEntryFailed_Implementation(const FString& Reason)
++{LastError=Reason;UE_LOG(LogTemp,Warning,TEXT("ForgeEntry server rejected: %s"),*Reason);}
++void UFPSForgeWorkComponent::BindJob(UColdSteelForgingSystem* System)
++{
++    if(!GetOwner()->HasAuthority()||!IsAligned()||!System||!System->Active())return;
++    AuthoritySystem=System;SetPhase(2);
++}
++void UFPSForgeWorkComponent::SetPhase(uint8 Phase)
++{State.Phase=Phase;State.Started=Clock();if(Phase==3)State.QuenchAt=State.Started;ApplyState();GetOwner()->ForceNetUpdate();}
++void UFPSForgeWorkComponent::OnRep_State(){ApplyState();}
++void UFPSForgeWorkComponent::ApplyState()
++{
++    if(!Character.IsValid())return;
++    auto* Pawn=Character.Get();auto* Move=Pawn->GetCharacterMovement();
++    if(IsWorking()&&!bApplied)
++    {
++        bApplied=true;bSavedYaw=Pawn->bUseControllerRotationYaw;
++        SavedMovement=Move->MovementMode==MOVE_None?uint8(MOVE_Walking):uint8(Move->MovementMode);SavedCustomMovement=Move->CustomMovementMode;
++        if(Pawn->IsLocallyControlled())Pawn->InterruptActionsForPriority(false);
++        Pawn->bUseControllerRotationYaw=false;Move->StopMovementImmediately();Move->DisableMovement();
++        SetComponentTickEnabled(GetOwner()->HasAuthority());
++    }
++    else if(!IsWorking()&&bApplied)
++    {
++        bApplied=false;Pawn->bUseControllerRotationYaw=bSavedYaw;
++        const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
++        if(!Health||!Health->IsDead())Move->SetMovementMode(EMovementMode(SavedMovement),SavedCustomMovement);
++        AuthoritySystem=nullptr;SetComponentTickEnabled(false);
++    }
++    if(auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>())Body->RefreshViewMode();
++}
++void UFPSForgeWorkComponent::RequestLeave()
++{if(GetOwner()->HasAuthority())ServerLeave_Implementation();else ServerLeave();}
++void UFPSForgeWorkComponent::ServerLeave_Implementation()
++{
++    if(!IsWorking())return;
++    if(AuthoritySystem&&AuthoritySystem->Active()){FString Reason;AuthoritySystem->Finish(Reason);}
++    // Release at the original interaction position; there is no exit choreography.
++    State=FForgeWorkState();SetPhase(0);
++}
++bool UFPSForgeWorkComponent::StationValid() const
++{
++    const auto* S=State.Station.Get();const auto* W=S?Cast<AVoxelBuildWorld>(S->GetOwner()):nullptr;
++    return S&&!S->IsFalling()&&W&&W->HasPrefabAt(S->AnchorCell())&&S->Body()->GetComponentTransform().Equals(State.StationFrame,.1f);
++}
++void UFPSForgeWorkComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++    Super::TickComponent(Delta,Type,Tick);if(!Character.IsValid()||!IsWorking()||!GetOwner()->HasAuthority())return;
++    const auto* Pawn=Character.Get();const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
++    if(!StationValid()||!Pawn->GetController()||(Health&&(Health->IsDead()||Health->Health<LastHealth)))
++    {ServerLeave_Implementation();return;}
++    if(Health)LastHealth=Health->Health;
++    if(State.Phase==1&&Clock()-State.Started>20.f){ServerLeave_Implementation();return;}
++    if(State.Phase==2&&AuthoritySystem&&!AuthoritySystem->Active())SetPhase(3);
++    if(State.Phase==3&&Clock()-State.Started>=5.8f)ServerLeave_Implementation();
++}
++void UFPSForgeWorkComponent::EndPlay(const EEndPlayReason::Type Reason)
++{
++    if(GetOwner()->HasAuthority()&&AuthoritySystem&&AuthoritySystem->Active()){FString Why;AuthoritySystem->Finish(Why);}
++    State=FForgeWorkState();ApplyState();Super::EndPlay(Reason);
++}

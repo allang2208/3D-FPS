@@ -1,0 +1,176 @@
+{
+  "contact": {
+    "transport": "local UDP owner and listen host; delayed contact receipt",
+    "loss_percent_each_peer": 5,
+    "lag_ms_each_peer": 65,
+    "passed": true,
+    "rendered": false,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "cases": [
+      {
+        "phase": 0,
+        "passed": true,
+        "owner_completed": true,
+        "owner_meals": 1,
+        "authority_meals": 1,
+        "owner_water_uses": 2,
+        "authority_water_uses": 2,
+        "authority_buff": false,
+        "revision": 0,
+        "save_matches": true,
+        "observed_consume": false,
+        "observed_exit": true,
+        "host_inventory_untouched": true,
+        "scenario": "missing start"
+      },
+      {
+        "phase": 1,
+        "passed": true,
+        "owner_completed": true,
+        "owner_meals": 1,
+        "authority_meals": 1,
+        "owner_water_uses": 2,
+        "authority_water_uses": 2,
+        "authority_buff": false,
+        "revision": 0,
+        "save_matches": true,
+        "observed_consume": true,
+        "observed_exit": true,
+        "host_inventory_untouched": true,
+        "scenario": "cancel before bite"
+      },
+      {
+        "phase": 2,
+        "passed": true,
+        "owner_completed": true,
+        "owner_meals": 1,
+        "authority_meals": 1,
+        "owner_water_uses": 2,
+        "authority_water_uses": 2,
+        "authority_buff": false,
+        "revision": 0,
+        "save_matches": true,
+        "observed_consume": true,
+        "observed_exit": true,
+        "host_inventory_untouched": true,
+        "scenario": "refused contact"
+      },
+      {
+        "phase": 3,
+        "passed": true,
+        "owner_completed": true,
+        "owner_meals": 0,
+        "authority_meals": 0,
+        "owner_water_uses": 2,
+        "authority_water_uses": 2,
+        "authority_buff": true,
+        "revision": 1,
+        "save_matches": true,
+        "observed_consume": true,
+        "observed_exit": true,
+        "host_inventory_untouched": true,
+        "scenario": "cancel after bite with delayed reply"
+      },
+      {
+        "phase": 4,
+        "passed": true,
+        "owner_completed": true,
+        "owner_meals": 0,
+        "authority_meals": 0,
+        "owner_water_uses": 1,
+        "authority_water_uses": 1,
+        "authority_buff": true,
+        "revision": 2,
+        "save_matches": true,
+        "observed_consume": true,
+        "observed_exit": true,
+        "host_inventory_untouched": true,
+        "scenario": "first sip"
+      },
+      {
+        "phase": 5,
+        "passed": true,
+        "owner_completed": true,
+        "owner_meals": 0,
+        "authority_meals": 0,
+        "owner_water_uses": 1,
+        "authority_water_uses": 1,
+        "authority_buff": true,
+        "revision": 2,
+        "save_matches": true,
+        "observed_consume": false,
+        "observed_exit": true,
+        "host_inventory_untouched": true,
+        "scenario": "repeat spent action"
+      },
+      {
+        "phase": 6,
+        "passed": true,
+        "owner_completed": true,
+        "owner_meals": 0,
+        "authority_meals": 0,
+        "owner_water_uses": 0,
+        "authority_water_uses": 0,
+        "authority_buff": true,
+        "revision": 3,
+        "save_matches": true,
+        "observed_consume": true,
+        "observed_exit": true,
+        "host_inventory_untouched": true,
+        "scenario": "second sip"
+      },
+      {
+        "phase": 7,
+        "passed": true,
+        "owner_completed": true,
+        "owner_meals": 0,
+        "authority_meals": 0,
+        "owner_water_uses": 0,
+        "authority_water_uses": 0,
+        "authority_buff": true,
+        "revision": 4,
+        "save_matches": true,
+        "observed_consume": true,
+        "observed_exit": true,
+        "host_inventory_untouched": true,
+        "scenario": "mana potion"
+      }
+    ]
+  },
+  "reconnect_pose": {
+    "transport": "real local UDP listen host + client + fresh reconnect",
+    "loss_percent_each_peer": 5,
+    "lag_ms_each_peer": 60,
+    "passed": true,
+    "rendered": false,
+    "exit_codes": [
+      0,
+      0,
+      0
+    ]
+  },
+  "full_local_build": [
+    {
+      "completed_utc": "2026-11-05T15:57:50.8178444Z",
+      "target": "FPSGAMEEditor",
+      "exit_code": 0
+    },
+    {
+      "completed_utc": "2026-11-05T15:58:30.7463583Z",
+      "target": "FPSGAME",
+      "exit_code": 0
+    }
+  ],
+  "single_player_input": {
+    "passed": 105,
+    "failed": 0
+  },
+  "large_lamb_inventory": {
+    "passed": 103,
+    "failed": 0,
+    "scope": "headless native production-path fixture; clocks advanced; no rendered hand/PIE/network transport test"
+  }
+}

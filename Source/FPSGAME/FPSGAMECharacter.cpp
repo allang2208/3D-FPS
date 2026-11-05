@@ -1107,6 +1107,7 @@ void AFPSGAMECharacter::JumpReleased()
 
 void AFPSGAMECharacter::FirePressed()
 {
+    if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryPress())return;
     InterruptWeaponInspection();
     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
     if(IsDualWieldingPistols()){DualPistols->Trigger(0,true);return;}
@@ -1187,6 +1188,7 @@ void AFPSGAMECharacter::FirePressed()
 
 void AFPSGAMECharacter::FireInputReleased()
 {
+    if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryRelease())return;
     // Releasing a tap completes its punch; only priority interruption cancels it.
     if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
     if(Staff&&Staff->IsEquipped())return;
@@ -1220,6 +1222,7 @@ void AFPSGAMECharacter::FireReleased()
 
 void AFPSGAMECharacter::AimPressed()
 {
+    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
     InterruptWeaponInspection();
     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
     if(HasOffhandPistol()){DualPistols->Trigger(1,true);return;}
@@ -1256,6 +1259,7 @@ void AFPSGAMECharacter::AimReleased()
 
 void AFPSGAMECharacter::ReloadPressed()
 {
+    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
     if(IsOffhandReloadTransition())return;
     InterruptWeaponInspection();
     if(IsChoosingAmmo())return;
@@ -3644,6 +3648,15 @@ bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 bool AFPSGAMECharacter::HasOffhandSpellbook() const {return Spellbook&&Spellbook->IsEquipped();}
 bool AFPSGAMECharacter::IsOffhandSpellbookPresented() const {return Spellbook&&Spellbook->OwnsLeftHand();}
 bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook(); }
+void AFPSGAMECharacter::PrepareForPanelInput()
+{
+    // Stop repeated input, not the current animation, contact or reload clock.
+    bFireHeld=false;bPistolShotPending=false;bBurstTriggerHeld=false;
+    GetWorldTimerManager().ClearTimer(FireTimerHandle);
+    if(HasOffhandPistol()){DualPistols->Trigger(0,false);DualPistols->Trigger(1,false);}
+    if(UnarmedIdle)UnarmedIdle->SetTriggerHeld(false);
+    CancelAmmoSelection();
+}
 void AFPSGAMECharacter::SuspendWeaponForMenu()
 {
     CancelOffhandReload();

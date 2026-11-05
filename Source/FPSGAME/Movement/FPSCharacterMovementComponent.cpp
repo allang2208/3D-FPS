@@ -1,4 +1,5 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../Monsters/HandBrainFearComponent.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../FPSGAMECharacter.h"
@@ -243,7 +244,7 @@ void UFPSCharacterMovementComponent::TickComponent(float DeltaTime, ELevelTick T
     FActorComponentTickFunction* ThisTickFunction)
 {
     if (DodgeRootMotionId && (MovementMode==MOVE_None ||
-        (CharacterOwner && CharacterOwner->Controller && CharacterOwner->Controller->IsMoveInputIgnored())))
+        (CharacterOwner && CharacterOwner->Controller && AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(CharacterOwner->Controller)))))
         CancelDodge();
     // 服务端断流看门狗：远端客户端停发 move（窗口失焦/丢包/进程卡死）后，最后一个 move
     // 的加速度与意图位会被 SimulatedTick 永续沿用——pawn 沿旧方向一直冲刺，观察者看到

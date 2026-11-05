@@ -1,0 +1,198 @@
+--- /dev/null
++++ b/Source/FPSGAME/Movement/FPSFurnitureRestCamera.cpp
+@@ -0,0 +1,195 @@
++#include "FPSFurnitureRestComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "Camera/CameraComponent.h"
++#include "Camera/CameraTypes.h"
++#include "Camera/PlayerCameraManager.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/PlayerController.h"
++#include "Math/RotationMatrix.h"
++
++namespace FurnitureCamera
++{
++float Ease(float T){T=FMath::Clamp(T,0.f,1.f);return T*T*(3.f-2.f*T);}
++// Comfort limits for a supported torso, in degrees relative to its forward/up
++// axes. Flexion looks toward the chest/feet; extension looks above the head.
++float YawLimit(bool bLying){return bLying?60.f:70.f;}
++float PitchScale(float Yaw,bool bLying)
++{
++    const float Side=FMath::Clamp(FMath::Abs(Yaw)/YawLimit(bLying),0.f,1.f);
++    return FMath::Sqrt(1.f-.64f*Side*Side);
++}
++void LimitLook(FRotator& Look,bool bLying)
++{
++    Look.Yaw=FMath::Clamp(Look.Yaw,-YawLimit(bLying),YawLimit(bLying));
++    const float Scale=PitchScale(Look.Yaw,bLying);
++    Look.Pitch=FMath::Clamp(Look.Pitch,(bLying?-45.f:-55.f)*Scale,(bLying?15.f:35.f)*Scale);
++    Look.Roll=0.f;
++}
++float AddLook(float Angle,float Input,float Min,float Max)
++{
++    // Only outward input slows near the stop; reversing never has a dead zone
++    // and discarded input cannot accumulate behind a rendered-only clamp.
++    const float Remaining=Input>0.f?Max-Angle:Angle-Min;
++    const float Scale=FMath::Lerp(.2f,1.f,FMath::Clamp(Remaining/12.f,0.f,1.f));
++    return FMath::Clamp(Angle+Input*Scale,Min,Max);
++}
++FVector Sweep(UWorld& World,const AActor* Owner,const FVector& Start,const FVector& End)
++{
++    FHitResult Hit;
++    FCollisionQueryParams Params(SCENE_QUERY_STAT(FurnitureEyeClearance),false,Owner);
++    if(World.SweepSingleByChannel(Hit,Start,End,FQuat::Identity,ECC_Camera,
++        FCollisionShape::MakeSphere(6.f),Params))
++        return FMath::Lerp(Start,End,FMath::Max(0.f,Hit.Time-.02f));
++    return End;
++}
++}
++
++void UFPSFurnitureRestComponent::BeginRestCamera()
++{
++    const auto* Pawn=Character.Get();
++    const auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
++    const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
++    bRestCameraActive=Pawn&&Pawn->IsLocallyControlled()&&Body&&!Body->IsThirdPersonViewEnabled()&&PC;
++    bRestCameraHasView=false;RestCameraReturnStarted=-1.f;
++    bRestCameraLookInitialized=false;RestCameraLookStarted=Clock();
++    if(!bRestCameraActive)return;
++    // Capture before ApplyState moves the pawn to the furniture entry anchor.
++    // This includes the standing look-down offset and the last rendered camera.
++    RestCameraEntryLocation=PC->PlayerCameraManager?PC->PlayerCameraManager->GetCameraLocation():
++        Pawn->FirstPersonCamera->GetComponentLocation();
++    RestCameraEntryRotation=(PC->PlayerCameraManager?PC->PlayerCameraManager->GetCameraRotation():
++        PC->GetControlRotation()).Quaternion();
++}
++
++void UFPSFurnitureRestComponent::EndRestCamera(bool bDead)
++{
++    RestCameraReturnStarted=bRestCameraActive&&bRestCameraHasView&&!bDead?Clock():-1.f;
++    if(RestCameraReturnStarted>=0.f)
++        if(auto* PC=Cast<APlayerController>(Character->GetController()))
++        {
++            FRotator Upright=PC->GetControlRotation().GetNormalized();
++            Upright.Pitch=FMath::Clamp(Upright.Pitch,-85.f,85.f);Upright.Roll=0.f;
++            RestCameraReturnRotationOffset=RestCameraLastRotation*Upright.Quaternion().Inverse();
++            PC->SetControlRotation(Upright);
++        }
++    bRestCameraActive=false;
++    bRestCameraLookInitialized=false;
++}
++
++bool UFPSFurnitureRestComponent::UpdateRestLook(const FRotator& Input,FRotator& OutRotation)
++{
++    if(!IsResting()||!bRestCameraActive||!bRestCameraLookInitialized||!Character.IsValid())return false;
++    const auto* Body=Character->FindComponentByClass<UFPSPlayerBodyComponent>();
++    if(!Character->IsLocallyControlled()||!Body||Body->IsThirdPersonViewEnabled())return false;
++    RestCameraLook.Yaw=FurnitureCamera::AddLook(RestCameraLook.Yaw,Input.Yaw,
++        -FurnitureCamera::YawLimit(bRestCameraLying),FurnitureCamera::YawLimit(bRestCameraLying));
++    const float Scale=FurnitureCamera::PitchScale(RestCameraLook.Yaw,bRestCameraLying);
++    RestCameraLook.Pitch=FurnitureCamera::AddLook(RestCameraLook.Pitch,Input.Pitch,
++        (bRestCameraLying?-45.f:-55.f)*Scale,(bRestCameraLying?15.f:35.f)*Scale);
++    FurnitureCamera::LimitLook(RestCameraLook,bRestCameraLying);
++    OutRotation=(RestCameraLookFrame*RestCameraLook.Quaternion()).Rotator();
++    return true;
++}
++
++void UFPSFurnitureRestComponent::ApplyRestCamera(FMinimalViewInfo& View,USkeletalMeshComponent& Body,bool bLying)
++{
++    if(!bRestCameraActive)BeginRestCamera();
++    if(!bRestCameraActive)return;
++    const auto* Mesh=Body.GetSkeletalMeshAsset();if(!Mesh)return;
++    if(RestCameraMesh.Get()!=Mesh)
++    {
++        RestCameraMesh=Body.GetSkeletalMeshAsset();
++        const auto& Ref=Mesh->GetRefSkeleton();
++        RestCameraTorso=Ref.FindBoneIndex(TEXT("spine_03"));
++        RestCameraNeck=Ref.FindBoneIndex(TEXT("neck_01"));
++        RestCameraPelvis=Ref.FindBoneIndex(TEXT("pelvis"));
++        if(RestCameraTorso!=INDEX_NONE)
++        {
++            FTransform Bind=Ref.GetRefBonePose()[RestCameraTorso];
++            for(int32 Parent=Ref.GetParentIndex(RestCameraTorso);Parent!=INDEX_NONE;Parent=Ref.GetParentIndex(Parent))
++                Bind=Bind*Ref.GetRefBonePose()[Parent];
++            // Both native body meshes face +Y in reference component space.
++            // Store axes in this body's bone frame, never copy Jason's bone axes.
++            RestCameraLocalFront=Bind.GetRotation().UnrotateVector(FVector::RightVector);
++            RestCameraLocalUp=Bind.GetRotation().UnrotateVector(FVector::UpVector);
++        }
++    }
++    bRestCameraLying=bLying;
++    FVector Front=Character->GetActorForwardVector(),Up=FVector::UpVector;
++    if(RestCameraTorso!=INDEX_NONE)
++    {
++        const FQuat ChestRotation=Body.GetBoneTransform(RestCameraTorso).GetRotation();
++        Front=ChestRotation.RotateVector(RestCameraLocalFront).GetSafeNormal();
++        Up=ChestRotation.RotateVector(RestCameraLocalUp).GetSafeNormal();
++    }
++    const FQuat LookFrame=FRotationMatrix::MakeFromXZ(Front,Up).ToQuat();
++    if(!bRestCameraLookInitialized)
++    {
++        RestCameraLookFrame=LookFrame;
++        RestCameraLook=(LookFrame.Inverse()*RestCameraEntryRotation).Rotator().GetNormalized();
++        bRestCameraLookInitialized=true;
++    }
++    else
++    {
++        // Follow recline and getting up, filtering small chest animation noise.
++        const float Follow=1.f-FMath::Exp(-GetWorld()->GetDeltaSeconds()/.12f);
++        RestCameraLookFrame=FQuat::Slerp(RestCameraLookFrame,LookFrame,Follow).GetNormalized();
++    }
++    FurnitureCamera::LimitLook(RestCameraLook,bLying);
++    FQuat LookRotation=RestCameraLookFrame*RestCameraLook.Quaternion();
++    const float EntryBlend=FurnitureCamera::Ease((Clock()-RestCameraLookStarted)/.6f);
++    LookRotation=FQuat::Slerp(RestCameraEntryRotation,LookRotation,EntryBlend).GetNormalized();
++    View.Rotation=LookRotation.Rotator();
++    if(auto* PC=Cast<APlayerController>(Character->GetController()))PC->SetControlRotation(View.Rotation);
++    FVector Desired=View.Location;
++    if(RestCameraTorso!=INDEX_NONE)
++    {
++        const FVector Look=View.Rotation.Vector();
++        const float Recline=bLying?FMath::SmoothStep<float>(.2f,.85f,1.f-FMath::Abs(FVector::DotProduct(Up,FVector::UpVector))):0.f;
++        const float LookAtBody=FMath::SmoothStep<float>(.15f,.8f,FMath::Max(
++            FVector::DotProduct(Look,-Up),FVector::DotProduct(Look,-Front)));
++        // Looking toward the feet moves the eye past the open collar, rather
++        // than pitching a camera inside the neck. The offset follows the chest
++        // as the body reclines; it is not a world-horizontal standing offset.
++        Desired-=Up*(20.f*Recline*LookAtBody);
++        // Sitting keeps the eye at head height and moves it in front of the
++        // torso; looking at the lap adds clearance without sinking into it.
++        const float Clearance=bLying?FMath::Lerp(40.f,24.f+8.f*LookAtBody,Recline):40.f+8.f*LookAtBody;
++        float Push=0.f;
++        for(const int32 Bone:{RestCameraPelvis,RestCameraTorso,RestCameraNeck})
++            if(Bone!=INDEX_NONE)
++                Push=FMath::Max(Push,Clearance+FVector::DotProduct(Body.GetBoneTransform(Bone).GetLocation()-Desired,Front));
++        Desired+=Front*Push;
++        // The existing standing camera uses the same six-centimetre sweep.
++        // Furniture, walls and the upper bunk still bound the rendered eye.
++        Desired=FurnitureCamera::Sweep(*GetWorld(),GetOwner(),View.Location,Desired);
++    }
++    if(State.Phase==1)
++    {
++        const float Blend=FurnitureCamera::Ease((Clock()-State.Started)/.6f);
++        Desired=FurnitureCamera::Sweep(*GetWorld(),GetOwner(),RestCameraEntryLocation,
++            FMath::Lerp(RestCameraEntryLocation,Desired,Blend));
++    }
++    View.Location=Desired;
++    RestCameraLastRotation=LookRotation;
++    RestCameraLastLocation=Desired;bRestCameraHasView=true;
++}
++
++void UFPSFurnitureRestComponent::ApplyRestCameraReturn(FMinimalViewInfo& View)
++{
++    if(RestCameraReturnStarted<0.f)return;
++    const auto* Body=Character->FindComponentByClass<UFPSPlayerBodyComponent>();
++    const float Age=FMath::Max(0.f,Clock()-RestCameraReturnStarted);
++    if(!Body||Body->IsThirdPersonViewEnabled()||Age>=.35f)
++    {RestCameraReturnStarted=-1.f;bRestCameraHasView=false;return;}
++    // The ordinary camera regains its current look-down/torso clearance while
++    // the displayed POV leaves the final rest frame without a position cut.
++    View.Location=FurnitureCamera::Sweep(*GetWorld(),GetOwner(),RestCameraLastLocation,
++        FMath::Lerp(RestCameraLastLocation,View.Location,FurnitureCamera::Ease(Age/.35f)));
++    // Remove any reclined roll continuously while retaining new mouse input.
++    View.Rotation=(FQuat::Slerp(RestCameraReturnRotationOffset,FQuat::Identity,
++        FurnitureCamera::Ease(Age/.35f))*View.Rotation.Quaternion()).Rotator();
++}

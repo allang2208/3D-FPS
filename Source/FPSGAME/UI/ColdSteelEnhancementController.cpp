@@ -15,7 +15,7 @@ bool AFPSGAMEPlayerController::OpenEnhancement(const FString& Id)
     UWidgetBlueprintLibrary::CancelDragDrop();bEnhancementReturnToInventory=ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen();
     if(WeatherPanel&&WeatherPanel->IsPanelOpen())WeatherPanel->SetPanelOpen(false);
     if(ColdSteelHUD){ColdSteelHUD->HideItemTooltip(true);if(ColdSteelHUD->IsInventoryOpen())ColdSteelHUD->ToggleInventory();}
-    if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->SuspendWeaponForMenu();
+    if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->PrepareForPanelInput();
     EnhancementPanel=CreateWidget<UColdSteelEnhancementWidget>(this);EnhancementPanel->SelectItem(Selected);EnhancementPanel->AddToViewport(60);
     SetIgnoreMoveInput(true);SetIgnoreLookInput(true);bShowMouseCursor=true;
     FInputModeUIOnly Mode;Mode.SetWidgetToFocus(EnhancementPanel->TakeWidget());Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);SetInputMode(Mode);EnhancementPanel->SetKeyboardFocus();return true;

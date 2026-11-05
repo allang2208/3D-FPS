@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Production/ProductionThunderCall.cpp
++++ b/Source/FPSGAME/Production/ProductionThunderCall.cpp
+@@ -109,7 +109,7 @@
+     {CancelHeavyCharge();return;}
+     TickThunderCallAudio();
+     if(!Pawn->IsLocallyControlled())return;
+-    if(!bThunderCallSeat||!bBluntCharging||HeavyChargeFraction()<1.f-UE_SMALL_NUMBER||!CanUse())
++    if(!bThunderCallSeat||!bBluntCharging||HeavyChargeFraction()<1.f-UE_SMALL_NUMBER||!CanUse(true))
+     {ClearThunderCallVisual();return;}
+     // Position follows the local camera each frame, independently of FX clocks.
+     FHitResult Ground;

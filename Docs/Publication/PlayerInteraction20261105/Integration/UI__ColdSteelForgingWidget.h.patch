@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelForgingWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelForgingWidget.h
+@@ -34,6 +34,7 @@
+     void Configure(UColdSteelHUDWidget* Owner);
+     void SetStation(AVoxelBuildWorld* InWorld,FIntVector InCell);
+     void SetInputReady(bool bReady);
++    void ShowEntryError(const FString& Reason);
+ protected:
+     virtual void NativeOnInitialized() override;
+     virtual void NativeConstruct() override;
+@@ -67,6 +68,7 @@
+     float Scale=0,RefreshClock=0,BoardHeight=0;
+     bool bInputReady=false,bMaterialsDirty=true,bCanStart=false,bCanDiscard=false;
+     FString Notice,LoadedMold,StartReason;
++    bool bEntryError=false;
+     struct FLabel {TWeakObjectPtr<UTextBlock> Widget;float Pixels;bool Numeric,Medium;};
+     TArray<FLabel> Labels;
+     // Slate owns the option's SObjectWidget; this cache only updates visible rows for DPI changes.

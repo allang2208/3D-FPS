@@ -107,7 +107,8 @@ void UFPSPlayerBodyComponent::ApplyAppearance(FFPSBodyAppearance Value)
                 Modular->CollectBodyAssets(Entry.Key,Text(Selected,TEXT("body_mesh")),Paths);
         for(const TCHAR* Key:{TEXT("body_mesh"),TEXT("weapon_pose_reference_mesh")})
             Paths.AddUnique(FSoftObjectPath(Text(Selected,Key)));
-        if(const auto Clips=Object(Selected,TEXT("clips")))for(const auto& Clip:Clips->Values)AssetPaths(Clip.Value,Paths);
+        if(const auto Clips=Object(Selected,TEXT("clips")))for(const auto& Clip:Clips->Values)
+            if(!Clip.Key.ToView().StartsWith(TEXT("Forge.")))AssetPaths(Clip.Value,Paths);
         const auto Outfits=Object(Selected,TEXT("outfits"));
         const auto Headwear=Object(Selected,TEXT("head_equipment"));
         const auto GatherWornRecipe=[&](const TArray<FFPSBodyOutfitSlot>& Slots,const FFPSBodyOutfitSlot& Slot)

@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp
+@@ -127,7 +127,7 @@
+     // The quick-bar charge releases itself; a physical release only answers the left-button charge.
+     if(!bHeavyCharging||bHeavyAuto||!GetWorld())return;
+     auto* P=Pawn();
+-    if(!P||!CanUse()||P->IsCastBlockingLeftHandAction()){CancelHeavyCharge(true);return;}
++    if(!P||!CanUse(true)||P->IsCastBlockingLeftHandAction()){CancelHeavyCharge(true);return;}
+     // Decide from the input's gameplay time (input is dispatched before the component tick).
+     const double Held=GetWorld()->GetTimeSeconds()-HeavyChargeStartedAt;
+     if(Held>=HeavyRequiredSeconds){ReleaseHeavyCharge();return;}
+@@ -145,7 +145,7 @@
+     const auto* Profile=KukriHeavyProfile(GetWorld());
+     const auto* Item=Profile?Profile->ActiveKukriWeapon():nullptr;
+     const auto* Off=bDualHeavy?ColdSteelMelee::PairedOneHandedWeapon(Item,Profile):nullptr;
+-    if(!P||!Item||Item->InstanceId!=InstanceId||!CanUse()||P->IsCastBlockingLeftHandAction()||(Profile->Stamina()<=0.f&&Profile->HeavyChargeStaminaPerSecond()>0.f))
++    if(!P||!Item||Item->InstanceId!=InstanceId||!CanUse(true)||P->IsCastBlockingLeftHandAction()||(Profile->Stamina()<=0.f&&Profile->HeavyChargeStaminaPerSecond()>0.f))
+     {CancelHeavyCharge(true);return;}
+     if((bDualHeavy&&(!Off||Off->InstanceId!=HeavyOffhandWeapon))||
+         (bFalconHeavy&&!SwiftFalconHeavy::Eligible(Item,Profile,bDualHeavy))){CancelHeavyCharge(true);return;}

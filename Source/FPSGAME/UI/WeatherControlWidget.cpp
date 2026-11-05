@@ -149,7 +149,7 @@ void UWeatherControlWidget::SetPanelOpen(bool bOpen)
         if (bOpen)
         {
             UWidgetBlueprintLibrary::CancelDragDrop();
-            if (auto* Character = Cast<AFPSGAMECharacter>(PC->GetPawn())) Character->SuspendWeaponForMenu();
+            if (auto* Character = Cast<AFPSGAMECharacter>(PC->GetPawn())) Character->PrepareForPanelInput();
             // 与背包装备同一打开规则：UIOnly 接管输入，鼠标可见并锁定移动／视角。
             FInputModeUIOnly Mode;
             Mode.SetWidgetToFocus(TakeWidget());

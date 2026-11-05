@@ -1,0 +1,208 @@
+--- /dev/null
++++ b/Source/FPSGAME/Items/ConsumableReceiptWireAudit.cpp
+@@ -0,0 +1,205 @@
++#include "../Weapons/ShotgunWireAudit.h"
++#include "FPSPotionUseComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Survival/FPSSurvivalComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "Engine/GameInstance.h"
++#include "Engine/NetDriver.h"
++#include "Kismet/GameplayStatics.h"
++#include "Serialization/JsonSerializer.h"
++
++namespace ShotgunWire { void Save(const TArray<TSharedPtr<FJsonValue>>& Rows,bool Pass,const TCHAR* Role); }
++namespace MealWire
++{
++enum ECase { NoStart,CancelBefore,RefusedContact,CancelAfter,FirstSip,Replay,SecondSip,ManaPotion,Count };
++bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("MealReceiptWire"));}
++void Pin(AFPSGAMECharacter* Pawn)
++{
++    Pawn->GetCharacterMovement()->DisableMovement();
++    Pawn->GetCharacterMovement()->StopMovementImmediately();
++    Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++}
++void Lag(UWorld* World)
++{
++#if DO_ENABLE_NET_TEST
++    if(auto* Driver=World->GetNetDriver())
++    {
++        FPacketSimulationSettings Settings;Settings.PktLag=65;Settings.PktLoss=5;
++        Driver->SetPacketSimulationSettings(Settings);
++    }
++#endif
++}
++FColdSteelProfile Seed(UColdSteelStatusModel* Model,const FString& Session)
++{
++    auto P=Model->Snapshot();P.Items.Reset();P.ActiveProductionTool.Reset();P.ActiveWeaponSlot=6;
++    P.CampfireInventoryRevision=0;P.CampfireWorldReceipts.Reset();
++    P.Survival={};P.Survival.Hunger=15;P.Survival.Hydration=10;P.Mana=0;
++    for(const TCHAR* Def:{TEXT("mineral_water"),TEXT("roasted_large_lamb"),TEXT("mp_potion")})
++    {
++        auto Item=Model->CreateItem(Def);Item.InstanceId=Session+Def;
++        ColdSteelInventory::Insert(P.Items,Item);
++    }
++    return P;
++}
++int32 Water(const FColdSteelItem* Item)
++{return Item?int32(ColdSteelInventory::Number(*Item,TEXT("remainingUses"),2)):0;}
++}
++
++void AShotgunWireAuditController::SetupMealReceipt(int32 Phase,const FString& Session)
++{
++    if(!MealWire::Enabled()||HasAuthority()||Phase==Current)return;
++    auto* OwnerPawn=Cast<AFPSGAMECharacter>(GetPawn());
++    auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    auto* PS=GetPlayerState<AColdSteelPlayerState>();
++    if(!Model||!Model->IsAudit()||!OwnerPawn||!PS||PS->GetPawn()!=OwnerPawn)return;
++    if(Phase==0)
++    {
++        MealWire::Pin(OwnerPawn);MealWire::Lag(GetWorld());
++        Model->Current=MealWire::Seed(Model,Session);Model->CurrentPawn=OwnerPawn;Model->ApplyToPawn();
++    }
++    Current=Phase;Weapon=Session;Started=GetWorld()->GetRealTimeSeconds();
++    AmmoStage=0;bReported=false;SentAt=-1.;
++    // Both inventories are seeded identically. Pin the acknowledged baseline
++    // (background profile heartbeat is disabled by this audit PlayerState).
++    Model->SyncRuntime();PS->AcknowledgedInventoryBaseline=PS->InventoryBaseline(Model->Snapshot());
++    PS->bHasUploadedAppearance=true;PS->UploadedHeadId=Model->Current.PlayerHeadId;PS->UploadedHairId=Model->Current.PlayerHairId;
++}
++
++bool AShotgunWireAuditController::TickMealReceipt(float Delta)
++{
++    if(!MealWire::Enabled())return false;
++    Super::Tick(Delta);
++    if(HasAuthority())return true;
++    const double Now=GetWorld()->GetRealTimeSeconds();
++    if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return true;}
++    if(Current<0||bReported)return true;
++    auto* OwnerPawn=Cast<AFPSGAMECharacter>(GetPawn());auto* PS=GetPlayerState<AColdSteelPlayerState>();
++    auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    auto* Use=OwnerPawn?OwnerPawn->FindComponentByClass<UFPSPotionUseComponent>():nullptr;
++    if(!Use||!PS||!Model)return true;
++    const bool Water=Current>=MealWire::FirstSip && Current<=MealWire::SecondSip;
++    const FString Id=Weapon+(Water?TEXT("mineral_water"):Current==MealWire::ManaPotion?TEXT("mp_potion"):TEXT("roasted_large_lamb"));
++    if(PS->bInventoryWaitingUpload)PS->TickUpload(Delta);
++    if(AmmoStage==0 && !PS->InventoryRequestPending())
++    {
++        if(Current==MealWire::NoStart||Current==MealWire::Replay)
++        {
++            FColdSteelInventoryRequest Request;Request.Action=EColdSteelInventoryAction::Consume;Request.Item=Id;
++            if(Current==MealWire::Replay)Request.ConsumableUseId=PreviousMealUse;
++            if(PS->RequestInventoryAction(Request))AmmoStage=2;
++        }
++        else if(Model->UseItem(Id))
++        {
++            PreviousMealUse=Use->GetNetworkUseId();AmmoStage=1;
++        }
++    }
++    if(AmmoStage==1)
++    {
++        if((Current==MealWire::CancelBefore && Use->Age()>1.2f) ||
++           (Current==MealWire::CancelAfter && Use->bContactSubmitted && PS->InventoryRequestPending()))
++        {
++            OwnerPawn->FirePressed();OwnerPawn->FireInputReleased();AmmoStage=2;
++        }
++        else if(Current==MealWire::RefusedContact && Use->Age()>1.f)
++        {
++            // Invalidate only the server use. The owner still reaches the real
++            // contact, receives a refusal, and must retire its predicted pose.
++            PS->ServerCancelConsumableUse(PreviousMealUse);AmmoStage=2;
++        }
++        else if((Water||Current==MealWire::ManaPotion) && !Use->IsActive())AmmoStage=2;
++    }
++    if(AmmoStage==2 && !Use->IsActive() && !PS->InventoryRequestPending() && SentAt<0.)SentAt=Now;
++    if((SentAt<0.||Now-SentAt<.8)&&Now-Started<50.)return true;
++    const auto* Survival=OwnerPawn->FindComponentByClass<UFPSSurvivalComponent>();
++    const bool OwnerBuff=Survival&&Survival->LargeLambMealRemaining()>0.f;
++    const bool Done=SentAt>=0.&&OwnerBuff==(Current>=MealWire::CancelAfter) &&
++        (Current!=MealWire::RefusedContact||!Use->bCommitted) &&
++        (Current!=MealWire::ManaPotion||(!Model->FindItem(Id)&&Model->Mana()>=25.f));
++    auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("phase"),Current);
++    Row->SetBoolField(TEXT("completed"),Done);Row->SetStringField(TEXT("message"),Model->ResultMessage());
++    Results.Add(MakeShared<FJsonValueObject>(Row));bReported=true;
++    ServerMealResult(Current,Done,Model->CountMaterial(TEXT("roasted_large_lamb")),MealWire::Water(Model->FindItem(Weapon+TEXT("mineral_water"))));
++    return true;
++}
++
++void AShotgunWireAuditController::ServerMealResult_Implementation(int32 Phase,bool LocalOK,int32 MealCount,int32 WaterUses)
++{
++    if(!MealWire::Enabled()||Phase!=Expected||Finished!=Expected)return;
++    const auto* PS=GetPlayerState<AColdSteelPlayerState>();
++    const auto* Model=PS?PS->GetShadowModel():nullptr;
++    if(!Model)return;
++    const int32 Meals=Phase<MealWire::CancelAfter?1:0;
++    const int32 Uses=Phase<MealWire::FirstSip?2:Phase>=MealWire::SecondSip?0:1;
++    const auto* Survival=GetPawn()->FindComponentByClass<UFPSSurvivalComponent>();
++    const bool Buff=Survival&&Survival->LargeLambMealRemaining()>0.f;
++    const int32 AuthorityCount=Model->CountMaterial(TEXT("roasted_large_lamb"));
++    const int32 AuthorityWater=MealWire::Water(Model->FindItem(Weapon+TEXT("mineral_water")));
++    const auto* Saved=Cast<UColdSteelProfileSave>(UGameplayStatics::LoadGameFromSlot(PS->CampfireGuestSlot(),0));
++    const bool Durable=Phase<MealWire::CancelAfter || (Saved &&
++        Saved->Profile.CampfireInventoryRevision==Model->Snapshot().CampfireInventoryRevision &&
++        !Saved->Profile.Items.ContainsByPredicate([](const auto& I){return I.Definition==TEXT("roasted_large_lamb");}));
++    const bool AnimationExpected=Phase!=MealWire::NoStart&&Phase!=MealWire::Replay;
++    auto* Body=GetPawn()->FindComponentByClass<UFPSPlayerBodyComponent>();
++    const bool Idle=Body&&Body->GetBodyState().Action!=EFPSBodyAction::Consume;
++    const int64 Revision=Model->Snapshot().CampfireInventoryRevision;
++    const int32 ExpectedRevision=Phase<MealWire::CancelAfter?0:Phase==MealWire::CancelAfter?1:Phase==MealWire::ManaPotion?4:Phase==MealWire::SecondSip?3:2;
++    const auto* Host=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    const bool HostUntouched=Host&&Host->FindItem(TEXT("host-")+Weapon+TEXT("roasted_large_lamb")) &&
++        MealWire::Water(Host->FindItem(TEXT("host-")+Weapon+TEXT("mineral_water")))==2;
++    const bool Passed=LocalOK&&MealCount==Meals&&AuthorityCount==Meals&&WaterUses==Uses&&AuthorityWater==Uses&&
++        Buff==(Meals==0)&&Revision==ExpectedRevision&&Durable&&Idle&&bObservedMeal==AnimationExpected&&HostUntouched &&
++        (Phase!=MealWire::ManaPotion||(!Model->FindItem(Weapon+TEXT("mp_potion"))&&Model->Mana()>=25.f));
++    auto R=MakeShared<FJsonObject>();
++    R->SetNumberField(TEXT("phase"),Phase);R->SetBoolField(TEXT("passed"),Passed);R->SetBoolField(TEXT("owner_completed"),LocalOK);
++    R->SetNumberField(TEXT("owner_meals"),MealCount);R->SetNumberField(TEXT("authority_meals"),AuthorityCount);
++    R->SetNumberField(TEXT("owner_water_uses"),WaterUses);R->SetNumberField(TEXT("authority_water_uses"),AuthorityWater);
++    R->SetBoolField(TEXT("authority_buff"),Buff);R->SetNumberField(TEXT("revision"),Revision);
++    R->SetBoolField(TEXT("save_matches"),Durable);R->SetBoolField(TEXT("observed_consume"),bObservedMeal);R->SetBoolField(TEXT("observed_exit"),Idle);
++    R->SetBoolField(TEXT("host_inventory_untouched"),HostUntouched);
++    Results.Add(MakeShared<FJsonValueObject>(R));bAllPassed&=Passed;++Finished;
++    FString Json;FJsonSerializer::Serialize(R,TJsonWriterFactory<>::Create(&Json));UE_LOG(LogTemp,Display,TEXT("MEAL_RECEIPT_CASE %s"),*Json);
++}
++
++bool AShotgunWireAuditGameMode::TickMealReceipt(float Delta)
++{
++    if(!MealWire::Enabled())return false;
++    Super::Tick(Delta);const double Now=GetWorld()->GetRealTimeSeconds();
++    if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return true;}
++    if(!Guest)return true;
++    auto* Pawn=Cast<AFPSGAMECharacter>(Guest->GetPawn());auto* PS=Guest->GetPlayerState<AColdSteelPlayerState>();
++    auto* HostModel=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if(!Pawn||!PS||!HostModel||!HostModel->IsAudit())return true;
++    if(Guest->Finished>=MealWire::Count||Now-Joined>230.)
++    {
++        const bool OK=Guest->Finished==MealWire::Count&&Guest->bAllPassed;
++        ShotgunWire::Save(Guest->Results,OK,TEXT("listen-host"));Guest->ClientFinish(OK);ExitAt=Now+3.;return true;
++    }
++    if(Prepared!=Guest->Finished)
++    {
++        Prepared=Guest->Finished;Guest->Expected=Prepared;Guest->bObservedMeal=false;
++        if(Prepared==0)
++        {
++            Weapon=FGuid::NewGuid().ToString(EGuidFormats::Digits);Guest->Weapon=Weapon;
++            HostModel->Current=MealWire::Seed(HostModel,TEXT("host-")+Weapon);
++            MealWire::Pin(Pawn);MealWire::Lag(GetWorld());
++            PS->SlotName=TEXT("MealWireGuest_")+Weapon;
++            PS->ShadowModel=HostModel->CreateShadowModel(MealWire::Seed(HostModel,Weapon));
++            if(!PS->ShadowModel){Guest->bAllPassed=false;Guest->Finished=MealWire::Count;return true;}
++            PS->ShadowModel->CurrentPawn=Pawn;Pawn->NetShadowProfile=PS->ShadowModel;Pawn->ApplyColdSteelProfile(PS->ShadowModel);
++        }
++        LastSetup=-10.;Guest->SentAt=-1.;
++    }
++    if(auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>())
++        Guest->bObservedMeal|=Body->GetBodyState().Action==EFPSBodyAction::Consume;
++    // Explicitly hold this receipt until the owner has had time to cancel the
++    // remaining animation, as on a bandwidth-limited connection.
++    if(!PS->InventoryReplyOutgoing.IsEmpty())
++    {
++        if(Guest->SentAt<0.)Guest->SentAt=Now;
++        if(Prepared!=MealWire::CancelAfter||Now-Guest->SentAt>1.2)PS->TickInventoryReply();
++    }
++    if(Now-LastSetup>2.){LastSetup=Now;Guest->ClientSetup(Prepared,Weapon,Pawn);}return true;
++}

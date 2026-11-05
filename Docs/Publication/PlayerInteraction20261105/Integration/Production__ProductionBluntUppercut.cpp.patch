@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Production/ProductionBluntUppercut.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntUppercut.cpp
+@@ -31,7 +31,7 @@
+ 
+ namespace
+ {
+-bool CanUppercut(AFPSGAMECharacter* Pawn,const UColdSteelStatusModel* Profile)
++bool CanUppercut(AFPSGAMECharacter* Pawn,const UColdSteelStatusModel* Profile,bool bContinuing=false)
+ {
+     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+@@ -44,7 +44,7 @@
+         (!Sword||!Sword->IsGuarding())&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
+         !Pawn->IsTraversing()&&!Pawn->IsDodging()&&!Pawn->IsSliding()&&!Pawn->IsCastBlockingLeftHandAction()&&
+         !UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&(!Health||!Health->IsDead())&&
+-        !AFPSGAMEPlayerController::BlocksOngoingActions(PC)&&(!Build||!Build->IsBuilding());
++        !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Build||!Build->IsBuilding());
+ }
+ constexpr float HitPause=.05f;
+ }
+@@ -129,7 +129,7 @@
+     auto* Pawn=Character.Get();if(!Pawn)return;
+     auto* Profile=Pawn->HasAuthority()?ColdSteelAuthority::ForPawn(Pawn):GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+-    if(!CanUppercut(Pawn,Profile)||!Item||Item->InstanceId!=BluntUppercutInstance)
++    if(!CanUppercut(Pawn,Profile,true)||!Item||Item->InstanceId!=BluntUppercutInstance)
+     {FinishBluntUppercut();return;}
+     ColdSteelAuthority::FScope Scope(Profile);
+     Delta*=HasteActionRate;

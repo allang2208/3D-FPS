@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp
+@@ -635,7 +635,7 @@
+     Super::TickComponent(Delta,Type,Tick);
+     if(const auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead()){ClearEffects();return;}
+     const auto* PC=Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController());const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
+-    if(!CommittedSkill.IsNone()&&((S&&(S->IsStunned()||S->IsFrozen()||S->IsPetrified()))||!Hands()||!Hands()->IsSpellGesture(this)||!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC)))CancelPending();
++    if(!CommittedSkill.IsNone()&&((S&&(S->IsStunned()||S->IsFrozen()||S->IsPetrified()))||!Hands()||!Hands()->IsSpellGesture(this)||AFPSGAMEPlayerController::BlocksActionContinuation(PC)))CancelPending();
+     // 蓄力/手势期间切走法杖：未释放取消并按原路退蓝清冷却（与冰墙一致）。
+     if(!CommittedSkill.IsNone()&&PendingCast.bRequiresStaff)
+         if(const auto* M=Model();M&&!M->HasEquippedStaff()){const FName Skill=CommittedSkill;CancelPending();Feedback(Skill,TEXT("需要法杖"));}

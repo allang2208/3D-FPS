@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Building/WorkstationViewRestore.h
++++ b/Source/FPSGAME/Building/WorkstationViewRestore.h
+@@ -2,11 +2,19 @@
+ #include "Camera/PlayerCameraManager.h"
+ #include "GameFramework/Pawn.h"
+ #include "GameFramework/PlayerController.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
+ 
+ namespace ColdSteelWorkstationView
+ {
++inline void BeginIdle(AActor* View,APawn* WorkingPawn)
++{
++    if(auto* Body=WorkingPawn?WorkingPawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr)
++        Body->BeginWorkstationIdle(View);
++}
+ inline void Restore(APlayerController* Player,AActor* View,APawn* WorkingPawn,AActor* PreviousView,float BlendSeconds)
+ {
++    if(auto* Body=WorkingPawn?WorkingPawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr)
++        Body->EndWorkstationIdle(View);
+     if(!Player||!View)return;
+     const bool Pending=Player->PlayerCameraManager&&Player->PlayerCameraManager->PendingViewTarget.Target==View;
+     if(Player->GetViewTarget()!=View&&!Pending)return;

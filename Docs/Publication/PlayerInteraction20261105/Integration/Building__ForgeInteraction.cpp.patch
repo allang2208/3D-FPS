@@ -1,0 +1,153 @@
+--- a/Source/FPSGAME/Building/ForgeInteraction.cpp
++++ b/Source/FPSGAME/Building/ForgeInteraction.cpp
+@@ -2,6 +2,9 @@
+ #include "WorkstationViewRestore.h"
+ #include "ForgeArmsMeshComponent.h"
+ #include "ForgingSystem.h"
++#include "FPSForgeWorkComponent.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
+ #include "VoxelBuildPrefabActor.h"
+ #include "VoxelBuildWorld.h"
+ #include "../FPSGAMECharacter.h"
+@@ -158,7 +161,16 @@
+     return Stroke.Num()>=2;
+ }
+ bool AForgeInteraction::Ready(FString& Reason) const
+-{if(!LoadError.IsEmpty()){Reason=LoadError;return false;}if(!bReady){Reason=TEXT("正在准备锻造工具…");return false;}return true;}
++{
++    if(!LoadError.IsEmpty()){Reason=LoadError;return false;}
++    if(!bReady){Reason=TEXT("正在准备锻造工具…");return false;}
++    if(!PC.IsValid()||!PC->GetPawn()||!Station.IsValid()||Station->IsFalling())
++    {Reason=TEXT("角色或铸造台当前无法操作");return false;}
++    const auto* Work=PC->GetPawn()->FindComponentByClass<UFPSForgeWorkComponent>();
++    if(!Work){Reason=TEXT("角色的锻造交互组件未就绪，请重新进入关卡");return false;}
++    // Reservation is independent of the world body and its animation assets.
++    return Work->ReadyForEntry(Reason);
++}
+ bool AForgeInteraction::Start(FName Recipe,FString& Reason,FName Metal)
+ {
+     if(!Ready(Reason)||!PC.IsValid()||!Station.IsValid()||Station->IsFalling())return false;
+@@ -167,7 +179,11 @@
+     const bool bReadableGuide=R->Blank==FName(TEXT("warhammer"))||R->Blank==FName(TEXT("single_handed"));
+     auto* Guide=bReadableGuide?Loaded<UStaticMesh>(HammerGuidePath):nullptr;
+     if(bReadableGuide&&!Guide){Reason=TEXT("锻打提示未就绪");return false;}
+-    if(!System->Start(Recipe,Reason,Metal))return false;
++    if(!System->CanStart(Recipe,Reason,Metal))return false;
++    auto* Work=PC->GetPawn()?PC->GetPawn()->FindComponentByClass<UFPSForgeWorkComponent>():nullptr;
++    if(!Work){Reason=TEXT("角色的锻造交互组件未就绪，请重新进入关卡");return false;}
++    if(!Work->RequestEnter(Station.Get(),R->Blank,Reason))return false;
++    PendingRecipe=Recipe;PendingMetal=Metal;bWaitingForJob=true;bStartSent=false;EnteredAt=FPlatformTime::Seconds();
+     SelectedBlank=R->Blank;BlankStage=INDEX_NONE;
+     if(bReadableGuide)
+     {
+@@ -191,6 +207,7 @@
+ {
+     auto* Player=PC.Get();if(!Player)return;
+     bRunning=true;WorkingPawn=Player->GetPawn();PreviousView=Player->GetViewTarget();
++    ColdSteelWorkstationView::BeginIdle(this,WorkingPawn.Get());
+     if(Station.IsValid())
+     {
+         auto* Body=Station->Body();
+@@ -214,6 +231,7 @@
+ bool AForgeInteraction::HandleInput(const FInputKeyEventArgs& Event)
+ {
+     if(!bRunning)return false;
++    if(Event.Key==EKeys::F6)return false;
+     if(Event.Key==EKeys::MouseX||Event.Key==EKeys::MouseY)
+     {
+         if(StrikeAt<0&&FinishAt<0)
+@@ -225,11 +243,15 @@
+     if(Event.Event==IE_Pressed)
+     {
+         if(Event.Key==EKeys::Escape||Event.Key==EKeys::Tab){Stop(true);return true;}
+-        if(Event.Key==EKeys::LeftMouseButton&&FinishAt<0&&StrikeAt<0&&System->Active())
++        if(Event.Key==EKeys::LeftMouseButton&&!bWaitingForJob&&FinishAt<0&&StrikeAt<0&&System->Active())
+         {
+             const int32 Target=System->TargetIndex();
+-            if(System->BeginStrike(Target,ContactSeconds,StrokeSeconds-ContactSeconds+.25))
+-            {StrikeAt=FPlatformTime::Seconds();StrikeAim=Aim;StrikeIndex=Target;bContact=false;}
++            bool OnBlank=false;const FVector Surface=AimPoint(Aim,&OnBlank);
++            const FVector2D SurfaceUV=ForgePointUV(Surface);
++            if(System->BeginStrike(Target,ContactSeconds,StrokeSeconds-ContactSeconds+.25,SurfaceUV))
++            {
++                StrikeAt=FPlatformTime::Seconds();StrikeAim=Aim;StrikeSurface=Surface;bStrikeOnBlank=OnBlank;StrikeIndex=Target;bContact=false;
++            }
+         }
+     }
+     return true;
+@@ -359,8 +381,25 @@
+     Super::Tick(DeltaTime);if(!bRunning)return;
+     auto* World=Station.IsValid()?Cast<AVoxelBuildWorld>(Station->GetOwner()):nullptr;
+     if(!PC.IsValid()||PC->GetPawn()!=WorkingPawn.Get()||!Station.IsValid()||Station->IsFalling()||!World||!World->HasPrefabAt(Station->AnchorCell())){Stop(false);return;}
++    if(const auto* Health=WorkingPawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Stop(false);return;}
+     const double Now=FPlatformTime::Seconds();
+-    if(!System->Active()&&FinishAt<0)FinishAt=Now;
++    auto* Work=WorkingPawn.IsValid()?WorkingPawn->FindComponentByClass<UFPSForgeWorkComponent>():nullptr;
++    if(!Work){LoadError=TEXT("角色的锻造交互组件已失效");Stop(true);return;}
++    if(!Work->Error().IsEmpty()){LoadError=Work->Error();Stop(true);return;}
++    if(bWaitingForJob)
++    {
++        if(!bStartSent&&Work->IsAligned())
++        {
++            FString Reason;bStartSent=true;
++            if(!System->Start(PendingRecipe,Reason,PendingMetal,Station.Get())){LoadError=Reason;Stop(true);return;}
++            if(WorkingPawn->HasAuthority())Work->BindJob(System);
++        }
++        if(bStartSent&&System->Active())bWaitingForJob=false;
++        else if(Now-EnteredAt>20.){LoadError=TEXT("等待铸造台响应超时，请重新开始");Stop(true);return;}
++        else return;
++    }
++    if(!Work->IsWorking()){Stop(true);return;}
++    if(Work->QuenchAge()>=0&&FinishAt<0)FinishAt=Now-Work->QuenchAge();
+     if(StrikeAt>=0&&Now-StrikeAt>=ContactSeconds&&!bContact){bContact=true;Contact();}
+     if(StrikeAt>=0&&Now-StrikeAt>=StrokeSeconds)StrikeAt=-100;
+     Present(DeltaTime);Sparks(DeltaTime);
+@@ -378,7 +417,7 @@
+     if(Stage!=BlankStage){BlankStage=Stage;Blank->SetStaticMesh(Blanks[BlankMeshOffsets.FindChecked(SelectedBlank)+Stage]);Blank->SetMaterial(0,BlankMaterial);}
+     const FQuat WorkRotation(FVector::UpVector,FMath::DegreesToRadians(WorkYaw));
+     FTransform Work(WorkRotation,FVector(29,22,91));
+-    const FVector AimSurface=AimPoint(StrikeAt>=0?StrikeAim:Aim);
++    const FVector AimSurface=StrikeAt>=0?StrikeSurface:AimPoint(Aim);
+     FTransform Tool=HammerFrame(AimSurface,StrikeAt>=0?Now-StrikeAt:-1);
+     float Heat=.95f+.25f*(1.f-float(System->ResolvedTargets())/System->TargetCount);
+     if(FinishAt>=0)
+@@ -397,7 +436,7 @@
+ }
+ void AForgeInteraction::Contact()
+ {
+-    bool OnBlank=false;const FVector Surface=AimPoint(StrikeAim,&OnBlank);
++    const bool OnBlank=bStrikeOnBlank;const FVector Surface=StrikeSurface;
+     const FVector2D ContactUV=ForgePointUV(Surface);
+     const double Radius=BlankProfile()->StrikeRadius;
+     bLastHit=System->Strike(StrikeIndex,OnBlank?ContactUV:FVector2D(-1,-1),FVector2D(Radius/24.,Radius/60.));LastFeedback=FPlatformTime::Seconds();
+@@ -536,11 +575,11 @@
+ void AForgeInteraction::RestorePlayer()
+ {
+     RestoreQuenchWater();
++    ColdSteelWorkstationView::Restore(PC.Get(),this,WorkingPawn.Get(),PreviousView.Get(),.25f);
+     if(auto* Player=PC.Get())
+     {
+         if(bHeldInput){Player->SetIgnoreMoveInput(false);Player->SetIgnoreLookInput(false);bHeldInput=false;Player->FlushPressedKeys();}
+         if(bHidPawn){Player->HiddenActors.Remove(WorkingPawn.Get());bHidPawn=false;}
+-        ColdSteelWorkstationView::Restore(Player,this,WorkingPawn.Get(),PreviousView.Get(),.25f);
+     }
+     if(Prompt){Prompt->RemoveFromParent();Prompt=nullptr;}
+ }
+@@ -548,13 +587,14 @@
+ {
+     if(!bRunning)return;bRunning=false;bReturning=true;
+     if(System&&System->Active()){FString Reason;System->Finish(Reason);}
++    if(WorkingPawn.IsValid())if(auto* Work=WorkingPawn->FindComponentByClass<UFPSForgeWorkComponent>())Work->RequestLeave();
+     SetActorTickEnabled(false);RestorePlayer();
+-    if(auto* OwnerHUD=HUD.Get())OwnerHUD->CompleteWorldForging(this,bReturnPanel&&Station.IsValid()&&!Station->IsFalling());
++    if(auto* OwnerHUD=HUD.Get())OwnerHUD->CompleteWorldForging(this,bReturnPanel&&Station.IsValid()&&!Station->IsFalling(),LoadError);
+     SetLifeSpan(.3f);
+ }
+ void AForgeInteraction::EndPlay(const EEndPlayReason::Type Reason)
+ {
+     RestoreQuenchWater();
+-    if(bRunning){bRunning=false;if(System&&System->Active()){FString Why;System->Finish(Why);}RestorePlayer();}
++    if(bRunning){bRunning=false;if(System&&System->Active()){FString Why;System->Finish(Why);}if(WorkingPawn.IsValid())if(auto* Work=WorkingPawn->FindComponentByClass<UFPSForgeWorkComponent>())Work->RequestLeave();RestorePlayer();}
+     if(Load.IsValid())Load->CancelHandle();Super::EndPlay(Reason);
+ }

@@ -1,0 +1,63 @@
+--- /dev/null
++++ b/Source/FPSGAME/Building/FPSForgeWorkComponent.h
+@@ -0,0 +1,60 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "FPSForgeWorkComponent.generated.h"
++
++class AFPSGAMECharacter;
++class AVoxelBuildPrefabActor;
++class UColdSteelForgingSystem;
++
++USTRUCT()
++struct FForgeWorkState
++{
++    GENERATED_BODY()
++    // Free, reserved, working, finishing the minigame's cooling presentation.
++    UPROPERTY() uint8 Phase=0;
++    UPROPERTY() TObjectPtr<AVoxelBuildPrefabActor> Station;
++    UPROPERTY() FTransform StationFrame;
++    UPROPERTY() float Started=0.f;
++    UPROPERTY() float QuenchAt=-1.f;
++};
++
++/** Station reservation only. The player idles in place; ForgingSystem owns the job. */
++UCLASS(ClassGroup=(Player))
++class FPSGAME_API UFPSForgeWorkComponent : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    UFPSForgeWorkComponent();
++    virtual void BeginPlay() override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++    virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Props) const override;
++    static bool IsWorking(const AActor* Actor);
++    bool IsWorking() const {return State.Phase!=0;}
++    bool IsAligned() const {return State.Phase==1;}
++    float QuenchAge() const;
++    AVoxelBuildPrefabActor* Station() const {return State.Station;}
++    const FString& Error() const {return LastError;}
++    bool ReadyForEntry(FString& Reason) const;
++    bool CanEnter(AVoxelBuildPrefabActor* Station,FString& Reason) const;
++    bool RequestEnter(AVoxelBuildPrefabActor* Station,FName Blank,FString& Reason);
++    void RequestLeave();
++    void BindJob(UColdSteelForgingSystem* System);
++private:
++    UFUNCTION(Server,Reliable) void ServerEnter(AVoxelBuildPrefabActor* Station,FName Blank);
++    UFUNCTION(Client,Reliable) void ClientEntryFailed(const FString& Reason);
++    UFUNCTION(Server,Reliable) void ServerLeave();
++    UFUNCTION() void OnRep_State();
++    UPROPERTY(ReplicatedUsing=OnRep_State) FForgeWorkState State;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelForgingSystem> AuthoritySystem;
++    TWeakObjectPtr<AFPSGAMECharacter> Character;
++    bool bApplied=false,bSavedYaw=true;
++    uint8 SavedMovement=1,SavedCustomMovement=0;
++    float LastHealth=0.f;
++    FString LastError;
++    float Clock() const;
++    void SetPhase(uint8 Phase);
++    void ApplyState();
++    bool StationValid() const;
++};

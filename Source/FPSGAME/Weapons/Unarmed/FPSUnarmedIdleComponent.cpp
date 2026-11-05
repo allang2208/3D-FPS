@@ -288,14 +288,15 @@ bool UFPSUnarmedIdleComponent::IsPunching() const
     return Quick&&Quick->GetStyle()==EQuickCombatStyle::UnarmedPunch&&Quick->IsOccupyingLeftHand();
 }
 
-bool UFPSUnarmedIdleComponent::CanPunch() const
+bool UFPSUnarmedIdleComponent::CanPunch(bool bContinuing) const
 {
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(!IsEquipped()||!Pawn||!Pawn->IsLocallyControlled()||!Arms||!Arms->GetSkeletalMeshAsset()
         ||Pawn->IsResolvingActionInterrupt()||Pawn->IsSwitchingWeapon()||Pawn->IsTraversing()
         ||Pawn->IsDodging()||Pawn->IsSliding()||Pawn->IsSpellGestureBlocking())return false;
     if(const auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return false;
-    if(AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Pawn->GetController())))return false;
+    const auto* Input=Cast<APlayerController>(Pawn->GetController());
+    if(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(Input):AFPSGAMEPlayerController::BlocksOngoingActions(Input))return false;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
     const auto* PC=Cast<APlayerController>(Pawn->GetController());
     return PC&&PC->GetViewTarget()==Pawn;
@@ -340,7 +341,7 @@ void UFPSUnarmedIdleComponent::AdvanceActionBeforeCamera(float Delta)
     if(Delta<=0.f)return;
     auto* Quick=Combat.Get();
     if(!Quick||Quick->GetStyle()!=EQuickCombatStyle::UnarmedPunch)return;
-    if(IsPunching()&&!CanPunch()){CancelAttack();return;}
+    if(IsPunching()&&!CanPunch(true)){CancelAttack();return;}
     const bool WasPunching=IsPunching();
     Quick->AdvanceAction(Delta);
     RefreshPunchSample();

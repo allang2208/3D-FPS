@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Skills/FPSMagicArrowRainComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSMagicArrowRainComponent.cpp
+@@ -58,12 +58,14 @@
+     if(P->IsLocallyControlled())
+     {
+         const auto* PC=::Cast<APlayerController>(P->GetController());
+-        if(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||P->IsChoosingAmmo())return false;
++        if(!PC||AFPSGAMEPlayerController::BlocksActionContinuation(PC)||P->IsChoosingAmmo())return false;
+     }
+     return true;
+ }
+ bool UFPSMagicArrowRainComponent::Trigger()
+ {
++    const auto* InputPawn=::Cast<APawn>(GetOwner());
++    if(!InputPawn||AFPSGAMEPlayerController::BlocksOngoingActions(::Cast<APlayerController>(InputPawn->GetController())))return false;
+     if(IsPending())return false;
+     if(bPrepared){CancelFromBow();if(auto* B=Bow())B->CancelAction(false);return true;}
+     if(const auto* P=::Cast<APawn>(GetOwner()))if(const auto* PS=P->GetPlayerState<AColdSteelPlayerState>();PS&&PS->InventoryRequestPending())return false;

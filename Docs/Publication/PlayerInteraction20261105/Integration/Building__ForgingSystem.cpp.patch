@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Building/ForgingSystem.cpp
++++ b/Source/FPSGAME/Building/ForgingSystem.cpp
+@@ -160,9 +160,9 @@
+     }
+     Reason=Free?TEXT("免材料制作 · 每轮制作一把"):TEXT("材料充足 · 每轮制作一把");return true;
+ }
+-bool UColdSteelForgingSystem::Start(FName Id,FString& Reason,FName Metal)
+-{
+-    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("forge.start"),Id,1,nullptr,FIntVector::ZeroValue,Metal);}
++bool UColdSteelForgingSystem::Start(FName Id,FString& Reason,FName Metal,AActor* Station)
++{
++    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("forge.start"),Id,1,Station,FIntVector::ZeroValue,Metal);}
+     if(!CanStart(Id,Reason,Metal))return false;
+     auto* M=Model();const auto* R=Find(Id);M->SyncRuntime();auto P=M->Snapshot();
+     TArray<FColdSteelCraftingInput> Inputs;InputsFor(Id,Metal,Inputs);
+@@ -222,11 +222,11 @@
+     Life=bStrikePending?StrikeTargetLife:float(FMath::Clamp((PhaseEndsAt-FPlatformTime::Seconds())/FMath::Max(PhaseEndsAt-TargetOpenedAt,.001),0.,1.));
+     return Life>0;
+ }
+-bool UColdSteelForgingSystem::BeginStrike(int32 ShownIndex,double ContactDelay,double RecoveryDelay)
++bool UColdSteelForgingSystem::BeginStrike(int32 ShownIndex,double ContactDelay,double RecoveryDelay,const FVector2D& SurfaceUV)
+ {
+     if(!bActive||bStrikePending||ShownIndex==INDEX_NONE||ShownIndex!=TargetIndex())return false;
+     FVector2D Point;float Life=0;if(!Target(Point,Life))return false;
+-    ColdSteelStationNet::Input(this,TEXT("forge"),0,NAME_None,ShownIndex,FVector2D(ContactDelay,RecoveryDelay));
++    ColdSteelStationNet::Input(this,TEXT("forge"),0,NAME_None,ShownIndex,FVector2D(ContactDelay,RecoveryDelay),SurfaceUV);
+     // Judge the player's reaction at input time, without charging the hammer's travel time.
+     StrikeTargetLife=Life;
+     bStrikePending=true;StrikeContactAt=FPlatformTime::Seconds()+FMath::Max(0.,ContactDelay);

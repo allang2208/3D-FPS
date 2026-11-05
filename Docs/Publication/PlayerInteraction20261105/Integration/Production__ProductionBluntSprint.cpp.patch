@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Production/ProductionBluntSprint.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntSprint.cpp
+@@ -1,4 +1,5 @@
+ #include "ProductionToolComponent.h"
++#include "../FPSGAMEPlayerController.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "../UI/ColdSteelStatusModel.h"
+@@ -140,7 +141,7 @@
+             if(Move->IsFalling())
+             {
+                 const auto* Controller=Pawn->GetController();
+-                if(!Controller||Controller->IsMoveInputIgnored())bBluntSprintLungeBlocked=true;
++                if(AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Controller)))bBluntSprintLungeBlocked=true;
+                 else
+                 {
+                     const FVector Before=Pawn->GetActorLocation();FHitResult Hit;

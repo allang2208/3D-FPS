@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+@@ -58,6 +58,7 @@
+ 
+ bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
+ {
++    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return false;
+     if(IsOffhandReloadTransition())return false;
+     if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsThunderRecallLocked())return false;
+     if(Spellbook&&Spellbook->IsFocusActive())return false;

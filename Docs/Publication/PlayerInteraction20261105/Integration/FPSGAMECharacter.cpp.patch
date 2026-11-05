@@ -1,0 +1,68 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -32,6 +32,7 @@
+ #include "Characters/FPSPlayerBodyComponent.h"
+ #include "Characters/FPSPlayerBodyMeshComponent.h"
+ #include "Movement/FPSFurnitureRestComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
+ #include "WeaponWeatherStateComponent.h"
+ #include "Multiplayer/ColdSteelPlayerState.h"
+ #include "Characters/FPSModularOutfitComponent.h"
+@@ -280,6 +281,7 @@
+     PrimaryActorTick.bCanEverTick = true;
+     CreateDefaultSubobject<UFPSPlayerBodyComponent>(TEXT("PlayerBody"));
+     CreateDefaultSubobject<UFPSFurnitureRestComponent>(TEXT("FurnitureRest"));
++    CreateDefaultSubobject<UFPSForgeWorkComponent>(TEXT("ForgeWork"));
+     CreateDefaultSubobject<UWeaponWeatherStateComponent>(TEXT("WeaponWeatherState"));
+     CreateDefaultSubobject<UFPSModularOutfitComponent>(TEXT("ModularOutfit"));
+     CreateDefaultSubobject<UFPSArmJointCorrectiveComponent>(TEXT("ArmJointCorrective"));
+@@ -1249,6 +1251,7 @@
+ 
+ void AFPSGAMECharacter::FirePressed()
+ {
++    if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryPress())return;
+     InterruptWeaponInspection();
+     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
+     if(IsDualWieldingPistols()){DualPistols->Trigger(0,true);return;}
+@@ -1345,6 +1348,7 @@
+ 
+ void AFPSGAMECharacter::FireInputReleased()
+ {
++    if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryRelease())return;
+     // Releasing a tap completes its punch; only priority interruption cancels it.
+     if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
+     if(Staff&&Staff->IsEquipped())
+@@ -1386,6 +1390,7 @@
+ 
+ void AFPSGAMECharacter::AimPressed()
+ {
++    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
+     InterruptWeaponInspection();
+     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
+     // 双持/法杖副手：右键盘手 1 只让机瞄节点指向目标。左手单持不同，
+@@ -1427,7 +1432,7 @@
+     // M24 uses the owner's rifle reload transaction and profile upload. A
+     // remote copy's empty-magazine tick must never consume the host's pouch.
+     if(IsM24Weapon()&&!IsLocallyControlled())return;
+-
++    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
+     if(IsOffhandReloadTransition())return;
+     InterruptWeaponInspection();
+     if(IsChoosingAmmo())return;
+@@ -4074,6 +4079,16 @@
+ bool AFPSGAMECharacter::HasOffhandSpellbook() const {return Spellbook&&Spellbook->IsEquipped();}
+ bool AFPSGAMECharacter::IsOffhandSpellbookPresented() const {return Spellbook&&Spellbook->OwnsLeftHand();}
+ bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook()||IsLoneOffhandPistol()||UOffhandKukriComponent::IsEquippedOn(this)||UKukriWeaponComponent::IsDualOn(this)||UStaffOffhandMeleeComponent::IsEquippedOn(this); }
++void AFPSGAMECharacter::PrepareForPanelInput()
++{
++    // Stop repeated input, not the current animation, contact or reload clock.
++    bFireHeld=false;bPistolShotPending=false;bBurstTriggerHeld=false;
++    GetWorldTimerManager().ClearTimer(FireTimerHandle);
++    if(HasOffhandPistol()){DualPistols->Trigger(0,false);DualPistols->Trigger(1,false);}
++    if(UnarmedIdle)UnarmedIdle->SetTriggerHeld(false);
++    CancelAmmoSelection();
++}
++
+ void AFPSGAMECharacter::SuspendWeaponForMenu()
+ {
+     CancelOffhandReload();
