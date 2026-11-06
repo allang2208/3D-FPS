@@ -1,0 +1,28 @@
+{
+  "peer_exits": [
+    {
+      "exit_code": 0,
+      "pid": 57540
+    },
+    {
+      "exit_code": 0,
+      "pid": 59120
+    },
+    {
+      "exit_code": 0,
+      "pid": 45876
+    }
+  ],
+  "mode": "Listen",
+  "outfit": "base body; no optional clothing",
+  "head": "kaitlin",
+  "passed": true,
+  "configured_loss_percent_each_peer": 3,
+  "rendered": false,
+  "heavy_cycles": 0,
+  "profile_id": "28ccf6c6-fe70-459d-ad28-4c8b2266bf4b",
+  "charge_start_lag_ms": 0,
+  "run": "D:\\FPS3D\\FPSGAME\\Tools\\HatchetThirdPersonReview20261106\\Listen-20261106-164507",
+  "configured_lag_ms_each_peer": 60,
+  "port": 19937
+}

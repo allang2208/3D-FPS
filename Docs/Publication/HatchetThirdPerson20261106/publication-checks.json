@@ -1,0 +1,40 @@
+{
+  "base_commit": "5a69db8a051a697c123c701f8738dc530ac0c6f8",
+  "scope": "Publication content only; existing mixed-workspace audit evidence is historical.",
+  "whitespace_errors": 0,
+  "binary_files": 0,
+  "high_confidence_credential_matches": 0,
+  "owned_body_routes": 10,
+  "unrelated_config_changes": 0,
+  "exact_integration_patches": [
+    {
+      "host": "Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp",
+      "exit_code": 0,
+      "matches_current_normalized_source": true,
+      "message": ""
+    },
+    {
+      "host": "Source/FPSGAME/Development/KukriCombatWireAudit.cpp",
+      "exit_code": 0,
+      "matches_current_normalized_source": true,
+      "message": ""
+    },
+    {
+      "host": "Source/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp",
+      "exit_code": 0,
+      "matches_current_normalized_source": true,
+      "message": ""
+    },
+    {
+      "host": "Source/FPSGAME/Development/KukriRuneWireAudit.cpp",
+      "exit_code": 0,
+      "matches_current_normalized_source": true,
+      "message": ""
+    }
+  ],
+  "required_cook_directory_present": true,
+  "retired_generator_references": [],
+  "build_rerun": false,
+  "gameplay_rerun": false,
+  "standalone_main_runtime_complete": false
+}

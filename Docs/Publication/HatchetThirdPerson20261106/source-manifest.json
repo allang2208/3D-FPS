@@ -1,0 +1,321 @@
+{
+  "base_commit": "5a69db8a051a697c123c701f8738dc530ac0c6f8",
+  "files": [
+    {
+      "path": ".gitignore",
+      "blob": "69f3d0d5702ecc2c7aa0de1a639c161363454c49",
+      "bytes": 352403
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "blob": "928eaae2b1276fad09dcf94eac4f2b53810eb64f",
+      "bytes": 1402894
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/asset-references.json",
+      "blob": "292311c48ea516d8a1b9a92ec5977a234a302af0",
+      "bytes": 2165
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/audit-result.json",
+      "blob": "9d13a0b7adce7012c0677e58754d381d96df5104",
+      "bytes": 13205
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/base-hatchet-listen-receipt.json",
+      "blob": "2083d0d2d64df87dc876e78cfce766e4b682641b",
+      "bytes": 611
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/base-hatchet-listen.json",
+      "blob": "90ebb97e909e20ec335d7cf4c919f8f7d897b208",
+      "bytes": 7380
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/falcon-clock-52.txt",
+      "blob": "7b8a4603f5b07a6ba363a7d3c7fbf03d110680d0",
+      "bytes": 2575
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/falcon-dedicated-receipt.json",
+      "blob": "0392e11f1fdd2f3ab9e0f65831b5a3a072f8ed80",
+      "bytes": 615
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/falcon-dedicated.json",
+      "blob": "9d8ac929845a7a9d8ab498bf1bc6eb04b2f95b5e",
+      "bytes": 4119
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/falcon-listen-receipt.json",
+      "blob": "f63dbf7167b5dd40e2ce7dc65a440cc7ec96dc74",
+      "bytes": 609
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/falcon-listen.json",
+      "blob": "6909e9fa5b7f5ed0338306ca1a9fb228d33d1473",
+      "bytes": 4124
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/first-person-restoration.json",
+      "blob": "adaea67a433d04cdad49b196f4387c7fe62708d2",
+      "bytes": 677
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/native-188.json",
+      "blob": "827cff4ed19a68f81b70dbf16a5ba1e91cd484b5",
+      "bytes": 16803
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/rune-fixture-result.json",
+      "blob": "6b5536a83f690be0b2e2b68dba142c5a5dc6e230",
+      "bytes": 1451
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/rune-wire-6.json",
+      "blob": "055d66c2855f4b9ee9417f99a73b7d8c48bd693c",
+      "bytes": 2175
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Evidence/saved-body-surface-review.json",
+      "blob": "918464a8b6680f6d18e88a3044f5bbe7b259af50",
+      "bytes": 4289
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Integration/Source__FPSGAME__Development__KukriCombatWireAudit.cpp.patch",
+      "blob": "823f1b4d0034232160081629d5405f9c0ed7c842",
+      "bytes": 1420
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Integration/Source__FPSGAME__Development__KukriRuneWireAudit.cpp.patch",
+      "blob": "cc508fbd892bda453f2d0f3791a6118b5c7433a8",
+      "bytes": 995
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Integration/Source__FPSGAME__Multiplayer__ColdSteelKukriAuthority.cpp.patch",
+      "blob": "36b1f87054ed659b4f40065b0e36cb0eff675f3b",
+      "bytes": 2348
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Integration/Source__FPSGAME__Multiplayer__KukriRuneAuditCases.cpp.patch",
+      "blob": "51a84724226f18fa75741b4bae5b43b709a91020",
+      "bytes": 2349
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Integration/authored-kukri-selection.cpp.inc",
+      "blob": "518e3bb8b84fc3808c541830a4cf8d2cca938413",
+      "bytes": 2090
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/Integration/sample-kukri-state.cpp.inc",
+      "blob": "bd7e83b5a08df3fb0af19fd413628145a150ba84",
+      "bytes": 5510
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/README.md",
+      "blob": "eee87aa5ba2cb2fbe8291d1d33fce7a6bddf235b",
+      "bytes": 4131
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/asset-dependencies.json",
+      "blob": "5bc73b957e46cb6455c2d57cd0e311fe04e4b0ec",
+      "bytes": 3860
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/body-routes-manifest.json",
+      "blob": "0b81d326233d1608c953d1a9a3ba59fcb0d1d734",
+      "bytes": 1979
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/cleanup-manifest.json",
+      "blob": "1bf01fd04cb4388dd6e1510210566082f2d2e172",
+      "bytes": 3500
+    },
+    {
+      "path": "Docs/Publication/HatchetThirdPerson20261106/integration-prerequisites.json",
+      "blob": "bf4a20d6974eb380561ad76f99be1b4afeb034dc",
+      "bytes": 2961
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriMotion.h",
+      "blob": "266ec00735c5b7cc824d04556ba4903e9cec12e4",
+      "bytes": 9878
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriRifts.cpp",
+      "blob": "d44204515f3f9a9cf613f407e8f02b1241108f0c",
+      "bytes": 12622
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "blob": "75181a4ead0d0a63eceb2a194152a4d33ea8f782",
+      "bytes": 20732
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "blob": "e44ecf1ba26f972d15ba18b5e3ac5e5b7940d6fa",
+      "bytes": 56327
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "blob": "f35971c08c330f2a3496b6547307e7804420365c",
+      "bytes": 15951
+    },
+    {
+      "path": "Source/FPSGAME/Development/KukriEnchantAuditFixture.h",
+      "blob": "c72bc0a66e508f3c1a274fbebb07b4e06d8c413c",
+      "bytes": 1449
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/SwiftFalconHeavy.h",
+      "blob": "17a3bd4f99b395e7a7043af26fc85d6497de5184",
+      "bytes": 2797
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/SwiftFalconRibbons.h",
+      "blob": "9e354cab2e82d3a002380714ae7165740e1bdcaa",
+      "bytes": 16584
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/ElbowAnatomy/author_helpers.py",
+      "blob": "49ba536b049093ada6db069099e64bb757486403",
+      "bytes": 2122
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/ElbowAnatomy/diagnose_saved.py",
+      "blob": "7b4c4862fa034f5a5f66af5e0e5d8fb1ccea9a60",
+      "bytes": 1360
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/ElbowAnatomy/save_corrected.py",
+      "blob": "fc3cfd3eeb895ac9a334d89bd7aa7f646261cc87",
+      "bytes": 3407
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/PullAnatomy/SelfReview/render_body.py",
+      "blob": "32001ccef47be55a164083f9af8afcc8e9da1142",
+      "bytes": 3318
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/PullAnatomy/author_pull.py",
+      "blob": "2d0aebb899f3b5af3dbe188cc2a093cfe28b294f",
+      "bytes": 1670
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/PullAnatomy/check_saved.py",
+      "blob": "c6c78eac8355ee640982eba102a1eb1ac2e43b2e",
+      "bytes": 4728
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/PullAnatomy/read_pull.py",
+      "blob": "dcdd6bd5fee7e10facb9013cba757575c2897a1c",
+      "bytes": 2213
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/PullAnatomy/readback.py",
+      "blob": "35989405ce568fd6a00a2d79f6fd19cdd4ec16dc",
+      "bytes": 4085
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/PullAnatomy/render_body.py",
+      "blob": "7304737c4ec488f60a7fc4ef9f6c82236250c4a3",
+      "bytes": 3319
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/PullAnatomy/save_pull.py",
+      "blob": "fec6c8ac367ca611f68aaa43286734567b99e564",
+      "bytes": 3672
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/author.py",
+      "blob": "094c75feafcc8fe82b14882f74360cbd707cc341",
+      "bytes": 11874
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/elbow_skin.py",
+      "blob": "7c15add0e33927a0e444e7424e80bef777800c1e",
+      "bytes": 4221
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/inspect_motion.py",
+      "blob": "ad347760da58845cc47175ea0fc45ffebbf82573",
+      "bytes": 2122
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/inspect_skin.py",
+      "blob": "80b126424ab6b3234318aed70411188e2a144508",
+      "bytes": 3085
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/pull_arm.py",
+      "blob": "6f7974b81ae295ea81f6ef4f26cd05f651ff955b",
+      "bytes": 4859
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/read_saved.py",
+      "blob": "9b5982f9a7420ed76fe61eab98981f24d519dba3",
+      "bytes": 2044
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/read_source.py",
+      "blob": "68c0fa81316b2bb8c58f6dfeea416deb45d50989",
+      "bytes": 2469
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/save_assets.py",
+      "blob": "061c5b0651b1564aae2477fa1bdc12fab6bec7ee",
+      "bytes": 4824
+    },
+    {
+      "path": "SourceAssets/HatchetDualChopRepair20261106/ue_job.ps1",
+      "blob": "808e2e995ae5cbf345334b433847310e7d31d46a",
+      "bytes": 1642
+    },
+    {
+      "path": "Tools/HatchetThirdPersonReview20261106/RuneFixtureMigration/build.ps1",
+      "blob": "2bcf714f6fae492f9858f0e864343aacef31b62a",
+      "bytes": 892
+    },
+    {
+      "path": "Tools/HatchetThirdPersonReview20261106/RuneFixtureMigration/run.ps1",
+      "blob": "894bb808cf72fa170fd180b4bb17a86221df2348",
+      "bytes": 5270
+    },
+    {
+      "path": "Tools/HatchetThirdPersonReview20261106/build.ps1",
+      "blob": "2bcf714f6fae492f9858f0e864343aacef31b62a",
+      "bytes": 892
+    },
+    {
+      "path": "Tools/HatchetThirdPersonReview20261106/run_falcon_clock.ps1",
+      "blob": "3776f216ad0a6df02ec8205330856e0c7796ef19",
+      "bytes": 1765
+    },
+    {
+      "path": "Tools/HatchetThirdPersonReview20261106/run_native.ps1",
+      "blob": "4a8d4d0602e9fbff2aab7e7701a145283cc5776e",
+      "bytes": 1745
+    },
+    {
+      "path": "Tools/HatchetThirdPersonReview20261106/run_wire.ps1",
+      "blob": "cec9900af57aeb0e123efafeecbc195b57397f48",
+      "bytes": 7605
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/hatchet-dedicated-actions.md",
+      "blob": "d7b0f68d758aa1fd1434182159c84ff76b3f28d8",
+      "bytes": 8852
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/equipment-runes-and-attack-receipts.md",
+      "blob": "fd36e35a978c354295998db2149c0cb75c6bd8ea",
+      "bytes": 15097
+    }
+  ],
+  "record_files_without_self_hashes": [
+    "source-manifest.json",
+    "publication-checks.json"
+  ],
+  "binary_assets": "local only; see asset-dependencies.json",
+  "integration_scope": "Integration excerpts and patches are not applied runtime hosts; see integration-prerequisites.json"
+}

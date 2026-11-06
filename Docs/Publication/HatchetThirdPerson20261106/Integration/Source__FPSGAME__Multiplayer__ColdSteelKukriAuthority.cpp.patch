@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp
+@@ -23,0 +24,2 @@
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
+@@ -99,2 +101,7 @@
+-    const auto Reply=[&](bool Accepted){ClientKukriAttackResult(Serial,ActionPawn,Accepted,
+-        ShadowModel?ShadowModel->Snapshot().UppercutStaminaSpent:0.);};
++    const auto Reply=[&](bool Accepted,const TCHAR* Reason=TEXT("accepted"))
++    {
++        if(FParse::Param(FCommandLine::Get(),TEXT("KukriHeavyNetTrace")))
++            UE_LOG(LogTemp,Display,TEXT("KUKRI_BEGIN_RESULT serial=%u stage=%u accepted=%d reason=%s age=%.3f ready_delta=%.3f next=%u active=%u"),
++                Serial,Stage,Accepted,Reason,Now-ClientStartedAt,ClientStartedAt-KukriReadyAt,KukriNextStage,KukriAttack.Serial);
++        ClientKukriAttackResult(Serial,ActionPawn,Accepted,ShadowModel?ShadowModel->Snapshot().UppercutStaminaSpent:0.);
++    };
+@@ -105 +112 @@
+-    {Reply(false);return;}
++    {Reply(false,TEXT("start_timestamp"));return;}
+@@ -113 +120 @@
+-    {Reply(false);return;}
++    {Reply(false,TEXT("identity_or_action_gate"));return;}
+@@ -115 +122 @@
+-    if(Key==KukriChainKey&&StartedAt+.08<KukriReadyAt){Reply(false);return;}
++    if(Key==KukriChainKey&&StartedAt+.08<KukriReadyAt){Reply(false,TEXT("cadence"));return;}
+@@ -120 +127 @@
+-    {Reply(false);return;}
++    {Reply(false,TEXT("stage_or_dash_ready"));return;}
+@@ -127 +134 @@
+-    if(!ShadowModel->SpendStamina(Cost)){Reply(false);return;}
++    if(!ShadowModel->SpendStamina(Cost)){Reply(false,TEXT("stamina"));return;}
+@@ -213 +220,7 @@
+-    {Reason=TEXT("kukri attack not committed, out of contact window or duplicate blade target");return false;}
++    {
++        if(FParse::Param(FCommandLine::Get(),TEXT("KukriHeavyNetTrace")))
++            UE_LOG(LogTemp,Display,TEXT("KUKRI_CONTACT_REJECT serial=%u active=%u mastery=%u/%u hand=%d age=%.3f window=%.3f..%.3f remaining=%.3f duplicate=%d equipment=%d"),
++                R.KukriAttackSerial,A.Serial,R.MasteryAttackSerial,A.MasterySerial,Hand,Age,A.ContactStart[Hand],A.ContactEnd[Hand],
++                A.Until-Now,R.Target&&A.Targets[Hand].Contains(R.Target.Get()),MatchesKukriEquipment());
++        Reason=TEXT("kukri attack not committed, out of contact window or duplicate blade target");return false;
++    }

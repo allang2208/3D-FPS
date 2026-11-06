@@ -1,0 +1,32 @@
+{
+  "scope": "Selected hatchet third-person routes; does not prove shared runtime integration",
+  "config": "Content/ColdSteelData/player_body.json",
+  "roles": {
+    "Kukri.Falcon.Charge": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconCharge.A_FalconCharge",
+    "Kukri.Falcon.Release": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconRelease.A_FalconRelease",
+    "Kukri.Falcon.DualCharge": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualCharge.A_FalconDualCharge",
+    "Kukri.Falcon.DualRelease": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualRelease.A_FalconDualRelease",
+    "Kukri.Hatchet.DualChop": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Jason/A_HatchetDualCombo3.A_HatchetDualCombo3"
+  },
+  "body_variants": {
+    "kaitlin": {
+      "clips": {
+        "Kukri.Falcon.Charge": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconCharge.A_FalconCharge",
+        "Kukri.Falcon.Release": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconRelease.A_FalconRelease",
+        "Kukri.Falcon.DualCharge": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualCharge.A_FalconDualCharge",
+        "Kukri.Falcon.DualRelease": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualRelease.A_FalconDualRelease",
+        "Kukri.Hatchet.DualChop": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Kaitlin/A_HatchetDualCombo3.A_HatchetDualCombo3"
+      }
+    }
+  },
+  "required_source_files": [
+    "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "Source/FPSGAME/Characters/FPSBodyKukriMotion.h",
+    "Source/FPSGAME/Characters/FPSBodyKukriRifts.cpp"
+  ],
+  "required_cook_directories": [
+    "/Game/Weapons/TacticalHatchet20261101"
+  ]
+}

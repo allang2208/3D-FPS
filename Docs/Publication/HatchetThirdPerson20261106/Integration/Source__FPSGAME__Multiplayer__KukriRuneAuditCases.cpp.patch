@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp
++++ b/Source/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp
+@@ -4,0 +5 @@
++#include "../Development/KukriEnchantAuditFixture.h"
+@@ -14,0 +16 @@
++#include "Engine/GameInstance.h"
+@@ -27 +29,2 @@
+-    const auto Item=[&](int32 Cell,const FString& RuneId)
++    const auto* Enchant=Pawn->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
++    const auto Item=[&](int32 Cell,const FString& SuffixId)
+@@ -30,5 +33,3 @@
+-        TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Value.Data),Data);
+-        if(!Data)Data=MakeShared<FJsonObject>();
+-        auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("blade_2"),RuneId);
+-        Data->SetObjectField(TEXT("gunsmith_parts"),Parts);
+-        Value.Data.Reset();FJsonSerializer::Serialize(Data,TJsonWriterFactory<>::Create(&Value.Data));return Value;
++        if(!SuffixId.IsEmpty())Check(KukriEnchantAuditFixture::SetSuffix(Value,Enchant,SuffixId),
++            TEXT("rune fixture uses a compatible suffix from the current scroll catalog"));
++        return Value;
+@@ -36 +37 @@
+-    const auto Main=Item(6,TEXT("frost_raven_rune")),Off=Item(8,TEXT("frost_raven_rune"));
++    const auto Main=Item(6,TEXT("frostHawk")),Off=Item(8,TEXT("frostHawk"));
+@@ -45 +46 @@
+-    auto Plain=Main;Plain.Data=TEXT("{}");auto PlainSeed=Seed;PlainSeed.Items={Plain};
++    auto Plain=Item(6,TEXT(""));Plain.InstanceId=Main.InstanceId;auto PlainSeed=Seed;PlainSeed.Items={Plain};
+@@ -73 +74 @@
+-    const auto MixedMain=Item(6,TEXT("berserker_rune"));auto Mixed=Seed;Mixed.Items={MixedMain,Off};
++    const auto MixedMain=Item(6,TEXT("bloodWolf"));auto Mixed=Seed;Mixed.Items={MixedMain,Off};
+@@ -137 +138 @@
+-    auto DoubleWolf=Mixed;DoubleWolf.Items={MixedMain,Item(8,TEXT("berserker_rune"))};
++    auto DoubleWolf=Mixed;DoubleWolf.Items={MixedMain,Item(8,TEXT("bloodWolf"))};
+@@ -155 +156,3 @@
+-        Data->GetObjectField(TEXT("gunsmith_parts"))->SetStringField(TEXT("blade_1"),TEXT("canine_blade"));
++        const TSharedPtr<FJsonObject>* Existing=nullptr;
++        auto Parts=Data->TryGetObjectField(TEXT("gunsmith_parts"),Existing)?*Existing:MakeShared<FJsonObject>();
++        Parts->SetStringField(TEXT("blade_1"),TEXT("canine_blade"));Data->SetObjectField(TEXT("gunsmith_parts"),Parts);

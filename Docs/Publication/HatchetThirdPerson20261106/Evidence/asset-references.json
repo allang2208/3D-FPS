@@ -1,0 +1,69 @@
+{
+  "checks": [
+    {
+      "body": "Jason",
+      "role": "DualCharge",
+      "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualCharge",
+      "reference_matches": true,
+      "hash_matches": true
+    },
+    {
+      "body": "Jason",
+      "role": "Combo3",
+      "path": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Jason/A_HatchetDualCombo3",
+      "reference_matches": true,
+      "hash_matches": true
+    },
+    {
+      "body": "Kaitlin",
+      "role": "DualCharge",
+      "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualCharge",
+      "reference_matches": true,
+      "hash_matches": true
+    },
+    {
+      "body": "Kaitlin",
+      "role": "Combo3",
+      "path": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Kaitlin/A_HatchetDualCombo3",
+      "reference_matches": true,
+      "hash_matches": true
+    },
+    {
+      "body": "Jason",
+      "role": "Release",
+      "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconRelease",
+      "reference_matches": true,
+      "hash_matches": true
+    },
+    {
+      "body": "Jason",
+      "role": "DualRelease",
+      "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualRelease",
+      "reference_matches": true,
+      "hash_matches": true
+    },
+    {
+      "body": "Kaitlin",
+      "role": "Release",
+      "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconRelease",
+      "reference_matches": true,
+      "hash_matches": true
+    },
+    {
+      "body": "Kaitlin",
+      "role": "DualRelease",
+      "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualRelease",
+      "reference_matches": true,
+      "hash_matches": true
+    },
+    {
+      "first_person": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Arms/A_FalconDualCharge",
+      "original_hash_matches": true
+    },
+    {
+      "first_person": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Arms/A_FalconDualRelease",
+      "original_hash_matches": true
+    }
+  ],
+  "retired_first_person_header_has_no_consumer": true
+}

@@ -1,0 +1,49 @@
+[
+  {
+    "host": "Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp",
+    "base_local_sha256": "3f4f67d953ea1197dd5d793722a5e455aab5c4bb899d813e2cbffcbe89488c96",
+    "current_local_sha256": "a85f45a2e9fa59e3b485a7483c70b67dd857df3f4ac3a1bade1dcc0eb0aaf603",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelKukriAuthority.cpp.patch",
+    "apply_option": "--unidiff-zero; require the recorded host base",
+    "status": "requires recorded local host; not applied to Source in this publication"
+  },
+  {
+    "host": "Source/FPSGAME/Development/KukriCombatWireAudit.cpp",
+    "base_local_sha256": "e2164ccddec2e1a2323166d27c04a126528e3ac6c0d4cef43c7314016c6be81b",
+    "current_local_sha256": "895724860eb8b19c761356b1a5fb2a673b32d9c210132b53922dc53dbce48c23",
+    "patch": "Integration/Source__FPSGAME__Development__KukriCombatWireAudit.cpp.patch",
+    "apply_option": "--unidiff-zero; require the recorded host base",
+    "status": "requires recorded local host; not applied to Source in this publication"
+  },
+  {
+    "host": "Source/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp",
+    "base_local_sha256": "d7a5cdde594013dcc8bcf8b765ec10111ea08211c90d6caee4283e087bf41432",
+    "current_local_sha256": "7ae3ccbfd71566c7268c93893f1184278af18e5d89ef27f872f5ecdc983b8d9f",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__KukriRuneAuditCases.cpp.patch",
+    "apply_option": "--unidiff-zero; require the recorded host base",
+    "status": "requires recorded local host; not applied to Source in this publication"
+  },
+  {
+    "host": "Source/FPSGAME/Development/KukriRuneWireAudit.cpp",
+    "base_local_sha256": "5687ffd5ec68d26397211a5cb281539767c4407afbeabacb77bf30b9f422851e",
+    "current_local_sha256": "2586f7552c6650ea88d1348081a56f30c67205223bf9ea616ad032746ed1d47f",
+    "patch": "Integration/Source__FPSGAME__Development__KukriRuneWireAudit.cpp.patch",
+    "apply_option": "--unidiff-zero; require the recorded host base",
+    "status": "requires recorded local host; not applied to Source in this publication"
+  },
+  {
+    "host": "Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp",
+    "current_local_sha256": "2ac0cc22f3ffa6a43c321c5d20bfbb43d180fbbf436b644176f9b691ce283f80",
+    "status": "current executor sampler excerpt; Falcon weapon executor and OffhandBladeDraw prerequisites are not published by this batch"
+  },
+  {
+    "host": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "current_local_sha256": "2b16208f9256291ea05cba426a095134db31734b7f3e98a8f9fb8946862567e9",
+    "status": "shared authored-body library prerequisite; excerpt is not an applied main patch"
+  },
+  {
+    "host": "Source/FPSGAME/Weapons/Kukri/KukriEnchantment.h",
+    "current_local_sha256": "69c3b95ed1513d07b9b88cb6d9340d9914a30a0537754233aae6bd34f72bda44",
+    "status": "live enchantment migration required before applying rune fixture patches; current catalog and consumer migration remain outside this publication"
+  }
+]

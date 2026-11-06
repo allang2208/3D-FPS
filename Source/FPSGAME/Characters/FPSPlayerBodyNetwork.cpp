@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "FPSBodyKukriMotion.h"
 #include "../FPSGAMECharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -30,6 +31,8 @@ bool IsTransition(const FFPSBodyState& A,const FFPSBodyState& B)
         ||A.bBowTwoHandConsume!=B.bBowTwoHandConsume
         ||((A.BowStowWeight>=1.f-UE_KINDA_SMALL_NUMBER)!=(B.BowStowWeight>=1.f-UE_KINDA_SMALL_NUMBER))
         ||((A.BowClipRate<0.f)!=(B.BowClipRate<0.f))||(A.BowStringContact>0.f)!=(B.BowStringContact>0.f)
+        ||(FPSBodyKukriMotion::HasExecutorClock(A)&&FPSBodyKukriMotion::HasExecutorClock(B)
+            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
         ||A.bHasHandholds!=B.bHasHandholds||A.bDual!=B.bDual||A.bOffhandPistol!=B.bOffhandPistol
         ||A.RightHand.bReloading!=B.RightHand.bReloading||A.LeftHand.bReloading!=B.LeftHand.bReloading
         ||A.RightHand.bEquipping!=B.RightHand.bEquipping||A.LeftHand.bEquipping!=B.LeftHand.bEquipping
@@ -66,7 +69,9 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
             DisplayState.BowStowRate=Rate(DisplayState.BowStowWeight,P.BowStowWeight,Delta);
         if(DisplayState.Action==P.Action&&DisplayState.ActionVariant==P.ActionVariant
             &&(DisplayState.Action==EFPSBodyAction::Guard||DisplayState.ActionProgress+.08f>=P.ActionProgress))
-            DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
+            // Preserve the executor rate at hit-stop and resume transitions.
+            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState))
+                DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
         if(DisplayState.Motion==P.Motion&&DisplayState.MotionProgress+.08f>=P.MotionProgress)
             DisplayState.MotionProgressRate=Rate(DisplayState.MotionProgress,P.MotionProgress,Delta);
         const auto HandRate=[&](FFPSBodyHandState& Hand,const FFPSBodyHandState& Before)

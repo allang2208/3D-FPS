@@ -1,0 +1,86 @@
+{
+  "assets": [
+    {
+      "body": "Jason",
+      "role": "Kukri.Falcon.Charge",
+      "package": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconCharge",
+      "bytes": 1030626,
+      "sha256": "eec3f7ed4955f62ac13e1b0cb08dcd3a54486a1640e451ecee50f94cfa45a3ba",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Jason",
+      "role": "Kukri.Falcon.Release",
+      "package": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconRelease",
+      "bytes": 988780,
+      "sha256": "0f1d44b4b92b9bf83a357844d712f4254711eca5a6f4d624e6b40c8d9bc4584d",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Jason",
+      "role": "Kukri.Falcon.DualCharge",
+      "package": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualCharge",
+      "bytes": 1158419,
+      "sha256": "f3c9444d45a9cc34fb338ec48b18cfefafad35ee34c375a11248800362a2c442",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Jason",
+      "role": "Kukri.Falcon.DualRelease",
+      "package": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualRelease",
+      "bytes": 1081916,
+      "sha256": "b71de9dcc7a5731a3ecb95955b14fbb84e54fc3b9a77d08c6f04597dc1f6aa99",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Jason",
+      "role": "Kukri.Hatchet.DualChop",
+      "package": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Jason/A_HatchetDualCombo3",
+      "bytes": 1178330,
+      "sha256": "b855f857bc4453bb2070a947b86537f51f70c3c90f0089dc5b7da646c1146437",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Kaitlin",
+      "role": "Kukri.Falcon.Charge",
+      "package": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconCharge",
+      "bytes": 906787,
+      "sha256": "5de1df264313067359a057dd0844e9da262f4eab33b9c188d2e86bb531ffd5c0",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Kaitlin",
+      "role": "Kukri.Falcon.Release",
+      "package": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconRelease",
+      "bytes": 945388,
+      "sha256": "0f9c0c008617f0bd2a76ae0013de7d79d9028d296bdff9179acf7b1eac471884",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Kaitlin",
+      "role": "Kukri.Falcon.DualCharge",
+      "package": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualCharge",
+      "bytes": 1057811,
+      "sha256": "f724190e8a96216f3939c632c78e6e887b18bfb015f0b8a4ee74c65bd93e3edb",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Kaitlin",
+      "role": "Kukri.Falcon.DualRelease",
+      "package": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualRelease",
+      "bytes": 1019900,
+      "sha256": "54d5d4fa8fb5a520f745697ad7fa03e50a3f136e51c2cb72ce54dbb8f961d33d",
+      "publication": "local only; binary redistribution not approved"
+    },
+    {
+      "body": "Kaitlin",
+      "role": "Kukri.Hatchet.DualChop",
+      "package": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Kaitlin/A_HatchetDualCombo3",
+      "bytes": 1087130,
+      "sha256": "3b8503ca36ee34bc0a6a2937fe27df48d13589693b53f5a7bff1c5d37d4048f9",
+      "publication": "local only; binary redistribution not approved"
+    }
+  ],
+  "authoring_inputs": "Retain source JSON, NPZ, original skeleton/mesh and Before folders locally; generated actor animation data and source meshes are not in this text-only publication.",
+  "first_person": "Original restored packages retained; withdrawn candidates moved to trash."
+}

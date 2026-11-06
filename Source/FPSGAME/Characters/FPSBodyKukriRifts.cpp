@@ -5,6 +5,9 @@
 #include "FPSBodyKukriMotion.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/Kukri/KukriRhythm.h"
+#include "../Weapons/Kukri/SwiftFalconHeavy.h"
+#include "../Weapons/Kukri/SwiftFalconRibbons.h"
+#include "../Weapons/Kukri/HatchetDualChopRhythm.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/DynamicMeshComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
@@ -19,6 +22,7 @@
 namespace BodyKukriRift
 {
 constexpr int32 Stations=32;
+const FName FalconChop(TEXT("FalconChopTrail")),FalconPull(TEXT("FalconPullTrail"));
 UE::Geometry::FDynamicMesh3 Ribbon()
 {
     using namespace UE::Geometry;
@@ -46,8 +50,9 @@ void FFPSBodyKukriRifts::Sample(AActor* Owner,int32 Hand,const FString& Weapon,F
     {T.Points.Reset();T.Weapon=Weapon;T.Action=Action;T.Progress=-1.f;if(T.Mesh.IsValid())T.Mesh->SetVisibility(false);}
     if(Progress<=T.Progress+UE_SMALL_NUMBER)return; // A replicated hit-stop adds no phantom motion.
     T.Progress=Progress;T.LastSample=Now;T.Whirlwind=Whirlwind;
-    FPoint P;P.Inner=Knife.TransformPosition(KukriRhythm::BladeTip*.40f);
-    P.Outer=Knife.TransformPosition(KukriRhythm::BladeTip*1.35f);P.At=Now;
+    const bool Falcon=Action==BodyKukriRift::FalconChop||Action==BodyKukriRift::FalconPull||Action==TEXT("HatchetDualAttack3");
+    FPoint P;P.Inner=Knife.TransformPosition(Falcon?SwiftFalconRibbons::EdgeBase:KukriRhythm::BladeTip*.40f);
+    P.Outer=Knife.TransformPosition(Falcon?SwiftFalconRibbons::EdgeTip:KukriRhythm::BladeTip*1.35f);P.At=Now;
     if(!T.Points.IsEmpty())
     {
         const auto& Last=T.Points.Last();
@@ -178,6 +183,11 @@ void UFPSPlayerBodyComponent::UpdateObserverKukriRifts()
         if(W.ItemInstance!=(Hand?S.OffhandInstance:S.WeaponInstance))continue;
         if(Hand==1&&S.Family==TEXT("Kukri")&&S.ActionVariant==TEXT("Uppercut"))continue;
         float Start=FMath::Max(0.f,S.ContactFraction-(Spin?0.f:.08f)),End=S.ReleaseFraction;
+        if(S.Action==EFPSBodyAction::Thrust&&S.ActionVariant==TEXT("HatchetDualAttack3"))
+        {
+            Start=HatchetDualChopRhythm::Rift.Start/KukriRhythm::DualThrustSeconds;
+            End=HatchetDualChopRhythm::Rift.End/KukriRhythm::DualThrustSeconds;
+        }
         if(S.Action==EFPSBodyAction::Strike&&(S.ActionVariant==TEXT("DualAttack")||S.ActionVariant==TEXT("DualAttack2")))
         {
             // The second blade swings later. Derive the author length from the
@@ -191,7 +201,16 @@ void UFPSPlayerBodyComponent::UpdateObserverKukriRifts()
         auto* Parent=Blade->GetAttachParent();if(!Parent)continue;
         const FTransform Knife=Blade->GetRelativeTransform()*Parent->GetSocketTransform(Blade->GetAttachSocketName(),RTS_World);
         const double Now=GetWorld()->GetTimeSeconds();
-        if(Attack)R.SampleWindow(GetOwner(),Hand,W.ItemInstance,S.ActionVariant,P,Start,End,Spin,Knife,Now);
+        if(S.Action==EFPSBodyAction::HeavyStrike&&(S.ActionVariant==SwiftFalconHeavy::Release||S.ActionVariant==SwiftFalconHeavy::DualRelease))
+        {
+            const bool Pull=P*SwiftFalconHeavy::Length>=SwiftFalconHeavy::Hook;
+            const float Offset=Pull?SwiftFalconHeavy::Hook:0.f;
+            Start=((Pull?SwiftFalconHeavy::PullTrail:SwiftFalconHeavy::ChopTrail)-Offset)/SwiftFalconHeavy::Length;
+            End=((Pull?SwiftFalconHeavy::PullOut:SwiftFalconHeavy::ChopOut)-Offset)/SwiftFalconHeavy::Length;
+            R.SampleWindow(GetOwner(),Hand,W.ItemInstance,Pull?BodyKukriRift::FalconPull:BodyKukriRift::FalconChop,
+                P-Offset/SwiftFalconHeavy::Length,Start,End,false,Knife,Now);
+        }
+        else if(Attack)R.SampleWindow(GetOwner(),Hand,W.ItemInstance,S.ActionVariant,P,Start,End,Spin,Knife,Now);
         R.RememberPose(Hand,W.ItemInstance,Knife,Now);
     }
 }

@@ -47,3 +47,12 @@
 - 三个作者目录各自独立：`HatchetEquip20261101`（装备抛接，V2.1 0.90 s）、`HatchetChop20261102`（单持劈砍 38/30 s、双斧劈砍 246/120 s）、`HatchetSprint20261103`（双持就绪跑姿三段）。
 - 每个目录都有：`author_*.py`（生成 clip JSON + 头文件 + 预览）、`import_*.py`（commandlet 导入，写 `import_receipt.json`）、`README.md`（重建命令）、`Previews*/`（Blender 手模渲染，镜头曲线已叠加）。
 - 交付时如实写：`FPSGAMEEditor` 构建结果、Game 目标是否构建、**未运行游戏/未测试**。第三人称通常沿用既有全身动作，除非用户明确要求。
+
+## 第三人称下劈与回拉的手臂修正（2026-11-06）
+
+- 先锁定视角与资产族：第三人称 `Kukri.Hatchet.DualChop`、`Kukri.Falcon.*` 指向 Jason/Kaitlin 全身资源。不要顺带替换第一人称 Arms 的连击、相机或刀光表。用户撤回第一人称候选后，保留原包散列与恢复备份，退役候选及其生成入口一起处理。
+- 手掌仍握住斧头不代表肘部正确。固定手掌世界变换，沿肩到腕的圆弧调整肘部弯曲面；主链旋转、前臂扭转骨和肘部蒙皮辅助骨需要一致。不要通过改主骨长度消除表面塌陷。每种身体单独处理，Kaitlin 的 `upperarm_twistCor02_l` 等辅助骨还涉及平移重定向，不能照搬 Jason 的局部修正。
+- 回拉单独保留已认可的下劈和低位停顿，再修拉回与收势；不能把整个动作重新线性混合。本例保持约 0.35 s 的低位停顿、手掌轨迹和两段接触时间不变。双手由作者动作控制时，清除额外腕部覆盖并核对 `PreserveHands`，防止通用副手保留或支撑 IK 再扭一次手臂。
+- 用户要求检查时，读回已保存并压缩的资源，绑定实际身体表面看正背面与连续帧。作者 JSON、骨架线框、编译成功分别不能替代实际蒙皮结果。联机状态/时钟检查与实时画面验收分开记录。
+
+当前作者入口为 `SourceAssets/HatchetDualChopRepair20261106/author.py`、`elbow_skin.py`、`pull_arm.py` 和 `PullAnatomy/save_pull.py`。发布与检查边界见工程 `Docs/Publication/HatchetThirdPerson20261106/README.md`；历史检查不授权自动重跑。

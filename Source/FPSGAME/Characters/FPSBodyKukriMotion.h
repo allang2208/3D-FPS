@@ -43,7 +43,8 @@ inline float AttackLegWeight(const FFPSBodyState& S,float Speed,bool bAuthoredDu
     if(S.Action==EFPSBodyAction::Whirlwind)return 1.f;
     if(S.Action==EFPSBodyAction::Charge)return 1.f-FMath::Clamp(Speed/100.f,0.f,1.f);
     const float P=FMath::Clamp(S.ActionProgress,0.f,1.f);
-    const float Enter=(S.ActionVariant==TEXT("HeavyRelease")||S.ActionVariant==TEXT("DualHeavyRelease"))?1.f:FMath::SmoothStep(0.f,.12f,P);
+    const float Enter=(S.ActionVariant==TEXT("HeavyRelease")||S.ActionVariant==TEXT("DualHeavyRelease")||
+        S.ActionVariant==TEXT("FalconRelease")||S.ActionVariant==TEXT("FalconDualRelease"))?1.f:FMath::SmoothStep(0.f,.12f,P);
     const float Exit=1.f-FMath::SmoothStep(.82f,1.f,P);
     const float Travel=FMath::Clamp(Speed/120.f,0.f,1.f);
     if(S.Action==EFPSBodyAction::HeavyStrike&&S.ActionVariant==TEXT("SprintAttack")&&
@@ -80,9 +81,16 @@ inline FName Clip(const FFPSBodyState& S)
     case EFPSBodyAction::Equip:return TEXT("Kukri.FullBody.Equip");
     case EFPSBodyAction::Strike:return S.ActionVariant==TEXT("Attack2")||S.ActionVariant==TEXT("DualAttack2")?
         TEXT("Kukri.FullBody.Slash2"):TEXT("Kukri.FullBody.Slash1");
-    case EFPSBodyAction::Thrust:return TEXT("Kukri.FullBody.Thrust");
-    case EFPSBodyAction::Charge:return TEXT("Kukri.FullBody.Charge");
+    case EFPSBodyAction::Thrust:
+        if(S.ActionVariant==TEXT("HatchetDualAttack3"))return TEXT("Kukri.Hatchet.DualChop");
+        return TEXT("Kukri.FullBody.Thrust");
+    case EFPSBodyAction::Charge:
+        if(S.ActionVariant==TEXT("FalconCharge"))return TEXT("Kukri.Falcon.Charge");
+        if(S.ActionVariant==TEXT("FalconDualCharge"))return TEXT("Kukri.Falcon.DualCharge");
+        return TEXT("Kukri.FullBody.Charge");
     case EFPSBodyAction::HeavyStrike:
+        if(S.ActionVariant==TEXT("FalconRelease"))return TEXT("Kukri.Falcon.Release");
+        if(S.ActionVariant==TEXT("FalconDualRelease"))return TEXT("Kukri.Falcon.DualRelease");
         if(S.ActionVariant==TEXT("Uppercut"))return TEXT("Kukri.FullBody.Uppercut");
         if(S.ActionVariant==TEXT("SprintAttack"))return TEXT("Kukri.FullBody.Dash");
         return TEXT("Kukri.FullBody.Heavy");
@@ -111,13 +119,19 @@ inline FName DualClip(FName Base)
 }
 inline bool UsesAuthoredClock(FName Key)
 {
-    return Key==TEXT("Kukri.FullBody.Dual.Slash1")||Key==TEXT("Kukri.FullBody.Dual.Slash2")||
+    return Key==TEXT("Kukri.Hatchet.DualChop")||
+        Key==TEXT("Kukri.Falcon.Charge")||Key==TEXT("Kukri.Falcon.Release")||
+        Key==TEXT("Kukri.Falcon.DualCharge")||Key==TEXT("Kukri.Falcon.DualRelease")||
+        Key==TEXT("Kukri.FullBody.Dual.Slash1")||Key==TEXT("Kukri.FullBody.Dual.Slash2")||
         Key==TEXT("Kukri.FullBody.Dual.Thrust")||Key==TEXT("Kukri.FullBody.Dual.Charge")||Key==TEXT("Kukri.FullBody.Dual.Heavy")||
         Key==TEXT("Pistol.KukriUppercut")||Key==TEXT("Kukri.FullBody.Dual.Pommel");
 }
 inline uint8 PreserveHands(const FFPSBodyState& S,bool bOffhandKukriEquipment)
 {
     if(IsOffhandUppercut(S)&&bOffhandKukriEquipment)return 0;
+    if(S.Family==TEXT("Kukri")&&(S.ActionVariant==TEXT("FalconDualCharge")||S.ActionVariant==TEXT("FalconDualRelease")))return 0;
+    if(S.Family==TEXT("Kukri")&&S.Action==EFPSBodyAction::Thrust&&
+        S.ActionVariant==TEXT("HatchetDualAttack3")&&bOffhandKukriEquipment)return 0;
     // The dual whirlwind owns both weapon arms. The generic offhand-preserve
     // mask would otherwise discard the authored left-arm extension.
     if(S.Family==TEXT("Kukri")&&S.Action==EFPSBodyAction::Whirlwind&&S.ActionVariant==TEXT("DualWhirlwind"))return 0;

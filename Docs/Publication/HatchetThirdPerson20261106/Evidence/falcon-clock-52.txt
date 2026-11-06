@@ -1,0 +1,54 @@
+PASS single phase0 miss queues before strike
+PASS single phase0 miss stop=0.026s
+PASS single phase0 miss real action clock and pose frozen
+PASS single phase0 miss resumes after real-time hold
+PASS single phase0 flesh queues before strike
+PASS single phase0 flesh stop=0.120s
+PASS single phase0 flesh real action clock and pose frozen
+PASS single phase0 flesh resumes after real-time hold
+PASS single phase0 wall queues before strike
+PASS single phase0 wall stop=0.085s
+PASS single phase0 wall real action clock and pose frozen
+PASS single phase0 wall resumes after real-time hold
+PASS single phase1 miss queues before strike
+PASS single phase1 miss stop=0.024s
+PASS single phase1 miss real action clock and pose frozen
+PASS single phase1 miss resumes after real-time hold
+PASS single phase1 flesh queues before strike
+PASS single phase1 flesh stop=0.115s
+PASS single phase1 flesh real action clock and pose frozen
+PASS single phase1 flesh resumes after real-time hold
+PASS single phase1 wall queues before strike
+PASS single phase1 wall stop=0.065s
+PASS single phase1 wall real action clock and pose frozen
+PASS single phase1 wall resumes after real-time hold
+PASS hook resets contact guard for second strike
+PASS dual phase0 miss queues before strike
+PASS dual phase0 miss stop=0.026s
+PASS dual phase0 miss real action clock and pose frozen
+PASS dual phase0 miss resumes after real-time hold
+PASS dual phase0 flesh queues before strike
+PASS dual phase0 flesh stop=0.135s
+PASS dual phase0 flesh real action clock and pose frozen
+PASS dual phase0 flesh resumes after real-time hold
+PASS dual phase0 wall queues before strike
+PASS dual phase0 wall stop=0.085s
+PASS dual phase0 wall real action clock and pose frozen
+PASS dual phase0 wall resumes after real-time hold
+PASS dual phase1 miss queues before strike
+PASS dual phase1 miss stop=0.024s
+PASS dual phase1 miss real action clock and pose frozen
+PASS dual phase1 miss resumes after real-time hold
+PASS dual phase1 flesh queues before strike
+PASS dual phase1 flesh stop=0.130s
+PASS dual phase1 flesh real action clock and pose frozen
+PASS dual phase1 flesh resumes after real-time hold
+PASS dual phase1 wall queues before strike
+PASS dual phase1 wall stop=0.065s
+PASS dual phase1 wall real action clock and pose frozen
+PASS dual phase1 wall resumes after real-time hold
+PASS hook resets contact guard for second strike
+PASS one factory blade disables paired Falcon
+PASS changing the offhand head cancels an in-flight Falcon release
+checks=52 failures=0
+No BeginPlay, game input, target collision or network session was run.

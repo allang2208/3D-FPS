@@ -251,6 +251,9 @@ private:
     FString BowItemInstance;
     FVector NativeBowHeldNock=FVector::ZeroVector,NativeBowHeldSourceNock=FVector::ZeroVector;
     bool bHasNativeBowHeldNock=false;
+    // Keep the observer trail ready for the whole equipped lifetime, including
+    // after traversal clears its transient ribbon history.
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInterface> WorldKukriRiftMaterial;
     TArray<FFPSBodyMotionBinding> MotionBindings;
     TMap<TWeakObjectPtr<class UPrimitiveComponent>,int32> MotionEquipmentIndices;
     TArray<FFPSBodyMotionMap> MotionMaps;

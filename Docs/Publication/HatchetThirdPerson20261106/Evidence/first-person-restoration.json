@@ -1,0 +1,18 @@
+{
+  "completed_at": "2026-11-06T13:35:15.8010023+08:00",
+  "method": "Exact pre-edit package copy while editor is closed",
+  "restored": [
+    {
+      "asset": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Arms/A_FalconDualCharge",
+      "restored_sha256": "D93833D50176BC1489E0E99FA9F2F1C3020E3641DBB92E3FE3C32A9D9A60F91B",
+      "matches_original": true
+    },
+    {
+      "asset": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Arms/A_FalconDualRelease",
+      "restored_sha256": "3980329A8F81F12FAB8548DC1CF6C04C6A13AF052B62767CA8BF3963BF723416",
+      "matches_original": true
+    }
+  ],
+  "third_person_retained": true,
+  "gameplay_tests_run": false
+}

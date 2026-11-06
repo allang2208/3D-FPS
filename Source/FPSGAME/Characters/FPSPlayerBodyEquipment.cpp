@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "../Weapons/Kukri/KukriRhythm.h"
 #include "FPSBodyOutfitResources.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
@@ -428,6 +429,18 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
     auto* Body=GetBodyMesh();if(!Body)return;
     if(FPSPlayerBodyWorldBodySuppressed())return;
     UFPSPerformanceMetricsSubsystem::CountEquipmentRebuild(this);
+    const bool NeedsKukriRift=GetNetMode()!=NM_DedicatedServer&&Character.IsValid()&&!Character->IsLocallyControlled()&&
+        Weapons.ContainsByPredicate([](const FFPSBodyWeapon& W)
+        {return W.PoseFamily==TEXT("Kukri")||W.PoseFamily==TEXT("KukriDual")||W.PoseFamily==TEXT("OffhandKukri");});
+    // Equipment is built synchronously below. Resolve its shared trail in the
+    // same preparation step, not after the first remote swing has already begun.
+    // Holding it here also prevents a traversal/history reset from unloading it.
+    if(NeedsKukriRift)
+    {
+        if(!WorldKukriRiftMaterial)
+            WorldKukriRiftMaterial=LoadObject<UMaterialInterface>(nullptr,KukriRhythm::RiftMaterial);
+    }
+    else WorldKukriRiftMaterial=nullptr;
     for(auto Device:WorldTacticalDevices)if(Device)Device->DestroyComponent();WorldTacticalDevices.Reset();
     ClearGunPresentation();
     for(auto Part:WorldParts)if(Part)Part->DestroyComponent();WorldParts.Reset();

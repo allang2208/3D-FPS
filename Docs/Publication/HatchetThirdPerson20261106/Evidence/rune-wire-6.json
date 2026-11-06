@@ -1,0 +1,43 @@
+{
+	"passed": true,
+	"cases": [
+		{
+			"case": "mixed_equipment_idle",
+			"passed": true,
+			"client": "ids=1 charge=0/0 remaining=0.00/0.00 owner=1 presentation=1 revisions=1/1 | observer: ids=1 charge=0/0 remaining=0.00/0.00 owner=0 presentation=1 revisions=2/2",
+			"host_observer": "ids=1 charge=0/0 remaining=0.00/0.00 owner=0 presentation=1 revisions=1/1"
+		},
+		{
+			"case": "both_runes_active",
+			"passed": true,
+			"client": "ids=1 charge=12/8 remaining=19.85/15.85 owner=1 presentation=1 revisions=1/1 | observer: ids=1 charge=12/8 remaining=19.85/15.85 owner=0 presentation=1 revisions=2/2",
+			"host_observer": "ids=1 charge=12/8 remaining=19.31/15.31 owner=0 presentation=1 revisions=1/1"
+		},
+		{
+			"case": "weapon_switch_clears",
+			"passed": true,
+			"client": "ids=1 charge=0/0 remaining=0.00/0.00 owner=1 presentation=1 revisions=2/2 | observer: ids=1 charge=0/0 remaining=0.00/0.00 owner=0 presentation=1 revisions=3/3",
+			"host_observer": "ids=1 charge=0/0 remaining=0.00/0.00 owner=0 presentation=1 revisions=2/2"
+		},
+		{
+			"case": "switch_back_stays_idle",
+			"passed": true,
+			"client": "ids=1 charge=0/0 remaining=0.00/0.00 owner=1 presentation=1 revisions=3/3 | observer: ids=1 charge=0/0 remaining=0.00/0.00 owner=0 presentation=1 revisions=4/4",
+			"host_observer": "ids=1 charge=0/0 remaining=0.00/0.00 owner=0 presentation=1 revisions=3/3"
+		},
+		{
+			"case": "second_activation",
+			"passed": true,
+			"client": "ids=1 charge=12/8 remaining=19.72/15.72 owner=1 presentation=1 revisions=3/3 | observer: ids=1 charge=12/8 remaining=19.72/15.72 owner=0 presentation=1 revisions=4/4",
+			"host_observer": "ids=1 charge=12/8 remaining=19.33/15.33 owner=0 presentation=1 revisions=3/3"
+		},
+		{
+			"case": "death_clears",
+			"passed": true,
+			"client": "ids=1 charge=0/0 remaining=0.00/0.00 owner=1 presentation=1 revisions=4/4 | observer: ids=1 charge=0/0 remaining=0.00/0.00 owner=0 presentation=1 revisions=5/5",
+			"host_observer": "ids=1 charge=0/0 remaining=0.00/0.00 owner=0 presentation=1 revisions=4/4"
+		}
+	],
+	"rendered": false,
+	"scope": "UDP production rune replication with isolated profiles; not attack RPC or inventory upload"
+}

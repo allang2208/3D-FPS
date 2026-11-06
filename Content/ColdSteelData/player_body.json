@@ -149,6 +149,11 @@
   "version": 1,
   "body_mesh": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Base.SK_Jason_Base",
   "clips": {
+    "Kukri.Falcon.Charge": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconCharge.A_FalconCharge",
+    "Kukri.Falcon.Release": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconRelease.A_FalconRelease",
+    "Kukri.Falcon.DualCharge": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualCharge.A_FalconDualCharge",
+    "Kukri.Falcon.DualRelease": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualRelease.A_FalconDualRelease",
+    "Kukri.Hatchet.DualChop": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Jason/A_HatchetDualCombo3.A_HatchetDualCombo3",
     "Unarmed.Idle": "/Game/Characters/JasonPlayer20261003/Animations/J_MM_Idle.J_MM_Idle",
     "Unarmed.Walk.Fwd": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Unarmed_Walk_Fwd.J_MF_Unarmed_Walk_Fwd",
     "Unarmed.Walk.Fwd_Right": "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Unarmed_Walk_Fwd_Right.J_MF_Unarmed_Walk_Fwd_Right",
@@ -7732,6 +7737,11 @@
       "version": 1,
       "body_mesh": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Body/SK_Kaitlin_Base.SK_Kaitlin_Base",
       "clips": {
+        "Kukri.Falcon.Charge": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconCharge.A_FalconCharge",
+        "Kukri.Falcon.Release": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconRelease.A_FalconRelease",
+        "Kukri.Falcon.DualCharge": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualCharge.A_FalconDualCharge",
+        "Kukri.Falcon.DualRelease": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualRelease.A_FalconDualRelease",
+        "Kukri.Hatchet.DualChop": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Kaitlin/A_HatchetDualCombo3.A_HatchetDualCombo3",
         "Unarmed.Idle": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_abf5f26d70_J_MM_Idle.K_abf5f26d70_J_MM_Idle",
         "Unarmed.Walk.Fwd": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_9ba69c6234_J_MF_Unarmed_Walk_Fwd.K_9ba69c6234_J_MF_Unarmed_Walk_Fwd",
         "Unarmed.Walk.Fwd_Right": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_323aec8ce9_J_MF_Unarmed_Walk_Fwd_Right.K_323aec8ce9_J_MF_Unarmed_Walk_Fwd_Right",

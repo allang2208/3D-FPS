@@ -1,0 +1,115 @@
+{
+  "assets_reviewed": 4,
+  "compressed_pose_samples": 772,
+  "rendered_body_frames_and_views": 248,
+  "configuration_mesh_matches": {
+    "Jason": true,
+    "Kaitlin": true
+  },
+  "saved_asset_hashes_match_published": true,
+  "readback": {
+    "Jason": {
+      "Release": {
+        "samples": 193,
+        "max_compression_translation_cm": 0.009617454653760108,
+        "max_compression_rotation_deg": 0.17174675524757896,
+        "max_120hz_rotation_step_deg": 13.704563404615701,
+        "worst_translation": {
+          "bone": "upperarm_bicep_r",
+          "time": 0.7,
+          "actual": [
+            -0.7386109828948975,
+            -4.077950477600098,
+            1.8208142518997192
+          ],
+          "expected": [
+            -0.739428643,
+            -4.086345608,
+            1.825434712
+          ]
+        }
+      },
+      "DualRelease": {
+        "samples": 193,
+        "max_compression_translation_cm": 0.009393134503993476,
+        "max_compression_rotation_deg": 0.1906991271054592,
+        "max_120hz_rotation_step_deg": 11.206966519657321,
+        "worst_translation": {
+          "bone": "upperarm_bck_l",
+          "time": 0.7333333333333333,
+          "actual": [
+            1.8264615535736084,
+            -6.234519958496094,
+            -0.14834915101528168
+          ],
+          "expected": [
+            1.826461594,
+            -6.243913093,
+            -0.148349148
+          ]
+        }
+      }
+    },
+    "Kaitlin": {
+      "Release": {
+        "samples": 193,
+        "max_compression_translation_cm": 0.009276497415769386,
+        "max_compression_rotation_deg": 0.14775174177918265,
+        "max_120hz_rotation_step_deg": 13.832891197324344,
+        "worst_translation": {
+          "bone": "upperarm_bck_r",
+          "time": 0.75,
+          "actual": [
+            -1.4556689262390137,
+            5.006452560424805,
+            -0.5837384462356567
+          ],
+          "expected": [
+            -1.447603225,
+            5.003009081,
+            -0.586761742
+          ]
+        }
+      },
+      "DualRelease": {
+        "samples": 193,
+        "max_compression_translation_cm": 0.009519579014226082,
+        "max_compression_rotation_deg": 0.1715075998859797,
+        "max_120hz_rotation_step_deg": 11.01448533736416,
+        "worst_translation": {
+          "bone": "upperarm_tricep_l",
+          "time": 0.3333333333333333,
+          "actual": [
+            -0.2862609028816223,
+            -4.641971111297607,
+            -0.08280444145202637
+          ],
+          "expected": [
+            -0.286223888,
+            -4.632480621,
+            -0.082061738
+          ]
+        }
+      }
+    },
+    "first_person_original_files_unchanged": true
+  },
+  "visual_review": "Viewed current saved compressed animation skinned on actual body surfaces, front and back, pull onset/peak/recovery. No obvious inverted elbow, forearm collapse or additional abrupt elbow pose found in reviewed samples.",
+  "runtime_code_review": {
+    "clip_mapping": "Same saved single/dual Falcon assets selected for both body variants",
+    "dual_hand_ownership": "Both arms owned by the authored clip, no preserved offhand override",
+    "wrist_overlay": "Authored arm wrist mask cleared before body pose application",
+    "single_support_ik": "Hatchet uses static Kukri branch; BuildKukriGrip transfers digits and mount, no bHasLeftGrip activation",
+    "replication": "Existing replicated ActionVariant and progress/rate remain unchanged; authored clocks selected"
+  },
+  "reviewed_source_sha256": {
+    "Characters/FPSBodyKukriMotion.h": "6170cfcb6e9183ec28accbbf88d87c12c0def93bc9046d660486a80c2ecec700",
+    "Characters/FPSPlayerBodyAnimInstance.cpp": "29085448ca66bc97e3ac7feb1f4347de01ed1c06a655da5d480403af59efbb7c",
+    "Characters/FPSBodySwordPose.inl": "c27322ccc489782aec8c164c08518c977c3a7fd55978dec4a4d325d5acb0941c",
+    "Characters/FPSPlayerBodyEquipment.cpp": "9858db67cb251e5f48f8ab6db98d2f9189cb6e208e86dfa7803537f06e25aeb9",
+    "Characters/FPSPlayerBodyKukri.cpp": "2ac0cc22f3ffa6a43c321c5d20bfbb43d180fbbf436b644176f9b691ce283f80",
+    "Characters/FPSPlayerBodyNetwork.cpp": "4d64523391e5060d9bcb52d596afc643ffa508cbbe5924b3c1da0534e026968b"
+  },
+  "gameplay_or_network_process_tested": false,
+  "game_assets_changed_during_review": false
+}

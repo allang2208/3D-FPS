@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Development/KukriRuneWireAudit.cpp
++++ b/Source/FPSGAME/Development/KukriRuneWireAudit.cpp
+@@ -1,0 +2 @@
++#include "KukriEnchantAuditFixture.h"
+@@ -31,5 +32,4 @@
+-        TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data);
+-        if(!Data)Data=MakeShared<FJsonObject>();
+-        auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("blade_2"),Side?TEXT("frost_raven_rune"):TEXT("berserker_rune"));
+-        Data->SetObjectField(TEXT("gunsmith_parts"),Parts);I.Data.Reset();
+-        FJsonSerializer::Serialize(Data,TJsonWriterFactory<>::Create(&I.Data));P.Items.Add(I);
++        const auto* Enchant=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
++        if(!KukriEnchantAuditFixture::SetSuffix(I,Enchant,Side?TEXT("frostHawk"):TEXT("bloodWolf")))
++        {UE_LOG(LogTemp,Error,TEXT("KUKRI_WIRE_FIXTURE missing or incompatible enchantment suffix"));return P;}
++        P.Items.Add(I);

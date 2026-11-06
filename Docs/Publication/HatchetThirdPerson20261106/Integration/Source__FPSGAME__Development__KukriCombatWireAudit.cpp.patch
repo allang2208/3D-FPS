@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Development/KukriCombatWireAudit.cpp
++++ b/Source/FPSGAME/Development/KukriCombatWireAudit.cpp
+@@ -159,5 +159,3 @@
+-        // Screenshot readbacks can temporarily stall the rendered authority.
+-        // Reacquire stable clocks between visual cases without relaxing any
+-        // production timestamp checks or changing normal-speed network tests.
+-        if(FParse::Param(FCommandLine::Get(),TEXT("KukriWireVisualSlow")))
+-        {ClockReady=false;ClockStableSamples=0;}
++        // Asset loading can stall a headless peer as well as a rendered one.
++        // Each case needs fresh clock evidence after its equipment changes.
++        ClockReady=false;ClockStableSamples=0;
+@@ -176 +174 @@
+-{if(KukriCombatWire::Enabled()&&Current==Case&&!Running){Running=true;Started=GetWorld()->GetRealTimeSeconds();NextInput=Started+(Case==0?10.:.5);}}
++{if(KukriCombatWire::Enabled()&&Current==Case&&!Running){Running=true;Started=GetWorld()->GetRealTimeSeconds();NextInput=Started+(Case==0&&!FParse::Param(FCommandLine::Get(),TEXT("KukriWireNoOutfit"))?10.:.5);}}
+@@ -226 +224,2 @@
+-        for(int32 I=0;I<3;++I){auto Item=M->CreateItem(Clothes[I]);Item.Place=1;Item.Cell=Slots[I];S.Items.Add(Item);}
++        if(!FParse::Param(FCommandLine::Get(),TEXT("KukriWireNoOutfit")))
++            for(int32 I=0;I<3;++I){auto Item=M->CreateItem(Clothes[I]);Item.Place=1;Item.Cell=Slots[I];S.Items.Add(Item);}

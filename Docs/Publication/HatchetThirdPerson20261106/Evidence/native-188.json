@@ -1,0 +1,759 @@
+{
+	"checks": [
+		{
+			"case": "uncommitted contact rejected",
+			"passed": true
+		},
+		{
+			"case": "unsupported attack flags cannot bypass kukri receipt routing",
+			"passed": true
+		},
+		{
+			"case": "single start pays once before contact",
+			"passed": true
+		},
+		{
+			"case": "duplicate start preserves attack and payment",
+			"passed": true
+		},
+		{
+			"case": "guest payment leaves host profile untouched",
+			"passed": true
+		},
+		{
+			"case": "early contact rejected",
+			"passed": true
+		},
+		{
+			"case": "committed contact accepted in window",
+			"passed": true
+		},
+		{
+			"case": "contact cannot change mastery attack identity",
+			"passed": true
+		},
+		{
+			"case": "same blade target replay rejected",
+			"passed": true
+		},
+		{
+			"case": "cancel closes attack without refund",
+			"passed": true
+		},
+		{
+			"case": "cancelled attack has no movement authorization",
+			"passed": true
+		},
+		{
+			"case": "insufficient stamina rejects before opening receipt",
+			"passed": true
+		},
+		{
+			"case": "dual start pays pair once",
+			"passed": true
+		},
+		{
+			"case": "left blade can hit same target independently",
+			"passed": true
+		},
+		{
+			"case": "left blade target replay rejected",
+			"passed": true
+		},
+		{
+			"case": "next click cannot bypass recovery",
+			"passed": true
+		},
+		{
+			"case": "accepted stage two follows stage one",
+			"passed": true
+		},
+		{
+			"case": "accepted dual thrust follows stage two",
+			"passed": true
+		},
+		{
+			"case": "thrust movement budget follows elapsed phase",
+			"passed": true
+		},
+		{
+			"case": "old movement cannot borrow new attack",
+			"passed": true
+		},
+		{
+			"case": "offhand removal revokes paired movement",
+			"passed": true
+		},
+		{
+			"case": "offhand removal closes attack receipt",
+			"passed": true
+		},
+		{
+			"case": "dash without earned sprint preparation rejected",
+			"passed": true
+		},
+		{
+			"case": "prepared dash commits",
+			"passed": true
+		},
+		{
+			"case": "dash authorizes momentum without extra fixed displacement",
+			"passed": true
+		},
+		{
+			"case": "dash receipt cannot authorize thrust",
+			"passed": true
+		},
+		{
+			"case": "CMC accepts matching dash receipt",
+			"passed": true
+		},
+		{
+			"case": "CMC refuses unbound kukri momentum",
+			"passed": true
+		},
+		{
+			"case": "only unseen movement may wait for reliable start",
+			"passed": true
+		},
+		{
+			"case": "dash kill retains pre-damage training eligibility",
+			"passed": true
+		},
+		{
+			"case": "death closes attack and movement",
+			"passed": true
+		},
+		{
+			"case": "duplicate and older resource receipts do not double debit",
+			"passed": true
+		},
+		{
+			"case": "dual second strike selects second fallback",
+			"passed": true
+		},
+		{
+			"case": "body carry requires matching loaded offhand instance",
+			"passed": true
+		},
+		{
+			"case": "dual equip selects its two-hand draw",
+			"passed": true
+		},
+		{
+			"case": "dual quick melee selects the held offhand blade",
+			"passed": true
+		},
+		{
+			"case": "mixed uppercut owns both native arms",
+			"passed": true
+		},
+		{
+			"case": "mixed uppercut keeps replicated author clock",
+			"passed": true
+		},
+		{
+			"case": "paused authoritative progress freezes the pose clock",
+			"passed": true
+		},
+		{
+			"case": "mixed uppercut lunge retains authored supporting legs",
+			"passed": true
+		},
+		{
+			"case": "offhand pistol cannot select knife uppercut",
+			"passed": true
+		},
+		{
+			"case": "traversal cancels mixed uppercut presentation",
+			"passed": true
+		},
+		{
+			"case": "kukri presentation fixture exists",
+			"passed": true
+		},
+		{
+			"case": "Attack pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "Attack send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "Attack resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "Attack send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "Attack steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "DualAttack2 pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualAttack2 send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "DualAttack2 resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualAttack2 send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "DualAttack2 steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "DualThrust pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualThrust send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "DualThrust resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualThrust send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "DualThrust steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "Uppercut pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "Uppercut send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "Uppercut resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "Uppercut send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "Uppercut steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "HeavyRelease pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "HeavyRelease send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "HeavyRelease resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "HeavyRelease send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "HeavyRelease steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "SprintAttack pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "SprintAttack send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "SprintAttack resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "SprintAttack send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "SprintAttack steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "QuickCombat pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "QuickCombat send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "QuickCombat resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "QuickCombat send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "QuickCombat steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "DualWhirlwind pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualWhirlwind send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "DualWhirlwind resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualWhirlwind send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "DualWhirlwind steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "DualHeavyCharge pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualHeavyCharge send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "DualHeavyCharge resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualHeavyCharge send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "DualHeavyCharge steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "DualEquip pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualEquip send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "DualEquip resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "DualEquip send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "DualEquip steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriThrust pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriThrust send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriThrust resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriThrust send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriThrust steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriUppercut pause is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriUppercut send preserves new hit-stop",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriUppercut resume is a reliable transition",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriUppercut send resumes without a frame of delay",
+			"passed": true
+		},
+		{
+			"case": "OffhandKukriUppercut steady clock does not resend reliable edges",
+			"passed": true
+		},
+		{
+			"case": "unrelated weapon timing keeps its existing path",
+			"passed": true
+		},
+		{
+			"case": "saved impact length cannot leave presentation paused",
+			"passed": true
+		},
+		{
+			"case": "remaining contact hit-stop pauses presentation",
+			"passed": true
+		},
+		{
+			"case": "dual release marker includes the later left blade",
+			"passed": true
+		},
+		{
+			"case": "manual charge tap delay stays still remotely",
+			"passed": true
+		},
+		{
+			"case": "charge raise follows martial speed",
+			"passed": true
+		},
+		{
+			"case": "charge load follows remaining charge duration",
+			"passed": true
+		},
+		{
+			"case": "full charge stays still remotely",
+			"passed": true
+		},
+		{
+			"case": "dual heavy release commits fixture cost",
+			"passed": true
+		},
+		{
+			"case": "heavy receipt initially permits each blade",
+			"passed": true
+		},
+		{
+			"case": "replayed main heavy contact rejected without blocking the offhand",
+			"passed": true
+		},
+		{
+			"case": "replayed offhand heavy contact rejected",
+			"passed": true
+		},
+		{
+			"case": "heavy target receipt requires the released blade",
+			"passed": true
+		},
+		{
+			"case": "new committed heavy release resets per-blade contacts",
+			"passed": true
+		},
+		{
+			"case": "expired heavy release rejects contacts",
+			"passed": true
+		},
+		{
+			"case": "observer rift production material loads",
+			"passed": true
+		},
+		{
+			"case": "observer rift keeps a bounded visible ribbon",
+			"passed": true
+		},
+		{
+			"case": "observer ribbon head follows the actual blade tip",
+			"passed": true
+		},
+		{
+			"case": "whirlwind history cannot accumulate a full circle",
+			"passed": true
+		},
+		{
+			"case": "observer blades keep independent identities",
+			"passed": true
+		},
+		{
+			"case": "lost pose updates expire observer ribbon",
+			"passed": true
+		},
+		{
+			"case": "observer rifts release components on removal",
+			"passed": true
+		},
+		{
+			"case": "observer windup does not show a cutting ribbon",
+			"passed": true
+		},
+		{
+			"case": "sparse poses crossing a whole cut window still show its ribbon",
+			"passed": true
+		},
+		{
+			"case": "sparse observer ribbon stops at the release boundary",
+			"passed": true
+		},
+		{
+			"case": "first heavy packet past contact bridges the last actual charge pose",
+			"passed": true
+		},
+		{
+			"case": "observer cut cannot bridge across an equipment swap",
+			"passed": true
+		},
+		{
+			"case": "observer cut cannot bridge a stale previous pose",
+			"passed": true
+		},
+		{
+			"case": "batched begin and hit retain their bounded client server-clock times",
+			"passed": true
+		},
+		{
+			"case": "late delivery cannot make an early stamped contact valid",
+			"passed": true
+		},
+		{
+			"case": "backdated starts cannot accelerate the accepted combo cadence",
+			"passed": true
+		},
+		{
+			"case": "stale attack starts are rejected without payment",
+			"passed": true
+		},
+		{
+			"case": "future attack starts are rejected without payment",
+			"passed": true
+		},
+		{
+			"case": "frost rune default subobject exists",
+			"passed": true
+		},
+		{
+			"case": "rune fixture uses a compatible suffix from the current scroll catalog",
+			"passed": true
+		},
+		{
+			"case": "rune fixture uses a compatible suffix from the current scroll catalog",
+			"passed": true
+		},
+		{
+			"case": "two frost knives share one component state",
+			"passed": true
+		},
+		{
+			"case": "passive adds twenty percentage points to this knife",
+			"passed": true
+		},
+		{
+			"case": "seven area actions charge seven times",
+			"passed": true
+		},
+		{
+			"case": "eighth action activates sixteen seconds without chilling",
+			"passed": true
+		},
+		{
+			"case": "later contacts of activating action are not boosted",
+			"passed": true
+		},
+		{
+			"case": "next action receives toughness plus thirty five percent",
+			"passed": true
+		},
+		{
+			"case": "dual contact applies four chill stacks and twenty percent slow",
+			"passed": true
+		},
+		{
+			"case": "same area action chills a second victim independently",
+			"passed": true
+		},
+		{
+			"case": "twenty chill consumes ten stacks and freezes four seconds",
+			"passed": true
+		},
+		{
+			"case": "frozen target rejects chill and active hits do not extend or precharge",
+			"passed": true
+		},
+		{
+			"case": "switching away clears the activation",
+			"passed": true
+		},
+		{
+			"case": "switching back cannot resume an old activation",
+			"passed": true
+		},
+		{
+			"case": "rune fixture uses a compatible suffix from the current scroll catalog",
+			"passed": true
+		},
+		{
+			"case": "mixed rune main knife cannot charge frost",
+			"passed": true
+		},
+		{
+			"case": "mixed rune offhand charges frost independently",
+			"passed": true
+		},
+		{
+			"case": "death clears charge and equipment state",
+			"passed": true
+		},
+		{
+			"case": "frost activation replication includes observers",
+			"passed": true
+		},
+		{
+			"case": "both normal blades reuse accepted action identity",
+			"passed": true
+		},
+		{
+			"case": "changing client mastery id cannot multiply area rune charge",
+			"passed": true
+		},
+		{
+			"case": "new accepted area cast receives a new rune identity",
+			"passed": true
+		},
+		{
+			"case": "quick combat uses its own accepted action identity",
+			"passed": true
+		},
+		{
+			"case": "uppercut uses its own accepted action identity",
+			"passed": true
+		},
+		{
+			"case": "missing accepted action cannot supply a rune identity",
+			"passed": true
+		},
+		{
+			"case": "berserker rune default subobject exists",
+			"passed": true
+		},
+		{
+			"case": "berserker repeated area contacts charge once per action",
+			"passed": true
+		},
+		{
+			"case": "twelfth berserker action starts twenty seconds",
+			"passed": true
+		},
+		{
+			"case": "mixed dual knives preserve separate stamina costs",
+			"passed": true
+		},
+		{
+			"case": "mixed normal and heavy bill only the non-berserker half",
+			"passed": true
+		},
+		{
+			"case": "berserker quick hit uppercut and whirlwind are free",
+			"passed": true
+		},
+		{
+			"case": "mixed dual dash still pays the other knife share",
+			"passed": true
+		},
+		{
+			"case": "berserker damage stays on its knife",
+			"passed": true
+		},
+		{
+			"case": "berserker speed scales this knife interval",
+			"passed": true
+		},
+		{
+			"case": "active berserker heals actual damage share without extending or precharging",
+			"passed": true
+		},
+		{
+			"case": "berserker movement bonus is fifteen percent",
+			"passed": true
+		},
+		{
+			"case": "berserker switch away and back cancels old activation",
+			"passed": true
+		},
+		{
+			"case": "rune fixture uses a compatible suffix from the current scroll catalog",
+			"passed": true
+		},
+		{
+			"case": "two berserker knives share charge free dash and non-stacking movement",
+			"passed": true
+		},
+		{
+			"case": "berserker death clears state",
+			"passed": true
+		},
+		{
+			"case": "berserker activation replication includes observers",
+			"passed": true
+		},
+		{
+			"case": "normal main knife does not borrow canine offhand bleed",
+			"passed": true
+		},
+		{
+			"case": "combined dash includes canine offhand bleed",
+			"passed": true
+		},
+		{
+			"case": "combined dash counts each canine blade once",
+			"passed": true
+		},
+		{
+			"case": "late accepted uppercut debits once without a current pawn",
+			"passed": true
+		},
+		{
+			"case": "older uppercut cooldown receipt cannot overwrite a newer mirror",
+			"passed": true
+		},
+		{
+			"case": "duplicate late uppercut receipt does not debit twice",
+			"passed": true
+		},
+		{
+			"case": "late accepted whirlwind merges cumulative cost without a current pawn",
+			"passed": true
+		},
+		{
+			"case": "late whirlwind preserves accepted cooldown",
+			"passed": true
+		},
+		{
+			"case": "duplicate late whirlwind receipt does not debit twice",
+			"passed": true
+		},
+		{
+			"case": "late rejected uppercut cannot clear a newer cooldown",
+			"passed": true
+		}
+	],
+	"failures": 0,
+	"udp_or_multiplayer_runtime": false,
+	"visuals_tested": false
+}

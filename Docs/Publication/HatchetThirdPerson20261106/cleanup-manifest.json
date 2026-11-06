@@ -1,0 +1,57 @@
+{
+  "retained": [
+    "Current Jason/Kaitlin third-person animations",
+    "Restored original first-person assets and Before backups",
+    "Source baselines, active authoring scripts and diagnostic evidence"
+  ],
+  "scope": "Withdrawn first-person hatchet candidates only",
+  "total_bytes": 5564000.0,
+  "rows": [
+    {
+      "bytes": 7463,
+      "verified": true,
+      "source": "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\Weapons\\Kukri\\HatchetHeavyChopRhythm.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetThirdPerson20261106\\Source\\FPSGAME\\Weapons\\Kukri\\HatchetHeavyChopRhythm.h",
+      "sha256": "6464707F60DE5105DFEC3D9642ADE09CF23DDC18F0BAF92CAF5781554C6513C9",
+      "reason": "First-person candidate withdrawn by user; no active runtime reference"
+    },
+    {
+      "bytes": 3892656,
+      "verified": true,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HatchetDualChopRepair20261106\\Arms-moves.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetThirdPerson20261106\\SourceAssets\\HatchetDualChopRepair20261106\\Arms-moves.json",
+      "sha256": "0BEAF6E65C0B8D0373409ACEA6CC0F6A4095E6913475FF4C77A50789D88994E4",
+      "reason": "First-person candidate withdrawn by user; no active runtime reference"
+    },
+    {
+      "bytes": 565850,
+      "verified": true,
+      "source": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\DualChopRepair20261106\\Arms\\A_HatchetDualCombo3.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetThirdPerson20261106\\Content\\Weapons\\TacticalHatchet20261101\\DualChopRepair20261106\\Arms\\A_HatchetDualCombo3.uasset",
+      "sha256": "6FE3040F0D31E9CDA0424C980E65A97FEC73247EBCC13B105CE0CCCB3EA95C7F",
+      "reason": "First-person candidate withdrawn by user; no active runtime reference"
+    },
+    {
+      "bytes": 596883,
+      "verified": true,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HatchetDualChopRepair20261106\\RollbackFirstPerson\\Replaced\\Weapons\\TacticalHatchet20261101\\SwiftFalconHeavy\\Arms\\A_FalconDualCharge.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetThirdPerson20261106\\SourceAssets\\HatchetDualChopRepair20261106\\RollbackFirstPerson\\Replaced\\Weapons\\TacticalHatchet20261101\\SwiftFalconHeavy\\Arms\\A_FalconDualCharge.uasset",
+      "sha256": "985F6A2C302D829EF50BAE109D5F1602E19F70A4BC746D0CA4D072DB338D6064",
+      "reason": "First-person candidate withdrawn by user; no active runtime reference"
+    },
+    {
+      "bytes": 501148,
+      "verified": true,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HatchetDualChopRepair20261106\\RollbackFirstPerson\\Replaced\\Weapons\\TacticalHatchet20261101\\SwiftFalconHeavy\\Arms\\A_FalconDualRelease.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\HatchetThirdPerson20261106\\SourceAssets\\HatchetDualChopRepair20261106\\RollbackFirstPerson\\Replaced\\Weapons\\TacticalHatchet20261101\\SwiftFalconHeavy\\Arms\\A_FalconDualRelease.uasset",
+      "sha256": "88F01078E5B5C2503736C5C5AECDE0EE39B0569155E8646ED849BA1BA8D3FCDC",
+      "reason": "First-person candidate withdrawn by user; no active runtime reference"
+    }
+  ],
+  "retired_generator_snapshot": {
+    "path": "D:\\FPS3D\\FPSGAME\\trash\\HatchetThirdPerson20261106\\author-with-retired-first-person-generator.py",
+    "bytes": 14277,
+    "sha256": "a9d6e99209b8acb000e4769e0e51192bb660b4515adb9e1de2bc72544dcd9fb2",
+    "active_entry_removed": "header() in SourceAssets/HatchetDualChopRepair20261106/author.py"
+  }
+}
