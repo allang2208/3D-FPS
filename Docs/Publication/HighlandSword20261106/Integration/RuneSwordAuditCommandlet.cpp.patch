@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.cpp
+@@ -43,0 +44 @@
++    if(FParse::Param(*Params,TEXT("HighlandNetworkOnly")))return AuditHighlandNetwork(Params);

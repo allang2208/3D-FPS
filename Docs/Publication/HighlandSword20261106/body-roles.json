@@ -1,0 +1,21 @@
+{
+  "config": "Content/ColdSteelData/player_body.json",
+  "owned_paths": [
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandBreakSweep"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/BreakSweep20261104/A_Highland_BreakSweep_Jason.A_Highland_BreakSweep_Jason"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandBreakSweep"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/BreakSweep20261104/A_Highland_BreakSweep_Kaitlin.A_Highland_BreakSweep_Kaitlin"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp
+@@ -2,0 +3 @@
++#include "HighlandRidgeThrust.h"
+@@ -95 +96,2 @@
+-    if(!StartSwing(TEXT("Overhead"),false,Cast.StaminaCost,false))return false;
++    const bool Ridge=Animations.Contains(HighlandRidgeThrust::Charge);
++    if(!StartSwing(Ridge?HighlandRidgeThrust::Dash:FName(TEXT("Overhead")),false,Cast.StaminaCost,false))return false;
+@@ -98 +100 @@
+-    if(bFromHighCarry)SetClip(TEXT("SprintOverhead"),false);
++    if(bFromHighCarry&&!Ridge)SetClip(TEXT("SprintOverhead"),false);
+@@ -109 +111 @@
+-    Elapsed=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
++    Elapsed=Ridge?0.f:ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
+@@ -120,0 +123 @@
++        if(Ridge&&Movement)Movement->BeginMeleeLungeRequest(EFPSMeleeMove::Dash,LungeDirection);

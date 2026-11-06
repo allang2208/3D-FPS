@@ -1,0 +1,50 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -34,0 +35 @@
++enum class ESwordGripMode : uint8;
+@@ -102,0 +104,8 @@
++    bool IsHeavyCharging() const { return bCharging; }
++    /** Server-only receipt opened by a completed heavy-charge release. */
++    bool IsNetworkHeavyReleaseWindowOpen(const FString& Weapon=FString()) const;
++    /** Converts a completed server charge into the release receipt when the
++     *  reliable release RPC and the hit/rift channel arrive out of order. */
++    bool ConsumeNetworkHeavyChargeForRelease(const FString& Weapon);
++    void ConsumeNetworkHeavyReleaseWindow();
++    void CancelHeavyCharge();
+@@ -104 +113 @@
+-    UFUNCTION(BlueprintPure, Category="Rune Sword") float HeavyChargeFraction() const { return bCharging ? Elapsed/RuneSwordHeavyRhythm::ChargeSeconds : 0.f; }
++    UFUNCTION(BlueprintPure, Category="Rune Sword") float HeavyChargeFraction() const;
+@@ -130,0 +140,7 @@
++    void GrantBroadbladeSweep(const FString& Weapon);
++    bool IsBroadbladeSweepReady() const;
++    float ActiveRidgeRangeScale() const;
++    ESwordGripMode GripMode() const;
++    bool UsesRidgeSprintCarry() const;
++    bool AcceptBroadbladeContact(const FString& Weapon,uint32 Serial,AActor* Target);
++    UFUNCTION(Client,Reliable) void ClientBroadbladeImpact(const FString& Weapon,uint32 Serial);
+@@ -157,0 +174 @@
++    FVector ModularTraceTip=FVector::ZeroVector;
+@@ -313,0 +331,3 @@
++    // Heavy release receipt consumed by ServerReportHit/ServerReleaseRiftSlash.
++    double NetworkHeavyReleaseUntil=-1.,ServerHeavyChargeStartedAt=-1.,ServerHeavyRequiredSeconds=2.;
++    double ServerHeavyChargeReceivedAt=-1.,ServerHeavyChargeLastStartedAt=-1.;
+@@ -320,0 +341,5 @@
++    void SetHeavyCharging(bool Charging,bool bReleasedHeavy=false);
++    bool CanMaintainHeavyCharge() const;
++    void TickNetworkHeavyCharge();
++    UFUNCTION(Server,Reliable) void ServerSetSwordHeavyCharge(const FString& Weapon,bool Charging,bool bReleasedHeavy,double ClientStartedAt);
++    UFUNCTION(Client,Reliable) void ClientCancelSwordHeavyCharge(const FString& Weapon);
+@@ -328,0 +354,13 @@
++    UFUNCTION(Server,Reliable) void ServerStartBroadbladeSweep(const FString& Weapon,uint32 Serial);
++    void RefreshBroadblade(const FColdSteelItem* Item);
++    void RefreshRidgeThrust(const FColdSteelItem* Item);
++    void PresentRidgeGather();
++    UPROPERTY(Transient) TObjectPtr<class UHighlandRidgeGatherComponent> RidgeGather;
++    bool BeginBroadbladeSweep();
++    bool CommitBroadbladeSweep(const FString& Weapon,uint32 Serial);
++    bool bBroadbladeInstalled=false;
++    double SweepReadyUntil=0.,SweepServerHitUntil=0.;
++    float SweepHitPause=0.f;
++    uint32 SweepServerSerial=0;
++    TSet<TWeakObjectPtr<AActor>> SweepServerTargets;
++    TSharedPtr<FStreamableHandle> BroadbladeLoad;

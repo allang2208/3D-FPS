@@ -67,3 +67,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - 镇魂钟首击／上挑方向、双臂扭曲及冲刺抬锤下半身衔接，读取 [战锤成熟动作复用与冲刺步态](references/warhammer-native-reuse-and-sprint-gait.md)。保留完整原生轨道、真实位移与统一阶段时钟。
 
 - M24 肩根退镜、独立握把换握和拉栓微动复用：[保留接触的局部腕臂修订](references/m24-preserve-contact.md)。
+
+- 视频拟合双手横扫／突刺，尤其画外肘腕扭曲、蓄满到释放衔接：[视频拟合与突刺衔接](references/video-fit-thrust-handoff.md)。保留实际握点、角度连续性和活跃采样依赖。

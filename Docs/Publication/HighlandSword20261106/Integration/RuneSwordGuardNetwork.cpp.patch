@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp
+@@ -129,0 +130 @@
++    GrantBroadbladeSweep(InstanceId);

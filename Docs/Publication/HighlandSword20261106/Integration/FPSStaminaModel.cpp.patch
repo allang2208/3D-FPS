@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -107,0 +108,5 @@
++    const auto* Item=!ActiveProductionTool()?Equipped():nullptr;
++    // Highland pommel modifiers belong to the currently held sword. The Tang
++    // Dao guard already supplies its own multiplier below; do not apply it twice.
++    const double SwordCost=Item&&Item->Definition==TEXT("ue_highland_claymore")?
++        ColdSteelMelee::ItemModifiers(Item,this).SprintStamina:1.;
+@@ -111 +116 @@
+-    return StaminaTuning.SprintPerSecond*(Guard?Guard->SprintStaminaMultiplier():1.f)*Equipment*ActionStaminaMultiplier();
++    return StaminaTuning.SprintPerSecond*SwordCost*(Guard?Guard->SprintStaminaMultiplier():1.f)*Equipment*ActionStaminaMultiplier();

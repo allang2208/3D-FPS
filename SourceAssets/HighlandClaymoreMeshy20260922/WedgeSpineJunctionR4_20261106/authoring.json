@@ -1,0 +1,17 @@
+{
+  "revision": "WedgeSpineJunctionR4_20261106",
+  "junction_revision": "GemBed_TangentR4",
+  "surface": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/WedgeSpine/M_RidgeWedgeSteel",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandClaymoreMeshy20260922\\WedgeSpineJunctionR4_20261106\\Export\\SM_Highland_Blade_RidgePiercer_V1.fbx",
+  "icon": "ue_highland_claymore_blade_1_highland_ridge_piercer.png",
+  "framed_icon_source": "D:/FPS3D/FPSGAME/SourceAssets/HighlandRidgeIcon20261106/ue_highland_claymore_blade_1_highland_ridge_piercer.png",
+  "etched_rune_mask": true,
+  "native_build_required": false,
+  "socket_z_range_cm": [
+    0.9100000378820632,
+    2.22
+  ],
+  "tip_cm": 110,
+  "shoulder_z_cm": 6.9,
+  "socket_width_cm": 8.788566663861275
+}

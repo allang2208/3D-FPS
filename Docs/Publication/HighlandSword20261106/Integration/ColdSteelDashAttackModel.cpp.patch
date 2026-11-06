@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp
+@@ -3,0 +4 @@
++#include "../Weapons/HighlandRidgeThrust.h"
+@@ -68,0 +70,7 @@
++        if(HighlandRidgeThrust::Installed(GetGameInstance()->GetSubsystem<UGunsmithSystem>(),Item))
++        {
++            C.Damage*=HighlandRidgeThrust::StrikeDamageScale;
++            C.DamageMultiplier*=HighlandRidgeThrust::StrikeDamageScale;
++            C.RangeCM*=HighlandRidgeThrust::ReachScale;
++            C.RectangleWidthCM=2.f*HighlandRidgeThrust::HalfWidthCM;
++        }

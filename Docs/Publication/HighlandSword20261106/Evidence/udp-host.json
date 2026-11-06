@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "late_join_ridge_gale",
+      "passed": true,
+      "client": "highland phase=0 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1 | host observer: highland phase=0 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_host": "highland phase=0 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_guest": "highland phase=0 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1"
+    },
+    {
+      "case": "remove_gale",
+      "passed": true,
+      "client": "highland phase=1 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1 | host observer: highland phase=1 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_host": "highland phase=1 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_guest": "highland phase=1 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1"
+    },
+    {
+      "case": "long_grip_ridge_gale",
+      "passed": true,
+      "client": "highland phase=2 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1 | host observer: highland phase=2 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_host": "highland phase=2 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_guest": "highland phase=2 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1"
+    },
+    {
+      "case": "factory_blade_gale",
+      "passed": true,
+      "client": "highland phase=3 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1 | host observer: highland phase=3 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_host": "highland phase=3 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_guest": "highland phase=3 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1"
+    },
+    {
+      "case": "unequip",
+      "passed": true,
+      "client": "highland phase=4 local=1 descriptors=0 world_parts=0 paths=1 stats=1 release_rpc=1 | host observer: highland phase=4 local=0 descriptors=0 world_parts=0 paths=1 stats=1 release_rpc=1",
+      "server_host": "highland phase=4 local=1 descriptors=0 world_parts=0 paths=1 stats=1 release_rpc=1",
+      "server_guest": "highland phase=4 local=0 descriptors=0 world_parts=0 paths=1 stats=1 release_rpc=1"
+    },
+    {
+      "case": "reequip_and_heavy_rpc",
+      "passed": true,
+      "client": "highland phase=5 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1 | host observer: highland phase=5 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_host": "highland phase=5 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_guest": "highland phase=5 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1"
+    },
+    {
+      "case": "reconnect_retained_equipment",
+      "passed": true,
+      "client": "highland phase=6 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1 | host observer: highland phase=6 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_host": "highland phase=6 local=1 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1",
+      "server_guest": "highland phase=6 local=0 descriptors=2 world_parts=2 paths=1 stats=1 release_rpc=1"
+    }
+  ],
+  "weapon": "ue_highland_claymore",
+  "actual_network_transport": true,
+  "rendered": false,
+  "reconnected": true,
+  "scope": "Highland body equipment replication, owner/shadow modifiers, actual client heavy input and charge/release RPC, unequip/reequip/reconnect; fixture-seeded inventory, no hit damage or rendered VFX acceptance",
+  "lag_ms_per_peer": 60,
+  "loss_percent_per_peer": 3
+}

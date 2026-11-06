@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp
++++ b/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp
+@@ -103 +103,2 @@
+-        if(BaseName==TEXT("M_HighlandClaymoreSurface"))
++        const bool HighlandSteel=BaseName==TEXT("M_HighlandClaymoreSurface")||BaseName==TEXT("M_RidgeWedgeSteel");
++        if(HighlandSteel)
+@@ -169 +170 @@
+-        const bool Blade=Name.Contains(TEXT("FrostCrystalSword"))||Name.Contains(TEXT("AzureRunesword"))||Name==TEXT("M_HighlandClaymoreSurface")||Name==TEXT("M_TangDaoSurface")||
++        const bool Blade=Name.Contains(TEXT("FrostCrystalSword"))||Name.Contains(TEXT("AzureRunesword"))||HighlandSteel||Name==TEXT("M_TangDaoSurface")||

@@ -1,0 +1,304 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordStarMarrowSurfaceAudit.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordStarMarrowSurfaceAudit.cpp
+@@ -3,0 +4,4 @@
++#include "HighlandBreakSweep.h"
++#include "HighlandRidgeThrust.h"
++#include "HAL/IConsoleManager.h"
++#include "Engine/StreamableManager.h"
+@@ -4,0 +9,2 @@
++#include "../BallisticAuditTarget.h"
++#include "Components/BoxComponent.h"
+@@ -24,0 +31,6 @@
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Components/SceneCaptureComponent2D.h"
++#include "Components/DirectionalLightComponent.h"
++#include "Engine/TextureRenderTarget2D.h"
++#include "ImageUtils.h"
++#include "RenderingThread.h"
+@@ -28,0 +41,54 @@
++// Same native pose and camera for both images; only the optical ribbon is toggled.
++int32 CaptureSweepRefraction(UCameraComponent* Camera,USceneComponent* Arms,UStaticMeshComponent* Rift,const FString& Out)
++{
++    UWorld* World=Camera->GetWorld();
++    auto* Stage=World->SpawnActor<AActor>();
++    auto* Capture=NewObject<USceneCaptureComponent2D>(Stage);
++    Capture->bCaptureEveryFrame=false;Capture->bCaptureOnMovement=false;
++    Capture->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
++    Capture->CaptureSource=SCS_FinalColorLDR;Capture->ShowFlags.SetMotionBlur(false);
++    Capture->ShowFlags.SetAntiAliasing(false);Capture->ShowFlags.SetEyeAdaptation(false);Capture->ShowFlags.SetFog(false);
++    Capture->FOVAngle=FMath::RadiansToDegrees(2.f*FMath::Atan(FMath::Tan(FMath::DegreesToRadians(37.5f))*16.f/9.f));
++    const FTransform Eye=Camera->GetComponentTransform();Capture->SetWorldTransform(Eye);
++    auto* RT=NewObject<UTextureRenderTarget2D>(Stage);RT->RenderTargetFormat=RTF_RGBA8;
++    constexpr int32 W=640,H=360;RT->InitAutoFormat(W,H);RT->UpdateResourceImmediate(true);
++    Capture->TextureTarget=RT;Capture->RegisterComponent();
++    auto* Light=NewObject<UDirectionalLightComponent>(Stage);Light->SetIntensity(4.f);
++    Light->SetWorldRotation(Eye.GetRotation()*FRotator(-22,18,0).Quaternion());Light->RegisterComponent();
++    auto* Cube=LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube"));
++    auto* Base=LoadObject<UMaterialInterface>(nullptr,TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
++    UMaterialInstanceDynamic* Tiles[]={UMaterialInstanceDynamic::Create(Base,Stage),UMaterialInstanceDynamic::Create(Base,Stage)};
++    Tiles[0]->SetVectorParameterValue(TEXT("Color"),FLinearColor(.055f,.12f,.16f));
++    Tiles[1]->SetVectorParameterValue(TEXT("Color"),FLinearColor(.65f,.43f,.20f));
++    for(int32 Y=-10;Y<=10;++Y)for(int32 Z=-6;Z<=6;++Z)
++    {
++        auto* Tile=NewObject<UStaticMeshComponent>(Stage);Tile->SetStaticMesh(Cube);Tile->SetMaterial(0,Tiles[(Y+Z+16)%2]);
++        Tile->SetCollisionEnabled(ECollisionEnabled::NoCollision);Tile->SetCastShadow(false);
++        Tile->SetWorldTransform(FTransform(Eye.GetRotation(),Eye.TransformPosition(FVector(400,Y*55,Z*55)),FVector(.03,.55,.55)));
++        Tile->RegisterComponent();Capture->ShowOnlyComponent(Tile);
++    }
++    TArray<USceneComponent*> Parts;Arms->GetChildrenComponents(true,Parts);Parts.Add(Arms);
++    TArray<UPrimitiveComponent*> RestoreOwnerOnly;
++    for(auto* Part:Parts)if(auto* Primitive=Cast<UPrimitiveComponent>(Part))
++    {
++        Capture->ShowOnlyComponent(Primitive);
++        if(Primitive->bOnlyOwnerSee){RestoreOwnerOnly.Add(Primitive);Primitive->SetOnlyOwnerSee(false);}
++    }
++    FAssetCompilingManager::Get().FinishAllCompilation();
++    auto Shot=[&](bool On,TArray<FColor>& Pixels)
++    {
++        Rift->SetVisibility(On);World->SendAllEndOfFrameUpdates();FlushRenderingCommands();
++        for(int32 I=0;I<3;++I){Capture->CaptureScene();FlushRenderingCommands();}
++        if(!RT->GameThread_GetRenderTargetResource()->ReadPixels(Pixels))return false;
++        TArray64<uint8> PNG;FImageUtils::PNGCompressImageArray(W,H,Pixels,PNG);
++        return FFileHelper::SaveArrayToFile(PNG,*(Out/(On?TEXT("rift-on.png"):TEXT("rift-off.png"))));
++    };
++    TArray<FColor> Off,On;const bool Captured=Shot(false,Off)&&Shot(true,On);
++    for(auto* Primitive:RestoreOwnerOnly)Primitive->SetOnlyOwnerSee(true);
++    Rift->SetVisibility(true);Stage->Destroy();
++    if(!Captured||Off.Num()!=W*H||On.Num()!=Off.Num())return -1;
++    int32 Changed=0;
++    for(int32 I=0;I<On.Num();++I)if(FMath::Max3(FMath::Abs(int32(On[I].R)-Off[I].R),
++        FMath::Abs(int32(On[I].G)-Off[I].G),FMath::Abs(int32(On[I].B)-Off[I].B))>=4)++Changed;
++    return Changed;
++}
+@@ -72,0 +139 @@
++    bool AllSweepCasesPassed=true;
+@@ -84,0 +152,6 @@
++        const bool RidgeTake=FName(*Role)==HighlandRidgeThrust::Charge;
++        const bool RidgeMotion=RidgeTake||HighlandRidgeThrust::IsRelease(FName(*Role));
++        // This commandlet has no game tick to dispatch delayed streamable callbacks.
++        IConsoleVariable* DelegateDelay=RidgeMotion?IConsoleManager::Get().FindConsoleVariable(TEXT("s.StreamableDelegateDelayFrames")):nullptr;
++        const int32 SavedDelay=DelegateDelay?DelegateDelay->GetInt():0;
++        if(DelegateDelay)DelegateDelay->Set(0,ECVF_SetByCode);
+@@ -85,0 +159,2 @@
++        if(RidgeMotion)FlushAsyncLoading();
++        if(DelegateDelay)DelegateDelay->Set(SavedDelay,ECVF_SetByCode);
+@@ -88,0 +164,8 @@
++        if(FName(*Role)==HighlandBreakSweep::Clip && Sword->BroadbladeLoad)
++        {
++            Sword->BroadbladeLoad->WaitUntilComplete();
++            Sword->GrantBroadbladeSweep(Item.InstanceId);
++            if(!Sword->BeginBroadbladeSweep() || Sword->CurrentClip!=HighlandBreakSweep::Clip)return 10;
++            Clip=Sword->CurrentAnimation;
++            Sword->CancelAction();
++        }
+@@ -96,0 +180,101 @@
++        bool CheckSweepRift=false;
++        Case->TryGetBoolField(TEXT("check_sweep_rift"),CheckSweepRift);
++        if(CheckSweepRift)
++        {
++            const bool FromHeavy=Case->GetStringField(TEXT("entry"))==TEXT("heavy");
++            const bool LongGrip=Parts->GetStringField(TEXT("grip"))==TEXT("long_twohand");
++            const float Dt=FromHeavy?1.f/30.f:1.f/120.f;
++            Sword->CancelAction();Sword->SetClip(TEXT("Idle"),true);
++            if(!Sword->StartSwing(TEXT("HeavyRelease"),true))return 12;
++            if(!FromHeavy)for(int32 I=0;I<360&&Sword->bAttacking;++I)Sword->TickComponent(Dt,LEVELTICK_All,nullptr);
++            Sword->BeginPrimaryAttack();
++            for(int32 I=0;I<60&&Sword->bHeavyAttack;++I)Sword->TickComponent(Dt,LEVELTICK_All,nullptr);
++            if(!Sword->bAttacking||Sword->CurrentClip!=HighlandBreakSweep::Clip)return 13;
++            const FVector Forward=Pawn->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
++            auto Receiver=[&](float Distance)
++            {
++                auto* Target=World->SpawnActor<ABallisticAuditTarget>();
++                auto* Shape=Target->FindComponentByClass<UBoxComponent>();
++                Shape->SetBoxExtent(FVector(4,4,20));Shape->SetCollisionObjectType(ECC_Pawn);
++                Target->SetActorLocation(Pawn->GetActorLocation()+Forward*Distance);return Target;
++            };
++            auto* Front=Receiver(105);auto* Outer=Receiver(Sword->SwingReach-16);
++            auto* Back=Receiver(-105);auto* Far=Receiver(Sword->SwingReach+75);
++            auto* LeftTarget=Receiver(0);auto* RightTarget=Receiver(0);
++            LeftTarget->SetActorLocation(Pawn->GetActorLocation()+Forward.RotateAngleAxis(-78.f,FVector::UpVector)*180.f);
++            RightTarget->SetActorLocation(Pawn->GetActorLocation()+Forward.RotateAngleAxis(78.f,FVector::UpVector)*180.f);
++            auto* Ribbon=Cast<UStaticMesh>(HighlandBreakSweep::RiftPath(LongGrip).ResolveObject());
++            if(!Ribbon||!Ribbon->GetRenderData()||!Sword->RiftMaterial)return 14;
++            const auto& Buffers=Ribbon->GetRenderData()->LODResources[0].VertexBuffers;
++            int32 VisibleFrames=0,HoldFrames=0,FrontHits=0,OuterHits=0,ChangedPixels=-1;
++            const bool PixelCapture=FParse::Param(*Params,TEXT("SweepRiftPixels")) && Variant==TEXT("StandardIdleEntry");
++            float MaxTipError=0,Total=0,Held=0;bool SawDissolve=false,EndedBeforeIdle=false,Passed=true;
++            for(int32 I=0;I<320&&Sword->bAttacking;++I)
++            {
++                const float PrevDamage=Front->Received,PrevOuter=Outer->Received;
++                const float PrevProgress=Sword->RiftMaterial->K2_GetScalarParameterValue(TEXT("SweepProgress"));
++                const float Pause=Sword->SweepHitPause;Held+=FMath::Min(Pause,Dt);
++                Sword->TickComponent(Dt,LEVELTICK_All,nullptr);Total+=Dt;
++                FrontHits+=Front->Received>PrevDamage;OuterHits+=Outer->Received>PrevOuter;
++                if(!Sword->bRiftActive)
++                {
++                    if(SawDissolve&&Sword->bAttacking)EndedBeforeIdle=true;
++                    Passed&=!Sword->RiftVisual->IsVisible();continue;
++                }
++                Passed&=Sword->RiftVisual->IsVisible()&&Sword->RiftVisual->GetStaticMesh()==Ribbon;
++                if(!Sword->RiftVisual->GetAttachParent())
++                {
++                    SawDissolve|=Sword->RiftMaterial->K2_GetScalarParameterValue(TEXT("RiftFade"))<1.f;
++                    continue;
++                }
++                ++VisibleFrames;
++                const float P=Sword->RiftMaterial->K2_GetScalarParameterValue(TEXT("SweepProgress"));
++                if(PixelCapture && ChangedPixels<0 && P>.48f)
++                    ChangedPixels=CaptureSweepRefraction(Sword->Camera,Mesh,Sword->RiftVisual,Folder);
++                Passed&=FMath::IsNearlyEqual(P,(Sword->Elapsed-Sword->ContactStart)/(Sword->ContactEnd-Sword->ContactStart),.001f);
++                if(Pause>=Dt){++HoldFrames;Passed&=FMath::IsNearlyEqual(P,PrevProgress,.0001f);}
++                FVector Left=FVector::ZeroVector,Right=Left;float Lo=-1,Hi=2;
++                for(uint32 V=0;V<Buffers.PositionVertexBuffer.GetNumVertices();++V)
++                {
++                    const FVector2f UV=Buffers.StaticMeshVertexBuffer.GetVertexUV(V,0);
++                    if(UV.Y<.999f)continue;
++                    const FVector Pos(Buffers.PositionVertexBuffer.VertexPosition(V));
++                    if(UV.X<=P&&UV.X>Lo){Lo=UV.X;Left=Pos;}
++                    if(UV.X>=P&&UV.X<Hi){Hi=UV.X;Right=Pos;}
++                }
++                if(Lo<0||Hi>1){Passed=false;continue;}
++                const FVector Point=FMath::Lerp(Left,Right,Hi>Lo?(P-Lo)/(Hi-Lo):0.f);
++                const FVector Edge=Sword->RiftVisual->GetComponentTransform().TransformPosition(Point);
++                const FVector Tip=Sword->ModularSword->GetComponentTransform().TransformPosition(Sword->ModularBladeTip);
++                MaxTipError=FMath::Max(MaxTipError,float(FVector::Distance(Edge,Tip)));
++            }
++            const bool RangeOK=FrontHits==1&&OuterHits==1&&LeftTarget->Received>0&&RightTarget->Received>0&&Back->Received==0&&Far->Received==0;
++            for(auto* T:{Front,Outer,Back,Far,LeftTarget,RightTarget})T->Destroy();
++            Passed&=RangeOK&&VisibleFrames>0&&HoldFrames>0&&SawDissolve&&EndedBeforeIdle&&MaxTipError<1.f&&
++                FMath::IsNearlyEqual(Held,HighlandBreakSweep::HitPauseSeconds,.002f);
++            Sword->GrantBroadbladeSweep(Item.InstanceId);Sword->BeginPrimaryAttack();
++            for(int32 I=0;I<60&&!Sword->bRiftActive;++I)Sword->TickComponent(Dt,LEVELTICK_All,nullptr);
++            const bool Whiff=Sword->bRiftActive&&!Sword->bImpactFeedbackPlayed&&Sword->SweepHitPause==0.f;
++            Sword->CancelAction();
++            const bool Cancelled=!Sword->bRiftActive&&!Sword->RiftVisual->IsVisible()&&!Sword->RiftVisual->GetAttachParent();
++            Sword->StartSwing(TEXT("Slash1"),false,0.f);
++            for(int32 I=0;I<120&&!Sword->bRiftActive&&Sword->bAttacking;++I)Sword->TickComponent(Dt,LEVELTICK_All,nullptr);
++            const bool NextSlash= Sword->bRiftActive && Sword->RiftMeshes.IsValidIndex(0) &&
++                Sword->RiftVisual->GetStaticMesh()==Sword->RiftMeshes[0] && !Sword->RiftVisual->GetAttachParent();
++            Sword->CancelAction();
++            Passed&=!PixelCapture||ChangedPixels>0;
++            Passed&=Whiff&&Cancelled&&NextSlash;
++            auto Result=MakeShared<FJsonObject>();Result->SetBoolField(TEXT("passed"),Passed);
++            Result->SetBoolField(TEXT("next_normal_slash"),NextSlash);
++            Result->SetNumberField(TEXT("hold_frames"),HoldFrames);
++            Result->SetNumberField(TEXT("front_hits"),FrontHits);Result->SetNumberField(TEXT("outer_hits"),OuterHits);
++            Result->SetNumberField(TEXT("changed_pixels_640x360"),ChangedPixels);
++            Result->SetStringField(TEXT("mesh"),Ribbon->GetPathName());Result->SetNumberField(TEXT("visible_stroke_frames"),VisibleFrames);
++            Result->SetNumberField(TEXT("max_tip_error_cm"),MaxTipError);Result->SetNumberField(TEXT("held_seconds"),Held);
++            Result->SetNumberField(TEXT("swing_seconds"),Total);Result->SetBoolField(TEXT("range_and_single_hits"),RangeOK);
++            Result->SetBoolField(TEXT("fade_finished_during_recovery"),EndedBeforeIdle);Result->SetBoolField(TEXT("whiff"),Whiff);
++            Result->SetBoolField(TEXT("cancelled_cleanly"),Cancelled);FString Json;FJsonSerializer::Serialize(Result,TJsonWriterFactory<>::Create(&Json));
++            FFileHelper::SaveStringToFile(Json,*(Folder/TEXT("rift.json")));
++            AllSweepCasesPassed&=Passed;
++            continue;
++        }
+@@ -137,2 +321,49 @@
+-        if(Role==TEXT("StarMarrowCharge"))Sword->BeginStarMarrowChargeMotion();
+-        else {Sword->SetClip(FName(*Role),false);Mesh->ClearWhirlwindEntry();}
++        if(RidgeTake)
++        {
++            Sword->BeginPrimaryAttack();
++            if(!Sword->bCharging||Sword->CurrentClip!=HighlandRidgeThrust::Charge||
++                !Sword->Animations.FindRef(HighlandRidgeThrust::Release))return 16;
++            Metadata->SetNumberField(TEXT("charge_required"),Sword->RequiredChargeSeconds);
++            Metadata->SetNumberField(TEXT("charge_clip_seconds"),Clip->GetPlayLength());
++        }
++        else if(Role==TEXT("StarMarrowCharge"))Sword->BeginStarMarrowChargeMotion();
++        else if(FName(*Role)==HighlandBreakSweep::Clip)
++        {
++            FString Entry;Case->TryGetStringField(TEXT("entry"),Entry);
++            if(Entry==TEXT("heavy") || Entry==TEXT("late"))
++            {
++                Sword->StartSwing(TEXT("HeavyRelease"),true);
++                Sword->Elapsed=Entry==TEXT("heavy")?RuneSwordHeavyRhythm::FollowEnd:.76f;
++                Sword->SamplePose(Sword->Elapsed);
++            }
++            Sword->GrantBroadbladeSweep(Item.InstanceId);
++            if(Entry==TEXT("tap"))
++            {
++                Sword->BeginPrimaryAttack();
++                Sword->Elapsed=.10f;
++                Sword->SamplePose(Sword->Elapsed);
++                Sword->ReleasePrimaryAttack();
++            }
++            else Sword->BeginAttack();
++            if(Entry==TEXT("late"))
++                for(int32 Step=0;Step<120 && Sword->bHeavyAttack;++Step)
++                    Sword->TickComponent(1.f/120.f,LEVELTICK_All,nullptr);
++            if(Sword->CurrentClip!=HighlandBreakSweep::Clip || !Sword->bAttacking)return 11;
++            Clip=Sword->CurrentAnimation;
++            Metadata->SetStringField(TEXT("animation"),Clip->GetPathName());
++        }
++        else
++        {
++            FString Entry;
++            const bool UseEntry=RidgeMotion&&Case->TryGetStringField(TEXT("entry_role"),Entry);
++            if(UseEntry)
++            {
++                Sword->SetClip(FName(*Entry),false);
++                if(!Sword->CurrentAnimation)return 6;
++                double Phase=.5;Case->TryGetNumberField(TEXT("entry_phase"),Phase);
++                Mesh->ClearWhirlwindEntry();
++                Sword->SamplePose(Sword->CurrentAnimation->GetPlayLength()*FMath::Clamp(Phase,0.,1.));
++            }
++            Sword->SetClip(FName(*Role),false);
++            if(!UseEntry)Mesh->ClearWhirlwindEntry();
++        }
+@@ -140 +371,4 @@
+-        const int32 LastFrame=SampleCount>1?SampleCount-1:FMath::RoundToInt(Clip->GetPlayLength()*SampleRate);
++        const int32 ButtonUp=RidgeTake?FMath::CeilToInt(Sword->RequiredChargeSeconds*SampleRate):0;
++        if(RidgeTake)Metadata->SetNumberField(TEXT("button_up_frame"),ButtonUp);
++        const int32 LastFrame=RidgeTake?ButtonUp+FMath::RoundToInt(Sword->Animations.FindRef(HighlandRidgeThrust::Release)->GetPlayLength()*SampleRate):
++            (SampleCount>1?SampleCount-1:FMath::RoundToInt(Clip->GetPlayLength()*SampleRate));
+@@ -144 +378,14 @@
+-            const float T=FMath::Min(Frame*SampleDelta,Clip->GetPlayLength());Sword->Elapsed=T;if(Frame)Mesh->AdvanceLocomotionEntry(SampleDelta);Sword->SamplePose(T);
++            const float T=RidgeTake?Frame*SampleDelta:FMath::Min(Frame*SampleDelta,Clip->GetPlayLength());
++            if(RidgeTake)
++            {
++                if(Frame<=ButtonUp)Sword->ChargeStartedAt=World->GetTimeSeconds()-T;
++                if(Frame)Sword->TickComponent(SampleDelta,LEVELTICK_All,nullptr);
++                if(Frame==ButtonUp)
++                {
++                    Sword->ReleasePrimaryAttack();
++                    if(Sword->CurrentClip!=HighlandRidgeThrust::Release||!Sword->bHeavyAttack)return 17;
++                    Metadata->SetNumberField(TEXT("contact_start"),Sword->ContactStart);
++                    Metadata->SetNumberField(TEXT("contact_end"),Sword->ContactEnd);
++                }
++            }
++            else {Sword->Elapsed=T;if(Frame)Mesh->AdvanceLocomotionEntry(SampleDelta);Sword->SamplePose(T);}
+@@ -171,0 +419,30 @@
++        bool CheckContact=false;Case->TryGetBoolField(TEXT("check_contact"),CheckContact);
++        if(CheckContact && FName(*Role)==HighlandBreakSweep::Clip)
++        {
++            const FVector Aim=Pawn->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
++            auto SpawnReceiver=[&](float Offset)
++            {
++                auto* Target=World->SpawnActor<ABallisticAuditTarget>();
++                auto* Shape=Target->FindComponentByClass<UBoxComponent>();
++                Shape->SetBoxExtent(FVector(4,4,20));Shape->SetCollisionObjectType(ECC_Pawn);
++                Target->SetActorLocation(Pawn->GetActorLocation()+Aim*Offset);
++                return Target;
++            };
++            auto* Front=SpawnReceiver(105);auto* Back=SpawnReceiver(-105);
++            Sword->CancelAction();Sword->SetClip(TEXT("Idle"),true);
++            Sword->GrantBroadbladeSweep(Item.InstanceId);Sword->BeginAttack();
++            int32 Changes=0;float ClockAtHit=-1.f,Paused=0.f,Total=0.f;
++            constexpr float Dt=1.f/240.f;
++            for(int32 Step=0;Sword->bAttacking && Step<400;++Step)
++            {
++                const float PrevDamage=Front->Received;
++                Paused+=FMath::Min(Dt,Sword->SweepHitPause);
++                Sword->TickComponent(Dt,LEVELTICK_All,nullptr);Total+=Dt;
++                if(Front->Received>PrevDamage){++Changes;ClockAtHit=Sword->Elapsed;}
++            }
++            auto Result=MakeShared<FJsonObject>();Result->SetNumberField(TEXT("front_hits"),Changes);
++            Result->SetNumberField(TEXT("back_damage"),Back->Received);Result->SetNumberField(TEXT("contact_time"),ClockAtHit);
++            Result->SetNumberField(TEXT("held_seconds"),Paused);Result->SetNumberField(TEXT("total_seconds"),Total);
++            Metadata->SetObjectField(TEXT("contact_probe"),Result);
++            Front->Destroy();Back->Destroy();
++        }
+@@ -175 +452,2 @@
+-    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);return 0;
++    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    return AllSweepCasesPassed?0:15;

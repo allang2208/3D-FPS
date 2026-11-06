@@ -1,0 +1,756 @@
+{
+  "files": [
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandBreakSweep.h",
+      "bytes": 1904,
+      "sha256_utf8_lf": "7f28dd8043136cb4565f24616d6cc96240a6eaaedd2551205eff2b0fdafc6bdf",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandRidgeThrust.h",
+      "bytes": 2944,
+      "sha256_utf8_lf": "f29f4c958e0dc1d5be595ce85a8f9cf7ac46646d0112f5cb275073d281e252bb",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandRidgeGatherComponent.h",
+      "bytes": 978,
+      "sha256_utf8_lf": "c2221f926233311b95fa4687aa54c9cfce87f052a652fc47d0d00dc606bd3224",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandRidgeGatherComponent.cpp",
+      "bytes": 9261,
+      "sha256_utf8_lf": "b2f352bcb8bb2ff2c52cb1d295b8395b1c37c0badfee8d6dbd21f0748caca3dd",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandNetworkAudit.cpp",
+      "bytes": 13004,
+      "sha256_utf8_lf": "ca18d3c1f8a44e1844810132f5cff5a063c42613ba739169cd15c086f97279d0",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordBroadblade.cpp",
+      "bytes": 7209,
+      "sha256_utf8_lf": "f1aa4454e034f730fca123b310b734b61f98638d487b4048df4824def9121538",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordRidgeThrust.cpp",
+      "bytes": 4299,
+      "sha256_utf8_lf": "0032560861d407a9abe78fac554767c990a682de5c3586925c8e1e39dfad0715",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordHeavyCharge.cpp",
+      "bytes": 6558,
+      "sha256_utf8_lf": "15d6b50b988f400c17645aff5b57a1001da07cada21d34a4b8d4af306aded186",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyRidgeGather.cpp",
+      "bytes": 2507,
+      "sha256_utf8_lf": "a46f94a9e83a470809651fcb7cfbd98069bbf112504fef3ce149621a78f07ae6",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelRidgeThrustNetwork.cpp",
+      "bytes": 3063,
+      "sha256_utf8_lf": "5c7405fe8fb11be67c04045ec659bc25dfa19d24196a65a199d26f73014cabda",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HighlandEquipmentWireAudit.h",
+      "bytes": 425,
+      "sha256_utf8_lf": "9c96bfa320491cf3c92d14e04781dd4ed31876f04c25b48e1a1a18e3155f7875",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HighlandEquipmentWireAudit.cpp",
+      "bytes": 6322,
+      "sha256_utf8_lf": "fc9c3bd5281e624f5f7173a8e8709010e515766835dfc2a4c937a990e350c1a8",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Tools/HighlandNetworkAudit20261106/run_native.ps1",
+      "bytes": 2177,
+      "sha256_utf8_lf": "100583e73f48fb21f2f563c27ea26481c4fb59677c459b02996815ae2c6b00d5",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Tools/HighlandNetworkAudit20261106/run_equipment_wire.ps1",
+      "bytes": 6578,
+      "sha256_utf8_lf": "661aae52f1d9a27fb85bb49c6004d81715ae14ac7cff55afc914567845faecff",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Tools/HighlandRidgeFollow20261106/build.ps1",
+      "bytes": 2452,
+      "sha256_utf8_lf": "3c13d17502db1755cb848d068cf80bc7d488cc44109df097af61fa5608ece9eb",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/author_sweep.py",
+      "bytes": 215,
+      "sha256_utf8_lf": "e8569d9cf2bd495ce52fab3d61a6f7836d98b3081f17939d6d297f579b31e05c",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/install_body_roles.py",
+      "bytes": 760,
+      "sha256_utf8_lf": "c181112f7c9046192703c436dbd860b89b0ae07c43a0af35187b3c57f9bbe6f3",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/read_body_anchors.py",
+      "bytes": 1625,
+      "sha256_utf8_lf": "1a537e5bd9e53eb329ce73c3949e1717201b24a677812cdf2dce62ed98eb8647",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/read_poses.py",
+      "bytes": 1209,
+      "sha256_utf8_lf": "1d9e2e1ea84039ae17358aa8af5833991a889971b440d41682298b8a6ca4fa24",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/save_body.py",
+      "bytes": 2397,
+      "sha256_utf8_lf": "3f25b9859f71ce0677db0050e993c4e09bc04cd767e04ca02f8bdc9852d9dec0",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/save_moves.py",
+      "bytes": 2944,
+      "sha256_utf8_lf": "2fb074d0c1ad0c2042d6a9a7228740655a462864ca2964c02420375492dc2f3e",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/solve_body_sweep.py",
+      "bytes": 8774,
+      "sha256_utf8_lf": "e99c48992d99486e44c1d078a645610a95976032b0be32c181b002744ef377c0",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "bytes": 11636,
+      "sha256_utf8_lf": "b9c9a8fd88924e2ac49517eb92246dd7a00b94a8ab9d6621661ec9d7e419631f",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/camera-study.py",
+      "bytes": 1673,
+      "sha256_utf8_lf": "8d55d2844ec7f7a6452b4b5457c7f7d475a804cb6f2c6c1baf7e64e82e4b986b",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/compare.py",
+      "bytes": 838,
+      "sha256_utf8_lf": "72bbe6c9b6f370d77f6a986a3d236ac3bf777cdb2d4e611f83cf5c694f92db3c",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/compare_video.py",
+      "bytes": 1656,
+      "sha256_utf8_lf": "384757131c7bf32de070ef3775bdbc2d72891a651172e5eee5534ce57f430d6a",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/deliver_preview.py",
+      "bytes": 1459,
+      "sha256_utf8_lf": "91d23410576e37453976eb08feb2d2898dda14dd62e790bb3eb10c8cc69770cf",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/fit_handoff.py",
+      "bytes": 2649,
+      "sha256_utf8_lf": "809faf0f6a0728a1bdc6a26d3751957b5d30179de003f1abfe462836aa369a7d",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/fit_take.py",
+      "bytes": 10468,
+      "sha256_utf8_lf": "a6f51fce1cb5d182e46b8f3824442ef51f7e5423445e47f66e1c4b83adb38fba",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/measure_native.py",
+      "bytes": 2670,
+      "sha256_utf8_lf": "c27f2ab666f0b355ed405ead0c6e1ccd7047cda7cb9cfb9a7dac5cfd435d960d",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/SweepRift/bake_ribbons.py",
+      "bytes": 5144,
+      "sha256_utf8_lf": "75aa8beb036ab42bd7818dded81f100660e321f00ede6d351e87bd4f32fbeb5b",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/arm_chain.py",
+      "bytes": 10795,
+      "sha256_utf8_lf": "3afe1fc34291bdf263ce4d8f16f1abfdab1e6f4f8084c3d4361c85b21127b5f3",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/author.py",
+      "bytes": 3549,
+      "sha256_utf8_lf": "f53b7a1709fc662a362982b305062bf2e9d7da8dd23ae45c7767c4e62c99afa0",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/charge_motion.py",
+      "bytes": 21294,
+      "sha256_utf8_lf": "0f3713913384550b464405d9320ba37fafa15026531da0d40342fdbdaa1e5ccb",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/fit.py",
+      "bytes": 2287,
+      "sha256_utf8_lf": "27107bc12d9252376bde84ddc30f8dbc8ca2c12aebc15a9d1bc907a6af0af939",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/publish_gather.py",
+      "bytes": 3592,
+      "sha256_utf8_lf": "68b94b120ccf5f58c87d032b687676c7edcc080f06aa7c0549f1f086873cab2a",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/save.py",
+      "bytes": 3461,
+      "sha256_utf8_lf": "f7a1aa57dea19f54e285940c65168bb12632b0f8d1b9aabb00d95b617c1beb60",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/save_charge.py",
+      "bytes": 235,
+      "sha256_utf8_lf": "0393fd03f72131a82d58238327643c3b9cd1089c60a31fd1677ebea1aafb9226",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/save_strike.py",
+      "bytes": 148,
+      "sha256_utf8_lf": "6e9a02cb7b82fe162df3c3a85465fafb0190fd2935f7e0ee3fe8b52c0ca40ee2",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/strike_timing.py",
+      "bytes": 381,
+      "sha256_utf8_lf": "c64a516a5f9489500fb377b4daf32804e317d1d44e609df283137585ee1682b3",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261106/build_install.ps1",
+      "bytes": 2786,
+      "sha256_utf8_lf": "919acf1c80fc304d7192ccfbc046dc5429ba995e0c5fb5f9b4562e046e07b76f",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeIcon20261106/install.ps1",
+      "bytes": 1815,
+      "sha256_utf8_lf": "bcd06650d9fafaef165557927633a2d09abee2d256dbb571f902c0d152570aef",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeIcon20261106/prompt.txt",
+      "bytes": 1391,
+      "sha256_utf8_lf": "3da68496683b15d2c16e30efbe0eb6153398b655831a21352bc5148ab876e1ae",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeIcon20261106/publish.py",
+      "bytes": 2260,
+      "sha256_utf8_lf": "2b1c6bc8a479e64fdbb50f44dfd1ba6f096ae2f10528905d0b3b4474c7b810e3",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/author.py",
+      "bytes": 18497,
+      "sha256_utf8_lf": "ca6a99bd88a5e695a715be1c0a6fff347913124c2f897ac77e1f73c93070176d",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/authoring.json",
+      "bytes": 2357,
+      "sha256_utf8_lf": "7260ac0306ebb2bd8e25a22dde182c2e466940021a06ddae0d209b9405a9f959",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/finish.py",
+      "bytes": 7499,
+      "sha256_utf8_lf": "d78d3bf27fc3e07b3d7cd8a106881d6400de577f5057909f7d15ce3ddd430dde",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/inspect_model.py",
+      "bytes": 2577,
+      "sha256_utf8_lf": "f6d30184fbd3a317538749366a89784d1e53e62e23f9c9ec834629d0b904c001",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/install.ps1",
+      "bytes": 1835,
+      "sha256_utf8_lf": "c295c403160652b1562d38a1c3b4fd8fe2c01e2bbaaaf7a0bcce55bb6da7d1c3",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/publish.py",
+      "bytes": 7326,
+      "sha256_utf8_lf": "abfeff7982d62f53cbc7c60d6ed4adf361396814c477b601102d45596cbcde82",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/Integration/build.ps1",
+      "bytes": 2474,
+      "sha256_utf8_lf": "ed8e705e46d70ebef2f558a29c83627e9f0cf165a6494bb43237ab065a3d9d16",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/Integration/icon_prompt.txt",
+      "bytes": 1290,
+      "sha256_utf8_lf": "3fe07baa89c13d4b1c1ceb7b1d07a2a645d81ce089e1a685b096d261a1e8192e",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/Integration/install_catalog.py",
+      "bytes": 2309,
+      "sha256_utf8_lf": "ec664c2790a144a82c8e41078a0784a670509fbf2a576df2b7689abbef4bff41",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/Integration/install_icon.ps1",
+      "bytes": 1850,
+      "sha256_utf8_lf": "7ada5b07d64e8c2a99aa576740922ddcc3d5ef90553a00f69654f6a303bc21d9",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/Integration/publish_icon.py",
+      "bytes": 2278,
+      "sha256_utf8_lf": "dec5556ade0b8bed10f67f3218c3e00ef8e30912d1a0e91e2262aa75bc899c35",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/Integration/render_icon_source.py",
+      "bytes": 922,
+      "sha256_utf8_lf": "d124bbf6bc22965cfef38ec5cdac2fadb81fedde72e7e1f5b43eb8b582afd57a",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/author_blade.py",
+      "bytes": 11447,
+      "sha256_utf8_lf": "ecfd462cd7e2316325a39c7d33952d51159a10e2fd866938d9d8f0257423e45e",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/authoring.json",
+      "bytes": 766,
+      "sha256_utf8_lf": "099b4a357f6f766ba51c5243b0d5fe1cbcf43904d5cc71ee96c1d11fe2d4aad6",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/grind.py",
+      "bytes": 3988,
+      "sha256_utf8_lf": "23d44d5f140ea76dd4b81a4ee452b2232c3f9497bccadd2bf7afaba3b9303195",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/guard_seat.py",
+      "bytes": 3756,
+      "sha256_utf8_lf": "2c69cbd9a0c2974f8c9e72c666fc263cb5acf1f626e4a4c1c4dc06362ef59d0f",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/menu_icon.py",
+      "bytes": 2124,
+      "sha256_utf8_lf": "4b66979660dafec08cdfad15f5449590828147b7bb03c63099332ed24a618661",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/paint_finish.py",
+      "bytes": 2262,
+      "sha256_utf8_lf": "37c3295df17c344206dff7a83623e91b86327e20805a702761153c65918fe143",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/produce.py",
+      "bytes": 716,
+      "sha256_utf8_lf": "b368f4d8113b2c215a3d2b73a54e3c81f8d8f86100aa165740b75327b6af2384",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/publish.py",
+      "bytes": 284,
+      "sha256_utf8_lf": "7c93d783cb151bdf7b7be5cf1471864bdfbdaaecc397f0617d613f10fca64b4c",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/author_guards.py",
+      "bytes": 1946,
+      "sha256_utf8_lf": "0e6b03bc6f8a7b02ca7219e9bd86497d003ba2b4a78a1601cf373ebe712b84db",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/guard-authoring.json",
+      "bytes": 131,
+      "sha256_utf8_lf": "8e8b21a763af4030ef9fcc999af34d5b382da56b9cc5bbd99dab6daba470d4e4",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/guard_seat.py",
+      "bytes": 3756,
+      "sha256_utf8_lf": "2c69cbd9a0c2974f8c9e72c666fc263cb5acf1f626e4a4c1c4dc06362ef59d0f",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/publish_guards.py",
+      "bytes": 3748,
+      "sha256_utf8_lf": "29d963107cc25f1aa18b3ce98e2f34e4c52c9efbcae6241cc34f030ea0425908",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/publish.py",
+      "bytes": 6878,
+      "sha256_utf8_lf": "0ec1f9b08af653181790b6380e31d76bded7237a12fb2c606c0bb053f94006a5",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandGaleOathPommel20261106/README.md",
+      "bytes": 2661,
+      "sha256_utf8_lf": "07c8ffab6c5f6b20ac784ee4b44575e3f81c6ea9af36a6f0796775b0bd4d1d98",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandRidgeThrust20261105/Review/edge.py",
+      "bytes": 2539,
+      "sha256_utf8_lf": "22fdacf869a2320192144c803e40472fa73b99f5cfffd52ccfd99f5cc7a6ca5a",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/read_donors.py",
+      "bytes": 1013,
+      "sha256_utf8_lf": "911e4321714a0ba49c1602b97331f00e5e17ebe348aff4274360c4407799eae0",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/read_cc0.py",
+      "bytes": 522,
+      "sha256_utf8_lf": "625db44b84141d3dd4434f48e3f02a7ff29d107677f07b6b3530e55c8bf490c9",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/highland-thrust-follow.md",
+      "bytes": 2429,
+      "sha256_utf8_lf": "edf5a5e6541a57611c59d1abac10cdf8ea59283cf12e533483cb781ba5e96842",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "skills/asset-model-workflow/references/openwork-metal-pommel.md",
+      "bytes": 1652,
+      "sha256_utf8_lf": "9d120a44464b0583814ec231e932e24b7a532ced9c98a1927f989e8a8a9186d9",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/video-fit-thrust-handoff.md",
+      "bytes": 1927,
+      "sha256_utf8_lf": "bd3ae825120a91e880677e029d770304a4af0683d6310c318ad6bffb823e52e0",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "bytes": 5373,
+      "sha256_utf8_lf": "41fb6668c595240a9a1716da2ae0f198a8635567e4c4820265fb4d06cb91a63e",
+      "delivery": "scoped projection"
+    },
+    {
+      "path": "skills/asset-model-workflow/SKILL.md",
+      "bytes": 1828,
+      "sha256_utf8_lf": "6881c80a7c596273ca22cc622b846689dd9e6df437e697d59b5d4844540b60b4",
+      "delivery": "scoped projection"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 7193,
+      "sha256_utf8_lf": "a1b26b9bf718ede8750ca5a795dfb0d2565af53577d65540585cd166b04a68ba",
+      "delivery": "scoped projection"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/equipment-runes-and-attack-receipts.md",
+      "bytes": 13417,
+      "sha256_utf8_lf": "96e8d8a08c8a69b732078985670d24be121547e26806a4af44b5eef3088618ea",
+      "delivery": "scoped projection"
+    },
+    {
+      "path": "Content/ColdSteelData/highland-claymore-modules.json",
+      "bytes": 13635,
+      "sha256_utf8_lf": "07850e4c8a6654101ebc5ac81ed9f0df6062999fdf1f3e63b039ced58c797ad6",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Content/ColdSteelData/melee-gunsmith.json",
+      "bytes": 60681,
+      "sha256_utf8_lf": "7395510e1f8be91e2198b31cdb546bc802b888ddefcdf6f32a7b4533463a6e5b",
+      "delivery": "scoped projection"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "bytes": 1401556,
+      "sha256_utf8_lf": "94b5f5262d363f9c24557ddabb949da546b877700701a39d38be14cc641d0958",
+      "delivery": "scoped projection"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 350693,
+      "sha256_utf8_lf": "b69f8f6376a4abf81d893d8f7c1486378a647e3ab77b4fc3b0f47b3c1b3afeaf",
+      "delivery": "scoped projection"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 140719,
+      "sha256_utf8_lf": "e641367e49ce9f21f0c94a35645f952bd568a5934f4fe44d96cd1a724f6bee94",
+      "delivery": "scoped projection"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/archive-summary.json",
+      "bytes": 21602,
+      "sha256_utf8_lf": "506c1ce139df9f4048f7de70bf2e35f95df239e70e412967eed99eb7518a4ca4",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/body-roles.json",
+      "bytes": 588,
+      "sha256_utf8_lf": "919ccb779a7b57348595235aee1b1ad923e36cce7cc45e00fa9220913c9e5a62",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Evidence/native-receipt.json",
+      "bytes": 178,
+      "sha256_utf8_lf": "3547aa474cd380da6d89636ab0c743bf5d48fa13bae5b1082ad0e9ab0e750464",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Evidence/native-result.json",
+      "bytes": 4054,
+      "sha256_utf8_lf": "0f814ee9e52fe7b57593f231428365893276f0cc3d3ce171ecead2a952ad506b",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Evidence/udp-host.json",
+      "bytes": 3836,
+      "sha256_utf8_lf": "7e4a3dbde46354bde51479863c8608a9c119ce947e80c67c005984288c0ed8f9",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Evidence/udp-receipt.json",
+      "bytes": 413,
+      "sha256_utf8_lf": "bb9fd16287b0ac99c5b0cf7c14f27499670cc9fe179d6ed1556842319abf8187",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/ColdSteelDashAttackModel.cpp.patch",
+      "bytes": 577,
+      "sha256_utf8_lf": "ee190247050139d510d129a11ad7390fc2fa4be84d3d778c6419b398278342f4",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/ColdSteelPlayerState.cpp.patch",
+      "bytes": 6159,
+      "sha256_utf8_lf": "89dce9899ef70de86096dd29db7ca36a62e171b87c57c2e2cfb860924ba14b03",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/ColdSteelPlayerState.h.patch",
+      "bytes": 855,
+      "sha256_utf8_lf": "99dc3f66ab9ebc23cbf96faa7cba06cc7e89ddf5a7ae03ba95f7810b1529ca35",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/ColdSteelSkillModel.cpp.patch",
+      "bytes": 1112,
+      "sha256_utf8_lf": "17928db3c17b7c2c5a5ab0094418dd9b9f5becda37461e467089b12442cd8e6d",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSBodySwordMotion.h.patch",
+      "bytes": 822,
+      "sha256_utf8_lf": "827af21f912d043209a6fe1d130dfbb36b3157311a38181a43a802e7e73ab37f",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSGAMECharacter.cpp.patch",
+      "bytes": 272,
+      "sha256_utf8_lf": "b9ae40c4a711e27b16376832cabbf50e1f0fba396a1e9bc4a590515fe876edaf",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSPlayerBodyActions.cpp.patch",
+      "bytes": 2201,
+      "sha256_utf8_lf": "d822daf1bcc34c1eff649e96d9cefd0cb10204ca4fab4f92da84c6bed0fae837",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSPlayerBodyAnimInstance.cpp.patch",
+      "bytes": 1184,
+      "sha256_utf8_lf": "42c5fc316f9a772102bf6e57bacb6a61633b6e768eb0b04b1c190627abda863c",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSPlayerBodyComponent.cpp.patch",
+      "bytes": 294,
+      "sha256_utf8_lf": "22c9156adb7e3ebe6ec583bcebec0a66dfda4663fd89b69b72eaa97b41c4c37e",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSPlayerBodyComponent.h.patch",
+      "bytes": 258,
+      "sha256_utf8_lf": "1bc90cfcdaeafb060476fc2b2653484b2d2245ed18f24aecff935f92a1c5f4e3",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSPlayerBodyConsumable.cpp.patch",
+      "bytes": 165,
+      "sha256_utf8_lf": "e5d923845543f95a74d8b68ca846c6bc5524282bb0b36a6b20088a31b9021339",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSPlayerBodyPoses.h.patch",
+      "bytes": 933,
+      "sha256_utf8_lf": "7ba7c2273a208b6305eccdfb6b09492dcc4d8cc718960a152ebce79c4d06fb01",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/FPSStaminaModel.cpp.patch",
+      "bytes": 773,
+      "sha256_utf8_lf": "8a0a804e6096d20f8fb5f0a03181053dc4ac5a16158d40e440f8dbb3bd64ffdf",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/GunsmithModificationTier.h.patch",
+      "bytes": 822,
+      "sha256_utf8_lf": "4748093efd6e1ba2e548c265305228570f8a639ee286d9b122fd5198b21426b3",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/MeleeRuneVisual.cpp.patch",
+      "bytes": 668,
+      "sha256_utf8_lf": "43258b87609c761cfaf4e2f7f07ee23385853550f51ee2e492b13f6bb20486c7",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/MeleeWeaponStats.cpp.patch",
+      "bytes": 584,
+      "sha256_utf8_lf": "d816cefa8eab9acd2dfa2272a401cd5876bead29507ce03285feac8fad8fba90",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/ModularSwordVisual.cpp.patch",
+      "bytes": 2765,
+      "sha256_utf8_lf": "a6f0fa0429d737280fae0ec329e0a8c55d0ef086b97d34f8e03fb3713e429612",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/ModularSwordVisual.h.patch",
+      "bytes": 256,
+      "sha256_utf8_lf": "09b17805e5153478c149cf275aa19e79981cface4a1a2d43d37da4ab60634720",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordAuditCommandlet.cpp.patch",
+      "bytes": 228,
+      "sha256_utf8_lf": "80b83a8c1ae6aeb0738f6051984a83ec3903ba108f1d35723b8923bce79acf7c",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordAuditCommandlet.h.patch",
+      "bytes": 184,
+      "sha256_utf8_lf": "bd5aa0ec8fce8e6f61f376b49804020e199e29fb4849c76465504363ed0fa82c",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordComponent.cpp.patch",
+      "bytes": 20939,
+      "sha256_utf8_lf": "8e4282e5d49ab53ad2f41a324025881d6911e1b0175ba975bb038d21abdb340b",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordComponent.h.patch",
+      "bytes": 2853,
+      "sha256_utf8_lf": "ee756c8686258b9b982d29e16be67d2bcf8449ac76eb63462bc57ca824530c2f",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordDashAttack.cpp.patch",
+      "bytes": 872,
+      "sha256_utf8_lf": "b0a0358268e7279f1b75cbb9bfa9ed8388a72c44a67b9e3d75c7dc4f40b5d2d2",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordGuardNetwork.cpp.patch",
+      "bytes": 167,
+      "sha256_utf8_lf": "b1f16eb0a06c2a6c8b611aacfa48a5d421abc1479adad640b589d9c4abf391d9",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordHeavyRhythm.h.patch",
+      "bytes": 418,
+      "sha256_utf8_lf": "ad14875a7a887909ac2dfe11a9278ea8ef45a3065bac932ecc16b4f761b20e9b",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordMeshComponent.cpp.patch",
+      "bytes": 9730,
+      "sha256_utf8_lf": "ed1cc11c8eab4f98b87d7d6e1b592d7bd4da22c4369c36a702a1ded6ec737ca4",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordMeshComponent.h.patch",
+      "bytes": 474,
+      "sha256_utf8_lf": "dc827d10a80bf5c98cc20b8f14ec35439226d3e8b2ee87c7c9a4ddc74588f756",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/RuneSwordStarMarrowSurfaceAudit.cpp.patch",
+      "bytes": 19951,
+      "sha256_utf8_lf": "a44f13c10b20c8ab8447d0561d76364ee9ef98e3f21088ac1d7d3c599336f5bb",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/SkillNetworkAuditCommandlet.cpp.patch",
+      "bytes": 369,
+      "sha256_utf8_lf": "85435f0187dd6eeed58ce748a7f29fd5e4bba792bf81946cd1582fde73184b1c",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/SwordFinishWireAudit.cpp.patch",
+      "bytes": 2439,
+      "sha256_utf8_lf": "85a0a6964ab2cd8c24c0b6cbe4ab62cb8316a534087463e3ab65948ca47ae300",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/SwordGripClearance.cpp.patch",
+      "bytes": 5149,
+      "sha256_utf8_lf": "bece8adfcd9cab36c8d65c2b6971fff5726e9ec3401cdf466d2f00a8abb44fa3",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/Integration/SwordGripClearance.h.patch",
+      "bytes": 319,
+      "sha256_utf8_lf": "c10e62eff8294ec1e258eabf311abdbe7fd8389f259d8d86b1767f1f7835c842",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/README.md",
+      "bytes": 6236,
+      "sha256_utf8_lf": "328037f24e0d6433608b76cbac6712ace0c28a27a1e1b00848e17f91e600da9e",
+      "delivery": "reviewed text file"
+    },
+    {
+      "path": "Docs/Publication/HighlandSword20261106/shared-hosts.json",
+      "bytes": 14412,
+      "sha256_utf8_lf": "da589e10dbbb3a47e9b7050efa9cbfba09e89d53e3748159b858a28e3eee114b",
+      "delivery": "reviewed text file"
+    }
+  ],
+  "shared_hosts": "shared-hosts.json",
+  "binary_content": "local content library; not redistributed"
+}

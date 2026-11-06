@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -16,0 +17 @@
++#include "../Weapons/HighlandBreakSweep.h"
+@@ -500,0 +502 @@
++    const bool bSweepLaunch=Shot.AttackMeta==HighlandBreakSweep::AttackMeta&&WeaponDefinition==TEXT("ue_highland_claymore")&&Applied>0.f;
+@@ -503 +505 @@
+-        &&(bUppercutLaunch||bFinisherLaunch)&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++        &&(bUppercutLaunch||bFinisherLaunch||bSweepLaunch)&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+@@ -510 +512,6 @@
+-        Combat->ReceiveForcedLaunch(Cast<APawn>(Shooter),Away*Forward+FVector(0,0,Up),Hold);
++        // The monster gate admits unarmoured normals and currently broken bars.
++        if(bSweepLaunch)
++            Combat->ReceiveForcedLaunch(Cast<APawn>(Shooter),Away*HighlandBreakSweep::LaunchOutCMPerSecond+
++                FVector::UpVector*HighlandBreakSweep::LaunchUpCMPerSecond,HighlandBreakSweep::LaunchControlSeconds);
++        else
++            Combat->ReceiveForcedLaunch(Cast<APawn>(Shooter),Away*Forward+FVector(0,0,Up),Hold);

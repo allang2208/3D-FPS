@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "run": "D:\\FPS3D\\FPSGAME\\Tools\\HighlandNetworkAudit20261106\\Wire\\20261106-151906",
+  "peer_exits": [
+    {
+      "exit_code": 0,
+      "pid": 12032
+    },
+    {
+      "exit_code": 0,
+      "pid": 54940
+    },
+    {
+      "exit_code": 0,
+      "pid": 51356
+    }
+  ],
+  "rendered": false,
+  "cases": 7,
+  "port": 19991,
+  "transport": "real local UDP listen host + guest + reconnect"
+}

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -383,0 +384 @@
++    UFUNCTION(Server,Reliable) void ServerBeginRidgeStrike(APawn* ActionPawn,const FString& Weapon,uint32 Serial,uint8 Meta,double ClientStartedAt);
+@@ -621,0 +623,13 @@
++    // Begin and hit reports share this actor channel, so a miss still advances
++    // the installed blade's combo and one rectangle may hit several distinct targets.
++    struct FRidgeStrike
++    {
++        TWeakObjectPtr<APawn> Pawn;
++        FString Weapon;
++        uint32 Serial=0;
++        uint8 Meta=0,NextStage=1;
++        double StartedAt=-1.,NextSwingAt=0.,ChainUntil=0.,HitFrom=0.,HitUntil=0.;
++        float Length=0.f;
++        FVector DashForward=FVector::ForwardVector;
++        TSet<TWeakObjectPtr<AActor>> Targets;
++    } RidgeStrike;

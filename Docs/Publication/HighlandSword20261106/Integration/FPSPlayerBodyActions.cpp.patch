@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -10,0 +11 @@
++#include "../Weapons/HighlandRidgeThrust.h"
+@@ -206 +207,2 @@
+-            Timed(EFPSBodyAction::Charge,Sword->Elapsed,RuneSwordHeavyRhythm::ChargeSeconds);
++            const float ChargeLength=State.ActionVariant==HighlandRidgeThrust::Charge?Length:RuneSwordHeavyRhythm::ChargeSeconds;
++            Timed(EFPSBodyAction::Charge,Sword->Elapsed,ChargeLength);
+@@ -215 +217,2 @@
+-            const auto Action=Sword->bPommelAttack?EFPSBodyAction::Pommel:Sword->bThrustAttack?EFPSBodyAction::Thrust:
++            const auto Action=Sword->bPommelAttack?EFPSBodyAction::Pommel:
++                (Sword->bThrustAttack||HighlandRidgeThrust::IsRelease(Sword->CurrentClip))?EFPSBodyAction::Thrust:
+@@ -219,3 +222,17 @@
+-            Timed(Action,Sword->Elapsed,Length,Sword->SwingRate);
+-            State.ContactFraction=Sword->ContactStart/Length;State.ReleaseFraction=Sword->ContactEnd/Length;
+-            if(Sword->bDashAttack||(Sword->bOverheadAttack&&(Sword->SwingSkills.AttackMeta&0x0F)==3))
++            if(HighlandRidgeThrust::IsRelease(Sword->CurrentClip))
++            {
++                const float Lead=HighlandRidgeThrust::LeadFor(Sword->CurrentClip);
++                const auto Wall=[&](float T){return HighlandRidgeThrust::ToWall(T,Lead,Sword->SwingRate);};
++                const float Duration=Wall(Length);
++                Timed(Action,Wall(Sword->Elapsed),Duration);
++                State.ActionEntryFraction=Wall(Lead)/Duration;
++                State.ContactFraction=Wall(Sword->ContactStart)/Duration;
++                State.ReleaseFraction=Wall(Sword->ContactEnd)/Duration;
++            }
++            else
++            {
++                Timed(Action,Sword->Elapsed,Length,Sword->SwingRate);
++                State.ContactFraction=Sword->ContactStart/Length;State.ReleaseFraction=Sword->ContactEnd/Length;
++            }
++            if(Sword->SweepHitPause>0.f)State.ActionProgressRate=0.f;
++            if((Sword->bDashAttack&&!HighlandRidgeThrust::IsRelease(Sword->CurrentClip))||(Sword->bOverheadAttack&&(Sword->SwingSkills.AttackMeta&0x0F)==3))

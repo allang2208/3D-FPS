@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyPoses.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyPoses.h
+@@ -2,0 +3 @@
++#include "../Weapons/HighlandRidgeThrust.h"
+@@ -8,0 +10,4 @@
++inline float RidgeRecoveryFraction(const FFPSBodyState& S)
++{
++    return FMath::Min(.9999f,S.ReleaseFraction+HighlandRidgeThrust::HoldSeconds/FMath::Max(.001f,S.ActionDuration));
++}
+@@ -119,2 +124,11 @@
+-        Target=Rest+FVector(0,32,5)*Hit;
+-        Turn(FVector::ForwardVector,-.3f*Hit);break;
++    {
++        float Reach=Hit;
++        if(HighlandRidgeThrust::IsRelease(S.ActionVariant))
++        {
++            const float Resume=RidgeRecoveryFraction(S);
++            Reach=Smooth((T-S.ActionEntryFraction)/FMath::Max(.0001f,S.ReleaseFraction-S.ActionEntryFraction))*
++                (1.f-Smooth((T-Resume)/(1.f-Resume)));
++        }
++        Target=Rest+FVector(0,32,5)*Reach;
++        Turn(FVector::ForwardVector,-.3f*Reach);break;
++    }

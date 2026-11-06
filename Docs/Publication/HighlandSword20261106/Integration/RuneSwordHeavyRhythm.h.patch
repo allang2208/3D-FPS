@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordHeavyRhythm.h
++++ b/Source/FPSGAME/Weapons/RuneSwordHeavyRhythm.h
+@@ -17,0 +18,7 @@
++    inline void AddChargeCamera(float Fraction,float Strength,FVector& Location,FRotator& Rotation)
++    {
++        const float Weight=Strength*FMath::SmoothStep(0.f,1.f,Fraction);
++        Location+=FVector(-13.f,7.8f,3.12f)*Weight;
++        Rotation+=FRotator(7.8f,9.1f,6.5f)*Weight;
++    }
++

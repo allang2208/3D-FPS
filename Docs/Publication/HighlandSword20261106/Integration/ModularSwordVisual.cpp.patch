@@ -1,0 +1,50 @@
+--- a/Source/FPSGAME/Weapons/ModularSwordVisual.cpp
++++ b/Source/FPSGAME/Weapons/ModularSwordVisual.cpp
+@@ -119,0 +120,10 @@
++// A guard can keep its selected wings and finish while using a blade-specific socket.
++FString PartMeshPath(const TSharedPtr<FJsonObject>& Spec,const FGunsmithParts& Parts)
++{
++    FString Path;
++    const TSharedPtr<FJsonObject>* Fitted=nullptr;
++    if(Spec->TryGetObjectField(TEXT("mesh_by_blade"),Fitted)&&(*Fitted)->TryGetStringField(Parts.FindRef(TEXT("blade_1")),Path))
++        return Path;
++    Spec->TryGetStringField(TEXT("mesh"),Path);
++    return Path;
++}
+@@ -192 +202,2 @@
+-        FString Mesh;if(Hidden||!Spec->TryGetStringField(TEXT("mesh"),Mesh)||Mesh.IsEmpty())continue;
++        if(Hidden)continue;
++        const FString Mesh=PartMeshPath(Spec,Parts);if(Mesh.IsEmpty())continue;
+@@ -305,3 +316,3 @@
+-    const auto Gather=[&Add](const TSharedPtr<FJsonObject>& Spec)
+-    {
+-        FString Mesh; if(Spec->TryGetStringField(TEXT("mesh"),Mesh))Add(Mesh);
++    const auto Gather=[&Add,&Parts](const TSharedPtr<FJsonObject>& Spec)
++    {
++        const FString Mesh=PartMeshPath(Spec,Parts);if(!Mesh.IsEmpty())Add(Mesh);
+@@ -353 +364 @@
+-    const auto Read=[&](const TSharedPtr<FJsonObject>& Spec)
++    const auto Read=[&](const TSharedPtr<FJsonObject>& Spec,const FString& Field)
+@@ -356 +367 @@
+-        if(Spec&&Spec->TryGetObjectField(TEXT("hand_fit"),Fit))
++        if(Spec&&Spec->TryGetObjectField(Field,Fit))
+@@ -376 +387,6 @@
+-    Read(Root);Read(Part(Item,TEXT("grip"),Parts));Read(Part(Item,TEXT("guard"),Parts));
++    const auto Grip=Part(Item,TEXT("grip"),Parts);
++    Read(Root,TEXT("hand_fit"));Read(Grip,TEXT("hand_fit"));
++    const TSharedPtr<FJsonObject>* BladeFits=nullptr;
++    if(Grip&&Grip->TryGetObjectField(TEXT("hand_fit_by_blade"),BladeFits))
++        Read(*BladeFits,Parts.FindRef(TEXT("blade_1")));
++    Read(Part(Item,TEXT("guard"),Parts),TEXT("hand_fit"));
+@@ -519 +535 @@
+-        auto* Asset=LoadObject<UStaticMesh>(nullptr,*Spec->GetStringField(TEXT("mesh")));if(!Asset)return false;
++        auto* Asset=LoadObject<UStaticMesh>(nullptr,*PartMeshPath(Spec,Parts));if(!Asset)return false;
+@@ -655,2 +671,6 @@
+-FVector ColdSteelModularSword::BladePoint(const FColdSteelItem& Item,bool Tip)
+-{return Vector(Part(Item,TEXT("blade_1"),Installed(Item,nullptr)),Tip?TEXT("trace_tip_cm"):TEXT("trace_base_cm"),FVector(0,0,Tip?80.6:3));}
++FVector ColdSteelModularSword::BladePoint(const FColdSteelItem& Item,bool Tip,bool bVisual)
++{
++    const auto Blade=Part(Item,TEXT("blade_1"),Installed(Item,nullptr));
++    const FVector Trace=Vector(Blade,Tip?TEXT("trace_tip_cm"):TEXT("trace_base_cm"),FVector(0,0,Tip?80.6:3));
++    return Tip&&bVisual?Vector(Blade,TEXT("visual_tip_cm"),Trace):Trace;
++}

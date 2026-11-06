@@ -1,0 +1,5 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -205,0 +206,2 @@
++    void PresentRidgeGather();
++    UPROPERTY(Transient) TObjectPtr<class UHighlandRidgeGatherComponent> WorldRidgeGather;

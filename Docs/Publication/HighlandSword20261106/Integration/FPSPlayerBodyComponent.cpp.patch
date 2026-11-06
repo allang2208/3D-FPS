@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -2,0 +3 @@
++#include "../Weapons/HighlandRidgeGatherComponent.h"
+@@ -246,0 +248 @@
++    if(WorldRidgeGather){WorldRidgeGather->DestroyComponent();WorldRidgeGather=nullptr;}

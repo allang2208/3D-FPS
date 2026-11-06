@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordMeshComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordMeshComponent.h
+@@ -22 +22 @@
+-    void CaptureLocomotionEntry(float Seconds=.1f,bool bPreserveShaftGrip=false);
++    void CaptureLocomotionEntry(float Seconds=.1f,bool bPreserveShaftGrip=false,bool bFromWrists=false);
+@@ -30,0 +31 @@
++    TArray<FTransform> EntryTargetPose;
+@@ -33,0 +35 @@
++    void BlendRidgeEntry(float Alpha);
+@@ -42,0 +45 @@
++    bool bEntryFromWrists=false;

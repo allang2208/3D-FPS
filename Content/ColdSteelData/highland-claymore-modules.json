@@ -162,14 +162,19 @@
           0,
           88
         ],
+        "visual_tip_cm": [
+          0,
+          0,
+          110
+        ],
         "rune_dimensions_cm": [
-          3.8,
+          6.4,
           12,
           69
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/SM_Highland_Blade_RidgePiercer_V1.SM_Highland_Blade_RidgePiercer_V1",
         "interface": "highland_hilt_v1",
-        "appearance": "高地专属 · 窄直棱脊与长尖穿甲刃"
+        "appearance": "高地专属 · 宽肩银结、蓝钢双槽与长菱脊锥尖"
       }
     },
     "guard": {
@@ -180,6 +185,9 @@
           0.0
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_factory_SurfaceV4.SM_Highland_Guard_factory_SurfaceV4",
+        "mesh_by_blade": {
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_factory_SurfaceV4.SM_Highland_Guard_factory_SurfaceV4"
+        },
         "interface": "highland_hilt_v1"
       },
       "bastion_guard": {
@@ -189,6 +197,9 @@
           0.0
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_bastion_guard_SurfaceV4.SM_Highland_Guard_bastion_guard_SurfaceV4",
+        "mesh_by_blade": {
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_bastion_guard_SurfaceV4.SM_Highland_Guard_bastion_guard_SurfaceV4"
+        },
         "interface": "highland_hilt_v1"
       },
       "riposte_guard": {
@@ -198,6 +209,9 @@
           0.0
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_riposte_guard_SurfaceV4.SM_Highland_Guard_riposte_guard_SurfaceV4",
+        "mesh_by_blade": {
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_riposte_guard_SurfaceV4.SM_Highland_Guard_riposte_guard_SurfaceV4"
+        },
         "interface": "highland_hilt_v1"
       },
       "light_guard": {
@@ -207,6 +221,9 @@
           0.0
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_light_guard_SurfaceV4.SM_Highland_Guard_light_guard_SurfaceV4",
+        "mesh_by_blade": {
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_light_guard_SurfaceV4.SM_Highland_Guard_light_guard_SurfaceV4"
+        },
         "interface": "highland_hilt_v1"
       },
       "highland_cloven_guard": {
@@ -217,6 +234,9 @@
         ],
         "interface": "highland_hilt_v1",
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_Cloven_SurfaceV4.SM_Highland_Guard_Cloven_SurfaceV4",
+        "mesh_by_blade": {
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_Cloven_SurfaceV4.SM_Highland_Guard_Cloven_SurfaceV4"
+        },
         "appearance": "高地专属 · 厚根裂角与赤红承锋嵌纹"
       }
     },
@@ -233,6 +253,24 @@
           0
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Grip_factory.SM_Highland_Grip_factory",
+        "hand_fit_by_blade": {
+          "highland_ridge_piercer": {
+            "digits": {
+              "middle_01_r": [
+                0,
+                0,
+                -0.0174524,
+                0.9998477
+              ],
+              "middle_02_r": [
+                0,
+                0,
+                -0.0174524,
+                0.9998477
+              ]
+            }
+          }
+        },
         "interface": "highland_hilt_v1"
       },
       "shock_wrap": {
@@ -276,6 +314,36 @@
         ],
         "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
         "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Grip_long_twohand.SM_Highland_Grip_long_twohand",
+        "hand_fit_by_blade": {
+          "highland_ridge_piercer": {
+            "digits": {
+              "middle_01_r": [
+                0,
+                0,
+                -0.0174524,
+                0.9998477
+              ],
+              "middle_02_r": [
+                0,
+                0,
+                -0.0174524,
+                0.9998477
+              ],
+              "middle_01_l": [
+                0,
+                0,
+                -0.0218149,
+                0.999762
+              ],
+              "middle_02_l": [
+                0,
+                0,
+                -0.0654031,
+                0.9978589
+              ]
+            }
+          }
+        },
         "interface": "highland_hilt_v1",
         "hand_fit": {
           "left_offset_cm": [
@@ -333,6 +401,15 @@
           -22.699999809265137
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/ThornCrown20260927/Meshes/SM_Highland_Pommel_ThornCrown_V1.SM_Highland_Pommel_ThornCrown_V1",
+        "interface": "highland_hilt_v1"
+      },
+      "highland_gale_oath": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -22.699999809265137
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/GaleOath20261106/SurfaceR2/Meshes/SM_Highland_Pommel_GaleOath_R2.SM_Highland_Pommel_GaleOath_R2",
         "interface": "highland_hilt_v1"
       }
     }

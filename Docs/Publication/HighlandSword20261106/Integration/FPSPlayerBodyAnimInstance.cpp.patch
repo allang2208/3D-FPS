@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -2155 +2155 @@
+-            else if(S.ActionVariant==TEXT("ChixiaoHeavy"))Sample=P;
++            else if(S.ActionVariant==TEXT("ChixiaoHeavy")||S.ActionVariant==TEXT("HighlandBreakSweep"))Sample=P;
+@@ -2159,0 +2160,12 @@
++            else if(HighlandRidgeThrust::IsRelease(S.ActionVariant))
++            {
++                const float Hit=FMath::Max(.0001f,S.ContactFraction),Peak=FMath::Max(Hit+.0001f,S.ReleaseFraction);
++                const float Resume=FPSBodyPoses::RidgeRecoveryFraction(S);
++                const float Entry=FMath::Clamp(S.ActionEntryFraction,0.f,Hit-.0001f);
++                const float Chamber=SwordContact*.7f;
++                if(P<Entry)Sample=FMath::Lerp(0.f,Chamber,P/Entry);
++                else if(P<Hit)Sample=FMath::Lerp(Chamber,SwordContact,(P-Entry)/(Hit-Entry));
++                else if(P<Peak)Sample=FMath::Lerp(SwordContact,SwordRelease,(P-Hit)/(Peak-Hit));
++                else if(P<Resume)Sample=SwordRelease;
++                else Sample=FMath::Lerp(SwordRelease,1.f,(P-Resume)/(1.f-Resume));
++            }

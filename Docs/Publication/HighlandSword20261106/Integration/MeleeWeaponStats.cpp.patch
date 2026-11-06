@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+@@ -15,0 +16 @@
++#include "HighlandRidgeThrust.h"
+@@ -74,0 +76,6 @@
++    if(Item.Definition==TEXT("ue_highland_claymore")&&Parts.FindRef(TEXT("blade_1"))==TEXT("highland_ridge_piercer"))
++    {
++        R.ThrustSeconds=HighlandRidgeThrust::ToWall(HighlandRidgeThrust::CounterLead+HighlandRidgeThrust::ReleaseSeconds,
++            HighlandRidgeThrust::CounterLead,R.AttackRate*HighlandRidgeThrust::FinisherPlaybackRate);
++        R.ThrustReach*=HighlandRidgeThrust::ReachScale;
++    }

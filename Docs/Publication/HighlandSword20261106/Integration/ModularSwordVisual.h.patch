@@ -1,0 +1,5 @@
+--- a/Source/FPSGAME/Weapons/ModularSwordVisual.h
++++ b/Source/FPSGAME/Weapons/ModularSwordVisual.h
+@@ -48 +48 @@
+-    FVector BladePoint(const FColdSteelItem& Item,bool Tip);
++    FVector BladePoint(const FColdSteelItem& Item,bool Tip,bool bVisual=true);

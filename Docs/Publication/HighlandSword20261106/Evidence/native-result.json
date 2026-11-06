@@ -1,0 +1,160 @@
+{
+  "checks": [
+    {
+      "case": "remote authority fixture needs no first-person animations",
+      "passed": true
+    },
+    {
+      "case": "Gale sprint cost is 85 percent on shadow profile",
+      "passed": true
+    },
+    {
+      "case": "Gale charge speed is plus 20 percent on owner and authority",
+      "passed": true
+    },
+    {
+      "case": "Gale pommel is special tier",
+      "passed": true
+    },
+    {
+      "case": "Ridge blade is legendary tier",
+      "passed": true
+    },
+    {
+      "case": "Ridge passive range and previous third-hit damage times 1.5 retained",
+      "passed": true
+    },
+    {
+      "case": "thrust penetration adds 20 or 80 percentage points",
+      "passed": true
+    },
+    {
+      "case": "out of bounds or invalid charge timestamp rejected",
+      "passed": true
+    },
+    {
+      "case": "out of bounds or invalid charge timestamp rejected",
+      "passed": true
+    },
+    {
+      "case": "out of bounds or invalid charge timestamp rejected",
+      "passed": true
+    },
+    {
+      "case": "400 ms late begin preserves actual hold start",
+      "passed": true
+    },
+    {
+      "case": "duplicate begin cannot backdate charge",
+      "passed": true
+    },
+    {
+      "case": "wrong weapon stop cannot cancel real charge",
+      "passed": true
+    },
+    {
+      "case": "partial hold cannot become a heavy attack",
+      "passed": true
+    },
+    {
+      "case": "replayed cancelled begin cannot reopen charge",
+      "passed": true
+    },
+    {
+      "case": "cancelled hold does not bill network transit",
+      "passed": true
+    },
+    {
+      "case": "fixture reproduces old arrival-clock rejection",
+      "passed": true
+    },
+    {
+      "case": "hit-before-stop commits fully charged delayed release",
+      "passed": true
+    },
+    {
+      "case": "missing hold stamina and release settled exactly once",
+      "passed": true
+    },
+    {
+      "case": "duplicate stop or hit cannot pay a second time",
+      "passed": true
+    },
+    {
+      "case": "heavy release receipt expires",
+      "passed": true
+    },
+    {
+      "case": "insufficient combined hold and release cost denies atomically",
+      "passed": true
+    },
+    {
+      "case": "unequipping before receipt cannot release old sword",
+      "passed": true
+    },
+    {
+      "case": "inactive sword removes sprint reduction",
+      "passed": true
+    },
+    {
+      "case": "late first swing uses input clock for combo recovery",
+      "passed": true
+    },
+    {
+      "case": "second swing remains valid when network delay drops from 400 to 60 ms",
+      "passed": true
+    },
+    {
+      "case": "third combo authority receipt uses extended rectangle",
+      "passed": true
+    },
+    {
+      "case": "duplicate thrust begin cannot reopen contact window",
+      "passed": true
+    },
+    {
+      "case": "heavy authority receipt uses extended rectangle",
+      "passed": true
+    },
+    {
+      "case": "dash authority receipt matches skill rectangle",
+      "passed": true
+    },
+    {
+      "case": "first and world emitters start on actual tip",
+      "passed": true
+    },
+    {
+      "case": "moving and turning during hold keeps tip, direction and random pattern",
+      "passed": true
+    },
+    {
+      "case": "late afterglow follows recovering tip instead of freezing",
+      "passed": true
+    },
+    {
+      "case": "afterglow hides after duration",
+      "passed": true
+    },
+    {
+      "case": "first and world emitters start on actual tip",
+      "passed": true
+    },
+    {
+      "case": "moving and turning during hold keeps tip, direction and random pattern",
+      "passed": true
+    },
+    {
+      "case": "late afterglow follows recovering tip instead of freezing",
+      "passed": true
+    },
+    {
+      "case": "afterglow hides after duration",
+      "passed": true
+    }
+  ],
+  "failures": 0,
+  "udp_or_multiplayer_runtime": false,
+  "rendered": false,
+  "scope": "isolated authority implementations, data evaluation and live emitter transforms; not packet transport or rendered animation"
+}

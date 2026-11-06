@@ -17,3 +17,5 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 - 已保存硬表面网格的切线、UV 与 Nanite 回退修复：读取[已保存硬表面网格的切线、UV 与 Nanite 回退修复](references/saved-static-mesh-tangent-basis.md)。
 
 - 生成部件的精确安装端、局部形变和布尔开窗残片：读取 [模块连接面](references/modular-part-interfaces.md)。
+
+- 近景镂空金属剑首、护手与刃根连续过渡：[镂空配重与连续刃根](references/openwork-metal-pommel.md)。按实际接口建模，固定圆角和烘焙三角化，区分正式母版与被替换输出。

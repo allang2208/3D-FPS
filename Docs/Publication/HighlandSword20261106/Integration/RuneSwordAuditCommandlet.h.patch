@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h
++++ b/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h
+@@ -11,0 +12 @@
++    int32 AuditHighlandNetwork(const FString& Params);

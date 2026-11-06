@@ -1,0 +1,258 @@
+[
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordComponent.cpp.patch",
+    "before_sha256": "2813dcf4fdc39544bea3bcf385fbe3974fc25defc35a70010e1d491f0c5d8579",
+    "after_sha256": "4b5dc427ff4a9d85095d19885ed4b850a5210feab64277126a08915cb4bc6429",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordComponent.h.patch",
+    "before_sha256": "10258725382b9df00b5bd2f924f2b4931642aa156f961cd8fe7c683437f23a4b",
+    "after_sha256": "22b37c868ae782c35fdb3cd19aa04fb1e07cbbf2aecf370d4b5c12ea706b19b5",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordMeshComponent.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordMeshComponent.cpp.patch",
+    "before_sha256": "2be432f8806384483afec2473def4e608ae2fe934e2c9c5198e17373cb21850b",
+    "after_sha256": "789e45063eafc15a7accebed7d286361b56ba36687757396b58847d44e169819",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordMeshComponent.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordMeshComponent.h.patch",
+    "before_sha256": "1842d9b6c0baae1a63c7bae024eed9ebe0a4c7b99e418b2dcde110f7705cbedb",
+    "after_sha256": "e5cbbbf924cf50d5597d2571b18b809c83a3cc8f0af732a9455fa13847eb2eb2",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordDashAttack.cpp.patch",
+    "before_sha256": "2756fb799618198e6459da6535f89447fe6d6b58dec76fdb28b2550c05e26f63",
+    "after_sha256": "5226ad6bb79ab7fbe92504ca5884e46f81b3b4f6211bb849746f1a5dd78a9a61",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SwordGripClearance.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/SwordGripClearance.cpp.patch",
+    "before_sha256": "8ff299ea955f86f942ec91a84c6416d63c57d5a5e42e2934c19b58711f13f2e6",
+    "after_sha256": "b75ca5bc852a0e2f93cf3b4362a3dfccef4e0d523943883058f46aad4bc38570",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SwordGripClearance.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/SwordGripClearance.h.patch",
+    "before_sha256": "9bb04ab26bd29546d0e73c262125469bfdf28bba1375a0734717dbb1c11d3522",
+    "after_sha256": "062594df08349214e7ac1ca73523847c5cf2114ae0879d9d26b579b50025d0a6",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordHeavyRhythm.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordHeavyRhythm.h.patch",
+    "before_sha256": "335d4eb2dc7d29d6fcdde75ae5cdae92c0e5fa946b6fa7570d7d32bd7bef3518",
+    "after_sha256": "e952f2f791ba808eb6e7097cb48b99a145a5290d87e475fa79a9eab6bf691060",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordGuardNetwork.cpp.patch",
+    "before_sha256": "0fb88d34e3ee52dd200bbbc167d16446d0dd7befe85722e1bd44613f93cb19bb",
+    "after_sha256": "d7104b87d97b0665cdbd64a7e2be3400075a8f300f464f5b71afbff591de66fe",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/MeleeRuneVisual.cpp.patch",
+    "before_sha256": "bd40d762eff5c31af5ad5f63b68ccd6372da550a0210d05e7f42097100247ada",
+    "after_sha256": "fd9053e8029e6d3a40b053d2b55f1794097542e383b7c6e7ce92858065c08d14",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSGAMECharacter.cpp.patch",
+    "before_sha256": "b6523dde60ac2986f51440af1fe8d1cf5efa93939b57b560101a2cc2b0e3bd19",
+    "after_sha256": "85b254d316d99c9db3e6e8ed534ac5cfff5ee5e9a0af14aa2a84fffa508045c0",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/ModularSwordVisual.cpp.patch",
+    "before_sha256": "8101865e0e213c0cee491478bc472454b8592f0abe8be59261943b1bedb600ec",
+    "after_sha256": "62ccf769d0a153c7d7eabbb78071a450608a13a5a33fb0a8778f1dde41cbc6e4",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/ModularSwordVisual.h.patch",
+    "before_sha256": "55df0a2daa2e766ad6feae7117ac9c39185e34868bd35a6372becdb8d372fc5e",
+    "after_sha256": "2ee0d309072e6f4c50de03678bfb0c34d2a688b547841eabb98feab832ce05a4",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/ColdSteelPlayerState.cpp.patch",
+    "before_sha256": "88368a0cf1638148655873ec5ffeb8de38ea7d090a23c9ec4fdc891b6491a1c8",
+    "after_sha256": "12bb370f321014bb196e12cd6069309be06efc6d8818a16ae817c4aa717c1d39",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/ColdSteelPlayerState.h.patch",
+    "before_sha256": "a3482dc36cfc28736871cd1a82ab45a193709fa949342fe79d535d7fd41f6d5d",
+    "after_sha256": "eb6a69b8751ad6f9625a4e251b8c05850bfada520b6e408b946943b9a0885005",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSStaminaModel.cpp.patch",
+    "before_sha256": "933b2732c6b7efe5a1a212f2ab96f56326683bba0bd171c98b0fadd2de185685",
+    "after_sha256": "3c7bc4ee4cbebac45f793eb3d1560223143d6754c1545c3e57fe81ffe836ca9c",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/ColdSteelDashAttackModel.cpp.patch",
+    "before_sha256": "39c79ae1238a3d3bf3a898dd0f0a1b61c58d372a95653b5c8c257005d325a944",
+    "after_sha256": "f9c37d0e1859704f51bf5fc68b13ad391e2e9bb03e22bb3d1a15c1014df3acae",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/MeleeWeaponStats.cpp.patch",
+    "before_sha256": "e588f543860ded40085470ab1e1058effb35e614467f2b453d9deebd33e2b178",
+    "after_sha256": "d21cece3d077028403402b130792b25b03ddfed2dc05dcea65dcce303b8d7163",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/GunsmithModificationTier.h.patch",
+    "before_sha256": "e892d41fa7b632a7339cf3314007864f39f8af69f125a8b2a857781e31c20bda",
+    "after_sha256": "330846d8851d498b96a0cb82a90c39dea2703ea2af2f7c01cdcfd0ae9f811e8f",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSPlayerBodyActions.cpp.patch",
+    "before_sha256": "4623b2cce019b921e44cd06e88449d146b58ecff26c765dfcd3dd678db08df47",
+    "after_sha256": "940c190eccb152dd461d56b421915492da98d2f20d33d0be4d7187b7d4931809",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSPlayerBodyComponent.h.patch",
+    "before_sha256": "5c25bfbff145abe32f3bf06c47e38577405f728c143d5f80efc6ea8ac8ada1da",
+    "after_sha256": "fb3fa1fa47249d9994ec073c9e299108ed3a72150bd04cc1f85232d411c28779",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSPlayerBodyComponent.cpp.patch",
+    "before_sha256": "521d223751a3ebd0df78a1943b7d87b2ea4b119b1b1e3bc22b943a17772331f1",
+    "after_sha256": "90c666d078b5e9a2ca140515d2f3bbda4b3fcdad63ca71c70f55dbec67c4bbde",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSPlayerBodyConsumable.cpp.patch",
+    "before_sha256": "f6864fc6934ae3e7ca92c16431dc1c52a9a3a8ef9e4cfe33808e00c21aec86f9",
+    "after_sha256": "f4f26f7634c65a5fb12253e834ebcc1e476f3c94859d7acd6aa309182898dbbd",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyPoses.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSPlayerBodyPoses.h.patch",
+    "before_sha256": "282aca3f2fc111ce714e26284800c3182937989ec8bf079348b23b8fe0d5a322",
+    "after_sha256": "fdd878f7c52742c00cecba020c232a438e484ddc5c15d1ba022e22dd9c0976a6",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSBodySwordMotion.h.patch",
+    "before_sha256": "53d6e7ad254b8e71979e649ccfbfe8814190a684de1cc1d5aa88780e4c3d1848",
+    "after_sha256": "5f1908f9ae602b70a8db0b5700443c9d8042790f9a6dac7554caf9286fffd4a7",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/FPSPlayerBodyAnimInstance.cpp.patch",
+    "before_sha256": "055c363247a65771c99dad774950087415f596384b4fb20c98f042f237b9d0bb",
+    "after_sha256": "dd155a58355ca8e5d694ded5f3115b2ad7a61b32de470f14d1c800ac52084608",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/ColdSteelSkillModel.cpp.patch",
+    "before_sha256": "6baae0c53f8d1866bb97e46c08e51b3ff865a43bc791d350604d9c75a6ada3d8",
+    "after_sha256": "db8a737d7423d393d2f76d792f5f3a3e2e8fdcb4d3e643904c44f889b0e2de08",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Development/SwordFinishWireAudit.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/SwordFinishWireAudit.cpp.patch",
+    "before_sha256": "d58d84a6b8437985397e6ef300598fc71656f94d75f7a120f1372a4f1551882d",
+    "after_sha256": "ba80929d5f0694f6d4d21d319ade4f8535b3013efd671448880f3c5eaa030388",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordAuditCommandlet.cpp.patch",
+    "before_sha256": "6b5c717a9cee698293c5b30448d6cb306db00b3c305cef89067302be2ba8a24c",
+    "after_sha256": "63a3a050f5a1761585a8ea09ba4594add13bf438ad463b7338584a7287ce743c",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordAuditCommandlet.h.patch",
+    "before_sha256": "572cde26a7b020a15d119ceca4cf33599da86c0e11534c8ecbb547def4f9a2f0",
+    "after_sha256": "bba3fa7e88b4d82e2600a0a1afa8da8ab0a1fb82a8d304593e3132b9b7ec35ae",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordStarMarrowSurfaceAudit.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/RuneSwordStarMarrowSurfaceAudit.cpp.patch",
+    "before_sha256": "f4f5ccc5cc2979b8b5fbac250633d1b8182b74c19ea48c01ce22d1db3cf651ad",
+    "after_sha256": "beb47eaa60d462758bcfe21ed5fa62ce688d54fc2e5b60f9efa89023fdec225f",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+    "delivery": "shared-host integration delta",
+    "patch": "Integration/SkillNetworkAuditCommandlet.cpp.patch",
+    "before_sha256": "e5f2b3d44b1fa83c009e8301b2580403a9ddf4124a8f7ac3564dd6624985afc9",
+    "after_sha256": "86b0a2249da71959e203daa8d2c5188b7fe6fdeca05df60462a7fe958937850a",
+    "text": "UTF-8 LF; before is current full host with only this publication delta removed"
+  }
+]

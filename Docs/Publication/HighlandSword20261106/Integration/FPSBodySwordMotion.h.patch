@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Characters/FPSBodySwordMotion.h
++++ b/Source/FPSGAME/Characters/FPSBodySwordMotion.h
+@@ -4,0 +5 @@
++#include "../Weapons/HighlandRidgeThrust.h"
+@@ -77 +78,3 @@
+-    case EFPSBodyAction::Strike:return State.ActionVariant==TEXT("Slash2")?TEXT("Melee.FullBody.Slash2"):TEXT("Melee.FullBody.Slash1");
++    case EFPSBodyAction::Strike:
++        if(State.ActionVariant==TEXT("HighlandBreakSweep"))return TEXT("Melee.FullBody.HighlandBreakSweep");
++        return State.ActionVariant==TEXT("Slash2")?TEXT("Melee.FullBody.Slash2"):TEXT("Melee.FullBody.Slash1");
+@@ -96 +99,2 @@
+-    case EFPSBodyAction::Charge:return TEXT("Melee.FullBody.Charge");
++    case EFPSBodyAction::Charge:
++        return State.ActionVariant==HighlandRidgeThrust::Charge?TEXT("Melee.FullBody.Thrust"):TEXT("Melee.FullBody.Charge");

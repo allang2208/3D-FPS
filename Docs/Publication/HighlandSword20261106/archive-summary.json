@@ -1,0 +1,465 @@
+{
+  "verified": true,
+  "trash": "D:\\FPS3D\\FPSGAME\\trash\\HighlandSword20261106",
+  "files": 8766,
+  "bytes": 3742138293,
+  "manifest": "trash/HighlandSword20261106/manifest.json",
+  "manifest_sha256": "b253e8541935d2b42adabf4944746980debfff31dc73ee436ed11dce13fcff21",
+  "groups": [
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/__pycache__",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 16133
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/author.py",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 16571
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/authoring.json",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 2210
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/diagnose_surface.py",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 657
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/Export",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 2,
+      "bytes": 20278924
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/finish.py",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 7499
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/Highland_GaleOath_BakeSource.blend",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 87885920
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/Highland_GaleOath_Editable.blend",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 86733853
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/Highland_GaleOath_GameModel.blend",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 103786825
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/import_receipt.json",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 1823
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/inspect_model.py",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 2577
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/install-20261106-120700-stdout.log",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 36547
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/install-20261106-120700.log",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 291146
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/install.ps1",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 1849
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/publish.py",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 1,
+      "bytes": 7454
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/Review20261106",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 6,
+      "bytes": 112442001
+    },
+    {
+      "source": "SourceAssets/HighlandGaleOathPommel20261106/Textures",
+      "reason": "V1 inner-bevel and side-normal candidate superseded by SurfaceR2",
+      "replacement": "SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2",
+      "files": 6,
+      "bytes": 28867623
+    },
+    {
+      "source": "SourceAssets/HighlandLightPommelConcept20261106/Highland_Swallowtail_LightPommel_Concept01.png",
+      "reason": "Rejected initial silhouette replaced by Western-fantasy Gale Oath concept",
+      "replacement": "SourceAssets/HighlandLightPommelConcept20261106/GaleOathR2",
+      "files": 1,
+      "bytes": 2015949
+    },
+    {
+      "source": "SourceAssets/HighlandLightPommelConcept20261106/prompt.txt",
+      "reason": "Rejected initial silhouette replaced by Western-fantasy Gale Oath concept",
+      "replacement": "SourceAssets/HighlandLightPommelConcept20261106/GaleOathR2",
+      "files": 1,
+      "bytes": 2048
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/__pycache__",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 2,
+      "bytes": 9079
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/author_blade.py",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 10851
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/authoring.json",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 605
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/Before",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 3,
+      "bytes": 6575876
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/Export",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 994764
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/Highland_RidgePiercer_WedgeSpine_Editable.blend",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 300372968
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/Icons",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 157953
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/import_receipt.json",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 976
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/paint_steel.py",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 2036
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/Textures",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 4,
+      "bytes": 3459901
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpine20261105/wedge_profile.py",
+      "reason": "Rejected early wedge blade; generic publisher retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 2229
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/__pycache__",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 3,
+      "bytes": 22884
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/author_blade.py",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 10041
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/authoring.json",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 629
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/Before",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 6,
+      "bytes": 3877318
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/grind.py",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 4003
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/Highland_RidgePiercer_LowSeat_Editable.blend",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 510888531
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/Icons",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 163437
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/import_receipt.json",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 996
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/menu_icon.py",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 2124
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/paint_finish.py",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 2226
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/publish_polish.py",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 662
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/publish_socket.py",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 1,
+      "bytes": 3993
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/Textures",
+      "reason": "Earlier blade surface/junction superseded; fitted guards retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 4,
+      "bytes": 2252904
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineSocketR2_20261105/Export/SM_Highland_Blade_RidgePiercer_V1.fbx",
+      "reason": "Retired blade export; current fitted guard FBX retained",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/Export",
+      "files": 1,
+      "bytes": 2628332
+    },
+    {
+      "source": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106/Before",
+      "reason": "Superseded rollback snapshot, preserved in recoverable trash",
+      "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/WedgeSpineJunctionR4_20261106",
+      "files": 3,
+      "bytes": 2705354
+    },
+    {
+      "source": "SourceAssets/HighlandRidgeIcon20261106/Before",
+      "reason": "Superseded rollback snapshot, preserved in recoverable trash",
+      "replacement": "SourceAssets/HighlandRidgeIcon20261106",
+      "files": 2,
+      "bytes": 421019
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/AssetRead",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 1176,
+      "bytes": 329938417
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/Delivered",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 1244,
+      "bytes": 351200961
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/Final",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 1244,
+      "bytes": 351287302
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/FinalEdge",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 1244,
+      "bytes": 351483407
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/FinalWrist",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 1252,
+      "bytes": 353366769
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/Jason-render",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 37,
+      "bytes": 12254087
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/Kaitlin-render",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 37,
+      "bytes": 12252969
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/Release",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 1252,
+      "bytes": 353708384
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/Review/Verified",
+      "reason": "Earlier sweep inspection outputs replaced by VideoFitV3; Native and ReferenceV2 samples remain active",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/Review/VideoFitV3",
+      "files": 1176,
+      "bytes": 329938417
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/rejected_v1_author.py",
+      "reason": "Rejected procedural sweep replaced by tracked VideoFitV3; reference video and measurements retained",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "files": 1,
+      "bytes": 12650
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/author_v2.py",
+      "reason": "Rejected procedural sweep replaced by tracked VideoFitV3; reference video and measurements retained",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "files": 1,
+      "bytes": 11122
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/save_revision.py",
+      "reason": "Rejected procedural sweep replaced by tracked VideoFitV3; reference video and measurements retained",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "files": 1,
+      "bytes": 197
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/Highland_BreakSweep_V2.gif",
+      "reason": "Rejected procedural sweep replaced by tracked VideoFitV3; reference video and measurements retained",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "files": 1,
+      "bytes": 4585571
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/Highland_BreakSweep_V2_LongGrip_FromReady.blend",
+      "reason": "Rejected procedural sweep replaced by tracked VideoFitV3; reference video and measurements retained",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "files": 1,
+      "bytes": 3583913
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/Highland_BreakSweep_V2_LongGrip.blend",
+      "reason": "Rejected procedural sweep replaced by tracked VideoFitV3; reference video and measurements retained",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "files": 1,
+      "bytes": 3589763
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/Highland_BreakSweep_V2_Standard_FromReady.blend",
+      "reason": "Rejected procedural sweep replaced by tracked VideoFitV3; reference video and measurements retained",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "files": 1,
+      "bytes": 3583978
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeSweep20261104/ReferenceV2/Highland_BreakSweep_V2_Standard.blend",
+      "reason": "Rejected procedural sweep replaced by tracked VideoFitV3; reference video and measurements retained",
+      "replacement": "SourceAssets/HighlandBroadbladeSweep20261104/VideoFitV3/author_v3.py",
+      "files": 1,
+      "bytes": 3591092
+    },
+    {
+      "source": "Tools/HighlandNetworkAudit20261106/Native/20261106-144625",
+      "reason": "Superseded failed build/fixture run; full failure evidence retained in trash",
+      "replacement": "Tools/HighlandNetworkAudit20261106/Native/20261106-151403",
+      "files": 1,
+      "bytes": 72656
+    },
+    {
+      "source": "Tools/HighlandNetworkAudit20261106/Native/20261106-145856",
+      "reason": "Superseded failed build/fixture run; full failure evidence retained in trash",
+      "replacement": "Tools/HighlandNetworkAudit20261106/Native/20261106-151403",
+      "files": 19,
+      "bytes": 707338
+    }
+  ]
+}

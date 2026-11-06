@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -16,0 +17,3 @@
++    if(Weapon==TEXT("ue_highland_claymore")&&SlotKey==TEXT("blade_1")&&
++        (Id==TEXT("highland_broadblade")||Id==TEXT("highland_ridge_piercer")))
++        return EGunsmithModificationTier::Legendary;
+@@ -135,2 +138 @@
+-            ((SlotKey==TEXT("blade_1") && (Id==TEXT("highland_broadblade")||Id==TEXT("highland_ridge_piercer"))) ||
+-             (SlotKey==TEXT("blade_2") && Id==TEXT("wild_rune")) ||
++            ((SlotKey==TEXT("blade_2") && Id==TEXT("wild_rune")) ||
+@@ -138 +140 @@
+-             (SlotKey==TEXT("pommel") && Id==TEXT("highland_thorn_crown")))) ||
++             (SlotKey==TEXT("pommel") && (Id==TEXT("highland_thorn_crown")||Id==TEXT("highland_gale_oath"))))) ||

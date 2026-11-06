@@ -1,0 +1,51 @@
+{
+  "name": "风誓轻量配重锤",
+  "mesh": "SM_Highland_Pommel_GaleOath_R2",
+  "option_candidate": "highland_gale_oath",
+  "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandLightPommelConcept20261106\\GaleOathR2\\Highland_GaleOath_LightPommel_Concept02.png",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandClaymoreMeshy20260922\\WedgeSpineJunctionR4_20261106\\Highland_RidgePiercer_LowSeat_Editable.blend",
+  "donor_object": "SM_Highland_Pommel_factory",
+  "ue_folder": "/Game/Weapons/HighlandClaymore20260922/GaleOath20261106/SurfaceR2",
+  "interface": {
+    "name": "highland_hilt_v1",
+    "location_cm": [
+      0.0,
+      0.0,
+      -22.699999809265137
+    ],
+    "socket_band_mm": 2,
+    "socket_origin": "factory pommel local Z=0",
+    "units": "metres; +Z blade, X width, Y depth"
+  },
+  "model_only": false,
+  "catalogs_modified": true,
+  "gameplay_stats_set": true,
+  "tested": false,
+  "acceptance_rendered": true,
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandGaleOathPommel20261106\\SurfaceR2\\Export\\SM_Highland_Pommel_GaleOath_R2.fbx",
+  "glb": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandGaleOathPommel20261106\\SurfaceR2\\Export\\SM_Highland_Pommel_GaleOath_R2.glb",
+  "source_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandGaleOathPommel20261106\\SurfaceR2\\Highland_GaleOath_Editable.blend",
+  "game_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandGaleOathPommel20261106\\SurfaceR2\\Highland_GaleOath_GameModel.blend",
+  "materials": [
+    "M_GaleOath_PBR"
+  ],
+  "textures": {
+    "size": 4096,
+    "normal_convention": "OpenGL +Y; flip green once on UE import",
+    "orm": "R baked AO / G roughness / B metallic",
+    "ao_baked": true
+  },
+  "topology": {
+    "vertices": 56374,
+    "triangles": 112671
+  },
+  "status": "R2 assets and framed icon saved; special pommel catalog integrated; Editor build succeeded",
+  "saved_mesh": "/Game/Weapons/HighlandClaymore20260922/GaleOath20261106/SurfaceR2/Meshes/SM_Highland_Pommel_GaleOath_R2.SM_Highland_Pommel_GaleOath_R2",
+  "visual_review": "Front, three-quarter, rear and native grip joint reviewed in Blender. Physical fillet and explicit normals replace cap-triangle artifacts. Runtime not tested.",
+  "stats": {
+    "sprint_stamina_mult": 0.85,
+    "heavy_charge_speed_bonus": 0.2
+  },
+  "modification_tier": "special",
+  "runtime_tested": false
+}

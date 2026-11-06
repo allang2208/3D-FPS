@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
+@@ -109,0 +110 @@
++    PresentRidgeGather();

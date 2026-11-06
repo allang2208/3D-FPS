@@ -1,0 +1,354 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -1,0 +2,3 @@
++#include "HighlandBreakSweep.h"
++#include "HighlandRidgeThrust.h"
++#include "HighlandRidgeGatherComponent.h"
+@@ -54,0 +58 @@
++#include "GameFramework/GameStateBase.h"
+@@ -170,0 +175 @@
++    RefreshBroadblade(NewId.IsEmpty()?nullptr:Item);
+@@ -263,0 +269 @@
++    RefreshRidgeThrust(Item);
+@@ -281,0 +288,3 @@
++    // Combat scales the reference sweep by the installed blade's range stat.
++    // Tip-bound visuals use the finished mesh endpoint, including its extra length.
++    ModularTraceTip=ColdSteelModularSword::BladePoint(*Item,true,false);
+@@ -302,0 +312 @@
++    if(CurrentClip==HighlandBreakSweep::Clip && Name!=CurrentClip && bRiftActive)StopRift();
+@@ -309 +319 @@
+-    const bool bChargeWindup=CurrentClip==TEXT("HeavyCharge")&&
++    const bool bChargeWindup=(CurrentClip==TEXT("HeavyCharge")||CurrentClip==HighlandRidgeThrust::Charge)&&
+@@ -314 +324 @@
+-    if(Name==TEXT("HeavyRelease")||Name==TEXT("ChixiaoHeavy"))
++    if(Name==TEXT("HeavyRelease")||Name==TEXT("ChixiaoHeavy")||Name==HighlandRidgeThrust::Release)
+@@ -319 +329,2 @@
+-        (IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)||bLocomotionTarget||bGuardReaction||
++        (Name==HighlandBreakSweep::Clip||Name==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(Name)||
++         IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)||bLocomotionTarget||bGuardReaction||
+@@ -324 +335,9 @@
+-            Arms->CaptureLocomotionEntry();
++            const bool bRidgeHandoff=Name==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(Name)||
++                CurrentClip==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(CurrentClip);
++            // Sprint, guard and the second slash can end far from the chamber.
++            // Seat both wrists before the authored contact window opens.
++            const float EntrySeconds=HighlandRidgeThrust::IsRelease(Name)?
++                (Name==HighlandRidgeThrust::Finisher?.45f:.72f)*HighlandRidgeThrust::CounterLead/FMath::Max(.01f,SwingRate):.10f;
++            Arms->CaptureLocomotionEntry(EntrySeconds,bRidgeHandoff,bRidgeHandoff);
++            if(Name==HighlandBreakSweep::Clip)Arms->LimitLocomotionEntry(.10f/FMath::Max(.01f,SwingRate));
++            if(Name==HighlandRidgeThrust::Charge)Arms->LimitLocomotionEntry(.08f);
+@@ -330 +349 @@
+-    CurrentClip=Name;CurrentAnimation=Animations.FindRef(Name);Elapsed=0;
++    CurrentClip=Name;CurrentAnimation=Animations.FindRef(Name);Elapsed=0;SweepHitPause=0.f;
+@@ -412 +431 @@
+-    if(TryClovenCounter())return;
++    if((!IsBroadbladeSweepReady() || bGuardHeld) && TryClovenCounter())return;
+@@ -419,0 +439 @@
++    if(BeginBroadbladeSweep())return;
+@@ -452,0 +473 @@
++    if(IsBroadbladeSweepReady() && !bGuardHeld){BeginAttack();return;}
+@@ -496,0 +518,4 @@
++    if(!Heavy&&ComboStage==3&&Animations.Contains(HighlandRidgeThrust::Charge))
++        Clip=HighlandRidgeThrust::Finisher;
++    if(Heavy&&Clip==TEXT("HeavyRelease")&&Animations.Contains(HighlandRidgeThrust::Charge))
++        Clip=bCharging?HighlandRidgeThrust::Release:HighlandRidgeThrust::Counter;
+@@ -539 +564,2 @@
+-    bAttacking=true;bQueuedAttack=bCharging=bReturningCharge=false;bHeavyAttack=Heavy;
++    SetHeavyCharging(false,Heavy);
++    bAttacking=true;bQueuedAttack=bReturningCharge=false;bHeavyAttack=Heavy;
+@@ -540,0 +567,2 @@
++    // The ridge thrust retains the heavy attack's damage and target rules.
++    // The normal combo thrust also carries a single-target cap and a one-metre step.
+@@ -555,0 +584,2 @@
++    if(Clip==HighlandBreakSweep::Clip)SwingRate*=HighlandBreakSweep::PlaybackRate;
++    if(Clip==HighlandRidgeThrust::Finisher)SwingRate*=HighlandRidgeThrust::FinisherPlaybackRate;
+@@ -564,0 +595,8 @@
++    if(Clip==HighlandBreakSweep::Clip){ContactStart=HighlandBreakSweep::Contact;ContactEnd=HighlandBreakSweep::Release;}
++    if(HighlandRidgeThrust::IsRelease(Clip))
++    {
++        const float Lead=HighlandRidgeThrust::LeadFor(Clip);
++        ContactStart=Lead+HighlandRidgeThrust::ContactStart;
++        ContactEnd=Lead+HighlandRidgeThrust::ContactEnd;
++        SwingReach*=HighlandRidgeThrust::ReachScale;
++    }
+@@ -580,0 +619 @@
++    if(Heavy && bBroadbladeInstalled)SwingSkills.ToughnessDamageMultiplier*=HighlandBreakSweep::HeavyToughness;
+@@ -586,0 +626,12 @@
++    if(Animations.Contains(HighlandRidgeThrust::Charge)&&!Character->HasAuthority()&&
++        (Clip==TEXT("Slash1")||Clip==TEXT("Slash2")||HighlandRidgeThrust::IsRelease(Clip)))
++    {
++        const uint8 RidgeMeta=Clip==HighlandRidgeThrust::Dash?0x16:
++            Clip==HighlandRidgeThrust::Counter?RuneSwordGuardTuning::ClovenAttackMeta:SwingSkills.AttackMeta;
++        if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
++        {
++            const auto* GS=GetWorld()->GetGameState();
++            PS->ServerBeginRidgeStrike(Character.Get(),InstanceId,SwingSkills.GuardAttackSerial,RidgeMeta,
++                GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds());
++        }
++    }
+@@ -591,0 +643 @@
++    if(Heavy && bBroadbladeInstalled)GrantBroadbladeSweep(InstanceId);
+@@ -746 +798,2 @@
+-    if(!bUppercut && !IsRisingDragonFinisher() && !bDashAttack && !bThrustAttack && !bPommelAttack && !bOverheadFinisher)return FVector::ZeroVector;
++    const bool RidgeFinisher=CurrentClip==HighlandRidgeThrust::Finisher;
++    if(!bUppercut && !IsRisingDragonFinisher() && !bDashAttack && !bThrustAttack && !bPommelAttack && !bOverheadFinisher&&!RidgeFinisher)return FVector::ZeroVector;
+@@ -757,0 +811,5 @@
++    }
++    else if(RidgeFinisher)
++    {
++        const float Start=ContactStart-(RuneSwordThrustRhythm::ContactStart-RuneSwordThrustRhythm::LungeStart);
++        Distance=RuneSwordThrustRhythm::LungeDistance*(FMath::SmoothStep(Start,ContactEnd,ToTime)-FMath::SmoothStep(Start,ContactEnd,FromTime));
+@@ -779 +837 @@
+-            bThrustAttack?EFPSMeleeMove::Thrust:EFPSMeleeMove::Pommel,LungeDirection);
++            (bThrustAttack||RidgeFinisher)?EFPSMeleeMove::Thrust:EFPSMeleeMove::Pommel,LungeDirection);
+@@ -810,0 +869,2 @@
++    const bool Ridge=Animations.Contains(HighlandRidgeThrust::Charge);
++    if(Ridge&&(!Animations.FindRef(HighlandRidgeThrust::Charge)||!Animations.FindRef(HighlandRidgeThrust::Release)))return;
+@@ -823 +883 @@
+-    bCharging=true;bQueuedAttack=false;bHeavyAttack=false;HitActors.Reset();
++    SetHeavyCharging(true);bQueuedAttack=false;bHeavyAttack=false;HitActors.Reset();
+@@ -825 +885 @@
+-    SetClip(TEXT("HeavyCharge"),false);
++    SetClip(Ridge?HighlandRidgeThrust::Charge:FName(TEXT("HeavyCharge")),false);
+@@ -831,0 +892,2 @@
++    if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
++    {CancelHeavyCharge();return;}
+@@ -836,0 +899,8 @@
++    const bool Ridge=CurrentClip==HighlandRidgeThrust::Charge;
++    if(Ridge&&Heavy&&CurrentAnimation)
++    {
++        // Input can arrive between ticks. Seat both hands in the fully drawn
++        // pose before release frame zero, which shares this exact pose.
++        Elapsed=CurrentAnimation->GetPlayLength();
++        SamplePose(Elapsed);
++    }
+@@ -841 +911 @@
+-        if(!Heavy)
++        if(!Heavy&&!Ridge)
+@@ -867 +937 @@
+-    bCharging=false;bReturningCharge=true;bQueuedAttack=false;bAutoHeavyRelease=false;
++    SetHeavyCharging(false);bReturningCharge=true;bQueuedAttack=false;bAutoHeavyRelease=false;
+@@ -873,0 +944 @@
++    SweepReadyUntil=SweepServerHitUntil=0.;
+@@ -883,0 +955 @@
++    SetHeavyCharging(false);
+@@ -885 +957 @@
+-    bAttacking=bEquipping=bInspecting=bQueuedAttack=bCharging=bReturningCharge=bHeavyAttack=false;HitActors.Reset();
++    bAttacking=bEquipping=bInspecting=bQueuedAttack=bReturningCharge=bHeavyAttack=false;HitActors.Reset();
+@@ -914 +986,17 @@
+-    if(bUppercut||IsRisingDragonFinisher())
++    if(CurrentClip==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(CurrentClip))
++    {
++        // Use the heavy charge's shoulder load, reduced for the narrow point-on
++        // stance. Its small tremor follows hold time, independently of aim.
++        const bool Drawing=CurrentClip==HighlandRidgeThrust::Charge;
++        const bool Handoff=CurrentClip==HighlandRidgeThrust::Release&&bAttacking;
++        const float Weight=Drawing?1.f:Handoff?1.f-FMath::SmoothStep(0.f,.07f,Elapsed):0.f;
++        if(Weight>0.f)
++        {
++            const float Load=Drawing?(bCharging?HeavyChargeFraction():
++                FMath::Clamp(Elapsed/FMath::Max(.01f,CurrentAnimation?CurrentAnimation->GetPlayLength():1.f),0.f,1.f)):1.f;
++            HighlandRidgeThrust::ChargeStrain(GetWorld()->GetTimeSeconds()-ChargeStartedAt,Load,Location,Rotation);
++            RuneSwordHeavyRhythm::AddChargeCamera(Load,.14f,Location,Rotation);
++            Location*=Weight;Rotation*=Weight;
++        }
++    }
++    else if(bUppercut||IsRisingDragonFinisher())
+@@ -920,3 +1008 @@
+-        const float Gather=FMath::SmoothStep(0.f,RuneSwordHeavyRhythm::ChargeSeconds,Elapsed);
+-        Location=FVector(-13.f,7.8f,3.12f)*Gather;
+-        Rotation=FRotator(7.8f,9.1f,6.5f)*Gather;
++        RuneSwordHeavyRhythm::AddChargeCamera(Elapsed/RuneSwordHeavyRhythm::ChargeSeconds,1.f,Location,Rotation);
+@@ -1038,0 +1125,9 @@
++    }
++    else if(bAttacking && CurrentClip==HighlandBreakSweep::Clip)
++    {
++        // Camera-local travel follows the same source clock as the blade and its hit sector.
++        const float Load=FMath::SmoothStep(0.f,HighlandBreakSweep::Contact,Elapsed);
++        const float Cut=FMath::SmoothStep(HighlandBreakSweep::Contact,HighlandBreakSweep::Release,Elapsed);
++        const float Return=1.f-FMath::SmoothStep(HighlandBreakSweep::Release,1.08f,Elapsed);
++        Location=FMath::Lerp(FVector(-1.5f,2.f,0.f)*Load,FVector(3.f,-4.f,-1.f),Cut)*Return;
++        Rotation=FMath::Lerp(FRotator(.6f,2.f,1.f)*Load,FRotator(-1.2f,-5.f,-2.f),Cut)*Return;
+@@ -1086 +1181,2 @@
+-    if(!bUppercut&&!IsRisingDragonFinisher()&&!bOverheadAttack&&!bQuickCombatContactDone&&ImpactAge<ImpactSpan)
++    if(!bUppercut&&!IsRisingDragonFinisher()&&!bOverheadAttack&&!bQuickCombatContactDone&&ImpactAge<ImpactSpan
++        &&(CurrentClip!=HighlandBreakSweep::Clip||bImpactFeedbackPlayed))
+@@ -1092 +1188,8 @@
+-        if(bPommelAttack)
++        if(CurrentClip==HighlandBreakSweep::Clip)
++        {
++            // The blade moves left. Contact checks that motion with one lateral
++            // counter-kick; the damped pulse runs in real time during the pose hold.
++            Location+=FVector(-10.f,5.f,-2.f)*Kick*ImpactStrength;
++            Rotation+=FRotator(-5.5f,8.f,4.5f)*Kick*ImpactStrength;
++        }
++        else if(bPommelAttack)
+@@ -1114,0 +1218,18 @@
++    if(HighlandRidgeThrust::IsRelease(CurrentClip))return;
++    if(CurrentClip==HighlandBreakSweep::Clip)
++    {
++        const bool bLongGrip=EquippedAnimationFolder.EndsWith(TEXT("/LongGripAnimations"));
++        auto* Ribbon=Cast<UStaticMesh>(HighlandBreakSweep::RiftPath(bLongGrip).ResolveObject());
++        if(!RiftVisual || !RiftMaterial || !Ribbon || !Viewmodel)return;
++        RiftVisual->SetStaticMesh(Ribbon);
++        // Baked in the arms' component space. Keep the advancing edge on the
++        // blade through camera recoil, locomotion and a confirmed-contact hold.
++        RiftVisual->AttachToComponent(Viewmodel,FAttachmentTransformRules::SnapToTargetIncludingScale);
++        RiftFastSeconds=(ContactEnd-ContactStart)/SwingRate;
++        RiftDissolveSeconds=.14f;RiftDriftSpeed=35.f;
++        RiftMaterial->SetScalarParameterValue(TEXT("RiftStrength"),.105f);
++        RiftMaterial->SetScalarParameterValue(TEXT("RiftFade"),1.f);
++        RiftAge=0.f;bRiftActive=true;
++        TickRift(0.f);RiftVisual->SetVisibility(bRiftActive);
++        return;
++    }
+@@ -1154,0 +1276,16 @@
++    const bool bSweep=CurrentClip==HighlandBreakSweep::Clip;
++    if(bSweep && RiftVisual->GetAttachParent()==Viewmodel)
++    {
++        const float Progress=(Elapsed-ContactStart)/(ContactEnd-ContactStart);
++        if(Progress<1.f)
++        {
++            RiftMaterial->SetScalarParameterValue(TEXT("SweepProgress"),FMath::Max(Progress,0.f));
++            return;
++        }
++        RiftOrigin=RiftVisual->GetComponentTransform();
++        RiftDirection=Camera->GetForwardVector();
++        RiftVisual->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++        // Only the part of this frame after release belongs to the real-time fade.
++        RiftAge=RiftFastSeconds+FMath::Max(0.f,Elapsed-ContactEnd)/SwingRate;
++        Delta=0.f;
++    }
+@@ -1161 +1298,2 @@
+-    FTransform Pose=RiftOrigin;Pose.AddToTranslation(RiftDirection*(RiftAge*RiftDriftSpeed));
++    const float DriftAge=bSweep?FMath::Max(0.f,RiftAge-RiftFastSeconds):RiftAge;
++    FTransform Pose=RiftOrigin;Pose.AddToTranslation(RiftDirection*(DriftAge*RiftDriftSpeed));
+@@ -1168 +1306,5 @@
+-    if(RiftVisual)RiftVisual->SetVisibility(false);
++    if(RiftVisual)
++    {
++        RiftVisual->SetVisibility(false);
++        if(RiftVisual->GetAttachParent())RiftVisual->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++    }
+@@ -1229 +1371 @@
+-        Sample={Point(ModularBladeBase),Point(ModularBladeTip),AimFrame.GetLocation(),AimFrame.GetUnitAxis(EAxis::X)};
++        Sample={Point(ModularBladeBase),Point(ModularTraceTip),AimFrame.GetLocation(),AimFrame.GetUnitAxis(EAxis::X)};
+@@ -1352,0 +1495,2 @@
++            if(HighlandRidgeThrust::IsRelease(CurrentClip))
++                HitSkills.ArmorPenetration=HighlandRidgeThrust::AddPenetration(HitSkills.ArmorPenetration,HitSkills.AttackMeta);
+@@ -1374 +1518,3 @@
+-            if((Applied>0.f || (bOverheadAttack && bKilled)) && !bImpactFeedbackPlayed)
++            const bool bSweepKilled=CurrentClip==HighlandBreakSweep::Clip && Pawn->HasAuthority() &&
++                (DamageResult.bKilled || (AzureEnemyWasAlive && bKilled));
++            if((Applied>0.f || (bOverheadAttack && bKilled) || bSweepKilled) && !bImpactFeedbackPlayed)
+@@ -1377 +1523 @@
+-                bThrustImpact=bThrustAttack||bPommelAttack;
++                bThrustImpact=bThrustAttack||bPommelAttack||HighlandRidgeThrust::IsRelease(CurrentClip);
+@@ -1379,0 +1526 @@
++                if(CurrentClip==HighlandBreakSweep::Clip){ImpactStrength=HighlandBreakSweep::ImpactStrength;SweepHitPause=HighlandBreakSweep::HitPauseSeconds;}
+@@ -1391 +1538 @@
+-                if(Combat&&(!(bUppercut||IsRisingDragonFinisher())||!Combat->CanReceiveLaunchOrKnockdown()))
++                if(Combat&&(!(bUppercut||IsRisingDragonFinisher()||CurrentClip==HighlandBreakSweep::Clip)||!Combat->CanReceiveLaunchOrKnockdown()))
+@@ -1418,2 +1565,2 @@
+-    if(Character.IsValid()&&!Character->IsLocallyControlled()){bEquipping=false;TickNetworkGuard();return;}
+-    ON_SCOPE_EXIT { UpdateAzureDragonPose();TickBeiweiTrail(); };
++    if(Character.IsValid()&&!Character->IsLocallyControlled()){bEquipping=false;TickNetworkGuard();TickNetworkHeavyCharge();return;}
++    ON_SCOPE_EXIT { UpdateAzureDragonPose();TickBeiweiTrail();PresentRidgeGather(); };
+@@ -1454 +1601 @@
+-    TickRift(Delta);
++    if(CurrentClip!=HighlandBreakSweep::Clip)TickRift(Delta);
+@@ -1473,4 +1620,11 @@
+-        const float Next=FMath::Min(End,bQuickCombatStrike
+-            ? RuneSwordPommelRhythm::QuickCombatSourceTime(
+-                RuneSwordPommelRhythm::QuickCombatTime(Elapsed)+Delta*SwingRate)
+-            : Elapsed+Delta*SwingRate);
++        const float Held=FMath::Min(Delta,SweepHitPause);
++        SweepHitPause-=Held;
++        float Next=Elapsed+(Delta-Held)*SwingRate;
++        if(HighlandRidgeThrust::IsRelease(CurrentClip))
++        {
++            const float Lead=HighlandRidgeThrust::LeadFor(CurrentClip);
++            Next=HighlandRidgeThrust::ToClip(HighlandRidgeThrust::ToWall(Elapsed,Lead,SwingRate)+Delta-Held,Lead,SwingRate);
++        }
++        else if(bQuickCombatStrike)
++            Next=RuneSwordPommelRhythm::QuickCombatSourceTime(RuneSwordPommelRhythm::QuickCombatTime(Elapsed)+Delta*SwingRate);
++        Next=FMath::Min(End,Next);
+@@ -1485,2 +1639,2 @@
+-        const bool ReleaseRiftPiercerThisFrame=!bSwingCuePlayed&&Next>=ContactStart;
+-        if(!bSwingCuePlayed && Next>=ContactStart)
++        const bool bEnteredContactThisFrame=!bSwingCuePlayed&&Next>=ContactStart;
++        if(bEnteredContactThisFrame)
+@@ -1499 +1653,6 @@
+-                if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,bOverheadAttack?.90f:(bHeavyAttack?.95f:.72f),FMath::Clamp(SwingRate*(bOverheadAttack?.95f:(bHeavyAttack?.95f:(bThrustAttack?1.25f:1.1f))),.7f,1.4f));
++                if(SwingSound)
++                {
++                    const bool bSweep=CurrentClip==HighlandBreakSweep::Clip;
++                    const float Pitch=bSweep?.94f:FMath::Clamp(SwingRate*(bOverheadAttack?.95f:(bHeavyAttack?.95f:(bThrustAttack?1.25f:1.1f))),.7f,1.4f);
++                    UGameplayStatics::PlaySound2D(this,SwingSound,bSweep?.90f:(bOverheadAttack?.90f:(bHeavyAttack?.95f:.72f)),Pitch);
++                }
+@@ -1501 +1660 @@
+-            StartRift(Next-ContactStart);
++            if(CurrentClip!=HighlandBreakSweep::Clip)StartRift(Next-ContactStart);
+@@ -1522 +1681,11 @@
+-        if(bDashAttack)
++        if(HighlandRidgeThrust::IsRelease(CurrentClip))
++        {
++            if(HitEnd>HitStart)
++            {
++                const FVector Forward=bDashAttack?LungeDirection:AimNow.GetUnitAxis(EAxis::X).GetSafeNormal2D();
++                const auto Hits=RuneSwordCombat::QueryRectangle(GetWorld(),Character.Get(),Character->GetActorLocation(),Forward,
++                    AzureDragonRange(SwingReach),HighlandRidgeThrust::HalfWidthCM,HitActors);
++                ApplySwingHits(Hits,Forward);
++            }
++        }
++        else if(bDashAttack)
+@@ -1524,0 +1694,11 @@
++        }
++        else if(CurrentClip==HighlandBreakSweep::Clip)
++        {
++            if(HitEnd>HitStart)
++            {
++                const float From=HighlandBreakSweep::Angle(HitStart),To=HighlandBreakSweep::Angle(HitEnd);
++                const FVector Forward=AimNow.GetUnitAxis(EAxis::X).GetSafeNormal2D(UE_SMALL_NUMBER,Character->GetActorForwardVector().GetSafeNormal2D());
++                const FVector Across=Forward.RotateAngleAxis((From+To)*.5f,FVector::UpVector);
++                ApplySwingHits(RuneSwordCombat::QuerySector(GetWorld(),Character.Get(),Character->GetActorLocation(),
++                    Across,SwingReach,FMath::Abs(To-From),HitActors),Across);
++            }
+@@ -1571 +1751 @@
+-                    bThrustAttack?30.f:MeleeSmallTargets::LowArcDegrees,
++                    (bThrustAttack||HighlandRidgeThrust::IsRelease(CurrentClip))?30.f:MeleeSmallTargets::LowArcDegrees,
+@@ -1581,0 +1762,7 @@
++        if(CurrentClip==HighlandBreakSweep::Clip)
++        {
++            if(bEnteredContactThisFrame)StartRift(Next-ContactStart);
++            else TickRift(Delta);
++        }
++        if(bQueuedAttack && bHeavyAttack && Elapsed>=RuneSwordHeavyRhythm::FollowEnd &&
++            Elapsed<=RuneSwordHeavyRhythm::ArrestEnd && BeginBroadbladeSweep())return;
+@@ -1611 +1798,2 @@
+-        Elapsed=FMath::Min(float(GetWorld()->GetTimeSeconds()-ChargeStartedAt)/RequiredChargeSeconds,1.f)*RuneSwordHeavyRhythm::ChargeSeconds;
++        const float ChargePoseLength=CurrentClip==HighlandRidgeThrust::Charge?End:RuneSwordHeavyRhythm::ChargeSeconds;
++        Elapsed=HeavyChargeFraction()*ChargePoseLength;
+@@ -1679,2 +1867,13 @@
+-    Viewmodel->SetRelativeLocation(FMath::VInterpTo(Viewmodel->GetRelativeLocation(),Sprint?FVector(-4,0,-9):FVector::ZeroVector,Delta,9.f));
+-    Viewmodel->SetRelativeRotation(FMath::RInterpTo(Viewmodel->GetRelativeRotation(),FRotator(0,90,Sprint?22:0),Delta,9.f));
++    FVector TargetLocation=Sprint?FVector(-4,0,-9):FVector::ZeroVector;
++    FRotator TargetRotation(0,90,Sprint?22:0);
++    float Follow=9.f;
++    if(CurrentClip==HighlandRidgeThrust::Charge&&bCharging)
++    {
++        FRotator Strain;
++        HighlandRidgeThrust::ChargeStrain(GetWorld()->GetTimeSeconds()-ChargeStartedAt,HeavyChargeFraction(),TargetLocation,Strain);
++        TargetRotation+=Strain;Follow=48.f;
++    }
++    else if(CurrentClip==HighlandRidgeThrust::Release||CurrentClip==HighlandRidgeThrust::Charge)
++        Follow=32.f;
++    Viewmodel->SetRelativeLocation(FMath::VInterpTo(Viewmodel->GetRelativeLocation(),TargetLocation,Delta,Follow));
++    Viewmodel->SetRelativeRotation(FMath::RInterpTo(Viewmodel->GetRelativeRotation(),TargetRotation,Delta,Follow));
+@@ -1686,0 +1886 @@
++    if(RidgeGather){RidgeGather->DestroyComponent();RidgeGather=nullptr;}
+@@ -1698,0 +1899 @@
++    SetHeavyCharging(false);
+@@ -1700 +1901 @@
+-    bAttacking=bEquipping=bInspecting=bQueuedAttack=bCharging=bReturningCharge=bHeavyAttack=false;HitActors.Reset();
++    bAttacking=bEquipping=bInspecting=bQueuedAttack=bReturningCharge=bHeavyAttack=false;HitActors.Reset();

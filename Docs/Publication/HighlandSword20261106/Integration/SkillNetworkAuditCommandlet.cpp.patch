@@ -1,0 +1,5 @@
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
+@@ -114 +114 @@
+-        else Sword->ServerSetSwordHeavyCharge_Implementation(SwordItem.InstanceId,true,false);
++        else Sword->ServerSetSwordHeavyCharge_Implementation(SwordItem.InstanceId,true,false,FMath::Max(.001,World->GetTimeSeconds()));

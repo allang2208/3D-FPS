@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Weapons/SwordGripClearance.h
++++ b/Source/FPSGAME/Weapons/SwordGripClearance.h
+@@ -5,0 +6,2 @@
++
++enum class ESwordGripMode : uint8 { Adaptive, Held, HeldAuthoredArms };
+@@ -22 +24 @@
+-    void Apply(USkeletalMeshComponent& Mesh);
++    void Apply(USkeletalMeshComponent& Mesh,ESwordGripMode Mode);

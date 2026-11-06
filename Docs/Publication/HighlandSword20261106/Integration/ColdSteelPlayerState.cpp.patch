@@ -1,0 +1,84 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -1,0 +2,2 @@
++#include "../Weapons/HighlandBreakSweep.h"
++#include "../Weapons/HighlandRidgeThrust.h"
+@@ -1404 +1406 @@
+-        &&Report.AttackMeta!=UnarmedPunch::AttackMeta;
++        &&Report.AttackMeta!=UnarmedPunch::AttackMeta&&Report.AttackMeta!=HighlandBreakSweep::AttackMeta;
+@@ -1407,0 +1410,9 @@
++    if((Report.AttackMeta&0x10)&&Report.AttackMeta!=0x15&&Report.AttackMeta!=0x16
++        &&Report.AttackMeta!=SwordUppercut::AttackMeta&&OutDeclaredItem
++        &&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
++    {
++        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        if(!Sword||(!Sword->IsNetworkHeavyReleaseWindowOpen(OutDeclaredItem->InstanceId)
++            &&!Sword->ConsumeNetworkHeavyChargeForRelease(OutDeclaredItem->InstanceId)))
++        {OutReason=TEXT("heavy release not committed");return false;}
++    }
+@@ -1427,0 +1439,21 @@
++    const auto* RidgeSmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++    const bool RidgeEquipped=HighlandRidgeThrust::Installed(RidgeSmith,OutDeclaredItem);
++    if(RidgeEquipped&&bPlainMelee&&(Report.AttackMeta<1||Report.AttackMeta>3))
++    {OutReason=TEXT("invalid ridge combo stage");return false;}
++    const bool RidgeContact=RidgeEquipped&&(HighlandRidgeThrust::IsStrikeMeta(Report.AttackMeta)||HighlandRidgeThrust::IsHeavyMeta(Report.AttackMeta));
++    if(RidgeContact)
++    {
++        const double Clock=GetWorld()->GetTimeSeconds();
++        const double ContactClock=Report.ClientFireTime;
++        if(!FMath::IsFinite(ContactClock)||ContactClock<=0.||ContactClock>Clock+.1||Clock-ContactClock>.9)
++        {OutReason=TEXT("invalid ridge contact timestamp");return false;}
++        if(!(Report.Flags&(1<<3))||(Report.Flags&(1<<4))||!Report.Target||RidgeStrike.Pawn.Get()!=Shooter||
++            RidgeStrike.Weapon!=OutDeclaredItem->InstanceId||!Report.GuardAttackSerial||RidgeStrike.Serial!=Report.GuardAttackSerial||
++            RidgeStrike.Meta!=Report.AttackMeta||ContactClock<RidgeStrike.HitFrom||ContactClock>RidgeStrike.HitUntil||RidgeStrike.Targets.Contains(Report.Target.Get()))
++        {OutReason=TEXT("ridge thrust not committed or duplicate target");return false;}
++        const FVector Forward=Report.AttackMeta==0x16?RidgeStrike.DashForward:Shooter->GetBaseAimRotation().Vector();
++        const auto Contacts=RuneSwordCombat::QueryRectangle(GetWorld(),Shooter,Shooter->GetActorLocation(),Forward,
++            RidgeStrike.Length,HighlandRidgeThrust::HalfWidthCM,RidgeStrike.Targets);
++        if(!Contacts.ContainsByPredicate([&Report](const FHitResult& Hit){return Hit.GetActor()==Report.Target.Get();}))
++        {OutReason=TEXT("outside ridge thrust rectangle");return false;}
++    }
+@@ -1442 +1474,3 @@
+-        ValidatedComboStage=FMath::Min(ValidatedComboStage,NextComboStage);
++        const bool RegisteredStage=RidgeEquipped&&RidgeStrike.Pawn.Get()==Shooter&&RidgeStrike.Weapon==OutDeclaredItem->InstanceId&&
++            RidgeStrike.Serial==Report.GuardAttackSerial&&RidgeStrike.Meta==Report.AttackMeta&&Report.AttackMeta>=1&&Report.AttackMeta<=3;
++        if(!RegisteredStage)ValidatedComboStage=FMath::Min(ValidatedComboStage,NextComboStage);
+@@ -1453,0 +1488 @@
++    if(RidgeContact)HitTokenCost=0.f;
+@@ -1456,0 +1492 @@
++    if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)HitTokenCost=0.f; // one committed swing, one receipt per target
+@@ -1504 +1540,3 @@
+-        if(Report.AttackMeta==0x16)MaxRange=ShadowModel->DashAttackStats().RangeCM*1.25f+120.f;
++        if(RidgeContact)MaxRange=RidgeStrike.Length+120.f;
++        else if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)MaxRange=HighlandBreakSweep::Radius(ColdSteelMelee::Evaluate(*OutDeclaredItem,ShadowModel).SlashReach)+120.f;
++        else if(Report.AttackMeta==0x16)MaxRange=ShadowModel->DashAttackStats().RangeCM*1.25f+120.f;
+@@ -1549 +1587 @@
+-            ((Report.AttackMeta&0x20)||Report.AttackMeta==0x10||Report.AttackMeta==0x15||Report.AttackMeta==0x16||ValidatedComboStage==3);
++            ((Report.AttackMeta&0x20)||Report.AttackMeta==0x10||Report.AttackMeta==0x15||Report.AttackMeta==0x16||Report.AttackMeta==HighlandBreakSweep::AttackMeta||ValidatedComboStage==3);
+@@ -1641,0 +1680 @@
++        if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)return Panel*Melee.Modifiers.ComboMultiplier(1);
+@@ -1711,0 +1751,2 @@
++    const bool RidgeContact=(HighlandRidgeThrust::IsStrikeMeta(Report.AttackMeta)||HighlandRidgeThrust::IsHeavyMeta(Report.AttackMeta))&&
++        HighlandRidgeThrust::Installed(PreGunsmith,Declared);
+@@ -1746 +1787 @@
+-        &&Report.AttackMeta!=SwordUppercut::AttackMeta&&Report.AttackMeta!=UnarmedPunch::AttackMeta)
++        &&Report.AttackMeta!=SwordUppercut::AttackMeta&&Report.AttackMeta!=UnarmedPunch::AttackMeta&&Report.AttackMeta!=HighlandBreakSweep::AttackMeta)
+@@ -1779,0 +1821,4 @@
++        if((Report.AttackMeta==0x10||Report.AttackMeta==0x15) && HighlandBreakSweep::Installed(PreGunsmith,Declared))
++            Shot.ToughnessDamageMultiplier*=HighlandBreakSweep::HeavyToughness;
++        if(RidgeContact)
++            Shot.ArmorPenetration=HighlandRidgeThrust::AddPenetration(Shot.ArmorPenetration,Shot.AttackMeta);
+@@ -1810,0 +1856,7 @@
++    }
++    if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)
++    {
++        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        if(!Declared||!Sword||!Shot.bMelee||!Sword->AcceptBroadbladeContact(Declared->InstanceId,Shot.GuardAttackSerial,Report.Target.Get()))return false;
++        Shot.DamagePanel.BasePhysical*=HighlandBreakSweep::PhysicalScale;
++        Shot.DamagePanel.AddedPhysical*=HighlandBreakSweep::PhysicalScale;
+@@ -1990,0 +2043 @@
++    if(RidgeContact)RidgeStrike.Targets.Add(Report.Target.Get());
+@@ -2017,0 +2071,3 @@
++    if(Report.AttackMeta==HighlandBreakSweep::AttackMeta && Declared && (Applied>0.f||Receipt.bKilled))
++        if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())
++            Sword->ClientBroadbladeImpact(Declared->InstanceId,Report.GuardAttackSerial);

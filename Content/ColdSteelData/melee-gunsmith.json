@@ -85,6 +85,7 @@
         {
           "id": "highland_broadblade",
           "name": "阔锋重刃",
+          "tier": "legendary",
           "description": "高地双手剑专属。宽肩钢刃配加厚剑脊，中央符文保持原有比例。",
           "effects": [
             {
@@ -108,13 +109,21 @@
           "weapons": [
             "ue_highland_claymore"
           ],
-          "special_effects": []
+          "special_effects": [
+            "破阵｜重击韧性伤害+50%。打出重击后4秒内，按鼠标左键可接一次横扫。重击挥空或打出裂角护手的反击重击也能接横扫。",
+            "横扫｜横斩前方180°，半径为普通斩击的125%。对每个目标造成首段普攻160%的物理伤害，并击飞无韧性或已破韧的怪物，本击破韧同样生效。消耗一次普攻体力。"
+          ]
         },
         {
           "id": "highland_ridge_piercer",
           "name": "棱脊穿甲刃",
-          "description": "高地双手剑专属。窄直钢刃以四面棱脊支撑修长剑尖。",
+          "tier": "legendary",
+          "description": "高地双手剑专属。宽刃肩间嵌着银色绳结，两道蓝黑浅槽沿菱脊收束，延伸至四面锥尖。",
           "effects": [
+            {
+              "text": "攻击距离+25%",
+              "benefit": 1
+            },
             {
               "text": "物理防御穿透+10%",
               "benefit": 1
@@ -125,15 +134,20 @@
             }
           ],
           "stats": {
-            "combo_third_damage_mult": 1.4,
+            "combo_third_damage_mult": 2.1,
             "combo_third_toughness_mult": 1.4,
             "physical_armor_penetration": 0.1,
+            "range_mult": 1.25,
+            "quick_combat_range_mult": 1.25,
             "damage_mult": 0.9
           },
           "weapons": [
             "ue_highland_claymore"
           ],
-          "special_effects": []
+          "special_effects": [
+            "强化突刺｜普攻第三段和冲刺攻击改为正前方矩形突刺，各造成改动前该招150%的伤害，额外获得20%物理护甲穿透，判定距离+25%。",
+            "蓄力重刺｜蓄满后出刺，沿用重击伤害，额外获得80%物理护甲穿透，正前方矩形判定距离+25%。"
+          ]
         },
         {
           "id": "yanling_edge",
@@ -1543,6 +1557,29 @@
           "special_effects": [
             "出血｜快速近战命中有25%概率施加1层出血。"
           ]
+        },
+        {
+          "id": "highland_gale_oath",
+          "name": "风誓轻量配重锤",
+          "weapons": [
+            "ue_highland_claymore"
+          ],
+          "description": "高地双手剑专属。镂空盾形银钢剑首饰以编结金边与浅蓝风星。",
+          "effects": [
+            {
+              "text": "奔跑体力消耗-15%",
+              "benefit": 1
+            },
+            {
+              "text": "重击蓄力速度+20%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "sprint_stamina_mult": 0.85,
+            "heavy_charge_speed_bonus": 0.2
+          },
+          "special_effects": []
         },
         {
           "id": "ballast_rune",

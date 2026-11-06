@@ -1,0 +1,5 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1280 +1280 @@
+-        if(RuneSword->DashReadyFraction()>=1.f-UE_SMALL_NUMBER)
++        if(!RuneSword->IsBroadbladeSweepReady() && RuneSword->DashReadyFraction()>=1.f-UE_SMALL_NUMBER)
