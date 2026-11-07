@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/ModularSwordVisual.h
++++ b/Source/FPSGAME/Weapons/ModularSwordVisual.h
+@@ -35,7 +35,7 @@
+     void GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft=nullptr);
+     FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
+     uint8 BladeFinishMode(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
+-    bool IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item);
++    bool IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
+     void ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot);
+     // Colored glass transmission needs an alpha-coverage adapter in UI captures.
+     bool ApplyGlassPreview(UStaticMeshComponent* Blade);

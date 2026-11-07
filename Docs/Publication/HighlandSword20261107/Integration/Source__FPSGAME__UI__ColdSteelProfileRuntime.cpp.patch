@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -334,6 +334,7 @@
+         if(Removed.Contains(Migrated.ActiveProductionTool))Migrated.ActiveProductionTool.Reset();
+     }
+     Migrated.MergeStarMarrowSpend(Current.StarMarrowManaSpent);
++    Migrated.MergeOathStamina(Current.OathStaminaRestored,StaminaMaximum(Migrated,StaminaTuning));
+     if(Migrated.MagicCrystalManaRestored<Current.MagicCrystalManaRestored)
+         MagicCrystalMana::Merge(Migrated,Current.MagicCrystalManaRestored,float(ResourceMaximum(Migrated,true)));
+     if(AnnounceGains)QueueAcquisitionNotices(Current,Migrated);

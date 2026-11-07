@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/Characters/FPSBodySwordPose.inl
++++ b/Source/FPSGAME/Characters/FPSBodySwordPose.inl
+@@ -53,7 +53,7 @@
+     if(bSwordChanged)
+     {
+         SwordEntryPose=ContinuousHammer&&!HammerVisiblePose.IsEmpty()?HammerVisiblePose:LastSwordPose;
+-        if(State.ActionVariant==TEXT("ZhufengWhirlwind"))
++        if(State.ActionVariant==TEXT("ZhufengWhirlwind")||bHighlandDash)
+         {
+             // A sprint release starts from the evaluated carry on this frame,
+             // not a stale ordinary strike retained from the previous action.
+@@ -276,6 +276,26 @@
+     }
+     else if(bSwordNativeGrip&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
+     {
++        if(bHighlandSupportedGrip&&bLeftGrip&&(Transition<.999f||SwordWeight<.999f))
++        {
++            // The fitted sources already own complete anatomical arm chains.
++            // Only entry/cancel/exit blending can separate the two grip points;
++            // restore both contacts using this frame's elbow planes. Moving
++            // the hilt as one unit also handles a deep heavy-landing entry;
++            // independently clamping the support wrist would leave it behind.
++            FTransform Targets[2]={Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)),FTransform::Identity};
++            Targets[1]=LeftGrip*Targets[0];
++            FLegReference Arms[2];
++            for(int32 I=0;I<2;++I)
++            {
++                const auto W=Hands[I].GetCompactPoseIndex(Bones),E=Bones.GetParentBoneIndex(W),S=Bones.GetParentBoneIndex(E);
++                Arms[I].Set(Pose.GetComponentSpaceTransform(S).GetLocation(),
++                    Pose.GetComponentSpaceTransform(E).GetLocation(),Pose.GetComponentSpaceTransform(W).GetLocation());
++            }
++            FitHandPair(Pose,Targets);
++            for(int32 I=0;I<2;++I)
++                Solve(Pose,Hands[I],Targets[I],Arms[I].Pole(Arms[I].Hip,Targets[I].GetLocation()),1.f);
++        }
+         // Kwang's complete arm chains and equipment grip were fitted offline.
+         // A second live two-hand solve would overwrite their elbow/forearm roll.
+         for(int32 I=0;I<2;++I)LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));

@@ -823,6 +823,33 @@
           "special_effects": []
         },
         {
+          "id": "highland_oath_rune",
+          "name": "誓约符文",
+          "tier": "special",
+          "weapons": [
+            "ue_highland_claymore"
+          ],
+          "description": "高地骑士的誓剑刻印，以三重誓环约束蓄积的力量，在完成蓄力的刹那释放裁决。",
+          "effects": [
+            {
+              "text": "重击物理伤害+15%",
+              "benefit": 1
+            },
+            {
+              "text": "重击蓄力持续体力消耗-20%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "裁决时刻｜首次蓄满后的0.35秒内释放重击，本次重击物理伤害额外+35%，韧性伤害+50%；首次有效命中返还本次出手实际消耗体力的25%。每次蓄力只触发一次。"
+          ],
+          "stats": {
+            "oath_heavy_physical_mult": 1.15,
+            "oath_charge_stamina_mult": 0.8
+          },
+          "icon": "/Game/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_highland_oath_rune"
+        },
+        {
           "id": "auspicious_cloud_rune",
           "name": "祥云符文",
           "weapons": [
@@ -1149,6 +1176,32 @@
             "弹反重击｜成功弹反后4秒内，下一次普攻直接释放免蓄力重击；该击物理伤害+25%、韧性伤害+40%。",
             "消耗规则｜按重击消耗体力，出手即消耗强化，挥空也消耗；最多保留一次，再次弹反刷新。突刺与技能不消耗强化。"
           ]
+        },
+        {
+          "id": "highland_gale_wing",
+          "name": "风誓翼锋护手",
+          "weapons": [
+            "ue_highland_claymore"
+          ],
+          "description": "高地双手剑专属。银钢双翼沿羽脊上扬，翼根的浅金结纹与风誓轻量配重锤相呼应。",
+          "effects": [
+            {
+              "text": "奔跑体力消耗-10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗-20%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "sprint_stamina_mult": 0.9,
+            "stamina_mult": 0.8
+          },
+          "special_effects": [
+            "迅捷｜用此剑或其武技击杀敌人，返还本次攻击实际消耗的体力，含重击蓄力。每招返还一次。击杀后移动速度+25%，持续3秒，再次击杀刷新时间。"
+          ],
+          "appearance": "上扬银翼、香槟金嵌线与冰蓝菱形宝石"
         },
         {
           "id": "xuan_cloud_dragon",

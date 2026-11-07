@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "FPSBodyHighlandMotion.h"
+ #include "../Weapons/BeiweiSwordTrailComponent.h"
+ #include "../Weapons/HighlandRidgeGatherComponent.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
+@@ -325,6 +326,7 @@
+             if(Pair.Key.ToView().StartsWith(TEXT("Forge.")))continue;
+             if(auto* Sequence=LoadObject<UAnimSequence>(nullptr,*Pair.Value->AsString()))BodyAnimation->Clips.Add(FName(*Pair.Key),Sequence);
+         }
++        FPSBodyHighlandMotion::SelectGrip(BodyAnimation->Clips,false);
+     }
+     Body->AddTickPrerequisiteComponent(this);
+     BodyPoseFinalizedHandle=Body->RegisterOnBoneTransformsFinalizedDelegate(FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::OnBodyPoseFinalized));
+@@ -535,7 +537,8 @@
+             Character->GetMesh()->GetComponentLocation():Character->GetActorLocation();
+         const bool HammerSprint=DisplayState.Family==TEXT("Tool")&&DisplayState.Weapon==TEXT("warhammer")&&
+             (DisplayState.ActionVariant==TEXT("WarhammerSprintLift")||DisplayState.ActionVariant==TEXT("WarhammerSprintSlam"));
+-        if(HammerSprint&&!BodyAnimation->bFalling&&bHasSprintBodyLocation&&Delta>SMALL_NUMBER)
++        const bool RidgeDash=FPSBodyHighlandMotion::IsDash(DisplayState);
++        if((HammerSprint||RidgeDash)&&!BodyAnimation->bFalling&&bHasSprintBodyLocation&&Delta>SMALL_NUMBER)
+         {
+             // Capsule sweeps and observer network smoothing do not populate
+             // locomotion Velocity. Drive both owner and observer feet by travel.

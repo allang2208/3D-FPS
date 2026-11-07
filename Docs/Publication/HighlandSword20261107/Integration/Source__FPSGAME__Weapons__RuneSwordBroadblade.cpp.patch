@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordBroadblade.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordBroadblade.cpp
+@@ -114,7 +114,9 @@
+         Model->ActiveProductionTool() || !HighlandBreakSweep::Installed(GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>(),Item))return false;
+     if(Serial==SweepServerSerial)return Now<SweepServerHitUntil;
+     if(int32(Serial-SweepServerSerial)<=0 || Now>=SweepReadyUntil)return false;
++    const float Before=Model->Stamina();
+     if(!Model->SpendStamina(ColdSteelMelee::AttackStamina(Item,Model)))return false;
++    RecordGalePayment(GaleWing::Key(GaleWing::EAttack::Sweep,Serial),Weapon,Before-Model->Stamina());
+     SweepReadyUntil=0.;
+     SweepServerSerial=Serial;
+     SweepServerHitUntil=Now+1.0;

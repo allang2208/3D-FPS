@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp
+@@ -94,7 +94,7 @@
+     const bool bFromHighCarry=IsTacticalSprintClip(CurrentClip)&&Animations.FindRef(TEXT("SprintOverhead"));
+     // StartSwing 提交一次技能体力，替代本次普通挥击消耗；失败不进入动作。
+     const bool Ridge=Animations.Contains(HighlandRidgeThrust::Charge);
+-    if(!StartSwing(Ridge?HighlandRidgeThrust::Dash:FName(TEXT("Overhead")),false,Cast.StaminaCost,false))return false;
++    if(!StartSwing(Ridge?HighlandRidgeThrust::Dash:FName(TEXT("Overhead")),false,Cast.StaminaCost,false,true))return false;
+     // Same attack contract and source-time contact window; only its entry pose
+     // changes, allowing the held sword to drop directly from the sprint carry.
+     if(bFromHighCarry&&!Ridge)SetClip(TEXT("SprintOverhead"),false);
+@@ -121,7 +121,7 @@
+     else
+     {
+         if(Ridge&&Movement)Movement->BeginMeleeLungeRequest(EFPSMeleeMove::Dash,LungeDirection);
+-        // Grounded releases keep their original one-metre step. A queued jump
++        // Grounded releases use the skill snapshot's fitted travel distance. A queued jump
+         // still retains its vertical launch even when it has no horizontal speed.
+         Pawn->GetCharacterMovement()->PendingLaunchVelocity.X=0.;
+         Pawn->GetCharacterMovement()->PendingLaunchVelocity.Y=0.;
+@@ -142,8 +142,13 @@
+     // Carry the sector with the moving player so an airborne release cannot
+     // leave its damage volume behind at the start of the swing.
+     DashCenter=Pawn->GetActorLocation();bDashCenterCaptured=true;
+-    const auto Hits=RuneSwordCombat::QuerySector(GetWorld(),Pawn,DashCenter,LungeDirection,
+-        AzureDragonRange(DashCast.RangeCM),DashCast.ArcDegrees,HitActors);
++    // The ridge blade shares the moving dash origin and target deduplication.
++    // Its 2x travel must never be added to the rectangle's own weapon reach.
++    const auto Hits=HighlandRidgeThrust::IsRelease(CurrentClip)?
++        RuneSwordCombat::QueryRectangle(GetWorld(),Pawn,DashCenter,LungeDirection,
++            AzureDragonRange(SwingReach),HighlandRidgeThrust::HalfWidthCM,HitActors):
++        RuneSwordCombat::QuerySector(GetWorld(),Pawn,DashCenter,LungeDirection,
++            AzureDragonRange(DashCast.RangeCM),DashCast.ArcDegrees,HitActors);
+     const double QuerySeconds=FPlatformTime::Seconds();
+     ApplySwingHits(Hits,LungeDirection);
+     const double EndSeconds=FPlatformTime::Seconds();

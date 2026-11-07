@@ -1232,6 +1232,15 @@
       "description": "每层使被暴击率+5%，按加法叠加，最多5层，满层+25%。持续8秒；再次触发叠加1层并将全部层数的剩余时间刷新为8秒，满层时仍刷新时间，到期全部清除。所有攻击者的可暴击攻击均可受益。",
       "kind": "debuff",
       "group": "combat"
+    },
+    {
+      "type": "galeSwiftness",
+      "icon": "翼",
+      "name": "迅捷",
+      "color": "#83D8CF",
+      "description": "风誓翼锋护手击杀敌人后，移动速度+25%，持续3秒。再次击杀刷新持续时间。",
+      "kind": "buff",
+      "group": "triggered"
     }
   ]
 }

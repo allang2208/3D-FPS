@@ -186,7 +186,8 @@
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_factory_SurfaceV4.SM_Highland_Guard_factory_SurfaceV4",
         "mesh_by_blade": {
-          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_factory_SurfaceV4.SM_Highland_Guard_factory_SurfaceV4"
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_factory_SurfaceV4.SM_Highland_Guard_factory_SurfaceV4",
+          "highland_broadblade": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_factory.SM_BroadbladeGuard_factory"
         },
         "interface": "highland_hilt_v1"
       },
@@ -198,7 +199,8 @@
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_bastion_guard_SurfaceV4.SM_Highland_Guard_bastion_guard_SurfaceV4",
         "mesh_by_blade": {
-          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_bastion_guard_SurfaceV4.SM_Highland_Guard_bastion_guard_SurfaceV4"
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_bastion_guard_SurfaceV4.SM_Highland_Guard_bastion_guard_SurfaceV4",
+          "highland_broadblade": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_bastion_guard.SM_BroadbladeGuard_bastion_guard"
         },
         "interface": "highland_hilt_v1"
       },
@@ -210,7 +212,8 @@
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_riposte_guard_SurfaceV4.SM_Highland_Guard_riposte_guard_SurfaceV4",
         "mesh_by_blade": {
-          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_riposte_guard_SurfaceV4.SM_Highland_Guard_riposte_guard_SurfaceV4"
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_riposte_guard_SurfaceV4.SM_Highland_Guard_riposte_guard_SurfaceV4",
+          "highland_broadblade": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_riposte_guard.SM_BroadbladeGuard_riposte_guard"
         },
         "interface": "highland_hilt_v1"
       },
@@ -222,7 +225,8 @@
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_light_guard_SurfaceV4.SM_Highland_Guard_light_guard_SurfaceV4",
         "mesh_by_blade": {
-          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_light_guard_SurfaceV4.SM_Highland_Guard_light_guard_SurfaceV4"
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_light_guard_SurfaceV4.SM_Highland_Guard_light_guard_SurfaceV4",
+          "highland_broadblade": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_light_guard.SM_BroadbladeGuard_light_guard"
         },
         "interface": "highland_hilt_v1"
       },
@@ -235,9 +239,23 @@
         "interface": "highland_hilt_v1",
         "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_Cloven_SurfaceV4.SM_Highland_Guard_Cloven_SurfaceV4",
         "mesh_by_blade": {
-          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_Cloven_SurfaceV4.SM_Highland_Guard_Cloven_SurfaceV4"
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/FittedGuardsR2/SM_Highland_Guard_Cloven_SurfaceV4.SM_Highland_Guard_Cloven_SurfaceV4",
+          "highland_broadblade": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_highland_cloven_guard.SM_BroadbladeGuard_highland_cloven_guard"
         },
         "appearance": "高地专属 · 厚根裂角与赤红承锋嵌纹"
+      },
+      "highland_gale_wing": {
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Native.SM_GaleFeather_Native",
+        "interface": "highland_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "mesh_by_blade": {
+          "highland_ridge_piercer": "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Ridge.SM_GaleFeather_Ridge",
+          "highland_broadblade": "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Broadblade.SM_GaleFeather_Broadblade"
+        }
       }
     },
     "grip": {

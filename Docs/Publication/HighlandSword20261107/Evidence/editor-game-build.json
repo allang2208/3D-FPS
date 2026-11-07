@@ -1,0 +1,879 @@
+[
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "Setting temp directory to 'C:\\Users\\allan\\AppData\\Local\\Temp\\UnrealBuildTool\\165761b5'",
+    "format": "Setting temp directory to '{Path}'",
+    "properties": {
+      "Path": "C:\\Users\\allan\\AppData\\Local\\Temp\\UnrealBuildTool\\165761b5"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "    Registering build platform: UnrealBuildTool.AndroidPlatformFactory",
+    "format": "    Registering build platform: {Platform}",
+    "properties": {
+      "Platform": "UnrealBuildTool.AndroidPlatformFactory"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "    Registering build platform: UnrealBuildTool.IOSPlatformFactory",
+    "format": "    Registering build platform: {Platform}",
+    "properties": {
+      "Platform": "UnrealBuildTool.IOSPlatformFactory"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "    Registering build platform: UnrealBuildTool.LinuxPlatformFactory",
+    "format": "    Registering build platform: {Platform}",
+    "properties": {
+      "Platform": "UnrealBuildTool.LinuxPlatformFactory"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "    Registering build platform: UnrealBuildTool.MacPlatformFactory",
+    "format": "    Registering build platform: {Platform}",
+    "properties": {
+      "Platform": "UnrealBuildTool.MacPlatformFactory"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "    Registering build platform: UnrealBuildTool.TVOSPlatformFactory",
+    "format": "    Registering build platform: {Platform}",
+    "properties": {
+      "Platform": "UnrealBuildTool.TVOSPlatformFactory"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "    Registering build platform: UnrealBuildTool.WindowsPlatformFactory",
+    "format": "    Registering build platform: {Platform}",
+    "properties": {
+      "Platform": "UnrealBuildTool.WindowsPlatformFactory"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "Found Windows 10 SDK root at C:\\Program Files (x86)\\Windows Kits\\10 (1)",
+    "format": "Found Windows 10 SDK root at {RootDir} (1)",
+    "properties": {
+      "RootDir": "C:\\Program Files (x86)\\Windows Kits\\10"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "Found Windows 10 SDK root at C:\\Program Files (x86)\\Windows Kits\\10 (2)",
+    "format": "Found Windows 10 SDK root at {RootDir} (2)",
+    "properties": {
+      "RootDir": "C:\\Program Files (x86)\\Windows Kits\\10"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "Found Windows 10 SDK version 10.0.26100.0 at C:\\Program Files (x86)\\Windows Kits\\10",
+    "format": "Found Windows 10 SDK version {IncludeVersion} at {InstallDir_10}",
+    "properties": {
+      "IncludeVersion": "10.0.26100.0",
+      "InstallDir_10": "C:\\Program Files (x86)\\Windows Kits\\10"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:53",
+    "level": "Debug",
+    "message": "Found Universal CRT version 10.0.26100.0 at C:\\Program Files (x86)\\Windows Kits\\10",
+    "format": "Found Universal CRT version {IncludeVersion} at {InstallDir_10}",
+    "properties": {
+      "IncludeVersion": "10.0.26100.0",
+      "InstallDir_10": "C:\\Program Files (x86)\\Windows Kits\\10"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Win64 Installed SDK(s): MinVersion_Sdk=10.0.19041.0, MaxVersion_Sdk=10.9.99999.0, CurrentVersion_Sdk=10.0.26100.0, Version_AutoSdk=10.0.22621.0, CurrentVersion_AutoSdk=",
+    "format": "{Message}",
+    "properties": {
+      "Message": "Win64 Installed SDK(s): MinVersion_Sdk=10.0.19041.0, MaxVersion_Sdk=10.9.99999.0, CurrentVersion_Sdk=10.0.26100.0, Version_AutoSdk=10.0.22621.0, CurrentVersion_AutoSdk="
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "        Registering build platform: Win64 - buildable: True",
+    "format": "        Registering build platform: {Platform} - buildable: {Buildable}",
+    "properties": {
+      "Platform": "Win64",
+      "Buildable": true
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "    Registering build platform: UnrealBuildTool.VisionOSPlatformFactory",
+    "format": "    Registering build platform: {Platform}",
+    "properties": {
+      "Platform": "UnrealBuildTool.VisionOSPlatformFactory"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Command line: \"E:\\Program Files (x86)\\UE_5.8\\Engine\\Binaries\\DotNET\\UnrealBuildTool\\UnrealBuildTool.dll\" \"-Target=FPSGAMEEditor Win64 Development\" \"-Target=FPSGAME Win64 Development\" -Project=D:/FPS3D/FPSGAME/FPSGAME.uproject -WaitMutex -NoHotReloadFromIDE -MaxParallelActions=6 -Log=D:/FPS3D/FPSGAME/Saved/GaleWingKill/ReviewedTargets.log",
+    "format": "Command line: {EnvironmentCommandLine}",
+    "properties": {
+      "EnvironmentCommandLine": "\"E:\\Program Files (x86)\\UE_5.8\\Engine\\Binaries\\DotNET\\UnrealBuildTool\\UnrealBuildTool.dll\" \"-Target=FPSGAMEEditor Win64 Development\" \"-Target=FPSGAME Win64 Development\" -Project=D:/FPS3D/FPSGAME/FPSGAME.uproject -WaitMutex -NoHotReloadFromIDE -MaxParallelActions=6 -Log=D:/FPS3D/FPSGAME/Saved/GaleWingKill/ReviewedTargets.log"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Information",
+    "message": "Executing up to 6 actions based on MaxProcessorCount override"
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Information",
+    "message": "Using 'git status' to determine working set for adaptive non-unity build (D:\\FPS3D\\FPSGAME).",
+    "format": "Using 'git status' to determine working set for adaptive non-unity build ({RootDir}).",
+    "properties": {
+      "RootDir": "D:\\FPS3D\\FPSGAME"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "UbaStorageServer - Database loaded from C:\\ProgramData\\Epic\\UnrealBuildAccelerator\\cas\\casdb (v32) in <1ms (contained 0 entries estimated to 0b)",
+    "id": 111,
+    "format": "{Message}",
+    "properties": {
+      "Message": "UbaStorageServer - Database loaded from C:\\ProgramData\\Epic\\UnrealBuildAccelerator\\cas\\casdb (v32) in <1ms (contained 0 entries estimated to 0b)"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Information",
+    "message": "UbaServer - Listening on 0.0.0.0:1345",
+    "id": 111,
+    "format": "{Message}",
+    "properties": {
+      "Message": "UbaServer - Listening on 0.0.0.0:1345"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Skipping E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\BuildRules\\UE5Rules.dll: File is installed",
+    "format": "Skipping {OutputAssemblyPath}: File is installed",
+    "properties": {
+      "OutputAssemblyPath": {
+        "$type": "SourceFile",
+        "$text": "E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\BuildRules\\UE5Rules.dll"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "D:\\FPS3D\\FPSGAME\\Config\\DefaultGame.ini has been modified since makefile was built.",
+    "format": "{File} has been modified since makefile was built.",
+    "properties": {
+      "File": {
+        "$type": "SourceFile",
+        "$text": "D:\\FPS3D\\FPSGAME\\Config\\DefaultGame.ini"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Skipping E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\BuildRules\\UE5ProgramRules.dll: File is installed",
+    "format": "Skipping {OutputAssemblyPath}: File is installed",
+    "properties": {
+      "OutputAssemblyPath": {
+        "$type": "SourceFile",
+        "$text": "E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\BuildRules\\UE5ProgramRules.dll"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Information",
+    "message": "Invalidating makefile for FPSGAMEEditor (DefaultGame.ini modified)",
+    "format": "Invalidating makefile for {DescriptorName} ({Reason})",
+    "properties": {
+      "DescriptorName": "FPSGAMEEditor",
+      "Reason": "DefaultGame.ini modified"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Compiler: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+    "format": "Compiler: {Path}",
+    "properties": {
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Linker: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\link.exe",
+    "format": "Linker: {Path}",
+    "properties": {
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\link.exe"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Library Manager: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\link.exe",
+    "format": "Library Manager: {Path}",
+    "properties": {
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\link.exe"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Resource Compiler: C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\rc.exe",
+    "format": "Resource Compiler: {Path}",
+    "properties": {
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\rc.exe"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Resource Converter: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cvtres.exe",
+    "format": "Resource Converter: {Path}",
+    "properties": {
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cvtres.exe"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Information",
+    "message": "Waiting for 'git status' command to complete",
+    "format": "Waiting for 'git status' command to complete",
+    "properties": {}
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Using EngineIncludeOrderVersion.Unreal5_8 for target FPSGAMEEditor.Target.cs",
+    "format": "Using EngineIncludeOrderVersion.{Version} for target {Target}",
+    "properties": {
+      "Version": "Unreal5_8",
+      "Target": "FPSGAMEEditor.Target.cs"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "Building UnrealEditor - FPSGAMEEditor - Win64 - Development",
+    "format": "Building {AppName} - {TargetName} - {Platform} - {Configuration}",
+    "properties": {
+      "AppName": "UnrealEditor",
+      "TargetName": "FPSGAMEEditor",
+      "Platform": "Win64",
+      "Configuration": "Development"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "VerseVMBytecodeGenerator.Generate, generating CPP headers in: 'E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode'",
+    "format": "VerseVMBytecodeGenerator.Generate, generating CPP headers in: '{OutputDirectory}'",
+    "properties": {
+      "OutputDirectory": "E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "\tWriting out generated header file. Changed:False Path:'E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode\\VVMBytecodeOps.gen.h'",
+    "format": "\tWriting out generated header file. Changed:{Changed} Path:'{Path}'",
+    "properties": {
+      "Changed": false,
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode\\VVMBytecodeOps.gen.h"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "\tWriting out generated header file. Changed:False Path:'E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode\\VVMBytecodesAndCaptures.gen.h'",
+    "format": "\tWriting out generated header file. Changed:{Changed} Path:'{Path}'",
+    "properties": {
+      "Changed": false,
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode\\VVMBytecodesAndCaptures.gen.h"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "\tWriting out generated header file. Changed:False Path:'E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode\\VVMMakeCapturesFuncs.gen.h'",
+    "format": "\tWriting out generated header file. Changed:{Changed} Path:'{Path}'",
+    "properties": {
+      "Changed": false,
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode\\VVMMakeCapturesFuncs.gen.h"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:54",
+    "level": "Debug",
+    "message": "\tWriting out generated header file. Changed:False Path:'E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode\\VVMCaptureSwitch.gen.h'",
+    "format": "\tWriting out generated header file. Changed:{Changed} Path:'{Path}'",
+    "properties": {
+      "Changed": false,
+      "Path": {
+        "$type": "SourceFile",
+        "$text": "E:\\Program Files (x86)\\UE_5.8\\Engine\\Intermediate\\Build\\Win64\\UnrealEditor\\Inc\\CoreUObject\\VerseVMBytecode\\VVMCaptureSwitch.gen.h"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:55",
+    "level": "Debug",
+    "message": "Generated code is up to date.",
+    "format": "Generated code is up to date.",
+    "properties": {}
+  },
+  {
+    "time": "2026-11-07T06:44:55",
+    "level": "Debug",
+    "message": "Found 5 shared PCH headers (listed in order of preference):",
+    "format": "Found {SharedPCHModulesCount} shared PCH headers (listed in order of preference):",
+    "properties": {
+      "SharedPCHModulesCount": 5
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:55",
+    "level": "Debug",
+    "message": "\tUnrealEd",
+    "format": "\t{ModuleName}",
+    "properties": {
+      "ModuleName": "UnrealEd"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:55",
+    "level": "Debug",
+    "message": "\tEngine",
+    "format": "\t{ModuleName}",
+    "properties": {
+      "ModuleName": "Engine"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:55",
+    "level": "Debug",
+    "message": "\tSlate",
+    "format": "\t{ModuleName}",
+    "properties": {
+      "ModuleName": "Slate"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:55",
+    "level": "Debug",
+    "message": "\tCoreUObject",
+    "format": "\t{ModuleName}",
+    "properties": {
+      "ModuleName": "CoreUObject"
+    }
+  },
+  {
+    "time": "2026-11-07T06:44:55",
+    "level": "Debug",
+    "message": "\tCore",
+    "format": "\t{ModuleName}",
+    "properties": {
+      "ModuleName": "Core"
+    }
+  },
+  {
+    "time": "2026-11-07T06:43:28",
+    "level": "Debug",
+    "message": "Building UnrealGame - FPSGAME - Win64 - Development",
+    "format": "Building {AppName} - {TargetName} - {Platform} - {Configuration}",
+    "properties": {
+      "AppName": "UnrealGame",
+      "TargetName": "FPSGAME",
+      "Platform": "Win64",
+      "Configuration": "Development"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "Generated code is up to date.",
+    "format": "Generated code is up to date.",
+    "properties": {}
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Information",
+    "message": "Target is up to date",
+    "format": "Target is up to date",
+    "properties": {}
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Information",
+    "message": "Using Unreal Build Accelerator local executor to run 0 action(s)",
+    "format": "Using {ExecutorName} executor to run {ActionCount} action(s)",
+    "properties": {
+      "ExecutorName": "Unreal Build Accelerator local",
+      "ActionCount": 0
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Information",
+    "message": "Total time in Unreal Build Accelerator local executor: 0.10 seconds",
+    "format": "Total time in {ExecutorName} executor: {TotalSeconds:0.00} seconds",
+    "properties": {
+      "ExecutorName": "Unreal Build Accelerator local",
+      "TotalSeconds": 0.0994799
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Information",
+    "message": "Output binary: D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\FPSGAME.exe",
+    "format": "Output binary: {ExecutableFile}",
+    "properties": {
+      "ExecutableFile": {
+        "$type": "SourceFile",
+        "$text": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\FPSGAME.exe"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Information",
+    "message": "Output binary: E:\\Program Files (x86)\\UE_5.8\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
+    "format": "Output binary: {ExecutableFile}",
+    "properties": {
+      "ExecutableFile": {
+        "$type": "SourceFile",
+        "$text": "E:\\Program Files (x86)\\UE_5.8\\Engine\\Binaries\\Win64\\UnrealEditor.exe"
+      }
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "UbaStorageServer - Database saved in <1ms (0 file entries, 0 cas entries. deleted 0 dropped cas files)",
+    "id": 111,
+    "format": "{Message}",
+    "properties": {
+      "Message": "UbaStorageServer - Database saved in <1ms (0 file entries, 0 cas entries. deleted 0 dropped cas files)"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "WriteFileIfChanged() wrote 0 changed files of 1 requested writes.",
+    "format": "WriteFileIfChanged() wrote {TotalWrites} changed files of {TotalRequests} requested writes.",
+    "properties": {
+      "TotalWrites": 0,
+      "TotalRequests": 1
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "",
+    "format": "",
+    "properties": {}
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "Timeline:",
+    "format": "Timeline:",
+    "properties": {}
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[  0.000]  +0.257 Main",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[  0.000]  +0.257",
+      "Label": "Main"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.011          [  0.011]  +0.069 Apply XmlConfig",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.011          [  0.011]  +0.069",
+      "Label": "Apply XmlConfig"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.086          [  0.086]  +0.033 AddTelemetry",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.086          [  0.086]  +0.033",
+      "Label": "AddTelemetry"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.145          [  0.145]  +0.111 RegisterPlatforms",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.145          [  0.145]  +0.111",
+      "Label": "RegisterPlatforms"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[  0.270]  +0.031 ParseCommandLine",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[  0.270]  +0.031",
+      "Label": "ParseCommandLine"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[  0.469]  +0.062 LoadMakefile",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[  0.469]  +0.062",
+      "Label": "LoadMakefile"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.469          [  0.000]  +0.065 LoadMakefile",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.469          [  0.000]  +0.065",
+      "Label": "LoadMakefile"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.497             0.027          [  0.027]  +0.026 EngineRulesPlugins",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.497             0.027          [  0.027]  +0.026",
+      "Label": "EngineRulesPlugins"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.526             0.056          [  0.056]  +0.008 EngineRulesFetchDirs",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.526             0.056          [  0.056]  +0.008",
+      "Label": "EngineRulesFetchDirs"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[  0.536]  +0.000 FindPlugins",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[  0.536]  +0.000",
+      "Label": "FindPlugins"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.536          [  0.000]  +0.000 FindPlugins",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.536          [  0.000]  +0.000",
+      "Label": "FindPlugins"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[  0.539]  +0.006 EngineRulesAssembly",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[  0.539]  +0.006",
+      "Label": "EngineRulesAssembly"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.540          [  0.001]  +0.013 MakefileValid",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.540          [  0.001]  +0.013",
+      "Label": "MakefileValid"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "   0.540             0.001          [  0.000] +12.973 MakefileValid",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "   0.540             0.001          [  0.000] +12.973",
+      "Label": "MakefileValid"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[  0.546] +12.967 <unknown>",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[  0.546] +12.967",
+      "Label": "<unknown>"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.513]  +0.014 FPSGAME Win64 Development",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.513]  +0.014",
+      "Label": "FPSGAME Win64 Development"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "  13.528          [  0.014]  +0.001 UHTManifest",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "  13.528          [  0.014]  +0.001",
+      "Label": "UHTManifest"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "  13.529             0.015          [  0.000]  +0.002 UHTWait",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "  13.529             0.015          [  0.000]  +0.002",
+      "Label": "UHTWait"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.528]  +0.203 <unknown>",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.528]  +0.203",
+      "Label": "<unknown>"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.732]  +0.000 WaitOnWrites",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.732]  +0.000",
+      "Label": "WaitOnWrites"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.737]  +0.000 UHTWait",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.737]  +0.000",
+      "Label": "UHTWait"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "  13.738          [  0.000]  +0.062 SavingMakefile",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "  13.738          [  0.000]  +0.062",
+      "Label": "SavingMakefile"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "  13.751             0.013          [  0.013]  +0.002 CppDependencyCache",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "  13.751             0.013          [  0.013]  +0.002",
+      "Label": "CppDependencyCache"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "  13.753             0.015          [  0.015]  +0.004 CppDependencyCache",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "  13.753             0.015          [  0.015]  +0.004",
+      "Label": "CppDependencyCache"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "  13.757             0.019          [  0.019]  +0.080 Preparing ActionGraph",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "  13.757             0.019          [  0.019]  +0.080",
+      "Label": "Preparing ActionGraph"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.841]  +0.096 GarbageCollect",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.841]  +0.096",
+      "Label": "GarbageCollect"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.941]  +0.000 Deploying targets",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.941]  +0.000",
+      "Label": "Deploying targets"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.941]  +0.000 DisconnectCache",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.941]  +0.000",
+      "Label": "DisconnectCache"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.944]  +0.001 SaveCasTable",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.944]  +0.001",
+      "Label": "SaveCasTable"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.947]  +0.020 Saving caches",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.947]  +0.020",
+      "Label": "Saving caches"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.968]  +0.002 TelemetryService.FlushEvents",
+    "format": "{Prefix} {Label}",
+    "properties": {
+      "Prefix": "[ 13.968]  +0.002",
+      "Label": "TelemetryService.FlushEvents"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Debug",
+    "message": "[ 13.971]",
+    "format": "[{Time,7}]",
+    "properties": {
+      "Time": "13.971"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Information",
+    "message": "",
+    "format": "",
+    "properties": {}
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Information",
+    "message": "Result: Succeeded",
+    "format": "Result: {ApplicationResult}",
+    "properties": {
+      "ApplicationResult": "Succeeded"
+    }
+  },
+  {
+    "time": "2026-11-07T06:45:07",
+    "level": "Information",
+    "message": "Total execution time: 13.97 seconds",
+    "format": "Total execution time: {Time:0.00} seconds",
+    "properties": {
+      "Time": 13.9714993
+    }
+  }
+]

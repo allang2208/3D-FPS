@@ -1,0 +1,155 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -251,7 +251,8 @@
+     float LastSwordGripRoll=0.f,SwordEntryGripRoll=0.f;
+     float LastSwordGripSlide=0.f,SwordEntryGripSlide=0.f;
+     float SwordSupportThumbWeight=0.f;
+-    bool bSwordChanged=false,bSwordNativeGrip=false;
++    bool bSwordChanged=false,bSwordNativeGrip=false,bHighlandSupportedGrip=false;
++    bool bHighlandDash=false;
+     bool bHammerLocomotion=false;
+     bool bHammerSourceCarry=false;
+     bool bHammerContinuousGrip=false;
+@@ -1693,6 +1694,9 @@
+     FTraversalPlayback TraversalPlayback;
+     FControls Controls;
+     UAnimSequence* SwordAsset=nullptr;
++    UAnimSequence* HighlandDashStrideAsset=nullptr;
++    float HighlandDashContact=.4f,HighlandDashRelease=.65f;
++    bool bHighlandDashTake=false;
+     FName SwordKey;
+     float KukriLowerWeight=0.f;
+     FPSBodyKukriMotion::FComboRecovery KukriRecovery;
+@@ -1853,7 +1857,8 @@
+             D->BodyState.ActionVariant==TEXT("SprintAttack");
+         // Sprint input is released by the attack, while CMC retains and brakes
+         // its real velocity. Keep that running stride until it actually stops.
+-        SmoothedSpeed=(SprintHammerGait||SprintKukriGait)?D->Speed:FMath::FInterpTo(SmoothedSpeed,D->Speed,Dt,10.f);
++        const bool RidgeDashGait=FPSBodyHighlandMotion::IsDash(D->BodyState);
++        SmoothedSpeed=(SprintHammerGait||SprintKukriGait||RidgeDashGait)?D->Speed:FMath::FInterpTo(SmoothedSpeed,D->Speed,Dt,10.f);
+         if(D->Speed>5.f)
+         {
+             if(!bHasHeading){SmoothedHeading=D->Direction;bHasHeading=true;}
+@@ -1880,7 +1885,7 @@
+         // Normal travel (including backward/ADS) uses the existing walk library.
+         // 450 cm/s is this game's normal speed, not an instruction to play 100%
+         // jogging. Sprint intent is replicated with the body state on observers.
+-        const float JogTarget=(D->BodyState.bSprinting||SprintHammerGait||SprintKukriGait)&&!D->BodyState.bAiming?
++        const float JogTarget=(D->BodyState.bSprinting||SprintHammerGait||SprintKukriGait||RidgeDashGait)&&!D->BodyState.bAiming?
+             FMath::Clamp((SmoothedSpeed-250.f)/250.f,0.f,1.f)*(1.f-D->CrouchAlpha):0.f;
+         Pace.Alpha=FMath::FInterpTo(Pace.Alpha,JogTarget,Dt,12.f);
+         Movement.Alpha=FMath::Clamp(SmoothedSpeed/80.f,0.f,1.f)*(1.f-D->MotionAlpha);
+@@ -2064,6 +2069,8 @@
+         const bool HasSwordAction=NextSwordAsset&&IdleClip&&NextSwordAsset->GetSkeleton()==IdleClip->GetSkeleton();
+         const bool HasHammerAction=HasSwordAction&&!HammerKey.IsNone();
+         const bool HasKukriAction=HasSwordAction&&!KukriKey.IsNone();
++        Controls.bHighlandDash=HasSwordAction&&RidgeDashGait;
++        if(HasSwordAction)bHighlandDashTake=Controls.bHighlandDash;
+         const bool KukriCarry=HasKukriAction&&KukriBaseKey==TEXT("Kukri.FullBody.Idle");
+         const bool KukriRecover=HasKukriAction&&!KukriRecovery.Active.IsNone();
+         Controls.bKukriAuthoredStep=HasKukriAction&&!KukriCarry;
+@@ -2117,7 +2124,7 @@
+                 Controls.LibraryPreserveHands=0;
+             if(NextSwordAsset!=SwordAsset)
+             {
+-                SwordAsset=NextSwordAsset;SwordContact=.4f;SwordRelease=.65f;Controls.bSwordNativeGrip=false;bHammerDonorClock=false;
++                SwordAsset=NextSwordAsset;SwordContact=.4f;SwordRelease=.65f;Controls.bSwordNativeGrip=false;Controls.bHighlandSupportedGrip=false;bHammerDonorClock=false;
+                 Controls.bHammerContinuousGrip=false;
+                 Controls.bStaffNativeStrike=false;
+                 for(const auto& Marker:SwordAsset->AuthoredSyncMarkers)
+@@ -2125,6 +2132,7 @@
+                     if(Marker.MarkerName==TEXT("Contact"))SwordContact=Marker.Time/SwordAsset->GetPlayLength();
+                     if(Marker.MarkerName==TEXT("Release"))SwordRelease=Marker.Time/SwordAsset->GetPlayLength();
+                     if(Marker.MarkerName==TEXT("NativeSwordGrip")||Marker.MarkerName==TEXT("NativeWarhammerGrip"))Controls.bSwordNativeGrip=true;
++                    if(Marker.MarkerName==TEXT("HighlandSupportedGrip"))Controls.bHighlandSupportedGrip=true;
+                     if(Marker.MarkerName==TEXT("NativeStaffArm"))Controls.bStaffNativeStrike=true;
+                     if(Marker.MarkerName==TEXT("HammerDonorClock"))bHammerDonorClock=true;
+                     if(Marker.MarkerName==TEXT("NativeWarhammerContinuousGrip"))Controls.bHammerContinuousGrip=true;
+@@ -2153,23 +2161,13 @@
+             // its own contact window, especially after hit stop / speed changes.
+             else if(HasKukriAction&&FPSBodyKukriMotion::UsesAuthoredClock(KukriKey))Sample=P;
+             else if(HasHammerAction||(HasKukriAction&&(S.Action==EFPSBodyAction::Charge||S.Action==EFPSBodyAction::Equip)))Sample=P;
+-            else if(S.ActionVariant==TEXT("ChixiaoHeavy")||S.ActionVariant==TEXT("HighlandBreakSweep"))Sample=P;
++            else if(S.ActionVariant==TEXT("ChixiaoHeavy"))Sample=P;
++            else if(FPSBodyHighlandMotion::IsRidge(S))
++                Sample=FPSBodyHighlandMotion::RidgeSampleSeconds(S,P,SwordAsset->GetPlayLength())/FMath::Max(.001f,SwordAsset->GetPlayLength());
+             else if(FPSBodySwordMotion::IsUppercut(S))Sample=FPSBodySwordMotion::UppercutSample(S,P,SwordContact,SwordRelease);
+             else if(S.Action==EFPSBodyAction::Whirlwind)Sample=FPSBodySwordMotion::WhirlwindSample(S,P);
+             else if(S.Action==EFPSBodyAction::Charge)Sample=Ease(P)*SwordContact*.7f;
+             else if(S.Action==EFPSBodyAction::Guard)Sample=P*.35f;
+-            else if(HighlandRidgeThrust::IsRelease(S.ActionVariant))
+-            {
+-                const float Hit=FMath::Max(.0001f,S.ContactFraction),Peak=FMath::Max(Hit+.0001f,S.ReleaseFraction);
+-                const float Resume=FPSBodyPoses::RidgeRecoveryFraction(S);
+-                const float Entry=FMath::Clamp(S.ActionEntryFraction,0.f,Hit-.0001f);
+-                const float Chamber=SwordContact*.7f;
+-                if(P<Entry)Sample=FMath::Lerp(0.f,Chamber,P/Entry);
+-                else if(P<Hit)Sample=FMath::Lerp(Chamber,SwordContact,(P-Entry)/(Hit-Entry));
+-                else if(P<Peak)Sample=FMath::Lerp(SwordContact,SwordRelease,(P-Hit)/(Peak-Hit));
+-                else if(P<Resume)Sample=SwordRelease;
+-                else Sample=FMath::Lerp(SwordRelease,1.f,(P-Resume)/(1.f-Resume));
+-            }
+             else if(S.Action!=EFPSBodyAction::GuardHit&&S.Action!=EFPSBodyAction::GuardBreak)
+             {
+                 const float Hit=FMath::Clamp(S.ContactFraction,.01f,.98f);
+@@ -2281,6 +2279,16 @@
+         // KayKit's exaggerated lunge/step is removed in the Jason adaptation.
+         // Grounding, crouch and locomotion continue to own the lower body.
+         if(Controls.bHandAttackLibrary)Controls.SwordLegWeight=0.f;
++        if(bHighlandDashTake)
++        {
++            // Actual capsule travel drives the approach gait. Transfer to the
++            // ordinary dash's planted stride as the thrust reaches contact,
++            // then hand locomotion back smoothly after its fixed hold.
++            const float Plant=Controls.bHighlandDash?FPSBodyHighlandMotion::DashLegWeight(
++                D->BodyState,FPSBodyPoses::Progress(D->BodyState,D->Clock)):0.f;
++            Controls.SwordLegWeight=Plant*(1.f-D->CrouchAlpha)*(1.f-D->MotionAlpha)*
++                (1.f-D->AirAlpha)*(1.f-SlideLayer.Weight);
++        }
+         // Kukri's complete donor already contains its planted rising cut.
+         // Its shared "Uppercut" name must not opt into the sword/hammer lunge.
+         const bool Uppercut=HasSwordAction&&!HasKukriAction&&!(HasHammerAction&&bHammerDonorClock)&&D->BodyState.Action==EFPSBodyAction::HeavyStrike&&
+@@ -2289,7 +2297,29 @@
+         const bool HasStride=StrideClip&&IdleClip&&StrideClip->GetSkeleton()==IdleClip->GetSkeleton();
+         const bool SwordUppercut=Uppercut&&FPSBodySwordMotion::IsUppercut(D->BodyState);
+         float StrideTarget=0.f;
+-        if(SwordUppercut&&HasStride)
++        if(Controls.bHighlandDash)
++        {
++            auto* DashClip=Clip(TEXT("Melee.FullBody.DashOverhead"));
++            if(DashClip&&IdleClip&&DashClip->GetSkeleton()==IdleClip->GetSkeleton())
++            {
++                if(HighlandDashStrideAsset!=DashClip)
++                {
++                    HighlandDashStrideAsset=DashClip;HighlandDashContact=.4f;HighlandDashRelease=.65f;
++                    for(const auto& Marker:DashClip->AuthoredSyncMarkers)
++                    {
++                        if(Marker.MarkerName==TEXT("Contact"))HighlandDashContact=Marker.Time/DashClip->GetPlayLength();
++                        if(Marker.MarkerName==TEXT("Release"))HighlandDashRelease=Marker.Time/DashClip->GetPlayLength();
++                    }
++                }
++                const float Sample=FPSBodyHighlandMotion::DashStrideSample(D->BodyState,
++                    FPSBodyPoses::Progress(D->BodyState,D->Clock),HighlandDashContact,HighlandDashRelease);
++                Set(UppercutStride,DashClip,Sample*DashClip->GetPlayLength(),false);
++                // The existing lower-body-only layer preserves the complete
++                // fitted thrust chest, shoulders, elbows, wrists and grip.
++                StrideTarget=1.f;
++            }
++        }
++        else if(SwordUppercut&&HasStride)
+         {
+             const auto& S=D->BodyState;
+             const float Seconds=FPSBodySwordMotion::UppercutPlaybackTime(S,FPSBodyPoses::Progress(S,D->Clock));
+@@ -2334,10 +2364,10 @@
+         }
+         // The sword envelope already eases both ends on the action clock. A
+         // second time filter delays push-off and loses the first moving frames.
+-        Controls.UppercutStrideWeight=SwordUppercut&&HasStride&&!D->BodyState.bUppercutLungeBlocked&&!D->bFalling?
++        Controls.UppercutStrideWeight=Controls.bHighlandDash||(SwordUppercut&&HasStride&&!D->BodyState.bUppercutLungeBlocked&&!D->bFalling)?
+             StrideTarget:FMath::FInterpConstantTo(Controls.UppercutStrideWeight,StrideTarget,Dt,20.f);
+         if(!Uppercut&&Controls.UppercutStrideWeight<=ZERO_ANIMWEIGHT_THRESH)Set(UppercutStride,IdleClip,0.f,false);
+-        if(Controls.SwordWeight<=ZERO_ANIMWEIGHT_THRESH){SwordKey=NAME_None;bZhufengSwordTake=false;}
++        if(Controls.SwordWeight<=ZERO_ANIMWEIGHT_THRESH){SwordKey=NAME_None;bZhufengSwordTake=false;bHighlandDashTake=false;}
+         const auto& Casting=D->BodyState;
+         auto* KukriHip=Clip(TEXT("Pistol.KukriCarry.Hip"));
+         auto* KukriAim=Clip(TEXT("Pistol.KukriCarry.Aim"));

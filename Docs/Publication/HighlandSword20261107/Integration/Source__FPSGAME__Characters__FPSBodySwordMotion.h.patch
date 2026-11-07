@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/Characters/FPSBodySwordMotion.h
++++ b/Source/FPSGAME/Characters/FPSBodySwordMotion.h
+@@ -3,6 +3,7 @@
+ #include "../Weapons/RuneSwordWhirlwindFeel.h"
+ #include "../Weapons/RuneSwordUppercutMotion.h"
+ #include "../Weapons/HighlandRidgeThrust.h"
++#include "FPSBodyHighlandMotion.h"
+ 
+ /** Third-person source selection only; the sword executor owns time and hits. */
+ namespace FPSBodySwordMotion
+@@ -76,6 +77,7 @@
+     switch(State.Action)
+     {
+     case EFPSBodyAction::Strike:
++        if(State.ActionVariant==FPSBodyHighlandMotion::SweepReady)return TEXT("Melee.FullBody.HighlandBreakSweepReady");
+         if(State.ActionVariant==TEXT("HighlandBreakSweep"))return TEXT("Melee.FullBody.HighlandBreakSweep");
+         return State.ActionVariant==TEXT("Slash2")?TEXT("Melee.FullBody.Slash2"):TEXT("Melee.FullBody.Slash1");
+     case EFPSBodyAction::HeavyStrike:
+@@ -83,7 +85,8 @@
+         if(State.ActionVariant==TEXT("Uppercut"))return TEXT("Melee.FullBody.Uppercut");
+         if(State.ActionVariant==TEXT("DashOverhead"))return TEXT("Melee.FullBody.DashOverhead");
+         return State.ActionVariant==TEXT("HeavyRelease")?TEXT("Melee.FullBody.HeavyRelease"):TEXT("Melee.FullBody.Overhead");
+-    case EFPSBodyAction::Thrust:return TEXT("Melee.FullBody.Thrust");
++    case EFPSBodyAction::Thrust:
++        return HighlandRidgeThrust::IsRelease(State.ActionVariant)?TEXT("Melee.FullBody.HighlandRidgeThrust"):TEXT("Melee.FullBody.Thrust");
+     case EFPSBodyAction::Pommel:return TEXT("Melee.FullBody.Pommel");
+     case EFPSBodyAction::Whirlwind:
+         // Tang Dao's single edge is mounted half a turn from the double-edged
+@@ -97,7 +100,7 @@
+         if(State.ActionProgress<State.ContactFraction)return TEXT("Melee.FullBody.Whirlwind.Start");
+         return State.ActionProgress<State.ReleaseFraction?TEXT("Melee.FullBody.Whirlwind.Loop"):TEXT("Melee.FullBody.Whirlwind.End");
+     case EFPSBodyAction::Charge:
+-        return State.ActionVariant==HighlandRidgeThrust::Charge?TEXT("Melee.FullBody.Thrust"):TEXT("Melee.FullBody.Charge");
++        return State.ActionVariant==HighlandRidgeThrust::Charge?TEXT("Melee.FullBody.HighlandRidgeThrust"):TEXT("Melee.FullBody.Charge");
+     case EFPSBodyAction::Guard:return TEXT("Melee.FullBody.Guard");
+     case EFPSBodyAction::GuardHit:return TEXT("Melee.FullBody.GuardHit");
+     case EFPSBodyAction::GuardBreak:return TEXT("Melee.FullBody.GuardBreak");

@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp
++++ b/Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp
+@@ -6,6 +6,7 @@
+ #include "../Monsters/BoundCongregateCaptureComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Combat/CombatStatusFormula.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/WeaponBipodDeploymentComponent.h"
+ #include "Components/SceneComponent.h"
+ #include "GameFramework/Character.h"
+@@ -231,7 +232,8 @@
+     const auto* Fear=CharacterOwner?CharacterOwner->FindComponentByClass<UHandBrainFearComponent>():nullptr;
+     const auto* CharmOwner=Cast<AFPSGAMECharacter>(CharacterOwner);
+     const float CharmSpeed=CharmOwner&&CharmOwner->HatchetCharms?CharmOwner->HatchetCharms->MoveScale():1.f;
+-    return Super::GetMaxSpeed()*CharmSpeed*(Status?Status->MovementMultiplier():1.f)*(Fear?FMath::Max(.01f,1.f-.33f*Fear->Stacks):1.f)*UKukriBerserkerComponent::MovementMultiplier(CharacterOwner);
++    const float GaleSpeed=CharmOwner && CharmOwner->RuneSword ? CharmOwner->RuneSword->GaleMoveScale() : 1.f;
++    return Super::GetMaxSpeed()*GaleSpeed*CharmSpeed*(Status?Status->MovementMultiplier():1.f)*(Fear?FMath::Max(.01f,1.f-.33f*Fear->Stacks):1.f)*UKukriBerserkerComponent::MovementMultiplier(CharacterOwner);
+ }
+ 
+ bool UFPSCharacterMovementComponent::StepUp(const FVector& GravDir, const FVector& Delta,

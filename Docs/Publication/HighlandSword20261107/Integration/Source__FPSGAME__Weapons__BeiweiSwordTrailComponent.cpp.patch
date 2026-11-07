@@ -1,0 +1,86 @@
+--- a/Source/FPSGAME/Weapons/BeiweiSwordTrailComponent.cpp
++++ b/Source/FPSGAME/Weapons/BeiweiSwordTrailComponent.cpp
+@@ -8,7 +8,7 @@
+ #include "Materials/MaterialInterface.h"
+ #include "GameFramework/Actor.h"
+ 
+-namespace {constexpr double BeiweiTrailLifetime=.24;constexpr int32 BeiweiTrailSamples=48;}
++namespace {constexpr int32 BeiweiTrailSamples=48;}
+ UBeiweiSwordTrailComponent::UBeiweiSwordTrailComponent()
+ {
+     PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;
+@@ -17,6 +17,13 @@
+ void UBeiweiSwordTrailComponent::BeginPlay()
+ {
+     Super::BeginPlay();Samples.Reserve(BeiweiTrailSamples);
++    if(SingleMaterialPath.IsValid())
++    {
++        MaterialLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(SingleMaterialPath,
++            FStreamableDelegate::CreateWeakLambda(this,[this]()
++            {Material=Cast<UMaterialInterface>(SingleMaterialPath.ResolveObject());}));
++        return;
++    }
+     const FSoftObjectPath Path(TEXT("/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_BeiweiSwordTrail.M_BeiweiSwordTrail"));
+     const FSoftObjectPath CrimsonPath(TEXT("/Game/Weapons/Zhanmadao20261018/ChixiaoLegendaryV1/Materials/M_ChixiaoSwordTrail.M_ChixiaoSwordTrail"));
+     const FSoftObjectPath CyanPath(TEXT("/Game/Weapons/Zhanmadao20261018/ZhufengCyanTrailV1/Materials/M_ZhufengSwordTrail.M_ZhufengSwordTrail"));
+@@ -31,6 +38,11 @@
+         }
+     }));
+ }
++void UBeiweiSwordTrailComponent::ConfigureSingleMaterial(const FSoftObjectPath& Path,float Seconds)
++{
++    SingleMaterialPath=Path;
++    SampleLifetime=FMath::Max(.01f,Seconds);
++}
+ void UBeiweiSwordTrailComponent::SetView(bool OwnerOnly,bool HideFromOwner)
+ {
+     bOwnerOnly=OwnerOnly;bHideOwner=HideFromOwner;
+@@ -43,6 +55,10 @@
+ }
+ void UBeiweiSwordTrailComponent::Feed(const FVector& Base,const FVector& Tip,bool Emitting,ESwordTrailPalette Palette)
+ {
++    Feed(Base,Tip,Emitting,Palette,0.);
++}
++void UBeiweiSwordTrailComponent::Feed(const FVector& Base,const FVector& Tip,bool Emitting,ESwordTrailPalette Palette,double SampleAge)
++{
+     if(!Emitting){bContinuous=false;return;}
+     if(GetNetMode()==NM_DedicatedServer||Base.Equals(Tip,1.f))return;
+     // Change palette only when a new strike emits; let inactive tails fade normally.
+@@ -52,12 +68,16 @@
+         if(Ribbon)Ribbon->SetMaterial(0,TrailMaterial());
+     }
+     const double Now=GetWorld()->GetTimeSeconds();
+-    if(!Samples.IsEmpty()&&(Now-Samples.Last().Time>BeiweiTrailLifetime||FVector::DistSquared(Base,Samples.Last().Base)>250000.))Clear();
++    const double SampleTime=Now-FMath::Max(0.,SampleAge);
++    if(SampleAge>=SampleLifetime)return;
++    if(!Samples.IsEmpty()&&(Now-Samples.Last().Time>SampleLifetime||FVector::DistSquared(Base,Samples.Last().Base)>250000.))Clear();
+     if(Samples.IsEmpty())Origin=Base;
+-    if(bContinuous&&!Samples.IsEmpty()&&Now-Samples.Last().Time<.001)return;
++    const FVector Root=FMath::Lerp(Base,Tip,.12f);
++    if(bContinuous&&!Samples.IsEmpty()&&SampleTime-Samples.Last().Time<.001 &&
++        Tip.Equals(Samples.Last().Tip,.01) && Root.Equals(Samples.Last().Base,.01))return;
+     if(Samples.Num()>=BeiweiTrailSamples)Samples.RemoveAt(0,1,EAllowShrinking::No);
+     // Keep the root clear of hands; the blade tip remains at its real position.
+-    Samples.Add({FMath::Lerp(Base,Tip,.12f),Tip,Now,!bContinuous});
++    Samples.Add({Root,Tip,SampleTime,!bContinuous});
+     bContinuous=true;SetComponentTickEnabled(true);
+ }
+ void UBeiweiSwordTrailComponent::Clear()
+@@ -69,7 +89,7 @@
+ {
+     Super::TickComponent(Delta,Type,Tick);
+     const double Now=GetWorld()->GetTimeSeconds();
+-    while(!Samples.IsEmpty()&&Now-Samples[0].Time>=BeiweiTrailLifetime)Samples.RemoveAt(0,1,EAllowShrinking::No);
++    while(!Samples.IsEmpty()&&Now-Samples[0].Time>=SampleLifetime)Samples.RemoveAt(0,1,EAllowShrinking::No);
+     if(Samples.IsEmpty()){Clear();return;}
+     auto* CurrentMaterial=TrailMaterial();
+     if(!CurrentMaterial||Samples.Num()<2){if(Ribbon)Ribbon->SetVisibility(false);return;}
+@@ -91,7 +111,7 @@
+     auto* UV=Mesh.Attributes()->PrimaryUV();auto* Normals=Mesh.Attributes()->PrimaryNormals();
+     for(const auto& S:Samples)
+     {
+-        const float Age=FMath::Clamp(float((Now-S.Time)/BeiweiTrailLifetime),0.f,1.f);
++        const float Age=FMath::Clamp(float((Now-S.Time)/SampleLifetime),0.f,1.f);
+         for(int32 Edge=0;Edge<2;++Edge)
+         {
+             Mesh.AppendVertex((Edge?S.Tip:S.Base)-Origin);

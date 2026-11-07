@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/UI/StatusEffectIconPainter.cpp
++++ b/Source/FPSGAME/UI/StatusEffectIconPainter.cpp
+@@ -11,13 +11,14 @@
+ {
+     Dragon, Phoenix, Shield, Drop, Skull, Eye, Spiral, Reticle, Diamond, Star, Hourglass,
+     Snow, Flame, Chain, Stride, Leaf, Flask, Lightning, Stone, Ledger, Pick, Mountain,
+-    Wave, Antlers, Music, Root, Armor, Lotus, Taiji, Crystal, Cloud, Arrow, Bone, Fang, Sun, Cadence, Relentless
++    Wave, Antlers, Music, Root, Armor, Lotus, Taiji, Crystal, Cloud, Arrow, Bone, Fang, Sun, Cadence, Relentless, GaleWing
+ };
+ struct FIcon { EGlyph Glyph; uint8 Variant=0; };
+ FIcon ResolveIcon(const FStatusEffectView& V)
+ {
+     // Explicit identities: related effects share an engraved motif with different secondary marks.
+     static const TMap<FName,FIcon> Icons={
++        {TEXT("galeSwiftness"),{EGlyph::GaleWing,0}},
+         {TEXT("bowCadence"),{EGlyph::Cadence,0}},
+         {TEXT("kukriRelentlessMain"),{EGlyph::Relentless,0}}, {TEXT("kukriRelentlessOffhand"),{EGlyph::Relentless,0}},
+         {TEXT("tangDragonMight"),{EGlyph::Dragon,0}}, {TEXT("tangPhoenixDance"),{EGlyph::Phoenix,0}},
+@@ -160,6 +161,10 @@
+     case EGlyph::Chain:
+         Line({{7,20},{5,16},{5,11},{10,6},{15,6},{19,10},{19,14},{14,19},{10,19}});
+         Line({{13,18},{13,22},{17,26},{22,26},{27,21},{27,16},{23,12},{20,12}});AccentLine({{11,21},{21,11}});break;
++    case EGlyph::GaleWing:
++        Line({{8,23},{10,17},{14,13},{20,11},{27,5},{25,12},{21,16},{24,15},{19,21},{13,23},{8,23}});
++        AccentLine({{7,26},{12,20},{18,16},{23,11}});
++        AccentLine({{5,15},{11,15}});AccentLine({{4,19},{8,19}});break;
+     case EGlyph::Relentless:
+         Line({{13,3},{19,3},{19,7},{25,11},{24,23},{16,29},{8,23},{7,11},{13,7},{13,3}});
+         for(int32 I=0;I<4;++I){const float Y=10.f+I*3.5f;AccentLine({{10,Y},{16,Y+3},{22,Y}});}break;

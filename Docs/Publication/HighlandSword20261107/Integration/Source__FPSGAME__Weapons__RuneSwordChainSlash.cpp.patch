@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp
+@@ -103,6 +103,11 @@
+     if(!StartChainSlash())return false;
+     if(++ChainSlashSerial==0)++ChainSlashSerial;
+     if(!GetOwner()->HasAuthority())ServerChainSlash(InstanceId,ChainSlashSerial,true);
++    else
++    {
++        ChainGaleKey=GaleWing::Key(GaleWing::EAttack::Chain,ChainSlashSerial);
++        RecordGalePayment(ChainGaleKey,InstanceId,0.f);
++    }
+     return true;
+ }
+ 
+@@ -120,6 +125,8 @@
+         return;
+     }
+     ChainSlashSerial=Serial;
++    ChainGaleKey=GaleWing::Key(GaleWing::EAttack::Chain,Serial);
++    RecordGalePayment(ChainGaleKey,Weapon,0.f);
+ }
+ 
+ void URuneSwordComponent::ClientCancelChainSlash_Implementation(uint32 Serial)
+@@ -162,6 +169,8 @@
+             }
+             MulticastChainContact(IsValid(Target)?Target:nullptr,Hit.ImpactPoint,Hit.ImpactNormal,bFirst,Cut==3);
+             const auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
++            if(!IsValid(Target) || Target->IsActorBeingDestroyed() || (Combat && Combat->IsDead()))
++                ConfirmGaleKill(ChainGaleKey,InstanceId);
+             ClientChainSlashHit(Target,Applied,!Combat||Combat->IsDead());
+         }
+     }

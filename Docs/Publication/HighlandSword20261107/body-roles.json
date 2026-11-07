@@ -1,0 +1,149 @@
+{
+  "config": "Content/ColdSteelData/player_body.json",
+  "owned_paths": [
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandBreakSweep"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_Sweep.A_Highland3P_Jason_Standard_Sweep"
+    },
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandBreakSweep.Standard"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_Sweep.A_Highland3P_Jason_Standard_Sweep"
+    },
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandBreakSweep.LongGrip"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_LongGrip_Sweep.A_Highland3P_Jason_LongGrip_Sweep"
+    },
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandBreakSweepReady"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_SweepReady.A_Highland3P_Jason_Standard_SweepReady"
+    },
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandBreakSweepReady.Standard"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_SweepReady.A_Highland3P_Jason_Standard_SweepReady"
+    },
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandBreakSweepReady.LongGrip"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_LongGrip_SweepReady.A_Highland3P_Jason_LongGrip_SweepReady"
+    },
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandRidgeThrust"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_RidgeThrust.A_Highland3P_Jason_Standard_RidgeThrust"
+    },
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandRidgeThrust.Standard"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_RidgeThrust.A_Highland3P_Jason_Standard_RidgeThrust"
+    },
+    {
+      "path": [
+        "clips",
+        "Melee.FullBody.HighlandRidgeThrust.LongGrip"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_LongGrip_RidgeThrust.A_Highland3P_Jason_LongGrip_RidgeThrust"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandBreakSweep"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_Sweep.A_Highland3P_Kaitlin_Standard_Sweep"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandBreakSweep.Standard"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_Sweep.A_Highland3P_Kaitlin_Standard_Sweep"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandBreakSweep.LongGrip"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_LongGrip_Sweep.A_Highland3P_Kaitlin_LongGrip_Sweep"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandBreakSweepReady"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_SweepReady.A_Highland3P_Kaitlin_Standard_SweepReady"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandBreakSweepReady.Standard"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_SweepReady.A_Highland3P_Kaitlin_Standard_SweepReady"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandBreakSweepReady.LongGrip"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_LongGrip_SweepReady.A_Highland3P_Kaitlin_LongGrip_SweepReady"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandRidgeThrust"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_RidgeThrust.A_Highland3P_Kaitlin_Standard_RidgeThrust"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandRidgeThrust.Standard"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_RidgeThrust.A_Highland3P_Kaitlin_Standard_RidgeThrust"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.HighlandRidgeThrust.LongGrip"
+      ],
+      "value": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_LongGrip_RidgeThrust.A_Highland3P_Kaitlin_LongGrip_RidgeThrust"
+    }
+  ]
+}

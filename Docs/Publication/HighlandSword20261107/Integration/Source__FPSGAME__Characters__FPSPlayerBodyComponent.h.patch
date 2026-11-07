@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -204,6 +204,8 @@
+     void PresentRemoteAzureDragon();
+     void PresentBeiweiTrail();
+     void PresentRidgeGather();
++    void PresentOathRune();
++    UPROPERTY(Transient) TObjectPtr<class UOathJudgmentVisualComponent> WorldOathVisual;
+     UPROPERTY(Transient) TObjectPtr<class UHighlandRidgeGatherComponent> WorldRidgeGather;
+     UPROPERTY(Transient) TObjectPtr<class UBeiweiSwordTrailComponent> BeiweiWorldTrail;
+     FString BeiweiWorldInstance;

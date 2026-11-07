@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Movement/FPSPlayerSlide.cpp
++++ b/Source/FPSGAME/Movement/FPSPlayerSlide.cpp
+@@ -1,5 +1,6 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../Combat/CombatStatusFormula.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "Components/CapsuleComponent.h"
+ #include "Engine/World.h"
+ #include "GameFramework/CharacterMovementComponent.h"
+@@ -99,7 +100,7 @@
+         // exponential drag and the flat-ground timeout. Never stack new boosts.
+         const auto* Status = FindComponentByClass<UCombatStatusFormula>();
+         const float StatusMultiplier = Status ? Status->MovementMultiplier() : 1.f;
+-        HorizontalVelocity = Direction * SprintSpeed * SlideSpeedMultiplier * StatusMultiplier;
++        HorizontalVelocity = Direction * SprintSpeed * SlideSpeedMultiplier * StatusMultiplier * (RuneSword ? RuneSword->GaleMoveScale() : 1.f);
+         SlideTimeRemaining = SlideMaximumTime;
+     }
+     else

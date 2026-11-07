@@ -1,0 +1,280 @@
+{
+  "checks": [
+    {
+      "case": "remote authority fixture needs no first-person animations",
+      "passed": true
+    },
+    {
+      "case": "Gale sprint cost is 85 percent on shadow profile",
+      "passed": true
+    },
+    {
+      "case": "Gale charge speed is plus 20 percent on owner and authority",
+      "passed": true
+    },
+    {
+      "case": "Gale pommel is special tier",
+      "passed": true
+    },
+    {
+      "case": "Ridge blade is legendary tier",
+      "passed": true
+    },
+    {
+      "case": "Ridge passive range and previous third-hit damage times 1.5 retained",
+      "passed": true
+    },
+    {
+      "case": "thrust penetration adds 20 or 80 percentage points",
+      "passed": true
+    },
+    {
+      "case": "out of bounds or invalid charge timestamp rejected",
+      "passed": true
+    },
+    {
+      "case": "out of bounds or invalid charge timestamp rejected",
+      "passed": true
+    },
+    {
+      "case": "out of bounds or invalid charge timestamp rejected",
+      "passed": true
+    },
+    {
+      "case": "400 ms late begin preserves actual hold start",
+      "passed": true
+    },
+    {
+      "case": "duplicate begin cannot backdate charge",
+      "passed": true
+    },
+    {
+      "case": "wrong weapon stop cannot cancel real charge",
+      "passed": true
+    },
+    {
+      "case": "partial hold cannot become a heavy attack",
+      "passed": true
+    },
+    {
+      "case": "replayed cancelled begin cannot reopen charge",
+      "passed": true
+    },
+    {
+      "case": "cancelled hold does not bill network transit",
+      "passed": true
+    },
+    {
+      "case": "fixture reproduces old arrival-clock rejection",
+      "passed": true
+    },
+    {
+      "case": "hit-before-stop commits fully charged delayed release",
+      "passed": true
+    },
+    {
+      "case": "missing hold stamina and release settled exactly once",
+      "passed": true
+    },
+    {
+      "case": "duplicate stop or hit cannot pay a second time",
+      "passed": true
+    },
+    {
+      "case": "heavy release receipt expires",
+      "passed": true
+    },
+    {
+      "case": "insufficient combined hold and release cost denies atomically",
+      "passed": true
+    },
+    {
+      "case": "unequipping before receipt cannot release old sword",
+      "passed": true
+    },
+    {
+      "case": "inactive sword removes sprint reduction",
+      "passed": true
+    },
+    {
+      "case": "ridge hit arriving first commits the precise heavy release",
+      "passed": true
+    },
+    {
+      "case": "positive input clock skew retains the last part of the judgment window",
+      "passed": true
+    },
+    {
+      "case": "late duplicate release preserves judgment and does not spend twice",
+      "passed": true
+    },
+    {
+      "case": "judged ridge heavy combines physical and toughness bonuses",
+      "passed": true
+    },
+    {
+      "case": "damage pipeline scales both physical channels once and preserves magic",
+      "passed": true
+    },
+    {
+      "case": "finisher, dash, counter and other serial do not inherit judgment",
+      "passed": true
+    },
+    {
+      "case": "finisher, dash, counter and other serial do not inherit judgment",
+      "passed": true
+    },
+    {
+      "case": "finisher, dash, counter and other serial do not inherit judgment",
+      "passed": true
+    },
+    {
+      "case": "finisher, dash, counter and other serial do not inherit judgment",
+      "passed": true
+    },
+    {
+      "case": "zero damage does not consume first effective hit",
+      "passed": true
+    },
+    {
+      "case": "multiple targets refund the release cost once",
+      "passed": true
+    },
+    {
+      "case": "impact belongs to one weapon and release",
+      "passed": true
+    },
+    {
+      "case": "earlier impact cannot replay on next judgment",
+      "passed": true
+    },
+    {
+      "case": "positive input skew cannot grant an early judgment",
+      "passed": true
+    },
+    {
+      "case": "refund ledger records only stamina actually credited at cap",
+      "passed": true
+    },
+    {
+      "case": "a repeated cumulative refund cannot overwrite later spending",
+      "passed": true
+    },
+    {
+      "case": "late first swing uses input clock for combo recovery",
+      "passed": true
+    },
+    {
+      "case": "second swing remains valid when network delay drops from 400 to 60 ms",
+      "passed": true
+    },
+    {
+      "case": "third combo authority receipt uses extended rectangle",
+      "passed": true
+    },
+    {
+      "case": "duplicate thrust begin cannot reopen contact window",
+      "passed": true
+    },
+    {
+      "case": "heavy authority receipt uses extended rectangle",
+      "passed": true
+    },
+    {
+      "case": "dash authority receipt matches skill rectangle",
+      "passed": true
+    },
+    {
+      "case": "first and world emitters start on actual tip",
+      "passed": true
+    },
+    {
+      "case": "moving and turning during hold keeps tip, direction and random pattern",
+      "passed": true
+    },
+    {
+      "case": "late afterglow follows recovering tip instead of freezing",
+      "passed": true
+    },
+    {
+      "case": "afterglow hides after duration",
+      "passed": true
+    },
+    {
+      "case": "first and world emitters start on actual tip",
+      "passed": true
+    },
+    {
+      "case": "moving and turning during hold keeps tip, direction and random pattern",
+      "passed": true
+    },
+    {
+      "case": "late afterglow follows recovering tip instead of freezing",
+      "passed": true
+    },
+    {
+      "case": "afterglow hides after duration",
+      "passed": true
+    },
+    {
+      "case": "body keeps its sampled thrust while success is in transit",
+      "passed": true
+    },
+    {
+      "case": "late judgment consumes the stored thrust once",
+      "passed": true
+    },
+    {
+      "case": "first update during fixed hold requests the missed thrust endpoint",
+      "passed": true
+    },
+    {
+      "case": "fixed endpoint is emitted once even at identical consecutive poses",
+      "passed": true
+    },
+    {
+      "case": "Gale swing is actually billed, a miss grants no buff",
+      "passed": true
+    },
+    {
+      "case": "duplicate payment and foreign weapon grant no stamina or speed",
+      "passed": true
+    },
+    {
+      "case": "Gale kill refunds exact cost and grants 25 percent speed for three seconds",
+      "passed": true
+    },
+    {
+      "case": "second kill refreshes without refunding the swing twice",
+      "passed": true
+    },
+    {
+      "case": "short hold payment arriving after the kill is refunded exactly once",
+      "passed": true
+    },
+    {
+      "case": "Gale speed returns to baseline on expiry",
+      "passed": true
+    },
+    {
+      "case": "charged heavy kill repays hold and release once after an Oath hit refund",
+      "passed": true
+    },
+    {
+      "case": "first-person sword mounts the saved ridge-fitted wing guard",
+      "passed": true
+    },
+    {
+      "case": "standalone swing stamps its payment and an actual lethal contact activates the guard",
+      "passed": true
+    },
+    {
+      "case": "Gale pommel without wing guard cannot grant the kill effect",
+      "passed": true
+    }
+  ],
+  "failures": 0,
+  "udp_or_multiplayer_runtime": false,
+  "rendered": false,
+  "scope": "isolated authority implementations, data evaluation and live emitter transforms; not packet transport or rendered animation"
+}

@@ -1,0 +1,317 @@
+[
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSBodySwordMotion.h.patch",
+    "before_sha256": "5f1908f9ae602b70a8db0b5700443c9d8042790f9a6dac7554caf9286fffd4a7",
+    "after_sha256": "0a44edf3ec653f0f31a6c1505bdb0dbb292fd1fe13488bbf31bae6e6b0a7af50",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+    "before_sha256": "4e99a056e625c4ab150e142e6ae8faf6ca6822b463567cd1b7e48f4bee799f8d",
+    "after_sha256": "f86198c35d8484525dc793bbadc2166153d99b123233ccddeb7195da0b6b7afd",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.cpp.patch",
+    "before_sha256": "6e4219e91e48e65e93ec7e2013c84e49950edb722eeee1e63d3dca7f82f34768",
+    "after_sha256": "a5217abe53209ac90c219898afb29b312c4253ec3d4054feb11516d504020d89",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.cpp.patch",
+    "before_sha256": "90c666d078b5e9a2ca140515d2f3bbda4b3fcdad63ca71c70f55dbec67c4bbde",
+    "after_sha256": "128ded3cf5d746724b385e3739e0316c0bf906e2bc2aaf739c2ff40c09e7fc01",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch",
+    "before_sha256": "50fc838501c31e6690b9151f8005d50c6245d72e01ef6e037cd7abc46924269b",
+    "after_sha256": "6aeaf30763d7edb60f01f19325574573aa5c09bdb7c87c11b6865ee3baacbd99",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyConsumable.cpp.patch",
+    "before_sha256": "f4f26f7634c65a5fb12253e834ebcc1e476f3c94859d7acd6aa309182898dbbd",
+    "after_sha256": "c732eabc2711931e5fc76d9d24eceb65071c900d808dac1981ebfd0b2c3948ac",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+    "before_sha256": "e70ca3b467cea8fafd91f1ebc78255513a86866af77543f988aa4fe92fe324dd",
+    "after_sha256": "ab3779425cd6261bc1e5338dda32701bd54f65492c8a2e3d17d82e93895a3aca",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyNetwork.cpp.patch",
+    "before_sha256": "e4300c0c7d5e690d3a1357a63242b1f48168fb2dd639b523781eff9690026ef0",
+    "after_sha256": "78f1b7509cf7ea18f000ec71e4c9be873a838ed012274311591fc17ca173c24b",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSBodySwordPose.inl.patch",
+    "before_sha256": "c27322ccc489782aec8c164c08518c977c3a7fd55978dec4a4d325d5acb0941c",
+    "after_sha256": "7baec7ffc8ef69cacd33e81bdc908be04cb87076eb3f33b16c9d8e2efc54eb42",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__ModularSwordVisual.cpp.patch",
+    "before_sha256": "62ccf769d0a153c7d7eabbb78071a450608a13a5a33fb0a8778f1dde41cbc6e4",
+    "after_sha256": "2930a78074e8d37f4d247cc4485c7faaf3200e46f5b8ce95f048a3d66b41ae33",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__ModularSwordVisual.h.patch",
+    "before_sha256": "2ee0d309072e6f4c50de03678bfb0c34d2a688b547841eabb98feab832ce05a4",
+    "after_sha256": "1d9604336514d8baa9e5d89fbe09ed9012eb2ec08d1c2c09b9dfada8cd3f8fcc",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__MeleeRuneVisual.cpp.patch",
+    "before_sha256": "fd9053e8029e6d3a40b053d2b55f1794097542e383b7c6e7ce92858065c08d14",
+    "after_sha256": "864f39b7ab115413064be80f9bbcfd49d13eb587f8a60ee7f36ee7f72c177721",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__GunsmithModificationTier.h.patch",
+    "before_sha256": "a943e2e8b8e5090314b346ffc43c1f532ea23f88c2390a3f7266c259eeac8ff7",
+    "after_sha256": "3fcb96bf841d56a754c27bf2302d445d3f6c79dd12dc8ae5da0dcb068da51c9f",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch",
+    "before_sha256": "c82ceaa0bc6fa0c7c8fa7c68feaae03486632286e0a172e02559e7cacebcc086",
+    "after_sha256": "ae1f96c426c1539976501d90e88197bd5235a4e1ecd1ae3b6154cdb6c7316a2e",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__GunsmithSystem.h.patch",
+    "before_sha256": "fa54318cde18543b94d6b2969d15b0f2f9f418b5b6193e5bd813cca5dc6fe0d8",
+    "after_sha256": "6754262e82f238163a2679d665558bfdd610068ebf80535779bb985b20721373",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__MeleeGunsmith.cpp.patch",
+    "before_sha256": "40d22c08d40a832c187f1c9ab76e6f6979e191fa72c62729c617ed1c546a6957",
+    "after_sha256": "485601316a6730644ba6c26c560dc31ec23e63ae72b7f5a6fd9e8b985c61be91",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "patch": "Integration/Source__FPSGAME__Movement__FPSStaminaModel.cpp.patch",
+    "before_sha256": "3c7bc4ee4cbebac45f793eb3d1560223143d6754c1545c3e57fe81ffe836ca9c",
+    "after_sha256": "f66f75d13a61c73a6a36a4f5c31a6962fab2e3bfc3afcc94097dee1bccaae023",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelDashAttackModel.cpp.patch",
+    "before_sha256": "f9c37d0e1859704f51bf5fc68b13ad391e2e9bb03e22bb3d1a15c1014df3acae",
+    "after_sha256": "90396c72e95a04682ac8f9da198bcc710be4ec585aa1c5b4fb58383fcc9bde64",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSPlayerSlide.cpp",
+    "patch": "Integration/Source__FPSGAME__Movement__FPSPlayerSlide.cpp.patch",
+    "before_sha256": "cfbce0744b5a39fc1c9195b12b273a48bb39867d3fefe1ec0bc70225b3c70f20",
+    "after_sha256": "ba6de0a655cb20e9db7c1e30a15bd9a00f467c6975adb4b8db484047f07408a7",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Movement__FPSCharacterMovementComponent.cpp.patch",
+    "before_sha256": "36f04ae2bd330bd969427d900fe091f7eb9a9b29f64f51e0683c525f036296ca",
+    "after_sha256": "b214663f25d58f2650f8a13ab93132dfa1a5d0dac96efaffe5a485898504608c",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+    "before_sha256": "bc19d9700c777123cea439a4524fce57132fbc728645ce6ed0e6db8fc157779f",
+    "after_sha256": "67a4c6209def14dd7a6a9332359a808da45530cc823375c92b41875a5656307e",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+    "before_sha256": "eb6a69b8751ad6f9625a4e251b8c05850bfada520b6e408b946943b9a0885005",
+    "after_sha256": "4debdbe902c1295115acfbb83ac0c1d0cc899a526d2d3e48eac318d57b4eaa55",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelUppercutAuthority.cpp.patch",
+    "before_sha256": "15e4d3821c44e5b02c4229fa8a92d24e7f00ff5dcc179040539d5d22dbafd6ba",
+    "after_sha256": "b0494517d9f2ca4e73f34fa850737f22c94433941e15268fab741c820576c20a",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelWhirlwindAuthority.cpp.patch",
+    "before_sha256": "895ebb6c9de01cf60b24e21a76bc17025f0694f97f83a8ee6b1794cd665950d4",
+    "after_sha256": "a03c59ce5530a38333f3455dbf8c3eeffa677b73cd7342a0e74d05e31628a6a5",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelRiftSlashNetwork.cpp",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelRiftSlashNetwork.cpp.patch",
+    "before_sha256": "b530fe48792173a83a4333dea7d3be2cfcec5795bab1afa1010eaa7b2afdb6a4",
+    "after_sha256": "cbfb84189dd14ad6cf8b4c898b8f7d1807294dade30ad9a65c7bc1332e7aec65",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelQuickCombatAuthority.cpp.patch",
+    "before_sha256": "b27d9729fb48390cda1e4d51f2f1f359ef74c7454aa6b57ebca87ef89b64f6dd",
+    "after_sha256": "115956aa0dadbe0e90679ec2c4486581a2d4d422b56bee041f4a28731811f179",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Development/SwordFinishWireAudit.cpp",
+    "patch": "Integration/Source__FPSGAME__Development__SwordFinishWireAudit.cpp.patch",
+    "before_sha256": "ba80929d5f0694f6d4d21d319ade4f8535b3013efd671448880f3c5eaa030388",
+    "after_sha256": "2d1443f1b4a1163835253bf605d131a7843326e495842dfa4a488add8f9e2bca",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+    "before_sha256": "ef4160acf3f025b24e139f60112d7b407ee70019c868bedb6b93025b282bb7d8",
+    "after_sha256": "65cf45d4d482cb2993096790fda4d8481715fc39cbfc765e44f8471e80a5213c",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelInventoryTypes.h.patch",
+    "before_sha256": "0bdf7d0f0576c9ee05e099cfd5919ba99ed0b67d2e27f9a904b18ed568f634f8",
+    "after_sha256": "d7e60d5fc1dd8297b3d63867b4af42cd3e03b770bb9076499f8e6b5c183d8dee",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+    "before_sha256": "4c9268f52dbf8b742e1deb788b6dd79589e877f15d54501d7097a578ccb0f161",
+    "after_sha256": "876803827c720cfac852b7dcc93f4441f8289388a63f4738e14c0af498dedcf2",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelSkillTypes.h.patch",
+    "before_sha256": "7afbbe57f3d86a89040075a7df82b4c949595c0e1a032b38644a16cd8153b796",
+    "after_sha256": "6e3ee1e504b0c2f086e05979bb621d9f2a9039554f8df85a1d45efa98ce2f233",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelSkillModel.cpp.patch",
+    "before_sha256": "961fbacca09f2818699bc564927e2bb33ca6c5207c5c42420489ce7534d6a0dc",
+    "after_sha256": "27a92ff86c4c152ca3ac2d9e2625efe713951287bb5d94fdc3a1984de967cf79",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+    "before_sha256": "f90b34914113e6abf6f95e7a0388aeb69485c7f180f3326029cd5aaf0802e661",
+    "after_sha256": "dc02181d0b9fee6230c7daf1a428acc8e3a39939af6160606ec7a89532624ca3",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/UI/StatusEffectIconPainter.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__StatusEffectIconPainter.cpp.patch",
+    "before_sha256": "8a73420ffe49e773d6bb07cafaf495f13ab1260b8266daf811a3977445ec9954",
+    "after_sha256": "23c68368ba6486f5ced8674adc4b9ddd0f0b6bb71b4a205020e1e2e822b5749b",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__StatusEffectsComponent.cpp.patch",
+    "before_sha256": "d0a9fec411914cbf89d14ff309648f2faf6fbd07b395e117159af0b50d245676",
+    "after_sha256": "844b1ab113119e3f1e20f393abf4efebdb529cfcbd265ebc27c33382af5a3033",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordComponent.h.patch",
+    "before_sha256": "59ac77d463d5dadc5415e655e796f9b5cb54da4d4ad6bac322f9d8bb8aae1570",
+    "after_sha256": "f11eef54c6e62d1420fda3b9d5c84210fdaaa9cee3e310e6e3d5721acc174c76",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordComponent.cpp.patch",
+    "before_sha256": "a2f53cb5f0cc4e4cd738b8fa07e46afcedb33aab8fce867e76ae72477db772d1",
+    "after_sha256": "3139de55b7f290ae9ace257cd95e3b5e557c64944c24cbe574ecdf18e0666367",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordDashAttack.cpp.patch",
+    "before_sha256": "5226ad6bb79ab7fbe92504ca5884e46f81b3b4f6211bb849746f1a5dd78a9a61",
+    "after_sha256": "fad2f6afcbbf43648db97b46a2d7f14d9188a85cec578ecbfac18a20dfd595f7",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordUppercut.cpp.patch",
+    "before_sha256": "03e60fa1bc2a0ed4f21bdf78a899502b6286bbade793c46950761d877a074eef",
+    "after_sha256": "5e964770de25b3c9b0a6837cc8647117808fee057652ebfe155a3b205355a042",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordWhirlwind.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordWhirlwind.cpp.patch",
+    "before_sha256": "69495bf9f817438c734f16a610f1303f6c970a4352f8b24bd4bb2a020ae94b60",
+    "after_sha256": "219877ad52f37735d87369b9049b76032b82b572a3955804bc7b906032868edc",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordBroadblade.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordBroadblade.cpp.patch",
+    "before_sha256": "1d918e533a22358cd535aecff775c2c9d0a42c7b2ad7a40bc928fd1069846b84",
+    "after_sha256": "ce76cab179419c1948a3b464a21dfcbf58181b5819c90aa4eedddcd2c3c7a7fe",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/BeiweiSwordTrailComponent.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__BeiweiSwordTrailComponent.h.patch",
+    "before_sha256": "4dd26781c9c3cf76b7d2e2e803b5fed2d5e03e58a345d9b97efb91e21770e931",
+    "after_sha256": "b56fb09f7d5329b3c6d02ee63f11f6a0f12f9c07e50225ecec75f103f4c25abd",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/BeiweiSwordTrailComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__BeiweiSwordTrailComponent.cpp.patch",
+    "before_sha256": "251351f9cd3d18c27a43faf1fef2883739f9a451108018ce1b755d2c4e07f90d",
+    "after_sha256": "274f694fd3ec29d1a369e951e153685e618e78163c8ba29391291e2b5228668d",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordChainSlash.cpp.patch",
+    "before_sha256": "30fab306f73c6656cfd41c7040489ce59232f5b185fb94ddb4d181a5622fcf4e",
+    "after_sha256": "41af575190ac027d2b8d3ac62e61a7cdd27738e9513d7c5a678f60a51602f85c",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SniperZhimingWire.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__SniperZhimingWire.cpp.patch",
+    "before_sha256": "6eaa0326c293575fa2e07cb532e7aee6a25c64a61e09b14606630ca7b9ff05fd",
+    "after_sha256": "f3aaf0bb5b627872f73bbad9f1986c74b0fb20c6776c9f631736c59bef5d2094",
+    "baseline": "Current full local host with only this task delta removed; UTF-8 LF"
+  }
+]

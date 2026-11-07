@@ -409,7 +409,15 @@
     "Pistol.KukriUppercut": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.A_Pistol_KukriUppercut_Completion",
     "Kukri.FullBody.Dual.Pommel": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.A_Kukri_FullBody_Dual_Pommel_Completion",
     "Kukri.FullBody.Dual.Run": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.A_Kukri_FullBody_Dual_Run_Completion",
-    "Melee.FullBody.HighlandBreakSweep": "/Game/Weapons/HighlandClaymore20260922/BreakSweep20261104/A_Highland_BreakSweep_Jason.A_Highland_BreakSweep_Jason"
+    "Melee.FullBody.HighlandBreakSweep": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_Sweep.A_Highland3P_Jason_Standard_Sweep",
+    "Melee.FullBody.HighlandBreakSweep.Standard": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_Sweep.A_Highland3P_Jason_Standard_Sweep",
+    "Melee.FullBody.HighlandBreakSweep.LongGrip": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_LongGrip_Sweep.A_Highland3P_Jason_LongGrip_Sweep",
+    "Melee.FullBody.HighlandBreakSweepReady": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_SweepReady.A_Highland3P_Jason_Standard_SweepReady",
+    "Melee.FullBody.HighlandBreakSweepReady.Standard": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_SweepReady.A_Highland3P_Jason_Standard_SweepReady",
+    "Melee.FullBody.HighlandBreakSweepReady.LongGrip": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_LongGrip_SweepReady.A_Highland3P_Jason_LongGrip_SweepReady",
+    "Melee.FullBody.HighlandRidgeThrust": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_RidgeThrust.A_Highland3P_Jason_Standard_RidgeThrust",
+    "Melee.FullBody.HighlandRidgeThrust.Standard": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_RidgeThrust.A_Highland3P_Jason_Standard_RidgeThrust",
+    "Melee.FullBody.HighlandRidgeThrust.LongGrip": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_LongGrip_RidgeThrust.A_Highland3P_Jason_LongGrip_RidgeThrust"
   },
   "outfits": {
     "ue_mountain_backpack": {
@@ -8017,7 +8025,15 @@
         "Pistol.KukriUppercut": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.A_Pistol_KukriUppercut_Completion",
         "Kukri.FullBody.Dual.Pommel": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.A_Kukri_FullBody_Dual_Pommel_Completion",
         "Kukri.FullBody.Dual.Run": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.A_Kukri_FullBody_Dual_Run_Completion",
-        "Melee.FullBody.HighlandBreakSweep": "/Game/Weapons/HighlandClaymore20260922/BreakSweep20261104/A_Highland_BreakSweep_Kaitlin.A_Highland_BreakSweep_Kaitlin"
+        "Melee.FullBody.HighlandBreakSweep": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_Sweep.A_Highland3P_Kaitlin_Standard_Sweep",
+        "Melee.FullBody.HighlandBreakSweep.Standard": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_Sweep.A_Highland3P_Kaitlin_Standard_Sweep",
+        "Melee.FullBody.HighlandBreakSweep.LongGrip": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_LongGrip_Sweep.A_Highland3P_Kaitlin_LongGrip_Sweep",
+        "Melee.FullBody.HighlandBreakSweepReady": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_SweepReady.A_Highland3P_Kaitlin_Standard_SweepReady",
+        "Melee.FullBody.HighlandBreakSweepReady.Standard": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_SweepReady.A_Highland3P_Kaitlin_Standard_SweepReady",
+        "Melee.FullBody.HighlandBreakSweepReady.LongGrip": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_LongGrip_SweepReady.A_Highland3P_Kaitlin_LongGrip_SweepReady",
+        "Melee.FullBody.HighlandRidgeThrust": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_RidgeThrust.A_Highland3P_Kaitlin_Standard_RidgeThrust",
+        "Melee.FullBody.HighlandRidgeThrust.Standard": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_RidgeThrust.A_Highland3P_Kaitlin_Standard_RidgeThrust",
+        "Melee.FullBody.HighlandRidgeThrust.LongGrip": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_LongGrip_RidgeThrust.A_Highland3P_Kaitlin_LongGrip_RidgeThrust"
       },
       "outfits": {
         "ue_mountain_backpack": {

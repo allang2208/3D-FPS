@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -5,6 +5,8 @@
+ #include "ColdSteelBowRhythm.h"
+ #include "ColdSteelBowResonance.h"
+ #include "ColdSteelStarMarrow.h"
++#include "ColdSteelOathCue.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "HAL/PlatformTime.h"
+ #include "ColdSteelWorldInteraction.h"
+ #include "../FPSGAMECharacter.h"
+@@ -38,6 +40,7 @@
+     if(!Character||bInventoryOpen||bExternalDrawerOpen||bWarehouseOpen||PC->bShowMouseCursor||Character->IsAmmoWheelOpen())return Result;
+     const FVector2D Center=Geometry.GetLocalSize()*.5;
+     const float Scale=Geometry.GetLocalSize().Y/1080.f;
++    Result=ColdSteelOathCue::Paint(Character->FindComponentByClass<URuneSwordComponent>(),Geometry,Elements,Result);
+     FMonsterHitFeedback Feedback;
+     const bool bHasFeedback=Character->GetMonsterHitFeedback(Feedback);
+     // 2026-09-24：原「准星下方交互提示」即时绘制块已移除——高炉/工作台/宝箱/储物箱/拾取/门/祭坛/宝箱

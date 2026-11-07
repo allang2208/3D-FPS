@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -215,6 +215,8 @@
+     FString DealerSourceInstance;
+     DealerPoker::FShot Dealer;
+     // Direct blade action identity; shared by every target hit by the same swing.
++    // Server-local payment identity carried by this swing and its child waves.
++    uint64 GalePaymentKey=0;
+     uint32 GuardAttackSerial=0;
+     FString GuardSourceInstance;
+     FString ZhenmoSourceInstance;
+@@ -236,6 +238,9 @@
+     FLightningCast HammerCoilLightning;
+     /** Azure Dragon: direct sword contact only; a second point-damage transaction. */
+     float AzureDragonPhysicalMultiplier=1.f,AzureDragonMagicDamage=0.f;
++    // Reconstructed from the equipped rune and the server's charged-release receipt.
++    float OathPhysicalMultiplier=1.f;
++    double HeavyReleaseTime=0.;
+ };
+ 
+ struct FColdSteelProgressNotice

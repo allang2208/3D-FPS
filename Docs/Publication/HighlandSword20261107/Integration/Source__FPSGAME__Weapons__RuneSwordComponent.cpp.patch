@@ -1,0 +1,263 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -1,5 +1,6 @@
+ #include "RuneSwordComponent.h"
+ #include "HighlandBreakSweep.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
+ #include "HighlandRidgeThrust.h"
+ #include "HighlandRidgeGatherComponent.h"
+ #include "RuneSwordGuardTuning.h"
+@@ -186,7 +187,9 @@
+     const FString NewAnimationFolder=NewId.IsEmpty()?FString():ColdSteelModularSword::AnimationFolder(*Item);
+     const bool bSameAnimationFolder=NewId.IsEmpty()||EquippedAnimationFolder==NewAnimationFolder;
+     if(NewId==InstanceId&&NewMeshPath==EquippedMeshPath&&bSameAnimationFolder){RefreshModularSword(NewId.IsEmpty()?nullptr:Item);ColdSteelMeleeRune::Apply(Viewmodel,NewId.IsEmpty()||Modular?FString():ColdSteelMeleeRune::Selected(*Item),Item?Item->Definition:FString());return;}
+-    CancelAction();InstanceId=NewId;EquippedMeshPath=NewMeshPath;NextSlash=0;
++    CancelAction();
++    if(NewId!=InstanceId)NetworkHeavyReleaseUntil=-1.;
++    InstanceId=NewId;EquippedMeshPath=NewMeshPath;NextSlash=0;
+     if(StarMarrowMotionLoad)StarMarrowMotionLoad->CancelHandle();StarMarrowMotionLoad.Reset();
+     Viewmodel->SetVisibility(false,true);
+     if(NewId.IsEmpty())
+@@ -267,6 +270,7 @@
+ void URuneSwordComponent::RefreshModularSword(const FColdSteelItem* Item)
+ {
+     RefreshRidgeThrust(Item);
++    RefreshOath(Item);
+     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripClearance(Item);
+     if(!Item||!ColdSteelModularSword::Supports(*Item))
+     {
+@@ -487,7 +491,7 @@
+     ReleaseHeavyCharge();
+ }
+ 
+-bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride,bool bUseWeaponAttackSpeed)
++bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride,bool bUseWeaponAttackSpeed,bool bDash)
+ {
+     if(bChainSlash||bUppercut)return false;
+     // Keep stage identity when a blade replaces the thrust's motion. Damage and
+@@ -525,7 +529,16 @@
+         Clip=TEXT("Uppercut");Animations.Add(Clip,Uppercut);
+     }
+     if(!Animations.FindRef(Clip))return false;
++    if(++NetworkBladeSerial==0)++NetworkBladeSerial;
++    if(!Heavy||!bCharging)ClearOath();
+     SwingWaveRange=SwingWaveScale=0.f;
++    using GaleWing::EAttack;
++    const bool Gale = Clip!=TEXT("PommelStrike") && HasGaleGuard(Item);
++    const EAttack GaleAttack = Heavy ? EAttack::Heavy : bDash ? EAttack::Dash :
++        Clip==HighlandBreakSweep::Clip ? EAttack::Sweep : EAttack::Swing;
++    const bool RemoteGaleSwing = Gale && !Character->HasAuthority() &&
++        (GaleAttack==EAttack::Swing || GaleAttack==EAttack::Dash);
++    float GalePaid=0.f;
+     bool bRuneSwordCooldownTrait=false;
+     bQueuedQuickCombat=false;bQuickCombatStrike=false;bQuickCombatContactDone=false;
+     if(Profile)
+@@ -546,11 +559,23 @@
+                 SwingWaveSpeed=Flight.SpeedCM;
+             }
+         }
+-        const double StaminaCost=Chixiao?ColdSteelMelee::HeavyReleaseStamina(Item,Profile):
++        const double StaminaCost=Heavy&&bCharging?ColdSteelMelee::HeavyReleaseStamina(Item,Profile):
+             StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Item,Profile);
+-        if(!Profile->SpendStamina(StaminaCost)){bQueuedAttack=false;return false;}
+-    }
+-    SetHeavyCharging(false,Heavy);
++        const float BeforeStamina=Profile->Stamina();
++        if(RemoteGaleSwing)
++        {
++            auto* PS=Character->GetPlayerState<AColdSteelPlayerState>();
++            if(!PS || !Profile->CanSpendStamina(StaminaCost)){bQueuedAttack=false;return false;}
++            PS->ServerPayGaleSwing(Character.Get(),InstanceId,NetworkBladeSerial,bDash);
++        }
++        else if(!Profile->SpendStamina(StaminaCost)){bQueuedAttack=false;return false;}
++        if(Gale && Character->HasAuthority())
++            GalePaid=BeforeStamina-Profile->Stamina()+(bCharging?TakeGaleCharge():0.f);
++        OathPaidRelease=Heavy?FMath::Max(0.f,BeforeStamina-Profile->Stamina()):0.f;
++    }
++    OathReleaseStamp=Heavy&&bCharging?OathClock():0.;
++    if(Heavy&&bCharging)CommitOathRelease(OathReleaseStamp,NetworkBladeSerial);
++    SetHeavyCharging(false,Heavy,RemoteGaleSwing && bCharging ? NetworkBladeSerial : 0);
+     bAttacking=true;bQueuedAttack=bReturningCharge=false;bHeavyAttack=Heavy;
+     bChixiaoHeavy=Chixiao;ChixiaoStrikeIndex=-1;
+     // The ridge thrust retains the heavy attack's damage and target rules.
+@@ -599,13 +624,20 @@
+     SwingSkills.AttackMeta = uint8(Heavy ? 0x10 : (ComboStage & 0x0F));
+     UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
+     UPanChiGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
+-    if(!SwingSkills.GuardAttackSerial){if(++NetworkBladeSerial==0)++NetworkBladeSerial;SwingSkills.GuardAttackSerial=NetworkBladeSerial;}
++    if(!SwingSkills.GuardAttackSerial)SwingSkills.GuardAttackSerial=NetworkBladeSerial;
++    if(Gale && Character->HasAuthority())
++    {
++        SwingSkills.GalePaymentKey=GaleWing::Key(GaleAttack,SwingSkills.GuardAttackSerial);
++        RecordGalePayment(SwingSkills.GalePaymentKey,InstanceId,GalePaid);
++    }
++    SwingSkills.HeavyReleaseTime=OathReleaseStamp;
+     SwingSkills.GuardSourceInstance=InstanceId;
+     SwingSkills.bRisingDragonFinisher=RisingDragon;
+     // The stage keeps its existing grip/global poise modifiers when its motion changes.
+     if(ComboStage==3&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
+     if(Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.HeavyToughness;
+     if(Heavy && bBroadbladeInstalled)SwingSkills.ToughnessDamageMultiplier*=HighlandBreakSweep::HeavyToughness;
++    ApplyOathToShot(SwingSkills);
+     // 命中形式：配重锤是钝器，其余挥砍与突刺按锐器结算削韧。
+     SwingSkills.AttackForm=bPommelAttack?EMonsterAttackForm::Blunt:EMonsterAttackForm::Blade;
+     // 符文长剑专属；按出手时的武器身份固定，高地与其他共用动作的剑不继承。
+@@ -671,7 +703,13 @@
+     // Quick combat pays its skill cost once, not the ordinary sword swing cost.
+     if(!StartSwing(TEXT("PommelStrike"),false,0.f,false))return false;
+     const float Duration=RuneSwordPommelRhythm::QuickCombatTime(CurrentAnimation->GetPlayLength())/FMath::Max(.01f,SwingRate);
++    const float Before=Profile->Stamina();
+     if(!Profile->CommitQuickCombatCast(Duration)){CancelAction();return false;}
++    if(Character->HasAuthority() && HasGaleGuard(Profile->Equipped()))
++    {
++        SwingSkills.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Quick,NetworkBladeSerial);
++        RecordGalePayment(SwingSkills.GalePaymentKey,InstanceId,Before-Profile->Stamina());
++    }
+     bQuickCombatStrike=true;
+     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+         Arms->LimitLocomotionEntry(RuneSwordPommelRhythm::QuickCombatTime(ContactStart)/FMath::Max(.01f,SwingRate));
+@@ -794,7 +832,8 @@
+     }
+     else if(bDashAttack)
+     {
+-        // Release advances one metre during the existing windup, without retiming the hit.
++        // The committed skill snapshot supplies travel (including the ridge
++        // blade's multiplier), without retiming or extending the hit window.
+         const float Start=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
+         Distance=DashCast.DistanceCM*(FMath::SmoothStep(Start,ContactStart,ToTime)-FMath::SmoothStep(Start,ContactStart,FromTime));
+     }
+@@ -871,6 +910,7 @@
+     bAutoHeavyRelease=false;
+     SetHeavyCharging(true);bQueuedAttack=false;bHeavyAttack=false;HitActors.Reset();
+     ChargeStartedAt=GetWorld()->GetTimeSeconds();
++    BeginOathCharge(OathClock(),RequiredChargeSeconds);
+     SetClip(Ridge?HighlandRidgeThrust::Charge:FName(TEXT("HeavyCharge")),false);
+ }
+ 
+@@ -936,6 +976,7 @@
+         if(GetNetMode()==NM_Client&&Character.IsValid()&&Character->IsLocallyControlled())
+             ServerChainSlash(InstanceId,ChainSlashSerial,false);
+     }
++    ClearOath();
+     SweepReadyUntil=SweepServerHitUntil=0.;
+     // The claws follow the Azure Dragon state every tick (a cancelled rake blends back to idle);
+     // cancelling an action no longer cuts them (V10.15).
+@@ -1212,19 +1253,23 @@
+ void URuneSwordComponent::StartRift(float SourceAge)
+ {
+     if(HighlandRidgeThrust::IsRelease(CurrentClip))return;
++    const bool Judgment=bHeavyAttack && OathRiftMaterial && OathState.Phase==2 &&
++        OathState.Weapon==InstanceId && OathAttackSerial!=0 && OathAttackSerial==NetworkBladeSerial;
++    auto* Material=Judgment?OathRiftMaterial.Get():RiftMaterial.Get();
+     if(CurrentClip==HighlandBreakSweep::Clip)
+     {
+         const bool bLongGrip=EquippedAnimationFolder.EndsWith(TEXT("/LongGripAnimations"));
+         auto* Ribbon=Cast<UStaticMesh>(HighlandBreakSweep::RiftPath(bLongGrip).ResolveObject());
+         if(!RiftVisual || !RiftMaterial || !Ribbon || !Viewmodel)return;
+         RiftVisual->SetStaticMesh(Ribbon);
++        RiftVisual->SetMaterial(0,Material);
+         // Baked in the arms' component space. Keep the advancing edge on the
+         // blade through camera recoil, locomotion and a confirmed-contact hold.
+         RiftVisual->AttachToComponent(Viewmodel,FAttachmentTransformRules::SnapToTargetIncludingScale);
+         RiftFastSeconds=(ContactEnd-ContactStart)/SwingRate;
+         RiftDissolveSeconds=.14f;RiftDriftSpeed=35.f;
+-        RiftMaterial->SetScalarParameterValue(TEXT("RiftStrength"),.105f);
+-        RiftMaterial->SetScalarParameterValue(TEXT("RiftFade"),1.f);
++        Material->SetScalarParameterValue(TEXT("RiftStrength"),.105f);
++        Material->SetScalarParameterValue(TEXT("RiftFade"),1.f);
+         RiftAge=0.f;bRiftActive=true;
+         TickRift(0.f);RiftVisual->SetVisibility(bRiftActive);
+         return;
+@@ -1238,6 +1283,7 @@
+     }
+     if(!RiftVisual || !RiftMaterial || !RiftMeshes.IsValidIndex(Index) || !RiftMeshes[Index])return;
+     RiftVisual->SetStaticMesh(RiftMeshes[Index]);
++    RiftVisual->SetMaterial(0,Material);
+     // The crescent is authored from the same blade trajectory as the contact
+     // animation. Freeze its launch transform in world space so it can drift out.
+     RiftOrigin=Viewmodel->GetComponentTransform();RiftDirection=Camera->GetForwardVector();
+@@ -1260,8 +1306,9 @@
+     const float FastEnd=(bUppercut||IsRisingDragonFinisher())?RuneSwordUppercutMotion::StrokeEnd:(bOverheadAttack?RuneSwordOverheadFeel::ImpactTime:(bThrustAttack?RuneSwordThrustRhythm::ExtensionEnd:(bPommelAttack?RuneSwordPommelRhythm::ExtensionEnd:ContactEnd)));
+     RiftFastSeconds=(FastEnd-ContactStart)/SwingRate;
+     RiftDissolveSeconds=bOverheadAttack?.26f:(bThrustAttack?.16f:(bPommelAttack?.14f:(bHeavyAttack?.28f:.20f)));
++    if(Judgment)RiftDissolveSeconds=HighlandOathRune::TrailSeconds;
+     RiftDriftSpeed=bOverheadAttack?95.f:(bThrustAttack?50.f:(bPommelAttack?42.f:(bHeavyAttack?120.f:85.f)));
+-    RiftMaterial->SetScalarParameterValue(TEXT("RiftStrength"),bOverheadAttack?.16f:(bThrustAttack?.10f:(bPommelAttack?.075f:(bHeavyAttack?.14f:.085f))));
++    Material->SetScalarParameterValue(TEXT("RiftStrength"),bOverheadAttack?.16f:(bThrustAttack?.10f:(bPommelAttack?.075f:(bHeavyAttack?.14f:.085f))));
+     RiftAge=FMath::Max(0.f,SourceAge/SwingRate);bRiftActive=true;
+     RiftVisual->SetVisibility(true);TickRift(0.f);
+ }
+@@ -1269,13 +1316,21 @@
+ void URuneSwordComponent::TickRift(float Delta)
+ {
+     if(!bRiftActive || !RiftVisual || !RiftMaterial)return;
++    auto* Material=Cast<UMaterialInstanceDynamic>(RiftVisual->GetMaterial(0));
++    if(!Material)return;
++    const bool Judgment=Material==OathRiftMaterial;
++    if(Judgment)
++    {
++        const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
++        RiftVisual->SetVisibility(!Body||!Body->IsThirdPersonViewEnabled());
++    }
+     const bool bSweep=CurrentClip==HighlandBreakSweep::Clip;
+     if(bSweep && RiftVisual->GetAttachParent()==Viewmodel)
+     {
+         const float Progress=(Elapsed-ContactStart)/(ContactEnd-ContactStart);
+         if(Progress<1.f)
+         {
+-            RiftMaterial->SetScalarParameterValue(TEXT("SweepProgress"),FMath::Max(Progress,0.f));
++            Material->SetScalarParameterValue(TEXT("SweepProgress"),FMath::Max(Progress,0.f));
+             return;
+         }
+         RiftOrigin=RiftVisual->GetComponentTransform();
+@@ -1289,9 +1344,11 @@
+     if(RiftAge>=RiftFastSeconds+RiftDissolveSeconds){StopRift();return;}
+     const float Recovery=FMath::Clamp((RiftAge-RiftFastSeconds)/RiftDissolveSeconds,0.f,1.f);
+     const float Fade=1.f-Recovery*Recovery*(3.f-2.f*Recovery);
+-    RiftMaterial->SetScalarParameterValue(TEXT("SweepProgress"),FMath::Clamp(RiftAge/RiftFastSeconds,0.f,1.f)*1.06f);
+-    RiftMaterial->SetScalarParameterValue(TEXT("RiftFade"),Fade);
+-    const float DriftAge=bSweep?FMath::Max(0.f,RiftAge-RiftFastSeconds):RiftAge;
++    Material->SetScalarParameterValue(TEXT("SweepProgress"),FMath::Clamp(RiftAge/RiftFastSeconds,0.f,1.f)*1.06f);
++    Material->SetScalarParameterValue(TEXT("RiftFade"),Fade);
++    float DriftAge=bSweep?FMath::Max(0.f,RiftAge-RiftFastSeconds):RiftAge;
++    // Keep the extra afterimage at the end of the original heavy rift travel.
++    if(Judgment)DriftAge=FMath::Min(DriftAge,RiftFastSeconds+.28f);
+     FTransform Pose=RiftOrigin;Pose.AddToTranslation(RiftDirection*(DriftAge*RiftDriftSpeed));
+     RiftVisual->SetWorldTransform(Pose);
+ }
+@@ -1499,6 +1556,7 @@
+             // 近战不带伤害类型：用作用域标注命中形式（配重锤=钝器，其余=锐器）。
+             const MonsterToughness::FScopedForm FormScope(HitSkills.AttackForm);
+             const float Applied=Combat?Combat->ApplyHitWithReactionScale(SwingHitReactionMultiplier,ApplyDamage):ApplyDamage();
++            ConfirmOathHit(HitSkills,Applied,Hit.ImpactPoint);
+             // The contact cue belongs to the contact, not to the damage number: a
+             // blow that kills still has to sound like a hit, and the damage pipeline
+             // can report nothing once the victim dies to this very hit.
+@@ -1557,6 +1615,8 @@
+ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
+ {
+     Super::TickComponent(Delta,Type,Tick);
++    if(GaleSwiftUntil>0.)TickGaleSwift();
++    ON_SCOPE_EXIT { TickOath(); };
+     if(ChainWaveAt>=0.)TickChainWave();
+     // Remote first-person rigs do not advance local combat/input state.
+     if(Character.IsValid()&&!Character->IsLocallyControlled())
+@@ -1696,10 +1756,14 @@
+         {
+             if(HitEnd>HitStart)
+             {
+-                const FVector Forward=bDashAttack?LungeDirection:AimNow.GetUnitAxis(EAxis::X).GetSafeNormal2D();
+-                const auto Hits=RuneSwordCombat::QueryRectangle(GetWorld(),Character.Get(),Character->GetActorLocation(),Forward,
+-                    AzureDragonRange(SwingReach),HighlandRidgeThrust::HalfWidthCM,HitActors);
+-                ApplySwingHits(Hits,Forward);
++                if(bDashAttack)DashAttackContractHit();
++                else
++                {
++                    const FVector Forward=AimNow.GetUnitAxis(EAxis::X).GetSafeNormal2D();
++                    const auto Hits=RuneSwordCombat::QueryRectangle(GetWorld(),Character.Get(),Character->GetActorLocation(),Forward,
++                        AzureDragonRange(SwingReach),HighlandRidgeThrust::HalfWidthCM,HitActors);
++                    ApplySwingHits(Hits,Forward);
++                }
+             }
+         }
+         else if(bDashAttack)

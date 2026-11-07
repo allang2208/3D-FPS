@@ -1,0 +1,20 @@
+{
+  "revision": "GaleFeatherSolid20261107R2",
+  "saved": [
+    "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Textures/T_GaleFeather_BaseColor.T_GaleFeather_BaseColor",
+    "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Textures/T_GaleFeather_ORM.T_GaleFeather_ORM",
+    "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Textures/T_GaleFeather_NormalGL.T_GaleFeather_NormalGL",
+    "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Materials/M_GaleFeather_Atelier.M_GaleFeather_Atelier",
+    "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Materials/M_GaleFeather_BladeSeat.M_GaleFeather_BladeSeat",
+    "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Native.SM_GaleFeather_Native",
+    "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Broadblade.SM_GaleFeather_Broadblade",
+    "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Ridge.SM_GaleFeather_Ridge"
+  ],
+  "meshes": {
+    "Native": "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Native.SM_GaleFeather_Native",
+    "Broadblade": "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Broadblade.SM_GaleFeather_Broadblade",
+    "Ridge": "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Meshes/SM_GaleFeather_Ridge.SM_GaleFeather_Ridge"
+  },
+  "runtime_tested": false,
+  "complete": true
+}

@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -74,6 +74,7 @@
+     /** EMonsterAttackForm 的窄化传输；0 表示沿用服务端 Snapshot 推断值。 */
+     UPROPERTY() uint8 AttackForm = 0;
+     UPROPERTY() double ClientFireTime = 0.0;
++    UPROPERTY() double HeavyReleaseTime = 0.0;
+     /** Groups targets from one blade swing; carries no client-provided buff values. */
+     UPROPERTY() uint32 GuardAttackSerial = 0;
+     UPROPERTY() uint32 MasteryAttackSerial = 0;
+@@ -381,6 +382,9 @@
+     void FinishKukriAttack(uint32 Serial,bool Cancelled);
+     bool GetKukriMovement(uint32 Serial,uint8 Kind,FVector& Direction,float& Limit,float& Recovery) const;
+     bool IsKukriMovementPending(uint32 Serial) const;
++    UFUNCTION(Server,Reliable) void ServerPayGaleSwing(APawn* ActionPawn,const FString& Weapon,uint32 Serial,bool Dash);
++    UFUNCTION(Client,Reliable) void ClientGaleSwingCost(double TotalSpent);
++    UFUNCTION(Client,Reliable) void ClientGaleCredit(double TotalSpent,double TotalCredit);
+     UFUNCTION(Server,Reliable) void ServerBeginRidgeStrike(APawn* ActionPawn,const FString& Weapon,uint32 Serial,uint8 Meta,double ClientStartedAt);
+     UFUNCTION(Server,Reliable) void ServerBeginKukriAttack(uint32 Serial,APawn* Pawn,const FString& Main,
+         const FString& Offhand,uint8 Stage,bool Dash,FVector_NetQuantizeNormal Direction,uint32 MasterySerial,double ClientStartedAt);
+@@ -617,6 +621,8 @@
+         int32 Rounds=1;
+     };
+     TMap<uint32,FRegisteredPistolShot> RegisteredPistolShots;
++    TWeakObjectPtr<APawn> GaleSwingPawn;
++    uint32 LastGaleSwingSerial=0;
+     int32 ServerComboStage=0,ValidatedComboStage=0;
+     double ServerComboAt=-100.,ServerComboSwingAt=-100.;
+     FString ServerComboWeapon;

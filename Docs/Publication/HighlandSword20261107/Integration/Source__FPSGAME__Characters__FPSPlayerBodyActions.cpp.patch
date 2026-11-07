@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "FPSBodyHighlandMotion.h"
+ #include "../Production/ThunderHammerCallIntent.h"
+ #include "../Skills/BowHeldMagicVisual.h"
+ #include "FPSBodySinglePistolSource.h"
+@@ -169,6 +170,9 @@
+         State.bChixiaoHeavyTrail=Sword->IsChixiaoHeavyReleasing();
+         State.bZhufengWhirlwindTrail=Sword->IsZhufengWhirlwindReleasing();
+         const float Length=Sword->CurrentAnimation?Sword->CurrentAnimation->GetPlayLength():1.f;
++        if(State.ActionVariant==TEXT("HighlandBreakSweep")&&Sword->CurrentAnimation&&
++            Sword->CurrentAnimation->GetName().EndsWith(TEXT("_FromReady")))
++            State.ActionVariant=FPSBodyHighlandMotion::SweepReady;
+         if(Sword->bWhirlwind)
+         {
+             const auto& W=Sword->WhirlwindTuning;const float End=W.ReadySeconds+W.SpinSeconds+W.RecoverSeconds;
+@@ -226,6 +230,8 @@
+                 const float Duration=Wall(Length);
+                 Timed(Action,Wall(Sword->Elapsed),Duration);
+                 State.ActionEntryFraction=Wall(Lead)/Duration;
++                if(Sword->CurrentClip==HighlandRidgeThrust::Dash)
++                    State.ActionEntryFraction=Wall(FMath::Max(0.f,Sword->ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds))/Duration;
+                 State.ContactFraction=Wall(Sword->ContactStart)/Duration;
+                 State.ReleaseFraction=Wall(Sword->ContactEnd)/Duration;
+             }

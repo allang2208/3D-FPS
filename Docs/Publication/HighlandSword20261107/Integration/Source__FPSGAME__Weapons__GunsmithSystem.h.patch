@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.h
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.h
+@@ -61,6 +61,7 @@
+     double KillStaminaMaxRatio=0;
+     // 蓄力速度增量相加：0.15 = +15%，基础蓄力时间除以 (1 + 所有增量)。
+     double HeavyChargeSpeedBonus=0;
++    double OathHeavyPhysical=1,OathChargeStamina=1;
+     // Charged hammer release surcharge; sprint attacks and weapon skills retain their own costs.
+     double HeavyReleaseStamina=1;
+     double DamageTaken=1, DodgeStamina=1, SprintStamina=1;

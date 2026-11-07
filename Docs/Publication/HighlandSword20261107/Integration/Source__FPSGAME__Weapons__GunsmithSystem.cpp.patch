@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -321,6 +321,8 @@
+             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
+             R.Melee.WhirlwindDamageAdd+=M.WhirlwindDamageAdd;
+             R.Melee.HeavyChargeSpeedBonus+=M.HeavyChargeSpeedBonus;
++            R.Melee.OathHeavyPhysical*=M.OathHeavyPhysical;
++            R.Melee.OathChargeStamina*=M.OathChargeStamina;
+             R.Melee.PhysicalAttackAdd+=M.PhysicalAttackAdd;
+             R.Melee.HeavyReleaseStamina*=M.HeavyReleaseStamina;
+             R.Melee.HeavyToughness*=M.HeavyToughness;

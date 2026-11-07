@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
+@@ -59,6 +59,8 @@
+     {Reply(false);return;}
+     const float Before=ShadowModel->Stamina();
+     if(!ShadowModel->CommitSwordUppercutRelease()){Reply(false);return;}
++    if(auto* GaleSword=Pawn->FindComponentByClass<URuneSwordComponent>();GaleSword && GaleSword->HasGaleGuard(Item))
++        GaleSword->RecordGalePayment(GaleWing::Key(GaleWing::EAttack::Uppercut,Sequence),Weapon,Before-ShadowModel->Stamina());
+     ShadowModel->Current.UppercutStaminaSpent+=FMath::Max(0.f,Before-ShadowModel->Stamina());
+     UppercutActiveSequence=Sequence;UppercutPawn=Pawn;UppercutWeapon=Weapon;UppercutRewardModel=ShadowModel;
+     if(auto* Pendant=Pawn->FindComponentByClass<UKukriRelentlessComponent>())Pendant->PrepareServerAttack(2);

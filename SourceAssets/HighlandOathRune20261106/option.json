@@ -1,0 +1,27 @@
+{
+  "id": "highland_oath_rune",
+  "name": "誓约符文",
+  "tier": "special",
+  "weapons": [
+    "ue_highland_claymore"
+  ],
+  "description": "高地骑士的誓剑刻印，以三重誓环约束蓄积的力量，在完成蓄力的刹那释放裁决。",
+  "effects": [
+    {
+      "text": "重击物理伤害+15%",
+      "benefit": 1
+    },
+    {
+      "text": "重击蓄力持续体力消耗-20%",
+      "benefit": 1
+    }
+  ],
+  "special_effects": [
+    "裁决时刻｜首次蓄满后的0.35秒内释放重击，本次重击物理伤害额外+35%，韧性伤害+50%；首次有效命中返还本次出手实际消耗体力的25%。每次蓄力只触发一次。"
+  ],
+  "stats": {
+    "oath_heavy_physical_mult": 1.15,
+    "oath_charge_stamina_mult": 0.8
+  },
+  "icon": "/Game/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_highland_oath_rune"
+}

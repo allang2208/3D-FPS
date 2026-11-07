@@ -1,0 +1,211 @@
+{
+  "manifest": "trash/HighlandSword20261107/manifest.json",
+  "bytes": 454536346.0,
+  "manifest_sha256": "76d8ec9ce1260369a9cd117bc48b660e0887d752c8991548a1dd98cd9cf053a6",
+  "verified": true,
+  "files": 161,
+  "groups": [
+    {
+      "source": "SourceAssets/HighlandGaleWingGuard20261107",
+      "destination": "trash/HighlandSword20261107/SourceAssets/HighlandGaleWingGuard20261107",
+      "reason": "Retired openwork guard replaced by solid feather guard",
+      "replacement": "SourceAssets/HighlandGaleWingFeather20261107",
+      "files": 56,
+      "bytes": 399350994
+    },
+    {
+      "source": "SourceAssets/HighlandOathRune20261106/BladeBlueR1",
+      "destination": "trash/HighlandSword20261107/SourceAssets/HighlandOathRune20261106/BladeBlueR1",
+      "reason": "Blue blade surface replaced by gold surface",
+      "replacement": "SourceAssets/HighlandOathRune20261106/apply_gold.py",
+      "files": 4,
+      "bytes": 6039
+    },
+    {
+      "source": "SourceAssets/HighlandOathRune20261106/BeforeNative",
+      "destination": "trash/HighlandSword20261107/SourceAssets/HighlandOathRune20261106/BeforeNative",
+      "reason": "Pre-oath material rollback snapshot",
+      "replacement": "SourceAssets/HighlandOathRune20261106/install_assets.py",
+      "files": 4,
+      "bytes": 1768
+    },
+    {
+      "source": "SourceAssets/HighlandOathRune20261106/catalog-before.json",
+      "destination": "trash/HighlandSword20261107/SourceAssets/HighlandOathRune20261106/catalog-before.json",
+      "reason": "Pre-oath catalog snapshot",
+      "replacement": "Content/ColdSteelData/melee-gunsmith.json",
+      "files": 1,
+      "bytes": 65707
+    },
+    {
+      "source": "SourceAssets/HighlandBroadbladeGuardFinish20261106/catalog-before.json",
+      "destination": "trash/HighlandSword20261107/SourceAssets/HighlandBroadbladeGuardFinish20261106/catalog-before.json",
+      "reason": "Pre-seat-material catalog snapshot",
+      "replacement": "Content/ColdSteelData/highland-claymore-modules.json",
+      "files": 1,
+      "bytes": 14142
+    },
+    {
+      "source": "Tools/HighlandNetworkAudit20261106/Native/20261107-124625",
+      "destination": "trash/HighlandSword20261107/Tools/HighlandNetworkAudit20261106/Native/20261107-124625",
+      "reason": "Superseded native diagnostic attempt",
+      "replacement": "Saved/GaleWingKill/GuardNative.json",
+      "files": 18,
+      "bytes": 603796
+    },
+    {
+      "source": "Tools/HighlandNetworkAudit20261106/Native/20261107-125156",
+      "destination": "trash/HighlandSword20261107/Tools/HighlandNetworkAudit20261106/Native/20261107-125156",
+      "reason": "Superseded native diagnostic attempt",
+      "replacement": "Saved/GaleWingKill/GuardNative.json",
+      "files": 0,
+      "bytes": 0
+    },
+    {
+      "source": "Tools/HighlandNetworkAudit20261106/Native/20261107-142450",
+      "destination": "trash/HighlandSword20261107/Tools/HighlandNetworkAudit20261106/Native/20261107-142450",
+      "reason": "Superseded fixed-initial-stamina diagnostic",
+      "replacement": "Saved/GaleWingKill/GuardNative.json",
+      "files": 18,
+      "bytes": 610349
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/Binaries",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/Binaries",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 16,
+      "bytes": 45424748
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/compile.log",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/compile.log",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 26
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/compile.rsp",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/compile.rsp",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 1009
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/Config",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/Config",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 8,
+      "bytes": 127286
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/FPSGAME.uproject",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/FPSGAME.uproject",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 2769
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/HighlandNetworkAudit.cpp.dep.json",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/HighlandNetworkAudit.cpp.dep.json",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 36525
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/HighlandNetworkAudit.cpp.obj",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/HighlandNetworkAudit.cpp.obj",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 7416605
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/HighlandNetworkAudit.cpp.sarif",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/HighlandNetworkAudit.cpp.sarif",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 572
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/Intermediate",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/Intermediate",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 287
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/link.log",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/link.log",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 0
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/link.rsp",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/link.rsp",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 106021
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/native.log",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/native.log",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 298022
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/result.json",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/result.json",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 6758
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/Saved",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/Saved",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 132
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/stdout.log",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/stdout.log",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 1,
+      "bytes": 49079
+    },
+    {
+      "source": "Saved/GaleWingKill/Probe/User",
+      "destination": "trash/HighlandSword20261107/Saved/GaleWingKill/Probe/User",
+      "reason": "Retired isolated no-render test host; final evidence retained",
+      "replacement": "Saved/GaleWingKill/Probe/WireCheck/Wire/20261107-145149/host.json",
+      "files": 22,
+      "bytes": 413712
+    }
+  ],
+  "retained": [
+    "SourceAssets/HighlandGaleWingFeather20261107",
+    "SourceAssets/HighlandThirdPerson20261106",
+    "SourceAssets/HighlandClaymoreMeshy20260922/JunctionBlendV5_20260927",
+    "SourceAssets/HighlandBroadbladeGuardFinish20261106",
+    "SourceAssets/HighlandOathRune20261106/IconV2",
+    "Content",
+    "Saved/GaleWingKill/GuardNative.json",
+    "Saved/GaleWingKill/Probe/WireCheck"
+  ]
+}

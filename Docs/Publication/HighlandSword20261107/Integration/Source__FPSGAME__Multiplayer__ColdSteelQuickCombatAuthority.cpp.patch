@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+@@ -67,6 +67,9 @@
+         // Only cancel this pawn's hammer. The general local-input interrupt
+         // also reapplies the GameInstance profile, which belongs to the host.
+         if(auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>())Tool->CancelUse();
++    if(const auto* Item=ShadowModel->Equipped())
++        if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword && Sword->HasGaleGuard(Item))
++            Sword->RecordGalePayment(GaleWing::Key(GaleWing::EAttack::Quick,Sequence),Item->InstanceId,Before-ShadowModel->Stamina());
+     QuickCombatServerSequence=Sequence;QuickCombatTargets.Reset();
+     if(auto* Pendant=Pawn->FindComponentByClass<UKukriRelentlessComponent>())Pendant->PrepareServerAttack(1);
+     if(auto* Pendant=Pawn->FindComponentByClass<UKukriDecisiveComponent>())Pendant->BeginServer(1,FString(),FString(),true,Duration);

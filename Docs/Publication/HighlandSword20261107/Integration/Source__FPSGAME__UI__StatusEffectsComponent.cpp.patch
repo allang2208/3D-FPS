@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/UI/StatusEffectsComponent.cpp
++++ b/Source/FPSGAME/UI/StatusEffectsComponent.cpp
+@@ -1,6 +1,7 @@
+ #include "StatusEffectsComponent.h"
+ #include "../Weapons/Kukri/KukriRelentlessComponent.h"
+ #include "../Weapons/Bow/BowCadenceComponent.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/Bow/CadenceString.h"
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "../Weapons/PanChiGuardComponent.h"
+@@ -60,6 +61,11 @@
+ TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
+ {
+  TArray<FStatusEffectView> Result;if(auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>())if(H->IsDead())return Result;
++ if(const auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>())
++  if(const float Remaining=Sword->GaleSwiftRemaining();Remaining>0.f)
++  {
++   auto V=Definition(TEXT("galeSwiftness"));V.Duration=GaleWing::Duration;V.Remaining=Remaining;V.Stacks=1;Result.Add(V);
++  }
+  if(const auto* Pendant=GetOwner()->FindComponentByClass<UKukriRelentlessComponent>())
+   for(int32 Hand=0;Hand<2;++Hand)
+   {

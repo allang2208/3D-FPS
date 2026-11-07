@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "late_join_ridge_gale",
+      "passed": true,
+      "client": "highland phase=0 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00 | host observer: highland phase=0 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_host": "highland phase=0 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_guest": "highland phase=0 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00"
+    },
+    {
+      "case": "remove_gale",
+      "passed": true,
+      "client": "highland phase=1 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00 | host observer: highland phase=1 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_host": "highland phase=1 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_guest": "highland phase=1 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00"
+    },
+    {
+      "case": "long_grip_ridge_guard_whirlwind_kill",
+      "passed": true,
+      "client": "highland phase=2 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=18.480 target_loss=0.00 | host observer: highland phase=2 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_host": "highland phase=2 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=1.00",
+      "server_guest": "highland phase=2 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=18.480 target_loss=1.00"
+    },
+    {
+      "case": "factory_and_broadblade_guard_swing_kill",
+      "passed": true,
+      "client": "highland phase=3 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=30.480 target_loss=0.00 | host observer: highland phase=3 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_host": "highland phase=3 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=1.00",
+      "server_guest": "highland phase=3 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=30.480 target_loss=1.00"
+    },
+    {
+      "case": "unequip",
+      "passed": true,
+      "client": "highland phase=4 local=1 descriptors=0 world_parts=0 paths=1 stats=1 release_rpc=1 refund=30.480 target_loss=0.00 | host observer: highland phase=4 local=0 descriptors=0 world_parts=0 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_host": "highland phase=4 local=1 descriptors=0 world_parts=0 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=1.00",
+      "server_guest": "highland phase=4 local=0 descriptors=0 world_parts=0 paths=1 stats=1 release_rpc=1 refund=30.480 target_loss=1.00"
+    },
+    {
+      "case": "reequip_and_heavy_rpc",
+      "passed": true,
+      "client": "highland phase=5 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=33.480 target_loss=0.00 | host observer: highland phase=5 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_host": "highland phase=5 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=481.00",
+      "server_guest": "highland phase=5 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=33.480 target_loss=481.00"
+    },
+    {
+      "case": "reconnect_retained_equipment",
+      "passed": true,
+      "client": "highland phase=6 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00 | host observer: highland phase=6 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=0.00",
+      "server_host": "highland phase=6 local=1 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=0.000 target_loss=481.00",
+      "server_guest": "highland phase=6 local=0 descriptors=3 world_parts=3 paths=1 stats=1 release_rpc=1 refund=33.480 target_loss=481.00"
+    }
+  ],
+  "weapon": "ue_highland_claymore",
+  "actual_network_transport": true,
+  "rendered": false,
+  "reconnected": true,
+  "scope": "Highland blade, pommel and fitted guard meshes, actual guest whirlwind and swing kills, owner/server stamina receipts and timed HUD speed buff, judged ridge strike and reconnect; fixture-seeded inventory, no rendered VFX",
+  "lag_ms_per_peer": 60,
+  "loss_percent_per_peer": 3
+}

@@ -1,0 +1,110 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -14,6 +14,8 @@
+ #include "MeleeWeaponStats.h"
+ #include "../Combat/CombatFormulaRuntime.h"
+ #include "UObject/StrongObjectPtr.h"
++#include "HighlandOathRune.h"
++#include "GaleWingGuard.h"
+ #include "RuneSwordComponent.generated.h"
+ 
+ class AFPSGAMECharacter;
+@@ -107,7 +109,25 @@
+     bool IsNetworkHeavyReleaseWindowOpen(const FString& Weapon=FString()) const;
+     /** Converts a completed server charge into the release receipt when the
+      *  reliable release RPC and the hit/rift channel arrive out of order. */
+-    bool ConsumeNetworkHeavyChargeForRelease(const FString& Weapon);
++    bool ConsumeNetworkHeavyChargeForRelease(const FString& Weapon,double ReleasedAt=0.,uint32 Serial=0);
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
++    float OathWindowRemaining() const;
++    float OathReleaseFlash() const;
++    const FHighlandOathPresentation& OathPresentation() const { return OathState; }
++    double OathClock() const;
++    float GaleSwiftRemaining() const;
++    float GaleMoveScale() const { return GaleSwiftRemaining()>0.f ? GaleWing::MoveMultiplier : 1.f; }
++    void RecordGalePayment(uint64 Key, const FString& Weapon, float Paid, bool bPartialCharge=false);
++    void ConfirmGaleKill(uint64 Key, const FString& Weapon);
++    void AccumulateGaleCharge(float Paid);
++    bool HasGaleGuard(const FColdSteelItem* Item) const;
++    bool HasGalePayment(uint64 Key, const FString& Weapon) const;
++    void ApplyOathToShot(struct FColdSteelSkillShot& Shot) const;
++    void ConfirmOathHit(const struct FColdSteelSkillShot& Shot,float Applied,const FVector& Point);
++    void CommitOathRelease(double ReleasedAt,uint32 Serial);
++    double OathImpactTime(const FHighlandOathPresentation& State) const;
++    double OathImpactAt=-100.;
++    FVector OathImpactPoint=FVector::ZeroVector;
+     void ConsumeNetworkHeavyReleaseWindow();
+     void CancelHeavyCharge();
+     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleaseHeavyCharge();
+@@ -156,6 +176,41 @@
+     /** Online: another player's claws on this machine, from their replicated body state (source seconds). */
+     void PresentAzureDragonRemote(uint8 Flags,float Source,float StrikeContactStart,float StrikeContactEnd,float Entry,float Held);
+ private:
++    void RefreshOath(const struct FColdSteelItem* Item);
++    void BeginOathCharge(double Start,float Duration);
++    void ClearOath();
++    void TickOath();
++    struct FGalePayment
++    {
++        FString Weapon;
++        double RecordedAt = 0.;
++        float Unreturned = 0.f;
++        bool bHasStrikeCost = false;
++        bool bHasPartialCharge = false;
++        bool bKillRefunded = false;
++    };
++    TMap<uint64, FGalePayment> GalePayments;
++    float GaleChargePaid = 0.f;
++    uint32 LocalGaleSkillSerial = 0;
++    uint64 ChainGaleKey = 0;
++    UPROPERTY(ReplicatedUsing=OnRep_GaleSwiftUntil) double GaleSwiftUntil = 0.;
++    UFUNCTION() void OnRep_GaleSwiftUntil();
++    void TickGaleSwift();
++    float TakeGaleCharge();
++    void CreditGaleStamina(UColdSteelStatusModel* Model,float Amount);
++    UPROPERTY(Replicated) FHighlandOathPresentation OathState;
++    UPROPERTY(Transient) TObjectPtr<class UOathJudgmentVisualComponent> OathVisual;
++    UPROPERTY(Transient) TObjectPtr<USoundBase> OathReadySound;
++    UPROPERTY(Transient) TObjectPtr<USoundBase> OathHitSound;
++    TSharedPtr<struct FStreamableHandle> OathSoundLoad;
++    bool bOathInstalled=false,bOathChimed=false,bOathRefunded=false;
++    uint32 OathAttackSerial=0,OathRefundReceipt=0;
++    double OathReceiptUntil=0.,OathReleaseStamp=0.;
++    float OathPaidRelease=0.f;
++    FString OathImpactWeapon;
++    double OathImpactRelease=-100.;
++    UFUNCTION(NetMulticast,Unreliable) void MulticastOathImpact(const FString& Weapon,double ReleaseAt,double HitAt,FVector_NetQuantize Point);
++    UFUNCTION(Client,Reliable) void ClientOathRefund(uint32 Serial,double Total);
+     void LoadStarMarrowMotion(const FString& Definition,const FString& Folder);
+     TSharedPtr<FStreamableHandle> StarMarrowMotionLoad;
+     void InitializePresentation();
+@@ -193,6 +248,7 @@
+     UPROPERTY(Transient) TObjectPtr<USoundBase> InspectCatchSound; // inspect: the fist takes the sword (GuanLei catch)
+     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> RiftVisual;
+     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> RiftMaterial;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> OathRiftMaterial;
+     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMesh>> RiftMeshes;
+     UPROPERTY(EditDefaultsOnly,Category="Enchantment") TSoftObjectPtr<UStaticMesh> SlashWaveMeshAsset;
+     UPROPERTY(EditDefaultsOnly,Category="Enchantment") TSoftObjectPtr<UMaterialInterface> SlashWaveMaterialAsset;
+@@ -339,10 +395,10 @@
+     void SendGuardIntent(bool Raised);
+     bool CanMaintainNetworkGuard() const;
+     void TickNetworkGuard();
+-    void SetHeavyCharging(bool Charging,bool bReleasedHeavy=false);
++    void SetHeavyCharging(bool Charging,bool bReleasedHeavy=false,uint32 PartialSwingSerial=0);
+     bool CanMaintainHeavyCharge() const;
+     void TickNetworkHeavyCharge();
+-    UFUNCTION(Server,Reliable) void ServerSetSwordHeavyCharge(const FString& Weapon,bool Charging,bool bReleasedHeavy,double ClientStartedAt);
++    UFUNCTION(Server,Reliable) void ServerSetSwordHeavyCharge(const FString& Weapon,bool Charging,bool bReleasedHeavy,double ClientStartedAt,uint32 AttackSerial=0);
+     UFUNCTION(Client,Reliable) void ClientCancelSwordHeavyCharge(const FString& Weapon);
+     bool ClaimNetworkClovenAttack(uint32 Serial);
+     uint32 NetworkBladeSerial=0,ConsumedClovenSerial=0;
+@@ -373,7 +429,7 @@
+     float WalkInspectDelay=0.f;
+     bool CanPresent() const;
+     bool CanUse(bool bContinuing = false) const;
+-    bool StartSwing(FName Clip, bool Heavy, float StaminaOverride=-1.f, bool bUseWeaponAttackSpeed=true);
++    bool StartSwing(FName Clip, bool Heavy, float StaminaOverride=-1.f, bool bUseWeaponAttackSpeed=true, bool bDash=false);
+     bool StartQuickCombatStrike();
+     void QuickCombatContractHit();
+     FVector AdvanceThrustLunge(float FromTime,float ToTime);

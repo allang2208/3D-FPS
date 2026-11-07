@@ -1,0 +1,108 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -430,6 +430,7 @@
+         {
+             Adopted.Mana=Prev.Mana;Adopted.StarMarrowManaSpent=Prev.StarMarrowManaSpent;Adopted.MagicCrystalManaRestored=Prev.MagicCrystalManaRestored;Adopted.Stamina=Prev.Stamina;Adopted.StaminaRecoveryDelay=Prev.StaminaRecoveryDelay;Adopted.bSprintExhausted=Prev.bSprintExhausted;
+             Adopted.SpellbookFocusManaLoss=Prev.SpellbookFocusManaLoss;Adopted.UppercutStaminaSpent=Prev.UppercutStaminaSpent;
++            Adopted.OathStaminaRestored=Prev.OathStaminaRestored;
+         }
+         if(Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision)
+         {
+@@ -443,6 +444,7 @@
+             Adopted.AmmoPouch=Prev.AmmoPouch;
+             Adopted.Mana=Prev.Mana;Adopted.StarMarrowManaSpent=Prev.StarMarrowManaSpent;Adopted.MagicCrystalManaRestored=Prev.MagicCrystalManaRestored;Adopted.Stamina=Prev.Stamina;
+             Adopted.UppercutStaminaSpent=Prev.UppercutStaminaSpent;
++            Adopted.OathStaminaRestored=Prev.OathStaminaRestored;
+             Adopted.CampfireInventoryRevision=Prev.CampfireInventoryRevision;
+         }
+         ColdSteelProfileRecovery::NetworkSpells(Adopted,Prev);
+@@ -491,6 +493,8 @@
+         Adopted.MergeStarMarrowSpend(Prev.StarMarrowManaSpent);
+         SpellbookFocusMana::Merge(Adopted,Prev.SpellbookFocusManaLoss);
+         UppercutStaminaReceipt::Merge(Adopted,Prev.UppercutStaminaSpent);
++        Adopted.OathStaminaRestored=FMath::IsFinite(Adopted.OathStaminaRestored)?FMath::Clamp(Adopted.OathStaminaRestored,0.,Prev.OathStaminaRestored):0.;
++        Adopted.MergeOathStamina(Prev.OathStaminaRestored,UColdSteelStatusModel::StaminaMaximum(Adopted,ShadowModel->StaminaSettings()));
+         bool CurrencyChanged=false;FString CurrencyReason;
+         // Server-side grant/debit watermarks are not client state. Overwriting
+         // them here also prevents a forged watermark from suppressing rewards.
+@@ -994,6 +998,7 @@
+     // Elemental and illumination arrows commit cooldowns through the inventory channel.
+     const bool KeepElementCooldowns=Save->Profile.CampfireInventoryRevision<CurrentInventory.CampfireInventoryRevision;
+     const double MirrorUppercutSpent=Save->Profile.UppercutStaminaSpent;
++    const double MirrorOathRefund=Save->Profile.OathStaminaRestored;
+     const double MirrorStarMarrowSpend=Save->Profile.StarMarrowManaSpent;
+     const double MirrorCrystalMana=Save->Profile.MagicCrystalManaRestored;
+     // The owner chooses these cosmetics. A paced mirror may have been captured
+@@ -1051,8 +1056,10 @@
+         Save->Profile.MagicCrystalManaRestored=CurrentInventory.MagicCrystalManaRestored;
+         Save->Profile.Stamina=CurrentInventory.Stamina;Save->Profile.Survival=CurrentInventory.Survival;
+         Save->Profile.UppercutStaminaSpent=CurrentInventory.UppercutStaminaSpent;
++        Save->Profile.OathStaminaRestored=CurrentInventory.OathStaminaRestored;
+     }
+     UppercutStaminaReceipt::Merge(Save->Profile,FMath::Max(MirrorUppercutSpent,CurrentInventory.UppercutStaminaSpent));
++    Save->Profile.MergeOathStamina(FMath::Max(MirrorOathRefund,CurrentInventory.OathStaminaRestored),Model->MaxStamina());
+     Save->Profile.MergeStarMarrowSpend(FMath::Max(MirrorStarMarrowSpend,CurrentInventory.StarMarrowManaSpent));
+     MagicCrystalMana::Merge(Save->Profile,FMath::Max(MirrorCrystalMana,CurrentInventory.MagicCrystalManaRestored),Model->Derived(TEXT("maxMp")));
+     Model->SyncRuntime();
+@@ -1141,6 +1148,7 @@
+         MagicCrystalMana::Merge(Merged,Save->Profile.MagicCrystalManaRestored,Model->Derived(TEXT("maxMp")));
+         SpellbookFocusMana::Merge(Merged,Save->Profile.SpellbookFocusManaLoss);
+         UppercutStaminaReceipt::Merge(Merged,Save->Profile.UppercutStaminaSpent);
++        Merged.MergeOathStamina(Save->Profile.OathStaminaRestored,Model->MaxStamina());
+         Merged.Souls=CurrencyState.Souls;
+         Merged.ServerSoulCredits=CurrencyState.ServerSoulCredits;
+         Merged.ServerSoulDebits=CurrencyState.ServerSoulDebits;
+@@ -1413,8 +1421,9 @@
+     {
+         auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
+         if(!Sword||(!Sword->IsNetworkHeavyReleaseWindowOpen(OutDeclaredItem->InstanceId)
+-            &&!Sword->ConsumeNetworkHeavyChargeForRelease(OutDeclaredItem->InstanceId)))
++            &&!Sword->ConsumeNetworkHeavyChargeForRelease(OutDeclaredItem->InstanceId,Report.HeavyReleaseTime,Report.GuardAttackSerial)))
+         {OutReason=TEXT("heavy release not committed");return false;}
++        Sword->CommitOathRelease(Report.HeavyReleaseTime,Report.GuardAttackSerial);
+     }
+     // The one-handed kukri's heavy release has its own charge receipt (KukriHeavy.cpp).
+     if((Report.AttackMeta&0x10)&&Report.AttackMeta!=0x15&&Report.AttackMeta!=0x16
+@@ -1808,8 +1817,26 @@
+         Shot.ToughnessDamageMultiplier=ShadowModel->QuickCombatStats().ToughnessMultiplier;
+     }
+     if(UBoundCongregateCaptureComponent::IsCaptured(Shooter)&&Shot.bMelee&&(Report.AttackMeta&(0x10|0x20))&&!(Report.AttackMeta&0x80))return false;
++    if(!Shot.bRicochet && GaleWing::Installed(PreGunsmith,Declared))
++    {
++        using GaleWing::EAttack;
++        const uint8 Meta=Report.AttackMeta;
++        const auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        if(Meta&0x80)Shot.GalePaymentKey=GaleWing::Key(EAttack::Quick,Report.QuickCombatSerial);
++        else if(Meta&0x20)Shot.GalePaymentKey=GaleWing::Key(EAttack::Whirlwind,Report.WhirlwindSerial);
++        else if(Meta==SwordUppercut::AttackMeta)Shot.GalePaymentKey=GaleWing::Key(EAttack::Uppercut,Report.UppercutSerial);
++        else if(Meta==HighlandBreakSweep::AttackMeta)Shot.GalePaymentKey=GaleWing::Key(EAttack::Sweep,Report.GuardAttackSerial);
++        else if(Meta==0x10)Shot.GalePaymentKey=GaleWing::Key(EAttack::Heavy,Report.GuardAttackSerial);
++        else if((Meta>=1 && Meta<=3) || Meta==0x16)
++        {
++            Shot.GalePaymentKey=GaleWing::Key(Meta==0x16?EAttack::Dash:EAttack::Swing,Report.GuardAttackSerial);
++            if(!Sword || Report.GuardAttackSerial!=LastGaleSwingSerial ||
++                !Sword->HasGalePayment(Shot.GalePaymentKey,Declared->InstanceId))return false;
++        }
++    }
+     Shot.GuardAttackSerial=Report.GuardAttackSerial;
+     Shot.GuardSourceInstance=Declared?Declared->InstanceId:FString();
++    if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())Sword->ApplyOathToShot(Shot);
+     // Reconstruct the attachment effect from the server's item, not a client flag.
+     Shot.bRisingDragonFinisher=Shot.bMelee&&ValidatedComboStage==3&&Declared
+         &&ColdSteelModularSword::UsesRisingDragonFinisher(*Declared);
+@@ -2065,6 +2092,7 @@
+     // One echo cooldown reward per accepted rune-sword action, across targets.
+     if(Shot.ItemDefinition==TEXT("ue_rune_sword"))Shot.MasteryAttackSerial=Report.MasteryAttackSerial;
+     const float Applied = ColdSteelSkills::ApplyHit(Shooter, Hit, Damage, FVector(Report.Direction), Shot, &Receipt,PairedHeavy);
++    if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())Sword->ConfirmOathHit(Shot,Applied,Hit.ImpactPoint);
+     // The authority rune serial belongs to this server. The owner queues its visual against its own input serial.
+     const bool BladeFeedback=Shot.bMeleeStrike&&(Applied>0.f||Receipt.bKilled)&&
+         UKukriWeaponComponent::PublishBladeHit(Shooter,Hit,Shot);
+@@ -2568,6 +2596,7 @@
+     Report.ClaimedDamage = Damage;
+     Report.AttackMeta = Shot.AttackMeta;
+     Report.GuardAttackSerial=Shot.GuardAttackSerial;
++    Report.HeavyReleaseTime=Shot.HeavyReleaseTime;
+     Report.MasteryAttackSerial=Shot.MasteryAttackSerial;
+     Report.KukriAttackSerial=Shot.KukriAttackSerial;
+     if(Shot.AttackMeta&0x80)Report.QuickCombatSerial=PS->QuickCombatSequence;

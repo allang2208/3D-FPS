@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -128,6 +128,9 @@
+     // Called on an attributed death, independently of experience/gold eligibility.
+     void ApplyKillStaminaRecovery(AActor* Victim);
+     void RestoreCombatStamina(float Amount);
++    double ConfirmedMartialStaminaSpent() const { return Current.UppercutStaminaSpent; }
++    double RefundOathStamina(float Amount);
++    void ApplyOathRefundReceipt(double Total);
+     float StaminaRecoveryWait() const { return Current.StaminaRecoveryDelay; }
+     FColdSteelMeleeStaminaReadout MeleeStaminaReadout(const class AFPSGAMECharacter* Pawn) const;
+     bool SprintExhausted() const { return Current.bSprintExhausted; }

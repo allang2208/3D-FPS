@@ -1,0 +1,32 @@
+{
+  "id": "highland_gale_wing",
+  "ue_folder": "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107",
+  "variants": [
+    {
+      "key": "Native",
+      "mesh": "SM_GaleFeather_Native",
+      "triangles": 123466,
+      "ring_vertices": 150,
+      "fbx": "Export/SM_GaleFeather_Native.fbx"
+    },
+    {
+      "key": "Broadblade",
+      "mesh": "SM_GaleFeather_Broadblade",
+      "triangles": 123466,
+      "ring_vertices": 150,
+      "fbx": "Export/SM_GaleFeather_Broadblade.fbx"
+    },
+    {
+      "key": "Ridge",
+      "mesh": "SM_GaleFeather_Ridge",
+      "triangles": 129582,
+      "ring_vertices": 428,
+      "fbx": "Export/SM_GaleFeather_Ridge.fbx"
+    }
+  ],
+  "reference": "Inputs/GaleWing_ThreeViews.png",
+  "interface": "highland_hilt_v1",
+  "units": "Blender metres / UE centimetres",
+  "grip_ring_vertices": 289,
+  "runtime_tested": false
+}

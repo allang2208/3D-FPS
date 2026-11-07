@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp
+@@ -69,6 +69,9 @@
+         C.RangeCM=(Stats.SlashReach+C.RangeBonusCM*Stats.Modifiers.Range)*Stats.Modifiers.MartialRange;
+         if(HighlandRidgeThrust::Installed(GetGameInstance()->GetSubsystem<UGunsmithSystem>(),Item))
+         {
++            // Owner execution, skill preview and server movement authorization
++            // all consume this snapshot. Extend travel, not the blade rectangle.
++            C.DistanceCM*=HighlandRidgeThrust::DashDistanceScale;
+             C.Damage*=HighlandRidgeThrust::StrikeDamageScale;
+             C.DamageMultiplier*=HighlandRidgeThrust::StrikeDamageScale;
+             C.RangeCM*=HighlandRidgeThrust::ReachScale;

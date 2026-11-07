@@ -1,0 +1,52 @@
+--- a/Source/FPSGAME/Development/SwordFinishWireAudit.cpp
++++ b/Source/FPSGAME/Development/SwordFinishWireAudit.cpp
+@@ -130,7 +130,12 @@
+         if(Prepared<0){SwordFinishWire::Network(GetWorld());Model->AdoptNetMirror(SwordFinishWire::Seed(Model,false));}
+         Prepared=Phase;Started=Now;LastSent=-10;SwordFinishWire::Prepare(Controlled,Model,Phase,false);
+     }
++    if(Phase==5 && HighlandEquipmentWire::Enabled())
++    {
++        HighlandEquipmentWire::ObserveJudgment(Subject);HighlandEquipmentWire::ObserveJudgment(Controlled);
++    }
+     if(Now-Started<1.)return;
++    if(HighlandEquipmentWire::Enabled()&&!HighlandEquipmentWire::TickGaleAttack(Controlled,Phase)&&Now-Started<60.)return;
+     if(HighlandEquipmentWire::Enabled()&&!HighlandEquipmentWire::TickCharge(Controlled,Phase)&&Now-Started<60.)return;
+     if(Now-LastSent<.5)return;
+     FString OwnerDetails,Observer;const bool A=SwordFinishWire::Check(Controlled,Phase,false,OwnerDetails),B=SwordFinishWire::Check(Subject,Phase,true,Observer);
+@@ -160,8 +165,8 @@
+     const bool B=SwordFinishWire::Check(Cast<AFPSGAMECharacter>(Guest->GetPawn()),Case,false,GuestView);
+     if(ClientPassed&&(!A||!B)&&GetWorld()->GetRealTimeSeconds()-PhaseAt<60.)return;
+     const bool OK=ClientPassed&&A&&B&&(Case!=6||Reconnected);
+-    const TCHAR* HighlandNames[]={TEXT("late_join_ridge_gale"),TEXT("remove_gale"),TEXT("long_grip_ridge_gale"),
+-        TEXT("factory_blade_gale"),TEXT("unequip"),TEXT("reequip_and_heavy_rpc"),TEXT("reconnect_retained_equipment")};
++    const TCHAR* HighlandNames[]={TEXT("late_join_ridge_gale"),TEXT("remove_gale"),TEXT("long_grip_ridge_guard_whirlwind_kill"),
++        TEXT("factory_and_broadblade_guard_swing_kill"),TEXT("unequip"),TEXT("reequip_and_heavy_rpc"),TEXT("reconnect_retained_equipment")};
+     auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),HighlandEquipmentWire::Enabled()?HighlandNames[Case]:SwordFinishWire::Names[Case]);Row->SetBoolField(TEXT("passed"),OK);
+     Row->SetStringField(TEXT("client"),Details);Row->SetStringField(TEXT("server_host"),HostView);Row->SetStringField(TEXT("server_guest"),GuestView);
+     Rows.Add(MakeShared<FJsonValueObject>(Row));Passed&=OK;Sender->Reported=true;
+@@ -177,7 +182,7 @@
+     Result->SetStringField(TEXT("weapon"),HighlandEquipmentWire::Enabled()?TEXT("ue_highland_claymore"):HatchetRuneWire::Enabled()?TEXT("ue_tactical_hatchet"):TEXT("ue_rune_sword"));
+     Result->SetBoolField(TEXT("actual_network_transport"),GetWorld()->GetNetDriver()!=nullptr);Result->SetBoolField(TEXT("rendered"),false);
+     Result->SetBoolField(TEXT("reconnected"),Reconnected);Result->SetStringField(TEXT("scope"),TEXT("production body equipment capture/replication/OnRep reconstruction over UDP; same retained server-side item instances after reconnect; fixture-seeded inventory, no attack RPC or inventory upload"));
+-    if(HighlandEquipmentWire::Enabled())Result->SetStringField(TEXT("scope"),TEXT("Highland body equipment replication, owner/shadow modifiers, actual client heavy input and charge/release RPC, unequip/reequip/reconnect; fixture-seeded inventory, no hit damage or rendered VFX acceptance"));
++    if(HighlandEquipmentWire::Enabled())Result->SetStringField(TEXT("scope"),TEXT("Highland blade, pommel and fitted guard meshes, actual guest whirlwind and swing kills, owner/server stamina receipts and timed HUD speed buff, judged ridge strike and reconnect; fixture-seeded inventory, no rendered VFX"));
+ #if DO_ENABLE_NET_TEST
+     if(const auto* Driver=GetWorld()->GetNetDriver()){Result->SetNumberField(TEXT("lag_ms_per_peer"),Driver->PacketSimulationSettings.PktLag);Result->SetNumberField(TEXT("loss_percent_per_peer"),Driver->PacketSimulationSettings.PktLoss);}
+ #endif
+@@ -210,12 +215,16 @@
+         // Reconnect reattaches the retained authority profile without replacing its items.
+         if(NextPhase==6){GuestModel->AttachPawn(Pawn);Pawn->SetActorTickEnabled(false);Pawn->GetCharacterMovement()->DisableMovement();}
+         else SwordFinishWire::Prepare(Pawn,GuestModel,NextPhase,false);
++        if((NextPhase==2 || NextPhase==3 || NextPhase==5) && HighlandEquipmentWire::Enabled())
++            HighlandEquipmentWire::PlaceTarget(Pawn,NextPhase!=5);
+         Guest->Subject=Host;Guest->Phase=NextPhase;Guest->Reported=false;Guest->ForceNetUpdate();
+     }
+     if(HighlandEquipmentWire::Enabled()&&Prepared==5)
+     {
+         // This fixture's PlayerState intentionally disables normal profile tick.
+         GuestModel->TickRuntime(Delta,Pawn);
++        if(Now-PhaseAt>1.)HighlandEquipmentWire::TickCharge(Host,5);
++        HighlandEquipmentWire::ObserveJudgment(Host);HighlandEquipmentWire::ObserveJudgment(Pawn);
+         FString ChargeDetails;HighlandEquipmentWire::Check(Pawn,5,false,ChargeDetails);
+     }
+     if(Now-PhaseAt>100.){Passed=false;Finish();}

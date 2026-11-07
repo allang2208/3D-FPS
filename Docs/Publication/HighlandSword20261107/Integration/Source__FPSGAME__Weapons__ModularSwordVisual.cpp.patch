@@ -1,0 +1,67 @@
+--- a/Source/FPSGAME/Weapons/ModularSwordVisual.cpp
++++ b/Source/FPSGAME/Weapons/ModularSwordVisual.cpp
+@@ -406,6 +406,8 @@
+     if(IncludeRune)Result+=TEXT("|rune=")+Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition));
+     if(ColdSteelInventory::IsTwoHandedSword(Item)||ColdSteelInventory::IsTwoHandedBlunt(Item))
+         Result+=TEXT("|blade_material=")+Parts.FindRef(TEXT("blade_material"))+TEXT("|bladeFinishScope=shared20261101");
++    if(Item.Definition==TEXT("ue_highland_claymore")&&Parts.FindRef(TEXT("blade_1"))==TEXT("highland_broadblade"))
++        Result+=TEXT("|broadbladeGuardFinish=20261106-r1");
+     if(Item.Definition==TEXT("ue_frost_crystal_sword")&&Parts.FindRef(TEXT("blade_material"))==TEXT("high_energy_magic_crystal"))
+         Result+=TEXT("|crystalGlass=20261102-v2");
+     if(IncludeRune&&KukriEnchantment::Supports(Item))Result+=TEXT("|enchantment=")+KukriEnchantment::Selected(Item);
+@@ -450,12 +452,16 @@
+     return 0;
+ }
+ 
+-bool ColdSteelModularSword::IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item)
++bool ColdSteelModularSword::IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item,const FGunsmithParts* Draft)
+ {
+     if(!Mesh)return false;
+     if(ColdSteelInventory::IsTwoHandedBlunt(Item))return Mesh->ComponentHasTag(TEXT("SwordSlot=hammer_heads"));
+-    return ColdSteelInventory::IsTwoHandedSword(Item)&&(Mesh->ComponentHasTag(TEXT("SwordSlot=blade_1"))||
+-        (Item.Definition==TEXT("ue_rune_sword")&&Mesh->ComponentHasTag(TEXT("SwordSlot=guard"))));
++    if(!ColdSteelInventory::IsTwoHandedSword(Item))return false;
++    if(Mesh->ComponentHasTag(TEXT("SwordSlot=blade_1")))return true;
++    if(!Mesh->ComponentHasTag(TEXT("SwordSlot=guard")))return false;
++    return Item.Definition==TEXT("ue_rune_sword")||
++        (Item.Definition==TEXT("ue_highland_claymore")&&
++         Installed(Item,Draft).FindRef(TEXT("blade_1"))==TEXT("highland_broadblade"));
+ }
+ 
+ void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot)
+@@ -630,23 +636,30 @@
+             ColdSteelMeleeRune::Apply(Module,IncludeRune&&(Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune")||Parts.FindRef(TEXT("blade_2"))==TEXT("silver_glow_rune"))?
+                 Parts.FindRef(TEXT("blade_2")):FString(),Item.Definition);
+     }
+-    // Rune selection happens first. Only authored blade/head carriers receive
+-    // the finish; the rune sword additionally retains its UV-isolated root.
++    // Rune selection happens first. The broadblade's fitted guard uses the same
++    // finish with an authored gem mask; other Highland blades keep their guards.
+     const uint8 FinishMode=BladeFinishMode(Item,Draft);
+-    for(auto* Module:Components(Blade))if(IsBladeFinishCarrier(Module,Item))
++    for(auto* Module:Components(Blade))if(IsBladeFinishCarrier(Module,Item,Draft))
+         ApplyBladeFinish(Module,FinishMode,Item.Definition==TEXT("ue_rune_sword")&&Module->ComponentHasTag(TEXT("SwordSlot=guard")));
+     bool TraceFromAnimation=false;Catalog(Item)->TryGetBoolField(TEXT("trace_from_animation"),TraceFromAnimation);
+     const FName TraceTag(TEXT("SwordTraceFromAnimation"));
+     if(TraceFromAnimation)Blade->ComponentTags.AddUnique(TraceTag);else Blade->ComponentTags.Remove(TraceTag);
+     const auto Spec=Part(Item,TEXT("blade_1"),Parts);
++    FVector D=Vector(Spec,TEXT("rune_dimensions_cm"),FVector(12,10,63));
++    if(SelectedRune==TEXT("highland_oath_rune") && Item.Definition==TEXT("ue_highland_claymore"))
++    {
++        // The ridge blade has a longer visible point than its combat trace.
++        const FVector Tip=Vector(Spec,TEXT("visual_tip_cm"),FVector::ZeroVector);
++        D.Z=FMath::Max(D.Z,Tip.Z*.93-D.Y);
++    }
+     for(int32 Slot=0;Slot<Blade->GetNumMaterials();++Slot)
+     {
+         if(auto* M=Cast<UMaterialInstanceDynamic>(Blade->GetOverlayMaterial(true,Slot)))
+-        {const FVector D=Vector(Spec,TEXT("rune_dimensions_cm"),FVector(12,10,63));M->SetVectorParameterValue(TEXT("Dimensions"),FLinearColor(D.X,D.Y,D.Z,0));}
++            M->SetVectorParameterValue(TEXT("Dimensions"),FLinearColor(D.X,D.Y,D.Z,0));
+         if(auto* M=Cast<UMaterialInstanceDynamic>(Blade->GetMaterial(Slot));M&&
+             (M->GetBaseMaterial()->GetName().StartsWith(TEXT("M_TangDaoBladeRuneSurface"))||
+              M->GetBaseMaterial()->GetName().StartsWith(TEXT("M_XuanChiBladeRuneSurface"))))
+-        {const FVector D=Vector(Spec,TEXT("rune_dimensions_cm"),FVector(12,10,63));M->SetVectorParameterValue(TEXT("Dimensions"),FLinearColor(D.X,D.Y,D.Z,0));}
++            M->SetVectorParameterValue(TEXT("Dimensions"),FLinearColor(D.X,D.Y,D.Z,0));
+     }
+     Blade->ComponentTags.RemoveAll([](FName Tag){return Tag.ToString().StartsWith(KeyPrefix);});
+     Blade->ComponentTags.Add(FName(*(KeyPrefix+VisualKey)));return true;

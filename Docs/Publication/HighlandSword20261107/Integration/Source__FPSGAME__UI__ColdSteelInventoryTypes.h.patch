@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -307,6 +307,14 @@
+     UPROPERTY() float SwordUppercutCooldownDuration = 0;
+     // Confirmed network uppercut costs travel with stamina snapshots.
+     UPROPERTY() double UppercutStaminaSpent = 0.;
++    /** Confirmed oath refunds; cumulative so mirror/RPC reordering cannot pay twice. */
++    UPROPERTY() double OathStaminaRestored = 0.;
++    void MergeOathStamina(double Total,double Maximum)
++    {
++        if(!FMath::IsFinite(Total)||Total<=OathStaminaRestored)return;
++        Stamina=float(FMath::Clamp(double(Stamina)+Total-OathStaminaRestored,0.,Maximum));
++        OathStaminaRestored=Total;
++    }
+     // Legacy serialized names retained; these now mirror only the live action
+     // remaining/duration and are cleared when loading an interrupted session.
+     UPROPERTY() float QuickCombatCooldown = 0;

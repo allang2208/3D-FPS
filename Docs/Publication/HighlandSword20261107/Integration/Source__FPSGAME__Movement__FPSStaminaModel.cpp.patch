@@ -1,0 +1,46 @@
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -100,7 +100,10 @@
+     // While charging, use the actual selected action (single fallback or dual), including the authority's receipt.
+     if(Off&&(!Kukri||!Kukri->IsHeavyCharging()||Kukri->IsDualHeavyCharging()))
+         BladeCost=.5*BladeCost+.5*ColdSteelMelee::ItemModifiers(Off,this).Stamina;
+-    return MasteryDefinition(TEXT("heavyStrike")).HeavyChargeStaminaPerSecond*BladeCost*ActionStaminaMultiplier();
++    const auto* G=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
++    const float Oath=!ActiveProductionTool()&&HighlandOathRune::Installed(G,Equipped())?
++        float(G->Calculate(Equipped()->Definition,G->Installed(*Equipped())).Melee.OathChargeStamina):1.f;
++    return MasteryDefinition(TEXT("heavyStrike")).HeavyChargeStaminaPerSecond*BladeCost*ActionStaminaMultiplier()*Oath;
+ }
+ float UColdSteelStatusModel::SprintStaminaPerSecond() const
+ {
+@@ -196,6 +199,20 @@
+     // Instant kill recovery does not change the ordinary recovery-delay clock.
+     if(Before!=Current.Stamina||WasExhausted!=Current.bSprintExhausted)OnStaminaChanged.Broadcast();
+ }
++double UColdSteelStatusModel::RefundOathStamina(float Amount)
++{
++    // The owner reconciles the cumulative credit after its own later spending.
++    // Publish only what the authority could restore below the stamina cap.
++    Amount=FMath::Clamp(Amount,0.f,FMath::Max(0.f,MaxStamina()-Current.Stamina));
++    Current.OathStaminaRestored+=Amount;RestoreCombatStamina(Amount);
++    return Current.OathStaminaRestored;
++}
++void UColdSteelStatusModel::ApplyOathRefundReceipt(double Total)
++{
++    if(!FMath::IsFinite(Total)||Total<=Current.OathStaminaRestored)return;
++    const float Delta=float(Total-Current.OathStaminaRestored);
++    Current.OathStaminaRestored=Total;RestoreCombatStamina(Delta);
++}
+ void UColdSteelStatusModel::TickStamina(float Delta,AFPSGAMECharacter* Pawn)
+ {
+     if(Delta<=0||!Pawn)return;
+@@ -215,7 +232,10 @@
+         const auto* Bow=ActiveBow();
+         const auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();
+         const float Drain=Bow&&!(Rain&&Rain->IsManaDraining())?float(ColdSteelBow::ChargeStaminaPerSecond(*Bow,this)):HeavyChargeStaminaPerSecond();
++        const float BeforeChargeDrain=Current.Stamina;
+         Current.Stamina=FMath::Max(0.f,Current.Stamina-Drain*Delta);
++        if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>())
++            Sword->AccumulateGaleCharge(BeforeChargeDrain-Current.Stamina);
+         Current.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;
+         if(Current.Stamina<=0.f&&Drain>0.f)
+         {

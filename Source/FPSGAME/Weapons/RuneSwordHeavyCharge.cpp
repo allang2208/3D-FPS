@@ -26,16 +26,18 @@ bool URuneSwordComponent::CanMaintainHeavyCharge() const
         &&!UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&CanUse()&&!Pawn->IsCastBlockingLeftHandAction();
 }
 
-void URuneSwordComponent::SetHeavyCharging(bool Charging,bool bReleasedHeavy)
+void URuneSwordComponent::SetHeavyCharging(bool Charging,bool bReleasedHeavy,uint32 PartialSwingSerial)
 {
     if(bCharging==Charging)return;
     bCharging=Charging;
+    if(!Charging&&!bReleasedHeavy)ClearOath();
     const auto* Pawn=Character.Get();
     if(Pawn&&Pawn->IsLocallyControlled()&&!Pawn->HasAuthority())
     {
         const auto* World=GetWorld();const auto* GS=World->GetGameState();
         ServerSetSwordHeavyCharge(InstanceId,Charging,bReleasedHeavy,
-            GS?GS->GetServerWorldTimeSeconds():World->GetTimeSeconds());
+            bReleasedHeavy && OathReleaseStamp>0.?OathReleaseStamp:
+                (GS?GS->GetServerWorldTimeSeconds():World->GetTimeSeconds()),Charging?0:bReleasedHeavy?NetworkBladeSerial:PartialSwingSerial);
     }
 }
 
@@ -45,7 +47,7 @@ void URuneSwordComponent::CancelHeavyCharge()
     const auto* Pawn=Character.Get();
     if(Pawn&&Pawn->HasAuthority()&&!Pawn->IsLocallyControlled())
     {
-        bCharging=false;ServerHeavyChargeStartedAt=-1.;ClientCancelSwordHeavyCharge(InstanceId);return;
+        ClearOath();bCharging=false;ServerHeavyChargeStartedAt=-1.;ClientCancelSwordHeavyCharge(InstanceId);return;
     }
     ReturnFromCharge();
 }
@@ -58,7 +60,7 @@ bool URuneSwordComponent::IsNetworkHeavyReleaseWindowOpen(const FString& Weapon)
         &&(Weapon.IsEmpty()||Weapon==InstanceId);
 }
 
-bool URuneSwordComponent::ConsumeNetworkHeavyChargeForRelease(const FString& Weapon)
+bool URuneSwordComponent::ConsumeNetworkHeavyChargeForRelease(const FString& Weapon,double ReleasedAt,uint32 Serial)
 {
     if(!GetOwner()||!GetOwner()->HasAuthority()||Weapon!=InstanceId||!GetWorld())return false;
     const double Now=GetWorld()->GetTimeSeconds();
@@ -73,7 +75,11 @@ bool URuneSwordComponent::ConsumeNetworkHeavyChargeForRelease(const FString& Wea
     const double Cost=ColdSteelMelee::HeavyReleaseStamina(Model->Equipped(),Model)+
         UnbilledSeconds*Model->HeavyChargeStaminaPerSecond();
     if(!Model->CanSpendStamina(Cost))return false;
+    const float Before=Model->Stamina();
     Model->SpendStamina(Cost);
+    RecordGalePayment(GaleWing::Key(GaleWing::EAttack::Heavy,Serial),Weapon,TakeGaleCharge()+Before-Model->Stamina());
+    OathPaidRelease=FMath::Min(float(ColdSteelMelee::HeavyReleaseStamina(Model->Equipped(),Model)),FMath::Max(0.f,Before-Model->Stamina()));
+    CommitOathRelease(ReleasedAt,Serial);
     bCharging=false;ServerHeavyChargeStartedAt=-1.;
     NetworkHeavyReleaseUntil=Now+.6;
     GrantBroadbladeSweep(Weapon);
@@ -85,7 +91,7 @@ void URuneSwordComponent::ConsumeNetworkHeavyReleaseWindow()
     if(GetOwner()&&GetOwner()->HasAuthority())NetworkHeavyReleaseUntil=0.;
 }
 
-void URuneSwordComponent::ServerSetSwordHeavyCharge_Implementation(const FString& Weapon,bool Charging,bool bReleasedHeavy,double ClientStartedAt)
+void URuneSwordComponent::ServerSetSwordHeavyCharge_Implementation(const FString& Weapon,bool Charging,bool bReleasedHeavy,double ClientStartedAt,uint32 AttackSerial)
 {
     const auto* Pawn=Character.Get();
     if(!Pawn||!Pawn->HasAuthority()||Pawn->IsLocallyControlled())return;
@@ -98,8 +104,14 @@ void URuneSwordComponent::ServerSetSwordHeavyCharge_Implementation(const FString
     {
         // Opening the release receipt only after a real, long enough hold is
         // what lets hit/rift validation distinguish heavy from a light swing.
-        if(bReleasedHeavy && bCharging && !ConsumeNetworkHeavyChargeForRelease(Weapon))
+        // A short hold becomes a light swing. Its debit and contact use the player
+        // state channel, while both ends of the hold arrive in order on this one.
+        if(!bReleasedHeavy && bCharging && AttackSerial)
+            RecordGalePayment(GaleWing::Key(GaleWing::EAttack::Swing,AttackSerial),Weapon,TakeGaleCharge(),true);
+        if(bReleasedHeavy && bCharging && !ConsumeNetworkHeavyChargeForRelease(Weapon,ClientStartedAt,AttackSerial))
             ClientCancelSwordHeavyCharge(Weapon);
+        if(bReleasedHeavy && IsNetworkHeavyReleaseWindowOpen(Weapon))CommitOathRelease(ClientStartedAt,AttackSerial);
+        else if(!bReleasedHeavy || OathState.Phase!=2)ClearOath();
         bCharging=false;ServerHeavyChargeStartedAt=-1.;
         return;
     }
@@ -125,6 +137,10 @@ void URuneSwordComponent::ServerSetSwordHeavyCharge_Implementation(const FString
             ServerHeavyRequiredSeconds=float(ColdSteelMelee::Evaluate(*Item,Model).HeavyChargeSeconds);
     }
     bCharging=true;
+    RefreshOath(Model->Equipped());
+    // Billing uses time physically elapsed on the authority. Judge the two
+    // validated input stamps on their shared clock, including positive skew.
+    BeginOathCharge(ClientStartedAt,ServerHeavyRequiredSeconds);
 }
 
 void URuneSwordComponent::TickNetworkHeavyCharge()
@@ -132,13 +148,16 @@ void URuneSwordComponent::TickNetworkHeavyCharge()
     const auto* Model=ColdSteelAuthority::ForPawn(Character.Get());
     if(GetOwner()->HasAuthority()&&bCharging&&(!CanMaintainHeavyCharge()||!Model||Model->Stamina()<=0.f))
     {
-        bCharging=false;ServerHeavyChargeStartedAt=-1.;ClientCancelSwordHeavyCharge(InstanceId);
+        ClearOath();bCharging=false;ServerHeavyChargeStartedAt=-1.;ClientCancelSwordHeavyCharge(InstanceId);
     }
 }
 
 void URuneSwordComponent::ClientCancelSwordHeavyCharge_Implementation(const FString& Weapon)
 {
     const auto* Pawn=Character.Get();
-    if(Pawn&&Pawn->IsLocallyControlled()&&!Pawn->HasAuthority()&&Weapon==InstanceId&&bCharging)
-        CancelHeavyCharge();
+    if(Pawn&&Pawn->IsLocallyControlled()&&!Pawn->HasAuthority()&&Weapon==InstanceId)
+    {
+        ClearOath();
+        if(bCharging)CancelHeavyCharge();
+    }
 }

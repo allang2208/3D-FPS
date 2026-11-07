@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "FPSBodyHighlandMotion.h"
+ #include "FPSBodyKukriMotion.h"
+ #include "FPSBodyConsumeMotion.h"
+ #include "../FPSGAMECharacter.h"
+@@ -40,6 +41,8 @@
+             &&FMath::IsNearlyZero(A.BowClipRate)!=FMath::IsNearlyZero(B.BowClipRate))
+         ||(FPSBodyKukriMotion::HasExecutorClock(A)&&FPSBodyKukriMotion::HasExecutorClock(B)
+             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
++        ||(FPSBodyHighlandMotion::IsSweep(A.ActionVariant)&&FPSBodyHighlandMotion::IsSweep(B.ActionVariant)
++            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+         ||A.bHasHandholds!=B.bHasHandholds||A.bDual!=B.bDual||A.bOffhandPistol!=B.bOffhandPistol
+         ||A.RightHand.bReloading!=B.RightHand.bReloading||A.LeftHand.bReloading!=B.LeftHand.bReloading
+         ||(A.RightHand.bReloading&&!FMath::IsNearlyEqual(A.RightHand.ReloadStartedAt,B.RightHand.ReloadStartedAt,.01f))
+@@ -83,7 +86,7 @@
+         {
+             // The knife executor supplies its exact haste / hit-stop rate.
+             // Finite differencing would advance a just-paused contact remotely.
+-            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&DisplayState.Action!=EFPSBodyAction::Consume)
++            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&!FPSBodyHighlandMotion::IsSweep(DisplayState.ActionVariant)&&DisplayState.Action!=EFPSBodyAction::Consume)
+                 DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
+             if(DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))
+                 DisplayState.CastPalmProgressRate=Rate(DisplayState.ReleaseFraction,P.ReleaseFraction,Delta);

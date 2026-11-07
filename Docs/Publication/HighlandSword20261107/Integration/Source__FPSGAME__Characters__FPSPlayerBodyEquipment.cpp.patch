@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "FPSBodyHighlandMotion.h"
+ #include "FPSBodyOutfitResources.h"
+ #include "../Weapons/Kukri/GhostScytheMist.h"
+ #include "Engine/AssetManager.h"
+@@ -578,6 +579,7 @@
+         BodyAnimation->PistolHatchetPalmInView.Reset();
+     }
+     if(BodyAnimation){BodyAnimation->bHasLeftGrip=BodyAnimation->bHasRightGrip=false;BodyAnimation->LeftGripFromRight=BodyAnimation->RightGripFromLeft=FTransform::Identity;BodyAnimation->RifleHold=FFPSBodyRifleHold();BodyAnimation->IndependentPistolHands=0;BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
++    if(BodyAnimation)FPSBodyHighlandMotion::SelectGrip(BodyAnimation->Clips,false);
+     for(int32 Index=0;Index<Weapons.Num();++Index)
+     {
+         const auto& Definition=Weapons[Index];
+@@ -715,6 +717,9 @@
+         auto* Asset=Definition.Mesh.LoadSynchronous();if(!Asset)continue;
+         auto* Weapon=NewObject<UFPSBodyWeaponMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+         Weapon->GripProfile=Definition.GripProfile.LoadSynchronous();
++        if(Index==0&&Definition.PoseFamily==TEXT("Sword")&&BodyAnimation)
++            FPSBodyHighlandMotion::SelectGrip(BodyAnimation->Clips,
++                Weapon->GripProfile&&Weapon->GripProfile->Family==TEXT("Sword_LongGrip"));
+         GetOwner()->AddInstanceComponent(Weapon);Weapon->SetSkeletalMeshAsset(Asset);
+         Weapon->SetupAttachment(Body,BodyHand);
+         WorldEquipmentHands.Add(Weapon,static_cast<uint8>(Side));

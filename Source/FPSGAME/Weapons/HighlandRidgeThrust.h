@@ -23,6 +23,7 @@ namespace HighlandRidgeThrust
     constexpr float CounterLead=40.f/120.f;
     constexpr float ReleaseSeconds=(124.f-8.f+36.f)/120.f;
     constexpr float ReachScale=1.25f;
+    constexpr float DashDistanceScale=2.f;
     constexpr float StrikeDamageScale=1.5f;
     constexpr float StrikePenetration=.20f,HeavyPenetration=.80f;
     constexpr float HalfWidthCM=RuneSwordOverheadRhythm::FinisherRectangleHalfWidthCM;

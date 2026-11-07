@@ -1,0 +1,53 @@
+--- a/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp
++++ b/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp
+@@ -85,6 +85,7 @@
+     const bool bSilver=VisualRune==TEXT("silver_glow_rune");
+     const bool bSpirit=bFrost&&VisualRune==ColdSteelFrostRunes::SpiritBurst;
+     const bool bWild=Definition==TEXT("ue_highland_claymore")&&VisualRune==TEXT("wild_rune");
++    const bool bOath=Definition==TEXT("ue_highland_claymore")&&VisualRune==TEXT("highland_oath_rune");
+     const bool bCloud=ColdSteelFrostRunes::SupportsEasternRunes(Definition)&&VisualRune==ColdSteelFrostRunes::AuspiciousCloud;
+     const bool bMountain=ColdSteelFrostRunes::SupportsEasternRunes(Definition)&&VisualRune==ColdSteelFrostRunes::Mountain;
+     const bool bZhenmo=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Zhenmo;
+@@ -93,7 +94,7 @@
+     const bool bMana=Definition==ColdSteelFrostRunes::RuneboundWarhammer&&
+         (VisualRune==ColdSteelFrostRunes::SwiftMana||VisualRune==ColdSteelFrostRunes::DestructionMana);
+     const bool bThunderExclusive=Definition==ColdSteelFrostRunes::ThunderGodHammer&&ColdSteelFrostRunes::IsThunderExclusive(VisualRune);
+-    const int32 Mode=bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(bThunderExclusive||bMana||VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
++    const int32 Mode=bOath?11:bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(bThunderExclusive||bMana||VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
+     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
+     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
+     {
+@@ -107,6 +108,7 @@
+             auto* HighlandMID=Cast<UMaterialInstanceDynamic>(Base);
+             if(!HighlandMID){HighlandMID=UMaterialInstanceDynamic::Create(Base,Mesh);Mesh->SetMaterial(Slot,HighlandMID);}
+             HighlandMID->SetScalarParameterValue(TEXT("NativeGold"),0.f);
++            HighlandMID->SetScalarParameterValue(TEXT("NativeOath"),bOath?1.f:0.f);
+             HighlandMID->SetScalarParameterValue(TEXT("NativeWild"),bWild?1.f:0.f);
+         }
+         const bool NativeSword=Definition==TEXT("ue_rune_sword")||
+@@ -174,14 +176,14 @@
+                  Name==TEXT("M_RuneboundDestructionRuneSurface")));
+         if(Mode<0||!Blade){if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);continue;}
+         auto* MID=IsOurs(Current)?Cast<UMaterialInstanceDynamic>(Current):nullptr;
+-        const FString DesiredBase=bThunderExclusive?(VisualRune==TEXT("lei_ming_rune")?
++        const FString DesiredBase=bOath?TEXT("M_SilverRuneSurface_HighlandOath"):bThunderExclusive?(VisualRune==TEXT("lei_ming_rune")?
+             TEXT("M_SilverRuneSurface_LeiMingRefineV2"):TEXT("M_SilverRuneSurface_ThunderExclusiveV1")):bWarhammer?(Definition==ColdSteelFrostRunes::ThunderGodHammer?
+             TEXT("M_SilverRuneSurface_ThunderGodHammerShaftV1"):Definition==ColdSteelFrostRunes::RuneboundWarhammer?
+             TEXT("M_SilverRuneSurface_RuneboundWarhammerShaftV1"):TEXT("M_SilverRuneSurface_WarhammerShaftV2")):bWild?TEXT("M_SilverRuneSurface_HighlandWild"):bSpirit?TEXT("M_SilverRuneSurface_FrostSpirit"):TEXT("M_SilverRuneSurfaceV2");
+         if(MID&&MID->GetBaseMaterial()->GetName()!=DesiredBase)MID=nullptr;
+         if(!MID)
+         {
+-            auto* Material=LoadObject<UMaterialInterface>(nullptr,bWarhammer?
++            auto* Material=LoadObject<UMaterialInterface>(nullptr,bOath?TEXT("/Game/Weapons/HighlandClaymore20260922/OathRune20261106/M_SilverRuneSurface_HighlandOath"):bWarhammer?
+                 ColdSteelFrostRunes::WarhammerRuneMaterial(Definition,VisualRune):bWild?
+                 TEXT("/Game/Weapons/HighlandClaymore20260922/WildRune/M_SilverRuneSurface_HighlandWild"):bSpirit?
+                 TEXT("/Game/Weapons/FrostSpiritBurst20260922/M_SilverRuneSurface_FrostSpirit"):
+@@ -207,7 +209,7 @@
+             {
+                 MaskName=TEXT("resonance_rune");
+             }
+-            const FString TexturePath=bWild?TEXT("/Game/Weapons/HighlandClaymore20260922/WildRune/T_Mask_wild_rune"):
++            const FString TexturePath=bOath?TEXT("/Game/Weapons/HighlandClaymore20260922/OathRune20261106/T_Mask_highland_oath_rune"):bWild?TEXT("/Game/Weapons/HighlandClaymore20260922/WildRune/T_Mask_wild_rune"):
+                 TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+MaskName;
+             auto* Texture=LoadObject<UTexture>(nullptr,*TexturePath);
+             if(!Texture&&bGolden)Texture=LoadObject<UTexture>(nullptr,TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_resonance_rune"));

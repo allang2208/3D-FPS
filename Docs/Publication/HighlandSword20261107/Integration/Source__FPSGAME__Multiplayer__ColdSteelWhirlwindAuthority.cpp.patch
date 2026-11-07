@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp
+@@ -91,6 +91,8 @@
+     if(!ShadowModel->CommitWhirlwindCast(CastStats,Zhufeng)){Reply(false);return;}
+     // Reuse the cumulative martial receipt ledger so late mirrors/uploads cannot
+     // undo this payment or charge it twice after an animation has ended.
++    if(Sword && Sword->HasGaleGuard(&CastItem))
++        Sword->RecordGalePayment(GaleWing::Key(GaleWing::EAttack::Whirlwind,Sequence),Weapon,Before-ShadowModel->Stamina());
+     ShadowModel->Current.UppercutStaminaSpent+=FMath::Max(0.f,Before-ShadowModel->Stamina());
+     ServerWhirlwindCast=CastStats;WhirlwindActiveSequence=Sequence;WhirlwindMoveSequence=MoveSequence;
+     if(auto* Pendant=Pawn->FindComponentByClass<UKukriRelentlessComponent>())Pendant->PrepareServerAttack(3);

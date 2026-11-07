@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -234,6 +234,8 @@
+     AActor* Victim=Hit.GetActor(); const auto* Pawn=Cast<APawn>(Shooter);
+     auto* Combat=Victim?Victim->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+     const bool bAliveBefore=Combat&&!Combat->IsDead();
++    const bool GaleEnemy=Shot.GalePaymentKey && bAliveBefore && Shooter && Shooter->HasAuthority() &&
++        !Shot.bRicochet && UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter);
+     FTrainingHit Training; Training.Victim=Victim;
+     const FName Mastery=Shot.MasteryId.IsNone()?(Shot.bPistol?FName(TEXT("pistolMastery")):(Shot.bRifle?FName(TEXT("rifleMastery")):NAME_None)):Shot.MasteryId;
+     const auto& Skill=MasteryDefinition(Mastery);
+@@ -310,6 +312,11 @@
+         const bool PairedDash=Shot.bMelee&&!Shot.bRicochet&&Shot.AttackMeta==0x16&&Shot.PairedDashOffPhysical.Total()>0.;
+         if(PairedDash){Panel=Shot.PairedDashMainPhysical;Panel+=Shot.PairedDashOffPhysical;}
+         WeaponHit.Incoming=Panel.Total()>0?Panel.Scaled(Amount/Panel.Total()):FWeaponDamageParts{Amount,0,0,0};
++        if(!Shot.bRicochet&&(Shot.AttackMeta==0x10||Shot.AttackMeta==0x15))
++        {
++            WeaponHit.Incoming.BasePhysical*=Shot.OathPhysicalMultiplier;
++            WeaponHit.Incoming.AddedPhysical*=Shot.OathPhysicalMultiplier;
++        }
+         Amount=WeaponHit.Incoming.Total();
+         // Azure Dragon doubles physical channels only. Existing magic additions keep
+         // their own value; multiplying the scalar would incorrectly double them too.
+@@ -465,6 +472,9 @@
+         Applied+=MagicApplied;
+     }
+     const bool bDirectKill=bAliveBefore&&Applied>0.f&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||Combat->IsDead());
++    if(bDirectKill && GaleEnemy)
++        if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())
++            Sword->ConfirmGaleKill(Shot.GalePaymentKey,Shot.ItemInstance);
+     if(Shot.FirearmCriticalStunSeconds>0.f&&First.Critical&&!Shot.bRicochet&&bAliveBefore&&Applied>0.f&&!bDirectKill
+         &&Shooter&&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+     {

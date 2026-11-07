@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
+@@ -108,6 +108,7 @@
+     UpdateObserverKukriRifts();
+     PresentBeiweiTrail();
+     PresentRidgeGather();
++    PresentOathRune();
+     // The owner-view whirlwind uses the actual world blade after this frame's
+     // hand pose is finalized, alongside the other post-pose weapon effects.
+     if(Character.IsValid()&&Character->IsLocallyControlled()&&IsThirdPersonViewEnabled())

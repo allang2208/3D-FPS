@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordWhirlwind.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordWhirlwind.cpp
+@@ -71,6 +71,7 @@
+     {UE_LOG(LogTemp,Warning,TEXT("[Whirlwind] 大旋风动画缺失，未扣除体力或冷却"));return false;}
+     const FWhirlwindCast Cast=FromZhufengDash?Profile->ZhufengWhirlwindStats():Profile->WhirlwindStats();
+     const bool RuneSwordCooldown=Item->Definition==TEXT("ue_rune_sword");
++    const float BeforeStamina=Profile->Stamina();
+     const bool Remote=Character->GetNetMode()==NM_Client;
+     const FVector Direction=Character->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
+     if(Remote)
+@@ -97,6 +98,11 @@
+     ImpactAge=1.f;ImpactStrength=1.f;
+     WhirlwindYaw=Character->GetControlRotation().Yaw;
+     HitActors.Reset();SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
++    if(!Remote && HasGaleGuard(Profile->Equipped()))
++    {
++        SwingSkills.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Whirlwind,++LocalGaleSkillSerial);
++        RecordGalePayment(SwingSkills.GalePaymentKey,InstanceId,BeforeStamina-Profile->Stamina());
++    }
+     CaptureAzureDragonAttack(Profile);
+     UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
+     SwingSkills.WeakpointPercent=0;SwingSkills.AttackForm=EMonsterAttackForm::Blade;SwingSkills.AttackMeta|=0x20;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison; // 0x20=群体旋风：服务端按已提交的主动/次级快照结算。

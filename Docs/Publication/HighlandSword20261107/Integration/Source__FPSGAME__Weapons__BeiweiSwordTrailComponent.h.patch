@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Weapons/BeiweiSwordTrailComponent.h
++++ b/Source/FPSGAME/Weapons/BeiweiSwordTrailComponent.h
+@@ -14,6 +14,9 @@
+     UBeiweiSwordTrailComponent();
+     void SetView(bool OwnerOnly,bool HideFromOwner);
+     void Feed(const FVector& Base,const FVector& Tip,bool Emitting,ESwordTrailPalette Palette=ESwordTrailPalette::Gold);
++    void Feed(const FVector& Base,const FVector& Tip,bool Emitting,ESwordTrailPalette Palette,double SampleAge);
++    // A single-material trail can stream only its own palette (e.g. Highland oath).
++    void ConfigureSingleMaterial(const FSoftObjectPath& Path,float Seconds);
+     void Clear();
+     virtual void BeginPlay() override;
+     virtual void EndPlay(EEndPlayReason::Type Reason) override;
+@@ -21,6 +24,8 @@
+ private:
+     struct FSample {FVector Base,Tip;double Time;bool Start;};
+     TArray<FSample> Samples;
++    FSoftObjectPath SingleMaterialPath;
++    float SampleLifetime=.24f;
+     FVector Origin=FVector::ZeroVector;
+     bool bContinuous=false,bOwnerOnly=false,bHideOwner=false;
+     ESwordTrailPalette ActivePalette=ESwordTrailPalette::Gold;

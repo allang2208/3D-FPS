@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordUppercut.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordUppercut.cpp
+@@ -137,7 +137,13 @@
+     if(!RisingDragon&&!bSwingCuePlayed&&Next>=ContactStart)
+     {
+         auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        const float Before=Profile?Profile->Stamina():0.f;
+         if(!Profile||!Profile->CommitSwordUppercutRelease()){CancelAction();return;}
++        if(Character->HasAuthority() && HasGaleGuard(Profile->Equipped()))
++        {
++            SwingSkills.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Uppercut,++LocalGaleSkillSerial);
++            RecordGalePayment(SwingSkills.GalePaymentKey,InstanceId,Before-Profile->Stamina());
++        }
+         if(!bUppercut)return;
+     }
+     const FTransform AimBeforeLunge=Character->GetMeleeAimTransform();
