@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -738,7 +738,7 @@
+         if(S.Handling.RecoilLoadScale<0.999f)Row(Main,TEXT("移动/滞空后坐"),N(S.Handling.RecoilLoadScale*100)+TEXT("%"));
+         if(Weapon->Ammo==TEXT("ammo_12g"))
+             Row(Main,ColdSteelWeaponText::PelletSpreadMultiplier,N(G->PelletSpreadMultiplier(I.Definition,Parts))+TEXT("×"));
+-        if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
++        if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"))+S.FirearmCriticalDamageBonus;CritBonus>0)
+             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
+         // 武器自带护甲穿透（物品定义 innate_armor_penetration）：与弹种穿透分开显示，
+         // 结算时按「改造 + 附魔 + 自带 + 弹种」相加后 clamp 到 100%。

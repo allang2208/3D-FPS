@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp
++++ b/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp
+@@ -31,6 +31,12 @@
+ }
+ }
+ 
++UWeaponGripProfile* AFPSGAMECharacter::M24MeleeHandProfile(UWeaponGripProfile* SharedGrip) const
++{
++    const bool Extended = MagazineAttachmentId == M24Attachments::ExtendedMagazine;
++    auto* Carbon = WeaponGripProfiles.FindRef(SniperSkeletonStock::M24CarbonMeleeSlot(Extended)).Get();
++    return Carbon && SharedGrip && Carbon->Family == SharedGrip->Family ? Carbon : SharedGrip;
++}
+ 
+ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon, const FString& GripBody)
+ {
+@@ -39,6 +45,8 @@
+         // The body is assembled first for equipped, preview and pickup rigs.
+         // A direct skeleton stock still needs its default grip when locked.
+         const FString GripVariant=PrismHandstop?Variant:FString();
++        for (const bool Extended : {false, true})
++            WeaponGripProfiles.Remove(SniperSkeletonStock::M24CarbonMeleeSlot(Extended));
+         if(bInventoryWeaponReady&&SniperSkeletonStock::UsesM24DirectStock(StockAttachment))
+         {
+             RearGripAttachment=SniperSkeletonStock::ConfigureM24Grip(this,AKMViewmodel,RearGripAttachment,GripVariant);
+@@ -47,6 +55,12 @@
+             {
+                 const FName Family=SniperSkeletonStock::M24GripFamily(RearGripAttachment,Extended);
+                 if(!WeaponGripProfiles.Contains(Family))InitializeWeaponGripFamily(Family,Unused);
++                if (StockAttachment->GetStaticMesh()->GetPathName().StartsWith(SniperSkeletonStock::M24CarbonMeshPrefix))
++                {
++                    auto* Carbon = LoadObject<UWeaponGripProfile>(nullptr, *SniperSkeletonStock::M24CarbonMeleePath(Family));
++                    if (Carbon && Carbon->Family == Family)
++                        WeaponGripProfiles.Add(SniperSkeletonStock::M24CarbonMeleeSlot(Extended), Carbon);
++                }
+             }
+             return;
+         }

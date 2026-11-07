@@ -144,6 +144,7 @@ struct FColdSteelSkillShot
     bool bPerfectBowRelease = false;
     /** Installed sniper suppressor: reuse the bow's post-damage alarm deferral. */
     bool bSilentLethalShot = false;
+    float FirearmCriticalStunSeconds = 0.f;
     float WeakpointPercent = 0;
     float CriticalDamageBonus = 0;
     /** Guaranteed ammo effects captured on release, independent of later selection. */

@@ -18,15 +18,18 @@ void AFPSGAMECharacter::SetM24Optic(const FString& Variant)
     }
     if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return;
     const FString Moving=M24Attachments::MovingOpticPart(Key);
+    const FString RailSeat=PrismHandstop?TEXT("m24_rail_seat_advanced"):TEXT("m24_rail_seat_native");
     auto* Body=LoadObject<UStaticMesh>(nullptr,*M24Attachments::MeshPath(Key));
     auto* Ring=Moving.IsEmpty()?nullptr:LoadObject<UStaticMesh>(nullptr,*M24Attachments::MeshPath(Moving));
+    auto* Seat=LoadObject<UStaticMesh>(nullptr,*M24Attachments::MeshPath(RailSeat));
     // Resolve the complete assembly before replacing the currently mounted one.
-    if(!Body||(!Moving.IsEmpty()&&!Ring))
+    if(!Body||!Seat||(!Moving.IsEmpty()&&!Ring))
     {UE_LOG(LogTemp,Error,TEXT("M24 missing fitted optic assembly %s"),*Key);return;}
     const bool Changed=OpticVariant!=Key||!bHolographicOptic||!HolographicOptic||HolographicOptic->GetStaticMesh()!=Body;
     HolographicOptic=M24Attachments::Configure(this,AKMViewmodel,HolographicOptic,Key,true);
     HolographicMount=HolographicOptic->GetRelativeTransform();
-    Remove(AKMOpticBridge); // The M24 has its own continuous receiver rail.
+    // Fill the measured rail-to-receiver gap without moving the optic or its sight sockets.
+    AKMOpticBridge=M24Attachments::Configure(this,AKMViewmodel,AKMOpticBridge,RailSeat,true);
     if(Changed)
     {
         LPVOMagnification=DisplayedLPVOMagnification=Key==M24Attachments::Scope?6.f:1.f;

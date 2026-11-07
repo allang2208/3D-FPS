@@ -8,6 +8,8 @@
 #include "../Weapons/PKMLowpolyWeaponAssets.h"
 #include "../Weapons/LMG201WeaponAssets.h"
 #include "../Weapons/M24WeaponAssets.h"
+#include "../Weapons/SVDWeaponAssets.h"
+#include "../Weapons/SVCHWeaponAssets.h"
 #include "Components/AudioComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/AssetManager.h"
@@ -157,6 +159,12 @@ bool UFPSPlayerBodyComponent::AcceptGunEvent(FFPSGunEvent& E)
     // a suppressor change and its first shot arrived on different channels.
     if(E.Kind==EFPSGunEvent::Shot&&W.GunDefinition==M24WeaponAssets::Definition)
         E.Sound=W.bGunSuppressed?W.GunSuppressedSound:W.GunFireSound;
+    else if(E.Kind==EFPSGunEvent::Shot&&(W.GunDefinition==SVDWeaponAssets::Definition||W.GunDefinition==SVCHWeaponAssets::Definition))
+    {
+        const auto& Variants=W.bGunSuppressed?Character->RifleSuppressedVariants:Character->RifleFireVariants;
+        if(!E.Sound.Get()||!Variants.Contains(E.Sound.Get()))
+            E.Sound=W.bGunSuppressed?W.GunSuppressedSound:W.GunFireSound;
+    }
     if(!E.Sound.IsNull()&&!W.GunSounds.Contains(E.Sound))return false;
     if(E.Kind==EFPSGunEvent::Shot&&TubeShotgunAssets::Supports(W.GunDefinition))return false;
     Received=E.Sequence;return true;

@@ -1,0 +1,84 @@
+--- a/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp
++++ b/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp
+@@ -1,4 +1,5 @@
+ #include "ShotgunWireAudit.h"
++#include "SniperZhimingWire.h"
+ #include "M870WeaponAssets.h"
+ #include "Saiga12KWeaponAssets.h"
+ #include "Saiga12KMagazineAssets.h"
+@@ -139,10 +140,16 @@
+ FColdSteelProfile Seed(UColdSteelStatusModel* Model,const FString& Id,int32 Phase)
+ {
+     auto S=Model->Snapshot();S.Items.Reset();S.ActiveWeaponSlot=6;S.ActiveProductionTool.Reset();S.DungeonRun={};
+-    auto W=Model->CreateItem(M24()?M24WeaponAssets::Definition:SVCH()?SVCHWeaponAssets::Definition:Saiga()?Saiga12KWeaponAssets::Definition:M870WeaponAssets::Definition);W.InstanceId=Id;W.Place=1;W.Cell=6;W.Magazine=ProfileRifle()?Capacity(Phase):7;
++    auto W=Model->CreateItem(SniperZhimingWire::Enabled()?SniperZhimingWire::Definition(Phase):M24()?M24WeaponAssets::Definition:SVCH()?SVCHWeaponAssets::Definition:Saiga()?Saiga12KWeaponAssets::Definition:M870WeaponAssets::Definition);W.InstanceId=Id;W.Place=1;W.Cell=6;W.Magazine=ProfileRifle()?Capacity(Phase):7;
+     TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(W.Data),Data);
+     auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("tactical"),Phase==1?TEXT("blessed_laser"):TEXT("laser"));
+-    if(M24())
++    if(SniperZhimingWire::Enabled())
++    {
++        Parts->Values.Reset();
++        Parts->SetStringField(TEXT("muzzle"),Phase%2==0?SniperSuppressorAssets::Zhiming:TEXT("none"));
++        W.Magazine=3;
++    }
++    else if(M24())
+     {
+         Parts->SetStringField(TEXT("tactical"),Phase==1?TEXT("blessed_laser"):Phase==2?TEXT("flashlight"):TEXT("laser"));
+         Parts->SetStringField(TEXT("muzzle"),Phase>0&&Phase<5?M24Attachments::Suppressor:TEXT("none"));
+@@ -201,6 +208,12 @@
+     // player camera cache, not just Controller.ControlRotation.
+     Pawn->FirstPersonCamera->SetWorldRotation(FRotator(M870Wire::Pitch(Phase),0,0));
+     auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();if(Body)Body->SetComponentTickEnabled(!Muted);
++    if(SniperZhimingWire::Enabled())
++    {
++        Pawn->bInventoryWeaponReady=true;
++        if(Body)Body->SetComponentTickEnabled(true);
++        return;
++    }
+     if(!Pawn->IsLocallyControlled())return;
+     if(M870Wire::ProfileRifle())
+     {
+@@ -317,6 +330,11 @@
+     auto* Body=Subject->FindComponentByClass<UFPSPlayerBodyComponent>();
+     Body->DisplayState=Body->SampleLocalState();Body->CaptureEquipment();
+     ObserverSubject=Host;Current=Phase;Weapon=Id;Started=GetWorld()->GetRealTimeSeconds();bReported=false;bSent=false;
++    if(SniperZhimingWire::Enabled())
++    {
++        bObservedSniperStun=false;SniperStunPeak=0.f;
++        SniperStunFirstAt=SniperStunLastAt=-1.;SentAt=-1.;
++    }
+     PoseM870Presentation(Subject,Phase,Phase==4);
+     UE_LOG(LogTemp,Display,TEXT("M870_PRESENTATION_CLIENT_SETUP phase=%d"),Phase);
+ }
+@@ -329,6 +347,7 @@
+     if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return true;}
+     if(Current<0||bReported)return true;
+     auto* Subject=Cast<AFPSGAMECharacter>(GetPawn());PoseM870Presentation(Subject,Current,Current==4);
++    if(SniperZhimingWire::Enabled()){TickSniperZhiming(Subject,Now);return true;}
+     if(M870Wire::M24()&&Current==1&&!bSent&&Now-Started>=4.)
+     {
+         if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->ServerRememberM24Launch(Subject,Weapon,1,1);
+@@ -370,6 +389,12 @@
+ void AShotgunWireAuditController::ServerPresentationResult_Implementation(int32 Phase,bool ObserverOK,FVector HostLaser,FVector OwnerLaser,FVector OwnerGrip)
+ {
+     if(!M870Wire::Enabled()||Phase!=Expected||Finished!=Phase)return;
++    if(SniperZhimingWire::Enabled())
++    {
++        if(Results.Num()!=Phase+1)return;
++        Results.Last()->AsObject()->SetBoolField(TEXT("client_passed"),ObserverOK);
++        bAllPassed&=ObserverOK;++Finished;return;
++    }
+     auto* Subject=Cast<AFPSGAMECharacter>(GetPawn());auto* Body=Subject?Subject->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
+     UFPSPlayerBodyComponent* HostBody=nullptr;
+     for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
+@@ -481,8 +506,9 @@
+     {
+         if(Prepared==INDEX_NONE)M870Wire::Network(GetWorld());
+         Prepared=Guest->Finished;
+-        if(Prepared!=4)Weapon=FGuid::NewGuid().ToString();
++        if(SniperZhimingWire::Enabled()?Prepared%2==0:Prepared!=4)Weapon=FGuid::NewGuid().ToString();
+         Guest->Expected=Prepared;
++        if(SniperZhimingWire::Enabled())SniperZhimingWire::EnsureTarget(GetWorld());
+         const auto Seed=M870Wire::Seed(Model,Weapon,Prepared);
+         if(!PS->ShadowModel)PS->ShadowModel=Model->CreateShadowModel(Seed);else PS->ShadowModel->Current=Seed;
+         PS->ShadowModel->CurrentPawn=Pawn;Pawn->NetShadowProfile=PS->ShadowModel;

@@ -1,4 +1,5 @@
 #include "M24Attachments.h"
+#include "SniperSuppressorAssets.h"
 #include "M24AttachmentCoordinates.h"
 #include "M24OpticCoordinates.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -39,6 +40,9 @@ FString MovingOpticPart(const FString& Key)
 {return Key==TEXT("lpvo_1_6x")?TEXT("lpvo_ring"):Key==TEXT("thermal_scope")?TEXT("thermal_selector"):FString();}
 FString MeshPath(const FString& Key)
 {
+    if(Key==SniperSuppressorAssets::Zhiming)return SniperSuppressorAssets::ZhimingMesh;
+    if(Key==TEXT("m24_rail_seat_native")||Key==TEXT("m24_rail_seat_advanced"))
+        return TEXT("/Game/Weapons/M24/RailSeats20261106/Meshes/SM_M24_")+Key;
     if(Key==AdvancedAction)return TEXT("/Game/Weapons/M24/AdvancedAction20261029/Meshes/SM_M24_")+Key;
     if(IsRearGrip(Key))return TEXT("/Game/Weapons/M24/RearGrip20261029/Meshes/SM_M24_")+Key;
     const bool Shared=IsSharedOptic(Key)||Key==TEXT("lpvo_ring")||Key==TEXT("thermal_selector");
@@ -53,7 +57,8 @@ float EyeDistanceCM(const FString& Key,float FactoryEyeDistanceCM)
     return FactoryEyeDistanceCM+(IsSharedOptic(Key)?M24OpticCoordinates::OcularForwardCM(Key):0.f);
 }
 bool IsPart(const FString& Key)
-{return IsOptic(Key)||Key==Suppressor||Key==CheekRest||Key==ExtendedMagazine||IsRearGrip(Key)||Key==AdvancedAction;}
+{return IsOptic(Key)||Key==Suppressor||Key==SniperSuppressorAssets::Zhiming||Key==CheekRest||Key==ExtendedMagazine||IsRearGrip(Key)||Key==AdvancedAction
+    ||Key==TEXT("m24_rail_seat_native")||Key==TEXT("m24_rail_seat_advanced");}
 void FactoryChassisSections(USkeletalMeshComponent* Host,bool Visible)
 {
     if(!Host||!Host->GetSkeletalMeshAsset())return;
@@ -136,7 +141,10 @@ UStaticMeshComponent* Configure(AActor* Owner,USkeletalMeshComponent* Host,
     if(Existing->GetStaticMesh()!=Asset)Existing->EmptyOverrideMaterials();
     // Shared optics remain in their original +X-forward centimetre frame.
     // Native M24 assemblies are already baked into the source -Y-forward frame.
-    const FTransform Mounted=IsSharedOptic(Key)?M24OpticCoordinates::InSource(Key)*Mount(Host):Mount(Host);
+    FTransform Mounted=Mount(Host);
+    if(IsSharedOptic(Key))Mounted=M24OpticCoordinates::InSource(Key)*Mounted;
+    else if(Key==SniperSuppressorAssets::Zhiming)
+        Mounted=FTransform(FRotator(0,-90,0),M24AttachmentCoordinates::BareMuzzle)*Mounted;
     const FTransform Relative=Magazine?(Mounted*Reference(Host,TEXT("WPN_root"))).GetRelativeTransform(Reference(Host,TEXT("WPN_Magazine"))):Mounted;
     Existing->SetStaticMesh(Asset);Existing->SetRelativeTransform(Relative);
     Existing->SetOnlyOwnerSee(Host->bOnlyOwnerSee);

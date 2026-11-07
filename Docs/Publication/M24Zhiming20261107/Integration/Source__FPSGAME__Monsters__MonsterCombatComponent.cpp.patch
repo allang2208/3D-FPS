@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
++++ b/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
+@@ -513,6 +513,7 @@
+  if(FalconLeanAge>=0.f)TickFalconLean(Dt);
+  if(!GetOwner()->HasAuthority())
+  {
++  bStunned=StunSecondsRemaining()>0.f;
+   // 远端副本镜像：按复制的 HitReactions 计数驱动本地表现时钟；
+   // 怪类 State 字段不复制，这里用 bNetReacting 替代 IsControlled() 作为驱动条件。
+   if(bNetReacting&&!IsDead()&&!IsKnockedDown())

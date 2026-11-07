@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -319,6 +319,8 @@
+     // ADS row reports the catalog's 开镜耗时 percent unchanged.
+     auto Ratio=[&](double Was,double Now){return Was>.00001?(Now/Was-1.)*100.:0.;};
+     AddValue(ColdSteelWeaponText::ADS,Before.ADS*1000,After.ADS*1000,0,TEXT(" ms"),true,Option->ADS*100.);
++    if(Before.FirearmCriticalDamageBonus!=0.||After.FirearmCriticalDamageBonus!=0.)
++        AddValue(ColdSteelWeaponText::CriticalBonus,Before.FirearmCriticalDamageBonus*100.,After.FirearmCriticalDamageBonus*100.,0,TEXT("%"),false,Option->FirearmCriticalDamageBonus*100.);
+     if(!FMath::IsNearlyZero(Before.EquipSpeedBonus)||!FMath::IsNearlyZero(After.EquipSpeedBonus))
+         AddValue(ColdSteelWeaponText::EquipSpeedBonus,Before.EquipSpeedBonus*100.,After.EquipSpeedBonus*100.,0,TEXT("%"),false,Option->EquipSpeedBonus*100.);
+     AddValue(ColdSteelWeaponText::Capacity,Before.Capacity,After.Capacity,0,TEXT(" 发"),false,Ratio(Before.Capacity,After.Capacity));

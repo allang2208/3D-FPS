@@ -84,6 +84,8 @@ public:
  bool ReceiveForcedLaunch(APawn* Attacker,FVector LaunchVelocity,float ControlSeconds);
  /** 技能硬控：打断当前攻击进入眩晕反应，并沿受击方向推退。无招架表现标记。 */
  void ReceiveStun(APawn* Attacker,float Seconds,float KnockbackCM);
+ void ShowZhimingCritical(FVector ImpactPoint,float Seconds);
+ UFUNCTION(NetMulticast,Reliable) void MulticastZhimingCritical(FVector_NetQuantize ImpactPoint,double ServerAt,float Seconds);
  bool IsParryReaction() const { return bParryReaction; }
  const FVector& GetParryDirection() const { return ParryPushDirection; }
  void BeginReaction(float Duration);
@@ -158,4 +160,6 @@ public:
 private:
  TSharedPtr<class FMonsterNetworkHitHistory> NetworkHitHistory;
  FDelegateHandle NetworkHitPoseHandle;
+ // Client presentation ceiling, keyed by the replicated server deadline.
+ double ObservedStunServerEnd=0.;
 };

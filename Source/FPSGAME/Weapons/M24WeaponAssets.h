@@ -6,7 +6,7 @@ namespace M24WeaponAssets
 {
 inline constexpr const TCHAR* Definition=TEXT("ue_m24");
 inline constexpr const TCHAR* FireSoundPath=TEXT("/Game/Weapons/M24/FireAudio20261104/S_M24_Fire");
-inline constexpr const TCHAR* SuppressedSoundPath=TEXT("/Game/Weapons/M24/FireAudio20261104/S_M24_Suppressed");
+inline constexpr const TCHAR* SuppressedSoundPath=TEXT("/Game/Weapons/M24/FireAudio20261104/S_M24_Suppressed_Warm");
 inline constexpr const TCHAR* MeshPath=TEXT("/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9");
 inline constexpr const TCHAR* SupportGripProfile=TEXT("/Game/Weapons/M24/MotionPolish20261027/DA_M24_SupportGrip");
 inline constexpr const TCHAR* ExtendedMagazineProfile=TEXT("/Game/Weapons/M24/MotionPolish20261027/DA_M24_Mag10");

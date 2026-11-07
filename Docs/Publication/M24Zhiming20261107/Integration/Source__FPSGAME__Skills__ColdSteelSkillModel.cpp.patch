@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -475,6 +475,12 @@
+     if(bDirectKill && GaleEnemy)
+         if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())
+             Sword->ConfirmGaleKill(Shot.GalePaymentKey,Shot.ItemInstance);
++    if(Shot.FirearmCriticalStunSeconds>0.f&&First.Critical&&!Shot.bRicochet&&bAliveBefore&&Applied>0.f&&!bDirectKill
++        &&Shooter&&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++    {
++        Combat->ReceiveStun(Cast<APawn>(Shooter),Shot.FirearmCriticalStunSeconds,0.f);
++        Combat->ShowZhimingCritical(Hit.ImpactPoint+Hit.ImpactNormal,Shot.FirearmCriticalStunSeconds);
++    }
+     // Charge each participating blade once, after resolving the contact against
+     // the old armor. Both hands use their own authoritative equipment snapshot.
+     const int32 ScytheContacts=int32(Shot.bGhostScytheContact&&First.Amount>0.f)

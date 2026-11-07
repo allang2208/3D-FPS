@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp
+@@ -9,6 +9,8 @@
+ #include "../Weapons/M249WeaponAssets.h"
+ #include "../Weapons/LMG201WeaponAssets.h"
+ #include "../Weapons/M24WeaponAssets.h"
++#include "../Weapons/SVDWeaponAssets.h"
++#include "../Weapons/SVCHWeaponAssets.h"
+ #include "Components/AudioComponent.h"
+ #include "Components/StaticMeshComponent.h"
+ #include "Engine/AssetManager.h"
+@@ -161,6 +163,12 @@
+     // Equipment publication and the shot can arrive on different actor channels.
+     if(E.Kind==EFPSGunEvent::Shot&&W.GunDefinition==M24WeaponAssets::Definition)
+         E.Sound=W.bGunSuppressed?W.GunSuppressedSound:W.GunFireSound;
++    else if(E.Kind==EFPSGunEvent::Shot&&(W.GunDefinition==SVDWeaponAssets::Definition||W.GunDefinition==SVCHWeaponAssets::Definition))
++    {
++        const auto& Variants=W.bGunSuppressed?Character->RifleSuppressedVariants:Character->RifleFireVariants;
++        if(!E.Sound.Get()||!Variants.Contains(E.Sound.Get()))
++            E.Sound=W.bGunSuppressed?W.GunSuppressedSound:W.GunFireSound;
++    }
+     if(!E.Sound.IsNull()&&!W.GunSounds.Contains(E.Sound))return false;
+     if(E.Kind==EFPSGunEvent::Shot&&TubeShotgunAssets::Supports(W.GunDefinition))return false;
+     if(E.Kind==EFPSGunEvent::Shot&&Character.IsValid()&&Character->IsM24Weapon())

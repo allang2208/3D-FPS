@@ -69,3 +69,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - M24 肩根退镜、独立握把换握和拉栓微动复用：[保留接触的局部腕臂修订](references/m24-preserve-contact.md)。
 
 - 视频拟合双手横扫／突刺，尤其画外肘腕扭曲、蓄满到释放衔接：[视频拟合与突刺衔接](references/video-fit-thrust-handoff.md)。保留实际握点、角度连续性和活跃采样依赖。
+
+- M24 骨架与碳纤维后托的快速近战、手指回握与差量分流：读取 [M24 骨架与碳纤维后托的快速近战、手指回握与差量分流](references/m24-stock-hand-continuity.md)。

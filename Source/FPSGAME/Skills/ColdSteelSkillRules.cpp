@@ -570,6 +570,11 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
             {
                 const auto Installed=G->Installed(*I);
                 const auto Stats=G->Calculate(I->Definition,Installed);
+                if(bFiredRound)
+                {
+                    Shot.CriticalDamageBonus+=float(Stats.FirearmCriticalDamageBonus);
+                    Shot.FirearmCriticalStunSeconds=float(Stats.CriticalStunSeconds);
+                }
                 Shot.bSilentLethalShot=bFiredRound&&SniperSuppressorAssets::Supports(I->Definition)
                     &&Installed.FindRef(TEXT("muzzle"))==SniperSuppressorAssets::Part;
                 Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,Stats.Damage);

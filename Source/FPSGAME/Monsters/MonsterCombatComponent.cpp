@@ -509,6 +509,7 @@ void UMonsterCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
  Super::TickComponent(Dt,Type,Tick);
  if(!GetOwner()->HasAuthority())
  {
+  bStunned=StunSecondsRemaining()>0.f;
   // 远端副本镜像：按复制的 HitReactions 计数驱动本地表现时钟；
   // 怪类 State 字段不复制，这里用 bNetReacting 替代 IsControlled() 作为驱动条件。
   if(bNetReacting&&!IsDead()&&!IsKnockedDown())

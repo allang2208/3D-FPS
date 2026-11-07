@@ -1,0 +1,49 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -116,6 +116,7 @@
+ #include "Weapons/M24ReloadTiming.h"
+ #include "Weapons/M24Attachments.h"
+ #include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
+ #include "Weapons/Saiga12KWeaponAssets.h"
+ #include "Weapons/SVDAttachments.h"
+ #include "Weapons/M16WeaponAssets.h"
+@@ -2036,7 +2037,7 @@
+             GunplayAnimation->ActionClip=Clip;
+             GunplayAnimation->ActionTime=0.f;
+             GunplayAnimation->ActionAlpha=0.f;
+-            if(IsM24Weapon())GunplayAnimation->ActionGripProfile=WeaponGripProfileFor(Grip);
++            if(IsM24Weapon())GunplayAnimation->ActionGripProfile=M24MeleeHandProfile(WeaponGripProfileFor(Grip));
+         }
+     }
+     static const TCHAR* const GripNames[]={TEXT("Base"),TEXT("Drum"),TEXT("Angled"),TEXT("Vertical"),TEXT("Canted"),TEXT("Prism")};
+@@ -2993,8 +2994,9 @@
+     if (UsesSingleShotTrigger()) bPistolShotPending = false;
+     ++ShotsFired;
+     const bool bSuppressedNoise = IsMuzzleSuppressed();
+-    if(!PredictSuper90&&!(SniperSuppressorAssets::Supports(ActiveInventoryWeaponDefinition)&&MuzzleVariant==SniperSuppressorAssets::Part))
+-        UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,bSuppressedNoise?1000.f:3600.f,bSuppressedNoise?TEXT("GunshotSuppressed"):TEXT("Gunshot"));
++    const bool bSniperLaunch=SniperSuppressorAssets::SupportsZhiming(ActiveInventoryWeaponDefinition);
++    if(!PredictSuper90&&(HasAuthority()||!bSniperLaunch))
++        WeaponShotNoise::Report(this,ActiveInventoryWeaponDefinition,MuzzleVariant,bSuppressedNoise);
+     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
+     if (TriggerFirstShotWorldTime < 0.0) TriggerFirstShotWorldTime = Now;
+     // Remote body recoil uses this stamp; gun audio/flash/casing use the per-hand event below.
+@@ -3002,7 +3004,7 @@
+     {
+         if(auto* PS=GetPlayerState<AColdSteelPlayerState>())
+         {
+-            if(IsM24Weapon())PS->ServerRememberM24Launch(this,ActiveInventoryWeapon,uint32(ShotsFired),ConvergenceRounds);
++            if(bSniperLaunch)PS->ServerRememberM24Launch(this,ActiveInventoryWeapon,uint32(ShotsFired),ConvergenceRounds);
+             else PS->ServerReportShotStamp();
+         }
+     }
+@@ -4623,6 +4625,8 @@
+             ? QuickCombatRecovery::RemainingWeight(ActionElapsed, ActionDuration, QuickCombatRecovery::IdleHandoffStart)
+             : FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
+         GunplayAnimation->ActionClip = DrumPose(ActiveActionAnimation);
++        if (bQuickCombatAction && IsM24Weapon())
++            GunplayAnimation->ActionGripProfile = M24MeleeHandProfile(GunplayAnimation->GripProfile);
+         // Each SVCH family preserves its native magazine/left-bolt contacts and
+         // adds only the attachment release/regrip. Fall back to the factory layer.
+         if(SVCHWeaponAssets::Matches(AKMViewmodel)

@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "role": "client",
+  "cases": [
+    {
+      "phase": 0,
+      "host_muzzle_and_audio_manifest": true,
+      "owner_muzzle_and_audio_manifest": true,
+      "stun_peak_seconds": 0.1797395646572113,
+      "stun_observed_seconds": 0.16667130216956139,
+      "owner_fired": true,
+      "observed_stun": true,
+      "stun_window_correct": true
+    },
+    {
+      "phase": 1,
+      "host_muzzle_and_audio_manifest": true,
+      "owner_muzzle_and_audio_manifest": true,
+      "stun_peak_seconds": 0,
+      "stun_observed_seconds": 0,
+      "owner_fired": true,
+      "observed_stun": false,
+      "stun_window_correct": true
+    },
+    {
+      "phase": 2,
+      "host_muzzle_and_audio_manifest": true,
+      "owner_muzzle_and_audio_manifest": true,
+      "stun_peak_seconds": 0.11227858066558838,
+      "stun_observed_seconds": 0.10000020265579224,
+      "owner_fired": true,
+      "observed_stun": true,
+      "stun_window_correct": true
+    },
+    {
+      "phase": 3,
+      "host_muzzle_and_audio_manifest": true,
+      "owner_muzzle_and_audio_manifest": true,
+      "stun_peak_seconds": 0,
+      "stun_observed_seconds": 0,
+      "owner_fired": true,
+      "observed_stun": false,
+      "stun_window_correct": true
+    },
+    {
+      "phase": 4,
+      "host_muzzle_and_audio_manifest": true,
+      "owner_muzzle_and_audio_manifest": true,
+      "stun_peak_seconds": 0.11873261630535126,
+      "stun_observed_seconds": 0.1000019982457161,
+      "owner_fired": true,
+      "observed_stun": true,
+      "stun_window_correct": true
+    },
+    {
+      "phase": 5,
+      "host_muzzle_and_audio_manifest": true,
+      "owner_muzzle_and_audio_manifest": true,
+      "stun_peak_seconds": 0,
+      "stun_observed_seconds": 0,
+      "owner_fired": true,
+      "observed_stun": false,
+      "stun_window_correct": true
+    }
+  ]
+}

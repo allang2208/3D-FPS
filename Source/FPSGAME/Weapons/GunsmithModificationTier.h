@@ -12,6 +12,11 @@ namespace ColdSteelModification
 {
 inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
 {
+    if(SlotKey==TEXT("stock")&&Id==TEXT("sniper_skeleton_stock")&&
+        (Weapon==TEXT("ue_m24")||Weapon==TEXT("ue_svd")||Weapon==TEXT("ue_svch")))
+        return EGunsmithModificationTier::Special;
+    if(SlotKey==TEXT("muzzle")&&Id==SniperSuppressorAssets::Zhiming&&SniperSuppressorAssets::SupportsZhiming(Weapon))
+        return EGunsmithModificationTier::Special;
     if(Weapon==TEXT("ue_rune_sword")&&SlotKey==TEXT("blade_material")&&(Id==TEXT("time_sand_gold")||Id==TEXT("frost_crystal")))
         return EGunsmithModificationTier::Legendary;
     if(Weapon==TEXT("ue_frost_crystal_sword")&&SlotKey==TEXT("blade_material")&&

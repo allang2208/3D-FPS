@@ -1,0 +1,43 @@
+{
+  "created": "2026-11-07T16:14:49.5003749+08:00",
+  "scope": "M24 SVD SVCh Zhiming suppressor networking plus M24 stock presentation regression",
+  "fixes": [
+    "Preserve firing-time sniper equipment and critical stats for in-flight hits",
+    "Correct remote fire sound bank while preserving valid variants",
+    "Report remote sniper shot hearing on the authoritative server",
+    "Reliable short-stun cue with bounded monotonic client presentation and expiry"
+  ],
+  "editor_build": "D:/FPS3D/FPSGAME/Saved/BuildEditor/build-20261107-160449.log",
+  "editor_build_succeeded": true,
+  "game_build": "D:\\FPS3D\\FPSGAME\\Saved\\SniperZhimingReview20261107\\FinalReview\\Wire\\20261107-160432\\build-game.log",
+  "game_build_succeeded": true,
+  "zhiming_network": {
+    "passed": true,
+    "cases": 12,
+    "hearing_cases_passed": 12,
+    "client_passed": true,
+    "reconnect_passed": true,
+    "max_observed_client_stun_remaining": 0.1797395646572113,
+    "receipt": "D:\\FPS3D\\FPSGAME\\Saved\\SniperZhimingReview20261107\\FinalReview\\wire-receipt.json"
+  },
+  "m24_stock_network": {
+    "passed": true,
+    "receipt": "D:\\FPS3D\\FPSGAME\\Saved\\SniperZhimingReview20261107\\M24StockRegression\\wire-receipt.json",
+    "cases": 12
+  },
+  "network_conditions": {
+    "transport": "local UDP listen host, client, fresh reconnect",
+    "lag_ms_each_peer": 60,
+    "loss_percent_each_peer": 5
+  },
+  "files_changed_since_test_start": [],
+  "editor_running": false,
+  "owned_test_processes_remaining": 0,
+  "editor_session_save_receipt_exists": false,
+  "editor_save_note": "The interactive editor exited before the save command could reach it. No session-save confirmation was obtained; no GUI editor was started for this audit.",
+  "limitations": [
+    "Headless nullrhi nosound networking; no rendered visual acceptance or speaker audition",
+    "No fresh frame-by-frame finger contact review",
+    "No packaged dedicated server or external WAN test"
+  ]
+}

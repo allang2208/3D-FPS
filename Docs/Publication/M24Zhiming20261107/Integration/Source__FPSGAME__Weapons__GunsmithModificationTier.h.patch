@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -42,6 +42,9 @@
+         return EGunsmithModificationTier::Legendary;
+     if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("stock")&&Id==TEXT("m24_carbon_spine_stock"))
+         return EGunsmithModificationTier::Special;
++    if(SlotKey==TEXT("stock")&&Id==TEXT("sniper_skeleton_stock")&&
++        (Weapon==TEXT("ue_m24")||Weapon==TEXT("ue_svd")||Weapon==TEXT("ue_svch")))
++        return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("body")&&Id==TEXT("m24_advanced_action"))
+         return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_m24")&&SlotKey==TEXT("bolt")&&Id==TEXT("m24_carbon_light_bolt"))
+@@ -78,6 +81,8 @@
+         (Id==ColdSteelFrostRunes::SwiftMana||Id==ColdSteelFrostRunes::DestructionMana))
+         return EGunsmithModificationTier::Special;
+     if(SlotKey==TEXT("muzzle")&&Id==SniperSuppressorAssets::Part&&SniperSuppressorAssets::Supports(Weapon))
++        return EGunsmithModificationTier::Special;
++    if(SlotKey==TEXT("muzzle")&&Id==SniperSuppressorAssets::Zhiming&&SniperSuppressorAssets::SupportsZhiming(Weapon))
+         return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_rune_sword")&&SlotKey==TEXT("guard")&&(Id==TEXT("twin_star_guard")||Id==TEXT("starfall_nexus_guard")))
+         return EGunsmithModificationTier::Legendary;

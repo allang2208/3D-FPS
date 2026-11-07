@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/UI/ColdSteelIconResources.cpp
++++ b/Source/FPSGAME/UI/ColdSteelIconResources.cpp
+@@ -205,6 +205,9 @@
+         }
+         const auto Parts=bCatalogExport?(D==M24WeaponAssets::Definition?M24WeaponAssets::FactoryParts():FGunsmithParts()):GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(Item);
+         if(D==M24WeaponAssets::Definition&&!Parts.Contains(TEXT("optic")))Add(M24Attachments::MeshPath(M24Attachments::IronSight),true);
++        if(D==M24WeaponAssets::Definition)
++            Add(M24Attachments::MeshPath(Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction?
++                TEXT("m24_rail_seat_advanced"):TEXT("m24_rail_seat_native")),true);
+         const FString Family=D==TEXT("ue_akm")?TEXT("AKM"):D==TEXT("ue_qbz191")?TEXT("QBZ191"):D==TEXT("ue_ash12")?TEXT("ASH12"):TEXT("M4");
+         for(const auto& Part:Parts)
+         {
+@@ -217,6 +220,9 @@
+                     Add(SniperSkeletonStock::M24GripMeshPath(Parts.FindRef(TEXT("reargrip"))),true);
+                     Add(SniperSkeletonStock::M24ProfilePath(SniperSkeletonStock::M24GripFamilyForVariant(Parts.FindRef(TEXT("reargrip")),false)),true);
+                     Add(SniperSkeletonStock::M24ProfilePath(SniperSkeletonStock::M24GripFamilyForVariant(Parts.FindRef(TEXT("reargrip")),true)),true);
++                    if (Key == SniperSkeletonStock::M24CarbonId)
++                        for (const bool Extended : {false, true})
++                            Add(SniperSkeletonStock::M24CarbonMeleePath(SniperSkeletonStock::M24GripFamilyForVariant(Parts.FindRef(TEXT("reargrip")),Extended)),true);
+                     if(Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction)Add(SniperSkeletonStock::M24FrontMeshPath(),true);
+                 }
+                 continue;

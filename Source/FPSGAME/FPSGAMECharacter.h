@@ -70,6 +70,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
 
 public:
     UWeaponGripProfile* WeaponGripProfileFor(EM4SprintGrip Grip) const;
+    UWeaponGripProfile* M24MeleeHandProfile(UWeaponGripProfile* SharedGrip) const;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseQBZ191 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseASH12 = false;

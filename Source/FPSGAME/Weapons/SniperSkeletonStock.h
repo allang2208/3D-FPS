@@ -49,6 +49,15 @@ inline FString M24GripMeshPath(const FString& Variant)
 }
 inline FString M24FrontMeshPath(){return FString(M24Root)+TEXT("/Meshes/SM_M24_AdvancedFront_ForIndependentGrip");}
 inline FString M24ProfilePath(FName Family){return FString(M24Root)+TEXT("/Profiles/DA_M24_")+Family.ToString();}
+inline FString M24CarbonMeleePath(FName GripFamily)
+{
+    return FString(M24Root)+TEXT("/Profiles/CarbonMelee/DA_M24_")+GripFamily.ToString();
+}
+inline FName M24CarbonMeleeSlot(bool Extended)
+{
+    static const FName Five(TEXT("M24CarbonMelee5")), Ten(TEXT("M24CarbonMelee10"));
+    return Extended ? Ten : Five;
+}
 // Native M24 component units. Preserve the accepted framing while the hand
 // moves onto a corrected pistol-grip contact (mesh scale is applied by framing).
 inline const FVector M24PresentationHand(.037195854,.080805898,.026502814);

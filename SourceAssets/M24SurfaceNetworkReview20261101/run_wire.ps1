@@ -1,4 +1,4 @@
-﻿param([switch]$SkipBuild,[string]$OutputRoot)
+param([switch]$SkipBuild,[string]$OutputRoot,[switch]$Zhiming,[switch]$BuildGame)
 $ErrorActionPreference='Stop'
 $m24WireRoot='D:/FPS3D/FPSGAME'
 $m24WireOutputRoot=Join-Path $m24WireRoot 'SourceAssets/M24SurfaceNetworkReview20261101/Receipts'
@@ -6,18 +6,20 @@ if($OutputRoot){$m24WireOutputRoot=[IO.Path]::GetFullPath($OutputRoot)}
 $m24WireStamp=Get-Date -Format 'yyyyMMdd-HHmmss'
 $m24WireDir=Join-Path $m24WireOutputRoot ('Wire/'+$m24WireStamp)
 New-Item -ItemType Directory -Force -Path $m24WireDir | Out-Null
-$m24WirePort=19881
+$m24WirePort=if($Zhiming){19883}else{19881}
 if(Get-NetUDPEndpoint -LocalPort $m24WirePort -ErrorAction SilentlyContinue){throw 'M24 presentation audit port occupied.'}
 $m24WireGate=[Threading.Mutex]::new($false,'Local\CodexUeMcp-Port-8000');$m24WireHeld=$false
 $m24WireOwned=[System.Collections.Generic.List[System.Diagnostics.Process]]::new()
 $m24WireSdk=$env:UE_SKIP_UBT_SDK_SETUP
 function Start-M24Peer([string]$role,[string]$map){
+    $scenario=if($Zhiming){'-SniperZhimingWire'}else{'-M24'}
     $peerArgs=@('"D:/FPS3D/FPSGAME/FPSGAME.uproject"',('"'+$map+'"'),'-game','-nullrhi','-nosound','-unattended','-nosplash',
-        '-ShotgunWireAudit','-M24','-M870PresentationWire','-ini:Engine:[/Script/Engine.PhysicsSettings]:DefaultGravityZ=0.0',
+        '-ShotgunWireAudit',$scenario,'-M870PresentationWire','-ini:Engine:[/Script/Engine.PhysicsSettings]:DefaultGravityZ=0.0',
         '-ini:Engine:[/Script/PythonScriptPlugin.PythonScriptPluginSettings]:bRemoteExecution=False',
         ('-ColdSteelProfile=ShotgunWireAudit_M24_'+$m24WireStamp+'_'+$role),('-port='+$m24WirePort),
         ('-UserDir="'+$m24WireDir+'/'+$role+'/"'),('-ShotgunWireOutput="'+(Join-Path $m24WireDir ($role+'.json'))+'"'),
         ('-abslog="'+(Join-Path $m24WireDir ($role+'.log'))+'"'),'-ExecCmds="fps.body.AsyncPreload 0,t.MaxFPS 30"')
+    if($Zhiming){$peerArgs+='-LogCmds="LogSniperStun Verbose,LogMonsterStunState Verbose"'}
     $peer=Start-Process -FilePath 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe' -ArgumentList $peerArgs -WindowStyle Hidden -PassThru
     $m24WireOwned.Add($peer);Write-Output "M24_WIRE_PEER $role PID=$($peer.Id)";return $peer
 }
@@ -35,7 +37,14 @@ try{
     try{$m24WireHeld=$m24WireGate.WaitOne([TimeSpan]::FromMinutes(15))}catch [Threading.AbandonedMutexException]{$m24WireHeld=$true}
     if(-not $m24WireHeld){throw 'Existing UE batch remained busy.'}
     $env:UE_SKIP_UBT_SDK_SETUP='1'
-    if(Get-Process UnrealEditor -ErrorAction SilentlyContinue){throw 'Interactive editor opened; preserve it.'}
+    if(Get-Process UnrealEditor -ErrorAction SilentlyContinue){
+        if(!($SkipBuild -and $Zhiming)){throw 'Interactive editor opened; preserve it.'}
+        # This isolated game-mode audit reads the built module and only writes private test profiles and receipts.
+        $module=Get-Item -LiteralPath (Join-Path $m24WireRoot 'Binaries/Win64/UnrealEditor-FPSGAME.dll')
+        foreach($source in @('Weapons/SniperZhimingWire.cpp','Weapons/SniperZhimingFX.cpp','Monsters/MonsterStunPresentation.cpp','Monsters/MonsterCombatComponent.cpp','Multiplayer/ColdSteelM24Launch.cpp','Characters/FPSPlayerBodyGunEffects.cpp','FPSGAMECharacter.cpp')){
+            if((Get-Item -LiteralPath (Join-Path $m24WireRoot ('Source/FPSGAME/'+$source))).LastWriteTimeUtc -gt $module.LastWriteTimeUtc){throw 'Current sniper sources need an editor build.'}
+        }
+    }
     if(-not $SkipBuild){
         $deadline=(Get-Date).AddMinutes(10)
         do{
@@ -45,7 +54,20 @@ try{
         & "$m24WireRoot/Tools/Build/Build-Editor.ps1" *> (Join-Path $m24WireDir 'build-editor.log')
         Get-Content -LiteralPath (Join-Path $m24WireDir 'build-editor.log') -Tail 7
     }
+    if($BuildGame){
+        & 'E:/Program Files (x86)/UE_5.8/Engine/Build/BatchFiles/Build.bat' FPSGAME Win64 Development "-Project=$m24WireRoot/FPSGAME.uproject" -WaitMutex -NoHotReloadFromIDE -MaxParallelActions=4 "-Log=$m24WireDir/build-game.log" *> "$m24WireDir/build-game-console.log"
+        if($LASTEXITCODE -ne 0){throw 'Game build failed.'}
+    }
     $m24Inputs=@('Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp','Source/FPSGAME/Characters/FPSBodyRifleHold.cpp','Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp','Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp','Config/DefaultGame.ini','Binaries/Win64/UnrealEditor-FPSGAME.dll','Content/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_AdvancedFront_ForIndependentGrip.uasset','Content/Weapons/M24/ReceiverGripRebuild20261031/Meshes/SM_M24_ReceiverStock_Advanced.uasset')
+    if($Zhiming){
+        $m24Inputs=@('Source/FPSGAME/FPSGAMECharacter.cpp','Source/FPSGAME/Multiplayer/ColdSteelM24Launch.cpp',
+            'Source/FPSGAME/Weapons/WeaponShotNoise.h','Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp',
+            'Source/FPSGAME/Weapons/SniperZhimingFX.cpp','Source/FPSGAME/Weapons/SniperZhimingWire.cpp',
+            'Source/FPSGAME/Monsters/MonsterStunPresentation.cpp','Source/FPSGAME/Monsters/MonsterCombatComponent.cpp',
+            'Source/FPSGAME/Monsters/MonsterCombatComponent.h','Source/FPSGAME/Weapons/ShotgunWireAudit.h',
+            'Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp','Content/ColdSteelData/gunsmith.json',
+            'Content/Weapons/SniperZhiming/SM_SniperZhiming.uasset','Binaries/Win64/UnrealEditor-FPSGAME.dll')
+    }
     $m24Inputs | ForEach-Object {Get-FileHash -LiteralPath (Join-Path $m24WireRoot $_)} | Select-Object Path,Hash | ConvertTo-Json | Set-Content -LiteralPath "$m24WireDir/input-hashes.json" -Encoding utf8
     $hostOutput=Start-M24Peer 'host' '/Engine/Maps/Entry?game=/Script/FPSGAME.ShotgunWireAuditGameMode?listen';$hostPeer=$hostOutput[-1]
     $hostOutput | Where-Object {$_ -is [string]} | Write-Output

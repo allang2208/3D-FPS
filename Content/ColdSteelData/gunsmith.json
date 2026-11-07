@@ -7218,6 +7218,45 @@
               "recoil_mult": 0.6,
               "stability_mult": 1.3
             }
+          },
+          {
+            "id": "sniper_zhiming",
+            "name": "止鸣",
+            "description": "哑黑筒身两端饰有宽环带，双斜杠引出一道暗金声纹，收在镂空的紫芯菱标上。",
+            "effects": [
+              {
+                "text": "暴击伤害+15%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力-30%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度-10%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.7,
+              "stability_mult": 1.2,
+              "bullet_speed_mult": 0.9,
+              "ads_percent": 0.1,
+              "crit_damage_bonus": 0.15,
+              "critical_stun_seconds": 0.25
+            },
+            "special_effects": [
+              "消音｜降低开火声与枪口火光。",
+              "止鸣｜子弹暴击命中时，使目标眩晕0.25秒。"
+            ]
           }
         ],
         "underbarrel": [
@@ -12282,6 +12321,45 @@
               "recoil_mult": 0.6,
               "stability_mult": 1.3
             }
+          },
+          {
+            "id": "sniper_zhiming",
+            "name": "止鸣",
+            "description": "哑黑筒身两端饰有宽环带，双斜杠引出一道暗金声纹，收在镂空的紫芯菱标上。",
+            "effects": [
+              {
+                "text": "暴击伤害+15%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力-30%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度-10%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.7,
+              "stability_mult": 1.2,
+              "bullet_speed_mult": 0.9,
+              "ads_percent": 0.1,
+              "crit_damage_bonus": 0.15,
+              "critical_stun_seconds": 0.25
+            },
+            "special_effects": [
+              "消音｜降低开火声与枪口火光。",
+              "止鸣｜子弹暴击命中时，使目标眩晕0.25秒。"
+            ]
           }
         ],
         "underbarrel": [
@@ -12883,6 +12961,45 @@
             "special_effects": [
               "消音｜降低开火声与枪口火光。"
             ]
+          },
+          {
+            "id": "sniper_zhiming",
+            "name": "止鸣",
+            "description": "哑黑筒身两端饰有宽环带，双斜杠引出一道暗金声纹，收在镂空的紫芯菱标上。",
+            "effects": [
+              {
+                "text": "暴击伤害+15%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力-30%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度-10%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.7,
+              "stability_mult": 1.2,
+              "bullet_speed_mult": 0.9,
+              "ads_percent": 0.1,
+              "crit_damage_bonus": 0.15,
+              "critical_stun_seconds": 0.25
+            },
+            "special_effects": [
+              "消音｜降低开火声与枪口火光。",
+              "止鸣｜子弹暴击命中时，使目标眩晕0.25秒。"
+            ]
           }
         ],
         "stock": [
@@ -12897,7 +13014,7 @@
           {
             "id": "m24_carbon_spine_stock",
             "name": "玄脊碳纤维枪托",
-            "description": "M24 专属枪托，细斜纹碳壳配宽肩垫，可搭配原厂枪身或先进枪机系统。",
+            "description": "M24 专属枪托，细斜纹碳壳配宽肩垫，需安装先进枪机系统。",
             "effects": [
               {
                 "text": "稳定性+45%",
@@ -13112,7 +13229,7 @@
             "name": "先进枪机系统",
             "description": "重构机匣、弹匣口与完整上下护木的金属底盘，配有镂空散热槽、连续导轨与沉孔紧固件，沿用原装枪托。",
             "special_effects": [
-              "后握把接口｜安装后解锁后握把改造；切回原厂枪身时自动撤下后握把改造。",
+              "枪托与后握把接口｜可更换枪托和后握把。卸下先进枪机系统时，两者恢复原厂。",
               "战术挂件接口｜安装后解锁一个战术挂件槽，可安装通用镭射或手电；切回原厂枪身时自动撤下战术挂件。"
             ],
             "stats": {
@@ -13234,7 +13351,7 @@
         },
         {
           "icon": "mechanic",
-          "text": "原厂六倍镜、机械瞄具与通用光学瞄具可互换；狙击枪消音器和贴腮板可独立拆装，新枪默认使用裸枪口。"
+          "text": "原厂六倍镜、机械瞄具与通用光学瞄具可互换。狙击枪消音器可独立拆装，新枪默认使用裸枪口。"
         },
         {
           "icon": "special",
@@ -13242,7 +13359,7 @@
         },
         {
           "icon": "mechanic",
-          "text": "安装先进枪机系统后解锁后握把和一个战术挂件槽；换回原厂枪身会自动撤下依赖改造。"
+          "text": "先进枪机系统解锁枪托、后握把和一个战术挂件槽。换回原厂枪身时，枪托和后握把恢复原厂，战术挂件自动卸下。"
         }
       ],
       "default_parts": {

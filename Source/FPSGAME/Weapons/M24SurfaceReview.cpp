@@ -34,6 +34,8 @@ int32 RunM24SurfaceReview(const FString& ManifestPath, const FString& Output)
     if (!Manifest->TryGetArrayField(TEXT("groups"),Groups)) return 11;
     bool bFlatNormalProbe=false;
     Manifest->TryGetBoolField(TEXT("flat_normal_probe"),bFlatNormalProbe);
+    bool bAfterOnly=false;
+    Manifest->TryGetBoolField(TEXT("after_only"),bAfterOnly);
     IFileManager::Get().MakeDirectory(*Output,true);
     auto Studio=FColdSteelPreviewScene::TryCreate(FPreviewScene::ConstructionValues().SetEditor(false)
         .SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(true)
@@ -82,13 +84,19 @@ int32 RunM24SurfaceReview(const FString& ManifestPath, const FString& Output)
             Part->SetTextureForceResidentFlag(true);
             Capture->ShowOnlyComponent(Part);Parts.Add(Part);Bounds+=Part->Bounds.GetBox();
         }
-        const FVector Center=Bounds.GetCenter();
+        FVector Center=Bounds.GetCenter();
         const double Span=FMath::Max(Bounds.GetSize().Y,Bounds.GetSize().Z*2.);
-        const FVector Camera=Center+FVector(Span*1.65,Span*.08,Span*.35);
+        FVector Camera=Center+FVector(Span*1.65,Span*.08,Span*.35);
+        const TArray<TSharedPtr<FJsonValue>>* Position=nullptr;
+        if (Group->TryGetArrayField(TEXT("camera_cm"),Position) && Position->Num()==3)
+            Camera=FVector((*Position)[0]->AsNumber(),(*Position)[1]->AsNumber(),(*Position)[2]->AsNumber());
+        if (Group->TryGetArrayField(TEXT("target_cm"),Position) && Position->Num()==3)
+            Center=FVector((*Position)[0]->AsNumber(),(*Position)[1]->AsNumber(),(*Position)[2]->AsNumber());
         Capture->SetWorldLocationAndRotation(Camera,(Center-Camera).Rotation());
         const FBox LocalBounds=Bounds.TransformBy(Capture->GetComponentTransform().ToInverseMatrixWithScale());
         GunsmithPreviewLighting::Update(*Capture,LocalBounds,false,.25f);
-        const TArray<FString> Modes=bFlatNormalProbe ? TArray<FString>{TEXT("after"),TEXT("flat_normal")} : TArray<FString>{TEXT("before"),TEXT("after")};
+        const TArray<FString> Modes=bFlatNormalProbe ? TArray<FString>{TEXT("after"),TEXT("flat_normal")} :
+            bAfterOnly ? TArray<FString>{TEXT("after")} : TArray<FString>{TEXT("before"),TEXT("after")};
         for (const FString& Mode:Modes)
         {
             TArray<TSharedPtr<FJsonValue>> Bindings;

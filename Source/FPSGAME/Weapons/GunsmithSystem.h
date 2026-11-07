@@ -111,6 +111,7 @@ struct FGunsmithStats
     // 空仓换弹时长系数（1 = 不调整）。小于 1 时动作按比例加速播放，不裁剪动画。
     double EmptyReloadMult=1;
     double M24BoltDurationScale=1.;
+    double FirearmCriticalDamageBonus=0, CriticalStunSeconds=0;
     double Interval=0.13, Reload=1.5, EmptyReload=1.5, Speed=90, Range=40, Spread=1, Damage=25;
     int32 Capacity=30, ActiveParts=0;
     int32 BurstCount=1;
@@ -145,6 +146,7 @@ struct FGunsmithOption
     // key (empty_reload_mult) when normal and empty reload must differ.
     double ADS=0, ADSSeconds=0, Recoil=1, Shake=1, Stability=1, Speed=1, Interval=1, Spread=1, Range=1, Reload=1, EmptyReload=1;
     int32 Magazine=0;
+    double FirearmCriticalDamageBonus=0, CriticalStunSeconds=0;
     double EquipSpeedBonus=0;
 };
 /**

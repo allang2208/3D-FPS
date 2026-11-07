@@ -1,0 +1,101 @@
+[
+  {
+    "gun": "M24",
+    "source": "M24FireAudio20261104\\S_M24_Suppressed.wav",
+    "donor": "/Game/Weapons/M24/FireAudio20261104/S_M24_Suppressed",
+    "source_sha256": "a609590f6260449cfa64b51a082298be7452bd7367377cb49392f411372bb6e3",
+    "package": "/Game/Weapons/M24/FireAudio20261104/S_M24_Suppressed_Warm",
+    "wav": "S_M24_Suppressed_Warm.wav",
+    "frames": 39696,
+    "pitch": 1.0,
+    "exposure_change_db": -0.8
+  },
+  {
+    "gun": "SVD",
+    "source": "M4SuppressedAudio20260921\\S_M4_Suppressed_01.wav",
+    "donor": "/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_01",
+    "source_sha256": "1565fc20733418d5361bfba9094fb84deb0848e5ad83bff1c51cc4806c14637e",
+    "package": "/Game/Weapons/RifleSuppressedAudio20261015/SVD/S_SVD_Suppressed_01",
+    "wav": "S_SVD_Suppressed_01.wav",
+    "frames": 39168,
+    "pitch": 1.0,
+    "exposure_change_db": 0.01
+  },
+  {
+    "gun": "SVD",
+    "source": "M4SuppressedAudio20260921\\S_M4_Suppressed_02.wav",
+    "donor": "/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_02",
+    "source_sha256": "90f2b051d4626b1f8bcbf280ea81095b8e3bc2315968234cf9ffecff8720ab93",
+    "package": "/Game/Weapons/RifleSuppressedAudio20261015/SVD/S_SVD_Suppressed_02",
+    "wav": "S_SVD_Suppressed_02.wav",
+    "frames": 39168,
+    "pitch": 1.0,
+    "exposure_change_db": 0.01
+  },
+  {
+    "gun": "SVD",
+    "source": "M4SuppressedAudio20260921\\S_M4_Suppressed_03.wav",
+    "donor": "/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_03",
+    "source_sha256": "36aceb782dd74291933bb3e7b9b63b7b5e82cedaabd508fdd7fff06fcdc6db05",
+    "package": "/Game/Weapons/RifleSuppressedAudio20261015/SVD/S_SVD_Suppressed_03",
+    "wav": "S_SVD_Suppressed_03.wav",
+    "frames": 39168,
+    "pitch": 1.0,
+    "exposure_change_db": -0.01
+  },
+  {
+    "gun": "SVD",
+    "source": "M4SuppressedAudio20260921\\S_M4_Suppressed_04.wav",
+    "donor": "/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_04",
+    "source_sha256": "f4ccb0c738ae9643becbc19bfea3d6091dd3c9250b5e8e7d942d491a9ab5851e",
+    "package": "/Game/Weapons/RifleSuppressedAudio20261015/SVD/S_SVD_Suppressed_04",
+    "wav": "S_SVD_Suppressed_04.wav",
+    "frames": 39168,
+    "pitch": 1.0,
+    "exposure_change_db": -0.01
+  },
+  {
+    "gun": "SVCh",
+    "source": "M4SuppressedAudio20260921\\S_M4_Suppressed_01.wav",
+    "donor": "/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_01",
+    "source_sha256": "1565fc20733418d5361bfba9094fb84deb0848e5ad83bff1c51cc4806c14637e",
+    "package": "/Game/Weapons/RifleSuppressedAudio20261015/SVCh/S_SVCh_Suppressed_01",
+    "wav": "S_SVCh_Suppressed_01.wav",
+    "frames": 39168,
+    "pitch": 1.0,
+    "exposure_change_db": 0.01
+  },
+  {
+    "gun": "SVCh",
+    "source": "M4SuppressedAudio20260921\\S_M4_Suppressed_02.wav",
+    "donor": "/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_02",
+    "source_sha256": "90f2b051d4626b1f8bcbf280ea81095b8e3bc2315968234cf9ffecff8720ab93",
+    "package": "/Game/Weapons/RifleSuppressedAudio20261015/SVCh/S_SVCh_Suppressed_02",
+    "wav": "S_SVCh_Suppressed_02.wav",
+    "frames": 39168,
+    "pitch": 1.0,
+    "exposure_change_db": 0.01
+  },
+  {
+    "gun": "SVCh",
+    "source": "M4SuppressedAudio20260921\\S_M4_Suppressed_03.wav",
+    "donor": "/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_03",
+    "source_sha256": "36aceb782dd74291933bb3e7b9b63b7b5e82cedaabd508fdd7fff06fcdc6db05",
+    "package": "/Game/Weapons/RifleSuppressedAudio20261015/SVCh/S_SVCh_Suppressed_03",
+    "wav": "S_SVCh_Suppressed_03.wav",
+    "frames": 39168,
+    "pitch": 1.0,
+    "exposure_change_db": -0.01
+  },
+  {
+    "gun": "SVCh",
+    "source": "M4SuppressedAudio20260921\\S_M4_Suppressed_04.wav",
+    "donor": "/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_04",
+    "source_sha256": "f4ccb0c738ae9643becbc19bfea3d6091dd3c9250b5e8e7d942d491a9ab5851e",
+    "package": "/Game/Weapons/RifleSuppressedAudio20261015/SVCh/S_SVCh_Suppressed_04",
+    "wav": "S_SVCh_Suppressed_04.wav",
+    "frames": 39168,
+    "pitch": 1.0,
+    "exposure_change_db": -0.01
+  }
+]

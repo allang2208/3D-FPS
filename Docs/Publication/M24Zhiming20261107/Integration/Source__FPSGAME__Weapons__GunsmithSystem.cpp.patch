@@ -1,0 +1,67 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -33,6 +33,12 @@
+ double Num(const TSharedPtr<FJsonObject>& O,const TCHAR* K,double Default=0){double V=Default;O->TryGetNumberField(K,V);return V;}
+ TArray<FString> Strings(const TSharedPtr<FJsonObject>& O,const TCHAR* K){TArray<FString> R;for(const auto& V:O->GetArrayField(K))R.Add(V->AsString());return R;}
+ FString Part(const FGunsmithParts& P,const FString& S){const FString* V=P.Find(S);return V?*V:TEXT("false");}
++bool RequiresM24AdvancedAction(const FString& Slot,const FString& Id)
++{
++    if(Id.IsEmpty()||Id==TEXT("false"))return false;
++    if(Slot==TEXT("stock"))return Id!=M24Attachments::CheekRest;
++    return Slot==TEXT("reargrip")||Slot==TacticalDeviceVariants::PrimarySlot;
++}
+ bool HasRetiredHandmadeBowBody(const FColdSteelItem& Item)
+ {
+     if(!ColdSteelInventory::IsBow(Item))return false;
+@@ -143,6 +149,8 @@
+                 A.ReadSpecialEffects(P);
+                 const auto T=P->GetObjectField(TEXT("stats"));A.ADS=Num(T,TEXT("ads_percent"));A.Recoil=Num(T,TEXT("recoil_mult"),1);A.Shake=Num(T,TEXT("shake_mult"),1);A.Stability=Num(T,TEXT("stability_mult"),1);
+                 A.EquipSpeedBonus=Num(T,TEXT("equip_speed_bonus"));
++                A.FirearmCriticalDamageBonus=Num(T,TEXT("crit_damage_bonus"));
++                A.CriticalStunSeconds=Num(T,TEXT("critical_stun_seconds"));
+                 A.ADSSeconds=Num(T,TEXT("ads_seconds"));A.Speed=Num(T,TEXT("bullet_speed_mult"),1);A.Interval=Num(T,TEXT("fire_interval_mult"),1);A.Spread=Num(T,TEXT("hip_spread_mult"),1);A.Range=Num(T,TEXT("range_mult"),1);A.Reload=Num(T,TEXT("reload_mult"),1);A.EmptyReload=Num(T,TEXT("empty_reload_mult"),A.Reload);A.Magazine=Num(T,TEXT("mag_delta"));Options.Add(A);
+             }W.Options.Add(FString(*S.Key),Options);
+         }Weapons.Add(W.Id,W);
+@@ -197,6 +205,11 @@
+         if(Id!=TEXT("false")&&Option(D,Slot,Id))Result.Add(Slot,Id);
+     }
+     // Remove locked upgrades before filling the vacated slots with their catalog defaults.
++    if(D==TEXT("ue_m24")&&!M24Attachments::AdvancedInterfacesUnlocked(Result))
++    {
++        for(auto It=Result.CreateIterator();It;++It)
++            if(RequiresM24AdvancedAction(It.Key(),It.Value()))It.RemoveCurrent();
++    }
+     // Named factory parts are real options with stats.
+     const auto* W=ModifiableWeapon(D);
+     const TSharedPtr<FJsonObject>* Factory=nullptr;
+@@ -413,6 +426,8 @@
+             A.EquipSpeedBonus=FMath::Min(0.,A.EquipSpeedBonus);
+         }
+         R.EquipSpeedBonus+=A.EquipSpeedBonus;
++        R.FirearmCriticalDamageBonus+=A.FirearmCriticalDamageBonus;
++        R.CriticalStunSeconds=FMath::Max(R.CriticalStunSeconds,A.CriticalStunSeconds);
+         R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.StabilityMultiplier*=A.Stability;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.EmptyReload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;
+     }
+     if(D==TEXT("ue_m4a1")&&Part(Normalize(D,P),TEXT("magazine"))==TEXT("large_drum"))
+@@ -449,8 +464,20 @@
+     const FString Locked=OptionLockReason(Slot,Id);
+     if(!Locked.IsEmpty()){Status=Locked;OnChanged.Broadcast();return false;}
+     if(Part(Preview,Slot)==Id)return true;
++    TArray<FString> RemovedParts;
++    if(DefinitionId==TEXT("ue_m24")&&Slot==TEXT("body")&&Id==TEXT("false"))
++    {
++        for(const FString& Key:Slots(DefinitionId))
++        {
++            const FString* Value=Preview.Find(Key);
++            if(Value&&RequiresM24AdvancedAction(Key,*Value))
++                if(const auto* Removed=Option(DefinitionId,Key,*Value))RemovedParts.Add(Removed->Name);
++        }
++    }
+     if(Id==TEXT("false"))Preview.Remove(Slot);else Preview.Add(Slot,Id);
+-    Status=TEXT("预览已更新，应用后保存");
++    if(DefinitionId==TEXT("ue_m24"))Preview=Normalize(DefinitionId,Preview);
++    Status=RemovedParts.IsEmpty()?TEXT("预览已更新，应用后保存")
++        :FString::Printf(TEXT("已换回原厂枪身，并卸下%s。应用后保存"),*FString::Join(RemovedParts,TEXT("、")));
+     OnChanged.Broadcast();return true;
+ }
+ int32 UGunsmithSystem::CurrentEnhanceLevel()const

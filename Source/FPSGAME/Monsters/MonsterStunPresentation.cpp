@@ -7,10 +7,13 @@
 #include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
 
+DEFINE_LOG_CATEGORY_STATIC(LogMonsterStunState,Log,All);
+
 float UMonsterCombatComponent::StunSecondsRemaining() const
 {
-    if(GetOwner()&&!GetOwner()->HasAuthority())return float(FMath::Max(0.,NetStunEndsAt-ToughnessClock()));
-    return GetWorld()?float(FMath::Max(0.0,ExplicitStunUntil-GetWorld()->GetTimeSeconds())):0.f;
+    if(!GetWorld())return 0.f;
+    const double Now=GetOwner()->HasAuthority()?double(GetWorld()->GetTimeSeconds()):FPlatformTime::Seconds();
+    return float(FMath::Max(0.,ExplicitStunUntil-Now));
 }
 
 void UMonsterCombatComponent::RegisterExplicitStun(float Seconds)
@@ -24,7 +27,18 @@ void UMonsterCombatComponent::RegisterExplicitStun(float Seconds)
 
 void UMonsterCombatComponent::OnRep_StunEnd()
 {
-    bStunned=StunSecondsRemaining()>0.f;
+    if(GetWorld()&&NetStunEndsAt!=ObservedStunServerEnd)
+    {
+        ObservedStunServerEnd=NetStunEndsAt;
+        // Initial clock convergence can place the estimated server time before
+        // the proc itself. Never display more than the authoritative duration.
+        const double Remaining=FMath::Clamp(NetStunEndsAt-ToughnessClock(),0.,double(NetStunSeconds));
+        ExplicitStunUntil=FPlatformTime::Seconds()+Remaining;
+    }
+    const float Remaining=StunSecondsRemaining();
+    bStunned=Remaining>0.f;
+    UE_LOG(LogMonsterStunState,Verbose,TEXT("%s end=%.4f clock=%.4f remaining=%.4f wall=%.4f"),
+        *GetNameSafe(GetOwner()),NetStunEndsAt,ToughnessClock(),Remaining,FPlatformTime::Seconds());
 }
 
 bool UMonsterCombatComponent::IsImmobileReaction() const

@@ -1,0 +1,58 @@
+--- a/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp
+@@ -43,6 +43,8 @@
+ 
+ bool AFPSGAMECharacter::IsMuzzleSuppressed() const
+ {
++    if(MuzzleVariant==SniperSuppressorAssets::Zhiming)
++        return SniperSuppressorAssets::SupportsZhiming(ActiveInventoryWeaponDefinition);
+     return (IsM24Weapon()&&MuzzleVariant==TEXT("m24_factory_suppressor"))||MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||((ActiveInventoryWeaponDefinition==TEXT("ue_svd")||ActiveInventoryWeaponDefinition==TEXT("ue_svch"))&&MuzzleVariant==TEXT("sniper_heavy_suppressor"))||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||((IsSuper90Weapon()||IsSaiga12KWeapon())&&MuzzleVariant==TEXT("shotgun_suppressor"));
+ }
+ 
+@@ -50,13 +52,14 @@
+ {
+     if(IsM24Weapon())
+     {
+-        const bool Enabled=bInventoryWeaponReady&&Variant==M24Attachments::Suppressor;
++        const bool Zhiming=Variant==SniperSuppressorAssets::Zhiming;
++        const bool Enabled=bInventoryWeaponReady&&(Variant==M24Attachments::Suppressor||Zhiming);
+         MuzzleAttachment=M24Attachments::Configure(this,AKMViewmodel,MuzzleAttachment,Variant,Enabled);
+         MuzzleVariant=Enabled?Variant:FString();
+         if(MuzzleAttachment&&MuzzleAttachment->GetStaticMesh())
+         {
+             if(const auto* Tip=MuzzleAttachment->GetStaticMesh()->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
+-            MuzzleLocalAxis=FVector(0,-1,0);
++            MuzzleLocalAxis=Zhiming?FVector::ForwardVector:FVector(0,-1,0);
+         }
+         return;
+     }
+@@ -129,11 +132,12 @@
+     // Also cover the common suppressor's already-mounted early return.
+     if (const TCHAR* Bank = RifleSuppressedAudioAssets::Bank(ActiveInventoryWeaponDefinition))
+         SuppressedFireSound = LoadObject<USoundBase>(nullptr, *RifleSuppressedAudioAssets::SoundPath(Bank));
+-    if(Variant==SniperSuppressorAssets::Part)
++    if(Variant==SniperSuppressorAssets::Part||Variant==SniperSuppressorAssets::Zhiming)
+     {
+         if(!SniperSuppressorAssets::Supports(ActiveInventoryWeaponDefinition)||!bInventoryWeaponReady)
+         {SetGunsmithMuzzle(TEXT("false"));return;}
+-        auto* Part=LoadObject<UStaticMesh>(nullptr,SniperSuppressorAssets::MeshPath);
++        const bool Zhiming=Variant==SniperSuppressorAssets::Zhiming;
++        auto* Part=LoadObject<UStaticMesh>(nullptr,Zhiming?SniperSuppressorAssets::ZhimingMesh:SniperSuppressorAssets::MeshPath);
+         if(!Part||!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return;
+         if(!MuzzleAttachment)
+         {
+@@ -151,11 +155,12 @@
+         const FVector Up=bSVCH?SVCHWeaponAssets::SightUp:FVector::UpVector;
+         // SVD replaces its separate factory muzzle. SVCH's integrated tip is
+         // retained inside the exterior collar; neither gun/arm mesh is changed.
+-        const FVector Seat=bSVCH?SVCHWeaponAssets::MuzzlePoint-Forward*.012f:SVDAttachments::MuzzleMount;
++        const FVector Seat=bSVCH?SVCHWeaponAssets::MuzzlePoint-Forward*(Zhiming?0.f:.012f):SVDAttachments::MuzzleMount;
+         MuzzleAttachment->SetRelativeTransform(FTransform(FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat(),Seat,FVector(.01f)));
+         MuzzleAttachment->SetVisibility(true);
+         SVDAttachments::FactorySections(AKMViewmodel,TEXT("FactoryMuzzle"),false);
+-        MuzzleLocalAxis=FVector::ForwardVector;MuzzleLocalTip=FVector(SniperSuppressorAssets::TipCM,0,0);
++        MuzzleLocalAxis=FVector::ForwardVector;
++        MuzzleLocalTip=Zhiming?FVector::ZeroVector:FVector(SniperSuppressorAssets::TipCM,0,0);
+         if(const auto* Tip=Part->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
+         MuzzleVariant=Variant;
+         if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));

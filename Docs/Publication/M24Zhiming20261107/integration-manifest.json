@@ -1,0 +1,226 @@
+{
+  "base": "b22184fed227f0e7511f0f5f98e2fa82b0a6a27f",
+  "scope": "M24 stock and sniper Zhiming 2026-11-05 to 2026-11-07",
+  "entries": [
+    {
+      "path": "Source/FPSGAME/Weapons/M24Attachments.cpp",
+      "delivery": "owned source",
+      "sha256_lf": "be0970bd68fd35079c2a4e01cd96f4129faee3e26ac82181a96518eed5f9f439"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M24OpticVisual.cpp",
+      "delivery": "owned source",
+      "sha256_lf": "aab3b6577d2c7dbbf835dcc33f6b78d7da27ba6c43e30c65075ab38a23abf5d2"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M24SurfaceReview.cpp",
+      "delivery": "owned source",
+      "sha256_lf": "1e8617aa172f845f1ba8f08d6fcf4e2eae1e57eff31b6a64e9db0b81606f7740"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M24WeaponAssets.h",
+      "delivery": "owned source",
+      "sha256_lf": "ce11e39cb4e0d1c0026f598ee6641975d2cfca26983039291d848bb0d0effbb6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SniperSkeletonStock.h",
+      "delivery": "owned source",
+      "sha256_lf": "bc57c3199c2ef962796c60cf734310248524f0e573b701f741fbee07fdf297ae"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SniperSuppressorAssets.h",
+      "delivery": "owned source",
+      "sha256_lf": "dce577d10f6fce8e61733c76e4b81952349547864f48319275e5fb31723be0a1"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelM24Launch.cpp",
+      "delivery": "owned source",
+      "sha256_lf": "4c453ac332859d7626e79db51b28a9d8b6cda4e82881a05618adf7d284f7b1d5"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterStunPresentation.cpp",
+      "delivery": "owned source",
+      "sha256_lf": "6dfe0765ff1324045fed8d09b5e85525cf986dd847086b64d33c4d402e909fc8"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SniperZhimingFX.cpp",
+      "delivery": "owned source",
+      "sha256_lf": "11858689016269263cc4bc44551fcfbcfc803d452df1160d30603cd604e9e13e"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SniperZhimingWire.cpp",
+      "delivery": "owned source",
+      "sha256_lf": "d0fe9fb94fa87a8af32ca657652ec0390ead4db85db8e9781c9501d5aba1d728"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SniperZhimingWire.h",
+      "delivery": "owned source",
+      "sha256_lf": "d1f7b925c0f70dc7b4f1893514f24fb9dcd1a65a622610fad4bb042fcfcb37a9"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponShotNoise.h",
+      "delivery": "owned source",
+      "sha256_lf": "ade464ff3fdce437da55c4007b85edc3c57ac5b320f2a62f102f4b591c049632"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Monsters__MonsterCombatComponent.h.patch",
+      "private_pre_sha256_lf": "edd06e0218754e397eaad82242417fcf26a3ab124bc5b47b22b0d62209a3e035",
+      "private_post_sha256_lf": "bc13af58e71b43f1e20bd5182af13484b8eab8da375e728bdad22a4038cc2ea4",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Monsters__MonsterCombatComponent.cpp.patch",
+      "private_pre_sha256_lf": "69d6c415e417b8e58cd28f2f213c59062348c122dd475a12f89c45421d0ceef2",
+      "private_post_sha256_lf": "550ceb5c727647cd95ca1ea11318fa173da38a5a84496882958b194c3e550400",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Skills__ColdSteelSkillTypes.h.patch",
+      "private_pre_sha256_lf": "21d5b371cf8fc79832f6fea1cefa70860965f045a2b911e91baf03be74f43e9e",
+      "private_post_sha256_lf": "3c466fac14ac867fadefb7a908f528766743b736933aa9484c79766910e65860",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Skills__ColdSteelSkillRules.cpp.patch",
+      "private_pre_sha256_lf": "e33df72de7bca00d0d383e207e54fc7dc4532deadf4c02657b4d27ce18c3e843",
+      "private_post_sha256_lf": "8742c9c27b188d69a05849597e2d36765ab7ae6c826773e17086e08a9f84572d",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Skills__ColdSteelSkillModel.cpp.patch",
+      "private_pre_sha256_lf": "7a9281de09042a1e91948077599a73517087b13259219f80be5600344e0ba921",
+      "private_post_sha256_lf": "6a57f7db6c434593d3c664763a43ba734bb67f1e434d33466c1dd89f7bfc8381",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Weapons__GunsmithSystem.h.patch",
+      "private_pre_sha256_lf": "c15d8fdadf1e63babf314f1e025791295d9ff55bed3ca5baf8ad4f222255c934",
+      "private_post_sha256_lf": "6754262e82f238163a2679d665558bfdd610068ebf80535779bb985b20721373",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch",
+      "private_pre_sha256_lf": "7111a9f6943edd22bd979c56f0a7f0ce6bffab6dbdfdd1ade049fa52e06bb458",
+      "private_post_sha256_lf": "ae1f96c426c1539976501d90e88197bd5235a4e1ecd1ae3b6154cdb6c7316a2e",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "delivery": "scoped source with equivalent insertion + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Weapons__GunsmithModificationTier.h.patch",
+      "private_pre_sha256_lf": "d7c9f6ab332700012b9dc0ece6697e0e21e5f79bba2dcff532dbd7d5beda218e",
+      "private_post_sha256_lf": "3fcb96bf841d56a754c27bf2302d445d3f6c79dd12dc8ae5da0dcb068da51c9f",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Characters__FPSPlayerBodyGunEffects.cpp.patch",
+      "private_pre_sha256_lf": "d5a7cefa3be2a0a261866dfa102a48579c13a3b10b3a1eaae32bea3bf59c44f6",
+      "private_post_sha256_lf": "4ee157367711296a59c83c01b6ae59b39353d2ad49474eb93787d54c36c9a1e0",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Weapons__M4MuzzleVisual.cpp.patch",
+      "private_pre_sha256_lf": "3f9a1d93025cf2cb92473b61e4e1efa940ce23dac23855e12560ed8b64476894",
+      "private_post_sha256_lf": "55994b115e0a5efba0158bf92ed852667efe1d2c3c4056d2509f536861e3cae4",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__FPSGAMECharacter.h.patch",
+      "private_pre_sha256_lf": "2ea2d4de4d9c08f360ef1427a1db7658085ca44deda7329dc6a53a1f6421dc79",
+      "private_post_sha256_lf": "07856b45862f7c38428d0a85166b876a3c6d1376733dcf1cbcae81bc77535409",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Weapons__PhantomRearGripVisual.cpp.patch",
+      "private_pre_sha256_lf": "bd78da526d84f2a13bcb30f3d967b0f55f751705b6a3c2169c71c8b38e11cbc7",
+      "private_post_sha256_lf": "be33dc796593e4642ccdb92f8fcb02d2def2d4f4b2462d52ed624d5dee6e40db",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__UI__ColdSteelIconResources.cpp.patch",
+      "private_pre_sha256_lf": "a14ac89b514dd3079434215b4e977af72639264505172a241a279cbe1d24b94e",
+      "private_post_sha256_lf": "141e0cd7dcaeb710bfd11bbff597390e5fff248adcf3f02c700456da7f545a8b",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+      "private_pre_sha256_lf": "693cf5fe460ebdad47427e957591eafd28abf87428644268bd481e2d46b60a8e",
+      "private_post_sha256_lf": "987baffee89442b98c258d5d36232bd6a1b1776caf47037c60466f0fca7aabed",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__UI__M4GunsmithOverview.cpp.patch",
+      "private_pre_sha256_lf": "baa68004488cdfab6f4f046e4fe53c9751b5dc4107a74f289aa37dd1d239d357",
+      "private_post_sha256_lf": "b2a5b4104c558a7345fecf57df2dcb757b8ae83008d97a7bcbf7459ea51cd01c",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "delivery": "scoped source + integration patch",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__UI__M4GunsmithSelectedDetails.cpp.patch",
+      "private_pre_sha256_lf": "21928c0e1d52b4d4359379016843dbc9b7505ea4f9df352707d393da10dd0b75",
+      "private_post_sha256_lf": "b8f7229f09809d8f25bdbd967bef74ad19a0d6e9136a1e586ef92dfc56cc9537",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__UI__ColdSteelItemTooltipData.cpp.patch",
+      "private_pre_sha256_lf": "ca471de9511d5f782241bd17f3740e96099349bee7e25499625cf65254381d3f",
+      "private_post_sha256_lf": "43395fdc73dc40071d09eab9ca924be2bc28b1410618a0fae53fac9895aa3121",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Weapons__ShotgunWireAudit.cpp.patch",
+      "private_pre_sha256_lf": "7bacb3fda5a9d663bcdc1afaceae4abe9587cae542fb96f3d24d7cb0becac61e",
+      "private_post_sha256_lf": "a024571eaa87bdd70bef321103ad1511bfbcf98e76537bd6965a1a2f6260b83d",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Weapons__M870PresentationWireAudit.cpp.patch",
+      "private_pre_sha256_lf": "9782a0e9e6ac49ba0674ed1c03bff450c4f27e633785898f212faa665f80a5ce",
+      "private_post_sha256_lf": "2db0c80ea6702e9a1a2cee45d730bbaa67bf13adf00b5ff9a14199e3bd8a3ede",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.h",
+      "delivery": "private-host integration patch only",
+      "patch": "Docs/Publication/M24Zhiming20261107/Integration/Source__FPSGAME__Weapons__ShotgunWireAudit.h.patch",
+      "private_pre_sha256_lf": "87bf4c59172b67141c46c79f903133aa7a0e388e41b846e0f6e0267306232aac",
+      "private_post_sha256_lf": "e04b984c565282d63c2906652d0f08678cc97e98b49336d65e22078cd8387840",
+      "preimage_kind": "current private host with only this batch removed, not a historical full-host snapshot"
+    }
+  ]
+}

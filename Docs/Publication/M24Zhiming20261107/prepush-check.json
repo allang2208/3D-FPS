@@ -1,0 +1,15 @@
+{
+  "base": "b22184fed227f0e7511f0f5f98e2fa82b0a6a27f",
+  "files": 174,
+  "bytes": 1899336,
+  "diff_check": true,
+  "secret_patterns_found": [],
+  "binary_payloads": false,
+  "private_patches_replayed": 20,
+  "authoring_scripts_syntax_checked": 84,
+  "sniper_catalog_checked": true,
+  "real_index_unchanged": true,
+  "gameplay_retested": false,
+  "clean_clone_built": false,
+  "note": "Checks cover the prepared publication before adding this receipt; previous gameplay evidence was not rerun."
+}

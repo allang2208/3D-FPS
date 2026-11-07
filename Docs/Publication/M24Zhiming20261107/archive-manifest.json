@@ -1,0 +1,2613 @@
+[
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Accepted/Wire/20261107-155629/build-editor.log",
+    "bytes": 102716,
+    "sha256": "f2d7f1720137e26e23e41274e2ff8506e8caf04d88554c4a0ea6b3570a0c39b7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/Config/CrashReportClient/UECC-Windows-1B9CE4E540C2B02B6D4492BF0DB431B6/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "af019d4827ea60b18649dda09df70c4d0d0c6dadf91e64fa3f690b7c1b8c6708",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_client_A.sav",
+    "bytes": 13493,
+    "sha256": "306dc874ef7c99d587873a3557cf0971907216d190071396c2ad998b8cc920cc",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_client_A.sha1",
+    "bytes": 40,
+    "sha256": "a59c1fddfe6fdcfd1b87487f06917fc1a9fb1019b889bbf73775cca5e9a5a0db",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_client_B.sav",
+    "bytes": 13493,
+    "sha256": "960bd8d0cb11ebcd30b3fc0d98941d1ec77fd0935f14ff6edfe23a68fab403ba",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_client_B.sha1",
+    "bytes": 40,
+    "sha256": "cfd0cf5e623f46e8fb67dfc65bc408500622c76529052007bae12bf625019dde",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client.json",
+    "bytes": 1261,
+    "sha256": "6cbdd56a8778a8fe1536935f53459648451ba8127f682f717044dd3487cce9ca",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/client.log",
+    "bytes": 283344,
+    "sha256": "06d4b741ea473a969044cee480bbcc8bb685c447edc9eae1835918533e4058d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/Config/CrashReportClient/UECC-Windows-A7993C1241D23891E2036C8F5C147F1F/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49847,
+    "sha256": "7b85f3836a95852b2c5e53840fc8ab815d5cd044ee535c04e68558da37b5b36b",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP9408_aed073a6.sav",
+    "bytes": 13598,
+    "sha256": "50f79fcb79c4c4826dd9b43506f4dc6e1aed3960753046facc69ed2eeaaee5d4",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBPBEB5_889d68a9.sav",
+    "bytes": 13598,
+    "sha256": "4265c175d8711ffa462f181a307a429151ff84cf2750668702a0538ec8419c30",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_host_A.sav",
+    "bytes": 13607,
+    "sha256": "2494767a61a176fcf317241c110f7bc079a925fe263853ddf2f9b89e685be135",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_host_A.sha1",
+    "bytes": 40,
+    "sha256": "d07b40bfa55e40f171b97785f77337df538a8eba789010e4c21fe886d0d3d1cd",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_host_B.sav",
+    "bytes": 13607,
+    "sha256": "a49ca3d049dce37f37b8083e8a913942b1748a4749188d9dfa99abbcb4564680",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_host_B.sha1",
+    "bytes": 40,
+    "sha256": "91dc09d9191fcfd042fdab6e479b3f96623d04f83d178aa0312153f2887a3318",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_host_Shared_d76a53d8.sav",
+    "bytes": 2312,
+    "sha256": "f30cb316ce22927f1adba07b5261caee3a2a7173e95546b9eba56180ad418b46",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host.json",
+    "bytes": 4489,
+    "sha256": "1646e008c2140bda70e5cf60733de943d896f50a4ac3e9e6f3a3e0fa18bba62d",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/host.log",
+    "bytes": 320233,
+    "sha256": "1fec8c8f8cd2860cf669988eca093d734aabaf47c1d7fbbe4e349f034546e782",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/input-hashes.json",
+    "bytes": 1754,
+    "sha256": "885fc2565e57e52d7cac60207abfcae97775ad34b00d20e52042f2c46d76ff4f",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/Config/CrashReportClient/UECC-Windows-8D1DD4154D45046B7C9B0FA234666129/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "dbdf275b3f19c283e9c962dcd5a6cb598aab9bcece1f05a50af810fb44a42666",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_rejoin_A.sav",
+    "bytes": 13493,
+    "sha256": "30d65465c8e8d51ba8db24c5d7531d87e27c042df0dd03e3bd20c4c606e81b34",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_rejoin_A.sha1",
+    "bytes": 40,
+    "sha256": "fd09a37b6743b62adcb6499e89db95e033eac955f3c8f2b2ad7367dcea56a3af",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_rejoin_B.sav",
+    "bytes": 13493,
+    "sha256": "beb224c3c3954844f217f7fc2907be10253cd586e2cc0ae769972bb7662522fd",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-145826_rejoin_B.sha1",
+    "bytes": 40,
+    "sha256": "bfc16e3e6f87849f4391be4e49ca89f3d263cc30a408a3494ff8bf2436a52e3e",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin.json",
+    "bytes": 1261,
+    "sha256": "6cbdd56a8778a8fe1536935f53459648451ba8127f682f717044dd3487cce9ca",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/Wire/20261107-145826/rejoin.log",
+    "bytes": 284675,
+    "sha256": "5c3125aa5bdbf2a539679cfb4f1f964cb46cbbe1f97d319d6f1e47dc9b9ed114",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/ConfirmedModule/wire-receipt.json",
+    "bytes": 310,
+    "sha256": "4ebfe9e830910ccb448828ea33797cf27ca2dc507ec1d63928ef4b85cc3d9bb4",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Delivery/Wire/20261107-152557/build-editor.log",
+    "bytes": 69064,
+    "sha256": "0f9722405bc3380961dcc44f986bb0f6140686752f3f179e2a2ceb1f520cece2",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Delivery/Wire/20261107-152557/build-game-console.log",
+    "bytes": 63783,
+    "sha256": "84eac74087ec7acca25c44b20e0d24f951bb530310f6ba07d439140f5d9c8402",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Delivery/Wire/20261107-152557/build-game.json",
+    "bytes": 188240,
+    "sha256": "9c35f3a0698525de90d4eafebeeeea856c402acc62c7a26edf95634a9c02b555",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Delivery/Wire/20261107-152557/build-game.log",
+    "bytes": 77792,
+    "sha256": "329070310cfd588bdfe8f1c004c98e3f078e96bf2260f59812c91c3011f20ff1",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Delivery/Wire/20261107-152557/host/Saved/Config/CrashReportClient/UECC-Windows-6E54713046513EBBB1585EBDA046D363/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Delivery/Wire/20261107-152557/host.log",
+    "bytes": 37480,
+    "sha256": "9b5629f451b364de7317695b2a36d35238fdbb560d51ea9100831f4822c443a3",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Delivery/Wire/20261107-152557/input-hashes.json",
+    "bytes": 2468,
+    "sha256": "452cb591cbf2fb5527c1ca6bb965421663749bca7c40d9ea447ecace98194b38",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Delivery/Wire/20261107-152557/superseded.json",
+    "bytes": 163,
+    "sha256": "889a335e7c0b1e3681668b1fc81333925386bb7efc8eea3665f48ef473f421d8",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/end-play-result.json",
+    "bytes": 210,
+    "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/end_play.py",
+    "bytes": 234,
+    "sha256": "3c2be42fa48879b269ab56f1eacc8e9eac27c2252e5a5baefb010052740bb2ae",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/build-editor.log",
+    "bytes": 1256,
+    "sha256": "240124bcdb1b086f500b34d22ea7f45720bfea9cabbcf25bc7b17875c7a21372",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/Config/CrashReportClient/UECC-Windows-E7DE363745D1ACF9AB6BEDB5F14E2CF0/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "bf0f3c66407bb50b4faa8b40d0f0226df424b7efb0c67348988d3c7bfa21a5d6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_client_A.sav",
+    "bytes": 13493,
+    "sha256": "83a934d016e68865b1e5360b334698ab8384cf08d2d496e0c0f1663d74686d77",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_client_A.sha1",
+    "bytes": 40,
+    "sha256": "7b93dfe10f4ab2ce167f36acffede9a5d63fa4f42650ac46b272d9b6682e3400",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_client_B.sav",
+    "bytes": 13493,
+    "sha256": "3d6752b1b1691c5b0d82b1e6699ebc1b553867ac9c0baf505c75d2fee528f449",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_client_B.sha1",
+    "bytes": 40,
+    "sha256": "1902349ad0ca81bc54b62cc16284aa8bc8012da3a733386f58572d10354dcfd7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client.json",
+    "bytes": 1680,
+    "sha256": "4101b73a2ae3d4a695600c92f30e7122d9fb2f3bd4d97a3196017232d8784cb0",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/client.log",
+    "bytes": 265403,
+    "sha256": "6d5b28b34a319c055fcf17c6a2c0998028e6e8fccb8c0949506819cbdd69a7fe",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/Config/CrashReportClient/UECC-Windows-3C33424F46DD017FD2E501B4C1F906F9/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49847,
+    "sha256": "a52004268727a5402cfebe8d6503b644b2768d7c592432a9bf6d74fdea6ca87f",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP23E8_64232e60.sav",
+    "bytes": 13598,
+    "sha256": "002f29fc5827f69324db1fc6ec6d0ddc664cc40a2a84a0355349852fee3cc7b5",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBPCC6A_058ff479.sav",
+    "bytes": 13598,
+    "sha256": "b3be5e26af938b3e01236802d9d3ee0a8d898ed264df86faf72ecb335d510b3e",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_host_A.sav",
+    "bytes": 13607,
+    "sha256": "f94bdc24f0e7d4533d65a539f25a59783fb5dd0a4a771bc56dab7d1fb21b615b",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_host_A.sha1",
+    "bytes": 40,
+    "sha256": "c79957327151cdbafda950217858eda7f05a6799b250ef1bf1c8d5c088e9803c",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_host_B.sav",
+    "bytes": 13607,
+    "sha256": "9c5552e7d41816dc94a613e6f14667d5311ce5c78c4751ff6dedae4541e74722",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_host_B.sha1",
+    "bytes": 40,
+    "sha256": "01a07b599409d8545b08c30c5cb2ccee6a0947bc95d168052d21d38230a25a91",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_host_Shared_d76a53d8.sav",
+    "bytes": 2312,
+    "sha256": "f83eaf7edeec6aa1e6bc23509af09513647f53de953dadf7939c4b53eb96ee59",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host.json",
+    "bytes": 4899,
+    "sha256": "b6655a40727f0f72482060d26bc6222e35ee2f4618101d1c474026d5b59220a8",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/host.log",
+    "bytes": 291083,
+    "sha256": "914e0e4592884164fa41297cb0f8ce0cf8243c70ed18b82f95941f79d735b88e",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/input-hashes.json",
+    "bytes": 1754,
+    "sha256": "0373e8733a3249d6b072c5edf5a770fc6eb7b1cbdf3f43e95b4a296565cd3992",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/Config/CrashReportClient/UECC-Windows-F511664F4558389524CA80BF21B583B3/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "d7d2c8646b55d6c4cf9c142e14aa4134373ef92fdc7802b89d911aa02ef1d512",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_rejoin_A.sav",
+    "bytes": 13493,
+    "sha256": "908ed09f3bf189382beca95ff534fee675b5a21a023dfcb3ca49bc8bc8daa2bb",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_rejoin_A.sha1",
+    "bytes": 40,
+    "sha256": "4aa3070fd9ec6107504de310cc8971a4d472a6fecc90ec2a02be795d213a6b40",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_rejoin_B.sav",
+    "bytes": 13493,
+    "sha256": "37a39d2b9c676c7d168af34ea604ab3e9864fc63b1ee332c1025e82e5c6be09a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151148_rejoin_B.sha1",
+    "bytes": 40,
+    "sha256": "8ed7f5d98dd656b026da1f880572b688c1d6d056d355abb90ec1d6875689702d",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin.json",
+    "bytes": 1729,
+    "sha256": "ceec993e37abacd9796617d09fe119a3987b1c34ac6471e5abb623fef5064315",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/Wire/20261107-151148/rejoin.log",
+    "bytes": 268072,
+    "sha256": "096fa10c88ee3d647660871057499680e4d2d7b287099160ea86fb68eafe97b2",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Final/wire-receipt.json",
+    "bytes": 301,
+    "sha256": "6e58d327965b44cd39d7b16dbf0a1d6e54080223f843636afd1e327bbcc57be7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/build-editor.log",
+    "bytes": 34464,
+    "sha256": "d674d92e96a7b722dc3afc5528b9a90e2eadca51363dd28088218c6aa0cca989",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/Config/CrashReportClient/UECC-Windows-B078F984443F623FA0E02980D706E731/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "11808173cf7917c561485c424cbcab62cc282574b4a5a09c45c70ec95d33f945",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_client_A.sav",
+    "bytes": 13493,
+    "sha256": "d405daca3620685ee9b6569a8b3b7797a309c81251aa529d10f976e0786bc2e9",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_client_A.sha1",
+    "bytes": 40,
+    "sha256": "dbbccef7f295a1fc12cd42f8f8047dab26944e0e6e0ac4ff9972f5a138d0f713",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_client_B.sav",
+    "bytes": 13493,
+    "sha256": "32db55f3715389c393eca781712d5e4e01dedc40c388ce4ed86e3dd18ce3600d",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_client_B.sha1",
+    "bytes": 40,
+    "sha256": "1e6a6d6360228a3976840d971ab0211c3fa48173dd594c3d63facdda0c5fb373",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client.json",
+    "bytes": 1698,
+    "sha256": "73ec32b22f68a947c46707e01b68a52fd342c360fb7c90f4af7bf5a4a1c5ea51",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/client.log",
+    "bytes": 279686,
+    "sha256": "0d62ec3ad297fb8c3e843715ab20026ac6b63e0cdbcc8f73ca1de42c80e70a38",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/Config/CrashReportClient/UECC-Windows-C948670E4203EFC3C0F35E99A6CE72B3/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49847,
+    "sha256": "33033bfd4262464bd4a7d32634e774859dc688b18628a91d44ab6a7d60912fa6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP1F9B_0e7fa851.sav",
+    "bytes": 13598,
+    "sha256": "b0dcc39709e2a3de02358cd11c29a96e3f7d4d9c359f2e4c99faf5edaaa85323",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBPA301_0b35f9f5.sav",
+    "bytes": 13598,
+    "sha256": "f36307e2e4b4080338f6fafacaf1b40e25930f0c34f7a77441831fce663e2a40",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_host_A.sav",
+    "bytes": 13607,
+    "sha256": "9be26e874377c952d53ce35865766a083123c2791cd0e36f68a25d5ed8dbeda4",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_host_A.sha1",
+    "bytes": 40,
+    "sha256": "4e5cce48238195b2558e38bc80264f90d727e307da4d9d4339b307d3f3391384",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_host_B.sav",
+    "bytes": 13607,
+    "sha256": "7fc65886e7c22e28626b900cb7f8f43b435ff11fcbe88dfaaa5ff39eab566834",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_host_B.sha1",
+    "bytes": 40,
+    "sha256": "58645ead1cb36941030314d58b3587a14f5d258b84401a96329eded4e2f2265d",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_host_Shared_d76a53d8.sav",
+    "bytes": 2312,
+    "sha256": "47849e64a77befc8841f43828d8ccfbde0d9a3918ac1712feb13b05ec9425a98",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host.json",
+    "bytes": 4899,
+    "sha256": "b6655a40727f0f72482060d26bc6222e35ee2f4618101d1c474026d5b59220a8",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/host.log",
+    "bytes": 306457,
+    "sha256": "60479f52ee856ebbd6077cac8d15f96de4dfe4fbb94bbfc10740b547c91c7b37",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/input-hashes.json",
+    "bytes": 2468,
+    "sha256": "d3a5a36287ab2372effd2968591d4fc4636fcfeb4e773951a9ee547af6d37fd2",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/Config/CrashReportClient/UECC-Windows-B20B0D6343247254C071419AB45CD340/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "1807f284aaa269600b9c5d771e554141bb538fa883b7259fdafee2b15a2c0c07",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_rejoin_A.sav",
+    "bytes": 13493,
+    "sha256": "675221bbc79197e697c7a8fd43bb527358fba6762bdd6c1cd16ae560e7e6c576",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_rejoin_A.sha1",
+    "bytes": 40,
+    "sha256": "303880cedd85a966162e463bba6095c224b64e26e5e18f8a3f98b115dcc629cf",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_rejoin_B.sav",
+    "bytes": 13493,
+    "sha256": "f95bb07ce010361f47ac78c231e401cd0913967fb80101b22773fe182d781dd6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-151850_rejoin_B.sha1",
+    "bytes": 40,
+    "sha256": "d589d0e483bbe3f739d6ade62230de1955135cff70d1123eae661f0a1a037712",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin.json",
+    "bytes": 1729,
+    "sha256": "87d4294e1b452371530be6112f6083fdf53403a6f7c318a5199d33f419b5ec8e",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/Wire/20261107-151850/rejoin.log",
+    "bytes": 272414,
+    "sha256": "4575de151faadd4b70cf49c70cbcd731684338c2211adcf846ad354b91db58b7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalClock/wire-receipt.json",
+    "bytes": 306,
+    "sha256": "9175fd66477b02986c741b3a77f9547fdee5145ba3bd46042795ae1f0e8aded9",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build-clock.json",
+    "bytes": 93818,
+    "sha256": "5f2824d491c82bc9587f64f3d4f830dfa988b0d975f8eaea0cd9ccfebb5b53bc",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build-clock.log",
+    "bytes": 39337,
+    "sha256": "30735e374f1cbee42484d9794cce880d10a72f054e646cb3d3e3c8b6cae75993",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build-final-backup-2026.11.07-06.42.26.json",
+    "bytes": 26185,
+    "sha256": "a14f0768830f9b420c6b9161002be2b481d41a8f5a6a173b5ab7ef2068629311",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build-final-backup-2026.11.07-06.42.26.log",
+    "bytes": 7846,
+    "sha256": "ce15c53037f5d19eeefb322a8976d44b8dce629ce75d87aac05f438269e92de1",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build-final.json",
+    "bytes": 67879,
+    "sha256": "295a8de24bdcc8a87495365411f1dee19b2940dc9d1a4e88835510ed39e819ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build-final.log",
+    "bytes": 29597,
+    "sha256": "ba84ac9853af5d51f7380a3c564f1f1cd35880f07fa16fcf5b9c10cd821b6430",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build-finalclock.json",
+    "bytes": 201954,
+    "sha256": "efa4ca4f8202e620f735274a49e7fb51e68fe0390164137217db0550b7fe69e8",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build-finalclock.log",
+    "bytes": 66293,
+    "sha256": "cb174c1822ad11391a4a5d6fd740e26c4eeb0df81b7a724de329393f768fea9d",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build.json",
+    "bytes": 67254,
+    "sha256": "853bca3f053f7c507d46dc43ab4907da5d4d78d5cefe2229216405dbeaa349e1",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/game-build.log",
+    "bytes": 29410,
+    "sha256": "865a3b32f97ada90694b962a9765ae8a9f84bcbee0b2b3df7168bd98ced9e8d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/save-close-command-result.json",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/save-close-command-result2.json",
+    "bytes": 210,
+    "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/save_close_editor.py",
+    "bytes": 1321,
+    "sha256": "9907cf4e9272ac7cd9c5b2653857e957f00086f2b65c92d133dcf2e2e6ecd5b8",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/Config/CrashReportClient/UECC-Windows-B3E51A574974E54B1A203E896500D8C5/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "1e73912c52ad9a0cc2c3dea0ebed91825389edeed6debc45d420f12191e8152f",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_client_A.sav",
+    "bytes": 13600,
+    "sha256": "34c90e241da1e82032e18d08f1cb765aead835ea15478a1bdbbc761b56ef2511",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_client_A.sha1",
+    "bytes": 40,
+    "sha256": "ffd7dd9f259840fdeecdde3efb4b15f0a2ac4563b353b89f131ba6efc0d32182",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_client_B.sav",
+    "bytes": 13600,
+    "sha256": "9d83641a088f314726fa0e0b33a75ef5c8995166ccd88f4fecb7b5f4153d7e60",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_client_B.sha1",
+    "bytes": 40,
+    "sha256": "90f8101346dd41c7f880a17e78d991f41ca63a71e13fec240c159b6e1da732a9",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client.json",
+    "bytes": 1732,
+    "sha256": "1d3d47682c1946f6561ae65b617290f0db5c1b4f34f3b9ae29ac60d1aabe7336",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/client.log",
+    "bytes": 286906,
+    "sha256": "b71de6a2a6470259b8f93b28e2f967baeecc3947647b4914a634c5676bb53ac4",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/Config/CrashReportClient/UECC-Windows-63B9ADEE4D20E2917CFCF59C3689F4A0/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49847,
+    "sha256": "30105d8213c0273ef3e4ce877cf6ff394d780ebac080f7fafd38c3197a156a29",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP55B1_012a3566.sav",
+    "bytes": 13705,
+    "sha256": "ddfeb619a4d5f4ce48eeb15a37f752217dec4b28e77e371e780167664717e980",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBPBF24_ebef4cac.sav",
+    "bytes": 13705,
+    "sha256": "d7ccd25b8a73345be3307e1e59bcb059373d6c7c7fb619c02cffbb892a1299de",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_host_A.sav",
+    "bytes": 13714,
+    "sha256": "ede27adbf3fd461d61c05b3e2e2abda836710584e85bb243dae2a3112cfd08e1",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_host_A.sha1",
+    "bytes": 40,
+    "sha256": "06b7e381d1e95683dd1ae5b6c2a15f65f1caf3eab1078d110c9f801f97d51d4f",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_host_B.sav",
+    "bytes": 13714,
+    "sha256": "70ef776759971d07a9a1f2c931e4ce4e1ee81fedb676dd4c1ec4abd1c5f949bf",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_host_B.sha1",
+    "bytes": 40,
+    "sha256": "b9d0e3e053354f92e237abf8a05ca1aae891f14e199bf69bc744e9a2a39eaaf8",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_host_Shared_d76a53d8.sav",
+    "bytes": 2312,
+    "sha256": "e00adb926d4f6d5b9e6bc809443d6a43793cf6fb749aed4df3eff8413a1fa50b",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host.json",
+    "bytes": 4899,
+    "sha256": "d7d2de822dff5f239053da7e004ec20bc8b366e1bc6b16094e6b312ae3d46fe5",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/host.log",
+    "bytes": 331823,
+    "sha256": "27cbda7bbc92417a2a7cd580fe6e33726078e99304b0f94b0e8c0614b06bbc69",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/input-hashes.json",
+    "bytes": 2468,
+    "sha256": "cf96394a181634b3b8dc1c925a6b4cee9e43ca1c85699bf50e3dbfe74a41bf5d",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/Config/CrashReportClient/UECC-Windows-9B63263A42A9A2FC88222D8E25B5FEC0/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "b2f4b318c83795d86a8c4c825a15bda97af1f00833d62dbd58d53f4da64d72d0",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_rejoin_A.sav",
+    "bytes": 13600,
+    "sha256": "e8fdb8834b41dee20981f1db0698973a98bfbba8e5c296ac4a0a71f25875e1be",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_rejoin_A.sha1",
+    "bytes": 40,
+    "sha256": "a825ef72c1519c3ea869a18c65aafe74a57c79d701bb25953fa5138e609f8146",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_rejoin_B.sav",
+    "bytes": 13600,
+    "sha256": "7794818a28814e373f1c42302c9a77eede0a1f5c1948c2bcca0d14779cc2a501",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-154401_rejoin_B.sha1",
+    "bytes": 40,
+    "sha256": "48d9ff1d545b8846a21794d388f07e41a41337f43468248162b474ab3e7105a9",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin.json",
+    "bytes": 1729,
+    "sha256": "d9cf21827e70f013adcded876186547847f5ffc98bfb42761f32d69751d26884",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/Wire/20261107-154401/rejoin.log",
+    "bytes": 289919,
+    "sha256": "905e06c2202d8a58965896cdd723a29d479be8c57572a9ae1f62a990f29dd0d3",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/VerifiedSaved/wire-receipt.json",
+    "bytes": 309,
+    "sha256": "2e85cbb54b12be5bf18c99b050f366b8be44895df54aa0d52acaa18e69e1c552",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/build-editor.log",
+    "bytes": 1351,
+    "sha256": "ec95e6f01ca018f6ba5aafcc628b149fcb5b080e4525705e6e5540c0606550f7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/Config/CrashReportClient/UECC-Windows-0F1DACAB45D646D7820CCF8AA9388193/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "321ad13f9d4eec836d13bf8cbf8801948d8a3442053de7641f2c0a643b9bf126",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_client_A.sav",
+    "bytes": 13493,
+    "sha256": "49197697614064edb834d1ba1511c588887754003cd78610d667b6044166a07d",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_client_A.sha1",
+    "bytes": 40,
+    "sha256": "bea63e983a36da83e04ce8933e5dd9492938516bca2af26adc784b46de0400b7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_client_B.sav",
+    "bytes": 13493,
+    "sha256": "41029eb0c8147b700e125c7220873c43605243cea03d9d4b66d6e2a26c133bcf",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_client_B.sha1",
+    "bytes": 40,
+    "sha256": "343fb0474cf62f4bdf1f3dda8bc5015bec3693fa890f729057515ddb23b060c7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client.json",
+    "bytes": 1264,
+    "sha256": "5328f666c53d72221eb2fbfff86ec829183649eef624d1e4dc1ca8da09a3ede2",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/client.log",
+    "bytes": 273263,
+    "sha256": "5455259c8412f93ac393fb1a523aa965c260d4d8c72e812a904d664ae38bd415",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/Config/CrashReportClient/UECC-Windows-7CAFC51B4462C7B2581884BD909417F0/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49847,
+    "sha256": "ee794aa4251871aff62ad4f3880bd39ab8535b10cb04c46c9b1eb9c8af814b3c",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP5271_9102431d.sav",
+    "bytes": 13598,
+    "sha256": "2b084fb992a3ebd1facc8ebf4b55f6a74d5547ba13a700bba74e60627405f440",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP8132_792972a0.sav",
+    "bytes": 13598,
+    "sha256": "7b3306cc6be5b203aa5fcf2fb88952040ed73fd0a11ca53b74b3b7cfdce8a2f7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_host_A.sav",
+    "bytes": 13607,
+    "sha256": "b9019a67f63d7555345f7700fd1856346126696290d7028ef2caad4b57c0eb07",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_host_A.sha1",
+    "bytes": 40,
+    "sha256": "626daa4b4bdfeb6365115040f2fbe498e6eb38353b06ff6c638f6735b2718e27",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_host_B.sav",
+    "bytes": 13607,
+    "sha256": "cf0bb00673a8ddb6e1591e1d89bfcc364c71747e13f930f38bc1c8bd01d00afb",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_host_B.sha1",
+    "bytes": 40,
+    "sha256": "5cc877028a861792e0c605138ed5dd4db5ffeaa31a71ebe7ba102710000d3e64",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_host_Shared_d76a53d8.sav",
+    "bytes": 2312,
+    "sha256": "8e2ee3502fc51cc5b70e46c3d592a776a2707ea9c7e6e54722fb07ab53972c57",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host.json",
+    "bytes": 4491,
+    "sha256": "b66e00f619d5771a4a259109410902fc9ff64032650bb064d61e38b1f0cc5153",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/host.log",
+    "bytes": 301574,
+    "sha256": "330b687f7a6230b4c7f2a50e0445c6c9706ccf27489e810501afe05939cdf4a3",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/input-hashes.json",
+    "bytes": 1504,
+    "sha256": "96158edb7a543d0535bf65a1bbf5b1cc5a8e84bf617e871e71751d3dc1c17f42",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/Config/CrashReportClient/UECC-Windows-2321FBDB48DE1F308585E483465A19AF/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "8bbb8dbc4de39f24fabcd1eab9caf898b7a01debfbfc30d8a5b7545e13181415",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_rejoin_A.sav",
+    "bytes": 13493,
+    "sha256": "24d56648dd4667a558b7bd3213022dc43f448c4b83538b1fd9be5c01370cf1fa",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_rejoin_A.sha1",
+    "bytes": 40,
+    "sha256": "1029600a556cb34ba60d816a4ffd03636bcb9c0833dc571d52db3d71801f98f7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_rejoin_B.sav",
+    "bytes": 13493,
+    "sha256": "bb2f62873674dd3e02a33d4480af6470c004c8d2f8d1c783dc5a2d77f510d973",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143128_rejoin_B.sha1",
+    "bytes": 40,
+    "sha256": "f0fcb3e450433ab54e1b8b1f59ef3df991b74bb66935d664e1265ed70025e370",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin.json",
+    "bytes": 1261,
+    "sha256": "6cbdd56a8778a8fe1536935f53459648451ba8127f682f717044dd3487cce9ca",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143128/rejoin.log",
+    "bytes": 264941,
+    "sha256": "5ff910b3a16fe8f27a02d7485fe1d64a4072b998acb2c7b49d7e9baebcbc0c70",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/build-editor.log",
+    "bytes": 1256,
+    "sha256": "1307cd5568d21a169d25c4bddf58548824bcb260b31b37b95867c0867e3220d6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/Config/CrashReportClient/UECC-Windows-B600C46E4A6E192C6948FD82B05574C4/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "cc49d327be96a0fb042b042652cf94b99578f770bca0f85feaf467ff888ee738",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_client_A.sav",
+    "bytes": 13493,
+    "sha256": "4b63b5987d5cb376d05d6545431453891bf9074a4a72b5a8087507340a057d0f",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_client_A.sha1",
+    "bytes": 40,
+    "sha256": "3752b20e2d5229ae711f79ef09e986166f405ac93607dbf058c2eecfe899441e",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_client_B.sav",
+    "bytes": 13493,
+    "sha256": "f9763e6e12373c64848d51c34ba86ed9160ea69578edf7f2d1980eb2a9e24331",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_client_B.sha1",
+    "bytes": 40,
+    "sha256": "b6556f934272b158d470187c50b7a96c26213fa546ba9b91d368657f22d4ca71",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client.json",
+    "bytes": 1264,
+    "sha256": "b1c3d414e930a44ae0a87eb44b9efef67d0b83cf685cdfa10d6777d59a2ab38f",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/client.log",
+    "bytes": 281335,
+    "sha256": "0377a30276c1c1ee85e9e61728a2f8ce5c0cde52b4c280186cac1ea0d17c036b",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/Config/CrashReportClient/UECC-Windows-CECED355433E6BB8AEBC788F431FB373/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49847,
+    "sha256": "4a5b36aff22957e78d64e41bfae03478a7689374c264e0bef65314f0a614e3fd",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP30A9_8123049e.sav",
+    "bytes": 13598,
+    "sha256": "d85769c010edcd8b49f205fa46e4e00fde99bc58078fa1607eb6f650d25d6c30",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP3C04_40671e49.sav",
+    "bytes": 13598,
+    "sha256": "79aead20d6634f67d879baa0580cf7569b0c3f14fe5a02ff5e651643ee6d8acf",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_host_A.sav",
+    "bytes": 13607,
+    "sha256": "c021f1b29c6af8a10037c80c4f0646452759fef51b0e4d7a4c36294154efd92e",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_host_A.sha1",
+    "bytes": 40,
+    "sha256": "976030634255c3924648b3ceea0ecb3f93c58df252d75f08e29de2f163b6a2a9",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_host_B.sav",
+    "bytes": 13607,
+    "sha256": "8053fe6731fadffa8500ef514df8a0882d3f3ba3ef624b8a1ecb6745cfad4258",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_host_B.sha1",
+    "bytes": 40,
+    "sha256": "e9cabd75b204567de4eb9e1b25cda35625f813ae8a5f88d0600d4ed105de346f",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_host_Shared_d76a53d8.sav",
+    "bytes": 2312,
+    "sha256": "282913a6dc3efe36018c646a9fcf5352ef96e44fd8ad47e50529cb59ed586323",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host.json",
+    "bytes": 4491,
+    "sha256": "deb79045159b414f7dafb1bb157ad8ba894ef3692cd5ff8140d6c7a52a28f102",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/host.log",
+    "bytes": 305154,
+    "sha256": "460b3356f053e15160d93444416afa4d6d16a7b14c17a3691acea7bcde1d9347",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/input-hashes.json",
+    "bytes": 1754,
+    "sha256": "7ab41109e46829b24b65e6c3b2cd331dd9169a6644575d71a904ca84ac4f97f1",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Intermediate/PipInstall/extra_urls.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+    "bytes": 108,
+    "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Intermediate/PipInstall/merged_requirements.in",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+    "bytes": 17202,
+    "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/Config/CrashReportClient/UECC-Windows-C6467D2C4EBAFFC5B340C4B363364AB0/CrashReportClient.ini",
+    "bytes": 239,
+    "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+    "bytes": 95,
+    "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+    "bytes": 49597,
+    "sha256": "ef17db09884e237fd13789d9cf40c10093deebadceeba72bedf77973e0ad8322",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+    "bytes": 111,
+    "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+    "bytes": 1380,
+    "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_rejoin_A.sav",
+    "bytes": 13493,
+    "sha256": "823a4a68949b3cd0a2c81f1c75f683b4ef1f85802646b76fe043d27cb3589807",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_rejoin_A.sha1",
+    "bytes": 40,
+    "sha256": "96eed66649d0d6ab0baaf9b72d000ee965a9a51047549acf885c6d331b842009",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_rejoin_B.sav",
+    "bytes": 13493,
+    "sha256": "bd4e0507c613fb177b54737246bca05b37eb7fa99dcfd1f6dd08b9077f1e96bc",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_M24_20261107-143912_rejoin_B.sha1",
+    "bytes": 40,
+    "sha256": "77848f1ac91ab64222e4235b2b0bf29cef44dd48177d02dd53a47afe0e5d600c",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin.json",
+    "bytes": 1261,
+    "sha256": "6cbdd56a8778a8fe1536935f53459648451ba8127f682f717044dd3487cce9ca",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/Wire/20261107-143912/rejoin.log",
+    "bytes": 270787,
+    "sha256": "dc115e6fe2310faaac0244bc82c668f11b65058478529dd7d8816b5cc53b2da8",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/wire-receipt.json",
+    "bytes": 294,
+    "sha256": "cc3cbd0f454801a632a8fbee00a9af50ecc52173bb0f2e86b9435630e10d75a0",
+    "reason": "Superseded intermediate build/network attempt or expired editor request",
+    "retained": "Saved/SniperZhimingReview20261107/final-review.json; FinalReview/Wire/20261107-160432; M24StockRegression"
+  },
+  {
+    "relative": "Saved/SniperZhimingReview20261107/FinalReview/Wire/20261107-160135/build-editor.log",
+    "bytes": 50676,
+    "sha256": "00e61ad99a7755b826f63d2275af3c4c0767fbb35731e66e2311d6e96e02ef8b",
+    "reason": "Failed pre-final compile attempt",
+    "retained": "FinalReview/Wire/20261107-160432"
+  },
+  {
+    "relative": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_M24_Graphite_Render_v03.blend",
+    "bytes": 269110,
+    "sha256": "f51c0bc679645a3e0958b57b1bea23fb1fca5e9bc0978d0dc0f0b2e5b9c269ba",
+    "reason": "Earlier exterior replaced by final v06; current author does not read it",
+    "retained": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v06.blend"
+  },
+  {
+    "relative": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_M24_Graphite_Render_v03.png",
+    "bytes": 1808539,
+    "sha256": "af56c2c718328ab4bdb871560e483667f07d4f8a24ec008c50f7365d779a793e",
+    "reason": "Earlier exterior replaced by final v06; current author does not read it",
+    "retained": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v06.blend"
+  },
+  {
+    "relative": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v04.blend",
+    "bytes": 11213060,
+    "sha256": "d37fd90722c3eec68c4d93e6c4cde0da47e43e264a4eab3f140cb85822ce7a7d",
+    "reason": "Earlier exterior replaced by final v06; current author does not read it",
+    "retained": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v06.blend"
+  },
+  {
+    "relative": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v04.png",
+    "bytes": 1550432,
+    "sha256": "302e3df7b6ef59f00d0f6717766b36f8f5845601303b2f79963715efa601b269",
+    "reason": "Earlier exterior replaced by final v06; current author does not read it",
+    "retained": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v06.blend"
+  },
+  {
+    "relative": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v05.blend",
+    "bytes": 11299710,
+    "sha256": "e575b75d1207def9db41993d439376377945543a05373bc2d3daae0f14a2a1c0",
+    "reason": "Earlier exterior replaced by final v06; current author does not read it",
+    "retained": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v06.blend"
+  },
+  {
+    "relative": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v05.png",
+    "bytes": 1565360,
+    "sha256": "62ab41c0f5318f0947eb5258e0d4bfcbe22b187dadface99700f943420b1f1fb",
+    "reason": "Earlier exterior replaced by final v06; current author does not read it",
+    "retained": "SourceAssets/SniperZhiming20261107/Concept/Zhiming_Round_v06.blend"
+  },
+  {
+    "relative": "SourceAssets/M24CarbonMaterialIconInstall20261106/Before/FramedFirearms/ue_m24_stock_m24_carbon_spine_stock.png",
+    "bytes": 861658,
+    "sha256": "a43c0fb8619b01445c4f81e6b5ff897c050e9b2a41895c9eb103fb66d4e1b545",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  },
+  {
+    "relative": "SourceAssets/M24CarbonMaterialIconInstall20261106/Before/FramedFirearms/ue_m24_stock_m24_carbon_spine_stock.uasset",
+    "bytes": 693738,
+    "sha256": "d2c3af9c674475c6472e8ec8af22f61708f2a7c5e5b026a1dc5fd8a67bce39b7",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  },
+  {
+    "relative": "SourceAssets/M24CarbonMaterialIconInstall20261106/Before/Root/ue_m24_stock_m24_carbon_spine_stock.png",
+    "bytes": 182441,
+    "sha256": "ce06c01639146fec836d7ca95eaf720234ee11aee03aacaa175eb1a24705656c",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  },
+  {
+    "relative": "SourceAssets/M24CarbonMaterialIconInstall20261106/Before/Root/ue_m24_stock_m24_carbon_spine_stock.uasset",
+    "bytes": 140222,
+    "sha256": "d86a1f2ee8ba3b5cf6c307601ababcbba443745df4405f4baf5d316f080fcf4d",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  },
+  {
+    "relative": "SourceAssets/M24StockIconStandard20261106/Before/FramedFirearms/ue_m24_stock_m24_carbon_spine_stock.png",
+    "bytes": 861658,
+    "sha256": "a43c0fb8619b01445c4f81e6b5ff897c050e9b2a41895c9eb103fb66d4e1b545",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  },
+  {
+    "relative": "SourceAssets/M24StockIconStandard20261106/Before/FramedFirearms/ue_m24_stock_m24_carbon_spine_stock.uasset",
+    "bytes": 693738,
+    "sha256": "d2c3af9c674475c6472e8ec8af22f61708f2a7c5e5b026a1dc5fd8a67bce39b7",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  },
+  {
+    "relative": "SourceAssets/M24StockIconStandard20261106/Before/GunsmithModificationTier.h",
+    "bytes": 10819,
+    "sha256": "eb62228380032222aa87e91e336015fa26aaa16e752c0eb50b6673c4ce7d6761",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  },
+  {
+    "relative": "SourceAssets/M24StockIconStandard20261106/Before/ue_m24_stock_m24_carbon_spine_stock.png",
+    "bytes": 182441,
+    "sha256": "ce06c01639146fec836d7ca95eaf720234ee11aee03aacaa175eb1a24705656c",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  },
+  {
+    "relative": "SourceAssets/M24StockIconStandard20261106/Before/ue_m24_stock_m24_carbon_spine_stock.uasset",
+    "bytes": 140222,
+    "sha256": "d86a1f2ee8ba3b5cf6c307601ababcbba443745df4405f4baf5d316f080fcf4d",
+    "reason": "Previous icon/code snapshot, replaced and kept recoverable in trash",
+    "retained": "M24CarbonMaterialIconInstall20261106/Selected.png; installed.json; current Content assets"
+  }
+]

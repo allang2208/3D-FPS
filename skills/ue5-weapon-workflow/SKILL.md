@@ -56,3 +56,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 单手斧拆分、连续刃厚、原厂 PBR、图标留白与斧面符文：[单手斧模块与符文](references/hatchet-modules-and-runes.md)。
 
 - 强化突刺替换、固定停帧、镜头至剑尖汇聚和配重被动：[强化突刺与剑气跟随](references/highland-thrust-follow.md)。第一／第三人称都使用当前可见剑尖，属性与服务器同算。
+
+- M24 后托平滑拼接、瞄具导轨座、止鸣及消音声：读取 [M24 后托平滑拼接、瞄具导轨座、止鸣及消音声](references/sniper-stock-and-zhiming.md)。
