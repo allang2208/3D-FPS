@@ -1,0 +1,173 @@
+{
+  "base": "8464a48f8445b3401ee121a4101caf82abeef514",
+  "entries": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+      "before_sha256": "4cc6e917bde9497e9efcc712b75d0fbcb8874d948a76954d2b8e4e0fdfc6b560",
+      "after_sha256": "679d9c0c5cbb0c0b8563a84a3be015ecc726f160397a3aec37912ac290b378be",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "before_sha256": "b3729af5a1f3e90626ea3717c179c30eeec5be56824d54729516f752954de46a",
+      "after_sha256": "87f25228176c5d532d26e6fbf0dc496dd8ecd4b83c630dbc54de4401c7280b7c",
+      "publication": "equipment_identity_applied; damage_snapshot_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "before_sha256": "bc6dcd54c357810e96835f9a32b871505eb5d2e4edf10d2d113ae7b4c55129b6",
+      "after_sha256": "88b6da957138197d8dd2e0a192e93a02ef8663d6b6022da0003d8b7a6af0c594",
+      "publication": "applied_to_public_source"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Multiplayer__ColdSteelQuickCombatAuthority.cpp.patch",
+      "before_sha256": "115956aa0dadbe0e90679ec2c4486581a2d4d422b56bee041f4a28731811f179",
+      "after_sha256": "cc9754cd40137bd987bfd1c0f66b490ff914f4fd04a661f1f4dc3fe7f2f12127",
+      "publication": "exact_owned_lines_replayed_to_public_source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningHastePresentation.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Skills__LightningHastePresentation.cpp.patch",
+      "before_sha256": "549bf2b38e92aa9338523d68d70bac32c1f9ac80ea03fe9005727922fafb4b47",
+      "after_sha256": "1b5f81d030ab6bf34cc949d943b1beff5be06fa9bc14bc76890015994b436deb",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Skills__SkillNetworkAuditCommandlet.cpp.patch",
+      "before_sha256": "7f5ed9e943ab58d8ab1b88a80c8cf33fa48b9b30979d5d13bfb33d829cbf3c05",
+      "after_sha256": "623512f1925e9f0a7b7ee321be3b5595520bef113ec601072674910f42f4ffc3",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Skills__SkillNetworkAuditCommandlet.h.patch",
+      "before_sha256": "45de46cb50c78bfc79a5776217f8c929a4749ac678e44e3fe6565b5556d8f4da",
+      "after_sha256": "9855f74c978f4d69e8f544d7acb2453f549862384de2a2bfc76854724bea3f34",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Skills__SkillWireAudit.cpp.patch",
+      "before_sha256": "ec2a9d4be83a30e93900472a05ca3209d53b3ff9d798fa7d75bcb33121ff5ee7",
+      "after_sha256": "b49fba78d518b0664c6b2fa4b736b208332b5e7c707c9a6e095d4454fed4b12e",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.h",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Skills__SkillWireAudit.h.patch",
+      "before_sha256": "985a1c2ee349b0658ea32fdaa405e83035efcb9cdd6afb0ca11e99e674130a01",
+      "after_sha256": "58c467234971b1a86b7422af962b900b0011979bac5d5d8195f9bf8992411528",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/WarhammerQuickCombat.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Skills__WarhammerQuickCombat.cpp.patch",
+      "before_sha256": "7c7277636a9197d645e00b3b2f9121aa1173635c1bc8dfa73336c7010cfd6d08",
+      "after_sha256": "2321d0fba1dc446352cc0fa64486f795b8e4305b3a02677909a40fe3eac96904",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/StarMarrowFlames.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Weapons__StarMarrowFlames.cpp.patch",
+      "before_sha256": "8a9e4b973ab640cd3e5b48db462b711f2e67e53d20ae577ef435d0fa0c8c32dd",
+      "after_sha256": "64456a5f10dcc9de651561f329428d8d8275d61a45ba094d68e87b3f0c022ae9",
+      "publication": "applied_to_public_source"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Weapons__Kukri__OffhandKukriComponent.h.patch",
+      "before_sha256": "7c103835e8b54ad683ca72f932f423d99392212e4da02eaf4dfa4c66be60ed9d",
+      "after_sha256": "a81c7f39a8d77034917421ed2e53de2f1d12330c529acbb08bbc9b75a0cd7d6a",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Weapons__Kukri__OffhandKukriStrike.cpp.patch",
+      "before_sha256": "d26574e2cb2718ca99a54c07744c83e9aa63bc1b54abf1aa86f6e14069858716",
+      "after_sha256": "9bd7deb38a8217c948252480ca826839aef696933ab75b08f9cd1872124af1a9",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/StarMarrowWireAudit.cpp",
+      "patch": "Integration/04-network-review/Source__FPSGAME__Skills__StarMarrowWireAudit.cpp.patch",
+      "before_sha256": "82f31252feb2f4ba78bb5fb8aa8d024bf4c954a375bc94e698155a1857d14cc4",
+      "after_sha256": "b85f83a71c45fd9681a04a8602a874e4dff67fa2d0e1c46940ac3fee573cdb1b",
+      "publication": "applied_to_public_source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ConversationCombatAudit20261108.cpp",
+      "patch": "Integration/03-skill-implementations/Source__FPSGAME__Skills__ConversationCombatAudit20261108.cpp.patch",
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "c5ed0dc97a26549af9f370bfcf65c33712e44e0a3d3128f8b8c8c9fc503b636f",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ConversationCombatWire20261108.cpp",
+      "patch": "Integration/03-skill-implementations/Source__FPSGAME__Skills__ConversationCombatWire20261108.cpp.patch",
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "6212da91f02be0729bdcc0316b8be8c00bc3e10825ee248e7f4e3555b60a439b",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningHasteAudit20261107.cpp",
+      "patch": "Integration/03-skill-implementations/Source__FPSGAME__Skills__LightningHasteAudit20261107.cpp.patch",
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "70688831aba8a161d61b2f52641f3930c04ad09c320f75a5503bd586666e22df",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningHastePresentation.cpp",
+      "patch": "Integration/03-skill-implementations/Source__FPSGAME__Skills__LightningHastePresentation.cpp.patch",
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "1b5f81d030ab6bf34cc949d943b1beff5be06fa9bc14bc76890015994b436deb",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "patch": "Integration/01-icons/Source__FPSGAME__UI__ColdSteelWeaponIcons.cpp.patch",
+      "before_sha256": "3cfd22381f21ff82c8104fe00068b1a6e9cfa3ff3a01a41cac539a70b9385734",
+      "after_sha256": "7126cf51496deec0b0bff8b3e35dd6cdd5ec930f1d5ed0940457655cb88c4d2b",
+      "publication": "applied_to_public_source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp",
+      "patch": "Integration/01-icons/Source__FPSGAME__UI__ColdSteelWeaponIconReadback.cpp.patch",
+      "before_sha256": "c7e29c5511d20e97d15d88fea3f1d282d19e4972c25c5cf097481a2c7e660f92",
+      "after_sha256": "5127cd5efa86aa6aaa577e2c068442752a5f3374aafa82fb722b9c097546143f",
+      "publication": "applied_to_public_source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+      "patch": "Integration/01-icons/Source__FPSGAME__UI__ColdSteelPickupWeapon.cpp.patch",
+      "before_sha256": "a3285fe1af1189612bd89e79c3482170332236b2ee402fd2508595101d418929",
+      "after_sha256": "51ccda7f31b828d2ec6a4f0717c41f24b9048fc4a6395a00bd815ff81687c769",
+      "publication": "exact_owned_lines_replayed_to_public_source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+      "patch": "Integration/01-icons/Source__FPSGAME__UI__ColdSteelEnhancementLayout.cpp.patch",
+      "before_sha256": "bc22051dfac988228437b3426e3faf4cd327f283993681da5d8b7813fe566bc0",
+      "after_sha256": "05855be0920eb48e6a1eddf64f8ea595f4e707bf9e26ffdce5caa1d09e72034d",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStarMarrow.cpp",
+      "patch": "Integration/02-weapons/Source__FPSGAME__UI__ColdSteelStarMarrow.cpp.patch",
+      "before_sha256": "604c013feb3b8c287dee007a5daedaf696a1cff0ed502ab113be9c4a4b23c805",
+      "after_sha256": "acebbfe60368a173d6483910d5dab42db21d0be6a8239e275e789c7909a02f61",
+      "publication": "applied_to_public_source"
+    },
+    {
+      "path": "SourceAssets/M249Orpind20261107/catalog_icon.py",
+      "patch": "Integration/01-icons/SourceAssets__M249Orpind20261107__catalog_icon.py.patch",
+      "before_sha256": "79979d1f2613a98f38031b9e21c5f26087f7c3485f1ea320c4c68d8fcf03fb5a",
+      "after_sha256": "64f489516240876f1165bd456936b2688e66060d53aa7e4ac3a12d550593b0e4",
+      "publication": "scoped_patch_requires_local_prerequisite"
+    }
+  ]
+}

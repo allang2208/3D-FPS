@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/WarhammerQuickCombat.cpp
++++ b/Source/FPSGAME/Skills/WarhammerQuickCombat.cpp
+@@ -5,2 +5,3 @@
+ #include "../Production/WarhammerConicalThrustMotion.h"
++#include "../Production/ConicalHammerSeat.h"
+ #include "../FPSGAMECharacter.h"
+@@ -46,2 +47,3 @@
+     auto Shot=ColdSteelSkills::Snapshot(Player,Item,false);
++    if(ConicalHammerSeat::Installed(Item))ConicalHammerSeat::PrepareQuickDamage(Shot.DamagePanel);
+     Shot.bMelee=true;Shot.bMeleeStrike=true;Shot.bRifle=Shot.bPistol=false;

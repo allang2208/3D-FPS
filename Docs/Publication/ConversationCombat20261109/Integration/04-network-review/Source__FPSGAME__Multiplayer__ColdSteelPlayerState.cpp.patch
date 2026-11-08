@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -7,2 +7,3 @@
+ #include "../Production/ProductionToolComponent.h"
++#include "../Production/ConicalHammerSeat.h"
+ #include "../Skills/FPSElementalArrowComponent.h"
+@@ -1381,2 +1382,4 @@
+         {OutReason=TEXT("quick combat not authorized or duplicate contact");return false;}
++        if(QuickCombatEquipment!=QuickCombatEquipmentKey())
++        {OutReason=TEXT("quick combat equipment changed");return false;}
+         if(!ShadowModel->QuickCombatStats().bAreaHit&&!QuickCombatTargets.IsEmpty())
+@@ -1820,2 +1823,4 @@
+     FColdSteelSkillShot Shot = ColdSteelSkills::Snapshot(Shooter,PreItem,bFiredRound);
++    if((Report.AttackMeta&0x80)&&ConicalHammerSeat::Installed(PreItem))
++        ConicalHammerSeat::PrepareQuickDamage(Shot.DamagePanel);
+     if(Report.AttackMeta==0x10 && Declared && Declared->Definition==TEXT("ue_tactical_hatchet"))

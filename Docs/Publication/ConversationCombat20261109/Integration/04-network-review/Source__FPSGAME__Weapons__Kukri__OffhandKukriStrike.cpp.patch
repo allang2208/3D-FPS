@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp
+@@ -109,2 +109,3 @@
+     if(!Profile->CommitQuickCombatCast(Total/Rate))return false;
++    QuickActionRate=Rate;
+     QuickCast=Profile->QuickCombatStats();
+@@ -167,3 +168,5 @@
+     {CancelQuickCombat();return;}
+-    const float Rate=FMath::Max(.05f,LightningHaste::ActionSpeed(P));
++    // Keep the accepted action clock through haste expiry and recovery. The
++    // authority window and third-person timeline use this same committed rate.
++    const float Rate=QuickActionRate;
+     const float SwingAt=bHatchetQuickCombat?OffhandAxeQuickMotion::SwingAt:OffhandKukriStrike::Swings[0];

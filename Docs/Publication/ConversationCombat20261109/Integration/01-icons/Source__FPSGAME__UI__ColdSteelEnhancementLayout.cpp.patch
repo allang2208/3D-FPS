@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp
++++ b/Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp
+@@ -289,3 +289,3 @@
+                     ?TEXT("从背包或装备栏放入武器，开始强化或附魔。")
+-                    :TEXT("放入新武器时，旧武器需能放回背包才会替换。"));})
++                    :TEXT("悬停台上装备显示轮廓；右键取回，或拖到背包区域。"));})
+                 .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true)]);
+@@ -317,3 +317,3 @@
+             +SVerticalBox::Slot().AutoHeight()[SNew(SHorizontalBox)
+-                +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,2,0)[RetrieveControl.ToSharedRef()]
++                +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,2,0)[RetrieveControl]
+                 +SHorizontalBox::Slot().FillWidth(1).Padding(2,0,0,0)[ConfirmControl.ToSharedRef()]];
+@@ -324,2 +324,10 @@
+             [SNew(SOverlay).Visibility(EVisibility::SelfHitTestInvisible)
++                // Only the unobstructed scene receives world-item input; never cover the backpack.
++                +SOverlay::Slot().HAlign(HAlign_Left).VAlign(VAlign_Top)
++                .Padding(TAttribute<FMargin>::CreateLambda([this](){const auto L=FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this));
++                    return FMargin(L.ScenePosition.X,L.ScenePosition.Y,0,0);}))
++                [SNew(SBox)
++                    .WidthOverride_Lambda([this](){return FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).SceneSize.X;})
++                    .HeightOverride_Lambda([this](){return FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).SceneSize.Y;})
++                    [SNew(SBorder).BorderImage(FCoreStyle::Get().GetBrush("NoBrush")).Padding(0)]]
+                 +SOverlay::Slot().HAlign(HAlign_Left).VAlign(VAlign_Top)

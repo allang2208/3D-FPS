@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Skills/StarMarrowWireAudit.cpp
++++ b/Source/FPSGAME/Skills/StarMarrowWireAudit.cpp
+@@ -124,3 +124,14 @@
+     {Done=true;OK=bLateSeen&&bSawRefresh&&GetPlayerState<AColdSteelPlayerState>()->ReceivingMirrorCastSequence==3&&Status&&Status->WeaknessCount()==0&&Status->CriticalVulnerabilityCount()==0&&!Other->IsComponentTickEnabled()&&Core->Remaining()==0.f&&FMath::IsNearlyEqual(M->Mana(),StarInitialMana-StarManaCost,.01f);}
+-    if(!Done&&Now-Started<(StarStep==5?36.:14.))return;
++    if(StarStep==1&&!bStarSent)
++    {
++        static double LastGateLog=-1.;
++        if(Now-LastGateLog>=2.)
++        {
++            LastGateLog=Now;
++            UE_LOG(LogTemp,Display,TEXT("STAR_WIRE_READY wait=%.2f ready=%d sword_equipped=%d core_equipped=%d busy=%d traversing=%d casting=%d local=%d"),
++                Now-Started,Sword->IsStarMarrowChargeMotionReady(),Sword->IsEquipped(),Core->IsEquipped(),Sword->IsBusy(),P->IsTraversing(),P->IsLeftHandHeldForCast(),P->IsLocallyControlled());
++        }
++    }
++    // A cold client may still be importing its carried weapon's animation bundles.
++    if(!Done&&Now-Started<(StarStep==1?45.:(StarStep==5?36.:14.)))return;
+     bStarPassed&=Done&&OK;StarReportedStep=StarStep;
+@@ -235,3 +246,3 @@
+     }
+-    if(Stage>5||Now-Joined>95.)
++    if(Stage>5||Now-Joined>155.)
+     {

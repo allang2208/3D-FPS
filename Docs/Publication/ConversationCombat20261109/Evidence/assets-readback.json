@@ -1,0 +1,182 @@
+{
+  "passed": true,
+  "saved_asset_readback": true,
+  "rendered": false,
+  "cases": [
+    {
+      "case": "host conical catalog entry",
+      "passed": true,
+      "catalog": "warhammer-modules.json"
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/SM_SteelWarhammer_ConicalSeat_V1.SM_SteelWarhammer_ConicalSeat_V1"
+    },
+    {
+      "case": "conical mesh has geometry",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/SM_SteelWarhammer_ConicalSeat_V1.SM_SteelWarhammer_ConicalSeat_V1"
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/M_ConicalSeat_Steel_Surface.M_ConicalSeat_Steel_Surface"
+    },
+    {
+      "case": "saved normal map connected",
+      "passed": true,
+      "material": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/M_ConicalSeat_Steel_Surface.M_ConicalSeat_Steel_Surface",
+      "normals": [
+        {
+          "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/T_ConicalSeat_Steel_Normal.T_ConicalSeat_Steel_Normal",
+          "width": 4096,
+          "height": 4096
+        }
+      ]
+    },
+    {
+      "case": "host conical catalog entry",
+      "passed": true,
+      "catalog": "runebound-warhammer-modules.json"
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/SM_RuneboundWarhammer_ConicalSeat_V1.SM_RuneboundWarhammer_ConicalSeat_V1"
+    },
+    {
+      "case": "conical mesh has geometry",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/SM_RuneboundWarhammer_ConicalSeat_V1.SM_RuneboundWarhammer_ConicalSeat_V1"
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/M_ConicalSeat_Runebound_Surface.M_ConicalSeat_Runebound_Surface"
+    },
+    {
+      "case": "saved normal map connected",
+      "passed": true,
+      "material": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/M_ConicalSeat_Runebound_Surface.M_ConicalSeat_Runebound_Surface",
+      "normals": [
+        {
+          "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/T_ConicalSeat_Runebound_Normal.T_ConicalSeat_Runebound_Normal",
+          "width": 4096,
+          "height": 4096
+        }
+      ]
+    },
+    {
+      "case": "host conical catalog entry",
+      "passed": true,
+      "catalog": "thunder-god-hammer-modules.json"
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/SM_ThunderGodHammer_ConicalSeat_V1.SM_ThunderGodHammer_ConicalSeat_V1"
+    },
+    {
+      "case": "conical mesh has geometry",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/SM_ThunderGodHammer_ConicalSeat_V1.SM_ThunderGodHammer_ConicalSeat_V1"
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/M_ConicalSeat_ThunderGod_Surface.M_ConicalSeat_ThunderGod_Surface"
+    },
+    {
+      "case": "saved normal map connected",
+      "passed": true,
+      "material": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/M_ConicalSeat_ThunderGod_Surface.M_ConicalSeat_ThunderGod_Surface",
+      "normals": [
+        {
+          "path": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/T_ConicalSeat_ThunderGod_Normal.T_ConicalSeat_ThunderGod_Normal",
+          "width": 4096,
+          "height": 4096
+        }
+      ]
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Audio/TwoHandInspect/S_TwoHandInspect_Air_01"
+    },
+    {
+      "case": "audio contains duration",
+      "passed": true,
+      "path": "/Game/Audio/TwoHandInspect/S_TwoHandInspect_Air_01",
+      "duration": 0.7440000176429749
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Audio/TwoHandInspect/S_TwoHandInspect_Air_02"
+    },
+    {
+      "case": "audio contains duration",
+      "passed": true,
+      "path": "/Game/Audio/TwoHandInspect/S_TwoHandInspect_Air_02",
+      "duration": 0.5600000023841858
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/ThunderGodHammer20261028/RecallAudioV1/S_GuanLei_RecallCatch"
+    },
+    {
+      "case": "audio contains duration",
+      "passed": true,
+      "path": "/Game/Weapons/ThunderGodHammer20261028/RecallAudioV1/S_GuanLei_RecallCatch",
+      "duration": 0.20468750596046448
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairAttack3KH"
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/SteelWarhammer20261014/QuickCombatLeftWristV7/A_Warhammer_QuickCombat"
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Skills/LightningHaste20261019/NS_LightningHasteArc",
+      "require_current_frame_data": true
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Weapons/FrostCrystalSword20260915/StarMarrowCharge20261103/NS_StarMarrowDenseBladeFire",
+      "require_current_frame_data": true
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Skills/FlameArmor20261108/LocalFollowV10/NS_FlameArmorWeapon",
+      "require_current_frame_data": true
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Skills/FlameArmor20261108/LocalFollowV10/NS_FlameArmorHammer",
+      "require_current_frame_data": true
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Skills/FlameArmor20261108/SwordRestoreV11/NS_FlameArmorSword",
+      "require_current_frame_data": true
+    },
+    {
+      "case": "saved asset loads",
+      "passed": true,
+      "path": "/Game/Skills/FlameArmor20261107/CampfireV6/NS_FlameArmorArrow",
+      "require_current_frame_data": true
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -529,2 +529,4 @@
+     TWeakObjectPtr<APawn> QuickCombatPawn;
++    FString QuickCombatEquipment;
++    FString QuickCombatEquipmentKey() const;
+     TSet<TWeakObjectPtr<AActor>> QuickCombatTargets;

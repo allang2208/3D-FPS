@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/UI/ColdSteelStarMarrow.cpp
++++ b/Source/FPSGAME/UI/ColdSteelStarMarrow.cpp
+@@ -87,3 +87,3 @@
+     const FLinearColor LabelColor=ColdSteelUI::HUDGoldLight.CopyWithNewOpacity(Alpha);
+-    DrawText(TEXT("充能  [G]"),LabelFont,FVector2D(Position.X+Width*.045f,Top),LabelColor);
++    DrawText(TEXT("充能"),LabelFont,FVector2D(Position.X+Width*.045f,Top),LabelColor);
+     DrawText(Timer,TimerFont,FVector2D(Position.X+Width*.955f-TimerSize.X,Top),LabelColor);

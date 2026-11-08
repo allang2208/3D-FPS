@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Skills/LightningHastePresentation.cpp
++++ b/Source/FPSGAME/Skills/LightningHastePresentation.cpp
+@@ -104,3 +104,5 @@
+         FX->SetupAttachment(Path);FX->SetAutoActivate(false);FX->SetAsset(ArcSystem);FX->SetCastShadow(false);FX->SetCanEverAffectNavigation(false);
+-        FX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);FX->AddTickPrerequisiteComponent(this);FX->RegisterComponent();
++        FX->PrimaryComponentTick.TickGroup=TG_LastDemotable;
++        FX->SetTickBehavior(ENiagaraTickBehavior::UseComponentTickGroup);
++        FX->AddTickPrerequisiteComponent(this);FX->RegisterComponent();
+         FX->SetVariableObject(TEXT("User.BladeSpline"),Path);FX->SetVariableFloat(TEXT("User.Progress"),1);
+@@ -124,2 +126,3 @@
+         FX->SetOnlyOwnerSee(First);FX->SetOwnerNoSee(false);
++        FX->SetForceSolo(First);
+         FX->SetFirstPersonPrimitiveType(First&&I<2?EFirstPersonPrimitiveType::FirstPerson:EFirstPersonPrimitiveType::None);

@@ -1,0 +1,62 @@
+{
+	"cases": [
+		{
+			"case": 0,
+			"passed": true,
+			"contacts": 2,
+			"client_passed": true
+		},
+		{
+			"case": 1,
+			"passed": true,
+			"contacts": 2,
+			"client_passed": true
+		},
+		{
+			"case": 2,
+			"passed": true,
+			"contacts": 2,
+			"client_passed": true
+		},
+		{
+			"case": 3,
+			"passed": true,
+			"contacts": 1,
+			"client_passed": true
+		},
+		{
+			"case": 4,
+			"passed": true,
+			"contacts": 1,
+			"client_passed": true
+		},
+		{
+			"case": 5,
+			"passed": true,
+			"contacts": 0,
+			"client_passed": true
+		},
+		{
+			"case": 6,
+			"passed": true,
+			"contacts": 0,
+			"client_passed": true
+		},
+		{
+			"case": 7,
+			"passed": true,
+			"contacts": 1,
+			"client_passed": true
+		},
+		{
+			"case": 8,
+			"passed": true,
+			"contacts": 0,
+			"client_passed": true
+		}
+	],
+	"passed": true,
+	"transport": "UDP listen",
+	"actual_pkt_lag": 80,
+	"actual_pkt_loss": 2
+}

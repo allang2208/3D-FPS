@@ -1,0 +1,20 @@
+﻿{
+    "mode":  "dedicated",
+    "configured_lag_ms":  80,
+    "configured_loss_percent":  2,
+    "case":  "FlameArmor",
+    "passed":  true,
+    "run":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ConversationCombatReview20261108\\Wire\\FlameArmor-dedicated-20261108-224106",
+    "rendered":  false,
+    "port":  19960,
+    "peer_exits":  [
+                       {
+                           "exit_code":  0,
+                           "pid":  84888
+                       },
+                       {
+                           "exit_code":  0,
+                           "pid":  80992
+                       }
+                   ]
+}

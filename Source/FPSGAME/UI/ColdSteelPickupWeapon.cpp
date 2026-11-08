@@ -44,7 +44,7 @@ bool AColdSteelPickup::BuildWeapon(const FColdSteelItem& Item,UGameInstance* Con
     for(int32 M=0;M<Source->GetNumMaterials();++M)Weapon->SetMaterial(M,Source->GetMaterial(M));
     for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
-        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"));
+        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"))&&!Name.EndsWith(TEXT("_handle"));
         const bool Visible=Source->IsMaterialSectionShown(M,L)&&!Name.Contains(TEXT("manny"))&&!HandMaterial&&!Name.Contains(TEXT("glove"))&&!Name.Contains(TEXT("sleeve"))&&Name!=TEXT("skin");
         Source->ShowMaterialSection(M,S,Visible,L);Weapon->ShowMaterialSection(M,S,Visible,L);
     }

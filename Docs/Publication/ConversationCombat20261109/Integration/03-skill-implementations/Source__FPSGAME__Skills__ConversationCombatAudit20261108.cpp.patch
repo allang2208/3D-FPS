@@ -1,0 +1,142 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ConversationCombatAudit20261108.cpp
+@@ -0,0 +1,139 @@
++#include "SkillNetworkAuditCommandlet.h"
++#include "ColdSteelSkillRules.h"
++#include "FPSLightningHasteComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Multiplayer/ColdSteelPreparedHit.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelItemReadCache.h"
++#include "../Production/ConicalHammerSeat.h"
++#include "../Production/ProductionToolStats.h"
++#include "../Production/WarhammerConicalThrustMotion.h"
++#include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/Kukri/OffhandKukriThrust.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "HAL/FileManager.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Misc/Parse.h"
++#include "Serialization/JsonSerializer.h"
++
++// Explicitly requested review. Real authority entrypoints, isolated in-memory
++// profiles; UDP transport is exercised separately by ConversationCombatWire.
++int32 USkillNetworkAuditCommandlet::RunConversationCombatReview(const FString& Params)
++{
++    const FString Original=FCommandLine::Get(),Slot=TEXT("SkillNetworkAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(TEXT("SkillNetworkAudit -ColdSteelProfile=")+Slot));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("ConversationCombatAudit"));
++    auto* World=GI->GetWorld();auto* Host=GI->GetSubsystem<UColdSteelStatusModel>();
++    if(!World||!Host||!Host->IsAudit())return 2;
++    TArray<TSharedPtr<FJsonValue>> Rows;int32 Failures=0;
++    const auto Check=[&](bool OK,const FString& Name,const FString& Detail=FString())
++    {
++        auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("case"),Name);R->SetBoolField(TEXT("passed"),OK);R->SetStringField(TEXT("detail"),Detail);
++        Rows.Add(MakeShared<FJsonValueObject>(R));Failures+=!OK;
++        UE_LOG(LogTemp,Display,TEXT("CONVERSATION_COMBAT %s %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),*Name,*Detail);
++    };
++    auto Seed=Host->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();Seed.DungeonRun={};
++    Seed.Stamina=150;Seed.bSprintExhausted=false;Seed.NetworkProfileId=FGuid::NewGuid();
++    for(auto& Skill:Seed.Skills){Skill.Value.Level=1;Skill.Value.Experience=0;}
++    auto* Shadow=Host->CreateShadowModel(Seed);auto* PC=World->SpawnActor<ASkillAuditRemoteController>();
++    auto* PS=World->SpawnActor<AColdSteelPlayerState>();auto* Pawn=World->SpawnActor<AFPSGAMECharacter>(FVector(0,0,500),FRotator::ZeroRotator);
++    PS->SetOwner(PC);PS->ShadowModel=Shadow;PC->SetPlayerState(PS);PC->Possess(Pawn);Pawn->SetPlayerState(PS);
++    Pawn->NetShadowProfile=Shadow;Shadow->CurrentPawn=Pawn;Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    auto* HP=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();HP->Health=HP->MaxHealth;
++    auto* A=World->SpawnActor<ANurseZombie>(FVector(120,-30,560),FRotator::ZeroRotator);
++    auto* B=World->SpawnActor<ANurseZombie>(FVector(120,30,560),FRotator::ZeroRotator);
++    for(auto* T:{A,B}){T->Health=T->MaxHealth=100000;T->GetCharacterMovement()->Activate(true);T->Combat->ConfigureToughnessBar(FMonsterToughnessBarTuning());}
++    uint32 Seq=0;
++    const auto Begin=[&]()
++    {
++        PS->ServerQuickCombat_Implementation(PS->QuickCombatServerSequence,Pawn,0,true);
++        Shadow->Current.Stamina=150;Shadow->Current.bSprintExhausted=false;PS->FireTokenBucket=30;
++        PS->ServerQuickCombat_Implementation(++Seq,Pawn,.9f,false);
++    };
++    const auto Report=[&](const FColdSteelItem& Item,ANurseZombie* Target)
++    {
++        FColdSteelNetHitReport H;H.Target=Target;H.ItemDefinition=Item.Definition;H.ItemInstance=Item.InstanceId;
++        H.AttackMeta=0x80;H.QuickCombatSerial=Seq;H.Flags=(1<<0)|(1<<3);H.AimOrigin=Pawn->GetPawnViewLocation();
++        H.ImpactPoint=Target->GetActorLocation();H.Direction=FVector::ForwardVector;H.HitNormal=-FVector::ForwardVector;
++        H.ClientFireTime=World->GetTimeSeconds();return H;
++    };
++    for(const TCHAR* Definition:{TEXT("ue_steel_warhammer"),TEXT("ue_runebound_warhammer"),TEXT("ue_thunder_god_hammer")})
++    {
++        Shadow->Current=Seed;auto Item=Host->CreateItem(Definition);Item.Place=1;Item.Cell=6;
++        auto Data=ColdSteelItemData::Read(Item.Data);auto Mutable=MakeShared<FJsonObject>(*Data);
++        auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("head_mount"),TEXT("conical_seat"));Mutable->SetObjectField(TEXT("gunsmith_parts"),Parts);
++        FString Json;FJsonSerializer::Serialize(Mutable,TJsonWriterFactory<>::Create(&Json));Item.Data=Json;Shadow->Current.Items={Item};
++        const auto Mods=ColdSteelMelee::QuickCombatModifiers(Shadow);const auto Stats=Shadow->QuickCombatStats();
++        auto InputMods=Mods;InputMods.AllAttackDamage=1.;const auto Weapon=ColdSteelTool::Evaluate(Item,Shadow,nullptr,&InputMods);
++        const auto& Formula=Shadow->QuickCombatDefinition().QuickCombat;
++        const float Expected=(Formula.DamageBase+Formula.DamagePerLevel+(Weapon.Damage.BasePhysical+Weapon.Damage.AddedPhysical)*
++            (Formula.StrengthFactorBase+Formula.StrengthFactorPerLevel))*(1.+Mods.QuickCombatDamageAdd)*Mods.AllAttackDamage*Mods.MartialDamage;
++        Check(ConicalHammerSeat::Installed(&Item)&&Stats.bAreaHit&&Mods.bQuickCombatUsesWeaponDamage&&FMath::IsNearlyEqual(Stats.Damage,Expected,.01f),
++            FString(Definition)+TEXT(" conical formula and area flags"),FString::Printf(TEXT("damage %.3f expected %.3f quickAdd %.3f"),Stats.Damage,Expected,Mods.QuickCombatDamageAdd));
++        Begin();const float Paid=Shadow->Stamina();PS->ServerQuickCombat_Implementation(Seq,Pawn,.9f,false);
++        Check(Paid<150&&Shadow->Stamina()==Paid,FString(Definition)+TEXT(" duplicate start pays once"));
++        auto Hit=Report(Item,A);FColdSteelPreparedHit Prepared;
++        const bool Accepted=PS->PrepareHitReport(Hit,Prepared);
++        Check(Accepted&&Prepared.Shot.DamagePanel.BaseMagic==0.&&Prepared.Shot.DamagePanel.AddedMagic==0.&&
++            FMath::IsNearlyEqual(Prepared.Damage,Stats.Damage,.01f),FString(Definition)+TEXT(" authoritative quick physical channel"));
++        if(Accepted){const float Before=A->Health;const FVector Position=A->GetActorLocation();PS->SettleHitReport(Prepared);
++            const double Push=FVector::Dist2D(Position,A->GetActorLocation());
++            Check(A->Health<Before&&Push>.1,FString(Definition)+TEXT(" authoritative damage and knockback"),FString::Printf(TEXT("push_cm %.3f"),Push));}
++        const float After=A->Health;PS->ServerReportHit_Implementation(Hit);
++        Check(A->Health==After,FString(Definition)+TEXT(" duplicate target rejected"));
++        const float BeforeB=B->Health;PS->ServerReportHit_Implementation(Report(Item,B));
++        Check(B->Health<BeforeB,FString(Definition)+TEXT(" second forward target accepted"));
++        Begin();auto Replacement=Item;Replacement.InstanceId+=TEXT("_replacement");Shadow->Current.Items={Replacement};
++        const float BeforeSwap=B->Health;PS->ServerReportHit_Implementation(Report(Replacement,B));
++        Check(B->Health==BeforeSwap,FString(Definition)+TEXT(" swapped weapon cannot borrow old quick action"));
++        Shadow->Current.Items={Item};Begin();PS->QuickCombatUntil=-1;const float BeforeExpiry=B->Health;
++        PS->ServerReportHit_Implementation(Report(Item,B));Check(B->Health==BeforeExpiry,FString(Definition)+TEXT(" expired quick rejects contact"));
++    }
++    for(const TCHAR* Primary:{TEXT("ue_pit_viper2011"),TEXT("ue_apprentice_staff")})
++    {
++        Shadow->Current=Seed;auto Main=Host->CreateItem(Primary);Main.Place=1;Main.Cell=6;
++        auto Axe=Host->CreateItem(TEXT("ue_tactical_hatchet"));Axe.Place=1;Axe.Cell=8;Shadow->Current.Items={Main,Axe};
++        Check(!Main.Data.IsEmpty()&&OffhandKukriThrust::IsOffhandThrust(Shadow,&Axe),FString(Primary)+TEXT(" offhand axe routing"));
++        Begin();FColdSteelPreparedHit Prepared;const bool Accepted=PS->PrepareHitReport(Report(Axe,A),Prepared);
++        Check(Accepted&&FMath::IsNearlyEqual(Prepared.Damage,OffhandKukriThrust::Damage(Axe,Shadow),.01f),FString(Primary)+TEXT(" offhand server formula"));
++        Begin();auto Other=Main;Other.InstanceId+=TEXT("_swapped");Shadow->Current.Items={Other,Axe};
++        const float Before=B->Health;PS->ServerReportHit_Implementation(Report(Axe,B));
++        Check(B->Health==Before,FString(Primary)+TEXT(" main-hand swap invalidates old offhand chop"));
++    }
++    PS->ServerQuickCombat_Implementation(Seq,Pawn,0,true);Shadow->Current.Stamina=0;
++    PS->ServerQuickCombat_Implementation(++Seq,Pawn,.9f,false);
++    Check(PS->QuickCombatServerSequence==0&&Shadow->Stamina()==0,TEXT("insufficient stamina cannot authorize quick melee"));
++    FWeaponDamageParts Mixed{100,70,20,30};ConicalHammerSeat::PrepareQuickDamage(Mixed);
++    Check(Mixed.BasePhysical==100&&Mixed.AddedPhysical==20&&Mixed.Total()==120,TEXT("physical base/additional split survives mixed magical host"));
++    auto* Offhand=Pawn->FindComponentByClass<UOffhandKukriComponent>();auto* Haste=Pawn->FindComponentByClass<UFPSLightningHasteComponent>();
++    for(const float FPS:{30.f,60.f,144.f})
++    {
++        auto Spell=Shadow->LightningHasteStats(20);Haste->Start(Spell,900+int32(FPS),Shadow);
++        Offhand->Model=Shadow;Offhand->bQuickCombat=true;Offhand->bHatchetQuickCombat=true;Offhand->bStaffQuickCombat=false;
++        Offhand->QuickActionRate=Haste->ActionMultiplier();Offhand->QuickElapsed=.1f;Offhand->QuickEndTime=Offhand->QuickTotalDuration=1.27f;
++        Offhand->QuickSwingsPlayed=Offhand->QuickContactsDone=1;Offhand->QuickHitStop=0;
++        Offhand->AdvanceQuickCombat(1.f/FPS);const float BeforeExpiry=Offhand->QuickElapsed;
++        Haste->FinishForRemoval();Offhand->AdvanceQuickCombat(1.f/FPS);
++        Check(FMath::IsNearlyEqual(BeforeExpiry-.1f,Offhand->QuickElapsed-BeforeExpiry,1e-5f)&&Offhand->GetQuickCombatRate()>1,
++            FString::Printf(TEXT("offhand committed action rate survives haste expiry at %.0f FPS"),FPS));
++        Offhand->bQuickCombat=false;
++    }
++    auto Root=MakeShared<FJsonObject>();Root->SetBoolField(TEXT("passed"),Failures==0);Root->SetNumberField(TEXT("failures"),Failures);
++    Root->SetStringField(TEXT("scope"),TEXT("isolated production authority methods; no NetDriver or visual acceptance"));Root->SetArrayField(TEXT("cases"),Rows);
++    FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));FString Out;
++    if(!FParse::Value(*Params,TEXT("Output="),Out))Out=FPaths::ProjectSavedDir()/TEXT("ConversationCombatReview20261108/native.json");
++    IFileManager::Get().MakeDirectory(*FPaths::GetPath(Out),true);FFileHelper::SaveStringToFile(Json,*Out);
++    Shadow->CurrentPawn.Reset();Pawn->NetShadowProfile=nullptr;PS->ShadowModel=nullptr;
++    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);return Failures?1:0;
++}

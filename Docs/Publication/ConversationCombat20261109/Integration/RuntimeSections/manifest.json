@@ -1,0 +1,95 @@
+{
+  "scope": "Exact task-related runtime sections. Shared host dependencies are deliberately not replaced. These snippets are not an automatically applicable source patch.",
+  "entries": [
+    {
+      "source": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.cpp",
+      "source_sha256": "c8944b20f6c26d0e7b058565259ee249cc4cadaa32b70b7599f4d21179315f62",
+      "functions": [
+        "ConfigureCarry",
+        "FinalizeBoneTransform",
+        "InstallAxeArms",
+        "UsesNativeAxe",
+        "SampleAxeBlade",
+        "ApplyPistolRightArm"
+      ],
+      "section_file": "RuntimeSections/Weapons__Kukri__OffhandKukriComponent.cpp.inc",
+      "automatic_application": false
+    },
+    {
+      "source": "Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp",
+      "source_sha256": "9bd7deb38a8217c948252480ca826839aef696933ab75b08f9cd1872124af1a9",
+      "functions": [
+        "CanQuickCombat",
+        "GetQuickCombatLength",
+        "GetQuickCombatContact",
+        "GetQuickCombatRelease",
+        "BeginQuickCombat",
+        "AdvanceQuickCombat",
+        "FinishQuickCombat",
+        "CancelQuickCombat",
+        "GetStrikeFraming",
+        "GetCameraMotion"
+      ],
+      "section_file": "RuntimeSections/Weapons__Kukri__OffhandKukriStrike.cpp.inc",
+      "automatic_application": false
+    },
+    {
+      "source": "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeQuickCombat.cpp",
+      "source_sha256": "279de17a226d8d2677f9f0da999f3a11f3eef0b89cce967258401f1bf1cd82f7",
+      "functions": [
+        "CanQuickCombat",
+        "CaptureActionEntry",
+        "BeginActionPresentation",
+        "UsesStrikeRig",
+        "QuickStaffClearance",
+        "EndActionPresentation",
+        "SampleHatchetBlade",
+        "ActionBladeInCamera",
+        "SampleActionPose"
+      ],
+      "section_file": "RuntimeSections/Weapons__Staff__StaffOffhandMeleeQuickCombat.cpp.inc",
+      "automatic_application": false
+    },
+    {
+      "source": "Source/FPSGAME/Production/ProductionBluntInspect.cpp",
+      "source_sha256": "f714a3167389ba139a6daf0c136117776010162d1b17a463d7269fe5aaeb8177",
+      "functions": [
+        "BeginInspect",
+        "CancelInspect",
+        "PlayInspectCues"
+      ],
+      "section_file": "RuntimeSections/Production__ProductionBluntInspect.cpp.inc",
+      "automatic_application": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/WarhammerQuickCombat.cpp",
+      "source_sha256": "2321d0fba1dc446352cc0fa64486f795b8e4305b3a02677909a40fe3eac96904",
+      "functions": [
+        "ConfigureForWarhammer"
+      ],
+      "section_file": "RuntimeSections/Skills__WarhammerQuickCombat.cpp.inc",
+      "automatic_application": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "source_sha256": "ffe02bb1066b479dc0177aea99a7ab18e0b26c73b91afb3c9dd6f1118142d080",
+      "functions": [
+        "QuickCombatStats"
+      ],
+      "section_file": "RuntimeSections/Skills__ColdSteelSkillModel.cpp.inc",
+      "automatic_application": false
+    },
+    {
+      "source": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "source_sha256": "dae2d7c0f08c6a536d6029a7a204054539c88c1b8bab1c00e2976492552f56e6",
+      "section_file": "RuntimeSections/RuneSword-inspect-tick.cpp.inc",
+      "automatic_application": false
+    },
+    {
+      "source": "Source/FPSGAME/Weapons/RuneSwordInspectFeel.h",
+      "source_sha256": "b71d8c42c3d6c6a25cd0fc16a267f449bc9c19cb2380db7cea194500050f1053",
+      "section_file": "RuntimeSections/RuneSwordInspectFeel.h.inc",
+      "automatic_application": false
+    }
+  ]
+}

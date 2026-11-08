@@ -356,6 +356,8 @@ private:
     double QuickCombatUntil=0.;
     TMap<uint32,float> QuickCombatPredictedCosts;
     TWeakObjectPtr<APawn> QuickCombatPawn;
+    FString QuickCombatEquipment;
+    FString QuickCombatEquipmentKey() const;
     TSet<TWeakObjectPtr<AActor>> QuickCombatTargets;
     int64 ConfirmedSouls=-1,ConfirmedSoulCredits=-1,ConfirmedSoulDebits=-1;
     bool bInventoryRequestPending=false;

@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-08",
+  "status": "completed",
+  "production_fixes": [
+    "conical_quick_physical_damage_channels",
+    "quick_combat_equipment_identity",
+    "committed_offhand_quick_action_rate",
+    "late_frame_star_flame_and_lightning_ring_simulation"
+  ],
+  "builds": [
+    "Build2/build-FPSGAMEEditor.json",
+    "Build2/build-FPSGAME.json"
+  ],
+  "native_checks": {
+    "total": 206,
+    "failures": 0,
+    "conversation": 35,
+    "lightning_haste": 31,
+    "flame_armor": 21,
+    "flame_armor_stats": 81,
+    "star_marrow_motion": 38
+  },
+  "saved_asset_checks": {
+    "total": 29,
+    "passed": true
+  },
+  "wire": [
+    {
+      "case": "Conversation",
+      "mode": "listen",
+      "passed": true,
+      "receipt": "Wire/Conversation-listen-20261108-223945/receipt.json",
+      "host_passed": true,
+      "client_passed": true,
+      "lag_ms": 80,
+      "loss_percent": 2,
+      "both_exits_zero": true
+    },
+    {
+      "case": "Conversation",
+      "mode": "dedicated",
+      "passed": true,
+      "receipt": "Wire/Conversation-dedicated-20261108-224305/receipt.json",
+      "host_passed": true,
+      "client_passed": true,
+      "lag_ms": 80,
+      "loss_percent": 2,
+      "both_exits_zero": true
+    },
+    {
+      "case": "StarMarrow",
+      "mode": "listen",
+      "passed": true,
+      "receipt": "Wire/StarMarrow-listen-20261108-222934/receipt.json",
+      "host_passed": true,
+      "client_passed": true,
+      "lag_ms": 80,
+      "loss_percent": 2,
+      "both_exits_zero": true
+    },
+    {
+      "case": "StarMarrow",
+      "mode": "dedicated",
+      "passed": true,
+      "receipt": "Wire/StarMarrow-dedicated-20261108-225105/receipt.json",
+      "host_passed": true,
+      "client_passed": true,
+      "lag_ms": 80,
+      "loss_percent": 2,
+      "both_exits_zero": true
+    },
+    {
+      "case": "FlameArmor",
+      "mode": "listen",
+      "passed": true,
+      "receipt": "Wire/FlameArmor-listen-20261108-223745/receipt.json",
+      "host_passed": true,
+      "client_passed": true,
+      "lag_ms": 80,
+      "loss_percent": 2,
+      "both_exits_zero": true
+    },
+    {
+      "case": "FlameArmor",
+      "mode": "dedicated",
+      "passed": true,
+      "receipt": "Wire/FlameArmor-dedicated-20261108-224106/receipt.json",
+      "host_passed": true,
+      "client_passed": true,
+      "lag_ms": 80,
+      "loss_percent": 2,
+      "both_exits_zero": true
+    }
+  ],
+  "editor_opened": false,
+  "existing_editor_restarted": false,
+  "rendered_acceptance": false,
+  "audio_audition": false,
+  "production_source_hashes": {
+    "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp": "679d9c0c5cbb0c0b8563a84a3be015ecc726f160397a3aec37912ac290b378be",
+    "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": "87f25228176c5d532d26e6fbf0dc496dd8ecd4b83c630dbc54de4401c7280b7c",
+    "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h": "88b6da957138197d8dd2e0a192e93a02ef8663d6b6022da0003d8b7a6af0c594",
+    "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp": "cc9754cd40137bd987bfd1c0f66b490ff914f4fd04a661f1f4dc3fe7f2f12127",
+    "Source/FPSGAME/Production/ConicalHammerSeat.h": "54668ce9dc3e20135d50ddb37091cc3cce8c3c933bcd6cb228742ecf6d76054b",
+    "Source/FPSGAME/Skills/LightningHastePresentation.cpp": "1b5f81d030ab6bf34cc949d943b1beff5be06fa9bc14bc76890015994b436deb",
+    "Source/FPSGAME/Skills/WarhammerQuickCombat.cpp": "2321d0fba1dc446352cc0fa64486f795b8e4305b3a02677909a40fe3eac96904",
+    "Source/FPSGAME/Weapons/StarMarrowFlames.cpp": "64456a5f10dcc9de651561f329428d8d8275d61a45ba094d68e87b3f0c022ae9",
+    "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h": "a81c7f39a8d77034917421ed2e53de2f1d12330c529acbb08bbc9b75a0cd7d6a",
+    "Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp": "9bd7deb38a8217c948252480ca826839aef696933ab75b08f9cd1872124af1a9"
+  },
+  "notes": [
+    "All four production fixes were compiled to original Editor and Game targets before later audit fixture refinements.",
+    "Later fixture-only changes use an independent DLL linked with the successful production objects.",
+    "Native, saved-package readback and NullRHI UDP checks do not establish visual hand clipping, VFX appearance or audio quality.",
+    "Earlier failed fixture reports are retained; final accepted run paths are explicitly listed."
+  ]
+}

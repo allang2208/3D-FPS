@@ -1,0 +1,923 @@
+{
+  "base": "8464a48f8445b3401ee121a4101caf82abeef514",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "git_blob": "ae2ec00f9a1ad70c589c6a0b00beba53929e1962",
+      "bytes": 3537,
+      "sha256": "fdd47c22595beaa1f678ba341eba9d2df9864d0652cd6d4247be75658fa76f95"
+    },
+    {
+      "path": ".gitignore",
+      "git_blob": "a1c3f7decfe28cb98eb938436b17fbabb6a0ca4a",
+      "bytes": 361774,
+      "sha256": "cf44880d85354281b3e473cbe7d517d67684c4532338f994d4b187ef6d5a6071"
+    },
+    {
+      "path": "Content/ColdSteelData/common-hammer-seats.json",
+      "git_blob": "35d6f3d6b8ce56cceb2e5aaac3566cc1ceaaacf7",
+      "bytes": 5581,
+      "sha256": "ae72078cc517259b539816e5713374ce95ede5c6b2df7e66e308d723536ba032"
+    },
+    {
+      "path": "Content/ColdSteelData/runebound-warhammer-modules.json",
+      "git_blob": "ce2b84f366d5584dcd96890bfb5986216d9c5afa",
+      "bytes": 27397,
+      "sha256": "3bb440e0d7c31dffd10ec6774c8908158c4a668b0c8d0087688e34710a0e3cb2"
+    },
+    {
+      "path": "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "git_blob": "14440ce6574b019f3881dabfee6ae071725fa10e",
+      "bytes": 16095,
+      "sha256": "a606711a4b8df6679f6eff14473d3acdbfed462138dbbf3c2bcc2d2ec7e5e909"
+    },
+    {
+      "path": "Content/ColdSteelData/warhammer-modules.json",
+      "git_blob": "852d78c200021703febe7606d6b2201518a7d35e",
+      "bytes": 13149,
+      "sha256": "42bc98a4a7360817ba7926d65aaf8012323d428f7cd702bc77e77a85f3e3a2de"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "git_blob": "acd22d4b39b4bab93516518e600fe442d9134c12",
+      "bytes": 142528,
+      "sha256": "43978668fcd1986432ca3d4b2a88a14b5288f39ce624a170066668bb4bf17360"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Configuration/SourceAssets/SteelWarhammer20261014/ModulesV1/catalog_base.json",
+      "git_blob": "75b84a70ed47f348239718c32998691ea4b9212f",
+      "bytes": 709,
+      "sha256": "fd2200a22f91a616e1bb1aa2bc977d84694494b13cc0f2571b7dc880b7e278d0"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Configuration/SourceAssets/ThunderGodHammer20261028/ModulesV1/catalog_base.json",
+      "git_blob": "9847f0bfaaf90db0ca26e831d510e1ead094e958",
+      "bytes": 737,
+      "sha256": "7aef3eb73bb5530ee27ac81e1daf160a29ebe91be57687591c8fb5a565da3b97"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/Conversation-dedicated/client.json",
+      "git_blob": "01743ed4e78b3f65f045c0b6cb9f114514e27a5a",
+      "bytes": 117,
+      "sha256": "89d2f5e645c63cbc26991ffea56b50843de6d67ae3c19a4dacec8835342357b5"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/Conversation-dedicated/host.json",
+      "git_blob": "e3b2703eadde8c1698c461012f84230c8a9e0caa",
+      "bytes": 876,
+      "sha256": "51ea3113f82753240242e1ea5edb1b959d49cf965c64e018f5c559a0f2d3a3c9"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/Conversation-dedicated/receipt.json",
+      "git_blob": "01f4090fbe3c9d2180e3471edb638ed3e11dcc74",
+      "bytes": 633,
+      "sha256": "eb4df42a86177030e385c778e51ab89b1af5a3fb590dd6544e916b3e629a7992"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/Conversation-listen/client.json",
+      "git_blob": "01743ed4e78b3f65f045c0b6cb9f114514e27a5a",
+      "bytes": 117,
+      "sha256": "89d2f5e645c63cbc26991ffea56b50843de6d67ae3c19a4dacec8835342357b5"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/Conversation-listen/host.json",
+      "git_blob": "2a58168832a50770a130c1010fc2ce77b4c385c2",
+      "bytes": 873,
+      "sha256": "a73581fdbe4ec4b67dc27b9bab18689653aee879d16a87289e174a1a0234e537"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/Conversation-listen/receipt.json",
+      "git_blob": "b16089f108102d467ae7b91642f29a6edb080214",
+      "bytes": 627,
+      "sha256": "26163835a91007af8f97897d89b1ed1e85ffaeff71655fe1c9fbdcd01d22aa2f"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/FlameArmor-dedicated/client.json",
+      "git_blob": "0ed734d1873b5b1a35ae7ad0fb95d963180fc9e1",
+      "bytes": 115,
+      "sha256": "2c03ec7ad5c938537dcfef0916b10be86324cf54fd4eb527161b8d4b09538abd"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/FlameArmor-dedicated/host.json",
+      "git_blob": "319e9b9a1eeb456a4a3cca466f4b6a9890e282a4",
+      "bytes": 136,
+      "sha256": "5c7e46b297d5fbb2dd7f77a133f02719cb0c53dfe1d5628d5b1d091c17ab6406"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/FlameArmor-dedicated/receipt.json",
+      "git_blob": "a3b8a102b3a5c1a00e9d80cb5a36204ea47ebaf6",
+      "bytes": 629,
+      "sha256": "9da6e1ba35dbc43834ee08c573e70f6ece3d9890557a65b039cdc1ff03a145b8"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/FlameArmor-listen/client.json",
+      "git_blob": "0ed734d1873b5b1a35ae7ad0fb95d963180fc9e1",
+      "bytes": 115,
+      "sha256": "2c03ec7ad5c938537dcfef0916b10be86324cf54fd4eb527161b8d4b09538abd"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/FlameArmor-listen/host.json",
+      "git_blob": "319e9b9a1eeb456a4a3cca466f4b6a9890e282a4",
+      "bytes": 136,
+      "sha256": "5c7e46b297d5fbb2dd7f77a133f02719cb0c53dfe1d5628d5b1d091c17ab6406"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/FlameArmor-listen/receipt.json",
+      "git_blob": "42b017b5637dfd9630a7f92be5d5925e67f6e621",
+      "bytes": 623,
+      "sha256": "fdf6944797a5cfc485eb3bbce68d5dba87f9cb47ad2257d6ebe1124cc0a6517c"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/StarMarrow-dedicated/client.json",
+      "git_blob": "0cfac63c9871f80cc143e2f607ed94d473b0d924",
+      "bytes": 41,
+      "sha256": "d7319cce6441f0c70d6410cda371bf52076267a66bee75fb773d0f75ff028da2"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/StarMarrow-dedicated/host.json",
+      "git_blob": "0458c2bd3ad131728115f28720e68845464b3e2d",
+      "bytes": 51,
+      "sha256": "505d20adc4ca4f953bf822ba9cda2054ff52ac7c3e0a659f8bcc5ca9b96321fb"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/StarMarrow-dedicated/receipt.json",
+      "git_blob": "981c93bc185e53872b6781616bbe620539a1bf15",
+      "bytes": 418,
+      "sha256": "f8be3ba3c51941808d9f56a13192faa1245ff67ba5eb58f6d085cdbbf7a4f30b"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/StarMarrow-listen/client.json",
+      "git_blob": "0cfac63c9871f80cc143e2f607ed94d473b0d924",
+      "bytes": 41,
+      "sha256": "d7319cce6441f0c70d6410cda371bf52076267a66bee75fb773d0f75ff028da2"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/StarMarrow-listen/host.json",
+      "git_blob": "955dc94b401b0d9fb1a5a5c9f500a4163e8dc615",
+      "bytes": 46,
+      "sha256": "c3e1677aede4046d8c9225f365b02f7b0268447a1ae5da5c352d488cfb59bacd"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/StarMarrow-listen/receipt.json",
+      "git_blob": "f696fabf74274d80def9225fb344d6b91d9ee0d5",
+      "bytes": 623,
+      "sha256": "c8ad86b734fda3339dce21bd1f4f4044cdd5e6d1dae6d4b35b10ba0b0979456f"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/assets-readback.json",
+      "git_blob": "8f4433bfb00fda9ebd160b869808eccd43a3b373",
+      "bytes": 6227,
+      "sha256": "50c8b78b7857cc8f030f155e4b298e2421da9962cb381929e4d339312b59f1e1"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/build-FPSGAME.json",
+      "git_blob": "938da0be8ee370a85ac7a042e2e9f91e20403612",
+      "bytes": 226,
+      "sha256": "fd2fd09b861a9a374bcf04567d52a07d3c521e6077b29861693e58356510cad6"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/build-FPSGAMEEditor.json",
+      "git_blob": "a4e36577ffd21a06432c616e4d190be7246c371a",
+      "bytes": 238,
+      "sha256": "6fd3d82ef9cf187f64aa298de604af3bbf1231d8269059a30631e6a964edb1e8"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Evidence/delivery.json",
+      "git_blob": "cfc22a7c7379ff6797f72a33c3dff6cd247d8865",
+      "bytes": 4295,
+      "sha256": "0ea82b8623f1972664b394d8b31f39a31b1798790151584015d771e57cf6347e"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/01-icons/SourceAssets__M249Orpind20261107__catalog_icon.py.patch",
+      "git_blob": "d6131e3b91d8fdb7e4994305885306150be04595",
+      "bytes": 1024,
+      "sha256": "5831f4700de51469bb5919ef0cdf0fe2fe2ad7580df6095ecf75a6991e73a5e4"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/01-icons/Source__FPSGAME__UI__ColdSteelEnhancementLayout.cpp.patch",
+      "git_blob": "7b4f249d8a9196e4f66c5091a7367050b3df00c7",
+      "bytes": 1989,
+      "sha256": "e9aa93c632967433df10d555794b27ebd7111475fc9f2ec80b20af2da4c49962"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/01-icons/Source__FPSGAME__UI__ColdSteelPickupWeapon.cpp.patch",
+      "git_blob": "3fb3056ff89b39b4a0d73614234a76c5594485fc",
+      "bytes": 896,
+      "sha256": "d4adddab8e69fc9861dc5b58f321d20aeaee216dc195d899226766f5e5295e46"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/01-icons/Source__FPSGAME__UI__ColdSteelWeaponIconReadback.cpp.patch",
+      "git_blob": "6bc4c5ef241b8a1ccc10cd42225cb25cbe7fae3e",
+      "bytes": 1145,
+      "sha256": "559ac7e507fc5f49e0f63f0bf004ebbcad46ab29696ff802b76a7ca766f392da"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/01-icons/Source__FPSGAME__UI__ColdSteelWeaponIcons.cpp.patch",
+      "git_blob": "203e27a1b8756464cf270f84e6d5838ca7d83928",
+      "bytes": 1805,
+      "sha256": "e6eb07c9957dbb523333c8364ea92b1e200054c52c25c9dafcddc83435e8b631"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/02-weapons/Source__FPSGAME__UI__ColdSteelStarMarrow.cpp.patch",
+      "git_blob": "9e70ed2269366fea2fcc76e0c171d2cd81265755",
+      "bytes": 480,
+      "sha256": "12683705ec55ad069b4502bfbda846d16a857e5a6649aba80fd31fa3c9ef6c73"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/03-skill-implementations/Source__FPSGAME__Skills__ConversationCombatAudit20261108.cpp.patch",
+      "git_blob": "2f5d708552324640130d2fe27e9c8ea1786469e3",
+      "bytes": 11511,
+      "sha256": "a5fdfbb89a62be0555126e45a53e809eb7ddc8a8785be7c0bdb58ed95b482926"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/03-skill-implementations/Source__FPSGAME__Skills__ConversationCombatWire20261108.cpp.patch",
+      "git_blob": "e4ba0c6de39efa4055f4ff51776922bf50dbd8bb",
+      "bytes": 15065,
+      "sha256": "e6924fbd77aecca6010c580495f805ae6f80b8cb82dbb13fa50a6543302743af"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/03-skill-implementations/Source__FPSGAME__Skills__LightningHasteAudit20261107.cpp.patch",
+      "git_blob": "6e1d3a11db6c61d1bacfa7d2c0f3f4172fc4acff",
+      "bytes": 11965,
+      "sha256": "8e391bdf0a652767a89f159c6994687bc26f7d0233135a19cc14659438247075"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/03-skill-implementations/Source__FPSGAME__Skills__LightningHastePresentation.cpp.patch",
+      "git_blob": "21bea9966f80c9ba4f6429760c130945d7cf5c25",
+      "bytes": 10506,
+      "sha256": "d2347e49d930f03e25991c5d96ec1a8e5d0fca7b13c29edb7f6a30f9693ef4d1"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+      "git_blob": "909b9a141db1cc4961dcae42ec4119b9ce453be9",
+      "bytes": 535,
+      "sha256": "ea824e5f117f36ccb5e82a205a20e56bb01c260fe05d9e9e1a9ef6bb1af10b10"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "git_blob": "ee2538795e521c0647f6548e3ce7ce01e4866088",
+      "bytes": 963,
+      "sha256": "f241d05dbe3d8414cbafa16723d77b4ed325e5c873171c034917567928a3fe45"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "git_blob": "9a72473c24cbd282f59c0f7ed0abc1764f548feb",
+      "bytes": 311,
+      "sha256": "30ee0a4ee681fac4d5770a0da4faeaafcd543917f111395b120a5045ef908558"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Multiplayer__ColdSteelQuickCombatAuthority.cpp.patch",
+      "git_blob": "3a4506ca79b313bbafad9c220baef69eb8a4db95",
+      "bytes": 1018,
+      "sha256": "caba803f9a0f15f82c9336be94e8934e57d592ef77d18ea8f7149ab18c14730e"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Skills__LightningHastePresentation.cpp.patch",
+      "git_blob": "570e28b4ccd099ec299628075c39a2ce292259a0",
+      "bytes": 975,
+      "sha256": "1508e7b8643d5436572db7332ca11449e525926d38c61a3ffe429d8ae72b854b"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Skills__SkillNetworkAuditCommandlet.cpp.patch",
+      "git_blob": "7bb5c9fa48fdc03ed6182ea3234b84883f251aa9",
+      "bytes": 345,
+      "sha256": "5e80edfbcb8f08562999cb01e953607b4969bb2293154ed0958b2e5fe9be4891"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Skills__SkillNetworkAuditCommandlet.h.patch",
+      "git_blob": "3e33dbcf6db450dba7a1e9f8ea54a1e4626c28f5",
+      "bytes": 312,
+      "sha256": "aa4580632eed9eb76025e95ed7a2e79dddbfd3b480795e7bba2892a13c0c89d4"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Skills__SkillWireAudit.cpp.patch",
+      "git_blob": "f53566ceb982222dee5bc0ad7f466861ddb53ba9",
+      "bytes": 633,
+      "sha256": "ddc459e3451f8ff928739f0bc59e18f1183bb68e8134a328c8feec264e47923a"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Skills__SkillWireAudit.h.patch",
+      "git_blob": "180f6ed6698f46b09599e4a23d5bd3553877c288",
+      "bytes": 894,
+      "sha256": "06145d42f2c96aa20ff6b35c97fb9b7b5b595bde997f643eccc7ca09dc246180"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Skills__StarMarrowWireAudit.cpp.patch",
+      "git_blob": "28f0d95399622a005f1ac421375b65136bb85ae7",
+      "bytes": 1340,
+      "sha256": "0fa43a3bbecb571683ad0e57fe575fc64e00c24bb1efbc7c85f233bc96e42b19"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Skills__WarhammerQuickCombat.cpp.patch",
+      "git_blob": "e7a8b345506699fbeff368f2bcace650a3a94439",
+      "bytes": 515,
+      "sha256": "aa9d2a761c1bf2829e4911a1dd8990ef8da5144eb511296d234ab96e93e9c448"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Weapons__Kukri__OffhandKukriComponent.h.patch",
+      "git_blob": "a48c8792a5a502ed9f8e7c7133f884eb9eaf70b8",
+      "bytes": 601,
+      "sha256": "c8339acb306cea5730c7324b48ab2e8012778c51a864848977342870ead2559f"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Weapons__Kukri__OffhandKukriStrike.cpp.patch",
+      "git_blob": "5b9f28e21cdec76dcdaecb5dc468bb946894614d",
+      "bytes": 704,
+      "sha256": "0579a1f1e1a319773c69b6c46477570034d116a88b5838ed78aed6154529bca3"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/04-network-review/Source__FPSGAME__Weapons__StarMarrowFlames.cpp.patch",
+      "git_blob": "99567f27ce957d97ea4a1d86cbdb144515bb3297",
+      "bytes": 1417,
+      "sha256": "e77c4195769f67f3e1ace5e96c96fb4fb725af6ea1a4468a0775628178f45217"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/Production__ProductionBluntInspect.cpp.inc",
+      "git_blob": "75df0407595c3b6b7b402536f758ce2f8fc25a38",
+      "bytes": 1261,
+      "sha256": "f1d1bef67fd84b183c7f2c434b09028ffe8feebdc299cfe8a89a39afe7080080"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/RuneSword-inspect-tick.cpp.inc",
+      "git_blob": "d09090392bb0fd4f8bce77b64d22bfecd739579c",
+      "bytes": 1095,
+      "sha256": "580a9c8a104706defe2394a0bba544600f97a7766b0aa5532b67558bc56702e1"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/RuneSwordInspectFeel.h.inc",
+      "git_blob": "2207862e2427081607084bc81d09f59684e9fd7b",
+      "bytes": 2534,
+      "sha256": "b71d8c42c3d6c6a25cd0fc16a267f449bc9c19cb2380db7cea194500050f1053"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/Skills__ColdSteelSkillModel.cpp.inc",
+      "git_blob": "7b54a733fa84dbb9369844e3d301be4c37b85df3",
+      "bytes": 2215,
+      "sha256": "39a954cada95ddc8a21f5063a6c2f3c0fceb80638b33069255ed95ce732dbe28"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/Skills__WarhammerQuickCombat.cpp.inc",
+      "git_blob": "c6becd2c63cfca76eea862392232a616713b4da6",
+      "bytes": 636,
+      "sha256": "453192d7b9b1e831da1b2cba09eef9fcc1a53887a245e926b58e73cca0b82d96"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/Weapons__Kukri__OffhandKukriComponent.cpp.inc",
+      "git_blob": "0c9a564e5f09772acfa79c98fa306859f46858b0",
+      "bytes": 8180,
+      "sha256": "a1f7975948759aeca909f11d222e049c03eda1e1a2a42ea77c118a6ee4cd984d"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/Weapons__Kukri__OffhandKukriStrike.cpp.inc",
+      "git_blob": "3091abd23d5fe58fd3aa55fa58acdeaa10f75c00",
+      "bytes": 14615,
+      "sha256": "bf3424d461b9fa14540e9db6e2c056ed15d54f98292267ac6afc1087b805d26d"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/Weapons__Staff__StaffOffhandMeleeQuickCombat.cpp.inc",
+      "git_blob": "b470081969f40f7c0fd7ecdcbf1ac6de59304208",
+      "bytes": 7396,
+      "sha256": "b138757bea611496ef1e07f27fad61323b801822947d5fc5c144b3329dd183a7"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/Integration/RuntimeSections/manifest.json",
+      "git_blob": "ed0980ab25dff52c24f76ccba739edc4b0c7f355",
+      "bytes": 3567,
+      "sha256": "48b060fd44a9a5a78e73cd5126304bcd83d06d0544be3a8ad9eb1b9cc914ff3c"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/README.md",
+      "git_blob": "74a0565fe83bcd4dacb8639f69f70f90bce0f099",
+      "bytes": 5252,
+      "sha256": "91a89e3ebd337606bcea65e86b0f1bf562e81b647d8d17a816b4cbffc3c2cdce"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/archive-summary.json",
+      "git_blob": "80c116f55757fe15e1c8899ff06d7bdfa7d60be1",
+      "bytes": 7664,
+      "sha256": "f8ebbbcd24be2a09c59e04c6a89c3def8995495432be55f287f90751600f4f71"
+    },
+    {
+      "path": "Docs/Publication/ConversationCombat20261109/integration-manifest.json",
+      "git_blob": "0fb4dfa519d1f0cdc704c6312ce56d1876e1b574",
+      "bytes": 10348,
+      "sha256": "232e7717e3183befb9a2e1d6fbd477ab7b6d85b81dae9d3920a5379f94544718"
+    },
+    {
+      "path": "Docs/Skills/lightning-haste-review-20261107.md",
+      "git_blob": "c3c125a139d0184a655481a4cee65ee3a1df8daa",
+      "bytes": 5163,
+      "sha256": "be07eee8ebd8a7ed1efe628984ed483b6b7510f56f4bd91da2ded8872683be15"
+    },
+    {
+      "path": "Docs/Skills/lightning-haste-vfx-20261107.md",
+      "git_blob": "5c65ef26ad82206fb51cf4b6ff647766adef8b51",
+      "bytes": 5453,
+      "sha256": "d93e625ec6215317ec2155d93382cda12f8c6191915f77ff6bc9481e9771144a"
+    },
+    {
+      "path": "Docs/Skills/lightning-haste-wrist-ring-20261107.md",
+      "git_blob": "aa102dc1cd0acc1a74fa123a2426a7942c785115",
+      "bytes": 1832,
+      "sha256": "c2fcfcfa0813c56bcdd6fd5bc2222949e6207560f774badd083354a0b4391e4d"
+    },
+    {
+      "path": "Docs/Weapons/runesword-inspect-audio-20261107.md",
+      "git_blob": "611a29552b23ea08461ead8d85be4cefb30c4133",
+      "bytes": 3282,
+      "sha256": "f3e96d1e209278fa6457fa39fcca7f110daf5c5a67ec0c355991058224fc5c3a"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "git_blob": "632a90cf689649d6ced42ac2f116888b2cc6682d",
+      "bytes": 70457,
+      "sha256": "47e2e8e8f174d9d515101ab06b92e138ea7f5f788945905079a3748763bbd728"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "git_blob": "488d915aebe0f2021af75550d436cc4f00436cb9",
+      "bytes": 30692,
+      "sha256": "3fa377b089ae0ecd0b4659028c52415fbb8d4e43cad09faea5bf5b424feaa679"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "git_blob": "837100d671f59c33e430ca084b553adf787b96a6",
+      "bytes": 4589,
+      "sha256": "c9bef79ee288c8578a39ee95c0cd67e5dbeb240bcc6f7aed39f874a620e0c7c2"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ConicalHammerSeat.h",
+      "git_blob": "792b341c45b92ed3c333143ce1aec115be378037",
+      "bytes": 1496,
+      "sha256": "54668ce9dc3e20135d50ddb37091cc3cce8c3c933bcd6cb228742ecf6d76054b"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerConicalThrustMotion.h",
+      "git_blob": "a3a5d8d491b4f9f4f2562387bb4a1a1c9b49a307",
+      "bytes": 3574,
+      "sha256": "80c3e14fe8f2f6f7e11953226a97c89395688d54007c9b3163838c24de4b3891"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/StarMarrowWireAudit.cpp",
+      "git_blob": "813b020bce7e9c8fa474b868b3ec41791d58c8d4",
+      "bytes": 16008,
+      "sha256": "2359c744fa0c77676fd29fccaad805f69559f50c84eadc12a338f844af438845"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+      "git_blob": "fe971772bfe6ee02c7b544de54ad92d72082000a",
+      "bytes": 7657,
+      "sha256": "5d543d036b8989cd511573e0509ff2ad9ad835b763c5bff276a64d2331818f7b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStarMarrow.cpp",
+      "git_blob": "a12879dc5fe7015577500a7daa7605dd07ba574f",
+      "bytes": 5150,
+      "sha256": "acebbfe60368a173d6483910d5dab42db21d0be6a8239e275e789c7909a02f61"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+      "git_blob": "69f15090e737f9a7a1ad89d2f122683769972901",
+      "bytes": 2449,
+      "sha256": "61cd7ed781800f0f423b21bf5944404062a116f20734e47b3ac2190b24283f91"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp",
+      "git_blob": "7412278f363a4005641e9d08b3055cb5bfaa1b44",
+      "bytes": 9681,
+      "sha256": "8a8a658f7639dbfa1d6e0d5434372faa522e84c482a278d6d6282247f7bd3bb1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "git_blob": "5dd46644c1cd8825d06bed055394acc49a3d3323",
+      "bytes": 39695,
+      "sha256": "c67545a2b4aae5afdbafdf4b79cacc5b20ead439040c3da2f4c2262e90c692f6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandAxeQuickMotion.h",
+      "git_blob": "21c5a5397daf73275ffac5b2c8a94a6de2255b18",
+      "bytes": 2359,
+      "sha256": "9b78f34eee02f7d8118c76bf6d5e58f37b3fe85871c09928cd7f47a63159f528"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandQuickClearance.h",
+      "git_blob": "5d8d2382b192044948568181313b80f36c8e8e7e",
+      "bytes": 3859,
+      "sha256": "953964573e658f91eb826301f3d7e3dd09b04b897c3f9336d073dc700b39d099"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/PistolHatchetCarry.h",
+      "git_blob": "2807948140718c45396aa8a9fb0303b66c79d06c",
+      "bytes": 1749,
+      "sha256": "626cad6b4e274924a25a26faedd082f3908a54816b8e52e541e7dfc5fc212236"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/PistolHatchetDrawMotion.h",
+      "git_blob": "cbe140e89b5114aca95e6bb1501c5752f936babd",
+      "bytes": 945,
+      "sha256": "c800cfc728f063b211aace57e9f6f97b866cdc2b346921032ba934796c9c2ca0"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/PistolHatchetFingerPose.h",
+      "git_blob": "21d538997b1c767f2f8b77a91307d51326d6eb9f",
+      "bytes": 1466,
+      "sha256": "539d092b8bf97024bac9f4d8cf394ea06833abf8744ced384829defd16133474"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffOffhandQuickMotion.h",
+      "git_blob": "c11925d5349083adbc24f08a7fc8fc32038a8812",
+      "bytes": 2202,
+      "sha256": "2acf2e1fd7fe1666e35b623bfda5b41399ce8c180e0a6ac24b14f582346a232c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/StarMarrowFlames.cpp",
+      "git_blob": "38c5852defba18f4cbedb771c5b44f32f7856427",
+      "bytes": 7842,
+      "sha256": "463ce0ddc9929b6582bc7663a08212839bfe848e6a62afa20533dfe157a687e0"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TwoHandInspectAudio.cpp",
+      "git_blob": "da7455ab6001870dcacd8cdebfa4770df1d27023",
+      "bytes": 1455,
+      "sha256": "19e4f6b7ce1860ec86001b555fb8dc711322afb4d429889705e46f72ce4649ee"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TwoHandInspectAudio.h",
+      "git_blob": "68f9cd1f659dbb93175abbda10f9cc147b546199",
+      "bytes": 650,
+      "sha256": "b0d30f99e14904fb5ca00885234eb948711bb7dec5a264067e9c84d53a10b40f"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/README.md",
+      "git_blob": "28f16d44a57305fd94c56ed9347ae141504ec713",
+      "bytes": 4414,
+      "sha256": "5a3ea67231223fed1bfb582d403bf6774ef4751945729d1c6f84eaee4303a2b3"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/author_icon.py",
+      "git_blob": "3c904c60fbafa2b8b67b5390669c7f659666b993",
+      "bytes": 2773,
+      "sha256": "8c97fb5849d38d0f830b31b8fa6074859e092d94d3930c8224f6a0e28e5b3f4d"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/author_model.py",
+      "git_blob": "91662344aebf61904ff6ef26c97fc812eb24c385",
+      "bytes": 9516,
+      "sha256": "91442abe93538d87afa8648fdc00cce81701eea39f54aa8d9d0b1eb98d3f4b0a"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/finish_export.py",
+      "git_blob": "dac59fe58d78be1e070e245659f7788c1668f7b9",
+      "bytes": 1272,
+      "sha256": "cc4eac8f905579c2e54615e68d20b76956e84e7f539c01b2ab3d038e06fbd0ca"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/import_assets.py",
+      "git_blob": "27b7929fa3a203e2034d0ce65b094dd37a85d501",
+      "bytes": 4856,
+      "sha256": "a18cb93a31ef95c024478f5279697a420835b06cfca990db4265f222e0c520d2"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/import_background.ps1",
+      "git_blob": "9ea92bf3ff4db160b2b8cce66d1b726b793c804c",
+      "bytes": 1189,
+      "sha256": "ddd0775dd6d561176af2cca46cea56ec9f460a289141046f995932d7a6490fdc"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/native_interfaces.py",
+      "git_blob": "5d5ed77e82f81dc2bd3e0301541df00daa40d0dd",
+      "bytes": 2954,
+      "sha256": "9db3af731f3d35dc349b83c047f460abebd633866b9fb2c925fc8e06bcd84d5e"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/solid_surface_tools.py",
+      "git_blob": "6d249c136f27cc5696ff79a5ed34a8fd16336aa5",
+      "bytes": 41600,
+      "sha256": "77222c854595087c10af85ea122c81cf0c653d4624115de2437fd16607c9a0f1"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/ConceptV1/brief.md",
+      "git_blob": "ae296b16348399d90fedb99707dc1a121a13bad8",
+      "bytes": 2352,
+      "sha256": "e06a055000a99d9fd214bee5fbb17f035dff8ddfcf122693aba949398ab56153"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/ConceptV1/prompt-appearance.txt",
+      "git_blob": "fa491dd0ea0b5b28a2d3a7b8ee765f896600a551",
+      "bytes": 1831,
+      "sha256": "af358e85acc8a7b0971a87ca52c6ce643011c5a5e0566a76cbe0c1bb746250da"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/ConceptV1/prompt.txt",
+      "git_blob": "db65a56f8fba2836218b4491f147a6869d48276b",
+      "bytes": 4552,
+      "sha256": "f084f5c1d367480aaf61da14d9371d0a76bf69ddecc3588fe0f461fe33b7cf04"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IconV2/README.md",
+      "git_blob": "a365f414b595681952b2983136222c1b7cd4c9aa",
+      "bytes": 1789,
+      "sha256": "09dc572dec47e782436f78f6740a628142dcffbe0c892eb58dbbad6e1ef2f682"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IconV2/generation-prompt.txt",
+      "git_blob": "5b98f325ae252e9461e26a77241d85713d91372b",
+      "bytes": 2185,
+      "sha256": "3186804a52472018f8394836651674980bc7b598429657b6c27b1f545efdb5e0"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IconV2/import_background.ps1",
+      "git_blob": "1ad25589ac79154b42a81e20ba2ff3f7302e2809",
+      "bytes": 1548,
+      "sha256": "43c01402880b68992f93456d3f9b50211aba52b7ce2af7bdbdd3553ec5af69fd"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IconV2/import_icon.py",
+      "git_blob": "1899aa5abd81b568d903f8bb5ace49b761a0af88",
+      "bytes": 1971,
+      "sha256": "790538d201cb1812a19bd7e1fa65292ac12b9473ffbcda5dfd537648f31adb09"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IntegrationV1/README.md",
+      "git_blob": "366c365499ebb072934bf85f8ba830edf3b55980",
+      "bytes": 3992,
+      "sha256": "a90fe83fbcb12f15cfe44871d4a6934f3cf32b219000ea411483d24948b7e415"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IntegrationV1/ThunderSeat/author_model.py",
+      "git_blob": "16f3de8f4f06cc3249c912617007b8dc85485292",
+      "bytes": 9354,
+      "sha256": "8dd5c2618554bd859d418c9da24d189a27256cbaf0ac4534d4df8d96d4d47166"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IntegrationV1/ThunderSeat/native_interfaces.py",
+      "git_blob": "5d5ed77e82f81dc2bd3e0301541df00daa40d0dd",
+      "bytes": 2954,
+      "sha256": "9db3af731f3d35dc349b83c047f460abebd633866b9fb2c925fc8e06bcd84d5e"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IntegrationV1/ThunderSeat/solid_surface_tools.py",
+      "git_blob": "6d249c136f27cc5696ff79a5ed34a8fd16336aa5",
+      "bytes": 41600,
+      "sha256": "77222c854595087c10af85ea122c81cf0c653d4624115de2437fd16607c9a0f1"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IntegrationV1/catalog_option.json",
+      "git_blob": "e54aafa835bd93affcbe5ff2583a6613c00bc682",
+      "bytes": 854,
+      "sha256": "df07f86ffbb19bec84c139d0b244e4f582e9eaef8ebdefd04c77aa5f3816b5fc"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IntegrationV1/import_assets.py",
+      "git_blob": "264e8f4f32db5a53ba527fbf10dbbbfd19029368",
+      "bytes": 4385,
+      "sha256": "2f2dd6946e34d91f1a38520973b45656da3ef384cdbd69d5c577a8bc08002125"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IntegrationV1/import_background.ps1",
+      "git_blob": "9ea92bf3ff4db160b2b8cce66d1b726b793c804c",
+      "bytes": 1189,
+      "sha256": "ddd0775dd6d561176af2cca46cea56ec9f460a289141046f995932d7a6490fdc"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IntegrationV1/publish.py",
+      "git_blob": "82cc73394dc3758de5928c226b70a7221fb6eeb9",
+      "bytes": 3324,
+      "sha256": "095016359cbcf16b13b22af1edd0c2bc99b9d856731f6d01dc4029aa03856e42"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/RhythmV2/README.md",
+      "git_blob": "d0d814e7a49aa7f808ccbbe78a7cb143f9558046",
+      "bytes": 3121,
+      "sha256": "6a0542e384f04bd91bfd8c223f672aeba93b80f4903139ec8bb4299afb520441"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/README.md",
+      "git_blob": "50b350192c6359813a8898d2eeaa7ba05cdfc507",
+      "bytes": 7883,
+      "sha256": "69fb791234b44003ca5ad59bfd1873cb229b3d3db7b47a3f1d88011ce90c048c"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/read_assets.py",
+      "git_blob": "2e7c333136f75ab29683e88857e231c6a15b192b",
+      "bytes": 3980,
+      "sha256": "7cb5593c33e243dc038627ea1f75f1b049e6708287294e4c79d12addccc579ec"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/run_assets.ps1",
+      "git_blob": "ceb1e3cc039d8bb634543a0e292a483ba1e607a9",
+      "bytes": 1134,
+      "sha256": "cbad205787be06d2bb956f242ef537e1f024813a4905f0c9a732187e1943fa2b"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/run_native.ps1",
+      "git_blob": "a23236b8423cb9d738f1d4b87c6d65adc6cf2ee3",
+      "bytes": 2476,
+      "sha256": "c6c2d004c6dab39bd67dfdc70780ab9180be849211a9d2cc0e0e112bb3bda5ba"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/run_wire.ps1",
+      "git_blob": "6237e955d272bcb2c56c0d1f12ceeb4be0960f7a",
+      "bytes": 4333,
+      "sha256": "00c723c00e431540937d7f83105afbf3f0d6e88ba83efb3f36b21151d2c8ce79"
+    },
+    {
+      "path": "SourceAssets/FlameArmorCampfire20261107/README.md",
+      "git_blob": "5c2586fb4cce84da5e7039d80a615cf9c2f9eaf8",
+      "bytes": 4029,
+      "sha256": "0a2eed3f90960a6dfbdc52472276e0477039a68ec5c08b7e1bf28f4055b60947"
+    },
+    {
+      "path": "SourceAssets/FlameArmorCampfire20261107/build_surface_profiles.py",
+      "git_blob": "cdf6ea41b1e7facf97efd69d6a54b3bcc3dc8b40",
+      "bytes": 5371,
+      "sha256": "247602fff864ebaf352c112b2a9190b93e7889a8f28b08297581f45797bb635f"
+    },
+    {
+      "path": "SourceAssets/FlameArmorCampfire20261107/install.py",
+      "git_blob": "6fb79c4e2e8ac561ca82b65c1751eda038d59bf2",
+      "bytes": 14477,
+      "sha256": "eab4ffb71c9b8112c142725ab7480329b97c6202e4f3de784c00af16d07be6aa"
+    },
+    {
+      "path": "SourceAssets/FlameArmorCampfire20261107/run_assets.py",
+      "git_blob": "de5a44c050c9546d55744640baddb711b37a5646",
+      "bytes": 348,
+      "sha256": "d7ad18cf2ae6e09aec63a08a7b6faba9abcbe305cc299de854962f0438bba56e"
+    },
+    {
+      "path": "SourceAssets/FlameArmorCampfire20261107/save_assets.ps1",
+      "git_blob": "b5040a49ccd4dd68f610d423372261db7fa7cae5",
+      "bytes": 3333,
+      "sha256": "aa84003730c4ad27c5116c43d302fc83af2654194e34f859179bf798253d586d"
+    },
+    {
+      "path": "SourceAssets/FlameArmorCampfire20261107/write_surface_header.py",
+      "git_blob": "74861d70663276011ee1c94ff36785e0cde31787",
+      "bytes": 1068,
+      "sha256": "b9a172fb9b5cea81a5a5c23a22e19a5c245aeb2cf1b1195cdf68ac8edeb3685b"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/README.md",
+      "git_blob": "b15d2ec0ab1edb7f1115b3006242e2ed548dc83d",
+      "bytes": 3195,
+      "sha256": "ad8a8d2a3ba3e3a67d510c0a6708bf1ecb9f9a9e68d0c4981a6198a88309ff4c"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Review/README.md",
+      "git_blob": "6abd85de06d3bc9fc95a4c117c89cb00f8e2b2e7",
+      "bytes": 4266,
+      "sha256": "4e308ecb33679fc7ba1b5a6154d2caca580724d3ea83adfff94b447a3556e575"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Review/check_catalog_artifacts.py",
+      "git_blob": "a7ee32b69786a4aeb3de4c6d4cdf008b73a69353",
+      "bytes": 1738,
+      "sha256": "36edac121620d61c51fd079cdea49c02c5229654a05fc16b8e917b4d6c7d71bd"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Review/read_saved_assets.ps1",
+      "git_blob": "09453d82adcafa8b3b186c104b61be4d5dab1649",
+      "bytes": 2500,
+      "sha256": "99db0a4aeb4a82eb93752a74ab5dd1f6b62480a0ab98f50da87e3e93b3c74433"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Review/read_saved_assets.py",
+      "git_blob": "194338a8794a35edf0a5dd2ff0bc77fbe5c76963",
+      "bytes": 2672,
+      "sha256": "5cda6adc68069ccdfe958524a82ceb3a535cb9ecc53492ce06601e369631f547"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/finish.ps1",
+      "git_blob": "d548cfd381ffb4e3c3c2a00e666c5bfc51cf5c79",
+      "bytes": 1963,
+      "sha256": "81e49d6b8d6fded1f7b0cf44cba1bb341e494e94dfeca76199fad21661e3c2dc"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/produce_m249.ps1",
+      "git_blob": "2259273a7b6e191674cbdd71636bbe9145041b90",
+      "bytes": 2338,
+      "sha256": "9850face3a407daca47b47eca6e521d240ce7550736f48295362c0afae713172"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/render_axe.py",
+      "git_blob": "8365732cde40ed6df3923961e902432bd47144dd",
+      "bytes": 2686,
+      "sha256": "37e8e9484a43e056995a5ebd345ce6bf3ceb1bcd34b816a22ab931974e310386"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/save_icons.py",
+      "git_blob": "badacca728cc46bb1898b7fea904bec433794e88",
+      "bytes": 2866,
+      "sha256": "db4bfa4512d10fcf0d4d9d2d67f8809e5079a2b60836bbc484ca38b9b25665a8"
+    },
+    {
+      "path": "SourceAssets/LightningHasteReview20261107/Icon/prompt.txt",
+      "git_blob": "70b2007bec3af911de1a1eb9f0c81b0703bc41a8",
+      "bytes": 2066,
+      "sha256": "032e45024f92a80b8e637207b97a6e5fc9ae3d59d86309e89bb4cc24af1ff2cd"
+    },
+    {
+      "path": "SourceAssets/OffhandHatchetQuick20261106/README.md",
+      "git_blob": "1b3ed9df0c5d56e99420f9c63432c92407edb4e0",
+      "bytes": 2884,
+      "sha256": "51d33662d070f8ea59cc40b9877d8331c4e6fc59035f5ba2a1c38292ecb63e60"
+    },
+    {
+      "path": "SourceAssets/OffhandQuickClearance20261108/README.md",
+      "git_blob": "6cade7c2d952c3d647728dd76bbeaf9cbc48b3ee",
+      "bytes": 3269,
+      "sha256": "5b0c822ff1ea7edd88a22675ed490af57807e279ae687b5a19335ee3814a61ad"
+    },
+    {
+      "path": "SourceAssets/PistolHatchetCarry20261107/fit_fingers.py",
+      "git_blob": "1a7ea07f6e8ba28fd8b8c3fd205747f02a2ac1e9",
+      "bytes": 7057,
+      "sha256": "6abc64a3210c3e8c875947e2990f5e21b4711caf5d76565fa9e9453c81a57af3"
+    },
+    {
+      "path": "SourceAssets/RuneboundWarhammer20261022/ModulesV1/catalog_base.json",
+      "git_blob": "ce2b84f366d5584dcd96890bfb5986216d9c5afa",
+      "bytes": 27397,
+      "sha256": "3bb440e0d7c31dffd10ec6774c8908158c4a668b0c8d0087688e34710a0e3cb2"
+    },
+    {
+      "path": "SourceAssets/StarMarrowCharge20261103/CampfireWrapV5_20261106/README.md",
+      "git_blob": "a12f7ee96a3104169f888b0018dc9ac525394e39",
+      "bytes": 3165,
+      "sha256": "a71198314dbdb69c5fcfcef81a8e73762884ec728eabdbd7a854761e704bd19b"
+    },
+    {
+      "path": "SourceAssets/StarMarrowCharge20261103/CampfireWrapV5_20261106/install_campfire_wrap.py",
+      "git_blob": "4edf7799ec4c37b7fd3b8f75e77c0e390def5bd2",
+      "bytes": 11138,
+      "sha256": "e7a9c2b582a31cddedfd799e574232272c7cb90bf820c4ab9f2adc6d20f820f1"
+    },
+    {
+      "path": "SourceAssets/TwoHandInspectAudio20261107/import_audio.py",
+      "git_blob": "66f2f78c574edabf3616dfa92c216fbc05e80a59",
+      "bytes": 2408,
+      "sha256": "098bb096f620b35f71ac206f90696e6d022871add4c89d3c69d9a0181ab8c9ef"
+    },
+    {
+      "path": "Tools/Skills/draw_lightning_haste_icon.py",
+      "git_blob": "af8b299d0c1ed3828e9ece2027da5e4182296060",
+      "bytes": 514,
+      "sha256": "f5376addcb4d91eed4bacd814b477670819ae9e0d05035f0b4ae9e6e28d2bdf5"
+    },
+    {
+      "path": "Tools/UI/prepare_cold_steel_skill_icons.py",
+      "git_blob": "bd85ed936904314dd65c3eda4c5997550d9ab188",
+      "bytes": 3372,
+      "sha256": "539939a42ebbf8840cfc91d84e1034ac94f4154f5d360449750f127a7be5681a"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "git_blob": "0af635b501d2c4a0ce83138def1b77727bdb1326",
+      "bytes": 7545,
+      "sha256": "01812487124aab582d9b10781be47e7fe46fcdd4ec1dd63448839dc46a432140"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/mixed-offhand-quick-combat.md",
+      "git_blob": "3b36c95c645c1671871f112da76b38278bf340ee",
+      "bytes": 1564,
+      "sha256": "e040997314d0f540fd58ee7f90fe81848ea96643048aa93a1f3010fc712055b8"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "git_blob": "746f49d4a514371dd0b7670f6bf4470626486564",
+      "bytes": 6167,
+      "sha256": "b1e601e5bd25a39f415988a560776050f7e4c5cc32dfb8aba791c24a0f195afa"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/quick-combat-authority.md",
+      "git_blob": "22b8ae8ee1cd544111eb39c6b9f4a8e5d37d6cfa",
+      "bytes": 1844,
+      "sha256": "72547fd545dd22f96de40f6c7934c5bbce06925c794ad7e43fa6e04b0ba5b4ee"
+    },
+    {
+      "path": "skills/ue5-skill-magic-workflow/SKILL.md",
+      "git_blob": "7f7fc8d6a26c1972c6990ff32347a9ca5f29b0e0",
+      "bytes": 7915,
+      "sha256": "6aa66f61da23c51e433e9fcd4d4997418512822a6c48c15a3d2f01cf57164951"
+    },
+    {
+      "path": "skills/ue5-skill-magic-workflow/references/weapon-attached-buffs.md",
+      "git_blob": "6a51d2e0ef8b3533a8ddfd50df1cf753e307cb74",
+      "bytes": 1865,
+      "sha256": "299336db095102384dc40c431fee1d210e78e1d52f6ab268ae2e99124371d06b"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "git_blob": "1365118aa3a453e9d7de8a52eb2a29ea3c463029",
+      "bytes": 5713,
+      "sha256": "a33e4cf3a411795b681e7f04446dbdeaaec115d3644d9f9df438fec511a39a9f"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/quick-combat-variants.md",
+      "git_blob": "1bd2274cba4deeee056da494d177d0b06b3a9112",
+      "bytes": 2284,
+      "sha256": "3b42174e2b7b2c1b00e8172cb01da34c6fdd8d8301814bd50b2920248b3d3bbf"
+    }
+  ]
+}

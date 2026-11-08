@@ -13,7 +13,8 @@ int32 UColdSteelWeaponIconCatalogCommandlet::Main(const FString& Params)
     // Deliberately do not call Init: this authoring task must not load or write a player profile.
     TStrongObjectPtr<UGameInstance> Owner(NewObject<UGameInstance>());
     TStrongObjectPtr<UColdSteelWeaponIcons> Icons(NewObject<UColdSteelWeaponIcons>(Owner.Get()));
-    const FString Directory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/Icons");
+    FString Directory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/Icons");
+    FParse::Value(*Params,TEXT("OutputDirectory="),Directory);
     IFileManager::Get().MakeDirectory(*Directory,true);
     int32 Failures=0;
     FString Requested;FParse::Value(*Params,TEXT("Definition="),Requested);

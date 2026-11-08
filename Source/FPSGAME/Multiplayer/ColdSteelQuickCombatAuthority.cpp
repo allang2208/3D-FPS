@@ -9,6 +9,20 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 
+FString AColdSteelPlayerState::QuickCombatEquipmentKey() const
+{
+    if(!ShadowModel)return FString();
+    const int32 Active=ShadowModel->Snapshot().ActiveWeaponSlot;
+    FString Key=FString::FromInt(Active);
+    for(const int32 Cell:{Active,Active==6?8:11})
+    {
+        const auto* Item=ShadowModel->Equipped(Cell);
+        Key+=TEXT("|");
+        if(Item)Key+=Item->InstanceId+TEXT(":")+Item->Definition;
+    }
+    return Key;
+}
+
 void AColdSteelPlayerState::RequestQuickCombat(float Duration,float PredictedCost)
 {
     if(QuickCombatPawn.Get()!=GetPawn())QuickCombatPredictedCosts.Reset();
@@ -33,6 +47,7 @@ void AColdSteelPlayerState::ServerQuickCombat_Implementation(uint32 Sequence,APa
         {
             QuickCombatUntil=0.;QuickCombatServerSequence=0;
             QuickCombatPawn.Reset();QuickCombatTargets.Reset();
+            QuickCombatEquipment.Reset();
         }
         return;
     }
@@ -50,6 +65,7 @@ void AColdSteelPlayerState::ServerQuickCombat_Implementation(uint32 Sequence,APa
         ||(Book&&Book->IsFocusActive())||!ShadowModel->SpendStamina(ShadowModel->QuickCombatStaminaCost()))
     {ClientQuickCombatRejected(Sequence);return;}
     QuickCombatServerSequence=Sequence;QuickCombatTargets.Reset();
+    QuickCombatEquipment=QuickCombatEquipmentKey();
     QuickCombatPawn=Pawn;QuickCombatUntil=Now+Duration+.35;
     ShadowModel->TrainQuickCombat(ShadowModel->QuickCombatDefinition().UseExperience);
 }

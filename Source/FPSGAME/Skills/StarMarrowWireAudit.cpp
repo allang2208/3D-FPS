@@ -122,7 +122,18 @@ void ASkillWireAuditController::TickStarMarrow()
     {Done=true;OK=FMath::IsNearlyEqual(M->Mana(),StarInitialMana-StarManaCost,.01f);}
     else if(StarStep==5&&Other&&Other->Remaining()<=0.f&&!Other->IsComponentTickEnabled()&&Status&&Status->WeaknessCount()==0&&Status->CriticalVulnerabilityCount()==0&&GetPlayerState<AColdSteelPlayerState>()->ReceivingMirrorCastSequence==3)
     {Done=true;OK=bLateSeen&&bSawRefresh&&GetPlayerState<AColdSteelPlayerState>()->ReceivingMirrorCastSequence==3&&Status&&Status->WeaknessCount()==0&&Status->CriticalVulnerabilityCount()==0&&!Other->IsComponentTickEnabled()&&Core->Remaining()==0.f&&FMath::IsNearlyEqual(M->Mana(),StarInitialMana-StarManaCost,.01f);}
-    if(!Done&&Now-Started<(StarStep==5?36.:14.))return;
+    if(StarStep==1&&!bStarSent)
+    {
+        static double LastGateLog=-1.;
+        if(Now-LastGateLog>=2.)
+        {
+            LastGateLog=Now;
+            UE_LOG(LogTemp,Display,TEXT("STAR_WIRE_READY wait=%.2f ready=%d sword_equipped=%d core_equipped=%d busy=%d traversing=%d casting=%d local=%d"),
+                Now-Started,Sword->IsStarMarrowChargeMotionReady(),Sword->IsEquipped(),Core->IsEquipped(),Sword->IsBusy(),P->IsTraversing(),P->IsLeftHandHeldForCast(),P->IsLocallyControlled());
+        }
+    }
+    // A cold client may still be importing its carried weapon's animation bundles.
+    if(!Done&&Now-Started<(StarStep==1?45.:(StarStep==5?36.:14.)))return;
     bStarPassed&=Done&&OK;StarReportedStep=StarStep;
     UE_LOG(LogTemp,Display,TEXT("STAR_WIRE_CLIENT done=%d pass=%d sent=%d motion=%d late=%d mana=%.2f active=%.2f"),StarStep,Done&&OK,bStarSent,bStartedMotion,bLateSeen,M->Mana(),Core->Remaining());
     ServerStarStep(StarStep,Done&&OK);
@@ -233,7 +244,7 @@ void ASkillWireAuditGameMode::TickStarMarrow(float Delta)
         UE_LOG(LogTemp,Display,TEXT("STAR_WIRE_SERVER done=%d pass=%d request=%u"),Stage,bStarPassed,PS->ProcessedCastSequence);
         ++Stage;LastSetup=-10.;
     }
-    if(Stage>5||Now-Joined>95.)
+    if(Stage>5||Now-Joined>155.)
     {
         bStarPassed&=Stage>5&&Guest->bStarPassed&&FMath::IsNearlyEqual(Host->Snapshot().StarMarrowManaSpent,double(StarHostSpend));
         UE_LOG(LogTemp,Display,TEXT("STAR_WIRE_THIRD_PERSON motion=%d visible_flame_component=%d"),bSawThirdPersonMotion,bSawThirdPersonFlame);

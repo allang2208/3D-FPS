@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "files": 153,
+  "total_bytes": 1276525,
+  "largest": {
+    "path": ".gitignore",
+    "git_blob": "a1c3f7decfe28cb98eb938436b17fbabb6a0ca4a",
+    "bytes": 361774,
+    "sha256": "cf44880d85354281b3e473cbe7d517d67684c4532338f994d4b187ef6d5a6071"
+  },
+  "python_syntax": 26,
+  "json_parsed": 33,
+  "binary_files": 0,
+  "credential_matches": 0,
+  "catalog_non_conical_changes": 0,
+  "game_tests_rerun": false,
+  "powershell_syntax": 10,
+  "scope": "Reviewed 153 payload files; excludes this receipt and the source manifest added afterward. No gameplay tests rerun."
+}

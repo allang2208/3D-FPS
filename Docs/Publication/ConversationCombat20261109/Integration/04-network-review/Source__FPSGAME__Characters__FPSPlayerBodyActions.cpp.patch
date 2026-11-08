@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -481,3 +481,3 @@
+             const float Length=Knife->GetQuickCombatLength();
+-            Timed(Chop?EFPSBodyAction::Strike:EFPSBodyAction::Thrust,Knife->GetQuickCombatAge(),Length,Rate);
++            Timed(Chop?EFPSBodyAction::Strike:EFPSBodyAction::Thrust,Knife->GetQuickCombatAge(),Length,Knife->GetQuickCombatRate());
+             State.ActionVariant=Chop?TEXT("OffhandHatchetChop"):TEXT("OffhandKukriThrust");

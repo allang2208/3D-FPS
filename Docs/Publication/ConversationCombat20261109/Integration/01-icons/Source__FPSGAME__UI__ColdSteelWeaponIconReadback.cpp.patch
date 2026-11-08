@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp
+@@ -24,2 +24,3 @@
+     int32 Width=0, Height=0, Visible=0;
++    float Exposure=1.f;
+     double SubmittedSeconds=0.0, CopyMs=-1.0, ConversionMs=-1.0;
+@@ -33,2 +34,3 @@
+     Packet->Recipe=Key;Packet->Width=Target->SizeX;Packet->Height=Target->SizeY;
++    Packet->Exposure=!Queue.IsEmpty()&&Queue[0].Item.Definition==TEXT("ue_m249")?6.f:1.f;
+     TRACE_BOOKMARK(TEXT("Icon.TargetReadback %s %dx%d recipe=%s"),*Target->GetPathName(),Packet->Width,Packet->Height,*Key);
+@@ -124,2 +126,7 @@
+                 if(Alpha>.1f)++Visible;P.A=Alpha;
++                // M249's black steel needs readable midtones in a tiny icon.
++                // A shared RGB shoulder retains its tint and bright brass;
++                // coverage is untouched, and other subjects keep identity gain.
++                const float Gain=Packet->Exposure/(1.f+(Packet->Exposure-1.f)*FMath::Max3(P.R,P.G,P.B));
++                P.R*=Gain;P.G*=Gain;P.B*=Gain;
+                 auto Color=P.ToFColorSRGB();Color.A=FMath::RoundToInt(Alpha*255);Pixels[Index]=Color;

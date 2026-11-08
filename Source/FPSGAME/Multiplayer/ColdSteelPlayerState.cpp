@@ -620,6 +620,8 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
             ||QuickCombatPawn.Get()!=Shooter||GetWorld()->GetTimeSeconds()>QuickCombatUntil
             ||QuickCombatTargets.Contains(Report.Target.Get()))
         {OutReason=TEXT("quick combat not authorized or duplicate contact");return false;}
+        if(QuickCombatEquipment!=QuickCombatEquipmentKey())
+        {OutReason=TEXT("quick combat equipment changed");return false;}
         if(!ShadowModel->QuickCombatStats().bAreaHit&&!QuickCombatTargets.IsEmpty())
         {OutReason=TEXT("quick combat single target");return false;}
     }

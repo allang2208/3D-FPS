@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp
++++ b/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp
+@@ -47,3 +47,4 @@
+         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
+-        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"));
++        // Match inventory icons: named weapon handles are not first-person hands.
++        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"))&&!Name.EndsWith(TEXT("_handle"));
+         const bool Visible=Source->IsMaterialSectionShown(M,L)&&!HandMaterial&&!WeaponPresentationMaterials::IsArmSection(Asset->GetMaterials()[M]);

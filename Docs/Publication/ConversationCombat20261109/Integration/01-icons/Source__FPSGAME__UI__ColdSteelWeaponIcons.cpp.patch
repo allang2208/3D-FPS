@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp
+@@ -72,2 +72,3 @@
+     if(I.Definition==TEXT("ue_rsh12"))Result+=TEXT("|barrel_frame=2|mechanism=1");
++    if(I.Definition==TEXT("ue_m249"))Result+=TEXT("|icon_studio=4");
+     for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
+@@ -195,2 +196,10 @@
+     }
++    // The M249's dark regional steel needs a brighter studio environment for
++    // readable small icons. Keep the actual weapon materials and restore the
++    // shared defaults for the next subject; live and catalog art use this path.
++    const bool M249Icon=I.Definition==TEXT("ue_m249");
++    Studio->DirectionalLight->SetWorldRotation(M249Icon?FRotator(-18,0,0):FRotator(-35,-35,0));
++    Studio->SetLightBrightness(M249Icon?12.f:6.f);
++    Studio->SetSkyBrightness(M249Icon?6.f:1.f);
++    Studio->UpdateCaptureContents();
+     PrepareStep=1;return true;
+@@ -263,4 +272,4 @@
+         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
+-        // Handguard is a gun surface, not part of the first-person hands.
+-        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"));
++        // Named weapon handles are not hands; keep names such as HandLeft eligible.
++        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"))&&!Name.EndsWith(TEXT("_handle"));
+         if(HandMaterial||WeaponPresentationMaterials::IsArmSection(Asset->GetMaterials()[M]))Mesh->ShowMaterialSection(M,S,false,L);

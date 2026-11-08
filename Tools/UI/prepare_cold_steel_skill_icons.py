@@ -40,6 +40,8 @@ if _unified.is_file():
         ICONS[entry["file"]] = "SourceAssets/SkillIconUnified20261013/Selected/" + entry["file"]
 
 
+ICONS["lightning_haste_cold_steel.png"] = "SourceAssets/LightningHasteReview20261107/Icon/lightning_haste_cold_steel.png"
+
 def main():
     RUNTIME.mkdir(parents=True, exist_ok=True)
     for filename, source in ICONS.items():

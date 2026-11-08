@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
+@@ -30,2 +30,3 @@
+ {
++    if(FParse::Param(*Params,TEXT("ConversationCombatOnly")))return RunConversationCombatReview(Params);
+     if(FParse::Param(*Params,TEXT("LightningHasteVisual")))return CaptureLightningHaste(Params);

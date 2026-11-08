@@ -68,6 +68,7 @@ FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
     FString Result=I.Definition;
     if(I.Definition==M870WeaponAssets::Definition)Result+=TEXT("|gun_only=2");
     if(I.Definition==TEXT("ue_rsh12"))Result+=TEXT("|barrel_frame=2|mechanism=1");
+    if(I.Definition==TEXT("ue_m249"))Result+=TEXT("|icon_studio=4");
     for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
 }
 void UColdSteelWeaponIcons::Request(const FColdSteelItem& I)
@@ -171,6 +172,14 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         Capture->bCaptureEveryFrame=false;Capture->bCaptureOnMovement=false;Capture->ShowFlags.SetAtmosphere(false);Capture->ShowFlags.SetFog(false);Capture->ShowFlags.SetVolumetricFog(false);Capture->ShowFlags.SetMotionBlur(false);Capture->ShowFlags.SetBloom(false);
         Capture->PostProcessSettings.bOverride_AutoExposureMethod=true;Capture->PostProcessSettings.AutoExposureMethod=AEM_Manual;Studio->AddComponent(Capture,FTransform::Identity);
     }
+    // The M249's dark regional steel needs a brighter studio environment for
+    // readable small icons. Keep the actual weapon materials and restore the
+    // shared defaults for the next subject; live and catalog art use this path.
+    const bool M249Icon=I.Definition==TEXT("ue_m249");
+    Studio->DirectionalLight->SetWorldRotation(M249Icon?FRotator(-18,0,0):FRotator(-35,-35,0));
+    Studio->SetLightBrightness(M249Icon?12.f:6.f);
+    Studio->SetSkyBrightness(M249Icon?6.f:1.f);
+    Studio->UpdateCaptureContents();
     PrepareStep=1;return true;
     }
     if(ColdSteelInventory::IsBow(I)){const bool Ready=PrepareBow(I);PrepareStep=7;return Ready;}
@@ -238,8 +247,8 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     }
     for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
-        // Handguard is a gun surface, not part of the first-person hands.
-        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"));
+        // Named weapon handles are not hands; keep names such as HandLeft eligible.
+        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"))&&!Name.EndsWith(TEXT("_handle"));
         if(HandMaterial||WeaponPresentationMaterials::IsArmSection(Asset->GetMaterials()[M]))Mesh->ShowMaterialSection(M,S,false,L);
     }
     const FVector Pivot=Mesh->GetSocketLocation(TEXT("WPN_SOCKET_Magazine"));

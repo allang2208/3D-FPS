@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+@@ -15,2 +15,16 @@
+ #include "Engine/World.h"
++
++FString AColdSteelPlayerState::QuickCombatEquipmentKey() const
++{
++    if(!ShadowModel)return FString();
++    const int32 Active=ShadowModel->Snapshot().ActiveWeaponSlot;
++    FString Key=FString::FromInt(Active);
++    for(const int32 Cell:{Active,Active==6?8:11})
++    {
++        const auto* Item=ShadowModel->Equipped(Cell);
++        Key+=TEXT("|");
++        if(Item)Key+=Item->InstanceId+TEXT(":")+Item->Definition;
++    }
++    return Key;
++}
+ 
+@@ -46,2 +60,3 @@
+             QuickCombatPawn.Reset();QuickCombatTargets.Reset();
++            QuickCombatEquipment.Reset();
+         }
+@@ -73,2 +88,3 @@
+     QuickCombatServerSequence=Sequence;QuickCombatTargets.Reset();
++    QuickCombatEquipment=QuickCombatEquipmentKey();
+     if(auto* Pendant=Pawn->FindComponentByClass<UKukriRelentlessComponent>())Pendant->PrepareServerAttack(1);

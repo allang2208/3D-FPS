@@ -1,0 +1,190 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ConversationCombatWire20261108.cpp
+@@ -0,0 +1,187 @@
++#include "SkillWireAudit.h"
++#include "FPSLightningHasteComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/MonsterAIController.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/GameStateBase.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "Engine/NetDriver.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Parse.h"
++#include "Serialization/JsonSerializer.h"
++
++namespace ConversationWire
++{
++FColdSteelProfile Seed(UColdSteelStatusModel* M,int32 Case)
++{
++    auto P=M->Snapshot();P.Items.Reset();P.ActiveWeaponSlot=6;P.ActiveProductionTool.Reset();P.DungeonRun={};P.Stamina=150;P.bSprintExhausted=false;
++    P.bQuickCombatReserved=false;P.QuickCombatCooldown=P.QuickCombatCooldownDuration=0;P.Mana=M->Derived(TEXT("maxMp"));
++    P.LightningHasteCooldown=P.LightningHasteCooldownDuration=0;
++    for(auto& S:P.Skills){S.Value.Level=1;S.Value.Experience=0;}
++    const TCHAR* Definition=Case==1?TEXT("ue_runebound_warhammer"):Case==2?TEXT("ue_thunder_god_hammer"):
++        Case==3?TEXT("ue_pit_viper2011"):Case==4||Case==8?TEXT("ue_apprentice_staff"):TEXT("ue_steel_warhammer");
++    auto Item=M->CreateItem(Definition);Item.InstanceId=TEXT("ConversationPrimary");Item.Place=1;Item.Cell=6;
++    if(Case<3||Case==5||Case==6)
++    {
++        TSharedPtr<FJsonObject> D;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),D);
++        auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("head_mount"),TEXT("conical_seat"));D->SetObjectField(TEXT("gunsmith_parts"),Parts);
++        Item.Data.Reset();FJsonSerializer::Serialize(D.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
++    }
++    P.Items.Add(Item);
++    if(Case==3||Case==4){auto Axe=M->CreateItem(TEXT("ue_tactical_hatchet"));Axe.InstanceId=TEXT("ConversationOffhand");Axe.Place=1;Axe.Cell=8;P.Items.Add(Axe);}
++    return P;
++}
++void Save(const TSharedRef<FJsonObject>& Root)
++{
++    FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));FString Path;
++    if(FParse::Value(FCommandLine::Get(),TEXT("SkillWireOutput="),Path))FFileHelper::SaveStringToFile(Json,*Path);
++    UE_LOG(LogTemp,Display,TEXT("CONVERSATION_WIRE_RESULT %s"),*Json);
++}
++void Stationary(AFPSGAMECharacter* P)
++{P->SetActorTickEnabled(false);P->GetCharacterMovement()->SetComponentTickEnabled(false);}
++}
++
++void ASkillWireAuditController::ClientSetupConversation_Implementation(int32 Case,ANurseZombie* First,ANurseZombie* Second,AFPSGAMECharacter* Observer)
++{
++    if(!FParse::Param(FCommandLine::Get(),TEXT("ConversationCombatWire"))||HasAuthority()||Case==ConversationCase||!First||!Second)return;
++    if(Case==8&&!Observer)return; // Retry after the late actor's NetGUID resolves.
++    auto* P=Cast<AFPSGAMECharacter>(GetPawn());auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();auto* PS=GetPlayerState<AColdSteelPlayerState>();
++    if(!P||!M||!M->IsAudit()||!PS||PS->GetPawn()!=P)return;
++    ConversationWire::Stationary(P);PS->SetActorTickEnabled(false);M->Current=ConversationWire::Seed(M,Case);M->CurrentPawn=P;
++    // Autonomous proxies do not adopt a frozen authority pawn's teleport.
++    // Place both isolated fixtures at the same origin before reporting hits.
++    P->SetActorLocation(FVector(0,0,100));
++    UE_LOG(LogTemp,Display,TEXT("CONVERSATION_FIXTURE client case=%d eye=%s first_before=%s second_before=%s"),Case,
++        *P->GetPawnViewLocation().ToCompactString(),*First->GetActorLocation().ToCompactString(),*Second->GetActorLocation().ToCompactString());
++    // The empty test map's floor is server-only. Do not let simulated proxies
++    // fall while their authority counterparts are intentionally frozen.
++    for(auto* T:{First,Second}){T->SetActorTickEnabled(false);T->GetCharacterMovement()->SetComponentTickEnabled(false);}
++    First->SetActorLocation(FVector(120,-30,160));Second->SetActorLocation(FVector(120,30,160));
++    if(Observer)ConversationWire::Stationary(Observer);
++    if(Case==8)UE_LOG(LogTemp,Display,TEXT("CONVERSATION_FIXTURE client observer=%s haste=%s remaining=%.3f"),*GetNameSafe(Observer),
++        *GetNameSafe(Observer->FindComponentByClass<UFPSLightningHasteComponent>()),Observer->FindComponentByClass<UFPSLightningHasteComponent>()->Remaining());
++    ConversationCase=Case;Subject=First;ConversationSecond=Second;OtherArmor=Observer;Started=GetWorld()->GetRealTimeSeconds();
++    bConversationContact=bConversationFinished=false;InitialStamina=M->Stamina();ExpectedCost=M->QuickCombatStaminaCost();
++    bReported=false;bPassed=false;
++    if(Case==8)
++    {
++        const auto Cast=M->LightningHasteStats();StarInitialMana=M->Snapshot().Mana;StarManaCost=Cast.ManaCost;
++        M->BeginLightningHasteCast(Cast);FColdSteelNetCastRequest Req;Req.SkillId=TEXT("lightningHaste");
++        Req.CastId=PS->RequestCastSpell(Req);Req.Phase=1;PS->RequestCastSpell(Req);PS->RequestCastSpell(Req);
++    }
++    else M->CommitQuickCombatCast(1.2f);
++}
++
++void ASkillWireAuditController::TickConversationCombat()
++{
++    if(HasAuthority()||!IsLocalController())return;
++    const double Now=GetWorld()->GetRealTimeSeconds();if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
++    if(ConversationCase<0)return;auto* P=Cast<AFPSGAMECharacter>(GetPawn());auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    auto* PS=GetPlayerState<AColdSteelPlayerState>();if(!P||!M||!PS)return;
++    if(ConversationCase==8)
++    {
++        const auto* H=P->FindComponentByClass<UFPSLightningHasteComponent>();const auto* Other=OtherArmor?OtherArmor->FindComponentByClass<UFPSLightningHasteComponent>():nullptr;
++        bConversationHasteSeen|=H&&H->Remaining()>0&&H->ActionMultiplier()>1&&H->MoveMultiplier()>1;
++        bConversationLateSeen|=Other&&Other->Remaining()>0&&Other->Remaining()<28&&Other->ActionMultiplier()>1;
++        if(Now-StarStatusFirstSeen>2){StarStatusFirstSeen=Now;
++            UE_LOG(LogTemp,Display,TEXT("CONVERSATION_FIXTURE client haste own=%.3f other=%.3f actor=%s replicated=%d"),H?H->Remaining():-1.f,Other?Other->Remaining():-1.f,*GetNameSafe(OtherArmor),Other&&Other->GetIsReplicated());}
++        if(!bConversationFinished&&((bConversationHasteSeen&&bConversationLateSeen&&H->Remaining()==0&&Other->Remaining()==0)||Now-Started>38))
++        {
++            bConversationFinished=true;const bool Paid=FMath::IsNearlyEqual(M->Snapshot().Mana,StarInitialMana-StarManaCost,.01f);
++            auto R=MakeShared<FJsonObject>();R->SetBoolField(TEXT("passed"),Paid&&bConversationHasteSeen&&bConversationLateSeen&&H->Remaining()==0&&Other->Remaining()==0);
++            R->SetBoolField(TEXT("owner_haste"),bConversationHasteSeen);R->SetBoolField(TEXT("late_remote_haste"),bConversationLateSeen);R->SetBoolField(TEXT("paid_once"),Paid);
++            R->SetBoolField(TEXT("observer_resolved"),Other!=nullptr);
++            ConversationWire::Save(R);ServerResult(Paid,bConversationHasteSeen,bConversationLateSeen,H&&H->Remaining()==0,Other&&Other->Remaining()==0);ExitAt=Now+3;
++        }
++        return;
++    }
++    if(!bConversationContact&&Now-Started>.45)
++    {
++        bConversationContact=true;const auto* Item=M->Equipped(ConversationCase==3||ConversationCase==4?8:6);
++        if(Item)for(auto* T:{Subject.Get(),Subject.Get(),ConversationSecond.Get()})
++        {
++            FColdSteelNetHitReport Hit;Hit.Target=T;Hit.ItemDefinition=Item->Definition;Hit.ItemInstance=Item->InstanceId;
++            if(ConversationCase==5)Hit.ItemInstance+=TEXT("_swapped");
++            Hit.AttackMeta=0x80;Hit.QuickCombatSerial=PS->QuickCombatSequence;Hit.Flags=(1<<0)|(1<<3);
++            Hit.AimOrigin=P->GetPawnViewLocation();Hit.ImpactPoint=T->GetActorLocation();Hit.Direction=FVector::ForwardVector;Hit.HitNormal=-FVector::ForwardVector;
++            Hit.ClientFireTime=GetWorld()->GetGameState()->GetServerWorldTimeSeconds();PS->ServerReportHit(Hit);
++            UE_LOG(LogTemp,Display,TEXT("CONVERSATION_FIXTURE contact case=%d eye=%s target=%s"),ConversationCase,*FVector(Hit.AimOrigin).ToCompactString(),*FVector(Hit.ImpactPoint).ToCompactString());
++        }
++    }
++    if(!bConversationFinished&&Now-Started>1.0)
++    {
++        bConversationFinished=true;const bool Cost=FMath::IsNearlyEqual(M->Stamina(),InitialStamina-(ConversationCase==6?0:ExpectedCost),.01f);
++        M->FinishQuickCombatCast();ServerResult(Cost,true,true,true,true);
++    }
++}
++
++void ASkillWireAuditGameMode::TickConversationCombat()
++{
++    const double Now=GetWorld()->GetRealTimeSeconds();if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
++    if(!Guest)return;auto* P=Cast<AFPSGAMECharacter>(Guest->GetPawn());auto* PS=Guest->GetPlayerState<AColdSteelPlayerState>();
++    auto* Host=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!P||!PS||!Host||!Host->IsAudit())return;
++    if(!GuestModel)
++    {
++        GuestModel=Host->CreateShadowModel(ConversationWire::Seed(Host,0));PS->ShadowModel=GuestModel;P->NetShadowProfile=GuestModel;GuestModel->CurrentPawn=P;
++        ConversationWire::Stationary(P);P->SetActorLocation(FVector(0,0,100));P->ForceNetUpdate();PS->SetActorTickEnabled(false);
++        P->FindComponentByClass<UFPSCombatHealthComponent>()->Health=1000;
++        Target=GetWorld()->SpawnActor<ANurseZombie>(FVector(120,-30,160),FRotator::ZeroRotator);
++        ConversationSecond=GetWorld()->SpawnActor<ANurseZombie>(FVector(120,30,160),FRotator::ZeroRotator);
++        for(auto* T:{Target.Get(),ConversationSecond.Get()}){T->Health=T->MaxHealth=100000;T->SetActorTickEnabled(false);T->GetCharacterMovement()->SetComponentTickEnabled(false);
++            if(auto* AI=Cast<AMonsterAIController>(T->GetController()))AI->SetDecisionEnabled(false);T->OnTakeAnyDamage.AddDynamic(this,&ASkillWireAuditGameMode::CountContact);}
++        ArmorHostXP=Host->MasteryProgress(TEXT("lightningHaste")).Experience;
++    }
++    if(ConversationPhase==0)
++    {
++        PS->ServerQuickCombat_Implementation(PS->QuickCombatServerSequence,P,0,true);GuestModel->Current=ConversationWire::Seed(GuestModel,ConversationCase);
++        if(ConversationCase==6)GuestModel->Current.Stamina=0;
++        InitialStamina=GuestModel->Stamina();ExpectedCost=GuestModel->QuickCombatStaminaCost();Contacts=0;
++        Target->Health=ConversationSecond->Health=100000;Guest->bReported=Guest->bPassed=false;LastSetup=-1;ConversationStarted=Now;ConversationPhase=1;
++        Target->SetActorLocation(FVector(120,-30,160));ConversationSecond->SetActorLocation(FVector(120,30,160));
++        Target->ForceNetUpdate();ConversationSecond->ForceNetUpdate();
++        if(ConversationCase==8)
++        {
++            GuestModel->LightningHasteSkill.LightningHaste.DurationBase=5;GuestModel->LightningHasteSkill.LightningHaste.DurationPerLevel=0;
++            ArmorInitialMana=GuestModel->Snapshot().Mana;ArmorManaCost=GuestModel->LightningHasteStats().ManaCost;
++            ExistingArmor=GetWorld()->SpawnActor<AFPSGAMECharacter>(FVector(500,0,100),FRotator::ZeroRotator);ConversationWire::Stationary(ExistingArmor);ExistingArmor->SetReplicates(false);
++            StarObserverProfile=Host->CreateShadowModel(ConversationWire::Seed(Host,8));StarObserverProfile->CurrentPawn=ExistingArmor;ExistingArmor->NetShadowProfile=StarObserverProfile;
++            auto Spell=GuestModel->LightningHasteStats();Spell.Duration=30;FColdSteelNetCastRequest Req;Req.SkillId=TEXT("lightningHaste");Req.CastId=700;
++            const bool StartedBuff=ExistingArmor->FindComponentByClass<UFPSLightningHasteComponent>()->NetRelease(ExistingArmor,Req,StarObserverProfile,Spell);
++            UE_LOG(LogTemp,Display,TEXT("CONVERSATION_FIXTURE observer haste started=%d remaining=%.3f"),StartedBuff,ExistingArmor->FindComponentByClass<UFPSLightningHasteComponent>()->Remaining());
++        }
++    }
++    if(ConversationCase==8&&Now-ConversationStarted<2)return;
++    if(ConversationCase==8&&!ExistingArmor->GetIsReplicated()){ExistingArmor->SetReplicates(true);ExistingArmor->ForceNetUpdate();}
++    if(Now-LastSetup>1){LastSetup=Now;Guest->ClientSetupConversation(ConversationCase,Target,ConversationSecond,ExistingArmor);}
++    if(PS->QuickCombatServerSequence&&ConversationPhase==1&&ConversationCase!=5){ConversationPhase=2;
++        UE_LOG(LogTemp,Display,TEXT("CONVERSATION_FIXTURE server case=%d pawn=%s eye=%s target=%s range=%.1f"),ConversationCase,*P->GetActorLocation().ToCompactString(),*P->GetPawnViewLocation().ToCompactString(),*Target->GetActorLocation().ToCompactString(),GuestModel->QuickCombatStats().RangeCM);}
++    if(ConversationCase==5&&ConversationPhase==1&&PS->QuickCombatServerSequence){GuestModel->Current.Items[0].InstanceId+=TEXT("_swapped");ConversationPhase=2;}
++    if(Guest->bReported||Now-ConversationStarted>50)
++    {
++        const bool Haste=ConversationCase==8;const bool Reject=ConversationCase==5||ConversationCase==6;const int32 ExpectedHits=Reject?0:ConversationCase<3?2:1;
++        bool OK=Guest->bReported&&Guest->bPassed;
++        if(Haste)OK&=FMath::IsNearlyEqual(GuestModel->Snapshot().Mana,ArmorInitialMana-ArmorManaCost,.01f)&&
++            P->FindComponentByClass<UFPSLightningHasteComponent>()->Remaining()==0&&GuestModel->MasteryProgress(TEXT("lightningHaste")).Experience>0&&
++            Host->MasteryProgress(TEXT("lightningHaste")).Experience==ArmorHostXP;
++        else OK&=Contacts==ExpectedHits&&FMath::IsNearlyEqual(GuestModel->Stamina(),InitialStamina-(ConversationCase==6?0:ExpectedCost),.01f);
++        auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("case"),ConversationCase);Row->SetBoolField(TEXT("passed"),OK);
++        Row->SetNumberField(TEXT("contacts"),Contacts);Row->SetBoolField(TEXT("client_passed"),Guest->bReported&&Guest->bPassed);ConversationResults.Add(MakeShared<FJsonValueObject>(Row));
++        UE_LOG(LogTemp,Display,TEXT("CONVERSATION_WIRE_CASE %d pass=%d contacts=%d client=%d"),ConversationCase,OK,Contacts,Guest->bPassed);
++        ++ConversationCase;ConversationPhase=0;
++        if(ConversationCase>8)
++        {
++            auto Root=MakeShared<FJsonObject>();Root->SetArrayField(TEXT("cases"),ConversationResults);
++            Root->SetBoolField(TEXT("passed"),!ConversationResults.ContainsByPredicate([](const auto& R){return !R->AsObject()->GetBoolField(TEXT("passed"));}));
++            Root->SetStringField(TEXT("transport"),GetNetMode()==NM_DedicatedServer?TEXT("UDP dedicated"):TEXT("UDP listen"));
++#if DO_ENABLE_NET_TEST
++            if(auto* Net=GetWorld()->GetNetDriver()){Root->SetNumberField(TEXT("actual_pkt_lag"),Net->PacketSimulationSettings.PktLag);Root->SetNumberField(TEXT("actual_pkt_loss"),Net->PacketSimulationSettings.PktLoss);}
++#endif
++            ConversationWire::Save(Root);ExitAt=Now+3;
++        }
++    }
++}

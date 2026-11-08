@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
+@@ -25,2 +25,3 @@
+     int32 RunLightningHasteAudit(const FString& Params);
++    int32 RunConversationCombatReview(const FString& Params);
+     int32 CaptureLightningHaste(const FString& Params);

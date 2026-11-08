@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h
++++ b/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h
+@@ -99,2 +99,3 @@
+     float GetQuickCombatAge() const {return QuickElapsed;}
++    float GetQuickCombatRate() const {return QuickActionRate;}
+     bool IsHatchetQuickCombat() const {return bQuickCombat&&bHatchetQuickCombat;}
+@@ -179,2 +180,4 @@
+     float QuickEndTime=0.f,QuickTotalDuration=0.f;
++    float QuickActionRate=1.f;
++    friend class USkillNetworkAuditCommandlet;
+     float QuickElapsed=0.f,QuickHitStop=0.f,QuickImpactAge=-1.f,QuickStrikeAge=-1.f,QuickImpactKick=0.f;

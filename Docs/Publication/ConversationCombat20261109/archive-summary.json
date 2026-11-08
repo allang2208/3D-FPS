@@ -1,0 +1,167 @@
+{
+  "completed": true,
+  "files": 7998,
+  "bytes": 6804026178.0,
+  "exact_manifest": "trash/ConversationCombat20261109/cleanup-manifest.json",
+  "exact_manifest_sha256": "ccc2be2c6a3e5aaccb4fea387597627b0b77d8f2f023cadacc2920884117ed0c",
+  "known_link_not_traversed": [
+    {
+      "source": "SourceAssets\\ConversationCombatReview20261108\\IsolatedProject\\Content",
+      "target": "D:\\FPS3D\\FPSGAME\\Content",
+      "kind": "Junction"
+    }
+  ],
+  "entries": [
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandHatchetChop.h",
+      "reason": "Retired mirrored right-arm pose table; no runtime includes",
+      "retained": "Source/FPSGAME/Weapons/Kukri/OffhandAxeQuickMotion.h and native PairAttack3KH"
+    },
+    {
+      "path": "SourceAssets/OffhandHatchetQuick20261106/author.py",
+      "reason": "Retired mirrored pose author/export route",
+      "retained": "Native PairAttack3KH sampling"
+    },
+    {
+      "path": "SourceAssets/OffhandHatchetQuick20261106/export.json",
+      "reason": "Retired mirrored pose author/export route",
+      "retained": "Native PairAttack3KH sampling"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/author_icon.py",
+      "reason": "Rejected framed icon V1; grayscale model reference retained",
+      "retained": "SourceAssets/ConicalHammerSeat20261107/IconV2 and BuildV1/Icons/conical_seat_actual_gray.png"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/ConicalSeat_IconSource.blend",
+      "reason": "Rejected framed icon V1; grayscale model reference retained",
+      "retained": "SourceAssets/ConicalHammerSeat20261107/IconV2 and BuildV1/Icons/conical_seat_actual_gray.png"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/Icons/head_mount_conical_seat.png",
+      "reason": "Rejected framed icon V1; grayscale model reference retained",
+      "retained": "SourceAssets/ConicalHammerSeat20261107/IconV2 and BuildV1/Icons/conical_seat_actual_gray.png"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/icon_receipt.json",
+      "reason": "Rejected framed icon V1; grayscale model reference retained",
+      "retained": "SourceAssets/ConicalHammerSeat20261107/IconV2 and BuildV1/Icons/conical_seat_actual_gray.png"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/BuildV1/icon_publication.json",
+      "reason": "Rejected framed icon V1; grayscale model reference retained",
+      "retained": "SourceAssets/ConicalHammerSeat20261107/IconV2 and BuildV1/Icons/conical_seat_actual_gray.png"
+    },
+    {
+      "path": "SourceAssets/ConicalHammerSeat20261107/IconV2/Before",
+      "reason": "Replaced V1 PNG and Texture backup",
+      "retained": "Approved IconV2 and current Content asset"
+    },
+    {
+      "path": "SourceAssets/LightningHasteVFX20261107/Before",
+      "reason": "Pre-upgrade Niagara backup",
+      "retained": "Current NS_LightningHasteArc and saved receipt"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Before/axe.png",
+      "reason": "Replaced inventory artwork backup",
+      "retained": "Artwork and current saved Content assets"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Before/axe.uasset",
+      "reason": "Replaced inventory artwork backup",
+      "retained": "Artwork and current saved Content assets"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Before/ue_m249.png",
+      "reason": "Replaced inventory artwork backup",
+      "retained": "Artwork and current saved Content assets"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Before/ue_m249.uasset",
+      "reason": "Replaced inventory artwork backup",
+      "retained": "Artwork and current saved Content assets"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/BuildAttempt01",
+      "reason": "Superseded unsuccessful build attempt",
+      "retained": "Final build receipts and Review"
+    },
+    {
+      "path": "SourceAssets/InventoryWeaponIcons20261108/Review/BuildAttempt01",
+      "reason": "Superseded unsuccessful build attempt",
+      "retained": "Final build receipts and Review"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/IsolatedProject",
+      "reason": "Completed temporary audit build/output; no permanent alternate project",
+      "retained": "Production Source, Build2 receipts, Native and six accepted Wire reports"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/IsolatedBuild",
+      "reason": "Completed temporary audit build/output; no permanent alternate project",
+      "retained": "Production Source, Build2 receipts, Native and six accepted Wire reports"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/IsolatedBuildUnity",
+      "reason": "Completed temporary audit build/output; no permanent alternate project",
+      "retained": "Production Source, Build2 receipts, Native and six accepted Wire reports"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/IsolatedBuildUnity2",
+      "reason": "Completed temporary audit build/output; no permanent alternate project",
+      "retained": "Production Source, Build2 receipts, Native and six accepted Wire reports"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/FixtureObjects",
+      "reason": "Completed temporary audit build/output; no permanent alternate project",
+      "retained": "Production Source, Build2 receipts, Native and six accepted Wire reports"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/DerivedDataCache",
+      "reason": "Completed temporary audit build/output; no permanent alternate project",
+      "retained": "Production Source, Build2 receipts, Native and six accepted Wire reports"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/build_isolated.ps1",
+      "reason": "Completed temporary audit build/output; no permanent alternate project",
+      "retained": "Production Source, Build2 receipts, Native and six accepted Wire reports"
+    },
+    {
+      "path": "SourceAssets/ConversationCombatReview20261108/build_fixture_incremental.ps1",
+      "reason": "Completed temporary audit build/output; no permanent alternate project",
+      "retained": "Production Source, Build2 receipts, Native and six accepted Wire reports"
+    }
+  ],
+  "additional": {
+    "completed": true,
+    "files": 7,
+    "bytes": 4380185.0,
+    "exact_manifest": "trash/ConversationCombat20261109-FinalSources/cleanup-extra.json",
+    "sha256": "bba67eb4214fb3af40f75599691f1f7d2b6eb427fa88188e24aa64ae075ee27f",
+    "entries": [
+      {
+        "path": "SourceAssets/StarMarrowCharge20261103/FlameArmorTonguesV4_20261106",
+        "reason": "Superseded V4 blue tongues; no active author/runtime code references",
+        "retained": "CampfireWrapV5_20261106; VariationV2 and DenseFlowV3 retained"
+      },
+      {
+        "path": "SourceAssets/StarMarrowCharge20261103/CampfireWrapV5_20261106/Before",
+        "reason": "Pre-V5 system backup",
+        "retained": "Current saved NS_StarMarrowDenseBladeFire"
+      },
+      {
+        "path": "SourceAssets/InventoryWeaponIcons20261108/Review/Before/ue_m249.png",
+        "reason": "Pre handle-visibility fix icon",
+        "retained": "Final saved icon and Review receipts"
+      },
+      {
+        "path": "SourceAssets/InventoryWeaponIcons20261108/Review/Before/ue_m249.uasset",
+        "reason": "Pre handle-visibility fix texture",
+        "retained": "Final saved texture and Review receipts"
+      }
+    ]
+  },
+  "total_files": 8005,
+  "total_bytes": 6808406363.0
+}

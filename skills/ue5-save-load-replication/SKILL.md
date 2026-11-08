@@ -70,3 +70,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 - 进食、饮水与药水的客机取消、最早结算点和迟到回执见[消耗品结算回执](references/consumable-contact-receipts.md)。
 
 - 狙击开火快照、远端短眩晕、枪声与 AI 听觉：读取 [狙击开火快照、远端短眩晕、枪声与 AI 听觉](references/sniper-launch-and-short-stun.md)。
+
+涉及快速近战身份与实际联机检查时，读取 [快速近战身份与实际联机检查](references/quick-combat-authority.md)。

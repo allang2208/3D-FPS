@@ -25,6 +25,9 @@ FVector BladeWidthDirection(const USceneComponent& Source,const FVector& Axis)
 }
 void UStarMarrowComponent::LoadFlames()
 {
+    AddTickPrerequisiteActor(GetOwner());
+    if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())AddTickPrerequisiteComponent(Body);
+    if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
     if(GetNetMode()==NM_DedicatedServer||FlameSystem||FlameLoad)return;
     FlameLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(BlueFlame,FStreamableDelegate::CreateWeakLambda(this,[this]()
     {FlameSystem=Cast<UNiagaraSystem>(BlueFlame.ResolveObject());}));
@@ -67,10 +70,15 @@ void UStarMarrowComponent::UpdateFlames(float Delta)
             FX=NewObject<UNiagaraComponent>(Player,NAME_None,RF_Transient);Player->AddInstanceComponent(FX);
             FX->SetupAttachment(Player->GetRootComponent());FX->SetAutoActivate(false);FX->SetAsset(FlameSystem);
             FX->SetAbsolute(true,true,true);FX->SetCastShadow(false);FX->SetVisibleInRayTracing(false);FX->RegisterComponent();
-            FX->AddTickPrerequisiteComponent(this);FX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
+            // Batched Niagara derives UsePrereqs from the attach parent, not
+            // this late parameter producer. Simulate after the authored pose.
+            FX->PrimaryComponentTick.TickGroup=TG_LastDemotable;
+            FX->SetTickBehavior(ENiagaraTickBehavior::UseComponentTickGroup);
+            FX->AddTickPrerequisiteComponent(this);
             if(FlameFX.Num()<=Index)FlameFX.SetNum(Index+1);FlameFX[Index]=FX;
         }
         const auto* Primitive=Cast<UPrimitiveComponent>(Span.Source.Get());
+        FX->SetForceSolo(FirstPerson);
         const auto PrimitiveType=FirstPerson&&Primitive?Primitive->FirstPersonPrimitiveType:EFirstPersonPrimitiveType::None;
         if(FX->FirstPersonPrimitiveType!=PrimitiveType)FX->SetFirstPersonPrimitiveType(PrimitiveType);
         if(FX->bOnlyOwnerSee!=FirstPerson)FX->SetOnlyOwnerSee(FirstPerson);

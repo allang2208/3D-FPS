@@ -1,0 +1,180 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/LightningHastePresentation.cpp
+@@ -0,0 +1,177 @@
++#include "FPSLightningHasteComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/SplineComponent.h"
++#include "Kismet/GameplayStatics.h"
++#include "NiagaraComponent.h"
++#include "NiagaraSystem.h"
++
++namespace
++{
++bool HasteBoneVisible(USkeletalMeshComponent* Mesh,FName Name)
++{
++    // First-person pose layers also hide unused arms by collapsing their scale.
++    return Mesh&&!Name.IsNone()&&Mesh->GetBoneIndex(Name)!=INDEX_NONE&&!Mesh->IsBoneHiddenByName(Name)
++        &&!Mesh->GetSocketTransform(Name,RTS_Component).GetScale3D().IsNearlyZero();
++}
++FName HasteBone(USkeletalMeshComponent* Mesh,std::initializer_list<const TCHAR*> Names)
++{
++    if(Mesh)for(const TCHAR* Name:Names)if(HasteBoneVisible(Mesh,FName(Name)))return FName(Name);
++    return NAME_None;
++}
++}
++
++void UFPSLightningHasteComponent::ClearVisuals()
++{
++    for(const auto& Mesh:LimbMeshes)if(Mesh.IsValid())
++    {
++        RemoveTickPrerequisiteComponent(Mesh.Get());
++        if(auto* Leader=Mesh->LeaderPoseComponent.Get())RemoveTickPrerequisiteComponent(Leader);
++    }
++    for(const auto& FX:ArcFX)if(FX)FX->DestroyComponent();ArcFX.Reset();
++    for(const auto& Path:ArcPaths)if(Path)Path->DestroyComponent();ArcPaths.Reset();
++    LimbMeshes.Reset();LimbRoots.Reset();LimbTips.Reset();NextLimbResolveAt=0;bVisualWasActive=false;
++}
++
++void UFPSLightningHasteComponent::ResolveLimbSources()
++{
++    auto* P=Cast<AFPSGAMECharacter>(GetOwner());if(!P)return;
++    const auto* Body=P->FindComponentByClass<UFPSPlayerBodyComponent>();
++    auto* World=Body?Body->GetBodyMesh():nullptr;
++    const bool First=P->IsLocallyControlled()&&(!Body||!Body->IsThirdPersonViewEnabled());
++    auto* Legs=First&&Body?Body->GetFirstPersonLowerBodyMesh():World;
++    TInlineComponentArray<USkeletalMeshComponent*> Skins;P->GetComponents(Skins);
++    for(const auto& Mesh:LimbMeshes)if(Mesh.IsValid())
++    {
++        RemoveTickPrerequisiteComponent(Mesh.Get());
++        if(auto* Leader=Mesh->LeaderPoseComponent.Get())RemoveTickPrerequisiteComponent(Leader);
++    }
++    LimbMeshes.SetNum(4);LimbRoots.SetNum(4);LimbTips.SetNum(4);
++    for(int32 I=0;I<4;++I)
++    {
++        USkeletalMeshComponent* Source=I>=2?Legs:World;const bool Left=(I%2)==0;
++        auto Tip=[&](USkeletalMeshComponent* Mesh)
++        {
++            if(I>=2)return Left?HasteBone(Mesh,{TEXT("foot_l"),TEXT("Foot_L")}):HasteBone(Mesh,{TEXT("foot_r"),TEXT("Foot_R")});
++            return Left?HasteBone(Mesh,{TEXT("hand_l"),TEXT("b_l_hand"),TEXT("Hand_L"),TEXT("LeftHand")}):HasteBone(Mesh,{TEXT("hand_r"),TEXT("b_r_hand"),TEXT("Hand_R"),TEXT("RightHand")});
++        };
++        if(First&&I<2)
++        {
++            Source=nullptr;
++            for(auto* Skin:Skins)
++            {
++                if(!Skin||Skin==World||Skin==Legs||!Skin->IsRegistered()||!Skin->IsVisible()||Skin->bHiddenInGame||Skin->bOwnerNoSee||!Skin->bOnlyOwnerSee)continue;
++                if(!Tip(Skin).IsNone()){Source=Skin;break;}
++            }
++        }
++        LimbMeshes[I]=Source;LimbTips[I]=Tip(Source);
++        LimbRoots[I]=I>=2?(Left?HasteBone(Source,{TEXT("calf_l"),TEXT("Calf_L")}):HasteBone(Source,{TEXT("calf_r"),TEXT("Calf_R")})):
++            (Left?HasteBone(Source,{TEXT("lowerarm_l"),TEXT("b_l_forearm"),TEXT("b_l_lowerarm"),TEXT("LowerArm_L"),TEXT("LeftForeArm")}):HasteBone(Source,{TEXT("lowerarm_r"),TEXT("b_r_forearm"),TEXT("b_r_lowerarm"),TEXT("LowerArm_R"),TEXT("RightForeArm")}));
++        if(Source)
++        {
++            AddTickPrerequisiteComponent(Source);
++            // Owner legs are a non-ticking pose anchor. Wait for its actual pose producer too.
++            if(auto* Leader=Source->LeaderPoseComponent.Get())AddTickPrerequisiteComponent(Leader);
++        }
++    }
++    NextLimbResolveAt=Clock()+.2;
++}
++
++void UFPSLightningHasteComponent::UpdateVisuals(float Delta)
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    auto* P=Cast<AFPSGAMECharacter>(GetOwner());if(!P)return;
++    const bool Active=Remaining()>0;
++    if(!Active)
++    {
++        if(bVisualWasActive&&EndSound)UGameplayStatics::PlaySoundAtLocation(this,EndSound,P->GetActorLocation(),.16f,1.35f);
++        ClearVisuals();return;
++    }
++    bVisualWasActive=true;if(!ArcSystem)return;
++    const double Now=Clock();if(Now>=NextLimbResolveAt)ResolveLimbSources();
++    const auto* Body=P->FindComponentByClass<UFPSPlayerBodyComponent>();
++    const bool First=P->IsLocallyControlled()&&(!Body||!Body->IsThirdPersonViewEnabled());
++    const float Fade=FMath::Clamp(Remaining()/.35f,0.f,1.f)*FMath::Clamp(float((Now-View().StartedAt)/.18),0.f,1.f);
++    const float VisualAge=float(FMath::Max(0.,Now-View().StartedAt));
++    const bool Reshape=Now>=NextArcShapeAt;
++    if(Reshape)NextArcShapeAt=Now+.085;
++    while(ArcPaths.Num()<4)
++    {
++        auto* Path=NewObject<USplineComponent>(P,NAME_None,RF_Transient);P->AddInstanceComponent(Path);
++        Path->SetupAttachment(P->GetRootComponent());Path->SetVisibility(false);Path->SetCollisionEnabled(ECollisionEnabled::NoCollision);Path->RegisterComponent();
++        auto* FX=NewObject<UNiagaraComponent>(P,NAME_None,RF_Transient);P->AddInstanceComponent(FX);
++        FX->SetupAttachment(Path);FX->SetAutoActivate(false);FX->SetAsset(ArcSystem);FX->SetCastShadow(false);FX->SetCanEverAffectNavigation(false);
++        FX->PrimaryComponentTick.TickGroup=TG_LastDemotable;
++        FX->SetTickBehavior(ENiagaraTickBehavior::UseComponentTickGroup);
++        FX->AddTickPrerequisiteComponent(this);FX->RegisterComponent();
++        FX->SetVariableObject(TEXT("User.BladeSpline"),Path);FX->SetVariableFloat(TEXT("User.Progress"),1);
++        FX->SetVariableFloat(TEXT("User._Width"),.42f);FX->SetVariableFloat(TEXT("User.Jitter"),0);
++        FX->SetVariableFloat(TEXT("User._ColorHue"),0);FX->SetVariableFloat(TEXT("User._DetailSpeed"),.0013f);
++        FX->SetVariableFloat(TEXT("User.MainPowerSpeed"),8);FX->SetVariableFloat(TEXT("User._DetailSpeedOffset"),6);
++        FX->SetVariableBool(TEXT("User.AddDetail"),false);FX->SetVariableBool(TEXT("User.AddMainPower"),true);
++        ArcPaths.Add(Path);ArcFX.Add(FX);
++    }
++    for(int32 I=0;I<4;++I)
++    {
++        auto* Mesh=LimbMeshes.IsValidIndex(I)?LimbMeshes[I].Get():nullptr;auto* FX=ArcFX[I].Get();auto* Path=ArcPaths[I].Get();
++        const bool Visible=Mesh&&Mesh->IsRegistered()&&Mesh->IsVisible()&&!Mesh->bHiddenInGame&&HasteBoneVisible(Mesh,LimbTips[I]);
++        FX->SetVisibility(Visible);
++        if(!Visible){FX->DeactivateImmediate();continue;}
++        const FTransform Hand=Mesh->GetSocketTransform(LimbTips[I]);
++        // Imported first-person rigs can carry 100x bone scale. Electricity is
++        // authored in world centimetres; inherit the pose, not that import scale.
++        const FTransform ArcFrame(Hand.GetRotation(),Hand.GetLocation());
++        Path->SetWorldTransform(ArcFrame);
++        FX->SetOnlyOwnerSee(First);FX->SetOwnerNoSee(false);
++        FX->SetForceSolo(First);
++        FX->SetFirstPersonPrimitiveType(First&&I<2?EFirstPersonPrimitiveType::FirstPerson:EFirstPersonPrimitiveType::None);
++        const float Activity=FMath::Clamp(float(P->GetVelocity().Size2D())/650.f,0.f,1.f);
++        const float Pulse=I<2?.85f+.15f*FMath::Sin(VisualAge*21.f+I*2.6f):1.f;
++        FX->SetVariableFloat(TEXT("User._Width"),I<2?.56f:.42f);
++        FX->SetVariableFloat(TEXT("User._Brightness"),(I<2?(First?22.f:26.f):23.f)*Fade*Pulse*(.8f+.2f*Activity));
++        // Orbit and pose follow continuously; only the electrical jitter seed steps at 85ms.
++        {
++            const FVector End=Hand.GetLocation();
++            const FVector Start=LimbRoots[I].IsNone()?End+Hand.GetUnitAxis(EAxis::X)*-18.f:Mesh->GetSocketLocation(LimbRoots[I]);
++            const FVector Axis=(End-Start).GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
++            FRandomStream Random(int32((NextArcShapeAt-.085)*1000)+I*371);
++            Path->ClearSplinePoints(false);
++            Path->SetClosedLoop(I<2,false);
++            if(I<2)
++            {
++                // Keep the ring plane across the wrist, with roll from the hand pose.
++                FVector Side=FVector::VectorPlaneProject(Hand.GetUnitAxis(EAxis::Y),Axis).GetSafeNormal();
++                if(Side.IsNearlyZero())Side=FVector::VectorPlaneProject(Hand.GetUnitAxis(EAxis::Z),Axis).GetSafeNormal();
++                const FVector Up=FVector::CrossProduct(Axis,Side).GetSafeNormal();
++                const FVector Center=End-Axis*1.25f;
++                const float Phase=VisualAge*(2.f*PI)*(I==0?1.25f:-1.1f)+I*PI;
++                const float Radius=6.f+.25f*FMath::Sin(VisualAge*7.f+I*2.2f);
++                constexpr int32 RingPoints=24;
++                for(int32 J=0;J<RingPoints;++J)
++                {
++                    const float Angle=Phase+(2.f*PI)*float(J)/RingPoints+Random.FRandRange(-.04f,.04f);
++                    const float JaggedRadius=Radius+Random.FRandRange(-.65f,.65f);
++                    const float Axial=.5f*FMath::Sin(Angle*3.f+VisualAge*11.f)+Random.FRandRange(-.25f,.25f);
++                    const FVector Point=Center+(Side*FMath::Cos(Angle)+Up*FMath::Sin(Angle))*JaggedRadius+Axis*Axial;
++                    Path->AddSplinePoint(ArcFrame.InverseTransformPosition(Point),ESplineCoordinateSpace::Local,false);
++                    Path->SetSplinePointType(J,ESplinePointType::Linear,false);
++                }
++            }
++            else
++            {
++                FVector Side,Up;Axis.FindBestAxisVectors(Side,Up);
++                for(int32 J=0;J<10;++J)
++                {
++                    const float T=float(J)/9.f,Angle=T*4.2f+I*1.7f+Random.FRandRange(-.45f,.45f);
++                    FVector Point=FMath::Lerp(Start,End,T)+(Side*FMath::Cos(Angle)+Up*FMath::Sin(Angle))*6.f;
++                    if(J>6)Point-=P->GetVelocity().GetClampedToMaxSize(500)*(.15f*(J-6)/3.f);
++                    Path->AddSplinePoint(ArcFrame.InverseTransformPosition(Point),ESplineCoordinateSpace::Local,false);
++                    Path->SetSplinePointType(J,ESplinePointType::Linear,false);
++                }
++            }
++            Path->UpdateSpline();FX->SetSystemFixedBounds(Path->CalcBounds(FTransform::Identity).GetBox().ExpandBy(12));
++        }
++        if(!FX->IsActive())FX->Activate(true);
++    }
++}

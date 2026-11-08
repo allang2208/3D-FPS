@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.h
++++ b/Source/FPSGAME/Skills/SkillWireAudit.h
+@@ -31,2 +31,7 @@
+     void TickFlameArmor();
++    void TickConversationCombat();
++    UFUNCTION(Client,Reliable) void ClientSetupConversation(int32 Case,ANurseZombie* First,ANurseZombie* Second,class AFPSGAMECharacter* Observer);
++    int32 ConversationCase=-1;
++    UPROPERTY() TObjectPtr<ANurseZombie> ConversationSecond;
++    bool bConversationContact=false,bConversationFinished=false,bConversationHasteSeen=false,bConversationLateSeen=false;
+     void TickStarMarrow();
+@@ -69,2 +74,7 @@
+     void TickFlameArmor();
++    void TickConversationCombat();
++    int32 ConversationCase=0,ConversationPhase=0;
++    double ConversationStarted=-1.;
++    UPROPERTY() TObjectPtr<ANurseZombie> ConversationSecond;
++    TArray<TSharedPtr<FJsonValue>> ConversationResults;
+     void TickStarMarrow(float Delta);

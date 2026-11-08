@@ -1,0 +1,18 @@
+--- a/SourceAssets/M249Orpind20261107/catalog_icon.py
++++ b/SourceAssets/M249Orpind20261107/catalog_icon.py
+@@ -3,2 +3,3 @@
+ import shutil
++import subprocess
+ import numpy as np
+@@ -36,3 +37,10 @@
+ files=sorted((ROOT/"Geometry").glob("*.npz"))
+-render(files,(1536,768),True).resize((768,384),Image.Resampling.LANCZOS).save(OUT/"Icons/ue_m249.png")
++# Inventory artwork follows the current UE model, mounted factory parts and
++# the same horizontal orthographic studio as the live inventory thumbnail.
++# Keep the legacy rasterizer below only for the existing bipod frame artwork.
++inventory_author=ROOT.parents[1]/"SourceAssets/InventoryWeaponIcons20261108"
++subprocess.run(["C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
++                "-NoProfile","-ExecutionPolicy","Bypass","-File",
++                str(inventory_author/"produce_m249.ps1")],check=True)
++shutil.copy2(inventory_author/"Artwork/ue_m249.png",OUT/"Icons/ue_m249.png")
+ # Reuse the project's common removal art and outer riveted grey plate.

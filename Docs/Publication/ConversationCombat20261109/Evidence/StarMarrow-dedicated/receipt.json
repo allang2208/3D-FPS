@@ -1,0 +1,20 @@
+{
+  "case": "StarMarrow",
+  "port": 19960,
+  "peer_exits": [
+    {
+      "pid": 79300,
+      "exit_code": 0
+    },
+    {
+      "pid": 69368,
+      "exit_code": 0
+    }
+  ],
+  "rendered": false,
+  "passed": true,
+  "run": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ConversationCombatReview20261108\\Wire\\StarMarrow-dedicated-20261108-225105",
+  "configured_loss_percent": 2,
+  "configured_lag_ms": 80,
+  "mode": "dedicated"
+}

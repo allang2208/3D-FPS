@@ -22,6 +22,7 @@ struct FColdSteelIconReadback
     TUniquePtr<FRHIGPUTextureReadback> Staging;
     FString Recipe, Error;
     int32 Width=0, Height=0, Visible=0;
+    float Exposure=1.f;
     double SubmittedSeconds=0.0, CopyMs=-1.0, ConversionMs=-1.0;
     TArray<FColor> Pixels;
 };
@@ -31,6 +32,7 @@ void UColdSteelWeaponIcons::BeginReadback(const FString& Key)
     FFPSPerformanceScope Scope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.ReadbackSubmit"),Key);
     auto Packet=MakeShared<FColdSteelIconReadback,ESPMode::ThreadSafe>();
     Packet->Recipe=Key;Packet->Width=Target->SizeX;Packet->Height=Target->SizeY;
+    Packet->Exposure=!Queue.IsEmpty()&&Queue[0].Item.Definition==TEXT("ue_m249")?6.f:1.f;
     TRACE_BOOKMARK(TEXT("Icon.TargetReadback %s %dx%d recipe=%s"),*Target->GetPathName(),Packet->Width,Packet->Height,*Key);
     Packet->SubmittedSeconds=FPlatformTime::Seconds();
     PendingReadback=Packet;
@@ -122,6 +124,11 @@ void UColdSteelWeaponIcons::PollReadback()
             for(int32 Index=0;Index<Linear.Num();++Index){
                 auto P=Linear[Index].GetFloats();const float Alpha=FMath::Clamp(1.f-P.A,0.f,1.f);
                 if(Alpha>.1f)++Visible;P.A=Alpha;
+                // M249's black steel needs readable midtones in a tiny icon.
+                // A shared RGB shoulder retains its tint and bright brass;
+                // coverage is untouched, and other subjects keep identity gain.
+                const float Gain=Packet->Exposure/(1.f+(Packet->Exposure-1.f)*FMath::Max3(P.R,P.G,P.B));
+                P.R*=Gain;P.G*=Gain;P.B*=Gain;
                 auto Color=P.ToFColorSRGB();Color.A=FMath::RoundToInt(Alpha*255);Pixels[Index]=Color;
             }
             Packet->Pixels=MoveTemp(Pixels);Packet->Visible=Visible;

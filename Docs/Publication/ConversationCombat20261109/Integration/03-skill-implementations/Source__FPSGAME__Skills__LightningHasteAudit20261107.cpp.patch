@@ -1,0 +1,162 @@
+--- /dev/null
++++ b/Source/FPSGAME/Skills/LightningHasteAudit20261107.cpp
+@@ -0,0 +1,159 @@
++#include "SkillNetworkAuditCommandlet.h"
++#include "FPSLightningHasteComponent.h"
++#include "ChainSlashAssets.h"
++#include "../FPSGAMECharacter.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/Kukri/KukriArmsMeshComponent.h"
++#include "Animation/AnimSequence.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "HAL/FileManager.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++
++// Opt-in spell audit: isolated profile, no map BeginPlay, rendering or NetDriver.
++int32 USkillNetworkAuditCommandlet::RunLightningHasteAudit(const FString& Params)
++{
++    const FString Original=FCommandLine::Get();
++    const FString Slot=TEXT("SkillNetworkAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(TEXT("SkillNetworkAudit -ColdSteelProfile=")+Slot));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("LightningHasteAudit"));
++    auto* World=GI->GetWorld();auto* Host=GI->GetSubsystem<UColdSteelStatusModel>();
++    if(!World||!Host||!Host->IsAudit()||Host->ProfileSlot()!=TEXT("ColdSteel_")+Slot)return 2;
++    int32 Failures=0;TArray<TSharedPtr<FJsonValue>> Rows;
++    const auto Check=[&](bool OK,const FString& Name)
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),Name);Row->SetBoolField(TEXT("passed"),OK);
++        Rows.Add(MakeShared<FJsonValueObject>(Row));Failures+=!OK;
++        UE_LOG(LogTemp,Display,TEXT("LIGHTNING_HASTE_AUDIT %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),*Name);
++    };
++    auto Seed=Host->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();
++    Seed.Hotbar.Init(TEXT(""),4);Seed.HotbarDefinitions.Init(TEXT(""),4);for(auto& B:Seed.QuickBindings)B={};
++    for(auto& Skill:Seed.Skills){Skill.Value.Level=1;Skill.Value.Experience=0;}
++    Seed.NetworkProfileId=FGuid::NewGuid();Seed.DungeonRun={};Seed.LightningHasteCooldown=Seed.LightningHasteCooldownDuration=0;
++    auto Staff=Host->CreateItem(TEXT("ue_apprentice_staff"));Staff.Place=1;Staff.Cell=6;Seed.Items={Staff};
++    auto* Shadow=Host->CreateShadowModel(Seed);
++    auto* PC=World->SpawnActor<ASkillAuditRemoteController>();auto* PS=World->SpawnActor<AColdSteelPlayerState>();
++    auto* Pawn=World->SpawnActor<AFPSGAMECharacter>(FVector(0,0,500),FRotator::ZeroRotator);
++    PS->SetOwner(PC);PS->ShadowModel=Shadow;PC->SetPlayerState(PS);PC->Possess(Pawn);Pawn->SetPlayerState(PS);
++    Pawn->NetShadowProfile=Shadow;Shadow->CurrentPawn=Pawn;
++    auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health->Health=Health->MaxHealth;
++    auto* Haste=Pawn->FindComponentByClass<UFPSLightningHasteComponent>();
++    Check(Pawn->HasAuthority()&&!Pawn->IsLocallyControlled()&&Pawn->IsPlayerControlled(),TEXT("isolated remote authority fixture"));
++    const auto First=Shadow->LightningHasteStats(1),Last=Shadow->LightningHasteStats(20);
++    Check(FMath::IsNearlyEqual(First.MoveBonus,.1f)&&FMath::IsNearlyEqual(First.ActionBonus,.05f)&&First.Duration==20.f
++        &&FMath::IsNearlyEqual(Last.MoveBonus,.29f)&&FMath::IsNearlyEqual(Last.ActionBonus,.145f)&&Last.Duration==29.5f,
++        TEXT("configured first/max level move, action and duration"));
++    Shadow->Current.Mana=0;
++    Check(!Shadow->BeginLightningHasteCast(First)&&Shadow->LightningHasteCooldown()==0.f,TEXT("insufficient mana does not reserve cooldown"));
++    Shadow->Current=Seed;
++    TArray<APawn*> Enemies;
++    for(int32 I=0;I<11;++I){auto* E=World->SpawnActor<APawn>();E->Tags.Add(TEXT("Enemy"));Enemies.Add(E);}
++    auto* Friend=World->SpawnActor<APawn>();Friend->Tags.Add(TEXT("Friendly"));
++    auto* Summon=World->SpawnActor<APawn>();Summon->Tags.Add(TEXT("Summoned"));
++    auto* Dummy=World->SpawnActor<APawn>();Dummy->Tags.Add(TEXT("NoSkillTraining"));
++    for(int32 Count:{0,5,6,10,11})
++    {
++        const int32 HostXP=Host->MasteryProgress(TEXT("lightningHaste")).Experience;
++        Shadow->Current=Seed;Haste->Start(First,42+Count,Shadow);
++        Check(FMath::IsNearlyEqual(Haste->ActionMultiplier(),1.05f)&&FMath::IsNearlyEqual(Haste->MoveMultiplier(),1.1f)
++            &&!Shadow->BeginLightningHasteCast(First),FString::Printf(TEXT("active buff speeds and repeat rejection, batch %d"),Count));
++        Haste->ObserveKill(Friend);Haste->ObserveKill(Summon);Haste->ObserveKill(Dummy);
++        for(int32 I=0;I<Count;++I){Haste->ObserveKill(Enemies[I]);Haste->ObserveKill(Enemies[I]);}
++        Haste->FinishForRemoval();Haste->FinishForRemoval();
++        const int32 Expected=1+3*Count+(Count>10?40:Count>5?15:0);
++        Check(Shadow->MasteryProgress(TEXT("lightningHaste")).Experience==Expected
++            &&Host->MasteryProgress(TEXT("lightningHaste")).Experience==HostXP
++            &&Haste->ActionMultiplier()==1.f&&Haste->MoveMultiplier()==1.f,
++            FString::Printf(TEXT("%d kills: exact guest XP %d, dedupe/filter and speed cleanup"),Count,Expected));
++    }
++    Shadow->Current=Seed;Haste->Start(First,80,Shadow);Haste->State.StartedAt=Haste->Clock()-First.Duration-1.;
++    Haste->TickComponent(0.f,LEVELTICK_All,&Haste->PrimaryComponentTick);
++    Check(Haste->Remaining()==0.f&&Haste->ActionMultiplier()==1.f&&Shadow->MasteryProgress(TEXT("lightningHaste")).Experience==1,
++        TEXT("expiry settles training and restores speeds"));
++    Shadow->Current=Seed;Haste->Start(First,81,Shadow);Health->Health=0;
++    Haste->TickComponent(0.f,LEVELTICK_All,&Haste->PrimaryComponentTick);Health->Health=Health->MaxHealth;
++    Check(Haste->Remaining()==0.f&&Shadow->MasteryProgress(TEXT("lightningHaste")).Experience==1,TEXT("death settles cast once"));
++
++    const auto Predicted=[&](uint32 Id)
++    {
++        Host->Current=Seed;Host->CurrentPawn.Reset();Host->Current.Mana=20;
++        Host->Current.LightningHasteCooldown=Host->Current.LightningHasteCooldownDuration=50;
++        Haste->State={};Haste->LocalCastId=Id;Haste->ConfirmedCastId=Haste->RejectedCastId=0;
++        Haste->PendingRefund=10;Haste->bCommitted=false;Haste->bAwaiting=true;
++        Haste->Prediction.Cast=First;Haste->Prediction.CastId=Id;Haste->Prediction.StartedAt=Haste->Clock();Haste->Prediction.bActive=true;
++    };
++    Predicted(100);Haste->NetCastResult(1,7,100);Haste->NetCastResult(1,7,100);
++    Check(Host->Snapshot().Mana==30.f&&Host->LightningHasteCooldown()==0.f&&!Haste->bAwaiting&&Haste->Remaining()==0.f,
++        TEXT("duplicate rejected release refunds once and clears prediction"));
++    Predicted(101);Haste->NetCastResult(1,7,100);
++    Check(Host->Snapshot().Mana==20.f&&Haste->bAwaiting,TEXT("old cast rejection cannot refund current cast"));
++    Haste->NetCastResult(1,0,101);Haste->NetCastResult(1,7,101);
++    Check(Host->Snapshot().Mana==20.f&&Haste->ConfirmedCastId==101,TEXT("accepted release cannot be refunded by late rejection"));
++    Predicted(102);Haste->State.CastId=101;Haste->OnRep_State();
++    Check(Haste->bAwaiting&&Haste->Remaining()>0.f,TEXT("old replicated state cannot erase new prediction"));
++    Haste->State=Haste->Prediction;Haste->OnRep_State();
++    Check(!Haste->bAwaiting&&Haste->PendingRefund==0.f&&Haste->ConfirmedCastId==102&&Haste->Remaining()>0.f,
++        TEXT("matching replicated state confirms prediction and clears refund"));
++    Haste->FinishForRemoval();
++
++    auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword->Character=Pawn;
++    auto* Clip=LoadObject<UAnimSequence>(nullptr,ChainSlash::Standard);
++    Check(Clip!=nullptr,TEXT("chain slash author clip is available"));
++    if(Clip)
++    {
++        auto* SavedViewmodel=Sword->Viewmodel.Get();Sword->Viewmodel=nullptr;
++        const auto Advance=[&](float Delta,float Pause)
++        {
++            Sword->bChainSlash=true;Sword->CurrentAnimation=Clip;Sword->Elapsed=0;Sword->SweepHitPause=Pause;
++            Sword->ChainSlashContacts.Reset();Sword->ChainSlashCut=0;Sword->TickChainSlash(Delta);return Sword->Elapsed;
++        };
++        Check(FMath::IsNearlyEqual(Advance(.1f,0),.1f,.0001f),TEXT("chain slash baseline playback rate"));
++        Shadow->Current=Seed;Haste->Start(Last,110,Shadow);
++        Check(FMath::IsNearlyEqual(Advance(.1f,0),.1145f,.0001f),TEXT("chain slash receives level 20 action haste"));
++        Check(FMath::IsNearlyEqual(Advance(.1f,.04f),.0687f,.0001f),TEXT("chain slash impact hold remains 40ms real time"));
++        Check(FMath::IsNearlyEqual(Advance(.27f/1.145f,0),.33f,.0001f),TEXT("haste preserves first cut source-time remap"));
++        Haste->FinishForRemoval();
++        Check(FMath::IsNearlyEqual(Advance(.1f,0),.1f,.0001f),TEXT("chain slash restores rate after buff removal"));
++        Sword->bChainSlash=false;Sword->CurrentAnimation=nullptr;Sword->Viewmodel=SavedViewmodel;
++    }
++
++    auto* LocalPC=World->SpawnActor<APlayerController>();
++    // The isolated world has no viewport/ULocalPlayer to classify this controller.
++    LocalPC->SetAsLocalPlayerController();
++    auto* Local=World->SpawnActor<AFPSGAMECharacter>(FVector(0,1000,500),FRotator::ZeroRotator);LocalPC->Possess(Local);
++    auto* LocalHaste=Local->FindComponentByClass<UFPSLightningHasteComponent>();
++    auto* ArmsAsset=LoadObject<USkeletalMesh>(nullptr,TEXT("/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms"));
++    Check(Local->IsLocallyControlled()&&ArmsAsset,TEXT("local arm attachment fixture"));
++    if(ArmsAsset)
++    {
++        auto* Left=NewObject<UKukriArmsMeshComponent>(Local);Local->AddInstanceComponent(Left);
++        Left->bLeftHandOnly=true;Left->SetOnlyOwnerSee(true);Left->SetSkeletalMesh(ArmsAsset);Left->RegisterComponent();
++        Left->RefreshBoneTransforms();
++        Check(Left->GetSocketTransform(TEXT("hand_r"),RTS_Component).GetScale3D().IsNearlyZero()
++            &&!Left->IsBoneHiddenByName(TEXT("hand_r")),TEXT("fixture reproduces pose-collapsed arm without hidden-bone flag"));
++        LocalHaste->ResolveLimbSources();
++        Check(LocalHaste->LimbMeshes[0].Get()==Left&&!LocalHaste->LimbMeshes[1].IsValid(),TEXT("collapsed right arm is not an electric arc attachment"));
++        auto* Right=NewObject<USkeletalMeshComponent>(Local);Local->AddInstanceComponent(Right);
++        Right->SetOnlyOwnerSee(true);Right->SetSkeletalMesh(ArmsAsset);Right->RegisterComponent();Right->RefreshBoneTransforms();
++        LocalHaste->ResolveLimbSources();
++        Check(LocalHaste->LimbMeshes[1].Get()==Right,TEXT("right arc resolves to visible main-hand rig"));
++        Right->SetVisibility(false);LocalHaste->ResolveLimbSources();
++        Check(!LocalHaste->LimbMeshes[1].IsValid(),TEXT("hidden main-hand rig drops right arc attachment"));
++        LocalHaste->ClearVisuals();Left->DestroyComponent();Right->DestroyComponent();
++    }
++    auto Root=MakeShared<FJsonObject>();Root->SetNumberField(TEXT("checks"),Rows.Num());Root->SetNumberField(TEXT("failures"),Failures);
++    Root->SetBoolField(TEXT("real_network_transport"),false);Root->SetBoolField(TEXT("map_begin_play"),false);Root->SetBoolField(TEXT("rendered_acceptance"),false);
++    Root->SetArrayField(TEXT("results"),Rows);FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));
++    const FString Path=FPaths::ProjectSavedDir()/TEXT("LightningHasteReview20261107/native-result.json");
++    IFileManager::Get().MakeDirectory(*FPaths::GetPath(Path),true);FFileHelper::SaveStringToFile(Json,*Path);
++    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    return Failures?1:0;
++}

@@ -93,6 +93,21 @@
         "interface": "warhammer_factory_v1",
         "shared_option_library": "common-hammer-seats.json",
         "model_revision": "StormDriveRuneV3"
+      },
+      "conical_seat": {
+        "mesh": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/SM_SteelWarhammer_ConicalSeat_V1.SM_SteelWarhammer_ConicalSeat_V1",
+        "materials": {
+          "M_ConicalSeat_Steel_Surface": "/Game/Weapons/CommonHammerSeats20261107/ConicalSeatV1/M_ConicalSeat_Steel_Surface.M_ConicalSeat_Steel_Surface"
+        },
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "切面钢锥 · 凹刻折纹 · 阶梯承力肩",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "ConicalSeatV1_20261107"
       }
     },
     "hammer_heads": {

@@ -159,6 +159,33 @@
         "导雷共鸣｜锤座周围持续跳动金色电弧。",
         "镇魂合鸣｜与终律·镇魂钟同时装备时，每次有效命中敌人都会在命中处迸发额外的金色分叉电弧。"
       ]
+    },
+    {
+      "id": "conical_seat",
+      "name": "锥形锤座",
+      "tier": "special",
+      "description": "切面钢锥从中央锤座向前伸出，阶梯承力肩与沉入式紧固件连接锻钢座体。",
+      "appearance": "切面钢锥 · 凹刻折纹 · 阶梯承力肩",
+      "stats": {
+        "physical_damage_mult": 1.05,
+        "quick_combat_damage_add": 0.2,
+        "quick_combat_aoe": true,
+        "quick_combat_weapon_damage": true
+      },
+      "effects": [
+        {
+          "text": "物理伤害+5%",
+          "benefit": 1
+        },
+        {
+          "text": "快速近战伤害+20%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": [
+        "锥锋前顶｜快速近战改为双手持锤向前顶击，对前方范围内的目标造成伤害并击退。",
+        "武器传力｜以当前战锤物理伤害代入快速近战伤害公式，随快速近战技能等级和相关增伤结算。"
+      ]
     }
   ]
 }

@@ -85,7 +85,7 @@ int32 ColdSteelStarMarrow::Paint(const UStarMarrowComponent& Core,const FGeometr
     const FVector2D TimerSize=Measure->Measure(Timer,TimerFont);
     const float Top=Position.Y+Size.Y*.12f;
     const FLinearColor LabelColor=ColdSteelUI::HUDGoldLight.CopyWithNewOpacity(Alpha);
-    DrawText(TEXT("充能  [G]"),LabelFont,FVector2D(Position.X+Width*.045f,Top),LabelColor);
+    DrawText(TEXT("充能"),LabelFont,FVector2D(Position.X+Width*.045f,Top),LabelColor);
     DrawText(Timer,TimerFont,FVector2D(Position.X+Width*.955f-TimerSize.X,Top),LabelColor);
     return Layer+3;
 }
