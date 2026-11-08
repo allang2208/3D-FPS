@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -357,2 +357,17 @@
+-    bool RequestTeamTravel(AActor* Entrance);
+-    UFUNCTION(Server,Reliable) void ServerTeamTravel(AActor* Entrance);
++    bool RequestTeamTravel(AActor* Entrance,bool bConfirmUnclaimedReward=false);
++    /** Runtime region belongs to the connection, not the host's current camera/map. */
++    UPROPERTY(Replicated) bool bInDungeonRoom=false;
++    UPROPERTY(Replicated) bool bClaimedFinalDungeonTreasure=false;
++    FGuid RoomTransferToken,RoomTransferInstance;
++    TWeakObjectPtr<APawn> RoomTransferPawn;
++    bool bRoomEntryAckSent=false;
++    UFUNCTION(Client,Reliable) void ClientBeginRoomEntry(FGuid Token,FGuid Instance,APawn* Pawn);
++    UFUNCTION(Server,Reliable) void ServerRoomEntryReady(FGuid Token,FGuid Instance,APawn* Pawn);
++    UFUNCTION(Server,Reliable) void ServerCancelRoomEntry(FGuid Token);
++    UFUNCTION(Client,Reliable) void ClientFinishRoomEntry(FGuid Token,bool Dungeon,const FString& Reason);
++    UFUNCTION(Client,Reliable) void ClientRoomRegionChanged(bool Dungeon);
++    UFUNCTION(Client,Reliable) void ClientTeamTravelFinished(FGuid TravelId);
++    void TickRoomEntry();
++    void FinishTravelBatch(FGuid Id);
++    UFUNCTION(Server,Reliable) void ServerTeamTravel(AActor* Entrance,bool bConfirmUnclaimedReward);
++    UFUNCTION(Client,Reliable) void ClientTeamTravelRejected(const FString& Reason);
+@@ -362,0 +378 @@
++    void RollbackTeamReturnCompletion();
+@@ -409,0 +426 @@
++    bool bTeamReturnUnclaimedConfirmed=false,bTeamReturnCompletionStaged=false;
+@@ -415,0 +433 @@
++    TWeakObjectPtr<AActor> TeamTravelEntrance;

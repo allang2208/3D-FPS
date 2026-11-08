@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Building/ColdSteelDoor.cpp
++++ b/Source/FPSGAME/Building/ColdSteelDoor.cpp
+@@ -1,0 +2 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -417 +418 @@
+-                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedDoorSwing(GetName(),NetSwing);
++                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedDoorSwing(UDungeonRoomSubsystem::SceneActorKey(this),NetSwing);

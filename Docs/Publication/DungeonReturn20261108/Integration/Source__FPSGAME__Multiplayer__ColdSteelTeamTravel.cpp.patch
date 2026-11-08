@@ -1,0 +1,147 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
+@@ -1,0 +2,2 @@
++#include "../Dungeons/DungeonRunSubsystem.h"
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -28,0 +31 @@
++#include "Kismet/GameplayStatics.h"
+@@ -30,6 +33,6 @@
+-bool AColdSteelPlayerState::RequestTeamTravel(AActor* Entrance)
+-{
+-    if(GetNetMode()==NM_Standalone||!IsValid(Entrance))return false;
+-    ServerTeamTravel(Entrance);return true;
+-}
+-void AColdSteelPlayerState::ServerTeamTravel_Implementation(AActor* Entrance)
++bool AColdSteelPlayerState::RequestTeamTravel(AActor* Entrance,bool bConfirmUnclaimedReward)
++{
++    if(GetNetMode()==NM_Standalone||!IsValid(Entrance)||TeamTravelId.IsValid()||RoomTransferToken.IsValid())return false;
++    ServerTeamTravel(Entrance,bConfirmUnclaimedReward);return true;
++}
++void AColdSteelPlayerState::ServerTeamTravel_Implementation(AActor* Entrance,bool bConfirmUnclaimedReward)
+@@ -38 +41,2 @@
+-    if(!PC||!PC->GetPawn()||!IsValid(Entrance)||Entrance->GetWorld()!=GetWorld())return;
++    if(!PC||!PC->GetPawn()||!IsValid(Entrance)||Entrance->GetWorld()!=GetWorld()||RoomTransferToken.IsValid())return;
++    auto* Room=UDungeonRoomSubsystem::Get(GetWorld());
+@@ -44 +48,11 @@
+-    {if(!Portal->IsWithinInteractionRange(PC->GetPawn()))return;Destination=Portal->DestinationMap();Options=Portal->TravelOptions();}
++    {
++        if(!Portal->IsWithinInteractionRange(PC->GetPawn()))return;
++        if(Portal->ActorHasTag(TEXT("DungeonFinalReturn")))
++        {
++            const auto* Run=UDungeonRunSubsystem::Get(GetWorld());
++            if(!Run||!Run->CanUseFinalReturn())return;
++            if(!(Room?bClaimedFinalDungeonTreasure:Run->IsFinalTreasureLooted())&&!bConfirmUnclaimedReward)
++            {ClientTeamTravelRejected(TEXT("你尚未领取奖励，请在返程门确认离开"));return;}
++        }
++        Destination=Portal->DestinationMap();Options=Portal->TravelOptions();
++    }
+@@ -48 +62,10 @@
+-    for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)if(!It->TeamDestination.IsEmpty())return;
++    const bool EnterDungeon=Room&&Destination.EndsWith(TEXT("L_Dungeon_Randomized"));
++    const bool ReturnToHub=Room&&bInDungeonRoom&&Destination.EndsWith(TEXT("DayNight_Lighting"));
++    if(Room&&((EnterDungeon&&bInDungeonRoom)||(ReturnToHub&&!UDungeonRoomSubsystem::IsDungeonActor(Entrance))))return;
++    if(Room&&!EnterDungeon&&!ReturnToHub&&(Room->HasOccupants()||Room->HasPendingEntry()))
++    {ClientTeamTravelRejected(TEXT("还有队员在地牢或准备出征，当前房间暂时不能整体换图"));return;}
++    if(!Room&&Destination.EndsWith(TEXT("DayNight_Lighting"))&&UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("L_Dungeon_Randomized"))
++    {ClientTeamTravelRejected(TEXT("此地牢使用旧版换图房间；请重新从主神空间创建房间并出征，以启用单独返程"));return;}
++    const bool Individual=ReturnToHub||(EnterDungeon&&(Room->HasInstance()||Room->HasPendingEntry()));
++    // Keep the batch exclusive even after ServerTravel accepts it and clears the URL.
++    for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)if(It->TeamTravelId.IsValid())return;
+@@ -49,0 +73,2 @@
++    TeamTravelEntrance=Entrance;
++    bTeamReturnUnclaimedConfirmed=bConfirmUnclaimedReward;bTeamReturnCompletionStaged=false;
+@@ -53 +78,7 @@
+-        {State->TeamTravelId=TravelId;State->TeamTravelWorld=GetWorld();State->TeamTravelPawn=It->Get()->GetPawn().Get();State->bTravelReady=false;State->ClientPrepareTeamTravel(TravelId);}
++        {if(Individual&&State!=this)continue;
++         if(State->RoomTransferToken.IsValid())continue;
++         State->TeamTravelId=TravelId;State->TeamTravelWorld=GetWorld();State->TeamTravelPawn=It->Get()->GetPawn().Get();State->bTravelReady=false;State->ClientPrepareTeamTravel(TravelId);}
++}
++void AColdSteelPlayerState::ClientTeamTravelRejected_Implementation(const FString& Reason)
++{
++    if(auto* M=ColdSteelAuthority::Model(this))M->PostNotice(TEXT("无法返程"),Reason);
+@@ -59,0 +91 @@
++    ASceneTestPortal::CloseLocalReturnConfirmations(Cast<APlayerController>(GetOwner()));
+@@ -72 +104 @@
+-    if(auto* M=ColdSteelAuthority::Model(this))M->PostNotice(TEXT("队伍换图"),TEXT("正在保存队伍档案，请稍候"));
++    if(auto* M=ColdSteelAuthority::Model(this))M->PostNotice(TEXT("准备传送"),TEXT("正在保存档案，请稍候"));
+@@ -107,0 +140,8 @@
++    if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsRunActive()
++        &&(!UDungeonRoomSubsystem::Supports(GetWorld())||bInDungeonRoom))
++    {
++        Run->EnsurePlayerRun(M);
++        const auto& SavedRun=M->Snapshot().DungeonRun;
++        if(SavedRun.RunId!=Run->RunId()||(!UDungeonRoomSubsystem::Supports(GetWorld())&&SavedRun.bCompleted!=Run->IsRunCompleted()))
++        {AbortTeamTravel(TEXT("队员地牢进度保存失败，请稍后重试"));return false;}
++    }
+@@ -121,0 +162,3 @@
++    // The failure callback can arrive on any participant, including after the
++    // URL was accepted. Roll back the initiator's staged completion first.
++    for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)It->RollbackTeamReturnCompletion();
+@@ -126 +169,2 @@
+-        It->TeamDestination.Reset();It->TeamOptions.Reset();It->bTravelReady=false;
++        It->TeamDestination.Reset();It->TeamOptions.Reset();It->bTravelReady=false;It->TeamTravelEntrance.Reset();
++        It->bTeamReturnUnclaimedConfirmed=false;
+@@ -128,0 +173,17 @@
++}
++void AColdSteelPlayerState::RollbackTeamReturnCompletion()
++{
++    if(!HasAuthority()||!bTeamReturnCompletionStaged)return;
++    bTeamReturnCompletionStaged=false;
++    if(TeamTravelWorld.Get()!=GetWorld())return;
++    auto* Run=UDungeonRunSubsystem::Get(GetWorld());
++    if(!Run||!TeamTravelEntrance.IsValid())return;
++    Run->CancelFinalReturn(TeamTravelEntrance.Get());
++    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++        if(auto* PS=It->Get()->GetPlayerState<AColdSteelPlayerState>())
++        {
++            auto* M=ColdSteelAuthority::ForPawn(PS->GetPawn());
++            const bool Reverted=M&&M->Snapshot().DungeonRun.RunId==Run->RunId()&&!M->Snapshot().DungeonRun.bCompleted;
++            const bool Saved=Reverted&&(It->Get()->IsLocalController()?M->SaveNow():PS->SaveShadowToHostDisk());
++            if(!Saved)UE_LOG(LogTemp,Error,TEXT("[FinalBoss] Failed to persist cancelled return for %s"),*PS->GetName());
++        }
+@@ -139 +200 @@
+-    {TeamTravelId.Invalidate();TeamDestination.Reset();TeamOptions.Reset();bTravelFlush=bTravelReady=bTravelNeedsFreshUpload=false;}
++    {TeamTravelId.Invalidate();TeamDestination.Reset();TeamOptions.Reset();TeamTravelEntrance.Reset();bTravelFlush=bTravelReady=bTravelNeedsFreshUpload=false;bTeamReturnUnclaimedConfirmed=bTeamReturnCompletionStaged=false;}
+@@ -157 +218 @@
+-        if(auto* PS=It->Get()->GetPlayerState<AColdSteelPlayerState>();PS&&(!PS->bTravelReady||!PS->InventoryReplyOutgoing.IsEmpty()))return;
++        if(auto* PS=It->Get()->GetPlayerState<AColdSteelPlayerState>();PS&&PS->TeamTravelId==TeamTravelId&&(!PS->bTravelReady||!PS->InventoryReplyOutgoing.IsEmpty()))return;
+@@ -165,2 +226,16 @@
+-    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+-        if(auto* PS=It->Get()->GetPlayerState<AColdSteelPlayerState>();PS&&!PS->SaveTeamTravelParticipant())return;
++    if(!TeamTravelEntrance.IsValid()||TeamTravelEntrance->GetWorld()!=GetWorld())
++    {AbortTeamTravel(TEXT("换图入口已失效，请重新交互"));return;}
++    auto* ReturnPortal=Cast<ASceneTestPortal>(TeamTravelEntrance.Get());
++    auto* ReturnRun=ReturnPortal&&ReturnPortal->ActorHasTag(TEXT("DungeonFinalReturn"))?UDungeonRunSubsystem::Get(GetWorld()):nullptr;
++    if(ReturnRun&&(!ReturnPortal->IsWithinInteractionRange(GetPawn())||!ReturnRun->CanUseFinalReturn()))
++    {AbortTeamTravel(TEXT("返程入口已不可用，请靠近传送门重试"));return;}
++    auto* Room=UDungeonRoomSubsystem::Get(GetWorld());
++    if(ReturnRun&&!(Room?bClaimedFinalDungeonTreasure:ReturnRun->IsFinalTreasureLooted())&&!bTeamReturnUnclaimedConfirmed)
++    {AbortTeamTravel(TEXT("队伍尚未领取奖励，请在返程门确认离开"));return;}
++    if(ReturnRun&&!Room)
++    {
++        ReturnRun->MarkFinalReturnUsed(ReturnPortal);bTeamReturnCompletionStaged=ReturnRun->IsRunCompleted();
++        if(!bTeamReturnCompletionStaged){AbortTeamTravel(TEXT("地牢返程进度尚未就绪"));return;}
++    }
++    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++        if(auto* PS=It->Get()->GetPlayerState<AColdSteelPlayerState>();PS&&PS->TeamTravelId==TeamTravelId&&!PS->SaveTeamTravelParticipant())return;
+@@ -167,0 +243,15 @@
++    if(Room&&(TeamDestination.EndsWith(TEXT("L_Dungeon_Randomized"))||
++        (bInDungeonRoom&&TeamDestination.EndsWith(TEXT("DayNight_Lighting")))))
++    {
++        const FGuid Batch=TeamTravelId;FString Reason;bool Accepted=false;
++        if(TeamDestination.EndsWith(TEXT("L_Dungeon_Randomized")))
++        {
++            TArray<AColdSteelPlayerState*> Players;
++            for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++                if(auto* PS=It->Get()->GetPlayerState<AColdSteelPlayerState>();PS&&PS->TeamTravelId==Batch)Players.Add(PS);
++            Accepted=Room->QueueEntry(Players,Reason);
++        }
++        else Accepted=Room->ReturnPlayer(this,TeamTravelEntrance.Get(),bTeamReturnUnclaimedConfirmed,Reason);
++        if(Accepted)FinishTravelBatch(Batch);else AbortTeamTravel(Reason);
++        return;
++    }
+@@ -176 +266,3 @@
+-    if(!GetWorld()->ServerTravel(URL,false))AbortTeamTravel(TEXT("换图请求未被服务器接受，请稍后重试"));
++    const bool TravelAccepted=GetWorld()->ServerTravel(URL,false);
++    if(!TravelAccepted)AbortTeamTravel(TEXT("换图请求未被服务器接受，请稍后重试"));
++    // Retain the entrance/completion until the world changes or loading fails.

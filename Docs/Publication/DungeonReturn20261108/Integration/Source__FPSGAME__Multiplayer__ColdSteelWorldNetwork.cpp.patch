@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp
+@@ -11,0 +12 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -59 +60 @@
+-        if(auto* Run=UDungeonRunSubsystem::Get(GetWorld())){Run->EnsurePlayerRun(ShadowModel);Run->FillNetworkState(State);}
++        if(auto* Run=UDungeonRunSubsystem::Get(GetWorld())){if(!UDungeonRoomSubsystem::Supports(GetWorld())||bInDungeonRoom)Run->EnsurePlayerRun(ShadowModel);Run->FillNetworkState(State);}
+@@ -157 +158 @@
+-        if(It->GetName()==ActorName){It->ApplyNetworkSwing(State,true);break;}
++        if(UDungeonRoomSubsystem::SceneActorKey(*It)==ActorName){It->ApplyNetworkSwing(State,true);break;}
+@@ -165 +166 @@
+-        if(It->GetName()==ActorName){It->OpenSharedVisual();break;}
++        if(UDungeonRoomSubsystem::SceneActorKey(*It)==ActorName){It->OpenSharedVisual();break;}
+@@ -171 +172 @@
+-    for(TActorIterator<AActor> It(GetWorld());It;++It)if(It->GetName()==ActorName)
++    for(TActorIterator<AActor> It(GetWorld());It;++It)if(UDungeonRoomSubsystem::SceneActorKey(*It)==ActorName)

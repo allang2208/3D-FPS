@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Building/VoxelBuildComponent.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildComponent.cpp
+@@ -1,0 +2 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -421,0 +423 @@
++    if(Enabled&&PC&&UDungeonRoomSubsystem::IsDungeonPawn(PC->GetPawn()))return;

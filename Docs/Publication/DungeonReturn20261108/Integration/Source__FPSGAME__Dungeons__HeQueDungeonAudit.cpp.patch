@@ -1,0 +1,5 @@
+--- a/Source/FPSGAME/Dungeons/HeQueDungeonAudit.cpp
++++ b/Source/FPSGAME/Dungeons/HeQueDungeonAudit.cpp
+@@ -114 +114 @@
+-            &&Chest->ActorHasTag(TEXT("DungeonReward.Locked"))==!Defeated&&Portal->ActorHasTag(TEXT("DungeonReward.Locked"))==!Looted
++            &&Chest->ActorHasTag(TEXT("DungeonReward.Locked"))==!Defeated&&Portal->ActorHasTag(TEXT("DungeonReward.Locked"))==!Defeated

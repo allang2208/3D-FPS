@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Dungeons/DungeonShrine.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonShrine.cpp
+@@ -1,0 +2,2 @@
++#include "DungeonRoomSubsystem.h"
++#include "AuthoredDungeonGenerator.h"
+@@ -14,0 +17 @@
++#include "Kismet/GameplayStatics.h"
+@@ -42 +45 @@
+-        const FVector Outward=Target-ShrineActor->GetActorLocation();
++        const FVector Outward=Target+(Generator.IsValid()?Generator->RuntimeOffset():FVector::ZeroVector)-ShrineActor->GetActorLocation();
+@@ -67,0 +71,5 @@
++    if(UDungeonRoomSubsystem::Supports(GetWorld()))
++    {
++        const APawn* LocalViewer=Viewer?Viewer:UGameplayStatics::GetPlayerPawn(GetWorld(),0);
++        if(!UDungeonRoomSubsystem::IsDungeonPawn(LocalViewer))return false;
++    }

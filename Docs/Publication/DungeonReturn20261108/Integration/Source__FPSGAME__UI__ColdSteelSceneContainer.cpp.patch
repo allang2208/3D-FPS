@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
+@@ -1,0 +2 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -50 +51 @@
+-    FString MapName=GetWorld()->GetMapName();
++    FString MapName=UDungeonRoomSubsystem::LogicalMap(this);
+@@ -94 +95 @@
+-    if(ColdSteelSceneLoot::IsBound(this))
++    if(ColdSteelSceneLoot::IsBound(this)||UDungeonRoomSubsystem::IsDungeonActor(this))
+@@ -246 +247 @@
+-                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedContainerOpened(GetName());
++                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedContainerOpened(UDungeonRoomSubsystem::SceneActorKey(this));

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+@@ -119,2 +119,4 @@
+-    bool CanUseFinalReturn() const { return IsFinalBossDefeated()&&bFinalTreasureLooted; }
+-    void MarkFinalTreasureLooted(AActor* Chest);
++    bool CanUseFinalReturn() const { return IsFinalBossDefeated(); }
++    void MarkFinalTreasureLooted(AActor* Chest,APlayerController* Player=nullptr);
++    bool CompletePlayerReturn(UColdSteelStatusModel* Model);
++    bool IsBoundTo(const AAuthoredDungeonGenerator* Actor) const { return Generator.Get()==Actor; }
+@@ -121,0 +124 @@
++    void CancelFinalReturn(AActor* Portal);

@@ -1,0 +1,5 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h
+@@ -100,0 +101,2 @@
++    /** Last dungeon occupant left: persist removal of run-only containers/drops, retaining hub inventory. */
++    bool RetireDungeonInventory(const FString& RunId);

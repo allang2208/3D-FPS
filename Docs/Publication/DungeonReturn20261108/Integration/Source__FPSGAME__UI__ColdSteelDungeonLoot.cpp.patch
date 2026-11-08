@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelDungeonLoot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelDungeonLoot.cpp
+@@ -12,0 +13 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -212 +213 @@
+-    return TEXT("DungeonChest.")+Ctx.ClaimId;
++    return TEXT("DungeonChest.")+Ctx.ClaimId+(Ctx.bHubTest||!UDungeonRoomSubsystem::Supports(Chest->GetWorld())?FString():TEXT(".Run.")+Ctx.Run->RunId());
+@@ -230 +231 @@
+-    OutContainerKey=TEXT("DungeonChest.")+Ctx.ClaimId;
++    OutContainerKey=ChestStorageKey(Chest);

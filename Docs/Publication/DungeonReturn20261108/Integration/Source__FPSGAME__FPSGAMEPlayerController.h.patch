@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.h
++++ b/Source/FPSGAME/FPSGAMEPlayerController.h
+@@ -23,0 +24 @@
++    void RefreshRegionMusic();
+@@ -85,0 +87,3 @@
++    FString RegionMusicPath;
++    uint32 RegionMusicSerial=0;
++    float HubMusicUserVolume=1.f;

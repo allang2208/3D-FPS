@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/SceneTestPortal.h
++++ b/Source/FPSGAME/SceneTestPortal.h
+@@ -6,0 +7,3 @@
++class SWidget;
++class APlayerController;
++class UGameViewportClient;
+@@ -21,0 +25,2 @@
++    /** Release this player's local modal before an externally initiated team travel. */
++    static void CloseLocalReturnConfirmations(APlayerController* Player);
+@@ -28,0 +34,5 @@
++    void BeginTravel(bool bConfirmUnclaimedReward = false);
++    void ShowReturnConfirmation(APlayerController* Player);
++    void ConfirmReturn();
++    void CloseReturnConfirmation(bool bRestoreInput = true);
++    UFUNCTION() void OnConfirmationPawnChanged(APawn* OldPawn, APawn* NewPawn);
+@@ -38,0 +49,5 @@
++    TSharedPtr<SWidget> ReturnConfirmation;
++    TWeakObjectPtr<APlayerController> ConfirmationPlayer;
++    TWeakObjectPtr<APawn> ConfirmationPawn;
++    TWeakObjectPtr<UGameViewportClient> ConfirmationViewport;
++    FDelegateHandle TravelFailureHandle;

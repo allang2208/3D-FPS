@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-08",
+  "publication_root": "D:\\FPS3D\\FPSGAME",
+  "remote": "https://github.com/allang2208/3D-FPS.git",
+  "branch": "main",
+  "baseline_commit": "44ec6c29b77b8f1ffb17d67a450c7cad770032e9",
+  "scope_paths_excluding_this_receipt": 53,
+  "staged_utf8_bytes_excluding_this_receipt": 151308,
+  "largest_file_bytes": 27378,
+  "binary_files": 0,
+  "files_over_1MiB": 0,
+  "staged_diff_check": "passed",
+  "exact_path_scope": "matched allowlist",
+  "selected_patch_reconstruction": {
+    "count": 37,
+    "result": "all reconstructed outputs match captured integrated source hashes",
+    "meaning": "publication integrity only, not C++ or runtime validation"
+  },
+  "sensitive_scan": {
+    "patterns": [
+      "private_key",
+      "github_pat",
+      "aws_key",
+      "credential_value"
+    ],
+    "matches": 0,
+    "scope": "all staged text"
+  },
+  "license_boundary": "project-owned C++ and documentation; no third-party asset/plugin binaries, media, savegames, logs or engine code included",
+  "manual_review": "selected return integration deltas and direct sources reviewed; unrelated mixed-host work retained only in local predecessor snapshots",
+  "source_drift": "FPSGAMECharacter.cpp received concurrent M249 edits after capture; these were not copied or reverted; the captured return delta is retained",
+  "cleanup": {
+    "files_moved": 0,
+    "bytes_moved": 0
+  },
+  "runtime_tests_executed": false,
+  "editor_launched": false,
+  "new_build_executed": false,
+  "public_checkout_build_claim": false,
+  "global_index_write_during_preparation": false
+}

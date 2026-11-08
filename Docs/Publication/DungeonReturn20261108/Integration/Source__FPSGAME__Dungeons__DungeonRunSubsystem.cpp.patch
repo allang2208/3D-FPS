@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -1,0 +2 @@
++#include "DungeonRoomSubsystem.h"
+@@ -2,0 +4 @@
++#include "AuthoredDungeonGenerator.h"
+@@ -97,0 +100,10 @@
++    }
++    const FVector Offset=InGenerator->RuntimeOffset();
++    StartPosition+=Offset;
++    for(auto& Node:Nodes)
++    {
++        Node.Origin+=Offset;Node.Volume=Node.Volume.ShiftBy(Offset);
++        for(FBox& Cell:Node.Cells)Cell=Cell.ShiftBy(Offset);
++        for(FBox& Cell:Node.WalkCells)Cell=Cell.ShiftBy(Offset);
++        for(FVector& Anchor:Node.NavigationAnchors)Anchor+=Offset;
++        for(auto& Door:Node.Doors)Door.FloorCenter+=Offset;
+@@ -582 +594 @@
+-    if (!Viewer || !bActive) return;
++    if (!Viewer || !bActive || (UDungeonRoomSubsystem::Supports(GetWorld())&&!UDungeonRoomSubsystem::IsDungeonPawn(Viewer))) return;
+@@ -746,0 +759 @@
++    if(UDungeonRoomSubsystem::Supports(GetWorld()))return;
+@@ -774,0 +788,6 @@
++    if(UDungeonRoomSubsystem::Supports(GetWorld()))
++    {
++        for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if(auto* PC=It->Get();PC&&UDungeonRoomSubsystem::IsDungeonPawn(PC->GetPawn()))EnsurePlayerRun(ColdSteelAuthority::ForPawn(PC->GetPawn()));
++        return;
++    }
+@@ -788 +807,2 @@
+-    bool Changed=P.DungeonRun.Cleared.Num()!=Cleared.Num()||P.DungeonRun.Explored.Num()!=Explored.Num()||P.DungeonRun.bCompleted!=bCompleted;
++    const bool Completed=UDungeonRoomSubsystem::Supports(GetWorld())?P.DungeonRun.bCompleted:bCompleted;
++    bool Changed=P.DungeonRun.Cleared.Num()!=Cleared.Num()||P.DungeonRun.Explored.Num()!=Explored.Num()||P.DungeonRun.bCompleted!=Completed;
+@@ -791 +811 @@
+-    P.DungeonRun.bCompleted = bCompleted;
++    P.DungeonRun.bCompleted = Completed;

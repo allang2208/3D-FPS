@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/FPSGAMEGameMenu.cpp
++++ b/Source/FPSGAME/FPSGAMEGameMenu.cpp
+@@ -80 +80,2 @@
+-    if (HubMusic) HubMusic->SetVolumeMultiplier(.6f * FMath::Clamp(Volume, 0.f, 1.f));
++    HubMusicUserVolume=FMath::Clamp(Volume,0.f,1.f);
++    if (HubMusic) HubMusic->SetVolumeMultiplier(.6f*HubMusicUserVolume);

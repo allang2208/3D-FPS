@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1,0 +2 @@
++#include "Dungeons/DungeonRoomSubsystem.h"
+@@ -3676 +3677 @@
+-        return Tuning->IsEnabled(EDevelopmentTuningOption::InfiniteReserveAmmo);
++        return Tuning->InfiniteReserveFor(this);
+@@ -3678 +3679 @@
+-    return GetWorld() && UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting");
++    return GetWorld() && UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting")&&!UDungeonRoomSubsystem::IsDungeonPawn(this);

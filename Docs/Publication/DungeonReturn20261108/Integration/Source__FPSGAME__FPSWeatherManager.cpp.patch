@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/FPSWeatherManager.cpp
++++ b/Source/FPSGAME/FPSWeatherManager.cpp
+@@ -1,0 +2 @@
++#include "Dungeons/DungeonRoomSubsystem.h"
+@@ -294,0 +296,2 @@
++    if(UDungeonRoomSubsystem::IsDungeonPawn(UGameplayStatics::GetPlayerPawn(this,0)))
++    {ShelterAmount=ShelterTarget=1.f;return;}

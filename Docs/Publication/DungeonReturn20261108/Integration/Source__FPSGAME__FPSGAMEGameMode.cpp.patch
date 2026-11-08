@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/FPSGAMEGameMode.cpp
++++ b/Source/FPSGAME/FPSGAMEGameMode.cpp
+@@ -1,0 +2 @@
++#include "Dungeons/DungeonRoomSubsystem.h"
+@@ -54,0 +56,8 @@
++    if(auto* Room=UDungeonRoomSubsystem::Get(GetWorld()))
++        if(auto* PS=NewPlayer?NewPlayer->GetPlayerState<AColdSteelPlayerState>():nullptr;PS&&PS->bInDungeonRoom)
++        {
++            if(NewPlayer->GetPawn())return;
++            FTransform Spawn;
++            if(Room->FindSpawn(true,nullptr,Spawn))RestartPlayerAtTransform(NewPlayer,Spawn);
++            return;
++        }
+@@ -81,0 +91 @@
++        if(UDungeonRoomSubsystem::Supports(GetWorld())&&UDungeonRoomSubsystem::IsDungeonActor(*It))continue;

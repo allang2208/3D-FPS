@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+@@ -229,0 +230 @@
++    bRoomTransition=false;
+@@ -245,0 +247,13 @@
++}
++
++void UTransitLoadingSubsystem::BeginRoomTransition(FSimpleDelegate OnCancel)
++{
++    BeginTransition(TEXT("L_Dungeon_Randomized"),MoveTemp(OnCancel));
++    bRoomTransition=true;
++}
++void UTransitLoadingSubsystem::FinishRoomTransition()
++{
++    if(!bRoomTransition)return;
++    bScenePrepared=true;bPreparationFailed=false;
++    // The authority already waited for local assembly. Do not restart whole-world preload.
++    FinishPreparation();
+@@ -521 +535 @@
+-    if(View&&FinishedAt==0&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client
++    if(View&&!bRoomTransition&&FinishedAt==0&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client
+@@ -584,0 +599 @@
++        const bool WasRoomTransition=bRoomTransition;
+@@ -587 +602 @@
+-        else UGameplayStatics::OpenLevel(GetWorld(),TEXT("/Game/GameMaps/DayNight_Lighting"));
++        else if(!WasRoomTransition)UGameplayStatics::OpenLevel(GetWorld(),TEXT("/Game/GameMaps/DayNight_Lighting"));
+@@ -613 +628 @@
+-            RemoveOverlay();ReleasePreparedPlayer();View.Reset();CancelAction.Unbind();FinishedAt=0;
++            RemoveOverlay();ReleasePreparedPlayer();View.Reset();CancelAction.Unbind();FinishedAt=0;bRoomTransition=false;
+@@ -633,0 +649 @@
++    bRoomTransition=false;

@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
+@@ -10,0 +11 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -152,0 +154,8 @@
++    if(UDungeonRoomSubsystem::Supports(GetWorld()))
++    {
++        // A fresh hub session cannot resume the previous streamed dungeon instance.
++        InventoryChanged|=Migrated.Drops.RemoveAll([](const FColdSteelItem& I){return I.Map==TEXT("L_Dungeon_Randomized");})>0;
++        for(auto It=Migrated.Containers.CreateIterator();It;++It)
++            if(It.Key().Contains(TEXT(".Run."))&&(It.Key().StartsWith(TEXT("DungeonChest."))||It.Key().StartsWith(TEXT("SceneSearch.L_Dungeon_Randomized."))))
++            {It.RemoveCurrent();InventoryChanged=true;}
++    }
+@@ -296 +305 @@
+-    const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
++    const FString Map=Model->RuntimePawn()?UDungeonRoomSubsystem::LogicalMap(Model->RuntimePawn()):UGameplayStatics::GetCurrentLevelName(this,true);
+@@ -337 +346 @@
+-    Item.Map=UGameplayStatics::GetCurrentLevelName(this,true);Item.Position=Ground.ImpactPoint;
++    Item.Map=UDungeonRoomSubsystem::LogicalMap(Pawn);Item.Position=Ground.ImpactPoint;
+@@ -407,0 +417,20 @@
++
++
++bool UColdSteelSharedInventorySubsystem::RetireDungeonInventory(const FString& RunId)
++{
++    if(!bInitialized)return true;
++    if(bBlocked||bCommitting||!UDungeonRoomSubsystem::Supports(GetWorld()))return false;
++    CaptureDropTransforms();auto After=Current;
++    bool Changed=After.Drops.RemoveAll([](const FColdSteelItem& Item){return Item.Map==TEXT("L_Dungeon_Randomized");})>0;
++    const FString Suffix=TEXT(".Run.")+RunId;
++    for(auto It=After.Containers.CreateIterator();It;++It)
++        if(!RunId.IsEmpty()&&It.Key().EndsWith(Suffix)
++            &&(It.Key().StartsWith(TEXT("DungeonChest."))||It.Key().StartsWith(TEXT("SceneSearch.L_Dungeon_Randomized."))))
++        {It.RemoveCurrent();Changed=true;}
++    if(!Changed)return true;
++    if(!SaveWorld(After))return false;
++    Current=MoveTemp(After);RefreshDropActors();
++    for(auto It=FoodContainerAnchors.CreateIterator();It;++It)
++        if(!It.Value().IsValid()||UDungeonRoomSubsystem::IsDungeonActor(It.Value().Get()))It.RemoveCurrent();
++    return true;
++}

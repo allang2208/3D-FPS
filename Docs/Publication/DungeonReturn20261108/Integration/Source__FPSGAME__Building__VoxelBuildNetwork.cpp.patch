@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
+@@ -1,0 +2 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -87,0 +89 @@
++    if(UDungeonRoomSubsystem::IsDungeonPawn(M->RuntimePawn())){Reason=TEXT("地牢内不能建造");return false;}

@@ -1,0 +1,187 @@
+--- a/Source/FPSGAME/SceneTestPortal.cpp
++++ b/Source/FPSGAME/SceneTestPortal.cpp
+@@ -1,0 +2,2 @@
++#include "Dungeons/DungeonRunSubsystem.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
+@@ -2,0 +5 @@
++#include "Monsters/FPSCombatHealthComponent.h"
+@@ -20,0 +24 @@
++#include "UI/ColdSteelStatusModel.h"
+@@ -21,0 +26,69 @@
++#include "Engine/GameViewportClient.h"
++#include "UI/ColdSteelUIStyle.h"
++#include "Framework/Application/SlateApplication.h"
++#include "Widgets/SCompoundWidget.h"
++#include "Widgets/SBoxPanel.h"
++#include "Widgets/Input/SButton.h"
++#include "Widgets/Layout/SBorder.h"
++#include "Widgets/Layout/SBox.h"
++#include "Widgets/Text/STextBlock.h"
++
++namespace
++{
++class SFinalReturnConfirmation : public SCompoundWidget
++{
++public:
++    SLATE_BEGIN_ARGS(SFinalReturnConfirmation) {}
++        SLATE_EVENT(FSimpleDelegate, OnCancel)
++        SLATE_EVENT(FSimpleDelegate, OnConfirm)
++    SLATE_END_ARGS()
++
++    void Construct(const FArguments& Args)
++    {
++        Cancel=Args._OnCancel;Confirm=Args._OnConfirm;
++        Card=ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,ColdSteelUI::PanelRadius);
++        Shade=ColdSteelUI::RoundedBrush(FLinearColor(0,0,0,.55f),0);
++        Buttons=ColdSteelUI::ButtonStyle();
++        ChildSlot
++        [SNew(SBorder).BorderImage(&Shade).Padding(24).HAlign(HAlign_Center).VAlign(VAlign_Center)
++            .OnMouseButtonDown_Lambda([](const FGeometry&,const FPointerEvent&){return FReply::Handled();})
++            [SNew(SBox).MaxDesiredWidth(520)
++                [SNew(SBorder).BorderImage(&Card).Padding(24)
++                    [SNew(SVerticalBox)
++                        +SVerticalBox::Slot().AutoHeight()
++                        [SNew(STextBlock).Text(FText::FromString(TEXT("尚未领取奖励")))
++                            .Font(ColdSteelUI::TextFont(15,true)).ColorAndOpacity(ColdSteelUI::HUDGold)]
++                        +SVerticalBox::Slot().AutoHeight().Padding(0,16,0,0)
++                        [SNew(STextBlock).Text(FText::FromString(TEXT("你尚未从奖励宝箱取出物品，确定现在返回主神空间？")))
++                            .AutoWrapText(true).Font(ColdSteelUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextPrimary)]
++                        +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)
++                        [SNew(STextBlock).Text(FText::FromString(TEXT("未领取的宝箱物品不会随你带回。")))
++                            .AutoWrapText(true).Font(ColdSteelUI::TextFont(10.5f)).ColorAndOpacity(ColdSteelUI::TextTertiary)]
++                        +SVerticalBox::Slot().AutoHeight().Padding(0,24,0,0)
++                        [SNew(SBox).HeightOverride(ColdSteelUI::ActionHeight)
++                            [SNew(SHorizontalBox)
++                                +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,4,0)
++                                [SAssignNew(CancelButton,SButton).ButtonStyle(&Buttons).HAlign(HAlign_Center)
++                                    .OnClicked_Lambda([this](){Cancel.ExecuteIfBound();return FReply::Handled();})
++                                    [SNew(STextBlock).Text(FText::FromString(TEXT("继续搜刮")))
++                                        .Font(ColdSteelUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextPrimary)]]
++                                +SHorizontalBox::Slot().FillWidth(1).Padding(4,0,0,0)
++                                [SNew(SButton).ButtonStyle(&Buttons).HAlign(HAlign_Center)
++                                    .OnClicked_Lambda([this](){Confirm.ExecuteIfBound();return FReply::Handled();})
++                                    [SNew(STextBlock).Text(FText::FromString(TEXT("确认离开")))
++                                        .Font(ColdSteelUI::TextFont(12,true)).ColorAndOpacity(ColdSteelUI::HUDGoldLight)]]]]]]]];
++    }
++    TSharedRef<SWidget> InitialFocus() const { return CancelButton.ToSharedRef(); }
++    virtual FReply OnPreviewKeyDown(const FGeometry&,const FKeyEvent& Key) override
++    {
++        if(Key.GetKey()==EKeys::Escape)
++        {if(!Key.IsRepeat())Cancel.ExecuteIfBound();return FReply::Handled();}
++        return FReply::Unhandled();
++    }
++private:
++    FSimpleDelegate Cancel,Confirm;
++    FSlateBrush Card,Shade;
++    FButtonStyle Buttons;
++    TSharedPtr<SButton> CancelButton;
++};
++}
+@@ -110,0 +184,5 @@
++    if(ActorHasTag(TEXT("DungeonFinalReturn")))
++    {
++        const auto* Run=UDungeonRunSubsystem::Get(GetWorld());if(!Run||!Run->CanUseFinalReturn())return false;
++        if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
++    }
+@@ -119 +197,2 @@
+-    if (bTravelling || !Pawn || PC->bShowMouseCursor) return;
++    if (bTravelling || ReturnConfirmation || !Pawn || PC->bShowMouseCursor) return;
++    if(const auto* PS=PC->GetPlayerState<AColdSteelPlayerState>();PS&&PS->TeamTravelId.IsValid())return;
+@@ -120,0 +200,72 @@
++    if(ActorHasTag(TEXT("DungeonFinalReturn")))
++        if(const auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&!(UDungeonRoomSubsystem::Supports(GetWorld())?(PC->GetPlayerState<AColdSteelPlayerState>()&&PC->GetPlayerState<AColdSteelPlayerState>()->bClaimedFinalDungeonTreasure):Run->IsFinalTreasureLooted()))
++        {ShowReturnConfirmation(PC);return;}
++    BeginTravel();
++}
++
++void ASceneTestPortal::ShowReturnConfirmation(APlayerController* PC)
++{
++    auto* Viewport=GetGameInstance()?GetGameInstance()->GetGameViewportClient():nullptr;
++    if(!PC||!PC->IsLocalController()||!Viewport||ReturnConfirmation||!FSlateApplication::IsInitialized())return;
++    auto Panel=SNew(SFinalReturnConfirmation)
++        .OnCancel(FSimpleDelegate::CreateWeakLambda(this,[this](){CloseReturnConfirmation();}))
++        .OnConfirm(FSimpleDelegate::CreateUObject(this,&ASceneTestPortal::ConfirmReturn));
++    ReturnConfirmation=Panel;ConfirmationPlayer=PC;ConfirmationPawn=PC->GetPawn();ConfirmationViewport=Viewport;
++    PC->OnPossessedPawnChanged.AddUniqueDynamic(this,&ASceneTestPortal::OnConfirmationPawnChanged);
++    Viewport->AddViewportWidgetContent(Panel,90000);
++    PC->FlushPressedKeys();PC->SetIgnoreMoveInput(true);PC->SetIgnoreLookInput(true);
++    PC->bShowMouseCursor=true;
++    PC->SetInputMode(FInputModeUIOnly().SetWidgetToFocus(Panel->InitialFocus())
++        .SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock));
++    FSlateApplication::Get().SetAllUserFocus(Panel->InitialFocus(),EFocusCause::SetDirectly);
++}
++
++void ASceneTestPortal::CloseReturnConfirmation(bool bRestoreInput)
++{
++    if(!ReturnConfirmation)return;
++    if(auto* Viewport=ConfirmationViewport.Get())Viewport->RemoveViewportWidgetContent(ReturnConfirmation.ToSharedRef());
++    ReturnConfirmation.Reset();ConfirmationViewport.Reset();
++    if(auto* PC=ConfirmationPlayer.Get())
++    {
++        PC->OnPossessedPawnChanged.RemoveDynamic(this,&ASceneTestPortal::OnConfirmationPawnChanged);
++        PC->SetIgnoreMoveInput(false);PC->SetIgnoreLookInput(false);
++        if(bRestoreInput)
++        {
++            PC->bShowMouseCursor=false;PC->SetInputMode(FInputModeGameOnly());
++            if(FSlateApplication::IsInitialized())FSlateApplication::Get().SetAllUserFocusToGameViewport();
++        }
++    }
++    ConfirmationPlayer.Reset();ConfirmationPawn.Reset();
++}
++
++void ASceneTestPortal::CloseLocalReturnConfirmations(APlayerController* Player)
++{
++    if(!Player||!Player->IsLocalController()||!Player->GetWorld())return;
++    for(TActorIterator<ASceneTestPortal> It(Player->GetWorld());It;++It)
++        if(It->ConfirmationPlayer.Get()==Player)It->CloseReturnConfirmation();
++}
++
++void ASceneTestPortal::OnConfirmationPawnChanged(APawn*,APawn* NewPawn)
++{
++    if(!ReturnConfirmation||(ConfirmationPawn.IsValid()&&NewPawn==ConfirmationPawn.Get()))return;
++    const auto* Loading=GetGameInstance()?GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>():nullptr;
++    CloseReturnConfirmation(!Loading||!Loading->IsHoldingGameplayInput());
++}
++
++void ASceneTestPortal::ConfirmReturn()
++{
++    if(!ReturnConfirmation)return;
++    const auto* PC=ConfirmationPlayer.Get();
++    const bool SamePawn=PC&&ConfirmationPawn.IsValid()&&PC->GetPawn()==ConfirmationPawn.Get();
++    CloseReturnConfirmation();
++    if(SamePawn)BeginTravel(true);
++}
++
++void ASceneTestPortal::BeginTravel(bool bConfirmUnclaimedReward)
++{
++    auto* PC=UGameplayStatics::GetPlayerController(this,0);
++    if(bTravelling||!PC||PC->bShowMouseCursor||!IsWithinInteractionRange(PC->GetPawn()))return;
++    if(const auto* PS=PC->GetPlayerState<AColdSteelPlayerState>();PS&&PS->TeamTravelId.IsValid())return;
++    if(ActorHasTag(TEXT("DungeonFinalReturn"))&&!bConfirmUnclaimedReward)
++        if(const auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&!(UDungeonRoomSubsystem::Supports(GetWorld())?(PC->GetPlayerState<AColdSteelPlayerState>()&&PC->GetPlayerState<AColdSteelPlayerState>()->bClaimedFinalDungeonTreasure):Run->IsFinalTreasureLooted()))
++        {ShowReturnConfirmation(PC);return;}
+@@ -128 +279 @@
+-    {if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->RequestTeamTravel(this);return;}
++    {if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->RequestTeamTravel(this,bConfirmUnclaimedReward);return;}
+@@ -149,0 +301,18 @@
++    if(ActorHasTag(TEXT("DungeonFinalReturn")))
++    {
++        auto* Run=UDungeonRunSubsystem::Get(GetWorld());
++        auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        if(!Run||!Run->CanUseFinalReturn()||!IsWithinInteractionRange(UGameplayStatics::GetPlayerPawn(this,0)))
++        {CancelLoading();return;}
++        Run->MarkFinalReturnUsed(this);
++        if(!Model||Model->Snapshot().DungeonRun.RunId!=Run->RunId()||!Model->Snapshot().DungeonRun.bCompleted)
++        {Run->CancelFinalReturn(this);CancelLoading();return;}
++        // OpenLevel may fail after the completion save has already committed.
++        if(GEngine&&!TravelFailureHandle.IsValid())TravelFailureHandle=GEngine->OnTravelFailure().AddWeakLambda(this,
++            [this](UWorld* FailedWorld,ETravelFailure::Type,const FString&)
++            {
++                if(FailedWorld!=GetWorld()||!bTravelling)return;
++                if(auto* FailedRun=UDungeonRunSubsystem::Get(GetWorld()))FailedRun->CancelFinalReturn(this);
++                CancelLoading();
++            });
++    }
+@@ -177,0 +347,2 @@
++    if(GEngine&&TravelFailureHandle.IsValid())GEngine->OnTravelFailure().Remove(TravelFailureHandle);
++    CloseReturnConfirmation(Reason==EEndPlayReason::Destroyed);

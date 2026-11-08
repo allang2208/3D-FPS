@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-08",
+  "scope": "本次个人返程与未领奖确认",
+  "moved": [],
+  "moved_file_count": 0,
+  "moved_bytes": 0,
+  "reason": "未确认独立废案。历史 UI 文档含仍有效的确认和失败恢复记录，已标注旧全队方案被取代，保留追溯。",
+  "retained": [
+    {
+      "path": "Docs/UI/dungeon-return-confirmation-20261108.md",
+      "purpose": "历史实现与构建证据，现行规则链接个人返程说明"
+    },
+    {
+      "path": "Docs/Multiplayer/individual-dungeon-return-20261108.md",
+      "purpose": "现行实现和用户测试边界"
+    },
+    {
+      "path": "Saved/BuildEditor/build-20261108-163310.log",
+      "purpose": "最终本机构建证据，留本机"
+    },
+    {
+      "path": "Saved/Publication/DungeonReturn20261108",
+      "purpose": "此次发布快照、补丁前置与独立索引记录，留本机"
+    }
+  ],
+  "protected": [
+    "Content junction -> F:/FPSGAMEData/Content",
+    "SourceAssets",
+    "Saved/SaveGames",
+    "Saved/Autosaves",
+    "other staged and unstaged work",
+    "production DLLs and logs"
+  ],
+  "trash": "trash/ (no move performed)"
+}

@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Development/DevelopmentTuningSubsystem.h
++++ b/Source/FPSGAME/Development/DevelopmentTuningSubsystem.h
+@@ -39,0 +40 @@
++    bool InfiniteReserveFor(const APawn* Pawn) const;

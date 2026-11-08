@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonLighting.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonLighting.cpp
+@@ -2,0 +3 @@
++#include "DungeonRunSubsystem.h"
+@@ -41,0 +43 @@
++    if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsBoundTo(this))Run->UnbindDungeon();

@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp
++++ b/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp
+@@ -73,2 +73,2 @@
+-        {TEXT("返程与再次出征"),TEXT("通过起点返程入口或首领后的奖励区入口返回主场景。再次出征会生成新的地牢，原局清理进度不会作为下一局继续。")},
+-        {TEXT("死亡与已获物品"),TEXT("死亡后在当前关卡重新生成角色；已经获得并保存的物品不会因死亡或返程被清空。首领交战在死亡或离场后重置。")},
++        {TEXT("返程与再次出征"),TEXT("通过起点或奖励区入口单独返回主神空间。联机时队友可继续探索，再次出征会进入仍在进行的地牢；全员离开后，下一次出征生成新一轮。")},
++        {TEXT("死亡与已获物品"),TEXT("死亡后在所在区域重新生成角色；已经获得并保存的物品不会因死亡或返程被清空。首领交战在死亡或离场后重置。")},
+@@ -88 +88 @@
+-         return FText::FromString(TEXT("队伍换图请求未发送"));}
++         return FText::FromString(TEXT("出征请求未发送"));}

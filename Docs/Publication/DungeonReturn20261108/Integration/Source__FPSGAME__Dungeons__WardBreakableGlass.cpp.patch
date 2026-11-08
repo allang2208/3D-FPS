@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
++++ b/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
+@@ -1,0 +2 @@
++#include "DungeonRoomSubsystem.h"
+@@ -62 +63 @@
+-            if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGlassBroken(GetOwner()->GetName(),BreakPoint,BreakDirection);
++            if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGlassBroken(UDungeonRoomSubsystem::SceneActorKey(GetOwner()),BreakPoint,BreakDirection);

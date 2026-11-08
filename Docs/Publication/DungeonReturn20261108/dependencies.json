@@ -1,0 +1,274 @@
+{
+  "baseline_commit": "44ec6c29b77b8f1ffb17d67a450c7cad770032e9",
+  "complete_build_closure": false,
+  "direct_sources": [
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomSubsystem.h",
+      "sha256_lf": "54dd8b9c4011012c7d8c935851c4374f8957ddd7602218f4d7b38805c2589398",
+      "bytes_lf": 4179,
+      "includes": [
+        {
+          "include": "CoreMinimal.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "GameFramework/Info.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Subsystems/WorldSubsystem.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "DungeonRoomSubsystem.generated.h",
+          "kind": "engine-or-generated-or-module-include"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomSubsystem.cpp",
+      "sha256_lf": "a87b2a03b412731f03347a37488ac87af590581e4090ecae15aa92093e5f27b6",
+      "bytes_lf": 13943,
+      "includes": [
+        {
+          "include": "DungeonRoomSubsystem.h",
+          "project_path": "Source/FPSGAME/Dungeons/DungeonRoomSubsystem.h",
+          "present_at_baseline": false
+        },
+        {
+          "include": "AuthoredDungeonGenerator.h",
+          "project_path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "DungeonRunSubsystem.h",
+          "project_path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../Multiplayer/ColdSteelPlayerState.h",
+          "project_path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../Multiplayer/ColdSteelAuthorityContext.h",
+          "project_path": "Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../Multiplayer/ColdSteelSharedInventorySubsystem.h",
+          "project_path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../UI/ColdSteelStatusModel.h",
+          "project_path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../Monsters/FPSCombatHealthComponent.h",
+          "project_path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../SceneTestPortal.h",
+          "project_path": "Source/FPSGAME/SceneTestPortal.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "Engine/Level.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Engine/LevelStreamingDynamic.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Engine/World.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "EngineUtils.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "GameFramework/Character.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "GameFramework/CharacterMovementComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "GameFramework/PlayerController.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "GameFramework/PlayerStart.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Kismet/GameplayStatics.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Net/UnrealNetwork.h",
+          "kind": "engine-or-generated-or-module-include"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomPresentation.cpp",
+      "sha256_lf": "8de29ab08fb0a894c0e86f61aeeaf70f71102a9091cf3e295a809c64ff3c5fb1",
+      "bytes_lf": 6355,
+      "includes": [
+        {
+          "include": "DungeonRoomSubsystem.h",
+          "project_path": "Source/FPSGAME/Dungeons/DungeonRoomSubsystem.h",
+          "present_at_baseline": false
+        },
+        {
+          "include": "../FPSGAMEPlayerController.h",
+          "project_path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../Building/VoxelBuildComponent.h",
+          "project_path": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "Components/SceneComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Components/LightComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Components/SkyLightComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Components/ExponentialHeightFogComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Components/SkyAtmosphereComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Components/VolumetricCloudComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Components/PostProcessComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Components/AudioComponent.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Engine/DirectionalLight.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Engine/SkyLight.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Engine/ExponentialHeightFog.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Engine/PostProcessVolume.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Engine/Level.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Engine/World.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "EngineUtils.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "Kismet/GameplayStatics.h",
+          "kind": "engine-or-generated-or-module-include"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelRoomTravel.cpp",
+      "sha256_lf": "e9909267e19f50652f2011950b85259d2fbe7a85b945280720ae9ca03ff8feb5",
+      "bytes_lf": 3716,
+      "includes": [
+        {
+          "include": "ColdSteelPlayerState.h",
+          "project_path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "ColdSteelAuthorityContext.h",
+          "project_path": "Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../Dungeons/DungeonRoomSubsystem.h",
+          "project_path": "Source/FPSGAME/Dungeons/DungeonRoomSubsystem.h",
+          "present_at_baseline": false
+        },
+        {
+          "include": "../UI/TransitLoadingSubsystem.h",
+          "project_path": "Source/FPSGAME/UI/TransitLoadingSubsystem.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../UI/ColdSteelStatusModel.h",
+          "project_path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "../FPSGAMEPlayerController.h",
+          "project_path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+          "present_at_baseline": true
+        },
+        {
+          "include": "Engine/GameInstance.h",
+          "kind": "engine-or-generated-or-module-include"
+        },
+        {
+          "include": "EngineUtils.h",
+          "kind": "engine-or-generated-or-module-include"
+        }
+      ]
+    }
+  ],
+  "shared_host_policy": "37 selected-delta patches and 4 replacement-definition fragments; do not compile public subset before integrating prerequisites",
+  "runtime_assets": [
+    "/Game/GameMaps/DayNight_Lighting",
+    "/Game/GameMaps/L_Dungeon_Randomized",
+    "/Game/Audio/DungeonBGM20261017/S_DungeonEcho.S_DungeonEcho",
+    "/Game/Audio/GodSpaceBGM20261002/S_RomanCourtyard.S_RomanCourtyard"
+  ],
+  "local_prerequisites": [
+    "authored dungeon planner and themed final boss/run tracking",
+    "ColdSteel authority profiles and inventory transactions",
+    "ColdSteel container search subsystem",
+    "UDS/UDW weather bridge and local presentation",
+    "loading/menu and player combat/building integration"
+  ],
+  "build_evidence": {
+    "path": "Saved/BuildEditor/build-20261108-163310.log",
+    "sha256": "e386f5b5c54205f56be9354d5de01593bdf08e1f6255a7dd50a9ab0d7cdc8428",
+    "result": "Succeeded",
+    "elapsed_seconds": 18.29,
+    "meaning": "historical full local Editor build, not this publication subset"
+  },
+  "runtime_tested": false
+}

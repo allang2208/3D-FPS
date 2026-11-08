@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp
+@@ -5,0 +6 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -121 +122 @@
+-    return IsValid(Container)&&UGameplayStatics::GetCurrentLevelName(Container,true)==TEXT("L_Dungeon_Randomized")
++    return IsValid(Container)&&UDungeonRoomSubsystem::IsDungeonActor(Container)

@@ -1,0 +1,49 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -1,0 +2 @@
++#include "Dungeons/DungeonRoomSubsystem.h"
+@@ -197,16 +198,3 @@
+-    // 主神空间驻留 BGM：原项目 audio-config 的 bgm.main（main 场景＝主神空间，罗马庭院），
+-    // 沿用其 music 声道 0.6 音量。SoundWave 已设循环；组件随控制器存活、换图销毁，
+-    // 因此只在 Hub（DayNight_Lighting）内自动循环，去 hills/地牢自动停止。
+-    if (UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting"))
+-    {
+-        if (auto* Sound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/GodSpaceBGM20261002/S_RomanCourtyard.S_RomanCourtyard")))
+-        {
+-            HubMusic = NewObject<UAudioComponent>(this);
+-            HubMusic->SetSound(Sound);
+-            HubMusic->SetVolumeMultiplier(.6f);
+-            HubMusic->bAutoDestroy = false;
+-            HubMusic->Play();
+-        }
+-        SpawnHubTestChest();
+-        SpawnHubPracticeTarget();
+-    }
++    RefreshRegionMusic();
++    if(UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("DayNight_Lighting"))
++    {SpawnHubTestChest();SpawnHubPracticeTarget();}
+@@ -747,0 +736,24 @@
++void AFPSGAMEPlayerController::RefreshRegionMusic()
++{
++    if(!IsLocalController()||GetNetMode()==NM_DedicatedServer)return;
++    const bool Dungeon=UDungeonRoomSubsystem::IsDungeonPawn(GetPawn())
++        ||UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("L_Dungeon_Randomized");
++    const FString Path=Dungeon?TEXT("/Game/Audio/DungeonBGM20261017/S_DungeonEcho.S_DungeonEcho"):
++        UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("DayNight_Lighting")?TEXT("/Game/Audio/GodSpaceBGM20261002/S_RomanCourtyard.S_RomanCourtyard"):TEXT("");
++    if(Path==RegionMusicPath)return;
++    RegionMusicPath=Path;const uint32 Serial=++RegionMusicSerial;
++    if(HubMusic)HubMusic->Stop();
++    if(Path.IsEmpty())return;
++    if(!HubMusic)
++    {
++        HubMusic=NewObject<UAudioComponent>(this);HubMusic->bAutoActivate=false;HubMusic->bAutoDestroy=false;
++        HubMusic->bStopWhenOwnerDestroyed=true;HubMusic->bAllowSpatialization=false;HubMusic->RegisterComponent();
++    }
++    HubMusic->SetVolumeMultiplier(.6f*HubMusicUserVolume);
++    const FSoftObjectPath MusicPath(Path);
++    UAssetManager::GetStreamableManager().RequestAsyncLoad(MusicPath,FStreamableDelegate::CreateWeakLambda(this,[this,MusicPath,Serial]()
++    {
++        if(!HasActorBegunPlay()||RegionMusicSerial!=Serial||!IsValid(HubMusic))return;
++        if(auto* Sound=Cast<USoundBase>(MusicPath.ResolveObject())){HubMusic->SetSound(Sound);HubMusic->FadeIn(1.5f,1.f);}
++    }));
++}

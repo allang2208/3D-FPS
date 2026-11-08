@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
+@@ -39,0 +40 @@
++    FVector RuntimeOffset() const;

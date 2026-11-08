@@ -5,6 +5,8 @@ description: UE5 save/load and replication workflow for persistent state, server
 
 # 联机存档与恢复
 
+地牢与主神空间并存、房主单独返程、个人奖励确认及实例库存隔离，读取 [同房间地牢与个人返程](references/individual-dungeon-return.md)。
+
 焚化炉、弹药暂存、永久销毁确认及晚到回执／重连绑定清理，读取 [永久销毁与暂存恢复](references/destructive-inventory-and-escrow.md)。
 
 本机维护源：[ue5-save-load-replication](C:/Users/allan/.codex/skills/ue5-save-load-replication/SKILL.md)。遵守工程 AGENTS.md、WORKFLOW.md 和本次用户授权，不自动启动编辑器或测试。

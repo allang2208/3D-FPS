@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Development/DevelopmentTuningSubsystem.cpp
++++ b/Source/FPSGAME/Development/DevelopmentTuningSubsystem.cpp
+@@ -1,0 +2 @@
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -20 +21 @@
+-        return UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting");
++        return InfiniteReserveFor(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
+@@ -98,0 +100,7 @@
++
++bool UDevelopmentTuningSubsystem::InfiniteReserveFor(const APawn* Pawn) const
++{
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)return false;
++    if(bReserveAmmoOverride)return EnabledOptions.Contains(EDevelopmentTuningOption::InfiniteReserveAmmo);
++    return UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("DayNight_Lighting")&&!UDungeonRoomSubsystem::IsDungeonPawn(Pawn);
++}

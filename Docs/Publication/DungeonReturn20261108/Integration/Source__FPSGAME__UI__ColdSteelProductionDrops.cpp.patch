@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/UI/ColdSteelProductionDrops.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProductionDrops.cpp
+@@ -1,0 +2,2 @@
++#include "../FPSGAMECharacter.h"
++#include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -63 +65 @@
+-                Item.Map=UGameplayStatics::GetCurrentLevelName(this,true);
++                Item.Map=RuntimePawn()?UDungeonRoomSubsystem::LogicalMap(RuntimePawn()):UGameplayStatics::GetCurrentLevelName(this,true);

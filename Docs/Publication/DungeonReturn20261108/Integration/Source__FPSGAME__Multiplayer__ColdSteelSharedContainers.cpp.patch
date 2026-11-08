@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp
+@@ -9,0 +10 @@
++#include "../Dungeons/DungeonRunSubsystem.h"
+@@ -108 +109 @@
+-            &&(HasPrivate(Host->Snapshot())||Host->HasDungeonClaim(ColdSteelSceneLoot::Claim(SearchScene->ContainerId))))
++            &&(HasPrivate(Host->Snapshot())||(UDungeonRunSubsystem::Get(GetWorld())&&Host->Snapshot().DungeonRun.RunId==UDungeonRunSubsystem::Get(GetWorld())->RunId()&&Host->HasDungeonClaim(ColdSteelSceneLoot::Claim(SearchScene->ContainerId)))))

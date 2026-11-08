@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -1,0 +2 @@
++#include "DungeonRoomSubsystem.h"
+@@ -468,0 +470 @@
++    if(UDungeonRoomSubsystem::Supports(World))return nullptr;
+@@ -858,0 +861 @@
++    const FVector Offset=RuntimeOffset();
+@@ -861 +864 @@
+-    StagedLightModules.Last().Cells.Add(Plan.Reserved); // Include existing start lights in the room scheduler at runtime.
++    StagedLightModules.Last().Cells.Add(Plan.Reserved.ShiftBy(Offset)); // Include existing start lights in the room scheduler at runtime.
+@@ -864,0 +868 @@
++        for(FBox& Cell:StagedLightModules[I].Cells)Cell=Cell.ShiftBy(Offset);
+@@ -870 +874 @@
+-        const FVector Center=Door+FVector(0,0,180);
++        const FVector Center=Door+Offset+FVector(0,0,180);
+@@ -1212 +1216 @@
+-    QueueAtmosphere(Catalog,TEXT("fixed_atmosphere_sites"),FTransform::Identity,Plan.Pieces.Num());
++    QueueAtmosphere(Catalog,TEXT("fixed_atmosphere_sites"),FTransform(Offset),Plan.Pieces.Num());
+@@ -1215 +1219,3 @@
+-        const FPlaced& Piece=Plan.Pieces[Index];const JObject D=SceneModules[Index];
++        FPlaced Piece=Plan.Pieces[Index];const JObject D=SceneModules[Index];
++        Piece.Transform.AddToTranslation(Offset);Piece.Bounds=Piece.Bounds.ShiftBy(Offset);
++        for(FBox& Cell:Piece.Cells)Cell=Cell.ShiftBy(Offset);
+@@ -1533 +1539 @@
+-                    Portal->Tags.Add(TEXT("DungeonReward.Locked"));Portal->Tags.Add(TEXT("DungeonFinalReturn"));
++                    Portal->Tags.Add(TEXT("DungeonFinalReturn"));
+@@ -1661 +1667 @@
+-        State->DressingScene.AddPlacedActors(GetWorld(),this,Bounds);
++        State->DressingScene.AddPlacedActors(GetWorld(),this,Bounds.ShiftBy(RuntimeOffset()));
+@@ -1827,0 +1834,4 @@
++FVector AAuthoredDungeonGenerator::RuntimeOffset() const
++{
++    return UDungeonRoomSubsystem::IsDungeonActor(this)&&UDungeonRoomSubsystem::Supports(GetWorld())?UDungeonRoomSubsystem::DungeonOffset():FVector::ZeroVector;
++}
+@@ -1830,0 +1841 @@
++    if(UDungeonRoomSubsystem::Supports(GetWorld()))return;
+@@ -2126 +2137 @@
+-        Bounds=Bounds.ExpandBy(FVector(250,250,350));
++        Bounds=Bounds.ShiftBy(RuntimeOffset()).ExpandBy(FVector(250,250,350));

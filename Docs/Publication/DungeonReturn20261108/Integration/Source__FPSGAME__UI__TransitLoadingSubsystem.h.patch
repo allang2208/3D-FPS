@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.h
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.h
+@@ -35,0 +36,2 @@
++    void BeginRoomTransition(FSimpleDelegate OnCancel);
++    void FinishRoomTransition();
+@@ -79,0 +82 @@
++    bool bRoomTransition=false;

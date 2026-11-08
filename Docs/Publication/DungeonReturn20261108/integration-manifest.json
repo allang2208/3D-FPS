@@ -1,0 +1,483 @@
+{
+  "schema": 1,
+  "scope": "Individual dungeon return and personal unclaimed-reward confirmation",
+  "normalization": "UTF-8 LF; snapshots retained locally under Saved/Publication/DungeonReturn20261108",
+  "warning": "Already integrated locally. Patches require their exact reconstructed local predecessor; do not apply blindly to HEAD or current working files.",
+  "entries": [
+    {
+      "target": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+      "payload": "Integration/Source__FPSGAME__Dungeons__AuthoredDungeonGenerator.h.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "81bb75a05fd355bac92c7f7536975609f90b7ffc6932379cd47314ee3c2634f4",
+      "current_sha256_lf": "51f3d0f11395611fd22d83c2e9995e721b9c04af5f2fbd75b737418220ed3080",
+      "observed_index_blob": "8a1cfae892fcc3cbb2872d0b62fb01702b763527",
+      "patch_sha256": "505e54f8ea8fcf0c52960dcc09af9d495a53f127769f98a28217da05b06da6b9",
+      "operations": 1
+    },
+    {
+      "target": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "payload": "Integration/Source__FPSGAME__Dungeons__AuthoredDungeonGenerator.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "68628fc7a81e9b1628401155c894372c9a124f12cccce8ffdef1a99811bdc575",
+      "current_sha256_lf": "88a5667d81a6bd8f1c0c580a6187e9f05fdb05edc9be8a006035139247a539bc",
+      "observed_index_blob": "5825196f8616f7ba8e88c2e5ba61e442cd05d3a6",
+      "patch_sha256": "0712fd37a0e646448886c3d47679f8d51d278883e1f9763aae3bc12b10b9d162",
+      "operations": 15
+    },
+    {
+      "target": "Source/FPSGAME/Dungeons/AuthoredDungeonLighting.cpp",
+      "payload": "Integration/Source__FPSGAME__Dungeons__AuthoredDungeonLighting.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "0dbb7e61e310569ffbc011e3e37750e27ee7d2f8374e68bc0f50a911cc842cca",
+      "current_sha256_lf": "ebe6d3237e683a0c30f33bdd28a8aa92b4cd32c1361c5729ff5a1a21a42bc287",
+      "observed_index_blob": "48f5b9c18dd8a27959645a0c311f4601b6e6b0af",
+      "patch_sha256": "4d3e276ec644004356f15ce58c68e6a1acfda48a7217683f1f7844a96d458c5c",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "payload": "Integration/Source__FPSGAME__Dungeons__DungeonRunSubsystem.h.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "e21bc878f50ec76c22250718f9e19c770e44a9f663f1e42dfdf8a8ed160dc49c",
+      "current_sha256_lf": "56e1b1bdf1cb47336b519743c85c7bf02a8c71f0d0017cc033acb0419a41b3e3",
+      "observed_index_blob": "18ea2cbeb1f3b03f205d206b483e2ad21721af7c",
+      "patch_sha256": "f4004c5b08afdff292b94da76080efaf854b7a03dd0fc54584a1bd8d68b82352",
+      "operations": 5
+    },
+    {
+      "target": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "payload": "Integration/Source__FPSGAME__Dungeons__DungeonRunSubsystem.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "20bf2edecd6e349dba24a6c657ddf47e5a2342323a06b7b578c61ed9f8a9718b",
+      "current_sha256_lf": "1cd506f3f08160fd5c1719181f1271631c7b090786b1c97ed4afb2e043e3c700",
+      "observed_index_blob": "e99b951001103d85bc31a4f82c94d764bc6e8a7d",
+      "patch_sha256": "728ef3850be07f037cc8111152c763ab7ca95d593a9e4e4045c4649ff5d27921",
+      "operations": 9
+    },
+    {
+      "target": "Source/FPSGAME/Dungeons/DungeonShrine.cpp",
+      "payload": "Integration/Source__FPSGAME__Dungeons__DungeonShrine.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "49b629d7ba3b257697f95ccf807a036fa3bd7de563a722ce6efdae96ea2bd059",
+      "current_sha256_lf": "aa0d6ee1fc57dd417ff25b79618092b49fb2081eb89c1ee61b6d3716d88db514",
+      "observed_index_blob": "8a7f588366fd27d1670163ae21015c63a5ff3d65",
+      "patch_sha256": "05d11518a65e9eaad247ef5f93fe49528b4218e026202202f1aa745666cd0bba",
+      "operations": 5
+    },
+    {
+      "target": "Source/FPSGAME/Dungeons/WardBreakableGlass.cpp",
+      "payload": "Integration/Source__FPSGAME__Dungeons__WardBreakableGlass.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "12b97d99586f95b2f59f5b977156f6444b5f5ffff08bf00f1d724cea16038579",
+      "current_sha256_lf": "6e5dca91a2daca873646870379c90f07813d54fed4019f962d0544a7066de827",
+      "observed_index_blob": "73ed05e6d06ee4e88f4f52d5727bf00c63da5423",
+      "patch_sha256": "34e3f8d2a97d1a560e576bca123f60314fcadde7e87b6263fbd04dd7cd88a1dc",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "payload": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "54bb5bb11b621d3ef746a5516a28e20b2a5487b1b531e99a24f1a5f1afc259b7",
+      "current_sha256_lf": "bc6dcd54c357810e96835f9a32b871505eb5d2e4edf10d2d113ae7b4c55129b6",
+      "observed_index_blob": "54f9e8b714e54cc30a37ad2a4400802b1c2fc1a6",
+      "patch_sha256": "bd23da9f95a044cba470214e04d49c9b892ca754e0b5db97443d98b51b2dcb21",
+      "operations": 4
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "payload": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "06539cdbb6a15320472a7af75e8e8a52405cf7eeac79864016afc49d0119462e",
+      "current_sha256_lf": "0b62a866c8752c648e714b4fa93bbc35a4128cdd4ba41846c531868f7a8baa34",
+      "observed_index_blob": "6da3d617bdf4a7278b7c48b891d04fe87aec335c",
+      "patch_sha256": "d47d6f41817c7f59d25c4fc2c530329d0b59272dd78a148bb8e13a756ba06ad9",
+      "operations": 3
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "payload": "Integration/Source__FPSGAME__Multiplayer__ColdSteelTeamTravel.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "3fd371fedbefa0dc2ad6e6f369a5d54485a8a3ecdeabea325f157c134ba9a480",
+      "current_sha256_lf": "66ce9903e258e4e35405f17913a59a57fb43995d739d7cf7abf894ed3d672a9c",
+      "observed_index_blob": "90f688b49a3fa24318bd2da2b994a7e79eb028bf",
+      "patch_sha256": "e5673b6fc30872a381b6c8169ff73632592b99c73d073f5bea461a4cafd5c91a",
+      "operations": 23
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp",
+      "payload": "Integration/Source__FPSGAME__Multiplayer__ColdSteelWorldNetwork.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "abfad38d8d0cc10d1d9b149c51d4cb6e7b0f021f166b3877105c6ef67f69c263",
+      "current_sha256_lf": "e04442465c1eb44b72a1d1b95a383331bb8aca69e3ecb558e7b84542ce2db7f6",
+      "observed_index_blob": "8d29c263f4e79980afda5fbc61c488ca1914d795",
+      "patch_sha256": "b8fb6b66f8193f1d956de05c4a3a2999a092d40a2485691afd7edbfba44b98be",
+      "operations": 5
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+      "payload": "Integration/Source__FPSGAME__Multiplayer__ColdSteelSharedInventorySubsystem.h.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "39bd80b540b41c3c68ec6e1e963674a8f3202a79b882ad073a9ac8d4db8b3097",
+      "current_sha256_lf": "d9be6e31a7e033ba696043763cff67148c1a34dc393c06e6448097b07715c736",
+      "observed_index_blob": "51d1fdb39670686fb8374fac08e406b3e7eef005",
+      "patch_sha256": "4d7f2720eadba3b837e69094f769576583d09d4b3809b4dd9d4bd1a0276a1e6b",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp",
+      "payload": "Integration/Source__FPSGAME__Multiplayer__ColdSteelSharedInventorySubsystem.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "d2b35f797d74096e37b493bc84668c4bfbc1616038bad3dd25ec60b57ce7cb9e",
+      "current_sha256_lf": "1da868c03de6e63502604fec8c50b7df557788aa75bd73bd85d5789776d663d2",
+      "observed_index_blob": "9262f123d1669d1373f420dc30a23ca3c1c1eaca",
+      "patch_sha256": "6af776a92b5c14c78d3090211e15a3cc9014c8221a3206a79f5a39377df0ac52",
+      "operations": 5
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp",
+      "payload": "Integration/Source__FPSGAME__Multiplayer__ColdSteelSharedContainers.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "4fe60d65c19b1c3ce2df6d2dc5262dc9c94d404b64c2b56299144a9dd249ca68",
+      "current_sha256_lf": "d975c9a57fe22f7f782874582a27a64414a606ce40be9866b295ec4b6d774990",
+      "observed_index_blob": "0a6e8e1ff22483674366f4c1b0e8dc96597fc53e",
+      "patch_sha256": "fc44311557c3e0464b0d9446bd2804100771e9b8ef9c3816a44bc96c44c46a12",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/SceneTestPortal.h",
+      "payload": "Integration/Source__FPSGAME__SceneTestPortal.h.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "7561070ed022bc58befb70591661eb5e92ddc9d99003ca273a4a1f1d904ee5e3",
+      "current_sha256_lf": "09fc2d6b71feb6f5caaec4b2110375feb9b82f569135981e26d3e3203e37b15b",
+      "observed_index_blob": "affac29c2edcc30143755c41f4dceaa54da6ab07",
+      "patch_sha256": "a76f27c270ea6f4675aefb722caabf1fc0d5b97e0e069e8fca7b18334383d082",
+      "operations": 4
+    },
+    {
+      "target": "Source/FPSGAME/SceneTestPortal.cpp",
+      "payload": "Integration/Source__FPSGAME__SceneTestPortal.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "b5158f532600c3260884bcf08aaca49ff4f8655ae7fed4192511858f2cd3b79d",
+      "current_sha256_lf": "0681a1a66619d0ec9cfe697efb23c3e5d0942d3af1eb1cefe215caa587d9aa14",
+      "observed_index_blob": "d2453c31a33f80e5065df80bc3cfd5e3edf4e6d3",
+      "patch_sha256": "37e5e7d87a05b132d2086ca4b5c8a36e2c0016bc7b9f8dcf4a43f8c6d1f92fa4",
+      "operations": 11
+    },
+    {
+      "target": "Source/FPSGAME/UI/TransitLoadingSubsystem.h",
+      "payload": "Integration/Source__FPSGAME__UI__TransitLoadingSubsystem.h.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "58aa51da2d99e6b89e7fd434e8af709c46611f251f19f2f6f0c4f6a989e79091",
+      "current_sha256_lf": "6eee4585608e73eaf1c5100805010cd3e6eca47de94102564dadf4ddc6366280",
+      "observed_index_blob": "27cfc85fb1e8a3be8ade8ad3d0cbee2dc543ec85",
+      "patch_sha256": "58aee5c2c5d36dc5df79505028c820211d4fedeae6279db0661a7ab32dd777d2",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__TransitLoadingSubsystem.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "5dacdc0ddb9fec0bdf5a54de1dcb027f0479e51e8e2e48413fcfc70a12e687b6",
+      "current_sha256_lf": "73a130ba5c7b5d96993c1fd39120ea184bae2d55a61f44de327a0878bbaf5572",
+      "observed_index_blob": "bd9f1f0b60d8e7109d603fb0287f38bb725afc24",
+      "patch_sha256": "f1108507eea8ff2ce28354bd1d0791315e6061c95364bfa6dd1a4d7f554ccbf9",
+      "operations": 7
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__ColdSteelSceneLoot.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "3d08ee59ce13013a6499750c9dcd99f1ad0b028a236c79c84fee3450d57dc6b8",
+      "current_sha256_lf": "a712689bdba86f33c2f9d23a6fa6bdb7381cac6cf1b887b479e94609f33e1f5b",
+      "observed_index_blob": "d2dd723c8fb0b1dfc7ab74be3678e3d9307f5a9c",
+      "patch_sha256": "359b35e09cd5a9461b3250bb9bf3127f58b3eeda00b1cbb09270f6a58284ca4a",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelSceneContainer.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__ColdSteelSceneContainer.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "b0aa6976ca85c7dba260410e3526865668c6f26d678cd0da822dfa075c05360d",
+      "current_sha256_lf": "8cb4cf36b47c35eb00750418fec19767483e6e9764a670077068854ec6b62e56",
+      "observed_index_blob": "ebb5f4561ae6d748fb53d0d1e20bdf671d879d64",
+      "patch_sha256": "78644f1ea071703d62a5aa52fd861fd4fd4fe1a35340d67b3e2314c13389329e",
+      "operations": 4
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelDungeonLoot.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__ColdSteelDungeonLoot.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "9a563929264466db7500044d15ce78c0f07bb83bdf01a60aa7ec7ac255fec4fa",
+      "current_sha256_lf": "4961cb5127425df69fe004e32a827c412a83c0f8a68f69c989af7682cbd9a1e4",
+      "observed_index_blob": "41bfec43a66c04539a9f0e8d2fa11077aed301bb",
+      "patch_sha256": "7c5e0a5711aafe01b28649b49a163359e52150f43ba058599c6b88ba25e667d8",
+      "operations": 3
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelDungeonRewards.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__ColdSteelDungeonRewards.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "222483a2d9bc9f3a1c2d52b9bf0dbd992df5e605f9aac0ff653573a5f78a3de5",
+      "current_sha256_lf": "355f75b69272085f9f4a1b68dcadda0c73f75d1003d705a179bbf9c3532f51a2",
+      "observed_index_blob": "7d3a8e8ca7bef5a9ceb230365c8c10bd30e6073e",
+      "patch_sha256": "c6c6a5f6c4709099388046bf56ae4a1fe50d2ecbe2dc8f710b3255af6d053767",
+      "operations": 3
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelProductionDrops.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__ColdSteelProductionDrops.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "f1299986b14fe91bae7bf217bf1301503b4ebf91eda7459c6054c0fc17106df5",
+      "current_sha256_lf": "89fa82a8ca842666d76981b3bc94e44459321e346c6fda21edbb2ea39a1acb49",
+      "observed_index_blob": "68f680f059a902e486faaebb17281e5df33deedf",
+      "patch_sha256": "9ad98dc3cd3458cffd473d9d74b0d016b1637fb3b2776add4e0c3a19b86019e3",
+      "operations": 3
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "a122c92dcd9fbb91adf292fa43f6fad316cf6385c9f88cbefacf4fe669c30179",
+      "current_sha256_lf": "9bd0fb6655f20eb08e0bd440d298649d5fe870a9a826e4e22e5b15c6df78d1cb",
+      "observed_index_blob": "0c67454df84b8cad2d710b6aaaf617d2d7062065",
+      "patch_sha256": "16bf2158e9c6571050428d692a239d2581ce2539c15ac195a7c583ca1494d61d",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__ColdSteelExpeditionController.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "2883bef50dfcf6014777c69ff233dc1a80ba6214b1430f456997e4b5e5369185",
+      "current_sha256_lf": "b33f508016525f42493d40f471f20c0bef1b8daadd42e4963f9f48d7f73b45a1",
+      "observed_index_blob": "596eb2702b3b8a790edd2ce0c4eeec9ec1e08334",
+      "patch_sha256": "854d831efaa248c2a0843aaf6803fb41e169d5ce5fc529df4f496559c61cda98",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEGameMode.cpp",
+      "payload": "Integration/Source__FPSGAME__FPSGAMEGameMode.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "90f8049fba5c00b3cd31acd4c7352048aaeade6e3205032fe9dfa33acbf40708",
+      "current_sha256_lf": "43129de87eda2b713a38ea845808cbbcaca7abb2f32777d3bfc77b0db9e1b73a",
+      "observed_index_blob": "4ff46e9c4dd25278540ca353ba5aacdf410080cf",
+      "patch_sha256": "16639aa2ee699a79d4a73d01b93803e956177e4bab1a3e5293e0fe01079ca307",
+      "operations": 3
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "payload": "Integration/Source__FPSGAME__FPSGAMEPlayerController.h.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "5ce8e629961d9d937fe5c06c4cf4a7afa6305ccff458a8ee6f6142dd5eb7b357",
+      "current_sha256_lf": "4190ce7f8f7f876e4ddb66de024bf743b25788dad0e77d39b1f77dde00da3014",
+      "observed_index_blob": "ed7130244b153cceb3c99568ac6562e0a3facde1",
+      "patch_sha256": "9f8072855954dfddb19121232ed9e616d927d42c2bc491a48c33ed232523791d",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "payload": "Integration/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "d687786d06ac6d669a856c9e1647c18353b65b4f68c51196a2b0926ff38308ed",
+      "current_sha256_lf": "a09ef417e635fc7cbabf1dfd8fadc5c0f29e1a9bf6c8c0b30706bd827201b8c2",
+      "observed_index_blob": "32448b3e122cac931907e2145b7c5c5b5096762e",
+      "patch_sha256": "7f15af74b3d11642b329c6ba355d6c6655f93641c3b85f5c40290a771db84736",
+      "operations": 3
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEGameMenu.cpp",
+      "payload": "Integration/Source__FPSGAME__FPSGAMEGameMenu.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "7ed515fe87fa87d442438f7b37f156ad6a7460c745a5400c1b117afc4b27c1f2",
+      "current_sha256_lf": "6dde4ceb187feb327a2a0547a1a42433c7fbdab0bd7d135e1dbf3bdb8fc0a9ca",
+      "observed_index_blob": "c763b51d6235fb8eecdcaa8c024bd80ab8c3cf62",
+      "patch_sha256": "83771b6c5ca89c66639de95207a950af69d0e7a69ffdbb8e2164c4aec8c21243",
+      "operations": 1
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "payload": "Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "b8069ef52c99e2720406eba4e7677237804c70ed2ea8bcb147d5ed2fe7de6776",
+      "current_sha256_lf": "6a45fd426f021f187563c4dd7bcc8d37c75ba67ab23ba17013d08364b320fdab",
+      "observed_index_blob": "dde8c5d2a505c36a721bc6c63436631e3de5ed50",
+      "patch_sha256": "51ea9db073ce00512e785ad78425267cba25efc98664ac2882d035710bae8cf7",
+      "operations": 3
+    },
+    {
+      "target": "Source/FPSGAME/Development/DevelopmentTuningSubsystem.h",
+      "payload": "Integration/Source__FPSGAME__Development__DevelopmentTuningSubsystem.h.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "9ec7e72ea0c849a7b5f69f5617773dbe7ca7caa7ac3c0044c02203e936a67235",
+      "current_sha256_lf": "76ae08ef2cb7d590af344ca343cb3580d4836c26892d24b49d3d5c4bc59819a9",
+      "observed_index_blob": "71fb21218976bd7c758ae184db02e2f1fdcbf65b",
+      "patch_sha256": "b44b359cf0b27f6449ac4e7bb9273b0e7b881393cd07f1087b60f22e4fecd55e",
+      "operations": 1
+    },
+    {
+      "target": "Source/FPSGAME/Development/DevelopmentTuningSubsystem.cpp",
+      "payload": "Integration/Source__FPSGAME__Development__DevelopmentTuningSubsystem.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "d846dcdca3024ea396a68d63c9e82304085f8a4cd9e864a7ed0fb9115748197a",
+      "current_sha256_lf": "edd773decbc56e310b2585e33e76a739438be9ad5ff6baaaa2be001534f4ee43",
+      "observed_index_blob": "ca0b1253cea62b83e47f8ac936a9cc7b0497fe99",
+      "patch_sha256": "f243b2e835a457086d61b1abfa44ad23f8427364a65d94ac01730a87b7c722d5",
+      "operations": 3
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+      "payload": "Integration/Source__FPSGAME__Building__VoxelBuildComponent.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "d41e6c5b887cb9f3386d00981303c114c24b17bc2833b2a8c2441e423ff069a6",
+      "current_sha256_lf": "b8e6389fcb876050da89ec21ee8c892a71281dd9a703cbba645abb3efd2a2c24",
+      "observed_index_blob": "e39622d4e51e0e326725ba3e57744e5fd5806c78",
+      "patch_sha256": "7ab126d8fc24f623a92e7969f995b96a8065a18e1ffa66577ba150ca17657410",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+      "payload": "Integration/Source__FPSGAME__Building__VoxelBuildNetwork.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "6365c423f80e5ab34fdd48df8f0d35c764d3076841d73408e5f0e88dc50f60f3",
+      "current_sha256_lf": "90cbeb168b795d7530db2938aa42d8e9f29a07545af7e1bcbe16ca70a1e6e17d",
+      "observed_index_blob": "7426e42d3c794679a5f8a6e44aa7be6605723892",
+      "patch_sha256": "797f09223eeb0109eeb81f26148c8749d10efc9927e8c1c6133acb595b69ec55",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/Building/ColdSteelDoor.cpp",
+      "payload": "Integration/Source__FPSGAME__Building__ColdSteelDoor.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "b60c5dfb7c4e5d3cface27b456831455ab9caab0aed471f2c51cce70e52874b5",
+      "current_sha256_lf": "3bd39fd76a73b41bc58a9242af0d31fd1f1d36488e6a9888faf121202754f4e1",
+      "observed_index_blob": "ceeb769dafa89e67eb961bdd2fc6ab05b7fb35c7",
+      "patch_sha256": "5e7a82b0934c1b8c7238a92246715b44c02ea5a6fe816d6d3355fb20bbd291b5",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/FPSWeatherManager.cpp",
+      "payload": "Integration/Source__FPSGAME__FPSWeatherManager.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "5358b9909c056e4a3ef022faac3850cb6a2f5ae1a911b0e27735320e22403288",
+      "current_sha256_lf": "9f7807b6b2aacc0c8af98ceb92468218ec7c025178c754ac8d5fef0ac8f7d8f8",
+      "observed_index_blob": "faca3f1dbd45ec6c41854b76dcd6087691522c67",
+      "patch_sha256": "11b9f1591ce7f1bc357f85b256f5690b6cc3cad2660add0bde11d9c8769999ef",
+      "operations": 2
+    },
+    {
+      "target": "Source/FPSGAME/Dungeons/HeQueDungeonAudit.cpp",
+      "payload": "Integration/Source__FPSGAME__Dungeons__HeQueDungeonAudit.cpp.patch",
+      "kind": "zero-context-selected-delta",
+      "baseline": "reconstructed-local-integration-predecessor-not-a-git-revision",
+      "baseline_sha256_lf": "12109623543a2155c7271a7e1b7b9bdb303df3d197d87a1460b22d787006e26f",
+      "current_sha256_lf": "3f4a71429b486debce52bef664875b151e65226baff47b79cc6074ff520b8233",
+      "observed_index_blob": null,
+      "patch_sha256": "5041e7fa174d7b14c1441abbadec61dc2ec581954b58af636918b87b9405b003",
+      "operations": 1
+    },
+    {
+      "target": "Source/FPSGAME/Dungeons/DungeonRunFinalBoss.cpp",
+      "payload": "Integration/Source__FPSGAME__Dungeons__DungeonRunFinalBoss.cpp.inc",
+      "kind": "replacement-definitions-for-unpublished-host",
+      "current_sha256_lf": "dd1d7c482acdc3681327b6bba6ac3b14ea7d898ddda95d50033f10b9929d226c",
+      "definition_line_ranges": [
+        [
+          37,
+          53
+        ],
+        [
+          55,
+          60
+        ],
+        [
+          62,
+          67
+        ],
+        [
+          69,
+          91
+        ],
+        [
+          94,
+          99
+        ]
+      ],
+      "payload_sha256": "15c6f670c8986c5e7ad0c6550adf0269129fe4a7ebc6a692bcfa3ef1991295d2"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp",
+      "payload": "Integration/Source__FPSGAME__UI__ColdSteelContainerSearchSubsystem.cpp.inc",
+      "kind": "replacement-definitions-for-unpublished-host",
+      "current_sha256_lf": "6da4ccd9a821a0ba393573f42f68d6b0674b6683f7e4fef98bc64946f27f66ae",
+      "definition_line_ranges": [
+        [
+          181,
+          202
+        ]
+      ],
+      "payload_sha256": "9389ebe6a646b6d6c7255107e33b6de01db5e08bb120f32c5bf4e7e327e073dc"
+    },
+    {
+      "target": "Source/FPSGAME/FPSUDSWeatherExposure.cpp",
+      "payload": "Integration/Source__FPSGAME__FPSUDSWeatherExposure.cpp.inc",
+      "kind": "replacement-definitions-for-unpublished-host",
+      "current_sha256_lf": "870a98cca04621ee754481ab8d0be9c26b8c0878dafdc3d4f317242ab4e5f151",
+      "definition_line_ranges": [
+        [
+          43,
+          94
+        ]
+      ],
+      "payload_sha256": "6d89b566180d920874591aa88a0a9b2a9a1c902f562ef8d85be943d727d4beac"
+    },
+    {
+      "target": "Source/FPSGAME/FPSUDSWeatherAudio.cpp",
+      "payload": "Integration/Source__FPSGAME__FPSUDSWeatherAudio.cpp.inc",
+      "kind": "replacement-definitions-for-unpublished-host",
+      "current_sha256_lf": "a5410c69f53e9b453a744107951fc989943f8340ab6ef292065a5713078854e1",
+      "definition_line_ranges": [
+        [
+          129,
+          148
+        ]
+      ],
+      "payload_sha256": "fab06bd64fbee01000f8623cfbdb862f3b510ade2d1366b7717901cd14f4a8b1"
+    }
+  ]
+}
