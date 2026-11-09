@@ -1,0 +1,207 @@
+{
+  "saved": {
+    "/Game/Weapons/M249/Surface20261108/Master/M_M249MagazineSurface29": "8540e3620854654988fec4cef82437ba73ca25ef4e69eecc6116ed3916ebfbaf",
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SideMagazine30_29": "385edde4fd4c311d8ce07e38b7d8cdee5e2a59f17e3c8963fec4be05d84cd697",
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SideMagazine45_29": "be97a2c9c36520e394fe3367cdc981e0d7ce89e10cd44e3d569ffd0c0a22d254",
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SidePort29": "061c176bb231ec47a9b450d1080951ae4cc33ec665d302e2740532a5351e0c68",
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_m249_side_mag_30": "c28c15051509109304cae8be2c8cf150a86832503746044619831c568441b9ab",
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_m249_side_mag_45": "d7894cb131f56ff12af9eafb5459e81987f0d6327d60c689428f44983a5724be",
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_M249_SidePort": "701464124c097e2f74e357188b3616056ab332d192df758720d079dbb342eeb0",
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_Surface__OldBox": "bb3378dcef4fb881493fb2c3045f28cd9513ce15c4a31e94bcc0233a61c58502",
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_Surface__NewBox": "40914793c7ab8e818cd8e687b846df817ddf8c18d7ef57d681f9f27fbf62c906"
+  },
+  "bindings": {
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_m249_side_mag_30": [
+      "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SideMagazine30_29.MI_M249_SideMagazine30_29"
+    ],
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_m249_side_mag_45": [
+      "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SideMagazine45_29.MI_M249_SideMagazine45_29"
+    ],
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_M249_SidePort": [
+      "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SidePort29.MI_M249_SidePort29"
+    ]
+  },
+  "complete": true,
+  "materials": {
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SideMagazine30_29.MI_M249_SideMagazine30_29": {
+      "parent": "/Game/Weapons/M249/Surface20261108/Master/M_M249MagazineSurface29.M_M249MagazineSurface29",
+      "base": "/Game/Weapons/M249/Surface20261108/Master/M_M249MagazineSurface29.M_M249MagazineSurface29",
+      "scalars": {
+        "Specular": 0.5,
+        "GrainTileCm": 2.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "EdgeHighlight": 0.05999999865889549,
+        "AOStrength": 0.6000000238418579,
+        "Metallic": 0.0,
+        "EdgeMetallic": 0.0,
+        "Roughness": 0.550000011920929,
+        "SourceColorWeight": 0.05999999865889549,
+        "SourceRoughnessWeight": 0.07999999821186066,
+        "Stipple": 0.0,
+        "EdgeWear": 0.0,
+        "EdgeBreakup": 0.0,
+        "ScratchAmount": 0.0,
+        "HandlingPolish": 0.0,
+        "RainSurfaceResponse": 3.0,
+        "SeamEnabled": 0.0
+      },
+      "vectors": {
+        "FinishColor": [
+          0.01899999938905239,
+          0.01899999938905239,
+          0.017999999225139618,
+          1.0
+        ]
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/M4InfimaV3/Magazine_Light_BaseColor.Magazine_Light_BaseColor",
+        "SourceRoughness": "/Game/Weapons/M4/SurfaceStandard20261001/Textures/T_M4_R01_Magazine_Light_Roughness.T_M4_R01_Magazine_Light_Roughness",
+        "SurfaceNormal": "/Game/Weapons/M4InfimaV3/Magazine_Light_Normal.Magazine_Light_Normal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/WeaponSurface/Textures/T_WS_Grain.T_WS_Grain"
+      }
+    },
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SideMagazine45_29.MI_M249_SideMagazine45_29": {
+      "parent": "/Game/Weapons/M249/Surface20261108/Master/M_M249MagazineSurface29.M_M249MagazineSurface29",
+      "base": "/Game/Weapons/M249/Surface20261108/Master/M_M249MagazineSurface29.M_M249MagazineSurface29",
+      "scalars": {
+        "Specular": 0.5,
+        "GrainTileCm": 2.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "EdgeHighlight": 0.05999999865889549,
+        "AOStrength": 0.6000000238418579,
+        "Metallic": 0.0,
+        "EdgeMetallic": 0.0,
+        "Roughness": 0.550000011920929,
+        "SourceColorWeight": 0.05999999865889549,
+        "SourceRoughnessWeight": 0.07999999821186066,
+        "Stipple": 0.0,
+        "EdgeWear": 0.0,
+        "EdgeBreakup": 0.0,
+        "ScratchAmount": 0.0,
+        "HandlingPolish": 0.0,
+        "RainSurfaceResponse": 3.0,
+        "SeamEnabled": 1.0
+      },
+      "vectors": {
+        "FinishColor": [
+          0.01899999938905239,
+          0.01899999938905239,
+          0.017999999225139618,
+          1.0
+        ]
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/M4InfimaV3/Magazine_Light_BaseColor.Magazine_Light_BaseColor",
+        "SourceRoughness": "/Game/Weapons/M4/SurfaceStandard20261001/Textures/T_M4_R01_Magazine_Light_Roughness.T_M4_R01_Magazine_Light_Roughness",
+        "SurfaceNormal": "/Game/Weapons/M4InfimaV3/Magazine_Light_Normal.Magazine_Light_Normal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/WeaponSurface/Textures/T_WS_Grain.T_WS_Grain"
+      }
+    },
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_SidePort29.MI_M249_SidePort29": {
+      "parent": "/Game/Weapons/M249/Surface20261108/Master/M_M249RailSurface.M_M249RailSurface",
+      "base": "/Game/Weapons/M249/Surface20261108/Master/M_M249RailSurface.M_M249RailSurface",
+      "scalars": {
+        "Specular": 0.5,
+        "GrainTileCm": 2.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "EdgeHighlight": 0.05999999865889549,
+        "AOStrength": 0.6000000238418579,
+        "Roughness": 0.41999998688697815,
+        "Metallic": 1.0,
+        "EdgeWear": 0.02500000037252903,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.3400000035762787,
+        "EdgeMetallic": 1.0,
+        "ScratchAmount": 0.0,
+        "HandlingPolish": 0.0,
+        "SourceColorWeight": 0.0,
+        "SourceRoughnessWeight": 0.0,
+        "RainSurfaceResponse": 1.0
+      },
+      "vectors": {
+        "FinishColor": [
+          0.03400000184774399,
+          0.03500000014901161,
+          0.03700000047683716,
+          1.0
+        ],
+        "EdgeColor": [
+          0.08500000089406967,
+          0.08799999952316284,
+          0.09200000017881393,
+          1.0
+        ]
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/WeaponSurface/Textures/T_WS_Grain.T_WS_Grain"
+      }
+    },
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_Surface__OldBox.MI_M249_Surface__OldBox": {
+      "parent": "/Game/Weapons/M249/Surface20261108/Master/M_M249RegionalSurface.M_M249RegionalSurface",
+      "base": "/Game/Weapons/M249/Surface20261108/Master/M_M249RegionalSurface.M_M249RegionalSurface",
+      "scalars": {
+        "GrainTileCm": 2.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "RainSurfaceResponse": 0.0
+      },
+      "vectors": {},
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/M249/Textures/T_M249_Color.T_M249_Color",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Game/Weapons/M249/Textures/T_M249_Normal.T_M249_Normal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/WeaponSurface/Textures/T_WS_Grain.T_WS_Grain",
+        "SourceORM": "/Game/Weapons/M249/Textures/T_M249_ORM.T_M249_ORM"
+      }
+    },
+    "/Game/Weapons/M249/Surface20261108/Materials/MI_M249_Surface__NewBox.MI_M249_Surface__NewBox": {
+      "parent": "/Game/Weapons/M249/Surface20261108/Master/M_M249RegionalSurface.M_M249RegionalSurface",
+      "base": "/Game/Weapons/M249/Surface20261108/Master/M_M249RegionalSurface.M_M249RegionalSurface",
+      "scalars": {
+        "GrainTileCm": 2.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "RainSurfaceResponse": 0.0
+      },
+      "vectors": {},
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/M249/Textures/T_M249_Color.T_M249_Color",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Game/Weapons/M249/Textures/T_M249_Normal.T_M249_Normal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/WeaponSurface/Textures/T_WS_Grain.T_WS_Grain",
+        "SourceORM": "/Game/Weapons/M249/Textures/T_M249_ORM.T_M249_ORM"
+      }
+    }
+  },
+  "uv_channels": {
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_m249_side_mag_30": 7,
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_m249_side_mag_45": 7,
+    "/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_M249_SidePort": 1
+  },
+  "runtime_visual_tested": false,
+  "animations_changed": false,
+  "polymer_metallic": 0.0,
+  "weather": "Existing WeaponWetness parameter detection; mixed boxes use authored metalness",
+  "seams": "UV1 alternate sampling; UV2-6 tangent conversion; only 45-round enables blending"
+}

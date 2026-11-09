@@ -1,0 +1,52 @@
+{
+  "/Game/Weapons/M249/SK_M249_V7": {
+    "expected": "ee0872997aff83a071f3e0764f371dbca6bd38dbe04532e65ae03ad9128aa78d",
+    "actual": "ee0872997aff83a071f3e0764f371dbca6bd38dbe04532e65ae03ad9128aa78d",
+    "match": true
+  },
+  "/Game/Weapons/M249/Bipod/DA_M249_SupportGrip": {
+    "expected": "78427238be5921ba9f792eb522296c1b2a0e257d2b396e398f239509adecd291",
+    "actual": "78427238be5921ba9f792eb522296c1b2a0e257d2b396e398f239509adecd291",
+    "match": true
+  },
+  "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_vertical": {
+    "expected": "211edd5884c73471b00c5bf3bcf02653c964281373c18d8faf227e573190bf6c",
+    "actual": "211edd5884c73471b00c5bf3bcf02653c964281373c18d8faf227e573190bf6c",
+    "match": true
+  },
+  "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_canted": {
+    "expected": "4dbcf79d1b6c6af05097891af009d558e5f0d63fb390423d1c24bae1b4bf600c",
+    "actual": "4dbcf79d1b6c6af05097891af009d558e5f0d63fb390423d1c24bae1b4bf600c",
+    "match": true
+  },
+  "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_prism": {
+    "expected": "727adfc51e870f15ddbe35f99f1a40d5b82ec9edf65a7c94fc013d344564dbee",
+    "actual": "727adfc51e870f15ddbe35f99f1a40d5b82ec9edf65a7c94fc013d344564dbee",
+    "match": true
+  },
+  "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_angled": {
+    "expected": "5a2f1059640a46b4ef6a19855f23b451889d1352dee0fc4d082277413ab960fb",
+    "actual": "5a2f1059640a46b4ef6a19855f23b451889d1352dee0fc4d082277413ab960fb",
+    "match": true
+  },
+  "/Game/Weapons/M249/Animations/A_M249_reload": {
+    "expected": "9a17df9cc09dd3d83fe87ff0e87a47d5c90deebbb1857f4b63f3ccd1873fb10d",
+    "actual": "9a17df9cc09dd3d83fe87ff0e87a47d5c90deebbb1857f4b63f3ccd1873fb10d",
+    "match": true
+  },
+  "/Game/Weapons/M249/Animations/A_M249_reload_empty": {
+    "expected": "0cbcb750771483871ae73ad3fef3f3c4c9a15bac62f14754491f7ad9d4663982",
+    "actual": "0cbcb750771483871ae73ad3fef3f3c4c9a15bac62f14754491f7ad9d4663982",
+    "match": true
+  },
+  "/Game/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload": {
+    "expected": "13733c2ee85b9be1fc7c4c43768868b26108087716e16d58e6226cc1b9dbce35",
+    "actual": "13733c2ee85b9be1fc7c4c43768868b26108087716e16d58e6226cc1b9dbce35",
+    "match": true
+  },
+  "/Game/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload_empty": {
+    "expected": "8dab2303a0e0af4c9a03e3bd75c3c6560c7b1fcbfed81eeaf6507a8011c96a22",
+    "actual": "8dab2303a0e0af4c9a03e3bd75c3c6560c7b1fcbfed81eeaf6507a8011c96a22",
+    "match": true
+  }
+}

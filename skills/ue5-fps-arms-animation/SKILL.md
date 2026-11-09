@@ -73,3 +73,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - M24 骨架与碳纤维后托的快速近战、手指回握与差量分流：读取 [M24 骨架与碳纤维后托的快速近战、手指回握与差量分流](references/m24-stock-hand-continuity.md)。
 
 涉及混合主副手的斧头下劈与恢复时，读取 [混合主副手的斧头下劈与恢复](references/mixed-offhand-quick-combat.md)。
+
+- M249 侧插换弹的插匣肘部、取弹停顿和枪身静止，读取[侧插换弹与整枪随动](references/m249-reload-assembly-feedback.md)。保留接触与当前源时钟，公共 root 差量包含真实父级尺度。

@@ -1,0 +1,21 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249OpticAssets.h
+@@ -0,0 +1,18 @@
++#pragma once
++#include "CoreMinimal.h"
++
++namespace M249OpticAssets
++{
++inline bool Supports(const FString& Key)
++{
++    return Key==TEXT("holographic")||Key==TEXT("eoth_holographic")||Key==TEXT("panoramic_red_dot")
++        ||Key==TEXT("prism_scope_2x")||Key==TEXT("lpvo_1_6x")||Key==TEXT("kv_scope_4x")||Key==TEXT("thermal_scope");
++}
++inline FString MeshPath(const FString& Key)
++{return TEXT("/Game/Weapons/M249/CommonOptics20261108/SM_M249_")+Key;}
++inline FString MovingPart(const FString& Key)
++{return Key==TEXT("lpvo_1_6x")?TEXT("lpvo_ring"):Key==TEXT("thermal_scope")?TEXT("thermal_selector"):FString();}
++inline bool NeedsRail(const FString& Key)
++{return Key==TEXT("eoth_holographic")||Key==TEXT("kv_scope_4x");}
++inline constexpr const TCHAR* Rail=TEXT("/Game/Weapons/M249/CommonOptics20261108/SM_M249_CommonRail");
++}

@@ -1,0 +1,25 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249SideMagazine.h
+@@ -0,0 +1,22 @@
++#pragma once
++#include "CoreMinimal.h"
++class AActor;
++class USkeletalMeshComponent;
++class UStaticMeshComponent;
++namespace M249SideMagazine
++{
++inline bool Supports(const FString& Id)
++{return Id==TEXT("m249_side_mag_30")||Id==TEXT("m249_side_mag_45");}
++inline FString MeshPath(const FString& Id)
++{return TEXT("/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_")+Id;}
++inline constexpr const TCHAR* PortMesh=TEXT("/Game/Weapons/M249/SideMagazine20261108/Meshes/SM_M249_SidePort");
++inline FString AnimationPath(bool Empty)
++{return TEXT("/Game/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_")+FString(Empty?TEXT("reload_empty"):TEXT("reload"));}
++// These are contacts in the authored clip. Runtime reload modifiers scale the
++// pose, ammo transaction, camera and sounds together through ReloadSourceTime.
++inline constexpr float Out=.72f, Insert=2.55f, Seat=2.70f, CycleBegin=2.85f;
++inline constexpr float ChargePull=3.18f, ChargeRear=3.41f, ChargePush=3.53f, ChargeClosed=3.87f;
++inline constexpr float HiddenBegin=1.05f, HiddenEnd=1.45f;
++UStaticMeshComponent* Configure(AActor* Owner,USkeletalMeshComponent* Host,UStaticMeshComponent* Existing,const FString& Id,bool Enabled);
++void RemovePort(AActor* Owner);
++}

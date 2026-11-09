@@ -1,0 +1,2042 @@
+[
+  {
+    "path": "SourceAssets/M249Orpind20261107/author_mesh.py",
+    "bytes": 13071,
+    "sha256": "5ca062c8b1d096c38e1f01a87437f00d5bc7efbe9889a8d03d2100a9898928be"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/catalog_icon.py",
+    "bytes": 3802,
+    "sha256": "64f489516240876f1165bd456936b2688e66060d53aa7e4ac3a12d550593b0e4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/collect_motion.py",
+    "bytes": 2557,
+    "sha256": "871e1dac222a9b0fad5ea781768ac63d60d2238d703dc42a938bfa4ef0867f86"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/fit_motion.py",
+    "bytes": 11332,
+    "sha256": "a287fa7223b9fa8a0e469ccd69bb59c18ef6d57bfdf6b1aed08d86f913138351"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/headless.ps1",
+    "bytes": 940,
+    "sha256": "b0bccb1005fcd0757a741ad65478e78cf3ded220d791734866528b91918adabc"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/import_assets.py",
+    "bytes": 10134,
+    "sha256": "2385a4f25e2f0338590176101092624021342eac3b3646de627fde73fa21754c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/import_motion.py",
+    "bytes": 2055,
+    "sha256": "6aca78a55b3dbde4f1d4a9eeb1f02b6cfb71be068465c6c1d47fa0c22859b1e5"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/prepare_source.py",
+    "bytes": 4164,
+    "sha256": "2d41cfb551d88f0df183feda38151071b25cc6cbb66e019c50f3fae6f21a8141"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/README.md",
+    "bytes": 1347,
+    "sha256": "ceabc830764f1853ab6098e0ae09a4aea25e725940d06af5c616f7bf7813ca6c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/register_catalog.py",
+    "bytes": 4487,
+    "sha256": "0de8153965680061c9175fa1a4ea79eeb0352d507529fe70abb991fff6ae48ee"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/source_geometry.py",
+    "bytes": 1870,
+    "sha256": "ab52328a73850e61fd980d8671a4c0016d3889740072666f7ed2adf6cd0ed98a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/angled_contact.py",
+    "bytes": 1155,
+    "sha256": "cb6483f71dd5a07d153b38993ad1c47d701404f4cb454748d8aa75c40d985138"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/apply_canted_corridor.py",
+    "bytes": 1041,
+    "sha256": "798571de9a5694e8511f4a60106a276db071cc111032c7b8ca814479c1910832"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/apply_final_clearance.py",
+    "bytes": 1182,
+    "sha256": "68ed1a77ba5fa234cce1c26e4e1015614eb3f9b7323591361101af2de0a29e2b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/assets.ps1",
+    "bytes": 1870,
+    "sha256": "f9282697ff27c6b05a35be53ed5a76cfcd4dd5e03dfc6c4e04758625d555976f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/audit.py",
+    "bytes": 2288,
+    "sha256": "abb3fd329430c2ae3fd831f8ca426af12c8ef0bb00983262284edae2da85d525"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/canted_contact_final.py",
+    "bytes": 1181,
+    "sha256": "778a6b9caece7bb0d1a156326b0b82707aff41bd1fc1a3058224bf44591c34a7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/canted_full.py",
+    "bytes": 822,
+    "sha256": "8f1a01e6d80c1108b8349a12d2725943b56cf788a5a06a728afae861af3a6284"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/check_candidate.py",
+    "bytes": 1962,
+    "sha256": "5e651431f8f16f85e3d11e356e0c8a5f38b42eac34e69654d9a63d843dc708fb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/collect.py",
+    "bytes": 2090,
+    "sha256": "133ed1e2ed5d26a4e7bf56dde43fdfeddd4df1c7d22b9b507ef4d6419d8ca0a0"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/confirm_return.py",
+    "bytes": 1084,
+    "sha256": "0370ca311df72efb16ae249cdf3f8137d12d158812bf0e02ca8fc002f0d4fa34"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/contact_grips.py",
+    "bytes": 1363,
+    "sha256": "67490e9bd07f968fe3779ae3a26b12e8732fa284cec7502faca20aca96a05f4d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/debug_angled.py",
+    "bytes": 761,
+    "sha256": "f441e221b4005393155400e33b102faff58d83d648db9f35c3e0c8eea9bf1ffd"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/debug_canted.py",
+    "bytes": 639,
+    "sha256": "413ca9162ccd987ddfadcf896129c6f6fa0a43d8bbed665b0f87fa63b8c3bee1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/debug_insert.py",
+    "bytes": 687,
+    "sha256": "abb2c970fe719a7ad75f0775fec01063dce0ff3e764ea5fcdab3657648db28ba"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/dense_family_files.py",
+    "bytes": 1098,
+    "sha256": "624596a6960f8b7cf5a2b6477695efe559e9b5f4da00d2f68a7738d3966854f4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/dense_returns.py",
+    "bytes": 3998,
+    "sha256": "f2b978e803c62c5155a0198d79a81f1376301ebfe61ae79498f779fc88452db3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/depths.py",
+    "bytes": 5023,
+    "sha256": "c78745321f19f433ca95d8ac3864a432584daa3398635ad795734916f875667c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/final_clearance_direction.py",
+    "bytes": 1924,
+    "sha256": "dcd21f99fcce29c05f24afc38dee9e17e943a316f4a94d8df086bde64308cf0d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/find_canted_corridor.py",
+    "bytes": 1487,
+    "sha256": "7f8a8510960fb370a56bc9bf14cad586b77b9df252741a6cfdefc6cf5bacca47"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/finish.ps1",
+    "bytes": 3113,
+    "sha256": "21d6ac169521fa1116f480ed0f6a70a30a75ea38f330c76d152881849ea1ffbb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/finish_clearance.ps1",
+    "bytes": 753,
+    "sha256": "ad06c05b55c71b7de4f978b1a8d528a186c009c079d536d4142fbf6c3899743e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/finish_settle.ps1",
+    "bytes": 1705,
+    "sha256": "c16cdab502275632aac4ba085f7200c9a28a4d49033b83262c0f84f536734ecc"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/fit.py",
+    "bytes": 9630,
+    "sha256": "219b33da5fc597f64675a187ef8184e31daedf943a44f5b56e70b1ec235fc1c1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/fit_returns.py",
+    "bytes": 5920,
+    "sha256": "f65718fea88983cb51ec31d6af02a534a8e11e2d171ec220c07d28b2ce3e882d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/ik_fit.py",
+    "bytes": 3202,
+    "sha256": "01300792f19018b919cf41c3c7e5e59888a1d7048b79c03d771ce2c4f817990d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/install.py",
+    "bytes": 3085,
+    "sha256": "ec6dfac8be81bdfe524eb0b6c6ee099740fa472cd4c160fb1386361f6581201a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/make_manifest.py",
+    "bytes": 517,
+    "sha256": "f89facd70e4ec1a5f56be01392f12b2b9114067013669a6bf91cdb0a0de977ea"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/merge_settle.py",
+    "bytes": 672,
+    "sha256": "35003853c0d6500473791525673d5c2bf0db27b0d5480fca225466e45427227a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/motion.py",
+    "bytes": 6347,
+    "sha256": "6957db12dc32d303b5ee092150b271cb06ab58a4244aab59e29a041e2a18cca9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/prepare.py",
+    "bytes": 3224,
+    "sha256": "82059271bf3e003c79941c2a033d0d9c970b4cad4cf447a566b1ac79a03b46d1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/publish_profiles.py",
+    "bytes": 4185,
+    "sha256": "ea1b62ead64c1551a6d07265365b9d3d0df90437579c6e92c70f80560f93e81a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/refine_idle.py",
+    "bytes": 1539,
+    "sha256": "293d339bb9c15af8bca0830f459cd925d5103810ec04d484da37d8c798414cd4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/render_fit.py",
+    "bytes": 2439,
+    "sha256": "c7a90b620f49c859bd4602ad41cbcc4e6eab48476178476d83ab8d4cce4ebd16"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/review_final.ps1",
+    "bytes": 592,
+    "sha256": "6e9d0a45d71ef5fdbdc8621db03019085ab164afd267c636fd63b41b30bbb429"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/run.ps1",
+    "bytes": 1623,
+    "sha256": "7fff42c0a48789b4df6b8247937b71ea7271ce4e36bc5762b8680c38a7c0ee06"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/scan_angled_closed.py",
+    "bytes": 960,
+    "sha256": "42f3bc0e608603930cd4e1d5453a732b302f9ae4eaabb78c2420d2631152895d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/scan_clearance.py",
+    "bytes": 797,
+    "sha256": "124b5379dc73c5987bba63ba16f2086fd69efcd0096bfc310a9e92a496b6a3ff"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/scan_return.py",
+    "bytes": 917,
+    "sha256": "abac5dfb6523ab810f83c89109534f278783564b58efc4a3f4653ac66a7fe1e8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/settle_contacts.py",
+    "bytes": 3640,
+    "sha256": "7d83afc18d47d3d15475bec1e0e059c87eb2abea680318e6fed0c908ae4136a5"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/settle_motion.py",
+    "bytes": 5153,
+    "sha256": "ba9545a38fad6e0f6d8854f27488ad4c1818f490b79f375b1e1bf5df6742652f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/sheets.py",
+    "bytes": 1216,
+    "sha256": "5212e8289170e91106e8324ed21d08b05e55b345d20b6908758718b018380390"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/smooth_wrist.py",
+    "bytes": 2550,
+    "sha256": "e7c9fc9664890ae754a9cd1c76b2c537e692f489dcb839eb28289310116f3ca7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/video.py",
+    "bytes": 1829,
+    "sha256": "a7dffbb9565e669daa0091c89ccad8bb609d54343ebf44a2f730f15b6a10f6c8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact25/winding_fit.py",
+    "bytes": 955,
+    "sha256": "4b11b9e9d9bcb181d21649d360289dd48bdb8cedc3510a54f46046ef9958803d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/assets.ps1",
+    "bytes": 1870,
+    "sha256": "c483c812e2589041cd55c8feae6f4ee4ebdfb66ff7c52d6effb24a69e64ac0f6"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/audit.py",
+    "bytes": 2288,
+    "sha256": "abb3fd329430c2ae3fd831f8ca426af12c8ef0bb00983262284edae2da85d525"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/collect.py",
+    "bytes": 2090,
+    "sha256": "133ed1e2ed5d26a4e7bf56dde43fdfeddd4df1c7d22b9b507ef4d6419d8ca0a0"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/depths.py",
+    "bytes": 4873,
+    "sha256": "c34f2fb4df0c7f61e4b361b693fcf66b3988f961ab43092e788feaea4a42ecf6"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/diagnose_residual.py",
+    "bytes": 1030,
+    "sha256": "d79b91e4f581bcc9fb0af8877d4b628ba06a84389cb8bca2802bffd8de134c0c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/edge_clearance.py",
+    "bytes": 2933,
+    "sha256": "6a73c1d555ac3891a6fb90f6dd04451747518c43308889dd6c9070da274a426f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/fine_fit.py",
+    "bytes": 9520,
+    "sha256": "27472087302f181e0d3963edbac651cdcb5f528cdd93e239b03f13b836d77090"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/finish.ps1",
+    "bytes": 1490,
+    "sha256": "88cec8960f00ccef92f51edd2dabc993f9350e93f303b5cca6eee35cfad634ab"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/guard_fit.py",
+    "bytes": 9583,
+    "sha256": "7ec03d89cbb32e9b930082531fdfb4a6ec9ea897e925ea8214f335651aba5815"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/install.py",
+    "bytes": 3407,
+    "sha256": "bcfa29cf729653a9604b011ab60701fd5b7210e37216068bf3e24893858b6df2"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/local_fit.py",
+    "bytes": 9655,
+    "sha256": "9f12396b7493086cbf0cc6c06cfed774bffee5ace4572610e858451d6555dfff"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/merge_protected.py",
+    "bytes": 397,
+    "sha256": "2f23394e707641ec43f2529858843ede0c5756465c878082bcce00fbd0ccfd40"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/native_fingers.py",
+    "bytes": 3066,
+    "sha256": "538f6edd0db3ddf36939e05670d5f22b6e6db147589a56660363e21e9da607c7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/polish_native.py",
+    "bytes": 3578,
+    "sha256": "962afbf5d0da2bed6e21808e9b69072da911b8fbbb6554a07c437729eb57a937"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/prepare.py",
+    "bytes": 1062,
+    "sha256": "20e44e0a008e199ecc3866c2ccab301d1bf124851217a86503e671f33fb9913f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe.py",
+    "bytes": 695,
+    "sha256": "b084b45c3768f27a11f94d5e2e842d0fa382b77bed5000c5c416e7858f94855e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe_dynamic.py",
+    "bytes": 370,
+    "sha256": "61cea321a4fc809e8f7595ca14581ee37c9bb7c1dcc59becfb579c012712200e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe_escape.py",
+    "bytes": 1047,
+    "sha256": "82560f78db45c088a3d396120d787e5a794d1d01859cccb13614a3f649cfffd8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe_finger_polish.py",
+    "bytes": 846,
+    "sha256": "a3854b0288bdc0b8a2ee03bc03408b30e7c008510f16e1c070cb0a9892293177"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe_grid.py",
+    "bytes": 1320,
+    "sha256": "5ec3c817002b2c165ea9b795541ffcbdb86ca2c5ca1e6bede6f9693715d00bd2"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe_native.py",
+    "bytes": 714,
+    "sha256": "3d37ab683f762d4ae078517d0f5749c6d244ef6bbda2636301203363df7541c0"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe_palm_grid.py",
+    "bytes": 1473,
+    "sha256": "c4353ed8fd2bd088c0a55ae29d32b0620fd2f1d8fee944016bea06fa690da61f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe_reference.py",
+    "bytes": 1527,
+    "sha256": "f99bfd2e42200c409d66747901b1b8c3565bb2da8e7fe72850c7c23f1c4c98b5"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/probe_wide.py",
+    "bytes": 411,
+    "sha256": "98afd1ec6d5e11e9ade7af91c01c2b6cf107405ecb795180ed7133c140ef9875"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/protect_family.py",
+    "bytes": 4808,
+    "sha256": "6e184c9d8fa6d780aeec6968364bdfc41b24ea14df9c48e33e849ac989b47965"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/publish_native.py",
+    "bytes": 3508,
+    "sha256": "b1130ecb172675e24d9978cb319a48c6c37c89de4e25a81fb6633b48b02ab203"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/publish_profiles.py",
+    "bytes": 4520,
+    "sha256": "f38e8fcfd2f9408b7787d39ef77639ce2efc8c40386f53bf1c10e693d6a64157"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/reduce_baseline.py",
+    "bytes": 370,
+    "sha256": "1b686471f1d63bcc5f9c4b36d358373fe1f828e2212d6fb9e7ea076744e4165b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/refine_family.py",
+    "bytes": 3445,
+    "sha256": "c3331cafa033a5e9b8f4a59ab8485336a8bd960ccd939f0c3009d94e71aa26c9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/refine_local.py",
+    "bytes": 3499,
+    "sha256": "5f6033de68cc717e5e7cf27f6fffe59fda28cc7dc5edb528deabeba6bf5ba078"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/run.ps1",
+    "bytes": 1623,
+    "sha256": "7fff42c0a48789b4df6b8247937b71ea7271ce4e36bc5762b8680c38a7c0ee06"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/save_clearance.ps1",
+    "bytes": 1545,
+    "sha256": "50f7fe86c73b72b915c980ddae73cde0fad93121f832d9296c7cf8103e47b44b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/save_final.ps1",
+    "bytes": 1629,
+    "sha256": "3a9ac881613c0df95d01e9cc776c785c549e74e81af7cb60360a9ddacea1b2f0"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/save_native.ps1",
+    "bytes": 1634,
+    "sha256": "b142c1e4da283259b7978d6ce3e739200efc643d27128d0e7acfd87266d1f3ef"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/save_settled.ps1",
+    "bytes": 1557,
+    "sha256": "e01c845e753c71c4c7861ae132d52ae1921dcbfb64c0337aebbdbe76c9908e64"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/settle_native.py",
+    "bytes": 3574,
+    "sha256": "beb3e013654c71973ab1f6e1a6c026fd18d6ae90132642e33fc33f47e8a391d7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/sheets.py",
+    "bytes": 1216,
+    "sha256": "5212e8289170e91106e8324ed21d08b05e55b345d20b6908758718b018380390"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/video.py",
+    "bytes": 1829,
+    "sha256": "a7dffbb9565e669daa0091c89ccad8bb609d54343ebf44a2f730f15b6a10f6c8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Contact26/wide_fit.py",
+    "bytes": 9251,
+    "sha256": "1a21506408d981a981dccf6e3bbb249839412719ade0be2c532cb24f39dbb077"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/assets.ps1",
+    "bytes": 1386,
+    "sha256": "76be212856e3e6e57e97534a117feaa8c3818a56def5aeb1d1e772b6e2abbe45"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/author.py",
+    "bytes": 5635,
+    "sha256": "0553c7a7c31ceb89fe6251dab18b5703dc66e4b0f93dadc8bfd2b3b7cef79e6d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/collect.py",
+    "bytes": 3382,
+    "sha256": "528fc2bcb920b2398cd953b07e8192c79a23b099a0da33549f39e2b1fd6d3dad"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/diagnose.py",
+    "bytes": 1732,
+    "sha256": "17bdec841ce61374a5ba6fc99516f50bc9ad81a5f64b73a854703bee9dcfdb78"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/install.py",
+    "bytes": 3245,
+    "sha256": "3014d47d0a2c6c44d89351bc3c22fee9ae595936e0ae4238f486574f9fcff44a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/README.md",
+    "bytes": 3996,
+    "sha256": "d0a223ffd5a1310565e599ede9f76f22e0dc12a46a4e6894a4536332898ded55"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/read_saved.py",
+    "bytes": 2475,
+    "sha256": "507fc7fc22da96543d62e18ffd71342ddc91b86ba7988e6387f86c9042cd03da"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/run.ps1",
+    "bytes": 1527,
+    "sha256": "007ba42e40e362e245d5b5f59f3f001711e96745f5e297f0aae4d0e6f462ebb4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/save_and_read.py",
+    "bytes": 211,
+    "sha256": "147e27e30ed856403d600d321dd8ecb9c2a86aa527f1e450eae419e9ec7763b2"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Feedback31/verify_runtime.py",
+    "bytes": 2003,
+    "sha256": "d8503665663ecb1a1ba33c1be0fc01155c1d8c2acfc13bb83aa141c1af2f4797"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Finish29/bindings.py",
+    "bytes": 2121,
+    "sha256": "f275364f09c370c4f560c2f7f4d44c471ffa7632ed40b9db8773faa08587ffda"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Finish29/inspect.py",
+    "bytes": 3942,
+    "sha256": "b2c6c71e063d6a2632933901f6d90642f2e7cfffa89b803e1482e1b63d2288fa"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Finish29/install.py",
+    "bytes": 9354,
+    "sha256": "f99e8ce031f7e14a045a181057e3c9ec1d3582db99587e102a2763fc0f35feb8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Finish29/publish.py",
+    "bytes": 189,
+    "sha256": "4ced59489184ac1576508d79b1477af453b9bad8a34a63f355c717d293bba4a2"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Finish29/read_sources.py",
+    "bytes": 1067,
+    "sha256": "e90b3f4a729a0d503195ed88c777bea0156fe1323996d74afcac8c1a22956c0e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/FireAudio/import_fire.py",
+    "bytes": 1674,
+    "sha256": "ee290ad873f42b91fc7b4aba50e5e59949cfc02ac7acf07cfd4a136d09bf51d2"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/FireAudio/process.py",
+    "bytes": 1889,
+    "sha256": "bca5d740f6c714f66db76cc6ba057f581adef8a8553f0d58b04c7cc99fda93eb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/analyse.py",
+    "bytes": 1576,
+    "sha256": "a7a5566241fbaf846805588b278ce2d9c9592cabf851193c030bce5774583cc6"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/assets.ps1",
+    "bytes": 1386,
+    "sha256": "76be212856e3e6e57e97534a117feaa8c3818a56def5aeb1d1e772b6e2abbe45"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/candidate.py",
+    "bytes": 7112,
+    "sha256": "4b178552d6fc368340dca25c78a0f0e82d1acb36543bfec7cae3cade3dd9714e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/collect.py",
+    "bytes": 2107,
+    "sha256": "8efcfa1ac9d5b6e20f856a1e10165be5b6e2fb1100e04541c482f1eb5934821b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/common.py",
+    "bytes": 1375,
+    "sha256": "c406a004b4aff9a4fa53fd1e79efc1aeb3870a518838af9e7e7499ad01b795de"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/diagnose_arm.py",
+    "bytes": 1356,
+    "sha256": "3878130287a3996e248a61bdd15345e5d30c3e6a14b3c3f4d00a9f8b9a1f75ac"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/install.py",
+    "bytes": 2756,
+    "sha256": "9b6e63299469c1797832c0247368b2cda3a30881eb8db59c4b9ea2e009818565"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/publish_native.py",
+    "bytes": 4042,
+    "sha256": "801f61db94e92e91960e207282c028f72073f951b4a888bfb7aae7819ce94cf8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/README.md",
+    "bytes": 3942,
+    "sha256": "4eb2a29e3884a532140499a36b7a0729ecf1604626f96b6e47b40c49e01c7a92"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/render_native.py",
+    "bytes": 3223,
+    "sha256": "51319f84d70f7140d9e8e8e30cce4d2ebf73fd373564b8888d601b7004ad5064"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/run.ps1",
+    "bytes": 1527,
+    "sha256": "007ba42e40e362e245d5b5f59f3f001711e96745f5e297f0aae4d0e6f462ebb4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Insert30/verify_native.py",
+    "bytes": 3221,
+    "sha256": "e378182cb8e7bf3a638ad4edfc78d11eb702fcaa5b09767bc3b6c42ea626b80e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/assets.ps1",
+    "bytes": 1878,
+    "sha256": "6050dabd2501ab4cccc5b9a60ecd18746a2d527f6278ae399f4948d5ed985274"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/author.py",
+    "bytes": 9697,
+    "sha256": "47c52e0360748a4e14c20d511709c6a0e6a5f0999cc44820bac7f9716c310286"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/author_idle.py",
+    "bytes": 2004,
+    "sha256": "8b3185b58b7d8d49c17fb7f8087b9a373845c1196ffac0a3278756aa79430dd4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/build.ps1",
+    "bytes": 1694,
+    "sha256": "2920b32c80d13960b78b73827d06dda34ec9b54c25732ce3ec26a04515da715c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/collect_idle.py",
+    "bytes": 1453,
+    "sha256": "1a30930b516c83705e7dd0a2559d4eb19c4048746d8149725baa82450a841477"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/contact_depth.py",
+    "bytes": 1500,
+    "sha256": "f9f5762267773347bb7eabec0a67f5fefb6b80012a996dc4da9a6fca46921622"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/cover_lock_search.py",
+    "bytes": 2281,
+    "sha256": "bd5aa97851025259a5d39cc9b07bb0717ec1b128bb95f1e80652d9231e9f1c84"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/finalize_evidence.py",
+    "bytes": 2700,
+    "sha256": "c940756946c00f345f07bbaa35f2b8e95390c10f85d4cee18240f287d139577f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/install.py",
+    "bytes": 3916,
+    "sha256": "00844dcca9dc0e0f7c5515883b223ca28268ec06e19fbb988b6e1607ef46fe40"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/install_idle.py",
+    "bytes": 1683,
+    "sha256": "f60e2bfc0526663f77389a0fa0e7d1ff1460106737b8dd84a3befe9e11a66c73"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/metrics.py",
+    "bytes": 1772,
+    "sha256": "6785907fc0d0e6ac8c7c6794a8d585abe8499fd61e583804362b3a9d516c0fab"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/README.md",
+    "bytes": 3922,
+    "sha256": "ba47b56db08d4d076b2fa09a7c791b3f6835cc14b18292b2f58ca80582c7c392"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/render_contact.py",
+    "bytes": 3015,
+    "sha256": "18fef66cf95e2d0efb18abcbd84da3cca0cd145bfe5cb7b5d46b93b759b9785b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/render_contact_fixed.py",
+    "bytes": 3055,
+    "sha256": "80c6558be9416fc0947dd9abe5db1e0af9324fd59c33ff72a8aa29d2bb9f4449"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/render_press.py",
+    "bytes": 3048,
+    "sha256": "cffafd40440ff58112b63479293902c6b4c781f3f6b14689b57fe8b96c744a7b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/render_press_fixed.py",
+    "bytes": 3061,
+    "sha256": "bb945a8e248326cd8f36cc019d661da19670e993e22083068ad4b71368003918"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/run.ps1",
+    "bytes": 1623,
+    "sha256": "7fff42c0a48789b4df6b8247937b71ea7271ce4e36bc5762b8680c38a7c0ee06"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_contact.py",
+    "bytes": 1636,
+    "sha256": "2d3e4472ad5c256b7cb83c5270bdb60f94f968da59405e8e33af6a5b1dd294e9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_contact_final.py",
+    "bytes": 1698,
+    "sha256": "606561b6414fa89c881bbbff0c01b9d777282283ca5325670591383807f4dd98"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_delivered.py",
+    "bytes": 1690,
+    "sha256": "050c1bff91b8a57561fb44ce73ebd7f21ffc2ad291ef8746662a480211c3eadb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_delivery.py",
+    "bytes": 1694,
+    "sha256": "17fc121e55ce3319c141c85f0889ce974779338a0d0b01604ca2baa6b0305637"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_final_vectors.py",
+    "bytes": 1814,
+    "sha256": "c1dc3caed83e02e39785a11c7cc3ac5d144f714b1c31d8375c444198c43f8a8b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_normal_vectors.py",
+    "bytes": 1815,
+    "sha256": "f37f7ee23945b344c8ef1c6b90df63bf2fa49c4a7a86580719622b0a9fd6cb3c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_release.py",
+    "bytes": 1686,
+    "sha256": "598e8d3fbf7a7fe6c63051228b47a623917374c481735d6510c66b3c96d1a56b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_saved.py",
+    "bytes": 1689,
+    "sha256": "ffc158769730cec7721b71bd27cd908b4820f63f7050e2374172efe005924587"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_surface_final.py",
+    "bytes": 1698,
+    "sha256": "2751b20c2c02d5eb80a3fc6e854aa1ead013d16457ae15b423f3250db0c17e15"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/search_vectors.py",
+    "bytes": 1740,
+    "sha256": "b22dfc7c02fcdbac3c5813dbb10fa7b990ef4a2b05f5329276548a5d6e7c7b0c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/sheets.py",
+    "bytes": 1195,
+    "sha256": "95969e3aced300f7d68b25b24228659dc2b47cbf87bf618d8a165230dba6e4f4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/surfaces.py",
+    "bytes": 2414,
+    "sha256": "820d4d469cff058049b415968ceecfcc5805a689a9c2984cd41b5234e0e45aea"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadAudit21/video.py",
+    "bytes": 1727,
+    "sha256": "298e96814e0ee2c0b41151b6028dd0f7e0fcc9a89aae0909856f4f856a276ad7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadReview/clearance_field.py",
+    "bytes": 952,
+    "sha256": "11fe2c77033618f6bfd3df6a38d5ce1bdca74c467820582ef72a56e0b16d8074"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadReview/contact_sheet.py",
+    "bytes": 4244,
+    "sha256": "0ae77671001b6241208df6a8e20239d126bfa5a638bbbacd635ae0a03e1eaa56"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadReview/export_poses.py",
+    "bytes": 2819,
+    "sha256": "ceec9da8b8d7691747270dfecf3957b21cb58272aa7c63d88f7c541459b578bc"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadReview/fit_contacts.py",
+    "bytes": 8498,
+    "sha256": "99a26f9949eb40580ae5c43c66753352e76cea4ea6053268a6b168629bc79ec4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadReview/import_reloads.py",
+    "bytes": 1128,
+    "sha256": "2235cdf92053955679f15c3a769ca8371f9ba00daacba35ff883b43bc246265f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadReview/measure_surfaces.py",
+    "bytes": 6753,
+    "sha256": "9be2d68d1d4d1865318e940a501fafdbbfcfccce088b5c105900a626f1c33313"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReloadReview/strand_fit.py",
+    "bytes": 4074,
+    "sha256": "5d0ae80b5c1448262ce90b569a9d63590ab05c5ff460f183b7010c74e5669dd8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/arm_pose.py",
+    "bytes": 4826,
+    "sha256": "e682c550c9080372c159d7601f8f987810d31f0dd07ae1ae5a1337cd8344f18c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/build.ps1",
+    "bytes": 1415,
+    "sha256": "96c7b21bf71612e10eb14cc913a742072c1ee9be9cfc7bb7a08e51dbf6b44ed2"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/collect.py",
+    "bytes": 2082,
+    "sha256": "f07bb67e6284e18950594d86111884c81292897e02e1c1a99f5cc3c15b08f0b6"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/import.py",
+    "bytes": 644,
+    "sha256": "bb08096033cb8a387828dbe36887f771f8e8044b86b52bca2ee78036158e080e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/inspect_saved.py",
+    "bytes": 2840,
+    "sha256": "761f4ff59d20bcd45c472511646c739cd5c0c94a0d68c92442d89ee9a0a17350"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/optic_geometry.py",
+    "bytes": 2056,
+    "sha256": "021b307f245e771f8e6bab21818eecb2846c3fac49ab57f5cfe0cb8a9b69e949"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/publish_catalog.py",
+    "bytes": 1941,
+    "sha256": "68f47911355ad81e588a70d83386b7cb0e825f8ee1c0a44978d7e98c4b0534af"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/read_saved.py",
+    "bytes": 2345,
+    "sha256": "74904720ac0caabcab27bd915cc5e751b447a35152042193c5da4816563cb758"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/render_arms.py",
+    "bytes": 3841,
+    "sha256": "48e5272f27c105e4c116d05307910d4b726a21bf4f18e615038c01d87146c5ed"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/render_optics.py",
+    "bytes": 1965,
+    "sha256": "3fadf5a13380c379899362810302d1c5ca9aa67b92e5e73bd96b8df1a53ef77e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/render_optic_final.py",
+    "bytes": 4213,
+    "sha256": "ff6d9a5096edcba98fdf8fff59d34af376e79f6a72503526701ec20e322efeaa"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/render_saved_arms.py",
+    "bytes": 1529,
+    "sha256": "37594c8e8f65f52029d9ad7585dc29662fbbf6f770da234e099e39d68eeb55b9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair02/run.ps1",
+    "bytes": 1333,
+    "sha256": "2913ee7fc1044cff27e7515e4c3c179b2e9a85824fbea92ea5492b86def1d501"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/arm_refinement.py",
+    "bytes": 3650,
+    "sha256": "138a3b73de1334ccea2f811884664e787c5a1f0f97a4886ba07044f3f7194fc5"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/author_mesh_before.py",
+    "bytes": 11360,
+    "sha256": "a0491d8c71af793d9acf4117481e9e2ee9c875b2f7e6ff42c7ac0dbf8ca230a1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/build.ps1",
+    "bytes": 1416,
+    "sha256": "d320749c8bb0da14c9ad6e6e74e609400187e5453cc145dc44f25f3dacb3e386"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/finish_blend_material.py",
+    "bytes": 757,
+    "sha256": "ff0b8c4141525d2d05e83915073564b6cdc5dacf3e931f8d1e7766ff50a671d3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/finish_housing.py",
+    "bytes": 656,
+    "sha256": "5d9b5d197435b3737129b9b0d0b5e003794237cb8c7e503e3fdcb61aac5372cb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/finish_morphs.py",
+    "bytes": 2227,
+    "sha256": "835a222687d4bce81ab49f3f0b1a7298531f07e1e487ba2bf5c454f98ba773cd"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/fit_motion_before.py",
+    "bytes": 8975,
+    "sha256": "7e5d3dd1fc868a6b2833408a1294db0d5b06dcc2184c675ba4c5344a1bb01943"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/import.py",
+    "bytes": 1818,
+    "sha256": "2703921ce91f62d2e9e8e3604430bded1eaff0d079c7575ecea3124d8e21ec10"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/import_assets_before.py",
+    "bytes": 7747,
+    "sha256": "1d9a619704b07164cb8fec05feb329b3c8d5d771b9ab9c5e17623dd0c22e4493"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/inspect_fbx_uv.py",
+    "bytes": 655,
+    "sha256": "01e4d1e7537fdbd756c85ecb401cc77a6badf124874e942926d9afe86d71ab3e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/inspect_v9.py",
+    "bytes": 853,
+    "sha256": "c45032a4955c2e0efc1136c0b48f7ca738c75fed098484d47e2300d86f6f4e25"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/make_layout.py",
+    "bytes": 1481,
+    "sha256": "5286bd259f597ccad1d37e5c1455f95eb5618a330479fdcc3bb54a6039b79b37"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/optic_geometry.py",
+    "bytes": 1616,
+    "sha256": "435cb6b741e98f193d1ef07b75b03efa86d4ba30052a2da4a950972360e873f6"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/probe.py",
+    "bytes": 2219,
+    "sha256": "5e27ae86ed6e9f422e0de8738a4d429db40ace01a19f16640ad665698d59da7c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/publish_timing.py",
+    "bytes": 943,
+    "sha256": "9076f86fde42a49d30b9745f1c2ddd170bdbee5bdae4888b2d52d61849c68456"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/reach.py",
+    "bytes": 5397,
+    "sha256": "4693cdfa655c1019963bf42ebbf1856fd48d891cdb576072e7d5a29760c0e892"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/read_saved.py",
+    "bytes": 2779,
+    "sha256": "0a21885828ccb1c7bbed6e555752fd73b5e903fc17f2920e75f12182d15dce1f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/render_candidate.py",
+    "bytes": 1023,
+    "sha256": "80b4b8602af6267a50bcb11e027a8088e94b0613a199f4a423c895b67ad3350b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/render_optic_final.py",
+    "bytes": 159,
+    "sha256": "763550a68b29f109d10ccfa59118ec7c91525ea6bb50e3204f9c77651b44eeb7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/render_ue.ps1",
+    "bytes": 1113,
+    "sha256": "ed87963c683748d31a2e8487b2e042476f13d88407574a8d2ddc79bc10468fbb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair03/run.ps1",
+    "bytes": 1510,
+    "sha256": "192fda0e5a969951274aae6f5376942c850595c4423469daee1efe7d8aed74b6"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/build.ps1",
+    "bytes": 1416,
+    "sha256": "be5a59f0d631eec203becc3d07cb88bc94ef9e47bf77256823f33f1afca35e84"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/factory_layout.py",
+    "bytes": 682,
+    "sha256": "2ea020c0ab9dc037413c9f6775746d230ef1246d8811b1858509205a3a7a3f75"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/import.py",
+    "bytes": 1731,
+    "sha256": "96db288f4bb98ce90fe12515570cb916a3f910a4727fe713a14e5aa606df035e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/inspect_left.py",
+    "bytes": 2926,
+    "sha256": "17bbe4a8d51026fd934ff32ef5477e782655caa4025fb236a9f5e6caffeeb273"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/motion_clearance.py",
+    "bytes": 3092,
+    "sha256": "0b2d1eedd0ac97960abb097ba625227e11670c933ab85f3b8ccf393882723d86"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/optic_geometry.py",
+    "bytes": 1257,
+    "sha256": "f998d2cdcd856aaaaef8b320472cb616dabfb9a2aec15fbfc9cfeb16cc4ef722"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/publish_factory.py",
+    "bytes": 2494,
+    "sha256": "6926ecf97c01b5eb162c9722dbebf9a85d39b5df65cd6fc7f57d6136b224745a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/render_factory_icons.py",
+    "bytes": 3173,
+    "sha256": "bd820dc6319e74373d1c16f7e13c44ea9bf2ca31812cc5e52b1b26ed42f20c29"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair04/run.ps1",
+    "bytes": 1511,
+    "sha256": "f8fc7d763541fee9bf52ffc40e357e369dd1f9b93700b65b325857a4df719271"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair05/import.py",
+    "bytes": 4405,
+    "sha256": "1b53b6ef8cbe74eceecbf1cd49dd731a97d09e9a60a07c44cc993df560b010f4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair05/optic_geometry.py",
+    "bytes": 2208,
+    "sha256": "b5d1253891db6e51f782978fb9823ec030c87373eaeb35e8478c7e4eb3f05f2b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair05/rail_contract.py",
+    "bytes": 1650,
+    "sha256": "712e503696280e00740407f65d6429f96935285a7258128c5a802caa699d2e21"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair05/render_weapon_icon.py",
+    "bytes": 3212,
+    "sha256": "90794297b1012e672d2a5c978c09936582fd101afe88a007493d52b987ae958b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair05/run.ps1",
+    "bytes": 1511,
+    "sha256": "85e6d3048fd15833ee9b37ae44dcd567fe55dbfcd20eff4bd8d89214a5606b5a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/aperture.py",
+    "bytes": 1736,
+    "sha256": "546544decaecef93913eb956fb5802d3c9161ce8508aaad4920f62d4a7ab20d1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/build.ps1",
+    "bytes": 1380,
+    "sha256": "d18113cdc130caeac50aeb1a9594d4eab3d057011e50899990653be9d1e18b64"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/check_candidate.py",
+    "bytes": 750,
+    "sha256": "9388f15948a5ae85ba10fcbc3e202743bd50f19760c8288046e7cbc3cb8d86d9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/collect.py",
+    "bytes": 2868,
+    "sha256": "81a2ea75306b68f1ea77ed8f67ccf54dd10640fe586661032e572ba78061323c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/contact_sweep.py",
+    "bytes": 4094,
+    "sha256": "0c934f04a56d0c6b87c8fec0f6eb3cb70c9d68ea7c6a56fdb4ddece748ebd25b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/cpu_contacts.py",
+    "bytes": 1170,
+    "sha256": "888ebc2a0149f6557a9ac9c1c56595fbd7dfaa4d8a7a73152f66949ca3bbb7cc"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/finalize_report.py",
+    "bytes": 1857,
+    "sha256": "7059d1a1197457e4133bd00d9213420edf48a73cfcc1efd213ca529faa3e6da3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/import.py",
+    "bytes": 3335,
+    "sha256": "78c938950e4abab0b50fff373b31ccdc83191c3f6fe0d2e3d00b5d121619d819"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/import_reticle.py",
+    "bytes": 3654,
+    "sha256": "1f92c2a3653354b3044f00f94e30365a001602143275cf149b28eedb10f9fe88"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/motion_clearance.py",
+    "bytes": 694,
+    "sha256": "b200f0966c6d4ec4366b9b628e9ddae66b4da6c2a6eae594275f86dad2b2501c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/read_bindings.py",
+    "bytes": 608,
+    "sha256": "fbc47692f759c3bebe71b645abc136d7f745e8c632ca700e90f3b7cb0e16d1f9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/read_reticle.py",
+    "bytes": 988,
+    "sha256": "2eb4b0c3bef39cb7f11a828c1e3da3d28ebc163c476732ed05c11ea226039702"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/render.ps1",
+    "bytes": 1786,
+    "sha256": "91410cd4dd4718c503764e5fc95c847d530f95442bd7d4921f3b05f04887d7b3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/review.ps1",
+    "bytes": 596,
+    "sha256": "b1537e9665a21b0dc09087ba8b9ce01876ee4696fa992932e642bfcb8cfa9591"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair06/run.ps1",
+    "bytes": 1511,
+    "sha256": "f27932146731aeafbadaa7c99ba349e51cb1095f4d5c2fb9abc14b2e14b4a3a7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair07/build.ps1",
+    "bytes": 1436,
+    "sha256": "902efc3267800eff1b8c920519d4481c12bc78d0a4a11074f56bb063c167d7e3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair07/import.py",
+    "bytes": 3736,
+    "sha256": "fe6fa8eccd040f10835719b502a377e7418f82a1533bbfe6d92ec88bad8ddf05"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair07/publish.py",
+    "bytes": 1564,
+    "sha256": "12fc4f623b13e0209cf07f51e1c4c3beaf4efcdf9823b4038a70142ccebcb00f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair07/render_weapon_icon.py",
+    "bytes": 3240,
+    "sha256": "cbedfacaf96cd5f7c7afc64af15f25fa01c4efa090e45a557616a1f6054f4b51"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair07/run.ps1",
+    "bytes": 1533,
+    "sha256": "e7ac383ed02f4d7e85f77a833fd92233d5055bc2c76e8b4a4e3c0e8152281e9d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/author_bipod.py",
+    "bytes": 4247,
+    "sha256": "372b2611d3c88d24308b18e678f005615a3cb67fe1e915312906e3c4fa995bc2"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/author_melee.py",
+    "bytes": 10354,
+    "sha256": "8cefab4746c7c918c91eddf8cf64a78f6d80b599ee4c44407e49bef88887cf5c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/build.ps1",
+    "bytes": 1436,
+    "sha256": "27af4776a6f609ae95a2af06bc011bdc1135f9e9397cd228e1d953126e6a0d6f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/check_saved_melee.py",
+    "bytes": 2227,
+    "sha256": "e670f27f74410a8934a1799e1f07ac0775147c3e31d5685d6495b30043069191"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/collect.py",
+    "bytes": 1143,
+    "sha256": "1a195883671d9793a4e299ed3e95322d1ba2c1e2cc4f62df3631acce2740ea6d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/collect_model.py",
+    "bytes": 1084,
+    "sha256": "eab39264f3db828b6d5776e576c6ccb94cd8bd51dea3a7f8e8ba5d6159843307"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/import.py",
+    "bytes": 4467,
+    "sha256": "9b8d8294f3ce7833b0d24590a240c734a40efa81e9864aa64255147dd31652ae"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/measure_melee.py",
+    "bytes": 1662,
+    "sha256": "c29e8423c6a4097c7d3e1b5c68dc9a937a09b1c4ec42c7fdf7512dbc2a751576"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/prepare.py",
+    "bytes": 1223,
+    "sha256": "d7fd38dfbb94ddcd01bb1d13b00ddb2c345d4f7d886fcd55d4005942f210dda3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/README.md",
+    "bytes": 2922,
+    "sha256": "72801971003e7f76b28184473edf66ee2df355eef876f6d2d17d52db5d664d90"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/read_saved_melee.py",
+    "bytes": 878,
+    "sha256": "454945f7ec1f3041650b1e35b32063c176d26c7a943788c572dd267f40a6dd0a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/render_icons.py",
+    "bytes": 3292,
+    "sha256": "04bb114320d076f1a040a2b5052651060e3910dd569a2febad302a1bea7381a9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/render_melee.py",
+    "bytes": 3754,
+    "sha256": "af6cd4f45d0219143759dc77057b51c903be7267f1ed37995457f535922a4631"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/render_native.ps1",
+    "bytes": 1787,
+    "sha256": "c12f04e6ff6e27c78bd228ff9b7919756b4b02a5b786aeadd59d82e386640793"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/run.ps1",
+    "bytes": 1533,
+    "sha256": "cf8c9a9c9b0fad935c9c9ec3dc4e9971b0f5f06ec984594b3d55ff8345b0b40c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair08/save_dense_melee.py",
+    "bytes": 1848,
+    "sha256": "693eac7122552d633b769e1b3a54969b63e7564aca3d20416e51b35888f59a31"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair09/author.py",
+    "bytes": 11290,
+    "sha256": "e78536eefdfc5f8a2892a049b4f26dc5cd2207e2611abc524aef61ccc9602eb1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair09/build.ps1",
+    "bytes": 1436,
+    "sha256": "16a0acd42db6bdd3ec94e150db1d5ff82f86107be22a3b94e5e36447cbd6f469"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair09/import.py",
+    "bytes": 4180,
+    "sha256": "838eaf04e675757d23ef7b64120b332f3844a9298def97a9f496284040fc0368"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair09/motion.py",
+    "bytes": 2285,
+    "sha256": "a1795f3da47a3022423ccfd046f7d6983cf02d24341a397b556bdc3386e2b635"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair09/prepare.py",
+    "bytes": 730,
+    "sha256": "5da298bce4d3b53770a2fc1e91ae294e6e5032c9c5863a9cbbb57e760046f3fe"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair09/README.md",
+    "bytes": 2154,
+    "sha256": "d2878f89694c52305a1e16d8f5a07a080d74dda49e547823973846d616284d76"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair09/read_inputs.py",
+    "bytes": 2094,
+    "sha256": "dcd745ac21889ce3bc5ec725961f9c83cda38f54e7471b9135810325f5a81e3f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair09/run.ps1",
+    "bytes": 1533,
+    "sha256": "68535317c7ea925e7eb20785f0556004e6713a22a35eee45857ae926374760bb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/author.py",
+    "bytes": 14436,
+    "sha256": "04f0ad17e90b38c6311ba1de805b315b97ec71fba8c593717b6f31e3ddf0a0b3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/author_support.py",
+    "bytes": 2800,
+    "sha256": "e037c780bf06e5e80d81e905c4bf8516a6b5c3fe28a85d9cc3c66e6c79000c16"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/build.ps1",
+    "bytes": 1436,
+    "sha256": "2016a0f23c966b3cacc746c7da2a4342609fe18476182c96656cd8dfca449bd7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/collect.py",
+    "bytes": 1798,
+    "sha256": "3c94cc948f9db83297281d2e49cd6f8a5fd04bfac8347cb7e397d4695c69d67a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/collect_support.py",
+    "bytes": 1016,
+    "sha256": "746dbb91a52eaf4506cae91464611b884689173e97216472782f713258ba9ae7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/collect_vertical.py",
+    "bytes": 1431,
+    "sha256": "84f7a9d76e18a380abcfeec80cc738aea9b8b18fe5c633a66bdbd9621ce90929"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/final_review.ps1",
+    "bytes": 849,
+    "sha256": "0d0dfe09b9554e0c172a568484642a4f4192889ce191515370ea27ff6a3d3ddd"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/finish_report.py",
+    "bytes": 4898,
+    "sha256": "93452478e88432d0409073bb04053d32e46790feb97944c23ae99890ab20ccd1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/fit_digits.py",
+    "bytes": 2758,
+    "sha256": "2f8a800e6cec08b8eec4e51a8203567e0352753f4f4803c7233c54fbf2f1afea"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/fit_hold.py",
+    "bytes": 2188,
+    "sha256": "e9ba3f19e103e590cd830180bce570578319b92615efb5c4b468432b715b99c7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/fit_hold_surface.py",
+    "bytes": 2132,
+    "sha256": "848b2aa1b7ec3ac07d647031f06fc2e191c32c344e3b2e929fefca22c7f5dc59"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/import.py",
+    "bytes": 1057,
+    "sha256": "42b365bf06c4b0e72e72f61d75fa02c5b8eb7e508492ae46eca7889110619164"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/measure.py",
+    "bytes": 6029,
+    "sha256": "b52fc7e824908bf1ec3e2855078793bb163a6e36802d6fc499dda051c2ac47f3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/motion.py",
+    "bytes": 2361,
+    "sha256": "0b2793fe9de041f27cda4fafc3b501028756a9186733739959d53f51fd439302"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/native_contacts.py",
+    "bytes": 2313,
+    "sha256": "1946419b1186bc9ae72ae09bf645b5f5f6ad519448b8a7569421aca0d5b65366"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/prepare.py",
+    "bytes": 862,
+    "sha256": "a891e01f1c85bebaa754107e7226f864e3e1006ce99048f0e7f03cc15db7a4c6"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/prepare_hold.py",
+    "bytes": 1155,
+    "sha256": "fefe38ec4687ea54926db6a47b5cfc462f3f5ae7e376b9f1c2bdcc58cdef3ac2"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/publish.py",
+    "bytes": 1675,
+    "sha256": "d97a990cee070a1236269b3a9062516b40b6dbed56d6e23a8304a02d175a5959"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/publish_review.ps1",
+    "bytes": 110,
+    "sha256": "0904ba571eed4d554e1dd385a3ca076280888d7444fb2db9522778e421b6d859"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/readback.py",
+    "bytes": 722,
+    "sha256": "882528ce5f76c4d3e677329b06dfed16bab9540034a74bc9612849b6a4aaeda7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/README.md",
+    "bytes": 1768,
+    "sha256": "fff40e5e9e0834ef508bfbb6740e736dc3e05a215d683224a5008543febacd9b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/render_surface.py",
+    "bytes": 3147,
+    "sha256": "e21ea13ef479e6d5ed4dd4cc2a58e47b07052568bda87022261f47c24c13eb94"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/review.ps1",
+    "bytes": 1689,
+    "sha256": "d51f77a48555de3a58fb37116a37d28223274d8f15f35e4939df6b57248f4c98"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/run.ps1",
+    "bytes": 1533,
+    "sha256": "63d4e6265c213552c0f8ba100d994baf5ae0d8a622e31d091a40d382080a65f8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/settle_hold.py",
+    "bytes": 811,
+    "sha256": "2824d770e68f799936e8d2590618de6f4dc2780305bb098cc8d15dea4e1ac6dd"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/support_pose.py",
+    "bytes": 3349,
+    "sha256": "c3ac6f10ea5013618c1cbb063b372e3a0301bda6a302a28e824439a7c8dc5a30"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair10/support_probe.py",
+    "bytes": 2359,
+    "sha256": "be24d7b90027c7d0dafe025a43272aa9a618d0d1e5ec805133efa45550ee1f49"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/author.py",
+    "bytes": 14605,
+    "sha256": "df12be3b1c105f0ae0ccbaa64d7f4493914aed1083e34936bd5a686f085ed21f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/author_proximal_study.py",
+    "bytes": 15471,
+    "sha256": "f78d44a66a0a728ede86fc0df0df11e764ac9b4e63e2c5f77fc8c708529ad425"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/contact_layout.py",
+    "bytes": 1322,
+    "sha256": "b8699a1bb3e2706f15537b4558c101a052ab57799103856db8c2410ce8ff6e09"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/fit_contact.py",
+    "bytes": 3881,
+    "sha256": "62b5cc9e3a99c5c0b49efda07c24d949de9f9f9eff6d946576593255f5cdf5d1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/import.py",
+    "bytes": 967,
+    "sha256": "96d20e1a07f26976d4e11a40a09584eeed4f4db2f527d45780b01d787a60ca4c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/motion.py",
+    "bytes": 2361,
+    "sha256": "0b2793fe9de041f27cda4fafc3b501028756a9186733739959d53f51fd439302"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/prepare.py",
+    "bytes": 1181,
+    "sha256": "0f1db9c91862b46dde9338f1c996e0dc46c81ea318b6bc5a3457190c955eb9c9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/README.md",
+    "bytes": 1306,
+    "sha256": "ba509483a9f8db20836a16f22d65af0f6b71d7ad260edad9401957fa7d454d98"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/run.ps1",
+    "bytes": 1424,
+    "sha256": "cf1874e5378a08af2726289b1053e4c00709d177c0183c2ff05423bea0838264"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair11/support_pose.py",
+    "bytes": 3349,
+    "sha256": "c3ac6f10ea5013618c1cbb063b372e3a0301bda6a302a28e824439a7c8dc5a30"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/author_optics.py",
+    "bytes": 3299,
+    "sha256": "8cdfb5737cd7d1d8378f65a85dd0608770f284eed0698667c41c5ef80bf6c7cd"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/author_rail.py",
+    "bytes": 2415,
+    "sha256": "63033358fd33c0c46df21fe7321b94a9f559ae30d62a2d0aa4e49f585ae7a2e7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/build.ps1",
+    "bytes": 1637,
+    "sha256": "1f5bdef97805fdde547bb48d68384a623c7a5d8ea0654b3fa4b5bf51ef78ee12"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/install.py",
+    "bytes": 14045,
+    "sha256": "05fb1ac851cefaec36f04efcab6de68b4bf115dfc7f3fe0faeed33a27321e0f4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/prepare.py",
+    "bytes": 1214,
+    "sha256": "e65f863264f82533601626b9b8be46015dbf1c8188095c9eae274ad12e861aa5"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/README.md",
+    "bytes": 2888,
+    "sha256": "406aae2578e9815b6a2aae6fb49127544ce86e4f097f1636b088f38a21586f01"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/read_assets.py",
+    "bytes": 3367,
+    "sha256": "39cea6a0df8606e7260a17be93656b0501fdb174007096aaf49492b01b80127e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/register_catalog.py",
+    "bytes": 1740,
+    "sha256": "50bc374f94a7026ea7ba865f637acacd524c53628624b41402347a3ed86249b9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair12/run.ps1",
+    "bytes": 1453,
+    "sha256": "8973ef3ed7955eef49bc4c0367199e8ef9bfc5ad47d0405201964ac68922246f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/author_audio.py",
+    "bytes": 1170,
+    "sha256": "534ab71f43918714e233888f97fafdd83006f3b47c5d4d77fbcd52a5d570c3bb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/author_grips.py",
+    "bytes": 6523,
+    "sha256": "96cade021f8ee043df44fea0d991012ccfb9e60d49f347ef468b00781b284d11"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/author_parts.py",
+    "bytes": 9072,
+    "sha256": "e0fdd18020839fb9fec034d3d44fdad018b1bbd73d9235e505acca68d17c7265"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/build_editor.ps1",
+    "bytes": 1492,
+    "sha256": "f80b8737a49b2c236492d2cfcb07c54c208a4a19621846cc99e3e6a9e105af85"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/build_game.ps1",
+    "bytes": 1404,
+    "sha256": "44f36be722c07989b8f0318f83cfef0c67512c2030aa3b5114726febd12f5f05"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/compile_existing.py",
+    "bytes": 978,
+    "sha256": "69664ed8e468f88a5f452a2ac55e1978b320e2139fdb986e3f6099b482db0cf4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/install.py",
+    "bytes": 13059,
+    "sha256": "3ad5737b926c8de18ac674448b619294bf263f6be0cd509b66f89740747cb9c7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/precompile_editor.ps1",
+    "bytes": 1805,
+    "sha256": "dd1d72aa22a1ceedb02c9e385e3d230939e8eca237b167923a33b1afa76c7435"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/prepare.py",
+    "bytes": 880,
+    "sha256": "e485cba51ee74027b3e891238783a094c1947227706388ee48193a28180daa3a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/README.md",
+    "bytes": 4082,
+    "sha256": "51434e22b8d33df6b1d2e5d59fc0fa3906273a44ae5cc71aee76d3ee26055fd1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/read_inputs.py",
+    "bytes": 6296,
+    "sha256": "03f5d26a18485d5fea006189b017d42384d1312a99e2f27624110677388e903c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/read_motion.py",
+    "bytes": 1218,
+    "sha256": "ff2b027bf741f2bd6068ac11e61daa078bbb3714df39493f8a5046307c2e0835"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/register_catalog.py",
+    "bytes": 1897,
+    "sha256": "cf4e22d7b72d53bc16b421d315aeb25f274b17a73ac6a945516e8c5374dbf571"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair13/run.ps1",
+    "bytes": 1456,
+    "sha256": "a78c48ccb0b691be6e8bbf99440dc23c17f1d9eadb2ee99f80649022ace80df6"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair14/build_editor.ps1",
+    "bytes": 1495,
+    "sha256": "c828099864283f41bc2ab3d5601c57ab4fcd934a4da435adb4ea8b4db8089978"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair14/build_game.ps1",
+    "bytes": 1404,
+    "sha256": "981c1aac456c55274561c942df92f4c4f0cccbfb636976c7c8fa204cb2f21d8e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair14/capture.ps1",
+    "bytes": 2093,
+    "sha256": "d5da42adb1e0ff3277a21c2f04cd325e60e0b184933ce422707dfc712a80ffac"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair14/README.md",
+    "bytes": 4881,
+    "sha256": "a7676c5c9033dde665706c2dedd21000cd2531a18943b4a7162e4e68bcec4054"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair14/read_optics.py",
+    "bytes": 2002,
+    "sha256": "2aa2359659c0cb26713c7eec8e0600e362c2f695196fddc042dee5b17c26ef30"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair14/run.ps1",
+    "bytes": 1456,
+    "sha256": "5835d6d214a3c87ab2c5133b47c5ad6d6e36be2974885b8204a53e00c323566e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair14/trace_aperture.py",
+    "bytes": 4780,
+    "sha256": "eb5997e17771a804ebe1027d1e117f2b71d9e0b2cc9ae466e78ab20bf270c1a4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair15/build_editor.ps1",
+    "bytes": 1536,
+    "sha256": "17218f98bc05448af838bf7a25e5e8deab3c378b27626dccf39ac9d88d59ed77"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair15/build_game.ps1",
+    "bytes": 1414,
+    "sha256": "9c64731d676d8c278e70ad49fb29baf6849e9d4c08109545631992795c409a18"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair15/compile_existing.py",
+    "bytes": 1029,
+    "sha256": "67a75637385ba9f10c99fd6c99f07361811f21a5d235cd9dcf4483a59b335a13"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair15/precompile_editor.ps1",
+    "bytes": 1818,
+    "sha256": "d5c9a67ecabe791677f8a427439455fa281990c3e032e0ccc9ed506bc191e951"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair15/README.md",
+    "bytes": 2132,
+    "sha256": "410599c9d20f85a946aa43ee2cf19eb7b68e7b7e5978215e3ffd7e2d69ead3d5"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair16/author_stocks.py",
+    "bytes": 4390,
+    "sha256": "523854028fd4c605c9e24faacf7938566d600c1eb655b5576578d8c1fbb6a2dd"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair16/finalize_surfaces.py",
+    "bytes": 1827,
+    "sha256": "2c47e11001ac817609975082f651afe619f19cea1b17b1a4987297dcb2cf1e51"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair16/install.py",
+    "bytes": 14111,
+    "sha256": "7a2723b5869743ef8454d5e5e0bde025fb7fedf38752bec53a7d830db3c57c4d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair16/plan_stock.py",
+    "bytes": 1524,
+    "sha256": "358a0514cb15546b340e8b8c79f7a90501991dc061eb53cb65805b30fda2f883"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair16/README.md",
+    "bytes": 2232,
+    "sha256": "6280fc87bb8cd5e2f5376eedba59b11802f8e748aafe18a6e2fe846e22958ab5"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair16/read_assets.py",
+    "bytes": 2562,
+    "sha256": "7544cecf7e8edb2cb37e8e1811083fb47d59e3883190df8133161563f0fd4aab"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair16/run.ps1",
+    "bytes": 1843,
+    "sha256": "37d634e8da506f90764bd752be4357ca95d42752a1a9153b0f78097f2c00d992"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/author_models.py",
+    "bytes": 6264,
+    "sha256": "43a624b901176a0730b31e59d6d2d0cfc4643337f6abd93027df7a83a5cf8498"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/author_motion.py",
+    "bytes": 9417,
+    "sha256": "06d1caf207f9b0c43cc5653c8093e354e64583f19025bf896d99e2f429fe9f68"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/build_editor.ps1",
+    "bytes": 1557,
+    "sha256": "b57edba502f2c323f93a2feed0cdd48f9e84e51595d27ba4644830018c64e71e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/build_game.ps1",
+    "bytes": 1435,
+    "sha256": "28e1c6705070562737aaca443db4b08cdccd076b49bd3f05d64c08228c03cee7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/install.py",
+    "bytes": 8233,
+    "sha256": "aa1e70f3f11878b4450e72662a44302f0ee2702ade553ba0de8a95c2168a6d47"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/install_icons.py",
+    "bytes": 1520,
+    "sha256": "bf3af97ef68b58089c5c333d8a21a445ea77b4e8ef038c0bcbfd9cfc5144487b"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/README.md",
+    "bytes": 3755,
+    "sha256": "9ed5b3a6164a65710d27a9d9ec19fede81ff13dcc8966fc7c2b005353153b0c5"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/read_inputs.py",
+    "bytes": 2743,
+    "sha256": "b14874fdcb8823d8a5a9352dacbac7f12c6118913d5f22f916786a89bf876a6e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/read_mag_source.py",
+    "bytes": 530,
+    "sha256": "d48d575f45f4484a5399c3cfb1b3648b267f2bd25c2e8b7f2d388f34049bbae4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/register_catalog.py",
+    "bytes": 2279,
+    "sha256": "5d91f3c822ca0af38df2885864fc59ebfd23155c2c4561fccd385198e97a2f6a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/render_icons.py",
+    "bytes": 3271,
+    "sha256": "afef320221fd5713e2e04bbe421442146a775018506384377c40c0102a13343d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair17/run.ps1",
+    "bytes": 1840,
+    "sha256": "1d03b16970df77741c5a51191d31e92ea4bd0bbe26f664dc7575a21c62788105"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/author_motion.py",
+    "bytes": 10899,
+    "sha256": "be1678628ff52ec65f8762d29bde97160fc2b436eff1452e0031e0222b0c2dc0"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/compose_icon.py",
+    "bytes": 2145,
+    "sha256": "e8533eb7167f5cd5ae3adea3898b28bfeefeb8a9a9579907f764f71a3dbeed00"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/install.py",
+    "bytes": 4928,
+    "sha256": "be6034f48f67f6e9adfa00bb6f34c2dbf8b8c64ed6b12961f229345fa74b7376"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/prepare.py",
+    "bytes": 1223,
+    "sha256": "904a64125806d9a414d90e39029fb2aa301c73d1142cf503606e7c7994a0eeb1"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/README.md",
+    "bytes": 2773,
+    "sha256": "24bb197d5001ebd23ae8432d941de6c852b8bc70ad28f0c0ef10e5adf4644819"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/read_inputs.py",
+    "bytes": 2743,
+    "sha256": "b14874fdcb8823d8a5a9352dacbac7f12c6118913d5f22f916786a89bf876a6e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/register_catalog.py",
+    "bytes": 2116,
+    "sha256": "3cf2e5e5c1c95636e977e67b5ccc2b2e06be40ea6510d5eedd06813df410618e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/render_icon.py",
+    "bytes": 4011,
+    "sha256": "bf04ebd65f1927e9ed41602d0262ce2ac6f37fcfdde54e4bdb281183f8077c03"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair18/run.ps1",
+    "bytes": 1840,
+    "sha256": "2a629755154c847f1eb2ee146687d52562f190bf4efa223438ab44b902349cfd"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/author_motion.py",
+    "bytes": 16711,
+    "sha256": "1cfdef2f8fb81662ca9c724a0bebd691c2e9beb299c7f695bb1d3da0d43d1dfb"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/collect.py",
+    "bytes": 2304,
+    "sha256": "2f40b19ae68bae9773698c09fde789abaf6c5e8ff98da6b1207610eb98b1a089"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/contacts.py",
+    "bytes": 1802,
+    "sha256": "5824b6ec4e0004b10f517c1d484ec853d9663506f0e8b7cfabdaf1ef798a9c26"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/contacts_bvh.py",
+    "bytes": 1574,
+    "sha256": "d2686107a3e1bf2493beffac764a9d8d76775ce55a286417d976586aa0053165"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/dense_bvh.py",
+    "bytes": 2723,
+    "sha256": "31a68b232232fcf774c8af8d712988ba9e86939cefae90afafe51fc2032e7b80"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/fit_grasp.py",
+    "bytes": 4206,
+    "sha256": "c578178b774f3153540de9649a3f320baf0fd2efd9f4a59e87fc1d6bae0f96f7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/install.py",
+    "bytes": 4458,
+    "sha256": "21341009aa098059d509c9f993ce116e5e6b24daeaf18168d6545aa0cc653bdc"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/measure_elbow.py",
+    "bytes": 1283,
+    "sha256": "f4cbc8356126bbae109e52c1ef7883eedf47b123f6c695e9f9e39735f579758f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/plan_poles.py",
+    "bytes": 2268,
+    "sha256": "dee13451812f0cb25ede64c09edd38eff94413c68984865d802fc4a56c71650c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/pole_probe.py",
+    "bytes": 1272,
+    "sha256": "c7a9c85479ae3af29b4b597e7473d9105f9f5d6dd1296ff074e0c11941943af0"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/prepare.py",
+    "bytes": 1043,
+    "sha256": "e69bc3841e84be7ed0bf3bdb84591098ab5838888aa884321595d16fb1bdf936"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/probe_canted.py",
+    "bytes": 1338,
+    "sha256": "12ff4f0fe871b493711d25d27d6a39f59d8416cbc416a41304a867537d807858"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/probe_elbow.py",
+    "bytes": 1479,
+    "sha256": "20638273b12f8d376fc45608eed88aeb3057674101df3cbe722257176443eec7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/readback.py",
+    "bytes": 1908,
+    "sha256": "7ed0a436d1fb85cb8ce053737fcf03fac537f4c4253feee82a66121f201fe48e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/README.md",
+    "bytes": 3363,
+    "sha256": "f164348c8bc987cfa38cb473d038139862e84a7c6cf8a1bb4ed055df5ea3b359"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/render.py",
+    "bytes": 2907,
+    "sha256": "f7a1853469334355f601b789bce3587f7509168f67028e3b79d027b4b0c5f391"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/review.py",
+    "bytes": 4348,
+    "sha256": "58a8aa9b9f95fa83a95508912dcc48ae9c7ee7c5b8ecb3fb372e43b376a8d4f9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/run.ps1",
+    "bytes": 1840,
+    "sha256": "77e29201f65be9a84970a90f049774336f2a2bafd462cc6024065f25af45b17a"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair19/surfaces.py",
+    "bytes": 2349,
+    "sha256": "82d54894bf37f73e44b465613f8e246049ccf3f2a0f09e61746b6243b485e583"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/author.py",
+    "bytes": 8235,
+    "sha256": "0c7fd8ff82d3b9e544eae0df5873f08b6e41fc39ceb68e023bf659a4f71e7be8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/build.ps1",
+    "bytes": 1633,
+    "sha256": "f38324835d2e12867613d048e0864e0920e8548729cc4f5ee87a5f471e07181e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/collect.py",
+    "bytes": 3823,
+    "sha256": "9e461788cb70b4bf537785514d89029f6b0739cd54043e6cba8a1cf6a3b27601"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/compile_existing.py",
+    "bytes": 983,
+    "sha256": "2150ae38ed3a013d56363b31feddae571af1977ca4129f7b31cdcbebf476df6d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/dense_bvh.py",
+    "bytes": 2832,
+    "sha256": "507d76b0f5bd1cffd7068ed5b61a254d4b1d7fe73e5336dc4f4f7160cb1e27bc"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/install.py",
+    "bytes": 7611,
+    "sha256": "2bed87ba50e96b1780eacda314e6fb7cc9e9db7bdf08ecf315f392f654a5cda9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/pose_review.py",
+    "bytes": 2940,
+    "sha256": "b65dd33c4c14dd3c822d56c31e0c9cfcd7ca1fbd68caacaeca40e9920a437dc7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/readback.py",
+    "bytes": 1709,
+    "sha256": "8c62b4143c096b399b08bd63284a65d26dc0683e37db25a5dd49d7dd6fa744c8"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/README.md",
+    "bytes": 3966,
+    "sha256": "3680be7366d1cc8cfad28cfc3e94a536e64b35ae6d8c8ce521178d74b06316c7"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/render_review.py",
+    "bytes": 4804,
+    "sha256": "e89144e2202997add8afb2918e15934af642150752857a406bea843cac9c9a03"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Repair20/run.ps1",
+    "bytes": 1840,
+    "sha256": "29448049cad846d1c21fbc712f434369f9baeda3f243f84553d9fb181f698768"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Return23/assets.ps1",
+    "bytes": 1868,
+    "sha256": "06d47fe7a8bb6b7b56296d81b70be324d58fb8c9d7a75ddb3a537af84b276d01"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Return23/author.py",
+    "bytes": 8346,
+    "sha256": "31b1fff3858b04be84c7fdab7612124cd2b40b51fa0d0c3ba592cab4468de61e"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Return23/collect.py",
+    "bytes": 2143,
+    "sha256": "708be77cacba3ae155084bfb7fc25f1cffd21c6de7e1391bb507d1fea6ac8b11"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Return23/install.py",
+    "bytes": 4506,
+    "sha256": "e0b4e83d620f3a90a71d7d9fa27e4d995440ca7abb532ceaa66c8c5d50e38090"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Return23/README.md",
+    "bytes": 1388,
+    "sha256": "72eaf00a87195f47b8f5041cea833d3fcba431ae2aef3cde9a90e42aa90fca48"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/assets.ps1",
+    "bytes": 1880,
+    "sha256": "63f14fba4986d0cc6ff8b61abcae6eb88e0334d29b4bfcaca42cfa0560c65541"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/audit.py",
+    "bytes": 2249,
+    "sha256": "1f808a6e30021cf84718ba77029b8c600a9a20a2ddb29d3a9d5ada26f2bf8c12"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/author.py",
+    "bytes": 11152,
+    "sha256": "a648f6673427f9d4ace345ce1e017af21e9aa24cfe6c4ea46272a4d3412a66a3"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/collect.py",
+    "bytes": 2170,
+    "sha256": "8ad947d00a8f35e015f604458b1840a460234e4f37a972439d858b2360e06375"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/depths.py",
+    "bytes": 4936,
+    "sha256": "08440b6f18281ad0ef965b7c8877db5bee53be67c1555e423116cc9a22a4a79d"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/install.py",
+    "bytes": 4608,
+    "sha256": "e680927be74936cc1996ca9bb82ed00a604074babd40641e00ed704061c53606"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/metrics.py",
+    "bytes": 1772,
+    "sha256": "6785907fc0d0e6ac8c7c6794a8d585abe8499fd61e583804362b3a9d516c0fab"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/README.md",
+    "bytes": 3240,
+    "sha256": "3924b6290e14934f0832be55f667b3ffdf06c46b6b6bba4685d82cf658dac572"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/render_grips.py",
+    "bytes": 2835,
+    "sha256": "dd1d4296cde36c69ec721313b97b941179c4033157f8aa198c46bd9426cde693"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/run.ps1",
+    "bytes": 1623,
+    "sha256": "7fff42c0a48789b4df6b8247937b71ea7271ce4e36bc5762b8680c38a7c0ee06"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/sheets.py",
+    "bytes": 1195,
+    "sha256": "95969e3aced300f7d68b25b24228659dc2b47cbf87bf618d8a165230dba6e4f4"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/surfaces.py",
+    "bytes": 2414,
+    "sha256": "820d4d469cff058049b415968ceecfcc5805a689a9c2984cd41b5234e0e45aea"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/ReturnReview24/video.py",
+    "bytes": 1799,
+    "sha256": "3e9f0a098729e48b39ca7a11711625eeae91a04b2324dab46d4af66f7c8879b9"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Review32/audit.py",
+    "bytes": 3902,
+    "sha256": "09b204d622562e5235095cb38b6bc159beb4d66d76a794906d667b4df0fc9e0f"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Review32/README.md",
+    "bytes": 3200,
+    "sha256": "f4fc3c1a13a9a8ecaa63198ac21a27219fafead7efd0fa1a80d65f76018d0646"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Review32/render_approach.py",
+    "bytes": 3224,
+    "sha256": "18cfe23b397b97de61ffda2be8b8d739a340b880d769069f22b3e06afc7d0b14"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Review32/render_surfaces.py",
+    "bytes": 3253,
+    "sha256": "350ebf63e64bb48f592950a7a711a63e0a799c738289fa0aab5262b47981125c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Review32/run.ps1",
+    "bytes": 1550,
+    "sha256": "13b4bcc5a09ad7b89b71c935600c5ca4ceea76854197fa2bec2e21d4bbe66672"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Rhythm22/build.ps1",
+    "bytes": 1694,
+    "sha256": "2920b32c80d13960b78b73827d06dda34ec9b54c25732ce3ec26a04515da715c"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Rhythm22/README.md",
+    "bytes": 2830,
+    "sha256": "a01c58287cd1946202d2c321caf2ee8f88f2f10bd5e2142c0e7d0d98e2e78133"
+  },
+  {
+    "path": "SourceAssets/M249Orpind20261107/Rhythm22/timing_report.py",
+    "bytes": 3340,
+    "sha256": "358423783a445921a4bc30f102c8db090e6d236c734773a88a38b1fa0135d372"
+  }
+]

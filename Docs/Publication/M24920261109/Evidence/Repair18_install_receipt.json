@@ -1,0 +1,31 @@
+{
+  "saved": {
+    "/Game/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload": "e15daaae5da24136d48bc9d34eda0a7d2ef565f4ad727b4bd9cc98d6e5847f5f",
+    "/Game/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload_empty": "e9010ead159a60b1003663020c21779adbd3f22a614dd04227bd7a22865c1c78",
+    "/Game/Weapons/M249/Bipod/DA_M249_SupportGrip": "f656db37f28f31157c80aea83396210f3d5c7ebcbc454047a9c87af0eba705e0",
+    "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_vertical": "1d05ee9be88c0748282da970d54191a0eb4c0454fed09df69f7feca36cfdf532",
+    "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_canted": "132f3d09a7e999f3d68b6d26fe8033fa39d2903e5a6ff867290f762bc925da60",
+    "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_prism": "3c05d315106e0bb6380b706b313ecb9b308450f6e9b1fbff64a26a01d93e9fa3",
+    "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_angled": "ad16644bd5570fcc5226e165b83735ecf04c049df355d08e72045f2673d47dfb",
+    "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_magazine_m249_side_mag_45": "70ef094a0d898224b08334cbf541e8386b73c25ef0f174f890c66e51a0935574",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_m249_magazine_m249_side_mag_45": "db809d40b713645c5f265d3f8bdec581c4a7411cb6f7b69897c6e4c5f04eee07"
+  },
+  "animations": {
+    "reload.json.gz": "/Game/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload",
+    "reload_empty.json.gz": "/Game/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload_empty"
+  },
+  "profiles": {
+    "base": "/Game/Weapons/M249/Bipod/DA_M249_SupportGrip",
+    "vertical": "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_vertical",
+    "canted": "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_canted",
+    "prism": "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_prism",
+    "angled": "/Game/Weapons/M249/CommonParts20261108/Profiles/DA_M249_angled"
+  },
+  "icons": [
+    "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_magazine_m249_side_mag_45.ue_m249_magazine_m249_side_mag_45",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_m249_magazine_m249_side_mag_45.ue_m249_magazine_m249_side_mag_45"
+  ],
+  "runtime_tested": false,
+  "editor_started": false,
+  "complete": true
+}

@@ -1,0 +1,113 @@
+--- /dev/null
++++ b/Source/FPSGAME/Movement/MachineGunMovementAuditCommandlet.cpp
+@@ -0,0 +1,110 @@
++#include "MachineGunMovementAuditCommandlet.h"
++#include "FPSCharacterMovementComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Skills/SkillNetworkAuditCommandlet.h"
++#include "../Weapons/GunsmithSystem.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Parse.h"
++#include "Misc/ScopeExit.h"
++#include "Serialization/JsonSerializer.h"
++
++int32 UMachineGunMovementAuditCommandlet::Main(const FString& Params)
++{
++    FString Output;if(!FParse::Value(*Params,TEXT("Report="),Output))return 2;
++    const FString Original=FCommandLine::Get();
++    const FString Slot=TEXT("MachineGunMovementAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(Original+TEXT(" -ColdSteelProfile=")+Slot));
++    ON_SCOPE_EXIT {FCommandLine::Set(*Original);};
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("MachineGunMovementAuditWorld"));
++    auto* World=GI->GetWorld();auto* Host=GI->GetSubsystem<UColdSteelStatusModel>();
++    auto* Gunsmith=GI->GetSubsystem<UGunsmithSystem>();
++    if(!World||!Host||!Gunsmith||!Host->IsAudit()||Host->ProfileSlot()!=TEXT("ColdSteel_")+Slot)return 2;
++    ON_SCOPE_EXIT {GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();};
++    int32 Failures=0;TArray<TSharedPtr<FJsonValue>> Rows;
++    const auto Check=[&](bool Pass,const FString& Name)
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),Name);Row->SetBoolField(TEXT("passed"),Pass);
++        Rows.Add(MakeShared<FJsonValueObject>(Row));Failures+=!Pass;
++        UE_LOG(LogTemp,Display,TEXT("MACHINE_GUN_MOVEMENT %s %s"),Pass?TEXT("PASS"):TEXT("FAIL"),*Name);
++    };
++    auto Base=Host->Snapshot();Base.Items.Reset();Base.ActiveWeaponSlot=6;Base.ActiveProductionTool.Reset();Base.DungeonRun={};
++    Base.NetworkProfileId=FGuid::NewGuid();
++    auto* Shadow=Host->CreateShadowModel(Base);if(!Shadow)return 2;
++    Shadow->AddToRoot();ON_SCOPE_EXIT {Shadow->RemoveFromRoot();};
++    World->InitializeActorsForPlay(FURL());
++    auto* PC=World->SpawnActor<ASkillAuditRemoteController>();auto* Pawn=World->SpawnActor<AFPSGAMECharacter>();
++    if(!PC||!Pawn)return 2;
++    ON_SCOPE_EXIT {Pawn->Destroy();PC->Destroy();};
++    PC->Possess(Pawn);Pawn->NetShadowProfile=Shadow;Shadow->AttachPawn(Pawn);Pawn->DispatchBeginPlay();
++    auto* Move=CastChecked<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());
++    const auto* Defaults=Pawn->GetClass()->GetDefaultObject<AFPSGAMECharacter>();
++    Check(Pawn->HasAuthority()&&!Pawn->IsLocallyControlled(),TEXT("remote authority pawn uses a guest model"));
++    const auto Near=[](float A,float B){return FMath::IsNearlyEqual(A,B,.01f);};
++    const FString TraitText=TEXT("持握机枪时，移动速度−33%；收起武器或切换至非机枪武器后恢复。");
++    for(const TCHAR* Definition:{TEXT("ue_m249"),TEXT("ue_pkm_lowpoly"),TEXT("ue_lmg201")})
++    {
++        const FString Prefix=FString(Definition)+TEXT(" ");
++        const auto* Gun=Gunsmith->Weapon(Definition);const TArray<TSharedPtr<FJsonValue>>* Traits=nullptr;
++        Check(Gun&&Gun->Source&&Gun->Source->TryGetArrayField(TEXT("traits"),Traits)&&Traits&&Traits->Num()==1
++            &&(*Traits)[0]->AsObject()->GetStringField(TEXT("text"))==TraitText,Prefix+TEXT("one catalog slowdown trait"));
++        auto Seed=Base;auto Item=Host->CreateItem(Definition);Item.Place=1;Item.Cell=6;
++        TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data);
++        if(!Data)return 2;
++        Data->SetStringField(TEXT("weaponType"),TEXT("rifle"));
++        Data->SetStringField(TEXT("movement_audit_marker"),TEXT("preserve-instance"));
++        Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
++        Seed.Items={Item};Seed.Skills.FindOrAdd(TEXT("machineGunMastery")).Level=1;
++        auto* Joined=Host->CreateShadowModel(Seed);
++        if(!Joined){UE_LOG(LogTemp,Error,TEXT("MACHINE_GUN_MOVEMENT fixture rejected: %s"),*Host->ResultMessage());return 2;}
++        Check(ColdSteelInventory::Text(*Joined->Equipped(),TEXT("weaponType"))==TEXT("machineGun")
++            &&Near(Joined->MachineGunMovementMultiplier(),.67f),Prefix+TEXT("join migrates stale rifle classification"));
++        Check(Near(Joined->MasteryEffect(TEXT("machineGunMastery"),0).MovementMultiplier,.67f),
++            Prefix+TEXT("movement penalty is independent of mastery level"));
++        Host->AdoptNetMirror(Seed);Shadow->AdoptNetMirror(Seed);
++        Check(Near(Host->MachineGunMovementMultiplier(),.67f)&&Near(Shadow->MachineGunMovementMultiplier(),.67f),
++            Prefix+TEXT("owner and guest mirror agree"));
++        Check(Shadow->Equipped()->InstanceId==Item.InstanceId
++            &&ColdSteelInventory::Text(*Shadow->Equipped(),TEXT("movement_audit_marker"))==TEXT("preserve-instance"),
++            Prefix+TEXT("migration preserves instance state"));
++        Pawn->ApplyColdSteelProfile(Shadow);
++        Move->UpdateFromCompressedFlags(0);
++        Check(Near(Move->MaxWalkSpeed,Defaults->WalkSpeed*.67f)&&Near(Move->MaxWalkSpeedCrouched,Defaults->CrouchSpeed*.67f),
++            Prefix+TEXT("walking and crouch apply once"));
++        Move->UpdateFromCompressedFlags(FSavedMove_Character::FLAG_Custom_0);
++        Check(Near(Move->MaxWalkSpeed,Defaults->SprintSpeed*.67f),Prefix+TEXT("server sprint move applies once"));
++        Move->UpdateFromCompressedFlags(FSavedMove_Character::FLAG_Custom_1);
++        Check(Near(Move->MaxWalkSpeed,Defaults->ADSWalkSpeed*.67f)&&Near(Move->MaxWalkSpeedCrouched,220.f*.67f),
++            Prefix+TEXT("server ADS move updates standing and crouch immediately"));
++        FSavedMove_FPSCharacter Saved;
++        Saved.SetMoveFor(Pawn,1.f/60.f,FVector::ZeroVector,*static_cast<FNetworkPredictionData_Client_Character*>(Move->GetPredictionData_Client()));
++        Move->UpdateFromCompressedFlags(0);Saved.PrepMoveFor(Pawn);
++        Check(Near(Move->MaxWalkSpeed,Defaults->ADSWalkSpeed*.67f)&&Near(Move->MaxWalkSpeedCrouched,220.f*.67f),
++            Prefix+TEXT("saved ADS move replay restores both limits"));
++        for(int32 N=0;N<4;++N){Pawn->ApplyColdSteelProfile(Shadow);Move->RefreshSpeedLimits();}
++        Check(Near(Move->MaxWalkSpeed,Defaults->ADSWalkSpeed*.67f)&&Near(Move->MaxWalkSpeedCrouched,220.f*.67f),
++            Prefix+TEXT("repeated profile application does not stack slowdown"));
++        Data->RemoveField(TEXT("weaponType"));Item.Data.Reset();
++        FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));Seed.Items={Item};
++        Shadow->AdoptNetMirror(Seed);
++        Check(Near(Shadow->MachineGunMovementMultiplier(),.67f),Prefix+TEXT("missing classification is restored on mirror"));
++        Seed.Skills.FindOrAdd(TEXT("machineGunMastery")).Level=1;
++        Check(Shadow->CommitState(Seed)&&Near(Shadow->MachineGunMovementMultiplier(),.67f),Prefix+TEXT("equipment transaction also migrates classification"));
++        Shadow->AdoptNetMirror(Base);Pawn->ApplyColdSteelProfile(Shadow);Move->UpdateFromCompressedFlags(0);
++        Check(Near(Move->MaxWalkSpeed,Defaults->WalkSpeed)&&Near(Move->MaxWalkSpeedCrouched,Defaults->CrouchSpeed),
++            Prefix+TEXT("stowing restores normal speed"));
++    }
++    auto Rifle=Base;auto Item=Host->CreateItem(TEXT("ue_m4a1"));Item.Place=1;Item.Cell=6;Rifle.Items={Item};
++    Shadow->AdoptNetMirror(Rifle);Pawn->ApplyColdSteelProfile(Shadow);Move->UpdateFromCompressedFlags(FSavedMove_Character::FLAG_Custom_0);
++    Check(Near(Move->MaxWalkSpeed,Defaults->SprintSpeed)&&Near(Shadow->MachineGunMovementMultiplier(),1.f),TEXT("switching to rifle restores sprint speed"));
++    auto Report=MakeShared<FJsonObject>();Report->SetArrayField(TEXT("checks"),Rows);Report->SetNumberField(TEXT("failures"),Failures);
++    Report->SetStringField(TEXT("scope"),TEXT("Isolated guest/owner models and authority pawn, actual profile application, compressed flags and saved-move replay. No socket transport, packet-loss simulation or visual acceptance."));
++    Report->SetStringField(TEXT("isolated_profile"),Slot);
++    FString Json;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Json));
++    if(!FFileHelper::SaveStringToFile(Json,*Output))return 2;
++    return Failures?1:0;
++}

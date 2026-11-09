@@ -1,0 +1,1148 @@
+{
+  "items": {
+    "ue_m249": {
+      "category": "weapon",
+      "desc": "M249 是一款班用轻机枪。这个改装版本配有前握把、光学瞄具和折叠脚架，使用 5.56 毫米弹药。弹箱支持持续射击，更换时需要留出较长的空当。",
+      "equipSlot": "weapon",
+      "icon": "Icons/ue_m249.png",
+      "ue_icon": "Icons/ue_m249.png",
+      "icon_fallback": "M249",
+      "id": "ue_m249",
+      "isTwoHanded": true,
+      "name": "M249 轻机枪",
+      "stack_max": 1,
+      "stats": [
+        {
+          "name": "物理攻击",
+          "value": "30"
+        },
+        {
+          "name": "弹匣容量",
+          "value": "100"
+        }
+      ],
+      "type": "武器",
+      "weaponType": "machineGun",
+      "weaponTypeTag": "轻机枪",
+      "grid_w": 5,
+      "grid_h": 2
+    }
+  },
+  "gunsmith": [
+    {
+      "id": "ue_m249",
+      "model": "M249",
+      "name": "M249 轻机枪",
+      "inherit_common_options": false,
+      "allowed": [
+        "magazine",
+        "stock",
+        "reargrip",
+        "underbarrel",
+        "muzzle",
+        "optic"
+      ],
+      "base": {
+        "spread_mult": 2.25,
+        "ammo_item_id": "ammo_556",
+        "ads_smooth": 7.133,
+        "mag_size": 100,
+        "recoil": 92,
+        "camera_shake": 94,
+        "fire_interval": 0.08,
+        "reload_time": 8.8,
+        "empty_reload_time": 9.6,
+        "damage": 30,
+        "bullet_speed": 350,
+        "effective_range": 120,
+        "stability_mult": 1.1
+      },
+      "traits": [
+        {
+          "icon": "drawback",
+          "text": "持握机枪时，移动速度−33%；收起武器或切换至非机枪武器后恢复。"
+        }
+      ],
+      "options": {
+        "magazine": [
+          {
+            "id": "false",
+            "name": "原厂弹箱",
+            "description": "M249 原厂独立部件。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [],
+            "factory_mesh": "/Game/Weapons/M249/Assembly/SM_M249_box"
+          },
+          {
+            "id": "m249_side_mag_30",
+            "name": "30发侧插弹匣",
+            "description": "弧形防滑匣体与独立金属插口，沿机匣左侧接入。",
+            "effects": [],
+            "stats": {
+              "mag_delta": -70,
+              "reload_mult": 0.43181818181818177,
+              "empty_reload_mult": 0.5208333333333334
+            },
+            "special_effects": [
+              "侧插供弹｜左手抓牢并拔出旧弹匣，再取新匣从侧面插入、压实；机匣盖保持关闭，空仓装填后拉栓。"
+            ]
+          },
+          {
+            "id": "m249_side_mag_45",
+            "name": "45发扩容侧插弹匣",
+            "description": "沿原有曲线延长匣体，保留上部插接段与防滑纹路。",
+            "effects": [],
+            "stats": {
+              "mag_delta": -55,
+              "reload_mult": 0.4886363636363636,
+              "empty_reload_mult": 0.5729166666666667
+            },
+            "special_effects": [
+              "侧插供弹｜左手抓牢并拔出旧弹匣，再取新匣从侧面插入、压实；机匣盖保持关闭，空仓装填后拉栓。"
+            ]
+          }
+        ],
+        "stock": [
+          {
+            "id": "false",
+            "name": "原厂枪托",
+            "description": "M249 原厂独立部件。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [],
+            "factory_mesh": "/Game/Weapons/M249/Assembly/SM_M249_stock"
+          },
+          {
+            "id": "skeleton",
+            "name": "骨架枪托",
+            "description": "双管上梁、镂空后架与橡胶抵肩垫，使用对应枪型的安装接口。",
+            "effects": [
+              {
+                "text": "开镜耗时-20%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力+15%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性+10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.2,
+              "recoil_mult": 1.15,
+              "stability_mult": 1.1
+            },
+            "special_effects": []
+          },
+          {
+            "id": "core_stock",
+            "name": "镂空轻型枪托",
+            "description": "轻量化镂空枪托，使用对应枪型的安装接口。",
+            "effects": [
+              {
+                "text": "后坐力-10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
+            },
+            "special_effects": []
+          },
+          {
+            "id": "qr_performance",
+            "name": "高性能后托",
+            "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，使用对应枪型的安装接口。",
+            "effects": [
+              {
+                "text": "后坐力-20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布-30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.7
+            },
+            "special_effects": []
+          },
+          {
+            "id": "tactical_telescopic",
+            "name": "战术伸缩枪托",
+            "description": "可调节贴腮面与伸缩结构，使用对应枪型的安装接口。",
+            "effects": [
+              {
+                "text": "开镜耗时-5%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布+25%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 1.25
+            },
+            "special_effects": []
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力-35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时-10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布+15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            },
+            "special_effects": []
+          }
+        ],
+        "reargrip": [
+          {
+            "id": "false",
+            "name": "原厂后握把",
+            "description": "M249 原厂独立部件。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [],
+            "factory_mesh": "/Game/Weapons/M249/Assembly/SM_M249_reargrip"
+          },
+          {
+            "id": "phantom_reargrip",
+            "name": "幻影后握把",
+            "description": "镂空框架后握把，带横向防滑纹理。",
+            "effects": [
+              {
+                "text": "开镜耗时+15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.15,
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 1.1
+            },
+            "special_effects": []
+          },
+          {
+            "id": "stable_antislip_reargrip",
+            "name": "稳固防滑后握",
+            "description": "实心握把带指槽与橡胶防滑面。",
+            "effects": [
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15
+            },
+            "special_effects": []
+          },
+          {
+            "id": "balanced_reargrip",
+            "name": "均衡后握把",
+            "description": "实心聚合物后握把，带横向防滑纹理与对应枪型的连接件。",
+            "effects": [
+              {
+                "text": "后坐力-10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            },
+            "special_effects": []
+          }
+        ],
+        "underbarrel": [
+          {
+            "id": "false",
+            "name": "原厂前握把",
+            "description": "M249 原厂独立部件。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [],
+            "factory_mesh": "/Game/Weapons/M249/Assembly/SM_M249_foregrip"
+          },
+          {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "开镜耗时-25%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
+            },
+            "special_effects": []
+          },
+          {
+            "id": "vertical_foregrip",
+            "name": "垂直握把",
+            "description": "直筒式前握把，四指环握与拇指对握，安装于 201 护木转接座。",
+            "effects": [
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            },
+            "special_effects": []
+          },
+          {
+            "id": "canted_foregrip",
+            "name": "45°侧倾握把",
+            "description": "向枪身左下方侧倾，左手外侧包握，安装于 201 护木转接座。",
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性-15%",
+                "benefit": -1
+              },
+              {
+                "text": "腰射随机散布-20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 0.85,
+              "hip_spread_mult": 0.8
+            },
+            "special_effects": []
+          },
+          {
+            "id": "prism_handstop",
+            "name": "棱镜阻手器",
+            "description": "安装于 201 护木底部的专用导轨。",
+            "effects": [
+              {
+                "text": "开镜耗时-10%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力-5%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+25%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布-5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.1,
+              "recoil_mult": 0.95,
+              "stability_mult": 1.25,
+              "hip_spread_mult": 0.95
+            },
+            "special_effects": []
+          },
+          {
+            "id": "angled_foregrip",
+            "name": "共振二代前握把",
+            "description": "紧凑镂空前握把，带 201 护木转接导轨及专用穿孔抓握动作。",
+            "effects": [
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15
+            },
+            "special_effects": []
+          }
+        ],
+        "muzzle": [
+          {
+            "id": "false",
+            "name": "原厂枪口",
+            "description": "M249 原厂独立部件。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [],
+            "factory_mesh": "/Game/Weapons/M249/Assembly/SM_M249_muzzle"
+          },
+          {
+            "id": "true",
+            "name": "消音器",
+            "description": "筒式消音器通过尾部接座连接枪口。",
+            "effects": [
+              {
+                "text": "后坐力-10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+10%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度-15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1,
+              "bullet_speed_mult": 0.85
+            },
+            "special_effects": [
+              "消音｜降低枪声与枪口火光。"
+            ]
+          },
+          {
+            "id": "tactical_suppressor",
+            "name": "战术消音器",
+            "description": "精细斜纹战术消音器。",
+            "effects": [
+              {
+                "text": "后坐力-25%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+25%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度-20%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.75,
+              "stability_mult": 1.25,
+              "bullet_speed_mult": 0.8,
+              "ads_percent": 0.05
+            },
+            "special_effects": [
+              "消音｜降低枪声与枪口火光。"
+            ]
+          },
+          {
+            "id": "brake",
+            "name": "枪口制退器",
+            "description": "三组侧孔制退结构。",
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "ads_percent": 0.1
+            },
+            "special_effects": []
+          },
+          {
+            "id": "titanium_brake",
+            "name": "钛金制退器",
+            "description": "钛金嵌边围住侧向排气孔，金属切面层次分明。",
+            "effects": [
+              {
+                "text": "后坐力-30%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.7,
+              "stability_mult": 1.2,
+              "ads_percent": 0.15
+            },
+            "special_effects": []
+          },
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "长筒外壳配开放式管口，尾端接环贴合枪管。",
+            "effects": [
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度-15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布-10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
+            },
+            "special_effects": [
+              "消音｜降低枪声与枪口火光。"
+            ]
+          }
+        ],
+        "optic": [
+          {
+            "id": "false",
+            "name": "原厂后置倍镜",
+            "description": "原厂后置倍镜独立安装；使用单一瞄具槽位。",
+            "effects": [],
+            "stats": {},
+            "special_effects": [],
+            "factory_mesh": "/Game/Weapons/M249/Assembly/SM_M249_magnifier"
+          },
+          {
+            "id": "holographic",
+            "name": "全息瞄准镜",
+            "description": "1×环形分划全息瞄准镜；安装在 M4 顶部导轨。",
+            "effects": [
+              {
+                "text": "1×全息瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时-5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            },
+            "special_effects": []
+          },
+          {
+            "id": "panoramic_red_dot",
+            "name": "全景薄框红点瞄具",
+            "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+            "effects": [
+              {
+                "text": "1×红点瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "prism_scope_2x",
+            "name": "紧凑型二倍棱镜瞄具",
+            "description": "固定 2× 放大，短镜筒、镀膜镜片与中心十字分划，配窄导轨底座。",
+            "effects": [
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05
+            },
+            "special_effects": []
+          },
+          {
+            "id": "lpvo_1_6x",
+            "name": "1–6× 低倍可变瞄准镜",
+            "description": "长镜筒、双环悬臂座与倍率拨杆。",
+            "effects": [
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1
+            },
+            "special_effects": [
+              "变倍瞄准｜瞄准时使用鼠标滚轮调节1–6×倍率，每格0.5×。"
+            ]
+          },
+          {
+            "id": "kv_scope_4x",
+            "name": "KV 战术瞄准镜",
+            "description": "长目镜筒、独立调节鼓与双脚导轨座，采用中心十字分划。",
+            "effects": [
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性+5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "stability_mult": 1.05
+            },
+            "special_effects": [
+              "变倍瞄准｜瞄准时使用鼠标滚轮切换1×、2×、4×三档倍率。"
+            ]
+          },
+          {
+            "id": "thermal_scope",
+            "name": "热成像瞄准镜",
+            "description": "电子热成像瞄具，封闭镜筒内置热感应显示屏。",
+            "appearance": "thermal_scope",
+            "effects": [
+              {
+                "text": "1.5/3/8倍电子变倍",
+                "benefit": 1
+              },
+              {
+                "text": "识别怪物、隐身目标与火源",
+                "benefit": 1
+              }
+            ],
+            "stats": {},
+            "special_effects": [
+              "电子变倍｜默认1.5×，瞄准时使用鼠标滚轮切换1.5×、3×、8×。",
+              "热成像｜显示怪物、隐身怪物与真实火源的热轮廓；实体墙壁仍会遮挡。"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "machine_gun_traits": [
+    {
+      "id": "ue_pkm_lowpoly",
+      "traits": [
+        {
+          "icon": "drawback",
+          "text": "持握机枪时，移动速度−33%；收起武器或切换至非机枪武器后恢复。"
+        }
+      ]
+    },
+    {
+      "id": "ue_lmg201",
+      "traits": [
+        {
+          "icon": "drawback",
+          "text": "持握机枪时，移动速度−33%；收起武器或切换至非机枪武器后恢复。"
+        }
+      ]
+    }
+  ],
+  "classification": {
+    "ue_m249": {
+      "weaponType": "machineGun",
+      "weaponTypeTag": "轻机枪"
+    },
+    "ue_pkm_lowpoly": {
+      "weaponType": "machineGun",
+      "weaponTypeTag": "通用机枪"
+    },
+    "ue_lmg201": {
+      "weaponType": "machineGun",
+      "weaponTypeTag": "轻机枪"
+    }
+  },
+  "formulas": {
+    "ue_m249": {
+      "source": "M249_LMG",
+      "base": 7,
+      "enhanceFlat": 0.6,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.3,
+          "perEnhance": 0.068
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.056
+        }
+      ]
+    }
+  },
+  "assembly": [
+    {
+      "id": "assemble_m249",
+      "output": "ue_m249",
+      "inputs": [
+        {
+          "item": "ironIngot",
+          "count": 5
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 5,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34,
+      "parts": [
+        {
+          "id": "barrel",
+          "name": "原厂枪管",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_barrel",
+          "target": [
+            87.0177686214447,
+            -16.945780813694,
+            107.32612013816833
+          ],
+          "extent": [
+            5.512511730194092,
+            14.844582974910736,
+            3.3641040325164795
+          ],
+          "loose": [
+            45.0,
+            -53.44890605018293,
+            98.76410403251649
+          ],
+          "angle": -12,
+          "radius": 7.012511730194092
+        },
+        {
+          "id": "muzzle",
+          "name": "原厂枪口",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_muzzle",
+          "target": [
+            85.7594221830368,
+            -38.61893117427826,
+            107.20090866088867
+          ],
+          "extent": [
+            1.4589637517929077,
+            7.555696368217468,
+            1.3527393341064453
+          ],
+          "loose": [
+            45.0,
+            4.815397409177879,
+            96.75273933410645
+          ],
+          "angle": 20,
+          "radius": 3.5
+        },
+        {
+          "id": "stock",
+          "name": "原厂枪托",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_stock",
+          "target": [
+            81.29107654094696,
+            37.1864840388298,
+            107.11806416511536
+          ],
+          "extent": [
+            6.699511408805847,
+            12.180565297603607,
+            1.9236981868743896
+          ],
+          "loose": [
+            45.0,
+            -20.283113449666416,
+            97.3236981868744
+          ],
+          "angle": -15,
+          "radius": 8.199511408805847
+        },
+        {
+          "id": "cover",
+          "name": "机匣盖",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_cover",
+          "target": [
+            88.78864347934723,
+            13.948023319244385,
+            106.40100836753845
+          ],
+          "extent": [
+            2.9375463724136353,
+            12.962448596954346,
+            4.00734543800354
+          ],
+          "loose": [
+            120.0,
+            -22.930264186857567,
+            99.40734543800355
+          ],
+          "angle": 38,
+          "radius": 4.437546372413635
+        },
+        {
+          "id": "magnifier",
+          "name": "原厂后置倍镜",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_magnifier",
+          "target": [
+            94.53285038471222,
+            7.711406052112579,
+            106.41489624977112
+          ],
+          "extent": [
+            3.260931372642517,
+            5.709488689899445,
+            2.838820219039917
+          ],
+          "loose": [
+            120.0,
+            22.635992431453353,
+            98.23882021903992
+          ],
+          "angle": 22,
+          "radius": 4.760931372642517
+        },
+        {
+          "id": "box",
+          "name": "原厂弹箱",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_box",
+          "target": [
+            73.38216304779053,
+            5.726118385791779,
+            106.3236653804779
+          ],
+          "extent": [
+            7.175946235656738,
+            3.1565651297569275,
+            9.323662519454956
+          ],
+          "loose": [
+            45.0,
+            63.89565373215889,
+            104.72366251945496
+          ],
+          "angle": -18,
+          "radius": 4.6565651297569275
+        },
+        {
+          "id": "bipod",
+          "name": "原厂脚架",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_bipod",
+          "target": [
+            79.08994257450104,
+            -35.204702615737915,
+            106.92107081413269
+          ],
+          "extent": [
+            5.730214715003967,
+            14.162349700927734,
+            3.4878313541412354
+          ],
+          "loose": [
+            120.0,
+            -54.08340918359402,
+            98.88783135414124
+          ],
+          "angle": 30,
+          "radius": 7.230214715003967
+        },
+        {
+          "id": "handguard",
+          "name": "原厂护木",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_handguard",
+          "target": [
+            79.28979992866516,
+            -9.322196245193481,
+            106.7164421081543
+          ],
+          "extent": [
+            2.818399667739868,
+            9.127408266067505,
+            3.835475444793701
+          ],
+          "loose": [
+            120.0,
+            2.606749570786379,
+            99.2354754447937
+          ],
+          "angle": -12,
+          "radius": 4.318399667739868
+        },
+        {
+          "id": "foregrip",
+          "name": "原厂前握把",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_foregrip",
+          "target": [
+            71.907639503479,
+            -10.401290655136108,
+            107.06875324249268
+          ],
+          "extent": [
+            5.6266725063323975,
+            3.521817922592163,
+            1.9625544548034668
+          ],
+          "loose": [
+            120.0,
+            55.544526291799656,
+            97.36255445480347
+          ],
+          "angle": 20,
+          "radius": 5.021817922592163
+        },
+        {
+          "id": "reargrip",
+          "name": "原厂后握把",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_reargrip",
+          "target": [
+            73.00449013710022,
+            19.765838235616684,
+            106.98508620262146
+          ],
+          "extent": [
+            4.92212176322937,
+            4.315870255231857,
+            1.4901578426361084
+          ],
+          "loose": [
+            45.0,
+            49.23334316177604,
+            96.89015784263611
+          ],
+          "angle": -15,
+          "radius": 5.815870255231857
+        },
+        {
+          "id": "trigger",
+          "name": "原厂扳机",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_trigger",
+          "target": [
+            77.32356190681458,
+            13.6453315615654,
+            106.99679255485535
+          ],
+          "extent": [
+            2.0079612731933594,
+            1.2453094124794006,
+            0.5489528179168701
+          ],
+          "loose": [
+            120.0,
+            66.99592955092592,
+            95.94895281791688
+          ],
+          "angle": 38,
+          "radius": 3.5
+        },
+        {
+          "id": "handle",
+          "name": "原厂拉机柄",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_handle",
+          "target": [
+            82.83619582653046,
+            4.931952804327011,
+            109.23806428909302
+          ],
+          "extent": [
+            1.5667110681533813,
+            4.678120464086533,
+            0.6486415863037109
+          ],
+          "loose": [
+            45.0,
+            21.338802582913353,
+            96.04864158630372
+          ],
+          "angle": 22,
+          "radius": 3.5
+        },
+        {
+          "id": "tray",
+          "name": "供弹托盘",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_tray",
+          "target": [
+            85.16591489315033,
+            6.093981117010117,
+            110.2559506893158
+          ],
+          "extent": [
+            1.3023525476455688,
+            4.585697501897812,
+            3.7696659564971924
+          ],
+          "loose": [
+            45.0,
+            35.02688720386912,
+            99.1696659564972
+          ],
+          "angle": -18,
+          "radius": 3.5
+        },
+        {
+          "id": "carry",
+          "name": "原厂提把",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_carry",
+          "target": [
+            89.13701176643372,
+            -5.014854669570923,
+            109.67243313789368
+          ],
+          "extent": [
+            5.427438020706177,
+            4.464027285575867,
+            4.503971338272095
+          ],
+          "loose": [
+            120.0,
+            39.73098459827716,
+            99.9039713382721
+          ],
+          "angle": 30,
+          "radius": 5.964027285575867
+        }
+      ],
+      "body_mesh": "/Game/Weapons/M249/Assembly/SM_M249_body",
+      "body_position": [
+        79.65398728847504,
+        3.49276065826416,
+        105.84561824798584
+      ]
+    }
+  ]
+}

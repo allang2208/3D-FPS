@@ -1,0 +1,65 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249WeaponAssets.h
+@@ -0,0 +1,62 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "M249ReloadTiming.h"
++
++namespace M249WeaponAssets
++{
++inline constexpr const TCHAR* Definition = TEXT("ue_m249");
++inline constexpr const TCHAR* MeshPath = TEXT("/Game/Weapons/M249/SK_M249_V7.SK_M249_V7");
++inline constexpr int32 FireVariantCount = 4;
++// Native M249 receiver framing; move the full rig once, independently of ADS.
++// Repair20 compares the saved idle at the existing LMG anchor and +6/+9.5 cm.
++inline const FVector HipPresentationOffset(6.f,0.f,0.f);
++// Hip28: compressed A_M249_idle, component-space sight axis and rear sight (cm).
++// Undo only the rail's roll, about the existing sight line. The compensating
++// translation holds both sight points in place while the gun and arms turn together.
++inline void LevelHipPose(FVector& Location,FQuat& Rotation,const FVector& Scale,float Weight)
++{
++    if(Weight<=0.f)return;
++    const FVector Axis=FVector(.000450045f,-.999899724f,.014154136f).GetSafeNormal();
++    const FVector Pivot=FVector(7.146587f,-6.894206f,5.675161f)*Scale;
++    const FQuat Leveled=(Rotation*FQuat(Axis,FMath::DegreesToRadians(5.000496f)*Weight)).GetNormalized();
++    Location+=Rotation.RotateVector(Pivot)-Leveled.RotateVector(Pivot);
++    Rotation=Leveled;
++}
++// The raised cover passes the support palm behind the old 10 cm action anchor.
++// Keep the authored contact, moving the complete assembly clear of the near plane.
++inline const FVector ReloadPresentationOffset(14.f,0.f,0.f);
++inline const TArray<FString>& FactorySlots()
++{
++    static const TArray<FString> V={TEXT("magazine"),TEXT("stock"),TEXT("reargrip"),TEXT("underbarrel"),TEXT("muzzle"),TEXT("optic")};return V;
++}
++inline const TArray<FString>& FactoryCategories()
++{
++    static const TArray<FString> V={TEXT("弹夹"),TEXT("枪托"),TEXT("后握把"),TEXT("前握把"),TEXT("枪口"),TEXT("瞄具")};return V;
++}
++inline const TArray<FString>& FactoryDefaults()
++{
++    static const TArray<FString> V={TEXT("原厂弹箱"),TEXT("原厂枪托"),TEXT("原厂后握把"),TEXT("原厂前握把"),TEXT("原厂枪口"),TEXT("原厂后置倍镜")};return V;
++}
++// The imported root bind is canted by five degrees relative to the model's top rail.
++inline const FVector SightUp(-0.0871557, 0., 0.9961947);
++inline FString FireSoundPath(int32 Index)
++{
++    return FString::Printf(TEXT("/Game/Weapons/M249/Audio/S_M249_Fire_%02d.S_M249_Fire_%02d"), Index, Index);
++}
++inline bool Matches(const USkeletalMeshComponent* Mesh)
++{
++    static const FName AssetName(TEXT("SK_M249_V7"));
++    return Mesh && Mesh->GetSkeletalMeshAsset() && Mesh->GetSkeletalMeshAsset()->GetFName()==AssetName;
++}
++inline FString AnimationPath(FString Role)
++{
++    Role.RemoveFromStart(TEXT("A_AKM_"));
++    if(Role.StartsWith(TEXT("equip"))) Role=TEXT("equip");
++    else if(Role==TEXT("aim")) Role=TEXT("idle");
++    else if(Role==TEXT("aim_fire")) Role=TEXT("fire");
++    return FString::Printf(TEXT("/Game/Weapons/M249/Animations/A_M249_%s.A_M249_%s"),*Role,*Role);
++}
++}

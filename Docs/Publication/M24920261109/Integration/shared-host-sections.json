@@ -1,0 +1,923 @@
+[
+  {
+    "source": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "host_sha256": "6da6fcc102dd746c91b8cfb160aacb7ec7603671da8880cd5a5ae217a6dcae40",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 88,
+        "text": "#include \"Weapons/M249WeaponAssets.h\"\n#include \"Weapons/M249SideMagazine.h\"\n#include \"Weapons/ScopeADSEyeRelief.h\"\n"
+      },
+      {
+        "line": 664,
+        "text": "    if (ActiveInventoryWeaponDefinition == PKMLowpolyWeaponAssets::Definition || ActiveInventoryWeaponDefinition == M249WeaponAssets::Definition)\n    {\n        const bool bM249=ActiveInventoryWeaponDefinition==M249WeaponAssets::Definition;\n        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,bM249?M249WeaponAssets::MeshPath:PKMLowpolyWeaponAssets::MeshPath);\n        bUsingM4Infima=ViewmodelMesh!=nullptr;\n        // Clear the central view of the raised carry handle as a complete\n        // weapon/arms assembly. Reload framing and calibrated ADS stay separate.\n        HipViewmodelLocation=LMGHipViewmodelLocation+(bM249?M249WeaponAssets::HipPresentationOffset:FVector::ZeroVector);\n        ADSRearEyeDistance=20.f;\n        if (!bPresentationOnly) QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*(bM249?M249WeaponAssets::AnimationPath(TEXT(\"quick_melee\")):PKMLowpolyWeaponAssets::AnimationPath(TEXT(\"quick_melee\"))));\n    }\n"
+      },
+      {
+        "line": 690,
+        "text": "        HipViewmodelLocation=M4HipViewmodelLocation;ADSRearEyeDistance=ScopeADSEyeRelief::DistanceCM;\n"
+      },
+      {
+        "line": 699,
+        "text": "        AKMViewmodel->SetBoundsScale((ActiveInventoryWeaponDefinition==PKMLowpolyWeaponAssets::Definition || ActiveInventoryWeaponDefinition==M249WeaponAssets::Definition) ? 2.f : bUseDanWesson715 ? DanWesson715WeaponAssets::ViewmodelBoundsScale : IsPitViperWeapon() ? PitViper2011WeaponAssets::ViewmodelBoundsScale : bUseM1911 ? M1911WeaponAssets::ViewmodelBoundsScale : 1.f);\n"
+      },
+      {
+        "line": 721,
+        "text": "    if(!bPresentationOnly&&M249WeaponAssets::Matches(AKMViewmodel))\n        M249WeaponAssets::LevelHipPose(InitialHipLocation,InitialHipRotation,ViewmodelScale,1.f);\n"
+      },
+      {
+        "line": 854,
+        "text": "            : M249WeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::M249\n"
+      },
+      {
+        "line": 965,
+        "text": "    const bool bM249Audio = M249WeaponAssets::Matches(AKMViewmodel);\n    if (LMG201WeaponAssets::Matches(AKMViewmodel) || bM249Audio)\n    {\n        const int32 Count = bM249Audio ? M249WeaponAssets::FireVariantCount : LMG201WeaponAssets::FireVariantCount;\n        for (int32 Index = 1; Index <= Count; ++Index)\n        {\n            const FString Path = bM249Audio ? M249WeaponAssets::FireSoundPath(Index) : LMG201WeaponAssets::FireSoundPath(Index);\n            if (auto* Sound = LoadObject<USoundBase>(nullptr, *Path))\n                RifleFireVariants.Add(Sound);\n        }\n        if (!RifleFireVariants.IsEmpty()) FireSound = RifleFireVariants[0];\n        // Preserve short recording tails under automatic fire with the existing\n        // no-adjacent-repeat player. Suppressor routing retains its own sound.\n        RifleFireConcurrency = NewObject<USoundConcurrency>(this);\n        RifleFireConcurrency->Concurrency.MaxCount = bM249Audio ? 7 : 6;\n        RifleFireConcurrency->Concurrency.bLimitToOwner = true;\n        RifleFireConcurrency->Concurrency.ResolutionRule = EMaxConcurrentResolutionRule::StopOldest;\n        RifleFireConcurrency->Concurrency.VoiceStealReleaseTime = 0.02f;\n    }\n"
+      },
+      {
+        "line": 1514,
+        "text": "    if(HasM249SideMagazine())Animation=LoadObject<UAnimSequence>(nullptr,*M249SideMagazine::AnimationPath(bPendingEmptyReload));\n"
+      },
+      {
+        "line": 1623,
+        "text": "        else if(HasM249SideMagazine())\n        {\n            MechanicalCueTimes={M249SideMagazine::Out,M249SideMagazine::Insert,M249SideMagazine::Seat};\n            MechanicalCueSounds={LoadObject<USoundBase>(nullptr,TEXT(\"/Game/Weapons/M4HK416Audio/S_HK416_MagOut\")),\n                LoadObject<USoundBase>(nullptr,TEXT(\"/Game/Weapons/M4HK416Audio/S_HK416_MagInsert\")),\n                LoadObject<USoundBase>(nullptr,TEXT(\"/Game/Weapons/M4HK416Audio/S_HK416_MagSeat\"))};\n            if(bPendingEmptyReload)\n            {\n                MechanicalCueTimes.Append({M249SideMagazine::ChargePull,M249SideMagazine::ChargeRear,M249SideMagazine::ChargePush,M249SideMagazine::ChargeClosed});\n                MechanicalCueSounds.Append({PKMReloadAudio::LoadContact(TEXT(\"ChargePullMove\")),PKMReloadAudio::LoadContact(TEXT(\"ChargeRearStop\")),PKMReloadAudio::LoadContact(TEXT(\"ChargePushMove\")),PKMReloadAudio::LoadContact(TEXT(\"ChargeFrontStop\"))});\n            }\n        }\n"
+      },
+      {
+        "line": 1656,
+        "text": "                MechanicalCueTimes.Append(M249WeaponAssets::Matches(AKMViewmodel)\n                    ? TArray<float>{M249ReloadTiming::ChargePull,M249ReloadTiming::ChargeRear,M249ReloadTiming::ChargePush,M249ReloadTiming::ChargeClosed}\n"
+      },
+      {
+        "line": 1967,
+        "text": "    if (M249WeaponAssets::Matches(AKMViewmodel)) return QuickCombatAnimation.Get();\n"
+      },
+      {
+        "line": 2534,
+        "text": "                else if (HasM249SideMagazine())\n                    CameraAction = bPendingEmptyReload ? EM4CameraAction::M249SideReloadEmpty : EM4CameraAction::M249SideReload;\n"
+      },
+      {
+        "line": 2658,
+        "text": "        && !(HasM249SideMagazine()&&IsReloading());\n"
+      },
+      {
+        "line": 2843,
+        "text": "        + (M249WeaponAssets::Matches(AKMViewmodel)&&IsReloading()&&!HasM249SideMagazine()\n            ? M249WeaponAssets::ReloadPresentationOffset : FVector::ZeroVector);\n"
+      },
+      {
+        "line": 2883,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel))\n    {\n        float HipLevelWeight=1.f-M4ActionFramingAlpha;\n        if(ActiveActionAnimation&&(IsReloading()||WeaponState==EAKMWeaponState::Equipping))\n        {\n            // Side magazines deliberately keep their hip translation during reload.\n            // Use the source-time idle handoff instead of the framing alpha: the\n            // correction is zero throughout magazine/cover/charging contacts.\n            const float Source=IsReloading()?ReloadSourceTime(WeaponStateElapsed)\n                :ActionStartPosition+WeaponStateElapsed*ActionPlayRate;\n            HipLevelWeight=M249ReloadTiming::ArmIdleWeight(Source,ActiveActionAnimation->GetPlayLength());\n        }\n        M249WeaponAssets::LevelHipPose(TargetLocation,TargetRotation,ViewmodelScale,\n            HipLevelWeight*(1.f-WeaponADSFactor)*(1.f-SprintPoseFactor));\n    }\n"
+      },
+      {
+        "line": 3571,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel))\n        M249WeaponAssets::LevelHipPose(InitialHipLocation,InitialHipRotation,ViewmodelScale,1.f);\n"
+      },
+      {
+        "line": 3872,
+        "text": "    if (ActiveInventoryWeaponDefinition==M249WeaponAssets::Definition)\n        return LoadObject<UAnimSequence>(nullptr,*M249WeaponAssets::AnimationPath(AssetName));\n"
+      },
+      {
+        "line": 4017,
+        "text": "    if (M249WeaponAssets::Matches(AKMViewmodel) && FCString::Strcmp(AssetName, TEXT(\"S_AKM_Fire\")) == 0)\n        return LoadObject<USoundBase>(nullptr, *M249WeaponAssets::FireSoundPath(1));\n"
+      },
+      {
+        "line": 4406,
+        "text": "        if ((UsesPhysicalScope() || IsM24Weapon() || M249WeaponAssets::Matches(AKMViewmodel) || IsShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT(\"eoth_holographic\") || OpticVariant == TEXT(\"kv_scope_4x\")) && HolographicOptic && HolographicOptic->GetStaticMesh())\n        {\n            const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();\n            const auto* R=OpticMesh->FindSocket(TEXT(\"SightRear\"));\n            const auto* F=OpticMesh->FindSocket(TEXT(\"SightFront\"));\n            const auto* U=OpticMesh->FindSocket(TEXT(\"SightUp\"));\n            if (R&&F&&U)\n            {\n                Rear=Mount.TransformPosition(R->RelativeLocation)*ViewmodelScale;\n                Front=Mount.TransformPosition(F->RelativeLocation)*ViewmodelScale;\n                SightUp=(Mount.TransformPosition(U->RelativeLocation)*ViewmodelScale-Rear).GetSafeNormal();\n            }\n        }\n"
+      },
+      {
+        "line": 4426,
+        "text": "    if ((IsM24Weapon() || IsPistolWeapon() || IsHK416Weapon() || IsTubeShotgunWeapon() || bUseQBZ191 || M249WeaponAssets::Matches(AKMViewmodel)) && !bHolographicOptic)\n    {\n        FTransform Root = FTransform::Identity;\n        for (int32 Index=Ref.FindBoneIndex(TEXT(\"WPN_root\")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))\n        {\n            FTransform Local;\n            AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);\n            Root=Root*Local;\n        }\n        SightUp=Root.GetRotation().RotateVector(IsM24Weapon() ? M24WeaponAssets::SightUp : M249WeaponAssets::Matches(AKMViewmodel) ? M249WeaponAssets::SightUp : IsTubeShotgunWeapon() ? -FVector::RightVector : FVector::UpVector);\n    }\n"
+      },
+      {
+        "line": 4440,
+        "text": "    if(IsM24Weapon() || bHolographicOptic || IsShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || M249WeaponAssets::Matches(AKMViewmodel) || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();\n"
+      },
+      {
+        "line": 4443,
+        "text": "    const float EyeDistance = UsesPhysicalScope() ? ScopeADSEyeRelief::DistanceCM\n"
+      },
+      {
+        "line": 4453,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel))\n    {\n        const float Phase=RuntimeTime/FMath::Max(WeaponStateDuration,.01f);\n        return HasM249SideMagazine()\n            ?M249ReloadTiming::SideSourceSeconds(Phase,bPendingEmptyReload,MagazineAttachmentId==TEXT(\"m249_side_mag_45\"))\n            :M249ReloadTiming::SourceSeconds(Phase,bPendingEmptyReload);\n    }\n"
+      },
+      {
+        "line": 4514,
+        "text": "    const int32 BoltReleaseCueIndex = HasM249SideMagazine()?(bPendingEmptyReload?6:INDEX_NONE):HasLMG201ClothBox()?INDEX_NONE:bPKMReload ? (bPendingEmptyReload ? 8 : INDEX_NONE)\n"
+      },
+      {
+        "line": 4573,
+        "text": "        IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,bGunsmithInspection?100:PKMPresentationRounds,!HasM249SideMagazine());\n"
+      },
+      {
+        "line": 4590,
+        "text": "        View->M249BeltDynamics.Configure(M249WeaponAssets::Matches(AKMViewmodel)&&!HasM249SideMagazine(),IsReloading(),bPendingEmptyReload,\n            IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,bGunsmithInspection);\n    }\n"
+      },
+      {
+        "line": 4677,
+        "text": "        const bool bAuthoredSVCHQuick = bQuickCombatAction && (IsM24Weapon()||SVCHWeaponAssets::Matches(AKMViewmodel)||M249WeaponAssets::Matches(AKMViewmodel));\n"
+      },
+      {
+        "line": 4731,
+        "text": "        if(M249WeaponAssets::Matches(AKMViewmodel)&&IsReloading())\n            GunplayAnimation->ArmIdleHandoffAlpha=M249ReloadTiming::ArmIdleWeight(SourceTime,ActiveActionAnimation->GetPlayLength());\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/FPSGAMECharacter.h",
+    "host_sha256": "b23fbc397e418053e0b4d3c6e02c7a79d4521b9f7c2cee8d6ed694751afde727",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 285,
+        "text": "    bool HasM249SideMagazine() const;\n"
+      },
+      {
+        "line": 704,
+        "text": "    void SetM249Optic(const FString& Variant);\n    void SetM249Muzzle(const FString& Variant);\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "host_sha256": "e2083ce7bba77381771dc2e58a7c33411aa2c5866ef4ee1639ba6b11c18e0b14",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 112,
+        "text": "    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT(\"ue_m4a1\")||I->Definition==TEXT(\"ue_hk416\"))||I->Definition==TEXT(\"ue_akm\")||I->Definition==TEXT(\"ue_a762\")||I->Definition==TEXT(\"ue_lmg201\")||I->Definition==TEXT(\"ue_super90\")||I->Definition==TEXT(\"ue_m870\")||I->Definition==TEXT(\"ue_svd\")||(I->Definition==TEXT(\"ue_svch\")||I->Definition==TEXT(\"ue_m24\"))||I->Definition==TEXT(\"ue_saiga12k\")||I->Definition==TEXT(\"ue_pkm_lowpoly\")||I->Definition==TEXT(\"ue_m249\")||I->Definition==TEXT(\"ue_qbz191\")||I->Definition==TEXT(\"ue_ash12\")||I->Definition==TEXT(\"ue_m16a2\")||((I->Definition==TEXT(\"ue_m1911\")||I->Definition==TEXT(\"ue_g18\")||I->Definition==TEXT(\"ue_pit_viper2011\"))||(I->Definition==TEXT(\"ue_dan_wesson715\")||I->Definition==TEXT(\"ue_rsh12\"))));\n"
+      },
+      {
+        "line": 172,
+        "text": "        ?Profile->PistolMovementMultiplier()*Profile->MachineGunMovementMultiplier():1.f;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/FPSGAMECharacterReloadCamera.cpp",
+    "host_sha256": "39d476eb39f0aa0a14bb490de273f82b1423f3472533fbad37de0c085c070a40",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 2,
+        "text": "#include \"Weapons/M249SideMagazine.h\"\n"
+      },
+      {
+        "line": 75,
+        "text": "        if(M249WeaponAssets::Matches(AKMViewmodel))\n        {\n            // RC1 preparation and settling, retaining its shared output limits.\n            Track.FollowScale=2.1f;Track.ContactScale=1.2f;\n        }\n        if(HasM249SideMagazine())\n        {\n            const bool Extended=MagazineAttachmentId==TEXT(\"m249_side_mag_45\");\n            Track.FollowScale=Extended?1.95f:1.8f;Track.ContactScale=Extended?1.2f:1.15f;\n            Track.Add(M249SideMagazine::Out,E::MagazineOut);\n            Track.Add(M249SideMagazine::Insert,E::Insert);Track.Add(M249SideMagazine::Seat,E::Seat);\n            if(bPendingEmptyReload)\n            {\n                Track.Add(M249SideMagazine::ChargePull,E::Pull);Track.Add(M249SideMagazine::ChargeRear,E::BoltLock);\n                Track.Add(M249SideMagazine::ChargePush,E::BoltPush);Track.Add(M249SideMagazine::ChargeClosed,E::Release);\n            }\n        }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/FPSGAMECharacterReload.cpp",
+    "host_sha256": "0d3884dbcd01f4c6af09dc84d2d7cb718d7898e1d478cbbcb88aeb51a0622a74",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 9,
+        "text": "#include \"Weapons/M249SideMagazine.h\"\n"
+      },
+      {
+        "line": 69,
+        "text": "    if(HasM249SideMagazine())ReloadStages={M249SideMagazine::Insert,M249SideMagazine::CycleBegin,bPendingEmptyReload?M249SideMagazine::ChargeClosed:M249SideMagazine::Seat};\n"
+      },
+      {
+        "line": 141,
+        "text": "            : (ActiveInventoryWeaponDefinition==TEXT(\"ue_pkm_lowpoly\") || ActiveInventoryWeaponDefinition==TEXT(\"ue_m249\")) ? 2 : 0;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h",
+    "host_sha256": "4f9c2247c649fd6039a96526006f9a51e08ab189de02b89d082adab6cc9616d8",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 213,
+        "text": "        TEXT(\"/Game/Weapons/M249/SK_M249_V7\"),\n        TEXT(\"/Game/Weapons/M4AnimationAuditFinal/S_HK416_BoltRelease\"),\n        TEXT(\"/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip\"),\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp",
+    "host_sha256": "4ee157367711296a59c83c01b6ae59b39353d2ad49474eb93787d54c36c9a1e0",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 9,
+        "text": "#include \"../Weapons/M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 95,
+        "text": "        if(W.GunDefinition==FName(PKMLowpolyWeaponAssets::Definition)||W.GunDefinition==FName(M249WeaponAssets::Definition)||W.GunDefinition==FName(LMG201WeaponAssets::Definition))\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp",
+    "host_sha256": "c5ff8eacf6e04e713dd0f4dfbade279dedc79874e47a7dd13701f7fc051a536a",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 83,
+        "text": "        TEXT(\"/Game/Weapons/M249/\"),\n        TEXT(\"/Game/Weapons/QBZ191/\"),\n        TEXT(\"/Game/Weapons/ASH12/\"),\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/WeaponSurfaceStandard.h",
+    "host_sha256": "f6890c0b182a7e02fc2737b168da84a7018b01ed1ec198434606fbe1e81aac03",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 27,
+        "text": "    // M249's regional/static graphs retain WS1 wetness; fitted optical housings\n"
+      },
+      {
+        "line": 29,
+        "text": "    if(Base->GetOutermost()->GetName().StartsWith(TEXT(\"/Game/Weapons/M249/Surface20261108/Master/\")))return Asset;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+    "host_sha256": "9413561be92c7b683c1039e36152061354a61444a3f2a4c365309cdf64c3571e",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 10,
+        "text": "#include \"M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 43,
+        "text": "    if (Definition==M249WeaponAssets::Definition)\n"
+      },
+      {
+        "line": 45,
+        "text": "            PKMLowpolyWeaponAssets::ReloadEventTime(5.1f,Empty), Empty?M249ReloadTiming::ChargeClosed:5.72f};\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+    "host_sha256": "826361bbbb925863a4dcd3cd5f01013a9098cb9e887c8c6cb82042c42a337802",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 3,
+        "text": "#include \"M249WeaponAssets.h\"\n#include \"M249Bipod.h\"\n#include \"M249BipodAnimation.h\"\n"
+      },
+      {
+        "line": 43,
+        "text": "    if(Definition==M249WeaponAssets::Definition)return true; // fixed factory legs, no modification slot\n"
+      },
+      {
+        "line": 75,
+        "text": "    return IsM24()||(C&&(C->IsLocallyControlled()?C->ActiveInventoryWeaponDefinition==M249WeaponAssets::Definition\n        :EquippedDefinition()==M249WeaponAssets::Definition));\n"
+      },
+      {
+        "line": 80,
+        "text": "{return IsM24()?M24Bipod::Duration:HasHandDeployment()?M249BipodAnimation::Duration:(bDeploy?.32f:.16f);}\n"
+      },
+      {
+        "line": 103,
+        "text": "    // M24 keeps its grip-family deltas. M249 contains its native grip,\n    // complete arms and weapon pullback in one reversible sequence.\n    Animation.ActionGripProfile=IsM24()?Animation.GripProfile.Get():Profile;\n    if(M249WeaponAssets::Matches(C->AKMViewmodel)&&Animation.GripProfile\n"
+      },
+      {
+        "line": 163,
+        "text": "    if(!C || !C->bInventoryWeaponReady || (!PKMLowpolyWeaponAssets::Matches(C->AKMViewmodel)&&!LMG201WeaponAssets::Matches(C->AKMViewmodel)&&!M24Bipod::Matches(C->AKMViewmodel)&&!M249WeaponAssets::Matches(C->AKMViewmodel)))return nullptr;\n"
+      },
+      {
+        "line": 440,
+        "text": "        if(auto* Part=Bipod.Get()){Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);Part->SetM24DeploymentTime(0.f);Part->SetM249DeploymentWeight(0.f);}\n"
+      },
+      {
+        "line": 453,
+        "text": "        if(auto* Part=EquippedBipod())Part->SetM249DeploymentWeight(M249BipodAnimation::LegWeight(Blend));\n"
+      },
+      {
+        "line": 470,
+        "text": "    if(auto* Part=Bipod.Get())Part->SetM249DeploymentWeight(M249BipodAnimation::LegWeight(Blend));\n"
+      },
+      {
+        "line": 553,
+        "text": "        Part->SetM249DeploymentWeight(M249BipodAnimation::LegWeight(Blend));\n"
+      },
+      {
+        "line": 633,
+        "text": "    if(Definition!=PKMLowpolyWeaponAssets::Definition&&Definition!=LMG201WeaponAssets::Definition&&Definition!=M24WeaponAssets::Definition&&Definition!=M249WeaponAssets::Definition)return false;\n    {\n        const auto* Model=C->GetNetShadowProfile();\n        if(!Model&&C->IsLocallyControlled())Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();\n        const auto* Item=Model?Model->Equipped():nullptr;\n        const auto* Gunsmith=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();\n        if(!Item||!Gunsmith||Model->ActiveProductionTool())return false;\n        const FString Part=Gunsmith->Installed(*Item).FindRef(TEXT(\"bipod\"));\n        if(!BipodPartInstalled(Definition,Part))return false;\n    }\n"
+      },
+      {
+        "line": 667,
+        "text": "    const float Span=EquippedDefinition()==M249WeaponAssets::Definition?float((M249Bipod::Pivots[0]+M249Bipod::Tips[0]-M249Bipod::Pivots[1]-M249Bipod::Tips[1]).Size()):Sniper?float((M24Bipod::Pivots[0]+M24Bipod::Tips[0]-M24Bipod::Pivots[1]-M24Bipod::Tips[1]).Size()):LMG?float((LMG201WeaponAssets::BipodPivotsCm[0]+LMG201WeaponAssets::BipodFeetCm[0]\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/WeaponActionCameraComponent.h",
+    "host_sha256": "ff3cf1a5eb2cdb71bb160410fb24d3fe6700d74cacb8cef5839113ee99f39977",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 16,
+        "text": "    M249SideReload, M249SideReloadEmpty\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/WeaponActionCameraComponent.cpp",
+    "host_sha256": "aca150b3dd08f0651553c63b217347c425921b81f544f42c2a8f0697e43053dc",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 349,
+        "text": "void ReloadM249Side(float Time,float End,TConstArrayView<float> Contacts,bool Empty,FPose& Follow,FPose& Impacts)\n{\n    // Side magazines have three feed contacts followed by four independent\n    // charging-handle contacts. Keep RC1 as the sole contact impulse owner.\n    Reload(Time,End,Contacts,false,false,false,Follow,Impacts);\n    if(!Empty || Contacts.Num()<7)return;\n    const float Pull=Contacts[3],Rear=Contacts[4],Push=Contacts[5],Closed=Contacts[6];\n    const FKey Keys[] = {\n        {0.f,{},{}},\n        {Pull-.18f,{},{}},\n        {Pull,{.35f,-.08f,-.12f},{-.08f,.02f,.04f}},\n        {Rear,{1.65f,-.16f,-.30f},{-.28f,.06f,.12f}},\n        {Push,{1.45f,-.12f,-.22f},{-.24f,.04f,.10f}},\n        {Closed,{-.60f,.10f,.16f},{.15f,-.02f,-.07f}},\n        {Closed+.16f,{.12f,-.02f,-.03f},{-.03f,0.f,.015f}},\n        {FMath::Min(Closed+.40f,End-.02f),{},{}},\n        {End,{},{}}\n    };\n    const FPose Charge=Curve(Keys,Time);\n    Follow.Angles+=Charge.Angles;Follow.Position+=Charge.Position;\n}\n"
+      },
+      {
+        "line": 378,
+        "text": "    else if(Action==EM4CameraAction::M249SideReload||Action==EM4CameraAction::M249SideReloadEmpty)\n        ReloadM249Side(Time,End,Contacts,Action==EM4CameraAction::M249SideReloadEmpty,Follow,Impacts);\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+    "host_sha256": "b6997fb5ba144332ebddf7a032d7aa066a707a7a48666a8214266e1e4c42b2ff",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 2,
+        "text": "#include \"M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 18,
+        "text": "    if(Definition==M249WeaponAssets::Definition)return M249WeaponAssets::FactorySlots();\n"
+      },
+      {
+        "line": 24,
+        "text": "    if(Definition==M249WeaponAssets::Definition)return M249WeaponAssets::FactoryCategories();\n"
+      },
+      {
+        "line": 30,
+        "text": "    if(Definition==M249WeaponAssets::Definition)return M249WeaponAssets::FactoryDefaults();\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+    "host_sha256": "487e410bfc0bc510d3dc1683e4d67800b480030c03ad987029674322de6f9a25",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 7,
+        "text": "#include \"M249Attachments.h\"\n"
+      },
+      {
+        "line": 26,
+        "text": "        :M249WeaponAssets::Matches(AKMViewmodel)?M249Attachments::ProfilePath(Family)\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "host_sha256": "353d87ec7b3b56f4a03d95e5f36c9b3de8efd641af402b245613c24aee245e9d",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 2,
+        "text": "#include \"../Weapons/M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 34,
+        "text": "    // M249 exposes its separated factory modules before common upgrades exist.\n    if(Model()->Definition()==M249WeaponAssets::Definition)\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M24HoldReviewCommandlet.cpp",
+    "host_sha256": "75633dae50da0f7b3ffef58df4fc6fe5ed073718d6de5a9dcfff05fc022f5c33",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 3,
+        "text": "int32 RunM249ReloadReview(const FString& ManifestPath, const FString& Output);\n"
+      },
+      {
+        "line": 8,
+        "text": "#include \"M249WeaponAssets.h\"\n#include \"M249BipodAnimation.h\"\n"
+      },
+      {
+        "line": 55,
+        "text": "    if (FParse::Value(*Params,TEXT(\"M249ReloadManifest=\"),ReloadManifest))\n        return RunM249ReloadReview(ReloadManifest,Output);\n"
+      },
+      {
+        "line": 100,
+        "text": "    const bool bM249=FParse::Param(*Params,TEXT(\"M249\"));\n    const bool bM249Side=bM249&&FParse::Param(*Params,TEXT(\"M249Side\"));\n    const bool bM249Focus=bM249&&FParse::Param(*Params,TEXT(\"M249Focus\"));\n"
+      },
+      {
+        "line": 106,
+        "text": "    const bool bBipod=bM249Focus&&ReviewRole==TEXT(\"bipod\");\n"
+      },
+      {
+        "line": 113,
+        "text": "    for (bool bM24 : bM249 ? TArray<bool>{false} : TArray<bool>{false,true})\n"
+      },
+      {
+        "line": 115,
+        "text": "        auto* Mesh=LoadObject<USkeletalMesh>(nullptr,bM249?M249WeaponAssets::MeshPath:bM24?M24WeaponAssets::MeshPath:SVDWeaponAssets::MeshPath);\n        auto* Idle=LoadObject<UAnimSequence>(nullptr,*(bM249?M249WeaponAssets::AnimationPath(TEXT(\"idle\")):bM24?M24WeaponAssets::AnimationPath(TEXT(\"idle\")):SVDWeaponAssets::AnimationPath(TEXT(\"idle\"))));\n"
+      },
+      {
+        "line": 118,
+        "text": "        FRifleHipFraming Framing;Framing.Initialize(bM249?M249WeaponAssets::Definition:bM24?M24WeaponAssets::Definition:SVDWeaponAssets::Definition,Idle,FVector(0,7,-7),FRotator(0,90,0),FVector::OneVector,false);\n        if (!bM249 && !Framing.IsReady()) return 4;\n"
+      },
+      {
+        "line": 121,
+        "text": "        const FVector Hip=bM249?FVector(9,9,-11):Framing.Location(FVector::ZeroVector);\n        const FQuat Base=bM249?FRotator(0,90,0).Quaternion():Framing.Rotation(FQuat::Identity);\n"
+      },
+      {
+        "line": 126,
+        "text": "        if(bM249Focus&&ReviewView==TEXT(\"ads\"))\n        {\n            UMaterialInstanceDynamic* Colors[2];\n            auto* BackdropMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT(\"/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial\"));\n            for(int32 I=0;I<2;++I)\n            {\n                Colors[I]=UMaterialInstanceDynamic::Create(BackdropMaterial,Owner);\n                Colors[I]->SetVectorParameterValue(TEXT(\"Color\"),I?FLinearColor(.9f,.9f,.9f):FLinearColor(.02f,.02f,.02f));\n            }\n            auto* Cube=LoadObject<UStaticMesh>(nullptr,TEXT(\"/Engine/BasicShapes/Cube.Cube\"));\n            for(int32 Y=-6;Y<=6;++Y)for(int32 Z=-6;Z<=6;++Z)\n            {\n                auto* Tile=NewObject<UStaticMeshComponent>(Owner);Tile->SetStaticMesh(Cube);Tile->SetMaterial(0,Colors[(Y+Z+12)%2]);\n                Tile->SetCollisionEnabled(ECollisionEnabled::NoCollision);Tile->SetCastShadow(false);\n                Studio->AddComponent(Tile,FTransform(FQuat::Identity,FVector(300.,Y*10.,Z*10.),FVector(.01,.1,.1)));\n                Capture->ShowOnlyComponent(Tile);\n            }\n        }\n"
+      },
+      {
+        "line": 154,
+        "text": "            const int32 Material=Rig->GetMaterialIndex(TEXT(\"M249_Bipod\"));\n"
+      },
+      {
+        "line": 160,
+        "text": "            BipodAnim->GripProfile=LoadObject<UWeaponGripProfile>(nullptr,M249BipodAnimation::SupportProfile);\n            BipodAnim->AimClip=LoadObject<UAnimSequence>(nullptr,*M249WeaponAssets::AnimationPath(TEXT(\"aim\")));\n            BipodAnim->ActionGripProfile=LoadObject<UWeaponGripProfile>(nullptr,M249BipodAnimation::Profile);\n"
+      },
+      {
+        "line": 172,
+        "text": "        if(bM249)\n        {\n            Rig->SetTextureForceResidentFlag(true);Rig->PrestreamTextures(30.f,true);\n            World->SendAllEndOfFrameUpdates();FlushRenderingCommands();\n            UTexture::ForceUpdateTextureStreaming();IStreamingManager::Get().StreamAllResources(0.f);\n        }\n"
+      },
+      {
+        "line": 184,
+        "text": "        if(bM249)Samples.Append({{TEXT(\"idle\"),0.f,true},{TEXT(\"reload\"),1.6f},{TEXT(\"reload\"),2.17f},{TEXT(\"reload\"),4.7f},\n            {TEXT(\"reload_empty\"),5.13f},{TEXT(\"reload_empty\"),5.36f},{TEXT(\"reload_empty\"),5.78f}});\n"
+      },
+      {
+        "line": 187,
+        "text": "        if(bM249Focus)\n        {\n            Samples.Reset();\n            if(ReviewView==TEXT(\"ads\"))Samples.Add({TEXT(\"idle\"),0.f,true});\n            else {TArray<FString> Times;ReviewTimes.ParseIntoArray(Times,TEXT(\",\"));for(const auto& Time:Times)Samples.Add({*ReviewRole,FCString::Atof(*Time)});}\n            const auto& LOD=Mesh->GetResourceForRendering()->LODRenderData[0];TArray<uint32> Indices;LOD.MultiSizeIndexContainer.GetIndexBuffer(Indices);Binary(Indices,TEXT(\"surface.indices\"));\n            TArray<uint32> Materials;Materials.Init(0,Indices.Num()/3);TArray<uint8> Left;Left.Init(0,LOD.GetNumVertices());\n            const auto* Weights=Rig->GetSkinWeightBuffer(0);const auto& Ref=Mesh->GetRefSkeleton();\n            for(const auto& Section:LOD.RenderSections)\n            {\n                for(uint32 T=Section.BaseIndex/3;T<Section.BaseIndex/3+Section.NumTriangles;++T)Materials[T]=Section.MaterialIndex;\n                for(uint32 V=Section.BaseVertexIndex;V<Section.BaseVertexIndex+Section.NumVertices;++V)\n                {\n                    int32 Best=-1;uint16 Max=0;\n                    for(uint32 J=0;J<Weights->GetMaxBoneInfluences();++J)if(Weights->GetBoneWeight(V,J)>Max){Max=Weights->GetBoneWeight(V,J);Best=Section.BoneMap[Weights->GetBoneIndex(V,J)];}\n                    Left[V]=Best>=0&&Ref.GetBoneName(Best).ToString().EndsWith(TEXT(\"_l\"));\n                }\n            }\n            Binary(Materials,TEXT(\"surface.materials\"));Binary(Left,TEXT(\"surface.left\"));\n        }\n"
+      },
+      {
+        "line": 209,
+        "text": "            auto* Clip=LoadObject<UAnimSequence>(nullptr,*(bBipod?FString(TEXT(\"/Game/Weapons/M249/Bipod/A_M249_Bipod\")):bM249?M249WeaponAssets::AnimationPath(Sample.Role):bM24?M24WeaponAssets::AnimationPath(Sample.Role):SVDWeaponAssets::AnimationPath(Sample.Role)));\n"
+      },
+      {
+        "line": 212,
+        "text": "            if(bM249Side)Capture->FOVAngle=50.f;\n            if(bM249Focus)Capture->FOVAngle=ReviewView==TEXT(\"ads\")?FMath::RadiansToDegrees(2.f*FMath::Atan(FMath::Tan(FMath::DegreesToRadians(27.5f))*16.f/9.f)):ReviewView==TEXT(\"player\")?107.5f:48.f;\n            if(bM249)Rig->SetWorldTransform(FTransform(Base,FCString::Strncmp(Sample.Role,TEXT(\"reload\"),6)==0?FVector(10,0,-5):Hip));\n"
+      },
+      {
+        "line": 216,
+        "text": "            const float BipodPhase=FMath::Clamp(bRetract?1.f-Sample.Time/M249BipodAnimation::Duration:Sample.Time/M249BipodAnimation::Duration,0.f,1.f);\n"
+      },
+      {
+        "line": 230,
+        "text": "                if(bBipod)Bipod->SetM249DeploymentWeight(M249BipodAnimation::LegWeight(BipodPhase));\n                if(bM249)\n                {\n                    PKMLowpolyWeaponAssets::SetSections(Rig,FCString::Strncmp(Sample.Role,TEXT(\"reload\"),6)==0,\n                        FCString::Strcmp(Sample.Role,TEXT(\"reload_empty\"))==0,Sample.Time,100);\n                    if(bBipod&&ReviewView==TEXT(\"player\"))\n                    {\n                        const FVector Rear=Rig->GetSocketTransform(TEXT(\"WPN_RearSight\"),RTS_Component).GetLocation();\n                        const FVector Axis=(Rig->GetSocketTransform(TEXT(\"WPN_FrontSight\"),RTS_Component).GetLocation()-Rear).GetSafeNormal();\n                        const FVector Up=Rig->GetSocketTransform(TEXT(\"WPN_root\"),RTS_Component).GetRotation().RotateVector(M249WeaponAssets::SightUp);\n                        const FQuat Align=FRotationMatrix::MakeFromXZ(Axis,Up).ToQuat().Inverse();\n                        FTransform Framed;Framed.Blend(FTransform(Base,Hip),FTransform(Align,FVector(20.,0,0)-Align.RotateVector(Rear)),BipodAnim->AimAlpha);\n                        Rig->SetWorldTransform(Framed);\n                    }\n                    if(Sample.ADS)\n                    {\n                        if(bM249Focus)\n                        {\n                            // The same complete-frame calibration used by UpdateADSPose;\n                            // keep the camera fixed, moving the viewmodel as gameplay does.\n                            const FVector Rear=Rig->GetSocketTransform(TEXT(\"WPN_RearSight\"),RTS_Component).GetLocation();\n                            const FVector Axis=(Rig->GetSocketTransform(TEXT(\"WPN_FrontSight\"),RTS_Component).GetLocation()-Rear).GetSafeNormal();\n                            const FVector Up=Rig->GetSocketTransform(TEXT(\"WPN_root\"),RTS_Component).GetRotation().RotateVector(M249WeaponAssets::SightUp);\n                            const FQuat Align=FRotationMatrix::MakeFromXZ(Axis,Up).ToQuat().Inverse();\n                            Rig->SetWorldTransform(FTransform(Align,FVector(20.,0,0)-Align.RotateVector(Rear)));Capture->SetWorldTransform(FTransform::Identity);\n                        }\n                        else\n                        {\n                        const FVector Rear=Rig->GetSocketLocation(TEXT(\"WPN_RearSight\"));\n                        const FVector Axis=(Rig->GetSocketLocation(TEXT(\"WPN_FrontSight\"))-Rear).GetSafeNormal();\n                        const FVector Up=Rig->GetSocketTransform(TEXT(\"WPN_root\")).GetRotation().RotateVector(M249WeaponAssets::SightUp);\n                        Capture->SetWorldLocationAndRotation(Rear-Axis*20.,FRotationMatrix::MakeFromXZ(Axis,Up).ToQuat());\n                        }\n                    }\n                    else if(bM249Focus&&ReviewView!=TEXT(\"player\"))\n                    {\n                        const FVector Center=Rig->GetComponentTransform().TransformPosition(bBipod?FVector(-2,-16,-17):FVector(4,-10,4));\n                        const FVector Eye=Center+Base.RotateVector(ReviewView==TEXT(\"top\")?FVector(-40,-10,65):bBipod?FVector(-82,-12,20):FVector(-65,-5,28));\n                        Capture->SetWorldLocationAndRotation(Eye,(Center-Eye).Rotation());\n                    }\n                    else if(bM249Side)\n                    {\n                        const FVector Center=Rig->GetSocketLocation(TEXT(\"WPN_root\"))+FVector(0,0,-12);\n                        const FVector Eye=Center+Base.RotateVector(FVector(65,-45,38));\n                        Capture->SetWorldLocationAndRotation(Eye,(Center-Eye).Rotation());\n                    }\n                }\n"
+      },
+      {
+        "line": 284,
+        "text": "            const FString Name=FString::Printf(TEXT(\"%s_%s_%03d\"),bM249?TEXT(\"M249\"):bM24?TEXT(\"M24\"):TEXT(\"SVD\"),Sample.ADS?TEXT(\"ads\"):Sample.Role,FMath::RoundToInt(Sample.Time*(bM249Focus?1000:30)));\n"
+      },
+      {
+        "line": 287,
+        "text": "            Row->SetStringField(TEXT(\"clip\"),Clip->GetPathName());Row->SetBoolField(TEXT(\"framing_ready\"),bM249||Framing.IsReady());\n"
+      },
+      {
+        "line": 292,
+        "text": "                bM249Side?TEXT(\"right-side arm and charging-handle inspection\"):\n                bM249?TEXT(\"native M249 hip/action anchor\"):TEXT(\"calibrated hip; aim entry reviews the aim clip in this same camera\"));\n"
+      },
+      {
+        "line": 298,
+        "text": "            if(bM249Focus)\n            {\n                TArray<FFinalSkinVertex> Skinned;Rig->GetCPUSkinnedVertices(Skinned,0);TArray<FVector3f> Points;Points.Reserve(Skinned.Num());for(const auto& V:Skinned)Points.Add(V.Position);\n                Binary(Points,Name+TEXT(\".vertices\"));Row->SetNumberField(TEXT(\"source_seconds\"),Sample.Time);\n                if(bBipod)\n                {\n                    Row->SetBoolField(TEXT(\"retract\"),bRetract);Row->SetNumberField(TEXT(\"action_seconds\"),BipodTime);\n                    Row->SetNumberField(TEXT(\"action_alpha\"),BipodAnim->ActionAlpha);Row->SetNumberField(TEXT(\"aim_alpha\"),BipodAnim->AimAlpha);\n                    TArray<TSharedPtr<FJsonValue>> Bones;\n                    for(int32 B=0;B<Mesh->GetRefSkeleton().GetNum();++B)\n                    {\n                        const FName Bone=Mesh->GetRefSkeleton().GetBoneName(B);const FTransform X=Rig->GetSocketTransform(Bone,RTS_Component);\n                        auto V=MakeShared<FJsonObject>();V->SetStringField(TEXT(\"bone\"),Bone.ToString());\n                        const FVector P=X.GetLocation(),S=X.GetScale3D();const FQuat Q=X.GetRotation();TArray<TSharedPtr<FJsonValue>> T;\n                        for(double Value:{P.X,P.Y,P.Z,Q.X,Q.Y,Q.Z,Q.W,S.X,S.Y,S.Z})T.Add(MakeShared<FJsonValueNumber>(Value));\n                        V->SetArrayField(TEXT(\"transform\"),T);Bones.Add(MakeShared<FJsonValueObject>(V));\n                    }\n                    Row->SetArrayField(TEXT(\"bones\"),Bones);\n                    for(int32 I=0;I<Parts.Num();++I)\n                    {\n                        auto* Part=Parts[I];const auto& LOD=Part->GetStaticMesh()->GetRenderData()->LODResources[0];\n                        const FTransform X=Part->GetComponentTransform().GetRelativeTransform(Rig->GetComponentTransform());\n                        TArray<FVector3f> V;TArray<uint32> F;\n                        for(uint32 J=0;J<LOD.VertexBuffers.PositionVertexBuffer.GetNumVertices();++J)V.Add(FVector3f(X.TransformPosition(FVector(LOD.VertexBuffers.PositionVertexBuffer.VertexPosition(J)))));\n                        for(int32 J=0;J<LOD.IndexBuffer.GetNumIndices();++J)F.Add(LOD.IndexBuffer.GetIndex(J));\n                        const FString Prefix=Name+TEXT(\"_\")+Part->GetStaticMesh()->GetName();Binary(V,Prefix+TEXT(\".vertices\"));Binary(F,Prefix+TEXT(\".indices\"));\n                    }\n                }\n                Row->SetStringField(TEXT(\"view_mode\"),ReviewView);Row->SetStringField(TEXT(\"component_transform\"),Rig->GetComponentTransform().ToString());\n                const auto& LOD=Mesh->GetResourceForRendering()->LODRenderData[0];FVector Dot=FVector::ZeroVector;int32 Count=0;\n                for(const auto& Section:LOD.RenderSections)if(Mesh->GetMaterials()[Section.MaterialIndex].MaterialSlotName==TEXT(\"M249_MagnifierReticle\"))\n                    for(uint32 V=Section.BaseVertexIndex;V<Section.BaseVertexIndex+Section.NumVertices;++V){Dot+=FVector(Points[V]);++Count;}\n                if(Count&&Sample.ADS)\n                {\n                    const FVector P=Capture->GetComponentTransform().InverseTransformPosition(Rig->GetComponentTransform().TransformPosition(Dot/Count));\n                    const double Scale=640./FMath::Tan(FMath::DegreesToRadians(Capture->FOVAngle*.5));\n                    Row->SetNumberField(TEXT(\"reticle_pixel_x\"),640.+Scale*P.Y/P.X);Row->SetNumberField(TEXT(\"reticle_pixel_y\"),360.-Scale*P.Z/P.X);\n                }\n            }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "host_sha256": "7126cf51496deec0b0bff8b3e35dd6cdd5ec930f1d5ed0940457655cb88c4d2b",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 54,
+        "text": "bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||ColdSteelEquipmentIconMesh(I).IsValid()||(I.Definition==TEXT(\"ue_m4a1\")||I.Definition==TEXT(\"ue_hk416\"))||I.Definition==TEXT(\"ue_akm\")||I.Definition==TEXT(\"ue_a762\")||I.Definition==TEXT(\"ue_lmg201\")||I.Definition==TEXT(\"ue_super90\")||I.Definition==TEXT(\"ue_m870\")||I.Definition==TEXT(\"ue_svd\")||I.Definition==TEXT(\"ue_svch\")||I.Definition==TEXT(\"ue_m24\")||I.Definition==TEXT(\"ue_saiga12k\")||I.Definition==TEXT(\"ue_pkm_lowpoly\")||I.Definition==TEXT(\"ue_m249\")||I.Definition==TEXT(\"ue_qbz191\")||I.Definition==TEXT(\"ue_ash12\")||I.Definition==TEXT(\"ue_m16a2\")||((I.Definition==TEXT(\"ue_m1911\")||I.Definition==TEXT(\"ue_g18\")||I.Definition==TEXT(\"ue_pit_viper2011\"))||(I.Definition==TEXT(\"ue_dan_wesson715\")||I.Definition==TEXT(\"ue_rsh12\")));}\n"
+      },
+      {
+        "line": 73,
+        "text": "    if(I.Definition==TEXT(\"ue_m249\"))Result+=TEXT(\"|icon_studio=4\");\n"
+      },
+      {
+        "line": 197,
+        "text": "    // The M249's dark regional steel needs a brighter studio environment for\n"
+      },
+      {
+        "line": 200,
+        "text": "    const bool M249Icon=I.Definition==TEXT(\"ue_m249\");\n    Studio->DirectionalLight->SetWorldRotation(M249Icon?FRotator(-18,0,0):FRotator(-35,-35,0));\n    Studio->SetLightBrightness(M249Icon?12.f:6.f);\n    Studio->SetSkyBrightness(M249Icon?6.f:1.f);\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp",
+    "host_sha256": "5127cd5efa86aa6aaa577e2c068442752a5f3374aafa82fb722b9c097546143f",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 35,
+        "text": "    Packet->Exposure=!Queue.IsEmpty()&&Queue[0].Item.Definition==TEXT(\"ue_m249\")?6.f:1.f;\n"
+      },
+      {
+        "line": 127,
+        "text": "                // M249's black steel needs readable midtones in a tiny icon.\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "host_sha256": "b69309c9041fafd2aeac7bb0a24c0fa944588d3c9de598b84df880454ed22dcd",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 28,
+        "text": "    TArray<FString> Definitions=Requested.IsEmpty()?TArray<FString>{TEXT(\"ue_saiga12k\"),TEXT(\"ue_m870\"),TEXT(\"ue_super90\"),TEXT(\"ue_svd\"),TEXT(\"ue_svch\"),TEXT(\"ue_m24\"),TEXT(\"ue_m1911\"),TEXT(\"ue_pit_viper2011\"),TEXT(\"ue_g18\"),TEXT(\"ue_akm\"),TEXT(\"ue_a762\"),TEXT(\"ue_lmg201\"),TEXT(\"ue_m4a1\"),TEXT(\"ue_m16a2\"),TEXT(\"ue_ash12\"),TEXT(\"ue_qbz191\"),TEXT(\"ue_pkm_lowpoly\"),TEXT(\"ue_m249\"),TEXT(\"ue_dan_wesson715\"),TEXT(\"ue_rune_sword\"),TEXT(\"ue_frost_crystal_sword\"),TEXT(\"ue_highland_claymore\"),\n        TEXT(\"ue_tang_dao\"),TEXT(\"ue_kukri\"),TEXT(\"ue_tactical_hatchet\"),TEXT(\"ue_apprentice_staff\"),TEXT(\"ue_mountain_backpack\"),TEXT(\"stone\"),TEXT(\"iron_ore\"),TEXT(\"copper_ore\"),TEXT(\"silver_ore\"),TEXT(\"gold_ore\"),TEXT(\"ironIngot\"),TEXT(\"copperIngot\"),TEXT(\"silverIngot\"),TEXT(\"goldIngot\")}:TArray<FString>{Requested};\n    // A scoped authoring batch shares one studio and never loads a player profile.\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+    "host_sha256": "08cdc7f4a7bac3bc86838ee1be46c17e4082cec7a0d0d5a504ceba4e36df758b",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 50,
+        "text": "    for (const TCHAR* Definition : {TEXT(\"ue_saiga12k\"), TEXT(\"ue_m870\"), TEXT(\"ue_super90\"), TEXT(\"ue_hk416\"), TEXT(\"ue_pit_viper2011\"), TEXT(\"ue_g18\"), TEXT(\"ue_svd\"), TEXT(\"ue_svch\"), TEXT(\"ue_m24\"), TEXT(\"ue_pkm_lowpoly\"), TEXT(\"ue_m249\"), TEXT(\"ue_a762\"), TEXT(\"ue_lmg201\"), TEXT(\"ue_akm\"), TEXT(\"ue_qbz191\"), TEXT(\"ue_ash12\"), TEXT(\"ue_m1911\"), TEXT(\"ue_rsh12\"), TEXT(\"ue_dan_wesson715\"), TEXT(\"ue_rune_sword\"), TEXT(\"ue_frost_crystal_sword\"), TEXT(\"ue_highland_claymore\"), TEXT(\"ue_apprentice_staff\"), TEXT(\"ue_alchemy_spellbook\"), TEXT(\"ue_tang_dao\"), TEXT(\"ue_xuanchi_zhenyue\"), TEXT(\"ue_zhanmadao\"), TEXT(\"ue_steel_warhammer\"), TEXT(\"ue_runebound_warhammer\"), TEXT(\"ue_thunder_god_hammer\"), TEXT(\"ue_kukri\"), TEXT(\"ue_tactical_hatchet\")})\n"
+      },
+      {
+        "line": 54,
+        "text": "        Gun.Magazine=(IsMeleeWeapon(Gun)||FString(Definition)==TEXT(\"ue_alchemy_spellbook\"))?0:FString(Definition)==TEXT(\"ue_saiga12k\")?8:FString(Definition)==TEXT(\"ue_pit_viper2011\")?15:FString(Definition)==TEXT(\"ue_g18\")?17:(FString(Definition)==TEXT(\"ue_super90\")||FString(Definition)==TEXT(\"ue_m870\"))?7:FString(Definition)==TEXT(\"ue_svd\")?10:FString(Definition)==TEXT(\"ue_svch\")?10:FString(Definition)==TEXT(\"ue_m24\")?5:(FString(Definition)==TEXT(\"ue_pkm_lowpoly\")||FString(Definition)==TEXT(\"ue_m249\"))?100:FString(Definition)==TEXT(\"ue_m1911\")?7:FString(Definition)==TEXT(\"ue_rsh12\")?5:FString(Definition)==TEXT(\"ue_dan_wesson715\")?6:FString(Definition)==TEXT(\"ue_ash12\")?20:30;\n"
+      },
+      {
+        "line": 68,
+        "text": "        if(FString(Definition)==TEXT(\"ue_m249\")&&!AddAmmoToState(State,TEXT(\"ammo_556\"),200))return false;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M4TacticalSprintComponent.h",
+    "host_sha256": "10f3a44d6a709f4942d8ac586da3083337ad1ff6130576246a7373af7bd2f428",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 11,
+        "text": "enum class ERifleSprintWeapon : uint8 { None, M4, AKM, QBZ191, ASH12, M16, PKM, SVD, Super90, M870, M24, M249 };\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M4TacticalSprintComponent.cpp",
+    "host_sha256": "098a4075eb94fb690b020053d3b2d15f05dfb243b8973f1599d5ab97fef3e98d",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 17,
+        "text": "#include \"M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 43,
+        "text": "    if(Weapon==ERifleSprintWeapon::M249)\n    {\n        for(const TCHAR* Role:{TEXT(\"sprint_enter\"),TEXT(\"sprint_loop\"),TEXT(\"sprint_exit\")})\n            Clips.Add(LoadObject<UAnimSequence>(nullptr,*M249WeaponAssets::AnimationPath(Role)));\n        const auto BaseClips=Clips;\n        for(int32 Grip=1;Grip<6;++Grip) Clips.Append(BaseClips);\n        return;\n    }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+    "host_sha256": "2fbae7fd99d3310365f931dbfcb96caafdb06acb313824c0c88a9e2fb48a6261",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 3,
+        "text": "#include \"M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 53,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel)){SetM249Muzzle(Variant);return;}\n"
+      },
+      {
+        "line": 395,
+        "text": "        else if(IsM24Weapon()||IsPistolWeapon()||IsTubeShotgunWeapon()||M249WeaponAssets::Matches(AKMViewmodel))Forward=(AKMViewmodel->GetSocketLocation(TEXT(\"WPN_FrontSight\"))-AKMViewmodel->GetSocketLocation(TEXT(\"WPN_RearSight\"))).GetSafeNormal();\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+    "host_sha256": "5816f93da85c74860a8332c6023aa0184c75456ae22d69fc66eeb89d8d33412a",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 12,
+        "text": "#include \"M249Attachments.h\"\n"
+      },
+      {
+        "line": 65,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel))\n    {\n        const FString Key=M249Attachments::Key(Variant);\n        AngledForegrip=M249Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT(\"angled\"),bInventoryWeaponReady&&Key==TEXT(\"angled\"));\n        CantedForegrip=M249Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT(\"canted\"),bInventoryWeaponReady&&Key==TEXT(\"canted\"));\n        VerticalForegrip=M249Attachments::Configure(this,AKMViewmodel,VerticalForegrip,Key,bInventoryWeaponReady&&(Key==TEXT(\"vertical\")||Key==TEXT(\"tactical_vertical\")));\n        PrismHandstop=M249Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT(\"prism\"),bInventoryWeaponReady&&Key==TEXT(\"prism\"));\n        M249Attachments::FactorySection(AKMViewmodel,TEXT(\"M249_Factory_Foregrip\"),!AngledForegrip&&!CantedForegrip&&!VerticalForegrip&&!PrismHandstop);\n        return;\n    }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "host_sha256": "c28e15e81ab620c94b07b9c860a201e085e21a4f7734741491bb9b082dd1833b",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 3,
+        "text": "#include \"M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 42,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel)){SetM249Optic(Variant);return;}\n"
+      },
+      {
+        "line": 327,
+        "text": "    if ((IsM24Weapon()||M249WeaponAssets::Matches(AKMViewmodel)||HasThermalScope()||OpticVariant==KVScopeAssets::Id)&&HolographicOptic&&HolographicOptic->GetStaticMesh())\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+    "host_sha256": "069ad403ef4822d4b3d5dc212873fe69e230143d02ef0463d61a9aa1522d73a5",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 18,
+        "text": "#include \"M249SideMagazine.h\"\n#include \"M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 67,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel))\n    {\n        LargeDrum=M249SideMagazine::Configure(this,AKMViewmodel,LargeDrum,Id,bInventoryWeaponReady&&M249SideMagazine::Supports(Id));\n        MagazineAttachmentId=LargeDrum?Id:FString();\n        bDrumVisual=bDrumReleasedDuringReload=bDrumMagazineHidden=false;\n        if(LargeDrum)DrumMount=LargeDrum->GetRelativeTransform();\n        PKMLowpolyWeaponAssets::SetSections(AKMViewmodel,false,false,0.f,MagazineAmmo,!HasM249SideMagazine());\n        return;\n    }\n    M249SideMagazine::RemovePort(this);\n"
+      },
+      {
+        "line": 325,
+        "text": "    if(HasM249SideMagazine())\n    {\n        const float Source=IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f;\n        const bool Parked=IsReloading()&&Source>=M249SideMagazine::HiddenBegin&&Source<M249SideMagazine::HiddenEnd;\n        LargeDrum->SetVisibility(bInventoryWeaponReady&&AKMViewmodel->IsVisible()&&!Parked);\n        bDrumReleasedDuringReload=bDrumMagazineHidden=false;\n        return;\n    }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp",
+    "host_sha256": "13d03ed09648f5eb105309d5e5ca2507bd0b10d5c60458a7b5a5ec0bb8c5bc5b",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 14,
+        "text": "#include \"M249Attachments.h\"\n"
+      },
+      {
+        "line": 44,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel))\n    {\n        RearGripAttachment=M249Attachments::Configure(this,AKMViewmodel,RearGripAttachment,Variant,bInventoryWeaponReady&&M249Attachments::IsRearGrip(Variant));\n        M249Attachments::FactorySection(AKMViewmodel,TEXT(\"M249_Factory_RearGrip\"),!RearGripAttachment);\n        return;\n    }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "host_sha256": "90ab38552689e313d64ed8429d3b977b773db90103169f1f89120c4bdd9f1eb1",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 60,
+        "text": "void RefreshWeaponTuning(FColdSteelProfile& State,const TMap<FString,FString>& Definitions)\n{\n    for(auto& Item:State.Items)\n    {\n        // 枪械的类别、暴击与非枪械的固有要害/穿甲都按目录调校；旧实例缺项时读 0，\n        // 会把 M1911 的要害特化、Viper 的穿甲和狙击的弱点收益整段吞掉。\n        if(Item.Definition!=TEXT(\"ue_svd\")&&Item.Definition!=TEXT(\"ue_svch\")&&Item.Definition!=TEXT(\"ue_m24\")\n            &&Item.Definition!=TEXT(\"ue_m1911\")&&Item.Definition!=TEXT(\"ue_pit_viper2011\")\n            &&Item.Definition!=TEXT(\"ue_m249\")&&Item.Definition!=TEXT(\"ue_pkm_lowpoly\")&&Item.Definition!=TEXT(\"ue_lmg201\"))continue;\n        const auto* Definition=Definitions.Find(Item.Definition);if(!Definition)continue;\n        TSharedPtr<FJsonObject> Data,Catalog;\n        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data\n            ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),Catalog)||!Catalog)continue;\n        bool Changed=false;\n        for(const TCHAR* Field:{TEXT(\"weaponType\"),TEXT(\"weaponTypeTag\")})\n        {\n            FString Value,Old;\n            if(Catalog->TryGetStringField(Field,Value)&&(!Data->TryGetStringField(Field,Old)||Old!=Value))\n            {Data->SetStringField(Field,Value);Changed=true;}\n        }\n        for(const TCHAR* Field:{TEXT(\"critDamageBonus\"),TEXT(\"innate_weakpoint_percent\"),TEXT(\"innate_armor_penetration\")})\n        {\n            double Value=0.,Old=0.;\n            if(Catalog->TryGetNumberField(Field,Value)&&(!Data->TryGetNumberField(Field,Old)||Old!=Value))\n            {Data->SetNumberField(Field,Value);Changed=true;}\n        }\n        if(Changed){Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}\n    }\n}\n"
+      },
+      {
+        "line": 299,
+        "text": "    RefreshWeaponTuning(Migrated,Definitions);\n"
+      },
+      {
+        "line": 317,
+        "text": "    RefreshWeaponTuning(Migrated,Definitions);\n"
+      },
+      {
+        "line": 390,
+        "text": "    RefreshWeaponTuning(State,Definitions);\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+    "host_sha256": "600e3369e6f93526ffaf9a30678c16e79a01b4ee7e135bede1d8247c6a425c2f",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 16,
+        "text": "#include \"M249Attachments.h\"\n"
+      },
+      {
+        "line": 54,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel))\n    {\n        StockAttachment=M249Attachments::Configure(this,AKMViewmodel,StockAttachment,Variant,bInventoryWeaponReady&&M249Attachments::IsStock(Variant));\n        bSkeletonStock=StockAttachment!=nullptr;if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();\n        M249Attachments::FactorySection(AKMViewmodel,TEXT(\"M249_Factory_Stock\"),!bSkeletonStock);\n        return;\n    }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RifleAxialRecoil.h",
+    "host_sha256": "abcb9a1b51e08ba4319b2eb928658b58f632f0907e65d9065520cb0cf14cb9d7",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 14,
+        "text": "        if (Definition == TEXT(\"ue_pkm_lowpoly\") || Definition==TEXT(\"ue_m249\")) return EProfile::PKM;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+    "host_sha256": "7e8e312d36b98668d1925ba2602f70c17926868793fbcc49131117f6a4931362",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 30,
+        "text": "    if(Item.Definition!=TEXT(\"ue_super90\")&&Item.Definition!=TEXT(\"ue_m870\")&&Item.Definition!=TEXT(\"ue_m4a1\")&&Item.Definition!=TEXT(\"ue_hk416\")&&Item.Definition!=TEXT(\"ue_akm\")&&Item.Definition!=TEXT(\"ue_a762\")&&Item.Definition!=TEXT(\"ue_lmg201\")&&Item.Definition!=TEXT(\"ue_svd\")&&Item.Definition!=TEXT(\"ue_svch\")&&Item.Definition!=TEXT(\"ue_m24\")&&Item.Definition!=TEXT(\"ue_saiga12k\")&&Item.Definition!=TEXT(\"ue_pkm_lowpoly\")&&Item.Definition!=TEXT(\"ue_m249\")&&Item.Definition!=TEXT(\"ue_qbz191\")&&Item.Definition!=TEXT(\"ue_ash12\")&&Item.Definition!=TEXT(\"ue_m16a2\")&&Item.Definition!=TEXT(\"ue_m1911\")&&Item.Definition!=TEXT(\"ue_g18\")&&Item.Definition!=TEXT(\"ue_pit_viper2011\")&&(Item.Definition!=TEXT(\"ue_dan_wesson715\")&&Item.Definition!=TEXT(\"ue_rsh12\")))return false;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+    "host_sha256": "55c1043f04b00739c1c0d021ca486bb3ecff63ba3acfac54fa8096da76bdb6cf",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 73,
+        "text": "    if(Item.Definition!=TEXT(\"ue_super90\")&&Item.Definition!=TEXT(\"ue_m870\")&&Item.Definition!=TEXT(\"ue_m4a1\")&&Item.Definition!=TEXT(\"ue_hk416\")&&Item.Definition!=TEXT(\"ue_akm\")&&Item.Definition!=TEXT(\"ue_a762\")&&Item.Definition!=TEXT(\"ue_lmg201\")&&Item.Definition!=TEXT(\"ue_svd\")&&Item.Definition!=TEXT(\"ue_svch\")&&Item.Definition!=TEXT(\"ue_m24\")&&Item.Definition!=TEXT(\"ue_saiga12k\")&&Item.Definition!=TEXT(\"ue_pkm_lowpoly\")&&Item.Definition!=TEXT(\"ue_m249\")&&Item.Definition!=TEXT(\"ue_qbz191\")&&Item.Definition!=TEXT(\"ue_ash12\")&&Item.Definition!=TEXT(\"ue_m16a2\")&&Item.Definition!=TEXT(\"ue_m1911\")&&Item.Definition!=TEXT(\"ue_g18\")&&Item.Definition!=TEXT(\"ue_pit_viper2011\")&&(Item.Definition!=TEXT(\"ue_dan_wesson715\")&&Item.Definition!=TEXT(\"ue_rsh12\")))return;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/PKMLowpolyWeaponAssets.h",
+    "host_sha256": "6013bb79b987d4ee499f8040bac95bf8e262fea009301f15263263d023846c39",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 3,
+        "text": "#include \"M249WeaponAssets.h\"\n"
+      },
+      {
+        "line": 33,
+        "text": "    return M249WeaponAssets::Matches(Mesh) || Matches(Mesh);\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/ScopeScreenshotAudit.cpp",
+    "host_sha256": "859d1c871760422126a5d5a997e3ceedacfc754e7107da40070997bf340b16e4",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 49,
+        "text": "const FCase M249Cases[]={\n    {TEXT(\"01_m249_lpvo_1x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),1},\n    {TEXT(\"02_m249_lpvo_6x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),6,-1,true},\n    {TEXT(\"03_m249_kv_4x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"kv_scope_4x\"),4,-1,true},\n    {TEXT(\"04_m249_factory\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"false\"),1,-1,true},\n    {TEXT(\"05_m249_holographic\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"holographic\"),1,-1,true},\n    {TEXT(\"06_m249_eoth\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"eoth_holographic\"),1,-1,true},\n    {TEXT(\"07_m249_panoramic\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"panoramic_red_dot\"),1,-1,true},\n    {TEXT(\"08_m249_prism_2x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"prism_scope_2x\"),2,-1,true},\n    {TEXT(\"09_m249_kv_1x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"kv_scope_4x\"),1},\n    {TEXT(\"10_m249_thermal_1p5x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"thermal_scope\"),1.5},\n    {TEXT(\"11_m249_thermal_3x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"thermal_scope\"),3},\n    {TEXT(\"12_m249_thermal_8x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"thermal_scope\"),8,-1,true},\n    {TEXT(\"13_m249_parts_0\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),6,0},\n    {TEXT(\"14_m249_parts_1\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),6,1},\n    {TEXT(\"15_m249_parts_2\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),6,2},\n    {TEXT(\"16_m249_parts_3\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),6,3},\n    {TEXT(\"17_m249_parts_4\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),6,4}\n};\nconst FCase M249OutfitCases[]={\n    {TEXT(\"01_outfit_prism_2x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"prism_scope_2x\"),2},\n    {TEXT(\"02_outfit_lpvo_6x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),6},\n    {TEXT(\"03_outfit_kv_4x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"kv_scope_4x\"),4},\n    {TEXT(\"04_outfit_thermal_8x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"thermal_scope\"),8},\n    {TEXT(\"05_outfit_holographic\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"holographic\"),1},\n    {TEXT(\"06_outfit_eoth\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"eoth_holographic\"),1},\n    {TEXT(\"07_outfit_panoramic\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"panoramic_red_dot\"),1},\n    {TEXT(\"08_outfit_factory\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"false\"),1}\n};\n"
+      },
+      {
+        "line": 81,
+        "text": "    if(FParse::Value(FCommandLine::Get(),TEXT(\"M249OpticEquipment=\"),OutfitSource))return MakeArrayView(M249OutfitCases);\n    return FParse::Param(FCommandLine::Get(),TEXT(\"M249OpticObstruction\"))\n        ?MakeArrayView(M249Cases):MakeArrayView(DefaultCases);\n"
+      },
+      {
+        "line": 111,
+        "text": "        for(const TCHAR* Name:{TEXT(\"M249_OpticalHousing\"),TEXT(\"M249_MagnifierGlass\"),TEXT(\"M249_MagnifierReticle\")})\n"
+      },
+      {
+        "line": 160,
+        "text": "        if(FParse::Param(FCommandLine::Get(),TEXT(\"M249OpticObstruction\")))PC->SetControlRotation(FRotator(15.f,0.f,0.f));\n"
+      },
+      {
+        "line": 163,
+        "text": "        if(FParse::Value(FCommandLine::Get(),TEXT(\"M249OpticEquipment=\"),OutfitSource))\n        {\n            TArray<uint8> Bytes;\n            auto* Saved=FFileHelper::LoadFileToArray(Bytes,*OutfitSource)?Cast<UColdSteelProfileSave>(UGameplayStatics::LoadGameFromMemory(Bytes)):nullptr;\n            if(!Saved){Run.Done=true;FPlatformMisc::RequestExitWithStatus(false,3);return;}\n            for(const auto& Item:Saved->Profile.Items)if(Item.Place==1&&Item.Cell!=6&&Item.Cell!=9)State.Items.Add(Item);\n        }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/PKMBipodComponent.h",
+    "host_sha256": "25f72d512ce89dd7332fb761645ef1c168c9d232ed8acf27db427c04e1951c5b",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 30,
+        "text": "    void SetM249DeploymentWeight(float Weight);\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/PKMBipodComponent.cpp",
+    "host_sha256": "a4d48a6fd9a627e5e6a133d6acdc4c04b8c11f55e8d7b8595bd3122d62c889b2",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 9,
+        "text": "#include \"M249WeaponAssets.h\"\n#include \"M249Bipod.h\"\n#include \"M249BipodAnimation.h\"\n"
+      },
+      {
+        "line": 24,
+        "text": "FVector BipodPivot(const USkeletalMeshComponent* Rifle,int32 I){return M249WeaponAssets::Matches(Rifle)?M249Bipod::Pivots[I]:M24Bipod::Matches(Rifle)?M24Bipod::Pivots[I]:LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodPivotsCm[I]:PKMBipodLegPivotsCm[I];}\nFVector BipodTip(const USkeletalMeshComponent* Rifle,int32 I){return M249WeaponAssets::Matches(Rifle)?M249Bipod::Tips[I]:M24Bipod::Matches(Rifle)?M24Bipod::Tips[I]:LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodFeetCm[I]:(I==0?PKMBipodContacts::LegA:PKMBipodContacts::LegB);}\nFVector BipodHinge(const USkeletalMeshComponent* Rifle){return M249WeaponAssets::Matches(Rifle)?M249Bipod::Hinge:M24Bipod::Matches(Rifle)?M24Bipod::Hinge:LMG201WeaponAssets::Matches(Rifle)?LMG201WeaponAssets::BipodHingeCm:PKMBipodHingeCm;}\n"
+      },
+      {
+        "line": 41,
+        "text": "    if(!Enabled || (!PKMLowpolyWeaponAssets::Matches(Rifle)&&!LMG201WeaponAssets::Matches(Rifle)&&!M24Bipod::Matches(Rifle)&&!M249WeaponAssets::Matches(Rifle)))\n    {\n        SetVisibility(false,true);SetComponentTickEnabled(false);ResetMotion();return true;\n    }\n    auto* BaseMesh=LoadObject<UStaticMesh>(nullptr,M249WeaponAssets::Matches(Rifle)?M249Bipod::Base:M24Bipod::Matches(Rifle)?M24Bipod::Base:LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT(\"BipodBase\")):PKMBipodAssets::Base);\n    auto* MeshA=LoadObject<UStaticMesh>(nullptr,M249WeaponAssets::Matches(Rifle)?M249Bipod::LegA:M24Bipod::Matches(Rifle)?M24Bipod::LegA:LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT(\"BipodLegA\")):PKMBipodAssets::LegA);\n    auto* MeshB=LoadObject<UStaticMesh>(nullptr,M249WeaponAssets::Matches(Rifle)?M249Bipod::LegB:M24Bipod::Matches(Rifle)?M24Bipod::LegB:LMG201WeaponAssets::Matches(Rifle)?*LMG201WeaponAssets::PartPath(TEXT(\"BipodLegB\")):PKMBipodAssets::LegB);\n"
+      },
+      {
+        "line": 141,
+        "text": "        const FQuat FreeRotation=M249WeaponAssets::Matches(Weapon.Get())?M249Bipod::LegRotation(I,Angles[I]):M24Bipod::Matches(Weapon.Get())?M24Bipod::LegRotation(I,Angles[I]):FQuat(FVector::ForwardVector,Angles[I]);\n"
+      },
+      {
+        "line": 166,
+        "text": "    if(M24Bipod::Matches(Weapon.Get())||M249WeaponAssets::Matches(Weapon.Get()))return;\n"
+      },
+      {
+        "line": 178,
+        "text": "void UPKMBipodComponent::SetM249DeploymentWeight(float Weight)\n{\n    if(!M249WeaponAssets::Matches(Weapon.Get()))return;\n    Angles[0]=Angles[1]=FMath::Clamp(Weight,0.f,1.f);\n    ApplyAngle();\n}\n"
+      },
+      {
+        "line": 188,
+        "text": "    if(M24Bipod::Matches(Weapon.Get())||M249WeaponAssets::Matches(Weapon.Get()))return;\n"
+      },
+      {
+        "line": 259,
+        "text": "    if(!Enabled || (!Matches(Weapon)&&!LMG201WeaponAssets::Matches(Weapon)&&!M24Bipod::Matches(Weapon)&&!M249WeaponAssets::Matches(Weapon))){if(Part)Part->DestroyComponent();return;}\n"
+      },
+      {
+        "line": 270,
+        "text": "    if(M249WeaponAssets::Matches(AKMViewmodel))\n    {\n        if(BipodDeployment)BipodDeployment->Release(true);\n        if(bInventoryWeaponReady&&!WeaponGripProfiles.Contains(TEXT(\"base\")))\n            if(auto* Profile=LoadObject<UWeaponGripProfile>(nullptr,M249BipodAnimation::SupportProfile))\n                WeaponGripProfiles.Add(TEXT(\"base\"),Profile);\n        if(bInventoryWeaponReady&&!WeaponGripProfiles.Contains(TEXT(\"bipod\")))\n            if(auto* Profile=LoadObject<UWeaponGripProfile>(nullptr,M249BipodAnimation::Profile))\n                WeaponGripProfiles.Add(TEXT(\"bipod\"),Profile);\n        // Fixed factory assembly: old saved removal choices do not disable it.\n        PKMLowpolyWeaponAssets::ConfigureBipod(this,AKMViewmodel,bInventoryWeaponReady);\n        const auto* Articulated=PKMLowpolyWeaponAssets::FindBipod(this);\n        const bool ShowBaked=!Articulated||!Articulated->IsVisible();\n        const auto* Asset=AKMViewmodel->GetSkeletalMeshAsset();\n        const int32 Material=AKMViewmodel->GetMaterialIndex(TEXT(\"M249_Bipod\"));\n        const auto* Render=Asset->GetResourceForRendering();\n        if(Material!=INDEX_NONE && Render)\n            for(int32 L=0;L<Render->LODRenderData.Num();++L)\n            {\n                const auto& Sections=Render->LODRenderData[L].RenderSections;\n                for(int32 S=0;S<Sections.Num();++S)\n                    if(Sections[S].MaterialIndex==Material)\n                        AKMViewmodel->ShowMaterialSection(Material,S,ShowBaked,L);\n            }\n        return;\n    }\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSCastingMeshComponent.h",
+    "host_sha256": "9aa159946d5289ac81190d2f3c55ecbd4e0065109381945ca72590595154cc8e",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 7,
+        "text": "#include \"../Weapons/M249BeltDynamics.h\"\n"
+      },
+      {
+        "line": 47,
+        "text": "    FM249BeltDynamics M249BeltDynamics;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp",
+    "host_sha256": "1f41ec72e4e96568ad16e00e0f89c5e422b2f9be7158c2e2e0a6d1f739792afb",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 63,
+        "text": "    M249BeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+    "host_sha256": "4000d2e46aa18f05723c53843f72df9b0ed28ba76148196797ba7394e4b71b63",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 4,
+        "text": "#include \"../Weapons/M249WeaponAssets.h\"\n#include \"../Weapons/M249OpticAssets.h\"\n#include \"../Weapons/M249Attachments.h\"\n#include \"../Weapons/M249SideMagazine.h\"\n"
+      },
+      {
+        "line": 183,
+        "text": "        else if(D==M249WeaponAssets::Definition){Add(M249WeaponAssets::MeshPath,true);Add(M249WeaponAssets::AnimationPath(TEXT(\"idle\")),true);}\n"
+      },
+      {
+        "line": 218,
+        "text": "            if(D==M249WeaponAssets::Definition)\n            {\n                if(Part.Key==TEXT(\"optic\")&&M249OpticAssets::Supports(Key))\n                {\n                    Add(M249OpticAssets::MeshPath(Key),true);\n                    const FString Moving=M249OpticAssets::MovingPart(Key);\n                    if(!Moving.IsEmpty())Add(M249OpticAssets::MeshPath(Moving),true);\n                    if(M249OpticAssets::NeedsRail(Key))Add(M249OpticAssets::Rail,true);\n                }\n                else if(Part.Key==TEXT(\"magazine\")&&M249SideMagazine::Supports(Key))\n                {\n                    Add(M249SideMagazine::MeshPath(Key),true);Add(M249SideMagazine::PortMesh,true);\n                }\n                else if(M249Attachments::Supports(Part.Key,Key))\n                {\n                    Add(M249Attachments::MeshPath(Key),true);\n                    if(Part.Key==TEXT(\"underbarrel\"))Add(M249Attachments::ProfilePath(FName(*M249Attachments::ForegripFamily(Key))),true);\n                }\n                continue;\n            }\n"
+      },
+      {
+        "line": 449,
+        "text": "            if(D==M249WeaponAssets::Definition)continue; // Factory bipod is a viewmodel section.\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/PistolDualWieldAim.cpp",
+    "host_sha256": "bfcbd153a99a26652d8a8edc3cfce305e32d20da5b7e23e30a22dcb2be5e2216",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 5,
+        "text": "#include \"ScopeADSEyeRelief.h\"\n"
+      },
+      {
+        "line": 70,
+        "text": "        ?ScopeADSEyeRelief::DistanceCM:Player->ADSRearEyeDistance;\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "host_sha256": "ffe02bb1066b479dc0177aea99a7ab18e0b26c73b91afb3c9dd6f1118142d080",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 79,
+        "text": "float UColdSteelStatusModel::MachineGunMovementMultiplier() const\n{\n    const auto* I=Equipped();\n    if(!I||ActiveProductionTool())return 1.f;\n    // 机枪归类沿用武器专精的唯一入口（weaponType=machineGun），\n    // 这样目录里新增机枪不需要再维护第二份清单。\n    if(WeaponMastery(I)!=TEXT(\"machineGunMastery\"))return 1.f;\n    const float Multiplier=MasteryEffect(TEXT(\"machineGunMastery\")).MovementMultiplier;\n    return Multiplier>0.f?Multiplier:1.f;\n}\n"
+      }
+    ]
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "host_sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b",
+    "kind": "manual-reference-not-auto-apply",
+    "regions": [
+      {
+        "line": 192,
+        "text": "    UFUNCTION(BlueprintPure, Category=\"Skills\") float MachineGunMovementMultiplier() const;\n"
+      }
+    ]
+  }
+]

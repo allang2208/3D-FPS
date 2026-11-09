@@ -1,0 +1,15 @@
+--- /dev/null
++++ b/Source/FPSGAME/Movement/MachineGunMovementAuditCommandlet.h
+@@ -0,0 +1,12 @@
++#pragma once
++#include "Commandlets/Commandlet.h"
++#include "MachineGunMovementAuditCommandlet.generated.h"
++
++/** Explicit, isolated diagnosis of catalog migration and machine-gun movement. */
++UCLASS()
++class UMachineGunMovementAuditCommandlet : public UCommandlet
++{
++    GENERATED_BODY()
++public:
++    virtual int32 Main(const FString& Params) override;
++};

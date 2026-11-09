@@ -1,0 +1,67 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249OpticVisual.cpp
+@@ -0,0 +1,64 @@
++#include "../FPSGAMECharacter.h"
++#include "M249OpticAssets.h"
++#include "M249OpticCoordinates.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/StaticMesh.h"
++#include "Rendering/SkeletalMeshRenderData.h"
++
++void AFPSGAMECharacter::SetM249Optic(const FString& Variant)
++{
++    if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return;
++    const bool Enabled=bInventoryWeaponReady&&M249OpticAssets::Supports(Variant);
++    auto Remove=[](TObjectPtr<UStaticMeshComponent>& Part){if(Part){Part->DestroyComponent();Part=nullptr;}};
++    const FString Moving=M249OpticAssets::MovingPart(Variant);
++    UStaticMesh* Body=Enabled?LoadObject<UStaticMesh>(nullptr,*M249OpticAssets::MeshPath(Variant)):nullptr;
++    UStaticMesh* Ring=Enabled&&!Moving.IsEmpty()?LoadObject<UStaticMesh>(nullptr,*M249OpticAssets::MeshPath(Moving)):nullptr;
++    UStaticMesh* Seat=Enabled&&M249OpticAssets::NeedsRail(Variant)?LoadObject<UStaticMesh>(nullptr,M249OpticAssets::Rail):nullptr;
++    if(Enabled&&(!Body||(!Moving.IsEmpty()&&!Ring)||(M249OpticAssets::NeedsRail(Variant)&&!Seat)))
++    {UE_LOG(LogTemp,Error,TEXT("M249 missing fitted optic assembly %s"),*Variant);return;}
++    // The retained factory scope is skinned to the cover. Its three independent
++    // sections are mutually exclusive with any common optic in every rig.
++    const auto* ViewmodelMeshAsset=AKMViewmodel->GetSkeletalMeshAsset();
++    if(const auto* Render=ViewmodelMeshAsset->GetResourceForRendering())
++        for(int32 L=0;L<Render->LODRenderData.Num();++L)
++            for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
++            {
++                const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
++                if(!ViewmodelMeshAsset->GetMaterials().IsValidIndex(M))continue;
++                const FName Slot=ViewmodelMeshAsset->GetMaterials()[M].MaterialSlotName;
++                if(Slot==TEXT("M249_OpticalHousing")||Slot==TEXT("M249_MagnifierGlass")||Slot==TEXT("M249_MagnifierReticle"))
++                    AKMViewmodel->ShowMaterialSection(M,S,!Enabled,L);
++            }
++    if(!Enabled)
++    {
++        Remove(LPVORing);Remove(HolographicOptic);Remove(AKMOpticBridge);
++        if(bHolographicOptic)bSightCalibrated=false;
++        bHolographicOptic=false;OpticVariant.Reset();return;
++    }
++    const bool Changed=!bHolographicOptic||OpticVariant!=Variant||!HolographicOptic||HolographicOptic->GetStaticMesh()!=Body;
++    auto Configure=[&](TObjectPtr<UStaticMeshComponent>& Part,UStaticMesh* Asset,USceneComponent* Parent,FName Socket,const FTransform& Transform)
++    {
++        if(!Part){Part=NewObject<UStaticMeshComponent>(this);Part->SetupAttachment(Parent,Socket);Part->RegisterComponent();}
++        else Part->AttachToComponent(Parent,FAttachmentTransformRules::KeepRelativeTransform,Socket);
++        if(Part->GetStaticMesh()!=Asset)Part->EmptyOverrideMaterials();
++        Part->SetStaticMesh(Asset);Part->SetRelativeTransform(Transform);
++        Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetCastShadow(false);Part->bReceivesDecals=false;
++        Part->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);Part->SetFirstPersonPrimitiveType(AKMViewmodel->FirstPersonPrimitiveType);
++        Part->SetVisibility(AKMViewmodel->IsVisible());Part->SetHiddenInGame(AKMViewmodel->bHiddenInGame);
++    };
++    HolographicMount=M249OpticCoordinates::Mount(Variant);
++    Configure(HolographicOptic,Body,AKMViewmodel,TEXT("PKM_Cover"),HolographicMount);
++    if(Seat)Configure(AKMOpticBridge,Seat,AKMViewmodel,TEXT("PKM_Cover"),M249OpticCoordinates::RailMount());
++    else Remove(AKMOpticBridge);
++    if(Changed){LPVOMagnification=DisplayedLPVOMagnification=1.f;ThermalZoomIndex=0;bSightCalibrated=false;}
++    if(Ring)
++    {
++        const bool Thermal=Variant==TEXT("thermal_scope");
++        Configure(LPVORing,Ring,HolographicOptic,Thermal?TEXT("ZoomPivot"):TEXT("ZoomRing"),
++            Thermal?FTransform(FRotator(-70.f*ThermalZoomIndex,0,0)):FTransform(FRotator(0,0,(DisplayedLPVOMagnification-1.f)*24.f)));
++    }
++    else Remove(LPVORing);
++    bHolographicOptic=true;OpticVariant=Variant;
++}

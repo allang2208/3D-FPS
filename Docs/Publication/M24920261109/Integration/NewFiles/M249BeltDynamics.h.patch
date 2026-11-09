@@ -1,0 +1,18 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249BeltDynamics.h
+@@ -0,0 +1,15 @@
++#pragma once
++#include "PKMSoftBeltDynamics.h"
++
++struct FM249BeltDynamics
++{
++    void Configure(bool Enabled,bool Reloading,bool Empty,float SourceTime,bool Inspection);
++    void Apply(USkeletalMeshComponent& Mesh,TArray<FTransform>& Pose);
++private:
++    TWeakObjectPtr<USkeletalMesh> SourceMesh;
++    int32 Bones[2][17]={},Sections[2]={INDEX_NONE,INDEX_NONE},Box[2]={INDEX_NONE,INDEX_NONE};
++    TArray<FTransform> LastInput[2],LastOutput[2];
++    FPKMSoftChain Chains[2];
++    bool bEnabled=false,bReloading=false,bEmpty=false,bInspection=false,bHadOutput=false;
++    float Time=0;
++};

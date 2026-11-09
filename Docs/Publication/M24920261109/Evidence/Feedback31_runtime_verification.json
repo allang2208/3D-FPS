@@ -1,0 +1,470 @@
+{
+  "30_empty_base": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 4.7958517358371905e-06,
+        "max_relative_deg": 7.459234759732009e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.160062939305331e-06,
+        "max_relative_deg": 8.034865738436235e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 5.2957818859464615e-06,
+        "max_relative_deg": 7.438870629241067e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 5.0299243500826615e-06,
+        "max_relative_deg": 8.748884133719167e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.545888007018161e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 5.398502863936182e-06,
+        "max_relative_deg": 7.5957545905366835e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 9.830249609876773e-07,
+        "rotation_deg": 8.793206636678585e-07
+      },
+      {
+        "displacement_cm": 0.4589270055294037,
+        "rotation_deg": 2.041287536358168
+      }
+    ]
+  },
+  "30_normal_base": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.326863640163654e-06,
+        "max_relative_deg": 7.172274155877601e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.3381652305491926e-06,
+        "max_relative_deg": 7.477813730061575e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 4.271620002228936e-06,
+        "max_relative_deg": 6.893046226895858e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 5.41315432960143e-06,
+        "max_relative_deg": 7.606708240471573e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.6653516866354543e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 4.847596713456185e-06,
+        "max_relative_deg": 7.586982860651728e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 1.0662403155947686e-06,
+        "rotation_deg": 8.539009878570937e-07
+      },
+      {
+        "displacement_cm": 0.45892614126205444,
+        "rotation_deg": 2.0412874943343877
+      }
+    ]
+  },
+  "45_empty_angled": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.2147167837844943e-06,
+        "max_relative_deg": 8.458647160466883e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.0726142584509685e-06,
+        "max_relative_deg": 8.034865738436235e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 4.2269547892163845e-06,
+        "max_relative_deg": 8.541261420071412e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 5.341676974826096e-06,
+        "max_relative_deg": 8.748884133719167e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.5755924479534997e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 4.868694480975278e-06,
+        "max_relative_deg": 6.525703167461969e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 9.830249609876773e-07,
+        "rotation_deg": 8.791177790504803e-07
+      },
+      {
+        "displacement_cm": 0.4401956796646118,
+        "rotation_deg": 1.9444790198751447
+      }
+    ]
+  },
+  "45_empty_base": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.3707163960888202e-06,
+        "max_relative_deg": 7.459234759732009e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.0726142584509685e-06,
+        "max_relative_deg": 8.034865738436235e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 5.1609868630616315e-06,
+        "max_relative_deg": 7.91319847633353e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 5.341676974826096e-06,
+        "max_relative_deg": 8.748884133719167e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.5755924479534997e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 4.878164095689652e-06,
+        "max_relative_deg": 6.102863611675476e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 9.830249609876773e-07,
+        "rotation_deg": 8.791177790504803e-07
+      },
+      {
+        "displacement_cm": 0.4401956796646118,
+        "rotation_deg": 1.9444790198751447
+      }
+    ]
+  },
+  "45_empty_canted": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.27047215708999e-06,
+        "max_relative_deg": 7.97501630148169e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.0726142584509685e-06,
+        "max_relative_deg": 8.034865738436235e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 4.768339288537984e-06,
+        "max_relative_deg": 8.17736741917627e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 5.341676974826096e-06,
+        "max_relative_deg": 8.748884133719167e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.5755924479534997e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 6.5576130818111925e-06,
+        "max_relative_deg": 6.525828377906158e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 9.830249609876773e-07,
+        "rotation_deg": 8.791177790504803e-07
+      },
+      {
+        "displacement_cm": 0.4401956796646118,
+        "rotation_deg": 1.9444790198751447
+      }
+    ]
+  },
+  "45_empty_prism": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.009339801547638e-06,
+        "max_relative_deg": 8.328833708633707e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.0726142584509685e-06,
+        "max_relative_deg": 8.034865738436235e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 4.786723913904521e-06,
+        "max_relative_deg": 7.708522693212033e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 5.341676974826096e-06,
+        "max_relative_deg": 8.748884133719167e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.5755924479534997e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 4.878164095689652e-06,
+        "max_relative_deg": 6.102863611675476e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 9.830249609876773e-07,
+        "rotation_deg": 8.791177790504803e-07
+      },
+      {
+        "displacement_cm": 0.4401956796646118,
+        "rotation_deg": 1.9444790198751447
+      }
+    ]
+  },
+  "45_empty_vertical": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.690349151166923e-06,
+        "max_relative_deg": 7.766660645029715e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.0726142584509685e-06,
+        "max_relative_deg": 8.034865738436235e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 5.6815369328592305e-06,
+        "max_relative_deg": 8.513987287239274e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 5.341676974826096e-06,
+        "max_relative_deg": 8.748884133719167e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.5755924479534997e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 4.878164095689652e-06,
+        "max_relative_deg": 6.102863611675476e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 9.830249609876773e-07,
+        "rotation_deg": 8.791177790504803e-07
+      },
+      {
+        "displacement_cm": 0.4401956796646118,
+        "rotation_deg": 1.9444790198751447
+      }
+    ]
+  },
+  "45_normal_angled": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.2036489106604433e-06,
+        "max_relative_deg": 5.934791585868036e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.103244085705681e-06,
+        "max_relative_deg": 7.662173418070005e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 4.264961203368398e-06,
+        "max_relative_deg": 8.49661339090864e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 6.169961101320716e-06,
+        "max_relative_deg": 8.642904136684862e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.4806020176323424e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 5.13161634133832e-06,
+        "max_relative_deg": 6.5262118883482875e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 1.0662403155947686e-06,
+        "rotation_deg": 8.797234345028122e-07
+      },
+      {
+        "displacement_cm": 0.44019484519958496,
+        "rotation_deg": 1.9444789782285725
+      }
+    ]
+  },
+  "45_normal_base": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.6986434447490046e-06,
+        "max_relative_deg": 7.675409068183329e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.103244085705681e-06,
+        "max_relative_deg": 7.662173418070005e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 5.162275840491586e-06,
+        "max_relative_deg": 7.634197521287095e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 6.169961101320716e-06,
+        "max_relative_deg": 8.642904136684862e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.4806020176323424e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 5.777867803304416e-06,
+        "max_relative_deg": 6.093986148149531e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 1.0662403155947686e-06,
+        "rotation_deg": 8.797234345028122e-07
+      },
+      {
+        "displacement_cm": 0.44019484519958496,
+        "rotation_deg": 1.9444789782285725
+      }
+    ]
+  },
+  "45_normal_canted": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.0566160598252617e-06,
+        "max_relative_deg": 6.918510981247834e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.103244085705681e-06,
+        "max_relative_deg": 7.662173418070005e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 4.632356187665306e-06,
+        "max_relative_deg": 7.244077436489363e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 6.169961101320716e-06,
+        "max_relative_deg": 8.642904136684862e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.4806020176323424e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 6.763592262158844e-06,
+        "max_relative_deg": 6.477775338000858e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 1.0662403155947686e-06,
+        "rotation_deg": 8.797234345028122e-07
+      },
+      {
+        "displacement_cm": 0.44019484519958496,
+        "rotation_deg": 1.9444789782285725
+      }
+    ]
+  },
+  "45_normal_prism": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.422052888207244e-06,
+        "max_relative_deg": 6.509958557439331e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.103244085705681e-06,
+        "max_relative_deg": 7.662173418070005e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 6.1047659320480895e-06,
+        "max_relative_deg": 7.061827628906298e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 6.169961101320716e-06,
+        "max_relative_deg": 8.642904136684862e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.4806020176323424e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 5.777867803304416e-06,
+        "max_relative_deg": 6.093986148149531e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 1.0662403155947686e-06,
+        "rotation_deg": 8.797234345028122e-07
+      },
+      {
+        "displacement_cm": 0.44019484519958496,
+        "rotation_deg": 1.9444789782285725
+      }
+    ]
+  },
+  "45_normal_vertical": {
+    "playback_clock_unchanged": true,
+    "relative_contacts": {
+      "hand_l": {
+        "max_relative_cm": 3.1502925391456014e-06,
+        "max_relative_deg": 7.261366383137886e-06
+      },
+      "hand_r": {
+        "max_relative_cm": 2.103244085705681e-06,
+        "max_relative_deg": 7.662173418070005e-06
+      },
+      "lowerarm_l": {
+        "max_relative_cm": 5.703589909656676e-06,
+        "max_relative_deg": 7.06803348952008e-06
+      },
+      "lowerarm_r": {
+        "max_relative_cm": 6.169961101320716e-06,
+        "max_relative_deg": 8.642904136684862e-06
+      },
+      "PKM_Charge": {
+        "max_relative_cm": 1.4806020176323424e-06,
+        "max_relative_deg": 0.0
+      },
+      "WPN_SOCKET_Magazine": {
+        "max_relative_cm": 5.777867803304416e-06,
+        "max_relative_deg": 6.093986148149531e-06
+      }
+    },
+    "handling_motion_before_after": [
+      {
+        "displacement_cm": 1.0662403155947686e-06,
+        "rotation_deg": 8.797234345028122e-07
+      },
+      {
+        "displacement_cm": 0.44019484519958496,
+        "rotation_deg": 1.9444789782285725
+      }
+    ]
+  }
+}

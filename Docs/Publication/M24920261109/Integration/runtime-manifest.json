@@ -1,0 +1,92 @@
+[
+  {
+    "source": "Source/FPSGAME/Weapons/M249Attachments.cpp",
+    "sha256": "0f48d358fe05f66b84aae2b9da5b966d2951b6fcadd3b6ce84f4cb79d470230b",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249Attachments.cpp.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249Attachments.h",
+    "sha256": "6c78650ceb2751b5aab73225abee3c29586d1316694bd4b3ca44aa3de8f3e4ac",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249Attachments.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249BeltDynamics.cpp",
+    "sha256": "061d9b086d8da1f5d4725e58c57148c3ee8bb7dcec69ae406925cf93fcb9b18f",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249BeltDynamics.cpp.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249BeltDynamics.h",
+    "sha256": "41133754058cfa1b174256454859d09100bd21500fd65058ac3dc62f9bdae0dd",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249BeltDynamics.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249BeltLayout.h",
+    "sha256": "7da470f1527d46b331b2d9d066e3ac07667a1aca90e08fad9b6f35ea8b0caa24",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249BeltLayout.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249Bipod.h",
+    "sha256": "ad9bbee1fb51b3779b0cb37b9531b705086d94822ef842fb216a0782c5e439ee",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249Bipod.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249BipodAnimation.h",
+    "sha256": "df45883539f58295b9261fb3e0147989b9e7191643db6d365a4be3419d830839",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249BipodAnimation.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249OpticAssets.h",
+    "sha256": "0f0331bf09ca7ac17e9950533ec9dfe2412c4dcd3539a6a5d73a451240c4a32e",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249OpticAssets.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249OpticCoordinates.h",
+    "sha256": "8430442e9b90c6df8ae790c8a75d5b627b566c57ce26d87c2d084a8e66d62580",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249OpticCoordinates.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249OpticVisual.cpp",
+    "sha256": "183e58a4230bf60dad33253116333283042fcd76b49c99e7dc81b18065ceb012",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249OpticVisual.cpp.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249ReloadReview.cpp",
+    "sha256": "69e15d09e7acede5a346cf357af14defaf3156676964c556858ec8c1271c2f18",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249ReloadReview.cpp.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249ReloadTiming.h",
+    "sha256": "ad20eb37866b56f415ab2ecbacb43441b7c9220bc923fe76a297aeb74f11373e",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249ReloadTiming.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249SideMagazine.cpp",
+    "sha256": "4c8b5a4c2291a50a4049e468a5f1f63a0dade230bff62d8fab071b964ad6e859",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249SideMagazine.cpp.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249SideMagazine.h",
+    "sha256": "c1c246a63ccf47371aab35f1b9e7cd2f3200bb7330e918946637601809eeb771",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249SideMagazine.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/M249WeaponAssets.h",
+    "sha256": "10d0e69f4206c8963648b40c340a1cc2bc29fca765e59adffb16ff290fa5e65a",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/M249WeaponAssets.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/ScopeADSEyeRelief.h",
+    "sha256": "9e713e103393c2435566079d655925285e70ffa6a6856b7c32d6dc5d421c9b9c",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/ScopeADSEyeRelief.h.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Movement/MachineGunMovementAuditCommandlet.cpp",
+    "sha256": "88b9c079384a4312df3307171eb8515b8d3861cd4be6e0926ddec9787887186c",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/MachineGunMovementAuditCommandlet.cpp.patch"
+  },
+  {
+    "source": "Source/FPSGAME/Movement/MachineGunMovementAuditCommandlet.h",
+    "sha256": "014c8f1dd1fffdea95eeeaa3b5fe5739cedf42db17abff5edbb5267865ae5c36",
+    "patch": "Docs/Publication/M24920261109/Integration/NewFiles/MachineGunMovementAuditCommandlet.h.patch"
+  }
+]

@@ -1,0 +1,2018 @@
+{
+  "30_empty_base": {
+    "protected_max_cm": 4.3702848415705375e-06,
+    "protected_max_deg": 1.2031611771709716e-05,
+    "hand_max_cm": 2.86102294921875e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        10.535024840606242,
+        9.689374172716077
+      ],
+      "upperarm_twist_01_l": [
+        11.909462136604015,
+        8.977408519694466
+      ],
+      "upperarm_twist_02_l": [
+        11.909464892103681,
+        8.977413792145342
+      ],
+      "lowerarm_l": [
+        12.4847124235805,
+        10.55135784937349
+      ],
+      "lowerarm_twist_02_l": [
+        16.94666271998097,
+        15.663661694438524
+      ],
+      "lowerarm_twist_01_l": [
+        21.64862559563871,
+        20.837689208142788
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.307159900665283,
+        "before": {
+          "eye_distance_cm": 4.206293688632634,
+          "visible_depth_cm": 8.918551333912848,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 7
+        },
+        "after": {
+          "eye_distance_cm": 8.694182710532244,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.4800002574920654,
+        "before": {
+          "eye_distance_cm": 3.741048345166694,
+          "visible_depth_cm": 9.643132520872573,
+          "visible_vertex_count": 57,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.563853704457905,
+          "visible_depth_cm": 13.188122525632616,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5570228099823,
+        "before": {
+          "eye_distance_cm": 3.86386553465064,
+          "visible_depth_cm": 9.59033420996879,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.790842711404853,
+          "visible_depth_cm": 13.186004207446551,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.7050893306732178,
+        "before": {
+          "eye_distance_cm": 3.8853252524023847,
+          "visible_depth_cm": 9.633607629157591,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.811415873645478,
+          "visible_depth_cm": 13.222889262742676,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.759999990463257,
+        "before": {
+          "eye_distance_cm": 3.8639414390257496,
+          "visible_depth_cm": 10.249191866646932,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.765121393286472,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.862748622894287,
+        "before": {
+          "eye_distance_cm": 10.957276926133565,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 18.870899405792912,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9202322959899902,
+        "before": {
+          "eye_distance_cm": 20.903202917289615,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.123879202432477,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0649936199188232,
+        "before": {
+          "eye_distance_cm": 26.235810229709095,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 26.605991148948483,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.140660285949707,
+        "before": {
+          "eye_distance_cm": 24.80355543284863,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.80355543284863,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "30_normal_base": {
+    "protected_max_cm": 3.43852161677205e-06,
+    "protected_max_deg": 1.0255849733984735e-05,
+    "hand_max_cm": 2.1851424207852688e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        10.68311018927066,
+        5.98930522247749
+      ],
+      "upperarm_twist_01_l": [
+        8.649452027809838,
+        5.728904182415957
+      ],
+      "upperarm_twist_02_l": [
+        8.64945777565961,
+        5.728903696159091
+      ],
+      "lowerarm_l": [
+        11.649851769847201,
+        8.391519253463198
+      ],
+      "lowerarm_twist_02_l": [
+        11.964067011590151,
+        10.185297917074493
+      ],
+      "lowerarm_twist_01_l": [
+        12.286641331524233,
+        12.19270883449994
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.307159900665283,
+        "before": {
+          "eye_distance_cm": 4.206293666287656,
+          "visible_depth_cm": 8.918567136484178,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 7
+        },
+        "after": {
+          "eye_distance_cm": 8.694182517893955,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.4800002574920654,
+        "before": {
+          "eye_distance_cm": 3.7410837799445105,
+          "visible_depth_cm": 9.643125370257977,
+          "visible_vertex_count": 57,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.563854090954246,
+          "visible_depth_cm": 13.188122762425865,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5570228099823,
+        "before": {
+          "eye_distance_cm": 3.8638981070519356,
+          "visible_depth_cm": 9.590327066038281,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.790840837544263,
+          "visible_depth_cm": 13.186009467067578,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.7050156593322754,
+        "before": {
+          "eye_distance_cm": 3.8853371595117134,
+          "visible_depth_cm": 9.633928947007522,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.811471655240997,
+          "visible_depth_cm": 13.223183938237066,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.760000228881836,
+        "before": {
+          "eye_distance_cm": 3.870264918975993,
+          "visible_depth_cm": 10.245823276365126,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.773167647099125,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.8530454635620117,
+        "before": {
+          "eye_distance_cm": 5.5846413302256455,
+          "visible_depth_cm": 13.598852727058437,
+          "visible_vertex_count": 4,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 12.248651989203635,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9368960857391357,
+        "before": {
+          "eye_distance_cm": 10.232997315073172,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 16.887273146011147,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0500004291534424,
+        "before": {
+          "eye_distance_cm": 20.146611980874177,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 23.668428801729565,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.15918231010437,
+        "before": {
+          "eye_distance_cm": 24.833476921899678,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 27.233809167144233,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_empty_angled": {
+    "protected_max_cm": 3.932099843950709e-06,
+    "protected_max_deg": 1.1489948299695159e-05,
+    "hand_max_cm": 3.303624680484063e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        10.82887000463656,
+        8.212780254328974
+      ],
+      "upperarm_twist_01_l": [
+        10.204632003979576,
+        7.821057990842878
+      ],
+      "upperarm_twist_02_l": [
+        10.204630043267391,
+        7.821057285540158
+      ],
+      "lowerarm_l": [
+        11.18061670921689,
+        9.301563743942577
+      ],
+      "lowerarm_twist_02_l": [
+        16.094294379927145,
+        15.263526774193322
+      ],
+      "lowerarm_twist_01_l": [
+        21.960873454673994,
+        21.94943468315205
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.209260680248422,
+          "visible_depth_cm": 8.930858163116639,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.675024845299257,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.7391416605051364,
+          "visible_depth_cm": 9.647880884044795,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.570635482378208,
+          "visible_depth_cm": 13.197194074198354,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.8585804723328865,
+          "visible_depth_cm": 9.612114551337037,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.791686063386592,
+          "visible_depth_cm": 13.203749683724997,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.704871654510498,
+        "before": {
+          "eye_distance_cm": 3.890047080368292,
+          "visible_depth_cm": 9.64061783759966,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.817132669904185,
+          "visible_depth_cm": 13.229975903010713,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.759999990463257,
+        "before": {
+          "eye_distance_cm": 3.868809184575944,
+          "visible_depth_cm": 10.25226858543556,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.771613053479657,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.862748622894287,
+        "before": {
+          "eye_distance_cm": 11.259420802292768,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 18.524451924234143,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9202325344085693,
+        "before": {
+          "eye_distance_cm": 20.11613904960132,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 23.31932391641358,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0649936199188232,
+        "before": {
+          "eye_distance_cm": 27.641161823003976,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 27.303713279520675,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.140660285949707,
+        "before": {
+          "eye_distance_cm": 25.004105019277016,
+          "visible_depth_cm": 37.231661044745344,
+          "visible_vertex_count": 3,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 25.004105019277016,
+          "visible_depth_cm": 37.231661044745344,
+          "visible_vertex_count": 3,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_empty_base": {
+    "protected_max_cm": 0.011045487597584724,
+    "protected_max_deg": 0.03959282366318803,
+    "hand_max_cm": 0.00854737963527441,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        10.5347478645312,
+        9.68948076846496
+      ],
+      "upperarm_twist_01_l": [
+        11.909604896354203,
+        8.977521262915314
+      ],
+      "upperarm_twist_02_l": [
+        11.909607451049164,
+        8.977524627164108
+      ],
+      "lowerarm_l": [
+        12.48485970193278,
+        10.55149414090962
+      ],
+      "lowerarm_twist_02_l": [
+        16.94686397131009,
+        15.663853377837876
+      ],
+      "lowerarm_twist_01_l": [
+        21.64888747952662,
+        20.83794675222569
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.209249056433128,
+          "visible_depth_cm": 8.93086964025894,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.67596281886695,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.739132811595495,
+          "visible_depth_cm": 9.647895189290068,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.570155461404386,
+          "visible_depth_cm": 13.198014925315864,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.8585823888188777,
+          "visible_depth_cm": 9.612119802386225,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.790130950336318,
+          "visible_depth_cm": 13.204863656065697,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.704871654510498,
+        "before": {
+          "eye_distance_cm": 3.889555128281676,
+          "visible_depth_cm": 9.640846012297576,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.816457430281856,
+          "visible_depth_cm": 13.230085455995,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.759999990463257,
+        "before": {
+          "eye_distance_cm": 3.8679922550168793,
+          "visible_depth_cm": 10.2525542022365,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.770513113985345,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.862748622894287,
+        "before": {
+          "eye_distance_cm": 10.962584564844086,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 18.87788712500199,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9202325344085693,
+        "before": {
+          "eye_distance_cm": 20.908050773868407,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.128480617779,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0649936199188232,
+        "before": {
+          "eye_distance_cm": 26.236265156298558,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 26.606444750440403,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.140660285949707,
+        "before": {
+          "eye_distance_cm": 24.804918380240345,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.804918380240345,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_empty_canted": {
+    "protected_max_cm": 6.555427262355806e-06,
+    "protected_max_deg": 1.2121654756699433e-05,
+    "hand_max_cm": 5.560828867601231e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        12.742209326931745,
+        11.351628595672864
+      ],
+      "upperarm_twist_01_l": [
+        12.528890925245243,
+        10.475827507478122
+      ],
+      "upperarm_twist_02_l": [
+        12.528891578928231,
+        10.475824260692258
+      ],
+      "lowerarm_l": [
+        11.919907240030868,
+        12.481722902425565
+      ],
+      "lowerarm_twist_02_l": [
+        18.31185052227295,
+        17.916995221285656
+      ],
+      "lowerarm_twist_01_l": [
+        25.34013731747915,
+        24.952474500428348
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.209260343960444,
+          "visible_depth_cm": 8.93086099146152,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.67501645670736,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.7391474882718465,
+          "visible_depth_cm": 9.647892817130376,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.570646319299538,
+          "visible_depth_cm": 13.197213403630004,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.8585791204363504,
+          "visible_depth_cm": 9.612113104241718,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.791684289629478,
+          "visible_depth_cm": 13.20374536073368,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.704871654510498,
+        "before": {
+          "eye_distance_cm": 3.890989684812923,
+          "visible_depth_cm": 9.64019443408201,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.81832909056998,
+          "visible_depth_cm": 13.229859824633031,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.759999990463257,
+        "before": {
+          "eye_distance_cm": 3.8714351211754083,
+          "visible_depth_cm": 10.251167012457941,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.774868186930979,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.862748622894287,
+        "before": {
+          "eye_distance_cm": 12.334613492489893,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 19.563001549225792,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9202325344085693,
+        "before": {
+          "eye_distance_cm": 21.87249375046769,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.66642707351697,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0649936199188232,
+        "before": {
+          "eye_distance_cm": 26.747541015757037,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 26.71190249154466,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.140660285949707,
+        "before": {
+          "eye_distance_cm": 24.7762296285574,
+          "visible_depth_cm": 32.76350359224414,
+          "visible_vertex_count": 54,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.7762296285574,
+          "visible_depth_cm": 32.76350359224414,
+          "visible_vertex_count": 54,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_empty_prism": {
+    "protected_max_cm": 4.886127044301247e-06,
+    "protected_max_deg": 1.1725910729546868e-05,
+    "hand_max_cm": 3.025192654604325e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        12.403256902865765,
+        9.469986941328832
+      ],
+      "upperarm_twist_01_l": [
+        13.534194890002995,
+        8.670550711116935
+      ],
+      "upperarm_twist_02_l": [
+        13.534196242782476,
+        8.670550188672431
+      ],
+      "lowerarm_l": [
+        15.924452237900278,
+        10.28327163577173
+      ],
+      "lowerarm_twist_02_l": [
+        20.284322027103467,
+        16.20796902711872
+      ],
+      "lowerarm_twist_01_l": [
+        24.93371294428573,
+        22.7737088356232
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.209255730433347,
+          "visible_depth_cm": 8.930860589283505,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.67503327119361,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.739138089077767,
+          "visible_depth_cm": 9.64790858191791,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.570633230750461,
+          "visible_depth_cm": 13.197219642993586,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.8585853169306024,
+          "visible_depth_cm": 9.612110747798642,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.7916928239287,
+          "visible_depth_cm": 13.20374756155962,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.704871654510498,
+        "before": {
+          "eye_distance_cm": 3.890698500957936,
+          "visible_depth_cm": 9.64032902883254,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.817955896944621,
+          "visible_depth_cm": 13.22989549635482,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.759999990463257,
+        "before": {
+          "eye_distance_cm": 3.8703060232660285,
+          "visible_depth_cm": 10.251625030731002,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.773465271880841,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.862748622894287,
+        "before": {
+          "eye_distance_cm": 11.80500796535789,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 18.909816072952772,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9202325344085693,
+        "before": {
+          "eye_distance_cm": 22.126880522843045,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.30287999876921,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0649936199188232,
+        "before": {
+          "eye_distance_cm": 26.59906954026879,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 26.609567985025034,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.140660285949707,
+        "before": {
+          "eye_distance_cm": 24.649104575434183,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.649104575434183,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_empty_vertical": {
+    "protected_max_cm": 5.394796517066425e-06,
+    "protected_max_deg": 1.134628542472402e-05,
+    "hand_max_cm": 3.471426907708519e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        11.900837723288264,
+        9.97700935688043
+      ],
+      "upperarm_twist_01_l": [
+        11.531432773070131,
+        9.036221909909626
+      ],
+      "upperarm_twist_02_l": [
+        11.531434190980647,
+        9.036222747633163
+      ],
+      "lowerarm_l": [
+        11.852806858857972,
+        10.845272090245214
+      ],
+      "lowerarm_twist_02_l": [
+        16.779696483058952,
+        16.131643886359143
+      ],
+      "lowerarm_twist_01_l": [
+        22.187269444514406,
+        21.52990616547745
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.2092564884206505,
+          "visible_depth_cm": 8.930860590034182,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.67503668905284,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.7391367378606843,
+          "visible_depth_cm": 9.647908583626183,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.570637430323229,
+          "visible_depth_cm": 13.197222741068874,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.858584904333106,
+          "visible_depth_cm": 9.612113133667076,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.791692959152357,
+          "visible_depth_cm": 13.203748627989514,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.704871654510498,
+        "before": {
+          "eye_distance_cm": 3.890602373983638,
+          "visible_depth_cm": 9.640376753288017,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.817831203418365,
+          "visible_depth_cm": 13.229903623777249,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.759999990463257,
+        "before": {
+          "eye_distance_cm": 3.869970918870004,
+          "visible_depth_cm": 10.251762519876387,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.77304752697906,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.862748622894287,
+        "before": {
+          "eye_distance_cm": 13.307623141302054,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 19.4655200029559,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9202325344085693,
+        "before": {
+          "eye_distance_cm": 22.385167627091732,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.271172655115073,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0649936199188232,
+        "before": {
+          "eye_distance_cm": 26.412010820902267,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 26.54683452138029,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.140660285949707,
+        "before": {
+          "eye_distance_cm": 24.609314391312253,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.609314391312253,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_normal_angled": {
+    "protected_max_cm": 4.108831490157172e-06,
+    "protected_max_deg": 1.0295535372113077e-05,
+    "hand_max_cm": 3.5683226542460034e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        11.147194944648653,
+        5.470278527973016
+      ],
+      "upperarm_twist_01_l": [
+        8.680885897922806,
+        5.4088103690998
+      ],
+      "upperarm_twist_02_l": [
+        8.680894626037576,
+        5.408813125330089
+      ],
+      "lowerarm_l": [
+        11.284655218613139,
+        7.912871017404626
+      ],
+      "lowerarm_twist_02_l": [
+        12.307294941068104,
+        10.47459388548024
+      ],
+      "lowerarm_twist_01_l": [
+        14.319829651048227,
+        15.360620794509659
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.20926008342512,
+          "visible_depth_cm": 8.930878264303502,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.675023690338097,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.7391779713711837,
+          "visible_depth_cm": 9.647874685268102,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.57063592776228,
+          "visible_depth_cm": 13.197195388630817,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.8586122637058633,
+          "visible_depth_cm": 9.612113599842978,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.791686406450378,
+          "visible_depth_cm": 13.203753385695258,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.7047979831695557,
+        "before": {
+          "eye_distance_cm": 3.890060688981787,
+          "visible_depth_cm": 9.640942019954082,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.817185659125556,
+          "visible_depth_cm": 13.230271790424116,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.760000228881836,
+        "before": {
+          "eye_distance_cm": 3.875161074325663,
+          "visible_depth_cm": 10.248867137358873,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.779638616218,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.85304594039917,
+        "before": {
+          "eye_distance_cm": 5.406334314937657,
+          "visible_depth_cm": 13.478744539184163,
+          "visible_vertex_count": 5,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 12.149190114402385,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9368960857391357,
+        "before": {
+          "eye_distance_cm": 9.711858860825789,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 16.665516840042827,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0500004291534424,
+        "before": {
+          "eye_distance_cm": 18.465990876295542,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 22.857630926528717,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.15918231010437,
+        "before": {
+          "eye_distance_cm": 22.757941352815955,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 26.442365323110405,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_normal_base": {
+    "protected_max_cm": 0.011045487597584724,
+    "protected_max_deg": 0.03959440874224949,
+    "hand_max_cm": 0.00854693353176117,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        10.683308460004374,
+        5.989247399723199
+      ],
+      "upperarm_twist_01_l": [
+        8.649614866445217,
+        5.728847756245453
+      ],
+      "upperarm_twist_02_l": [
+        8.649621848772718,
+        5.728847924056872
+      ],
+      "lowerarm_l": [
+        11.650071709860372,
+        8.391435259564455
+      ],
+      "lowerarm_twist_02_l": [
+        11.964301553932952,
+        10.18520747407245
+      ],
+      "lowerarm_twist_01_l": [
+        12.286883924182554,
+        12.19259703304909
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.209249847535876,
+          "visible_depth_cm": 8.930886394685,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.675964008331178,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.7391693160996162,
+          "visible_depth_cm": 9.647887552324516,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.57015433331436,
+          "visible_depth_cm": 13.198014690615116,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.8586195019035245,
+          "visible_depth_cm": 9.612114566107849,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.790132371631989,
+          "visible_depth_cm": 13.204864368752673,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.7047979831695557,
+        "before": {
+          "eye_distance_cm": 3.889564417578836,
+          "visible_depth_cm": 9.641166371020383,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.816507853550913,
+          "visible_depth_cm": 13.230395886691984,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.760000228881836,
+        "before": {
+          "eye_distance_cm": 3.8743100820320637,
+          "visible_depth_cm": 10.249184767440074,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.778557467393806,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.85304594039917,
+        "before": {
+          "eye_distance_cm": 5.589573758279114,
+          "visible_depth_cm": 13.603584457818028,
+          "visible_vertex_count": 4,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 12.255121672443277,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9368960857391357,
+        "before": {
+          "eye_distance_cm": 10.23663874678766,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 16.89199665359542,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0500004291534424,
+        "before": {
+          "eye_distance_cm": 20.14665586866309,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 23.668470514163026,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.15918231010437,
+        "before": {
+          "eye_distance_cm": 24.833476921899678,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 27.233809167144233,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_normal_canted": {
+    "protected_max_cm": 7.200083018688019e-06,
+    "protected_max_deg": 1.135971829874906e-05,
+    "hand_max_cm": 6.125084382802015e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        11.403106628626867,
+        6.190988044740665
+      ],
+      "upperarm_twist_01_l": [
+        8.808279229742691,
+        5.922747480859481
+      ],
+      "upperarm_twist_02_l": [
+        8.808282078391258,
+        5.9227487617326675
+      ],
+      "lowerarm_l": [
+        11.400808913972869,
+        8.971209178103374
+      ],
+      "lowerarm_twist_02_l": [
+        13.841141867934601,
+        11.119780804338626
+      ],
+      "lowerarm_twist_01_l": [
+        16.5756864400418,
+        17.124484430848177
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.209267060674121,
+          "visible_depth_cm": 8.930872030766427,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.675016313745493,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.739181740190707,
+          "visible_depth_cm": 9.647889478566519,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.570651364029793,
+          "visible_depth_cm": 13.197213046026997,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.8586149006757755,
+          "visible_depth_cm": 9.61210403330977,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.79168199174766,
+          "visible_depth_cm": 13.203751679683801,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.7047979831695557,
+        "before": {
+          "eye_distance_cm": 3.8909988587089823,
+          "visible_depth_cm": 9.640518610734581,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.818374133052579,
+          "visible_depth_cm": 13.230153799948686,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.760000228881836,
+        "before": {
+          "eye_distance_cm": 3.877783640422678,
+          "visible_depth_cm": 10.247823803187103,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.782888644968041,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.85304594039917,
+        "before": {
+          "eye_distance_cm": 5.764359856818724,
+          "visible_depth_cm": 12.071407848161547,
+          "visible_vertex_count": 16,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 12.207983134512752,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9368960857391357,
+        "before": {
+          "eye_distance_cm": 11.173575504841793,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 17.55366906504807,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0500004291534424,
+        "before": {
+          "eye_distance_cm": 20.583620549082887,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 24.13502041344536,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.15918231010437,
+        "before": {
+          "eye_distance_cm": 25.595835924959168,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 27.61597690718174,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_normal_prism": {
+    "protected_max_cm": 3.932099843950709e-06,
+    "protected_max_deg": 1.1064548513427563e-05,
+    "hand_max_cm": 2.86102294921875e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        12.082591159704759,
+        5.7275012886222685
+      ],
+      "upperarm_twist_01_l": [
+        9.56399349487823,
+        5.48326823011046
+      ],
+      "upperarm_twist_02_l": [
+        9.563997850276117,
+        5.48326943035676
+      ],
+      "lowerarm_l": [
+        12.337252881267197,
+        7.6389831815736535
+      ],
+      "lowerarm_twist_02_l": [
+        13.176802015351207,
+        9.681538199034613
+      ],
+      "lowerarm_twist_01_l": [
+        14.066534327656514,
+        13.294511647306367
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.209256521539163,
+          "visible_depth_cm": 8.930880683859634,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.67503711410167,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.7391724721557584,
+          "visible_depth_cm": 9.647906197939658,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.570635411342977,
+          "visible_depth_cm": 13.19721808882167,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.858622064517242,
+          "visible_depth_cm": 9.612107412951499,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.791691815635962,
+          "visible_depth_cm": 13.203749221860948,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.7047979831695557,
+        "before": {
+          "eye_distance_cm": 3.890708448049834,
+          "visible_depth_cm": 9.640654151577154,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.818004057192706,
+          "visible_depth_cm": 13.230193293964682,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.760000228881836,
+        "before": {
+          "eye_distance_cm": 3.8766590187664485,
+          "visible_depth_cm": 10.248264447144779,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.781486409788824,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.85304594039917,
+        "before": {
+          "eye_distance_cm": 5.9134807129162485,
+          "visible_depth_cm": 13.520739052125275,
+          "visible_vertex_count": 5,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 12.343114109235545,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9368960857391357,
+        "before": {
+          "eye_distance_cm": 10.702811027623651,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 17.215551918532515,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0500004291534424,
+        "before": {
+          "eye_distance_cm": 19.969024329622876,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 23.774112418180643,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.15918231010437,
+        "before": {
+          "eye_distance_cm": 24.59055656676115,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 27.259558511226626,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  },
+  "45_normal_vertical": {
+    "protected_max_cm": 4.2649612623790745e-06,
+    "protected_max_deg": 1.2092176716185036e-05,
+    "hand_max_cm": 2.86102294921875e-06,
+    "insertion_release_rotation_step_deg": {
+      "upperarm_l": [
+        11.533795453406695,
+        5.332248095770826
+      ],
+      "upperarm_twist_01_l": [
+        9.159120279073619,
+        5.175419515281349
+      ],
+      "upperarm_twist_02_l": [
+        9.159126284686192,
+        5.175420073482085
+      ],
+      "lowerarm_l": [
+        11.890463753422805,
+        7.01796861044167
+      ],
+      "lowerarm_twist_02_l": [
+        13.159492911588705,
+        11.193113918608379
+      ],
+      "lowerarm_twist_01_l": [
+        16.425376406009622,
+        16.9255121322949
+      ]
+    },
+    "surfaces": [
+      {
+        "source": 2.3005623817443848,
+        "before": {
+          "eye_distance_cm": 4.209257748310599,
+          "visible_depth_cm": 8.930880690949852,
+          "visible_vertex_count": 48,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 8.675034207175194,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.482438325881958,
+        "before": {
+          "eye_distance_cm": 3.7391708324086177,
+          "visible_depth_cm": 9.647906200502067,
+          "visible_vertex_count": 58,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.570635065262886,
+          "visible_depth_cm": 13.197221906545877,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.5512192249298096,
+        "before": {
+          "eye_distance_cm": 3.858623742839189,
+          "visible_depth_cm": 9.612109316072551,
+          "visible_vertex_count": 56,
+          "near_visible_vertices": 6
+        },
+        "after": {
+          "eye_distance_cm": 9.791691364250337,
+          "visible_depth_cm": 13.203745646123515,
+          "visible_vertex_count": 2,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.7047979831695557,
+        "before": {
+          "eye_distance_cm": 3.890608456747348,
+          "visible_depth_cm": 9.640701408726798,
+          "visible_vertex_count": 52,
+          "near_visible_vertices": 4
+        },
+        "after": {
+          "eye_distance_cm": 9.817881577231827,
+          "visible_depth_cm": 13.230208697523736,
+          "visible_vertex_count": 1,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.760000228881836,
+        "before": {
+          "eye_distance_cm": 3.876320846383146,
+          "visible_depth_cm": 10.248392496118152,
+          "visible_vertex_count": 35,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 9.781071842939996,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.85304594039917,
+        "before": {
+          "eye_distance_cm": 5.74309020638236,
+          "visible_depth_cm": 12.924504028182257,
+          "visible_vertex_count": 7,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 12.35443094246075,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 2.9368960857391357,
+        "before": {
+          "eye_distance_cm": 10.553016781664484,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 17.148740761670656,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.0500004291534424,
+        "before": {
+          "eye_distance_cm": 21.42988103292292,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 23.89271256009163,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      },
+      {
+        "source": 3.15918231010437,
+        "before": {
+          "eye_distance_cm": 25.279945871223042,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        },
+        "after": {
+          "eye_distance_cm": 27.306695955658114,
+          "visible_depth_cm": null,
+          "visible_vertex_count": 0,
+          "near_visible_vertices": 0
+        }
+      }
+    ]
+  }
+}

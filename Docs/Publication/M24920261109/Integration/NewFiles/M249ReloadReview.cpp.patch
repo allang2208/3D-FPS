@@ -1,0 +1,253 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249ReloadReview.cpp
+@@ -0,0 +1,250 @@
++#include "CoreMinimal.h"
++#if WITH_EDITOR
++#include "M249WeaponAssets.h"
++#include "M249SideMagazine.h"
++#include "M249Attachments.h"
++#include "PKMLowpolyWeaponAssets.h"
++#include "FPSGunplayAnimInstance.h"
++#include "WeaponGripProfile.h"
++#include "WeaponActionCameraComponent.h"
++#include "RifleReloadRecovery.h"
++#include "../Skills/FPSCastingMeshComponent.h"
++#include "../Characters/FPSArmJointCorrectiveComponent.h"
++#include "../UI/ColdSteelPreviewScene.h"
++#include "../UI/GunsmithPreviewLighting.h"
++#include "Animation/AnimSequence.h"
++#include "AssetCompilingManager.h"
++#include "Camera/CameraComponent.h"
++#include "Components/DirectionalLightComponent.h"
++#include "Components/SceneCaptureComponent2D.h"
++#include "Engine/TextureCube.h"
++#include "Engine/TextureRenderTarget2D.h"
++#include "Engine/World.h"
++#include "GameFramework/Pawn.h"
++#include "GameFramework/PlayerController.h"
++#include "HAL/FileManager.h"
++#include "ImageUtils.h"
++#include "Misc/FileHelper.h"
++#include "RenderingThread.h"
++#include "Rendering/SkeletalMeshRenderData.h"
++#include "Rendering/SkinWeightVertexBuffer.h"
++#include "SkeletalRenderPublic.h"
++#include "StaticMeshResources.h"
++#include "Serialization/JsonSerializer.h"
++#include "ShaderCompiler.h"
++#include "UObject/StrongObjectPtr.h"
++
++namespace
++{
++TArray<TSharedPtr<FJsonValue>> TransformValues(const FTransform& X)
++{
++    const FVector P=X.GetLocation(),S=X.GetScale3D();const FQuat Q=X.GetRotation();
++    TArray<TSharedPtr<FJsonValue>> V;
++    for(double A:{P.X,P.Y,P.Z,Q.X,Q.Y,Q.Z,Q.W,S.X,S.Y,S.Z})V.Add(MakeShared<FJsonValueNumber>(A));
++    return V;
++}
++}
++#endif
++
++// Offline review only. Uses the shipped animation graph, attachment mounts,
++// joint correctives, belt dynamics and camera layer; no player saves or assets.
++int32 RunM249ReloadReview(const FString& ManifestPath,const FString& Output)
++{
++#if WITH_EDITOR
++    FString JSON,Failure;TSharedPtr<FJsonObject> Manifest;
++    if(!FFileHelper::LoadFileToString(JSON,*ManifestPath)||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(JSON),Manifest))return 30;
++    auto Studio=FColdSteelPreviewScene::TryCreate(FPreviewScene::ConstructionValues().SetEditor(false)
++        .SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(true)
++        .SetLightBrightness(3.f).SetSkyBrightness(1.f),Failure);
++    if(!Studio)return 31;
++    UWorld* World=Studio->GetWorld();World->SetShouldTick(false);
++    Studio->SetSkyCubemap(LoadObject<UTextureCube>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment")));
++    Studio->DirectionalLight->SetWorldRotation(FRotator(-35,-45,0));
++    auto* Fill=NewObject<UDirectionalLightComponent>();Fill->SetIntensity(1.4f);Fill->SetCastShadows(false);
++    Studio->AddComponent(Fill,FTransform(FRotator(-10,140,0)));
++    TStrongObjectPtr<UTextureRenderTarget2D> Target(NewObject<UTextureRenderTarget2D>());
++    Target->RenderTargetFormat=RTF_RGBA8_SRGB;Target->InitAutoFormat(960,540);Target->UpdateResourceImmediate(true);
++    TStrongObjectPtr<USceneCaptureComponent2D> Capture(NewObject<USceneCaptureComponent2D>());
++    Capture->TextureTarget=Target.Get();Capture->CaptureSource=SCS_FinalColorLDR;
++    Capture->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
++    Capture->bCaptureEveryFrame=false;Capture->bCaptureOnMovement=false;Capture->bAlwaysPersistRenderingState=true;
++    Capture->ShowFlags.SetAtmosphere(false);Capture->ShowFlags.SetFog(false);Capture->ShowFlags.SetVolumetricFog(false);
++    Capture->ShowFlags.SetMotionBlur(false);Capture->ShowFlags.SetBloom(false);Capture->ShowFlags.SetTemporalAA(true);
++    Capture->bOverride_CustomNearClippingPlane=true;Capture->CustomNearClippingPlane=1.f;
++    auto& PP=Capture->PostProcessSettings;PP.bOverride_AutoExposureMethod=true;PP.AutoExposureMethod=AEM_Manual;
++    PP.bOverride_AutoExposureApplyPhysicalCameraExposure=true;PP.AutoExposureApplyPhysicalCameraExposure=false;
++    PP.bOverride_AutoExposureBias=true;PP.AutoExposureBias=.15f;
++    Studio->AddComponent(Capture.Get(),FTransform::Identity);GunsmithPreviewLighting::Create(*Studio,*Capture);
++    auto* Mesh=LoadObject<USkeletalMesh>(nullptr,M249WeaponAssets::MeshPath);
++    auto* Idle=LoadObject<UAnimSequence>(nullptr,*M249WeaponAssets::AnimationPath(TEXT("idle")));
++    if(!Mesh||!Idle)return 32;
++    IFileManager::Get().MakeDirectory(*Output,true);
++    TArray<TSharedPtr<FJsonValue>> Cases;
++    for(const auto& Value:Manifest->GetArrayField(TEXT("cases")))
++    {
++        const auto Case=Value->AsObject();const FString Name=Case->GetStringField(TEXT("name"));
++        const FString Magazine=Case->GetStringField(TEXT("magazine")),Family=Case->GetStringField(TEXT("grip"));
++        const bool Empty=Case->GetBoolField(TEXT("empty")),Side=Magazine!=TEXT("box");
++        const bool Continuous=Case->GetBoolField(TEXT("continuous"));
++        bool Surfaces=false;Case->TryGetBoolField(TEXT("surfaces"),Surfaces);
++        const FString View=Case->GetStringField(TEXT("view"));
++        const FString Folder=Output/Name;IFileManager::Get().MakeDirectory(*Folder,true);
++        auto* Owner=World->SpawnActor<APawn>();auto* Controller=World->SpawnActor<APlayerController>();
++        Controller->SetAsLocalPlayerController();Controller->Possess(Owner);
++        auto* Rig=NewObject<UFPSCastingMeshComponent>(Owner);Owner->AddInstanceComponent(Rig);Owner->SetRootComponent(Rig);
++        Rig->SetForcedLOD(1);Rig->SetCastShadow(false);Rig->SetSkeletalMeshAsset(Mesh);
++        Rig->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
++        const FQuat Base=FRotator(0,90,0).Quaternion();const FVector Hip=FVector(9,9,-11)+M249WeaponAssets::HipPresentationOffset;
++        Studio->AddComponent(Rig,FTransform(Base,Hip));
++        Rig->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
++        auto* Anim=Cast<UFPSGunplayAnimInstance>(Rig->GetAnimInstance());
++        auto* Clip=LoadObject<UAnimSequence>(nullptr,*(Side?M249SideMagazine::AnimationPath(Empty):M249WeaponAssets::AnimationPath(Empty?TEXT("reload_empty"):TEXT("reload"))));
++        if(!Anim||!Clip)return 33;
++        Anim->IdleClip=Idle;Anim->AimClip=Idle;Anim->ActionClip=Clip;
++        Anim->GripProfile=LoadObject<UWeaponGripProfile>(nullptr,*M249Attachments::ProfilePath(FName(Family)));
++        if(!Anim->GripProfile||!Anim->GripProfile->Find(Clip))return 34;
++        auto* Correctives=NewObject<UFPSArmJointCorrectiveComponent>(Owner);Owner->AddInstanceComponent(Correctives);Correctives->RegisterComponent();
++        auto* Camera=NewObject<UCameraComponent>(Owner);Owner->AddInstanceComponent(Camera);Camera->RegisterComponent();Camera->SetWorldTransform(FTransform::Identity);
++        auto* Motion=NewObject<UWeaponActionCameraComponent>(Owner);Owner->AddInstanceComponent(Motion);Motion->RegisterComponent();
++        UStaticMeshComponent* Mag=Side?M249SideMagazine::Configure(Owner,Rig,nullptr,TEXT("m249_side_mag_")+Magazine,true):nullptr;
++        if(Side&&!Mag)return 35;
++        PKMLowpolyWeaponAssets::ConfigureBipod(Owner,Rig,true);
++        if(Family!=TEXT("base"))
++        {
++            if(!M249Attachments::Configure(Owner,Rig,nullptr,Family,true))return 36;
++            M249Attachments::FactorySection(Rig,TEXT("M249_Factory_Foregrip"),false);
++        }
++        Capture->ClearShowOnlyComponents();Capture->ShowOnlyComponent(Rig);
++        TInlineComponentArray<UStaticMeshComponent*> Parts(Owner);for(auto* Part:Parts)Capture->ShowOnlyComponent(Part);
++        FAssetCompilingManager::Get().FinishAllCompilation();if(GShaderCompilingManager)GShaderCompilingManager->FinishAllCompilation();
++        Studio->UpdateCaptureContents();GunsmithPreviewLighting::Update(*Capture,Rig->Bounds.GetBox(),false,.15f);
++        const bool Extended=Magazine==TEXT("45");
++        const float Duration=Side?M249ReloadTiming::SideDuration(Empty,Extended):(Empty?M249ReloadTiming::EmptySeconds:M249ReloadTiming::NormalSeconds);
++        const float End=Clip->GetPlayLength();const float Step=1.f/60.f;
++        const EM4CameraAction Action=Side?(Empty?EM4CameraAction::M249SideReloadEmpty:EM4CameraAction::M249SideReload):(Empty?EM4CameraAction::PKMReloadEmpty:EM4CameraAction::PKMReload);
++        TArray<float> Contacts;FWeaponReloadCameraTrack Track;Track.End=End;Track.FamilyScale=WeaponReloadCamera::HeavyScale;
++        Track.FollowScale=Side?(Extended?1.95f:1.8f):2.1f;Track.ContactScale=Side?(Extended?1.2f:1.15f):1.2f;
++        using E=EReloadCameraContact;
++        if(Side)
++        {
++            Contacts={M249SideMagazine::Out,M249SideMagazine::Insert,M249SideMagazine::Seat};
++            Track.Add(Contacts[0],E::MagazineOut);Track.Add(Contacts[1],E::Insert);Track.Add(Contacts[2],E::Seat);
++            if(Empty){Contacts.Append({M249SideMagazine::ChargePull,M249SideMagazine::ChargeRear,M249SideMagazine::ChargePush,M249SideMagazine::ChargeClosed});
++                Track.Add(Contacts[3],E::Pull);Track.Add(Contacts[4],E::BoltLock);Track.Add(Contacts[5],E::BoltPush);Track.Add(Contacts[6],E::Release);}
++        }
++        else
++        {
++            Contacts={.65f};Track.Add(.65f,E::CoverOpen);if(!Empty){Contacts.Add(1.65f);Track.Add(1.65f,E::Belt);}
++            for(float T:{2.6f,4.35f,5.1f,5.72f})Contacts.Add(PKMLowpolyWeaponAssets::ReloadEventTime(T,Empty));
++            const int32 B=Empty?1:2;Track.Add(Contacts[B],E::MagazineOut);Track.Add(Contacts[B+1],E::Seat);
++            Track.Add(Contacts[B+2],E::Belt);Track.Add(Contacts[B+3],E::CoverClose);
++            if(Empty){Contacts.Append({M249ReloadTiming::ChargePull,M249ReloadTiming::ChargeRear,M249ReloadTiming::ChargePush,M249ReloadTiming::ChargeClosed});
++                Track.Add(Contacts[6],E::Pull);Track.Add(Contacts[8],E::Release);}
++        }
++        Track.FollowAction=Action;Track.FollowContacts.Append(Contacts.GetData(),Contacts.Num());
++        Camera->FieldOfView=107.5f;
++        TArray<float> Requested;for(const auto& T:Case->GetArrayField(TEXT("samples")))Requested.Add(T->AsNumber());
++        TArray<TSharedPtr<FJsonValue>> Frames;TArray<float> PoseData;float Framing=0;int32 Shot=0,Next=0;
++        for(int32 Frame=-30;Frame<=FMath::CeilToInt((Duration+.3f)*60);++Frame)
++        {
++            ++GFrameCounter;const float Runtime=Frame*Step;const bool Active=Runtime>=0&&Runtime<Duration;
++            const float Source=Side?M249ReloadTiming::SideSourceSeconds(Runtime/Duration,Empty,Extended):M249ReloadTiming::SourceSeconds(Runtime/Duration,Empty);
++            Anim->BaseTime=FMath::Max(0.f,Runtime);Anim->ActionTime=Source;
++            Anim->ActionAlpha=Active?FMath::Clamp(Runtime/(.035f*Duration/End),0.f,1.f):0.f;
++            Anim->ArmIdleHandoffAlpha=Active?M249ReloadTiming::ArmIdleWeight(Source,End):0.f;
++            Framing=FMath::Lerp(Framing,Active&&!Side?1.f:0.f,1.f-FMath::Exp(-16.f*Step));
++            Framing=Active?FMath::Min(Framing,RifleReloadRecovery::RemainingWeight(Source,End,RifleReloadRecovery::ReturnSeconds(true,Empty))):0.f;
++            Rig->SetWorldTransform(FTransform(Base,FMath::Lerp(Hip,FVector(10,0,-5)+M249WeaponAssets::ReloadPresentationOffset,Framing)));
++            PKMLowpolyWeaponAssets::SetSections(Rig,Active,Empty,Source,Empty&&Source<End?0:100,!Side);
++            Rig->M249BeltDynamics.Configure(!Side,Active,Empty,Source,false);
++            if(Mag)Mag->SetVisibility(!(Active&&Source>=M249SideMagazine::HiddenBegin&&Source<M249SideMagazine::HiddenEnd));
++            World->Tick(LEVELTICK_All,Step);Rig->TickAnimation(Step,false);Rig->RefreshBoneTransforms();Rig->UpdateComponentToWorld();
++            Correctives->TickComponent(Step,LEVELTICK_All,nullptr);
++            Track.Time=Source;FWeaponReloadCameraTracks Tracks;if(Active)Tracks.Add(Track);
++            Motion->Apply(*Camera,Active?Action:EM4CameraAction::None,Source,End,Contacts,.45f,Tracks,Step);
++            FTransform CameraOffset;float FOVOffset;Camera->GetAdditiveOffset(CameraOffset,FOVOffset);
++            Capture->FOVAngle=107.5f;Capture->SetWorldTransform(CameraOffset);
++            if(View!=TEXT("player"))
++            {
++                Capture->FOVAngle=48.f;const FVector Center=Rig->GetComponentTransform().TransformPosition(FVector(4,-10,4));
++                const FVector Eye=Center+Base.RotateVector(View==TEXT("right")?FVector(65,-45,38):FVector(-65,-5,28));
++                Capture->SetWorldLocationAndRotation(Eye,(Center-Eye).Rotation());
++            }
++            if(Frame>=0)
++            {
++                PoseData.Add(Runtime);PoseData.Add(Source);PoseData.Add(Anim->ActionAlpha);PoseData.Add(Framing);
++                for(const FTransform& X:Rig->GetComponentSpaceTransforms())
++                {const FVector P=X.GetLocation();const FQuat Q=X.GetRotation();for(double A:{P.X,P.Y,P.Z,Q.X,Q.Y,Q.Z,Q.W})PoseData.Add(A);}
++            }
++            const bool RequestedNow=Next<Requested.Num()&&Source>=Requested[Next];
++            const bool Save=Frame>=0&&((Continuous&&Frame%3==0)||RequestedNow);
++            if(RequestedNow)++Next;
++            if(Save)
++            {
++                World->SendAllEndOfFrameUpdates();Capture->CaptureScene();FlushRenderingCommands();
++                TArray<FColor> Pixels;if(!Target->GameThread_GetRenderTargetResource()->ReadPixels(Pixels))return 37;
++                for(auto& P:Pixels)P.A=255;TArray64<uint8> PNG;FImageUtils::PNGCompressImageArray(960,540,Pixels,PNG);
++                const FString File=FString::Printf(TEXT("frame_%04d.png"),Shot++);
++                if(!FFileHelper::SaveArrayToFile(PNG,*(Folder/File)))return 38;
++                auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("file"),File);Row->SetNumberField(TEXT("runtime"),Runtime);Row->SetNumberField(TEXT("source"),Source);
++                Row->SetArrayField(TEXT("camera"),TransformValues(CameraOffset));Row->SetNumberField(TEXT("elbow_morph"),Rig->GetMorphTarget(TEXT("JC_ElbowFlex75_L")));
++                if(Surfaces)
++                {
++                    auto Binary=[&](const auto& Values,const FString& Suffix)
++                    {return FFileHelper::SaveArrayToFile(TArrayView<const uint8>(reinterpret_cast<const uint8*>(Values.GetData()),Values.Num()*sizeof(Values[0])),*(Folder/File.Replace(TEXT(".png"),*Suffix)));};
++                    TArray<FFinalSkinVertex> Skin;Rig->GetCPUSkinnedVertices(Skin,0);TArray<FVector3f> Points;
++                    for(const auto& V:Skin)Points.Add(V.Position);Binary(Points,TEXT(".vertices"));
++                    const auto& LOD=Mesh->GetResourceForRendering()->LODRenderData[0];TArray<uint32> Indices;LOD.MultiSizeIndexContainer.GetIndexBuffer(Indices);
++                    Binary(Indices,TEXT(".indices"));TArray<uint32> Materials;Materials.Init(0,Indices.Num()/3);TArray<TSharedPtr<FJsonValue>> Visible;
++                    if(Shot==1)
++                    {
++                        TArray<uint32> Dominant;Dominant.Init(0,LOD.GetNumVertices());const auto* Weights=Rig->GetSkinWeightBuffer(0);
++                        for(const auto& Section:LOD.RenderSections)for(uint32 V=Section.BaseVertexIndex;V<Section.BaseVertexIndex+Section.NumVertices;++V)
++                        {
++                            uint16 Best=0;for(uint32 J=0;J<Weights->GetMaxBoneInfluences();++J)if(Weights->GetBoneWeight(V,J)>Best)
++                            {Best=Weights->GetBoneWeight(V,J);Dominant[V]=Section.BoneMap[Weights->GetBoneIndex(V,J)];}
++                        }
++                        FFileHelper::SaveArrayToFile(TArrayView<const uint8>(reinterpret_cast<const uint8*>(Dominant.GetData()),Dominant.Num()*sizeof(uint32)),*(Folder/TEXT("dominant.bin")));
++                        auto Geometry=MakeShared<FJsonObject>();TArray<TSharedPtr<FJsonValue>> Slots,Names;
++                        for(const auto& M:Mesh->GetMaterials())Slots.Add(MakeShared<FJsonValueString>(M.MaterialSlotName.ToString()));
++                        for(int32 B=0;B<Mesh->GetRefSkeleton().GetNum();++B)Names.Add(MakeShared<FJsonValueString>(Mesh->GetRefSkeleton().GetBoneName(B).ToString()));
++                        Geometry->SetArrayField(TEXT("slots"),Slots);Geometry->SetArrayField(TEXT("bones"),Names);
++                        FString Metadata;FJsonSerializer::Serialize(Geometry,TJsonWriterFactory<>::Create(&Metadata));FFileHelper::SaveStringToFile(Metadata,*(Folder/TEXT("geometry.json")));
++                    }
++                    for(const auto& Section:LOD.RenderSections)
++                    {
++                        for(uint32 T=Section.BaseIndex/3;T<Section.BaseIndex/3+Section.NumTriangles;++T)Materials[T]=Section.MaterialIndex;
++                        if(Rig->IsMaterialSectionShown(Section.MaterialIndex,0))Visible.AddUnique(MakeShared<FJsonValueNumber>(Section.MaterialIndex));
++                    }
++                    Binary(Materials,TEXT(".materials"));Row->SetArrayField(TEXT("visible_materials"),Visible);
++                    Row->SetArrayField(TEXT("component"),TransformValues(Rig->GetComponentTransform()));
++                    for(int32 I=0;I<Parts.Num();++I)if(Parts[I]->IsVisible())
++                    {
++                        auto* Part=Parts[I];const auto& L=Part->GetStaticMesh()->GetRenderData()->LODResources[0];
++                        const FTransform X=Part->GetComponentTransform().GetRelativeTransform(Rig->GetComponentTransform());
++                        TArray<FVector3f> P;TArray<uint32> F;
++                        for(uint32 J=0;J<L.VertexBuffers.PositionVertexBuffer.GetNumVertices();++J)P.Add(FVector3f(X.TransformPosition(FVector(L.VertexBuffers.PositionVertexBuffer.VertexPosition(J)))));
++                        for(int32 J=0;J<L.IndexBuffer.GetNumIndices();++J)F.Add(L.IndexBuffer.GetIndex(J));
++                        const FString Prefix=TEXT("_")+Part->GetStaticMesh()->GetName();Binary(P,Prefix+TEXT(".vertices"));Binary(F,Prefix+TEXT(".indices"));
++                    }
++                }
++                Frames.Add(MakeShared<FJsonValueObject>(Row));
++            }
++        }
++        const TArrayView<const uint8> Bytes(reinterpret_cast<const uint8*>(PoseData.GetData()),PoseData.Num()*sizeof(float));
++        FFileHelper::SaveArrayToFile(Bytes,*(Folder/TEXT("poses.f32")));
++        auto Report=MakeShared<FJsonObject>();Report->SetArrayField(TEXT("frames"),Frames);Report->SetNumberField(TEXT("duration"),Duration);
++        Report->SetNumberField(TEXT("bone_count"),Mesh->GetRefSkeleton().GetNum());Report->SetStringField(TEXT("clip"),Clip->GetPathName());
++        Report->SetStringField(TEXT("profile"),Anim->GripProfile->GetPathName());Report->SetBoolField(TEXT("complete"),true);
++        FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&JSON));FFileHelper::SaveStringToFile(JSON,*(Folder/TEXT("review.json")));
++        Cases.Add(MakeShared<FJsonValueString>(Name));UE_LOG(LogTemp,Display,TEXT("M249_RELOAD_REVIEW %s frames=%d"),*Name,Shot);
++        Capture->ClearShowOnlyComponents();Controller->UnPossess();Controller->Destroy();Owner->Destroy();World->SendAllEndOfFrameUpdates();FlushRenderingCommands();
++    }
++    auto Receipt=MakeShared<FJsonObject>();Receipt->SetBoolField(TEXT("complete"),true);Receipt->SetBoolField(TEXT("asset_writes"),false);
++    Receipt->SetBoolField(TEXT("gameplay_test"),false);Receipt->SetArrayField(TEXT("cases"),Cases);
++    FJsonSerializer::Serialize(Receipt,TJsonWriterFactory<>::Create(&JSON));FFileHelper::SaveStringToFile(JSON,*(Output/TEXT("receipt.json")));
++    return 0;
++#else
++    return 1;
++#endif
++}

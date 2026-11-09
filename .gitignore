@@ -6609,3 +6609,12 @@ __pycache__/
 /SourceAssets/FlameArmorCampfire20261107/**
 /SourceAssets/ConversationCombatReview20261108/**
 /SourceAssets/ConversationCombatPublication20261109/**
+
+# M249: publish recipes and explicit recovery metadata; licensed media stay local.
+/SourceAssets/M249Orpind20261107/**
+!/SourceAssets/M249Orpind20261107/**/
+!/SourceAssets/M249Orpind20261107/**/*.py
+!/SourceAssets/M249Orpind20261107/**/*.ps1
+!/SourceAssets/M249Orpind20261107/**/*.md
+!/SourceAssets/M249Orpind20261107/**/*.hlsl
+/Docs/Publication/M24920261109/*-local.json

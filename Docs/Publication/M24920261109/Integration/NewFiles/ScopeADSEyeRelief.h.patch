@@ -1,0 +1,12 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/ScopeADSEyeRelief.h
+@@ -0,0 +1,9 @@
++#pragma once
++
++namespace ScopeADSEyeRelief
++{
++// Camera to the scope's rear sight datum, in centimetres. Match the M24's
++// factory 6x eye relief for every magnifying firearm optic, including its 1x
++// setting. Zoom changes the captured image, not this physical eye position.
++inline constexpr float DistanceCM=9.f;
++}

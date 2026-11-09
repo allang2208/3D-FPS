@@ -1,0 +1,643 @@
+{
+  "complete": true,
+  "asset_writes": false,
+  "gameplay_test": false,
+  "cases": {
+    "30_empty_angled": {
+      "frames": 319,
+      "images": 22,
+      "duration": 5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5590019330164815,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355
+    },
+    "30_empty_base": {
+      "frames": 319,
+      "images": 119,
+      "duration": 5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5590019330164815,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 4.7958517358371905e-06,
+          "degrees": 7.459234759732009e-06
+        },
+        "hand_r": {
+          "cm": 2.160062939305331e-06,
+          "degrees": 8.034865738436235e-06
+        },
+        "lowerarm_l": {
+          "cm": 5.2957818859464615e-06,
+          "degrees": 7.438870629241067e-06
+        },
+        "lowerarm_r": {
+          "cm": 5.0299243500826615e-06,
+          "degrees": 8.748884133719167e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.545888007018161e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 5.398502863936182e-06,
+          "degrees": 7.5957545905366835e-06
+        }
+      }
+    },
+    "30_empty_canted": {
+      "frames": 319,
+      "images": 22,
+      "duration": 5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5590019330164815,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355
+    },
+    "30_empty_prism": {
+      "frames": 319,
+      "images": 22,
+      "duration": 5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5590019330164815,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355
+    },
+    "30_empty_vertical": {
+      "frames": 319,
+      "images": 22,
+      "duration": 5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5590019330164815,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355
+    },
+    "30_normal_angled": {
+      "frames": 247,
+      "images": 17,
+      "duration": 3.799999952316284,
+      "finite": true,
+      "max_receiver_frame_cm": 0.1728563755750656,
+      "max_receiver_frame_deg": 0.6201244409904527,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042
+    },
+    "30_normal_base": {
+      "frames": 247,
+      "images": 95,
+      "duration": 3.799999952316284,
+      "finite": true,
+      "max_receiver_frame_cm": 0.1728563755750656,
+      "max_receiver_frame_deg": 0.6201244409904527,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.326863640163654e-06,
+          "degrees": 7.172274155877601e-06
+        },
+        "hand_r": {
+          "cm": 2.3381652305491926e-06,
+          "degrees": 7.477813730061575e-06
+        },
+        "lowerarm_l": {
+          "cm": 4.271620002228936e-06,
+          "degrees": 6.893046226895858e-06
+        },
+        "lowerarm_r": {
+          "cm": 5.41315432960143e-06,
+          "degrees": 7.606708240471573e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.6653516866354543e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 4.847596713456185e-06,
+          "degrees": 7.586982860651728e-06
+        }
+      }
+    },
+    "30_normal_canted": {
+      "frames": 247,
+      "images": 17,
+      "duration": 3.799999952316284,
+      "finite": true,
+      "max_receiver_frame_cm": 0.1728563755750656,
+      "max_receiver_frame_deg": 0.6201244409904527,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042
+    },
+    "30_normal_prism": {
+      "frames": 247,
+      "images": 17,
+      "duration": 3.799999952316284,
+      "finite": true,
+      "max_receiver_frame_cm": 0.1728563755750656,
+      "max_receiver_frame_deg": 0.6201244409904527,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042
+    },
+    "30_normal_vertical": {
+      "frames": 247,
+      "images": 17,
+      "duration": 3.799999952316284,
+      "finite": true,
+      "max_receiver_frame_cm": 0.1728563755750656,
+      "max_receiver_frame_deg": 0.6201244409904527,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042
+    },
+    "45_empty_angled": {
+      "frames": 349,
+      "images": 22,
+      "duration": 5.5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5562999906650028,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.2147167837844943e-06,
+          "degrees": 8.458647160466883e-06
+        },
+        "hand_r": {
+          "cm": 2.0726142584509685e-06,
+          "degrees": 8.034865738436235e-06
+        },
+        "lowerarm_l": {
+          "cm": 4.2269547892163845e-06,
+          "degrees": 8.541261420071412e-06
+        },
+        "lowerarm_r": {
+          "cm": 5.341676974826096e-06,
+          "degrees": 8.748884133719167e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.5755924479534997e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 4.868694480975278e-06,
+          "degrees": 6.525703167461969e-06
+        }
+      }
+    },
+    "45_empty_base": {
+      "frames": 349,
+      "images": 128,
+      "duration": 5.5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5562999906650028,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.3707163960888202e-06,
+          "degrees": 7.459234759732009e-06
+        },
+        "hand_r": {
+          "cm": 2.0726142584509685e-06,
+          "degrees": 8.034865738436235e-06
+        },
+        "lowerarm_l": {
+          "cm": 5.1609868630616315e-06,
+          "degrees": 7.91319847633353e-06
+        },
+        "lowerarm_r": {
+          "cm": 5.341676974826096e-06,
+          "degrees": 8.748884133719167e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.5755924479534997e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 4.878164095689652e-06,
+          "degrees": 6.102863611675476e-06
+        }
+      }
+    },
+    "45_empty_canted": {
+      "frames": 349,
+      "images": 22,
+      "duration": 5.5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5562999906650028,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.27047215708999e-06,
+          "degrees": 7.97501630148169e-06
+        },
+        "hand_r": {
+          "cm": 2.0726142584509685e-06,
+          "degrees": 8.034865738436235e-06
+        },
+        "lowerarm_l": {
+          "cm": 4.768339288537984e-06,
+          "degrees": 8.17736741917627e-06
+        },
+        "lowerarm_r": {
+          "cm": 5.341676974826096e-06,
+          "degrees": 8.748884133719167e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.5755924479534997e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 6.5576130818111925e-06,
+          "degrees": 6.525828377906158e-06
+        }
+      },
+      "surface_samples": [
+        {
+          "source": 0.1898805946111679,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 37.44415037430561
+        },
+        {
+          "source": 0.4207790195941925,
+          "near_arm_vertices": 111,
+          "min_visible_depth_cm": 7.302914191234838
+        },
+        {
+          "source": 0.6815574765205383,
+          "near_arm_vertices": 13,
+          "min_visible_depth_cm": 8.246552101711181
+        },
+        {
+          "source": 0.8024274706840515,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 12.122609279152503
+        },
+        {
+          "source": 1.0500000715255737,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": null
+        },
+        {
+          "source": 1.2240384817123413,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": null
+        },
+        {
+          "source": 1.5052884817123413,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": null
+        },
+        {
+          "source": 1.9122742414474487,
+          "near_arm_vertices": 7,
+          "min_visible_depth_cm": 8.375006223791239
+        },
+        {
+          "source": 2.432647228240967,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 13.2866931512667
+        },
+        {
+          "source": 2.5512192249298096,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 13.245632313872143
+        },
+        {
+          "source": 2.704871654510498,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 13.212115847116054
+        },
+        {
+          "source": 2.759999990463257,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": null
+        },
+        {
+          "source": 2.9202325344085693,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": null
+        },
+        {
+          "source": 3.0272769927978516,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": null
+        },
+        {
+          "source": 3.1800003051757812,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 32.6723677296619
+        },
+        {
+          "source": 3.4189093112945557,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 31.311983147083353
+        },
+        {
+          "source": 3.5300004482269287,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 31.673755963463638
+        },
+        {
+          "source": 3.869999885559082,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 33.04951019706252
+        },
+        {
+          "source": 4.300048828125,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 32.86445657552868
+        },
+        {
+          "source": 4.477167129516602,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 32.92937647125121
+        },
+        {
+          "source": 4.7196173667907715,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 33.18852598216366
+        },
+        {
+          "source": 5,
+          "near_arm_vertices": 0,
+          "min_visible_depth_cm": 33.52372680227146
+        }
+      ]
+    },
+    "45_empty_prism": {
+      "frames": 349,
+      "images": 22,
+      "duration": 5.5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5562999906650028,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.009339801547638e-06,
+          "degrees": 8.328833708633707e-06
+        },
+        "hand_r": {
+          "cm": 2.0726142584509685e-06,
+          "degrees": 8.034865738436235e-06
+        },
+        "lowerarm_l": {
+          "cm": 4.786723913904521e-06,
+          "degrees": 7.708522693212033e-06
+        },
+        "lowerarm_r": {
+          "cm": 5.341676974826096e-06,
+          "degrees": 8.748884133719167e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.5755924479534997e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 4.878164095689652e-06,
+          "degrees": 6.102863611675476e-06
+        }
+      }
+    },
+    "45_empty_vertical": {
+      "frames": 349,
+      "images": 22,
+      "duration": 5.5,
+      "finite": true,
+      "max_receiver_frame_cm": 0.3984985947608948,
+      "max_receiver_frame_deg": 0.5562999906650028,
+      "idle_handoff_cm": 0.0006616935133934021,
+      "idle_handoff_deg": 0.0045791951632722355,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.690349151166923e-06,
+          "degrees": 7.766660645029715e-06
+        },
+        "hand_r": {
+          "cm": 2.0726142584509685e-06,
+          "degrees": 8.034865738436235e-06
+        },
+        "lowerarm_l": {
+          "cm": 5.6815369328592305e-06,
+          "degrees": 8.513987287239274e-06
+        },
+        "lowerarm_r": {
+          "cm": 5.341676974826096e-06,
+          "degrees": 8.748884133719167e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.5755924479534997e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 4.878164095689652e-06,
+          "degrees": 6.102863611675476e-06
+        }
+      }
+    },
+    "45_normal_angled": {
+      "frames": 278,
+      "images": 17,
+      "duration": 4.300000190734863,
+      "finite": true,
+      "max_receiver_frame_cm": 0.17285992205142975,
+      "max_receiver_frame_deg": 0.6201352359908703,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.2036489106604433e-06,
+          "degrees": 5.934791585868036e-06
+        },
+        "hand_r": {
+          "cm": 2.103244085705681e-06,
+          "degrees": 7.662173418070005e-06
+        },
+        "lowerarm_l": {
+          "cm": 4.264961203368398e-06,
+          "degrees": 8.49661339090864e-06
+        },
+        "lowerarm_r": {
+          "cm": 6.169961101320716e-06,
+          "degrees": 8.642904136684862e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.4806020176323424e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 5.13161634133832e-06,
+          "degrees": 6.5262118883482875e-06
+        }
+      }
+    },
+    "45_normal_base": {
+      "frames": 278,
+      "images": 104,
+      "duration": 4.300000190734863,
+      "finite": true,
+      "max_receiver_frame_cm": 0.17285992205142975,
+      "max_receiver_frame_deg": 0.6201352359908703,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.6986434447490046e-06,
+          "degrees": 7.675409068183329e-06
+        },
+        "hand_r": {
+          "cm": 2.103244085705681e-06,
+          "degrees": 7.662173418070005e-06
+        },
+        "lowerarm_l": {
+          "cm": 5.162275840491586e-06,
+          "degrees": 7.634197521287095e-06
+        },
+        "lowerarm_r": {
+          "cm": 6.169961101320716e-06,
+          "degrees": 8.642904136684862e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.4806020176323424e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 5.777867803304416e-06,
+          "degrees": 6.093986148149531e-06
+        }
+      }
+    },
+    "45_normal_canted": {
+      "frames": 278,
+      "images": 17,
+      "duration": 4.300000190734863,
+      "finite": true,
+      "max_receiver_frame_cm": 0.17285992205142975,
+      "max_receiver_frame_deg": 0.6201352359908703,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.0566160598252617e-06,
+          "degrees": 6.918510981247834e-06
+        },
+        "hand_r": {
+          "cm": 2.103244085705681e-06,
+          "degrees": 7.662173418070005e-06
+        },
+        "lowerarm_l": {
+          "cm": 4.632356187665306e-06,
+          "degrees": 7.244077436489363e-06
+        },
+        "lowerarm_r": {
+          "cm": 6.169961101320716e-06,
+          "degrees": 8.642904136684862e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.4806020176323424e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 6.763592262158844e-06,
+          "degrees": 6.477775338000858e-06
+        }
+      }
+    },
+    "45_normal_prism": {
+      "frames": 278,
+      "images": 17,
+      "duration": 4.300000190734863,
+      "finite": true,
+      "max_receiver_frame_cm": 0.17285992205142975,
+      "max_receiver_frame_deg": 0.6201352359908703,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.422052888207244e-06,
+          "degrees": 6.509958557439331e-06
+        },
+        "hand_r": {
+          "cm": 2.103244085705681e-06,
+          "degrees": 7.662173418070005e-06
+        },
+        "lowerarm_l": {
+          "cm": 6.1047659320480895e-06,
+          "degrees": 7.061827628906298e-06
+        },
+        "lowerarm_r": {
+          "cm": 6.169961101320716e-06,
+          "degrees": 8.642904136684862e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.4806020176323424e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 5.777867803304416e-06,
+          "degrees": 6.093986148149531e-06
+        }
+      }
+    },
+    "45_normal_vertical": {
+      "frames": 278,
+      "images": 17,
+      "duration": 4.300000190734863,
+      "finite": true,
+      "max_receiver_frame_cm": 0.17285992205142975,
+      "max_receiver_frame_deg": 0.6201352359908703,
+      "idle_handoff_cm": 0.0002621724270284176,
+      "idle_handoff_deg": 0.001828045621203042,
+      "previous_clock_identical": true,
+      "relative_contacts": {
+        "hand_l": {
+          "cm": 3.1502925391456014e-06,
+          "degrees": 7.261366383137886e-06
+        },
+        "hand_r": {
+          "cm": 2.103244085705681e-06,
+          "degrees": 7.662173418070005e-06
+        },
+        "lowerarm_l": {
+          "cm": 5.703589909656676e-06,
+          "degrees": 7.06803348952008e-06
+        },
+        "lowerarm_r": {
+          "cm": 6.169961101320716e-06,
+          "degrees": 8.642904136684862e-06
+        },
+        "PKM_Charge": {
+          "cm": 1.4806020176323424e-06,
+          "degrees": 0.0
+        },
+        "WPN_SOCKET_Magazine": {
+          "cm": 5.777867803304416e-06,
+          "degrees": 6.093986148149531e-06
+        }
+      }
+    }
+  }
+}

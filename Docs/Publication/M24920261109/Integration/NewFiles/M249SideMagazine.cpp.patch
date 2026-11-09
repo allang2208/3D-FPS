@@ -1,0 +1,46 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249SideMagazine.cpp
+@@ -0,0 +1,43 @@
++#include "M249SideMagazine.h"
++#include "M249WeaponAssets.h"
++#include "PKMLowpolyWeaponAssets.h"
++#include "../FPSGAMECharacter.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++
++namespace
++{
++UStaticMeshComponent* Port(AActor* Owner)
++{
++    TInlineComponentArray<UStaticMeshComponent*> Parts(Owner);
++    for(auto* Part:Parts)if(Part->ComponentHasTag(TEXT("M249SideMagazinePort")))return Part;
++    return nullptr;
++}
++void Presentation(UStaticMeshComponent* Part,USkeletalMeshComponent* Host)
++{
++    Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetCastShadow(false);Part->bReceivesDecals=false;
++    Part->SetOnlyOwnerSee(Host->bOnlyOwnerSee);Part->SetFirstPersonPrimitiveType(Host->FirstPersonPrimitiveType);
++    Part->SetVisibility(Host->IsVisible());Part->SetHiddenInGame(Host->bHiddenInGame);
++    Part->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
++}
++}
++void M249SideMagazine::RemovePort(AActor* Owner)
++{if(auto* Part=Port(Owner))Part->DestroyComponent();}
++
++UStaticMeshComponent* M249SideMagazine::Configure(AActor* Owner,USkeletalMeshComponent* Host,UStaticMeshComponent* Existing,const FString& Id,bool Enabled)
++{
++    if(!Enabled){if(Existing)Existing->DestroyComponent();RemovePort(Owner);return nullptr;}
++    auto* Mesh=LoadObject<UStaticMesh>(nullptr,*MeshPath(Id));
++    auto* SeatMesh=LoadObject<UStaticMesh>(nullptr,PortMesh);
++    if(!Mesh||!SeatMesh){if(Existing)Existing->DestroyComponent();RemovePort(Owner);return nullptr;}
++    if(!Existing){Existing=NewObject<UStaticMeshComponent>(Owner);Existing->SetupAttachment(Host,TEXT("WPN_SOCKET_Magazine"));Existing->RegisterComponent();}
++    else Existing->AttachToComponent(Host,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_SOCKET_Magazine"));
++    if(Existing->GetStaticMesh()!=Mesh)Existing->EmptyOverrideMaterials();
++    Existing->SetStaticMesh(Mesh);Presentation(Existing,Host);
++    auto* PortComponent=Port(Owner);
++    if(!PortComponent){PortComponent=NewObject<UStaticMeshComponent>(Owner);PortComponent->ComponentTags.Add(TEXT("M249SideMagazinePort"));PortComponent->SetupAttachment(Host,TEXT("WPN_root"));PortComponent->RegisterComponent();}
++    PortComponent->SetStaticMesh(SeatMesh);Presentation(PortComponent,Host);
++    return Existing;
++}
++bool AFPSGAMECharacter::HasM249SideMagazine() const
++{return M249WeaponAssets::Matches(AKMViewmodel)&&M249SideMagazine::Supports(MagazineAttachmentId)&&LargeDrum&&LargeDrum->GetStaticMesh();}

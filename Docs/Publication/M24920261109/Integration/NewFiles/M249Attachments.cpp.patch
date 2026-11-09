@@ -1,0 +1,52 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249Attachments.cpp
+@@ -0,0 +1,49 @@
++#include "M249Attachments.h"
++#include "../FPSGAMECharacter.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Rendering/SkeletalMeshRenderData.h"
++#include "Sound/SoundBase.h"
++
++void M249Attachments::FactorySection(USkeletalMeshComponent* Host,FName Slot,bool Visible)
++{
++    const auto* Asset=Host?Host->GetSkeletalMeshAsset():nullptr;if(!Asset)return;
++    if(const auto* Render=Asset->GetResourceForRendering())
++        for(int32 L=0;L<Render->LODRenderData.Num();++L)
++            for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
++            {
++                const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
++                if(Asset->GetMaterials().IsValidIndex(M)&&Asset->GetMaterials()[M].MaterialSlotName==Slot)
++                    Host->ShowMaterialSection(M,S,Visible,L);
++            }
++}
++UStaticMeshComponent* M249Attachments::Configure(AActor* Owner,USkeletalMeshComponent* Host,UStaticMeshComponent* Part,const FString& Variant,bool Enabled)
++{
++    if(!Enabled){if(Part)Part->DestroyComponent();return nullptr;}
++    auto* Asset=LoadObject<UStaticMesh>(nullptr,*MeshPath(Variant));
++    if(!Asset){UE_LOG(LogTemp,Error,TEXT("M249 fitted part missing: %s"),*Variant);if(Part)Part->DestroyComponent();return nullptr;}
++    if(!Part){Part=NewObject<UStaticMeshComponent>(Owner);Part->SetupAttachment(Host,TEXT("WPN_root"));Part->RegisterComponent();}
++    else Part->AttachToComponent(Host,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
++    if(Part->GetStaticMesh()!=Asset)Part->EmptyOverrideMaterials();
++    Part->SetStaticMesh(Asset);Part->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01)));
++    Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetCastShadow(false);Part->bReceivesDecals=false;
++    Part->SetOnlyOwnerSee(Host->bOnlyOwnerSee);Part->SetFirstPersonPrimitiveType(Host->FirstPersonPrimitiveType);
++    Part->SetVisibility(Host->IsVisible());Part->SetHiddenInGame(Host->bHiddenInGame);
++    return Part;
++}
++void AFPSGAMECharacter::SetM249Muzzle(const FString& Variant)
++{
++    const bool Enabled=bInventoryWeaponReady&&M249Attachments::IsMuzzle(M249Attachments::Key(Variant));
++    MuzzleAttachment=M249Attachments::Configure(this,AKMViewmodel,MuzzleAttachment,Variant,Enabled);
++    const bool Installed=Enabled&&MuzzleAttachment&&MuzzleAttachment->GetStaticMesh();
++    M249Attachments::FactorySection(AKMViewmodel,TEXT("M249_Factory_Muzzle"),!Installed);
++    MuzzleVariant=Installed?Variant:FString();
++    if(Installed)
++    {
++        const UStaticMesh* FittedMuzzleMesh=MuzzleAttachment->GetStaticMesh();
++        const auto* Tip=FittedMuzzleMesh->FindSocket(TEXT("Muzzle"));const auto* Guide=FittedMuzzleMesh->FindSocket(TEXT("AimGuide"));
++        if(Tip&&Guide){MuzzleLocalTip=Tip->RelativeLocation;MuzzleLocalAxis=(Guide->RelativeLocation-Tip->RelativeLocation).GetSafeNormal();}
++        if(IsMuzzleSuppressed())SuppressedFireSound=LoadObject<USoundBase>(nullptr,M249Attachments::SuppressedSound);
++    }
++}

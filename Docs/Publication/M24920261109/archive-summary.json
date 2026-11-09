@@ -1,0 +1,265 @@
+{
+  "complete": true,
+  "date": "2026-11-10",
+  "bytes": 34166756943,
+  "files": 62364,
+  "targets": 35,
+  "manifest": "trash/M24920261109/manifest.jsonl",
+  "manifest_sha256": "7ac69cd72bb08365a72913f1e982648269c84e83598b16c1c90c3fe76c8265da",
+  "entries": [
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/after",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/after",
+      "bytes": 366443340,
+      "files": 1146,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/baseline",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/baseline",
+      "bytes": 215740406,
+      "files": 771,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/before",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/before",
+      "bytes": 0,
+      "files": 0,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/contact_final",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/contact_final",
+      "bytes": 998020085,
+      "files": 1595,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/cover_before",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/cover_before",
+      "bytes": 254165378,
+      "files": 469,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/details_before",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/details_before",
+      "bytes": 163004785,
+      "files": 376,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/final",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/final",
+      "bytes": 1341232935,
+      "files": 2715,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/framing",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/framing",
+      "bytes": 205249689,
+      "files": 771,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/release",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/release",
+      "bytes": 2000000042,
+      "files": 3831,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/surface_final",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/surface_final",
+      "bytes": 1234020895,
+      "files": 2035,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReloadAudit21/sheets",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReloadAudit21/sheets",
+      "bytes": 76162160,
+      "files": 450,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/clearance",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/clearance",
+      "bytes": 2037825019,
+      "files": 3749,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/contact",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/contact",
+      "bytes": 2037737438,
+      "files": 3749,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/corrected",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/corrected",
+      "bytes": 2399797333,
+      "files": 4373,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/delivered",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/delivered",
+      "bytes": 2037746020,
+      "files": 3749,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/preshape",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/preshape",
+      "bytes": 2037787417,
+      "files": 3749,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/reviewed",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/reviewed",
+      "bytes": 2037680639,
+      "files": 3749,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/sheets",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/sheets",
+      "bytes": 21496749,
+      "files": 122,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Contact25/polished",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Contact25/polished",
+      "bytes": 354904860,
+      "files": 681,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Contact25/saved",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Contact25/saved",
+      "bytes": 3848241214,
+      "files": 6869,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Contact25/sheets",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Contact25/sheets",
+      "bytes": 16531663,
+      "files": 88,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Contact26/polished",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Contact26/polished",
+      "bytes": 3847833406,
+      "files": 6869,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Contact26/refined",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Contact26/refined",
+      "bytes": 3847817632,
+      "files": 6869,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Insert30/after",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Insert30/after",
+      "bytes": 1131869161,
+      "files": 1705,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Insert30/final",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Insert30/final",
+      "bytes": 1131512734,
+      "files": 1705,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Insert30/candidate_views",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Insert30/candidate_views",
+      "bytes": 10598601,
+      "files": 24,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Insert30/publish.py",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Insert30/publish.py",
+      "bytes": 2973,
+      "files": 1,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Insert30/render_candidate.py",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Insert30/render_candidate.py",
+      "bytes": 3228,
+      "files": 1,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Feedback31/native_preview",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Feedback31/native_preview",
+      "bytes": 241291444,
+      "files": 132,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Feedback31/views",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Feedback31/views",
+      "bytes": 5874257,
+      "files": 16,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Feedback31/preview_native.py",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Feedback31/preview_native.py",
+      "bytes": 3286,
+      "files": 1,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Feedback31/render_preview.py",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Feedback31/render_preview.py",
+      "bytes": 3106,
+      "files": 1,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/Feedback31/candidate.pkl",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/Feedback31/candidate.pkl",
+      "bytes": 266152796,
+      "files": 1,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/fit_magazine.py",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/fit_magazine.py",
+      "bytes": 3323,
+      "files": 1,
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/M249Orpind20261107/ReturnReview24/fit_grips.py",
+      "destination": "trash/M24920261109/SourceAssets/M249Orpind20261107/ReturnReview24/fit_grips.py",
+      "bytes": 2929,
+      "files": 1,
+      "verified": true
+    }
+  ],
+  "retained": [
+    "Content/Weapons/M249 (active production packages)",
+    "SourceAssets/M249Orpind20261107/Original, Geometry, Textures, Motion, MotionInput, Exports, FireAudio",
+    "All current authoring inputs, binding helpers, current.pkl, profile data and pre-edit backups",
+    "ReturnReview24/current and saved; Contact25/verified; Contact26/saved and cleared",
+    "Insert30/before, saved, candidate.py, publish_native.py",
+    "Feedback31/author.py, current.pkl, saved_profiles.pkl, saved",
+    "Review32 full offline review"
+  ]
+}

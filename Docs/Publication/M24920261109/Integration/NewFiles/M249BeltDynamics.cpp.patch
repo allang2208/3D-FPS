@@ -1,0 +1,100 @@
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M249BeltDynamics.cpp
+@@ -0,0 +1,97 @@
++#include "M249BeltDynamics.h"
++#include "M249BeltLayout.h"
++#include "M249WeaponAssets.h"
++#include "Engine/World.h"
++
++namespace {double SmoothM249(double V){V=FMath::Clamp(V,0.,1.);return V*V*(3.-2.*V);}}
++void FM249BeltDynamics::Configure(bool Enabled,bool Reloading,bool Empty,float SourceTime,bool Inspection)
++{
++    if(Enabled!=bEnabled||Reloading!=bReloading||Empty!=bEmpty||Inspection!=bInspection)
++        for(auto& Chain:Chains)Chain.Reset();
++    bEnabled=Enabled;bReloading=Reloading;bEmpty=Empty;bInspection=Inspection;Time=SourceTime;
++}
++void FM249BeltDynamics::Apply(USkeletalMeshComponent& Mesh,TArray<FTransform>& Pose)
++{
++    if(!M249WeaponAssets::Matches(&Mesh))
++    {SourceMesh.Reset();bHadOutput=false;for(auto& Chain:Chains)Chain.Reset();return;}
++    auto* Asset=Mesh.GetSkeletalMeshAsset();const auto& Ref=Asset->GetRefSkeleton();
++    if(SourceMesh.Get()!=Asset)
++    {
++        SourceMesh=Asset;bHadOutput=false;
++        for(int32 Side=0;Side<2;++Side)
++        {
++            Chains[Side].Reset();LastInput[Side].Reset();LastOutput[Side].Reset();Sections[Side]=INDEX_NONE;
++            const TCHAR* Prefix=Side?TEXT("New_"):TEXT("");
++            Box[Side]=Ref.FindBoneIndex(FName(*FString::Printf(TEXT("%sPKM_Box"),Prefix)));
++            for(int32 I=0;I<9;++I)Bones[Side][I]=Ref.FindBoneIndex(FName(*FString::Printf(TEXT("%sPKM_Belt_%02d"),Prefix,I)));
++            for(int32 I=0;I<8;++I)Bones[Side][9+I]=Ref.FindBoneIndex(FName(*FString::Printf(TEXT("%sPKM_Belt_Link_%02d"),Prefix,I)));
++            for(int32 I=0;I<Asset->GetMaterials().Num();++I)
++                if(Asset->GetMaterials()[I].MaterialSlotName.ToString().Contains(Side?TEXT("__NewBelt"):TEXT("__OldBelt")))
++                {Sections[Side]=I;break;}
++        }
++    }
++    for(int32 Side=0;Side<2;++Side)for(int32 B:Bones[Side])if(!Pose.IsValidIndex(B))return;
++    const auto* World=Mesh.GetWorld();
++    const bool Active=bEnabled&&!bInspection&&World&&World->IsGameWorld()&&Mesh.IsVisible()&&!Mesh.bHiddenInGame;
++    for(int32 Side=0;Side<2;++Side)
++    {
++        // Finalization can run more than once on the same evaluated pose.
++        for(int32 I=0;I<17;++I)
++            if(bHadOutput&&LastOutput[Side].Num()==17&&Pose[Bones[Side][I]].Equals(LastOutput[Side][I],1.e-7))
++                Pose[Bones[Side][I]]=LastInput[Side][I];
++        LastInput[Side].Reset();for(int32 B:Bones[Side])LastInput[Side].Add(Pose[B]);
++        const bool Visible=Sections[Side]!=INDEX_NONE&&Mesh.IsMaterialSectionShown(Sections[Side],0)&&(!bEmpty||Side||!bReloading);
++        const float Shift=bEmpty?.9f:0.f;
++        const double Strength=bReloading
++            ? SmoothM249((Time-(Side?3.55f-Shift:1.34f))/.22)*(Side?1.-SmoothM249((Time-(4.82f-Shift))/.28):1.)
++            : (Side?0.:1.);
++        if(!Active||!Visible||Strength<=.001){Chains[Side].Reset();}
++        else
++        {
++            TArray<FVector> Guide,Solved;
++            for(int32 I=0;I<9;++I)Guide.Add(Pose[Bones[Side][I]].TransformPosition(M249BeltLayout::Centers[Side][I]));
++            // Softer M249 response; the authored guide supplies the left drape.
++            // Reduce both drag and spring pull instead of releasing a stiff
++            // spring with less damping. PKM's accepted profiles stay unchanged.
++            const FPKMSoftChainSettings Loose{2.6,24.,.45};
++            const FPKMSoftChainSettings Seated{9.,420.,.65};
++            Chains[Side].Solve(Guide,Mesh.GetComponentTransform(),World->GetTimeSeconds(),World->GetGravityZ(),1,true,
++                Strength,bReloading?1.15:.25,Solved,bReloading?Loose:Seated);
++            if(Pose.IsValidIndex(Box[Side]))
++            {
++                const auto& BoxPose=Pose[Box[Side]];
++                const FVector Low=M249BeltLayout::BoxMin[Side],High=M249BeltLayout::BoxMax[Side];
++                for(int32 I=1;I<7;++I)
++                {
++                    FVector P=BoxPose.InverseTransformPosition(Solved[I]);
++                    const FVector G=BoxPose.InverseTransformPosition(Guide[I]);
++                    // Preserve the author's side of the box. The last two cells
++                    // form its intentional mouth contact and remain unrestricted.
++                    for(int32 Axis=0;Axis<3;++Axis)
++                    {
++                        if(G[Axis]<Low[Axis])P[Axis]=FMath::Min(P[Axis],Low[Axis]);
++                        else if(G[Axis]>High[Axis])P[Axis]=FMath::Max(P[Axis],High[Axis]);
++                    }
++                    Solved[I]=BoxPose.TransformPosition(P);
++                }
++            }
++            Chains[Side].CommitProjection(Solved,Mesh.GetComponentTransform());
++            for(int32 I=1;I<8;++I)
++            {
++                auto& B=Pose[Bones[Side][I]];
++                const FQuat Turn=FQuat::FindBetweenNormals((Guide[I+1]-Guide[I-1]).GetSafeNormal(),(Solved[I+1]-Solved[I-1]).GetSafeNormal());
++                B.SetLocation(Solved[I]+Turn.RotateVector(B.GetLocation()-Guide[I]));
++                B.SetRotation((Turn*B.GetRotation()).GetNormalized());
++            }
++            for(int32 I=0;I<8;++I)
++            {
++                auto& B=Pose[Bones[Side][9+I]];
++                const FQuat Turn=FQuat::FindBetweenNormals((Guide[I+1]-Guide[I]).GetSafeNormal(),(Solved[I+1]-Solved[I]).GetSafeNormal());
++                B.SetLocation((Solved[I+1]+Solved[I])*.5+Turn.RotateVector(B.GetLocation()-(Guide[I+1]+Guide[I])*.5));
++                B.SetRotation((Turn*B.GetRotation()).GetNormalized());
++            }
++        }
++        LastOutput[Side].Reset();for(int32 B:Bones[Side])LastOutput[Side].Add(Pose[B]);
++    }
++    bHadOutput=true;
++}
