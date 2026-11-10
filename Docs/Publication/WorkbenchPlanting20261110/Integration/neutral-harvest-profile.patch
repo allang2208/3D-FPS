@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp
+@@ -1 +1,11 @@
++        // Shared storage carries only harvest fields, not a complete player profile.
++        // CreateShadowModel validates a full profile; provide a neutral valid shell
++        // rather than cloning the host's inventory or relaxing guest validation.
++        FColdSteelProfile HarvestProfile;
++        HarvestProfile.Hotbar.Init(FString(),4);
++        HarvestProfile.HotbarDefinitions.Init(FString(),4);
++        for(FName Key:{FName("str"),FName("dex"),FName("intt"),FName("con"),FName("wis"),FName("luck")})
++            HarvestProfile.Attributes.Add(Key,0);
++        CopyHarvest(Shared->Current.Harvest,HarvestProfile);
++        Shared->Current.Harvest=MoveTemp(HarvestProfile);
+         Shared->SharedHarvestModel=Local->CreateShadowModel(Shared->Current.Harvest);

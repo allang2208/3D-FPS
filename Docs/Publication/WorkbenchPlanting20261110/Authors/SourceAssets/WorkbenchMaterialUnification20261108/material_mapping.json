@@ -1,0 +1,51 @@
+{
+  "revision": "WorkbenchSurfaceUnification_20261108_R1",
+  "mapping": {
+    "/Game/Building/WoodworkingBenchV4/Materials/M_WSBench_BenchWood.M_WSBench_BenchWood": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_BenchWood.M_WBU_BenchWood",
+    "/Game/Building/WoodworkingBenchV4/Materials/M_WSBench_EndGrain.M_WSBench_EndGrain": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_EndGrain.M_WBU_EndGrain",
+    "/Game/Building/WoodworkingBenchV4/Materials/M_WSDetail_RackPaint.M_WSDetail_RackPaint": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_RackPaint.M_WBU_RackPaint",
+    "/Game/Building/WoodworkingBenchV4/Materials/M_WSSculpt_Machined.M_WSSculpt_Machined": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_MachinedSteel.M_WBU_MachinedSteel",
+    "/Game/Building/WoodworkingBenchV4/Materials/M_WSSculpt_RubberGrip.M_WSSculpt_RubberGrip": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_RubberGrip.M_WBU_RubberGrip",
+    "/Game/Building/WoodworkingBenchV4/Materials/M_WW_PropsAtlas.M_WW_PropsAtlas": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_WoodworkingProps.M_WBU_WoodworkingProps",
+    "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_PropsPBR.M_GWDesign_PropsPBR": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_GunProps.M_WBU_GunProps",
+    "/Game/Building/PotionWorkbench20261015/V1/Materials/M_PW_SurfaceAtlas.M_PW_SurfaceAtlas": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_PotionProps.M_WBU_PotionProps",
+    "/Game/Building/GunWorkbenchPolish20260928/Materials/M_GW3_Mat.M_GW3_Mat": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_SiliconePad.M_WBU_SiliconePad",
+    "/Game/Building/PotionWorkbench20261015/V1/Materials/M_PW_wood.M_PW_wood": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_BenchWood.M_WBU_BenchWood",
+    "/Game/Building/PotionWorkbench20261015/V1/Materials/M_PW_endgrain.M_PW_endgrain": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_EndGrain.M_WBU_EndGrain",
+    "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_EndGrain.MI_WBK_WSBench_EndGrain": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_EndGrain.M_WBU_EndGrain",
+    "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSDetail_RackPaint.MI_WBK_WSDetail_RackPaint": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_RackPaint.M_WBU_RackPaint",
+    "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_MachinedSteel.M_WBU_MachinedSteel",
+    "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_RubberGrip.MI_WBK_WSSculpt_RubberGrip": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_RubberGrip.M_WBU_RubberGrip",
+    "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3": "/Game/Building/WorkbenchSurfaces20261108/MI_WBU_UsedBenchWood.MI_WBU_UsedBenchWood"
+  },
+  "target_meshes": [
+    "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench",
+    "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyHeatControl.SM_AlchemyHeatControl",
+    "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyHeatKnob.SM_AlchemyHeatKnob",
+    "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyMortarHover.SM_AlchemyMortarHover",
+    "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyReagentTray.SM_AlchemyReagentTray",
+    "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyTransferGrain.SM_AlchemyTransferGrain",
+    "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyTransferRing.SM_AlchemyTransferRing",
+    "/Game/Building/PotionWorkbench20261015/RefinementV4/SM_AlchemyToolRests.SM_AlchemyToolRests",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyBook.SM_AlchemyBook",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyDose.SM_AlchemyDose",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyFolioClosed.SM_AlchemyFolioClosed",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyHeater.SM_AlchemyHeater",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyHourglass.SM_AlchemyHourglass",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyLadle.SM_AlchemyLadle",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyPage.SM_AlchemyPage",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyPestle.SM_AlchemyPestle",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemySand.SM_AlchemySand",
+    "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyStirrer.SM_AlchemyStirrer",
+    "/Game/Building/PotionWorkbench20261015/ThermometerV9/SM_AlchemyBody.SM_AlchemyBody",
+    "/Game/Building/PotionWorkbench20261015/V1/Meshes/SM_PotionWorkbench.SM_PotionWorkbench",
+    "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBench.SM_WoodworkingBench",
+    "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBenchBody.SM_WoodworkingBenchBody",
+    "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingSawBlade.SM_WoodworkingSawBlade",
+    "/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench"
+  ],
+  "palette_ids": [
+    "workbench_table",
+    "gun_workbench_table"
+  ]
+}

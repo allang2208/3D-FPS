@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "defaults_are_development_tuning_not_user_specified": true,
+  "clock": "utc_real_seconds_offline_growth",
+  "max_plants": 1024,
+  "scale_range": [
+    0.9,
+    1.0
+  ],
+  "slot_source": "SourceAssets/PlantingBed20261017/Source/PlantingBed_2m_V2/manifest.json",
+  "slot_source_sha256": "3c40f116610635b8d7cf17fac39ae022e6b15380339c8e6be9651696bf6e63c2",
+  "slots_cm": [
+    [
+      -63.0,
+      63.0,
+      22.328254778075046
+    ],
+    [
+      -63.0,
+      21.0,
+      22.23595141103436
+    ],
+    [
+      -63.0,
+      -21.0,
+      23.27618465399994
+    ],
+    [
+      -63.0,
+      -63.0,
+      22.067930749074744
+    ],
+    [
+      -21.0,
+      63.0,
+      23.901827742963867
+    ],
+    [
+      -21.0,
+      21.0,
+      21.85854427181233
+    ],
+    [
+      -21.0,
+      -21.0,
+      23.838524152870278
+    ],
+    [
+      -21.0,
+      -63.0,
+      23.699895392471575
+    ],
+    [
+      21.0,
+      63.0,
+      23.16961409732883
+    ],
+    [
+      21.0,
+      21.0,
+      21.989100009285863
+    ],
+    [
+      21.0,
+      -21.0,
+      22.16356300713468
+    ],
+    [
+      21.0,
+      -63.0,
+      23.000858332101284
+    ],
+    [
+      63.0,
+      63.0,
+      23.906051686150658
+    ],
+    [
+      63.0,
+      21.0,
+      23.361741059398685
+    ],
+    [
+      63.0,
+      -21.0,
+      21.934284796346326
+    ],
+    [
+      63.0,
+      -63.0,
+      22.823122792360913
+    ]
+  ],
+  "crops": [
+    {
+      "id": "tomato",
+      "name": "番茄",
+      "input_item": "tomato",
+      "input_count": 1,
+      "output_item": "tomato",
+      "output_count": 3,
+      "growth_seconds": 1800,
+      "footprint": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "potato",
+      "name": "土豆",
+      "input_item": "potato",
+      "input_count": 1,
+      "output_item": "potato",
+      "output_count": 3,
+      "growth_seconds": 1200,
+      "footprint": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "carrot",
+      "name": "胡萝卜",
+      "input_item": "carrot",
+      "input_count": 1,
+      "output_item": "carrot",
+      "output_count": 3,
+      "growth_seconds": 900,
+      "footprint": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "wheat",
+      "name": "小麦",
+      "input_item": "wheat",
+      "input_count": 1,
+      "output_item": "wheat",
+      "output_count": 4,
+      "growth_seconds": 1200,
+      "footprint": [
+        2,
+        2
+      ]
+    }
+  ]
+}

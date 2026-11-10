@@ -72,3 +72,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 - 狙击开火快照、远端短眩晕、枪声与 AI 听觉：读取 [狙击开火快照、远端短眩晕、枪声与 AI 听觉](references/sniper-launch-and-short-stun.md)。
 
 涉及快速近战身份与实际联机检查时，读取 [快速近战身份与实际联机检查](references/quick-combat-authority.md)。
+
+- 强化台真实暂存、旋转占格与种植同版本快照乱序，读取 [强化暂存与种植快照顺序](references/enhancement-escrow-and-planting-order.md)。

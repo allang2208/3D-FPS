@@ -1,0 +1,692 @@
+[
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementAudit.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementAudit.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMEPlayerController.h",
+    "sha256": "465707b945a22ac90961d31254e91b51485fced1fefbe0906c2a566213fc0904"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+    "sha256": "78d1ede545a2752ce860c090860851369022d9031dd6765a6b508074202908cb"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelWeaponText.h",
+    "sha256": "a03527696f2f95eece5d0c1f94227646dbf36a715125f85db293c498baf004d5"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/GunsmithUIStyle.h",
+    "sha256": "60b313c6fc6f392e961624ac8cffa72ef49b86c2a65672e0f9ce028e8fe2db59"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/GunsmithSystem.h",
+    "sha256": "532c6d66364523195a82d095f79d9f89ed046b9268e467e44f2d146696558b81"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/WeaponStatEvaluation.h",
+    "sha256": "21db98689986135be85e88215a6c54086c3161d0c6ab4e469a43976ad832c01a"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/MeleeWeaponStats.h",
+    "sha256": "2ca1f05d03f735217904c570f559751e1f0bf18cbb141e94d95af2e5d76f57ff"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/Bow/BowStats.h",
+    "sha256": "42b423da05c590894a3be5d377de648dc8d20f043a3468e84e9666404ef48ee5"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "dependency": "Source/FPSGAME/UI/../Production/ProductionToolStats.h",
+    "sha256": "b6af0b2b42c0c7b48fbcdfbae56cfd090ffb3625317c4b936bb93aa60b22b54b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMEPlayerController.h",
+    "sha256": "465707b945a22ac90961d31254e91b51485fced1fefbe0906c2a566213fc0904"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMECharacter.h",
+    "sha256": "b23fbc397e418053e0b4d3c6e02c7a79d4521b9f7c2cee8d6ed694751afde727"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/EnhancementWorldView.h",
+    "sha256": "a5f036af0aa41476f596999fdd90bbc853c14a805cd4ac396722ba8272cac78f"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/VoxelBuildPrefabActor.h",
+    "sha256": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/VoxelBuildComponent.h",
+    "sha256": "f1ee98b7e5aa7a0bfa6ab55e113f8f1f627ab6e5c3ab6a7f9baa1ba352f3addc"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+    "sha256": "129523962d611df5e1e66a843c79ae6ffd2105b7fe246168f0edba1acf5a1f62"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+    "sha256": "a6d04a90815ef2db566f38334b7262c141cb6f9d312d4eaa4cf2f156f065257e"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "sha256": "c712d05dafa634cf543c495fc6b58a96a1e3592cd24d44934101a77bcf160642"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "dependency": "Source/FPSGAME/UI/WeatherControlWidget.h",
+    "sha256": "3d4d2c6e72f9304da1ba38fdfcf83d2f49b7a196ddb3873843fa344a5b27b711"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+    "sha256": "78d1ede545a2752ce860c090860851369022d9031dd6765a6b508074202908cb"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+    "dependency": "Source/FPSGAME/UI/GunsmithUIStyle.h",
+    "sha256": "60b313c6fc6f392e961624ac8cffa72ef49b86c2a65672e0f9ce028e8fe2db59"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+    "dependency": "Source/FPSGAME/UI/M4GunsmithWidget.h",
+    "sha256": "f4fdd35933b291a976c38716c2e836a81cb8bd63c2c7e872fd1cdd63d57ef84b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+    "dependency": "Source/FPSGAME/UI/SM4PreviewSurface.h",
+    "sha256": "6b9de89c90b548a59b7085fea9eee4faf6f9f898cf8f155503440c0db9c7d278"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+    "dependency": "Source/FPSGAME/UI/SColdSteelArcaneSeal.h",
+    "sha256": "215f890dae67a44664de69c865034b3a9d56879bd01f9bc27c2210e6f27c89f0"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMEPlayerController.h",
+    "sha256": "465707b945a22ac90961d31254e91b51485fced1fefbe0906c2a566213fc0904"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementMaterialPickupAudit.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelPickup.h",
+    "sha256": "4dc2d90c0297372d99618575787de756ac48cfefce926f3bd55b09ff5609b4ac"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementMaterialPickupAudit.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementMaterialPickupAudit.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMEPlayerController.h",
+    "sha256": "465707b945a22ac90961d31254e91b51485fced1fefbe0906c2a566213fc0904"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementMaterials.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementMaterials.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelWarehouseRules.h",
+    "sha256": "2c2b7213515f6ebef484213f29362551b675744f227f1c9b6dad4ecaedbf945c"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementStorage.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementStorage.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMEPlayerController.h",
+    "sha256": "465707b945a22ac90961d31254e91b51485fced1fefbe0906c2a566213fc0904"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementStorage.cpp",
+    "dependency": "Source/FPSGAME/UI/../Multiplayer/ColdSteelAuthorityContext.h",
+    "sha256": "263ab450e97482708f54b5f2b6863fa3a9342a6d807754b70eaa1f559dda734c"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementStorage.cpp",
+    "dependency": "Source/FPSGAME/UI/../Multiplayer/ColdSteelPlayerState.h",
+    "sha256": "162bf63a5b88e9168753cdc129cb84025ea9598a7cb196b8948bc3faf0cba0b0"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMEPlayerController.h",
+    "sha256": "465707b945a22ac90961d31254e91b51485fced1fefbe0906c2a566213fc0904"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Multiplayer/ColdSteelAuthorityContext.h",
+    "sha256": "263ab450e97482708f54b5f2b6863fa3a9342a6d807754b70eaa1f559dda734c"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Multiplayer/ColdSteelPlayerState.h",
+    "sha256": "162bf63a5b88e9168753cdc129cb84025ea9598a7cb196b8948bc3faf0cba0b0"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/Kukri/KukriEnchantment.h",
+    "sha256": "69c3b95ed1513d07b9b88cb6d9340d9914a30a0537754233aae6bd34f72bda44"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Skills/ColdSteelSkillRules.h",
+    "sha256": "fe09860298453c3c908cb3dce9e8da2102c74f3b858383c87cbe9660229cdee8"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/ForgingQuality.h",
+    "sha256": "3c371c73e2d8a11088782dbf21a625646925434a0b77c415df2105a6f789164f"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/GunAssemblyQuality.h",
+    "sha256": "a9bb7745b02101d326db0a85d2031faddd14ce5983f9e077fded7a11c38f0b49"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelCurrency.h",
+    "sha256": "e8decf96b8a88d8db975b39f4457209099471454c9ff0a05b01f7a500abdb830"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelItemReadCache.h",
+    "sha256": "03fa740086be0f8bfa0af75e23078f3e4c5120430dcf1442a883b0ea7c42dd2f"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/GunsmithSystem.h",
+    "sha256": "532c6d66364523195a82d095f79d9f89ed046b9268e467e44f2d146696558b81"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Combat/CoreCombatFormula.h",
+    "sha256": "84bd5229f5326206a084fbd2f14f25f13938004f66b8530e1c63d03c4d164263"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "dependency": "Source/FPSGAME/UI/../Combat/CombatItemFormula.h",
+    "sha256": "6c3c86acbfd29bfdfcbfa92fe37aa73bdf51cbd9fcecfee84d7a951592801cbf"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.h",
+    "dependency": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "sha256": "b779ec8cd37037a506c924a0dee0190f1d158c960055cea03c2531fa2885ce51"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+    "sha256": "129523962d611df5e1e66a843c79ae6ffd2105b7fe246168f0edba1acf5a1f62"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/EnhancementWorldView.h",
+    "sha256": "a5f036af0aa41476f596999fdd90bbc853c14a805cd4ac396722ba8272cac78f"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/SColdSteelArcaneSeal.h",
+    "sha256": "215f890dae67a44664de69c865034b3a9d56879bd01f9bc27c2210e6f27c89f0"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelWeaponText.h",
+    "sha256": "a03527696f2f95eece5d0c1f94227646dbf36a715125f85db293c498baf004d5"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+    "sha256": "78d1ede545a2752ce860c090860851369022d9031dd6765a6b508074202908cb"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/GunsmithUIStyle.h",
+    "sha256": "60b313c6fc6f392e961624ac8cffa72ef49b86c2a65672e0f9ce028e8fe2db59"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelWeaponIcons.h",
+    "sha256": "df61f146520d2c0e0c79c9e55a8ba8804324b6ea8cb75bdf2abfc242ad5056e3"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/M4GunsmithWidget.h",
+    "sha256": "f4fdd35933b291a976c38716c2e836a81cb8bd63c2c7e872fd1cdd63d57ef84b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMEPlayerController.h",
+    "sha256": "465707b945a22ac90961d31254e91b51485fced1fefbe0906c2a566213fc0904"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/GunsmithSystem.h",
+    "sha256": "532c6d66364523195a82d095f79d9f89ed046b9268e467e44f2d146696558b81"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/WeaponStatEvaluation.h",
+    "sha256": "21db98689986135be85e88215a6c54086c3161d0c6ab4e469a43976ad832c01a"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/MeleeWeaponStats.h",
+    "sha256": "2ca1f05d03f735217904c570f559751e1f0bf18cbb141e94d95af2e5d76f57ff"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/Kukri/KukriEnchantment.h",
+    "sha256": "69c3b95ed1513d07b9b88cb6d9340d9914a30a0537754233aae6bd34f72bda44"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/AzureDragonReach.h",
+    "sha256": "b8d6569bbbf381dac05c692da03201d90dea46cb4027a69ddbf2750cc5eabe9a"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/Bow/BowStats.h",
+    "sha256": "42b423da05c590894a3be5d377de648dc8d20f043a3468e84e9666404ef48ee5"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+    "sha256": "129523962d611df5e1e66a843c79ae6ffd2105b7fe246168f0edba1acf5a1f62"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelDragVisual.h",
+    "sha256": "6dc733e174092c3fed02931a0e49801e47099b1de31fe88f62220d41c85c3922"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelWeaponIcons.h",
+    "sha256": "df61f146520d2c0e0c79c9e55a8ba8804324b6ea8cb75bdf2abfc242ad5056e3"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStaffIcon.h",
+    "sha256": "0ded8f99d54b430718d7d8d64e838170994eb9b169a95aeca7df523e0708e541"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+    "sha256": "78d1ede545a2752ce860c090860851369022d9031dd6765a6b508074202908cb"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/EnhancementWorldView.h",
+    "sha256": "a5f036af0aa41476f596999fdd90bbc853c14a805cd4ac396722ba8272cac78f"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelPickup.h",
+    "sha256": "4dc2d90c0297372d99618575787de756ac48cfefce926f3bd55b09ff5609b4ac"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelPickupStudio.h",
+    "sha256": "7bdb301af1daf5f72447533337ba131cf51f876a7df83d746d55b21b1266d292"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/../Weapons/GunsmithSystem.h",
+    "sha256": "532c6d66364523195a82d095f79d9f89ed046b9268e467e44f2d146696558b81"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMECharacter.h",
+    "sha256": "b23fbc397e418053e0b4d3c6e02c7a79d4521b9f7c2cee8d6ed694751afde727"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/../FPSGAMECharacter.h",
+    "sha256": "b23fbc397e418053e0b4d3c6e02c7a79d4521b9f7c2cee8d6ed694751afde727"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/../Multiplayer/ColdSteelAuthorityContext.h",
+    "sha256": "263ab450e97482708f54b5f2b6863fa3a9342a6d807754b70eaa1f559dda734c"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/../Multiplayer/ColdSteelPlayerState.h",
+    "sha256": "162bf63a5b88e9168753cdc129cb84025ea9598a7cb196b8948bc3faf0cba0b0"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/UI/../Multiplayer/ColdSteelProfileTransfer.h",
+    "sha256": "1025345567e8454668eb9a1f862c6c467f2422e2c55b94a1e35e6b9725a5fc87"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/AlchemyInteractionAssets.h",
+    "sha256": "6850c7d8a737bddd9560cac5a0599f3cd40de421414f4ff459d45feeb4099423"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+    "sha256": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "sha256": "94bad11bd9750c6530fb4c89c1e77a7e955290dc914adb6a546268ccf58595a8"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/../Monsters/FPSCombatHealthComponent.h",
+    "sha256": "06cdca7fdc17d94202da3ac6779df443119ca9b5b024ecb46e37b25e395b4415"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/WorkstationViewRestore.h",
+    "sha256": "e85f1f5a2e6a0e46076aac9e8b3d7f1b3a7394b4744c09e35d5e95a85fc27f7b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelPickup.h",
+    "sha256": "4dc2d90c0297372d99618575787de756ac48cfefce926f3bd55b09ff5609b4ac"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelEnhancementSystem.h",
+    "sha256": "2ddc2cad0729d626380e5f66402ff0da58f543f32b286ed9f43665620d08e8db"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelWorldInteraction.h",
+    "sha256": "a6d04a90815ef2db566f38334b7262c141cb6f9d312d4eaa4cf2f156f065257e"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelEnhancementLayoutMetrics.h",
+    "sha256": "61fc4efbeb7af174810109f9b4e95b5c2d1a226b46abd60081d6f93a0bb7c0af"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "sha256": "94bad11bd9750c6530fb4c89c1e77a7e955290dc914adb6a546268ccf58595a8"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+    "sha256": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingAuditCommandlet.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "sha256": "94bad11bd9750c6530fb4c89c1e77a7e955290dc914adb6a546268ccf58595a8"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+    "sha256": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "dependency": "Source/FPSGAME/Building/../Multiplayer/ColdSteelSharedInventorySubsystem.h",
+    "sha256": "1bed1caa5542906d00c80218e41655ec0e3e92736a29f1618cdceed16c5f3ba1"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "dependency": "Source/FPSGAME/Building/../Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "sha256": "6844b44ba78a7e58d16d1fad2a0f290afe48c42a4109d1f79f307d4fd3e2078a"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "dependency": "Source/FPSGAME/Building/../Multiplayer/ColdSteelPlayerState.h",
+    "sha256": "162bf63a5b88e9168753cdc129cb84025ea9598a7cb196b8948bc3faf0cba0b0"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "dependency": "Source/FPSGAME/Building/../FPSGAMECharacter.h",
+    "sha256": "b23fbc397e418053e0b4d3c6e02c7a79d4521b9f7c2cee8d6ed694751afde727"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetworkAudit.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "sha256": "94bad11bd9750c6530fb4c89c1e77a7e955290dc914adb6a546268ccf58595a8"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetworkAudit.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+    "sha256": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetworkAudit.cpp",
+    "dependency": "Source/FPSGAME/Building/../Multiplayer/ColdSteelSharedInventorySubsystem.h",
+    "sha256": "1bed1caa5542906d00c80218e41655ec0e3e92736a29f1618cdceed16c5f3ba1"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetworkAudit.cpp",
+    "dependency": "Source/FPSGAME/Building/../Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "sha256": "6844b44ba78a7e58d16d1fad2a0f290afe48c42a4109d1f79f307d4fd3e2078a"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetworkAudit.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingNetworkAudit.cpp",
+    "dependency": "Source/FPSGAME/Building/../FPSGAMECharacter.h",
+    "sha256": "b23fbc397e418053e0b4d3c6e02c7a79d4521b9f7c2cee8d6ed694751afde727"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSelection.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "sha256": "94bad11bd9750c6530fb4c89c1e77a7e955290dc914adb6a546268ccf58595a8"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSelection.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSelection.cpp",
+    "dependency": "Source/FPSGAME/Building/../Development/DevelopmentTuningSubsystem.h",
+    "sha256": "98513b194bcee826e7bfa6c5064c20fe1a074ab57cade3f5dcae70ae37cebb53"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "sha256": "94bad11bd9750c6530fb4c89c1e77a7e955290dc914adb6a546268ccf58595a8"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "dependency": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+    "sha256": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "dependency": "Source/FPSGAME/Building/../UI/ColdSteelInventoryTypes.h",
+    "sha256": "b779ec8cd37037a506c924a0dee0190f1d158c960055cea03c2531fa2885ce51"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "dependency": "Source/FPSGAME/Building/../Multiplayer/ColdSteelSharedInventorySubsystem.h",
+    "sha256": "1bed1caa5542906d00c80218e41655ec0e3e92736a29f1618cdceed16c5f3ba1"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "dependency": "Source/FPSGAME/Building/../FPSGAMECharacter.h",
+    "sha256": "b23fbc397e418053e0b4d3c6e02c7a79d4521b9f7c2cee8d6ed694751afde727"
+  },
+  {
+    "consumer": "Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "dependency": "Source/FPSGAME/Building/../Development/DevelopmentTuningSubsystem.h",
+    "sha256": "98513b194bcee826e7bfa6c5064c20fe1a074ab57cade3f5dcae70ae37cebb53"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelWorkbenchWidget.h",
+    "sha256": "489550622ba40e78aa5283eaf25bd15dc84dd1b879fceaa7ad4b0b11a90e76ac"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "sha256": "c712d05dafa634cf543c495fc6b58a96a1e3592cd24d44934101a77bcf160642"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+    "sha256": "78d1ede545a2752ce860c090860851369022d9031dd6765a6b508074202908cb"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/ColdSteelPlantingProgress.h",
+    "sha256": "f8122b8c30cd85b6db0d0f2a9cf3c015fbd4db68fee200402dce479da99d098b"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/../Development/DevelopmentTuningSubsystem.h",
+    "sha256": "98513b194bcee826e7bfa6c5064c20fe1a074ab57cade3f5dcae70ae37cebb53"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/ColdSteelPlantingSystem.h",
+    "sha256": "605feff22ca775d2a596c1893501440f4985df0118b31d207a8fbff9f691fc0f"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/ColdSteelPlantingLayout.h",
+    "sha256": "83f3627ddb5da13ee73f9840be47852280c2246762b8849f5769fb788ac354ba"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/VoxelBuildWorld.h",
+    "sha256": "94bad11bd9750c6530fb4c89c1e77a7e955290dc914adb6a546268ccf58595a8"
+  },
+  {
+    "consumer": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "dependency": "Source/FPSGAME/UI/../Building/VoxelBuildPrefabActor.h",
+    "sha256": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "dependency": "Source/FPSGAME/Development/../UI/ColdSteelStatusModel.h",
+    "sha256": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "dependency": "Source/FPSGAME/Development/../UI/ColdSteelEnhancementSystem.h",
+    "sha256": "2ddc2cad0729d626380e5f66402ff0da58f543f32b286ed9f43665620d08e8db"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "dependency": "Source/FPSGAME/Development/../Multiplayer/ColdSteelProfileTransfer.h",
+    "sha256": "1025345567e8454668eb9a1f862c6c467f2422e2c55b94a1e35e6b9725a5fc87"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "dependency": "Source/FPSGAME/Development/../Multiplayer/ColdSteelSharedInventorySubsystem.h",
+    "sha256": "1bed1caa5542906d00c80218e41655ec0e3e92736a29f1618cdceed16c5f3ba1"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "dependency": "Source/FPSGAME/Development/../Building/VoxelBuildWorld.h",
+    "sha256": "94bad11bd9750c6530fb4c89c1e77a7e955290dc914adb6a546268ccf58595a8"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "dependency": "Source/FPSGAME/Development/../Building/VoxelBuildPrefabActor.h",
+    "sha256": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "dependency": "Source/FPSGAME/Development/../Building/ColdSteelPlantingSystem.h",
+    "sha256": "605feff22ca775d2a596c1893501440f4985df0118b31d207a8fbff9f691fc0f"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "dependency": "Source/FPSGAME/Development/../FPSGAMECharacter.h",
+    "sha256": "b23fbc397e418053e0b4d3c6e02c7a79d4521b9f7c2cee8d6ed694751afde727"
+  },
+  {
+    "consumer": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.h",
+    "dependency": "Source/FPSGAME/Development/../Multiplayer/ColdSteelPlayerState.h",
+    "sha256": "162bf63a5b88e9168753cdc129cb84025ea9598a7cb196b8948bc3faf0cba0b0"
+  }
+]

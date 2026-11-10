@@ -1,0 +1,1622 @@
+{
+  "asset_version": "V6",
+  "removed_vise_objects": {
+    "Enchantment_Workbench_V6_Components.blend": [
+      "V3 vise cast mounting flange",
+      "V3 vise swivel pedestal",
+      "V3 vise bolt washer",
+      "V3 vise mounting hex bolt",
+      "V3 vise bolt washer.001",
+      "V3 vise mounting hex bolt.001",
+      "V3 vise bolt washer.002",
+      "V3 vise mounting hex bolt.002",
+      "V3 vise bolt washer.003",
+      "V3 vise mounting hex bolt.003",
+      "V3 vise tapered cast fixed body",
+      "V3 vise rear machined support",
+      "V3 vise exposed machined slide",
+      "V3 vise movable cast jaw",
+      "V3 vise hardened replaceable jaw",
+      "V3 vise fine jaw serration",
+      "V3 vise fine jaw serration.001",
+      "V3 vise fine jaw serration.002",
+      "V3 vise fine jaw serration.003",
+      "V3 vise fine jaw serration.004",
+      "V3 vise fine jaw serration.005",
+      "V3 vise fine jaw serration.006",
+      "V3 vise fine jaw serration.007",
+      "V3 vise fine jaw serration.008",
+      "V3 vise fine jaw serration.009",
+      "V3 vise fine jaw serration.010",
+      "V3 vise fine jaw serration.011",
+      "V3 vise fine jaw serration.012",
+      "V3 vise fine jaw serration.013",
+      "V3 vise fine jaw serration.014",
+      "V3 vise fine jaw serration.015",
+      "V3 vise fine jaw serration.016",
+      "V3 vise fine jaw serration.017",
+      "V3 vise fine jaw serration.018",
+      "V3 vise hardened replaceable jaw.001",
+      "V3 vise fine jaw serration.019",
+      "V3 vise fine jaw serration.020",
+      "V3 vise fine jaw serration.021",
+      "V3 vise fine jaw serration.022",
+      "V3 vise fine jaw serration.023",
+      "V3 vise fine jaw serration.024",
+      "V3 vise fine jaw serration.025",
+      "V3 vise fine jaw serration.026",
+      "V3 vise fine jaw serration.027",
+      "V3 vise fine jaw serration.028",
+      "V3 vise fine jaw serration.029",
+      "V3 vise fine jaw serration.030",
+      "V3 vise fine jaw serration.031",
+      "V3 vise fine jaw serration.032",
+      "V3 vise fine jaw serration.033",
+      "V3 vise fine jaw serration.034",
+      "V3 vise fine jaw serration.035",
+      "V3 vise fine jaw serration.036",
+      "V3 vise fine jaw serration.037",
+      "V3 vise steel lead screw root",
+      "V3 vise continuous helical screw thread",
+      "V3 vise screw thrust collar",
+      "V3 vise sliding handle hub",
+      "V3 vise slender sliding tommy bar",
+      "V3 vise tommy bar end button",
+      "V3 vise tommy bar end button.001"
+    ],
+    "Enchantment_Workbench_V6.blend": [
+      "VISE / PROJECT",
+      "VISE / Steel"
+    ]
+  },
+  "fbx_mesh": "SM_EnchantmentWorkbench",
+  "FBX_units": "centimetres; vertices explicitly scaled from metres by 100; metadata unit centimetres",
+  "fbx_axis_forward": "-Y",
+  "fbx_axis_up": "Z",
+  "glb_blend_units": "metres",
+  "bounds_cm": {
+    "min": [
+      -92.94998931884766,
+      -50.43999481201172,
+      0.0
+    ],
+    "max": [
+      92.94998931884766,
+      45.82499694824219,
+      194.5935821533203
+    ]
+  },
+  "simple_collision": [
+    "UCX_SM_EnchantmentWorkbench_00",
+    "UCX_SM_EnchantmentWorkbench_01"
+  ],
+  "collision_note": "Two coarse convex boxes for static placement. Lower storage is treated as a solid volume; not a detailed prop physics or player-tested collision setup.",
+  "materials": [
+    {
+      "slot": 0,
+      "material_name": "Rune inlay | energized recessed copper",
+      "ue_safe_name": "M_EW_Rune_inlay_energized_recessed_copper",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.07999999821186066,
+            0.4000000059604645,
+            0.47999998927116394,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.6499999761581421
+        },
+        "Roughness": {
+          "constant": 0.5199999809265137
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            0.07999999821186066,
+            0.4000000059604645,
+            0.47999998927116394,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 5.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 1,
+      "material_name": "PROJECT | Oiled long-grain timber",
+      "ue_safe_name": "M_EW_PROJECT_Oiled_long_grain_timber",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/wood_maintained_color.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "texture": {
+            "file": "UE_Textures/wood_metallic.png",
+            "srgb": false
+          }
+        },
+        "Roughness": {
+          "texture": {
+            "file": "UE_Textures/wood_maintained_roughness.png",
+            "srgb": false
+          }
+        },
+        "Normal": {
+          "normal_strength": 1.0,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/wood_maintained_normal_opengl.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 2,
+      "material_name": "PROJECT | Dark forged steel with local oxidation",
+      "ue_safe_name": "M_EW_PROJECT_Dark_forged_steel_with_local_oxidation",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/iron_maintained_color.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "texture": {
+            "file": "UE_Textures/iron_maintained_metallic.png",
+            "srgb": false
+          }
+        },
+        "Roughness": {
+          "texture": {
+            "file": "UE_Textures/iron_maintained_roughness.png",
+            "srgb": false
+          }
+        },
+        "Normal": {
+          "normal_strength": 1.0,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/iron_maintained_normal_opengl.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 3,
+      "material_name": "PROJECT | Normandy scanned stone",
+      "ue_safe_name": "M_EW_PROJECT_Normandy_scanned_stone",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/stone_maintained_color.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "texture": {
+            "file": "UE_Textures/stone_metallic.png",
+            "srgb": false
+          }
+        },
+        "Roughness": {
+          "texture": {
+            "file": "UE_Textures/stone_maintained_roughness.png",
+            "srgb": false
+          }
+        },
+        "Normal": {
+          "normal_strength": 1.0,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/stone_maintained_normal_opengl.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 4,
+      "material_name": "PROJECT | carved stone work surface",
+      "ue_safe_name": "M_EW_PROJECT_carved_stone_work_surface",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/inlaid_stone_color.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "texture": {
+            "file": "UE_Textures/inlaid_stone_metallic.png",
+            "srgb": false
+          }
+        },
+        "Roughness": {
+          "texture": {
+            "file": "UE_Textures/inlaid_stone_roughness.png",
+            "srgb": false
+          }
+        },
+        "Normal": {
+          "normal_strength": 1.0,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/inlaid_stone_normal.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "texture": {
+            "file": "UE_Textures/inlaid_stone_emission.png",
+            "srgb": true
+          }
+        },
+        "Emission Strength": {
+          "constant": 6.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 5,
+      "material_name": "Bronze | aged machined fittings",
+      "ue_safe_name": "M_EW_Bronze_aged_machined_fittings",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.2199999988079071,
+            0.1550000011920929,
+            0.07500000298023224,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 1.0
+        },
+        "Roughness": {
+          "constant": 0.4300000071525574
+        },
+        "Normal": {
+          "normal_strength": 0.11999999731779099,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/iron_maintained_normal_opengl.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 6,
+      "material_name": "Crystal | optical quartz",
+      "ue_safe_name": "M_EW_Crystal_optical_quartz",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.3199999928474426,
+            0.5699999928474426,
+            0.5899999737739563,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.09000000357627869
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.8199999928474426
+        },
+        "IOR": {
+          "constant": 1.5399999618530273
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 7,
+      "material_name": "Crystal | restrained luminous inner core",
+      "ue_safe_name": "M_EW_Crystal_restrained_luminous_inner_core",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.05999999865889549,
+            0.3199999928474426,
+            0.36000001430511475,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.2199999988079071
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            0.05999999865889549,
+            0.3199999928474426,
+            0.36000001430511475,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 1.7000000476837158
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 8,
+      "material_name": "Steel | worn machined contact faces",
+      "ue_safe_name": "M_EW_Steel_worn_machined_contact_faces",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.3799999952316284,
+            0.4000000059604645,
+            0.41999998688697815,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 1.0
+        },
+        "Roughness": {
+          "constant": 0.28999999165534973
+        },
+        "Normal": {
+          "normal_strength": 0.03500000014901161,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/iron_maintained_normal_opengl.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 9,
+      "material_name": "Lens | optical glass",
+      "ue_safe_name": "M_EW_Lens_optical_glass",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.8199999928474426,
+            0.8799999952316284,
+            0.8600000143051147,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.02500000037252903
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 1.0
+        },
+        "IOR": {
+          "constant": 1.5149999856948853
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 10,
+      "material_name": "Book paper | layered cut edges with normal",
+      "ue_safe_name": "M_EW_Book_paper_layered_cut_edges_with_normal",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/paper_basecolor.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "texture": {
+            "file": "UE_Textures/paper_roughness.png",
+            "srgb": false
+          }
+        },
+        "Normal": {
+          "normal_strength": 0.8500000238418579,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/paper_normal.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 11,
+      "material_name": "Book leather | oxblood PBR with micrograin normal",
+      "ue_safe_name": "M_EW_Book_leather_oxblood_PBR_with_micrograin_normal",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/leather_basecolor_oxblood.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "texture": {
+            "file": "UE_Textures/leather_roughness.png",
+            "srgb": false
+          }
+        },
+        "Normal": {
+          "normal_strength": 1.0,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/leather_normal.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 12,
+      "material_name": "Book tooling | recessed dark leather",
+      "ue_safe_name": "M_EW_Book_tooling_recessed_dark_leather",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.024000000208616257,
+            0.012000000104308128,
+            0.006000000052154064,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.5799999833106995
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 13,
+      "material_name": "Book headbands | waxed linen thread",
+      "ue_safe_name": "M_EW_Book_headbands_waxed_linen_thread",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.17000000178813934,
+            0.14000000059604645,
+            0.10000000149011612,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.8500000238418579
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 14,
+      "material_name": "Book leather | brown PBR with micrograin normal",
+      "ue_safe_name": "M_EW_Book_leather_brown_PBR_with_micrograin_normal",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/leather_basecolor_brown.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "texture": {
+            "file": "UE_Textures/leather_roughness.png",
+            "srgb": false
+          }
+        },
+        "Normal": {
+          "normal_strength": 1.0,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/leather_normal.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 15,
+      "material_name": "Glass | aged transparent bottle",
+      "ue_safe_name": "M_EW_Glass_aged_transparent_bottle",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.47999998927116394,
+            0.6200000047683716,
+            0.5600000023841858,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.08500000089406967
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.9200000166893005
+        },
+        "IOR": {
+          "constant": 1.5199999809265137
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 16,
+      "material_name": "Reagent | dark amber tincture",
+      "ue_safe_name": "M_EW_Reagent_dark_amber_tincture",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.0949999988079071,
+            0.0430000014603138,
+            0.012000000104308128,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.07999999821186066
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.699999988079071
+        },
+        "IOR": {
+          "constant": 1.3300000429153442
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 17,
+      "material_name": "Drawing A | runic array | diagram parchment",
+      "ue_safe_name": "M_EW_Drawing_A_runic_array_diagram_parchment",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/runic_array.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.8799999952316284
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 18,
+      "material_name": "Hemp | natural braided fibre",
+      "ue_safe_name": "M_EW_Hemp_natural_braided_fibre",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.18000000715255737,
+            0.14499999582767487,
+            0.08799999952316284,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.8799999952316284
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 19,
+      "material_name": "Clips | aged dark brass",
+      "ue_safe_name": "M_EW_Clips_aged_dark_brass",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.20000000298023224,
+            0.13500000536441803,
+            0.054999999701976776,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.699999988079071
+        },
+        "Roughness": {
+          "constant": 0.44999998807907104
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 20,
+      "material_name": "Drawing B | aether core | diagram parchment",
+      "ue_safe_name": "M_EW_Drawing_B_aether_core_diagram_parchment",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/aether_core.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.8799999952316284
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 21,
+      "material_name": "Drawing C | focus study | diagram parchment",
+      "ue_safe_name": "M_EW_Drawing_C_focus_study_diagram_parchment",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/focus_study.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.8799999952316284
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 22,
+      "material_name": "Crevices | charcoal",
+      "ue_safe_name": "M_EW_Crevices_charcoal",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.012000000104308128,
+            0.009999999776482582,
+            0.00800000037997961,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.8299999833106995
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 23,
+      "material_name": "Parchment | paper edges",
+      "ue_safe_name": "M_EW_Parchment_paper_edges",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.4099999964237213,
+            0.3400000035762787,
+            0.2199999988079071,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.8799999952316284
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 24,
+      "material_name": "Leather | dark worn binding",
+      "ue_safe_name": "M_EW_Leather_dark_worn_binding",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.052000001072883606,
+            0.027000000700354576,
+            0.014000000432133675,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.6000000238418579
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 25,
+      "material_name": "Quartz | uncharged mineral",
+      "ue_safe_name": "M_EW_Quartz_uncharged_mineral",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.11999999731779099,
+            0.1899999976158142,
+            0.18000000715255737,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.25999999046325684
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.3499999940395355
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 26,
+      "material_name": "Linen | unbleached cloth",
+      "ue_safe_name": "M_EW_Linen_unbleached_cloth",
+      "inputs": {
+        "Base Color": {
+          "constant": [
+            0.23999999463558197,
+            0.20000000298023224,
+            0.13500000536441803,
+            1.0
+          ]
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "constant": 0.9200000166893005
+        },
+        "Normal": {
+          "constant": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    },
+    {
+      "slot": 27,
+      "material_name": "Cloth | faded oxblood woven wool",
+      "ue_safe_name": "M_EW_Cloth_faded_oxblood_woven_wool",
+      "inputs": {
+        "Base Color": {
+          "texture": {
+            "file": "UE_Textures/cloth_color.png",
+            "srgb": true
+          }
+        },
+        "Metallic": {
+          "constant": 0.0
+        },
+        "Roughness": {
+          "texture": {
+            "file": "UE_Textures/cloth_roughness.png",
+            "srgb": false
+          }
+        },
+        "Normal": {
+          "normal_strength": 0.44999998807907104,
+          "normal_color": {
+            "texture": {
+              "file": "UE_Textures/cloth_normal.png",
+              "srgb": false
+            }
+          },
+          "convention": "OpenGL_Y_positive",
+          "UE_flip_green_channel": true
+        },
+        "Emission Color": {
+          "constant": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "Emission Strength": {
+          "constant": 0.0
+        },
+        "Transmission Weight": {
+          "constant": 0.0
+        },
+        "IOR": {
+          "constant": 1.5
+        },
+        "Alpha": {
+          "constant": 1.0
+        }
+      }
+    }
+  ],
+  "textures": {
+    "wood_maintained_color.png": {
+      "file": "UE_Textures/wood_maintained_color.png",
+      "srgb": true
+    },
+    "wood_metallic.png": {
+      "file": "UE_Textures/wood_metallic.png",
+      "srgb": false
+    },
+    "wood_maintained_roughness.png": {
+      "file": "UE_Textures/wood_maintained_roughness.png",
+      "srgb": false
+    },
+    "wood_maintained_normal_opengl.png": {
+      "file": "UE_Textures/wood_maintained_normal_opengl.png",
+      "srgb": false
+    },
+    "iron_maintained_color.png": {
+      "file": "UE_Textures/iron_maintained_color.png",
+      "srgb": true
+    },
+    "iron_maintained_metallic.png": {
+      "file": "UE_Textures/iron_maintained_metallic.png",
+      "srgb": false
+    },
+    "iron_maintained_roughness.png": {
+      "file": "UE_Textures/iron_maintained_roughness.png",
+      "srgb": false
+    },
+    "iron_maintained_normal_opengl.png": {
+      "file": "UE_Textures/iron_maintained_normal_opengl.png",
+      "srgb": false
+    },
+    "stone_maintained_color.png": {
+      "file": "UE_Textures/stone_maintained_color.png",
+      "srgb": true
+    },
+    "stone_metallic.png": {
+      "file": "UE_Textures/stone_metallic.png",
+      "srgb": false
+    },
+    "stone_maintained_roughness.png": {
+      "file": "UE_Textures/stone_maintained_roughness.png",
+      "srgb": false
+    },
+    "stone_maintained_normal_opengl.png": {
+      "file": "UE_Textures/stone_maintained_normal_opengl.png",
+      "srgb": false
+    },
+    "inlaid_stone_color.png": {
+      "file": "UE_Textures/inlaid_stone_color.png",
+      "srgb": true
+    },
+    "inlaid_stone_metallic.png": {
+      "file": "UE_Textures/inlaid_stone_metallic.png",
+      "srgb": false
+    },
+    "inlaid_stone_roughness.png": {
+      "file": "UE_Textures/inlaid_stone_roughness.png",
+      "srgb": false
+    },
+    "inlaid_stone_normal.png": {
+      "file": "UE_Textures/inlaid_stone_normal.png",
+      "srgb": false
+    },
+    "inlaid_stone_emission.png": {
+      "file": "UE_Textures/inlaid_stone_emission.png",
+      "srgb": true
+    },
+    "paper_basecolor.png": {
+      "file": "UE_Textures/paper_basecolor.png",
+      "srgb": true
+    },
+    "paper_roughness.png": {
+      "file": "UE_Textures/paper_roughness.png",
+      "srgb": false
+    },
+    "paper_normal.png": {
+      "file": "UE_Textures/paper_normal.png",
+      "srgb": false
+    },
+    "leather_basecolor_oxblood.png": {
+      "file": "UE_Textures/leather_basecolor_oxblood.png",
+      "srgb": true
+    },
+    "leather_roughness.png": {
+      "file": "UE_Textures/leather_roughness.png",
+      "srgb": false
+    },
+    "leather_normal.png": {
+      "file": "UE_Textures/leather_normal.png",
+      "srgb": false
+    },
+    "leather_basecolor_brown.png": {
+      "file": "UE_Textures/leather_basecolor_brown.png",
+      "srgb": true
+    },
+    "runic_array.png": {
+      "file": "UE_Textures/runic_array.png",
+      "srgb": true
+    },
+    "aether_core.png": {
+      "file": "UE_Textures/aether_core.png",
+      "srgb": true
+    },
+    "focus_study.png": {
+      "file": "UE_Textures/focus_study.png",
+      "srgb": true
+    },
+    "cloth_color.png": {
+      "file": "UE_Textures/cloth_color.png",
+      "srgb": true
+    },
+    "cloth_roughness.png": {
+      "file": "UE_Textures/cloth_roughness.png",
+      "srgb": false
+    },
+    "cloth_normal.png": {
+      "file": "UE_Textures/cloth_normal.png",
+      "srgb": false
+    }
+  },
+  "UE_import_notes": [
+    "Recommended FBX static mesh with Combine Meshes enabled and Import Textures/Materials disabled, then create and assign PBR materials from this recipe.",
+    "Normal maps are OpenGL Y+. Enable Flip Green Channel for manually imported UE normal textures. Use Normalmap compression and normal sampler.",
+    "Set basecolor/emissive textures sRGB; set roughness/metallic/normal Non-Color.",
+    "Transmissive glass/crystal materials require a UE translucent/refraction shader; FBX cannot encode their Blender transmission behavior.",
+    "Emissive strength is preserved in the recipe and GLB; bloom is an engine post-process setting.",
+    "UCX collision is included in FBX; do not auto-generate a second unintended collision set. Verify player interaction and target-platform budget."
+  ]
+}

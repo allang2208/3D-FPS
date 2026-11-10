@@ -1,0 +1,492 @@
+[
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementAudit.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementAudit.cpp",
+    "bytes": 2023,
+    "sha256": "91f323a29d70753ee06af93d53f441130b4314acfb0c5686dd7c1853ae70335c",
+    "published_sha256_lf": "c074744f889049e879d844b7a30ac8f1fe6408722724b811c1e5c39445e6451d"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementAuditTarget.h",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementAuditTarget.h",
+    "bytes": 432,
+    "sha256": "832a63f8df5f078d1f0de43f069fd2a58c37513b02d6382977c06b8bb65a1f5d",
+    "published_sha256_lf": "832a63f8df5f078d1f0de43f069fd2a58c37513b02d6382977c06b8bb65a1f5d"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementBackdrop.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementBackdrop.cpp",
+    "bytes": 1418,
+    "sha256": "6dbad02c3e3a40846420daaf956a23b5574284ba594c0bcb012cf0e6d50e6311",
+    "published_sha256_lf": "6dbad02c3e3a40846420daaf956a23b5574284ba594c0bcb012cf0e6d50e6311"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "bytes": 9104,
+    "sha256": "53c17c8fc3cf845679611efaa4e2f6ef05ae3d33a274adf71ba1f4c65517612a",
+    "published_sha256_lf": "53c17c8fc3cf845679611efaa4e2f6ef05ae3d33a274adf71ba1f4c65517612a"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+    "bytes": 6392,
+    "sha256": "2100c6e9ad735237a17d6816a6339845a4338d95092f5dd8ab7f55766289d29c",
+    "published_sha256_lf": "2100c6e9ad735237a17d6816a6339845a4338d95092f5dd8ab7f55766289d29c"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+    "bytes": 32787,
+    "sha256": "adea439c25365e8b9902179dbfdee0e79fb8bc4c2e3de846c844849213ac3560",
+    "published_sha256_lf": "2b844ca877ea9c628a9ce6f2c349822eb78e1f8439c660771cfc875026c6a7ff"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementLayoutMetrics.h",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementLayoutMetrics.h",
+    "bytes": 1414,
+    "sha256": "61fc4efbeb7af174810109f9b4e95b5c2d1a226b46abd60081d6f93a0bb7c0af",
+    "published_sha256_lf": "61fc4efbeb7af174810109f9b4e95b5c2d1a226b46abd60081d6f93a0bb7c0af"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementMaterialPickupAudit.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementMaterialPickupAudit.cpp",
+    "bytes": 6424,
+    "sha256": "71d21cc5dd87681dbc45c2a4a4e24d453689e4b084bc5458b78b3542ba5d1882",
+    "published_sha256_lf": "6d512d69df78525744e91ff8cf0f62b431e0078a1a8a94c923f6c795650abda7"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementMaterials.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementMaterials.cpp",
+    "bytes": 2487,
+    "sha256": "3f0c81e9888aee64af0fc15be3136d1203f28473f879a407c21a5dd732019980",
+    "published_sha256_lf": "3f0c81e9888aee64af0fc15be3136d1203f28473f879a407c21a5dd732019980"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementStorage.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementStorage.cpp",
+    "bytes": 5474,
+    "sha256": "5a70e479fb04a675befff50f1eafea62f656cd764a3420cfbcb3f71276540e64",
+    "published_sha256_lf": "5a70e479fb04a675befff50f1eafea62f656cd764a3420cfbcb3f71276540e64"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "bytes": 20471,
+    "sha256": "292c1a5b6bc40b4f6da9f7e5bf25e206c01240437dbf0ca3cf11f945840cd53f",
+    "published_sha256_lf": "292c1a5b6bc40b4f6da9f7e5bf25e206c01240437dbf0ca3cf11f945840cd53f"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.h",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementSystem.h",
+    "bytes": 3456,
+    "sha256": "2ddc2cad0729d626380e5f66402ff0da58f543f32b286ed9f43665620d08e8db",
+    "published_sha256_lf": "2ddc2cad0729d626380e5f66402ff0da58f543f32b286ed9f43665620d08e8db"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+    "bytes": 34865,
+    "sha256": "fb70c86d799a02d6194d7e677658dc6587026fde6641514c6dd99890e036edb7",
+    "published_sha256_lf": "fb70c86d799a02d6194d7e677658dc6587026fde6641514c6dd99890e036edb7"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+    "bytes": 6799,
+    "sha256": "81798fd1be820b292e2a2d7639966aa90bdf0449957fb0c187b3230dbaa49c02",
+    "published_sha256_lf": "ed1167e55032f85690f95d4915ccbde19b4aa602531f0d2b2442e3868a7303c5"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+    "bytes": 13251,
+    "sha256": "68074d6e3d3c0ce5577238e66857afa2931d31b18e7aed7227d467bf328ae7ea",
+    "published_sha256_lf": "cfc3fcb10df467492d58d8ffb844abdb2e3f84e7aab3e3b59367a29342082abb"
+  },
+  {
+    "source": "Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.cpp",
+    "published": "Source/Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.cpp",
+    "bytes": 10885,
+    "sha256": "7b43d6aaf869516aa007e3afdbe14f4a2907892c95b7407ab20b13027e86e3a5",
+    "published_sha256_lf": "9f9107ccc5e8aa0d6930a7916be291069eae3faaa0b652814db3c7c86e563aad"
+  },
+  {
+    "source": "Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.h",
+    "published": "Source/Source/FPSGAME/UI/EnhancementDisplayAuditCommandlet.h",
+    "bytes": 343,
+    "sha256": "4efa9681fd3ac7a766041e3755577d2085bbd5362a5e7951d36c6a122f408668",
+    "published_sha256_lf": "ea130df8ef3ee5968e8e879e46fec15dfaf0794745d375bd23f56d5e65bc7ebd"
+  },
+  {
+    "source": "Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.cpp",
+    "published": "Source/Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.cpp",
+    "bytes": 11911,
+    "sha256": "305262778ea38f076c95d7213559cc186f7bb293428d14613082d88790c9584d",
+    "published_sha256_lf": "d82730f1075dcb6eb166d32e8c13b05757f695adb6149bd7faa49dbd63412c43"
+  },
+  {
+    "source": "Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.h",
+    "published": "Source/Source/FPSGAME/UI/EnhancementEscrowAuditCommandlet.h",
+    "bytes": 497,
+    "sha256": "1d8b5be24a5c56e7c5e25be8d4a7e8b004a489703f8575810ae90420f5a511f4",
+    "published_sha256_lf": "93e727a2f7be180e3a1fb6b46fba95f6245c87435eb866ee271b818ea527d40b"
+  },
+  {
+    "source": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "published": "Source/Source/FPSGAME/Building/EnhancementWorldView.cpp",
+    "bytes": 18290,
+    "sha256": "081df74c0617a225273350682dbe19258ea10e661de05f541c29f27465d256b3",
+    "published_sha256_lf": "5f25fa844dce2155bc8d68e0195e5dec18270299cbf9e60301a61abd060238a5"
+  },
+  {
+    "source": "Source/FPSGAME/Building/EnhancementWorldView.h",
+    "published": "Source/Source/FPSGAME/Building/EnhancementWorldView.h",
+    "bytes": 2444,
+    "sha256": "a5f036af0aa41476f596999fdd90bbc853c14a805cd4ac396722ba8272cac78f",
+    "published_sha256_lf": "197a2e2c6d1a49dc788b222bcecba81115fa40eed42f4cc52c59cbf179cf997f"
+  },
+  {
+    "source": "Source/FPSGAME/Building/EnhancementRitualEffect.cpp",
+    "published": "Source/Source/FPSGAME/Building/EnhancementRitualEffect.cpp",
+    "bytes": 13698,
+    "sha256": "7dfa06188ac618eb4d490afe9ed2f621ba212e12b57643d3bcaee3e23897aac0",
+    "published_sha256_lf": "cf863570ceb2ba1a010109f9bdedb235d54da14c81494e46db59ee5ce3fc2423"
+  },
+  {
+    "source": "Source/FPSGAME/Building/EnhancementRitualEffect.h",
+    "published": "Source/Source/FPSGAME/Building/EnhancementRitualEffect.h",
+    "bytes": 1944,
+    "sha256": "11b220ba271f0fa0bb8f6b8a5001116c1f3509dbf766b5a449da01a45bd8c60e",
+    "published_sha256_lf": "9f64041f2f7aa4f8b191d25ca317aea148fc99fd855aa983535f56f866f40335"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingAuditCommandlet.cpp",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingAuditCommandlet.cpp",
+    "bytes": 13462,
+    "sha256": "52fbe8215b6f7bc68f305314ff465f3409b5aa85ee5a4a3e274edb3780af78de",
+    "published_sha256_lf": "52fbe8215b6f7bc68f305314ff465f3409b5aa85ee5a4a3e274edb3780af78de"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingAuditCommandlet.h",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingAuditCommandlet.h",
+    "bytes": 401,
+    "sha256": "808ddaf87b282ad7ae35e7784f62e05a59334bacad4a3ccaaee46595c18e0f8b",
+    "published_sha256_lf": "808ddaf87b282ad7ae35e7784f62e05a59334bacad4a3ccaaee46595c18e0f8b"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingLayout.h",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingLayout.h",
+    "bytes": 1244,
+    "sha256": "83f3627ddb5da13ee73f9840be47852280c2246762b8849f5769fb788ac354ba",
+    "published_sha256_lf": "e21c68994e54c3ff816dcd046dd668e065a5ffbb3270764bb36c02487bb9a86f"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingNetwork.cpp",
+    "bytes": 8334,
+    "sha256": "c728c9c9c1d731528af12dd0485985b82e29e8b17005b716cbf3d80182cd7ef5",
+    "published_sha256_lf": "c728c9c9c1d731528af12dd0485985b82e29e8b17005b716cbf3d80182cd7ef5"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingNetworkAudit.cpp",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingNetworkAudit.cpp",
+    "bytes": 14450,
+    "sha256": "bd4d802848ce23c3deb45c1b3a07868bcd1941a6b039e00432407b3c718f477a",
+    "published_sha256_lf": "bd4d802848ce23c3deb45c1b3a07868bcd1941a6b039e00432407b3c718f477a"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingSelection.cpp",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingSelection.cpp",
+    "bytes": 4480,
+    "sha256": "a65a5f1fca332e180046a3cd7699653e1395541c434e54005dffc548c723414b",
+    "published_sha256_lf": "3fbd813e89f962c11b8013e48cf873cabd2c8f3db6c64335940475848bf73993"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingSystem.cpp",
+    "bytes": 17656,
+    "sha256": "93c746366cf3365f28e2596aa454791446945ef57da828b91c632e5845b40112",
+    "published_sha256_lf": "6c4918b5408b37d2b57ea5490211bb74dd3c8175d57e2eb9d2b1ca46eac5aa1d"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingSystem.h",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingSystem.h",
+    "bytes": 4895,
+    "sha256": "605feff22ca775d2a596c1893501440f4985df0118b31d207a8fbff9f691fc0f",
+    "published_sha256_lf": "605feff22ca775d2a596c1893501440f4985df0118b31d207a8fbff9f691fc0f"
+  },
+  {
+    "source": "Source/FPSGAME/Building/ColdSteelPlantingTypes.h",
+    "published": "Source/Source/FPSGAME/Building/ColdSteelPlantingTypes.h",
+    "bytes": 1979,
+    "sha256": "d8155500f51dc75b9d453314b2e0a461f2d4437d7f9d291e53922a404d1657e9",
+    "published_sha256_lf": "d8155500f51dc75b9d453314b2e0a461f2d4437d7f9d291e53922a404d1657e9"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "published": "Source/Source/FPSGAME/UI/ColdSteelPlantingWorkbench.cpp",
+    "bytes": 32063,
+    "sha256": "8acfd8acad52ab3e139705a4f65eafa69dab22cfffb0388e0ac1d222d97b2aa1",
+    "published_sha256_lf": "1d8e84b2c1b46c5165dadc8649151b1495bfefb5d41cd3f6e2d1f9e5c910bc87"
+  },
+  {
+    "source": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "published": "Source/Source/FPSGAME/Development/EnhancementEscrowWireAudit.cpp",
+    "bytes": 15946,
+    "sha256": "6fda701165bb075f27c96ad0dd08d8943ab41936013c7004f00653ad92416a43",
+    "published_sha256_lf": "6fda701165bb075f27c96ad0dd08d8943ab41936013c7004f00653ad92416a43"
+  },
+  {
+    "source": "Source/FPSGAME/Development/EnhancementEscrowWireAudit.h",
+    "published": "Source/Source/FPSGAME/Development/EnhancementEscrowWireAudit.h",
+    "bytes": 2603,
+    "sha256": "79a11476150c675ae00db0f1dc099a73876822e2a678c3a344d72e65e2d65151",
+    "published_sha256_lf": "79a11476150c675ae00db0f1dc099a73876822e2a678c3a344d72e65e2d65151"
+  },
+  {
+    "source": "Tools/UI/run_enhancement_acceptance.ps1",
+    "published": "Authors/Tools/UI/run_enhancement_acceptance.ps1",
+    "bytes": 2190,
+    "sha256": "93a112a88c772c13f6a87ff2a8a04a26414835c74fa8464a4d8553fc0837c25d",
+    "published_sha256_lf": "93a112a88c772c13f6a87ff2a8a04a26414835c74fa8464a4d8553fc0837c25d"
+  },
+  {
+    "source": "Tools/UI/run_enhancement_escrow_wire.ps1",
+    "published": "Authors/Tools/UI/run_enhancement_escrow_wire.ps1",
+    "bytes": 4679,
+    "sha256": "186c96e4a2cd0901e1bd2593b863242a7eacc3a0f61b84567a087793f1818dcd",
+    "published_sha256_lf": "ab6aa046618a3b6add1616dfd3ef8e103606d6b48852198e9761f4af067e0aab"
+  },
+  {
+    "source": "Tools/UI/capture_enhancement_preview.ps1",
+    "published": "Authors/Tools/UI/capture_enhancement_preview.ps1",
+    "bytes": 1518,
+    "sha256": "30c2f4ba5fd518a626316e9ba4e3ed37072bcf06c6ef1eb7a8b81ccd714a7d3f",
+    "published_sha256_lf": "30c2f4ba5fd518a626316e9ba4e3ed37072bcf06c6ef1eb7a8b81ccd714a7d3f"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Input/UE_Import_Manifest.json",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Input/UE_Import_Manifest.json",
+    "bytes": 6138,
+    "sha256": "f6d221eb9f0c8d939ad10b3b3ae475d7ce130621e2af1c808b45715524ce68cf",
+    "published_sha256_lf": "f6d221eb9f0c8d939ad10b3b3ae475d7ce130621e2af1c808b45715524ce68cf"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Input/UE_Material_Recipe.json",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Input/UE_Material_Recipe.json",
+    "bytes": 38713,
+    "sha256": "0de9a77a7e7148c8aacf736a8d67465019a44b51d5e66f4d313f11480d727402",
+    "published_sha256_lf": "0de9a77a7e7148c8aacf736a8d67465019a44b51d5e66f4d313f11480d727402"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/author_materials_v6.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/author_materials_v6.py",
+    "bytes": 8690,
+    "sha256": "92e2c8dde43d9c03432edab1da7174a3d1829f22bbc2d276af0919e50b3e9cea",
+    "published_sha256_lf": "a6c3dd848cc1bd592fe64647000c29a1b2c3826a7dd713030dd975d32ae381b3"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/fill_source_tangents.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/fill_source_tangents.py",
+    "bytes": 4491,
+    "sha256": "3bd151a291f88b8e8a0f8ef07f307361723b0e95d5e39327f7c15946ee99913b",
+    "published_sha256_lf": "3bd151a291f88b8e8a0f8ef07f307361723b0e95d5e39327f7c15946ee99913b"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/finish_integration_v6.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/finish_integration_v6.py",
+    "bytes": 5191,
+    "sha256": "2f9cfadff1b0036cce3b3bde916f21c714df2a7d7b369155130da7c4e35cbe24",
+    "published_sha256_lf": "2f9cfadff1b0036cce3b3bde916f21c714df2a7d7b369155130da7c4e35cbe24"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/import_mesh_v6.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/import_mesh_v6.py",
+    "bytes": 3525,
+    "sha256": "9777706f2de0484197968744c0f98e4c3095387c776e9f696382daec594b0fae",
+    "published_sha256_lf": "9777706f2de0484197968744c0f98e4c3095387c776e9f696382daec594b0fae"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/patch_ritual_pulse_v6.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/patch_ritual_pulse_v6.py",
+    "bytes": 4129,
+    "sha256": "ab6ac8053501f17d86c9e22e43ec43729c4ee77a6f5e825dba919922f7bddb0a",
+    "published_sha256_lf": "aca1f7f79a057ef7931d0267846aa73e6cfc1089a48f9a71e0421a7ff6ca5e45"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/read_import_api.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/read_import_api.py",
+    "bytes": 1231,
+    "sha256": "31219d35d256931e778ac641a67f6a2bd682afb626278bfec566169bad705caa",
+    "published_sha256_lf": "31219d35d256931e778ac641a67f6a2bd682afb626278bfec566169bad705caa"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/read_source_fbx.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/read_source_fbx.py",
+    "bytes": 2915,
+    "sha256": "115357502e05a185c944d3c918072ac099bc83066ee09381b76bf8dd6f61c6db",
+    "published_sha256_lf": "115357502e05a185c944d3c918072ac099bc83066ee09381b76bf8dd6f61c6db"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/README.md",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/README.md",
+    "bytes": 3082,
+    "sha256": "8dbc5e4e5db3077dce1ef1053ed78e5af81799cc55512a8881520e43d83ed362",
+    "published_sha256_lf": "8dbc5e4e5db3077dce1ef1053ed78e5af81799cc55512a8881520e43d83ed362"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/register_v6.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/register_v6.py",
+    "bytes": 4080,
+    "sha256": "d4840fbca2505f0a50579b97ab6c64558889ba19dcf8ef6d6b26da773ef89d60",
+    "published_sha256_lf": "dccc1b24b07296d31955d32c75ca163ff0a1d71dad2b0470cedbc76f2aabbf0f"
+  },
+  {
+    "source": "SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/reimport_fine_detail_and_register.py",
+    "published": "Authors/SourceAssets/ArcaneWorkbenchV6_20261107/Scripts/reimport_fine_detail_and_register.py",
+    "bytes": 5391,
+    "sha256": "53e44c84f6ea610f426e5909ca0c40478569b27d8a5298ec91c180ee96b5ec7c",
+    "published_sha256_lf": "53e44c84f6ea610f426e5909ca0c40478569b27d8a5298ec91c180ee96b5ec7c"
+  },
+  {
+    "source": "SourceAssets/WorkbenchMaterialUnification20261108/material_mapping.json",
+    "published": "Authors/SourceAssets/WorkbenchMaterialUnification20261108/material_mapping.json",
+    "bytes": 5479,
+    "sha256": "d44563c7b499b0a9e1ccf97c3cdd4c450834b14b8fe5228af208d4fd8b51acc0",
+    "published_sha256_lf": "36b2ef8d56436f7ede00c7e80b8c6cf0e3dd00238398e6e5a975b8a5b9b47bfe"
+  },
+  {
+    "source": "SourceAssets/WorkbenchMaterialUnification20261108/README.md",
+    "published": "Authors/SourceAssets/WorkbenchMaterialUnification20261108/README.md",
+    "bytes": 3713,
+    "sha256": "7a47dab46f4d4e82cd56e2c5686c908867064463450c2200c1b1689c547482a0",
+    "published_sha256_lf": "1b27449a89744c034c792766948d83a7e47626cc47c1414c65c1cc1ae189e001"
+  },
+  {
+    "source": "SourceAssets/WorkbenchMaterialUnification20261108/run.ps1",
+    "published": "Authors/SourceAssets/WorkbenchMaterialUnification20261108/run.ps1",
+    "bytes": 816,
+    "sha256": "c090e23e67256bb738a77360dbc73207d7e68304f17acf4ad6c06adbdd9fee3e",
+    "published_sha256_lf": "bbfdc3d3c1e6f5970117fb2ac5c5d9706ec75de3b924fb8a7733c516be5dcfc9"
+  },
+  {
+    "source": "SourceAssets/WorkbenchMaterialUnification20261108/Scripts/audit.py",
+    "published": "Authors/SourceAssets/WorkbenchMaterialUnification20261108/Scripts/audit.py",
+    "bytes": 3934,
+    "sha256": "b5b3add9d93795595e3723ad68ae0bddea2a881717bf07e4fd93f6790e1ece75",
+    "published_sha256_lf": "f3ff2f0a985d117bf25cbfd2492a2d9b5e7acaf56da510831154b144939f2fa2"
+  },
+  {
+    "source": "SourceAssets/WorkbenchMaterialUnification20261108/Scripts/author_and_apply.py",
+    "published": "Authors/SourceAssets/WorkbenchMaterialUnification20261108/Scripts/author_and_apply.py",
+    "bytes": 10576,
+    "sha256": "548acb0222d2744c3041a53d30deb708d7f9fea1585f405f20a42251979150f6",
+    "published_sha256_lf": "965881409319c40cf432e37f917843a0e6c27a041160b40a0ac2b2c014479a23"
+  },
+  {
+    "source": "SourceAssets/WorkbenchMaterialUnification20261108/Scripts/readback.py",
+    "published": "Authors/SourceAssets/WorkbenchMaterialUnification20261108/Scripts/readback.py",
+    "bytes": 2573,
+    "sha256": "925889faf3bccf15a57015855d24f310c29ae26d31a49ae2a980734218762dfc",
+    "published_sha256_lf": "a8271bddd2e5b56e59a8a15f0327ef0318b5963011702e4ad700334ffa9ce717"
+  },
+  {
+    "source": "SourceAssets/WorkbenchMaterialUnification20261108/Scripts/reapply_after_import.py",
+    "published": "Authors/SourceAssets/WorkbenchMaterialUnification20261108/Scripts/reapply_after_import.py",
+    "bytes": 2435,
+    "sha256": "61542395101ed6eadd7d8a1babf24e48f3253ccdbf55d5ef91e401c470c18231",
+    "published_sha256_lf": "fb364100cb917cb145a6912c952d663a35ce72f99ade217b9e89c8045eb29987"
+  },
+  {
+    "source": "Docs/UI/enhancement-display-model-audit-20261109.md",
+    "published": "History/Docs/UI/enhancement-display-model-audit-20261109.md",
+    "bytes": 3677,
+    "sha256": "55f40bff094261ad3cc3811bbafd83343785cf2dbe4ab179a8c871764d0ef1de",
+    "published_sha256_lf": "16c2d1f6bd718180dc9051e719a61e0668043d6ea68ea7e5d3ca94d20f00182d"
+  },
+  {
+    "source": "Docs/UI/enhancement-drag-icon-plan-20261109.md",
+    "published": "History/Docs/UI/enhancement-drag-icon-plan-20261109.md",
+    "bytes": 2177,
+    "sha256": "7dbe30b97d4d6e386a7b0c49810774b3df30acbcc03c81df8b9026a9d6525b43",
+    "published_sha256_lf": "02875687b76bbb4a896f74f72a45249ef4c61d84bac8589b35be4173b644c387"
+  },
+  {
+    "source": "Docs/UI/enhancement-escrow-plan-20261108.md",
+    "published": "History/Docs/UI/enhancement-escrow-plan-20261108.md",
+    "bytes": 5785,
+    "sha256": "d7d077299ce42bc86b36c07d5024158df5ba35630ae026107af4e573eee15f9c",
+    "published_sha256_lf": "d7d077299ce42bc86b36c07d5024158df5ba35630ae026107af4e573eee15f9c"
+  },
+  {
+    "source": "Docs/UI/enhancement-feedback-plan-20261108.md",
+    "published": "History/Docs/UI/enhancement-feedback-plan-20261108.md",
+    "bytes": 3605,
+    "sha256": "66ca7fa5689bde26e0b9c750038ff474f7bac27d7d6c5674c573fb95e4776bda",
+    "published_sha256_lf": "66ca7fa5689bde26e0b9c750038ff474f7bac27d7d6c5674c573fb95e4776bda"
+  },
+  {
+    "source": "Docs/UI/enhancement-placement-bounce-20261109.md",
+    "published": "History/Docs/UI/enhancement-placement-bounce-20261109.md",
+    "bytes": 1793,
+    "sha256": "fdbc922baedea0365f1e20f608440f9d86904696871743151cf77779f5826dd6",
+    "published_sha256_lf": "ca6ca474a796eeda4b32fe10a832109dafbf7610c0eaea7f55d3862d23d131de"
+  },
+  {
+    "source": "Docs/UI/enhancement-pointer-retrieval-plan-20261108.md",
+    "published": "History/Docs/UI/enhancement-pointer-retrieval-plan-20261108.md",
+    "bytes": 1156,
+    "sha256": "ec2cf2e934217fcb97fc7edfb747c5584124d98f6db9af368d3c76d465cfe247",
+    "published_sha256_lf": "14f59214a89e326fc5f7de74442f0adb543fccacb8c11939681def49a72fa89a"
+  },
+  {
+    "source": "Docs/UI/enhancement-world-panel-plan-20261108.md",
+    "published": "History/Docs/UI/enhancement-world-panel-plan-20261108.md",
+    "bytes": 3934,
+    "sha256": "35962b2415d00bdb4b3c5242fddfdf6545ffd14d232217628466888d6995fd2a",
+    "published_sha256_lf": "35962b2415d00bdb4b3c5242fddfdf6545ffd14d232217628466888d6995fd2a"
+  },
+  {
+    "source": "Docs/UI/arcane-world-workbench-plan-20261107.md",
+    "published": "History/Docs/UI/arcane-world-workbench-plan-20261107.md",
+    "bytes": 2014,
+    "sha256": "45860ecb146ddd331df7629293eb10de09ccab1f5d49194cfd0484f0dada44ca",
+    "published_sha256_lf": "45860ecb146ddd331df7629293eb10de09ccab1f5d49194cfd0484f0dada44ca"
+  },
+  {
+    "source": "Docs/UI/arcane-world-workbench-status-20261107.md",
+    "published": "History/Docs/UI/arcane-world-workbench-status-20261107.md",
+    "bytes": 4455,
+    "sha256": "26c907cb583244176ec01ca33d485824f8accc07a4ec04e2cee747158a616c04",
+    "published_sha256_lf": "26c907cb583244176ec01ca33d485824f8accc07a4ec04e2cee747158a616c04"
+  },
+  {
+    "source": "Docs/UI/planting-four-positions-plan-20261109.md",
+    "published": "History/Docs/UI/planting-four-positions-plan-20261109.md",
+    "bytes": 3338,
+    "sha256": "094c9629c10267313ee3ddbcfc71094cce6a7ab2b0b03cf53dd711b4ce9816b3",
+    "published_sha256_lf": "5c218df23c2ed4d24cc03a95f00fbfc125ae3278c340895a924fa9f7e42c977e"
+  },
+  {
+    "source": "Docs/Building/planting-snapshot-order-20261109.md",
+    "published": "History/Docs/Building/planting-snapshot-order-20261109.md",
+    "bytes": 3428,
+    "sha256": "cd073ac75d4127ba9857856e35b7b99d7e94057e1e2fc16df2de3111fd7b7e89",
+    "published_sha256_lf": "cd073ac75d4127ba9857856e35b7b99d7e94057e1e2fc16df2de3111fd7b7e89"
+  },
+  {
+    "source": "Docs/Multiplayer/enhancement-escrow-repair-20261109.md",
+    "published": "History/Docs/Multiplayer/enhancement-escrow-repair-20261109.md",
+    "bytes": 7616,
+    "sha256": "1da66e8a36b439360a7b15fd10311ead7c919ac5174cd8ca457818f53b4e2a97",
+    "published_sha256_lf": "af3cadeabb6e1d6822de0c12cfd2927cfbdca1ed42c3b3083e1a2a7b12325265"
+  },
+  {
+    "source": "Content/ColdSteelData/planting_rules.json",
+    "published": "Config/Content/ColdSteelData/planting_rules.json",
+    "bytes": 2564,
+    "sha256": "1faa40834f947d10d65a0ce8fa13b51e291350e89003b677a08fede319a8b889",
+    "published_sha256_lf": "fe7e03f53e643bd3c62ace47313e51d8c059990c790e692209541c61ca4f8489"
+  }
+]

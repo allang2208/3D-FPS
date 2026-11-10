@@ -25,3 +25,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 暴击类词条的三个口径（倍率 `1.80x`／伤害加成 `+25%`／点数 `+10%`）与浮窗映射写法，读取 [暴击相关术语](references/critical-damage-wording.md)。
 
 - 玻璃容器式能量条顶部补全、上下端帽对称及魔法漂浮光粒，读取 [浮动能量条端帽](references/energy-vessel-caps.md)，使用实际布局反射并保留版本间制作输入。
+
+- 世界工作台拖动卡片、场景命中坐标及四位置种植布局，读取 [工作台拖动与四位置种植](references/world-workbench-drag-and-four-plots.md)。

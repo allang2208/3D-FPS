@@ -1,0 +1,14 @@
+[
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp",
+    "patch": "Integration/neutral-harvest-profile.patch",
+    "context": "fragment-only; locate exact context manually; not an entire-file patch",
+    "before_sha256_lf": "2ff0eb05795813333c945481bc1c2eb7893655551aab159827642d96e20df97b",
+    "after_sha256_lf": "71be4d4a09d2a1279388574b3858c428d72cddc1db85b8ea5a9fe38bcc1ccf81"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "excerpt": "Integration/rotated-footprint.cpp.fragment",
+    "purpose": "Canonicalize placement dimensions before catalog and instance comparison; preserve fixed-blade migration; restore rotation after validation. Merge into existing sanitizer, not a compilation unit."
+  }
+]

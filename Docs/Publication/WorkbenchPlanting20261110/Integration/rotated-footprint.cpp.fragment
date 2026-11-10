@@ -1,0 +1,25 @@
+    // Normalize placement dimensions before comparing with the unrotated JSON
+    // and catalog. Comparing a rotated 2x3 pistol directly to its 3x2 catalog
+    // grows both axes to 3, including escrow uploaded to a new host.
+    int32 Width=FMath::Max(1,Item.bRotated?Item.Height:Item.Width);
+    int32 Height=FMath::Max(1,Item.bRotated?Item.Width:Item.Height);
+    double GridValue=0.;
+    if(Data->TryGetNumberField(TEXT("grid_w"),GridValue))Width=FMath::Max(Width,int32(GridValue));
+    if(Data->TryGetNumberField(TEXT("grid_h"),GridValue))Height=FMath::Max(Height,int32(GridValue));
+    double CatalogGrid=0.;
+    if(Catalog->TryGetNumberField(TEXT("grid_w"),CatalogGrid))Width=FMath::Max(Width,int32(CatalogGrid));
+    if(Catalog->TryGetNumberField(TEXT("grid_h"),CatalogGrid))Height=FMath::Max(Height,int32(CatalogGrid));
+    // These two fixed-footprint weapons may arrive rotated, or with the old 2x3 axe snapshot.
+    // JSON stores their unrotated footprint; Width/Height describe their current placement.
+    const bool FixedBladeGrid=Item.Definition==TEXT("ue_tactical_hatchet")||Item.Definition==TEXT("ue_kukri");
+    if(FixedBladeGrid)
+    {
+        Width=int32(Catalog->GetNumberField(TEXT("grid_w")));
+        Height=int32(Catalog->GetNumberField(TEXT("grid_h")));
+    }
+    Width=FMath::Clamp(Width,1,ColdSteelWarehouse::Columns);
+    Height=FMath::Clamp(Height,1,ColdSteelWarehouse::Rows);
+    Data->SetNumberField(TEXT("grid_w"),Width);
+    Data->SetNumberField(TEXT("grid_h"),Height);
+    Item.Width=Item.bRotated?Height:Width;
+    Item.Height=Item.bRotated?Width:Height;

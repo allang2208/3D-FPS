@@ -1,0 +1,125 @@
+{
+  "files": 14,
+  "bytes": 197826,
+  "manifest_local": "trash/WorkbenchPlanting20261110/manifest.json",
+  "retained": [
+    "all active Content and Saved",
+    "material Before rollback packages",
+    "display audit Before integration references",
+    "authoring inputs and receipts"
+  ],
+  "entries": [
+    {
+      "source": "Work/EnhancementPlacement20261109-002308/Source/FPSGAME/Building/EnhancementWorldView.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPlacement20261109-002308/Source/FPSGAME/Building/EnhancementWorldView.cpp",
+      "bytes": 12580,
+      "sha256": "4658faadfdd275062fe4352565548bbf68adb1950e9cb93bd7b59856a4ba45be",
+      "retained_replacement": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPlacement20261109-002308/Source/FPSGAME/Building/EnhancementWorldView.h",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPlacement20261109-002308/Source/FPSGAME/Building/EnhancementWorldView.h",
+      "bytes": 2021,
+      "sha256": "ddba4fb5af536fa56d5671db2521de46f8a6453953303d7e06a2a9ba1bff26cb",
+      "retained_replacement": "Source/FPSGAME/Building/EnhancementWorldView.h",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+      "bytes": 33566,
+      "sha256": "c58cbdde88de65a1ddaa3a120a4253b9d62c205c5c69c5e5abef25f8b618a07e",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "bytes": 6146,
+      "sha256": "2fe4c326117501ef0d0b0fa7fa5961238a927e05029b7ce4c5274a9fb83100ec",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+      "bytes": 8436,
+      "sha256": "3336576fd7a819c0822245dd8f455ebf3356aa969ce47f301b9284d06a8ddac3",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelPickup.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelPickup.cpp",
+      "bytes": 7123,
+      "sha256": "d4d115265fd9b084ffa5e9419738df0aa79ef09401e745ed8764ed1486d462a2",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelPickup.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelPickup.h",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPlacement20261109-002308/Source/FPSGAME/UI/ColdSteelPickup.h",
+      "bytes": 3183,
+      "sha256": "aab47aec0bc183b78dfac0e80e015ac1eef37595c6e814a7e60646528e04ac17",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelPickup.h",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPointer20261108-221346/Source/FPSGAME/Building/EnhancementWorldView.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPointer20261108-221346/Source/FPSGAME/Building/EnhancementWorldView.cpp",
+      "bytes": 10301,
+      "sha256": "569bd336f6c7c2063c10805b9f9c7808027100605d56523d1ce9c1ee44de3d83",
+      "retained_replacement": "Source/FPSGAME/Building/EnhancementWorldView.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPointer20261108-221346/Source/FPSGAME/Building/EnhancementWorldView.h",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPointer20261108-221346/Source/FPSGAME/Building/EnhancementWorldView.h",
+      "bytes": 1823,
+      "sha256": "8352b22491bcd21d95069048bbe329abfb33c3b9975598a91a4f275e21452145",
+      "retained_replacement": "Source/FPSGAME/Building/EnhancementWorldView.h",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+      "bytes": 31882,
+      "sha256": "14e772f111f7efe012abb404137019ce8b2634ccae8e776494cffc83f7ab4624",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+      "bytes": 33404,
+      "sha256": "0aaa1b64eb427e323c22b8299ce0eb4739a124f8850e2414153e0bb6f72a8c6d",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "bytes": 4870,
+      "sha256": "509ef02dff1eced26ef1a74d31ced85baffa6908b4df3dd9545b16c801770d8a",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+      "bytes": 2972,
+      "sha256": "4aac29e09f9550f242defc27871453a8cd76c7b73db62436da721c0636b960d0",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelEnhancementWorldUI.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    },
+    {
+      "source": "Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "destination": "trash/WorkbenchPlanting20261110/Work/EnhancementPointer20261108-221346/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "bytes": 39519,
+      "sha256": "0954662b4d134f54330e4ab53a4859c7064107eff9b2c7b9bbcbfbd1453753ec",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "reason": "Superseded pre-edit source backup; current implementation and historical evidence remain in production paths."
+    }
+  ]
+}

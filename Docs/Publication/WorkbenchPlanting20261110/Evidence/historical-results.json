@@ -1,0 +1,1483 @@
+[
+  {
+    "source": "Saved/EnhancementEscrowRepair20261109/authority-resume2/write.json",
+    "sha256": "f0c09028d9f761842c2ecd56e5aa10e9c2fbb1ebb7af6d2d8771a0292a785b1a",
+    "result": {
+      "checks": [
+        {
+          "case": "isolated audit profile and enhancement catalog",
+          "passed": true
+        },
+        {
+          "case": "seed uses official inventory placement and isolated save",
+          "passed": true
+        },
+        {
+          "case": "inventory item cannot be processed before escrow transfer",
+          "passed": true
+        },
+        {
+          "case": "place removes inventory copy and retains rotated footprint and ammunition",
+          "passed": true
+        },
+        {
+          "case": "stale expected escrow cannot replace or change generation",
+          "passed": true
+        },
+        {
+          "case": "escrow quote is valid and read-only",
+          "passed": true
+        },
+        {
+          "case": "processing modifies escrow and debits exact costs once",
+          "passed": true
+        },
+        {
+          "case": "repeated quote cannot charge twice",
+          "passed": true
+        },
+        {
+          "case": "failed processing save rolls back escrow and all costs",
+          "passed": true
+        },
+        {
+          "case": "failed replacement save retains both identities at original locations",
+          "passed": true
+        },
+        {
+          "case": "replace returns old escrow and removes new inventory copy atomically",
+          "passed": true
+        },
+        {
+          "case": "retrieve restores one inventory copy and clears escrow",
+          "passed": true
+        },
+        {
+          "case": "repeated retrieve rejects without duplication",
+          "passed": true
+        },
+        {
+          "case": "processed rotated pistol can return to escrow",
+          "passed": true
+        },
+        {
+          "case": "full-backpack fixture validates and saves",
+          "passed": true
+        },
+        {
+          "case": "full backpack keeps escrow and generation unchanged",
+          "passed": true
+        },
+        {
+          "case": "full backpack rejects replacement atomically and leaves incoming weapon equipped",
+          "passed": true
+        },
+        {
+          "case": "restore free-space fixture",
+          "passed": true
+        },
+        {
+          "case": "network envelope round trip preserves complete escrow state",
+          "passed": true
+        },
+        {
+          "case": "new host sanitizes rotated escrow without 3x3 expansion or duplicate inventory copy",
+          "passed": true
+        },
+        {
+          "case": "sanitized upload creates guest shadow",
+          "passed": true
+        },
+        {
+          "case": "stale whole-profile upload cannot erase existing authority escrow",
+          "passed": true
+        },
+        {
+          "case": "guest authority retrieves only its own escrow",
+          "passed": true
+        },
+        {
+          "case": "guest transaction leaves host inventory and escrow untouched",
+          "passed": true
+        },
+        {
+          "case": "catalog footprint sanitizer is orientation-correct and idempotent",
+          "passed": true
+        },
+        {
+          "case": "catalog footprint sanitizer is orientation-correct and idempotent",
+          "passed": true
+        },
+        {
+          "case": "catalog footprint sanitizer is orientation-correct and idempotent",
+          "passed": true
+        },
+        {
+          "case": "catalog footprint sanitizer is orientation-correct and idempotent",
+          "passed": true
+        },
+        {
+          "case": "catalog footprint sanitizer is orientation-correct and idempotent",
+          "passed": true
+        },
+        {
+          "case": "catalog footprint sanitizer is orientation-correct and idempotent",
+          "passed": true
+        },
+        {
+          "case": "catalog footprint sanitizer is orientation-correct and idempotent",
+          "passed": true
+        },
+        {
+          "case": "catalog footprint sanitizer is orientation-correct and idempotent",
+          "passed": true
+        },
+        {
+          "case": "disk reload restores committed escrow after failed saves and guest operations",
+          "passed": true
+        }
+      ],
+      "failures": 0,
+      "profile": "EnhancementEscrowAudit_51808db9d73d4e9983f7b0a28867be8d",
+      "udp_or_multiplayer_runtime": false,
+      "visuals_tested": false
+    }
+  },
+  {
+    "source": "Saved/EnhancementEscrowRepair20261109/authority-resume2/reload.json",
+    "sha256": "ea770801966a272ba86e0c2868679dd158c68b24065eb4c3c787f7fe36ccfba4",
+    "result": {
+      "checks": [
+        {
+          "case": "isolated audit profile and enhancement catalog",
+          "passed": true
+        },
+        {
+          "case": "fresh process restores exactly one rotated escrow pistol and its ammunition",
+          "passed": true
+        },
+        {
+          "case": "fresh process restores paid enhancement",
+          "passed": true
+        }
+      ],
+      "failures": 0,
+      "profile": "EnhancementEscrowAudit_51808db9d73d4e9983f7b0a28867be8d",
+      "udp_or_multiplayer_runtime": false,
+      "visuals_tested": false
+    }
+  },
+  {
+    "source": "Saved/EnhancementEscrowRepair20261109/wire-final7/host.json",
+    "sha256": "635c64495e68a109175b8980512145043f89b50fc600b961f39c8e7c4beb8485",
+    "result": {
+      "passed": true,
+      "role": "listen-host",
+      "checks": [
+        {
+          "phase": 0,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 1,
+          "notice": "装备已取回背包并保存"
+        },
+        {
+          "phase": 1,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 2,
+          "notice": "装备已放入工作台并保存"
+        },
+        {
+          "phase": 2,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 2,
+          "notice": "工作台物品已变化，请同步后重试"
+        },
+        {
+          "phase": 3,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 3,
+          "notice": "已替换暂存装备，原装备已返回背包"
+        },
+        {
+          "phase": 4,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 4,
+          "notice": "装备已取回背包并保存"
+        },
+        {
+          "phase": 5,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 5,
+          "notice": "装备已放入工作台并保存"
+        },
+        {
+          "phase": 6,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 6,
+          "notice": "强化成功，已保存"
+        },
+        {
+          "phase": 7,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 6,
+          "notice": "武器已变化，请重新选择"
+        },
+        {
+          "phase": 8,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 6,
+          "notice": "背包没有连续空间，装备仍安全保存在工作台"
+        },
+        {
+          "phase": 9,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 6,
+          "notice": "背包没有连续空间放回原装备，两件装备均保持原处"
+        },
+        {
+          "phase": 10,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 6,
+          "notice": "saved escrow before reconnect"
+        },
+        {
+          "phase": 12,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 6,
+          "notice": "five ordered/stale planting snapshots traversed UDP; no planting action coverage"
+        },
+        {
+          "phase": 11,
+          "passed": true,
+          "owner_passed": true,
+          "owner_revision": 7,
+          "notice": "装备已取回背包并保存"
+        }
+      ],
+      "real_udp_inventory_rpc": true,
+      "visuals_tested": false,
+      "planting_scope": "snapshot transport and ApplyNetworkState ordering only; no planting action RPC"
+    }
+  },
+  {
+    "source": "Saved/EnhancementEscrowRepair20261109/wire-final7/guest-first.json",
+    "sha256": "ca1e66aa01538ca4cc588f991379d1aa586f60025ee9d6111f89b5dbf45e5d06",
+    "result": {
+      "passed": true,
+      "role": "client",
+      "checks": [],
+      "real_udp_inventory_rpc": true,
+      "visuals_tested": false,
+      "planting_scope": "snapshot transport and ApplyNetworkState ordering only; no planting action RPC"
+    }
+  },
+  {
+    "source": "Saved/EnhancementEscrowRepair20261109/wire-final7/guest-reconnect.json",
+    "sha256": "ca1e66aa01538ca4cc588f991379d1aa586f60025ee9d6111f89b5dbf45e5d06",
+    "result": {
+      "passed": true,
+      "role": "client",
+      "checks": [],
+      "real_udp_inventory_rpc": true,
+      "visuals_tested": false,
+      "planting_scope": "snapshot transport and ApplyNetworkState ordering only; no planting action RPC"
+    }
+  },
+  {
+    "source": "Saved/EnhancementEscrowRepair20261109/wire-final7/save-integrity.json",
+    "sha256": "569801779929bfb5b30b980870fb096cf5d6d1ea20b8b3d02708b2500efcf993",
+    "result": {
+      "before": 5199,
+      "after": 5207,
+      "differences": 8
+    }
+  },
+  {
+    "source": "Saved/EnhancementDisplayAudit20261109/report.json",
+    "sha256": "b2e8d6d25b05e8fd06b6cd578de5f8c9a67d0aabd0081310a2c04d54bffc9fd0",
+    "result": {
+      "definitions": 69,
+      "viper_option_cases": 25,
+      "cases": 95,
+      "failures": 0,
+      "results": [
+        {
+          "definition": "bow_dark",
+          "case": "factory",
+          "extent_cm": "X=14.017 Y=7.700 Z=70.910",
+          "visible_components": 6,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "bow_woodsteel",
+          "case": "factory",
+          "extent_cm": "X=10.653 Y=5.390 Z=90.000",
+          "visible_components": 5,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "tool_axe",
+          "case": "factory",
+          "extent_cm": "X=11.528 Y=3.859 Z=38.987",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "tool_pickaxe",
+          "case": "factory",
+          "extent_cm": "X=15.760 Y=2.409 Z=42.008",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "tool_shovel",
+          "case": "factory",
+          "extent_cm": "X=49.244 Y=11.124 Z=7.177",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_a762",
+          "case": "factory",
+          "extent_cm": "X=45.614 Y=2.501 Z=13.080",
+          "visible_components": 3,
+          "max_bone_position_error_cm": 2.0333079250749998e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_akm",
+          "case": "factory",
+          "extent_cm": "X=43.717 Y=3.519 Z=12.946",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 1.9552839924325857e-13,
+          "geometry_center_cm": "X=-0.000 Y=-0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_alchemy_spellbook",
+          "case": "factory",
+          "extent_cm": "X=7.759 Y=12.093 Z=2.850",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_apprentice_staff",
+          "case": "factory",
+          "extent_cm": "X=4.981 Y=4.520 Z=79.982",
+          "visible_components": 3,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_arcane_conduit_belt",
+          "case": "factory",
+          "extent_cm": "X=19.697 Y=14.215 Z=4.770",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_armored_boots",
+          "case": "factory",
+          "extent_cm": "X=23.797 Y=15.505 Z=20.836",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_ash12",
+          "case": "factory",
+          "extent_cm": "X=41.965 Y=3.165 Z=16.479",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.017631734311916e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_blue_mage_boots",
+          "case": "factory",
+          "extent_cm": "X=23.493 Y=15.682 Z=19.730",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_blue_mage_gloves",
+          "case": "factory",
+          "extent_cm": "X=6.245 Y=11.710 Z=6.259",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_blue_mage_hat",
+          "case": "factory",
+          "extent_cm": "X=23.095 Y=21.595 Z=20.643",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_blue_mage_pants",
+          "case": "factory",
+          "extent_cm": "X=21.239 Y=45.250 Z=14.587",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_blue_mage_robe",
+          "case": "factory",
+          "extent_cm": "X=45.520 Y=69.644 Z=24.479",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_boots",
+          "case": "factory",
+          "extent_cm": "X=23.278 Y=14.985 Z=12.142",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_cargo_pants",
+          "case": "factory",
+          "extent_cm": "X=20.205 Y=43.039 Z=5.183",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_chainmail_pants",
+          "case": "factory",
+          "extent_cm": "X=20.611 Y=44.553 Z=14.877",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_chainmail_shirt",
+          "case": "factory",
+          "extent_cm": "X=46.900 Y=34.292 Z=14.499",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_charcoal_sports_cap",
+          "case": "factory",
+          "extent_cm": "X=9.076 Y=12.898 Z=5.680",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_dan_wesson715",
+          "case": "factory",
+          "extent_cm": "X=15.469 Y=2.000 Z=8.079",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 1.7161907811358853e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_field_gloves",
+          "case": "factory",
+          "extent_cm": "X=5.922 Y=8.302 Z=4.574",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_field_hat",
+          "case": "factory",
+          "extent_cm": "X=15.354 Y=15.641 Z=5.620",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_field_sweater",
+          "case": "factory",
+          "extent_cm": "X=47.093 Y=35.547 Z=14.770",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_frost_crystal_sword",
+          "case": "factory",
+          "extent_cm": "X=10.884 Y=3.858 Z=54.704",
+          "visible_components": 4,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_g18",
+          "case": "factory",
+          "extent_cm": "X=10.243 Y=2.000 Z=7.893",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.5959369515218223e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_hardknuckle_gloves",
+          "case": "factory",
+          "extent_cm": "X=55.948 Y=9.492 Z=10.827",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_highland_claymore",
+          "case": "factory",
+          "extent_cm": "X=17.780 Y=2.442 Z=58.650",
+          "visible_components": 4,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_hk416",
+          "case": "factory",
+          "extent_cm": "X=37.800 Y=3.541 Z=14.516",
+          "visible_components": 3,
+          "max_bone_position_error_cm": 8.705960933385516e-14,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_kukri",
+          "case": "factory",
+          "extent_cm": "X=4.843 Y=1.132 Z=20.888",
+          "visible_components": 4,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_leather_boots",
+          "case": "factory",
+          "extent_cm": "X=22.717 Y=15.233 Z=20.643",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_leather_pants",
+          "case": "factory",
+          "extent_cm": "X=20.264 Y=44.213 Z=14.816",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_leather_quiver_belt",
+          "case": "factory",
+          "extent_cm": "X=21.545 Y=13.886 Z=26.018",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_lmg201",
+          "case": "factory",
+          "extent_cm": "X=55.112 Y=11.673 Z=15.242",
+          "visible_components": 6,
+          "max_bone_position_error_cm": 2.207261867256572e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_m16a2",
+          "case": "factory",
+          "extent_cm": "X=55.823 Y=4.197 Z=15.027",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.1538097764547733e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_m1911",
+          "case": "factory",
+          "extent_cm": "X=11.620 Y=2.000 Z=7.216",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.408848315030303e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_m24",
+          "case": "factory",
+          "extent_cm": "X=61.033 Y=5.490 Z=15.380",
+          "visible_components": 4,
+          "max_bone_position_error_cm": 2.7282551122106194e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_m249",
+          "case": "factory",
+          "extent_cm": "X=49.386 Y=11.776 Z=15.883",
+          "visible_components": 4,
+          "max_bone_position_error_cm": 2.1604472231488745e-13,
+          "geometry_center_cm": "X=-0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_m4a1",
+          "case": "factory",
+          "extent_cm": "X=34.482 Y=3.527 Z=12.887",
+          "visible_components": 3,
+          "max_bone_position_error_cm": 1.3960585496180532e-13,
+          "geometry_center_cm": "X=-0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_m870",
+          "case": "factory",
+          "extent_cm": "X=49.712 Y=2.189 Z=9.794",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 1.598449744571388e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_melee_combat_belt",
+          "case": "factory",
+          "extent_cm": "X=20.373 Y=15.092 Z=5.995",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_original_gloves",
+          "case": "factory",
+          "extent_cm": "X=6.246 Y=11.665 Z=6.165",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "factory",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.4382722009873373e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "optic=false",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "optic=holographic",
+          "extent_cm": "X=11.101 Y=2.000 Z=9.661",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "optic=panoramic_red_dot",
+          "extent_cm": "X=11.101 Y=2.000 Z=9.137",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "optic=eoth_holographic",
+          "extent_cm": "X=11.101 Y=2.000 Z=9.551",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "optic=thermal_scope",
+          "extent_cm": "X=11.311 Y=3.145 Z=10.979",
+          "visible_components": 3,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "muzzle=false",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "muzzle=true",
+          "extent_cm": "X=17.611 Y=2.000 Z=7.745",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "muzzle=tactical_suppressor",
+          "extent_cm": "X=17.617 Y=2.000 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "muzzle=brake",
+          "extent_cm": "X=12.801 Y=2.000 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "muzzle=multi_caliber_suppressor",
+          "extent_cm": "X=20.777 Y=2.000 Z=7.825",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "muzzle=pit_viper_si_compensator",
+          "extent_cm": "X=12.551 Y=2.000 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "magazine=false",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "magazine=ext_mag",
+          "extent_cm": "X=11.101 Y=2.401 Z=8.682",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "reargrip=false",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "reargrip=pistol_grip_granular",
+          "extent_cm": "X=11.101 Y=2.085 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "reargrip=pistol_grip_diamond",
+          "extent_cm": "X=11.101 Y=2.085 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "reargrip=pistol_grip_quickdot",
+          "extent_cm": "X=11.101 Y=2.085 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "reargrip=pit_viper_vip_scales",
+          "extent_cm": "X=11.101 Y=2.103 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "tactical=false",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "tactical=laser",
+          "extent_cm": "X=11.601 Y=2.000 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "tactical=flashlight",
+          "extent_cm": "X=12.932 Y=2.000 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "tactical=blessed_laser",
+          "extent_cm": "X=11.636 Y=2.000 Z=7.738",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "trigger=false",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "trigger=pit_viper_lightweight_fast",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "trigger=legendary_full_auto_trigger",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pit_viper2011",
+          "case": "factory_after_variants",
+          "extent_cm": "X=11.101 Y=2.000 Z=7.738",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.381262495572287e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_pkm_lowpoly",
+          "case": "factory",
+          "extent_cm": "X=60.463 Y=11.345 Z=14.252",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.3695728022349504e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_qbz191",
+          "case": "factory",
+          "extent_cm": "X=38.766 Y=3.203 Z=13.534",
+          "visible_components": 3,
+          "max_bone_position_error_cm": 1.9773692312585288e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_ranger_feather_hat",
+          "case": "factory",
+          "extent_cm": "X=11.228 Y=16.970 Z=7.637",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_rsh12",
+          "case": "factory",
+          "extent_cm": "X=17.066 Y=2.526 Z=8.185",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 1.995779598093077e-13,
+          "geometry_center_cm": "X=0.000 Y=-0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_rune_sword",
+          "case": "factory",
+          "extent_cm": "X=18.111 Y=4.342 Z=54.704",
+          "visible_components": 4,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_runebound_warhammer",
+          "case": "factory",
+          "extent_cm": "X=14.354 Y=4.368 Z=57.500",
+          "visible_components": 6,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_saiga12k",
+          "case": "factory",
+          "extent_cm": "X=45.117 Y=2.529 Z=11.409",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 1.9552839924325857e-13,
+          "geometry_center_cm": "X=-0.000 Y=-0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_st6_sleeves",
+          "case": "factory",
+          "extent_cm": "X=47.308 Y=13.776 Z=28.228",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_st6_tactical_boots",
+          "case": "factory",
+          "extent_cm": "X=23.748 Y=15.742 Z=14.695",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_st6_tactical_helmet",
+          "case": "factory",
+          "extent_cm": "X=12.021 Y=12.899 Z=5.550",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_st6_tactical_pants",
+          "case": "factory",
+          "extent_cm": "X=19.505 Y=43.257 Z=14.458",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_steel_armet",
+          "case": "factory",
+          "extent_cm": "X=12.284 Y=13.173 Z=16.949",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_steel_gauntlets",
+          "case": "factory",
+          "extent_cm": "X=6.775 Y=12.293 Z=4.173",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_steel_warhammer",
+          "case": "factory",
+          "extent_cm": "X=15.720 Y=4.689 Z=57.500",
+          "visible_components": 6,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_super90",
+          "case": "factory",
+          "extent_cm": "X=49.775 Y=3.029 Z=10.879",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 1.0363942341353168e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=-0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_svch",
+          "case": "factory",
+          "extent_cm": "X=44.447 Y=3.501 Z=10.973",
+          "visible_components": 2,
+          "max_bone_position_error_cm": 2.275141446545404e-13,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_svd",
+          "case": "factory",
+          "extent_cm": "X=61.250 Y=3.871 Z=11.699",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 2.275141446545404e-13,
+          "geometry_center_cm": "X=-0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_tactical_hatchet",
+          "case": "factory",
+          "extent_cm": "X=10.463 Y=1.593 Z=21.000",
+          "visible_components": 3,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_tactical_magazine_belt",
+          "case": "factory",
+          "extent_cm": "X=21.314 Y=14.942 Z=8.215",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_tang_dao",
+          "case": "factory",
+          "extent_cm": "X=8.648 Y=5.925 Z=58.350",
+          "visible_components": 4,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_thunder_god_hammer",
+          "case": "factory",
+          "extent_cm": "X=17.069 Y=5.907 Z=57.500",
+          "visible_components": 6,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_work_jacket",
+          "case": "factory",
+          "extent_cm": "X=16.299 Y=38.731 Z=30.071",
+          "visible_components": 1,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_xuanchi_zhenyue",
+          "case": "factory",
+          "extent_cm": "X=10.233 Y=3.205 Z=94.750",
+          "visible_components": 5,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        },
+        {
+          "definition": "ue_zhanmadao",
+          "case": "factory",
+          "extent_cm": "X=6.447 Y=3.680 Z=80.066",
+          "visible_components": 4,
+          "max_bone_position_error_cm": 0,
+          "geometry_center_cm": "X=0.000 Y=0.000 Z=0.000",
+          "pass": true,
+          "errors": []
+        }
+      ],
+      "scope": "All enhancement-eligible factory definitions and Viper individual options. Structural pose, bounds, transforms only; not rendered or mouse-input certification."
+    }
+  },
+  {
+    "source": "SourceAssets/WorkbenchMaterialUnification20261108/Receipts/readback.json",
+    "sha256": "ef3456e5fa520438a0b8dda1eefb8eab5ef0d322575e306d202aaf1f595dc2a3",
+    "result": {
+      "meshes": [
+        {
+          "asset": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench",
+          "binding_matches": true,
+          "triangles": [
+            241967
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyHeatControl.SM_AlchemyHeatControl",
+          "binding_matches": true,
+          "triangles": [
+            4340
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyHeatKnob.SM_AlchemyHeatKnob",
+          "binding_matches": true,
+          "triangles": [
+            12604
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyMortarHover.SM_AlchemyMortarHover",
+          "binding_matches": true,
+          "triangles": [
+            864
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyReagentTray.SM_AlchemyReagentTray",
+          "binding_matches": true,
+          "triangles": [
+            2616
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyTransferGrain.SM_AlchemyTransferGrain",
+          "binding_matches": true,
+          "triangles": [
+            288
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/InteractionV7/SM_AlchemyTransferRing.SM_AlchemyTransferRing",
+          "binding_matches": true,
+          "triangles": [
+            576
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RefinementV4/SM_AlchemyToolRests.SM_AlchemyToolRests",
+          "binding_matches": true,
+          "triangles": [
+            1504
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyBook.SM_AlchemyBook",
+          "binding_matches": true,
+          "triangles": [
+            4968
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyDose.SM_AlchemyDose",
+          "binding_matches": true,
+          "triangles": [
+            3840
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyFolioClosed.SM_AlchemyFolioClosed",
+          "binding_matches": true,
+          "triangles": [
+            1528
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyHeater.SM_AlchemyHeater",
+          "binding_matches": true,
+          "triangles": [
+            18496
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyHourglass.SM_AlchemyHourglass",
+          "binding_matches": true,
+          "triangles": [
+            2784
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyLadle.SM_AlchemyLadle",
+          "binding_matches": true,
+          "triangles": [
+            4092
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyPage.SM_AlchemyPage",
+          "binding_matches": true,
+          "triangles": [
+            188
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyPestle.SM_AlchemyPestle",
+          "binding_matches": true,
+          "triangles": [
+            480
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemySand.SM_AlchemySand",
+          "binding_matches": true,
+          "triangles": [
+            288
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/RuntimeV2/Meshes/SM_AlchemyStirrer.SM_AlchemyStirrer",
+          "binding_matches": true,
+          "triangles": [
+            3612
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/ThermometerV9/SM_AlchemyBody.SM_AlchemyBody",
+          "binding_matches": true,
+          "triangles": [
+            458150,
+            238070,
+            100520
+          ]
+        },
+        {
+          "asset": "/Game/Building/PotionWorkbench20261015/V1/Meshes/SM_PotionWorkbench.SM_PotionWorkbench",
+          "binding_matches": true,
+          "triangles": [
+            478870,
+            248828,
+            105051
+          ]
+        },
+        {
+          "asset": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBench.SM_WoodworkingBench",
+          "binding_matches": true,
+          "triangles": [
+            165880,
+            91082,
+            39554
+          ]
+        },
+        {
+          "asset": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBenchBody.SM_WoodworkingBenchBody",
+          "binding_matches": true,
+          "triangles": [
+            164600,
+            90378,
+            39247
+          ]
+        },
+        {
+          "asset": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingSawBlade.SM_WoodworkingSawBlade",
+          "binding_matches": true,
+          "triangles": [
+            1280,
+            704,
+            434
+          ]
+        },
+        {
+          "asset": "/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench",
+          "binding_matches": true,
+          "triangles": [
+            2536
+          ]
+        }
+      ],
+      "materials": [
+        "/Game/Building/WorkbenchSurfaces20261108/MI_WBU_UsedBenchWood.MI_WBU_UsedBenchWood",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_BenchWood.M_WBU_BenchWood",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_EndGrain.M_WBU_EndGrain",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_GunProps.M_WBU_GunProps",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_MachinedSteel.M_WBU_MachinedSteel",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_PotionProps.M_WBU_PotionProps",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_RackPaint.M_WBU_RackPaint",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_RubberGrip.M_WBU_RubberGrip",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_SiliconePad.M_WBU_SiliconePad",
+        "/Game/Building/WorkbenchSurfaces20261108/M_WBU_WoodworkingProps.M_WBU_WoodworkingProps"
+      ],
+      "palette": [
+        {
+          "id": "workbench_table",
+          "surface": "/Game/Building/WorkbenchSurfaces20261108/MI_WBU_UsedBenchWood.MI_WBU_UsedBenchWood"
+        },
+        {
+          "id": "gun_workbench_table",
+          "surface": "/Game/Building/WorkbenchSurfaces20261108/MI_WBU_UsedBenchWood.MI_WBU_UsedBenchWood"
+        }
+      ],
+      "missing_textures": [],
+      "errors": [],
+      "game_tested": false,
+      "visual_tested": false,
+      "status": "asset_readback_passed"
+    }
+  }
+]

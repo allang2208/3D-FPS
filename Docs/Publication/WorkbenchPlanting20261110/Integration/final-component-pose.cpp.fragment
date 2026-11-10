@@ -1,0 +1,14 @@
+    // Copy the final evaluated component-space pose, including procedural belt
+    // and carry-handle corrections. CopyPoseFromSkeletalComponent only copies
+    // animation-local bones, so it drops those final layers on PKM / LMG201.
+    const auto& SourcePose=Source->GetComponentSpaceTransforms();
+    const auto& Reference=Asset->GetRefSkeleton();
+    if(SourcePose.Num()!=Reference.GetNum())return false;
+    Weapon->SetSkinnedAssetAndUpdate(Asset);
+    for(int32 Bone=0;Bone<SourcePose.Num();++Bone)
+    {
+        const int32 Parent=Reference.GetParentIndex(Bone);
+        Weapon->BoneSpaceTransforms[Bone]=Parent==INDEX_NONE?SourcePose[Bone]
+            :SourcePose[Bone].GetRelativeTransform(SourcePose[Parent]);
+        Weapon->BoneSpaceTransforms[Bone].NormalizeRotation();
+    }

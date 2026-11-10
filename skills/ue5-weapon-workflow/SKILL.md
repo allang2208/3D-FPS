@@ -62,3 +62,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 涉及快速近战改造、伤害通道及检视声音时，读取 [快速近战改造、伤害通道及检视声音](references/quick-combat-variants.md)。
 
 - M249 六槽改造、侧插供弹、脚架、瞄具瞳距和逐件材质，读取[M249 模块化接入](references/m249-modular-integration.md)。区分当前资产与已退役方案，手部精修转对应手臂参考。
+
+- 武器放到工作台后散架、配件错位或展示未就绪，读取 [工作台冻结姿态](references/workbench-frozen-pose.md)。
