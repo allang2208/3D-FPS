@@ -1,0 +1,307 @@
+[
+  {
+    "source": "Source/FPSGAME/Production/WarhammerShockwave.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "void AWarhammerShockwave::SetLeapTraining(UColdSteelStatusModel* Profile)\n{\n    if(HasAuthority())LeapRewardModel=Profile;\n}\nvoid AWarhammerShockwave::EndPlay(const EEndPlayReason::Type Reason)\n{\n    auto* Reward=LeapRewardModel.Get();LeapRewardModel.Reset();\n    if(HasAuthority()&&Reward)Reward->TrainLeapStrike(LeapKills);\n    Super::EndPlay(Reason);\n}\n"
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    friend class ULeapStrikeAuditCommandlet;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    P.ChainSlashCooldown = P.ChainSlashCooldownDuration = 0.f;\n    P.LeapStrikeCooldown = P.LeapStrikeCooldownDuration = 0.f;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    State.ChainSlashCooldown=ShadowModel->Current.ChainSlashCooldown;\n    State.LeapStrikeCooldown=ShadowModel->Current.LeapStrikeCooldown;\n    State.ChainSlashCooldownDuration=ShadowModel->Current.ChainSlashCooldownDuration;\n    State.LeapStrikeCooldownDuration=ShadowModel->Current.LeapStrikeCooldownDuration;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "        if(Definition->Id==TEXT(\"chainSlash\")){const auto C=ChainSlashStats(New->Level);N.Detail=FString::Printf(TEXT(\"每段 %.1f%% · 冷却 %.1f s · 体力 %.1f\"),C.DamageMultiplier*100.f,C.CooldownSeconds,C.StaminaCost);}\n        if(Definition->Id==TEXT(\"leapStrike\")){const auto C=LeapStrikeStats(New->Level);N.Detail=FString::Printf(TEXT(\"伤害 %.1f%% · 半径 %.1f m · 跳距 %.1f m\"),C.DamageMultiplier*100.f,C.RadiusCM/100.f,C.ReachCM/100.f);}\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "#include \"ChainSlashTypes.h\"\n#include \"LeapStrikeTypes.h\"\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    FChainSlashTuning ChainSlash;\n    FLeapStrikeTuning LeapStrike;\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    UPROPERTY() float ChainSlashCooldown = 0;\n    UPROPERTY() float ChainSlashCooldownDuration = 0;\n    UPROPERTY() float LeapStrikeCooldown = 0;\n    UPROPERTY() float LeapStrikeCooldownDuration = 0;\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    Current.ChainSlashCooldown=FMath::Max(0.f,Current.ChainSlashCooldown-Seconds);\n    Current.LeapStrikeCooldown=FMath::Max(0.f,Current.LeapStrikeCooldown-Seconds);\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    Current.ChainSlashCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.ChainSlashCooldown-Delta);\n    Current.LeapStrikeCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LeapStrikeCooldown-Delta);\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    const float ChainSlash=FMath::Max(0.f,From.ChainSlashCooldown-Age);\n    const float LeapStrike=FMath::Max(0.f,From.LeapStrikeCooldown-Age);\n    Into.ChainSlashCooldown=Newer?ChainSlash:FMath::Min(Into.ChainSlashCooldown,ChainSlash);\n    Into.LeapStrikeCooldown=Newer?LeapStrike:FMath::Min(Into.LeapStrikeCooldown,LeapStrike);\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "        Into.ChainSlashCooldownDuration=From.ChainSlashCooldownDuration;\n        Into.LeapStrikeCooldownDuration=From.LeapStrikeCooldownDuration;\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "        if(Category==0||Category==2)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)\n            [SAssignNew(ChainSlashDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)\n                .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT(\"chainSlash\")))[Overview(true,TEXT(\"chainSlash\"))]];\n        if(Category==0||Category==2)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)\n            [SAssignNew(LeapStrikeDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)\n                .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT(\"leapStrike\")))[Overview(true,TEXT(\"leapStrike\"))]];\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelSkillPage.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    TSharedPtr<SButton> UppercutDetailButton,ChainSlashDetailButton,LeapStrikeDetailButton;\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    FChainSlashCast ChainSlashStats(int32 AtLevel=-1) const;\n    float ChainSlashCooldown() const { return HasNoAbilityCooldown()?0.f:Current.ChainSlashCooldown; }\n    float ChainSlashCooldownDuration() const { return Current.ChainSlashCooldownDuration; }\n    bool CommitChainSlashCast(const FChainSlashCast& Cast);\n    void ApplyChainSlashReceipt(double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);\n    void TrainChainSlash(int32 Kills);\n    FLeapStrikeCast LeapStrikeStats(int32 AtLevel=-1) const;\n    FLeapStrikeCast LeapStrikeBaseStats(int32 AtLevel=-1) const;\n    float LeapStrikeCooldown() const { return HasNoAbilityCooldown()?0.f:Current.LeapStrikeCooldown; }\n    float LeapStrikeCooldownDuration() const { return Current.LeapStrikeCooldownDuration; }\n    bool CommitLeapStrikeCast(const FLeapStrikeCast& Cast);\n    void ApplyLeapStrikeReceipt(double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);\n    void TrainLeapStrike(int32 Kills);\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    if(bChainSlash || bUppercut || bWhirlwind || !bGuardHeld || bGuarding || bGuardBreakPose || bGuardReacting ||\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    UFUNCTION(BlueprintPure, Category=\"Rune Sword\") bool IsBusy() const { return bChainSlashPending || bChainSlash || bUppercut || bWhirlwind || bAttacking || bEquipping || bCharging || bReturningCharge || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose; }\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    { return !(bChainSlash || bUppercut || bWhirlwind || bAttacking || bEquipping || bCharging || bReturningCharge || bGuardReacting || bGuardBreakPose); }\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    bool BeginChainSlash();\n    FString ChainSlashStatusText(bool bPaid=false) const;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    bool IsChainSlashActive() const { return bChainSlash; }\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    bool bChainSlash=false;\n    bool bChainSlashPending=false,bChainSlashTrainingPending=false;\n    uint32 ChainSlashSerial=0;\n    uint32 ChainSlashReceivedSerial=0;\n    int32 ChainSlashCut=0,ChainSlashKills=0;\n    TSet<TWeakObjectPtr<AActor>> ChainSlashKilledTargets;\n    TWeakObjectPtr<UColdSteelStatusModel> ChainSlashRewardModel;\n    float ChainSlashDamage=0.f;\n    TArray<float,TInlineAllocator<4>> ChainSlashContacts;\n    UAnimSequence* ChainSlashAnimation() const;\n    bool StartChainSlash(bool bPaid=false);\n    void FinishChainSlashTraining();\n    void TickChainSlash(float Delta);\n    void HitChainSlashRange(const FTransform& Aim);\n    uint8 ChainImpactMask=0;\n    int32 ChainLastImpact=INDEX_NONE, ChainRibbonCut=INDEX_NONE;\n    double ChainImpactAt=-1., ChainWaveAt=-1.;\n    float ChainWaveScale=1.f;\n    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> ChainImpactWave;\n    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> ChainWaveMaterial;\n    void ApplyChainImpact(int32 Cut);\n    void ChainSlashCamera(FVector& Location,FRotator& Rotation) const;\n    void PresentChainRibbon();\n    void TickChainWave();\n    UFUNCTION(Client,Reliable) void ClientChainImpact(uint32 Serial,int32 Cut);\n    UFUNCTION(NetMulticast,Unreliable) void MulticastChainContact(AActor* Target,FVector_NetQuantize10 Point,FVector_NetQuantizeNormal Normal,bool bPulse,bool bFinalCut);\n    UFUNCTION(Server,Reliable) void ServerChainSlash(const FString& Weapon,uint32 Serial,bool bStart);\n    UFUNCTION(Client,Reliable) void ClientChainSlashResult(uint32 Serial,bool bAccepted,double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "#include \"../Skills/ChainSlashAssets.h\"\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    if(bChainSlash||bUppercut||bWhirlwind||bDashAttack)return;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    if(bChainSlash||bUppercut)return false;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    if(bChainSlash||bChainSlashPending)\n    {\n        bChainSlash=bChainSlashPending=false;\n        if(GetNetMode()==NM_Client&&Character.IsValid()&&Character->IsLocallyControlled())\n            ServerChainSlash(InstanceId,ChainSlashSerial,false);\n        FinishChainSlashTraining();\n    }\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    if(bChainSlash){ChainSlashCamera(Location,Rotation);return;}\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    if(!bChainSlash&&TickGuard(Delta))return;\n    if(!CurrentAnimation)\n    {\n        if(bChainSlash)CancelAction();\n        return;\n    }\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": "    bChainSlash=bChainSlashPending=false;\n    FinishChainSlashTraining();\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+    "role": "Manual integration excerpt; preserve all surrounding host code",
+    "code": " const auto* OwnerPawn=Cast<APawn>(GetOwner());\n const bool LocalLeap=OwnerPawn&&(OwnerPawn->HasAuthority()||OwnerPawn->IsLocallyControlled());\n if(LocalLeap)if(const auto* Tool=GetOwner()->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsLeapControlImmune())\n {auto V=Definition(TEXT(\"leapControlImmune\"));V.Persistent=true;V.DurationText=TEXT(\"腾空期间\");Result.Add(V);}\n"
+  },
+  {
+    "source": "Source/FPSGAME/Production/ProductionToolComponent.h",
+    "role": "Leap RPC and private state declarations",
+    "code": "    UFUNCTION(Server,Reliable) void ServerBeginLeapStrike(uint32 Serial,FVector_NetQuantizeNormal Direction,FVector_NetQuantize Target);\n    UFUNCTION(Client,Reliable) void ClientLeapStrikeResult(uint32 Serial,bool Accepted,FVector_NetQuantize Target,\n        FVector_NetQuantize Floor,FVector_NetQuantizeNormal Normal,double StartedAt,const FLeapStrikeCast& Cast,\n        double TotalSpent,float Cooldown,float Duration,int64 Revision);\n    UFUNCTION(Server,Reliable) void ServerCancelLeapStrike(uint32 Serial);\n    UFUNCTION(Client,Reliable) void ClientStopLeapStrike(uint32 Serial);\n    bool bLeapStrike=false,bLeapPending=false,bLeapLaunched=false,bLeapLanded=false,bLeapWhoosh=false;\n    uint32 LeapSerial=0,LeapReceivedSerial=0;\n    float LeapAge=0.f,LeapPoseChangedAt=0.f,LeapFlightAge=0.f,LeapPoseRate=1.f;\n    float LeapExpectedFlight=0.f,LeapStalledTime=0.f;\n    FVector LeapProgressPosition=FVector::ZeroVector;\n    uint64 LeapContactFrame=MAX_uint64;\n    double LeapStartedAt=0.;\n    double LeapNoticeUntil=0.,LeapCameraReleaseUntil=0.;\n    FString LeapWeapon;\n    FName LeapPoseClip;\n    FVector LeapStart=FVector::ZeroVector,LeapTarget=FVector::ZeroVector,LeapFloor=FVector::ZeroVector,LeapNormal=FVector::UpVector;\n    FVector LeapEyeLocal=FVector::ZeroVector,LeapImpactPoint=FVector::ZeroVector;\n    FVector LeapContactLocal=FVector::ZeroVector;\n    FVector LeapCameraCollisionOffset=FVector::ZeroVector;\n    FQuat LeapSlamRotation=FQuat::Identity;\n    FColdSteelSkillShot LeapShot;\n    FLeapStrikeCast LeapCast;\n    bool bLeapTrainingPending=false;\n    TWeakObjectPtr<UColdSteelStatusModel> LeapRewardModel;\n    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> LeapAimMaterial;\n    UPROPERTY(Transient) TObjectPtr<class UDecalComponent> LeapAimDecal;\n    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> LeapAimMID;\n    bool bLeapAimPreview=false,bLeapPreviewValid=false,bLeapPreviewPathClear=false;\n    float LeapPreviewPathAge=0.f;\n    float LeapPreviewRadius=0.f;\n    FVector LeapPreviewTarget=FVector::ZeroVector,LeapPreviewDirection=FVector::ForwardVector;\n    FVector LeapRequestDirection=FVector::ForwardVector;\n    FRotator LeapLookCenter=FRotator::ZeroRotator;\n    bool bLeapAirborne=false;\n    void SetLeapAirborne(bool Active);\n    bool LeapPreviewInputAvailable() const;\n    void RefreshLeapAimPreview(float Delta);\n    FVector LeapImpactForFloor(const FVector& Floor,const FVector& Direction,FVector& Normal) const;\n    bool IsLeapPathClear(const FVector& Target) const;\n    bool ValidateLeapLanding(const FVector& Requested,FVector& Target,FVector& Floor,FVector& Normal) const;\n    bool CommitLeapStrike(const FVector& Target,const FVector& Floor,const FVector& Normal,const FVector& Direction);\n    bool SolveLeapTarget(const FVector& Direction,FVector& Target,FVector& Floor,FVector& Normal,\n        bool CheckPath=true,bool AllowShorten=true) const;\n    bool StartLeapStrike(const FVector& Target,const FVector& Floor,const FVector& Normal,double StartedAt,\n        const FLeapStrikeCast& Cast,bool Paid=false);\n    void TickLeapStrike(float Delta);\n    void CompleteLeapLanding(const FHitResult& Ground);\n    float LeapStartFloorZ() const;\n    bool IsLeapFloorHeightAllowed(float FloorZ) const;\n    void FinishLeapStrike(bool Interrupted=true);\n    void PresentLeapStrike();\n    bool GetLeapStrikeCameraLocation(FVector& Point) const;\n    void LeapStrikeCamera(FVector& Location,FRotator& Rotation) const;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Production/ProductionToolComponent.h",
+    "role": "Public Leap entry points and view/contact interface",
+    "code": "    bool BeginLeapStrike();\n    void SetLeapAimPreview(bool Active);\n    void ReleaseLeapAimPreview();\n    bool IsLeapAimPreviewActive() const {return bLeapAimPreview;}\n    bool ClampLeapStrikeView(FRotator& View);\n    /** Actual takeoff through landing; includes an interrupted leap's remaining fall. */\n    bool IsLeapControlImmune() const;\n    bool IsLeapStrikeActive() const {return bLeapStrike||bLeapPending;}\n    FString LeapStrikeStatusText(bool IncludeNotice=true) const;\n    float GetLeapStrikeAge() const {return LeapAge;}\n    float GetLeapStrikePoseRate() const {return LeapPoseRate;}\n    bool GetGroundSlamCameraPitch(float& Pitch,float& Weight) const;\n    bool GetGroundSlamCameraLocation(FVector& Point) const;\n    bool ConstrainLeapStrikeView(FVector& WorldPoint) const;\n    void UpdateLeapStrikeCamera(FVector& WorldPoint,float Delta);\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "role": "Complete Leap and Chain detail branches",
+    "code": "        if(SelectedSkill==TEXT(\"leapStrike\"))\n        {\n            const TCHAR* Labels[]={TEXT(\"武器伤害\"),TEXT(\"韧性伤害\"),TEXT(\"冷却时间\"),TEXT(\"体力消耗\"),TEXT(\"伤害半径\"),TEXT(\"最大跳距\"),TEXT(\"升级所需修炼\")};\n            for(int32 I=0;I<7;++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Labels[I],I)];\n            const auto& T=Definition(SelectedSkill).LeapStrike;\n            Scroll->AddSlot().Padding(16/Scale,12/Scale)[Paragraph(FString::Printf(\n                TEXT(\"1–20级线性成长：伤害与削韧 %.0f%%→%.0f%%，冷却 %.0f→%.0f s，体力 %.0f→%.0f，半径 %.1f→%.1f m，跳距 %.0f→%.0f m。\"),\n                T.DamageBase*100.f,T.DamageMax*100.f,T.CooldownBase,T.CooldownMin,T.StaminaBase,T.StaminaMax,\n                T.RadiusBaseCM/100.f,T.RadiusMaxCM/100.f,T.ReachBaseCM/100.f,T.ReachMaxCM/100.f),14,ColdSteelUI::TextSecondary,PageWidth-44)];\n            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT(\"按住选点，松开确认；选点不耗体。蓄力前扣足体力并开始冷却，中断不返还。蓄力0.5秒，通常腾空0.75秒，大落差持续下落；触地重砸。空中免控（减速除外），视角限制至触地。上方冷却与体力已计入装备修正。\"),12,ColdSteelUI::TextTertiary,PageWidth-44)];\n            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[TrainingCard()];\n        }\n        else if(SelectedSkill==TEXT(\"chainSlash\"))\n        {\n            const TCHAR* Labels[]={TEXT(\"每段武器伤害\"),TEXT(\"每段韧性伤害\"),TEXT(\"冷却时间\"),TEXT(\"体力消耗\"),TEXT(\"升级所需修炼\")};\n            const int32 Rows[]={0,4,1,2,3};\n            for(int32 I=0;I<5;++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Labels[I],Rows[I])];\n            const auto& T=Definition(SelectedSkill).ChainSlash;\n            Scroll->AddSlot().Padding(16/Scale,12/Scale)[Paragraph(FString::Printf(\n                TEXT(\"1–20级线性成长：每段伤害与削韧 %.0f%%→%.0f%%，基础冷却 %.0f→%.0f s，基础体力 %.0f→%.0f。\"),\n                T.DamageBase*100.f,T.DamageMax*100.f,T.CooldownBase,T.CooldownMin,T.StaminaBase,T.StaminaMax),14,ColdSteelUI::TextSecondary,PageWidth-44)];\n            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT(\"起手前扣足整次体力并开始冷却，体力不足无法施放；中断不返还。上方冷却与体力已计入当前装备修正。\"),12,ColdSteelUI::TextTertiary,PageWidth-44)];\n            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[TrainingCard()];\n        }\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "role": "Skill tuning JSON parsers; manual merge only",
+    "code": "    if(Id==TEXT(\"leapStrike\"))\n    {\n        auto& T=D.LeapStrike;\n        T.DamageBase=Num(TEXT(\"damageMultiplierBase\"),T.DamageBase);T.DamageMax=Num(TEXT(\"damageMultiplierMax\"),T.DamageMax);\n        T.CooldownBase=Num(TEXT(\"cooldownBase\"),T.CooldownBase);T.CooldownMin=Num(TEXT(\"cooldownMin\"),T.CooldownMin);\n        T.StaminaBase=Num(TEXT(\"staminaBase\"),T.StaminaBase);T.StaminaMax=Num(TEXT(\"staminaMax\"),T.StaminaMax);\n        T.RadiusBaseCM=Num(TEXT(\"radiusBaseCM\"),T.RadiusBaseCM);T.RadiusMaxCM=Num(TEXT(\"radiusMaxCM\"),T.RadiusMaxCM);\n        T.ReachBaseCM=Num(TEXT(\"reachBaseCM\"),T.ReachBaseCM);T.ReachMaxCM=Num(TEXT(\"reachMaxCM\"),T.ReachMaxCM);\n        T.MultiKillExperience=Num(TEXT(\"multiKillExperience\"),T.MultiKillExperience);\n    }\n    if(Id==TEXT(\"chainSlash\"))\n    {\n        auto& T=D.ChainSlash;\n        T.DamageBase=Num(TEXT(\"damageMultiplierBase\"),T.DamageBase);T.DamageMax=Num(TEXT(\"damageMultiplierMax\"),T.DamageMax);\n        T.CooldownBase=Num(TEXT(\"cooldownBase\"),T.CooldownBase);T.CooldownMin=Num(TEXT(\"cooldownMin\"),T.CooldownMin);\n        T.StaminaBase=Num(TEXT(\"staminaBase\"),T.StaminaBase);T.StaminaMax=Num(TEXT(\"staminaMax\"),T.StaminaMax);\n        T.MultiKillExperience=Num(TEXT(\"multiKillExperience\"),T.MultiKillExperience);\n    }\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "role": "Migration prefix; retain previous-version migration tail; manual merge only",
+    "code": "    if (P.SkillProgressVersion >= 32) return false;\n    P.LeapStrikeCooldown=P.LeapStrikeCooldownDuration=0.f;\n    P.Skills.FindOrAdd(TEXT(\"leapStrike\"));\n    if(P.SkillProgressVersion==31){P.SkillProgressVersion=32;return true;}\n    if(P.SkillProgressVersion==30){P.SkillProgressVersion=32;return true;}\n    P.Skills.FindOrAdd(TEXT(\"chainSlash\"));\n    if(P.SkillProgressVersion==29){P.SkillProgressVersion=32;return true;}\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+    "role": "Attached flame per-source history declarations; manual merge only",
+    "code": "    FFlameArmorHistory WeaponHistory[FlameArmorAttachments::MaxLayers];\n    FVector PreviousArmorFeet=FVector::ZeroVector;\n    bool bArmorFeetValid=false;\n    void UpdateArmorBodyFX(float Fade,const FVector& Feet);\n    void UpdateArmorWeaponFX(float Delta,float Fade);\n"
+  },
+  {
+    "source": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+    "role": "Movement overrides implemented by FPSLeapRootMotionSource.cpp; manual merge only",
+    "code": "    virtual void PhysFalling(float DeltaTime,int32 Iterations) override;\n    virtual void ApplyRootMotionToVelocity(float DeltaTime) override;\n    virtual void ProcessLanded(const FHitResult& Hit,float RemainingTime,int32 Iterations) override;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "{\n    if(CombatControl::IsImmune(GetOwner())||Seconds<=0)return;\n    // 玩家装备的眩晕抵抗按加法叠加，作为 0–100% 的免控概率；\n    // 100% 必晕的攻击在 25% 抵抗下仍有 75% 概率生效。\n"
+  },
+  {
+    "source": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "{\n    if(CombatControl::IsImmune(GetOwner())||Seconds<=0)return;\n    BindTime=FMath::Max(BindTime,Seconds);\n    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT(\"bind\"),Seconds);\n"
+  },
+  {
+    "source": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "{\n    if(CombatControl::IsImmune(GetOwner())||Seconds<=0)return;\n    PetrifyTime=FMath::Max(PetrifyTime,Seconds);PetrifyMul=FMath::Max(1.f,MagicTakenMul);\n    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT(\"petrified\"),Seconds,1);\n"
+  },
+  {
+    "source": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "    // Keep the slowing stacks; an immune freeze attempt is not queued for landing.\n    if(ChillStacks>=CombatChill::FreezeThreshold&&!CombatControl::IsImmune(GetOwner()))\n    {\n        ChillStacks-=CombatChill::FreezeCost;FrozenTime=Seconds;\n"
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/BoundCongregateCaptureComponent.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "    const auto* Health=Victim->FindComponentByClass<UFPSCombatHealthComponent>();\n    if((Health&&(Health->IsDead()||Health->IsInvulnerable()))||CombatControl::IsImmune(Victim))return false;\n    EscapeHits=0;NextEscapeContact=0.;Source=Captor;ApplyControl();Victim->ForceNetUpdate();return true;\n}\n"
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "{\n if(!Target||CM<=0||CombatControl::IsImmune(Target))return;\n auto* C=Target->FindComponentByClass<UFleshHandPushComponent>();\n if(!C){C=NewObject<UFleshHandPushComponent>(Target);Target->AddInstanceComponent(C);C->RegisterComponent();}\n"
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": " Super::TickComponent(Dt,Type,Tick);auto* C=Cast<ACharacter>(GetOwner());\n if(!C||!Alive(C)||CombatControl::IsImmune(C)){SetComponentTickEnabled(false);return;}\n auto* M=C->GetCharacterMovement();const float Before=Age/.16f;Age=FMath::Min(.16f,Age+Dt);\n const float Step=Distance*(FMath::Square(1-Before)-FMath::Square(1-Age/.16f));\n"
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/HandBrainFearComponent.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": " if(const auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();Health&&(Health->IsDead()||Health->IsInvulnerable()))return;\n if(CombatControl::IsImmune(GetOwner()))return;\n Threat=Source;\n const double Now=GetWorld()->GetTimeSeconds();Expirations.RemoveAll([Now](double T){return T<=Now;});\n"
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/SlagMistViewComponent.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "    // Suppress the blindness debuff, while the world smoke and its damage remain.\n    if (CombatControl::IsImmune(Pawn))\n    { ClearBlindness(); RemoveViewLayer(); return; }\n    auto* PC = Cast<APlayerController>(Pawn->GetController());\n"
+  },
+  {
+    "source": "Source/FPSGAME/Movement/FPSImpactPushMovement.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "        ||Direction.ContainsNaN()||Direction.GetSafeNormal2D().IsNearlyZero())return;\n    if(CombatControl::IsImmune(CharacterOwner))return;\n    StartImpactPush(Direction,DistanceCM,0.f);\n    // The owner starts the same source; native root-motion corrections reconcile\n"
+  },
+  {
+    "source": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.cpp",
+    "role": "Hard-control immunity call site; add CombatControlImmunity.h include; manual merge only",
+    "code": "{\n    if(!GetOwner()->HasAuthority()||Seconds<=0.f||CombatControl::IsImmune(GetOwner()))return;\n    StunUntil=FMath::Max(StunUntil,GetWorld()->GetTimeSeconds()+Seconds);\n    ApplyInputLock(float(StunUntil-GetWorld()->GetTimeSeconds()));GetOwner()->ForceNetUpdate();\n"
+  },
+  {
+    "source": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "role": "Feature consumer call site; manual merge only",
+    "code": "        FVector Eye=FirstPersonCamera->GetComponentLocation();\n        ProductionTools->UpdateLeapStrikeCamera(Eye,DeltaSeconds);\n        if(!Eye.Equals(FirstPersonCamera->GetComponentLocation(),UE_SMALL_NUMBER))\n            FirstPersonCamera->SetWorldLocation(Eye);\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "role": "Feature consumer call site; manual merge only",
+    "code": "#include \"../Production/ProductionToolComponent.h\"\n#include \"../Production/WarhammerQuickCombatMotion.h\"\n#include \"../Production/WarhammerConicalThrustMotion.h\"\n#include \"Engine/World.h\"\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "role": "Feature consumer call site; manual merge only",
+    "code": "        if(bWarhammerHeadThrust)WarhammerConicalThrust::Camera(ActionAge,Location,Rotation);\n        else WarhammerQuickCombat::Camera(ActionAge,Location,Rotation);\n        AddImpact();return;\n    }\n"
+  },
+  {
+    "source": "Source/FPSGAME/Production/ProductionWarhammerRift.cpp",
+    "role": "Feature consumer call site; manual merge only",
+    "code": "#include \"WarhammerUppercutMotion.h\"\n#include \"WarhammerQuickCombatMotion.h\"\n#include \"../FPSGAMECharacter.h\"\n#include \"Animation/AnimSequence.h\"\n"
+  },
+  {
+    "source": "Source/FPSGAME/Production/ProductionWarhammerRift.cpp",
+    "role": "Feature consumer call site; manual merge only",
+    "code": "    else if(Clip==TEXT(\"QuickCombat\")&&IsQuickCombatActive())\n    {Key=30;Start=bConicalSeat?.09f:WarhammerQuickCombat::Prepare;End=bConicalSeat?.175f:WarhammerQuickCombat::Follow;Strength=.085f;Crossed=true;}\n    else if(Clip==TEXT(\"ActiveHitRecover\")&&!bBluntHeavy&&bHitConfirmed&&Elapsed>=0.f)\n    {Key=BluntStage;Clock=ProductionBluntCombo::ContactSeconds+SourceSeconds;Start=ProductionBluntCombo::ContactSeconds;End=Start+.04f;}\n"
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "role": "Owned skill input, route or asset registration hunk; manual merge only",
+    "code": "        if(State.ActionVariant==TEXT(\"HighlandBreakSweep\")&&Sword->CurrentAnimation&&\n            Sword->CurrentAnimation->GetName().EndsWith(TEXT(\"_FromReady\")))\n            State.ActionVariant=FPSBodyHighlandMotion::SweepReady;\n        if(Sword->bChainSlash&&Sword->ChainSlashContacts.Num()==4)\n        {\n            const auto Phase=ChainSlashMotion::Phase(Sword->Elapsed,Length,Sword->ChainSlashContacts);\n            const float Span=FMath::Max(.01f,Phase.End-Phase.Start);\n            const float Rate=Sword->SweepHitPause>0.f?0.f:LightningHaste::ActionSpeed(Pawn)*ChainSlashMotion::SourceRate(Sword->Elapsed);\n            Timed(Phase.Cut==0?EFPSBodyAction::HeavyStrike:EFPSBodyAction::Strike,Sword->Elapsed-Phase.Start,Span,Rate);\n            State.ActionVariant=ChainSlashMotion::Variant(Phase.Cut);\n            State.ContactFraction=(Phase.Contact-Phase.Start)/Span;\n            State.ReleaseFraction=FMath::Min(.98f,State.ContactFraction+.12f/Span);\n        }\n        else if(Sword->bWhirlwind)\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+    "role": "Owned skill input, route or asset registration hunk; manual merge only",
+    "code": "    else if(Binding.Skill==TEXT(\"leapStrike\"))\n    {\n        Remaining=Model->LeapStrikeCooldown();\n        const float Duration=Model->LeapStrikeCooldownDuration();\n        Fraction=Duration>0.f?Remaining/Duration:0.f;\n        const auto* Player=GetOwningPlayerPawn();\n        const auto* Tool=Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;\n        Message=Tool?Tool->LeapStrikeStatusText():TEXT(\"需双手锤\");Dim=!Message.IsEmpty();\n    }\n    else if(Binding.Skill==TEXT(\"chainSlash\"))\n    {\n        Remaining=Model->ChainSlashCooldown();\n        const float Duration=Model->ChainSlashCooldownDuration();\n        Fraction=Duration>0.f?Remaining/Duration:0.f;\n        const auto* Player=GetOwningPlayerPawn();\n        const auto* Sword=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;\n        Message=Sword?Sword->ChainSlashStatusText():TEXT(\"需双手剑\");\n        Dim=!Message.IsEmpty();\n    }\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "role": "Owned skill input, route or asset registration hunk; manual merge only",
+    "code": "    if(Id==TEXT(\"swordUppercut\")){Tags=TEXT(\"近战 / 上挑 / 主动\");SkillIcon=&UppercutIconBrush;}\n    if(Id==TEXT(\"chainSlash\")){Tags=TEXT(\"双手剑限定 / 四段连斩 / 主动武技\");SkillIcon=MasteryIconBrushes.Find(Id);}\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "role": "Owned skill input, route or asset registration hunk; manual merge only",
+    "code": "    if(Id==TEXT(\"leapStrike\"))Tags=TEXT(\"双手锤限定 / 范围重砸 / 主动武技\");\n"
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "role": "Owned skill input, route or asset registration hunk; manual merge only",
+    "code": "    if(Id==TEXT(\"illuminationArrow\"))Tags=TEXT(\"弓限定 / 标记显形 / 主动\");\n    if(Id==TEXT(\"elementalArrow\"))Tags=TEXT(\"弓限定 / 三元素附魔 / 主动\");\n    if(Id==TEXT(\"magicArrowRain\"))Tags=TEXT(\"弓限定 / 范围魔法 / 主动\");\n    if(Id==TEXT(\"heartPiercingArrow\"))Tags=TEXT(\"弓限定 / 持续拉弓 / 被动战技\");\n    TSharedRef<SWidget> Brief=Paragraph(bCompact?TEXT(\"在实战中修炼 · 查看技能详情\"):D.Description,14,ColdSteelUI::TextSecondary,PageWidth-76);\n    if(Id==TEXT(\"leapStrike\")&&bCompact)\n        Brief=SNew(STextBlock).Text_Lambda([this]\n        {\n            const auto C=Model->LeapStrikeStats();\n            return FText::FromString(FString::Printf(TEXT(\"伤害 / 削韧 %.1f%% · 冷却 %.1f s\\n半径 %.1f m · 跳距 %.1f m · 体力 %.1f\"),\n                C.DamageMultiplier*100.f,C.CooldownSeconds,C.RadiusCM/100.f,C.ReachCM/100.f,C.StaminaCost));\n        }).Font(ColdSteelUI::TextFont(14*.75f/Scale)).ColorAndOpacity(ColdSteelUI::TextSecondary)\n            .AutoWrapText(false).WrapTextAt(FMath::Max(1.f,PageWidth-76)/Scale).LineHeightPercentage(1.4f);\n    if(Id==TEXT(\"chainSlash\")&&bCompact)\n        Brief=SNew(STextBlock).Text_Lambda([this]\n        {\n            const auto C=Model->ChainSlashStats();\n            return FText::FromString(FString::Printf(TEXT(\"每段伤害 / 削韧 %.1f%% · 共4段\\n冷却 %.1f s · 体力 %.1f\"),C.DamageMultiplier*100.f,C.CooldownSeconds,C.StaminaCost));\n        }).Font(ColdSteelUI::TextFont(14*.75f/Scale)).ColorAndOpacity(ColdSteelUI::TextSecondary)\n            .AutoWrapText(false).WrapTextAt(FMath::Max(1.f,PageWidth-76)/Scale).LineHeightPercentage(1.4f);\n    if(Id==TEXT(\"heartPiercingArrow\")&&bCompact)\n        Brief=SNew(STextBlock).Text_Lambda([this,Id]\n        {\n            const auto S=HeartPiercingArrow::ForModel(Model);\n            return FText::FromString(FString::Printf(TEXT(\"持续拉弓 >%.1f 秒 · 满拉伤害 ×%.2f\\n箭速 ×%.0f · 目标穿透 +%d（最多 %d 个）\"),\n                S.ChargeSeconds,S.DamageMultiplier,S.SpeedMultiplier,S.TargetPenetration,S.TargetPenetration+1));\n        }).Font(ColdSteelUI::TextFont(14*.75f/Scale)).ColorAndOpacity(ColdSteelUI::TextSecondary)\n            .AutoWrapText(false).WrapTextAt(FMath::Max(1.f,PageWidth-76)/Scale).LineHeightPercentage(1.4f);\n    if(Id==TEXT(\"magicArrowRain\")&&bCompact)\n        Brief=Paragraph(TEXT(\"搭箭附魔 → 长按左键选点 → 满蓄松手\\n空爆后锥形箭雨 · 保持期间持续耗体耗蓝\"),14,ColdSteelUI::TextSecondary,PageWidth-76);\n    if(Id==TEXT(\"illuminationArrow\")&&bCompact)Brief=Paragraph(TEXT(\"沿途扫描 · 命中双倍标记 · 持续照明\\n普通箭伤害 / 破除隐身 / 承伤加深\"),14,ColdSteelUI::TextSecondary,PageWidth-76);\n    if(Id==TEXT(\"elementalArrow\")&&bCompact)Brief=Paragraph(TEXT(\"短按搭箭 · 长按圆盘切换 · 松开左键射击\\n火焰爆炸 / 寒冰散射 / 闪电放射\"),14,ColdSteelUI::TextSecondary,PageWidth-76);\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp",
+    "role": "Owned skill input, route or asset registration hunk; manual merge only",
+    "code": "#include \"../Skills/ChainSlashAssets.h\"\n"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp",
+    "role": "Owned skill input, route or asset registration hunk; manual merge only",
+    "code": "        TArray<FSoftObjectPath>{UppercutStandard.ToSoftObjectPath(),UppercutLongGrip.ToSoftObjectPath(),\n            FSoftObjectPath(ChainSlash::Standard),FSoftObjectPath(ChainSlash::LongGrip)});\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+    "role": "Leap release and preview asset preload; manual merge only",
+    "code": "    if(Skill==TEXT(\"leapStrike\"))for(const TCHAR* Path:{\n        LeapStrike::Asset,MeteorSpellAssets::Preview,\n        TEXT(\"/Game/Weapons/SteelWarhammer20261014/UppercutV1/A_Warhammer_Uppercut\"),\n        TEXT(\"/Game/Weapons/SteelWarhammer20261014/HeavySlamV4/A_Warhammer_HeavyCharge\"),\n        TEXT(\"/Game/Weapons/SteelWarhammer20261014/HeavySlamV4/A_Warhammer_HeavyRelease\"),\n        TEXT(\"/Game/Weapons/SteelWarhammer20261014/HeavySlamV1/M_WarhammerGroundWave\"),\n        TEXT(\"/Game/Weapons/SteelWarhammer20261014/GroundImpactAudioV1/S_Warhammer_GroundImpact\")})AddSkillAsset(Out,Path);\n"
+  },
+  {
+    "source": "Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+    "role": "Chain asset preload; manual merge only",
+    "code": "    if (Skill == TEXT(\"chainSlash\"))\n    {\n        AddSkillAsset(Out, ChainSlash::Standard);\n        AddSkillAsset(Out, ChainSlash::LongGrip);\n        for(const TCHAR* Path:ChainSlash::CutRibbons)AddSkillAsset(Out,Path);\n        AddSkillAsset(Out,ChainSlash::ImpactWave);\n    }\n"
+  }
+]

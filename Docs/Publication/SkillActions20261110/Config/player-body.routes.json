@@ -1,0 +1,77 @@
+{
+  "clips": {
+    "Melee.FullBody.Slash1": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_A_Kevin_Attack2H01.J_A_Kevin_Attack2H01",
+    "Melee.FullBody.Slash2": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_A_Kevin_Attack2H01.J_A_Kevin_Attack2H01",
+    "Melee.FullBody.Overhead": "/Game/Characters/JasonPlayer20261003/KwangSwordLeftContact20261010/Animations/J_Kwang_Overhead.J_Kwang_Overhead",
+    "Warhammer.FullBody.Uppercut": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash1.J_Hammer_Refined_Slash1",
+    "Warhammer.FullBody.Charge": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "Warhammer.FullBody.Slam": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "Warhammer.FullBody.QuickMelee": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_QuickMelee.J_Hammer_Refined_QuickMelee"
+  },
+  "appearance_overrides": [
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.Slash1"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6b923a7754_J_A_Kevin_Attack2H01.K_6b923a7754_J_A_Kevin_Attack2H01"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.Slash2"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_6b923a7754_J_A_Kevin_Attack2H01.K_6b923a7754_J_A_Kevin_Attack2H01"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Melee.FullBody.Overhead"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_41f6ee6822aaa818_Melee_FullBody_Overhead.KGrip_41f6ee6822aaa818_Melee_FullBody_Overhead"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Warhammer.FullBody.Uppercut"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_0a76d7770b73025b_Warhammer_FullBody_Uppercut.KGrip_0a76d7770b73025b_Warhammer_FullBody_Uppercut"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Warhammer.FullBody.Charge"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_994809ae3a3ed475_Warhammer_FullBody_Charge.KGrip_994809ae3a3ed475_Warhammer_FullBody_Charge"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Warhammer.FullBody.Slam"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_994809ae3a3ed475_Warhammer_FullBody_Charge.KGrip_994809ae3a3ed475_Warhammer_FullBody_Charge"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Warhammer.FullBody.QuickMelee"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_af419922ad3d4278_Warhammer_FullBody_QuickMelee.KGrip_af419922ad3d4278_Warhammer_FullBody_QuickMelee"
+    }
+  ],
+  "note": "Existing prerequisite routes, copied by key only. Do not replace shared objects. Appearance overrides use exact field paths."
+}

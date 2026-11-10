@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Skills/BowHeldMagicVisual.h
++++ b/Source/FPSGAME/Skills/BowHeldMagicVisual.h
+@@ -6,6 +6,7 @@
+ class UElementalArrowVisual;
+ class UIlluminationArrowVisual;
+ class UStaticMeshComponent;
++class USceneComponent;
+ struct FStreamableHandle;
+ 
+ /** Local presentation rebuilt from the body's replicated, authority-selected arrow kind. */
+@@ -17,7 +18,7 @@
+     enum : uint8 { None=0,Fire=1,Ice=2,Lightning=3,Rain=4,Illumination=5 };
+     static uint8 KindFor(const APawn* Pawn);
+     static bool ShowFirstPerson(const APawn* Pawn);
+-    void Update(uint8 Kind,const FVector& Tail,const FVector& Tip);
++    void Update(uint8 Kind,const FVector& Tail,const FVector& Tip,USceneComponent* ArrowSource=nullptr);
+     void Clear();
+ protected:
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;

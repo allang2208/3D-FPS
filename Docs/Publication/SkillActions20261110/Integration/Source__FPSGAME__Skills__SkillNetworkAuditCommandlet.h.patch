@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
+@@ -17,6 +17,7 @@
+     GENERATED_BODY()
+ public:
+     virtual int32 Main(const FString& Params) override;
++    int32 RunSessionSkillsAudit(const FString& Params);
+     int32 RunFlameArmorAudit(const FString& Params);
+     int32 RunFlameArmorStatsAudit(const FString& Params);
+     int32 RunIceArmorAudit(const FString& Params);

@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp
+@@ -24,6 +24,7 @@
+         ?ColdSteelInventory::IsTwoHandedSword(*Item)&&!Model->ActiveProductionTool()
+         :ColdSteelInventory::IsTwoHandedBlunt(*Item));
+     return Pawn&&Item&&Item->InstanceId==GuardWeaponInstance()&&MatchingKind
++        &&!bChainSlash&&!bChainSlashPending
+         &&(ToolGuardInstance.IsEmpty()||!Tool||!Tool->HasAuthorityAttackInFlight())
+         &&(!PS||!PS->IsQuickCombatExecuting(Pawn))
+         &&Health&&!Health->IsDead()&&!(Break&&Break->IsActive())
+@@ -44,10 +45,12 @@
+     auto* Pawn=Character.Get();if(!Pawn||!Pawn->HasAuthority()||Pawn->IsLocallyControlled())return;
+     if(!IntentSerial||static_cast<int32>(IntentSerial-ServerGuardIntentSerial)<0)return;
+     if(Raised&&IntentSerial==ServerGuardIntentSerial)return;
++    // Validate identity before the already-raised fast path consumes a serial.
++    // Otherwise an old weapon can invalidate the current weapon's lower request.
++    if(Weapon!=GuardWeaponInstance()){if(Raised)ClientSwordGuardResult(Weapon,3,0.f,GetWorld()->GetTimeSeconds(),IntentSerial);return;}
+     // Repeating raise with a fresh serial must not restart the parry window.
+     if(Raised&&bGuarding){ServerGuardIntentSerial=IntentSerial;return;}
+     if(!Raised&&IntentSerial!=ServerGuardIntentSerial)return;
+-    if(Weapon!=GuardWeaponInstance()){if(Raised)ClientSwordGuardResult(Weapon,3,0.f,GetWorld()->GetTimeSeconds(),IntentSerial);return;}
+     const double Now=GetWorld()->GetTimeSeconds();
+     if(Raised)ServerGuardIntentSerial=IntentSerial;
+     auto* Model=ColdSteelAuthority::ForPawn(Pawn);

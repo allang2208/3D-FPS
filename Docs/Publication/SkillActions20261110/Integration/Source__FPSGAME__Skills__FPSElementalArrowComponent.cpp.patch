@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Skills/FPSElementalArrowComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSElementalArrowComponent.cpp
+@@ -9,6 +9,8 @@
+ #include "../UI/ColdSteelElementWheel.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Bow/BowPartComponent.h"
++#include "Components/StaticMeshComponent.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../FPSGAMECharacter.h"
+@@ -249,7 +251,11 @@
+     if(Visual)
+     {
+         FVector Tail,Tip;
+-        if(bPrepared&&UBowHeldMagicVisual::ShowFirstPerson(Cast<APawn>(GetOwner()))&&Bow()&&Bow()->GetMagicArrowEndpoints(Tail,Tip))Visual->Update(SelectedElement,Tail,Tip,Delta,false);
++        if(bPrepared&&UBowHeldMagicVisual::ShowFirstPerson(Cast<APawn>(GetOwner()))&&Bow()&&Bow()->GetMagicArrowEndpoints(Tail,Tip))
++        {
++            auto* Part=Bow()->FindPart(TEXT("arrow"));
++            Visual->Update(SelectedElement,Tail,Tip,Delta,false,false,Part?Part->RodVisual(0):nullptr);
++        }
+         else Visual->Clear();
+     }
+ }

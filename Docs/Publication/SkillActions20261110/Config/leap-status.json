@@ -1,0 +1,9 @@
+{
+  "type": "leapControlImmune",
+  "icon": "🛡️",
+  "name": "跃击·免控",
+  "color": "#5ac8c8",
+  "description": "跃击起跳后免疫眩晕、恐惧、束缚、冻结、石化、失明、抓取与强制位移，触地解除；减速仍生效。",
+  "kind": "buff",
+  "group": "triggered"
+}

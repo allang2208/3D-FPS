@@ -1,0 +1,46 @@
+--- a/Source/FPSGAME/Production/WarhammerNetworkAuditCommandlet.cpp
++++ b/Source/FPSGAME/Production/WarhammerNetworkAuditCommandlet.cpp
+@@ -4,6 +4,7 @@
+ #include "WarhammerGuardMotion.h"
+ #include "WarhammerCombat.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/RuneSwordGuardTuning.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -68,7 +69,16 @@
+         Tool->Kind=TEXT("warhammer");Tool->EquippedId=Hammer.InstanceId;
+         Tool->BluntServerReadyAt=0.;PS->QuickCombatUntil=0.;PS->QuickCombatTargets.Reset();
+     };
+-    const auto Raise=[&](){Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,true,++Serial);};
++    // Separate requests in simulated time, as the real raise/lower animations
++    // do. A zero-time fixture otherwise mistakes the anti-parry-spam gate for
++    // attack/guard failures after a valid lower request.
++    const auto ReadyForRaise=[&]()
++    {
++        const float Remaining=RuneSwordGuardTuning::RaiseSeconds+RuneSwordGuardTuning::LowerSeconds
++            -float(World->GetTimeSeconds()-Guard->NetworkGuardLoweredAt);
++        if(Remaining>=0.f)World->Tick(LEVELTICK_TimeOnly,Remaining+.01f);
++    };
++    const auto Raise=[&](){ReadyForRaise();Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,true,++Serial);};
+     Reset();
+     Check(Pawn->HasAuthority()&&!Pawn->IsLocallyControlled()&&ColdSteelAuthority::ForPawn(Pawn)==Shadow,TEXT("guest authority resolves own shadow"));
+     const auto Stats=ColdSteelTool::Evaluate(Hammer,Shadow);
+@@ -97,6 +107,8 @@
+     Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,false,Serial);
+     Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,true,Serial);
+     Check(!Guard->IsGuarding(),TEXT("old raise cannot reopen released intent"));
++    Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,true,++Serial);
++    Check(!Guard->IsGuarding(),TEXT("fresh raise cannot bypass the raise-lower cooldown"));
+     const uint32 Old=Serial;Raise();Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,false,Old);
+     Check(Guard->IsGuarding(),TEXT("old release cannot lower newer guard"));
+ 
+@@ -160,7 +172,7 @@
+     Reset();auto SwordSeed=Seed;auto Sword=Host->CreateItem(TEXT("ue_rune_sword"));Sword.Place=1;Sword.Cell=6;SwordSeed.Items={Sword};
+     Shadow->AdoptNetMirror(SwordSeed);Guard->RefreshToolGuardEquipment(Shadow);Guard->InstanceId=Sword.InstanceId;
+     Guard->MeleeModifiers=ColdSteelMelee::Evaluate(Sword,Shadow).Modifiers;Tool->Kind.Reset();Tool->EquippedId.Reset();
+-    Guard->ServerSetSwordGuard_Implementation(Sword.InstanceId,true,++Serial);Guard->GuardStartedAt=-10.;
++    ReadyForRaise();Guard->ServerSetSwordGuard_Implementation(Sword.InstanceId,true,++Serial);Guard->GuardStartedAt=-10.;
+     Check(Guard->ResolveGuardDamage(100.f,GetDefault<UDamageType>(),nullptr,nullptr)==50.f&&Shadow->Stamina()==80.f,
+         TEXT("shared sword normal block remains unchanged"));
+     Reset();Raise();auto Empty=Seed;Empty.Items.Reset();Shadow->AdoptNetMirror(Empty);Guard->TickNetworkGuard();

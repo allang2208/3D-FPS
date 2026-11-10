@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -1,6 +1,7 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "FPSBodyHighlandMotion.h"
+ #include "../Skills/LeapStrikeMotion.h"
++#include "../Skills/ChainSlashMotion.h"
+ #include "../Production/ThunderHammerCallIntent.h"
+ #include "../Skills/BowHeldMagicVisual.h"
+ #include "FPSBodySinglePistolSource.h"
+@@ -175,7 +176,17 @@
+         if(State.ActionVariant==TEXT("HighlandBreakSweep")&&Sword->CurrentAnimation&&
+             Sword->CurrentAnimation->GetName().EndsWith(TEXT("_FromReady")))
+             State.ActionVariant=FPSBodyHighlandMotion::SweepReady;
+-        if(Sword->bWhirlwind)
++        if(Sword->bChainSlash&&Sword->ChainSlashContacts.Num()==4)
++        {
++            const auto Phase=ChainSlashMotion::Phase(Sword->Elapsed,Length,Sword->ChainSlashContacts);
++            const float Span=FMath::Max(.01f,Phase.End-Phase.Start);
++            const float Rate=Sword->SweepHitPause>0.f?0.f:LightningHaste::ActionSpeed(Pawn)*ChainSlashMotion::SourceRate(Sword->Elapsed);
++            Timed(Phase.Cut==0?EFPSBodyAction::HeavyStrike:EFPSBodyAction::Strike,Sword->Elapsed-Phase.Start,Span,Rate);
++            State.ActionVariant=ChainSlashMotion::Variant(Phase.Cut);
++            State.ContactFraction=(Phase.Contact-Phase.Start)/Span;
++            State.ReleaseFraction=FMath::Min(.98f,State.ContactFraction+.12f/Span);
++        }
++        else if(Sword->bWhirlwind)
+         {
+             const auto& W=Sword->WhirlwindTuning;const float End=W.ReadySeconds+W.SpinSeconds+W.RecoverSeconds;
+             Timed(EFPSBodyAction::Whirlwind,Sword->Elapsed,End);

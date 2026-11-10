@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Skills/FPSMagicArrowRain.h
++++ b/Source/FPSGAME/Skills/FPSMagicArrowRain.h
+@@ -5,6 +5,7 @@
+ #include "FPSMagicArrowRain.generated.h"
+ class UInstancedStaticMeshComponent;
+ class UColdSteelStatusModel;
++class UAudioComponent;
+ struct FStreamableHandle;
+ 
+ USTRUCT()
+@@ -51,10 +52,17 @@
+     FMagicArrowRainCast Spell;
+     TArray<FVector> RainStarts,RainEnds,RainNormals;
+     TArray<float> Delays,TravelTimes;
++    struct FDescentCue { float Time=0.f,Pitch=1.f,Gain=1.f;FVector Point=FVector::ZeroVector; };
++    TArray<FDescentCue,TInlineAllocator<5>> DescentCues;
++    TArray<TWeakObjectPtr<UAudioComponent>,TInlineAllocator<5>> DescentAudio;
++    int32 NextDescentCue=0;
+     bool bReady=false,bBurstPlayed=false,bImpactPlayed=false,bDamageDone=false,bRainBuilt=false;
+     float PreviousFraction=0.f;
+     double Clock() const;
+     void BuildRain();
++    void BuildDescentAudio();
++    void PlayDescentAudio(float BurstAge);
++    void StopDescentAudio();
+     void Present(float Age);
+     void Smoke(bool bImpact,float Elapsed=0.f);
+     void Sound(const TCHAR* Name,const FVector& Point,float Volume);

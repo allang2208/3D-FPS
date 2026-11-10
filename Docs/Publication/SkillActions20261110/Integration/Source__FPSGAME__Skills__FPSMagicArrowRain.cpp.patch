@@ -1,0 +1,112 @@
+--- a/Source/FPSGAME/Skills/FPSMagicArrowRain.cpp
++++ b/Source/FPSGAME/Skills/FPSMagicArrowRain.cpp
+@@ -5,6 +5,7 @@
+ #include "../Combat/RangedAttackQuery.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "Components/InstancedStaticMeshComponent.h"
++#include "Components/AudioComponent.h"
+ #include "Engine/AssetManager.h"
+ #include "Engine/StreamableManager.h"
+ #include "Engine/StaticMesh.h"
+@@ -49,7 +50,7 @@
+     }));
+ }
+ void AFPSMagicArrowRain::EndPlay(const EEndPlayReason::Type Reason)
+-{if(Load)Load->CancelHandle();Super::EndPlay(Reason);}
++{if(Load)Load->CancelHandle();StopDescentAudio();Super::EndPlay(Reason);}
+ void AFPSMagicArrowRain::Launch(UColdSteelStatusModel* InModel,const FMagicArrowRainCast& InSpell,
+     const FVector& Start,const FVector& Ground,const FVector& Burst)
+ {
+@@ -59,7 +60,7 @@
+     SetActorLocation(Ground);ForceNetUpdate();SetLifeSpan(Flight.FlightSeconds+2.4f);
+ }
+ void AFPSMagicArrowRain::OnRep_Flight(){SetActorLocation(Flight.Ground);}
+-void AFPSMagicArrowRain::OnRep_Blocked(){Arrows->ClearInstances();Trails->ClearInstances();}
++void AFPSMagicArrowRain::OnRep_Blocked(){Arrows->ClearInstances();Trails->ClearInstances();StopDescentAudio();}
+ void AFPSMagicArrowRain::MulticastBlockedImpact_Implementation(FVector_NetQuantize Point)
+ {
+     if(GetNetMode()==NM_DedicatedServer)return;
+@@ -102,6 +103,57 @@
+         TravelTimes.Add(FMath::Max(.01f,MagicArrowRainTiming::FallSeconds*TravelFraction));
+         Delays.Add(MagicArrowRainTiming::LaunchDelay+Random.FRandRange(0.f,MagicArrowRainTiming::LaunchSpread));
+     }
++    BuildDescentAudio();
++}
++void AFPSMagicArrowRain::BuildDescentAudio()
++{
++    DescentCues.Reset();NextDescentCue=0;
++    const int32 Count=FMath::Min(5,RainEnds.Num());if(!Count)return;
++    // An independent stream keeps audio variation from changing arrow trajectories.
++    FRandomStream Random(Flight.Seed^0x6EA2F13D);
++    TArray<int32,TInlineAllocator<MagicArrowRainTiming::MaxArrows>> Order;
++    float First=Delays[0],Last=First;
++    for(int32 I=0;I<RainEnds.Num();++I)
++    {Order.Add(I);First=FMath::Min(First,Delays[I]);Last=FMath::Max(Last,Delays[I]);}
++    for(int32 I=Order.Num()-1;I>0;--I)Order.Swap(I,Random.RandRange(0,I));
++    int32 Pitches[]={0,1,2,3,4};
++    for(int32 I=4;I>0;--I)Swap(Pitches[I],Pitches[Random.RandRange(0,I)]);
++    static constexpr float Pitch[]={.945f,.975f,1.f,1.025f,1.055f};
++    static constexpr float Gain[]={.78f,.34f,.30f,.28f,.26f};
++    for(int32 I=0;I<Count;++I)
++    {
++        auto& Cue=DescentCues.AddDefaulted_GetRef();
++        const float T=Count>1?float(I)/(Count-1):0.f;
++        Cue.Time=I==0?First:FMath::Clamp(FMath::Lerp(First,Last,T)+Random.FRandRange(-.007f,.007f),First,Last);
++        Cue.Pitch=Pitch[Pitches[I]];Cue.Gain=Gain[I]*Random.FRandRange(.94f,1.04f);
++        Cue.Point=FMath::Lerp(RainStarts[Order[I]],RainEnds[Order[I]],Random.FRandRange(.12f,.28f));
++    }
++    DescentCues.Sort([](const FDescentCue& A,const FDescentCue& B){return A.Time<B.Time;});
++}
++void AFPSMagicArrowRain::PlayDescentAudio(float BurstAge)
++{
++    if(NextDescentCue>=DescentCues.Num())return;
++    // Ignore genuinely stale replication, but retain a live volley across normal
++    // loading/frame hitches. The former 80 ms per-cue expiry could discard all five.
++    if(BurstAge>MagicArrowRainTiming::DamageDelay+.5f)
++    {NextDescentCue=DescentCues.Num();return;}
++    auto* Wave=Cast<USoundBase>(FSoftObjectPath(MagicArrowRainAssets::Path(TEXT("S_ArrowRainBurst"))).ResolveObject());
++    if(!Wave||Wave->HasAnyFlags(RF_NeedLoad|RF_NeedPostLoad)||BurstAge<DescentCues[NextDescentCue].Time)return;
++    const auto Cue=DescentCues[NextDescentCue++];
++    const float LateBy=BurstAge-Cue.Time;
++    // Start one voice per frame; after a hitch move the remaining spacing forward
++    // instead of consuming voices that were never played or dumping them together.
++    if(LateBy>1.f/30.f)
++        for(int32 I=NextDescentCue;I<DescentCues.Num();++I)DescentCues[I].Time+=LateBy;
++    // The wave owns its descent-only attenuation. Do not override it with the
++    // short-range ground-impact settings (almost silent at the 40 m cast limit).
++    if(auto* Audio=UGameplayStatics::SpawnSoundAtLocation(this,Wave,Cue.Point,FRotator::ZeroRotator,
++        Cue.Gain,Cue.Pitch,0.f,nullptr,nullptr,true))DescentAudio.Add(Audio);
++}
++void AFPSMagicArrowRain::StopDescentAudio()
++{
++    for(auto& Audio:DescentAudio)if(Audio.IsValid())Audio->Stop();
++    DescentAudio.Reset();NextDescentCue=DescentCues.Num();
+ }
+ void AFPSMagicArrowRain::Smoke(bool Impact,float Elapsed)
+ {
+@@ -166,7 +218,7 @@
+         if(!bBurstPlayed)
+         {
+             bBurstPlayed=true;Arrows->ClearInstances();Trails->ClearInstances();
+-            if(BurstAge<.5f){Smoke(false,BurstAge);Sound(TEXT("S_ArrowRainBurst"),Flight.Burst,.48f);}
++            if(BurstAge<.5f)Smoke(false,BurstAge);
+             // One pooled system schedules every impact from the same arrow clock.
+             // Late presentation receives elapsed time rather than replaying all contacts.
+             if(BurstAge<1.4f)Smoke(true,BurstAge);
+@@ -213,5 +265,14 @@
+             if(Pawn&&Model.IsValid()){ColdSteelAuthority::FScope Context(Model.Get());Model->ApplyMagicArrowRain(Pawn,Flight.Ground,Flight.Burst,Spell);}
+         }
+     }
+-    if(GetNetMode()!=NM_DedicatedServer)Present(Age);
+-}
++    if(GetNetMode()!=NM_DedicatedServer)
++    {
++        // Audio must not depend on the mesh/material readiness gate in Present.
++        if(Age>=Flight.FlightSeconds)
++        {
++            if(!bRainBuilt)BuildRain();
++            if(bRainBuilt)PlayDescentAudio(Age-Flight.FlightSeconds);
++        }
++        Present(Age);
++    }
++}

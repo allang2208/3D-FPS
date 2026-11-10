@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -2,6 +2,7 @@
+ #include "FPSBodyHighlandMotion.h"
+ #include "FPSBodyKukriMotion.h"
+ #include "FPSBodyConsumeMotion.h"
++#include "../Skills/ChainSlashMotion.h"
+ #include "../FPSGAMECharacter.h"
+ #include "GameFramework/CharacterMovementComponent.h"
+ 
+@@ -43,6 +44,8 @@
+             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+         ||(FPSBodyHighlandMotion::IsSweep(A.ActionVariant)&&FPSBodyHighlandMotion::IsSweep(B.ActionVariant)
+             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
++        ||(ChainSlashMotion::IsVariant(A.ActionVariant)&&A.ActionVariant==B.ActionVariant
++            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+         ||(A.Action==EFPSBodyAction::GunBash&&B.Action==A.Action
+             &&A.ActionVariant==TEXT("WarhammerHeadThrust")&&B.ActionVariant==A.ActionVariant
+             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+@@ -89,7 +92,7 @@
+         {
+             // The knife executor supplies its exact haste / hit-stop rate.
+             // Finite differencing would advance a just-paused contact remotely.
+-            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&!FPSBodyHighlandMotion::IsSweep(DisplayState.ActionVariant)&&DisplayState.Action!=EFPSBodyAction::Consume
++            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&!FPSBodyHighlandMotion::IsSweep(DisplayState.ActionVariant)&&!ChainSlashMotion::IsVariant(DisplayState.ActionVariant)&&DisplayState.Action!=EFPSBodyAction::Consume
+                 &&!(DisplayState.Action==EFPSBodyAction::GunBash&&DisplayState.ActionVariant==TEXT("WarhammerHeadThrust")))
+                 DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
+             if(DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))

@@ -1,0 +1,686 @@
+{
+  "captured_public_head": "44fee726e0432382f8d56209d475f3672455845b",
+  "shared_hosts": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+      "local_sha256_lf": "08e622432fdcc1f9fe6937625bfd9a2bb6df3d2442d8266f472fae0dd23950bd",
+      "public_head_sha256_lf": "8d10361164b12ec71210fe8c8070b639066fc54a8246255fb51c8e3d85d270e6",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyWeaponMeshComponent.h",
+      "local_sha256_lf": "2f12de8e600b9f1b8743112884e246e3dbbbb7f777586071a8361a4b2e539ff0",
+      "public_head_sha256_lf": "8d4556fdd345abb4cbe7c338553a12319f60295b11bbb61a02bf526edc68e69f",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "local_sha256_lf": "03a71f1a22d5ce0b418a5a8464c4a12a7b74e4005557a98d6966494409f119c8",
+      "public_head_sha256_lf": "a00a0f9c448b5f4e196614ab444393433d2fcd3980984b2bc36d8784ff14266e",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h",
+      "local_sha256_lf": "c877df0b77ce93c599469ddace6b7dfa08bd7aa463785e20ef63076490eea16f",
+      "public_head_sha256_lf": "2a7ff1ee0c90679a9f449cf57ab0a5ad6a90ae51064042328495ef343cbed206",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp",
+      "local_sha256_lf": "ba16a3a792685402941c8ab1100e3a2b8be4cfe005626ba42c764539cdffea84",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "local_sha256_lf": "db5760c7089a6080814d9b1a2baf694474ff43537587564726db174753694d09",
+      "public_head_sha256_lf": "32d6a16b795a5a13c30a8779325761824667fbb69a693d9332f06c4837d128b2",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "local_sha256_lf": "04eaca52a227fede2ced13b8017f9a11f2e10f0be82ef75c894f6a8c26424de8",
+      "public_head_sha256_lf": "466707dc3bd68bc3ee5a34117dd0b1bf4a9e00d7fc5d2e3fb39c095383db525a",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyPoses.h",
+      "local_sha256_lf": "fdd878f7c52742c00cecba020c232a438e484ddc5c15d1ba022e22dd9c0976a6",
+      "public_head_sha256_lf": "742fe2dd05d0abe8a81b745fbfc732f879d0a680fcf8a4840b3ed4838fe6105e",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+      "local_sha256_lf": "4f316f6b4f8bb4890f3be177bb8ecf6c797b2e2651712fa126988714238cbeb0",
+      "public_head_sha256_lf": "f639397b8439a7fc109758fa7b76669220d12b27709cfbc0668330063b74be18",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+      "local_sha256_lf": "db01dc3b582bf31595ab9c12580f7798f788f751909726a269a61069c7a1cfb7",
+      "public_head_sha256_lf": "997a6a27956f1a8e67ffb490e9cb74d11dc2ee82daf65aad69ae66852f749a33",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/RangedAttackQuery.h",
+      "local_sha256_lf": "9317ee5fa36cc43e8662b287eddd04e8d84497db7ca6a3ea43e1400dc9b90fbf",
+      "public_head_sha256_lf": "9317ee5fa36cc43e8662b287eddd04e8d84497db7ca6a3ea43e1400dc9b90fbf",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "local_sha256_lf": "c9ddd13ed8de50680f082f8fac15993e11fcd6ce52b1a9cc1d4478ddd6e51e56",
+      "public_head_sha256_lf": "efaeddc2cbf63ee4f1e5fd203d95cdadb5c4c81e1cb30cd4bb093c4d8ea208b7",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "local_sha256_lf": "fdb10c251cbc8361d11843c33263fea4aa515cd01094efbb031f3f09931b94dd",
+      "public_head_sha256_lf": "be0b7142b17cbb567549eaeee68fec32c45ef5b3b4185acbfd6f6fa858536792",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "local_sha256_lf": "4190ce7f8f7f876e4ddb66de024bf743b25788dad0e77d39b1f77dde00da3014",
+      "public_head_sha256_lf": "d115b42b5d4f336943c298ab7b8bd2b9788deb7e1b523beb911c30ff42189bca",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregate.h",
+      "local_sha256_lf": "3a567f7cec290ca7b3eb19980bacbee896aa3e01cfce848f6e82428d70d5e61e",
+      "public_head_sha256_lf": "3a567f7cec290ca7b3eb19980bacbee896aa3e01cfce848f6e82428d70d5e61e",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregateCaptureComponent.cpp",
+      "local_sha256_lf": "248e6dda762e6d4bfb019597778a13238c85bb32a349a80e1047db1a1c6ebeba",
+      "public_head_sha256_lf": "d0028f45b58c50dfcea3396fb949f485d03127580681e2339d2f5b189866617b",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregateCaptureComponent.h",
+      "local_sha256_lf": "581d3afb03b035e521696a12719120d133175b503ee66191c633d6600be3d0bc",
+      "public_head_sha256_lf": "581d3afb03b035e521696a12719120d133175b503ee66191c633d6600be3d0bc",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+      "local_sha256_lf": "06cdca7fdc17d94202da3ac6779df443119ca9b5b024ecb46e37b25e395b4415",
+      "public_head_sha256_lf": "06cdca7fdc17d94202da3ac6779df443119ca9b5b024ecb46e37b25e395b4415",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "local_sha256_lf": "c738cbbf4e03bea7baa35c151c8e4cab5ca7e73390939c09946a00546995a30a",
+      "public_head_sha256_lf": "5f36bc1d2cde1f4030241df3e9285de70eb5c6dfcd1d53d9cc89b68f1ee022a8",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.h",
+      "local_sha256_lf": "ffdd8aae3b3e741db0caacf79c5cd3fa829a19faea8b68dc50bfe07048f3bef3",
+      "public_head_sha256_lf": "ffdd8aae3b3e741db0caacf79c5cd3fa829a19faea8b68dc50bfe07048f3bef3",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainFearComponent.cpp",
+      "local_sha256_lf": "5f56d6360c14d0aad5b7f5690675bbba0582e7b666490f660c7ef746b2650795",
+      "public_head_sha256_lf": "4b42598300379d20c9e3f91042ba213ce2694e682eb4ed53ec2bb719206ccc2a",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainFearComponent.h",
+      "local_sha256_lf": "04be3c7139d5d7c813d2dc96aaaa740b351b21c1c7f734ab83854bf9af0b2dcf",
+      "public_head_sha256_lf": "04be3c7139d5d7c813d2dc96aaaa740b351b21c1c7f734ab83854bf9af0b2dcf",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.h",
+      "local_sha256_lf": "9d04aac514a6fef3aa6a03b2c07f7c965dd78fc9576ac9423b0c8efb5d432db7",
+      "public_head_sha256_lf": "781dc97efa5a398088f09250a8326b03246521f8ad0c4ce48c61371a6aee2db2",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "local_sha256_lf": "bc13af58e71b43f1e20bd5182af13484b8eab8da375e728bdad22a4038cc2ea4",
+      "public_head_sha256_lf": "6b68964a829d6158cb31f3d1e8a2c14fa809e3c30fcc19d4e4b4520b3ccc3e68",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.h",
+      "local_sha256_lf": "e7a67ac905bd9abce68252e52815f61dccf3e926a72678f72ba8f3dd787c7f3b",
+      "public_head_sha256_lf": "031d41abce3c2ae9fce350ee547cc820132fd8819705a47dd0c859487e6e3012",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SlagMistViewComponent.cpp",
+      "local_sha256_lf": "a95a5f25e5f107ba9ee10ab0dd4fc3bf6cdadbe3372f9ef1db3c306f05313ee9",
+      "public_head_sha256_lf": "89aafaca073c7fc51ecc3a32e132370c291e5ac6ee0b2ec652a2527c74587760",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "local_sha256_lf": "19b2010f7d41d2c53b32243ef69991a2e455ce34e74e8d60b6cdcc9dc93fd4f6",
+      "public_head_sha256_lf": "3e6dfc6991d04dc30142b8c1be55b1549be543f376a552a68439c1c426154962",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSExhaustionComponent.h",
+      "local_sha256_lf": "4903d2b1606533c9c3cb3f16962db05dcd4f7ebf13142650a092ab0229bfb21b",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.h",
+      "local_sha256_lf": "621decf37be488e365cc7ed501055d1872b03771a72c9b4c251360d83b412887",
+      "public_head_sha256_lf": "621decf37be488e365cc7ed501055d1872b03771a72c9b4c251360d83b412887",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSImpactPushMovement.cpp",
+      "local_sha256_lf": "02b6eb312286864d224118fa8355fcf491ce0199519311e07fe1bf3ca9e2a6c4",
+      "public_head_sha256_lf": "1901157736f1323196920990ed17b4f5dc785eeec9de1675c2d0b6d229675f1c",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.cpp",
+      "local_sha256_lf": "7893a7bfe84580a5eb9fcbb27f71165646139917b4ccde9b99cd6be23247bcc2",
+      "public_head_sha256_lf": "6573f957ac6e852a8e1f51e6b47e9d46da93a1f3096e617538a5ac54fbf1ceb6",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.h",
+      "local_sha256_lf": "04b68ff9fdc1b0aa1c4aa9774a65e123ce125da11beb1bc43b3bffe4a4ac893f",
+      "public_head_sha256_lf": "04b68ff9fdc1b0aa1c4aa9774a65e123ce125da11beb1bc43b3bffe4a4ac893f",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.h",
+      "local_sha256_lf": "a89f4a04d8d2389550bdcdacf35a34af83ae12587b1f0ceae66d017f627d0328",
+      "public_head_sha256_lf": "a89f4a04d8d2389550bdcdacf35a34af83ae12587b1f0ceae66d017f627d0328",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp",
+      "local_sha256_lf": "779e2f9bcb297bd28421d4b0af02bb14ccbaa476445812e59e580ffcb89c9697",
+      "public_head_sha256_lf": "95bb90584f699518f28c547ca4163ac347126dedd2bd051440ed51174b352ac6",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "local_sha256_lf": "f692dc5bd92e96930bb714f7d048737c3e03298c7b2c858e9aaaa6a62170777d",
+      "public_head_sha256_lf": "47e2e8e8f174d9d515101ab06b92e138ea7f5f788945905079a3748763bbd728",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "local_sha256_lf": "162bf63a5b88e9168753cdc129cb84025ea9598a7cb196b8948bc3faf0cba0b0",
+      "public_head_sha256_lf": "3fa377b089ae0ecd0b4659028c52415fbb8d4e43cad09faea5bf5b424feaa679",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/UppercutStaminaReceipt.h",
+      "local_sha256_lf": "d6ea371a9878a9cf22b8d829c428c38a5ee75a6e9dbe6b2f6c1bedfd4ac651d9",
+      "public_head_sha256_lf": "95a569b64add35bb8b872b11b4bf781715d3d5cbf3d9fdc9dd19b13d982f1322",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "local_sha256_lf": "52c3a4e6358196ff5e1791f4eebc12cbdfb8117fa8361f23c00c03c4b303bec2",
+      "public_head_sha256_lf": "dffa109cc9739354af2899835b73b50034c84f2e70798561a2e28905e5b96e89",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolMeshComponent.h",
+      "local_sha256_lf": "88567cea764a9107075abd4deadc333b04620d305f144683e6e91474b71d3c17",
+      "public_head_sha256_lf": "88567cea764a9107075abd4deadc333b04620d305f144683e6e91474b71d3c17",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionWarhammerRift.cpp",
+      "local_sha256_lf": "7c26776108a237ced49cd95313d7be69403a02fa850dea835e50a3beda7f98da",
+      "public_head_sha256_lf": "7e4b3c72bb9b93675f07eb37695f3ed4ee564b3610b070def2830d68b1b64269",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerAudioPaths.h",
+      "local_sha256_lf": "d83f199a672fcacc6e7b26f035ec85dd6e41120338f97758c4f70b4e9ae3bfd8",
+      "public_head_sha256_lf": "e6471b1e02241514c0eb8cae9d6cfed97b9a957b05f2623ab56e3fbc9b6b8ff4",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerHeavyMotion.h",
+      "local_sha256_lf": "715d0b9ffa338f04d2e7afa8b6b8f69e430c4f2ea1f672c37b45439a658f959c",
+      "public_head_sha256_lf": "715d0b9ffa338f04d2e7afa8b6b8f69e430c4f2ea1f672c37b45439a658f959c",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerNetworkAuditCommandlet.cpp",
+      "local_sha256_lf": "ed9d8a60a0c31afe02e4a185aace339f2ab7dd11f450343c6d21b8cd94b167e7",
+      "public_head_sha256_lf": "ad0263a52cd558ad4f57ee860b06fca97b7775b5720d44ef3bea33dfbe8fa83f",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerShockwave.cpp",
+      "local_sha256_lf": "7772cb0ee5c69ee60616b91bcc50a8011451574e9699980bb76a534b0e71a288",
+      "public_head_sha256_lf": "25b8a212f55adfa65d3adbea520e40268c619fad1d348f53dec0c499a2480e81",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerShockwave.h",
+      "local_sha256_lf": "06ce66da8c5b841f832dee9cb91a7208ba8ab26f68d42e905163651b3ab75fe3",
+      "public_head_sha256_lf": "e71cc876c2076523cb4dae8e996d3d8e377facf4e4c5fe9cd1acbd4a5835de0e",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/BowHeldMagicVisual.cpp",
+      "local_sha256_lf": "ca14bf13386ec826e34bda561edd70391ea19021d085d06841567f13a1fc6aa2",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/BowHeldMagicVisual.h",
+      "local_sha256_lf": "716b88bd1b23a28ca3360c62c3892daddbfc51f10180662f3427f1a94e63ab27",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "local_sha256_lf": "ffe02bb1066b479dc0177aea99a7ab18e0b26c73b91afb3c9dd6f1118142d080",
+      "public_head_sha256_lf": "86048886f586858dee94b1f0f5335b43abe137d32b74508dfa9cf5c11032fa46",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "local_sha256_lf": "71d58f5d3164aa4094ba3f78aa43ce521585333152edaa2044fb8c794d267e8c",
+      "public_head_sha256_lf": "b99f3603d010587edb31bf925c40141d7f0afbff4306b4b6e97fd928a5b7ab76",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.h",
+      "local_sha256_lf": "fe09860298453c3c908cb3dce9e8da2102c74f3b858383c87cbe9660229cdee8",
+      "public_head_sha256_lf": "c343298d19542744292a7e6bfcee6049795f5d40b42d64d91f0b5bac7e7e06d0",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "local_sha256_lf": "9d9dedc3714008b58fe0833457cd653bb458823a830d643a5ed1b2af33a27097",
+      "public_head_sha256_lf": "e6bac42dd0b21893993ebea02a440c8ebae47ca931527fa8a558b7a52be9da64",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ElementalArrowTypes.h",
+      "local_sha256_lf": "ce6a1b7b39c9e38683e01291c427f2d6352ffa1327f6d2138acf6658066ac046",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSElementalArrowComponent.cpp",
+      "local_sha256_lf": "a6d4199c874efbf7381c9aead4de8a838cf50c845a954263c4ecb6b44bb91114",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSElementalArrowComponent.h",
+      "local_sha256_lf": "f5952985ed719aeb4db3c09651e3f781d8625ca05296dfe3cf108db39534ae5d",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "local_sha256_lf": "6e67bdb85f6ef85ecf06c7f19a26a9d991c3cbb3707e96bc2754cd9edc2b9d66",
+      "public_head_sha256_lf": "d48449fc7163d355e61df60293fac40dd8355a79b09cde5e9e47ac5e7e4208df",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.h",
+      "local_sha256_lf": "3f4276eee78d5bc443f6ddbeb7518f2be3196f25765875f5db338553675f5fa5",
+      "public_head_sha256_lf": "3f4276eee78d5bc443f6ddbeb7518f2be3196f25765875f5db338553675f5fa5",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningArc.h",
+      "local_sha256_lf": "a8513ef7ed409050fe1f0800315fa85bfbf2943b1bcee7ca20886d9a38d7b9a6",
+      "public_head_sha256_lf": "a8513ef7ed409050fe1f0800315fa85bfbf2943b1bcee7ca20886d9a38d7b9a6",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicArrowRain.cpp",
+      "local_sha256_lf": "f8d7c3169af6228050083d65d84a28e944440989861490915f6315d52c96e645",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicArrowRain.h",
+      "local_sha256_lf": "1cd4c48c4b65fdc7c995a5c12d76f6a0d086b565ee5ff23fd62836e1a614bbf3",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "local_sha256_lf": "f9b370246e81b99ba3fa3d30ce7da357712944e3e32811d8c776f1f72849740c",
+      "public_head_sha256_lf": "c21825e4b876e575f463fd7f340e4d41ae339c3b8e3b1ef03ec7e032491ec6bc",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningHasteSpeed.h",
+      "local_sha256_lf": "5abc0bd4e2b3b462b12fa73f9011d081ec3ec439150e4d9991be5372b61b4401",
+      "public_head_sha256_lf": "5abc0bd4e2b3b462b12fa73f9011d081ec3ec439150e4d9991be5372b61b4401",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MagicArrowRainAudit.cpp",
+      "local_sha256_lf": "85f985eeba749742ae082023c38f196165b7ec8807794ebb96eaf3deec6b58f3",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MagicOcclusion.h",
+      "local_sha256_lf": "70f9d39a7f04ec648845050dfa5ae0c66955bc085387dc7092c1c741cc566221",
+      "public_head_sha256_lf": "70f9d39a7f04ec648845050dfa5ae0c66955bc085387dc7092c1c741cc566221",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillPreparation.h",
+      "local_sha256_lf": "9f67331acedfd7157259118d8ef72e6e17ef2b15227c20f866de871999b66096",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "local_sha256_lf": "e9a4f69246742d1778fcec22cdaa353bfdb82a65bb4473aa7ef3a261a76ce94e",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "local_sha256_lf": "8ed8675307c4a3470a58a86aed199b7c24c16a8f29e6435df43b5b19e607a84d",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "local_sha256_lf": "127d4bcb6e9119120903fb8cce0b9ecb80fbea0939ca27ec9044531ac6c8c37a",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.h",
+      "local_sha256_lf": "282fcdcc3bb1eeaf43f4b24373346fc7c72c56bb9fca867cf1ff4b2b84385921",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "local_sha256_lf": "b779ec8cd37037a506c924a0dee0190f1d158c960055cea03c2531fa2885ce51",
+      "public_head_sha256_lf": "03dec458a66f795be38c22fff9e7fad61307abecab0879f1613266c89141f31f",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "local_sha256_lf": "4e19b65d526871c1dcf54a4f71656f1931f48f78f99fb92c8bdb13ec73e4f997",
+      "public_head_sha256_lf": "a32d00be35e31a885f71cb68a9149f3e8378d2da5a53fdd9738a664178999d83",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "local_sha256_lf": "a2e58f82fc6ce309eb3c017f48f25f673bafea7843abae47059fb0b37d27eac5",
+      "public_head_sha256_lf": "3bf6285b2c78d40aa681877bb5bac0a5d1ce6bf1fae47458f868ef45b6fd252a",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "local_sha256_lf": "37a9fcf25c75b6e91c3db3b03f5e90bff4ea5b04d43f1a9c57c06115b2a1b0e6",
+      "public_head_sha256_lf": "13ce13e37be30f43cebd6b0ed1536dab88f4aa1af1c5f34bbb62a65903ef0a24",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "local_sha256_lf": "4d5e09e518d3f4f67bc93df0a0e51482462629fb9f2b49f1f7694b65d1ef0ed7",
+      "public_head_sha256_lf": "e42e43a156b340a5013878509235f6ece30263a7b430b6031bd827a4734b9ec2",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.h",
+      "local_sha256_lf": "765a6ff1f20e5f7e8cdeb61dfa6910bbba6a62a2ba97f7b28726069c6b1a0825",
+      "public_head_sha256_lf": "b8340c56974e9ace163cb3215a017764c63f6734fb26ff682f23bbd8b3a06805",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "local_sha256_lf": "036640f899b6b12d9fd535218699a0043b8962d1ddeb23a5810aa320441d5b5b",
+      "public_head_sha256_lf": "fa822383bd50761b46b251481f7c9de8237f4bb388787ee0afc729925cc76559",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+      "local_sha256_lf": "19cd3cbbe07b5fa7d332d950995ccfd13bd5cfbfb41f5520b781ef6b9fb1ba53",
+      "public_head_sha256_lf": "54ea9de014d0a06f6bc5f4a65217c9a4101a97d3717e7c60ae62f0e2c9334445",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsComponent.h",
+      "local_sha256_lf": "9be722d5e66ad99a69b7158ad035a957685f93ad521314f84a44d47c0baecb8f",
+      "public_head_sha256_lf": "9be722d5e66ad99a69b7158ad035a957685f93ad521314f84a44d47c0baecb8f",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowElementalArrow.cpp",
+      "local_sha256_lf": "e2df3a7962bec572fa5f07b280019aff498c5149c7cdc7ed55ebcda1219fd7f6",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowPartComponent.h",
+      "local_sha256_lf": "9f873f71308c9a20158252b3e89303d76e676a1d4527d1f014fd05f33cd55887",
+      "public_head_sha256_lf": "6b2686448b4e7e74e8e7bf674473faeb2b44865e89fcb04d388c4ff85a8991c8",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "local_sha256_lf": "e7058bbc687a7dae7fdc2562ba44f10674e3096d8f949e1fd81801efd1ac8175",
+      "public_head_sha256_lf": "5b3c72576a695d9e55a7f5635b5e26dd17d86b29ce4e3d31c56d209fdb80fb1b",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "local_sha256_lf": "657bdcde8b9f0d23269cfd56cc19e063cfe96c133ff715ca17705fce9edcb0a0",
+      "public_head_sha256_lf": "93f5dba0db3d470f78bf9141a008a2204d600c7f22554fb0a74fdabd55e7e0c6",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSMeleeLightningComponent.h",
+      "local_sha256_lf": "78c81a374463f18fc58efd8cb09d484f1825700b8711cf4a854823b1ac56ff3a",
+      "public_head_sha256_lf": "78c81a374463f18fc58efd8cb09d484f1825700b8711cf4a854823b1ac56ff3a",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+      "local_sha256_lf": "9f25de9a2a3b1579f37c29a1b98c68f0157f3d8899f823898897dc29e75915f9",
+      "public_head_sha256_lf": "830033fee8e2d28b889c58ac00d6bb9b4c6dc4b11d11e2f0a13e9e85a380794f",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h",
+      "local_sha256_lf": "a81c7f39a8d77034917421ed2e53de2f1d12330c529acbb08bbc9b75a0cd7d6a",
+      "public_head_sha256_lf": "38a6e143becd4ce18ce6ad3175fee65b42d538e91665a589f74a08f230760ec6",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeSmallTargetQuery.h",
+      "local_sha256_lf": "54e5047634a58c531480ed46f7c3d55fd83a17ef7ae109ac214f2b0ba10e37b7",
+      "public_head_sha256_lf": "4eeea9eb96350280573d6a6bd26afc28843fa92d436031dd0fb48ba5bfcbf94e",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+      "local_sha256_lf": "f137ab2aebc3aab1028d5b5f6de3c4db3d8dd3d8d6c37774829471bd5fb57018",
+      "public_head_sha256_lf": "aa6b4ce119cc569d3f718fccb7d7fe3dd5a7eedd6e2832f8da3d168eb9c4db18",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ModularSwordVisual.h",
+      "local_sha256_lf": "1d9604336514d8baa9e5d89fbe09ed9012eb2ec08d1c2c09b9dfada8cd3f8fcc",
+      "public_head_sha256_lf": "aaa6be1e13ac65f7246d7ba71615f72149b5c86b61ec6974b703c899be77bc98",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "local_sha256_lf": "a1b4ce62cef8dde3d28ac4525127776a472fdd3ee2d1319ae24b40559c1ef5f6",
+      "public_head_sha256_lf": "edb760231e6f8cb174524e78cea42e4cd2848772bd204cd054fce9ae07b4c2d5",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "local_sha256_lf": "3f40677dba59a83e16741f355ee6c747bc0bdd7ca4231c410470f904ec920e0f",
+      "public_head_sha256_lf": "4ad642b5f90e1cd423c2c0cd935a6d3fb3e7f0434a67dd097bd34d3a096cc39a",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "local_sha256_lf": "76995ac1cc1488e8a1fd8ddb2ee72dec446b9950718725b9d81d3871b342c0bb",
+      "public_head_sha256_lf": "2efef35cd8ef51b5fde85c61788367691e750aeda0d56293daa96bb1528ef725",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "local_sha256_lf": "d740f7ed2bc89199c5d77da5e8d462e02c11d4ab289a7b3f9c6c99bf23870470",
+      "public_head_sha256_lf": "f8de368e6f01870b1b0201a34025059179c2d65805b5f4cd476e0e3723510f70",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+      "local_sha256_lf": "a59d388f9f87cedc242d67c94488610a019b2203fc5aaed22bf1956369d37af5",
+      "public_head_sha256_lf": "f28744b89e178e3d4d409d3a2469a298897fc484a64cbf02f1d7928d5585ff09",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordMeshComponent.h",
+      "local_sha256_lf": "e5cbbbf924cf50d5597d2571b18b809c83a3cc8f0af732a9455fa13847eb2eb2",
+      "public_head_sha256_lf": "f14178715f64f0b2c13bc2d754976388c5a19b1e3942900875633ca9877e0fec",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp",
+      "local_sha256_lf": "5e964770de25b3c9b0a6837cc8647117808fee057652ebfe155a3b205355a042",
+      "public_head_sha256_lf": "add65beda6a09a883ae8631d956f9544c830f8a87ab7580a4c1ca11849fd324e",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h",
+      "local_sha256_lf": "9ee0152881f04f3fabf527cab91a01e7946f7bddcca82881d7ded71bda44d726",
+      "public_head_sha256_lf": "86851982e37c0a05c62cfcd91c0e30ce1cd70a106d3c8f1a794e18bb51f66bb1",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.h",
+      "local_sha256_lf": "6e8897c4d39f7e47e1951f8ae4cb76d5b54c73f3acd03faa66771fcae29adc66",
+      "public_head_sha256_lf": null,
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h",
+      "local_sha256_lf": "436364e1c9e82ba480476251ca7e0ae823cc3e2a1b39348f2095d00c0a069e65",
+      "public_head_sha256_lf": "706a0f6a104554c54015c8ca583c1a7c4830312ddcfa00555f4d632389d817a0",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/StarMarrowFlames.cpp",
+      "local_sha256_lf": "64456a5f10dcc9de651561f329428d8d8275d61a45ba094d68e87b3f0c022ae9",
+      "public_head_sha256_lf": "463ce0ddc9929b6582bc7663a08212839bfe848e6a62afa20533dfe157a687e0",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.h",
+      "local_sha256_lf": "49326e44857ba148c006ded67e328cadd13a87a00dfba14c71013a2f0b5f5fe5",
+      "public_head_sha256_lf": "49326e44857ba148c006ded67e328cadd13a87a00dfba14c71013a2f0b5f5fe5",
+      "integration": "matching host required; preserve unrelated work"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+      "local_sha256_lf": "51b309f586895c3d72ba282d48a9e447fc7d62ab1c97d57e53a1735c209a22ed",
+      "public_head_sha256_lf": "51b309f586895c3d72ba282d48a9e447fc7d62ab1c97d57e53a1735c209a22ed",
+      "integration": "matching host required; preserve unrelated work"
+    }
+  ],
+  "local_only_inputs": [
+    {
+      "path": "Source/FPSGAME/Weapons/ChainSlashCameraKeys.inl",
+      "exists_locally": true,
+      "bytes": 6458,
+      "sha256": "6c5706ef2223388f2feaad7121b0c224defd3ac52687bd186d104a16a8813563"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerQuickReferenceCamera.h",
+      "exists_locally": true,
+      "bytes": 4460,
+      "sha256": "f31f29640c45085c8aecb6d5a279171fb5988da859d797aa476feab5b2dcca22"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/HammerFireSurfaceData.inl",
+      "exists_locally": true,
+      "bytes": 112797,
+      "sha256": "3bec334ec50c59123c32995f6c8ac0a7bffd6ef255ab8b00aaad662326c64629"
+    },
+    {
+      "path": "SourceAssets/ChainSlash20261107/grip_poses.json",
+      "exists_locally": true,
+      "bytes": 51130,
+      "sha256": "191222806e61cf924760f599c99103b82e6dfd35e5665d969555906c9d18f0b0"
+    },
+    {
+      "path": "SourceAssets/ChainSlash20261107/Standard-fit.json",
+      "exists_locally": true,
+      "bytes": 47092,
+      "sha256": "8115adaca6fc3f6746cc7dadfa522c8019996a8c318e2a0149eaf98ffa2da121"
+    },
+    {
+      "path": "SourceAssets/ChainSlash20261107/LongGrip-fit.json",
+      "exists_locally": true,
+      "bytes": 47092,
+      "sha256": "8115adaca6fc3f6746cc7dadfa522c8019996a8c318e2a0149eaf98ffa2da121"
+    },
+    {
+      "path": "SourceAssets/ChainSlash20261107/RootClearance/arm-path.json",
+      "exists_locally": true,
+      "bytes": 287986,
+      "sha256": "05177aba4dfc0c20f41ff54f005f58ce0b161d7f2000bad7ce408bd01a05e85c"
+    },
+    {
+      "path": "SourceAssets/WarhammerQuickReference20261107/native-idle.json",
+      "exists_locally": true,
+      "bytes": 24728,
+      "sha256": "b162af85bf99c6b4c4d8f4ce5903266729bd0c8c631a863920466888c45892ef"
+    },
+    {
+      "path": "SourceAssets/WarhammerQuickReference20261107/native-author-inputs.json",
+      "exists_locally": true,
+      "bytes": 30032,
+      "sha256": "0d2dac573451154df74080f2a0c3be6f2ca388e96d09bb1cc6cebaf45687b4df"
+    },
+    {
+      "path": "SourceAssets/WarhammerQuickReference20261107/Review/current-mesh.json",
+      "exists_locally": true,
+      "bytes": 16696262,
+      "sha256": "3d567c0f94ed716bcfe483594f28f74f359d5c708db2f66c5f1b88cc3180f925"
+    },
+    {
+      "path": "SourceAssets/LeapStrike20261107/Review/Before/frames-120.json",
+      "exists_locally": true,
+      "bytes": 8600519,
+      "sha256": "d0d403ba7719b5ee71b55f9704506152d7a74d68999e782d5c37fdcc5f0aa0cf"
+    },
+    {
+      "path": "SourceAssets/LeapStrike20261107/Review/motion.json",
+      "exists_locally": true,
+      "bytes": 5414771,
+      "sha256": "c5663e9711169226c5f872b41c727ed72c695cd71cc514fc8ff2c79e8f2f441f"
+    },
+    {
+      "path": "SourceAssets/ArrowRainDescentAudio20261109/Recordings/NormalBowRelease.wav",
+      "exists_locally": true,
+      "bytes": 83180,
+      "sha256": "48ae29afd3e48eeef983d607ae1732193060a91ab8ae62424e8816892a7d2e66"
+    }
+  ],
+  "runtime_integration_complete_in_public_tree": false
+}

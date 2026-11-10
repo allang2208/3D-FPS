@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowElementalArrow.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowElementalArrow.cpp
+@@ -2,6 +2,7 @@
+ #include "../../Skills/ElementalArrowVisual.h"
+ #include "../../Skills/ElementalArrowBurst.h"
+ #include "Engine/World.h"
++#include "Components/SceneComponent.h"
+ 
+ void ABowArrow::SetElementalCast(const FElementalArrowCast& Snapshot)
+ {
+@@ -15,7 +16,7 @@
+     {if(ElementVisual)ElementVisual->Clear();return;}
+     if(!ElementVisual){ElementVisual=NewObject<UElementalArrowVisual>(this);ElementVisual->RegisterComponent();}
+     const FVector Tip=GetActorLocation();
+-    ElementVisual->Update(Presentation.Element,Tip-GetActorForwardVector()*Presentation.Length,Tip,Delta,true);
++    ElementVisual->Update(Presentation.Element,Tip-GetActorForwardVector()*Presentation.Length,Tip,Delta,true,true,Root);
+ }
+ void ABowArrow::BurstElement(const FHitResult& Hit)
+ {

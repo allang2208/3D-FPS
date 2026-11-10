@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp
+@@ -30,5 +30,5 @@
+         WorldBowMagic=NewObject<UBowHeldMagicVisual>(GetOwner(),NAME_None,RF_Transient);
+         GetOwner()->AddInstanceComponent(WorldBowMagic);WorldBowMagic->RegisterComponent();
+     }
+-    WorldBowMagic->Update(DisplayState.BowMagic,Transform.TransformPosition(Centre-Extent),Transform.TransformPosition(Centre+Extent));
++    WorldBowMagic->Update(DisplayState.BowMagic,Transform.TransformPosition(Centre-Extent),Transform.TransformPosition(Centre+Extent),Rod);
+ }

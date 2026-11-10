@@ -1,0 +1,302 @@
+{
+  "verification_summary": {
+    "native_groups": 13,
+    "native_checks": 937,
+    "latest_native_passed": true,
+    "udp_cases": 4,
+    "latest_udp_passed": true
+  },
+  "rendered_or_listened": false,
+  "public_internet_or_reconnect_tested": false,
+  "leap_udp_movement_tested": false,
+  "changes": [
+    "Publish four ChainSlash body phases with the executor acceleration and hitstop clock.",
+    "Reject wrong-weapon guard requests before consuming the current guard serial; reject guard during ChainSlash.",
+    "Solve standard LeapStrike flight at 0.75s; extend deep drops under gravity and keep actual landing authoritative.",
+    "Update both LeapStrike data and detailed panel copy to describe the hybrid flight.",
+    "Compare ArrowRain audio with the accepted ordinary-bow donor, replacing the rejected MP3 duration expectation.",
+    "Correct frozen-wire fixture equipment/camera/collision setup and advance guard diagnostic time through the existing raise/lower cooldown."
+  ],
+  "latest_native": {
+    "session": {
+      "name": "session",
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\session",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 67,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\session\\result.json"
+    },
+    "leap-ballistic": {
+      "name": "leap-ballistic",
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\leap-ballistic",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 86,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\leap-ballistic\\ballistic-audit.json"
+    },
+    "leap-control": {
+      "name": "leap-control",
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\leap-control",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 32,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\leap-control\\control-audit.json"
+    },
+    "leap-landing": {
+      "name": "leap-landing",
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\leap-landing",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 70,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\leap-landing\\landing-audit.json"
+    },
+    "leap-camera": {
+      "name": "leap-camera",
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\leap-camera",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 140,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-095849\\leap-camera\\camera-audit.json"
+    },
+    "arrow-rain-audio": {
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\arrow-rain-audio",
+      "name": "arrow-rain-audio",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 10,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\arrow-rain-audio\\result.json"
+    },
+    "bow-network": {
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\bow-network",
+      "name": "bow-network",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 95,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\bow-network\\native-checks.json"
+    },
+    "elemental-hold": {
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\elemental-hold",
+      "name": "elemental-hold",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 209,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\elemental-hold\\result.json"
+    },
+    "flame-armor": {
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\flame-armor",
+      "name": "flame-armor",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 21,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\flame-armor\\result.json"
+    },
+    "flame-armor-stats": {
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\flame-armor-stats",
+      "name": "flame-armor-stats",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 81,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\flame-armor-stats\\result.json"
+    },
+    "warhammer-network": {
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-100907\\warhammer-network",
+      "name": "warhammer-network",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 53,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-100907\\warhammer-network\\result.json"
+    },
+    "quick-variants": {
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\quick-variants",
+      "name": "quick-variants",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 35,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\quick-variants\\result.json"
+    },
+    "star-marrow-motion": {
+      "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\star-marrow-motion",
+      "name": "star-marrow-motion",
+      "exit_code": 0,
+      "passed": true,
+      "check_count": 38,
+      "failures": 0,
+      "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Native\\20261110-003723\\star-marrow-motion\\report.txt"
+    }
+  },
+  "latest_wire": {
+    "ChainSlash-listen": {
+      "peer_exits": [
+        {
+          "pid": 5844,
+          "exit_code": 0
+        },
+        {
+          "pid": 22100,
+          "exit_code": 0
+        }
+      ],
+      "configured_lag_ms": 80,
+      "configured_loss_percent": 2,
+      "passed": true,
+      "mode": "listen",
+      "port": 20060,
+      "run": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Wire\\ChainSlash-listen-20261110-100206",
+      "rendered": false,
+      "case": "ChainSlash",
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Wire\\ChainSlash-listen-20261110-100206\\receipt.json",
+      "host": {
+        "passed": true,
+        "contacts": 4,
+        "body_cut_mask": 15,
+        "cost_once": true,
+        "release_training_once": true,
+        "client_reported": true,
+        "client_passed": true
+      },
+      "client": {
+        "passed": true,
+        "owner_started": true,
+        "owner_finished": true,
+        "cost_once": true,
+        "cooldown": true,
+        "owner_body_cut_mask": 15
+      }
+    },
+    "FlameArmor-listen": {
+      "mode": "listen",
+      "configured_loss_percent": 2,
+      "rendered": false,
+      "port": 20060,
+      "peer_exits": [
+        {
+          "pid": 17388,
+          "exit_code": 0
+        },
+        {
+          "pid": 12804,
+          "exit_code": 0
+        }
+      ],
+      "case": "FlameArmor",
+      "run": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Wire\\FlameArmor-listen-20261110-100449",
+      "configured_lag_ms": 80,
+      "passed": true,
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Wire\\FlameArmor-listen-20261110-100449\\receipt.json",
+      "host": {
+        "role": "listen_host",
+        "passed": true,
+        "cost_once": true,
+        "guest_training_only": true,
+        "bonus_hit": 1,
+        "guest_reported": true,
+        "guest_passed": true
+      },
+      "client": {
+        "role": "client",
+        "confirmed": true,
+        "own_card": true,
+        "late_remote_card": true,
+        "own_expired": true,
+        "remote_expired": true
+      }
+    },
+    "StarMarrow-listen": {
+      "peer_exits": [
+        {
+          "pid": 8276,
+          "exit_code": 0
+        },
+        {
+          "pid": 36488,
+          "exit_code": 0
+        }
+      ],
+      "case": "StarMarrow",
+      "configured_loss_percent": 2,
+      "rendered": false,
+      "mode": "listen",
+      "run": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Wire\\StarMarrow-listen-20261110-100635",
+      "port": 20060,
+      "passed": true,
+      "configured_lag_ms": 80,
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Wire\\StarMarrow-listen-20261110-100635\\receipt.json",
+      "host": {
+        "role": "listen_host",
+        "passed": true,
+        "stage": 5
+      },
+      "client": {
+        "role": "client",
+        "passed": true,
+        "stage": 5
+      }
+    },
+    "ChainSlash-dedicated": {
+      "rendered": false,
+      "port": 20060,
+      "peer_exits": [
+        {
+          "exit_code": 0,
+          "pid": 14032
+        },
+        {
+          "exit_code": 0,
+          "pid": 36440
+        }
+      ],
+      "configured_lag_ms": 80,
+      "configured_loss_percent": 2,
+      "mode": "dedicated",
+      "run": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Wire\\ChainSlash-dedicated-20261110-100833",
+      "passed": true,
+      "case": "ChainSlash",
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\Wire\\ChainSlash-dedicated-20261110-100833\\receipt.json",
+      "host": {
+        "passed": true,
+        "contacts": 4,
+        "body_cut_mask": 15,
+        "cost_once": true,
+        "release_training_once": true,
+        "client_reported": true,
+        "client_passed": true
+      },
+      "client": {
+        "passed": true,
+        "owner_started": true,
+        "owner_finished": true,
+        "cost_once": true,
+        "cooldown": true,
+        "owner_body_cut_mask": 15
+      }
+    }
+  },
+  "builds": [
+    {
+      "exit_code": 0,
+      "target": "FPSGAME",
+      "editor_started": false,
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\BuildDelivery/Logs/build-FPSGAME.log",
+      "runtime_tested": false
+    },
+    {
+      "target": "FPSGAMEEditor",
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SessionSkillAudit20261110\\BuildDelivery/Logs/build-FPSGAMEEditor.log",
+      "runtime_tested": false,
+      "editor_started": false,
+      "exit_code": 0
+    }
+  ]
+}

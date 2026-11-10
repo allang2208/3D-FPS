@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+@@ -1081,7 +1081,7 @@
+                 TEXT("1–20级线性成长：伤害与削韧 %.0f%%→%.0f%%，冷却 %.0f→%.0f s，体力 %.0f→%.0f，半径 %.1f→%.1f m，跳距 %.0f→%.0f m。"),
+                 T.DamageBase*100.f,T.DamageMax*100.f,T.CooldownBase,T.CooldownMin,T.StaminaBase,T.StaminaMax,
+                 T.RadiusBaseCM/100.f,T.RadiusMaxCM/100.f,T.ReachBaseCM/100.f,T.ReachMaxCM/100.f),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("按住选点，松开确认；选点不耗体。蓄力前扣足体力并开始冷却，中断不返还。蓄力0.5秒，腾空固定0.75秒；空中免控（减速除外），视角限制至触地。上方冷却与体力已计入装备修正。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("按住选点，松开确认；选点不耗体。蓄力前扣足体力并开始冷却，中断不返还。蓄力0.5秒，通常腾空0.75秒，大落差持续下落；触地重砸。空中免控（减速除外），视角限制至触地。上方冷却与体力已计入装备修正。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[TrainingCard()];
+         }
+         else if(SelectedSkill==TEXT("chainSlash"))

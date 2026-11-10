@@ -1,0 +1,868 @@
+[
+  {
+    "source": "Source/FPSGAME/Skills/ChainSlashAssets.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ChainSlashAssets.h",
+    "sha256_lf": "df095de4cbc9e83dc5f2880168e2c690de54ec9ddde3bfaf11136583dc1d8ac3",
+    "kind": "feature-source",
+    "bytes": 961
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ChainSlashMotion.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ChainSlashMotion.h",
+    "sha256_lf": "fd14083bd9b0a1b6db26c7101ba20c5d0d603ab0222855fb963797e306e73242",
+    "kind": "feature-source",
+    "bytes": 1749
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ChainSlashTypes.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ChainSlashTypes.h",
+    "sha256_lf": "257193116a6d8f7b9b903615267e8369bedc4378bc7680c5a6b611964097ec4d",
+    "kind": "feature-source",
+    "bytes": 702
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp",
+    "sha256_lf": "9eb75d1fdef008708d9a473a906fa3322727725d204d09959bbf45b8c0084518",
+    "kind": "feature-source",
+    "bytes": 3696
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp",
+    "sha256_lf": "e280b66e98e2a9983c834a945d16d33ee204fb537f70062e6455e795e4ade9a2",
+    "kind": "feature-source",
+    "bytes": 11362
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordChainSlashFeedback.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Weapons/RuneSwordChainSlashFeedback.cpp",
+    "sha256_lf": "f9e675db2cec9896ac5a3e08170c296817ab5dbaf5e193d31e873dc91ccb8a6c",
+    "kind": "feature-source",
+    "bytes": 7968
+  },
+  {
+    "source": "Source/FPSGAME/Skills/LeapStrikeTypes.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/LeapStrikeTypes.h",
+    "sha256_lf": "3304a7d1f1ceff31a411604a0fb846a498229f1e341517fdf2bfba037ac2bf7c",
+    "kind": "feature-source",
+    "bytes": 1285
+  },
+  {
+    "source": "Source/FPSGAME/Skills/LeapStrikeMotion.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/LeapStrikeMotion.h",
+    "sha256_lf": "699b05625c72055c3511edac9a195e0bbb0153026f54f123a8dc7d55cfab0fcc",
+    "kind": "feature-source",
+    "bytes": 4995
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ColdSteelLeapStrikeModel.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ColdSteelLeapStrikeModel.cpp",
+    "sha256_lf": "cabc75b3cae604f4d8eda275a4cdfe2ab1475901d1e9940fc540dafed320a6e1",
+    "kind": "feature-source",
+    "bytes": 3822
+  },
+  {
+    "source": "Source/FPSGAME/Production/ProductionLeapStrike.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/ProductionLeapStrike.cpp",
+    "sha256_lf": "81154171c88d392c8ed8934943a8e14ac127ca3e625502ba0dfbc80bd4bf43a0",
+    "kind": "feature-source",
+    "bytes": 30691
+  },
+  {
+    "source": "Source/FPSGAME/Production/ProductionLeapPreview.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/ProductionLeapPreview.cpp",
+    "sha256_lf": "a8eda30ab28c03a59503d98c180e5051fc0782eaed05073a7e429afda6c3b705",
+    "kind": "feature-source",
+    "bytes": 10855
+  },
+  {
+    "source": "Source/FPSGAME/Production/LeapStrikeAuditCommandlet.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/LeapStrikeAuditCommandlet.cpp",
+    "sha256_lf": "3e6b340e02b163601f5cf37d7c8aa2ec4db809b9caf75b30bd7ed1bedf16fdb3",
+    "kind": "feature-source",
+    "bytes": 10494
+  },
+  {
+    "source": "Source/FPSGAME/Production/LeapStrikeAuditCommandlet.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/LeapStrikeAuditCommandlet.h",
+    "sha256_lf": "991b122e0f74a282e617e8ebb4991b1bd2fee26c5617d6f67631ce631fc351bf",
+    "kind": "feature-source",
+    "bytes": 339
+  },
+  {
+    "source": "Source/FPSGAME/Production/LeapStrikeBallisticAudit.inl",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/LeapStrikeBallisticAudit.inl",
+    "sha256_lf": "7f40494b13814e31601a46ea9d4a3548b1e519aa3cd3aacd973bbbcc49bef367",
+    "kind": "feature-source",
+    "bytes": 12718
+  },
+  {
+    "source": "Source/FPSGAME/Production/LeapStrikeCameraAudit.inl",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/LeapStrikeCameraAudit.inl",
+    "sha256_lf": "8fa3b0cde7b70302205e4f3aabf39d7a2371c7952086f6989eaa8b230361b244",
+    "kind": "feature-source",
+    "bytes": 16241
+  },
+  {
+    "source": "Source/FPSGAME/Production/LeapStrikeControlAudit.inl",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/LeapStrikeControlAudit.inl",
+    "sha256_lf": "ede934066951fe2cf27f3843f0cbc5dbd0731fbc78bd3dff557d69b961f53f5c",
+    "kind": "feature-source",
+    "bytes": 7614
+  },
+  {
+    "source": "Source/FPSGAME/Production/LeapStrikeLandingAudit.inl",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/LeapStrikeLandingAudit.inl",
+    "sha256_lf": "8bbfedb1e740c3611611f6389b487ab0a1e0463bbfff82d6b34f9abe95451d3d",
+    "kind": "feature-source",
+    "bytes": 9296
+  },
+  {
+    "source": "Source/FPSGAME/Production/LeapStrikeHeightAudit.inl",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/LeapStrikeHeightAudit.inl",
+    "sha256_lf": "af18674ba8fc5d7be97b917294dac07bb74b257cdf29bcc712aeaebd6b3acd14",
+    "kind": "feature-source",
+    "bytes": 10747
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FlameArmorAssets.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorAssets.h",
+    "sha256_lf": "5bf08b09d57ab5ae3f417fa9ec1b0b221ba6405a0728a3565cf6fc82f1dbdfd6",
+    "kind": "feature-source",
+    "bytes": 705
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FlameArmorAttachments.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorAttachments.cpp",
+    "sha256_lf": "4bb3899c88fc7959b062f70ee34f3c3b4319472363b9d4e2533c12836b42c348",
+    "kind": "feature-source",
+    "bytes": 20505
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FlameArmorAttachments.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorAttachments.h",
+    "sha256_lf": "69ac31e5be24e048d24407d18f43562bcdded9062924bee5eaabff55016f0cdd",
+    "kind": "feature-source",
+    "bytes": 1616
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FlameArmorSurfaceProfiles.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorSurfaceProfiles.h",
+    "sha256_lf": "23b62fce1975af4af27ba3c7d90437ebde9caea3d52cce0e53f402e78af8c10e",
+    "kind": "feature-source",
+    "bytes": 26590
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSFlameArmorPresentation.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FPSFlameArmorPresentation.cpp",
+    "sha256_lf": "82f353c8da7a57f69d243f86e2dc345456f8189dfaccd6fe5fbffed92eae161e",
+    "kind": "feature-source",
+    "bytes": 12879
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ElementalArrowVisual.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ElementalArrowVisual.cpp",
+    "sha256_lf": "04fdaa07f79e69d3aed13315da45caa382f34f30b8cd8d7bfc008c76f5645da0",
+    "kind": "feature-source",
+    "bytes": 17152
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ElementalArrowVisual.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ElementalArrowVisual.h",
+    "sha256_lf": "c8a79b1f56104d3b98a181478b76764d5f819578630d045a4232f1c01ee03d51",
+    "kind": "feature-source",
+    "bytes": 1923
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ElementalArrowBurst.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ElementalArrowBurst.cpp",
+    "sha256_lf": "034d4487323a11c95f97a93ed24badca86121ddffe950d564e06d6e1f905e3d4",
+    "kind": "feature-source",
+    "bytes": 12325
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ElementalArrowBurst.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ElementalArrowBurst.h",
+    "sha256_lf": "aeaaa9c403fbe2bbe37e64786f584f2adda9f19b23d1b0eb3d356849ba1d081c",
+    "kind": "feature-source",
+    "bytes": 2189
+  },
+  {
+    "source": "Source/FPSGAME/Skills/SessionChainWire20261110.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/SessionChainWire20261110.cpp",
+    "sha256_lf": "c9f1f68d1c64bb5aea0800217a166a087566b94a1b7c5c86f83ddfcae371633d",
+    "kind": "feature-source",
+    "bytes": 7788
+  },
+  {
+    "source": "Source/FPSGAME/Skills/SessionSkillsAudit20261110.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/SessionSkillsAudit20261110.cpp",
+    "sha256_lf": "7ca2b7216160138ef169dc30b4cebc652acae1feebdcfea4835f5b07eac287bc",
+    "kind": "feature-source",
+    "bytes": 7765
+  },
+  {
+    "source": "Source/FPSGAME/Production/WarhammerQuickCombatMotion.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/WarhammerQuickCombatMotion.h",
+    "sha256_lf": "e420d7353ae6cfd9d7874e45a04df82af1fe6e01bf319f0ccc66bff530fd07d9",
+    "kind": "feature-source",
+    "bytes": 1076
+  },
+  {
+    "source": "Source/FPSGAME/Production/WarhammerQuickCombatMarker.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Production/WarhammerQuickCombatMarker.h",
+    "sha256_lf": "06ff5182db3b236209c4e315679fcbdbb0b1095fcefc79e71371de8e666d2676",
+    "kind": "feature-source",
+    "bytes": 220
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Characters__FPSBodySwordMotion.h.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+    "before_sha256_lf": "0a44edf3ec653f0f31a6c1505bdb0dbb292fd1fe13488bbf31bae6e6b0a7af50",
+    "after_sha256_lf": "08e622432fdcc1f9fe6937625bfd9a2bb6df3d2442d8266f472fae0dd23950bd",
+    "bytes": 1031
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "before_sha256_lf": "be4ce2a9f9d94856e79a5c3b01c04c28a49520b7ab73ace7c212da210b33e6dc",
+    "after_sha256_lf": "03a71f1a22d5ce0b418a5a8464c4a12a7b74e4005557a98d6966494409f119c8",
+    "bytes": 1681
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSPlayerBodyBowMagic.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Characters__FPSPlayerBodyBowMagic.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/ElementalArrowWarmFire20261109/Before/FPSPlayerBodyBowMagic.cpp",
+    "before_sha256_lf": "9b92551a591eca662a4a0fa326a179679afe8004b9b645501ebc770cc9de2fe1",
+    "after_sha256_lf": "ba16a3a792685402941c8ab1100e3a2b8be4cfe005626ba42c764539cdffea84",
+    "bytes": 605
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Characters__FPSPlayerBodyNetwork.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "before_sha256_lf": "26e401ed32f5c4a5296f921042f96d07f12a3cf6827cd497951f5ded5d2a9b6e",
+    "after_sha256_lf": "f859476932af8f0a0ec69c845fae51903849d49c14ec014971296c8ce512fa14",
+    "bytes": 2085
+  },
+  {
+    "source": "Source/FPSGAME/Production/WarhammerNetworkAuditCommandlet.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Production__WarhammerNetworkAuditCommandlet.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Production/WarhammerNetworkAuditCommandlet.cpp",
+    "before_sha256_lf": "ad0263a52cd558ad4f57ee860b06fca97b7775b5720d44ef3bea33dfbe8fa83f",
+    "after_sha256_lf": "ed9d8a60a0c31afe02e4a185aace339f2ab7dd11f450343c6d21b8cd94b167e7",
+    "bytes": 3165
+  },
+  {
+    "source": "Source/FPSGAME/Skills/BowHeldMagicVisual.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__BowHeldMagicVisual.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/ElementalArrowWarmFire20261109/Before/BowHeldMagicVisual.cpp",
+    "before_sha256_lf": "e0da68e68a1d919badc72bbdd58bfb4d940c5e3f6497e94470a0e014a87d6baa",
+    "after_sha256_lf": "ca14bf13386ec826e34bda561edd70391ea19021d085d06841567f13a1fc6aa2",
+    "bytes": 1205
+  },
+  {
+    "source": "Source/FPSGAME/Skills/BowHeldMagicVisual.h",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__BowHeldMagicVisual.h.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/ElementalArrowWarmFire20261109/Before/BowHeldMagicVisual.h",
+    "before_sha256_lf": "7c1d5b85ba69f86eb7d83900edefe08f6404d00e660b25ac3ddfda9ba8757115",
+    "after_sha256_lf": "716b88bd1b23a28ca3360c62c3892daddbfc51f10180662f3427f1a94e63ab27",
+    "bytes": 824
+  },
+  {
+    "source": "Source/FPSGAME/Skills/ElementalArrowTypes.h",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__ElementalArrowTypes.h.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/ElementalArrowWarmFire20261109/Before/ElementalArrowTypes.h",
+    "before_sha256_lf": "889e389045e74e696180a6cf2537f3bdee7e1cfa275e749832570cccc61a21d2",
+    "after_sha256_lf": "ce6a1b7b39c9e38683e01291c427f2d6352ffa1327f6d2138acf6658066ac046",
+    "bytes": 2818
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSElementalArrowComponent.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__FPSElementalArrowComponent.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/ElementalArrowWarmFire20261109/Before/FPSElementalArrowComponent.cpp",
+    "before_sha256_lf": "3aca46c8aad3987fbc42fe6a6eb25c156a619ad817fe6f08169f9a97b0f57a21",
+    "after_sha256_lf": "a6d4199c874efbf7381c9aead4de8a838cf50c845a954263c4ecb6b44bb91114",
+    "bytes": 1111
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSMagicArrowRain.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__FPSMagicArrowRain.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/ArrowRainDescentAudio20261109/Before/FPSMagicArrowRain.cpp",
+    "before_sha256_lf": "a95905ea121a5d97de935634db33a3d0980555f6831eb6af550a9dac8340654c",
+    "after_sha256_lf": "f8d7c3169af6228050083d65d84a28e944440989861490915f6315d52c96e645",
+    "bytes": 5722
+  },
+  {
+    "source": "Source/FPSGAME/Skills/FPSMagicArrowRain.h",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__FPSMagicArrowRain.h.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/ArrowRainDescentAudio20261109/Before/FPSMagicArrowRain.h",
+    "before_sha256_lf": "82b3da6897c391284d6289d7616d5b90bbb247b0f85f6de06d0c35d4ec229bd3",
+    "after_sha256_lf": "1cd4c48c4b65fdc7c995a5c12d76f6a0d086b565ee5ff23fd62836e1a614bbf3",
+    "bytes": 1130
+  },
+  {
+    "source": "Source/FPSGAME/Skills/MagicArrowRainAudit.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__MagicArrowRainAudit.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Skills/MagicArrowRainAudit.cpp",
+    "before_sha256_lf": "16ba1cd1118f9db0ab4128b98642f66976d4d5fd20a7fb059fe9bf30a0e96615",
+    "after_sha256_lf": "85f985eeba749742ae082023c38f196165b7ec8807794ebb96eaf3deec6b58f3",
+    "bytes": 2166
+  },
+  {
+    "source": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__SkillNetworkAuditCommandlet.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+    "before_sha256_lf": "623512f1925e9f0a7b7ee321be3b5595520bef113ec601072674910f42f4ffc3",
+    "after_sha256_lf": "e9a4f69246742d1778fcec22cdaa353bfdb82a65bb4473aa7ef3a261a76ce94e",
+    "bytes": 604
+  },
+  {
+    "source": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__SkillNetworkAuditCommandlet.h.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+    "before_sha256_lf": "9855f74c978f4d69e8f544d7acb2453f549862384de2a2bfc76854724bea3f34",
+    "after_sha256_lf": "8ed8675307c4a3470a58a86aed199b7c24c16a8f29e6435df43b5b19e607a84d",
+    "bytes": 444
+  },
+  {
+    "source": "Source/FPSGAME/Skills/SkillWireAudit.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__SkillWireAudit.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Skills/SkillWireAudit.cpp",
+    "before_sha256_lf": "b49fba78d518b0664c6b2fa4b736b208332b5e7c707c9a6e095d4454fed4b12e",
+    "after_sha256_lf": "234758665b72fbba5086b0e0524cde71a52461fcdb6ca8e86c43fce3cf0b28c7",
+    "bytes": 1835
+  },
+  {
+    "source": "Source/FPSGAME/Skills/SkillWireAudit.h",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Skills__SkillWireAudit.h.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Skills/SkillWireAudit.h",
+    "before_sha256_lf": "53399ccd999cbcfc41551e6cb740269261f1e3ccdab05dbc46642e424443b001",
+    "after_sha256_lf": "86638fc26becce1db268c4bc4c72c62829752c7ead2a00717362159e1db39c68",
+    "bytes": 1016
+  },
+  {
+    "source": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__UI__ColdSteelSkillPage.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+    "before_sha256_lf": "027fa174695a76524258b83c6e0e8d98193180bfbc829423caad27680e1ca2df",
+    "after_sha256_lf": "4d5e09e518d3f4f67bc93df0a0e51482462629fb9f2b49f1f7694b65d1ef0ed7",
+    "bytes": 1488
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/Bow/BowElementalArrow.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Weapons__Bow__BowElementalArrow.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/ElementalArrowWarmFire20261109/Before/BowElementalArrow.cpp",
+    "before_sha256_lf": "2e7271b7b32578e73a8b675feb96a33f8c5182a0cb97b01271c3cfd55a46396a",
+    "after_sha256_lf": "e2df3a7962bec572fa5f07b280019aff498c5149c7cdc7ed55ebcda1219fd7f6",
+    "bytes": 889
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Weapons__RuneSwordGuardNetwork.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/SessionSkillAudit20261110/Before/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+    "before_sha256_lf": "29da4b9bfc237ec796ebe18fb0a9eafed2cb45df9f4ef976bc7987552451c623",
+    "after_sha256_lf": "a59d388f9f87cedc242d67c94488610a019b2203fc5aaed22bf1956369d37af5",
+    "bytes": 1679
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/StarMarrowFlames.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Integration/Source__FPSGAME__Weapons__StarMarrowFlames.cpp.patch",
+    "kind": "host-delta",
+    "before_local": "SourceAssets/StarMarrowRestore20261108/Before/StarMarrowFlames.cpp",
+    "before_sha256_lf": "277b243f69aa5e7243a3ddee770d81898a9f9335cc59794c5735203773153605",
+    "after_sha256_lf": "64456a5f10dcc9de651561f329428d8d8275d61a45ba094d68e87b3f0c022ae9",
+    "bytes": 2983
+  },
+  {
+    "source": "Source/FPSGAME/Movement/FPSLeapRootMotionSource.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Movement/FPSLeapRootMotionSource.cpp",
+    "kind": "feature-source",
+    "sha256_lf": "8c19239fca8c34c001b9158c9aa1770400970d685541f7d6626e531838020f5d",
+    "bytes": 4789
+  },
+  {
+    "source": "Source/FPSGAME/Movement/FPSLeapRootMotionSource.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Movement/FPSLeapRootMotionSource.h",
+    "kind": "feature-source",
+    "sha256_lf": "e762457638b1bc2819334c41c949b89274ca9b57537303241e5de56fefdf8b3f",
+    "bytes": 1308
+  },
+  {
+    "source": "Source/FPSGAME/Combat/CombatControlImmunity.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Combat/CombatControlImmunity.cpp",
+    "kind": "feature-source",
+    "sha256_lf": "0bfd83b489c016a04084be6d133ada8f08cc9011fe85e65ff967ed0ebdfe7393",
+    "bytes": 481
+  },
+  {
+    "source": "Source/FPSGAME/Combat/CombatControlImmunity.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Combat/CombatControlImmunity.h",
+    "kind": "feature-source",
+    "sha256_lf": "7e78966793aba59923cf060ad1c98456b6112064aeb6b57c0a42f4dc61444d32",
+    "bytes": 187
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/arm_frames.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/arm_frames.py",
+    "kind": "author-script",
+    "sha256_lf": "bac8d0ad6eb11c1cc1dfff976920c54712f2957596d24eef0d025443ef7743b7",
+    "bytes": 1597
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/author_motion.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/author_motion.py",
+    "kind": "author-script",
+    "sha256_lf": "bc16150d3ce5904872ebcf6dc779f863cf128728ae6eb9c4537e03e80fee6822",
+    "bytes": 6078
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/carried_arm.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/carried_arm.py",
+    "kind": "author-script",
+    "sha256_lf": "75945a8bd6765c4c25b61975adf2516d2eeac38317f1b0ab9a3378d9ebbe3361",
+    "bytes": 2753
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/fit_motion.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/fit_motion.py",
+    "kind": "author-script",
+    "sha256_lf": "a930b26aa87a76ed73f49d9dd4fe69cf5605e2c12e499c21eb0c30d0429b2f5c",
+    "bytes": 5047
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/read_idle.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/read_idle.py",
+    "kind": "author-script",
+    "sha256_lf": "1e01b59aa48fc31baa93dc1ccb4f99d1c406037da301842fe6d5d75b55749ca8",
+    "bytes": 968
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/read_reference.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/read_reference.py",
+    "kind": "author-script",
+    "sha256_lf": "f83cd019051d9d6b76c92ec6dc9bba0a3b8b9d006ce3014f4d8601fef3a83f41",
+    "bytes": 937
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/reviewed_path.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/reviewed_path.py",
+    "kind": "author-script",
+    "sha256_lf": "c52c48d8fabbc091c21fe219f7527c9c232795b2e4445d14b60510366c6b2e2b",
+    "bytes": 6349
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/save_motion.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/save_motion.py",
+    "kind": "author-script",
+    "sha256_lf": "cfcca6657769872c9756d15d13f5e3a22ca450473265965ef6440d9f4c6b1817",
+    "bytes": 2912
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/screen_solve.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/screen_solve.py",
+    "kind": "author-script",
+    "sha256_lf": "f0461bae3bb3366a1ce317d60dff22aa2a9ea690d1c82d553e711aea8ce5b37d",
+    "bytes": 5522
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/shoulder_path.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/shoulder_path.py",
+    "kind": "author-script",
+    "sha256_lf": "a08fc85c00338dc4cddeae5b26dfbf8f480998ab35d7d116b1489cc965decf99",
+    "bytes": 2568
+  },
+  {
+    "source": "SourceAssets/WarhammerQuickReference20261107/author_marker.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/WarhammerQuickReference20261107/author_marker.py",
+    "kind": "author-script",
+    "sha256_lf": "ebddfb0679de60176626e332302e3ec3efcef844e229534a9128afc2475635b8",
+    "bytes": 1137
+  },
+  {
+    "source": "SourceAssets/WarhammerQuickReference20261107/author_motion.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/WarhammerQuickReference20261107/author_motion.py",
+    "kind": "author-script",
+    "sha256_lf": "a05603304d3d75f3e9643c4a56e886e203dd304c97191a40b67c344045605f9a",
+    "bytes": 13396
+  },
+  {
+    "source": "SourceAssets/WarhammerQuickReference20261107/prepare_native.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/WarhammerQuickReference20261107/prepare_native.py",
+    "kind": "author-script",
+    "sha256_lf": "88e309b74e9a60ab5c66c5f5e6d6bcfd5d9621e6c925e42bae3fbaa41c55ff8f",
+    "bytes": 1238
+  },
+  {
+    "source": "SourceAssets/WarhammerQuickReference20261107/read_author_inputs.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/WarhammerQuickReference20261107/read_author_inputs.py",
+    "kind": "author-script",
+    "sha256_lf": "0260c2d662f81ba0540423f0c1197f0f6941325abf289c13381286f49c9a2aca",
+    "bytes": 951
+  },
+  {
+    "source": "SourceAssets/WarhammerQuickReference20261107/read_native.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/WarhammerQuickReference20261107/read_native.py",
+    "kind": "author-script",
+    "sha256_lf": "da3f466f2797c470bb1f8cbdabde4663626fa08e82d936388cd342e3c73952e8",
+    "bytes": 739
+  },
+  {
+    "source": "SourceAssets/WarhammerQuickReference20261107/read_reference.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/WarhammerQuickReference20261107/read_reference.py",
+    "kind": "author-script",
+    "sha256_lf": "95cdb0529ad52002c5db64ca608bfba4f664dce4f651784c532f9a6af6301a3c",
+    "bytes": 3815
+  },
+  {
+    "source": "SourceAssets/WarhammerQuickReference20261107/save_motion.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/WarhammerQuickReference20261107/save_motion.py",
+    "kind": "author-script",
+    "sha256_lf": "e856b52c6eb4e9df8a7cb9745c4aa6d64529c6cf86e0bc2b9c0b8e1dfe70b240",
+    "bytes": 3253
+  },
+  {
+    "source": "SourceAssets/FlameArmorCampfire20261107/build_surface_profiles.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorCampfire20261107/build_surface_profiles.py",
+    "kind": "author-script",
+    "sha256_lf": "247602fff864ebaf352c112b2a9190b93e7889a8f28b08297581f45797bb635f",
+    "bytes": 5371
+  },
+  {
+    "source": "SourceAssets/FlameArmorCampfire20261107/install.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorCampfire20261107/install.py",
+    "kind": "author-script",
+    "sha256_lf": "eab4ffb71c9b8112c142725ab7480329b97c6202e4f3de784c00af16d07be6aa",
+    "bytes": 14477
+  },
+  {
+    "source": "SourceAssets/FlameArmorCampfire20261107/run_assets.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorCampfire20261107/run_assets.py",
+    "kind": "author-script",
+    "sha256_lf": "d7ad18cf2ae6e09aec63a08a7b6faba9abcbe305cc299de854962f0438bba56e",
+    "bytes": 348
+  },
+  {
+    "source": "SourceAssets/FlameArmorCampfire20261107/save_assets.ps1",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorCampfire20261107/save_assets.ps1",
+    "kind": "author-script",
+    "sha256_lf": "a5ac906ce04fed487b97283f2d29048bfde29e67ba61b1c38f98e5df16389829",
+    "bytes": 3330
+  },
+  {
+    "source": "SourceAssets/FlameArmorCampfire20261107/write_surface_header.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorCampfire20261107/write_surface_header.py",
+    "kind": "author-script",
+    "sha256_lf": "b9a172fb9b5cea81a5a5c23a22e19a5c245aeb2cf1b1195cdf68ac8edeb3685b",
+    "bytes": 1068
+  },
+  {
+    "source": "SourceAssets/FlameArmorSword20261108/install.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorSword20261108/install.py",
+    "kind": "author-script",
+    "sha256_lf": "0e3e3125bf7a1bb7d03c2da9ddafec494e2540d410e4088156ea36a14a190bb1",
+    "bytes": 6762
+  },
+  {
+    "source": "SourceAssets/FlameArmorSword20261108/save_assets.ps1",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorSword20261108/save_assets.ps1",
+    "kind": "author-script",
+    "sha256_lf": "744a62b77fdcb6eafc803f9e376ad72bf0c1817b481a92d67506ff7b1ac5abe9",
+    "bytes": 3328
+  },
+  {
+    "source": "SourceAssets/StarMarrowRestore20261108/restore_warm_sword.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/StarMarrowRestore20261108/restore_warm_sword.py",
+    "kind": "author-script",
+    "sha256_lf": "61db75bdc2320552873e1b8be11bca21db07ae2155b1488076006b7907154c98",
+    "bytes": 7386
+  },
+  {
+    "source": "SourceAssets/FlameArmorAllWeapons20261108/install_all_weapons.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorAllWeapons20261108/install_all_weapons.py",
+    "kind": "author-script",
+    "sha256_lf": "e29365d2825495761ff7fbef1a39f8aeeb37bf158f258bac97f3551a765e8ed2",
+    "bytes": 9298
+  },
+  {
+    "source": "SourceAssets/FlameArmorHammer20261109/bake_surface.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorHammer20261109/bake_surface.py",
+    "kind": "author-script",
+    "sha256_lf": "641356316d7e42de75391c078c4ac350ac23b275a4be89b6e5c67ecb7870047b",
+    "bytes": 4652
+  },
+  {
+    "source": "SourceAssets/FlameArmorHammer20261109/install_surface_fire.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorHammer20261109/install_surface_fire.py",
+    "kind": "author-script",
+    "sha256_lf": "22a24ae0de9cf2fd5d0feb46ab2b00971c996a386fd57b2edc1be3eb34366428",
+    "bytes": 14008
+  },
+  {
+    "source": "SourceAssets/FlameArmorHammer20261109/probe_particles.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorHammer20261109/probe_particles.py",
+    "kind": "author-script",
+    "sha256_lf": "469017be2657d7f9e8073066d2945aef1bd29d8f12e68221382a9696e87ba90c",
+    "bytes": 3092
+  },
+  {
+    "source": "SourceAssets/FlameArmorHammer20261109/read_visibility_inputs.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorHammer20261109/read_visibility_inputs.py",
+    "kind": "author-script",
+    "sha256_lf": "3bddb7cdb8021ce3e8523be4dcf21e5f8c3eb3a93d00fb0979a6ec804227c1e9",
+    "bytes": 2834
+  },
+  {
+    "source": "SourceAssets/FlameArmorWeaponsReview20261109/build.ps1",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorWeaponsReview20261109/build.ps1",
+    "kind": "author-script",
+    "sha256_lf": "a33c24b424a4b0f61fdb47942b4c438925750be4ed6a32d578405bc3b7fa9f04",
+    "bytes": 3688
+  },
+  {
+    "source": "SourceAssets/FlameArmorWeaponsReview20261109/dump_assets.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorWeaponsReview20261109/dump_assets.py",
+    "kind": "author-script",
+    "sha256_lf": "6323bc53d61a0651c5225764297e761dcf018031ec64e6ed22d8bd507dadaded",
+    "bytes": 1642
+  },
+  {
+    "source": "SourceAssets/FlameArmorWeaponsReview20261109/final_report.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorWeaponsReview20261109/final_report.py",
+    "kind": "author-script",
+    "sha256_lf": "541618c88f40131c35acfca3bd627c438a590f91f395a7f9dba6dd2d1eee4dd9",
+    "bytes": 4306
+  },
+  {
+    "source": "SourceAssets/FlameArmorWeaponsReview20261109/prepare_cases.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorWeaponsReview20261109/prepare_cases.py",
+    "kind": "author-script",
+    "sha256_lf": "224bfd11921e8932ca6717bba6610f7d668df459d8bb2f3aea17556dfc6f60ab",
+    "bytes": 1474
+  },
+  {
+    "source": "SourceAssets/FlameArmorWeaponsReview20261109/repair_random.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorWeaponsReview20261109/repair_random.py",
+    "kind": "author-script",
+    "sha256_lf": "8248d3796fe8ef05a3f993ffb175300789c5a5194772b0f44eb774154e1c733a",
+    "bytes": 2270
+  },
+  {
+    "source": "SourceAssets/FlameArmorWeaponsReview20261109/repair_visibility.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorWeaponsReview20261109/repair_visibility.py",
+    "kind": "author-script",
+    "sha256_lf": "dab16fe0bea45ea77048ea5cbcb6e4ed07668e2ff6d6b13b30a98c76d23bef3b",
+    "bytes": 1045
+  },
+  {
+    "source": "SourceAssets/FlameArmorWeaponsReview20261109/run.ps1",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorWeaponsReview20261109/run.ps1",
+    "kind": "author-script",
+    "sha256_lf": "0b9b929187868bc50d3c61bc65809e22c05be34bb3e346f62d75e21961183cc1",
+    "bytes": 1867
+  },
+  {
+    "source": "SourceAssets/FlameArmorWeaponsReview20261109/summarize.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorWeaponsReview20261109/summarize.py",
+    "kind": "author-script",
+    "sha256_lf": "2aca46327fdddba770b60e7c9ebf73110d96abcf233ba8b6b1915313b325b929",
+    "bytes": 1727
+  },
+  {
+    "source": "SourceAssets/ElementalArrowWarmFire20261109/install.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ElementalArrowWarmFire20261109/install.py",
+    "kind": "author-script",
+    "sha256_lf": "b35efad96f4bc6bbb09880b59688f6fab4f8549415355c67814c02635cafda49",
+    "bytes": 2972
+  },
+  {
+    "source": "SourceAssets/ElementalArrowWarmFire20261109/read_donor.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ElementalArrowWarmFire20261109/read_donor.py",
+    "kind": "author-script",
+    "sha256_lf": "850d702134c2158668d1fd19137d040e41e03d601ecaa5916ad7cfcaa615ad47",
+    "bytes": 1085
+  },
+  {
+    "source": "SourceAssets/ElementalArrowColdMist20261109/install.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ElementalArrowColdMist20261109/install.py",
+    "kind": "author-script",
+    "sha256_lf": "7ec9593ecab8dbe3ddd2a6bed65cd41d5faa9dc5cc6b9cd4e3b68b644587793c",
+    "bytes": 11188
+  },
+  {
+    "source": "SourceAssets/ArrowRainDescentAudio20261109/install.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ArrowRainDescentAudio20261109/install.py",
+    "kind": "author-script",
+    "sha256_lf": "4e873e5530394e1df49a010eef1230c9e897cc9cb7adb38195b7aa53fa378978",
+    "bytes": 5947
+  },
+  {
+    "source": "SourceAssets/ArrowRainDescentAudio20261109/prepare.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ArrowRainDescentAudio20261109/prepare.py",
+    "kind": "author-script",
+    "sha256_lf": "c93b900e48e59b04ab5a8461c0c7530bd213d64a1d9c95713197394c3845225f",
+    "bytes": 1516
+  },
+  {
+    "source": "SourceAssets/SessionSkillAudit20261110/collect_results.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/SessionSkillAudit20261110/collect_results.py",
+    "kind": "author-script",
+    "sha256_lf": "f8a848c873bf90431b74a22941ff0053b0e0ad0b187dfce1e9917fe5d62e689b",
+    "bytes": 4920
+  },
+  {
+    "source": "SourceAssets/SessionSkillAudit20261110/run_native.ps1",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/SessionSkillAudit20261110/run_native.ps1",
+    "kind": "author-script",
+    "sha256_lf": "1358dda5706e7719689a0c5c42fb5cfab9f96431168c043c3e08e5f8f5d22b84",
+    "bytes": 2918
+  },
+  {
+    "source": "SourceAssets/SessionSkillAudit20261110/run_wire.ps1",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/SessionSkillAudit20261110/run_wire.ps1",
+    "kind": "author-script",
+    "sha256_lf": "1d2e7f2d00287f1bc1c6ef3e7e81bab1199cb0e4730e71e17e6d2893d4b0cb92",
+    "bytes": 4372
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/RootClearance/check_opening.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/RootClearance/check_opening.py",
+    "kind": "author-script",
+    "sha256_lf": "2a2b35ac3c599917045441d1efc8a721fe0a34e0b06d9b2af159fd7addc4431a",
+    "bytes": 6398
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/RootClearance/compare_before_after.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/RootClearance/compare_before_after.py",
+    "kind": "author-script",
+    "sha256_lf": "037d4fc23a80fb2c71c793dbe819467c413c0846bd1289e6da51b6a64029946a",
+    "bytes": 2226
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/RootClearance/fit_arms.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/RootClearance/fit_arms.py",
+    "kind": "author-script",
+    "sha256_lf": "69e56b94b0379b23bde610e4993c8344f1a9fdae7fb05e5c665ec9b77fe5a184",
+    "bytes": 10971
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/Feedback/bake_effects.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/Feedback/bake_effects.py",
+    "kind": "author-script",
+    "sha256_lf": "0ef47efcc5f9800816c555f4c98816c59e00ed51fed90f7dc8899951d123376b",
+    "bytes": 3507
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/Feedback/fit_camera.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/Feedback/fit_camera.py",
+    "kind": "author-script",
+    "sha256_lf": "0d9e33ad23604aa713f905074a9d6cf8f5078e9fc3c244dff56cf13348358cf1",
+    "bytes": 2797
+  },
+  {
+    "source": "SourceAssets/LeapStrike20261107/Review/analyze.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/LeapStrike20261107/Review/analyze.py",
+    "kind": "author-script",
+    "sha256_lf": "3dc35cca358c4888f6df26f5c33e45a5aea156d586ddf7f4117f8fb8e396f0c5",
+    "bytes": 5725
+  },
+  {
+    "source": "SourceAssets/LeapStrike20261107/Review/author_leap.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/LeapStrike20261107/Review/author_leap.py",
+    "kind": "author-script",
+    "sha256_lf": "fa19d6d0a26a75cf8ccb99639f66db556e770a68bc2510eb8c9de4e04c62e91f",
+    "bytes": 14449
+  },
+  {
+    "source": "SourceAssets/LeapStrike20261107/Review/import.ps1",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/LeapStrike20261107/Review/import.ps1",
+    "kind": "author-script",
+    "sha256_lf": "ef8e0a5043344567c419c8eac10885d9cbb76f981b7d02a65561fabbb1e727b3",
+    "bytes": 1472
+  },
+  {
+    "source": "SourceAssets/LeapStrike20261107/Review/inspect_author.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/LeapStrike20261107/Review/inspect_author.py",
+    "kind": "author-script",
+    "sha256_lf": "f5fb6a01a061fbc9ef1301043d61d9a891bb8b231b17da51d4e55ba0a86ef8e4",
+    "bytes": 781
+  },
+  {
+    "source": "SourceAssets/LeapStrike20261107/Review/render.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/LeapStrike20261107/Review/render.py",
+    "kind": "author-script",
+    "sha256_lf": "879b22e4c1361d0620728a3cbeeb2ac63cd04bef77c683979da4f7439f7dc5f1",
+    "bytes": 3946
+  },
+  {
+    "source": "SourceAssets/LeapStrike20261107/Review/run.ps1",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/LeapStrike20261107/Review/run.ps1",
+    "kind": "author-script",
+    "sha256_lf": "a51f4b7f5f2ae1a0aaf42ecac168543f79f7e6bbe60f84b7972c1ab3f176cd86",
+    "bytes": 1415
+  },
+  {
+    "source": "SourceAssets/LeapStrike20261107/Review/save_motion.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/LeapStrike20261107/Review/save_motion.py",
+    "kind": "author-script",
+    "sha256_lf": "bc3352993bd5147d2cefdb38c1d746efa2ffd7ce7073498b1e0d4151e8a82665",
+    "bytes": 2907
+  },
+  {
+    "source": "Tools/Fluids/flame_expression_compat.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/Tools/Fluids/flame_expression_compat.py",
+    "kind": "author-script",
+    "sha256_lf": "b7e398376106623930e52dccc3047a5e36ad5530f2db134adb9c73f3af24f393",
+    "bytes": 862
+  },
+  {
+    "source": "Tools/Skills/prepare_magic_arrow_rain_sources.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/Tools/Skills/prepare_magic_arrow_rain_sources.py",
+    "kind": "author-script",
+    "sha256_lf": "e64a7cf437c896c66619729bee0afb9b59daeaf88dbb7510d39feee8856b529d",
+    "bytes": 4285
+  },
+  {
+    "source": "Source/FPSGAME/Skills/HammerFireSurfaces.h",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/HammerFireSurfaces.h",
+    "kind": "feature-source",
+    "sha256_lf": "8f6efb5a5c5d2ba7a7056c547331cb5a9eb9d0f0630b25bbe73cf0887bef5d6d",
+    "bytes": 505
+  },
+  {
+    "source": "Source/FPSGAME/Skills/HammerFireSurfaces.cpp",
+    "published": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/HammerFireSurfaces.cpp",
+    "kind": "feature-source",
+    "sha256_lf": "90d18fd8747dccd47a2494cf08d9ce888abcff040964916c9104975adb8a000c",
+    "bytes": 1646
+  },
+  {
+    "source": "SourceAssets/ChainSlash20261107/Icon/import_icon.py",
+    "published": "Docs/Publication/SkillActions20261110/Authors/SourceAssets/ChainSlash20261107/Icon/import_icon.py",
+    "kind": "author-script",
+    "sha256_lf": "d536fa504619351ba6da8c9257efe8f9cbe82ce4060a46e4ae5d0eb66bd4829f",
+    "bytes": 1185
+  }
+]

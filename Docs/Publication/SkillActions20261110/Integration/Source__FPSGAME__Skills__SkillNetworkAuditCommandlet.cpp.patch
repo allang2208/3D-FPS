@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
+@@ -28,6 +28,7 @@
+ 
+ int32 USkillNetworkAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("SessionSkillsOnly")))return RunSessionSkillsAudit(Params);
+     if(FParse::Param(*Params,TEXT("ConversationCombatOnly")))return RunConversationCombatReview(Params);
+     if(FParse::Param(*Params,TEXT("LightningHasteVisual")))return CaptureLightningHaste(Params);
+     if(FParse::Param(*Params,TEXT("LightningHasteOnly")))return RunLightningHasteAudit(Params);

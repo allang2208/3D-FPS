@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.cpp
++++ b/Source/FPSGAME/Skills/SkillWireAudit.cpp
+@@ -44,6 +44,7 @@
+ 
+ void ASkillWireAuditController::ClientSetup_Implementation(ANurseZombie* InSubject,const FString& Id,float Stamina,float Cost)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("SessionChainWire"))){SetupSessionChain(InSubject,Id);return;}
+     if(!SkillWire::Enabled()||HasAuthority()||bSetup||!InSubject)return;
+     auto* Controlled=Cast<AFPSGAMECharacter>(GetPawn());auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     auto* PS=GetPlayerState<AColdSteelPlayerState>();if(!Controlled||!Model||!PS||PS->GetPawn()!=Controlled||!Model->IsAudit())return;
+@@ -61,6 +62,7 @@
+ }
+ void ASkillWireAuditController::Tick(float Delta)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("SessionChainWire"))){Super::Tick(Delta);TickSessionChain();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("ConversationCombatWire"))){Super::Tick(Delta);TickConversationCombat();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("StarMarrowWireAudit"))){Super::Tick(Delta);TickStarMarrow();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("MeteorWireAudit"))){Super::Tick(Delta);TickMeteor();return;}
+@@ -132,6 +134,7 @@
+ {if(SkillWire::Enabled()&&Damage>0.f)++Contacts;}
+ void ASkillWireAuditGameMode::Tick(float Delta)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("SessionChainWire"))){Super::Tick(Delta);TickSessionChain();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("ConversationCombatWire"))){Super::Tick(Delta);TickConversationCombat();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("StarMarrowWireAudit"))){Super::Tick(Delta);TickStarMarrow(Delta);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("MeteorWireAudit"))){Super::Tick(Delta);TickMeteor();return;}

@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Skills/MagicArrowRainAudit.cpp
++++ b/Source/FPSGAME/Skills/MagicArrowRainAudit.cpp
+@@ -49,7 +49,8 @@
+     if(FParse::Param(*Params,TEXT("ArrowRainAudioOnly")))
+     {
+         TStrongObjectPtr<USoundWave> Wave(LoadObject<USoundWave>(nullptr,*MagicArrowRainAssets::Path(TEXT("S_ArrowRainBurst"))));
+-        Check(Wave.IsValid()&&FMath::IsNearlyEqual(Wave->GetDuration(),.803f,.001f),TEXT("saved recording resolves with complete duration"));
++        TStrongObjectPtr<USoundWave> Donor(LoadObject<USoundWave>(nullptr,TEXT("/Game/Weapons/DarkBow20260925/AudioVideoDirect20260926/S_BowVideoDirect_Release.S_BowVideoDirect_Release")));
++        Check(Wave.IsValid()&&Donor.IsValid()&&Donor->GetDuration()>0.f&&FMath::IsNearlyEqual(Wave->GetDuration(),Donor->GetDuration(),.001f),TEXT("saved recording matches normal bow release duration"));
+         const auto* Att=Wave.IsValid()?Wave->GetAttenuationSettingsToApply():nullptr;
+         Check(Att&&Wave->AttenuationSettings&&Wave->AttenuationSettings->GetName()==TEXT("ATT_ArrowRainDescent"),TEXT("recording owns its dedicated descent attenuation"));
+         if(Att)
+@@ -108,7 +109,8 @@
+         Report->SetNumberField(TEXT("failures"),Failed);Report->SetBoolField(TEXT("mixer_captured"),false);
+         Report->SetStringField(TEXT("scope"),TEXT("Real actor Tick scheduling and saved assets; -nosound, no claim about hardware output"));
+         FString Json;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Json));
+-        const FString Out=FPaths::ProjectDir()/TEXT("SourceAssets/ArrowRainDescentAudio20261109/Audibility/engine-audio-checks.json");
++        FString Out=FPaths::ProjectDir()/TEXT("SourceAssets/ArrowRainDescentAudio20261109/Audibility/engine-audio-checks.json");
++        FParse::Value(*Params,TEXT("Output="),Out);IFileManager::Get().MakeDirectory(*FPaths::GetPath(Out),true);
+         const bool Saved=FFileHelper::SaveStringToFile(Json,*Out,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
+         GI->Shutdown();GEngine->DestroyWorldContext(W);W->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
+         return Failed||!Saved?1:0;

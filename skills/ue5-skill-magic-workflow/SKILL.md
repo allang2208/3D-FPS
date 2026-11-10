@@ -65,3 +65,7 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 装备近战体力／施法法力减耗、强化与聚能叠加，读取 [资源费用乘区与最低费用](../ue5-item-asset-workflow/references/resource-cost-multipliers.md)；同件加法、跨件乘法，最终保留正基础费用的 20%，执行与预览共用。
 
 涉及武器附着火焰与迅捷电环时，读取 [武器附着火焰与迅捷电环](references/weapon-attached-buffs.md)。
+
+## 连段武技与跳跃落地时钟
+
+连斩分段、命中停帧、第三人称同步，以及跃击标准腾空与深落差衔接，读取 [武技动作与权威时钟](references/martial-action-clocks.md)。

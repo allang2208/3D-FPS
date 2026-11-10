@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Characters/FPSBodySwordMotion.h
++++ b/Source/FPSGAME/Characters/FPSBodySwordMotion.h
+@@ -4,6 +4,7 @@
+ #include "../Weapons/RuneSwordUppercutMotion.h"
+ #include "../Weapons/HighlandRidgeThrust.h"
+ #include "FPSBodyHighlandMotion.h"
++#include "../Skills/ChainSlashMotion.h"
+ 
+ /** Third-person source selection only; the sword executor owns time and hits. */
+ namespace FPSBodySwordMotion
+@@ -77,6 +78,8 @@
+     switch(State.Action)
+     {
+     case EFPSBodyAction::Strike:
++        if(ChainSlashMotion::IsVariant(State.ActionVariant))
++            return State.ActionVariant==ChainSlashMotion::Variant(2)?TEXT("Melee.FullBody.Slash2"):TEXT("Melee.FullBody.Slash1");
+         if(State.ActionVariant==FPSBodyHighlandMotion::SweepReady)return TEXT("Melee.FullBody.HighlandBreakSweepReady");
+         if(State.ActionVariant==TEXT("HighlandBreakSweep"))return TEXT("Melee.FullBody.HighlandBreakSweep");
+         return State.ActionVariant==TEXT("Slash2")?TEXT("Melee.FullBody.Slash2"):TEXT("Melee.FullBody.Slash1");

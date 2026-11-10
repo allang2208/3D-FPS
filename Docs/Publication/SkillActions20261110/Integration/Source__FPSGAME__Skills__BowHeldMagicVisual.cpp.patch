@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Skills/BowHeldMagicVisual.cpp
++++ b/Source/FPSGAME/Skills/BowHeldMagicVisual.cpp
+@@ -44,7 +44,7 @@
+ }
+ void UBowHeldMagicVisual::EndPlay(const EEndPlayReason::Type Reason){Clear();Super::EndPlay(Reason);}
+ void UBowHeldMagicVisual::OnComponentDestroyed(bool bDestroyingHierarchy){Clear();Super::OnComponentDestroyed(bDestroyingHierarchy);}
+-void UBowHeldMagicVisual::Update(uint8 Kind,const FVector& Tail,const FVector& Tip)
++void UBowHeldMagicVisual::Update(uint8 Kind,const FVector& Tail,const FVector& Tip,USceneComponent* ArrowSource)
+ {
+     if(GetNetMode()==NM_DedicatedServer)return;
+     if(const auto* PC=GetWorld()->GetFirstPlayerController();PC&&PC->PlayerCameraManager)
+@@ -74,7 +74,7 @@
+     if(Current==None)return;
+     const double Now=GetWorld()->GetTimeSeconds();
+     const float Delta=LastUpdate<0.?0.f:FMath::Max(0.f,float(Now-LastUpdate));LastUpdate=Now;
+-    if(ElementVisual)ElementVisual->Update(EArrowElement(Current),Tail,Tip,Delta,false,true);
++    if(ElementVisual)ElementVisual->Update(EArrowElement(Current),Tail,Tip,Delta,false,true,ArrowSource);
+     if(LightVisual)LightVisual->Update(Tail,Tip,Delta,false);
+     if(Current==Rain&&bRainReady)
+     {

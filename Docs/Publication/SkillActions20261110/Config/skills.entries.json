@@ -1,0 +1,38 @@
+{
+  "chainSlash": {
+    "name": "连斩",
+    "description": "双手剑限定。连续挥斩四次，每段攻击前方普攻范围内的敌人；同一目标每段只受一次伤害。生命伤害与韧性伤害使用相同等级倍率。起手前一次扣除体力并开始冷却。",
+    "icon": "Skills/chain_slash_cold_steel.png",
+    "damageMultiplierBase": 0.4,
+    "damageMultiplierMax": 1.2,
+    "cooldownBase": 25,
+    "cooldownMin": 15,
+    "staminaBase": 40,
+    "staminaMax": 60,
+    "experiencePerLevel": 100,
+    "useExperience": 1,
+    "killExperience": 12,
+    "multiKillExperience": 20
+  },
+  "leapStrike": {
+    "name": "跃击",
+    "description": "双手锤限定。按住选点，松开后蓄力0.5秒，通常腾空0.75秒；大落差持续下落，触地范围重砸。腾空免控（减速除外），触地解除。起手扣除体力并开始冷却，中断不返还。",
+    "icon": "Skills/leap_strike_cold_steel.png",
+    "maxLevel": 20,
+    "damageMultiplierBase": 1.6,
+    "damageMultiplierMax": 3.2,
+    "cooldownBase": 30,
+    "cooldownMin": 20,
+    "staminaBase": 45,
+    "staminaMax": 65,
+    "radiusBaseCM": 250,
+    "radiusMaxCM": 400,
+    "reachBaseCM": 900,
+    "reachMaxCM": 1500,
+    "experiencePerLevel": 100,
+    "useExperience": 1,
+    "hitExperience": 0,
+    "killExperience": 12,
+    "multiKillExperience": 20
+  }
+}

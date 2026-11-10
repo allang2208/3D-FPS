@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.h
++++ b/Source/FPSGAME/Skills/SkillWireAudit.h
+@@ -30,6 +30,8 @@
+     UFUNCTION(Client,Reliable) void ClientSetupArmor(class AFPSGAMECharacter* ExistingArmor);
+     void TickFlameArmor();
+     void TickConversationCombat();
++    void SetupSessionChain(ANurseZombie* Target,const FString& Id);
++    void TickSessionChain();
+     UFUNCTION(Client,Reliable) void ClientSetupConversation(int32 Case,ANurseZombie* First,ANurseZombie* Second,class AFPSGAMECharacter* Observer);
+     int32 ConversationCase=-1;
+     UPROPERTY() TObjectPtr<ANurseZombie> ConversationSecond;
+@@ -73,6 +75,7 @@
+     UFUNCTION() void CountContact(AActor* Actor,float Damage,const class UDamageType* Type,class AController* DamageController,AActor* Causer);
+     void TickFlameArmor();
+     void TickConversationCombat();
++    void TickSessionChain();
+     int32 ConversationCase=0,ConversationPhase=0;
+     double ConversationStarted=-1.;
+     UPROPERTY() TObjectPtr<ANurseZombie> ConversationSecond;
