@@ -1,0 +1,18 @@
+{
+  "base_commit": "77df964b",
+  "head_commit": "cbaea75a",
+  "branch": "main",
+  "remote": "https://github.com/allang2208/3D-FPS.git",
+  "commits": [
+    "8095546c feat(kukri): publish hatchet pairs, lone off-hand blade and dual sprint attack",
+    "cbaea75a docs(skills): sediment third-person lone-blade mirror and patch slicing"
+  ],
+  "staged_files_commit1": 52,
+  "staged_files_commit2": 5,
+  "integration_patches": 16,
+  "patches_verified_on_clean_head": true,
+  "whitespace_errors_in_source": 0,
+  "binary_files": 0,
+  "runtime_tested": false,
+  "cleanup": "No new waste from this session: Before/RollbackFirstPerson are required recovery backups, authoring frames/Previews stay local per .gitignore; prior HatchetThirdPerson20261106 trash already archived the withdrawn first-person candidates."
+}
