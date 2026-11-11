@@ -1,0 +1,38 @@
+diff --git a/Source/FPSGAME/Characters/FPSBodyKukriMotion.h b/Source/FPSGAME/Characters/FPSBodyKukriMotion.h
+index 266ec007..c0048da9 100644
+--- a/Source/FPSGAME/Characters/FPSBodyKukriMotion.h
++++ b/Source/FPSGAME/Characters/FPSBodyKukriMotion.h
+@@ -78,11 +83,18 @@ inline FName Clip(const FFPSBodyState& S)
+     if(IsCarry(S))return TEXT("Kukri.FullBody.Idle");
+     switch(S.Action)
+     {
+-    case EFPSBodyAction::Equip:return TEXT("Kukri.FullBody.Equip");
++    case EFPSBodyAction::Equip:
++        if(S.ActionVariant==TEXT("OffhandKukriEquip"))return TEXT("Kukri.Offhand.Equip");
++        if(S.ActionVariant==TEXT("OffhandHatchetEquip"))return TEXT("Kukri.Offhand.HatchetEquip");
++        return TEXT("Kukri.FullBody.Equip");
+     case EFPSBodyAction::Strike:return S.ActionVariant==TEXT("Attack2")||S.ActionVariant==TEXT("DualAttack2")?
+         TEXT("Kukri.FullBody.Slash2"):TEXT("Kukri.FullBody.Slash1");
+     case EFPSBodyAction::Thrust:
+         if(S.ActionVariant==TEXT("HatchetDualAttack3"))return TEXT("Kukri.Hatchet.DualChop");
++        // Mixed hatchet + kukri pair (2026-11-10): the strong hand's own take owns the right arm -- hatchet chop for HK,
++        // kukri thrust for KH; the other arm is blended from the complementary take (SwordAlt in FControls).
++        if(S.ActionVariant==TEXT("HatchetPairAttack3HK"))return TEXT("Kukri.Hatchet.DualChop");
++        if(S.ActionVariant==TEXT("HatchetPairAttack3KH"))return TEXT("Kukri.FullBody.Dual.Thrust");
+         return TEXT("Kukri.FullBody.Thrust");
+     case EFPSBodyAction::Charge:
+         if(S.ActionVariant==TEXT("FalconCharge"))return TEXT("Kukri.Falcon.Charge");
+@@ -129,9 +142,12 @@ inline bool UsesAuthoredClock(FName Key)
+ inline uint8 PreserveHands(const FFPSBodyState& S,bool bOffhandKukriEquipment)
+ {
+     if(IsOffhandUppercut(S)&&bOffhandKukriEquipment)return 0;
++    if(S.Family==TEXT("Kukri")&&S.Action==EFPSBodyAction::Equip&&
++        (S.ActionVariant==TEXT("OffhandKukriEquip")||S.ActionVariant==TEXT("OffhandHatchetEquip")))return 0;
+     if(S.Family==TEXT("Kukri")&&(S.ActionVariant==TEXT("FalconDualCharge")||S.ActionVariant==TEXT("FalconDualRelease")))return 0;
+     if(S.Family==TEXT("Kukri")&&S.Action==EFPSBodyAction::Thrust&&
+-        S.ActionVariant==TEXT("HatchetDualAttack3")&&bOffhandKukriEquipment)return 0;
++        (S.ActionVariant==TEXT("HatchetDualAttack3")||S.ActionVariant==TEXT("HatchetPairAttack3HK")||
++         S.ActionVariant==TEXT("HatchetPairAttack3KH"))&&bOffhandKukriEquipment)return 0;
+     // The dual whirlwind owns both weapon arms. The generic offhand-preserve
+     // mask would otherwise discard the authored left-arm extension.
+     if(S.Family==TEXT("Kukri")&&S.Action==EFPSBodyAction::Whirlwind&&S.ActionVariant==TEXT("DualWhirlwind"))return 0;

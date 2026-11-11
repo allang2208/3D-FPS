@@ -1,6 +1,10 @@
 #include "KukriWeaponComponent.h"
+#include "../ModularSwordVisual.h"
+#include "KukriDecisiveComponent.h"
 #include "KukriArmsMeshComponent.h"
 #include "KukriRhythm.h"
+#include "KukriWhirlwindRhythm.h"
+#include "../Staff/StaffOffhandMeleeComponent.h"
 #include "../MeleeWeaponStats.h"
 #include "../RuneSwordHitQuery.h"
 #include "../RuneSwordWhirlwindFeel.h"
@@ -8,7 +12,9 @@
 #include "../../Multiplayer/ColdSteelPlayerState.h"
 #include "../../Skills/ColdSteelSkillRules.h"
 #include "../../Skills/LightningHasteSpeed.h"
+#include "../../Skills/WhirlwindWeapon.h"
 #include "../../FPSGAMECharacter.h"
+#include "../../Characters/FPSPlayerBodyComponent.h"
 #include "../../UI/ColdSteelStatusModel.h"
 #include "../../Monsters/MonsterCombatComponent.h"
 #include "../../Monsters/BoundCongregateCaptureComponent.h"
@@ -30,9 +36,10 @@
 // contract (RuneSwordWhirlwind.cpp, Docs/Skills/whirlwind-*.md).  WhirlwindStats damage / radius / stun / knockback,
 // CommitWhirlwindCast pays the stamina and starts the cooldown once at entry (a remote client asks the PlayerState, which
 // commits on the server and validates every 0x20 hit report), one hit per target per cast, TrainWhirlwind once.  The
-// controller turns TurnDegrees (two turns to the left) on WhirlwindFeel's eased phase, the damage sweeps the right side of
-// the view on the same signed angle, movement / jump / dodge / slide / mouse look are locked (the character reads
-// IsWhirlwindActive), 45 ms hit-stops within a 135 ms budget freeze turn, sweep, pose and camera together, and the
+// controller/world body turn +720 degrees on WhirlwindFeel's eased phase, and damage keeps that signed angular clock.
+// The single-blade owner view turns oppositely through a presentation-only yaw correction. Movement / jump / dodge /
+// slide / mouse look are locked (the character reads
+// IsWhirlwindActive), 55 ms hit-stops within a 130 ms budget freeze turn, sweep, pose and camera together, and the
 // background-only focus blur follows the turn speed.  Martial clock: Lightning Haste only.  The clip is the arms only
 // (SourceAssets/Kukri20261020/fit_whirl.py -> author_kukri_whirlwind.py, "Whirlwind", phases 15/30 + 32/30 + 16/30 s):
 // coil to the right hip, the blade held level out to the right with the edge leading through both turns, the free hand a
@@ -47,6 +54,10 @@ constexpr float KukriWhirlClipReady=15.f/30.f, KukriWhirlClipSpin=32.f/30.f, Kuk
 constexpr float KukriWhirlFirstPass=.035f, KukriWhirlSecondPass=.535f;
 constexpr float KukriWhirlSweepRadius=32.f, KukriWhirlSweepDrop=45.f, KukriWhirlSweepBase=15.f;
 constexpr int32 KukriWhirlFocusStencil=231;
+/** Dual-wield whirlwind: the whirlwind clip raises the free left arm into the sightline, and a dual-wield off-hand
+ *  weapon rides hand_l -- it filled the upper left of the frame.  The left arm is blended down to the natural hanging
+ *  pose (KukriLeftRest.h) for the spin and back to the clip's own arm for the recovery. */
+constexpr float KukriWhirlOffhandRestEase=.20f;
 
 UColdSteelStatusModel* KukriWhirlwindProfile(const UWorld* World)
 {
@@ -65,16 +76,18 @@ float KukriWhirlwindPoseTime(float Time,const FWhirlwindTuning& T,float ClipLeng
 
 FString UKukriWeaponComponent::WhirlwindStatusText() const
 {
-    if(!IsEquipped())return TEXT("需要持刀");
-    if(bWhirlwind)return TEXT("旋风");
     const auto* P=Pawn();
+    const auto* Pair=P?P->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+    const bool WithStaff=Pair&&Pair->IsEquipped();
+    if(!IsEquipped()&&!WithStaff)return TEXT("需要持刀");
+    if(bWhirlwind)return TEXT("旋风");
     const auto* Profile=KukriWhirlwindProfile(GetWorld());
     if(!P||!Profile||!CanUse())return TEXT("暂不可用");
     if(Profile->WhirlwindCooldown()>0.f)return TEXT("冷却中");
     if(!Profile->CanSpendStamina(Profile->WhirlwindStats().StaminaCost))return TEXT("体力不足");
     if(IsBusy())return TEXT("动作中");
     if(P->IsCastBlockingLeftHandAction()||P->IsDodging()||P->IsSliding()||P->IsSpellGestureBlocking())return TEXT("动作占用");
-    if(!Viewmodel||!Camera||!Animations.FindRef(KukriWhirlwindClip))return TEXT("动作未就绪");
+    if(!Camera||(WithStaff?!Pair->CanWhirlwind():(!Viewmodel||!Animations.FindRef(KukriWhirlwindClip))))return TEXT("动作未就绪");
     return FString();
 }
 
@@ -83,8 +96,12 @@ bool UKukriWeaponComponent::BeginWhirlwind()
     auto* P=Pawn();
     if(!P||UBoundCongregateCaptureComponent::IsCaptured(P)||!WhirlwindStatusText().IsEmpty()||!P->GetController())return false;
     auto* Profile=KukriWhirlwindProfile(GetWorld());
-    const auto* Item=Profile?Profile->Equipped():nullptr;
-    if(!Item||Item->InstanceId!=InstanceId||Profile->ActiveProductionTool()||!ColdSteelInventory::IsMeleeWeapon(*Item))return false;
+    const auto* Item=WhirlwindWeapon::Resolve(Profile);
+    auto* Pair=P->FindComponentByClass<UStaffOffhandMeleeComponent>();
+    if(!Pair||!Pair->IsEquipped())Pair=nullptr;
+    if(!Item||(Pair?!WhirlwindWeapon::IsStaffBlade(Profile,Item):Item->InstanceId!=InstanceId)||
+        Profile->ActiveProductionTool()||!ColdSteelInventory::IsMeleeWeapon(*Item))return false;
+    const FColdSteelItem CastItem=*Item;
     // Equipment, clip and assets are checked above; the cost and cooldown are committed once, here.
     const FWhirlwindCast Cast=Profile->WhirlwindStats();
     if(P->GetNetMode()==NM_Client)
@@ -93,14 +110,22 @@ bool UKukriWeaponComponent::BeginWhirlwind()
         if(!PS||!PS->RequestSwordWhirlwind(false,P->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D()))return false;
     }
     else if(!Profile->CommitWhirlwindCast(Cast,false))return false;
-    WhirlwindCast=Cast;WhirlwindTuning=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
-    const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
+    WhirlwindCast=Cast;WhirlwindTuning=KukriWhirlwindRhythm::Resolve(Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind);
+    const bool Modular=ColdSteelModularSword::Supports(CastItem);
+    WhirlwindWallBase=Modular?ColdSteelModularSword::BladePoint(CastItem,false):KukriRhythm::BladeRoot;
+    WhirlwindWallTip=Modular?ColdSteelModularSword::BladePoint(CastItem,true):KukriRhythm::BladeTip;
+    LastSkillWallBeat=INDEX_NONE;bHavePreviousBlade=false;
+    bStaffOffhandWhirlwind=Pair!=nullptr;
+    // A left-hand blade (beside the staff, or the lone off-hand blade's mirrored clip) spins the other way.
+    if(bStaffOffhandWhirlwind||bLoneOffhand)WhirlwindTuning.TurnDegrees=-FMath::Abs(WhirlwindTuning.TurnDegrees);
+    const auto Stats=ColdSteelMelee::Evaluate(CastItem,Profile);
     WhirlwindReaction=float(Stats.Modifiers.HitReaction);
-    Shot=ColdSteelSkills::Snapshot(P,Item);
+    Shot=ColdSteelSkills::Snapshot(P,&CastItem);
     Shot.bRifle=false;Shot.bPistol=false;Shot.WeakpointPercent=0;Shot.bMelee=true;Shot.bMeleeStrike=true;
     Shot.AttackForm=KukriRhythm::Form;
     Shot.AttackMeta=0x20;           // whirlwind: the server recomputes from WhirlwindStats and accepts exactly 0x20
     bWhirlwind=bWhirlwindTrainingPending=true;bWhirlwindSwingPlayed=false;
+    if(auto* Pendant=P->FindComponentByClass<UKukriDecisiveComponent>())Pendant->BeginLocal(Shot,true);
     WhirlwindHits=WhirlwindKills=0;WhirlwindPause=WhirlwindPauseSpent=0.f;
     WhirlwindImpactAge=1.f;WhirlwindImpactStrength=1.f;
     WhirlwindYaw=P->GetControlRotation().Yaw;
@@ -121,7 +146,17 @@ bool UKukriWeaponComponent::BeginWhirlwind()
         Movement->UpdateComponentVelocity();
     }
     // The 0.11 s entry blend from the displayed pose runs inside the ready phase.
-    SetClip(KukriWhirlwindClip,false,KukriRhythm::EntryBlendSeconds);
+    if(Pair)
+    {
+        SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(CastItem,TEXT("swing_sound")));
+        HitSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(CastItem,TEXT("hit_sound")));
+        StabWhooshSound=LoadObject<USoundBase>(nullptr,KukriRhythm::StabWhoosh);
+        StabThudSounds.Reset();
+        for(const TCHAR* Path:KukriRhythm::StabThud)if(auto* Thud=LoadObject<USoundBase>(nullptr,Path))StabThudSounds.Add(Thud);
+        Elapsed=0.f;Pair->BeginWhirlwindPresentation();
+        Pair->SetWhirlwindPose(0.f,0.f,WhirlwindTuning.ReadySeconds,WhirlwindTuning.SpinSeconds,WhirlwindTuning.RecoverSeconds);
+    }
+    else SetClip(KukriWhirlwindClip,false,KukriRhythm::EntryBlendSeconds);
     BeginWhirlwindFocus();
     return true;
 }
@@ -135,25 +170,46 @@ void UKukriWeaponComponent::FinishWhirlwindTraining()
     if(auto* Profile=KukriWhirlwindProfile(GetWorld()))Profile->TrainWhirlwind(WhirlwindHits,WhirlwindKills);
 }
 
-void UKukriWeaponComponent::FinishWhirlwind()
+void UKukriWeaponComponent::FinishWhirlwind(bool Interrupted)
 {
     if(!bWhirlwind)return;
+    const bool RefreshStaffCamera=bStaffOffhandWhirlwind&&Interrupted;
+    if(bStaffOffhandWhirlwind)
+    {
+        // Keep the displayed heading when interrupted between full turns, before removing its camera correction.
+        if(Interrupted)if(auto* P=Pawn())if(auto* Controller=P->GetController())
+        {
+            FRotator Aim=Controller->GetControlRotation();Aim.Yaw+=GetWhirlwindFirstPersonYawOffset();
+            Controller->SetControlRotation(Aim);P->FaceRotation(Aim,0.f);
+        }
+        if(auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>())Pair->EndWhirlwindPresentation(Interrupted);
+        StopSkillRift();
+    }
     // Clear first: saving the training can refresh the equipment and re-enter the cancellation.
-    bWhirlwind=false;
+    bWhirlwind=false;bStaffOffhandWhirlwind=false;
     if(GetNetMode()==NM_Client)
         if(auto* P=Pawn())if(auto* PS=P->GetPlayerState<AColdSteelPlayerState>())PS->FinishSwordWhirlwind();
     EndWhirlwindFocus();
+    // The left arm returns to the clip's own pose on the next frame anyway; clear the override so no stale weight is left.
+    if(Viewmodel)Viewmodel->SetLeftArmRest(0.f,.12f);
     WhirlwindPause=0.f;WhirlwindImpactAge=1.f;
     FinishWhirlwindTraining();
     HitActors.Reset();
     if(Viewmodel&&IsEquipped()&&Animations.Num())SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);
+    // Cancellation can happen in PostPhysics, after the character's camera tick.
+    // FaceRotation above moves the attached camera too; remove its old spin-relative
+    // rotation now, before PlayerCameraManager caches this frame's view.
+    if(RefreshStaffCamera)if(auto* P=Pawn();P&&!P->IsActorBeingDestroyed())P->RefreshQuickCombatCamera();
 }
 
 void UKukriWeaponComponent::TickWhirlwind(float Delta)
 {
     auto* P=Pawn();
     AController* Controller=P?P->GetController():nullptr;
-    if(!CurrentAnimation||!Controller||P->IsDodging()||P->IsTraversing()){FinishWhirlwind();return;}
+    auto* Pair=bStaffOffhandWhirlwind&&P?P->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+    const UAnimSequence* Clip=Pair?Pair->WhirlwindAnimation():CurrentAnimation.Get();
+    if(!Clip||!Controller||(bStaffOffhandWhirlwind&&(!Pair||!Pair->OwnsLeftHand()))||
+        P->IsDodging()||P->IsTraversing()){FinishWhirlwind();return;}
     const auto& T=WhirlwindTuning;
     WhirlwindImpactAge+=Delta;
     const float Paused=FMath::Min(Delta,WhirlwindPause);
@@ -177,10 +233,10 @@ void UKukriWeaponComponent::TickWhirlwind(float Delta)
         if(!bWhirlwindSwingPlayed&&Phase>=KukriWhirlFirstPass)
         {
             bWhirlwindSwingPlayed=true;
-            if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.95f,.9f);
-            if(StabWhooshSound)UGameplayStatics::PlaySound2D(this,StabWhooshSound,.75f,.94f);
+            if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.95f,1.03f);
+            if(StabWhooshSound)UGameplayStatics::PlaySound2D(this,StabWhooshSound,.8f,1.05f);
         }
-        if(BeforePhase<KukriWhirlSecondPass&&Phase>=KukriWhirlSecondPass&&SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.78f,1.1f);
+        if(BeforePhase<KukriWhirlSecondPass&&Phase>=KukriWhirlSecondPass&&SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.86f,1.18f);
         if(Phase>BeforePhase)SweepWhirlwind(T.TurnDegrees*BeforePhase,T.TurnDegrees*Phase);
         if(Elapsed>=T.ReadySeconds+T.SpinSeconds)FinishWhirlwindTraining();
         if(WhirlwindPause>0.f||Elapsed>=End-UE_SMALL_NUMBER)break;
@@ -189,14 +245,52 @@ void UKukriWeaponComponent::TickWhirlwind(float Delta)
     // The controller already faced the pawn before this PostPhysics tick turned it: publish the final heading on the body,
     // then compose the camera (with any contact accent) before the arms are sampled for this frame.
     P->FaceRotation(Controller->GetControlRotation(),0.f);
+    const float ClipTime=KukriWhirlwindPoseTime(Elapsed,T,Clip->GetPlayLength());
+    if(Pair)Pair->SetWhirlwindPose(Elapsed,ClipTime,T.ReadySeconds,T.SpinSeconds,T.RecoverSeconds);
     P->RefreshQuickCombatCamera();
-    SamplePose(KukriWhirlwindPoseTime(Elapsed,T,CurrentAnimation->GetPlayLength()));
+    if(!Pair)
+    {
+        // Dual hatchets: drop the off-hand arm to its natural hanging pose, then restore the clip's own arm before the
+        // recovery ends (see KukriWhirlOffhandRestEase).  Set before the sample: the mesh finalizes its pose inside it.
+        if(Viewmodel)
+        {
+            // The off-hand arm hangs through the whole whirlwind; it is released when the cast ends (FinishWhirlwind),
+            // and the next locomotion clip brings the idle arm back.
+            Viewmodel->SetLeftArmRest(IsDual()&&bOffhandHatchet?1.f:0.f,KukriWhirlOffhandRestEase);
+        }
+        SamplePose(ClipTime);
+        TrackWhirlwindWall(BladeFrame());
+    }
+    const auto* Body=P->FindComponentByClass<UFPSPlayerBodyComponent>();
+    if(!Pair&&(!Body||!Body->IsThirdPersonViewEnabled()))UpdateWhirlwindRiftPose(BladeFrame());
     UpdateWhirlwindFocus(WhirlwindPause>0.f?0.f:T.MotionBlur*WhirlwindFeel::Speed(Elapsed,T));
-    if(Elapsed>=End-UE_SMALL_NUMBER)FinishWhirlwind();
+    if(Elapsed>=End-UE_SMALL_NUMBER)FinishWhirlwind(false);
+}
+
+void UKukriWeaponComponent::PublishStaffWhirlwindBlade(const FTransform& DisplayedBlade)
+{
+    if(!bWhirlwind||!bStaffOffhandWhirlwind)return;
+    TrackWhirlwindWall(DisplayedBlade);
+    const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
+    if(!Body||!Body->IsThirdPersonViewEnabled())UpdateWhirlwindRiftPose(DisplayedBlade);
+}
+
+void UKukriWeaponComponent::TrackWhirlwindWall(const FTransform& Pose)
+{
+    const auto& T=WhirlwindTuning;
+    if(bHavePreviousBlade&&Elapsed>=T.ReadySeconds&&Elapsed<=T.ReadySeconds+T.SpinSeconds)
+    {
+        const float Degrees=FMath::Abs(T.TurnDegrees*WhirlwindFeel::Phase(Elapsed,T));
+        SampleSkillBladeWall(PreviousBlade,Pose,WhirlwindWallBase,WhirlwindWallTip,FMath::FloorToInt(Degrees/360.f));
+    }
+    PreviousBlade=Pose;bHavePreviousBlade=true;
 }
 
 void UKukriWeaponComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
 {
+    const float FirstTurn=WhirlwindTuning.TurnDegrees<0.f?-360.f:360.f;
+    if(FMath::Abs(FromDegrees)<360.f&&FMath::Abs(ToDegrees)>360.f)
+    {SweepWhirlwind(FromDegrees,FirstTurn);SweepWhirlwind(FirstTurn,ToDegrees);return;}
     auto* P=Pawn();
     UWorld* World=GetWorld();
     if(!P||!World)return;
@@ -205,7 +299,7 @@ void UKukriWeaponComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
     auto Sample=[&](float Degrees)
     {
         FRuneSwordBladeSample S;
-        S.Origin=Origin;S.Forward=FRotator(0.f,WhirlwindYaw+90.f+Degrees,0.f).Vector();
+        S.Origin=Origin;S.Forward=FRotator(0.f,WhirlwindYaw+(bStaffOffhandWhirlwind?-90.f:90.f)+Degrees,0.f).Vector();
         S.Base=Origin+S.Forward*KukriWhirlSweepBase;S.Tip=Origin+S.Forward*WhirlwindCast.RadiusCM;
         return S;
     };
@@ -224,6 +318,7 @@ void UKukriWeaponComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
         HitActors.Add(Target);
         const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(P,Target);
         auto HitShot=Shot;
+        HitShot.MeleeDamagePhase=FMath::Abs(FromDegrees)>=360.f?1:0;
         if(Eligible&&WhirlwindHits==1&&Profile)HitShot.ExtraMasteryExperience=Profile->MasteryDefinition(Shot.MasteryId).MultiHitExperience;
         const FVector Direction=(Target->GetActorLocation()-P->GetActorLocation()).GetSafeNormal2D();
         FWeaponDamageResult Receipt;
@@ -237,7 +332,7 @@ void UKukriWeaponComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
         if(Eligible){++WhirlwindHits;if(bKilled)++WhirlwindKills;}
         if(Combat&&!bKilled)Combat->ReceiveStun(P,WhirlwindCast.StunSeconds,WhirlwindCast.KnockbackCM);
         P->NotifyConfirmedWeaponHit(Target,Applied,&Receipt,false);
-        SpawnContactFX(Hit,false);
+        if(Combat&&P->HasAuthority())SpawnContactFX(Hit,false);
     }
     if(!Confirmed)return;
     const float Hold=FMath::Min(WhirlwindTuning.HitStopSeconds,WhirlwindTuning.HitStopBudget-WhirlwindPauseSpent);
@@ -248,18 +343,39 @@ void UKukriWeaponComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
     {
         WhirlwindImpactAge=0.f;WhirlwindImpactStrength=Strength;
         const FVector At=ImpactPoint/Confirmed;
-        if(HitSound)UGameplayStatics::PlaySoundAtLocation(this,HitSound,At,.9f,.88f);
+        if(HitSound)UGameplayStatics::PlaySoundAtLocation(this,HitSound,At,1.f,.86f);
         if(StabThudSounds.Num())
             UGameplayStatics::PlaySoundAtLocation(this,StabThudSounds[FMath::RandRange(0,StabThudSounds.Num()-1)],At,
-                KukriRhythm::StabThudVolume*.8f,KukriRhythm::StabThudPitch);
+                KukriRhythm::StabThudVolume*1.1f,KukriRhythm::StabThudPitch);
     }
     else WhirlwindImpactStrength=FMath::Max(WhirlwindImpactStrength,Strength);
 }
 
+float UKukriWeaponComponent::GetWhirlwindFirstPersonYawOffset() const
+{
+    if(!bWhirlwind||(!IsEquipped()&&!bStaffOffhandWhirlwind))return 0.f;
+    const auto* P=Pawn();
+    const auto* Body=P?P->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
+    if(Body&&Body->IsThirdPersonViewEnabled())return 0.f;
+    // Controller and world body keep +theta. The camera and its attached arms
+    // receive -2 theta, presenting -theta on the same paused action clock.
+    // (2026-11-03: dual wield too -- it used to skip the correction and presented +theta, i.e. the wrong way in
+    // first person.  The controller, the sweep and the third-person body are untouched.)
+    return FRotator::NormalizeAxis(-2.f*WhirlwindTuning.TurnDegrees*WhirlwindFeel::Phase(Elapsed,WhirlwindTuning));
+}
+
 void UKukriWeaponComponent::GetWhirlwindCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const
 {
-    // The sword's whirlwind body language (coil, carry, plant, contact resistance); the turn itself is the controller's.
-    WhirlwindFeel::Camera(Elapsed,WhirlwindTuning,WhirlwindImpactAge,WhirlwindImpactStrength,Location,Rotation);
+    // Lean and contact resistance follow the single-blade owner-view turn.
+    // The full yaw correction is composed separately, outside shake scaling.
+    FWhirlwindTuning ViewTuning=WhirlwindTuning;
+    const auto* P=Pawn();
+    const auto* Body=P?P->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
+    // First person (single or dual) presents -theta; third person keeps the world turn.  Dual used to skip this, so its
+    // lean and roll read against the sweep.
+    if(!Body||!Body->IsThirdPersonViewEnabled())ViewTuning.TurnDegrees=-ViewTuning.TurnDegrees;
+    WhirlwindFeel::Camera(Elapsed,ViewTuning,WhirlwindImpactAge,
+        WhirlwindImpactStrength*KukriWhirlwindRhythm::ContactKickScale,Location,Rotation);
     FovDelta=0.f;
 }
 
@@ -275,7 +391,9 @@ void UKukriWeaponComponent::BeginWhirlwindFocus()
     if(!WhirlwindFocus)
         if(auto* Material=Cast<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Skills/Whirlwind20260920/M_WhirlwindFocus.M_WhirlwindFocus")).TryLoad()))
             WhirlwindFocus=UMaterialInstanceDynamic::Create(Material,this);
-    TArray<USceneComponent*> Parts;Viewmodel->GetChildrenComponents(true,Parts);Parts.Add(Viewmodel);
+    TArray<USceneComponent*> Parts;
+    if(bStaffOffhandWhirlwind)Camera->GetChildrenComponents(true,Parts);
+    else {Viewmodel->GetChildrenComponents(true,Parts);Parts.Add(Viewmodel);}
     for(auto* Part:Parts)
         if(auto* Primitive=Cast<UPrimitiveComponent>(Part))
         {

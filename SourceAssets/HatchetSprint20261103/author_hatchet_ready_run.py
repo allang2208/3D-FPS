@@ -10,7 +10,14 @@ Three clips, the sword's sprint pattern (SprintEnter / SprintLoop / SprintExit):
   HatchetDualSprintReady  80/120 s loop  right hand holds the hatchet raised (higher than before), edge forward; the left
                                  arm is the dual run's left arm at the same phase (the original kukri sprint carry)
   HatchetDualSprintExit   0.25 s  raised ready + run left arm -> dual hold
-The right hand's hold comes from author_dual_sprint_right_arm.RAISE (solved on the combo rig); the bob is damped.
+The right hand's hold comes from author_dual_sprint_right_arm.RAISE (solved on the combo rig).
+
+User 2026-11-04: "触发冲刺攻击奔跑时右手动画匹配左手的摆动频率和幅度" -- in the ready loop the raised right fist swings
+like the left one.  The right swing is the left fist's measured stride in A_Kukri_DualRun (grip offset and rotation from
+the stride mean), mirrored onto the right side and half a stride later (the arms alternate as in a run; the twice-per-
+stride step bob stays together): the same screen path about the raised grip, so both fists travel as far on screen
+(SWING_PHASE, ReadySet.right_swing).
+(The sprint before the ready keeps the dual hold/walk carry at runtime -- KukriWeaponComponent::LocomotionClip.)
 
 Run:  python author_hatchet_ready_run.py [--preview] [--header]
 """
@@ -28,7 +35,7 @@ import author_hatchet_chop as C  # noqa: E402
 sys.path.insert(0, str(P.parent / 'DualKukriIdle20261025'))
 from dual_rig import DualRig, F, ROT_X180  # noqa: E402
 from kmath import T, qmat, qfrommat, mesh_to_cam, cam_to_mesh, qslerp  # noqa: E402
-from kukri_rig import ndc  # noqa: E402
+from kukri_rig import ndc, TAN, ASPECT  # noqa: E402
 
 FPS = 120
 ENTER = 'HatchetDualSprintEnter'
@@ -37,6 +44,9 @@ EXIT = 'HatchetDualSprintExit'
 LENGTH = 80.0 / 120.0                # the dual run's cycle (A_Kukri_DualRun)
 ENTER_SECONDS = 0.30
 EXIT_SECONDS = 0.25
+# The right fist's swing = the dual run's left fist's, half a stride later (alternating arms): the same screen path,
+# mirrored (ReadySet.right_swing).
+SWING_PHASE = 0.5
 OUT = P / 'Clips'
 WORK = P / 'WorkReady'
 PREVIEWS = P / 'PreviewsReady'
@@ -91,6 +101,44 @@ class ReadySet:
         self.E_left0 = F @ (idle_world['lowerarm_l'].p - D.left_shift)
         # the dual hold's right grip (the enter/exit start and end)
         self.K_right0 = T(idle_world['WPN_root'].p, idle_world['WPN_root'].q, (1, 1, 1))
+        self.swing, left_depth = self.left_swing_table()
+        raised = mesh_to_cam(self.K_raise.p)
+        self.raise_ndc, self.raise_depth = np.array(ndc(raised)), float(raised[0])
+        self.depth_scale = self.raise_depth / left_depth
+
+    def left_swing_table(self):
+        """The dual run's left fist over one stride, one entry per clip frame: (grip screen offset from the stride mean,
+        NDC; grip depth offset, cm; grip rotation relative to the mean orientation, mesh matrix).  Also returns the mean
+        grip depth (cm)."""
+        D = self.D
+        ns, ds, ms = [], [], []
+        for i in range(int(round(LENGTH * FPS))):
+            K = D.left_kukri(virtual_hand(D, self.run_world(i / FPS)))
+            c = mesh_to_cam(K.p)
+            ns.append(np.array(ndc(c)))
+            ds.append(float(c[0]))
+            ms.append(qmat(K.q))
+        n0, d0 = np.mean(ns, axis=0), float(np.mean(ds))
+        u, _, vt = np.linalg.svd(np.sum(ms, axis=0))
+        m0 = u @ np.diag([1.0, 1.0, np.linalg.det(u @ vt)]) @ vt
+        return [(n - n0, d - d0, m @ m0.T) for n, d, m in zip(ns, ds, ms)], d0
+
+    def right_swing(self, t):
+        """The right fist's swing at loop time t: the left fist's, mirrored onto the right side and SWING_PHASE of a
+        stride later -- the same screen path (NDC offsets, x mirrored) about the raised grip, the depth pump scaled by the
+        grip depth ratio, the rotation mirrored (F).  Returns (grip position, mesh cm; rotation delta quaternion, mesh)."""
+        n = len(self.swing)
+        x = ((t / LENGTH + SWING_PHASE) % 1.0) * n
+        i = int(np.floor(x)) % n
+        f = float(x - np.floor(x))
+        (na, da, ma), (nb, db, mb) = self.swing[i], self.swing[(i + 1) % n]
+        dn = na + (nb - na) * f
+        depth = self.raise_depth + (da + (db - da) * f) * self.depth_scale
+        sx, sy = self.raise_ndc[0] - dn[0], self.raise_ndc[1] + dn[1]
+        p = cam_to_mesh(np.array([depth, sx * depth * TAN * ASPECT, -sy * depth * TAN]))
+        qa, qb = qfrommat(F @ ma @ F), qfrommat(F @ mb @ F)
+        qb = qb if np.dot(qa, qb) >= 0 else -qb
+        return p, qslerp(qa, qb, f)
 
     def load(self, clip, i):
         data = load_clip(clip)
@@ -115,6 +163,7 @@ class ReadySet:
         Kl0 = T(self.K_left0.p, self.K_left0.q, (1, 1, 1))
         R.twist_memory = self.mem_right
         world, diag = R.pose(K, left_target_cam=C.IDLE_L, clav_r=self.chop.clav, pole_r=self.E_right0, pole_r_weight=0.0)
+        self.right_diag = diag['right']
         self.mem_right = dict(R.twist_memory)
         R.twist_memory = self.mem_left
         world_v, dv = R.pose(Kl0, pole_r=self.E_left0, pole_r_weight=1.0)
@@ -150,12 +199,9 @@ class ReadySet:
         return dict(eye=[round(float(x), 3) for x in ndc(eye)], grip=[round(float(v), 3) for v in ndc(mesh_to_cam(K.p))])
 
     # ---------------------------------------------------------------- clips
-    def loop_bob(self, t):
-        a = 2 * np.pi * t / LENGTH
-        return cam_to_mesh(np.array([0.35 * np.sin(a + 0.6), 0.55 * np.sin(a), 0.45 * np.sin(2 * a - np.pi / 2)]))
-
     def loop_K(self, t):
-        return T(self.K_raise.p + self.loop_bob(t), self.K_raise.q, (1, 1, 1))
+        p, dq = self.right_swing(t)
+        return T(p, qfrommat(qmat(dq) @ qmat(self.K_raise.q)), (1, 1, 1))
 
     def enter(self):
         """Dual hold (idle hand gesture) -> the ready loop's first frame."""
@@ -179,7 +225,13 @@ class ReadySet:
             world = self.assemble(K, 1.0, t, 1.0)
             frames.append(self.snap(world, prev_q))
             prev_q = {b: v[1] for b, v in self.last.items()}
-            diags.append(dict(t=round(t, 4), eye=[round(float(x), 3) for x in ndc(mesh_to_cam(K.point([0.0, 0.0, 23.5])))]))
+            dr = self.right_diag
+            Kl = self.D.left_kukri(virtual_hand(self.D, world))
+            diags.append(dict(t=round(t, 4), eye=[round(float(x), 3) for x in ndc(mesh_to_cam(K.point([0.0, 0.0, 23.5])))],
+                              grip=[round(float(x), 3) for x in ndc(mesh_to_cam(K.p))],
+                              left_grip=[round(float(x), 3) for x in ndc(mesh_to_cam(Kl.p))],
+                              reach=round(float(dr['reach']), 3), twist=round(float(dr['twist_deg']), 1),
+                              wrist=round(float(dr['wrist_deg']), 1)))
         return frames, diags
 
     def exit(self):
@@ -223,9 +275,10 @@ def write_header():
 
 // GENERATED by SourceAssets/HatchetSprint20261103/author_hatchet_ready_run.py -- do not edit by hand.
 /**
- * 双持碳钢战斧「冲刺攻击就绪」奔跑姿势（2026-11-03）。持续奔跑、冲刺攻击就绪时替换双持跑步：
+ * 双持碳钢战斧「冲刺攻击就绪」奔跑姿势（2026-11-03，11-04 右手摆动）。冲刺未就绪时保持双持待机移动姿态，就绪时：
  *  - {ENTER}（{ENTER_SECONDS:.2f} s）：从双持待机手势起手，右手举斧，左手离开握姿进入跑步摆臂；
- *  - {LOOP}（80/120 s 循环）：右手举斧在准星右上方、刃口向前，左手是原弯刀冲刺跑姿的摆臂；
+ *  - {LOOP}（80/120 s 循环）：右手举斧在准星右上方、刃口向前，左手是原弯刀冲刺跑姿的摆臂，
+ *    右手按左手的摆动镜像、错开半步摆动（同频、屏幕上同幅）；
  *  - {EXIT}（{EXIT_SECONDS:.2f} s）：收回双持待机手势。
  * 冲刺攻击本身不变（仍是原来的双手跳劈）。就绪条件与 KukriDashRhythm / DashReadyFraction 相同。
  */
@@ -254,8 +307,16 @@ def author(preview=False):
     write_clip(ENTER, fe, de, ENTER_SECONDS, False)
     write_clip(LOOP, fl, dl, LENGTH, True)
     write_clip(EXIT, fx, dx, EXIT_SECONDS, False)
+    span = lambda k, j: round(max(d[k][j] for d in dl) - min(d[k][j] for d in dl), 3)
     summary = dict(loop=LOOP, enter=ENTER, exit=EXIT, seconds=[ENTER_SECONDS, LENGTH, EXIT_SECONDS],
-                   head_eye=dl[len(dl) // 2]['eye'] if dl else None)
+                   head_eye=dl[len(dl) // 2]['eye'] if dl else None,
+                   swing=dict(phase=SWING_PHASE, depth_scale=round(clip.depth_scale, 3),
+                              right_grip_ndc_span=[span('grip', 0), span('grip', 1)],
+                              left_grip_ndc_span=[span('left_grip', 0), span('left_grip', 1)],
+                              head_ndc_y=[min(d['eye'][1] for d in dl), max(d['eye'][1] for d in dl)],
+                              reach=[min(d['reach'] for d in dl), max(d['reach'] for d in dl)],
+                              twist=[min(d['twist'] for d in dl), max(d['twist'] for d in dl)],
+                              wrist_max=max(d['wrist'] for d in dl)))
     print('ready set', json.dumps(summary), flush=True)
     (P / 'clips.json').write_text(json.dumps({'clips': {LOOP: dict(summary, source='author_hatchet_ready_run.py')}},
                                              ensure_ascii=False, indent=2), encoding='utf-8')
@@ -266,7 +327,8 @@ def author(preview=False):
             t = k / 30.0
             K = clip.loop_K(t)
             world = clip.assemble(K, 1.0, t, 1.0)
-            previews['%s_%04d' % (LOOP, k)] = (world, K, clip.D.left_kukri(clip.K_left0))
+            # the off-hand hatchet on the swinging left fist (the runtime's constant grip on hand_l), not a fixed pose
+            previews['%s_%04d' % (LOOP, k)] = (world, K, clip.D.left_kukri(virtual_hand(clip.D, world)))
     return clip, previews
 
 

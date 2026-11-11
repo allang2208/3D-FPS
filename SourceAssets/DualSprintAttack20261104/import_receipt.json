@@ -1,0 +1,18 @@
+{
+  "revision": "Kukri_V12_Stab_20261022",
+  "assets": [
+    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_DualSprintAttack.A_Kukri_DualSprintAttack"
+  ],
+  "animations": {
+    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_DualSprintAttack": {
+      "frames": 161,
+      "fps": 120,
+      "seconds": 1.3333333333333333,
+      "play_length": 1.3333333730697632,
+      "contact": null,
+      "loop": false
+    }
+  },
+  "runtime_tested": false,
+  "complete": true
+}

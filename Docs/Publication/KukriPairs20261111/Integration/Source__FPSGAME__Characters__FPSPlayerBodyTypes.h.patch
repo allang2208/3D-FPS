@@ -1,0 +1,25 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h b/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
+index 4cddc4ca..3cb477aa 100644
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
+@@ -90,6 +101,8 @@ struct FFPSBodyState
+     UPROPERTY(BlueprintReadOnly) bool bSliding = false;
+     UPROPERTY(BlueprintReadOnly) bool bDual = false;
+     UPROPERTY(BlueprintReadOnly) bool bOffhandPistol = false;
++    // 主手空置、副手弯刀/斧头单独出手（2026-11-10）：身体把右手的单持全套镜像到左手，刀挂左手。
++    UPROPERTY(BlueprintReadOnly) bool bLoneBlade = false;
+     UPROPERTY(BlueprintReadOnly) FName ActionVariant;
+     // Source-normalized progress preserves hit pauses and nonuniform playback.
+     UPROPERTY(BlueprintReadOnly) bool bHasActionProgress = false;
+@@ -223,6 +247,11 @@ struct FFPSBodyWeapon
+     UPROPERTY() TSoftObjectPtr<class UStaticMesh> StaticMesh;
+     UPROPERTY() FTransform StaticGrip = FTransform::Identity;
+     UPROPERTY() FName PoseFamily;
++    // 主手空、副手弯刀/斧头单独出手：刀挂 hand_l，姿势在动画末尾整体镜像（FLoneBladeMirrorLayer）。
++    UPROPERTY() bool bLoneBlade=false;
++    // Tool edge endpoints in WPN_root space, shared with the first-person FX.
++    UPROPERTY() FVector ToolEdgeBase=FVector::ZeroVector;
++    UPROPERTY() FVector ToolEdgeTip=FVector::ZeroVector;
+     UPROPERTY() uint8 AttachHand = 0;
+     UPROPERTY() TSoftObjectPtr<class UWeaponGripProfile> GripProfile;
+     UPROPERTY() int32 StaffVariant = 0;

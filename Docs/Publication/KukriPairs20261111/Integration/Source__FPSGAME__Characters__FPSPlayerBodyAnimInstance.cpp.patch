@@ -1,0 +1,1001 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+index e79d1dba..2719eb44 100644
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -143,10 +169,35 @@ struct FUpperLayer : FAnimNode_Base
+     }
+ };
+ 
++#include "FPSBodySlideLayer.inl"
++#include "FPSBodySinglePistolMirror.inl"
++#include "FPSBodySinglePistolSourceLayer.inl"
++#include "FPSBodySinglePistolSupport.inl"
++
+ // Small world-body corrections. Bone transforms are derived locally, never replicated.
+ struct FControls : FAnimNode_Base
+ {
+-    FPoseLink Source,Neutral,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume,BowNative;
++    bool bSinglePistolReference=false;
++    FFPSBodySinglePistolContact SingleContact;
++    FSinglePistolSupportFit SingleSupportFit;
++    FSinglePistolSupportFit KukriSupportFit;
++    float SingleReadyContactWeight=0.f,SingleOperationWeight=0.f;
++    FVector SingleWithdrawalOffset=FVector::ZeroVector;
++    bool bSingleWithdrawing=false;
++    FTransform SingleLastOperation=FTransform::Identity;
++    FString SingleContactInstance;
++    FPoseLink Source,Neutral,Grip,Sword,SwordAlt,UppercutStride,StaffCast,StaffCarry,BookCarry,BookPush,Consume,StunPose,BowNative;
++    // Mixed hatchet + kukri pair stage 3: the main take owns the right arm; the left arm comes from the complementary
++    // take (hatchet chop / kukri thrust), both on the double thrust's authored 2.05 s clock.
++    bool bMixedPairAlt=false;
++    // Left-hand chain (clavicle_l..fingers) for the alternate take of a mixed hatchet + kukri stage 3.
++    TArray<uint8> LeftArmBones;
++    FPoseLink KukriCarryHip,KukriCarryAim;
++    bool bKukriCarryActive=false,bHadKukriCarry=false,bKukriQuickActive=false,bHadKukriQuick=false;
++    TOptional<FQuat> PistolHatchetPalmInView;
++    float KukriCarryAge=0.f,KukriCarryBlendSeconds=.24f;
++    FString KukriCarryInstance;
++    TArray<FTransform> KukriCarryEntryPose,KukriCarryLastPose;
+     float NativeBowWeight=0.f,NativeBowProgress=0.f,NativeBowEntryAge=0.f;
+     bool bHadNativeBow=false;
+     FName NativeBowPhase,LastNativeBowPhase;
+@@ -226,13 +314,75 @@ struct FControls : FAnimNode_Base
+     FFPSBodyState State;
+     FFPSBodyState MotionState;
+     float Clock=0.f,Crouch=0.f,MotionWeight=0.f,Aim=0.f,Sprint=0.f,Delta=0.f;
++    bool bAuthoredCrouch=false;
+     bool bAuthoredTraversal=false;
++    float AuthoredSlideWeight=0.f;
++    bool bHasSlideLibrary=false;
+     FVector Handholds[2];
+     FVector PoseScale=FVector::OneVector;
+     FTransform LastHands[2],EntryHands[2];
+     FTransform LastSwordTorso=FTransform::Identity;
+     FTransform SwordRestTorso=FTransform::Identity;
+     bool bHadSwordPair=false,bHasSwordRestTorso=false;
++    // Lone off-hand blade (main hand empty, 2026-11-10): the single kukri/hatchet library is authored for the right hand and
++    // the body blade hangs on hand_l in the accepted dual left grip. Mirror the complete upper body after every blend and
++    // before the finger fit, exactly as the first-person rig does (bMirrorRightToLeft); the legs keep their gait.
++    bool bLoneBladeMirror=false;
++    FCompactPoseBoneIndex LoneMirrorChest{INDEX_NONE};
++    TArray<FCompactPoseBoneIndex> LoneMirrorBones;
++    TCustomBoneIndexArray<FQuat,FCompactPoseBoneIndex> LoneMirrorReference;
++    void CacheLoneBladeMirror(const FBoneContainer& Bones)
++    {
++        const auto& Ref=Bones.GetReferenceSkeleton();
++        const int32 SpineRoot=Ref.FindBoneIndex(TEXT("spine_01"));
++        LoneMirrorChest=FCompactPoseBoneIndex(INDEX_NONE);
++        LoneMirrorBones.Init(FCompactPoseBoneIndex(INDEX_NONE),Bones.GetCompactPoseNumBones());
++        LoneMirrorReference.SetNumUninitialized(Bones.GetCompactPoseNumBones());
++        TMap<FName,FCompactPoseBoneIndex> ByName;
++        for(int32 I=0;I<LoneMirrorBones.Num();++I)
++        {
++            const FCompactPoseBoneIndex Bone(I);
++            const int32 MeshBone=Bones.MakeMeshPoseIndex(Bone).GetInt();
++            ByName.Add(Ref.GetBoneName(MeshBone),Bone);
++            const auto Parent=Bones.GetParentBoneIndex(Bone);
++            LoneMirrorReference[Bone]=Parent==INDEX_NONE?Bones.GetRefPoseTransform(Bone).GetRotation():
++                (LoneMirrorReference[Parent]*Bones.GetRefPoseTransform(Bone).GetRotation()).GetNormalized();
++            if(MeshBone==SpineRoot)LoneMirrorChest=Bone;
++        }
++        for(int32 I=0;I<LoneMirrorBones.Num();++I)
++        {
++            const FCompactPoseBoneIndex Bone(I);
++            const int32 MeshBone=Bones.MakeMeshPoseIndex(Bone).GetInt();
++            if(SpineRoot==INDEX_NONE||(MeshBone!=SpineRoot&&!Ref.BoneIsChildOf(MeshBone,SpineRoot)))continue;
++            const FString Name=Ref.GetBoneName(MeshBone).ToString();
++            const FString Counterpart=Name.EndsWith(TEXT("_r"))?Name.LeftChop(2)+TEXT("_l"):
++                Name.EndsWith(TEXT("_l"))?Name.LeftChop(2)+TEXT("_r"):Name;
++            if(const auto* Other=ByName.Find(FName(Counterpart)))LoneMirrorBones[I]=*Other;
++        }
++    }
++    void MirrorLoneBladeUpperBody(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
++    {
++        // Eating owns a dedicated two-hand chain; never mirror that gesture.
++        if(!bLoneBladeMirror||ConsumeWeight>ZERO_ANIMWEIGHT_THRESH||
++            LoneMirrorChest==FCompactPoseBoneIndex(INDEX_NONE)||LoneMirrorBones.IsEmpty())return;
++        const auto& Bones=Out.Pose.GetBoneContainer();
++        const auto Parent=Bones.GetParentBoneIndex(LoneMirrorChest);
++        // Same construction as FSinglePistolMirrorLayer (the accepted lone left pistol): the evaluated component-space pose
++        // is written out as local, mirrored in native bind frames, then re-read. The unmirrored pelvis is kept so the lower
++        // gait stays on its original side; the chest orientation is re-anchored over it.
++        const FQuat PelvisRotation=Pose.GetComponentSpaceTransform(Parent).GetRotation();
++        const FQuat MirroredPelvis=(FAnimationRuntime::MirrorQuat(PelvisRotation,EAxis::X)*
++            FAnimationRuntime::MirrorQuat(LoneMirrorReference[Parent],EAxis::X).Inverse()*LoneMirrorReference[Parent]).GetNormalized();
++        Out.Pose=Pose.GetPose();
++        FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Out.Pose);
++        FAnimationRuntime::MirrorPose(Out.Pose,EAxis::X,LoneMirrorBones,LoneMirrorReference);
++        Out.Pose[LoneMirrorChest].SetRotation((PelvisRotation.Inverse()*MirroredPelvis*Out.Pose[LoneMirrorChest].GetRotation()).GetNormalized());
++        // The layers below keep working on this component-space copy.
++        Pose.InitPose(Out.Pose);
++    }
++    bool bHadRiflePair=false,bHasRifleRest=false;
++    FString RifleRestWeapon;
++    FTransform RifleRestHand=FTransform::Identity,RifleRestTorso=FTransform::Identity,LastRifleTorso=FTransform::Identity;
+     FTransform CastRecoveryEntry=FTransform::Identity;
+     float CastRecoveryStartProgress=0.f;
+     EFPSBodyAction LastAction=EFPSBodyAction::None;
+@@ -240,31 +390,81 @@ struct FControls : FAnimNode_Base
+     bool bHasHandHistory=false;
+     float HandBlendAge=1.f;
+     uint8 LastActionWristMask=0;
++    struct FPistolHandTransition
++    {
++        FName Channel;
++        FString Instance;
++        float Progress=0.f,ProgressRate=0.f,Age=1.f,Duration=0.f;
++        FTransform EntryInTorso=FTransform::Identity;
++    };
++    FPistolHandTransition PistolTransitions[2];
++    FTransform LastPistolTorso=FTransform::Identity;
++    bool bHasDualHandHistory=false;
++    struct FPistolArmMirrorBone
++    {
++        FCompactPoseBoneIndex Left{INDEX_NONE},Right{INDEX_NONE};
++        FQuat LeftBind=FQuat::Identity,RightBind=FQuat::Identity;
++        int32 Parent=INDEX_NONE;
++    };
++    TArray<FPistolArmMirrorBone> PistolArmMirror;
++    TArray<FTransform> RightPistolCarryInTorso;
++    FString RightPistolCarryInstance;
++    float LeftPistolCarryBlend=0.f;
+     FTransform LeftGrip=FTransform::Identity;
+     bool bLeftGrip=false;
++    FTransform RightGrip=FTransform::Identity;
++    bool bRightGrip=false;
++    FFPSBodyRifleHold RifleHold;
++    FQuat IndependentPistolRotation[2]={FQuat::Identity,FQuat::Identity};
++    FQuat PistolTorsoBind=FQuat::Identity;
++    uint8 IndependentPistolHands=0;
++    TArray<FVector> PistolClearanceInHand[2];
++    bool bDualPistolStandards=false;
++    bool bDualPistolReference=false;
++    FPoseLink DualShot[2],DualShotBase[2];
++    float DualShotWeight[2]={0.f,0.f};
++    TArray<FCompactPoseBoneIndex> DualSourceBones[2];
++    TArray<FTransform> DualSourceLast[2],DualSourceEntry[2];
++    FName DualSourceChannel[2];
++    FString DualSourceInstance[2];
++    float DualSourceAge[2]={1.f,1.f};
++    FTransform DualReadyHands[2],DualReadyShoulders[2],DualReadyTorso;
++    FTransform DualStanceHands[2];
++    FVector DualStanceElbows[2];
++    FVector RifleAimDirection=FVector(0,1,0);
+     FControls()
+     {
+         Pelvis.BoneName=TEXT("pelvis");Spine.BoneName=TEXT("spine_03");
+         ChestBase.BoneName=TEXT("spine_01");Head.BoneName=TEXT("head");
++        Necks[0].BoneName=TEXT("neck_01");Necks[1].BoneName=TEXT("neck_02");
+         Hands[0].BoneName=TEXT("hand_r");Hands[1].BoneName=TEXT("hand_l");
+         Feet[0].BoneName=TEXT("foot_r");Feet[1].BoneName=TEXT("foot_l");
+         Toes[0].BoneName=TEXT("ball_r");Toes[1].BoneName=TEXT("ball_l");
+     }
+-    virtual void Initialize_AnyThread(const FAnimationInitializeContext& C) override { Source.Initialize(C);Neutral.Initialize(C);Grip.Initialize(C);Sword.Initialize(C);StaffCast.Initialize(C);StaffCarry.Initialize(C);BookCarry.Initialize(C);BookPush.Initialize(C);Consume.Initialize(C);BowNative.Initialize(C); }
++    virtual void Initialize_AnyThread(const FAnimationInitializeContext& C) override { Source.Initialize(C);Neutral.Initialize(C);Grip.Initialize(C);Sword.Initialize(C);SwordAlt.Initialize(C);UppercutStride.Initialize(C);StaffCast.Initialize(C);StaffCarry.Initialize(C);BookCarry.Initialize(C);BookPush.Initialize(C);KukriCarryHip.Initialize(C);KukriCarryAim.Initialize(C);Consume.Initialize(C);StunPose.Initialize(C);BowNative.Initialize(C);for(int32 I=0;I<2;++I){DualShot[I].Initialize(C);DualShotBase[I].Initialize(C);} }
+     virtual void CacheBones_AnyThread(const FAnimationCacheBonesContext& C) override
+     {
+-        Source.CacheBones(C);Neutral.CacheBones(C);Grip.CacheBones(C);Sword.CacheBones(C);StaffCast.CacheBones(C);StaffCarry.CacheBones(C);BookCarry.CacheBones(C);BookPush.CacheBones(C);Consume.CacheBones(C);bHasHandHistory=false;bHadSwordPair=false;bHasSwordRestTorso=false;const auto& Bones=C.AnimInstanceProxy->GetRequiredBones();
++        Source.CacheBones(C);Neutral.CacheBones(C);Grip.CacheBones(C);Sword.CacheBones(C);SwordAlt.CacheBones(C);UppercutStride.CacheBones(C);StaffCast.CacheBones(C);StaffCarry.CacheBones(C);BookCarry.CacheBones(C);BookPush.CacheBones(C);KukriCarryHip.CacheBones(C);KukriCarryAim.CacheBones(C);bHadKukriCarry=false;KukriCarryAge=0.f;KukriCarryEntryPose.Reset();Consume.CacheBones(C);StunPose.CacheBones(C);bHasHandHistory=false;bHadSwordPair=false;bHasSwordRestTorso=false;bHadRiflePair=false;bHasRifleRest=false;const auto& Bones=C.AnimInstanceProxy->GetRequiredBones();
++        bHasDualHandHistory=false;
+         bHadBookCarry=false;BookCarryAge=0.f;LastBookCarryPose.Reset();BookCarryEntryPose.Reset();
++        bBookReloadHistory=bBookReloadReturn=false;BookReloadLowerWeight=0.f;
++        LastBookReloadPhase=0;BookCancelledReturnWeight=0.f;
+         bHadBookPush=false;BookPushEntryDelta.Reset();
+         bHadStaffCast=false;LastStaffCastPose.Reset();StaffCastEntryPose.Reset();
+         BowNative.CacheBones(C);bHadNativeBow=false;LastNativeBowPose.Reset();NativeBowEntryPose.Reset();NativeBowReferencePose.Reset();
+         Pelvis.Initialize(Bones);Spine.Initialize(Bones);ChestBase.Initialize(Bones);Head.Initialize(Bones);
++        for(auto& B:Necks)B.Initialize(Bones);bHasHammerHeadRest=false;
+         for(auto& B:Hands)B.Initialize(Bones);for(auto& B:Feet)B.Initialize(Bones);for(auto& B:Toes)B.Initialize(Bones);
+         const auto& Ref=Bones.GetReferenceSkeleton();
++        SingleSupportFit.Initialize(Bones);
++        KukriSupportFit.Initialize(Bones);KukriSupportFit.Reset();
++        bHadKukriQuick=false;KukriCarryLastPose.Reset();
++        SingleReadyContactWeight=SingleOperationWeight=0.f;SingleContactInstance.Reset();
+         NativeBowTransfer.Initialize(Ref);NativeBowMeshIndices.SetNum(Bones.GetCompactPoseNumBones());
+         for(int32 I=0;I<NativeBowMeshIndices.Num();++I)NativeBowMeshIndices[I]=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();
+         bHadNativeBowCast=false;
+         StaffArmHelpers.Reset();
++        HammerCastBones.Reset();HammerCastHelpers.Reset();LastHammerCastPose.Reset();HammerCastEntryPose.Reset();bHadHammerCast=false;
+         const int32 StaffUpper=Ref.FindBoneIndex(TEXT("upperarm_r"));
+         const int32 StaffLower=Ref.FindBoneIndex(TEXT("lowerarm_r"));
+         const int32 StaffHand=Ref.FindBoneIndex(TEXT("hand_r"));
+@@ -299,11 +523,56 @@ struct FControls : FAnimNode_Base
+         for(int32 I=0;I<SwordUpperBones.Num();++I)
+             for(int32 Parent=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();Parent!=INDEX_NONE;Parent=Ref.GetParentIndex(Parent))
+                 if(Parent==UpperRoot){SwordUpperBones[I]=1;break;}
++        UppercutStrideBones.Init(0,SwordUpperBones.Num());
++        const int32 HipRoot=Ref.FindBoneIndex(TEXT("pelvis"));
++        for(int32 I=0;I<UppercutStrideBones.Num();++I)
++        {
++            const int32 Bone=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();
++            UppercutStrideBones[I]=!SwordUpperBones[I]&&HipRoot!=INDEX_NONE&&
++                (Bone==HipRoot||Ref.BoneIsChildOf(Bone,HipRoot));
++        }
+         ConsumeBones=SwordUpperBones;
++        LeftArmBones.Init(0,Bones.GetCompactPoseNumBones());
++        for(int32 I=0;I<LeftArmBones.Num();++I)LeftArmBones[I]=LibraryArmBones[I]&2;
++        CacheLoneBladeMirror(Bones);
+         BreadThumbInner.BoneName=TEXT("thumb_01_side_inn_l");BreadThumbInner.Initialize(Bones);
+         auto ConsumeReference=Ref.GetRefBonePose();
+         for(int32 I=0;I<ConsumeReference.Num();++I)
+             if(const int32 P=Ref.GetParentIndex(I);P!=INDEX_NONE)ConsumeReference[I]=ConsumeReference[I]*ConsumeReference[P];
++        PistolArmMirror.Reset();RightPistolCarryInTorso.Reset();RightPistolCarryInstance.Reset();LeftPistolCarryBlend=0.f;
++        TMap<int32,FCompactPoseBoneIndex> CompactByMesh;
++        for(int32 I=0;I<Bones.GetCompactPoseNumBones();++I)
++            CompactByMesh.Add(Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt(),FCompactPoseBoneIndex(I));
++        if(CastClavicle!=INDEX_NONE&&CastHand!=INDEX_NONE)
++            for(int32 I=0;I<Bones.GetCompactPoseNumBones();++I)
++            {
++                const FCompactPoseBoneIndex Left(I);const int32 L=Bones.MakeMeshPoseIndex(Left).GetInt();
++                if((L!=CastClavicle&&!Ref.BoneIsChildOf(L,CastClavicle))||Ref.BoneIsChildOf(L,CastHand))continue;
++                const FString Name=Ref.GetBoneName(L).ToString();if(!Name.EndsWith(TEXT("_l")))continue;
++                const int32 R=Ref.FindBoneIndex(FName(Name.LeftChop(2)+TEXT("_r")));
++                const auto* Right=CompactByMesh.Find(R);if(!Right)continue;
++                FPistolArmMirrorBone Pair;Pair.Left=Left;Pair.Right=*Right;
++                Pair.LeftBind=ConsumeReference[L].GetRotation();Pair.RightBind=ConsumeReference[R].GetRotation();
++                const auto Parent=Bones.GetParentBoneIndex(Left);
++                Pair.Parent=PistolArmMirror.IndexOfByPredicate([&](const FPistolArmMirrorBone& P){return P.Left==Parent;});
++                PistolArmMirror.Add(Pair);
++            }
++        if(const int32 BookChest=Ref.FindBoneIndex(Spine.BoneName);BookChest!=INDEX_NONE)
++            BookChestBind=PistolTorsoBind=ConsumeReference[BookChest].GetRotation();
++        if(CastClavicle!=INDEX_NONE&&CastHand!=INDEX_NONE)
++        {
++            const int32 Chest=Ref.GetParentIndex(CastClavicle);
++            if(Chest!=INDEX_NONE)HammerCastChestBind=ConsumeReference[Chest].GetRotation();
++            const int32 Index=Ref.FindBoneIndex(TEXT("index_01_l")),Middle=Ref.FindBoneIndex(TEXT("middle_01_l")),Pinky=Ref.FindBoneIndex(TEXT("pinky_01_l"));
++            if(Index!=INDEX_NONE&&Middle!=INDEX_NONE&&Pinky!=INDEX_NONE)
++            {
++                const auto& Hand=ConsumeReference[CastHand];const FVector Origin=Hand.GetLocation();
++                const FVector Normal=(ConsumeReference[Index].GetLocation()-Origin)^(ConsumeReference[Pinky].GetLocation()-Origin);
++                const FQuat Palm=FRotationMatrix::MakeFromXZ(ConsumeReference[Middle].GetLocation()-Origin,Normal).ToQuat();
++                HammerCastPalmCorrection=(Palm.Inverse()*Hand.GetRotation()).GetNormalized();
++                HammerCastPalmAcross=Hand.GetRotation().UnrotateVector(Palm.GetAxisY());
++            }
++        }
+         for(int32 Side=0;Side<2;++Side)
+         {
+             const TCHAR* Suffix=Side==0?TEXT("_r"):TEXT("_l");
+@@ -355,17 +630,42 @@ struct FControls : FAnimNode_Base
+             }
+         }
+     }
+-    virtual void Update_AnyThread(const FAnimationUpdateContext& C) override { Source.Update(C);Neutral.Update(C);Grip.Update(C);if(SwordWeight>ZERO_ANIMWEIGHT_THRESH)Sword.Update(C);if(bStaffCastActive)StaffCast.Update(C);if(bStaffCarryActive)StaffCarry.Update(C);if(bBookCarryActive)BookCarry.Update(C);if(bBookPushActive)BookPush.Update(C);if(ConsumeWeight>ZERO_ANIMWEIGHT_THRESH)Consume.Update(C);if(NativeBowWeight>ZERO_ANIMWEIGHT_THRESH)BowNative.Update(C); }
++    virtual void Update_AnyThread(const FAnimationUpdateContext& C) override { Source.Update(C);Neutral.Update(C);Grip.Update(C);if(SwordWeight>ZERO_ANIMWEIGHT_THRESH){Sword.Update(C);if(bMixedPairAlt)SwordAlt.Update(C);}if(SwordWeight>ZERO_ANIMWEIGHT_THRESH&&UppercutStrideWeight>ZERO_ANIMWEIGHT_THRESH)UppercutStride.Update(C);if(bStaffCastActive)StaffCast.Update(C);if(bStaffCarryActive)StaffCarry.Update(C);if(bBookCarryActive)BookCarry.Update(C);if(bBookPushActive)BookPush.Update(C);if(bKukriCarryActive){KukriCarryHip.Update(C);KukriCarryAim.Update(C);}if(ConsumeWeight>ZERO_ANIMWEIGHT_THRESH)Consume.Update(C);if(bHasStunLibrary&&StunBlend>ZERO_ANIMWEIGHT_THRESH)StunPose.Update(C);if(NativeBowWeight>ZERO_ANIMWEIGHT_THRESH)BowNative.Update(C);for(int32 I=0;I<2;++I)if(bDualPistolReference&&DualShotWeight[I]>ZERO_ANIMWEIGHT_THRESH){DualShot[I].Update(C);DualShotBase[I].Update(C);} }
+     void BlendNativeBow(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void BlendStaffCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void BlendStaffStrike(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void AnchorStaffArm(FPoseContext& Authored,FCSPose<FCompactPose>& Pose,int32 Side=0);
+     void BlendBookCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void BlendStaffCast(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+-    void FitStaffArm(FCSPose<FCompactPose>& Pose);
++    void FitStaffArm(FCSPose<FCompactPose>& Pose,int32 Side=0,bool bBeforeConsume=false,bool bPistolSupport=false);
++    bool PistolArmActive(int32 Side) const;
++    FTransform PistolHandTarget(FCSPose<FCompactPose>& Pose,int32 Side) const;
++    FTransform DualPistolHandTarget(FCSPose<FCompactPose>& Pose,int32 Side) const;
++    void FitDualPistolFinalClearance(FCSPose<FCompactPose>& Pose,int32 Side);
++    bool DualSourceOwnsArm(int32 Side) const;
++    void ApplyDualSourceShot(FPoseContext& Out);
++    void AimDualSourceArms(FCSPose<FCompactPose>& Pose);
++    void BlendDualSourceTransition(FPoseContext& Out);
++    float BlendDualPistolHand(FCSPose<FCompactPose>& Pose,int32 Side,FTransform& Target,bool RecoveringCast);
++    void FitLeftPistolCarryFromRight(FCSPose<FCompactPose>& Pose,const FQuat& NativeWrist);
++    void FitSinglePistolReload(FCSPose<FCompactPose>& Pose,FTransform (&Targets)[2],int32 Primary);
++    void FitSinglePistolCarry(FCSPose<FCompactPose>& Pose,FTransform (&Targets)[2],int32 Primary);
++    FVector SinglePistolElbow(FCSPose<FCompactPose>& Pose,const FTransform& Target,int32 Side,bool Reload) const;
++    void FitSinglePistolArm(FCSPose<FCompactPose>& Pose,const FTransform& Target,int32 Side,bool Reload,const FVector* AuthoredPole=nullptr);
++    void BlendOffhandKukriCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
++    void FitLeftSinglePistol(FCSPose<FCompactPose>& Pose,FTransform (&Targets)[2]);
++    bool HasBookFocus() const
++    {
++        return bBookCarryActive&&(State.Contacts.Wrists&2)&&
++            (State.Contacts.Channel==TEXT("SpellbookFocus")||State.Contacts.Channel==TEXT("StaffCast"));
++    }
++    void BlendHammerCast(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void BlendSword(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
++    void RememberHammerPose(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
++    void BlendHammerWaist(FCSPose<FCompactPose>& Pose,const FQuat& BaseLower,const FQuat& BaseMiddle);
+     void BlendConsume(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void CorrectConsumeElbows(FCSPose<FCompactPose>& Pose);
++    void BlendStun(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     static void Solve(FCSPose<FCompactPose>& Pose,const FBoneReference& End,const FTransform& Target,const FVector& Pole,float Weight)
+     {
+         const auto& Bones=Pose.GetPose().GetBoneContainer();if(!End.IsValidToEvaluate(Bones)||Weight<=0.f)return;
+@@ -844,13 +1349,243 @@ struct FControls : FAnimNode_Base
+                 R.Reset();R.Emplace(B,Nod);Pose.LocalBlendCSBoneTransforms(R,1.f);
+             }
+         }
+-        FitStaffArm(Pose);
++        if(bDualPistolStandards)
++        {
++            // Each native chain has its own authored elbow, palm and helper
++            // support. Never copy the other gun's currently displayed arm.
++            for(int32 Side=0;Side<2;++Side)if(PistolArmActive(Side)&&!DualSourceOwnsArm(Side))
++            {FitStaffArm(Pose,Side,false,true);FitDualPistolFinalClearance(Pose,Side);}
++        }
++        else if(!bSinglePistolReference&&!LeftSinglePair)FitStaffArm(Pose);
++        const FQuat NativeLeftPistolWrist=Hands[1].IsValidToEvaluate(Bones)
++            ?Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones)).GetRotation():FQuat::Identity;
++        if(!LeftSinglePair&&!bDualPistolStandards&&(HasBookFocus()||PistolArmActive(1)))FitStaffArm(Pose,1);
++        if(!bSinglePistolReference&&!bDualPistolStandards)FitLeftPistolCarryFromRight(Pose,NativeLeftPistolWrist);
++        const bool LeftPrimary=bRightGrip&&PistolArmActive(1);
++        const bool RightPrimary=bLeftGrip&&FPSBodyPistolMotion::IsRightSingle(State)&&PistolArmActive(0);
++        if(!LeftSinglePair&&(LeftPrimary||RightPrimary)&&ConsumeWeight<=ZERO_ANIMWEIGHT_THRESH
++            &&State.Action!=EFPSBodyAction::Cast&&State.Action!=EFPSBodyAction::DoorPush
++            &&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
++        {
++            const int32 Primary=LeftPrimary?1:0,Support=1-Primary;
++            FTransform Targets[2];
++            Targets[Primary]=Pose.GetComponentSpaceTransform(Hands[Primary].GetCompactPoseIndex(Bones));
++            Targets[Support]=(LeftPrimary?RightGrip:LeftGrip)*Targets[Primary];
++            // Fit the whole gun/grip group into both native arm reaches. Solving
++            // only the support arm clamps it short of the pistol/foregrip.
++            const bool ReloadClearance=FPSBodyPistolMotion::IsSingleReload(State);
++            if(ReloadClearance)FitSinglePistolReload(Pose,Targets,Primary);
++            else FitSinglePistolCarry(Pose,Targets,Primary);
++            FitSinglePistolArm(Pose,Targets[Primary],Primary,ReloadClearance);
++            Targets[Support]=(LeftPrimary?RightGrip:LeftGrip)*Pose.GetComponentSpaceTransform(Hands[Primary].GetCompactPoseIndex(Bones));
++            FitSinglePistolArm(Pose,Targets[Support],Support,ReloadClearance);
++            for(int32 I=0;I<2;++I)LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));
++        }
++        if(bSinglePistolReference&&SingleContact.bReady)
++        {
++            const int32 Primary=FPSBodySinglePistolSource::Primary(State),Support=1-Primary;
++            const FString Instance=State.WeaponInstance+(Primary?TEXT("/left"):TEXT("/right"));
++            if(SingleContactInstance!=Instance)
++            {SingleReadyContactWeight=SingleOperationWeight=0.f;SingleContactInstance=Instance;SingleSupportFit.Reset();bSingleWithdrawing=false;}
++            const auto Reload=FPSBodySinglePistolSource::Reload(State);
++            float Ready=1.f;
++            if(Reload.Active)
++                // A long foregrip places the support palm well ahead of the
++                // donor's pistol grip. Give it the same withdrawal interval as
++                // the rigid carry offset, instead of shedding that extra reach
++                // in the ordinary pistol's short release window.
++                Ready=Reload.Phase==TEXT("Reload.Init")?1.f-Ease(Reload.Fraction/
++                    (SingleContact.Ready.GetLocation().Size()>20.?.50f:.25f)):
++                    Reload.Phase==TEXT("Reload.End")?Ease((Reload.Fraction-.40f)/.60f):0.f;
++            // The long-grip withdrawal already has a smooth source-time ease.
++            // A second constant-rate filter delays its release on short partial
++            // reloads, then forces the palm to catch up with the departing arm.
++            // Keep the authored release clock; retain interpolation on entry
++            // and reacquisition, where no withdrawal curve owns the contact.
++            if(Reload.Active&&Reload.Phase==TEXT("Reload.Init")&&SingleContact.Ready.GetLocation().Size()>20.)
++                SingleReadyContactWeight=Ready;
++            else SingleReadyContactWeight=FMath::FInterpConstantTo(SingleReadyContactWeight,Ready,Delta,10.f);
++            if(SingleContact.OperationWeight>0.f)SingleLastOperation=SingleContact.Operation;
++            SingleOperationWeight=FMath::FInterpConstantTo(SingleOperationWeight,SingleContact.OperationWeight,Delta,12.5f);
++            if(Hands[Primary].IsValidToEvaluate(Bones)&&Hands[Support].IsValidToEvaluate(Bones))
++            {
++                const auto PrimaryWrist=Hands[Primary].GetCompactPoseIndex(Bones),SupportWrist=Hands[Support].GetCompactPoseIndex(Bones);
++                const auto RightShoulder=Bones.GetParentBoneIndex(Bones.GetParentBoneIndex(Hands[0].GetCompactPoseIndex(Bones)));
++                const auto LeftShoulder=Bones.GetParentBoneIndex(Bones.GetParentBoneIndex(Hands[1].GetCompactPoseIndex(Bones)));
++                SingleSupportFit.Configure(Pose.GetComponentSpaceTransform(Spine.GetCompactPoseIndex(Bones)),PistolTorsoBind,
++                    Pose.GetComponentSpaceTransform(Pelvis.GetCompactPoseIndex(Bones)).GetLocation(),
++                    Pose.GetComponentSpaceTransform(RightShoulder).GetLocation(),Pose.GetComponentSpaceTransform(LeftShoulder).GetLocation());
++                SingleSupportFit.bReload=Reload.Active;SingleSupportFit.Delta=Delta;
++                SingleSupportFit.bLongGrip=SingleContact.Ready.GetLocation().Size()>20.;
++                SingleSupportFit.ReloadPostureWeight=1.f-SingleReadyContactWeight;
++                FTransform Holding=Pose.GetComponentSpaceTransform(PrimaryWrist);
++                const auto& NativeHand=Primary?State.LeftHand:State.RightHand;
++                if(Reload.Active&&!NativeHand.bRevolver&&(ActionWristMask&(1<<Primary)))
++                {
++                    // The revolver donor's downward loading palm is unsuitable
++                    // for a box magazine. Reuse this gun's accepted FPS palm
++                    // rotation RELATIVE to ready; body-space FK still supplies
++                    // the arm root and travel, never the FPS camera position.
++                    const FQuat Registered=(SingleSupportFit.Torso.GetRotation()*IndependentPistolRotation[Primary]*ActionHands[Primary].GetRotation()).GetNormalized();
++                    const float SourceTime=NativeHand.Progress*NativeHand.ReloadSourceLength;
++                    const float PalmWeight=Ease(SourceTime/.20f)*Ease((NativeHand.ReloadSourceLength-SourceTime)/.20f);
++                    // Prepare the magazine-facing palm during withdrawal. Using
++                    // the short grab window here swung the whole long magazine
++                    // across the body just before the support hand arrived.
++                    Holding.SetRotation(FQuat::Slerp(Holding.GetRotation(),Registered,PalmWeight).GetNormalized());
++                    // Box magazines load below the grip, unlike the revolver
++                    // donor. Prepare a low-chest holding height BEFORE contact,
++                    // with extra room measured from the equipped magazine's
++                    // insertion stroke. This avoids a sudden reach correction
++                    // when a long drum first appears below a hip-height pistol.
++                    FVector Local=SingleSupportFit.Torso.InverseTransformPosition(Holding.GetLocation());
++                    const float Prepare=FMath::SmoothStep(.20f,.60f,SourceTime);
++                    const double Minimum=20.+FMath::Max(0.f,SingleContact.MagazineStroke-15.f)*.5;
++                    Local.Z=FMath::Lerp(Local.Z,FMath::Max(Local.Z,Minimum),double(Prepare));
++                    Holding.SetLocation(SingleSupportFit.Torso.TransformPosition(Local));
++                    SingleSupportFit.Apply(Pose,Hands[Primary],Primary,Holding,1.f);
++                    Holding=Pose.GetComponentSpaceTransform(PrimaryWrist);
++                }
++                FTransform Pair[2];Pair[Primary]=Holding;Pair[Support]=Pose.GetComponentSpaceTransform(SupportWrist);
++                const bool LongGrip=SingleSupportFit.bLongGrip;
++                const float CarryFit=LongGrip&&Reload.Active&&Reload.Phase==TEXT("Reload.Init")?
++                    1.f-Ease(Reload.Fraction/.50f):SingleReadyContactWeight;
++                Pair[Support].Blend(Pair[Support],SingleContact.Ready*Holding,LongGrip?1.f:SingleReadyContactWeight);
++                // A long RSH foregrip exceeds the donor's extended arm reach.
++                // Bring the rigid gun/contact group into BOTH reachable spheres
++                // before solving; independent wrist clamps leave the palm floating.
++                if(CarryFit>ZERO_ANIMWEIGHT_THRESH)
++                {
++                    if(LongGrip)
++                    {
++                        // The closest two-sphere solution can move a long gun
++                        // across the holding shoulder, especially in crouch,
++                        // leaving that wrist sideways. Keep the rigid pair on
++                        // the holding side while solving BOTH native reaches.
++                        const double Sign=Primary?1.:-1.;
++                        const FVector Lateral=SingleSupportFit.Torso.GetRotation().RotateVector(FVector(Sign,0.,0.));
++                        const FVector PrimaryInTorso=SingleSupportFit.Torso.InverseTransformPosition(Holding.GetLocation());
++                        const double SideShift=FMath::Max(0.,SingleSupportFit.Radius.X*.45-PrimaryInTorso.X*Sign);
++                        FitHandPair(Pose,Pair,Lateral,float(SideShift),true);
++                    }
++                    else FitHandPair(Pose,Pair);
++                    // A foregrip pulls the entire gun back into reach at ready.
++                    // Release that carry offset over withdrawal, independently
++                    // of the support palm letting go; otherwise the gun jumps
++                    // forward as soon as the free hand leaves the foregrip.
++                    if(LongGrip)Pair[Primary].SetLocation(FMath::Lerp(Holding.GetLocation(),Pair[Primary].GetLocation(),double(CarryFit)));
++                    // The retained carry offset must not pull a lowering gun
++                    // hand into the ribs after the support palm has let go.
++                    if(LongGrip&&Reload.Active&&CarryFit>SingleReadyContactWeight+.001f)
++                        Pair[Primary]=SingleSupportFit.ClearFreeHand(Pair[Primary]);
++                    if(!Pair[Primary].GetLocation().Equals(Holding.GetLocation(),.001))
++                    {SingleSupportFit.Apply(Pose,Hands[Primary],Primary,Pair[Primary],1.f);Holding=Pose.GetComponentSpaceTransform(PrimaryWrist);}
++                }
++                // Compose both contacts first, then solve once from the donor.
++                // The operation palm is registered in the actual magazine's
++                // frame; no camera-space wrist or fixed world elbow is used.
++                FTransform Target=Pose.GetComponentSpaceTransform(Hands[Support].GetCompactPoseIndex(Bones));
++                const FVector NativeSupportLocation=Target.GetLocation();
++                Target.Blend(Target,SingleContact.Ready*Holding,SingleReadyContactWeight);
++                const bool Withdrawing=LongGrip&&Reload.Active&&Reload.Phase==TEXT("Reload.Init");
++                if(Withdrawing)
++                {
++                    // Release the extra foregrip reach from the actual entry
++                    // pose. Re-blending toward the moving holding hand each
++                    // frame suppresses authored travel, then makes the free
++                    // palm catch up. A fading entry offset preserves that FK
++                    // travel while smoothly removing only the added reach.
++                    if(!bSingleWithdrawing)
++                        SingleWithdrawalOffset=SingleSupportFit.Torso.InverseTransformVectorNoScale(
++                            (SingleContact.Ready*Holding).GetLocation()-NativeSupportLocation);
++                    Target.SetLocation(NativeSupportLocation+SingleSupportFit.Torso.TransformVectorNoScale(
++                        SingleWithdrawalOffset)*SingleReadyContactWeight);
++                }
++                bSingleWithdrawing=Withdrawing;
++                Target.Blend(Target,SingleLastOperation*Holding,SingleOperationWeight);
++                if(SingleOperationWeight>ZERO_ANIMWEIGHT_THRESH)
++                {
++                    FTransform ContactPair[2];ContactPair[Primary]=Holding;ContactPair[Support]=Target;
++                    const FVector Forward=SingleSupportFit.Torso.GetRotation().RotateVector(FVector::RightVector);
++                    const double Shift=SingleSupportFit.FrontShift(Target.GetLocation());
++                    // A contact can be outside the native reach even when it
++                    // already clears the chest (long magazine/drum in transit).
++                    // Always fit the rigid pair; clearance adds a plane only.
++                    FitHandPair(Pose,ContactPair,Forward,Shift,true);
++                    if(!ContactPair[Primary].GetLocation().Equals(Holding.GetLocation(),.001))
++                    {
++                        SingleSupportFit.Apply(Pose,Hands[Primary],Primary,ContactPair[Primary],1.f);
++                        Holding=Pose.GetComponentSpaceTransform(PrimaryWrist);
++                        Target=ContactPair[Support];
++                    }
++                }
++                if(Reload.Active)
++                {
++                    const float FreeWeight=1.f-FMath::Max(SingleReadyContactWeight,SingleOperationWeight);
++                    Target.Blend(Target,SingleSupportFit.ClearFreeHand(Target),FreeWeight);
++                }
++                if(Reload.Active||SingleReadyContactWeight+SingleOperationWeight>ZERO_ANIMWEIGHT_THRESH)
++                    SingleSupportFit.Apply(Pose,Hands[Support],Support,Target,1.f);
++                for(int32 I=0;I<2;++I)LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));
++            }
++        }
++        else {SingleReadyContactWeight=SingleOperationWeight=0.f;SingleContactInstance.Reset();bSingleWithdrawing=false;}
++        if(LeftSinglePair)
++            for(int32 I=0;I<2;++I)LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));
++        // Lone off-hand blade: mirror the complete upper body (both arm chains, torso, head) onto the left side after every
++        // blend and before the finger fit, which then lands the grip on hand_l. The legs below keep their gait.
++        MirrorLoneBladeUpperBody(Out,Pose);
++        BlendOffhandKukriCarry(Out,Pose);
++        if((FPSBodyPistolMotion::UsesSupportReload(State)||
++            State.OffhandReloadPhase==uint8(EOffhandReloadPhase::Lower))&&
++            Spine.IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
++        {
++            // Cache the final displayed arm, after IK/reactions, in torso space.
++            const auto W=Hands[1].GetCompactPoseIndex(Bones),E=Bones.GetParentBoneIndex(W);
++            const auto Chest=Pose.GetComponentSpaceTransform(Spine.GetCompactPoseIndex(Bones));
++            BookReloadLastHand=Pose.GetComponentSpaceTransform(W).GetRelativeTransform(Chest);
++            BookReloadLastElbow=Chest.InverseTransformPosition(Pose.GetComponentSpaceTransform(E).GetLocation());
++            bBookReloadHistory=true;
++        }
++        bHasDualHandHistory=State.bDual&&!Traversing&&State.Action!=EFPSBodyAction::Dead;
++        if(bHasDualHandHistory)
++        {
++            // Record the final displayed hands, including cast/consume layers.
++            // Interrupted recovery starts here, in the moving torso's frame.
++            LastPistolTorso=Pose.GetComponentSpaceTransform(Spine.GetCompactPoseIndex(Bones));
++            LastPistolTorso.SetScale3D(FVector::OneVector);
++            for(int32 I=0;I<2;++I)if(Hands[I].IsValidToEvaluate(Bones))
++                LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));
++        }
+         // Safe conversion only writes bones still marked as component space.
+         // Ancestor corrections (including an identity chest reaction) can have
+         // already converted solved arms/legs back to local space in this pose.
+         // Preserve those locals instead of retaining the original idle animation.
+         Out.Pose=Pose.GetPose();
+         FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Out.Pose);
++        BlendDualSourceTransition(Out);
++        // Keep the hammer's neck/head in the neutral local pose. Source swings,
++        // locomotion and independent reaction nods must not add another head
++        // performance on top of the torso. Traversal/death retain their layers;
++        // consumption retains its authored mouth alignment while blended in.
++        if(State.Family==TEXT("Tool")&&State.Weapon==TEXT("warhammer")&&!Traversing&&!bHammerSourceCarry)
++        {
++            const FBoneReference* StableBones[3]={&Necks[0],&Necks[1],&Head};
++            if(!bHasHammerHeadRest)
++            {
++                FPoseContext Rest(Out);Neutral.Evaluate(Rest);
++                for(int32 I=0;I<3;++I)if(StableBones[I]->IsValidToEvaluate(Bones))
++                    HammerHeadRest[I]=Rest.Pose[StableBones[I]->GetCompactPoseIndex(Bones)];
++                bHasHammerHeadRest=true;
++            }
++            const float Weight=1.f-FMath::Clamp(ConsumeWeight,0.f,1.f);
++            for(int32 I=0;I<3;++I)if(StableBones[I]->IsValidToEvaluate(Bones))
++            {
++                auto& Local=Out.Pose[StableBones[I]->GetCompactPoseIndex(Bones)];
++                Local.Blend(Local,HammerHeadRest[I],Weight);
++            }
++        }
++        else bHasHammerHeadRest=false;
+         if(bStaffCastActive)
+         {
+             LastStaffCastPose.SetNum(Bones.GetCompactPoseNumBones());
+@@ -940,24 +1743,46 @@ struct FProxy : FAnimInstanceProxy
+     FAnimNode_TwoWayBlend FurnitureBlend;
+     FFurnitureMirrorLayer FurnitureMirror;
+     FFurnitureFloorLayer FurnitureFloor;
+-    FAnimNode_SequenceEvaluator_Standalone Idle,Neutral,WalkA,WalkB,JogA,JogB,Air,Action,Death,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume,BowNative;
+-    FAnimNode_SequenceEvaluator_Standalone Traversal;
++    FAnimNode_SequenceEvaluator_Standalone Idle,Neutral,WalkA,WalkB,JogA,JogB,Air,Action,Death,Grip,Sword,SwordAlt,UppercutStride,StaffCast,StaffCarry,BookCarry,BookPush,Consume,StunPose,BowNative;
++    FAnimNode_SequenceEvaluator_Standalone KukriCarryHip,KukriCarryAim;
+     UAnimSequence* NativeBowAsset=nullptr;
++    FAnimNode_SequenceEvaluator_Standalone CrouchIdle,CrouchWalkA,CrouchWalkB,Slide,Traversal;
++    FAnimNode_SequenceEvaluator_Standalone DualReady,DualWalk,DualJog,DualSprint,DualShot[2],DualShotBase[2];
++    FAnimNode_TwoWayBlend DualPace,DualTravel,DualStance;
++    FAnimNode_TwoWayBlend Walk,Jog,Pace,Movement,AirBlend,DeathBlend;
++    FAnimNode_TwoWayBlend CrouchWalk,CrouchMovement,CrouchBlend;
++    FUpperLayer Upper,AirHold,CrouchHold,DualUpper;
++    FSinglePistolMirrorLayer SinglePistolMirror;
++    FSinglePistolSourceLayer SingleSource;
++    FAnimNode_SequenceEvaluator_Standalone SingleReady,SingleReload,SingleShot,SingleShotBase;
++    FSlideLayer SlideLayer;
++    FSlidePlayback SlidePlayback;
+     FTraversalLayer TraversalLayer;
+     FTraversalPlayback TraversalPlayback;
+-    FAnimNode_TwoWayBlend Walk,Jog,Pace,Movement,AirBlend,DeathBlend;
+-    FUpperLayer Upper,AirHold;
+     FControls Controls;
+     UAnimSequence* SwordAsset=nullptr;
++    UAnimSequence* HighlandDashStrideAsset=nullptr;
++    float HighlandDashContact=.4f,HighlandDashRelease=.65f;
++    bool bHighlandDashTake=false;
+     FName SwordKey;
++    float KukriLowerWeight=0.f;
++    FPSBodyKukriMotion::FComboRecovery KukriRecovery;
++    bool bZhufengSwordTake=false;
+     float SwordContact=.4f,SwordRelease=.65f;
++    bool bHammerDonorClock=false;
++    FPSBodyWarhammerMotion::FDonorPlayback HammerDonorPlayback;
++    float HammerSourceSeconds=0.f,HammerSourceRate=0.f,HammerExitAge=-1.f,HammerExitFrom=0.f;
+     UAnimSequence* ConsumeAsset=nullptr;
+     float ConsumeContact=.3f,ConsumeRelease=.7f;
+     TMap<const UAnimSequence*,FStrideTiming> Strides;
+     float SmoothedSpeed=0.f,SmoothedHeading=0.f,GaitCycles=0.f;
++    int32 HammerClipCount=INDEX_NONE;
++    bool bHasHammerLocomotion=false;
++    bool bHasHammerSourceCarry=false;
+     bool bHasHeading=false;
+     FFPSBodyGrounding Grounding;
+-    float StunBlend=0.f;
++    FPSReactionMotion::FEnvelope StunEnvelope;
++    float StunPhase=0.f;
+     const FStrideTiming& Timing(const UAnimSequence* Clip,const UAnimSequence* PhaseReference=nullptr)
+     {
+         if(const auto* Existing=Strides.Find(Clip))return *Existing;
+@@ -969,17 +1794,35 @@ struct FProxy : FAnimInstanceProxy
+         Jog.A.SetLinkNode(&JogA);Jog.B.SetLinkNode(&JogB);
+         Pace.A.SetLinkNode(&Walk);Pace.B.SetLinkNode(&Jog);
+         Movement.A.SetLinkNode(&Idle);Movement.B.SetLinkNode(&Pace);
+-        AirBlend.A.SetLinkNode(&Movement);AirBlend.B.SetLinkNode(&Air);
++        CrouchWalk.A.SetLinkNode(&CrouchWalkA);CrouchWalk.B.SetLinkNode(&CrouchWalkB);
++        CrouchMovement.A.SetLinkNode(&CrouchIdle);CrouchMovement.B.SetLinkNode(&CrouchWalk);
++        CrouchBlend.A.SetLinkNode(&Movement);CrouchBlend.B.SetLinkNode(&CrouchMovement);
++        CrouchHold.Base.SetLinkNode(&CrouchBlend);CrouchHold.Upper.SetLinkNode(&Movement);
++        AirBlend.A.SetLinkNode(&CrouchHold);AirBlend.B.SetLinkNode(&Air);
+         AirHold.Base.SetLinkNode(&AirBlend);AirHold.Upper.SetLinkNode(&Idle);
+-        Upper.Base.SetLinkNode(&AirHold);Upper.Upper.SetLinkNode(&Action);
+-        Controls.Source.SetLinkNode(&Upper);Controls.Neutral.SetLinkNode(&Neutral);Controls.Grip.SetLinkNode(&Grip);
+-        Controls.Sword.SetLinkNode(&Sword);
++        DualPace.A.SetLinkNode(&DualWalk);DualPace.B.SetLinkNode(&DualJog);
++        DualTravel.A.SetLinkNode(&DualReady);DualTravel.B.SetLinkNode(&DualPace);
++        DualStance.A.SetLinkNode(&DualTravel);DualStance.B.SetLinkNode(&DualSprint);
++        DualUpper.Base.SetLinkNode(&AirHold);DualUpper.Upper.SetLinkNode(&DualStance);DualUpper.bAnchorChestRotation=true;
++        Upper.Base.SetLinkNode(&DualUpper);Upper.Upper.SetLinkNode(&Action);
++        SingleSource.Base.SetLinkNode(&Upper);SingleSource.Upper.SetLinkNode(&SingleReady);
++        SingleSource.Action.SetLinkNode(&SingleReload);SingleSource.Shot.SetLinkNode(&SingleShot);SingleSource.ShotBase.SetLinkNode(&SingleShotBase);
++        SinglePistolMirror.Source.SetLinkNode(&SingleSource);
++        SlideLayer.Base.SetLinkNode(&SinglePistolMirror);SlideLayer.Authored.SetLinkNode(&Slide);
++        Controls.Source.SetLinkNode(&SlideLayer);Controls.Neutral.SetLinkNode(&Neutral);Controls.Grip.SetLinkNode(&Grip);
++        Controls.Sword.SetLinkNode(&Sword);Controls.SwordAlt.SetLinkNode(&SwordAlt);
++        Controls.UppercutStride.SetLinkNode(&UppercutStride);
+         Controls.StaffCast.SetLinkNode(&StaffCast);
+         Controls.StaffCarry.SetLinkNode(&StaffCarry);
+         Controls.BookCarry.SetLinkNode(&BookCarry);
+         Controls.BookPush.SetLinkNode(&BookPush);
++        Controls.KukriCarryHip.SetLinkNode(&KukriCarryHip);
++        Controls.KukriCarryAim.SetLinkNode(&KukriCarryAim);
+         Controls.Consume.SetLinkNode(&Consume);
++        Controls.StunPose.SetLinkNode(&StunPose);
+         Controls.BowNative.SetLinkNode(&BowNative);
++        for(int32 Side=0;Side<2;++Side)
++        {Controls.DualShot[Side].SetLinkNode(&DualShot[Side]);Controls.DualShotBase[Side].SetLinkNode(&DualShotBase[Side]);}
+         TraversalLayer.Base.SetLinkNode(&Controls);TraversalLayer.Authored.SetLinkNode(&Traversal);
+         FurnitureMirror.Source.SetLinkNode(&Furniture);
+         FurnitureBlend.A.SetLinkNode(&TraversalLayer);FurnitureBlend.B.SetLinkNode(&FurnitureMirror);
+@@ -989,13 +1832,41 @@ struct FProxy : FAnimInstanceProxy
+     virtual FAnimNode_Base* GetCustomRootNode() override {return &DeathBlend;}
+     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
+     {Nodes.Append({&Furniture,&FurnitureMirror,&FurnitureBlend,&FurnitureFloor,&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,
+-        &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&BowNative,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
++        &CrouchIdle,&CrouchWalkA,&CrouchWalkB,&CrouchWalk,&CrouchMovement,&CrouchBlend,&CrouchHold,
++        &DualReady,&DualWalk,&DualJog,&DualSprint,&DualPace,&DualTravel,&DualStance,&DualUpper,
++        &DualShot[0],&DualShot[1],&DualShotBase[0],&DualShotBase[1],&KukriCarryHip,&KukriCarryAim,
++        &SingleSource,&SingleReady,&SingleReload,&SingleShot,&SingleShotBase,
++        &Air,&AirBlend,&AirHold,&Action,&Upper,&SinglePistolMirror,&Slide,&SlideLayer,&Grip,&Sword,&SwordAlt,&UppercutStride,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&StunPose,&BowNative,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
+     virtual void PreUpdate(UAnimInstance* Instance,float Delta) override
+     {
+         FAnimInstanceProxy::PreUpdate(Instance,Delta);
+         const auto* D=CastChecked<UFPSPlayerBodyAnimInstance>(Instance);
+-        const FString Family=(D->BodyState.Family==TEXT("Rifle")||D->BodyState.Family==TEXT("Pistol"))?D->BodyState.Family.ToString():TEXT("Unarmed");
+         const auto Clip=[&](const FString& Key){return D->Clips.FindRef(FName(*Key)).Get();};
++        static const TCHAR* Directions[]={TEXT("Fwd"),TEXT("Fwd_Right"),TEXT("Right"),TEXT("Bwd_Right"),TEXT("Bwd"),TEXT("Bwd_Left"),TEXT("Left"),TEXT("Fwd_Left")};
++        if(HammerClipCount!=D->Clips.Num())
++        {
++            HammerClipCount=D->Clips.Num();const auto* Reference=Clip(TEXT("Unarmed.Idle"));
++            const auto Compatible=[&](const FString& Key)
++            {const auto* Asset=Clip(Key);return Asset&&Reference&&Asset->GetSkeleton()==Reference->GetSkeleton();};
++            bHasHammerLocomotion=Compatible(TEXT("Warhammer.Idle"));
++            for(const TCHAR* Direction:Directions)
++                bHasHammerLocomotion=bHasHammerLocomotion&&Compatible(FString(TEXT("Warhammer.Walk."))+Direction)&&
++                    Compatible(FString(TEXT("Warhammer.Jog."))+Direction);
++            bHasHammerSourceCarry=false;
++            if(const auto* Carry=Clip(TEXT("Warhammer.Idle")))
++                for(const auto& Marker:Carry->AuthoredSyncMarkers)
++                    bHasHammerSourceCarry|=Marker.MarkerName==TEXT("NativeWarhammerSourceCarry");
++        }
++        const bool HammerFamily=bHasHammerLocomotion&&D->BodyState.Family==TEXT("Tool")&&D->BodyState.Weapon==TEXT("warhammer");
++        SinglePistolMirror.bEnabled=FPSBodyPistolMotion::HasRightSupport(D->BodyState);
++        const FString Family=HammerFamily?TEXT("Warhammer"):SinglePistolMirror.bEnabled?TEXT("Pistol"):
++            !D->BodyState.bDual&&(D->BodyState.Family==TEXT("Rifle")||D->BodyState.Family==TEXT("Pistol"))?D->BodyState.Family.ToString():TEXT("Unarmed");
++        Controls.bHammerLocomotion=HammerFamily&&FPSBodyWarhammerMotion::IsCarry(D->BodyState)&&D->BodyState.Motion==EFPSBodyMotion::Ground;
++        // Source carry already stabilizes the head in the character frame.
++        // A neutral LOCAL neck would erase its counter-turn and make the head
++        // face along Kwang's deliberately angled chest instead of forwards.
++        const bool HammerLeftCast=HammerFamily&&D->BodyState.Action==EFPSBodyAction::Cast&&D->BodyState.Contacts.Channel!=TEXT("StaffCast")&&!FPSBodyPoses::Traversing(D->BodyState.Motion);
++        Controls.bHammerSourceCarry=(Controls.bHammerLocomotion||HammerLeftCast)&&bHasHammerSourceCarry;
+         const auto Set=[](FAnimNode_SequenceEvaluator_Standalone& Node,UAnimSequence* Asset,float Time,bool Loop)
+         {
+             Node.SetSequence(Asset);Node.SetShouldLoop(Loop);Node.SetTeleportToExplicitTime(true);
+@@ -1071,16 +2005,76 @@ struct FProxy : FAnimInstanceProxy
+         const float Elapsed=FMath::Max(0.f,D->Clock-D->BodyState.ActionStartedAt);
+         const float Fraction=FPSBodyPoses::Progress(D->UpperState,D->Clock);
+         Set(Action,ActionClip?ActionClip:IdleClip,Fraction*(ActionClip?ActionClip->GetPlayLength():0.f),false);
+-        Upper.Weight=ActionClip?D->UpperAlpha:0.f;
++        Upper.Weight=ActionClip&&!D->BodyState.bDual&&!FPSBodyPistolMotion::IsSingleReload(D->BodyState)?D->UpperAlpha:0.f;
++        const bool NativeSingle=D->UsesNativeSinglePistolSource();
++        Controls.bSinglePistolReference=NativeSingle;SingleSource.Weight=NativeSingle?1.f:0.f;SingleSource.Delta=Dt;
++        const FString SinglePrefix=TEXT("SinglePistol.Source.");
++        const bool SingleCrouched=D->CrouchAlpha>.5f;
++        const FString ReadyRole=(SingleCrouched?TEXT("Crouch."):TEXT(""))+FString(D->Speed>10.f?TEXT("Walk"):TEXT("Idle"));
++        auto* SingleReadyClip=Clip(SinglePrefix+ReadyRole);
++        if(!SingleReadyClip)SingleReadyClip=Clip(SinglePrefix+TEXT("Idle"));
++        const auto ReloadSample=FPSBodySinglePistolSource::Reload(D->BodyState);
++        const FString ReloadRole=(SingleCrouched?TEXT("Crouch."):TEXT(""))+ReloadSample.Phase;
++        auto* SingleReloadClip=ReloadSample.Active?Clip(SinglePrefix+ReloadRole):nullptr;
++        if(ReloadSample.Active&&!SingleReloadClip)SingleReloadClip=Clip(SinglePrefix+ReloadSample.Phase);
++        auto* SingleFireClip=Clip(SinglePrefix+TEXT("Fire"));
++        const float SingleShotAt=FPSBodySinglePistolSource::Primary(D->BodyState)==1?D->BodyState.LeftHand.LastShotAt:D->BodyState.LastShotAt;
++        const float SingleShotAge=D->Clock-SingleShotAt;
++        const float SingleFireLength=SingleFireClip?SingleFireClip->GetPlayLength():0.f;
++        SingleSource.ActionWeight=ReloadSample.Active&&SingleReloadClip?1.f:0.f;
++        SingleSource.ShotWeight=NativeSingle&&!ReloadSample.Active&&SingleShotAge>=0.f&&SingleShotAge<SingleFireLength?
++            Ease(SingleShotAge/.02f)*Ease((SingleFireLength-SingleShotAge)/.10f):0.f;
++        SingleSource.Key=FName(ReloadSample.Active?ReloadRole:ReadyRole);
++        SingleSource.Instance=D->BodyState.WeaponInstance+(FPSBodySinglePistolSource::Primary(D->BodyState)==1?TEXT("/left"):TEXT("/right"));
++        Set(SingleReady,SingleReadyClip?SingleReadyClip:IdleClip,D->Speed>10.f?Timing(SingleReadyClip).Sample(GaitCycles):D->Clock,true);
++        Set(SingleReload,SingleReloadClip?SingleReloadClip:IdleClip,ReloadSample.Fraction*(SingleReloadClip?SingleReloadClip->GetPlayLength():0.f),false);
++        Set(SingleShot,SingleFireClip?SingleFireClip:IdleClip,SingleShotAge,false);
++        Set(SingleShotBase,SingleFireClip?SingleFireClip:IdleClip,0.f,false);
++        SlidePlayback.Update(*D,Dt,GaitCycles,[&](FName Key){return D->Clips.FindRef(Key).Get();});
++        Set(Slide,SlidePlayback.Asset?SlidePlayback.Asset:IdleClip,SlidePlayback.Time,false);
++        SlideLayer.Weight=SlidePlayback.Weight;SlideLayer.Delta=Dt;SlideLayer.bChanged=SlidePlayback.bChanged;
++        Controls.AuthoredSlideWeight=SlidePlayback.Weight;
++        Controls.bHasSlideLibrary=Clip(TEXT("Slide.Loop"))!=nullptr;
++        FQuat SlideTilt=FQuat::Identity;
++        if(SlideLayer.Weight>ZERO_ANIMWEIGHT_THRESH)
++            if(const auto* Mesh=Instance->GetSkelMeshComponent())
++                if(const auto* Character=Cast<ACharacter>(Mesh->GetOwner()))
++                    if(const auto* Move=Character->GetCharacterMovement();Move&&Move->CurrentFloor.IsWalkableFloor())
++                    {
++                        const FVector Normal=Mesh->GetComponentTransform().InverseTransformVectorNoScale(Move->CurrentFloor.HitResult.ImpactNormal).GetSafeNormal();
++                        SlideTilt=FQuat::FindBetweenNormals(FVector::UpVector,Normal);
++                        const float Angle=SlideTilt.GetAngle(),Limit=FMath::DegreesToRadians(18.f);
++                        if(Angle>Limit)SlideTilt=FQuat::Slerp(FQuat::Identity,SlideTilt,Limit/Angle);
++                    }
++        SlidePlayback.Tilt=FQuat::Slerp(SlidePlayback.Tilt,SlideTilt,FMath::Clamp(Dt*12.f,0.f,1.f)).GetNormalized();
++        SlideLayer.Alignment=SlidePlayback.Tilt*FQuat(FVector::UpVector,FMath::DegreesToRadians(SlidePlayback.Yaw));
+         Controls.State=D->BodyState;Controls.Clock=D->Clock;Controls.Crouch=D->CrouchAlpha;
++        // Lone off-hand blade: mirror the single library's whole upper body onto the left side (armed hand = left).
++        Controls.bLoneBladeMirror=D->BodyState.bLoneBlade&&D->BodyState.Family==TEXT("Kukri")&&
++            D->BodyState.Action!=EFPSBodyAction::Dead&&D->BodyState.Action!=EFPSBodyAction::Consume&&
++            !FPSBodyPoses::Traversing(D->BodyState.Motion);
++        if(Controls.BookReloadWeapon!=D->BodyState.WeaponInstance||Controls.BookReloadOffhand!=D->BodyState.OffhandInstance||
++            FPSBodyPoses::Traversing(D->BodyState.Motion)||D->BodyState.Action==EFPSBodyAction::Dead)
++        {
++            Controls.BookReloadWeapon=D->BodyState.WeaponInstance;Controls.BookReloadOffhand=D->BodyState.OffhandInstance;
++            Controls.bBookReloadHistory=Controls.bBookReloadReturn=false;Controls.BookReloadLowerWeight=0.f;
++            Controls.LastBookReloadPhase=0;
++        }
++        if(!FPSBodyPistolMotion::ReturningToOffhand(D->BodyState))
++        {Controls.bBookReloadReturn=false;Controls.BookReloadReturnProgress=0.f;}
++        if(D->BodyState.OffhandReloadPhase==uint8(EOffhandReloadPhase::Lower))Controls.bBookReloadHistory=false;
+         Controls.PoseScale=D->PoseScale;
+         Controls.MotionState=D->MotionState;Controls.MotionWeight=D->MotionAlpha;
+         Controls.Reactions=D->Reactions;Controls.bFalling=D->bFalling;
+-        StunBlend=FMath::FInterpTo(StunBlend,D->Reactions.bStunned?1.f:0.f,Delta,D->Reactions.bStunned?12.f:7.f);
+-        Controls.StunBlend=StunBlend;
++        const bool Stunned=D->Reactions.bStunned&&D->BodyState.Action!=EFPSBodyAction::Dead;
++        Controls.StunBlend=StunEnvelope.Step(Stunned?1.f:0.f,Dt,Stunned?14.f:9.f);
++        if(Stunned||Controls.StunBlend>ZERO_ANIMWEIGHT_THRESH)StunPhase+=Dt;else StunPhase=0.f;
++        auto* StunClip=Clip(TEXT("Reaction.Stun.Loop"));
++        Controls.bHasStunLibrary=StunClip&&IdleClip&&StunClip->GetSkeleton()==IdleClip->GetSkeleton();
++        Set(StunPose,Controls.bHasStunLibrary?StunClip:IdleClip,StunPhase,true);
+         if(auto* Mesh=Instance->GetSkelMeshComponent())
+         {
+-            Grounding.Update(*Mesh,*D,Controls.RawFeet,1.f-Pace.Alpha,Delta);Controls.Ground=Grounding.Pose;
++            Grounding.Update(*Mesh,*D,Controls.RawFeet,1.f-Pace.Alpha,Delta,CrouchBlend.Alpha,SlideLayer.Weight);Controls.Ground=Grounding.Pose;
+             Controls.HitDirection=Mesh->GetComponentTransform().InverseTransformVectorNoScale(D->Reactions.HitDirection).GetSafeNormal2D();
+             Controls.PushDirection=Mesh->GetComponentTransform().InverseTransformVectorNoScale(D->Reactions.PushDirection).GetSafeNormal2D();
+         }
+@@ -1104,43 +2098,157 @@ struct FProxy : FAnimInstanceProxy
+         Controls.bAuthoredTraversal=TraversalPlayback.Asset&&TraversalPlayback.End>TraversalPlayback.Release&&
+             TraversalPlayback.Release>TraversalPlayback.Contact&&FPSBodyPoses::Traversing(D->MotionState.Motion);
+         Controls.LeftGrip=D->LeftGripFromRight;Controls.bLeftGrip=D->bHasLeftGrip;
++        Controls.SingleContact=D->SinglePistolContact;
++        Controls.RightGrip=D->RightGripFromLeft;Controls.bRightGrip=D->bHasRightGrip;
++        Controls.RifleHold=D->RifleHold;
++        for(int32 Side=0;Side<2;++Side)Controls.PistolClearanceInHand[Side]=D->PistolClearanceInHand[Side];
++        Controls.IndependentPistolHands=D->IndependentPistolHands;
++        for(int32 Side=0;Side<2;++Side)Controls.IndependentPistolRotation[Side]=D->IndependentPistolRotation[Side];
++        if(const auto* Mesh=Instance->GetSkelMeshComponent();Mesh&&Instance->GetOwningActor())
++        {
++            // The same pitch/yaw drives idle and every walk direction. Read
++            // actor/component transforms here, never from the worker-thread IK.
++            const float Pitch=FMath::Clamp(D->BodyState.AimPitch-12.f*(1.f-D->AimAlpha),-80.f,80.f);
++            const float Yaw=Instance->GetOwningActor()->GetActorRotation().Yaw+D->BodyState.AimYaw;
++            Controls.RifleAimDirection=Mesh->GetComponentTransform().InverseTransformVectorNoScale(FRotator(Pitch,Yaw,0.f).Vector());
++        }
+         Controls.EquipmentFingers=D->EquipmentFingers;Controls.EquipmentGripHands=D->EquipmentGripHands;
+-        if(D->BodyState.Family!=TEXT("Rifle")&&D->BodyState.Family!=TEXT("Pistol")&&D->BodyState.Family!=TEXT("Staff")&&D->BodyState.Family!=TEXT("Bow")&&D->BodyState.Family!=TEXT("Tool")&&D->BodyState.Family!=TEXT("Melee"))Controls.EquipmentGripHands=0;
++        if(D->BodyState.Family!=TEXT("Rifle")&&D->BodyState.Family!=TEXT("Pistol")&&D->BodyState.Family!=TEXT("Staff")&&D->BodyState.Family!=TEXT("Bow")&&D->BodyState.Family!=TEXT("Tool")&&D->BodyState.Family!=TEXT("Melee")&&D->BodyState.Family!=TEXT("Kukri")&&!D->BodyState.bOffhandPistol)Controls.EquipmentGripHands=0;
+         Controls.ActionFingers=D->ActionFingers;Controls.ActionFingerMask=D->ActionFingerMask;
+         Controls.ActionWristMask=D->ActionWristMask;Controls.ActionHands[0]=D->ActionHands[0];Controls.ActionHands[1]=D->ActionHands[1];
+         Controls.bCoupledActionWrists=D->bCoupledActionWrists;
++        if(FPSBodyPistolMotion::OwnsHand(D->BodyState,1)&&D->BodyState.Action==EFPSBodyAction::Cast&&
++            D->BodyState.Contacts.Channel!=TEXT("StaffCast"))
++            Controls.ActionWristMask&=~uint8(2); // body-relative cast/recovery, never the camera's left wrist
+         const FName HandAttackKey=FPSBodyHandAttackMotion::Clip(D->BodyState);
+-        const FName NextSwordKey=HandAttackKey.IsNone()?FPSBodySwordMotion::Clip(D->BodyState):HandAttackKey;
++        // Moving hammer carry comes from the same directional, phase-matched
++        // graph as the legs. A separate idle upper-body layer would erase its
++        // torso counter-rotation and shoulder/elbow timing again.
++        const FName HammerKey=Controls.bHammerLocomotion?NAME_None:FPSBodyWarhammerMotion::Clip(D->BodyState);
++        const FName KukriBaseKey=KukriRecovery.Advance(D->BodyState,Dt);
++        const FName DualKukriKey=FPSBodyKukriMotion::DualClip(KukriBaseKey);
++        FName KukriKey=!DualKukriKey.IsNone()&&MatchingOffhandKukri&&D->Clips.FindRef(DualKukriKey)?
++            DualKukriKey:KukriBaseKey;
++        const bool KukriRun=KukriKey==TEXT("Kukri.FullBody.Dual.Idle")&&
++            D->SprintAlpha>KINDA_SMALL_NUMBER&&D->Clips.FindRef(TEXT("Kukri.FullBody.Dual.Run"));
++        if(KukriRun)KukriKey=TEXT("Kukri.FullBody.Dual.Run");
++        if(KukriKey==TEXT("Pistol.KukriUppercut")&&!MatchingOffhandKukri)KukriKey=NAME_None;
++        // Mixed pair stage 3: the hatchet chop and the kukri thrust are separate takes; the offhand gate above only applies
++        // to the pure double-kukri/hatchet clips, and these keys remain valid with the mixed pair loaded.
++        if(KukriKey==TEXT("Kukri.Hatchet.DualChop")&&!MatchingOffhandKukri&&D->BodyState.ActionVariant!=TEXT("HatchetPairAttack3HK"))KukriKey=NAME_None;
++        // Mixed hatchet + kukri stage 3 (2026-11-10): the body plays each hand's own weapon. The main take owns the right
++        // arm, the complementary take (kukri thrust / hatchet chop) supplies the left. Both run on the same 2.05 s clock;
++        // the alternate take is evaluated below, once the shared source-phase sample is known.
++        const bool MixedPairAlt=D->BodyState.ActionVariant==TEXT("HatchetPairAttack3HK")||
++            D->BodyState.ActionVariant==TEXT("HatchetPairAttack3KH");
++        const FName MixedAltKey=!MixedPairAlt?NAME_None:D->BodyState.ActionVariant==TEXT("HatchetPairAttack3HK")?
++            FName(TEXT("Kukri.FullBody.Dual.Thrust")):FName(TEXT("Kukri.Hatchet.DualChop"));
++        UAnimSequence* BAltAsset=MixedPairAlt?D->Clips.FindRef(MixedAltKey).Get():nullptr;
++        const bool HasMixedPairAlt=MixedPairAlt&&BAltAsset&&IdleClip&&BAltAsset->GetSkeleton()==IdleClip->GetSkeleton();
++        Controls.bMixedPairAlt=false;
++        const FName NextSwordKey=!KukriKey.IsNone()?KukriKey:!HammerKey.IsNone()?HammerKey:
++            HandAttackKey.IsNone()?FPSBodySwordMotion::Clip(D->BodyState):HandAttackKey;
+         auto* NextSwordAsset=D->Clips.FindRef(NextSwordKey).Get();
+         const bool HasSwordAction=NextSwordAsset&&IdleClip&&NextSwordAsset->GetSkeleton()==IdleClip->GetSkeleton();
++        const bool HasHammerAction=HasSwordAction&&!HammerKey.IsNone();
++        const bool HasKukriAction=HasSwordAction&&!KukriKey.IsNone();
++        Controls.bHighlandDash=HasSwordAction&&RidgeDashGait;
++        if(HasSwordAction)bHighlandDashTake=Controls.bHighlandDash;
++        const bool KukriCarry=HasKukriAction&&KukriBaseKey==TEXT("Kukri.FullBody.Idle");
++        const bool KukriRecover=HasKukriAction&&!KukriRecovery.Active.IsNone();
++        Controls.bKukriAuthoredStep=HasKukriAction&&!KukriCarry;
++        Controls.bKukriAuthoredDigits=HasKukriAction&&(KukriKey==TEXT("Kukri.FullBody.Equip")||
++            KukriKey==TEXT("Kukri.FullBody.Dual.Equip")||KukriKey==TEXT("Pistol.KukriUppercut"));
++        const bool HammerCarry=HasHammerAction&&FPSBodyWarhammerMotion::IsCarry(D->BodyState);
++        // Both sword and hammer donors are in actor space. Reverse the world
++        // body's turn with the shared root compensation, keeping its equipped
++        // weapon together with the pose and retaining the gameplay spin clock.
++        Controls.WhirlwindVisualYaw=HasSwordAction&&!HasKukriAction?FPSBodySwordMotion::WhirlwindVisualYaw(
++            D->BodyState,FPSBodyPoses::Progress(D->BodyState,D->Clock)):0.f;
++        const bool ZhufengWhirlwind=D->BodyState.Action==EFPSBodyAction::Whirlwind&&D->BodyState.ActionVariant==TEXT("ZhufengWhirlwind");
++        if(HasSwordAction)bZhufengSwordTake=ZhufengWhirlwind;
++        if(ZhufengWhirlwind)
++            Controls.WhirlwindVisualYaw=FRotator::NormalizeAxis(D->BodyState.ZhufengForwardYaw-Instance->GetOwningActor()->GetActorRotation().Yaw);
+         // Whirlwind phase endpoints are authored to match; a second temporal
+         // crossfade would drag the wrists and planted foot behind actor yaw.
+         const bool WhirlwindPhaseChange=D->BodyState.Action==EFPSBodyAction::Whirlwind&&
+             (SwordKey==TEXT("Melee.FullBody.Whirlwind.Start")||SwordKey==TEXT("Melee.FullBody.Whirlwind.Loop")||
+-             SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Start")||SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Loop"));
+-        Controls.bSwordChanged=HasSwordAction&&NextSwordKey!=SwordKey&&!WhirlwindPhaseChange;
++             SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Start")||SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Loop")||
++             SwordKey==TEXT("Warhammer.FullBody.Whirlwind.Start")||SwordKey==TEXT("Warhammer.FullBody.Whirlwind.Loop")||
++             SwordKey==TEXT("Kukri.FullBody.Whirlwind.Start")||SwordKey==TEXT("Kukri.FullBody.Whirlwind.Loop")||
++             SwordKey==TEXT("Kukri.FullBody.Dual.Whirlwind.Start")||SwordKey==TEXT("Kukri.FullBody.Dual.Whirlwind.Loop"));
++        // Charge/release use the same donor take and continue its current
++        // pose. Do not restart a generic crossfade at that phase handoff.
++        const bool HammerMatchedRelease=HasHammerAction&&
++            ((NextSwordKey==TEXT("Warhammer.FullBody.SprintSlam")&&SwordKey==TEXT("Warhammer.FullBody.SprintLift"))||
++             (NextSwordKey==TEXT("Warhammer.FullBody.Slam")&&SwordKey==TEXT("Warhammer.FullBody.Charge")));
++        const bool HammerSprintLift=HasHammerAction&&NextSwordKey==TEXT("Warhammer.FullBody.SprintLift");
++        const bool KukriMatchedRelease=HasKukriAction&&
++            ((NextSwordKey==TEXT("Kukri.FullBody.Heavy")&&SwordKey==TEXT("Kukri.FullBody.Charge"))||
++             (NextSwordKey==TEXT("Kukri.FullBody.Dual.Heavy")&&SwordKey==TEXT("Kukri.FullBody.Dual.Charge"))||
++             (NextSwordKey==TEXT("Kukri.Falcon.Release")&&SwordKey==TEXT("Kukri.Falcon.Charge"))||
++             (NextSwordKey==TEXT("Kukri.Falcon.DualRelease")&&SwordKey==TEXT("Kukri.Falcon.DualCharge")));
++        Controls.SwordTransitionSeconds=KukriCarry?.16f:HammerCarry?.30f:HammerSprintLift?.12f:
++            (HasHammerAction&&FPSBodyWarhammerMotion::IsNormalClip(NextSwordKey))?.10f:.08f;
++        const bool HammerCarryEntry=HasHammerAction&&Controls.SwordWeight<=ZERO_ANIMWEIGHT_THRESH;
++        const bool KukriRunChange=(KukriKey==TEXT("Kukri.FullBody.Dual.Run")&&SwordKey==TEXT("Kukri.FullBody.Dual.Idle"))||
++            (KukriKey==TEXT("Kukri.FullBody.Dual.Idle")&&SwordKey==TEXT("Kukri.FullBody.Dual.Run"));
++        Controls.bSwordChanged=HasSwordAction&&((NextSwordKey!=SwordKey&&!WhirlwindPhaseChange&&!HammerMatchedRelease&&!KukriMatchedRelease&&!KukriRunChange)||HammerCarryEntry);
++        float HammerDonorWeight=1.f;
+         if(HasSwordAction)
+         {
+             Controls.bHandAttackLibrary=!HandAttackKey.IsNone();
+             Controls.bStaffAttackLibrary=HandAttackKey==TEXT("Staff.FullBody.Strike");
+-            Controls.LibraryPreserveHands=Controls.bHandAttackLibrary?FPSBodyHandAttackMotion::PreserveHands(D->BodyState):0;
++            Controls.LibraryPreserveHands=HasKukriAction?FPSBodyKukriMotion::PreserveHands(D->BodyState,MatchingOffhandKukri):
++                Controls.bHandAttackLibrary?FPSBodyHandAttackMotion::PreserveHands(D->BodyState):0;
++            // Loaded dual skills own their complete offhand blade chain.
++            // Generic offhand preservation would discard this authored motion.
++            if(HasKukriAction&&!KukriCarry&&MatchingOffhandKukri&&KukriKey==DualKukriKey)
++                Controls.LibraryPreserveHands=0;
+             if(NextSwordAsset!=SwordAsset)
+             {
+-                SwordAsset=NextSwordAsset;SwordContact=.4f;SwordRelease=.65f;Controls.bSwordNativeGrip=false;
++                SwordAsset=NextSwordAsset;SwordContact=.4f;SwordRelease=.65f;Controls.bSwordNativeGrip=false;Controls.bHighlandSupportedGrip=false;bHammerDonorClock=false;
++                Controls.bHammerContinuousGrip=false;
+                 Controls.bStaffNativeStrike=false;
+                 for(const auto& Marker:SwordAsset->AuthoredSyncMarkers)
+                 {
+                     if(Marker.MarkerName==TEXT("Contact"))SwordContact=Marker.Time/SwordAsset->GetPlayLength();
+                     if(Marker.MarkerName==TEXT("Release"))SwordRelease=Marker.Time/SwordAsset->GetPlayLength();
+-                    if(Marker.MarkerName==TEXT("NativeSwordGrip"))Controls.bSwordNativeGrip=true;
++                    if(Marker.MarkerName==TEXT("NativeSwordGrip")||Marker.MarkerName==TEXT("NativeWarhammerGrip"))Controls.bSwordNativeGrip=true;
++                    if(Marker.MarkerName==TEXT("HighlandSupportedGrip"))Controls.bHighlandSupportedGrip=true;
+                     if(Marker.MarkerName==TEXT("NativeStaffArm"))Controls.bStaffNativeStrike=true;
++                    if(Marker.MarkerName==TEXT("HammerDonorClock"))bHammerDonorClock=true;
++                    if(Marker.MarkerName==TEXT("NativeWarhammerContinuousGrip"))Controls.bHammerContinuousGrip=true;
+                 }
+             }
+             SwordKey=NextSwordKey;
+             const auto& S=D->BodyState;
+             const float P=FPSBodyPoses::Progress(S,D->Clock);
+             float Sample=P;
+-            if(S.Action==EFPSBodyAction::Whirlwind)Sample=FPSBodySwordMotion::WhirlwindSample(S,P);
++            // Preserve the donor poses; only their presentation clock follows
++            // the gameplay load/strike/contact/recovery phases. No FPS wrist
++            // trajectory or planted-head pose is copied into the full-body take.
++            if(KukriRecover)
++                Sample=FMath::Clamp(KukriRecovery.Seconds/FMath::Max(.01f,SwordAsset->GetPlayLength()),0.f,1.f);
++            else if(KukriRun)Sample=FMath::Clamp(D->SprintAlpha,0.f,1.f);
++            else if(HammerCarry||KukriCarry)
++                Sample=FMath::Fmod(D->Clock,FMath::Max(.01f,SwordAsset->GetPlayLength()))/FMath::Max(.01f,SwordAsset->GetPlayLength());
++            else if(HasHammerAction&&bHammerDonorClock)
++            {
++                const float Length=SwordAsset->GetPlayLength();
++                Sample=HammerDonorPlayback.Advance(S,Dt,Length,SwordContact*Length,SwordRelease*Length)/FMath::Max(.001f,Length);
++                HammerDonorWeight=HammerDonorPlayback.Weight(Length);
++            }
++            // Both dual contacts are authored on the replicated FPS clock.
++            // A single-contact remap would move the offhand slash away from
++            // its own contact window, especially after hit stop / speed changes.
++            else if(HasKukriAction&&FPSBodyKukriMotion::UsesAuthoredClock(KukriKey))Sample=P;
++            else if(HasHammerAction||(HasKukriAction&&(S.Action==EFPSBodyAction::Charge||S.Action==EFPSBodyAction::Equip)))Sample=P;
++            else if(S.ActionVariant==TEXT("ChixiaoHeavy"))Sample=P;
++            else if(FPSBodyHighlandMotion::IsRidge(S))
++                Sample=FPSBodyHighlandMotion::RidgeSampleSeconds(S,P,SwordAsset->GetPlayLength())/FMath::Max(.001f,SwordAsset->GetPlayLength());
++            else if(FPSBodySwordMotion::IsUppercut(S))Sample=FPSBodySwordMotion::UppercutSample(S,P,SwordContact,SwordRelease);
++            else if(S.Action==EFPSBodyAction::Whirlwind)Sample=FPSBodySwordMotion::WhirlwindSample(S,P);
+             else if(S.Action==EFPSBodyAction::Charge)Sample=Ease(P)*SwordContact*.7f;
+             else if(S.Action==EFPSBodyAction::Guard)Sample=P*.35f;
+             else if(S.Action!=EFPSBodyAction::GuardHit&&S.Action!=EFPSBodyAction::GuardBreak)
+@@ -1154,21 +2262,64 @@ struct FProxy : FAnimInstanceProxy
+                     P<=Release?FMath::Lerp(ContactPose,ReleasePose,(P-Hit)/(Release-Hit)):
+                     FMath::Lerp(ReleasePose,1.f,(P-Release)/(1.f-Release));
+             }
+-            Set(Sword,SwordAsset,Sample*SwordAsset->GetPlayLength(),false);
++            Set(Sword,SwordAsset,Sample*SwordAsset->GetPlayLength(),HammerCarry||(KukriCarry&&!KukriRun));
++            // Mixed pair stage 3: the complementary take on the same source phase (both 2.05 s).
++            Controls.bMixedPairAlt=HasMixedPairAlt&&HasKukriAction;
++            if(Controls.bMixedPairAlt)
++                Set(SwordAlt,BAltAsset,FMath::Clamp(Sample*BAltAsset->GetPlayLength(),0.f,BAltAsset->GetPlayLength()),false);
++            if(HasHammerAction&&Controls.bHammerContinuousGrip&&FPSBodyWarhammerMotion::IsNormalClip(SwordKey))
++            {
++                const float Seconds=Sample*SwordAsset->GetPlayLength();
++                HammerSourceRate=!Controls.bSwordChanged&&Dt>SMALL_NUMBER?FMath::Clamp((Seconds-HammerSourceSeconds)/Dt,0.f,6.f):0.f;
++                HammerSourceSeconds=Seconds;
++            }
+             // The fading base is an ordinary carry. No procedural FPS attack
+             // effort or wrist trajectory is added underneath the authored body.
+-            Controls.State.Action=EFPSBodyAction::None;Controls.State.ActionVariant=NAME_None;
++            if(!KukriCarry)Controls.State.Action=EFPSBodyAction::None;
++            // Keep only the presentation marker; procedural attack effort stays disabled.
++            if(!KukriCarry)Controls.State.ActionVariant=ZhufengWhirlwind?FName(TEXT("ZhufengWhirlwind")):FName();
+             Controls.ActionWristMask&=Controls.LibraryPreserveHands;Controls.bCoupledActionWrists=false;
+         }
++        else if(SwordAsset&&Controls.bHammerContinuousGrip&&FPSBodyWarhammerMotion::IsNormalClip(SwordKey)&&Controls.SwordWeight>ZERO_ANIMWEIGHT_THRESH)
++        {
++            // Release input keeps a short, decelerating part of the same take
++            // underneath the fade instead of freezing the last sampled arms.
++            HammerSourceSeconds=FMath::Min(SwordAsset->GetPlayLength(),HammerSourceSeconds+Dt*HammerSourceRate);
++            HammerSourceRate*=FMath::Exp(-Dt/.06f);
++            Set(Sword,SwordAsset,HammerSourceSeconds,false);
++        }
+         else if(!SwordAsset)Set(Sword,IdleClip,0.f,false);
+-        const float SwordTarget=HasSwordAction?FMath::Clamp(D->BodyState.ActionWeight,0.f,1.f):0.f;
+-        Controls.SwordWeight=FMath::FInterpConstantTo(Controls.SwordWeight,SwordTarget,Dt,HasSwordAction?12.5f:10.f);
++        if(!HasSwordAction)Controls.bMixedPairAlt=false;
++        if(!HasHammerAction||!bHammerDonorClock)HammerDonorPlayback.Reset();
++        const float SwordTarget=(KukriCarry||KukriRecover)?1.f-.15f*Movement.Alpha:HammerCarry?1.f:
++            HasSwordAction?FMath::Clamp(D->BodyState.ActionWeight,0.f,1.f)*HammerDonorWeight:0.f;
++        const float PreviousSwordWeight=Controls.SwordWeight;
++        Controls.SwordWeight=FMath::FInterpConstantTo(Controls.SwordWeight,SwordTarget,Dt,HasSwordAction?(HammerSprintLift?20.f:12.5f):10.f);
++        if(!HasSwordAction&&Controls.bHammerContinuousGrip&&FPSBodyWarhammerMotion::IsNormalClip(SwordKey))
++        {
++            if(HammerExitAge<0.f){HammerExitAge=0.f;HammerExitFrom=PreviousSwordWeight;}
++            HammerExitAge+=Dt;Controls.SwordWeight=HammerExitFrom*(1.f-Ease(HammerExitAge/.14f));
++        }
++        else HammerExitAge=-1.f;
+         // Committed Kwang skills retain their authored weight shift and step.
+         // Dash travel keeps locomotion until the executor starts its windup;
+         // capsule translation is still owned by the existing sword gameplay.
+-        const bool CommittedSword=HasSwordAction&&(D->BodyState.Action==EFPSBodyAction::Whirlwind||
++        const bool HammerGuard=HasHammerAction&&(D->BodyState.Action==EFPSBodyAction::Guard||
++            D->BodyState.Action==EFPSBodyAction::GuardHit||D->BodyState.Action==EFPSBodyAction::GuardBreak);
++        const bool CommittedSword=HasSwordAction&&!ZhufengWhirlwind&&((HasHammerAction&&bHammerDonorClock&&!HammerGuard&&!HammerSprintLift)||D->BodyState.Action==EFPSBodyAction::Whirlwind||
+             (D->BodyState.Action==EFPSBodyAction::HeavyStrike&&D->BodyState.ActionVariant!=TEXT("HeavyRelease")));
+         float AttackLegs=CommittedSword?1.f:0.f;
++        if(CommittedSword&&FPSBodySwordMotion::IsUppercut(D->BodyState))
++        {
++            const float Seconds=FPSBodySwordMotion::UppercutPlaybackTime(D->BodyState,
++                FPSBodyPoses::Progress(D->BodyState,D->Clock));
++            // Moving charge/recovery keep their live gait. Transfer the legs
++            // to the committed stride only around push-off and landing.
++            AttackLegs=FMath::SmoothStep(RuneSwordUppercutMotion::ReleaseStart-.10f,
++                RuneSwordUppercutMotion::ReleaseStart,Seconds)*(1.f-FMath::SmoothStep(
++                RuneSwordUppercutMotion::SkillLungePlaybackEnd+.12f,
++                RuneSwordUppercutMotion::SkillLungePlaybackEnd+.28f,Seconds));
++        }
+         if(CommittedSword&&D->BodyState.ActionVariant==TEXT("DashOverhead"))
+         {
+             const auto& S=D->BodyState;

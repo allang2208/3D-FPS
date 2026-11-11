@@ -1,0 +1,47 @@
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.h b/Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.h
+index 2da2dffa..adf26bcb 100644
+--- a/Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.h
++++ b/Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.h
+@@ -17,9 +17,15 @@ class FPSGAME_API UKukriArmsMeshComponent : public UFPSCastingMeshComponent
+ {
+     GENERATED_BODY()
+ public:
++    // Reuse DualIdle/DualEquip's native left chain beside a separately animated staff.
++    bool bLeftHandOnly=false;
++    // Sample the shared right-hand clip, then mirror it through the native left binding (no negative mesh scale).
++    bool bMirrorRightToLeft=false;
+     void CaptureEntry(float Seconds);
+     /** Left arm only (into / out of the dual kukri hold): its own local blend, independent of the whole-rig entry. */
+     void CaptureLeftEntry(float Seconds);
++    // Blend on the caller's author clock; a negative phase gives the other hand a head start.
++    void CaptureLeftEntry(float Seconds,float Phase){CaptureLeftEntry(Seconds);LeftEntryTime=LeftEntryDuration*FMath::Clamp(Phase,-1.f,1.f);}
+     void AdvanceEntry(float Delta);
+     void ClearEntry(){EntryLocal.Reset();EntryTime=EntryDuration=0.f;LeftEntryLocal.Reset();LeftEntryTime=LeftEntryDuration=0.f;}
+     /** Dual kukri run: the kukri turned in the right fist (reverse grip) by Angle (rad) about its grip-frame Axis.
+@@ -28,13 +34,25 @@ public:
+     /** Drop the whole left arm to a natural hanging pose (KukriLeftRest.h) over Seconds; 0 restores the clip's own arm.
+      *  Used by the dual-wield whirlwind, whose clip raises the free arm into the sightline. */
+     void SetLeftArmRest(float Weight,float Seconds);
++    /** With bMirrorRightToLeft: the right weapon (WPN_root) mirrored onto the left hand, relative to hand_l (bone scale
++     *  removed, so * hand_l gives the mirrored grip frame) -- the lone off-hand blade's attach, its draw flight included. */
++    const FTransform& MirroredWeaponToHandL() const {return MirroredWeaponRelative;}
+     virtual void FinalizeBoneTransform() override;
+ private:
+     void CacheBones();
++    void MirrorRightPose(TArray<FTransform>& Pose) const;
++    TArray<FTransform> MirrorReferenceLocal;
++    TArray<int32> MirrorSources;
++    TArray<FQuat> MirrorBindCorrection;
++    FVector MirrorClavicleOffset=FVector::ZeroVector;
+     TWeakObjectPtr<USkeletalMesh> CachedMesh;
+     TArray<int32> LeftChain;
++    TArray<int32> RightChain;
+     TArray<int32> WeaponChain;   // descendants of WPN_root, carried with the grip lock
+-    int32 HandR=INDEX_NONE, Weapon=INDEX_NONE, ClavicleL=INDEX_NONE;
++    int32 HandR=INDEX_NONE, Weapon=INDEX_NONE, ClavicleL=INDEX_NONE, HandL=INDEX_NONE;
++    int32 MirrorHandL=INDEX_NONE;            // hand_l's slot in LeftChain / MirrorBindCorrection
++    TArray<bool> HiddenRight;                // per bone: right arm or right weapon chain (hidden with bLeftHandOnly)
++    FTransform MirroredWeaponRelative=FTransform::Identity;
+     TArray<FTransform> EntryLocal;
+     float EntryTime=0.f, EntryDuration=0.f;
+     TArray<FTransform> LeftEntryLocal;   // parent-space left chain at the capture, indexed like LeftChain

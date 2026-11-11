@@ -1,0 +1,529 @@
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp
+index 7a98df5b..ebb3da3b 100644
+--- a/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp
+@@ -6,14 +9,19 @@
+ #include "HatchetChopRhythm.h"
+ #include "HatchetDualChopRhythm.h"
+ #include "HatchetReadyRhythm.h"
++#include "HatchetPairRhythm.h"
++#include "KukriDualDashRhythm.h"
+ #include "KukriDualEquipBlade.h"
++#include "KukriOffhandDraw.h"
++#include "OffhandBladeDraw.h"
+ #include "KukriHeavyRhythm.h"
++#include "SwiftFalconHeavy.h"
+ #include "../MeleeWeaponStats.h"
+ #include "../MeleeSmallTargetQuery.h"
+ #include "../RuneSwordRhythm.h"
+ #include "../../Combat/WeaponDamageTypes.h"
+ #include "../../Skills/ColdSteelSkillRules.h"
+-// #include "../../Skills/LightningHasteSpeed.h"  // pending parallel task; committed as 1.f below
++#include "../../Skills/LightningHasteSpeed.h"
+ #include "../../FPSGAMECharacter.h"
+ #include "../../FPSGAMEPlayerController.h"
+ #include "../../UI/ColdSteelStatusModel.h"
+@@ -53,6 +62,20 @@ namespace
+     // Dual hatchets' sprint-ready run set: enter (from the idle hand gesture) / loop (raised) / exit (HatchetReadyRhythm.h).
+     const FName KukriHatchetReadyEnter(TEXT("HatchetDualSprintEnter")),
+         KukriHatchetReadyRun(TEXT("HatchetDualSprintReady")), KukriHatchetReadyExit(TEXT("HatchetDualSprintExit"));
++    // Hatchet pairs (HatchetPairRhythm.h): two hatchets draw with the hatchet's own toss; a hatchet + kukri pair plays each
++    // hand's own weapon in the draw and on combo stage 3 (HK = hatchet right / kukri left, KH = kukri right / hatchet left).
++    const FName KukriHatchetDualEquip(TEXT("HatchetDualEquip")),KukriPairEquipHK(TEXT("HatchetPairEquipHK")),
++        KukriPairEquipKH(TEXT("HatchetPairEquipKH")),KukriPairAttack3HK(TEXT("HatchetPairAttack3HK")),
++        KukriPairAttack3KH(TEXT("HatchetPairAttack3KH"));
++    // The pair's sprint attack: both hands chop down (KukriDualDashRhythm.h, played by KukriDashAttack.cpp).
++    const FName KukriDualDash(TEXT("DualSprintAttack"));
++    bool IsDualEquipClip(FName Clip)
++    {
++        return Clip==KukriDualEquip||Clip==KukriHatchetDualEquip||Clip==KukriPairEquipHK||Clip==KukriPairEquipKH||OffhandBladeDraw::IsClip(Clip);
++    }
++    // The draw clips whose right / left hand tosses a hatchet (the others toss a kukri).
++    bool IsRightHatchetDraw(FName Clip){return Clip==KukriHatchetEquip||Clip==KukriHatchetDualEquip||Clip==KukriPairEquipHK;}
++    bool IsLeftHatchetDraw(FName Clip){return Clip==KukriHatchetDualEquip||Clip==KukriPairEquipKH||Clip==OffhandBladeDraw::Hatchet;}
+     const FName KukriWeaponSocket(TEXT("WPN_root")),KukriOffhandSocket(TEXT("hand_l"));
+     constexpr float KukriWalkReferenceSpeed=360.f;
+     // The left arm travels between the single stance (hanging below the frame) and the dual hold.
+@@ -72,7 +95,8 @@ namespace
+     {
+         return Clip==KukriDualIdle||Clip==KukriDualWalk||Clip==KukriDualRun||Clip==KukriDualAttacks[0]||Clip==KukriDualAttacks[1]||
+             Clip==KukriDualThrust||Clip==KukriHeavyRhythm::DualChargeClip||Clip==KukriHeavyRhythm::DualReleaseClip||
+-            Clip==KukriDualEquip;
++            IsDualEquipClip(Clip)||Clip==KukriPairAttack3HK||Clip==KukriPairAttack3KH||Clip==KukriDualDash||
++            Clip==SwiftFalconHeavy::DualCharge||Clip==SwiftFalconHeavy::DualRelease;
+     }
+     bool IsRunClip(FName Clip){return Clip==KukriRun||Clip==KukriDualRun||Clip==KukriHatchetReadyEnter||
+         Clip==KukriHatchetReadyRun||Clip==KukriHatchetReadyExit;}
+@@ -108,13 +126,14 @@ UKukriWeaponComponent::UKukriWeaponComponent()
+ 
+ bool UKukriWeaponComponent::IsKukri(const FColdSteelItem& Item)
+ {
+-    return Item.Definition==TEXT("ue_kukri")||ColdSteelInventory::Text(Item,TEXT("weaponType"))==TEXT("kukri");
++    return ColdSteelInventory::UsesKukriMoveset(Item);
+ }
+ 
+ bool UKukriWeaponComponent::IsDualOn(const AActor* Owner)
+ {
+     const auto* Kukri=Owner?Owner->FindComponentByClass<UKukriWeaponComponent>():nullptr;
+-    return Kukri&&Kukri->IsDual();
++    // A blade in the left hand: the pair's second one, or the lone off-hand blade (consumables stow it, casts keep off it).
++    return Kukri&&(Kukri->IsDual()||Kukri->IsLoneOffhand());
+ }
+ 
+ AFPSGAMECharacter* UKukriWeaponComponent::Pawn() const
+@@ -137,11 +156,14 @@ void UKukriWeaponComponent::BeginPlay()
+ 
+ void UKukriWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
+ {
++    ResetFalconHooks();
++    PairedHeavyContacts.Reset();
+     // The destroy path also releases a quick-melee reservation.
+     if(bQuickCombat){bQuickCombat=false;FinishQuickCombat();}
+     if(bUppercut){bUppercut=false;FinishUppercut(true);}
+     if(bHeavyAttack){bHeavyAttack=false;FinishHeavy(true);}
+     FinishWhirlwind();
++    MainModules.Clear(Blade);OffhandModules.Clear(OffhandBlade);
+     if(Blade)Blade->DestroyComponent();
+     if(OffhandBlade)OffhandBlade->DestroyComponent();
+     if(RiftVisual)RiftVisual->DestroyComponent();
+@@ -197,12 +219,20 @@ void UKukriWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
+     if(!Profile||!P||!P->IsLocallyControlled())return;
+     if(!Viewmodel)InitializePresentation();
+     if(!Viewmodel)return;
+-    const auto* Item=Profile->Equipped();
++    // The main hand's kukri / hatchet, or -- main hand empty -- the off-hand one acting alone (left hand).
++    const auto* Item=Profile->ActiveKukriWeapon();
+     const FString NewId=Item&&!Profile->ActiveProductionTool()&&IsKukri(*Item)?Item->InstanceId:FString();
+-    if(NewId==InstanceId){RefreshOffhand(Profile);return;}
++    const bool Lone=!NewId.IsEmpty()&&!Profile->Equipped();
++    // (The lone blade's assembly lives on OffhandBlade -- RefreshOffhand; the hidden right blade carries none.)
++    if(NewId==InstanceId&&Lone==bLoneOffhand){if(!NewId.IsEmpty()&&!Lone)MainModules.Refresh(Blade,Item);RefreshOffhand(Profile,true);return;}
++    bPendingOffhandDraw=false;
+     CancelAction();
+     MainModules.Clear(Blade);OffhandModules.Clear(OffhandBlade);
+-    InstanceId=NewId;bHatchetChop=false;bHatchetReadyRun=false;bDualHatchet=false;ReadyRunPhase=0;
++    InstanceId=NewId;bHatchetChop=false;bHatchetReadyRun=false;bDualHatchet=bMainHatchet=bOffhandHatchet=false;ReadyRunPhase=0;
++    // Lone off-hand blade: the right-hand clips are sampled and mirrored onto the left arm, the right arm hidden.
++    bLoneOffhand=Lone;
++    Viewmodel->bMirrorRightToLeft=Viewmodel->bLeftHandOnly=Lone;
++    Blade->SetHiddenInGame(Lone,true);
+     Viewmodel->SetVisibility(false,true);
+     Viewmodel->ComponentTags.Remove(TEXT("PreloadModularOutfit"));
+     Viewmodel->ClearEntry();
+@@ -224,6 +254,8 @@ void UKukriWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
+     }
+     // Optional: without the sprint-attack clip the dash readiness never builds (ordinary swings stay available).
+     Animations.Add(TEXT("SprintAttack"),LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+TEXT("A_Kukri_SprintAttack.A_Kukri_SprintAttack"))));
++    // Optional: a pair's sprint attack chops down with both hands (KukriDualDashRhythm.h; without it the single chop).
++    Animations.Add(TEXT("DualSprintAttack"),LoadObject<UAnimSequence>(nullptr,KukriDualDashRhythm::Clip));
+     // Optional: without the pommel-strike clip F is refused for the kukri.
+     // Optional: the uppercut skill (swordUppercut) reports "动作未就绪" without its clip.
+     Animations.Add(TEXT("Uppercut"),LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+TEXT("A_Kukri_Uppercut.A_Kukri_Uppercut"))));
+@@ -244,7 +282,17 @@ void UKukriWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
+         const FString Name=FString(TEXT("A_Kukri_"))+Clip.ToString();
+         Animations.Add(Clip,LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+Name+TEXT(".")+Name)));
+     }
++    // Optional: the hatchet pairs' draws and mixed stage 3 (either hand may be the hatchet, so for every kukri-family main;
++    // a missing clip keeps the kukri pair's DualEquip / double thrust).
++    for(const auto& Clip:{TPair<FName,const TCHAR*>(KukriHatchetDualEquip,HatchetPairRhythm::DualEquipClip),
++        TPair<FName,const TCHAR*>(KukriPairEquipHK,HatchetPairRhythm::EquipHKClip),
++        TPair<FName,const TCHAR*>(KukriPairEquipKH,HatchetPairRhythm::EquipKHClip),
++        TPair<FName,const TCHAR*>(KukriPairAttack3HK,HatchetPairRhythm::Attack3HKClip),
++        TPair<FName,const TCHAR*>(KukriPairAttack3KH,HatchetPairRhythm::Attack3KHClip)})
++        Animations.Add(Clip.Key,LoadObject<UAnimSequence>(nullptr,Clip.Value));
+     // Optional: the hatchet's single draw is its own vertical toss (without the clip it keeps the kukri's spinning toss).
++    for(bool Axe:{false,true})
++        Animations.Add(Axe?OffhandBladeDraw::Hatchet:OffhandBladeDraw::Kukri,LoadObject<UAnimSequence>(nullptr,OffhandBladeDraw::Asset(Axe)));
+     if(ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("hatchet"))
+     {
+         Animations.Add(KukriHatchetEquip,LoadObject<UAnimSequence>(nullptr,HatchetDrawRhythm::Clip));
+@@ -278,36 +326,58 @@ void UKukriWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
+     if(OffhandBlade->GetAttachSocketName()!=KukriOffhandSocket)
+         OffhandBlade->AttachToComponent(Viewmodel,FAttachmentTransformRules::KeepRelativeTransform,KukriOffhandSocket);
+     OffhandBlade->SetStaticMesh(BladeMesh);
++    if(!bLoneOffhand)MainModules.Refresh(Blade,Item);
+     // Equipped sleeves/gloves follow this owner-only rig (modular outfit profile by mesh path).
+     Viewmodel->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
+     CurrentClip=NAME_None;
+     OffhandInstanceId.Reset();bDual=false;RefreshOffhand(Profile);
+-    // A pair draws both: the left hand tosses and catches its kukri like the right, mirrored, a beat later (DualEquip).
++    // A pair draws both: the left hand tosses and catches its weapon like the right, mirrored, a beat later (DualEquip; each
++    // hand with its own weapon's toss when a hatchet is in the pair, DualEquipClip).
+     bEquipping=true;bTossPlayed=bCatchPlayed=bOffhandTossPlayed=bOffhandCatchPlayed=false;
+-    SetClip(bDual&&Animations.FindRef(KukriDualEquip)?KukriDualEquip:Animations.FindRef(KukriHatchetEquip)?KukriHatchetEquip:KukriEquip,false,0.f);
++    const FName DualDraw=bDual?DualEquipClip():NAME_None;
++    SetClip(!DualDraw.IsNone()?DualDraw:Animations.FindRef(KukriHatchetEquip)?KukriHatchetEquip:KukriEquip,false,0.f);
+     UpdateOffhandDraw();
+     Viewmodel->SetVisibility(CanPresent(),true);
+ }
+ 
+-void UKukriWeaponComponent::RefreshOffhand(UColdSteelStatusModel* Profile)
++void UKukriWeaponComponent::RefreshOffhand(UColdSteelStatusModel* Profile,bool DrawNewOffhand)
+ {
+     // Dual kukri: the active set's off-hand slot (6 -> 8, 9 -> 11) also holds a kukri.  Without the dual hold clip the
+     // second kukri stays an inventory item only, like an off-hand kukri beside a non-pistol weapon.
+-    FString Id;
++    if(bLoneOffhand)
++    {
++        // Lone off-hand blade: the left hand's assembly is the acting weapon itself, never a pair.
++        if(const auto* Item=Profile?Profile->ActiveKukriWeapon():nullptr;Item&&Item->InstanceId==InstanceId)
++            OffhandModules.Refresh(OffhandBlade,Item);
++        bMainHatchet=bOffhandHatchet=bDualHatchet=false;
++        OffhandInstanceId.Reset();bDual=false;
++        UpdateOffhandBlade();
++        return;
++    }
++    FString Id;const FColdSteelItem* OffhandItem=nullptr;
+     if(Profile&&IsEquipped()&&Animations.FindRef(KukriDualIdle))
+     {
+         const int32 Main=Profile->Snapshot().ActiveWeaponSlot;
+         const auto* Item=Profile->Equipped(Main==6?8:11);
+-        if(Item&&IsKukri(*Item)&&Item->InstanceId!=InstanceId)Id=Item->InstanceId;
++        if(Item&&IsKukri(*Item)&&Item->InstanceId!=InstanceId){Id=Item->InstanceId;OffhandItem=Item;}
+     }
+     if(OffhandItem)OffhandModules.Refresh(OffhandBlade,OffhandItem);
+     else if(!OffhandModules.ItemId.IsEmpty())OffhandModules.Clear(OffhandBlade);
+-    // Both hands on hatchets: only then does the dual hatchet ready run apply.
+-    if(const auto* Main=Profile?Profile->Equipped():nullptr)
+-        bDualHatchet=OffhandItem!=nullptr&&ColdSteelInventory::Text(*Main,TEXT("weaponType"))==TEXT("hatchet")&&
+-            ColdSteelInventory::Text(*OffhandItem,TEXT("weaponType"))==TEXT("hatchet");
++    // Which hand holds a hatchet: each hand plays its own weapon's variants (the ready run follows the right hand, the
++    // whirlwind's lowered left arm the off-hand hatchet, the draw and stage 3 both).
++    if(const auto* Main=Profile?Profile->ActiveKukriWeapon():nullptr)
++    {
++        bMainHatchet=ColdSteelInventory::Text(*Main,TEXT("weaponType"))==TEXT("hatchet");
++        bOffhandHatchet=OffhandItem!=nullptr&&ColdSteelInventory::Text(*OffhandItem,TEXT("weaponType"))==TEXT("hatchet");
++        bDualHatchet=bMainHatchet&&bOffhandHatchet;
++    }
+     if(Id==OffhandInstanceId)return;
+     OffhandInstanceId=Id;bDual=!Id.IsEmpty();
++    if(bEquipping&&OffhandBladeDraw::IsClip(CurrentClip))
++    {
++        bEquipping=false;SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);UpdateOffhandDraw();
++    }
++    bPendingOffhandDraw=DrawNewOffhand&&bDual&&Animations.FindRef(bOffhandHatchet?OffhandBladeDraw::Hatchet:OffhandBladeDraw::Kukri);
+     // Idle/walk/run switch family on the next tick (LocomotionClip); the left arm blends on its own (SetClip).
+     UpdateOffhandBlade();
+ }
+@@ -315,7 +385,7 @@ void UKukriWeaponComponent::RefreshOffhand(UColdSteelStatusModel* Profile)
+ void UKukriWeaponComponent::UpdateOffhandBlade()
+ {
+     if(!OffhandBlade)return;
+-    bool Show=IsDual()&&OffhandBlade->GetStaticMesh();
++    bool Show=(IsDual()||IsLoneOffhand())&&!bPendingOffhandDraw&&OffhandBlade->GetStaticMesh();
+     // A consumable taken with the left hand stows the off-hand weapon for its use phase.
+     if(Show)if(const auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>())Show=!Potion->IsOffhandWeaponHidden();
+     if(OffhandBlade->bHiddenInGame==Show)OffhandBlade->SetHiddenInGame(!Show,true);
+@@ -339,16 +409,25 @@ void UKukriWeaponComponent::UpdateDualFlip(float Delta)
+     DualTwirlAngle=FMath::Lerp(DualTwirlFrom,bRun?KukriDualFlipAngle:0.f,X*X*X*(X*(X*6.f-15.f)+10.f));
+     // The dual draw takes the right knife out of the fist like the single draw: the lock follows the authored deviation.
+     if(Viewmodel)Viewmodel->SetGripFlip(DualTwirlAngle,KukriRunFlipAxis,
+-        IsDual()&&((IsDualClip(CurrentClip)&&CurrentClip!=KukriDualEquip)||DualTwirlAngle>1e-4f));
++        IsDual()&&((IsDualClip(CurrentClip)&&!IsDualEquipClip(CurrentClip))||DualTwirlAngle>1e-4f));
++}
++
++FName UKukriWeaponComponent::DualEquipClip() const
++{
++    const FName Pair=bMainHatchet?(bOffhandHatchet?KukriHatchetDualEquip:KukriPairEquipHK):
++        bOffhandHatchet?KukriPairEquipKH:KukriDualEquip;
++    return Animations.FindRef(Pair)?Pair:Animations.FindRef(KukriDualEquip)?KukriDualEquip:NAME_None;
+ }
+ 
+ void UKukriWeaponComponent::UpdateOffhandDraw()
+ {
+-    // While the dual draw plays the off-hand kukri flies its mirrored toss on hand_l; everywhere else it keeps the grip.
+-    const bool bDraw=bEquipping&&CurrentClip==KukriDualEquip&&CurrentAnimation;
++    // While the dual draw plays the off-hand weapon flies its mirrored toss on hand_l (a hatchet its own vertical toss);
++    // everywhere else it keeps the grip.
++    const bool bDraw=bEquipping&&IsDualEquipClip(CurrentClip)&&CurrentAnimation;
+     if(!OffhandBlade||(!bDraw&&!bOffhandDrawPose))return;
+     bOffhandDrawPose=bDraw;
+-    OffhandBlade->SetRelativeTransform(bDraw?OffhandDrawBlade(Elapsed):OffhandHandToBlade());
++    OffhandBlade->SetRelativeTransform(!bDraw?OffhandHandToBlade():IsLeftHatchetDraw(CurrentClip)?
++        HatchetPairRhythm::SampleLeftHatchet(Elapsed):OffhandDrawBlade(Elapsed));
+ }
+ 
+ bool UKukriWeaponComponent::CanPresent() const
+@@ -386,6 +465,13 @@ void UKukriWeaponComponent::SamplePose(float Time)
+ {
+     if(!Viewmodel||!CurrentAnimation)return;
+     Viewmodel->SetPosition(Time,false);Viewmodel->TickAnimation(0.f,false);Viewmodel->RefreshBoneTransforms();
++    if(bLoneOffhand&&OffhandBlade)
++    {
++        // The lone blade rides hand_l as the mirror image of the clip's right weapon (grip and draw flight alike).
++        FTransform Grip=Viewmodel->MirroredWeaponToHandL();
++        Grip.SetScale3D(FVector(.01f));
++        OffhandBlade->SetRelativeTransform(Grip);
++    }
+ }
+ 
+ FName UKukriWeaponComponent::LocomotionClip() const
+@@ -396,7 +482,10 @@ FName UKukriWeaponComponent::LocomotionClip() const
+     const bool Ground=!Move||Move->IsMovingOnGround();
+     const float Speed=P->GetVelocity().Size2D();
+     const auto Pick=[this](FName Single,FName Dual){return bDual&&Animations.FindRef(Dual)?Dual:Single;};
+-    if(Ground&&P->IsSprinting()&&Speed>300.f)return Pick(KukriRun,KukriDualRun);
++    // A pair with the hatchet in the right hand (and the ready-run set) keeps the hold's walk carry while sprinting until the
++    // sprint attack is ready (user 2026-11-04); TickReadyRun raises the hatchet from there.
++    if(Ground&&P->IsSprinting()&&Speed>300.f)
++        return bDual&&bMainHatchet&&bHatchetReadyRun?Pick(KukriWalk,KukriDualWalk):Pick(KukriRun,KukriDualRun);
+     if(Ground&&Speed>40.f)return Pick(KukriWalk,KukriDualWalk);
+     return Pick(KukriIdle,KukriDualIdle);
+ }
+@@ -404,7 +493,8 @@ FName UKukriWeaponComponent::LocomotionClip() const
+ bool UKukriWeaponComponent::TickReadyRun(float Delta)
+ {
+     const auto* P=Pawn();
+-    if(!P||!bHatchetReadyRun||!bDual||!bDualHatchet)
++    // The raised hatchet is the right hand's; the left keeps the dual run's arm whichever weapon it holds.
++    if(!P||!bHatchetReadyRun||!bDual||!bMainHatchet)
+     {
+         if(ReadyRunPhase!=0){ReadyRunPhase=0;SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);}
+         return false;
+@@ -464,6 +555,12 @@ FTransform UKukriWeaponComponent::BladeFrame() const
+ {
+     // The bone frame without its import scale: the grip frame of SM_Kukri in world space.
+     if(!Viewmodel)return FTransform::Identity;
++    // The lone off-hand blade cuts with the mirrored left one (the right weapon chain is hidden).
++    if(bLoneOffhand&&OffhandBlade)
++    {
++        const FTransform Frame=OffhandBlade->GetRelativeTransform()*Viewmodel->GetSocketTransform(KukriOffhandSocket,RTS_World);
++        return FTransform(Frame.GetRotation(),Frame.GetLocation());
++    }
+     const FTransform Bone=Viewmodel->GetSocketTransform(KukriWeaponSocket,RTS_World);
+     return FTransform(Bone.GetRotation(),Bone.GetLocation());
+ }
+@@ -540,22 +642,31 @@ FRotator UKukriWeaponComponent::ViewmodelKick() const
+ void UKukriWeaponComponent::GetCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const
+ {
+     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;FovDelta=0.f;
+-    if(!IsEquipped())return;
+-    if(bDashAttack){GetDashCameraMotion(Location,Rotation,FovDelta);return;}
+-    if(bQuickCombat){GetQuickCameraMotion(Location,Rotation,FovDelta);return;}
++    if(!IsEquipped()&&!bStaffOffhandWhirlwind)return;
++    // The lone off-hand blade plays the right-hand moveset mirrored: its view cues yaw and roll the other way (the whirlwind
++    // mirrors through its own turn, BeginWhirlwind).
++    const auto MirrorLone=[this,&Location,&Rotation]
++    {if(bLoneOffhand){Rotation.Yaw=-Rotation.Yaw;Rotation.Roll=-Rotation.Roll;Location.Y=-Location.Y;}};
++    if(bDashAttack){GetDashCameraMotion(Location,Rotation,FovDelta);MirrorLone();return;}
++    if(bQuickCombat){GetQuickCameraMotion(Location,Rotation,FovDelta);MirrorLone();return;}
+     if(bWhirlwind){GetWhirlwindCameraMotion(Location,Rotation,FovDelta);return;}
+     // Toss-and-catch draw: the reference camera on the draw clip's own clock (KukriDrawRhythm; the hatchet's vertical toss
+     // has its own curve in HatchetDrawRhythm).
+-    if(bEquipping)(CurrentClip==KukriHatchetEquip?HatchetDrawRhythm::Camera:KukriDrawRhythm::Camera)(Elapsed,Rotation,FovDelta);
++    if(bEquipping&&OffhandBladeDraw::IsClip(CurrentClip))OffhandBladeDraw::Camera(IsLeftHatchetDraw(CurrentClip),Elapsed,Rotation,FovDelta);
++    else if(bEquipping)(IsRightHatchetDraw(CurrentClip)?HatchetDrawRhythm::Camera:KukriDrawRhythm::Camera)(Elapsed,Rotation,FovDelta);
+     // Heavy charge: the raise and the slow load on the charge clip's clock (KukriHeavyRhythm).
+-    if(bHeavyCharging)(bDualHeavy?KukriHeavyRhythm::DualChargeCamera:KukriHeavyRhythm::ChargeCamera)(Elapsed,Rotation,FovDelta);
++    if(bHeavyCharging)(bFalconHeavy?SwiftFalconHeavy::ChargeCamera:bDualHeavy?KukriHeavyRhythm::DualChargeCamera:KukriHeavyRhythm::ChargeCamera)(Elapsed,Rotation,FovDelta);
+     if(bAttacking||bUppercut||bHeavyAttack)
+     {
+         // Same author clock as the clip: contact holds freeze the camera curve with the arm (the uppercut too).
+         // The stab (stage 3) also pushes the camera forward along the view; the dual sweep adds the mirrored curve.
+         if(bAttacking&&bDualSweep)KukriRhythm::DualSweepCamera(Stage,Elapsed,Rotation,FovDelta);
+-        else if(bAttacking&&IsHatchetDualChop())HatchetDualChopRhythm::Camera(Elapsed,Rotation,FovDelta,&Location);
++        else if(bAttacking&&IsHatchetDualChop())PairChopCamera(Elapsed,Rotation,FovDelta,&Location);
+         else if(bAttacking&&bDualThrust)KukriRhythm::DualThrustCamera(Elapsed,Rotation,FovDelta);
++        else if(bHeavyAttack&&bFalconHeavy)
++        {
++            SwiftFalconHeavy::ReleaseCamera(Elapsed,Location,Rotation,FovDelta);
++        }
+         else if(bHeavyAttack&&bDualHeavy)KukriRhythm::DualHeavyCamera(Elapsed,Rotation,FovDelta);
+         else StageSwingCamera(Stage,Elapsed,Rotation,FovDelta,&Location);
+     }
+@@ -631,19 +754,26 @@ void UKukriWeaponComponent::StartAttack(int32 NewStage)
+     if(bChain)
+     {
+         if(bDualSweep)KukriRhythm::DualSweepCamera(Stage,Elapsed,OldCamera,OldFov);
+-        else if(IsHatchetDualChop())HatchetDualChopRhythm::Camera(Elapsed,OldCamera,OldFov);
++        else if(IsHatchetDualChop())PairChopCamera(Elapsed,OldCamera,OldFov);
+         else if(bDualThrust)KukriRhythm::DualThrustCamera(Elapsed,OldCamera,OldFov);
+         else StageSwingCamera(Stage,Elapsed,OldCamera,OldFov);
+     }
+     const auto* OffItem=IsDual()?ColdSteelMelee::PairedOneHandedWeapon(Item,Profile):nullptr;
+     const bool DualSweep=OffItem&&NewStage<KukriRhythm::DualSweepStages&&Animations.FindRef(KukriDualAttacks[NewStage]);
+     const bool DualThrust=OffItem&&NewStage==2&&Animations.FindRef(KukriDualThrust);
+-    // Two hatchets: the double thrust plays both hatchets chopping down together (same gameplay clock).
+-    const bool DualChop=DualThrust&&bHatchetChop&&Animations.FindRef(KukriHatchetDualAttack3)&&
+-        ColdSteelInventory::Text(*OffItem,TEXT("weaponType"))==TEXT("hatchet");
++    // Hatchets on the double thrust (same gameplay clock): two hatchets chop down together; a hatchet + kukri pair chops
++    // with the hatchet hand and thrusts with the kukri hand (HatchetPairRhythm.h).
++    const bool MainHatchet=ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("hatchet");
++    const bool OffHatchet=OffItem&&ColdSteelInventory::Text(*OffItem,TEXT("weaponType"))==TEXT("hatchet");
++    const FName PairClip=MainHatchet&&OffHatchet?KukriHatchetDualAttack3:MainHatchet?KukriPairAttack3HK:
++        OffHatchet?KukriPairAttack3KH:NAME_None;
++    const bool PairChop=DualThrust&&!PairClip.IsNone()&&Animations.FindRef(PairClip)&&(!(MainHatchet&&OffHatchet)||bHatchetChop);
+     if(OffItem&&!DualSweep&&!DualThrust)return;
+-    // Debit once on swing entry, including misses; failed payment changes nothing.
+-    if(!Profile->SpendStamina(ColdSteelMelee::AttackStamina(Item,Profile)))return;
++    // Debit the action once, including misses; each participating blade contributes its own half.
++    const float Cost=ColdSteelMelee::ComboAttackStamina(Item,Profile,DualSweep||DualThrust);
++    auto* Net=P->GetLocalRole()==ROLE_AutonomousProxy?P->GetPlayerState<AColdSteelPlayerState>():nullptr;
++    if(P->GetLocalRole()==ROLE_AutonomousProxy&&!Net)return;
++    if(Net?!Profile->CanSpendStamina(Cost):!Profile->SpendStamina(Cost))return;
+     if(bChain)
+     {
+         FRotator NewCamera;float NewFov=0.f;
+@@ -694,23 +833,30 @@ void UKukriWeaponComponent::StartAttack(int32 NewStage)
+ 
+ void UKukriWeaponComponent::CancelAction()
+ {
++    FlushPairedHeavyContacts(true);
++    if(bFalconHeavy)ResetFalconHooks();
++    FinishNetworkAttack(true);
+     const bool WasActive=bAttacking||bEquipping||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind;
+     // A cancelled whirlwind keeps its paid stamina and cooldown; hits that already landed still train (one exit path).
+     FinishWhirlwind();
+     // A cancelled charge bills nothing more (its camera eases out); a cancelled release keeps its paid stamina and trains once.
+     const bool bWasCharging=bHeavyCharging;
+-    if(bWasCharging)(bDualHeavy?KukriHeavyRhythm::DualChargeCamera:KukriHeavyRhythm::ChargeCamera)(Elapsed,CameraCarry,CameraCarryFov);
++    if(bWasCharging)(bFalconHeavy?SwiftFalconHeavy::ChargeCamera:bDualHeavy?KukriHeavyRhythm::DualChargeCamera:KukriHeavyRhythm::ChargeCamera)(Elapsed,CameraCarry,CameraCarryFov);
+     SetHeavyCharging(false,false);bHeavyAuto=bHeavyFull=false;
+-    if(bHeavyAttack){bHeavyAttack=false;FinishHeavy(true);}
+-    bDualHeavy=false;
++    if(bHeavyAttack){
++        if(bFalconHeavy&&Pawn()&&Pawn()->IsLocallyControlled()&&!Pawn()->HasAuthority())
++            ServerSetKukriHeavyCharge(InstanceId,false,false,bDualHeavy,0.);
++        bHeavyAttack=false;FinishHeavy(true);
++    }
++    bDualHeavy=bFalconHeavy=false;
+     // A cancelled sprint attack keeps its paid stamina; hits that already landed still train the skill.
+-    bDashAttack=false;FinishDashAttack();DashSprintSeconds=0.f;
++    bDashAttack=bDualDash=false;FinishDashAttack();DashSprintSeconds=0.f;
+     // A cancelled quick melee keeps its paid stamina and releases F (only this component's own cast).
+     if(bQuickCombat){bQuickCombat=false;FinishQuickCombat();}
+     // A cancelled uppercut keeps its paid release and still trains once (the sword's rule).
+     if(bUppercut){bUppercut=false;FinishUppercut(true);}
+     bAttacking=false;bEquipping=false;bQueued=false;Stage=0;NextStage=0;LastAttackEnd=-1.;CameraCarryAge=bWasCharging?0.f:-1.f;
+-    bDualSweep=bOffhandSwing=bDualThrust=bDualChop=false;OffhandHitActors.Reset();
++    bDualSweep=bOffhandSwing=bDualThrust=bDualChop=bChopRight=bChopLeft=false;OffhandHitActors.Reset();
+     HitStop=0.f;HitActors.Reset();bHavePreviousBlade=false;
+     ResetStrike();StrikeAge=-1.f;StopRift();StopSkillRift();
+     if(WasActive&&IsEquipped()&&Viewmodel&&Animations.Num())
+@@ -745,6 +892,11 @@ void UKukriWeaponComponent::ConfirmImpact(const FHitResult& Hit,bool bWorld)
+         bDualHeavy&&bHeavyAttack?KukriRhythm::DualHeavyHitStopScale:SwingProfile().HitStopScale);
+     ImpactKick=KukriRhythm::ImpactKick*(IsHatchetDualChop()?HatchetDualChopRhythm::ImpactScale:
+         bDualThrust?KukriRhythm::DualThrustImpactScale:SwingProfile().ImpactScale);
++    if(bFalconHeavy&&bHeavyAttack)
++    {
++        HitStop=SwiftFalconHeavy::FleshStop(Shot.MeleeDamagePhase==1,bDualHeavy);
++        ImpactKick=KukriRhythm::ImpactKick*SwiftFalconHeavy::ContactStrength(Shot.MeleeDamagePhase==1,bDualHeavy);
++    }
+     if(HitSound)UGameplayStatics::PlaySoundAtLocation(this,HitSound,Hit.ImpactPoint,.95f,1.04f);
+     if(StabThudSounds.Num())
+         UGameplayStatics::PlaySoundAtLocation(this,StabThudSounds[FMath::RandRange(0,StabThudSounds.Num()-1)],Hit.ImpactPoint,
+@@ -765,18 +917,24 @@ void UKukriWeaponComponent::TraceBlade(const FTransform& From,const FTransform&
+     const float Damage=Left?OffhandSwingDamage:SwingDamage;
+     const float BladeReach=Left?OffhandReach:Reach;
+     const FTransform Aim=P->GetMeleeAimTransform();
+-    const FVector Probe=To.TransformPosition(KukriRhythm::BladeMid);
++    const auto& BladeModules=Left||bLoneOffhand?OffhandModules:MainModules;
++    const FVector Probe=To.TransformPosition(bHeavyAttack&&bFalconHeavy?
++        .5f*(BladeModules.TraceBase+BladeModules.TraceTip):KukriRhythm::BladeMid);
+     TArray<FHitResult,TInlineAllocator<8>> Contacts;
+     // Targets: forward area from the blade's current position (cleave, low targets, cover).
+     const float Forward=FVector::DotProduct(Probe-Aim.GetLocation(),Aim.GetUnitAxis(EAxis::X));
++    const float QueryWidthScale=bAttacking?KukriRhythm::BasicAttackQueryWidthScale:1.f;
+     if(Forward>=0.f)
+-        Contacts.Append(MeleeSmallTargets::QueryQuickAreaContacts(World,P,Aim,Probe,FMath::Max(40.f,BladeReach-Forward),KukriRhythm::QueryRadiusCM));
++        Contacts.Append(MeleeSmallTargets::QueryQuickAreaContacts(World,P,Aim,Probe,FMath::Max(40.f,BladeReach-Forward),
++            KukriRhythm::QueryRadiusCM*QueryWidthScale,MeleeSmallTargets::LowArcDegrees*QueryWidthScale));
+     // Scenery: the real edge from root to tip, swept between substeps.
++    // Visual length affects scenery contacts only; enemy reach remains BladeReach.
+     FCollisionQueryParams Q(SCENE_QUERY_STAT(KukriSwing),false,GetOwner());
++    Q.bReturnPhysicalMaterial=true;Q.bReturnFaceIndex=true;
+     for(const auto& Actor:HitActors)if(Actor.IsValid())Q.AddIgnoredActor(Actor.Get());
+     for(int32 Segment=0;Segment<=3;++Segment)
+     {
+-        const FVector Local=FMath::Lerp(KukriRhythm::BladeRoot,KukriRhythm::BladeTip,Segment/3.f);
++        const FVector Local=FMath::Lerp(BladeModules.TraceBase,BladeModules.TraceTip,Segment/3.f);
+         FHitResult Hit;
+         if(World->SweepSingleByChannel(Hit,From.TransformPosition(Local),To.TransformPosition(Local),FQuat::Identity,
+             ECC_Visibility,FCollisionShape::MakeSphere(2.5f),Q))
+@@ -844,15 +1019,16 @@ void UKukriWeaponComponent::AdvanceAttack(float Delta)
+             // The double thrust runs on its own authored phases (KukriRhythm::DualThrust*: no tempo curve, no rift).
+             S.SwingSound=KukriRhythm::DualThrustSwingSound;
+             S.ContactStart=KukriRhythm::DualThrustContactStart;S.ContactEnd=KukriRhythm::DualThrustContactEnd;
+-            // The dual chop's whoosh comes with its heads over the top (a local cue; the windows stay the thrust's).
+-            if(bDualChop)S.SwingSound=HatchetDualChopRhythm::SwingSound;
++            // The dual chop's whoosh comes with its heads over the top (a local cue; the windows stay the thrust's) -- also
++            // when only one hand of a hatchet + kukri pair chops.
++            if(IsHatchetDualChop())S.SwingSound=HatchetDualChopRhythm::SwingSound;
+         }
+         // V12b: the stab slows its visible phases on a smooth tempo curve (KukriRhythm::StageTempo); substeps are
+         // <= 1/120 author s, so the rate is sampled finely enough for the SmoothStep blends between knots.
+         const float Rate=PlayRate*(bDualThrust?1.f:bDualSweep?KukriRhythm::DualSweepTempo(Stage,Elapsed):KukriRhythm::StageTempo(Stage,Elapsed));
+         float Step=FMath::Min(Remaining*Rate,1.f/120.f);
+         const float StrikeAt=bDualThrust?KukriRhythm::DualThrustStrikeAt:StrikeProfile().At+Off;
+-        const float RiftAt=bDualThrust?(bDualChop?HatchetDualChopRhythm::Rift.Start:Length+1.f):RiftProfile().Start+Off;
++        const float RiftAt=bDualThrust?(IsHatchetDualChop()?HatchetDualChopRhythm::Rift.Start:Length+1.f):RiftProfile().Start+Off;
+         const float HandOver=bDualSweep&&!bOffhandSwing?KukriRhythm::DualSweepOffset(Stage):Length;
+         for(const float Boundary:{S.SwingSound,S.ContactStart,S.ContactEnd,StrikeAt,RiftAt,HandOver,Length})
+             if(Elapsed<Boundary-UE_KINDA_SMALL_NUMBER)Step=FMath::Min(Step,Boundary-Elapsed);
+@@ -917,11 +1099,29 @@ void UKukriWeaponComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
+     {
+         // Impact kick is a camera-aligned rotation of the presentation parent only.
+         const FTransform Kick(ViewmodelKick(),StrikeViewmodelOffset());
+-        JumpRoot->SetRelativeTransform(Kick*P->GetWeaponJumpTransform(EFirstPersonJumpRig::Sword));
++        FTransform Presentation=Kick*P->GetWeaponJumpTransform(EFirstPersonJumpRig::Sword);
++        if(bLoneOffhand)
++        {
++            // The lone off-hand blade's mirrored moveset: every kick, press and jump sway mirrors about the view's vertical
++            // plane (camera Y), like the arms (mesh X = camera Y).
++            const FQuat Q=Presentation.GetRotation();const FVector L=Presentation.GetLocation();
++            Presentation.SetRotation(FQuat(-Q.X,Q.Y,-Q.Z,Q.W));Presentation.SetLocation(FVector(L.X,-L.Y,L.Z));
++        }
++        JumpRoot->SetRelativeTransform(Presentation);
+     }
+     const bool Present=CanPresent();
+-    Viewmodel->SetVisibility(Present&&Viewmodel->GetSkeletalMeshAsset(),true);
++    FPSComponentVisibility::SetVisibilityTree(Viewmodel,Present&&Viewmodel->GetSkeletalMeshAsset());
+     if(!Present){if(IsBusy())CancelAction();return;}
++    if(bPendingOffhandDraw&&!IsBusy()&&!P->IsCastBlockingLeftHandAction())
++    {
++        const auto* Potion=P->FindComponentByClass<UFPSPotionUseComponent>();
++        if(!Potion||!Potion->IsStowingOffhand())
++        {
++            bPendingOffhandDraw=false;bEquipping=true;
++            bTossPlayed=bCatchPlayed=true;bOffhandTossPlayed=bOffhandCatchPlayed=false;
++            SetClip(bOffhandHatchet?OffhandBladeDraw::Hatchet:OffhandBladeDraw::Kukri,false,.075f);UpdateOffhandDraw();
++        }
++    }
+     UpdateOffhandBlade();
+     UpdateDualFlip(Delta);
+     Viewmodel->AdvanceEntry(Delta);
+@@ -952,21 +1152,25 @@ void UKukriWeaponComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
+             if(CatchSound)UGameplayStatics::PlaySound2D(this,CatchSound,bHatchetDraw?HatchetDrawRhythm::CatchVolume:KukriDrawRhythm::CatchVolume,
+                 bHatchetDraw?HatchetDrawRhythm::CatchPitch:KukriDrawRhythm::CatchPitch);
+         }
+-        if(CurrentClip==KukriDualEquip)
++        if(IsDualEquipClip(CurrentClip))
+         {
+-            // The left hand's toss and catch, a beat after the right's (a touch softer and lower, so the pair reads as two).
+-            const float Left=Elapsed-KukriDualEquipBlade::LeftDelay;
+-            if(!bOffhandTossPlayed&&Left>=KukriDrawRhythm::TossAt)
++            // The left hand's toss and catch, a beat after the right's (a touch softer and lower, so the pair reads as two),
++            // on its own weapon's clock.
++            const bool bLeftHatchet=IsLeftHatchetDraw(CurrentClip);
++            const float Left=Elapsed-(bLeftHatchet?HatchetPairRhythm::LeftDelay:KukriDualEquipBlade::LeftDelay);
++            if(!bOffhandTossPlayed&&Left>=(bLeftHatchet?HatchetDrawRhythm::TossAt:KukriDrawRhythm::TossAt))
+             {
+                 bOffhandTossPlayed=true;
+-                if(TossSound)UGameplayStatics::PlaySound2D(this,TossSound,KukriDrawRhythm::TossVolume*KukriDrawRhythm::OffhandVolume,
+-                    KukriDrawRhythm::TossPitch*KukriDrawRhythm::OffhandPitch);
++                if(TossSound)UGameplayStatics::PlaySound2D(this,TossSound,
++                    (bLeftHatchet?HatchetDrawRhythm::TossVolume:KukriDrawRhythm::TossVolume)*KukriDrawRhythm::OffhandVolume,
++                    (bLeftHatchet?HatchetDrawRhythm::TossPitch:KukriDrawRhythm::TossPitch)*KukriDrawRhythm::OffhandPitch);
+             }
+-            if(!bOffhandCatchPlayed&&Left>=KukriDrawRhythm::CatchAt)
++            if(!bOffhandCatchPlayed&&Left>=(bLeftHatchet?HatchetDrawRhythm::CatchAt:KukriDrawRhythm::CatchAt))
+             {
+                 bOffhandCatchPlayed=true;
+-                if(CatchSound)UGameplayStatics::PlaySound2D(this,CatchSound,KukriDrawRhythm::CatchVolume*KukriDrawRhythm::OffhandVolume,
+-                    KukriDrawRhythm::CatchPitch*KukriDrawRhythm::OffhandPitch);
++                if(CatchSound)UGameplayStatics::PlaySound2D(this,CatchSound,
++                    (bLeftHatchet?HatchetDrawRhythm::CatchVolume:KukriDrawRhythm::CatchVolume)*KukriDrawRhythm::OffhandVolume,
++                    (bLeftHatchet?HatchetDrawRhythm::CatchPitch:KukriDrawRhythm::CatchPitch)*KukriDrawRhythm::OffhandPitch);
+             }
+         }
+         const float Length=CurrentAnimation?CurrentAnimation->GetPlayLength():KukriDrawRhythm::Seconds;

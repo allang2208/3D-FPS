@@ -1,0 +1,52 @@
+{
+  "clip": "DualSprintAttack",
+  "length": 1.3333333333333333,
+  "frames": 161,
+  "clearance": {
+    "KK": {
+      "visible_min_gap_cm": 3.91,
+      "at": 1.133,
+      "offscreen_min_gap_cm": 3.91,
+      "offscreen_at": 1.133
+    },
+    "KH": {
+      "visible_min_gap_cm": 1.9,
+      "at": 1.158,
+      "offscreen_min_gap_cm": 1.9,
+      "offscreen_at": 1.158
+    },
+    "HK": {
+      "visible_min_gap_cm": 2.08,
+      "at": 1.233,
+      "offscreen_min_gap_cm": 2.08,
+      "offscreen_at": 1.233
+    },
+    "HH": {
+      "visible_min_gap_cm": 1.85,
+      "at": 1.133,
+      "offscreen_min_gap_cm": 1.85,
+      "offscreen_at": 1.133
+    }
+  },
+  "reach_max": [
+    0.963,
+    0.999
+  ],
+  "strike": {
+    "t": 0.4,
+    "reach_r": 0.939,
+    "reach_l": 0.895,
+    "grip_r": [
+      0.109,
+      0.727
+    ],
+    "grip_l": [
+      -0.086,
+      0.814
+    ]
+  },
+  "spread": 9.0,
+  "left_near": 2.5,
+  "uncross": 4.0,
+  "source": "author_dual_sprint_attack.py"
+}

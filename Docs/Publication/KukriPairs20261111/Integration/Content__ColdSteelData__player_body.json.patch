@@ -1,0 +1,32 @@
+diff --git a/Content/ColdSteelData/player_body.json b/Content/ColdSteelData/player_body.json
+index 4e058453..38dd6ab2 100644
+--- a/Content/ColdSteelData/player_body.json
++++ b/Content/ColdSteelData/player_body.json
+@@ -406,10 +457,13 @@
+     "Kukri.FullBody.Dual.Recover2": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover2_Completion.A_Kukri_FullBody_Dual_Recover2_Completion",
+     "Pistol.KukriQuickCombat": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/PistolKukriThrustV1/A_Pistol_KukriThrust.A_Pistol_KukriThrust",
+     "Kukri.FullBody.Dual.Equip": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Equip_Completion.A_Kukri_FullBody_Dual_Equip_Completion",
++    "Kukri.Offhand.HatchetEquip": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Jason/A_OffhandHatchetEquip.A_OffhandHatchetEquip",
++    "Kukri.Offhand.Equip": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Jason/A_OffhandKukriEquip.A_OffhandKukriEquip",
+     "Pistol.KukriUppercut": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.A_Pistol_KukriUppercut_Completion",
+     "Kukri.FullBody.Dual.Pommel": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.A_Kukri_FullBody_Dual_Pommel_Completion",
+     "Kukri.FullBody.Dual.Run": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Jason/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.A_Kukri_FullBody_Dual_Run_Completion",
+     "Melee.FullBody.HighlandBreakSweep": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_Sweep.A_Highland3P_Jason_Standard_Sweep",
++    "Kukri.Hatchet.DualChop": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Jason/A_HatchetDualCombo3.A_HatchetDualCombo3",
+     "Melee.FullBody.HighlandBreakSweep.Standard": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_Sweep.A_Highland3P_Jason_Standard_Sweep",
+     "Melee.FullBody.HighlandBreakSweep.LongGrip": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_LongGrip_Sweep.A_Highland3P_Jason_LongGrip_Sweep",
+     "Melee.FullBody.HighlandBreakSweepReady": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Jason_Standard_SweepReady.A_Highland3P_Jason_Standard_SweepReady",
+@@ -8022,10 +8075,13 @@
+         "Kukri.FullBody.Dual.Recover2": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Recover2_Completion.A_Kukri_FullBody_Dual_Recover2_Completion",
+         "Pistol.KukriQuickCombat": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/PistolKukriThrustV1/A_Pistol_KukriThrust.A_Pistol_KukriThrust",
+         "Kukri.FullBody.Dual.Equip": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Equip_Completion.A_Kukri_FullBody_Dual_Equip_Completion",
++        "Kukri.Offhand.HatchetEquip": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Kaitlin/A_OffhandHatchetEquip.A_OffhandHatchetEquip",
++        "Kukri.Offhand.Equip": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Kaitlin/A_OffhandKukriEquip.A_OffhandKukriEquip",
+         "Pistol.KukriUppercut": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Pistol_KukriUppercut_Completion.A_Pistol_KukriUppercut_Completion",
+         "Kukri.FullBody.Dual.Pommel": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Pommel_Completion.A_Kukri_FullBody_Dual_Pommel_Completion",
+         "Kukri.FullBody.Dual.Run": "/Game/Characters/JasonPlayer20261003/Kukri20261024/ComboV3/Kaitlin/Animations/Completion20261029/A_Kukri_FullBody_Dual_Run_Completion.A_Kukri_FullBody_Dual_Run_Completion",
+         "Melee.FullBody.HighlandBreakSweep": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_Sweep.A_Highland3P_Kaitlin_Standard_Sweep",
++        "Kukri.Hatchet.DualChop": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Kaitlin/A_HatchetDualCombo3.A_HatchetDualCombo3",
+         "Melee.FullBody.HighlandBreakSweep.Standard": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_Sweep.A_Highland3P_Kaitlin_Standard_Sweep",
+         "Melee.FullBody.HighlandBreakSweep.LongGrip": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_LongGrip_Sweep.A_Highland3P_Kaitlin_LongGrip_Sweep",
+         "Melee.FullBody.HighlandBreakSweepReady": "/Game/Weapons/HighlandClaymore20260922/ThirdPerson20261106/A_Highland3P_Kaitlin_Standard_SweepReady.A_Highland3P_Kaitlin_Standard_SweepReady",

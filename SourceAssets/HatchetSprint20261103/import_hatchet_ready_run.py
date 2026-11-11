@@ -16,7 +16,7 @@ P = Path(globals().get('__file__') or r"D:\FPS3D\FPSGAME\SourceAssets\HatchetSpr
 DEST = '/Game/Weapons/TacticalHatchet20261101/Animations'
 ARMS = '/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms'
 SKELETON = '/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton'
-REVISION = 'HatchetReadyRun_V2_ThreeClips_20261103'
+REVISION = 'HatchetReadyRun_V3_RightSwing_20261104'
 CLIPS = {
     'HatchetDualSprintEnter': 'A_TacticalHatchet_DualSprintEnter',
     'HatchetDualSprintReady': 'A_TacticalHatchet_DualSprintReady',

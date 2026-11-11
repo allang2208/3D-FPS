@@ -10,9 +10,34 @@
         0.25
       ],
       "head_eye": [
-        0.344,
-        -0.925
+        0.338,
+        -0.908
       ],
+      "swing": {
+        "phase": 0.5,
+        "depth_scale": 0.71,
+        "right_grip_ndc_span": [
+          0.115,
+          0.206
+        ],
+        "left_grip_ndc_span": [
+          0.114,
+          0.206
+        ],
+        "head_ndc_y": [
+          -1.069,
+          -0.859
+        ],
+        "reach": [
+          0.564,
+          0.635
+        ],
+        "twist": [
+          -97.4,
+          -93.8
+        ],
+        "wrist_max": 2.8
+      },
       "source": "author_hatchet_ready_run.py"
     }
   }

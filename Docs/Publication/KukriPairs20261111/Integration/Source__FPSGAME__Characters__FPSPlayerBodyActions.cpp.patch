@@ -1,0 +1,40 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+index 1d0f07b8..c90f9774 100644
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -38,6 +59,15 @@ void BodyEquipmentIdentity(const AFPSGAMECharacter& Pawn,FFPSBodyState& State)
+     const auto* Held=Profile->Equipped();
+     const auto* Off=Held&&!Profile->ActiveProductionTool()?Profile->Equipped(Held->Cell==6?8:11):nullptr;
+     State.OffhandInstance=Off?Off->InstanceId:FString();
++    // 主手空置时副手手枪顶替主武器出现在左手上：同一个实例同时是这把枪和左手占用品。
++    if(!Held&&!Profile->ActiveProductionTool())if(const auto* Lone=Profile->ActiveFirearm())
++    {
++        State.WeaponInstance=Lone->InstanceId;State.OffhandInstance=Lone->InstanceId;
++    }
++    // 主手空置时独自出手的副手弯刀/斧头（ActiveKukriWeapon）就是主武器：身体按单持弯刀族呈现，
++    // 所有者与服务端读同一件物品，动作状态才能对上。
++    if(!Held&&!Profile->ActiveProductionTool())if(const auto* Lone=Profile->ActiveKukriWeapon();Lone&&UKukriWeaponComponent::IsKukri(*Lone))
++    {State.WeaponInstance=Lone->InstanceId;State.bLoneBlade=true;}
+ }
+ }
+ 
+@@ -252,10 +563,19 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
+     State.Weapon=FName(*Pawn->ActiveInventoryWeaponDefinition);
+     BodyEquipmentIdentity(*Pawn,State);
+     State.Family=Pawn->HasInventoryWeapon()?(Pawn->IsPistolWeapon()?TEXT("Pistol"):TEXT("Rifle")):TEXT("Unarmed");
++    // 左手单持：主手空置，枪只占左手。身体走无武装步态，左臂由独立手枪姿态接管。
++    if(Pawn->IsLoneOffhandPistol())State.Family=TEXT("Unarmed");
+     if(const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsEquipped())State.Family=TEXT("Melee");
++    if(const auto* Profile=Pawn->GetNetShadowProfile())
++        if(const auto* Item=Profile->ActiveKukriWeapon();Item&&UKukriWeaponComponent::IsKukri(*Item))
++        {State.Family=TEXT("Kukri");State.Weapon=FName(*Item->Definition);
++            // 主手空、副手单持：observer 也按镜像的左手呈现（与本地/服务端同一实例判定）。
++            State.bLoneBlade=!Profile->Equipped()&&!Profile->ActiveProductionTool();}
+     if(const auto* Bow=Pawn->FindComponentByClass<UBowWeaponComponent>();Bow&&Bow->IsEquipped()){State.Family=TEXT("Bow");State.Weapon=*Bow->Definition();}
+     if(const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())State.Family=TEXT("Staff");
+     if(const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsEquipped())
++    // Match the local presentation identity, including the warhammer-specific
++    // body library. The server's SameWeapon check below uses this same value.
+     {State.Family=TEXT("Tool");State.Weapon=FName(*Tool->Kind);State.ActionVariant=State.Weapon;}
+     // CMC 意图位：随 SavedMove 压缩标志到达服务端（联机重构后不再走独立 RPC）。
+     if(const auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))

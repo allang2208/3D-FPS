@@ -1,0 +1,41 @@
+{
+  "clearance_cm": {
+    "DualEquip": {
+      "min_gap_cm": 2.81,
+      "at": 0.825,
+      "hold_gap_cm": 3.53
+    },
+    "PairEquipHK": [
+      1.86,
+      0.792
+    ],
+    "PairEquipKH": [
+      2.91,
+      0.767
+    ],
+    "PairAttack3HK": [
+      13.16,
+      0.892
+    ],
+    "PairAttack3KH": [
+      12.2,
+      0.9
+    ],
+    "DualAttack3_reference": [
+      11.77,
+      0.575
+    ],
+    "HatchetDualAttack3_reference": [
+      2.87,
+      1.633
+    ]
+  },
+  "spread": 8.0,
+  "depth": [
+    3.0,
+    -6.0
+  ],
+  "left_delay": 0.067,
+  "length": 1.0,
+  "source": "author_pairs.py"
+}

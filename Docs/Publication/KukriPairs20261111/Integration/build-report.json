@@ -1,0 +1,50 @@
+{
+  "targets": [
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriWeaponComponent.h.patch",
+      "hunks_kept": 9,
+      "hunks_dropped": 8,
+      "markers": 12
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriWeaponComponent.cpp.patch",
+      "hunks_kept": 23,
+      "hunks_dropped": 20,
+      "markers": 15
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriStrike.cpp",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriStrike.cpp.patch",
+      "hunks_kept": 2,
+      "hunks_dropped": 2,
+      "markers": 4
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriRift.cpp",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriRift.cpp.patch",
+      "hunks_kept": 3,
+      "hunks_dropped": 3,
+      "markers": 4
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.h",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriArmsMeshComponent.h.patch",
+      "hunks_kept": 2,
+      "hunks_dropped": 0,
+      "markers": 5
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.cpp",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriArmsMeshComponent.cpp.patch",
+      "hunks_kept": 5,
+      "hunks_dropped": 2,
+      "markers": 5
+    }
+  ],
+  "whole_file": {
+    "Source/FPSGAME/Weapons/Kukri/KukriWhirlwind.cpp": "HEAD predates a sibling session's staff-offhand / ClipTime / Pair layer; this task's lone whirlwind direction sits on it",
+    "Source/FPSGAME/Weapons/Kukri/KukriDashAttack.cpp": "HEAD predates the network receipt layer; this task's pair chop hook sits on it"
+  }
+}

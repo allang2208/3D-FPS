@@ -191,6 +191,64 @@ FBX 导入提示局部退化切线。生产用 `TacticalHatchetImportLibrary::Fi
    （`A_Kukri_DualRun` 同相位的左臂），`clavicle_l / upperarm_l / lowerarm_l / hand_l` 与 `DualRun` 第 0 帧位姿一致。
    右手举斧与跑步起伏不变。
 
+## 双持冲刺就绪跑姿：就绪前待机移动姿态、右手同频同幅（11-04 用户要求）
+
+用户：从奔跑到激活冲刺攻击奔跑的过程中保持待机移动的姿态；触发冲刺攻击奔跑时右手动画匹配左手的摆动频率和幅度。
+
+- **就绪前**：双持两把斧头冲刺、冲刺攻击未就绪时，`LocomotionClip()` 不再给 `DualRun`（反握冲刺跑姿），而是 `DualWalk`
+  （双持待机握姿 + 走路起伏，速率随速度到 1.4 倍上限）。就绪后照旧从握姿进入 `HatchetDualSprintEnter`。单持斧头、弯刀不变。
+- **就绪循环的右手**：右手摆动取 `A_Kukri_DualRun` 左拳一个步幅的实测轨迹，镜像到右侧并错开半步（两臂交替，每步两次的
+  起伏同步），在举斧握点周围走同样的屏幕轨迹；深度起伏按两拳深度比 0.71 缩放，握持旋转原样镜像。旧的减半起伏删除。
+  - 左拳：左右 ±4.4 cm、上下 ±2.4 cm + 1.0 cm（二次）、前后 ±1.5 cm、转角范围 8.8°。
+  - 生成后两拳屏幕摆幅：右 0.115 × 0.206，左 0.114 × 0.206（NDC 宽 × 高）。右臂伸展 0.56–0.64，腕弯 ≤ 2.8°。
+    斧头头部 NDC y −1.07～−0.86，摆到最高时略出画面上缘。
+- **退出**：两拳都在摆，`HatchetDualSprintExit` 改为 0.18 s 从当前姿态混入（原 0 s 直接跳首帧）。
+- **资产与构建**：后台 commandlet 重导三段（修订 `HatchetReadyRun_V3_RightSwing_20261104`），无错误；
+  `HatchetReadyRhythm.h` 重新生成（仅注释）；`FPSGAMEEditor Win64 Development` 构建 Succeeded，`KukriWeaponComponent.cpp`
+  重编无警告（`Saved/BuildEditor/build-hatchet-ready-swing-20261104.log`）。
+  修改前的 clip 备份在 `SourceAssets/HatchetSprint20261103/Work/BeforeSwing20261104/`。预览未重渲。Game 目标未构建。
+  未运行游戏、测试或验收。
+
+## 斧头组合与副手单持（11-04 用户要求）
+
+用户：双持装备斧头时，两只手都换成现在单持的装备动作；副手装备弯刀或斧头时，按双持的副手动画，包括装备、攻击、技能。
+确认后的范围：双斧装备用单持抛接；斧 + 弯刀混搭时每只手按自己的武器播；主手空、副手单持时左手拿武器（原来是双手空拳）。
+作者源、clip 表、两把武器的间距读数与重建步骤见 `SourceAssets/HatchetPairs20261104/README.md`。
+
+- **双斧装备**（`A_TacticalHatchet_DualEquip`，1.00 s）：右手是单持斧头抛接，左手是它的镜像、晚 0.067 s，各自接住、转好刃口后收进双持待机。两把斧头最近 2.81 cm（双持待机本身 3.53 cm）。
+- **斧 + 弯刀混搭**：
+  - 装备：`PairEquipHK` / `KH`，斧头那只手抛斧头，弯刀那只手是双弯刀装备里同侧的那一半；
+  - 第三段：`PairAttack3HK` / `KH`，斧头那只手劈，弯刀那只手刺，仍是双刺时钟；
+  - 剑气只给劈的那只斧头，镜头是双斧劈和双刺各取一半，打击手感用双斧劈的；
+  - 冲刺就绪举斧只看右手是不是斧头；双持旋风的左臂垂下只看副手是不是斧头。
+- **主手空、副手单持**：
+  - `UColdSteelStatusModel::ActiveKukriWeapon()` 给出这把副手武器。客户端招式、服务端回执、上挑/旋风武器解析、位移校验、耐力和 F 加成都用它，数值按这把武器结算。
+  - 视模采样单持 clip，镜像到左臂，右臂隐藏；武器挂在 hand_l 上，按右手武器的镜像摆放，抛接飞行也镜像。
+  - 镜头、视模冲击和剑气都镜像，旋风反向转。
+  - 空手组件不再显示空拳。
+- **构建**：五个 clip 后台导入（修订 `HatchetPairs_V1_20261104`）。`FPSGAMEEditor Win64 Development` 两次构建都 Succeeded：`Saved/BuildEditor/build-hatchet-pairs-20261104.log`、`build-hatchet-lone-offhand-20261104.log`。Game 目标未构建。未运行游戏、测试或验收。
+- **副手单持排查修复**（用户：同步与衔接没做好，有穿模错位）：
+  - 切换动作时刀会离开左手：原来的变换是在入场淡化之后用被收成零缩放的右臂算的。现在改为淡化前从 clip 本身计算，淡化不再带走刀。
+  - 冲击、压入、跳跃摆动整体镜像（`JumpRoot`），冲刺攻击剑气镜像。
+  - 联机：所有者发出的武器名为空，服务端丢弃动作；现在两边都用 `ActiveKukriWeapon`，第三人称刀在右手，动作同步。
+  - 只读复核 `ULoneOffhandBladeAuditCommandlet`：15 段 clip 镜像误差 0.001 cm；8 种切换中刀与目标握持差 0，切换瞬间无跳变。
+  - 详见 `SourceAssets/HatchetPairs20261104/README.md`。
+- **吊坠/附魔**（`KukriDecisive`、`KukriRelentless`、`KukriBerserker`、`KukriFrostRaven` 四个组件）：改用 `ActiveKukriWeapon()`，副手单持也生效；按左手（副手）显示 HUD、状态和手部特效。
+- **预览**：组合 5 段、副手单持 3 段、冲刺就绪 V3 已渲染（V7 手模、真实网格，非实机）。路径见 `SourceAssets/HatchetPairs20261104/README.md`。
+- **未覆盖**：第三人称副手单持没有镜像到左手（刀在右手），混搭也没有各手各自的武器动作。
+
+## 双持冲刺攻击：双手向下劈（11-04 用户要求）
+
+用户：双持冲刺攻击的左手动作，弯刀和斧头都做成双手向下劈砍，参考双斧三连击最后一击。
+- 单持冲刺攻击是双手合握一把刀的跳劈，双持时左手没有可合握的刀柄。新 clip `A_Kukri_DualSprintAttack`：
+  - 右手照单持跳劈，左手是同一时刻的镜像；
+  - 两拳各向外 9 cm，两把武器并排落下；
+  - 从双持待机起手，收回双持待机。
+- 弯刀对、斧头对、混搭共用这一段。时钟同单持（命中窗、剑气、1.333 s），玩法不变。
+- 镜头去掉偏航和滚转（两手对称）；剑气两道，每把武器一道。
+- 屏幕上可见的最近间距：弯刀/弯刀 3.91 cm、斧头/弯刀 2.08 cm、弯刀/斧头 1.90 cm、斧头/斧头 1.85 cm（回到交叉握姿途中）。
+- 作者源、读数和重建步骤见 `SourceAssets/DualSprintAttack20261104/README.md`。构建 Succeeded，预览已渲染。未运行游戏、测试或验收。
+
 ## 装备动画 V1：竖直抛接（11-01，已被 V2 替换）
 
 用户：装备动画改为竖直抛出（不旋转），接住握把直接握住。斧子单持时不再沿用弯刀的翻转抛刀，改用独立 clip `HatchetEquip`（`A_TacticalHatchet_Equip`，0.82 s）；其余动作仍共用弯刀。作者源与重建命令见 `SourceAssets/HatchetEquip20261101/`（`author_hatchet_equip.py`）。

@@ -1,0 +1,40 @@
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriStrike.cpp b/Source/FPSGAME/Weapons/Kukri/KukriStrike.cpp
+index cec9fe98..ca0f4dc4 100644
+--- a/Source/FPSGAME/Weapons/Kukri/KukriStrike.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriStrike.cpp
+@@ -17,6 +23,12 @@
+ 
+ const KukriRhythm::FStrike& UKukriWeaponComponent::StrikeProfile() const
+ {
++    if(bFalconHeavy&&bHeavyAttack)
++    {
++        static const KukriRhythm::FStrike Chop={SwiftFalconHeavy::ChopAt,.026f,1.2f,1.8f,-1.2f,0.f,1.6f,0.f,-.8f,true};
++        static const KukriRhythm::FStrike Pull={SwiftFalconHeavy::PullAt,.024f,.7f,-1.7f,1.15f,0.f,-.55f,0.f,.25f,true};
++        return Shot.MeleeDamagePhase==1?Pull:Chop;
++    }
+     if(bDualThrust)return IsHatchetDualChop()?HatchetDualChopRhythm::Strike:KukriRhythm::DualThrustStrike;
+     if(bDualHeavy&&bHeavyAttack)return KukriRhythm::DualHeavyStrike;
+     if(IsHatchetChop())return HatchetChopRhythm::Strike;
+@@ -32,9 +44,21 @@ bool UKukriWeaponComponent::IsHatchetChop() const
+ 
+ // Two hatchets: the double thrust becomes both hatchets chopping down together; it keeps the double thrust's gameplay
+ // clock (KukriRhythm::DualThrust*, static_assert in HatchetDualChopRhythm.h), only the clip and presentation change.
++// A hatchet + kukri pair (2026-11-04) chops with the hatchet hand only: the chop's impact feel, whoosh and that head's
++// crescent, the camera half and half with the double thrust (PairChopCamera).
+ bool UKukriWeaponComponent::IsHatchetDualChop() const
+ {
+-    return bDualThrust&&bDualChop;
++    return bDualThrust&&(bChopRight||bChopLeft);
++}
++
++void UKukriWeaponComponent::PairChopCamera(float T,FRotator& Rotation,float& Fov,FVector* Location) const
++{
++    HatchetDualChopRhythm::Camera(T,Rotation,Fov,Location);
++    if(bChopRight&&bChopLeft)return;
++    FRotator Thrust;float ThrustFov=0.f;
++    KukriRhythm::DualThrustCamera(T,Thrust,ThrustFov);
++    Rotation=(Rotation+Thrust)*.5f;Fov=(Fov+ThrustFov)*.5f;
++    if(Location)*Location*=.5f;
+ }
+ 
+ const KukriRhythm::FSwing& UKukriWeaponComponent::SwingProfile() const

@@ -1,0 +1,58 @@
+diff --git a/Source/FPSGAME/Characters/FPSBodySwordPose.inl b/Source/FPSGAME/Characters/FPSBodySwordPose.inl
+index 4dcd922b..637289e7 100644
+--- a/Source/FPSGAME/Characters/FPSBodySwordPose.inl
++++ b/Source/FPSGAME/Characters/FPSBodySwordPose.inl
+@@ -24,11 +40,51 @@ void FControls::BlendSword(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
+     Out.Pose=Pose.GetPose();
+     FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Out.Pose);
+     FPoseContext Authored(Out);Sword.Evaluate(Authored);
++    // Mixed hatchet + kukri stage 3: the main take owns the right arm; the complementary take supplies the complete left
++    // chain. Both are authored on the same 2.05 s clock, so the left arm simply replaces its side of the evaluated pose.
++    if(bMixedPairAlt)
++    {
++        FPoseContext Alt(Out);SwordAlt.Evaluate(Alt);
++        for(int32 I=0;I<LeftArmBones.Num();++I)if(LeftArmBones[I])Authored.Pose[FCompactPoseBoneIndex(I)]=Alt.Pose[FCompactPoseBoneIndex(I)];
++    }
++    const bool ContinuousHammer=Warhammer&&bHammerContinuousGrip;
++    FTransform HammerCarryGrip=FTransform::Identity,HammerSourceGrip=FTransform::Identity;
++    if(ContinuousHammer&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
++    {
++        const auto Right=Hands[0].GetCompactPoseIndex(Bones),Left=Hands[1].GetCompactPoseIndex(Bones);
++        HammerCarryGrip=Pose.GetComponentSpaceTransform(Left).GetRelativeTransform(Pose.GetComponentSpaceTransform(Right));
++        FCSPose<FCompactPose> RawSource;RawSource.InitPose(Authored.Pose);
++        HammerSourceGrip=RawSource.GetComponentSpaceTransform(Left).GetRelativeTransform(RawSource.GetComponentSpaceTransform(Right));
++    }
+     SwordSupportThumbWeight=bSwordNativeGrip?FMath::Clamp(Authored.Curve.Get(TEXT("SwordSupportThumb")),0.f,1.f)*SwordWeight:0.f;
+     if(bSwordChanged)
+-    {SwordEntryPose=LastSwordPose;SwordEntryGripRoll=LastSwordGripRoll;SwordEntryGripSlide=LastSwordGripSlide;SwordTransitionAge=0.f;}
++    {
++        SwordEntryPose=ContinuousHammer&&!HammerVisiblePose.IsEmpty()?HammerVisiblePose:LastSwordPose;
++        if(State.ActionVariant==TEXT("ZhufengWhirlwind")||bHighlandDash)
++        {
++            // A sprint release starts from the evaluated carry on this frame,
++            // not a stale ordinary strike retained from the previous action.
++            SwordEntryPose.SetNum(Out.Pose.GetNumBones());
++            for(int32 I=0;I<SwordEntryPose.Num();++I)SwordEntryPose[I]=Out.Pose[FCompactPoseBoneIndex(I)];
++        }
++        SwordEntryGripRoll=LastSwordGripRoll;SwordEntryGripSlide=LastSwordGripSlide;SwordTransitionAge=0.f;
++        HammerGripEntry=bHasHammerGripHistory?HammerGripLast:HammerCarryGrip;HammerHipEntry=HammerHipLast;
++        HammerEntryVelocity.Init(FVector::ZeroVector,SwordEntryPose.Num());
++        if(ContinuousHammer&&HammerPreviousPose.Num()==SwordEntryPose.Num()&&HammerHistoryDelta>SMALL_NUMBER)
++            for(int32 I=0;I<HammerEntryVelocity.Num();++I)
++            {
++                FQuat Motion=(SwordEntryPose[I].GetRotation()*HammerPreviousPose[I].GetRotation().Inverse()).GetNormalized();
++                if(Motion.W<0.f)Motion=Motion*-1.f;
++                HammerEntryVelocity[I]=Motion.ToRotationVector()/HammerHistoryDelta;
++            }
++    }
+     SwordTransitionAge+=Delta;
+-    const float Transition=Ease(SwordTransitionAge/.08f);
++    const float Transition=Ease(SwordTransitionAge/SwordTransitionSeconds);
++    if(ContinuousHammer)
++    {
++        const FVector Effort(Authored.Curve.Get(TEXT("HammerHipX")),Authored.Curve.Get(TEXT("HammerHipY")),Authored.Curve.Get(TEXT("HammerHipZ")));
++        HammerHipLast=FMath::Lerp(HammerHipEntry,Effort,Transition);
++    }
+     const float RollSin=Authored.Curve.Get(TEXT("SwordGripRollSin"));
+     const float RollCos=Authored.Curve.Get(TEXT("SwordGripRollCos"));
+     // A full physical turn closes at the same grip. Interpolating an unwrapped

@@ -1,4 +1,5 @@
 #include "KukriWeaponComponent.h"
+#include "KukriDecisiveComponent.h"
 #include "KukriArmsMeshComponent.h"
 #include "KukriRhythm.h"
 #include "KukriDashRhythm.h"
@@ -8,6 +9,8 @@
 #include "../../Skills/LightningHasteSpeed.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../UI/ColdSteelStatusModel.h"
+#include "../../Multiplayer/ColdSteelPlayerState.h"
+#include "../MeleeWeaponStats.h"
 #include "../../Monsters/MonsterCombatComponent.h"
 #include "../../Monsters/BoundCongregateCaptureComponent.h"
 #include "Animation/AnimSequence.h"
@@ -24,6 +27,8 @@
 namespace
 {
 const FName KukriDashClip(TEXT("SprintAttack"));
+// A pair (kukri, hatchet or mixed): both hands chop down together on the same clock (KukriDualDashRhythm.h).
+const FName KukriDualDashClip(TEXT("DualSprintAttack"));
 
 UColdSteelStatusModel* KukriDashProfile(const UWorld* World)
 {
@@ -80,25 +85,47 @@ bool UKukriWeaponComponent::TryBeginDashAttack()
     if(!IsEquipped()||IsBusy()||!CanUse()||!Viewmodel||!Animations.FindRef(KukriDashClip)||
         P->IsCastBlockingLeftHandAction()||P->IsDodging()||P->IsSpellGestureBlocking())return false;
     auto* Profile=KukriDashProfile(GetWorld());
-    const auto* Item=Profile?Profile->Equipped():nullptr;
+    const auto* Item=Profile?Profile->ActiveKukriWeapon():nullptr;
     if(!Item||Item->InstanceId!=InstanceId||Profile->ActiveProductionTool()||Profile->MasteryProgress(TEXT("dashAttack")).Level<1)return false;
     if(DashReadyFraction()<1.f-UE_SMALL_NUMBER)return false;
     const FDashAttackCast Cast=Profile->DashAttackStats();
     // The skill cost replaces this swing's ordinary cost and is paid once; without it nothing starts (a ready click
     // never falls back to an ordinary swing).
-    if(!Profile->SpendStamina(Cast.StaminaCost))return false;
+    auto* Net=P->GetLocalRole()==ROLE_AutonomousProxy?P->GetPlayerState<AColdSteelPlayerState>():nullptr;
+    if(P->GetLocalRole()==ROLE_AutonomousProxy&&!Net)return false;
+    if(Net?!Profile->CanSpendStamina(Cast.StaminaCost):!Profile->SpendStamina(Cast.StaminaCost))return false;
     Shot=ColdSteelSkills::Snapshot(P,Item);
     Shot.bRifle=false;Shot.bPistol=false;Shot.WeakpointPercent=0;
     Shot.AttackForm=KukriRhythm::Form;Shot.bMeleeStrike=true;
     Shot.AttackMeta=0x16;            // active dash skill (authority uses DashAttackStats for range and damage)
+    ColdSteelSkills::CapturePairedDash(Shot,P,Profile);
+    Shot.ToughnessDamageMultiplier=Cast.ToughnessMultiplier;
     SwingDamage=Cast.Damage;DashRangeCM=Cast.RangeCM;DashArcDegrees=Cast.ArcDegrees;DashKnockbackCM=Cast.KnockbackCM;
     DashDirection=P->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
+    if(Net)
+    {
+        const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Item,Profile);
+        Shot.KukriAttackSerial=Net->RequestKukriAttack(InstanceId,Off?Off->InstanceId:FString(),0,true,DashDirection,Shot.MasteryAttackSerial);
+        if(!Shot.KukriAttackSerial)return false;
+    }
     bDashAttack=bDashTrainingPending=true;DashHits=DashKills=0;DashSprintSeconds=0.f;
+    if(auto* Pendant=P->FindComponentByClass<UKukriDecisiveComponent>())
+    {const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Item,Profile);Pendant->BeginLocal(Shot,true,Off?Off->InstanceId:FString());}
     bSwingPlayed=bImpactConfirmed=bWallHit=false;HitActors.Reset();HitStop=0.f;
+    LastSkillWallBeat=INDEX_NONE;
     // The swing combo starts over after the sprint attack.
     NextStage=0;LastAttackEnd=-1.;
-    // From the sprint carry (or idle/walk) into the clip's stance start.
-    SetClip(KukriDashClip,false,KukriRhythm::SprintBlendSeconds);
+    // From the sprint carry (or idle/walk) into the clip's stance start.  Out of the raised ready run the hands have
+    // further to travel onto the shared grip, so that entry gets a beat longer than the ordinary sprint blend.
+    const bool bFromReadyRun=CurrentClip==FName(TEXT("HatchetDualSprintReady"))||
+        CurrentClip==FName(TEXT("HatchetDualSprintEnter"))||CurrentClip==FName(TEXT("HatchetDualSprintExit"));
+    // The attack takes the clip over: the ready-run set starts from its enter clip again next time.
+    ReadyRunPhase=0;
+    // With a weapon in each hand the single's two-handed grip does not exist: the pair chops down side by side.
+    bDualDash=IsDual()&&Animations.FindRef(KukriDualDashClip)!=nullptr;
+    SetClip(bDualDash?KukriDualDashClip:KukriDashClip,false,bFromReadyRun?.26f:KukriRhythm::SprintBlendSeconds);
+    PreviousBlade=BladeFrame();
+    if(bDualDash)PreviousOffhandBlade=OffhandBladeFrame();
     return true;
 }
 
@@ -133,11 +160,26 @@ void UKukriWeaponComponent::AdvanceDashAttack(float Delta)
         }
         // The chop's space distortion, hit or miss, when the blade comes over the top (KukriSkillRift.cpp).
         if(Before<KukriDashRhythm::RiftStart-UE_KINDA_SMALL_NUMBER&&Elapsed>=KukriDashRhythm::RiftStart-UE_KINDA_SMALL_NUMBER)StartDashRift();
-        if(Before>=KukriDashRhythm::ContactStart-UE_KINDA_SMALL_NUMBER&&Before<KukriDashRhythm::ContactEnd)DashContact();
+        const bool InWindow=Before>=KukriDashRhythm::ContactStart-UE_KINDA_SMALL_NUMBER&&Before<KukriDashRhythm::ContactEnd;
+        const FTransform BladeNow=BladeFrame();
+        if(InWindow)
+        {
+            DashContact();
+            const auto& Modules=bLoneOffhand?OffhandModules:MainModules;
+            SampleSkillBladeWall(PreviousBlade,BladeNow,Modules.TraceBase,Modules.TraceTip,0);
+        }
+        PreviousBlade=BladeNow;
+        if(bDualDash)
+        {
+            const FTransform LeftNow=OffhandBladeFrame();
+            if(InWindow)SampleSkillBladeWall(PreviousOffhandBlade,LeftNow,OffhandModules.TraceBase,OffhandModules.TraceTip,0);
+            PreviousOffhandBlade=LeftNow;
+        }
         if(Elapsed>=Length-UE_KINDA_SMALL_NUMBER)
         {
-            bDashAttack=false;HitActors.Reset();
+            bDashAttack=false;bDualDash=false;HitActors.Reset();
             FinishDashAttack();
+            // The clip's last frame is the stance; the locomotion blend takes over from there.
             SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);
         }
     }
@@ -164,6 +206,7 @@ void UKukriWeaponComponent::DashContact()
         if(Applied<=0.f&&!bKilled)continue;
         // Hit cue and training: damage was dealt, or this blow killed the target.
         ConfirmDashImpact(Hit);
+        if(Combat&&P->HasAuthority())SpawnContactFX(Hit,false);
         P->NotifyConfirmedWeaponHit(Target,Applied,&Receipt,false);
         if(Eligible){++DashHits;if(bKilled)++DashKills;}
         if(Combat)Combat->ReceiveMeleeKnockback(P,DashKnockbackCM);
@@ -184,15 +227,20 @@ void UKukriWeaponComponent::FinishDashAttack()
 {
     // Training is committed once per cast, also when the chop is cancelled after it has hit.
     if(!bDashTrainingPending)return;
+    FinishNetworkAttack();
     bDashTrainingPending=false;
-    if(auto* Profile=KukriDashProfile(GetWorld()))Profile->TrainDashAttack(DashHits,DashKills);
+    if(auto* P=Pawn();P&&P->HasAuthority())
+        if(auto* Profile=KukriDashProfile(GetWorld()))Profile->TrainDashAttack(DashHits,DashKills);
 }
 
 void UKukriWeaponComponent::GetDashCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const
 {
     // Same author clock as the clip: the hit-stop freezes the curve with the arms.
-    KukriDashRhythm::Camera(Elapsed,Rotation,FovDelta);
     Location=FVector::ZeroVector;
+    KukriDashRhythm::Camera(Elapsed,Rotation,FovDelta);
+    // Both hands chop down symmetrically: keep the jump's pitch and FOV, drop the single right-arm chop's yaw and roll
+    // (as the dual hatchet chop does, HatchetDualChopRhythm).
+    if(bDualDash){Rotation.Yaw=0.f;Rotation.Roll=0.f;}
     if(ImpactAge>=0.f)
     {
         const float Shake=KukriRhythm::HitShake(ImpactAge)*ImpactKick;

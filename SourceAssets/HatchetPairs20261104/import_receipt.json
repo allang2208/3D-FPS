@@ -1,0 +1,49 @@
+{
+  "revision": "HatchetPairs_V1_20261104",
+  "assets": [
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_DualEquip.A_TacticalHatchet_DualEquip",
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairEquipHK.A_TacticalHatchet_PairEquipHK",
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairEquipKH.A_TacticalHatchet_PairEquipKH",
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairAttack3HK.A_TacticalHatchet_PairAttack3HK",
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairAttack3KH.A_TacticalHatchet_PairAttack3KH"
+  ],
+  "animations": {
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_DualEquip": {
+      "frames": 121,
+      "fps": 120,
+      "seconds": 1.0,
+      "play_length": 1.0,
+      "loop": false
+    },
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairEquipHK": {
+      "frames": 121,
+      "fps": 120,
+      "seconds": 1.0,
+      "play_length": 1.0,
+      "loop": false
+    },
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairEquipKH": {
+      "frames": 121,
+      "fps": 120,
+      "seconds": 1.0,
+      "play_length": 1.0,
+      "loop": false
+    },
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairAttack3HK": {
+      "frames": 247,
+      "fps": 120,
+      "seconds": 2.05,
+      "play_length": 2.049999952316284,
+      "loop": false
+    },
+    "/Game/Weapons/TacticalHatchet20261101/Animations/A_TacticalHatchet_PairAttack3KH": {
+      "frames": 247,
+      "fps": 120,
+      "seconds": 2.05,
+      "play_length": 2.049999952316284,
+      "loop": false
+    }
+  },
+  "runtime_tested": false,
+  "complete": true
+}

@@ -1,0 +1,77 @@
+diff --git a/Source/FPSGAME/Weapons/Kukri/KukriRift.cpp b/Source/FPSGAME/Weapons/Kukri/KukriRift.cpp
+index 4233b64d..1465c24f 100644
+--- a/Source/FPSGAME/Weapons/Kukri/KukriRift.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/KukriRift.cpp
+@@ -29,9 +35,22 @@ namespace
+ 
+     /** Ribbons of one stage: the slashes have one crescent, the stab two crossed narrow ribbons, the dual heavy's X one
+      *  crescent per blade (bDual). */
+-    int32 StageRibbons(int32 Stage,bool bDual,FRibbon Out[2])
++    int32 StageRibbons(int32 Stage,bool bDual,bool bChop,FRibbon Out[2],uint8 ChopSides,int8 FalconPhase)
+     {
+-        if(bDual&&bChop){Out[0]=HatchetDualChopRhythm::RibbonRight;Out[1]=HatchetDualChopRhythm::RibbonLeft;return 2;}  // two hatchets
++        if(FalconPhase>=0)
++        {
++            if(!bDual){Out[0]=FalconPhase?SwiftFalconRibbons::Pull:SwiftFalconRibbons::Chop;return 1;}
++            Out[0]=FalconPhase?SwiftFalconRibbons::DualPullRight:SwiftFalconRibbons::DualChopRight;
++            Out[1]=FalconPhase?SwiftFalconRibbons::DualPullLeft:SwiftFalconRibbons::DualChopLeft;
++            return 2;
++        }
++        if(bDual&&bChop)   // hatchets on the double thrust: one crescent per chopping head (ChopSides 1 right, 2 left)
++        {
++            int32 N=0;
++            if(ChopSides&1)Out[N++]=HatchetDualChopRhythm::RibbonRight;
++            if(ChopSides&2)Out[N++]=HatchetDualChopRhythm::RibbonLeft;
++            return N;
++        }
+         if(bDual){Out[0]=KukriDualRiftRibbons::HeavyRight;Out[1]=KukriDualRiftRibbons::HeavyLeft;return 2;}
+         if(bChop){Out[0]=HatchetChopRhythm::Ribbon;return 1;}         // the hatchet chop: one crescent swept by its head
+         if(Stage==0){Out[0]=KukriRiftRibbons::Sweep;return 1;}
+@@ -43,14 +62,14 @@ namespace
+ 
+     /** bMirror: the ribbon mirrored left-right about the view (mesh X = camera right) -- the dual sweep's left blade cuts
+      *  the mirror image of the first stage (SourceAssets/DualKukriIdle20261025/author_dual_attack.py). */
+-    UE::Geometry::FDynamicMesh3 BuildRibbons(int32 Stage,bool bMirror,bool bDual)
++    UE::Geometry::FDynamicMesh3 BuildRibbons(int32 Stage,bool bMirror,bool bDual,bool bChop,uint8 ChopSides,int8 FalconPhase)
+     {
+         using namespace UE::Geometry;
+         FDynamicMesh3 Mesh;Mesh.EnableAttributes();
+         FDynamicMeshUVOverlay* UV=Mesh.Attributes()->PrimaryUV();
+         FDynamicMeshNormalOverlay* Normals=Mesh.Attributes()->PrimaryNormals();
+         FRibbon Ribbons[2]={};
+-        const int32 Count=StageRibbons(Stage,bDual,Ribbons);
++        const int32 Count=StageRibbons(Stage,bDual,bChop,Ribbons,ChopSides,FalconPhase);
+         constexpr int32 N=KukriRiftRibbons::Stations;
+         for(int32 R=0;R<Count;++R)
+         {
+@@ -94,20 +113,25 @@ void UKukriWeaponComponent::StartRift()
+         RiftVisual->SetMaterial(0,RiftMID);
+         RiftStage=INDEX_NONE;
+     }
+-    // Two hatchets' chop: one crescent per head (bDual and bChop together).
++    // Two hatchets' chop: one crescent per head (bDual and bChop together); a hatchet + kukri pair only the hatchet's.
+     const bool bDualChopRift=bAttacking&&IsHatchetDualChop();
+     const bool bDualRift=(bDualHeavy&&bHeavyAttack)||bDualChopRift, bChopRift=IsHatchetChop()||bDualChopRift;
+-    if(RiftStage!=Stage||bRiftMirrored!=bOffhandSwing||bRiftDual!=bDualRift||bRiftChop!=bChopRift)
++    const uint8 ChopSides=bDualChopRift?uint8((bChopRight?1:0)|(bChopLeft?2:0)):3;
++    // Mirrored for the dual sweep's left blade and for the lone off-hand blade's mirrored moveset.
++    const bool bMirror=bOffhandSwing!=bLoneOffhand;
++    const int8 FalconPhase=bHeavyAttack&&bFalconHeavy?int8(Shot.MeleeDamagePhase):-1;
++    if(RiftStage!=Stage||bRiftMirrored!=bMirror||bRiftDual!=bDualRift||bRiftChop!=bChopRift||RiftChopSides!=ChopSides||RiftFalconPhase!=FalconPhase)
+     {
+-        RiftVisual->SetMesh(BuildRibbons(Stage,bOffhandSwing,bDualRift));RiftVisual->SetMaterial(0,RiftMID);
+-        RiftStage=Stage;bRiftMirrored=bOffhandSwing;bRiftDual=bDualRift;
++        RiftVisual->SetMesh(BuildRibbons(Stage,bMirror,bDualRift,bChopRift,ChopSides,FalconPhase));RiftVisual->SetMaterial(0,RiftMID);
++        RiftFalconPhase=FalconPhase;
++        RiftStage=Stage;bRiftMirrored=bMirror;bRiftDual=bDualRift;bRiftChop=bChopRift;RiftChopSides=ChopSides;
+     }
+     // The dual sweep's left blade reveals its ribbon on the same window, its stage's DualSweepOffset later.
+     RiftTimeOffset=bOffhandSwing?KukriRhythm::DualSweepOffset(Stage):0.f;
+     // Freeze the authored crescent where the viewmodel is now, so it stays in the world while the view moves on.
+     RiftOrigin=Viewmodel->GetComponentTransform();RiftDirection=Camera->GetForwardVector();
+     RiftAge=0.f;RiftFadeAge=-1.f;bRiftActive=true;
+-    const auto& R=bRiftDual&&bRiftChop?HatchetDualChopRhythm::Rift:bRiftDual?KukriRhythm::DualHeavyRift:
++    const auto& R=RiftFalconPhase>=0?FalconTrails[RiftFalconPhase]:bRiftDual&&bRiftChop?HatchetDualChopRhythm::Rift:bRiftDual?KukriRhythm::DualHeavyRift:
+         bRiftChop?HatchetChopRhythm::Rift:KukriRhythm::Rifts[Stage];
+     RiftMID->SetScalarParameterValue(TEXT("RiftStrength"),R.Strength);
+     RiftMID->SetScalarParameterValue(TEXT("RiftFade"),1.f);

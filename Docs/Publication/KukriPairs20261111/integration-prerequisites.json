@@ -1,0 +1,139 @@
+{
+  "task": "KukriPairs20261111",
+  "base": "HEAD 77df964b (main)",
+  "note": "HEAD-relative Integration patches; each carries only this task's hunks, verified with git apply --check on a clean HEAD 77df964b export.",
+  "requires": [
+    "Apply with `git apply` on a clean HEAD checkout (verified zero-fuzz against HEAD 77df964b).",
+    "Shared hosts also carry sibling sessions' unpublished layers (SwiftFalcon hooks, network heavy receipts, module visuals, staff-offhand whirlwind); those are deliberately excluded.",
+    "KukriWhirlwind.cpp and KukriDashAttack.cpp ship as whole worktree files because their HEAD versions predate the staff-offhand / network-receipt layers.",
+    "Clips A_TacticalHatchet_DualEquip/PairEquipHK/PairEquipKH/PairAttack3HK/PairAttack3KH and A_Kukri_DualSprintAttack must be imported with SourceAssets/HatchetPairs20261104 and SourceAssets/DualSprintAttack20261104.",
+    "player_body.json patch adds only the Jason/Kaitlin Kukri.Offhand.Equip and Kukri.Offhand.HatchetEquip routes."
+  ],
+  "patches": [
+    {
+      "host": "Content/ColdSteelData/player_body.json",
+      "base_local_sha256_lf_utf8": "5d5b1036c57317766adc4a443eb07c93426935cf900840ce9f82c27b1e3f1acb",
+      "current_local_sha256_lf_utf8": "ddd72544bd125cd4f53102794c47c13f88c0fec99e671ca57f516051ae97576c",
+      "patch": "Content__ColdSteelData__player_body.json.patch",
+      "patch_sha256": "92b939df1dcb71ddb09c1803ee52162a54aa0323cf9eacd2d50e0b490409f6b8"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSBodyKukriMotion.h",
+      "base_local_sha256_lf_utf8": "34374cca7e20dc3e392825845d30dc60bef96fec8803d098dec21a44bdd2a2f8",
+      "current_local_sha256_lf_utf8": "8f6c12670a16eed96cd7b4842cbd84f663ef94150a6475a9ca466604ce38bb0b",
+      "patch": "Source__FPSGAME__Characters__FPSBodyKukriMotion.h.patch",
+      "patch_sha256": "2cf3193d8a465c8f4039168fa951fe6da1bda8a52bb66ff8d638fd41027b1541"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSBodyKukriRifts.cpp",
+      "base_local_sha256_lf_utf8": "4448c92ad17feeca54ca235685d43ef5046678b109aa45fc7d90e49ba2178c33",
+      "current_local_sha256_lf_utf8": "c3e187e54d060c08f227946ff0fcdb322ddeb82a4cec406ffca1fe76ba044e85",
+      "patch": "Source__FPSGAME__Characters__FPSBodyKukriRifts.cpp.patch",
+      "patch_sha256": "e211b565b47f223b082d16cb29dabc9cdff9b54ad7d05f68810bdab2f4a4bce3"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+      "base_local_sha256_lf_utf8": "6aa6d3f51b712f91952c2743266ef4c7aa0e91359c0874ed9f03346f4100835b",
+      "current_local_sha256_lf_utf8": "d81166291c41fc83a7fd1c0571eb50bd9ff4b7868e3126f2b1abf0b45763e51f",
+      "patch": "Source__FPSGAME__Characters__FPSBodySwordPose.inl.patch",
+      "patch_sha256": "7571c241aea41a3212e61ba4354efb2df0494be77cb57c45d57f049223bf997c"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "base_local_sha256_lf_utf8": "a00a0f9c448b5f4e196614ab444393433d2fcd3980984b2bc36d8784ff14266e",
+      "current_local_sha256_lf_utf8": "df566ae443ffe83908ce97c8f174af180d601c1d06188bc7d299d44d8baeb5b1",
+      "patch": "Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+      "patch_sha256": "866e9e5cd3e2911e428b3eecf3ea32d3b1e2e9744a06f8f6307bbb72df218179"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "base_local_sha256_lf_utf8": "fc7205cfe800d77e1dbd0a4d27a1729e06851dd4318cb9296a2d24824ef88d83",
+      "current_local_sha256_lf_utf8": "fab319cf8b4033a29bb77ed3c864786b9af7f9c347e5d6ee1467c021dcf8e916",
+      "patch": "Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.cpp.patch",
+      "patch_sha256": "100070f0a34984caecbf1f6e77eecf68f85eaac4d13441e13a1d540fa0540e48"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "base_local_sha256_lf_utf8": "c2cf89c667f8f8e744c8bf32e977a92dbadffe4b335756937646ca7d4483ac36",
+      "current_local_sha256_lf_utf8": "dffb2fa13382de41661a8183e5a6d2314aae0580d454fc55eb6896a81d3173ad",
+      "patch": "Source__FPSGAME__Characters__FPSPlayerBodyConsumable.cpp.patch",
+      "patch_sha256": "80b01c7ccd4d41216ac451771af51a938be93d127e87158a7f9f5db29bf5e0d3"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "base_local_sha256_lf_utf8": "2e5402babba6c48b209718c7079517670f46892458b47a354c5c341ede4e0bf8",
+      "current_local_sha256_lf_utf8": "ffa1d1ee621bd0271b41c9339ed954c226a2f19f4d05cf2bb5e0d40ac3f7029b",
+      "patch": "Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+      "patch_sha256": "7eb173af591e53a8e5812bb5c6311d0dc6780d27266ef983c26dc77b43bfe065"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp",
+      "base_local_sha256_lf_utf8": "ff4024c4e3349c4032a536ced2bdaeee5e428184e06a655a90d1e1ee35fa9a12",
+      "current_local_sha256_lf_utf8": "404c864e6c5a26b270f796b0d0f3a82369f64c9b0b6320ddb68271c03d1c4abf",
+      "patch": "Source__FPSGAME__Characters__FPSPlayerBodyKukri.cpp.patch",
+      "patch_sha256": "54e988faebca77170779322302316cac6c8cfc2488388c2b3b95fae7706b6779"
+    },
+    {
+      "host": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "base_local_sha256_lf_utf8": "580b9fdbd5c8e654b703d322e393016539f11cff43c681369e3a29db63d06bf4",
+      "current_local_sha256_lf_utf8": "f99c27a452803b46088ccebef243e2873d3337573dd60c4dbdb18ab300314d3c",
+      "patch": "Source__FPSGAME__Characters__FPSPlayerBodyTypes.h.patch",
+      "patch_sha256": "6b9c69ebcdac1b8521f48f2df9de930ba2335991c5052e9e5a67c50daa0a5325"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.cpp",
+      "base_local_sha256_lf_utf8": "d14da01c486577d6faf533151faefa4f2fa645e60ecc3e19619ed7c781b3552a",
+      "current_local_sha256_lf_utf8": "8f7a2466293f07e46351a986cb3f88f4a2f3e075821fe9c670d91ddef3cf8b38",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriArmsMeshComponent.cpp.patch",
+      "patch_sha256": "6f41f052a775d38bb87216e0de7cc0af301cdd680d76fc40d5b7fa67416bc2d8"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.h",
+      "base_local_sha256_lf_utf8": "42c3c930bd189c0c4bc718716b7e89e198bca62941a4e7b9bb52a4ebd92eafc2",
+      "current_local_sha256_lf_utf8": "139bd8c2c78ea7f41beabba589f52967908956c0644936b98fcc6ba14c2f05be",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriArmsMeshComponent.h.patch",
+      "patch_sha256": "dbbee24868427bc57bd214aa226eca55151eb8607300b91fc1e9288a1c5cddbe"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriRift.cpp",
+      "base_local_sha256_lf_utf8": "f746c41df0ff456ec2be15d4ddefc30421afd975d0f852cfb41e8bd3fce8febc",
+      "current_local_sha256_lf_utf8": "7434c29f43ebdd0277b9abf73716493286c1c0e1b7c8a18307101d898e5c0d8f",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriRift.cpp.patch",
+      "patch_sha256": "0cff565dc19ffbbcd61cbd27c091a110623117b4a633995e1ade7a7c8f679e71"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriStrike.cpp",
+      "base_local_sha256_lf_utf8": "c7cb03a6b9e7ee205b55d1ba9f314e963732fc7065e1ddb2d75743023bac49b5",
+      "current_local_sha256_lf_utf8": "80cc68f796639ce25486df21237b564e9f9ee54dfee0ef479a6bded1dea8f37b",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriStrike.cpp.patch",
+      "patch_sha256": "a77f8549f8db2dfa107c6e867e9056bfc6ee3328edbb8bad476e254a4c9511f8"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+      "base_local_sha256_lf_utf8": "aabf254801fa75cddbbb02722941e61a19d53cbe423d17c3c23f2fececc2a88a",
+      "current_local_sha256_lf_utf8": "10f9380c44ff63f3a1c123e4eb2759e0905b576e4509a4a7c21048b1dbb17c72",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriWeaponComponent.cpp.patch",
+      "patch_sha256": "67184498ffe93719a4dfa4a5e532aeb98a8c28fcc27c33c52497ed3b40df3151"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+      "base_local_sha256_lf_utf8": "830033fee8e2d28b889c58ac00d6bb9b4c6dc4b11d11e2f0a13e9e85a380794f",
+      "current_local_sha256_lf_utf8": "9f25de9a2a3b1579f37c29a1b98c68f0157f3d8899f823898897dc29e75915f9",
+      "patch": "Source__FPSGAME__Weapons__Kukri__KukriWeaponComponent.h.patch",
+      "patch_sha256": "1bb1ed5de9e2e7b0e2202fb918ec90338b90e8a6d2ac652f406bd86a65062ef1"
+    }
+  ],
+  "whole_file": [
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriWhirlwind.cpp",
+      "reason": "HEAD version predates a sibling session's staff-offhand / ClipTime / Pair refactor; this task's lone whirlwind direction cannot be expressed as a HEAD-relative patch",
+      "current_local_sha256_lf_utf8": "37020ce8b26f5b41bb836ce761a4324f76991b20715de6578c6d5e60035ba326"
+    },
+    {
+      "host": "Source/FPSGAME/Weapons/Kukri/KukriDashAttack.cpp",
+      "reason": "HEAD version predates the network receipt layer; this task's pair chop hook sits on it",
+      "current_local_sha256_lf_utf8": "a51be1dd3e236d57e40049a0806371bf42c403fe609381e65b247e32245db6c8"
+    }
+  ],
+  "apply_option": "git apply (add --whitespace=nowarn: diff context lines that begin with a single space are reported as trailing whitespace by git diff --check; the patches themselves carry no source whitespace errors)"
+}

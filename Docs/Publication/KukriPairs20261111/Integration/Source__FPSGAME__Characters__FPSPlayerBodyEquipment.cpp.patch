@@ -1,0 +1,246 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+index e44ecf1b..a181f607 100644
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -237,18 +276,32 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
+     const auto* WeatherTool=WeatherProfile?WeatherProfile->ActiveProductionTool():nullptr;
+     const auto* WeatherHeld=WeatherProfile?WeatherProfile->Equipped():nullptr;
+     const auto* WeatherMain=WeatherTool?WeatherTool:WeatherHeld;
++    // Main hand empty: the lone off-hand kukri / hatchet is the body's kukri (single presentation; first person mirrors it
++    // into the left hand).
++    const auto* WeatherKukri=WeatherMain?WeatherMain:WeatherProfile?WeatherProfile->ActiveKukriWeapon():nullptr;
++    // Main hand empty: the lone blade is the off-hand slot's item (no main-hand item exists for it).
++    const auto* WeatherLone=!WeatherHeld&&!WeatherTool?WeatherKukri:nullptr;
+     const auto* WeatherOff=WeatherHeld&&!WeatherTool?WeatherProfile->Equipped(WeatherHeld->Cell==6?8:11):nullptr;
+     if(Pawn->IsDualWieldingPistols())
+     {
+         for(int32 I=0;I<2;++I)
+         {
+             const auto& Hand=Pawn->DualPistols->Hand(I);
+-            // Both imported pistol rigs use the right-hand grip; the world instance attaches to the chosen body hand.
+-            Weapons.Add(CaptureWeapon(Hand.Mesh,Hand.Clips.FindRef(TEXT("idle")),TEXT("hand_r")));
++            // Dual assets contain the actual anatomical arm for their side.
++            Weapons.Add(CaptureWeapon(Hand.Mesh,Hand.Clips.FindRef(TEXT("idle")),I==0?TEXT("hand_r"):TEXT("hand_l")));
+             Weapons.Last().AttachHand=I;
+             Weapons.Last().GripProfile=Hand.PoseProfiles.FindRef(TEXT("base"));
+         }
+     }
++    else if(Pawn->IsLoneLeftHandRig())
++    {
++        // 左手单持：第一人称由双持组件的左手网格呈现（真正的左臂几何），
++        // 第三视角也用同一套左手资源，枪挂 hand_l。
++        const auto& Hand=Pawn->DualPistols->Hand(1);
++        Weapons.Add(CaptureWeapon(Hand.Mesh,Hand.Clips.FindRef(TEXT("idle")),TEXT("hand_l")));
++        Weapons.Last().AttachHand=1;
++        Weapons.Last().GripProfile=Hand.PoseProfiles.FindRef(Hand.LoneGripFamily);
++    }
+     else if(Pawn->HasInventoryWeapon())
+     {
+         Weapons.Add(CaptureWeapon(Pawn->AKMViewmodel,Pawn->IdleAnimation,TEXT("hand_r")));
+@@ -260,6 +313,37 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
+         Weapons.Last().PoseFamily=TEXT("Sword");
+         if(const auto* Arms=Cast<URuneSwordMeshComponent>(Sword->Viewmodel))Weapons.Last().GripProfile=Arms->GetGripProfile();
+     }
++    else if(WeatherKukri&&UKukriWeaponComponent::IsKukri(*WeatherKukri))
++    {
++        // Inventory identity also exists on the server's remote pawn, whose
++        // first-person Kukri component intentionally creates no viewmodel.
++        // Main hand empty (2026-11-10): the lone blade hangs on hand_l in the mirrored left grip; the animation pipeline
++        // mirrors the single library's upper body onto the left arm (FControls::MirrorLoneBladeUpperBody).
++        const bool LoneBlade=!WeatherHeld&&!WeatherTool;
++        FFPSBodyWeapon Entry;Entry.PoseFamily=TEXT("Kukri");Entry.GripBone=LoneBlade?TEXT("hand_l"):TEXT("hand_r");
++        Entry.bLoneBlade=LoneBlade;
++        if(LoneBlade)Entry.AttachHand=1;
++        Entry.StaticMesh=FSoftObjectPath(KukriRhythm::BladeMesh);
++        Entry.Mesh=FSoftObjectPath(ColdSteelInventory::Text(*WeatherKukri,TEXT("viewmodel_mesh")));
++        FPSBodyEquipment::DescribeKukri(Entry,*WeatherKukri);
++        Weapons.Add(MoveTemp(Entry));
++        if(Pawn->HasOffhandPistol()&&Pawn->DualPistols)
++        {
++            const auto& Hand=Pawn->DualPistols->Hand(1);
++            Weapons.Add(CaptureWeapon(Hand.Mesh,Hand.Clips.FindRef(TEXT("idle")),TEXT("hand_l")));
++            Weapons.Last().AttachHand=1;Weapons.Last().GripProfile=Hand.PoseProfiles.FindRef(TEXT("base"));
++        }
++        else if(WeatherOff&&UKukriWeaponComponent::IsKukri(*WeatherOff))
++        {
++            // Inventory-backed world equipment also covers remote pawns,
++            // whose owner-only dual viewmodel is intentionally absent.
++            FFPSBodyWeapon Left;Left.PoseFamily=TEXT("KukriDual");Left.GripBone=TEXT("hand_l");Left.AttachHand=1;
++            Left.StaticMesh=FSoftObjectPath(KukriRhythm::BladeMesh);
++            Left.Mesh=FSoftObjectPath(ColdSteelInventory::Text(*WeatherMain,TEXT("viewmodel_mesh")));
++            FPSBodyEquipment::DescribeKukri(Left,*WeatherOff);
++            Weapons.Add(MoveTemp(Left));
++        }
++    }
+     else if(const auto* Bow=Pawn->FindComponentByClass<UBowWeaponComponent>();Bow&&Bow->IsEquipped())
+     {
+         FFPSBodyWeapon Entry;CaptureBow(*Bow,Entry);Weapons.Add(MoveTemp(Entry));
+@@ -351,13 +464,17 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
+     {
+         DescribeGun(W);
+         // A bow is the primary item even though its world mesh belongs to the left hand.
+-        const auto* WeatherItem=W.AttachHand==1&&W.PoseFamily!=TEXT("Bow")?WeatherOff:WeatherMain;
++        const auto* WeatherItem=W.bLoneBlade?WeatherLone:W.AttachHand==1&&W.PoseFamily!=TEXT("Bow")?WeatherOff:WeatherMain;
+         W.ItemInstance=!W.GunInstance.IsEmpty()?W.GunInstance:WeatherItem?WeatherItem->InstanceId:FString();
+         if(W.AttachHand==0&&W.ItemInstance.IsEmpty()&&Pawn->HasInventoryWeapon())
+             W.ItemInstance=Pawn->bUseM4Infima?TEXT("PreviewM4"):TEXT("PreviewAKM");
+         FString Schema=W.Mesh.ToSoftObjectPath().ToString()+W.StaticMesh.ToSoftObjectPath().ToString()+W.GripBone.ToString();
++        if(W.PoseFamily==TEXT("KukriDual"))Schema+=TEXT("|DualKukriCarry20261027");
++        if(W.bGunPistol)Schema+=TEXT("|PistolWristSpaceV2|")+W.GripProfile.ToSoftObjectPath().ToString();
++        if(W.bGunPistol&&(Pawn->IsDualWieldingPistols()||W.AttachHand==1))Schema+=TEXT("|IndependentPistolWristSpaceV1");
++        if(W.bGunPistol&&W.AttachHand==0&&WeatherOff&&!ColdSteelInventory::IsDualPistol(*WeatherOff))Schema+=TEXT("|PistolSupportWristSpaceV1");
+         for(int32 B:W.MotionBones)Schema+=FString::Printf(TEXT("|%d"),B);
+-        for(const auto& P:W.Parts)Schema+=TEXT("|")+P.Mesh.ToSoftObjectPath().ToString()+P.Socket.ToString()+P.TacticalKind.ToString();
++        for(const auto& P:W.Parts)Schema+=TEXT("|")+P.Mesh.ToSoftObjectPath().ToString()+P.Socket.ToString()+P.TacticalKind.ToString()+P.Slot.ToString();
+         if(!W.ReloadPropMesh.IsNull())Schema+=TEXT("|")+W.ReloadPropMesh.ToSoftObjectPath().ToString();
+         W.MotionSchema=FCrc::StrCrc32(*Schema);
+     }
+@@ -443,28 +562,78 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
+     else WorldKukriRiftMaterial=nullptr;
+     for(auto Device:WorldTacticalDevices)if(Device)Device->DestroyComponent();WorldTacticalDevices.Reset();
+     ClearGunPresentation();
+-    for(auto Part:WorldParts)if(Part)Part->DestroyComponent();WorldParts.Reset();
++    for(auto Part:WorldParts)if(Part){GhostScytheMist::Clear(Part);Part->DestroyComponent();}WorldParts.Reset();
+     for(auto Prop:WorldReloadProps)if(Prop)Prop->DestroyComponent();WorldReloadProps.Reset();
+     for(auto Weapon:WorldWeapons)if(Weapon)Weapon->DestroyComponent();WorldWeapons.Reset();
+     WorldEquipmentHands.Reset();
++    WorldWeatherInstances[0].Reset();WorldWeatherInstances[1].Reset();
++    for(const auto& Weapon:Weapons)
++        WorldWeatherInstances[FMath::Min<int32>(Weapon.AttachHand,1)]=Weapon.ItemInstance;
+     MotionBindings.Reset();MotionMaps.Reset();MotionEquipmentIndices.Reset();
++    WorldPistolMagazineAssets.Reset();
++    WorldRevolverAssets.Reset();
+     // New equipment must not interpolate from the preceding gun's support hand.
+     SmoothedContacts=FFPSBodyMotionSample();bMotionSampleValid=false;
++    SmoothedPistolHandChannels[0]=SmoothedPistolHandChannels[1]=NAME_None;
+     if(WorldStaffLight){WorldStaffLight->DestroyComponent();WorldStaffLight=nullptr;}WorldStaffMaterials.Reset();LastWorldLight=-1.f;
+     ClearBow();
+-    if(BodyAnimation){BodyAnimation->bHasLeftGrip=false;BodyAnimation->RifleHold=FFPSBodyRifleHold();BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
++    bHasBaseRightSupport=false;BaseRightSupportGrip=FTransform::Identity;
++    if(BodyAnimation)BodyAnimation->SinglePistolContact=FFPSBodySinglePistolContact();
++    if(BodyAnimation)
++    {
++        BodyAnimation->bOffhandKukriEquipment=false;
++        BodyAnimation->OffhandKukriEquipmentInstance.Reset();
++        BodyAnimation->PistolHatchetPalmInView.Reset();
++    }
++    if(BodyAnimation){BodyAnimation->bHasLeftGrip=BodyAnimation->bHasRightGrip=false;BodyAnimation->LeftGripFromRight=BodyAnimation->RightGripFromLeft=FTransform::Identity;BodyAnimation->RifleHold=FFPSBodyRifleHold();BodyAnimation->IndependentPistolHands=0;BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
++    if(BodyAnimation)FPSBodyHighlandMotion::SelectGrip(BodyAnimation->Clips,false);
+     for(int32 Index=0;Index<Weapons.Num();++Index)
+     {
+         const auto& Definition=Weapons[Index];
+         auto& Motion=MotionBindings.AddDefaulted_GetRef();Motion.Definition=Definition;
+-        const int32 Side=FMath::Min<int32>(Definition.AttachHand,1);
++        // The lone off-hand blade hangs on hand_l (mirrored upper body), even though its body identity is the main slot's.
++        const int32 Side=Definition.bLoneBlade?1:FMath::Min<int32>(Definition.AttachHand,1);
+         const FName BodyHand=Side==1?TEXT("hand_l"):TEXT("hand_r");
+         if(auto* Static=Definition.StaticMesh.LoadSynchronous())
+         {
+             auto* Part=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+             GetOwner()->AddInstanceComponent(Part);Part->SetStaticMesh(Static);
+             Part->SetupAttachment(Body,BodyHand);Part->SetRelativeTransform(Definition.StaticGrip);
++            if(Definition.PoseFamily==TEXT("Kukri")||Definition.PoseFamily==TEXT("KukriDual")||Definition.PoseFamily==TEXT("OffhandKukri"))
++                Part->ComponentTags.AddUnique(TEXT("SwordSlot=blade_1"));
+             if(Definition.PoseFamily==TEXT("Shovel"))BuildShovelGrip(Definition,*Part);
++            if(Definition.PoseFamily==TEXT("Kukri")||Definition.PoseFamily==TEXT("KukriDual"))BuildKukriGrip(Definition,*Part);
++            if(Definition.PoseFamily==TEXT("KukriDual"))Part->ComponentTags.Add(TEXT("KukriDual"));
++            // Lone off-hand blade: single presentation mirrored onto the left arm; the tag hides it during cast/consume.
++            if(Definition.bLoneBlade)Part->ComponentTags.Add(TEXT("OffhandKukri"));
++            const bool PistolAxe=Definition.PoseFamily==TEXT("OffhandKukri")&&Definition.Mesh.ToSoftObjectPath()==FSoftObjectPath(KukriRhythm::ArmsMesh);
++            if(PistolAxe)
++            {
++                BuildKukriGrip(Definition,*Part);
++                Part->ComponentTags.AddUnique(TEXT("OffhandKukri"));
++                // The separate pistol uppercut still uses its original M4 reverse-grip donor.
++                if(auto* UpperRig=LoadObject<USkeletalMesh>(nullptr,TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7")))
++                {
++                    FFPSBodyGripRig Grip;
++                    Grip.Initialize(UpperRig->GetRefSkeleton(),Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),BodyHand);
++                    if(Grip.IsValid())Motion.UppercutReverseMount=OffhandKukriPose::KukriInHand*Grip.Mount;
++                }
++            }
++            else if(Definition.PoseFamily==TEXT("OffhandKukri"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
++            {
++                const auto& Ref=Native->GetRefSkeleton();auto Pose=Ref.GetRefBonePose();
++                for(const auto& Finger:OffhandKukriPose::Digits)
++                    if(const int32 I=Ref.FindBoneIndex(Finger.Name);I>=0)Pose[I].SetRotation(Finger.LocalRotation.GetNormalized());
++                for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
++                FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),BodyHand);
++                if(Grip.IsValid())
++                {
++                    Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=2;
++                    Part->SetRelativeTransform(OffhandKukriPose::KukriInHand*Grip.Mount);
++                    Part->ComponentTags.Add(TEXT("OffhandKukri"));BodyAnimation->bOffhandKukriEquipment=true;
++                    BodyAnimation->OffhandKukriEquipmentInstance=Definition.ItemInstance;
++                }
++            }
+             if(Definition.PoseFamily==TEXT("Spellbook"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
+             {
+                 const auto& Ref=Native->GetRefSkeleton();auto Pose=Ref.GetRefBonePose();
+@@ -653,35 +862,59 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
+         if(Binding.Mesh.IsValid())Binding.Mount=Binding.Mesh->GetRelativeTransform();
+         else if(Binding.Static.IsValid())Binding.Mount=Binding.Static->GetRelativeTransform();
+         for(const auto& Part:Binding.Parts)Binding.FrozenParts.Add(Part.IsValid()?Part->GetRelativeTransform():FTransform::Identity);
++        PreparePistolMagazine(Binding);
++        PrepareRevolverReload(Binding);
++    }
++    if(BodyAnimation)
++    {
++        BaseSupportGrip=BodyAnimation->LeftGripFromRight;
++        BaseRightSupportGrip=BodyAnimation->RightGripFromLeft;bHasBaseRightSupport=BodyAnimation->bHasRightGrip;
++        // Keep the accepted ready grip separate from the live FPS operating
++        // hand. Reload retrieval must never overwrite the carry contact.
++        const bool LeftPrimary=Weapons.Num()==1&&Weapons[0].bGunPistol&&Weapons[0].AttachHand==1;
++        BodyAnimation->SinglePistolContact.Ready=LeftPrimary?BaseRightSupportGrip:BaseSupportGrip;
++        BodyAnimation->SinglePistolContact.bReady=Weapons.Num()==1&&
++            (LeftPrimary?BodyAnimation->bHasRightGrip:BodyAnimation->bHasLeftGrip);
+     }
+-    if(BodyAnimation)BaseSupportGrip=BodyAnimation->LeftGripFromRight;
+     UpdateWorldWeaponPresentation();
+ }
+ 
+ bool UFPSPlayerBodyComponent::IsWorldWeaponStowed(UPrimitiveComponent* Mesh) const
+ {
+-    if(IsWorkstationIdle())return true;
+     const float Now=ServerClock();
++    if(UFPSFurnitureRestComponent::IsResting(Character.Get()))return true;
++    if(IsWorkstationIdle())return true;
+     if(IsDeathViewActive())return true;
+     if(FPSBodyPoses::Traversing(DisplayState.Motion)||Now<WorldWeaponsHiddenUntil)return true;
+     const auto* Hand=WorldEquipmentHands.Find(Mesh);
+-    const bool BusyLeft=DisplayState.Action==EFPSBodyAction::Consume||DisplayState.Action==EFPSBodyAction::DoorPush
++    if(Hand&&*Hand==1&&FPSBodyPistolMotion::OffhandItemHidden(DisplayState))return true;
++    if(Mesh&&Mesh->ComponentHasTag(TEXT("OffhandKukri"))&&
++        (DisplayState.Action==EFPSBodyAction::Inspect||DisplayState.Action==EFPSBodyAction::GunBash||
++         DisplayState.Action==EFPSBodyAction::DoorPush||DisplayState.Action==EFPSBodyAction::Cast||
++         // The lone blade IS the draw: its own equip take owns the hand, so it stays visible through the draw.
++         (DisplayState.Action==EFPSBodyAction::Equip&&!DisplayState.bLoneBlade)))return true;
++    if(Hand&&(DisplayState.ConsumeHands&(1<<*Hand))&&DisplayState.bConsumeWeaponsHidden)return true;
++    const bool BusyLeft=DisplayState.Action==EFPSBodyAction::DoorPush
+         ||(DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"));
+-    return Hand&&*Hand==1&&(((DisplayState.bDual||DisplayState.bOffhandPistol)&&BusyLeft)||Now<OffhandWeaponHiddenUntil);
++    const bool DualKukri=Mesh&&Mesh->ComponentHasTag(TEXT("KukriDual"));
++    return Hand&&*Hand==1&&(((DisplayState.bDual||DisplayState.bOffhandPistol||DualKukri)&&BusyLeft)||Now<OffhandWeaponHiddenUntil);
+ }
+ 
+ void UFPSPlayerBodyComponent::UpdateWorldWeaponPresentation()
+ {
+-    const bool BodyVisible=!FPSPlayerBodyWorldBodyHidden();
++    const bool BodyVisible=!IsWorldBodyPresentationHidden();
+     const bool BodyShadow=ShouldWorldBodyCastShadow();
+     const auto Apply=[&](UPrimitiveComponent* Mesh)
+     {
+         if(!Mesh)return;
++        // Incoming rounds/loaders are hidden until their reload phase is ready.
++        // Generic equipment visibility must not revive these detached props.
++        if(Mesh->ComponentHasTag(TEXT("FPSRevolverReloadProp")))return;
+         if(const auto* Index=MotionEquipmentIndices.Find(Mesh);Index&&HasMatchingMotionRig(*Index))return;
+         const bool Stowed=IsWorldWeaponStowed(Mesh);
+         const bool Visible=BodyVisible&&!Stowed;
+-        if(Mesh->IsVisible()!=Visible)Mesh->SetVisibility(Visible);
+-        if(Mesh->bHiddenInGame==Visible)Mesh->SetHiddenInGame(!Visible);
++        if(Mesh->IsVisible()!=Visible)Mesh->SetVisibility(Visible,Mesh->ComponentHasTag(GhostScytheMist::HolderTag));
++        if(Mesh->bHiddenInGame==Visible)Mesh->SetHiddenInGame(!Visible,Mesh->ComponentHasTag(GhostScytheMist::HolderTag));
+         // A stowed weapon must not leave a floating weapon-shaped shadow.
+         FPSBodyEquipment::ApplyShadowFlags(Mesh,BodyShadow&&!Stowed);
+     };
