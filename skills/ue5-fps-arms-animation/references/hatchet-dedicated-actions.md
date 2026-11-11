@@ -64,6 +64,16 @@
 - 间距要按"画面里看得到的帧"算：跳劈过顶那段两臂都在画外，最紧的地方其实在**回到交叉握姿**的途中。回位顺序沿用双斧劈：右手在前，左手在后且低一些。
 - 时长在头文件里写成和单持一样的 `40.f/30.f`。写成小数 `1.333333f` 的话，`static_assert` 的浮点相等比较会失败。
 
+## 第三人称副手单持与混搭第三击（2026-11-10）
+
+- **第三人称的"镜像单持"必须是整段上半身镜像，不是把左臂当成右手再套一份姿势**。单持库是右手的动作，直接拿它驱动左臂，右臂会跟着一起挥（等于双臂同时出手）。正确做法：在身体动画管线里、所有混合完成之后、手指抓握之前，按骨架绑定位姿把肩/臂/手/胸/头整段镜像到另一侧（`FControls::MirrorLoneBladeUpperBody`，与已认可的单持左手手枪 `FSinglePistolMirrorLayer` 同一构造）。腿部保留原步态，只把胸的朝向重新锚回未镜像的骨盆。
+- **镜像要点**：`FAnimationRuntime::MirrorPose(pose, EAxis::X, mirrorBones, refRotations)` 操作的是**局部**变换；先把 component-space 姿态写回 local（`ConvertComponentPosesToLocalPosesSafe`），镜像后再 `InitPose` 回 component space 供后续层使用。参考旋转必须逐骨累乘参考骨架（父到子），不是只取本骨 ref。
+- **三态同判**：`FFPSBodyState::bLoneBlade` 必须由本地采样、服务端影子档案（`ActiveKukriWeapon` 且主手空）和 observer 同时给出，否则远端看到的仍是右手持刀。身体装备项的 body identity 用主手实例（`S.WeaponInstance`），但挂点走 `hand_l`（`FFPSBodyWeapon::bLoneBlade`），`AttachHand` 仍为 1 —— 这两个"身份/挂点"要分开记。
+- **不要让 `bOffhandKukriEquipment` 为 lone 置位**：那个标志会切到双持 clip 族（`DualClip`），而 lone 要走的是镜像后的单持库。
+- **装备动作期间不能把 lonely 刀当"该藏的副手"**：`IsWorldWeaponStowed` 里 `Action==Equip` 的隐藏分支对 lone 要放行，否则拔刀全程刀不可见。
+- **一次性姿势叠加层**：混搭第三击"各手各的"用第二条姿势输入（`SwordAlt` 在 `FProxy` + `FControls` 里各一份 `FPoseLink`），主取给右手整链、备取只覆盖左臂链（`LeftArmBones = LibraryArmBones & 2`）。两条 clip 必须同长同钟（本例都由 `KukriRhythm::DualThrustSeconds` 钉住），否则手腕会互相拉扯。`Update_AnyThread` 里只在 `SwordWeight > 0` 且 `bMixedPairAlt` 时更新备取，避免空转。
+- **`PreserveHands` 与剑气窗口要同步放开**：混搭变体（`HatchetPairAttack3HK/KH`）在 `PreserveHands` 里要与 `HatchetDualAttack3` 同等处理，observer 剑气也要按"哪只手拿斧头"选斧刃采样，否则两道剑气共用同一把武器的几何。
+
 ## 资产与检查清单
 
 - 三个作者目录各自独立：`HatchetEquip20261101`（装备抛接，V2.1 0.90 s）、`HatchetChop20261102`（单持劈砍 38/30 s、双斧劈砍 246/120 s）、`HatchetSprint20261103`（双持就绪跑姿三段）。

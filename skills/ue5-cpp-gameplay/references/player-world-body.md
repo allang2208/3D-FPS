@@ -43,6 +43,15 @@
 - 共用骨架衣物可由 Leader Pose 跟随身体，用配置隐藏覆盖的身体材质段；切换/脱衣时恢复原材质和可见段。需要独立骨骼、布料或脸部动画的部件须另外设计，不把 Leader Pose 当作完整换装/表情系统。
 - 第一人称衣袖/手套与第三人称衣物分开配置，避免换全身皮肤时顺带改掉已采用的手臂。
 
+## 主手空、副手持武（lone off-hand blade，2026-11-10）
+
+- **动作库可以不是"给左手写"的**：单持弯刀/斧头的全身库全是右手动作。现在第三人称要让左手拿武器出手，正确做法不是把左臂当成右手另解一遍，而是在动画图末端把**整段上半身**按骨架绑定镜像（`FControls::MirrorLoneBladeUpperBody`），腿保留原步态。和已采用的单持左手手枪 `FSinglePistolMirrorLayer` 同一构造。
+- **状态位要三态同判**：`FFPSBodyState::bLoneBlade` 由本地采样（`K.IsLoneOffhand()`）、服务端影子档案（`ActiveKukriWeapon` 且主手槽空）和 observer 各自设置；远端靠 `SampleRemoteAuthorityState` 里同一条件重建。少了任何一路，联机时远端还是右手持刀或干脆不播动作。
+- **装备身份和挂点分开**：`FFPSBodyWeapon::bLoneBlade` 表示"这是副手槽的物品但当主武器用"，`ItemInstance` 取主手实例（`S.WeaponInstance`），`GripBone` 设 `hand_l`、`AttachHand=1`，两者不能混。`BuildKukriGrip` 走已认可的双持左握法并设置 `EquipmentGripHands|=2`，但**不要设置 `bOffhandKukriEquipment`**——那个标志会切到双持 clip 族。
+- **可见性**：`IsWorldWeaponStowed` 对 `OffhandKukri` 标签的 `Action==Equip` 隐藏分支要给 lone 放行（它自己的拔出动作就在这只手上）。
+- **进食时不镜像**：`ConsumeWeight > 0` 时跳过镜像，那条链是专用的双手食物姿态。
+- **不镜像也照样能吃到的旧标志**：`LibraryPreserveHands`、`bKukriAuthoredStep`、`bKukriAuthoredDigits` 都是按"主手 = 右手"写的，lone 时要么在镜像前先生效（因为此时姿势还是右手的），要么显式排除。
+
 ## 交付边界
 
 源码构建、资产落盘和游戏画面分别报告。默认不启动 PIE、不截图、不验收；仅用户明确要求相应检查时，才覆盖站立/蹲起、方向移动、单/双持、中断与视角切换。历史构建记录不能当作后续独立发布树已编译的证据。

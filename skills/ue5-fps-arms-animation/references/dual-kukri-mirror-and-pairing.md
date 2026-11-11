@@ -31,3 +31,15 @@
 - 双持族（Idle/Walk/Run/连击/重击/拔刀）用一个 `IsDualClip()` 判断，左臂进出这一族时单独淡化 0.25 s（`CaptureLeftEntry`），右臂仍走 clip 自己的进入混合。
 - 双持运行时会让右手握持锁一直锁死（为了冲刺反握），**拔刀 clip 要例外**，否则右刀飞不出去。
 - 握刀的那只手做动作时要把左手刀的跟随关系一起算：命中判定、剑气镜像、镜头左右分量、视模冲击左右分量，都是成对改的。
+
+## 第三人称的镜像层（2026-11-10 补充）
+
+第一人称的镜像做法（`UKukriArmsMeshComponent::MirrorRightPose`：逐骨对称 + 绑定修正）**不能直接套到世界身体**。世界身体的骨架不是精确对称的共享剑手臂骨架，而且它的动画图分很多层（动作库、staff/book carry、消耗、反应、Grounding 脚部求解、手指抓握）。正确位置是**所有混合之后、手指抓握之前**做一次整段上半身镜像：
+
+- 用 `FAnimationRuntime::MirrorPose(Pose, EAxis::X, MirrorBones, RefRotations)`（UE5 自带，按 reference skeleton 累计旋转做修正），不要手写逐骨镜像；
+- 它作用在**局部**变换上，调用前把 component-space 姿态转 local，调用后再 `InitPose` 回 component space；
+- 只镜像 `spine_01` 及其子骨；镜像后把胸的朝向按"搬骨盆旋转 × 参考骨盆的镜像修正"重新锚回，腿和骨盆保持原步态；
+- 手指抓握层放在镜像之后，这样装备的左手握法直接落在 hand_l 上；
+- 进食（`ConsumeWeight > 0`）不要镜像，那条链是专用的双手食物姿态。
+
+同一套思路也可以复用到"主手武器放到左手播"的其他系统（手枪已经有 `FSinglePistolMirrorLayer`）。
