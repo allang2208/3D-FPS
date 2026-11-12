@@ -45,7 +45,8 @@ namespace HillsStreaming
 constexpr double CellSize=6400.0;
 // Entry only waits for this playable neighborhood. The normal view ring starts
 // streaming after release, with the existing two-job / one-mesh-per-frame budget.
-constexpr double EntryRadius=9600.0;
+constexpr double EntryRadius=3200.0;
+constexpr double SolidEntryRadius=1600.0;
 // Edited cells are meshed at this multiple of the normal quad count. 1 disables the
 // refinement (cheaper, faceted); 2 is the shipped default.
 static TAutoConsoleVariable<int32> EditMeshBoost(
@@ -203,6 +204,7 @@ struct FTemperateHillsStreamingState
     int32 Stage=0;
     int32 CompletedStages=0;
     int32 ActivatedLayers=0;
+    double NextBackgroundLayerTime=0;
     int32 WarmupAsset=0;
     int32 SettledFrames=0;
     int32 InitialPCGTotal=0;
@@ -533,6 +535,15 @@ void ATemperateHillsWorld::TickStreaming()
         return;
     }
     if(!bReady)TickPreparation();
+    if(bReady&&S.ActivatedLayers<4&&FPlatformTime::Seconds()>=S.NextBackgroundLayerTime)
+    {
+        const auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+        if(!Loading||!Loading->IsHoldingGameplayInput())
+        {
+            ActivateVegetationLayer(S.ActivatedLayers++);
+            S.NextBackgroundLayerTime=FPlatformTime::Seconds()+1.;
+        }
+    }
     // Collision is streamed for all server pawns, so each needs its own frontier hold.
     // Clients only hold their autonomous pawn; simulated proxies follow server movement.
     TSet<TWeakObjectPtr<ACharacter>> Guarded;
@@ -654,19 +665,21 @@ void ATemperateHillsWorld::TickPreparation()
         if(Loading)Loading->FailPreparation(FText::FromString(TEXT("环境资源未能准备完成，请返回主场景后重试。")));
         return;
     }
-    // Includes assembly children and shader jobs, not just the top-level four trees.
-    // In uncooked -game builds the editor's usual compilation tick may be absent.
-    int32 RemainingAssets=0,RemainingShaders=0;
+    const bool Full=Loading&&Loading->IsCompletePreloadSelected();
 #if WITH_EDITOR
     FAssetCompilingManager::Get().ProcessAsyncTasks(true);
-    RemainingAssets=FAssetCompilingManager::Get().GetNumRemainingAssets();
-    if(GShaderCompilingManager)RemainingShaders=GShaderCompilingManager->GetNumRemainingJobs();
-#endif
-    if(RemainingAssets>0||RemainingShaders>0)
+    for(const FSoftObjectPath& Path:S.CompilingPaths)
     {
-        Report(FText::FromString(FString::Printf(TEXT("正在准备渲染资源：%d 项，着色器：%d 项…"),RemainingAssets,RemainingShaders)),.1f+.6f*S.CompletedStages/8);
-        return;
+        UObject* Object=Path.ResolveObject();
+        const auto* Mesh=Cast<UStaticMesh>(Object);
+        const auto* Skin=Cast<USkeletalMesh>(Object);
+        if((Mesh&&Mesh->IsCompiling())||(Skin&&Skin->IsCompiling()))
+        {
+            Report(S.Status,.1f+.6f*S.CompletedStages/8);
+            return;
+        }
     }
+#endif
     // Start the shared ground texture requests while local geometry/vegetation
     // are being prepared, rather than serializing them behind shader readiness.
     if(!S.GroundTexturesCollected)
@@ -698,7 +711,7 @@ void ATemperateHillsWorld::TickPreparation()
         Report(S.Status,.1f+.6f*S.CompletedStages/8);
         return;
     }
-    if(!IsBackdropReady())
+    if(Full&&!IsBackdropReady())
     {Report(FText::FromString(TEXT("正在准备远景丘陵…")),.7f);return;}
     if(!S.ResourcesRetained&&Loading){Loading->RetainBiomeResources(S.Handles);S.ResourcesRetained=true;}
     if(!UGameplayStatics::GetPlayerPawn(this,0))
@@ -715,7 +728,7 @@ void ATemperateHillsWorld::TickPreparation()
     StaticAssets.Append(Assets->RiverPebbles);
     StaticAssets.Append(Assets->RiverReeds);StaticAssets.Append(Assets->RiverBankGrasses);StaticAssets.Append(Assets->RiverUnderstory);
     const int32 AssetCount=TreeCount+StaticAssets.Num();
-    if(S.WarmupAsset<AssetCount)
+    if(Full&&S.WarmupAsset<AssetCount)
     {
         const int32 Index=S.WarmupAsset++;
         UPrimitiveComponent* Sample=nullptr;
@@ -738,7 +751,7 @@ void ATemperateHillsWorld::TickPreparation()
         Report(FText::FromString(TEXT("正在准备植被显示…")),.7f+.04f*S.WarmupAsset/FMath::Max(1,AssetCount));
         return;
     }
-    if(S.ActivatedLayers<4)
+    if(S.ActivatedLayers<2)
     {
         const int32 Layer=S.ActivatedLayers++;
         ActivateVegetationLayer(Layer);if(Layer==0)S.TreesActive=true;
@@ -749,17 +762,23 @@ void ATemperateHillsWorld::TickPreparation()
     // Only the entry neighborhood gates release; the runtime PCG scheduler keeps
     // its full radii for background generation. Missing nearby cells still count
     // as pending, so an empty queue cannot release the player too early.
-    FVector Center=GetStartLocation();FRotator Rotation;
-    if(auto* PC=UGameplayStatics::GetPlayerController(this,0))PC->GetPlayerViewPoint(Center,Rotation);
+    FVector Center=UGameplayStatics::GetPlayerPawn(this,0)->GetActorLocation();
     Center.Z=0;
-    constexpr uint32 Grids[]={6400,6400,3200,1600};
     int32 Required=0,Complete=0;
     const double Half=SizeMeters*50;
-    for(int32 Layer=0;Layer<4;++Layer)
+    for(int32 Layer=0;Layer<2;++Layer)
     {
-        const uint32 Grid=Grids[Layer];
+        const auto* Graph=Assets->Graphs[Layer].Get();
+        if(!Graph||!Graph->Use2DGrid()||Graph->GetDefaultGridSize()==0||
+            Graph->GetDefaultGridSize()==PCGHiGenGrid::UnboundedGridSize())
+        {
+            S.Failed=true;
+            if(Loading)Loading->FailPreparation(FText::FromString(TEXT("树木或岩石空间网格无效。")));
+            return;
+        }
+        const uint32 Grid=Graph->GetDefaultGridSize();
         auto& State=PCGLayers[Layer]->GetExecutionState();
-        const double Radius=FMath::Min(double(State.GetGenerationRadiusFromGrid(Grid)),HillsStreaming::EntryRadius);
+        const double Radius=FMath::Min(double(State.GetGenerationRadiusFromGrid(Grid)),HillsStreaming::SolidEntryRadius);
         const FPCGGridDescriptor Descriptor=FPCGGridDescriptor().SetGridSize(Grid).SetIs2DGrid(true).SetIsRuntime(true);
         const int32 MinX=FMath::FloorToInt(FMath::Max(-Half,Center.X-Radius)/Grid);
         const int32 MaxX=FMath::FloorToInt(FMath::Min(Half-1,Center.X+Radius)/Grid);
@@ -870,13 +889,15 @@ void ATemperateHillsWorld::TickPreparation()
                 FMath::Max(1,Texture->GetSizeX()>>FirstMip),FMath::Max(1,Texture->GetSizeY()>>FirstMip));
         }
     }
-    const uint32 PSOs=FShaderPipelineCache::NumPrecompilesRemaining();
+    uint32 PSOs=0;
+    for(const auto& Sample:WarmupComponents)
+        if(auto* Component=Sample.Get();Component&&Component->IsPSOPrecaching())++PSOs;
     if(PSOs>0)
     {S.SettledFrames=0;Report(FText::FromString(FString::Printf(TEXT("正在准备显示效果：剩余 %u 项…"),PSOs)),.93f);return;}
     if(S.TextureWaitStart==0)S.TextureWaitStart=FPlatformTime::Seconds();
     // Noncritical environment textures still obey the global VRAM budget and
     // bounded wait. Ground shader/mips above have an independent, strict gate.
-    if(IStreamingManager::Get().GetNumWantingResources()>0&&FPlatformTime::Seconds()-S.TextureWaitStart<10)
+    if(Full&&IStreamingManager::Get().GetNumWantingResources()>0&&FPlatformTime::Seconds()-S.TextureWaitStart<10)
     {Report(FText::FromString(TEXT("正在细化附近纹理…")),.95f);return;}
     if(!WarmupComponents.IsEmpty())
     {

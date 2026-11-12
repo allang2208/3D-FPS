@@ -174,7 +174,7 @@ void ATemperateHillsWorld::BeginPlay()
 {
     Super::BeginPlay();
     if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
-        Loading->UpdatePreparation(FText::FromString(TEXT("正在准备温带丘陵…")),0);
+        Loading->BeginHillsPreparation();
     StartSeconds=FPlatformTime::Seconds();
     // M4 联机：专用服暂不支持；客户端走确定性重建（Tick 里等复制的会话就绪）；
     // 监听服与单机照常权威生成。

@@ -1,0 +1,2290 @@
+[
+  {
+    "original": "SourceAssets/HillsAsyncEntry20261111/Backups/TemperateHillsStreaming.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsAsyncEntry20261111/Backups/TemperateHillsStreaming.cpp",
+    "bytes": 64118,
+    "sha256": "6D5AEC04F42A3682FDB3C6024DCEF0182B2E992F95B3CA752EFD2A6559FE155F",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "reason": "Superseded pre-change source snapshot from the 2026-11-11 entry build"
+  },
+  {
+    "original": "SourceAssets/HillsAsyncEntry20261111/Backups/GunsmithSystem.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsAsyncEntry20261111/Backups/GunsmithSystem.cpp",
+    "bytes": 43382,
+    "sha256": "59499FBA921EBD1FF28BF1CFBC696288262745E69625CB7077FAFF131DA9CE0C",
+    "replacement": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "reason": "Superseded pre-change source snapshot from the 2026-11-11 entry build"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Copper.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Copper.uasset",
+    "bytes": 4961,
+    "sha256": "3291BD4B245651C6D9DC166170D48B68A514842EB25B5C3556C0759FB0421BFA",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Copper.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Gold.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Gold.uasset",
+    "bytes": 4951,
+    "sha256": "C5C97189ECA4F90B2D7B58AA14D2CB76B045BD4AD5C513F533244B1CDD0AC07F",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Gold.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Iron.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Iron.uasset",
+    "bytes": 4951,
+    "sha256": "9831FB32F1A567AC78DED91E6AC410AC80D299C691EEF4ECECD3E0D3F44470E2",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Iron.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Silver.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Silver.uasset",
+    "bytes": 4961,
+    "sha256": "F216E49064DCEBFA7173AEB7C4B188B65FD4C7DDC65922E8CA185C7B71FEF67E",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Silver.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/M_HillsOreRock.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/M_HillsOreRock.uasset",
+    "bytes": 33975,
+    "sha256": "442C96643DF4D832E851D41415BA30102B5938C620A5FEE1363783DEFE5B2778",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/M_HillsOreRock.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionFallingTree.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionFallingTree.cpp",
+    "bytes": 18348,
+    "sha256": "DF9366A489D3BEF4108AA9E9C2E36EF98B378BF029E5D847F4366A7075903F01",
+    "replacement": "Source/FPSGAME/Production/ProductionFallingTree.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionHarvestAssets.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionHarvestAssets.cpp",
+    "bytes": 7021,
+    "sha256": "506BCBB51A01BCB2F131D94FCFF4D8AF25443BE915C07C6437AD979BA929621D",
+    "replacement": "Source/FPSGAME/Production/ProductionHarvestAssets.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionHarvestAssets.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionHarvestAssets.h",
+    "bytes": 1556,
+    "sha256": "E96A216BB266CB1B314482EC8AEC4ED62D059AEF54CE86A932155EB7AA79E6A4",
+    "replacement": "Source/FPSGAME/Production/ProductionHarvestAssets.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionHarvestSubsystem.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionHarvestSubsystem.cpp",
+    "bytes": 12078,
+    "sha256": "A468D9646C9F1006310686962699E59C830A8DDA579EFB68488C786D1632F1C6",
+    "replacement": "Source/FPSGAME/Production/ProductionHarvestSubsystem.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionHarvestSubsystem.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionHarvestSubsystem.h",
+    "bytes": 2820,
+    "sha256": "41076391A6E21675D384453EFF64546168EC6C26A1F9E5C94F93D7AA3A2976B5",
+    "replacement": "Source/FPSGAME/Production/ProductionHarvestSubsystem.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionTreeHealth.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionTreeHealth.cpp",
+    "bytes": 3820,
+    "sha256": "C27C998B92330531C92D9E14FFAAAB9E4DD229FFC978168DC924F648044DAA69",
+    "replacement": "Source/FPSGAME/Production/ProductionTreeHealth.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionTreeHealth.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Source/FPSGAME/Production/ProductionTreeHealth.h",
+    "bytes": 3334,
+    "sha256": "C70061E22F357088F6400459A215A140A1A1DAB5C301FE07F70D4B05F9A2E5CA",
+    "replacement": "Source/FPSGAME/Production/ProductionTreeHealth.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/BeechHarvestOreFix20261110/Backups/Tools/Production/build_ore_vein_rocks.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/BeechHarvestOreFix20261110/Backups/Tools/Production/build_ore_vein_rocks.py",
+    "bytes": 14270,
+    "sha256": "79EF824CCF46750167EC057AE6526EFE5A4DF864BEC5345A9D2B4B86ACC67BBC",
+    "replacement": "Tools/Production/build_ore_vein_rocks.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-193905/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-193905/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 16726,
+    "sha256": "1FA979BCEC87D3DD90C4FB4AF08AB3554B3466C0A9825D48F76A9C58041FD25A",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-193905/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-193905/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 150775,
+    "sha256": "A7AEF4A54C8B0049DA201B2202A5DFCE77C76D802724959DC64F898BEC481A37",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-193905/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-193905/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 187479,
+    "sha256": "A689ACB9B6EBE4EB4E2BCE1B0CEB54C2C306FE443038CA99A8C24B87457E6F5A",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 16726,
+    "sha256": "1FA979BCEC87D3DD90C4FB4AF08AB3554B3466C0A9825D48F76A9C58041FD25A",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 150775,
+    "sha256": "A7AEF4A54C8B0049DA201B2202A5DFCE77C76D802724959DC64F898BEC481A37",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 187479,
+    "sha256": "A689ACB9B6EBE4EB4E2BCE1B0CEB54C2C306FE443038CA99A8C24B87457E6F5A",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "bytes": 11646859,
+    "sha256": "7BF35226F57662C26C3331A04AEE7ACB4CFEA88168DB1D264FC0A81543350A25",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "bytes": 10468714,
+    "sha256": "D7464C0A3ADAFBA999CDA9BF2A29D77BE76C3B3E846C41B096197656889997F3",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "bytes": 13229439,
+    "sha256": "B500E90CC5286D11C82986353A6E232A0CF09A5B794EB2B1FF79AAB1D895FC81",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/Textures/T_WildTuft_ColorOpacity.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/Textures/T_WildTuft_ColorOpacity.uasset",
+    "bytes": 1723855,
+    "sha256": "8A86F0151CD02E39355A67EA2218FBCCA980EB85F0462B78BA624D4FF505C9BA",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_WildTuft_ColorOpacity.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/WildGrass/M_WetWildGrass.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/WildGrass/M_WetWildGrass.uasset",
+    "bytes": 15357,
+    "sha256": "C1A4DA61236FE12F4BE0AE080D386877EA22E365BB301BE76F9630376589DA10",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/WildGrass/M_WetWildGrass.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194137/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_B.uasset",
+    "bytes": 115625,
+    "sha256": "8CB5E16FA96CFC4BDFA6E30D984282F35BAD42009B452F634303BB5FC706E330",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 17190,
+    "sha256": "341A348158A9E871435A876D503907151C44821C3E84ED40DDAFE57ED0C98F3B",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 155740,
+    "sha256": "2A8C3130DFB55E68E8443E1F98A48666ECEB0BFCF714336BBE43F6BD28B97F5E",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 192440,
+    "sha256": "206F910D1F008576CD4DAA3F78C8FC4FE8B8457AC74C00DE81FD32579A46BA1B",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "bytes": 11646952,
+    "sha256": "E6FA01C6B5C2F1730591ECE8EA81CA298634CEAFE0A1D23CAEE9DEACBDD1752E",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "bytes": 10468807,
+    "sha256": "404435186F81632B093564121498BB7A57F94F1E08CC9390462CCE6ACC155603",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "bytes": 13229532,
+    "sha256": "69655D0BB73253EDEAB8A316AF98C96494424E02A3511F9E4015CAA2FC4923CC",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/Textures/T_WildTuft_ColorOpacity.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/Textures/T_WildTuft_ColorOpacity.uasset",
+    "bytes": 1723948,
+    "sha256": "64ED096D5DFFA11AA45E3C36D793B7F2B4D69A3DCEAA848DDF289A79ECD79098",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_WildTuft_ColorOpacity.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/WildGrass/M_WetWildGrass.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/WildGrass/M_WetWildGrass.uasset",
+    "bytes": 15357,
+    "sha256": "2F9341CF172B43312A5807C344F4312A04823C72962FCE04047694857A2E7CD3",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/WildGrass/M_WetWildGrass.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_B.uasset",
+    "bytes": 120716,
+    "sha256": "B998060835AD05E2777ECC7265D793CC09C4122A5D723A81EFDAACAE59A1F3BE",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_D.uasset",
+    "bytes": 107150,
+    "sha256": "36A5EFFDDB454C74B3C74A8A441CE4A9D8CFECC2035B95E5257D295387839347",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_E.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-194750/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_E.uasset",
+    "bytes": 96083,
+    "sha256": "7F6E244B049F7AB630B014AD3581D3944D690C224F4CA4E8110BE9D946566FBE",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/WildGrass/SM_WetGrass_E.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-195334/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-195334/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "bytes": 11646952,
+    "sha256": "E6FA01C6B5C2F1730591ECE8EA81CA298634CEAFE0A1D23CAEE9DEACBDD1752E",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_ARH.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-195334/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-195334/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "bytes": 10350685,
+    "sha256": "B2BE02CB7E0403182B7417149800545C969315786976A9912F2CC387ECDB638F",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_BaseColor.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-195334/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/20261111-195334/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "bytes": 13229532,
+    "sha256": "69655D0BB73253EDEAB8A316AF98C96494424E02A3511F9E4015CAA2FC4923CC",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_LivingGrass_Normal.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "bytes": 7439,
+    "sha256": "B7225998C1203AC54D59DC3F5811E90A5CE7F235D99AAE3B413D751AC18D4FFA",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "bytes": 66897,
+    "sha256": "32795BC121DBC623A2A12A24505636892032C044E9CA5E26B03DD2E4768B88BA",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 53523,
+    "sha256": "56827EE077664BB1577C8E8CFC97E61A09918B6470F7530791E4684E4BE4EC60",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "bytes": 22508,
+    "sha256": "335471B7098B0F4824A94C74333481048FE85D2A83B8714E6E2BBA1F9B795328",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "bytes": 14962,
+    "sha256": "438CF788179AEDF94F1DFDA789CEDADC688C2808B620E3D0D5F28708BB2111DE",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Tools/WorldGeneration/forest_wet_materials.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestCarpet20261111/Backups/Source/Tools/WorldGeneration/forest_wet_materials.py",
+    "bytes": 14125,
+    "sha256": "883D7F3DE89062930E76E146AB58990A8E6979ADC8319329469F9396B0AD68FB",
+    "replacement": "Tools/WorldGeneration/forest_wet_materials.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185540/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185540/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 129098,
+    "sha256": "2D7595F482D18FD887DB66E973AE95E258F5CDA22E920FB7A3863683C0A49C58",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185540/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185540/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "bytes": 71366,
+    "sha256": "D8EB963F0CC22C18D680E57A7F8A427D948D0D14465F9168B346E61CDBC0F38D",
+    "replacement": "Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185540/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185540/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 165802,
+    "sha256": "B58E3BD1190F6DD727E1834BF9A4A6987041C32B25342BC5B2747E11D619EFCC",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 145711,
+    "sha256": "893DF86B4E49F1BF4469DB81FA08113A91BF5D6F9DCFBF6703375152CF8412B7",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "bytes": 71368,
+    "sha256": "CE248FD00D2B91D5E62B7AC438C0E63C7852DB22E5D5F7F3B724FBE1D62A8075",
+    "replacement": "Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 182415,
+    "sha256": "1FB23BFD9CFE2FB3921F8E443CB19C844244E78809C15FD1E6200117A4201E67",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_ARH.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_ARH.uasset",
+    "bytes": 10824657,
+    "sha256": "091768CF184DD50B109BFEE99C1AB574DB59BFF95CE208F1948DB06AC2C5745C",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_ARH.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_BaseColor.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_BaseColor.uasset",
+    "bytes": 8611353,
+    "sha256": "C1C5837FBE55B29192E9E765BA478B6BA4523155E854D941AF23B640C9B81B79",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_BaseColor.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_Normal.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Assets-20261111-185735/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_Normal.uasset",
+    "bytes": 13107601,
+    "sha256": "2CFB6F476298DF842A8B611E5FA7CBFF1F54F2EF59A034EC6258A002AC2FFDEE",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/Textures/T_RainforestMoss_Normal.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Source/Config/DefaultGame.ini",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Source/Config/DefaultGame.ini",
+    "bytes": 43003,
+    "sha256": "447AD90AE62A0AFA5F791A7ACA838BDEC2263F0001559DA362DB8F20749BEAFE",
+    "replacement": "Config/DefaultGame.ini",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h",
+    "bytes": 2758,
+    "sha256": "28521D5F53306245BBA991C617A3124D199579870928E9319D1ACF10CEF0900F",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Source/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "bytes": 7138,
+    "sha256": "8583EA751EFC7908EEF45DABF8FB5390B911A9890F3CD0F0D7057CA90B2AD575",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestFloor20261111/Backups/Source/Tools/WorldGeneration/forest_wet_materials.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestFloor20261111/Backups/Source/Tools/WorldGeneration/forest_wet_materials.py",
+    "bytes": 9423,
+    "sha256": "DEC612EA75DC401B988B6EDB8A7B3C7E27078D72982D3AA52D6382BD1D45D925",
+    "replacement": "Tools/WorldGeneration/forest_wet_materials.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestPocket20261111/Backups/DefaultGame.ini",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestPocket20261111/Backups/DefaultGame.ini",
+    "bytes": 42146,
+    "sha256": "59895F945FCA83176EC1E4506793361BCF0CED735F18B939515BA1A77D83F2F3",
+    "replacement": "Config/DefaultGame.ini",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestPocket20261111/Backups/TemperateEcologyConfig.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestPocket20261111/Backups/TemperateEcologyConfig.cpp",
+    "bytes": 3090,
+    "sha256": "A8A776F08C4FA3C7774EB752E8148FF9A85F8D2FB88AEB8FE302394E66544D81",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestPocket20261111/Backups/TemperateEcologyConfig.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestPocket20261111/Backups/TemperateEcologyConfig.h",
+    "bytes": 2088,
+    "sha256": "703526EB99E04F70DCD802FCA6F4C47A43B91EA181297FD107CE61E274743BEB",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestPocket20261111/Backups/TemperateForestHabitat.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestPocket20261111/Backups/TemperateForestHabitat.h",
+    "bytes": 3644,
+    "sha256": "44053ADBF4ABE3A31F51647058F93AAEA4A975D64D75C8763C61B4F55496CA28",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestPocket20261111/Backups/TemperateForestUnderstory.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestPocket20261111/Backups/TemperateForestUnderstory.cpp",
+    "bytes": 4217,
+    "sha256": "7C5E067E29991016E1D315C25F086A633AAA15129B7D9C73237BB925B853ADB3",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestPocket20261111/Backups/TemperateHillsGrass.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestPocket20261111/Backups/TemperateHillsGrass.cpp",
+    "bytes": 6265,
+    "sha256": "46046C4EC41064AA43D66AA7CD6D4520D5D6978CC98071F5EDE3874EA53149A7",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestPocket20261111/Backups/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestPocket20261111/Backups/TemperateHillsWorld.cpp",
+    "bytes": 52696,
+    "sha256": "0D35864D11BD7BEE137852D3D00F5B927915A8DBB13E36ABF0D8F1B2483DCF05",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-210905/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-210905/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 17190,
+    "sha256": "341A348158A9E871435A876D503907151C44821C3E84ED40DDAFE57ED0C98F3B",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-210905/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-210905/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 155740,
+    "sha256": "2A8C3130DFB55E68E8443E1F98A48666ECEB0BFCF714336BBE43F6BD28B97F5E",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-210905/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-210905/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 192440,
+    "sha256": "206F910D1F008576CD4DAA3F78C8FC4FE8B8457AC74C00DE81FD32579A46BA1B",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-211949/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-211949/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 17190,
+    "sha256": "341A348158A9E871435A876D503907151C44821C3E84ED40DDAFE57ED0C98F3B",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-211949/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-211949/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 155740,
+    "sha256": "2A8C3130DFB55E68E8443E1F98A48666ECEB0BFCF714336BBE43F6BD28B97F5E",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-211949/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-211949/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 192440,
+    "sha256": "206F910D1F008576CD4DAA3F78C8FC4FE8B8457AC74C00DE81FD32579A46BA1B",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-211949/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsRainforestUnderfoot20261111/Backups/20261111-211949/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "bytes": 90838,
+    "sha256": "542B6D6FC408FE4617CA66F64AF1D670EC51798330DDB2697AADE238A62E054D",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "bytes": 86858,
+    "sha256": "ADB7CAA4485231C0EA24D1BECDD88A3710160CE8FEBFB48012045FCB3164EEA4",
+    "replacement": "Content/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 115209,
+    "sha256": "141C97177A8B07EE285DC923C091A0234C4706497CD9DA0E1C9716DE0447838A",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "bytes": 1703,
+    "sha256": "8D84A6FAD7881630FDD5B26C6DEB9F445CB0E2C54ABFCCF00C6638F3A6C34094",
+    "replacement": "Content/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "bytes": 65171,
+    "sha256": "BDFA99E0F688659B4919D497E1CF916FE1186BC2A52C0E9ADAA082009BDB0F10",
+    "replacement": "Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124646/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 151913,
+    "sha256": "43EC7EDD5CD5A077D02C077FA38BE99FA084F83EE18D2946AA365A109EBB66AA",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "bytes": 86858,
+    "sha256": "ADB7CAA4485231C0EA24D1BECDD88A3710160CE8FEBFB48012045FCB3164EEA4",
+    "replacement": "Content/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 115209,
+    "sha256": "141C97177A8B07EE285DC923C091A0234C4706497CD9DA0E1C9716DE0447838A",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "bytes": 2293,
+    "sha256": "91264840B39BD7F48678F4755ECDAFA9B7922243994CFA89460A700E85BBAC09",
+    "replacement": "Content/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "bytes": 65171,
+    "sha256": "BDFA99E0F688659B4919D497E1CF916FE1186BC2A52C0E9ADAA082009BDB0F10",
+    "replacement": "Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-124742/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 151913,
+    "sha256": "43EC7EDD5CD5A077D02C077FA38BE99FA084F83EE18D2946AA365A109EBB66AA",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "bytes": 95011,
+    "sha256": "094F5F7B23495761730FFD7E869C49385F8EDAF2471A2ED9B4F770D1F61782BD",
+    "replacement": "Content/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 128835,
+    "sha256": "204DA6103C6A7C15EBCDA3059B79BF24CED86026544C5A8EAA3A5B78C4E2D46A",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "bytes": 2293,
+    "sha256": "91264840B39BD7F48678F4755ECDAFA9B7922243994CFA89460A700E85BBAC09",
+    "replacement": "Content/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "bytes": 71576,
+    "sha256": "8902C1EF720F85B088D67B8D9B1FF643F43100AB647F582E21E5BD6095F89D72",
+    "replacement": "Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 165539,
+    "sha256": "1A7D62162076B482BE96FF0116C06FEBB99D0EC5ACA6BB5D9AFBC5CB5C11C6CB",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-125927/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "bytes": 90838,
+    "sha256": "8EA85C8C5A8E2C0C76F4C33B8507E0CFB8DCE1AC3DE76888721D2BA32441F81B",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "bytes": 95011,
+    "sha256": "F5D85880CB98080BDD413BEB6EB3EC4973FB29B19BDCFFD0A339DA275DDDD93D",
+    "replacement": "Content/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "bytes": 129098,
+    "sha256": "2F60E831FAEBAEDA59FC9A63EB58B441F48BFAED184F5AF1B6A76028E7F81602",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "bytes": 2293,
+    "sha256": "91264840B39BD7F48678F4755ECDAFA9B7922243994CFA89460A700E85BBAC09",
+    "replacement": "Content/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "bytes": 71576,
+    "sha256": "80E2C74F21E6DA6E230B17979B59A9FAB8640ED310C49DE5E087BEC31DE3E917",
+    "replacement": "Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "bytes": 165802,
+    "sha256": "91ED3ABB31795C45B3A5B655D175CAF768B44E2BC4914366E0726580315A771B",
+    "replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "bytes": 90838,
+    "sha256": "BF696B8657763EE80D1B02B5A08DE16782FC3C319735D961139C54324BDFA915",
+    "replacement": "Content/WorldGeneration/TemperateHills/WetForest/M_ForestPond.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/RiverNativeOptics.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/RiverNativeOptics.cpp",
+    "bytes": 8333,
+    "sha256": "3504B33586B5483C88E45D8CED427BCD966DBAF51B304E2649BE1112D19A40B2",
+    "replacement": "Source/FPSGAME/WorldGeneration/RiverNativeOptics.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp",
+    "bytes": 17392,
+    "sha256": "FFA7EB9E4833AA1A77C2E8CB29D767E5C19017D4E5265765FE42A8C925D40585",
+    "replacement": "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.h",
+    "bytes": 5949,
+    "sha256": "F0E4BA9D40A77B48EC269B6AEEAEA91E7AB7F88754D7384CDE7FBE4DF91AA5F7",
+    "replacement": "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsForestAtmosphere.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsForestAtmosphere.cpp",
+    "bytes": 2450,
+    "sha256": "D5B4D9853D3F5D4A525104F505AF77EE555ACC2BDDAFDD4A8858948E84008FB9",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsForestAtmosphere.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "bytes": 59465,
+    "sha256": "774F7F4F0E5FDD5593A9EC4E7E1000033BD2B498EADEE59A2D920319DDCD6020",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 53389,
+    "sha256": "70ACE4FC6E67CDE820066331B7168C25EE1CD2667254AD315F58F237C2F618C1",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "bytes": 21999,
+    "sha256": "FC03B92AA894FD5953FD6DE95CFAE8099C387C4845FBFABED02DB1964DE9D5A5",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "bytes": 14698,
+    "sha256": "226B27EBFCD1763F8593D7E3059ACE48B602E8299490BCE5DA5D48B674D7AAF4",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Tools/Fluids/native_water_surface.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Tools/Fluids/native_water_surface.py",
+    "bytes": 13023,
+    "sha256": "0BDCA4E67091034C682CABB0881282C595B6AE6DC2627D5E1E43F164A0C04B4E",
+    "replacement": "Tools/Fluids/native_water_surface.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Tools/WorldGeneration/build_hills_ground_v2.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Tools/WorldGeneration/build_hills_ground_v2.py",
+    "bytes": 36895,
+    "sha256": "3D6567A68AC6D2D7A0967E7EECAAF5A4D19ED380359ACBAD4934E2512A2D5046",
+    "replacement": "Tools/WorldGeneration/build_hills_ground_v2.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Tools/WorldGeneration/build_temperate_grass.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Tools/WorldGeneration/build_temperate_grass.py",
+    "bytes": 10977,
+    "sha256": "70EE530224BC72E38C5C9407AF32EB25864BEA42796EF6406AC2951B365D66EA",
+    "replacement": "Tools/WorldGeneration/build_temperate_grass.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/Development/DevelopmentEnvironmentSpawn.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/Development/DevelopmentEnvironmentSpawn.cpp",
+    "bytes": 5394,
+    "sha256": "D9670A83F0E056F55404E710BA83DDDF0A5EE152D53E348239B59377B559E5D5",
+    "replacement": "Source/FPSGAME/Development/DevelopmentEnvironmentSpawn.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/Production/ProductionOreRocks.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/Production/ProductionOreRocks.cpp",
+    "bytes": 2710,
+    "sha256": "27A6515F37168F62223CFA5EE161D1AA472366C23BADC0265DE06050D3A7969C",
+    "replacement": "Source/FPSGAME/Production/ProductionOreRocks.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/Production/ProductionOreRocks.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/Production/ProductionOreRocks.h",
+    "bytes": 484,
+    "sha256": "8BA076630EEA49E633D61BC3B66F8714937303BFBA92AFA9D78ED138382B3154",
+    "replacement": "Source/FPSGAME/Production/ProductionOreRocks.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp",
+    "bytes": 7858,
+    "sha256": "118FAED9130BCE07A41FBDB68C5AD3573C55BE572B3E8B20A0A8B762F54510E3",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 51647,
+    "sha256": "E5429CA610E1224F9DE4DC882FBB8409C02A9D60D8006D46960E1043840D9B02",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OrePlacementClearance20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "bytes": 20841,
+    "sha256": "3E516B5E075A971B4FCDD323D08611C0296B2FB1572B9897E8F904929665E30E",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Copper.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Copper.uasset",
+    "bytes": 1386779,
+    "sha256": "6679C21BA2FC2520286E5CB70FD4EBDA3CA82F60CC62BF5541B90799ECE4EF77",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Copper.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Gold.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Gold.uasset",
+    "bytes": 1386763,
+    "sha256": "BCA1944AFFDD59A865E494F9F9A74AA456BC9D9C0309B3AC741260A64DEB86FD",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Gold.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Iron.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Iron.uasset",
+    "bytes": 1386763,
+    "sha256": "D4ABF7E0050FAEA7F08031EB69567DF3DEF3D2CCADAC32FD1A3044E1A119E21D",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Iron.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Silver.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Silver.uasset",
+    "bytes": 1386779,
+    "sha256": "247FBE9B6CEE15F04C8762D37DBA9BD028E50995C26843A216A325113B2BDFDA",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Silver.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/Development/DevelopmentEnvironmentObject.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/Development/DevelopmentEnvironmentObject.cpp",
+    "bytes": 6347,
+    "sha256": "C9E3B2181D53958DBD3D5A1FEA90C037A5CC1EF816C651B0A0F370B64A6EF803",
+    "replacement": "Source/FPSGAME/Development/DevelopmentEnvironmentObject.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/Development/DevelopmentEnvironmentObject.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/Development/DevelopmentEnvironmentObject.h",
+    "bytes": 1466,
+    "sha256": "139248E2B3A2CB9773FB4560D14718779B4D2F9068BC89C7B24B922775AC629A",
+    "replacement": "Source/FPSGAME/Development/DevelopmentEnvironmentObject.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/Development/DevelopmentEnvironmentSpawn.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/Development/DevelopmentEnvironmentSpawn.cpp",
+    "bytes": 4803,
+    "sha256": "D2A1BD01866AD008B885F52BD2D3F3C801354FF6CBB39EAEE90B04CBC39A5DAA",
+    "replacement": "Source/FPSGAME/Development/DevelopmentEnvironmentSpawn.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "bytes": 59501,
+    "sha256": "DE958014FCB386593843CC24DE3ABE4650D1669B8A94C4749054E41214804C73",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 50957,
+    "sha256": "40955A085A12DC90316A7735C0918B6502BD74D6ADF28972074FD6A4CBE9E277",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "bytes": 20858,
+    "sha256": "09B1BB4B843C5C061F13107B6E3ADB8F73E3F2B53496D9D601DF38D39D263B19",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreRockScaleVariants20261110/Backups/Tools/Production/build_ore_vein_rocks.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreRockScaleVariants20261110/Backups/Tools/Production/build_ore_vein_rocks.py",
+    "bytes": 14497,
+    "sha256": "173DCFFFF0B053C2AE02792058758F5D627419C941BBCC8CA4CD6B764BFA59A6",
+    "replacement": "Tools/Production/build_ore_vein_rocks.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Copper.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Copper.uasset",
+    "bytes": 4961,
+    "sha256": "798FE10D6274BC44224F4592CCEC9998AD0CBD44EBBADE0D1100831F2507FEB4",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Copper.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Gold.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Gold.uasset",
+    "bytes": 4951,
+    "sha256": "BBFD9B6F4C7E89793234E192CB3AF849535B81EE131B1CEF28E671C3138C01EB",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Gold.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Iron.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Iron.uasset",
+    "bytes": 4951,
+    "sha256": "F395457105A61F8D567314FC6750F10D89A2D7CAA5FD8B9922B4D1BCA9EC885E",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Iron.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Silver.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Silver.uasset",
+    "bytes": 4961,
+    "sha256": "BDB3B9BCDD183C6C6E014DC8062B080A6B95ECD49D20A0E1E65387E4DC78DAB7",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/MI_HillsOre_Silver.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/M_HillsOreRock.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/M_HillsOreRock.uasset",
+    "bytes": 34039,
+    "sha256": "0D017FC2BFD15E79ABC28C6D380869398B79C5C90D0F773BDA9B43F48F7FAAAE",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/M_HillsOreRock.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Copper.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Copper.uasset",
+    "bytes": 1386779,
+    "sha256": "F5CC94F6B7C2DD9F604F7C56DE73133A6A45F1AFC8E64620845EA847D8578C76",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Copper.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Gold.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Gold.uasset",
+    "bytes": 1386763,
+    "sha256": "36E543C555CB8ABC15A929B9402405AE267BAD8F3A8ED081EE3AF925585D5916",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Gold.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Iron.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Iron.uasset",
+    "bytes": 1386763,
+    "sha256": "DA62836BC91CD395E098C7710B57D845A59216B118D4F7DE19F98484D6E558DE",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Iron.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Silver.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Silver.uasset",
+    "bytes": 1386779,
+    "sha256": "E2A2476C0D5EC6F3E90C846EBF0C2485FE05AB93EF71C6FF1482DE2E483254ED",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_Silver.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Copper.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Copper.uasset",
+    "bytes": 1379797,
+    "sha256": "B049EFB4318D76297E069F6F2957D38D2C5B111D3D5E5709DDA404F449904ED6",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Copper.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Gold.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Gold.uasset",
+    "bytes": 1379781,
+    "sha256": "EC9252D15EFACCAAA7F144BAC8591A336F35C31A2EC49CF5908F0CD7DD7FFD3F",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Gold.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Iron.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Iron.uasset",
+    "bytes": 1379781,
+    "sha256": "FDC052FD2A0AD9BC825D73F2906C43446FCB0ECCEA251D5D89A0DCC103CCA67C",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Iron.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Silver.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Silver.uasset",
+    "bytes": 1379797,
+    "sha256": "A712071423A068CED3361FB64165E91EA4CECBE2DB5B0B98A6F5438CD4A0CE00",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_01A_Silver.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Copper.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Copper.uasset",
+    "bytes": 1369546,
+    "sha256": "CF673AAEBE4E3B129A5D09D5A7B2EF22736803BCFC4F2AED8DDF585A522A14B3",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Copper.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Gold.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Gold.uasset",
+    "bytes": 1369530,
+    "sha256": "50EB9CEE98CB8B4E5AD0C54D476CA6FA1C97F37DB7140AAD0ABDDDBA9253A40D",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Gold.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Iron.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Iron.uasset",
+    "bytes": 1369530,
+    "sha256": "0E5B0A4F8E78A9A44579B62DE4C25419A2F4D9DD8A887BBDB45758E47DA91D2B",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Iron.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Silver.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Silver.uasset",
+    "bytes": 1369546,
+    "sha256": "147009B32254136A9945F7F804A7D050D66A7C3C64104C5981DB19F6FBB3387B",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_02A_Silver.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Copper.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Copper.uasset",
+    "bytes": 1360853,
+    "sha256": "FD23D5C51E2772C184BAFC5F2E9472E70BF464B9A3ABD4A6A7D80E23EE8D722E",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Copper.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Gold.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Gold.uasset",
+    "bytes": 1360837,
+    "sha256": "DB8162FFFE7EE3B63D1CCD1027DB022D6C941D989554F111D73052F51E8CF0BA",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Gold.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Iron.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Iron.uasset",
+    "bytes": 1360837,
+    "sha256": "8EDC2C1BB7D7F0CB328CD4F3632C79E89B044532B4F1C0D699A135017B606153",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Iron.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Silver.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Silver.uasset",
+    "bytes": 1360853,
+    "sha256": "2714B6DB97964E4234ABFAAA461A1EB74AF4FD3880975247BC547CBCCB7C3826",
+    "replacement": "Content/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_03A_Silver.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 51121,
+    "sha256": "923F13A0BDB1B0842222BDC243257076AB41B12E2E8DA1E8E9DFDF913AE43587",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Tools/Production/build_ore_rock_variants.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Tools/Production/build_ore_rock_variants.py",
+    "bytes": 2983,
+    "sha256": "C0D13037F922FC80B64A2CDDDA11187871AE7837A5585D4305DDA1F95394229D",
+    "replacement": "Tools/Production/build_ore_rock_variants.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/OreSurfaceHabitat20261110/Backups/Tools/Production/build_ore_vein_rocks.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/OreSurfaceHabitat20261110/Backups/Tools/Production/build_ore_vein_rocks.py",
+    "bytes": 13284,
+    "sha256": "D899D77DCDCBDD8FFC7E60F18D34418337C220E1697F466C7FD42AA1BF65B451",
+    "replacement": "Tools/Production/build_ore_vein_rocks.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateBeechDominance20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateBeechDominance20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 50588,
+    "sha256": "58D03FAE3C7B35D5C51E7FAA89103194BB19E62A0DA939BEA2DCA8DED73959F6",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateBeechDominance20261110/Backups/Tools/WorldGeneration/build_temperate_forest_species.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateBeechDominance20261110/Backups/Tools/WorldGeneration/build_temperate_forest_species.py",
+    "bytes": 14270,
+    "sha256": "17BCEF96BAA393344648220303CA35855EDF86AB8B8CC6359CDA3B903F3C8AC7",
+    "replacement": "Tools/WorldGeneration/build_temperate_forest_species.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateEcologyConfig20261111/Backups/DefaultGame.ini",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateEcologyConfig20261111/Backups/DefaultGame.ini",
+    "bytes": 39910,
+    "sha256": "4142202F95CF193B21631D36BBFF85D21024CE18C35C498E9D201E3C7176C2A3",
+    "replacement": "Config/DefaultGame.ini",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateForestHabitat.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateForestHabitat.h",
+    "bytes": 3356,
+    "sha256": "DA82724920B50ADEC9DFD9155639FAF319BABEFFE2AC59568ABF2C237DB96274",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateForestUnderstory.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateForestUnderstory.cpp",
+    "bytes": 4035,
+    "sha256": "75E0234317D190D40F50949A02CA7627620EA229D24AED4C2679905C354DB973",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateHillsGrass.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateHillsGrass.cpp",
+    "bytes": 6006,
+    "sha256": "FC36D162410A6413ED4425F5A0ACEF43C570F5627FBBBFBF28AB68F7031F714B",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateHillsRiverEcology.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateHillsRiverEcology.cpp",
+    "bytes": 8653,
+    "sha256": "6B3C680D3CA39FEB9AF25ECA06494C094F84737E5D55E3EAB0ADEE768F5B89CF",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsRiverEcology.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateHillsWorld.cpp",
+    "bytes": 52107,
+    "sha256": "C62F8F053AC17563DBB52B220788239C929997060EE22DA455C016B3D4BE2A81",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateHillsWorld.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateEcologyConfig20261111/Backups/TemperateHillsWorld.h",
+    "bytes": 21604,
+    "sha256": "06B05CA12062719B530C8E5DBF2591E970D46EB3DA873DC562E3269341DC4452",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/FPSGAME.uproject",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/FPSGAME.uproject",
+    "bytes": 2769,
+    "sha256": "96EE6F46F5FCF79D832091A020140B2559C460F6DBA82AC4957A94A37796B517",
+    "replacement": "FPSGAME.uproject",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 16743,
+    "sha256": "9797AD32FB75877827CFA6B790091FB99A358BDDBFB484392310ECEF96860E8A",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/MI_ValleyLowFog.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/MI_ValleyLowFog.uasset",
+    "bytes": 6010,
+    "sha256": "6E6EE13C3D0C07C8C77CF91743E287624AA52218C00814461CB615C07A1CD125",
+    "replacement": "Content/WorldGeneration/TemperateHills/MI_ValleyLowFog.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_BlackPoplar.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_BlackPoplar.uasset",
+    "bytes": 17152,
+    "sha256": "84A16966B0FC4B11908E5BF4D210D8500A0DC0C61F75D5B20F8A150323181DCF",
+    "replacement": "Content/WorldGeneration/TemperateHills/PCG_BlackPoplar.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "bytes": 27092,
+    "sha256": "563261457AE80829F069A1A2CB08916FBE2CABB2E5EC099B7C687A1E4203E7C6",
+    "replacement": "Content/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_A.uasset",
+    "bytes": 39834978,
+    "sha256": "198EA38CA54D6D5F4FC6D555153B1A7130B19013FDCB6E2307D9A77558C081B4",
+    "replacement": "Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_B.uasset",
+    "bytes": 89003209,
+    "sha256": "549578E74DC7AE03EC755690909DD8B1A0D331A54555A3483201F647B5A5D6B0",
+    "replacement": "Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_C.uasset",
+    "bytes": 73800434,
+    "sha256": "CED0BBAD6103B5E5F863CDEBAECC8F7011471C63FDAF8F171A5BF5BE927EB1CA",
+    "replacement": "Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_D.uasset",
+    "bytes": 60403638,
+    "sha256": "C3A8A1D6DDE5433083BC8AFDF8C02F8D9636501AE6B234A322738EF42E747ED4",
+    "replacement": "Content/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/Atmosphere20261110/DA_ForestDynamicWind.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/Atmosphere20261110/DA_ForestDynamicWind.uasset",
+    "bytes": 1147,
+    "sha256": "742A7D5BB483FCBFFD3372A5DC3F710B37E16814EA19BF8DAE27F3E8B82BB744",
+    "replacement": "Content/WorldGeneration/TemperateHills/Atmosphere20261110/DA_ForestDynamicWind.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "bytes": 1703,
+    "sha256": "8D84A6FAD7881630FDD5B26C6DEB9F445CB0E2C54ABFCCF00C6638F3A6C34094",
+    "replacement": "Content/WorldGeneration/TemperateHills/Atmosphere20261110/MPC_ForestWind.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "bytes": 8887,
+    "sha256": "C4CBE0D464438C4B306FA33ED50F1284E1D52CE70C8421DA39CCAF736139B626",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "bytes": 16271,
+    "sha256": "A85F22E6B90A3506CA6819DEEE07FC13092EF5350DD18A18330B7FCC39926FB3",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "bytes": 1644383,
+    "sha256": "D982BC26D57B3CAB5E53BA8025327C3A12C64A2F84F832863427D5E85B05BD72",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "bytes": 2155398,
+    "sha256": "27634BF3509DC3FDADB29B6EB866BBADA3D96C149117532D97BE6503F03076C8",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "bytes": 2515745,
+    "sha256": "0CBA35FBCF64A2041C669BF35E3C27B0EB8ECEA6AD78311CBE894CC1ED04D8C8",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "bytes": 702597,
+    "sha256": "141F9C652CAC3683EEA8E569B1BBEF6C92936811CA9B10741A9E4B18CCA9D92F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "bytes": 5365306,
+    "sha256": "940A1AF1AB954911581FC88E49120638B4EF888AB841F776AE723784882FD395",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "bytes": 5434848,
+    "sha256": "701E0A46A294DE3A8F4FCB71346405BEF839A115E04364256634FB2DFDE50440",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "bytes": 1929223,
+    "sha256": "3781EF82685D586B3CF8BA403CE58F6A643EB6F3E2BD9A50D6581E0DBCBD1D02",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "bytes": 982114,
+    "sha256": "226504C026257A095A519DBD763F03DE7EED940AF6BB7E3510130515056B335F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_A.uasset",
+    "bytes": 625445,
+    "sha256": "69AC8D337D96C9391F27F43D5E661A508625247FDECB449E3B1A8836D0B3BA29",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_B.uasset",
+    "bytes": 581863,
+    "sha256": "3C71662BA5A87EFB3D84443E0598A4B7FBF17F1A4F43E6F51E27C0667F408022",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_C.uasset",
+    "bytes": 593769,
+    "sha256": "D5DE3FF7BF9C7E75105EF67EF2D9D0DDEDF76281913BA7A571FA24BFFAA94FD4",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_D.uasset",
+    "bytes": 587327,
+    "sha256": "1A6A6FA69E360B85FE545441D44DA58C96613B7C8AAF98E2A0A8DEEE5B4E7A7F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BrackenFern_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/FPSGAME.Build.cs",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/FPSGAME.Build.cs",
+    "bytes": 4039,
+    "sha256": "740AC67E4B5785B4E249B67D6CECB51926F018B640452DDC00DC8D260FC37E54",
+    "replacement": "Source/FPSGAME/FPSGAME.Build.cs",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/FPSUDSHillsAtmosphere.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/FPSUDSHillsAtmosphere.cpp",
+    "bytes": 5139,
+    "sha256": "9BBF24C8A936B83438F26CCD9F8ED1F44BDC0F69BF6C8031F9B76A22C8AE35E8",
+    "replacement": "Source/FPSGAME/FPSUDSHillsAtmosphere.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "bytes": 58355,
+    "sha256": "8AC1A5A780F0DD8306463DA1E923681153FC001EF924A2F88098E00DAEE0F7E1",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 50113,
+    "sha256": "5B9EEB6A7F593FB9C28D786A818C0F3F43F756FC5D6FC357F08D6C822716A917",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "bytes": 20434,
+    "sha256": "275B400CE5E15EA66E3017431DCF02F61D4C1518FE1FAE214E8C1342BE0BD3DF",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestAtmosphere20261110/Backups/Tools/WorldGeneration/build_temperate_forest_species.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestAtmosphere20261110/Backups/Tools/WorldGeneration/build_temperate_forest_species.py",
+    "bytes": 13923,
+    "sha256": "6802478B87ED780A2227A9B3BA0FA2B742DEF50D472D0157972FF288D0D9C0CA",
+    "replacement": "Tools/WorldGeneration/build_temperate_forest_species.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+    "bytes": 1535,
+    "sha256": "1CECBC7D731F4A19ADA66EA72C150F8550AA23E9EF780432BE2BB7EBA4C91588",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "bytes": 3863,
+    "sha256": "DDDC0E0FEC13AE4B0FCB9693DD11B8A5C1CCEF6CEF1A594A0C8D994791EB2B03",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "bytes": 6247,
+    "sha256": "553D6D31E63CBA825FAC9E36669B1829D74E0CD435274FB08C36620B0B15F4DA",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 48949,
+    "sha256": "AE3A6603B7C3F3A6FB3935508CECC29CCFECE7CC610EDC64597788752A28ADA8",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Tools/WorldGeneration/build_hills_ground_v2.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestComposition20261110/Backups/BeforeAuthoring/Tools/WorldGeneration/build_hills_ground_v2.py",
+    "bytes": 36171,
+    "sha256": "82E7D08D4DBEA1CE02A60EA8DEA004DC92086908ABEEED2A7D4DF91802C2A940",
+    "replacement": "Tools/WorldGeneration/build_hills_ground_v2.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestRealism20261110/Backups/Assets-20261110-004630/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestRealism20261110/Backups/Assets-20261110-004630/DA_TemperateHillsStreaming.uasset",
+    "bytes": 15078,
+    "sha256": "80B69C5C323270069604B54743D0A1116D316133C58E2E608F3A9A5F4BA6403B",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.cpp",
+    "bytes": 15050,
+    "sha256": "22C3ECDB0ADFE4BE3226482B211094D80D833DBDFE533ED181FC6DC4DFE52626",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp",
+    "bytes": 6785,
+    "sha256": "5C6ACF0599D6D7FF99909F80B96848F2FC1ADDDB3B492548B7DA3CB5B7D2FF21",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "bytes": 5933,
+    "sha256": "7170C959C085DD78A0B95666F034F64867A4C8DD0F93BC7A5F69C26092F13113",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "bytes": 57439,
+    "sha256": "782A9D82841498A1C221E527FCE8FFAE24CC8BBAE322A8547497D7E0D52BAAEF",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 47167,
+    "sha256": "1231ADD75AA744BA386E82B689448DBFA4460274894908BB3EAD80241ECC2C68",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Tools/WorldGeneration/build_hills_ground_v2.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestRealism20261110/Backups/BeforeAuthoring/Tools/WorldGeneration/build_hills_ground_v2.py",
+    "bytes": 31550,
+    "sha256": "42E155FC83AACD24C067A8D01F1DB682A9CEA7DF286C715416A6A1A608838567",
+    "replacement": "Tools/WorldGeneration/build_hills_ground_v2.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102226/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102226/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 15158,
+    "sha256": "04BC07254E6221C1B747B449B4A9970C4012679786753A80A61F6108938C4A59",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102336/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102336/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 15158,
+    "sha256": "04BC07254E6221C1B747B449B4A9970C4012679786753A80A61F6108938C4A59",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 15158,
+    "sha256": "04BC07254E6221C1B747B449B4A9970C4012679786753A80A61F6108938C4A59",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "bytes": 8887,
+    "sha256": "D3D6918BC0DE6F4B69C2FC6CE30F278488CB81DCCA2CA5F46BF0B15D2195F3A5",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "bytes": 16271,
+    "sha256": "27F89D55466AD0935E1AF3B649F4A7C1F3C617A1DC969DC520BBDB281B9267C1",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Bark_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Bark_01.uasset",
+    "bytes": 11995,
+    "sha256": "468D7BA951464A017C67B10FDD99F5CD15B73666FC63972DAA9998F9EAF8414C",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Bark_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Foliage_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Foliage_01.uasset",
+    "bytes": 15729,
+    "sha256": "E014F81D2CEAEB961463DC10A674662323693F13C108057CD5ACF1B63CDAE742",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Foliage_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "bytes": 25180,
+    "sha256": "DD0F497E1C2496339450740D34D4065CFE933E5E107D15D8845179C7346C479C",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "bytes": 1644383,
+    "sha256": "D982BC26D57B3CAB5E53BA8025327C3A12C64A2F84F832863427D5E85B05BD72",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "bytes": 2155398,
+    "sha256": "27634BF3509DC3FDADB29B6EB866BBADA3D96C149117532D97BE6503F03076C8",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "bytes": 2515745,
+    "sha256": "0CBA35FBCF64A2041C669BF35E3C27B0EB8ECEA6AD78311CBE894CC1ED04D8C8",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "bytes": 702597,
+    "sha256": "141F9C652CAC3683EEA8E569B1BBEF6C92936811CA9B10741A9E4B18CCA9D92F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "bytes": 5365306,
+    "sha256": "940A1AF1AB954911581FC88E49120638B4EF888AB841F776AE723784882FD395",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "bytes": 5434848,
+    "sha256": "701E0A46A294DE3A8F4FCB71346405BEF839A115E04364256634FB2DFDE50440",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "bytes": 1929223,
+    "sha256": "3781EF82685D586B3CF8BA403CE58F6A643EB6F3E2BD9A50D6581E0DBCBD1D02",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "bytes": 982114,
+    "sha256": "226504C026257A095A519DBD763F03DE7EED940AF6BB7E3510130515056B335F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_A.uasset",
+    "bytes": 2385234,
+    "sha256": "BDC2DB232F15711AB9D5371D572E9637B3905AB0D0A6DAC1993A9DE336563ED9",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_C.uasset",
+    "bytes": 29320005,
+    "sha256": "A78F3F1FFCF74610ADA11FBC033C2246DDA81D78D4C93DB21532853F9D9CB82F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_NAH.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_NAH.uasset",
+    "bytes": 35926214,
+    "sha256": "ABF2CE6112E1896A493739852C9942D38E9B78B469D4AEA4B1BBBDA2CF33680E",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_NAH.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_CA.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_CA.uasset",
+    "bytes": 17665958,
+    "sha256": "76F42D80BF75EB6B95E2D06C8D0B336B01E1D5B207D37F7A7E6FDCF30E003330",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_CA.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_NT.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_NT.uasset",
+    "bytes": 25951762,
+    "sha256": "F155163FB58963CD4984147F1A95B453361FF9E487EDBF8CA894E65BCFA1403D",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_NT.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_C.uasset",
+    "bytes": 31182997,
+    "sha256": "A028B071B9BCAD61C0CB5169D9D0D0DEAF12F5B09762575AE994F1825825A0FC",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_NAH.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_NAH.uasset",
+    "bytes": 37504666,
+    "sha256": "9702BA64AB7BF33A58AEF322E55E4C889B0EE07EB2EEA2AC7FBF0E0537264A32",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_NAH.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_CA.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_CA.uasset",
+    "bytes": 22447981,
+    "sha256": "C2DC328F0329B254E8353F76162A23C12171BEE6840D04FBAB64FAB1CC6071FD",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_CA.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_NT.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102621/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_NT.uasset",
+    "bytes": 25417012,
+    "sha256": "3595D7826F6EF03DA7E4C48B4A96771BDC37C8CEC064867D589DC9707C80DAA6",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_NT.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 15158,
+    "sha256": "04BC07254E6221C1B747B449B4A9970C4012679786753A80A61F6108938C4A59",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "bytes": 18745,
+    "sha256": "D693D4AF9810D6B227B51632105C6479697BF76D8C1B26BFF475B25AE408993A",
+    "replacement": "Content/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "bytes": 8887,
+    "sha256": "DA7A8CBD94788850E4D7DC69AE5EB9D4FD90421475B72F906E052D84495616BF",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "bytes": 16271,
+    "sha256": "88B6D6C7B23947115794477E917903C4A3DE62DB07D2DF4ED0E08692F9DFB306",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Bark_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Bark_01.uasset",
+    "bytes": 11995,
+    "sha256": "98EED8D0446C743EADB8D041258F4A11477D7DC8D033CB6E4419B8B63FBC36BF",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Bark_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Foliage_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Foliage_01.uasset",
+    "bytes": 15729,
+    "sha256": "98A6F5A27C46EDB6A72DE49C5846383FD26B08623001B7451714F7B19276DED7",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_European_Beech_Foliage_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "bytes": 25180,
+    "sha256": "3D3B4C84F348B0913B166C27393B28C534EB45D1BFCD26A078B45197669D2FF8",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "bytes": 1644383,
+    "sha256": "D982BC26D57B3CAB5E53BA8025327C3A12C64A2F84F832863427D5E85B05BD72",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "bytes": 2155398,
+    "sha256": "27634BF3509DC3FDADB29B6EB866BBADA3D96C149117532D97BE6503F03076C8",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "bytes": 2515745,
+    "sha256": "0CBA35FBCF64A2041C669BF35E3C27B0EB8ECEA6AD78311CBE894CC1ED04D8C8",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "bytes": 702597,
+    "sha256": "141F9C652CAC3683EEA8E569B1BBEF6C92936811CA9B10741A9E4B18CCA9D92F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_BeechSapling_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "bytes": 5365306,
+    "sha256": "940A1AF1AB954911581FC88E49120638B4EF888AB841F776AE723784882FD395",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "bytes": 5434848,
+    "sha256": "701E0A46A294DE3A8F4FCB71346405BEF839A115E04364256634FB2DFDE50440",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "bytes": 1929223,
+    "sha256": "3781EF82685D586B3CF8BA403CE58F6A643EB6F3E2BD9A50D6581E0DBCBD1D02",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "bytes": 982114,
+    "sha256": "226504C026257A095A519DBD763F03DE7EED940AF6BB7E3510130515056B335F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SK_Beech_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_A.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_A.uasset",
+    "bytes": 2385234,
+    "sha256": "BDC2DB232F15711AB9D5371D572E9637B3905AB0D0A6DAC1993A9DE336563ED9",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_A.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_B.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_B.uasset",
+    "bytes": 1247119,
+    "sha256": "223C40181A2873BF140DBBB3208BE67B676BD9A6D83E10BB659227FE5FFAC67C",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_B.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_C.uasset",
+    "bytes": 527577,
+    "sha256": "CD44BB4B3E5B3A6C9FC1CDEA51BE15070A06A507C09E66E5AB9B309CA79D5028",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_D.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_D.uasset",
+    "bytes": 303648,
+    "sha256": "6444ABC1502F6F4E24AD960831BE56F1FB521FA19646548F8F4BA7839E93A3E3",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Meshes/SM_Hazel_D.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_C.uasset",
+    "bytes": 29320005,
+    "sha256": "A78F3F1FFCF74610ADA11FBC033C2246DDA81D78D4C93DB21532853F9D9CB82F",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_NAH.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_NAH.uasset",
+    "bytes": 35926214,
+    "sha256": "ABF2CE6112E1896A493739852C9942D38E9B78B469D4AEA4B1BBBDA2CF33680E",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Bark_01_NAH.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_CA.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_CA.uasset",
+    "bytes": 17665958,
+    "sha256": "76F42D80BF75EB6B95E2D06C8D0B336B01E1D5B207D37F7A7E6FDCF30E003330",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_CA.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_NT.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_NT.uasset",
+    "bytes": 25951762,
+    "sha256": "F155163FB58963CD4984147F1A95B453361FF9E487EDBF8CA894E65BCFA1403D",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_Common_Hazel_Foliage_01_NT.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_C.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_C.uasset",
+    "bytes": 31182997,
+    "sha256": "A028B071B9BCAD61C0CB5169D9D0D0DEAF12F5B09762575AE994F1825825A0FC",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_C.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_NAH.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_NAH.uasset",
+    "bytes": 37504666,
+    "sha256": "9702BA64AB7BF33A58AEF322E55E4C889B0EE07EB2EEA2AC7FBF0E0537264A32",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Bark_01_NAH.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_CA.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_CA.uasset",
+    "bytes": 22447981,
+    "sha256": "C2DC328F0329B254E8353F76162A23C12171BEE6840D04FBAB64FAB1CC6071FD",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_CA.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_NT.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-102723/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_NT.uasset",
+    "bytes": 25417012,
+    "sha256": "3595D7826F6EF03DA7E4C48B4A96771BDC37C8CEC064867D589DC9707C80DAA6",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Textures/T_European_Beech_Foliage_01_NT.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-125527/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/Assets-20261110-125527/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 16090,
+    "sha256": "86883F7723B6A6B4EEDE1390E62F991C8D337FF6E1A683FC0E0EF96DA7A6BD6D",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/build_hills_ground_v2.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/build_hills_ground_v2.py",
+    "bytes": 35582,
+    "sha256": "EAC3F6CA22AF9C8B70D75DE72F81F798F19F88B00EE45F79CC637680BFAC4903",
+    "replacement": "Tools/WorldGeneration/build_hills_ground_v2.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsPCG.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsPCG.cpp",
+    "bytes": 3464,
+    "sha256": "BF7C03D986F56A5F5F50F13D6103D7E9B5B8BF2DEC2ABF4A41373DAB80071BD0",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsPCG.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsPCG.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsPCG.h",
+    "bytes": 1080,
+    "sha256": "F2D4063C0E4E1596014040CAC9674E813F6C6F01E641546B349F6591892D60C3",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsPCG.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsStreaming.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsStreaming.cpp",
+    "bytes": 57803,
+    "sha256": "AEBF2B60A4288FF02CC6C25F3C2A24181B79E22B27F0CCE8187F9C4784237BF9",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsWorld.cpp",
+    "bytes": 48765,
+    "sha256": "93E80707720E1BEA1F668A77E8E9066BA671B50F09144E45F3989449DAACE77D",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsWorld.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateForestSpecies20261110/Backups/BeforeAuthoring/TemperateHillsWorld.h",
+    "bytes": 19920,
+    "sha256": "B7E1FFEED74D43519B8A9A77C888FA7190C3F0211B6FAA20815D052FC5F54480",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateShrubWindFix20261110/Backups/Content/WorldGeneration/TemperateHills/Atmosphere20261110/M_ForestShrubWind.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateShrubWindFix20261110/Backups/Content/WorldGeneration/TemperateHills/Atmosphere20261110/M_ForestShrubWind.uasset",
+    "bytes": 30630,
+    "sha256": "90A111C0F2AC81234E2A8B66FB171DAA36137F5CF6065C190DEFA7AC26DE9A86",
+    "replacement": "Content/WorldGeneration/TemperateHills/Atmosphere20261110/M_ForestShrubWind.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateShrubWindFix20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateShrubWindFix20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "bytes": 9396,
+    "sha256": "EA71E39137E98B501C127750BE63BDE95C263698C1139F740CCBA8576C9471CA",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Bark_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateShrubWindFix20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateShrubWindFix20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "bytes": 16780,
+    "sha256": "A3C730CB9F4CEF131DDE9A24657C77BBD2EF8B7124839452092A2DB5BD046AEF",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/MI_Common_Hazel_Foliage_01.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateShrubWindFix20261110/Backups/Tools/WorldGeneration/build_temperate_forest_atmosphere.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateShrubWindFix20261110/Backups/Tools/WorldGeneration/build_temperate_forest_atmosphere.py",
+    "bytes": 12437,
+    "sha256": "B70BF66A215A9C48B46A13283324D759730CE53690382CC130C3094FF5E2FA12",
+    "replacement": "Tools/WorldGeneration/build_temperate_forest_atmosphere.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateSpeciesCuration20261110/Backups/Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateSpeciesCuration20261110/Backups/Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "bytes": 17475,
+    "sha256": "64787BC9443908B988A69433DEDD75C964207D550A9391C7CDD562313DDA7599",
+    "replacement": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateSpeciesCuration20261110/Backups/Tools/WorldGeneration/build_dense_riverbanks.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateSpeciesCuration20261110/Backups/Tools/WorldGeneration/build_dense_riverbanks.py",
+    "bytes": 7300,
+    "sha256": "C2BFEE7B2398A5927D83155B41B2BBD557D72597BB2C30E156357D7480523312",
+    "replacement": "Tools/WorldGeneration/build_dense_riverbanks.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateSpeciesCuration20261110/Backups/Tools/WorldGeneration/build_temperate_river_ecology.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateSpeciesCuration20261110/Backups/Tools/WorldGeneration/build_temperate_river_ecology.py",
+    "bytes": 10952,
+    "sha256": "69981083691654495CEC15E133E4718B625C899B53E5624E13BACC8D57E3E5B2",
+    "replacement": "Tools/WorldGeneration/build_temperate_river_ecology.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/M_BlackPoplarPCG.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/M_BlackPoplarPCG.uasset",
+    "bytes": 25141,
+    "sha256": "FBFD7FCABA5ABF562B99278775EDCC1BEE8CF25750CE4AC718E1988A6D4B088A",
+    "replacement": "Content/WorldGeneration/TemperateHills/M_BlackPoplarPCG.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_BlackPoplar.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_BlackPoplar.uasset",
+    "bytes": 17380,
+    "sha256": "D6450DFE4A1758620EC53F9085E18D6BF5198CAF94DAE35D9FD4188527A7F81A",
+    "replacement": "Content/WorldGeneration/TemperateHills/PCG_BlackPoplar.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_HillsGrass.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_HillsGrass.uasset",
+    "bytes": 18778,
+    "sha256": "0BEA795D3CE68DC2DC4B89B2649636AF5617486920D750D68A2B83D806719814",
+    "replacement": "Content/WorldGeneration/TemperateHills/PCG_HillsGrass.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_HillsRocks.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_HillsRocks.uasset",
+    "bytes": 19285,
+    "sha256": "B8CF1EB269820CCDEDD99CB572CC39CCBBDC08F110D58BC19C3736455843089C",
+    "replacement": "Content/WorldGeneration/TemperateHills/PCG_HillsRocks.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "bytes": 27392,
+    "sha256": "595D926D3F7C255ACD0127CEB64BF1535CB0D5C40C86E68F488456875711C5B1",
+    "replacement": "Content/WorldGeneration/TemperateHills/PCG_HillsShrubs.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "bytes": 25180,
+    "sha256": "7D87506CA63BA7B4C1129048EE19F5BDF4626C020C6FA20DCD32B02765A8013C",
+    "replacement": "Content/WorldGeneration/TemperateHills/ForestSpecies20261110/Materials/M_ForestPCG.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "bytes": 64228,
+    "sha256": "C39840B83089EE04E3F0F14A737CA7F25FB083DBDAB262C0B60424ABDDBFA01F",
+    "replacement": "Content/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateForestAuthoringLibrary.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateForestAuthoringLibrary.cpp",
+    "bytes": 553,
+    "sha256": "E5E65564C9AAA59607838EAD2304D4C5F905995A2366F4D26900A02044F528CE",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestAuthoringLibrary.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateForestAuthoringLibrary.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateForestAuthoringLibrary.h",
+    "bytes": 449,
+    "sha256": "669020449822DE5333AA42870849294F16CA0A824DEBF111F682B56BBD17F90D",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestAuthoringLibrary.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 50148,
+    "sha256": "CF4A11823ADAF718B714984ADACF2D475919FBE59CA1056092F67BC86807F5E6",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Tools/WorldGeneration/build_temperate_forest_atmosphere.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Tools/WorldGeneration/build_temperate_forest_atmosphere.py",
+    "bytes": 12239,
+    "sha256": "377403C65384D70E0EE1FA5FE4D5932D598DB44A4EB5642ED1E8123F6722224B",
+    "replacement": "Tools/WorldGeneration/build_temperate_forest_atmosphere.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/TemperateVegetationVisibility20261110/Backups/Tools/WorldGeneration/build_temperate_grass.py",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/TemperateVegetationVisibility20261110/Backups/Tools/WorldGeneration/build_temperate_grass.py",
+    "bytes": 10790,
+    "sha256": "C15F43BDCA4A107E28A731994F9340BA52EB98BA22A987A973C41A36F2515C56",
+    "replacement": "Tools/WorldGeneration/build_temperate_grass.py",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "bytes": 4670,
+    "sha256": "0E5B65DB8DB408C78CA0A8994D226ACCAE992C588F7111AD2238A9FC2A2266B2",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "bytes": 6730,
+    "sha256": "D22EA02B107E6A28B381A535B366070A068441C14E69E78DC0A270ECE6C13521",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+    "bytes": 9690,
+    "sha256": "B4C3477E633F288C5C473E85FAF3E10828CD360FAAB257658462915409024A6A",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp",
+    "bytes": 15320,
+    "sha256": "6A242BF9828F038E886F3308A7508A1D08DD746365B91CB605A9082001AAC5DB",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsRiverEcology.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsRiverEcology.cpp",
+    "bytes": 8639,
+    "sha256": "462C88871EB150BB05777B8565CDDDD2ADF439BC6FB1E3B4AAF7E938E0AF10C6",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsRiverEcology.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "bytes": 51745,
+    "sha256": "AF840377C302D7BD7D88456ADF93B76485A5499958F5B0201F0C42A2F0E94667",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/VegetationRelationships20261110/Backups/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "bytes": 21347,
+    "sha256": "E7EEDCB41CDE318AAFB004C867DBBD1C25FA5A4F498560D6B85B20E98FEF1409",
+    "replacement": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "reason": "Pre-change backup; active authoring or runtime file identified"
+  },
+  {
+    "original": "SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+    "archived": "trash/hills-async-entry-20261112/SourceAssets/HillsWetForest20261111/Backups/Assets-20261111-130434/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+    "bytes": 5145,
+    "sha256": "5132D211BB3FA2403EA662D84D78599F89B38C425F5EC5CB153637518E1556CE",
+    "replacement": "Content/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+    "reason": "Pre-change backup; active wind collection identified"
+  }
+]

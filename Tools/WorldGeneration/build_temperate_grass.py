@@ -7,6 +7,7 @@ Does not open a map, run gameplay, render previews or change the source library.
 import json
 import shutil
 import importlib.util
+import runpy
 from datetime import datetime
 from pathlib import Path
 import unreal as u
@@ -117,6 +118,9 @@ for property_name in ('BASE_COLOR','SUBSURFACE_COLOR'):
         if not LIB.connect_material_expressions(value,output if name=='C' else '',expr,name):
             raise RuntimeError('Could not connect dry grass colour '+name)
     if not LIB.connect_material_property(expr,'',prop):raise RuntimeError('Could not connect '+property_name)
+wet_spec=importlib.util.spec_from_file_location('hills_wet_materials',ROOT/'Tools/WorldGeneration/forest_wet_materials.py')
+wet=importlib.util.module_from_spec(wet_spec);wet_spec.loader.exec_module(wet)
+wet.apply_grass(master)
 LIB.recompile_material(master)
 save(master)
 materials={}
@@ -182,6 +186,8 @@ for name,value in {'grass_spacing_cm':55.0,'grass_coverage':.94,
                    'grass_accent_spacing_cm':180.0,'grass_accent_coverage':.5}.items():
     assets.set_editor_property(name,value)
 save(assets)
+visibility=runpy.run_path(str(ROOT/'Tools/WorldGeneration/fix_temperate_vegetation_visibility.py'),run_name='__main__')
+REPORT['saved'].extend(visibility['REPORT']['saved'])
 REPORT['configuration']=assets.get_path_name()
 REPORT['palette']={'dryness':.92,'variation':.16,'dry_tint':[1.60,1.21,.57],
                    'olive_tint':[1.12,1.05,.62],'brightness':.85,'subsurface_strength':.55}

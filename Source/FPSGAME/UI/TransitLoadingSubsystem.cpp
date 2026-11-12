@@ -325,6 +325,9 @@ void UTransitLoadingSubsystem::AfterMap(UWorld* World)
     }
     if(!World||World->GetGameInstance()!=GetGameInstance())return;
     bMapLoading=false;bDestinationLoaded=true;
+    const FString LoadedMap=World->GetMapName();
+    bHills=LoadedMap.Contains(TEXT("L_TemperateHills_Initial"));
+    bDungeon=LoadedMap.Contains(TEXT("L_Dungeon_Randomized"));
     if(!View)return;
     // LoadMap invalidates viewport widgets. Keep IgnoreInput, rebuild a live overlay
     // so the player still sees cancel and does not get a "world with no input" gap.
@@ -335,15 +338,32 @@ void UTransitLoadingSubsystem::AfterMap(UWorld* World)
 
 void UTransitLoadingSubsystem::UpdatePreparation(const FText& Status, float Progress)
 {
-    if(!View)BeginTransition(TEXT("L_TemperateHills_Initial"));
-    if(!View)return;
+    if(!View||FinishedAt>0||bPreparationFailed)return;
     View->Status=Status;View->Progress=FMath::Max(View->Progress,FMath::Clamp(bCompletePreload?Progress*.8f:Progress,0.f,.99f));
+}
+
+void UTransitLoadingSubsystem::BeginHillsPreparation()
+{
+    if(!View||FinishedAt>0)BeginTransition(TEXT("L_TemperateHills_Initial"));
+    if(!View)return;
+    // A travel can reuse an overlay that was already preparing the old world.
+    // Only this hills actor may mark its new destination prepared.
+    ResourcePreparation.Reset();ReleasePreparedPlayer();
+    bHills=true;bDungeon=false;bScenePrepared=false;bPreparationFailed=false;
+    View->ReturnToMenu=false;View->RetryAvailable=false;View->Progress=0;
+    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client)
+    {
+        // BeginPlay is also a destination signal when PIE omitted PostLoadMap.
+        bStartupChosen=true;bDestinationLoaded=true;bMapLoading=false;
+    }
+    View->Title=FText::FromString(TEXT("正在进入温带丘陵…"));
+    UpdatePreparation(FText::FromString(TEXT("正在准备温带丘陵…")),0);
 }
 
 void UTransitLoadingSubsystem::BeginDungeonPreparation()
 {
     if (!View) BeginTransition(TEXT("L_Dungeon_Randomized"));
-    bDungeon=true;FinishedAt=0;
+    bDungeon=true;bHills=false;bScenePrepared=false;FinishedAt=0;
     if (View)
     {
         View->Title=FText::FromString(TEXT("正在进入地牢…"));
@@ -383,7 +403,8 @@ void UTransitLoadingSubsystem::FinishPreparation()
 
 void UTransitLoadingSubsystem::FailPreparation(const FText& Reason)
 {
-    UpdatePreparation(Reason,0);FinishedAt=0;bPreparationFailed=true;
+    if(View)View->Status=Reason;
+    FinishedAt=0;bPreparationFailed=true;
     if(View)View->Title=FText::FromString(bDungeon?TEXT("地牢准备失败"):TEXT("场景准备失败"));
 }
 
@@ -391,7 +412,7 @@ void UTransitLoadingSubsystem::Tick(float DeltaTime)
 {
     // M4 联机：联网客户端不跑单机式过场遮罩/启动菜单——世界就绪由服务器把关；
     // pawn 一落地就拆遮罩放行输入（修复 PIE/联机客户端视口进度条永久冻结）。
-    if(View&&FinishedAt==0&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client
+    if(View&&!bHills&&FinishedAt==0&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client
         &&UGameplayStatics::GetPlayerPawn(GetWorld(),0))
     {
         UE_LOG(LogTemp,Warning,TEXT("TransitLoading: net-client bypass map=%s pawn=%s"),
@@ -479,10 +500,12 @@ void UTransitLoadingSubsystem::CancelTransition()
     bScenePrepared=false;bPreparationFailed=false;
 }
 
-void UTransitLoadingSubsystem::RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles)
+void UTransitLoadingSubsystem::RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles,bool bAllBatchesLoaded)
 {
-    // A single curated biome remains resident across return portals; no terrain instances are retained.
-    BiomeHandles=Handles;
+    // Keep the previous visit's dressing until the new visit replaces those
+    // batches. Returning early still preserves the just-loaded spawn assets.
+    if(bAllBatchesLoaded||Handles.Num()>=BiomeHandles.Num())BiomeHandles=Handles;
+    else for(int32 I=0;I<Handles.Num();++I)BiomeHandles[I]=Handles[I];
 }
 
 void UTransitLoadingSubsystem::ShowStartupMenu(APlayerController* Controller)

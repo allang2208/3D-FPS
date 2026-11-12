@@ -21,6 +21,8 @@ What the new base graph adds over the flat three-layer version:
   6. Cavity ambient occlusion derived from the same height maps.
   7. The existing weather-driven `Wetness` scalar and the per-vertex damp channel
      (vertex colour G) darken, smooth and flatten the relief.
+  8. Canopy-driven leaf litter, using explicit vertex alpha (1 minus coverage),
+     locally copied packed scans and the same existing wetness/river contract.
 
 2026-09-20: aligned height sampling, contact refinement, dry-crust stochastic
 tiling and masked texture fetches. Algorithm references are recorded in
@@ -37,7 +39,7 @@ import unreal as u
 ROOT = Path('D:/FPS3D/FPSGAME')
 BASE = '/Game/WorldGeneration/TemperateHills'
 PEBBLE_DIR = BASE + '/PebbleShore'
-OUT = ROOT / 'Saved/GroundMaterialOptimization20260920'
+OUT = ROOT / 'SourceAssets/TemperateForestComposition20261110/Receipts/Ground'
 OUT.mkdir(parents=True, exist_ok=True)
 BACKUP = OUT / ('BeforeAuthoring-' + datetime.now().strftime('%Y%m%d-%H%M%S-%f'))
 EAL = u.EditorAssetLibrary
@@ -47,6 +49,7 @@ REPORT = {'scope': 'Ground material authoring only; no gameplay, map or visual t
 
 GROUND = BASE + '/M_TemperateGround'
 PEBBLE = PEBBLE_DIR + '/M_PebbleShoreGround'
+FOREST_DIR = BASE + '/ForestSpecies20261110/Textures'
 
 # Value noise, written out inline. The material compiler wraps a Custom node's code
 # in a function body, so the node cannot declare helper functions - every use has to
@@ -258,6 +261,9 @@ def build_base(mat):
     world = node(mat, u.MaterialExpressionWorldPosition)
     normal_ws = node(mat, u.MaterialExpressionVertexNormalWS)
     vcol = node(mat, u.MaterialExpressionVertexColor)
+    # The default VertexColor output is RGB, not RGBA. Read A explicitly.
+    alpha = custom(mat, 'return A;', {'A': vcol}, 1, desc='ForestVertexAlpha')
+    wire(vcol, alpha, 'A', out='A')
     camera = node(mat, u.MaterialExpressionCameraPositionWS)
     view = node(mat, u.MaterialExpressionCameraVectorWS)
     wetness = scalar(mat, 'Wetness', 0.0, desc='Weather- and time-of-day driven surface wetness.')
@@ -272,9 +278,14 @@ float gravel=saturate(smoothstep(0.17,0.46,slope)*1.35+(%s-0.62)*1.2);
 float grass=saturate((1.0-smoothstep(0.05,0.30,slope))*(0.30+%s*1.30)*(0.40+damp*1.30))*(1.0-gravel*0.85);
 float dry=saturate((1.0-smoothstep(0.08,0.34,slope))*(1.25-%s)*(1.35-damp))*(1.0-gravel*0.85);
 float soil=saturate(1.0-grass-dry-gravel)+0.10;
+// Alpha is 1 outside woodland; terrain and PCG share the canopy field.
+// Damp organic ground takes over from pale crust underneath the leaf layer.
+float forest=saturate(1.0-Alpha)*(1.0-smoothstep(.12,.35,slope));
+soil+=forest*(grass*.55+dry*.75);
+grass*=1.0-forest*.55;dry*=1.0-forest*.75;
 return float4(grass,soil,gravel,dry)/max(grass+soil+gravel+dry,0.0001);
 ''' % (patch2_v, patch_v, patch_v),
-                  {'P': world, 'N': normal_ws, 'M': vcol, 'Wet': wetness}, 4, desc='GroundFamilyWeights')
+                  {'P': world, 'N': normal_ws, 'M': vcol, 'Alpha': alpha, 'Wet': wetness}, 4, desc='GroundFamilyWeights')
 
     # ---- projection: parallax the shared base UV, then rescale per family ----
     base_tiling = scalar(mat, 'GroundBaseTilingM', 3.4,
@@ -296,11 +307,11 @@ return float4(grass,soil,gravel,dry)/max(grass+soil+gravel+dry,0.0001);
     # The river bank runs its own relief march on the same surface; suppress the hill
     # march there (vertex colour R is the bank mask) so the two never stack.
     relief_amount = custom(mat,
-                           'return Depth*Fade*smoothstep(0.15,0.42,V.z)*saturate(1.0-M.r)*(1.0-0.65*WetF)*(1.0-W.w);',
+                           'return Depth*Fade*smoothstep(0.15,0.42,V.z)*saturate(1.0-M.r)*(1.0-0.65*WetF)*(1.0-W.w)*(1.0-.80*saturate(1.0-Alpha));',
                            {'Depth': scalar(mat, 'GroundReliefDepthCm', 9.0,
                                             desc='Parallax depth in cm. 0 disables the relief march.'),
                             'Fade': relief_fade_curve, 'V': view, 'M': vcol, 'WetF': wet_factor,
-                            'W': weights}, 1)
+                            'W': weights, 'Alpha': alpha}, 1)
     # Use exactly the same per-family metres/offsets AND height weights as the
     # final surface. A shared base-UV sample at 3.4 m was not the 3.0 m soil or
     # 2.1 m gravel that the material actually displayed.
@@ -442,7 +453,76 @@ return lerp(1.0,cavity,Strength);
         desc='GroundAmbientOcclusion')
 
     return {'BASE_COLOR': color, 'NORMAL': normal, 'ROUGHNESS': rough, 'AMBIENT_OCCLUSION': ao,
-            'shared': {'world': world, 'view': view, 'camera': camera, 'vcol': vcol, 'wetness': wetness}}
+            'shared': {'world': world, 'view': view, 'camera': camera, 'vcol': vcol, 'alpha': alpha, 'wetness': wetness}}
+
+
+def prepare_forest_textures():
+    """Imported broadleaf scan; source files remain in the Fab library."""
+    for name in ('T_ForestFloor_BaseColor', 'T_ForestFloor_Normal', 'T_ForestFloor_ARH'):
+        texture = load(FOREST_DIR + '/' + name)
+        # Packed mask channels: R = AO, G = roughness, B = calibrated height.
+        texture.set_editor_property('max_texture_size', 2048)
+        texture.set_editor_property('never_stream', False)
+        save(texture)
+
+
+def build_forest_floor(mat, hill):
+    """Broadleaf litter with a shallow, distance-faded 1.9 cm scan relief."""
+    s = hill['shared']
+    forest = custom(mat, '''
+float slope=1.0-N.z;
+return smoothstep(.14,.78,saturate(1.0-Alpha))*saturate(Coverage)
+    *(1.0-smoothstep(.10,.30,slope))*(1.0-saturate(M.r));
+''', {'M': s['vcol'], 'Alpha': s['alpha'], 'N': node(mat, u.MaterialExpressionVertexNormalWS),
+      'Coverage': scalar(mat, 'ForestLitterCoverage', .96)}, 1, desc='ForestLitterMask')
+    tiling = scalar(mat, 'ForestLitterTilingM', 2.0)
+    base_uv = custom(mat, 'return P.xy/(max(T,.1)*100.0)+float2(.273,.619);',
+                     {'P': s['world'], 'T': tiling}, 2)
+    variation = scalar(mat, 'ForestLitterStochasticStrength', .75)
+    packed = load(FOREST_DIR + '/T_ForestFloor_ARH')
+    height = sample(mat, packed, base_uv, forest, base_uv, variation)
+    uv = custom(mat, '''
+float fade=(1.0-smoothstep(350.0,1000.0,length(Camera-P)))*smoothstep(.15,.38,V.z);
+return UV-V.xy/max(V.z,.2)*(H.b-.5)*Depth*fade*Mask/(max(T,.1)*100.0);
+''', {'UV':base_uv, 'H':height, 'Camera':s['camera'], 'P':s['world'], 'V':s['view'],
+       'T':tiling, 'Mask':forest, 'Depth':scalar(mat,'ForestLitterReliefCm',1.9)}, 2,
+       desc='ForestLitterShallowRelief')
+    ca = sample(mat, load(FOREST_DIR + '/T_ForestFloor_BaseColor'), uv, forest, base_uv, variation)
+    normal_sample = sample(mat, load(FOREST_DIR + '/T_ForestFloor_Normal'), uv, forest, base_uv, variation)
+    arh = sample(mat, packed, uv, forest, base_uv, variation)
+    fine_code, fine_v = noise('leafFine', .0023, 13.1, -5.7)
+    broad_code, broad_v = noise('leafBroad', .00045, -8.9, 21.7)
+    patches = custom(mat, fine_code + broad_code + 'return float2(%s,%s);' % (fine_v, broad_v),
+                     {'P':s['world']}, 2, desc='ForestLitterPatches')
+    blend = custom(mat, '''
+float mask=saturate(Mask);
+float breakup=(Packed.b-.5)*HeightBlend+(Patch.x-.5)*EdgeBreakup;
+// Irregular leaf edges within the transition; zero/full coverage stay exact.
+return saturate(mask+mask*(1.0-mask)*breakup*2.0);
+''', {'Mask':forest, 'Packed':arh, 'Patch':patches,
+      'HeightBlend':scalar(mat,'ForestLitterHeightBlend',.8),
+      'EdgeBreakup':scalar(mat,'ForestLitterEdgeBreakup',.55)}, 1, desc='ForestLitterHeightBlend')
+    wet = custom(mat, 'return saturate(max(Wet,M.g));', {'Wet':s['wetness'], 'M':s['vcol']}, 1)
+    color = custom(mat, '''
+float macro=1.0+(Patch.y-.5)*Tone;
+return lerp(Base,C.rgb*macro*lerp(1.0,.65,Wet),Mask);
+''', {'Base':hill['BASE_COLOR'], 'C':ca, 'Wet':wet, 'Mask':blend, 'Patch':patches,
+      'Tone':scalar(mat,'ForestLitterToneVariation',.10)},
+        3, desc='ForestLitterBaseColor')
+    normal = custom(mat, '''
+// sample() already unpacks the BC5 normal. Do not decode its RG a second time.
+float3 leaf=normalize(float3(N.xy*Strength,N.z));
+return normalize(lerp(Base,leaf,Mask));
+''', {'Base':hill['NORMAL'], 'N':normal_sample, 'Mask':blend,
+       'Strength':scalar(mat,'ForestLitterNormalStrength',.85)}, 3, desc='ForestLitterNormal')
+    rough = custom(mat, 'return lerp(Base,lerp(clamp(Packed.g*Gain+(Patch.x-.5)*.035,.52,.98),.38,Wet),Mask);',
+                   {'Base':hill['ROUGHNESS'], 'Packed':arh, 'Gain':scalar(mat,'ForestLitterRoughnessGain',1.0),
+                    'Mask':blend, 'Wet':wet, 'Patch':patches}, 1, desc='ForestLitterRoughness')
+    ao = custom(mat,'return lerp(Base,lerp(1.0,clamp(Packed.r,.60,1.0),Strength),Mask);',
+                {'Base':hill['AMBIENT_OCCLUSION'], 'Packed':arh, 'Mask':blend,
+                 'Strength':scalar(mat,'ForestLitterAOStrength',.65)}, 1, desc='ForestLitterAO')
+    return {'BASE_COLOR':color, 'NORMAL':normal, 'ROUGHNESS':rough,
+            'AMBIENT_OCCLUSION':ao, 'shared':s}
 
 
 def build_river_bank(mat, hill):
@@ -561,9 +641,13 @@ def rebuild(path, with_bank):
         for expr in list(stale):
             LIB.delete_material_expression(mat, expr)
         stale = LIB.get_material_expressions(mat) or []
-    outputs = build_base(mat)
+    outputs = build_forest_floor(mat, build_base(mat))
     if with_bank:
         outputs = build_river_bank(mat, outputs)
+    import importlib.util
+    wet_spec = importlib.util.spec_from_file_location('hills_wet_materials', ROOT/'Tools/WorldGeneration/forest_wet_materials.py')
+    wet = importlib.util.module_from_spec(wet_spec); wet_spec.loader.exec_module(wet)
+    outputs = wet.apply_ground(mat, outputs)
     for name in ('BASE_COLOR', 'NORMAL', 'ROUGHNESS', 'AMBIENT_OCCLUSION'):
         prop(outputs[name], name)
     compile_errors = LIB.recompile_material(mat)
@@ -585,6 +669,7 @@ def rebuild(path, with_bank):
     return mat
 
 
+prepare_forest_textures()
 hill_material = rebuild(GROUND, with_bank=False)
 pebble_material = rebuild(PEBBLE, with_bank=True)
 

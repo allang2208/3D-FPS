@@ -6,6 +6,7 @@ FPSGAMEEditor module and -run=pythonscript -nullrhi. Asset authoring only; it
 does not load a map or run gameplay.
 """
 import json
+import runpy
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -57,6 +58,8 @@ flowers = meshes(PN + '/flowerMesh', [
 if flowers:
     assets.set_editor_property('meadow_flowers', flowers)
 REPORT['fields']['meadow_flowers'] = len(flowers)
+flower_author = runpy.run_path(str(ROOT / 'Tools/WorldGeneration/author_clearing_flowers.py'))
+flower_author['assign_clearing_flowers'](assets)
 
 logs = meshes(RURAL + '/Vegetation', [
     'Log_L_01/SM_Log_L_01', 'Log_M_01/SM_Log_M_01',

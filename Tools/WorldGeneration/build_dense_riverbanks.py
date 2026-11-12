@@ -124,9 +124,9 @@ reeds = [plant(grass + name, 'reeds') for name in (
 banks = [plant(grass + name, 'bank') for name in (
     'grass_03_08_mesh', 'grass_05_07_mesh', 'grass_06_06_mesh',
     'grass_07_04_mesh', 'grass_09_08_mesh', 'grass_10_04_mesh')]
-# Small rosettes and lanceolate leaves only, scaled to 32-64 cm by generation.
-understory = [plant('/Game/PN_tropicalGroundPlants/Meshes/' + name, 'understory') for name in (
-    'tropicalPlant_05_01', 'tropicalPlant_05_02', 'tropicalPlant_04_01', 'tropicalPlant_04_02')]
+# Tropical rosettes/strap leaves were rejected for this temperate forest.
+# Existing ferns and hazel supply woodland undergrowth via the shrub PCG layer.
+understory = []
 
 config_path = BASE + '/DA_TemperateHillsStreaming'
 backup(config_path)

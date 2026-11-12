@@ -1,0 +1,169 @@
+{
+  "parent": "74777fc32348adf80ab98f52cfbb2ba839e40679",
+  "patch_base": "Published native sources in this submission, before applying Integration/temperate-forest.patch",
+  "patch_sha256": "4febd37259d5ed61fe0931178c9389eca62fd5d16e7f9ef5034876dc87af2310",
+  "normalized_content": "Git blobs (LF); includes any original BOM",
+  "required_local_systems": [
+    "Licensed biome Content and saved PCG/biome data asset. See asset-registry.json and the linked authoring notes.",
+    "Project-specific harvest, shared inventory / tree health and weather API revisions used by TemperateHillsProduction.cpp and TemperateHillsForestAtmosphere.cpp. Integrate their owners on a fresh checkout before building the forest patch.",
+    "UE DynamicWind plugin and matching engine version; local river pilot, terrain materials and vegetation assets."
+  ],
+  "files": {
+    "Source/FPSGAME/Production/ProductionOreRocks.cpp": {
+      "before": null,
+      "after": "3812803bd95d5bbd2562c4025634b220f434b4ddce8289df15cf3b36867317ed"
+    },
+    "Source/FPSGAME/Production/ProductionOreRocks.h": {
+      "before": null,
+      "after": "937e6a6d0347ebbb5f559b5eaf5cd90c16e2f447c9c2c466866443b6ebc7a162"
+    },
+    "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp": {
+      "before": "ffa7eb9e4833aa1a77c2e8cb29d767e5c19017d4e5265765fe42a8c925d40585",
+      "after": "f37598b1e81f667ff4dde9a31dea2b16f095de445753f6558ffe286d59966df6"
+    },
+    "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.h": {
+      "before": "f0e4ba9d40a77b48ec269b6aeeaea91e7ab7f88754d7384cde7fbe4df91aa5f7",
+      "after": "11bf4d1fb6882a19d4ce800941398b0e26419de0c526a1ed444d751b3c14787d"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.cpp": {
+      "before": null,
+      "after": "c9c520416b0f6024cde8722beaf47704cebeac472803c4ad82caf3b4b3a4bc94"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h": {
+      "before": null,
+      "after": "3c4d9beb82fdfbfa00df7da1fd9e42892cbd47a678ce2ce419aef1123cc8ef9f"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateForestAuthoringLibrary.cpp": {
+      "before": null,
+      "after": "fc2e15eb08d35ce336b04eed675ec0dcd26db67cffd31ee9c4b837caa26cdddb"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateForestAuthoringLibrary.h": {
+      "before": null,
+      "after": "8cfefe62a702005ffdedf4e518727c5eb9a0b9bca0e705bc590253c6fdf1ae45"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h": {
+      "before": null,
+      "after": "36ddb96e1637d72ed80e7b9f1320b82534d1d4bd4329a067e15943a63f809ecc"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp": {
+      "before": null,
+      "after": "7612cf7d30f4a0f7ce01a854d12c9a096603eb81cb42366aee2466ef091beabd"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp": {
+      "before": null,
+      "after": "1ba6035fe00a47f98b8bf0a238111d61d4b2b25ee88f9b8d098290fef940353f"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateForestWater.h": {
+      "before": null,
+      "after": "6e7383d0def8ee7418f7d3224f2b18d588f3eebbdfed9c4302aa6653b0e00b1c"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.cpp": {
+      "before": "2ffea2cdc9d0e2540274fa8949816372b862327cfb8f91c4baf9a2b14b49b854",
+      "after": "88c1dc0b2de46aae7424e6f1053be94d95ed6475cdb97719a90cb767cc197e74"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.h": {
+      "before": "5e86f029b7885112be3acedefcc3cb8ac67e87db5ff7b0aa3eb34d60b5414815",
+      "after": "a006875c60d3241a86e52f365e8db1e960550a67f5c65869b948157f455d8b18"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsDayNightSky.cpp": {
+      "before": "a34c1ab3007ea84ff018d1b0183da6b04dd351b8ca60c06ca73a785e37d8bccc",
+      "after": "50bdea6006d11a94626aad940a54cb6d9e6029eb0b99d81340bef0e3e7637245"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp": {
+      "before": "5c6acf0599d6d7ff99909f80b96848f2fc1adddb3b492548b7da3cb5b7d2ff21",
+      "after": "8ec2095da165700ca4ba31c76f6ca75630aeddb5146d4c50013282f1feea9099"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsForestAtmosphere.cpp": {
+      "before": null,
+      "after": "22602b1e76eecba92a9410f6e98c7f17b1bb3758f599df5782ea91becef636d8"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp": {
+      "before": "7170c959c085dd78a0b95666f034f64867a4c8dd0f93bc7a5f69c26092f13113",
+      "after": "857b547248d720669d7fa0e6f308e7efa5802e32401cca93e13905c0f6285585"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsGroundDebris.cpp": {
+      "before": "f5ee1382a7e7226e652c6cba55ab60b1f7edf83fc6f6c1ed5d8927d8c378b6a2",
+      "after": "1967b79e3bba1a612898aa46b50ef7a00479fe66c521eddd9f5a7b42bdcad4b9"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsPCG.cpp": {
+      "before": "bf7c03d986f56a5f5f50f13d6103d7e9b5b8bf2dec2abf4a41373dab80071bd0",
+      "after": "dec841455febdad665a42a782ad91fd068ceba7e1f72e90eeed5fb34acde6c8c"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsPCG.h": {
+      "before": "f2d4063c0e4e1596014040cac9674e813f6c6f01e641546b349f6591892d60c3",
+      "after": "b9fbd7f9a00087aadcc45c968b0064cd7ae711bd98ecdeb474c444573cc83122"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp": {
+      "before": null,
+      "after": "bfb11c36451c0407e3b26f9c7aaceea1659fedba90d0bcd2705dfc7d38e733e8"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp": {
+      "before": "2774e18271f46bb3e548bdcebaa16efe1ded56f16d4d0f92615ba51ef2f1470f",
+      "after": "40ba5140ac3021a64b52f9faac965ec9d547da972964ffa12d6f3cac24f90ae6"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsRiver.cpp": {
+      "before": "b25c77cdf6fddd7f5f77fd4175b4bd79a8fd3d2290182a1feb4a031b9f723c8f",
+      "after": "c2ed47c651502f22abab80fb888d3c7baa541830c0987cc5db770d5d67fec453"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsRiver.h": {
+      "before": "705a781634d498cd76988afeb0841e909b5fcc64819312b678dff9e474f997dd",
+      "after": "ef93cdda97525d2d28f1556f153c98b6a2aee2ace3abcccefd9cfa1ab1147a8f"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsRiverEcology.cpp": {
+      "before": "18cdf852faf7978a4463d62fcb964cd87bef50a5534b0e7a65dbc9dfb6d8e713",
+      "after": "187c46f5605050ea06be31f8c71b2ab6c9297b1b47a632ee4147c86ed95c50a4"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp": {
+      "before": "f110512d871f5f9bff036f4c9cd706c62fc9c86ac31d6042a1c242affb7b3ae6",
+      "after": "b02d8fb2f8602f67c5c4a54f527a8cb720916d1fc160def99bf8e97d42e51366"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsSurface.h": {
+      "before": "65906525da7f9f5ffba3b106253b83b9e36daf6a8951c83aeb9fc9602f02e2c4",
+      "after": "9d9b62d865f98714bbf6e39e51ab19b2f61dd65521c32d75dde53ec4fc2dfe37"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsVisibility.h": {
+      "before": null,
+      "after": "8c3501e6b7c5e9b8f7a7596b0251931dbe251d918247a3d189a87e5d39d00799"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp": {
+      "before": "cf811c47a507c47f468774005af6332db9c3293e320ff6fd3856d90c56c24cbe",
+      "after": "3a604157087688673390da1c6a9736a964bcbedf56d4d728cb88b5e15c51ef5d"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h": {
+      "before": "16329845d07ffd4a4c6be19a29202d760788403f4561062255e7657b0e6a37d9",
+      "after": "a33f88c7717b615437948ad1d85ab94806429a696a588e9f93cae1cc80a75614"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateRainforestVisitTest.cpp": {
+      "before": null,
+      "after": "c23130ceb4db9e615b7ab509876cc9f1922d9027d580b5ddcda9a36cc45f918b"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp": {
+      "before": null,
+      "after": "01e9f52f710afcadf999fb2677aeb167711cb40b2dcd2d9d4b186b4def147405"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.h": {
+      "before": null,
+      "after": "473d7f2e4d7d3baef1172e284f053087b367bf394ab4d5f9bdd79bf6db3789bc"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateWetForestCheckCommandlet.cpp": {
+      "before": null,
+      "after": "2b4c9362340eb0c39cf8bc94eb867861837c96cb9039e26882b049877eb784fe"
+    },
+    "Source/FPSGAME/WorldGeneration/TemperateWetForestCheckCommandlet.h": {
+      "before": null,
+      "after": "d65489b7a41a6d52c6c44a984fa7432708412fcc468c908d7e1302552b7263f0"
+    },
+    "Source/FPSGAME/WorldGeneration/WeatherRainGust.h": {
+      "before": null,
+      "after": "1c376c61920c5fa20a7a8487ba62dafb261ab3f6f4d089438d0cbb99bf2c3f2e"
+    },
+    "FPSGAME.uproject": {
+      "before": "446bff9caae16abc5bdcefbabe4a0fba7bd86195b9011cc5c173c009f5d93a2e",
+      "after": "3201c1a1fc856a8cf26c7ba490371d769189886de44d6152a9a4c02a0963d90a"
+    },
+    "Source/FPSGAME/FPSGAME.Build.cs": {
+      "before": "3827849d944c13018e2bbdebeb4005ff07f1eeab6479eb8268a805eb364eb22c",
+      "after": "088a67427d6d6abb37db60803e5cd6358859a654a38cca1af40005d005a8dbd8"
+    }
+  }
+}

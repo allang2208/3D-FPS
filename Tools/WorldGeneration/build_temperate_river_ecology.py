@@ -122,10 +122,9 @@ def plant(source,group):
 grass='/Game/PN_GrassLibrary/Meshes/grassMesh/'
 reeds=[plant(grass+name,'reeds') for name in ('grass_02_01_mesh','grass_04_01_mesh')]
 banks=[plant(grass+name,'bank') for name in ('grass_09_02_mesh','grass_10_01_mesh')]
-# Only small strap-leaf/rosette forms from the tropical pack. Large palmate and
-# elephant-ear forms are excluded from this temperate biome.
-understory=[plant('/Game/PN_tropicalGroundPlants/Meshes/'+name,'understory')
-    for name in ('tropicalPlant_05_01','tropicalPlant_05_02')]
+# Keep tropical strap-leaf/rosette forms out of the temperate biome, including
+# when this older river recipe is used before the dense-bank author.
+understory=[]
 
 path=DEST+'/M_RiverFlowWater'
 backup(path)

@@ -33,12 +33,13 @@ public:
     void BeginTransition(const FString& Map, FSimpleDelegate OnCancel = FSimpleDelegate());
     void UpdatePreparation(const FText& Status, float Progress);
     void BeginDungeonPreparation();
+    void BeginHillsPreparation();
     /** Register generated actors after their current assembly job completes. */
     void QueueDungeonResourceWarmup(AActor* Actor);
     void CompletePreparation();
     void FailPreparation(const FText& Reason);
     void CancelTransition();
-    void RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles);
+    void RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles,bool bAllBatchesLoaded=true);
     void ShowStartupMenu(APlayerController* Controller);
     bool IsCompletePreloadSelected() const { return bCompletePreload; }
     /** True while the loading overlay still owns game input (not during fade-out). */

@@ -134,6 +134,7 @@ void ASceneTestPortal::UsePortal()
         Sign->SetText(FText::FromString(TEXT("Preparing hills...\n[Esc] Cancel")));
         const FString ObjectPath=Destination+TEXT(".")+FPackageName::GetShortName(Destination);
         PreloadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ObjectPath),FStreamableDelegate::CreateUObject(this,&ASceneTestPortal::FinishLoading));
+        if(!PreloadHandle)FinishLoading();
         return;
     }
     if(Destination==ScenePortalMaps::RandomizedDungeon||Destination==ScenePortalMaps::Hub)
