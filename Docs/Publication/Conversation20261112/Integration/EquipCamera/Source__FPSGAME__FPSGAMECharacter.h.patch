@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -58,4 +58,6 @@
+     friend class UWarhammerSprintAuditCommandlet;
+     friend class ULeapStrikeAuditCommandlet;
++    friend class UWeaponEquipCameraAuditCommandlet;
++    friend class AWeaponEquipWireController;
+     friend class UWarhammerNetworkAuditCommandlet;
+     friend class UShotgunAttachmentAuditCommandlet;

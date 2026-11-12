@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/UI/ColdSteelWeaponIcons.h
++++ b/Source/FPSGAME/UI/ColdSteelWeaponIcons.h
+@@ -26,4 +26,5 @@
+     bool Supports(const FColdSteelItem& Item) const;
+     FString Key(const FColdSteelItem& Item) const;
++    static FString CatalogVariantIcon(const FString& Definition,const TMap<FString,FString>& Installed);
+     FString Request(const FColdSteelItem& Item,bool bJustModified=false);
+     const FSlateBrush* Find(const FColdSteelItem& Item) const;

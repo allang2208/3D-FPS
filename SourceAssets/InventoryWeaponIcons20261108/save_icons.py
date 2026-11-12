@@ -1,4 +1,4 @@
-"""Publish only the two requested catalog PNGs and their existing UI textures."""
+"""Publish the axe and M249 catalog artwork and UI textures."""
 import hashlib
 import json
 import os
@@ -11,7 +11,8 @@ import unreal as u
 ROOT = Path(__file__).resolve().parent
 PROJECT = ROOT.parents[1]
 E = u.EditorAssetLibrary
-ROWS = [('axe', 'ProductionTools/axe'), ('ue_m249', 'Icons/ue_m249')]
+ROWS = [('axe', 'ProductionTools/axe'), ('ue_m249', 'Icons/ue_m249'),
+        ('ue_m249_no_bipod', 'Icons/ue_m249_no_bipod')]
 dirty = {package.get_path_name() for package in u.EditorLoadingAndSavingUtils.get_dirty_content_packages()}
 for _, relative in ROWS:
     if '/Game/ColdSteelData/' + relative in dirty:

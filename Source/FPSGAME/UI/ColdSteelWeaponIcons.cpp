@@ -1,4 +1,6 @@
 #include "ColdSteelWeaponIcons.h"
+#include "ColdSteelStatusModel.h"
+#include "../Weapons/M249WeaponAssets.h"
 #include "ColdSteelEquipmentIconSource.h"
 #include "TransitLoadingSubsystem.h"
 #include "FPSPerformanceMetrics.h"
@@ -50,6 +52,15 @@
 #endif
 
 bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||ColdSteelEquipmentIconMesh(I).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_super90")||I.Definition==TEXT("ue_m870")||(I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_svch"))||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")));}
+FString UColdSteelWeaponIcons::CatalogVariantIcon(const FString& Definition,const TMap<FString,FString>& Installed)
+{
+    if(Definition==M249WeaponAssets::Definition&&!M249WeaponAssets::HasFactoryBipod(Installed.FindRef(TEXT("bipod"))))
+        return TEXT("ue_m249_no_bipod");
+    if(ColdSteelMeleePreview::HasBladeCatalogIcons(Definition))
+        if(const FString* Blade=Installed.Find(TEXT("blade_1"));Blade&&!Blade->IsEmpty()&&*Blade!=TEXT("false")&&*Blade!=TEXT("factory"))
+            return Definition+TEXT("_")+*Blade;
+    return {};
+}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelStaff::IsStaff(I)){const FGunsmithParts Factory;return I.Definition+TEXT("|")+ColdSteelStaff::Resolve(I,bCatalogExport?&Factory:nullptr).Data;}
@@ -114,6 +125,10 @@ const FSlateBrush* UColdSteelWeaponIcons::Find(const FColdSteelItem& I) const
 }
 void UColdSteelWeaponIcons::Deinitialize()
 {
+#if WITH_EDITOR
+    UMaterial::OnMaterialCompilationFinished().RemoveAll(this);
+    WaitingForMaterialCompile.Empty();
+#endif
     ReleaseIdleStudioResources();
     Queue.Empty();Pending.Empty();OnReady.Clear();Studio.Reset();
     Cache.Empty();PreparedBoundsCache.Empty();Textures.Empty();Failed.Empty();RecentFailures.Empty();Super::Deinitialize();
@@ -373,10 +388,19 @@ bool UColdSteelWeaponIcons::IsCaptureTextureReady(UTexture* Texture)
         // The runtime preview only needs mips appropriate to its render target. Do not pin
         // full 4K/8K weapon maps or take away the game scene's texture budget.
         if(Texture2D->VirtualTextureStreaming)return Texture2D->GetResource()!=nullptr;
-        const int32 Wanted=IconTextureMipCount(Texture2D,FMath::Max(Target->SizeX,Target->SizeY));
+        int32 CaptureSize=FMath::Max(Target->SizeX,Target->SizeY);
+        const bool UseBagResolution=!Queue.IsEmpty()&&Queue[0].Item.Definition==M249WeaponAssets::Definition&&Queue[0].DeferredAttempts>=2;
+        // Under streaming pressure, the bag cell only spans about a quarter of the capture width.
+        if(UseBagResolution)CaptureSize=FMath::DivideAndRoundUp(CaptureSize,4);
+        const int32 Wanted=IconTextureMipCount(Texture2D,CaptureSize);
         if(Wanted<=0 || !Texture2D->GetResource())return false;
-        if(Texture2D->GetNumResidentMips()>=Wanted && !Texture2D->HasPendingInitOrStreaming())return true;
-        if(!Texture2D->HasPendingInitOrStreaming())Texture2D->StreamIn(Wanted,false);
+        const bool PendingStream=Texture2D->HasPendingInitOrStreaming();
+        if(Texture2D->GetNumResidentMips()>=Wanted){
+            if(!PendingStream)return true;
+            const auto& State=Texture2D->GetStreamableResourceState();
+            if(UseBagResolution&&!State.bHasPendingInitHint&&State.NumRequestedLODs>=Wanted)return true;
+        }
+        if(!PendingStream)Texture2D->StreamIn(Wanted,false);
         return false;
     }
     return Texture->IsFullyStreamedIn();
@@ -449,11 +473,45 @@ bool UColdSteelWeaponIcons::SubmitMaterialReadiness()
     return true;
 }
 
+#if WITH_EDITOR
+void UColdSteelWeaponIcons::MaterialCompiled(UMaterialInterface* Material)
+{
+    if(!Material||WaitingForMaterialCompile.IsEmpty())return;
+    const FSoftObjectPath CompiledPath(Material);
+    TSet<FString> Ready;
+    for(auto It=WaitingForMaterialCompile.CreateIterator();It;++It)
+    {
+        auto* Waiting=Cast<UMaterialInterface>(It.Value().ResolveObject());
+        if(It.Value()!=CompiledPath&&(!Waiting||Waiting->GetMaterial()!=Material))continue;
+        Ready.Add(It.Key());
+        Failed.Remove(It.Key());
+        It.RemoveCurrent();
+    }
+    if(Ready.IsEmpty())return;
+    if(const auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        for(const auto& Item:Profile->Items())
+            if(Item.Definition==TEXT("ue_m249")&&Ready.Contains(Key(Item)))Request(Item);
+}
+#endif
+
 void UColdSteelWeaponIcons::DeferCurrentJob(double Now)
 {
     // A blocked preview must eventually use its catalog image, not retain a permanent retry queue.
     if(Queue[0].DeferredAttempts>=5){
         FailureStage=TEXT("Icon.ReadinessBudget");FailureResource=WaitResource;
+#if WITH_EDITOR
+        // A cold editor shader cache can outlive the entire icon retry budget.
+        // Retry the current item's recipe only when its blocking shader finishes.
+        if(!bCatalogExport && Queue[0].Item.Definition==TEXT("ue_m249") &&
+            WaitReason==TEXT("MaterialShader") && !WaitResource.IsEmpty())
+        {
+            FailureStage=TEXT("Icon.AwaitCompiledMaterial");
+            WaitingForMaterialCompile.Add(Queue[0].Key,FSoftObjectPath(WaitResource));
+            auto& Compiled=UMaterial::OnMaterialCompilationFinished();
+            if(!Compiled.IsBoundToObject(this))
+                Compiled.AddUObject(this,&UColdSteelWeaponIcons::MaterialCompiled);
+        }
+#endif
         FailureReason=FString::Printf(TEXT("图标准备超过 6 次尝试，使用目录图标；最后等待状态：%s"),*WaitReason.ToString());
         FinishJob(false);return;
     }

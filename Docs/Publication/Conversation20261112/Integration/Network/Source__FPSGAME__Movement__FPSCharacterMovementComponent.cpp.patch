@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp
++++ b/Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp
+@@ -1,2 +1,5 @@
+ #include "FPSCharacterMovementComponent.h"
++#include "FPSLeapRootMotionSource.h"
++#include "../Skills/LeapStrikeMotion.h"
++#include "../Production/ProductionToolComponent.h"
+ #include "../Weapons/Kukri/HatchetCharmComponent.h"
+@@ -32,2 +35,3 @@
+     SlideJumpSequence=0;bSlideJumpStart=false;
++    LeapSequence=0;LeapMotionStartedAt=0.f;
+     bSavedWantsToSprint = false;
+@@ -64,2 +68,5 @@
+         SlideJumpSequence=Move->SlideJumpRequestSequence;bSlideJumpStart=Move->bPendingSlideJump;Move->bPendingSlideJump=false;
++        if(const auto Source=Move->GetRootMotionSource(LeapStrike::MotionName);
++            Source&&Source->GetScriptStruct()==FRootMotionSource_FPSLeap::StaticStruct())
++        {LeapSequence=StaticCastSharedPtr<FRootMotionSource_FPSLeap>(Source)->CastSerial;LeapMotionStartedAt=Source->GetStartTime();}
+         if(const auto* Player=Cast<AFPSGAMECharacter>(InCharacter))
+@@ -96,2 +103,3 @@
+         if(DodgeSequence!=NewFPSMove->DodgeSequence)return false;
++        if(LeapSequence||NewFPSMove->LeapSequence)return false;
+         if(bSlideJumpStart||NewFPSMove->bSlideJumpStart||SlideJumpSequence!=NewFPSMove->SlideJumpSequence)return false;
+@@ -111,2 +119,3 @@
+     if(bSlideJumpStart||MeleeStep>0.f||bMeleeMomentumStart)return true;
++    if(LeapSequence&&(!LastAckedMove||LeapSequence!=static_cast<const FSavedMove_FPSCharacter*>(LastAckedMove.Get())->LeapSequence))return true;
+     if(DodgeSequence&&(!LastAckedMove||DodgeSequence!=static_cast<const FSavedMove_FPSCharacter*>(LastAckedMove.Get())->DodgeSequence))return true;

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.cpp
++++ b/Source/FPSGAME/Skills/SkillWireAudit.cpp
+@@ -23,2 +23,3 @@
+ #include "Misc/Parse.h"
++#include "LeapMovementWireAudit.inl"
+ 
+@@ -64,2 +65,3 @@
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("LeapMovementWire"))){Super::Tick(Delta);TickLeapWire(Delta);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("SessionChainWire"))){Super::Tick(Delta);TickSessionChain();return;}
+@@ -123,2 +125,3 @@
+     Box->SetBoxExtent(FVector(5000,5000,20));Box->SetCollisionProfileName(TEXT("BlockAll"));Box->RegisterComponent();Floor->SetActorLocation(FVector(0,0,-20));
++    if(FParse::Param(FCommandLine::Get(),TEXT("LeapMovementWire")))Box->SetMobility(EComponentMobility::Static);
+     UE_LOG(LogTemp,Display,TEXT("SKILL_WIRE_HOST_READY"));
+@@ -136,2 +139,3 @@
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("LeapMovementWire"))){Super::Tick(Delta);TickLeapWire(Delta);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("SessionChainWire"))){Super::Tick(Delta);TickSessionChain();return;}

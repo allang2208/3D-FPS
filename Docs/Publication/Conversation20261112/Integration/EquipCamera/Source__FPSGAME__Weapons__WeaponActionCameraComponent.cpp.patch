@@ -1,0 +1,69 @@
+--- a/Source/FPSGAME/Weapons/WeaponActionCameraComponent.cpp
++++ b/Source/FPSGAME/Weapons/WeaponActionCameraComponent.cpp
+@@ -216,14 +216,15 @@
+ {
+     // EquipCharge31: open left hand catches at .39 s; the .90 s clip lowers
+-    // into support at .64 s and settles by .86 s. Map M4's equip amplitudes
+-    // and contact responses to these beats; there is no PKM equip bolt pull.
++    // into support at .64 s and settles by .86 s. These are soft support-hand
++    // contacts, not bolt releases. Keep the source beats, with a quiet head
++    // follow instead of the old M4 charge impulses (also used by M249).
+     const float ClockScale = End / .90f;
+     const FKey Keys[] = {
+         {0.f, {}, {}},
+-        {.16f * ClockScale, {-.32f, -.18f, -.55f}, {-.12f, 0.f, -.10f}},
+-        {.30f * ClockScale, {.65f, -.32f, -.90f}, {-.35f, .08f, .18f}},
+-        {.39f * ClockScale, {1.25f, -.40f, -1.10f}, {-.65f, .12f, .28f}},
+-        {.64f * ClockScale, {-.75f, .24f, .65f}, {.10f, -.08f, -.12f}},
+-        {.77f * ClockScale, {-.14f, .04f, .14f}, {}},
++        {.16f * ClockScale, {-.07f, -.03f, -.10f}, {-.03f, 0.f, -.025f}},
++        {.30f * ClockScale, {.13f, -.055f, -.16f}, {-.08f, .015f, .035f}},
++        {.39f * ClockScale, {.22f, -.07f, -.20f}, {-.12f, .02f, .055f}},
++        {.64f * ClockScale, {-.12f, .04f, .10f}, {.02f, -.015f, -.025f}},
++        {.77f * ClockScale, {-.035f, .008f, .025f}, {}},
+         {.86f * ClockScale, {}, {}},
+         {End, {}, {}}
+@@ -458,4 +463,19 @@
+ }
+ 
++float UWeaponActionCameraComponent::EquipFieldOfView(float CurrentFOV, float TargetFOV, float DeltaSeconds)
++{
++    if (bEquipTransitionPending)
++    {
++        // ADS belongs to the outgoing weapon; its pose can retire immediately,
++        // but the rendered FOV must leave the actual last view continuously.
++        // A second switch captures the in-flight FOV instead of the old target.
++        EquipFOVStart = CurrentFOV;
++        EquipFOVAge = 0.f;
++    }
++    else EquipFOVAge = FMath::Min(EquipFOVSeconds, EquipFOVAge + FMath::Max(0.f, DeltaSeconds));
++    const float Result = FMath::Lerp(EquipFOVStart, TargetFOV, FMath::SmoothStep(0.f, EquipFOVSeconds, EquipFOVAge));
++    return Result;
++}
++
+ void UWeaponActionCameraComponent::Apply(UCameraComponent& Camera, EM4CameraAction Action,
+     float SourceSeconds, float SourceDuration, TConstArrayView<float> ContactSeconds,
+@@ -483,4 +503,23 @@
+     FVector Angles = (Follow.Angles * FollowScale + Impacts.Angles * ImpactScale) * Weight;
+     FVector Position = (Follow.Position * FollowScale + Impacts.Position * ImpactScale) * Weight;
++    const bool bEquip = Action == EM4CameraAction::PKMEquip || Action == EM4CameraAction::EquipCharge;
++    const bool bEquipHandoff = bEquipTransitionPending || (bEquipWasActive && (!bEquip || SourceSeconds < PreviousEquipSource));
++    if (bEquipHandoff)
++    {
++        // Keep the last rendered equip pose at the handoff, even when the
++        // same clip restarts. Blend its difference from the incoming pose out
++        // on a real-time clock; source rate changes must not replay contacts.
++        EquipReturnAngles = EquipAngles - (bEquip ? Angles : FVector::ZeroVector);
++        EquipReturnPosition = EquipPosition - (bEquip ? Position : FVector::ZeroVector);
++        EquipReturnAge = 0.f;
++    }
++    else EquipReturnAge = FMath::Min(EquipReturnSeconds, EquipReturnAge + FMath::Max(0.f, DeltaSeconds));
++    const float EquipPresence = 1.f - FMath::SmoothStep(0.f, EquipReturnSeconds, EquipReturnAge);
++    const FVector ReturnAngles = EquipReturnAngles * EquipPresence;
++    const FVector ReturnPosition = EquipReturnPosition * EquipPresence;
++    EquipAngles = (bEquip ? Angles : FVector::ZeroVector) + ReturnAngles;
++    EquipPosition = (bEquip ? Position : FVector::ZeroVector) + ReturnPosition;
++    Angles += ReturnAngles; Position += ReturnPosition;
++    bEquipWasActive = bEquip; PreviousEquipSource = SourceSeconds; bEquipTransitionPending = false;
+     FVector ReloadSumAngles=FVector::ZeroVector,ReloadSumPosition=FVector::ZeroVector;
+     float ContributingHands=0.f;

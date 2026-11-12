@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowScopeOptics.h
++++ b/Source/FPSGAME/Weapons/Bow/BowScopeOptics.h
+@@ -18,5 +18,5 @@
+ };
+ 
+-/** Owner-local Peakwatch optics. Uses the firing camera, never changes the shot ray. */
++/** Owner-local Peakwatch framing and feedback; the shared capture owns its lens. */
+ UCLASS()
+ class UBowScopeOptics : public UObject
+@@ -32,4 +32,5 @@
+     bool HidesPrimitive(const UPrimitiveComponent* Primitive) const;
+     float PresentationAlpha() const { return Alpha; }
++    const FBowScopeReticleState& ReticleState() const { return Reticle; }
+     FVector2D CueOffset(const FGeometry& Geometry,float PixelToLocal) const;
+     int32 Paint(const FGeometry& Geometry,FSlateWindowElementList& Elements,int32 Layer,const FLinearColor& Tint) const;

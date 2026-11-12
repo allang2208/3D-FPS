@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Skills/LeapStrikeMotion.h
++++ b/Source/FPSGAME/Skills/LeapStrikeMotion.h
+@@ -17,2 +17,4 @@
+ inline constexpr const TCHAR* MotionName=TEXT("WarhammerLeapStrike");
++inline bool IsBodyVariant(FName Name)
++{return Name==TEXT("WarhammerLeapLoad")||Name==TEXT("WarhammerLeapAir")||Name==TEXT("WarhammerLeapSlam");}
+ inline constexpr const TCHAR* Asset=TEXT("/Game/Weapons/SteelWarhammer20261014/LeapStrikeV2/A_Warhammer_LeapStrikeV2.A_Warhammer_LeapStrikeV2");

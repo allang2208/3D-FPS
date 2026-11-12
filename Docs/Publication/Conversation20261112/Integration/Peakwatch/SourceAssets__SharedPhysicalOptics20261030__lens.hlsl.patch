@@ -1,0 +1,32 @@
+--- a/SourceAssets/SharedPhysicalOptics20261030/lens.hlsl
++++ b/SourceAssets/SharedPhysicalOptics20261030/lens.hlsl
+@@ -81,4 +81,29 @@
+     }
+ }
++else if(style==7) // Peakwatch: fine mountain-tip aim and angular hold references.
++{
++    // Tip is the unchanged camera aim ray. These marks are mrad references,
++    // not distance labels or an assumed arrow-specific ballistic zero.
++    d=min(d,m.segment(p,float2(-1.4,1.6),float2(0,0)));
++    d=min(d,m.segment(p,float2(0,0),float2(1.4,1.6)));
++    d=min(d,m.segment(p,float2(-12,0),float2(-3,0)));
++    d=min(d,m.segment(p,float2(3,0),float2(12,0)));
++    d=min(d,m.segment(p,float2(0,2.8),float2(0,12)));
++    // Preserve the bow's draw/full/perfect/piercing cues inside its lens.
++    // Normal HUD remains the authoritative, fully legible feedback display.
++    if(BowDrawState.r>.01)
++    {
++        float x=lerp(8,3,saturate(BowDrawState.r));
++        float cue=min(m.segment(p,float2(-x,-1),float2(-x,1)),m.segment(p,float2(x,-1),float2(x,1)));
++        lit=max(lit,m.coverage(cue,px*.7,px)*BowDrawState.r*.6);
++    }
++    lit=max(lit,m.coverage(d,max(.04,px*.55),px)*saturate(BowDrawState.g*.25+BowDrawState.b*.75));
++    if(BowDrawState.a>.01)
++    {
++        float pierce=min(m.segment(p,float2(-1,-2),float2(0,-3)),m.segment(p,float2(0,-3),float2(1,-2)));
++        lit=max(lit,m.coverage(pierce,px*.65,px)*BowDrawState.a);
++    }
++    lit=max(lit,m.coverage(abs(length(p)-lerp(2,4,1-BowRelease)),px*.5,px)*BowRelease*.5);
++}
+ else // Thermal: open central cross, square acquisition corners and mil ladder.
+ {

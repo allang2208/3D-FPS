@@ -1,0 +1,186 @@
+--- a/Source/FPSGAME/Production/ProductionLeapStrike.cpp
++++ b/Source/FPSGAME/Production/ProductionLeapStrike.cpp
+@@ -49,5 +52,5 @@
+ double LeapClock(const UWorld* World)
+ {const auto* State=World->GetGameState();return State?State->GetServerWorldTimeSeconds():World->GetTimeSeconds();}
+-void ApplyLeapMotion(UCharacterMovementComponent* Move,const FVector& Start,const FVector& Target)
++void ApplyLeapMotion(UCharacterMovementComponent* Move,const FVector& Start,const FVector& Target,uint32 Serial)
+ {
+     auto Motion=MakeShared<FRootMotionSource_FPSLeap>();
+@@ -199,5 +205,8 @@
+     LeapWeapon=Item->InstanceId;LeapTarget=Target;LeapFloor=Floor;LeapNormal=Normal;
+     const FTransform Aim=Pawn->GetMeleeAimTransform();
+-    LeapSlamEye=Target+(Aim.GetLocation()-Pawn->GetActorLocation());
++    // Keep the eye in the capsule's frame, shared with the world body. Neither
++    // the requested endpoint nor an animated chest can drag it off the actor.
++    LeapEyeLocal=Pawn->GetActorTransform().InverseTransformPosition(Aim.GetLocation());
++    LeapCameraReleaseUntil=0.;LeapContactLocal=LeapCameraCollisionOffset=FVector::ZeroVector;
+     const FVector Facing=LeapRequestDirection.GetSafeNormal2D(UE_SMALL_NUMBER,Pawn->GetActorForwardVector());
+     LeapSlamRotation=FRotator(0,Facing.Rotation().Yaw,0).Quaternion();
+@@ -217,4 +226,16 @@
+ }
+ 
++bool UProductionToolComponent::LaunchLeapStrike()
++{
++    auto* Pawn=Character.Get();auto* Move=Pawn?Pawn->GetCharacterMovement():nullptr;
++    if(!bLeapStrike||bLeapLaunched||!Move||!Move->IsMovingOnGround())return false;
++    LeapStart=Pawn->GetActorLocation();
++    LeapStrike::FTrajectory Path;
++    if(!LeapStrike::SolveTrajectory(LeapStart,LeapTarget,Move->GetGravityZ(),Move->GetPhysicsVolume()->TerminalVelocity,Path))return false;
++    LeapExpectedFlight=Path.Duration;LeapProgressPosition=LeapStart;
++    ApplyLeapMotion(Move,LeapStart,LeapTarget,LeapSerial);
++    bLeapLaunched=true;SetLeapAirborne(true);return true;
++}
++
+ void UProductionToolComponent::TickLeapStrike(float Delta)
+ {
+@@ -232,12 +253,13 @@
+         if(LeapAge>=LeapStrike::Charge)
+         {
+-            if(!Move->IsMovingOnGround()){FinishLeapStrike();return;}
+-            LeapStart=Pawn->GetActorLocation();
+-            LeapStrike::FTrajectory Path;
+-            if(!LeapStrike::SolveTrajectory(LeapStart,LeapTarget,Move->GetGravityZ(),Move->GetPhysicsVolume()->TerminalVelocity,Path))
+-            {FinishLeapStrike();return;}
+-            LeapExpectedFlight=Path.Duration;LeapProgressPosition=LeapStart;
+-            ApplyLeapMotion(Move,LeapStart,LeapTarget);
+-            bLeapLaunched=true;SetLeapAirborne(true);
++            // Remote authority starts on the owner's launch saved move, not an
++            // unrelated Actor tick. Otherwise the server can correct the owner
++            // into Falling before its charge ends and make it cancel the cast.
++            if(Pawn->HasAuthority()&&!Pawn->IsLocallyControlled())
++            {
++                if(LeapClock(GetWorld())-LeapStartedAt>LeapStrike::MaxAirTime)FinishLeapStrike();
++                return;
++            }
++            if(!LaunchLeapStrike()){FinishLeapStrike();return;}
+         }
+         return;
+@@ -303,4 +329,5 @@
+     LeapFloor=Ground.ImpactPoint;LeapNormal=Ground.ImpactNormal;
+     LeapImpactPoint=LeapImpactForFloor(LeapFloor,LeapSlamRotation.GetForwardVector(),LeapNormal);
++    LeapContactLocal=Pawn->GetActorTransform().InverseTransformPosition(LeapImpactPoint);
+     Move->RemoveRootMotionSource(LeapStrike::MotionName);Move->StopMovementImmediately();
+     if(Pawn->HasAuthority())
+@@ -322,4 +349,10 @@
+     bLeapStrike=bLeapPending=false;
+     if(!Active)return;
++    // Keep the collision constraint during the ordinary camera's return blend.
++    LeapCameraReleaseUntil=GetWorld()->GetTimeSeconds()+.35;
++    // Ordinary camera interpolation starts at the already collision-adjusted
++    // component position. Carrying our correction as well would apply it twice
++    // on the first recovery frame, pulling the view back another wall offset.
++    LeapCameraCollisionOffset=FVector::ZeroVector;
+     // No wave owns this cast (cancel, failed landing or spawn failure): release XP only.
+     if(bLeapTrainingPending)
+@@ -379,9 +412,22 @@
+     if(Ground>0.f&&Camera)
+     {
+-        const FQuat Planted=FQuat::FindBetweenNormals(FVector::UpVector,LeapNormal)*
++        const auto* Move=Character->GetCharacterMovement();
++        const bool Contact=bLeapLanded&&Move->IsMovingOnGround()&&Move->CurrentFloor.IsWalkableFloor();
++        const FVector Normal=Contact?Move->CurrentFloor.HitResult.ImpactNormal:FVector::UpVector;
++        const FQuat Planted=FQuat::FindBetweenNormals(FVector::UpVector,Normal)*
+             FRotator(LeapStrike::ViewPitch,LeapSlamRotation.Rotator().Yaw,0).Quaternion();
+-        const FVector Anchor=LeapImpactPoint-Planted.RotateVector(LeapStrike::ContactHead);
+-        const FVector Eye=FMath::Lerp(Character->GetMeleeAimTransform().GetLocation(),Anchor,Ground);
+-        Viewmodel->SetWorldLocationAndRotation(FMath::Lerp(Camera->GetComponentLocation(),Eye,Ground),
++        FVector Eye=Camera->GetComponentLocation();
++        if(Contact)
++        {
++            // A real, nearby contact may refine the hammer's floor placement.
++            // Carry it with the actor/base; never pin the arms to an old world
++            // point after a correction, platform move or interrupted landing.
++            const FVector Impact=Character->GetActorTransform().TransformPosition(LeapContactLocal);
++            const FVector Anchor=Impact-Planted.RotateVector(LeapStrike::ContactHead);
++            const float ContactBlend=LeapStrike::Ease((LeapAge-LeapStrike::Land)/.06f);
++            Eye+=(Anchor-Eye).GetClampedToMaxSize(20.f)*Ground*ContactBlend;
++            ConstrainLeapStrikeView(Eye);
++        }
++        Viewmodel->SetWorldLocationAndRotation(Eye,
+             FQuat::Slerp(Camera->GetComponentQuat(),Planted,Ground)*FRotator(0,90,0).Quaternion());
+     }
+@@ -390,4 +436,83 @@
+     if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))Arms->SetFloorContact(FVector::ZeroVector,0.f);
+     SampleMotion(Clip,LeapAge);
++}
++
++bool UProductionToolComponent::GetLeapStrikeCameraLocation(FVector& Point) const
++{
++    const auto* Pawn=Character.Get();if(!bLeapStrike||!Pawn)return false;
++    FVector NeutralEye=LeapEyeLocal;
++    // Let any stair-camera offset present at activation settle during charge;
++    // do not carry that old floor correction through a multi-second fall.
++    NeutralEye.Z=FMath::Lerp(NeutralEye.Z,double(Pawn->StandingCameraHeight),LeapStrike::Ease(LeapAge/LeapStrike::Charge));
++    const FVector Eye=Pawn->GetActorTransform().TransformPosition(NeutralEye);
++    const FQuat Planted=FRotator(LeapStrike::ViewPitch,LeapSlamRotation.Rotator().Yaw,0).Quaternion();
++    // Use the authored posture over the CURRENT capsule foot plane. At terminal
++    // speed a predicted floor can be metres below the actor during downstroke;
++    // it must never become the camera's positional anchor, even for one frame.
++    const FVector Feet=Pawn->GetActorLocation()-FVector(0,0,Pawn->GetCapsuleComponent()->GetScaledCapsuleHalfHeight());
++    const FVector Anchor=Feet+LeapSlamRotation.GetForwardVector()*WarhammerHeavy::LandingForward-
++        Planted.RotateVector(LeapStrike::ContactHead);
++    FVector Bend=Anchor-Eye;
++    const FVector Horizontal=FVector(Bend.X,Bend.Y,0).GetClampedToMaxSize(35.f);
++    Bend=FVector(Horizontal.X,Horizontal.Y,FMath::Clamp(Bend.Z,-65.,10.));
++    Point=Eye+Bend*LeapStrike::GroundWeight(LeapAge);
++    return true;
++}
++
++void UProductionToolComponent::UpdateLeapStrikeCamera(FVector& WorldPoint,float Delta)
++{
++    const FVector Desired=WorldPoint;
++    if(!ConstrainLeapStrikeView(WorldPoint)){LeapCameraCollisionOffset=FVector::ZeroVector;return;}
++    const FQuat Frame=Character->GetActorQuat();
++    const FVector Required=Frame.UnrotateVector(WorldPoint-Desired);
++    // Carry only the obstruction correction in actor space. Release it gradually
++    // when a wall disappears; actual falling velocity and authored posture never
++    // lag behind the capsule. The final sweep still retracts immediately on contact.
++    const FVector Offset=FMath::VInterpConstantTo(LeapCameraCollisionOffset,Required,FMath::Max(0.f,Delta),180.f);
++    WorldPoint=Desired+Frame.RotateVector(Offset);
++    ConstrainLeapStrikeView(WorldPoint);
++    LeapCameraCollisionOffset=Frame.UnrotateVector(WorldPoint-Desired);
++}
++
++bool UProductionToolComponent::ConstrainLeapStrikeView(FVector& WorldPoint) const
++{
++    const auto* Pawn=Character.Get();const auto* World=GetWorld();
++    if(!Pawn||!World||(!bLeapStrike&&World->GetTimeSeconds()>=LeapCameraReleaseUntil))return false;
++    if(Pawn->IsTraversing()||UFPSFurnitureRestComponent::IsResting(Pawn))return false;
++    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
++    const auto* Capsule=Pawn->GetCapsuleComponent();
++    const FVector Center=Capsule->GetComponentLocation();
++    constexpr float EyeRadius=6.f;
++    const float Half=Capsule->GetScaledCapsuleHalfHeight();
++    FVector Offset=WorldPoint-Center;
++    if(Offset.ContainsNaN())Offset=FVector(0,0,Pawn->StandingCameraHeight);
++    const FVector Horizontal=FVector(Offset.X,Offset.Y,0).GetClampedToMaxSize(80.f);
++    Offset=FVector(Horizontal.X,Horizontal.Y,FMath::Clamp(Offset.Z,-double(Half)+EyeRadius,double(Half)-EyeRadius));
++    WorldPoint=Center+Offset;
++    // Sweep the FINAL eye (including recoil, interpolation and landing spring)
++    // from inside the live capsule, not from the already offset/penetrating eye.
++    // The axial start is below the rounded cap so the query sphere fits inside.
++    const double SafeHalf=FMath::Max(0.,double(Half)-Capsule->GetScaledCapsuleRadius());
++    const FVector Start=Center+FVector(0,0,FMath::Clamp(Offset.Z,-SafeHalf,SafeHalf));
++    FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(LeapStrikeCamera),false,Pawn);
++    const auto Shape=FCollisionShape::MakeSphere(EyeRadius);
++    if(World->SweepSingleByChannel(Hit,Start,WorldPoint,FQuat::Identity,ECC_Camera,Shape,Q))
++    {
++        if(!Hit.bStartPenetrating)WorldPoint=FMath::Lerp(Start,WorldPoint,FMath::Max(0.f,Hit.Time-.01f));
++        else
++        {
++            // Camera-only blockers can intersect the capsule without stopping
++            // CharacterMovement. Resolve the small sphere's penetration instead
++            // of returning the same embedded start (or an invalid hit location).
++            FVector Safe=Start;
++            for(int32 Attempt=0;Attempt<3&&Hit.bStartPenetrating;++Attempt)
++            {
++                Safe+=Hit.Normal*FMath::Min(Hit.PenetrationDepth+1.f,Capsule->GetScaledCapsuleRadius());
++                if(!World->SweepSingleByChannel(Hit,Safe,Safe+FVector(0,0,.01f),FQuat::Identity,ECC_Camera,Shape,Q))break;
++            }
++            WorldPoint=Safe;
++        }
++    }
++    return true;
+ }
+ 

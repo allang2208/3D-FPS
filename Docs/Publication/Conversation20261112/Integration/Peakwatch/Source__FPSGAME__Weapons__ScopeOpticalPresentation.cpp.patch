@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp
++++ b/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp
+@@ -194,4 +194,5 @@
+     if(!UsesPhysicalScope())return false;
+     Out=FPhysicalScopeView();
++    if(Bow&&Bow->IsEquipped())return Bow->GetPhysicalScopeView(Out);
+     Out.Style=HasM24FactoryScope()?EPhysicalScopeStyle::M24:HasThermalScope()?EPhysicalScopeStyle::Thermal:
+         HasPSO1Scope()?EPhysicalScopeStyle::PSO:HasHandgunScope()?EPhysicalScopeStyle::Handgun:

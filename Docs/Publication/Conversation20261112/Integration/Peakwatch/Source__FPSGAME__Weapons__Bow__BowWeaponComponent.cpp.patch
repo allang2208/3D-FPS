@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
+@@ -510,5 +510,5 @@
+     OpticalMagnification = FMath::Clamp(ScopeKey==OpticalSelectionKey?OpticalMagnification:DefaultPower, OpticalMinimum, OpticalMaximum);
+     if (ScopeKey != OpticalSelectionKey) DisplayedOpticalMagnification = OpticalMagnification;
+-    bPeakwatchScope = EquippedDefinition == TEXT("bow_woodsteel") && ScopeKey.Contains(TEXT("/Scope3to6V11/SM_Highland_Peakwatch3to6"));
++    bPeakwatchScope = EquippedDefinition == TEXT("bow_woodsteel") && ScopeKey.Contains(TEXT("/SM_Highland_Peakwatch3to6.SM_Highland_Peakwatch3to6"));
+     OpticalSelectionKey = ScopeKey;
+     ScopeRingDegreesPerPower = Number(TEXT("bow_scope_ring_degrees_per_power"), 0.f);
+@@ -598,4 +598,6 @@
+ float UBowWeaponComponent::AimVerticalFOV(float BaseFOV) const
+ {
++    // Peakwatch magnifies only its physical lens, leaving the normal bow ADS view.
++    if (IsScopeOpticalPresentationEnabled()) return BaseFOV * AimFOVScale;
+     return OpticalAimVerticalFOV(BaseFOV);
+ }

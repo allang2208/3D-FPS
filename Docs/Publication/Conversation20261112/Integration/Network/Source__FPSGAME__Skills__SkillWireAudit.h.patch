@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.h
++++ b/Source/FPSGAME/Skills/SkillWireAudit.h
+@@ -32,2 +32,4 @@
+     void TickConversationCombat();
++    void TickLeapWire(float Delta);
++    void SetupLeapWire(int32 Case);
+     void SetupSessionChain(ANurseZombie* Target,const FString& Id);
+@@ -77,2 +79,3 @@
+     void TickConversationCombat();
++    void TickLeapWire(float Delta);
+     void TickSessionChain();

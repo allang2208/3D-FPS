@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Skills/ConversationCombatWire20261108.cpp
++++ b/Source/FPSGAME/Skills/ConversationCombatWire20261108.cpp
+@@ -50,2 +50,3 @@
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("LeapMovementWire"))){SetupLeapWire(Case);return;}
+     if(!FParse::Param(FCommandLine::Get(),TEXT("ConversationCombatWire"))||HasAuthority()||Case==ConversationCase||!First||!Second)return;

@@ -1,0 +1,268 @@
+{
+  "local_manifest": "trash/Conversation20261112/manifest.jsonl",
+  "manifest_sha256": "3ff38c1f13ee8cfa215aff87075c9bbe94fbe58e2a1ec0ed47974d33cd5bfb70",
+  "files": 210,
+  "bytes": 82651384,
+  "all_hashes_read_back": true,
+  "moves": [
+    {
+      "original": "Saved/M249NoBipodIcon/20261112-153142/run-154842",
+      "files": 68,
+      "bytes": 9404988,
+      "reason": "首帧备用图偏亮的中间轮次，正确原尺寸图和最终对照已落盘",
+      "retain": "Saved/M249NoBipodIcon/20261112-153142/run-155947"
+    },
+    {
+      "original": "Saved/M249NoBipodIcon/20261112-153142/run-155507",
+      "files": 69,
+      "bytes": 9521245,
+      "reason": "首帧备用图偏亮的中间轮次，正确原尺寸图和最终对照已落盘",
+      "retain": "Saved/M249NoBipodIcon/20261112-153142/run-155947"
+    },
+    {
+      "original": "Saved/M249NoBipodIcon/20261112-153142/produce_variant_only.ps1",
+      "files": 1,
+      "bytes": 1566,
+      "reason": "试验用目录渲染器生成过亮备用图，正式来源为游戏背包笔刷",
+      "retain": "Saved/M249NoBipodIcon/20261112-153142/run-155947/runtime-no-bipod.png"
+    },
+    {
+      "original": "Saved/M249NoBipodIcon/20261112-153142/produce.ps1",
+      "files": 1,
+      "bytes": 1546,
+      "reason": "试验用目录渲染器生成过亮备用图，正式来源为游戏背包笔刷",
+      "retain": "Saved/M249NoBipodIcon/20261112-153142/run-155947/runtime-no-bipod.png"
+    },
+    {
+      "original": "Saved/M249NoBipodIcon/20261112-153142/variant-isolated.log",
+      "files": 1,
+      "bytes": 295087,
+      "reason": "试验用目录渲染器生成过亮备用图，正式来源为游戏背包笔刷",
+      "retain": "Saved/M249NoBipodIcon/20261112-153142/run-155947/runtime-no-bipod.png"
+    },
+    {
+      "original": "Saved/M249NoBipodIcon/20261112-153142/catalog.log",
+      "files": 1,
+      "bytes": 296344,
+      "reason": "试验用目录渲染器生成过亮备用图，正式来源为游戏背包笔刷",
+      "retain": "Saved/M249NoBipodIcon/20261112-153142/run-155947/runtime-no-bipod.png"
+    },
+    {
+      "original": "Saved/M249NoBipodIcon/20261112-153142/catalog-backup-2026.11.12-07.48.23.log",
+      "files": 1,
+      "bytes": 295501,
+      "reason": "试验用目录渲染器生成过亮备用图，正式来源为游戏背包笔刷",
+      "retain": "Saved/M249NoBipodIcon/20261112-153142/run-155947/runtime-no-bipod.png"
+    },
+    {
+      "original": "Saved/M249BagIconWire/20261112-151132/run-152111",
+      "files": 29,
+      "bytes": 7253788,
+      "reason": "客户端在改造前退出的未完成检查，最终回放不读取此目录",
+      "retain": "Saved/M249NoBipodIcon/20261112-153142/run-155947"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/Exports",
+      "files": 4,
+      "bytes": 35662289,
+      "reason": "已否定的拼接后握把导出，仅保留其 saved.json 供新版安装器识别",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44/Exports"
+    },
+    {
+      "original": "SourceAssets/MantisM27/PounceV12/Delivery",
+      "files": 5,
+      "bytes": 17903065,
+      "reason": "已记录回退的飞扑 V12 导出，V13/V14 取 V11 为源",
+      "retain": "SourceAssets/MantisM27/PounceV11"
+    },
+    {
+      "original": "SourceAssets/LMGStabilityGrip20261111/SM_LMG201_StabilityGrip.blend1",
+      "files": 1,
+      "bytes": 151391,
+      "reason": "Blender 自动生成的旧副本，当前工程和导出另有保留",
+      "retain": "SourceAssets/LMGStabilityGrip20261111/SM_LMG201_StabilityGrip.blend"
+    },
+    {
+      "original": "SourceAssets/LMGStabilityGrip20261111/SM_M249_StabilityGrip.blend1",
+      "files": 1,
+      "bytes": 142180,
+      "reason": "Blender 自动生成的旧副本，当前工程和导出另有保留",
+      "retain": "SourceAssets/LMGStabilityGrip20261111/SM_M249_StabilityGrip.blend"
+    },
+    {
+      "original": "SourceAssets/LMGStabilityGrip20261111/SM_PKM_StabilityGrip.blend1",
+      "files": 1,
+      "bytes": 151370,
+      "reason": "Blender 自动生成的旧副本，当前工程和导出另有保留",
+      "retain": "SourceAssets/LMGStabilityGrip20261111/SM_PKM_StabilityGrip.blend"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/Wrist33/__pycache__",
+      "files": 2,
+      "bytes": 17644,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/M249Orpind20261107/Wrist33"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/Wrist34/__pycache__",
+      "files": 1,
+      "bytes": 15324,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/M249Orpind20261107/Wrist34"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/Wrist36/__pycache__",
+      "files": 1,
+      "bytes": 12766,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/M249Orpind20261107/Wrist36"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/Wrist37/__pycache__",
+      "files": 1,
+      "bytes": 12333,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/M249Orpind20261107/Wrist37"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/Wrist39/__pycache__",
+      "files": 1,
+      "bytes": 35230,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/M249Orpind20261107/Wrist39"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/GripMount40/__pycache__",
+      "files": 2,
+      "bytes": 7881,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/M249Orpind20261107/GripMount40"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/__pycache__",
+      "files": 1,
+      "bytes": 5928,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip43"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip44/__pycache__",
+      "files": 1,
+      "bytes": 4317,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/LMGStabilityGrip20261111/__pycache__",
+      "files": 2,
+      "bytes": 17765,
+      "reason": "作者脚本的自动字节码缓存",
+      "retain": "SourceAssets/LMGStabilityGrip20261111"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/author.py",
+      "files": 1,
+      "bytes": 8070,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/export.log",
+      "files": 1,
+      "bytes": 1125,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/install.py",
+      "files": 1,
+      "bytes": 4603,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/publish.console",
+      "files": 1,
+      "bytes": 38920,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/publish.log",
+      "files": 1,
+      "bytes": 292240,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/publish_final.console",
+      "files": 1,
+      "bytes": 38179,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/publish_final.log",
+      "files": 1,
+      "bytes": 289957,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/publish_finish.console",
+      "files": 1,
+      "bytes": 38851,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/publish_finish.log",
+      "files": 1,
+      "bytes": 291531,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "SourceAssets/M249Orpind20261107/RearGrip43/tangents.py",
+      "files": 1,
+      "bytes": 2638,
+      "reason": "已否定的后握把拼接方案制作和安装记录，守卫依赖的 saved.json 保留",
+      "retain": "SourceAssets/M249Orpind20261107/RearGrip44"
+    },
+    {
+      "original": "Tools/MantisM27/PounceV12/author.py",
+      "files": 1,
+      "bytes": 20041,
+      "reason": "已明确回退的 V12 作者与接入脚本，保留回退入口",
+      "retain": "Tools/MantisM27/PounceV12/rollback_to_v11.py"
+    },
+    {
+      "original": "Tools/MantisM27/PounceV12/import.py",
+      "files": 1,
+      "bytes": 5809,
+      "reason": "已明确回退的 V12 作者与接入脚本，保留回退入口",
+      "retain": "Tools/MantisM27/PounceV12/rollback_to_v11.py"
+    },
+    {
+      "original": "Content/Monsters/MantisM27/PounceV12/Animations/A_M27_PounceFlight_PounceV12.uasset",
+      "files": 1,
+      "bytes": 129984,
+      "reason": "正式蓝图已回到 V11，UE 注册表确认此 V12 动画无引用",
+      "retain": "SourceAssets/MantisM27/PounceV11"
+    },
+    {
+      "original": "Content/Monsters/MantisM27/PounceV12/Animations/A_M27_PounceLand_PounceV12.uasset",
+      "files": 1,
+      "bytes": 153968,
+      "reason": "正式蓝图已回到 V11，UE 注册表确认此 V12 动画无引用",
+      "retain": "SourceAssets/MantisM27/PounceV11"
+    },
+    {
+      "original": "Content/Monsters/MantisM27/PounceV12/Animations/A_M27_PounceWindup_PounceV12.uasset",
+      "files": 1,
+      "bytes": 125920,
+      "reason": "正式蓝图已回到 V11，UE 注册表确认此 V12 动画无引用",
+      "retain": "SourceAssets/MantisM27/PounceV11"
+    }
+  ]
+}

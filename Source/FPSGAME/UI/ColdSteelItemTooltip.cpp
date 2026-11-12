@@ -2,6 +2,7 @@
 #include "ColdSteelDisclosureIndicator.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelWeaponIcons.h"
+#include "../Weapons/M249WeaponAssets.h"
 #include "ColdSteelUIStyle.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -119,7 +120,14 @@ void UColdSteelItemTooltip::RefreshIcon()
         if(Icon->GetBrush().GetResourceObject()!=Brush->GetResourceObject())Icon->SetBrush(*Brush);
         Icon->SetVisibility(ESlateVisibility::HitTestInvisible);MissingIcon->SetVisibility(ESlateVisibility::Collapsed);return;
     }
-    const FString Path=Live?TEXT("Icons/")+Item->Definition+TEXT(".png"):Presentation.Icon;
+    FString CatalogName=Item->Definition;
+    if(Live&&Item->Definition==M249WeaponAssets::Definition)
+    {
+        const auto* Guns=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+        const FString Variant=UColdSteelWeaponIcons::CatalogVariantIcon(Item->Definition,Guns->Installed(*Item));
+        if(!Variant.IsEmpty())CatalogName=Variant;
+    }
+    const FString Path=Live?TEXT("Icons/")+CatalogName+TEXT(".png"):Presentation.Icon;
     if(!Path.IsEmpty()&&!TextureCache.Contains(Path))
         TextureCache.Add(Path,FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Path));
     UTexture2D* Texture=TextureCache.FindRef(Path);

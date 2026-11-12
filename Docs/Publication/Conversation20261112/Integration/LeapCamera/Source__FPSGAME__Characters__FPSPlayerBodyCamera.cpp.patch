@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+@@ -16,5 +17,12 @@
+     if (auto* Rest=FindComponentByClass<UFPSFurnitureRestComponent>())Rest->ApplyCamera(OutResult);
+     if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>())
+-    {Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);}
++    {
++        Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);
++        // Additive camera layers are applied after the component transform.
++        // Keep the rendered owner eye inside the same leap collision boundary;
++        // the fixed/rear third-person observation camera has its own contract.
++        if(!Body->IsThirdPersonViewEnabled())
++            if(const auto* Tool=FindComponentByClass<UProductionToolComponent>())Tool->ConstrainLeapStrikeView(OutResult.Location);
++    }
+ }
+ 

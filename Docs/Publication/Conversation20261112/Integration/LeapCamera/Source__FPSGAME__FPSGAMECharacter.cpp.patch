@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -2575,4 +2573,11 @@
+             CameraContacts, ActionCameraWeight, ReloadTracks, DeltaSeconds);
+     }
++    if(ProductionTools)
++    {
++        FVector Eye=FirstPersonCamera->GetComponentLocation();
++        ProductionTools->UpdateLeapStrikeCamera(Eye,DeltaSeconds);
++        if(!Eye.Equals(FirstPersonCamera->GetComponentLocation(),UE_SMALL_NUMBER))
++            FirstPersonCamera->SetWorldLocation(Eye);
++    }
+ }
+ 

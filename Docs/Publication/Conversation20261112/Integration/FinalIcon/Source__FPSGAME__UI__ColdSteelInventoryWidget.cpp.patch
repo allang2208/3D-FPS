@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp
+@@ -118,5 +118,5 @@
+         if(!InView)continue;
+         if(P&&WeaponIcons)P->IconRecipe=WeaponIcons->Request(I);
+-        // Show the installed head immediately while the complete grip, pommel, pendant and finish render.
++        // Keep the installed silhouette visible while the full recipe is rendering.
+         const auto LoadBrush=[this,P,&I](const FString& Key,const FString& File)
+         {
+@@ -130,8 +130,8 @@
+             IconBrushes.Add(Key,Brush);
+         };
+-        if(P&&!P->BladeIcon.IsEmpty())
++        if(P&&!P->CatalogVariant.IsEmpty())
+         {
+-            LoadBrush(P->BladeIcon,TEXT("Icons/")+P->BladeIcon+TEXT(".png"));
+-            if(IconBrushes.Contains(P->BladeIcon))continue;
++            LoadBrush(P->CatalogVariant,TEXT("Icons/")+P->CatalogVariant+TEXT(".png"));
++            if(IconBrushes.Contains(P->CatalogVariant))continue;
+         }
+         const FString IconKey=I.Definition==TEXT("mineral_water")?I.Definition+TEXT(":")+Text(I,TEXT("ue_icon")):I.Definition;
+@@ -150,6 +150,6 @@
+         if(WeaponIcons&&!P->IconRecipe.IsEmpty())
+             if(const auto* Preview=WeaponIcons->FindRecipe(P->IconRecipe))return Preview;
+-        if(!P->BladeIcon.IsEmpty())
+-            if(const auto* Brush=IconBrushes.Find(P->BladeIcon))return Brush;
++        if(!P->CatalogVariant.IsEmpty())
++            if(const auto* Brush=IconBrushes.Find(P->CatalogVariant))return Brush;
+     }
+     const FString IconKey=I.Definition==TEXT("mineral_water")?I.Definition+TEXT(":")+Text(I,TEXT("ue_icon")):I.Definition;

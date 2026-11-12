@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -336,3 +339,3 @@
+         }
+-        else if(Tool->IsLeapStrikeActive())
++        else if(Tool->bLeapStrike)
+         {
+@@ -636,2 +663,3 @@
+             State.BowClipLength=R.BowClipLength;State.bBowClipLooping=R.bBowClipLooping;
++            State.BowScopeRingRoll=R.BowScopeRingRoll;
+             State.BowNock=R.BowNock;State.bBowArrow=R.bBowArrow;State.bBowTakingArrow=R.bBowTakingArrow;State.BowSeat=R.BowSeat;

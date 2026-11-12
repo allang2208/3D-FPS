@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Movement/FPSLeapRootMotionSource.cpp
++++ b/Source/FPSGAME/Movement/FPSLeapRootMotionSource.cpp
+@@ -14,2 +14,8 @@
+ UScriptStruct* FRootMotionSource_FPSLeap::GetScriptStruct() const{return StaticStruct();}
++bool FRootMotionSource_FPSLeap::Matches(const FRootMotionSource* Other) const
++{
++    // The accepted endpoint is quantized in the skill receipt. MoveToForce's
++    // 0.1 cm endpoint comparison would discard the matching server source.
++    return FRootMotionSource::Matches(Other)&&CastSerial==static_cast<const FRootMotionSource_FPSLeap*>(Other)->CastSerial;
++}
+ bool FRootMotionSource_FPSLeap::MatchesAndHasSameState(const FRootMotionSource* Other) const

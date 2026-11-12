@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -104,4 +104,7 @@
+ 
+ private:
++    friend class ULeapStrikeAuditCommandlet;
++    friend class UWeaponEquipCameraAuditCommandlet;
++    friend class AWeaponEquipWireController;
+     struct FFurnitureEyeTrack { float Duration=0.f; TArray<FVector> Eyes; };
+     TMap<FName,FFurnitureEyeTrack> FurnitureEyeTracks;

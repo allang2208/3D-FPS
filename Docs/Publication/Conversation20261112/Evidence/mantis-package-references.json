@@ -1,0 +1,13 @@
+{
+  "/Game/Monsters/MantisM27/PounceV12/Animations/A_M27_PounceFlight_PounceV12": [],
+  "/Game/Monsters/MantisM27/PounceV12/Animations/A_M27_PounceLand_PounceV12": [],
+  "/Game/Monsters/MantisM27/PounceV12/Animations/A_M27_PounceWindup_PounceV12": [],
+  "/Game/Monsters/MantisM27/Beast06V2/Animations/A_M27_LeftSlash_Beast06V2": [
+    "/Game/Monsters/MantisM27/PounceV13/BP_MantisM27_PounceReviewV13",
+    "/Game/Monsters/MantisM27/PounceV14/BP_MantisM27_PounceReviewV14"
+  ],
+  "/Game/Monsters/MantisM27/Beast06V2/Animations/A_M27_RightSlash_Beast06V2": [
+    "/Game/Monsters/MantisM27/PounceV13/BP_MantisM27_PounceReviewV13",
+    "/Game/Monsters/MantisM27/PounceV14/BP_MantisM27_PounceReviewV14"
+  ]
+}

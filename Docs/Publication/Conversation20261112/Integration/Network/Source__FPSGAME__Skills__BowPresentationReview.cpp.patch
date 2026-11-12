@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/Skills/BowPresentationReview.cpp
++++ b/Source/FPSGAME/Skills/BowPresentationReview.cpp
+@@ -147,6 +157,33 @@
+     Bow->DisplayedOpticalMagnification=3.f;Optics->UpdateCamera(*Bow);
+-    Check(Camera->bEnableFirstPersonFieldOfView&&Optics->OwnsPrimitive(Part),TEXT("scope acquires only owner bow primitives"));
+-    const float Framing=Camera->FirstPersonFieldOfView,FOV3=Bow->AimVerticalFOV(90.f);
++    Check(Camera->bEnableFirstPersonFieldOfView&&Optics->OwnsPrimitive(Part),TEXT("scope acquires only owner bow primitives"),
++        FString::Printf(TEXT("local=%d target=%d present=%d scope=%d third=%d alpha=%.3f"),Pawn->IsLocallyControlled(),PC->GetViewTarget()==Pawn,
++            Bow->CanPresent(true),Bow->IsScopeOpticalPresentationEnabled(),Body->IsThirdPersonViewEnabled(),Bow->AimAlpha()));
++    const float Framing=Camera->FirstPersonFieldOfView,FOV3=Bow->AimVerticalFOV(90.f),LensFOV3=Bow->OpticalAimVerticalFOV(90.f);
+     Bow->DisplayedOpticalMagnification=6.f;Optics->UpdateCamera(*Bow);
+-    Check(Framing==Camera->FirstPersonFieldOfView&&Bow->AimVerticalFOV(90.f)<FOV3,TEXT("zoom changes main camera magnification without changing viewmodel framing"));
++    Check(Framing==Camera->FirstPersonFieldOfView&&Bow->AimVerticalFOV(90.f)==FOV3&&Bow->OpticalAimVerticalFOV(90.f)<LensFOV3,
++        TEXT("zoom changes only lens magnification while peripheral and viewmodel framing stay fixed"));
++
++    // Reproduce a body/equipment refresh after the owner lens MID is installed.
++    Bow->Viewmodel=NewObject<UBowArmsMeshComponent>(Pawn);
++    Bow->Viewmodel->SetSkeletalMeshAsset(LoadObject<USkeletalMesh>(nullptr,TEXT("/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7")));
++    auto* Sight=NewObject<UBowPartComponent>(Pawn);Sight->InitializeAsPart(Pawn,TEXT("sight"),Bow->Pivot);
++    Sight->SetMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/WoodSteelLongbow20261026/Scope3to6V12/SM_Highland_Peakwatch3to6.SM_Highland_Peakwatch3to6")));
++    Bow->Parts.Add(TEXT("sight"),Sight);Bow->SlotOrder.AddUnique(TEXT("sight"));
++    auto* Lens=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeLens.M_PhysicalScopeLens"));
++    const int32 Glass=Sight->FindMaterialSlot(TEXT("M_Peakwatch_Glass"));
++    if(Lens&&Glass!=INDEX_NONE)Sight->GetVisual()->SetMaterial(Glass,UMaterialInstanceDynamic::Create(Lens,Pawn));
++    FFPSBodyWeapon Captured;Body->CaptureBow(*Bow,Captured);
++    const auto* CapturedSight=Captured.Parts.FindByPredicate([](const auto& P){return P.Slot==TEXT("sight");});
++    Check(Lens&&Sight->GetMesh()&&Glass!=INDEX_NONE&&CapturedSight&&CapturedSight->Materials.IsValidIndex(Glass)
++        &&CapturedSight->Materials[Glass].Get()==Sight->GetMesh()->GetMaterial(Glass),
++        TEXT("ADS equipment refresh publishes original glass instead of owner capture material"));
++    auto* Ring=NewObject<UBowPartComponent>(Pawn);Ring->InitializeAsPart(Pawn,TEXT("sight_zoom"),Bow->Pivot);
++    Bow->Parts.Add(TEXT("sight_zoom"),Ring);Bow->SlotOrder.AddUnique(TEXT("sight_zoom"));
++    Bow->ScopeRingRotation=FRotator(0,0,12);Bow->ScopeRingDegreesPerPower=30;
++    Ring->SetRelativeRotation(FRotator(0,0,102));
++    FFPSBodyState ZoomState;Body->SampleBowState(*Bow,ZoomState);FFPSBodyWeapon StableEquipment;Body->CaptureBow(*Bow,StableEquipment);
++    const auto* RingDescription=StableEquipment.Parts.FindByPredicate([](const auto& P){return P.Slot==TEXT("sight_zoom");});
++    Check(FMath::IsNearlyEqual(ZoomState.BowScopeRingRoll,102.f)&&RingDescription&&
++        FMath::IsNearlyEqual(float(RingDescription->RelativeTransform.Rotator().Roll),12.f),
++        TEXT("zoom ring carries actual roll in pose while equipment mount remains stable"));
+     PC->bShowMouseCursor=true;Optics->UpdateCamera(*Bow);

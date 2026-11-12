@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp
+@@ -414,8 +414,7 @@
+ float AFPSGAMECharacter::GetScopePresentationAlpha() const
+ {
+-    // Bow handles its own optics: fixed sights remain physical; Peakwatch
+-    // paints its mask below HUD children and owns its viewmodel visibility.
+-    // This shared gun-scope alpha must never hide the game's combat HUD.
+-    if(Bow && Bow->IsEquipped())return 0.f;
++    // Peakwatch shares the owner-local lens capture. Other bow sights retain
++    // their existing presentation; this alpha never hides the combat HUD.
++    if(Bow && Bow->IsEquipped())return Bow->PhysicalScopeAlpha();
+     if(!UsesPhysicalScope()||!bInventoryWeaponReady||IsTraversing()||(IsM24Weapon()?IsWeaponBusyForAim():IsWeaponBusy()))return 0.f;
+     const float ScopeWeight=HasM24FactoryScope()?FMath::SmoothStep(.35f,.90f,1.f-GetM24UpperSightAlpha()):1.f;

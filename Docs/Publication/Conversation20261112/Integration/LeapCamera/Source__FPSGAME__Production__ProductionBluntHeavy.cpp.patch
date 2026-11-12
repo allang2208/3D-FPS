@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
+@@ -143,15 +145,5 @@
+ bool UProductionToolComponent::GetGroundSlamCameraLocation(FVector& Point) const
+ {
+-    if(bLeapStrike&&LeapAge>=LeapStrike::Land-LeapStrike::Downstroke)
+-    {
+-        const float W=LeapStrike::GroundWeight(LeapAge);
+-        const FQuat Planted=FRotator(LeapStrike::ViewPitch,LeapSlamRotation.Rotator().Yaw,0).Quaternion();
+-        const FVector Anchor=LeapImpactPoint-Planted.RotateVector(LeapStrike::ContactHead);
+-        Point=FMath::Lerp(Character->GetMeleeAimTransform().GetLocation(),Anchor,W);
+-        FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(LeapStrikeCamera),false,Character.Get());
+-        if(GetWorld()->SweepSingleByChannel(Hit,Character->GetMeleeAimTransform().GetLocation(),Point,FQuat::Identity,
+-            ECC_Camera,FCollisionShape::MakeSphere(6.f),Q))Point=Hit.Location;
+-        return true;
+-    }
++    if(bLeapStrike)return GetLeapStrikeCameraLocation(Point);
+     if(!bBluntHeavy||UsesFinalTollHeavy()||UsesThunderThrowHeavy()||Elapsed<0.f||!CanUse(true))return false;
+     const float Time=AuthoredElapsed();

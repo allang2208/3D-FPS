@@ -89,20 +89,29 @@ void UColdSteelInventoryWidget::LoadIcons()
     RefreshPresentation();
     if(!Model)return;for(const auto& I:Model->Items()) {
         if(WeaponIcons&&WeaponIcons->Supports(I)){if(bWarehouse?(Model->InOpenStorage(I)&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+ColdSteelWarehouse::CellsPerPage):(I.Place==0||I.Place==1))WeaponIcons->Request(I);}
-        // Keep the catalog image available while a live weapon preview is pending or failed.
+        const auto* P=Presentation.Find(I.InstanceId);
+        // Keep the installed silhouette visible while the full recipe is rendering.
+        const auto LoadBrush=[this,P,&I](const FString& Key,const FString& File)
+        {
+            if(Icons.Contains(Key)||FailedIcons.Contains(Key)||File.IsEmpty())return;
+            auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);
+            if(!Texture){FailedIcons.Add(Key);return;}
+            Icons.Add(Key,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);
+            Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
+            if((P&&(P->StaffArt))||I.Definition==TEXT("ue_m870"))
+                ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
+            IconBrushes.Add(Key,Brush);
+        };
+        if(P&&!P->CatalogVariant.IsEmpty())
+        {
+            LoadBrush(P->CatalogVariant,TEXT("Icons/")+P->CatalogVariant+TEXT(".png"));
+            if(IconBrushes.Contains(P->CatalogVariant))continue;
+        }
         const FString IconKey=I.Definition==TEXT("mineral_water")?I.Definition+TEXT(":")+Text(I,TEXT("ue_icon")):I.Definition;
         if(Icons.Contains(IconKey)||FailedIcons.Contains(IconKey))continue;
         // Weapon artwork follows the current catalog even when an older saved item has no icon field.
         const FString File=WeaponIcons&&WeaponIcons->Supports(I)?TEXT("Icons/")+I.Definition+TEXT(".png"):Text(I,TEXT("ue_icon"));if(File.IsEmpty())continue;
-        auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);
-        // A failed import must be remembered: the source file is missing, so
-        // retrying it on every refresh only repeats the disk probe, the engine
-        // warning and a transient UTexture2D allocation that GC then has to reap.
-        if(!Texture){FailedIcons.Add(IconKey);continue;}
-        Icons.Add(IconKey,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
-        if(const auto* P=Presentation.Find(I.InstanceId);(P&&P->StaffArt)||I.Definition==TEXT("ue_m870"))
-            ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
-        IconBrushes.Add(IconKey,Brush);
+        LoadBrush(IconKey,File);
     }
     // Item data and asynchronous images are painted directly, outside child-widget bindings.
     if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);
@@ -110,6 +119,8 @@ void UColdSteelInventoryWidget::LoadIcons()
 const FSlateBrush* UColdSteelInventoryWidget::ItemBrush(const FColdSteelItem& I) const
 {
     if(WeaponIcons&&WeaponIcons->Supports(I))if(const auto* Preview=WeaponIcons->Find(I))return Preview;
+    if(const auto* P=Presentation.Find(I.InstanceId);P&&!P->CatalogVariant.IsEmpty())
+        if(const auto* Brush=IconBrushes.Find(P->CatalogVariant))return Brush;
     const FString IconKey=I.Definition==TEXT("mineral_water")?I.Definition+TEXT(":")+Text(I,TEXT("ue_icon")):I.Definition;
     return IconBrushes.Find(IconKey);
 }

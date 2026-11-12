@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -5,2 +5,3 @@
+ #include "../Skills/ChainSlashMotion.h"
++#include "../Skills/LeapStrikeMotion.h"
+ #include "../FPSGAMECharacter.h"
+@@ -48,2 +49,4 @@
+             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
++        ||(LeapStrike::IsBodyVariant(A.ActionVariant)&&A.ActionVariant==B.ActionVariant
++            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+         ||(A.Action==EFPSBodyAction::GunBash&&B.Action==A.Action
+@@ -94,3 +97,3 @@
+             // Finite differencing would advance a just-paused contact remotely.
+-            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&!FPSBodyHighlandMotion::IsSweep(DisplayState.ActionVariant)&&!ChainSlashMotion::IsVariant(DisplayState.ActionVariant)&&DisplayState.Action!=EFPSBodyAction::Consume
++            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&!FPSBodyHighlandMotion::IsSweep(DisplayState.ActionVariant)&&!ChainSlashMotion::IsVariant(DisplayState.ActionVariant)&&!LeapStrike::IsBodyVariant(DisplayState.ActionVariant)&&DisplayState.Action!=EFPSBodyAction::Consume
+                 &&!(DisplayState.Action==EFPSBodyAction::GunBash&&DisplayState.ActionVariant==TEXT("WarhammerHeadThrust")))
+@@ -176,2 +179,3 @@
+     Next.BowClipRate=FMath::IsFinite(Next.BowClipRate)?FMath::Clamp(Next.BowClipRate,-32.f,32.f):0.f;
++    Next.BowScopeRingRoll=FMath::IsFinite(Next.BowScopeRingRoll)?FRotator::NormalizeAxis(Next.BowScopeRingRoll):0.f;
+     Next.BowClipLength=FMath::IsFinite(Next.BowClipLength)?FMath::Clamp(Next.BowClipLength,0.f,60.f):0.f;

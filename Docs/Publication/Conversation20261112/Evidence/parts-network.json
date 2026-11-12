@@ -1,0 +1,230 @@
+{
+  "description": "本次实际运行与历史回执逐项区分。游戏网络用例为本机监听主机与独立客机，使用隔离档案。",
+  "confirmed_test_defects": [
+    "首次生成时，旧检查在客机物理接地前即取样。",
+    "旧检查按现实时间停止连射，可能将最后一发的部分加成与当前时刻的满加成混为一谈。"
+  ],
+  "standard_parts": {
+    "receipt": "parts-fixed/receipt.json",
+    "rows": [
+      {
+        "phase": 0,
+        "guest_save_reload": true,
+        "guest_local_body": true,
+        "host_seen_by_guest": true,
+        "guest_on_shared_floor": true,
+        "passed": true,
+        "server_deploy_eligible": true,
+        "host_save_reload": true,
+        "server_shadow": true,
+        "guest_seen_by_host": true
+      },
+      {
+        "phase": 1,
+        "guest_save_reload": true,
+        "burst_shots": 18,
+        "peak_fire_alpha": 1,
+        "last_shot_grip_recoil_factor": 0.8235293626785278,
+        "released_fire_alpha": 0,
+        "burst_at_last_shot_seconds": 1.5401516109704971,
+        "guest_local_body": true,
+        "host_seen_by_guest": true,
+        "guest_on_shared_floor": true,
+        "passed": true,
+        "server_deploy_eligible": false,
+        "host_save_reload": true,
+        "server_shadow": true,
+        "guest_seen_by_host": true
+      },
+      {
+        "phase": 2,
+        "guest_save_reload": true,
+        "guest_local_body": true,
+        "host_seen_by_guest": true,
+        "guest_on_shared_floor": true,
+        "passed": true,
+        "server_deploy_eligible": true,
+        "host_save_reload": true,
+        "server_shadow": true,
+        "guest_seen_by_host": true
+      }
+    ],
+    "passed": true,
+    "original_failed_receipt": "parts/host.json",
+    "dll": "A3F78D2905173650B7112ECBC0DE6715738471BE16C99369B3860C27A9E85E3E",
+    "build_log": "Saved/BuildEditor/build-20261112-125343.log",
+    "all_roles": true
+  },
+  "current_grips": {
+    "receipt": "grips/receipt.json",
+    "rows": 16,
+    "distinct_cases": 8,
+    "all_settled": true,
+    "wrong_equipment_frames": 0,
+    "variants": [
+      "ue_m249/false",
+      "ue_m249/lmg_stability_foregrip",
+      "ue_lmg201/lmg_stability_foregrip",
+      "ue_pkm_lowpoly/lmg_stability_foregrip"
+    ],
+    "from_fitted_caller": {
+      "case": 2,
+      "variant": "lmg_stability_foregrip",
+      "definition": "ue_m249",
+      "stats_and_slot_valid": true,
+      "recoil_ratio": 0.8499999668287195,
+      "stability_ratio": 1.15,
+      "ads_duration_ratio": 1,
+      "ads_seconds_added": 0,
+      "profile_save_reload": true,
+      "empty": false,
+      "owner": "listen_host",
+      "passed": true,
+      "settled": true,
+      "owner_profile_matches": true,
+      "owner_saw_aim": true,
+      "owner_saw_reload": true,
+      "finite": true,
+      "wrong_equipment_frames": 0,
+      "return_boundary_cm": 1.2912318830870403e-05
+    }
+  },
+  "rear_grips": {
+    "method": "临时检查 DLL 复用正式游戏对象，添加第三人称静态网格组件与 WPN_root 的变换采样。已保存原始完整用例状态，单项结论见各字段。",
+    "results": [
+      {
+        "name": "phantom_reargrip",
+        "receipt": "phantom/host.json",
+        "full_suite_passed": false,
+        "host_equipped_before_client_join": true,
+        "late_join_received_host_mesh": true,
+        "host_observed_client_mesh": true,
+        "server_equipment_match": true,
+        "remote_grip_count_fitted": 1,
+        "remote_grip_count_after_removal": 0,
+        "remote_reload_frames": 524,
+        "max_offset_mm": 0.001085654767671196,
+        "max_angle_degrees": 0.00015835142153696214,
+        "old_sampler_last_shot_factor": 0.8511648178100586
+      },
+      {
+        "name": "stable_antislip_reargrip",
+        "receipt": "stable/host.json",
+        "full_suite_passed": true,
+        "host_equipped_before_client_join": true,
+        "late_join_received_host_mesh": true,
+        "host_observed_client_mesh": true,
+        "server_equipment_match": true,
+        "remote_grip_count_fitted": 1,
+        "remote_grip_count_after_removal": 0,
+        "remote_reload_frames": 500,
+        "max_offset_mm": 0.0009181592497444618,
+        "max_angle_degrees": 9.25704838773274e-05,
+        "old_sampler_last_shot_factor": 0.8235293626785278
+      },
+      {
+        "name": "balanced_reargrip",
+        "receipt": "balanced/host.json",
+        "full_suite_passed": true,
+        "host_equipped_before_client_join": true,
+        "late_join_received_host_mesh": true,
+        "host_observed_client_mesh": true,
+        "server_equipment_match": true,
+        "remote_grip_count_fitted": 1,
+        "remote_grip_count_after_removal": 0,
+        "remote_reload_frames": 475,
+        "max_offset_mm": 0.000912153048964494,
+        "max_angle_degrees": 7.098140800661725e-05,
+        "old_sampler_last_shot_factor": 0.8235293626785278
+      }
+    ],
+    "total_reload_frames": 1499,
+    "max_offset_mm": 0.001085654767671196
+  },
+  "assets": {
+    "routes": {
+      "routes": 70,
+      "unique": 18,
+      "all_mapped": true,
+      "missing": []
+    },
+    "loaded_st6_lods": [
+      3
+    ],
+    "mantis": {
+      "left_slash_clip": "/Game/Monsters/MantisM27/ClawV16/Animations/A_M27_LeftSlash_ClawV16.A_M27_LeftSlash_ClawV16",
+      "right_slash_clip": "/Game/Monsters/MantisM27/ClawV16/Animations/A_M27_RightSlash_ClawV16.A_M27_RightSlash_ClawV16",
+      "pounce_windup_clip": "/Game/Monsters/MantisM27/PounceV11/Animations/A_M27_PounceWindup_PounceV11.A_M27_PounceWindup_PounceV11",
+      "pounce_flight_clip": "/Game/Monsters/MantisM27/PounceV11/Animations/A_M27_PounceFlight_PounceV11.A_M27_PounceFlight_PounceV11",
+      "pounce_land_clip": "/Game/Monsters/MantisM27/PounceV11/Animations/A_M27_PounceLand_PounceV11.A_M27_PounceLand_PounceV11"
+    },
+    "scope": {
+      "/Game/Weapons/WoodSteelLongbow20261026/Scope3to6V12/SM_Highland_Peakwatch3to6": "StaticMesh",
+      "/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeLens": "Material",
+      "/Game/ColdSteelData/AttachmentIcons20260913/FramedBows/bow_woodsteel_sight_highland_peakwatch_3_6x": "Texture2D"
+    },
+    "pixel_identical_icons": [
+      "/Game/ColdSteelData/AttachmentIcons20260913/ue_m249_underbarrel_false",
+      "/Game/ColdSteelData/AttachmentIcons20260913/underbarrel_lmg_stability_foregrip",
+      "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_underbarrel_false",
+      "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/underbarrel_lmg_stability_foregrip",
+      "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_bipod_false",
+      "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_bipod"
+    ],
+    "readback": "loaded-assets.json",
+    "icon_pixels": "icon-pixels.json"
+  },
+  "historical": {
+    "hammer_listen": "Saved/ConversationAudit20261110/Wire/listen-20261110-130952/host.json",
+    "hammer_dedicated": "Saved/ConversationAudit20261110/Wire/dedicated-20261110-130720/host.json",
+    "lmg_switch": "SourceAssets/LMGEquipCamera20261110/Followup/Wire/20261112-002526/host.json",
+    "m249_reload": "SourceAssets/M249Orpind20261107/Wrist38/remote_tail_review.json",
+    "cover": "SourceAssets/M249Orpind20261107/Wrist39/cover-wrist-outside.jpg",
+    "mounts": "Saved/M249RearGrip44/Review/final_matte.jpg",
+    "bow": "SourceAssets/PeakwatchCoverage20261110/Review"
+  },
+  "outstanding": [
+    "ST6领口、螳螂普攻和飞扑、观峰镜倍率环的当前双端同场画面均未采集。",
+    "本轮未测上述配件使用同一档案断线重连和打包专服。",
+    "本轮无渲染采样不能代替玩家手部和动作手感评价。"
+  ],
+  "player_facing_and_publication_fixes": {
+    "m249_inventory_description": "M249 是一款使用 5.56 毫米弹药的班用轻机枪。原厂前握把槽为空，可在枪匠安装前握把、更换瞄具或拆装折叠脚架。弹箱支持持续射击，换弹耗时较长。",
+    "publisher_preserves_other_lmg_options": {
+      "production_description_matches_registration": true,
+      "update_existing": "passed",
+      "new_underbarrel_slot": "passed",
+      "new_shared_catalog": "passed"
+    },
+    "cook_rule": {
+      "scope": "Static packaging settings, not a cooked build",
+      "covered": [
+        {
+          "asset": "/Game/Weapons/LMGStabilityGrip20261111/DA_LMG201_Stability",
+          "covered": true
+        },
+        {
+          "asset": "/Game/Weapons/LMGStabilityGrip20261111/DA_M249_Handguard",
+          "covered": true
+        },
+        {
+          "asset": "/Game/Weapons/LMGStabilityGrip20261111/DA_PKM_Stability",
+          "covered": true
+        },
+        {
+          "asset": "/Game/Weapons/LMGStabilityGrip20261111/SM_LMG201_StabilityGrip",
+          "covered": true
+        },
+        {
+          "asset": "/Game/Weapons/LMGStabilityGrip20261111/SM_M249_StabilityGrip",
+          "covered": true
+        },
+        {
+          "asset": "/Game/Weapons/LMGStabilityGrip20261111/SM_PKM_StabilityGrip",
+          "covered": true
+        }
+      ]
+    }
+  },
+  "initial_grip_tests_dll": "25CD02E93D251C39F58470C36E559180BDE36AA998671440583C96A404695173"
+}

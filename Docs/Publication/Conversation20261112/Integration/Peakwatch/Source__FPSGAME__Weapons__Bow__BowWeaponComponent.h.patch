@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
+@@ -26,4 +26,5 @@
+ struct FColdSteelItem;
+ struct FStreamableHandle;
++struct FPhysicalScopeView;
+ 
+ /** 弓的一条时钟上的环节：到达拉弓首帧 → 拉开 → 保持 → 放弦 → 回收；R 可单独搭箭。 */
+@@ -126,4 +127,6 @@
+     float DisplayedScopeMagnification() const { return IsEquipped() && bHasAimSight ? DisplayedOpticalMagnification : 1.f; }
+     bool IsScopeOpticalPresentationEnabled() const;
++    float PhysicalScopeAlpha() const;
++    bool GetPhysicalScopeView(FPhysicalScopeView& Out) const;
+     void UpdateScopeCamera();
+     const UBowScopeOptics* ScopeOptics() const { return Optics; }

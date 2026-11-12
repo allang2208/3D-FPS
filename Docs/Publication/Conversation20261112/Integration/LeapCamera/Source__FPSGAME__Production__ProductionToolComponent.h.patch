@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -129,4 +133,6 @@
+     bool GetGroundSlamCameraPitch(float& Pitch,float& Weight) const;
+     bool GetGroundSlamCameraLocation(FVector& Point) const;
++    bool ConstrainLeapStrikeView(FVector& WorldPoint) const;
++    void UpdateLeapStrikeCamera(FVector& WorldPoint,float Delta);
+     bool IsGroundSlamActive() const;
+     /** Right-click while a shovel is out: raise one 20 cm layer, spending soil. */
+@@ -309,9 +328,11 @@
+     uint64 LeapContactFrame=MAX_uint64;
+     double LeapStartedAt=0.;
+-    double LeapNoticeUntil=0.;
++    double LeapNoticeUntil=0.,LeapCameraReleaseUntil=0.;
+     FString LeapWeapon;
+     FName LeapPoseClip;
+     FVector LeapStart=FVector::ZeroVector,LeapTarget=FVector::ZeroVector,LeapFloor=FVector::ZeroVector,LeapNormal=FVector::UpVector;
+-    FVector LeapSlamEye=FVector::ZeroVector,LeapImpactPoint=FVector::ZeroVector;
++    FVector LeapEyeLocal=FVector::ZeroVector,LeapImpactPoint=FVector::ZeroVector;
++    FVector LeapContactLocal=FVector::ZeroVector;
++    FVector LeapCameraCollisionOffset=FVector::ZeroVector;
+     FQuat LeapSlamRotation=FQuat::Identity;
+     FColdSteelSkillShot LeapShot;
+@@ -341,4 +362,5 @@
+         const FLeapStrikeCast& Cast,bool Paid=false);
+     void TickLeapStrike(float Delta);
++    bool LaunchLeapStrike();
+     void CompleteLeapLanding(const FHitResult& Ground);
+     float LeapStartFloorZ() const;
+@@ -346,4 +368,5 @@
+     void FinishLeapStrike(bool Interrupted=true);
+     void PresentLeapStrike();
++    bool GetLeapStrikeCameraLocation(FVector& Point) const;
+     void LeapStrikeCamera(FVector& Location,FRotator& Rotation) const;
+     UFUNCTION(Server,Reliable) void ServerBeginBluntWhirlwind(uint32 AttackId);

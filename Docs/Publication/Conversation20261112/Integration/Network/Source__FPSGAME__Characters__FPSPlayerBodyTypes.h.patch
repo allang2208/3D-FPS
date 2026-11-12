@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
+@@ -144,2 +146,3 @@
+     UPROPERTY() float BowClipLength = 0.f;
++    UPROPERTY() float BowScopeRingRoll = 0.f;
+     UPROPERTY() bool bBowClipLooping = false;

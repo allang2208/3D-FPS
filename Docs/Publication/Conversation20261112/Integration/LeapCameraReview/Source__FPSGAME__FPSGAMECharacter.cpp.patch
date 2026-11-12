@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -2578,5 +2576,5 @@
+     {
+         FVector Eye=FirstPersonCamera->GetComponentLocation();
+-        ProductionTools->ConstrainLeapStrikeView(Eye);
++        ProductionTools->UpdateLeapStrikeCamera(Eye,DeltaSeconds);
+         if(!Eye.Equals(FirstPersonCamera->GetComponentLocation(),UE_SMALL_NUMBER))
+             FirstPersonCamera->SetWorldLocation(Eye);

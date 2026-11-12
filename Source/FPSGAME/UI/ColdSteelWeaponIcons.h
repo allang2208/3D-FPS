@@ -25,6 +25,7 @@ public:
     virtual UWorld* GetTickableGameObjectWorld() const override {return GetWorld();}
     bool Supports(const FColdSteelItem& Item) const;
     FString Key(const FColdSteelItem& Item) const;
+    static FString CatalogVariantIcon(const FString& Definition,const TMap<FString,FString>& Installed);
     void Request(const FColdSteelItem& Item);
     const FSlateBrush* Find(const FColdSteelItem& Item) const;
     FColdSteelWeaponIconReady OnReady;
@@ -42,6 +43,10 @@ private:
     TMap<FString,FPreparedBounds> PreparedBoundsCache;
     TArray<FJob> Queue;
     TSet<FString> Pending,Failed;
+#if WITH_EDITOR
+    TMap<FString,FSoftObjectPath> WaitingForMaterialCompile;
+    void MaterialCompiled(UMaterialInterface* Material);
+#endif
     TArray<FFPSIconFailure> RecentFailures;
     FString FailureReason, FailureResource;
     FName FailureStage;

@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Movement/FPSCharacterMovementComponent.h
++++ b/Source/FPSGAME/Movement/FPSCharacterMovementComponent.h
+@@ -33,2 +33,4 @@
+     bool bSlideJumpStart=false;
++    uint32 LeapSequence=0;
++    float LeapMotionStartedAt=0.f;
+ 
+@@ -60,2 +62,4 @@
+     bool bReplaySlideJump=false;
++    uint32 LeapSequence=0;
++    float LeapMotionStartedAt=0.f;
+     virtual void ClientFillNetworkMoveData(const FSavedMove_Character& Move,ENetworkMoveType Type) override;

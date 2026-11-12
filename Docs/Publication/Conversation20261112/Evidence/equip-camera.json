@@ -1,0 +1,93 @@
+{
+  "task": "201 PKM M249 switch continuity and multiplayer followup",
+  "build_log": "Saved/BuildEditor/build-20261110-143854.log",
+  "native": {
+    "result": "native-verified.json",
+    "exit_code": 0,
+    "camera_cases": 51,
+    "profile_pov_cases": 54,
+    "failures": 0,
+    "max_event_fov_jump_deg": 0.0,
+    "max_event_position_jump_cm": 1.0842021724855044e-19,
+    "max_event_rotation_jump_deg": 4.517745487845102e-06,
+    "max_fov_rate_deg_s": 149.48912048339844
+  },
+  "network": {
+    "peer_exits": [
+      {
+        "pid": 54376,
+        "exit_code": 0
+      },
+      {
+        "pid": 53848,
+        "exit_code": 0
+      }
+    ],
+    "host_cases": 18,
+    "rendered": false,
+    "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMGEquipCamera20261110\\Followup\\Wire\\20261110-143921",
+    "passed": true,
+    "loss_percent_each_peer": 2,
+    "client_cases": 9,
+    "lag_ms_each_peer": 80,
+    "profile_transport": "production upload and mirror enabled"
+  },
+  "visual_acceptance": "pending user; native and UDP tests used NullRHI",
+  "files": [
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "modified_utc": "2026-11-10T06:19:42.7918374Z",
+      "sha256": "04636F6A2D18E1489770836DB7E2B043F0C4575614FF6BEE74BD8B19A1D243FB"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "modified_utc": "2026-11-10T06:25:53.7240012Z",
+      "sha256": "0C9293EFF458EAB0EA8492A31F80F59E9FD0004BC0F2431B37A00BFC544A10F8"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponActionCameraComponent.cpp",
+      "modified_utc": "2026-11-10T06:34:37.0001881Z",
+      "sha256": "DFF2A6EDCD389A222A61A58A2E626C34CECA005A0A847FC3610F338D6E41ABCC"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponActionCameraComponent.h",
+      "modified_utc": "2026-11-10T06:31:17.3115726Z",
+      "sha256": "51DE4D6712AD08C5E29F5491A3FB6484A03E6C63AC263BCEF703A89ECDBE8637"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponEquipCameraAuditCommandlet.cpp",
+      "modified_utc": "2026-11-10T06:38:53.7641107Z",
+      "sha256": "AAA585221CD2DAD0654CF5DE79C71AF7825D417C46B0DA2EE9B320C2306D5AEA"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponEquipCameraAuditCommandlet.h",
+      "modified_utc": "2026-11-10T06:31:17.3125844Z",
+      "sha256": "E2CECB8F11010E31B274FF887189B738F8A4AA3F26287A3A434CD296AB14152C"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponEquipTransitionAudit.inl",
+      "modified_utc": "2026-11-10T06:31:17.2521751Z",
+      "sha256": "3A4D912C823A4C688D9BB6BE580893567D546F32506317AF645A1C2278A8992D"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponEquipWireAudit.cpp",
+      "modified_utc": "2026-11-10T06:31:17.2521751Z",
+      "sha256": "2342CB810BBE90416F5518B04E2FE20AA6C66877397DC97DBDD48E001969B03B"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponEquipWireAudit.h",
+      "modified_utc": "2026-11-10T06:25:53.7240012Z",
+      "sha256": "013EFBA503656B8B150004B6700F47982AEEE6D075F7B9010F67E5CA5066CB59"
+    },
+    {
+      "path": "Tools/LMGEquipReview/run-wire.ps1",
+      "modified_utc": "2026-11-10T06:33:45.1315096Z",
+      "sha256": "9036271F9663A31A180483FCCA8D1AE3DA31FC101474A60B85F8DCB9803882F6"
+    },
+    {
+      "path": "Binaries/Win64/UnrealEditor-FPSGAME.dll",
+      "modified_utc": "2026-11-10T06:39:10.5743204Z",
+      "sha256": "FF820502E6DB2D835CE14980C36C0690BC2B3637713DCF03B1662A1103BEA7F5"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp
+@@ -1,4 +1,4 @@
+ #include "ColdSteelInventoryWidget.h"
+-#include "ColdSteelMeleePreview.h"
++#include "ColdSteelWeaponIcons.h"
+ #include "ColdSteelContainerSearchSubsystem.h"
+ #include "ColdSteelEquipmentLayout.h"
+@@ -99,7 +99,5 @@
+         const FGunsmithParts Installed=Guns?Guns->Installed(I):FGunsmithParts{};
+         P.Crafted=!Installed.IsEmpty()||(Data->TryGetObjectField(TEXT("_craftData"),Craft)&&!(*Craft)->Values.IsEmpty());
+-        if(ColdSteelMeleePreview::HasBladeCatalogIcons(I.Definition))
+-            if(const FString* Blade=Installed.Find(TEXT("blade_1"));Blade&&!Blade->IsEmpty()&&*Blade!=TEXT("false")&&*Blade!=TEXT("factory"))
+-                P.BladeIcon=I.Definition+TEXT("_")+*Blade;
++        P.CatalogVariant=UColdSteelWeaponIcons::CatalogVariantIcon(I.Definition,Installed);
+         if(Data->TryGetObjectField(TEXT("_enchantData"),Enchant)){const TSharedPtr<FJsonObject>* Affix=nullptr;P.Enchanted=(*Enchant)->TryGetObjectField(TEXT("prefix"),Affix)||(*Enchant)->TryGetObjectField(TEXT("suffix"),Affix);}
+         bProcessingAnimated|=(bWarehouse?(Model->InOpenStorage(I)&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+StorageRows()*18):(I.Place==0||I.Place==1))&&(P.Enhancement>0||P.Crafted||P.Enchanted);

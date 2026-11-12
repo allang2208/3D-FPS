@@ -1,0 +1,32 @@
+{
+  "results": [
+    {
+      "body": "jason",
+      "mesh": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Base.SK_Jason_Base",
+      "cases": 140,
+      "failures": 0,
+      "body_offset_error_cm": 0,
+      "max_120fps_POV_component_difference_cm": 0.0,
+      "max_120fps_eye_head_distance_cm": 82.892485477026,
+      "max_120fps_pelvis_radius_cm": 49.06337757253506,
+      "all_continuous": true,
+      "all_bounded": true,
+      "all_clear_of_geometry": true
+    },
+    {
+      "body": "kaitlin",
+      "mesh": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Body/SK_Kaitlin_Base.SK_Kaitlin_Base",
+      "cases": 140,
+      "failures": 0,
+      "body_offset_error_cm": 0,
+      "max_120fps_POV_component_difference_cm": 0.0,
+      "max_120fps_eye_head_distance_cm": 88.03286397681389,
+      "max_120fps_pelvis_radius_cm": 45.45506927705833,
+      "all_continuous": true,
+      "all_bounded": true,
+      "all_clear_of_geometry": true
+    }
+  ],
+  "total_cases": 280,
+  "total_failures": 0
+}

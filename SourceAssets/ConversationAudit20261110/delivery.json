@@ -1,0 +1,23 @@
+{
+  "completed_at": "2026-11-10T13:15:29.2120588+08:00",
+  "scope": "conversation ST6, mantis rollback, hammer leap and Peakwatch",
+  "dll_sha256": "DA9B49D24934B3773EE1A550F8F8D1CE09589CCAD6F1206EF57AF719D5660FD5",
+  "build": "Saved/BuildEditor/build-20261110-130522.log",
+  "assets": "SourceAssets/ConversationAudit20261110/assets-readback.json",
+  "bow_native": "SourceAssets/ConversationAudit20261110/Native/20261110-130626/BowPresentationReview",
+  "leap_native": "SourceAssets/ConversationAudit20261110/Native/20261110-130626/BallisticOnly",
+  "camera": "SourceAssets/ConversationAudit20261110/Camera/20261110-131205",
+  "udp": [
+    "Saved/ConversationAudit20261110/Wire/dedicated-20261110-130720",
+    "Saved/ConversationAudit20261110/Wire/listen-20261110-130952"
+  ],
+  "report": "Docs/Weapons/conversation-network-review-20261110.md",
+  "not_covered": [
+    "multiplayer rendered clothing/mantis/bow acceptance",
+    "bow ring UDP visual test",
+    "public Internet",
+    "same-profile reconnect",
+    "packaged dedicated server",
+    "manual feel and audio"
+  ]
+}

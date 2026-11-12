@@ -1,0 +1,23 @@
+{
+  "/Game/Weapons/M249/CommonParts20261108/Meshes/SM_M249_phantom_reargrip": {
+    "sha256": "eaa96a560ee6e94e614cc01ecff58a4faa8bb3da685a94365892e7cfd1b8b06a",
+    "fbx": "c73214bedb645704ca64cb5b6f03513539df3a7c01723a206636a3252b9f14e9",
+    "surface": "/Game/Weapons/M249/FinishUnified20261108/Materials/MI_M249_ab8057dfbd57.MI_M249_ab8057dfbd57",
+    "sections": 1,
+    "source_triangles": 49985
+  },
+  "/Game/Weapons/M249/CommonParts20261108/Meshes/SM_M249_stable_antislip_reargrip": {
+    "sha256": "9c919d35c7053592a797ec08603efeb5234207a0c6599fd82cfd4aa0ce789247",
+    "fbx": "84bddd830290577230a607a1489ebe5ca5ac5d9b1ecc713a6eee5a53610f58d4",
+    "surface": "/Game/Weapons/M249/FinishUnified20261108/Materials/MI_M249_9101da6a3b99.MI_M249_9101da6a3b99",
+    "sections": 1,
+    "source_triangles": 29997
+  },
+  "/Game/Weapons/M249/CommonParts20261108/Meshes/SM_M249_balanced_reargrip": {
+    "sha256": "5e967b2c6fd849ca95093bc3dbbfafc92ee9a3e0b8ef5ee94d92a24654b7afe0",
+    "fbx": "c7821fcdcf8774d2eb2888db4433e1fece3564081e4554232a3d41cb6023f615",
+    "surface": "/Game/Weapons/M249/FinishUnified20261108/Materials/MI_M249_e5672fa7c1f8.MI_M249_e5672fa7c1f8",
+    "sections": 1,
+    "source_triangles": 49967
+  }
+}

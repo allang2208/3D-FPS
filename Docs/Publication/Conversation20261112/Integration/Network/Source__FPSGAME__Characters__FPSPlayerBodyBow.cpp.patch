@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
+@@ -45,4 +46,14 @@
+         Spec.RelativeTransform=Slot==TEXT("riser")?FTransform(FQuat::Identity,Source.GripTrimCM,FVector(Source.BowScale)):Part->GetRelativeTransform();
+-        if(Visual)for(auto* Material:Visual->GetMaterials())
+-        {
++        // Zoom is a cosmetic pose, not a new equipment description on every
++        // wheel step. Keep the stable mount and carry its roll in body state.
++        if(Slot==TEXT("sight_zoom"))Spec.RelativeTransform.SetRotation(Source.ScopeRingRotation.Quaternion());
++        if(Visual)for(int32 Index=0;Index<Visual->GetNumMaterials();++Index)
++        {
++            auto* Material=Visual->GetMaterial(Index);
++            // The HUD temporarily replaces this slot with an owner-only scene
++            // capture. World equipment must always describe the authored glass,
++            // including an equipment refresh that happens while ADS is active.
++            if(Source.bPeakwatchScope&&Slot==TEXT("sight")&&Part->PartMesh&&
++                Index==Part->PartMesh->GetMaterialIndex(TEXT("M_Peakwatch_Glass")))
++                Material=Part->PartMesh->GetMaterial(Index);
+             while(const auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material))Material=Dynamic->Parent;
+@@ -107,2 +118,4 @@
+     State.BowNock=Bow.NockPoint();State.bAiming=Bow.IsAimHeld();
++    State.BowScopeRingRoll=FRotator::NormalizeAxis(Bow.ScopeRingRotation.Roll+
++        (Bow.DisplayedScopeMagnification()-Bow.OpticalMinimum)*Bow.ScopeRingDegreesPerPower);
+     const bool Entry=Bow.Stage==EBowStage::DrawEntry&&Bow.bEntryNeedsArrow;
+@@ -250,2 +263,4 @@
+     auto* Riser=Find(TEXT("riser"));if(!Riser)return;
++    if(auto* Ring=Find(TEXT("sight_zoom")))
++    {auto Rotation=Ring->GetRelativeRotation();Rotation.Roll=DisplayState.BowScopeRingRoll;Ring->SetRelativeRotation(Rotation);}
+     // Match AnimatedRiserMount: marker position/rotation, authored centimetre

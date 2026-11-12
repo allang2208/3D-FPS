@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/Production/LeapStrikeBallisticAudit.inl
++++ b/Source/FPSGAME/Production/LeapStrikeBallisticAudit.inl
+@@ -120,2 +125,14 @@
+     FVector::Dist(RestorePosition,Pawn->GetActorLocation())<12.f);
++Move->RemoveRootMotionSource(LeapStrike::MotionName);
++
++Reset(0,2.04f);Move->PerformMovement(.001f);Pawn->SetActorLocation(Pawn->GetActorLocation()+FVector(0,0,600));
++Move->SetMovementMode(MOVE_Falling);auto Partial=MakeShared<FRootMotionSource_FPSLeap>();
++Partial->InstanceName=LeapStrike::MotionName;Partial->StartLocation=Pawn->GetActorLocation();
++Partial->TargetLocation=Partial->StartLocation+FVector(800,0,0);Partial->Duration=LeapStrike::MaxAirTime;
++Move->ApplyRootMotionSource(Partial);Partial->PrepareRootMotion(.02f,.12f,*Pawn,*Move);
++const FVector PartialStart=Pawn->GetActorLocation(),PartialSeed=Partial->LinearVelocity;
++Move->PhysFalling(.12f,0);
++Check(TEXT("late_launch_packet_integrates_only_airborne_part_of_move"),
++    FMath::Abs(Move->Velocity.Z-(PartialSeed.Z+Move->GetGravityZ()*.02f))<.1f&&
++    FMath::Abs(Pawn->GetActorLocation().X-PartialStart.X-PartialSeed.X*.02f)<.1f);
+ Move->RemoveRootMotionSource(LeapStrike::MotionName);
+@@ -163,2 +180,19 @@
+ 
++// A deep drop can hold the same phase for seconds; loss of a periodic sample
++// must not turn the last moving frame into a premature remote downswing.
++auto* NetworkBody=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();
++for(const TCHAR* Variant:{TEXT("WarhammerLeapAir"),TEXT("WarhammerLeapSlam")})
++{
++    FFPSBodyState Moving;Moving.Action=EFPSBodyAction::HeavyStrike;Moving.ActionVariant=Variant;
++    Moving.bHasActionProgress=true;Moving.ActionProgress=.3f;Moving.ActionProgressRate=1.f;
++    auto Held=Moving;Held.ActionProgress=.31f;Held.ActionProgressRate=0.f;
++    Check(TEXT("leap_hold_and_resume_are_reliable_body_edges"),FPSBodyNetwork::IsTransition(Held,Moving)&&FPSBodyNetwork::IsTransition(Moving,Held));
++    NetworkBody->bHasLocalPresentation=true;NetworkBody->PreviousLocalPresentation=Moving;NetworkBody->DisplayState=Held;
++    NetworkBody->SendBodyPresentation(.02f);
++    Check(TEXT("leap_executor_hold_survives_body_packet_sampling"),NetworkBody->DisplayState.ActionProgressRate==0.f);
++    auto Remote=NetworkBody->DisplayState;
++    UFPSPlayerBodyComponent::AdvanceBodyPresentation(Remote,Remote.PresentationSampledAt+.12f);
++    Check(TEXT("remote_leap_stays_on_held_pose"),Remote.ActionProgress==Held.ActionProgress);
++}
++
+ Report->SetArrayField(TEXT("cases"),Cases);Report->SetArrayField(TEXT("checks"),Checks);Report->SetNumberField(TEXT("failures"),Failures);

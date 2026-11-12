@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Movement/FPSDodgeNetwork.cpp
++++ b/Source/FPSGAME/Movement/FPSDodgeNetwork.cpp
+@@ -1,2 +1,5 @@
+ #include "FPSCharacterMovementComponent.h"
++#include "FPSLeapRootMotionSource.h"
++#include "../Skills/LeapStrikeMotion.h"
++#include "../Production/ProductionToolComponent.h"
+ #include "../Weapons/Kukri/HatchetCharmComponent.h"
+@@ -15,2 +18,3 @@
+     SlideJumpSequence=FPS.SlideJumpSequence;bReplaySlideJump=FPS.bSlideJumpStart;
++    LeapSequence=FPS.LeapSequence;LeapMotionStartedAt=FPS.LeapMotionStartedAt;
+ }
+@@ -21,2 +25,3 @@
+     Ar.SerializeIntPacked(SlideJumpSequence);
++    Ar.SerializeIntPacked(LeapSequence);if(LeapSequence)Ar<<LeapMotionStartedAt;
+     bool OK=true;
+@@ -76,2 +81,13 @@
+         const auto* Data=static_cast<const FFPSNetworkMoveData*>(GetCurrentNetworkMoveData());
++        if(Data&&Data->LeapSequence&&FMath::IsFinite(Data->LeapMotionStartedAt)
++            &&Data->LeapMotionStartedAt<=ClientTimeStamp&&Data->LeapMotionStartedAt>ClientTimeStamp-LeapStrike::MaxAirTime)
++        {
++            auto* Tool=Player->FindComponentByClass<UProductionToolComponent>();
++            if(Tool&&Tool->bLeapStrike&&!Tool->bLeapLaunched&&Tool->LeapSerial==Data->LeapSequence
++                &&Tool->LeapAge>=LeapStrike::Charge-.02f&&Tool->LaunchLeapStrike())
++            {
++                if(auto Source=GetRootMotionSource(LeapStrike::MotionName))
++                {Source->StartTime=Data->LeapMotionStartedAt;}
++            }
++        }
+         if(Data&&Data->DodgeSequence&&static_cast<int32>(Data->DodgeSequence-LastServerDodgeSequence)>0)

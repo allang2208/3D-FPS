@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Weapons/PhysicalScopeView.h
++++ b/Source/FPSGAME/Weapons/PhysicalScopeView.h
+@@ -4,5 +4,5 @@
+ class UMeshComponent;
+ // IDs are also the ReticleStyle parameter of M_PhysicalScopeLens.
+-enum class EPhysicalScopeStyle : uint8 { M24, LPVO, Prism, KV, PSO, Handgun, Thermal };
++enum class EPhysicalScopeStyle : uint8 { M24, LPVO, Prism, KV, PSO, Handgun, Thermal, Peakwatch };
+ struct FPhysicalScopeView
+ {

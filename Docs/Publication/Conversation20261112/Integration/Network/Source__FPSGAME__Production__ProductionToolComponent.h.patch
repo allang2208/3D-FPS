@@ -1,0 +1,6 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -346,2 +363,3 @@
+     void TickLeapStrike(float Delta);
++    bool LaunchLeapStrike();
+     void CompleteLeapLanding(const FHitResult& Ground);

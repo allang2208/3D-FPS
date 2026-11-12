@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/Production/ProductionLeapStrike.cpp
++++ b/Source/FPSGAME/Production/ProductionLeapStrike.cpp
+@@ -51,3 +53,3 @@
+ {const auto* State=World->GetGameState();return State?State->GetServerWorldTimeSeconds():World->GetTimeSeconds();}
+-void ApplyLeapMotion(UCharacterMovementComponent* Move,const FVector& Start,const FVector& Target)
++void ApplyLeapMotion(UCharacterMovementComponent* Move,const FVector& Start,const FVector& Target,uint32 Serial)
+ {
+@@ -222,2 +227,14 @@
+ 
++bool UProductionToolComponent::LaunchLeapStrike()
++{
++    auto* Pawn=Character.Get();auto* Move=Pawn?Pawn->GetCharacterMovement():nullptr;
++    if(!bLeapStrike||bLeapLaunched||!Move||!Move->IsMovingOnGround())return false;
++    LeapStart=Pawn->GetActorLocation();
++    LeapStrike::FTrajectory Path;
++    if(!LeapStrike::SolveTrajectory(LeapStart,LeapTarget,Move->GetGravityZ(),Move->GetPhysicsVolume()->TerminalVelocity,Path))return false;
++    LeapExpectedFlight=Path.Duration;LeapProgressPosition=LeapStart;
++    ApplyLeapMotion(Move,LeapStart,LeapTarget,LeapSerial);
++    bLeapLaunched=true;SetLeapAirborne(true);return true;
++}
++
+ void UProductionToolComponent::TickLeapStrike(float Delta)
+@@ -237,10 +254,11 @@
+         {
+-            if(!Move->IsMovingOnGround()){FinishLeapStrike();return;}
+-            LeapStart=Pawn->GetActorLocation();
+-            LeapStrike::FTrajectory Path;
+-            if(!LeapStrike::SolveTrajectory(LeapStart,LeapTarget,Move->GetGravityZ(),Move->GetPhysicsVolume()->TerminalVelocity,Path))
+-            {FinishLeapStrike();return;}
+-            LeapExpectedFlight=Path.Duration;LeapProgressPosition=LeapStart;
+-            ApplyLeapMotion(Move,LeapStart,LeapTarget);
+-            bLeapLaunched=true;SetLeapAirborne(true);
++            // Remote authority starts on the owner's launch saved move, not an
++            // unrelated Actor tick. Otherwise the server can correct the owner
++            // into Falling before its charge ends and make it cancel the cast.
++            if(Pawn->HasAuthority()&&!Pawn->IsLocallyControlled())
++            {
++                if(LeapClock(GetWorld())-LeapStartedAt>LeapStrike::MaxAirTime)FinishLeapStrike();
++                return;
++            }
++            if(!LaunchLeapStrike()){FinishLeapStrike();return;}
+         }

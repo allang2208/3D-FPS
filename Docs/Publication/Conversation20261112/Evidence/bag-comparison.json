@@ -1,0 +1,175 @@
+{
+  "threshold": "max RGB channel delta > 8, icon interior only",
+  "phases": [
+    "原厂带脚架",
+    "卸下脚架",
+    "重连 · 无脚架",
+    "装回原厂脚架",
+    "再次重连"
+  ],
+  "roles": {
+    "host": {
+      "recipe": "ue_m249|icon_studio=4|bipod=m249_no_bipod",
+      "changes": [
+        {
+          "from": 0,
+          "to": 1,
+          "modified": 1492,
+          "control": 5
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "modified": 0,
+          "control": 0
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "modified": 1489,
+          "control": 0
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "modified": 0,
+          "control": 0
+        }
+      ],
+      "last_vs_original": [
+        5,
+        5
+      ],
+      "icons": [
+        {
+          "phase": 0,
+          "dynamic": false,
+          "control_dynamic": false,
+          "failure": "",
+          "modified_vs_original": 0,
+          "control_vs_original": 0
+        },
+        {
+          "phase": 1,
+          "dynamic": true,
+          "control_dynamic": true,
+          "failure": "",
+          "modified_vs_original": 1492,
+          "control_vs_original": 5
+        },
+        {
+          "phase": 2,
+          "dynamic": true,
+          "control_dynamic": true,
+          "failure": "",
+          "modified_vs_original": 1492,
+          "control_vs_original": 5
+        },
+        {
+          "phase": 3,
+          "dynamic": true,
+          "control_dynamic": true,
+          "failure": "",
+          "modified_vs_original": 5,
+          "control_vs_original": 5
+        },
+        {
+          "phase": 4,
+          "dynamic": true,
+          "control_dynamic": true,
+          "failure": "",
+          "modified_vs_original": 5,
+          "control_vs_original": 5
+        }
+      ]
+    },
+    "guest": {
+      "recipe": "ue_m249|icon_studio=4|bipod=m249_no_bipod|reargrip=phantom_reargrip",
+      "changes": [
+        {
+          "from": 0,
+          "to": 1,
+          "modified": 1520,
+          "control": 5
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "modified": 0,
+          "control": 0
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "modified": 1517,
+          "control": 0
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "modified": 5,
+          "control": 5
+        }
+      ],
+      "last_vs_original": [
+        0,
+        0
+      ],
+      "icons": [
+        {
+          "phase": 0,
+          "dynamic": false,
+          "control_dynamic": false,
+          "failure": "",
+          "modified_vs_original": 0,
+          "control_vs_original": 0
+        },
+        {
+          "phase": 1,
+          "dynamic": true,
+          "control_dynamic": true,
+          "failure": "",
+          "modified_vs_original": 1520,
+          "control_vs_original": 5
+        },
+        {
+          "phase": 2,
+          "dynamic": true,
+          "control_dynamic": true,
+          "failure": "",
+          "modified_vs_original": 1520,
+          "control_vs_original": 5
+        },
+        {
+          "phase": 3,
+          "dynamic": true,
+          "control_dynamic": true,
+          "failure": "",
+          "modified_vs_original": 5,
+          "control_vs_original": 5
+        },
+        {
+          "phase": 4,
+          "dynamic": false,
+          "control_dynamic": false,
+          "failure": "",
+          "modified_vs_original": 0,
+          "control_vs_original": 0
+        }
+      ]
+    }
+  },
+  "fitted_icon_failures": [],
+  "immediate": {
+    "host": {
+      "modified_vs_own_factory": 1486,
+      "modified_vs_only_bipod_removed": 340,
+      "control_vs_own_factory": 0
+    },
+    "guest": {
+      "modified_vs_own_factory": 1486,
+      "modified_vs_only_bipod_removed": 340,
+      "control_vs_own_factory": 0
+    }
+  }
+}

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Production/LeapStrikeAuditCommandlet.cpp
++++ b/Source/FPSGAME/Production/LeapStrikeAuditCommandlet.cpp
+@@ -79,4 +87,8 @@
+     if(Delay)Delay->Set(OldDelay,ECVF_SetByCode);
+     auto* Move=CastChecked<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());
++    if(FParse::Param(*Params,TEXT("CameraOnly")))
++    {
++#include "LeapStrikeCameraAudit.inl"
++    }
+     if(FParse::Param(*Params,TEXT("BallisticOnly")))
+     {

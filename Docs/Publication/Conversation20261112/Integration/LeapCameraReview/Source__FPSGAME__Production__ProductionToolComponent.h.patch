@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -129,5 +133,6 @@
+     bool GetGroundSlamCameraPitch(float& Pitch,float& Weight) const;
+     bool GetGroundSlamCameraLocation(FVector& Point) const;
+-    void ConstrainLeapStrikeView(FVector& WorldPoint) const;
++    bool ConstrainLeapStrikeView(FVector& WorldPoint) const;
++    void UpdateLeapStrikeCamera(FVector& WorldPoint,float Delta);
+     bool IsGroundSlamActive() const;
+     /** Right-click while a shovel is out: raise one 20 cm layer, spending soil. */
+@@ -316,4 +334,5 @@
+     FVector LeapEyeLocal=FVector::ZeroVector,LeapImpactPoint=FVector::ZeroVector;
+     FVector LeapContactLocal=FVector::ZeroVector;
++    FVector LeapCameraCollisionOffset=FVector::ZeroVector;
+     FQuat LeapSlamRotation=FQuat::Identity;
+     FColdSteelSkillShot LeapShot;
+@@ -343,4 +362,5 @@
+         const FLeapStrikeCast& Cast,bool Paid=false);
+     void TickLeapStrike(float Delta);
++    bool LaunchLeapStrike();
+     void CompleteLeapLanding(const FHitResult& Ground);
+     float LeapStartFloorZ() const;

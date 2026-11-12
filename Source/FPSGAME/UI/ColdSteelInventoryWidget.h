@@ -133,7 +133,7 @@ private:
     // MeleeArt 标记近战武器与采集工具：它们的立绘是竖直的，装备栏图区是横长条，
     // 绘制时按枪的口径横放。在 RefreshPresentation 里从已解析的 JSON 算一次，
     // 避免每帧 NativePaint 再读一遍 Item.Data。
-    struct FItemPresentation {FString Name,Rarity;int32 Enhancement=0;int32 ToolEnhanceLevel=0;bool Crafted=false,Enchanted=false;bool MeleeArt=false,StaffArt=false;};
+    struct FItemPresentation {FString Name,Rarity,CatalogVariant;int32 Enhancement=0;int32 ToolEnhanceLevel=0;bool Crafted=false,Enchanted=false;bool MeleeArt=false,StaffArt=false;};
     TMap<FString,FItemPresentation> Presentation;
     int32 HoverPlace=-1,PointerCell=-1;
     bool bSortHovered=false;

@@ -1,4 +1,5 @@
 #include "ColdSteelInventoryWidget.h"
+#include "ColdSteelWeaponIcons.h"
 #include "ColdSteelEquipmentLayout.h"
 #include "ColdSteelStaffIcon.h"
 #include "ColdSteelStatusModel.h"
@@ -87,7 +88,9 @@ void UColdSteelInventoryWidget::RefreshPresentation()
         // 避免把武器强度等级写进工具档位（也避免工具档位点亮武器「已强化」光晕）。
         if(IsEquippedProductionTool(I))P.ToolEnhanceLevel=ColdSteelToolEnhance::Level(I);
         const TSharedPtr<FJsonObject>* Craft=nullptr;const TSharedPtr<FJsonObject>* Enchant=nullptr;
-        P.Crafted=(Guns&&!Guns->Installed(I).IsEmpty())||(Data->TryGetObjectField(TEXT("_craftData"),Craft)&&!(*Craft)->Values.IsEmpty());
+        const FGunsmithParts Installed=Guns?Guns->Installed(I):FGunsmithParts{};
+        P.Crafted=!Installed.IsEmpty()||(Data->TryGetObjectField(TEXT("_craftData"),Craft)&&!(*Craft)->Values.IsEmpty());
+        P.CatalogVariant=UColdSteelWeaponIcons::CatalogVariantIcon(I.Definition,Installed);
         if(Data->TryGetObjectField(TEXT("_enchantData"),Enchant)){const TSharedPtr<FJsonObject>* Affix=nullptr;P.Enchanted=(*Enchant)->TryGetObjectField(TEXT("prefix"),Affix)||(*Enchant)->TryGetObjectField(TEXT("suffix"),Affix);}
         bProcessingAnimated|=(bWarehouse?(Model->InOpenStorage(I)&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+StorageRows()*18):(I.Place==0||I.Place==1))&&(P.Enhancement>0||P.Crafted||P.Enchanted);
     }

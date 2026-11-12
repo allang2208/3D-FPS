@@ -6,6 +6,7 @@
 
 namespace ColdSteelMeleePreview
 {
+inline bool HasBladeCatalogIcons(const FString& Definition){return Definition==TEXT("ue_kukri")||Definition==TEXT("ue_tactical_hatchet");}
 inline bool Supports(const FColdSteelItem& Item){return ColdSteelInventory::IsMeleeWeapon(Item)&&!ColdSteelInventory::Text(Item,TEXT("world_mesh")).IsEmpty();}
 inline FString MeshPath(const FColdSteelItem& Item){return ColdSteelMeleeGuard::WorldMesh(Item);}
 

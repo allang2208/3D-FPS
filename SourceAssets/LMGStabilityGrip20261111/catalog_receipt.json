@@ -1,0 +1,36 @@
+{
+  "option": {
+    "id": "lmg_stability_foregrip",
+    "name": "机枪稳固握把",
+    "description": "加宽防滑握面配合封闭式安装座，适配轻机枪下导轨，便于稳定托持和持续压枪。",
+    "effects": [
+      {
+        "text": "后坐力-20%",
+        "benefit": 1
+      },
+      {
+        "text": "枪械稳定性+30%",
+        "benefit": 1
+      },
+      {
+        "text": "瞄准耗时+20%",
+        "benefit": -1
+      }
+    ],
+    "stats": {
+      "recoil_mult": 0.8,
+      "stability_mult": 1.3,
+      "ads_percent": 0.2
+    },
+    "special_effects": [
+      "轻机枪专属｜适用于 M249、201 和 PKM，占用前握把槽。"
+    ]
+  },
+  "compatible": [
+    "ue_m249",
+    "ue_lmg201",
+    "ue_pkm_lowpoly"
+  ],
+  "old_empty_loadouts": "remain empty; no implicit free upgrade",
+  "runtime_tested": false
+}
