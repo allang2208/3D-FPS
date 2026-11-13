@@ -65,7 +65,13 @@ FString ColdSteelMeleeRune::Selected(const FColdSteelItem& Item)
     TSharedPtr<FJsonObject> Data;
     if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)return {};
     const TSharedPtr<FJsonObject>* Parts=nullptr;FString Rune;
-    if(Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts))(*Parts)->TryGetStringField(ColdSteelFrostRunes::Slot(Item.Definition),Rune);
+    if(Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts))
+    {
+        FString Blade;
+        if(Item.Definition==ColdSteelFrostRunes::Zhanmadao&&(*Parts)->TryGetStringField(TEXT("blade_1"),Blade))
+            if(const TCHAR* Migrated=ColdSteelFrostRunes::LegacyBladeRune(Item.Definition,Blade))return Migrated;
+        (*Parts)->TryGetStringField(ColdSteelFrostRunes::Slot(Item.Definition),Rune);
+    }
     return ColdSteelFrostRunes::Upgrade(Item.Definition,Rune);
 }
 

@@ -98,6 +98,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("all_attack_damage_mult"),Part.Melee.AllAttackDamage);
             Stats->TryGetNumberField(TEXT("quick_combat_damage_add"),Part.Melee.QuickCombatDamageAdd);
             Stats->TryGetNumberField(TEXT("quick_combat_knockback_mult"),Part.Melee.QuickCombatKnockback);
+            Stats->TryGetNumberField(TEXT("quick_combat_range_mult"),Part.Melee.QuickCombatRange);
             Stats->TryGetNumberField(TEXT("quick_combat_toughness_mult"),Part.Melee.QuickCombatToughness);
             Stats->TryGetNumberField(TEXT("quick_combat_bleed_chance"),Part.Melee.QuickCombatBleedChance);
             Stats->TryGetNumberField(TEXT("quick_combat_tiger_roar_toughness_bonus"),Part.Melee.QuickCombatTigerRoarToughnessBonus);

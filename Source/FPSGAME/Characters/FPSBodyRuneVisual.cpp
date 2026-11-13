@@ -29,10 +29,15 @@ void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelIte
     if(ColdSteelModularSword::IsBladeFinishCarrier(Source,*Item))
     {
         Out.BladeFinishMode=ColdSteelModularSword::BladeFinishMode(*Item);
+        Out.BladeFinishSeed=ColdSteelModularSword::BladeFinishSeed(*Item);
         Out.bBladeFinishGuardRoot=Item->Definition==TEXT("ue_rune_sword")&&Guard;
     }
-    Out.bChixiaoBlade=Source->ComponentTags.Contains(FName(TEXT("SwordSlot=blade_1")))&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item);
-    Out.bZhufengBlade=Source->ComponentTags.Contains(FName(TEXT("SwordSlot=blade_1")))&&ColdSteelModularSword::UsesZhufengWhirlwind(*Item);
+    if(Blade&&Item->Definition==ColdSteelFrostRunes::Zhanmadao)
+    {
+        const FString Rune=ColdSteelMeleeRune::Selected(*Item);
+        Out.bChixiaoBlade=Rune==ColdSteelFrostRunes::Chixiao;
+        Out.bZhufengBlade=Rune==ColdSteelFrostRunes::Zhufeng;
+    }
     if(Out.bChixiaoBlade||Out.bZhufengBlade||(Blade&&Out.BladeFinishMode==7))
     {
         // Blade-specific trails also work with no rune material installed.
@@ -67,7 +72,7 @@ void FPSBodyRuneVisual::Apply(UStaticMeshComponent* Mesh,const FFPSBodyAttachmen
     if(!Description.RuneDefinition.IsEmpty())
         ColdSteelMeleeRune::Apply(Mesh,Description.RuneId,Description.RuneDefinition);
     // Native rune selection may replace the material, so finish settings come last.
-    ColdSteelModularSword::ApplyBladeFinish(Mesh,Description.BladeFinishMode,Description.bBladeFinishGuardRoot);
+    ColdSteelModularSword::ApplyBladeFinish(Mesh,Description.BladeFinishMode,Description.bBladeFinishGuardRoot,Description.BladeFinishSeed);
     const auto& D=Description.RuneDimensions;
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -86,5 +91,7 @@ FString FPSBodyRuneVisual::Key(const FFPSBodyAttachment& Description)
         (Description.bChixiaoBlade?TEXT(":chixiao"):TEXT(""))+(Description.bZhufengBlade?TEXT(":zhufeng"):TEXT(""));
     if(Description.BladeFinishMode!=0||Description.bBladeFinishGuardRoot)
         Result+=FString::Printf(TEXT("|bladeFinishRootV1:%u:%d"),Description.BladeFinishMode,Description.bBladeFinishGuardRoot);
+    if(Description.BladeFinishMode==4)
+        Result+=FString::Printf(TEXT("|damascusV2:%u"),Description.BladeFinishSeed);
     return Result;
 }

@@ -184,6 +184,9 @@ FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts&
         if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");
         if(Id!=TEXT("false")&&Option(D,Slot,Id))Result.Add(Slot,Id);
     }
+    if(D==ColdSteelFrostRunes::Zhanmadao)
+        if(const TCHAR* Rune=ColdSteelFrostRunes::LegacyBladeRune(D,Input.FindRef(TEXT("blade_1"))))
+            Result.Add(TEXT("blade_2"),Rune);
     // Named factory parts are real options with stats. Resolve legacy empty /
     // false factory slots through the catalog, preserving every installed
     // replacement. Only weapons explicitly declaring defaults opt into this.
@@ -290,6 +293,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.CooldownReduceSecondsPerHit+=M.CooldownReduceSecondsPerHit;
             R.Melee.QuickCombatDamageAdd+=M.QuickCombatDamageAdd;
             R.Melee.QuickCombatKnockback*=M.QuickCombatKnockback;
+            R.Melee.QuickCombatRange*=M.QuickCombatRange;
             R.Melee.QuickCombatToughness*=M.QuickCombatToughness;
             R.Melee.QuickCombatBleedChance=FMath::Max(R.Melee.QuickCombatBleedChance,M.QuickCombatBleedChance);
             R.Melee.QuickCombatRuneVulnerability=FMath::Max(R.Melee.QuickCombatRuneVulnerability,M.QuickCombatRuneVulnerability);

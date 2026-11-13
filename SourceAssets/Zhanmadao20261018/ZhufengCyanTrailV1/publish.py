@@ -20,10 +20,10 @@ for suffix in ['.uexp','.ubulk','.uptnl','.uasset']:
 catalog=ROOT/'Content/ColdSteelData/melee-gunsmith.json'
 before=catalog.read_bytes()
 data=json.loads(before.decode('utf-8-sig'))
-options=next(c['options'] for c in data['columns'] if c['key']=='blade_1')
+options=next(c['options'] for c in data['columns'] if c['key']=='blade_2')
 updates={}
 for option_id,folder in [('zhufeng','ZhufengBladeV1'),('chixiao','ChixiaoLegendaryV1')]:
-    option=next(x for x in options if x['id']==option_id)
+    option=next(x for x in options if x['id']==option_id+'_rune')
     runpy.run_path(str(P.parent/folder/'catalog_extension.py'))['extend_option'](option)
     updates[option_id]=option['stats']
 backup=P/'melee-gunsmith-before.json'

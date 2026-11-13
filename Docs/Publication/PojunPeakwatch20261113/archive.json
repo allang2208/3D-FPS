@@ -1,0 +1,90 @@
+[
+  {
+    "reason": "V2 snapshot superseded by V3 field and material authoring",
+    "destination": "trash/PojunPeakwatch20261113/SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeSource/author.py",
+    "source": "SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeSource/author.py",
+    "sha256": "4b2b2b43efc2ca35563933ce15267c5e042d7e3b4ee39c33375904d29a8a241e",
+    "replacement": "SourceAssets/ZhanmadaoDamascus20261111/author.py",
+    "bytes": 5654
+  },
+  {
+    "reason": "V2 snapshot superseded by V3 field and material authoring",
+    "destination": "trash/PojunPeakwatch20261113/SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeSource/materials.py",
+    "source": "SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeSource/materials.py",
+    "sha256": "e3077d3a042fd96c1a4e596e4e09fa70fbebe0e01af82b9d2bf79567ca5b5704",
+    "replacement": "SourceAssets/ZhanmadaoDamascus20261111/materials.py",
+    "bytes": 12802
+  },
+  {
+    "reason": "V2 snapshot superseded by V3 field and material authoring",
+    "destination": "trash/PojunPeakwatch20261113/SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeSource/install_assets.py",
+    "source": "SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeSource/install_assets.py",
+    "sha256": "0d98bafd9b40622ebe0ea93062457b27e511539acda43cc42935d4623b3dc283",
+    "replacement": "SourceAssets/ZhanmadaoDamascus20261111/install_assets.py",
+    "bytes": 3893
+  },
+  {
+    "reason": "V2 snapshot superseded by V3 field and material authoring",
+    "destination": "trash/PojunPeakwatch20261113/SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeSource/material-receipt.json",
+    "source": "SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeSource/material-receipt.json",
+    "sha256": "c17654c0d745dc45194a920e7c8cfaa961ebfce2933bd9133360060bab294910",
+    "replacement": "SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/material-receipt.json",
+    "bytes": 6357
+  },
+  {
+    "reason": "V2 field superseded by V3 authoring and saved textures",
+    "destination": "trash/PojunPeakwatch20261113/SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeTextures/Damascus_Flow_Field.png",
+    "source": "SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeTextures/Damascus_Flow_Field.png",
+    "sha256": "07a798af9f6d4f2e6b6ff03ab8414d491ceb8edf5553629dc19b1b9d6dd47f9f",
+    "replacement": "SourceAssets/ZhanmadaoDamascus20261111/Textures/Damascus_Flow_Field.png",
+    "bytes": 4279847
+  },
+  {
+    "reason": "V2 field superseded by V3 authoring and saved textures",
+    "destination": "trash/PojunPeakwatch20261113/SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeTextures/Damascus_Twist_Field.png",
+    "source": "SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeTextures/Damascus_Twist_Field.png",
+    "sha256": "2726bebbca219f8a96ccaaaef46bf95c2deb4c5b5464050bc92ec8a4e85e877e",
+    "replacement": "SourceAssets/ZhanmadaoDamascus20261111/Textures/Damascus_Twist_Field.png",
+    "bytes": 5454737
+  },
+  {
+    "reason": "V2 field superseded by V3 authoring and saved textures",
+    "destination": "trash/PojunPeakwatch20261113/SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeTextures/Damascus_Feather_Field.png",
+    "source": "SourceAssets/ZhanmadaoDamascus20261111/ReferenceRefinementV3/BeforeTextures/Damascus_Feather_Field.png",
+    "sha256": "118a17825f5f764ac71d61e859e780dc298ac9f903475f57bf7e042f8d040e6d",
+    "replacement": "SourceAssets/ZhanmadaoDamascus20261111/Textures/Damascus_Feather_Field.png",
+    "bytes": 5482986
+  },
+  {
+    "reason": "Temporary isolated link superseded by the formal editor link",
+    "destination": "trash/PojunPeakwatch20261113/Saved/PojunChainPeakwatchLink20261113/link.log",
+    "source": "Saved/PojunChainPeakwatchLink20261113/link.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "replacement": "Saved/Logs/PojunObserverAudit-delivery-editor.log",
+    "bytes": 0
+  },
+  {
+    "reason": "Temporary isolated link superseded by the formal editor link",
+    "destination": "trash/PojunPeakwatch20261113/Saved/PojunChainPeakwatchLink20261113/module.rsp",
+    "source": "Saved/PojunChainPeakwatchLink20261113/module.rsp",
+    "sha256": "95269a330b0a468711c928a5be3f8363a6d14ead18442bc1712af9da419f1b0e",
+    "replacement": "Saved/Logs/PojunObserverAudit-delivery-editor.log",
+    "bytes": 119366
+  },
+  {
+    "reason": "Temporary isolated link superseded by the formal editor link",
+    "destination": "trash/PojunPeakwatch20261113/Saved/PojunChainPeakwatchLink20261113/UnrealEditor-FPSGAME.dll",
+    "source": "Saved/PojunChainPeakwatchLink20261113/UnrealEditor-FPSGAME.dll",
+    "sha256": "6d9af3a32edb37071ec53460aa84bdf6e65fb6e457e33f11eb88ab6c3fff9323",
+    "replacement": "Binaries/Win64/UnrealEditor-FPSGAME.dll",
+    "bytes": 45314048
+  },
+  {
+    "reason": "Temporary isolated link superseded by the formal editor link",
+    "destination": "trash/PojunPeakwatch20261113/Saved/PojunChainPeakwatchLink20261113/UnrealEditor-FPSGAME.pdb",
+    "source": "Saved/PojunChainPeakwatchLink20261113/UnrealEditor-FPSGAME.pdb",
+    "sha256": "cc0001a8052f31572172c4a646bd5700706a7231487e439f297d2a036b9967e1",
+    "replacement": "Binaries/Win64/UnrealEditor-FPSGAME.pdb",
+    "bytes": 377466880
+  }
+]

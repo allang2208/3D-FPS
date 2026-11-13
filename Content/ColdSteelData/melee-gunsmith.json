@@ -209,62 +209,6 @@
           ]
         },
         {
-          "id": "chixiao",
-          "name": "赤霄",
-          "tier": "legendary",
-          "weapons": [
-            "ue_zhanmadao"
-          ],
-          "description": "斩马刀专属。暗红嵌线沿宽腹长刃延伸，刀根饰有金色云纹。",
-          "stats": {
-            "attack_speed_mult": 1.15,
-            "physical_damage_mult": 1.1
-          },
-          "effects": [
-            {
-              "text": "攻击速度+15%",
-              "benefit": 1
-            },
-            {
-              "text": "物理伤害+10%",
-              "benefit": 1
-            }
-          ],
-          "special_effects": [
-            "赤霄双斩｜重击改为快速二连斩：先下斩，再从落刀处向右上方挑斩。两刀均造成完整重击伤害，属于武技。出手体力消耗翻倍，蓄力期间每秒体力消耗不变。",
-            "赤霄剑气｜重击双斩时，红色剑气沿刀刃实际挥过的轨迹展开并渐隐；同时安装背嵬符文时，重击使用红色剑气，其他武技保留金色剑气。"
-          ]
-        },
-        {
-          "id": "zhufeng",
-          "name": "逐风",
-          "tier": "legendary",
-          "weapons": [
-            "ue_zhanmadao"
-          ],
-          "stats": {
-            "range_mult": 1.2,
-            "physical_damage_mult": 1.1,
-            "whirlwind_damage_add": 0.5
-          },
-          "description": "青灰长刃配银白刃口，刀脊饰旋流锻纹。",
-          "effects": [
-            {
-              "text": "攻击距离+20%",
-              "benefit": 1
-            },
-            {
-              "text": "物理伤害+10%",
-              "benefit": 1
-            }
-          ],
-          "special_effects": [
-            "逐风旋斩｜冲刺攻击改为向前匀速推进的群体旋风，旋转结束或受阻时停止推进；每个目标仅命中一次。",
-            "旋风强化｜旋风伤害倍率 +0.5，旋转时显现青色剑气；主动大旋风同样生效。",
-            "施放条件｜需学会冲刺攻击。沿用大旋风等级、消耗并共用冷却；未学大旋风时按一级计算。"
-          ]
-        },
-        {
           "id": "star_marrow",
           "name": "星髓长锋",
           "tier": "legendary",
@@ -1035,6 +979,62 @@
             "武技剑气｜释放武技时，金色剑气沿刀刃轨迹展开并渐隐。",
             "生效范围｜伤害与范围加成仅作用于武技，普通攻击与普通连段不受影响。"
           ]
+        },
+        {
+          "id": "chixiao_rune",
+          "name": "赤霄符文",
+          "tier": "legendary",
+          "weapons": [
+            "ue_zhanmadao"
+          ],
+          "description": "斩马刀专属传说符文。朱红的赤霄二字纵铭于刀身中段，重击时挥出两道赤色剑气。",
+          "stats": {
+            "attack_speed_mult": 1.15,
+            "physical_damage_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "攻击速度+15%",
+              "benefit": 1
+            },
+            {
+              "text": "物理伤害+10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "赤霄双斩｜重击改为快速二连斩：先下斩，再从落刀处向右上方挑斩。两刀均造成完整重击伤害，属于武技。出手体力消耗翻倍，蓄力期间每秒体力消耗不变。",
+            "赤霄剑气｜重击双斩时，红色剑气沿刀刃实际挥过的轨迹展开并渐隐。"
+          ]
+        },
+        {
+          "id": "zhufeng_rune",
+          "name": "逐风符文",
+          "tier": "legendary",
+          "weapons": [
+            "ue_zhanmadao"
+          ],
+          "stats": {
+            "range_mult": 1.2,
+            "physical_damage_mult": 1.1,
+            "whirlwind_damage_add": 0.5
+          },
+          "description": "斩马刀专属传说符文。青碧的逐风二字纵铭于刀身中段，随旋风斩泛起青色剑气。",
+          "effects": [
+            {
+              "text": "攻击距离+20%",
+              "benefit": 1
+            },
+            {
+              "text": "物理伤害+10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "逐风旋斩｜冲刺攻击释放向前匀速推进的次级旋风，只旋转一圈，旋转速度+50%；旋转结束或受阻时停止推进，每个目标仅命中一次。",
+            "次级旋风｜伤害与体力消耗沿用冲刺攻击，满足冲刺攻击释放条件即可施放；无冷却，与主动大旋风冷却独立。",
+            "旋风强化｜主动大旋风伤害倍率+0.5；主动与次级旋风均显现青色剑气。"
+          ]
         }
       ]
     },
@@ -1466,6 +1466,46 @@
             "block_reduction_mult": 1.1
           },
           "special_effects": []
+        },
+        {
+          "id": "pojun_longhaft",
+          "name": "破军长柄",
+          "tier": "special",
+          "weapons": [
+            "ue_zhanmadao"
+          ],
+          "description": "大幅加长的握柄，上段为钢杆，下段缠带，两手分握，柄尾承接所选配重。",
+          "effects": [
+            {
+              "text": "攻击距离+50%（含快速近战距离和重击震波半径）",
+              "benefit": 1
+            },
+            {
+              "text": "物理伤害+10%",
+              "benefit": 1
+            },
+            {
+              "text": "体力消耗+25%",
+              "benefit": -1
+            },
+            {
+              "text": "攻击速度-25%",
+              "benefit": -1
+            }
+          ],
+          "stats": {
+            "range_mult": 1.5,
+            "quick_combat_range_mult": 1.5,
+            "physical_damage_mult": 1.1,
+            "stamina_mult": 1.25,
+            "attack_speed_mult": 0.75
+          },
+          "special_effects": [
+            "锤式分握｜持握、移动、连击、蓄力重击、冲刺攻击、格挡及武技均使用双手锤动作。",
+            "武技适配｜可施放已学会的跃击与连斩，连斩以双手锤握姿连续挥击四次。",
+            "刀身联动｜腾云第三段改为双手锤上挑，破锋第三段沿用双手锤劈砍。",
+            "符文联动｜赤霄满蓄重击以普攻首段斜劈起手，再接上挑；逐风冲刺攻击向前旋风横扫一周。"
+          ]
         }
       ]
     },

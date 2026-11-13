@@ -1,0 +1,129 @@
+{
+  "capture_complete": true,
+  "frame_count": 28,
+  "missing_images": [],
+  "coverage_masks": [
+    {
+      "image": "08_mask_full_6x.png",
+      "stage": 5,
+      "raw_inner_green_fraction": 0.9913447350439201,
+      "unobscured_inner_green_fraction": 0.9997450057810333,
+      "green_pixels_beyond_4_percent_edge_margin": 0,
+      "green_bounds_xy": [
+        477,
+        125,
+        1124,
+        774
+      ],
+      "projected_bounds_xy": [
+        477.98874538138,
+        125.96903555092683,
+        1123.6957704809727,
+        773.965919727218
+      ]
+    },
+    {
+      "image": "10b_mask_release_6x.png",
+      "stage": 6,
+      "raw_inner_green_fraction": 0.9973657889264105,
+      "unobscured_inner_green_fraction": 0.9997450057810333,
+      "green_pixels_beyond_4_percent_edge_margin": 0,
+      "green_bounds_xy": [
+        477,
+        125,
+        1124,
+        774
+      ],
+      "projected_bounds_xy": [
+        477.9858967074302,
+        125.96998510891007,
+        1123.693871365006,
+        773.9668692852013
+      ]
+    },
+    {
+      "image": "18_mask_full_3x.png",
+      "stage": 5,
+      "raw_inner_green_fraction": 0.9928103863179473,
+      "unobscured_inner_green_fraction": 0.999748498852526,
+      "green_pixels_beyond_4_percent_edge_margin": 0,
+      "green_bounds_xy": [
+        477,
+        125,
+        1124,
+        774
+      ],
+      "projected_bounds_xy": [
+        477.9839975914636,
+        125.9676112139519,
+        1123.691022691056,
+        773.964495390243
+      ]
+    },
+    {
+      "image": "20b_mask_release_3x.png",
+      "stage": 6,
+      "raw_inner_green_fraction": 0.9984947365293774,
+      "unobscured_inner_green_fraction": 0.9997554849955114,
+      "green_pixels_beyond_4_percent_edge_margin": 0,
+      "green_bounds_xy": [
+        477,
+        125,
+        1124,
+        774
+      ],
+      "projected_bounds_xy": [
+        477.9858967074302,
+        125.96998510891007,
+        1123.693871365006,
+        773.9668692852013
+      ]
+    }
+  ],
+  "full_ads": {
+    "frames": 26,
+    "world_fov_range": [
+      99.81591796875,
+      99.81591796875
+    ],
+    "viewmodel_fov_range": [
+      8.732516288757324,
+      8.732516288757324
+    ],
+    "lens_blend_range": [
+      1,
+      1
+    ],
+    "styles": [
+      7
+    ]
+  },
+  "full_3x": {
+    "actual_zoom": 3,
+    "center_xy": [
+      800.4217224393277,
+      449.98640945136424
+    ],
+    "aperture_width_height": [
+      645.7070250995927,
+      647.9959346183078
+    ]
+  },
+  "full_6x": {
+    "actual_zoom": 6,
+    "center_xy": [
+      800.4192743601521,
+      449.98764090937374
+    ],
+    "aperture_width_height": [
+      645.7070250995926,
+      647.9968841762911
+    ]
+  },
+  "outside_left_scene_abs_difference_0_to_255": 4.198932647705078,
+  "exit": {
+    "first_person_enabled": false,
+    "viewmodel_fov": 90
+  },
+  "scope": "One 1600x900 production-map capture; numeric masks plus manual review, not hand-feel or all-map acceptance."
+}

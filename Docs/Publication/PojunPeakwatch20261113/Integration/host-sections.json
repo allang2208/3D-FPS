@@ -1,0 +1,1438 @@
+{
+  "Source/FPSGAME/Characters/FPSBodyRuneVisual.cpp": {
+    "source_sha256": "99d0883c956ebc8856367d240c8326753c48bac3b47d8368e19fe751af9eedcf",
+    "sections": [
+      {
+        "line": 30,
+        "code": "    {\n        Out.BladeFinishMode=ColdSteelModularSword::BladeFinishMode(*Item);\n        Out.BladeFinishSeed=ColdSteelModularSword::BladeFinishSeed(*Item);\n        Out.bBladeFinishGuardRoot=Item->Definition==TEXT(\"ue_rune_sword\")&&Guard;\n    }\n    if(Blade&&Item->Definition==ColdSteelFrostRunes::Zhanmadao)\n    {\n        const FString Rune=ColdSteelMeleeRune::Selected(*Item);\n        Out.bChixiaoBlade=Rune==ColdSteelFrostRunes::Chixiao;\n        Out.bZhufengBlade=Rune==ColdSteelFrostRunes::Zhufeng;\n    }\n    if(Out.bChixiaoBlade||Out.bZhufengBlade||(Blade&&Out.BladeFinishMode==7))\n    {"
+      },
+      {
+        "line": 73,
+        "code": "        ColdSteelMeleeRune::Apply(Mesh,Description.RuneId,Description.RuneDefinition);\n    // Native rune selection may replace the material, so finish settings come last.\n    ColdSteelModularSword::ApplyBladeFinish(Mesh,Description.BladeFinishMode,Description.bBladeFinishGuardRoot,Description.BladeFinishSeed);\n    const auto& D=Description.RuneDimensions;\n    for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)\n    {"
+      },
+      {
+        "line": 93,
+        "code": "        Result+=FString::Printf(TEXT(\"|bladeFinishRootV1:%u:%d\"),Description.BladeFinishMode,Description.bBladeFinishGuardRoot);\n    if(Description.BladeFinishMode==4)\n        Result+=FString::Printf(TEXT(\"|damascusV2:%u\"),Description.BladeFinishSeed);\n    return Result;\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h": {
+    "source_sha256": "89d02eb22f9bc4a5d3d2150d5127859bcdf56cfaba546f7f5ac4ce1e24cdd908",
+    "sections": [
+      {
+        "line": 14,
+        "code": "    return S.Family==TEXT(\"Tool\")&&S.Weapon==TEXT(\"warhammer\")&&\n        (S.Action==EFPSBodyAction::None||(S.Action==EFPSBodyAction::Inspect&&\n            S.ActionVariant!=TEXT(\"PojunInspect\")&&S.ActionVariant!=TEXT(\"PojunInspectWalk\")));\n}\ninline FName Clip(const FFPSBodyState& S)\n{"
+      },
+      {
+        "line": 33,
+        "code": "        // constructed first-person-style recovery. Keep the complete take.\n        // CaptureMotion maps both wrists and the weapon from the continuous\n        // Pojun performance. A full-body override here freezes those samples.\n        if(ChainSlashMotion::IsVariant(S.ActionVariant))return NAME_None;\n        if(S.ActionVariant==TEXT(\"WarhammerSlash1\"))return TEXT(\"Warhammer.FullBody.Slash1\");\n        if(S.ActionVariant==TEXT(\"WarhammerSlash2\"))return TEXT(\"Warhammer.FullBody.Slash2\");\n        if(S.ActionVariant==TEXT(\"WarhammerSlash3\"))return TEXT(\"Warhammer.FullBody.Slash3\");"
+      }
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp": {
+    "source_sha256": "71a413aef8f634942e7cb56de986754da692a4cb5c89dca385ea959f0ab5d9e8",
+    "sections": [
+      {
+        "line": 167,
+        "code": "            (State.bDual&&(State.Action==EFPSBodyAction::Equip||State.Action==EFPSBodyAction::Inspect)))State.Action=EFPSBodyAction::None;\n    }\n    const bool PojunChain=Pawn->RuneSword&&Pawn->RuneSword->IsPojunChainOccupied()&&Pawn->RuneSword->IsChainSlashActive();\n    if(const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword&&(Sword->IsEquipped()||PojunChain))\n    {\n        if(PojunChain)State.Weapon=TEXT(\"warhammer\");\n        State.Family=PojunChain?TEXT(\"Tool\"):TEXT(\"Melee\");State.Action=EFPSBodyAction::None;State.ActionVariant=Sword->CurrentClip;\n        State.bBeiweiMartial=Sword->IsBeiweiMartialReleasing();\n        State.bChixiaoHeavyTrail=Sword->IsChixiaoHeavyReleasing();\n        State.bZhufengWhirlwindTrail=Sword->IsZhufengWhirlwindReleasing();"
+      },
+      {
+        "line": 184,
+        "code": "            const float Span=FMath::Max(.01f,Phase.End-Phase.Start);\n            const float Rate=Sword->SweepHitPause>0.f?0.f:Sword->ChainSlashActionRate()*ChainSlashMotion::SourceRate(Sword->Elapsed);\n            const bool HeavyCut=PojunChain?Phase.Cut%3==2:Phase.Cut==0;\n            Timed(HeavyCut?EFPSBodyAction::HeavyStrike:EFPSBodyAction::Strike,Sword->Elapsed-Phase.Start,Span,Rate);\n            State.ActionVariant=ChainSlashMotion::Variant(Phase.Cut);\n            State.ContactFraction=(Phase.Contact-Phase.Start)/Span;"
+      },
+      {
+        "line": 283,
+        "code": "        }\n    }\n    if(const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsEquipped()&&!PojunChain)\n    {\n        // Shared FPS motion does not change equipment identity. Warhammer also\n        // UsesPickaxeMotion(), but its world animation/head/grip paths require"
+      },
+      {
+        "line": 355,
+        "code": "        {\n            const auto& W=Tool->BluntWhirlwindTuning;const float End=W.ReadySeconds+W.SpinSeconds+W.RecoverSeconds;\n            Timed(EFPSBodyAction::Whirlwind,Tool->BluntWhirlwindTime,End,Tool->PojunAttack==PojunGrip::EAttack::Zhufeng?Tool->HasteActionRate:1.f);\n            State.ActionVariant=TEXT(\"WarhammerWhirlwind\");\n            State.ContactFraction=W.ReadySeconds/End;State.ReleaseFraction=(W.ReadySeconds+W.SpinSeconds)/End;\n            State.WhirlwindTurns=W.TurnDegrees/360.f;"
+      },
+      {
+        "line": 362,
+        "code": "            if(Tool->BluntWhirlwindPause>0.f)State.ActionProgressRate=0.f;\n        }\n        else if(Tool->bBluntUppercut&&Tool->PojunSlashTime>=0.f)\n        {\n            Timed(EFPSBodyAction::Strike,Tool->PojunSlashTime,ProductionBluntCombo::SwingSeconds,Tool->PojunCutRate());\n            State.ActionVariant=TEXT(\"WarhammerSlash1\");\n            State.ActionEntryFraction=PojunChixiao::Release/ProductionBluntCombo::SwingSeconds;\n            State.ContactFraction=ProductionBluntCombo::ContactSeconds/ProductionBluntCombo::SwingSeconds;\n            State.ReleaseFraction=ProductionBluntCombo::Turn(PojunChixiao::OpeningStage)/ProductionBluntCombo::SwingSeconds;\n            State.bChixiaoHeavyTrail=Tool->ChixiaoTrailActive();\n        }\n        else if(Tool->bBluntUppercut)"
+      },
+      {
+        "line": 375,
+        "code": "            const float End=RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End);\n            float PoseRate=Tool->HasteActionRate;\n            if(Tool->PojunAttack!=PojunGrip::EAttack::Ordinary)\n            {\n                PoseRate=Tool->PojunCutRate();\n                if(Tool->PojunAttack==PojunGrip::EAttack::Tengyun&&Tool->BluntUppercutTime<RuneSwordUppercutMotion::ReleaseStart)PoseRate*=2.f;\n            }\n            Timed(EFPSBodyAction::HeavyStrike,Tool->BluntUppercutTime,End,PoseRate);\n            State.ActionVariant=TEXT(\"WarhammerUppercut\");"
+      },
+      {
+        "line": 409,
+        "code": "            State.ActionVariant=TEXT(\"WarhammerCallRelease\");\n        }\n        else if(Tool->bPojunGrip&&Tool->InspectElapsed>=0.f)\n        {\n            if(const auto* Clip=Tool->Motions.FindRef(Tool->InspectClip).Get())\n            {\n                Timed(EFPSBodyAction::Inspect,Tool->InspectElapsed,Clip->GetPlayLength(),LightningHaste::ActionSpeed(Pawn));\n                State.ActionVariant=Tool->InspectClip==TEXT(\"InspectWalk\")?TEXT(\"PojunInspectWalk\"):TEXT(\"PojunInspect\");\n            }\n        }\n        else if(Tool->EquipElapsed>=0.f)"
+      }
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp": {
+    "source_sha256": "fd0c9e59c1663e34073a006891d08e6c0dd994966dcff30f359f604acf1cb0ed",
+    "sections": [
+      {
+        "line": 1037,
+        "code": "            FTransform Targets[2]={Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)),Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones))};\n            const bool Melee=State.Family==TEXT(\"Melee\")||State.Family==TEXT(\"Tool\");\n            const bool PojunChainPair=Warhammer&&ChainSlashMotion::IsVariant(State.ActionVariant)&&\n                bCoupledActionWrists&&ActionWristMask==3&&!Traversing;\n            const bool Gun=State.Family==TEXT(\"Rifle\")||State.Family==TEXT(\"Pistol\");\n            const bool SwordPair=State.Family==TEXT(\"Melee\")&&bLeftGrip&&!Traversing&&"
+      },
+      {
+        "line": 1227,
+        "code": "            const bool ContinuousSwordTravel=SwordPair&&bHadSwordPair&&bCoupledActionWrists&&\n                ActionWristMask==3&&LastActionWristMask==3&&State.Action==EFPSBodyAction::None&&LastAction==EFPSBodyAction::None;\n            const bool ContinuousPojunCut=PojunChainPair&&LastActionWristMask==3&&ChainSlashMotion::IsVariant(LastVariant);\n            if(!State.bDual&&bHasHandHistory&&!ContinuousSwordTravel&&!ContinuousPojunCut&&(LastAction!=State.Action||LastVariant!=State.ActionVariant||LastActionWristMask!=ActionWristMask))\n            {\n                EntryHands[0]=LastHands[0];EntryHands[1]=LastHands[1];HandBlendAge=0.f;\n            }"
+      },
+      {
+        "line": 1243,
+        "code": "                else if(!BowActive&&bHasHandHistory&&Blend<1.f&&!(I==1&&RecoveringCast))\n                {FTransform Mixed;Mixed.Blend(EntryHands[I],Targets[I],Blend);Targets[I]=Mixed;}\n            if(SwordPair||RiflePair||PojunChainPair)\n            {\n                Targets[1]=(ActionWristMask==3?DynamicLeftFromRight:LeftGrip)*Targets[0];\n                if(RiflePair&&RifleHold.bValid&&ActionWristMask==0)"
+      }
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp": {
+    "source_sha256": "8b4c1a9400c7e7e272a93d987bf36b089d5eaf2f33a3bf9b58f69d312c6fda77",
+    "sections": [
+      {
+        "line": 54,
+        "code": "            // capture. World equipment must always describe the authored glass,\n            // including an equipment refresh that happens while ADS is active.\n            if(Source.bPeakwatchScope&&Slot==TEXT(\"sight\")&&Part->PartMesh&&\n                Index==Part->PartMesh->GetMaterialIndex(TEXT(\"M_Peakwatch_Glass\")))\n                Material=Part->PartMesh->GetMaterial(Index);\n            while(const auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material))Material=Dynamic->Parent;\n            Spec.Materials.Add(Material);"
+      }
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp": {
+    "source_sha256": "b8b642e0ee87c8113b1895e929440319f9552dc6dff768d8bb5d12d188ca5b2f",
+    "sections": [
+      {
+        "line": 163,
+        "code": "    }\n}\nvoid UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)\n{\n    State.ConsumeHands=0;State.ConsumeStowWeight=0.f;State.bConsumeWeaponsHidden=false;\n    auto& Sample=State.Contacts;Sample=FFPSBodyMotionSample();auto* Pawn=Character.Get();if(!Pawn||!GetBodyMesh())return;"
+      },
+      {
+        "line": 224,
+        "code": "        const bool FullBodySword=D.PoseFamily==TEXT(\"Sword\")&&BodyAnimation&&\n            !FullBodyClip.IsNone()&&BodyAnimation->Clips.FindRef(FullBodyClip);\n        const FName HammerClip=FPSBodyWarhammerMotion::Clip(State);\n        const auto* HammerAsset=BodyAnimation?BodyAnimation->Clips.FindRef(HammerClip).Get():nullptr;\n        const bool FullBodyWarhammer=D.PoseFamily==TEXT(\"Tool\")&&HammerAsset&&GetBodyMesh()&&\n            GetBodyMesh()->GetSkeletalMeshAsset()&&HammerAsset->GetSkeleton()==GetBodyMesh()->GetSkeletalMeshAsset()->GetSkeleton();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h": {
+    "source_sha256": "06bec8b73fb3746df69fd6116eeff6ee267cef0fcba3bc4778a5d3ee1ecc0d8b",
+    "sections": [
+      {
+        "line": 202,
+        "code": "    UPROPERTY() uint8 BladeFinishMode=0;\n    UPROPERTY() bool bBladeFinishGuardRoot=false;\n    UPROPERTY() uint32 BladeFinishSeed=0;\n    UPROPERTY() FVector RuneDimensions=FVector(12,10,63);\n    UPROPERTY() FVector BeiweiBladeBase=FVector::ZeroVector;\n    UPROPERTY() FVector BeiweiBladeTip=FVector::ZeroVector;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp": {
+    "source_sha256": "92020ea3c33050f4baf02839934c0660e0f276bceaf56080dc51af72c9ab7951",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"FPSCharacterMovementComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Skills/LightningHasteSpeed.h\"\n#include \"../Skills/SwordUppercutWeapon.h\"\n#include \"../Weapons/Staff/StaffOffhandQuickMotion.h\""
+      },
+      {
+        "line": 50,
+        "code": "    const bool StaffUppercut=R.Kind==EFPSMeleeMove::Uppercut&&SwordUppercutWeapon::IsStaffBlade(Profile,Item);\n    const auto* ToolAction=Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;\n    const bool HammerUppercut=Tool&&PojunGrip::UsesHammerMotion(*Tool)&&R.Kind==EFPSMeleeMove::Uppercut&&\n        ToolAction&&ToolAction->IsUppercutActive();\n    FVector HammerDirection;float HammerLimit=0.f;\n    const bool HammerSprint=Tool&&PojunGrip::UsesHammerMotion(*Tool)&&IsHammerSprintMove(R.Kind)&&ToolAction&&\n        ToolAction->GetCommittedSprintMovement(R.HammerAttackId,HammerDirection,Budget,HammerLimit,Recovery);\n    // The one-handed kukri only has the uppercut stride (KukriUppercut.cpp); its budget/recovery are the sword uppercut's.\n    const bool KukriUppercut=Item&&!Tool&&R.Kind==EFPSMeleeMove::Uppercut&&"
+      },
+      {
+        "line": 102,
+        "code": "    case EFPSMeleeMove::Uppercut:\n    case EFPSMeleeMove::RisingDragon:\n        if(R.Kind==EFPSMeleeMove::Uppercut&&!(HammerUppercut&&ToolAction->IsPojunUppercutStride())&&Profile->MasteryProgress(TEXT(\"swordUppercut\")).Level<1)return false;\n        if(R.Kind==EFPSMeleeMove::RisingDragon&&!ColdSteelModularSword::UsesRisingDragonFinisher(*Item))return false;\n        Budget=RuneSwordUppercutMotion::LungeDistance;\n        // The kukri (main hand or off hand) ends its faster uppercut on its own clock; holding the sword's longer"
+      }
+    ]
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": {
+    "source_sha256": "65e7c24e8093e2dfc6e143ba513695132f47b5288c357c08e99aa7d6299d3f1e",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelPlayerState.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/HighlandBreakSweep.h\"\n#include \"../Weapons/HighlandRidgeThrust.h\"\n#include \"../Weapons/StarMarrowComponent.h\""
+      },
+      {
+        "line": 1747,
+        "code": "    }\n\n    if (Item && PojunGrip::UsesHammerMotion(*Item))return Panel;\n\n    if (Item && ColdSteelInventory::IsMeleeWeapon(*Item))\n    {"
+      },
+      {
+        "line": 1812,
+        "code": "    if(Declared){DeclaredSnapshot=*Declared;Declared=&DeclaredSnapshot;}\n    // Blunt swings settle from the replicated component's server contact timer.\n    if(Declared&&PojunGrip::UsesHammerMotion(*Declared)&&!(Report.AttackMeta&0x80))return false;\n    // 远端身体开火表现与身体组件 ServerClock 同域（GameState 服务端世界钟）。\n    LastValidatedShotAt = GetWorld()->GetGameState()\n        ? GetWorld()->GetGameState()->GetServerWorldTimeSeconds()"
+      }
+    ]
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp": {
+    "source_sha256": "8cf6447451893aebe711479a5df12fe629ef628edbef0b7799f35b7efc90e368",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelPlayerState.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/Kukri/KukriRelentlessComponent.h\"\n#include \"../Weapons/Kukri/KukriDecisiveComponent.h\"\n#include \"../FPSGAMECharacter.h\""
+      },
+      {
+        "line": 77,
+        "code": "    const auto* Hammer=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;\n    const float Before=ShadowModel?ShadowModel->Stamina():0.f;\n    if(Busy||(Hammer&&Hammer->IsPojunChainOccupied())||IsSwordWhirlwindExecuting(Pawn)||!Pawn||ActionPawn!=Pawn||!Health||Health->IsDead()||!ShadowModel\n        ||Equipment.IsEmpty()||Equipment!=QuickCombatEquipmentKey()\n        ||!FMath::IsFinite(Duration)||Duration<.1f||Duration>5.f||Pawn->IsTraversing()||(Hammer&&Hammer->IsThunderHammerAway())\n        ||(Book&&Book->IsFocusActive())||(Broken&&Broken->IsActive())||!ShadowModel->SpendStamina(ShadowModel->QuickCombatStaminaCost()))\n    {ClientQuickCombatRejected(Sequence);return;}\n    if(const auto* Item=ShadowModel->ActiveProductionTool();Item&&PojunGrip::UsesHammerMotion(*Item))\n        // Only cancel this pawn's hammer. The general local-input interrupt\n        // also reapplies the GameInstance profile, which belongs to the host.\n        if(auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>())Tool->CancelUse();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionAxeContact.cpp": {
+    "source_sha256": "0322a7a120953a0b656f2915cfc2cb8163cbc5eb288ef520e3a724c41e0d4f41",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ProductionToolComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"Kismet/GameplayStatics.h\"\n#include \"Sound/SoundBase.h\"\n#include \"../Dungeons/WardBreakableGlass.h\""
+      },
+      {
+        "line": 141,
+        "code": "}\n\nvoid UProductionToolComponent::MulticastPojunCutImpact_Implementation(FVector_NetQuantize Location)\n{\n    if(GetNetMode()==NM_DedicatedServer)return;\n    if(auto* Sound=LoadObject<USoundBase>(nullptr,PojunGrip::SwordHit))\n        UGameplayStatics::PlaySoundAtLocation(this,Sound,Location,.75f);\n}\n"
+      },
+      {
+        "line": 160,
+        "code": "    if(bConfirmed)\n    {\n        if(ContactShot.ItemDefinition==PojunGrip::Weapon)MulticastPojunCutImpact(Hit.ImpactPoint);\n        Pawn->NotifyConfirmedWeaponHit(Target,Applied,&Result);\n        Feedback=Kind==TEXT(\"warhammer\")?TEXT(\"战锤命中敌人\"):Kind==TEXT(\"pickaxe\")?TEXT(\"镐头命中敌人\"):TEXT(\"斧刃命中敌人\");FeedbackSeconds=1.2f;\n    }"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntAuthority.cpp": {
+    "source_sha256": "ed31b5d922bab4fec5e735dfeea33cf7ba3653d6cc1b3860c674f09502ceecb8",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ProductionToolComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ProductionBluntCombo.h\"\n#include \"WarhammerHeavyMotion.h\"\n#include \"WarhammerCombat.h\""
+      },
+      {
+        "line": 41,
+        "code": "    const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;\n    const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;\n    return Pawn&&Pawn->HasAuthority()&&Item&&PojunGrip::UsesHammerMotion(*Item)&&PC&&\n        !Pawn->IsTraversing()&&!Pawn->IsCastBlockingLeftHandAction()&&(!Health||!Health->IsDead())&&\n        (!Sword||(!Sword->IsGuarding()&&!Sword->IsPojunChainOccupied()))&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&\n        !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Building||!Building->IsBuilding());\n}\n}"
+      },
+      {
+        "line": 134,
+        "code": "    if(!World||IsLeapStrikeActive()||bBluntUppercut||bBluntWhirlwind||!CanCommitBlunt(Pawn,Profile,bBluntServerCharging)||Now+Early<BluntServerReadyAt){Reject();return;}\n    const FString SourceInstance=Item->InstanceId;\n    if(bSprintAttack&&(bReleaseCharge||!PojunGrip::CanSprintAttack(*Item,Profile)||BluntSprintInstance!=SourceInstance||World->GetTimeSeconds()-BluntSprintReadyAt>.35))\n    {Reject();return;}\n    if(bReleaseCharge&&(!bBluntServerCharging||BluntServerAttackId!=AttackId||BluntServerChargeInstance!=SourceInstance||Profile->Stamina()<=0.f)){Reject();return;}\n    const float Held=bReleaseCharge?float(World->GetTimeSeconds()-BluntServerChargeStartedAt):0.f;"
+      },
+      {
+        "line": 150,
+        "code": "    if(bThunderCallSeat){bThunderCallCharging=false;FinishThunderCallResources();}\n    const FProductionToolStats Stats=ToolStats;\n    const bool Zhufeng=bSprintAttack&&PojunGrip::Attack(*Item,false,true,2)==PojunGrip::EAttack::Zhufeng;\n    const double AttackCost=Zhufeng?Profile->DashAttackStats().StaminaCost:Heavy&&!bSprintAttack?Stats.HeavyReleaseStaminaCost:Stats.StaminaCost;\n    if(!Profile->SpendStamina(float(AttackCost))){Reject();return;}\n    ClientBluntStaminaSpent(AttackId,float(AttackCost));"
+      },
+      {
+        "line": 176,
+        "code": "        ThunderHammerCoil::Commit(AxeStrike,Item,Profile);\n    }\n    const auto Special=PojunGrip::Attack(*Item,Heavy,bSprintAttack,Stage);\n    if(Special!=PojunGrip::EAttack::Ordinary)\n    {\n        AxeStrike.CriticalChance=FMath::Clamp(AxeStrike.CriticalChance+float(Stats.CriticalChanceAdd),0.f,100.f);\n        BluntAttackId=AttackId;\n        StartPojunAttack(Special,Profile);\n        BluntServerComboExpires=BluntServerReadyAt+ProductionBluntCombo::ResetSeconds;\n        ClientBluntAttackResult(AttackId,Stage,true,false,Heavy,bSprintAttack);\n        return;"
+      },
+      {
+        "line": 349,
+        "code": "        if(auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))Move->CancelHammerSprintMove(AttackId);\n    if(Kind!=TEXT(\"warhammer\")||AttackId!=BluntAttackId)return;\n    if(PojunAttack!=PojunGrip::EAttack::Ordinary||Elapsed>=0.f)\n    {\n        auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();\n        const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;\n        const auto Special=bAccepted&&Item?PojunGrip::Attack(*Item,bHeavy,bSprint,Stage):PojunGrip::EAttack::Ordinary;\n        if(Special!=PojunGrip::EAttack::Ordinary&&PojunAttack==Special)return;\n        if(PojunAttack!=PojunGrip::EAttack::Ordinary)\n        {\n            FinishBluntUppercut();FinishBluntWhirlwind();\n            if(!bAccepted){NextBluntStage=0;return;}\n            Elapsed=0.f;bContacted=bHitConfirmed=bSwingSoundPlayed=false;\n        }\n        if(Special!=PojunGrip::EAttack::Ordinary)\n        {\n            BluntStage=Stage;StartPojunAttack(Special,Profile);return;\n        }\n    }\n    if(!bBluntCharging&&Elapsed<0.f)return;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntCombo.h": {
+    "source_sha256": "6cf42c2afd5574f283ac4888ceec2bc68ebe46235d77bd4c2c2660aaf4e320d6",
+    "sections": [
+      {
+        "line": 3,
+        "code": "#include \"ProductionBluntComboTiming.h\"\n\n// The charged Pojun rune enters the opening cut at its loaded pose.\nnamespace PojunChixiao\n{\n    inline constexpr int32 OpeningStage=0;\n    inline constexpr float Start=ProductionBluntComboTiming::HoldClip[OpeningStage];"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntContact.cpp": {
+    "source_sha256": "7bce59302e694247ebecfe29b882cc3fbf73a0694587dde4cef0d4586b5ac7d4",
+    "sections": [
+      {
+        "line": 82,
+        "code": "    FActorSpawnParameters Params;Params.Owner=Pawn;Params.Instigator=Pawn;\n    Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;\n    UClass* WaveClass=bSprintAttack?AWarhammerShockwave::StaticClass():ALeapStrikeShockwave::StaticClass();\n    if(auto* Wave=GetWorld()->SpawnActor<AWarhammerShockwave>(WaveClass,\n        Floor.ImpactPoint+Floor.ImpactNormal*2.f,FRotationMatrix::MakeFromZ(Floor.ImpactNormal).Rotator(),Params))\n    {"
+      },
+      {
+        "line": 78,
+        "code": "bool UProductionToolComponent::BeginBluntShockwave(bool bSprintAttack,float StunSeconds,float ThunderMagic)\n{\n    auto* Pawn=Character.Get();if(!Pawn||!Pawn->HasAuthority())return false;\n    FHitResult Floor;if(!FindBluntGround(Floor))return ResolveBluntContact(StunSeconds);\n    FActorSpawnParameters Params;Params.Owner=Pawn;Params.Instigator=Pawn;\n    Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;\n    UClass* WaveClass=bSprintAttack?AWarhammerShockwave::StaticClass():ALeapStrikeShockwave::StaticClass();\n    if(auto* Wave=GetWorld()->SpawnActor<AWarhammerShockwave>(WaveClass,\n        Floor.ImpactPoint+Floor.ImpactNormal*2.f,FRotationMatrix::MakeFromZ(Floor.ImpactNormal).Rotator(),Params))\n    {\n        Wave->Setup(AxeStrike,BluntWaveRadius,StunSeconds,ThunderMagic);return true;\n    }\n    return false;\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntFlow.cpp": {
+    "source_sha256": "cffc0e09adb88e5c708202ade963297c47aff99a4e463361bb8705bdb7f50476",
+    "sections": [
+      {
+        "line": 75,
+        "code": "    const float At=bHitConfirmed?ProductionBluntComboTiming::HitChainClip[Stage]:ProductionBluntComboTiming::ChainClip[Stage];\n    if(Clip<At||End-Elapsed<=.06f)return;\n    if(bPojunGrip&&Stage==1)\n        if(const auto* Item=Profile->ActiveProductionTool();Item&&PojunGrip::Attack(*Item,false,false,2)==PojunGrip::EAttack::Tengyun)return;\n    StartBluntChain(End-Elapsed);\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntGuard.cpp": {
+    "source_sha256": "55fdd23e78abb167d1b981a204b43275617433202da60933ffa8ff55b17d6156",
+    "sections": [
+      {
+        "line": 15,
+        "code": "bool UProductionToolComponent::HasAuthorityAttackInFlight() const\n{\n    return IsPojunChainOccupied()||IsLeapStrikeActive()||IsThunderHammerAway()||bBluntServerCharging||bBluntUppercut||bBluntWhirlwind||\n        (GetWorld()&&GetWorld()->GetTimeSeconds()<BluntServerReadyAt);\n}\nbool UProductionToolComponent::CanQueueGuard() const\n{\n    if(IsLeapStrikeActive()||IsPojunChainOccupied())return false;\n    if(IsThunderHammerAway()||ThunderCatchAge>=0.f||!IsWarhammerEquipped()||!CanUse()||!HasReadyPresentation()||bBluntUppercut||bBluntWhirlwind\n        ||(bBluntSprintAttack&&Elapsed>=0.f)||IsQuickCombatActive())return false;\n    for(const TCHAR* Clip:WarhammerGuard::Clips)if(!Motions.FindRef(Clip))return false;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntHeavy.cpp": {
+    "source_sha256": "cbdaea380f69f336d8ca720cd2d87b11cfc60921570d65260305269781eb1f65",
+    "sections": [
+      {
+        "line": 13,
+        "code": "void UProductionToolComponent::BeginPrimaryAttack()\n{\n    if(IsLeapStrikeActive()||IsPojunChainOccupied()||IsQuickCombatActive())return;\n    if(HandleThunderPrimary())return;\n    if(Character.IsValid()&&Character->RuneSword&&Character->RuneSword->IsToolGuardRequested())return;\n    if(PojunAttack==PojunGrip::EAttack::Tengyun){BeginUse();return;}\n    if(bBluntWhirlwind||bBluntUppercut||ThunderCatchAge>=0.f||ThunderCallReleaseAge>=0.f)return;\n    if(Kind!=TEXT(\"warhammer\")){BeginUse();return;}\n    if(Elapsed>=0.f){BeginUse();return;}"
+      },
+      {
+        "line": 75,
+        "code": "    if(bThunderCallSeat){bThunderCallCharging=false;ClearThunderCallVisual();FinishThunderCallResources();}\n    BeginUse();\n    if(PojunAttack!=PojunGrip::EAttack::Ordinary){bBluntReleaseCharge=false;return;}\n    if(Elapsed<0.f){bBluntCharging=true;CancelUse();return;}\n    bBluntReleaseCharge=false;\n    if(!bBluntHeavy)Elapsed=BluntChargeResume(Held);"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntQuickCombat.cpp": {
+    "source_sha256": "b123f50d6b9f0fa54195eeba7b5cffad7e6652e5b7dbaa2212638febadbf4f1a",
+    "sections": [
+      {
+        "line": 18,
+        "code": "bool UProductionToolComponent::BeginQuickCombat()\n{\n    auto* Pawn=Character.Get();\n    auto* Quick=Pawn?Pawn->QuickCombatPistol.Get():nullptr;\n    const auto* Profile=ColdSteelAuthority::ForPawn(Pawn);\n    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;\n    if(!Item||Item->InstanceId!=EquippedId||!PojunGrip::UsesHammerMotion(*Item)||PojunGrip::Installed(*Item)!=bPojunGrip)return false;\n    if(IsPojunChainOccupied()||IsThunderHammerAway()||ThunderCatchAge>=0.f||!IsWarhammerEquipped()||!Pawn||!Quick||!CanUse()||!HasReadyPresentation()\n        ||!Motions.FindRef(TEXT(\"QuickCombat\"))||!Pawn->CanStartQuickCombatPriority())return false;\n    Pawn->InterruptActionsForPriority(false);\n    Pawn->ExitSprintForWeapon();\n    Quick->ConfigureForWarhammer(bConicalSeat);\n    if(!Quick->BeginAction())return false;\n    SprintBlend=0.f;\n    Viewmodel->SetRelativeLocationAndRotation(FVector::ZeroVector,FRotator(0,90,0));\n    if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))Arms->SetFloorContact(FVector::ZeroVector,0.f);\n    SampleMotion(TEXT(\"QuickCombat\"),0.f);\n    return true;\n}"
+      },
+      {
+        "line": 38,
+        "code": "bool UProductionToolComponent::GetQuickCombatStrikeProbe(FVector& Origin,float PoseSeconds)\n{\n    if(!IsQuickCombatActive()||!Viewmodel||!Viewmodel->DoesSocketExist(TEXT(\"WPN_root\")))return false;\n    // The shared action clock is at the exact contact, even across a hitch.\n    Viewmodel->SetRelativeLocationAndRotation(FVector::ZeroVector,FRotator(0,90,0));\n    if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))Arms->SetFloorContact(FVector::ZeroVector,0.f);\n    SampleMotion(TEXT(\"QuickCombat\"),PoseSeconds);\n    if(bPojunGrip&&!PojunStrikeLocal.IsSet())return false;\n    const FVector Local=PojunStrikeLocal.Get(bConicalSeat?ConicalStrikeLocal:WarhammerQuickCombat::StrikeLocal);\n    Origin=Viewmodel->GetSocketTransform(TEXT(\"WPN_root\")).TransformPosition(Local);\n    return true;\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntSprint.cpp": {
+    "source_sha256": "126bc43a419c96945ec93b4b34ebb3c4a6b8edec93d1ae1376a525b5b3b0c93e",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ProductionToolComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../FPSGAMEPlayerController.h\"\n#include \"../FPSGAMECharacter.h\"\n#include \"../Multiplayer/ColdSteelAuthorityContext.h\""
+      },
+      {
+        "line": 32,
+        "code": "    const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();\n    const bool Local=Pawn->IsLocallyControlled();\n    const bool Eligible=Item&&PojunGrip::UsesHammerMotion(*Item)&&PojunGrip::CanSprintAttack(*Item,Profile)&&!Pawn->IsTraversing()&&\n        !Pawn->IsDodging()&&!Pawn->IsCastBlockingLeftHandAction()&&(!Health||!Health->IsDead())&&\n        (Local?(!IsBusy()&&CanUse()):(!bBluntServerCharging&&World->GetTimeSeconds()>=BluntServerReadyAt));\n    if(Local&&Kind==TEXT(\"warhammer\")&&BluntSprintTrace.GetValueOnGameThread()!=0&&Pawn->bSprintHeld)"
+      },
+      {
+        "line": 75,
+        "code": "    const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();\n    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;\n    if(!Item||!PojunGrip::CanSprintAttack(*Item,Profile))return 0.f;\n    const auto* Move=Pawn->GetCharacterMovement();const float Required=ReadySeconds(Profile);\n    const bool Carry=BluntSprintSeconds>=Required&&(Pawn->IsSliding()||Move->IsFalling()||\n        Pawn->bWeaponJumpAirborne||!Move->PendingLaunchVelocity.IsZero());"
+      },
+      {
+        "line": 96,
+        "code": "    bBluntSprintAttack=true;NextBluntStage=2;\n    BeginUse();\n    if(PojunAttack==PojunGrip::EAttack::Zhufeng)\n    {\n        Pawn->ExitSprintForWeapon();\n        return true;"
+      },
+      {
+        "line": 124,
+        "code": "    const auto* Profile=ColdSteelAuthority::ForPawn(Pawn);\n    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;\n    if(!Item||!PojunGrip::UsesHammerMotion(*Item)||Item->InstanceId!=BluntServerInstance)return false;\n    DistanceCM=BluntSprintLungeDistance;\n    Direction=BluntSprintDirection;\n    if(PojunAttack==PojunGrip::EAttack::Zhufeng)\n    {\n        const float Travel=BluntWhirlwindTuning.ReadySeconds+BluntWhirlwindTuning.SpinSeconds;\n        LimitCM=DistanceCM*FMath::Clamp((BluntWhirlwindTime+.05f*HasteActionRate)/Travel,0.f,1.f);"
+      },
+      {
+        "line": 140,
+        "code": "void UProductionToolComponent::AdvanceBluntSprintLunge(float FromTime,float ToTime)\n{\n    const bool Zhufeng=PojunAttack==PojunGrip::EAttack::Zhufeng;\n    if(!bBluntSprintAttack&&!Zhufeng)return;\n    const float Lift=Zhufeng?BluntWhirlwindTuning.ReadySeconds+BluntWhirlwindTuning.SpinSeconds:BluntLiftSeconds();\n    const float Distance=BluntSprintLungeDistance*(Zhufeng?"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntUppercut.cpp": {
+    "source_sha256": "84fb562fe41107fd99cf4cff512aab7bbed82e611d418cbcfbd8eee1d4e4d875",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ProductionToolComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"WarhammerUppercutArc.h\"\n#include \"WarhammerUppercutMotion.h\"\n#include \"ProductionBluntCombo.h\""
+      },
+      {
+        "line": 45,
+        "code": "    const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;\n    const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;\n    return Pawn&&PC&&Item&&PojunGrip::UsesHammerMotion(*Item)&&\n        (!Sword||(!Sword->IsGuarding()&&!Sword->IsPojunChainOccupied()))&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&\n        !Pawn->IsTraversing()&&!Pawn->IsDodging()&&!Pawn->IsSliding()&&!Pawn->IsCastBlockingLeftHandAction()&&\n        !UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&(!Health||!Health->IsDead())&&\n        !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Build||!Build->IsBuilding());"
+      },
+      {
+        "line": 99,
+        "code": "}\n\nvoid UProductionToolComponent::StartPojunAttack(PojunGrip::EAttack Attack,UColdSteelStatusModel* Profile)\n{\n    const auto* Item=Profile->ActiveProductionTool();\n    if(!Item)return;\n    PojunAttack=Attack;PojunAttackItemData=Item->Data;\n    Elapsed=-1.f;bQueuedBluntAttack=bBluntChain=bBluntFloorTarget=false;\n    BluntStartClip=0.f;BluntServerGroundSlamUntil=BluntServerSprintContactAt=0.;\n    if(Attack==PojunGrip::EAttack::Zhufeng)\n    {\n        StartBluntWhirlwind(Profile);\n        return;"
+      },
+      {
+        "line": 101,
+        "code": "void UProductionToolComponent::StartPojunAttack(PojunGrip::EAttack Attack,UColdSteelStatusModel* Profile)\n{\n    const auto* Item=Profile->ActiveProductionTool();\n    if(!Item)return;\n    PojunAttack=Attack;PojunAttackItemData=Item->Data;\n    Elapsed=-1.f;bQueuedBluntAttack=bBluntChain=bBluntFloorTarget=false;\n    BluntStartClip=0.f;BluntServerGroundSlamUntil=BluntServerSprintContactAt=0.;\n    if(Attack==PojunGrip::EAttack::Zhufeng)\n    {\n        StartBluntWhirlwind(Profile);\n        return;\n    }\n    StartBluntUppercut(Profile);\n}"
+      },
+      {
+        "line": 124,
+        "code": "    const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);\n    ApplyToolStats(Item,Profile);\n    PojunSlashTime=-1.f;\n    if(PojunAttack==PojunGrip::EAttack::Ordinary)\n    {\n        const auto Effect=Profile->MasteryEffect(TEXT(\"swordUppercut\"));\n        BluntUppercutDamage=Stats.Damage*ColdSteelMelee::UppercutMultiplier(Profile,Stats.Modifiers);"
+      },
+      {
+        "line": 141,
+        "code": "    else\n    {\n        const bool Rising=PojunAttack==PojunGrip::EAttack::Tengyun;\n        PojunSlashTime=Rising?-1.f:PojunChixiao::Start;\n        const auto& Mods=Stats.Modifiers;\n        AxeStrike.AttackMeta=Rising?3:0x10;\n        AxeStrike.bRisingDragonFinisher=Rising;"
+      },
+      {
+        "line": 155,
+        "code": "    BluntSprintSeconds=0.f;BluntSprintReadyAt=-100.;SetTickGroup(TG_PostPhysics);\n    BluntServerReadyAt=GetWorld()->GetTimeSeconds()+(RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End)+HitPause)/HasteActionRate;\n    if(PojunAttack!=PojunGrip::EAttack::Ordinary)\n    {\n        const float Lead=PojunSlashTime>=0.f?PojunChixiao::Handoff-PojunChixiao::Start:-RuneSwordRisingDragon::WindupEnd;\n        BluntServerReadyAt=GetWorld()->GetTimeSeconds()+\n            (Lead+RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End)+HitPause)/PojunCutRate();\n    }\n    Character->StopMovementForMeleeSkill();\n}\n\nbool UProductionToolComponent::PojunAttackStillEquipped(const FColdSteelItem& Item)\n{\n    if(PojunAttack==PojunGrip::EAttack::Ordinary||Item.Data==PojunAttackItemData)return true;\n    if(PojunGrip::Attack(Item,PojunAttack==PojunGrip::EAttack::Chixiao,PojunAttack==PojunGrip::EAttack::Zhufeng,2)!=PojunAttack)return false;\n    PojunAttackItemData=Item.Data;\n    return true;\n}\n\nfloat UProductionToolComponent::PojunCutRate() const\n{\n    return PojunAttack==PojunGrip::EAttack::Chixiao?RateScale*BluntMasteryInterval:RateScale;\n}\n\nfloat UProductionToolComponent::BluntUppercutPoseTime() const"
+      },
+      {
+        "line": 166,
+        "code": "bool UProductionToolComponent::PojunAttackStillEquipped(const FColdSteelItem& Item)\n{\n    if(PojunAttack==PojunGrip::EAttack::Ordinary||Item.Data==PojunAttackItemData)return true;\n    if(PojunGrip::Attack(Item,PojunAttack==PojunGrip::EAttack::Chixiao,PojunAttack==PojunGrip::EAttack::Zhufeng,2)!=PojunAttack)return false;\n    PojunAttackItemData=Item.Data;\n    return true;\n}"
+      },
+      {
+        "line": 174,
+        "code": "float UProductionToolComponent::PojunCutRate() const\n{\n    return PojunAttack==PojunGrip::EAttack::Chixiao?RateScale*BluntMasteryInterval:RateScale;\n}"
+      },
+      {
+        "line": 179,
+        "code": "float UProductionToolComponent::BluntUppercutPoseTime() const\n{return WarhammerUppercutMotion::PoseTime(BluntUppercutTime);}\n\nvoid UProductionToolComponent::TickBluntUppercut(float Delta)\n{\n    auto* Pawn=Character.Get();if(!Pawn)return;\n    auto* Profile=Pawn->HasAuthority()?ColdSteelAuthority::ForPawn(Pawn):GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();\n    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;\n    if(!CanUppercut(Pawn,Profile,true)||!Item||Item->InstanceId!=BluntUppercutInstance)\n    {FinishBluntUppercut();return;}\n    ColdSteelAuthority::FScope Scope(Profile);\n    if(!PojunAttackStillEquipped(*Item))\n    {FinishBluntUppercut();return;}\n    Delta*=PojunAttack==PojunGrip::EAttack::Ordinary?HasteActionRate:PojunCutRate();\n    if(PojunSlashTime>=0.f)\n    {\n        const float Before=PojunSlashTime;\n        const float Handoff=PojunChixiao::Handoff;\n        PojunSlashTime=FMath::Min(Handoff,Before+Delta);\n        Delta-=PojunSlashTime-Before;\n        const float Whoosh=ProductionBluntCombo::WhooshClip(PojunChixiao::OpeningStage);\n        if(Before<Whoosh&&PojunSlashTime>=Whoosh&&Pawn->IsLocallyControlled())\n            PlayPojunSwing(.95f,.9f);\n        if(Before<ProductionBluntCombo::ContactSeconds&&PojunSlashTime>=ProductionBluntCombo::ContactSeconds&&Pawn->HasAuthority())\n            ResolveBluntContact(BluntHeavyStunSeconds);\n        if(!bBluntUppercut||PojunSlashTime<Handoff)return;\n        PojunSlashTime=-1.f;\n        if(Pawn->HasAuthority())\n            BluntUppercutShot.MasteryAttackSerial=ColdSteelSkills::Snapshot(Pawn,Profile->ActiveProductionTool()).MasteryAttackSerial;\n    }\n    if(PojunAttack==PojunGrip::EAttack::Tengyun&&BluntUppercutTime<RuneSwordUppercutMotion::ReleaseStart)\n        Delta+=FMath::Min(Delta,(RuneSwordUppercutMotion::ReleaseStart-BluntUppercutTime)*.5f);\n    const float Pause=FMath::Min(Delta,BluntUppercutPause);BluntUppercutPause-=Pause;Delta-=Pause;\n    if(Delta<=0.f){if(Viewmodel)Viewmodel->ClearMotionVector();return;}\n    BluntUppercutImpactAge+=Delta;\n    const float End=RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End);\n    float Remaining=FMath::Min(Delta,End-BluntUppercutTime);\n    while(Remaining>UE_SMALL_NUMBER&&bBluntUppercut)\n    {\n        const float Step=FMath::Min(Remaining,1.f/120.f),From=BluntUppercutPoseTime();\n        const float BeforeTime=BluntUppercutTime;\n        BluntUppercutTime+=Step;Remaining-=Step;\n        const float To=BluntUppercutPoseTime();\n        if(!bBluntUppercutReleased&&To>=RuneSwordUppercutMotion::ReleaseStart)\n        {\n            if(Pawn->HasAuthority()&&PojunAttack==PojunGrip::EAttack::Ordinary)\n            {\n                const float StaminaBefore=Profile->Stamina();\n                if(!Profile->CommitSwordUppercutRelease())\n                {ClientBluntUppercutResult(BluntAttackId,false);FinishBluntUppercut();return;}\n                SendBluntMartialReceipt(Profile,BluntAttackId,FMath::Max(0.f,StaminaBefore-Profile->Stamina()));\n            }\n            if(!bBluntUppercut)return;\n            bBluntUppercutReleased=true;\n        }\n        if(BeforeTime<WarhammerUppercutMotion::StrikeStart&&BluntUppercutTime>=WarhammerUppercutMotion::StrikeStart&&\n            Pawn->IsLocallyControlled())\n        {\n            if(bPojunGrip)PlayPojunSwing(.72f,1.1f);\n            else if(auto* Sound=Cast<USoundBase>(WarhammerAudioPaths::Uppercut.ResolveObject()))\n                UGameplayStatics::PlaySound2D(this,Sound,.72f,1.f);\n        }\n        const FTransform Before=Pawn->GetMeleeAimTransform();\n        // Remote authority gets capsule displacement from the shared movement\n        // protocol. Only the owner/listen-host authors the requested stride.\n        if(Pawn->IsLocallyControlled()&&!bBluntUppercutLungeBlocked)\n        {\n            const float Distance=RuneSwordUppercutMotion::LungeDistance*\n                (RuneSwordUppercutMotion::LungeAlpha(RuneSwordUppercutMotion::SkillSourceTime(BluntUppercutTime),true)-\n                 RuneSwordUppercutMotion::LungeAlpha(RuneSwordUppercutMotion::SkillSourceTime(BeforeTime),true));\n            if(Distance>0.f)\n            {\n                auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());\n                if(!Move||!Move->IsMovingOnGround())bBluntUppercutLungeBlocked=true;\n                else\n                {\n                    if(!bBluntUppercutLungeStarted)\n                    {\n                        bBluntUppercutLungeStarted=true;BluntUppercutDirection=Before.GetUnitAxis(EAxis::X).GetSafeNormal2D();\n                        Move->BeginMeleeLungeRequest(EFPSMeleeMove::Uppercut,BluntUppercutDirection);\n                    }\n                    if(Move->IsMeleeLungeRejected())bBluntUppercutLungeBlocked=true;\n                    else\n                    {\n                        const FVector Moved=Move->ApplyMeleeLungeStep(BluntUppercutDirection,Distance);\n                        const float Actual=FMath::Max(0.f,float(FVector::DotProduct(Moved,BluntUppercutDirection)));\n                        Move->RecordMeleeLungeStep(Actual);if(Actual+.01f<Distance)bBluntUppercutLungeBlocked=true;\n                    }\n                }\n            }\n        }\n        if(Pawn->HasAuthority()&&bBluntUppercutReleased&&(BluntUppercutHitActors.IsEmpty()||PojunAttack==PojunGrip::EAttack::Chixiao||PojunAttack==PojunGrip::EAttack::Tengyun))\n            SweepBluntUppercut(From,To,Before,Pawn->GetMeleeAimTransform());\n        if(BluntUppercutPause>0.f)break;\n    }\n    if(bBluntUppercut&&BluntUppercutTime>=End-UE_SMALL_NUMBER)\n    {\n        const bool NextCut=PojunAttack==PojunGrip::EAttack::Tengyun&&bQueuedBluntAttack&&Pawn->IsLocallyControlled();\n        FinishBluntUppercut();\n        if(NextCut)BeginUse();\n    }\n}"
+      },
+      {
+        "line": 182,
+        "code": "void UProductionToolComponent::TickBluntUppercut(float Delta)\n{\n    auto* Pawn=Character.Get();if(!Pawn)return;\n    auto* Profile=Pawn->HasAuthority()?ColdSteelAuthority::ForPawn(Pawn):GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();\n    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;\n    if(!CanUppercut(Pawn,Profile,true)||!Item||Item->InstanceId!=BluntUppercutInstance)\n    {FinishBluntUppercut();return;}\n    ColdSteelAuthority::FScope Scope(Profile);\n    if(!PojunAttackStillEquipped(*Item))\n    {FinishBluntUppercut();return;}\n    Delta*=PojunAttack==PojunGrip::EAttack::Ordinary?HasteActionRate:PojunCutRate();\n    if(PojunSlashTime>=0.f)\n    {\n        const float Before=PojunSlashTime;\n        const float Handoff=PojunChixiao::Handoff;\n        PojunSlashTime=FMath::Min(Handoff,Before+Delta);\n        Delta-=PojunSlashTime-Before;\n        const float Whoosh=ProductionBluntCombo::WhooshClip(PojunChixiao::OpeningStage);\n        if(Before<Whoosh&&PojunSlashTime>=Whoosh&&Pawn->IsLocallyControlled())\n            PlayPojunSwing(.95f,.9f);\n        if(Before<ProductionBluntCombo::ContactSeconds&&PojunSlashTime>=ProductionBluntCombo::ContactSeconds&&Pawn->HasAuthority())\n            ResolveBluntContact(BluntHeavyStunSeconds);\n        if(!bBluntUppercut||PojunSlashTime<Handoff)return;\n        PojunSlashTime=-1.f;\n        if(Pawn->HasAuthority())\n            BluntUppercutShot.MasteryAttackSerial=ColdSteelSkills::Snapshot(Pawn,Profile->ActiveProductionTool()).MasteryAttackSerial;\n    }\n    if(PojunAttack==PojunGrip::EAttack::Tengyun&&BluntUppercutTime<RuneSwordUppercutMotion::ReleaseStart)\n        Delta+=FMath::Min(Delta,(RuneSwordUppercutMotion::ReleaseStart-BluntUppercutTime)*.5f);\n    const float Pause=FMath::Min(Delta,BluntUppercutPause);BluntUppercutPause-=Pause;Delta-=Pause;\n    if(Delta<=0.f){if(Viewmodel)Viewmodel->ClearMotionVector();return;}\n    BluntUppercutImpactAge+=Delta;\n    const float End=RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End);\n    float Remaining=FMath::Min(Delta,End-BluntUppercutTime);\n    while(Remaining>UE_SMALL_NUMBER&&bBluntUppercut)\n    {\n        const float Step=FMath::Min(Remaining,1.f/120.f),From=BluntUppercutPoseTime();\n        const float BeforeTime=BluntUppercutTime;\n        BluntUppercutTime+=Step;Remaining-=Step;\n        const float To=BluntUppercutPoseTime();\n        if(!bBluntUppercutReleased&&To>=RuneSwordUppercutMotion::ReleaseStart)\n        {\n            if(Pawn->HasAuthority()&&PojunAttack==PojunGrip::EAttack::Ordinary)\n            {\n                const float StaminaBefore=Profile->Stamina();\n                if(!Profile->CommitSwordUppercutRelease())\n                {ClientBluntUppercutResult(BluntAttackId,false);FinishBluntUppercut();return;}\n                SendBluntMartialReceipt(Profile,BluntAttackId,FMath::Max(0.f,StaminaBefore-Profile->Stamina()));\n            }\n            if(!bBluntUppercut)return;\n            bBluntUppercutReleased=true;\n        }\n        if(BeforeTime<WarhammerUppercutMotion::StrikeStart&&BluntUppercutTime>=WarhammerUppercutMotion::StrikeStart&&\n            Pawn->IsLocallyControlled())\n        {\n            if(bPojunGrip)PlayPojunSwing(.72f,1.1f);\n            else if(auto* Sound=Cast<USoundBase>(WarhammerAudioPaths::Uppercut.ResolveObject()))\n                UGameplayStatics::PlaySound2D(this,Sound,.72f,1.f);\n        }\n        const FTransform Before=Pawn->GetMeleeAimTransform();\n        // Remote authority gets capsule displacement from the shared movement\n        // protocol. Only the owner/listen-host authors the requested stride.\n        if(Pawn->IsLocallyControlled()&&!bBluntUppercutLungeBlocked)\n        {\n            const float Distance=RuneSwordUppercutMotion::LungeDistance*\n                (RuneSwordUppercutMotion::LungeAlpha(RuneSwordUppercutMotion::SkillSourceTime(BluntUppercutTime),true)-\n                 RuneSwordUppercutMotion::LungeAlpha(RuneSwordUppercutMotion::SkillSourceTime(BeforeTime),true));\n            if(Distance>0.f)\n            {\n                auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());\n                if(!Move||!Move->IsMovingOnGround())bBluntUppercutLungeBlocked=true;\n                else\n                {\n                    if(!bBluntUppercutLungeStarted)\n                    {\n                        bBluntUppercutLungeStarted=true;BluntUppercutDirection=Before.GetUnitAxis(EAxis::X).GetSafeNormal2D();\n                        Move->BeginMeleeLungeRequest(EFPSMeleeMove::Uppercut,BluntUppercutDirection);\n                    }\n                    if(Move->IsMeleeLungeRejected())bBluntUppercutLungeBlocked=true;\n                    else\n                    {\n                        const FVector Moved=Move->ApplyMeleeLungeStep(BluntUppercutDirection,Distance);\n                        const float Actual=FMath::Max(0.f,float(FVector::DotProduct(Moved,BluntUppercutDirection)));\n                        Move->RecordMeleeLungeStep(Actual);if(Actual+.01f<Distance)bBluntUppercutLungeBlocked=true;\n                    }\n                }\n            }\n        }\n        if(Pawn->HasAuthority()&&bBluntUppercutReleased&&(BluntUppercutHitActors.IsEmpty()||PojunAttack==PojunGrip::EAttack::Chixiao||PojunAttack==PojunGrip::EAttack::Tengyun))\n            SweepBluntUppercut(From,To,Before,Pawn->GetMeleeAimTransform());\n        if(BluntUppercutPause>0.f)break;\n    }\n    if(bBluntUppercut&&BluntUppercutTime>=End-UE_SMALL_NUMBER)\n    {\n        const bool NextCut=PojunAttack==PojunGrip::EAttack::Tengyun&&bQueuedBluntAttack&&Pawn->IsLocallyControlled();\n        FinishBluntUppercut();\n        if(NextCut)BeginUse();\n    }\n}"
+      },
+      {
+        "line": 282,
+        "code": "void UProductionToolComponent::SweepBluntUppercut(float From,float To,const FTransform& Before,const FTransform& After)\n{\n    // The idle-grip gather keeps the head beside the torso. Damage begins with\n    // the visible strike/whoosh, not during the preceding foot push-off.\n    const float A=FMath::Max(From,WarhammerUppercutMotion::LoadedSource),B=FMath::Min(To,RuneSwordUppercutMotion::Finish);\n    if(B<=A)return;\n    auto* Pawn=Character.Get();\n    const auto Sample=[&](float Time,const FTransform& Aim)\n    {\n        FRuneSwordBladeSample Result;Result.Origin=Aim.GetLocation();Result.Forward=Aim.GetUnitAxis(EAxis::X);\n        const FVector Local=WarhammerUppercutArc::Sample(Time);\n        const FVector Axis=Local.GetSafeNormal();\n        Result.Base=Aim.TransformPosition(Axis*15.f);\n        Result.Tip=Aim.TransformPosition(Axis*BluntUppercutReach);\n        return Result;\n    };\n    const bool Rising=PojunAttack==PojunGrip::EAttack::Tengyun;\n    const bool Cleave=Rising||PojunAttack==PojunGrip::EAttack::Chixiao;\n    FRuneSwordTraceSettings Settings;Settings.bCleavePawns=Cleave;Settings.bAreaDamage=Rising;Settings.Radius=RuneSwordCombat::BladeRadius*BluntUppercutRange;\n    auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,Sample(A,Before),Sample(B,After),BluntUppercutReach,BluntUppercutHitActors,Settings);\n    if(Rising)Hits.Append(MeleeSmallTargets::QueryLowSector(GetWorld(),Pawn,After,BluntUppercutReach,BluntUppercutHitActors));\n    bool Confirmed=false;\n    for(const auto& Hit:Hits)\n    {\n        auto* Target=Hit.GetActor();if(!IsValid(Target)||BluntUppercutHitActors.Contains(Target))continue;\n        auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();if(Combat&&Combat->IsDead())continue;\n        FWeaponDamageResult Result;\n        const float Applied=ColdSteelSkills::ApplyHit(Pawn,Hit,BluntUppercutDamage,After.GetUnitAxis(EAxis::X),BluntUppercutShot,&Result);\n        if(Applied<=0.f&&!(Combat&&Combat->IsDead()))continue;\n        if(BluntUppercutShot.ItemDefinition==PojunGrip::Weapon)MulticastPojunCutImpact(Hit.ImpactPoint);\n        BluntUppercutHitActors.Add(Target);\n        if(Combat&&!Target->ActorHasTag(TEXT(\"Summoned\"))&&!Target->ActorHasTag(TEXT(\"NoSkillTraining\")))\n        {++BluntUppercutHits;if(Combat->IsDead())++BluntUppercutKills;}\n        Pawn->NotifyConfirmedWeaponHit(Target,Applied,&Result);\n        if(!bBluntUppercut)return;\n        Confirmed=true;\n        if(!Cleave)break;\n    }\n    if(Confirmed)\n    {\n        BluntUppercutPause=HitPause;BluntUppercutImpactAge=0.f;\n        if(!Pawn->IsLocallyControlled())ClientBluntUppercutImpact(BluntAttackId);\n    }\n}"
+      },
+      {
+        "line": 327,
+        "code": "void UProductionToolComponent::FinishBluntUppercut()\n{\n    if(!bBluntUppercut)return;\n    const bool Train=bBluntUppercutReleased&&PojunAttack==PojunGrip::EAttack::Ordinary;\n    PojunAttack=PojunGrip::EAttack::Ordinary;PojunSlashTime=-1.f;PojunAttackItemData.Reset();bQueuedBluntAttack=false;\n    bBluntUppercut=false;bBluntUppercutReleased=false;BluntUppercutPause=0.f;\n    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();\n    if(Train&&Character.IsValid()&&Character->HasAuthority())\n        if(auto* Profile=ColdSteelAuthority::ForPawn(Character.Get()))\n        {ColdSteelAuthority::FScope Scope(Profile);Profile->TrainSwordUppercut(BluntUppercutHits,BluntUppercutKills);}\n    BluntUppercutHitActors.Reset();BluntServerReadyAt=GetWorld()->GetTimeSeconds();VisualTime=0.f;NextBluntStage=0;\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp": {
+    "source_sha256": "cc19cfe642a5787c1327b7290e114d9511509d086d80f6d931e6fd6eb3ab5ee4",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ProductionToolComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/ZhufengSecondaryWhirlwind.h\"\n#include \"../Weapons/RuneSwordOverheadRhythm.h\"\n#include \"../Movement/FPSCharacterMovementComponent.h\""
+      },
+      {
+        "line": 38,
+        "code": "    const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;\n    const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;\n    return Pawn&&Item&&PojunGrip::UsesHammerMotion(*Item)&&PC&&\n        (!Sword||(!Sword->IsGuarding()&&!Sword->IsPojunChainOccupied()))&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&\n        !Pawn->IsTraversing()&&!Pawn->IsDodging()&&!Pawn->IsSliding()&&!Pawn->IsCastBlockingLeftHandAction()&&\n        !UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&(!Health||!Health->IsDead())&&\n        !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Build||!Build->IsBuilding());"
+      },
+      {
+        "line": 96,
+        "code": "    BluntWhirlwindHitCount=BluntWhirlwindKillCount=0;BluntWhirlwindHitActors.Reset();\n    BluntWhirlwindInstance=Item->InstanceId;BluntWhirlwindYaw=Character->GetControlRotation().Yaw;\n    const bool Zhufeng=PojunAttack==PojunGrip::EAttack::Zhufeng;\n    BluntWhirlwindCast=Zhufeng?Profile->ZhufengWhirlwindStats():Profile->WhirlwindStats();\n    BluntWhirlwindTuning=Profile->MasteryDefinition(TEXT(\"whirlwind\")).Whirlwind;\n    if(Zhufeng)BluntWhirlwindTuning=ZhufengSecondaryWhirlwind::Resolve(BluntWhirlwindTuning);"
+      },
+      {
+        "line": 134,
+        "code": "float UProductionToolComponent::BluntWhirlwindPoseTime() const\n{\n    const auto& T=BluntWhirlwindTuning;\n    const float Time=BluntWhirlwindTime;\n    if(Time<T.ReadySeconds)return .5f*Time/FMath::Max(.001f,T.ReadySeconds);\n    if(Time<T.ReadySeconds+T.SpinSeconds)return .5f+.8f*(Time-T.ReadySeconds)/FMath::Max(.001f,T.SpinSeconds);\n    return 1.3f+.52f*FMath::Clamp((Time-T.ReadySeconds-T.SpinSeconds)/FMath::Max(.001f,T.RecoverSeconds),0.f,1.f);\n}"
+      },
+      {
+        "line": 143,
+        "code": "void UProductionToolComponent::TickBluntWhirlwind(float Delta)\n{\n    auto* Pawn=Character.Get();if(!Pawn)return;\n    auto* Profile=Pawn->HasAuthority()?ColdSteelAuthority::ForPawn(Pawn):GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();\n    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;\n    const bool Zhufeng=PojunAttack==PojunGrip::EAttack::Zhufeng;\n    if(!CanWhirlwind(Pawn,Profile,true)||!Item||Item->InstanceId!=BluntWhirlwindInstance||\n        !PojunAttackStillEquipped(*Item))\n    {FinishBluntWhirlwind();return;}\n    const auto& T=BluntWhirlwindTuning;\n    Delta*=HasteActionRate;\n    const float Pause=FMath::Min(Delta,BluntWhirlwindPause);BluntWhirlwindPause-=Pause;Delta-=Pause;\n    if(Delta<=0.f)\n    {\n        if(Pawn->IsLocallyControlled()&&Viewmodel)Viewmodel->ClearMotionVector();\n        return;\n    }\n    BluntWhirlwindImpactAge+=Delta;\n    const float End=T.ReadySeconds+T.SpinSeconds+T.RecoverSeconds;\n    float Remaining=FMath::Min(Delta,End-BluntWhirlwindTime);\n    while(Remaining>UE_SMALL_NUMBER&&bBluntWhirlwind)\n    {\n        const float Step=FMath::Min(Remaining,1.f/120.f),Before=BluntWhirlwindTime;\n        BluntWhirlwindTime+=Step;Remaining-=Step;\n        if(Zhufeng&&Pawn->IsLocallyControlled())AdvanceBluntSprintLunge(Before,BluntWhirlwindTime);\n        const float A=WhirlwindFeel::Phase(Before,T),B=WhirlwindFeel::Phase(BluntWhirlwindTime,T);\n        FRotator Aim=Pawn->GetControlRotation();Aim.Yaw=BluntWhirlwindYaw+T.TurnDegrees*B;\n        Pawn->GetController()->SetControlRotation(Aim);\n        if(Pawn->IsLocallyControlled()&&((A<.035f&&B>=.035f)||(!Zhufeng&&A<.535f&&B>=.535f)))\n        {\n            if(bPojunGrip)PlayPojunSwing(B<.5f?.95f:.78f,B<.5f?.9f:1.1f);\n            else if(auto* Sound=Cast<USoundBase>(Whoosh.ResolveObject()))UGameplayStatics::PlaySound2D(this,Sound,.7f,B<.5f?.9f:1.05f);\n        }\n        if(Pawn->HasAuthority()&&B>A)SweepBluntWhirlwind(T.TurnDegrees*A,T.TurnDegrees*B);\n        if(BluntWhirlwindPause>0.f)break;\n    }\n    if(!bBluntWhirlwind)return;\n    Pawn->FaceRotation(Zhufeng?FRotator(0.f,BluntWhirlwindYaw,0.f):Pawn->GetControlRotation(),0.f);\n    if(BluntWhirlwindTime>=T.ReadySeconds+T.SpinSeconds)TrainBluntWhirlwind();\n    if(BluntWhirlwindTime>=End-UE_SMALL_NUMBER)FinishBluntWhirlwind();\n}"
+      },
+      {
+        "line": 185,
+        "code": "void UProductionToolComponent::SweepBluntWhirlwind(float From,float To)\n{\n    auto* Pawn=Character.Get();auto* Profile=ColdSteelAuthority::ForPawn(Pawn);ColdSteelAuthority::FScope Scope(Profile);\n    const FVector Origin=Pawn->GetMeleeAimTransform().GetLocation()-FVector(0,0,45.f);\n    auto Sample=[&](float Degrees)\n    {\n        FRuneSwordBladeSample S;S.Origin=Origin;S.Forward=FRotator(0,BluntWhirlwindYaw+90.f+Degrees,0).Vector();\n        S.Base=Origin+S.Forward*15.f;S.Tip=Origin+S.Forward*BluntWhirlwindCast.RadiusCM;return S;\n    };\n    FRuneSwordTraceSettings Settings;Settings.Radius=32.f;Settings.bCleavePawns=true;Settings.bAreaDamage=true;\n    const auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,Sample(From),Sample(To),BluntWhirlwindCast.RadiusCM,BluntWhirlwindHitActors,Settings);\n    int32 Confirmed=0;\n    for(const auto& Hit:Hits)\n    {\n        auto* Target=Hit.GetActor();auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;\n        if(!IsValid(Target)||BluntWhirlwindHitActors.Contains(Target)||(Combat&&Combat->IsDead()))continue;\n        BluntWhirlwindHitActors.Add(Target);\n        const FVector Direction=(Target->GetActorLocation()-Pawn->GetActorLocation()).GetSafeNormal2D();\n        FWeaponDamageResult Result;\n        const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(Pawn,Target);\n        auto HitShot=BluntWhirlwindShot;HitShot.ExtraMasteryExperience=Eligible&&BluntWhirlwindHitCount==1?Profile->MasteryDefinition(HitShot.MasteryId).MultiHitExperience:0;\n        const float Applied=ColdSteelSkills::ApplyHit(Pawn,Hit,BluntWhirlwindCast.Damage,Direction,HitShot,&Result);\n        const bool Killed=Combat&&Combat->IsDead();if(Applied<=0.f&&!Killed)continue;\n        if(HitShot.ItemDefinition==PojunGrip::Weapon)MulticastPojunCutImpact(Hit.ImpactPoint);\n        ++Confirmed;\n        if(Eligible)\n        {++BluntWhirlwindHitCount;if(Killed)++BluntWhirlwindKillCount;}\n        if(Combat&&!Killed)Combat->ReceiveStun(Pawn,BluntWhirlwindCast.StunSeconds,BluntWhirlwindCast.KnockbackCM);\n        Pawn->NotifyConfirmedWeaponHit(Target,Applied,&Result);\n    }\n    if(Confirmed)\n    {\n        const float Pause=FMath::Max(0.f,FMath::Min(BluntWhirlwindTuning.HitStopSeconds,BluntWhirlwindTuning.HitStopBudget-BluntWhirlwindPauseSpent));\n        BluntWhirlwindPause=Pause;BluntWhirlwindPauseSpent+=Pause;\n        BluntWhirlwindImpactAge=0.f;BluntWhirlwindImpactStrength=1.f+.12f*FMath::Min(Confirmed-1,3);\n        if(!Pawn->IsLocallyControlled())ClientBluntWhirlwindImpact(BluntAttackId,Pause,BluntWhirlwindImpactStrength);\n    }\n}"
+      },
+      {
+        "line": 229,
+        "code": "        {\n            ColdSteelAuthority::FScope Scope(Profile);\n            if(PojunAttack==PojunGrip::EAttack::Zhufeng)Profile->TrainDashAttack(BluntWhirlwindHitCount,BluntWhirlwindKillCount);\n            else Profile->TrainWhirlwind(BluntWhirlwindHitCount,BluntWhirlwindKillCount);\n        }\n}"
+      },
+      {
+        "line": 236,
+        "code": "void UProductionToolComponent::FinishBluntWhirlwind()\n{\n    if(!bBluntWhirlwind)return;\n    bBluntWhirlwind=false;BluntWhirlwindPause=0.f;\n    EndBluntWhirlwindFocus();\n    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();\n    TrainBluntWhirlwind();BluntWhirlwindHitActors.Reset();BluntServerReadyAt=GetWorld()->GetTimeSeconds();\n    if(PojunAttack==PojunGrip::EAttack::Zhufeng)\n    {\n        PojunAttack=PojunGrip::EAttack::Ordinary;PojunAttackItemData.Reset();bBluntServerSprintAttack=false;\n        if(auto* Move=Cast<UFPSCharacterMovementComponent>(Character->GetCharacterMovement()))Move->CancelHammerSprintMove(BluntAttackId);\n    }\n    VisualTime=0.f;NextBluntStage=0;\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionToolComponent.cpp": {
+    "source_sha256": "c802b342c5d81a90291c55dcdc2c52d4bad2d2fc9071ba6302217cd2cae25da5",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ProductionToolComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/BeiweiSwordTrailComponent.h\"\n#include \"../Weapons/MeleeRuneVisual.h\"\n#include \"../Weapons/FrostSwordRunes.h\""
+      },
+      {
+        "line": 157,
+        "code": "{\n    bConicalSeat=ConicalHammerSeat::Installed(Item);\n    bPojunGrip=Item&&PojunGrip::Installed(*Item);\n    const FString PojunRune=bPojunGrip?ColdSteelMeleeRune::Selected(*Item):FString();\n    bPojunZhufengRune=PojunRune==ColdSteelFrostRunes::Zhufeng;\n    if(!PojunRuneTrail&&(bPojunZhufengRune||PojunRune==ColdSteelFrostRunes::Chixiao)&&Character.IsValid()&&Character->IsLocallyControlled()&&GetNetMode()!=NM_DedicatedServer)\n    {\n        PojunRuneTrail=NewObject<UBeiweiSwordTrailComponent>(GetOwner());\n        GetOwner()->AddInstanceComponent(PojunRuneTrail);\n        PojunRuneTrail->SetView(true,false);\n        PojunRuneTrail->RegisterComponent();\n    }\n    if(bPojunGrip)\n    {\n        const FTransform Mount=ColdSteelModularSword::BoneMount(*Item);\n        PojunBladeBase=Mount.TransformPosition(ColdSteelModularSword::BladePoint(*Item,false));\n        PojunBladeTip=Mount.TransformPosition(ColdSteelModularSword::BladePoint(*Item,true));\n    }\n    if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))\n        Arms->SetFloorMarker(bPojunGrip?PojunBladeTip:WarhammerHeavy::HeadMarker);\n    ConicalStrikeLocal=Item?ConicalHammerSeat::StrikeLocal(Item->Definition):FVector::ZeroVector;\n    bFinalTollHead=Item&&RuneboundHammer::HasFinalToll(*Item);\n    bThunderThrowSeat=Item&&ThunderHammerThrow::Installed(*Item,Profile);"
+      },
+      {
+        "line": 184,
+        "code": "    HasteActionRate=LightningHaste::ActionSpeed(GetOwner());\n    // Sprint slams use their own action clock, outside the normal swing rate.\n    if(const auto* Grip=PojunGrip::Modifiers(Item,Profile))HasteActionRate*=float(Grip->AttackSpeed);\n    if(Item&&PojunGrip::UsesHammerMotion(*Item))\n    {\n        SwingSeconds=float(ToolStats.SwingSeconds*RateScale);ContactSeconds=float(ToolStats.ContactSeconds*RateScale);\n        BluntChargeSeconds=float(ToolStats.HeavyChargeSeconds);"
+      },
+      {
+        "line": 221,
+        "code": "    // 同一实例只是改造数据变了：保留已加载的视模与动作，只重算数值，手上工具不闪帧。\n    // Only the motion resources come from the hammer. Assembly, stats and saved identity use the dao.\n    const bool Pojun=Item&&PojunGrip::Installed(*Item);\n    FColdSteelItem HammerMotion;\n    if(Pojun)HammerMotion.Data=Profile->ItemDefinitions().FindRef(TEXT(\"ue_steel_warhammer\"));\n    const FColdSteelItem* MotionItem=Pojun?&HammerMotion:Item;\n    const bool SameArms=Item&&Viewmodel&&Viewmodel->GetSkeletalMeshAsset()&&\n        Viewmodel->GetSkeletalMeshAsset()->GetPathName()==ColdSteelInventory::Text(*MotionItem,TEXT(\"tool_viewmodel\"));\n    const bool SameModules=!Item||!ColdSteelModularSword::Supports(*Item)||"
+      },
+      {
+        "line": 231,
+        "code": "    if (Id==EquippedId && Item && (!bUsesArms||SameArms)&&SameModules) { EquippedDataHash=DataHash; ApplyToolStats(Item,Profile); return; }\n    CancelUse(); EquippedId=Id; EquippedDataHash=DataHash; Kind.Reset(); Feedback.Reset(); ScheduleWalkInspect(false);\n    PojunStrikeLocal.Reset();bPojunZhufengRune=false;\n    if(PojunRuneTrail)PojunRuneTrail->Clear();\n    LeiXiCoreMaterial.Reset();bLeiXiCoreActive=false;\n    ColdSteelModularSword::Clear(ToolMesh);\n    ToolMesh->ComponentTags.Remove(TEXT(\"WarhammerModule\"));"
+      },
+      {
+        "line": 245,
+        "code": "    Viewmodel->SetRelativeLocationAndRotation(FVector::ZeroVector,FRotator(0,90,0));\n    if (LoadHandle) { LoadHandle->CancelHandle(); LoadHandle.Reset(); }\n    if (!Item) { bPojunGrip=false; ToolStats=FProductionToolStats{}; RateScale=1.f; return; }\n    Kind=ColdSteelInventory::Text(*MotionItem,TEXT(\"tool_kind\")); ToolName=ColdSteelInventory::Text(*Item,TEXT(\"name\"));\n    // Publish the complete arm pose before the camera cache; post-update poses\n    // can expose a near-camera shoulder cut for one frame during movement."
+      },
+      {
+        "line": 266,
+        "code": "        ColdSteelInventory::Number(*Item,TEXT(\"mount_yaw\")),ColdSteelInventory::Number(*Item,TEXT(\"mount_roll\"))));\n    const FSoftObjectPath MeshPath(ColdSteelInventory::Text(*Item,TEXT(\"tool_mesh\")));\n    const FSoftObjectPath SoundPath(Pojun?ColdSteelInventory::Text(*Item,TEXT(\"hit_sound\")):ColdSteelInventory::Text(*MotionItem,TEXT(\"tool_sound\")));\n    const FSoftObjectPath DustPath(TEXT(\"/Game/EasyBuildingSystem/Effects/PS_Dust.PS_Dust\"));\n    const FSoftObjectPath ViewmodelPath(ColdSteelInventory::Text(*MotionItem,TEXT(\"tool_viewmodel\")));\n    const FSoftObjectPath SwingPath(Pojun?ColdSteelInventory::Text(*Item,TEXT(\"swing_sound\")):ColdSteelInventory::Text(*MotionItem,TEXT(\"tool_swing_sound\")));\n    const FString MotionPrefix=ColdSteelInventory::Text(*MotionItem,TEXT(\"tool_animation_prefix\"));\n    const FString BluntMotionPrefix=TEXT(\"/Game/Weapons/SteelWarhammer20261014/SprintDragV1/A_Warhammer_\");\n    const FString ComboMotionPrefix=TEXT(\"/Game/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_\");"
+      },
+      {
+        "line": 297,
+        "code": "        Paths.Add(FSoftObjectPath(WarhammerRift::Material));\n        Paths.Add(FSoftObjectPath(TEXT(\"/Game/Weapons/SteelWarhammer20261014/LeapStrikeV2/SM_LeapGroundWave.SM_LeapGroundWave\")));\n        if(Pojun)\n        {\n            Paths.Add(FSoftObjectPath(PojunGrip::SwordAttackLayer));\n            Paths.Add(FSoftObjectPath(TEXT(\"/Game/Weapons/AzureRunesword20260913/WristRiftV3/M_RuneRift.M_RuneRift\")));\n        }\n        else"
+      },
+      {
+        "line": 390,
+        "code": "                    const FTransform Mount=ColdSteelModularSword::BoneMount(*Current);\n                    ToolMesh->SetRelativeTransform(Mount);\n                    if(bPojunGrip)\n                        if(const auto Contact=ColdSteelModularSword::PommelContact(ToolMesh,*Current);Contact.IsSet())\n                            PojunStrikeLocal=Mount.TransformPosition(Contact.GetValue());\n                    for(auto* Part:ColdSteelModularSword::Components(ToolMesh))Part->ComponentTags.AddUnique(TEXT(\"WarhammerModule\"));\n                    // Keep the live, repaired V7 hands and every existing animation.\n                    // Only the original integral hammer section is replaced."
+      },
+      {
+        "line": 435,
+        "code": "}\n\nvoid UProductionToolComponent::PlayPojunSwing(float Volume,float Pitch) const\n{\n    if(auto* Layer=Cast<USoundBase>(FSoftObjectPath(PojunGrip::SwordAttackLayer).ResolveObject()))\n        UGameplayStatics::PlaySound2D(this,Layer,1.f,1.f);\n    if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,Volume,Pitch);\n}"
+      },
+      {
+        "line": 444,
+        "code": "void UProductionToolComponent::BeginUse()\n{\n    if(IsPojunChainOccupied()||IsQuickCombatActive())return;\n    if(IsLeapStrikeActive())return;\n    if(IsThunderHammerAway()||ThunderCatchAge>=0.f||ThunderCallReleaseAge>=0.f)return;\n    if(Character.IsValid()&&Character->RuneSword&&Character->RuneSword->IsToolGuardRequested())return;\n    if(bBluntUppercut&&PojunAttack==PojunGrip::EAttack::Tengyun&&BluntUppercutTime>=WarhammerUppercutMotion::StrikeFinish)\n        bQueuedBluntAttack=true;\n    if(bBluntCharging||bBluntReturningCharge||bBluntWhirlwind||bBluntUppercut)return;\n    if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedBluntAttack=false;return;}"
+      },
+      {
+        "line": 485,
+        "code": "                if(!GenericReceipt)return;\n            }\n            const bool Zhufeng=bBluntSprintAttack&&PojunGrip::Attack(*Item,false,true,2)==PojunGrip::EAttack::Zhufeng;\n            const double AttackCost=Zhufeng?Profile->DashAttackStats().StaminaCost:Kind==TEXT(\"warhammer\")&&bBluntHeavy&&!bBluntSprintAttack?\n                ToolStats.HeavyReleaseStaminaCost:ToolStats.StaminaCost;\n            if(GetNetMode()==NM_Standalone&&!Profile->SpendStamina(float(FMath::Max(0.,AttackCost))))"
+      },
+      {
+        "line": 523,
+        "code": "        {Feedback=TEXT(\"体力不足，稍作休息再采集\");FeedbackSeconds=1.5f;return;}\n    }\n    if(bPojunGrip)\n    {\n        auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();\n        const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;\n        const auto Attack=Item?PojunGrip::Attack(*Item,bBluntHeavy,bBluntSprintAttack,BluntStage):PojunGrip::EAttack::Ordinary;\n        if(Attack!=PojunGrip::EAttack::Ordinary)\n        {\n            const bool Sprint=bBluntSprintAttack;\n            if(!bBluntReleaseCharge)++BluntAttackId;\n            if(GetNetMode()==NM_Standalone||!Character->HasAuthority())StartPojunAttack(Attack,Profile);\n            else\n            {\n                // A listen host resolves the stage in the RPC. Keep an ordinary swing"
+      },
+      {
+        "line": 585,
+        "code": "        // tick. Mark it consumed so AdvanceActionBeforeCamera cannot replay it.\n        bSwingSoundPlayed=true;\n        if(bPojunGrip)PlayPojunSwing(.95f,.9f);\n        else if(auto* Sound=Cast<USoundBase>(WarhammerAudioPaths::Uppercut.ResolveObject()))\n            UGameplayStatics::PlaySound2D(this,Sound,.72f,1.f,WarhammerAudioPaths::HeavyStartSeconds);\n    }"
+      },
+      {
+        "line": 625,
+        "code": "void UProductionToolComponent::CancelUse()\n{\n    if(IsPojunChainOccupied())Character->RuneSword->CancelAction();\n    SetLeapAimPreview(false);\n    ThunderCallReleaseAge=-1.f;bThunderCallCharging=false;bThunderCallHoldConfirmed=false;ClearThunderCallVisual();FinishThunderCallResources();\n    FPSMagicPreview::Clear(ThunderPreview);ThunderCatchAge=-1.f;"
+      },
+      {
+        "line": 781,
+        "code": "        CancelUse();return;\n    }\n    if(IsPojunChainOccupied())return;\n    if(IsQuickCombatActive()){Character->QuickCombatPistol->AdvanceAction(Delta);return;}\n    if(bLeapStrike){TickLeapStrike(Delta);return;}\n    if(bBluntWhirlwind){TickBluntWhirlwind(Delta);return;}"
+      },
+      {
+        "line": 819,
+        "code": "            // the uppercut recording and its shortened lead-in. Both assets\n            // are retained by the equipment load handle before the strike.\n            if(bPojunGrip)PlayPojunSwing(bBluntHeavy?.95f:.72f,bBluntHeavy?.9f:1.f);\n            else\n            {\n                USoundBase* Sound=SwingSound.Get();"
+      },
+      {
+        "line": 869,
+        "code": "        if(Now<BluntServerReadyAt)\n        {\n            if(PojunAttack!=PojunGrip::EAttack::Zhufeng)UpdateBluntSprintAnchor(Now<BluntServerSprintContactAt);\n        }\n        else bBluntServerSprintAttack=false;\n    }"
+      },
+      {
+        "line": 893,
+        "code": "    if (!Usable&&!GuardBreakPresentation&&!Away&&!Catching) CancelUse();\n    if(Present && bUsesArms && HasReadyPresentation())UpdateHandPresentation(Delta);\n    UpdatePojunRuneTrail(Present);\n    TickWarhammerRifts(Delta,Present);\n    FeedbackSeconds=FMath::Max(0.f,FeedbackSeconds-Delta);\n    HintCountdown-=Delta;"
+      },
+      {
+        "line": 924,
+        "code": "        ThrownHammer->ReturnToStorage();\n    }\n    if(PojunRuneTrail){PojunRuneTrail->DestroyComponent();PojunRuneTrail=nullptr;}\n    ClearWarhammerRifts(true);\n    ClearRuneboundPresentation();\n    ClearStormDriveLightning();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionToolComponent.h": {
+    "source_sha256": "08e8e5a4b1775cb99cf19906cbb1413207869ad6e27fa39d3010066746554f86",
+    "sections": [
+      {
+        "line": 5,
+        "code": "#include \"ProductionAxeImpactMotion.h\"\n#include \"ProductionToolStats.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"WarhammerHeavyMotion.h\"\n#include \"../Weapons/TwoHandInspectAudio.h\"\n#include \"FinalTollHeavyMotion.h\""
+      },
+      {
+        "line": 69,
+        "code": "    void RecordStormDriveHit(const FColdSteelSkillShot& Shot,const FHitResult& Hit);\n    bool IsEquipped() const { return !EquippedId.IsEmpty(); }\n    bool IsPojunChainOccupied() const;\n    bool IsBusy() const { return IsPojunChainOccupied() || IsLeapStrikeActive() || IsThunderRecallLocked() || Elapsed>=0.f || EquipElapsed>=0.f || ThunderCallReleaseAge>=0.f || ThunderCatchAge>=0.f || bBluntCharging || bBluntReturningCharge || bBluntWhirlwind || bBluntUppercut || IsQuickCombatActive() || IsGuardActive(); }\n    bool IsWarhammerEquipped() const { return IsEquipped() && Kind==TEXT(\"warhammer\"); }\n    bool IsGuardActive() const;\n    bool HasAuthorityAttackInFlight() const;"
+      },
+      {
+        "line": 117,
+        "code": "    bool IsWhirlwindActive() const { return bBluntWhirlwind; }\n    bool BeginUppercut();\n    bool IsPojunUppercutStride() const { return bBluntUppercut&&PojunAttack!=PojunGrip::EAttack::Ordinary&&PojunSlashTime<0.f; }\n    bool IsUppercutActive() const { return bBluntUppercut; }\n    FString UppercutStatusText() const;\n    bool BeginLeapStrike();"
+      },
+      {
+        "line": 215,
+        "code": "    bool bConicalSeat=false;\n    FVector ConicalStrikeLocal=FVector::ZeroVector;\n    bool bPojunGrip=false,bPojunZhufengRune=false;\n    UPROPERTY(Transient) TObjectPtr<class UBeiweiSwordTrailComponent> PojunRuneTrail;\n    bool ChixiaoTrailActive() const;\n    bool ZhufengTrailActive() const;\n    void UpdatePojunRuneTrail(bool Present);\n    FVector PojunBladeBase=FVector::ZeroVector,PojunBladeTip=FVector::ZeroVector;\n    TOptional<FVector> PojunStrikeLocal;\n    uint8 FinalTollStrikes=0;\n    uint32 FinalTollHeavySerial=0;\n    double FinalTollCommitUntil=0.;"
+      },
+      {
+        "line": 304,
+        "code": "    FColdSteelSkillShot BluntUppercutShot;\n    TSet<TWeakObjectPtr<AActor>> BluntUppercutHitActors;\n    PojunGrip::EAttack PojunAttack=PojunGrip::EAttack::Ordinary;\n    float PojunSlashTime=-1.f;\n    float PojunCutRate() const;\n    FString PojunAttackItemData;\n    bool PojunAttackStillEquipped(const FColdSteelItem& Item);\n    void StartPojunAttack(PojunGrip::EAttack Attack,UColdSteelStatusModel* Profile);\n    void StartBluntUppercut(UColdSteelStatusModel* Profile);\n    void TickBluntUppercut(float Delta);\n    void SweepBluntUppercut(float From,float To,const FTransform& Before,const FTransform& After);"
+      },
+      {
+        "line": 539,
+        "code": "    bool HasReadyPresentation() const;\n    void SampleMotion(FName Clip,float Seconds);\n    void SamplePojunChain(float Source,float Length,TConstArrayView<float> Contacts);\n    void PlayPojunSwing(float Volume,float Pitch=1.f) const;\n    UFUNCTION(NetMulticast,Unreliable) void MulticastPojunCutImpact(FVector_NetQuantize Location);\n    void UpdateHandPresentation(float Delta);\n    void UpdateTwoHandLocomotion(float Delta);\n    void UpdateHint();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionToolMotion.cpp": {
+    "source_sha256": "eadb6e36ba926bddb43c1ce2b2ee441fcc1ac1c2b245a8609225fb6450594385",
+    "sections": [
+      {
+        "line": 95,
+        "code": "bool UProductionToolComponent::GetEnchantmentBladeSpan(FVector& Base,FVector& Tip) const\n{\n    if(bPojunGrip){Base=PojunBladeBase;Tip=PojunBladeTip;return true;}\n    const auto* Anchor=ElectricAnchors.Find(Kind);if(!Anchor)return false;\n    Base=Anchor->Base;Tip=Anchor->Tip;return true;\n}"
+      },
+      {
+        "line": 104,
+        "code": "    UAnimSequence* Motion=Motions.FindRef(Clip);\n    if(!Motion || !Viewmodel)return;\n    const bool ChainCut=Clip==TEXT(\"PojunChain\");\n    // An interrupted cast can restart the same sequence before returning to idle.\n    const bool RestartChainCut=ChainCut&&CurrentMotion==Motion&&Seconds+UE_SMALL_NUMBER<Viewmodel->GetPosition();\n    if(CurrentMotion!=Motion||RestartChainCut)"
+      },
+      {
+        "line": 118,
+        "code": "            if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();\n        bBluntHandoffEntry=false;\n        const bool ChixiaoOpening=PojunSlashTime>=0.f&&Clip==ProductionBluntCombo::Swing(PojunChixiao::OpeningStage);\n        const bool ContactEntry=Clip==TEXT(\"ActiveHitRecover\")&&CurrentMotion==Motions.FindRef(TEXT(\"ActiveSwing\"));\n        // An interrupted inspect can be mid-turn with loose palms: hand off around the shaft.\n        const bool LeavingInspect=CurrentMotion&&(CurrentMotion==Motions.FindRef(TEXT(\"Inspect\"))||CurrentMotion==Motions.FindRef(TEXT(\"InspectWalk\")));"
+      },
+      {
+        "line": 144,
+        "code": "            if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(.14f,true,true);\n        if(ChixiaoOpening)\n            if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(PojunChixiao::Release-PojunChixiao::Start,true);\n        if(!bLeapStrike&&(Clip==TEXT(\"Whirlwind\")||Clip==TEXT(\"Uppercut\")))\n            if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(.10f,true);\n        Viewmodel->PlayAnimation(Motion,false);"
+      },
+      {
+        "line": 154,
+        "code": "    if(bBluntWhirlwind&&Clip==TEXT(\"Whirlwind\"))\n        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetWhirlwindEntryTime(BluntWhirlwindTime);\n    if(PojunSlashTime>=0.f&&Clip==ProductionBluntCombo::Swing(PojunChixiao::OpeningStage))\n        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetWhirlwindEntryTime(PojunSlashTime-PojunChixiao::Start);\n    if(bBluntUppercut&&Clip==TEXT(\"Uppercut\"))\n        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetWhirlwindEntryTime(BluntUppercutTime);\n    if(ChainCut)"
+      },
+      {
+        "line": 177,
+        "code": "}\n\nbool UProductionToolComponent::IsPojunChainOccupied() const\n{\n    return Character.IsValid()&&Character->RuneSword&&Character->RuneSword->IsPojunChainOccupied();\n}\n\nvoid UProductionToolComponent::SamplePojunChain(float Source,float Length,TConstArrayView<float> Contacts)\n{\n    const auto Phase=ChainSlashMotion::Phase(Source,Length,Contacts);\n    Viewmodel->SetRelativeLocationAndRotation(FVector::ZeroVector,FRotator(0,90,0));\n    if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))Arms->SetFloorContact(FVector::ZeroVector,0.f);\n    SampleMotion(TEXT(\"PojunChain\"),Source);\n    FeedWarhammerRift(TEXT(\"PojunChain\"),Source,Phase.Cut,Phase.Contact);\n}\n\nvoid UProductionToolComponent::UpdateHandPresentation(float Delta)"
+      },
+      {
+        "line": 200,
+        "code": "    if(IsThunderHammerAway()&&Elapsed<0.f)return;\n    if(bLeapStrike){PresentLeapStrike();return;}\n    if(IsPojunChainOccupied())return;\n    // Every action, sprint, jump or dodge takes over from the cosmetic inspect.\n    if(InspectElapsed>=0.f&&ShouldBreakInspect())CancelInspect();\n    if(PresentGuardPose())return;"
+      },
+      {
+        "line": 216,
+        "code": "    {\n        Viewmodel->SetRelativeLocationAndRotation(FVector::ZeroVector,FRotator(0,90,0));\n        if(PojunSlashTime>=0.f)SampleMotion(ProductionBluntCombo::Swing(PojunChixiao::OpeningStage),PojunSlashTime);\n        else SampleMotion(TEXT(\"Uppercut\"),BluntUppercutPoseTime());\n        return;\n    }"
+      },
+      {
+        "line": 367,
+        "code": "    if(bBluntUppercut)\n    {\n        if(PojunSlashTime>=0.f)\n        {\n            ProductionBluntCombo::SampleCamera(PojunSlashTime,PojunChixiao::OpeningStage,false,Location,Rotation);\n            const float Blend=FMath::SmoothStep(PojunChixiao::Start,PojunChixiao::Release,PojunSlashTime);\n            Location=FMath::Lerp(FVector(-13.f,6.f,3.f),Location,Blend);\n            Rotation=FMath::Lerp(FRotator(7.8f,6.f,5.f),Rotation,Blend);\n            return;"
+      },
+      {
+        "line": 377,
+        "code": "        WarhammerUppercutMotion::Camera(BluntUppercutTime,!bBluntUppercutLungeBlocked,Location,Rotation);\n        Location*=1.1f;Rotation*=1.1f;\n        if(PojunAttack==PojunGrip::EAttack::Chixiao&&BluntUppercutTime<.10f)\n        {\n            FVector FromLocation;FRotator FromRotation;\n            ProductionBluntCombo::SampleCamera(PojunChixiao::Handoff,PojunChixiao::OpeningStage,false,FromLocation,FromRotation);\n            const float Blend=FMath::SmoothStep(0.f,.10f,BluntUppercutTime);\n            Location=FMath::Lerp(FromLocation,Location,Blend);\n            Rotation=FMath::Lerp(FromRotation,Rotation,Blend);"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionToolStats.cpp": {
+    "source_sha256": "ed831dfeac24fe7b28d8321fd41ac403541a159003cfad89c6d232937fb17a89",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ProductionToolStats.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/ModularSwordVisual.h\"\n#include \"../Skills/LightningHasteSpeed.h\"\n#include \"../FPSGAMECharacter.h\""
+      },
+      {
+        "line": 17,
+        "code": "bool ColdSteelTool::Supports(const FColdSteelItem& Item)\n{\n    return ColdSteelInventory::IsEquippedProductionTool(Item) || PojunGrip::UsesHammerMotion(Item);\n}\n\nFProductionToolStats ColdSteelTool::Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Preview,const FMeleeModifiers* BluntOverride)"
+      },
+      {
+        "line": 28,
+        "code": "    R.bModifiable=Gunsmith&&Gunsmith->IsTool(Item.Definition);\n    if(R.bModifiable)R.Modifiers=Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Tool;\n    const bool Pojun=Item.Definition==PojunGrip::Weapon&&(Preview?Preview->FindRef(TEXT(\"grip\"))==PojunGrip::Part:PojunGrip::Installed(Item));\n    const bool Blunt=Pojun||ColdSteelInventory::IsTwoHandedBlunt(Item);\n    FMeleeModifiers BluntModifiers;\n    if(Blunt&&Gunsmith)\n    {"
+      },
+      {
+        "line": 36,
+        "code": "        BluntModifiers=BluntOverride?*BluntOverride:Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Melee;\n        R.Modifiers.Damage=BluntModifiers.Damage;\n        if(Pojun&&ColdSteelModularSword::UsesOverheadFinisher(Item,Preview))\n            R.PofengFinisherMultiplier=BluntModifiers.ComboMultiplier(3);\n    }\n"
+      },
+      {
+        "line": 82,
+        "code": "            FMath::Max(.1,Enhancement?Enhancement->Effect(Item,TEXT(\"attackIntervalMul\"),1):1.),.2,4.)/\n            (Profile?Profile->MeleeMasteryIntervalMultiplier(Item):1.f);\n        R.SwingSeconds=ColdSteelInventory::Number(Item,Pojun?TEXT(\"attack_seconds\"):TEXT(\"swing_seconds\"),1.16)/R.RateScale;\n        R.ContactSeconds=ColdSteelInventory::Number(Item,TEXT(\"contact_seconds\"),Pojun?1.24125:.6)/R.RateScale;\n        if(Pojun)R.CombatReachCM=RuneSwordCombatTuning::ScaledReach(ColdSteelInventory::Number(Item,TEXT(\"melee_reach_cm\"),225))*BluntModifiers.Range;\n        const auto Heavy=Profile?Profile->MasteryEffect(TEXT(\"heavyStrike\")):FColdSteelSkillEffect{};\n        R.HeavyDamageMultiplier=BluntModifiers.HeavyMultiplier(Profile?Heavy.HeavyMultiplier:WarhammerHeavy::DamageMultiplier);\n        R.HeavyChargeSpeedBonus=BluntModifiers.HeavyChargeSpeedBonus+"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionWarhammerRift.cpp": {
+    "source_sha256": "90ba756000e200eb17fbe2556f3bcf2b8b7ca1ed34fac7d72dcd6e13d0e7b92a",
+    "sections": [
+      {
+        "line": 47,
+        "code": "bool UProductionToolComponent::ChixiaoTrailActive() const\n{\n    if(!bBluntUppercut||PojunAttack!=PojunGrip::EAttack::Chixiao)return false;\n    if(PojunSlashTime>=0.f)return PojunSlashTime>=PojunChixiao::Release;\n    return BluntUppercutTime>=WarhammerUppercutMotion::StrikeStart&&BluntUppercutTime<=WarhammerUppercutMotion::StrikeFinish;\n}\n\nbool UProductionToolComponent::ZhufengTrailActive() const\n{\n    return bPojunZhufengRune&&bBluntWhirlwind&&BluntWhirlwindTime>=BluntWhirlwindTuning.ReadySeconds&&\n        BluntWhirlwindTime<=BluntWhirlwindTuning.ReadySeconds+BluntWhirlwindTuning.SpinSeconds;\n}\n\nvoid UProductionToolComponent::UpdatePojunRuneTrail(bool Present)\n{\n    if(!PojunRuneTrail)return;\n    const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();\n    if(!Present||!bPojunGrip||!Viewmodel||!Viewmodel->IsVisible()||(Body&&Body->IsThirdPersonViewEnabled()))\n    {\n        PojunRuneTrail->Clear();\n        return;\n    }\n    const bool Crimson=ChixiaoTrailActive(),Cyan=ZhufengTrailActive();\n    if(!(Crimson||Cyan))\n    {\n        PojunRuneTrail->Feed(FVector::ZeroVector,FVector::ZeroVector,false);\n        return;\n    }\n    const FTransform Frame=Viewmodel->GetSocketTransform(TEXT(\"WPN_root\"));\n    PojunRuneTrail->Feed(Frame.TransformPosition(PojunBladeBase),Frame.TransformPosition(PojunBladeTip),true,\n        Crimson?ESwordTrailPalette::Crimson:ESwordTrailPalette::Cyan);\n}\n"
+      },
+      {
+        "line": 81,
+        "code": "{\n    if(Kind!=TEXT(\"warhammer\")||!Character.IsValid()||!Character->IsLocallyControlled()||!CanPresent())return;\n    if((bBluntUppercut&&PojunAttack==PojunGrip::EAttack::Chixiao)||(bBluntWhirlwind&&bPojunZhufengRune))return;\n    auto* Head=WarhammerRiftHead.Get();\n    if(!Viewmodel||!Viewmodel->IsVisible()||Viewmodel->bHiddenInGame)return;\n    const bool Pommel=bPojunGrip&&Clip==TEXT(\"QuickCombat\")&&IsQuickCombatActive();\n    const bool SocketMarkers=ChainStage!=INDEX_NONE||Pommel;\n    const bool ModularHead=!SocketMarkers&&Head&&Head->GetStaticMesh()&&Head->IsVisible()&&!Head->bHiddenInGame;\n    if(ModularHead)Head->UpdateComponentToWorld();"
+      },
+      {
+        "line": 101,
+        "code": "        Key=20+FMath::Max(0,FMath::FloorToInt(Turn));\n    }\n    else if(PojunSlashTime>=0.f&&Clip==ProductionBluntCombo::Swing(PojunChixiao::OpeningStage))\n    {Key=PojunChixiao::OpeningStage;Start=PojunChixiao::Release;End=ProductionBluntCombo::Turn(PojunChixiao::OpeningStage);}\n    else if(ChainStage!=INDEX_NONE)\n    {Key=60+ChainStage;Start=ChainContact-ChainSlash::RibbonLead;End=ChainContact+ChainSlash::RibbonTail;}\n    else if(Clip==TEXT(\"QuickCombat\")&&IsQuickCombatActive()&&(!Pommel||PojunStrikeLocal.IsSet()))\n    {Key=30;Start=bConicalSeat?.09f:WarhammerQuickCombat::Prepare;End=bConicalSeat?.175f:WarhammerQuickCombat::Follow;Strength=.085f;Crossed=true;}\n    else if(Clip==TEXT(\"ActiveHitRecover\")&&!bBluntHeavy&&bHitConfirmed&&Elapsed>=0.f)\n    {Key=BluntStage;Clock=ProductionBluntCombo::ContactSeconds+SourceSeconds;Start=ProductionBluntCombo::ContactSeconds;End=Start+.04f;}"
+      },
+      {
+        "line": 158,
+        "code": "        const FVector E=Bounds.GetExtent();\n        // Frame above is in centimetres. The dao markers use the socket's native metre coordinates.\n        const FVector C=Pommel?PojunStrikeLocal.GetValue()*100.:Bounds.GetCenter();\n        const float Span=Pommel?RuneSwordPommelRhythm::HeadRadius:FMath::Max(8.f,E.Z+3.f);\n        const FVector Inner=ChainStage!=INDEX_NONE?PojunBladeBase*100.:C-FVector(0,0,Span);\n        const FVector Outer=ChainStage!=INDEX_NONE?PojunBladeTip*100.:C+FVector(0,0,Span);\n        const FVector Across=FVector(Pommel?Span:FMath::Max(6.f,E.X*.65f),0,0);\n        const float Step=Same?FMath::Clamp(Clock-WarhammerRiftPreviousSeconds,.00001f,10.f):1.f;\n        const float From=Same?FMath::Clamp((Start-WarhammerRiftPreviousSeconds)/Step,0.f,1.f):1.f;"
+      },
+      {
+        "line": 187,
+        "code": "void UProductionToolComponent::TickWarhammerRifts(float Delta,bool Present)\n{\n    if(bPojunGrip&&Present)\n        if(const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())\n            Present=!Body->IsThirdPersonViewEnabled();\n    if(!Present||Kind!=TEXT(\"warhammer\")){ClearWarhammerRifts();return;}"
+      },
+      {
+        "line": 195,
+        "code": "    {\n        WarhammerRiftHeadRefresh=.25f;WarhammerRiftHead.Reset();\n        if(bPojunGrip)WarhammerRiftHead=ToolMesh.Get();\n        else\n        {\n            TInlineComponentArray<UStaticMeshComponent*> Parts(GetOwner());"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/WarhammerCombat.cpp": {
+    "source_sha256": "eb756d75cbe53cbe49ad625f956b281c40e346ebe7e0185d89f9f61976adb1e2",
+    "sections": [
+      {
+        "line": 3,
+        "code": "#include \"WarhammerHeavyMotion.h\"\n#include \"../Weapons/GunsmithSystem.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"Engine/GameInstance.h\"\n#include \"../UI/ColdSteelStatusModel.h\"\n#include \"../Monsters/MonsterCombatComponent.h\""
+      },
+      {
+        "line": 13,
+        "code": "{\n    const float Base=float(ColdSteelInventory::Number(Item,TEXT(\"heavy_wave_radius_cm\"),WarhammerHeavy::Radius));\n    if(const auto* Grip=PojunGrip::Modifiers(&Item,Profile))return Base*float(Grip->Range);\n    if(Item.Definition!=TEXT(\"ue_steel_warhammer\")||!Profile)return Base;\n    const auto* GI=Profile->GetGameInstance();\n    const auto* Gunsmith=GI?GI->GetSubsystem<UGunsmithSystem>():nullptr;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/WarhammerShockwave.cpp": {
+    "source_sha256": "85ebd934b736549b5b939e7783a53aea09b5d71db530bfc2cdfd0d08555db4b8",
+    "sections": [
+      {
+        "line": 36,
+        "code": "    static ConstructorHelpers::FObjectFinder<UStaticMesh> Plane(TEXT(\"/Engine/BasicShapes/Plane.Plane\"));\n    static ConstructorHelpers::FObjectFinder<UMaterialInterface> GroundWave(TEXT(\"/Game/Weapons/SteelWarhammer20261014/HeavySlamV1/M_WarhammerGroundWave.M_WarhammerGroundWave\"));\n    static ConstructorHelpers::FObjectFinder<USoundBase> GroundImpact(TEXT(\"/Game/Weapons/SteelWarhammer20261014/GroundImpactAudioV1/S_Warhammer_GroundImpact.S_Warhammer_GroundImpact\"));\n    ImpactSound=GroundImpact.Object;\n    Ring->SetStaticMesh(Plane.Object);Ring->SetMaterial(0,GroundWave.Object);Ring->SetCollisionEnabled(ECollisionEnabled::NoCollision);\n    Ring->SetCastShadow(false);Ring->SetReceivesDecals(false);Ring->SetCanEverAffectNavigation(false);\n    NetUpdateFrequency=30.f;InitialLifeSpan=1.f;\n}\n\nALeapStrikeShockwave::ALeapStrikeShockwave()\n{\n    static ConstructorHelpers::FObjectFinder<UStaticMesh> WaveMesh(TEXT(\"/Game/Weapons/SteelWarhammer20261014/LeapStrikeV2/SM_LeapGroundWave.SM_LeapGroundWave\"));\n    if(WaveMesh.Succeeded())"
+      },
+      {
+        "line": 123,
+        "code": "    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AWarhammerShockwave,MaxRadius);DOREPLIFETIME(AWarhammerShockwave,StartedAt);\n    DOREPLIFETIME(AWarhammerShockwave,bThunder);DOREPLIFETIME(AWarhammerShockwave,ThunderHeight);DOREPLIFETIME(AWarhammerShockwave,ThunderSeed);\n    DOREPLIFETIME(AWarhammerShockwave,bThunderCall);DOREPLIFETIME(AWarhammerShockwave,ImpactSound);\n}\nFWeaponDamageParts AWarhammerShockwave::DamageWithElectricMultiplier(float Multiplier) const\n{"
+      },
+      {
+        "line": 200,
+        "code": "    if(auto* FX=GetWorld()->GetSubsystem<UWarhammerSlamFXSubsystem>())\n        FX->Emit(GetActorLocation()-GetActorUpVector()*2.f,GetActorQuat(),MaxRadius,float(Clock()-StartedAt));\n    if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation(),1.f,1.f);\n}"
+      },
+      {
+        "line": 196,
+        "code": "void AWarhammerShockwave::PresentImpact()\n{\n    if(bSoundPlayed||StartedAt<0.||GetNetMode()==NM_DedicatedServer)return;\n    bSoundPlayed=true;\n    if(auto* FX=GetWorld()->GetSubsystem<UWarhammerSlamFXSubsystem>())\n        FX->Emit(GetActorLocation()-GetActorUpVector()*2.f,GetActorQuat(),MaxRadius,float(Clock()-StartedAt));\n    if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation(),1.f,1.f);\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Production/WarhammerShockwave.h": {
+    "source_sha256": "3d8023e49ec07fe9814bd9c27e2015d71650f0d42f8e298675b0cb988d430b16",
+    "sections": [
+      {
+        "line": 20,
+        "code": "    // A contact owner can emit immediately; the normal tick remains the remote fallback.\n    void PresentImpact();\n    void SetLeapTraining(UColdSteelStatusModel* Profile);\n    virtual void EndPlay(const EEndPlayReason::Type Reason) override;\n    virtual void BeginPlay() override;\n    virtual void Tick(float Delta) override;"
+      },
+      {
+        "line": 30,
+        "code": "    friend class UWarhammerModificationAuditCommandlet;\n    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> Material;\n    UPROPERTY(Replicated) TObjectPtr<USoundBase> ImpactSound;\n    UPROPERTY(Replicated) float MaxRadius=300.f;\n    UPROPERTY(Replicated) double StartedAt=-1.;\n    UPROPERTY(Replicated) bool bThunder=false;"
+      },
+      {
+        "line": 55,
+        "code": "/** Raised wavefront shared by leap landings and charged ground slams. */\nUCLASS()\nclass FPSGAME_API ALeapStrikeShockwave : public AWarhammerShockwave\n{\n    GENERATED_BODY()\npublic:\n    ALeapStrikeShockwave();\n};"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/BowPresentationReview.cpp": {
+    "source_sha256": "c74b247dd62004bba6256cf2d9f9d4482741a9e8f4d7c85788f9a0323cf45674",
+    "sections": [
+      {
+        "line": 150,
+        "code": "    Bow->Pivot=NewObject<USceneComponent>(Pawn);Bow->Pivot->SetupAttachment(Pawn->FirstPersonCamera);Bow->Pivot->RegisterComponent();\n    auto* Part=NewObject<UBoxComponent>(Pawn);Part->SetupAttachment(Bow->Pivot);Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->RegisterComponent();\n    Bow->bPresentationReady=true;Bow->bHasAimSight=Bow->bPeakwatchScope=true;Bow->AimProgress=1.f;\n    Bow->OpticalMinimum=3.f;Bow->OpticalMaximum=6.f;\n    auto* Optics=NewObject<UBowScopeOptics>(Bow);\n    auto* Camera=Pawn->FirstPersonCamera.Get();"
+      },
+      {
+        "line": 168,
+        "code": "    Bow->Viewmodel->SetSkeletalMeshAsset(LoadObject<USkeletalMesh>(nullptr,TEXT(\"/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7\")));\n    auto* Sight=NewObject<UBowPartComponent>(Pawn);Sight->InitializeAsPart(Pawn,TEXT(\"sight\"),Bow->Pivot);\n    Sight->SetMesh(LoadObject<UStaticMesh>(nullptr,TEXT(\"/Game/Weapons/WoodSteelLongbow20261026/Scope3to6V12/SM_Highland_Peakwatch3to6.SM_Highland_Peakwatch3to6\")));\n    Bow->Parts.Add(TEXT(\"sight\"),Sight);Bow->SlotOrder.AddUnique(TEXT(\"sight\"));\n    auto* Lens=LoadObject<UMaterialInterface>(nullptr,TEXT(\"/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeLens.M_PhysicalScopeLens\"));\n    const int32 Glass=Sight->FindMaterialSlot(TEXT(\"M_Peakwatch_Glass\"));\n    if(Lens&&Glass!=INDEX_NONE)Sight->GetVisual()->SetMaterial(Glass,UMaterialInstanceDynamic::Create(Lens,Pawn));\n    FFPSBodyWeapon Captured;Body->CaptureBow(*Bow,Captured);\n    const auto* CapturedSight=Captured.Parts.FindByPredicate([](const auto& P){return P.Slot==TEXT(\"sight\");});"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp": {
+    "source_sha256": "22ba5ef998f539a337d0f9c507e3505ec0366aff55f617a24fb944915f65dc97",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"../UI/ColdSteelStatusModel.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ColdSteelSkillRules.h\"\n#include \"../Weapons/MeleeWeaponStats.h\"\n#include \"../Weapons/HighlandRidgeThrust.h\""
+      },
+      {
+        "line": 39,
+        "code": "    // Client cast and authority (ColdSteelPlayerState 0x16 damage and range) read this same function.\n    const auto* Tool=ActiveProductionTool();\n    const bool ZhufengTool=Tool&&PojunGrip::Attack(*Tool,false,true,2)==PojunGrip::EAttack::Zhufeng;\n    const auto* Item=ZhufengTool?Tool:ActiveKukriWeapon();\n    if(Item&&(!Tool||ZhufengTool)&&ColdSteelInventory::IsMeleeWeapon(*Item))\n    {"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp": {
+    "source_sha256": "2f9d4201886b31e740fc6af4562e8feaeafa5b8708eb03ec3f89f56237f65080",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"../UI/ColdSteelStatusModel.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ColdSteelSkillRules.h\"\n#include \"SwordUppercutWeapon.h\"\n#include \"../Weapons/MeleeWeaponStats.h\""
+      },
+      {
+        "line": 15,
+        "code": "    const auto* Tool=Profile->ActiveProductionTool();\n    const auto* Gunsmith=Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>();\n    if(Tool&&PojunGrip::UsesHammerMotion(*Tool)&&Gunsmith)\n        return Gunsmith->Calculate(Tool->Definition,Gunsmith->Installed(*Tool)).Melee;\n    const auto* Item=SwordUppercutWeapon::Resolve(Profile);\n    return SwordUppercutWeapon::Supports(Profile,Item)?"
+      },
+      {
+        "line": 45,
+        "code": "    // Two-handed sword, two-handed blunt tool, the one-handed kukri (KukriUppercut.cpp, 2026-10-23),\n    // or the off-hand kukri behind a dual pistol (OffhandKukriUppercut.cpp, 2026-10-25).\n    if(!Item||(Tool?!PojunGrip::UsesHammerMotion(*Item):\n        !SwordUppercutWeapon::Supports(this,Item))||SwordUppercutCooldown()>0.f)return false;\n    const float StaminaCost=SwordUppercutStaminaCost();\n    if(!CanSpendStamina(StaminaCost)){Message=TEXT(\"体力不足\");OnStaminaChanged.Broadcast();return false;}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp": {
+    "source_sha256": "a9ba83d75a332953e1d29d2b30e649b91366b1a03a8fbbe47781d63bc3fb6a39",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"../Weapons/Kukri/KukriRelentlessComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/Kukri/KukriDecisiveComponent.h\"\n#include \"ColdSteelSkillRules.h\"\n#include \"../Weapons/Kukri/HatchetCharmComponent.h\""
+      },
+      {
+        "line": 133,
+        "code": "    const auto* QuickItem=PreviewWeapon?PreviewWeapon:ActiveProductionTool()?ActiveProductionTool():ActiveKukriWeapon();\n    float DamageInput=Strength;\n    if(const auto* Grip=PojunGrip::Modifiers(QuickItem,this,PreviewParts))\n    {\n        // Quick combat starts with skill damage, then splits it by the weapon panel.\n        // Recover the pre-grip physical fraction so the magic share keeps its value."
+      },
+      {
+        "line": 142,
+        "code": "        C.DamageMultiplier*=float(Before>0.?Panel.Total()/Before:Grip->PhysicalDamage);\n    }\n    if(Mods.bQuickCombatUsesWeaponDamage&&QuickItem&&PojunGrip::UsesHammerMotion(*QuickItem))\n    {\n        auto WeaponMods=Mods;\n        // All-attack damage is applied once, outside the complete quick formula."
+      },
+      {
+        "line": 157,
+        "code": "    C.BleedChance=FMath::Clamp(float(Mods.QuickCombatBleedChance),0.f,1.f);\n    C.bAreaHit=Mods.bQuickCombatAOE;\n    C.RangeCM=T.RangeCM*Mods.MartialRange*Mods.QuickCombatRange;\n    C.StaminaCost=QuickCombatStaminaCost(L,&Mods);\n    return C;\n}"
+      },
+      {
+        "line": 220,
+        "code": "    if(auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return Staff->BeginQuickCombat();\n    if(auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();Bow && Bow->IsEquipped())return Bow->BeginQuickCombat();\n    if(const auto* Item=ActiveProductionTool();Item&&PojunGrip::UsesHammerMotion(*Item))\n    {\n        auto* Tool=Player->FindComponentByClass<UProductionToolComponent>();\n        return Tool&&Tool->BeginQuickCombat();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp": {
+    "source_sha256": "49ba7e9b27abb709c4d68867585c20d83840a9b82aa8675747c3ec92b775fb20",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelSkillRules.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/Kukri/KukriWeaponComponent.h\"\n#include \"../Weapons/Kukri/KukriRelentlessComponent.h\"\n#include \"../Weapons/Kukri/KukriPairedHeavyHit.h\""
+      },
+      {
+        "line": 767,
+        "code": "                Shot.QuickCombatRuneVulnerability=Melee.Modifiers.QuickCombatRuneVulnerability;\n                Shot.QuickCombatRuneVulnerabilitySeconds=Melee.Modifiers.QuickCombatRuneVulnerabilitySeconds;\n                if(PojunGrip::UsesHammerMotion(*I))\n                {\n                    Shot.bQuickCombatBreakingSeal=AncientSealSeat::Installed(*I);\n                    const auto Blunt=ColdSteelTool::Evaluate(*I,M);"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp": {
+    "source_sha256": "eb4a953434a128a20ac181e325ace491c57e63e218285a021d164697e8a341cb",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"../UI/ColdSteelStatusModel.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ColdSteelSkillRules.h\"\n#include \"WhirlwindWeapon.h\"\n#include \"../Weapons/MeleeWeaponStats.h\""
+      },
+      {
+        "line": 18,
+        "code": "    const auto* Tool=ActiveProductionTool();\n    const auto* Item=Tool?Tool:WhirlwindWeapon::Resolve(this);\n    if(Item&&((Tool&&PojunGrip::UsesHammerMotion(*Item))||(!Tool&&ColdSteelInventory::IsMeleeWeapon(*Item))))\n    {\n        const auto Stats=ColdSteelMelee::Evaluate(*Item,this);\n        C.DamageMultiplier+=float(Stats.Modifiers.WhirlwindDamageAdd);"
+      },
+      {
+        "line": 58,
+        "code": "        return SpendStamina(DashAttackStats().StaminaCost);\n    }\n    if(!Item||(Tool?!PojunGrip::UsesHammerMotion(*Item):!ColdSteelInventory::IsMeleeWeapon(*Item))||\n        MasteryProgress(TEXT(\"whirlwind\")).Level<1||WhirlwindCooldown()>0.f)return false;\n    if(!CanSpendStamina(Cast.StaminaCost)){Message=TEXT(\"体力不足\");OnStaminaChanged.Broadcast();return false;}\n    SyncRuntime();auto P=Snapshot();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp": {
+    "source_sha256": "547df379a19945ab9edee24dd3300a987e6374464fdf073c5a1382945772e589",
+    "sections": [
+      {
+        "line": 29,
+        "code": "#include \"../Weapons/Unarmed/UnarmedPunchTuning.h\"\n#include \"../Weapons/MeleeWeaponStats.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Production/ProductionToolComponent.h\"\n#include \"../Production/WarhammerQuickCombatMotion.h\"\n#include \"../Production/WarhammerConicalThrustMotion.h\""
+      },
+      {
+        "line": 179,
+        "code": "    ActionRate=LightningHaste::ActionSpeed(GetOwner());\n    if(Style==EQuickCombatStyle::Warhammer)\n        if(const auto* Grip=PojunGrip::Modifiers(Profile->ActiveProductionTool(),Profile))\n            ActionRate*=float(Grip->AttackSpeed);\n    // Start the bar with the real playback duration, including weapon-specific rates.\n    GenericMeleeSerial=0;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/PlayerSkillAssets.cpp": {
+    "source_sha256": "b3c004adef0f6e059fce6811101a4ccae1a8a101a6fedf0e6525f2c9bebf6b74",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"PlayerSkillPreparation.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ChainSlashAssets.h\"\n#include \"MagicArrowRainTypes.h\"\n#include \"ElementalArrowTypes.h\""
+      },
+      {
+        "line": 43,
+        "code": "        TEXT(\"/Game/Weapons/SteelWarhammer20261014/HeavySlamV1/M_WarhammerGroundWave\"),\n        TEXT(\"/Game/Weapons/SteelWarhammer20261014/LeapStrikeV2/SM_LeapGroundWave\"),\n        TEXT(\"/Game/Weapons/SteelWarhammer20261014/GroundImpactAudioV1/S_Warhammer_GroundImpact\")})AddSkillAsset(Out,Path);\n    if(Skill==TEXT(\"illuminationArrow\"))for(const auto* P:{IlluminationArrow::Glow,IlluminationArrow::Outline,IlluminationArrow::Depth})AddSkillAsset(Out,P);\n    if(Skill==TEXT(\"elementalArrow\"))for(const auto& P:ElementalArrow::Assets())Out.AddUnique(P);\n    if(Skill==TEXT(\"magicArrowRain\")){for(const auto* Name:MagicArrowRainAssets::Names)AddSkillAsset(Out,MagicArrowRainAssets::Path(Name));AddSkillAsset(Out,MagicArrowRainAssets::Path(TEXT(\"ATT_ArrowRain\")));AddSkillAsset(Out,TEXT(\"/Engine/BasicShapes/Cylinder.Cylinder\"));}"
+      },
+      {
+        "line": 57,
+        "code": "        AddSkillAsset(Out, ChainSlash::Standard);\n        AddSkillAsset(Out, ChainSlash::LongGrip);\n        AddSkillAsset(Out, ChainSlash::Pojun);\n        for(const TCHAR* Path:ChainSlash::CutRibbons)AddSkillAsset(Out,Path);\n        AddSkillAsset(Out,ChainSlash::ImpactWave);\n    }"
+      },
+      {
+        "line": 189,
+        "code": "        AddSkillAsset(Out, TEXT(\"/Game/Audio/SwordAttack20260914/S_Sword_Attack.S_Sword_Attack\"));\n        const bool HasWarhammer=Profile.Items.ContainsByPredicate([](const FColdSteelItem& Item)\n        {return (Item.Place==0||Item.Place==1||Item.Place==5)&&PojunGrip::UsesHammerMotion(Item);});\n        if(HasWarhammer)\n        {\n            for(const TCHAR* Key:{TEXT(\"tool_sound\"),TEXT(\"tool_swing_sound\")})\n                for(const auto& Item:Profile.Items)\n                    if((Item.Place==0||Item.Place==1||Item.Place==5)&&PojunGrip::UsesHammerMotion(Item))\n                        AddSkillAsset(Out,ColdSteelInventory::Text(Item,Key));\n            AddSkillAsset(Out,TEXT(\"/Game/Weapons/SteelWarhammer20261014/RhythmClearanceV2/DA_Warhammer_Clearance\"));\n            if(Skill==TEXT(\"quickCombat\"))"
+      },
+      {
+        "line": 207,
+        "code": "                    TEXT(\"/Game/Weapons/SteelWarhammer20261014/HeavySlamV4/A_Warhammer_HeavyRelease\"),\n                    TEXT(\"/Game/Weapons/SteelWarhammer20261014/HeavySlamV1/M_WarhammerGroundWave\"),\n                    TEXT(\"/Game/Weapons/SteelWarhammer20261014/GroundImpactAudioV1/S_Warhammer_GroundImpact\"),\n                    TEXT(\"/Game/Weapons/SteelWarhammer20261014/SlamFXV2/M_WarhammerDust\"),\n                    TEXT(\"/Game/Weapons/SteelWarhammer20261014/SlamFXV2/SM_WarhammerDebris\"),\n                    TEXT(\"/Game/Weapons/SteelWarhammer20261014/SlamFXV2/M_WarhammerDebris\"),"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/PlayerSkillPreparation.cpp": {
+    "source_sha256": "a35630e2e4509707df20bdb550ef5a2f3d6186e98cb9fe5a75ce0470d315715f",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"PlayerSkillPreparation.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"PlayerSkillRenderPreparation.h\"\n#include \"../Diagnostics/FPSResourceLifecycle.h\"\n#include \"FPSFireMagicComponent.h\""
+      },
+      {
+        "line": 29,
+        "code": "    {\n        if(Item.Place!=0&&Item.Place!=1&&Item.Place!=5)continue;\n        if(!ColdSteelInventory::IsTwoHandedSword(Item)&&!PojunGrip::UsesHammerMotion(Item))continue;\n        // Compare the actual resource choices, not durability/stats in the full\n        // item JSON. This uses the cached assembly catalog, never registry scans.\n        Result.AddUnique(Item.Definition);"
+      },
+      {
+        "line": 274,
+        "code": "                const auto& Profile=Model->Snapshot();\n                const bool HasHammer=Profile.Items.ContainsByPredicate([](const FColdSteelItem& Item)\n                {return (Item.Place==0||Item.Place==1||Item.Place==5)&&PojunGrip::UsesHammerMotion(Item);});\n                auto* FX=HasHammer?Model->GetWorld()->GetSubsystem<UWarhammerSlamFXSubsystem>():nullptr;\n                if(FX&&!CanPrepareRender()) bWarhammerPreparationPending=true;\n                else if(FX&&!FX->PrepareBackground())"
+      },
+      {
+        "line": 373,
+        "code": "    {\n        const bool HasHammer=Model->Items().ContainsByPredicate([](const FColdSteelItem& Item)\n            {return (Item.Place==0||Item.Place==1||Item.Place==5)&&PojunGrip::UsesHammerMotion(Item);});\n        if(!HasHammer){bWarhammerPreparationPending=false;DeferredRenderStartedAt=0.;return;}\n        if(DeferredRenderStartedAt==0.)DeferredRenderStartedAt=Now;\n        auto* FX=Model->GetWorld()->GetSubsystem<UWarhammerSlamFXSubsystem>();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp": {
+    "source_sha256": "d2ae93da672fa83b1772da886d95aa200430a6c779f0da1049e11c3428e5f836",
+    "sections": [
+      {
+        "line": 29,
+        "code": "int32 USkillNetworkAuditCommandlet::Main(const FString& Params)\n{\n    if(FParse::Param(*Params,TEXT(\"PojunChainPose\")))return RunPojunChainPoseAudit();\n    if(FParse::Param(*Params,TEXT(\"SessionSkillsOnly\")))return RunSessionSkillsAudit(Params);\n    if(FParse::Param(*Params,TEXT(\"ConversationCombatOnly\")))return RunConversationCombatReview(Params);\n    if(FParse::Param(*Params,TEXT(\"LightningHasteVisual\")))return CaptureLightningHaste(Params);"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h": {
+    "source_sha256": "ee16cde75d4596aa5368b99164661a3ef9fe74ccfadab6f7a98cdfd450a4af7e",
+    "sections": [
+      {
+        "line": 19,
+        "code": "    virtual int32 Main(const FString& Params) override;\n    int32 RunSessionSkillsAudit(const FString& Params);\n    int32 RunPojunChainPoseAudit();\n    int32 RunFlameArmorAudit(const FString& Params);\n    int32 RunFlameArmorStatsAudit(const FString& Params);\n    int32 RunIceArmorAudit(const FString& Params);"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/SkillWireAudit.cpp": {
+    "source_sha256": "bdb5e103ef3355c94645e4241caf2266e2041722d226f7483cbaebd186bddd59",
+    "sections": [
+      {
+        "line": 132,
+        "code": "    if(auto* PS=Player->GetPlayerState<AColdSteelPlayerState>())PS->SetActorTickEnabled(false);\n    if(Player->IsLocalController())return;\n    if(FParse::Param(FCommandLine::Get(),TEXT(\"PojunObserverWire\"))&&!ChainObserver)\n    {\n        ChainObserver=CastChecked<ASkillWireAuditController>(Player);\n        UE_LOG(LogTemp,Display,TEXT(\"POJUN_WIRE_OBSERVER_JOINED\"));\n        return;\n    }"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/SkillWireAudit.h": {
+    "source_sha256": "6825555f048ce59c66e75c1a17fc7f1715d9d06de1d670399a0cbd490df8a4cf",
+    "sections": [
+      {
+        "line": 38,
+        "code": "    void TickLeapWire(float Delta);\n    void SetupLeapWire(int32 Case);\n    void SetupSessionChain(ANurseZombie* Target,const FString& Id);\n    void TickSessionChain();\n    UFUNCTION(Server,Reliable) void ServerObserveChain(int32 CutMask);\n    int32 ObservedChainCuts=INDEX_NONE;\n    int32 ChainWristSampleMask=0;\n    FVector ChainFirstWrists[4][2]{};\n    bool bSawRemoteChainImpact=false,bRemoteChainImpactEnded=false;\n    UFUNCTION(Client,Reliable) void ClientSetupConversation(int32 Case,ANurseZombie* First,ANurseZombie* Second,class AFPSGAMECharacter* Observer);\n    int32 ConversationCase=-1;\n    UPROPERTY() TObjectPtr<ANurseZombie> ConversationSecond;"
+      },
+      {
+        "line": 89,
+        "code": "    void TickConversationCombat();\n    void TickLeapWire(float Delta);\n    void TickSessionChain();\n    int32 ConversationCase=0,ConversationPhase=0;\n    double ConversationStarted=-1.;\n    UPROPERTY() TObjectPtr<ANurseZombie> ConversationSecond;"
+      },
+      {
+        "line": 103,
+        "code": "private:\n    UPROPERTY() TObjectPtr<ASkillWireAuditController> Guest;\n    UPROPERTY() TObjectPtr<ASkillWireAuditController> ChainObserver;\n    UPROPERTY() TObjectPtr<UColdSteelStatusModel> GuestModel;\n    UPROPERTY() TObjectPtr<ANurseZombie> Target;\n    UPROPERTY() TObjectPtr<AFPSMeteorStrike> Meteor;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Skills/WarhammerQuickCombat.cpp": {
+    "source_sha256": "58ebee6eb364c32b875a01a7d7a2300082ea8978bf57cf69e966971a021699fb",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"FPSQuickCombatComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ColdSteelSkillRules.h\"\n#include \"../Production/ProductionToolComponent.h\"\n#include \"../Production/WarhammerQuickCombatMotion.h\""
+      },
+      {
+        "line": 30,
+        "code": "    auto* Tool=Player->FindComponentByClass<UProductionToolComponent>();\n    const auto* Item=Profile->ActiveProductionTool();\n    if(!Tool||!Tool->IsQuickCombatActive()||!Item||!PojunGrip::UsesHammerMotion(*Item))return;\n    if(auto* Capture=Player->FindComponentByClass<UBoundCongregateCaptureComponent>();Capture&&Capture->HitRestraintWithQuickMelee())\n    {\n        ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp": {
+    "source_sha256": "af1530394076baaa61df760efceb4920917e25ca8a02ece139dc78c5a1d64a40",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelAmmoReadout.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ColdSteelStatusModel.h\"\n#include \"ColdSteelUIStyle.h\"\n#include \"../Weapons/WeaponStatEvaluation.h\""
+      },
+      {
+        "line": 210,
+        "code": "    auto Set=[](UTextBlock* Block,const FString& Value){if(Block->GetText().ToString()!=Value)Block->SetText(FText::FromString(Value));};\n    Set(Weapon,ColdSteelInventory::Text(Item,TEXT(\"name\")));\n    Set(Calibre,PojunGrip::Installed(Item)?TEXT(\"破军长柄 · 双手锤式挥击\"):ColdSteelInventory::IsTwoHandedBlunt(Item)?TEXT(\"双手钝器 · 左键挥击\"):\n        ColdSteelInventory::IsOneHandedMelee(Item)?TEXT(\"单手近战 · 左键挥砍\"):TEXT(\"双手近战 · 左键挥砍\"));\n    Set(MagazineLabel,TEXT(\"可普通攻击次数\"));Set(ReserveLabel,TEXT(\"体力回满时间\"));\n    Set(Current,Readout.bUnlimitedAttacks?TEXT(\"∞\"):FString::FromInt(Readout.AvailableAttacks));"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp": {
+    "source_sha256": "57728a5e205562c5de6420c69404499af3cf5c8242406b657f6869fac5bc9ba3",
+    "sections": [
+      {
+        "line": 7,
+        "code": "#include \"../Weapons/WeaponStatEvaluation.h\"\n#include \"../Weapons/MeleeWeaponStats.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/Bow/BowStats.h\"\n#include \"../Production/ProductionToolStats.h\"\n#include \"Engine/GameInstance.h\""
+      },
+      {
+        "line": 83,
+        "code": "        Row(ColdSteelWeaponText::StaminaCost,Old.StaminaCost,Final.StaminaCost);\n        Row(ColdSteelWeaponText::AttackDistance,Old.CombatReachCM/100.,Final.CombatReachCM/100.,2,false,TEXT(\"m\"));\n        const bool HammerMotion=PojunGrip::UsesHammerMotion(Before);\n        if(HammerMotion)\n            Row(TEXT(\"重击蓄力时间\"),Old.HeavyChargeSeconds,Final.HeavyChargeSeconds,2,true,TEXT(\"s\"));\n        Note(HammerMotion?TEXT(\"按当前角色与双手锤普通攻击计算，未计暴击、重击倍率和目标防御。\"):"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp": {
+    "source_sha256": "7f8ccbaf9973d3b89c7dc7276becb2d72d977d9b866adee02b8f5d0a2869e6a3",
+    "sections": [
+      {
+        "line": 23,
+        "code": "#include \"../Production/ThunderHammerTuning.h\"\n#include \"../Production/WarhammerCombat.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/ModularSwordVisual.h\"\n#include \"../Weapons/WeaponStatEvaluation.h\"\n#include \"../Weapons/Bow/BowStats.h\""
+      },
+      {
+        "line": 487,
+        "code": "    Row(Main,TEXT(\"武器类型\"),WeaponType==TEXT(\"spellbook\")?TEXT(\"魔法书\"):WeaponType);Row(Main,TEXT(\"装备槽位\"),EquipSlotLabel(String(O,TEXT(\"equipSlot\"))));\n    const J Defense=Object(O,TEXT(\"defense\"));\n    const bool HammerMotion=PojunGrip::UsesHammerMotion(I);\n    if(!HammerMotion&&ColdSteelInventory::IsTwoHandedSword(I)){\n        Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT(\"melee_damage\"),55),Main);\n        const auto Melee=ColdSteelMelee::Evaluate(I,Model);"
+      },
+      {
+        "line": 554,
+        "code": "        Section(Main,ColdSteelWeaponText::CombatParameters);\n        AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT(\"melee_damage\"),55),Main);\n        if(PojunGrip::Installed(I))DamageRows(Main,Blunt.Damage);\n        else Row(Main,ColdSteelWeaponText::TotalDamage,N(Blunt.Damage.Total()));\n        Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Blunt.SwingSeconds*1000))+TEXT(\" ms\"));\n        Row(Main,ColdSteelWeaponText::AttackDistance,N(Blunt.CombatReachCM/100)+TEXT(\" m\"));"
+      },
+      {
+        "line": 573,
+        "code": "            if(Rune.SkillCooldown!=1)Row(Main,TEXT(\"所有技能冷却倍率\"),N(Rune.SkillCooldown)+TEXT(\"×\"));\n            if(Rune.MartialCooldown!=1)Row(Main,TEXT(\"武技冷却倍率\"),N(Rune.MartialCooldown)+TEXT(\"×\"));}\n        if(PojunGrip::Installed(I))\n        {\n            const bool Chixiao=PojunGrip::Attack(I,true,false,0)==PojunGrip::EAttack::Chixiao;\n            const bool Zhufeng=PojunGrip::Attack(I,false,true,2)==PojunGrip::EAttack::Zhufeng;\n            Row(Main,TEXT(\"动作模组\"),TEXT(\"双手锤\"));\n            Row(Main,TEXT(\"普攻第三段\"),PojunGrip::Attack(I,false,false,2)==PojunGrip::EAttack::Tengyun?TEXT(\"上挑\"):TEXT(\"竖劈\"));\n            if(Chixiao)Row(Main,TEXT(\"赤霄满蓄重击\"),TEXT(\"普攻首段斜劈 → 上挑\"));\n            if(Zhufeng)Row(Main,TEXT(\"逐风冲刺攻击\"),TEXT(\"向前旋风一周\"));\n            Row(Main,TEXT(\"重击蓄力时间\"),N(Blunt.HeavyChargeSeconds)+TEXT(\" s\"));"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp": {
+    "source_sha256": "b272dd6e555b2572097577f3d9f0a6e83421d64b3d3a6ce573bc209c929f4f50",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelWeaponText.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ColdSteelConsumablePresentation.h\"\n#include \"ColdSteelItemTooltipData.h\"\n#include \"ColdSteelStatusModel.h\""
+      },
+      {
+        "line": 192,
+        "code": "        if(Damage.AddedMagic>0)Add(TEXT(\"added_magic_damage\"),ColdSteelWeaponText::AddedMagic,Damage.AddedMagic,TEXT(\"\"),2,false,false);\n    }\n    else if(ColdSteelInventory::IsTwoHandedSword(Item)&&!PojunGrip::Installed(Item))\n    {\n        const auto S=ColdSteelMelee::Evaluate(Item,Model);\n        const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(Item);"
+      },
+      {
+        "line": 236,
+        "code": "            Add(TEXT(\"melee_critical_damage\"),TEXT(\"近战暴击伤害加成\"),S.Modifiers.MeleeCriticalDamageBonus*100.,TEXT(\"%\"),0,false,false);\n    }\n    else if(PojunGrip::UsesHammerMotion(Item))\n    {\n        const auto S=ColdSteelTool::Evaluate(Item,Model);\n        Add(TEXT(\"damage\"),ColdSteelWeaponText::TotalDamage,S.Damage.Total(),TEXT(\"\"),2);"
+      },
+      {
+        "line": 434,
+        "code": "    if(Item.Definition==TEXT(\"ue_alchemy_spellbook\"))Out.ValueScope=TEXT(\"装备魔攻按当前智力、精神与强化等级计算；装备于当前副手时生效。\");\n    else if(ColdSteelInventory::IsBow(Item))Out.ValueScope=ColdSteelWeaponText::BowScope;\n    else if(PojunGrip::Installed(Item))Out.ValueScope=TEXT(\"按破军长柄的双手锤式普通挥击计算攻击距离和单次攻击体力。\");\n    else if(ColdSteelInventory::IsTwoHandedSword(Item))Out.ValueScope=TEXT(\"按当前角色、强化和改造计算，以普通攻击为准；伤害未计暴击、要害和目标防御。体力为单次攻击消耗；最大攻击距离含突刺。\");\n    else if(ColdSteelInventory::IsTwoHandedBlunt(Item))Out.ValueScope=TEXT(\"按当前角色、强化和改造计算，以普通钝击为准；伤害未计暴击、要害和目标防御。体力为单次普通攻击消耗；最大攻击距离为普通挥击范围。\");\n    else if(ColdSteelInventory::IsEquippedProductionTool(Item))Out.ValueScope=TEXT(\"按当前角色与改造计算，以单次挥砍为准；伤害未计暴击、要害、目标防御及距离衰减。采集数值独立列出。\");"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelProductionTools.cpp": {
+    "source_sha256": "217b8628d38e34eb23548a8111e1af438621ef768fd7aef84f645b3c94fb39f5",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelStatusModel.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ColdSteelWarehouseRules.h\"\n#include \"../Production/ProductionResource.h\"\n#include \"TimerManager.h\""
+      },
+      {
+        "line": 37,
+        "code": "    // The shared two-hand motion executor also carries blunt weapons; they keep\n    // their weapon identity and never enter production resource settlement.\n    return Item && (ColdSteelInventory::IsEquippedProductionTool(*Item) || PojunGrip::UsesHammerMotion(*Item)) ? Item : nullptr;\n}\n\nvoid UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp": {
+    "source_sha256": "676f918ac467aaf9adde1735bc3f719ea6070d3a0713dd4104fae6de25e9a44d",
+    "sections": [
+      {
+        "line": 633,
+        "code": "                FString Blade;\n                const TCHAR* LegacyRune=I.Definition==ColdSteelFrostRunes::Zhanmadao&&(*Parts)->TryGetStringField(TEXT(\"blade_1\"),Blade)?\n                    ColdSteelFrostRunes::LegacyBladeRune(I.Definition,Blade):nullptr;\n                const FString Replacement=LegacyRune?FString(LegacyRune):ColdSteelFrostRunes::Upgrade(I.Definition,Rune);\n                if(LegacyRune||Replacement!=Rune)\n                {"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp": {
+    "source_sha256": "89bf168046415a21c085a646c8af12c617542e989dc8de06f4a6f23a62016314",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelStatusModel.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"ColdSteelMagicQuickCast.h\"\n#include \"../Monsters/BoundCongregateCaptureComponent.h\"\n#include \"../FPSGAMECharacter.h\""
+      },
+      {
+        "line": 184,
+        "code": "    if(Skill==TEXT(\"swordUppercut\"))\n    {\n        if(const auto* Tool=ActiveProductionTool();Tool&&PojunGrip::UsesHammerMotion(*Tool))\n            if(auto* Ability=Player->FindComponentByClass<UProductionToolComponent>())return Ability->BeginUppercut();\n        if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return Kukri->BeginUppercut();\n        // 手枪＋副手弯刀：上挑由副手刀镜像出手（OffhandKukriUppercut.cpp），排在主手弯刀之后、双手剑之前。"
+      },
+      {
+        "line": 199,
+        "code": "    if(Skill==TEXT(\"whirlwind\"))\n    {\n        if(const auto* Tool=ActiveProductionTool();Tool&&PojunGrip::UsesHammerMotion(*Tool))\n            if(auto* Ability=Player->FindComponentByClass<UProductionToolComponent>())return Ability->BeginWhirlwind();\n        // 尼泊尔弯刀 → 单手旋风（KukriWhirlwind.cpp）；剑组件总在，所以弯刀排在剑之前。\n        if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp": {
+    "source_sha256": "88a7ecc90bb99d18458c1bb89907a11035555fb885b37ec94819929e76e2a403",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelQuickSlot.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Skills/FPSFireMagicComponent.h\"\n#include \"../Skills/FPSIceArmorComponent.h\"\n#include \"../Skills/FPSLightningHasteComponent.h\""
+      },
+      {
+        "line": 400,
+        "code": "        const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;\n        const auto* Offhand=Player?Player->FindComponentByClass<UOffhandKukriComponent>():nullptr;\n        Message=HammerItem&&PojunGrip::UsesHammerMotion(*HammerItem)&&Tool?\n            Tool->UppercutStatusText():Kukri&&Kukri->IsEquipped()?Kukri->UppercutStatusText():\n            Offhand&&(Offhand->IsEquipped()||UStaffOffhandMeleeComponent::IsEquippedOn(Player))?Offhand->UppercutStatusText():\n            Ability?Ability->UppercutStatusText():TEXT(\"需近战\");"
+      },
+      {
+        "line": 424,
+        "code": "        const auto* Tool=Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;\n        const auto* HammerItem=Model->ActiveProductionTool();\n        const bool Hammer=Tool&&Tool->IsEquipped()&&HammerItem&&PojunGrip::UsesHammerMotion(*HammerItem);\n        Remaining=Model->WhirlwindCooldown();\n        Fraction=Model->WhirlwindCooldownDuration()>0?Remaining/Model->WhirlwindCooldownDuration():0.f;\n        const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp": {
+    "source_sha256": "d4c521c1c8423cebf7685e54f4d6c55f5b89b7bc9fc4639baca3d5bed6917247",
+    "sections": [
+      {
+        "line": 12,
+        "code": "#include \"../Weapons/Bow/BowStats.h\"\n#include \"../Weapons/MeleeWeaponStats.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Weapons/ModularSwordVisual.h\"\n#include \"../Production/ProductionToolStats.h\"\n#include \"../Production/RuneboundHammerTuning.h\""
+      },
+      {
+        "line": 380,
+        "code": "            ModificationList->AddSlot().AutoHeight().Padding(8,0,8,6)\n                [Paragraph(TEXT(\"倍率以本武器原厂间隔为基准；1.00×表示无攻速加成。\"),12,GunsmithUI::Muted)];\n        const bool ShowSwing=Item->Definition==PojunGrip::Weapon&&\n            (WithoutPart.FindRef(TEXT(\"grip\"))==PojunGrip::Part||Gunsmith->Draft().FindRef(TEXT(\"grip\"))==PojunGrip::Part);\n        AddValue(ShowSwing?TEXT(\"普通攻击距离\"):ColdSteelWeaponText::AttackDistance,\n            (ShowSwing?Was.SlashReach:Was.ThrustReach)/100,(ShowSwing?Now.SlashReach:Now.ThrustReach)/100,2,TEXT(\" m\"),false,Percent(M.Range));\n        AddValue(ColdSteelWeaponText::StaminaCost,Was.AttackStamina,Now.AttackStamina,2,TEXT(\"\"),true,Percent(M.Stamina));"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/M4MeleeGunsmith.cpp": {
+    "source_sha256": "e96793fcd31e1c2a7dc50362705574cbc1242ce0ab0875c3e37f9e6f50ddd5d6",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ColdSteelWeaponText.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"M4GunsmithWidget.h\"\n#include \"ColdSteelStatusModel.h\"\n#include \"ColdSteelEnhancementSystem.h\""
+      },
+      {
+        "line": 182,
+        "code": "    Row(TEXT(\"剑刃易伤持续时间\"),Before.Modifiers.RuneVulnerabilitySeconds,After.Modifiers.RuneVulnerabilitySeconds,0,TEXT(\" s\"));\n    Row(ColdSteelWeaponText::AttackInterval,Before.AttackSeconds*1000,After.AttackSeconds*1000,0,TEXT(\" ms\"),true);\n    const bool CompareSwing=Item.Definition==PojunGrip::Weapon&&\n        (Parts.FindRef(TEXT(\"grip\"))==PojunGrip::Part||Model()->Draft().FindRef(TEXT(\"grip\"))==PojunGrip::Part);\n    Row(CompareSwing?TEXT(\"普通攻击距离\"):ColdSteelWeaponText::AttackDistance,\n        (CompareSwing?Before.SlashReach:Before.ThrustReach)/100,(CompareSwing?After.SlashReach:After.ThrustReach)/100,2,TEXT(\" m\"));\n    Row(ColdSteelWeaponText::StaminaCost,Before.AttackStamina,After.AttackStamina,2,TEXT(\"\"),true);"
+      }
+    ]
+  },
+  "Source/FPSGAME/UI/PhysicalScopeScene.inl": {
+    "source_sha256": "a06194de8607d710857ef2724db0fd4c1289f9be6b405529ef54f5798b63ad17",
+    "sections": [
+      {
+        "line": 1,
+        "code": "// Included by LPVOScopeWidget.cpp. One owner-local capture for guns and Peakwatch.\n#include \"../Characters/FPSPlayerBodyComponent.h\"\n#include \"../Weapons/PhysicalScopeView.h\"\n#include \"Camera/CameraComponent.h\""
+      },
+      {
+        "line": 23,
+        "code": "    TEXT(\"Owner-local physical lens resolution, 512..1536; one capture during ADS only.\"));\nstatic const FSoftObjectPath LensPath(TEXT(\"/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeLens.M_PhysicalScopeLens\"));\nstatic const FSoftObjectPath PeakwatchLensPath(TEXT(\"/Game/Weapons/SharedPhysicalOptics20261030/M_PeakwatchClearLens.M_PeakwatchClearLens\"));\nstatic const FSoftObjectPath HidePath(TEXT(\"/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeHideReticle.M_PhysicalScopeHideReticle\"));\nstatic UObject* MeshAsset(UMeshComponent* Mesh)\n{"
+      },
+      {
+        "line": 40,
+        "code": "    TWeakObjectPtr<UObject> BoundAsset;\n    TStrongObjectPtr<UMaterialInterface> OriginalGlass,OriginalReticle,HiddenReticle;\n    TStrongObjectPtr<UMaterialInstanceDynamic> DefaultLens,PeakwatchLens;\n    UMaterialInstanceDynamic* Lens=nullptr;\n    TStrongObjectPtr<USceneCaptureComponent2D> Capture;\n    TStrongObjectPtr<UTextureRenderTarget2D> Target;"
+      },
+      {
+        "line": 52,
+        "code": "    {\n        MaterialLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(\n            TArray<FSoftObjectPath>{PhysicalScopeScene::LensPath,PhysicalScopeScene::PeakwatchLensPath,PhysicalScopeScene::HidePath});\n        UpdateHandle=FWorldDelegates::OnWorldPostActorTick.AddRaw(this,&FPhysicalScopeScene::Update);\n    }\n    ~FPhysicalScopeScene()"
+      },
+      {
+        "line": 75,
+        "code": "        if(Capture.IsValid())Capture->DestroyComponent();\n        if(DefaultLens.IsValid())DefaultLens->SetTextureParameterValue(TEXT(\"ScopeScene\"),nullptr);\n        if(PeakwatchLens.IsValid())PeakwatchLens->SetTextureParameterValue(TEXT(\"ScopeScene\"),nullptr);\n        Lens=nullptr;\n        Capture.Reset();Target.Reset();CapturedPawn.Reset();\n    }"
+      },
+      {
+        "line": 87,
+        "code": "            if(auto* Source=Cast<UMaterialInterface>(PhysicalScopeScene::LensPath.ResolveObject()))\n                DefaultLens.Reset(UMaterialInstanceDynamic::Create(Source,GetTransientPackage()));\n            if(auto* Source=Cast<UMaterialInterface>(PhysicalScopeScene::PeakwatchLensPath.ResolveObject()))\n                PeakwatchLens.Reset(UMaterialInstanceDynamic::Create(Source,GetTransientPackage()));\n            HiddenReticle.Reset(Cast<UMaterialInterface>(PhysicalScopeScene::HidePath.ResolveObject()));\n            if(!DefaultLens.IsValid()||!PeakwatchLens.IsValid()||!HiddenReticle.IsValid())UE_LOG(LogTemp,Error,TEXT(\"Physical scope materials could not be loaded\"));\n        }\n        auto* Pawn=Cast<AFPSGAMECharacter>(PC->GetPawn());\n        if(!Pawn||!PC->IsLocalController()||!Pawn->UsesPhysicalScope())"
+      },
+      {
+        "line": 103,
+        "code": "            ||!Pawn->GetPhysicalScopeView(Optic))\n        {RestoreGlass();return;}\n        const bool Peakwatch=Optic.Style==EPhysicalScopeStyle::Peakwatch;\n        auto* SelectedLens=Peakwatch?PeakwatchLens.Get():DefaultLens.Get();\n        if(SelectedLens!=Lens){RestoreGlass();Lens=SelectedLens;}\n        if(!Lens)return;\n        const bool Thermal=Optic.Style==EPhysicalScopeStyle::Thermal;"
+      },
+      {
+        "line": 144,
+        "code": "        const int32 BaseSize=FMath::Clamp(PhysicalScopeScene::Resolution.GetValueOnGameThread(),512,1536);\n        // Size the enlarged bow aperture once from the viewport, not every frame of the draw.\n        const int32 Size=Peakwatch?FMath::Clamp(FMath::DivideAndRoundUp(FMath::Min(View.Width(),View.Height()),128)*128,BaseSize,2560):BaseSize;\n        if(!Capture.IsValid())\n        {\n            Target.Reset(NewObject<UTextureRenderTarget2D>(GetTransientPackage(),NAME_None,RF_Transient));"
+      },
+      {
+        "line": 155,
+        "code": "            Capture->bMainViewFamily=true;Capture->bInheritMainViewCameraPostProcessSettings=false;\n            Capture->bMainViewCamera=false;Capture->bMainViewResolution=false;\n            Capture->ShowFlags.SetMotionBlur(false);Capture->ShowFlags.SetDepthOfField(false);\n            Capture->ShowFlags.SetScreenPercentage(false);\n            Capture->HiddenActors.Add(Pawn);Capture->RegisterComponentWithWorld(World);CapturedPawn=Pawn;\n        }\n        if(Target->SizeX!=Size){Target->ResizeTarget(Size,Size);bWasActive=false;}\n        if(!bWasActive)Lens->SetTextureParameterValue(TEXT(\"ScopeScene\"),Target.Get());\n        Capture->ShowFlags.SetTemporalAA(!Peakwatch&&GetDefault<USceneCaptureComponent2D>()->ShowFlags.TemporalAA);\n        // Ordinary optics stay scene-linear. The thermal pass runs only in this\n        // capture, whose final HDR output also remains linear for the mesh lens.\n        Capture->CaptureSource=Thermal?SCS_FinalColorHDR:SCS_SceneColorHDRNoAlpha;\n        Capture->FOVAngle=FMath::RadiansToDegrees(2.f*FMath::Atan(TanHalfFOV));\n        if(Peakwatch)\n        {\n            const FMatrix ViewToWorld=Projection.ViewRotationMatrix.GetTransposed();\n            const FRotator Rotation=FRotationMatrix::MakeFromXZ(ViewToWorld.TransformVector(FVector::UpVector),"
+      },
+      {
+        "line": 177,
+        "code": "        Capture->PostProcessBlendWeight=Thermal?1.f:Camera->PostProcessBlendWeight;\n        if(Thermal)Capture->PostProcessSettings.AddBlendable(ThermalMaterial,1.f);\n        Capture->bCameraCutThisFrame=!bWasActive;Capture->CaptureSceneDeferred();\n        Lens->SetVectorParameterValue(TEXT(\"ScreenToLens\"),FLinearColor(View.Width()/(2.f*Radius),View.Height()/(2.f*Radius),0,0));\n        Lens->SetVectorParameterValue(TEXT(\"LensCenter\"),FLinearColor(Optic.Center.X,Optic.Center.Y,Optic.Center.Z));\n        Lens->SetVectorParameterValue(TEXT(\"LensForward\"),FLinearColor(Optic.Forward.X,Optic.Forward.Y,Optic.Forward.Z));"
+      },
+      {
+        "line": 188,
+        "code": "        // Alpha also gates binding. Once the bow glass is in view, a translucent\n        // crossfade would show the unmagnified world through its magnified image.\n        Lens->SetScalarParameterValue(TEXT(\"LensBlend\"),Peakwatch?1.f:Alpha);\n        if(Optic.Mesh->GetMaterial(GlassSlot)!=Lens)Optic.Mesh->SetMaterial(GlassSlot,Lens);\n        if(ReticleSlot!=INDEX_NONE&&Optic.Mesh->GetMaterial(ReticleSlot)!=HiddenReticle.Get())Optic.Mesh->SetMaterial(ReticleSlot,HiddenReticle.Get());\n        bWasActive=true;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/Bow/BowSparrowWireAudit.cpp": {
+    "source_sha256": "3c6ee748104efca39390bdfce9b5a6ee342567a7b780fcfbd5cd222c284d2f3b",
+    "sections": [
+      {
+        "line": 29,
+        "code": "bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT(\"BowSparrowWire\"));}\nbool Handoff(){return FParse::Param(FCommandLine::Get(),TEXT(\"BowHandoffWire\"));}\nbool Peakwatch(){return FParse::Param(FCommandLine::Get(),TEXT(\"PeakwatchWire\"));}\nint32 Cases(){return Peakwatch()?2:Handoff()?14:9;}\nfloat Zoom(bool Host,int32 Phase){return Host==(Phase==0)?3.f:6.f;}\nfloat Pitch(int32 P){return P==1?35.f:P==2?-35.f:P==4?50.f:0.f;}\nFName Clip(int32 P){return P==0||P>=9?TEXT(\"Idle\"):P==1||P==4?TEXT(\"Draw\"):P==3?TEXT(\"Release\"):P==5?TEXT(\"LoadedIdle\"):TEXT(\"Hold\");}"
+      },
+      {
+        "line": 37,
+        "code": "{\n    auto S=Model->Snapshot();S.Items.Reset();S.ActiveWeaponSlot=6;S.ActiveProductionTool.Reset();S.DungeonRun={};\n    auto Item=Model->CreateItem(Peakwatch()?TEXT(\"bow_woodsteel\"):TEXT(\"bow_dark\"));\n    if(Peakwatch())\n    {\n        TSharedPtr<FJsonObject> Data;\n        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)return S;\n        auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT(\"sight\"),TEXT(\"highland_peakwatch_3_6x\"));\n        Data->SetObjectField(TEXT(\"gunsmith_parts\"),Parts);Item.Data.Reset();\n        FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));\n    }"
+      },
+      {
+        "line": 88,
+        "code": "    Bow->SetComponentTickEnabled(false);\n    if(!Subject->IsLocallyControlled()||!Bow->bPresentationReady)return;\n    if(SparrowWire::Peakwatch())\n    {\n        Bow->bSteadyHeld=true;Bow->AimProgress=1.f;\n        const float TargetZoom=SparrowWire::Zoom(Subject->HasAuthority(),Phase);"
+      },
+      {
+        "line": 157,
+        "code": "bool AShotgunWireAuditController::CheckSparrowPresentation(AFPSGAMECharacter* Subject,int32 Phase,bool Expired,TSharedPtr<FJsonObject> Row)\n{\n    auto* Body=Subject?Subject->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;if(!Body||!Body->BodyAnimation)return false;\n    const auto& State=Body->DisplayState;\n    const bool Aim=FMath::IsNearlyEqual(State.AimPitch,SparrowWire::Pitch(Phase),1.f);\n    const bool Pose=Expired?State.BowClip.IsNone():State.BowClip==SparrowWire::Clip(Phase);\n    const bool Identity=Body->BowItemInstance==State.WeaponInstance&&!State.WeaponInstance.IsEmpty();\n    if(SparrowWire::Peakwatch())\n    {\n        bool AuthoredGlass=false,RingFollows=false;\n        const float Expected=(SparrowWire::Zoom(Subject->GetNetMode()==NM_Client,Phase)-3.f)*-37.f;\n        for(const auto& Part:Body->WorldBowParts)if(Part)\n        {\n            if(Part->SlotName==TEXT(\"sight_zoom\"))\n                RingFollows=FMath::Abs(FMath::FindDeltaAngleDegrees(Part->GetRelativeRotation().Roll,Expected))<.5f;\n            if(Part->SlotName!=TEXT(\"sight\"))continue;\n            auto* Mesh=Part->GetVisual();UStaticMesh* Asset=Mesh?Mesh->GetStaticMesh().Get():nullptr;\n            const int32 Slot=Asset?Asset->GetMaterialIndex(TEXT(\"M_Peakwatch_Glass\")):INDEX_NONE;\n            AuthoredGlass=Slot!=INDEX_NONE&&Asset->GetMaterial(Slot)&&Mesh->GetMaterial(Slot)==Asset->GetMaterial(Slot);\n        }\n        const bool NoRemoteCapture=!Subject->FindComponentByClass<USceneCaptureComponent2D>();\n        Row->SetNumberField(TEXT(\"ring_degrees\"),State.BowScopeRingRoll);\n        Row->SetBoolField(TEXT(\"authored_world_glass\"),AuthoredGlass);Row->SetBoolField(TEXT(\"ring_follows_zoom\"),RingFollows);\n        Row->SetBoolField(TEXT(\"no_remote_capture\"),NoRemoteCapture);\n        return Identity&&AuthoredGlass&&RingFollows&&NoRemoteCapture&&\n            FMath::Abs(FMath::FindDeltaAngleDegrees(State.BowScopeRingRoll,Expected))<.5f;\n    }\n    const float Weight=Body->BodyAnimation->GetCurveValue(FPSBodyBowMotion::WeightCurve);\n    if(SparrowWire::Handoff()&&Phase>=9)\n    {\n        const bool Stowing=Phase>=10&&Phase<=12,Hidden=Phase==10||Phase==12;\n        bool Visibility=true;for(auto Part:Body->WorldBowParts)Visibility&=Part->bHiddenInGame==Hidden;\n        const bool Data=State.bBowTwoHandConsume==Stowing&&FMath::IsNearlyEqual(State.BowCastTransfer,Phase==9?1.f:0.f,.01f)\n            &&FMath::IsNearlyEqual(State.BowStowWeight,Hidden?1.f:Phase==11?.5f:0.f,.02f)\n            &&(Phase<=11?State.Action==EFPSBodyAction::Consume:State.Action!=EFPSBodyAction::Consume);\n        const bool Grip=Phase!=9||Body->BodyAnimation->GetCurveValue(FPSBodyBowMotion::RightHoldCurve)>.5f;\n        bool Finite=true;for(const auto& T:Body->GetBodyMesh()->GetComponentSpaceTransforms())Finite&=!T.ContainsNaN();\n        Row->SetBoolField(TEXT(\"identity\"),Identity);Row->SetBoolField(TEXT(\"handoff\"),Data);Row->SetBoolField(TEXT(\"visibility\"),Visibility);\n        Row->SetBoolField(TEXT(\"supporting_right_hand\"),Grip);Row->SetBoolField(TEXT(\"finite_pose\"),Finite);\n        Row->SetNumberField(TEXT(\"transfer\"),State.BowCastTransfer);Row->SetNumberField(TEXT(\"stow\"),State.BowStowWeight);\n        Row->SetNumberField(TEXT(\"action\"),int32(State.Action));Row->SetNumberField(TEXT(\"native_weight\"),Weight);\n        return Identity&&Data&&Visibility&&Grip&&Finite&&(Hidden?Weight<.01f:Weight>.99f);\n    }\n    const bool Data=Expired?(State.Contacts.Channel.IsNone()&&!State.bBowArrow&&State.BowStringContact==0.f)\n        :(State.Contacts.Channel==TEXT(\"Bow\")&&State.Contacts.Fingers==3&&Body->HasMatchingMotionRig(0));\n    bool Contact=true;double Error=0.;\n    if(Expired)\n    {\n        UBowPartComponent* Riser=nullptr;UBowPartComponent* String=nullptr;\n        for(auto Part:Body->WorldBowParts){if(Part->SlotName==TEXT(\"riser\"))Riser=Part;if(Part->SlotName==TEXT(\"string\"))String=Part;}\n        Contact=Riser&&String&&!Body->bHasNativeBowHeldNock;\n        if(Riser&&String)\n        {\n            const FVector Brace=Riser->GetComponentTransform().TransformPosition(Body->BowSettings.Brace);\n            Error=FMath::Max(FVector::Distance(Brace,BowPresentationAudit::StringEnd(String->RodVisual(0))),FVector::Distance(Brace,BowPresentationAudit::StringEnd(String->RodVisual(1))));\n            Contact&=Error<.05;\n        }\n    }\n    if(State.BowStringContact>0.f)\n    {\n        UBowPartComponent* String=nullptr;for(auto Part:Body->WorldBowParts)if(Part&&Part->SlotName==TEXT(\"string\"))String=Part;\n        if(!String)Contact=false;\n        else\n        {\n            const FVector N(Body->BodyAnimation->GetCurveValue(TEXT(\"SparrowBowNockX\")),Body->BodyAnimation->GetCurveValue(TEXT(\"SparrowBowNockY\")),Body->BodyAnimation->GetCurveValue(TEXT(\"SparrowBowNockZ\")));\n            const FVector Point=Body->GetBodyMesh()->GetSocketTransform(TEXT(\"hand_r\")).TransformPosition(N);\n            Error=FMath::Max(FVector::Distance(Point,BowPresentationAudit::StringEnd(String->RodVisual(0))),\n                FVector::Distance(Point,BowPresentationAudit::StringEnd(String->RodVisual(1))));\n            Contact=Error<.05;\n        }\n    }\n    Row->SetBoolField(TEXT(\"aim\"),Aim);Row->SetBoolField(TEXT(\"pose\"),Pose);Row->SetBoolField(TEXT(\"identity\"),Identity);\n    Row->SetBoolField(TEXT(\"data_or_expiry\"),Data);Row->SetBoolField(TEXT(\"contact\"),Contact);Row->SetNumberField(TEXT(\"contact_cm\"),Error);\n    Row->SetNumberField(TEXT(\"native_weight\"),Weight);Row->SetStringField(TEXT(\"clip\"),State.BowClip.ToString());\n    Row->SetNumberField(TEXT(\"clip_rate\"),State.BowClipRate);Row->SetNumberField(TEXT(\"pitch\"),State.AimPitch);\n    Row->SetStringField(TEXT(\"family\"),State.Family.ToString());Row->SetStringField(TEXT(\"weapon_instance\"),State.WeaponInstance);\n    Row->SetStringField(TEXT(\"built_instance\"),Body->BowItemInstance);Row->SetStringField(TEXT(\"channel\"),State.Contacts.Channel.ToString());\n    Row->SetStringField(TEXT(\"reported_instance\"),Body->ReportedPresentation.WeaponInstance);\n    Row->SetStringField(TEXT(\"reported_clip\"),Body->ReportedPresentation.BowClip.ToString());\n    Row->SetNumberField(TEXT(\"sample_age\"),Body->ServerClock()-Body->LastPresentationReceivedAt);\n    Row->SetBoolField(TEXT(\"bow_pose_requested\"),Body->BodyAnimation->bBowPose);\n    Row->SetNumberField(TEXT(\"action\"),int32(State.Action));\n    return Aim&&Pose&&Identity&&Data&&Contact&&Weight>.99f;\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp": {
+    "source_sha256": "31cfb2d7278ec6ffbb147021eafd7fb9ea161d06b14447af7b054c2b8801c109",
+    "sections": [
+      {
+        "line": 339,
+        "code": "        OpticalSelectionKey.Reset();\n        OpticalMagnification = DisplayedOpticalMagnification = OpticalMinimum = OpticalMaximum = 1.f;\n        bPeakwatchScope = false;\n        if (Optics) Optics->Release(*this);\n        Stage = EBowStage::Stowed;\n        Elapsed = -1.f;"
+      },
+      {
+        "line": 510,
+        "code": "    OpticalMagnification = FMath::Clamp(ScopeKey==OpticalSelectionKey?OpticalMagnification:DefaultPower, OpticalMinimum, OpticalMaximum);\n    if (ScopeKey != OpticalSelectionKey) DisplayedOpticalMagnification = OpticalMagnification;\n    bPeakwatchScope = EquippedDefinition == TEXT(\"bow_woodsteel\") && ScopeKey.Contains(TEXT(\"/SM_Highland_Peakwatch3to6.SM_Highland_Peakwatch3to6\"));\n    OpticalSelectionKey = ScopeKey;\n    ScopeRingDegreesPerPower = Number(TEXT(\"bow_scope_ring_degrees_per_power\"), 0.f);\n    CrouchInSeconds = FMath::Max(.01f, Number(TEXT(\"bow_crouch_in_seconds\"), .18f));"
+      },
+      {
+        "line": 598,
+        "code": "float UBowWeaponComponent::AimVerticalFOV(float BaseFOV) const\n{\n    // Peakwatch magnifies only its physical lens, leaving the normal bow ADS view.\n    if (IsScopeOpticalPresentationEnabled()) return BaseFOV * AimFOVScale;\n    return OpticalAimVerticalFOV(BaseFOV);\n}"
+      },
+      {
+        "line": 612,
+        "code": "bool UBowWeaponComponent::IsScopeOpticalPresentationEnabled() const\n{\n    return IsEquipped() && bHasAimSight && bPeakwatchScope && UBowScopeOptics::Enabled();\n}\n\nvoid UBowWeaponComponent::UpdateScopeCamera()"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h": {
+    "source_sha256": "0a6f731a44e1d2455447f0e02feede65ce6d4895cce8e2b98247bf7210c0c652",
+    "sections": [
+      {
+        "line": 350,
+        "code": "    float OpticalMagnification = 1.f;\n    float DisplayedOpticalMagnification = 1.f;\n    bool bPeakwatchScope = false;\n    UPROPERTY(Transient) TObjectPtr<UBowScopeOptics> Optics;\n    float OpticalMinimum = 1.f, OpticalMaximum = 1.f;\n    FString OpticalSelectionKey;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp": {
+    "source_sha256": "5403de9a6ad029f14bb8928b9569a024d6e787ac855d1eb5fa76394a8682057e",
+    "sections": [
+      {
+        "line": 105,
+        "code": "    if (InWorld.GetNetMode() == NM_DedicatedServer) return;\n    // Remote players can land a chain hit before the viewer has learned or equipped the skill.\n    ChainImpactLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ChainSlash::ImpactWave));\n    if (!PlaneMesh || !ChipMesh) return;\n    for (int32 Group=0; Group<5; ++Group)\n        if (!ParticleMaterials[Group]) return;"
+      },
+      {
+        "line": 690,
+        "code": "void UFPSImpactFXSubsystem::Deinitialize()\n{\n    ChainImpactLoad.Reset();\n    bReady=false;ActiveParticles=0;\n    for(const auto& Renderer:Renderers)if(Renderer)Renderer->DestroyComponent();\n    for(const auto& Decal:Decals)if(Decal)Decal->DestroyComponent();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h": {
+    "source_sha256": "33d9f1fed8c4564847adbb5e9cc403a5d946be8b77d39b8594fbddd5bcadb917",
+    "sections": [
+      {
+        "line": 46,
+        "code": "    virtual bool DoesSupportWorldType(EWorldType::Type Type) const override;\nprivate:\n    TSharedPtr<FStreamableHandle> ChainImpactLoad;\n    static constexpr int32 SparkSlots = 48;\n    static constexpr int32 DustSlots = 24;\n    static constexpr int32 ChipSlots = 32;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/GunsmithModificationTier.h": {
+    "source_sha256": "4da564d9faadef8ebd05edd23099983780c25324d058555029e601ce1278ef15",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#pragma once\n#include \"CoreMinimal.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"RSH12OpticAssets.h\"\n#include \"TacticalDeviceVariants.h\"\n#include \"LegendaryTacticalStock.h\""
+      },
+      {
+        "line": 17,
+        "code": "inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)\n{\n    if(Weapon==PojunGrip::Weapon&&SlotKey==TEXT(\"grip\")&&Id==PojunGrip::Part)return EGunsmithModificationTier::Special;\n    if(SlotKey==TEXT(\"underbarrel\")&&Id==LMGStabilityGrip::Id&&LMGStabilityGrip::Supports(Weapon))\n        return EGunsmithModificationTier::Special;\n    if(Weapon==TEXT(\"ue_highland_claymore\")&&SlotKey==TEXT(\"blade_1\")&&"
+      },
+      {
+        "line": 72,
+        "code": "        (Id==TEXT(\"highland_mountain_echo\")||Id==TEXT(\"highland_cadence\")))\n        return EGunsmithModificationTier::Legendary;\n    if(Weapon==TEXT(\"bow_woodsteel\")&&SlotKey==TEXT(\"sight\")&&Id==TEXT(\"highland_peakwatch_3_6x\"))\n        return EGunsmithModificationTier::Special;\n    if(Weapon==TEXT(\"bow_woodsteel\")&&SlotKey==TEXT(\"riser\")&&\n        (Id==TEXT(\"highland_far_peak\")||Id==TEXT(\"highland_cloudpiercer\")))"
+      },
+      {
+        "line": 113,
+        "code": "    if(Weapon==TEXT(\"ue_frost_crystal_sword\")&&SlotKey==TEXT(\"blade_1\")&&(Id==TEXT(\"star_marrow\")||Id==TEXT(\"rift_piercer\")))\n        return EGunsmithModificationTier::Legendary;\n    if(Weapon==ColdSteelFrostRunes::Zhanmadao&&SlotKey==TEXT(\"blade_2\")&&ColdSteelFrostRunes::IsZhanmadaoLegendary(Id))\n        return EGunsmithModificationTier::Legendary;\n    if(SlotKey==TEXT(\"hammer_heads\")&&Id==TEXT(\"pointed_hammer\"))\n        return EGunsmithModificationTier::Special;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/GunsmithSystem.cpp": {
+    "source_sha256": "9196295d704f0c473313cfbeebb6520eed8a629b8c55ff85bd227c934ad04498",
+    "sections": [
+      {
+        "line": 227,
+        "code": "    }\n    if(D==ColdSteelFrostRunes::Zhanmadao)\n        if(const TCHAR* Rune=ColdSteelFrostRunes::LegacyBladeRune(D,Input.FindRef(TEXT(\"blade_1\"))))\n            Result.Add(TEXT(\"blade_2\"),Rune);\n    // Remove locked upgrades before filling the vacated slots with their catalog defaults.\n    if(D==TEXT(\"ue_m24\")&&!M24Attachments::AdvancedInterfacesUnlocked(Result))"
+      },
+      {
+        "line": 354,
+        "code": "            R.Melee.QuickCombatDamageAdd+=M.QuickCombatDamageAdd;\n            R.Melee.QuickCombatKnockback*=M.QuickCombatKnockback;\n            R.Melee.QuickCombatRange*=M.QuickCombatRange;\n            R.Melee.QuickCombatToughness*=M.QuickCombatToughness;\n            R.Melee.QuickCombatBleedChance=FMath::Max(R.Melee.QuickCombatBleedChance,M.QuickCombatBleedChance);\n            R.Melee.MeleeHitBleedStacks+=M.MeleeHitBleedStacks;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/GunsmithSystem.h": {
+    "source_sha256": "532c6d66364523195a82d095f79d9f89ed046b9268e467e44f2d146696558b81",
+    "sections": [
+      {
+        "line": 35,
+        "code": "    double HeavyDamage=1, HeavyDamageAdd=0, Knockback=1;\n    double WhirlwindDamageAdd=0;\n    double QuickCombatDamageAdd=0, QuickCombatKnockback=1, QuickCombatRange=1;\n    // 每次近战出手按武器冷却口径缩减全部魔法技能CD（金色符文强化：0.5s→1.0s）。\n    double CooldownReduceSecondsPerHit=0;\n    // RuneVulnerability*=剑刃攻击通道（普攻/连段/重击/旋风/冲刺及未来的剑刃攻击）；"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp": {
+    "source_sha256": "c28e15e81ab620c94b07b9c860a201e085e21a4f7734741491bb9b082dd1833b",
+    "sections": [
+      {
+        "line": 414,
+        "code": "float AFPSGAMECharacter::GetScopePresentationAlpha() const\n{\n    // Peakwatch shares the owner-local lens capture. Other bow sights retain\n    // their existing presentation; this alpha never hides the combat HUD.\n    if(Bow && Bow->IsEquipped())return Bow->PhysicalScopeAlpha();\n    if(!UsesPhysicalScope()||!bInventoryWeaponReady||IsTraversing()||(IsM24Weapon()?IsWeaponBusyForAim():IsWeaponBusy()))return 0.f;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/MeleeGunsmith.cpp": {
+    "source_sha256": "9f84ca1bdbc86bda4747772a742f94d470ec1e23ed8e0caf65b97c2adc509a6a",
+    "sections": [
+      {
+        "line": 111,
+        "code": "            Stats->TryGetNumberField(TEXT(\"quick_combat_damage_add\"),Part.Melee.QuickCombatDamageAdd);\n            Stats->TryGetNumberField(TEXT(\"quick_combat_knockback_mult\"),Part.Melee.QuickCombatKnockback);\n            Stats->TryGetNumberField(TEXT(\"quick_combat_range_mult\"),Part.Melee.QuickCombatRange);\n            Stats->TryGetNumberField(TEXT(\"quick_combat_toughness_mult\"),Part.Melee.QuickCombatToughness);\n            Stats->TryGetNumberField(TEXT(\"quick_combat_bleed_chance\"),Part.Melee.QuickCombatBleedChance);\n            Stats->TryGetNumberField(TEXT(\"quick_combat_tiger_roar_toughness_bonus\"),Part.Melee.QuickCombatTigerRoarToughnessBonus);"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp": {
+    "source_sha256": "ab464539366c789e50e3bb2d174e50d3acbdb0db83f44949f7c36a75395a66ec",
+    "sections": [
+      {
+        "line": 3,
+        "code": "#include \"Misc/Paths.h\"\n#include \"FrostSwordRunes.h\"\n#include \"ZhanmadaoRuneInlay.h\"\n#include \"../UI/ColdSteelInventoryTypes.h\"\n#include \"Components/MeshComponent.h\"\n#include \"Components/SkeletalMeshComponent.h\""
+      },
+      {
+        "line": 36,
+        "code": "    // parent's colors when changing back to conduction on an existing MID.\n    const bool bHaste=Rune==TEXT(\"haste_rune\");\n    const bool bStrength=Rune==TEXT(\"strength_rune\")||Rune==ColdSteelFrostRunes::DestructionMana||Rune==ColdSteelFrostRunes::Chixiao;\n    const auto SetColor=[Material,bHaste,bStrength](FName Name,const FLinearColor& Yellow,const FLinearColor& Red)\n    {\n        FLinearColor Color=bStrength?Red:Yellow;"
+      },
+      {
+        "line": 45,
+        "code": "    SetColor(TEXT(\"ConductionCoreColor\"),FLinearColor(.90f,.68f,.008f,1.f),FLinearColor(.82f,.012f,.018f,1.f));\n    SetColor(TEXT(\"ConductionGlowColor\"),FLinearColor(1.f,.82f,.012f,1.f),FLinearColor(1.f,.025f,.032f,1.f));\n    if(Rune==ColdSteelFrostRunes::Zhufeng)\n    {\n        Material->SetVectorParameterValue(TEXT(\"ConductionCoreColor\"),FLinearColor(.015f,.52f,.48f,1.f));\n        Material->SetVectorParameterValue(TEXT(\"ConductionGlowColor\"),FLinearColor(.14f,.96f,.87f,1.f));"
+      },
+      {
+        "line": 78,
+        "code": "        FString Blade;\n        if(Item.Definition==ColdSteelFrostRunes::Zhanmadao&&(*Parts)->TryGetStringField(TEXT(\"blade_1\"),Blade))\n            if(const TCHAR* Migrated=ColdSteelFrostRunes::LegacyBladeRune(Item.Definition,Blade))return Migrated;\n        (*Parts)->TryGetStringField(ColdSteelFrostRunes::Slot(Item.Definition),Rune);\n    }\n    return ColdSteelFrostRunes::Upgrade(Item.Definition,Rune);"
+      },
+      {
+        "line": 108,
+        "code": "        (VisualRune==ColdSteelFrostRunes::SwiftMana||VisualRune==ColdSteelFrostRunes::DestructionMana);\n    const bool bThunderExclusive=Definition==ColdSteelFrostRunes::ThunderGodHammer&&ColdSteelFrostRunes::IsThunderExclusive(VisualRune);\n    const bool bLegendaryDao=ColdSteelFrostRunes::IsZhanmadaoLegendary(VisualRune);\n    const int32 Mode=bOath?11:bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT(\"resonance_rune\")?0:VisualRune==TEXT(\"erosion_rune\")?1:(bThunderExclusive||bLegendaryDao||bMana||VisualRune==TEXT(\"conduction_rune\")||VisualRune==TEXT(\"haste_rune\")||VisualRune==TEXT(\"strength_rune\"))?2:-1;\n    auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT(\"M_SilverRuneSurface\"))||Base->GetName()==TEXT(\"M_SilverRuneSurfaceV2\"));};\n    for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)"
+      },
+      {
+        "line": 172,
+        "code": "            if(Definition==ColdSteelFrostRunes::Zhanmadao)\n            {\n                const auto* Art=ZhanmadaoRuneInlay::ForRune(VisualRune);\n                if(Art)\n                {\n                    SurfaceMID->SetTextureParameterValue(TEXT(\"DaoInlayColor\"),LoadObject<UTexture>(nullptr,Art->Color));"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp": {
+    "source_sha256": "d6a3757399fd8eca20ee8cf87b119f1513ef9908334b0f7b5ba39b68481f4c6e",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"MeleeWeaponStats.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"Kukri/KukriBerserkerComponent.h\"\n#include \"Kukri/KukriEnchantment.h\"\n#include \"../Skills/LightningHasteSpeed.h\""
+      },
+      {
+        "line": 104,
+        "code": "    const auto* Tool=Profile?Profile->ActiveProductionTool():nullptr;\n    const auto* Item=Tool?Tool:SwordUppercutWeapon::Resolve(Profile);\n    if(!Item||(!PojunGrip::UsesHammerMotion(*Item)&&!SwordUppercutWeapon::Supports(Profile,Item)))return 0.;\n    if(Tool)return Evaluate(*Item,Profile).ThrustReach*Profile->MasteryEffect(TEXT(\"swordUppercut\"),Level).UppercutReachMultiplier;\n    const double BaseReach=ColdSteelInventory::Number(*Item,TEXT(\"melee_reach_cm\"),180);\n    const auto Modifiers=EquippedModifiers(Profile);"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/ModularSwordVisual.cpp": {
+    "source_sha256": "8c4515d20b81b569d6ffc8d8d8a65514703fce79c38f8a6a79c776fff28ab73e",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"ModularSwordVisual.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"SwordTasselMeshComponent.h\"\n#include \"MeleeRuneVisual.h\"\n#include \"ZhanmadaoRuneInlay.h\"\n#include \"FrostSwordRunes.h\"\n#include \"Kukri/KukriEnchantment.h\"\n#include \"Kukri/GhostScytheMist.h\""
+      },
+      {
+        "line": 100,
+        "code": "        for(const auto& Pair:(*Parts)->Values){FString Value;if(Pair.Value->TryGetString(Value))Result.Add(FString(*Pair.Key),Value);}\n    if(Item.Definition==ColdSteelFrostRunes::Zhanmadao)\n        if(const TCHAR* Migrated=ColdSteelFrostRunes::LegacyBladeRune(Item.Definition,Result.FindRef(TEXT(\"blade_1\"))))\n        {\n            Result.Remove(TEXT(\"blade_1\"));\n            Result.Add(TEXT(\"blade_2\"),Migrated);"
+      },
+      {
+        "line": 258,
+        "code": "bool ColdSteelModularSword::UsesChixiaoDoubleHeavy(const FColdSteelItem& Item)\n{\n    return Item.Definition==ColdSteelFrostRunes::Zhanmadao&&!PojunGrip::Installed(Item)&&ColdSteelMeleeRune::Selected(Item)==ColdSteelFrostRunes::Chixiao;\n}"
+      },
+      {
+        "line": 263,
+        "code": "bool ColdSteelModularSword::UsesZhufengWhirlwind(const FColdSteelItem& Item)\n{\n    return Item.Definition==ColdSteelFrostRunes::Zhanmadao&&!PojunGrip::Installed(Item)&&ColdSteelMeleeRune::Selected(Item)==ColdSteelFrostRunes::Zhufeng;\n}"
+      },
+      {
+        "line": 316,
+        "code": "    if(Item.Definition==ColdSteelFrostRunes::Zhanmadao&&Parts.FindRef(TEXT(\"blade_2\"))==ColdSteelFrostRunes::Beiwei)\n        Add(ColdSteelFrostRunes::BeiweiMask);\n    if(Item.Definition==ColdSteelFrostRunes::Zhanmadao&&ColdSteelFrostRunes::IsZhanmadaoLegendary(Parts.FindRef(TEXT(\"blade_2\"))))\n    {\n        Add(TEXT(\"/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_\")+Parts.FindRef(TEXT(\"blade_2\")));\n        if(const auto* Art=ZhanmadaoRuneInlay::ForRune(Parts.FindRef(TEXT(\"blade_2\"))))\n        {\n            Add(Art->Color);\n            Add(Art->ORM);"
+      },
+      {
+        "line": 423,
+        "code": "        Result+=TEXT(\"|crystalGlass=20261102-v2\");\n    if(Item.Definition==TEXT(\"ue_zhanmadao\")&&Parts.FindRef(TEXT(\"blade_material\"))==TEXT(\"damascus_steel\"))\n        Result+=FString::Printf(TEXT(\"|damascusV2:%u\"),BladeFinishSeed(Item,Draft));\n    if(IncludeRune&&KukriEnchantment::Supports(Item))Result+=TEXT(\"|enchantment=\")+KukriEnchantment::Selected(Item);\n    if(ColdSteelFrostRunes::IsWarhammer(Item.Definition))Result+=TEXT(\"|runePlacement=shaft-wrap-v2\");\n    if(Item.Definition==ColdSteelFrostRunes::Definition)Result+=TEXT(\"|innateErosion=spirit20260922\");"
+      },
+      {
+        "line": 466,
+        "code": "}\n\nuint32 ColdSteelModularSword::BladeFinishSeed(const FColdSteelItem& Item,const FGunsmithParts* Draft)\n{\n    if(Item.Definition!=TEXT(\"ue_zhanmadao\")||BladeFinishMode(Item,Draft)!=4)return 0;\n    // The existing saved item ID owns the appearance. No reroll on assembly,"
+      },
+      {
+        "line": 468,
+        "code": "uint32 ColdSteelModularSword::BladeFinishSeed(const FColdSteelItem& Item,const FGunsmithParts* Draft)\n{\n    if(Item.Definition!=TEXT(\"ue_zhanmadao\")||BladeFinishMode(Item,Draft)!=4)return 0;\n    // The existing saved item ID owns the appearance. No reroll on assembly,\n    // workbench drafts, drop/pickup or remote reconstruction. Keep float-exact bits.\n    const FString Identity=TEXT(\"ZhanDamascusV2|\")+(Item.InstanceId.IsEmpty()?Item.Definition:Item.InstanceId);\n    return 1u+FCrc::StrCrc32(*Identity)%16777215u;\n}"
+      },
+      {
+        "line": 517,
+        "code": "        Dynamic->SetScalarParameterValue(TEXT(\"BladeFinishMode\"),float(Mode));\n        Dynamic->SetScalarParameterValue(TEXT(\"BladeFinishGuardRoot\"),GuardRoot?1.f:0.f);\n        Dynamic->SetScalarParameterValue(TEXT(\"DamascusSeed\"),float(FinishSeed));\n    }\n}\n"
+      },
+      {
+        "line": 663,
+        "code": "    // finish with an authored gem mask; other Highland blades keep their guards.\n    const uint8 FinishMode=BladeFinishMode(Item,Draft);\n    const uint32 FinishSeed=BladeFinishSeed(Item,Draft);\n    for(auto* Module:Components(Blade))if(IsBladeFinishCarrier(Module,Item,Draft))\n        ApplyBladeFinish(Module,FinishMode,Item.Definition==TEXT(\"ue_rune_sword\")&&Module->ComponentHasTag(TEXT(\"SwordSlot=guard\")),FinishSeed);\n    bool TraceFromAnimation=false;Catalog(Item)->TryGetBoolField(TEXT(\"trace_from_animation\"),TraceFromAnimation);"
+      },
+      {
+        "line": 698,
+        "code": "}\n\nTOptional<FVector> ColdSteelModularSword::PommelContact(UStaticMeshComponent* Blade,const FColdSteelItem& Item)\n{\n    const auto Grip=Part(Item,TEXT(\"grip\"),Installed(Item,nullptr));\n    const TSharedPtr<FJsonObject>* Contacts=nullptr;\n    if(!Grip||!Grip->TryGetObjectField(TEXT(\"strike_contacts_cm\"),Contacts))return {};\n    TOptional<FVector> Distal;\n    for(const auto* Module:Components(Blade))\n    {"
+      },
+      {
+        "line": 700,
+        "code": "TOptional<FVector> ColdSteelModularSword::PommelContact(UStaticMeshComponent* Blade,const FColdSteelItem& Item)\n{\n    const auto Grip=Part(Item,TEXT(\"grip\"),Installed(Item,nullptr));\n    const TSharedPtr<FJsonObject>* Contacts=nullptr;\n    if(!Grip||!Grip->TryGetObjectField(TEXT(\"strike_contacts_cm\"),Contacts))return {};\n    TOptional<FVector> Distal;\n    for(const auto* Module:Components(Blade))\n    {\n        if(!Module->ComponentHasTag(TEXT(\"SwordSlot=grip\"))&&!Module->ComponentHasTag(TEXT(\"SwordSlot=pommel\")))continue;\n        const UStaticMesh* Mesh=Module->GetStaticMesh();\n        if(!Mesh)continue;\n        const FString Path=Mesh->GetPathName();\n        if(!(*Contacts)->HasField(Path))continue;\n        const FVector Point=Module->GetRelativeTransform().TransformPosition(Vector(*Contacts,*Path));\n        if(!Distal.IsSet()||Point.Z<Distal.GetValue().Z)Distal=Point;\n    }\n    return Distal;\n}"
+      },
+      {
+        "line": 722,
+        "code": "    const auto Root=Catalog(Item);\n    if(!Root||!Root->TryGetObjectField(TEXT(\"bone_mount\"),Mount))return FTransform::Identity;\n    if(PojunGrip::Installed(Item))\n        if(const auto Grip=Part(Item,TEXT(\"grip\"),Installed(Item,nullptr)))\n        {\n            const TSharedPtr<FJsonObject>* GripMount=nullptr;"
+      },
+      {
+        "line": 753,
+        "code": "    if(Slot==TEXT(\"blade_2\")&&Item.Definition==ColdSteelFrostRunes::Zhanmadao&&Option==ColdSteelFrostRunes::Beiwei)\n        return TEXT(\"精忠报国行书 · 贴刃鎏金 · 武技金色剑气\");\n    if(Slot==TEXT(\"blade_2\")&&Item.Definition==ColdSteelFrostRunes::Zhanmadao&&Option==ColdSteelFrostRunes::Chixiao)\n        return TEXT(\"赤霄纵铭 · 朱红流光 · 双斩赤色剑气\");\n    if(Slot==TEXT(\"blade_2\")&&Item.Definition==ColdSteelFrostRunes::Zhanmadao&&Option==ColdSteelFrostRunes::Zhufeng)\n        return TEXT(\"逐风纵铭 · 青碧流光 · 旋斩青色剑气\");\n    if(Slot==TEXT(\"blade_2\")&&Option==TEXT(\"strength_rune\"))return TEXT(\"中轴重印 · 赤红微光\");\n    if(Slot==TEXT(\"blade_2\")&&Option==TEXT(\"haste_rune\"))return TEXT(\"疾风折纹 · 黄色流光\");"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/ModularSwordVisual.h": {
+    "source_sha256": "2f0dbafe28005a69fc4d7a35da3bcc58a69d487bde56c44a01f094196d163c7a",
+    "sections": [
+      {
+        "line": 36,
+        "code": "    FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);\n    uint8 BladeFinishMode(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);\n    uint32 BladeFinishSeed(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);\n    bool IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);\n    void ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot,uint32 FinishSeed=0);\n    // Colored glass transmission needs an alpha-coverage adapter in UI captures."
+      },
+      {
+        "line": 46,
+        "code": "    FBox LocalBounds(UStaticMeshComponent* Blade);\n    FTransform BoneMount(const FColdSteelItem& Item);\n    TOptional<FVector> PommelContact(UStaticMeshComponent* Blade,const FColdSteelItem& Item);\n    FString Appearance(const FColdSteelItem& Item,const FString& Slot,const FString& Option);\n    FVector BladePoint(const FColdSteelItem& Item,bool Tip,bool bVisual=true);\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/PhysicalScopeView.h": {
+    "source_sha256": "fae7df20c5b4fe62395f2ef65e5068b5be1bb8be8d07c1616ef405cfe3b03525",
+    "sections": [
+      {
+        "line": 4,
+        "code": "class UMeshComponent;\n// IDs are also the ReticleStyle parameter of M_PhysicalScopeLens.\nenum class EPhysicalScopeStyle : uint8 { M24, LPVO, Prism, KV, PSO, Handgun, Thermal, Peakwatch };\nstruct FPhysicalScopeView\n{\n    UMeshComponent* Mesh=nullptr;"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/RuneSwordComponent.cpp": {
+    "source_sha256": "dc6e4c0b6e87d81eed100221564e1e6999c38a79bcffb33ec3e6bf20c2638b50",
+    "sections": [
+      {
+        "line": 739,
+        "code": "    // 判定距离用技能自己的 rangeCM：普通挥击的 SwingReach（刀长×2）与技能范围\n    // 是两套口径，此前 Max() 混用让快速进战的 reach 门控跑到了 360cm。\n    QuickCombatRangeCM=Cast.RangeCM;\n    Profile->TrainQuickCombat(Profile->QuickCombatDefinition().UseExperience);\n    return true;\n}"
+      },
+      {
+        "line": 776,
+        "code": "    TArray<FHitResult> Hits;\n    if(bQuickCombatAOE)\n        Hits=MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,AzureDragonRange(QuickCombatRangeCM),\n            QuickCombatPistolMotion::QueryRadiusCM*MeleeModifiers.MartialRange);\n    else\n    {\n        FHitResult Hit;\n        if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Pawn,Aim,Start,AzureDragonRange(QuickCombatRangeCM),\n            QuickCombatPistolMotion::QueryRadiusCM*MeleeModifiers.MartialRange,Hit))Hits.Add(Hit);\n    }\n    // Quick-melee shake belongs to this once-only query, including a miss."
+      },
+      {
+        "line": 790,
+        "code": "    UE_LOG(LogTemp,Log,TEXT(\"[QuickCombat] 接触 武器=剑 射线=%s 起点=%s 方向=%s 距离=%.0f AOE=%d 接触数=%d\"),\n        bFromPommel?TEXT(\"配重端\"):TEXT(\"眼位回退\"),*Start.ToCompactString(),*Direction.ToCompactString(),\n        AzureDragonRange(QuickCombatRangeCM),bQuickCombatAOE?1:0,Hits.Num());\n    for(const auto& Hit:Hits)\n    {\n        AActor* Target=Hit.GetActor();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/RuneSwordComponent.h": {
+    "source_sha256": "45752abcc8bf1b4910c299d1b69b43ff3de247fa197a628fec776ddd834d6c09",
+    "sections": [
+      {
+        "line": 143,
+        "code": "    bool IsWhirlwindActive() const { return bWhirlwind; }\n    bool IsChainSlashActive() const { return bChainSlash; }\n    bool IsPojunChainOccupied() const { return (bChainSlash||bChainSlashPending)&&ChainTool.IsValid(); }\n    bool IsZhufengWhirlwindActive() const { return bWhirlwind&&bZhufengWhirlwind; }\n    bool TryBeginDashAttack();\n    bool IsDashAttackActive() const { return bDashAttack; }"
+      },
+      {
+        "line": 361,
+        "code": "    // 命中走手枪版同一份合同（QuickCombatContractHit）：距离用技能 rangeCM，\n    // 不再借用普通挥击的 SwingReach；接触帧只判一次。\n    float QuickCombatRangeCM=200.f;\n    bool bQuickCombatContactDone=false;\n    // 下劈动作本身仍可独立调用；冲刺技能在持剑前摇中前进一米，使用原扇区结算。\n    bool bOverheadAttack=false;"
+      },
+      {
+        "line": 467,
+        "code": "    float ChainSlashDamage=0.f;\n    TArray<float,TInlineAllocator<4>> ChainSlashContacts;\n    UAnimSequence* ChainSlashAnimation(bool Pojun=false) const;\n    TWeakObjectPtr<UProductionToolComponent> ChainTool;\n    float ChainGripRate=1.f;\n    float ChainSlashActionRate() const;"
+      },
+      {
+        "line": 488,
+        "code": "    UFUNCTION(Client,Reliable) void ClientChainImpact(uint32 Serial,int32 Cut);\n    UFUNCTION(NetMulticast,Unreliable) void MulticastChainContact(AActor* Target,FVector_NetQuantize10 Point,FVector_NetQuantizeNormal Normal,bool bPulse,bool bFinalCut);\n    UFUNCTION(Server,Reliable) void ServerChainSlash(const FString& Weapon,uint32 Serial,bool bStart,bool bPojun);\n    UFUNCTION(Client,Reliable) void ClientChainSlashResult(uint32 Serial,bool bAccepted,double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);\n    float UppercutReachGrowth=1.f,UppercutLowReachCM=120.f;\n    void LoadUppercutAnimations();"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp": {
+    "source_sha256": "c0fc136cabdab8b533a237a3fd6b7dd58879b25d0bc8c12756f4d84c221272f4",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"RuneSwordComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"RuneSwordGuardTuning.h\"\n#include \"../FPSGAMECharacter.h\"\n#include \"../Multiplayer/ColdSteelAuthorityContext.h\""
+      },
+      {
+        "line": 24,
+        "code": "    const bool MatchingKind=Item&&(ToolGuardInstance.IsEmpty()\n        ?ColdSteelInventory::IsTwoHandedSword(*Item)&&!Model->ActiveProductionTool()\n        :PojunGrip::UsesHammerMotion(*Item));\n    return Pawn&&Item&&Item->InstanceId==GuardWeaponInstance()&&MatchingKind\n        &&!bChainSlash&&!bChainSlashPending\n        &&(ToolGuardInstance.IsEmpty()||!Tool||!Tool->HasAuthorityAttackInFlight())"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/RuneSwordToolGuard.cpp": {
+    "source_sha256": "473de6a105ab289ba1ae6eb0fb7a4939aa1287a7008116f587b0e5d417dd45cb",
+    "sections": [
+      {
+        "line": 1,
+        "code": "#include \"RuneSwordComponent.h\"\n#include \"../Weapons/PojunGrip.h\"\n#include \"../Skills/LightningHasteSpeed.h\"\n#include \"../Production/ProductionToolComponent.h\"\n#include \"../Production/WarhammerGuardMotion.h\""
+      },
+      {
+        "line": 13,
+        "code": "    if(!Profile)return nullptr;\n    const auto* Tool=Profile->ActiveProductionTool();\n    return Tool&&PojunGrip::UsesHammerMotion(*Tool)?Tool:Profile->Equipped();\n}\n\nvoid URuneSwordComponent::RefreshToolGuardEquipment(UColdSteelStatusModel* Profile)\n{\n    const auto* Item=GuardItem(Profile);\n    const FString Next=Item&&PojunGrip::UsesHammerMotion(*Item)?Item->InstanceId:FString();\n    if(Next!=ToolGuardInstance){ClearGuard();ToolGuardInstance=Next;}\n    if(!Next.IsEmpty())ToolGuardModifiers=ColdSteelMelee::Evaluate(*Item,Profile).Modifiers;\n}"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp": {
+    "source_sha256": "d33e49a40661cd9496e43fcf6f749c2c1fde25a3d40527400913eb8e702484d7",
+    "sections": [
+      {
+        "line": 30,
+        "code": "    UppercutLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(\n        TArray<FSoftObjectPath>{UppercutStandard.ToSoftObjectPath(),UppercutLongGrip.ToSoftObjectPath(),\n            FSoftObjectPath(ChainSlash::Standard),FSoftObjectPath(ChainSlash::LongGrip),FSoftObjectPath(ChainSlash::Pojun)});\n}\n\nUAnimSequence* URuneSwordComponent::UppercutAnimation() const"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/ScopeScreenshotAudit.cpp": {
+    "source_sha256": "0de1334fe0b0b961b1a77b2c0b4d5ffb6db234b4ade764ecbb5318e64c3a2d08",
+    "sections": [
+      {
+        "line": 24,
+        "code": "#include \"Serialization/JsonSerializer.h\"\n#include \"UnrealClient.h\"\n#include \"Bow/PeakwatchCoverageAudit.inl\"\n\nnamespace ScopeScreenshotAudit\n{"
+      },
+      {
+        "line": 45,
+        "code": "    {TEXT(\"14_dw715_2x\"),TEXT(\"ue_dan_wesson715\"),TEXT(\"optic\"),TEXT(\"dw715_handgun_scope_2x\"),2},\n    {TEXT(\"15_bow_farwatch_4x\"),TEXT(\"bow_woodsteel\"),TEXT(\"sight\"),TEXT(\"bow_farwatch_4x\"),4},\n    {TEXT(\"16_bow_peakwatch_3x\"),TEXT(\"bow_woodsteel\"),TEXT(\"sight\"),TEXT(\"highland_peakwatch_3_6x\"),3},\n    {TEXT(\"17_bow_peakwatch_6x\"),TEXT(\"bow_woodsteel\"),TEXT(\"sight\"),TEXT(\"highland_peakwatch_3_6x\"),6}\n};\nconst FCase M249Cases[]={\n    {TEXT(\"01_m249_lpvo_1x\"),TEXT(\"ue_m249\"),TEXT(\"optic\"),TEXT(\"lpvo_1_6x\"),1},"
+      }
+    ]
+  },
+  "Source/FPSGAME/Weapons/SharedTwoHandFinishAudit.cpp": {
+    "source_sha256": "93ff74453d17db975d31d75f115a31c20f4680581a2c8a4565d7a7b02097d140",
+    "sections": [
+      {
+        "line": 31,
+        "code": "    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT(\"SharedFinishAuditWorld\"));\n    auto* World=GI->GetWorld();auto* Host=GI->GetSubsystem<UColdSteelStatusModel>();auto* G=GI->GetSubsystem<UGunsmithSystem>();\n    ON_SCOPE_EXIT {\n        GI->Shutdown();\n        if(World){GEngine->DestroyWorldContext(World);World->DestroyWorld(false);}\n        GI->RemoveFromRoot();FCommandLine::Set(*Original);"
+      },
+      {
+        "line": 47,
+        "code": "    const TArray<FString> Common={TEXT(\"false\"),TEXT(\"folded_steel\"),TEXT(\"dark_iron\"),TEXT(\"mithril\"),TEXT(\"damascus_steel\"),TEXT(\"meteoric_iron\")};\n    const auto Scalar=[](UMaterialInterface* M,const TCHAR* Name,float& V){return M&&M->GetScalarParameterValue(FMaterialParameterInfo(Name),V);};\n    const bool SabersOnly=FParse::Param(*Params,TEXT(\"SabersOnly\"));\n    const auto CheckRune=[&](UStaticMeshComponent* Mesh,const FString& Label,const FString& ExpectedMask)\n    {\n        int32 Active=0;"
+      },
+      {
+        "line": 76,
+        "code": "    for(const auto& Definition:Definitions)\n    {\n        if(SabersOnly&&Definition!=TEXT(\"ue_tang_dao\")&&Definition!=ColdSteelFrostRunes::Zhanmadao)continue;\n        auto Item=Host->CreateItem(Definition);const bool Hammer=ColdSteelInventory::IsTwoHandedBlunt(Item),RuneSword=Definition==TEXT(\"ue_rune_sword\");\n        const FString PartSlot=Hammer?TEXT(\"hammer_heads\"):TEXT(\"blade_1\"),RuneSlot=ColdSteelFrostRunes::Slot(Definition);\n        const auto* Catalog=G->ModifiableWeapon(Definition);Check(Catalog!=nullptr,Definition+TEXT(\" workbench catalog\"));if(!Catalog)continue;"
+      },
+      {
+        "line": 191,
+        "code": "                        if(Definition==ColdSteelFrostRunes::Zhanmadao&&Carrier&&Mode==4)\n                        {\n                            const uint32 Seed=ColdSteelModularSword::BladeFinishSeed(Item);\n                            float OwnerSeed=0.f,RemoteSeed=0.f;\n                            Check(Seed!=0&&Read.BladeFinishSeed==Seed&&Scalar(Source->GetMaterial(Index),TEXT(\"DamascusSeed\"),OwnerSeed)&&\n                                Scalar(Remote->GetMaterial(Index),TEXT(\"DamascusSeed\"),RemoteSeed)&&OwnerSeed==float(Seed)&&RemoteSeed==OwnerSeed,\n                                SurfaceLabel+TEXT(\" same saved instance pattern on owner and observer\"));\n                        }\n                    }\n                    Actor->RemoveInstanceComponent(Remote);Remote->DestroyComponent();\n                }\n                const bool HasRune=Rune.Id!=TEXT(\"false\")||Definition==TEXT(\"ue_frost_crystal_sword\");\n                const bool GuardUsesFinish=RuneSword||(Highland&&Part.Id==TEXT(\"highland_broadblade\"));\n                Check(Carriers==(GuardUsesFinish?2:1),Label+TEXT(\" carrier count\"));\n                Check((LocalRunes>0)==HasRune,Label+TEXT(\" selected rune mounted\"));\n                Check(LocalRunes==ObserverRunes,Label+TEXT(\" observer rune parity\"));\n            }"
+      }
+    ]
+  }
+}

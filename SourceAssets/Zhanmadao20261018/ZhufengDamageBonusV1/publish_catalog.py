@@ -6,7 +6,7 @@ ROOT=P.parents[2]
 path=ROOT/'Content/ColdSteelData/melee-gunsmith.json'
 before=path.read_bytes()
 data=json.loads(before.decode('utf-8-sig'))
-option=next(x for c in data['columns'] if c['key']=='blade_1' for x in c['options'] if x['id']=='zhufeng')
+option=next(x for c in data['columns'] if c['key']=='blade_2' for x in c['options'] if x['id']=='zhufeng_rune')
 runpy.run_path(str(P.parent/'ZhufengBladeV1/catalog_extension.py'))['extend_option'](option)
 backup=P/'melee-gunsmith-before.json'
 if not backup.exists():backup.write_bytes(before)

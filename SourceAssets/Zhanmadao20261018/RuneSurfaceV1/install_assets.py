@@ -5,6 +5,7 @@ import unreal as u
 P=Path(__file__).resolve().parent;ROOT=P.parents[2];DATA=ROOT/'Content/ColdSteelData'
 D='/Game/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials'
 E=u.MaterialEditingLibrary;L=u.EditorAssetLibrary
+apply_longitudinal=runpy.run_path(str(ROOT/'SourceAssets/DaoLongitudinal20261110/rune_material.py'))['apply_known_layout']
 host=Path(u.Paths.project_dir()).resolve()
 staging='-zhanstageonly' in u.SystemLibrary.get_command_line().lower()
 if host!=ROOT and not (staging and host==P/'AssetHost'):raise RuntimeError('Wrong project')
@@ -39,6 +40,7 @@ def connect(a,output,b,pin):
     if not E.connect_material_expressions(a,output,b,'' if pin is None or str(pin)=='None' else str(pin)):
         raise RuntimeError('Material connection failed: '+str(pin))
 def save(asset):
+    apply_longitudinal(asset)
     errors=list(E.recompile_material(asset) or [])
     if errors:raise RuntimeError('Material compilation failed: '+str(errors))
     L.set_metadata_tag(asset,'ZhanmadaoRuneSurfaceRevision','BladeContourV1')

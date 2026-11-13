@@ -12,6 +12,7 @@ class UMaterialInterface;
 class UStaticMesh;
 class USoundBase;
 class UPrimitiveComponent;
+struct FStreamableHandle;
 
 enum class EFPSImpactSurface : uint8 { Metal, Wood, Stone, Dirt, Glass, Flesh, Unknown };
 
@@ -40,6 +41,7 @@ public:
 protected:
     virtual bool DoesSupportWorldType(EWorldType::Type Type) const override;
 private:
+    TSharedPtr<FStreamableHandle> ChainImpactLoad;
     static constexpr int32 SparkSlots = 48;
     static constexpr int32 DustSlots = 24;
     static constexpr int32 ChipSlots = 32;

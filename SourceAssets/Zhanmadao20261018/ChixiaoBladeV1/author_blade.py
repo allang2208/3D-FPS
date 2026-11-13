@@ -1,5 +1,5 @@
 """Author Chixiao's seated loft, recessed inlay, fuller, relief and game LODs."""
-import bpy,bmesh,json,math
+import bpy,bmesh,json,math,runpy
 import numpy as np
 from pathlib import Path
 from mathutils import Vector
@@ -46,20 +46,10 @@ grain=(np.sin(u*2950+np.sin(t*13)*1.1)+.45*np.sin(u*7411+t*9))*.007
 noise=rng.normal(0,.004,(NY,NX)).astype(np.float32)
 cloud=(np.sin(u*51+t*37)+np.sin(u*17-t*58))*.008
 variation=grain+noise+cloud
-col=np.empty((NY,NX,3),dtype=np.float32);col[:]=[.20,.22,.235];col+=variation[:,:,None]
-silver=smooth(.755,.773,u)+(1-smooth(.025,.045,u))
-col=col*(1-silver[:,:,None])+np.clip(np.array([.59,.61,.63])+variation[:,:,None]*1.5,0,1)*silver[:,:,None]
-band=smooth(.052,.056,u)*(1-smooth(.122,.128,u))*smooth(.065,.10,t)*(1-smooth(.92,.96,t))
-red=np.clip(np.array([.25,.038,.033])+variation[:,:,None]*np.array([2,.4,.4]),.006,1)
-col=col*(1-band[:,:,None])+red*band[:,:,None]
-rail=(np.exp(-((u-.048)/.0016)**2)+np.exp(-((u-.132)/.0016)**2))*smooth(.065,.10,t)*(1-smooth(.92,.96,t))
-col=col*(1-rail[:,:,None])+np.array([.51,.34,.135])*rail[:,:,None]
+surface_maps=runpy.run_path(str(P.parents[1]/'DaoLongitudinal20261110/chixiao_surface.py'))['build_maps'](NX,NY)
 alpha=np.ones((NY,NX,1),dtype=np.float32)
-color=image('Chixiao_BaseColor',np.concatenate([np.clip(col,0,1),alpha],axis=2),'sRGB')
-rough=np.clip(.40+noise*2+cloud*.8-silver*.12-band*.13,.18,.6)
-metal=np.clip(np.ones((NY,NX),dtype=np.float32)*.98-band*.25,0,1)
-ao=np.ones((NY,NX),dtype=np.float32)
-orm=image('Chixiao_ORM',np.stack([ao,rough,metal,ao],axis=2),'Non-Color')
+color=image('Chixiao_BaseColor',surface_maps['BaseColor'],'sRGB')
+orm=image('Chixiao_ORM',surface_maps['ORM'],'Non-Color')
 height=(grain*.00010+noise*.000045)
 gy,gx=np.gradient(height,(TIP-ROOT)/NY,.09/NX)
 norm=np.stack([-gx,-gy,np.ones_like(gx)],axis=2);norm/=np.linalg.norm(norm,axis=2,keepdims=True)

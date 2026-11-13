@@ -1,9 +1,11 @@
 """Save Zhufeng PBR, rune surfaces, mesh LODs and standard icon in an isolated host."""
-import json
+import json,runpy
 from pathlib import Path
 import unreal as u
 P=Path(__file__).resolve().parent;ROOT=P.parents[2];D='/Game/Weapons/Zhanmadao20261018/ZhufengBladeV1'
 E=u.MaterialEditingLibrary;L=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools()
+protect_decorations=runpy.run_path(str(ROOT/'SourceAssets/ZhanmadaoDecorationPreservation20261110/decoration_material.py'))['apply_decoration_protection']
+apply_longitudinal=runpy.run_path(str(ROOT/'SourceAssets/DaoLongitudinal20261110/rune_material.py'))['apply_known_layout']
 if Path(u.Paths.project_dir()).resolve()!=P/'AssetHost':raise RuntimeError('Wrong asset host')
 ex=json.loads((P/'exports.json').read_text(encoding='utf-8'))
 source=next(iter(json.loads((P/'source_bindings.json').read_text(encoding='utf-8'))['factory'].values())).split('.')[0]
@@ -15,6 +17,8 @@ def load(path):
     return obj
 def save(obj):
     if isinstance(obj,u.Material):
+        protect_decorations(obj)
+        apply_longitudinal(obj)
         errors=E.recompile_material(obj)
         if errors:raise RuntimeError('Shader build: '+str(errors))
     if not u.EditorLoadingAndSavingUtils.save_packages([obj.get_outermost()],False):raise RuntimeError('Save failed '+obj.get_path_name())

@@ -1,8 +1,9 @@
-param([switch]$SkipBuild)
+param([switch]$SkipBuild,[switch]$Peakwatch)
 $ErrorActionPreference='Stop'
 $sparrowWireRoot='D:/FPS3D/FPSGAME'
 $sparrowWireStamp=Get-Date -Format 'yyyyMMdd-HHmmss'
-$sparrowWireDir=Join-Path $PSScriptRoot ('Wire/'+$sparrowWireStamp)
+$case=if($Peakwatch){'Peakwatch-'}else{''}
+$sparrowWireDir=Join-Path $PSScriptRoot ('Wire/'+$case+$sparrowWireStamp)
 New-Item -ItemType Directory -Force -Path $sparrowWireDir | Out-Null
 $sparrowWirePort=19879
 if(Get-NetUDPEndpoint -LocalPort $sparrowWirePort -ErrorAction SilentlyContinue){throw 'Sparrow presentation audit port occupied.'}
@@ -16,6 +17,7 @@ function Start-SparrowPeer([string]$role,[string]$map){
         ('-ColdSteelProfile=ShotgunWireAudit_'+$sparrowWireStamp+'_'+$role),('-port='+$sparrowWirePort),
         ('-UserDir="'+$sparrowWireDir+'/'+$role+'/"'),('-ShotgunWireOutput="'+(Join-Path $sparrowWireDir ($role+'.json'))+'"'),
         ('-abslog="'+(Join-Path $sparrowWireDir ($role+'.log'))+'"'),'-ExecCmds="t.MaxFPS 30"')
+    if($Peakwatch){$peerArgs+=@('-PeakwatchWire','-NoAssetRegistryCacheWrite','-AssetGatherAll=false','-Multiprocess','-DisablePython','-NoShaderCompile','-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False')}
     $peer=Start-Process -FilePath 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe' -ArgumentList $peerArgs -WindowStyle Hidden -PassThru
     $sparrowWireOwned.Add($peer);Write-Output "Sparrow_WIRE_PEER $role PID=$($peer.Id)";return $peer
 }
@@ -59,7 +61,8 @@ try{
     }
     $result=Get-Content -LiteralPath "$sparrowWireDir/host.json" -Raw | ConvertFrom-Json
     $complete=$result.passed -and -not @($peerExits | Where-Object { $_.exit_code -ne 0 }).Count
-    @{directory=$sparrowWireDir;passed=$complete;peer_exits=$peerExits;transport='real local UDP listen host + client + fresh reconnect';port=$sparrowWirePort;lag_ms_each_peer=60;loss_percent_each_peer=5;rendered=$false} | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $PSScriptRoot 'wire-receipt.json') -Encoding utf8
+    $receipt=if($Peakwatch){Join-Path $sparrowWireDir 'receipt.json'}else{Join-Path $PSScriptRoot 'wire-receipt.json'}
+    @{directory=$sparrowWireDir;passed=$complete;peer_exits=$peerExits;transport='real local UDP listen host + client + fresh reconnect';port=$sparrowWirePort;lag_ms_each_peer=60;loss_percent_each_peer=5;rendered=$false} | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $receipt -Encoding utf8
     Write-Output "Sparrow_WIRE_FINISHED PASS=$complete PATH=$sparrowWireDir"
     if(-not $complete){exit 1}
 }finally{

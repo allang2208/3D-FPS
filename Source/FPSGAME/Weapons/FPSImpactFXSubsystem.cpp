@@ -1,4 +1,7 @@
 #include "FPSImpactFXSubsystem.h"
+#include "../Skills/ChainSlashAssets.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
@@ -94,7 +97,10 @@ bool UFPSImpactFXSubsystem::DoesSupportWorldType(EWorldType::Type Type) const
 void UFPSImpactFXSubsystem::OnWorldBeginPlay(UWorld& InWorld)
 {
     Super::OnWorldBeginPlay(InWorld);
-    if (InWorld.GetNetMode() == NM_DedicatedServer || !PlaneMesh || !ChipMesh) return;
+    if (InWorld.GetNetMode() == NM_DedicatedServer) return;
+    // Remote players can land a chain hit before the viewer has learned or equipped the skill.
+    ChainImpactLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ChainSlash::ImpactWave));
+    if (!PlaneMesh || !ChipMesh) return;
     for (int32 Group=0; Group<5; ++Group)
         if (!ParticleMaterials[Group]) return;
     for (auto& Surface : SurfaceTypes) Surface = EFPSImpactSurface::Unknown;
@@ -624,6 +630,7 @@ TStatId UFPSImpactFXSubsystem::GetStatId() const
 
 void UFPSImpactFXSubsystem::Deinitialize()
 {
+    ChainImpactLoad.Reset();
     bReady=false;ActiveParticles=0;
     for(const auto& Renderer:Renderers)if(Renderer)Renderer->DestroyComponent();
     for(const auto& Decal:Decals)if(Decal)Decal->DestroyComponent();

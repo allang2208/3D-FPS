@@ -1,0 +1,9 @@
+{
+  "headless": true,
+  "results": [
+    "PASS yanling_edge chixiao_rune start=1 gate= cost=55.00 expected=55.00 cooldown=25.00 end=A_RusticPickaxe_Idle",
+    "PASS yanling_edge zhufeng_rune start=1 gate= cost=55.00 expected=55.00 cooldown=25.00 end=A_RusticPickaxe_Idle",
+    "PASS tengyun_dragon chixiao_rune start=1 gate= cost=50.00 expected=50.00 cooldown=25.00 end=A_RusticPickaxe_Idle",
+    "PASS tengyun_dragon zhufeng_rune start=1 gate= cost=50.00 expected=50.00 cooldown=25.00 end=A_RusticPickaxe_Idle"
+  ]
+}

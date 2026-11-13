@@ -1,4 +1,5 @@
 #include "ModularSwordVisual.h"
+#include "../Weapons/PojunGrip.h"
 #include "SwordTasselMeshComponent.h"
 #include "MeleeRuneVisual.h"
 #include "FrostSwordRunes.h"
@@ -94,6 +95,12 @@ FGunsmithParts Installed(const FColdSteelItem& Item,const FGunsmithParts* Draft)
     if(Draft)Result=*Draft;
     else if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Root)&&Root&&Root->TryGetObjectField(TEXT("gunsmith_parts"),Parts))
         for(const auto& Pair:(*Parts)->Values){FString Value;if(Pair.Value->TryGetString(Value))Result.Add(FString(*Pair.Key),Value);}
+    if(Item.Definition==ColdSteelFrostRunes::Zhanmadao)
+        if(const TCHAR* Migrated=ColdSteelFrostRunes::LegacyBladeRune(Item.Definition,Result.FindRef(TEXT("blade_1"))))
+        {
+            Result.Remove(TEXT("blade_1"));
+            Result.Add(TEXT("blade_2"),Migrated);
+        }
     if(auto* Rune=Result.Find(ColdSteelFrostRunes::Slot(Item.Definition)))*Rune=ColdSteelFrostRunes::Upgrade(Item.Definition,*Rune);
     return Result;
 }
@@ -199,18 +206,12 @@ bool ColdSteelModularSword::Supports(const FColdSteelItem& Item)
 
 bool ColdSteelModularSword::UsesChixiaoDoubleHeavy(const FColdSteelItem& Item)
 {
-    if(Item.Definition!=TEXT("ue_zhanmadao"))return false;
-    const auto Spec=Part(Item,TEXT("blade_1"),Installed(Item,nullptr));
-    FString Attack;
-    return Spec&&Spec->TryGetStringField(TEXT("heavy_attack"),Attack)&&Attack==TEXT("chixiao_double_slash");
+    return Item.Definition==ColdSteelFrostRunes::Zhanmadao&&!PojunGrip::Installed(Item)&&ColdSteelMeleeRune::Selected(Item)==ColdSteelFrostRunes::Chixiao;
 }
 
 bool ColdSteelModularSword::UsesZhufengWhirlwind(const FColdSteelItem& Item)
 {
-    if(Item.Definition!=TEXT("ue_zhanmadao"))return false;
-    const auto Spec=Part(Item,TEXT("blade_1"),Installed(Item,nullptr));
-    FString Attack;
-    return Spec&&Spec->TryGetStringField(TEXT("dash_attack"),Attack)&&Attack==TEXT("zhufeng_whirlwind");
+    return Item.Definition==ColdSteelFrostRunes::Zhanmadao&&!PojunGrip::Installed(Item)&&ColdSteelMeleeRune::Selected(Item)==ColdSteelFrostRunes::Zhufeng;
 }
 
 bool ColdSteelModularSword::UsesOverheadFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft)
@@ -339,6 +340,8 @@ FString ColdSteelModularSword::Key(const FColdSteelItem& Item,const FGunsmithPar
     if(IncludeRune)Result+=TEXT("|rune=")+Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition));
     if(ColdSteelInventory::IsTwoHandedSword(Item)||ColdSteelInventory::IsTwoHandedBlunt(Item))
         Result+=TEXT("|blade_material=")+Parts.FindRef(TEXT("blade_material"))+TEXT("|bladeFinishScope=shared20261101");
+    if(Item.Definition==TEXT("ue_zhanmadao")&&Parts.FindRef(TEXT("blade_material"))==TEXT("damascus_steel"))
+        Result+=FString::Printf(TEXT("|damascusV2:%u"),BladeFinishSeed(Item,Draft));
     if(Item.Definition==TEXT("ue_frost_crystal_sword")&&Parts.FindRef(TEXT("blade_material"))==TEXT("high_energy_magic_crystal"))
         Result+=TEXT("|crystalGlass=20261102-v2");
     if(ColdSteelFrostRunes::IsWarhammer(Item.Definition))Result+=TEXT("|runePlacement=shaft-wrap-v2");
@@ -381,6 +384,15 @@ uint8 ColdSteelModularSword::BladeFinishMode(const FColdSteelItem& Item,const FG
     return 0;
 }
 
+uint32 ColdSteelModularSword::BladeFinishSeed(const FColdSteelItem& Item,const FGunsmithParts* Draft)
+{
+    if(Item.Definition!=TEXT("ue_zhanmadao")||BladeFinishMode(Item,Draft)!=4)return 0;
+    // The existing saved item ID owns the appearance. No reroll on assembly,
+    // workbench drafts, drop/pickup or remote reconstruction. Keep float-exact bits.
+    const FString Identity=TEXT("ZhanDamascusV2|")+(Item.InstanceId.IsEmpty()?Item.Definition:Item.InstanceId);
+    return 1u+FCrc::StrCrc32(*Identity)%16777215u;
+}
+
 bool ColdSteelModularSword::IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item)
 {
     if(!Mesh)return false;
@@ -389,7 +401,7 @@ bool ColdSteelModularSword::IsBladeFinishCarrier(const UStaticMeshComponent* Mes
         (Item.Definition==TEXT("ue_rune_sword")&&Mesh->ComponentHasTag(TEXT("SwordSlot=guard"))));
 }
 
-void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot)
+void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot,uint32 FinishSeed)
 {
     if(!Mesh)return;
     for(int32 Index=0;Index<Mesh->GetNumMaterials();++Index)
@@ -419,6 +431,7 @@ void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mo
         if(!Dynamic){Dynamic=UMaterialInstanceDynamic::Create(Material,Mesh);Mesh->SetMaterial(Index,Dynamic);}
         Dynamic->SetScalarParameterValue(TEXT("BladeFinishMode"),float(Mode));
         Dynamic->SetScalarParameterValue(TEXT("BladeFinishGuardRoot"),GuardRoot?1.f:0.f);
+        Dynamic->SetScalarParameterValue(TEXT("DamascusSeed"),float(FinishSeed));
     }
 }
 
@@ -557,8 +570,9 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
     // Rune selection happens first. Only authored blade/head carriers receive
     // the finish; the rune sword additionally retains its UV-isolated root.
     const uint8 FinishMode=BladeFinishMode(Item,Draft);
+    const uint32 FinishSeed=BladeFinishSeed(Item,Draft);
     for(auto* Module:Components(Blade))if(IsBladeFinishCarrier(Module,Item))
-        ApplyBladeFinish(Module,FinishMode,Item.Definition==TEXT("ue_rune_sword")&&Module->ComponentHasTag(TEXT("SwordSlot=guard")));
+        ApplyBladeFinish(Module,FinishMode,Item.Definition==TEXT("ue_rune_sword")&&Module->ComponentHasTag(TEXT("SwordSlot=guard")),FinishSeed);
     bool TraceFromAnimation=false;Catalog(Item)->TryGetBoolField(TEXT("trace_from_animation"),TraceFromAnimation);
     const FName TraceTag(TEXT("SwordTraceFromAnimation"));
     if(TraceFromAnimation)Blade->ComponentTags.AddUnique(TraceTag);else Blade->ComponentTags.Remove(TraceTag);

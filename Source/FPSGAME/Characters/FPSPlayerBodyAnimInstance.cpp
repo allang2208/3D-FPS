@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyAnimInstance.h"
+#include "../Skills/ChainSlashMotion.h"
 #include "../Movement/FPSFurnitureRestComponent.h"
 #include "FPSPlayerBodyPoses.h"
 #include "FPSBodyGrounding.h"
@@ -621,6 +622,8 @@ struct FControls : FAnimNode_Base
             FTransform Targets[2]={Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)),Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones))};
             const bool Melee=State.Family==TEXT("Melee")||State.Family==TEXT("Tool");
             const bool Gun=State.Family==TEXT("Rifle")||State.Family==TEXT("Pistol");
+            const bool PojunChainPair=State.Family==TEXT("Tool")&&State.Weapon==TEXT("warhammer")&&
+                ChainSlashMotion::IsVariant(State.ActionVariant)&&bCoupledActionWrists&&ActionWristMask==3&&!Traversing;
             const bool SwordPair=State.Family==TEXT("Melee")&&bLeftGrip&&!Traversing&&
                 State.Action!=EFPSBodyAction::Cast&&State.Action!=EFPSBodyAction::Consume&&
                 ((bCoupledActionWrists&&ActionWristMask==3)||ActionWristMask==0);
@@ -764,7 +767,8 @@ struct FControls : FAnimNode_Base
             // delays the arms relative to the sampled weapon and body.
             const bool ContinuousSwordTravel=SwordPair&&bHadSwordPair&&bCoupledActionWrists&&
                 ActionWristMask==3&&LastActionWristMask==3&&State.Action==EFPSBodyAction::None&&LastAction==EFPSBodyAction::None;
-            if(bHasHandHistory&&!ContinuousSwordTravel&&(LastAction!=State.Action||LastVariant!=State.ActionVariant||LastActionWristMask!=ActionWristMask))
+            const bool ContinuousPojunCut=PojunChainPair&&LastActionWristMask==3&&ChainSlashMotion::IsVariant(LastVariant);
+            if(bHasHandHistory&&!ContinuousSwordTravel&&!ContinuousPojunCut&&(LastAction!=State.Action||LastVariant!=State.ActionVariant||LastActionWristMask!=ActionWristMask))
             {
                 EntryHands[0]=LastHands[0];EntryHands[1]=LastHands[1];HandBlendAge=0.f;
             }
@@ -777,7 +781,7 @@ struct FControls : FAnimNode_Base
             for(int32 I=0;I<2;++I)
                 if(!BowActive&&bHasHandHistory&&Blend<1.f&&!(I==1&&RecoveringCast))
                 {FTransform Mixed;Mixed.Blend(EntryHands[I],Targets[I],Blend);Targets[I]=Mixed;}
-            if(SwordPair)
+            if(SwordPair||PojunChainPair)
             {
                 Targets[1]=(ActionWristMask==3?DynamicLeftFromRight:LeftGrip)*Targets[0];
                 FitHandPair(Pose,Targets);

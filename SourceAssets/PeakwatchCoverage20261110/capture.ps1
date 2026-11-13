@@ -1,4 +1,4 @@
-﻿param([string]$Label='production')
+param([string]$Label='production')
 $ErrorActionPreference='Stop'
 $project='D:/FPS3D/FPSGAME'
 $output="$PSScriptRoot/Review/$Label-$(Get-Date -Format 'yyyyMMdd-HHmmss')"

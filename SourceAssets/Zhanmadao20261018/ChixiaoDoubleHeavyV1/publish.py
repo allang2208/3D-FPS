@@ -23,7 +23,7 @@ def write(name,data):
 catalog=runpy.run_path(str(P.parent/'ChixiaoBladeV1/catalog_extension.py'))['extend'](read('zhanmadao-modules.json'))
 write('zhanmadao-modules.json',catalog)
 gunsmith=read('melee-gunsmith.json')
-option=next(o for c in gunsmith['columns'] if c['key']=='blade_1' for o in c['options'] if o['id']=='chixiao')
+option=next(o for c in gunsmith['columns'] if c['key']=='blade_2' for o in c['options'] if o['id']=='chixiao_rune')
 mechanism='重击改为快速二连斩：先下斩，再从落刀处向右上方挑斩。两刀均造成完整重击伤害，属于武技。出手体力消耗翻倍，蓄力期间每秒体力消耗不变。'
 runpy.run_path(str(P.parent/'ChixiaoLegendaryV1/catalog_extension.py'))['extend_option'](option)
 write('melee-gunsmith.json',gunsmith)

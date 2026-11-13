@@ -28,7 +28,7 @@ struct FMeleeModifiers
     // Knockback distance is independent of hit-reaction duration.
     double HeavyDamage=1, HeavyDamageAdd=0, Knockback=1;
     double WhirlwindDamageAdd=0;
-    double QuickCombatDamageAdd=0, QuickCombatKnockback=1;
+    double QuickCombatDamageAdd=0, QuickCombatKnockback=1, QuickCombatRange=1;
     // 每次近战出手按武器冷却口径缩减全部魔法技能CD（金色符文强化：0.5s→1.0s）。
     double CooldownReduceSecondsPerHit=0;
     // RuneVulnerability*=剑刃攻击通道（普攻/连段/重击/旋风/冲刺及未来的剑刃攻击）；

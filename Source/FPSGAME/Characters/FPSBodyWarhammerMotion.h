@@ -1,5 +1,6 @@
 #pragma once
 #include "FPSPlayerBodyTypes.h"
+#include "../Skills/ChainSlashMotion.h"
 
 /** Authored hammer body performances. ProductionTool still owns time and hits. */
 namespace FPSBodyWarhammerMotion
@@ -23,6 +24,8 @@ inline FName Clip(const FFPSBodyState& S)
     {
         // A hit no longer replaces the donor's follow-through with a separately
         // constructed first-person-style recovery. Keep the complete take.
+        // The continuous Pojun performance supplies both wrists and the weapon.
+        if(ChainSlashMotion::IsVariant(S.ActionVariant))return NAME_None;
         if(S.ActionVariant==TEXT("WarhammerSlash1"))return TEXT("Warhammer.FullBody.Slash1");
         if(S.ActionVariant==TEXT("WarhammerSlash2"))return TEXT("Warhammer.FullBody.Slash2");
         if(S.ActionVariant==TEXT("WarhammerSlash3"))return TEXT("Warhammer.FullBody.Slash3");

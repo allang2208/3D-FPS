@@ -1,9 +1,10 @@
 """Save Chixiao PBR, rune surfaces, mesh LODs and standard icon in an isolated host."""
-import json
+import json,runpy
 from pathlib import Path
 import unreal as u
 P=Path(__file__).resolve().parent;ROOT=P.parents[2];D='/Game/Weapons/Zhanmadao20261018/ChixiaoBladeV1'
 E=u.MaterialEditingLibrary;L=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools()
+apply_longitudinal=runpy.run_path(str(ROOT/'SourceAssets/DaoLongitudinal20261110/rune_material.py'))['apply_known_layout']
 if Path(u.Paths.project_dir()).resolve()!=P/'AssetHost':raise RuntimeError('Wrong asset host')
 ex=json.loads((P/'exports.json').read_text(encoding='utf-8'))
 source=next(iter(json.loads((P/'source_bindings.json').read_text(encoding='utf-8'))['factory'].values())).split('.')[0]
@@ -15,6 +16,7 @@ def load(path):
     return obj
 def save(obj):
     if isinstance(obj,u.Material):
+        apply_longitudinal(obj)
         errors=E.recompile_material(obj)
         if errors:raise RuntimeError('Shader build: '+str(errors))
     if not u.EditorLoadingAndSavingUtils.save_packages([obj.get_outermost()],False):raise RuntimeError('Save failed '+obj.get_path_name())
@@ -55,6 +57,7 @@ for n in E.get_material_expressions(surface):
         n.set_editor_property('code',replacement+'\n'+rest);rune=True
 if replaced!={'BaseColor','ORM','Normal'} or not rune:raise RuntimeError('Incomplete surface authoring')
 surface.set_editor_properties(dict(two_sided=False,used_with_skeletal_mesh=False))
+runpy.run_path(str(ROOT/'SourceAssets/ChixiaoInlayPreservation20261110/inlay_material.py'))['apply_inlay_protection'](surface)
 save(surface)
 gold_name='M_Chixiao_Brass_V1';gold_path=D+'/Materials/'+gold_name
 gold=u.load_asset(gold_path) or A.create_asset(gold_name,D+'/Materials',u.Material,u.MaterialFactoryNew())

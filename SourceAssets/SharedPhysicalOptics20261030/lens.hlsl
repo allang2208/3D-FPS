@@ -80,6 +80,31 @@ else if(style==2||style==4) // Prism / PSO: the primary chevron TIP is the aim r
         labels=max(labels,m.glyph(p,float2(-22+12*px,23+7*px),7,px,Glyphs,GlyphsSampler)*labelVisibility);
     }
 }
+else if(style==7) // Peakwatch: fine mountain-tip aim and angular hold references.
+{
+    // Tip is the unchanged camera aim ray. These marks are mrad references,
+    // not distance labels or an assumed arrow-specific ballistic zero.
+    d=min(d,m.segment(p,float2(-1.4,1.6),float2(0,0)));
+    d=min(d,m.segment(p,float2(0,0),float2(1.4,1.6)));
+    d=min(d,m.segment(p,float2(-12,0),float2(-3,0)));
+    d=min(d,m.segment(p,float2(3,0),float2(12,0)));
+    d=min(d,m.segment(p,float2(0,2.8),float2(0,12)));
+    // Preserve the bow's draw/full/perfect/piercing cues inside its lens.
+    // Normal HUD remains the authoritative, fully legible feedback display.
+    if(BowDrawState.r>.01)
+    {
+        float x=lerp(8,3,saturate(BowDrawState.r));
+        float cue=min(m.segment(p,float2(-x,-1),float2(-x,1)),m.segment(p,float2(x,-1),float2(x,1)));
+        lit=max(lit,m.coverage(cue,px*.7,px)*BowDrawState.r*.6);
+    }
+    lit=max(lit,m.coverage(d,max(.04,px*.55),px)*saturate(BowDrawState.g*.25+BowDrawState.b*.75));
+    if(BowDrawState.a>.01)
+    {
+        float pierce=min(m.segment(p,float2(-1,-2),float2(0,-3)),m.segment(p,float2(0,-3),float2(1,-2)));
+        lit=max(lit,m.coverage(pierce,px*.65,px)*BowDrawState.a);
+    }
+    lit=max(lit,m.coverage(abs(length(p)-lerp(2,4,1-BowRelease)),px*.5,px)*BowRelease*.5);
+}
 else // Thermal: open central cross, square acquisition corners and mil ladder.
 {
     float gap=max(.4,2*px);
@@ -103,7 +128,7 @@ else // Thermal: open central cross, square acquisition corners and mil ladder.
     bool major=abs(a/labelStep-round(a/labelStep))<.01;
     float len=px*(major?3.1:1.65);
     if(style==5){visible=(i%8==0);major=visible;}
-    if(style==1||style==2||style==6){visible=(i%4==0);major=visible&&major;}
+    if(style==1||style==2||style==6||style==7){visible=(i%4==0);major=visible&&major;}
     if(style==4){visible=i%2==0&&a>=3;major=i%10==0;}
     if(visible)
     {
@@ -143,4 +168,5 @@ scene=lerp(scene,float3(.72,.77,.72),halo*.8);
 float3 etched=style==6?float3(.42,.95,.72):float3(.003,.004,.003);
 scene=lerp(scene,etched,ink*.97);
 float3 illumination=style==2?float3(.95,.22,.025):style==6?float3(.45,1,.76):float3(.85,.028,.012);
+if(style==7)illumination=lerp(float3(.82,.67,.35),float3(.55,.92,.78),saturate(BowDrawState.b+BowDrawState.a));
 return lerp(scene,illumination,lit*.9);

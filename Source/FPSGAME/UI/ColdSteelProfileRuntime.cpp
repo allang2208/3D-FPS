@@ -515,11 +515,16 @@ bool UColdSteelStatusModel::ReloadProfile()
         {
             TSharedPtr<FJsonObject> Data;const TSharedPtr<FJsonObject>* Parts=nullptr;FString Rune;
             if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
-                Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&(*Parts)->TryGetStringField(TEXT("blade_2"),Rune))
+                Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts))
             {
-                const FString Replacement=ColdSteelFrostRunes::Upgrade(I.Definition,Rune);
-                if(Replacement!=Rune)
+                (*Parts)->TryGetStringField(TEXT("blade_2"),Rune);
+                FString Blade;
+                const TCHAR* LegacyRune=I.Definition==ColdSteelFrostRunes::Zhanmadao&&(*Parts)->TryGetStringField(TEXT("blade_1"),Blade)?
+                    ColdSteelFrostRunes::LegacyBladeRune(I.Definition,Blade):nullptr;
+                const FString Replacement=LegacyRune?FString(LegacyRune):ColdSteelFrostRunes::Upgrade(I.Definition,Rune);
+                if(LegacyRune||Replacement!=Rune)
                 {
+                    if(LegacyRune)(*Parts)->RemoveField(TEXT("blade_1"));
                     if(Replacement.IsEmpty())(*Parts)->RemoveField(TEXT("blade_2"));
                     else (*Parts)->SetStringField(TEXT("blade_2"),Replacement);
                     I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;

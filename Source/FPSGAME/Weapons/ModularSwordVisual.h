@@ -33,7 +33,8 @@ namespace ColdSteelModularSword
     FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     uint8 BladeFinishMode(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
     bool IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item);
-    void ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot);
+    uint32 BladeFinishSeed(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
+    void ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot,uint32 FinishSeed=0);
     // Colored glass transmission needs an alpha-coverage adapter in UI captures.
     bool ApplyGlassPreview(UStaticMeshComponent* Blade);
     bool Apply(UStaticMeshComponent* Blade,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);

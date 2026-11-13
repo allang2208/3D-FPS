@@ -1,0 +1,37 @@
+[
+  {
+    "path": "Integration/SessionChainWire20261110.cpp.patch",
+    "apply_to": "Source/FPSGAME/Skills/SessionChainWire20261110.cpp",
+    "before": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/SessionChainWire20261110.cpp",
+    "before_sha256_lf": "c9f1f68d1c64bb5aea0800217a166a087566b94a1b7c5c86f83ddfcae371633d",
+    "after_sha256_lf": "835daad84b573a5595326572977dab0ba21fee91fafaa1e11ea42d1b4498a7c5"
+  },
+  {
+    "path": "Integration/ColdSteelChainSlashModel.cpp.patch",
+    "apply_to": "Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp",
+    "before": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp",
+    "before_sha256_lf": "9eb75d1fdef008708d9a473a906fa3322727725d204d09959bbf45b8c0084518",
+    "after_sha256_lf": "18de7eeea05259823b0ba6ea6245d3e4bb4831488b5b552a32e02cddead27406"
+  },
+  {
+    "path": "Integration/RuneSwordChainSlash.cpp.patch",
+    "apply_to": "Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp",
+    "before": "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp",
+    "before_sha256_lf": "e280b66e98e2a9983c834a945d16d33ee204fb537f70062e6455e795e4ade9a2",
+    "after_sha256_lf": "262ee6897e279ba747f502cc20a625b40c27e89557170e449bbab70ec25837f5"
+  },
+  {
+    "path": "Integration/BowScopeOptics.cpp.patch",
+    "apply_to": "Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+    "before": "Docs/Publication/Conversation20261112/Integration/Source/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+    "before_sha256_lf": "4f4df309ae493ff295242fc4f0dec6102ce5263ca74588abfb9aa2ecd4c5fa17",
+    "after_sha256_lf": "972cf75945fe6ebfbdc213729c734243a825541df2c679c839e8e11001421e76"
+  },
+  {
+    "path": "Integration/ColdSteelEnhancementComparison.cpp.patch",
+    "apply_to": "Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "before": "Docs/Publication/WorkbenchPlanting20261110/Source/Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp",
+    "before_sha256_lf": "53c17c8fc3cf845679611efaa4e2f6ef05ae3d33a274adf71ba1f4c65517612a",
+    "after_sha256_lf": "57728a5e205562c5de6420c69404499af3cf5c8242406b657f6869fac5bc9ba3"
+  }
+]

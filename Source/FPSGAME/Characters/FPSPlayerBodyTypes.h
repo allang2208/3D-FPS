@@ -176,6 +176,7 @@ struct FFPSBodyAttachment
     // Persistent material references omit MID parameters. Carry the selected
     // blade finish independently of whether an active rune is installed.
     UPROPERTY() uint8 BladeFinishMode=0;
+    UPROPERTY() uint32 BladeFinishSeed=0;
     UPROPERTY() bool bBladeFinishGuardRoot=false;
     UPROPERTY() FVector RuneDimensions=FVector(12,10,63);
     UPROPERTY() FVector BeiweiBladeBase=FVector::ZeroVector;

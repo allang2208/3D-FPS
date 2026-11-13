@@ -25,7 +25,7 @@ for suffix in ('.uasset', '.uexp', '.ubulk', '.uptnl'):
 extension = runpy.run_path(str(P / 'catalog_extension.py'))
 catalog_path = ROOT / 'Content/ColdSteelData/melee-gunsmith.json'
 catalog = json.loads(catalog_path.read_text('utf-8-sig'))
-option = next(o for c in catalog['columns'] if c['key'] == 'blade_1' for o in c['options'] if o['id'] == 'chixiao')
+option = next(o for c in catalog['columns'] if c['key'] == 'blade_2' for o in c['options'] if o['id'] == 'chixiao_rune')
 extension['extend_option'](option)
 catalog_path.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 

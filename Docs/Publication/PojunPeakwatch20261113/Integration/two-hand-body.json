@@ -1,0 +1,16 @@
+{
+  "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp": [
+    {
+      "line": 1039,
+      "code": "            const bool PojunChainPair=Warhammer&&ChainSlashMotion::IsVariant(State.ActionVariant)&&\n                bCoupledActionWrists&&ActionWristMask==3&&!Traversing;"
+    },
+    {
+      "line": 1229,
+      "code": "            const bool ContinuousPojunCut=PojunChainPair&&LastActionWristMask==3&&ChainSlashMotion::IsVariant(LastVariant);"
+    },
+    {
+      "line": 1245,
+      "code": "            if(SwordPair||RiflePair||PojunChainPair)\n            {\n                Targets[1]=(ActionWristMask==3?DynamicLeftFromRight:LeftGrip)*Targets[0];\n                if(RiflePair&&RifleHold.bValid&&ActionWristMask==0)\n                    FitHandPair(Pose,Targets,RifleStockNormal,float(FVector::DotProduct(\n                        RifleStockPlane-Targets[0].TransformPosition(RifleHold.StockInHand),RifleStockNormal)));\n                else FitHandPair(Pose,Targets);\n            }"
+    }
+  ]
+}

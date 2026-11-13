@@ -113,7 +113,7 @@ FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel,const FMe
     C.ToughnessMultiplier=float(Mods.QuickCombatToughnessMultiplier());
     C.BleedChance=FMath::Clamp(float(Mods.QuickCombatBleedChance),0.f,1.f);
     C.bAreaHit=Mods.bQuickCombatAOE;
-    C.RangeCM=T.RangeCM;
+    C.RangeCM=T.RangeCM*Mods.QuickCombatRange;
     C.StaminaCost=QuickCombatStaminaCost(L,&Mods);
     return C;
 }

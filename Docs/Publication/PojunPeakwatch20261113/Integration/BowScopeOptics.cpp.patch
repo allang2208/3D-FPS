@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp
+@@ -19,7 +19,8 @@
+ TAutoConsoleVariable<int32> OpticalPresentation(TEXT("fps.Bow.Scope.OpticalPresentation"),1,
+     TEXT("Peakwatch 3-6x physical-lens capture; 0 retains the legacy main-camera zoom."));
+ constexpr float LensRadiusCM=1.115f*1.75f;
+-constexpr float ApertureFraction=.42f;
++// Settled glass diameter as a fraction of the owner's shorter viewport axis.
++constexpr float ApertureFraction=.72f;
+ }
+ 
+ bool UBowScopeOptics::Enabled() { return BowScopeOptics::OpticalPresentation.GetValueOnGameThread()!=0; }

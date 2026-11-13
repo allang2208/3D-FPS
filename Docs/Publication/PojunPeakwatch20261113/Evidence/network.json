@@ -1,0 +1,635 @@
+{
+  "PojunChain": {
+    "local_run": "SourceAssets/SessionSkillAudit20261110/Wire/PojunChain-dedicated-20261113-125421",
+    "passed": true,
+    "lag_ms": 80,
+    "loss_percent": 2,
+    "rendered": false,
+    "peers": {
+      "host": {
+        "passed": true,
+        "contacts": 4,
+        "body_cut_mask": 15,
+        "observer_cut_mask": 15,
+        "cost_once": true,
+        "release_training_once": true,
+        "client_reported": true,
+        "client_passed": true
+      },
+      "client": {
+        "passed": true,
+        "owner_started": true,
+        "owner_finished": true,
+        "cost_once": true,
+        "cooldown": true,
+        "owner_body_cut_mask": 15
+      },
+      "observer": {
+        "passed": true,
+        "simulated_proxy_hammer_cut_mask": 15,
+        "coupled_wrist_sample_mask": 15,
+        "impact_visible": true,
+        "impact_retired": true
+      }
+    }
+  },
+  "Peakwatch": {
+    "local_run": "SourceAssets/BowSparrowThirdPerson20261018/NetworkReview/Wire/Peakwatch-20261113-125548",
+    "passed": true,
+    "lag_ms": 60,
+    "loss_percent": 5,
+    "rendered": false,
+    "peers": {
+      "host": {
+        "passed": true,
+        "role": "listen_host",
+        "cases": [
+          {
+            "phase": 0,
+            "client_observer": true,
+            "ring_degrees": -111,
+            "authored_world_glass": true,
+            "ring_follows_zoom": true,
+            "no_remote_capture": true
+          },
+          {
+            "phase": 1,
+            "client_observer": true,
+            "ring_degrees": 0,
+            "authored_world_glass": true,
+            "ring_follows_zoom": true,
+            "no_remote_capture": true
+          },
+          {
+            "phase": 0,
+            "client_observer": true,
+            "ring_degrees": -111,
+            "authored_world_glass": true,
+            "ring_follows_zoom": true,
+            "no_remote_capture": true
+          },
+          {
+            "phase": 1,
+            "client_observer": true,
+            "ring_degrees": 0,
+            "authored_world_glass": true,
+            "ring_follows_zoom": true,
+            "no_remote_capture": true
+          }
+        ]
+      },
+      "client": {
+        "passed": true,
+        "role": "client",
+        "cases": [
+          {
+            "phase": 0,
+            "assets_ready": true,
+            "ring_degrees": 0,
+            "authored_world_glass": true,
+            "ring_follows_zoom": true,
+            "no_remote_capture": true
+          },
+          {
+            "phase": 1,
+            "assets_ready": true,
+            "ring_degrees": -111,
+            "authored_world_glass": true,
+            "ring_follows_zoom": true,
+            "no_remote_capture": true
+          }
+        ]
+      },
+      "rejoin": {
+        "passed": true,
+        "role": "client",
+        "cases": [
+          {
+            "phase": 0,
+            "assets_ready": true,
+            "ring_degrees": 0,
+            "authored_world_glass": true,
+            "ring_follows_zoom": true,
+            "no_remote_capture": true
+          },
+          {
+            "phase": 1,
+            "assets_ready": true,
+            "ring_degrees": -111,
+            "authored_world_glass": true,
+            "ring_follows_zoom": true,
+            "no_remote_capture": true
+          }
+        ]
+      }
+    }
+  },
+  "PojunSlam": {
+    "local_run": "SourceAssets/SessionSkillAudit20261110/Wire/PojunSlam-dedicated-20261113-000329",
+    "peers": {
+      "host": {
+        "passed": true,
+        "cases": [
+          {
+            "case": "charged_ground_slam",
+            "passed": true,
+            "waves": 1,
+            "radius_cm": 450,
+            "expected_radius_cm": 450,
+            "hammer_ground_sound": true
+          }
+        ]
+      },
+      "client": {
+        "passed": true,
+        "cases": [
+          {
+            "case": "charged_ground_slam",
+            "passed": true,
+            "waves": 1,
+            "radius_cm": 450,
+            "expected_radius_cm": 450,
+            "hammer_ground_sound": true
+          }
+        ]
+      }
+    }
+  },
+  "HammerSlam": {
+    "local_run": "SourceAssets/SessionSkillAudit20261110/Wire/HammerSlam-dedicated-20261113-000226",
+    "peers": {
+      "host": {
+        "passed": true,
+        "cases": [
+          {
+            "case": "charged_ground_slam",
+            "passed": true,
+            "waves": 1,
+            "radius_cm": 300,
+            "expected_radius_cm": 300,
+            "hammer_ground_sound": true
+          }
+        ]
+      },
+      "client": {
+        "passed": true,
+        "cases": [
+          {
+            "case": "charged_ground_slam",
+            "passed": true,
+            "waves": 1,
+            "radius_cm": 300,
+            "expected_radius_cm": 300,
+            "hammer_ground_sound": true
+          }
+        ]
+      }
+    }
+  },
+  "PojunLeap": {
+    "local_run": "SourceAssets/SessionSkillAudit20261110/Wire/PojunLeap-listen-20261113-000238",
+    "peers": {
+      "host": {
+        "passed": true,
+        "cases": [
+          {
+            "case": "flat",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 798.8156305827058,
+            "landing_z": 98.15000080533416,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 85.15840148925781,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "wall_after_commit",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 162.0418093118739,
+            "landing_z": 98.14999635081256,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 33.53752517700195,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "roof_30m",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 799.8362013625762,
+            "landing_z": 98.1499981514522,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 150.52085876464844,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "roof_200m",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 721.9723985754458,
+            "landing_z": 98.1500040157243,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 541.0762939453125,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "platform_removed",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 2288.934735831119,
+            "landing_z": 98.15000116200544,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 284.42877197265625,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "cancel_descent",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 0,
+            "landing_x": 804.8110344268013,
+            "landing_z": 98.1499972242189,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 62.1035041809082,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "cancel_pending",
+            "passed": true,
+            "started": true,
+            "airborne": false,
+            "active": false,
+            "waves": 0,
+            "landing_x": 0,
+            "landing_z": 98.15000009536743,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "stale_weapon_instance",
+            "passed": true,
+            "started": false,
+            "airborne": false,
+            "active": false,
+            "waves": 0,
+            "landing_x": 0,
+            "landing_z": 98.15000009536743,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          }
+        ]
+      },
+      "client": {
+        "passed": true,
+        "cases": [
+          {
+            "case": "flat",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 798.2647752234151,
+            "landing_z": 98.15000365730401,
+            "max_eye_offset_xy": 58.966670989990234,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "wall_after_commit",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 162.04163823611552,
+            "landing_z": 98.14999972104638,
+            "max_eye_offset_xy": 56.000099182128906,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "roof_30m",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 799.794595198065,
+            "landing_z": 98.1499981514522,
+            "max_eye_offset_xy": 82.98905181884766,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "roof_200m",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 721.9611479909896,
+            "landing_z": 98.15000401572067,
+            "max_eye_offset_xy": 82.98902893066406,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "platform_removed",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 2288.5902056354103,
+            "landing_z": 98.14999656752889,
+            "max_eye_offset_xy": 58.56262969970703,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "cancel_descent",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 0,
+            "landing_x": 801.578187328834,
+            "landing_z": 98.14999707885988,
+            "max_eye_offset_xy": 82.98896789550781,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "cancel_pending",
+            "passed": true,
+            "started": true,
+            "airborne": false,
+            "active": false,
+            "waves": 0,
+            "landing_x": 0,
+            "landing_z": 98.15000009536743,
+            "max_eye_offset_xy": 56.00016403198242,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "stale_weapon_instance",
+            "passed": true,
+            "started": true,
+            "airborne": false,
+            "active": false,
+            "waves": 0,
+            "landing_x": 0,
+            "landing_z": 98.15000009536743,
+            "max_eye_offset_xy": 56.00016403198242,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          }
+        ]
+      }
+    }
+  },
+  "HammerLeap": {
+    "local_run": "SourceAssets/SessionSkillAudit20261110/Wire/HammerLeap-listen-20261112-235919",
+    "peers": {
+      "host": {
+        "passed": true,
+        "cases": [
+          {
+            "case": "flat",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 798.753499411214,
+            "landing_z": 98.15000026805984,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 130.6573486328125,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "wall_after_commit",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 162.03923404282247,
+            "landing_z": 98.14999885413197,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 11.908570289611816,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "roof_30m",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 799.82881832054,
+            "landing_z": 98.15000307773995,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 121.1861572265625,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "roof_200m",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 721.9684443580347,
+            "landing_z": 98.14999946224994,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 359.4149169921875,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "platform_removed",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 2289.2864777574123,
+            "landing_z": 98.15000239310501,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 143.72280883789062,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "cancel_descent",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 0,
+            "landing_x": 803.867745002095,
+            "landing_z": 98.14999941920735,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 123.94945526123047,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "cancel_pending",
+            "passed": true,
+            "started": true,
+            "airborne": false,
+            "active": false,
+            "waves": 0,
+            "landing_x": 0,
+            "landing_z": 98.15000009536743,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "stale_weapon_instance",
+            "passed": true,
+            "started": false,
+            "airborne": false,
+            "active": false,
+            "waves": 0,
+            "landing_x": 0,
+            "landing_z": 98.15000009536743,
+            "max_eye_offset_xy": 0,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          }
+        ]
+      },
+      "client": {
+        "passed": true,
+        "cases": [
+          {
+            "case": "flat",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 798.1857972302707,
+            "landing_z": 98.1499984885669,
+            "max_eye_offset_xy": 59.12752914428711,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "wall_after_commit",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 162.03907631163375,
+            "landing_z": 98.14999649499835,
+            "max_eye_offset_xy": 56.00012969970703,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "roof_30m",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 799.7872125400828,
+            "landing_z": 98.15000307773995,
+            "max_eye_offset_xy": 82.9889907836914,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "roof_200m",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 721.9571938351972,
+            "landing_z": 98.14999946224994,
+            "max_eye_offset_xy": 82.9890365600586,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "platform_removed",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 1,
+            "landing_x": 2289.2864777574123,
+            "landing_z": 98.15000239310501,
+            "max_eye_offset_xy": 59.11022186279297,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "cancel_descent",
+            "passed": true,
+            "started": true,
+            "airborne": true,
+            "active": false,
+            "waves": 0,
+            "landing_x": 803.825592736057,
+            "landing_z": 98.14999696150491,
+            "max_eye_offset_xy": 82.9889907836914,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "cancel_pending",
+            "passed": true,
+            "started": true,
+            "airborne": false,
+            "active": false,
+            "waves": 0,
+            "landing_x": 0,
+            "landing_z": 98.15000009536743,
+            "max_eye_offset_xy": 56.00016784667969,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          },
+          {
+            "case": "stale_weapon_instance",
+            "passed": true,
+            "started": true,
+            "airborne": false,
+            "active": false,
+            "waves": 0,
+            "landing_x": 0,
+            "landing_z": 98.15000009536743,
+            "max_eye_offset_xy": 56.000144958496094,
+            "max_motion_residual_cm": 0,
+            "premature_end_in_air": false
+          }
+        ]
+      }
+    }
+  }
+}

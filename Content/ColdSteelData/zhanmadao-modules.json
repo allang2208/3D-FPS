@@ -220,68 +220,6 @@
           1
         ],
         "rune_layout_revision": "ZhanmadaoBladeContourV1"
-      },
-      "chixiao": {
-        "trace_base_cm": [
-          0.005440041422843933,
-          0.0023478642106056213,
-          7.1407033858258195
-        ],
-        "trace_tip_cm": [
-          -13.900000000000002,
-          0.0023478642106056213,
-          120.00000476837158
-        ],
-        "rune_dimensions_cm": [
-          10,
-          3,
-          120
-        ],
-        "mesh": "/Game/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Meshes/SM_Zhanmadao_Blade_chixiao_V1.SM_Zhanmadao_Blade_chixiao_V1",
-        "materials": {
-          "M_Chixiao_BladeSurface": "/Game/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_chixiao_V1.M_TangDaoBladeRuneSurface_Zhanmadao_chixiao_V1",
-          "M_Chixiao_Brass": "/Game/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Materials/M_Chixiao_Brass_V1.M_Chixiao_Brass_V1"
-        },
-        "location_cm": [
-          0,
-          0,
-          0
-        ],
-        "interface": "zhanmadao_hilt_v1",
-        "appearance": "玄钢宽刃 · 银白开锋 · 暗红嵌脊 · 刀根金云纹",
-        "rune_layout_revision": "ChixiaoContourV1",
-        "heavy_attack": "chixiao_double_slash"
-      },
-      "zhufeng": {
-        "trace_base_cm": [
-          0.005440041422843933,
-          0.0023478642106056213,
-          7.1407033858258195
-        ],
-        "trace_tip_cm": [
-          -11.700000000000001,
-          0.0023478642106056213,
-          120.00000476837158
-        ],
-        "rune_dimensions_cm": [
-          10,
-          3,
-          120
-        ],
-        "mesh": "/Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Meshes/SM_Zhanmadao_Blade_zhufeng_V1.SM_Zhanmadao_Blade_zhufeng_V1",
-        "materials": {
-          "M_Zhufeng_BladeSurface": "/Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_zhufeng_V1.M_TangDaoBladeRuneSurface_Zhanmadao_zhufeng_V1",
-          "M_Zhufeng_Brass": "/Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_Zhufeng_Brass_V1.M_Zhufeng_Brass_V1"
-        },
-        "location_cm": [
-          0,
-          0,
-          0
-        ],
-        "interface": "zhanmadao_hilt_v1",
-        "appearance": "青灰锻钢 · 银白开锋 · 旋流刀脊",
-        "rune_layout_revision": "ZhufengContourV1",
-        "dash_attack": "zhufeng_whirlwind"
       }
     },
     "guard": {
@@ -410,6 +348,26 @@
           -0.0
         ],
         "appearance": "交错锁纹织带与浅菱格 · 原装接口"
+      },
+      "pojun_longhaft": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/PojunLonghaft/SM_Zhanmadao_Grip_Pojun.SM_Zhanmadao_Grip_Pojun",
+        "location_cm": [0.0, 0.0, -1.2810103595256805],
+        "interface": "zhanmadao_hilt_v1",
+        "pommel_offset_cm": [0.0, 0.0, -61.15001344341226],
+        "strike_contacts_cm": {
+          "/Game/Weapons/Zhanmadao20261018/PojunLonghaft/SM_Zhanmadao_Grip_Pojun.SM_Zhanmadao_Grip_Pojun": [0.014632, -0.003694, -94.5],
+          "/Game/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Pommel_V1.SM_Zhanmadao_Pommel_V1": [-0.583288, 1.05802, -5.500391],
+          "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Meteor.SM_RunePommel_Meteor": [0, 0, -10.599999],
+          "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Swiftstar.SM_RunePommel_Swiftstar": [0, 0, -12.06],
+          "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened": [0.525392, 1.153147, -6.647619],
+          "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune": [0.008041, -0.007865, -7.637666]
+        },
+        "bone_mount": {
+          "location_cm": [0.0, 0.0, 0.8528101035952568],
+          "scale": [0.01, 0.01, 0.01],
+          "rotation_xyzw": [0.0, 0.0, 0.0, 1.0]
+        },
+        "appearance": "锻钢长杆、后段缠带、双手分握"
       }
     },
     "pommel": {
@@ -485,7 +443,5 @@
   "common_modification_revision": "CommonModsV2",
   "tangdao_blade_revision": "TangDaoBladesV1",
   "rune_surface_revision": "ZhanmadaoNativeRuneSurfaceV1",
-  "beiwei_rune_revision": "BeiweiRuneV1",
-  "chixiao_blade_revision": "ChixiaoBladeV1",
-  "zhufeng_blade_revision": "ZhufengBladeV1"
+  "beiwei_rune_revision": "BeiweiRuneV1"
 }

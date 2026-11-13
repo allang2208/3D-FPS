@@ -1,10 +1,12 @@
 """Save Beiwei textures, seven native blade materials and their temporal variants."""
-import json
+import json,runpy
 from pathlib import Path
 import unreal as u
 P=Path(__file__).resolve().parent;ROOT=P.parents[2]
 D='/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1'
 E=u.MaterialEditingLibrary;L=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools()
+protect_decorations=runpy.run_path(str(ROOT/'SourceAssets/ZhanmadaoDecorationPreservation20261110/decoration_material.py'))['apply_decoration_protection']
+apply_longitudinal=runpy.run_path(str(ROOT/'SourceAssets/DaoLongitudinal20261110/rune_material.py'))['apply_known_layout']
 if Path(u.Paths.project_dir()).resolve()!=P/'AssetHost':raise RuntimeError('Use the isolated asset host')
 sources=json.loads((P/'source_bindings.json').read_text(encoding='utf-8'))
 layouts=json.loads((P.parent/'RuneSurfaceV1/layouts.json').read_text(encoding='utf-8'))
@@ -12,6 +14,8 @@ receipt={'assets':[],'bindings':{},'temporal_bindings':{},'assets_saved':False,'
 def record():(P/'import_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 def save(asset):
     if isinstance(asset,u.Material):
+        protect_decorations(asset)
+        apply_longitudinal(asset)
         errors=E.recompile_material(asset)
         if errors:raise RuntimeError(str(errors))
     if not u.EditorLoadingAndSavingUtils.save_packages([asset.get_outermost()],False):raise RuntimeError('Save failed '+asset.get_path_name())

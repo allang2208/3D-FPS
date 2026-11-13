@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp
+@@ -1,6 +1,7 @@
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "ColdSteelSkillRules.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/PojunGrip.h"
+ #include "../Multiplayer/UppercutStaminaReceipt.h"
+ #include "../Movement/FPSExhaustionComponent.h"
+ #include "../FPSGAMECharacter.h"
+@@ -11,8 +12,7 @@
+ {
+     const auto& D=MasteryDefinition(TEXT("chainSlash"));
+     auto C=ChainSlash::Evaluate(D.ChainSlash,AtLevel<0?MasteryProgress(D.Id).Level:AtLevel,D.MaxLevel);
+-    const auto* Item=Equipped();
+-    const auto M=ColdSteelMelee::ItemModifiers(Item&&ColdSteelInventory::IsTwoHandedSword(*Item)?Item:nullptr,this);
++    const auto M=ColdSteelMelee::ItemModifiers(PojunGrip::ChainSlashWeapon(this),this);
+     C.CooldownSeconds*=float(M.MartialCooldownMultiplier());
+     C.StaminaCost=float(ColdSteelMelee::ModifiedAttackStamina(C.StaminaCost,M.Stamina,
+         ColdSteelMelee::TemporaryModifiers(this).Stamina,this));
+@@ -21,8 +21,7 @@
+ 
+ bool UColdSteelStatusModel::CommitChainSlashCast(const FChainSlashCast& Cast)
+ {
+-    const auto* Item=Equipped();
+-    if(!Item||ActiveProductionTool()||!ColdSteelInventory::IsTwoHandedSword(*Item)||
++    if(!PojunGrip::ChainSlashWeapon(this)||
+         MasteryProgress(TEXT("chainSlash")).Level<1||ChainSlashCooldown()>0.f)return false;
+     if(CurrentPawn.IsValid()&&!CurrentPawn->HasAuthority())return false;
+     if(!CanSpendStamina(Cast.StaminaCost)){Message=TEXT("体力不足");OnStaminaChanged.Broadcast();return false;}

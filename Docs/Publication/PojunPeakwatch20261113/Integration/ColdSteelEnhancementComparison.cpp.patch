@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp
++++ b/Source/FPSGAME/UI/ColdSteelEnhancementComparison.cpp
+@@ -6,6 +6,7 @@
+ #include "../Weapons/GunsmithSystem.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/PojunGrip.h"
+ #include "../Weapons/Bow/BowStats.h"
+ #include "../Production/ProductionToolStats.h"
+ #include "Engine/GameInstance.h"
+@@ -81,9 +82,10 @@
+         Row(ColdSteelWeaponText::AttackInterval,Old.SwingSeconds,Final.SwingSeconds,2,true,TEXT("s"));
+         Row(ColdSteelWeaponText::StaminaCost,Old.StaminaCost,Final.StaminaCost);
+         Row(ColdSteelWeaponText::AttackDistance,Old.CombatReachCM/100.,Final.CombatReachCM/100.,2,false,TEXT("m"));
+-        if(IsTwoHandedBlunt(Before))
++        const bool HammerMotion=PojunGrip::UsesHammerMotion(Before);
++        if(HammerMotion)
+             Row(TEXT("重击蓄力时间"),Old.HeavyChargeSeconds,Final.HeavyChargeSeconds,2,true,TEXT("s"));
+-        Note(IsTwoHandedBlunt(Before)?TEXT("按当前角色与锤类普通攻击计算，未计暴击、重击倍率和目标防御。"):
++        Note(HammerMotion?TEXT("按当前角色与双手锤普通攻击计算，未计暴击、重击倍率和目标防御。"):
+             TEXT("按本件工具的实际伤害与挥击节奏计算，保留当前改造与采集属性。"));
+     }
+     else if(Melee)
