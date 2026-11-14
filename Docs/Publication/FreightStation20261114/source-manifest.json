@@ -1,0 +1,772 @@
+[
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/.gitignore",
+    "bytes": 353,
+    "sha256": "f55e89ba63e2d31a14a48b1cde04053d0d37f37d73ceb052e6036295fc131030"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/batch.ps1",
+    "bytes": 761,
+    "sha256": "5e8e36ca10e636b497152433a7106f52a5ebd05a8e62fa9d74b663113a46a4d5"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/capture.py",
+    "bytes": 5454,
+    "sha256": "86767ebe1965dc30bc5f53ec2b084a5e2d38592418c64819aff59475270b73e5"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/cart_fill.py",
+    "bytes": 1227,
+    "sha256": "7011ae0ce76bf252cd94edffb102b6be969cc768ce4916b8ddc1f877e43a6d39"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/commit_level.ps1",
+    "bytes": 2090,
+    "sha256": "ac3df9bc4579c7dfa9d993e484dff9a20602bdbf25f43625fcc1ced8b59fccd0"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/compare.py",
+    "bytes": 1784,
+    "sha256": "f752563de39616aaaeaa9fa35b340e8a19875054930a2b30ef08b30b890b3834"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/lighting.py",
+    "bytes": 2124,
+    "sha256": "36c888a2be9a65ef65f414ea803e8bbad7197e21a256a9ede95c19881efaf196"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/patina.py",
+    "bytes": 1292,
+    "sha256": "731c2a5988e51debbe0027f1583dd2392c568f7fceaad4bdf1a544c2706c792c"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/publish.py",
+    "bytes": 2736,
+    "sha256": "cb5184594673fd390131151a2ac9d6840ff0510b0ce32d0fbabe3ccda8719cea"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/refine.py",
+    "bytes": 3376,
+    "sha256": "6a9270536bf9cf7535af70a7dc21609a45a81aba60ffdd9a9a4831236d3ac0fe"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/render_host.ps1",
+    "bytes": 2482,
+    "sha256": "4f5d28f2fb521f839e5aac4b18c3881f5c0ded8179c385e2b98e2b61d8dca2de"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/surfaces.py",
+    "bytes": 6969,
+    "sha256": "03a70923107a45b66b5794887792cb91cc5845d8c93af84567d5bea8316c51ef"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/wait_chain.py",
+    "bytes": 879,
+    "sha256": "f3fc5e9bc972e93a21439dac9a48ea53435af242c6faddeeba0fa0790755c9fe"
+  },
+  {
+    "path": "SourceAssets/FreightCameraMatch20261113/wall_geometry.py",
+    "bytes": 1570,
+    "sha256": "6d180fc94924ac5136c25eb085eb06ea98bdc5cfd3ad06c00f18086028318212"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/.gitignore",
+    "bytes": 461,
+    "sha256": "bb3d93819d538ac6735f81363e7bbccbefb5c5969b96659e284e655f64d0e03c"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/adjust_projection.py",
+    "bytes": 708,
+    "sha256": "32121397624fbbef23589b2a60f8148a52ed126b991c86db2b1049cdcd561e91"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/author_masks.py",
+    "bytes": 3739,
+    "sha256": "9aa9c27a3d2d347bc77a12b16ec8f766f3cca4635b6898f06dfda71549c66971"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/author_plinth.py",
+    "bytes": 2427,
+    "sha256": "961a3a96cbe08abb5931d0825eae68b8982733427b3fe07f57c99b7cd30de3a7"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/bake_layers.py",
+    "bytes": 1422,
+    "sha256": "a753f18d7f62d7e1cd1a81ef266615ee61d2f487b0ac4af4980e443ac4ee7768"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/bind_final.py",
+    "bytes": 1154,
+    "sha256": "37230d2364353c097f1b3626eb90bdfa5c2aa6c17b5b804791ee1442e8521ae7"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/build_bay.py",
+    "bytes": 8261,
+    "sha256": "ba63df6a9846b4570b8f537f45004f2b6ac9191611c42f63230f285a7bc725d9"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/comparison.py",
+    "bytes": 687,
+    "sha256": "2275694d82f99cb9035fe2e3e5c6671b340963c6d27a7541589757951f45eede"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/deliver_bay.py",
+    "bytes": 729,
+    "sha256": "88e66124ba0b0a359082065e04ca2b2506cd903d91e6462f0ec1ea5668341067"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/finish_masks.py",
+    "bytes": 1100,
+    "sha256": "68c6f4adea3a50f2de23037b2973b61cf2d51737383659972f72849551580438"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/finish.py",
+    "bytes": 2904,
+    "sha256": "61d1b25c1bf54803ab47f7a40267651d407e8d74f1082700858a01a0fb2fa410"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/photo_host.py",
+    "bytes": 1339,
+    "sha256": "03b510f9cb5ae3724c265c03a4a69810ed00bedd578b7fd0bf2310a4ba8b5dcb"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/project_layers.py",
+    "bytes": 1933,
+    "sha256": "6c92a9dd9355f7fe6fecc83dde7c528c407f7b31b12e08517b7ab824929acd32"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/publish_bay.ps1",
+    "bytes": 2133,
+    "sha256": "7dfa7799d5fe5b00836c72e2704d000e21909ebb0b8b4d7512907f0d83ec65b6"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/publish_live.py",
+    "bytes": 2392,
+    "sha256": "4924fae0ec53a332a40b8311d64b6bd688cd7f3fcbccf348aeae038b40c589ab"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/register.py",
+    "bytes": 992,
+    "sha256": "13211f8e0e5c63e8d6d1560be104e85ff450422ac7cb36a616614da3bc1675ba"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/scene_inputs.py",
+    "bytes": 816,
+    "sha256": "b26725e9266ba90a61c0ce21c48efa818e25fc0ddb46f3b2e3beafb2b506e7f2"
+  },
+  {
+    "path": "SourceAssets/FreightCartBay20261113/soften_joints.py",
+    "bytes": 1041,
+    "sha256": "3ddbf5c849960cb6e1993e891cbbdd68c9f2d03c131c50d88a26ad5195152e24"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/.gitignore",
+    "bytes": 363,
+    "sha256": "2d4f60b4da2564fd2b05710385e2ab538dbcd0411cf8856497f1a3dbfb5334eb"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/bake_wall.py",
+    "bytes": 5290,
+    "sha256": "409fba12cee9442848f33861637b95cc3e1ed38850e225d842c6d63ad7831701"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/bay_light.py",
+    "bytes": 1618,
+    "sha256": "cfbecc0f11526a1b6a9dcc27d9e67330634c1983237449d7cc9b4a3dbe61fab0"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/build_face.py",
+    "bytes": 2476,
+    "sha256": "f46be012145e42529b0e7505f52d87edff6063fdd4d8b37d1c2a1dde0b29a687"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/corner.py",
+    "bytes": 1464,
+    "sha256": "ba5553f0cc26d86afd108888672884047c7531f9cd165cbbb3b8b8e55e71ba07"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/distribute.py",
+    "bytes": 1729,
+    "sha256": "5bb3ecf34077b159400d2629798958d519a06a4cd6b9241230cd8300a74f4bf9"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/install_face.py",
+    "bytes": 4625,
+    "sha256": "3859e933a059ff79c2837b78a1e4186582c70ee9b57231e716e2d185190a9a81"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/make_comparison.py",
+    "bytes": 662,
+    "sha256": "c1bda52539504ca85befa4fc1731a3ef699f150565f6057abbe5059f2cbdeae0"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/photo_host.py",
+    "bytes": 1339,
+    "sha256": "03b510f9cb5ae3724c265c03a4a69810ed00bedd578b7fd0bf2310a4ba8b5dcb"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/publish_bay.ps1",
+    "bytes": 2141,
+    "sha256": "70a7049c561e5433a9569b9a5ed6c708ec195387e3eb295d0b2acaf710093bcf"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/publish_live.py",
+    "bytes": 2398,
+    "sha256": "22234add4a3a992e67a8eb46384724dd565a3e513fc02441b829aee6217d5a5b"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/refine_finish.py",
+    "bytes": 1275,
+    "sha256": "6f3145b5c4ba414bdff6090b4e0523c0730e3dc45493111f468082f716027efe"
+  },
+  {
+    "path": "SourceAssets/FreightCartUpperWall20261113/start_host.ps1",
+    "bytes": 633,
+    "sha256": "a6ec133d4291a5752f5cc76ade2adf14e190a8dba26b8c90bcf5c3f44bc62223"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/.gitignore",
+    "bytes": 657,
+    "sha256": "b3592395cb19b9982cebafa375aecf69a09d9889752f3732dfac4d46729448db"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/accents.py",
+    "bytes": 1172,
+    "sha256": "2ff544aacbdb0e1104f13689813175f22dcda1e39922e314e0af249f5df4d0a1"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/bake_surfaces.py",
+    "bytes": 7112,
+    "sha256": "9a217274b8ef54c03cda373c3fe68d8713e246f1711ff5b2064f8b0319aaa17f"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/choose_tiles.py",
+    "bytes": 2103,
+    "sha256": "73e9ee1e35795939579ab11d487bdf66c7a003a14fb87c2cf0421c2fefbc1b45"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/compare.py",
+    "bytes": 1089,
+    "sha256": "fc5086ddc9717f44a73277a0af2771787baa4b5f5a85b2f3d6dd0bf76981052c"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/complete_masks.py",
+    "bytes": 1033,
+    "sha256": "0f86412b717120f0f3453bc0cd818f5b7cc6a9938b832ff2f8c0ca1351c3f189"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/completion_capture_host.py",
+    "bytes": 230,
+    "sha256": "96780eb7cf6505eb3f43426d00d16aef88c1b034391a1808ec8a828bbbb8582d"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/completion_host.py",
+    "bytes": 230,
+    "sha256": "f96635d452c743e4cda9c4171f0b76835147671fde00616b1c74f156237ff268"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/export_meshes.py",
+    "bytes": 1095,
+    "sha256": "c8a1887b2494798fa1bd683f32a9e5dea8bbfeb02505f7e216018d520612f563"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/export_tiles.py",
+    "bytes": 1096,
+    "sha256": "010700d3f5a7851c3c35abc396078452c9b40f4b551ae1b20583ea3b41a57ccc"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/finish_layers.py",
+    "bytes": 2600,
+    "sha256": "08081f13f3f9ada50c85d153ef80dc7650a6c9a3ef812d1875ae4586b02a9256"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/finish_repair.ps1",
+    "bytes": 1089,
+    "sha256": "9a3e596853c5b9efa85ee5f5bd7b272858e8aa7649e237781180d216d46c80f6"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/install_tiles.py",
+    "bytes": 1358,
+    "sha256": "c764f854be6a79d8eb2cc6c9470e729789cf3863769dfdee83173cee2bc78647"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/install.py",
+    "bytes": 4745,
+    "sha256": "7b4eb00b6c231316e6f671573135c05737728c72453755e67d75a36edc0773a8"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/patch_tiles.py",
+    "bytes": 1102,
+    "sha256": "d235b53d4244b2279382c68af21e459a557b75cf9c9bc0d90266b94cf520ae23"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/photo_host.py",
+    "bytes": 2601,
+    "sha256": "c11c543d5495943cc725d6823b9a4c0f99bac0d0a7e28d06691cfd888f892f7f"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/publish_completion.ps1",
+    "bytes": 1858,
+    "sha256": "9e4b3a122c5999fe0bdfe881be2070699c76c1a7483df7e68f5da6f7e2ea5493"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/publish.ps1",
+    "bytes": 1858,
+    "sha256": "6dee7407eba841697207a597b4e64111254420db9ac8639363856fb0e7878cdc"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/read_donor_uv.py",
+    "bytes": 861,
+    "sha256": "05167d20391df36374241a7685a6d2712d18fbba8efbbd6605109df518d28a15"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/recover_host.py",
+    "bytes": 230,
+    "sha256": "a3900494b58e2be3e7901dc4ce5ff607af71adf4be84b07020b0635287bdbdc3"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/repair_shards.py",
+    "bytes": 2663,
+    "sha256": "9feed32ae98f055ef3777b588b60b064b672dd5575fe04e87163b391f9f6bc49"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/resolve_textures.py",
+    "bytes": 1005,
+    "sha256": "88e2848d1672f04018fd8981b56dfba0a42c998da5e6e78a411c6a320f77c202"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/shard_ids.py",
+    "bytes": 614,
+    "sha256": "d8ce8e0554f177c3f3e8d6138746d51d34fc7ab560994a2e2000d85df7f18f95"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/tile_repair_plan.py",
+    "bytes": 2507,
+    "sha256": "a4490ec437af41ab457d9ae5287eceb1ded63465ea84c8d2afa5d4cb983c1278"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/tile_source.py",
+    "bytes": 1517,
+    "sha256": "aa9a30b851242624ff3159d9ab49c9547843d4746e0b888e21d4ed85a9b77cb4"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/wall_geometry.py",
+    "bytes": 5005,
+    "sha256": "9d26b1937a1355f99f110a7f18b78e22e3a468d1b35aff69619cf84539284701"
+  },
+  {
+    "path": "SourceAssets/FreightOppositePlatform20261113/wall-plan.json",
+    "bytes": 900,
+    "sha256": "d6649f030bb67c869d023a84982c910e166a8d3174436d5a716a7291367318ce"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/.gitignore",
+    "bytes": 324,
+    "sha256": "48e6e538e3af6aabc87e23650718cde431279b03d79ac6eb8b45c83ffd33db50"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/author_cloth.py",
+    "bytes": 2171,
+    "sha256": "ab76f1bb5e395514dea11f271191e90a7cb9089803ec2125f5826434f68aae40"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/author_points.py",
+    "bytes": 6968,
+    "sha256": "b4f6ec6d55334980fe1cc996deefd5d365585046a6e050b0c97c2518164d1a90"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/capture_scene.py",
+    "bytes": 3257,
+    "sha256": "259930345d13a6bd2c96ce43171144f7dadee5cb45fc64d10058d6390a0b148f"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/construction.json",
+    "bytes": 10464,
+    "sha256": "b076a4a4c97772b9f5660d1518c37b982a2b95e82eeef90880e9b03760c5ab3e"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/design-points.json",
+    "bytes": 1109,
+    "sha256": "c935cfd1cc1a7c62b2724cf26cafc10a72541cb385f54c43f9276ca2f0e254f5"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/draw_layout.py",
+    "bytes": 6025,
+    "sha256": "e50733644ec000ca4d3de21faec6677963bb108fc5972e700230ce78f8584fa2"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/install.py",
+    "bytes": 9445,
+    "sha256": "479fd002582af407340b2620cce14048f2126e51b7184acb4da726950cfbc52a"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/read_inputs.py",
+    "bytes": 957,
+    "sha256": "acdfd3ad4bd1caa5209df3226ea95cd878b2f223e610ccac3e7a7735776b49fb"
+  },
+  {
+    "path": "SourceAssets/FreightStationDesign20261112/run_background.ps1",
+    "bytes": 646,
+    "sha256": "771928af9766bc255012e3c41b1cd85045f652a6a3598fc7d381858d6476e8fa"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/.gitignore",
+    "bytes": 474,
+    "sha256": "cbec14f7fe08a5122a9f3a571ceee88064f46fdbf2a0d79ffd6213cde2e13d97"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/author_walls.py",
+    "bytes": 5649,
+    "sha256": "23c1a707ce949caf64ffcc39f0ee1f1cee334ac5a0618f9d2ebe18fabe66dcda"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/bake_walls.py",
+    "bytes": 4340,
+    "sha256": "c8cd5504d4e6edd4065bb0c36c31e1ed1850724ead5991f4e80227d3139a98f1"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/comparisons.py",
+    "bytes": 1239,
+    "sha256": "ad35ec5a96cd1db00714505b1c4835bbd4cdbee71500b84551885e4a6b3d9cbe"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/complete_scene.py",
+    "bytes": 363,
+    "sha256": "9d24289c4e51c3bf6627d08d68fec655b8d561f4d435864954b1a67b59812e5a"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/delivery_capture.py",
+    "bytes": 212,
+    "sha256": "62b8b6bd14f4f884352131e677061cb63cd8bbac24035ce83073b096c15c7edd"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/export_current_tiles.py",
+    "bytes": 970,
+    "sha256": "5e518416a92e7385adcceb2f8f004e034202525c6d1cad841a5f739d3e5ed031"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/export_panels.py",
+    "bytes": 1095,
+    "sha256": "c8a1887b2494798fa1bd683f32a9e5dea8bbfeb02505f7e216018d520612f563"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/host.py",
+    "bytes": 2502,
+    "sha256": "0f3f35047f633b391da620894b17466d22c1f3b5471c3fc798974ed02f51e34e"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/install_patina.py",
+    "bytes": 1765,
+    "sha256": "f26077eb6eb6fdad8066a3e89806053a45266d9b72dfc8ea4519e8fc73d99b55"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/install_walls.py",
+    "bytes": 4620,
+    "sha256": "d71bef7daae9c4a7827c1a6ac6660a5b9a7c5e938b57188dfa7a498bb4d30f0f"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/inventory.py",
+    "bytes": 1541,
+    "sha256": "7cfa9b772f239ea8eabd2168c6e1c2e9b13c0bfe7e235993ea9d8f471246513a"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/lighting.py",
+    "bytes": 1054,
+    "sha256": "10f0b73db2363d4a6a951deced411edc49fa68777ede06cb7c04769e3416da9a"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/publish.ps1",
+    "bytes": 1996,
+    "sha256": "f63810e0a78832c9aa1c0dfff38747fa8d117944e16f6d461f4124ea7bf8e581"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/skirt_patina.py",
+    "bytes": 3316,
+    "sha256": "8a0ea6cd9de131d81f79bd523f60a5601a754f93af656dcc4232e715083f678d"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/skirt-plan.json",
+    "bytes": 688,
+    "sha256": "3bc03654ec45aa742d8c1cdfe7b6b96a4173a743021b7f4363bca21f8eb5d832"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/texture-manifest.json",
+    "bytes": 3056,
+    "sha256": "609695a67a9acd8464385661ef6fa96e9c47785e33940a8d4a0c023b43fedfcd"
+  },
+  {
+    "path": "SourceAssets/FreightStationFinal20261113/wall-plan.json",
+    "bytes": 14857,
+    "sha256": "373c9d8051bdd350474dac165e6c32638a36dca37d28a415a65d7db2a4ba7db5"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/.gitignore",
+    "bytes": 456,
+    "sha256": "0ce4f485f04c14ffc00702b637dcc434fc82609c64b87041456f98fa339e7043"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/author_host.py",
+    "bytes": 1190,
+    "sha256": "eb6e1cc51652706a8676b61c91614da950b91758b452e16fdc02778283d44b87"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/Captures/pair_views.py",
+    "bytes": 1305,
+    "sha256": "1fe95d8de672287c55ff4b0bb774883cfadc0734373da2bf75e7e2b176d2e42c"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/Captures/photograph.py",
+    "bytes": 3128,
+    "sha256": "a1cfbe28c7949468b5bd56b5c22aa3a3f158f42c7d35cdbe4af9076a750c77ad"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/Captures/review-capture.json",
+    "bytes": 920,
+    "sha256": "e5879bf015e27f95631af5b1b2c829e9aa14c7d90ca1f0c9d0823a2fdea0ef9e"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/export_panels.py",
+    "bytes": 1095,
+    "sha256": "c8a1887b2494798fa1bd683f32a9e5dea8bbfeb02505f7e216018d520612f563"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/floor_layout.py",
+    "bytes": 8121,
+    "sha256": "d944ca08b95a7a18536d65693bf83870d22377f86e9789bae60c717cae8d6850"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/floor-plan.json",
+    "bytes": 22527,
+    "sha256": "848cd19201d897c3cafee1b92214c7bc834522cdd29a9231bfb7336c85a0c765"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/geometry.py",
+    "bytes": 1721,
+    "sha256": "d12008e24724bf485ca882b8d5e6dfad99ce7e2df8549e3a359315050ad36a9a"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/install_ground.py",
+    "bytes": 5687,
+    "sha256": "9a9495644f9dfbb6b16841449e1b7bfd36780c2b94630fc72bcf15df709ca8d4"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/install_walls.py",
+    "bytes": 2516,
+    "sha256": "ad5f6e58ebba86b37de47f2b6e76c13909d416097e986f80826f51b128925a32"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/inventory.py",
+    "bytes": 747,
+    "sha256": "5b894f8a943bd7026443ceca625e28b38345e6adb4e5eefc83b9e03b97bfccbf"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/panel_layout.py",
+    "bytes": 9200,
+    "sha256": "9de18c31c7ff56e1e6694bc47248a188c6708122058da0bb3d4a7372008d0f79"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/publish.ps1",
+    "bytes": 2090,
+    "sha256": "5361634bcb801c9314d5027417cfbdc67514ab9c56a3a4efd1166ef0758a47d3"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/start_host.ps1",
+    "bytes": 590,
+    "sha256": "263723a98877f60eb5bf8e20e003cd85a7592c1821b04ee07f4893fccbc1656c"
+  },
+  {
+    "path": "SourceAssets/FreightStationSurfaces20261113/wall-sections.json",
+    "bytes": 2524,
+    "sha256": "7a46b03c5352f868282ea525ce03b78f9433fddfc62cbde0b1b9b14943aee929"
+  },
+  {
+    "path": "SourceAssets/FreightStationUnifiedPatina20261111/.gitignore",
+    "bytes": 224,
+    "sha256": "e8f0bce897f2bf51d938d23fb3d3b23566b33ea42497362d0ea019fa5d545f55"
+  },
+  {
+    "path": "SourceAssets/FreightStationUnifiedPatina20261111/author_layout.py",
+    "bytes": 14256,
+    "sha256": "9a5e32119542eb5cd25b3b224c9c9cf9ab3e10bd6106ddbcfddcd565998752ab"
+  },
+  {
+    "path": "SourceAssets/FreightStationUnifiedPatina20261111/Config/layout.json",
+    "bytes": 43305,
+    "sha256": "919d7aa50ec349bedbe403a3a946fe8e28a5d04ebd086d729b58383654d2c382"
+  },
+  {
+    "path": "SourceAssets/FreightStationUnifiedPatina20261111/install.py",
+    "bytes": 11557,
+    "sha256": "5fcad65412012ced73fb3deb80e96bfde2fa62e90e12723de18f0e516882d2be"
+  },
+  {
+    "path": "SourceAssets/FreightStationUnifiedPatina20261111/read_inputs.py",
+    "bytes": 4907,
+    "sha256": "cd2504d585e41d2f16f1aaa77a68b3a13ea84011866522e3e431a0c693972528"
+  },
+  {
+    "path": "SourceAssets/FreightSurfaceStudy20261112/.gitignore",
+    "bytes": 264,
+    "sha256": "74df3872251a42d42c73263bb5a374ba73007e55d0ce225a3e9a9f503c7396ab"
+  },
+  {
+    "path": "SourceAssets/FreightSurfaceStudy20261112/author_relief.py",
+    "bytes": 1409,
+    "sha256": "606becc8e8e6003c495f8fe5c763b26450eb0c62ee5544efd6056475a7323731"
+  },
+  {
+    "path": "SourceAssets/FreightSurfaceStudy20261112/cart_coating.ush",
+    "bytes": 2432,
+    "sha256": "2fc9ebfd161f0a3dd014140533154f5867ff4b9c8349b5c370c708f32bcb58ae"
+  },
+  {
+    "path": "SourceAssets/FreightSurfaceStudy20261112/install.py",
+    "bytes": 8624,
+    "sha256": "78b366cba6e22dd208f3f47d21c8570c68a46c1c74d57eb15258f8f70cf6cc8d"
+  },
+  {
+    "path": "SourceAssets/FreightSurfaceStudy20261112/materials.py",
+    "bytes": 4492,
+    "sha256": "9d9829ad478a84f69b8783aa73fa8a03d19f002197e9752256da47cab93f409c"
+  },
+  {
+    "path": "SourceAssets/FreightSurfaceStudy20261112/reference-targets.json",
+    "bytes": 1450,
+    "sha256": "97073dd2242abdbd2fc43f76e429d103567a384f3fff3777a1ec79f54ed0f681"
+  },
+  {
+    "path": "SourceAssets/FreightSurfaceStudy20261112/sample_scan.py",
+    "bytes": 950,
+    "sha256": "23a27315d886070d5e87dc985bac100dff07acd83232574fa3b946ed5e5059dc"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseDerelictPass20261111/.gitignore",
+    "bytes": 253,
+    "sha256": "6f4d0ccfe0f1c7b520e0b84f5e990bcf9746b571e8e5511707d8e549e38b1d59"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseDerelictPass20261111/author_layout.py",
+    "bytes": 4990,
+    "sha256": "d4ef9d19666ea3fb20c882318027fbcda6381204e4202a93920fa48b23ec804a"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseDerelictPass20261111/Config/layout.json",
+    "bytes": 20070,
+    "sha256": "15ccc9887c2727efc81a05aa7eb7ebdca41466149918de47c628cc3e56777bbf"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseDerelictPass20261111/install.py",
+    "bytes": 9988,
+    "sha256": "ec3c6da5a292d3c6341d76aeaf5ab45c0db6eece26df6a8a7eab16ba393fe60f"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseDerelictPass20261111/materials.py",
+    "bytes": 5393,
+    "sha256": "4c71f7f56e7e1c7e2487dd379049e4adb61379fe919b47fd68badd0d58a68a3a"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseDerelictPass20261111/read_inputs.py",
+    "bytes": 4504,
+    "sha256": "5f3b1474e37563e983447c7595c6f9f3b649536e026d4488fdaf421adf7dfac2"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseDerelictPass20261111/README.md",
+    "bytes": 3558,
+    "sha256": "4b39d6d79e09bad944cf6ac1affaac997d6d51260266cea264fae41d02beea9a"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseEntranceSample20261111/.gitignore",
+    "bytes": 275,
+    "sha256": "d4bec7dfeacf9514abb6f4f8a221df98f36b60b949b6718e17d92a84e6a84ac9"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseEntranceSample20261111/author_layout.py",
+    "bytes": 10008,
+    "sha256": "391c6849cc62bc6ce8596766eae8c1a15428d508e54391eeb668ee57248ebbaf"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseEntranceSample20261111/Config/layout.json",
+    "bytes": 29518,
+    "sha256": "04782ab1bd5aec8b60a8009d9a0bf8a1890965895f0d89defc2422e63d352607"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseEntranceSample20261111/finish_rack_collision.py",
+    "bytes": 1966,
+    "sha256": "1a5ab173e90bc774d8aa342bc34815b217abb706bbd29d79f14bc28b9e61753f"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseEntranceSample20261111/install.py",
+    "bytes": 9864,
+    "sha256": "f8bf3ded3be2ae7da020d6f9a39fa679e205ea82c529602c538e9a883ff52695"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseEntranceSample20261111/read_authoring_inputs.py",
+    "bytes": 4316,
+    "sha256": "7dd2e5d1ad8f3808e908938d67239984032aa80e5c1edd5ad31720654bb289e9"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseEntranceSample20261111/README.md",
+    "bytes": 3393,
+    "sha256": "72f41282d4b7a9b2fc54a51ce324e8764eb5336efb1f70a78edbdc63903e01e6"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseReview20261111/.gitignore",
+    "bytes": 168,
+    "sha256": "b1febb5e74c7fb327ed6c041e703a0502cbd1aa5709cce658e0f803ff3e5d0d9"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseReview20261111/read_scenes.py",
+    "bytes": 6051,
+    "sha256": "ceb0b01e50087f61cb5c88035b1fd5f476bc4358fdd75c6d930be49d508acd09"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/.gitignore",
+    "bytes": 332,
+    "sha256": "c9e75779354a9aa179772e8116035d480d779dce7a581b3da91e041e2b110cc9"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/author_layout.py",
+    "bytes": 13023,
+    "sha256": "bafac1e922944bbde2c11b9b9e97455eadf8d3ce5234538bb35cece1d43720cf"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/build_assets.py",
+    "bytes": 1888,
+    "sha256": "3bdee32976fbdcc05498432949724edc416c6a5e57de93dd728d024ef6d80ca6"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/capture.py",
+    "bytes": 6832,
+    "sha256": "30c41a1dcc4540ee9b8b84820d1d88522a44e8758f2cdef563e785e90289e6f6"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/Config/layout.json",
+    "bytes": 69434,
+    "sha256": "6a8df5acdffa55e8d14d13c9ef5bb65c169aa9ba0c8d22d3bf816adad4d797b1"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/FloorRollback20261111/restore_floor.py",
+    "bytes": 4984,
+    "sha256": "ef5535bdbb99a9496b1d419f23898042ce573822593d43078f65507eab885248"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/install.py",
+    "bytes": 8828,
+    "sha256": "b66e06f4484fba328369d83706cc35555fac4d14d5bb6b9a0b2ca30a498e0ec4"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/materials.py",
+    "bytes": 3465,
+    "sha256": "8eb23937ae764c5cf04d1d6932228a33043aa5bf564e4947f4c8150140f252fe"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/README.md",
+    "bytes": 2329,
+    "sha256": "df65251390ffc9042a4d93b3574fb5a6954c788e2fcccab0171b40fe4c24cd84"
+  },
+  {
+    "path": "SourceAssets/FreightWarehouseWeathering20261110/run_background.ps1",
+    "bytes": 3408,
+    "sha256": "a6961cdc30f3eadc78966c1229f98bf4efb15ae8e77ccc22c24b8c633d803009"
+  }
+]

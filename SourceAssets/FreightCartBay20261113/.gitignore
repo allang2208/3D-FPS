@@ -1,0 +1,22 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/adjust_projection.py
+!/author_masks.py
+!/author_plinth.py
+!/bake_layers.py
+!/bind_final.py
+!/build_bay.py
+!/comparison.py
+!/deliver_bay.py
+!/finish.py
+!/finish_masks.py
+!/photo_host.py
+!/project_layers.py
+!/publish_bay.ps1
+!/publish_live.py
+!/register.py
+!/scene_inputs.py
+!/soften_joints.py

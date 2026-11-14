@@ -1,0 +1,18 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/batch.ps1
+!/capture.py
+!/cart_fill.py
+!/commit_level.ps1
+!/compare.py
+!/lighting.py
+!/patina.py
+!/publish.py
+!/refine.py
+!/render_host.ps1
+!/surfaces.py
+!/wait_chain.py
+!/wall_geometry.py

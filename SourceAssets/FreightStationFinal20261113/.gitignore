@@ -1,0 +1,22 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/author_walls.py
+!/bake_walls.py
+!/comparisons.py
+!/complete_scene.py
+!/delivery_capture.py
+!/export_current_tiles.py
+!/export_panels.py
+!/host.py
+!/install_patina.py
+!/install_walls.py
+!/inventory.py
+!/lighting.py
+!/publish.ps1
+!/skirt-plan.json
+!/skirt_patina.py
+!/texture-manifest.json
+!/wall-plan.json

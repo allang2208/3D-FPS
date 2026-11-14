@@ -1,0 +1,31 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/accents.py
+!/bake_surfaces.py
+!/choose_tiles.py
+!/compare.py
+!/complete_masks.py
+!/completion_capture_host.py
+!/completion_host.py
+!/export_meshes.py
+!/export_tiles.py
+!/finish_layers.py
+!/finish_repair.ps1
+!/install.py
+!/install_tiles.py
+!/patch_tiles.py
+!/photo_host.py
+!/publish.ps1
+!/publish_completion.ps1
+!/read_donor_uv.py
+!/recover_host.py
+!/repair_shards.py
+!/resolve_textures.py
+!/shard_ids.py
+!/tile_repair_plan.py
+!/tile_source.py
+!/wall-plan.json
+!/wall_geometry.py

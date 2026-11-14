@@ -1,0 +1,14 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/Config/layout.json
+!/FloorRollback20261111/restore_floor.py
+!/README.md
+!/author_layout.py
+!/build_assets.py
+!/capture.py
+!/install.py
+!/materials.py
+!/run_background.ps1

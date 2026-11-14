@@ -1,0 +1,2783 @@
+{
+  "map": "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject",
+  "baseline_map": "/Game/GameMaps/Design/L_FreightTransit_BeforeWeathering",
+  "tag": "FreightWarehouse.Weathering20261110",
+  "origin": [
+    3760.0,
+    -900.0,
+    0.0
+  ],
+  "parts": [
+    {
+      "id": "PackingBay_001",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodPallet01d.SM_WoodPallet01d",
+      "position": [
+        2955.2796827521925,
+        334.96565158939006,
+        8.653977702260017
+      ],
+      "yaw": -7,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_002",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodCrate01a.SM_WoodCrate01a",
+      "position": [
+        2954.9684929006307,
+        335.23251302134463,
+        17.10798019707203
+      ],
+      "yaw": -7,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 16.98795349419117,
+      "parent": "PackingBay_001"
+    },
+    {
+      "id": "PackingBay_003",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Dolly01a.SM_Dolly01a",
+      "position": [
+        2749.4777276428154,
+        406.5503892495333,
+        0.32000000298023223
+      ],
+      "yaw": -20,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_004",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01a.SM_WoodBoard01a",
+      "position": [
+        2799.999997347686,
+        290.0000081629835,
+        0.838291237950325
+      ],
+      "yaw": 18,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_005",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01h.SM_WoodBoard01h",
+      "position": [
+        2840.000003172481,
+        440.00001492534784,
+        0.6850493651628494
+      ],
+      "yaw": -12,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_006",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile01a.SM_DebrisPile01a",
+      "position": [
+        2785.0,
+        280.0,
+        0.32000000298023223
+      ],
+      "yaw": 72,
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_007",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile02b.SM_DebrisPile02b",
+      "position": [
+        3117.3789008120925,
+        396.71470169241,
+        0.32000000298023223
+      ],
+      "yaw": -24,
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_008",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/Sm_Toolbox01a.Sm_Toolbox01a",
+      "position": [
+        3214.8863131426706,
+        324.44145806437245,
+        1.1155894500017167
+      ],
+      "yaw": -14,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_009",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Bucket01b.SM_Bucket01b",
+      "position": [
+        3154.9892654797886,
+        404.9977202572527,
+        0.32000000298023223
+      ],
+      "yaw": 12,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_010",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Bucket01b_lid.SM_Bucket01b_lid",
+      "position": [
+        3129.999997516112,
+        374.9999927862657,
+        0.32000000298023223
+      ],
+      "yaw": -19,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_011",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Paintcan01a.SM_Paintcan01a",
+      "position": [
+        3199.0177647165447,
+        401.5441923493938,
+        -0.003189732432365422
+      ],
+      "yaw": 15,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_012",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_GasCan01a.SM_GasCan01a",
+      "position": [
+        3207.842731092857,
+        239.96314071004645,
+        0.42530472099781036
+      ],
+      "yaw": -32,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_013",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_OilBottle01a.SM_OilBottle01a",
+      "position": [
+        3174.984129880767,
+        260.0985625521978,
+        0.12809688866138458
+      ],
+      "yaw": 7,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_014",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01c.SM_WoodBoard01c",
+      "position": [
+        3094.99997599961,
+        255.00001170577252,
+        0.5048835974931717
+      ],
+      "yaw": 64,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "DockWest_015",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodPallet01e.SM_WoodPallet01e",
+      "position": [
+        2510.0594318002104,
+        -2099.713296114545,
+        128.45398532867432
+      ],
+      "yaw": 8,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockWest_016",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodCrate02a.SM_WoodCrate02a",
+      "position": [
+        2509.79609663801,
+        -2100.0888664233694,
+        136.90785049438477
+      ],
+      "yaw": 8,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 136.78780471801758,
+      "parent": "DockWest_015"
+    },
+    {
+      "id": "DockWest_017",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01b.SM_WoodBoard01b",
+      "position": [
+        2550.0000008311818,
+        -2249.999990499547,
+        120.32568585395813
+      ],
+      "yaw": -5,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockWest_018",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01i.SM_WoodBoard01i",
+      "position": [
+        2379.9999795644926,
+        -2019.999988672413,
+        120.09110342979432
+      ],
+      "yaw": 61,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockWest_019",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile02a.SM_DebrisPile02a",
+      "position": [
+        2485.0,
+        -2240.0,
+        120.12000762939454
+      ],
+      "yaw": 90,
+      "scale": [
+        0.62,
+        0.62,
+        0.62
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockWest_020",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Bucket01a.SM_Bucket01a",
+      "position": [
+        2380.0000014691086,
+        -2184.9999977377715,
+        120.12000762939454
+      ],
+      "yaw": 12,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_021",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Oildrum01b.SM_Oildrum01b",
+      "position": [
+        5059.26113301893,
+        -2139.96825622467,
+        120.21590148925782
+      ],
+      "yaw": 14,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_022",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Oildrum01a.SM_Oildrum01a",
+      "position": [
+        4974.483558558584,
+        -2199.918205642465,
+        120.25910293579102
+      ],
+      "yaw": -9,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_023",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_GasCan01a.SM_GasCan01a",
+      "position": [
+        5104.851520909468,
+        -2225.0636087736457,
+        120.22531234741211
+      ],
+      "yaw": -22,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_024",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_OilBottle01a.SM_OilBottle01a",
+      "position": [
+        5029.975599978918,
+        -2219.903195680099,
+        119.92810451507569
+      ],
+      "yaw": 12,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_025",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Paintcan01a.SM_Paintcan01a",
+      "position": [
+        4949.169205273099,
+        -2110.6944975796705,
+        119.79681789398194
+      ],
+      "yaw": 30,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_026",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile03a.SM_DebrisPile03a",
+      "position": [
+        5020.0,
+        -2035.0,
+        120.9832845401764
+      ],
+      "yaw": 18,
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_027",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile02b.SM_DebrisPile02b",
+      "position": [
+        2390.0,
+        -238.55728225708003,
+        0.32000000298023223
+      ],
+      "yaw": 90,
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_028",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/Sm_Cinderblock01a.Sm_Cinderblock01a",
+      "position": [
+        2350.0000009167306,
+        -207.9999997371317,
+        10.421855280995368
+      ],
+      "yaw": 16,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_029",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/Sm_Cinderblock01a.Sm_Cinderblock01a",
+      "position": [
+        2402.0000008903316,
+        -212.00000034176628,
+        10.421855280995368
+      ],
+      "yaw": -21,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_030",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01d.SM_WoodBoard01d",
+      "position": [
+        2500.000003849049,
+        -249.99997261259648,
+        0.39879853546619415
+      ],
+      "yaw": -8,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackGap_031",
+      "group": "WestRackGap",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile02a.SM_DebrisPile02a",
+      "position": [
+        2395.0,
+        -900.0,
+        0.32000000298023223
+      ],
+      "yaw": 90,
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackGap_032",
+      "group": "WestRackGap",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Paintcan01a.SM_Paintcan01a",
+      "position": [
+        2323.9199377300465,
+        -907.9224612391205,
+        -0.003189732432365422
+      ],
+      "yaw": -14,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackGap_033",
+      "group": "WestRackGap",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Bucket01b_lid.SM_Bucket01b_lid",
+      "position": [
+        2350.0000041552657,
+        -878.0000063985486,
+        0.32000000298023223
+      ],
+      "yaw": 33,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_034",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile01a.SM_DebrisPile01a",
+      "position": [
+        5110.0,
+        -230.0,
+        0.32000000298023223
+      ],
+      "yaw": 90,
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_035",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01b.SM_WoodBoard01b",
+      "position": [
+        5020.00000246829,
+        -209.9999907882135,
+        0.5256782275438309
+      ],
+      "yaw": -15,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_036",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01i.SM_WoodBoard01i",
+      "position": [
+        5089.999990125516,
+        -179.9999788240998,
+        0.2910958033800125
+      ],
+      "yaw": 25,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "ElectricalCorner_037",
+      "group": "ElectricalCorner",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Bucket01a.SM_Bucket01a",
+      "position": [
+        5095.000001348699,
+        130.00000233601554,
+        0.32000000298023223
+      ],
+      "yaw": 15,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "ElectricalCorner_038",
+      "group": "ElectricalCorner",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_GasCan01a.SM_GasCan01a",
+      "position": [
+        5139.871319728112,
+        174.90236033573933,
+        0.42530472099781036
+      ],
+      "yaw": -8,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "ElectricalCorner_039",
+      "group": "ElectricalCorner",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile02b.SM_DebrisPile02b",
+      "position": [
+        5042.8446479306485,
+        151.1003671736887,
+        0.32000000298023223
+      ],
+      "yaw": 65,
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoWest_040",
+      "group": "CargoWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile03a.SM_DebrisPile03a",
+      "position": [
+        2775.0,
+        -550.0,
+        1.2146688014268876
+      ],
+      "yaw": 16,
+      "scale": [
+        0.57,
+        0.57,
+        0.57
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoWest_041",
+      "group": "CargoWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01h.SM_WoodBoard01h",
+      "position": [
+        2760.0000083105324,
+        -659.9999872029027,
+        0.6850493651628494
+      ],
+      "yaw": -33,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoEast_042",
+      "group": "CargoEast",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile01a.SM_DebrisPile01a",
+      "position": [
+        4765.0,
+        -810.0,
+        0.32000000298023223
+      ],
+      "yaw": -21,
+      "scale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoEast_043",
+      "group": "CargoEast",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01a.SM_WoodBoard01a",
+      "position": [
+        4720.000002509447,
+        -679.9999917919704,
+        0.838291237950325
+      ],
+      "yaw": -17,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PalletJackService_044",
+      "group": "PalletJackService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/Sm_Toolbox01a.Sm_Toolbox01a",
+      "position": [
+        3110.2542862860005,
+        -1165.5101296699233,
+        1.1155894500017167
+      ],
+      "yaw": 24,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PalletJackService_045",
+      "group": "PalletJackService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_OilBottle01a.SM_OilBottle01a",
+      "position": [
+        3140.0272711218404,
+        -1119.9039649892288,
+        0.12809688866138458
+      ],
+      "yaw": -18,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PalletJackService_046",
+      "group": "PalletJackService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_GasCan01a.SM_GasCan01a",
+      "position": [
+        3044.846542047322,
+        -1170.0504259176405,
+        0.42530472099781036
+      ],
+      "yaw": -27,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "cast_shadow": true,
+      "max_draw_distance": 5000,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_047",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        2810.3363205354863,
+        391.61217296760515,
+        0.20241126513940821
+      ],
+      "yaw": 122.02939166432827,
+      "scale": [
+        1.175887360886153,
+        1.175887360886153,
+        1.175887360886153
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_048",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2816.5901327765587,
+        236.27272007645297,
+        0.22027611838287425
+      ],
+      "yaw": -115.19389926284776,
+      "scale": [
+        0.9972388311135632,
+        0.9972388311135632,
+        0.9972388311135632
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_049",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        2841.856584027676,
+        417.95994598276343,
+        0.21100411356006774
+      ],
+      "yaw": 16.328932828629547,
+      "scale": [
+        1.089958877959992,
+        1.089958877959992,
+        1.089958877959992
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_050",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        2916.8920650892906,
+        299.92047221517555,
+        0.20215334997530723
+      ],
+      "yaw": 33.62602681819229,
+      "scale": [
+        1.1784665124887306,
+        1.1784665124887306,
+        1.1784665124887306
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_051",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2858.010968005779,
+        262.4065497402571,
+        0.2126402921297449
+      ],
+      "yaw": 23.29656963383991,
+      "scale": [
+        1.0735970925070302,
+        1.0735970925070302,
+        1.0735970925070302
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_052",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        2871.4858876171843,
+        440.27357408955777,
+        0.20163059293025265
+      ],
+      "yaw": -105.71890283188762,
+      "scale": [
+        1.1836940828613796,
+        1.1836940828613796,
+        1.1836940828613796
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "PackingBay_053",
+      "group": "PackingBay",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        2971.5202540867213,
+        392.54129513956127,
+        0.2327031747752878
+      ],
+      "yaw": 156.3478691395112,
+      "scale": [
+        0.8729682690412034,
+        0.8729682690412034,
+        0.8729682690412034
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_054",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01a.SM_Decal_MetalDebris01a",
+      "position": [
+        3171.2832227191852,
+        247.39234811932965,
+        0.423856328875091
+      ],
+      "yaw": 54.92329959945863,
+      "scale": [
+        1.0644030112561214,
+        1.0644030112561214,
+        1.0644030112561214
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_055",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01b.SM_Decal_MetalDebris01b",
+      "position": [
+        3189.3247367587032,
+        311.1231914382465,
+        0.10789433241642085
+      ],
+      "yaw": 16.588024777274143,
+      "scale": [
+        1.060793500358658,
+        1.060793500358658,
+        1.060793500358658
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_056",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        3230.939219400784,
+        360.50604931187695,
+        0.23364100246571995
+      ],
+      "yaw": 108.9623244898466,
+      "scale": [
+        0.8635899922766291,
+        0.8635899922766291,
+        0.8635899922766291
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_057",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01a.SM_Decal_MetalDebris01a",
+      "position": [
+        3165.8610647646683,
+        355.23299819067074,
+        0.4383275280349325
+      ],
+      "yaw": -101.33428643432333,
+      "scale": [
+        1.2127154787876238,
+        1.2127154787876238,
+        1.2127154787876238
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "RepairCabinet_058",
+      "group": "RepairCabinet",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01b.SM_Decal_MetalDebris01b",
+      "position": [
+        3162.902717931678,
+        345.16806333761156,
+        0.06980335101576463
+      ],
+      "yaw": -162.37408450859607,
+      "scale": [
+        1.2512960238635278,
+        1.2512960238635278,
+        1.2512960238635278
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "DockWest_059",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        2507.077665578653,
+        -2189.089286793843,
+        120.02616347367676
+      ],
+      "yaw": 136.1107924734166,
+      "scale": [
+        0.9384415431938651,
+        0.9384415431938651,
+        0.9384415431938651
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockWest_060",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        2480.5140237918795,
+        -2060.360130453095,
+        120.0273254595993
+      ],
+      "yaw": -41.426364547218895,
+      "scale": [
+        0.9268216841416091,
+        0.9268216841416091,
+        0.9268216841416091
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockWest_061",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01b.SM_Decal_ConcreteDebris01b",
+      "position": [
+        2464.7816424928774,
+        -2181.102871082518,
+        119.87640238707552
+      ],
+      "yaw": -174.42750775632382,
+      "scale": [
+        0.9746158667032262,
+        0.9746158667032262,
+        0.9746158667032262
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockWest_062",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        2496.9544171438747,
+        -2194.1498342571585,
+        120.01123285161559
+      ],
+      "yaw": -113.26198917854462,
+      "scale": [
+        1.087747761580752,
+        1.087747761580752,
+        1.087747761580752
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockWest_063",
+      "group": "DockWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        2464.693889763673,
+        -2158.6708633122253,
+        120.00463812296667
+      ],
+      "yaw": -176.30823309423502,
+      "scale": [
+        1.1536950470873484,
+        1.1536950470873484,
+        1.1536950470873484
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_064",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01a.SM_Decal_MetalDebris01a",
+      "position": [
+        5063.7489930107495,
+        -2085.8630647842283,
+        120.20377577677297
+      ],
+      "yaw": 116.22027932523491,
+      "scale": [
+        0.8585232295547817,
+        0.8585232295547817,
+        0.8585232295547817
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_065",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01g.SM_Decal_MetalDebris01g",
+      "position": [
+        5116.708124232286,
+        -2121.0787738544564,
+        119.89910542853659
+      ],
+      "yaw": -124.06926371498658,
+      "scale": [
+        1.1047871481330473,
+        1.1047871481330473,
+        1.1047871481330473
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_066",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01c.SM_Decal_ConcreteDebris01c",
+      "position": [
+        5023.256713339669,
+        -2088.7496830363225,
+        119.84471960582331
+      ],
+      "yaw": 136.05549878694518,
+      "scale": [
+        1.1013723396581243,
+        1.1013723396581243,
+        1.1013723396581243
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_067",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01a.SM_Decal_MetalDebris01a",
+      "position": [
+        5045.621065030281,
+        -2047.8090303744177,
+        120.23881150321027
+      ],
+      "yaw": 78.33285588267228,
+      "scale": [
+        1.2175974833384504,
+        1.2175974833384504,
+        1.2175974833384504
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "DockService_068",
+      "group": "DockService",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01g.SM_Decal_MetalDebris01g",
+      "position": [
+        5021.316267086577,
+        -2093.3573064728425,
+        119.87896292424412
+      ],
+      "yaw": 19.80765331137121,
+      "scale": [
+        1.2055248491930737,
+        1.2055248491930737,
+        1.2055248491930737
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 120.00000762939453,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_069",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01a.SM_Decal_ConcreteDebris01a",
+      "position": [
+        2406.0379772555584,
+        -206.03854353672398,
+        0.0986987093983411
+      ],
+      "yaw": -64.16439387036665,
+      "scale": [
+        0.8853822273840951,
+        0.8853822273840951,
+        0.8853822273840951
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_070",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01c.SM_Decal_ConcreteDebris01c",
+      "position": [
+        2352.4972988332593,
+        -273.1534504794769,
+        0.041990912633790456
+      ],
+      "yaw": -27.525049330117724,
+      "scale": [
+        1.1122587837602251,
+        1.1122587837602251,
+        1.1122587837602251
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_071",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01g.SM_Decal_ConcreteDebris01g",
+      "position": [
+        2423.0414181771375,
+        -297.47745370326413,
+        0.030838543501965687
+      ],
+      "yaw": 164.68413549191263,
+      "scale": [
+        1.1568771827886555,
+        1.1568771827886555,
+        1.1568771827886555
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_072",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01a.SM_Decal_ConcreteDebris01a",
+      "position": [
+        2453.137829914396,
+        -268.3933078489042,
+        0.047629283246056975
+      ],
+      "yaw": 38.91835411081399,
+      "scale": [
+        1.0897007903083782,
+        1.0897007903083782,
+        1.0897007903083782
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_073",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01c.SM_Decal_ConcreteDebris01c",
+      "position": [
+        2369.495917279366,
+        -254.36707155469117,
+        0.008476045103824215
+      ],
+      "yaw": -24.36632974857335,
+      "scale": [
+        1.2463450675947294,
+        1.2463450675947294,
+        1.2463450675947294
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackEnd_074",
+      "group": "WestRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01g.SM_Decal_ConcreteDebris01g",
+      "position": [
+        2419.1084318357352,
+        -194.3186042350543,
+        0.04733547176165259
+      ],
+      "yaw": -95.92192849099311,
+      "scale": [
+        1.090876271311144,
+        1.090876271311144,
+        1.090876271311144
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackGap_075",
+      "group": "WestRackGap",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01b.SM_Decal_MetalDebris01b",
+      "position": [
+        2374.9368862326946,
+        -865.8617203917023,
+        0.06516384335620623
+      ],
+      "yaw": 31.019289736263403,
+      "scale": [
+        1.2744993618838714,
+        1.2744993618838714,
+        1.2744993618838714
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackGap_076",
+      "group": "WestRackGap",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2367.593782281507,
+        -932.7991076353835,
+        0.2113860909908214
+      ],
+      "yaw": -88.97319434011726,
+      "scale": [
+        1.0861391037093746,
+        1.0861391037093746,
+        1.0861391037093746
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackGap_077",
+      "group": "WestRackGap",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01d.SM_Decal_ConcreteDebris01d",
+      "position": [
+        2394.3811172113074,
+        -859.6851741734104,
+        0.0825670809004786
+      ],
+      "yaw": 76.5678472089956,
+      "scale": [
+        0.9499216475546557,
+        0.9499216475546557,
+        0.9499216475546557
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "WestRackGap_078",
+      "group": "WestRackGap",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01b.SM_Decal_MetalDebris01b",
+      "position": [
+        2414.6452312101965,
+        -895.0609055992612,
+        0.08777994426902297
+      ],
+      "yaw": 93.99229349825345,
+      "scale": [
+        1.161390585546117,
+        1.161390585546117,
+        1.161390585546117
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_079",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        5076.938396787453,
+        -251.00453695823683,
+        0.21760634438744017
+      ],
+      "yaw": -93.7861228862735,
+      "scale": [
+        1.0239365706700767,
+        1.0239365706700767,
+        1.0239365706700767
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_080",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        5044.438588391393,
+        -213.95110624817914,
+        0.2173250565453707
+      ],
+      "yaw": 87.76598840444683,
+      "scale": [
+        1.026749449048856,
+        1.026749449048856,
+        1.026749449048856
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_081",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01c.SM_Decal_ConcreteDebris01c",
+      "position": [
+        5025.057911422811,
+        -210.7085275186338,
+        0.09955241515584226
+      ],
+      "yaw": -15.099558312859415,
+      "scale": [
+        0.8819667213431089,
+        0.8819667213431089,
+        0.8819667213431089
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_082",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        5170.233978044762,
+        -209.54889241656645,
+        0.200042952691577
+      ],
+      "yaw": 88.69523917216156,
+      "scale": [
+        1.1995704850115594,
+        1.1995704850115594,
+        1.1995704850115594
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_083",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        5103.332584778501,
+        -258.58788669304147,
+        0.19673480801938015
+      ],
+      "yaw": 83.72706864281201,
+      "scale": [
+        1.2326519312405757,
+        1.2326519312405757,
+        1.2326519312405757
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "EastRackEnd_084",
+      "group": "EastRackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01c.SM_Decal_ConcreteDebris01c",
+      "position": [
+        5096.695567001545,
+        -281.7966286014396,
+        0.09200465308367278
+      ],
+      "yaw": 110.54624783028765,
+      "scale": [
+        0.9121638082514587,
+        0.9121638082514587,
+        0.9121638082514587
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoWest_085",
+      "group": "CargoWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        2736.062966407173,
+        -534.1690048157458,
+        0.21071586672735615
+      ],
+      "yaw": -29.76068840896056,
+      "scale": [
+        1.092841346244156,
+        1.092841346244156,
+        1.092841346244156
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoWest_086",
+      "group": "CargoWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2801.4617684101813,
+        -528.3537735771524,
+        0.21538113129357472
+      ],
+      "yaw": 128.88068717897312,
+      "scale": [
+        1.0461887012771485,
+        1.0461887012771485,
+        1.0461887012771485
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoWest_087",
+      "group": "CargoWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01b.SM_Decal_MetalDebris01b",
+      "position": [
+        2735.6011369144558,
+        -622.498456392782,
+        0.06568156119907187
+      ],
+      "yaw": -122.57970091301858,
+      "scale": [
+        1.271910125484525,
+        1.271910125484525,
+        1.271910125484525
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoWest_088",
+      "group": "CargoWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        2779.792622082775,
+        -476.23489575774215,
+        0.19198365805369072
+      ],
+      "yaw": -110.36398694564144,
+      "scale": [
+        1.2801634301894935,
+        1.2801634301894935,
+        1.2801634301894935
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoWest_089",
+      "group": "CargoWest",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2707.2294239885587,
+        -495.50466115996875,
+        0.22958011131987244
+      ],
+      "yaw": 162.67118171291725,
+      "scale": [
+        0.9041989031299842,
+        0.9041989031299842,
+        0.9041989031299842
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoEast_090",
+      "group": "CargoEast",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        4758.865728485809,
+        -886.6874452067977,
+        0.21309987955387266
+      ],
+      "yaw": -138.19271101826163,
+      "scale": [
+        1.0690012183342361,
+        1.0690012183342361,
+        1.0690012183342361
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoEast_091",
+      "group": "CargoEast",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        4792.947356528495,
+        -873.8477221701621,
+        0.1970164232213889
+      ],
+      "yaw": -78.71060311210967,
+      "scale": [
+        1.2298357792624521,
+        1.2298357792624521,
+        1.2298357792624521
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoEast_092",
+      "group": "CargoEast",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01g.SM_Decal_ConcreteDebris01g",
+      "position": [
+        4772.362557077994,
+        -764.0618857633393,
+        0.04829728327517169
+      ],
+      "yaw": 127.93656895580153,
+      "scale": [
+        1.0870282557556086,
+        1.0870282557556086,
+        1.0870282557556086
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoEast_093",
+      "group": "CargoEast",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        4814.559393194562,
+        -765.5790319248242,
+        0.19029535409301923
+      ],
+      "yaw": 81.1574291249292,
+      "scale": [
+        1.2970464695446315,
+        1.2970464695446315,
+        1.2970464695446315
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "CargoEast_094",
+      "group": "CargoEast",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        4840.15754944942,
+        -784.7411367842349,
+        0.19155174869796138
+      ],
+      "yaw": 12.735537309252265,
+      "scale": [
+        1.2844825236824273,
+        1.2844825236824273,
+        1.2844825236824273
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "ElectricalCorner_095",
+      "group": "ElectricalCorner",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01g.SM_Decal_MetalDebris01g",
+      "position": [
+        5021.9325476754575,
+        106.18676568387082,
+        0.08210540323867585
+      ],
+      "yaw": -111.95107164240241,
+      "scale": [
+        1.1897703842875176,
+        1.1897703842875176,
+        1.1897703842875176
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "ElectricalCorner_096",
+      "group": "ElectricalCorner",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        5042.047371389428,
+        99.89346704251307,
+        0.20924869731061313
+      ],
+      "yaw": 74.49585011284734,
+      "scale": [
+        1.1075130401929607,
+        1.1075130401929607,
+        1.1075130401929607
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "ElectricalCorner_097",
+      "group": "ElectricalCorner",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_MetalDebris01g.SM_Decal_MetalDebris01g",
+      "position": [
+        5046.11378676972,
+        108.89976922075402,
+        0.10206395808636645
+      ],
+      "yaw": -114.96885695724747,
+      "scale": [
+        1.0899526604015715,
+        1.0899526604015715,
+        1.0899526604015715
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    },
+    {
+      "id": "ElectricalCorner_098",
+      "group": "ElectricalCorner",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        5080.453293537605,
+        91.47897195879557,
+        0.2195248123058956
+      ],
+      "yaw": -117.64514166265963,
+      "scale": [
+        1.0047518917713965,
+        1.0047518917713965,
+        1.0047518917713965
+      ],
+      "collision": false,
+      "cast_shadow": false,
+      "max_draw_distance": 3800,
+      "support_height": 0.20000000298023224,
+      "parent": null
+    }
+  ],
+  "decals": [
+    {
+      "id": "PackingBay_Dust_0",
+      "group": "PackingBay",
+      "material": "Dust",
+      "position": [
+        2830.0,
+        330.0,
+        0.6000000029802323
+      ],
+      "yaw": -18.89357072916583,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        209.25,
+        170.5
+      ]
+    },
+    {
+      "id": "RepairCabinet_Dust_1",
+      "group": "RepairCabinet",
+      "material": "Dust",
+      "position": [
+        3170.0,
+        325.0,
+        -1.6
+      ],
+      "yaw": 5.597428688609121,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        108.0,
+        88.0
+      ]
+    },
+    {
+      "id": "DockWest_Dust_2",
+      "group": "DockWest",
+      "material": "Dust",
+      "position": [
+        2480.0,
+        -2140.0,
+        120.40000762939454
+      ],
+      "yaw": 28.085500958589805,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        135.0,
+        110.00000000000001
+      ]
+    },
+    {
+      "id": "DockService_Dust_3",
+      "group": "DockService",
+      "material": "Dust",
+      "position": [
+        5040.0,
+        -2100.0,
+        120.40000762939454
+      ],
+      "yaw": 15.179143698955677,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        148.5,
+        121.00000000000001
+      ]
+    },
+    {
+      "id": "WestRackEnd_Dust_4",
+      "group": "WestRackEnd",
+      "material": "Dust",
+      "position": [
+        2400.0,
+        -240.0,
+        0.6000000029802323
+      ],
+      "yaw": -25.485249301542748,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        94.5,
+        77.0
+      ]
+    },
+    {
+      "id": "WestRackGap_Dust_5",
+      "group": "WestRackGap",
+      "material": "Dust",
+      "position": [
+        2390.0,
+        -900.0,
+        -1.6
+      ],
+      "yaw": -22.421814267289964,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        60.75000000000001,
+        49.50000000000001
+      ]
+    },
+    {
+      "id": "EastRackEnd_Dust_6",
+      "group": "EastRackEnd",
+      "material": "Dust",
+      "position": [
+        5100.0,
+        -210.0,
+        0.6000000029802323
+      ],
+      "yaw": 6.733620716404467,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        108.0,
+        88.0
+      ]
+    },
+    {
+      "id": "CargoWest_Dust_7",
+      "group": "CargoWest",
+      "material": "Dust",
+      "position": [
+        2775.0,
+        -550.0,
+        -1.6
+      ],
+      "yaw": 23.890773050216055,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        128.25,
+        104.50000000000001
+      ]
+    },
+    {
+      "id": "CargoEast_Dust_8",
+      "group": "CargoEast",
+      "material": "Dust",
+      "position": [
+        4760.0,
+        -800.0,
+        0.6000000029802323
+      ],
+      "yaw": -10.749273834488694,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        128.25,
+        104.50000000000001
+      ]
+    },
+    {
+      "id": "ElectricalCorner_Dust_9",
+      "group": "ElectricalCorner",
+      "material": "Dust",
+      "position": [
+        5075.0,
+        140.0,
+        0.6000000029802323
+      ],
+      "yaw": -19.60943797758364,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        87.75,
+        71.5
+      ]
+    },
+    {
+      "id": "DockService_Oil_10",
+      "group": "DockService",
+      "material": "Oil",
+      "position": [
+        5040.0,
+        -2150.0,
+        120.40000762939454
+      ],
+      "yaw": 17,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        110.0,
+        90.0
+      ]
+    },
+    {
+      "id": "RepairCabinet_Oil_11",
+      "group": "RepairCabinet",
+      "material": "Oil",
+      "position": [
+        3190.0,
+        280.0,
+        0.6000000029802323
+      ],
+      "yaw": -16,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        50.0,
+        65.0
+      ]
+    },
+    {
+      "id": "PalletJackService_Oil_12",
+      "group": "PalletJackService",
+      "material": "Oil",
+      "position": [
+        3110.0,
+        -1160.0,
+        0.6000000029802323
+      ],
+      "yaw": 10,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        55.0,
+        37.5
+      ]
+    },
+    {
+      "id": "HandlingWear_Scuff_13",
+      "group": "HandlingWear",
+      "material": "Scuff",
+      "position": [
+        2910.0,
+        225.0,
+        0.6000000029802323
+      ],
+      "yaw": 10,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        42.5,
+        120.0
+      ]
+    },
+    {
+      "id": "HandlingWear_Scuff_14",
+      "group": "HandlingWear",
+      "material": "Scuff",
+      "position": [
+        3010.0,
+        225.0,
+        0.6000000029802323
+      ],
+      "yaw": 8,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        25.0,
+        105.0
+      ]
+    },
+    {
+      "id": "HandlingWear_Scuff_15",
+      "group": "HandlingWear",
+      "material": "Scuff",
+      "position": [
+        4710.0,
+        -1950.0,
+        120.40000762939454
+      ],
+      "yaw": -12,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        35.0,
+        100.0
+      ]
+    },
+    {
+      "id": "HandlingWear_Scuff_16",
+      "group": "HandlingWear",
+      "material": "Scuff",
+      "position": [
+        3200.0,
+        -1110.0,
+        0.6000000029802323
+      ],
+      "yaw": 22,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        32.5,
+        85.0
+      ]
+    },
+    {
+      "id": "HandlingWear_Scuff_17",
+      "group": "HandlingWear",
+      "material": "Scuff",
+      "position": [
+        4590.0,
+        -800.0,
+        0.6000000029802323
+      ],
+      "yaw": 90,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        22.5,
+        105.0
+      ]
+    },
+    {
+      "id": "ColumnFoot_Damp_18",
+      "group": "ColumnFoot",
+      "material": "Damp",
+      "position": [
+        2330.0,
+        -300.0,
+        0.6000000029802323
+      ],
+      "yaw": 0,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        45.0,
+        62.5
+      ]
+    },
+    {
+      "id": "ColumnFoot_Damp_19",
+      "group": "ColumnFoot",
+      "material": "Damp",
+      "position": [
+        2330.0,
+        -1000.0,
+        0.6000000029802323
+      ],
+      "yaw": 0,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        45.0,
+        62.5
+      ]
+    },
+    {
+      "id": "ColumnFoot_Damp_20",
+      "group": "ColumnFoot",
+      "material": "Damp",
+      "position": [
+        2330.0,
+        -2200.0,
+        120.40000762939454
+      ],
+      "yaw": 0,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        45.0,
+        62.5
+      ]
+    },
+    {
+      "id": "ColumnFoot_Damp_21",
+      "group": "ColumnFoot",
+      "material": "Damp",
+      "position": [
+        5190.0,
+        -300.0,
+        0.6000000029802323
+      ],
+      "yaw": 0,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        45.0,
+        62.5
+      ]
+    },
+    {
+      "id": "ColumnFoot_Damp_22",
+      "group": "ColumnFoot",
+      "material": "Damp",
+      "position": [
+        5190.0,
+        -1000.0,
+        0.6000000029802323
+      ],
+      "yaw": 0,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        45.0,
+        62.5
+      ]
+    },
+    {
+      "id": "ColumnFoot_Damp_23",
+      "group": "ColumnFoot",
+      "material": "Damp",
+      "position": [
+        5190.0,
+        -2200.0,
+        120.40000762939454
+      ],
+      "yaw": 0,
+      "pitch": -90,
+      "roll": 0,
+      "size": [
+        2.0,
+        45.0,
+        62.5
+      ]
+    },
+    {
+      "id": "Runoff_0",
+      "group": "WallRunoff",
+      "material": "Rust",
+      "position": [
+        2274.350112385345,
+        -300.0,
+        265
+      ],
+      "yaw": 180,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        2.5,
+        27.5,
+        150.0
+      ]
+    },
+    {
+      "id": "Runoff_1",
+      "group": "WallRunoff",
+      "material": "Rust",
+      "position": [
+        2274.3500303094434,
+        -1000.0,
+        215
+      ],
+      "yaw": 180,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        2.5,
+        19.0,
+        115.0
+      ]
+    },
+    {
+      "id": "Runoff_2",
+      "group": "WallRunoff",
+      "material": "Rust",
+      "position": [
+        5245.650010019566,
+        -300.0,
+        300
+      ],
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        2.5,
+        29.0,
+        180.0
+      ]
+    },
+    {
+      "id": "Runoff_3",
+      "group": "WallRunoff",
+      "material": "Rust",
+      "position": [
+        5245.649911926099,
+        -1000.0,
+        200
+      ],
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        2.5,
+        21.0,
+        105.0
+      ]
+    },
+    {
+      "id": "Runoff_4",
+      "group": "WallRunoff",
+      "material": "Rust",
+      "position": [
+        2600.0,
+        -2285.649905573787,
+        375
+      ],
+      "yaw": -90,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        2.5,
+        35.0,
+        150.0
+      ]
+    },
+    {
+      "id": "Runoff_5",
+      "group": "WallRunoff",
+      "material": "Rust",
+      "position": [
+        5030.0,
+        -2285.6501033804443,
+        380
+      ],
+      "yaw": -90,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        2.5,
+        41.0,
+        175.0
+      ]
+    },
+    {
+      "id": "Runoff_6",
+      "group": "WallRunoff",
+      "material": "Rust",
+      "position": [
+        2970.0,
+        485.6500643075244,
+        270
+      ],
+      "yaw": 90,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        2.5,
+        30.0,
+        150.0
+      ]
+    },
+    {
+      "id": "Runoff_7",
+      "group": "WallRunoff",
+      "material": "Rust",
+      "position": [
+        4810.0,
+        485.6499145279972,
+        335
+      ],
+      "yaw": 90,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        2.5,
+        23.0,
+        100.0
+      ]
+    },
+    {
+      "id": "SteelFoot_0",
+      "group": "ColumnFoot",
+      "material": "Rust",
+      "position": [
+        2325.0,
+        -300.0,
+        35
+      ],
+      "yaw": 180,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        3.0,
+        25.0,
+        32.5
+      ]
+    },
+    {
+      "id": "SteelFoot_1",
+      "group": "ColumnFoot",
+      "material": "Rust",
+      "position": [
+        5195.0,
+        -300.0,
+        40
+      ],
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        3.0,
+        25.0,
+        35.0
+      ]
+    },
+    {
+      "id": "SteelFoot_2",
+      "group": "ColumnFoot",
+      "material": "Rust",
+      "position": [
+        2325.0,
+        -1000.0,
+        40
+      ],
+      "yaw": 180,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        3.0,
+        25.0,
+        35.0
+      ]
+    },
+    {
+      "id": "SteelFoot_3",
+      "group": "ColumnFoot",
+      "material": "Rust",
+      "position": [
+        5195.0,
+        -1000.0,
+        40
+      ],
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0,
+      "size": [
+        3.0,
+        25.0,
+        35.0
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "actor": "StaticMeshActor_21",
+      "component": "StaticMeshComponent0",
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Floors.SM_CargoWarehouse_Floors",
+      "slot": 0,
+      "before": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete.MI_WallConcrete",
+      "after": "Floor"
+    },
+    {
+      "actor": "StaticMeshActor_22",
+      "component": "StaticMeshComponent0",
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Paving.SM_CargoWarehouse_Paving",
+      "slot": 0,
+      "before": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete.MI_WallConcrete",
+      "after": "Floor"
+    },
+    {
+      "actor": "StaticMeshActor_23",
+      "component": "StaticMeshComponent0",
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Walls.SM_CargoWarehouse_Walls",
+      "slot": 0,
+      "before": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete.MI_WallConcrete",
+      "after": "Wall"
+    },
+    {
+      "actor": "StaticMeshActor_29",
+      "component": "StaticMeshComponent0",
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Dock.SM_CargoWarehouse_Dock",
+      "slot": 0,
+      "before": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete.MI_WallConcrete",
+      "after": "Floor"
+    },
+    {
+      "actor": "StaticMeshActor_32",
+      "component": "StaticMeshComponent0",
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_StairTreads.SM_CargoWarehouse_StairTreads",
+      "slot": 0,
+      "before": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete.MI_WallConcrete",
+      "after": "Floor"
+    }
+  ],
+  "groups": {
+    "PackingBay": 14,
+    "RepairCabinet": 12,
+    "DockWest": 11,
+    "DockService": 11,
+    "WestRackEnd": 10,
+    "WestRackGap": 7,
+    "EastRackEnd": 9,
+    "ElectricalCorner": 7,
+    "CargoWest": 7,
+    "CargoEast": 7,
+    "PalletJackService": 3
+  },
+  "omitted": [],
+  "preserve": {
+    "layout": true,
+    "gameplay": true,
+    "containers": true,
+    "lights": true
+  },
+  "tests_run": false
+}

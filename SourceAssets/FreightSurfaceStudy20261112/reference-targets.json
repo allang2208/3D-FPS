@@ -1,0 +1,16 @@
+{
+  "source": "../FreightStationDesign20261112/01-concept.png",
+  "source_px": [1774, 887],
+  "method": "Each rectangle is [u0,v0,u1,v1] in its own 887px square panel, from top-left. Percentiles are relative display luminance after inverse sRGB and Rec.709 weighting, not scene radiance or material albedo.",
+  "views": {
+    "REF_01_PackingSurface": {"panel": "left", "patches": [
+      {"surface": "front boards of crate", "rect": [0.20,0.53,0.33,0.63], "p10_median_p90": [0.057,0.091,0.134]},
+      {"surface": "open aisle away from wall", "rect": [0.82,0.57,0.92,0.66], "p10_median_p90": [0.151,0.201,0.258]},
+      {"surface": "cavity in pallet under crate", "rect": [0.22,0.712,0.286,0.724], "p10_median_p90": [0.005,0.007,0.071]}]},
+    "REF_02_CartSurface": {"panel": "right", "patches": [
+      {"surface": "open platform foreground", "rect": [0.62,0.80,0.78,0.88], "p10_median_p90": [0.113,0.165,0.211]},
+      {"surface": "shop cloth", "rect": [0.135,0.61,0.159,0.69], "p10_median_p90": [0.023,0.049,0.095]},
+      {"surface": "upper cart tray and lip", "rect": [0.30,0.605,0.39,0.653], "p10_median_p90": [0.022,0.078,0.249]}]}
+  },
+  "comparison": "Choose corresponding visible surface regions by material and orientation in the engine shots. The concept is not a geometrically calibrated render. Compare the ordering, spread and local contrast first at fixed exposure, then check the highlight changes under a small viewpoint change."
+}

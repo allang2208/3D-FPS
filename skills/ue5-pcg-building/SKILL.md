@@ -11,6 +11,10 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 
 此入口依赖本机个人目录；跨机器交付需另行导出所需维护源和引用。
 
+## 地牢表面与整站重复控制
+
+墙面颗粒、板缝、墙裙厚度、稀疏剥落与积灰，以及固定机位对照，读取 [地牢表面制作](references/dungeon-surface-authoring.md)。已认可样板向整站扩展时，按承接面与使用痕迹组织变化，保留用户指定的原墙地材质和玩法。
+
 ## 场景光源与最低照明
 
 制作或调整室内灯具、吊灯方向、廊下和暗角照明时，读取 [灯具与照明层次标准](references/fixture-lighting-standard.md)。向下灯不得向上直射天花板；保留已认可主灯，按实际楼层补光。

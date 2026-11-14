@@ -1,0 +1,209 @@
+{
+ "areas": {
+  "Link": [
+   14,
+   9.688624205420243
+  ],
+  "Pit": [
+   117,
+   148.0936284296891
+  ],
+  "Hall": [
+   719,
+   1179.2671991751886
+  ],
+  "Pier": [
+   338,
+   80.29908813283951
+  ],
+  "Tunnel": [
+   74,
+   96.9691764623784
+  ],
+  "Seal": [
+   44,
+   53.2867832083843
+  ],
+  "Workshop": [
+   240,
+   166.92583621812204
+  ]
+ },
+ "locations": {
+  "SM_Finish_Link_Y0": [
+   5483,
+   -1554,
+   216
+  ],
+  "SM_Finish_Link_Y1": [
+   5837,
+   -1246,
+   216
+  ],
+  "SM_Finish_Pit_X2": [
+   7210,
+   -1880,
+   -126
+  ],
+  "SM_Finish_Pit_X3": [
+   7210,
+   -934,
+   -126
+  ],
+  "SM_Finish_Pit_X1": [
+   7210,
+   -2985,
+   -14
+  ],
+  "SM_Finish_Pit_X4": [
+   7210,
+   156,
+   -14
+  ],
+  "SM_Finish_Pit_Y2": [
+   7303,
+   -875,
+   -126
+  ],
+  "SM_Finish_Pit_Y3": [
+   8309,
+   -875,
+   -126
+  ],
+  "SM_Finish_Pit_Y4": [
+   9516,
+   -875,
+   -126
+  ],
+  "SM_Finish_Pit_Y5": [
+   10719,
+   -875,
+   -126
+  ],
+  "SM_Finish_Hall_Y1": [
+   6185,
+   236,
+   216
+  ],
+  "SM_Finish_Hall_Y2": [
+   7125,
+   236,
+   216
+  ],
+  "SM_Finish_Hall_Y3": [
+   8221,
+   236,
+   216
+  ],
+  "SM_Finish_Hall_Y4": [
+   9558,
+   236,
+   216
+  ],
+  "SM_Finish_Hall_Y5": [
+   10678,
+   236,
+   216
+  ],
+  "SM_Finish_Hall_X1": [
+   6174,
+   -2979,
+   216
+  ],
+  "SM_Finish_Hall_X2": [
+   6174,
+   -2146,
+   216
+  ],
+  "SM_Finish_Hall_X3": [
+   6174,
+   -934,
+   216
+  ],
+  "SM_Finish_Hall_X4": [
+   6174,
+   207,
+   216
+  ],
+  "SM_Finish_PortalBase_X1": [
+   10946,
+   -3024,
+   80
+  ],
+  "SM_Finish_PortalBase_X2": [
+   10946,
+   -2241,
+   80
+  ],
+  "SM_Finish_PortalBase_X3": [
+   10946,
+   -838,
+   80
+  ],
+  "SM_Finish_PortalBase_X4": [
+   10946,
+   243,
+   80
+  ],
+  "SM_Finish_Pier_Y1": [
+   6220,
+   218,
+   54
+  ],
+  "SM_Finish_Pier_Y2": [
+   7210,
+   218,
+   54
+  ],
+  "SM_Finish_Pier_Y3": [
+   8988,
+   218,
+   54
+  ],
+  "SM_Finish_Pier_Y5": [
+   10780,
+   218,
+   54
+  ],
+  "SM_Finish_Pier_X1": [
+   6190,
+   -3020,
+   73
+  ],
+  "SM_Finish_Pier_X4": [
+   6190,
+   238,
+   52
+  ],
+  "SM_Finish_Tunnel_Y5": [
+   11039,
+   -893,
+   -126
+  ],
+  "SM_Finish_Seal_X2": [
+   11553,
+   -1869,
+   -127
+  ],
+  "SM_Finish_Seal_X3": [
+   11553,
+   -965,
+   -126
+  ],
+  "SM_Finish_Workshop_X3": [
+   7303,
+   -541,
+   43
+  ],
+  "SM_Finish_Workshop_Y2": [
+   7356,
+   157,
+   43
+  ],
+  "SM_Finish_Workshop_Y3": [
+   8205,
+   157,
+   43
+  ]
+ }
+}

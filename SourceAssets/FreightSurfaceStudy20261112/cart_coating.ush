@@ -1,0 +1,47 @@
+// Instance-space centimetres. The static mesh shares the workshop pivot.
+float3 p = Position - float3(1118.,240.,0.);
+float3 n = normalize(SurfaceNormal);
+float3 absN = abs(n);
+float3 tangent, bitangent;
+if (absN.z >= max(absN.x,absN.y)) {
+    tangent=float3(1,0,0); bitangent=float3(0,sign(n.z),0);
+} else if (absN.x >= absN.y) {
+    tangent=float3(0,1,0); bitangent=float3(0,0,sign(n.x));
+} else {
+    tangent=float3(1,0,0); bitangent=float3(0,0,-sign(n.y));
+}
+float2 plane=float2(dot(p,tangent),dot(p,bitangent));
+float2 uv=plane/32.+float2(.17,.41);
+float3 rgb=Texture2DSampleGrad(RustC,RustCSampler,uv,ddx(uv),ddy(uv)).rgb;
+float3 orm=Texture2DSampleGrad(RustR,RustRSampler,uv,ddx(uv),ddy(uv)).rgb;
+float2 slope=Texture2DSampleGrad(RustN,RustNSampler,uv,ddx(uv),ddy(uv)).rg*2.-1.;
+float2 uv2=plane/19.+float2(.28,.63);
+float area=Texture2DSampleGrad(Field,FieldSampler,uv2,ddx(uv2),ddy(uv2)).r;
+float2 uv3=plane/3.7+float2(.64,.02);
+float grain=Texture2DSampleGrad(Field,FieldSampler,uv3,ddx(uv3),ddy(uv3)).r;
+float apron=min(abs(abs(p.x)-48.6),abs(abs(p.y)-30.6));
+float lip=abs(abs(p.y)-30.)<1.15 ? min(abs(p.z-54.5),abs(p.z-18.5)):100.;
+float trayEdge=min(min(abs(p.z-51.),abs(p.z-14.5)),min(abs(p.z-47.),abs(p.z-11.5)));
+float d=min(lip,length(float2(max(apron-.3,0.),trayEdge)));
+float abrasion=1.-smoothstep(.12,1.8,d);
+float corner=1.-smoothstep(0.,9.,length(abs(p.xy)-float2(48.,30.)));
+float seam=(1.-smoothstep(.7,4.3,abs(abs(p.y)-28.7)))*saturate(n.z);
+float seed=saturate(.28+area*.65+grain*.40);
+float chip=smoothstep(.38,.77,(abrasion+.34*corner)*seed+grain*.10);
+float oxide=max(chip*smoothstep(.20,.71,area+.27*grain),
+                seam*smoothstep(.42,.85,area+.38*grain)*.78);
+oxide=saturate(oxide*RustAmount);
+float bare=saturate((chip-oxide)*1.4);
+float film=(.30+.70*area)*saturate(n.z)*(.3+.7*seam);
+float3 paint=PaintTint.rgb*(.87+.11*area+.06*grain);
+float3 base=lerp(paint,float3(.40,.39,.355),bare);
+base=lerp(base,rgb*RustValue,oxide);
+base=lerp(base,float3(.19,.17,.132),film*.12);
+float rough=lerp(.49+.12*area,.34+.12*grain,bare);
+rough=lerp(rough,clamp(.55+.42*orm.g,.59,.96),oxide);
+rough=lerp(rough,.88,film*.30);
+MetalOut=bare*(1.-oxide)*.95;
+AOOut=lerp(1.,lerp(.80,1.,orm.r),oxide);
+float fade=1.-smoothstep(110.,410.,DistanceCm);
+NormalLocal=normalize(n+(slope.x*tangent+slope.y*bitangent)*(.018+oxide*.40)*fade);
+return float4(base,rough);

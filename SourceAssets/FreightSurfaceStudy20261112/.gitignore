@@ -1,0 +1,11 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/author_relief.py
+!/cart_coating.ush
+!/install.py
+!/materials.py
+!/reference-targets.json
+!/sample_scan.py

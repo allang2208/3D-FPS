@@ -1,0 +1,62 @@
+{
+ "replace": {
+  "SM_Finish_Hall_Y1": "SM_Trim_Hall_Y1",
+  "SM_Finish_Hall_Y2": "SM_Trim_Hall_Y2",
+  "SM_Finish_Hall_X1": "SM_Trim_Hall_X1",
+  "SM_Finish_Hall_X2": "SM_Trim_Hall_X2"
+ },
+ "origins": {
+  "SM_Trim_Hall_Y1": [
+   6185,
+   236,
+   216
+  ],
+  "SM_Trim_Hall_Y2": [
+   7125,
+   236,
+   216
+  ],
+  "SM_Trim_Hall_X1": [
+   6174,
+   -2979,
+   216
+  ],
+  "SM_Trim_Hall_X2": [
+   6174,
+   -2146,
+   216
+  ],
+  "SM_Form_Return": [
+   6174.0,
+   -3036.0,
+   0.0
+  ],
+  "SM_Form_Pipe": [
+   6174.0,
+   -3036.0,
+   0.0
+  ]
+ },
+ "sections": {
+  "Return": {
+   "axis": 0,
+   "plane": 6174.0,
+   "lo": -3036.0,
+   "hi": -1558.0,
+   "bottom": 159.4,
+   "top": 1170.0
+  },
+  "Pipe": {
+   "axis": 1,
+   "plane": -3036.0,
+   "lo": 6174.0,
+   "hi": 7820.0,
+   "bottom": 159.4,
+   "top": 737.0
+  }
+ },
+ "counts": {
+  "Return": 11,
+  "Pipe": 8
+ }
+}

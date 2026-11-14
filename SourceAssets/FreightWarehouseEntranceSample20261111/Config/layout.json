@@ -1,0 +1,1363 @@
+{
+  "map": "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject",
+  "tag": "FreightWarehouse.EntranceSample20261111",
+  "origin": [
+    3760.0,
+    -900.0,
+    0.0
+  ],
+  "parts": [
+    {
+      "id": "Packing_LoadPallet",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodPallet01a.SM_WoodPallet01a",
+      "position": [
+        2955.000006935417,
+        337.999991734692,
+        8.563977702260017
+      ],
+      "rotation": [
+        0,
+        -5,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Packing_RemainingCrate",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodCrate01a.SM_WoodCrate01a",
+      "position": [
+        2951.960397506483,
+        341.2312717987836,
+        16.6961206834177
+      ],
+      "rotation": [
+        0,
+        -5,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "Packing_LoadPallet",
+      "support_z": 16.66609398053684,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Packing_BrokenPallet",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodPallet01f.SM_WoodPallet01f",
+      "position": [
+        2751.8881361167514,
+        353.9828883910716,
+        8.170020087361335
+      ],
+      "rotation": [
+        0,
+        7,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Packing_EmptyReturnPallet",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodPallet01d.SM_WoodPallet01d",
+      "position": [
+        2762.281398281651,
+        354.0147398191707,
+        24.140860004880732
+      ],
+      "rotation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "Packing_BrokenPallet",
+      "support_z": 15.776882305600946,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Packing_Dolly",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Dolly01a.SM_Dolly01a",
+      "position": [
+        3085.012169041979,
+        414.4036980997066,
+        0.23000000298023224
+      ],
+      "rotation": [
+        0,
+        172,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Packing_Toolbox",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/Sm_Toolbox01a.Sm_Toolbox01a",
+      "position": [
+        2950.556472757745,
+        336.8765825568569,
+        123.91964236151364
+      ],
+      "rotation": [
+        0,
+        75,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "Packing_RemainingCrate",
+      "support_z": 123.09405291449215,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Packing_SplitBoardA",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01h.SM_WoodBoard01h",
+      "position": [
+        2780.00000313772,
+        220.00001258470706,
+        0.5902919608354568
+      ],
+      "rotation": [
+        0,
+        -14,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_SplitBoardB",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01i.SM_WoodBoard01i",
+      "position": [
+        2826.9999938476512,
+        237.0000120746638,
+        0.2632355672121048
+      ],
+      "rotation": [
+        0,
+        27,
+        0
+      ],
+      "scale": [
+        0.58,
+        0.58,
+        0.58
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_LooseSlat",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01b.SM_WoodBoard01b",
+      "position": [
+        2656.9999933740396,
+        424.00000081356575,
+        0.4239747601747513
+      ],
+      "rotation": [
+        0,
+        83,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_0",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        2816.000003511447,
+        259.9999985094789,
+        0.18000000149011613
+      ],
+      "rotation": [
+        0,
+        -23,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_1",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk02a.SM_Decal_Junk02a",
+      "position": [
+        3063.0000005461043,
+        288.0000023654377,
+        0.19000000163912772
+      ],
+      "rotation": [
+        0,
+        32,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_2",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2840.000002080178,
+        427.9999987778606,
+        0.20000000178813934
+      ],
+      "rotation": [
+        0,
+        78,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_3",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk05a.SM_Decal_Junk05a",
+      "position": [
+        2726.000000759623,
+        243.9999964861854,
+        0.21000000193715096
+      ],
+      "rotation": [
+        0,
+        -56,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_4",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        2729.999995601563,
+        192.99999535446295,
+        0.20500000186264516
+      ],
+      "rotation": [
+        0,
+        20,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_5",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk07a.SM_Decal_Junk07a",
+      "position": [
+        2890.000003420163,
+        228.99999970077442,
+        0.1600000011920929
+      ],
+      "rotation": [
+        0,
+        -5,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_6",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk04a.SM_Decal_Junk04a",
+      "position": [
+        3043.0,
+        189.0,
+        0.21000000193715096
+      ],
+      "rotation": [
+        0,
+        63,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_7",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2871.999999945625,
+        146.99999782931718,
+        0.20800000190734863
+      ],
+      "rotation": [
+        0,
+        17,
+        0
+      ],
+      "scale": [
+        0.72,
+        0.72,
+        0.72
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_Cardboard_8",
+      "group": "Packing",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk07a.SM_Decal_Junk07a",
+      "position": [
+        2710.0000003726086,
+        82.9999978868318,
+        0.20500000186264516
+      ],
+      "rotation": [
+        0,
+        -80,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_DiscardedForm_0",
+      "group": "Packing",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0.SM_IncidentDetail_Paper0",
+      "position": [
+        3102.9976916123705,
+        260.0015558767773,
+        0.18000000149011613
+      ],
+      "rotation": [
+        0,
+        -34,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_DiscardedForm_1",
+      "group": "Packing",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1.SM_IncidentDetail_Paper1",
+      "position": [
+        2893.999928666397,
+        183.00026622063046,
+        0.18000000149011613
+      ],
+      "rotation": [
+        0,
+        15,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Packing_DiscardedForm_2",
+      "group": "Packing",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2.SM_IncidentDetail_Paper2",
+      "position": [
+        2753.0,
+        112.0,
+        0.18000000149011613
+      ],
+      "rotation": [
+        0,
+        81,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Rack_UpperBrokenPallet",
+      "group": "Rack",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodPallet01c.SM_WoodPallet01c",
+      "position": [
+        2430.0000062561035,
+        -682.65189163208,
+        352.8638617134094
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "scale": [
+        0.82,
+        0.82,
+        0.82
+      ],
+      "support": "rack:346",
+      "support_z": 346.0,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Rack_UpperSlat",
+      "group": "Rack",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01c.SM_WoodBoard01c",
+      "position": [
+        2431.9999805187717,
+        -684.0000006802995,
+        359.49054700931026
+      ],
+      "rotation": [
+        0,
+        92,
+        0
+      ],
+      "scale": [
+        0.73,
+        0.73,
+        0.73
+      ],
+      "support": "Rack_UpperBrokenPallet",
+      "support_z": 359.27558198531585,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Rack_LowerEmptyPallet",
+      "group": "Rack",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodPallet01e.SM_WoodPallet01e",
+      "position": [
+        2429.7684603881835,
+        -457.9170458984375,
+        27.03054126739502
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "scale": [
+        0.84,
+        0.84,
+        0.84
+      ],
+      "support": "rack:20",
+      "support_z": 20.0,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Rack_LowerBox",
+      "group": "Rack",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodCrate01a.SM_WoodCrate01a",
+      "position": [
+        2428.8214718727263,
+        -467.0402885993257,
+        33.832148035368974
+      ],
+      "rotation": [
+        0,
+        88,
+        0
+      ],
+      "scale": [
+        0.78,
+        0.78,
+        0.78
+      ],
+      "support": "Rack_LowerEmptyPallet",
+      "support_z": 33.8021272071219,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Rack_Cardboard_0",
+      "group": "Rack",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk04a.SM_Decal_Junk04a",
+      "position": [
+        2424.0,
+        -781.0,
+        346.0099999989569
+      ],
+      "rotation": [
+        0,
+        -13,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "rack:346",
+      "support_z": 346.0,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Rack_Cardboard_1",
+      "group": "Rack",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        2412.000001702339,
+        -580.0000057231315,
+        346.0099999989569
+      ],
+      "rotation": [
+        0,
+        80,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "rack:346",
+      "support_z": 346.0,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Rack_Cardboard_2",
+      "group": "Rack",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2439.999999617649,
+        -358.0000020761338,
+        183.00999999895694
+      ],
+      "rotation": [
+        0,
+        8,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "rack:183",
+      "support_z": 183.0,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "Rack_Cardboard_3",
+      "group": "Rack",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk07a.SM_Decal_Junk07a",
+      "position": [
+        2479.0000016983995,
+        -366.99999893872223,
+        20.009999998956918
+      ],
+      "rotation": [
+        0,
+        32,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "rack:20",
+      "support_z": 20.0,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "RackEnd_Splinter",
+      "group": "RackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01d.SM_WoodBoard01d",
+      "position": [
+        2406.000004140087,
+        -264.99998052242097,
+        0.33673494637012485
+      ],
+      "rotation": [
+        0,
+        -12,
+        0
+      ],
+      "scale": [
+        0.72,
+        0.72,
+        0.72
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "RackEnd_DustDebris",
+      "group": "RackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_DebrisPile02b.SM_DebrisPile02b",
+      "position": [
+        2314.087544315746,
+        -226.53472245468674,
+        0.28000000298023225
+      ],
+      "rotation": [
+        0,
+        -6,
+        0
+      ],
+      "scale": [
+        0.38,
+        0.38,
+        0.38
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "RackEnd_Fragment_0",
+      "group": "RackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01a.SM_Decal_ConcreteDebris01a",
+      "position": [
+        2305.000001724937,
+        -273.00000076799154,
+        0.105034998357296
+      ],
+      "rotation": [
+        0,
+        21,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "RackEnd_Fragment_1",
+      "group": "RackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01c.SM_Decal_ConcreteDebris01c",
+      "position": [
+        2336.0000242597853,
+        -242.99996717231193,
+        0.08003999769687652
+      ],
+      "rotation": [
+        0,
+        -37,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "RackEnd_Fragment_2",
+      "group": "RackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_ConcreteDebris01g.SM_Decal_ConcreteDebris01g",
+      "position": [
+        2348.000045830013,
+        -205.0000209850973,
+        -0.019940004944801318
+      ],
+      "rotation": [
+        0,
+        68,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "RackEnd_Fragment_3",
+      "group": "RackEnd",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk02a.SM_Decal_Junk02a",
+      "position": [
+        2439.000001078134,
+        -241.99999851607606,
+        0.2120000019669533
+      ],
+      "rotation": [
+        0,
+        9,
+        0
+      ],
+      "scale": [
+        0.68,
+        0.68,
+        0.68
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    }
+  ],
+  "decals": [
+    {
+      "id": "Dust_PalletHalo",
+      "group": "Surface",
+      "material": "Dust",
+      "position": [
+        2802.0,
+        334.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        -5,
+        0
+      ],
+      "size": [
+        1.2,
+        170.0,
+        92.5
+      ]
+    },
+    {
+      "id": "Dust_PackingWallFoot",
+      "group": "Surface",
+      "material": "Dust",
+      "position": [
+        2951.0,
+        444.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        1.2,
+        170.0,
+        33.0
+      ]
+    },
+    {
+      "id": "Dust_RackFoot",
+      "group": "Surface",
+      "material": "Dust",
+      "position": [
+        2336.0,
+        -510.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        5,
+        0
+      ],
+      "size": [
+        1.2,
+        45.0,
+        197.5
+      ]
+    },
+    {
+      "id": "Dust_RackEnd",
+      "group": "Surface",
+      "material": "Dust",
+      "position": [
+        2366.0,
+        -250.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        -19,
+        0
+      ],
+      "size": [
+        1.2,
+        72.5,
+        55.0
+      ]
+    },
+    {
+      "id": "Scuff_DollyWheelLeft",
+      "group": "Surface",
+      "material": "Scuff",
+      "position": [
+        3078.0,
+        253.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        -4,
+        0
+      ],
+      "size": [
+        1.2,
+        9.5,
+        76.5
+      ]
+    },
+    {
+      "id": "Scuff_DollyWheelRight",
+      "group": "Surface",
+      "material": "Scuff",
+      "position": [
+        3117.0,
+        255.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        -4,
+        0
+      ],
+      "size": [
+        1.2,
+        9.0,
+        76.5
+      ]
+    },
+    {
+      "id": "Scuff_Handling",
+      "group": "Surface",
+      "material": "Scuff",
+      "position": [
+        2848.0,
+        181.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        71,
+        0
+      ],
+      "size": [
+        1.2,
+        44.0,
+        72.5
+      ]
+    },
+    {
+      "id": "Dust_RackLower",
+      "group": "Surface",
+      "material": "Dust",
+      "position": [
+        2382.0,
+        -461.0,
+        20.15
+      ],
+      "rotation": [
+        -90,
+        7,
+        0
+      ],
+      "size": [
+        0.7,
+        22.5,
+        105.0
+      ]
+    },
+    {
+      "id": "Dust_RackMiddleEnd",
+      "group": "Surface",
+      "material": "Dust",
+      "position": [
+        2420.0,
+        -365.0,
+        183.15
+      ],
+      "rotation": [
+        -90,
+        -8,
+        0
+      ],
+      "size": [
+        0.7,
+        55.0,
+        16.0
+      ]
+    },
+    {
+      "id": "Dust_RackUpperBack",
+      "group": "Surface",
+      "material": "Dust",
+      "position": [
+        2374.0,
+        -653.0,
+        346.15
+      ],
+      "rotation": [
+        -90,
+        -3,
+        0
+      ],
+      "size": [
+        0.7,
+        18.0,
+        122.5
+      ]
+    },
+    {
+      "id": "Wall_PackingLowWear",
+      "group": "Surface",
+      "material": "Dust",
+      "position": [
+        2880.0,
+        485.6500000000001,
+        65.0
+      ],
+      "rotation": [
+        0,
+        90,
+        3
+      ],
+      "size": [
+        1.2,
+        170.0,
+        55.0
+      ]
+    },
+    {
+      "id": "Wall_PackingRub",
+      "group": "Surface",
+      "material": "Scuff",
+      "position": [
+        2745.0,
+        485.6500000000001,
+        104.0
+      ],
+      "rotation": [
+        0,
+        90,
+        90
+      ],
+      "size": [
+        1.2,
+        57.5,
+        42.5
+      ]
+    },
+    {
+      "id": "Wall_PackingPlasterLoss",
+      "group": "Surface",
+      "material": "Damage",
+      "position": [
+        3079.0,
+        485.6500000000001,
+        87.0
+      ],
+      "rotation": [
+        0,
+        90,
+        -12
+      ],
+      "size": [
+        1.2,
+        48.0,
+        32.0
+      ]
+    },
+    {
+      "id": "Wall_PackingHairline",
+      "group": "Surface",
+      "material": "Crack",
+      "position": [
+        2680.0,
+        485.6500000000001,
+        277.0
+      ],
+      "rotation": [
+        0,
+        90,
+        8
+      ],
+      "size": [
+        1.2,
+        39.0,
+        117.5
+      ]
+    },
+    {
+      "id": "Wall_PackingOldDamp",
+      "group": "Surface",
+      "material": "Damp",
+      "position": [
+        2885.0,
+        485.6500000000001,
+        412.0
+      ],
+      "rotation": [
+        0,
+        90,
+        7
+      ],
+      "size": [
+        1.2,
+        97.5,
+        83.0
+      ]
+    },
+    {
+      "id": "Wall_RackEndLoss",
+      "group": "Surface",
+      "material": "Damage",
+      "position": [
+        2274.35,
+        -242.0,
+        68.0
+      ],
+      "rotation": [
+        0,
+        180,
+        16
+      ],
+      "size": [
+        1.2,
+        44.5,
+        52.5
+      ]
+    },
+    {
+      "id": "Wall_RackHairline",
+      "group": "Surface",
+      "material": "Crack",
+      "position": [
+        2274.35,
+        -535.0,
+        427.0
+      ],
+      "rotation": [
+        0,
+        180,
+        -14
+      ],
+      "size": [
+        1.2,
+        43.0,
+        112.0
+      ]
+    },
+    {
+      "id": "Wall_RackFootDamp",
+      "group": "Surface",
+      "material": "Damp",
+      "position": [
+        2274.35,
+        -588.0,
+        94.0
+      ],
+      "rotation": [
+        0,
+        180,
+        -4
+      ],
+      "size": [
+        1.2,
+        167.5,
+        78.0
+      ]
+    },
+    {
+      "id": "Rack_BeamWear_0",
+      "group": "Surface",
+      "material": "Scuff",
+      "position": [
+        2519.35,
+        -379.0,
+        338.0
+      ],
+      "rotation": [
+        0,
+        180,
+        90
+      ],
+      "size": [
+        0.7,
+        34.5,
+        4.0
+      ]
+    },
+    {
+      "id": "Rack_BeamWear_1",
+      "group": "Surface",
+      "material": "Scuff",
+      "position": [
+        2519.35,
+        -778.0,
+        175.0
+      ],
+      "rotation": [
+        0,
+        180,
+        90
+      ],
+      "size": [
+        0.7,
+        34.5,
+        4.0
+      ]
+    },
+    {
+      "id": "Rack_BeamWear_2",
+      "group": "Surface",
+      "material": "Scuff",
+      "position": [
+        2519.35,
+        -395.0,
+        12.0
+      ],
+      "rotation": [
+        0,
+        180,
+        90
+      ],
+      "size": [
+        0.7,
+        34.5,
+        4.0
+      ]
+    }
+  ],
+  "remove_labels": [
+    "WarehouseWeathering_PackingBay_001",
+    "WarehouseWeathering_PackingBay_002",
+    "WarehouseWeathering_PackingBay_003",
+    "WarehouseWeathering_PackingBay_004",
+    "WarehouseWeathering_PackingBay_005",
+    "WarehouseWeathering_PackingBay_006",
+    "WarehouseWeathering_PackingBay_007",
+    "WarehouseWeathering_RepairCabinet_008",
+    "WarehouseWeathering_RepairCabinet_009",
+    "WarehouseWeathering_RepairCabinet_010",
+    "WarehouseWeathering_RepairCabinet_011",
+    "WarehouseWeathering_RepairCabinet_012",
+    "WarehouseWeathering_RepairCabinet_013",
+    "WarehouseWeathering_RepairCabinet_014",
+    "WarehouseWeathering_WestRackEnd_027",
+    "WarehouseWeathering_WestRackEnd_028",
+    "WarehouseWeathering_WestRackEnd_029",
+    "WarehouseWeathering_WestRackEnd_030",
+    "WarehouseWeathering_PackingBay_047",
+    "WarehouseWeathering_PackingBay_048",
+    "WarehouseWeathering_PackingBay_049",
+    "WarehouseWeathering_PackingBay_050",
+    "WarehouseWeathering_PackingBay_051",
+    "WarehouseWeathering_PackingBay_052",
+    "WarehouseWeathering_PackingBay_053",
+    "WarehouseWeathering_RepairCabinet_054",
+    "WarehouseWeathering_RepairCabinet_055",
+    "WarehouseWeathering_RepairCabinet_056",
+    "WarehouseWeathering_RepairCabinet_057",
+    "WarehouseWeathering_RepairCabinet_058",
+    "WarehouseWeathering_WestRackEnd_069",
+    "WarehouseWeathering_WestRackEnd_070",
+    "WarehouseWeathering_WestRackEnd_071",
+    "WarehouseWeathering_WestRackEnd_072",
+    "WarehouseWeathering_WestRackEnd_073",
+    "WarehouseWeathering_WestRackEnd_074",
+    "WarehouseWeathering_PackingBay_Dust_0",
+    "WarehouseWeathering_RepairCabinet_Dust_1",
+    "WarehouseWeathering_WestRackEnd_Dust_4",
+    "WarehouseWeathering_RepairCabinet_Oil_11",
+    "WarehouseWeathering_ColumnFoot_Damp_18",
+    "WarehouseWeathering_Runoff_0",
+    "WarehouseWeathering_Runoff_6",
+    "WarehouseWeathering_SteelFoot_0"
+  ],
+  "preserve": [
+    "original wall and floor material bindings",
+    "original actors and room layout",
+    "all containers and interaction logic",
+    "all lights and post process",
+    "main route and spawn"
+  ],
+  "tests_run": false,
+  "rendered": false
+}

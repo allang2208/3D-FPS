@@ -1,0 +1,14 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/author_cloth.py
+!/author_points.py
+!/capture_scene.py
+!/construction.json
+!/design-points.json
+!/draw_layout.py
+!/install.py
+!/read_inputs.py
+!/run_background.ps1

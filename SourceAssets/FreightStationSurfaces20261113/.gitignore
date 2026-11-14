@@ -1,0 +1,20 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/Captures/pair_views.py
+!/Captures/photograph.py
+!/Captures/review-capture.json
+!/author_host.py
+!/export_panels.py
+!/floor-plan.json
+!/floor_layout.py
+!/geometry.py
+!/install_ground.py
+!/install_walls.py
+!/inventory.py
+!/panel_layout.py
+!/publish.ps1
+!/start_host.ps1
+!/wall-sections.json

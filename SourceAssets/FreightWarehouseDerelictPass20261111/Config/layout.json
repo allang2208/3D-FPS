@@ -1,0 +1,924 @@
+{
+  "map": "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject",
+  "tag": "FreightWarehouse.DerelictPass20261111",
+  "origin": [
+    3760,
+    -900,
+    0
+  ],
+  "parts": [
+    {
+      "id": "Storage_ReturnCableReel",
+      "group": "Storage",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/WoodenCableReel/Meshes/SM_WoodenCableReel.SM_WoodenCableReel",
+      "position": [
+        2399.986778504973,
+        -900.0940758253998,
+        38.14355037987232
+      ],
+      "rotation": [
+        0,
+        -8,
+        0
+      ],
+      "scale": [
+        0.95,
+        0.95,
+        0.95
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Maintenance_CableReel",
+      "group": "Maintenance",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/WoodenCableReel/Meshes/SM_WoodenCableReel.SM_WoodenCableReel",
+      "position": [
+        5002.029237282003,
+        126.90436915960231,
+        40.13900039970875
+      ],
+      "rotation": [
+        0,
+        17,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Storage_UpperBucket",
+      "group": "Storage",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Bucket01b.SM_Bucket01b",
+      "position": [
+        2397.9903762115346,
+        -1087.002220064867,
+        346.03
+      ],
+      "rotation": [
+        0,
+        13,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "rack:346",
+      "support_z": 346.0,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Storage_UpperToolbox",
+      "group": "Storage",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/Sm_Toolbox01a.Sm_Toolbox01a",
+      "position": [
+        2451.5492509612664,
+        -1129.1523718377264,
+        346.82558944702146
+      ],
+      "rotation": [
+        0,
+        72,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "rack:346",
+      "support_z": 346.0,
+      "collision": "BlockAll",
+      "shadow": true,
+      "draw_distance": 6000
+    },
+    {
+      "id": "Storage_UpperSlat",
+      "group": "Storage",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01h.SM_WoodBoard01h",
+      "position": [
+        2422.999987809698,
+        -1218.0000006388666,
+        346.3720394897461
+      ],
+      "rotation": [
+        0,
+        93,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "rack:346",
+      "support_z": 346.0,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "DockPipeA",
+      "group": "Maintenance",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/RustyPipeJoint/Meshes/SM_RustyPipeJoint.SM_RustyPipeJoint",
+      "position": [
+        5093.0,
+        -2038.0,
+        127.66535099029541
+      ],
+      "rotation": [
+        0,
+        -14,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 120.00000762939453,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "DockPipeB",
+      "group": "Maintenance",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/RustyPipeJoint/Meshes/SM_RustyPipeJoint.SM_RustyPipeJoint",
+      "position": [
+        5120.0,
+        -2073.0,
+        126.90681665420531
+      ],
+      "rotation": [
+        0,
+        62,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "floor",
+      "support_z": 120.00000762939453,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "ElectricalSpare",
+      "group": "Maintenance",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/RustyPipeJoint/Meshes/SM_RustyPipeJoint.SM_RustyPipeJoint",
+      "position": [
+        5124.0,
+        135.0,
+        9.382412036061286
+      ],
+      "rotation": [
+        0,
+        11,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "PackingRemnant_0",
+      "group": "CargoRemnants",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk02a.SM_Decal_Junk02a",
+      "position": [
+        2812.000000966661,
+        -614.9999974817617,
+        0.18000000149011613
+      ],
+      "rotation": [
+        0,
+        24,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "PackingRemnant_1",
+      "group": "CargoRemnants",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        2781.999993005665,
+        -547.999999946903,
+        0.19800000175833704
+      ],
+      "rotation": [
+        0,
+        -27,
+        0
+      ],
+      "scale": [
+        0.82,
+        0.82,
+        0.82
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "PackingRemnant_2",
+      "group": "CargoRemnants",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk04a.SM_Decal_Junk04a",
+      "position": [
+        2836.0,
+        -690.0,
+        0.19500000171363355
+      ],
+      "rotation": [
+        0,
+        68,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "PackingRemnant_3",
+      "group": "CargoRemnants",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "position": [
+        4701.000003331246,
+        -754.0000008305728,
+        0.19000000163912772
+      ],
+      "rotation": [
+        0,
+        -14,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "PackingRemnant_4",
+      "group": "CargoRemnants",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk05a.SM_Decal_Junk05a",
+      "position": [
+        4792.000003982421,
+        -786.9999995674698,
+        0.20200000181794167
+      ],
+      "rotation": [
+        0,
+        28,
+        0
+      ],
+      "scale": [
+        0.78,
+        0.78,
+        0.78
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "PackingRemnant_5",
+      "group": "CargoRemnants",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk07a.SM_Decal_Junk07a",
+      "position": [
+        4741.00000205128,
+        -670.00000178315,
+        0.18500000156462193
+      ],
+      "rotation": [
+        0,
+        -41,
+        0
+      ],
+      "scale": [
+        0.95,
+        0.95,
+        0.95
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "PackingRemnant_6",
+      "group": "CargoRemnants",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk03a.SM_Decal_Junk03a",
+      "position": [
+        2434.9999999433594,
+        -2194.000002261128,
+        120.00500762827694
+      ],
+      "rotation": [
+        0,
+        17,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "support": "floor",
+      "support_z": 120.00000762939453,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "PackingRemnant_7",
+      "group": "CargoRemnants",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk06a.SM_Decal_Junk06a",
+      "position": [
+        2584.9999997100845,
+        -2170.000006817777,
+        120.00000762820244
+      ],
+      "rotation": [
+        0,
+        61,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "floor",
+      "support_z": 120.00000762939453,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "DiscardedDispatch_0",
+      "group": "CargoRemnants",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0.SM_IncidentDetail_Paper0",
+      "position": [
+        2855.9979224511335,
+        -625.9985997109004,
+        0.19000000163912772
+      ],
+      "rotation": [
+        0,
+        -34,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "DiscardedDispatch_1",
+      "group": "CargoRemnants",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1.SM_IncidentDetail_Paper1",
+      "position": [
+        4694.999755003226,
+        -664.999961196323,
+        0.19000000163912772
+      ],
+      "rotation": [
+        0,
+        81,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "DiscardedDispatch_2",
+      "group": "CargoRemnants",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2.SM_IncidentDetail_Paper2",
+      "position": [
+        2627.0,
+        -2095.0,
+        119.99000762805342
+      ],
+      "rotation": [
+        0,
+        -12,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "floor",
+      "support_z": 120.00000762939453,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "ConcreteFragment_0",
+      "group": "WallFoot",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "position": [
+        2301.0,
+        -934.0,
+        4.00089412510395
+      ],
+      "rotation": [
+        0,
+        24,
+        0
+      ],
+      "scale": [
+        1.3,
+        1.3,
+        1.3
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "ConcreteFragment_1",
+      "group": "WallFoot",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "position": [
+        2319.0,
+        -879.0,
+        2.7128923135995864
+      ],
+      "rotation": [
+        0,
+        -17,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "ConcreteFragment_2",
+      "group": "WallFoot",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "position": [
+        5212.0,
+        -264.0,
+        3.4284488755464557
+      ],
+      "rotation": [
+        0,
+        33,
+        0
+      ],
+      "scale": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    },
+    {
+      "id": "ConcreteFragment_3",
+      "group": "WallFoot",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "position": [
+        5190.0,
+        -229.0,
+        2.426669688820839
+      ],
+      "rotation": [
+        0,
+        -56,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "support": "floor",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 3800
+    }
+  ],
+  "decals": [
+    {
+      "id": "WallWest_LocalSpall",
+      "group": "WallFoot",
+      "material": "Damage",
+      "position": [
+        2274.35,
+        -895.0,
+        63.0
+      ],
+      "rotation": [
+        0,
+        180,
+        -5
+      ],
+      "size": [
+        1.0,
+        45.0,
+        49.0
+      ]
+    },
+    {
+      "id": "WallEast_LocalSpall",
+      "group": "WallFoot",
+      "material": "Damage",
+      "position": [
+        5245.65,
+        -242.0,
+        80.0
+      ],
+      "rotation": [
+        0,
+        0,
+        9
+      ],
+      "size": [
+        1.0,
+        54.0,
+        62.5
+      ]
+    },
+    {
+      "id": "ShelfSettledDust_0",
+      "group": "Storage",
+      "material": "Dust",
+      "position": [
+        2376.0,
+        -1114.0,
+        346.15
+      ],
+      "rotation": [
+        -90,
+        3,
+        0
+      ],
+      "size": [
+        0.6,
+        17.0,
+        105.0
+      ]
+    },
+    {
+      "id": "ShelfSettledDust_1",
+      "group": "Storage",
+      "material": "Dust",
+      "position": [
+        2430.0,
+        -1302.0,
+        346.15
+      ],
+      "rotation": [
+        -90,
+        -1,
+        0
+      ],
+      "size": [
+        0.6,
+        57.5,
+        24.0
+      ]
+    },
+    {
+      "id": "ShelfSettledDust_2",
+      "group": "Storage",
+      "material": "Dust",
+      "position": [
+        5144.0,
+        -578.0,
+        346.15
+      ],
+      "rotation": [
+        -90,
+        -5,
+        0
+      ],
+      "size": [
+        0.6,
+        16.0,
+        85.0
+      ]
+    },
+    {
+      "id": "CableReelFoot",
+      "group": "UseTraces",
+      "material": "Dust",
+      "position": [
+        2389.0,
+        -900.0,
+        -1.75
+      ],
+      "rotation": [
+        -90,
+        -7,
+        0
+      ],
+      "size": [
+        3.0,
+        70.0,
+        75.0
+      ]
+    },
+    {
+      "id": "ElectricalFoot",
+      "group": "UseTraces",
+      "material": "Dust",
+      "position": [
+        5030.0,
+        130.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        11,
+        0
+      ],
+      "size": [
+        3.0,
+        100.0,
+        65.0
+      ]
+    },
+    {
+      "id": "CargoWestRemnant",
+      "group": "UseTraces",
+      "material": "Dust",
+      "position": [
+        2802.0,
+        -616.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        -14,
+        0
+      ],
+      "size": [
+        3.0,
+        72.5,
+        75.0
+      ]
+    },
+    {
+      "id": "CargoEastRemnant",
+      "group": "UseTraces",
+      "material": "Dust",
+      "position": [
+        4740.0,
+        -743.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        17,
+        0
+      ],
+      "size": [
+        3.0,
+        70.0,
+        95.0
+      ]
+    },
+    {
+      "id": "DockBarrelResidue",
+      "group": "UseTraces",
+      "material": "Oil",
+      "position": [
+        5087.0,
+        -2090.0,
+        120.25000762939453
+      ],
+      "rotation": [
+        -90,
+        31,
+        0
+      ],
+      "size": [
+        3.0,
+        26.5,
+        35.0
+      ]
+    },
+    {
+      "id": "EntranceHandlingA",
+      "group": "UseTraces",
+      "material": "Scuff",
+      "position": [
+        3130.0,
+        140.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        -7,
+        0
+      ],
+      "size": [
+        3.0,
+        17.5,
+        74.0
+      ]
+    },
+    {
+      "id": "EntranceHandlingB",
+      "group": "UseTraces",
+      "material": "Scuff",
+      "position": [
+        3170.0,
+        130.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        -7,
+        0
+      ],
+      "size": [
+        3.0,
+        15.0,
+        80.0
+      ]
+    },
+    {
+      "id": "CargoWestHandling",
+      "group": "UseTraces",
+      "material": "Scuff",
+      "position": [
+        2823.0,
+        -710.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        6,
+        0
+      ],
+      "size": [
+        3.0,
+        22.5,
+        90.0
+      ]
+    },
+    {
+      "id": "CargoEastHandling",
+      "group": "UseTraces",
+      "material": "Scuff",
+      "position": [
+        4704.0,
+        -603.0,
+        0.45000000298023224
+      ],
+      "rotation": [
+        -90,
+        -12,
+        0
+      ],
+      "size": [
+        3.0,
+        21.5,
+        72.5
+      ]
+    },
+    {
+      "id": "DockWestUpperLeak",
+      "group": "WallFoot",
+      "material": "Leak",
+      "position": [
+        2600.0,
+        -2285.65,
+        480.0
+      ],
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "size": [
+        1.2,
+        47.5,
+        130.0
+      ]
+    }
+  ],
+  "remove_labels": [
+    "WarehouseWeathering_DockService_026",
+    "WarehouseWeathering_WestRackGap_031",
+    "WarehouseWeathering_WestRackGap_032",
+    "WarehouseWeathering_WestRackGap_033",
+    "WarehouseWeathering_ElectricalCorner_037",
+    "WarehouseWeathering_ElectricalCorner_038",
+    "WarehouseWeathering_ElectricalCorner_039",
+    "WarehouseWeathering_CargoWest_040",
+    "WarehouseWeathering_CargoEast_042",
+    "WarehouseWeathering_DockService_064",
+    "WarehouseWeathering_DockService_065",
+    "WarehouseWeathering_DockService_066",
+    "WarehouseWeathering_DockService_067",
+    "WarehouseWeathering_DockService_068",
+    "WarehouseWeathering_WestRackGap_075",
+    "WarehouseWeathering_WestRackGap_076",
+    "WarehouseWeathering_WestRackGap_077",
+    "WarehouseWeathering_WestRackGap_078",
+    "WarehouseWeathering_CargoWest_085",
+    "WarehouseWeathering_CargoWest_086",
+    "WarehouseWeathering_CargoWest_087",
+    "WarehouseWeathering_CargoWest_088",
+    "WarehouseWeathering_CargoWest_089",
+    "WarehouseWeathering_CargoEast_090",
+    "WarehouseWeathering_CargoEast_091",
+    "WarehouseWeathering_CargoEast_092",
+    "WarehouseWeathering_CargoEast_093",
+    "WarehouseWeathering_CargoEast_094",
+    "WarehouseWeathering_ElectricalCorner_095",
+    "WarehouseWeathering_ElectricalCorner_096",
+    "WarehouseWeathering_ElectricalCorner_097",
+    "WarehouseWeathering_ElectricalCorner_098"
+  ],
+  "preserve_entrance": true,
+  "reference": "https://www.fab.com/listings/d825ff9c-77da-45a4-9619-c989e6dfdda6"
+}

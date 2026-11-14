@@ -1,0 +1,140 @@
+{
+  "lighting": [
+    {
+      "actor": "StationLine_AbandonedTransitStation_Light_5",
+      "before": {
+        "intensity": "4050.0",
+        "attenuation_radius": "1035.0",
+        "light_color": "<Struct 'Color' (0x000001F00562D4B8) {b: 255, g: 231, r: 212, a: 255}>",
+        "cast_shadows": "True"
+      },
+      "intensity": 5200.0,
+      "radius": 1400.0
+    },
+    {
+      "actor": "StationLine_AbandonedTransitStation_Light_6",
+      "before": {
+        "intensity": "4050.0",
+        "attenuation_radius": "1035.0",
+        "light_color": "<Struct 'Color' (0x000001F00562DEB8) {b: 255, g: 231, r: 212, a: 255}>",
+        "cast_shadows": "False"
+      },
+      "intensity": 4050.0,
+      "radius": 1320.0
+    }
+  ],
+  "walls": {
+    "installed": [
+      "StationFinal_Link_Y_N1554p0_P",
+      "StationFinal_Link_Y_N1246p0_N",
+      "StationFinal_Pit_X_7210p0_P",
+      "StationFinal_Pit_Y_N875p0_N",
+      "StationFinal_Pit_Y_N1925p0_P",
+      "StationFinal_Hall_Y_236p0_N",
+      "StationFinal_Hall_Y_N3036p0_P",
+      "StationFinal_Hall_X_6174p0_P",
+      "StationFinal_Hall_X_10946p0_N",
+      "StationFinal_Hall_Y_N1184p0_N",
+      "StationFinal_Hall_Y_N1616p0_P",
+      "StationFinal_Hall_X_5874p0_P",
+      "StationFinal_Hall_X_8401p0_N",
+      "StationFinal_Hall_X_7969p0_P",
+      "StationFinal_Hall_Y_N3336p0_P",
+      "StationFinal_PortalBase_X_10946p0_N",
+      "StationFinal_Pier_Y_218p0_N",
+      "StationFinal_Pier_X_6190p0_N",
+      "StationFinal_Pier_Y_211p5_N",
+      "StationFinal_Pier_X_6175p0_N",
+      "StationFinal_Pier_Y_210p0_N",
+      "StationFinal_Pier_Y_N3018p0_P",
+      "StationFinal_Pier_X_6250p0_P",
+      "StationFinal_Pier_Y_N3011p5_P",
+      "StationFinal_Pier_X_6265p0_P",
+      "StationFinal_Pier_Y_N3010p0_P",
+      "StationFinal_Pier_X_7180p0_N",
+      "StationFinal_Pier_X_7165p0_N",
+      "StationFinal_Pier_X_7240p0_P",
+      "StationFinal_Pier_X_7255p0_P",
+      "StationFinal_Pier_X_7893p0_N",
+      "StationFinal_Pier_X_7878p0_N",
+      "StationFinal_Pier_X_7953p0_P",
+      "StationFinal_Pier_X_7968p0_P",
+      "StationFinal_Pier_X_8980p0_N",
+      "StationFinal_Pier_X_8965p0_N",
+      "StationFinal_Pier_X_9040p0_P",
+      "StationFinal_Pier_X_9055p0_P",
+      "StationFinal_Pier_X_10750p0_N",
+      "StationFinal_Pier_X_10735p0_N",
+      "StationFinal_Pier_X_10810p0_P",
+      "StationFinal_Pier_X_10825p0_P",
+      "StationFinal_Tunnel_Y_N893p0_N",
+      "StationFinal_Tunnel_Y_N1377p0_P",
+      "StationFinal_Tunnel_Y_N1423p0_N",
+      "StationFinal_Tunnel_Y_N1907p0_P",
+      "StationFinal_Seal_X_11553p0_N",
+      "StationFinal_Workshop_X_7303p0_N",
+      "StationFinal_Workshop_X_7317p0_P",
+      "StationFinal_Workshop_X_8303p0_N",
+      "StationFinal_Workshop_X_8317p0_P",
+      "StationFinal_Workshop_Y_157p0_P",
+      "StationFinal_Workshop_Y_143p0_N",
+      "StationFinal_Workshop_Y_N543p0_P",
+      "StationFinal_Workshop_Y_N557p0_N"
+    ],
+    "retired": [
+      "StationSurface_Link_Y0",
+      "StationSurface_Link_Y1",
+      "StationSurface_Pit_X2",
+      "StationSurface_Pit_X3",
+      "StationSurface_Pit_X1",
+      "StationSurface_Pit_X4",
+      "StationSurface_Pit_Y2",
+      "StationSurface_Pit_Y3",
+      "StationSurface_Pit_Y4",
+      "StationSurface_Pit_Y5",
+      "StationSurface_Hall_Y1",
+      "StationSurface_Hall_Y2",
+      "StationSurface_Hall_Y3",
+      "StationSurface_Hall_Y4",
+      "StationSurface_Hall_Y5",
+      "StationSurface_Hall_X1",
+      "StationSurface_Hall_X2",
+      "StationSurface_Hall_X3",
+      "StationSurface_Hall_X4",
+      "StationSurface_PortalBase_X1",
+      "StationSurface_PortalBase_X2",
+      "StationSurface_PortalBase_X3",
+      "StationSurface_PortalBase_X4",
+      "StationSurface_Pier_Y1",
+      "StationSurface_Pier_Y2",
+      "StationSurface_Pier_Y3",
+      "StationSurface_Pier_Y5",
+      "StationSurface_Pier_X1",
+      "StationSurface_Pier_X4",
+      "StationSurface_Tunnel_Y5",
+      "StationSurface_Seal_X2",
+      "StationSurface_Seal_X3",
+      "StationSurface_Workshop_X3",
+      "StationSurface_Workshop_Y2",
+      "StationSurface_Workshop_Y3"
+    ],
+    "base_wall_floor_slots_modified": false
+  },
+  "patina": {
+    "original_ceramic_mesh_retained": true,
+    "local_patina": [
+      {
+        "name": "SkirtWest",
+        "clusters": 46
+      },
+      {
+        "name": "SkirtNorth",
+        "clusters": 97
+      },
+      {
+        "name": "SkirtSouth",
+        "clusters": 85
+      }
+    ]
+  }
+}

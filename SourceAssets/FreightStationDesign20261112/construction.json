@@ -1,0 +1,595 @@
+{
+  "points": {
+    "01": "入口包装台",
+    "02": "西侧货架端",
+    "03": "仓站连接口",
+    "04": "调度观察窗",
+    "05": "维修推车",
+    "06": "天桥与楼梯"
+  },
+  "operations": [
+    {
+      "point": "01",
+      "op": "move",
+      "source": "WarehouseEntrance_Packing_Cardboard_0",
+      "p": [
+        2769.0000055223786,
+        212.00000117381782,
+        0.09700000077486039
+      ],
+      "r": [
+        0,
+        12,
+        0
+      ],
+      "s": [
+        1.48,
+        1.48,
+        1.48
+      ],
+      "id": null,
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "01",
+      "op": "move",
+      "source": "WarehouseEntrance_Packing_Cardboard_1",
+      "p": [
+        2840.0000026073035,
+        219.00000182565364,
+        0.19200000122189523
+      ],
+      "r": [
+        0,
+        -10,
+        0
+      ],
+      "s": [
+        1.18,
+        1.18,
+        1.18
+      ],
+      "id": null,
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "01",
+      "op": "move",
+      "source": "WarehouseEntrance_Packing_DiscardedForm_0",
+      "p": [
+        2821.9977574937984,
+        167.00129368743552,
+        0.15200000159442423
+      ],
+      "r": [
+        0,
+        -30,
+        0
+      ],
+      "s": [
+        0.93,
+        0.93,
+        0.93
+      ],
+      "id": null,
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "01",
+      "op": "retire",
+      "source": "WarehouseEntrance_Packing_Cardboard_2"
+    },
+    {
+      "point": "01",
+      "op": "retire",
+      "source": "WarehouseEntrance_Packing_Cardboard_7"
+    },
+    {
+      "point": "01",
+      "op": "retire",
+      "source": "WarehouseEntrance_Packing_Cardboard_8"
+    },
+    {
+      "point": "01",
+      "op": "retire",
+      "source": "WarehouseEntrance_Packing_DiscardedForm_1"
+    },
+    {
+      "point": "01",
+      "op": "retire",
+      "source": "WarehouseEntrance_Packing_DiscardedForm_2"
+    },
+    {
+      "point": "01",
+      "op": "move",
+      "source": "WarehouseEntrance_Packing_SplitBoardA",
+      "p": [
+        2787.9999955640087,
+        210.00001218778576,
+        0.6602919608354568
+      ],
+      "r": [
+        0,
+        20,
+        0
+      ],
+      "s": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "id": null,
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "01",
+      "op": "move",
+      "source": "WarehouseEntrance_Packing_SplitBoardB",
+      "p": [
+        2806.000012057888,
+        190.00000844302397,
+        1.9283227944963133
+      ],
+      "r": [
+        -2.625,
+        -55,
+        0
+      ],
+      "s": [
+        0.63,
+        0.63,
+        0.63
+      ],
+      "id": null,
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "02",
+      "op": "retire",
+      "source": "WarehouseEntrance_RackEnd_Fragment_3"
+    },
+    {
+      "point": "02",
+      "op": "move",
+      "source": "WarehouseEntrance_Dust_RackEnd",
+      "p": [
+        2325,
+        -239,
+        0.36000000298023227
+      ],
+      "r": [
+        -90,
+        -7,
+        0
+      ],
+      "size": [
+        1.2,
+        47,
+        60
+      ],
+      "id": null
+    },
+    {
+      "point": "02",
+      "op": "copy",
+      "source": "WarehouseDerelict_ConcreteFragment_0",
+      "p": [
+        2294.0,
+        -239.0,
+        4.881806524395943
+      ],
+      "r": [
+        0,
+        16,
+        0
+      ],
+      "s": [
+        1.62,
+        1.62,
+        1.62
+      ],
+      "id": "SpallHeel",
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "02",
+      "op": "copy",
+      "source": "WarehouseDerelict_ConcreteFragment_1",
+      "p": [
+        2310.0,
+        -224.0,
+        2.477536476254463
+      ],
+      "r": [
+        0,
+        -38,
+        0
+      ],
+      "s": [
+        0.78,
+        0.78,
+        0.78
+      ],
+      "id": "SpallChip",
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "02",
+      "op": "copy",
+      "source": "WarehouseDerelict_ConcreteFragment_1",
+      "p": [
+        2334.0,
+        -255.0,
+        1.7333576518297196
+      ],
+      "r": [
+        0,
+        61,
+        0
+      ],
+      "s": [
+        0.52,
+        0.52,
+        0.52
+      ],
+      "id": "SpallFine",
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "03",
+      "op": "retire",
+      "source": "FreightStation_LinkSmallPacking"
+    },
+    {
+      "point": "03",
+      "op": "move",
+      "source": "FreightStation_LinkEdgeRub",
+      "p": [
+        5620,
+        -1520,
+        0.16
+      ],
+      "r": [
+        -90,
+        -3,
+        0
+      ],
+      "size": [
+        1.1,
+        10,
+        71
+      ],
+      "id": null
+    },
+    {
+      "point": "03",
+      "op": "copy",
+      "source": "FreightStation_LinkEdgeRub",
+      "p": [
+        5772,
+        -1526,
+        0.16
+      ],
+      "r": [
+        -90,
+        1,
+        0
+      ],
+      "size": [
+        1.1,
+        5,
+        31
+      ],
+      "id": "FadingRub"
+    },
+    {
+      "point": "03",
+      "op": "move",
+      "source": "FreightStation_LinkPaper",
+      "p": [
+        5704.0,
+        -1530.0,
+        -0.034000001177191735
+      ],
+      "r": [
+        0,
+        -28,
+        0
+      ],
+      "s": [
+        0.79,
+        0.79,
+        0.79
+      ],
+      "id": null,
+      "support": 0.0
+    },
+    {
+      "point": "04",
+      "op": "copy",
+      "source": "FreightStation_LinkShortLeak",
+      "id": "LongDrip",
+      "p": [
+        7731.7,
+        -557.1200303498935,
+        62
+      ],
+      "r": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        1.05,
+        16.0,
+        40.0
+      ]
+    },
+    {
+      "point": "04",
+      "op": "copy",
+      "source": "FreightStation_LinkShortLeak",
+      "id": "ShortDrip",
+      "p": [
+        7888.3,
+        -557.1200440367058,
+        76
+      ],
+      "r": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        1.05,
+        10.5,
+        24.5
+      ]
+    },
+    {
+      "point": "04",
+      "op": "move",
+      "source": "FreightStation_WorkshopExteriorPaperFold",
+      "p": [
+        7727.999483495527,
+        -580.9990295308015,
+        0.15300000160932542
+      ],
+      "r": [
+        0,
+        -62,
+        0
+      ],
+      "s": [
+        0.92,
+        0.92,
+        0.92
+      ],
+      "id": null,
+      "support": 0.20000000298023224
+    },
+    {
+      "point": "04",
+      "op": "retire",
+      "source": "FreightStation_WorkshopExteriorPaper"
+    },
+    {
+      "point": "04",
+      "op": "move",
+      "source": "FreightStation_WorkshopWindowFoot",
+      "p": [
+        7813,
+        -574,
+        0.36000000298023227
+      ],
+      "r": [
+        -90,
+        1,
+        0
+      ],
+      "size": [
+        1.5,
+        13,
+        128
+      ],
+      "id": null
+    },
+    {
+      "point": "05",
+      "op": "move",
+      "source": "FreightStation_WorkshopCartPacking",
+      "p": [
+        8442.0,
+        -310.0,
+        14.468998091369867
+      ],
+      "r": [
+        0,
+        -71,
+        0
+      ],
+      "s": [
+        0.86,
+        0.86,
+        0.86
+      ],
+      "id": null,
+      "support": 14.499998092651367
+    },
+    {
+      "point": "05",
+      "op": "move",
+      "source": "FreightStation_WorkshopCartJoint",
+      "p": [
+        8427.0,
+        -311.0,
+        21.400953683853146
+      ],
+      "r": [
+        0,
+        -15,
+        0
+      ],
+      "s": [
+        0.89,
+        0.89,
+        0.89
+      ],
+      "id": null,
+      "support": 14.499998092651367
+    },
+    {
+      "point": "05",
+      "op": "copy",
+      "source": "FreightStation_WorkshopCartJoint",
+      "p": [
+        8453.0,
+        -309.0,
+        20.263152179718016
+      ],
+      "r": [
+        0,
+        55,
+        0
+      ],
+      "s": [
+        0.74,
+        0.74,
+        0.74
+      ],
+      "id": "LowerTrayCoupling",
+      "support": 14.499998092651367
+    },
+    {
+      "point": "05",
+      "op": "cloth",
+      "source": null,
+      "id": "HandleCloth",
+      "p": [
+        8380,
+        -310,
+        73
+      ],
+      "r": [
+        0,
+        0,
+        0
+      ],
+      "s": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "point": "05",
+      "op": "move",
+      "source": "FreightStation_WorkshopCartWheelLeft",
+      "p": [
+        8387,
+        -399,
+        0.36000000298023227
+      ],
+      "r": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        1,
+        65,
+        5
+      ],
+      "id": null
+    },
+    {
+      "point": "05",
+      "op": "move",
+      "source": "FreightStation_WorkshopCartWheelRight",
+      "p": [
+        8469,
+        -384,
+        0.36000000298023227
+      ],
+      "r": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        1,
+        50,
+        4.5
+      ],
+      "id": null
+    },
+    {
+      "point": "05",
+      "op": "move",
+      "source": "FreightStation_WorkshopCartResidue",
+      "p": [
+        8422,
+        -313,
+        0.36000000298023227
+      ],
+      "r": [
+        -90,
+        14,
+        0
+      ],
+      "size": [
+        1.25,
+        24,
+        38
+      ],
+      "id": null
+    },
+    {
+      "point": "06",
+      "op": "move",
+      "source": "FreightStation_BridgeEdgeDust0",
+      "p": [
+        10005,
+        -2143,
+        480.16003051757815
+      ],
+      "r": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.65,
+        70,
+        9
+      ],
+      "id": null
+    },
+    {
+      "point": "06",
+      "op": "move",
+      "source": "FreightStation_BridgeEdgeDust2",
+      "p": [
+        10504,
+        -2452,
+        480.16003051757815
+      ],
+      "r": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.65,
+        42,
+        8
+      ],
+      "id": null
+    },
+    {
+      "point": "06",
+      "op": "retire",
+      "source": "FreightStation_StairEdgeDust1"
+    }
+  ]
+}

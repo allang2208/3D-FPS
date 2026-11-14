@@ -1,0 +1,2097 @@
+{
+  "map": "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject",
+  "tag": "FreightStation.UnifiedPatina20261111",
+  "reference": "Derelict Corridor layered decay; existing original materials retained",
+  "parts": [
+    {
+      "id": "WHExitPackingSlip",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0.SM_IncidentDetail_Paper0",
+      "group": "WarehouseExit",
+      "position": [
+        5307.997693433801,
+        -1514.9990218531673,
+        0.15000000163912772
+      ],
+      "rotation": [
+        0,
+        -23,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "warehouse",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WHExitCardboard",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk07a.SM_Decal_Junk07a",
+      "group": "WarehouseExit",
+      "position": [
+        5416.000002084519,
+        -1281.9999987474946,
+        0.15500000171363354
+      ],
+      "rotation": [
+        0,
+        31,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "warehouse",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 4000
+    },
+    {
+      "id": "LinkPaper",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2.SM_IncidentDetail_Paper2",
+      "group": "ConnectingPassage",
+      "position": [
+        5608.0,
+        -1529.0,
+        -0.0400000011920929
+      ],
+      "rotation": [
+        0,
+        26,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "link",
+      "support_z": 0.0,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "LinkSmallPacking",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk07a.SM_Decal_Junk07a",
+      "group": "ConnectingPassage",
+      "position": [
+        5798.000001827932,
+        -1272.0000013774452,
+        -0.0400000011920929
+      ],
+      "rotation": [
+        0,
+        -37,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "link",
+      "support_z": 0.0,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 4000
+    },
+    {
+      "id": "VestibuleForm",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3.SM_IncidentDetail_Paper3",
+      "group": "StationEntrance",
+      "position": [
+        6103.999619883824,
+        -1227.0009419025155,
+        0.15500000171363354
+      ],
+      "rotation": [
+        0,
+        68,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "ConcourseFragment0",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "group": "ConcourseWall",
+      "position": [
+        6210.0,
+        -748.0,
+        3.2453375631570816
+      ],
+      "rotation": [
+        0,
+        23,
+        0
+      ],
+      "scale": [
+        1.05,
+        1.05,
+        1.05
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "ConcourseFragment1",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "group": "ConcourseWall",
+      "position": [
+        6240.0,
+        -786.0,
+        2.5297810012102127
+      ],
+      "rotation": [
+        0,
+        -37,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "ConcourseFragment2",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "group": "ConcourseWall",
+      "position": [
+        6209.0,
+        -825.0,
+        2.1004470640420916
+      ],
+      "rotation": [
+        0,
+        71,
+        0
+      ],
+      "scale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "ConcourseBlownPaper",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1.SM_IncidentDetail_Paper1",
+      "group": "ConcourseWall",
+      "position": [
+        6252.000096656236,
+        -664.9998018253484,
+        0.16000000178813933
+      ],
+      "rotation": [
+        0,
+        -26,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PowerOldJoint",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/RustyPipeJoint/Meshes/SM_RustyPipeJoint.SM_RustyPipeJoint",
+      "group": "PowerService",
+      "position": [
+        7029.0,
+        -3004.0,
+        7.066809027791024
+      ],
+      "rotation": [
+        0,
+        17,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PowerOldJointSmall",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/RustyPipeJoint/Meshes/SM_RustyPipeJoint.SM_RustyPipeJoint",
+      "group": "PowerService",
+      "position": [
+        7061.0,
+        -2977.0,
+        5.549740355610847
+      ],
+      "rotation": [
+        0,
+        -48,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PowerPacking",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk02a.SM_Decal_Junk02a",
+      "group": "PowerService",
+      "position": [
+        6990.000001667163,
+        -2970.9999991135537,
+        0.17000000193715095
+      ],
+      "rotation": [
+        0,
+        -17,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PlatformToolbox",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/Sm_Toolbox01a.Sm_Toolbox01a",
+      "group": "PlatformMaintenance",
+      "position": [
+        8785.567365696954,
+        -2910.054680538628,
+        1.0355894500017166
+      ],
+      "rotation": [
+        0,
+        82,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 5200
+    },
+    {
+      "id": "PlatformEmptyCan",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Paintcan01a.SM_Paintcan01a",
+      "group": "PlatformMaintenance",
+      "position": [
+        8839.08194707054,
+        -2947.9340920532522,
+        -0.034711272120475735
+      ],
+      "rotation": [
+        0,
+        -14,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PlatformSpareJoint",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/RustyPipeJoint/Meshes/SM_RustyPipeJoint.SM_RustyPipeJoint",
+      "group": "PlatformMaintenance",
+      "position": [
+        8813.0,
+        -2861.0,
+        7.825343363881111
+      ],
+      "rotation": [
+        0,
+        34,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PlatformPackingSlat",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_WoodBoard01h.SM_WoodBoard01h",
+      "group": "PlatformMaintenance",
+      "position": [
+        8872.999990155717,
+        -2898.999998791274,
+        0.47728208839893344
+      ],
+      "rotation": [
+        0,
+        83,
+        0
+      ],
+      "scale": [
+        0.65,
+        0.65,
+        0.65
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PlatformCardboard",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk01a.SM_Decal_Junk01a",
+      "group": "PlatformMaintenance",
+      "position": [
+        8754.000002849061,
+        -2847.0000010936524,
+        0.16000000178813933
+      ],
+      "rotation": [
+        0,
+        -21,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopExteriorPaper",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0.SM_IncidentDetail_Paper0",
+      "group": "WorkshopExterior",
+      "position": [
+        7824.997807031752,
+        -607.9985219170616,
+        0.14500000156462192
+      ],
+      "rotation": [
+        0,
+        -34,
+        0
+      ],
+      "scale": [
+        0.95,
+        0.95,
+        0.95
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopExteriorPaperFold",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3.SM_IncidentDetail_Paper3",
+      "group": "WorkshopExterior",
+      "position": [
+        7949.999361107449,
+        -594.0007896106409,
+        0.15500000171363354
+      ],
+      "rotation": [
+        0,
+        51,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopCartJoint",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/RustyPipeJoint/Meshes/SM_RustyPipeJoint.SM_RustyPipeJoint",
+      "group": "WorkshopExterior",
+      "position": [
+        8507.0,
+        -312.0,
+        6.687541859745979
+      ],
+      "rotation": [
+        0,
+        46,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopCartPacking",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk04a.SM_Decal_Junk04a",
+      "group": "WorkshopExterior",
+      "position": [
+        8502.0,
+        -372.0,
+        0.15000000163912772
+      ],
+      "rotation": [
+        0,
+        -26,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopCartForm",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2.SM_IncidentDetail_Paper2",
+      "group": "WorkshopExterior",
+      "position": [
+        8493.0,
+        -423.0,
+        0.15500000171363354
+      ],
+      "rotation": [
+        0,
+        17,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopUnderDeskPaper",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0.SM_IncidentDetail_Paper0",
+      "group": "WorkshopInterior",
+      "position": [
+        7924.997704273598,
+        -509.00057322431815,
+        0.15500000171363354
+      ],
+      "rotation": [
+        0,
+        14,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopDiscardedForm",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3.SM_IncidentDetail_Paper3",
+      "group": "WorkshopInterior",
+      "position": [
+        8043.999087732027,
+        -392.9994304577516,
+        0.15000000163912772
+      ],
+      "rotation": [
+        0,
+        -32,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopUnderRackCan",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Paintcan01a.SM_Paintcan01a",
+      "group": "WorkshopInterior",
+      "position": [
+        8138.171988867694,
+        96.59805149146453,
+        -0.034711272120475735
+      ],
+      "rotation": [
+        0,
+        16,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "WorkshopBackEmptyBucket",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Props/SM_Bucket01b.SM_Bucket01b",
+      "group": "WorkshopInterior",
+      "position": [
+        8266.990245327777,
+        98.00154672631197,
+        0.24000000298023225
+      ],
+      "rotation": [
+        0,
+        -9,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 5200
+    },
+    {
+      "id": "PlatformSouthPacking",
+      "mesh": "/Game/UndergroundTunnel/Meshes/Decals/SM_Decal_Junk05a.SM_Decal_Junk05a",
+      "group": "PlatformEdges",
+      "position": [
+        8873.000003977057,
+        130.00000138484793,
+        0.15800000175833703
+      ],
+      "rotation": [
+        0,
+        41,
+        0
+      ],
+      "scale": [
+        0.82,
+        0.82,
+        0.82
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": false,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PlatformSouthForm",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2.SM_IncidentDetail_Paper2",
+      "group": "PlatformEdges",
+      "position": [
+        8795.0,
+        97.0,
+        0.15000000163912772
+      ],
+      "rotation": [
+        0,
+        -31,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PlatformFarPaper",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1.SM_IncidentDetail_Paper1",
+      "group": "PlatformEdges",
+      "position": [
+        10649.999923729118,
+        -2909.9997784932725,
+        0.15500000171363354
+      ],
+      "rotation": [
+        0,
+        19,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PlatformFarFragmentA",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "group": "PlatformEdges",
+      "position": [
+        10718.0,
+        186.0,
+        3.674671500325203
+      ],
+      "rotation": [
+        0,
+        -18,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "PlatformFarFragmentB",
+      "mesh": "/Game/Dungeons/FacilityQuixel20261108/ConcreteRubble/Meshes/SM_ConcreteRubble.SM_ConcreteRubble",
+      "group": "PlatformEdges",
+      "position": [
+        10679.0,
+        166.0,
+        2.386669688820839
+      ],
+      "rotation": [
+        0,
+        61,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "support": "station",
+      "support_z": 0.20000000298023224,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "TrackBlownPaper0",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1.SM_IncidentDetail_Paper1",
+      "group": "TrackBed",
+      "position": [
+        8540.999840228178,
+        -1877.9998286656983,
+        -180.0450000012666
+      ],
+      "rotation": [
+        0,
+        43,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "pit",
+      "support_z": -180.0,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    },
+    {
+      "id": "TrackBlownPaper1",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2.SM_IncidentDetail_Paper2",
+      "group": "TrackBed",
+      "position": [
+        9741.0,
+        -926.0,
+        -180.0450000012666
+      ],
+      "rotation": [
+        0,
+        -28,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "support": "pit",
+      "support_z": -180.0,
+      "collision": "NoCollision",
+      "shadow": true,
+      "draw_distance": 4000
+    }
+  ],
+  "decals": [
+    {
+      "id": "WHExitDustSouth",
+      "material": "DustEdge",
+      "group": "WarehouseExit",
+      "position": [
+        5304,
+        -1528,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -4,
+        0
+      ],
+      "size": [
+        2.5,
+        20.0,
+        90.0
+      ],
+      "receiver": "warehouse",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WHExitDustNorth",
+      "material": "DustEdge",
+      "group": "WarehouseExit",
+      "position": [
+        5390,
+        -1274,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        6,
+        0
+      ],
+      "size": [
+        2.5,
+        17.5,
+        57.5
+      ],
+      "receiver": "warehouse",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WHExitHandling",
+      "material": "Scuff",
+      "group": "WarehouseExit",
+      "position": [
+        5196,
+        -1505,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -5,
+        0
+      ],
+      "size": [
+        2.5,
+        13.0,
+        77.5
+      ],
+      "receiver": "warehouse",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "LinkSouth",
+      "material": "DustEdge",
+      "group": "ConnectingPassage",
+      "position": [
+        5568,
+        -1540,
+        0.16
+      ],
+      "rotation": [
+        -90,
+        2,
+        0
+      ],
+      "size": [
+        2.5,
+        14.0,
+        77.0
+      ],
+      "receiver": "link",
+      "support_z": 0.0
+    },
+    {
+      "id": "LinkNorth",
+      "material": "DustEdge",
+      "group": "ConnectingPassage",
+      "position": [
+        5731,
+        -1261,
+        0.16
+      ],
+      "rotation": [
+        -90,
+        -3,
+        0
+      ],
+      "size": [
+        2.5,
+        12.5,
+        95.0
+      ],
+      "receiver": "link",
+      "support_z": 0.0
+    },
+    {
+      "id": "LinkEdgeRub",
+      "material": "Scuff",
+      "group": "ConnectingPassage",
+      "position": [
+        5665,
+        -1521,
+        0.16
+      ],
+      "rotation": [
+        -90,
+        -7,
+        0
+      ],
+      "size": [
+        2.5,
+        9.0,
+        56.5
+      ],
+      "receiver": "link",
+      "support_z": 0.0
+    },
+    {
+      "id": "LinkTileFoot",
+      "material": "DustWall",
+      "group": "ConnectingPassage",
+      "position": [
+        5700,
+        -1246.7894860086526,
+        42
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        3,
+        91.5,
+        26.0
+      ],
+      "receiver": "StaticMeshActor_89",
+      "contact_plane": -1246.6094860086525
+    },
+    {
+      "id": "LinkShortLeak",
+      "material": "LeakSoft",
+      "group": "ConnectingPassage",
+      "position": [
+        5760,
+        -1246.180034360957,
+        222
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        1.5,
+        24.5,
+        50.0
+      ],
+      "receiver": "StaticMeshActor_88",
+      "contact_plane": -1246.000034360957
+    },
+    {
+      "id": "VestibuleSouth",
+      "material": "DustEdge",
+      "group": "StationEntrance",
+      "position": [
+        5965,
+        -1582,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -6,
+        0
+      ],
+      "size": [
+        2.5,
+        31.0,
+        79.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "VestibuleNorth",
+      "material": "DustEdge",
+      "group": "StationEntrance",
+      "position": [
+        6070,
+        -1207,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        4,
+        0
+      ],
+      "size": [
+        2.5,
+        21.0,
+        72.5
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "VestibuleUpperSeep",
+      "material": "LeakSoft",
+      "group": "StationEntrance",
+      "position": [
+        6018,
+        -1184.1798634874217,
+        231
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        1.5,
+        32.5,
+        72.0
+      ],
+      "receiver": "StaticMeshActor_97",
+      "contact_plane": -1183.9998634874216
+    },
+    {
+      "id": "VestibuleTileFoot",
+      "material": "DustWall",
+      "group": "StationEntrance",
+      "position": [
+        5960,
+        -1613.4299823604988,
+        51
+      ],
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "size": [
+        3,
+        70.5,
+        31.0
+      ],
+      "receiver": "StaticMeshActor_98",
+      "contact_plane": -1613.6099823604989
+    },
+    {
+      "id": "ConcourseWestSpall",
+      "material": "Damage",
+      "group": "ConcourseWall",
+      "position": [
+        6174.180039476479,
+        -760,
+        213
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "size": [
+        1.5,
+        41.5,
+        45.0
+      ],
+      "receiver": "StaticMeshActor_97",
+      "contact_plane": 6174.000039476478
+    },
+    {
+      "id": "ConcourseWestLowDust",
+      "material": "DustWall",
+      "group": "ConcourseWall",
+      "position": [
+        6174.7845626048,
+        -763,
+        58
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "size": [
+        3,
+        86.0,
+        38.0
+      ],
+      "receiver": "StaticMeshActor_98",
+      "contact_plane": 6174.6045626048
+    },
+    {
+      "id": "ConcourseWestFoot",
+      "material": "DustEdge",
+      "group": "ConcourseWall",
+      "position": [
+        6220,
+        -762,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -3,
+        0
+      ],
+      "size": [
+        2.5,
+        118.0,
+        32.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PowerWallSeep",
+      "material": "Leak",
+      "group": "PowerService",
+      "position": [
+        7040,
+        -3035.8199929386396,
+        393
+      ],
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "size": [
+        1.5,
+        56.5,
+        180.0
+      ],
+      "receiver": "StaticMeshActor_97",
+      "contact_plane": -3035.9999929386395
+    },
+    {
+      "id": "PowerWallOldDamp",
+      "material": "DampWall",
+      "group": "PowerService",
+      "position": [
+        7005,
+        -3035.81998836182,
+        188
+      ],
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "size": [
+        1.5,
+        85.5,
+        39.0
+      ],
+      "receiver": "StaticMeshActor_97",
+      "contact_plane": -3035.9999883618198
+    },
+    {
+      "id": "PowerCabinetSettledDust",
+      "material": "DustEdge",
+      "group": "PowerService",
+      "position": [
+        6456,
+        -2916,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        3,
+        0
+      ],
+      "size": [
+        2.5,
+        40.5,
+        92.5
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PowerServiceToe",
+      "material": "DustEdge",
+      "group": "PowerService",
+      "position": [
+        7041,
+        -2988,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -5,
+        0
+      ],
+      "size": [
+        2.5,
+        34.5,
+        115.5
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PlatformMaintenanceDust",
+      "material": "DustEdge",
+      "group": "PlatformMaintenance",
+      "position": [
+        8815,
+        -2919,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -4,
+        0
+      ],
+      "size": [
+        2.5,
+        80.0,
+        133.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PlatformMaintenanceResidue",
+      "material": "Oil",
+      "group": "PlatformMaintenance",
+      "position": [
+        8815,
+        -2875,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        21,
+        0
+      ],
+      "size": [
+        2.5,
+        21.5,
+        34.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PlatformMaintenanceTileWear",
+      "material": "ScuffWall",
+      "group": "PlatformMaintenance",
+      "position": [
+        8807,
+        -3035.2854647292284,
+        83
+      ],
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "size": [
+        3,
+        67.5,
+        25.5
+      ],
+      "receiver": "StaticMeshActor_98",
+      "contact_plane": -3035.465464729228
+    },
+    {
+      "id": "PlatformMaintenanceLeak",
+      "material": "LeakSoft",
+      "group": "PlatformMaintenance",
+      "position": [
+        8852,
+        -3035.8201696017163,
+        360
+      ],
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "size": [
+        1.5,
+        39.0,
+        125.5
+      ],
+      "receiver": "StaticMeshActor_97",
+      "contact_plane": -3036.000169601716
+    },
+    {
+      "id": "WorkshopWindowFoot",
+      "material": "DustEdge",
+      "group": "WorkshopExterior",
+      "position": [
+        7826,
+        -584,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        1,
+        0
+      ],
+      "size": [
+        2.5,
+        18.5,
+        165.5
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopWindowBaseDust",
+      "material": "DustWall",
+      "group": "WorkshopExterior",
+      "position": [
+        7830,
+        -557.1800389412961,
+        34
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        1.5,
+        160.5,
+        21.5
+      ],
+      "receiver": "StaticMeshActor_55",
+      "contact_plane": -557.0000389412961
+    },
+    {
+      "id": "WorkshopLowerRub",
+      "material": "ScuffWall",
+      "group": "WorkshopExterior",
+      "position": [
+        7917,
+        -557.1800465450808,
+        70
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        1.5,
+        41.5,
+        12.0
+      ],
+      "receiver": "StaticMeshActor_55",
+      "contact_plane": -557.0000465450809
+    },
+    {
+      "id": "WorkshopCartResidue",
+      "material": "Oil",
+      "group": "WorkshopExterior",
+      "position": [
+        8419,
+        -303,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -9,
+        0
+      ],
+      "size": [
+        2.5,
+        37.0,
+        56.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopCartDust",
+      "material": "DustEdge",
+      "group": "WorkshopExterior",
+      "position": [
+        8430,
+        -314,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        4,
+        0
+      ],
+      "size": [
+        2.5,
+        59.5,
+        91.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopCartWheelLeft",
+      "material": "Scuff",
+      "group": "WorkshopExterior",
+      "position": [
+        8387,
+        -405,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        2.5,
+        64.5,
+        9.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopCartWheelRight",
+      "material": "Scuff",
+      "group": "WorkshopExterior",
+      "position": [
+        8469,
+        -405,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        2.5,
+        64.5,
+        9.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopDeskFloorDust",
+      "material": "DustEdge",
+      "group": "WorkshopInterior",
+      "position": [
+        7922,
+        -502,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        2.5,
+        14.5,
+        89.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopMotorResidue",
+      "material": "Oil",
+      "group": "WorkshopInterior",
+      "position": [
+        7776,
+        -2,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        15,
+        0
+      ],
+      "size": [
+        2.5,
+        35.0,
+        51.5
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopRackFoot",
+      "material": "DustEdge",
+      "group": "WorkshopInterior",
+      "position": [
+        8073,
+        121,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -1,
+        0
+      ],
+      "size": [
+        2.5,
+        17.0,
+        88.5
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopBucketFoot",
+      "material": "DustEdge",
+      "group": "WorkshopInterior",
+      "position": [
+        8257,
+        95,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -12,
+        0
+      ],
+      "size": [
+        2.5,
+        41.0,
+        35.5
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "WorkshopDeskRearDust",
+      "material": "DustFine",
+      "group": "WorkshopInterior",
+      "position": [
+        7873,
+        -509,
+        77.66
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        6.5,
+        32.0
+      ],
+      "receiver": "desk",
+      "support_z": 77.5
+    },
+    {
+      "id": "WorkshopDeskFrontWear",
+      "material": "Scuff",
+      "group": "WorkshopInterior",
+      "position": [
+        8006,
+        -448,
+        77.66
+      ],
+      "rotation": [
+        -90,
+        -8,
+        0
+      ],
+      "size": [
+        0.8,
+        6.5,
+        11.0
+      ],
+      "receiver": "desk",
+      "support_z": 77.5
+    },
+    {
+      "id": "WorkshopRackUpperDust",
+      "material": "DustFine",
+      "group": "WorkshopInterior",
+      "position": [
+        8168,
+        94,
+        181.66
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        22.0,
+        6.0
+      ],
+      "receiver": "rack",
+      "support_z": 181.5
+    },
+    {
+      "id": "WorkshopRackMiddleDust",
+      "material": "DustFine",
+      "group": "WorkshopInterior",
+      "position": [
+        8072,
+        120,
+        131.66
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        5.5,
+        56.5
+      ],
+      "receiver": "rack",
+      "support_z": 131.5
+    },
+    {
+      "id": "WorkshopBackLowDirt",
+      "material": "DustWall",
+      "group": "WorkshopInterior",
+      "position": [
+        8266,
+        142.81994162811307,
+        55
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        1.5,
+        32.5,
+        36.0
+      ],
+      "receiver": "StaticMeshActor_55",
+      "contact_plane": 142.99994162811308
+    },
+    {
+      "id": "PlatformDustNorthMid",
+      "material": "DustEdge",
+      "group": "PlatformEdges",
+      "position": [
+        7805,
+        -2940,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -8,
+        0
+      ],
+      "size": [
+        2.5,
+        44.0,
+        140.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PlatformDustSouthBeforeStair",
+      "material": "DustEdge",
+      "group": "PlatformEdges",
+      "position": [
+        8822,
+        112,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        11,
+        0
+      ],
+      "size": [
+        2.5,
+        52.0,
+        107.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PlatformDustNorthFar",
+      "material": "DustEdge",
+      "group": "PlatformEdges",
+      "position": [
+        10640,
+        -2903,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        -12,
+        0
+      ],
+      "size": [
+        2.5,
+        63.5,
+        107.0
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PlatformDustSouthFar",
+      "material": "DustEdge",
+      "group": "PlatformEdges",
+      "position": [
+        10670,
+        109,
+        0.36000000298023227
+      ],
+      "rotation": [
+        -90,
+        8,
+        0
+      ],
+      "size": [
+        2.5,
+        55.0,
+        119.5
+      ],
+      "receiver": "station",
+      "support_z": 0.20000000298023224
+    },
+    {
+      "id": "PlatformFarSpall",
+      "material": "Damage",
+      "group": "PlatformEdges",
+      "position": [
+        10678,
+        235.81978450102693,
+        200
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        1.5,
+        40.5,
+        38.5
+      ],
+      "receiver": "StaticMeshActor_97",
+      "contact_plane": 235.99978450102694
+    },
+    {
+      "id": "PlatformFarSouthDust",
+      "material": "DustWall",
+      "group": "PlatformEdges",
+      "position": [
+        10670,
+        233.4197314453125,
+        54
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "size": [
+        3,
+        103.5,
+        36.0
+      ],
+      "receiver": "StaticMeshActor_98",
+      "contact_plane": 233.5997314453125
+    },
+    {
+      "id": "PlatformNorthFarLeak",
+      "material": "LeakSoft",
+      "group": "PlatformEdges",
+      "position": [
+        10601,
+        -3035.8203327663796,
+        401
+      ],
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "size": [
+        1.5,
+        68.0,
+        162.0
+      ],
+      "receiver": "StaticMeshActor_97",
+      "contact_plane": -3036.0003327663794
+    },
+    {
+      "id": "BridgeEdgeDust0",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        10020,
+        -2145,
+        480.16003051757815
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        100.5,
+        17.5
+      ],
+      "receiver": "bridge",
+      "support_z": 480.0000305175781
+    },
+    {
+      "id": "BridgeEdgeDust1",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        10024,
+        -625,
+        480.16003051757815
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        119.5,
+        21.5
+      ],
+      "receiver": "bridge",
+      "support_z": 480.0000305175781
+    },
+    {
+      "id": "BridgeEdgeDust2",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        10488,
+        -2455,
+        480.16003051757815
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        102.5,
+        15.5
+      ],
+      "receiver": "bridge",
+      "support_z": 480.0000305175781
+    },
+    {
+      "id": "BridgeEdgeDust3",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        10493,
+        -455,
+        480.16003051757815
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        86.5,
+        17.0
+      ],
+      "receiver": "bridge",
+      "support_z": 480.0000305175781
+    },
+    {
+      "id": "StairEdgeDust0",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        9160,
+        -2955,
+        48.16
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        28.0,
+        9.0
+      ],
+      "receiver": "stairs",
+      "support_z": 48.0
+    },
+    {
+      "id": "StairEdgeDust1",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        9460,
+        -2957,
+        208.16
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        28.0,
+        9.0
+      ],
+      "receiver": "stairs",
+      "support_z": 208.0
+    },
+    {
+      "id": "StairEdgeDust2",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        9940,
+        -2953,
+        464.16
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        28.0,
+        9.0
+      ],
+      "receiver": "stairs",
+      "support_z": 464.0
+    },
+    {
+      "id": "StairEdgeDust3",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        9250,
+        156,
+        96.16
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        28.0,
+        9.0
+      ],
+      "receiver": "stairs",
+      "support_z": 96.0
+    },
+    {
+      "id": "StairEdgeDust4",
+      "material": "DustFine",
+      "group": "RaisedRoute",
+      "position": [
+        9700,
+        154,
+        336.16
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "size": [
+        0.8,
+        28.0,
+        9.0
+      ],
+      "receiver": "stairs",
+      "support_z": 336.0
+    },
+    {
+      "id": "TrackFootDirt0",
+      "material": "Damp",
+      "group": "TrackBed",
+      "position": [
+        8500,
+        -1878,
+        -179.84
+      ],
+      "rotation": [
+        -90,
+        7,
+        0
+      ],
+      "size": [
+        2.5,
+        23.0,
+        100.5
+      ],
+      "receiver": "pit",
+      "support_z": -180.0
+    },
+    {
+      "id": "TrackFootDirt1",
+      "material": "Damp",
+      "group": "TrackBed",
+      "position": [
+        9700,
+        -926,
+        -179.84
+      ],
+      "rotation": [
+        -90,
+        -7,
+        0
+      ],
+      "size": [
+        2.5,
+        23.0,
+        100.5
+      ],
+      "receiver": "pit",
+      "support_z": -180.0
+    }
+  ],
+  "preserve": [
+    "all existing actors and transforms",
+    "all original material bindings",
+    "all lights",
+    "doors, containers, spawns and gameplay"
+  ],
+  "placement_units": "UE centimetres, world coordinates",
+  "tests_run": false,
+  "rendered": false
+}

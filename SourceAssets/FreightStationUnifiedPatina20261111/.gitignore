@@ -1,0 +1,9 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/Config/layout.json
+!/author_layout.py
+!/install.py
+!/read_inputs.py

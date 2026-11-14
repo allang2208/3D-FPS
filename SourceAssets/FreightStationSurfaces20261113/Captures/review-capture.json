@@ -1,0 +1,50 @@
+[
+  {
+    "file": "review_ConcourseFromBridge.png",
+    "eye": [
+      9955.0,
+      -1845.0,
+      635.0
+    ],
+    "rotation": [
+      2.8262499540687713e-07,
+      -12.471879959106445,
+      168.9422607421875
+    ],
+    "fov": 83.0,
+    "frame_width": 1920,
+    "frame_height": 1200
+  },
+  {
+    "file": "review_PlatformWallAndFloor.png",
+    "eye": [
+      7700.0,
+      -2355.0,
+      160.0
+    ],
+    "rotation": [
+      -9.700272585178027e-09,
+      -0.4519014358520508,
+      -158.77076721191406
+    ],
+    "fov": 70.0,
+    "frame_width": 1920,
+    "frame_height": 1200
+  },
+  {
+    "file": "review_ConcourseDiagonal.png",
+    "eye": [
+      6430.0,
+      -555.0,
+      262.0
+    ],
+    "rotation": [
+      -6.2225922192737926e-09,
+      -1.8158057928085327,
+      -25.35114097595215
+    ],
+    "fov": 88.0,
+    "frame_width": 1920,
+    "frame_height": 1200
+  }
+]

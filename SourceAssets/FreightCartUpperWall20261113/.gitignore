@@ -1,0 +1,17 @@
+# Publish only selected authoring recipes and parameters.
+# UE assets, licensed scans, extracted geometry and captures stay local.
+*
+!*/
+!/.gitignore
+!/bake_wall.py
+!/bay_light.py
+!/build_face.py
+!/corner.py
+!/distribute.py
+!/install_face.py
+!/make_comparison.py
+!/photo_host.py
+!/publish_bay.ps1
+!/publish_live.py
+!/refine_finish.py
+!/start_host.ps1
