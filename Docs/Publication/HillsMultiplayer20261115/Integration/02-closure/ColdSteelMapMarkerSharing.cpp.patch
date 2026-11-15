@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelMapMarkerSharing.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelMapMarkerSharing.cpp
+@@ -23,9 +23,9 @@
+     return State?State->FindComponentByClass<UColdSteelMapMarkerSharing>():nullptr;
+ }
+ 
+-void UColdSteelMapMarkerSharing::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const
++void UColdSteelMapMarkerSharing::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+ {
+-    Super::GetLifetimeReplicatedProps(Out);
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+     DOREPLIFETIME(UColdSteelMapMarkerSharing,SharedMarkers);
+ }
+ 

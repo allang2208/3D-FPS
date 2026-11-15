@@ -26,3 +26,7 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 ## 城市街区与室内接触
 
 围绕公寓生成街道、楼群、沿岸绿化，修复道路衔接、停车穿插及实例成本时，读取 [城市分区制作](references/city-district-production.md)。灯具厚度、厨房接触和自然电线走线读 [公寓接触与线材](references/apartment-contact-and-cables.md)。
+
+## 流送场景入口与多人室内适应
+
+换图后碰撞晚到、按控制器安全重试和逐视图室内亮度，读取 [安全出生与室内视图](references/streamed-entry-and-interior-view.md)。

@@ -1,0 +1,64 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -38,6 +38,7 @@
+ #include "Kismet/GameplayStatics.h"
+ #include "Materials/MaterialInstanceDynamic.h"
+ #include "MaterialShared.h"
++#include "RHIGlobals.h"
+ #include "HAL/IConsoleManager.h"
+ #include "PCGGraph.h"
+ #include "PCGComponent.h"
+@@ -512,7 +513,7 @@
+     auto& S=*Streaming;
+     if(S.LoadingAssets||S.Failed||S.CompletedStages==BatchCount)return;
+     auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+-    const bool Full=Loading&&Loading->IsCompletePreloadSelected();
++    const bool Full=!GUsingNullRHI&&Loading&&Loading->IsCompletePreloadSelected();
+ 
+     for(int32 Stage=0;Stage<BatchCount;++Stage)
+     {
+@@ -801,6 +802,9 @@
+         return;
+     }
+     LoadNextEnvironmentStage();
++    // A NullRHI peer still needs the real terrain/collision/PCG and gameplay
++    // actors, but it cannot produce shader maps or resident GPU texture mips.
++    if(GUsingNullRHI)S.GroundTexturesCollected=true;
+     if(!S.GroundTexturesCollected)
+     {
+         // The uniform expressions needed by GetUsedTextures become available
+@@ -1290,7 +1294,7 @@
+     auto& S=*Streaming;
+     auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+     auto Report=[&](const FText& Text,float Progress){if(Loading)Loading->UpdatePreparation(Text,Progress);};
+-    const bool Full=Loading&&Loading->IsCompletePreloadSelected();
++    const bool Full=!GUsingNullRHI&&Loading&&Loading->IsCompletePreloadSelected();
+     const int32 RequiredBatches=Full?int32(HillsStreaming::BatchCount):int32(HillsStreaming::Atmosphere);
+     bool AssetsReady=true;
+     for(int32 Batch=0;Batch<RequiredBatches;++Batch)AssetsReady&=S.Batches[Batch].Ready;
+@@ -1419,6 +1423,9 @@
+     // unused permutations and can remain false forever with no queued work.
+     // Nearby terrain already renders behind the overlay, requesting its passes.
+     // Wait for those actual jobs plus a renderable map, never force all variants.
++    int32 GroundTexturesReady=0;
++    if(!GUsingNullRHI)
++    {
+     auto* GroundResource=GroundMID?GroundMID->GetMaterialResource(GetFeatureLevelShaderPlatform_Checked(GetWorld()->GetFeatureLevel())):nullptr;
+     bool GroundCompiling=false;
+ #if WITH_EDITOR
+@@ -1458,7 +1465,6 @@
+             *GetNameSafe(GroundMID->Parent),GroundResource->IsGameThreadShaderMapComplete(),FPlatformTime::Seconds()-StartSeconds);
+     }
+ 
+-    int32 GroundTexturesReady=0;
+     for(const auto& Weak:S.GroundTextures)
+         if(HillsStreaming::GroundTextureReady(Weak.Get()))++GroundTexturesReady;
+     // The actual ground mip requirement applies to both entry modes.
+@@ -1479,6 +1485,7 @@
+                 *Texture->GetName(),int32(State.NumResidentLODs),HillsStreaming::RequiredGroundMips(Texture),
+                 FMath::Max(1,Texture->GetSizeX()>>FirstMip),FMath::Max(1,Texture->GetSizeY()>>FirstMip));
+         }
++    }
+     }
+     if(Full)
+     {

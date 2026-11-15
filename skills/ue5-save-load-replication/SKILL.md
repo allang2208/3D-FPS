@@ -74,3 +74,7 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 涉及快速近战身份与实际联机检查时，读取 [快速近战身份与实际联机检查](references/quick-combat-authority.md)。
 
 - 强化台真实暂存、旋转占格与种植同版本快照乱序，读取 [强化暂存与种植快照顺序](references/enhancement-escrow-and-planting-order.md)。
+
+## 环境动物受击与尸体复制
+
+连续同状态受击、方向选择、晚到动作与客户端尸体表现，读取 [环境动物动作快照](references/wildlife-action-snapshots.md)。

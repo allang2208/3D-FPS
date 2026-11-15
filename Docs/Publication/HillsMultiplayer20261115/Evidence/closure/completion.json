@@ -1,0 +1,28 @@
+{
+  "completed": "2026-11-15T18:23:50.4800297+08:00",
+  "passed": true,
+  "checkpoints": 42,
+  "attempt": "wire5",
+  "game_build_exit_code": 0,
+  "editor_build_exit_code": 0,
+  "host_exit_code": 0,
+  "rejoined_client_exit_code": 0,
+  "test_module_sha256": "0EF987FC92C1C810DCA91E3C6D0180F7690AECBA2120278866E8BBD4ADF0D500",
+  "current_module_sha256": "0EF987FC92C1C810DCA91E3C6D0180F7690AECBA2120278866E8BBD4ADF0D500",
+  "lag_ms": 60,
+  "loss_percent": 2,
+  "rendered": false,
+  "room_count": 8,
+  "production_fixes": [
+    "wildlife wolf directional and repeated-hit snapshot",
+    "NullRHI hills preparation GPU gate",
+    "safe player spawn retry after seamless travel",
+    "map marker replication parameter compile fix"
+  ],
+  "report": "Docs/WorldGeneration/hills-multiplayer-closure-20261115.md",
+  "limitations": [
+    "listen server two-player scope",
+    "NullRHI room per-view composition, no final rendered acceptance",
+    "direct authority wolf damage stimulus, not real weapon input acceptance"
+  ]
+}

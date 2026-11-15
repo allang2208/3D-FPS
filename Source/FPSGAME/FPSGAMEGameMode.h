@@ -19,6 +19,7 @@ protected:
     virtual void BeginPlay() override;
 private:
     FString ServerPassword;
+    TMap<TWeakObjectPtr<AController>, uint8> PendingSceneSpawns;
     void SpawnAfterStreaming(TWeakObjectPtr<AController> Player);
     void TryInstallHillsPortal();
 };

@@ -1,0 +1,182 @@
+{
+  "scope": "File presence and current config, not asset load/render/network acceptance",
+  "animals": [
+    {
+      "species": "deer_doe",
+      "class_exists": true,
+      "animation_set_exists": true,
+      "corpse_seconds": 5.0,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 1,
+          "max": 2,
+          "chance": 1.0,
+          "definition_exists": true,
+          "mesh_exists": true,
+          "icon_exists": true
+        }
+      ],
+      "sounds_expected": 9,
+      "sounds_missing": []
+    },
+    {
+      "species": "deer_stag",
+      "class_exists": true,
+      "animation_set_exists": true,
+      "corpse_seconds": 5.0,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 2,
+          "max": 3,
+          "chance": 1.0,
+          "definition_exists": true,
+          "mesh_exists": true,
+          "icon_exists": true
+        }
+      ],
+      "sounds_expected": 9,
+      "sounds_missing": []
+    },
+    {
+      "species": "boar",
+      "class_exists": true,
+      "animation_set_exists": true,
+      "corpse_seconds": 5.0,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 2,
+          "max": 3,
+          "chance": 1.0,
+          "definition_exists": true,
+          "mesh_exists": true,
+          "icon_exists": true
+        }
+      ],
+      "sounds_expected": 9,
+      "sounds_missing": []
+    },
+    {
+      "species": "fox",
+      "class_exists": true,
+      "animation_set_exists": true,
+      "corpse_seconds": 5.0,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 1,
+          "max": 1,
+          "chance": 1.0,
+          "definition_exists": true,
+          "mesh_exists": true,
+          "icon_exists": true
+        }
+      ],
+      "sounds_expected": 5,
+      "sounds_missing": []
+    },
+    {
+      "species": "crow",
+      "class_exists": true,
+      "animation_set_exists": true,
+      "corpse_seconds": 5.0,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 1,
+          "max": 1,
+          "chance": 1.0,
+          "definition_exists": true,
+          "mesh_exists": true,
+          "icon_exists": true
+        }
+      ],
+      "sounds_expected": 7,
+      "sounds_missing": []
+    },
+    {
+      "species": "wolf",
+      "class_exists": true,
+      "animation_set_exists": true,
+      "corpse_seconds": 5.0,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 1,
+          "max": 2,
+          "chance": 1.0,
+          "definition_exists": true,
+          "mesh_exists": true,
+          "icon_exists": true
+        }
+      ],
+      "sounds_expected": 5,
+      "sounds_missing": []
+    }
+  ],
+  "contact_windows_authored": false,
+  "historical_wall_runs": [
+    {
+      "path": "Saved\\VillageRuntimeReview\\20261114\\-1721043839-repaired\\Evidence\\result.json",
+      "seed": -1721043839,
+      "passed": true,
+      "errors": 0
+    },
+    {
+      "path": "Saved\\VillageRuntimeReview\\20261114\\122-first\\Evidence\\result.json",
+      "seed": 122,
+      "passed": false,
+      "errors": 1
+    },
+    {
+      "path": "Saved\\VillageRuntimeReview\\20261114\\122-repaired\\Evidence\\result.json",
+      "seed": 122,
+      "passed": true,
+      "errors": 0
+    },
+    {
+      "path": "Saved\\VillageRuntimeReview\\20261114\\1380744137-repaired\\Evidence\\result.json",
+      "seed": 1380744137,
+      "passed": true,
+      "errors": 0
+    },
+    {
+      "path": "Saved\\VillageRuntimeReview\\20261114\\88544241-repaired2\\Evidence\\result.json",
+      "seed": 88544241,
+      "passed": true,
+      "errors": 0
+    }
+  ],
+  "chapel_road_completion": {
+    "status": "completed",
+    "completed": "2026-11-15T12:48:46.8583723+08:00",
+    "world": "/Game/GameMaps/L_TemperateHills_Initial",
+    "seed": 122,
+    "day_time": 0.375,
+    "weather": "Clear",
+    "editor_build": "build-vision.log",
+    "assets_saved": "road-assets-saved.json",
+    "runtime": "122-after/Evidence/result.json",
+    "runtime_exit": 0,
+    "findings": {
+      "windows": "South, north and east exterior windows retain visible glass and stone; previous white patches absent",
+      "root_cause": "Legacy bounded NoCollision postprocess rejected the interior viewpoint (distance FLT_MAX); exact oriented room blendable now dispatched unbound",
+      "interior": "Final exposure -0.12 EV outside, +0.88 EV inside; shadow contrast 0.8 to 0.5; aisle and pew detail readable",
+      "transition": "4 second walking entry and exit inspected through continuous samples and image sequences; smooth ramp across 150 cm room entrance feather",
+      "road": "Shared signed-distance and multiscale noise feather, 110 cm fade and 48 cm edge breakup; mask, decal and both RVT writer materials saved",
+      "road_views": "Village entry, main street/square and close verge inspected",
+      "scope": "One fixed actual-map seed in daylight; no multi-seed wall or night regression performed"
+    },
+    "evidence": [
+      "interior_nave-comparison.jpg",
+      "road_entry-comparison.jpg",
+      "road_square-comparison.jpg",
+      "enter.gif",
+      "exit.gif",
+      "exposure-summary.json"
+    ],
+    "remaining": []
+  }
+}

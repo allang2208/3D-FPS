@@ -22,3 +22,7 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 - 无界面 `-game` 加载动画触发编辑器事务崩溃：读取[骨架曲线迁移](references/uncooked-animation-curve-migration.md)，按真实调用链处理骨架元数据，不能只重存动画或删重定向引用。
 
 温带丘陵出现入场长时间等待、地面模糊或联机出生时缺碰撞时，读取[动态地形材质与出生区流送](references/dynamic-terrain-material-loading.md)。
+
+## 丘陵生产地图联机检查
+
+共享拾取、同档重连、真实队伍换图、NullRHI 准备与室内视图证据，读取 [丘陵联机生命周期检查](references/hills-network-lifecycle.md)。仅在用户明确要求相应检查时运行。

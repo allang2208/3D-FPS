@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/Monsters/WolfMonster.h
++++ b/Source/FPSGAME/Monsters/WolfMonster.h
+@@ -17,11 +17,22 @@
+ UENUM(BlueprintType)
+ enum class EWolfState : uint8 { Idle, Howl, Chase, Returning, Bite, Pounce, Stagger, Recovery, Dying, Ragdoll, Flee };
+ 
++USTRUCT()
++struct FWildlifeWolfHitPresentation
++{
++    GENERATED_BODY()
++    UPROPERTY() FName Action;
++    UPROPERTY() double StartedAt=0.;
++    UPROPERTY() float Duration=0.f;
++    UPROPERTY() uint32 Revision=0;
++};
++
+ /** Ground predator. The shared behavior tree chooses actions; this owns their execution. */
+ UCLASS(Blueprintable)
+ class FPSGAME_API AWolfMonster : public ACharacter, public IAPS_MoveToInterface
+ {
+     GENERATED_BODY()
++    friend class AHillsMultiplayerClosure;
+ public:
+     AWolfMonster(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+     // APS arc shaping: the per-instance lane split spreads a pursuing pack off one line.
+@@ -160,6 +171,9 @@
+     float ReactionSeconds = 0.f;
+     float RecoverySeconds = 0.f;
+     FName ReactionAction;
++    // One snapshot carries direction and event identity, including consecutive same-side hits.
++    UPROPERTY(ReplicatedUsing=OnRep_WildlifeHitPresentation) FWildlifeWolfHitPresentation WildlifeHitPresentation;
++    UFUNCTION() void OnRep_WildlifeHitPresentation();
+     bool bAttackConsumed = false;
+     bool bAttackAnimationStarted = false;
+     bool bPounceMovement = false;

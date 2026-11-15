@@ -131,7 +131,7 @@ void UMonsterCorpseRagdollComponent::RecordDeathPose(USkeletalMeshComponent* Mes
 bool UMonsterCorpseRagdollComponent::Start(USkeletalMeshComponent* Mesh, const FVector& ImpactVelocity, bool bKeepCurrentPose)
 {
     if(TryStartSoftDeath(Mesh))return true;
-    if (bAttempted || (!GetOwner()->HasAuthority() && Rig != EMonsterCorpseRig::M66)) return false;
+    if (bAttempted || (!GetOwner()->HasAuthority() && Rig != EMonsterCorpseRig::M66 && !bAllowClientPresentation)) return false;
     bAttempted = true;
     BodyMesh = Mesh;
     if (!Mesh || !Mesh->GetPhysicsAsset()) return false;
@@ -277,7 +277,7 @@ void UMonsterCorpseRagdollComponent::FreezeForBudget()
 }
 void UMonsterCorpseRagdollComponent::FreezeAnimatedPose(USkeletalMeshComponent* Mesh)
 {
-    if (bSimulating || bFrozen || (!GetOwner()->HasAuthority() && Rig != EMonsterCorpseRig::M66)) return;
+    if (bSimulating || bFrozen || (!GetOwner()->HasAuthority() && Rig != EMonsterCorpseRig::M66 && !bAllowClientPresentation)) return;
     BodyMesh = Mesh;
     if (!Mesh) return;
     Mesh->SetForcedLOD(1);

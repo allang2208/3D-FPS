@@ -1,0 +1,2530 @@
+{
+  "completed": "2026-11-15T18:39:52.7055674+08:00",
+  "incident": "PowerShell Move-Item descended an archive-host junction; stopped at the first reported failure",
+  "restored_files": 360,
+  "restored_bytes": 1267432206,
+  "all_hashes_match": true,
+  "recovery_copy": "trash/HillsMultiplayer20261115/RestoredAssetCopies",
+  "files": [
+    {
+      "path": "Body_BaseColor.uasset",
+      "bytes": 4073105,
+      "sha256": "84C3EF2F1232BC77096A4E6E58D327742DA71A3B97B19862AECDE3AAF7FF5228",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Body_Metallic.uasset",
+      "bytes": 4935874,
+      "sha256": "13B3F7B293065833939D71B0D8EC7E909D4E4DA94B3108FD25BC87A29DFD3C88",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Body_Normal.uasset",
+      "bytes": 18308915,
+      "sha256": "9C78D082E1D73792FA79E8E180EB1F999C8B4C5FD0FF01D958DEDC83A18A1F66",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Body_Roughness.uasset",
+      "bytes": 9056127,
+      "sha256": "AAA049D846B95D5E9DF2E8463D25375B90983DA1F5E53A4F3F897DEB37AEA025",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Bullets_BaseColor.uasset",
+      "bytes": 319046,
+      "sha256": "CBA3EB0CD4D74E5CD45EA41F0E7A5DCFA11FE8530F2AA7AA0EEFF5AA4615835C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Bullets_Metallic.uasset",
+      "bytes": 244056,
+      "sha256": "6C746BCBBD4BD97DF9D12AB944B5A5464E423D78F5C9C58EBF60BADF20C15EBA",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Bullets_Normal.uasset",
+      "bytes": 954952,
+      "sha256": "B5A7972545673CE893660BB5D9AB747842989CAEAD398AD8990A624E483BFFB6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Bullets_Roughness.uasset",
+      "bytes": 192171,
+      "sha256": "F07F7CA2A9A2FC44DE7F9C49B16F8CC93F1438D07DE467C77BC8715779D414ED",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Classic_Stock_BaseColor.uasset",
+      "bytes": 2917040,
+      "sha256": "BE55D8A494B9DDA6D8057B76CF6B61B84FD0899314342CBABFE06AEFB7AB1769",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Classic_Stock_Metallic.uasset",
+      "bytes": 182113,
+      "sha256": "CF88723DBBC6B957B0ED48D65DDF8DCA445325726DF7A289204C31A150DF646E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Classic_Stock_Normal.uasset",
+      "bytes": 4084190,
+      "sha256": "BDC474692B6753F6775F6EE6CD2E9F54CE8444D0BECDA9727AF2BD40932EB809",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Classic_Stock_Roughness.uasset",
+      "bytes": 2585935,
+      "sha256": "B8848CC2E58F78D5E17CAD8CDE0F31FFD6D2A165A6703AD31DE43027125F072F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Flash_Hider_BaseColor.uasset",
+      "bytes": 90483,
+      "sha256": "AF31E55726275D8E88C0765EC03CECD3A55C19DF18E6600380904D27989380B7",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Flash_Hider_Metallic.uasset",
+      "bytes": 63481,
+      "sha256": "E4BE95348B8665B9F7FA2980D2576741FEAAA92365CA3179271FA10C5C04CFDD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Flash_Hider_Normal.uasset",
+      "bytes": 127840,
+      "sha256": "94466DC45F524B42828AA47E52FE90047C06F0F966E6D5ABFE8D0FA18E3A0688",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Flash_Hider_Roughness.uasset",
+      "bytes": 93923,
+      "sha256": "B5B81B9D4BB7DBFF9CABEC3D8BEA5877AC6ACBFB28D9A91DE8ADD00768B27727",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Front_Grip_Angled_BaseColor.uasset",
+      "bytes": 145780,
+      "sha256": "2880DA456D8D51FDB345B36582045993998EE5A4DBBDA9A7CB050757E1E5EF4F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Front_Grip_Angled_Metallic.uasset",
+      "bytes": 66064,
+      "sha256": "4968BEB4632E4E9F146F164A7CC566EFE65101B478D56B11BB0FF0B6BC02C645",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Front_Grip_Angled_Normal.uasset",
+      "bytes": 552812,
+      "sha256": "2EAE4E0AB7172F3F365BDBB8926AE6A472DF0CEA57221F98A6BEF1F3793529F2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Front_Grip_Angled_Roughness.uasset",
+      "bytes": 121419,
+      "sha256": "21E51C7B4C3480AB9E81859A89B17A7C15F757E7B907EB896760F1A12E405DAF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Front_grip_vert_BaseColor.uasset",
+      "bytes": 195611,
+      "sha256": "FA454068A57EDFCFE9E87B82E13517F4117FFEE4CE4E7759A4138D3A499C28AD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Front_grip_vert_Metallic.uasset",
+      "bytes": 72504,
+      "sha256": "4A0BDA1ADF873DFD7462C8A99C48D0DFE38213C947AC797EAB0CC261ED3FA377",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Front_grip_vert_Normal.uasset",
+      "bytes": 697172,
+      "sha256": "E84321893924EF8BDA0D68251F727B9C2161CDE98AC04E56F3622F2BC92DAC02",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Front_grip_vert_Roughness.uasset",
+      "bytes": 131771,
+      "sha256": "5684F68FA34A18B1F6D79397BB16F606748DF3A08B231442408C6DD88798D828",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Default_BaseColor.uasset",
+      "bytes": 226134,
+      "sha256": "70A5CC2CDDA15082E93D90B54ED11A7175580B3904F432C5C492AA39B6EE6D7E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Default_Metallic.uasset",
+      "bytes": 63834,
+      "sha256": "C34FE77DF0824279B0A5C0C32FDDA986B3920AE85167B49CC6F02204235FE072",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Default_Normal.uasset",
+      "bytes": 733849,
+      "sha256": "1B9D606929BFEE890C6622F7DAB44D7A8C5E636AA18147BECCFC32FC837CF744",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Default_Roughness.uasset",
+      "bytes": 197018,
+      "sha256": "4863AFF7587904C717265FBE25D52C8D27ED86E808C37CEBAFDD99CD5749C84E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Elvi_BaseColor.uasset",
+      "bytes": 175996,
+      "sha256": "82DB91D1BE7F664B0BE43A2A5D678491FEFD0D178CCAF4C190DA8B0ED09181C0",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Elvi_Metallic.uasset",
+      "bytes": 63768,
+      "sha256": "88E497A805839856C5FB4E676F6C48E98786DCCF2929D561619833E005FE996B",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Elvi_Normal.uasset",
+      "bytes": 700530,
+      "sha256": "C9687E1A7BEAAD52A55365438636685887DBDC87D2DB801CDE5832664ABDA894",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Elvi_Roughness.uasset",
+      "bytes": 139109,
+      "sha256": "76C5250F0BFA730770936A6EDBC0AB8525312D412E9BAF1D3053E0FA3474BC2E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Holes_BaseColor.uasset",
+      "bytes": 106653,
+      "sha256": "0B50397193B16BE75415E2467C67CF1AE4D019D34FE43AFB4194504D1C95D98B",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Holes_Metallic.uasset",
+      "bytes": 63578,
+      "sha256": "F00B45764812D2E5F44D4A28178FE96A15D801A6A62EAA446EF03C880EF7D685",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Holes_Normal.uasset",
+      "bytes": 308364,
+      "sha256": "3C9D77ADAE6DD946699976C4C44B55D8EA5366C36DE406D401D0D6F065BD5624",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Grip_Holes_Roughness.uasset",
+      "bytes": 193776,
+      "sha256": "5F55F782071CA77BFCAF9DFB7B50F3FAFCBC45D1DA205CC5D82378F105F85CE6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Handguard_DMR_BaseColor.uasset",
+      "bytes": 941958,
+      "sha256": "AC3D81225A82342EA89BA3F79834AAF2E96236AD245834F13FEFCEA37A77F06E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Handguard_DMR_Metallic.uasset",
+      "bytes": 81944,
+      "sha256": "0E40DEA1A9B3F3100A2DDC42269FDFC3DFCB10AB8A134803C25717DBFAE364FF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Handguard_DMR_Normal.uasset",
+      "bytes": 6859485,
+      "sha256": "27948AF217F71ACA9F816625B2952FA876AA76DD126A2F56A5DD3CE6B009FAF8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Handguard_DMR_Roughness.uasset",
+      "bytes": 2362220,
+      "sha256": "917785C91845CFD4CFC838A7D2C27AD6C04B186938E8EDD85E8B80450E4AE8D7",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Handguard_M4_BaseColor.uasset",
+      "bytes": 935854,
+      "sha256": "25446CC07CCF5549D5ADA8BFEFBD74C3B7E7BBC1616AB71069F6B4707EA22466",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Handguard_M4_Metallic.uasset",
+      "bytes": 121344,
+      "sha256": "51C3E06B67F273EC38F71E6AB22561854D4E3A81D0D0C214E50AB2EDB22DEDE7",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Handguard_M4_Normal.uasset",
+      "bytes": 8613452,
+      "sha256": "DC79D33B715B86E6DCD7447DC0F1BA1D0971BF1170FB5206712FB0D6C0907443",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Handguard_M4_Roughness.uasset",
+      "bytes": 2145676,
+      "sha256": "A66AAD045B8D4A6DB6E326A82FD864614975577D64E08CFFC33D8EAFB231DC3C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "holographicpacked.fbx",
+      "bytes": 16860044,
+      "sha256": "74F035EF51090A65B335BB7B6E638016C3362D79EF53441CAE4B19BE54995D5D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Holographic_low_Holosight_BaseColor.uasset",
+      "bytes": 8059870,
+      "sha256": "21F50D33E2A042CC44E2F0307813EB1543759C9850D1493073330033DC468006",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Holographic_low_Holosight_OcclusionRoughnessMetallic.uasset",
+      "bytes": 8424026,
+      "sha256": "0AB5E5A40514BA69DCFDC20946393E6C2F6F23D982E6151A990BC653DD450BD9",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Holographic_low_Holosight_OcclusionRoughnessMetallic1.uasset",
+      "bytes": 8424039,
+      "sha256": "EEF5A522F3A58743B927CED4123F5044E78891DD9E7B55058352EC3B76847D6A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Holographic_low_Red_Dot_BaseColor.uasset",
+      "bytes": 166494,
+      "sha256": "1F2FED092E0F5A6D0BA0AA37DDF44DE8376E7C4DFDE31DF5F4B552F29E6BCF1F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Holographic_low_Red_Dot_Emissive.uasset",
+      "bytes": 158187,
+      "sha256": "D7664F90C0AE6D364244EB5FCCA5ADF6D76293935F5AF35A920702DAFD856DFD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Keymod_material_BaseColor.uasset",
+      "bytes": 602870,
+      "sha256": "0933146D272D23143BA665379234667469CB2093595F0D06E4BA989C19B94C4D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Keymod_material_Metallic.uasset",
+      "bytes": 82484,
+      "sha256": "87E4E52EE2F908C97AC1EF94744F06D9F00903042E50AEA2222E355874AD20CD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Keymod_material_Normal.uasset",
+      "bytes": 6754496,
+      "sha256": "4E18B8B3CDAF6F09D907B15C6A59E5851496A5684769AC6478CF955093A06568",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Keymod_material_Roughness.uasset",
+      "bytes": 2134367,
+      "sha256": "81C6512871F2E1F5AF0227888EB7DEFFA8360F94640CB14B6BF3D84AEFE9B6B4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "m4noskel.fbx",
+      "bytes": 127822028,
+      "sha256": "51CD3308506C4EE404800B84C726599592FDFEFE5B03798E066A85CC77B719F5",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Default_BaseColor.uasset",
+      "bytes": 252290,
+      "sha256": "7F9FA34D17934E75B6786A3C892CB4721B18E0E9F6D04E9204A462C1B5527046",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Default_Metallic.uasset",
+      "bytes": 64156,
+      "sha256": "2A26362A5606ACC90F14085AAB6A8190BA0175D92EBBC770533F0A12C3C9A0EA",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Default_Normal.uasset",
+      "bytes": 1991028,
+      "sha256": "2C3D0C70EC0995A90E13EEA30B9938DFEE647A878A569FCFA263A82471D290DE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Default_Roughness.uasset",
+      "bytes": 313089,
+      "sha256": "204BC31C08C67CACDC8872BA212B2D6E4FE73E834E49CD4672683EDB69F3E35C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Large_BaseColor.uasset",
+      "bytes": 247706,
+      "sha256": "D8A36BE3E936BF7559D63D74D4ECCE818D8681A5CEE7435B30FD4D5924D14582",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Large_Metallic.uasset",
+      "bytes": 64112,
+      "sha256": "A88CBF35D165C79DED0187168CFA3446BA6BAE391BB336B91EA428397172286F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Large_Normal.uasset",
+      "bytes": 2095005,
+      "sha256": "310057C674A9C78E8605C822B0499C16E49F65D09A11A185092B7F599B53BA80",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Large_Roughness.uasset",
+      "bytes": 356383,
+      "sha256": "43DD9AE721EA450A7D6F2B1CE2FE540FBFC79F704E089B7C81F944394B0B432E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Light_BaseColor.uasset",
+      "bytes": 505314,
+      "sha256": "EACB4B0DE21568D4C6E174C88467901FE3CEFFE6176FF0702828E28F18DAA915",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Light_Metallic.uasset",
+      "bytes": 64976,
+      "sha256": "E01E87BE38310A5BF3AD436CEB40554F1B0D4FB3F1A4414AF29C135DF2B8779E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Light_Normal.uasset",
+      "bytes": 1765695,
+      "sha256": "F0269BBC36250C08485C2126CB89371FBBC3676BB6005D9F04F95F72C06C5CCD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Magazine_Light_Roughness.uasset",
+      "bytes": 313168,
+      "sha256": "932704B708EFB0032EB0E9AFA7088656BFFF0E5A870DCC400CC9EDB403EE3FDD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "MK18_Guard_BaseColor.uasset",
+      "bytes": 820078,
+      "sha256": "8BDD2B6E58378893C7AE694244916E476F380EC4C5CEC086AEDAEF4CDAD19A21",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "MK18_Guard_Metallic.uasset",
+      "bytes": 90713,
+      "sha256": "4A4B058D85FF715800D10DB20C1A4444B3BC72F61AEB9E93661A63405AF80F0F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "MK18_Guard_Normal.uasset",
+      "bytes": 7195960,
+      "sha256": "F33EE0DACDE18DB4249E41565F7EB44E5A91BC7C153760E2F20B2ACD8F1DB081",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "MK18_Guard_Roughness.uasset",
+      "bytes": 2284391,
+      "sha256": "3A8DEEFFA2B0772B0487D2BD1E898F6A302044023C37FDC32A1A6DAD5D3810F8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Muzzle_Break_BaseColor.uasset",
+      "bytes": 103802,
+      "sha256": "48B595D41555184BA847CC33EA2002CBE31E5373B550FAF159C50791F01118D1",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Muzzle_Break_Metallic.uasset",
+      "bytes": 63622,
+      "sha256": "4AAAE45E1E0E14200CCFC5A1750C8C04E78741173373C77791C77DC306106127",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Muzzle_Break_Normal.uasset",
+      "bytes": 517808,
+      "sha256": "AD2CE2876876D6DF4AC18EF1556B8B5E987C5FEF9ADD1B404DC31288501D68A8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Muzzle_Break_Roughness.uasset",
+      "bytes": 168270,
+      "sha256": "0E40C605DDBAF4ED5850880B88F3C4779DA4477D01DEC7BC62EB1753221E35DE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "README.md",
+      "bytes": 334,
+      "sha256": "F792BBF5451354362E135F8B56FEE6F7F56C6B7A6450DFA1BBF3E48E82D4DE20",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_DMR_BaseColor.uasset",
+      "bytes": 2291535,
+      "sha256": "F2863D01B8556076890DA9BF23A88C239C26DFEF0686092B925432678755BC13",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_DMR_Metallic.uasset",
+      "bytes": 224757,
+      "sha256": "241BB34DA4C75114D50218DF02D4ECE644A8B7BA9F4EF6D262F96485249E2B11",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_DMR_Normal.uasset",
+      "bytes": 6449444,
+      "sha256": "40BA9EF275C70567912F857223B2AE34AC9CADDF24DAFB6157CA8EB9FA8064F0",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_DMR_Roughness.uasset",
+      "bytes": 2287492,
+      "sha256": "4A8FD1FC64589DF3C2CC66A45D5B9F02EA2878022D79081A72E96AB69235B8EF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_Light_V_BaseColor.uasset",
+      "bytes": 562104,
+      "sha256": "C97BCBD9DDAC2FF509EE876D203768F7B5688B77AD753FEBA630A07957ED2DF3",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_Light_V_Metallic.uasset",
+      "bytes": 81636,
+      "sha256": "8A55C8024AC19468B73C603BB4B5B0D41B7D5E6573523496258CD03275174F3F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_Light_V_Normal.uasset",
+      "bytes": 751123,
+      "sha256": "527DB8EEE10F3E54CC95DE3F521BDABBD1833F01508149CC2C44D6CBED63C236",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_Light_V_Roughness.uasset",
+      "bytes": 590495,
+      "sha256": "6138B75AF61E8CD623545572ACAD3DDF1AE44EE89D8F20CA44AD554A296D50FE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_Tube_BaseColor.uasset",
+      "bytes": 199651,
+      "sha256": "329F147795FB253882CDDCD5C5EDE317BAF73BC285D063646AC784E3D01D0E79",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_Tube_Metallic.uasset",
+      "bytes": 65311,
+      "sha256": "37465432EEB85B98DB8C171C608D0B2A218CC9A19C11AB9448789007CCFEFB02",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_Tube_Normal.uasset",
+      "bytes": 226095,
+      "sha256": "4FD6DFE9DBF84682FE935C0A3090079797A71C76E1D7087DE6E479179851DE81",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Stock_Tube_Roughness.uasset",
+      "bytes": 196564,
+      "sha256": "75DCDF780A80FE7EE16651FACEC52D0FDA1AA91FA523E8DEC791B8459E59EE6F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Suppresor_Mono_BaseColor.uasset",
+      "bytes": 91370,
+      "sha256": "0AC15B7106A4284B752486286F09C96E71F76C19DD5C13DA9A3180F9773E7FFA",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Suppresor_Mono_Metallic.uasset",
+      "bytes": 63666,
+      "sha256": "7786D8E1D82BC5CF579135D8D891DD806272479D1FA6BD8D4DA631DD48E66E7C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Suppresor_Mono_Normal.uasset",
+      "bytes": 562979,
+      "sha256": "853699DC04038211985FD93DE55ACE0EE5DDE17A796276D80F10254891074D98",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Suppresor_Mono_Roughness.uasset",
+      "bytes": 198146,
+      "sha256": "214F0CC246AD60449187AC402A260C566907A05D38F2996C21B22A18982AEA7E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Suppressor_BaseColor.uasset",
+      "bytes": 98412,
+      "sha256": "E030B5EB3C29A4F0250D4AD38784233C85182A152891BFE916EFD7E8B481A9B8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Suppressor_Metallic.uasset",
+      "bytes": 63578,
+      "sha256": "508BE175AA5FA788F46725D56A3D4B213759630742B28C5A3B2BE0CCF1CE5187",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Suppressor_Normal.uasset",
+      "bytes": 502046,
+      "sha256": "B57B7DE1D2B464F25F3195CB53E571D405C428659AB91328077319918AC64702",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Suppressor_Roughness.uasset",
+      "bytes": 158121,
+      "sha256": "DB094B8B9C70723DF7DDA3C42390D9EAB14D5776199EC30349E4C6EDC0DBA625",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\MetaHumans\\Common\\Animation\\ABP_Clothing_PostProcess.uasset",
+      "bytes": 195790,
+      "sha256": "1D2729948778E155A2266C1EAFB1ADEE961A1DDF4540BA07710177B837D5EEF6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\MetaHumans\\Common\\Animation\\ABP_MH_LiveLink.uasset",
+      "bytes": 344070,
+      "sha256": "8A47730431769449380326406C9E0BD16B8FFC12C8A7A93C73D24E1DAA4534F4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\MetaHumans\\Common\\Animation\\CR_PlaceHolder.uasset",
+      "bytes": 21849,
+      "sha256": "D4763A748A0645635268A8B03969C0BF4E896DD14FD7300E64C106B6296FD601",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Textures\\T_GridChecker_A.uasset",
+      "bytes": 9153,
+      "sha256": "2D3DB733554CCD28D627394C48B0F56B0F90534D98829C6A024006791BADFD4F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Meshes\\SM_ChamferCube.uasset",
+      "bytes": 23322,
+      "sha256": "994EED67D5B348271720026B9F7349A1629CE1E151EA5902A6C2A2E9C01452CA",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Meshes\\SM_Cube.uasset",
+      "bytes": 17313,
+      "sha256": "A7B7C6A9573E2413EEEA55F0AD4220881DD01311C1CB6369C177D4CDE169FDC2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Meshes\\SM_QuarterBackground.uasset",
+      "bytes": 25900,
+      "sha256": "B78F38B7902284C9316AC4661C82728FC1C04550490B65711CDAE1D398BD60D9",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Meshes\\SM_QuarterCylinder.uasset",
+      "bytes": 18055,
+      "sha256": "B8E3B4FB6F2A2E14477E2A3E7D3A77D111DBA3EA13BC73CCA19AF3271B73C1FC",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Meshes\\SM_Ramp.uasset",
+      "bytes": 17544,
+      "sha256": "ED73DE0F2DF0E35720BA6E6B7E6A60F378D5DEAFF59ADD31112E5B8F9DF9F990",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Materials\\MF_ProcGrid.uasset",
+      "bytes": 49568,
+      "sha256": "7B1DB06DEF21F7D31A9EE5398AD87443AA118AFC805DC02CE76492D6B013A86A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Materials\\MI_Background.uasset",
+      "bytes": 10342,
+      "sha256": "52740B17CCDF9580526ADFA2DFCF91B31E861725942ECA54675628EA06B7223E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Materials\\MI_PrototypeGrid_Gray.uasset",
+      "bytes": 13130,
+      "sha256": "95B0CDED2F67DF3C0AF37D40F0C25DC5CCD00306B474A9AA5F60E86F426F9D8C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Materials\\MI_PrototypeGrid_TopDark.uasset",
+      "bytes": 12324,
+      "sha256": "DE84999DA725625A6E9308EBD92FFB6265153CACA0F5EB9AFCC1CABC5199056F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Materials\\MI_Solid_Blue.uasset",
+      "bytes": 8963,
+      "sha256": "5F1CDF418D8A05B99FED923B59F8122083FD661590DAED966681AD3B25A26632",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Materials\\M_Background.uasset",
+      "bytes": 15365,
+      "sha256": "D28BDF2BD0805831BC272EBDBDDA1FF6AB9139F0475B82365490DA7C0AFB1EE2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Materials\\M_PrototypeGrid.uasset",
+      "bytes": 43479,
+      "sha256": "A513D2BFE9528AFFBCAB2F022FBB0DDBC6AA390F0F0D2BC5030452EB57CD6F48",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\LevelPrototyping\\Materials\\M_Solid.uasset",
+      "bytes": 11731,
+      "sha256": "4F39B102EBC3E80777CC13940DE7CBB56D0ED59AADF789AF7F4C1323B7B4B49F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\Animation\\AC_Jason_demo.uasset",
+      "bytes": 80668720,
+      "sha256": "963B371201596F18BD809662CF033D6EA7E4BF483A1556C7AEA6B83B5F2C8921",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\Animation\\AS_Jason_Fall_Loop.uasset",
+      "bytes": 1484554,
+      "sha256": "6803CE09B6374BC0A557BF4352BBF6C360D5B3481EA454F6520CC124790488B3",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\Animation\\AS_Jason_Idle.uasset",
+      "bytes": 1625424,
+      "sha256": "0ED276DE9CB6E55D0E2C805FFE09495129BF4313D6888B1F1225EBA8A4439E61",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\Animation\\AS_Jason_Jump.uasset",
+      "bytes": 1118230,
+      "sha256": "2D9EEED4E95707C7711D5601B01642E1147A0893D9DD8314FF8501698C8632CC",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\Animation\\AS_Jason_Land.uasset",
+      "bytes": 1118296,
+      "sha256": "9A9BF493DA5A2267CAA4B53987398F4E8DD7C729D313A03805595DD5C141F1C4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\Animation\\AS_Jason_Run_Fwd.uasset",
+      "bytes": 2564710,
+      "sha256": "6032B790FB805F8AC18B27126582137B1E27A73EEFBB35922FF9BD02662DCF95",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\Animation\\AS_Jason_Walk_Fwd.uasset",
+      "bytes": 1346476,
+      "sha256": "DABE084C7702C476DF9098F6C1749FE02909B533F431FF02F09698D51747FF7A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Demo\\Animation\\AS_Jason_Walk_Run.uasset",
+      "bytes": 8503,
+      "sha256": "D750393387A61322787F922CB9A95C5079BDA9DF3FFBDD5B297D5A160045737B",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Grooms\\GA_Eyebrows_M_WideJason.uasset",
+      "bytes": 867638,
+      "sha256": "44BE689522C6AF7B6967DB988D06A5F9E1513C22FFB6BBC55129EC8BD43D5490",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Grooms\\GA_Eyelashes_S_Sparse_Jason.uasset",
+      "bytes": 69709,
+      "sha256": "8DF29A23794949A39EDAD1A81492B21956B19D3BBA95B944C25B8557EF4DD3F7",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Grooms\\GA_Hair_S_CurlyFade_Jason.uasset",
+      "bytes": 30937912,
+      "sha256": "0995031D308381FEA96D927916723298CA8AEA22F9E67AEE3BF10B5EC2832F31",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Grooms\\GB_Eyebrows_M_WideJason_SKM_Jason_head_Binding.uasset",
+      "bytes": 6851,
+      "sha256": "49D69FBBBFF273A992594D805CB28CCF4CC8D345D10FB3CA45ECB983994216F4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Grooms\\GB_Eyelashes_S_Sparse_Jason_SKM_Jason_head_Binding.uasset",
+      "bytes": 6895,
+      "sha256": "E5008F54CEFB491F2FD6F8405A0D53518E5239E0FBF65C9AC1EE7148DBDD34EA",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Grooms\\GB_Hair_S_CurlyFade_Jason_SKM_Jason_head_Binding.uasset",
+      "bytes": 6951,
+      "sha256": "3FEF31F2ADC572E47D500BA53C0A833E8606106BA316799A5270519CFEF6ED2F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Deformer\\MLD_Jason_Deformer.uasset",
+      "bytes": 334794021,
+      "sha256": "878C80614489644DEDA60FD9FA9E2C44448E03949E3B4F9537EEF7767FCF9A8E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Blueprints\\BP_Jason.uasset",
+      "bytes": 38713,
+      "sha256": "84665043BA530096C6D1BB526398C7E2DBDF44A52B30FC90DCAA8B80EE3DF7CB",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Blueprints\\BP_JasonCharacterPlayer.uasset",
+      "bytes": 151513,
+      "sha256": "20337035328A628C918F17FF63BFC4FF3CF9F88A557223B11D5FACE84DEDC53E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Blueprints\\BP_JasonGameModel.uasset",
+      "bytes": 21229,
+      "sha256": "E7154C973C37B51C5B01430035DCD306D5C4CF05ED7E62A4298916E4753B17FF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Blueprints\\BP_JasonPawn.uasset",
+      "bytes": 22768,
+      "sha256": "FA4C7DA3FB460E2C5C41515104F0CD5B28D6C1A1044009C457E5432FB5266CCC",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AsianMale_Jason\\Character\\Blueprints\\SKM_Jason_body_Skeleton_AnimBlueprint.uasset",
+      "bytes": 341832,
+      "sha256": "D33271208F9753870EE57AEAC97D7E28A3D7833E1CC8841C976684480E0B0DBE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "ApartmentStreetCorner20261109\\Authoring\\Meshes\\SM_Roof_A_CornerShops.uasset",
+      "bytes": 10878,
+      "sha256": "A8237C03922624429ACE3B246610173E00A7FE744BA98584E6E7EFB6A2955DC1",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "ApartmentStreetCorner20261109\\Authoring\\Meshes\\SM_Roof_B_LocalRetail.uasset",
+      "bytes": 10858,
+      "sha256": "CB476EA00766816C349E4FB206C33AF782D4B03FE237CF84E033E85D053FEC77",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "ApartmentStreetCorner20261109\\Authoring\\Meshes\\SM_Roof_C_Residential.uasset",
+      "bytes": 10862,
+      "sha256": "DAF7EABDC4711F80B0EF9E80E15137D5AB98BE9290CDD84F0B5EE5FDA56AF796",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Animations\\LeftHandPowerFist20260923\\A_LeftHand_PowerFist.uasset",
+      "bytes": 888508,
+      "sha256": "E2D0CB40DD5656DC655BAA1A1FEE9E1C0A8D12A712EFBE0A56F0DE97E4F43A9B",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Animations\\LeftHandPowerFist20260923\\A_LeftHand_PowerFist_Hold.uasset",
+      "bytes": 98707,
+      "sha256": "386F852253C347D514DA36FEC5F69A708C34E6565CAEEB86E0EA3CBAC073EB81",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Animations\\LeftHandPowerFist20260923\\A_LeftHand_PowerFist_Raise.uasset",
+      "bytes": 361119,
+      "sha256": "274D51BFA40F836DCEB6AEAC46180CC9DDE5B6AF74EA2D06BE48682B7DE7AE55",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "Animations\\LeftHandPowerFist20260923\\A_LeftHand_PowerFist_Recover.uasset",
+      "bytes": 479207,
+      "sha256": "B7C7B6CCE86FB025F960D52BC98872415DD108E4EBA812CAA6075EE51F2C2FD4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Textures\\T_WolfArctic_BaseColorAlpha.uasset",
+      "bytes": 24959374,
+      "sha256": "407238A94544FE24F955F01A74E9F3622124C7835ABE0222F23E23F55DCE3C64",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Textures\\T_WolfDark_BaseColorAlpha.uasset",
+      "bytes": 23225120,
+      "sha256": "1F4F90C63716C902285B5558CCE986473FFC659EF3A236AE03680E2465D8746F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Textures\\T_WolfDark_Illum.uasset",
+      "bytes": 133586,
+      "sha256": "3FD0693378D98280ED0FC5FEC57D07E7D75F2E3A27081FF65BAFCCFA72EE3455",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Textures\\T_Wolf_BaseColorAlpha.uasset",
+      "bytes": 25493431,
+      "sha256": "1EDA037CF14DCD8BDC0B31316BAE1293EDF07C80F34513608B7F05F1B5BC1B7F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Textures\\T_Wolf_Nml.uasset",
+      "bytes": 24059562,
+      "sha256": "A16A0A2828B5AA3687B65CD5D2D8964A867CD2E67F5818C850D7B68DE556BAA8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Textures\\T_Wolf_OcclusionRoughnessMetallic.uasset",
+      "bytes": 26790123,
+      "sha256": "801617AC568D6C94ABBAB6089B88E181503A760E13BCA97B474497CEB3764CE0",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Textures\\T_Wolf_Specular.uasset",
+      "bytes": 3288,
+      "sha256": "B201DCA413B0BD645F53D8A621EAA3161B1C5BE6EA36AEAAB375C031778B976D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Meshes\\SK_Wolf.uasset",
+      "bytes": 3175577,
+      "sha256": "8CADDF307C155B3A203938C32B9351D08001626263ED222DA34DD6368348A026",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Meshes\\SK_Wolf_PhysicsAsset.uasset",
+      "bytes": 49741,
+      "sha256": "FA1822C6A7701F91F0D28B35A00F454C3AFA4A62591C1DAB8E4CE0740878DC41",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Meshes\\SK_Wolf_Skeleton.uasset",
+      "bytes": 6911,
+      "sha256": "662F191E483002F5BBB847222255C6703FCCA0E031C31DC90C0A83F95AEB9F80",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Materials\\M_Wolf.uasset",
+      "bytes": 126307,
+      "sha256": "2E0A2972F60A2C8C4F8B13D241A2DA1AD0EDD10C058A9E37B372F74C6EBE4D98",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Materials\\M_WolfArctic.uasset",
+      "bytes": 110312,
+      "sha256": "6A22BC6002503CD110D34FECD8FBA7220C6F521C43CA34AD694B3FD9C01C565F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Materials\\M_WolfDark.uasset",
+      "bytes": 108592,
+      "sha256": "04256A0BD86035ED24F506EA4156BCC4B549CFB9F03EC04784FEEC4C588BB509",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Materials\\M_WolfFur.uasset",
+      "bytes": 126453,
+      "sha256": "CE502FF1435F3FA40F3EA0109E8F63A6980B10E905BD09DE9A71D6E4BA328C62",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Materials\\M_WolfFurArctic.uasset",
+      "bytes": 110458,
+      "sha256": "7E44AC783C77B4404757663C15E084C3FFE094825BBDF9C6FE75B608A26C31DF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Materials\\M_WolfFurDark.uasset",
+      "bytes": 107126,
+      "sha256": "E1F4AEBDEA7912FEF69C27811BF993DE466923CE98264F933697E7553D81D05F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Maps\\Overview.umap",
+      "bytes": 999902,
+      "sha256": "921F9DAAF8CE3C79792BB3329D19BC26E014AEBE12E35034CB38931549456ADE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Maps\\Overview_BuiltData.uasset",
+      "bytes": 66249,
+      "sha256": "4A926C3E64408C0048A1D28CA8D26711E0B9EAFD5BEB73FA226364F5D0F55374",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Bite.uasset",
+      "bytes": 107724,
+      "sha256": "D2169A7586398A3EAF54D2A015DAF3F3572F5E73B39559506FE062AB738DD7E8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Death.uasset",
+      "bytes": 135144,
+      "sha256": "1EC00D8F180001CD591ED120B7D036F2E3B190691494F37DAF8BDEB3CB02047E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_GetHitFront.uasset",
+      "bytes": 109696,
+      "sha256": "D7E91184FF6EC7D3385E4FEA7DEF4F15C870F6123660521EEE87E6ACF2D39A21",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_GetHitLeft.uasset",
+      "bytes": 110021,
+      "sha256": "26A117D499A799BC2BEFBBFEC48C2313F015A4350FF1DF3FE4045A3EE4B40167",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_GetHitRight.uasset",
+      "bytes": 109258,
+      "sha256": "753DA50EE0471698E0B97B37F176D40AE2B05CBE8E4AA54394E28F03A020982D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_GoToRest.uasset",
+      "bytes": 116994,
+      "sha256": "0BB38788F44336FFC2D219D30A387923EA8BCFB57984BBE68A3A73BDA3B1330A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Howl.uasset",
+      "bytes": 148543,
+      "sha256": "EAAE3AF499F7E7EB4BFA4B62D2DB5F28187DFFBD59772BD135229E2587531EFE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_IdleAggressive.uasset",
+      "bytes": 128727,
+      "sha256": "207ABB1D1F4C7CB6957341977D2E986D7DABF7A6C3C5AD111B4ECD55B8AE6C18",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_IdleBreathe.uasset",
+      "bytes": 132734,
+      "sha256": "B1C6B5BBCD6A1FD63C023B36AD2011450345DEB3E6F2E50379B21280B881DE78",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_IdleLookAround.uasset",
+      "bytes": 270233,
+      "sha256": "6C6950FB45A02214D45DF516F8A6386C40B1E9F56128AE190CCF7594817133DC",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_JumpBite.uasset",
+      "bytes": 114045,
+      "sha256": "8E0986FD5A7B396315533DBD5526BCD36EF83F65A5A44693BEA713B6F6B17909",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_JumpBite_RM.uasset",
+      "bytes": 114320,
+      "sha256": "FDCBEFFA19F04B09253D3D7E4C3DCDF0C9A69535B551F355816FFC5F096E9BE8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Rest.uasset",
+      "bytes": 113076,
+      "sha256": "CFF4960B17C0E0BF06B0154D60A552C197B4313804C5E567AF9B47A229E0869F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_RestToGoBackUp.uasset",
+      "bytes": 128071,
+      "sha256": "7E82E0B5D2E24359CA6EB3152DCB927F7D309018F9ED845ED074972A744BF1E5",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Run.uasset",
+      "bytes": 107091,
+      "sha256": "CBE0DBFDBFD3366C8A4144C2C070E65C4917965E13B6D5DEF82612C7A6D93D62",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_RunBite.uasset",
+      "bytes": 108094,
+      "sha256": "C1549A060C9677459DF7892EFB9A536446B073B55465E074ADABCEDDF477FE53",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_RunBite_RM.uasset",
+      "bytes": 108284,
+      "sha256": "A0DC135AE4503647B2735658BC90C56748FC6A9516B5725C5787F860A2C10BAE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_RunTurnL.uasset",
+      "bytes": 106100,
+      "sha256": "F5067FB9D56F3F938449856E0EE36659156D264D5A42DA362A87094AAB2B61DE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_RunTurnL_RM.uasset",
+      "bytes": 103971,
+      "sha256": "E383AED085D95D2FE71483E148B40A4CA695A8D2EAAB6462FED66B19F6BA7C5D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_RunTurnR.uasset",
+      "bytes": 107997,
+      "sha256": "6E85C6B24D794F666762C3E6642ACAAF0C183942450B7BB78893DD715AEB2ADD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_RunTurnR_RM.uasset",
+      "bytes": 109041,
+      "sha256": "19979D7ABE4F9805377D320E07A4C8017A92412D86CA0A1C7377FA04860225D0",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Run_RM.uasset",
+      "bytes": 107346,
+      "sha256": "4F9AAC735570D3F70B25E7575FE0F425F97DB4F1964C810360AD75A7856D08F2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Sleep.uasset",
+      "bytes": 109593,
+      "sha256": "9B84F739D1C1F91734B3A70AF4F2CF944676982148FE4FCD2427B90ECBAAD196",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Walk.uasset",
+      "bytes": 116826,
+      "sha256": "30ABE42260B2F7E628FF7E09A25F0586EB0EFBD107224535097C6D06EB027E62",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_WalkTurnL.uasset",
+      "bytes": 115406,
+      "sha256": "C7AE8CB449FF795885CD2D89E1681491240A85B233A9D5E1C2DFC09D1F2453BD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_WalkTurnL_RM.uasset",
+      "bytes": 115990,
+      "sha256": "036D54131701808BFB937F917508F0E3B452B820B2317764B4434123714D0B04",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_WalkTurnR.uasset",
+      "bytes": 118254,
+      "sha256": "546AD2A74EDFDB32B9F8A906302D35040105AE1FFF6C63AB366D86FB0177CDF6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_WalkTurnR_RM.uasset",
+      "bytes": 121800,
+      "sha256": "5F8AEB289ADB08A6CF9E2D770C977147A5E0A0AE529B10FE3630451D6F0CFB1D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Wolf\\Animations\\ANIM_Wolf_Walk_RM.uasset",
+      "bytes": 117198,
+      "sha256": "12DD7A33A55595C3420ECCECA295E13E04201A3BF4AAEB4CC652A66A14FD14E3",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Textures\\T_PigDirty_BaseColor.uasset",
+      "bytes": 24797834,
+      "sha256": "48C637F95B6AA5452205B92AD83B34BD97E32D671B4A3B666D31CBC053AD2CDE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Textures\\T_PigDirty_Nml.uasset",
+      "bytes": 31556464,
+      "sha256": "D4E262B536DC822F4F55683EAB82357EE9E97154F6E8C44545F8649178479763",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Textures\\T_PigDirty_OcclusionRoughnessMetallic.uasset",
+      "bytes": 27851215,
+      "sha256": "D0DD28EBF1D05CDA9B36B166B900F8F87CE6353F9629082A3C6E81ED5074EDAE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Textures\\T_Pig_BaseColor.uasset",
+      "bytes": 22574067,
+      "sha256": "CA097FF95268497A94FEA1EB8D842007EA30E50D2B9D6531187B43E7392883A8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Textures\\T_Pig_Nml.uasset",
+      "bytes": 22580047,
+      "sha256": "6066B12320588810FE80C1A8C878B6EC399FFEA489536236ADCDA95AAF83B747",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Textures\\T_Pig_OcclusionRoughnessMetallic.uasset",
+      "bytes": 30346595,
+      "sha256": "E789A4897D0970CDF99C355693DAFDBA5A821A175CFAE4B7E877E48548D45D23",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Textures\\T_Pig_Specular.uasset",
+      "bytes": 3388,
+      "sha256": "48219FEDEB7DFB621093387690B1BD282267C720F0B4D69C019CFBE8C0A3D343",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Meshes\\SK_Pig.uasset",
+      "bytes": 3577985,
+      "sha256": "7CBE0A21F926395992714F4FC20D28279290381224C587832D43774B85676069",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Meshes\\SK_Pig_PhysicsAsset.uasset",
+      "bytes": 48973,
+      "sha256": "0FB3FB05B3CDBF392EFF2CC8440F18E92292FDA770FD9233694F9F1032EA3B9A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Meshes\\SK_Pig_Skeleton.uasset",
+      "bytes": 7727,
+      "sha256": "9A9CAE082EB67CF61F84043395562A4235FAED815F5BB66EDAE24A6A80B53023",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Materials\\M_Pig.uasset",
+      "bytes": 107223,
+      "sha256": "28C41A30B58DAA3E60D162C8A4268717158E3967A8A0C0AA3DEE6109ED0E9709",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Materials\\M_PigDirty.uasset",
+      "bytes": 108638,
+      "sha256": "5C444C2A2554241BBF6C4ACDE45028A0E1D299E92626A2E9B63422BBE124EDC2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Materials\\M_PigHair.uasset",
+      "bytes": 114551,
+      "sha256": "92A9F8E8DA5F72CD2624359D45D5C9B4848AF122C6E7BD206EBB9A4B4828935A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Materials\\M_PigHairDirty.uasset",
+      "bytes": 115581,
+      "sha256": "140CE15E8B3F75C5CE6825445927B01145639CAF0B529C0DAB5DE1EFF28126E2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Maps\\Overview.umap",
+      "bytes": 988800,
+      "sha256": "7DD78ABEC10B9AD7024EA1F1D29E103D5A7A0FE9E3BC317814D8C8772EF01128",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Maps\\Overview_BuiltData.uasset",
+      "bytes": 57948,
+      "sha256": "1ADE32F6F3D3F1FBB4D3D76E8DB07A59877CD4FEF53659835E9CB63496F97FFD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_attack.uasset",
+      "bytes": 114582,
+      "sha256": "1B9C43C5EA49DEDD381E79B4BAC200540E39E279AEC0946A2E378F3DE01BE55F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_Chew.uasset",
+      "bytes": 127985,
+      "sha256": "8EBA607983515051486100C6FC0EE838CCD60C8CD119465D410B2D75420211D1",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_ComboAttackForward.uasset",
+      "bytes": 153824,
+      "sha256": "6C04DB6C3C0B4DE541A5AC72C5B4DB7DDE0B73F5E64BEA9211C3D38C555C1633",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_ComboAttackForward_RM.uasset",
+      "bytes": 154778,
+      "sha256": "04A4EC1AF856D905142F36B3150653CD734D2AC5EDB54F2FE04F015BBA83D985",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_Death.uasset",
+      "bytes": 145615,
+      "sha256": "916AD82904CD878CCF0E8AA688CAE3217F0BA055206E882CE82A21C66AFE7395",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_GetHit.uasset",
+      "bytes": 113154,
+      "sha256": "C3509D3AF29DC510DCCDD57B31426595999C3960B4E083B31833DAE740D1FBFB",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_GoBackUp.uasset",
+      "bytes": 135767,
+      "sha256": "4CE8888274A58667C4CB43C6E220FB087D601E61F7C5EEDA6EF35F05EE5120F9",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_GoToRest.uasset",
+      "bytes": 123072,
+      "sha256": "74179F2B9FDB1FABD7616A57DD22E34A66B22E8530B6E0DD0B455C4C159655B6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_IdleBreathe.uasset",
+      "bytes": 128216,
+      "sha256": "DE3A23F302034882F764380C0FAE868449CA2901A8FEC7BD5B0EA07E06D0CCFF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_IdleLookAround.uasset",
+      "bytes": 311145,
+      "sha256": "7D120CB8554DF77D83D6069F868BF7CBB6751EDDD630FC0EA8738F4A19E5FA3E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_JumpAttack.uasset",
+      "bytes": 121442,
+      "sha256": "3DB80D3C3A0F056DE3F405FBCD4C05D94E4AC05A2AE57CCD7EFED82E4814B646",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_JumpAttack_RM.uasset",
+      "bytes": 121841,
+      "sha256": "F2942152FDD82338D1A9CC965A70580BB0B6177C19C78FBCC45FE407EE5B76E5",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_Rest.uasset",
+      "bytes": 116002,
+      "sha256": "1F9F889411D9082A68D661F5A2D9941F8CC5FA8E4B8B0D9755EAD59DC6B3E07C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_Run.uasset",
+      "bytes": 105663,
+      "sha256": "99126AF4DCFE4133AB9D7AD581C614503111888D3C1E672F5A481A1AD51AC27A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_RunTurnL.uasset",
+      "bytes": 105854,
+      "sha256": "03D252BC86B27E694B6EC63FF55DC15E6A6DB5D078D1EF7D4C097FEF74F30F80",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_RunTurnL_RM.uasset",
+      "bytes": 108151,
+      "sha256": "6910038DE5E70DD590357CF328D1EEE05AE0AFFAA253CE7E474FE952ED662AAC",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_RunTurnR.uasset",
+      "bytes": 105513,
+      "sha256": "B5E73BA2CCDA124EEFEA24D7FB24F618576BD95D038615C20CE3144C329CF757",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_RunTurnR_RM.uasset",
+      "bytes": 106364,
+      "sha256": "EDEB46C7D73DBC7EDE8F4F7FD0CBAF8C3974EF1CA8D5937ECD16691BACDFF0E8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_Run_RM.uasset",
+      "bytes": 105818,
+      "sha256": "D24D8E75124DA6FBB7E6F561F1526161DC6117D9DBF579434154847A9A183838",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_SniffleforFood.uasset",
+      "bytes": 150975,
+      "sha256": "EB4823916F72F4C54DA72B136A71D6A9285DBC2E06A57C392398772D0A230329",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_Walk.uasset",
+      "bytes": 116023,
+      "sha256": "11B1E15D9628C9C5A5C2569E422271276C97B35596E13C87F2D4DC4F589BB3B6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_WalkTurnL.uasset",
+      "bytes": 115400,
+      "sha256": "89FEFF106B5C6CA88F876A42201C64C396EE48BCFA9A2291A93C0827259B7293",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_WalkTurnL_RM.uasset",
+      "bytes": 117862,
+      "sha256": "F401F94AA69B25DC87C5930CD0E799BA5265AB4013281526A9BBD1FA28C34885",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_WalkTurnR.uasset",
+      "bytes": 115462,
+      "sha256": "AC0E6D3F3E4BF02F6123B1EA0C462D974B5DD1F3A039E90286C3A7D5B96D84CE",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_WalkTurnR_RM.uasset",
+      "bytes": 116734,
+      "sha256": "4302EA01CEE019323839BE734D8F5D08BC5DFA7AB45C5891C2618A369C4DD966",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Pig\\Animations\\ANIM_Pig_Walk_RM.uasset",
+      "bytes": 116765,
+      "sha256": "E38EAB37F5BD12A4BA789935FF4BDF472493B77D38E9629E081752E05B40D645",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Textures\\T_Fox_BaseColor.uasset",
+      "bytes": 7437449,
+      "sha256": "B4BE9552FC6BB41AA811E85C991C1E462595DAEFE3699C2BC684B91A2A003407",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Textures\\T_Fox_Nml.uasset",
+      "bytes": 7887482,
+      "sha256": "DBF78A6224111F226E795F65D327A18DF62306FC883C551BF3F7E47D7DD19A62",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Textures\\T_Fox_OcclusionRoughnessMetallic.uasset",
+      "bytes": 7672776,
+      "sha256": "02857A0B31FF20E048E0B28B0E927BD6DCF62992E3BAE368174A0F571AAE31FA",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Textures\\T_Fox_Specular.uasset",
+      "bytes": 3119,
+      "sha256": "C06CF7BF01AB3FA3FF685CCCBB7061247B41B2D53F21F3513663FFA2DA42B04F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Meshes\\SK_Fox.uasset",
+      "bytes": 2952246,
+      "sha256": "942BF9C80CA59BA461A68020D2A7FAF5D70837EFBBDEAE4C065AAE03CCF9CAE6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Meshes\\SK_Fox_PhysicsAsset.uasset",
+      "bytes": 47157,
+      "sha256": "3BCFC90DD5C55BF206423B676B1FE9FD9BED04B551168443AA3B65219047ECB7",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Meshes\\SK_Fox_Skeleton.uasset",
+      "bytes": 6848,
+      "sha256": "498EFCDA214DC00CFD9782A0EE8B42441A31FCC1D82EE3DC7016D5C6C762496C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Materials\\M_Fox.uasset",
+      "bytes": 135757,
+      "sha256": "C14CAA776EF4724DFEB7931EBB2B41858F5B044775C4A8E7E8E93915740BF222",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Materials\\M_FoxFur.uasset",
+      "bytes": 137477,
+      "sha256": "90B1C2AE4DFF6CFBE493F30893B08CD4E6AE8E0C8DD0171463A59174B56F8F45",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Maps\\Overview.umap",
+      "bytes": 994403,
+      "sha256": "170D3805B54E883D299E35DFAB1B1AE67BA56BC995A1C1C8CE9100B946B00278",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Maps\\Overview_BuiltData.uasset",
+      "bytes": 43132,
+      "sha256": "D0388AC8B2F2C0ABE669D639AB88B587328FB09D88B2553AC683234380645E41",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_Bite.uasset",
+      "bytes": 102506,
+      "sha256": "C36512242867D2DCF34F00C3A1D754602488DA6A93676572F768048579563B9F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_Death.uasset",
+      "bytes": 129729,
+      "sha256": "FA33DEB6858706B31CCD940FE14B663DE08630230137419F4040652E69962D8C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_GetHitFront.uasset",
+      "bytes": 102715,
+      "sha256": "65597F395624F6CEB614329E02FB26C33E059746B36740D21C2A660207C8E1D5",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_GetHitLeft.uasset",
+      "bytes": 102818,
+      "sha256": "3B1EAC8EB82F89F304DA4A8FF3F86C4988CDB62BA2117D34819070954043F3F8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_GetHitRight.uasset",
+      "bytes": 102672,
+      "sha256": "BFCF7ADD46F783518182181BCC188F8362F7F38E667D7231B21597E704FBDCCF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_GoToRest.uasset",
+      "bytes": 111548,
+      "sha256": "D9BD773F12CF7F5AD73AEA6FC50B7F20AC4EE515C3588FDFD26D784FEE98358D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_IdleAggressive.uasset",
+      "bytes": 112936,
+      "sha256": "F666DD95F5BF719F562801341C63F68E154D53E4C7E7F0C8137D105C433F7526",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_IdleBreathe.uasset",
+      "bytes": 122246,
+      "sha256": "ABE9C55CE118395059DD29DBDFD9FE6BD750383A3AC11DA9586FEF49501AFEE6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_IdleLookAround.uasset",
+      "bytes": 256140,
+      "sha256": "C7D18B2B9726DFB82225EF17C27B01E0EF4EC2A393D8D2A174DD480ACE4AFC09",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_JumpBite.uasset",
+      "bytes": 107154,
+      "sha256": "ECF42D4BBB48C556443D4FE664FD9C55DD083582CA2AED65AEDC511C17DFC07B",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_JumpBite_RM.uasset",
+      "bytes": 107639,
+      "sha256": "1B06C8DA007969EFA1A7E8CE8E8C90A42F64E6DCF14B3903B2B21DB83E1AE223",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_Resting.uasset",
+      "bytes": 104780,
+      "sha256": "407DEE8CEF10437C8CEDC201F1CC3BC4B48A45D20665DCE52C7CB3E0B06E3EA3",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_RestToGoBackUp.uasset",
+      "bytes": 122222,
+      "sha256": "C765D6C922E55C83D5E3163078FFF652E5EA423A57B337AA98DD7C4C4EFD51D9",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_Run.uasset",
+      "bytes": 100576,
+      "sha256": "A41C8AE63C427A52850F96D9EDBCB5FDD32900975B30360BA1B35311DDFB0716",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_RunBite.uasset",
+      "bytes": 101293,
+      "sha256": "3B095CF26DD968513E2F5369DA2B0166CBC66B96F8CBEFCF80080AE8D92F0C01",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_RunBite_RM.uasset",
+      "bytes": 101557,
+      "sha256": "B8E2EE7824A19275F61A8B317AA4562551328D14399515F95B6F9D09B1ADFD34",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_RunTurnL.uasset",
+      "bytes": 100122,
+      "sha256": "BFB68F774BD6980D0BAC8600F60B2877A6F003FE256A956B6439CB8BAA214450",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_RunTurnL_RM.uasset",
+      "bytes": 99513,
+      "sha256": "7EE05C823FB788E1851CCE8B8269B9307C3CF5C13C8081916F438B0EC0E3FA67",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_RunTurnR.uasset",
+      "bytes": 100919,
+      "sha256": "B8F5C1EEDD55B3CA1068E3F75D2327807C61CB9FBFF06842153F8E15AF677953",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_RunTurnR_RM.uasset",
+      "bytes": 102024,
+      "sha256": "31838EA9C3B1662A6411A4CF91174576FDB0EAFAC5528757D7B2E4122B9ECAEC",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_Run_RM.uasset",
+      "bytes": 100769,
+      "sha256": "E56BA6C9F2494A481B969D27025481F317D799ED76FD210A884A0568E71B9EF2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_Sleeping.uasset",
+      "bytes": 98214,
+      "sha256": "05D5E3D23CA1D2EEF596E2A5AA7CFDDE7AA512BF564317FD1E68CCC5FF5C2DE7",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_Walk.uasset",
+      "bytes": 110237,
+      "sha256": "0E0D3AC0DEF73945328A214E06A9B4D3FF0E4EACE0C193AA9475AC5D8BD1725A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_WalkTurnL.uasset",
+      "bytes": 108782,
+      "sha256": "F47B6F8B4704D7ABD3079DD33D1D67E3CFC9E9C53491669525636F1672728DAF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_WalkTurnL_RM.uasset",
+      "bytes": 110298,
+      "sha256": "D00414A60859AD53761D2F4D813530D06B5EBC2ED5C5EA9D5625A7BAC0281E70",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_WalkTurnR.uasset",
+      "bytes": 110751,
+      "sha256": "FDF8CCF16263EC70FF8CDEDD28424E2AA8FD75D7C237102474563B1E86C096D0",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_WalkTurnR_RM.uasset",
+      "bytes": 113235,
+      "sha256": "D5604460BD2E3993AF1706B6AF102AB78BE6F7D5F50F16560E4C76ACBDFFEE7D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Fox\\Animations\\ANIM_Fox_Walk_RM.uasset",
+      "bytes": 110636,
+      "sha256": "723F3F525A46BBC20CE84839BA843BB633C37B5567ACBABC6C33FAB8D85E3B74",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Textures\\T_DeeDoe_BaseColor.uasset",
+      "bytes": 20198231,
+      "sha256": "322FA92D2E9BB865C66D3B2B25EFF03497FFE703B163356F9119DD24EA0CE0F6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Textures\\T_DeeDoe_Nml.uasset",
+      "bytes": 18442904,
+      "sha256": "1F763BAA25837619AF32DB63C2998E6ABC2FB3F692FD53CD48813D4C803FA274",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Textures\\T_DeerDoe_OcclusionRoughnessMetallic.uasset",
+      "bytes": 25157998,
+      "sha256": "424442868024F62A7C863066535E6572F136318D48E8DA81EC69C73FC8DC19F5",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Textures\\T_Stag_BaseColor.uasset",
+      "bytes": 25426850,
+      "sha256": "964DB6CEF79F23D0CA58F7E89B6A349D9C8F2C9126484580A6AF10DEA90D113C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Textures\\T_Stag_Nml.uasset",
+      "bytes": 27561447,
+      "sha256": "799F39905F35A0AD21A3EFF757F6569BEC73E59D1DABDC734658661BDFCBC1E8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Textures\\T_Stag_OcclusionRoughnessMetllic.uasset",
+      "bytes": 30051293,
+      "sha256": "72D3D9DA7904ABB8348D2674AFA7A69A8494D06EE7E629A7AB3469ED3BCBEE38",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Textures\\T_Stag_Specular.uasset",
+      "bytes": 3456,
+      "sha256": "153D20D9C5DA90B554D006BBA4CEFA2E965BF9CE77F124F06C752CFE29D4E3C3",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Meshes\\SK_DeerDoe.uasset",
+      "bytes": 2992241,
+      "sha256": "B96479DAE959B4B0FA46EBF046AD8EE17421F6AB09F367F4D40F5782F2460236",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Meshes\\SK_DeerDoe_PhysicsAsset.uasset",
+      "bytes": 41169,
+      "sha256": "9F3557B258AD872FDB5E58A36EAB05B8378B973411C3FFF043963E673041620A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Meshes\\SK_DeerDoe_Skeleton.uasset",
+      "bytes": 6711,
+      "sha256": "DE3F0DBA7FA0DA78C1C34B2E0D736B3F8F9A5B56AAEF26B6A8D9D76AC062EE13",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Meshes\\SK_DeerStag.uasset",
+      "bytes": 3456271,
+      "sha256": "C9C49E49AD33C5E2397F3DBE312DF754CD80BBBFD58025F005B237E71C89B855",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Meshes\\SK_DeerStag_PhysicsAsset.uasset",
+      "bytes": 41179,
+      "sha256": "B9F253ADF17634382DF0FE728D7BFF97444FA081943E1D2441368D08904D13DD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Meshes\\SK_DeerStag_Skeleton.uasset",
+      "bytes": 6540,
+      "sha256": "DC690AC150841C7224ED276C0DAABBCF9CC87470E0E326179CCD49C4B0DFADC5",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Materials\\M_DeerDoe.uasset",
+      "bytes": 131532,
+      "sha256": "5EE8A29DD2A6ED9F8AF0DC83381E0B60FAC2FE5A215C8055B7E65A10B4F3E28E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Materials\\M_DeerDoeFur.uasset",
+      "bytes": 132406,
+      "sha256": "5B0E57E4A2D36AD1BDA443B9A066B8AFF0F1FB2430CC801DB74D8F36CE9CA177",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Materials\\M_DeerStag.uasset",
+      "bytes": 133180,
+      "sha256": "F799C3DE55789525AC95345B2698F617895CEF3B6D2898586E46962123012A7E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Materials\\M_DeerStagFur.uasset",
+      "bytes": 135461,
+      "sha256": "E45B51BC5C58AE9841A1F29E73C85145978936B508141827037948F602A9EE39",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Maps\\Overview.umap",
+      "bytes": 1002736,
+      "sha256": "FA85D9D0F9A60963017921BCF063EAA0CAE1AA72301B25743A107FDDC9F0D3B4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Maps\\Overview_BuiltData.uasset",
+      "bytes": 123309,
+      "sha256": "9288DCC6226E7D3565A889368F8FEB535A55516D2128DC8A34FA23B3273CF45F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_Death.uasset",
+      "bytes": 146167,
+      "sha256": "E95970923A76835FEDEF5AD9489E5CEE5CC907AFA4ACA36C241D5A1042085CC0",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_GetHit.uasset",
+      "bytes": 111872,
+      "sha256": "0E9E94852768A75F7C9E51A54621414568F953C3DA891023FD791FA70C4EB0A0",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_GoToRest.uasset",
+      "bytes": 123606,
+      "sha256": "CD1E6919559BD4AEBF9414193E43FDC9460907C49D22C73AA2B83577883D04D8",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_GrazeOnce.uasset",
+      "bytes": 143230,
+      "sha256": "4450C69E96147E5A32A8AF4434770806B77FACB9067BFE9F1391C85AA492C1A6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_IdleBreathe.uasset",
+      "bytes": 126884,
+      "sha256": "8650AB78F9DD36958A8811712B5D4FD00F4834EB737CBC5B5BB36080DA54301C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_IdleChew.uasset",
+      "bytes": 126686,
+      "sha256": "DA7C102CAFD32727A011DD3D6E25FAFDCDBCC1A46980B6A28B3EBFE1B9F8CF15",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_IdleGraze.uasset",
+      "bytes": 109938,
+      "sha256": "B0322D0F138221D2ED57AE7F900857D1370999C1B863A8DB952452AC13B5CB13",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_IdleLookAround.uasset",
+      "bytes": 209751,
+      "sha256": "78B2B1DCF453B01AC6A60A539F1376CAD909D1ED944B33858430059B65E8CF07",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_IdleRest.uasset",
+      "bytes": 111350,
+      "sha256": "6835FA8CD4542CE6EB8D1B508A245CFC63B7EBBF11450B5A0C2DB862C2C22DC5",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_IdleSleep.uasset",
+      "bytes": 102993,
+      "sha256": "7D6F502CFD70C76FE8D91F802705435486463FC8337F401151B0336C669B132A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_RestToGoBackUp.uasset",
+      "bytes": 124930,
+      "sha256": "77229012AE321A931BE1050A7437F1D5ED322709E395D404141C0F74FE539653",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_Run.uasset",
+      "bytes": 113976,
+      "sha256": "3C6993B80A30744BD26BF0308426DE9F7F40E9806B7D63604E7B03DFD624E02A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_Run_RM.uasset",
+      "bytes": 114295,
+      "sha256": "FC53BB74A22A10582560F8C7F519EB783F1F3121BAE632C7AA141FC922D722DA",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_SleepToGoBackUp.uasset",
+      "bytes": 124839,
+      "sha256": "29A43A72BD2EA1C9B85A47EACE7769E944FC5F14E93D516FDC7C0DD38E56DF65",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_Walk.uasset",
+      "bytes": 117050,
+      "sha256": "D18110437A9D56BFB4E779AC36B5AA06D3C65EE39118FD5DBCC5439C29D5AB25",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_WalkGraze.uasset",
+      "bytes": 114504,
+      "sha256": "324EA790DE80D212DB86E0791BA0CD785750C2022FB2FEE32FA44B1FDAA79F64",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_WalkGraze_RM.uasset",
+      "bytes": 114688,
+      "sha256": "EBCD7C623225E963DA0A5290342059124068EE2D48F3DEEB10B5191B6C2EEAFC",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_WalkTurnL.uasset",
+      "bytes": 115265,
+      "sha256": "8F3D49AA1A51EB8A74D7D36D4A5DF443B3EA36EE759C879B9BD8991C2E8F7BC2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_WalkTurnL_RM.uasset",
+      "bytes": 117363,
+      "sha256": "94AFE9E80DA1F105FDECE5F4671CC80908683383683C837367EDF2EC06111801",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_WalkTurnR.uasset",
+      "bytes": 117424,
+      "sha256": "0AA205D973ADEF95376858A1B338EEAE3E5E0D4D1AF298ADFBDC2FEC3CE836C9",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_WalkTurnR_RM.uasset",
+      "bytes": 119352,
+      "sha256": "5ED04A9756B904B828104AF6C78497D40E03CB37FD8546A8987FFD2903193804",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerDoe_Walk_RM.uasset",
+      "bytes": 117300,
+      "sha256": "96919F2E3178E2141C667F9D634FB210DAA579836E692B6FFD7E2A2B320E96A4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_AntlersAttack.uasset",
+      "bytes": 117280,
+      "sha256": "105E80C4B64014A8A30A927A996AB09A3AC0474A43251D841E8E074A73DB40F2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_AntlersComboAttack.uasset",
+      "bytes": 135153,
+      "sha256": "431F1C1A3DB67F5A4BA130EEA4DB62772AA1AA929C019D22E32533BCE3B1EE79",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_AntlersComboAttack_RM.uasset",
+      "bytes": 135912,
+      "sha256": "32651A0FF76F5454313A26239215C4EB247E25B0CA66CD2764AD5855E61AD1B2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_Death.uasset",
+      "bytes": 148651,
+      "sha256": "D1D466C5890E2E39EE0BF0897DBE17BE82440D8EF92739B90D2C86754A456350",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_GetHit.uasset",
+      "bytes": 115688,
+      "sha256": "004ECE18CDAE734484416D8FF82D10DEB345A65FC44CF62D85F708FE744C79D7",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_GoToRest.uasset",
+      "bytes": 127619,
+      "sha256": "8368019FA5AC34A4E8F09474123A7A383B8386859AC0EB4A16BB2F757E877879",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_GrazeOnce.uasset",
+      "bytes": 145057,
+      "sha256": "34653D7FD3039EB9E53D375B87F95910BBA5FEE1B04C2B3C776BC5A9399DA334",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_IdleBreathe.uasset",
+      "bytes": 130673,
+      "sha256": "F6B07DC098EE155D907F100554435FFC052107FCE7F88D3DCE90DC23C90E9578",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_IdleChew.uasset",
+      "bytes": 130061,
+      "sha256": "0160BDC4CE0637883009E516FF06481E6C5806AA9B6450508B639D73E64C3A9A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_IdleGraze.uasset",
+      "bytes": 111850,
+      "sha256": "4A795233ABBB0013770A2940BCBC423332D1012C30FF035CD57EFCCE0A2BD9D2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_IdleLookAround.uasset",
+      "bytes": 210413,
+      "sha256": "E1FA9CBB1B91711C82DE0C7ED38CBDA950022C80BC7CED530D1B35F5BDB8746A",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_Rest.uasset",
+      "bytes": 117884,
+      "sha256": "D3EFB9BEAA29699ABA57104714F5D0579BABC3793B1ACB83EC36BB9F260802E7",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_RestToGoBackUp.uasset",
+      "bytes": 127892,
+      "sha256": "8D63A91C2A01133727957CF06D0F8A2766D7228B6C6A38DB3827F602E6280E25",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_Run.uasset",
+      "bytes": 118278,
+      "sha256": "D3B3A7771D4A2B61560A76C90862EC75F4D2F3A4A9864A44B34DCC19408C02E6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_Run_RM.uasset",
+      "bytes": 118991,
+      "sha256": "8647F73679B27CE663ED1ABC70B67C34ED67B3034F3531653A5021F8577607C3",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_Sleep.uasset",
+      "bytes": 104700,
+      "sha256": "3B00775BD93780ADDDA5C4E2634175D23D6020A2E19419136A4D8F9AA4ED2B10",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_SleepToGoBackUp.uasset",
+      "bytes": 127874,
+      "sha256": "6E4EF977F063F5C8AD31F102FF203FB797C88FF90A1117168FA03D5290DCFB5D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_Walk.uasset",
+      "bytes": 120813,
+      "sha256": "0074CBDE44A469A45563B952AAE9BF2F62117E5853DB9B47ADCF529E07990BBD",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_WalkGraze_RM.uasset",
+      "bytes": 115858,
+      "sha256": "72123933F8971F060B8009DB17447A8E3EB3A68E80FED0BD081F525EC017C90C",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_WalkTurnL.uasset",
+      "bytes": 119129,
+      "sha256": "6E4FF0570B10447B35C1FB3D8B1E2BC5F2976720CDA5EC13DDAF16C4C099A4C6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_WalkTurnL_RM.uasset",
+      "bytes": 119687,
+      "sha256": "348F60512980BB6BF5F151D47118893B46725F2EFF9367362EFD74E88AA6CAA4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_WalkTurnR.uasset",
+      "bytes": 122427,
+      "sha256": "C53AA6EA6AEE91543A3194CFCE82399A9287829C178E342C9BC24CA2538B6B50",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_WalkTurnR_RM.uasset",
+      "bytes": 123268,
+      "sha256": "11BA48A80AFF1BFC06D4926027D4BDE96A00C200EDF7761E9113C2734D39DA30",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\DeerStagAndDoe\\Animations\\ANIM_DeerStag_Walk_RM.uasset",
+      "bytes": 121192,
+      "sha256": "80F4038E9A8BFD45AD217C7B01D6915A7D27FDC73BBE0BD7F7B2E2DFD6EC4900",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Textures\\T_Crow_BaseColor.uasset",
+      "bytes": 4960704,
+      "sha256": "4B70ABBA60BE25E2BEB212F852C1AA11F7CDCD85AB0556E173DF5941B6AA94D6",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Textures\\T_Crow_Nml.uasset",
+      "bytes": 7568794,
+      "sha256": "A9AAC6CFE78334B706F5A9CB5726049B02D03665D4693AEE292B9F0956C0D978",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Textures\\T_Crow_OcclusionRoughnessMetallic.uasset",
+      "bytes": 9362671,
+      "sha256": "38A4125BF69D9FD3A980357F85B89EE5F3075D71BF7AA0DC95E5E8C82632D08D",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Textures\\T_Crow_Specular.uasset",
+      "bytes": 3532,
+      "sha256": "66EF95E752D1DA3115A9C17D84DEAE2B9DF308615577FF4ECF8D796F073677E2",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Meshes\\SK_Crow.uasset",
+      "bytes": 350444,
+      "sha256": "94DD754A1320752472AC059E7D9209DD4825B987FD23F66EE97C335291D4EA41",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Meshes\\SK_Crow_PhysicsAsset.uasset",
+      "bytes": 29926,
+      "sha256": "E1FF9498723D6068019FEAE5E3985810B85314DFE8C5757C56B2C66CE6A663D3",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Meshes\\SK_Crow_Skeleton.uasset",
+      "bytes": 11116,
+      "sha256": "2A12335D9B2603309E5DD514151B9BFB21AC225881792E8AB90F18D96AE40F1F",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Materials\\M_Crow.uasset",
+      "bytes": 120718,
+      "sha256": "DBA460BA0B85271A80FA6741CD140687E08599296C8B486D7AEC67899036FED1",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Maps\\Overview.umap",
+      "bytes": 981251,
+      "sha256": "54D2CAE2B189EC53AFCA1ADE175AA42A3C1B783E1F707526D316D021C4C339E3",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Maps\\Overview_BuiltData.uasset",
+      "bytes": 42074,
+      "sha256": "D4599294121B0E04F75ACA5FFA49F8501BB0F9C8E606ED1AF65732E837394652",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_DeathGrounded.uasset",
+      "bytes": 108832,
+      "sha256": "97C7326D4576CD0C0DF33FCB8A810AF2B64FD606E13AF9212CF7CE78DDF6C8C4",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_DeathHitTheGround.uasset",
+      "bytes": 95221,
+      "sha256": "D777D0D070C45FE6AA1840A9BA4E0ACE4CFEE4D1F3D04F3871DAAC8DA4CD1003",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_EatSomething.uasset",
+      "bytes": 108392,
+      "sha256": "2022725FB40C559D58B86551C0BA5C8086A95FC80F8DCD4A02EF78956CBD99B1",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_Falling.uasset",
+      "bytes": 103583,
+      "sha256": "7C04278FAB7FB3F7268B7DDC51559E2E2D167CFC0C8E5781503B5FD4DAC7B433",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_Fly.uasset",
+      "bytes": 97772,
+      "sha256": "C74501EC53F21E3E9543E64064B6B7A9ADCEB414BA0AD66BBA1DFB9919978181",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_FlyingAttack.uasset",
+      "bytes": 119449,
+      "sha256": "67A84A5265841CD2A17422F1B99C8BCE6F1DBCED5EFC1C05C9E48616120EABBB",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_Glide.uasset",
+      "bytes": 86969,
+      "sha256": "4F576020ED338969C3646AAD9B7599A3542A25D889958CD4B44464FE362502D1",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_Hop.uasset",
+      "bytes": 97440,
+      "sha256": "8DC28ED2DF7215C4EF2ED53E5EA11E60E9FE6A342DD571F59943366C78C62906",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_Hop_RM.uasset",
+      "bytes": 97613,
+      "sha256": "DDB053FF18954BF2F25175A9BE78C12BCB2254BDF6CDCE7DBA16F67F04129503",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_IdleLookAround.uasset",
+      "bytes": 108136,
+      "sha256": "F9D27F22C70685A3112E097C3E672DC2C0D0A27EAFF4E787A099710BFC05E0CF",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_IdleScratchWing.uasset",
+      "bytes": 95822,
+      "sha256": "3FAA7301C2FFAF23D25EE59D119E6CCC37CDFC189D8A57E0225ACC40D3714ED9",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_IdleStretchWings.uasset",
+      "bytes": 99187,
+      "sha256": "A0F8AB8880F4BEC088C1FBC81339773A90F37873621DCBB67BB3620C32C99701",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_InAirDeathGoToFall.uasset",
+      "bytes": 112511,
+      "sha256": "A40BA60695B3CDAB378BF300C08CE1EB1C7F6AE2E77226784413DDCB638432B5",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_Landing.uasset",
+      "bytes": 110078,
+      "sha256": "3D92ED106354B3413325E6DA67912F044D5AFEFEAE2D8287E0B39351C8083147",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_TakeOff.uasset",
+      "bytes": 127144,
+      "sha256": "59F448D9022FFF38D51B737E905E3FF6E2675F6B704B89A2BD3A30FDC27E9974",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_Walk.uasset",
+      "bytes": 97045,
+      "sha256": "A4EFC3101FD71962007BE59677D296CA433FFDF01DE59DE74C8B42874BDA395E",
+      "already_present": false,
+      "restored_and_verified": true
+    },
+    {
+      "path": "AnimalVarietyPack\\Crow\\Animations\\ANIM_Crow_Walk_RM.uasset",
+      "bytes": 97208,
+      "sha256": "7F970337E3F678CC7C8DED63FB8C07527D1E2A11877B0B6950D541B2C1130130",
+      "already_present": false,
+      "restored_and_verified": true
+    }
+  ]
+}

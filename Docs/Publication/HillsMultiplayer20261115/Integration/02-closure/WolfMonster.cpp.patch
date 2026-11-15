@@ -1,0 +1,60 @@
+--- a/Source/FPSGAME/Monsters/WolfMonster.cpp
++++ b/Source/FPSGAME/Monsters/WolfMonster.cpp
+@@ -145,6 +145,7 @@
+     GetMesh()->AddTickPrerequisiteActor(this);
+     GetMesh()->AddTickPrerequisiteComponent(Combat);
+     EnterState(HasAuthority()?EWolfState::Idle:State);
++    if (!HasAuthority() && bWildlifeWolf && WildlifeHitPresentation.Revision) StartHitPresentation();
+     if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
+ }
+ bool AWolfMonster::Busy() const
+@@ -227,6 +228,7 @@
+     DOREPLIFETIME(AWolfMonster,Health);DOREPLIFETIME(AWolfMonster,MaxHealth);
+     DOREPLIFETIME(AWolfMonster, State);DOREPLIFETIME(AWolfMonster,ActivePounceFlightSeconds);
+     DOREPLIFETIME(AWolfMonster, SoftDeathLeadSeconds);
++    DOREPLIFETIME(AWolfMonster, WildlifeHitPresentation);
+ }
+ void AWolfMonster::OnRep_State()
+ {
+@@ -593,14 +595,38 @@
+ }
+ void AWolfMonster::StartHitPresentation()
+ {
+-    const FVector Incoming = Combat->IsParryReaction() ? Combat->GetParryDirection() : IncomingHitDirection;
+-    const float Side = FVector::DotProduct(-Incoming.GetSafeNormal2D(), GetActorRightVector());
+-    ReactionAction = Side > .4f ? TEXT("HitRight") : Side < -.4f ? TEXT("HitLeft") : TEXT("HitFront");
++    if (bWildlifeWolf && !HasAuthority())
++    {
++        // Combat-component and actor RepNotifies can arrive in either order.
++        // Never derive the remote direction from its uninitialized local hit vector.
++        const auto* GS=GetWorld()->GetGameState();
++        const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++        if (Dead() || !WildlifeHitPresentation.Revision || Now>WildlifeHitPresentation.StartedAt+WildlifeHitPresentation.Duration) return;
++        ReactionAction=WildlifeHitPresentation.Action;
++    }
++    else
++    {
++        const FVector Incoming = Combat->IsParryReaction() ? Combat->GetParryDirection() : IncomingHitDirection;
++        const float Side = FVector::DotProduct(-Incoming.GetSafeNormal2D(), GetActorRightVector());
++        ReactionAction = Side > .4f ? TEXT("HitRight") : Side < -.4f ? TEXT("HitLeft") : TEXT("HitFront");
++        if (bWildlifeWolf)
++        {
++            WildlifeHitPresentation.Action=ReactionAction;
++            WildlifeHitPresentation.StartedAt=GetWorld()->GetTimeSeconds();
++            WildlifeHitPresentation.Duration=FMath::Max(.1f,ReactionSeconds);
++            ++WildlifeHitPresentation.Revision;
++            ForceNetUpdate();
++        }
++    }
+     if (auto* Anim = Animation())
+     {
+         Anim->PlayTemplateAction(ReactionAction, true);
+         if (Combat->IsParryReaction()) Anim->FinishPoseTransition();
+     }
++}
++void AWolfMonster::OnRep_WildlifeHitPresentation()
++{
++    if (!HasAuthority() && bWildlifeWolf && HasActorBegunPlay()) StartHitPresentation();
+ }
+ void AWolfMonster::SetHitPresentationTime(float Elapsed, float Remaining)
+ {

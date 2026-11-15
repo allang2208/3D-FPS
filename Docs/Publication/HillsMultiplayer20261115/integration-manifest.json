@@ -1,0 +1,122 @@
+[
+  {
+    "phase": "01-animal-audit",
+    "target": "Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.cpp",
+    "patch": "Integration/01-animal-audit/MonsterCorpseRagdollComponent.cpp.patch",
+    "before_sha256": "c7a4bc8b42f203053bebc6c30b06d73721754cc21ef43d9c33ff611814fd0dab",
+    "after_sha256": "cc40d3d99c73028348d8f1bf1de80fc6e4d83a3a4675badde37fa7b9aaf8054c",
+    "before_normalized_sha256": "5233f848c8dcf12945b131496f3b9fac7b79f4c22ce494bc64a8d216b636fa06",
+    "after_normalized_sha256": "c489c9b5dff93cbe610a8d50e3ecada7561a92bbe0c3910ea95e1940e05f96e3",
+    "patch_lines": 20
+  },
+  {
+    "phase": "01-animal-audit",
+    "target": "Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.h",
+    "patch": "Integration/01-animal-audit/MonsterCorpseRagdollComponent.h.patch",
+    "before_sha256": "f2cbe6a22dc1769c8dcfce45be92ae9ea87081711a63304a63df61ffe345c728",
+    "after_sha256": "90aef1019698339bfb2222a0c00f1ac1083ad7996bdf1cdb7c08908c86d4b4cc",
+    "before_normalized_sha256": "b9e5bc7ebd47008338881b05f1a370a15204d3fd3f2064e33d7f1e45e4a949c3",
+    "after_normalized_sha256": "584c7a2d3a057c218df5b7f0724c422c9a1587bc1705268407b9e6d4b5f1f4ef",
+    "patch_lines": 11
+  },
+  {
+    "phase": "01-animal-audit",
+    "target": "Source/FPSGAME/Monsters/WildlifeAnimal.cpp",
+    "patch": "Integration/01-animal-audit/WildlifeAnimal.cpp.patch",
+    "before_sha256": "80f7896e6b4f173146ee06fcca83d83fac8c1c1725ae689a251060e49981b87b",
+    "after_sha256": "f130d979d425c33f443e864f1c88e67fd6cb9da5dc68b9dc144b23a88eee4dca",
+    "before_normalized_sha256": "80f7896e6b4f173146ee06fcca83d83fac8c1c1725ae689a251060e49981b87b",
+    "after_normalized_sha256": "f130d979d425c33f443e864f1c88e67fd6cb9da5dc68b9dc144b23a88eee4dca",
+    "patch_lines": 176
+  },
+  {
+    "phase": "01-animal-audit",
+    "target": "Source/FPSGAME/Monsters/WildlifeAnimal.h",
+    "patch": "Integration/01-animal-audit/WildlifeAnimal.h.patch",
+    "before_sha256": "69a5e7f1d645d37857cba86c58c4d52ddd62416728a846d7194b6abd45f58c25",
+    "after_sha256": "72ff24db270c39c6fb415587ac3e6549944778dd3ae99a55089416ae54fa5757",
+    "before_normalized_sha256": "69a5e7f1d645d37857cba86c58c4d52ddd62416728a846d7194b6abd45f58c25",
+    "after_normalized_sha256": "72ff24db270c39c6fb415587ac3e6549944778dd3ae99a55089416ae54fa5757",
+    "patch_lines": 70
+  },
+  {
+    "phase": "01-animal-audit",
+    "target": "Source/FPSGAME/Monsters/WildlifeDistanceActivity.cpp",
+    "patch": "Integration/01-animal-audit/WildlifeDistanceActivity.cpp.patch",
+    "before_sha256": "4d535b68b5b66b2b2b6bf547881c34cae2547c5311ee8f7a1e472997cc2199ce",
+    "after_sha256": "784f086c4625dd7fc343cb666eaf0d32d9d8657b97fdbb05b975c67e7d792e1e",
+    "before_normalized_sha256": "4d535b68b5b66b2b2b6bf547881c34cae2547c5311ee8f7a1e472997cc2199ce",
+    "after_normalized_sha256": "784f086c4625dd7fc343cb666eaf0d32d9d8657b97fdbb05b975c67e7d792e1e",
+    "patch_lines": 10
+  },
+  {
+    "phase": "01-animal-audit",
+    "target": "Source/FPSGAME/Monsters/WolfMonster.cpp",
+    "patch": "Integration/01-animal-audit/WolfMonster.cpp.patch",
+    "before_sha256": "36653fe3c12c516a151f6984d08c829e3d5a709e2d1128061f59fe661aeec6c7",
+    "after_sha256": "7506a79129c7cd4aa0619d54901f7b7c5e7233f238116131e8a38212a7dc304d",
+    "before_normalized_sha256": "3fe32a5650c3b6ebfa276d9cf778703c80a24598f67020a4c994a98b4c784046",
+    "after_normalized_sha256": "a37c207b984aadd0838ea793146677bf93824ee6ffde828960ac1a849b04a16c",
+    "patch_lines": 56
+  },
+  {
+    "phase": "02-closure",
+    "target": "Source/FPSGAME/Monsters/WolfMonster.cpp",
+    "patch": "Integration/02-closure/WolfMonster.cpp.patch",
+    "before_sha256": "7506a79129c7cd4aa0619d54901f7b7c5e7233f238116131e8a38212a7dc304d",
+    "after_sha256": "d45d5d50036de8abad672015867e0d96238c2481ed97e417ee2861ce09ebcd8a",
+    "before_normalized_sha256": "a37c207b984aadd0838ea793146677bf93824ee6ffde828960ac1a849b04a16c",
+    "after_normalized_sha256": "a41f667f4f8058ede98d97f6e897ab89cfae5c4f86cd8f2d52f808b9dfd25fee",
+    "patch_lines": 60
+  },
+  {
+    "phase": "02-closure",
+    "target": "Source/FPSGAME/Monsters/WolfMonster.h",
+    "patch": "Integration/02-closure/WolfMonster.h.patch",
+    "before_sha256": "7424d8633901c91cbe7132c2843f75c49c5c2d79dd3d88fb9d6cf136f27ebf2d",
+    "after_sha256": "7f6411c275df4f4bb5c98869e2981f7bcc35b013ffb2fcfaf45eec63762b37e3",
+    "before_normalized_sha256": "4a620fb1b1ebd9546037ce0455a3c2088729b269281cb47da322e58181271af4",
+    "after_normalized_sha256": "28bbaee7614260f04cc9a11f6da30f835f96d12301b87b17ff6557e799543381",
+    "patch_lines": 35
+  },
+  {
+    "phase": "02-closure",
+    "target": "Source/FPSGAME/FPSGAMEGameMode.cpp",
+    "patch": "Integration/02-closure/FPSGAMEGameMode.cpp.patch",
+    "before_sha256": "24e761e4f6540c84b1b07769d9c132f94840d0780530e208d6d31fcad2330135",
+    "after_sha256": "94f52bebb149a189680abadc78a3e05bc0adc42057a36346464f12f096b8d896",
+    "before_normalized_sha256": "43129de87eda2b713a38ea845808cbbcaca7abb2f32777d3bfc77b0db9e1b73a",
+    "after_normalized_sha256": "7a60d1af574c655997c1fe7032f6dcba189e54002dee6bff8c101436e71e7d2b",
+    "patch_lines": 47
+  },
+  {
+    "phase": "02-closure",
+    "target": "Source/FPSGAME/FPSGAMEGameMode.h",
+    "patch": "Integration/02-closure/FPSGAMEGameMode.h.patch",
+    "before_sha256": "cdda22a3a83b0b1ae0bf8df239bea7dde15b0bb80ce23cf58ce75404515eedac",
+    "after_sha256": "ab7328da71d867b8631dc0eb7f569eb551660264cfd9426ac00d51a58da67b69",
+    "before_normalized_sha256": "cdda22a3a83b0b1ae0bf8df239bea7dde15b0bb80ce23cf58ce75404515eedac",
+    "after_normalized_sha256": "ab7328da71d867b8631dc0eb7f569eb551660264cfd9426ac00d51a58da67b69",
+    "patch_lines": 10
+  },
+  {
+    "phase": "02-closure",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "patch": "Integration/02-closure/TemperateHillsStreaming.cpp.patch",
+    "before_sha256": "931c7623d6cd9adfaca3ddea3acc1298df104b4388463dfa0369ed59db5ae42f",
+    "after_sha256": "949fbff2cb61d77fd3b6135a1143588272d20b1f0a7b0875829e5864c566ea49",
+    "before_normalized_sha256": "f3e6edbf3e049e8122e61101b7c34079ace6767d2701d185a0483722ea830079",
+    "after_normalized_sha256": "d40a3618a937c1e1c558429493dfb398ca9ff6859813d2f045efaed7c2eb6a5b",
+    "patch_lines": 64
+  },
+  {
+    "phase": "02-closure",
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelMapMarkerSharing.cpp",
+    "patch": "Integration/02-closure/ColdSteelMapMarkerSharing.cpp.patch",
+    "before_sha256": "07865c032df678840bec769c974412847a9942c737f77faff50f82d983af0904",
+    "after_sha256": "bb519913ea609400470c060519a2a1549f8ad0e71547dc84aadbc59d4f7c2111",
+    "before_normalized_sha256": "07865c032df678840bec769c974412847a9942c737f77faff50f82d983af0904",
+    "after_normalized_sha256": "bb519913ea609400470c060519a2a1549f8ad0e71547dc84aadbc59d4f7c2111",
+    "patch_lines": 14
+  }
+]

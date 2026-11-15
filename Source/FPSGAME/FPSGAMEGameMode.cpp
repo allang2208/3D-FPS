@@ -61,6 +61,8 @@ void AFPSGAMEGameMode::RestartPlayer(AController* NewPlayer)
         return;
     }
     if (!IsValid(NewPlayer) || NewPlayer->GetPawn()) return;
+    if (PendingSceneSpawns.Contains(NewPlayer)) return;
+    PendingSceneSpawns.Add(NewPlayer, 0);
     if (Map == TEXT("L_MilitaryTrench_FPS_Test"))
     {
         FTimerHandle Handle;
@@ -74,7 +76,11 @@ void AFPSGAMEGameMode::RestartPlayer(AController* NewPlayer)
 void AFPSGAMEGameMode::SpawnAfterStreaming(TWeakObjectPtr<AController> Player)
 {
     AController* NewPlayer = Player.Get();
-    if (!NewPlayer || NewPlayer->GetPawn()) return;
+    if (!NewPlayer || NewPlayer->GetWorld() != GetWorld() || NewPlayer->GetPawn())
+    {
+        PendingSceneSpawns.Remove(Player);
+        return;
+    }
     GetWorld()->FlushLevelStreaming(EFlushLevelStreamingType::Full);
     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
     for (TActorIterator<APlayerStart> It(GetWorld()); It; ++It)
@@ -85,10 +91,22 @@ void AFPSGAMEGameMode::SpawnAfterStreaming(TWeakObjectPtr<AController> Player)
         RestartPlayerAtTransform(NewPlayer, FTransform(It->GetActorRotation(), Safe));
         if (NewPlayer->GetPawn())
         {
+            PendingSceneSpawns.Remove(Player);
             UE_LOG(LogTemp, Display, TEXT("SceneSpawn: Runtime spawn %s at %s"), *Map, *Safe.ToString());
             return;
         }
     }
+    // Seamless travel may restart the host before streamed runtime collision is
+    // registered. Keep the controller pending and retry the same safe queries.
+    // Never substitute an unchecked position or create duplicate retry chains.
+    if (++PendingSceneSpawns.FindOrAdd(Player) < 20)
+    {
+        FTimerHandle Handle;
+        GetWorldTimerManager().SetTimer(Handle, FTimerDelegate::CreateUObject(this,
+            &AFPSGAMEGameMode::SpawnAfterStreaming, Player), .5f, false);
+        return;
+    }
+    PendingSceneSpawns.Remove(Player);
     // Never let GameMode's no-start fallback place a character at world origin.
     UE_LOG(LogTemp, Error, TEXT("SceneSpawn: Spawn blocked in %s; no safe start. No pawn spawned."), *Map);
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 20.f, FColor::Red, TEXT("No safe spawn found. Return to editor and check PlayerStart/collision."));

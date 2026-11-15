@@ -1,0 +1,176 @@
+--- a/Source/FPSGAME/Monsters/WildlifeAnimal.cpp
++++ b/Source/FPSGAME/Monsters/WildlifeAnimal.cpp
+@@ -22,6 +22,7 @@
+ #include "Engine/SkeletalMesh.h"
+ #include "Engine/World.h"
+ #include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/GameStateBase.h"
+ #include "GameFramework/PlayerController.h"
+ #include "Kismet/GameplayStatics.h"
+ #include "Misc/FileHelper.h"
+@@ -222,6 +223,7 @@
+     DistanceActivity = CreateDefaultSubobject<UWildlifeDistanceActivity>(TEXT("WildlifeDistanceActivity"));
+     CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+     CorpseRagdoll = CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
++    CorpseRagdoll->bAllowClientPresentation = true;
+     CorpseRagdoll->Rig = EMonsterCorpseRig::Canine;
+     GetCapsuleComponent()->InitCapsuleSize(34.f, 60.f);
+     GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
+@@ -367,7 +369,8 @@
+     }
+     Animation()->bUseOwnerVelocity = true;
+     GetMesh()->AddTickPrerequisiteActor(this);
+-    EnterState(HasAuthority() ? EWildlifeState::Idle : State);
++    if (HasAuthority()) EnterState(EWildlifeState::Idle);
++    else OnRep_Presentation();
+ }
+ 
+ void AColdSteelAnimal::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+@@ -375,16 +378,40 @@
+     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+     DOREPLIFETIME(AColdSteelAnimal, Health);
+     DOREPLIFETIME(AColdSteelAnimal, MaxHealth);
+-    DOREPLIFETIME(AColdSteelAnimal, HitAction);
+-    DOREPLIFETIME(AColdSteelAnimal, State);
++    DOREPLIFETIME(AColdSteelAnimal, Presentation);
+     DOREPLIFETIME(AColdSteelAnimal, ReplicatedSpeciesId);
+ }
+ 
+-void AColdSteelAnimal::OnRep_State()
+-{
+-    if (IsDead()) DistanceActivity->LeaveForDeath();
+-    // Clients replay the same presentation entry the server used.
+-    if (!HasAuthority()) EnterState(State);
++double AColdSteelAnimal::PresentationClock() const
++{
++    const auto* GameState = GetWorld()->GetGameState();
++    return GameState ? GameState->GetServerWorldTimeSeconds() : GetWorld()->GetTimeSeconds();
++}
++
++void AColdSteelAnimal::OnRep_Presentation()
++{
++    // Initial replication can arrive before BeginPlay has bound the animation set.
++    if (HasAuthority() || !HasActorBegunPlay() || !Row || !Animation()) return;
++    HitAction = Presentation.HitAction;
++    EnterState(Presentation.State);
++    StateSeconds = FMath::Max(0., PresentationClock() - Presentation.StartedAt);
++    if (State == EWildlifeState::Hit)
++        SampleAction(HitAction, FMath::Min(StateSeconds, ClipLength(HitAction)));
++    else if (State == EWildlifeState::Attack || State == EWildlifeState::Dying)
++        TickPresentation(0.f);
++}
++
++void AColdSteelAnimal::ApplyDeadCollision()
++{
++    DistanceActivity->LeaveForDeath();
++    // Falling birds still need world collision to land, but never block a player.
++    GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
++    GetMesh()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
++    if (State != EWildlifeState::AirFall)
++    {
++        GetCharacterMovement()->DisableMovement();
++        GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    }
+ }
+ 
+ void AColdSteelAnimal::EnterState(EWildlifeState NewState)
+@@ -394,6 +421,15 @@
+         WildlifeAudio->Signal(EHillsAnimalSound::Alarm);
+     State = NewState;
+     StateSeconds = 0.f;
++    if (HasAuthority())
++    {
++        Presentation.State = State;
++        Presentation.HitAction = HitAction;
++        Presentation.StartedAt = PresentationClock();
++        ++Presentation.Revision;
++        ForceNetUpdate();
++    }
++    if (IsDead()) ApplyDeadCollision();
+     auto* Anim = Animation();
+     auto* Move = GetCharacterMovement();
+     const bool bLocomoting = InFlockFlight() || NewState == EWildlifeState::Wander || NewState == EWildlifeState::Flee || NewState == EWildlifeState::Chase;
+@@ -431,7 +467,7 @@
+         Anim->ResumeLocomotion(.12f);
+         break;
+     case EWildlifeState::Hit:
+-        if (!Anim->PlayTemplateAction(HitAction, false)) Anim->ResumeLocomotion(.1f);
++        if (!Anim->PlayTemplateAction(HitAction, !HasAuthority())) Anim->ResumeLocomotion(.1f);
+         break;
+     case EWildlifeState::Attack:
+         bAttackConsumed = false;
+@@ -446,7 +482,7 @@
+     case EWildlifeState::Land: Anim->PlayTemplateAction(TEXT("Land")); break;
+     case EWildlifeState::AirFall: Anim->PlayTemplateAction(TEXT("AirFall")); break;
+     case EWildlifeState::Corpse:
+-        if (!HasAuthority() && !CorpseRagdoll->WasAttempted())
++        if (!HasAuthority() && !CorpseRagdoll->WasAttempted() && !CorpseRagdoll->IsFrozen())
+         {
+             const float End = ClipLength(TEXT("Death"));
+             SampleAction(TEXT("Death"), Row->bUseRagdoll ? End * DeathAnimationFraction : End);
+@@ -480,18 +516,21 @@
+ 
+ void AColdSteelAnimal::TickPresentation(float DeltaSeconds)
+ {
+-    StateSeconds += DeltaSeconds;
++    StateSeconds = FMath::Max(0., PresentationClock() - Presentation.StartedAt);
+     if (State == EWildlifeState::Dying)
+     {
+         const float End = ClipLength(TEXT("Death"));
+-        const float Handoff = End * FMath::Clamp(DeathAnimationFraction, 0.f, 1.f);
+         SampleAction(TEXT("Death"), FMath::Min(StateSeconds, End));
+-        if (Row->bUseRagdoll && StateSeconds >= Handoff && !CorpseRagdoll->WasAttempted()) EnterRagdoll();
++        // Only the replicated Corpse transition starts client physics. Do not
++        // mutate the authoritative state locally while its packet is in flight.
++        CorpseRagdoll->RecordDeathPose(GetMesh(), DeltaSeconds, true);
+     }
+     else if (State == EWildlifeState::Attack)
+     {
+         SampleAction(TEXT("AttackBite"), FMath::Min(StateSeconds, ClipLength(TEXT("AttackBite"))));
+     }
++    else if (State == EWildlifeState::Hit)
++        SampleAction(HitAction, FMath::Min(StateSeconds, ClipLength(HitAction)));
+ }
+ 
+ bool AColdSteelAnimal::InFlockFlight() const
+@@ -736,7 +775,7 @@
+         {
+             SampleAction(TEXT("Death"), End);
+             CorpseRagdoll->FreezeAnimatedPose(GetMesh());
+-            State = EWildlifeState::Corpse;
++            EnterState(EWildlifeState::Corpse);
+         }
+         return;
+     }
+@@ -950,13 +989,10 @@
+ 
+ void AColdSteelAnimal::EnterRagdoll()
+ {
+-    if (State != EWildlifeState::Dying) return;
+-    if (CorpseRagdoll->Start(GetMesh())) State = EWildlifeState::Corpse;
+-    else
+-    {
++    if (!HasAuthority() || State != EWildlifeState::Dying) return;
++    if (!CorpseRagdoll->Start(GetMesh()))
+         CorpseRagdoll->FreezeAnimatedPose(GetMesh());
+-        State = EWildlifeState::Corpse;
+-    }
++    EnterState(EWildlifeState::Corpse);
+ }
+ 
+ void AColdSteelAnimal::LifeSpanExpired()
+@@ -972,6 +1008,14 @@
+     return DistanceActivity->IsDistancePaused();
+ }
+ 
++void AColdSteelAnimal::ResumeWildlifeStateClock()
++{
++    if (!HasAuthority()) return;
++    Presentation.StartedAt = PresentationClock() - StateSeconds;
++    ++Presentation.Revision;
++    ForceNetUpdate();
++}
++
+ void AColdSteelAnimal::EndPlay(const EEndPlayReason::Type Reason)
+ {
+     Target.Reset();

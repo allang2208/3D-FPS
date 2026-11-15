@@ -1,0 +1,67 @@
+{
+  "status": "audit_complete_with_explicit_remaining_scope",
+  "completed_at": "2026-11-15T14:57:34.700303+08:00",
+  "builds": {
+    "FPSGAME": {
+      "target": "FPSGAME",
+      "exit_code": 0,
+      "completed": "2026-11-15T14:52:24.0906907+08:00",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\ConversationAudit20261115/Logs/native-FPSGAME.log"
+    },
+    "FPSGAMEEditor": {
+      "target": "FPSGAMEEditor",
+      "exit_code": 0,
+      "completed": "2026-11-15T14:52:37.4667248+08:00",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\ConversationAudit20261115/Logs/native-FPSGAMEEditor.log"
+    }
+  },
+  "wire": {
+    "passed": true,
+    "requested_loss_percent_each_peer": 2,
+    "run": "D:\\FPS3D\\FPSGAME\\Saved\\ConversationAudit20261115\\Wire-final1",
+    "rendered": false,
+    "host_cases": 24,
+    "dll_sha256": "B9AF27E10D0F5FCDCDD8520D5119760BF204B1EBED38EFC6478E5F194A090251",
+    "requested_lag_ms_each_peer": 60,
+    "client_cases": 24
+  },
+  "fixes": [
+    "atomic action state/direction/time/revision",
+    "client death collision",
+    "client corpse presentation opt-in",
+    "distance pause clock compensation",
+    "wildlife wolf death fallback",
+    "outdated completion documentation"
+  ],
+  "asset_inventory": "inventory.json",
+  "not_completed_or_not_verified": [
+    "species trophies absent from active loot table",
+    "dedicated hills server unsupported",
+    "attack contact windows still design estimates",
+    "full-world RVT not implemented; local village only",
+    "runtime frozen proxies are ordinary static meshes, not Nanite",
+    "50-enemy performance not measured",
+    "actual multiplayer weapons/pickup/reconnect/travel and village/night/interior rendered acceptance not performed",
+    "wolf fallback compiled but not part of the 24-case wire run"
+  ],
+  "log_findings": [
+    "GameFeatureData asset manager rule absent",
+    "experimental editor toolset Python initialization errors in game-mode host"
+  ],
+  "files": {
+    "Source/FPSGAME/Monsters/WildlifeAnimal.h": "72ff24db270c39c6fb415587ac3e6549944778dd3ae99a55089416ae54fa5757",
+    "Source/FPSGAME/Monsters/WildlifeAnimal.cpp": "f130d979d425c33f443e864f1c88e67fd6cb9da5dc68b9dc144b23a88eee4dca",
+    "Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.h": "90aef1019698339bfb2222a0c00f1ac1083ad7996bdf1cdb7c08908c86d4b4cc",
+    "Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.cpp": "cc40d3d99c73028348d8f1bf1de80fc6e4d83a3a4675badde37fa7b9aaf8054c",
+    "Source/FPSGAME/Monsters/WildlifeDistanceActivity.cpp": "784f086c4625dd7fc343cb666eaf0d32d9d8657b97fdbb05b975c67e7d792e1e",
+    "Source/FPSGAME/Monsters/WolfMonster.cpp": "7506a79129c7cd4aa0619d54901f7b7c5e7233f238116131e8a38212a7dc304d",
+    "Source/FPSGAME/Development/WildlifeWireAudit.h": "51f9524887781e481115ebd8177a6e0431baafbb21d56e0ca118fa27841952a7",
+    "Source/FPSGAME/Development/WildlifeWireAudit.cpp": "0ad858957e19eb4b039f529534b16db3e3e5621261e8d9503478cffb39f924f2",
+    "Tools/Wildlife/run_wire_audit.ps1": "89609c3df995c52987268ed0aed5b76ab382f3127eed7b89dbe9c7713eec3d49",
+    "Docs/Monsters/wildlife-integration-20261022.md": "0ea80c5245cfec079c54c9e918ccf817d775ec77231a6a26b67d75e599f59dd8",
+    "Docs/WorldGeneration/conversation-audit-20261115.md": "d90817c5cbabeb79064a4cd083cd8e4adc4dcf18f7ae7e19fa312581f86e48e2"
+  },
+  "user_editor_started": false,
+  "world_assets_modified_this_audit": false,
+  "user_saves_modified": false
+}

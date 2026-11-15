@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Monsters/WildlifeDistanceActivity.cpp
++++ b/Source/FPSGAME/Monsters/WildlifeDistanceActivity.cpp
+@@ -112,6 +112,7 @@
+         if (bRestoreActorTick) Animal->SetActorTickEnabled(true);
+         if (Animal->HasAuthority())
+         {
++            if (auto* WildlifeAnimal = Cast<AColdSteelAnimal>(Animal)) WildlifeAnimal->ResumeWildlifeStateClock();
+             if (auto* Wolf = Cast<AWolfMonster>(Animal)) Wolf->ResumeWildlifeStateClock();
+             ResumeAI();
+         }

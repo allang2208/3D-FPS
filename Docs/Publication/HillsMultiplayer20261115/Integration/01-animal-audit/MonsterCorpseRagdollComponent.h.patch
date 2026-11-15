@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.h
++++ b/Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.h
+@@ -35,6 +35,8 @@
+     bool Start(USkeletalMeshComponent* Mesh, const FVector& ImpactVelocity = FVector::ZeroVector, bool bKeepCurrentPose = false);
+     bool WasAttempted() const { return bAttempted; }
+     bool IsFrozen() const { return bFrozen; }
++    /** Opt-in local corpse visuals; never grants damage, loot or lifetime authority. */
++    bool bAllowClientPresentation = false;
+     void FreezeAnimatedPose(USkeletalMeshComponent* Mesh);
+     int32 SimulatedBodyCount() const { return bSimulating ? PhysicsBodyCount : 0; }
+     bool CanReleaseCorpseBudget() const;

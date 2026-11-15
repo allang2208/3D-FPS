@@ -1,0 +1,70 @@
+--- a/Source/FPSGAME/Monsters/WildlifeAnimal.h
++++ b/Source/FPSGAME/Monsters/WildlifeAnimal.h
+@@ -122,6 +122,17 @@
+ enum class EWildlifeState : uint8 { Idle, Graze, Alert, Wander, Flee, Chase, Attack, Hit, Dying, Corpse,
+     TakeOff, Fly, Glide, Land, AirFall, HerdForage };
+ 
++/** One replicated action, including repeated hits and the authoritative clock. */
++USTRUCT()
++struct FWildlifePresentationState
++{
++    GENERATED_BODY()
++    UPROPERTY() EWildlifeState State = EWildlifeState::Idle;
++    UPROPERTY() FName HitAction = NAME_None;
++    UPROPERTY() double StartedAt = 0.;
++    UPROPERTY() uint32 Revision = 0;
++};
++
+ UCLASS()
+ class FPSGAME_API UWildlifeGunDamage : public UDamageType
+ {
+@@ -129,8 +140,8 @@
+ };
+ 
+ /**
+- * Ambient animal: grazes, wanders, flees or retaliates, dies into a harvestable
+- * corpse. Behaviour runs on the authority only; clients replay presentation.
++ * Ambient animal with server-owned behaviour, ground loot and a timed corpse.
++ * Clients replay presentation; they never decide hits, rewards or cleanup.
+  */
+ UCLASS(Blueprintable)
+ class FPSGAME_API AColdSteelAnimal : public ACharacter
+@@ -146,7 +157,7 @@
+ 
+     UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Wildlife") float Health = 100.f;
+     UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Wildlife") float MaxHealth = 100.f;
+-    UPROPERTY(ReplicatedUsing=OnRep_State, VisibleAnywhere, BlueprintReadOnly, Category="Wildlife") EWildlifeState State = EWildlifeState::Idle;
++    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wildlife") EWildlifeState State = EWildlifeState::Idle;
+ 
+     virtual void OnConstruction(const FTransform& Transform) override;
+     virtual void PostInitializeComponents() override;
+@@ -160,6 +171,7 @@
+     UFUNCTION(BlueprintPure, Category="Wildlife") bool IsDead() const { return State == EWildlifeState::Dying || State == EWildlifeState::Corpse || State == EWildlifeState::AirFall; }
+     const FWildlifeSpecies* Species() const { return Row; }
+     bool IsDistancePaused() const;
++    void ResumeWildlifeStateClock();
+     void SetHerdOrder(const FVector& Waypoint, bool bAtSlot, bool bRun, bool bPanic);
+     void SetFlightOrder(const FVector& Waypoint, EWildlifeState Phase, bool bAlarm);
+     bool InFlockFlight() const;
+@@ -182,7 +194,11 @@
+     UPROPERTY(Replicated)
+     FString ReplicatedSpeciesId;
+ 
+-    UFUNCTION() void OnRep_State();
++    UPROPERTY(ReplicatedUsing=OnRep_Presentation) FWildlifePresentationState Presentation;
++    UFUNCTION() void OnRep_Presentation();
++    double PresentationClock() const;
++    void ApplyDeadCollision();
++    friend struct FWildlifeWireAuditAccess;
+     UFUNCTION() void OnHillsNoise(AActor* Source, FAIStimulus Stimulus);
+     UFUNCTION(NetMulticast, Unreliable) void MulticastModelHit(FName Bone, FVector_NetQuantize Point,
+         FVector_NetQuantizeNormal Direction, float Applied);
+@@ -222,7 +238,7 @@
+     float AttackCooldownLeft = 0.f;
+     float StuckSeconds = 0.f;
+     float HitSeconds = 0.f;
+-    UPROPERTY(Replicated) FName HitAction = NAME_None;
++    FName HitAction = NAME_None;
+     FVector ThreatPosition = FVector::ZeroVector;
+     double ThreatUntil = -1.;
+     double NextEscapeStep = 0.;

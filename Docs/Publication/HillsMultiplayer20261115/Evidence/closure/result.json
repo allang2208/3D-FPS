@@ -1,0 +1,216 @@
+{
+	"passed": true,
+	"checks": [
+		{
+			"case": "client_real_hills_preparation",
+			"passed": true,
+			"detail": "real client hills ready and initial asset compilation idle"
+		},
+		{
+			"case": "wolf_alive_replica",
+			"passed": true,
+			"detail": "wolf health=220.00 state=0"
+		},
+		{
+			"case": "wolf_right_hit_replica",
+			"passed": true,
+			"detail": "health=204.00 action=HitRight revision=2 started=76.8070 expected_after=76.8070"
+		},
+		{
+			"case": "wolf_left_hit_replica",
+			"passed": true,
+			"detail": "health=196.00 action=HitLeft revision=4 started=77.1408 expected_after=77.1408"
+		},
+		{
+			"case": "wolf_repeated_left_hit_replica",
+			"passed": true,
+			"detail": "health=188.00 action=HitLeft revision=6 started=77.4749 expected_after=77.4749"
+		},
+		{
+			"case": "wolf_authority_flee_movement_replica",
+			"passed": true,
+			"detail": "authority flee replicated; displacement=54.1"
+		},
+		{
+			"case": "wolf_corpse_presentation_collision",
+			"passed": true,
+			"detail": "state=8 age=0.000 corpse=1 frozen=0"
+		},
+		{
+			"case": "wolf_cleanup_5s",
+			"passed": true,
+			"detail": "elapsed 5.007"
+		},
+		{
+			"case": "wolf_shared_loot",
+			"passed": true,
+			"detail": "raw meat=2"
+		},
+		{
+			"case": "wolf_destroy_replicated",
+			"passed": true,
+			"detail": "previously observed wolf actor destruction observed"
+		},
+		{
+			"case": "prepare_drop_10",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "race_first_client_receipt",
+			"passed": true,
+			"detail": "已保存"
+		},
+		{
+			"case": "two_player_single_award_1",
+			"passed": true,
+			"detail": "host=1 guest=0 expected_total=1"
+		},
+		{
+			"case": "prepare_drop_11",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "race_second_client_receipt",
+			"passed": true,
+			"detail": "已保存"
+		},
+		{
+			"case": "two_player_single_award_2",
+			"passed": true,
+			"detail": "host=3 guest=0 expected_total=3"
+		},
+		{
+			"case": "prepare_drop_12",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "guest_pickup_receipt",
+			"passed": true,
+			"detail": "已保存"
+		},
+		{
+			"case": "owner_shadow_match",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "client_profile_saved_before_disconnect",
+			"passed": true,
+			"detail": "514A6F114F6D98ED68EB4DB747225B84"
+		},
+		{
+			"case": "original_durable_identity",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "production_logout_after_process_disconnect",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "same_profile_reconnect_owner",
+			"passed": true,
+			"detail": "514A6F114F6D98ED68EB4DB747225B84"
+		},
+		{
+			"case": "reconnect_authority_inventory",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "guest_outside_host_inside",
+			"passed": true,
+			"detail": "local eye=X=-37794.646 Y=-1968.911 Z=7993.496 exposure_boost=0.0000"
+		},
+		{
+			"case": "host_inside_independent",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "guest_inside_host_outside",
+			"passed": true,
+			"detail": "local eye=X=-36573.514 Y=-1821.473 Z=7993.496 exposure_boost=1.0000"
+		},
+		{
+			"case": "host_outside_independent",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "all_client_rooms_feathering",
+			"passed": true,
+			"detail": "{\r\n\t\"rooms\": 8,\r\n\t\"samples\": [\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_0\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.0032592597417533398,\r\n\t\t\t\t0.028000000864267349,\r\n\t\t\t\t0.07407408207654953,\r\n\t\t\t\t0.13792592287063599,\r\n\t\t\t\t0.2160000205039978,\r\n\t\t\t\t0.30474072694778442,\r\n\t\t\t\t0.40059259533882141,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.59940743446350098,\r\n\t\t\t\t0.6952592134475708,\r\n\t\t\t\t0.7839999794960022,\r\n\t\t\t\t0.86207401752471924,\r\n\t\t\t\t0.92592591047286987,\r\n\t\t\t\t0.97199994325637817,\r\n\t\t\t\t0.99674069881439209,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_0\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_1\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_2\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_3\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_4\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00017880002269521356,\r\n\t\t\t\t0.010905602015554905,\r\n\t\t\t\t0.03645000234246254,\r\n\t\t\t\t0.074342399835586548,\r\n\t\t\t\t0.12211320549249649,\r\n\t\t\t\t0.17729280889034271,\r\n\t\t\t\t0.23741160333156586,\r\n\t\t\t\t0.30000001192092896,\r\n\t\t\t\t0.36258843541145325,\r\n\t\t\t\t0.42270725965499878,\r\n\t\t\t\t0.47788679599761963,\r\n\t\t\t\t0.52565759420394897,\r\n\t\t\t\t0.56354999542236328,\r\n\t\t\t\t0.58909440040588379,\r\n\t\t\t\t0.59982126951217651,\r\n\t\t\t\t0.60000002384185791,\r\n\t\t\t\t0.60000002384185791,\r\n\t\t\t\t0.60000002384185791\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_5\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_6\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t}\r\n\t]\r\n}"
+		},
+		{
+			"case": "all_host_rooms_feathering",
+			"passed": true,
+			"detail": "{\r\n\t\"rooms\": 8,\r\n\t\"samples\": [\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_0\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.0032592597417533398,\r\n\t\t\t\t0.028000000864267349,\r\n\t\t\t\t0.07407408207654953,\r\n\t\t\t\t0.13792592287063599,\r\n\t\t\t\t0.2160000205039978,\r\n\t\t\t\t0.30474072694778442,\r\n\t\t\t\t0.40059259533882141,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.59940743446350098,\r\n\t\t\t\t0.6952592134475708,\r\n\t\t\t\t0.7839999794960022,\r\n\t\t\t\t0.86207401752471924,\r\n\t\t\t\t0.92592591047286987,\r\n\t\t\t\t0.97199994325637817,\r\n\t\t\t\t0.99674069881439209,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_0\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_1\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_2\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_3\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_4\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00017880002269521356,\r\n\t\t\t\t0.010905602015554905,\r\n\t\t\t\t0.03645000234246254,\r\n\t\t\t\t0.074342399835586548,\r\n\t\t\t\t0.12211320549249649,\r\n\t\t\t\t0.17729280889034271,\r\n\t\t\t\t0.23741160333156586,\r\n\t\t\t\t0.30000001192092896,\r\n\t\t\t\t0.36258843541145325,\r\n\t\t\t\t0.42270725965499878,\r\n\t\t\t\t0.47788679599761963,\r\n\t\t\t\t0.52565759420394897,\r\n\t\t\t\t0.56354999542236328,\r\n\t\t\t\t0.58909440040588379,\r\n\t\t\t\t0.59982126951217651,\r\n\t\t\t\t0.60000002384185791,\r\n\t\t\t\t0.60000002384185791,\r\n\t\t\t\t0.60000002384185791\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_5\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"room\": \"BuildingDaylight_6\",\r\n\t\t\t\"entry_exit_stops\": [\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0,\r\n\t\t\t\t0.00029800002812407911,\r\n\t\t\t\t0.0181760024279356,\r\n\t\t\t\t0.060750003904104233,\r\n\t\t\t\t0.12390399724245071,\r\n\t\t\t\t0.20352199673652649,\r\n\t\t\t\t0.29548799991607666,\r\n\t\t\t\t0.39568600058555603,\r\n\t\t\t\t0.5,\r\n\t\t\t\t0.60431402921676636,\r\n\t\t\t\t0.70451205968856812,\r\n\t\t\t\t0.79647797346115112,\r\n\t\t\t\t0.87609595060348511,\r\n\t\t\t\t0.93924999237060547,\r\n\t\t\t\t0.98182398080825806,\r\n\t\t\t\t0.99970203638076782,\r\n\t\t\t\t1,\r\n\t\t\t\t1,\r\n\t\t\t\t1\r\n\t\t\t]\r\n\t\t}\r\n\t]\r\n}"
+		},
+		{
+			"case": "chapel_guest_open_rpc",
+			"passed": true,
+			"detail": "production door interaction RPC and replicated state"
+		},
+		{
+			"case": "chapel_open_capsule_passage",
+			"passed": true,
+			"detail": "clear"
+		},
+		{
+			"case": "chapel_close_replicated",
+			"passed": true,
+			"detail": "production door interaction RPC and replicated state"
+		},
+		{
+			"case": "prepare_drop_99",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "team_travel_request_out",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "travel_out_profile_no_animals",
+			"passed": true,
+			"detail": "outside hills wildlife=0"
+		},
+		{
+			"case": "hub_no_authority_wildlife",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "outgoing_guest_profile",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "team_travel_request_return",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "return_same_world_unclaimed_drop_no_duplication",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "return_authority_profiles",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "return_owner_profile",
+			"passed": true,
+			"detail": "514A6F114F6D98ED68EB4DB747225B84"
+		}
+	],
+	"scope": "Production hills, controllers, inventory RPCs, forced process disconnect, same profile reconnect, production team portal travel; NullRHI per-view blendable composition, no rendered visual acceptance."
+}

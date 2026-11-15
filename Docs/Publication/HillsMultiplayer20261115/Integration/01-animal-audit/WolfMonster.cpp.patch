@@ -1,0 +1,56 @@
+--- a/Source/FPSGAME/Monsters/WolfMonster.cpp
++++ b/Source/FPSGAME/Monsters/WolfMonster.cpp
+@@ -115,6 +115,7 @@
+ void AWolfMonster::PostInitializeComponents()
+ {
+     bWildlifeWolf = UWildlifeSubsystem::IsWildlifeMap(GetWorld()) && UWildlifeSubsystem::IsCatalogClass(FSoftObjectPath(GetClass()));
++    CorpseRagdoll->bAllowClientPresentation = bWildlifeWolf;
+     Super::PostInitializeComponents();
+     UWorld* World = GetWorld();
+     if (!World->IsGameWorld() || !HasAuthority() || UWildlifeSubsystem::IsWildlifeMap(World)) return;
+@@ -237,6 +238,13 @@
+ {
+     if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
+     State = NewState; StateSeconds = 0.f;
++    if (Dead() && bWildlifeWolf)
++    {
++        DistanceActivity->LeaveForDeath();
++        GetCharacterMovement()->DisableMovement();
++        GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        GetMesh()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
++    }
+     if (Dead()) OnDeathPresentationStarted();
+     // A replicated handoff may arrive before the client's last lead-in frame.
+     // Capture the same authored pose before hiding the live mesh.
+@@ -244,6 +252,17 @@
+         SampleAction(TEXT("Death"), SoftDeathLeadSeconds);
+     if ((State == EWolfState::Ragdoll || (State == EWolfState::Dying && SoftDeathLeadSeconds <= 0.f))
+         && CorpseRagdoll->TryStartSoftDeath(GetMesh())) return;
++    // Wildlife can fall back to the authored physics asset when no soft-body
++    // binding is present. Remote corpses must also complete that presentation.
++    if (!HasAuthority() && bWildlifeWolf && State == EWolfState::Ragdoll)
++    {
++        if (!CorpseRagdoll->WasAttempted() && !CorpseRagdoll->IsFrozen())
++        {
++            SampleAction(TEXT("Death"), ClipLength(TEXT("Death")) * (bUseRagdoll ? DeathAnimationFraction : 1.f));
++            if (!bUseRagdoll || !CorpseRagdoll->Start(GetMesh())) CorpseRagdoll->FreezeAnimatedPose(GetMesh());
++        }
++        return;
++    }
+     const bool Moving = State == EWolfState::Chase || State == EWolfState::Returning || State == EWolfState::Flee;
+     GetCharacterMovement()->bOrientRotationToMovement = Moving;
+     GetCharacterMovement()->MaxWalkSpeed = State == EWolfState::Returning ? WalkSpeed : ChaseSpeed;
+@@ -478,7 +497,12 @@
+                 SampleAction(Action,FMath::Min(T,ClipLength(Action)));
+             }
+         }
+-        if (State == EWolfState::Dying && SoftDeathLeadSeconds > 0.f)
++        if (State == EWolfState::Dying && bWildlifeWolf && !CorpseRagdoll->HasSoftDeath())
++        {
++            SampleAction(TEXT("Death"), FMath::Min(StateSeconds, ClipLength(TEXT("Death"))));
++            CorpseRagdoll->RecordDeathPose(GetMesh(), DeltaSeconds, true);
++        }
++        else if (State == EWolfState::Dying && SoftDeathLeadSeconds > 0.f)
+         {
+             StateSeconds = FMath::Min(SoftDeathLeadSeconds, StateSeconds + FMath::Max(0.f, DeltaSeconds));
+             SampleAction(TEXT("Death"), StateSeconds);

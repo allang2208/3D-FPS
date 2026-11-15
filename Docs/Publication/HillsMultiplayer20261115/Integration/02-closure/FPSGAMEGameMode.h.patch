@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/FPSGAMEGameMode.h
++++ b/Source/FPSGAME/FPSGAMEGameMode.h
+@@ -19,6 +19,7 @@
+     virtual void BeginPlay() override;
+ private:
+     FString ServerPassword;
++    TMap<TWeakObjectPtr<AController>, uint8> PendingSceneSpawns;
+     void SpawnAfterStreaming(TWeakObjectPtr<AController> Player);
+     void TryInstallHillsPortal();
+ };

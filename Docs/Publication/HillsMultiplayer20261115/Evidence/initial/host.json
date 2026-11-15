@@ -1,0 +1,127 @@
+{
+	"passed": true,
+	"role": "host",
+	"scope": "Real UDP animal presentation, repeated hit, initial corpse state, death collision and 5s cleanup. Direct server stimuli; no weapon/AI/loot or render acceptance.",
+	"cases": [
+		{
+			"case": 0,
+			"passed": true,
+			"details": "state=0 revision=1 expected=1 age=0.988 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 1,
+			"passed": true,
+			"details": "state=7 revision=2 expected=2 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 2,
+			"passed": true,
+			"details": "state=7 revision=3 expected=3 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 3,
+			"passed": true,
+			"details": "state=7 revision=4 expected=4 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 4,
+			"passed": true,
+			"details": "state=8 revision=5 expected=5 age=0.000 capsule=0 bodies=0 frozen=0"
+		},
+		{
+			"case": 5,
+			"passed": true,
+			"details": "state=9 revision=6 expected=6 age=0.000 capsule=0 bodies=27 frozen=0"
+		},
+		{
+			"case": 6,
+			"passed": true,
+			"details": "server-destroyed corpse no longer exists on client"
+		},
+		{
+			"case": 7,
+			"passed": true,
+			"details": "state=9 revision=3 expected=3 age=1.124 capsule=0 bodies=27 frozen=0"
+		},
+		{
+			"case": 8,
+			"passed": true,
+			"details": "state=0 revision=1 expected=1 age=0.159 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 9,
+			"passed": true,
+			"details": "state=7 revision=2 expected=2 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 10,
+			"passed": true,
+			"details": "state=7 revision=3 expected=3 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 11,
+			"passed": true,
+			"details": "state=7 revision=4 expected=4 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 12,
+			"passed": true,
+			"details": "state=8 revision=5 expected=5 age=0.000 capsule=0 bodies=0 frozen=0"
+		},
+		{
+			"case": 13,
+			"passed": true,
+			"details": "state=9 revision=6 expected=6 age=0.000 capsule=0 bodies=30 frozen=0"
+		},
+		{
+			"case": 14,
+			"passed": true,
+			"details": "server-destroyed corpse no longer exists on client"
+		},
+		{
+			"case": 15,
+			"passed": true,
+			"details": "state=9 revision=3 expected=3 age=1.172 capsule=0 bodies=30 frozen=0"
+		},
+		{
+			"case": 16,
+			"passed": true,
+			"details": "state=0 revision=1 expected=1 age=0.105 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 17,
+			"passed": true,
+			"details": "state=11 revision=2 expected=2 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 18,
+			"passed": true,
+			"details": "state=12 revision=3 expected=3 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 19,
+			"passed": true,
+			"details": "state=12 revision=4 expected=4 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 20,
+			"passed": true,
+			"details": "state=14 revision=6 expected=6 age=0.000 capsule=3 bodies=0 frozen=0"
+		},
+		{
+			"case": 21,
+			"passed": true,
+			"details": "state=9 revision=8 expected=8 age=0.000 capsule=0 bodies=0 frozen=1"
+		},
+		{
+			"case": 22,
+			"passed": true,
+			"details": "server-destroyed corpse no longer exists on client"
+		},
+		{
+			"case": 23,
+			"passed": true,
+			"details": "state=9 revision=3 expected=3 age=1.181 capsule=0 bodies=0 frozen=1"
+		}
+	]
+}
