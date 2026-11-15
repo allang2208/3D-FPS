@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsRiver.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsRiver.cpp
+@@ -44,9 +44,11 @@
+ };
+ }
+ 
+-FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankReliefCm, int32 Version)
++FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankReliefCm, int32 Version,
++    const TemperateEcology::FProfile& Ecology)
+ {
+     auto Plan = MakeShared<FPlan, ESPMode::ThreadSafe>();
++    Plan->Ecology = Ecology;
+     Plan->BankReliefCm=FMath::Clamp(BankReliefCm,0.0,40.0);
+     Plan->GenerationVersion=Version;
+     constexpr double Grid = 1600;

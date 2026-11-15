@@ -39,7 +39,21 @@ def custom(mat,key,code,inputs,width=1):
     for name,value in inputs.items():wire(value,n,name)
     return n
 
-def common(mat,collection_path=MPC):
+def biome_region(mat, source):
+    if source=='ground':
+        habitat=node(mat,u.MaterialExpressionTextureCoordinate,'HabitatUV')
+        habitat.set_editor_property('coordinate_index',1)
+        return custom(mat,'RegionMask','return saturate(Habitat.x);',{'Habitat':habitat})
+    if source=='grass':
+        weight=node(mat,u.MaterialExpressionPerInstanceCustomData,'GrassBiomeWeight')
+        weight.set_editor_property('data_index',0)
+        weight.set_editor_property('const_default_value',0.)
+        interpolated=node(mat,u.MaterialExpressionVertexInterpolator,'GrassBiomeInterpolated')
+        wire(weight,interpolated,'')
+        return custom(mat,'RegionMask','return saturate(Weight);',{'Weight':interpolated})
+    raise ValueError(source)
+
+def common(mat,collection_path=MPC,region_source=None):
     collection=u.load_asset(collection_path)
     if not collection:raise RuntimeError('Missing existing forest wind MPC')
     def vector(name):
@@ -49,8 +63,7 @@ def common(mat,collection_path=MPC):
     p=node(mat,u.MaterialExpressionWorldPosition,'WorldPosition')
     p.set_editor_property('world_position_shader_offset',u.WorldPositionIncludedOffsets.WPT_EXCLUDE_ALL_SHADER_OFFSETS)
     weather=vector('RainforestWeather')
-    region=custom(mat,'RegionMask',(DATA/'RainforestMask.hlsl').read_text(),
-        {'P':p,'Region':vector('RainforestRegion'),'Control':vector('RainforestControl')})
+    region=biome_region(mat,region_source) if region_source else None
     return p,weather,region
 
 def rain(mat,p,weather):
@@ -84,7 +97,7 @@ def anchor(mat,name,key):
 def apply_grass(mat):
     # PN wind + bending already consume both allowed collection slots. Reuse
     # the existing wind collection, as the existing grass interaction does.
-    p,weather,region=common(mat,GRASS_MPC)
+    p,weather,region=common(mat,GRASS_MPC,'grass')
     for name in ('BASE_COLOR','SUBSURFACE_COLOR'):
         mark='TemperateDryMeadow_'+name
         n=next((n for n in L.get_material_expressions(mat) if str(n.get_editor_property('desc'))==mark),None)
@@ -112,7 +125,7 @@ return lerp(meadow,green,saturate(Forest));
         {'Base':rough,'Weather':weather,'Forest':region}))
 
 def apply_ground(mat,outputs=None):
-    p,weather,region=common(mat)
+    p,weather,region=common(mat,region_source='ground')
     # Recolour only the grass family before soil, pebbles and scanned leaf litter
     # are composited; the forest floor must not become uniformly green mud.
     color=next((n for n in L.get_material_expressions(mat) if str(n.get_editor_property('desc'))=='GroundBaseColor'),None)

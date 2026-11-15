@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsRiverEcology.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsRiverEcology.cpp
+@@ -31,7 +31,7 @@
+         FMath::Max(Bounds.Max.X-Bounds.Min.X,Bounds.Max.Y-Bounds.Min.Y)))return;
+     using namespace TemperateHillsSurface;
+     using HillsRiverEcology::Smooth;
+-    const auto& Ecology=TemperateEcology::Get();
++    const auto& Ecology=EcologyProfile();
+     const double Half=SizeMeters*50-500;
+     const FVector2D Start(GetStartLocation());
+     for(int32 Zone=0;Zone<4;++Zone)
+@@ -111,7 +111,7 @@
+         FMath::Max(Bounds.Max.X-Bounds.Min.X,Bounds.Max.Y-Bounds.Min.Y)))return;
+     using namespace TemperateHillsSurface;
+     using HillsRiverEcology::Smooth;
+-    const auto& Rule=TemperateEcology::Get().RiverShrubs;
++    const auto& Rule=EcologyProfile().RiverShrubs;
+     if(Rule.Density<=0)return;
+     constexpr double Tile=650;
+     const double Half=SizeMeters*50-500;

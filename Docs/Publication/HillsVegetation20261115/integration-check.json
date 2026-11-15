@@ -1,0 +1,8 @@
+{
+  "scope": "publication patch replay only, not engine/game testing",
+  "patches": 16,
+  "git_apply_check": true,
+  "result_hashes_match": true,
+  "baseline": "owned changes reversed from the full local host; not public HEAD",
+  "checked_utc": "2026-11-15T12:18:43.649Z"
+}

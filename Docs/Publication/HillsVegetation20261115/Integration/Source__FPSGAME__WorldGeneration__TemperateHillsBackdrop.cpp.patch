@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.cpp
+@@ -111,7 +111,7 @@
+     {
+         const double WX=((X+.5)/ColorSize*2-1)*OuterHalf,WY=((Y+.5)/ColorSize*2-1)*OuterHalf;
+         const double Region=River?River->RainforestWeight(WX,WY):0.;
+-        const double Forest=TemperateForestHabitat::Canopy(WX,WY,Seed,Region);
++        const double Forest=TemperateForestHabitat::Canopy(WX,WY,Seed,Region, River ? River->Ecology : TemperateEcology::FProfile{});
+         const double Patch=TemperateHillsSurface::Noise(WX*.00035,WY*.00035,Seed,1711)*.5+.5;
+         FLinearColor Color=FMath::Lerp(FLinearColor(.24f,.205f,.125f),FLinearColor(.105f,.135f,.09f),float(Forest*.8));
+         Color=FMath::Lerp(Color,FLinearColor(.23f,.22f,.18f),float(Patch*.24));
+@@ -127,7 +127,7 @@
+                 FMath::Lerp(FVector(Normals->GetElement(A)),FVector(Normals->GetElement(A+1)),U-IX),
+                 FMath::Lerp(FVector(Normals->GetElement(A+Grid+1)),FVector(Normals->GetElement(A+Grid+2)),U-IX),
+                 V-IY).GetSafeNormal();
+-            const auto Site=TemperateForestHabitat::Upland(N,Forest,TemperateForestHabitat::Moisture(WX,WY,Seed,Region),Region);
++            const auto Site=TemperateForestHabitat::Upland(N,Forest,TemperateForestHabitat::Moisture(WX,WY,Seed,Region, River ? River->Ecology : TemperateEcology::FProfile{}),Region, River ? River->Ecology : TemperateEcology::FProfile{});
+             const auto Bank=River?River->Sample(WX,WY):TemperateRiver::FSample();
+             const double Verge=TemperateForestHabitat::UplandSurfaceWeight(FMath::Abs(WY-TemperateHillsSurface::ValleyY(WX,Seed)),Bank.Bank,N.Z);
+             const double Meadow=Verge*Site.Meadow, Stony=Verge*Site.Stony, Total=Meadow+Stony;
+@@ -155,7 +155,7 @@
+             const double Y=(GY+.2+TemperateHillsSurface::Unit(K+2)*.6)*Spacing;
+             const double M=FMath::Max(FMath::Abs(X),FMath::Abs(Y));
+             if(M<Inner||M>Outer)continue;
+-            const double Forest=TemperateForestHabitat::Canopy(X,Y,Seed,0.);
++            const double Forest=TemperateForestHabitat::Canopy(X,Y,Seed,0., River ? River->Ecology : TemperateEcology::FProfile{});
+             if(TemperateHillsSurface::Unit(K+3)>Forest*.55)continue;
+             // Sink trunks under the ridge shell; only crowns need to poke out.
+             const double Z=Height(X,Y,Half,Seed,River,Version,Village)-500;

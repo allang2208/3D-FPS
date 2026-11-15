@@ -1,14 +1,20 @@
-"""Assign the existing Project Nature flower meshes to the local forest clearings."""
+"""Assign the shared meadow and forest-clearing flower families."""
 import unreal as u
 
 
 DATA = '/Game/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming'
 FLOWERS = '/Game/PN_FoliageCollection/Meshes/flowerMesh'
+FAMILIES = (
+    ('04_02', '04_03', '04_04'),
+    ('02_01', '02_03', '02_04'),
+    ('01_01', '01_02'),  # Village meadow flower and a second growth form.
+    ('03_02', '03_01'),  # The other flower used by AbandonedVillage/author_village.py.
+)
 
 
 def assign_clearing_flowers(assets):
     families = []
-    for names in (('04_02', '04_03', '04_04'), ('02_01', '02_03', '02_04')):
+    for names in FAMILIES:
         variants = []
         for name in names:
             path = f'{FLOWERS}/flower_{name}'
@@ -31,4 +37,4 @@ if __name__ == '__main__':
     assign_clearing_flowers(assets)
     if not u.EditorAssetLibrary.save_loaded_asset(assets, False):
         raise RuntimeError(f'Unable to save {DATA}')
-    u.log(f'CLEARING_FLOWERS_SAVED {DATA} families=2 variants=6')
+    u.log(f'CLEARING_FLOWERS_SAVED {DATA} families={len(FAMILIES)} variants={sum(map(len, FAMILIES))}')

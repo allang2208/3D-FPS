@@ -1,0 +1,42 @@
+{
+  "capture": "D:/FPS3D/FPSGAME/Saved/PerformanceReports/gpu-BACED94D43A8A8B8E5DA3C9D23F76889",
+  "duration_seconds": 12.274960398674011,
+  "files_finalized": true,
+  "stop_reason": "etw_file_size_limit",
+  "frame_window_overlap_seconds": 0,
+  "memory_in_capture": {
+    "samples": 23,
+    "min_used_mib": 8725.1328125,
+    "max_used_mib": 8957.23828125,
+    "max_over_budget_bytes": 0
+  },
+  "vegetation": {
+    "tracked": 1285,
+    "destroyed": 220,
+    "events": {
+      "pcg_generated": 118,
+      "render_dirty": 287,
+      "pcg_start": 176,
+      "pcg_cancelled": 75
+    },
+    "mature_tree_components_destroyed": 7
+  },
+  "root_cause": "Streamed hills DynamicMesh SetMesh emits editor property notifications in PIE; PCG interprets owned mesh submissions as owner changes and refreshes all hills layers.",
+  "fix": "Scope native PCG change-origin ignore to each synchronous ground/pond/river SetMesh call.",
+  "runtime_validation": "not_run",
+  "build_status": "succeeded_production_editor_dll_contains_fix",
+  "build_receipt": {
+    "target": "FPSGAMEEditor Win64 Development",
+    "build_log": "D:\\FPS3D\\FPSGAME\\Saved\\HillsF6Audit20261115B\\Editor-shared-build.log",
+    "build_succeeded": true,
+    "fix_unit_compiled": true,
+    "source_sha256": "0209DC79188261AAE2A8F38811C76E9CCFBAB20701FB02657D93D52DAD4086AE",
+    "source_unchanged_since_build_queued": true,
+    "dll_path": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+    "dll_size": 46775296,
+    "dll_sha256": "CF135A3F20A3A4C9A7C886FF80FC8CCDBC4BD1968C694E4CA52F22D69F071FBA",
+    "dll_modified_utc": "2026-11-15T04:03:17.208524+00:00",
+    "dll_contains_fix_trace_marker": true,
+    "runtime_validation": "not_run"
+  }
+}

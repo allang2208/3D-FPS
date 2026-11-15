@@ -26,3 +26,7 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 ## 丘陵生产地图联机检查
 
 共享拾取、同档重连、真实队伍换图、NullRHI 准备与室内视图证据，读取 [丘陵联机生命周期检查](references/hills-network-lifecycle.md)。仅在用户明确要求相应检查时运行。
+
+## 静止时植被整模型闪灭
+
+树与草已生成却原地周期性消失时，读 [PCG 属性通知导致的重建](references/pcg-property-change-flicker.md)，先区分组件销毁与漏绘。

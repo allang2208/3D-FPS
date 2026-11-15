@@ -1,0 +1,21 @@
+; Merge only these keys into the existing section; do not replace DefaultGame.ini.
+; Authority chooses the per-world NetEcology snapshot.
+[TemperateHills.Ecology]
+RainforestStrength=1.0
+RainforestAreaFraction=0.30
+RainforestCenterX=-12000
+RainforestNorthOfValleyCm=10000
+RainforestRadiusXCm=11000
+RainforestRadiusYCm=8500
+RainforestEdgeBlend=0.35
+RainforestCanopy=0.92
+RainforestMoisture=0.85
+RainforestClearingScaleCm=2400
+RainforestTreeDensityMultiplier=2.2
+RainforestTreeScaleMultiplier=1.12
+RainforestSaplingDensityMultiplier=2.65
+RainforestShrubDensityMultiplier=1.65
+RainforestFernDensityMultiplier=2.05
+RainforestGrassDensityMultiplier=1.95
+RainforestFlowerDensityMultiplier=3.0
+RainforestGrassShadeSuppression=0.20

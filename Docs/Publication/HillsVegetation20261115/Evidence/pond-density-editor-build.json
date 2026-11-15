@@ -1,0 +1,34 @@
+{
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_status": "Succeeded",
+  "source": {
+    "path": "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\TemperateForestWater.cpp",
+    "bytes": 14965,
+    "modified_utc": "2026-11-15T05:51:36.875607+00:00",
+    "sha256": "FBE3AFF7D7A7EF462B60B76A0EC61E65F109B79114A457FA3619670E0356C575"
+  },
+  "source_unchanged_during_build": true,
+  "limits": {
+    "MaxShapedBasins": 6,
+    "MaxPools": 8
+  },
+  "object": {
+    "path": "D:\\FPS3D\\FPSGAME\\Intermediate\\Build\\Win64\\x64\\UnrealEditor\\Development\\FPSGAME\\TemperateForestWater.cpp.obj",
+    "bytes": 2156401,
+    "modified_utc": "2026-11-15T06:06:28.032234+00:00",
+    "sha256": "B44A7B082C84644DA724C181DE9634E82CE25BA2FFA291CB15A72499B9EAF734"
+  },
+  "dll": {
+    "path": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+    "bytes": 46817792,
+    "modified_utc": "2026-11-15T06:08:59.676672+00:00",
+    "sha256": "2985BF84F5487BCA540747428F94F8238ACEE253CA689B5E95040121B20C75AD"
+  },
+  "compile_log": "D:\\FPS3D\\FPSGAME\\Saved\\Build\\RainforestPools20261115\\editor-build.log",
+  "completion_log": "D:\\FPS3D\\FPSGAME\\Saved\\Build\\RainforestPools20261115\\editor-build-completed.log",
+  "first_attempt_note": "Water source compiled; other source header changed after UHT. Subsequent shared Editor incremental build regenerated reflection code and linked successfully.",
+  "duplicate_retry_cancelled": true,
+  "launched_editor": false,
+  "launched_game": false,
+  "runtime_testing": "not_run"
+}

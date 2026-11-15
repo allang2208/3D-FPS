@@ -1,0 +1,24 @@
+{
+  "exit_code": 0,
+  "result": "Succeeded",
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_log": "D:/FPS3D/FPSGAME/Saved/Build/HillsMultiplayerPools20261115/editor-build-completed.log",
+  "build_origin": "existing serialized Editor build completed after source edits; no duplicate build launched",
+  "total_execution_seconds": 246.02,
+  "module": {
+    "path": "D:/FPS3D/FPSGAME/Binaries/Win64/UnrealEditor-FPSGAME.dll",
+    "bytes": 46908416,
+    "modified_utc": "2026-11-15T08:28:05.273Z",
+    "sha256": "7c11760d23ff613d5226d0d12757c3d105b6700bc0dc39a6aa08f45d21a8579d"
+  },
+  "source_manifest": "D:/FPS3D/FPSGAME/Saved/Build/HillsMultiplayerPools20261115/source-built.json",
+  "concurrent_source_change": {
+    "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+    "source_modified_utc": "2026-11-15T08:24:01.754Z",
+    "object_modified_utc": "2026-11-15T08:27:11.310Z",
+    "owned_loot_flush_preserved": true
+  },
+  "editor_started_by_this_task": false,
+  "game_started_by_this_task": false,
+  "runtime_testing": "not_run"
+}

@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/SceneTestPortal.cpp
++++ b/Source/FPSGAME/SceneTestPortal.cpp
+@@ -1,4 +1,5 @@
+ #include "SceneTestPortal.h"
++#include "Monsters/WildlifeSubsystem.h"
+ #include "Dungeons/DungeonRunSubsystem.h"
+ #include "Dungeons/DungeonRoomSubsystem.h"
+ #include "Multiplayer/ColdSteelPlayerState.h"
+@@ -299,6 +300,12 @@
+ void ASceneTestPortal::OpenDestination()
+ {
+     if(!bTravelling)return;
++    if(!UWildlifeSubsystem::FlushPendingLoot(GetWorld()))
++    {
++        CancelLoading();
++        Sign->SetText(FText::FromString(TEXT("掉落保存失败，请重试\n[E] 进入")));
++        return;
++    }
+     if(ActorHasTag(TEXT("DungeonFinalReturn")))
+     {
+         auto* Run=UDungeonRunSubsystem::Get(GetWorld());
+@@ -330,7 +337,7 @@
+         Sign->SetText(FText::FromString(DestinationLabel + TEXT(" could not load\n[E] Retry")));
+         return;
+     }
+-    UGameplayStatics::OpenLevel(this,FName(*Destination),true,DestinationOptions);
++    OpenDestination();
+ }
+ 
+ void ASceneTestPortal::CancelLoading()

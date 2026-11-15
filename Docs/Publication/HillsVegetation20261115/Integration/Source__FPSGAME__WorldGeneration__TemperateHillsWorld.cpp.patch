@@ -1,0 +1,99 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
+@@ -182,13 +182,13 @@
+     DOREPLIFETIME(ATemperateHillsWorld,Seed);
+     DOREPLIFETIME(ATemperateHillsWorld,GeneratorVersion);
+     DOREPLIFETIME(ATemperateHillsWorld,WorldId);
++    DOREPLIFETIME_CONDITION(ATemperateHillsWorld,SizeMeters,COND_InitialOnly);
++    DOREPLIFETIME_CONDITION(ATemperateHillsWorld,NetEcology,COND_InitialOnly);
+     DOREPLIFETIME(ATemperateHillsWorld,NetEdits);
+     DOREPLIFETIME(ATemperateHillsWorld,NetEditsVersion);
+ }
+ void ATemperateHillsWorld::BeginPlay()
+ {
+-    // Prime the immutable ecology profile before terrain workers or PCG start.
+-    (void)TemperateEcology::Get();
+     Super::BeginPlay();
+     if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+         Loading->BeginHillsPreparation();
+@@ -197,6 +197,8 @@
+     // 监听服与单机照常权威生成。
+     if(GetNetMode()==NM_DedicatedServer){UE_LOG(LogTemp,Error,TEXT("HILLS_V1 dedicated server unsupported"));return;}
+     if(GetNetMode()==NM_Client){UE_LOG(LogTemp,Display,TEXT("HILLS_NET client: awaiting replicated session"));return;}
++    NetEcology.Profile=TemperateEcology::Get();
++    NetEcology.Ready=true;
+     ResolveSession();
+     if(GetNetMode()!=NM_Standalone)SyncNetEdits(); // 会话(种子+存量编辑)首帧广播
+     StartWorldPipeline();
+@@ -503,7 +505,7 @@
+ }
+ 
+ double ATemperateHillsWorld::ForestWeight(double X,double Y) const
+-{return TemperateForestHabitat::Canopy(X,Y,Seed,RainforestWeight(X,Y));}
++{return TemperateForestHabitat::Canopy(X,Y,Seed,RainforestWeight(X,Y), EcologyProfile());}
+ FVector ATemperateHillsWorld::GetStartLocation() const
+ {
+     const double X0=-SizeMeters*25+173;
+@@ -548,7 +550,7 @@
+ bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& Out) const
+ {
+     if(!Assets||Assets->Trees.IsEmpty())return false;
+-    const auto& Ecology=TemperateEcology::Get();
++    const auto& Ecology=EcologyProfile();
+     if(Ecology.Trees.Density<=0)return false;
+     const uint32 K=TemperateHills::Key(GX,GY,uint32(Seed),11);
+     const double X=(GX+.5+(TemperateHills::Unit(K+1)-.5)*.56)*1200;
+@@ -569,7 +571,7 @@
+     const double Stand=Roll>PreviousChance?
+         TemperateHillsSurface::Noise5(X/3000.0,Y/3000.0,Seed,3143)*.5+.5:.5;
+     const double Region=RainforestWeight(X,Y);
+-    const double Opening=Region>0?TemperateForestHabitat::RainforestOpening(X,Y,Seed):0;
++    const double Opening=Region>0?TemperateForestHabitat::RainforestOpening(X,Y,Seed, EcologyProfile()):0;
+     const double LocalDensity=FMath::Lerp(1.0,Ecology.Rainforest.TreeDensityMultiplier*(1.0-.55*Opening),Region);
+     const double Chance=Ecology.Trees.Density*LocalDensity*SlopeWeight*FMath::Max(PreviousChance,.02+Forest*(.56+.22*Stand));
+     if(Roll>FMath::Min(1.0,Chance))return false;
+@@ -585,7 +587,7 @@
+     const int32 BeechCount=Assets->Trees.Num()-PoplarCount;
+     if(BeechCount>0)
+     {
+-        const uint32 Cohort=TemperateForestHabitat::Cohort(X,Y,Seed,K,3149);
++        const uint32 Cohort=TemperateForestHabitat::Cohort(X,Y,Seed,K,3149, EcologyProfile());
+         const double PoplarShare=FMath::Lerp(Ecology.PoplarShareMin,Ecology.PoplarShareMax,TemperateHills::Unit(Cohort+47));
+         if(TemperateHills::Unit(K+23)>=PoplarShare)
+         {
+@@ -670,7 +672,7 @@
+     if(Layer==4){GetForestUnderstoryPlacements(Bounds,Out);return;}
+     if(Layer==3){GetGrassPlacements(Bounds,Out);GetGroundDebrisPlacements(Bounds,Out);GetRiverPlantPlacements(Bounds,Out);GetRiverPebblePlacements(Bounds,Out);return;}
+     if(Layer==2)GetRiverShrubPlacements(Bounds,Out);
+-    const auto& Ecology=TemperateEcology::Get();
++    const auto& Ecology=EcologyProfile();
+     if(Layer==2&&Ecology.Shrubs.Density<=0)return;
+     if(Layer==0 && IncludeRegrowth)GetRegrowingTrees(Bounds,Out);
+     const double Spacing=Layer==0?1200:(Layer==1?2400:650);
+@@ -704,7 +706,7 @@
+             if(Layer==2)
+             {
+                 const double Region=RainforestWeight(X,Y);
+-                Site=TemperateForestHabitat::Understory(X,Y,Seed,Forest,Region,N);
++                Site=TemperateForestHabitat::Understory(X,Y,Seed,Forest,Region,N, EcologyProfile());
+                 const double Fringe=FMath::SmoothStep(700.0,1650.0,PathDistance(X,Y))
+                     *Ecology.Shrubs.SlopeWeight(N.Z)
+                     *(1.0-FMath::SmoothStep(.001,.02,Bank.Bank))
+@@ -732,7 +734,7 @@
+             // Slope stones span small collectible boulders up to unmineable cliff
+             // masses: the pickaxe gate rejects instance radius > 500 cm, and the
+             // old 0.7 floor kept every slope stone above it (nothing was minable).
+-            const uint32 Form=Layer==2?TemperateForestHabitat::Cohort(X,Y,Seed,K,3259):K;
++            const uint32 Form=Layer==2?TemperateForestHabitat::Cohort(X,Y,Seed,K,3259, EcologyProfile()):K;
+             const auto& ChosenMesh=List[(Layer==2&&TemperateHills::Unit(K+19)>.72?K:Form)%List.Num()];
+             double Scale=Layer==1?.30+TemperateHills::Unit(K+5)*1.70:.65+TemperateHills::Unit(K+5)*.5;
+             double Sink=Layer==1?35:3;
+@@ -860,7 +862,7 @@
+     // M4：客户端确定性重建入口——等服务端会话(种子+编辑)复制到位再启动管线。
+     if(GetNetMode()==NM_Client&&!bClientWorldInit)
+     {
+-        if(!WorldId.IsValid()||GeneratorVersion<=0)return;
++        if(!WorldId.IsValid()||GeneratorVersion<=0||!NetEcology.Ready)return;
+         bClientWorldInit=true;
+         Slot.Reset();
+         ConvertNetEdits();

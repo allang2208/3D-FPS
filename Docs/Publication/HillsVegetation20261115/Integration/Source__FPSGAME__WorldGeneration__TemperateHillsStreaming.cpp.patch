@@ -1,0 +1,109 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -48,6 +48,7 @@
+ #include "Subsystems/PCGSubsystem.h"
+ #include "ContentStreaming.h"
+ #include "RenderCommandFence.h"
++#include "Misc/ScopeExit.h"
+ 
+ namespace HillsStreaming
+ {
+@@ -56,6 +57,28 @@
+ // streaming after release, with the existing two terrain jobs / one mesh per frame.
+ constexpr double EntryRadius=3200.0;
+ enum EAssetBatch { Solids, Understory, GroundCover, Atmosphere, BatchCount };
++
++void SetCellMesh(UDynamicMeshComponent* Component,UE::Geometry::FDynamicMesh3&& Mesh,
++    TConstArrayView<TObjectPtr<UPCGComponent>> VegetationLayers)
++{
++    TRACE_CPUPROFILER_EVENT_SCOPE(HillsSubmitTerrainMesh);
++#if WITH_EDITOR
++    // SetMesh broadcasts OnObjectPropertyChanged even in PIE. PCG tracks our
++    // owning hills actor, so submitting a streamed ground/water mesh otherwise
++    // dirties ALL vegetation layers, cancels their jobs and removes live cells.
++    // These meshes are presentation of Height()/TerrainEdits, not PCG inputs.
++    // Ignore only this component during the synchronous notification; preserve
++    // normal mesh notifications, explicit edits and the distance scheduler.
++    for(const auto& Layer:VegetationLayers)
++        Layer->StartIgnoringChangeOriginDuringGeneration(Component);
++    ON_SCOPE_EXIT
++    {
++        for(const auto& Layer:VegetationLayers)
++            Layer->StopIgnoringChangeOriginDuringGeneration(Component);
++    };
++#endif
++    Component->SetMesh(MoveTemp(Mesh));
++}
+ 
+ double CellDistanceSquared(const FVector& Point,const FVector& Origin)
+ {
+@@ -216,7 +239,8 @@
+             },WX,WY);
+         Normals->AppendElement(FVector3f(Normal));
+         const auto Bank=River?River->Sample(WX,WY):TemperateRiver::FSample();
+-        const auto Layers=TemperateHillsGround::Layers(WX,WY,Z,Normal,Seed,Bank,River?River->RainforestWeight(WX,WY):0.);
++        const auto Layers=TemperateHillsGround::Layers(WX,WY,Z,Normal,Seed,Bank,River?River->RainforestWeight(WX,WY):0.,
++            River ? River->Ecology : TemperateEcology::FProfile{});
+         UVs->AppendElement(Layers.UV);
+         Habitat->AppendElement(Layers.Habitat);
+         UplandCover->AppendElement(Layers.Upland);
+@@ -417,10 +441,11 @@
+     {
+         const bool HasRiver=!Assets->RiverMaterial.IsNull();
+         S.RiverPending=true;
+-        S.RiverJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half,Spawn=FVector2D(Start),Relief=Assets->RiverBankReliefCm,Version=GeneratorVersion,HasRiver]() -> TemperateRiver::FPlanPtr
+-        {
+-            if(HasRiver)return TemperateRiver::Generate(WorldSeed,Half,Spawn,Relief,Version);
++        S.RiverJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half,Spawn=FVector2D(Start),Relief=Assets->RiverBankReliefCm,Version=GeneratorVersion,HasRiver,Ecology=EcologyProfile()]() -> TemperateRiver::FPlanPtr
++        {
++            if(HasRiver)return TemperateRiver::Generate(WorldSeed,Half,Spawn,Relief,Version,Ecology);
+             auto Plan=MakeShared<TemperateRiver::FPlan,ESPMode::ThreadSafe>();
++            Plan->Ecology=Ecology;
+             Plan->GenerationVersion=Version;Plan->BuildRainforest(WorldSeed,Half);return Plan;
+         });
+     }
+@@ -972,7 +997,7 @@
+         C->bUseAsyncCooking=true;C->SetDeferredCollisionUpdatesEnabled(true,false);
+         C->SetComplexAsSimpleCollisionEnabled(Result->Detailed,false);
+         C->SetCollisionProfileName(Result->Detailed?TEXT("BlockAll"):TEXT("NoCollision"));
+-        C->SetMesh(MoveTemp(Result->Mesh));C->RegisterComponent();
++        HillsStreaming::SetCellMesh(C,MoveTemp(Result->Mesh),PCGLayers);C->RegisterComponent();
+         BindVillageGroundCache(C);
+         if(Result->Detailed)C->UpdateCollision(false);
+         // Mark the submitted result current now. A newer water plan can dirty the
+@@ -989,7 +1014,7 @@
+                 Water->SetMobility(EComponentMobility::Movable);Water->SetCanEverAffectNavigation(false);
+                 Water->SetCollisionEnabled(ECollisionEnabled::NoCollision);Water->SetCastShadow(false);
+                 Water->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);Water->SetMaterial(0,Material);
+-                Water->SetMesh(MoveTemp(Result->Ponds));Water->RegisterComponent();Water->PrecachePSOs();
++                HillsStreaming::SetCellMesh(Water,MoveTemp(Result->Ponds),PCGLayers);Water->RegisterComponent();Water->PrecachePSOs();
+                 Cell.Ponds=Water;Terrain.Add(Water);
+             }
+         }
+@@ -1002,7 +1027,7 @@
+             Water->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
+             auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>();
+             Water->SetMaterial(0,RiverFX&&RiverFX->GetRiverMaterial()?RiverFX->GetRiverMaterial():Assets->RiverMaterial.Get());
+-            Water->SetMesh(MoveTemp(Result->Water));
++            HillsStreaming::SetCellMesh(Water,MoveTemp(Result->Water),PCGLayers);
+             Water->RegisterComponent();Water->PrecachePSOs();Cell.Water=Water;Terrain.Add(Water);
+         }
+         break;
+@@ -1547,7 +1572,7 @@
+         const float Fade=(1-FMath::SmoothStep(14000.0,18000.0,Distance))*FMath::Clamp(Fog->GetGameTimeSinceCreation()/3.f,0.f,1.f);
+         const FVector P=Fog->GetActorLocation();
+         const double Region=RainforestWeight(P.X,P.Y);
+-        const float Moisture=.65f+.35f*TemperateForestHabitat::Moisture(P.X,P.Y,Seed,Region);
++        const float Moisture=.65f+.35f*TemperateForestHabitat::Moisture(P.X,P.Y,Seed,Region, EcologyProfile());
+         TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
+         const float ForestMist=FMath::Lerp(Mist,FMath::Max(Mist,.46f)+.32f*float(Rain),float(Region));
+         for(auto* M:Meshes)SetDensity(M,Assets->ValleyFogDensity*Fade*ForestMist*Moisture);
+@@ -1614,7 +1639,7 @@
+         const bool Low=Bank.Bank>.02||Bank.Wet>.02||P.Z-65<Nearby-15;
+         const double LocalRegion=RainforestWeight(WX,WY);
+         if(!Low&&LocalRegion<.75)continue;
+-        const double Moisture=TemperateForestHabitat::Moisture(WX,WY,Seed,LocalRegion);
++        const double Moisture=TemperateForestHabitat::Moisture(WX,WY,Seed,LocalRegion, EcologyProfile());
+         const double Score=Distance+(Bank.Bank>.02||Bank.Wet>.02?0:16000000)+(1.-Moisture)*8000000;
+         if(Score<BestScore){Best=ID;BestScore=Score;Position=P;}
+     }

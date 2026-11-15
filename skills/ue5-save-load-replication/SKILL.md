@@ -78,3 +78,7 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 ## 环境动物受击与尸体复制
 
 连续同状态受击、方向选择、晚到动作与客户端尸体表现，读取 [环境动物动作快照](references/wildlife-action-snapshots.md)。
+
+## 动物掉落队列与离场保存
+
+处理合批掉落、换图或正常退出时，读 [待提交动物掉落](references/pending-wildlife-loot.md)，不要只保存已生成的拾取物。

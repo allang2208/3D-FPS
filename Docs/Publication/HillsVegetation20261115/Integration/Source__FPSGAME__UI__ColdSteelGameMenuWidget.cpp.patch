@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/UI/ColdSteelGameMenuWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelGameMenuWidget.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelGameMenuWidget.h"
++#include "../Monsters/WildlifeSubsystem.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+ #include "SColdSteelWorldMap.h"
+ #include "../Dungeons/DungeonRoomSubsystem.h"
+ #include "../Dungeons/DungeonRunSubsystem.h"
+@@ -423,9 +425,12 @@
+ void UColdSteelGameMenuWidget::ConfirmQuit()
+ {
+     SaveSettings();
+-    bool Saved=true;
++    bool Saved=UWildlifeSubsystem::FlushPendingLoot(GetWorld());
++    if (GetWorld()->GetNetMode()!=NM_Client)
++        if (auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
++            Saved=Shared->FlushForTravel()&&Saved;
+     // The local profile owns its disk copy in both standalone and network play.
+-    if (auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()) Saved=Profile->SaveNow();
++    if (auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()) Saved=Profile->SaveNow()&&Saved;
+     if (GetWorld()->GetNetMode()==NM_Standalone)
+     {
+         for (TActorIterator<AVoxelBuildWorld> It(GetWorld()); It; ++It)

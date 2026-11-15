@@ -1,0 +1,67 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp
+@@ -15,7 +15,7 @@
+                                       FMath::Min(TileOffset.Y,TileSize-TileOffset.Y));
+     const double Reach=FMath::Min(EdgeRoom,FMath::Lerp(175.,85.,Region)+FMath::Lerp(105.,65.,Region)*Unit(PatchKey+3));
+     if(!Bounds.ExpandBy(Reach).IsInsideOrOn(Center))return;
+-    const double Opening=Region>0 ? TemperateForestHabitat::RainforestOpening(Center.X,Center.Y,Seed) : 0.;
++    const double Opening=Region>0 ? TemperateForestHabitat::RainforestOpening(Center.X,Center.Y,Seed, EcologyProfile()) : 0.;
+     double BankLight=0.;
+     if(Region>0 && ForestWaterPlan&&!ForestWaterPlan->Pools.IsEmpty())
+     {
+@@ -24,7 +24,7 @@
+         const double Distance=FMath::Sqrt(ForestWaterPlan->Pools[0].Bounds.ComputeSquaredDistanceToPoint(Center));
+         BankLight=1.-FMath::SmoothStep(1200.,3200.,Distance);
+     }
+-    const auto& Ecology=TemperateEcology::Get();
++    const auto& Ecology=EcologyProfile();
+     const double Density=Ecology.MeadowFlowers.Density*Ecology.Rainforest.FlowerDensityMultiplier;
+     const double Light=.47*Opening+.20*BankLight*(.5+.5*Opening);
+     const double RainforestChance=Region*FMath::Min(.78,Density*Light);
+@@ -34,10 +34,10 @@
+         // Broader drifts occupy open grassland and taper off on exposed stony slopes.
+         const double Budget=.90*Ecology.MeadowFlowers.Density;
+         if(Roll>=RainforestChance+(1.-Region)*Budget || PathDistance(Center.X,Center.Y)<400.)return;
+-        const double Forest=TemperateForestHabitat::Canopy(Center.X,Center.Y,Seed,Region,Opening);
++        const double Forest=TemperateForestHabitat::Canopy(Center.X,Center.Y,Seed,Region,Opening, EcologyProfile());
+         const auto Site=TemperateForestHabitat::Upland(SurfaceNormal(Center.X,Center.Y),Forest,
+-            TemperateForestHabitat::Moisture(Center.X,Center.Y,Seed,Region),Region);
+-        const double Colony=TemperateForestHabitat::UnderstoryPatch(Center.X,Center.Y,Seed);
++            TemperateForestHabitat::Moisture(Center.X,Center.Y,Seed,Region, EcologyProfile()),Region, EcologyProfile());
++        const double Colony=TemperateForestHabitat::UnderstoryPatch(Center.X,Center.Y,Seed, EcologyProfile());
+         if(Roll>=RainforestChance+Budget*Site.Meadow*(.35+.65*Colony))return;
+     }
+     if(SampleForestWater(Center.X,Center.Y).Wet)return;
+@@ -83,7 +83,7 @@
+ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
+ {
+     using namespace TemperateHillsSurface;
+-    const auto& Ecology=TemperateEcology::Get();
++    const auto& Ecology=EcologyProfile();
+     const double Half=SizeMeters*50;
+     const double MinX=FMath::Max(-Half+500,Bounds.Min.X),MinY=FMath::Max(-Half+500,Bounds.Min.Y);
+     const double MaxX=FMath::Min(Half-500,Bounds.Max.X),MaxY=FMath::Min(Half-500,Bounds.Max.Y);
+@@ -157,8 +157,8 @@
+             // Leave the submerged leaf bed readable, with occasional sedges at the lip.
+             if(Pool.Wet&&(Flower||Pool.Depth>9||!Assets->RainforestGrass.IsValidIndex(2)||Unit(K+17)>.20))continue;
+             const double Shore=Region>0&&ForestWaterPlan?ForestWaterPlan->ShoreMoistureAt(X,Y):0.;
+-            const double Opening=Region>0?TemperateForestHabitat::RainforestOpening(X,Y,Seed):0;
+-            const double Forest=TemperateForestHabitat::Canopy(X,Y,Seed,Region,Opening);
++            const double Opening=Region>0?TemperateForestHabitat::RainforestOpening(X,Y,Seed, EcologyProfile()):0;
++            const double Forest=TemperateForestHabitat::Canopy(X,Y,Seed,Region,Opening, EcologyProfile());
+             // Dense tufts connect through thinner ground cover, with small
+             // irregular gaps instead of a nearly uniform lawn everywhere.
+             const double Clump=Smooth((Meadow*.35+Tuft*.65-.27)/.46);
+@@ -189,9 +189,9 @@
+             const double SlopeWeight=Rule.SlopeWeight(N.Z);
+             if(SlopeWeight<=0||Unit(K+9)>SlopeWeight)continue;
+             TemperateForestHabitat::FUnderstory Site;
+-            if(Forest>.12)Site=TemperateForestHabitat::Understory(X,Y,Seed,Forest,Region,N);
+-            const double Moist=Forest>.12?Site.Moist:TemperateForestHabitat::Moisture(X,Y,Seed,Region);
+-            const auto Upland=TemperateForestHabitat::Upland(N,Forest,Moist,Region);
++            if(Forest>.12)Site=TemperateForestHabitat::Understory(X,Y,Seed,Forest,Region,N, EcologyProfile());
++            const double Moist=Forest>.12?Site.Moist:TemperateForestHabitat::Moisture(X,Y,Seed,Region, EcologyProfile());
++            const auto Upland=TemperateForestHabitat::Upland(N,Forest,Moist,Region, EcologyProfile());
+             Chance*=1.+(Flower?-.38:.32)*Upland.Meadow-(Accent||Flower?.80:.62)*Upland.Stony;
+             if(Roll>Chance)continue;
+             // Actual fern/wood cores are excluded later by the placement pass.

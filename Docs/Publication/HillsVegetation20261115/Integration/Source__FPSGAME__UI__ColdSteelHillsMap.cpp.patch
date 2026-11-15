@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/UI/ColdSteelHillsMap.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHillsMap.cpp
+@@ -97,7 +97,8 @@
+                 const FVector Normal = FVector(S-N,W-E,2*Step).GetSafeNormal();
+                 const auto Bank = Source.River ? Source.River->Sample(P.X,P.Y) : TemperateRiver::FSample();
+                 auto Layers = TemperateHillsGround::Layers(P.X,P.Y,P.Z,Normal,Source.Seed,Bank,
+-                    Source.River?Source.River->RainforestWeight(P.X,P.Y):0.);
++                    Source.River?Source.River->RainforestWeight(P.X,P.Y):0.,
++                    Source.River ? Source.River->Ecology : TemperateEcology::FProfile{});
+                 Layers.Habitat.Y = TemperateHillsGround::SurfaceMoisture((N+S+E+W)*.25,
+                     P.Z,Step,Layers.Habitat.X,Source.Water,P.X,P.Y);
+                 Attr.PrimaryNormals()->AppendElement(FVector3f(Normal));

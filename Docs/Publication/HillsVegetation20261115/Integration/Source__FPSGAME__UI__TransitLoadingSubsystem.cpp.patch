@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+@@ -1,5 +1,6 @@
+ #include "TransitLoadingSubsystem.h"
+ #include "../FPSGAMEPlayerController.h"
++#include "../Monsters/WildlifeSubsystem.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelUIStyle.h"
+ #include "GameResourcePreparation.h"
+@@ -622,6 +623,12 @@
+     }
+     if(View->CancelRequested)
+     {
++        if(!UWildlifeSubsystem::FlushPendingLoot(GetWorld()))
++        {
++            View->CancelRequested=false;
++            FailPreparation(FText::FromString(TEXT("掉落保存失败，请稍后重试返回。")));
++            return;
++        }
+         if(View->ReturnToMenu&&bScenePrepared&&GetWorld()->GetNetMode()==NM_Standalone)
+         {
+             View->CancelRequested=false;bStartupChosen=false;
+@@ -1041,6 +1048,12 @@
+ 
+ void UTransitLoadingSubsystem::MenuQuitGame()
+ {
++    if(!UWildlifeSubsystem::FlushPendingLoot(GetWorld()))
++    {
++        if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
++            Model->PostNotice(TEXT("暂时无法退出"),TEXT("掉落保存失败，请稍后重试。"));
++        return;
++    }
+     UKismetSystemLibrary::QuitGame(this,StartupController.Get(),EQuitPreference::Quit,false);
+ }
+ 

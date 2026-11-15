@@ -30,3 +30,7 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 ## 流送场景入口与多人室内适应
 
 换图后碰撞晚到、按控制器安全重试和逐视图室内亮度，读取 [安全出生与室内视图](references/streamed-entry-and-interior-view.md)。
+
+## 丘陵雨林植被与水坑
+
+修改雨林专属草、联机生态参数或扩大水坑选址时，读 [雨林植被与局部积水](references/hills-vegetation-and-pools.md)。

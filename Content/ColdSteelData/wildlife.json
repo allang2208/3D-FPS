@@ -1,0 +1,290 @@
+{
+  "version": 1,
+  "source": "/Game/AnimalVarietyPack (PROTOFACTOR ANIMAL VARIETY PACK)",
+  "note": "Wildlife stats and behaviour. Contact windows are design values expressed in absolute source seconds; they are not verified against source frames.",
+  "contactWindowsAuthored": false,
+  "spawn": {
+    "targetPopulation": 24,
+    "populationRadius": 9000.0,
+    "activityRadius": 9000.0,
+    "spawnMinDistance": 4200.0,
+    "spawnMaxDistance": 8200.0,
+    "despawnDistance": 14000.0,
+    "intervalSeconds": 3.0,
+    "maxGlobal": 60,
+    "dayStart": 0.26,
+    "dayEnd": 0.76,
+    "groundTraceUp": 600.0,
+    "groundTraceDown": 2000.0,
+    "maxSlopeZ": 0.72,
+    "minPlayerDistance": 3000.0
+  },
+  "hillsGroups": {
+    "pastureDistanceCm": 2400,
+    "forageSeconds": 15,
+    "regroupDistanceCm": 800,
+    "escapeDistanceCm": 2600,
+    "flightDistanceCm": 4600,
+    "flightHeightCm": 1300,
+    "flightSpeedCmS": 720
+  },
+  "species": [
+    {
+      "id": "deer_doe",
+      "displayName": "母鹿",
+      "behavior": "skittish",
+      "animationSet": "/Game/Monsters/Wildlife/DeerDoe/DA_WL_DeerDoe_AnimationSet",
+      "characterClass": "/Game/Monsters/Wildlife/DeerDoe/BP_WL_DeerDoe.BP_WL_DeerDoe_C",
+      "meshYaw": -90.0,
+      "capsuleRadius": 38.0,
+      "capsuleHalfHeight": 62.0,
+      "level": 3,
+      "rank": "Normal",
+      "health": 90.0,
+      "physicalDefense": 5.0,
+      "magicDefense": 2.0,
+      "experience": 70,
+      "walkSpeed": 105.0,
+      "runSpeed": 520.0,
+      "alertRadius": 1400.0,
+      "fleeRadius": 900.0,
+      "aggroRadius": 0.0,
+      "leashRadius": 0.0,
+      "homeRadius": 1600.0,
+      "activity": "always",
+      "corpseSeconds": 5.0,
+      "useRagdoll": true,
+      "herdMin": 2,
+      "herdMax": 4,
+      "spawnWeight": 22,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 1,
+          "max": 2,
+          "chance": 1.0
+        }
+      ],
+      "attack": {
+        "damage": 0.0
+      }
+    },
+    {
+      "id": "deer_stag",
+      "displayName": "公鹿",
+      "behavior": "skittish",
+      "animationSet": "/Game/Monsters/Wildlife/DeerStag/DA_WL_DeerStag_AnimationSet",
+      "characterClass": "/Game/Monsters/Wildlife/DeerStag/BP_WL_DeerStag.BP_WL_DeerStag_C",
+      "meshYaw": -90.0,
+      "capsuleRadius": 42.0,
+      "capsuleHalfHeight": 68.0,
+      "level": 6,
+      "rank": "Normal",
+      "health": 140.0,
+      "physicalDefense": 9.0,
+      "magicDefense": 3.0,
+      "experience": 140,
+      "walkSpeed": 110.0,
+      "runSpeed": 560.0,
+      "alertRadius": 1500.0,
+      "fleeRadius": 1000.0,
+      "aggroRadius": 0.0,
+      "leashRadius": 0.0,
+      "homeRadius": 1600.0,
+      "activity": "always",
+      "corpseSeconds": 5.0,
+      "useRagdoll": true,
+      "herdMin": 1,
+      "herdMax": 2,
+      "spawnWeight": 12,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 2,
+          "max": 3,
+          "chance": 1.0
+        }
+      ],
+      "attack": {
+        "damage": 26.0,
+        "range": 210.0,
+        "cooldown": 4.5,
+        "windup": 0.35,
+        "contactStart": 0.55,
+        "contactEnd": 0.75
+      }
+    },
+    {
+      "id": "boar",
+      "displayName": "野猪",
+      "behavior": "aggressive",
+      "animationSet": "/Game/Monsters/Wildlife/Pig/DA_WL_Pig_AnimationSet",
+      "characterClass": "/Game/Monsters/Wildlife/Pig/BP_WL_Pig.BP_WL_Pig_C",
+      "meshYaw": -90.0,
+      "capsuleRadius": 46.0,
+      "capsuleHalfHeight": 58.0,
+      "level": 7,
+      "rank": "Normal",
+      "health": 170.0,
+      "physicalDefense": 15.0,
+      "magicDefense": 4.0,
+      "experience": 190,
+      "walkSpeed": 100.0,
+      "runSpeed": 430.0,
+      "alertRadius": 900.0,
+      "fleeRadius": 0.0,
+      "aggroRadius": 650.0,
+      "leashRadius": 2600.0,
+      "homeRadius": 1400.0,
+      "activity": "always",
+      "corpseSeconds": 5.0,
+      "useRagdoll": true,
+      "herdMin": 2,
+      "herdMax": 3,
+      "spawnWeight": 18,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 2,
+          "max": 3,
+          "chance": 1.0
+        }
+      ],
+      "attack": {
+        "damage": 34.0,
+        "range": 185.0,
+        "cooldown": 3.5,
+        "windup": 0.3,
+        "contactStart": 0.5,
+        "contactEnd": 0.7
+      }
+    },
+    {
+      "id": "fox",
+      "displayName": "狐狸",
+      "behavior": "skittish",
+      "animationSet": "/Game/Monsters/Wildlife/Fox/DA_WL_Fox_AnimationSet",
+      "characterClass": "/Game/Monsters/Wildlife/Fox/BP_WL_Fox.BP_WL_Fox_C",
+      "meshYaw": -90.0,
+      "capsuleRadius": 28.0,
+      "capsuleHalfHeight": 42.0,
+      "level": 4,
+      "rank": "Normal",
+      "health": 48.0,
+      "physicalDefense": 3.0,
+      "magicDefense": 3.0,
+      "experience": 80,
+      "walkSpeed": 130.0,
+      "runSpeed": 480.0,
+      "alertRadius": 1100.0,
+      "fleeRadius": 800.0,
+      "aggroRadius": 0.0,
+      "leashRadius": 0.0,
+      "homeRadius": 1200.0,
+      "activity": "always",
+      "corpseSeconds": 5.0,
+      "useRagdoll": true,
+      "herdMin": 1,
+      "herdMax": 1,
+      "spawnWeight": 20,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 1,
+          "max": 1,
+          "chance": 1.0
+        }
+      ],
+      "attack": {
+        "damage": 12.0,
+        "range": 135.0,
+        "cooldown": 2.5,
+        "windup": 0.15,
+        "contactStart": 0.3,
+        "contactEnd": 0.45
+      }
+    },
+    {
+      "id": "crow",
+      "displayName": "乌鸦",
+      "behavior": "skittish",
+      "animationSet": "/Game/Monsters/Wildlife/Crow/DA_WL_Crow_AnimationSet",
+      "characterClass": "/Game/Monsters/Wildlife/Crow/BP_WL_Crow.BP_WL_Crow_C",
+      "meshYaw": -90.0,
+      "capsuleRadius": 16.0,
+      "capsuleHalfHeight": 20.0,
+      "level": 2,
+      "rank": "Normal",
+      "health": 20.0,
+      "physicalDefense": 1.0,
+      "magicDefense": 1.0,
+      "experience": 25,
+      "walkSpeed": 90.0,
+      "runSpeed": 200.0,
+      "alertRadius": 700.0,
+      "fleeRadius": 450.0,
+      "aggroRadius": 0.0,
+      "leashRadius": 0.0,
+      "homeRadius": 900.0,
+      "activity": "day",
+      "corpseSeconds": 5.0,
+      "useRagdoll": false,
+      "herdMin": 2,
+      "herdMax": 4,
+      "spawnWeight": 20,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 1,
+          "max": 1,
+          "chance": 1.0
+        }
+      ],
+      "attack": {
+        "damage": 0.0
+      }
+    },
+    {
+      "id": "wolf",
+      "displayName": "野狼",
+      "behavior": "predator",
+      "animationSet": "/Game/Monsters/QuadrupedTemplates/WolfV1/DA_QP_Wolf_AnimationSet",
+      "characterClass": "/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C",
+      "meshYaw": -90.0,
+      "capsuleRadius": 34.0,
+      "capsuleHalfHeight": 60.0,
+      "level": 5,
+      "rank": "Normal",
+      "health": 220.0,
+      "physicalDefense": 12.0,
+      "magicDefense": 8.0,
+      "experience": 180,
+      "walkSpeed": 100.0,
+      "runSpeed": 380.0,
+      "alertRadius": 1500.0,
+      "fleeRadius": 0.0,
+      "aggroRadius": 1500.0,
+      "leashRadius": 2200.0,
+      "homeRadius": 1800.0,
+      "activity": "always",
+      "corpseSeconds": 5.0,
+      "useRagdoll": true,
+      "herdMin": 2,
+      "herdMax": 3,
+      "spawnWeight": 8,
+      "loot": [
+        {
+          "item": "raw_meat_chunk",
+          "min": 1,
+          "max": 2,
+          "chance": 1.0
+        }
+      ],
+      "attack": {
+        "damage": 0.0
+      },
+      "note": "Reuses the integrated AWolfMonster character; wildlife only owns spawning."
+    }
+  ],
+  "healthBasis": "base value; runtime multiplies by MonsterCoreStats::HealthMultiplier() (currently 2.0)"
+}

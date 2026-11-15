@@ -1,0 +1,114 @@
+[
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsDressing.cpp.patch",
+    "base_sha256_lf": "4511bf121c3159dea7853a52fe2c4e1fc80bb2cf93d1a893620c32af3db95af3",
+    "result_sha256_lf": "1e92bec2bd87a69d805f939583967b742585540ccc0c32a67cccfc8b054d4cbe",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsGrass.cpp.patch",
+    "base_sha256_lf": "6ecee6fe7562e32363209ed4055baa65ae80c693012c855acc2d7186723db77f",
+    "result_sha256_lf": "1dcae4ce613c6663d010e625ac8090531bc59732e3d6ac240ec93d93e8cd67bc",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundDebris.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsGroundDebris.cpp.patch",
+    "base_sha256_lf": "ee76693c1ab665a013045a6bfa59ca67d6b5a478d8138692d8377f04bc7512d1",
+    "result_sha256_lf": "04beccaa4055b19eaacf01ce58e95574d41607bb02900b60b4e6c29613ef1f15",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsRiverEcology.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsRiverEcology.cpp.patch",
+    "base_sha256_lf": "187c46f5605050ea06be31f8c71b2ab6c9297b1b47a632ee4147c86ed95c50a4",
+    "result_sha256_lf": "3cd657adcb31cc10dd0d4cead4cc4802df3f77f46c7864c4b71eed65c913f8c9",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsBackdrop.cpp.patch",
+    "base_sha256_lf": "a63185bb51aa2199051c79df81915a7a169ea6c0dbbfce9c4f7339e273c94a75",
+    "result_sha256_lf": "79af477ea2bd306da810d70ae4203c2c561c08ed20368e0d5bd71281d1c8a0a3",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsRiver.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsRiver.cpp.patch",
+    "base_sha256_lf": "9b617080b62dc7095bafcf1f086340242ddd822b1da1acd341ae255ff1b3bafc",
+    "result_sha256_lf": "cc5f281df3138414a862e8c92b188a548c9c7a9b04b07b22440124c4d2cb4f15",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsRiver.h",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsRiver.h.patch",
+    "base_sha256_lf": "c72aadb51f3a1f0f021533cbc88903621a85ce8328da78c32ca4a1e853cf425c",
+    "result_sha256_lf": "3e4a15022213a315c333740fcbe19fa139ca1a572bcaa39e2c5e5a9a6ece6b0b",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch",
+    "base_sha256_lf": "b305115864401c8afdeaf449007e38b2a303b4008884873fe719c141f9bb2f6e",
+    "result_sha256_lf": "9601c26e0ebdd67d35355db49a88124035070a014471b24241f276425df6ee1a",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch",
+    "base_sha256_lf": "5e41e2856e4b3944b3c5defda90607cbea5dbb27b6673506ed9bd31e0d2bbd6c",
+    "result_sha256_lf": "b7068ae2b564d11f2aa6965a2972b2207b80774aa2cd2efffd5f7d4188ab9445",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsStreaming.cpp.patch",
+    "base_sha256_lf": "2edf662ae6801e7b914c178e7af86adbd7f8b35ea7cffb2978393c20fd8f837b",
+    "result_sha256_lf": "d40a3618a937c1e1c558429493dfb398ca9ff6859813d2f045efaed7c2eb6a5b",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelHillsMap.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__UI__ColdSteelHillsMap.cpp.patch",
+    "base_sha256_lf": "fde0ae12fbd93cb15fe8d84b29736c4fcde015668a5e1593dd615cfd15f819ec",
+    "result_sha256_lf": "4d90e20fe0564607ed2c903339c5a1d1557212f64ee46ac2e5a6e1b85bccf0de",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__Multiplayer__ColdSteelSharedInventorySubsystem.cpp.patch",
+    "base_sha256_lf": "e7f9b22392a05d33ccf660e72eac6f45712f6cfb41e1bb4a2cb713213f1834d1",
+    "result_sha256_lf": "bba73f965ca21a95c38156d064ada1407cc110d2fd156997d19a6b97bc122a9d",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/SceneTestPortal.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__SceneTestPortal.cpp.patch",
+    "base_sha256_lf": "a9a8fce98705ff33ca527147775f6fb501f897b6f99575141c47c0bed5a18f17",
+    "result_sha256_lf": "13f85db56da6d149b8070f34112c206b59585beb6241920658bdf9c83e4f83de",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__UI__ColdSteelExpeditionController.cpp.patch",
+    "base_sha256_lf": "b33f508016525f42493d40f471f20c0bef1b8daadd42e4963f9f48d7f73b45a1",
+    "result_sha256_lf": "c3dbc18948a49d83ead9b64b286db2f6db497b8d551a8e8e123e95882cc9ec60",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelGameMenuWidget.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__UI__ColdSteelGameMenuWidget.cpp.patch",
+    "base_sha256_lf": "012ae21f8d33f106f6ec72bc551c69d361fa65b1b94318960609156c3dcf5bf0",
+    "result_sha256_lf": "039361c3bd005fa0857bd59a60186789869d06d2b583ded08ea147036fc9934e",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  },
+  {
+    "target": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+    "patch": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__UI__TransitLoadingSubsystem.cpp.patch",
+    "base_sha256_lf": "377541bd05810ad5f13e27eb3c42ac8cd2326710007c5fac2d6cceced1bc3086",
+    "result_sha256_lf": "ba07b7fa2dfee3944984a2db1b5023f26ba2f309976c24aba097b44cecf68a0f",
+    "scope": "owned fixes only; surrounding host prerequisites are not republished"
+  }
+]

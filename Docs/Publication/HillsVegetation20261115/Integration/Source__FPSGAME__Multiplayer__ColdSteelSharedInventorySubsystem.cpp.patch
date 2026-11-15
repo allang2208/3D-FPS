@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelSharedInventorySubsystem.h"
++#include "../Monsters/WildlifeSubsystem.h"
+ #include "ColdSteelPlayerState.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelPickup.h"
+@@ -417,6 +418,7 @@
+ bool UColdSteelSharedInventorySubsystem::FlushForTravel()
+ {
+     if(bBlocked||bCommitting)return false;
++    if(!UWildlifeSubsystem::FlushPendingLoot(GetWorld()))return false;
+     if(!bInitialized)return true;
+     FString Reason;if(!SettleFoodSpoilage(Reason))return false;
+     CaptureDropTransforms();return !SaveSlot.IsEmpty()&&SaveWorld(Current);

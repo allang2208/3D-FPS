@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsRiver.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsRiver.h
+@@ -1,6 +1,7 @@
+ #pragma once
+ 
+ #include "CoreMinimal.h"
++#include "TemperateEcologyConfig.h"
+ 
+ namespace UE::Geometry { class FDynamicMesh3; }
+ 
+@@ -40,6 +41,7 @@
+ 
+ struct FPlan
+ {
++    TemperateEcology::FProfile Ecology;
+     double BankReliefCm = 22;
+     int32 GenerationVersion = 1;
+     TArray<FPoint> Points;
+@@ -62,7 +64,8 @@
+ };
+ 
+ using FPlanPtr = TSharedPtr<const FPlan, ESPMode::ThreadSafe>;
+-FPlanPtr Generate(int32 Seed, double HalfSize, const FVector2D& ProtectedSpawn, double BankReliefCm=22, int32 Version=1);
++FPlanPtr Generate(int32 Seed, double HalfSize, const FVector2D& ProtectedSpawn, double BankReliefCm=22, int32 Version=1,
++    const TemperateEcology::FProfile& Ecology=TemperateEcology::Get());
+ // Shared sediment patches for ground shading, small stones and plant spacing.
+ double PebbleCover(double X,double Y,int32 Seed,const FSample& River);
+ }

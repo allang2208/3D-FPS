@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -209,7 +209,9 @@
+     UPROPERTY(EditAnywhere, BlueprintReadOnly, Replicated, Category="Hills") int32 Seed = 122;
+     /** 0 until the session resolves; replicated so clients rebuild with the server's formula. */
+     UPROPERTY(EditAnywhere, BlueprintReadOnly, Replicated, Category="Hills") int32 GeneratorVersion = 0;
+-    UPROPERTY(EditAnywhere, Category="Hills", meta=(ClampMin="256",ClampMax="1024")) float SizeMeters = 1024.f;
++    UPROPERTY(EditAnywhere, Replicated, Category="Hills", meta=(ClampMin="256",ClampMax="1024")) float SizeMeters = 1024.f;
++    UPROPERTY(Replicated) FTemperateEcologySnapshot NetEcology;
++    const TemperateEcology::FProfile& EcologyProfile() const { return NetEcology.Profile; }
+     UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="96",ClampMax="256")) float DetailRadiusMeters = 160.f;
+     UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="256",ClampMax="512")) float ViewRadiusMeters = 384.f;
+     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") bool bReady = false;

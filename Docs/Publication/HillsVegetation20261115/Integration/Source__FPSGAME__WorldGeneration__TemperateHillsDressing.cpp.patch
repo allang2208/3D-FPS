@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsDressing.cpp
+@@ -68,7 +68,7 @@
+         // tree fell out of a gap, but never in open meadow density.
+         const double Forest=ForestWeight(X,Y);
+         const double Region=RainforestWeight(X,Y);
+-        const auto Site=TemperateForestHabitat::Upland(N,Forest,TemperateForestHabitat::Moisture(X,Y,Seed,Region),Region);
++        const auto Site=TemperateForestHabitat::Upland(N,Forest,TemperateForestHabitat::Moisture(X,Y,Seed,Region, EcologyProfile()),Region, EcologyProfile());
+         const double Deadwood=Coverage*(.08+.92*Smooth(Forest/.5))*
+             (1.+.48*Site.Shelter-.68*Site.Meadow-.52*Site.Stony);
+         if(Unit(K+3)>Deadwood)continue;

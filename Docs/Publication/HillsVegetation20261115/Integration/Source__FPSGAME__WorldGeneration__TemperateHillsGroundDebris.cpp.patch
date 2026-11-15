@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsGroundDebris.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsGroundDebris.cpp
+@@ -32,9 +32,9 @@
+             // final XY owns its PCG cell even where the tile crosses a seam.
+             const double PocketX=.24+.52*Unit(TileKey+27),PocketY=.24+.52*Unit(TileKey+31);
+             const double CenterX=(GX+PocketX)*Tile,CenterY=(GY+PocketY)*Tile;
+-            const double Shelter=TemperateForestHabitat::UnderstoryPatch(CenterX,CenterY,Seed);
++            const double Shelter=TemperateForestHabitat::UnderstoryPatch(CenterX,CenterY,Seed, EcologyProfile());
+             const double Canopy=ForestWeight(CenterX,CenterY);
+-            const auto& E=TemperateEcology::Get();
++            const auto& E=EcologyProfile();
+             const double Edge=E.EdgeEnter.Weight(Canopy)*(1.-E.EdgeLeave.Weight(Canopy));
+             const double Trail=1.-FMath::SmoothStep(360.,900.,PathDistance(CenterX,CenterY));
+             const double Bank=RiverPlan?RiverPlan->Sample(CenterX,CenterY).Bank:0.;
+@@ -63,7 +63,7 @@
+                 // gather there and beneath the established understory patches.
+                 const double Cover=Twig?FMath::Lerp(.29+.35*Shelter,.81,Shore):
+                     FMath::Lerp(.30+.23*(1.-Shelter),.93,Shore);
+-                const double WoodCover=Twig?.48*Wood*TemperateEcology::Get().UplandShelterStrength:0.;
++                const double WoodCover=Twig?.48*Wood*EcologyProfile().UplandShelterStrength:0.;
+                 if(Unit(K+3)>FMath::Lerp(WoodCover,Cover,Region))continue;
+                 if(Region>0. && SampleForestWater(X,Y).Depth>14)continue;
+                 if(RiverPlan&&RiverPlan->Sample(X,Y).Bank>.35)continue;
+@@ -127,9 +127,9 @@
+             const double Slope=Smooth((.97-N.Z)/.16);
+             const double Region=RainforestWeight(X,Y);
+             const double Forest=TemperateForestHabitat::Canopy(X,Y,Seed,Region,
+-                Region>0 ? TemperateForestHabitat::RainforestOpening(X,Y,Seed) : 0.);
++                Region>0 ? TemperateForestHabitat::RainforestOpening(X,Y,Seed, EcologyProfile()) : 0., EcologyProfile());
+             const auto Site=TemperateForestHabitat::Upland(N,Forest,
+-                TemperateForestHabitat::Moisture(X,Y,Seed,Region),Region);
++                TemperateForestHabitat::Moisture(X,Y,Seed,Region, EcologyProfile()),Region, EcologyProfile());
+             const double Legacy=(.25+.75*Dry)*(.40+.60*Slope);
+             const double Chance=Coverage*(Legacy*(1.-.72*Site.Meadow)+.68*Site.Stony)*
+                 Smooth((Path-300)/420.0);

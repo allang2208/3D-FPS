@@ -1,0 +1,440 @@
+{
+  "scope": "precise publication payload; original source hashes and normalized publication hashes are distinct",
+  "files": [
+    {
+      "path": "Content/ColdSteelData/wildlife.json",
+      "bytes": 7645,
+      "sha256_lf": "ef0767bcdb5d03cd74991aabbf2055493474673e19915a673469fb80ef279108"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Config/rainforest-ecology.ini.fragment",
+      "bytes": 723,
+      "sha256_lf": "e81799815fc4fbe828211d164b879726f4229df7350baaa203b9105103e90f67"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Evidence/built-source-manifest.json",
+      "bytes": 6013,
+      "sha256_lf": "95ed4be7e90c3fee5b562b495ae556b0ef4db5648576465da1e74a5808d0b03c"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Evidence/ecology-loot-pools-editor-build.json",
+      "bytes": 1046,
+      "sha256_lf": "e591f0dbc1780e3f6d48a3baea2a06119789ccdc37b2ea3871fd76dc68112dbe"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Evidence/flicker-capture-findings.json",
+      "bytes": 1716,
+      "sha256_lf": "28d189a82659306767d954732ef06fc4ca993a5b9849adc62f1ecf506203755b"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Evidence/flicker-editor-build.json",
+      "bytes": 653,
+      "sha256_lf": "075e2d99ea0df7c92c853e0a94c90631164f7dd111b9ad9f4d7bf3db29999aac"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Evidence/pond-density-editor-build.json",
+      "bytes": 1532,
+      "sha256_lf": "bd9c9a8e651fe066ddd9dd3fa3e203f88786de46b8b47237fb44cc051dac3949"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/History/.gitattributes",
+      "bytes": 20,
+      "sha256_lf": "fb25a78a6381f5646d71aacea4486f6aeeeb03c4d71740227011024be0d20a8f"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/History/vegetation-streaming-20261113.patch",
+      "bytes": 34498,
+      "sha256_lf": "7315e192b3387a520c55a9cc36f38d306e8817b854dbc52357eeee8c6a6f0f1c"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/.gitattributes",
+      "bytes": 20,
+      "sha256_lf": "fb25a78a6381f5646d71aacea4486f6aeeeb03c4d71740227011024be0d20a8f"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__Multiplayer__ColdSteelSharedInventorySubsystem.cpp.patch",
+      "bytes": 737,
+      "sha256_lf": "1a632e56d6ea48c453c36fd94d80317f8d7f4934dec4caf253adf65084f6a3c1"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__SceneTestPortal.cpp.patch",
+      "bytes": 1018,
+      "sha256_lf": "56d453517f6ba195f788fcfacc9d75dfad584284e17f3bb43bb80f02d43a33d7"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__UI__ColdSteelExpeditionController.cpp.patch",
+      "bytes": 978,
+      "sha256_lf": "c150d89666f2a9068b27743e259053434654aa85b2b238eef869534c551fa53d"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__UI__ColdSteelGameMenuWidget.cpp.patch",
+      "bytes": 1191,
+      "sha256_lf": "cd8269aa363c6bbe7554ac701bd13e57fc45865821bda1c63dfc99bc78605f13"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__UI__ColdSteelHillsMap.cpp.patch",
+      "bytes": 878,
+      "sha256_lf": "f2466f7b681c969bfc1327b05f796895c3e62a013e156c0409396f205e816da2"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__UI__TransitLoadingSubsystem.cpp.patch",
+      "bytes": 1283,
+      "sha256_lf": "bcdd82cc500ac4400eab5004b56e7b9573463db7424681352b3f0c9025cda234"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsBackdrop.cpp.patch",
+      "bytes": 2456,
+      "sha256_lf": "2177adca850136dabe26df9337334ce6e314ac0b4e1649bc8242ad9ea421f268"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsDressing.cpp.patch",
+      "bytes": 777,
+      "sha256_lf": "ad05855d10c9918c8bf167b7677a7443d72a55e006d480bd2575fee14f34fe1d"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsGrass.cpp.patch",
+      "bytes": 4933,
+      "sha256_lf": "78e0021cbc709733bcd7a1004fdf0862df1471cfc8e32ebf0f4971b0531209f7"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsGroundDebris.cpp.patch",
+      "bytes": 2595,
+      "sha256_lf": "667844ac5a4d2d8480ba06805948186397b084fff1fc01b3229ba71daa90635e"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsRiver.cpp.patch",
+      "bytes": 632,
+      "sha256_lf": "56d443c0f74e42211cfa962054b3f6aa12237e85ee000afb0f1d98778f511b63"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsRiver.h.patch",
+      "bytes": 998,
+      "sha256_lf": "d508782c780500e1bb4cd6859084df82d0ffb8aa9cb24d8abfede49dd80171ab"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsRiverEcology.cpp.patch",
+      "bytes": 939,
+      "sha256_lf": "d54be1fa9375712b1a22b13fd629463217629945f12fccee3260d31e6db45d04"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsStreaming.cpp.patch",
+      "bytes": 6436,
+      "sha256_lf": "e90ac2aee82deb8aa0c65abc6a9b48c94ec552e3b37c72075b293a8fb3029892"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch",
+      "bytes": 5602,
+      "sha256_lf": "80e6b563b96150b2bcd655f2674be034a6df75c68e8b70718408e2f97d4bf948"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch",
+      "bytes": 1180,
+      "sha256_lf": "b825fd9870ccfa6eab056fc76123c2edd9947fcfbf629be585442a0a52468b20"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/README.md",
+      "bytes": 5088,
+      "sha256_lf": "3c009149a09f101473af3b9e908852837919f56340eb1b88c65ec98a6289296d"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeAudio.cpp",
+      "bytes": 4732,
+      "sha256_lf": "1641038d2302b80098161302f670c063d801715d23df072b9848838debc8f2c1"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeAudio.h",
+      "bytes": 1260,
+      "sha256_lf": "54263c937af5230466ee240c6ebf7f6d101bbb43a518671f3d3bb1040fb06fcb"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeGroups.cpp",
+      "bytes": 24473,
+      "sha256_lf": "1f2207898201aade725fac336c9126e4d756efcccaf53a66f3f0593a072b208a"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeGroups.h",
+      "bytes": 952,
+      "sha256_lf": "29a39b5b2ca928b55a2caf97ffec505b34e32d670b9299b9d0f058064564ea77"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeLoot.cpp",
+      "bytes": 4180,
+      "sha256_lf": "4eaa5ad3d7a11c6e351b71b142fa6787b2ddb4f23f2cc39446add4b386fb8723"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeAnimal.cpp",
+      "bytes": 41483,
+      "sha256_lf": "f130d979d425c33f443e864f1c88e67fd6cb9da5dc68b9dc144b23a88eee4dca"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeAnimal.h",
+      "bytes": 9066,
+      "sha256_lf": "72ff24db270c39c6fb415587ac3e6549944778dd3ae99a55089416ae54fa5757"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeDistanceActivity.cpp",
+      "bytes": 5690,
+      "sha256_lf": "784f086c4625dd7fc343cb666eaf0d32d9d8657b97fdbb05b975c67e7d792e1e"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeDistanceActivity.h",
+      "bytes": 1487,
+      "sha256_lf": "7861ed46fe6210a17c0ed35b7ae1015cec25aaf6a26825c4852e171a7a7c5d16"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeSubsystem.cpp",
+      "bytes": 13289,
+      "sha256_lf": "605d68d16564bcbac5049f7b8a792bf0eec4a966622432f1722acd638c759cde"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeSubsystem.h",
+      "bytes": 3713,
+      "sha256_lf": "2be00f17cde7938a27623c8857d2df7ca5c37c0677b83ec02b99b2e667fd0ce1"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.cpp",
+      "bytes": 4846,
+      "sha256_lf": "3355ce07f48e3c371f37405e3d8424a3e7f211ad400762ad2444459aacc45114"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h",
+      "bytes": 4653,
+      "sha256_lf": "43ebc7a6997c16093d4758bfafed347d49b7af8bc0af459f42ab1301c793adac"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+      "bytes": 6559,
+      "sha256_lf": "b8ae192d252ae25d93f1946b7eb519c0bf8572b67594aa5cf6eb43fd13a584e8"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+      "bytes": 5285,
+      "sha256_lf": "ceffaee9f618c76507189beb0deaa6977c1b8c22795fc78399bcf1d0b96fa7f2"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp",
+      "bytes": 18182,
+      "sha256_lf": "ab9aa92d6116d2eef820c367a80ce59320d0c86bf0c758eef450c6c2f780a23e"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+      "bytes": 1719,
+      "sha256_lf": "520721bc05e5e2f223c1ecab30a6c5774b4faaf1c7e028c6d8a9abdff3505e27"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h",
+      "bytes": 3167,
+      "sha256_lf": "99ed0c9cc61e1641e52086bf911f6321b78f7ced824709b8b6f8b1ba2863d936"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateHillsMicrohabitats.cpp",
+      "bytes": 7831,
+      "sha256_lf": "54f3eb3a3b8b7219b511e114e4556670c863860b91f61888918724e1db8f0900"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateHillsVisibility.h",
+      "bytes": 824,
+      "sha256_lf": "8c3501e6b7c5e9b8f7a7596b0251931dbe251d918247a3d189a87e5d39d00799"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateRainforestRegion.cpp",
+      "bytes": 10057,
+      "sha256_lf": "02117327bdb7bd81a99bd4f50a8984809f9e73db570fd2940b09a9a602aadf39"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationLiveTrace.cpp",
+      "bytes": 13724,
+      "sha256_lf": "8d60ef85253a5f6fbdf2d728479a678efa2f5d3db8919679f6d48e237f13b732"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationLiveTrace.h",
+      "bytes": 403,
+      "sha256_lf": "7581bf719865f7c281af98575b52cf7c64570759f6faa2444a7cada7ca665ae9"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+      "bytes": 17475,
+      "sha256_lf": "96e7540a74c4dae8d7966b1f3140ee8763c4d82d149845213db297ff5b7edca0"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.h",
+      "bytes": 227,
+      "sha256_lf": "473d7f2e4d7d3baef1172e284f053087b367bf394ab4d5f9bdd79bf6db3789bc"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationRenderAudit.h",
+      "bytes": 4341,
+      "sha256_lf": "84fd5f1983a681019e68a6b10137441262fbc58bc8ec57f3b1105e5d93fb66a9"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateWetForestCheckCommandlet.cpp",
+      "bytes": 8491,
+      "sha256_lf": "71c3320a6b7a1b3da24b6ddb02d3869c5c9da599a5dd76bf6507d8271d4302d0"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateWetForestCheckCommandlet.h",
+      "bytes": 353,
+      "sha256_lf": "d65489b7a41a6d52c6c44a984fa7432708412fcc468c908d7e1302552b7263f0"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/cleanup-manifest.json",
+      "bytes": 1942174,
+      "sha256_lf": "f64411d85633c909745e47434811435ad74b4dfee4a5679d74c8640a73b1d387"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/cleanup-receipt.json",
+      "bytes": 441,
+      "sha256_lf": "b9fcbd6224a17494b127e262b7ffb422a8a77940bd50ff77d1912b24694db294"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/integration-check.json",
+      "bytes": 274,
+      "sha256_lf": "54d79fad6fcbd195bbe522030a1f0bd2e18ae05f507e5d7f22f08238d3220b32"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/integration-manifest.json",
+      "bytes": 7630,
+      "sha256_lf": "597c98c9e8f50327b1c7acfaa649f9f5e5bc670913f1f70440739fbd40759d37"
+    },
+    {
+      "path": "Docs/Publication/HillsVegetation20261115/source-manifest.json",
+      "bytes": 12113,
+      "sha256_lf": "a16d260f4c0397d4d4765c73b27780ac593ca868745e03daf8a886cd2bf0e66d"
+    },
+    {
+      "path": "Docs/WorldGeneration/temperate-ecology-config-20261111.md",
+      "bytes": 7175,
+      "sha256_lf": "5e824d7a4b8cdc58da6e270099801de25d3c1366e7dbb3d2c2691891840220f6"
+    },
+    {
+      "path": "Tools/Wildlife/author_boar_appearance.py",
+      "bytes": 7316,
+      "sha256_lf": "561fe52526b1590b15af6b7ff4a007b40e43afec9e8832b23e1c12e54dbd5830"
+    },
+    {
+      "path": "Tools/Wildlife/author_hit_physics.py",
+      "bytes": 1546,
+      "sha256_lf": "725f34ec824dfa72357ca141e20c8a30904219ae7bc08b17909153100d8e66bc"
+    },
+    {
+      "path": "Tools/Wildlife/bake_boar_coat.py",
+      "bytes": 5991,
+      "sha256_lf": "25c60d7662b652e188db621b374e359a11225308c00bc5243955c9dc1e5e8dfc"
+    },
+    {
+      "path": "Tools/Wildlife/boar_materials.py",
+      "bytes": 1711,
+      "sha256_lf": "ff0a84935dda3e26ff554b41435b6805f4ce1a9d437cc8293370db62c81253a4"
+    },
+    {
+      "path": "Tools/Wildlife/boar_silhouette.py",
+      "bytes": 9876,
+      "sha256_lf": "81197a9a05bbe019f8a879fb35b20ccc78241adaca91372a6b04417028d3a7d0"
+    },
+    {
+      "path": "Tools/Wildlife/build_trophy_meshes.py",
+      "bytes": 4564,
+      "sha256_lf": "4ec6e59598fd6ddb41a07f5ebde6022f0e20733f49ce0850b2ffcfeee69a1400"
+    },
+    {
+      "path": "Tools/Wildlife/build_trophy_surfaces.py",
+      "bytes": 2707,
+      "sha256_lf": "6b5ea70e0c9f34128643a41df1bf2fd2548a1f4cb55b38e0c9c97da30f25f766"
+    },
+    {
+      "path": "Tools/Wildlife/build_wildlife.ps1",
+      "bytes": 2050,
+      "sha256_lf": "65a48b36b3c6978bfbd3a613359fe64967360408d189f75378de2467a6b4e48e"
+    },
+    {
+      "path": "Tools/Wildlife/create_wildlife_assets.py",
+      "bytes": 12201,
+      "sha256_lf": "12f1c296d10b3de12f2377620e58ae2fbb1187aba9380285ac584fb6535957ab"
+    },
+    {
+      "path": "Tools/Wildlife/import_trophies.py",
+      "bytes": 3166,
+      "sha256_lf": "01961bca0f59e1525a2fdddb214021f5896a00d75920ccd2b00df45741a2b8ce"
+    },
+    {
+      "path": "Tools/Wildlife/install_wildlife.ps1",
+      "bytes": 1886,
+      "sha256_lf": "7742e2de5fafd3c0d3a6571b38c2079309615332c924fe5513f8721b5045dee9"
+    },
+    {
+      "path": "Tools/WorldGeneration/author_clearing_flowers.py",
+      "bytes": 1649,
+      "sha256_lf": "8ee944ac539cc1a72a0e67459baa40943127e3386bfaa6f4e7d27cf0414d06a2"
+    },
+    {
+      "path": "Tools/WorldGeneration/author_rainforest_region.py",
+      "bytes": 2900,
+      "sha256_lf": "baf283d840cb923cb8c003c439aed86175045c598935c1d8768aae163233cb02"
+    },
+    {
+      "path": "Tools/WorldGeneration/build_rainforest_carpet_grass.py",
+      "bytes": 3363,
+      "sha256_lf": "a10513e756187911e44a0505ba7481ad827cd0fbfd656fd36fd896742ae3030b"
+    },
+    {
+      "path": "Tools/WorldGeneration/forest_wet_materials.py",
+      "bytes": 17709,
+      "sha256_lf": "d039ecb6387e10cb56f1a14f40dd08b322bced33dab4061960c5de66423ae34d"
+    },
+    {
+      "path": "Tools/WorldGeneration/restore_hills_grass_parameters.py",
+      "bytes": 3269,
+      "sha256_lf": "6e4962a2c10a49aca903518aec90598d915b4e974d644af7b24032bfedfd717f"
+    },
+    {
+      "path": "Tools/WorldGeneration/temperate_render_budget.py",
+      "bytes": 8946,
+      "sha256_lf": "1fd6867de09bae1d01316811348fce4e377249cb2d3a54c1124206f3e26120c6"
+    },
+    {
+      "path": "Tools/WorldGeneration/temperate_scanned_grass.py",
+      "bytes": 665,
+      "sha256_lf": "ed273ca89f866404cfdb76ba0601b933f5318700263dd9a96502d6674ed50ae3"
+    },
+    {
+      "path": "Tools/WorldGeneration/temperate_wind_bounds.py",
+      "bytes": 3935,
+      "sha256_lf": "58480b082101036b6bc7ef91bcff9762e29d76574ae9cb3880f6b3f7d9104487"
+    },
+    {
+      "path": "Tools/WorldGeneration/temperate_wind_budget.py",
+      "bytes": 3339,
+      "sha256_lf": "7a2a2d0050cbbd9f6ce0da7c64299a599c3ea2c893b3ed14feec33521af1d0f7"
+    },
+    {
+      "path": "skills/ue5-debug-validation/SKILL.md",
+      "bytes": 2456,
+      "sha256_lf": "d27b370fcf39fb5f6c8daf7781be1de0f2c3b036e01fea2b486eb54219b7b9f5"
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/pcg-property-change-flicker.md",
+      "bytes": 1632,
+      "sha256_lf": "03648abc14a1f2dd32220db60eec6db52015eb09733f7b7820c1bedc79d5c751"
+    },
+    {
+      "path": "skills/ue5-pcg-building/SKILL.md",
+      "bytes": 2664,
+      "sha256_lf": "664cf552159e81c01de9e78a337a23d6cd0de520223ee711242c4e4ceb08a0ef"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/hills-vegetation-and-pools.md",
+      "bytes": 2033,
+      "sha256_lf": "3b0003dcb42b83162cbe9a502e8ffcb969157ce6ac313c18eec22ac3c4824448"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "bytes": 6727,
+      "sha256_lf": "05305971fca5b71efda930c982280765b4e05b33b49fcd03295b0a6ce8eeec86"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/pending-wildlife-loot.md",
+      "bytes": 1547,
+      "sha256_lf": "95f0473e1073f98b554431d4f5deb89650f75560c0412d11f8ff8c586b9d43ce"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp
++++ b/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp
+@@ -1,4 +1,5 @@
+ #include "../FPSGAMEPlayerController.h"
++#include "../Monsters/WildlifeSubsystem.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Building/VoxelBuildComponent.h"
+@@ -88,6 +89,8 @@
+          return FText::FromString(TEXT("出征请求未发送"));}
+         if (!FPackageName::DoesPackageExist(DestinationMap))
+             return FText::FromString(TEXT("目的地关卡缺失，出征已取消"));
++        if (!UWildlifeSubsystem::FlushPendingLoot(GetWorld()))
++            return FText::FromString(TEXT("掉落保存失败，请稍后重试"));
+         // OpenLevel tears down this world before ConfirmDeparture can Close().
+         // Release the expedition UIOnly locks first so travel does not inherit them,
+         // and skip reopening the backpack on a map that is about to unload.

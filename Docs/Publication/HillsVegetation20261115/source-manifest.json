@@ -1,0 +1,226 @@
+[
+  {
+    "source": "Source/FPSGAME/Monsters/HillsWildlifeAudio.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeAudio.cpp",
+    "sha256": "1641038d2302b80098161302f670c063d801715d23df072b9848838debc8f2c1",
+    "bytes": 4732,
+    "published_sha256_lf": "1641038d2302b80098161302f670c063d801715d23df072b9848838debc8f2c1",
+    "published_bytes_lf": 4732
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/HillsWildlifeAudio.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeAudio.h",
+    "sha256": "54263c937af5230466ee240c6ebf7f6d101bbb43a518671f3d3bb1040fb06fcb",
+    "bytes": 1260,
+    "published_sha256_lf": "54263c937af5230466ee240c6ebf7f6d101bbb43a518671f3d3bb1040fb06fcb",
+    "published_bytes_lf": 1260
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/HillsWildlifeGroups.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeGroups.cpp",
+    "sha256": "1f2207898201aade725fac336c9126e4d756efcccaf53a66f3f0593a072b208a",
+    "bytes": 24473,
+    "published_sha256_lf": "1f2207898201aade725fac336c9126e4d756efcccaf53a66f3f0593a072b208a",
+    "published_bytes_lf": 24473
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/HillsWildlifeGroups.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeGroups.h",
+    "sha256": "29a39b5b2ca928b55a2caf97ffec505b34e32d670b9299b9d0f058064564ea77",
+    "bytes": 952,
+    "published_sha256_lf": "29a39b5b2ca928b55a2caf97ffec505b34e32d670b9299b9d0f058064564ea77",
+    "published_bytes_lf": 952
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/HillsWildlifeLoot.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/HillsWildlifeLoot.cpp",
+    "sha256": "4eaa5ad3d7a11c6e351b71b142fa6787b2ddb4f23f2cc39446add4b386fb8723",
+    "bytes": 4180,
+    "published_sha256_lf": "4eaa5ad3d7a11c6e351b71b142fa6787b2ddb4f23f2cc39446add4b386fb8723",
+    "published_bytes_lf": 4180
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/WildlifeAnimal.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeAnimal.cpp",
+    "sha256": "f130d979d425c33f443e864f1c88e67fd6cb9da5dc68b9dc144b23a88eee4dca",
+    "bytes": 41483,
+    "published_sha256_lf": "f130d979d425c33f443e864f1c88e67fd6cb9da5dc68b9dc144b23a88eee4dca",
+    "published_bytes_lf": 41483
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/WildlifeAnimal.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeAnimal.h",
+    "sha256": "72ff24db270c39c6fb415587ac3e6549944778dd3ae99a55089416ae54fa5757",
+    "bytes": 9066,
+    "published_sha256_lf": "72ff24db270c39c6fb415587ac3e6549944778dd3ae99a55089416ae54fa5757",
+    "published_bytes_lf": 9066
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/WildlifeDistanceActivity.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeDistanceActivity.cpp",
+    "sha256": "784f086c4625dd7fc343cb666eaf0d32d9d8657b97fdbb05b975c67e7d792e1e",
+    "bytes": 5690,
+    "published_sha256_lf": "784f086c4625dd7fc343cb666eaf0d32d9d8657b97fdbb05b975c67e7d792e1e",
+    "published_bytes_lf": 5690
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/WildlifeDistanceActivity.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeDistanceActivity.h",
+    "sha256": "7861ed46fe6210a17c0ed35b7ae1015cec25aaf6a26825c4852e171a7a7c5d16",
+    "bytes": 1487,
+    "published_sha256_lf": "7861ed46fe6210a17c0ed35b7ae1015cec25aaf6a26825c4852e171a7a7c5d16",
+    "published_bytes_lf": 1487
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/WildlifeSubsystem.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeSubsystem.cpp",
+    "sha256": "605d68d16564bcbac5049f7b8a792bf0eec4a966622432f1722acd638c759cde",
+    "bytes": 13289,
+    "published_sha256_lf": "605d68d16564bcbac5049f7b8a792bf0eec4a966622432f1722acd638c759cde",
+    "published_bytes_lf": 13289
+  },
+  {
+    "source": "Source/FPSGAME/Monsters/WildlifeSubsystem.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/Monsters/WildlifeSubsystem.h",
+    "sha256": "2be00f17cde7938a27623c8857d2df7ca5c37c0677b83ec02b99b2e667fd0ce1",
+    "bytes": 3713,
+    "published_sha256_lf": "2be00f17cde7938a27623c8857d2df7ca5c37c0677b83ec02b99b2e667fd0ce1",
+    "published_bytes_lf": 3713
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.cpp",
+    "sha256": "3355ce07f48e3c371f37405e3d8424a3e7f211ad400762ad2444459aacc45114",
+    "bytes": 4846,
+    "published_sha256_lf": "3355ce07f48e3c371f37405e3d8424a3e7f211ad400762ad2444459aacc45114",
+    "published_bytes_lf": 4846
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h",
+    "sha256": "43ebc7a6997c16093d4758bfafed347d49b7af8bc0af459f42ab1301c793adac",
+    "bytes": 4653,
+    "published_sha256_lf": "43ebc7a6997c16093d4758bfafed347d49b7af8bc0af459f42ab1301c793adac",
+    "published_bytes_lf": 4653
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+    "sha256": "b8ae192d252ae25d93f1946b7eb519c0bf8572b67594aa5cf6eb43fd13a584e8",
+    "bytes": 6559,
+    "published_sha256_lf": "b8ae192d252ae25d93f1946b7eb519c0bf8572b67594aa5cf6eb43fd13a584e8",
+    "published_bytes_lf": 6559
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "sha256": "ceffaee9f618c76507189beb0deaa6977c1b8c22795fc78399bcf1d0b96fa7f2",
+    "bytes": 5285,
+    "published_sha256_lf": "ceffaee9f618c76507189beb0deaa6977c1b8c22795fc78399bcf1d0b96fa7f2",
+    "published_bytes_lf": 5285
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp",
+    "sha256": "ab9aa92d6116d2eef820c367a80ce59320d0c86bf0c758eef450c6c2f780a23e",
+    "bytes": 18182,
+    "published_sha256_lf": "ab9aa92d6116d2eef820c367a80ce59320d0c86bf0c758eef450c6c2f780a23e",
+    "published_bytes_lf": 18182
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+    "sha256": "520721bc05e5e2f223c1ecab30a6c5774b4faaf1c7e028c6d8a9abdff3505e27",
+    "bytes": 1719,
+    "published_sha256_lf": "520721bc05e5e2f223c1ecab30a6c5774b4faaf1c7e028c6d8a9abdff3505e27",
+    "published_bytes_lf": 1719
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h",
+    "sha256": "99ed0c9cc61e1641e52086bf911f6321b78f7ced824709b8b6f8b1ba2863d936",
+    "bytes": 3167,
+    "published_sha256_lf": "99ed0c9cc61e1641e52086bf911f6321b78f7ced824709b8b6f8b1ba2863d936",
+    "published_bytes_lf": 3167
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateHillsMicrohabitats.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateHillsMicrohabitats.cpp",
+    "sha256": "54f3eb3a3b8b7219b511e114e4556670c863860b91f61888918724e1db8f0900",
+    "bytes": 7831,
+    "published_sha256_lf": "54f3eb3a3b8b7219b511e114e4556670c863860b91f61888918724e1db8f0900",
+    "published_bytes_lf": 7831
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateRainforestRegion.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateRainforestRegion.cpp",
+    "sha256": "02117327bdb7bd81a99bd4f50a8984809f9e73db570fd2940b09a9a602aadf39",
+    "bytes": 10057,
+    "published_sha256_lf": "02117327bdb7bd81a99bd4f50a8984809f9e73db570fd2940b09a9a602aadf39",
+    "published_bytes_lf": 10057
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateHillsVisibility.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateHillsVisibility.h",
+    "sha256": "8c3501e6b7c5e9b8f7a7596b0251931dbe251d918247a3d189a87e5d39d00799",
+    "bytes": 824,
+    "published_sha256_lf": "8c3501e6b7c5e9b8f7a7596b0251931dbe251d918247a3d189a87e5d39d00799",
+    "published_bytes_lf": 824
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "sha256": "96e7540a74c4dae8d7966b1f3140ee8763c4d82d149845213db297ff5b7edca0",
+    "bytes": 17475,
+    "published_sha256_lf": "96e7540a74c4dae8d7966b1f3140ee8763c4d82d149845213db297ff5b7edca0",
+    "published_bytes_lf": 17475
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.h",
+    "sha256": "473d7f2e4d7d3baef1172e284f053087b367bf394ab4d5f9bdd79bf6db3789bc",
+    "bytes": 227,
+    "published_sha256_lf": "473d7f2e4d7d3baef1172e284f053087b367bf394ab4d5f9bdd79bf6db3789bc",
+    "published_bytes_lf": 227
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateVegetationLiveTrace.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationLiveTrace.cpp",
+    "sha256": "8d60ef85253a5f6fbdf2d728479a678efa2f5d3db8919679f6d48e237f13b732",
+    "bytes": 13724,
+    "published_sha256_lf": "8d60ef85253a5f6fbdf2d728479a678efa2f5d3db8919679f6d48e237f13b732",
+    "published_bytes_lf": 13724
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateVegetationLiveTrace.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationLiveTrace.h",
+    "sha256": "7581bf719865f7c281af98575b52cf7c64570759f6faa2444a7cada7ca665ae9",
+    "bytes": 403,
+    "published_sha256_lf": "7581bf719865f7c281af98575b52cf7c64570759f6faa2444a7cada7ca665ae9",
+    "published_bytes_lf": 403
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateVegetationRenderAudit.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateVegetationRenderAudit.h",
+    "sha256": "84fd5f1983a681019e68a6b10137441262fbc58bc8ec57f3b1105e5d93fb66a9",
+    "bytes": 4341,
+    "published_sha256_lf": "84fd5f1983a681019e68a6b10137441262fbc58bc8ec57f3b1105e5d93fb66a9",
+    "published_bytes_lf": 4341
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateWetForestCheckCommandlet.cpp",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateWetForestCheckCommandlet.cpp",
+    "sha256": "71c3320a6b7a1b3da24b6ddb02d3869c5c9da599a5dd76bf6507d8271d4302d0",
+    "bytes": 8491,
+    "published_sha256_lf": "71c3320a6b7a1b3da24b6ddb02d3869c5c9da599a5dd76bf6507d8271d4302d0",
+    "published_bytes_lf": 8491
+  },
+  {
+    "source": "Source/FPSGAME/WorldGeneration/TemperateWetForestCheckCommandlet.h",
+    "published": "Docs/Publication/HillsVegetation20261115/Sources/Source/FPSGAME/WorldGeneration/TemperateWetForestCheckCommandlet.h",
+    "sha256": "d65489b7a41a6d52c6c44a984fa7432708412fcc468c908d7e1302552b7263f0",
+    "bytes": 353,
+    "published_sha256_lf": "d65489b7a41a6d52c6c44a984fa7432708412fcc468c908d7e1302552b7263f0",
+    "published_bytes_lf": 353
+  }
+]
