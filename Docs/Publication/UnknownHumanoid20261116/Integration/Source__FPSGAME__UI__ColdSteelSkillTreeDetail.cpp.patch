@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/UI/ColdSteelSkillTreeDetail.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSkillTreeDetail.cpp
+@@ -339,7 +339,7 @@
+     // staff magic wheel
+     if(Model->CanBindMagic(Id))
+     {
+-        const auto& Wheel = Model->MagicBindings(); const int32 Selected = Model->SelectedMagicSlot();
++        const auto& Wheel = Model->MagicBindings(); const int32 SelectedSlot = Model->SelectedMagicSlot();
+         int32 In = INDEX_NONE;
+         auto Slots = SNew(SHorizontalBox);
+         for(int32 I = 0; I < Wheel.Num(); ++I)
+@@ -349,7 +349,7 @@
+             const FString Tip = bOn ? FString(TEXT("已登记")) : !Wheel[I].IsNone() ? FString::Printf(TEXT("第 %d 格 %s → 换成 %s"), I + 1, *SkillName(Wheel[I]), *SkillName(Id)) : FString::Printf(TEXT("登记到第 %d 格"), I + 1);
+             Slots->AddSlot().FillWidth(1).Padding(2, 0)[Chip(FString::FromInt(I + 1), bOn, Wheel[I].IsNone(), Img, false, Tip, [this, I, Id] { Model->BindMagic(I, Id); })];
+         }
+-        const FString State = In != INDEX_NONE ? FString::Printf(TEXT("第 %d 格%s"), In + 1, In == Selected ? TEXT(" · 当前魔法") : TEXT("")) : FString(TEXT("未登记"));
++        const FString State = In != INDEX_NONE ? FString::Printf(TEXT("第 %d 格%s"), In + 1, In == SelectedSlot ? TEXT(" · 当前魔法") : TEXT("")) : FString(TEXT("未登记"));
+         Body->AddSlot().AutoHeight().Padding(0, 16, 0, 0)[Section(TEXT("魔法轮盘"), State,
+             SNew(SVerticalBox)
+             + SVerticalBox::Slot().AutoHeight()[Slots]

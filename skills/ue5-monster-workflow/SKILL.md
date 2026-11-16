@@ -23,3 +23,7 @@ M66 焚骸的不对称绑定、侧倒/起身地形支撑、缩放根骨和权威
 
 - 按模型校准命中体积、肩口连续性和受击碰撞同步：读取 [model-hit-volumes](references/model-hit-volumes.md)。
 - 设施主题刷怪分派、出生范围和漏刷排查：读取 [facility-spawn-routing](references/facility-spawn-routing.md)。
+
+## 玩家装备驱动的人形敌人
+
+未知的随机装备、等级伤害、移动战术、弓／双刀切换及共享动作时序，读取 [未知人形战斗合同](references/unknown-player-derived-combat.md)。

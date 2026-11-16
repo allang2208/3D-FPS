@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/M10Howl.cpp
++++ b/Source/FPSGAME/Monsters/M10Howl.cpp
+@@ -1,4 +1,5 @@
+ #include "M10Mawcrawler.h"
++#include "MonsterDamageBalance.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "M10HowlDamage.h"
+ #include "MonsterAIController.h"
+@@ -45,7 +46,7 @@
+         if(!HealthComponent||HealthComponent->IsDead()||!IsInHowlSector(Victim))continue;
+         // SAN/cripple are committed by the health component only after this hit
+         // survives dodge, invulnerability and the normal magic defense chain.
+-        UGameplayStatics::ApplyDamage(Victim,HowlDamagePerTick,GetController(),this,UM10HowlDamage::StaticClass());
++        UGameplayStatics::ApplyDamage(Victim,MonsterDamageBalance::Limit(HowlDamagePerTick*.55f,20.f),GetController(),this,UM10HowlDamage::StaticClass());
+         if(State!=EM10State::Howl||Dead())return;
+     }
+ }

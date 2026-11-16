@@ -1,0 +1,46 @@
+--- a/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp
++++ b/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSBodyRifleHold.h"
++#include "FPSBodyGunAimTypes.h"
+ #include "FPSBodyRifleStockContacts.h"
+ #include "FPSPlayerBodyTypes.h"
+ #include "../Weapons/AKMSovietCalibration.h"
+@@ -16,24 +17,15 @@
+     FFPSBodyRifleHold Hold;
+     const auto* Asset=Weapon.GetSkeletalMeshAsset();
+     if(!Asset||Definition.PoseFamily!=TEXT("Gun"))return Hold;
+-    const bool M24=Asset->GetPathName()==M24WeaponAssets::MeshPath;
+     const FVector* StockRoot=FPSBodyRifleStock::Find(Asset->GetPathName());
+     if((!StockRoot&&!Weapon.DoesSocketExist(TEXT("WPN_StockContact")))||!Weapon.DoesSocketExist(TEXT("WPN_root"))||!Weapon.DoesSocketExist(TEXT("WPN_FrontSight"))||!Weapon.DoesSocketExist(TEXT("WPN_RearSight")))return Hold;
+     const FTransform Root=Weapon.GetSocketTransform(TEXT("WPN_root"),RTS_Component);
+     const bool M870=Asset->GetPathName()==M870WeaponAssets::MeshPath;
+     const bool Saiga=Saiga12KWeaponAssets::Matches(&Weapon);
+-    const bool SVCH=SVCHWeaponAssets::Matches(&Weapon);
+-    // M870 and M24 have a root whose +Z points along the barrel. Using
+-    // that as "up" projects away the sight line and leaves a downward axis.
+-    // Preserve its measured complete sight frame through the current root.
+-    const FVector Up=M24?Root.TransformVectorNoScale(M24WeaponAssets::SightUp).GetSafeNormal():
+-        SVCH?Root.TransformVectorNoScale(SVCHWeaponAssets::SightUp).GetSafeNormal():
+-        M870?Root.TransformVectorNoScale(FVector(0,-.9999901840,-.0044230472)).GetSafeNormal():
+-        Root.GetRotation().GetUpVector();
+-    const FVector Front=SVCH?Root.TransformPosition(SVCHWeaponAssets::FrontSight):Saiga?Root.TransformPosition(Saiga12KWeaponAssets::Front):AKMSoviet::Matches(&Weapon)?Root.TransformPosition(AKMSoviet::Front):Weapon.GetSocketTransform(TEXT("WPN_FrontSight"),RTS_Component).GetLocation();
+-    const FVector Rear=SVCH?Root.TransformPosition(SVCHWeaponAssets::RearSight):Saiga?Root.TransformPosition(Saiga12KWeaponAssets::Rear):AKMSoviet::Matches(&Weapon)?Root.TransformPosition(AKMSoviet::Rear):Weapon.GetSocketTransform(TEXT("WPN_RearSight"),RTS_Component).GetLocation();
+-    const FVector Forward=FVector::VectorPlaneProject(Front-Rear,Up).GetSafeNormal();
+-    if(Forward.IsNearlyZero())return Hold;
++    FTransform Sight;
++    if(!FPSBodyGunAim::SightFrame(Weapon,Sight))return Hold;
++    const FVector Forward=Sight.GetRotation().GetForwardVector();
++    const FVector Up=Sight.GetRotation().GetUpVector();
+     FVector Stock=Weapon.DoesSocketExist(TEXT("WPN_StockContact"))?Weapon.GetSocketTransform(TEXT("WPN_StockContact"),RTS_Component).GetLocation():Root.TransformPosition(*StockRoot);
+     const FVector Side=FVector::CrossProduct(Up,Forward).GetSafeNormal();
+     for(const auto& Part:Definition.Parts)
+@@ -64,7 +56,7 @@
+     }
+     const FTransform Mount=Weapon.GetRelativeTransform();
+     Hold.StockInHand=Mount.TransformPosition(Stock);
+-    Hold.BarrelInHand=(Mount.GetRotation()*FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat()).GetNormalized();
++    Hold.BarrelInHand=(Mount.GetRotation()*Sight.GetRotation()).GetNormalized();
+     Hold.bValid=true;
+     return Hold;
+ }

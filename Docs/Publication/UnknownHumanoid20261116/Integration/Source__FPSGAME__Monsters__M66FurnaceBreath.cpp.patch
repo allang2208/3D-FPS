@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/M66FurnaceBreath.cpp
++++ b/Source/FPSGAME/Monsters/M66FurnaceBreath.cpp
+@@ -1,4 +1,5 @@
+ #include "M66IncineratorMonster.h"
++#include "MonsterDamageBalance.h"
+ #include "M66BreathTiming.h"
+ #include "M66FurnaceVisualComponent.h"
+ #include "MonsterCombatComponent.h"
+@@ -86,7 +87,7 @@
+             FHitResult Block;if(FireMagic::TraceSurface(this,Origin,Point,Block,true))continue;
+             auto* Shape=Cast<UPrimitiveComponent>(Target->GetRootComponent());
+             FHitResult Hit(Target,Shape,Point,(Origin-Point).GetSafeNormal());Hit.TraceStart=Origin;Hit.TraceEnd=Point;
+-            UGameplayStatics::ApplyPointDamage(Target,BreathDamage,(Point-Origin).GetSafeNormal(),Hit,GetController(),this,UFireMagicDamage::StaticClass());
++            UGameplayStatics::ApplyPointDamage(Target,MonsterDamageBalance::Limit(BreathDamage*.55f,16.f),(Point-Origin).GetSafeNormal(),Hit,GetController(),this,UFireMagicDamage::StaticClass());
+             if(!IsBreathing()||IsActorBeingDestroyed())return;
+             break;
+         }

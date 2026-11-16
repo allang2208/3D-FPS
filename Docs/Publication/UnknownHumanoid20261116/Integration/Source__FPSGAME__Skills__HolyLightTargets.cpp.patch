@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Skills/HolyLightTargets.cpp
++++ b/Source/FPSGAME/Skills/HolyLightTargets.cpp
+@@ -1,4 +1,5 @@
+ #include "HolyLightTargets.h"
++#include "../Monsters/UnknownHumanoid.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "../Monsters/MonsterCombatComponent.h"
+@@ -13,6 +14,7 @@
+     {
+         if(!IsValid(Target)||Target->IsActorBeingDestroyed())return false;
+         if(auto* C=Target->FindComponentByClass<UFPSCombatHealthComponent>()){Health=&C->Health;Maximum=C->MaxHealth;return true;}
++        if(auto* C=Cast<AUnknownHumanoid>(Target)){Health=&C->Health;Maximum=C->MaxHealth;return true;}
+         if(auto* C=Cast<ANurseZombie>(Target)){Health=&C->Health;Maximum=C->MaxHealth;return true;}
+         if(auto* C=Cast<AHandBrainMonster>(Target)){Health=&C->Health;Maximum=C->MaxHealth;return true;}
+         if(auto* C=Cast<AWolfMonster>(Target)){Health=&C->Health;Maximum=C->MaxHealth;return true;}

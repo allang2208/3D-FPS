@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp
++++ b/Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp
+@@ -1,4 +1,5 @@
+ #include "SpiralPillarM14.h"
++#include "MonsterDamageBalance.h"
+ #include "M14WhirlwindMotion.h"
+ #include "FleshHandMonster.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -64,7 +65,7 @@
+         FVector Direction=(Victim->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
+         if(Direction.IsNearlyZero())Direction=GetActorForwardVector();
+         const float Before=Vitals?Vitals->Health:0.f;
+-        UGameplayStatics::ApplyPointDamage(Victim,PhysicalAttack*WhirlwindDamageMultiplier,
++        UGameplayStatics::ApplyPointDamage(Victim,MonsterDamageBalance::Limit(PhysicalAttack*WhirlwindDamageMultiplier,100.f),
+             Direction,Hit,GetController(),this,UEnemyMeleeDamage::StaticClass());
+         // Guard/parry may synchronously interrupt or kill the attacking monster.
+         // Invulnerability and a fully blocked hit must not produce displacement.

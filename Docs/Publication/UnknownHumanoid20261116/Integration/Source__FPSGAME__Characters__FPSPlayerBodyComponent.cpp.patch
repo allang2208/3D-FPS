@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -529,22 +529,8 @@
+     if(BodyAnimation)
+     {
+         BodyAnimation->BodyState=DisplayState;BodyAnimation->Clock=ServerClock();
+-        BodyAnimation->bHasGunAimTarget=false;
+-        if(GetNetMode()!=NM_DedicatedServer&&DisplayState.Action!=EFPSBodyAction::Dead&&
+-            (BodyAnimation->GunAimFrames[0].bValid||BodyAnimation->GunAimFrames[1].bValid))
+-        {
+-            // Converge each world muzzle on the gameplay sight ray, including
+-            // crouch height and nearby targets. F6's observer camera is not aim.
+-            const FVector Eye=Character->IsLocallyControlled()&&Character->FirstPersonCamera?
+-                Character->FirstPersonCamera->GetComponentLocation():Character->GetPawnViewLocation();
+-            const FVector Direction=FRotator(DisplayState.AimPitch,Character->GetActorRotation().Yaw+DisplayState.AimYaw,0).Vector();
+-            FHitResult Hit;
+-            const FVector End=Eye+Direction*100000.f;
+-            const bool HitTarget=RangedAttackQuery::LineTraceSingle(GetWorld(),Character.Get(),Hit,Eye,End,ECC_Visibility,
+-                FCollisionQueryParams(SCENE_QUERY_STAT(BodyGunAim),true,Character.Get()));
+-            BodyAnimation->GunAimTarget=HitTarget?Hit.ImpactPoint:End;
+-            BodyAnimation->bHasGunAimTarget=true;
+-        }
++        BodyAnimation->bHasGunAimTarget=DisplayState.bHasGunAimTarget&&DisplayState.Action!=EFPSBodyAction::Dead;
++        BodyAnimation->GunAimTarget=DisplayState.GunAimTarget;
+         BodyAnimation->Reactions=Reactions;
+         const FVector LocalVelocity=Character->GetActorQuat().UnrotateVector(Character->GetVelocity());
+         BodyAnimation->Speed=LocalVelocity.Size2D();

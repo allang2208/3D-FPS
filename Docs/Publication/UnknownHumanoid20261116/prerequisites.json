@@ -1,0 +1,2462 @@
+{
+  "engine": "Unreal Engine 5.8.2",
+  "public_head": "b9093736074cc425a467efce7a293c801fc992d6",
+  "standalone_buildable": false,
+  "local_include_dependencies": [
+    {
+      "path": "Source/FPSGAME/Building/AlchemyTypes.h",
+      "local_sha256": "ce9ab7bf29c71db7c0989643976c1d217acae5e166b0a1947d6b957fa521568f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelDoor.h",
+      "local_sha256": "a94369932f8a74f050ac3768dc61c629e8757e0f9b6fa9784d6a657c76d06f4d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelDoorNetState.h",
+      "local_sha256": "67c9827a42bca0ace9e40bfe75666e196e3f21e925029f3b979725c74d348c24",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelPlantingTypes.h",
+      "local_sha256": "d8155500f51dc75b9d453314b2e0a461f2d4437d7f9d291e53922a404d1657e9",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Building/FPSForgeWorkComponent.h",
+      "local_sha256": "8812c7ac5b2e1c1b02003ad6f7d80759fba6fa7e15d99185c2f73452587526c4",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackHangingMotion.h",
+      "local_sha256": "54e5f2ea2df9afc389c3bd23fb3f7c74e6f1cfd64abfecf842ab64d7a306edf9",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackMotionComponent.h",
+      "local_sha256": "e4420d8407c5afd388a9b1602e9540b2986bd7fbd972a3025dc54cb2a1dc7e55",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyBookCarryPose.inl",
+      "local_sha256": "a52f255d00436c52b048e5a32e0892ae6e796a49a4b0b101755e58448706144d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyBowMotion.h",
+      "local_sha256": "eff0fb7ae5ae9bcb8b61c2e747f0f8b2c4a4942263a7921ea6ba390db7a82379",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyBowPose.inl",
+      "local_sha256": "a4e08f53d78a110eef30e53a81a00a9b75e2d5c50230b9566ca1eb371de0a6d1",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyConsumeMotion.h",
+      "local_sha256": "604c3e29428fea67caf06587bf9b80a978f0751dd3f550b931e90cd72567a181",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyConsumePose.inl",
+      "local_sha256": "2414511a5f380c7e6bcff95944117b1b1de4a34552f6ea45e59ccbe9a1e7289b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyDualPistolSource.inl",
+      "local_sha256": "d1fb3579f552dacf2a877ddef049bf6b92e9ec5aa2f1bad7c39de30b2031987f",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyFurnitureLayer.inl",
+      "local_sha256": "0a4ac3b201c0609a29f00a3eff3681677e0f1efa3fc224f8ecca4414d750e9c8",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyGrounding.h",
+      "local_sha256": "8b7f9fcc9c19cd438ffb4413c03db84d32dadaad08d14c5a1a515c9671da3283",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHammerCastPose.inl",
+      "local_sha256": "603899b9a886580ebb840b7059151ada44534ed6706f68dace39770e0a101e47",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHammerContinuity.inl",
+      "local_sha256": "f581b90f8729fd99d07a6ee43b7fb82ad16d2fbfd9c510ebd4b28a121d281327",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHandAttackData.h",
+      "local_sha256": "0569cbd1fe72f2d9df50a42b603548c5dd74f5af5438f344f2cda99b4d88d155",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHandAttackMotion.h",
+      "local_sha256": "094a02017d2c85b7d0fc8920985c787e258a041f23891aee19093f0c76aa6adc",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHighlandMotion.h",
+      "local_sha256": "665515645f7ce0fcc55c63c65d45cba601568c51fda17d93a84f495c5bdac0bb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriDualGripData.h",
+      "local_sha256": "d98b9f9a1506d021f1de83e2059329b859720989dfa6ffa87c10c32dd07e6fe3",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriGripData.h",
+      "local_sha256": "0522bf6a930049a0e5eef71c93206bb2c470b5d3479dda80a6ba283a7c039be2",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriMotion.h",
+      "local_sha256": "8f6c12670a16eed96cd7b4842cbd84f663ef94150a6475a9ca466604ce38bb0b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriRifts.h",
+      "local_sha256": "c72c3b2864715b2179beead07ca7a8f516ce88c7eb3b7ea9e5773e5390b52330",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMeleePose.h",
+      "local_sha256": "2a3a42c3180548f7d18e8a5855c83f843478c8ca50cd3d7186cec9914e87a75c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMotionBinding.h",
+      "local_sha256": "6c0e7d89524f0d5e669c9c85f7cb0f0c8dfdc2c21033054cd0c28fcc0b298ad9",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMotionSample.h",
+      "local_sha256": "7acf4f9f6ceca88a490b6bdf19c446e2a039ca0b086f5093f25d5c33ddd25859",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyOffhandKukriPose.inl",
+      "local_sha256": "36e633c14df5c3b7746505eea360b6088c9597f90e8dfc1e771b03f7677e31f4",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyOutfitResources.h",
+      "local_sha256": "7c69899c86f04c880c32ea8baacad24de1b4de163484eef928074e9c8cecc750",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyPistolMagazineTiming.h",
+      "local_sha256": "f83602e590c254877d80d4f8d2ed45263372a750f60f7ef0a15bceac88777756",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyPistolMotion.h",
+      "local_sha256": "9da35d0eecfe23b4125f6e14f5fbc8a722ae27d907907e0c932d360b3b97a5ac",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyPistolPose.inl",
+      "local_sha256": "3de0b3144cdb7e7f18363371d761b060d383d2289df39d91b71b11187ce0b2ab",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyReactionState.h",
+      "local_sha256": "85200fe6e59a434d8567dfcfc43633e8a57407b03dc8e1c2ab18368e9516804e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRevolverReload.h",
+      "local_sha256": "b86ad8425dd46c828cbb04269284ff73295412f64b679a84931ff143eefdb1dd",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRifleHold.h",
+      "local_sha256": "1a74d657e2f9c6603bbe1080ac8e7d1bb807cdd593aa025e5b61d5aed7984c21",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRifleMotion.h",
+      "local_sha256": "5556b1cb59163359d308991c606df7f22175c7f7c7c5171ec2dfdf8765c4b805",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h",
+      "local_sha256": "405573c02262833424e1a830c234b26b45b4d5da798c110b88d3ec0f999bf870",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRuneVisual.h",
+      "local_sha256": "d592e25d1dd8fd50721e863fdd8919af0675f8ab004967f4911f6f89b6ad117b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolContact.h",
+      "local_sha256": "3786dc3d82e0ebec39ce04a4c465ecc58b09fb2720461eb31dcd236a88dd4d45",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolMirror.inl",
+      "local_sha256": "e9d1dfaadf6151e97d0fb52d6a4483b72af89ed7c6f64e999e849f8eeda116ae",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolSource.h",
+      "local_sha256": "ec0c3ddefc85d5d5809a3a212655bdacd76211be1bc6e74da805f7f1ed5bf7bb",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolSourceLayer.inl",
+      "local_sha256": "ced18f03586c974602426056d64d7192c8099ae5c74b32ac0783204bfa098314",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolSupport.inl",
+      "local_sha256": "2b3ce17ef32dd12a291f3eadc2d6c07cbe89877fdfc236dc37668a412a913a34",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySlideLayer.inl",
+      "local_sha256": "f8aa46656fe76173fd216aa1e9fed57ed2287171c31e50a24e389a0ad7d308db",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffArmPose.inl",
+      "local_sha256": "8cbb51f1d650d81209590d25bbd227aecc24d7750d1ecbe1e3b4166f096eba5a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffCarryPose.inl",
+      "local_sha256": "ef7d94af0860c5191f2e4489180320fc38534b80d5c6149aa7073ae68b487f2e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffCastData.h",
+      "local_sha256": "c29bd00b3295d60ce1883f378ed1b3fc0cc23b62045a66bf3f4310894765c2da",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffCastPose.inl",
+      "local_sha256": "87dea4fc7676a6302741c225b7589525d256603fcb1eb5733b1631ea3d932a9b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffContactFit.h",
+      "local_sha256": "40c6ab71a2781e183251f8ad86930c57d8936dfd395a0ba63c6e19c40190ff83",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h",
+      "local_sha256": "611e1532beb8d4a11416f3c74d96b47fe4932ff758ef841bc4efffd31ac6c575",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffStrikePose.inl",
+      "local_sha256": "204a1c0b26b18cf040721ebe6fee1a1f6d0cebe9848b62da1fd0978960fe2a19",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStunPose.inl",
+      "local_sha256": "b9615db29376cc84a813ee246378f57dee3e80f5a090b89f73ecf26f63789724",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+      "local_sha256": "08e622432fdcc1f9fe6937625bfd9a2bb6df3d2442d8266f472fae0dd23950bd",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+      "local_sha256": "9885e018082a4400a6619a59b76a64e7e6af66203f0afd70875fccdd23149394",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyTraversalLayer.inl",
+      "local_sha256": "3ffcd0fe9b9374ec43981032c0781d2982b1611c0dddbc5213bb7da2adc86b09",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h",
+      "local_sha256": "89d02eb22f9bc4a5d3d2150d5127859bcdf56cfaba546f7f5ac4ce1e24cdd908",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyWeaponMeshComponent.h",
+      "local_sha256": "2f12de8e600b9f1b8743112884e246e3dbbbb7f777586071a8361a4b2e539ff0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSGunPresentationTypes.h",
+      "local_sha256": "633eb1a749c531e8ec5166ea48ce057ad9536ea0af2a5d2c888863d9cfaec245",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSHeadEquipmentMeshComponent.h",
+      "local_sha256": "2a98e80fdfd2f58b87b21424a3929cbc38e0d2cd6a387d699421328a544dab3b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.h",
+      "local_sha256": "1bc0d191ac23435b49d1cb135c82fc0e0178e5674e71d8b2291f2af1ba1c8189",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSOutfitStairVisibility.h",
+      "local_sha256": "7744b37ed21627757c75771c720f5e9b900d065d8763500c1a31f448590bf167",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyGrip.h",
+      "local_sha256": "1ad24058cc662668561ea440dce80527013702ea2b5a21f587624e01f1e8c61c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.h",
+      "local_sha256": "8ba10ee44e58d00ed1affd19512b989ec515009b6511c5c174a76a678adcc585",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyPoses.h",
+      "local_sha256": "fa5ebb90d82441906bcaafd2aed6309fcf0bf0306251c48013809c335320949a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerDeathMotion.h",
+      "local_sha256": "1738df13cbe390059dc9536d6ad76b37732873a07979922b75a805f75836df06",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerHeadAnimInstance.h",
+      "local_sha256": "9d489bbf056ef4ceae1b86015952f7108b455f35a1f75ae9b6c76a9f6302bbe0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerReactionCamera.h",
+      "local_sha256": "12c21eb81c716334cd36a842fd53e6597f49817e304534efd74d6be469146b28",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/AncientBreakingSealComponent.h",
+      "local_sha256": "65e6d3dfb08ca25d7f7ccbbd4e992735c12a8d213d28f5481de0567b16ba6cf1",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatChill.h",
+      "local_sha256": "61cb9112efd2ab2b230109feddf40d9c0c786ed496fbc107a1808858cff26a0b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatControlImmunity.h",
+      "local_sha256": "7e78966793aba59923cf060ad1c98456b6112064aeb6b57c0a42f4dc61444d32",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatFormulaRuntime.h",
+      "local_sha256": "ea6a5115913028a4226eef41cee7a9880e2260652131b2dca3f2e79aee4a9db7",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatItemFormula.h",
+      "local_sha256": "6c3c86acbfd29bfdfcbfa92fe37aa73bdf51cbd9fcecfee84d7a951592801cbf",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+      "local_sha256": "db01dc3b582bf31595ab9c12580f7798f788f751909726a269a61069c7a1cfb7",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CoreCombatFormula.h",
+      "local_sha256": "84bd5229f5326206a084fbd2f14f25f13938004f66b8530e1c63d03c4d164263",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/MonsterToughnessTypes.h",
+      "local_sha256": "2d50b1aa7a68ebb6d2356a17031e22948fbc61853ccfe878ee98f280ba758634",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ProgressiveInfectionComponent.h",
+      "local_sha256": "e4fe3093198b8c002c61a089926a086bf0c84a67871e6d2d7f3a2df362c7f935",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/RangedAttackQuery.h",
+      "local_sha256": "dcf737031b4b5b56a8de08d6dfe4f759b95a53d1f65acd59500a29f47f184cfa",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Combat/WeaponDamageTypes.h",
+      "local_sha256": "f073b5cd87f25ac0ec771c41270640aa2b3d3d007c084fb5b0715bcaef0877fb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.h",
+      "local_sha256": "01cb5566944765f3ddd6a72e8fdb0b14eedeff0921fe67d47c15a6ba46a7e75f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentTuningSubsystem.h",
+      "local_sha256": "98513b194bcee826e7bfa6c5064c20fe1a074ab57cade3f5dcae70ae37cebb53",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeon/DungeonLayout.h",
+      "local_sha256": "1cd251db85c2ec2859b476c906b23bff01907c68aa880033c4b6b3e60df34d24",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeon/DungeonTypes.h",
+      "local_sha256": "2813a03e8a7ed6690016558dea1f5774c99ca9c75b000bfa270c168cb6abc234",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "local_sha256": "43432bdffe1c20107c02802b76d972a2bc71ab8aff40963b1ab2697e9f76fa1e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSharedProgress.h",
+      "local_sha256": "c918fdb2ae6aa57994eb0fd8311a18f34fbf453e8ea780750b9283bc8d444ff7",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "local_sha256": "417af41dec280846a6c3e631d894e11c572a72e1c04d12c2945d9d255c00f345",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "local_sha256": "3119ad350e36282e070753ca44f0bd42932b9bc03282fbb9606b464ea7360cde",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h",
+      "local_sha256": "29975c3b0989bfab68d910288120dd2a25b7f96d8ae4a3aa7f6bf6aebfcfabd8",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBreakableGlass.h",
+      "local_sha256": "bb121ce70f688f6aeade6f4f9f587e78dc8d8bcd18b912c2fb97410751424c62",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "local_sha256": "a3f81f1c1e26748c58d53a12561966f7630c42a89b668ff92659fe8c9fa467e3",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Items/CampfireFoodCatalog.h",
+      "local_sha256": "bf6cee0eb0b99c77d90fc56b2e859c8752f2d26b48336f61bb94482d3fdf33d8",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSPotionUseComponent.h",
+      "local_sha256": "8934902788531261b87d0aeae670d538a3bc7c90bf77c0f68f892d3cc4007e6c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionArmPose.h",
+      "local_sha256": "b18539bdacb4aff9b57995b26cbf914c127e22d0d905430e4f397833cb8f4d93",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionEquipmentHandoff.h",
+      "local_sha256": "1e00ad6a0cc48adba0c17b7b8ad840b1598aca3c768ab1bc18c0119dde98ecda",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionUseMotion.h",
+      "local_sha256": "4796faae4aa31409dc92bf4da8b9b5c3c1c299fd475e59b6303b13384a26531a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BellowSacLobber.h",
+      "local_sha256": "f060700e7ad07fc27337b6cbf1d69a03483983a14cf9d9eb2774e891143665a9",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantAnimInstance.h",
+      "local_sha256": "4f8afef19a83aa5b9da68538393f4ade9dd62a03040b57721b1a90d79041e0e3",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantMonster.h",
+      "local_sha256": "274845d41ab315f91d32b9efd496c2c68e7fc4f9e98f127e4b849872580ae5ee",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregate.h",
+      "local_sha256": "3a567f7cec290ca7b3eb19980bacbee896aa3e01cfce848f6e82428d70d5e61e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregateCaptureComponent.h",
+      "local_sha256": "581d3afb03b035e521696a12719120d133175b503ee66191c633d6600be3d0bc",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FatZombie.h",
+      "local_sha256": "813aae22b574f6f58f421677f6f92baa2b79a4aa540dfee9ddb4a630fbe9b255",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FatZombieAnimInstance.h",
+      "local_sha256": "1a0c31cd878b1ef5c6440b2131bcfc2de0a96e696504903c3cc98e90e539ed50",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FatZombiePusPool.h",
+      "local_sha256": "a27c77df0b9075d67ac5352d5fea9232a2f04dc6607c1d2fe8d18aa63a6e7bc8",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandChargeFX.h",
+      "local_sha256": "c6c792980b87a02c7d9fffa65dfd5ca295213d4c65a6f0c5b872446cd7c0ec86",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandKnockdownComponent.h",
+      "local_sha256": "8d0447ac7f95ea9e1bd1c551440fbd80d4fbe085662357011ea7199e197b6dbd",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.h",
+      "local_sha256": "3265b3770379a15f838b00b33cd3b462b15936d3e6d3ae7359808aba8322aeca",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainFearComponent.h",
+      "local_sha256": "68c8db8632f5b3cccf244c43e7b68420e0dda480556eccff5d2c59ef521398df",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainMonster.h",
+      "local_sha256": "ff066ecdb1a4c639b99e04506b5065c4d01abad046b80154f289dbe39b5a24ed",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.h",
+      "local_sha256": "5fc59489e7c3266497211317167a4e983ee2df713fa8856b097af9ffc71f06e1",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueArenaNavigation.h",
+      "local_sha256": "80fd48609819a507f16017298b133c92c17f543aa51883b663fcd051ca654383",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueMonster.h",
+      "local_sha256": "34a2624ce40f2d1171839a250a9daa759216af732b6c9e3e906c112bd88523ef",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HillsWildlifeGroups.h",
+      "local_sha256": "29a39b5b2ca928b55a2caf97ffec505b34e32d670b9299b9d0f058064564ea77",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidKnockdownComponent.h",
+      "local_sha256": "1e1d718c97210eb4547b42aaa4bb76646ef4a29f12a46ef6a3475a178bd359e2",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidRagdollBudget.h",
+      "local_sha256": "bec5eba6e6512c40d89bdde09962511b4ebc14c648fee78fdab54ee1ad8643c1",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HundredEyedSlagMonster.h",
+      "local_sha256": "8c0b8fd278f6259f4e1194fd532dc1a58a90d012c92f9f841c5eeb7615b5d729",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/InfectedDogMonster.h",
+      "local_sha256": "a268419a428784c333bef938906721dac0e63e6e9bd7ef26e6308d8e7bf0697e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/LurkerM08Monster.h",
+      "local_sha256": "8f5edea3e7b4cfbfaeee49360891ddafcddf35d8b7541528d527afc10c72ab4a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/LurkerSurfaceRoute.h",
+      "local_sha256": "6d0d01a9084b0a61d67f8c4eea6d117d9c7fec530854bf792c8ecb5ad566af00",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07MagicAttack.h",
+      "local_sha256": "fb319c323496ea26f260cd82a26f804b495d1a95db3ee3286f8c557ceae9f140",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M09CeilingRoute.h",
+      "local_sha256": "e7c819e71f3c941b4cc32506ff53b49fc2a0104a8f168e90528eea93ea54479c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M09ResonanceDamage.h",
+      "local_sha256": "594d31eedc7034f412a2053425682b31c90f4c5ccbd506fbd4884da13db34d00",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10HowlDamage.h",
+      "local_sha256": "fae0f1381ba9c6d6064b2a3dd7f8443911615796dc6e363dd39cb2e243222621",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10Mawcrawler.h",
+      "local_sha256": "59dac585552dbcf01f49947a3bf29b9e6a9fcd4bf83ff5ea9829c65776fe2534",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M14WhirlwindMotion.h",
+      "local_sha256": "d80100208d5f3980a285d70cec7812a06e7c1f317b4ade51add0ca32100147bc",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M25MagicComponent.h",
+      "local_sha256": "af30d946cbaca93c078b59ffe958dc9a50600f7309d9c6cd914a88303c1b960a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66BreathTiming.h",
+      "local_sha256": "a312fa89d28f2b19c303eb793205fe4abb0a544aa24bec0b8dd5d9b41373b042",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66FurnaceVisualComponent.h",
+      "local_sha256": "8d4a49d7e1c3b9e920be7ca783e3a201e397eeef20018aa8be59acdb604f1136",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66IncineratorMonster.h",
+      "local_sha256": "e2977d44ab0a9105042c2c82c803f99377606f332c86328d95ae93845e4a5ce8",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66SlamWave.h",
+      "local_sha256": "0542df5dbe81cd2e69ca26a6778cfa15ba2150ff7272f85bad0be565af6d282b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MantisM27AttackDamage.h",
+      "local_sha256": "a28a9f61d1e1c253753ed977444d434ca5193b36d8841dd870e88d8dae08fc54",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MantisM27Monster.h",
+      "local_sha256": "db35b3c82ef7a9a3155d516fc7106708109b86c9f8e179d083a27f1e01cc5ff4",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.h",
+      "local_sha256": "86dd7d77340872ef80a721dbe1b2c3c768328697cf9b5e92a122ebda5ff8eb64",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterArcPathing.h",
+      "local_sha256": "5e3ba52194a4abff2b01335ad10b37d9918d8ce6fb7287941f31c14cb0731584",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterBTNodes.h",
+      "local_sha256": "46c04732e44af7684f8e490f98859ba88151efcbccc0b5579ba648e0261b01b7",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCharacterMovementComponent.h",
+      "local_sha256": "a94d2d61659499d5b4b0014f7c2c8a18c69a579fbcb056857788c412c8c10f4f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "local_sha256": "bc13af58e71b43f1e20bd5182af13484b8eab8da375e728bdad22a4038cc2ea4",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatTuning.h",
+      "local_sha256": "18a5ec768565c496992b625d0357c57dfc1701784b26c03ce0bf6ed764778d6d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCoreStats.h",
+      "local_sha256": "eb332125c5b04112ae22a0daf716705458694ed4ac3da179b6154eb00fdf4d8d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCorpseMeshComponent.h",
+      "local_sha256": "017ce0d5be131fd319247b3cc7fdc2613b7d43df5a34dc3efa95105d298cc62f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.h",
+      "local_sha256": "90aef1019698339bfb2222a0c00f1ac1083ad7996bdf1cdb7c08908c86d4b4cc",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterHitFeedback.h",
+      "local_sha256": "7f6dc05722678c28f61fd92b4980e8eaced3ff9d86128a8a338660e1560aadf7",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.h",
+      "local_sha256": "2a30cb25db1312e98bf02acab41ff98741668b0a813007439dd793ef780babc8",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterNavigationCache.h",
+      "local_sha256": "489a287b7aabe381e5e4f0e2b6e47e1b9f9e106efb3371d144865191e66a6a45",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterNetworkHitHistory.h",
+      "local_sha256": "eb4457a47e783d4bec5dd264750f71d687e074e164de777b6311b1ec8cf56d16",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterObstacleCollision.h",
+      "local_sha256": "96b0dab7e0f7f2c7cd5b2d6d681a2151ea9288528a05cd09dc1b6835f93680ee",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterPresentationBudget.h",
+      "local_sha256": "b9365d9a5a601fc61abc398e54b7c57892764b521b947624505a05123f41fe3f",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterRagdollPhysics.h",
+      "local_sha256": "94c9288073075f041fa00bf96a95137f17637de61a7411fa36b4f87dd1505ad2",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterReactionTiming.h",
+      "local_sha256": "97e2274345abfc92ba34450193359b591b239b0b8f658b260290efd4465d790e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterToughnessProfiles.h",
+      "local_sha256": "3222146002a4fd2132ea66dc0870c326eab1fa733ff27655128029fde85731c6",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/Mutant3.h",
+      "local_sha256": "2f41ce8753aef36b2238a9d6db41819a1607bfb17c1ad83ff8ba9b0baedfd18a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/Mutant3PounceCameraShake.h",
+      "local_sha256": "644d129935c468dc21d15b3cadba27459fe4fced49da5f3d396aaa4dfbc4ff73",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenMonster.h",
+      "local_sha256": "e47004aa21cecf5ff539f0f974e4d94ff7b4b4efb1462f7968647e6cc7917be6",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.h",
+      "local_sha256": "22d4e45cc25fcc6ae04953c1e25ecbba5cb326674f3f5edc6fb51b58ede04829",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotMonster.h",
+      "local_sha256": "3c8e04b62b015744796cefa326d77752ff678290fa7ea9d925834e4be674e629",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotProjectile.h",
+      "local_sha256": "d5813128e638403d5dd1bb6ac83d44fd5dd5df930e2cc7d7a8e70a13501b9468",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotVenomFX.h",
+      "local_sha256": "5b0254e5308bc300bb90ef65755f62a699d7d2da7d8ec954011333d89d4fed46",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownMineDamage.h",
+      "local_sha256": "f7e5e1d1702ab5e35d094f9b5a53a9926787f1c1563823bb1fbad364644029c0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownRigPreview.h",
+      "local_sha256": "523e2e1186fc87e284ab4b961f7b3b4a222f4797f22e7e29444205d8daf050d2",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SlagBlackMist.h",
+      "local_sha256": "03eb62442c0f5567f4e2cf0d0d3ac10830091a2de9525fca9b78f0748bb74b9f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SlagMistViewComponent.h",
+      "local_sha256": "1ad439cb42a64f79f48afc11dc06e421922ffe5e80aff3f802f87b650e749d47",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14.h",
+      "local_sha256": "aef23f045dae32bdd0638ec7c0118fe1d7c42aa3e0421ddd59acb65343086a47",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpitterZombie.h",
+      "local_sha256": "50ecefb1154d579c50909cfb8e1cd613f21ce8accb88d5a6826d0042073f3e53",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/VortexCofferM25.h",
+      "local_sha256": "dd9ae5a50f654606ed84f411ea11d3cc0e4376605d7a727be87fb2f3ee64fb4c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WildlifeAnimal.h",
+      "local_sha256": "72ff24db270c39c6fb415587ac3e6549944778dd3ae99a55089416ae54fa5757",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WildlifeSubsystem.h",
+      "local_sha256": "2be00f17cde7938a27623c8857d2df7ca5c37c0677b83ec02b99b2e667fd0ce1",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WitchMonster.h",
+      "local_sha256": "c89d8ef2194972afe70874dbfe7f381297396333b1914d0d73681a88683780e3",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WitchProjectile.h",
+      "local_sha256": "b009897dd2d7c098405007047539d99520464e3cd217199fa38cf52e52b90d23",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WolfMonster.h",
+      "local_sha256": "7f6411c275df4f4bb5c98869e2981f7bcc35b013ffb2fcfaf45eec63762b37e3",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/DoorPushPoseLayer.h",
+      "local_sha256": "1aa2f8b4cb87f501566a5d8116950c9b3df87e6b38e5284bef7140efd46823a0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "local_sha256": "a3b6feaba2eafb6aa416c00df9161d32e4914d9927dfeff88e872a8ba01c3f3f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSDoorPushComponent.h",
+      "local_sha256": "3a8f20bca9954d27eb6cab3ee8900c637c6f625d473e98ebc0581a7523013102",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.h",
+      "local_sha256": "621decf37be488e365cc7ed501055d1872b03771a72c9b4c251360d83b412887",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSMeleeMoveRequest.h",
+      "local_sha256": "65c35b4a15b537f03bf7ce13e6986b8395ef692e094f5a5327fea5a0a40b269b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaTuning.h",
+      "local_sha256": "0f926042c7774692ea2b67d9b033f55ef4eb8fe7bd2a3b716c91c64c833e1e2a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalComponent.h",
+      "local_sha256": "651392d70d8f292e078315ca6d058e91a0d8dcf1cde9a03a2aa2648bd1a78cbd",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalRules.h",
+      "local_sha256": "c8ded798e10bedff8534f5b319ef7b222b5d6aca6943131b25a8d3bc568286b0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalTiming.h",
+      "local_sha256": "f67c935b4c969f7960af44d9a30a7a91246070e7eaf5e05b63c5c393616892ef",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.h",
+      "local_sha256": "c1cca0b07ed86f4802d64a560f8745d808b7e601e6bd04e00d5c3fd0b90a6fa3",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerKnockdownComponent.h",
+      "local_sha256": "2fa32916c86f5765b1baa6469dd6cc7cd7eb5619c764579f75204006381544ae",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.h",
+      "local_sha256": "263ab450e97482708f54b5f2b6863fa3a9342a6d807754b70eaa1f559dda734c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "local_sha256": "6844b44ba78a7e58d16d1fad2a0f290afe48c42a4109d1f79f307d4fd3e2078a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+      "local_sha256": "95c35a3ccd88c3e8bddb546334f06a2ab0951fc9f463b6396578afdca04c9188",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.h",
+      "local_sha256": "81d5cf98df6aec28630dc3a4704dee1898b97d7d2cff157bf4f3db97d5c7e8b9",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/PistolNetworkTypes.h",
+      "local_sha256": "b26741643e72e24b09af40f9bac22854c20d8a6ea38cfc0e384e0d4c08ffbc76",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/Super90NetworkTypes.h",
+      "local_sha256": "09bdf72f258656b38a0d17bf3238b361096d5d6e57234560b6774f8f81613854",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/FinalTollHeavyMotion.h",
+      "local_sha256": "4f37c376d2366357e7d3192638e1678467b330ab46ced1dc8281eeb28e4c6536",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionAxeImpactMotion.h",
+      "local_sha256": "920c88033124eb92f6086629672aa63c62bc2dc9ba507550612c90a7ed61c949",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntCombo.h",
+      "local_sha256": "6cf42c2afd5574f283ac4888ceec2bc68ebe46235d77bd4c2c2660aaf4e320d6",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntComboTiming.h",
+      "local_sha256": "3edb41c87e315c7e8694c35e30c0cb14ba932fd2424c0fa8d5906d6ce520c4bb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionPickaxeImpactMotion.h",
+      "local_sha256": "9db69db52ae891c8218658411937e87e5934334e6c5950304f23e8feeca87739",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionResource.h",
+      "local_sha256": "8ea97ba3f39b475cba950dc58717ec06d26fe69de775a8c3b6d15bccff1cca74",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "local_sha256": "08e8e5a4b1775cb99cf19906cbb1413207869ad6e27fa39d3010066746554f86",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolStats.h",
+      "local_sha256": "451344ffb273f263feeb260ebef3c3b00f0c0a201d62d0bd1286f097321d659c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/RuneboundSealState.h",
+      "local_sha256": "176053439ce784f6f9387610f9c5fb8a96a04397637fece446bfbfdb8daf6954",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ThunderHammerCall.h",
+      "local_sha256": "016095858ad70e059a5e90e6eeca0aa7888e38824bd4fb4276db06aa89625da7",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ThunderHammerCallIntent.h",
+      "local_sha256": "4c9ea8997eecc468f88738cf61e8583844cfc4141093166bc9faabb0adefbcdb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/ThunderHammerThrow.h",
+      "local_sha256": "e0cbd580bdc2715cdd28c7ddb05723c7b2b0873091150d01dcd6a06e7fff9008",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerConicalThrustMotion.h",
+      "local_sha256": "80c3e14fe8f2f6f7e11953226a97c89395688d54007c9b3163838c24de4b3891",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerGuardMotion.h",
+      "local_sha256": "d15a1b84b58fe7a6a021e93b4e4d5190a96f58c2113798ea184d51c2a2eaac65",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerHeavyMotion.h",
+      "local_sha256": "715d0b9ffa338f04d2e7afa8b6b8f69e430c4f2ea1f672c37b45439a658f959c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerQuickCombatMotion.h",
+      "local_sha256": "e420d7353ae6cfd9d7874e45a04df82af1fe6e01bf319f0ccc66bff530fd07d9",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerQuickReferenceCamera.h",
+      "local_sha256": "f31f29640c45085c8aecb6d5a279171fb5988da859d797aa476feab5b2dcca22",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerRiftState.h",
+      "local_sha256": "437a3435e6584cea2028afb6d6b756da01623841a604f43f286ef37404edb13e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerUppercutMotion.h",
+      "local_sha256": "0abad28bb7e19ee27f7f35baf1a3cc5027e9b6bae409d581794acd23a5b8f380",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/BlizzardEnvironment.h",
+      "local_sha256": "97fc349b98c491e823c42f1bc1ee6401e23ed0430e09d4b2486c791f184cb897",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/BlizzardTypes.h",
+      "local_sha256": "61849400f77d4c59b6554756fd93dd0583af37628d0ef4c7f37a3a50397cea3f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/BowHeldMagicVisual.h",
+      "local_sha256": "716b88bd1b23a28ca3360c62c3892daddbfc51f10180662f3427f1a94e63ab27",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ChainSlashMotion.h",
+      "local_sha256": "1d2ef02cf8328fe46aedbb67e003b98d97a0595a30d6255bcfc03b91d9d67b97",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ChainSlashTypes.h",
+      "local_sha256": "257193116a6d8f7b9b903615267e8369bedc4378bc7680c5a6b611964097ec4d",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.h",
+      "local_sha256": "fe09860298453c3c908cb3dce9e8da2102c74f3b858383c87cbe9660229cdee8",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTree.h",
+      "local_sha256": "c4afafc9a66dd4963c79dbea8b754d3e139833055af242f39694f151bd93db0c",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTreeLayout.h",
+      "local_sha256": "6188c3f1c5fdab0a73c7d9517999ec3235b7a8aa274560d3be6ea757efbf68c2",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "local_sha256": "9a00c2ee33c6c6de9c663df9bbb67c9f0b0888b3ea8bca46be6bdba25b7cbe78",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/CorrosivePusDamage.h",
+      "local_sha256": "68e3aecc7771808d69b12bde88a8901a9d2cd6468767e34ead80f6974f4dff82",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/DashAttackTypes.h",
+      "local_sha256": "2f206ae316f9bb325605bd676ab61f945d2836f9a72d79828d8ea75913ddc4ce",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ElectricMagicTypes.h",
+      "local_sha256": "5de3ec2bc16a433f4a441f8b41c9d128edb06bc1ffd12ab620eb8c20b1f9a456",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ElementalArrowTypes.h",
+      "local_sha256": "ce6a1b7b39c9e38683e01291c427f2d6352ffa1327f6d2138acf6658066ac046",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ElementalArrowVisual.h",
+      "local_sha256": "c8a79b1f56104d3b98a181478b76764d5f819578630d045a4232f1c01ee03d51",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/EnemyAttackDamage.h",
+      "local_sha256": "d9fec08a180d7e4fb250f51e1ba5e915a6ca6f9656dccf5658b636f3ac5a9bde",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballCastMotion.h",
+      "local_sha256": "6c219d36c24e5f6d01534476a83d53256d7dbca6cb8ef5450fa01a5d160924e2",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballDamage.h",
+      "local_sha256": "22e3bc28d9f2e54bd8cc06269e8d78bfa33972a1cbb6370447fb269e7856491d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballHandPose.h",
+      "local_sha256": "5f0f03ea5de02ae631f4eef3c55b0215c52fee3a3f3460f3ae52563ee70e20f6",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballTypes.h",
+      "local_sha256": "ee983fe3d7db305941f29bcd5606f94b39f7d6cbe654c9b5c3be9b4fd6c72593",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireMagicArea.h",
+      "local_sha256": "52ac146900bf3146b64e9e7856c6fbfc1a6c17aabd0f67806b2061a2a82b5efb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireMagicDamage.h",
+      "local_sha256": "a075f7037d864c632a12a738d746462d3c4862e8d63c88ac98e5ffb365c4d58f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireMagicTypes.h",
+      "local_sha256": "881d3ca4c7c78bd79cfef149ca60115fe6d71798034111ede25f6d1057a49cd5",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FlameArmorAttachments.h",
+      "local_sha256": "69ac31e5be24e048d24407d18f43562bcdded9062924bee5eaabff55016f0cdd",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.h",
+      "local_sha256": "d1b29b4fe2e3ec520d9479eff3a57892d9845074c6337e392ef2e7917ab7de9a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardZone.h",
+      "local_sha256": "472eca2619bde7d8d662165aea915f4584745e090570ebd23c97e110528f3c01",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSCastingMeshComponent.h",
+      "local_sha256": "9aa159946d5289ac81190d2f3c55ecbd4e0065109381945ca72590595154cc8e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.h",
+      "local_sha256": "195bb8f8833f0587078be8d647a399e5f6268fcd6a773070962ae10f2ed13c4c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.h",
+      "local_sha256": "4876e7969d3e40d4e2d53b39fd5188e2f453558caad004d5ea999e6542fc7e8c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.h",
+      "local_sha256": "b6ef3031708ed95911b8dc44269ddc0b7a4d015c3d2f34499c46f5d113df3585",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "local_sha256": "6e67bdb85f6ef85ecf06c7f19a26a9d991c3cbb3707e96bc2754cd9edc2b9d66",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.h",
+      "local_sha256": "1c078bfab0b16a1a30122754199d168ea01b881f6497383c28543c56d4742a8d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeComponent.h",
+      "local_sha256": "620ce89dcbe4e2947366ffa4e1ed885059c2bdfbda031381cddad4ecd651cf0f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeVolley.h",
+      "local_sha256": "238fa717805edd32f30c3804e20924a2acbb0bfbd219be65e8d95e38e87ad8d4",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceWallComponent.h",
+      "local_sha256": "703e0e2fc9a8f2d74ad6bdcb460abe87f1943c3be0d49d953c52f65089386a8a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIlluminationArrowComponent.h",
+      "local_sha256": "959bb6d9ccdb10b9f9cde9c7dadf5c76182e322624e45bfcbd8fc6395f6a5cdd",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLeftHandNotice.h",
+      "local_sha256": "3db2fdedc140e3768040d57511a395523006a636a62bb6a4b377c16c61130b43",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningArc.h",
+      "local_sha256": "c5e31ca78be20259d85a36771dc31cc7b25f5f64c3d41649d78433ef4358a12a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningComponent.h",
+      "local_sha256": "8cf471403191d696a63accbb9ef1df81fedae7c82b7afb873167daf0ddf7d9a5",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningHasteComponent.h",
+      "local_sha256": "5f675fb3f1a8e25a0c205604c1113586ac902d2794b5fb1d4316df8a63af5735",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicArrowRain.h",
+      "local_sha256": "1cd4c48c4b65fdc7c995a5c12d76f6a0d086b565ee5ff23fd62836e1a614bbf3",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicPreview.h",
+      "local_sha256": "93f1731d1426626601e54eb24303738f2fd9d2843d43999570cec5e9cd33c2bb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+      "local_sha256": "15373f0d5f444808740e247d92faf9e05bae864308ca893db005eca7dedef7be",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/HeartPiercingArrowTypes.h",
+      "local_sha256": "4aee9d1396657580ca479057f9b6a9f1d55d7dcf83e6409a7e8082868d3e9bbe",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/HolyLightTargets.h",
+      "local_sha256": "068add37dcb2a7052c82e91136930654e5f7dadadaf51c75d9c1a299a85c4563",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/HolyLightTypes.h",
+      "local_sha256": "8d7ccf67bdb942bcdafe99843d1de52c15a84c5ff3c4e0b6e8d4deb5ac9d7d04",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceArmorTypes.h",
+      "local_sha256": "93a18239eecb674ba999f6d99408e05d495bc0badf7f442f27fac3e7a934c35a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceSpikeTypes.h",
+      "local_sha256": "51a95620b1c2ea9577fd4a9e89e015d71fc72353b72df5effa14a271f28b670b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceWallCombat.h",
+      "local_sha256": "ba5156a694c6d2511f2525ce7e6535a6dbf8f720d04ae745a0bef87b8592cb8e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceWallLandingCameraShake.h",
+      "local_sha256": "495bad4ddd013729ef66d72cbe775502a8e54b18afeb1b96130e689992fac46c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceWallPlacement.h",
+      "local_sha256": "9a34583afb7c0f6c87c19315e2f4058b36b5a3a3bea6fe0f08d4651464de7713",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceWallTypes.h",
+      "local_sha256": "5b27c044f7f2deed5629d55b77760506e688a1725c1e612f7f197ad91a357a57",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IlluminationArrowTypes.h",
+      "local_sha256": "7b6ef02cf85c5af8c7ecfcb26df6de302226bd7520967d3582b002e1bf756918",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IlluminationArrowVisual.h",
+      "local_sha256": "93491ca88be304b43a4cf0d4f9b71f621c7bc20aafcfe726f0ac5e82ed09609e",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IlluminationMarkComponent.h",
+      "local_sha256": "730f80cd4037eeea5ea7b6336e0c142d53571cbdf13cfadd0074a0c04f349539",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LeapStrikeMotion.h",
+      "local_sha256": "896c8276d4bc5d08e099f41fe716a7bd3788d07b4780b2359cf756428c15246e",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LeapStrikeTypes.h",
+      "local_sha256": "3304a7d1f1ceff31a411604a0fb846a498229f1e341517fdf2bfba037ac2bf7c",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LeftHandPowerFistMotion.h",
+      "local_sha256": "fdb64d8b092bdc8854323f60c08c1ef4b775f51ca04d434371d323404e03c630",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningDamage.h",
+      "local_sha256": "1103c032ee4c410b7a13e786853e89577a244d406a2331de3b6366b536d5760e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningHasteSpeed.h",
+      "local_sha256": "5abc0bd4e2b3b462b12fa73f9011d081ec3ec439150e4d9991be5372b61b4401",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningHasteTypes.h",
+      "local_sha256": "4f5f70f3111e6be8b0b2f3662f82f36fa9df16091a91cbc670ba376be0cd2b05",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningTypes.h",
+      "local_sha256": "493905c77a6eb744a6dd854a3ab69aab02c876d36bdf7e208f9ccc23f04b0129",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MagicArrowRainGround.h",
+      "local_sha256": "16e289467bf1949467c49de0f2c1aca773c1d8999d67e78dd96b1f40f145a94b",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MagicArrowRainTypes.h",
+      "local_sha256": "edae0e7bd7a57ac511d5a538276ae710ef0980ac67fce1862cadcc6bac2ff509",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MagicOcclusion.h",
+      "local_sha256": "153ae3faef3bd4d212b1ef8d9220d743e93d942b12910f59bd0dc4540ec82a05",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MeteorGround.h",
+      "local_sha256": "04a574c7ca848166096724959abe85848d33f36db583e3af3944644f19d171e1",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/NetCastUtils.h",
+      "local_sha256": "e3d3fb7f2eaf0deabc1fae6beeafbcacf3371a5dcac9af9b02f98ad1165dbf56",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillPreparation.h",
+      "local_sha256": "9f67331acedfd7157259118d8ef72e6e17ef2b15227c20f866de871999b66096",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Skills/QuickCombatPistolMotion.h",
+      "local_sha256": "b8b006a0474a87dd51eb7fc8f29d6774276e15be41852ca62def6e20bd6cd791",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/QuickCombatRifleMotion.h",
+      "local_sha256": "e2b46c4f4a131a8867bb3af4188cad2de1a0be177fb4cfeb1c61a2d12ce12b95",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Skills/WhirlwindTypes.h",
+      "local_sha256": "fc504a6ccb40d1d8a66e9f2414c2f111cd0de0cb0d9b137765dd27c194eb9243",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.h",
+      "local_sha256": "c869f0df0ca2cf824c2d6bd5c50eda1c078f5a659a201eb5ed3c3168d6189c1f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalTypes.h",
+      "local_sha256": "45da84521fb232f1aef9b851fd5291c06b58b920f5fc1ee0cff58cc0625e3ad1",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Tasks/TaskTrackingSubsystem.h",
+      "local_sha256": "276dbfd50fcd1476ca3c8c3cb440aac9b11d20f554083897d43addc83d4b56ca",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAcquisitionNotice.h",
+      "local_sha256": "0700cb88808bf78027cbb1b193dad323af7b19a7e80841fb5d2f9810d01dd7c0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoTypes.h",
+      "local_sha256": "84145c465e328b271defd5fc5a50c0653a5bf222da4c58045ba0efae421560af",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCurrency.h",
+      "local_sha256": "e8decf96b8a88d8db975b39f4457209099471454c9ff0a05b01f7a500abdb830",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.h",
+      "local_sha256": "2ddc2cad0729d626380e5f66402ff0da58f543f32b286ed9f43665620d08e8db",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "local_sha256": "0c8400abf95f60ca7350a760637d3d5b162e2933924992624094c05bf2630a91",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "local_sha256": "b477f1682ef61c7a13b91ea717c967a7adb66ea49b08879c96c5f380601ac3cc",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemReadCache.h",
+      "local_sha256": "2137db1b4ccce446d9214ac69284f896ef17085d29196759f8bd93e6d61ff008",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicQuickCast.h",
+      "local_sha256": "37843572de4a53f69347e95fc01c9ee09dde6b9a3fcbfc298146a7adc2fcdf84",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicReadout.h",
+      "local_sha256": "f7002c779ad02222df6410bf87056fa1bbdeb19501ead51a041bc0bb1a5aa98a",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicWheel.h",
+      "local_sha256": "75c2b714665534b05f5dd47fda663d8ddd6c21f84ab791862d3e9b7620d9b839",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMeterPresentation.h",
+      "local_sha256": "cb1fdaa56a0076b4e38f7cbb5d1777f542e4ad416f08fd275a75ed0ba9cf3a49",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.h",
+      "local_sha256": "5bce09d3f401c819375e6443ace39c0b02e71438e59c0c3db131c1c9a9265c6f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupStudio.h",
+      "local_sha256": "7bdb301af1daf5f72447533337ba131cf51f876a7df83d746d55b21b1266d292",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPreviewScene.h",
+      "local_sha256": "92c42f8917f68ec75b27a0e953c2cfc3edcaa009c527b14c18ffff18bac22755",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProgressNotification.h",
+      "local_sha256": "fe5122dc9d07f3f7687ce7279c98ddb65039224b499552c35b7284eb7375cd54",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarTypes.h",
+      "local_sha256": "6286d0415aa1fcdf352d598a83e7159641b54dd8a8804d1b2e35997f794057b7",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickDrag.h",
+      "local_sha256": "6acf2e5eb74e3a1cc2625b8ce9d9674be0514d7ee9e73803dfdfde847cddbcef",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.h",
+      "local_sha256": "b9a049ff518aa226d9fcce16bcd3d2bf4367899a9d6e36ef697b5fe410d3601a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillTreeScreen.h",
+      "local_sha256": "7c97da6d1aa2d2dd46a101a27d9f2f12dcdff5ca0b920af06e5445ca03c52d9a",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "local_sha256": "1d0713d12b0599298decb1006f4917a8ddefee9c1c959ab01c4ba4fc5da4e8bb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+      "local_sha256": "7f11470b1bdca417bc24154fc948a3bd20c51c546d76cfa9cc3b1c401b9b3350",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseRules.h",
+      "local_sha256": "2c2b7213515f6ebef484213f29362551b675744f227f1c9b6dad4ecaedbf945c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetrics.h",
+      "local_sha256": "f22b81d97f11ab057a0b8484b4ca156cdf7fdd5d9fb8a660917e654733607ac0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/SColdSteelSkillTreeCanvas.h",
+      "local_sha256": "1e44681a6676968a8f2f9cd3273ef4f77e9a93a87057783245744f7e9e94e245",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsComponent.h",
+      "local_sha256": "28ae421bf8ac44fc84c4bd374d58098cf4505b47fe47f758e042e6c47754d0d5",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/AKMSovietCalibration.h",
+      "local_sha256": "37db4c38f46f73f978a26e1e0683f297d598946db70179275f00f4bc04893b2f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/AncientSealSeat.h",
+      "local_sha256": "b17801d083a7520de19827f519172d5e2d86c59399e4132079f30f69410d16b0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/AzureDragonReach.h",
+      "local_sha256": "b8d6569bbbf381dac05c692da03201d90dea46cb4027a69ddbf2750cc5eabe9a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/BeiweiSwordTrailComponent.h",
+      "local_sha256": "5a8cf46b4ca9537d9eda31f67add7c2b3afc0c91f8d8739eb4c797f79f721de2",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrow.h",
+      "local_sha256": "ae661ead89121d2b5145e907b5b63a0785777cc8332d9f8486498f4f5a661480",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowAssembly.h",
+      "local_sha256": "37f80c19c5eedbfab19b9493eed82dc79e12f22cf523d8a71ea65d5219cb127d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowCastHandPose.h",
+      "local_sha256": "bf49521354907a5ae92c74ede0f8e64a57ab34e734eec97572f88103cea18e55",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.h",
+      "local_sha256": "b19c16557ee51910287d0ae52ec2751e8e3c17224ce054e9114b30e262a34374",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowScopeOptics.h",
+      "local_sha256": "615c5090d336260596bb6c182f88bf747695d5b8a3afb5529c32eeb858d9d69c",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowScopeReticle.h",
+      "local_sha256": "ee3382f59b6ab2294709da2766461035b5072206165c940ad9e3477b6aaffd34",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.h",
+      "local_sha256": "42b423da05c590894a3be5d377de648dc8d20f043a3468e84e9666404ef48ee5",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "local_sha256": "0a6f731a44e1d2455447f0e02feede65ce6d4895cce8e2b98247bf7210c0c652",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/MountainEchoString.h",
+      "local_sha256": "5ecedd819a1849caa1f84c0aecb651eae5b3827c1f423774546b5a71fc37b0c2",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h",
+      "local_sha256": "c3384b6f209653bc10138b34aadc2bef05a98b14bec8551bdf6345a657115bd8",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/DanWesson715WeaponAssets.h",
+      "local_sha256": "d05131715ad1ae643a7a1c3e22fc3296261a8e29a5100ea6682f49f67831a642",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/DealerPokerTypes.h",
+      "local_sha256": "d7a25ded2c36934d58965917dcd3a924677320661006b127c114b41297df80c6",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/DualPistolQuickCombatMotion.h",
+      "local_sha256": "c659b7b4824ef13f07eb7764a66736e8ec870e96f294d8772e04273267c3c23c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.h",
+      "local_sha256": "5062e93016496340618b4de21c38fd30a02a04af739b5a667c5c0b5689c4f93d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSGunplayAnimInstance.h",
+      "local_sha256": "82e53f3ab0207b4f7ad42d1bb03f4923dd0b28664cc859477739914163d9111a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "local_sha256": "33d9f1fed8c4564847adbb5e9cc403a5d946be8b77d39b8594fbddd5bcadb917",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSOutfitArmClearance.h",
+      "local_sha256": "519905c5d1e610f3d0e1b133a7155be8915fd0553f78a7d2b2d24fe2855493f9",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSShatterFXSubsystem.h",
+      "local_sha256": "b07550cd38cc8237156ff7a996d11f90de98708481d78bc4da0c9df8e2d5e5da",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.h",
+      "local_sha256": "b044eca8ff7e1dcc5bc1de4ecafe7832e62b3ae2f48445411cdba25039611e83",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FullAutoTrigger.h",
+      "local_sha256": "dd74c74a47c8ffaf31cb548a5ff10b25de6687e7dbecd21dd7e95805e4a96148",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/G18WeaponAssets.h",
+      "local_sha256": "6029ad3508b57aaf7abdd4347209b06f44a796bb052df95e7d5c328a01e9ed82",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GaleWingGuard.h",
+      "local_sha256": "69984d2adc1a18b57e2e3da82db42df9c39fcc29684b96e55b675c29923b6b27",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "local_sha256": "532c6d66364523195a82d095f79d9f89ed046b9268e467e44f2d146696558b81",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandOathRune.h",
+      "local_sha256": "b75073fa31fa43f6f26c82d3922a599ca4c789338cdc8e1a7f229e6ea8906245",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandRidgeGatherComponent.h",
+      "local_sha256": "c2221f926233311b95fa4687aa54c9cfce87f052a652fc47d0d00dc606bd3224",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandRidgeThrust.h",
+      "local_sha256": "8155ae12bd96bd6577d59024292fcc7316c7856480867ee554f4c50e5972b68c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/JingangRuneComponent.h",
+      "local_sha256": "5914b3359c7454c6ddccd5bba20f52f015ca7502530bd1c7a92b807d0b210dac",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/GhostScytheMist.h",
+      "local_sha256": "e6022af9ca17453cd5b0123352ce32238d3572a651e72d8e0335a8f4582596cb",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/HatchetCharmComponent.h",
+      "local_sha256": "8c6434329f0b25ae371e1bf68cc36be8fb4471ebf9c01b913e1b54e7a1452b14",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.h",
+      "local_sha256": "139bd8c2c78ea7f41beabba589f52967908956c0644936b98fcc6ba14c2f05be",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriAttackReceipt.h",
+      "local_sha256": "32fcf4d6e4db235364b36e077c4cd4f414fa8924c4d92515a955f93a7b2961f4",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriAttackTiming.h",
+      "local_sha256": "a379fbd2cf2f5700267f2fbf0936d7d67af829f8e268043d907ac8c6160cfe7e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriModuleVisual.h",
+      "local_sha256": "f95505f0c916c1431af1276c14b83433b15828c7f879bcfcab228e3ff9036713",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriPairedHeavyHit.h",
+      "local_sha256": "87cecc3b4da2fa20c8d2c331ed053ce69d64614a422f6b0008f637c80ae3f12b",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriRhythm.h",
+      "local_sha256": "08fff2734be4d880247e68cc6811e07087a57dc7565b5634ca3ced55ccaefa16",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriSweepClock.h",
+      "local_sha256": "38fe27114933143433e1d27e5ca32873e2ee388b25032c671152c9f8501ec81f",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+      "local_sha256": "158c370029d2cd91b957c96ba9308a3e49fc6b7be368a09f2442daa8b31bad25",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriAuthoredPose.h",
+      "local_sha256": "fe756d4d7907755fdd1824096b54c24ffb3e25f739d5425b80b4523c19571793",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriAuthoredStrike.h",
+      "local_sha256": "0b1e4dfa5cffed7ce27cf0e7aae980ce50e586a2e457016ed187ed6228b4f65a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriAuthoredUppercut.h",
+      "local_sha256": "e1daae6f0cfcb775d9de1f778fa5f260241188126420db42f66bffac67d85815",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h",
+      "local_sha256": "a81c7f39a8d77034917421ed2e53de2f1d12330c529acbb08bbc9b75a0cd7d6a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/LMG201BeltDynamics.h",
+      "local_sha256": "77669d0e230c859746e76ab848c654a7cabdb669692e5eb32611357c72d654bc",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/LMGStabilityGrip.h",
+      "local_sha256": "294d8cf1bae8af4747bca0dc13064bf3e17de03063562d932c8eb8c7b92704e0",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/LonePistolTwoHandAssets.h",
+      "local_sha256": "f4db658de963da2148241366614d7929eabfdca75ffc5976b4841332c831b555",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M249BeltDynamics.h",
+      "local_sha256": "41133754058cfa1b174256454859d09100bd21500fd65058ac3dc62f9bdae0dd",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M249ReloadTiming.h",
+      "local_sha256": "ad20eb37866b56f415ab2ecbacb43441b7c9220bc923fe76a297aeb74f11373e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M249WeaponAssets.h",
+      "local_sha256": "493d9ae48ddb7efac86bcf1a2859d9bdc1ff4c22bfdfd1446f2915168bbf438c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M24Attachments.h",
+      "local_sha256": "cc88aa80a0fe576822dcb690eedc8bc340d875deb1db486b1a68d25a9ff595ac",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M24WeaponAssets.h",
+      "local_sha256": "ce11e39cb4e0d1c0026f598ee6641975d2cfca26983039291d848bb0d0effbb6",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4TacticalSprintComponent.h",
+      "local_sha256": "10f3a44d6a709f4942d8ac586da3083337ad1ff6130576246a7373af7bd2f428",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M870FurnitureAssets.h",
+      "local_sha256": "26a309839cdb7922116b4ec02ffa76a0957ccbf8c07e2bae1ab70bc8aa091e51",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M870OpticAssets.h",
+      "local_sha256": "07910b5c8b8cce9e52dcfa07ffa23ac19e647ce6d68128df76991ca86a0a4106",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M870TacticalAssets.h",
+      "local_sha256": "d48054be718a99ddf0e0d353131f29fb3e1881288a9ab046012a0a9d002f51a5",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M870WeaponAssets.h",
+      "local_sha256": "e249f05e840fa9020cdf9666fd8a33d0cdbb8568dacd85dc1dd39dfeaef74b0e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+      "local_sha256": "2ca1f05d03f735217904c570f559751e1f0bf18cbb141e94d95af2e5d76f57ff",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ModularSwordVisual.h",
+      "local_sha256": "2f0dbafe28005a69fc4d7a35da3bcc58a69d487bde56c44a01f094196d163c7a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/OffhandReloadHandoff.h",
+      "local_sha256": "d3f40b6f350a0562d63d43c035a89c01fbbb2685870080ff7d55bc3d2f3b1c60",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PanChiGuardComponent.h",
+      "local_sha256": "0b62da006a1ed947df6f7e4ac796afd3c26d72bd3d72144a1eeb53d0ecd78b3b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "local_sha256": "f60ec32c71dbe67d15592caecf8936d2501014cb4741ba3d86473dbe9f08a153",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PKMCarryHandleDynamics.h",
+      "local_sha256": "01ee4dc2d3a04f77843342cc4f3c2f4cb7a64abd2585ffb4a7e79ec6c96e2bbd",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PKMExitCoverDynamics.h",
+      "local_sha256": "9234ef9825a61aafc435eb4b74cb577cfacdb86912f17f16fdc97b88aa99e388",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PKMLowpolyWeaponAssets.h",
+      "local_sha256": "6013bb79b987d4ee499f8040bac95bf8e262fea009301f15263263d023846c39",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PKMOutgoingBeltDynamics.h",
+      "local_sha256": "00e003ca0485ae7ea5597aa0609de277e1014e2c115527279642f61a75d6d3d1",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PKMSoftBeltDynamics.h",
+      "local_sha256": "1c667ad072b5368b45b5dc0d296cf85c1c44ba8d2d85460b5aba05a469f31fef",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PojunGrip.h",
+      "local_sha256": "1f8642f5841641aed23c1c7a9b2532e8c257678d61f19d046faf40a0ccadc1f3",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RifleHipFraming.h",
+      "local_sha256": "fa5c651f40dce7a20141f479f6594dd2d7b117fa2f0687257da26d6cf826a004",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "local_sha256": "5dc39d81ae02d1c226eb52d039c2db3101aff4256b179b0af693379e24517283",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuardTuning.h",
+      "local_sha256": "91921f335d2761a1b37982bab6c018955bf10681fae60083966597acb0cde2bb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordHeavyRhythm.h",
+      "local_sha256": "e952f2f791ba808eb6e7097cb48b99a145a5290d87e475fa79a9eab6bf691060",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordHitQuery.h",
+      "local_sha256": "73edc286b705f22bed2f658c5a898cc35a6e7b9824b4fd7b95cb43e898bc258a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordMeshComponent.h",
+      "local_sha256": "e5cbbbf924cf50d5597d2571b18b809c83a3cc8f0af732a9455fa13847eb2eb2",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordOverheadRhythm.h",
+      "local_sha256": "492bd5b11f97960b16274d65b0b5eceb8b51e73e3af90838a99c2be354f89ad1",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordPommelRhythm.h",
+      "local_sha256": "42d66f8556a27574117686a805a9f0686a1a0b7c6f5495e5d4453e403c4e2b84",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordRhythm.h",
+      "local_sha256": "bda8171fb06e0e7c5d5d71e44d065a7f63cca310a478c3693d4f4ecac198498a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordThrustRhythm.h",
+      "local_sha256": "e04821abba7f90aae7162345ea442889fa33a12b337efaedcfb5de6f78bad59a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordUppercutMotion.h",
+      "local_sha256": "0d3b5c9cc5238c6879a22df52bda060a5632a48a90371153b53109c9b7824a92",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordWhirlwindFeel.h",
+      "local_sha256": "2abc8e8be27a9612b3f1878e5ae6348c0ae1d9912f102ccc2720a73f925134ab",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KAttachments.h",
+      "local_sha256": "e54abfff081554c63c0649bcbe5323304bb64fa7d0c839fa155bd0dd864a260f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KSpecialStockAssets.h",
+      "local_sha256": "b735fae0340a2a36ead654dffa8606872ab4efda6d5c6ca99d987f5a2c70590f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KWeaponAssets.h",
+      "local_sha256": "c4852a284b3454a2890800c764990a83c1ea2ad0952d13b6ac17789e1b0ada7c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SniperSkeletonStock.h",
+      "local_sha256": "bc57c3199c2ef962796c60cf734310248524f0e573b701f741fbee07fdf297ae",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookAuthoredGrip.h",
+      "local_sha256": "f08ad9a6a8a1df5d30e4229c2e968447da862d7bba7d1cc612a7138ab218cc20",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookAuthoredOpening.h",
+      "local_sha256": "7a0016a440fc4754332a787a69e10b2c6c5be14bc37193a59e968c4423ed96de",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookAuthoredStrike.h",
+      "local_sha256": "df3b25d66c2113179ed1b5bcafafed4d6bb4949fa0c9cda1c9aec54b9486ad0f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookBookOrientation.h",
+      "local_sha256": "5213fe4e8b901e23e1d5298c72ea49822b4997e0b88e5fb20fcfb0b69d577696",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h",
+      "local_sha256": "180f203d6e04958ec6e56c17b9771f5d6f81e30ed34662ebf2bb0142a4c351ac",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookQuickCombatMotion.h",
+      "local_sha256": "d05574e560f73ad3294645b3dcac3790c7c25a7b0217719102bf21371d239bb7",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.h",
+      "local_sha256": "7ec78e6fddf6b73d868cf72dfad2402b172e65a2072acb33944724d8cc0fc9f9",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffAssembly.h",
+      "local_sha256": "814ec5f5b093a3d62d50746ffb42ea69760f6580f6882d840e187f6bd4d64c77",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffCastMotion.h",
+      "local_sha256": "3aecd01dd40727e43be8ccb72b5b8152e5f08b65af0d8e4a99c08b2612562ef3",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGripPose.h",
+      "local_sha256": "bfec038e78895212e69c6bb59705fb8fc303ee5675b575e86435124e6728dc2f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffLocomotion.h",
+      "local_sha256": "c5f003dada0e4972d5fa0ad02d008af55deced75cdc6ee58597154eb8a42e942",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.h",
+      "local_sha256": "6e8897c4d39f7e47e1951f8ae4cb76d5b54c73f3acd03faa66771fcae29adc66",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffPrimaryAttackMotion.h",
+      "local_sha256": "55984622089c302063b160e78a2f476640d51f2dfcdf3676ddd453fc191efbb7",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffPrimaryKeys.h",
+      "local_sha256": "2149642f2b931a35f6791fdb848a1fc238c31519c186edf5910230d4c5054a82",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffQuickCombatMotion.h",
+      "local_sha256": "e63b2f32baec11903a97889570a280695c731f40e44678a8ab55ee3e71d48180",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h",
+      "local_sha256": "cb2683bd8edaa3880336d407598897a2d8ee660fe35839f4f144a63923da1b92",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/StarMarrowComponent.h",
+      "local_sha256": "3e2858be937b4e82864d28996fc889033e13ed7f5e16674dc4bb1abb6992d1f9",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/StarMarrowSpell.h",
+      "local_sha256": "cfc383bd49cf880963c663d94087da984f33ab2a6ce1d3dcb8b1d2ffb4da2053",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Super90ForegripAssets.h",
+      "local_sha256": "4abfde5cf9fc6994ea5dd9295e7ec2724a8204fc643326a6b01f001a76e65cc5",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Super90ReleaseTiming.h",
+      "local_sha256": "149f24cb0b0e2b53180e1723598da2761726ec4704f7731b13768cc63e2cce0b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Super90Spread.h",
+      "local_sha256": "bec9c76e928a09482f4b56143daf4a82261af9820d2a86639e8c2c527d0b6f26",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Super90WeaponAssets.h",
+      "local_sha256": "7f7d91da733a7f9c0c75d11b2897261cccc92d52501e321944ad580bd54932d5",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SVCHWeaponAssets.h",
+      "local_sha256": "509eedc3ad5f08bb9a5c871d0bc0acf82bca6d64e3c830e9abe8f66439d5e279",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SwordGripClearance.h",
+      "local_sha256": "062594df08349214e7ac1ca73523847c5cf2114ae0879d9d26b579b50025d0a6",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SwordTasselMeshComponent.h",
+      "local_sha256": "582cde1aaeea553b3929936e26819e7140c4c212a6dc16bd323191b78d58106c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.h",
+      "local_sha256": "9f81590efbccd30894daad415342ff7aeed675b14b3bf0cb91c1f2043424ddcd",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceVariants.h",
+      "local_sha256": "337d2eaff750abb34c80415edc9b968633a7d61ca28b8db7667f778c901a3e62",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TangDaoGuardComponent.h",
+      "local_sha256": "1b35541ce41169581b8b509d93ed1ef7f065b6cc7ec4948265879eeee302f43e",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ThermalTargetSubsystem.h",
+      "local_sha256": "2a54737177c41ee9664eabfca6e6ab288701853ce18cf39d11551c74e0349f3f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TubeShotgunAssets.h",
+      "local_sha256": "545494e67b06bb86a7aef6efb575a371aaa48183b6aaf9e52c5eec55d360723c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TwoHandInspectAudio.h",
+      "local_sha256": "b0d30f99e14904fb5ca00885234eb948711bb7dec5a264067e9c84d53a10b40f",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedHandPose.h",
+      "local_sha256": "adc6ce625b6be34055bbf79fc433fe3aba758f564ba959b25c5d9d19802bba40",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.h",
+      "local_sha256": "49326e44857ba148c006ded67e328cadd13a87a00dfba14c71013a2f0b5f5fe5",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h",
+      "local_sha256": "e63c8181c49531bf9f13a1c8ff83314a4c1094b2e8441c954b9647449efb7cdb",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponDamageFalloff.h",
+      "local_sha256": "7e094cbe01ee29c38854fa5e342e10db9090c6b30f8660cf3ec621bffc2ca719",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponDamagePanel.h",
+      "local_sha256": "facdadf5ee4fbd4cc5826c43072a3e58911761ab8388feb866098f4e44ea5f49",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponGripComponentLayer.h",
+      "local_sha256": "c39ddd60dd22607b4011ab4487b50b27b0c279c87a4ae021e5e76fce5b424a0a",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponGripProfile.h",
+      "local_sha256": "c2b62de50f5859684a47bc5753e9072671e69480acbe92a5bf9b7e5e15faa790",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponHandling.h",
+      "local_sha256": "a1555fbe64815e5c7fa4a6124f9076c5d2cc3cb2c48278acedd536ff5efcb658",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponPresentationMaterials.h",
+      "local_sha256": "e72a6b23b026984e1316e39f0da470f69d12f2fe0971879601b329673318745d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponReloadStages.h",
+      "local_sha256": "1306e2b6faeb0d212bdbb7f47ab4bdcc2def3ecb2d24c1077c200bfd5cf7d861",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponStatEvaluation.h",
+      "local_sha256": "4c6639cc731ab8ea9cd3cb8adcfebad4e90100216c161931cc3e5f1fe65cea8c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ZhenmoRuneComponent.h",
+      "local_sha256": "4c2ca65aaf95463b199dd016a86b238c4f23011f87db1d5cf5a57555a9dd943c",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ChapelShrine.h",
+      "local_sha256": "7c0339bd1bb34710b5eb5f1edb1bbd8de27e0f79c1b3ce446862f00e78e5688e",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+      "local_sha256": "51b309f586895c3d72ba282d48a9e447fc7d62ab1c97d57e53a1735c209a22ed",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformSubsystem.h",
+      "local_sha256": "ff90a3fce0bc37db9cbe410d8ec499065b06d602f46129624ccbf1c496f11243",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformTuning.h",
+      "local_sha256": "ea5df59b68cfe6db7dbad7e9a54f72cd8a33c65f507a5d09c05dfaa05f044315",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.h",
+      "local_sha256": "11bf4d1fb6882a19d4ce800941398b0e26419de0c526a1ed444d751b3c14787d",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateEcologyConfig.h",
+      "local_sha256": "43ebc7a6997c16093d4758bfafed347d49b7af8bc0af459f42ab1301c793adac",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+      "local_sha256": "520721bc05e5e2f223c1ecab30a6c5774b4faaf1c7e028c6d8a9abdff3505e27",
+      "exists_in_public_head": false
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsRiver.h",
+      "local_sha256": "3e4a15022213a315c333740fcbe19fa139ca1a572bcaa39e2c5e5a9a6ece6b0b",
+      "exists_in_public_head": true
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsSurface.h",
+      "local_sha256": "9d9b62d865f98714bbf6e39e51ab19b2f61dd65521c32d75dde53ec4fc2dfe37",
+      "exists_in_public_head": true
+    }
+  ],
+  "shared_configs": [
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "sha256": "516ec5ec4bca8cad80efd722f8dd706a1f3421dfa84b1f3b99eb78aec1b3f6c3"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "sha256": "0443d9abf01ba16baf1287784459c039ae565f4f75d057747d14c8968df8dff8"
+    }
+  ],
+  "literal_asset_paths": [
+    "/Game/Audio/MeleeBlock20260927/S_MeleeBlock_01.S_MeleeBlock_01",
+    "/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02.S_MeleeBlock_02",
+    "/Game/Audio/QuickCombat20260918/S_QuickCombatSwing.S_QuickCombatSwing",
+    "/Game/Audio/SwordAttack20260914/S_Sword_Attack.S_Sword_Attack",
+    "/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick",
+    "/Game/Building/Incinerator20261027/S_IncineratorCombustionLoop.S_IncineratorCombustionLoop",
+    "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple.SKM_Manny_Simple",
+    "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+    "/Game/Clearwater/MI_ClearwaterUnderwater.MI_ClearwaterUnderwater",
+    "/Game/Fluids/FluidInteractions20260924/NS_WaterImpactSteam.NS_WaterImpactSteam",
+    "/Game/Fluids/FluidPolish20260924/NS_IceImpactMist.NS_IceImpactMist",
+    "/Game/Fluids/FurnaceCasting20260926/NS_CastingDroplets.NS_CastingDroplets",
+    "/Game/Fluids/FurnaceCasting20260926/SM_FurnaceCastingSurface.SM_FurnaceCastingSurface",
+    "/Game/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.NS_FurnaceBlackSmoke",
+    "/Game/Fluids/RiverPilot20260923/NS_RiverBulletSplash.NS_RiverBulletSplash",
+    "/Game/Fluids/VenomProjectiles20260924/M_VenomBody.M_VenomBody",
+    "/Game/Fluids/VenomProjectiles20260924/M_VenomCore.M_VenomCore",
+    "/Game/Fluids/VenomProjectiles20260924/M_WitchBottleLiquid.M_WitchBottleLiquid",
+    "/Game/Fluids/VenomProjectiles20260924/M_WitchPoisonPool.M_WitchPoisonPool",
+    "/Game/FreeGameSoundsVol1/SFX/Sword_Swing_Medium/Sword_Swing_Medium_01.Sword_Swing_Medium_01",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle.A_Harvest_Axe_Idle",
+    "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.SK_Harvest_Axe",
+    "/Game/Monsters/AI/",
+    "/Game/Monsters/AI/BP_MonsterAIController",
+    "/Game/Monsters/BellowSacLobber/BP_BellowSacLobber.BP_BellowSacLobber_C",
+    "/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C",
+    "/Game/Monsters/BoundCongregate/BP_BoundCongregate.BP_BoundCongregate_C",
+    "/Game/Monsters/CargoPorter/BP_CargoPorter.BP_CargoPorter_C",
+    "/Game/Monsters/CargoTechnician/BP_CargoTechnician.BP_CargoTechnician_C",
+    "/Game/Monsters/EcologyGardener/BP_EcologyGardener.BP_EcologyGardener_C",
+    "/Game/Monsters/FacelessReceptionist/BP_FacelessReceptionist.BP_FacelessReceptionist_C",
+    "/Game/Monsters/FacelessResearcher/BP_FacelessResearcher.BP_FacelessResearcher_C",
+    "/Game/Monsters/FacelessSecurity/BP_FacelessSecurity.BP_FacelessSecurity_C",
+    "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
+    "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
+    "/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C",
+    "/Game/Monsters/HeQue/BP_HeQue.BP_HeQue_C",
+    "/Game/Monsters/IncineratorBossM66/BP_M66RigPreview.BP_M66RigPreview_C",
+    "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
+    "/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C",
+    "/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler_C",
+    "/Game/Monsters/MantisM27/BP_MantisM27.BP_MantisM27_C",
+    "/Game/Monsters/NightWarden/BP_NightWarden.BP_NightWarden_C",
+    "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C",
+    "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C",
+    "/Game/Monsters/RootCrown/BP_RootCrownRigPreview.BP_RootCrownRigPreview_C",
+    "/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14_C",
+    "/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C",
+    "/Game/Monsters/StaffLiving/BP_LivingStaffFemaleA.BP_LivingStaffFemaleA_C",
+    "/Game/Monsters/StaffLiving/BP_LivingStaffFemaleB.BP_LivingStaffFemaleB_C",
+    "/Game/Monsters/StaffLiving/BP_LivingStaffMale.BP_LivingStaffMale_C",
+    "/Game/Monsters/VortexCofferM25/BP_VortexCofferM25.BP_VortexCofferM25_C",
+    "/Game/Monsters/Wildlife/Crow/BP_WL_Crow.BP_WL_Crow_C",
+    "/Game/Monsters/Wildlife/DeerDoe/BP_WL_DeerDoe.BP_WL_DeerDoe_C",
+    "/Game/Monsters/Wildlife/DeerStag/BP_WL_DeerStag.BP_WL_DeerStag_C",
+    "/Game/Monsters/Wildlife/Fox/BP_WL_Fox.BP_WL_Fox_C",
+    "/Game/Monsters/Wildlife/Pig/BP_WL_Pig.BP_WL_Pig_C",
+    "/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C",
+    "/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog_C",
+    "/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceIris.SM_ThunderLanceIris",
+    "/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceRibbon.SM_ThunderLanceRibbon",
+    "/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceBeam.M_ThunderLanceBeam",
+    "/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceIris.M_ThunderLanceIris",
+    "/Game/Skills/ElectricMagic/LanceRay/NS_ThunderLanceGather.NS_ThunderLanceGather",
+    "/Game/Skills/ElectricMagic/NS_ElectricImpact.NS_ElectricImpact",
+    "/Game/Skills/ElectricMagic/NS_ThunderCharge.NS_ThunderCharge",
+    "/Game/Skills/ElectricMagic/NS_ThunderLanceMuzzle.NS_ThunderLanceMuzzle",
+    "/Game/Skills/ElectricMagic/S_ElectricCast1.S_ElectricCast1",
+    "/Game/Skills/ElectricMagic/S_ElectricCast2.S_ElectricCast2",
+    "/Game/Skills/ElementalArrow20261109/ColdMistV2/NS_ArrowColdBurst.NS_ArrowColdBurst",
+    "/Game/Skills/ElementalArrow20261109/ColdMistV2/NS_ArrowColdMist.NS_ArrowColdMist",
+    "/Game/Skills/ElementalArrow20261109/WarmFireV2/NS_ElementalArrowFire.NS_ElementalArrowFire",
+    "/Game/Skills/Fireball/ImpactRealistic20260914/M_FireballHeatShockwave.M_FireballHeatShockwave",
+    "/Game/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.NS_FireballImpactRealistic",
+    "/Game/Skills/Fireball/ImpactRealistic20260914/S_FireballImpactLayered.S_FireballImpactLayered",
+    "/Game/Skills/HolyLight/%s.%s",
+    "/Game/Skills/HolyLight/NS_HolyLightMotes.NS_HolyLightMotes",
+    "/Game/Skills/HolyLight/S_HolyLightCast.S_HolyLightCast",
+    "/Game/Skills/IceArmor20261017/CrystalV2/M_IceArmor_Chip.M_IceArmor_Chip",
+    "/Game/Skills/IceArmor20261017/CrystalV2/NS_IceArmor_Condensation.NS_IceArmor_Condensation",
+    "/Game/Skills/IceArmor20261017/CrystalV2/SM_IceArmor_Chip.SM_IceArmor_Chip",
+    "/Game/Skills/IceArmor20261017/HelmetV5/M_IceHelmet_FirstPerson.M_IceHelmet_FirstPerson",
+    "/Game/Skills/IceArmor20261017/HelmetV5/SM_IceHelmet_FirstPerson.SM_IceHelmet_FirstPerson",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/M_IceArmorV6_World.M_IceArmorV6_World",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_0_0.SK_IceArmorV6_Arms_0_0",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_0_1.SK_IceArmorV6_Arms_0_1",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_0_2.SK_IceArmorV6_Arms_0_2",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_1_0.SK_IceArmorV6_Arms_1_0",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_1_1.SK_IceArmorV6_Arms_1_1",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_1_2.SK_IceArmorV6_Arms_1_2",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_2_0.SK_IceArmorV6_Arms_2_0",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_2_1.SK_IceArmorV6_Arms_2_1",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_2_2.SK_IceArmorV6_Arms_2_2",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Helmet.SK_IceArmorV6_Helmet",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_0_0.SK_IceArmorV6_Legs_0_0",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_0_1.SK_IceArmorV6_Legs_0_1",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_0_2.SK_IceArmorV6_Legs_0_2",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_1_0.SK_IceArmorV6_Legs_1_0",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_1_1.SK_IceArmorV6_Legs_1_1",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_1_2.SK_IceArmorV6_Legs_1_2",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_2_0.SK_IceArmorV6_Legs_2_0",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_2_1.SK_IceArmorV6_Legs_2_1",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_2_2.SK_IceArmorV6_Legs_2_2",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Torso_0.SK_IceArmorV6_Torso_0",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Torso_1.SK_IceArmorV6_Torso_1",
+    "/Game/Skills/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Torso_2.SK_IceArmorV6_Torso_2",
+    "/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact",
+    "/Game/Skills/IceSpike/S_IceImpact.S_IceImpact",
+    "/Game/Skills/IceWall/BlockV1/S_IceWallCast.S_IceWallCast",
+    "/Game/Skills/IceWall/FabIceV3/M_IceWall.M_IceWall",
+    "/Game/Skills/IceWall/FabIceV3/SM_IceBlock_%02d.SM_IceBlock_%02d",
+    "/Game/Skills/IceWall/TerrainV1/NS_IceWallColdMist.NS_IceWallColdMist",
+    "/Game/Skills/IceWall/TerrainV1/NS_IceWallLanding.NS_IceWallLanding",
+    "/Game/Skills/IlluminationArrow20261027/M_IlluminationArrowGlow.M_IlluminationArrowGlow",
+    "/Game/Skills/IlluminationArrow20261027/M_IlluminationMarkDepth.M_IlluminationMarkDepth",
+    "/Game/Skills/IlluminationArrow20261027/M_IlluminationMarkOutline.M_IlluminationMarkOutline",
+    "/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain",
+    "/Game/Skills/Lightning/S_LightningCast1.S_LightningCast1",
+    "/Game/Skills/Lightning/S_LightningCast2.S_LightningCast2",
+    "/Game/Skills/LightningHaste20261019/NS_LightningHasteArc.NS_LightningHasteArc",
+    "/Game/Skills/MagicArrowRain20261026/",
+    "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+    "/Game/Weapons/AKMIntegration/EquipCharge/A_AKM_equip",
+    "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_%s",
+    "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative",
+    "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_%s",
+    "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface.SK_ASH12_Surface",
+    "/Game/Weapons/AzureRunesword20260913/S_RuneSword_Parry.S_RuneSword_Parry",
+    "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit",
+    "/Game/Weapons/AzureRunesword20260913/WristRiftV3/M_RuneRift.M_RuneRift",
+    "/Game/Weapons/BigBlind20261002/M_BigBlindMuzzlePulse.M_BigBlindMuzzlePulse",
+    "/Game/Weapons/DanWesson715/AccessoryPolymer20260914/Attachments/",
+    "/Game/Weapons/DanWesson715/AccessoryPolymer20260914/DA_DW715_WetMaterials.DA_DW715_WetMaterials",
+    "/Game/Weapons/DanWesson715/Chrome20260914/Attachments/",
+    "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny",
+    "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny.SK_DW715_Manny",
+    "/Game/Weapons/DanWesson715/CompactScope20260927/Meshes/SM_dw715_handgun_scope_2x",
+    "/Game/Weapons/DanWesson715/Integrated20260913/Audio/S_DW715_",
+    "/Game/Weapons/DanWesson715/LeftRecovery20260914/Animations/A_DW715_single_%d_%d.A_DW715_single_%d_%d",
+    "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations/A_DW715_single_0_%d.A_DW715_single_0_%d",
+    "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations/A_DW715_speed_0.A_DW715_speed_0",
+    "/Game/Weapons/DanWesson715/QuickCombat20260918/Animations/A_DW715_quickcombat.A_DW715_quickcombat",
+    "/Game/Weapons/DanWesson715/RecordedAudio20260914/S_DW715_Fire_Recorded.S_DW715_Fire_Recorded",
+    "/Game/Weapons/DanWesson715/RecordedAudio20260914/S_DW715_Loader_%s.S_DW715_Loader_%s",
+    "/Game/Weapons/DanWesson715/Upgrade20260914/Animations/A_DW715_%s.A_DW715_%s",
+    "/Game/Weapons/ElectrifiedMelee/NS_ElectrifiedBlade.NS_ElectrifiedBlade",
+    "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+    "/Game/Weapons/G18/Drum50_20261003/Meshes/SM_G18_Drum50",
+    "/Game/Weapons/G18/Drum50_20261003/Reload/DA_G18_Drum50",
+    "/Game/Weapons/G18/Integrated20260929",
+    "/Game/Weapons/G18/Integrated20260929/DA_G18_WetMaterials",
+    "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny",
+    "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny.SK_G18_Manny",
+    "/Game/Weapons/GunplayFX/Impacts/S_Impact_Flesh_0.S_Impact_Flesh_0",
+    "/Game/Weapons/GunplayFX/Impacts/S_Impact_Flesh_1.S_Impact_Flesh_1",
+    "/Game/Weapons/GunplayFX/Impacts/S_Impact_Flesh_2.S_Impact_Flesh_2",
+    "/Game/Weapons/GunplayFX/NS_FPS_MuzzleFlashV10.NS_FPS_MuzzleFlashV10",
+    "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny.SK_HK416_Manny",
+    "/Game/Weapons/HighlandClaymore20260922/OathRune20261106/",
+    "/Game/Weapons/Kukri20261020/Animations/",
+    "/Game/Weapons/Kukri20261020/SM_Kukri.SM_Kukri",
+    "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10",
+    "/Game/Weapons/LMGStabilityGrip20261111/DA_",
+    "/Game/Weapons/LMGStabilityGrip20261111/DA_M249_Handguard",
+    "/Game/Weapons/LMGStabilityGrip20261111/SM_",
+    "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny.SK_M16_Manny",
+    "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny",
+    "/Game/Weapons/M24/",
+    "/Game/Weapons/M24/%s/Animations/A_M24_%s.A_M24_%s",
+    "/Game/Weapons/M24/CarbonBolt20261029/Materials/MI_M24_CarbonBolt",
+    "/Game/Weapons/M24/CarbonSpine20261104/Meshes/SM_M24_CarbonSpine_",
+    "/Game/Weapons/M24/EquipConditional20261104/A_M24_equip_ready",
+    "/Game/Weapons/M24/FireAudio20261104/S_M24_Fire",
+    "/Game/Weapons/M24/FireAudio20261104/S_M24_Suppressed_Warm",
+    "/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9",
+    "/Game/Weapons/M24/MotionPolish20261027/DA_M24_Mag10",
+    "/Game/Weapons/M24/MotionPolish20261027/DA_M24_SupportGrip",
+    "/Game/Weapons/M24/ReceiverGripRebuild20261031",
+    "/Game/Weapons/M24/Tactical20261104/SM_",
+    "/Game/Weapons/M249/Animations/A_M249_%s.A_M249_%s",
+    "/Game/Weapons/M249/Audio/S_M249_Fire_%02d.S_M249_Fire_%02d",
+    "/Game/Weapons/M249/SK_M249_V7.SK_M249_V7",
+    "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+    "/Game/Weapons/M870/Optics20261016/Meshes/SM_M870_",
+    "/Game/Weapons/M870/Tactical20261015/Animations/A_M870_%s.A_M870_%s",
+    "/Game/Weapons/M870/Tactical20261015/Audio/S_M870_%s.S_M870_%s",
+    "/Game/Weapons/M870/Tactical20261015/SK_M870_V7.SK_M870_V7",
+    "/Game/Weapons/M870/TacticalFit20261017/SM_blessed_laser",
+    "/Game/Weapons/M870/TacticalFit20261017/SM_flashlight",
+    "/Game/Weapons/M870/TacticalFit20261017/SM_laser",
+    "/Game/Weapons/PKMLowpoly20260922/",
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular",
+    "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_%s.A_PKM_%s",
+    "/Game/Weapons/PKMLowpoly20260922/Audio/S_PKM_Fire.S_PKM_Fire",
+    "/Game/Weapons/PKMLowpoly20260922/ChargeAudio35/S_PKM_%s.S_PKM_%s",
+    "/Game/Weapons/PKMLowpoly20260922/Finish20/DA_PKM_WetMaterials.DA_PKM_WetMaterials",
+    "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_%s.S_PKM_%s",
+    "/Game/Weapons/PistolLeftTwoHand20261020/%s/A_LeftTwoHand_%s_%s",
+    "/Game/Weapons/PistolLeftTwoHand20261020/%s/DA_LeftTwoHand_%s_%s",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny",
+    "/Game/Weapons/PitViper2011/LeftTwoHand20261020/A_PitViper_LeftTwoHand_",
+    "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+    "/Game/Weapons/RSH12/Native71520261003/single/SK_RSH12_Manny",
+    "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_DirectReuseV5.A_FinalToll_DirectReuseV5",
+    "/Game/Weapons/SVCH/",
+    "/Game/Weapons/SVCH/Replacement20261018/RealSights20261019",
+    "/Game/Weapons/SVCH/Replacement20261018/RealSights20261019/SK_SVCH_RealFoldingSights.SK_SVCH_RealFoldingSights",
+    "/Game/Weapons/SVCH/Replacement20261018/SightsR2/ElbowFit/DA_SVCH_ElbowFitGrip.DA_SVCH_ElbowFitGrip",
+    "/Game/Weapons/SVDDragunov20260922/",
+    "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_%s.A_SVD_%s",
+    "/Game/Weapons/SVDDragunov20260922/StockAdapter20260923/SK_SVD_ModularStock.SK_SVD_ModularStock",
+    "/Game/Weapons/Saiga12K/",
+    "/Game/Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_",
+    "/Game/Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_%s_%d",
+    "/Game/Weapons/Saiga12K/Detail20261018/SK_Saiga12K_Manny.SK_Saiga12K_Manny",
+    "/Game/Weapons/Saiga12K/GameDevAudio20261018/S_Saiga12K_Fire",
+    "/Game/Weapons/Saiga12K/InspectClearance20261018/Profiles/DA_",
+    "/Game/Weapons/Saiga12K/SpecialStock20261018/SM_Saiga12K_SpecialStock",
+    "/Game/Weapons/ShatterVFX20260930/M_ShatterVioletV1.M_ShatterVioletV1",
+    "/Game/Weapons/ShatterVFX20260930/SM_ShatterCrystal.SM_ShatterCrystal",
+    "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_",
+    "/Game/Weapons/SpellbookEvildeer20261009/Meshes/SM_Spellbook_Alchemy_Closed.SM_Spellbook_Alchemy_Closed",
+    "/Game/Weapons/SteelWarhammer20261014/GuardV1/",
+    "/Game/Weapons/SteelWarhammer20261014/LeapStrikeV2/A_Warhammer_LeapStrikeV2.A_Warhammer_LeapStrikeV2",
+    "/Game/Weapons/SteelWarhammer20261014/NormalSwingAudioV1/S_Warhammer_NormalSwing.S_Warhammer_NormalSwing",
+    "/Game/Weapons/SteelWarhammer20261014/QuickCombatLeftWristV7/A_Warhammer_QuickCombat.A_Warhammer_QuickCombat",
+    "/Game/Weapons/SteelWarhammer20261014/QuickReferenceV8/A_Warhammer_QuickReferenceV8.A_Warhammer_QuickReferenceV8",
+    "/Game/Weapons/Super90/Cransh20261006/Animations/A_Super90_%s.A_Super90_%s",
+    "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7.SK_Super90_V7",
+    "/Game/Weapons/Super90/Foregrips20261007/Meshes/SM_Super90_",
+    "/Game/Weapons/Super90/Foregrips20261007/Profiles/DA_Super90_",
+    "/Game/Weapons/Super90/TacticalBottom20261012/SM_",
+    "/Game/Weapons/Super90/TacticalSprint20261007/Animations/",
+    "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_",
+    "/Game/Weapons/TacticalDevices20260913/DualFit20261008/%s/SM_%s_%d",
+    "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/MS_JiLei_CurrentRandom.MS_JiLei_CurrentRandom",
+    "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallCharge.A_ThunderHammer_CallCharge",
+    "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallRelease.A_ThunderHammer_CallRelease",
+    "/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_Catch_V2.A_ThunderHammer_Catch_V2",
+    "/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_RecallReady_V2.A_ThunderHammer_RecallReady_V2",
+    "/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_ThrowCharge.A_ThunderHammer_ThrowCharge",
+    "/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_ThrowRelease.A_ThunderHammer_ThrowRelease",
+    "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoAlpineV23/M_MountainEcho_AlpineHUD.M_MountainEcho_AlpineHUD",
+    "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoAudioB4/S_MountainEcho_EnergyImpact.S_MountainEcho_EnergyImpact",
+    "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/M_MountainEcho_GoldenArrow.M_MountainEcho_GoldenArrow",
+    "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/NS_MountainEcho_GoldenFlight.NS_MountainEcho_GoldenFlight",
+    "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/NS_MountainEcho_GoldenImpact.NS_MountainEcho_GoldenImpact"
+  ],
+  "notes": [
+    "Patches require the recorded complete local host baseline, not public HEAD.",
+    "Headers alone do not enumerate all linked implementations or data-selected asset dependencies.",
+    "Player equipment/skills, weapon catalogs, animations, bodies, outfits and effects must already be installed.",
+    "Licensed Content, generated poses from other authoring tasks, plugins and binaries are not redistributed."
+  ]
+}

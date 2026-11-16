@@ -1,0 +1,394 @@
+[
+  {
+    "target": "Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSBodyRifleHold.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownPlayerGunAim20261115/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+    "baseline_lf_sha256": "85a717cc4113825713a53b8b4634815f3f52a9b8ca722205a08d9afa5f278585",
+    "result_lf_sha256": "8f3982b4d9b09d87ce52a3c52e2e9e78942d184bdee2976aad2423d520bc110b",
+    "patch_sha256": "9724522d069b740f66378ce62689e6a76a87e3bdc5039df1f981789afa744e34"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownPlayerGunAim20261115/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "baseline_lf_sha256": "71a413aef8f634942e7cb56de986754da692a4cb5c89dca385ea959f0ab5d9e8",
+    "result_lf_sha256": "76b8d1e64946faefde160a4a22c952bdcffa53b2fea848b1f4bbaa5293033615",
+    "patch_sha256": "b1ac943b1bd1cfaae7b82a29b12c20d222a63abe82485aaee42211b536a84a80"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownPlayerGunAim20261115/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "baseline_lf_sha256": "af2988def0ebad602b3365090273abb3a0985d0b71eff70161e864b3b572f5ab",
+    "result_lf_sha256": "4d92555635f26bf92c3f04b942e43b37e0443b1079c2dc789c17bba2a36453b5",
+    "patch_sha256": "ee3ec73a66d20f0dde781dab7cb255ae418525d00b257de362d2fbc0af6bd73a"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.h.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownPlayerGunAim20261115/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h",
+    "baseline_lf_sha256": "973d0e34270f89549b9764c28df79fe2869db237ec4f9d720e62c50760386b47",
+    "result_lf_sha256": "44c4ff18088b1864ffd511e4d780af458930fe3ac798ecddc7e62f4ebb6c4654",
+    "patch_sha256": "82787a7a563f6b0bc685bd19199fe91d3977897688b121be42d9ee4a4ae28859"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyAppearance.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "e8fc35f7955ca955f665cb7adac58d51ad56f2814acc85a37601fe9b23e9724e",
+    "result_lf_sha256": "56cce889cbb1e8c69efca938bd4ca220d10cd4f904170b359f57cbf8d02cb166",
+    "patch_sha256": "44abb15fccd899dbeed614f1cd6bf6298a07c529cc6b01fbea779290b7c11d9f"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownNetworkReview20261116/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "baseline_lf_sha256": "bceb83dec088eac339b71f07d6a59aa759d1b78c03ec00f7b9513223dec2b6c3",
+    "result_lf_sha256": "3f8982145520da92ab5346c8c5822e7cd05488a6b673f7a0b48ae88356ff1abd",
+    "patch_sha256": "34eafffdecf2f64d04836ce55e29261db41f27c43a979010adfca790a0b5436c"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownNetworkReview20261116/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "baseline_lf_sha256": "1b49076c6fb30bc55ede71fede21699eca4fd23c6835d448c08efe5ba6351690",
+    "result_lf_sha256": "34a90820c7a1dd9fddd6f77edb07eec5a233043211f3294e62fbb76a8e8bc68a",
+    "patch_sha256": "bdaa5c130a99ad0398a92890421e21ea15165720ba483f8d1ba208afc9293564"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownPlayerGunAim20261115/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "baseline_lf_sha256": "44e8239d3c00809264868cdfa5f2ed46557e57cf0a7f0dedf271e379bdd88460",
+    "result_lf_sha256": "c772242e9ec1b45eeb4fbea1bbfadace5826cff1e8f0373a3d09c055606850b1",
+    "patch_sha256": "1a029716cc1ac960354a47e8507f21c9068c90fff7253235daf3b4c9d97eada7"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyMotion.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownPlayerGunAim20261115/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+    "baseline_lf_sha256": "b8b642e0ee87c8113b1895e929440319f9552dc6dff768d8bb5d12d188ca5b2f",
+    "result_lf_sha256": "d5ff9a4aae1ee5beeb5c3a193315eb140d222716f35d7201c4fd5901091a60a1",
+    "patch_sha256": "400ce032e47dad4d3f07cacea957588f39f936e05902175d880347fd285d0947"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyNetwork.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownNetworkReview20261116/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "baseline_lf_sha256": "961b3878f964820ccaced97d8ca9e96dec5070962e32a7e8d0e3c90176e88470",
+    "result_lf_sha256": "b9e808479cbf503eaed8333c65aa8e54429fbc17c0cfb3e415679253872f927b",
+    "patch_sha256": "02811caa1480b8c573cd63826af62f8f5100a9cadb8b7fa8619ed8b317883805"
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyTypes.h.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownNetworkReview20261116/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+    "baseline_lf_sha256": "f4e0bd65367bce65beb2bfb65d7a235a7fca9fbbc7a4984246e4f56c06f41818",
+    "result_lf_sha256": "e5ec53cf45fa6da7fdb37f7a7d993fa0241d8c7538cdcab728620d4681973558",
+    "patch_sha256": "e34a15cbf3a6842beb61f7913dda28f7802cf0660f5c6d00b5d2f3eae4431178"
+  },
+  {
+    "target": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+    "patch": "Integration/Source__FPSGAME__Combat__CombatStatusFormula.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Combat/CombatStatusFormula.cpp",
+    "baseline_lf_sha256": "4f316f6b4f8bb4890f3be177bb8ecf6c797b2e2651712fa126988714238cbeb0",
+    "result_lf_sha256": "26f8b32ca12d13dd2ec033d74c02a666d4f4e619a5df87b995ef3983392ffbaf",
+    "patch_sha256": "c645e0a93da6679af7ffe10a296d90046dd64f42291029a75ca5c9c245f54861"
+  },
+  {
+    "target": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Development__DevelopmentSpawnComponent.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "90ffa4234e0a02abce1ced46d452f013721f8e141695094de14ff51f04c2ace6",
+    "result_lf_sha256": "55f8010007ae7a35d86f6e9dac94ef96b768804778b82e801cf378cee421d7d5",
+    "patch_sha256": "fa34271585ad9a258cceb4c7ce491aa14cfb0390b4576ba06ff70adfae5ab49f"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__BlindSupplicantCombatMagic.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/BlindSupplicantCombatMagic.cpp",
+    "baseline_lf_sha256": "73c1a86276fc5d9c62732c8698f24166331ef6dbc74c168d1fd2fab99b46933e",
+    "result_lf_sha256": "1ae657d32910def3d11e17c1a77668ff450be7ce9a010b19d383b6d28bbea7e7",
+    "patch_sha256": "36cb7f1d45924c3f71a122642af08c449e4be753e6e1a71acd46e2df867e7ed6"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__FPSCombatHealthComponent.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownJoinDamage20261116/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+    "baseline_lf_sha256": "958e9aa8a49a6ff659d2502a35f53c6f21c8607bbe4c5757d1cb84c198cba251",
+    "result_lf_sha256": "7ec08b2fc0a42dbdbe537fcc8f60e98066e9248b0af77e2b4b9f3c0bc90fb870",
+    "patch_sha256": "29a673c6ccb8ab2949a6052c3ff242efbd6544892f0f5ef7b3a5296b7f1063e8"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+    "patch": "Integration/Source__FPSGAME__Monsters__FPSCombatHealthComponent.h.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownJoinDamage20261116/Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+    "baseline_lf_sha256": "06cdca7fdc17d94202da3ac6779df443119ca9b5b024ecb46e37b25e395b4415",
+    "result_lf_sha256": "a23a695ec290b2b295737b8766a7defaa60caa02ca0bf4632ac4799271fdb311",
+    "patch_sha256": "b6e7e7fe58232db513087da45879b895e4da1e51569fa65600199533438ea9dc"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__FleshHandMonster.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/FleshHandMonster.cpp",
+    "baseline_lf_sha256": "c738cbbf4e03bea7baa35c151c8e4cab5ca7e73390939c09946a00546995a30a",
+    "result_lf_sha256": "d225e5d6e53a9f22f10d44e7e8a8d35a3601bea2f8ecd8391db4ad46f5afe91f",
+    "patch_sha256": "3573d357436698d3b641e0d3975a1a09a1fa91a5b8d556be8999c36a109bd393"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/HandBrainMonster.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__HandBrainMonster.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/HandBrainMonster.cpp",
+    "baseline_lf_sha256": "2acc6d29256d56b79639e88aef92168e03b97557b3c53bcc8c0f25c60e301592",
+    "result_lf_sha256": "a5efd7601b9fbdf16ba8c5618ee24fb87c4e471f80c69537882d795137702a0e",
+    "patch_sha256": "2d26ef3b71445bbbc38afb87f7a651a200057a9d8e15ad4d695cd82f2391d7e0"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__HundredEyedSlagSpecialAttacks.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/HundredEyedSlagSpecialAttacks.cpp",
+    "baseline_lf_sha256": "e2ff2b07fee871ff4b62da2ede529b1b9a80c4deab43cab123675d6d3644054c",
+    "result_lf_sha256": "559d956c6f290288c38b4f9c931c1d710b268eeb61abc67d3d7f98da3d2bf667",
+    "patch_sha256": "dce9cd849a1a05b621eed47e9e4ef303065c2b76658b0ba56b9fa039387983c8"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/M10Howl.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__M10Howl.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/M10Howl.cpp",
+    "baseline_lf_sha256": "3fa43ad658f8b606108a7f1562b9215d63729d6892e0a7cdce4e52d4c1dc7716",
+    "result_lf_sha256": "bf2dace3240423e31f296751ec5e6b87aca0b9f1fe335c0fa21cbd3bc057e8b0",
+    "patch_sha256": "e0ff2fab0a44d07e7c9b5b90943b58e3886cdeebfc44041d1e516df0eaad9cd9"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/M25MagicComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__M25MagicComponent.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/M25MagicComponent.cpp",
+    "baseline_lf_sha256": "3577929ad57fd9b8e107a4a514a16859febc11049c4041f6cc61f567b41f0aa9",
+    "result_lf_sha256": "02566fb72691b15e53d01feb33d9ac2874401d18e5158e286d95453568f7530f",
+    "patch_sha256": "1924c72197b2cc7db102e1c33bd43ed6431b93becf9a1c79229f827409845441"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/M66FurnaceBreath.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__M66FurnaceBreath.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/M66FurnaceBreath.cpp",
+    "baseline_lf_sha256": "a0f4b13bd93cb90da8f309c7e5e5a2406b0c1163a51bf90cfb8a56475f6c5c9b",
+    "result_lf_sha256": "ab537c4a20dad2d1c09c532fd42f17f3e708f6a4dc673f1dd6ac3ccb83bbf237",
+    "patch_sha256": "e74189b4fa91545c4536d6d9511c31f8c59bfbdeb59bf6353d231494c07b619b"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/M66SlamWave.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__M66SlamWave.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/M66SlamWave.cpp",
+    "baseline_lf_sha256": "65852c5160dc029b0d46bc5a2c541a4a7091e074962b89091bab98e7049719d7",
+    "result_lf_sha256": "50a5e6695e38d042b6f756ab3442b07d9dbc1a8a6b1a534d1a8dc9d59f338d09",
+    "patch_sha256": "3fa9c20c6770651157fe010bc3d06b5b8ec7045a85b5e6e5462b390291d73195"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/MantisM27Pounce.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__MantisM27Pounce.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/MantisM27Pounce.cpp",
+    "baseline_lf_sha256": "61b8e07a8f64965130a18006c01df082c570170a7b4a842e2e150e893c6d31c0",
+    "result_lf_sha256": "5f2d76b3295f835a52b1d55cd11ed6433f0e550e509f548ff6983cad0823e43a",
+    "patch_sha256": "67e5c3d0493b1cc3e980c3697bc7f272018d381051ba085c8536aa2a800f6ba6"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__MonsterAIController.cpp.patch",
+    "baseline_origin": "Current host with only Unknown mobile-combat changes reversed; preserves NightRaid work",
+    "baseline_lf_sha256": "7a3aa457882828716b66391a1216515275ffd4b5d093e21cec5765fa3293436e",
+    "result_lf_sha256": "3eee2696b6d357ca6c05c256329db47e6184a4c8bc230ebcf4cdfbf894717e7e",
+    "patch_sha256": "243898a5929967db1eaa390f5a60de42433d02146a3d75e4e31c7304ab6929ee"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/MonsterAwareness.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__MonsterAwareness.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownLifeTravel20261116/Source/FPSGAME/Monsters/MonsterAwareness.cpp",
+    "baseline_lf_sha256": "9d0fc60995954373bc3079d06ca5ea2e79f4134d875eb8c0093ba2ae2217528b",
+    "result_lf_sha256": "36f20c69bf0af6e925b0ea0b12e054d8539b6744c07ce87c2c25071344d6eb74",
+    "patch_sha256": "48f3a36d5ea05f5fa3ca5355f29c76f392573572c75066c50211020bdc028905"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__MonsterBTNodes.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownMagicBowMobile20261115/MonsterBTNodes.cpp",
+    "baseline_lf_sha256": "302282860f5a49bd59a210a6ee72427339349f4c108c895c91dbdc0ae50ba702",
+    "result_lf_sha256": "242fda9d54677d62ff7c412c3ac939f127332a9cc71bcf1938e21e6df87d4f87",
+    "patch_sha256": "8ffa2749261f88acd51ab78cc55f2892443816fa78ba8bb085b3bc47486f59c6"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__MonsterCombatComponent.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "58bd46c7ee0c17e823e819c4732134fff241b0f1b42a153b8e1fbea46bdacd78",
+    "result_lf_sha256": "7e3a453879464fa898991356805be76be9386f5f99f77f90c8cfe957ba2f67ec",
+    "patch_sha256": "4aaee8e0e27766e0f0508f7682212a9288c960e34c5792ba535be362d136e38d"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/MonsterCoreStats.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__MonsterCoreStats.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "a30e3bb4b4ec65c108089fae10a52e7c0be79532041065f57c952af07df3d063",
+    "result_lf_sha256": "bc2627618a6ef2feddd4f5677710b62a79456aa373fcfe3bcd4b22882c66980c",
+    "patch_sha256": "ce0b2c52fe9cb58b2366a50070ccb08b2c3e62f3f2f18c72b44d52df4f7bd8e0"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/MonsterMeleeKnockback.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__MonsterMeleeKnockback.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "f2c10797e7c686843075425c22b97752a1b289ca46991f089f67b2cf56c55b97",
+    "result_lf_sha256": "7f3d1d796fb6a189c9509a2d8e346818512854ff25404b9869b6f0d04ce5f603",
+    "patch_sha256": "ee88bf14eff3c602740315dcdef61b3320d68a511e5b47a2a573c4e8a3ddfc9a"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/Mutant3Feral.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__Mutant3Feral.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/Mutant3Feral.cpp",
+    "baseline_lf_sha256": "035a4d292fba232211c0035252b15e545c6c6c61cbb0867b5b50f880d98f95ad",
+    "result_lf_sha256": "d21edae54172db147d41eb65583896a29f58fdaf37ec4c9f40f4331331cc2fb8",
+    "patch_sha256": "384f9fa0ac36018437c2d3b106262c9520ce8d6a20ef94875a6107edd6a12afc"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__PoisonMaggotProjectile.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/PoisonMaggotProjectile.cpp",
+    "baseline_lf_sha256": "0b444ce90950cd68f25c04b808c69ad164af5e8f6e73265693aa7206769e409a",
+    "result_lf_sha256": "02e308b60b5fcdbb65de513c05d40c1aacb3025d8d694432274508fb002f9fac",
+    "patch_sha256": "7f27840c2409af48914fbd36dbe8cff81a8ddf8b0fbccbbed39340120834e45e"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__SpiralPillarM14Whirlwind.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/SpiralPillarM14Whirlwind.cpp",
+    "baseline_lf_sha256": "ed1994f45cbbbdb60d4015981106e23bcbba9d7411a475346953d2ba1ccdf092",
+    "result_lf_sha256": "6a849cce65304505463b6414fb88daf267a0c1fd08bad54197276048241ea392",
+    "patch_sha256": "aa2396bd7f134bce5081fae6e99f5408ce91167ca47c8edcee288de4c47f0016"
+  },
+  {
+    "target": "Source/FPSGAME/Monsters/WitchProjectile.cpp",
+    "patch": "Integration/Source__FPSGAME__Monsters__WitchProjectile.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/MonsterDamageBalance20261115/Monsters/WitchProjectile.cpp",
+    "baseline_lf_sha256": "3dd83cfd47574c045acec4473dae21fc41259661f7aa58b5fc4345a0ec9be5cd",
+    "result_lf_sha256": "0a4c3016f518b399152f3095fb4aa7416f9904550c5235f675c10426b6c70491",
+    "patch_sha256": "c3e25516e1eb0bddf721a505896b5076194a14cc70a09487ec429bb1a4efe167"
+  },
+  {
+    "target": "Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+    "patch": "Integration/Source__FPSGAME__Movement__FPSPlayerDodge.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownJoinDamage20261116/Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+    "baseline_lf_sha256": "610c554372baae693fb696eac6d315921e06fa289c59ebea5a2dc5c196d372bf",
+    "result_lf_sha256": "b29ed14318ee930eb71532164c0cdd292ad15ed08642547ebe3c70dc0ea9b2ab",
+    "patch_sha256": "abd6994a5bfe64eae648b5e5efc90f65c163070af3fca97c838e79fccd1dd138"
+  },
+  {
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.cpp",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelAuthorityContext.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "aa30239cd01e312d3afecb009155eb96bc5bc84ca166305f3d5c634bbfa8ded6",
+    "result_lf_sha256": "a403f9644024e865e27364d7c460c951a32097a46632eae11041f036f528aea9",
+    "patch_sha256": "c16112cf1212ca32111de904cde4e9d4a7bccb5eb92d99f9179053845d5a57a5"
+  },
+  {
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownJoinDamage20261116/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "baseline_lf_sha256": "e24e00777ab76d37f1b525d177e5293314d19f97470f9168234e0a9a5352ceaf",
+    "result_lf_sha256": "4aa7feaad014ee4b55d742470177a0b33e6e024e281a2910c60a25010db6779e",
+    "patch_sha256": "ccae3370c582f9f076b27c6d7f87fead35f78490f240e7a985fa8793c1376a08"
+  },
+  {
+    "target": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelFireballModel.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "bee98a3c33585f7d5c60b4ad1de5b8f4780421449d18c1971bd16227c01914bf",
+    "result_lf_sha256": "565df021b8b039a8853a8f6a04b6830e918ab65d28426c84daf152db188e46f2",
+    "patch_sha256": "a9e0c38d3ccdda2682c9a5898e171abac5cbecbb63e624417ff9faea152c5d19"
+  },
+  {
+    "target": "Source/FPSGAME/Skills/FPSHolyLightEffect.cpp",
+    "patch": "Integration/Source__FPSGAME__Skills__FPSHolyLightEffect.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownNetworkReview20261116/Source/FPSGAME/Skills/FPSHolyLightEffect.cpp",
+    "baseline_lf_sha256": "67216502d4f880cb7c391b28a1d622a8d7e0cc08fdc53e618b96be8292185932",
+    "result_lf_sha256": "7e7cfd45dd5e0fd1884e6b0b152a2f09ab8192174fa0241e31a662667c2f5aca",
+    "patch_sha256": "5b6bc1837d89a256a588d3779bfdfa7a0301741a4fcd8944f65b1419e15fd2ea"
+  },
+  {
+    "target": "Source/FPSGAME/Skills/FPSHolyLightEffect.h",
+    "patch": "Integration/Source__FPSGAME__Skills__FPSHolyLightEffect.h.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownNetworkReview20261116/Source/FPSGAME/Skills/FPSHolyLightEffect.h",
+    "baseline_lf_sha256": "4f451e99f61ea839b94cf56b05ac585ac4b8d8c97bf7d7871475bd6b0aa10215",
+    "result_lf_sha256": "0622a83642fd5e431805e7340a8c15182c26bfb0475f9fd94e88d192cc1b1451",
+    "patch_sha256": "58abfa28066ccc0fcda3c002dd3bfe9a1878e9e87ac0a18cfe349e6659d0f262"
+  },
+  {
+    "target": "Source/FPSGAME/Skills/FPSIceArmorComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Skills__FPSIceArmorComponent.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownNetworkReview20261116/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp",
+    "baseline_lf_sha256": "050273d6c3faec67f0843ec95d1fceddbd530af343e321902f01463e6284e902",
+    "result_lf_sha256": "87282a27c4fed11af4a96030b568f8c0d8f6afdc600ad95e0c72eebc6f8b45f9",
+    "patch_sha256": "5f6e2579038375ae1d5964c6a1ef24d21e30c795c3282102e1d98779bfed9178"
+  },
+  {
+    "target": "Source/FPSGAME/Skills/FPSIceArmorComponent.h",
+    "patch": "Integration/Source__FPSGAME__Skills__FPSIceArmorComponent.h.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownNetworkReview20261116/Source/FPSGAME/Skills/FPSIceArmorComponent.h",
+    "baseline_lf_sha256": "8e080f50921067c5c01f987239e05465d4ae4ea0b3603457c9afc327c0d0b94a",
+    "result_lf_sha256": "a68528aa71c3599816a28031bea300f23d9d2d7dd290b7df920e0ad7deb37788",
+    "patch_sha256": "95563d529ca3ebe7b18fc07a1554f008e497e920e4459159ce39933bec2ac0a8"
+  },
+  {
+    "target": "Source/FPSGAME/Skills/FPSIceWall.cpp",
+    "patch": "Integration/Source__FPSGAME__Skills__FPSIceWall.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownJoinDamage20261116/Source/FPSGAME/Skills/FPSIceWall.cpp",
+    "baseline_lf_sha256": "5d5497ac868dcea1de42f8f8361127c63cc4d1bb9eb0cb717d54d0a4869af146",
+    "result_lf_sha256": "da233084471cccdb1d9227a5d9284c4fdf8fd0721a56a5d87c1f56bd83a89aba",
+    "patch_sha256": "220de7fe0ddd56006b76dc2c592d11eb999e4c8b73e993bd701df2dab36b11f1"
+  },
+  {
+    "target": "Source/FPSGAME/Skills/FPSIceWall.h",
+    "patch": "Integration/Source__FPSGAME__Skills__FPSIceWall.h.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownJoinDamage20261116/Source/FPSGAME/Skills/FPSIceWall.h",
+    "baseline_lf_sha256": "51d36bd1d8457adf1fbaf1b36acc37d9f3faba7d1caa082b1fca7128de69fcdd",
+    "result_lf_sha256": "f1dd77b8a2ac64ca523e27a2820735e53b2648e3db74780dc729f84cd3386855",
+    "patch_sha256": "19bf8f611a390510a7a9e17d4471d815476c63e48a5800edf9364fd0168b84dc"
+  },
+  {
+    "target": "Source/FPSGAME/Skills/HolyLightTargets.cpp",
+    "patch": "Integration/Source__FPSGAME__Skills__HolyLightTargets.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "473496832b08f475a28e0fee213269b1fb8ab43bdd27081358c3164688dd3756",
+    "result_lf_sha256": "04ce73fc44c002d5929e5f4cbf32b15d69ac40317b618d0cc1091763cc693615",
+    "patch_sha256": "782ba2e89d338b11697984d3c9abd78438ca48fc8cb127661a848f13cfa782e0"
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelSkillTreeDetail.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelSkillTreeDetail.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownLifeTravel20261116/Source/FPSGAME/UI/ColdSteelSkillTreeDetail.cpp",
+    "baseline_lf_sha256": "f4fa4828ab8d953f8800f793bc0186d6defb698d9ce841784dc18616a4c7c38a",
+    "result_lf_sha256": "b0fd965ef0bd8170fe7758e84b7dde108625712f210a12f4ae504c4b2e1c0469",
+    "patch_sha256": "fa417f7adbc84758a82af6ba8f169c06992e41b7ec1dae324b87c075d6e749aa"
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelSkillTreeScreen.cpp",
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelSkillTreeScreen.cpp.patch",
+    "baseline_origin": "Saved/SourceSnapshots/UnknownLifeTravel20261116/Source/FPSGAME/UI/ColdSteelSkillTreeScreen.cpp",
+    "baseline_lf_sha256": "e690e85baa3a00e281d8b4e81dce80da0deaa787f6c403d38cf9bb426beb95dc",
+    "result_lf_sha256": "de79b9c9d16ccb9e4ef9eb9eaab18b14f19e32540d28ad0e963114ec00d7e795",
+    "patch_sha256": "7faa0ba6530a4784271eb75cfe428362e7507a0aec799aa39555e6d436ebafb3"
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__FPSBallisticsComponent.cpp.patch",
+    "baseline_origin": "Current complete local host with selected task-owned changes reversed; not public HEAD",
+    "baseline_lf_sha256": "76fe9120c8ccb3d11d736a484ff3ac8328c906eac1d43521f6ddf275871dcccd",
+    "result_lf_sha256": "ec24b6229f1145c8dc1bb95833b322ec27736dea81295758e85e45657dc8f6f7",
+    "patch_sha256": "124f52c215c726f2c326a5e2260e5f6c8a6cb89064590496640ff60daa501edd"
+  },
+  {
+    "target": "Source/FPSGAME/Development/DevelopmentSpawnComponent.h",
+    "patch": "Integration/Source__FPSGAME__Development__DevelopmentSpawnComponent.h.patch",
+    "baseline_origin": "Current host with only Unknown catalog fields reversed",
+    "baseline_lf_sha256": "433c85cc6a7be607b1f65b62fd5ebb9ffbe206e105804545dc75c337d029d292",
+    "result_lf_sha256": "01cb5566944765f3ddd6a72e8fdb0b14eedeff0921fe67d47c15a6ba46a7e75f",
+    "patch_sha256": "ec590a5de8fdfa9466376a70b4973628e5b509d507198411d61defcf39128602"
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "original": "Saved/UnknownNetworkReview20261116/Wire-20261116-network-r2/client.json",
+    "retained": "Evidence/Network/client.json",
+    "original_sha256": "6b878b458003c534592115df8849ba97b0363eaaa79f64d571e42ad94acf9473",
+    "retained_sha256": "1568ddda9faa8d272e7e7ebc77b801564fe5108d93cfc58a8b344fa8d7dc95f8"
+  },
+  {
+    "original": "Saved/UnknownNetworkReview20261116/Wire-20261116-network-r2/host.json",
+    "retained": "Evidence/Network/host.json",
+    "original_sha256": "6b878b458003c534592115df8849ba97b0363eaaa79f64d571e42ad94acf9473",
+    "retained_sha256": "1568ddda9faa8d272e7e7ebc77b801564fe5108d93cfc58a8b344fa8d7dc95f8"
+  },
+  {
+    "original": "Saved/UnknownNetworkReview20261116/Wire-20261116-network-r2/summary.json",
+    "retained": "Evidence/Network/summary.json",
+    "original_sha256": "a6435d9e23fad513d359f83b4d598e7f07e0e105d2ad5b0a8ddaad1e14fb1feb",
+    "retained_sha256": "889b8e24d2e04ad92c017bed531016fd7018f6940f2b1bfe98ee2e2af6b87c52"
+  },
+  {
+    "original": "Saved/UnknownJoinDamage20261116/Wire-20261116-join-r4/expired.json",
+    "retained": "Evidence/Join/expired.json",
+    "original_sha256": "bf3bb4ab2f8b1cca1e6a53dc04fe1ca804754102692ead11eb6885dfadcf3c71",
+    "retained_sha256": "2c3594778f3626378e211bc11c9e6d17c7f3c3a151866b1a058695e4cdc6e56f"
+  },
+  {
+    "original": "Saved/UnknownJoinDamage20261116/Wire-20261116-join-r4/first.json",
+    "retained": "Evidence/Join/first.json",
+    "original_sha256": "f47e1651697fd435dd15ee748f4e73be34326928cd52a9e8fe4c471381120170",
+    "retained_sha256": "ce83555fa8846baf091df792cc4391abff5938a4ffec5a78783d5e76a3461a04"
+  },
+  {
+    "original": "Saved/UnknownJoinDamage20261116/Wire-20261116-join-r4/host.json",
+    "retained": "Evidence/Join/host.json",
+    "original_sha256": "ede03e18d32dec86ac643e270259052d36c90a73453dee92ad09341f44627f50",
+    "retained_sha256": "2c27ab039ccf3a201c444effbe35dda3b55a3b317abea29f4ca8d9d15b58d745"
+  },
+  {
+    "original": "Saved/UnknownJoinDamage20261116/Wire-20261116-join-r4/rejoin.json",
+    "retained": "Evidence/Join/rejoin.json",
+    "original_sha256": "f9fdf719a269c47cd981ade44338bae390c51a5e86e098d09478f6167733f761",
+    "retained_sha256": "e173ae1483b7f0c7792e1f7ee12539ca786c48e2d1983245038195456211572a"
+  },
+  {
+    "original": "Saved/UnknownJoinDamage20261116/Wire-20261116-join-r4/summary.json",
+    "retained": "Evidence/Join/summary.json",
+    "original_sha256": "58a6196ffec9829356b8f4d725003517f4e27e95c62618ae5b65651e288f0dd3",
+    "retained_sha256": "274a89ef799ccb0410cec0b732290a01a9c810c23414f703b87ae089bbf215e2"
+  },
+  {
+    "original": "Saved/UnknownLifeTravel20261116/Wire-20261116-life-r1/client.json",
+    "retained": "Evidence/LifeTravel/client.json",
+    "original_sha256": "59419420a7e55fecc8b24c366cfa4e69893958959405f0cfa4cffc1ed9b7fe52",
+    "retained_sha256": "2498d16602fdf7312cdffa4285649ce5da4dfd2d14a2762b1355e6753c72744e"
+  },
+  {
+    "original": "Saved/UnknownLifeTravel20261116/Wire-20261116-life-r1/host.json",
+    "retained": "Evidence/LifeTravel/host.json",
+    "original_sha256": "8f70edbc44e6b6546a7e3f8db9a667589cdf0d6d1c3bd8acb24f5077d9f5dc04",
+    "retained_sha256": "fcac19fd1995bfa27ed64eeec7ffdc3e1770e61163f9d0ddbcf623d8fa4e2364"
+  },
+  {
+    "original": "Saved/UnknownLifeTravel20261116/Wire-20261116-life-r1/summary.json",
+    "retained": "Evidence/LifeTravel/summary.json",
+    "original_sha256": "f5ee4c67f8d54662c00d1c5af0763a3d4f3b1a20782b4912d4bc9c33501e6684",
+    "retained_sha256": "f5ffabe2507816aa091a67b29af3381f713d13f097d0e9085de3da07a23d1b7e"
+  },
+  {
+    "original": "Saved/UnknownGunRosterAudit/report.json",
+    "retained": "Evidence/gun-roster.json",
+    "original_sha256": "b5ea4181aab654c2deb8746fc35d31eda954b651e5af7dd7ac90ac24d2ac27d7",
+    "retained_sha256": "f865d04bc3ad2fe9832006f5a238dd858267f0c69907f515d14b987d855a62e6"
+  },
+  {
+    "original": "Saved/Audits/MonsterDamageBalance20261115.json",
+    "retained": "Evidence/monster-damage-balance.json",
+    "original_sha256": "365dc4442ab2f3b288796140956d96f4da6bb78aae0a4b093e656baa7308972c",
+    "retained_sha256": "91163936300858913998fca6b884e6444846fe100839f7ec4e41b44c8588b814"
+  }
+]

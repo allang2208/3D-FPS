@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+@@ -1,5 +1,6 @@
+ #include "../Dungeon/DungeonLayout.h"
+ #include "ColdSteelSkillTree.h"
++#include "../Monsters/UnknownHumanoid.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelCurrency.h"
+@@ -175,6 +176,7 @@
+ 
+ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit,bool bElementalArrow)
+ {
++    if(auto* Unknown=::Cast<AUnknownHumanoid>(Shooter)){Unknown->FireballImpact(Center,Cast,DirectHit);return;}
+     if(!Shooter || !GetWorld() || !Shooter->IsPlayerControlled() || !Shooter->HasAuthority())return;
+     if(Cast.Damage>0)
+     {

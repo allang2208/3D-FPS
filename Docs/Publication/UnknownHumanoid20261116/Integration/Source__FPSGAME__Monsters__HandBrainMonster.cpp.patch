@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/HandBrainMonster.cpp
++++ b/Source/FPSGAME/Monsters/HandBrainMonster.cpp
+@@ -1,4 +1,5 @@
+ #include "HandBrainMonster.h"
++#include "MonsterDamageBalance.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -166,7 +167,7 @@
+   auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
+   FVector Delta=P->GetActorLocation()-SlamCenter;
+   if(Delta.Size2D()>SlamRadius||FMath::Abs(Delta.Z)>170||!CanSee(P,SlamCenter+FVector(0,0,60)))continue;
+-  UGameplayStatics::ApplyDamage(P,PhysicalAttack*2,GetController(),this,UEnemyMeleeDamage::StaticClass());++SlamHits;
++  UGameplayStatics::ApplyDamage(P,MonsterDamageBalance::Limit(PhysicalAttack*2,90.f),GetController(),this,UEnemyMeleeDamage::StaticClass());++SlamHits;
+   if(State!=EHandBrainState::Slam)return;
+  }
+  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_SLAM time=%.3f hits=%d center=%s"),StateSeconds,SlamHits,*SlamCenter.ToString());

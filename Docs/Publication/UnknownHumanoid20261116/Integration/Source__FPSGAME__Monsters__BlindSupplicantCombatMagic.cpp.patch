@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp
++++ b/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp
+@@ -2,6 +2,7 @@
+ #include "MonsterSpellAim.h"
+ #include "BlindSupplicantAnimInstance.h"
+ #include "M07MagicAttack.h"
++#include "MonsterDamageBalance.h"
+ #include "MonsterCombatComponent.h"
+ #include "MonsterCombatTuning.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -128,7 +129,8 @@
+         ActiveAttack = static_cast<EAttack>(static_cast<uint8>(EAttack::Fireball) + ElementIndex);
+         AudioAttackKind = 2;
+         const float Multipliers[] = {FireballDamageMultiplier, IceColumnDamageMultiplier, LightningDamageMultiplier};
+-        AttackDamageSnapshot = MagicAttack * Multipliers[ElementIndex];
++        const float Ceilings[]={72.f,64.f,68.f};
++        AttackDamageSnapshot = MonsterDamageBalance::Limit(MagicAttack * Multipliers[ElementIndex],Ceilings[ElementIndex]);
+         ActiveGatherDuration = MagicGatherClip->GetPlayLength();
+         ActiveAttackDuration = ActiveGatherDuration + MagicReleaseClip->GetPlayLength();
+         const float Cooldowns[] = {FireballCooldown, IceColumnCooldown, LightningCooldown};

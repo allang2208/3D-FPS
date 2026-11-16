@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -824,6 +824,26 @@
+             }
+         }
+     }
++    // Mechanical poses are rebased into the owning wrist every sample. Refresh
++    // the measured barrel after publishing that exact pose, including pump/bolt
++    // recovery and each independent pistol. An equipment-time frame alone goes
++    // stale as soon as the first-person gun root moves relative to its palm.
++    for(const auto& Binding:MotionBindings)
++        if(Binding.Definition.PoseFamily==TEXT("Gun"))
++            if(const auto* Mesh=Binding.Mesh.Get())
++            {
++                const auto& Definition=Binding.Definition;
++                FTransform Muzzle=Definition.GunMuzzleInRoot*Mesh->GetSocketTransform(TEXT("WPN_root"),RTS_Component);
++                if(Binding.Parts.IsValidIndex(Definition.MuzzlePart))
++                    if(const auto* Part=Binding.Parts[Definition.MuzzlePart].Get())
++                    {
++                        // Same fitted muzzle attachment and axis as world gun FX.
++                        const FTransform PartInMesh=Part->GetComponentTransform().GetRelativeTransform(Mesh->GetComponentTransform());
++                        Muzzle=FTransform(PartInMesh.TransformVectorNoScale(Definition.MuzzleAxis).Rotation(),
++                            PartInMesh.TransformPosition(Definition.MuzzleTip));
++                    }
++                BodyAnimation->GunAimFrames[Definition.AttachHand]=FPSBodyGunAim::FromMuzzle(Muzzle,Mesh->GetRelativeTransform());
++            }
+     UpdateConsumable(Incoming);
+     UpdateFloatingBook(Incoming,Alpha);
+     if(WorldStaffLight&&LastWorldLight!=Incoming.Light)

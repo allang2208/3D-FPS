@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-16",
+  "scope": "Publication integrity only; no new UE build or gameplay execution",
+  "sources": 37,
+  "shared_patches": 49,
+  "patch_replay": "49 baseline copies applied and result SHA256 matched",
+  "cleanup": {
+    "files": 1179,
+    "bytes": 622678410,
+    "junctions": 21,
+    "media_files": 0,
+    "readback": "All file hashes and link targets matched"
+  },
+  "index_isolation": "Dedicated temporary index; unrelated staging retained",
+  "sensitive_material": "No private-key or common token patterns found in selected source, patches, tools, reports and JSON; no raw logs or account login IDs published",
+  "license_boundary": "Own source/text only. No licensed Content, plugin, engine, font or derived binary redistribution",
+  "remaining_dependencies": "prerequisites.json and README.md; not independently buildable from public HEAD"
+}

@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Monsters/FleshHandMonster.cpp
++++ b/Source/FPSGAME/Monsters/FleshHandMonster.cpp
+@@ -1,4 +1,5 @@
+ #include "FleshHandMonster.h"
++#include "MonsterDamageBalance.h"
+ #include "../Combat/CombatControlImmunity.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -389,7 +390,7 @@
+  APawn* Victim=Cast<APawn>(Hit.GetActor());
+  if(Alive(Victim)&&Victim->IsPlayerControlled()&&!Status->BlocksMovement())
+  {
+-  const float Applied=UGameplayStatics::ApplyDamage(Victim,PhysicalAttack*ChargeDamageMultiplier,GetController(),this,UEnemyMeleeDamage::StaticClass());
++  const float Applied=UGameplayStatics::ApplyDamage(Victim,MonsterDamageBalance::Limit(PhysicalAttack*ChargeDamageMultiplier,100.f),GetController(),this,UEnemyMeleeDamage::StaticClass());
+   // Parry, stun or death may synchronously interrupt us inside ApplyDamage.
+   if(State!=EFleshHandState::ChargeRush||Dead())return;
+   DamageLanded=Applied>0;
+@@ -504,7 +505,7 @@
+   if(!CanReach(P,Attack==EFleshHandState::Hammer?HammerRange:SlamRadius))continue;
+   if(Attack==EFleshHandState::Hammer&&FVector::DotProduct(StrikeDirection,(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D())<.35f)continue;
+   const float Multiplier=Attack==EFleshHandState::Hammer?1.f:Attack==EFleshHandState::Slam?1.5f:2.f;
+-  const float Applied=UGameplayStatics::ApplyDamage(P,PhysicalAttack*Multiplier,GetController(),this,UEnemyMeleeDamage::StaticClass());
++  const float Applied=UGameplayStatics::ApplyDamage(P,MonsterDamageBalance::Limit(PhysicalAttack*Multiplier,100.f),GetController(),this,UEnemyMeleeDamage::StaticClass());
+   if(State!=Attack||Dead())return;
+   if(Applied<=0||!Alive(P))continue;
+   if(Attack==EFleshHandState::Hammer)UFleshHandPushComponent::Apply(Cast<ACharacter>(P),StrikeDirection,101.25f);

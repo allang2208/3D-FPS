@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Combat/CombatStatusFormula.cpp
++++ b/Source/FPSGAME/Combat/CombatStatusFormula.cpp
+@@ -1,4 +1,5 @@
+ #include "CombatStatusFormula.h"
++#include "../Monsters/UnknownSpellCombat.h"
+ #include "CombatControlImmunity.h"
+ #include "../Skills/IlluminationMarkComponent.h"
+ #include "AncientBreakingSealComponent.h"
+@@ -193,6 +194,20 @@
+ void UCombatStatusFormula::AddBurn(AActor* Source,float Matk,int32 Stacks,float Seconds,float Multiplier,float TickSeconds)
+ {
+     if(IsImmune()||Stacks<=0||Seconds<=0||TickSeconds<=0)return;
++    if(UnknownSpell::IsCaster(Source))
++    {
++        // A hostile lava/armor pulse refreshes this caster's burn, rather than
++        // adding an entire new player-strength DoT every half second. Different
++        // monsters still threaten independently; player-applied burns are unchanged.
++        Stacks=1;
++        for(auto& Burn:Burns)if(Burn.Source.Get()==Source)
++        {
++            Burn.Damage=FMath::Max(Burn.Damage,FMath::Max(1.f,FMath::FloorToFloat(Matk*Multiplier)));
++            Burn.Remaining=FMath::Max(Burn.Remaining,Seconds);
++            UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("burn"),Burn.Remaining,Burns.Num());
++            return;
++        }
++    }
+     for(int32 I=0;I<Stacks;++I)Burns.Add({Source,FMath::Max(1.f,FMath::FloorToFloat(Matk*Multiplier)),Seconds});
+     BurnInterval=TickSeconds;if(BurnTick<=0)BurnTick=BurnInterval;
+     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("burn"),Seconds,Burns.Num());

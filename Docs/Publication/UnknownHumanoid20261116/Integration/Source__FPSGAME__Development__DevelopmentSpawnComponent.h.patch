@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Development/DevelopmentSpawnComponent.h
++++ b/Source/FPSGAME/Development/DevelopmentSpawnComponent.h
+@@ -17,6 +17,8 @@
+     UPROPERTY(EditAnywhere, BlueprintReadWrite) FText Name;
+     UPROPERTY(EditAnywhere, BlueprintReadWrite) TSoftClassPtr<ACharacter> CharacterClass;
+     UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ClampMin="1", Units="cm")) float FootprintRadius = 50.f;
++    UPROPERTY() FName WeaponGroup;
++    UPROPERTY() int32 SpawnLevel = 0;
+ };
+ 
+ /** Owns the developer spawn catalogue and only the instances created through it. */

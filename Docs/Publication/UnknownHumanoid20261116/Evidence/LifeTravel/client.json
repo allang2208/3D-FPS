@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "passed": true,
+      "name": "client_0",
+      "detail": "stage=0 step=0 pawn=FPSGAMECharacter_1 expected=FPSGAMECharacter_1 hp=100.00 expected_hp=100.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "client_1",
+      "detail": "stage=0 step=1 pawn=FPSGAMECharacter_1 expected=FPSGAMECharacter_1 hp=0.00 expected_hp=0.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "client_2",
+      "detail": "stage=0 step=2 pawn=FPSGAMECharacter_2 expected=FPSGAMECharacter_2 hp=745.00 expected_hp=745.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "client_3",
+      "detail": "stage=0 step=3 pawn=FPSGAMECharacter_2 expected=FPSGAMECharacter_2 hp=745.00 expected_hp=745.00 zones=1 expected_zones=1"
+    },
+    {
+      "passed": true,
+      "name": "client_4",
+      "detail": "stage=0 step=4 pawn=FPSGAMECharacter_2 expected=FPSGAMECharacter_2 hp=745.00 expected_hp=745.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "client_5",
+      "detail": "stage=0 step=5 pawn=FPSGAMECharacter_2 expected=FPSGAMECharacter_2 hp=745.00 expected_hp=745.00 zones=1 expected_zones=1"
+    },
+    {
+      "passed": true,
+      "name": "client_100",
+      "detail": "stage=1 step=0 pawn=FPSGAMECharacter_1 expected=FPSGAMECharacter_1 hp=745.00 expected_hp=745.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "client_101",
+      "detail": "stage=1 step=1 pawn=FPSGAMECharacter_1 expected=FPSGAMECharacter_1 hp=699.00 expected_hp=699.00 zones=0 expected_zones=0"
+    }
+  ],
+  "udp": true,
+  "rendered": false,
+  "lag_ms": 60,
+  "loss_percent": 2
+}

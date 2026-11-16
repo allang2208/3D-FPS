@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "probe": 0,
+      "passed": true,
+      "detail": "phase=2 buffs=1 ice=0.00 haste=0.00 fire=0.00 domain=0.00 breath=0 remaining=455.85 hp=586.75 expected_hp=586.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 1,
+      "passed": true,
+      "detail": "phase=2 buffs=1 ice=0.00 haste=0.00 fire=0.00 domain=0.00 breath=0 remaining=455.62 hp=0.00 expected_hp=0.00 initial_other_hp=17.00"
+    }
+  ],
+  "udp": true,
+  "rendered": false,
+  "lag_ms": 60,
+  "loss_percent": 2
+}

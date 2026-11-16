@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h
+@@ -5,6 +5,7 @@
+ #include "FPSPlayerBodyTypes.h"
+ #include "FPSBodyReactionState.h"
+ #include "FPSBodyRifleHold.h"
++#include "FPSBodyGunAimTypes.h"
+ #include "FPSBodySinglePistolContact.h"
+ #include "FPSPlayerBodyAnimInstance.generated.h"
+ 
+@@ -25,6 +26,9 @@
+     bool bHasRightGrip = false;
+     FFPSBodySinglePistolContact SinglePistolContact;
+     FFPSBodyRifleHold RifleHold;
++    FFPSBodyGunAimFrame GunAimFrames[2];
++    FVector GunAimTarget=FVector::ZeroVector;
++    bool bHasGunAimTarget=false;
+     // Native grip orientation per equipped single-hand pistol, in body axes.
+     FQuat IndependentPistolRotation[2]={FQuat::Identity,FQuat::Identity};
+     uint8 IndependentPistolHands=0;

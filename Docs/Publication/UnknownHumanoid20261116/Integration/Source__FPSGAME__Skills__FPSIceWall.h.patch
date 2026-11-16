@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Skills/FPSIceWall.h
++++ b/Source/FPSGAME/Skills/FPSIceWall.h
+@@ -77,6 +77,9 @@
+     UPROPERTY(Replicated) FVector_NetQuantize NetReleaseOrigin;
+     UPROPERTY(ReplicatedUsing=OnRep_State) uint8 NetState=0;
+     UPROPERTY(Replicated) float NetStateAge=0;
++    UPROPERTY(Replicated) double NetStateAt=-1.;
++    float NetworkAge() const;
++    friend struct FUnknownJoinAuditAccess;
+     UPROPERTY(Replicated) float NetDropHeight=0;
+     UPROPERTY(ReplicatedUsing=OnRep_Health) float NetHealth=0;
+     UFUNCTION() void OnRep_Health();

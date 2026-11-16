@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -233,6 +233,8 @@
+     UFUNCTION(Server, Unreliable) void ServerBodySnapshot(const FFPSBodyState& State, uint32 Sequence);
+     void SendBodyPresentation(float Delta);
+     void CaptureLaserPresentation();
++    void CaptureGunAimPresentation();
++    void SanitizeGunAimPresentation(FFPSBodyState& State) const;
+     void SanitizeLaserPresentation(FFPSBodyState& State) const;
+     void AcceptBodyPresentation(const FFPSBodyState& State, uint32 Sequence);
+     static void AdvanceBodyPresentation(FFPSBodyState& State, float Now);

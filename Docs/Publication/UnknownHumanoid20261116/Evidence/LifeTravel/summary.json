@@ -1,0 +1,14 @@
+{
+  "dll_sha256": "484BD64D1E1D7CA4923755AC2AF930F725899A0D3569BC120732C0A0623CC445",
+  "passed": true,
+  "cases": {
+    "host": 15,
+    "client": 8
+  },
+  "requested_lag_ms_each_peer": 60,
+  "requested_loss_percent_each_peer": 2,
+  "run": "D:\\FPS3D\\FPSGAME\\Saved\\UnknownLifeTravel20261116\\Wire-20261116-life-r1",
+  "rendered": false,
+  "real_connections": 1,
+  "seamless_travels": 1
+}

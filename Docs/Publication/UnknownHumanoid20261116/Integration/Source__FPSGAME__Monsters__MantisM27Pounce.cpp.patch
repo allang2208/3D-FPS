@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Monsters/MantisM27Pounce.cpp
++++ b/Source/FPSGAME/Monsters/MantisM27Pounce.cpp
+@@ -1,4 +1,5 @@
+ #include "MantisM27Monster.h"
++#include "MonsterDamageBalance.h"
+ #include "FatZombieAnimInstance.h"
+ #include "MonsterCombatComponent.h"
+ #include "MonsterCombatTuning.h"
+@@ -282,7 +283,7 @@
+ float AMantisM27Monster::ApplyMeleeDamage(APawn* Victim)
+ {
+     const FVector Contact = Victim->GetActorLocation();
+-    const float Applied = UGameplayStatics::ApplyDamage(Victim, AttackDamage*ActiveAttackDamageScale, GetController(), this, UMantisM27MeleeDamage::StaticClass());
++    const float Applied = UGameplayStatics::ApplyDamage(Victim, MonsterDamageBalance::Limit(AttackDamage*ActiveAttackDamageScale,100.f), GetController(), this, UMantisM27MeleeDamage::StaticClass());
+     if (Applied > 0.f) MulticastMantisContact(Contact, ServerClock(), (++MantisContactAudioIndex & 1) != 0);
+     return Applied;
+ }
+@@ -321,7 +322,7 @@
+         if (!Inside && FMath::PointDistToSegmentSquared(Planar, FVector::ZeroVector, Left) > FMath::Square(VictimRadius) &&
+             FMath::PointDistToSegmentSquared(Planar, FVector::ZeroVector, Right) > FMath::Square(VictimRadius)) continue;
+         if (!HasAttackSight(Victim)) continue;
+-        const float Applied = UGameplayStatics::ApplyDamage(Victim, AttackDamage*PounceDamageScale*ActiveAttackDamageScale,
++        const float Applied = UGameplayStatics::ApplyDamage(Victim, MonsterDamageBalance::Limit(AttackDamage*PounceDamageScale*ActiveAttackDamageScale,100.f),
+             GetController(), this, UMantisM27PounceDamage::StaticClass());
+         if (Applied > 0.f)
+         {

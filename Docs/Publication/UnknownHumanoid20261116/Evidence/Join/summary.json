@@ -1,0 +1,16 @@
+{
+  "real_connections": 3,
+  "requested_lag_ms_each_peer": 60,
+  "requested_loss_percent_each_peer": 2,
+  "passed": true,
+  "run": "D:\\FPS3D\\FPSGAME\\Saved\\UnknownJoinDamage20261116\\Wire-20261116-join-r4",
+  "fresh_guest_processes": 3,
+  "rendered": false,
+  "dll_sha256": "302704C0A046ABFEAE277D4DE004ACFA30519E7C8098B9014093E5E159DA6DD6",
+  "cases": {
+    "rejoin": 1,
+    "host": 38,
+    "expired": 2,
+    "first": 17
+  }
+}

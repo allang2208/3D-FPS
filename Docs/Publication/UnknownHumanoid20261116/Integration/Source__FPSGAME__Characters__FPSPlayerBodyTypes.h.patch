@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
+@@ -95,6 +95,10 @@
+     UPROPERTY(BlueprintReadOnly) float LastShotAt = -100.f;
+     UPROPERTY(BlueprintReadOnly) float AimPitch = 0.f;
+     UPROPERTY(BlueprintReadOnly) float AimYaw = 0.f;
++    // Final gameplay sight endpoint, sampled by the owner. Observers must not
++    // choose another surface from their smoothed pawn eye or local collision.
++    UPROPERTY() FVector_NetQuantize GunAimTarget=FVector::ZeroVector;
++    UPROPERTY() bool bHasGunAimTarget=false;
+     UPROPERTY(BlueprintReadOnly) bool bAiming = false;
+     UPROPERTY(BlueprintReadOnly) bool bSprinting = false;
+     UPROPERTY(BlueprintReadOnly) bool bCrouched = false;

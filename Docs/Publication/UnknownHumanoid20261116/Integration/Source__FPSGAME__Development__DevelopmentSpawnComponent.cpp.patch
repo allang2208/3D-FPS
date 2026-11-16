@@ -1,0 +1,49 @@
+--- a/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
++++ b/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "DevelopmentSpawnComponent.h"
++#include "../Monsters/UnknownHumanoid.h"
+ #include "../Monsters/WildlifeAnimal.h"
+ #include "../Monsters/WildlifeSubsystem.h"
+ #include "../Monsters/HangingBellM09.h"
+@@ -65,6 +66,17 @@
+     Add(TEXT("RootCrownRig"), TEXT("根冠 M-34"), TEXT("/Game/Monsters/RootCrown/BP_RootCrownRigPreview.BP_RootCrownRigPreview_C"), 225.f);
+     Add(TEXT("IncineratorBossM66Rig"), TEXT("焚骸 M-35（拢灰指扫）"), TEXT("/Game/Monsters/IncineratorBossM66/BP_M66RigPreview.BP_M66RigPreview_C"), 225.f);
+     Add(TEXT("HeQue"), TEXT("合阙 M-36（重夹／碾扫／压鸣／恸鸣／跃砸）"), TEXT("/Game/Monsters/HeQue/BP_HeQue.BP_HeQue_C"), 225.f);
++    const TCHAR* Groups[] = {TEXT("Melee"), TEXT("Gun"), TEXT("Magic"), TEXT("Bow")};
++    const TCHAR* Names[] = {TEXT("近战"), TEXT("枪械"), TEXT("魔法"), TEXT("弓手")};
++    for (int32 Group=0; Group<UE_ARRAY_COUNT(Groups); ++Group)
++        for (int32 Level : {10,20,30})
++        {
++            const FString Id=FString::Printf(TEXT("Unknown%s%d"),Groups[Group],Level);
++            const FString Label=FString::Printf(TEXT("未知 · %s · %d级"),Names[Group],Level);
++            Add(*Id,*Label,TEXT("/Script/FPSGAME.UnknownHumanoid"),44.f);
++            Monsters.Last().WeaponGroup=FName(Groups[Group]);
++            Monsters.Last().SpawnLevel=Level;
++        }
+ }
+ 
+ bool UDevelopmentSpawnComponent::FindLocation(APlayerController* Player, const ACharacter* Defaults,
+@@ -200,8 +212,22 @@
+         FActorSpawnParameters Params;
+         Params.Owner = Player;
+         Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding;
++        Params.bDeferConstruction = Entry->SpawnLevel>0;
+         if (auto* Monster = GetWorld()->SpawnActor<ACharacter>(Class, At, Rotation, Params))
+         {
++            if (auto* Unknown=Cast<AUnknownHumanoid>(Monster); Unknown && Params.bDeferConstruction)
++            {
++                const auto Role=Entry->WeaponGroup==TEXT("Bow") ? EUnknownRole::Bow : Entry->WeaponGroup==TEXT("Magic") ? EUnknownRole::Magic :
++                    Entry->WeaponGroup==TEXT("Gun") ? EUnknownRole::Gun : EUnknownRole::Melee;
++                if (!Unknown->Configure(Role,Entry->SpawnLevel))
++                {
++                    Unknown->Destroy();
++                    Result=FText::FromString(TEXT("未知的装备档案生成失败，请查看武器与套装目录"));
++                    if (!Created) return 0;
++                    break;
++                }
++                Unknown->FinishSpawning(FTransform(Rotation,At));
++            }
+             Monster->Tags.AddUnique(TEXT("DevelopmentSpawned"));
+             Spawned.Add(Monster); ++Created;
+             if (auto* Animal = Cast<AColdSteelAnimal>(Monster)) WildlifeGroup.Add(Animal);

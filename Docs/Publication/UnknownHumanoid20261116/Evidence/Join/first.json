@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "probe": 0,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=551.09 haste=551.09 fire=551.43 domain=551.43 breath=1 remaining=551.09 hp=100.00 expected_hp=100.00 initial_other_hp=17.00"
+    },
+    {
+      "probe": 1,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=550.77 haste=550.77 fire=550.90 domain=550.90 breath=1 remaining=550.77 hp=632.75 expected_hp=632.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 2,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=550.57 haste=550.57 fire=550.58 domain=550.58 breath=1 remaining=550.57 hp=638.75 expected_hp=638.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 3,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=550.38 haste=550.38 fire=550.39 domain=550.39 breath=1 remaining=550.38 hp=621.75 expected_hp=621.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 4,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=550.20 haste=550.20 fire=550.22 domain=550.22 breath=1 remaining=550.20 hp=645.75 expected_hp=645.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 5,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=550.02 haste=550.02 fire=550.05 domain=550.05 breath=1 remaining=550.02 hp=636.75 expected_hp=636.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 6,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=549.93 haste=549.93 fire=549.96 domain=549.96 breath=1 remaining=549.93 hp=647.75 expected_hp=647.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 7,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=549.67 haste=549.67 fire=549.69 domain=549.69 breath=1 remaining=549.67 hp=615.75 expected_hp=615.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 8,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=549.11 haste=549.11 fire=549.14 domain=549.14 breath=1 remaining=549.11 hp=606.75 expected_hp=606.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 9,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=548.31 haste=548.31 fire=548.43 domain=548.43 breath=1 remaining=548.31 hp=596.75 expected_hp=596.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 10,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=547.98 haste=547.98 fire=548.04 domain=548.04 breath=1 remaining=547.98 hp=638.75 expected_hp=638.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 11,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=547.28 haste=547.28 fire=547.41 domain=547.41 breath=1 remaining=547.28 hp=635.75 expected_hp=635.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 12,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=547.01 haste=547.01 fire=547.04 domain=547.04 breath=1 remaining=547.01 hp=631.75 expected_hp=631.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 13,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=546.81 haste=546.81 fire=546.84 domain=546.84 breath=1 remaining=546.81 hp=631.75 expected_hp=631.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 14,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=546.65 haste=546.65 fire=546.66 domain=546.66 breath=1 remaining=546.65 hp=631.75 expected_hp=631.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 15,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=546.46 haste=546.46 fire=546.49 domain=546.49 breath=1 remaining=546.46 hp=586.75 expected_hp=586.75 initial_other_hp=17.00"
+    },
+    {
+      "probe": 16,
+      "passed": true,
+      "detail": "phase=0 buffs=1 ice=546.26 haste=546.26 fire=546.30 domain=546.30 breath=1 remaining=546.26 hp=586.75 expected_hp=586.75 initial_other_hp=17.00"
+    }
+  ],
+  "udp": true,
+  "rendered": false,
+  "lag_ms": 60,
+  "loss_percent": 2
+}

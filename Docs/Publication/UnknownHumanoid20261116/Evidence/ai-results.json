@@ -1,0 +1,16 @@
+{
+  "succeeded": 1,
+  "succeededWithWarnings": 1,
+  "failed": 0,
+  "tests": [
+    {
+      "path": "FPSGAME.AI.Unknown.CombatDecisions",
+      "state": "Success"
+    },
+    {
+      "path": "FPSGAME.AI.Unknown.ObstacleTravel",
+      "state": "Success"
+    }
+  ],
+  "scope": "Existing two AI automation records; no rendered gameplay or new execution during publication"
+}

@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "passed": true,
+      "name": "remote_0",
+      "detail": "stage=0 step=0 pawn=FPSGAMECharacter_1 expected=FPSGAMECharacter_1 hp=100.00 expected_hp=100.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "death_drops_four_targets_and_rejects_late_hits",
+      "detail": ""
+    },
+    {
+      "passed": true,
+      "name": "remote_1",
+      "detail": "stage=0 step=1 pawn=FPSGAMECharacter_1 expected=FPSGAMECharacter_1 hp=0.00 expected_hp=0.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "respawn_no_old_dot_and_four_single_hits",
+      "detail": ""
+    },
+    {
+      "passed": true,
+      "name": "remote_2",
+      "detail": "stage=0 step=2 pawn=FPSGAMECharacter_2 expected=FPSGAMECharacter_2 hp=745.00 expected_hp=745.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "streamed_caster_late_hit_rejected",
+      "detail": ""
+    },
+    {
+      "passed": true,
+      "name": "remote_3",
+      "detail": "stage=0 step=3 pawn=FPSGAMECharacter_2 expected=FPSGAMECharacter_2 hp=745.00 expected_hp=745.00 zones=1 expected_zones=1"
+    },
+    {
+      "passed": true,
+      "name": "mage_death_removes_blizzard_immediately",
+      "detail": ""
+    },
+    {
+      "passed": true,
+      "name": "remote_4",
+      "detail": "stage=0 step=4 pawn=FPSGAMECharacter_2 expected=FPSGAMECharacter_2 hp=745.00 expected_hp=745.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "remote_5",
+      "detail": "stage=0 step=5 pawn=FPSGAMECharacter_2 expected=FPSGAMECharacter_2 hp=745.00 expected_hp=745.00 zones=1 expected_zones=1"
+    },
+    {
+      "passed": true,
+      "name": "seamless_travel_accepted",
+      "detail": ""
+    },
+    {
+      "passed": true,
+      "name": "travel_old_world_removed",
+      "detail": ""
+    },
+    {
+      "passed": true,
+      "name": "remote_100",
+      "detail": "stage=1 step=0 pawn=FPSGAMECharacter_1 expected=FPSGAMECharacter_1 hp=745.00 expected_hp=745.00 zones=0 expected_zones=0"
+    },
+    {
+      "passed": true,
+      "name": "travel_new_pawn_target_and_single_damage",
+      "detail": ""
+    },
+    {
+      "passed": true,
+      "name": "remote_101",
+      "detail": "stage=1 step=1 pawn=FPSGAMECharacter_1 expected=FPSGAMECharacter_1 hp=699.00 expected_hp=699.00 zones=0 expected_zones=0"
+    }
+  ],
+  "udp": true,
+  "rendered": false,
+  "lag_ms": 60,
+  "loss_percent": 2
+}

@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Monsters/WitchProjectile.cpp
++++ b/Source/FPSGAME/Monsters/WitchProjectile.cpp
+@@ -1,4 +1,5 @@
+ #include "WitchProjectile.h"
++#include "MonsterDamageBalance.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "GameFramework/PlayerController.h"
+ #include "Net/UnrealNetwork.h"
+@@ -258,12 +259,13 @@
+         FHitResult Wall; FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchPoisonOcclusion), false, this);
+         Query.AddIgnoredActor(Shooter.Get()); Query.AddIgnoredActor(Player);
+         if (RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter.Get(), Wall, GetActorLocation() + FVector(0,0,15), Feet + FVector(0,0,15), ECC_Visibility, Query)) continue;
+-        const float Applied = UGameplayStatics::ApplyDamage(Player, HitDamage, Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
++        // Pool pulses every .5 s for 6 s; it must not repeat the whole projectile hit.
++        const float Applied = UGameplayStatics::ApplyDamage(Player, MonsterDamageBalance::Limit(HitDamage*.25f,16.f), Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
+         if (Applied > 0 && !Health->IsDead())
+         {
+             auto* Poison = Player->FindComponentByClass<UColdSteelPoisonComponent>();
+             if (!Poison) { Poison = NewObject<UColdSteelPoisonComponent>(Player); Player->AddInstanceComponent(Poison); Poison->RegisterComponent(); }
+-            Poison->AddStacks(Shooter.Get(), 1);
++            if(Poison->GetStacks()<3)Poison->AddStacks(Shooter.Get(),1);
+         }
+     }
+ }

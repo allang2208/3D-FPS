@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp
++++ b/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp
+@@ -116,7 +116,15 @@
+  const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();
+  if(Combat?Combat->IsDead():(!H||H->IsDead()||H->IsInvulnerable()))return;
+  if(const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();S&&S->IsImmune())return; // 旧 applyPoison：statusImmune 直接拒绝上毒
+- if(Stacks==0)NextTick=1;Stacks=FMath::Min(20,Stacks+1);DecayLeft=5;DamageSource=Source;
++ const auto* SourcePawn=Cast<APawn>(Source);if(!SourcePawn)SourcePawn=Source->GetInstigator();
++ const auto* SourceOwner=Source->GetOwner();
++ const bool MonsterSource=Source->FindComponentByClass<UMonsterCombatComponent>()||
++     (SourcePawn&&SourcePawn->FindComponentByClass<UMonsterCombatComponent>())||
++     (SourceOwner&&SourceOwner->FindComponentByClass<UMonsterCombatComponent>());
++ // Only hostile poison on player health gets the four-stack budget. Player
++ // poison ammunition and any already-present stronger poison retain their values.
++ const int32 Cap=H&&MonsterSource?4:20;
++ if(Stacks==0)NextTick=1;Stacks=FMath::Max(Stacks,FMath::Min(Cap,Stacks+1));DecayLeft=5;DamageSource=Source;
+  const auto* Pawn=Cast<APawn>(Source);DamageInstigator=Pawn?Pawn->GetController():Source->GetInstigatorController();SetComponentTickEnabled(true);
+  UStatusEffectsComponent::Notify(GetOwner());
+ }

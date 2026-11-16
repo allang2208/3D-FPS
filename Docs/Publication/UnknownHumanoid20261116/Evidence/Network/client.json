@@ -1,0 +1,376 @@
+{
+  "passed": true,
+  "scope": "Real UDP replication; direct authority stimuli; 4 roles x 3 levels. No rendering, listening, navigation or player weapon input acceptance.",
+  "cases": [
+    {
+      "case": 0,
+      "passed": true,
+      "detail": "role=0 level=10 weapon=ue_zhanmadao action=0 serial=1/1 hp=396.00/396.00 blades=0 armor=0"
+    },
+    {
+      "case": 1,
+      "passed": true,
+      "detail": "role=0 level=10 weapon=ue_zhanmadao action=1 serial=2/2 hp=396.00/396.00 blades=0 armor=0"
+    },
+    {
+      "case": 2,
+      "passed": true,
+      "detail": "role=0 level=10 weapon=ue_zhanmadao action=0 serial=4/4 hp=367.00/367.00 blades=0 armor=0"
+    },
+    {
+      "case": 3,
+      "passed": true,
+      "detail": "role=0 level=10 weapon=ue_zhanmadao action=5 serial=5/5 hp=367.00/367.00 blades=0 armor=0"
+    },
+    {
+      "case": 4,
+      "passed": true,
+      "detail": "role=0 level=10 weapon=ue_zhanmadao action=0 serial=6/6 hp=367.00/367.00 blades=0 armor=0"
+    },
+    {
+      "case": 5,
+      "passed": true,
+      "detail": "role=0 level=10 weapon=ue_zhanmadao action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 6,
+      "passed": true,
+      "detail": "role=1 level=10 weapon=ue_lmg201 action=0 serial=1/1 hp=330.00/330.00 blades=0 armor=0"
+    },
+    {
+      "case": 7,
+      "passed": true,
+      "detail": "role=1 level=10 weapon=ue_lmg201 action=2 serial=2/2 hp=330.00/330.00 blades=0 armor=0"
+    },
+    {
+      "case": 8,
+      "passed": true,
+      "detail": "role=1 level=10 weapon=ue_lmg201 action=0 serial=4/4 hp=282.00/282.00 blades=0 armor=0"
+    },
+    {
+      "case": 9,
+      "passed": true,
+      "detail": "role=1 level=10 weapon=ue_lmg201 action=3 serial=5/5 hp=282.00/282.00 blades=0 armor=0"
+    },
+    {
+      "case": 10,
+      "passed": true,
+      "detail": "role=1 level=10 weapon=ue_lmg201 action=0 serial=6/6 hp=282.00/282.00 blades=0 armor=0"
+    },
+    {
+      "case": 11,
+      "passed": true,
+      "detail": "role=1 level=10 weapon=ue_lmg201 action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 12,
+      "passed": true,
+      "detail": "role=2 level=10 weapon=ue_apprentice_staff action=0 serial=1/1 hp=330.00/330.00 blades=0 armor=0"
+    },
+    {
+      "case": 13,
+      "passed": true,
+      "detail": "role=2 level=10 weapon=ue_apprentice_staff action=4 serial=2/2 hp=330.00/330.00 blades=0 armor=1"
+    },
+    {
+      "case": 14,
+      "passed": true,
+      "detail": "role=2 level=10 weapon=ue_apprentice_staff action=0 serial=4/4 hp=289.00/289.00 blades=0 armor=1"
+    },
+    {
+      "case": 15,
+      "passed": true,
+      "detail": "role=2 level=10 weapon=ue_apprentice_staff action=5 serial=5/5 hp=289.00/289.00 blades=0 armor=1"
+    },
+    {
+      "case": 16,
+      "passed": true,
+      "detail": "role=2 level=10 weapon=ue_apprentice_staff action=0 serial=6/6 hp=289.00/289.00 blades=0 armor=0"
+    },
+    {
+      "case": 17,
+      "passed": true,
+      "detail": "role=2 level=10 weapon=ue_apprentice_staff action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 18,
+      "passed": true,
+      "detail": "role=3 level=10 weapon=bow_dark action=0 serial=1/1 hp=490.00/490.00 blades=0 armor=0"
+    },
+    {
+      "case": 19,
+      "passed": true,
+      "detail": "role=3 level=10 weapon=bow_dark action=7 serial=2/2 hp=490.00/490.00 blades=0 armor=0"
+    },
+    {
+      "case": 20,
+      "passed": true,
+      "detail": "role=3 level=10 weapon=bow_dark action=0 serial=4/4 hp=451.00/451.00 blades=0 armor=0"
+    },
+    {
+      "case": 21,
+      "passed": true,
+      "detail": "role=3 level=10 weapon=bow_dark action=8 serial=5/5 hp=451.00/451.00 blades=1 armor=0"
+    },
+    {
+      "case": 22,
+      "passed": true,
+      "detail": "role=3 level=10 weapon=bow_dark action=8 serial=7/7 hp=451.00/451.00 blades=0 armor=0"
+    },
+    {
+      "case": 23,
+      "passed": true,
+      "detail": "role=3 level=10 weapon=bow_dark action=6 serial=8/8 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 24,
+      "passed": true,
+      "detail": "role=0 level=20 weapon=ue_xuanchi_zhenyue action=0 serial=1/1 hp=564.00/564.00 blades=0 armor=0"
+    },
+    {
+      "case": 25,
+      "passed": true,
+      "detail": "role=0 level=20 weapon=ue_xuanchi_zhenyue action=1 serial=2/2 hp=564.00/564.00 blades=0 armor=0"
+    },
+    {
+      "case": 26,
+      "passed": true,
+      "detail": "role=0 level=20 weapon=ue_xuanchi_zhenyue action=0 serial=4/4 hp=536.00/536.00 blades=0 armor=0"
+    },
+    {
+      "case": 27,
+      "passed": true,
+      "detail": "role=0 level=20 weapon=ue_xuanchi_zhenyue action=5 serial=5/5 hp=536.00/536.00 blades=0 armor=0"
+    },
+    {
+      "case": 28,
+      "passed": true,
+      "detail": "role=0 level=20 weapon=ue_xuanchi_zhenyue action=0 serial=6/6 hp=536.00/536.00 blades=0 armor=0"
+    },
+    {
+      "case": 29,
+      "passed": true,
+      "detail": "role=0 level=20 weapon=ue_xuanchi_zhenyue action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 30,
+      "passed": true,
+      "detail": "role=1 level=20 weapon=ue_qbz191 action=0 serial=1/1 hp=470.00/470.00 blades=0 armor=0"
+    },
+    {
+      "case": 31,
+      "passed": true,
+      "detail": "role=1 level=20 weapon=ue_qbz191 action=2 serial=2/2 hp=470.00/470.00 blades=0 armor=0"
+    },
+    {
+      "case": 32,
+      "passed": true,
+      "detail": "role=1 level=20 weapon=ue_qbz191 action=0 serial=4/4 hp=426.00/426.00 blades=0 armor=0"
+    },
+    {
+      "case": 33,
+      "passed": true,
+      "detail": "role=1 level=20 weapon=ue_qbz191 action=3 serial=5/5 hp=426.00/426.00 blades=0 armor=0"
+    },
+    {
+      "case": 34,
+      "passed": true,
+      "detail": "role=1 level=20 weapon=ue_qbz191 action=0 serial=6/6 hp=426.00/426.00 blades=0 armor=0"
+    },
+    {
+      "case": 35,
+      "passed": true,
+      "detail": "role=1 level=20 weapon=ue_qbz191 action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 36,
+      "passed": true,
+      "detail": "role=2 level=20 weapon=ue_apprentice_staff action=0 serial=1/1 hp=480.00/480.00 blades=0 armor=0"
+    },
+    {
+      "case": 37,
+      "passed": true,
+      "detail": "role=2 level=20 weapon=ue_apprentice_staff action=4 serial=2/2 hp=480.00/480.00 blades=0 armor=1"
+    },
+    {
+      "case": 38,
+      "passed": true,
+      "detail": "role=2 level=20 weapon=ue_apprentice_staff action=0 serial=4/4 hp=443.00/443.00 blades=0 armor=1"
+    },
+    {
+      "case": 39,
+      "passed": true,
+      "detail": "role=2 level=20 weapon=ue_apprentice_staff action=5 serial=5/5 hp=443.00/443.00 blades=0 armor=1"
+    },
+    {
+      "case": 40,
+      "passed": true,
+      "detail": "role=2 level=20 weapon=ue_apprentice_staff action=0 serial=6/6 hp=443.00/443.00 blades=0 armor=0"
+    },
+    {
+      "case": 41,
+      "passed": true,
+      "detail": "role=2 level=20 weapon=ue_apprentice_staff action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 42,
+      "passed": true,
+      "detail": "role=3 level=20 weapon=bow_woodsteel action=0 serial=1/1 hp=820.00/820.00 blades=0 armor=0"
+    },
+    {
+      "case": 43,
+      "passed": true,
+      "detail": "role=3 level=20 weapon=bow_woodsteel action=7 serial=2/2 hp=820.00/820.00 blades=0 armor=0"
+    },
+    {
+      "case": 44,
+      "passed": true,
+      "detail": "role=3 level=20 weapon=bow_woodsteel action=0 serial=4/4 hp=788.00/788.00 blades=0 armor=0"
+    },
+    {
+      "case": 45,
+      "passed": true,
+      "detail": "role=3 level=20 weapon=bow_woodsteel action=8 serial=5/5 hp=788.00/788.00 blades=1 armor=0"
+    },
+    {
+      "case": 46,
+      "passed": true,
+      "detail": "role=3 level=20 weapon=bow_woodsteel action=8 serial=7/7 hp=788.00/788.00 blades=0 armor=0"
+    },
+    {
+      "case": 47,
+      "passed": true,
+      "detail": "role=3 level=20 weapon=bow_woodsteel action=6 serial=8/8 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 48,
+      "passed": true,
+      "detail": "role=0 level=30 weapon=ue_steel_warhammer action=0 serial=1/1 hp=1116.00/1116.00 blades=0 armor=0"
+    },
+    {
+      "case": 49,
+      "passed": true,
+      "detail": "role=0 level=30 weapon=ue_steel_warhammer action=1 serial=2/2 hp=1116.00/1116.00 blades=0 armor=0"
+    },
+    {
+      "case": 50,
+      "passed": true,
+      "detail": "role=0 level=30 weapon=ue_steel_warhammer action=0 serial=4/4 hp=1094.00/1094.00 blades=0 armor=0"
+    },
+    {
+      "case": 51,
+      "passed": true,
+      "detail": "role=0 level=30 weapon=ue_steel_warhammer action=5 serial=5/5 hp=1094.00/1094.00 blades=0 armor=0"
+    },
+    {
+      "case": 52,
+      "passed": true,
+      "detail": "role=0 level=30 weapon=ue_steel_warhammer action=0 serial=6/6 hp=1094.00/1094.00 blades=0 armor=0"
+    },
+    {
+      "case": 53,
+      "passed": true,
+      "detail": "role=0 level=30 weapon=ue_steel_warhammer action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 54,
+      "passed": true,
+      "detail": "role=1 level=30 weapon=ue_m16a2 action=0 serial=1/1 hp=620.00/620.00 blades=0 armor=0"
+    },
+    {
+      "case": 55,
+      "passed": true,
+      "detail": "role=1 level=30 weapon=ue_m16a2 action=2 serial=2/2 hp=620.00/620.00 blades=0 armor=0"
+    },
+    {
+      "case": 56,
+      "passed": true,
+      "detail": "role=1 level=30 weapon=ue_m16a2 action=0 serial=4/4 hp=575.00/575.00 blades=0 armor=0"
+    },
+    {
+      "case": 57,
+      "passed": true,
+      "detail": "role=1 level=30 weapon=ue_m16a2 action=3 serial=5/5 hp=575.00/575.00 blades=0 armor=0"
+    },
+    {
+      "case": 58,
+      "passed": true,
+      "detail": "role=1 level=30 weapon=ue_m16a2 action=0 serial=6/6 hp=575.00/575.00 blades=0 armor=0"
+    },
+    {
+      "case": 59,
+      "passed": true,
+      "detail": "role=1 level=30 weapon=ue_m16a2 action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 60,
+      "passed": true,
+      "detail": "role=2 level=30 weapon=ue_apprentice_staff action=0 serial=1/1 hp=620.00/620.00 blades=0 armor=0"
+    },
+    {
+      "case": 61,
+      "passed": true,
+      "detail": "role=2 level=30 weapon=ue_apprentice_staff action=4 serial=2/2 hp=620.00/620.00 blades=0 armor=1"
+    },
+    {
+      "case": 62,
+      "passed": true,
+      "detail": "role=2 level=30 weapon=ue_apprentice_staff action=0 serial=4/4 hp=586.00/586.00 blades=0 armor=1"
+    },
+    {
+      "case": 63,
+      "passed": true,
+      "detail": "role=2 level=30 weapon=ue_apprentice_staff action=5 serial=5/5 hp=586.00/586.00 blades=0 armor=1"
+    },
+    {
+      "case": 64,
+      "passed": true,
+      "detail": "role=2 level=30 weapon=ue_apprentice_staff action=0 serial=6/6 hp=586.00/586.00 blades=0 armor=0"
+    },
+    {
+      "case": 65,
+      "passed": true,
+      "detail": "role=2 level=30 weapon=ue_apprentice_staff action=6 serial=7/7 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 66,
+      "passed": true,
+      "detail": "role=3 level=30 weapon=bow_woodsteel action=0 serial=1/1 hp=1140.00/1140.00 blades=0 armor=0"
+    },
+    {
+      "case": 67,
+      "passed": true,
+      "detail": "role=3 level=30 weapon=bow_woodsteel action=7 serial=2/2 hp=1140.00/1140.00 blades=0 armor=0"
+    },
+    {
+      "case": 68,
+      "passed": true,
+      "detail": "role=3 level=30 weapon=bow_woodsteel action=0 serial=4/4 hp=1112.00/1112.00 blades=0 armor=0"
+    },
+    {
+      "case": 69,
+      "passed": true,
+      "detail": "role=3 level=30 weapon=bow_woodsteel action=8 serial=5/5 hp=1112.00/1112.00 blades=1 armor=0"
+    },
+    {
+      "case": 70,
+      "passed": true,
+      "detail": "role=3 level=30 weapon=bow_woodsteel action=8 serial=7/7 hp=1112.00/1112.00 blades=0 armor=0"
+    },
+    {
+      "case": 71,
+      "passed": true,
+      "detail": "role=3 level=30 weapon=bow_woodsteel action=6 serial=8/8 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 72,
+      "passed": true,
+      "detail": "role=2 level=30 weapon=ue_apprentice_staff action=6 serial=2/2 hp=0.00/0.00 blades=0 armor=0"
+    },
+    {
+      "case": 73,
+      "passed": true,
+      "detail": "role=2 level=30 weapon=ue_apprentice_staff action=6 serial=2/2 hp=0.00/0.00 blades=0 armor=0"
+    }
+  ]
+}

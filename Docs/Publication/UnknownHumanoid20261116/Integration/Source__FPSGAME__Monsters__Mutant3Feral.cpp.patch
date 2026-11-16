@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/Mutant3Feral.cpp
++++ b/Source/FPSGAME/Monsters/Mutant3Feral.cpp
+@@ -1,4 +1,5 @@
+ #include "Mutant3.h"
++#include "MonsterDamageBalance.h"
+ #include "FatZombieAnimInstance.h"
+ #include "FPSCombatHealthComponent.h"
+ #include "MonsterCombatTuning.h"
+@@ -250,7 +251,7 @@
+             FMath::PointDistToSegmentSquared(Planar, FVector::ZeroVector, LeftEdge) > FMath::Square(VictimRadius) &&
+             FMath::PointDistToSegmentSquared(Planar, FVector::ZeroVector, RightEdge) > FMath::Square(VictimRadius)) continue;
+         if (!HasFeralSight(Victim)) continue;
+-        const float Applied = UGameplayStatics::ApplyDamage(Victim, AttackDamage*PounceDamageScale,
++        const float Applied = UGameplayStatics::ApplyDamage(Victim, MonsterDamageBalance::Limit(AttackDamage*PounceDamageScale,90.f),
+             GetController(), this, UEnemyMeleeDamage::StaticClass());
+         if (Applied > 0.f)
+         {

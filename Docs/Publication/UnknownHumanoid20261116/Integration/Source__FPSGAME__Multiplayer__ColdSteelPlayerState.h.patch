@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -502,6 +502,7 @@
+     friend class UWarhammerNetworkAuditCommandlet;
+     friend class ASkillWireAuditController;
+     friend class ASkillWireAuditGameMode;
++    friend struct FUnknownJoinAuditAccess;
+     void TickSwordUppercut();
+     void TickSwordWhirlwind(float Delta);
+     bool ValidateSwordWhirlwindHit(const FColdSteelNetHitReport& Report,const AFPSGAMECharacter* Pawn,FString& Reason) const;

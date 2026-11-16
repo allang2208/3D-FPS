@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp
++++ b/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp
+@@ -1,4 +1,5 @@
+ #include "HundredEyedSlagMonster.h"
++#include "MonsterDamageBalance.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "HumanoidRagdollBudget.h"
+@@ -167,7 +168,10 @@
+         // Multiple collision bodies still receive only one hit in this
+         // pulse; later pulses may damage the same living target again.
+         PulseHitVictims.Add(Victim);
+-        UGameplayStatics::ApplyDamage(Victim,MagicAttack*LaserDamageMultiplier,
++        // Five pulses in the default .65 s burst. Balance the complete beam,
++        // including authored interval changes, rather than five full spell hits.
++        const float Pulses=FMath::Max(1.f,FMath::CeilToFloat(FMath::Max(.1f,LaserFireSeconds)/FMath::Max(.05f,LaserDamageIntervalSeconds)));
++        UGameplayStatics::ApplyDamage(Victim,MonsterDamageBalance::Limit(MagicAttack*LaserDamageMultiplier*.6f,75.f/Pulses),
+             GetController(),this,UHandBrainMagicDamage::StaticClass());
+         if (State != ESlagState::EyeLaserFire || Dead()) return;
+     }

@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Monsters/MonsterCoreStats.cpp
++++ b/Source/FPSGAME/Monsters/MonsterCoreStats.cpp
+@@ -1,4 +1,5 @@
+ #include "MonsterCoreStats.h"
++#include "UnknownHumanoid.h"
+ #include "HeQueMonster.h"
+ #include "RootCrownRigPreview.h"
+ #include "M66IncineratorMonster.h"
+@@ -55,7 +56,12 @@
+     FMonsterCoreStats S;bool bKnown=false;
+     auto Fill=[&](int32 Def,int32 Mdef,int32 CritRes,double Weight,int32 Level,EMonsterRank Rank,EMonsterToughnessClass TClass)
+     {S.Def=Def;S.Mdef=Mdef;S.CritRes=CritRes;S.AttrWeight=Weight;S.Level=Level;S.Rank=Rank;S.ToughnessClass=TClass;bKnown=true;};
+-    if(const auto* HeQue=Cast<AHeQueMonster>(Target))Fill(45,35,25,10.,HeQue->Level,HeQue->Rank,EMonsterToughnessClass::Colossal);
++    if(const auto* Unknown=Cast<AUnknownHumanoid>(Target))
++    {
++        if(Unknown->HasAnyFlags(RF_ClassDefaultObject))return false;
++        Unknown->CoreStats(S);bKnown=true;
++    }
++    else if(const auto* HeQue=Cast<AHeQueMonster>(Target))Fill(45,35,25,10.,HeQue->Level,HeQue->Rank,EMonsterToughnessClass::Colossal);
+     else if(const auto* M66=Cast<AM66IncineratorMonster>(Target))Fill(45,35,25,10.,M66->Level,M66->Rank,EMonsterToughnessClass::Colossal);
+     else if(const auto* Crown=Cast<ARootCrownRigPreview>(Target))Fill(45,30,25,10.,Crown->Level,Crown->Rank,EMonsterToughnessClass::Colossal);
+     else if(const auto* BC=Cast<ABoundCongregate>(Target))Fill(BC->PhysicalDefense,BC->MagicDefense,25,10.,BC->Level,BC->Rank,EMonsterToughnessClass::Colossal);

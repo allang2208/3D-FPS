@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelAuthorityContext.h"
++#include "../Monsters/UnknownHumanoid.h"
+ #include "ColdSteelPlayerState.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "GameFramework/Pawn.h"
+@@ -16,6 +17,7 @@
+ UColdSteelStatusModel* ColdSteelAuthority::ForPawn(const APawn* Pawn)
+ {
+     if(!Pawn)return nullptr;
++    if(const auto* Unknown=Cast<AUnknownHumanoid>(Pawn))return Unknown->EquipmentModel();
+     if(Pawn->HasAuthority()&&!Pawn->IsLocallyControlled())
+         if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())return PS->GetShadowModel();
+     if(!Pawn->IsLocallyControlled())return nullptr;

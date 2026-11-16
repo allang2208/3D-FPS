@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp
+@@ -171,9 +171,14 @@
+ void UFPSIceArmorComponent::ObserveAcceptedDamage(AActor* Source,const UDamageType* Type,float Damage)
+ {
+     if(!GetOwner()->HasAuthority()||Remaining()<=0||Damage<=0||!IsValid(Source)||Source==GetOwner()||!Type)return;
+-    auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>();if(!Combat||HolyLightTargets::IsFriendly(Source))return;
+-    const bool Melee=Type->IsA<UEnemyMeleeDamage>();
+-    const bool Ranged=Type->IsA<UEnemyRangedDamage>()||(CombatFormulaRuntime::IsMagic(Type)&&!Type->IsA<UStatusMagicDamage>()&&!Type->IsA<UCorrosivePusDamage>());
++    auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>();
++    const bool HostileArmor=UnknownSpell::IsCaster(GetOwner());
++    if(HostileArmor?!UnknownSpell::IsTarget(GetOwner(),Source):(!Combat||HolyLightTargets::IsFriendly(Source)))return;
++    const auto* WeaponHit=CombatFormulaRuntime::ActiveWeaponHit;
++    const bool PlayerWeapon=HostileArmor&&WeaponHit&&WeaponHit->Target==GetOwner();
++    const bool Melee=Type->IsA<UEnemyMeleeDamage>()||(PlayerWeapon&&WeaponHit->bMelee);
++    const bool Ranged=Type->IsA<UEnemyRangedDamage>()||(PlayerWeapon&&!WeaponHit->bMelee)||
++        (CombatFormulaRuntime::IsMagic(Type)&&!Type->IsA<UStatusMagicDamage>()&&!Type->IsA<UCorrosivePusDamage>());
+     if(!Melee&&!Ranged)return;const auto& C=State.Cast;
+     if(Clock()-Impact.At>=.08||Impact.CastSerial!=State.Serial)
+     {
+@@ -182,7 +187,8 @@
+         Impact.LocalDirection=GetOwner()->GetActorTransform().InverseTransformVectorNoScale(Direction);
+         OnRep_Impact();GetOwner()->ForceNetUpdate();
+     }
+-    if(Melee&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Source)->AddChill(1,C.ChillSeconds,true);
++    if(Melee&&(HostileArmor||!Combat->IsDead()))UCombatStatusFormula::GetOrAdd(Source)->AddChill(1,C.ChillSeconds,true);
++    if(HostileArmor)return; // The monster has no player skill-training transaction.
+     if(Source->ActorHasTag(TEXT("Summoned"))||Source->ActorHasTag(TEXT("NoSkillTraining"))||Experience>=C.ExperienceCap)return;
+     const double Now=Clock();const TWeakObjectPtr<AActor> Key=Source;
+     if(const auto* Last=TrainingSources.Find(Key);Last&&Now-*Last<C.TrainingSourceInterval)return;

@@ -1,0 +1,194 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
+@@ -1,6 +1,7 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "FPSBodyOutfitResources.h"
+ #include "FPSPlayerHeadAnimInstance.h"
++#include "FPSBodyHeadGrooms.h"
+ #include "FPSBodyWeaponMeshComponent.h"
+ #include "FPSHeadEquipmentMeshComponent.h"
+ #include "FPSModularOutfitComponent.h"
+@@ -45,6 +46,93 @@
+ }
+ }
+ 
++ULODSyncComponent* FPSBodyAppearance::AssembleHeadGrooms(USkeletalMeshComponent& Body,USkeletalMeshComponent& Head,
++    const TArray<TSharedPtr<FJsonObject>>& GroomRecipes,int32 ScalpStart,TArray<TObjectPtr<UGroomComponent>>& HeadGrooms)
++{
++    // The native body graph already animates the entire neck/head chain.
++    // The stock face post-process also has a procedural head movement IK:
++    // disable that second skeletal driver only, retaining facial RigLogic.
++    if(auto* Post=Head.GetPostProcessInstance())
++        if(auto* HeadIK=FindFProperty<FBoolProperty>(Post->GetClass(),TEXT("EnableHeadMovementIK")))
++            HeadIK->SetPropertyValue_InContainer(Post,false);
++    Head.VisibilityBasedAnimTickOption=Body.VisibilityBasedAnimTickOption;
++    TMap<FName,FLODMappingData> AuthoredGroomLODMapping;
++    int32 GroomIndex=0;
++    for(const auto& Recipe:GroomRecipes)
++    {
++        const bool Scalp=GroomIndex++>=ScalpStart;
++        auto* Asset=Cast<UGroomAsset>(FSoftObjectPath(Text(Recipe,TEXT("asset"))).ResolveObject());
++        auto* Binding=Cast<UGroomBindingAsset>(FSoftObjectPath(Text(Recipe,TEXT("binding"))).ResolveObject());
++        if(!Asset||!Binding){UE_LOG(LogTemp,Error,TEXT("Groom unavailable for %s"),*Head.GetSkeletalMeshAsset()->GetName());continue;}
++        auto* Groom=NewObject<UGroomComponent>(Body.GetOwner(),NAME_None,RF_Transient);
++        if(Scalp)Groom->ComponentTags.Add(TEXT("HeadScalpHair"));
++        Body.GetOwner()->AddInstanceComponent(Groom);Groom->SetupAttachment(&Head);
++        Groom->SetGroomAsset(Asset,Binding,false);
++        // MetaHuman assembly authors the local simulation frame separately
++        // from the groom asset's per-group solver/constraint settings.
++        if(const auto Setup=Object(Recipe,TEXT("simulation_setup")))
++        {
++            auto& NativeSetup=Groom->SimulationSettings.SimulationSetup;
++            FString Bone;if(Setup->TryGetStringField(TEXT("local_bone"),Bone))NativeSetup.LocalBone=Bone;
++            Setup->TryGetBoolField(TEXT("local_simulation"),NativeSetup.bLocalSimulation);
++            double Linear=NativeSetup.LinearVelocityScale,Angular=NativeSetup.AngularVelocityScale;
++            Setup->TryGetNumberField(TEXT("linear_velocity_scale"),Linear);
++            Setup->TryGetNumberField(TEXT("angular_velocity_scale"),Angular);
++            NativeSetup.LinearVelocityScale=Linear;NativeSetup.AngularVelocityScale=Angular;
++        }
++        const TArray<TSharedPtr<FJsonValue>>* GroomMaterials=nullptr;
++        if(Recipe->TryGetArrayField(TEXT("materials"),GroomMaterials))
++            for(int32 Index=0;Index<GroomMaterials->Num();++Index)
++                if(auto* Material=Cast<UMaterialInterface>(FSoftObjectPath((*GroomMaterials)[Index]->AsString()).ResolveObject()))
++                    Groom->SetMaterial(Index,Material);
++        bool Simulate=false;const bool HasSimulationPolicy=Recipe->TryGetBoolField(TEXT("simulate"),Simulate);
++        if(Simulate){Groom->AddCollisionComponent(&Body);Groom->ComponentTags.Add(TEXT("BodyHairSimulation"));}
++        else if(HasSimulationPolicy)
++        {
++            Groom->SimulationSettings.bOverrideSettings=true;
++            Groom->SimulationSettings.SolverSettings.bEnableSimulation=false;
++        }
++        Groom->SetCollisionEnabled(ECollisionEnabled::NoCollision);Groom->SetGenerateOverlapEvents(false);
++        Groom->RegisterComponent();Groom->AddTickPrerequisiteComponent(&Head);HeadGrooms.Add(Groom);
++        const TArray<TSharedPtr<FJsonValue>>* LODs=nullptr;
++        if(Recipe->TryGetArrayField(TEXT("lod_mapping"),LODs))
++        {
++            FLODMappingData Mapping;for(const auto& LOD:*LODs)Mapping.Mapping.Add(static_cast<int32>(LOD->AsNumber()));
++            AuthoredGroomLODMapping.Add(Groom->GetFName(),MoveTemp(Mapping));
++        }
++    }
++    auto* AppearanceLODSync=NewObject<ULODSyncComponent>(Body.GetOwner(),NAME_None,RF_Transient);
++    Body.GetOwner()->AddInstanceComponent(AppearanceLODSync);
++    const int32 FaceLODs=FMath::Max(1,Head.GetSkeletalMeshAsset()->GetLODNum());
++    const int32 BodyLODs=FMath::Max(1,Body.GetSkeletalMeshAsset()->GetLODNum());
++    const int32 SyncLODs=FMath::Max(FaceLODs,BodyLODs);
++    AppearanceLODSync->NumLODs=SyncLODs;
++    AppearanceLODSync->ComponentsToSync.Add(FComponentSync(Body.GetFName(),ESyncOption::Drive));
++    AppearanceLODSync->ComponentsToSync.Add(FComponentSync(Head.GetFName(),FaceLODs>1?ESyncOption::Drive:ESyncOption::Passive));
++    // Different heads may supply different LOD counts. Match ranges without
++    // forcing a nonexistent body or groom LOD when catalog entries change.
++    const auto Mapping=[SyncLODs](int32 Count)
++    {
++        FLODMappingData Result;Count=FMath::Max(1,Count);
++        for(int32 I=0;I<SyncLODs;++I)Result.Mapping.Add(FMath::RoundToInt(float(I*(Count-1))/FMath::Max(1,SyncLODs-1)));
++        return Result;
++    };
++    FLODMappingData BodyMapping=Mapping(BodyLODs);
++    AppearanceLODSync->CustomLODMapping.Add(Body.GetFName(),BodyMapping);
++    AppearanceLODSync->CustomLODMapping.Add(Head.GetFName(),Mapping(FaceLODs));
++    for(auto Groom:HeadGrooms)
++    {
++        AppearanceLODSync->ComponentsToSync.Add(FComponentSync(Groom->GetFName(),ESyncOption::Passive));
++        const int32 GroomLODs=Groom->GetNumSyncLODs();
++        const auto* Authored=AuthoredGroomLODMapping.Find(Groom->GetFName());
++        const bool ValidAuthored=Authored&&Authored->Mapping.Num()==SyncLODs&&
++            !Authored->Mapping.ContainsByPredicate([GroomLODs](int32 LOD){return LOD<0||LOD>=GroomLODs;});
++        AppearanceLODSync->CustomLODMapping.Add(Groom->GetFName(),ValidAuthored?*Authored:Mapping(GroomLODs));
++    }
++    AppearanceLODSync->RegisterComponent();
++    return AppearanceLODSync;
++}
++
+ bool UFPSPlayerBodyComponent::IsWorldBodyPresentationHidden() const
+ {
+     // Combat equipment remains visible on the fallback's animated hands.
+@@ -280,87 +368,8 @@
+         HeadMesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+         HeadMesh->SetAnimInstanceClass(UFPSPlayerHeadAnimInstance::StaticClass());
+         HeadMesh->RegisterComponent();HeadMesh->AddTickPrerequisiteComponent(Parent);
+-        // The native body graph already animates the entire neck/head chain.
+-        // The stock face post-process also has a procedural head movement IK:
+-        // disable that second skeletal driver only, retaining facial RigLogic.
+-        if(auto* Post=HeadMesh->GetPostProcessInstance())
+-            if(auto* HeadIK=FindFProperty<FBoolProperty>(Post->GetClass(),TEXT("EnableHeadMovementIK")))
+-                HeadIK->SetPropertyValue_InContainer(Post,false);
+-        HeadMesh->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+-        TMap<FName,FLODMappingData> AuthoredGroomLODMapping;
+-        int32 GroomIndex=0;
+-        for(const auto& Recipe:GroomRecipes)
+-        {
+-            const bool Scalp=GroomIndex++>=ScalpStart;
+-            auto* Asset=Cast<UGroomAsset>(FSoftObjectPath(Text(Recipe,TEXT("asset"))).ResolveObject());
+-            auto* Binding=Cast<UGroomBindingAsset>(FSoftObjectPath(Text(Recipe,TEXT("binding"))).ResolveObject());
+-            if(!Asset||!Binding){UE_LOG(LogTemp,Error,TEXT("Player groom unavailable for %s"),*Value.HeadId.ToString());continue;}
+-            auto* Groom=NewObject<UGroomComponent>(GetOwner(),NAME_None,RF_Transient);
+-            if(Scalp)Groom->ComponentTags.Add(TEXT("HeadScalpHair"));
+-            GetOwner()->AddInstanceComponent(Groom);Groom->SetupAttachment(HeadMesh);
+-            Groom->SetGroomAsset(Asset,Binding,false);
+-            // MetaHuman assembly authors the local simulation frame separately
+-            // from the groom asset's per-group solver/constraint settings.
+-            if(const auto Setup=Object(Recipe,TEXT("simulation_setup")))
+-            {
+-                auto& NativeSetup=Groom->SimulationSettings.SimulationSetup;
+-                FString Bone;if(Setup->TryGetStringField(TEXT("local_bone"),Bone))NativeSetup.LocalBone=Bone;
+-                Setup->TryGetBoolField(TEXT("local_simulation"),NativeSetup.bLocalSimulation);
+-                double Linear=NativeSetup.LinearVelocityScale,Angular=NativeSetup.AngularVelocityScale;
+-                Setup->TryGetNumberField(TEXT("linear_velocity_scale"),Linear);
+-                Setup->TryGetNumberField(TEXT("angular_velocity_scale"),Angular);
+-                NativeSetup.LinearVelocityScale=Linear;NativeSetup.AngularVelocityScale=Angular;
+-            }
+-            const TArray<TSharedPtr<FJsonValue>>* GroomMaterials=nullptr;
+-            if(Recipe->TryGetArrayField(TEXT("materials"),GroomMaterials))
+-                for(int32 Index=0;Index<GroomMaterials->Num();++Index)
+-                    if(auto* Material=Cast<UMaterialInterface>(FSoftObjectPath((*GroomMaterials)[Index]->AsString()).ResolveObject()))
+-                        Groom->SetMaterial(Index,Material);
+-            bool Simulate=false;const bool HasSimulationPolicy=Recipe->TryGetBoolField(TEXT("simulate"),Simulate);
+-            if(Simulate){Groom->AddCollisionComponent(Parent);Groom->ComponentTags.Add(TEXT("BodyHairSimulation"));}
+-            else if(HasSimulationPolicy)
+-            {
+-                Groom->SimulationSettings.bOverrideSettings=true;
+-                Groom->SimulationSettings.SolverSettings.bEnableSimulation=false;
+-            }
+-            Groom->SetCollisionEnabled(ECollisionEnabled::NoCollision);Groom->SetGenerateOverlapEvents(false);
+-            Groom->RegisterComponent();Groom->AddTickPrerequisiteComponent(HeadMesh);HeadGrooms.Add(Groom);
+-            const TArray<TSharedPtr<FJsonValue>>* LODs=nullptr;
+-            if(Recipe->TryGetArrayField(TEXT("lod_mapping"),LODs))
+-            {
+-                FLODMappingData Mapping;for(const auto& LOD:*LODs)Mapping.Mapping.Add(static_cast<int32>(LOD->AsNumber()));
+-                AuthoredGroomLODMapping.Add(Groom->GetFName(),MoveTemp(Mapping));
+-            }
+-        }
+-        AppearanceLODSync=NewObject<ULODSyncComponent>(GetOwner(),NAME_None,RF_Transient);
+-        GetOwner()->AddInstanceComponent(AppearanceLODSync);
+-        const int32 FaceLODs=FMath::Max(1,Mesh->GetLODNum());
+-        const int32 BodyLODs=FMath::Max(1,Parent->GetSkeletalMeshAsset()->GetLODNum());
+-        const int32 SyncLODs=FMath::Max(FaceLODs,BodyLODs);
+-        AppearanceLODSync->NumLODs=SyncLODs;
+-        AppearanceLODSync->ComponentsToSync.Add(FComponentSync(Parent->GetFName(),ESyncOption::Drive));
+-        AppearanceLODSync->ComponentsToSync.Add(FComponentSync(HeadMesh->GetFName(),FaceLODs>1?ESyncOption::Drive:ESyncOption::Passive));
+-        // Different heads may supply different LOD counts. Match ranges without
+-        // forcing a nonexistent body or groom LOD when catalog entries change.
+-        const auto Mapping=[SyncLODs](int32 Count)
+-        {
+-            FLODMappingData Result;Count=FMath::Max(1,Count);
+-            for(int32 I=0;I<SyncLODs;++I)Result.Mapping.Add(FMath::RoundToInt(float(I*(Count-1))/FMath::Max(1,SyncLODs-1)));
+-            return Result;
+-        };
+-        FLODMappingData BodyMapping=Mapping(BodyLODs);
+-        AppearanceLODSync->CustomLODMapping.Add(Parent->GetFName(),BodyMapping);
+-        AppearanceLODSync->CustomLODMapping.Add(HeadMesh->GetFName(),Mapping(FaceLODs));
+-        for(auto Groom:HeadGrooms)
+-        {
+-            AppearanceLODSync->ComponentsToSync.Add(FComponentSync(Groom->GetFName(),ESyncOption::Passive));
+-            const int32 GroomLODs=Groom->GetNumSyncLODs();
+-            const auto* Authored=AuthoredGroomLODMapping.Find(Groom->GetFName());
+-            const bool ValidAuthored=Authored&&Authored->Mapping.Num()==SyncLODs&&
+-                !Authored->Mapping.ContainsByPredicate([GroomLODs](int32 LOD){return LOD<0||LOD>=GroomLODs;});
+-            AppearanceLODSync->CustomLODMapping.Add(Groom->GetFName(),ValidAuthored?*Authored:Mapping(GroomLODs));
+-        }
+-        AppearanceLODSync->RegisterComponent();UpdateAppearanceVisibility();
++        AppearanceLODSync=AssembleHeadGrooms(*Parent,*HeadMesh,GroomRecipes,ScalpStart,HeadGrooms);
++        UpdateAppearanceVisibility();
+         // Streaming completion alone does not mean CopyPose has evaluated. Reveal
+         // the initial assembly from the head's first finalized pose, not a timer.
+         // Later changes keep the previous complete appearance during streaming.

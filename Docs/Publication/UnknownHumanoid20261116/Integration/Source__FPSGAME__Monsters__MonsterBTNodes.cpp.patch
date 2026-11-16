@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Monsters/MonsterBTNodes.cpp
++++ b/Source/FPSGAME/Monsters/MonsterBTNodes.cpp
+@@ -63,7 +63,7 @@
+   const bool Returning=Action==EMonsterAction::Return;FVector Dest=B->GetValueAsVector(Returning?TEXT("Home"):TEXT("LastKnown"));
+   if(Unknown && !Returning)
+   {
+-   if(Unknown->UsesMobileGunCombat())
++   if(Unknown->UsesMobileCombatTask())
+    {
+     // Set the current travel/sprint intent before deciding whether this is a
+     // walking shot or a dash to safety. Never stop a valid path just to fire.
+@@ -73,7 +73,8 @@
+     if(Elapsed>=.1f)
+     {
+      Elapsed=0;
+-     if(Candidate&&!Unknown->Busy())C->TryAttack(Candidate);
++     if(Candidate&&!Unknown->Busy()&&C->TryAttack(Candidate) &&
++        !Unknown->CanPursueDuringAction(Candidate,UnknownTarget!=nullptr))AI->StopMovement();
+     }
+     return;
+    }

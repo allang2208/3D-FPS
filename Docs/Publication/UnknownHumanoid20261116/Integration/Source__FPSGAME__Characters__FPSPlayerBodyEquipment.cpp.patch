@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -593,7 +593,7 @@
+         BodyAnimation->OffhandKukriEquipmentInstance.Reset();
+         BodyAnimation->PistolHatchetPalmInView.Reset();
+     }
+-    if(BodyAnimation){BodyAnimation->bHasLeftGrip=BodyAnimation->bHasRightGrip=false;BodyAnimation->LeftGripFromRight=BodyAnimation->RightGripFromLeft=FTransform::Identity;BodyAnimation->RifleHold=FFPSBodyRifleHold();BodyAnimation->IndependentPistolHands=0;BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
++    if(BodyAnimation){BodyAnimation->bHasLeftGrip=BodyAnimation->bHasRightGrip=false;BodyAnimation->LeftGripFromRight=BodyAnimation->RightGripFromLeft=FTransform::Identity;BodyAnimation->RifleHold=FFPSBodyRifleHold();for(auto& Frame:BodyAnimation->GunAimFrames)Frame=FFPSBodyGunAimFrame();BodyAnimation->IndependentPistolHands=0;BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
+     if(BodyAnimation)FPSBodyHighlandMotion::SelectGrip(BodyAnimation->Clips,false);
+     for(int32 Index=0;Index<Weapons.Num();++Index)
+     {
+@@ -875,6 +875,7 @@
+             }
+         }
+         BuildGunPresentation(Definition,Weapon);
++        if(BodyAnimation&&Definition.PoseFamily==TEXT("Gun"))BodyAnimation->GunAimFrames[Side]=FPSBodyGunAim::FromWeapon(*Weapon);
+         if(Index==0&&Weapons.Num()==1&&BodyAnimation)BodyAnimation->RifleHold=BuildFPSBodyRifleHold(*Weapon,Definition);
+     }
+     for(auto& Binding:MotionBindings)

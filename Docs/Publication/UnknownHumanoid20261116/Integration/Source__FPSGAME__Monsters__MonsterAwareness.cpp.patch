@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Monsters/MonsterAwareness.cpp
++++ b/Source/FPSGAME/Monsters/MonsterAwareness.cpp
+@@ -21,7 +21,8 @@
+ 
+ bool AMonsterAIController::LivingPlayer(const APawn* Player)
+ {
+-    if (!IsValid(Player) || !Player->IsPlayerControlled()) return false;
++    if (!IsValid(Player) || !Player->HasActorBegunPlay() || !Player->IsPlayerControlled() ||
++        Player->GetController()->GetPawn()!=Player) return false;
+     const auto* Health = Player->FindComponentByClass<UFPSCombatHealthComponent>();
+     return !Health || !Health->IsDead();
+ }

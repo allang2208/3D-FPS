@@ -1,0 +1,64 @@
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+@@ -85,7 +85,9 @@
+ {
+     Super::BeginPlay();
+     SetIsReplicated(true); // M3: 血量/上限走服务器权威复制（拥有者 actor 本身可复制）
+-    Health = MaxHealth;
++    // Initial replication can precede BeginPlay on a newly opened actor channel.
++    // Preserve the server's wounded/dead health on late observers.
++    if(GetOwner()->HasAuthority())Health = MaxHealth;
+     GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UFPSCombatHealthComponent::OnDamage);
+     // 联机权威端才录制位姿历史——rewind 命中校验的唯一消费者是服务端。
+     if (GetOwner() && GetOwner()->HasAuthority() && GetWorld() && GetWorld()->GetNetMode() != NM_Standalone)
+@@ -160,10 +162,8 @@
+     const bool bMagic=CombatFormulaRuntime::IsMagic(Type)||Charged;
+     if(Charged)Damage*=UStarMarrowComponent::DamageMultiplier;
+     const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
+-    // 联机：远端玩家的防御走影子档案；主机玩家（监听服下 NetShadowProfile 恒空）/单机回退单例。
+-    UColdSteelStatusModel* Model=nullptr;
+-    if(const auto* NetCharacter=Cast<AFPSGAMECharacter>(GetOwner()))Model=NetCharacter->GetNetShadowProfile();
+-    if(!Model&&GetWorld()&&GetWorld()->GetGameInstance())Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    // An unbound guest must never borrow the host's armor or tribute effects.
++    auto* Model=ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner()));
+     const auto* Unknown=Cast<AUnknownHumanoid>(Attacker);
+     const auto* Snapshot=Unknown?UnknownSpell::ActiveWeapon:nullptr;
+     float WeaponMagic=0.f;
+@@ -201,10 +201,7 @@
+ {
+     if (!Actor->HasAuthority() || IsDead() || Damage <= 0.f) return;
+     const bool bSurvivalLoss=Type&&Type->IsA<UFPSSurvivalDamage>();
+-    // 联机：远端玩家的防御/续命判定走其影子档案，主机/单机回退 GameInstance 单例。
+-    UColdSteelStatusModel* Model=nullptr;
+-    if(const auto* NetCharacter=Cast<AFPSGAMECharacter>(Actor))Model=NetCharacter->GetNetShadowProfile();
+-    if(!Model&&GetWorld()->GetGameInstance())Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    auto* Model=ColdSteelAuthority::ForPawn(Cast<APawn>(Actor));
+     // 月影庇护：参战（首次受击）触发短暂无敌，窗口内全部承伤无效（旧 moonstone special）。
+     if(Model&&!bSurvivalLoss)
+     {
+@@ -221,6 +218,7 @@
+     AActor* Attacker=Causer?Causer:(Instigator?Instigator->GetPawn():nullptr);
+     if(!Actor->IsA<AFPSGAMECharacter>())Damage=DamageAfterArmor(Damage,Type,Attacker);
+     const float AcceptedDamage=FMath::Min(Health,Damage);
++    if(AcceptedDamageReceipt)*AcceptedDamageReceipt=AcceptedDamage;
+     Health = FMath::Max(0.f, Health - Damage);
+     if(!bSurvivalLoss)if(auto* Ice=Actor->FindComponentByClass<UFPSIceArmorComponent>())
+         Ice->ObserveAcceptedDamage(Instigator&&Instigator->GetPawn()?Instigator->GetPawn():Attacker,Type,AcceptedDamage);
+@@ -291,6 +289,7 @@
+             if(auto* S=Actor->FindComponentByClass<UCombatStatusFormula>())S->PurgeTransient();
+             UE_LOG(LogTemp, Display, TEXT("PEACH_REVIVE hp=%.0f ratio=%.2f"), Health, ReviveRatio);
+             Actor->ForceNetUpdate();ClientDamageFeedback(Health);ClientPeachRevive();
++            if(Model&&Model->RuntimePawn()==Actor)Model->SyncRuntime();
+             return;
+         }
+         const auto* GS=GetWorld()->GetGameState();
+@@ -301,6 +300,9 @@
+         Actor->ForceNetUpdate();
+         GetWorld()->GetTimerManager().SetTimer(RespawnTimer, this, &UFPSCombatHealthComponent::Respawn, FPSPlayerDeathMotion::RespawnSeconds, false);
+     }
++    // Logout may destroy the pawn before PlayerState's next runtime sampling.
++    // Keep the authority profile's final vitals current at the accepted hit.
++    if(Model&&Model->RuntimePawn()==Actor)Model->SyncRuntime();
+     if(PC)ClientDamageFeedback(Health);
+     if(IsDead())ColdSteelSkills::NotifyKillByOwner(GetWorld()->GetGameInstance(),Instigator,Actor);
+ }

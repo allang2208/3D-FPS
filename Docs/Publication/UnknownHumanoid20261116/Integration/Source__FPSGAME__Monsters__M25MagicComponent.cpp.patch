@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Monsters/M25MagicComponent.cpp
++++ b/Source/FPSGAME/Monsters/M25MagicComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "M25MagicComponent.h"
++#include "MonsterDamageBalance.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "VortexCofferM25.h"
+ #include "MonsterAIController.h"
+@@ -175,6 +176,7 @@
+     AttackTarget = Target;
+     DamageSnapshot = FMath::Max(0.f, MagicAttack) * FMath::Max(0.f,
+         Spell == EM25Spell::ThunderLance ? LanceMultiplier : LightningMultiplier);
++    DamageSnapshot=MonsterDamageBalance::Limit(DamageSnapshot,Spell==EM25Spell::ThunderLance?100.f:70.f);
+     Monster->GetCharacterMovement()->StopMovementImmediately();
+     if (auto* AI = Cast<AMonsterAIController>(Monster->GetController())) AI->StopMovement();
+     CastState.Aim = TargetPoint(Target);

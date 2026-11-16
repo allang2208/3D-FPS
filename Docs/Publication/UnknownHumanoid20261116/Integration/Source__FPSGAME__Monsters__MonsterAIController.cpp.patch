@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/MonsterAIController.cpp
++++ b/Source/FPSGAME/Monsters/MonsterAIController.cpp
+@@ -301,11 +301,11 @@
+   B->SetValueAsBool(TEXT("Hold"),Disabled||ReactingToHit||(C->IsBusy()&&!MovingAction));
+  }
+  const bool WallInWay=Valid&&bConfirmedTarget&&!Visible&&IceWallCombat::BlockingWall(GetPawn(),KnownTarget.Get(),C->AggroRange());
+- // Gun users keep one movement task across aim, burst, recovery and reload.
++ // Keep one movement task across ranged attacks, archer blade counters and swaps.
+  // The task still enters the same authoritative attack executor; the tree's
+  // higher-priority hold/return branches continue to own interruptions.
+- const bool MobileGun=TacticalHumanoid && TacticalHumanoid->UsesMobileGunCombat() && bConfirmedTarget;
+- B->SetValueAsBool(TEXT("CanAttack"),!MobileGun&&!bReturning&&(Visible||WallInWay||(TacticalHumanoid&&TacticalHumanoid->CanActOutOfSight()))&&C->CanAttack(KnownTarget.Get()));
++ const bool MobileCombat=TacticalHumanoid && TacticalHumanoid->UsesMobileCombatTask() && bConfirmedTarget;
++ B->SetValueAsBool(TEXT("CanAttack"),!MobileCombat&&!bReturning&&(Visible||WallInWay||(TacticalHumanoid&&TacticalHumanoid->CanActOutOfSight()))&&C->CanAttack(KnownTarget.Get()));
+  B->SetValueAsBool(TEXT("HasTarget"),Valid&&!bReturning);
+  if(!Valid&&NightRaidObjective.IsValid())PublishNightRaidObjective();
+  if(!Disabled&&Valid&&!bReturning&&bPendingGroupAlert)BroadcastGroupAlert();

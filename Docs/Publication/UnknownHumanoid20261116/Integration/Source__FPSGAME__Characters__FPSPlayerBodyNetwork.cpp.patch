@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -78,6 +78,7 @@
+     using namespace FPSBodyNetwork;
+     const float Now=ServerClock();
+     CaptureLaserPresentation();
++    CaptureGunAimPresentation();
+     const bool Edge=!bHasLocalPresentation||IsTransition(DisplayState,PreviousLocalPresentation);
+     const bool Shot=bHasLocalPresentation&&(DisplayState.LastShotAt>PreviousLocalPresentation.LastShotAt
+         ||DisplayState.RightHand.LastShotAt>PreviousLocalPresentation.RightHand.LastShotAt
+@@ -155,6 +156,7 @@
+     const float Now=ServerClock();
+     FFPSBodyState Next=Incoming;
+     SanitizeLaserPresentation(Next);
++    SanitizeGunAimPresentation(Next);
+     Next.LastShotAt=FMath::IsFinite(Next.LastShotAt)?FMath::Clamp(Next.LastShotAt,Now-10.f,Now):-100.f;
+     if(!Next.Contacts.IsSane())Next.Contacts=FFPSBodyMotionSample();
+     Next.Contacts.Light=FMath::Clamp(Next.Contacts.Light,0.f,1.f);

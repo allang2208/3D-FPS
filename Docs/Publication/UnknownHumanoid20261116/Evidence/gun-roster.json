@@ -1,0 +1,524 @@
+{
+  "gun_count": 21,
+  "failures": 0,
+  "cases": [
+    {
+      "weapon": "ue_a762",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+      "palm_gap_cm": 0.34305308835308207,
+      "hand_to_muzzle_cm": 67.19024158108863,
+      "static_parts": [
+        "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_FrontSight.SM_A762_FrontSight",
+        "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_RearSight.SM_A762_RearSight"
+      ],
+      "visible_gun_pixels": 1247,
+      "errors": []
+    },
+    {
+      "weapon": "ue_a762",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+      "palm_gap_cm": 1.2592336066465983,
+      "hand_to_muzzle_cm": 66.01714712802527,
+      "static_parts": [
+        "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_FrontSight.SM_A762_FrontSight",
+        "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_RearSight.SM_A762_RearSight"
+      ],
+      "visible_gun_pixels": 1195,
+      "errors": []
+    },
+    {
+      "weapon": "ue_akm",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative",
+      "palm_gap_cm": 0.34305215834731567,
+      "hand_to_muzzle_cm": 66.32250606052347,
+      "static_parts": [],
+      "visible_gun_pixels": 1257,
+      "errors": []
+    },
+    {
+      "weapon": "ue_akm",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative",
+      "palm_gap_cm": 1.2592396361295166,
+      "hand_to_muzzle_cm": 65.14970144914933,
+      "static_parts": [],
+      "visible_gun_pixels": 1197,
+      "errors": []
+    },
+    {
+      "weapon": "ue_ash12",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface.SK_ASH12_Surface",
+      "palm_gap_cm": 0.44810049895921955,
+      "hand_to_muzzle_cm": 49.68162870771809,
+      "static_parts": [],
+      "visible_gun_pixels": 1378,
+      "errors": []
+    },
+    {
+      "weapon": "ue_ash12",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface.SK_ASH12_Surface",
+      "palm_gap_cm": 1.3076918474766135,
+      "hand_to_muzzle_cm": 48.57258691228838,
+      "static_parts": [],
+      "visible_gun_pixels": 1337,
+      "errors": []
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny.SK_DW715_Manny",
+      "palm_gap_cm": 0.3430521583473415,
+      "hand_to_muzzle_cm": 35.77752698162187,
+      "static_parts": [],
+      "visible_gun_pixels": 86,
+      "errors": []
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny.SK_DW715_Manny",
+      "palm_gap_cm": 1.2592396361295182,
+      "hand_to_muzzle_cm": 34.71387683608453,
+      "static_parts": [],
+      "visible_gun_pixels": 81,
+      "errors": []
+    },
+    {
+      "weapon": "ue_g18",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny.SK_G18_Manny",
+      "palm_gap_cm": 0.3430606132718868,
+      "hand_to_muzzle_cm": 25.88607016912024,
+      "static_parts": [],
+      "visible_gun_pixels": 192,
+      "errors": []
+    },
+    {
+      "weapon": "ue_g18",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny.SK_G18_Manny",
+      "palm_gap_cm": 1.2592224871757394,
+      "hand_to_muzzle_cm": 24.81908172998322,
+      "static_parts": [],
+      "visible_gun_pixels": 185,
+      "errors": []
+    },
+    {
+      "weapon": "ue_hk416",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny.SK_HK416_Manny",
+      "palm_gap_cm": 0.34306351132814045,
+      "hand_to_muzzle_cm": 60.90630714321615,
+      "static_parts": [
+        "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_factory_grip.SM_HK416_factory_grip",
+        "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_factory_stock.SM_HK416_factory_stock"
+      ],
+      "visible_gun_pixels": 1264,
+      "errors": []
+    },
+    {
+      "weapon": "ue_hk416",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny.SK_HK416_Manny",
+      "palm_gap_cm": 1.2592836931650762,
+      "hand_to_muzzle_cm": 59.763643387001,
+      "static_parts": [
+        "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_factory_grip.SM_HK416_factory_grip",
+        "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_factory_stock.SM_HK416_factory_stock"
+      ],
+      "visible_gun_pixels": 1364,
+      "errors": []
+    },
+    {
+      "weapon": "ue_lmg201",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10",
+      "palm_gap_cm": 0.34305308835308745,
+      "hand_to_muzzle_cm": 87.34694680285304,
+      "static_parts": [
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodBase.SM_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegA.SM_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegB.SM_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_FrontSight.SM_LMG201_FrontSight",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_RearSight.SM_LMG201_RearSight"
+      ],
+      "visible_gun_pixels": 1851,
+      "errors": []
+    },
+    {
+      "weapon": "ue_lmg201",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10",
+      "palm_gap_cm": 1.25923360664658,
+      "hand_to_muzzle_cm": 86.11994398531567,
+      "static_parts": [
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodBase.SM_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegA.SM_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegB.SM_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_FrontSight.SM_LMG201_FrontSight",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_RearSight.SM_LMG201_RearSight"
+      ],
+      "visible_gun_pixels": 1788,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m16a2",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny.SK_M16_Manny",
+      "palm_gap_cm": 0.44809777145205165,
+      "hand_to_muzzle_cm": 90.84296993955313,
+      "static_parts": [],
+      "visible_gun_pixels": 1867,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m16a2",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny.SK_M16_Manny",
+      "palm_gap_cm": 1.3076760852952427,
+      "hand_to_muzzle_cm": 89.68665571206371,
+      "static_parts": [],
+      "visible_gun_pixels": 1986,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m1911",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny.SK_M1911_Manny",
+      "palm_gap_cm": 0.3430521583473463,
+      "hand_to_muzzle_cm": 28.613806773396554,
+      "static_parts": [],
+      "visible_gun_pixels": 206,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m1911",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny.SK_M1911_Manny",
+      "palm_gap_cm": 1.2592396361295333,
+      "hand_to_muzzle_cm": 27.556029503462828,
+      "static_parts": [],
+      "visible_gun_pixels": 198,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m24",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9",
+      "palm_gap_cm": 0.3430505999024431,
+      "hand_to_muzzle_cm": 112.835016051199,
+      "static_parts": [
+        "/Game/Weapons/M24/RailSeats20261106/Meshes/SM_M24_m24_rail_seat_native.SM_M24_m24_rail_seat_native",
+        "/Game/Weapons/M24/Surface20261027/SM_M24_m24_cheekrest.SM_M24_m24_cheekrest",
+        "/Game/Weapons/M24/Surface20261027/SM_M24_m24_custom_scope_6x.SM_M24_m24_custom_scope_6x"
+      ],
+      "visible_gun_pixels": 2053,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m24",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/M24/MotionMagazine20261027/SK_M24_MotionV9.SK_M24_MotionV9",
+      "palm_gap_cm": 1.2593309075714576,
+      "hand_to_muzzle_cm": 111.64829116288443,
+      "static_parts": [
+        "/Game/Weapons/M24/RailSeats20261106/Meshes/SM_M24_m24_rail_seat_native.SM_M24_m24_rail_seat_native",
+        "/Game/Weapons/M24/Surface20261027/SM_M24_m24_cheekrest.SM_M24_m24_cheekrest",
+        "/Game/Weapons/M24/Surface20261027/SM_M24_m24_custom_scope_6x.SM_M24_m24_custom_scope_6x"
+      ],
+      "visible_gun_pixels": 1946,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m249",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/M249/SK_M249_V7.SK_M249_V7",
+      "palm_gap_cm": 0.3430530883530609,
+      "hand_to_muzzle_cm": 73.61905340181339,
+      "static_parts": [
+        "/Game/Weapons/M249/Bipod/SM_M249_Bipod_Base.SM_M249_Bipod_Base",
+        "/Game/Weapons/M249/Bipod/SM_M249_Bipod_LegA.SM_M249_Bipod_LegA",
+        "/Game/Weapons/M249/Bipod/SM_M249_Bipod_LegB.SM_M249_Bipod_LegB"
+      ],
+      "visible_gun_pixels": 2313,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m249",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/M249/SK_M249_V7.SK_M249_V7",
+      "palm_gap_cm": 1.2592336066465588,
+      "hand_to_muzzle_cm": 72.43583245921049,
+      "static_parts": [
+        "/Game/Weapons/M249/Bipod/SM_M249_Bipod_Base.SM_M249_Bipod_Base",
+        "/Game/Weapons/M249/Bipod/SM_M249_Bipod_LegA.SM_M249_Bipod_LegA",
+        "/Game/Weapons/M249/Bipod/SM_M249_Bipod_LegB.SM_M249_Bipod_LegB"
+      ],
+      "visible_gun_pixels": 2244,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m4a1",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+      "palm_gap_cm": 0.3430521583473123,
+      "hand_to_muzzle_cm": 57.194140471895935,
+      "static_parts": [
+        "/Game/Weapons/M4FoldingSights/SM_M4_FrontSight.SM_M4_FrontSight",
+        "/Game/Weapons/M4FoldingSights/SM_M4_RearSight.SM_M4_RearSight"
+      ],
+      "visible_gun_pixels": 1204,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m4a1",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+      "palm_gap_cm": 1.2592396361295009,
+      "hand_to_muzzle_cm": 56.05580721181724,
+      "static_parts": [
+        "/Game/Weapons/M4FoldingSights/SM_M4_FrontSight.SM_M4_FrontSight",
+        "/Game/Weapons/M4FoldingSights/SM_M4_RearSight.SM_M4_RearSight"
+      ],
+      "visible_gun_pixels": 1124,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m870",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/M870/Tactical20261015/SK_M870_V7.SK_M870_V7",
+      "palm_gap_cm": 0.555952356341815,
+      "hand_to_muzzle_cm": 77.14183510633355,
+      "static_parts": [],
+      "visible_gun_pixels": 744,
+      "errors": []
+    },
+    {
+      "weapon": "ue_m870",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/M870/Tactical20261015/SK_M870_V7.SK_M870_V7",
+      "palm_gap_cm": 1.8126959462044772,
+      "hand_to_muzzle_cm": 75.87771343189655,
+      "static_parts": [],
+      "visible_gun_pixels": 644,
+      "errors": []
+    },
+    {
+      "weapon": "ue_pit_viper2011",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny.SK_PitViper2011_Manny",
+      "palm_gap_cm": 0.34306061327191123,
+      "hand_to_muzzle_cm": 26.638310148521715,
+      "static_parts": [],
+      "visible_gun_pixels": 194,
+      "errors": []
+    },
+    {
+      "weapon": "ue_pit_viper2011",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny.SK_PitViper2011_Manny",
+      "palm_gap_cm": 1.2592224871757691,
+      "hand_to_muzzle_cm": 25.568737297871614,
+      "static_parts": [],
+      "visible_gun_pixels": 185,
+      "errors": []
+    },
+    {
+      "weapon": "ue_pkm_lowpoly",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular",
+      "palm_gap_cm": 0.3430530883530361,
+      "hand_to_muzzle_cm": 95.96849578532999,
+      "static_parts": [],
+      "visible_gun_pixels": 2472,
+      "errors": []
+    },
+    {
+      "weapon": "ue_pkm_lowpoly",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular",
+      "palm_gap_cm": 1.2592336066465457,
+      "hand_to_muzzle_cm": 94.78285909122967,
+      "static_parts": [],
+      "visible_gun_pixels": 2476,
+      "errors": []
+    },
+    {
+      "weapon": "ue_qbz191",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+      "palm_gap_cm": 0.34305215834731945,
+      "hand_to_muzzle_cm": 62.60271887364468,
+      "static_parts": [
+        "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_FrontSight.SM_QBZ191_FrontSight",
+        "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_RearSight.SM_QBZ191_RearSight"
+      ],
+      "visible_gun_pixels": 1112,
+      "errors": []
+    },
+    {
+      "weapon": "ue_qbz191",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+      "palm_gap_cm": 1.2592396361295144,
+      "hand_to_muzzle_cm": 61.43452578473586,
+      "static_parts": [
+        "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_FrontSight.SM_QBZ191_FrontSight",
+        "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_RearSight.SM_QBZ191_RearSight"
+      ],
+      "visible_gun_pixels": 1045,
+      "errors": []
+    },
+    {
+      "weapon": "ue_rsh12",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/RSH12/Native71520261003/single/SK_RSH12_Manny.SK_RSH12_Manny",
+      "palm_gap_cm": 0.3430487100370846,
+      "hand_to_muzzle_cm": 40.15977679314857,
+      "static_parts": [],
+      "visible_gun_pixels": 419,
+      "errors": []
+    },
+    {
+      "weapon": "ue_rsh12",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/RSH12/Native71520261003/single/SK_RSH12_Manny.SK_RSH12_Manny",
+      "palm_gap_cm": 1.2593268369416226,
+      "hand_to_muzzle_cm": 39.16749038212395,
+      "static_parts": [],
+      "visible_gun_pixels": 392,
+      "errors": []
+    },
+    {
+      "weapon": "ue_saiga12k",
+      "body": "jason",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/Saiga12K/Detail20261018/SK_Saiga12K_Manny.SK_Saiga12K_Manny",
+      "palm_gap_cm": 0.34305215834730785,
+      "hand_to_muzzle_cm": 66.32220766508581,
+      "static_parts": [],
+      "visible_gun_pixels": 1126,
+      "errors": []
+    },
+    {
+      "weapon": "ue_saiga12k",
+      "body": "kaitlin",
+      "accuracy_percent": 20,
+      "mesh": "/Game/Weapons/Saiga12K/Detail20261018/SK_Saiga12K_Manny.SK_Saiga12K_Manny",
+      "palm_gap_cm": 1.2592396361295095,
+      "hand_to_muzzle_cm": 65.14940458680648,
+      "static_parts": [],
+      "visible_gun_pixels": 1068,
+      "errors": []
+    },
+    {
+      "weapon": "ue_super90",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7.SK_Super90_V7",
+      "palm_gap_cm": 0.5559523563417679,
+      "hand_to_muzzle_cm": 76.72388806974317,
+      "static_parts": [],
+      "visible_gun_pixels": 1339,
+      "errors": []
+    },
+    {
+      "weapon": "ue_super90",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7.SK_Super90_V7",
+      "palm_gap_cm": 1.8126959462044845,
+      "hand_to_muzzle_cm": 75.54102467558599,
+      "static_parts": [],
+      "visible_gun_pixels": 1254,
+      "errors": []
+    },
+    {
+      "weapon": "ue_svch",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/SVCH/Replacement20261018/RealSights20261019/SK_SVCH_RealFoldingSights.SK_SVCH_RealFoldingSights",
+      "palm_gap_cm": 0.3430597409501738,
+      "hand_to_muzzle_cm": 95.13968477826603,
+      "static_parts": [
+        "/Game/Weapons/SVCH/Replacement20261018/MagazineSeat20261019/SM_SVCH_Magazine10.SM_SVCH_Magazine10"
+      ],
+      "visible_gun_pixels": 1372,
+      "errors": []
+    },
+    {
+      "weapon": "ue_svch",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/SVCH/Replacement20261018/RealSights20261019/SK_SVCH_RealFoldingSights.SK_SVCH_RealFoldingSights",
+      "palm_gap_cm": 1.259317368132186,
+      "hand_to_muzzle_cm": 93.95598888889849,
+      "static_parts": [
+        "/Game/Weapons/SVCH/Replacement20261018/MagazineSeat20261019/SM_SVCH_Magazine10.SM_SVCH_Magazine10"
+      ],
+      "visible_gun_pixels": 1255,
+      "errors": []
+    },
+    {
+      "weapon": "ue_svd",
+      "body": "jason",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/SVDDragunov20260922/StockAdapter20260923/SK_SVD_ModularStock.SK_SVD_ModularStock",
+      "palm_gap_cm": 0.3430659442661976,
+      "hand_to_muzzle_cm": 95.13972816175885,
+      "static_parts": [],
+      "visible_gun_pixels": 1535,
+      "errors": []
+    },
+    {
+      "weapon": "ue_svd",
+      "body": "kaitlin",
+      "accuracy_percent": 33,
+      "mesh": "/Game/Weapons/SVDDragunov20260922/StockAdapter20260923/SK_SVD_ModularStock.SK_SVD_ModularStock",
+      "palm_gap_cm": 1.2592719308997407,
+      "hand_to_muzzle_cm": 93.95603503026572,
+      "static_parts": [],
+      "visible_gun_pixels": 1466,
+      "errors": []
+    }
+  ]
+}

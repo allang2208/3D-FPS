@@ -1,0 +1,126 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -10,12 +10,15 @@
+ #include "FPSBodySwordMotion.h"
+ #include "FPSBodyWarhammerMotion.h"
+ #include "FPSBodyKukriMotion.h"
++#include "FPSBodySpineBlend.h"
+ #include "FPSBodyStrideTiming.h"
++#include "FPSBodyMeleeTiming.h"
+ #include "../Weapons/RuneSwordUppercutMotion.h"
+ #include "FPSBodyHandAttackMotion.h"
+ #include "FPSBodyHandAttackData.h"
+ #include "FPSBodyStaffCastData.h"
+ #include "FPSBodyRifleMotion.h"
++#include "FPSBodyGunAim.h"
+ #include "FPSBodyPistolMotion.h"
+ #include "FPSBodySinglePistolSource.h"
+ #include "FPSBodyBowMotion.h"
+@@ -230,6 +233,7 @@
+     uint8 LibraryPreserveHands=0;
+     bool bKukriAuthoredStep=false;
+     bool bSingleBladePose=false;
++    FFPSBodySpineBlend BladeSpine;
+     bool bKukriAuthoredDigits=false;
+     bool bHandAttackLibrary=false,bStaffAttackLibrary=false;
+     TArray<FTransform> LastSwordPose,SwordEntryPose;
+@@ -332,9 +336,11 @@
+         Out.Pose=Pose.GetPose();
+         FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Out.Pose);
+         FAnimationRuntime::MirrorPose(Out.Pose,EAxis::X,LoneMirrorBones,LoneMirrorReference);
++        const FQuat NaturalLower=Out.Pose[LoneMirrorChest].GetRotation();
+         Out.Pose[LoneMirrorChest].SetRotation((PelvisRotation.Inverse()*MirroredPelvis*Out.Pose[LoneMirrorChest].GetRotation()).GetNormalized());
+         // The layers below keep working on this component-space copy.
+         Pose.InitPose(Out.Pose);
++        BladeSpine.Distribute(Pose,NaturalLower);
+     }
+     bool bHadRiflePair=false,bHasRifleRest=false;
+     FString RifleRestWeapon;
+@@ -409,6 +415,7 @@
+         bHadStaffCast=false;LastStaffCastPose.Reset();StaffCastEntryPose.Reset();
+         BowNative.CacheBones(C);bHadNativeBow=false;LastNativeBowPose.Reset();NativeBowEntryPose.Reset();NativeBowReferencePose.Reset();
+         Pelvis.Initialize(Bones);Spine.Initialize(Bones);ChestBase.Initialize(Bones);Head.Initialize(Bones);
++        BladeSpine.Initialize(Bones);
+         for(auto& B:Necks)B.Initialize(Bones);bHasHammerHeadRest=false;
+         for(auto& B:Hands)B.Initialize(Bones);for(auto& B:Feet)B.Initialize(Bones);for(auto& B:Toes)B.Initialize(Bones);
+         const auto& Ref=Bones.GetReferenceSkeleton();
+@@ -1719,6 +1726,7 @@
+     FTraversalLayer TraversalLayer;
+     FTraversalPlayback TraversalPlayback;
+     FControls Controls;
++    FFPSBodyGunAimNode GunAim;
+     UAnimSequence* SwordAsset=nullptr;
+     UAnimSequence* HighlandDashStrideAsset=nullptr;
+     float HighlandDashContact=.4f,HighlandDashRelease=.65f;
+@@ -1783,7 +1791,8 @@
+         Controls.BowNative.SetLinkNode(&BowNative);
+         for(int32 Side=0;Side<2;++Side)
+         {Controls.DualShot[Side].SetLinkNode(&DualShot[Side]);Controls.DualShotBase[Side].SetLinkNode(&DualShotBase[Side]);}
+-        TraversalLayer.Base.SetLinkNode(&Controls);TraversalLayer.Authored.SetLinkNode(&Traversal);
++        GunAim.Source.SetLinkNode(&Controls);
++        TraversalLayer.Base.SetLinkNode(&GunAim);TraversalLayer.Authored.SetLinkNode(&Traversal);
+         FurnitureMirror.Source.SetLinkNode(&Furniture);
+         FurnitureBlend.A.SetLinkNode(&TraversalLayer);FurnitureBlend.B.SetLinkNode(&FurnitureMirror);
+         FurnitureFloor.Source.SetLinkNode(&FurnitureBlend);
+@@ -1796,7 +1805,7 @@
+         &DualReady,&DualWalk,&DualJog,&DualSprint,&DualPace,&DualTravel,&DualStance,&DualUpper,
+         &DualShot[0],&DualShot[1],&DualShotBase[0],&DualShotBase[1],&KukriCarryHip,&KukriCarryAim,
+         &SingleSource,&SingleReady,&SingleReload,&SingleShot,&SingleShotBase,
+-        &Air,&AirBlend,&AirHold,&Action,&Upper,&SinglePistolMirror,&Slide,&SlideLayer,&Grip,&Sword,&SwordAlt,&UppercutStride,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&StunPose,&BowNative,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
++        &Air,&AirBlend,&AirHold,&Action,&Upper,&SinglePistolMirror,&Slide,&SlideLayer,&Grip,&Sword,&SwordAlt,&UppercutStride,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&StunPose,&BowNative,&Controls,&GunAim,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
+     virtual void PreUpdate(UAnimInstance* Instance,float Delta) override
+     {
+         FAnimInstanceProxy::PreUpdate(Instance,Delta);
+@@ -2070,9 +2079,34 @@
+         {
+             // The same pitch/yaw drives idle and every walk direction. Read
+             // actor/component transforms here, never from the worker-thread IK.
+-            const float Pitch=FMath::Clamp(D->BodyState.AimPitch-12.f*(1.f-D->AimAlpha),-80.f,80.f);
++            const float Pitch=FMath::Clamp(D->BodyState.AimPitch,-85.f,85.f);
+             const float Yaw=Instance->GetOwningActor()->GetActorRotation().Yaw+D->BodyState.AimYaw;
+             Controls.RifleAimDirection=Mesh->GetComponentTransform().InverseTransformVectorNoScale(FRotator(Pitch,Yaw,0.f).Vector());
++            GunAim.Direction=Controls.RifleAimDirection;
++            GunAim.bUseTarget=D->bHasGunAimTarget;
++            GunAim.Target=Mesh->GetComponentTransform().InverseTransformPosition(D->GunAimTarget);
++        }
++        const auto& GunState=D->BodyState;
++        GunAim.bPaired=!GunState.bDual&&(GunState.Family==TEXT("Rifle")||
++            FPSBodyPistolMotion::IsRightSingle(GunState)||FPSBodyPistolMotion::HasRightSupport(GunState));
++        const bool GunReady=!FPSBodyPoses::Traversing(GunState.Motion)&&!GunState.bSprinting&&
++            GunState.Action!=EFPSBodyAction::Dead&&!D->Reactions.bStunned&&D->KnockdownWeight<.01f;
++        for(int32 Side=0;Side<2;++Side)
++        {
++            GunAim.Guns[Side]=D->GunAimFrames[Side];
++            const auto& Hand=Side==0?GunState.RightHand:GunState.LeftHand;
++            // The other pistol may still aim while its partner reloads. Paired
++            // grips yield the entire upper body to reload/cast/interaction takes.
++            const bool HandReady=GunAim.bPaired?GunState.Action==EFPSBodyAction::None&&
++                !Hand.bReloading&&!Hand.bEquipping:
++                FPSBodyPistolMotion::HandChannel(GunState,Side)==TEXT("PistolCarry")&&
++                !FPSBodyPistolMotion::UsesRelativeAction(GunState,Side)&&
++                !(Side==0&&(GunState.Action==EFPSBodyAction::Reload||GunState.Action==EFPSBodyAction::ReloadEmpty||
++                    GunState.Action==EFPSBodyAction::Equip||GunState.Action==EFPSBodyAction::Inspect||
++                    GunState.Action==EFPSBodyAction::GunBash));
++            GunAim.Enabled[Side]=GunReady&&HandReady&&!(GunState.ConsumeHands&(1<<Side));
++            const float ShotAt=Side==0?GunState.LastShotAt:GunState.LeftHand.LastShotAt;
++            GunAim.Recoil[Side]=1.5f*FMath::Clamp(1.f-(D->Clock-ShotAt)/.14f,0.f,1.f);
+         }
+         Controls.EquipmentFingers=D->EquipmentFingers;Controls.EquipmentGripHands=D->EquipmentGripHands;
+         if(D->BodyState.Family!=TEXT("Rifle")&&D->BodyState.Family!=TEXT("Pistol")&&D->BodyState.Family!=TEXT("Staff")&&D->BodyState.Family!=TEXT("Bow")&&D->BodyState.Family!=TEXT("Tool")&&D->BodyState.Family!=TEXT("Melee")&&D->BodyState.Family!=TEXT("Kukri")&&!D->BodyState.bOffhandPistol)Controls.EquipmentGripHands=0;
+@@ -2218,14 +2252,8 @@
+             else if(S.Action==EFPSBodyAction::Guard)Sample=P*.35f;
+             else if(S.Action!=EFPSBodyAction::GuardHit&&S.Action!=EFPSBodyAction::GuardBreak)
+             {
+-                const float Hit=FMath::Clamp(S.ContactFraction,.01f,.98f);
+-                const float Release=FMath::Clamp(S.ReleaseFraction,Hit+.001f,.99f);
+-                const float Entry=FMath::Clamp(S.ActionEntryFraction,0.f,Hit-.001f);
+-                const float ContactPose=SwordContact;
+-                const float ReleasePose=SwordRelease;
+-                Sample=P<=Hit?FMath::Lerp(0.f,ContactPose,FMath::Clamp((P-Entry)/(Hit-Entry),0.f,1.f)):
+-                    P<=Release?FMath::Lerp(ContactPose,ReleasePose,(P-Hit)/(Release-Hit)):
+-                    FMath::Lerp(ReleasePose,1.f,(P-Release)/(1.f-Release));
++                Sample=FPSBodyMeleeTiming::ContactSample(P,S.ContactFraction,S.ReleaseFraction,
++                    S.ActionEntryFraction,SwordContact,SwordRelease);
+             }
+             Set(Sword,SwordAsset,Sample*SwordAsset->GetPlayLength(),HammerCarry||(KukriCarry&&!KukriRun));
+             // Mixed pair stage 3: the complementary take on the same source phase (both 2.05 s).

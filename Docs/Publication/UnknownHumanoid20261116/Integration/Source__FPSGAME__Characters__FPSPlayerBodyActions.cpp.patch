@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -101,9 +101,10 @@
+     // GetBaseAimRotation reads that observer camera cache; using it here turns
+     // the gun and both wrists behind the torso when the character turns around.
+     // Keep the world body on the gameplay eye, as ApplyInteractionView does.
+-    const FRotator Aim=IsThirdPersonViewEnabled()&&Pawn->FirstPersonCamera
++    const FRotator Aim=Pawn->HasInventoryWeapon()&&Pawn->FirstPersonCamera
++        ?Pawn->ComputeWeaponAimDirection().Rotation():IsThirdPersonViewEnabled()&&Pawn->FirstPersonCamera
+         ?Pawn->FirstPersonCamera->GetComponentRotation():Pawn->GetBaseAimRotation();
+-    State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Aim.Pitch));
++    State.AimPitch=FRotator::NormalizeAxis(Aim.Pitch);
+     State.AimYaw=FRotator::NormalizeAxis(Aim.Yaw-Pawn->GetActorRotation().Yaw);
+     State.LastShotAt=Pawn->LastShotWorldTime>=0.?Now-(LocalNow-Pawn->LastShotWorldTime):-100.f;
+     if(Pawn->HasInventoryWeapon())
+@@ -613,7 +614,7 @@
+     // Engine client-camera RPCs are movement-gated, so looking around while
+     // stationary can leave that cache stale. CMC owns the current control aim.
+     const FRotator Aim=Pawn->GetController()?Pawn->GetControlRotation():Pawn->GetBaseAimRotation();
+-    State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Aim.Pitch));
++    State.AimPitch=FRotator::NormalizeAxis(Aim.Pitch);
+     State.AimYaw=FRotator::NormalizeAxis(Aim.Yaw-Pawn->GetActorRotation().Yaw);
+     // 开火戳：服务端已接受的命中时刻 / 客户端开火上报（unreliable，偶发丢包只影响枪响姿势）。
+     if(const auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())
+@@ -630,6 +631,7 @@
+         {
+         State.Contacts=R.Contacts;
+         State.Lasers=R.Lasers;
++        State.GunAimTarget=R.GunAimTarget;State.bHasGunAimTarget=R.bHasGunAimTarget;
+         State.Action=R.Action;State.ActionVariant=R.ActionVariant;
+         State.ActionStartedAt=R.ActionStartedAt;State.ActionDuration=R.ActionDuration;State.ActionEntryFraction=R.ActionEntryFraction;
+         State.bHasActionProgress=R.bHasActionProgress;State.ActionProgress=R.ActionProgress;

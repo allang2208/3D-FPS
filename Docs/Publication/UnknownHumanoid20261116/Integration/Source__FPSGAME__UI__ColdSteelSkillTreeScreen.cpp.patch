@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/UI/ColdSteelSkillTreeScreen.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSkillTreeScreen.cpp
+@@ -164,7 +164,7 @@
+     if(SpecPreview && bSpec) SpecPreview->SetContent(BuildSpecPreview());
+     // The wheel panel is built once; its UMG wheel repaints itself from the model.
+     if(DetailHost && !bWheelOpen) DetailHost->SetContent(bSpec ? BuildSpecDetail() : BuildSkillDetail());
+-    for(auto* QuickSlot : StripSlots) if(QuickSlot) QuickSlot->Refresh();
++    for(const auto& QuickSlot : StripSlots) if(QuickSlot) QuickSlot->Refresh();
+ }
+ void UColdSteelSkillTreeScreen::OpenSpec(FName Skill)
+ {
+@@ -342,7 +342,7 @@
+                 [SNew(SDPIScaler).DPIScale_Lambda([this] { return FMath::Max(.1f, PixelScale(this)); })[StripSlots[I]->TakeWidget()]]]
+         ];
+     }
+-    Row->AddSlot().AutoWidth().VAlign(VAlign_Center).Padding(16, 0, 0, 0)[Label(TEXT("拖入卡片绑定 · 格间拖动交换 · 右键清除"), 12, TextTertiary)];
++    Row->AddSlot().AutoWidth().VAlign(VAlign_Center).Padding(16, 0, 0, 0)[Label(TEXT("拖入卡片绑定 · 格间拖动交换 · 拖出或右键清除"), 12, TextTertiary)];
+     return SNew(SVerticalBox)
+         + SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride(1)[SNew(SBorder).BorderImage(White).BorderBackgroundColor(Border)]]
+         + SVerticalBox::Slot().AutoHeight()[SNew(SBorder).BorderImage(White).BorderBackgroundColor(Gray(18, 235)).Padding(FMargin(16, 8)).HAlign(HAlign_Center)[Row]];
+@@ -421,6 +421,16 @@
+     { const FName Id = PendingDrag; PendingDrag = NAME_None; Select(Id); return FReply::Handled().ReleaseMouseCapture(); }
+     return Super::NativeOnMouseButtonUp(Geometry, Event);
+ }
++// Same rule as the HUD hotbar (ColdSteelHotbarDrag.cpp NativeOnDrop): a quick-drag released outside every
++// slot clears its source slot (card drags have no source and just end); over the open wheel panel it cancels.
++bool UColdSteelSkillTreeScreen::NativeOnDrop(const FGeometry& Geometry, const FDragDropEvent& Event, UDragDropOperation* Operation)
++{
++    auto* Quick = Cast<UColdSteelQuickDrag>(Operation);
++    if(!Quick || !HUD.IsValid()) return Super::NativeOnDrop(Geometry, Event, Operation);
++    if(bWheelOpen && DetailHost && DetailHost->GetTickSpaceGeometry().IsUnderLocation(Event.GetScreenSpacePosition()))
++        return HUD->DropMagicDrag(Quick, INDEX_NONE);
++    return HUD->DropQuickDrag(Quick, INDEX_NONE);
++}
+ void UColdSteelSkillTreeScreen::NativeOnDragDetected(const FGeometry& Geometry, const FPointerEvent& Event, UDragDropOperation*& Out)
+ {
+     const FName Id = PendingDrag; PendingDrag = NAME_None;

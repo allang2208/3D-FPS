@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/M66SlamWave.cpp
++++ b/Source/FPSGAME/Monsters/M66SlamWave.cpp
+@@ -1,4 +1,5 @@
+ #include "M66SlamWave.h"
++#include "MonsterDamageBalance.h"
+ #include "M66IncineratorMonster.h"
+ #include "MonsterCombatComponent.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -36,7 +37,7 @@
+ }
+ void AM66SlamWave::Setup(float InDamage,float Radius,float Seconds,float Stun,UMaterialInterface* Material,double StartedAt)
+ {
+-    Damage=FMath::Max(0.f,InDamage);StunSeconds=FMath::Max(0.f,Stun);
++    Damage=MonsterDamageBalance::Limit(InDamage,105.f);StunSeconds=FMath::Max(0.f,Stun);
+     Wave.Radius=FMath::Max(20.f,Radius);Wave.Seconds=FMath::Max(.1f,Seconds);
+     Wave.StartedAt=StartedAt;Wave.Material=Material;Wave.Ready=true;
+ }

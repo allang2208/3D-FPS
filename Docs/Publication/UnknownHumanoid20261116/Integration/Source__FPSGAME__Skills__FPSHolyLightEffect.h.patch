@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Skills/FPSHolyLightEffect.h
++++ b/Source/FPSGAME/Skills/FPSHolyLightEffect.h
+@@ -20,6 +20,7 @@
+     virtual void Tick(float Delta) override;
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ private:
++    friend struct FUnknownNetworkAuditAccess;
+     UPROPERTY() TObjectPtr<USplineComponent> Path;
+     UPROPERTY() TObjectPtr<UDynamicMeshComponent> Beam;
+     UPROPERTY() TObjectPtr<UDynamicMeshComponent> Core;
+@@ -33,6 +34,7 @@
+     // ── 联机复制态 ──
+     UPROPERTY(Replicated) TObjectPtr<AActor> NetTarget;
+     UPROPERTY(Replicated) FHolyLightCast NetSpell;
++    UPROPERTY(Replicated) double NetStartedAt=-1.;
+     bool bNetInit=false;
+     void NetInit();
+ };

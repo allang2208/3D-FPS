@@ -1,0 +1,57 @@
+--- a/Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp
++++ b/Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSBallisticsComponent.h"
++#include "../Monsters/UnknownHumanoid.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "WeaponDamageFalloff.h"
+ #include "../Skills/ColdSteelSkillRules.h"
+@@ -79,7 +80,7 @@
+ {
+     Super::TickComponent(Delta,Type,Fn);
+     const double Now=GetWorld()->GetTimeSeconds();
+-    const auto* Pawn=Cast<APawn>(GetOwner());
++    auto* Unknown=Cast<AUnknownHumanoid>(GetOwner());
+     auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>();
+     auto* ShatterFX=GetWorld()->GetSubsystem<UFPSShatterFXSubsystem>();
+     for(int32 I=Rounds.Num()-1;I>=0;--I)
+@@ -95,7 +96,8 @@
+         FCollisionQueryParams Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;Params.bReturnFaceIndex=true;
+         for(const auto& A:R.HitActors)if(A.IsValid())Params.AddIgnoredActor(A.Get());
+         bool Stopped=false;
+-        while(RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,R.Position,End,ECC_Visibility,Params))
++        while(Unknown ? RangedAttackQuery::TraceToPlayer(GetWorld(),Unknown,Hit,R.Position,End,0.f,Params) :
++            RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,R.Position,End,ECC_Visibility,Params))
+         {
+             // Each shatter child belongs to one selected enemy. Other bodies,
+             // including allies and corpses, neither take its damage nor steal it.
+@@ -111,7 +113,7 @@
+                 // Network hit reports require the launch origin, not the last
+                 // frame's short sweep segment, to reproduce full-range falloff.
+                 Hit.TraceStart=R.LaunchOrigin;
+-                const float Applied = ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
++                const float Applied = Unknown ? Unknown->HitWithRound(Hit,HitDamage,R.Direction,R.Training.CriticalRoll) : ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
+                 if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner()))
+                 {
+                     Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true,false);
+@@ -124,8 +126,8 @@
+                         }
+                 }
+             }
+-            if(!R.bCosmeticOnly)ColdSteelCombat::OnHit(Hit,GetOwner(),R.Poison);
+-            if(RoundFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))RoundFX->OnImpact(Hit);
++            if(!Unknown&&!R.bCosmeticOnly)ColdSteelCombat::OnHit(Hit,GetOwner(),R.Poison);
++            if(!Unknown&&RoundFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))RoundFX->OnImpact(Hit);
+             if(R.Training.bRicochet&&ShatterFX)
+                 ShatterFX->Burst(Hit.ImpactPoint,Hit.ImpactNormal,EShatterBurst::Arrival);
+             if(!R.bCosmeticOnly&&!R.Training.bRicochet&&HeadshotSound&&ColdSteelSkills::IsCriticalHit(Hit))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);
+@@ -139,7 +141,8 @@
+         {
+             if(ShatterFX)ShatterFX->Trace(this,R.Id,Start,Reached,Stopped||R.Remaining<=Distance);
+         }
+-        else if(RoundFX&&R.bShowTracer)RoundFX->OnTracerSegment(R.Id,Start,Reached,R.bConverged);
++        else if(RoundFX&&R.bShowTracer)
++            RoundFX->OnTracerSegment(R.Id,Start,Reached,R.bConverged,Unknown?&R.TracerMuzzle:nullptr);
+         if(Stopped){Rounds.RemoveAtSwap(I);continue;}
+         R.Position=End;R.Remaining-=Distance;R.TraveledCM+=Distance;
+         if(R.Remaining<=KINDA_SMALL_NUMBER)Rounds.RemoveAtSwap(I);

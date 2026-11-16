@@ -82,3 +82,7 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 ## 动物掉落队列与离场保存
 
 处理合批掉落、换图或正常退出时，读 [待提交动物掉落](references/pending-wildlife-loot.md)，不要只保存已生成的拾取物。
+
+## 类玩家敌人的生命与结算
+
+未知的客机受伤、迟到攻击、死亡重生、晚加入和换图清理，读取 [类玩家怪物的伤害与生命周期](references/unknown-combat-lifecycle.md)。
