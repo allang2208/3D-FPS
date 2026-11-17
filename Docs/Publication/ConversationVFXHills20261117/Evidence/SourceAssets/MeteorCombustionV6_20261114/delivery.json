@@ -1,0 +1,33 @@
+{
+  "finished_at": "2026-11-14T12:10:55.1314728+08:00",
+  "visual_tested": false,
+  "runtime_tested": false,
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/T_MeteorImpactFields.T_MeteorImpactFields",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/T_MeteorWakeFields.T_MeteorWakeFields",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorBurstV6.M_MeteorBurstV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorAfterSmokeV6.M_MeteorAfterSmokeV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorSheathV6.M_MeteorSheathV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorWakeSmokeV6.M_MeteorWakeSmokeV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorCollisionV6.NS_MeteorCollisionV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorSheathV6.NS_MeteorSheathV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorSlipstreamV6.NS_MeteorSlipstreamV6"
+  ],
+  "protected": [
+    "rock",
+    "V4 low ground fire",
+    "gameplay values",
+    "sound",
+    "camera",
+    "scorch"
+  ],
+  "exit_code": 0,
+  "game_started": false,
+  "performance_measured": false,
+  "console_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeteorCombustionV6_20261114\\native-build-console-20261114-120937.log",
+  "source_production": "Original offline Mantaflow impact and wake; no AI video used",
+  "started_at": "2026-11-14T12:09:37.2916472+08:00",
+  "interactive_editor_opened": false,
+  "status": "assets_saved_integrated_game_and_editor_built",
+  "native_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeteorCombustionV6_20261114\\native-build-20261114-120937.log"
+}

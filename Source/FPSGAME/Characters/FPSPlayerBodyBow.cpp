@@ -360,11 +360,17 @@ void UFPSPlayerBodyComponent::UpdateBowVisibility(bool HideOwner)
     {
         const bool Hidden=Stowed||FPSPlayerBodyWorldBodyHidden();
         if(Part->bHiddenInGame!=Hidden)Part->SetHiddenInGame(Hidden,true);
-        TArray<USceneComponent*> Children;Part->GetChildrenComponents(true,Children);
+        // Each slot owns its direct render pieces. The riser also parents the
+        // other slots, whose arrow/string visibility must not be overridden here.
+        TArray<USceneComponent*> Children;Part->GetChildrenComponents(false,Children);
         for(auto* Child:Children)if(auto* Primitive=Cast<UPrimitiveComponent>(Child))
         {
             FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,false,HideOwner);
-            FPSBodyEquipment::ApplyShadowFlags(Primitive,ShouldWorldBodyCastShadow()&&!Stowed&&Part->IsPartVisible());
+            // A skeletal string hides its unused, unscaled fallback cylinders.
+            // Hidden-shadow must only hide the world bow from the owner's view,
+            // never restore shadow geometry disabled by the part itself.
+            const bool CastPartShadow=ShouldWorldBodyCastShadow()&&!Stowed&&Part->IsPartVisible()&&Primitive->IsVisible();
+            FPSBodyEquipment::ApplyShadowFlags(Primitive,CastPartShadow);
         }
     }
 }

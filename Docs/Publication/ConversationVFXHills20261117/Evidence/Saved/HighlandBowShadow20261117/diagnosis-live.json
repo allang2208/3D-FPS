@@ -1,0 +1,86 @@
+{
+  "pie_running": true,
+  "readonly": true,
+  "components": [
+    {
+      "name": "StaticMeshComponent_3",
+      "parent": null,
+      "visible": false,
+      "hidden_in_game": false,
+      "cast_shadow": false,
+      "cast_hidden_shadow": false,
+      "owner_no_see": false,
+      "scale": "<Struct 'Vector' (0x00000290E9772220) {x: 1.000000, y: 1.000000, z: 1.000000}>"
+    },
+    {
+      "name": "StaticMeshComponent_4",
+      "parent": null,
+      "visible": false,
+      "hidden_in_game": false,
+      "cast_shadow": false,
+      "cast_hidden_shadow": false,
+      "owner_no_see": false,
+      "scale": "<Struct 'Vector' (0x00000290E97721D0) {x: 1.000000, y: 1.000000, z: 1.000000}>"
+    },
+    {
+      "name": "stringRod0_0",
+      "parent": "BowPart_string",
+      "visible": false,
+      "hidden_in_game": false,
+      "cast_shadow": false,
+      "cast_hidden_shadow": false,
+      "owner_no_see": false,
+      "scale": "<Struct 'Vector' (0x00000290E97721D0) {x: 1.000000, y: 1.000000, z: 1.000000}>"
+    },
+    {
+      "name": "stringRod1_0",
+      "parent": "BowPart_string",
+      "visible": false,
+      "hidden_in_game": false,
+      "cast_shadow": false,
+      "cast_hidden_shadow": false,
+      "owner_no_see": false,
+      "scale": "<Struct 'Vector' (0x00000290E97721D0) {x: 1.000000, y: 1.000000, z: 1.000000}>"
+    },
+    {
+      "name": "arrowRod0_0",
+      "parent": "BowPart_arrow",
+      "visible": false,
+      "hidden_in_game": false,
+      "cast_shadow": false,
+      "cast_hidden_shadow": false,
+      "owner_no_see": false,
+      "scale": "<Struct 'Vector' (0x00000290E97721D0) {x: 1.000000, y: 1.000000, z: 1.000000}>"
+    },
+    {
+      "name": "Upper_0",
+      "parent": "BowPartComponent_2",
+      "visible": false,
+      "hidden_in_game": false,
+      "cast_shadow": true,
+      "cast_hidden_shadow": true,
+      "owner_no_see": true,
+      "scale": "<Struct 'Vector' (0x00000290E97722C0) {x: 1.000000, y: 1.000000, z: 1.000000}>"
+    },
+    {
+      "name": "Lower_0",
+      "parent": "BowPartComponent_2",
+      "visible": false,
+      "hidden_in_game": false,
+      "cast_shadow": true,
+      "cast_hidden_shadow": true,
+      "owner_no_see": true,
+      "scale": "<Struct 'Vector' (0x00000290E9772310) {x: 1.000000, y: 1.000000, z: 1.000000}>"
+    },
+    {
+      "name": "Arrow_0",
+      "parent": "BowPartComponent_6",
+      "visible": false,
+      "hidden_in_game": false,
+      "cast_shadow": false,
+      "cast_hidden_shadow": false,
+      "owner_no_see": true,
+      "scale": "<Struct 'Vector' (0x00000290E9772360) {x: 1.000000, y: 1.000000, z: 1.000000}>"
+    }
+  ]
+}

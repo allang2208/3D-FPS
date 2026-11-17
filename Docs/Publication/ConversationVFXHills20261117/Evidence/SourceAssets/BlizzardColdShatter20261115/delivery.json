@@ -1,0 +1,15 @@
+{
+  "native_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlizzardColdShatter20261115\\native-build.log",
+  "exit_code": 0,
+  "rendered": false,
+  "editor_ui_started": false,
+  "game_started": false,
+  "tested": false,
+  "shatter_components_per_zone": 3,
+  "fragment_slots_per_zone": 24,
+  "saved_assets": [
+    "/Game/Skills/Blizzard/IndoorV5/MI_BlizzardColdMist.MI_BlizzardColdMist",
+    "/Game/Skills/Blizzard/IndoorV5/NS_BlizzardBoundaryMist.NS_BlizzardBoundaryMist"
+  ],
+  "runtime_change": "Blizzard room-aware cold mist and pooled original IceSpike shatter with spinning ISM chips"
+}

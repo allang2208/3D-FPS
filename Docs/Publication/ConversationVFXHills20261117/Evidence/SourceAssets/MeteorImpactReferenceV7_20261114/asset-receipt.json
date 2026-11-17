@@ -1,0 +1,37 @@
+{
+  "complete": true,
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/T_MeteorPressureFieldsV7.T_MeteorPressureFieldsV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_PressureCombustionV7.M_PressureCombustionV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_PressureAfterSmokeV7.M_PressureAfterSmokeV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_ContactFlashV7.M_ContactFlashV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_PressureRaysV7.M_PressureRaysV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_GroundPressureV7.M_GroundPressureV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_HotEjectaV7.M_HotEjectaV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7"
+  ],
+  "impact_system": "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7",
+  "max_particles": 61,
+  "smoke_budget": 16,
+  "new_runtime_fluid_grids": 0,
+  "new_lights": 0,
+  "reference": "BV1ZEWj6qE8S / peHi4w1SKEA",
+  "reference_times_seconds": [
+    231,
+    232,
+    444.7,
+    445.5
+  ],
+  "preserved": [
+    "rock and existing fragments",
+    "V6 flight",
+    "V4 low ground fire",
+    "damage and timing",
+    "sound",
+    "camera",
+    "scorch"
+  ],
+  "rendered": false,
+  "runtime_tested": false,
+  "visual_match_claimed": false
+}

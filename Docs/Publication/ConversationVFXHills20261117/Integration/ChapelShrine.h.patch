@@ -1,0 +1,16 @@
+diff --git a/Source/FPSGAME/WorldGeneration/ChapelShrine.h b/Source/FPSGAME/WorldGeneration/ChapelShrine.h
+--- a/Source/FPSGAME/WorldGeneration/ChapelShrine.h
++++ b/Source/FPSGAME/WorldGeneration/ChapelShrine.h
+@@ -27,4 +27,6 @@ public:
+     void SetRaidNight(bool Night,float Maximum);
+     virtual FVector GetNavAgentLocation() const override;
++    /** Actual near surface of the shrine's blocking pedestal, shared by raid travel and melee. */
++    FVector GetRaidTargetPoint(const FVector& From) const;
+     virtual float TakeDamage(float Damage,const FDamageEvent& Event,AController* Instigator,AActor* Causer) override;
+ protected:
+@@ -33,4 +35,5 @@ protected:
+ private:
+     UPROPERTY() TObjectPtr<class UStaticMeshComponent> Statue;
++    UPROPERTY() TObjectPtr<class UStaticMeshComponent> RaidPedestal;
+     UPROPERTY() TObjectPtr<class UCapsuleComponent> Body;
+     UFUNCTION() void OnRep_Identity();

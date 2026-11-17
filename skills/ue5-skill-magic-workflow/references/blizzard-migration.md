@@ -1,5 +1,9 @@
 # 暴风雪迁移
 
+## B 版区域乌云恢复（2026-11-15 当前选择）
+
+用户查看四版本 GIF 后选定 B：ChargedV3。正式区域乌云通过 `AFPSBlizzardZone::ZoneAssetPaths()[0]` 直接使用 `/Game/Skills/Blizzard/ChargedV3/NS_BlizzardStormCloud.NS_BlizzardStormCloud`，该表同时服务施放、远端自载和后台预加载。地面寒气、冰锥碎裂、近手凝聚云及玩法数值保持现状；不重跑旧整套作者覆盖其他效果。此条替代下文区域乌云仍使用 RollingV1 的历史表述，其余运行逻辑继续沿用。说明见 `Docs/Skills/blizzard-charged-cloud-restore-20261115.md`，构建状态见 `Saved/BlizzardChargedCloudRestore20261115/delivery.json`；本轮未打开 UE、未主动测试。
+
 ## 法杖限定高级魔法（2026-10-14 当前规则）
 
 用户指定暴风雪是必须当前装备法杖才能释放的高级魔法。配置 `blizzard.requiresStaff=true`，原生默认值同为 true；卡片分类、简介、详情和快捷槽“需要法杖”提示同步。排队、凝聚、持有和接触释放沿用当前装备校验，释放请求发出前切走法杖取消并退还实际付款；已发出的联机释放由权威回执完成提交或退款，已释放区域继续运行。伤害、消耗、冷却、成长、修炼和特效不改。记录见 `Docs/Skills/blizzard-staff-required-20261014.md`。下文 `requiresStaff=false`／不限定法杖仅描述此前历史，本条优先；未进行游戏或联机测试。
@@ -53,3 +57,9 @@
 性能：局部对象碰撞查询 + 椭圆/高度/遮挡筛选，不扫描全世界；当前 ChargedV3 为 3 个 Niagara、7 个 ISM，共 48 个坠冰/碎冰槽，最多 4 个区域，共享风/装饰几何/细节预算，异步预载。资产 `/Game/Skills/Blizzard`。原迁移作者为 `Tools/Skills/build_blizzard_assets.py` 与后台 Blender几何制作脚本，新视觉作者见上文。后台资产保存及构建不等于测试；实机由用户自测。
 
 冰墙／暴风雪新版图标与暴风雪拖拽入口补齐见 Docs/UI/ice-skill-icons-and-blizzard-drag-20260930.md。新技能必须同时接入技能卡片按下的 DetectDrag 名单和拖影刷子，并沿 StartQuickDrag/DropQuickDrag 的共享绑定与存档链路。新版图源 SourceAssets/IceSkillIcons20260930，恢复脚本同步；不回退旧金边或程序卡通图。未进行实机测试。
+
+## 寒气、碎裂及选择版本的维护（2026-11-17）
+
+区域云与近手云分开恢复：当前清单索引 0 为用户选择的 B / ChargedV3 区域云，索引 11 保留 RollingV1 近手云；施法预载与远端区域共用 ZoneAssetPaths，不维护另一份旧清单。候选对比应固定各候选资产路径，避免更改生产清单后把不同标签都拍成同一个版本。
+
+寒气先在椭圆内连续散布，再查房间单元净空；不要把房间格点直接当粒子出生点。冰锥碎裂复用 IceSpike/P_IceSpikeImpact，以有界组件池和已有触地限流触发，仅作装饰，不增加伤害拍。区域表现不依赖远端施法者 Pawn 已相关，具体原则见 C++ 技能的联机生命周期参考。最终源码和资产路径以当前工程及保存回执为准。

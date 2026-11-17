@@ -1,0 +1,67 @@
+diff --git a/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp b/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp
+--- a/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp
+@@ -7,4 +7,9 @@
+ #include "UObject/Package.h"
+ #include "NavMesh/NavMeshBoundsVolume.h"
++#include "NavigationData.h"
++#include "ChapelShrine.h"
++#include "HillsNightPortal.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "GameFramework/Pawn.h"
+ #if WITH_EDITOR
+ #include "Builders/CubeBuilder.h"
+@@ -23,4 +28,46 @@ UHillsNavigationSystem::UHillsNavigationSystem(const FObjectInitializer& Initial
+ }
+ 
++void UHillsNavigationSystem::OnWorldInitDone(FNavigationSystemRunMode Mode)
++{
++    // Old saved Hills maps only enabled agents 0/1 on this bounds volume.
++    // Repair before Super gathers bounds and creates dynamic navigation data;
++    // this also reaches existing cooked maps without an editor resave.
++    for(TActorIterator<ANavMeshBoundsVolume> It(GetWorld());It;++It)
++        if(It->ActorHasTag(TEXT("HillsNightRaidNavigation")))
++        {
++            It->SupportedAgents=FNavAgentSelector();
++            It->SupportedAgents.MarkInitialized();
++        }
++    Super::OnWorldInitDone(Mode);
++}
++
++void UHillsNavigationSystem::RegisterInvoker(AActor& Invoker,float GenerationRadius,float RemovalRadius,
++    const FNavAgentSelector& Agents,ENavigationInvokerPriority Priority)
++{
++    FNavAgentSelector Selected=Agents;
++    if(Invoker.IsA<AChapelShrine>()||Invoker.IsA<AHillsNightPortal>())
++    {
++        // The 140-150 m raid pins still serve only the original raid bodies.
++        // Enabling large agents must not multiply every village's tile workload.
++        Selected.Empty();
++        for(int32 Index:{0,1})if(Agents.Contains(Index))Selected.Set(Index);
++    }
++    else if(const auto* Pawn=Cast<APawn>(&Invoker);Pawn&&Pawn->FindComponentByClass<UMonsterCombatComponent>())
++    {
++        // Prefer the configured profile even before its dynamic data registers;
++        // GetNavDataForProps can temporarily return a smaller fallback mesh.
++        int32 Index=GetSupportedAgentIndex(Pawn->GetNavAgentPropertiesRef());
++        if(Index==INDEX_NONE)
++            if(const auto* Data=GetNavDataForProps(Pawn->GetNavAgentPropertiesRef(),Pawn->GetNavAgentLocation()))
++                Index=GetSupportedAgentIndex(Data);
++        if(Index!=INDEX_NONE)
++        {Selected.Empty();if(Agents.Contains(Index))Selected.Set(Index);}
++    }
++    // Player invokers retain all profiles so an F6 spawn can find its own tiles
++    // before the new monster exists. Monsters then maintain their own profile.
++    Selected.MarkInitialized();
++    Super::RegisterInvoker(Invoker,GenerationRadius,RemovalRadius,Selected,Priority);
++}
++
+ bool UHillsNavigationSystem::InstallOnMap(UObject* Context)
+ {
+@@ -42,5 +89,5 @@ bool UHillsNavigationSystem::InstallOnMap(UObject* Context)
+     if(!Bounds)return false;
+     Bounds->Tags.AddUnique(TEXT("HillsNightRaidNavigation"));Bounds->SetActorLabel(TEXT("Hills_NightRaid_Navigation"));
+-    Bounds->SupportedAgents.Empty();Bounds->SupportedAgents.Set(0);Bounds->SupportedAgents.Set(1);Bounds->SupportedAgents.MarkInitialized();
++    Bounds->SupportedAgents=FNavAgentSelector();Bounds->SupportedAgents.MarkInitialized();
+     if(!Bounds->Brush)
+     {

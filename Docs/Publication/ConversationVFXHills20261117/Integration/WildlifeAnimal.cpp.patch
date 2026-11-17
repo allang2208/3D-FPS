@@ -1,0 +1,35 @@
+diff --git a/Source/FPSGAME/Monsters/WildlifeAnimal.cpp b/Source/FPSGAME/Monsters/WildlifeAnimal.cpp
+--- a/Source/FPSGAME/Monsters/WildlifeAnimal.cpp
++++ b/Source/FPSGAME/Monsters/WildlifeAnimal.cpp
+@@ -33,4 +33,16 @@
+ namespace
+ {
++    bool WildlifeMeleeClear(const ACharacter& Animal,const APawn& Victim,float Reach)
++    {
++        const FVector Offset=Victim.GetActorLocation()-Animal.GetActorLocation();
++        const float VerticalGap=FMath::Max(0.f,FMath::Abs(float(Offset.Z))
++            -Animal.GetSimpleCollisionHalfHeight()-Victim.GetSimpleCollisionHalfHeight());
++        // Same horizontal reach on level ground; separated capsules on ledges
++        // must also fit inside that reach, rather than ignoring height entirely.
++        if(Offset.SizeSquared2D()+FMath::Square(VerticalGap)>FMath::Square(Reach))return false;
++        FCollisionQueryParams Query(SCENE_QUERY_STAT(WildlifeMeleeSight),false,&Animal);
++        Query.AddIgnoredActor(&Victim);
++        return !Animal.GetWorld()->LineTraceTestByChannel(Animal.GetActorLocation(),Victim.GetActorLocation(),ECC_Visibility,Query);
++    }
+     float Num(const TSharedPtr<FJsonObject>& O, const TCHAR* K, float D)
+     {
+@@ -728,5 +740,6 @@ bool AColdSteelAnimal::BlockedTooLong(float DeltaSeconds)
+ void AColdSteelAnimal::StartAttack(APawn* Victim)
+ {
+-    if (!Row->Attack.Damaging() || AttackCooldownLeft > 0.f) return;
++    if (!Row->Attack.Damaging() || AttackCooldownLeft > 0.f || !IsValid(Victim)
++        || !WildlifeMeleeClear(*this,*Victim,Row->Attack.Range * 1.2f)) return;
+     Target = Victim;
+     AttackCooldownLeft = Row->Attack.Cooldown;
+@@ -746,5 +759,5 @@ void AColdSteelAnimal::TryContact()
+     if (Vitals && Vitals->IsDead()) return;
+     const FVector Offset = Victim->GetActorLocation() - GetActorLocation();
+-    if (Offset.Size2D() > Row->Attack.Range * 1.2f) return;
++    if (!WildlifeMeleeClear(*this,*Victim,Row->Attack.Range * 1.2f)) return;
+     if (FVector::DotProduct(GetActorForwardVector(), Offset.GetSafeNormal2D()) < .2f) return;
+     bAttackConsumed = true;

@@ -1,0 +1,33 @@
+{
+  "files": 161,
+  "bytes": 2109767,
+  "binaryFiles": [],
+  "sensitiveMatches": [],
+  "largest": [
+    {
+      "file": "Docs/Publication/ConversationVFXHills20261117/cleanup-manifest.json",
+      "bytes": 1493501
+    },
+    {
+      "file": "Config/DefaultGame.ini",
+      "bytes": 33767
+    },
+    {
+      "file": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "bytes": 26794
+    },
+    {
+      "file": "Tools/Skills/build_meteor_combustion_v6.py",
+      "bytes": 23548
+    },
+    {
+      "file": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "bytes": 23273
+    }
+  ],
+  "archiveLeaks": [],
+  "foreignRuntimeMarkers": [],
+  "whitespaceCheck": "passed",
+  "integrationPatchSyntaxCount": 25,
+  "runtimeTestsRun": false
+}

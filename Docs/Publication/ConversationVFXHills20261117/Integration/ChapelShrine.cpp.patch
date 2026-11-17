@@ -1,0 +1,32 @@
+diff --git a/Source/FPSGAME/WorldGeneration/ChapelShrine.cpp b/Source/FPSGAME/WorldGeneration/ChapelShrine.cpp
+--- a/Source/FPSGAME/WorldGeneration/ChapelShrine.cpp
++++ b/Source/FPSGAME/WorldGeneration/ChapelShrine.cpp
+@@ -66,4 +66,22 @@ void AChapelShrine::BeginPlay()
+ FVector AChapelShrine::GetNavAgentLocation() const { return GetActorLocation()-FVector(0,0,100); }
+ 
++FVector AChapelShrine::GetRaidTargetPoint(const FVector& From) const
++{
++    if(RaidPedestal&&RaidPedestal->IsRegistered())
++    {
++        const FBox Bounds=RaidPedestal->Bounds.GetBox();
++        FVector End=Bounds.GetCenter();
++        End.Z=FMath::Clamp(From.Z,Bounds.Min.Z+1.,Bounds.Max.Z-1.);
++        FVector Start=From;Start.Z=End.Z;
++        FHitResult Hit;
++        FCollisionQueryParams Query(SCENE_QUERY_STAT(RaidShrineSurface),true);
++        // A horizontal component-only trace finds the real near stone surface.
++        // A chest-to-center diagonal instead hits the top near the middle and
++        // recreates the old center-distance error on a broad, low pedestal.
++        if(RaidPedestal->LineTraceComponent(Hit,Start,End,Query))return Hit.ImpactPoint;
++    }
++    return GetActorLocation();
++}
++
+ void AChapelShrine::SetRaidNight(bool Night,float Maximum)
+ {
+@@ -147,4 +165,5 @@ void AChapelShrine::ArrangePresentation()
+     Pedestal->SetCanEverAffectNavigation(HasAuthority());
+     if(!Pedestal->IsRegistered())Pedestal->RegisterComponent();
++    RaidPedestal=Pedestal;
+ }
+ 

@@ -1,0 +1,227 @@
+{
+  "staticEntries": [
+    {
+      "id": "FatZombie",
+      "name": "胖子僵尸",
+      "path": "/Script/FPSGAME.FatZombie"
+    },
+    {
+      "id": "Mutant3",
+      "name": "突变体-3",
+      "path": "/Script/FPSGAME.Mutant3"
+    },
+    {
+      "id": "NurseZombie",
+      "name": "护士僵尸",
+      "path": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C"
+    },
+    {
+      "id": "SpitterZombie",
+      "name": "毒液僵尸",
+      "path": "/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C"
+    },
+    {
+      "id": "WitchRebuilt",
+      "name": "巫婆",
+      "path": "/Script/FPSGAME.WitchRebuiltMonster"
+    },
+    {
+      "id": "FleshHand",
+      "name": "异变巨手",
+      "path": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C"
+    },
+    {
+      "id": "FleshHandMinion",
+      "name": "小皮肤手",
+      "path": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C"
+    },
+    {
+      "id": "HandBrain",
+      "name": "手脑",
+      "path": "/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C"
+    },
+    {
+      "id": "PoisonMaggot",
+      "name": "毒蛆",
+      "path": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C"
+    },
+    {
+      "id": "Wolf",
+      "name": "野狼",
+      "path": "/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C"
+    },
+    {
+      "id": "WildlifeDeerDoe",
+      "name": "母鹿（野生）",
+      "path": "/Game/Monsters/Wildlife/DeerDoe/BP_WL_DeerDoe.BP_WL_DeerDoe_C"
+    },
+    {
+      "id": "WildlifeDeerStag",
+      "name": "公鹿（野生）",
+      "path": "/Game/Monsters/Wildlife/DeerStag/BP_WL_DeerStag.BP_WL_DeerStag_C"
+    },
+    {
+      "id": "WildlifeBoar",
+      "name": "野猪（野生）",
+      "path": "/Game/Monsters/Wildlife/Pig/BP_WL_Pig.BP_WL_Pig_C"
+    },
+    {
+      "id": "WildlifeFox",
+      "name": "狐狸（野生）",
+      "path": "/Game/Monsters/Wildlife/Fox/BP_WL_Fox.BP_WL_Fox_C"
+    },
+    {
+      "id": "WildlifeCrow",
+      "name": "乌鸦（野生）",
+      "path": "/Game/Monsters/Wildlife/Crow/BP_WL_Crow.BP_WL_Crow_C"
+    },
+    {
+      "id": "ZombieDog",
+      "name": "僵尸犬",
+      "path": "/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog_C"
+    },
+    {
+      "id": "InfectedDog",
+      "name": "感染犬",
+      "path": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C"
+    },
+    {
+      "id": "FacelessSecurity",
+      "name": "安保员 M-01",
+      "path": "/Game/Monsters/FacelessSecurity/BP_FacelessSecurity.BP_FacelessSecurity_C"
+    },
+    {
+      "id": "FacelessReceptionist",
+      "name": "接待员 M-01",
+      "path": "/Game/Monsters/FacelessReceptionist/BP_FacelessReceptionist.BP_FacelessReceptionist_C"
+    },
+    {
+      "id": "FacelessResearcher",
+      "name": "研究员 M-01",
+      "path": "/Game/Monsters/FacelessResearcher/BP_FacelessResearcher.BP_FacelessResearcher_C"
+    },
+    {
+      "id": "LivingStaffMale",
+      "name": "男性员工 M-01",
+      "path": "/Game/Monsters/StaffLiving/BP_LivingStaffMale.BP_LivingStaffMale_C"
+    },
+    {
+      "id": "LivingStaffFemaleA",
+      "name": "女性员工A M-01",
+      "path": "/Game/Monsters/StaffLiving/BP_LivingStaffFemaleA.BP_LivingStaffFemaleA_C"
+    },
+    {
+      "id": "LivingStaffFemaleB",
+      "name": "女性员工B M-01",
+      "path": "/Game/Monsters/StaffLiving/BP_LivingStaffFemaleB.BP_LivingStaffFemaleB_C"
+    },
+    {
+      "id": "EcologyGardener",
+      "name": "园艺师 M-01",
+      "path": "/Game/Monsters/EcologyGardener/BP_EcologyGardener.BP_EcologyGardener_C"
+    },
+    {
+      "id": "CargoPorter",
+      "name": "搬运工 M-01",
+      "path": "/Game/Monsters/CargoPorter/BP_CargoPorter.BP_CargoPorter_C"
+    },
+    {
+      "id": "CargoTechnician",
+      "name": "技术员 M-01",
+      "path": "/Game/Monsters/CargoTechnician/BP_CargoTechnician.BP_CargoTechnician_C"
+    },
+    {
+      "id": "NightWardenRig",
+      "name": "守寝者 M-01（巨臂挥击）",
+      "path": "/Game/Monsters/NightWarden/BP_NightWarden.BP_NightWarden_C"
+    },
+    {
+      "id": "BellowSacLobber",
+      "name": "鼓囊 M-09",
+      "path": "/Game/Monsters/BellowSacLobber/BP_BellowSacLobber.BP_BellowSacLobber_C"
+    },
+    {
+      "id": "LurkerM08",
+      "name": "伏窥者 M-10",
+      "path": "/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C"
+    },
+    {
+      "id": "MantisM27",
+      "name": "螳螂 M-11",
+      "path": "/Game/Monsters/MantisM27/BP_MantisM27.BP_MantisM27_C"
+    },
+    {
+      "id": "HundredEyedSlag",
+      "name": "百目炉渣 M-12",
+      "path": "/Script/FPSGAME.HundredEyedSlagMonster"
+    },
+    {
+      "id": "HangingBellM09",
+      "name": "悬钟 M-13（天花板）",
+      "path": "/Script/FPSGAME.HangingBellM09"
+    },
+    {
+      "id": "SpiralPillarM14",
+      "name": "螺柱 M-14",
+      "path": "/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14_C"
+    },
+    {
+      "id": "VortexCofferM25",
+      "name": "涡电匣 M-30",
+      "path": "/Game/Monsters/VortexCofferM25/BP_VortexCofferM25.BP_VortexCofferM25_C"
+    },
+    {
+      "id": "BlindSupplicantM07",
+      "name": "盲祷者 M-31",
+      "path": "/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C"
+    },
+    {
+      "id": "BoundCongregate",
+      "name": "缚群 M-32",
+      "path": "/Game/Monsters/BoundCongregate/BP_BoundCongregate.BP_BoundCongregate_C"
+    },
+    {
+      "id": "M10Mawcrawler",
+      "name": "沉匣 M-33",
+      "path": "/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler_C"
+    },
+    {
+      "id": "RootCrownRig",
+      "name": "根冠 M-34",
+      "path": "/Game/Monsters/RootCrown/BP_RootCrownRigPreview.BP_RootCrownRigPreview_C"
+    },
+    {
+      "id": "IncineratorBossM66Rig",
+      "name": "焚骸 M-35（拢灰指扫）",
+      "path": "/Game/Monsters/IncineratorBossM66/BP_M66RigPreview.BP_M66RigPreview_C"
+    },
+    {
+      "id": "HeQue",
+      "name": "合阙 M-36（重夹／碾扫／压鸣／恸鸣／跃砸）",
+      "path": "/Game/Monsters/HeQue/BP_HeQue.BP_HeQue_C"
+    }
+  ],
+  "unknownVariants": {
+    "roles": [
+      "Melee",
+      "Gun",
+      "Magic",
+      "Bow"
+    ],
+    "levels": [
+      10,
+      20,
+      30
+    ]
+  },
+  "automaticHills": [
+    "deer_doe",
+    "deer_stag",
+    "boar",
+    "fox",
+    "crow",
+    "wolf",
+    "NurseZombie",
+    "FatZombie"
+  ]
+}

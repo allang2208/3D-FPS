@@ -1,0 +1,44 @@
+{
+  "saved_at": "2026-11-14T21:45:35.091893",
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_PressureCombustionV7.M_PressureCombustionV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7"
+  ],
+  "profile": {
+    "revision": 1,
+    "added_fire_particles": 3,
+    "max_impact_particles": 84,
+    "contact_flash_seconds": 0.085,
+    "white_core_seconds": 0.185,
+    "fire_body_end_seconds": 0.845,
+    "lobe_start_seconds": [
+      0.038,
+      0.065,
+      0.095
+    ],
+    "smoke_budget": 16
+  },
+  "impact_runtime_path": "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7",
+  "atlas": "unchanged original V7 Mantaflow atlas",
+  "added_textures": 0,
+  "added_lights": 0,
+  "added_components": 0,
+  "added_runtime_geometry_queries": 0,
+  "authored_material_compiled": true,
+  "authored_niagara_compiled": true,
+  "rendered": false,
+  "tested": false,
+  "protected": [
+    "radial pressure fan",
+    "radial revision 2 shockwave and sparks",
+    "dust and aftersmoke",
+    "surface-attached falling flame",
+    "continuous trail",
+    "V4 low ground fire",
+    "rock mesh/material/fragments",
+    "gameplay values and timing",
+    "sound",
+    "camera",
+    "scorch"
+  ]
+}

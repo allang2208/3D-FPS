@@ -1,0 +1,19 @@
+{
+  "source": [
+    "Source/FPSGAME/WorldGeneration/ChapelShrine.h",
+    "Source/FPSGAME/WorldGeneration/ChapelShrine.cpp",
+    "Source/FPSGAME/Monsters/NurseZombie.cpp",
+    "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+    "Source/FPSGAME/Monsters/MonsterNightRaid.cpp",
+    "Source/FPSGAME/Monsters/MonsterPursuitNavigation.cpp",
+    "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+    "Source/FPSGAME/Monsters/MonsterAIController.h"
+  ],
+  "gameBuild": "succeeded",
+  "editorBuild": "succeeded",
+  "liveCoding": "not-requested",
+  "assetsModified": false,
+  "editorOpened": false,
+  "runtimeTested": false,
+  "updatedAt": "2026-11-17T11:04:32.2035762+08:00"
+}

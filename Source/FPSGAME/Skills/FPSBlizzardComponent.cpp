@@ -34,11 +34,11 @@ void UFPSBlizzardComponent::BeginPlay()
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
     if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
     const TCHAR* const* Paths=AFPSBlizzardZone::ZoneAssetPaths(); // 与远端副本自载共用同一张清单
-    TArray<FSoftObjectPath> Requests;for(int32 I=0;I<15;++I)Requests.Emplace(Paths[I]);
+    TArray<FSoftObjectPath> Requests;for(int32 I=0;I<AFPSBlizzardZone::AssetCount;++I)Requests.Emplace(Paths[I]);
     AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Requests,FStreamableDelegate::CreateWeakLambda(this,[this,Requests]()
     {
         for(const auto& Path:Requests)Assets.Add(Path.ResolveObject());
-        bAssetsReady=Assets.Num()==15&&Assets[11]&&Assets[12]&&AFPSBlizzardZone::HasBasicAssets(Assets);
+        bAssetsReady=Assets.Num()==AFPSBlizzardZone::AssetCount&&Assets[11]&&Assets[12]&&AFPSBlizzardZone::HasBasicAssets(Assets);
     }));
 }
 UColdSteelStatusModel* UFPSBlizzardComponent::Model() const
@@ -78,7 +78,7 @@ bool UFPSBlizzardComponent::Allowed(const FBlizzardCast& Spell,FString& Failure)
     if(Spell.bRequiresStaff&&!M->HasEquippedStaff()){Failure=TEXT("需要法杖");return false;}
     if(M->BlizzardCooldown()>0){Failure=TEXT("冷却");return false;}
     if(!M->CanSpendMana(Spell.ManaCost)){Failure=TEXT("缺蓝");return false;}
-    if(!bAssetsReady){Failure=Assets.Num()==15?TEXT("冰雪基础素材不可用"):TEXT("冰雪素材加载中");return false;}
+    if(!bAssetsReady){Failure=Assets.Num()==AFPSBlizzardZone::AssetCount?TEXT("冰雪基础素材不可用"):TEXT("冰雪素材加载中");return false;}
     if(GetWorld()->GetNetMode()==NM_Client&&!NetCast::StateFor(Cast<APawn>(GetOwner())))
     {Failure=TEXT("等待联机角色就绪");return false;}
     if(Zones.Num()>=4){Failure=TEXT("暴风雪数量上限");return false;}

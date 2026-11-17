@@ -1,0 +1,65 @@
+{
+  "source": "UE AFPSBlizzardZone isolated comparison",
+  "clips": [
+    {
+      "version": "StormDomainV2",
+      "source_asset": "/Game/Skills/ElectricMagic/StormDomainV2/NS_StormDomainCloud.NS_StormDomainCloud",
+      "frames": 116,
+      "fps": 20,
+      "duration": 5.8,
+      "dimensions": [
+        960,
+        720
+      ],
+      "gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlizzardVisualReview20261115\\VersionComparison\\StormDomainV2\\StormDomainV2.gif"
+    },
+    {
+      "version": "ChargedV3",
+      "source_asset": "/Game/Skills/Blizzard/ChargedV3/NS_BlizzardStormCloud.NS_BlizzardStormCloud",
+      "frames": 116,
+      "fps": 20,
+      "duration": 5.8,
+      "dimensions": [
+        960,
+        720
+      ],
+      "gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlizzardVisualReview20261115\\VersionComparison\\ChargedV3\\ChargedV3.gif"
+    },
+    {
+      "version": "StormV2",
+      "source_asset": "/Game/Skills/Blizzard/StormV2/NS_BlizzardStormCloud.NS_BlizzardStormCloud",
+      "frames": 116,
+      "fps": 20,
+      "duration": 5.8,
+      "dimensions": [
+        960,
+        720
+      ],
+      "gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlizzardVisualReview20261115\\VersionComparison\\StormV2\\StormV2.gif"
+    },
+    {
+      "version": "RollingV1",
+      "source_asset": "/Game/Skills/StormClouds/RollingV1/NS_BlizzardStormCloud.NS_BlizzardStormCloud",
+      "frames": 116,
+      "fps": 20,
+      "duration": 5.8,
+      "dimensions": [
+        960,
+        720
+      ],
+      "gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlizzardVisualReview20261115\\VersionComparison\\RollingV1\\RollingV1.gif"
+    }
+  ],
+  "fps": 20,
+  "camera_and_lighting": "identical; recorded dark backdrop",
+  "cloud_height_and_footprint": "current level-one Blizzard",
+  "gameplay_and_assets_modified": false,
+  "retouched": false,
+  "comparison_crop": [
+    0,
+    0,
+    960,
+    720
+  ],
+  "comparison": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlizzardVisualReview20261115\\VersionComparison\\cloud-versions-comparison.gif"
+}

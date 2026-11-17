@@ -1,0 +1,58 @@
+{
+  "state": "saved",
+  "saved_at": "2026-11-15T14:37:58.836534",
+  "saved_assets": [
+    "/Game/Skills/StormClouds/RollingV1/NS_BlizzardStormCloud"
+  ],
+  "source": "/Game/Skills/StormClouds/RollingV1/NS_StormDomainCloud",
+  "material": "/Game/Skills/StormClouds/RollingV1/M_RollingStormCloud",
+  "restored_layers": [
+    "DenseDarkBase",
+    "RollingCloudBody",
+    "SlateCloudCrown",
+    "ElectricCloudRim",
+    "SoftCloudFringe"
+  ],
+  "renderer_comparison": {
+    "DenseDarkBase": {
+      "source_settings_match": true,
+      "differences": []
+    },
+    "RollingCloudBody": {
+      "source_settings_match": true,
+      "differences": []
+    },
+    "SlateCloudCrown": {
+      "source_settings_match": true,
+      "differences": []
+    },
+    "ElectricCloudRim": {
+      "source_settings_match": true,
+      "differences": []
+    },
+    "SoftCloudFringe": {
+      "source_settings_match": true,
+      "differences": []
+    }
+  },
+  "source_sha256": "3c8c0580ee99a2cfd24ca2c260338a70898e5d31003f7cf2e7fda40f1c4db586",
+  "target_sha256": "16ff19ea5a5943e3d7bc7228669a1cb76c2d3227eb8f0f001d1510b559426a25",
+  "original_source_modified": false,
+  "material_modified": false,
+  "native_source_modified": false,
+  "rendered": false,
+  "gameplay_tested": false,
+  "visual_acceptance": "pending_user",
+  "preserved": [
+    "room ceiling and floor clipping",
+    "cloud height interpolation",
+    "cold mist",
+    "frost",
+    "precipitation",
+    "ice shatter",
+    "damage",
+    "range",
+    "duration",
+    "network authority"
+  ]
+}

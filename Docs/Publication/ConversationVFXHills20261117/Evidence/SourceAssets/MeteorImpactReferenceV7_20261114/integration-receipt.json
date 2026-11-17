@@ -1,0 +1,18 @@
+{
+  "integrated": true,
+  "changed": [
+    "MeteorAssets.h Impact path",
+    "DefaultGame.ini Cook directory"
+  ],
+  "preserved": [
+    "V6 flight",
+    "V4 ground fire",
+    "rock and fragments",
+    "gameplay",
+    "smoke budget 16",
+    "sound",
+    "camera"
+  ],
+  "native_build_required": true,
+  "runtime_tested": false
+}

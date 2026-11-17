@@ -1,0 +1,21 @@
+diff --git a/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp b/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
+--- a/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
++++ b/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
+@@ -1,3 +1,4 @@
+ #include "MonsterCombatComponent.h"
++#include "../WorldGeneration/ChapelShrine.h"
+ #include "MonsterPresentationBudget.h"
+ #include "UnknownHumanoid.h"
+@@ -273,8 +274,10 @@ bool UMonsterCombatComponent::CanAttack(APawn* P) const
+  if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->CanSpit(P);
+  if(const auto* M07=Cast<ABlindSupplicantMonster>(GetOwner()))return M07->CanAttackTarget(P);
+- const float D=FVector::Dist2D(P->GetActorLocation(),GetOwner()->GetActorLocation());
++ const auto* Shrine=Cast<AChapelShrine>(P);
++ const FVector Aim=Shrine?Shrine->GetRaidTargetPoint(GetOwner()->GetActorLocation()):P->GetActorLocation();
++ const float D=FVector::Dist2D(Aim,GetOwner()->GetActorLocation());
+  if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->Cooldown<=0&&
+   (IceWallCombat::BlockingWall(N,P,MonsterCombatTuning::AttackDistance(N->AttackRange)-15)||
+-   (D<=MonsterCombatTuning::AttackDistance(N->AttackRange)-15&&N->CanSee(P)&&FMath::Abs(P->GetActorLocation().Z-N->GetActorLocation().Z)<90));
++   (D<=MonsterCombatTuning::AttackDistance(N->AttackRange)-15&&N->CanSee(P)&&FMath::Abs(Aim.Z-N->GetActorLocation().Z)<90));
+  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->CanSlamTarget(P)||H->CanHowlTarget(P);
+  return false;

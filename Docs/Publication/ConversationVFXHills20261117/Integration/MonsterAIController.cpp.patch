@@ -1,0 +1,34 @@
+diff --git a/Source/FPSGAME/Monsters/MonsterAIController.cpp b/Source/FPSGAME/Monsters/MonsterAIController.cpp
+--- a/Source/FPSGAME/Monsters/MonsterAIController.cpp
++++ b/Source/FPSGAME/Monsters/MonsterAIController.cpp
+@@ -1,3 +1,4 @@
+ #include "MonsterAIController.h"
++#include "WildlifeSubsystem.h"
+ #include "../WorldGeneration/ChapelShrine.h"
+ #include "UnknownHumanoid.h"
+@@ -80,4 +81,11 @@ void AMonsterAIController::OnPossess(APawn* P)
+  PursuitRequest=FAIRequestID::InvalidRequest;FailedPursuitUntil=0.;LastPursuitAcceptance=-1.f;
+  LastMove=-100.f;bNavigationFailed=false;ApproachSearchOffset=0;
++ bHillsPursuitRecovery=UWildlifeSubsystem::IsWildlifeMap(GetWorld());
++ PursuitProgressPosition=P->GetActorLocation();PursuitProgressTime=GetWorld()->GetTimeSeconds();
++ // Wildlife wolves can spawn 82 m away while the player only invokes 60 m.
++ // M08 also uses optional floor corridors to guide its physical surface search.
++ // Only the ceiling-only solver has no use for ground navigation tiles.
++ bHillsPawnInvoker=bHillsPursuitRecovery&&!P->IsA<AHangingBellM09>();
++ if(bHillsPawnInvoker)UNavigationSystemV1::RegisterNavigationInvoker(*P,5000.f,6500.f);
+  WanderRandom.Initialize(FMath::Rand());bWanderActive=bWanderMoving=false;WanderFailures=0;
+  KnownTarget.Reset();EncounterTarget.Reset();EncounterArea.Reset();PendingDamageTarget.Reset();NightRaidObjective.Reset();
+@@ -133,5 +141,12 @@ void AMonsterAIController::OnPossess(APawn* P)
+  else UE_LOG(LogTemp,Error,TEXT("MONSTER_BT_MISSING %s"),*P->GetName());
+ }
+-void AMonsterAIController::OnUnPossess(){StopWander();StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Unpossessed"));KnownTarget.Reset();EncounterTarget.Reset();EncounterArea.Reset();PendingDamageTarget.Reset();bPendingGroupAlert=false;PassiveDiscoveryAt=-1.f;Super::OnUnPossess();}
++void AMonsterAIController::OnUnPossess()
++{
++ if(bHillsPawnInvoker&&GetPawn())UNavigationSystemV1::UnregisterNavigationInvoker(*GetPawn());
++ bHillsPawnInvoker=false;
++ StopWander();StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Unpossessed"));
++ KnownTarget.Reset();EncounterTarget.Reset();EncounterArea.Reset();PendingDamageTarget.Reset();
++ bPendingGroupAlert=false;PassiveDiscoveryAt=-1.f;Super::OnUnPossess();
++}
+ void AMonsterAIController::SetDecisionEnabled(bool Enabled)
+ {

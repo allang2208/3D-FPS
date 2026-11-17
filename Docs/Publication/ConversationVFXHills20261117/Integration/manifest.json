@@ -1,0 +1,204 @@
+{
+  "base": "34c08285d0675e1038e94800464c68c06c149178",
+  "kind": "local-host integration patches; not auto-applied to incomplete public host",
+  "files": [
+    {
+      "file": "Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/HillsNightRaidSubsystem.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsNightPortalFix20261117/Before/HillsNightRaidSubsystem.cpp",
+      "beforeSha256": "c0658113fb61ea414238d0510d062a7949e11b284bf77eb2b23ec87906f6a315",
+      "scopedAfterLfSha256": "4cef1d87a426bbe9f1da048474e1bb8ae70e2115e55a439a013d568fe4bf5f28",
+      "hunks": 13
+    },
+    {
+      "file": "Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.h",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/HillsNightRaidSubsystem.h.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsNightPortalFix20261117/Before/HillsNightRaidSubsystem.h",
+      "beforeSha256": "740d7652818c090aeef8272942c61796b38730aec1b81a3ab5ccdf47958f32c7",
+      "scopedAfterLfSha256": "2579965f7b1945083a9a98f6dfa0fce74fc9c933eac8d6e3ded370070a88e417",
+      "hunks": 2
+    },
+    {
+      "file": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/TemperateHillsStreaming.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsNightPortalFix20261117/Before/TemperateHillsStreaming.cpp",
+      "beforeSha256": "114b5b660093d6a73e2b7937be9683cd6839e9a9c8927d6669eb6a138f7721ce",
+      "scopedAfterLfSha256": "e58bdb3be105bb16953f205e1ca9da8d1b08ba5293984691b389ce940b0b35cf",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/MonsterAIController.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/Monsters/MonsterAIController.cpp",
+      "beforeSha256": "18361912715d9e9776c1eaffc70839e6503b74a62fb9107203b7285212cbeac7",
+      "scopedAfterLfSha256": "26d50d2fc5874e6ffea90b5d1cdd4eb60a619ae4180d1f3c29a076574cdb8f15",
+      "hunks": 3
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/MonsterAIController.h",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/MonsterAIController.h.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/Monsters/MonsterAIController.h",
+      "beforeSha256": "86dd7d77340872ef80a721dbe1b2c3c768328697cf9b5e92a122ebda5ff8eb64",
+      "scopedAfterLfSha256": "a9a3acc489274de43bef3290c638269db087077a5bf46f0b2074e0b20727960a",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/MonsterCombatComponent.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/Monsters/MonsterCombatComponent.cpp",
+      "beforeSha256": "af36c955e925a909605ed12cf8bb2018514934a384b8cf4944e74e24085e5c87",
+      "scopedAfterLfSha256": "b18685ee51442557a68e3adb61e25dd593ed0d59fcb685fcabba9764449462e9",
+      "hunks": 2
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/MonsterNightRaid.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/MonsterNightRaid.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/Monsters/MonsterNightRaid.cpp",
+      "beforeSha256": "118b5c3de02294186a8c3efa6185f813a0e01541bfdb769ac5bab9219ecd3e46",
+      "scopedAfterLfSha256": "7a062db0b1d99612b400c4734f1fad743a1758b0e76f9f8469d59a678ec75652",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/MonsterPursuitNavigation.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/MonsterPursuitNavigation.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/Monsters/MonsterPursuitNavigation.cpp",
+      "beforeSha256": "6133514479bdb9956a1050e4d4d0666bbc79fe9c305217538a6ad922286e5aa1",
+      "scopedAfterLfSha256": "8bf27124b7757156555e3b1c965e090340541cc4f8b737fd97dcdb3855167beb",
+      "hunks": 2
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/NurseZombie.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/Monsters/NurseZombie.cpp",
+      "beforeSha256": "596ec5d4894b0cf7c0e51afcbb2d018fb1cdaae62f453dfe21a0432ec53d1622",
+      "scopedAfterLfSha256": "594a45bd9f00eef064e83cea792d0e2fa74779e7968b2a8af3805225b15f363f",
+      "hunks": 3
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/WildlifeAnimal.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/WildlifeAnimal.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/Monsters/WildlifeAnimal.cpp",
+      "beforeSha256": "f130d979d425c33f443e864f1c88e67fd6cb9da5dc68b9dc144b23a88eee4dca",
+      "scopedAfterLfSha256": "1bad81e23a5fc91eb4962fd64d424ca18d24139c4930dac22aec24afe8e9424d",
+      "hunks": 3
+    },
+    {
+      "file": "Source/FPSGAME/WorldGeneration/ChapelShrine.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/ChapelShrine.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/WorldGeneration/ChapelShrine.cpp",
+      "beforeSha256": "5a88babac50dbd93c38212e03c7543e75ca7ee64504c5b4dd6b4c85c8c8919ae",
+      "scopedAfterLfSha256": "74182ea59357c9c5807c47952beb1663a5e01e7bafd63f92a029d27779088f92",
+      "hunks": 2
+    },
+    {
+      "file": "Source/FPSGAME/WorldGeneration/ChapelShrine.h",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/ChapelShrine.h.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsRaidPursuit20261117/Before/WorldGeneration/ChapelShrine.h",
+      "beforeSha256": "7c0339bd1bb34710b5eb5f1edb1bbd8de27e0f79c1b3ce446862f00e78e5688e",
+      "scopedAfterLfSha256": "f6525ff3506e3b2240722aaedbca9c7481b4ee316e217d7be60aa9cfa5e9e942",
+      "hunks": 2
+    },
+    {
+      "file": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/DevelopmentSpawnComponent.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Development/DevelopmentSpawnComponent.cpp",
+      "beforeSha256": "cbf93bc242146e588406ae56654de04d2660d15e40d9cd39895d410c2158c792",
+      "scopedAfterLfSha256": "1c2efac01c8532d22325f7301ab4d573b1e9af866a7cd153efd4c6e57fd8f396",
+      "hunks": 4
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/BellowSacLobber.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/BellowSacLobber.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/BellowSacLobber.cpp",
+      "beforeSha256": "f459890992acbee78998ac2922a71f0eef8ef0d22ac632c80ffe0004eb4e61fb",
+      "scopedAfterLfSha256": "e94368fc440e8bcd7308e82265b7642267a38c5a3cf494b64643bc14be52834c",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/HangingBellM09.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/HangingBellM09.cpp",
+      "beforeSha256": "4a175e6eb4647b25b9b99fee2a8699a6d705bc45dd0dcc2b5bab819048bf8bee",
+      "scopedAfterLfSha256": "a50b474f7566be6c05907e86edffcc672338619b0750678c8937cebcba6f5510",
+      "hunks": 2
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/LurkerM08Monster.h",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/LurkerM08Monster.h.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/LurkerM08Monster.h",
+      "beforeSha256": "8f5edea3e7b4cfbfaeee49360891ddafcddf35d8b7541528d527afc10c72ab4a",
+      "scopedAfterLfSha256": "2644e1b361c3d867bc06fa8b20c389afc058ed04d39636345b62e140f1a8e937",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/LurkerM08Traversal.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/LurkerM08Traversal.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/LurkerM08Traversal.cpp",
+      "beforeSha256": "0397f8d80a559f95977656eb47959664d45076a16550fd4752f235c7e6e446f2",
+      "scopedAfterLfSha256": "051ad6b3c9c117e7357ea64bacbcfe56a365c85347311f6f85d42fa0657f9ce4",
+      "hunks": 3
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/LurkerSurfaceRoute.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/LurkerSurfaceRoute.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/LurkerSurfaceRoute.cpp",
+      "beforeSha256": "60d2784fb782f425fd0377f4df818f2b7deff8fff518f94bc5bc0eb33016a7f6",
+      "scopedAfterLfSha256": "dbbd9c0ee1d751e1331585ce9d68abd44ca579d6c83de632df06ec823b7f9145",
+      "hunks": 4
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/LurkerSurfaceRoute.h",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/LurkerSurfaceRoute.h.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/LurkerSurfaceRoute.h",
+      "beforeSha256": "6d0d01a9084b0a61d67f8c4eea6d117d9c7fec530854bf792c8ecb5ad566af00",
+      "scopedAfterLfSha256": "853bd502b1c1d5440625b69f212f924dc2ce2b53cdd3037f1d86c330f5cd865c",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/M09CeilingRoute.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/M09CeilingRoute.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/M09CeilingRoute.cpp",
+      "beforeSha256": "55929cb839ea8584a03d032c4b951e80c295541a16664ad66ea7012c821093c1",
+      "scopedAfterLfSha256": "854be6d8bc6de97e1be66431737e11aa56667401404828255de533f686c37de4",
+      "hunks": 3
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/MonsterTargetReplacement.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/MonsterTargetReplacement.cpp",
+      "beforeSha256": "7e0f0a1f81813a1188af973385d7e13184af2f937de4100df24eade394dd3687",
+      "scopedAfterLfSha256": "3a5c7ed287129f85b787f7aacac8141fc0bf178573e2b336f129856aab3ceb18",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/Monsters/MonsterWander.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/MonsterWander.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/Monsters/MonsterWander.cpp",
+      "beforeSha256": "fb7f02bf2f872f53ae4272d381a2552f109c27ad5fc5e8520ba530d12c10905a",
+      "scopedAfterLfSha256": "4b3b457ab6c8ce44f056bf4575180f30c5dc81796aa9663544bf111b8044b048",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/HillsNavigationSystem.cpp.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/WorldGeneration/HillsNavigationSystem.cpp",
+      "beforeSha256": "308a3299ec63f46d3ced28a642404a0c82d5cc4fa153a30da3c808ab54a92136",
+      "scopedAfterLfSha256": "5242da24cfc08d5525aa5758726e53e6eb1739c76040c6b93f3a14edd443c9cb",
+      "hunks": 3
+    },
+    {
+      "file": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.h",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/HillsNavigationSystem.h.patch",
+      "beforeArchive": "trash/ConversationVFXHills20261117/Saved/HillsLargeSurfaceNavigation20261117/Before/WorldGeneration/HillsNavigationSystem.h",
+      "beforeSha256": "fef9405c943f77b582fb5fa1d2b64d050542f69fdcf87bcaa3e1e1aeea093c2c",
+      "scopedAfterLfSha256": "0734bb3642769ba8d03570fc2475195aea34410c23ad8bc7e13a3ca530e37aec",
+      "hunks": 1
+    },
+    {
+      "file": "Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "patch": "Docs/Publication/ConversationVFXHills20261117/Integration/PlayerSkillAssets.cpp.patch",
+      "precondition": "Existing shared ZoneAssetPaths preload loop with old count 15; host file is not present in public base.",
+      "localCurrentSha256": "9caaf5694328309ae7ee73e0bd8160cac39a4d5f2ed7028e58441af1f85233a2"
+    }
+  ]
+}

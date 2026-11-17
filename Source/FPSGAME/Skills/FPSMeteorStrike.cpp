@@ -37,6 +37,15 @@ namespace
 // Original level-one radii (cm). Geometry follows the same replicated snapshot
 // as damage/preview, so the new 3x range also produces a 3x level-one rock.
 float MeteorBodyScale(const FFireMagicCast& Spell){return Spell.Radius/217.5f;}
+// Flame sample points are baked from the rock mesh in its normalized local
+// space. Keep those roots on the rotating rock while tongues bend up the wake.
+void UpdateMeteorFlameSurface(UNiagaraComponent* Flame,const UStaticMeshComponent* Body)
+{
+    const FQuat Rotation=Body->GetComponentQuat();
+    Flame->SetVariableVec3(TEXT("User.RockAxisX"),Rotation.GetAxisX());
+    Flame->SetVariableVec3(TEXT("User.RockAxisY"),Rotation.GetAxisY());
+    Flame->SetVariableVec3(TEXT("User.RockAxisZ"),Rotation.GetAxisZ());
+}
 }
 
 AFPSMeteorStrike::AFPSMeteorStrike()
@@ -66,7 +75,10 @@ double AFPSMeteorStrike::ServerClock() const
 // Late replicas resume the server timeline; assets never gate damage or restart age.
 void AFPSMeteorStrike::NetInit()
 {
-    if(bNetInit||!NetCaster||NetCast.Damage<=0||NetStartedAt<0.)return;
+    if(bNetInit||NetCast.Damage<=0||NetStartedAt<0.||!GetWorld()->GetGameState())return;
+    // The impact area can be relevant before (or without) its distant caster.
+    // Reconstruct visuals from the replicated snapshot and the server clock.
+    if(ServerClock()-NetStartedAt>=NetCast.FallSeconds+NetCast.Duration){Destroy();return;}
     if(InitializeStrike(NetCaster,NetCast,NetDestination,NetNormal))bNetInit=true;
 }
 bool AFPSMeteorStrike::InitializeStrike(APawn* Caster,const FFireMagicCast& Spell,const FVector& Point,const FVector& SurfaceNormal)
@@ -115,12 +127,14 @@ void AFPSMeteorStrike::PrepareVisuals()
     // The non-colliding rock reaches Destination without roof/wall interception.
     const float T=FMath::Clamp(float(ServerClock()-NetStartedAt)/FMath::Max(.05f,Spell.FallSeconds),0.f,1.f);
     Rock->SetWorldLocation(FMath::Lerp(Start,Destination+Normal*(30*BodyScale),.28f*T+.72f*T*T));Mantle->SetAsset(Fire);Mantle->SetAbsolute(false,true,true);Mantle->SetWorldRotation(FRotator::ZeroRotator);Mantle->SetWorldScale3D(FVector(BodyScale));Mantle->SetVariableFloat(TEXT("User.Fade"),0);
+    UpdateMeteorFlameSurface(Mantle,Rock);
     Mantle->SetVariableVec3(TEXT("User.FlightDirection"),FVector(0,0,-1));Mantle->SetVariableFloat(TEXT("User.FlightSpeed"),0);Mantle->Activate(true);
-    Trail->SetAsset(Tail);Trail->SetWorldLocation(Start);Trail->SetVariableVec3(TEXT("User.FlightDirection"),FVector(0,0,-1));Trail->SetVariableFloat(TEXT("User.FlightSpeed"),0);
+    const FVector TrailStart=Rock->GetComponentLocation();
+    Trail->SetAsset(Tail);Trail->SetWorldLocation(TrailStart);Trail->SetVariableVec3(TEXT("User.FlightDirection"),FVector(0,0,-1));Trail->SetVariableFloat(TEXT("User.FlightSpeed"),0);
     // World-space trail particles need an explicit size/width input; component
     // scaling would not scale their world-space births along the swept path.
     Trail->SetVariableFloat(TEXT("User.VisualScale"),BodyScale);
-    Trail->SetVariablePosition(TEXT("User.PreviousPosition"),Start);Trail->SetVariablePosition(TEXT("User.CurrentPosition"),Start);Trail->SetVariableFloat(TEXT("User.Fade"),1);Trail->Activate(true);
+    Trail->SetVariablePosition(TEXT("User.PreviousPosition"),TrailStart);Trail->SetVariablePosition(TEXT("User.CurrentPosition"),TrailStart);Trail->SetVariableFloat(TEXT("User.Fade"),1);Trail->Activate(true);
     PrepareGroundFire(Ground);
     Glow->SetAttenuationRadius(380*BodyScale);Glow->SetIntensity(2600);
     UThermalTargetSubsystem::RegisterFire(Mantle,FVector(52*BodyScale));
@@ -199,7 +213,7 @@ void AFPSMeteorStrike::PresentImpact(bool Transient)
         FX->SetVariableFloat(TEXT("User.ImpactRadius"),CastSnapshot.Radius);
         FX->SetVariableFloat(TEXT("User.SurfaceHit"),1);
         FX->SetVariableVec3(TEXT("User.LocalUp"),FX->GetComponentTransform().InverseTransformVectorNoScale(FVector::UpVector));
-        if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,18,bWaterContact);
+        if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,16,bWaterContact);
         FX->Activate(true);
     }
     }
@@ -210,8 +224,12 @@ void AFPSMeteorStrike::Tick(float Delta)
 {
     Super::Tick(Delta);
     if(!HasAuthority()){NetInit();if(!bNetInit)return;}
-    APawn* Caster=Shooter.Get();const auto* Health=Caster?Caster->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-    if(!Caster||(Health&&Health->IsDead())){Finish();return;}
+    if(!HasAuthority()&&NetCaster)Shooter=NetCaster.Get();
+    if(HasAuthority())
+    {
+        APawn* Caster=Shooter.Get();const auto* Health=Caster?Caster->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+        if(!Caster||(Health&&Health->IsDead())){Finish();return;}
+    }
     const float PreviousAge=Age;Age=FMath::Max(Age,float(ServerClock()-NetStartedAt));
     if(!HasAuthority()&&Age>=CastSnapshot.FallSeconds+CastSnapshot.Duration){Destroy();return;}
     UpdateGroundFire(FMath::Max(0.f,Age-CastSnapshot.FallSeconds),Delta);
@@ -223,6 +241,7 @@ void AFPSMeteorStrike::Tick(float Delta)
             if(auto* Water=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
                 bWaterContact=Water->TryFireCrossing(Previous,T>=1?Destination:Position,CastSnapshot.Radius,true);
         Rock->SetWorldLocation(Position);Rock->SetWorldRotation(FQuat(SpinAxis,FMath::DegreesToRadians(28*T+17*T*T))*InitialRockRotation);
+        UpdateMeteorFlameSurface(Mantle,Rock);
         const float Onset=FMath::Clamp(Age/.075f,0.f,1.f);Mantle->SetVariableFloat(TEXT("User.Fade"),Onset*Onset*(3-2*Onset));
         const FVector FlightDirection=(Position-Previous).GetSafeNormal();
         const float FlightSpeed=(Position-Previous).Size()/FMath::Max(.001f,Delta);

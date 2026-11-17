@@ -72,6 +72,8 @@ void AFPSMeteorStrike::UpdateGroundFire(float FieldAge,float Delta)
 {
     if(!bVisualsReady||!GroundFlames||GetNetMode()==NM_DedicatedServer)return;
     auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>();
+    // A remote impact may arrive without its caster; keep terrain sampling local.
+    AActor* SurfaceSource=Shooter.IsValid()?static_cast<AActor*>(Shooter.Get()):this;
     const FMatrix Frame=FRotationMatrix::MakeFromZ(Normal);
     const FVector Side=Frame.GetUnitAxis(EAxis::X),Forward=Frame.GetUnitAxis(EAxis::Y);
     const float Radius=CastSnapshot.AuraRadius;
@@ -87,13 +89,13 @@ void AFPSMeteorStrike::UpdateGroundFire(float FieldAge,float Delta)
         const FVector Offset=(Side*(Cell.X+JitterX)+Forward*(Cell.Y+JitterY))*(Radius*.285f);
         const FVector Candidate=Destination+Offset;
         FHitResult Floor;
-        if(!FireMagic::TraceSurface(Shooter.Get(),Candidate+FVector(0,0,110),Candidate-FVector(0,0,150),Floor)
+        if(!FireMagic::TraceSurface(SurfaceSource,Candidate+FVector(0,0,110),Candidate-FVector(0,0,150),Floor)
             ||Floor.bStartPenetrating||Floor.ImpactNormal.Z<.45f)continue;
         const FVector GroundOffset=Floor.ImpactPoint-Destination;
         const float Height=FVector::DotProduct(GroundOffset,Normal);
         if(FMath::Abs(Height)>FireMagic::GroundBand||FVector::VectorPlaneProject(GroundOffset,Normal).SizeSquared()>FMath::Square(Radius*.95f))continue;
         FHitResult Cover;
-        if(FireMagic::TraceSurface(Shooter.Get(),Destination+Normal*40.f,Floor.ImpactPoint+Floor.ImpactNormal*32.f,Cover,true))continue;
+        if(FireMagic::TraceSurface(SurfaceSource,Destination+Normal*40.f,Floor.ImpactPoint+Floor.ImpactNormal*32.f,Cover,true))continue;
         // Clamp this patch's spread before it can inject fuel across a wall.
         const float PatchWidth=Radius*.125f;
         float Clearance=PatchWidth;
@@ -101,7 +103,7 @@ void AFPSMeteorStrike::UpdateGroundFire(float FieldAge,float Delta)
         for(const FVector Axis:{Side,-Side,Forward,-Forward})
         {
             FHitResult Edge;
-            if(FireMagic::TraceSurface(Shooter.Get(),Probe,Probe+Axis*PatchWidth,Edge,true))
+            if(FireMagic::TraceSurface(SurfaceSource,Probe,Probe+Axis*PatchWidth,Edge,true))
                 Clearance=FMath::Min(Clearance,FMath::Max(0.f,float(Edge.Distance)-12.f));
         }
         const int32 Index=Center?0:GroundFireSourceCount++;

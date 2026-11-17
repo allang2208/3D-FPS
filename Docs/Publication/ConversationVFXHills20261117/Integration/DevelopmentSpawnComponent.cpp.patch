@@ -1,0 +1,48 @@
+diff --git a/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp b/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
+--- a/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
++++ b/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
+@@ -114,5 +114,9 @@ bool UDevelopmentSpawnComponent::FindLocation(APlayerController* Player, const A
+         !Navigation->ProjectPointToNavigation(Ground.ImpactPoint, Navigable, FVector(10,10,80), NavData)
+         || FVector::DistSquared2D(Navigable.Location, Ground.ImpactPoint) > FMath::Square(10.f))) return false;
+-    Location = Ground.ImpactPoint + FVector(0,0,HalfHeight + 3.f);
++    const bool Hills=UWildlifeSubsystem::IsWildlifeMap(GetWorld());
++    // Fit the upright capsule to the slope's tangent plane. A broad capsule
++    // placed with its bottom at the centre sample otherwise starts in the hill.
++    const float SlopeLift=Hills?Radius*(1.f/Ground.ImpactNormal.Z-1.f):0.f;
++    Location = Ground.ImpactPoint + FVector(0,0,HalfHeight + 3.f + SlopeLift);
+     if (GetWorld()->OverlapBlockingTestByChannel(Location, FQuat::Identity, ECC_Pawn,
+         FCollisionShape::MakeCapsule(Radius + 2.f, HalfHeight), Query)) return false;
+@@ -120,7 +124,8 @@ bool UDevelopmentSpawnComponent::FindLocation(APlayerController* Player, const A
+     {
+         FHitResult Edge;
+-        const FVector Probe = Ground.ImpactPoint + Offset;
++        FVector Probe = Ground.ImpactPoint + Offset;
++        if(Hills)Probe.Z-=FVector::DotProduct(Ground.ImpactNormal,Offset)/Ground.ImpactNormal.Z;
+         if (!GetWorld()->LineTraceSingleByChannel(Edge, Probe + FVector(0,0,60), Probe - FVector(0,0,80), ECC_Pawn, Query)
+-            || Edge.ImpactNormal.Z < MinSlope || FMath::Abs(Edge.ImpactPoint.Z - Ground.ImpactPoint.Z) > 35.f
++            || Edge.ImpactNormal.Z < MinSlope || FMath::Abs(Edge.ImpactPoint.Z - Probe.Z) > 35.f
+             || (Edge.GetActor() && Edge.GetActor()->IsA<APawn>())) return false;
+     }
+@@ -133,5 +138,9 @@ bool UDevelopmentSpawnComponent::FindLocation(APlayerController* Player, const A
+ bool UDevelopmentSpawnComponent::IsAvailableInWorld(const FDevelopmentMonsterEntry& Entry) const
+ {
+-    return UWildlifeSubsystem::IsWildlifeMap(GetWorld()) || !UWildlifeSubsystem::IsCatalogClass(Entry.CharacterClass.ToSoftObjectPath());
++    const bool Hills=UWildlifeSubsystem::IsWildlifeMap(GetWorld());
++    // Hills has no matching ceiling habitat. Use the same map policy for the
++    // F6 catalogue and the authority spawn request; indoor maps retain M09.
++    if(Hills&&Entry.Id==TEXT("HangingBellM09"))return false;
++    return Hills || !UWildlifeSubsystem::IsCatalogClass(Entry.CharacterClass.ToSoftObjectPath());
+ }
+ 
+@@ -143,5 +152,10 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
+     const auto* Entry = Monsters.FindByPredicate([Id](const auto& Item) { return Item.Id == Id; });
+     if (!Entry) { Result = FText::FromString(TEXT("请先选择怪物")); return 0; }
+-    if (!IsAvailableInWorld(*Entry)) { Result = FText::FromString(TEXT("野生动物仅能在温带丘陵生成")); return 0; }
++    if (!IsAvailableInWorld(*Entry))
++    {
++        Result=FText::FromString(Entry->Id==TEXT("HangingBellM09")
++            ? TEXT("丘陵区域不生成悬钟，缺少匹配的天花板环境") : TEXT("野生动物仅能在温带丘陵生成"));
++        return 0;
++    }
+     UClass* Class = Entry->CharacterClass.LoadSynchronous();
+     if (!Class || Class->HasAnyClassFlags(CLASS_Abstract)) { Result = FText::FromString(TEXT("该怪物的角色资源尚未准备好")); return 0; }

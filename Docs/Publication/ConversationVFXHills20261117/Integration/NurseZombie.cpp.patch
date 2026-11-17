@@ -1,0 +1,26 @@
+diff --git a/Source/FPSGAME/Monsters/NurseZombie.cpp b/Source/FPSGAME/Monsters/NurseZombie.cpp
+--- a/Source/FPSGAME/Monsters/NurseZombie.cpp
++++ b/Source/FPSGAME/Monsters/NurseZombie.cpp
+@@ -1,3 +1,4 @@
+ #include "NurseZombie.h"
++#include "../WorldGeneration/ChapelShrine.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -331,5 +332,7 @@ bool ANurseZombie::CanSee(const AActor* Actor) const
+     FCollisionQueryParams Params(SCENE_QUERY_STAT(NurseSight), false, this);
+     Params.AddIgnoredActor(Actor);
+-    return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation()+FVector(0,0,35), Actor->GetActorLocation(), ECC_Visibility, Params);
++    const auto* Shrine=Cast<AChapelShrine>(Actor);
++    const FVector Aim=Shrine?Shrine->GetRaidTargetPoint(GetActorLocation()):Actor->GetActorLocation();
++    return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation()+FVector(0,0,35), Aim, ECC_Visibility, Params);
+ }
+ 
+@@ -339,5 +342,7 @@ void ANurseZombie::TryMelee()
+     if(IceWallCombat::ApplyMelee(this,Target.Get(),MonsterCombatTuning::AttackDistance(AttackRange),AttackDamage,.55f))
+     {bAttackConsumed=true;return;}
+-    const FVector Offset = Target->GetActorLocation() - GetActorLocation();
++    const auto* Shrine=Cast<AChapelShrine>(Target.Get());
++    const FVector Aim=Shrine?Shrine->GetRaidTargetPoint(GetActorLocation()):Target->GetActorLocation();
++    const FVector Offset = Aim - GetActorLocation();
+     if (Offset.Size2D() > MonsterCombatTuning::AttackDistance(AttackRange) || FMath::Abs(Offset.Z) > 90.f ||
+         FVector::DotProduct(GetActorForwardVector(),Offset.GetSafeNormal2D()) < .55f || !CanSee(Target.Get())) return;

@@ -1,0 +1,29 @@
+diff --git a/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.h b/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.h
+--- a/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.h
++++ b/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.h
+@@ -27,8 +27,13 @@ public:
+     void GetGroundPins(TArray<FVector>& Centers,FVector& Village,float& VillageRadius) const;
+ private:
++    enum class ESpawnResult : uint8
++    {Spawned,PlayerNearby,NavigationPending,NoNavigation,NoSpawnFloor,NoShrineApproach,NoRoute,Occupied,SpawnRejected,MissingController};
+     void PrepareAssets();
+     void AssetsReady();
+     bool ChoosePortalSite();
+-    bool SpawnOne();
++    bool IsPortalSpaceClear(const FVector& Ground) const;
++    bool IsPlayerNear(const FVector& Point,float Distance) const;
++    ESpawnResult SpawnOne();
++    static const TCHAR* SpawnResultName(ESpawnResult Result);
+     int32 LivingCount() const;
+     void UpdateInvokers();
+@@ -46,7 +51,8 @@ private:
+     bool bEnabled=true,bAssetsReady=false,bNight=false,bClockInitialized=false,bSiteChosen=false;
+     int32 NightSerial=MIN_int32,SpawnedThisNight=0,WaveRemaining=0;
+-    int32 SpawnFailures=0;
++    int32 SpawnFailures=0,GroundWaitAttempts=0;
+     int32 MaxAlive=12,MaxPerNight=36,WaveSize=3;
+     float NightStart=19.f,NightEnd=6.f,WaveInterval=30.f,WarmupSeconds=12.f,Durability=1800.f;
+-    double NextUpdate=0.,NextPortalAttempt=0.,NextSpawn=0.,NextWave=0.;
++    double NextUpdate=0.,NextPortalAttempt=0.,NextSpawn=0.,NextWave=0.,NextPlacementLog=0.;
++    double NextAssetAttempt=0.,NextSpawnLog=0.;
+ };

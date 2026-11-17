@@ -1,0 +1,30 @@
+diff --git a/Source/FPSGAME/Monsters/LurkerM08Traversal.cpp b/Source/FPSGAME/Monsters/LurkerM08Traversal.cpp
+--- a/Source/FPSGAME/Monsters/LurkerM08Traversal.cpp
++++ b/Source/FPSGAME/Monsters/LurkerM08Traversal.cpp
+@@ -70,4 +70,5 @@ void ALurkerM08Monster::NavigateSurface(FVector Destination, bool bReturning, AP
+     {
+         RecentSupports.Reset(); SurfacePath.Reset(); bHasSurfacePlan = false; RouteAge = 10.f;
++        AvoidSurfacePointUntil=0.;
+     }
+     else if (bHasSurfacePlan && RouteAge >= .45f
+@@ -198,5 +199,6 @@ void ALurkerM08Monster::TickSurface(float Dt)
+         FVector Guide = SurfaceGoal;
+         LurkerSurfaceRoute::GroundGuide(GetWorld(), this, {GetActorLocation(), SurfaceNormal}, SurfaceGoal, BodyRadius(), Guide);
+-        LurkerSurfaceRoute::Build(GetWorld(), this, {GetActorLocation(), SurfaceNormal}, Guide, BodyRadius(), RecentSupports, SurfacePath);
++        const FVector* Blocked=GetWorld()->GetTimeSeconds()<AvoidSurfacePointUntil?&BlockedSurfacePoint:nullptr;
++        LurkerSurfaceRoute::Build(GetWorld(), this, {GetActorLocation(), SurfaceNormal}, Guide, BodyRadius(), RecentSupports, SurfacePath,Blocked);
+         if (SurfacePath.IsEmpty() && BeginTraversalJump()) return;
+     }
+@@ -221,5 +223,11 @@ void ALurkerM08Monster::TickSurface(float Dt)
+     SurfaceNormal = BlendedNormal.GetSafeNormal();
+     OrientToSurface(Delta, SurfaceNormal, Dt);
+-    if (Hit.bBlockingHit) { SurfacePath.Reset(); RouteAge = FMath::Max(RouteAge, .65f); return; }
++    if (Hit.bBlockingHit)
++    {
++        // A late collider can invalidate a previously clear edge. Remember it
++        // briefly so replanning chooses another edge instead of pushing it again.
++        BlockedSurfacePoint=Next.Center;AvoidSurfacePointUntil=GetWorld()->GetTimeSeconds()+2.;
++        SurfacePath.Reset(); RouteAge = FMath::Max(RouteAge, .65f); return;
++    }
+     if (FVector::DistSquared(GetActorLocation(), Next.Center) < FMath::Square(5.f))
+     {

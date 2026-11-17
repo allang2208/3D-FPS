@@ -1,0 +1,58 @@
+{
+  "revision": 2,
+  "saved_receipt": "SourceAssets/MeteorRadialReview20261114/saved.json",
+  "findings": [
+    "Wave thickness grew with sprite size and looked like a luminous ring",
+    "Many sparks faded during the fire peak; too few remained during cooldown"
+  ],
+  "changes": [
+    "World-space wave-front thickness with cooling and angular breakup",
+    "Velocity-scaled hot streaks and longer-lived glowing ember chips"
+  ],
+  "particle_count_changed": false,
+  "actual_actor": "AFPSMeteorStrike",
+  "checks": [
+    {
+      "frames": 180,
+      "exit_code": 0,
+      "camera_eye_z_cm": 430,
+      "fps": 60,
+      "capture": "RadialBefore"
+    },
+    {
+      "frames": 180,
+      "exit_code": 0,
+      "camera_eye_z_cm": 430,
+      "fps": 60,
+      "capture": "RadialAfter"
+    },
+    {
+      "frames": 180,
+      "exit_code": 0,
+      "camera_eye_z_cm": 180,
+      "fps": 60,
+      "capture": "RadialStanding"
+    }
+  ],
+  "visual_frames_inspected": true,
+  "material_fallback_errors_found": false,
+  "comparison": "SourceAssets/MeteorRadialReview20261114/before-after.gif",
+  "standing_preview": "SourceAssets/MeteorVisualReview20261114/RadialStanding/meteor-actual-actor.gif",
+  "editor_ui_started": false,
+  "gameplay_tested": false,
+  "multiplayer_tested": false,
+  "assets": [
+    {
+      "sha256": "A28C8567B1A62F1E3D0B9F201D8D32B8DB8C34C3895DC14AD079BE7AD0335D1A",
+      "path": "Content\\Skills\\FireMagic20260921\\MeteorImpactReferenceV7\\NS_MeteorPressureV7.uasset"
+    },
+    {
+      "sha256": "EF01AE64F5A67DDE2D9E05605B9E64338C8B5FAB14C0A6BD123325A3C3204774",
+      "path": "Content\\Skills\\FireMagic20260921\\MeteorImpactReferenceV7\\M_GroundPressureV7.uasset"
+    },
+    {
+      "sha256": "87E1A6694F98EFD696D0B643AB7E61037CE702C349CAE8C0D4DC9F6593D55F7C",
+      "path": "Content\\Skills\\FireMagic20260921\\MeteorImpactReferenceV7\\M_HotEjectaV7.uasset"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "source": [
+    "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.h",
+    "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+    "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+    "Source/FPSGAME/Monsters/MonsterWander.cpp",
+    "Source/FPSGAME/Monsters/M25Navigation.cpp",
+    "Source/FPSGAME/Monsters/LurkerSurfaceRoute.cpp",
+    "Source/FPSGAME/Monsters/LurkerM08Traversal.cpp",
+    "Source/FPSGAME/Monsters/LurkerM08Monster.h",
+    "Source/FPSGAME/Monsters/M09CeilingRoute.cpp",
+    "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+    "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+    "Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp",
+    "Source/FPSGAME/Monsters/LurkerSurfaceRoute.h"
+  ],
+  "gameBuild": "succeeded",
+  "editorBuild": "succeeded",
+  "liveCoding": "not-requested",
+  "assetsModified": false,
+  "editorOpened": false,
+  "runtimeTested": false,
+  "updatedAt": "2026-11-17T12:31:54.9893757+08:00"
+}

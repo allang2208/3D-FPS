@@ -1,0 +1,10 @@
+diff --git a/Source/FPSGAME/Monsters/LurkerM08Monster.h b/Source/FPSGAME/Monsters/LurkerM08Monster.h
+--- a/Source/FPSGAME/Monsters/LurkerM08Monster.h
++++ b/Source/FPSGAME/Monsters/LurkerM08Monster.h
+@@ -110,4 +110,6 @@ private:
+     TArray<FLurkerSurfacePoint> SurfacePath;
+     TArray<FVector> RecentSupports;
++    FVector BlockedSurfacePoint=FVector::ZeroVector;
++    double AvoidSurfacePointUntil=0.;
+     TWeakObjectPtr<APawn> SurfaceVictim;
+     float RouteAge = 10.f, SupportAge = 0.f, StuckSeconds = 0.f, JumpCooldown = 0.f;

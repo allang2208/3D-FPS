@@ -1,0 +1,123 @@
+{
+  "state": "saved",
+  "saved_at": "2026-11-15T13:57:26.665713",
+  "saved_assets": [
+    "/Game/Skills/StormClouds/RollingV1/NS_BlizzardStormCloud",
+    "/Game/Skills/Blizzard/IndoorV5/NS_BlizzardBoundaryMist",
+    "/Game/Skills/Blizzard/IndoorV5/M_BlizzardGroundFrost"
+  ],
+  "profiles": {
+    "cloud": {
+      "layers": [
+        "DenseDarkBase",
+        "RollingCloudBody",
+        "SlateCloudCrown",
+        "ElectricCloudRim",
+        "SoftCloudFringe"
+      ],
+      "alignment": "Particles.SpriteAlignment",
+      "uv_scale": "Particles.SpriteUVScale=(1,1)",
+      "emitter_bounds": "Dynamic",
+      "cloud_artwork_and_lifetimes_preserved": true
+    },
+    "mist": {
+      "revision": 2,
+      "layers": [
+        "BlizzardGroundCold",
+        "BlizzardRisingCold"
+      ],
+      "ground_rate": 20,
+      "rising_rate": 6,
+      "ground_lifetime_seconds": [
+        1.25,
+        1.85
+      ],
+      "rising_lifetime_seconds": [
+        0.75,
+        1.15
+      ],
+      "ground_width_cap_cm": 180,
+      "rising_width_cap_cm": 90,
+      "room_cells_per_layer": 25,
+      "distribution": "continuous ellipse; room lookup after scattered position",
+      "added_textures": 0,
+      "added_lights": 0,
+      "source_ice_spike_modified": false
+    },
+    "frost": {
+      "uv_nodes_updated": 1,
+      "texture_repetitions": 1,
+      "room_mask_and_frost_opacity_preserved": true
+    }
+  },
+  "cloud_bindings": {
+    "DenseDarkBase": {
+      "SpriteAlignmentBinding": {
+        "attribute": "Particles.SpriteAlignment",
+        "exists": true
+      },
+      "UVScaleBinding": {
+        "attribute": "Particles.SpriteUVScale",
+        "exists": true
+      }
+    },
+    "RollingCloudBody": {
+      "SpriteAlignmentBinding": {
+        "attribute": "Particles.SpriteAlignment",
+        "exists": true
+      },
+      "UVScaleBinding": {
+        "attribute": "Particles.SpriteUVScale",
+        "exists": true
+      }
+    },
+    "SlateCloudCrown": {
+      "SpriteAlignmentBinding": {
+        "attribute": "Particles.SpriteAlignment",
+        "exists": true
+      },
+      "UVScaleBinding": {
+        "attribute": "Particles.SpriteUVScale",
+        "exists": true
+      }
+    },
+    "ElectricCloudRim": {
+      "SpriteAlignmentBinding": {
+        "attribute": "Particles.SpriteAlignment",
+        "exists": true
+      },
+      "UVScaleBinding": {
+        "attribute": "Particles.SpriteUVScale",
+        "exists": true
+      }
+    },
+    "SoftCloudFringe": {
+      "SpriteAlignmentBinding": {
+        "attribute": "Particles.SpriteAlignment",
+        "exists": true
+      },
+      "UVScaleBinding": {
+        "attribute": "Particles.SpriteUVScale",
+        "exists": true
+      }
+    }
+  },
+  "compile_states": {
+    "NS_BlizzardStormCloud": "(AggregateStatus=UpToDate,bIsCompiling=False,bIsStale=False,bHasErrors=False,bHasWarnings=False,Scripts=((ScriptName=\"ENiagaraScriptUsage::SystemSpawnScript\",LastCompileStatus=UpToDate),(ScriptName=\"ENiagaraScriptUsage::SystemUpdateScript\",LastCompileStatus=UpToDate),(EmitterName=\"DenseDarkBase\",ScriptName=\"ENiagaraScriptUsage::ParticleSpawnScript\",LastCompileStatus=UpToDate),(EmitterName=\"DenseDarkBase\",ScriptName=\"ENiagaraScriptUsage::ParticleUpdateScript\",LastCompileStatus=UpToDate),(EmitterName=\"RollingCloudBody\",ScriptName=\"ENiagaraScriptUsage::ParticleSpawnScript\",LastCompileStatus=UpToDate),(EmitterName=\"RollingCloudBody\",ScriptName=\"ENiagaraScriptUsage::ParticleUpdateScript\",LastCompileStatus=UpToDate),(EmitterName=\"SlateCloudCrown\",ScriptName=\"ENiagaraScriptUsage::ParticleSpawnScript\",LastCompileStatus=UpToDate),(EmitterName=\"SlateCloudCrown\",ScriptName=\"ENiagaraScriptUsage::ParticleUpdateScript\",LastCompileStatus=UpToDate),(EmitterName=\"ElectricCloudRim\",ScriptName=\"ENiagaraScriptUsage::ParticleSpawnScript\",LastCompileStatus=UpToDate),(EmitterName=\"ElectricCloudRim\",ScriptName=\"ENiagaraScriptUsage::ParticleUpdateScript\",LastCompileStatus=UpToDate),(EmitterName=\"SoftCloudFringe\",ScriptName=\"ENiagaraScriptUsage::ParticleSpawnScript\",LastCompileStatus=UpToDate),(EmitterName=\"SoftCloudFringe\",ScriptName=\"ENiagaraScriptUsage::ParticleUpdateScript\",LastCompileStatus=UpToDate)))",
+    "NS_BlizzardBoundaryMist": "(AggregateStatus=UpToDate,bIsCompiling=False,bIsStale=False,bHasErrors=False,bHasWarnings=False,Scripts=((ScriptName=\"ENiagaraScriptUsage::SystemSpawnScript\",LastCompileStatus=UpToDate),(ScriptName=\"ENiagaraScriptUsage::SystemUpdateScript\",LastCompileStatus=UpToDate),(EmitterName=\"BlizzardGroundCold\",ScriptName=\"ENiagaraScriptUsage::ParticleSpawnScriptInterpolated\",LastCompileStatus=UpToDate),(EmitterName=\"BlizzardGroundCold\",ScriptName=\"ENiagaraScriptUsage::ParticleUpdateScript\",LastCompileStatus=UpToDate),(EmitterName=\"BlizzardRisingCold\",ScriptName=\"ENiagaraScriptUsage::ParticleSpawnScriptInterpolated\",LastCompileStatus=UpToDate),(EmitterName=\"BlizzardRisingCold\",ScriptName=\"ENiagaraScriptUsage::ParticleUpdateScript\",LastCompileStatus=UpToDate)))"
+  },
+  "targeted_asset_checks": true,
+  "gameplay_tested": false,
+  "rendered": false,
+  "native_source_modified": false,
+  "new_editor_started": false,
+  "preserved": [
+    "cloud artwork and timing",
+    "snow",
+    "ice shatter",
+    "damage",
+    "range",
+    "duration",
+    "network authority"
+  ]
+}

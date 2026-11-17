@@ -1,0 +1,16 @@
+diff --git a/Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp b/Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp
+--- a/Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp
++++ b/Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp
+@@ -119,6 +119,11 @@ APawn* AMonsterAIController::FindReplacement(bool Stalled,bool AttackOnly)
+     const FVector Feet=GetNavAgentLocation(),Goal=P->GetNavAgentLocation();
+     const auto* Data=Nav?Nav->GetNavDataForProps(Agent,Feet):nullptr;
++    // Match NavigateTo: while Hills tiles register, a smaller fallback mesh
++    // must not make an unreachable alternative player look like a valid route.
++    if(!Data||(bHillsPursuitRecovery&&(Data->GetConfig().AgentRadius+KINDA_SMALL_NUMBER<Agent.AgentRadius
++        ||Data->GetConfig().AgentHeight+KINDA_SMALL_NUMBER<Agent.AgentHeight)))return nullptr;
+     FNavLocation Point;
+-    if(!Data||!Nav->ProjectPointToNavigation(Goal,Point,FVector(100.,100.,65.),Data)
++    const float ProjectionXY=FMath::Max(100.f,Agent.AgentRadius*2.f+30.f);
++    if(!Nav->ProjectPointToNavigation(Goal,Point,FVector(ProjectionXY,ProjectionXY,65.),Data)
+         ||FMath::Abs(Point.Location.Z-Goal.Z)>50.||FVector::Dist2D(Goal,Point.Location)>C->StopRange())return nullptr;
+     FPathFindingQuery Query(this,*Data,Feet,Point.Location,Data->GetDefaultQueryFilter());

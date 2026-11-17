@@ -1,0 +1,32 @@
+{
+  "saved_at": "2026-11-14T20:11:59.616452",
+  "revision": 2,
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_GroundPressureV7.M_GroundPressureV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_HotEjectaV7.M_HotEjectaV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7"
+  ],
+  "impact_system": "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7",
+  "wave_lifetime_seconds": 0.62,
+  "hot_sparks": 36,
+  "cooling_embers": 24,
+  "max_total_particles": 81,
+  "smoke_budget": 16,
+  "detail_reduction_respected": true,
+  "added_lights": 0,
+  "added_components": 0,
+  "added_collision_queries": 0,
+  "preserved": [
+    "fire crown",
+    "contact flash and fan",
+    "rock and fragments",
+    "V6 flight",
+    "V4 low fire",
+    "gameplay values",
+    "sound",
+    "camera"
+  ],
+  "tested": false,
+  "rendered": false,
+  "editor_started_by_this_task": false
+}

@@ -1,0 +1,33 @@
+{
+  "exit_code": 0,
+  "preserved": [
+    "rock and fragments",
+    "V6 flight",
+    "V4 low ground fire",
+    "gameplay values",
+    "sound",
+    "camera",
+    "scorch"
+  ],
+  "status": "impact_assets_saved_integrated_game_and_editor_built",
+  "finished_at": "2026-11-14T15:23:22.7961197+08:00",
+  "native_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeteorImpactReferenceV7_20261114\\native-build-20261114-152231.log",
+  "started_at": "2026-11-14T15:22:31.0301649+08:00",
+  "runtime_tested": false,
+  "interactive_editor_opened": false,
+  "smoke_budget": 16,
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/T_MeteorPressureFieldsV7.T_MeteorPressureFieldsV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_PressureCombustionV7.M_PressureCombustionV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_PressureAfterSmokeV7.M_PressureAfterSmokeV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_ContactFlashV7.M_ContactFlashV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_PressureRaysV7.M_PressureRaysV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_GroundPressureV7.M_GroundPressureV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_HotEjectaV7.M_HotEjectaV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7"
+  ],
+  "source": "Original pressure impulse rebuilt from observed reference timing and layers",
+  "max_particles": 61,
+  "game_started": false,
+  "visual_match_claimed": false
+}

@@ -1,0 +1,17 @@
+diff --git a/Source/FPSGAME/Monsters/HangingBellM09.cpp b/Source/FPSGAME/Monsters/HangingBellM09.cpp
+--- a/Source/FPSGAME/Monsters/HangingBellM09.cpp
++++ b/Source/FPSGAME/Monsters/HangingBellM09.cpp
+@@ -295,5 +295,4 @@ void AHangingBellM09::NavigateCeiling(FVector Destination,bool Returning)
+  if(!Returning&&SelectAttack(Target.Get())!=EM09State::Idle){StopCeiling();return;}
+  if(!Returning)if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->NotePursuitAttempt();
+- DesiredYaw=(Destination-GetActorLocation()).Rotation().Yaw;
+  if(PathAge>=.65f&&(Path.IsEmpty()||FVector::DistSquared2D(Destination,LastDestination)>FMath::Square(90.f)))
+  {
+@@ -302,4 +301,7 @@ void AHangingBellM09::NavigateCeiling(FVector Destination,bool Returning)
+    AM09CeilingRoute::FindLocalPath(this,Destination,Path);
+  }
++ // Face the current roof corridor while detouring; facing the player through
++ // a roof gap made sideways travel fight the alternating grip placement.
++ DesiredYaw=(Path.IsEmpty()?Destination-GetActorLocation():Path[0]-CeilingCenter()).Rotation().Yaw;
+  SetLocomotion(!Path.IsEmpty()||FMath::Abs(FMath::FindDeltaAngleDegrees(GetActorRotation().Yaw,DesiredYaw))>4.f,Returning);
+ }

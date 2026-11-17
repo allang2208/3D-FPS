@@ -1,0 +1,18 @@
+diff --git a/Source/FPSGAME/Monsters/MonsterNightRaid.cpp b/Source/FPSGAME/Monsters/MonsterNightRaid.cpp
+--- a/Source/FPSGAME/Monsters/MonsterNightRaid.cpp
++++ b/Source/FPSGAME/Monsters/MonsterNightRaid.cpp
+@@ -22,9 +22,13 @@ void AMonsterAIController::PublishNightRaidObjective()
+     if(Attackable)
+     {
++        const FVector Surface=Shrine->GetRaidTargetPoint(GetPawn()->GetActorLocation());
++        // Navigate within the existing attack stop range of the near surface,
++        // not the inaccessible center. Keep the destination at floor height.
++        Goal=FVector(Surface.X,Surface.Y,Shrine->GetNavAgentLocation().Z);
+         FCollisionQueryParams Query(SCENE_QUERY_STAT(RaidShrineSight),false,GetPawn());
+         Query.AddIgnoredActor(Shrine);
+         FHitResult Hit;
+         Visible=!GetWorld()->LineTraceSingleByChannel(Hit,GetPawn()->GetActorLocation()+FVector(0,0,35),
+-            Shrine->GetActorLocation(),ECC_Visibility,Query);
++            Surface,ECC_Visibility,Query);
+     }
+     else

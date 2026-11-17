@@ -1,0 +1,44 @@
+{
+  "saved_at": "2026-11-15T12:48:51.965763",
+  "saved_assets": [
+    "/Game/Skills/Blizzard/IndoorV5/MI_BlizzardColdMist.MI_BlizzardColdMist",
+    "/Game/Skills/Blizzard/IndoorV5/NS_BlizzardBoundaryMist.NS_BlizzardBoundaryMist"
+  ],
+  "profile": {
+    "revision": 1,
+    "layers": [
+      "BlizzardGroundCold",
+      "BlizzardRisingCold"
+    ],
+    "ground_rate": 24,
+    "rising_rate": 8,
+    "ground_lifetime_seconds": [
+      1.25,
+      1.85
+    ],
+    "rising_lifetime_seconds": [
+      0.75,
+      1.15
+    ],
+    "ground_width_cap_cm": 180,
+    "rising_width_cap_cm": 90,
+    "room_cells_per_layer": 25,
+    "added_textures": 0,
+    "added_lights": 0,
+    "source_ice_spike_modified": false
+  },
+  "compiled": true,
+  "rendered": false,
+  "tested": false,
+  "shatter_source": "/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact",
+  "preserved": [
+    "clouds",
+    "precipitation",
+    "falling spike meshes",
+    "ground frost",
+    "audio",
+    "gameplay values",
+    "damage timing",
+    "network authority"
+  ]
+}

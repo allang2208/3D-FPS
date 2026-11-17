@@ -1,0 +1,28 @@
+{
+  "source": [
+    "Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+    "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+    "Source/FPSGAME/Skills/FireMagicArea.cpp",
+    "Source/FPSGAME/Skills/FireMagicArea.h",
+    "Source/FPSGAME/Skills/MeteorGroundFire.cpp",
+    "Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp",
+    "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp"
+  ],
+  "sourceSaved": true,
+  "gameBuild": "succeeded",
+  "editorBuild": "succeeded",
+  "assetsModified": false,
+  "editorOpened": false,
+  "runtimeTested": false,
+  "multiplayerRuntimeTested": false,
+  "previousHangingBellBuild": "interrupted-before-completion",
+  "updatedAt": "2026-11-17T17:17:13.7383656+08:00",
+  "editorBuildEvidence": "FPSGAMEEditor-shared.log",
+  "reusedSharedEditorBuild": true,
+  "builtSourceReceipt": "built-source-receipt.json",
+  "completedAt": "2026-11-17T17:17:13.7456904+08:00",
+  "binaries": [
+    "D:/FPS3D/FPSGAME/Binaries/Win64/FPSGAME.exe",
+    "D:/FPS3D/FPSGAME/Binaries/Win64/UnrealEditor-FPSGAME.dll"
+  ]
+}

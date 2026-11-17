@@ -1,0 +1,8 @@
+diff --git a/Source/FPSGAME/Skills/PlayerSkillAssets.cpp b/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
+--- a/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
++++ b/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
+@@ -182,3 +182,3 @@
+         const TCHAR* const* Paths = AFPSBlizzardZone::ZoneAssetPaths();
+-        for (int32 I = 0; I < 15; ++I) AddSkillAsset(Out, Paths[I]);
++        for (int32 I = 0; I < AFPSBlizzardZone::AssetCount; ++I) AddSkillAsset(Out, Paths[I]);
+     }

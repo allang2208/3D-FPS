@@ -1,0 +1,36 @@
+diff --git a/Source/FPSGAME/Monsters/MonsterPursuitNavigation.cpp b/Source/FPSGAME/Monsters/MonsterPursuitNavigation.cpp
+--- a/Source/FPSGAME/Monsters/MonsterPursuitNavigation.cpp
++++ b/Source/FPSGAME/Monsters/MonsterPursuitNavigation.cpp
+@@ -56,8 +56,13 @@ void AMonsterAIController::NavigateTo(FVector Destination,float Acceptance,float
+     NotePursuitAttempt();
+     const float Now=GetWorld()->GetTimeSeconds();
++    const bool Following=GetMoveStatus()==EPathFollowingStatus::Moving&&PursuitRequest.IsValid()
++        &&PursuitRequest==GetCurrentMoveRequestID();
++    const FVector Position=PawnCharacter->GetActorLocation();
++    if(!Following||FVector::DistSquared2D(Position,PursuitProgressPosition)>FMath::Square(25.f))
++    {PursuitProgressPosition=Position;PursuitProgressTime=Now;}
++    const bool Stalled=bHillsPursuitRecovery&&Following&&Now-PursuitProgressTime>=3.;
+     if(Now-LastMove<RepathInterval)return;
+     Acceptance=FMath::Max(0.f,Acceptance);
+-    if(GetMoveStatus()==EPathFollowingStatus::Moving&&PursuitRequest.IsValid()
+-        &&PursuitRequest==GetCurrentMoveRequestID()
++    if(Following&&!Stalled
+         &&FVector::DistSquared(Destination,LastDestination)<FMath::Square(45.f)
+         &&FMath::IsNearlyEqual(Acceptance,LastPursuitAcceptance,5.f))return;
+@@ -74,5 +79,15 @@ void AMonsterAIController::NavigateTo(FVector Destination,float Acceptance,float
+         StopMovement();RememberNavigationFailure(Destination);
+     };
+-    if(!Data){StopFailedMove();return;}
++    // Shared pursuit also drives shrine objectives (which are not player targets).
++    // A valid request can be physically blocked by the exit crowd or a late prop.
++    // Retire it and use the existing bounded alternate-approach search instead of
++    // waiting forever merely because PathFollowing still reports Moving.
++    if(Stalled)
++    {
++        StopFailedMove();PursuitProgressPosition=Position;PursuitProgressTime=Now;
++    }
++    if(!Data || (bHillsPursuitRecovery && (Data->GetConfig().AgentRadius+KINDA_SMALL_NUMBER<Agent.AgentRadius
++        || Data->GetConfig().AgentHeight+KINDA_SMALL_NUMBER<Agent.AgentHeight)))
++    {StopFailedMove();return;}
+     const auto Submit=[&](const FVector& Goal,float Reach)
+     {

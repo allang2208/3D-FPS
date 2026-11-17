@@ -8,6 +8,7 @@ class UDecalComponent;
 class UMaterialInstanceDynamic;
 class UInstancedStaticMeshComponent;
 class USoundBase;
+class UParticleSystemComponent;
 class UColdSteelStatusModel;
 struct FStreamableHandle;
 
@@ -32,7 +33,8 @@ public:
     bool InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,const FVector& Point,const FVector& Normal,const FVector& LongAxis,const TArray<TObjectPtr<UObject>>& Assets);
     void ActivateZone();
     void FinishForRemoval();
-    /** 15 件资产路径表：组件预热与远端副本自载共用同一张清单。 */
+    /** 组件预热、技能预载与远端副本共用同一张清单。 */
+    static constexpr int32 AssetCount=16;
     static const TCHAR* const* ZoneAssetPaths();
     static bool HasBasicAssets(const TArray<TObjectPtr<UObject>>& Assets);
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -44,7 +46,14 @@ private:
     TArray<FVector> CloudRoomCells;
     UPROPERTY(Transient) TObjectPtr<UInstancedStaticMeshComponent> Hail;
     UPROPERTY(Transient) TObjectPtr<UInstancedStaticMeshComponent> Spikes;
-    struct FChunk{FVector Position=FVector::ZeroVector,Velocity=FVector::ZeroVector;float Age=0,Size=0,FloorZ=0;int32 Layer=0;bool bActive=false,bFragment=false;float Roll=0;};
+    struct FChunk
+    {
+        FVector Position=FVector::ZeroVector,Velocity=FVector::ZeroVector;
+        FVector ImpactPoint=FVector::ZeroVector,ImpactNormal=FVector::UpVector;
+        float Age=0,Size=0,FloorZ=0,Roll=0,Spin=0;
+        int32 Layer=0;
+        bool bActive=false,bFragment=false;
+    };
     FChunk Chunks[48];
     TWeakObjectPtr<APawn> Caster;
     TWeakObjectPtr<UColdSteelStatusModel> RewardModel;
@@ -60,6 +69,9 @@ private:
     void UpdateCloudClearance(bool bForce=false);
     void SpawnChunk();
     void ScatterFragments(const FVector& Point,const FVector& Normal,int32 Layer);
+    void PlayIceShatter(const FVector& Point,const FVector& Normal,float SpikeSize);
+    UPROPERTY(Transient) TArray<TObjectPtr<UParticleSystemComponent>> ShatterPool;
+    float NextShatter=0,FragmentMeshLength=100;
     UPROPERTY(Transient) TObjectPtr<USoundBase> HitSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> LandingSound;
     void PlayLandingSound(const FVector& Point,bool bSnowball);

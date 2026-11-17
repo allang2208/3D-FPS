@@ -1,0 +1,65 @@
+{
+  "sources": [
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.h",
+      "sha256": "0734bb3642769ba8d03570fc2475195aea34410c23ad8bc7e13a3ca530e37aec"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+      "sha256": "5242da24cfc08d5525aa5758726e53e6eb1739c76040c6b93f3a14edd443c9cb"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "sha256": "f17447ee489bc9d78c3774a6064e14ddbef4a81baa096dfa7459d84215745f36"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterWander.cpp",
+      "sha256": "4b3b457ab6c8ce44f056bf4575180f30c5dc81796aa9663544bf111b8044b048"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/LurkerSurfaceRoute.cpp",
+      "sha256": "dbbd9c0ee1d751e1331585ce9d68abd44ca579d6c83de632df06ec823b7f9145"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/LurkerM08Traversal.cpp",
+      "sha256": "051ad6b3c9c117e7357ea64bacbcfe56a365c85347311f6f85d42fa0657f9ce4"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/LurkerM08Monster.h",
+      "sha256": "2644e1b361c3d867bc06fa8b20c389afc058ed04d39636345b62e140f1a8e937"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M09CeilingRoute.cpp",
+      "sha256": "7d5919656b757d1e3741af2498e8cccaae8c9f06d2697bf3bbab515295a9e6cf"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "sha256": "abaae78930728d3e95607593f582c9f99d31a7d5f77e3800979a9c0027ec64be"
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "sha256": "c3ecf58d191226a908f30b9ccdce676d0c5ff6bef836756726c379bbaa187b1d"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp",
+      "sha256": "cbf9ce64cd449ec51a3899721ed328569fbc04288dac89225e69111917962cf1"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/LurkerSurfaceRoute.h",
+      "sha256": "853bd502b1c1d5440625b69f212f924dc2ce2b53cdd3037f1d86c330f5cd865c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterPursuitNavigation.cpp",
+      "sha256": "8bf27124b7757156555e3b1c965e090340541cc4f8b737fd97dcdb3855167beb"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BellowSacLobber.cpp",
+      "sha256": "e94368fc440e8bcd7308e82265b7642267a38c5a3cf494b64643bc14be52834c"
+    }
+  ],
+  "document": "Docs/Monsters/hills-large-surface-navigation-20261117.md",
+  "gameBuild": "succeeded",
+  "editorBuild": "succeeded",
+  "editorOpened": false,
+  "runtimeTested": false
+}

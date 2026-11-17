@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/Monsters/MonsterAIController.h b/Source/FPSGAME/Monsters/MonsterAIController.h
+--- a/Source/FPSGAME/Monsters/MonsterAIController.h
++++ b/Source/FPSGAME/Monsters/MonsterAIController.h
+@@ -97,4 +97,8 @@ private:
+  float LastPursuitAcceptance=-1.f;
+  uint8 ApproachSearchOffset=0;
++ bool bHillsPursuitRecovery=false;
++ bool bHillsPawnInvoker=false;
++ FVector PursuitProgressPosition=FVector::ZeroVector;
++ double PursuitProgressTime=0.;
+  void RememberNavigationFailure(const FVector& Destination);
+ };

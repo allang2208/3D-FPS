@@ -154,3 +154,7 @@ bow_part_<槽名>_{mesh, material, hide_slot, rods, radius_cm, scale}
   再 `NotifyConfirmedWeaponHit` 出反馈；插地 8 s 并按 `Hit.BoneName` 挂到被击组件。
 - 现有弹药 HUD 显示拉距、箭袋与搭箭状态；PickupPrompt 只留短时失败反馈。不要复制一套常驻调试状态行。
 - 该系列尚无弓臂形变、专用音效／图标、箭拾回、独立改造 UI／第三人称动作；部件接口已存在不代表这些内容已完成。
+
+## 持弓时出现宽大块状阴影（2026-11-17）
+
+高地长弓骨骼弓弦成功 `PoseString` 后会隐藏两根备用 Cylinder，并跳过细杆缩放。世界弓具不能仅按槽位开启 `CastShadow` / `bCastHiddenShadow`，否则默认 100 cm 高、50 cm 半径的隐藏圆柱仍投影。每个槽只管理直接渲染子件，阴影还需该网格 `IsVisible()`；`OwnerNoSee` 用于隐藏本人世界弓，不代表网格被槽位停用。保留正常人物、实体弓与弦的投影，不能通过禁用整把弓的阴影掩盖备用几何问题。用户当前 PIE 的只读状态已确认两根隐藏圆柱投影开启，修复和构建状态见工程 `Docs/Weapons/highland-bow-hidden-placeholder-shadow-20261117.md`；本轮未主动运行测试或渲染。

@@ -1,0 +1,9 @@
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -1040,4 +1045,5 @@ void ATemperateHillsWorld::TickStreaming()
+         auto& Cell=S.Cells.FindOrAdd(Result->Key);
+         auto* C=NewObject<UDynamicMeshComponent>(this);
++        C->ComponentTags.Add(TEXT("HillsGround"));
+         AddInstanceComponent(C);C->SetupAttachment(RootComponent);C->SetRelativeLocation(CellOrigin(Result->Key));
+         C->SetMobility(EComponentMobility::Movable);C->SetCanEverAffectNavigation(false);

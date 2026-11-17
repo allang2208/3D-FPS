@@ -8,12 +8,12 @@
 #include "EngineUtils.h"
 #include "GameFramework/Pawn.h"
 
-bool FireMagic::TraceSurface(APawn* Shooter,const FVector& Start,const FVector& End,FHitResult& Hit,bool bAreaSight)
+bool FireMagic::TraceSurface(AActor* Source,const FVector& Start,const FVector& End,FHitResult& Hit,bool bAreaSight)
 {
-    if(!Shooter||!Shooter->GetWorld())return false;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireMagicSurface),true,Shooter);
-    while(bAreaSight?MagicOcclusion::TraceBlocker(Shooter->GetWorld(),Start,End,Query,Hit,Shooter):
-        RangedAttackQuery::LineTraceSingle(Shooter->GetWorld(),Shooter,Hit,Start,End,ECC_Visibility,Query))
+    if(!Source||!Source->GetWorld())return false;
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireMagicSurface),true,Source);
+    while(bAreaSight?MagicOcclusion::TraceBlocker(Source->GetWorld(),Start,End,Query,Hit,Source):
+        RangedAttackQuery::LineTraceSingle(Source->GetWorld(),Source,Hit,Start,End,ECC_Visibility,Query))
     {
         AActor* Actor=Hit.GetActor();
         if(!Actor||(!Actor->IsA<APawn>()&&!Actor->FindComponentByClass<UMonsterCombatComponent>()))return true;

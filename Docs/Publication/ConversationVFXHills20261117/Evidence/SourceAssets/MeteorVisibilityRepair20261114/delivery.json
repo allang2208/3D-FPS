@@ -1,0 +1,26 @@
+{
+  "status": "active_meteor_impact_repaired_and_saved",
+  "complete": true,
+  "completed_at": "2026-11-14T17:13:02+08:00",
+  "runtime_system": "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7",
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/M_PressureRaysV7.M_PressureRaysV7",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/T_MeteorPressureFieldsV7.T_MeteorPressureFieldsV7"
+  ],
+  "receipts": ["repair-receipt.json", "binding-repair-receipt.json", "inspect-process.json", "bindings-process.json"],
+  "fire_window": [0, 9.65],
+  "crown_lifetime_seconds": 0.82,
+  "contact_lifetime_seconds": 0.14,
+  "radial_fan_lifetime_seconds": 0.32,
+  "renderer_count": 9,
+  "niagara_compile_valid": true,
+  "niagara_pending_compiles": 0,
+  "native_code_changed": false,
+  "runtime_reference_changed": false,
+  "preserved": ["rock and fragments", "V6 mantle and trail", "V4 low ground fire", "gameplay values", "sound", "camera"],
+  "interactive_editor_opened": false,
+  "game_started": false,
+  "runtime_tested": false,
+  "visual_match_claimed": false
+}

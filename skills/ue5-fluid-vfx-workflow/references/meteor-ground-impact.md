@@ -1,5 +1,14 @@
 # 地面火场与撞击层次
 
+## 火球命中基底与当前陨石恢复顺序（2026-11-15）
+
+当前爆燃主体已由火球 `ImpactRealistic20260914/NS_FireballImpactRealistic` 的 ContactIgnition / OutwardCombustion 派生，保存到原 `MeteorImpactReferenceV7/NS_MeteorPressureV7` 路径；同一路径可以换内容，不能凭目录版本判断仍是旧火冠。恢复时先准备旧依赖，再依次运行 `author_meteor_fireball_impact_20261115.py` 和 `author_meteor_longer_roll_20261115.py`，以 revision 2 保存回执为准。保留现有冲击波、火星、V6 飞行、V4 低火与玩法。
+
+延长火团需同时处理生命周期、位移时钟与图集播放：本案翻滚寿命为供体 2.05 倍，位置时钟用 1.18/2.05，白热前段单独保持短促；只拉寿命而不调整播放会变成停帧。放大供体时校准实际可见区域与局部位置，不能仅放大组件。具体参数是本效果配方，不推广成通用火焰倍率。见工程 `Docs/Skills/meteor-fireball-impact-20261115.md`；保存、原生构建和用户画面认可分别记录。
+
+异步加载时将世界空间尾迹的 PreviousPosition / CurrentPosition 初始化为按服务器年龄计算的当前岩体位置；不能从最初高空起点补画整段尾迹。晚到副本恢复剩余低火，不重播过期撞击。
+
+
 处理陨星式落地爆燃、持续火场、统一火焰高度或“只有碎石”的反馈时使用。数值、锁点与修炼规则见 [地面魔法合同](../../ue5-skill-magic-workflow/references/meteor-ground-contract.md)。
 
 ## 半径与自然度
@@ -18,9 +27,17 @@
 
 ## 当前制作链与工具陷阱
 
+**2026-11-14 用户已否定 V6 撞地效果。** V6 的保存/构建记录不能作为认可基线。本轮按视频 `BV1ZEWj6qE8S` 中 METEOR / AI VIDEO 的集中亮芯、白金色径向放射、外翻火冠和抛出碎屑重制 `MeteorImpactReferenceV7`，八项新资产已后台保存；只替换撞击，保留岩体、V6 飞行、V4 低火与玩法。实际接入以 `MeteorAssets.h` 和 `SourceAssets/MeteorImpactReferenceV7_20261114/delivery.json` 为准，制作细节见 `Docs/Skills/meteor-impact-reference-v7-20261114.md`。未做游戏视觉对照，不宣称 100% 一致。恢复旧母版/V6 后最后执行 V7 作者与接入器。
+
 2026-10-22 本机基线：封闭岩体 `MeteorClosedVolumeV1`，低火 `MeteorImpactLowFireV4`，撞击/焦痕/音频 `MeteorImpactWeightV5`。`MeteorAssets.h` 统一运行、准备及回调绑定清单。V2/V3 流体和 RealisticV5 容器仍是当前作者输入，不能因版本旧而移走。
 
 作者入口：`build_meteor_ground_fire_v4.py`、`build_meteor_impact_v5.py`、`author_meteor_scorch_audio_v5.py`；恢复顺序和授权资产边界见工程 `Docs/Publication/Meteor20261022/README.md`。
+
+2026-11-14 V6 更新：`MeteorCombustionV6` 的撞击爆燃/余烟、包覆焰、世界空间尾迹已后台制作并保存。岩体仍为 `MeteorClosedVolumeV1`，低矮残火仍为 V4，焦痕与落地音频仍为 V5；玩法数值、伤害帧、镜头及声音不变。运行引用和构建的实际完成状态见 `SourceAssets/MeteorCombustionV6_20261114/delivery.json`，不能仅凭作者脚本存在认定已接入。
+
+V6 使用原创离线 Mantaflow 场投影，两个 64 帧 RGBA 数据图集的 A 通道为烟形体明暗，不能直接作透明度。手动相邻帧插值时 Niagara Renderer 保持 1×1；动态参数连接使用显式 `RGBA` 输出。连续发射器采用 System 生命周期，不设置该模式下隐藏的 Loop Behavior。撞击最多 25 粒子，其中 16 粒烟尘接入共享预算，不新增运行时流体网格或灯光。
+
+完整路线见 `Docs/Skills/meteor-combustion-v6-20261114.md`。恢复旧母版后，最后运行 `bake_meteor_combustion_v6.py`、`build_meteor_combustion_v6.py` 和 `build_meteor_combustion_v6.ps1`，避免旧作者入口把三项运行引用退回旧版。本轮不打开交互 UE、不运行游戏或测试，观感由用户自行查看。
 
 - UE 5.8 CPU VectorVM 的自定义表达式不接受所有 GPU HLSL 内建函数；此案 `smoothstep` 编译失败，用共用多项式曲线恢复，不把材质编译成功等同于 Niagara 全部脚本成功。
 - Substrate 材质引脚的显示名可能含空格，此案 Emissive 使用 `Emissive Color`。以实际接口返回为准。

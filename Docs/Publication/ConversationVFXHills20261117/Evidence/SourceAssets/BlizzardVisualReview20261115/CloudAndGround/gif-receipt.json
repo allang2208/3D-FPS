@@ -1,0 +1,15 @@
+{
+  "source": "FPSGAME AFPSBlizzardZone offscreen render",
+  "fixture": "flat floor, no weather, level-one footprint",
+  "gif_frames": 116,
+  "fps": 20,
+  "duration_seconds": 5.8,
+  "resolution": [
+    960,
+    540
+  ],
+  "playback": "original speed, looping",
+  "gif": "SourceAssets\\BlizzardVisualReview20261115\\CloudAndGround\\blizzard-cloud-cold-mist.gif",
+  "assets_modified": false,
+  "retouched": false
+}

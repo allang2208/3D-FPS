@@ -1,0 +1,56 @@
+{
+  "saved_at": "2026-11-15T01:14:50.168306",
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorFireballImpactV8/M_MeteorFireballCombustion.M_MeteorFireballCombustion",
+    "/Game/Skills/FireMagic20260921/MeteorFireballImpactV8/MI_MeteorFireballCombustion.MI_MeteorFireballCombustion",
+    "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7.NS_MeteorPressureV7"
+  ],
+  "profile": {
+    "revision": 1,
+    "source": "/Game/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.NS_FireballImpactRealistic",
+    "source_layers": [
+      "ContactIgnition",
+      "OutwardCombustion"
+    ],
+    "retired_layers": [
+      "RefWhiteHotCore",
+      "RefPressureFireCrown",
+      "RefVolumeCenterRoll",
+      "RefVolumeShoulderA",
+      "RefVolumeShoulderB"
+    ],
+    "horizontal_scale_at_baseline": 3.25,
+    "vertical_scale_at_baseline": 3.05,
+    "local_position_calibration": 0.765,
+    "contact_lifetime_multiplier": 1.08,
+    "combustion_lifetime_multiplier": 1.18,
+    "moving_flame_particles": 8,
+    "combustion_particles": 9,
+    "max_impact_particles": 88,
+    "smoke_budget": 16,
+    "material": "/Game/Skills/FireMagic20260921/MeteorFireballImpactV8/MI_MeteorFireballCombustion.MI_MeteorFireballCombustion"
+  },
+  "source_fireball_saved_or_modified": false,
+  "native_source_modified": false,
+  "new_textures": 0,
+  "new_components": 0,
+  "new_lights": 0,
+  "compiled": true,
+  "rendered": false,
+  "tested": false,
+  "editor_started_by_this_task": false,
+  "preserved": [
+    "contact flash",
+    "radial pressure fan",
+    "current shockwave and sparks",
+    "impact dust and aftersmoke",
+    "falling flame",
+    "continuous trail",
+    "low ground fire",
+    "rock and fragments",
+    "gameplay values and timing",
+    "sound",
+    "camera",
+    "scorch"
+  ]
+}

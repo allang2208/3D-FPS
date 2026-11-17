@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.h b/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.h
+--- a/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.h
++++ b/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.h
+@@ -11,4 +11,7 @@ class FPSGAME_API UHillsNavigationSystem : public UNavigationSystemV1
+ public:
+     UHillsNavigationSystem(const FObjectInitializer& Initializer=FObjectInitializer::Get());
++    virtual void OnWorldInitDone(FNavigationSystemRunMode Mode) override;
++    virtual void RegisterInvoker(AActor& Invoker,float GenerationRadius,float RemovalRadius,
++        const FNavAgentSelector& Agents,ENavigationInvokerPriority Priority) override;
+     UFUNCTION(BlueprintCallable,Category="Hills|Authoring",meta=(WorldContext="Context"))
+     static bool InstallOnMap(UObject* Context);

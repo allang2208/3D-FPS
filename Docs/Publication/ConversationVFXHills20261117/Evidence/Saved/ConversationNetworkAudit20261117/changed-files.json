@@ -1,0 +1,38 @@
+[
+  {
+    "path": "Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+    "beforeSha256": "a5e39e2af5528b0afe7d7e46f732ef8a5838bfb4bb6066ae2420e677bd3efa39",
+    "sha256": "329987ff0163b8a042ee8fdd7b5d4e2f45b1348157d37ffc2990c62eecc0ad43",
+    "bytes": 23436
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+    "beforeSha256": "96b2e574291cae491eab6d75eec12394bd52f1f496cf84ee6d2b98c9cfebb3dd",
+    "sha256": "7c9f32f1472651f7cafad7fff59e8d8c6e38b3778e3a396bd9f9ef6b646491c4",
+    "bytes": 26912
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FireMagicArea.cpp",
+    "beforeSha256": "d1b0c1ab6d0defc6451279a8a306bcd79d33a84262c0ace89f0ed28f20e0e3f6",
+    "sha256": "944b3622e65aaaae835766b5488dda16c60e3bec6e401fa4444c2a0a9c988f29",
+    "bytes": 2973
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FireMagicArea.h",
+    "beforeSha256": "52ac146900bf3146b64e9e7856c6fbfc1a6c17aabd0f67806b2061a2a82b5efb",
+    "sha256": "ad415a83f37567543afc9850df6288ef816d83e891c763d8a0ab0fcfb20cf278",
+    "bytes": 505
+  },
+  {
+    "path": "Source/FPSGAME/Skills/MeteorGroundFire.cpp",
+    "beforeSha256": "034ee4f1da9a7474b1aa43cb3dc84b0fa4fb9e26e88faf78865072b5de4322e3",
+    "sha256": "5eaa82a213075dc5ab47349b0ac5c27708f3a6e9c39d9e86690a94ec094fbccd",
+    "bytes": 7146
+  },
+  {
+    "path": "Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp",
+    "beforeSha256": "cbf9ce64cd449ec51a3899721ed328569fbc04288dac89225e69111917962cf1",
+    "sha256": "3a5c7ed287129f85b787f7aacac8141fc0bf178573e2b336f129856aab3ceb18",
+    "bytes": 6797
+  }
+]

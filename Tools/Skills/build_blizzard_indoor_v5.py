@@ -70,6 +70,9 @@ def footprint_material(name):
         if not LIB.connect_material_property(mask, '', u.MaterialProperty.MP_OPACITY):
             raise RuntimeError('Cannot connect indoor footprint mask')
         EAL.set_metadata_tag(material, 'Blizzard.IndoorV5Mask', '1')
+    if name == 'M_BlizzardGroundFrost':
+        from blizzard_frost_surface_recipe import apply as remove_frost_tiling
+        remove_frost_tiling(material)
     errors = LIB.recompile_material(material)
     if errors:
         raise RuntimeError(str(errors))
@@ -186,6 +189,13 @@ def build_assets():
     system('NS_BlizzardStormCloud', [('cloud', V3 + 'MI_BlizzardStormCloud')])
     system('NS_BlizzardPrecipitation', [('snow', '/Game/Skills/IceSpike/FrostV2/M_FrostCrystalSoft'), ('rain', V3 + 'M_BlizzardRain')])
     system('NS_BlizzardBoundaryMist', [('mist', '/Game/Skills/IceSpike/FrostV2/MI_ColdMist')])
+    # Preserve the latest room-aware cold mist when rebuilding the full family.
+    import blizzard_cold_mist_recipe as cold
+    cold_material = cold.author_material()
+    cold_system = u.load_asset(cold.SYSTEM)
+    cold.apply(cold_system, cold_material)
+    save(cold_material)
+    save(cold_system)
     saved = [x for x in CREATED if x.startswith(DEST)]
     if resumed:
         saved += [DEST+'/'+x+'.'+x for x in ['M_BlizzardGroundFrost', 'M_BlizzardAimPreview']]

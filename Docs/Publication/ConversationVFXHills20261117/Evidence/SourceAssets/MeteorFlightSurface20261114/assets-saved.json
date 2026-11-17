@@ -1,0 +1,28 @@
+{
+  "saved_at": "2026-11-14T20:25:22.132269",
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorSheathV6.M_MeteorSheathV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorWakeSmokeV6.M_MeteorWakeSmokeV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorSheathV6.NS_MeteorSheathV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorSlipstreamV6.NS_MeteorSlipstreamV6"
+  ],
+  "source_rock": "/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/SM_MeteorClosedRock",
+  "surface_samples": 48,
+  "mantle_emission_rate": 66,
+  "trail_emission_rate_max": 124,
+  "flight_particle_upper_bound": 90,
+  "source_texture": "unchanged original Mantaflow wake atlas",
+  "added_lights": 0,
+  "added_components": 0,
+  "added_runtime_geometry_queries": 0,
+  "rendered": false,
+  "tested": false,
+  "protected": [
+    "current V7 impact and radial sparks",
+    "V4 low ground fire",
+    "rock mesh and material",
+    "gameplay values",
+    "sound",
+    "camera"
+  ]
+}

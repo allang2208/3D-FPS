@@ -1,0 +1,16 @@
+[
+  "WorldGeneration/HillsNavigationSystem.h",
+  "WorldGeneration/HillsNavigationSystem.cpp",
+  "Monsters/MonsterAIController.cpp",
+  "Monsters/MonsterWander.cpp",
+  "Monsters/LurkerSurfaceRoute.cpp",
+  "Monsters/LurkerM08Traversal.cpp",
+  "Monsters/LurkerM08Monster.h",
+  "Monsters/M09CeilingRoute.cpp",
+  "Monsters/HangingBellM09.cpp",
+  "Development/DevelopmentSpawnComponent.cpp",
+  "Monsters/MonsterTargetReplacement.cpp",
+  "Monsters/LurkerSurfaceRoute.h",
+  "Monsters/MonsterPursuitNavigation.cpp",
+  "Monsters/BellowSacLobber.cpp"
+]

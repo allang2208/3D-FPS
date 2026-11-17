@@ -1,0 +1,32 @@
+{
+  "complete": true,
+  "saved_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/T_MeteorImpactFields.T_MeteorImpactFields",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/T_MeteorWakeFields.T_MeteorWakeFields",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorBurstV6.M_MeteorBurstV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorAfterSmokeV6.M_MeteorAfterSmokeV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorSheathV6.M_MeteorSheathV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/M_MeteorWakeSmokeV6.M_MeteorWakeSmokeV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorCollisionV6.NS_MeteorCollisionV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorSheathV6.NS_MeteorSheathV6",
+    "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorSlipstreamV6.NS_MeteorSlipstreamV6"
+  ],
+  "impact_max_particles": 25,
+  "impact_smoke_budget": 16,
+  "mantle_rate": 30,
+  "wake_rate": 55,
+  "texture_data": "Two 2048-square linear RGBA atlases, 64 frames each",
+  "new_lights": 0,
+  "new_runtime_fluid_grids": 0,
+  "protected": [
+    "rock",
+    "ground fire V4",
+    "gameplay",
+    "sound",
+    "camera",
+    "scorch"
+  ],
+  "rendered": false,
+  "runtime_tested": false,
+  "performance_measured": false
+}

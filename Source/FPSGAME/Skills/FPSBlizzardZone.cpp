@@ -24,13 +24,16 @@
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
+#include "Particles/ParticleSystem.h"
+#include "Particles/ParticleSystemComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "NetCastUtils.h"
 
 // 组件预热与远端副本自载共用同一张资产清单（顺序固定——InitializeZone 按下标取用）。
 const TCHAR* const* AFPSBlizzardZone::ZoneAssetPaths()
 {
-    static const TCHAR* Paths[]={TEXT("/Game/Skills/StormClouds/RollingV1/NS_BlizzardStormCloud.NS_BlizzardStormCloud"),TEXT("/Game/Skills/Blizzard/IndoorV5/NS_BlizzardPrecipitation.NS_BlizzardPrecipitation"),
+    // 2026-11-15：用户选定对比 GIF 的 B 版区域乌云；其余表现继续沿用当前资产。
+    static const TCHAR* Paths[]={TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardStormCloud.NS_BlizzardStormCloud"),TEXT("/Game/Skills/Blizzard/IndoorV5/NS_BlizzardPrecipitation.NS_BlizzardPrecipitation"),
         TEXT("/Game/Skills/Blizzard/IndoorV5/NS_BlizzardBoundaryMist.NS_BlizzardBoundaryMist"),TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardIceHeart.M_BlizzardIceHeart"),
         TEXT("/Game/Skills/IceSpike/SM_IceShard.SM_IceShard"),TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_01.SM_IceSpike_01"),
         TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardIceShell.M_BlizzardIceShell"),TEXT("/Game/Skills/Blizzard/IndoorV5/M_BlizzardGroundFrost.M_BlizzardGroundFrost"),
@@ -38,12 +41,13 @@ const TCHAR* const* AFPSBlizzardZone::ZoneAssetPaths()
         TEXT("/Game/Skills/Blizzard/StormV2/S_BlizzardIceLanding.S_BlizzardIceLanding"),
         TEXT("/Game/Skills/StormClouds/RollingV1/NS_BlizzardGatherCloud.NS_BlizzardGatherCloud"),
         TEXT("/Game/Skills/Blizzard/IndoorV5/M_BlizzardAimPreview.M_BlizzardAimPreview"),
-        TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_02.SM_IceSpike_02"),TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_03.SM_IceSpike_03")};
+        TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_02.SM_IceSpike_02"),TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_03.SM_IceSpike_03"),
+        TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact")};
     return Paths;
 }
 bool AFPSBlizzardZone::HasBasicAssets(const TArray<TObjectPtr<UObject>>& Assets)
 {
-    return Assets.Num()==15&&(Cast<UNiagaraSystem>(Assets[1])||Cast<UNiagaraSystem>(Assets[2])||Cast<UMaterialInterface>(Assets[7]));
+    return Assets.Num()==AssetCount&&(Cast<UNiagaraSystem>(Assets[1])||Cast<UNiagaraSystem>(Assets[2])||Cast<UMaterialInterface>(Assets[7]));
 }
 
 AFPSBlizzardZone::AFPSBlizzardZone()
@@ -70,7 +74,7 @@ void AFPSBlizzardZone::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 }
 bool AFPSBlizzardZone::InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,const FVector& Point,const FVector& Normal,const FVector& LongAxis,const TArray<TObjectPtr<UObject>>& Assets)
 {
-    if(!Shooter||!HasBasicAssets(Assets))return false;
+    if((HasAuthority()&&!Shooter)||!HasBasicAssets(Assets))return false;
     HitSound=Cast<USoundBase>(Assets[9]);
     LandingSound=Cast<USoundBase>(Assets[10]);
     Caster=Shooter;CastSnapshot=Spell;Center=Point;SurfaceNormal=FVector::UpVector;AxisX=FVector::VectorPlaneProject(LongAxis,SurfaceNormal).GetSafeNormal();AxisY=FVector::CrossProduct(SurfaceNormal,AxisX).GetSafeNormal();
@@ -124,6 +128,7 @@ bool AFPSBlizzardZone::InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,
     if(bHasIce)
     {
     Hail=MakeMesh(TEXT("IceFragments"),4,3,24);
+    FragmentMeshLength=FMath::Max(1.f,float(Hail->GetStaticMesh()->GetBounds().BoxExtent.GetMax()*2));
     for(int32 V=0;V<3;++V)
     {
         const int32 Index=V==0?5:12+V;
@@ -131,6 +136,21 @@ bool AFPSBlizzardZone::InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,
         SpikeShells.Add(MakeMesh(FString::Printf(TEXT("IceShell%d"),V),Index,6,8));
     }
     Spikes=SpikeHearts[0];
+    }
+    if(auto* Template=Cast<UParticleSystem>(Assets[15]))
+    {
+        // Owned, reusable components: frequent hail impacts never allocate actors
+        // or steal a pooled component from another spell's AutoRelease pool.
+        for(int32 I=0;I<3;++I)
+        {
+            auto* FX=NewObject<UParticleSystemComponent>(this);
+            AddInstanceComponent(FX);FX->SetupAttachment(RootComponent);
+            FX->bAutoActivate=false;FX->bAutoDestroy=false;
+            FX->SetTemplate(Template);FX->SetCastShadow(false);
+            FX->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            FX->SetCanEverAffectNavigation(false);FX->RegisterComponent();
+            ShatterPool.Add(FX);
+        }
     }
     return VisualLayers[0].Snow||VisualLayers[0].Mist||VisualLayers[0].FrostMaterial;
 }
@@ -214,11 +234,31 @@ void AFPSBlizzardZone::SpawnChunk()
 void AFPSBlizzardZone::ScatterFragments(const FVector& Point,const FVector& Normal,int32 Layer)
 {
     if(!bHasIce)return;
+    FVector Tangent,Bitangent;Normal.FindBestAxisVectors(Tangent,Bitangent);
+    const int32 Wanted=FMath::Clamp(FMath::RoundToInt(2+3*Detail),2,5);
     int32 Count=0;
-    for(int32 I=24;I<48&&Count<3;++I)if(!Chunks[I].bActive)
+    for(int32 I=24;I<48&&Count<Wanted;++I)if(!Chunks[I].bActive)
     {
-        auto& C=Chunks[I];C.Position=Point+Normal*5;C.Velocity=Normal*Random.FRandRange(90,150)+AxisX*Random.FRandRange(-80,80)+AxisY*Random.FRandRange(-80,80);
-        C.FloorZ=Point.Z;C.Layer=Layer;C.Age=0;C.Size=Random.FRandRange(5,10);C.Roll=Random.FRandRange(0.f,2*PI);C.bActive=C.bFragment=true;++Count;
+        auto& C=Chunks[I];C.Size=Random.FRandRange(9,18);C.Roll=Random.FRandRange(0.f,2*PI);
+        const FVector Outward=Tangent*FMath::Cos(C.Roll)+Bitangent*FMath::Sin(C.Roll);
+        C.Position=Point+Normal*(C.Size*.5f+2)+Outward*3;
+        C.Velocity=Normal*Random.FRandRange(135,210)+Outward*Random.FRandRange(90,170);
+        C.ImpactPoint=Point;C.ImpactNormal=Normal;C.Spin=Random.FRandRange(7,13)*(Count%2?-1.f:1.f);
+        C.FloorZ=Point.Z;C.Layer=Layer;C.Age=0;C.bActive=C.bFragment=true;++Count;
+    }
+}
+void AFPSBlizzardZone::PlayIceShatter(const FVector& Point,const FVector& Normal,float SpikeSize)
+{
+    if(Age<NextShatter||Detail<=0)return;
+    for(UParticleSystemComponent* FX:ShatterPool)if(FX&&!FX->IsActive())
+    {
+        auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>();
+        if(Fluid&&Fluid->AllocateDetail(Point,1)<1)return;
+        NextShatter=Age+.14f;
+        FX->SetWorldLocationAndRotation(Point+Normal*2,Normal.Rotation());
+        FX->SetWorldScale3D(FVector(.7f*FMath::Clamp(SpikeSize/54.f,.65f,1.15f)));
+        FX->ActivateSystem(true);
+        return;
     }
 }
 void AFPSBlizzardZone::PlayLandingSound(const FVector& Point,bool bSnowball)
@@ -312,20 +352,29 @@ void AFPSBlizzardZone::UpdatePresentation(float Delta)
         if(!NetRoomCells.IsValidIndex(Cell)||NetRoomCells[Cell].Z<=0)C.Age=4.f;
         else if(C.Position.Z>Center.Z+NetRoomCells[Cell].X+NetRoomCells[Cell].Y)C.Age=4.f;
         const float Height=C.Position.Z-C.FloorZ;
-        if(!HitSurface&&Height<=C.Size*.5f){HitSurface=true;Impact=C.Position-SurfaceNormal*Height;}
-        if(HitSurface||C.Age>(C.bFragment?.35f:3.f))
+        if(C.bFragment)
+        {
+            // Reuse the actual impact plane for chips; no per-chip traces.
+            HitSurface=FVector::DotProduct(C.Position-C.ImpactPoint,C.ImpactNormal)<=C.Size*.25f;
+        }
+        else if(!HitSurface&&Height<=C.Size*.5f){HitSurface=true;Impact=C.Position-SurfaceNormal*Height;}
+        if(HitSurface||C.Age>(C.bFragment?.6f:3.f))
         {
             C.bActive=false;
             if(HitSurface&&!C.bFragment&&!bFinished)
             {
                 if(Fluid)Fluid->EmitColdImpact(Impact,ImpactNormal);
+                PlayIceShatter(Impact,ImpactNormal,C.Size);
                 PlayLandingSound(Impact,false);
                 ScatterFragments(Impact,ImpactNormal,C.Layer);
             }
         }
         const FVector Direction=C.Velocity.GetSafeNormal();
-        const FQuat Rotation=FRotationMatrix::MakeFromX(Direction.IsNearlyZero()?-SurfaceNormal:Direction).ToQuat()*FQuat(FVector::ForwardVector,C.Roll);
-        const float Scale=C.Size/(C.bFragment?100.f:54.f)*(bFinished?Fade:1.f);
+        const FQuat Rotation=C.bFragment?
+            FRotator(FMath::RadiansToDegrees(C.Age*C.Spin),FMath::RadiansToDegrees(C.Roll),FMath::RadiansToDegrees(C.Age*C.Spin*.65f)).Quaternion():
+            FRotationMatrix::MakeFromX(Direction.IsNearlyZero()?-SurfaceNormal:Direction).ToQuat()*FQuat(FVector::ForwardVector,C.Roll);
+        const float ChipFade=C.bFragment?FMath::Clamp((.6f-C.Age)/.2f,0.f,1.f):1.f;
+        const float Scale=C.Size/(C.bFragment?FragmentMeshLength:54.f)*(bFinished?Fade:1.f)*ChipFade;
         const FVector Size=C.bActive?FVector(Scale):FVector::ZeroVector;
         if(I<24)
         {
@@ -350,6 +399,7 @@ void AFPSBlizzardZone::Tick(float Delta)
     {
         NetInit();
         if(!bNetInit)return;
+        if(NetCaster)Caster=NetCaster.Get();
         const auto* State=GetWorld()->GetGameState<AGameStateBase>();
         if(!State)return;
         Age=FMath::Max(Age,float(State->GetServerWorldTimeSeconds()-NetStartedAt));
@@ -372,14 +422,15 @@ void AFPSBlizzardZone::Tick(float Delta)
 // Remote regions request assets once; cold caches never synchronously load in Tick.
 void AFPSBlizzardZone::NetInit()
 {
-    if(bNetInit||!NetCaster||NetCast.RadiusX<=0||!bNetActivated||NetRoomCells.Num()!=BlizzardEnvironment::VolumeCellCount)return;
+    // Regional FX remain visible even when the caster is outside relevancy.
+    if(bNetInit||NetCast.RadiusX<=0||!bNetActivated||NetRoomCells.Num()!=BlizzardEnvironment::VolumeCellCount)return;
     const auto* State=GetWorld()->GetGameState<AGameStateBase>();if(!State)return;
     Age=FMath::Max(0.f,float(State->GetServerWorldTimeSeconds()-NetStartedAt));
     if(Age>=NetCast.Duration+.6f){Destroy();return;}
     if(!bNetAssetsRequested)
     {
         bNetAssetsRequested=true;TArray<FSoftObjectPath> Requests;
-        const TCHAR* const* Paths=ZoneAssetPaths();for(int32 I=0;I<15;++I)Requests.Emplace(Paths[I]);
+        const TCHAR* const* Paths=ZoneAssetPaths();for(int32 I=0;I<AssetCount;++I)Requests.Emplace(Paths[I]);
         NetAssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Requests,FStreamableDelegate::CreateWeakLambda(this,[this,Requests]()
         {
             for(const auto& Path:Requests)NetAssets.Add(Path.ResolveObject());
@@ -399,6 +450,7 @@ void AFPSBlizzardZone::EndPlay(EEndPlayReason::Type Reason)
     FinishForRemoval();
     for(auto& Layer:VisualLayers)
         for(auto* FX:{Layer.Cloud.Get(),Layer.Snow.Get(),Layer.Mist.Get()})if(FX)FX->DestroyComponent();
+    for(UParticleSystemComponent* FX:ShatterPool)if(FX)FX->DestroyComponent();
     if(NetAssetLoad)NetAssetLoad->CancelHandle();NetAssetLoad.Reset();NetAssets.Reset();
     Super::EndPlay(Reason);
 }

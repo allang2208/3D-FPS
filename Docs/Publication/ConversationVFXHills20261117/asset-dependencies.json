@@ -1,0 +1,318 @@
+{
+  "note": "Live local assets only; licensing not granted for public binary redistribution.",
+  "assets": [
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/SM_MeteorClosedRock",
+      "exists": true,
+      "bytes": 120151,
+      "modified": "2026-10-19T09:08:40.634682Z",
+      "sha256": "b6a22cded8c77b73bfc92d0355cf365e9cbefa71f129f5aaefd3460c09825c76",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/MI_MeteorClosedRock",
+      "exists": true,
+      "bytes": 9572,
+      "modified": "2026-10-19T09:08:38.4534427Z",
+      "sha256": "f7e64a8c3ce3f61ae6b90c1f144a4855a1d650682db5cd06709229f81ffa2074",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorSheathV6",
+      "exists": true,
+      "bytes": 1393846,
+      "modified": "2026-11-14T12:25:21.9535333Z",
+      "sha256": "15120a7b7c398b8e6da3950c0e961184f0505367fc3fdf8c0576de5710dfdc68",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/MeteorCombustionV6/NS_MeteorSlipstreamV6",
+      "exists": true,
+      "bytes": 1562102,
+      "modified": "2026-11-14T12:25:22.1253483Z",
+      "sha256": "2f61618eac4239e17fd8a1ec2e28a5eea1162e8c68bdb75c2a892f8742600b4b",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/MeteorImpactLowFireV4/NS_MeteorGroundVolume",
+      "exists": true,
+      "bytes": 12431991,
+      "modified": "2026-10-22T04:21:49.4941703Z",
+      "sha256": "f496f540c259a6385b7f47cb19419c9477aae920a045897a1d6469e64161b01d",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/MeteorImpactReferenceV7/NS_MeteorPressureV7",
+      "exists": true,
+      "bytes": 5050607,
+      "modified": "2026-11-15T03:42:49.2768811Z",
+      "sha256": "d6748bf4da22576c5cebe853acc965ee622f2745b4157f5a4a4c754715f6521f",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/MeteorImpactWeightV5/M_MeteorScorch",
+      "exists": true,
+      "bytes": 15840,
+      "modified": "2026-10-22T04:59:02.7882635Z",
+      "sha256": "36f6129262987c6a947ab7cfb7d06877022635425018ae83e5c82c967dce6524",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/MeteorImpactWeightV5/S_MeteorImpact",
+      "exists": true,
+      "bytes": 89683,
+      "modified": "2026-10-22T04:59:02.8129674Z",
+      "sha256": "b7062f1e7ac1110eab95220ae37d57b5f1e39b9bb56a90613b09ae70f79b7c15",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/S_MeteorBurn",
+      "exists": true,
+      "bytes": 218897,
+      "modified": "2026-09-21T11:57:29.6506536Z",
+      "sha256": "2ccfd3aa37d29a4a02a8a62b68727d94742ea61a9cfd906112a2093b80e83345",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/Fireball/ImpactRealistic20260914/M_FireballHeatShockwave",
+      "exists": true,
+      "bytes": 14222,
+      "modified": "2026-09-14T15:10:55.4123045Z",
+      "sha256": "fe2f180d3e045d790c37c930c3cd3e67cab063cde0a27e3c1a82660f9764703c",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/S_FireMagicCast",
+      "exists": true,
+      "bytes": 63763,
+      "modified": "2026-09-21T11:57:29.3680282Z",
+      "sha256": "ea8b3a78f33821342b549d676eb985a2796d1faea6dc9dcf2c4ba9a9fe9143ce",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/MeteorAssets.h",
+      "package": "/Game/Skills/FireMagic20260921/PreviewSurface20261022/M_MeteorAimPreview",
+      "exists": true,
+      "bytes": 9891,
+      "modified": "2026-10-22T06:18:38.5906822Z",
+      "sha256": "e6c13a47b679252fb0716bdb8b4839bd1c410c2a006cafc9bb1b716ee3969eb9",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/Blizzard/ChargedV3/NS_BlizzardStormCloud",
+      "exists": true,
+      "bytes": 2245152,
+      "modified": "2026-10-01T09:09:05.6420493Z",
+      "sha256": "985eabfb285f8ac43db075afd096e868b357f43c575a8a5cef095217cd9deaf4",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/Blizzard/IndoorV5/NS_BlizzardPrecipitation",
+      "exists": true,
+      "bytes": 1264864,
+      "modified": "2026-10-12T14:38:30.6959999Z",
+      "sha256": "5f322f030c4087fb2a73a699db96285df52cf2394188f043204b85283f592407",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/Blizzard/IndoorV5/NS_BlizzardBoundaryMist",
+      "exists": true,
+      "bytes": 1365223,
+      "modified": "2026-11-15T05:57:26.6627132Z",
+      "sha256": "b8cea571057ce3db37613427c44e64153da92ca6dfcef05e22fcf8ef003aba73",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/Blizzard/ChargedV3/M_BlizzardIceHeart",
+      "exists": true,
+      "bytes": 17613,
+      "modified": "2026-10-01T08:05:06.1759955Z",
+      "sha256": "39d2a147afe4d149fe9800768fbe25378abe94faa8744140ddf246fc29ffc5a0",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/IceSpike/SM_IceShard",
+      "exists": true,
+      "bytes": 27282,
+      "modified": "2026-09-15T02:34:09.1523387Z",
+      "sha256": "941e34e521deec92fc066b69eff1b1e66d0d0a848de5943868eaa712251baa23",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/IceSpike/FrostV2/SM_IceSpike_01",
+      "exists": true,
+      "bytes": 1722787,
+      "modified": "2026-09-15T04:05:55.5048764Z",
+      "sha256": "6b25df520c966a71375d0df464eac6fe9d7f4ad2523cbf8f65224feeb4761ead",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/Blizzard/ChargedV3/M_BlizzardIceShell",
+      "exists": true,
+      "bytes": 16793,
+      "modified": "2026-10-01T08:05:06.4904324Z",
+      "sha256": "095184cb81f5cefd91faa2cee005701f3bfa5242b0293b3d1b189e2940b3a1c6",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/Blizzard/IndoorV5/M_BlizzardGroundFrost",
+      "exists": true,
+      "bytes": 27832,
+      "modified": "2026-11-15T05:57:25.6809804Z",
+      "sha256": "62f17977343f3bb7c47d36e4e5bb3ed57c09c302c5bfe8f6f77864ff15ce8717",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/IceWall/BlockV1/S_IceWallCast",
+      "exists": true,
+      "bytes": 152978,
+      "modified": "2026-09-30T02:40:08.5016133Z",
+      "sha256": "98ba2e24f7c90155fcd09d744f5f9da4265d040af630c39b312929fd225f778a",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/IceSpike/S_IceImpact",
+      "exists": true,
+      "bytes": 48308,
+      "modified": "2026-09-15T02:34:09.2067638Z",
+      "sha256": "0f2c942a5cbfe6bac35850faa12deb4387217870c20bb2d78b23e87e63ad47fb",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/Blizzard/StormV2/S_BlizzardIceLanding",
+      "exists": true,
+      "bytes": 48969,
+      "modified": "2026-09-30T17:39:42.8738362Z",
+      "sha256": "ed527667e848ce2dfca6e58dc9b4125a3074a7493489cc0a863902546a508881",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/StormClouds/RollingV1/NS_BlizzardGatherCloud",
+      "exists": true,
+      "bytes": 2084077,
+      "modified": "2026-10-12T15:12:42.9528125Z",
+      "sha256": "0823be051472f3ae357eb3a38f08c8c2b6abbfa967e7055b84b80643d2650d00",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/Blizzard/IndoorV5/M_BlizzardAimPreview",
+      "exists": true,
+      "bytes": 26438,
+      "modified": "2026-10-12T14:34:55.6019459Z",
+      "sha256": "f05fb9eb3865b98fb8dcbdbbca0a2ce4d6fbe46e88aaa6bd00dcd497eed10272",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/IceSpike/FrostV2/SM_IceSpike_02",
+      "exists": true,
+      "bytes": 1720502,
+      "modified": "2026-09-15T04:05:55.9665472Z",
+      "sha256": "1611ee15f584038920495a07b604997e2a70d526b84d87b7364fb861f484e7dc",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/IceSpike/FrostV2/SM_IceSpike_03",
+      "exists": true,
+      "bytes": 1719512,
+      "modified": "2026-09-15T04:05:56.4233683Z",
+      "sha256": "ec9a49e6327fd5d637d462537f6d08fe638517fdba88ac608de3fce2545ff790",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "package": "/Game/Skills/IceSpike/P_IceSpikeImpact",
+      "exists": true,
+      "bytes": 83905,
+      "modified": "2026-09-15T02:34:09.1987567Z",
+      "sha256": "eed2fe725395d22b64cc45e14e1fd38a66b7518abff080d288e5b72821ee6eb7",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+      "package": "/Game/Props/GamedevPortal20260922/SM_GamedevPortal_Frame",
+      "exists": true,
+      "bytes": 143333,
+      "modified": "2026-09-22T10:02:36.0474237Z",
+      "sha256": "1ca738a1bb1df22cdaaee38b3c7267969f5ea4ff31176e814ea7f5596ab22cf8",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+      "package": "/Game/Props/GamedevPortal20260922/SM_GamedevPortal_Energy",
+      "exists": true,
+      "bytes": 20364,
+      "modified": "2026-09-22T10:02:38.124127Z",
+      "sha256": "b07dbed51d5b9943408afae52b2e5abda787d22efb046f1296725cf3382a214e",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+      "package": "/Game/WorldGeneration/HillsNightRaid/M_NightPortalVeil",
+      "exists": true,
+      "bytes": 8638,
+      "modified": "2026-11-15T14:55:17.2063752Z",
+      "sha256": "157d99523bd36b2bf5b78da514e31e990b11c861665250d1f519b4fe9975a94d",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+      "package": "/Game/WorldGeneration/HillsNightRaid/SM_NightPortalSkyBeam",
+      "exists": true,
+      "bytes": 12731,
+      "modified": "2026-11-15T15:30:49.6593807Z",
+      "sha256": "2b956488ab6c22d4fc3c111bf2bdfd15006e65593e77f70412d077efd64b187a",
+      "publishedBinary": false
+    },
+    {
+      "source": "Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+      "package": "/Game/WorldGeneration/HillsNightRaid/M_NightPortalSkyBeam",
+      "exists": true,
+      "bytes": 14219,
+      "modified": "2026-11-15T15:30:49.1552644Z",
+      "sha256": "2e30596783f97f1ff801db7f3ff3a75bb5b7bb4311609b845cbee05bd235bb54",
+      "publishedBinary": false
+    },
+    {
+      "source": "fireball impact recipe",
+      "package": "/Game/Skills/FireMagic20260921/MeteorFireballImpactV8/M_MeteorFireballCombustion",
+      "bytes": 149485,
+      "sha256": "9364fc44e6677950c09f92bf26d44fa3e25c4d825fbfda01b94b7f7463147bc1",
+      "exists": true,
+      "publishedBinary": false
+    },
+    {
+      "source": "fireball impact recipe",
+      "package": "/Game/Skills/FireMagic20260921/MeteorFireballImpactV8/MI_MeteorFireballCombustion",
+      "bytes": 12494,
+      "sha256": "00c8cd2980d0a0d90d26dce1df2ad8a576e6d8a84042d29e8135bc90091cd1f9",
+      "exists": true,
+      "publishedBinary": false
+    }
+  ]
+}
