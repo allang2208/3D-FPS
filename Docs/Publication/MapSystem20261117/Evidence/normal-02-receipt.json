@@ -1,0 +1,22 @@
+{
+  "completed": "2026-11-15T19:19:47.5606674+08:00",
+  "requested_lag_ms": 0,
+  "same_profile_reconnect": true,
+  "passed": true,
+  "exits": [
+    {
+      "pid": 91148,
+      "exit_code": 0
+    },
+    {
+      "pid": 19896,
+      "exit_code": 0
+    },
+    {
+      "pid": 54788,
+      "exit_code": 0
+    }
+  ],
+  "requested_loss_percent": 0,
+  "transport": "UDP listen host plus client, maximum two simultaneous processes"
+}

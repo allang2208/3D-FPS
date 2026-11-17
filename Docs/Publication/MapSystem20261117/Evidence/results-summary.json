@@ -1,0 +1,61 @@
+{
+  "network": [
+    {
+      "run": "normal-02",
+      "passed": true,
+      "observations": 21,
+      "all_observations_passed": true,
+      "network": [
+        "0ms/0%/IpNetDriver"
+      ],
+      "exits": [
+        {
+          "pid": 91148,
+          "exit_code": 0
+        },
+        {
+          "pid": 19896,
+          "exit_code": 0
+        },
+        {
+          "pid": 54788,
+          "exit_code": 0
+        }
+      ],
+      "dll": "EAE253CAF96A73A9CC856C9F3E19B5368F0BD1CC602E4AFFFB189C1AD980CB6C"
+    },
+    {
+      "run": "weak-02",
+      "passed": true,
+      "observations": 21,
+      "all_observations_passed": true,
+      "network": [
+        "60ms/2%/IpNetDriver"
+      ],
+      "exits": [
+        {
+          "pid": 70956,
+          "exit_code": 0
+        },
+        {
+          "pid": 95096,
+          "exit_code": 0
+        },
+        {
+          "pid": 100300,
+          "exit_code": 0
+        }
+      ],
+      "dll": "EAE253CAF96A73A9CC856C9F3E19B5368F0BD1CC602E4AFFFB189C1AD980CB6C"
+    }
+  ],
+  "lifecycle": {
+    "completed": "2026-11-15T19:23:15.0381563+08:00",
+    "exit_code": 0,
+    "passed": true,
+    "summary": "[2026.11.15-11.23.13:970][  0]LogTemp: Display: DungeonFogLifecycle: 64 checks, 0 failures (simulated listen/client roles, no sockets)",
+    "scope": "simulated dungeon lifecycle, no UDP and no rendered acceptance"
+  },
+  "visual_acceptance": false,
+  "mouse_input_acceptance": false
+}

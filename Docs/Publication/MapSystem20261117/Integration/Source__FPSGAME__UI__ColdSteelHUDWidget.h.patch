@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelHUDWidget.h b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+index f1b3d03684d847530393e217b149650db026eb6c..252bbe629179aa64019b6960f8990e23695cb00a 100644
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -46,6 +46,7 @@ public:
+
+     /** 开发面板等外部右侧抽屉与背包装备共享让位规则：打开期间入口列、世界时钟与武器详情一起收起。 */
+     void SetExternalDrawerOpen(bool bOpen);
++    void SetWorldMapOpen(bool bOpen);
+     bool IsExternalDrawerOpen() const { return bExternalDrawerOpen; }
+     void SetAlchemyManagement(bool Open);
+     void SetWoodworkingManagement(bool Open);

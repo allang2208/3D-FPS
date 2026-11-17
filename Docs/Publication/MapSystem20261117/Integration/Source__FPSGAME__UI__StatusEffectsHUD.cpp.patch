@@ -1,0 +1,31 @@
+diff --git a/Source/FPSGAME/UI/StatusEffectsHUD.cpp b/Source/FPSGAME/UI/StatusEffectsHUD.cpp
+index faf98befb6fb25691145d691215269fb71a666b0..34f542fafd7753c8d0538b5166322c77986791b5 100644
+--- a/Source/FPSGAME/UI/StatusEffectsHUD.cpp
++++ b/Source/FPSGAME/UI/StatusEffectsHUD.cpp
+@@ -287,10 +287,25 @@ FName UStatusEffectsHUD::TooltipType() const{return HoverTile.IsValid()?HoverTil
+ FVector2D UStatusEffectsHUD::TooltipPosition() const{return Tooltip?CastChecked<UCanvasPanelSlot>(Tooltip->Slot)->GetPosition():FVector2D::ZeroVector;}
+ UStatusEffectTile* UStatusEffectsHUD::TileFor(FName Type) const{for(const auto& Tile:Tiles)if(Tile->View.Type==Type)return Tile;return nullptr;}
+ void UStatusEffectsHUDSubsystem::OnWorldBeginPlay(UWorld& W){Super::OnWorldBeginPlay(W);if(W.IsGameWorld()&&W.GetNetMode()!=NM_DedicatedServer)W.GetTimerManager().SetTimer(Timer,this,&ThisClass::EnsureHUD,.25f,true);}
++void UStatusEffectsHUDSubsystem::SetWorldMapOpen(bool bOpen)
++{
++ if(bWorldMapOpen==bOpen)return;
++ bWorldMapOpen=bOpen;
++ if(!HUD)return;
++ HUD->HideTip();
++ // Effects keep their gameplay lifetime while the map hides only their presentation.
++ if(!bOpen)HUD->Refresh();
++ HUD->SetVisibility(bOpen?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
++}
+ void UStatusEffectsHUDSubsystem::EnsureHUD()
+ {
+  auto* PC=UGameplayStatics::GetPlayerController(this,0);if(!PC||!PC->IsLocalController())return;
+- if(!HUD){HUD=CreateWidget<UStatusEffectsHUD>(PC);HUD->AddToViewport(45);}
++ if(!HUD)
++ {
++  HUD=CreateWidget<UStatusEffectsHUD>(PC);
++  HUD->SetVisibility(bWorldMapOpen?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
++  HUD->AddToViewport(45);
++ }
+  if(BoundPawn.Get()!=PC->GetPawn()){BoundPawn=PC->GetPawn();HUD->BindPawn(BoundPawn.Get());}
+ }
+ void UStatusEffectsHUDSubsystem::Deinitialize(){if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(Timer);if(HUD)HUD->RemoveFromParent();HUD=nullptr;BoundPawn.Reset();Super::Deinitialize();}

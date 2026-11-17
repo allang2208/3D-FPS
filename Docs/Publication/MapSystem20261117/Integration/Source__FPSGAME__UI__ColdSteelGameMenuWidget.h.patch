@@ -1,0 +1,32 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelGameMenuWidget.h b/Source/FPSGAME/UI/ColdSteelGameMenuWidget.h
+index b8576746a15b45e2decd59fc6927d72e910e1df1..0680c32d8baa2b2a6585f50147131f115aa3729a 100644
+--- a/Source/FPSGAME/UI/ColdSteelGameMenuWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelGameMenuWidget.h
+@@ -16,9 +16,14 @@ class FPSGAME_API UColdSteelGameMenuWidget : public UUserWidget
+     GENERATED_BODY()
+ public:
+     void ShowMenu();
++    void ShowWorldMap();
+     void HideMenu();
+     void GoBack();
+-    bool IsMenuOpen() const { return bOpen; }
++    bool IsMenuOpen() const { return bOpen || bMapOpen; }
++    bool IsWorldMapOpen() const { return bMapOpen; }
++    bool HandleMapShortcut(FKey Key, bool bPressed);
++    const struct FColdSteelMapMarkers* GetMapMarkers() const;
++    bool IsMapMovementKey(FKey Key) const { return MapMovementKeys.Contains(Key); }
+
+ protected:
+     virtual void NativeOnInitialized() override;
+@@ -30,6 +35,11 @@ private:
+     enum class EPage : uint8 { Main, Settings, Controls, Quit };
+     EPage Page = EPage::Main;
+     bool bOpen = false;
++    bool bMapOpen = false;
++    void RecordDungeonPosition();
++    TSet<FKey> MapMovementKeys;
++    TSharedPtr<class SBox> MapHost;
++    TSharedPtr<struct FColdSteelWorldMapSession> MapSession;
+     bool bSettingsDirty = false;
+     bool bHasMouseX = false, bHasMouseY = false;
+     float MasterVolume = 1.f, MusicVolume = 1.f, MouseScale = 1.f;

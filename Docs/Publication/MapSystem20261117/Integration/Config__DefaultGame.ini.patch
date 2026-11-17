@@ -1,0 +1,12 @@
+diff --git a/Config/DefaultGame.ini b/Config/DefaultGame.ini
+index 04fa4003d13c22cda5147b9d006f8614ddec7013..2399223e6457873e3b86d077ea3b68fa99726145 100644
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -202,6 +202,7 @@ bShareMaterialShaderCode=False
+ +DirectoriesToAlwaysCook=(Path="/Game/RuralAustralia/StaticMeshes/Rocks/Rock_S_02")
+ +DirectoriesToAlwaysCook=(Path="/Game/MilitaryTrench/Assets/3D/Ind_Mine_Tool_Shovel_Old_01")
+ +DirectoriesToAlwaysCook=(Path="/Game/ColdSteelUI/Warehouse20260909")
+++DirectoriesToAlwaysCook=(Path="/Game/ColdSteelUI/WorldMap")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/M4Holographic")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/PanoramicRedDot")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/PrismScope2XMachined")

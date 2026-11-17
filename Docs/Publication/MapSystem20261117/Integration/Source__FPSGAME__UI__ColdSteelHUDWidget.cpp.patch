@@ -1,0 +1,16 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+index 0c67454df84b8cad2d710b6aaaf617d2d7062065..767a2c41a3a56348b0f73e75261a94800c631e2c 100644
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+@@ -1217,6 +1217,11 @@ void UColdSteelHUDWidget::SetExternalDrawerOpen(bool bOpen)
+     RefreshAmmo();
+ }
+
++void UColdSteelHUDWidget::SetWorldMapOpen(bool bOpen)
++{
++    if (TaskTracker) TaskTracker->SetWorldMapOpen(bOpen);
++}
++
+ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
+ {
+     if(!bOpen&&bAlchemyManagement&&!bAlchemyInventoryTransition)

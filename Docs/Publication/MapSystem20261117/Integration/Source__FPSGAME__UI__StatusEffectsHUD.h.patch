@@ -1,0 +1,14 @@
+diff --git a/Source/FPSGAME/UI/StatusEffectsHUD.h b/Source/FPSGAME/UI/StatusEffectsHUD.h
+index 4b17aa3b0e3cefa5b370b44a4e2b5d024a9eec54..c9f51c7d7a954abfbce642e9cf1f0817e118c299 100644
+--- a/Source/FPSGAME/UI/StatusEffectsHUD.h
++++ b/Source/FPSGAME/UI/StatusEffectsHUD.h
+@@ -85,7 +85,9 @@ public:
+  virtual void OnWorldBeginPlay(UWorld& World) override;
+  virtual void Deinitialize() override;
+  UStatusEffectsHUD* GetHUD() const {return HUD;}
++ void SetWorldMapOpen(bool bOpen);
+ private:
+  void EnsureHUD();FTimerHandle Timer;TWeakObjectPtr<APawn> BoundPawn;
++ bool bWorldMapOpen=false;
+  UPROPERTY(Transient) TObjectPtr<UStatusEffectsHUD> HUD;
+ };

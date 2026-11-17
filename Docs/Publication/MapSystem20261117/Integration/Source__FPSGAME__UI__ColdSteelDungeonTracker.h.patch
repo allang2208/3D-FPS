@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelDungeonTracker.h b/Source/FPSGAME/UI/ColdSteelDungeonTracker.h
+index d35d5336147616f4a20e65efbaf76b0f5e11a5f9..d5ae7b121430335ce85e6e53773f27021b80ef63 100644
+--- a/Source/FPSGAME/UI/ColdSteelDungeonTracker.h
++++ b/Source/FPSGAME/UI/ColdSteelDungeonTracker.h
+@@ -63,6 +63,7 @@ class FPSGAME_API UColdSteelDungeonTracker : public UUserWidget
+     GENERATED_BODY()
+ public:
+     void SetBottomBoundaryPixels(float Value){BottomBoundaryPixels=Value;RefreshAge=.2f;}
++    void SetWorldMapOpen(bool bOpen);
+ protected:
+     virtual void NativeOnInitialized() override;
+     virtual TSharedRef<SWidget> RebuildWidget() override;

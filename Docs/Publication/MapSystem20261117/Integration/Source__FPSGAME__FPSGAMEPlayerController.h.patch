@@ -1,0 +1,21 @@
+diff --git a/Source/FPSGAME/FPSGAMEPlayerController.h b/Source/FPSGAME/FPSGAMEPlayerController.h
+index ed7130244b153cceb3c99568ac6562e0a3facde1..94b47031734a1fc28d432e639e83e4a54eb48220 100644
+--- a/Source/FPSGAME/FPSGAMEPlayerController.h
++++ b/Source/FPSGAME/FPSGAMEPlayerController.h
+@@ -17,6 +17,8 @@ class FPSGAME_API AFPSGAMEPlayerController : public APlayerController
+ public:
+     AFPSGAMEPlayerController();
+     void OpenGameMenu();
++    void OpenWorldMap();
++    const struct FColdSteelMapMarkers* GetMapMarkers() const;
+     void CloseGameMenu();
+     bool IsGameMenuOpen() const;
+     bool CanOpenGameMenu() const;
+@@ -70,6 +72,7 @@ private:
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelGameMenuWidget> GameMenu;
+     bool bGameMenuOwnsInput = false;
+     bool bGameMenuOwnsPause = false;
++    bool bMapReturnToCursor = false;
+     UPROPERTY(VisibleAnywhere, Category="Development") TObjectPtr<UDevelopmentSpawnComponent> DevelopmentSpawner;
+     /** 主神空间（Hub 地图）驻留 BGM 组件：随控制器存活、换图自动销毁。 */
+     UPROPERTY(Transient) TObjectPtr<class UAudioComponent> HubMusic;

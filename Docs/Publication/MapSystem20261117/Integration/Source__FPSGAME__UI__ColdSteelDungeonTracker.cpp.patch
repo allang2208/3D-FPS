@@ -1,0 +1,23 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelDungeonTracker.cpp b/Source/FPSGAME/UI/ColdSteelDungeonTracker.cpp
+index 63572db16dce8a898c1f49d630278dc97f2dff9d..40383057f68696f851a88c514e4b3428e30d9283 100644
+--- a/Source/FPSGAME/UI/ColdSteelDungeonTracker.cpp
++++ b/Source/FPSGAME/UI/ColdSteelDungeonTracker.cpp
+@@ -187,6 +187,18 @@ TSharedRef<SWidget> UColdSteelDungeonTracker::RebuildWidget()
+     { return 1.f / FMath::Max(.1f, UWidgetLayoutLibrary::GetViewportScale(this)); })[Super::RebuildWidget()];
+ }
+
++void UColdSteelDungeonTracker::SetWorldMapOpen(bool bOpen)
++{
++    if (!bOpen)
++    {
++        // Gameplay continues while hidden; restore the latest task snapshot.
++        RefreshTracking();
++        if (!Cards.IsEmpty()) UpdatePlacement();
++        RefreshAge = 0.f;
++    }
++    SetVisibility(bOpen ? ESlateVisibility::Collapsed : ESlateVisibility::SelfHitTestInvisible);
++}
++
+ void UColdSteelDungeonTracker::NativeTick(const FGeometry& Geometry, float DeltaTime)
+ {
+     Super::NativeTick(Geometry, DeltaTime);

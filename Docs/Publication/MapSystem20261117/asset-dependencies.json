@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-17",
+  "policy": "Keep saved UE packages locally. Public delivery contains source, recipes and dependency records, not UE/Marketplace payloads.",
+  "engine_asset": "/Engine/BasicShapes/Plane.Plane",
+  "assets": [
+    {
+      "path": "Content/ColdSteelUI/WorldMap/T_GodSpaceOrtho.uasset",
+      "bytes": 3702934,
+      "sha256": "50cb0698234705992526e719eb909d4123e5098b305c71a3ab9dc340336b9b73",
+      "published": false,
+      "retained_locally": true
+    },
+    {
+      "path": "Content/Items/LootFX/M_LootBeam.uasset",
+      "bytes": 9163,
+      "sha256": "d3cfeac18bf4786d6d8b1ea127c14ad025f0febb3f14fcbfe0a0332a603dae36",
+      "published": false,
+      "retained_locally": true
+    },
+    {
+      "path": "Content/GameMaps/DayNight_Lighting.umap",
+      "bytes": 1360893,
+      "sha256": "62a646c1bb2c12fab2600b8ab71c41c344e4cb1258bfb939dd09167385dca9eb",
+      "published": false,
+      "retained_locally": true
+    },
+    {
+      "path": "Content/GameMaps/L_Dungeon_Randomized.umap",
+      "bytes": 31225,
+      "sha256": "a2a75f7a8cbc7d4aee2a707108fc14b79f84a1bc2becc99aa53631ba9782937e",
+      "published": false,
+      "retained_locally": true
+    },
+    {
+      "path": "Content/GameMaps/L_TemperateHills_Initial.umap",
+      "bytes": 110116,
+      "sha256": "fc0d6aa99031fec8fc47b746c3afdeccd9afb10b85de4932aa111578dbb3928a",
+      "published": false,
+      "retained_locally": true
+    }
+  ]
+}

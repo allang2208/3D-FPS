@@ -1,0 +1,6 @@
+{
+  "completed": "2026-11-15T18:39:12.7764752+08:00",
+  "reason": "Low available RAM during unrelated skill prewarm; stopped only recorded peers. Partial stages 0-8 passed; reconnect incomplete.",
+  "passed": false,
+  "stage": "after stage 8 disconnect cleanup, before completing reconnect"
+}

@@ -1,0 +1,170 @@
+{
+  "dll": "EAE253CAF96A73A9CC856C9F3E19B5368F0BD1CC602E4AFFFB189C1AD980CB6C",
+  "requested_lag_ms": 60,
+  "linked_read_only_inputs": [
+    "Content",
+    "Config",
+    "plugin resources and sources"
+  ],
+  "native_plugins": [
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-0063.dll",
+      "sha256": "020E1CAECC1481C38B408371E3BD7D3F556C825554771D9FE6551BA2A0DB3BC6"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-0064.dll",
+      "sha256": "D3AD96EA347651BFD61836128D4E6C6684A8BDF8BE307BE088F26E6E072F975B"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-0065.dll",
+      "sha256": "676A3A90E0C26655215AD1FE9631104FD78F01341069C270F0A4751D4BC536FC"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-0066.dll",
+      "sha256": "F3DB7C8E3AD2D515514A3029FC41957AC25E4D6C3E263577431E0CACB2F50A6B"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-0068.dll",
+      "sha256": "C97B9F24C499DEFFFB3647A19F1B436F3416E571DA41AFD39830F73339083A37"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-0071.dll",
+      "sha256": "A2E15AEE37DE39D339B9E408FAAD2F0796EB0A628F7EEECC3265FC574DBC62CB"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9150710.dll",
+      "sha256": "F9977F941F6EC2708CE762F399E61CA20494210EBC6870EF01ACFA3BBE0F51C9"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9150711.dll",
+      "sha256": "AF8C17201907F3EE80708709EA5FC73C43C7FE859305F85A5E343B9D83C65273"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9151402.dll",
+      "sha256": "51302ED0789298B7647CD8B357DE9D62615209A4D926CB98DBD4FAF3AA4C5DC5"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9151403.dll",
+      "sha256": "12936EFE6D33EA09DB0C469F851CBEA5772C8B317C6F47A5212A23E6EC49769E"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9151404.dll",
+      "sha256": "44B573AECF4341AC74A1B22DFCF304C3F7198BB3EFFC98ABEF8335EA59B3E0D3"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9151501.dll",
+      "sha256": "D11EFB8FAFAFB030D00430511DE50F2AE09605F70C35B2CC8733A520F229DB06"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9151502.dll",
+      "sha256": "A732829B5B13B45D2E51A4C8A27472827E65441877E0FF59B4FBF88722B1EA02"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9151503.dll",
+      "sha256": "2BF78ABD8820A6F45109FA8A213AF5221C23D0AB4E0B405D80B24DD93F69416E"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-9151504.dll",
+      "sha256": "754D7E0F3E79B94050D20512F296CD40E9DF89A5241104CC8164D462C090EA05"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep-91614.dll",
+      "sha256": "523E4001756D05B41E3E756254B3D6AAFC0EB51F8E393ACB80171F3223357BF1"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstep.dll",
+      "sha256": "03C4678F8E0BBB2C90717EC6925B17915D53B71D11164C05E804963505AD3D6B"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-0063.dll",
+      "sha256": "02E7238F6DFC7F6B3F653F9F38F65F7CD3ED6D2E45243D1E0A6202112F29C8D2"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-0064.dll",
+      "sha256": "3A209D7DBCFC7BCC71165CFB81AF895923AD91219391CB05D180224D3B64D6C1"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-0065.dll",
+      "sha256": "7C8EDDB260575744F1967304A4DA67E6FBBB0CECDF68ECA18F23CF95D2E1C64E"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-0066.dll",
+      "sha256": "17E194345017BB5993E6AC3C9FC71F355482F9AC74617AC0FAEC2DA132874C02"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-0068.dll",
+      "sha256": "C0EEB37AA77A59452FAB986C929CDDD670BD19F9DB1EC4630315ABDEA5CF5621"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-0071.dll",
+      "sha256": "33E568D479564A39369593F61099E761D245B1BC917B83A778D2B3250745629F"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9150710.dll",
+      "sha256": "29FD90D8E9CC53273EE78FBCBC9EBA2460E2AB177D3C4DF3B72D5AF80DFA996C"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9150711.dll",
+      "sha256": "BDFCC7195E41FA42A270CEB4452A78BED7C131C0E639D2EC97748467BC874BAB"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9151402.dll",
+      "sha256": "16FEF9A694D22A01F3E4D627B28916D8E88E5ACF77EEB9BCA9D52816C83643DB"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9151403.dll",
+      "sha256": "67A2D1D2BC977B4B2C1531B113525D2417F684D5104347E778649965DFC2624B"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9151404.dll",
+      "sha256": "CC6C49BC0FD5572EB709F466CFF8C832E64DFF5ED55F0254C7AA00AAB163F558"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9151501.dll",
+      "sha256": "F67D183C40BC077136A6A475111D67F7F544EC39558276C3CBBE329FB7885031"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9151502.dll",
+      "sha256": "354CC8068E275492C14AF183F4370A92D8C70202DD3D7A9A445112D9C2067A0A"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9151503.dll",
+      "sha256": "ED093FA780BA18090A012AAA0D192883527F437D559F09C6ADA839B94CDB69C6"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-9151504.dll",
+      "sha256": "A0567ABAE07745B8BDD1BD7023B25D1F6FC88EAC3AD1D3C5DA15241E5C49883B"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor-91614.dll",
+      "sha256": "44C7004A70760A4F64FF6807A6FA493483600616F0B8B54B519F7A5505C681F8"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor-AutoFootstepEditor.dll",
+      "sha256": "1C73E7709953F173441EC24F2B991103B02FF3685C952B0FA9DC14673E4DEF0E"
+    },
+    {
+      "path": "Plugins/AutoFootstep/Binaries\\Win64\\UnrealEditor.modules",
+      "sha256": "D7E5252DBC58071BC3DF5DA3EDE77E70A6760857CE5071F1F090050D1B7D5EE0"
+    },
+    {
+      "path": "Plugins/ColdSteelNet/Binaries\\Win64\\UnrealEditor-ColdSteelNet.dll",
+      "sha256": "37522C44D5934CCA0B34043449A2501B0CDCF95F96F19A74C8E3283607BF8FAC"
+    },
+    {
+      "path": "Plugins/ColdSteelNet/Binaries\\Win64\\UnrealEditor.modules",
+      "sha256": "323036CB1D519A6FC0A05A2D98C4F7134C69F1BAB392336170D454F128C3F732"
+    },
+    {
+      "path": "Plugins/FPSDeformationResidency/Binaries\\Win64\\UnrealEditor-FPSDeformationResidency.dll",
+      "sha256": "25F445CF0626FFA857FCCF15DC7EDBCC72CBDD24F75E9030B5C3A6A1F8582909"
+    },
+    {
+      "path": "Plugins/FPSDeformationResidency/Binaries\\Win64\\UnrealEditor.modules",
+      "sha256": "203AE985F6A011C8627AB6AD238C216BAF5C3963478B4169C518B455F1025D60"
+    }
+  ],
+  "started": "2026-11-15T19:19:49.9762963+08:00",
+  "requested_loss_percent": 2,
+  "runtime": "D:/FPS3D/FPSGAME/Saved/MapMarkerSharing20261115/weak-02/Runtime"
+}

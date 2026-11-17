@@ -1,0 +1,18 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+index 632a90cf689649d6ced42ac2f116888b2cc6682d..0d7c04f78ff697984f585411cabf4fb54c8ce2cb 100644
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelPlayerState.h"
++#include "ColdSteelMapMarkerSharing.h"
+ #include "../Weapons/StarMarrowComponent.h"
+ #include "../Monsters/HeQueMonster.h"
+ #include "../UI/ColdSteelProfileRecovery.h"
+@@ -97,6 +98,7 @@ namespace
+
+ AColdSteelPlayerState::AColdSteelPlayerState()
+ {
++    CreateDefaultSubobject<UColdSteelMapMarkerSharing>(TEXT("MapMarkerSharing"));
+     PrimaryActorTick.bCanEverTick = true;
+     bReplicates = true;
+     NetUpdateFrequency = 10.f;

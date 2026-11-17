@@ -1,0 +1,14 @@
+diff --git a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+index 78c9d744bc43a6dc3c7bd55dba91cbe60d97c335..9c191374473c832ea3fd67942a0400287f23b1a2 100644
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+@@ -248,6 +248,9 @@ void UTransitLoadingSubsystem::CaptureLoadingInput()
+ {
+     if(auto* PC=UGameplayStatics::GetPlayerController(GetWorld(),0))
+     {
++        // Team entry can start while this local player is browsing the M map.
++        // Release its input locks and restore its HUD before loading takes focus.
++        if (auto* GamePC=Cast<AFPSGAMEPlayerController>(PC)) GamePC->CloseGameMenu();
+         if(CursorController.Get()!=PC)
+         {
+             CursorController=PC;

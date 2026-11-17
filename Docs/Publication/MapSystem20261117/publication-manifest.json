@@ -1,0 +1,299 @@
+{
+  "date": "2026-11-17",
+  "base": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+  "remote": "https://github.com/allang2208/3D-FPS.git",
+  "branch": "main",
+  "scope_check": "exact 71 paths",
+  "whitespace_check": "passed",
+  "integration_patch_check": "15 passed against recorded base",
+  "binary_assets_published": false,
+  "credential_scan": "no candidates for GitHub tokens, private keys, URL credentials, AWS access keys or bearer tokens",
+  "runtime_tests_this_turn": false,
+  "original_shared_index_modified": false,
+  "entries": [
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/interrupted-attempt.json",
+      "blob": "00cbedbd0cf98470439d2bc29d802cdd29ccb89b"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/lifecycle-receipt.json",
+      "blob": "2caa121f521e9caaa10e76182d1b233161717acd"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/normal-02-launches.json",
+      "blob": "fb2b86777816c04f49635300d12f4acaa8d7bf11"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/normal-02-receipt.json",
+      "blob": "9e890016f4030bc234bfe42659802871e59ae96e"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/normal-02-result.json",
+      "blob": "84826289a4faf270f76b8abe9c07b180839b22f7"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/normal-02-version.json",
+      "blob": "5cc0273fa8b6cc4278c11082281b9a1ba6b89450"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/results-summary.json",
+      "blob": "53d8c1a5780a8c06d35c8c1a342b6b611e8836ed"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/tested-source-assets.json",
+      "blob": "0ccd1479ed11aa9dc9226b3865edbc45d7d16307"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/weak-02-launches.json",
+      "blob": "9382edb00c5ba1f27f680614e90120197fe4ec8b"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/weak-02-receipt.json",
+      "blob": "d3b7906eaeae59e6cb2a083810b94109e822aa9b"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/weak-02-result.json",
+      "blob": "a1ef3a8d37d9e23df318bf97d1fc5743afde9632"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Evidence/weak-02-version.json",
+      "blob": "aa0919e90d6147f2edacfccbc1b64fd08dee1bc3"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Config__DefaultGame.ini.patch",
+      "blob": "e213454470c16a0ef1e5b90c0c41acfcdc2582d2"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__FPSGAMEGameMenu.cpp.patch",
+      "blob": "9ca31be5dafd1d1f9a927777438bf203fbca46a1"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+      "blob": "82b58369ef18f5891ab314a746ba9e8981ee2173"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__FPSGAMEPlayerController.h.patch",
+      "blob": "bb1dc5d594db9c9ce832538e5766a4fbf209d9e1"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "blob": "cdd6805eae10057bd9fd605c269bd62947ba7e62"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelDungeonTracker.cpp.patch",
+      "blob": "a53c81336c74582c9470ca67cac76ceb4f67cef1"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelDungeonTracker.h.patch",
+      "blob": "b654eab0d1639c1d11227b10fa4392b7a8ccfcae"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelGameMenuWidget.cpp.patch",
+      "blob": "39c1116282d3ce6d7e6eb23c63ddf2f7840ceb2d"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelGameMenuWidget.h.patch",
+      "blob": "6d497185c9c7927b23608f306038be76090f9e2e"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelHUDNavigation.cpp.patch",
+      "blob": "b0e229352a5db3ce0a285557ae03d1ec163c892c"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.cpp.patch",
+      "blob": "21ecffe47a1899dab7729079c7815a535d016a81"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.h.patch",
+      "blob": "707080627cd85a1a463b711b8e133568b1ebeee9"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__StatusEffectsHUD.cpp.patch",
+      "blob": "c5dbc839ab75b98505b7c42cd2377581cef61253"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__StatusEffectsHUD.h.patch",
+      "blob": "d2c399d68d41f7eeb18c7cb645d3c39c71ca7388"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__TransitLoadingSubsystem.cpp.patch",
+      "blob": "ffa582e2ca97f7216feefd914c90b58c6ce3348a"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/README.md",
+      "blob": "5e189fc339ed1b75994a88afa332eb01ff0083a3"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/asset-dependencies.json",
+      "blob": "940e7f1943cddac820ef02693c297d6ef481ada7"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/cleanup-manifest.json",
+      "blob": "a86e1e8da7ca9c870da1824af159bff6408f1ebe"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/cleanup-receipt.json",
+      "blob": "cd71a46bf434c873cd0f7eb59198c876f69aefe3"
+    },
+    {
+      "path": "Docs/Publication/MapSystem20261117/integration-manifest.json",
+      "blob": "b9d08e1878f6133edfeeeb08d0f9c8ca1459f745"
+    },
+    {
+      "path": "Docs/UI/map-conversation-audit-20261115.md",
+      "blob": "a51cae1f4b14caa91ea78d2fa1211475b5edd90f"
+    },
+    {
+      "path": "Docs/UI/map-marker-sharing-20261115.md",
+      "blob": "98a331bd15fe8551d00785666eca31e257f31bc1"
+    },
+    {
+      "path": "Docs/UI/map-markers-plan-20261114.md",
+      "blob": "0d2ec76f93ac69a1d3fd2e1edfba00ec1ce17535"
+    },
+    {
+      "path": "Docs/UI/map-ui-upgrade-plan-20261115.md",
+      "blob": "48f9f1401e3c50f63928512dad631c953603f42f"
+    },
+    {
+      "path": "Docs/UI/world-map-plan-20261113.md",
+      "blob": "90ea851ea659ef799b76ccb3addfa745b623aef2"
+    },
+    {
+      "path": "Source/FPSGAME/Development/ColdSteelMapMarkerWire.cpp",
+      "blob": "eb08bb41fb784d887dfb1a39385a1c2190f376ec"
+    },
+    {
+      "path": "Source/FPSGAME/Development/ColdSteelMapMarkerWire.h",
+      "blob": "854f99639ceb980bf0310f4cf8a6e96567c910ef"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelMapMarkerSharing.cpp",
+      "blob": "57058fdb8c4bdafab5664ecc2c53b0d37ef76c69"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelMapMarkerSharing.h",
+      "blob": "d549c774bfa1370b6e3d8f840965960a8eee4f07"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonFogCheckCommandlet.cpp",
+      "blob": "09ce96877260da2f1f03c28733cce5049aa512f5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonFogCheckCommandlet.h",
+      "blob": "425915e462d7ec334fb61529479f43c69762a510"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonFogLifecycle.cpp",
+      "blob": "c8d8d57f227ec73ce5364e5f9bb2a53664dd03a7"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonMap.cpp",
+      "blob": "89d6837dab8628b76c7a1f755f3cd0416dd30caa"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonMap.h",
+      "blob": "0782b3156dae354ee3099c72ec164f22aeeddfb1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHillsMap.cpp",
+      "blob": "41f6ef9ec39005783fff69002cdb479a76ad3169"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHillsMap.h",
+      "blob": "b28bdc17c20d19150870a34fd3c894afb86d3e62"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHillsMapCheckCommandlet.h",
+      "blob": "315ec065ba79f9df4d8021bb9dee65618372296c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHubMapBakeCommandlet.cpp",
+      "blob": "e316fdbb4e404ce98c993e83029b3cf0bfa9a397"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHubMapBakeCommandlet.h",
+      "blob": "99fec83eede1f4df9f1a3645ec10efc5d42dcee9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHubMapRegistration.h",
+      "blob": "6933f3dcd519d9bdadb2332ac481fa1e83d670a4"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMapMarkerSharingView.cpp",
+      "blob": "0efc462319fc7bd86ce53584dd57de256a4e542e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMapMarkers.cpp",
+      "blob": "7bdd528f599e7a729cfbfb146146970059a96d51"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMapMarkers.h",
+      "blob": "a4c72f4c40582596d50081263ae14e5c4137e99a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMapReadback.h",
+      "blob": "3664f8e29fa33289d1ddcb50753fd431d79da5c5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+      "blob": "79a2f1debe2e502730b2c43983412349933b2444"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.h",
+      "blob": "e92aab50c443c363432a479597d1d4cf87f903f9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SColdSteelMapMarkerEditor.cpp",
+      "blob": "c0d63d9bff44a2a58d08ec72c0dfcbfb1d90e92c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SColdSteelMapMarkerEditor.h",
+      "blob": "4daadfa37805799e426189ba77a31ebef5d6eaf5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SColdSteelWorldMap.cpp",
+      "blob": "1b1d27892a26eb0900328a0744a6967f198b38b0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SColdSteelWorldMap.h",
+      "blob": "1faa31039825f9b2ffb9de4532cd516a32644857"
+    },
+    {
+      "path": "Tools/MapMarkers/run_checks.ps1",
+      "blob": "441478a41893fa89cf46ecc4765b5696775e583a"
+    },
+    {
+      "path": "Tools/MapMarkers/run_lifecycle_check.ps1",
+      "blob": "60d8a6085d429e88fa64d52a7746d12cc715abfa"
+    },
+    {
+      "path": "Tools/MapMarkers/run_network_check.ps1",
+      "blob": "f263e16d8bc75986cd00b2acb2d2a3aeba6ca1f0"
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/map-marker-network-evidence.md",
+      "blob": "1ac9faec97d9d074afb3fd8939835d00d6a67ed3"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/map-markers-and-personal-fog.md",
+      "blob": "3e4d00e8b33f5ddac6a1899be9c8f9bd97a75564"
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/references/world-map-navigation.md",
+      "blob": "e83a79ba7abdc75475e7051189e95061a7dd4ff5"
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/SKILL.md",
+      "blob": "279a5e14e8759370a8f399397129b0cde05e3bb5"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "blob": "29210e47e55f60021f316ebe9085dee5e7ac0f84"
+    },
+    {
+      "path": "skills/ue5-debug-validation/SKILL.md",
+      "blob": "fb820dae105a038fe9766aa924d55ef779281393"
+    }
+  ]
+}

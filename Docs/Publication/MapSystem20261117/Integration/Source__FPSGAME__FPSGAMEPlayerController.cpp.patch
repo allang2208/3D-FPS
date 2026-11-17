@@ -1,0 +1,40 @@
+diff --git a/Source/FPSGAME/FPSGAMEPlayerController.cpp b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+index 32448b3e122cac931907e2145b7c5c5b5096762e..2f79888f1b9ae58af61081ebd294a0d77d05d46f 100644
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -399,7 +399,14 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+ {
+     if (IsGameMenuOpen())
+     {
+-        if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) GameMenu->GoBack();
++        if (GameMenu->IsWorldMapOpen())
++        {
++            if (GameMenu->HandleMapShortcut(Params.Key,Params.Event==IE_Pressed)) return true;
++            if (GameMenu->IsMapMovementKey(Params.Key) ||
++                (Params.Event==IE_Released && IsInputKeyDown(Params.Key)))
++                return Super::InputKey(Params);
++        }
++        else if (Params.Event==IE_Pressed && Params.Key==EKeys::Escape) GameMenu->GoBack();
+         return true;
+     }
+     // Action handlers own inspection interruption. Raw keys and look/move axes
+@@ -467,6 +474,11 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+         return true;
+     }
+     if(Params.Event==IE_Pressed&&Params.Key==EKeys::J){OpenGunsmith();return true;}
++    if (Params.Key == EKeys::M)
++    {
++        if (Params.Event == IE_Pressed) OpenWorldMap();
++        return true;
++    }
+     if ((Params.Event == IE_Pressed || Params.Event == IE_Repeat) && ColdSteelHUD &&
+         ColdSteelHUD->HandlePanelShortcut(Params.Key, Params.Event == IE_Repeat))
+     {
+@@ -642,6 +654,7 @@ bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Pla
+
+ bool AFPSGAMEPlayerController::IsActionPreservingPanelOpen() const
+ {
++    if (GameMenu && GameMenu->IsWorldMapOpen()) return true;
+     if(IsGameMenuOpen()||AlchemyPanel||WoodworkingPanel)return false;
+     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return false;
+     return (ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen())||GunsmithPanel||EnhancementPanel||ExpeditionPanel||

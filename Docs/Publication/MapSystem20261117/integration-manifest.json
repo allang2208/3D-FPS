@@ -1,0 +1,159 @@
+{
+  "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+  "apply": "git apply --check <patch>; git apply <patch> against recorded base, or merge map hunks into newer hosts. Already applied in current local workspace; do not apply again.",
+  "already_tracked_dependencies": [
+    "Source/FPSGAME/Skills/PlayerSkillPreparation.cpp: IsEquipmentPreparationReview includes MapMarkerWire"
+  ],
+  "entries": [
+    {
+      "path": "Source/FPSGAME/FPSGAMEGameMenu.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__FPSGAMEGameMenu.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "c763b51d6235fb8eecdcaa8c024bd80ab8c3cf62",
+      "map_only_blob": "da73c394363f55ffc802a670b43c8a5088274dc4",
+      "map_only_sha256": "72d6feba69cf19c7386544429d9de111bcc6aa3516bf7abfa21512dbfa0151db",
+      "local_worktree_sha256": "ac47c3ef9535f1e5d03c6032300ea3932c5ab77beb16bfe3c9062939a18e666c",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "32448b3e122cac931907e2145b7c5c5b5096762e",
+      "map_only_blob": "2f79888f1b9ae58af61081ebd294a0d77d05d46f",
+      "map_only_sha256": "3b85fbed6cb76b996a89dd2bd3c4e0c3f09a0956ccb63490a5ccdfa20d0ece49",
+      "local_worktree_sha256": "48e3dd699ec7ff6aa3111a83546fac8907fae6ad5e2dedcb830d91357911692c",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__FPSGAMEPlayerController.h.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "ed7130244b153cceb3c99568ac6562e0a3facde1",
+      "map_only_blob": "94b47031734a1fc28d432e639e83e4a54eb48220",
+      "map_only_sha256": "d3c585bce01b9a3c17054e9399ce081a64622259613a5fe377799ce3a14565b8",
+      "local_worktree_sha256": "dcca3b1e3a57793d2188dd0e7ad2a5c7a617a42e5d28432898344a521a416205",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelGameMenuWidget.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelGameMenuWidget.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "d3c627eeb4c3ff242364b5df782fb3083248d3ae",
+      "map_only_blob": "fffd7c337d4056d610c89a403d16c8133b2a8c14",
+      "map_only_sha256": "1e28f82059cacb88a1de40a2881d684122fc1da1b0fa81af4722a1dc752912c8",
+      "local_worktree_sha256": "0896562d5091509d9a6eca1dbe849ac2e67637b913e4e8cd88b62fc17e189d14",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelGameMenuWidget.h",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelGameMenuWidget.h.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "b8576746a15b45e2decd59fc6927d72e910e1df1",
+      "map_only_blob": "0680c32d8baa2b2a6585f50147131f115aa3729a",
+      "map_only_sha256": "63c59409f285af39a7f4e5b15fe69d58a46e30168fb59ffdbb6ae42146cceb54",
+      "local_worktree_sha256": "63c59409f285af39a7f4e5b15fe69d58a46e30168fb59ffdbb6ae42146cceb54",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDNavigation.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelHUDNavigation.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "021b940341df954e61493bebb1625ff568cf8fa4",
+      "map_only_blob": "1bbbf814971d17626d9ae5d532b6dd014c88bcce",
+      "map_only_sha256": "3e8b0a33e6ab8cfdf8a0afac1bbd1ed03ea65d7fe19bb0ab97d769682c3c8914",
+      "local_worktree_sha256": "3e8b0a33e6ab8cfdf8a0afac1bbd1ed03ea65d7fe19bb0ab97d769682c3c8914",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonTracker.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelDungeonTracker.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "63572db16dce8a898c1f49d630278dc97f2dff9d",
+      "map_only_blob": "40383057f68696f851a88c514e4b3428e30d9283",
+      "map_only_sha256": "fc54cb60b0d9113d2d82911de330f5c98337c1d94a8e5dc8c533d0d8f9502532",
+      "local_worktree_sha256": "35268cb9b79d928452375f051571c2f5fd89b9b03ba5463f4113656c9f774ce5",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonTracker.h",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelDungeonTracker.h.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "d35d5336147616f4a20e65efbaf76b0f5e11a5f9",
+      "map_only_blob": "d5ae7b121430335ce85e6e53773f27021b80ef63",
+      "map_only_sha256": "e66c63a5e335c73126e1d9893a454ce6088d8689c60f370e4e7727649ecdd9ad",
+      "local_worktree_sha256": "e6dba8fd5206f3da56365f8650ea9994cb4dd3474428c5a3f937d00800af53ad",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsHUD.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__StatusEffectsHUD.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "faf98befb6fb25691145d691215269fb71a666b0",
+      "map_only_blob": "34f542fafd7753c8d0538b5166322c77986791b5",
+      "map_only_sha256": "e91ed42f7f5e4b0c56fde19822e74658d734cd7a8c9de10b70cddee738981f6d",
+      "local_worktree_sha256": "560df3582fcbb2966cac48ebf72c9bf45d0301591aac140bf4491fa86b4ed2df",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsHUD.h",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__StatusEffectsHUD.h.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "4b17aa3b0e3cefa5b370b44a4e2b5d024a9eec54",
+      "map_only_blob": "c9f51c7d7a954abfbce642e9cf1f0817e118c299",
+      "map_only_sha256": "9504ffde2c2ab58154de981055cc5be0a1b39ccd8526546f76095ae8f61bdb1d",
+      "local_worktree_sha256": "e4c42a84bb724be892d57874b2d630c370a677347557212fed622da0655efb99",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "0c67454df84b8cad2d710b6aaaf617d2d7062065",
+      "map_only_blob": "767a2c41a3a56348b0f73e75261a94800c631e2c",
+      "map_only_sha256": "4da8dceddeddbd92fa6dce59c3ce959a2fdb3f88bb5566162cf251a2816b8520",
+      "local_worktree_sha256": "c2bb20457066e777e697305d12d9069cd2b95af80a858cb28b01ee5c06b0c5f1",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.h.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "f1b3d03684d847530393e217b149650db026eb6c",
+      "map_only_blob": "252bbe629179aa64019b6960f8990e23695cb00a",
+      "map_only_sha256": "881c7910ea5d1319be3f47e6e0c95cade485c32b2e97d96d63d2799f684446b3",
+      "local_worktree_sha256": "0c8400abf95f60ca7350a760637d3d5b162e2933924992624094c05bf2630a91",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__UI__TransitLoadingSubsystem.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "78c9d744bc43a6dc3c7bd55dba91cbe60d97c335",
+      "map_only_blob": "9c191374473c832ea3fd67942a0400287f23b1a2",
+      "map_only_sha256": "1896e44af51a072ba820c5544fc49d1217b0e864927fe20f8268dd233a2a35f4",
+      "local_worktree_sha256": "ba07b7fa2dfee3944984a2db1b5023f26ba2f309976c24aba097b44cecf68a0f",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "632a90cf689649d6ced42ac2f116888b2cc6682d",
+      "map_only_blob": "0d7c04f78ff697984f585411cabf4fb54c8ce2cb",
+      "map_only_sha256": "e1195855fef878c8826dab8208e487927e7d02623af3304050c63ee13f03c222",
+      "local_worktree_sha256": "3186b8675e87cdfd38022ef682ac33802aca477dfd5769e4a8bde34dde0d3794",
+      "scope": "map hunks only; unrelated local changes excluded"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "patch": "Docs/Publication/MapSystem20261117/Integration/Config__DefaultGame.ini.patch",
+      "base_commit": "07b45d69e33f08739c442cbf8bd09edc40d0eceb",
+      "base_blob": "04fa4003d13c22cda5147b9d006f8614ddec7013",
+      "map_only_blob": "2399223e6457873e3b86d077ea3b68fa99726145",
+      "map_only_sha256": "a7ef8e0361f2befb2bdeaa6d369f0d77e55b9ac1efa026a545498ceec9ac67a8",
+      "local_worktree_sha256": "f37e1b16b2321d98311d0c00d9fe95299c9fbfdb22b4676b7fa0ca8d70653e2a",
+      "scope": "map hunks only; unrelated local changes excluded"
+    }
+  ]
+}

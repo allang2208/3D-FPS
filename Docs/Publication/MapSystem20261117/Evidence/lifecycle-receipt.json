@@ -1,0 +1,7 @@
+{
+  "completed": "2026-11-15T19:23:15.0381563+08:00",
+  "exit_code": 0,
+  "passed": true,
+  "summary": "[2026.11.15-11.23.13:970][  0]LogTemp: Display: DungeonFogLifecycle: 64 checks, 0 failures (simulated listen/client roles, no sockets)",
+  "scope": "simulated dungeon lifecycle, no UDP and no rendered acceptance"
+}
