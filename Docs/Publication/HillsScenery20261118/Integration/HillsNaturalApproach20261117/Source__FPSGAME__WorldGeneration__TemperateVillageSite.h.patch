@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageSite.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageSite.h
+@@ -84,6 +84,19 @@
+     }
+     double Grade(double X,double Y,double Height) const
+     {
++        if(!bHilltop)return GradeForSiteSurvey(X,Y,Height);
++        if(!bPlaced)return Height;
++        // Only the village's broad apron joins the crown to the existing hill.
++        // The approach keeps its route/vegetation clearance, not an elevated embankment.
++        const double Distance=EdgeDistance(Local(X,Y));
++        if(Distance>=Shoulder)return Height;
++        return FMath::Lerp(Ground.Z,Height,TemperateHillsSurface::Quintic(
++            FMath::Clamp(Distance/Shoulder,0.,1.)));
++    }
++    // Freeze the original survey metric so this terrain-only change cannot move
++    // an existing seed's village, gate, datum, or chosen shoulder width.
++    double GradeForSiteSurvey(double X,double Y,double Height) const
++    {
+         if(!Near(X,Y))return Height;
+         const auto P=Local(X,Y);
+         const double Edge=FMath::Clamp(EdgeDistance(P)/Shoulder,0.,1.);

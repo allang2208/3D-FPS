@@ -34,3 +34,5 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 ## 丘陵雨林植被与水坑
 
 修改雨林专属草、联机生态参数或扩大水坑选址时，读 [雨林植被与局部积水](references/hills-vegetation-and-pools.md)。
+
+丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面，读取 [丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面](references/hills-scenery-continuity.md)。

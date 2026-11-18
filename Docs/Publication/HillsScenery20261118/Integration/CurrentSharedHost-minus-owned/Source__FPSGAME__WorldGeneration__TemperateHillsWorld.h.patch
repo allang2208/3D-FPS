@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -141,6 +141,8 @@
+     UPROPERTY(EditAnywhere, Category="Rainforest|Floor") TArray<FTemperateFlowerFamily> ClearingFlowers;
+     // Dry-ground cover inside the rainforest mask: low, spreading and tall clumps.
+     UPROPERTY(EditAnywhere, Category="Rainforest|Floor") TArray<TSoftObjectPtr<UStaticMesh>> RainforestCarpetGrass;
++    UPROPERTY(EditAnywhere, Category="WhiteCliffs") TArray<TSoftObjectPtr<UStaticMesh>> WhiteCliffMeshes;
++    UPROPERTY(EditAnywhere, Category="WhiteCliffs") TArray<TSoftObjectPtr<UStaticMesh>> QuarryProps;
+ };
+ 
+ USTRUCT(BlueprintType)
+@@ -238,6 +240,7 @@
+     /** Stable pre-settlement anchor used by river/village planning, never the player entry. */
+     FVector GetGenerationAnchor() const;
+     bool PrepareSpawnGround(AController* Controller);
++    bool RequestQuarryVisit(class ACharacter* Player,FString& Reason);
+     FRotator GetStartRotation() const;
+     const FTemperateVillageSite& GetVillageSite() const { return VillageSite; }
+     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsVillageWallRepaired() const { return bVillageWallRepaired; }
+@@ -285,7 +288,7 @@
+     UMaterialInterface* GetMapGroundMaterial() const;
+     void CopyMapGround(TemperateHillsGround::FMapSource& Out) const;
+     void GetPlacements(int32 Layer, const FBox& Bounds, TArray<FTemperatePlacement>& Out, bool IncludeRegrowth=false) const;
+-    TSharedPtr<HillsVegetation::FNeighborhood> PrepareVegetationCell(const FBox& Bounds) const;
++    TSharedPtr<HillsVegetation::FNeighborhood> PrepareVegetationCell(const FBox& Bounds,bool bNeedsGround=true) const;
+     void GetVegetationStrip(int32 Layer,const FBox& Bounds,HillsVegetation::FNeighborhood& Neighbors,TArray<FTemperatePlacement>& Out) const;
+     /** Shared natural/F6 support rules; only changes Z, never a resource's XY. */
+     bool FitRockPlacement(const UStaticMesh& Mesh,FTransform& Placement,bool Ore) const;
+@@ -377,7 +380,11 @@
+     void GetForestFloorPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+     /** Big rock modules embedded into steep hillsides. Same rock layer, never mineable. */
+     void GetCliffPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+-    void GetNurseLogPlacements(const FBox& Bounds,const TArray<FTemperatePlacement>& Supports,TArray<FTemperatePlacement>& Ferns,TArray<FTemperatePlacement>& Floor) const;
++    void GetWhiteCliffPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
++    bool AssembleWhiteCliffs();
++    void GetNurseLogPlacements(const FBox& Bounds,const TArray<FTemperatePlacement>& Supports,TArray<FTemperatePlacement>& Ferns,TArray<FTemperatePlacement>* Floor) const;
++    void GetHabitatCompanions(const FBox& Bounds,const TArray<FTemperatePlacement>& Supports,bool Trees,
++        TArray<FTemperatePlacement>& Plants,TArray<FTemperatePlacement>* Floor) const;
+     void GetVisualAnchorPlacements(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
+     void BeginStreaming();
+     void TickStreaming();

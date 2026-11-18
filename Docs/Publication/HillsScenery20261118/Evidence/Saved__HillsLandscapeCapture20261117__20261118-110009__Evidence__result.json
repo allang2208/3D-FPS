@@ -1,0 +1,57 @@
+{
+	"seed": 1518277816,
+	"generator_version": 3,
+	"world_id": "DD5554E24E2BF263C186319F8C752D2E",
+	"lighting": "isolated clear weather, morning daylight",
+	"lake_center": [
+		-35812.62521988454,
+		-18558.687477200845,
+		4128.6170442415269
+	],
+	"village_origin": [
+		337.47351765632629,
+		-25432.53231048584,
+		6142
+	],
+	"quarry_center": [
+		-27010.903256779187,
+		-39807.915474570276,
+		6702
+	],
+	"natural_shore": true,
+	"grove_candidate_trees": 11,
+	"reason": "rendered screenshots saved; visual assessment is separate",
+	"capture_complete": true,
+	"shots": [
+		{
+			"name": "06_forest_floor",
+			"file": "D:\\FPS3D\\FPSGAME\\Saved\\HillsLandscapeCapture20261117\\20261118-110009/Evidence/06_forest_floor.png",
+			"eye": [
+				-17047.530490875244,
+				-35539.461050033569,
+				6536.2208602390974
+			],
+			"target": [
+				-16047.530490875244,
+				-34909.461050033569,
+				6403.4728683134654
+			],
+			"fov": 75,
+			"settle_seconds": 47.69587380066514,
+			"nearby_static_instances": 86019,
+			"instance_count_stable": true,
+			"terrain_ready": 9,
+			"terrain_required": 9,
+			"vegetation_ready": 170,
+			"vegetation_required": 170,
+			"ground_height_error_cm": 4.1406369138085211,
+			"pawn": [
+				-17047.530490875244,
+				-35539.461050033569,
+				6561.2208602390974
+			],
+			"render_warm_frames": 500
+		}
+	],
+	"elapsed_seconds": 79.981855601072311
+}

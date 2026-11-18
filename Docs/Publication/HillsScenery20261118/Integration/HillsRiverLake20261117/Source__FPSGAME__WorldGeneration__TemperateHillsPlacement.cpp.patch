@@ -1,0 +1,75 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "TemperateVegetationPlacement.h"
+ #include "TemperateHillsSurface.h"
+ #include "../Production/ProductionOreRocks.h"
+ #include "Engine/StaticMesh.h"
+@@ -87,7 +88,7 @@
+ {
+     FBox Coverage=FBox(ForceInit);
+     FFootprints Index;
+-    TArray<FTemperatePlacement> Logs;
++    TArray<FTemperatePlacement> Supports;
+     uint32 EditRevision=0;
+     double RockRadius=0.;
+     bool Ready=false;
+@@ -97,7 +98,14 @@
+ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out,bool IncludeRegrowth) const
+ {
+     if(!Assets||Layer<0||Layer>4)return;
+-    if(Layer==1){GetRockPlacements(Bounds,Out);return;}
++    if(Layer==1)
++    {
++        GetRockPlacements(Bounds,Out);
++        // The small landmark kit is persistent so its silhouette remains visible
++        // across the lake; its footprints still participate in vegetation masks.
++        Out.RemoveAll([](const FTemperatePlacement& P){return (P.CandidateId>>60)==5;});
++        return;
++    }
+     if(Layer==0){GetBasePlacements(Layer,Bounds,Out,IncludeRegrowth);return;}
+     GetVegetationPlacements(Layer,Bounds,Out);
+ }
+@@ -162,6 +170,7 @@
+             (Priorities[J]==Priorities[I]&&Supported[J].CandidateId<P.CandidateId));});
+         if(!Conflict&&(IncludeDepleted||!IsProductionDepleted(1,P.CandidateId)))Out.Add(P);
+     }
++    GetWhiteCliffPlacements(Bounds,Out);
+ }
+ 
+ bool ATemperateHillsWorld::FitRockPlacement(const UStaticMesh& Mesh,FTransform& Placement,bool Ore) const
+@@ -210,15 +219,17 @@
+         Mask->Index=FFootprints();
+         TArray<FTemperatePlacement> Rocks;
+         GetRockPlacements(Mask->Coverage,Rocks,true); // mined rocks still reserve their footprint
+-        Mask->Logs.Reset();
++        Mask->Supports.Reset();
+         for(const auto& P:Rocks)
+         {
+-            Mask->Index.Add(MeshBox(P.Mesh).TransformBy(P.Transform).ExpandBy(Clearance));
+-            if(Assets->FallenLogs.ContainsByPredicate([&](const auto& Ref){return Ref.ToSoftObjectPath()==P.Mesh;}))
+-                Mask->Logs.Add(P);
++            const FBox Shape=MeshBox(P.Mesh).TransformBy(P.Transform);
++            Mask->Index.Add(Shape.ExpandBy(Clearance));
++            // Reuse the already-resolved rock neighbourhood as community
++            // anchors. Nurse-log dressing keeps its own mesh-family filter.
++            if(Shape.IsValid&&Shape.GetSize().GetMax()>80.)Mask->Supports.Add(P);
+         }
+     }
+-    return Mask->Logs;
++    return Mask->Supports;
+ }
+ 
+ void ATemperateHillsWorld::ExcludeRockFootprints(const FBox& Bounds,TArray<FTemperatePlacement>& Plants,
+@@ -231,7 +242,9 @@
+     double PlantReach=0;
+     for(const auto& P:Plants)
+     {
+-        if(!Boxes.Contains(P.Mesh))Boxes.Add(P.Mesh,MeshBox(P.Mesh));
++        // Rendering bounds may include metres of wind padding. Compare actual
++        // plant geometry against the solid rock mask, as in root fitting.
++        if(!Boxes.Contains(P.Mesh))Boxes.Add(P.Mesh,HillsVegetation::BoundsOf(P.Mesh.ResolveObject()));
+         const FBox& Box=Boxes.FindChecked(P.Mesh);
+         if(Box.IsValid)PlantReach=FMath::Max(PlantReach,Reach(Box)*P.Transform.GetScale3D().GetAbsMax());
+     }

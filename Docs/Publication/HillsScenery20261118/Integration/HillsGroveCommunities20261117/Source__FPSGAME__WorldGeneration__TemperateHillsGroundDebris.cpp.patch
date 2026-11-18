@@ -1,0 +1,81 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsGroundDebris.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsGroundDebris.cpp
+@@ -1,6 +1,7 @@
+ #include "TemperateHillsWorld.h"
+ #include "TemperateHillsSurface.h"
+ #include "TemperateForestHabitat.h"
++#include "TemperateWoodlandFloor.h"
+ #include "Engine/StaticMesh.h"
+ 
+ // Small stones bedded into the surface. The ground material paints its dry and
+@@ -25,7 +26,7 @@
+     {
+         const uint32 TileKey=Key(GX,GY,Seed,1451);
+         const bool ForestTile=RainforestWeight((GX+.5)*Tile,(GY+.5)*Tile)>.01;
+-        const bool WoodlandPocket=!Assets->RainforestTwigs.IsEmpty() && Unit(TileKey+97)<.38;
++        const bool WoodlandPocket=!Assets->RainforestTwigs.IsEmpty() && Unit(TileKey+97)<.48;
+         if(ForestTile || WoodlandPocket)
+         {
+             // Related stones and twigs accumulate in small pockets. Every
+@@ -37,9 +38,13 @@
+             const auto& E=EcologyProfile();
+             const double Edge=E.EdgeEnter.Weight(Canopy)*(1.-E.EdgeLeave.Weight(Canopy));
+             const double Trail=1.-FMath::SmoothStep(360.,900.,PathDistance(CenterX,CenterY));
+-            const double Bank=RiverPlan?RiverPlan->Sample(CenterX,CenterY).Bank:0.;
++            const auto ShoreSample=RiverPlan?RiverPlan->Sample(CenterX,CenterY):TemperateRiver::FSample();
++            const double Bank=ShoreSample.Bank;
+             const double Fringe=E.EdgeDebrisStrength*Edge*(.25+.75*FMath::Max(Trail,4.*Bank*(1.-Bank)));
+-            const double Wood=WoodlandPocket?FMath::Clamp(FMath::SmoothStep(.32,.82,Canopy)*(.24+.76*Shelter)+Fringe,0.,1.):0.;
++            const double Finish=(1.-FMath::SmoothStep(0.,.02,Bank))*(1.-ShoreSample.CliffWeight);
++            const double FloorPatch=TemperateWoodlandFloor::Patch(CenterX,CenterY,Seed);
++            const double Wood=WoodlandPocket?FMath::Clamp(FMath::SmoothStep(.32,.82,Canopy)*(.24+.76*Shelter)+Fringe,0.,1.)
++                *FMath::Lerp(1.,FMath::Lerp(.55,1.35,FloorPatch),Finish):0.;
+             // Derive one direction for the whole pocket from the local wet-to-
+             // dry gradient. A flat forest floor keeps its random scatter.
+             FVector2D Gradient=FVector2D::ZeroVector;
+@@ -48,7 +53,7 @@
+                 Gradient.X=ForestWaterPlan->ShoreMoistureAt(CenterX+60.,CenterY)-ForestWaterPlan->ShoreMoistureAt(CenterX-60.,CenterY);
+                 Gradient.Y=ForestWaterPlan->ShoreMoistureAt(CenterX,CenterY+60.)-ForestWaterPlan->ShoreMoistureAt(CenterX,CenterY-60.);
+             }
+-            for(int32 Piece=0;Piece<(ForestTile?8:3);++Piece)
++            for(int32 Piece=0;Piece<(ForestTile?8:5);++Piece)
+             {
+                 const uint32 K=Key(GX,GY,uint32(Seed),2813+Piece*17);
+                 const double X=(GX+PocketX+(Unit(K+1)-.5)*.46)*Tile;
+@@ -63,7 +68,9 @@
+                 // gather there and beneath the established understory patches.
+                 const double Cover=Twig?FMath::Lerp(.29+.35*Shelter,.81,Shore):
+                     FMath::Lerp(.30+.23*(1.-Shelter),.93,Shore);
+-                const double WoodCover=Twig?.48*Wood*EcologyProfile().UplandShelterStrength:0.;
++                // Temperate tree groups get both broken wood and mineral
++                // fragments; previously their pocket emitted only three twigs.
++                const double WoodCover=(Twig?.56:.34)*Wood*EcologyProfile().UplandShelterStrength;
+                 if(Unit(K+3)>FMath::Lerp(WoodCover,Cover,Region))continue;
+                 if(Region>0. && SampleForestWater(X,Y).Depth>14)continue;
+                 if(RiverPlan&&RiverPlan->Sample(X,Y).Bank>.35)continue;
+@@ -71,12 +78,13 @@
+                 if(Palette.IsEmpty())continue;
+                 const auto& Ref=Palette[K%Palette.Num()];
+                 const auto* Mesh=Ref.Get();if(!Mesh)continue;
+-                const FBox Box=Mesh->GetBoundingBox();
++                FBox Box=Mesh->GetBoundingBox();
++                Box.Min+=Mesh->GetNegativeBoundsExtension();Box.Max-=Mesh->GetPositiveBoundsExtension();
+                 const FVector Size=Box.GetSize();
+                 const FVector N=SurfaceNormal(X,Y);
+                 if(N.Z<.86)continue;
+                 const FVector Base(Box.GetCenter().X,Box.GetCenter().Y,Box.Min.Z);
+-                const double Span=Twig?24.+Unit(K+4)*31.:6.+Unit(K+4)*16.;
++                const double Span=Twig?22.+Unit(K+4)*58.:6.+Unit(K+4)*20.;
+                 const double Scale=Span/FMath::Max(1.,FMath::Max(Size.X,Size.Y));
+                 double Yaw=Unit(K+5)*2*PI;
+                 if(Twig&&Gradient.SizeSquared()>.008&&Unit(K+7)<.72*Shore)
+@@ -137,7 +145,8 @@
+             const auto& Mesh=Assets->Rocks[K%Assets->Rocks.Num()];
+             const UStaticMesh* Loaded=Mesh.Get();
+             if(!Loaded)continue;
+-            const FBox Box=Loaded->GetBoundingBox();
++            FBox Box=Loaded->GetBoundingBox();
++            Box.Min+=Loaded->GetNegativeBoundsExtension();Box.Max-=Loaded->GetPositiveBoundsExtension();
+             const FVector Size=Box.GetSize();
+             // Fit one nominal stone size onto whatever rock mesh is registered, so
+             // the layer keeps working if the rock set is swapped for another pack.

@@ -1,0 +1,1161 @@
+{
+	"seed": 1518277816,
+	"generator_version": 3,
+	"world_id": "DD5554E24E2BF263C186319F8C752D2E",
+	"lighting": "isolated clear weather, morning daylight",
+	"lake_center": [
+		-35812.62521988454,
+		-18558.687477200845,
+		4128.6170442415269
+	],
+	"village_origin": [
+		337.47351765632629,
+		-25432.53231048584,
+		6142
+	],
+	"quarry_center": [
+		-27010.903256779187,
+		-39807.915474570276,
+		6702
+	],
+	"natural_shore": true,
+	"grove_candidate_trees": 11,
+	"reason": "rendered screenshots saved; visual assessment is separate",
+	"capture_complete": true,
+	"shots": [
+		{
+			"name": "05_tree_groves",
+			"file": "D:\\FPS3D\\FPSGAME\\Saved\\HillsLandscapeCapture20261117\\20261118-105435/Evidence/05_tree_groves.png",
+			"eye": [
+				-22797.530490875244,
+				-39489.461050033569,
+				13800.251398480603
+			],
+			"target": [
+				-16197.530490875244,
+				-35089.461050033569,
+				6866.6804931751494
+			],
+			"fov": 80,
+			"settle_seconds": 47.502201996743679,
+			"nearby_static_instances": 96578,
+			"instance_count_stable": true,
+			"terrain_ready": 9,
+			"terrain_required": 9,
+			"vegetation_ready": 166,
+			"vegetation_required": 166,
+			"ground_height_error_cm": 0.68907055400632089,
+			"pawn": [
+				-22797.530490875244,
+				-39489.461050033569,
+				8100.2513984806028
+			],
+			"render_warm_frames": 520
+		},
+		{
+			"name": "06_forest_floor",
+			"file": "D:\\FPS3D\\FPSGAME\\Saved\\HillsLandscapeCapture20261117\\20261118-105435/Evidence/06_forest_floor.png",
+			"eye": [
+				-17047.530490875244,
+				-35539.461050033569,
+				6536.2208602390974
+			],
+			"target": [
+				-16047.530490875244,
+				-34909.461050033569,
+				6403.4728683134654
+			],
+			"fov": 75,
+			"settle_seconds": 32.386148601770401,
+			"nearby_static_instances": 108324,
+			"instance_count_stable": true,
+			"terrain_ready": 9,
+			"terrain_required": 9,
+			"vegetation_ready": 170,
+			"vegetation_required": 170,
+			"ground_height_error_cm": 4.1406369138085211,
+			"pawn": [
+				-17047.530490875244,
+				-35539.461050033569,
+				6561.2208602390974
+			],
+			"render_warm_frames": 536
+		},
+		{
+			"name": "08_village_approach",
+			"file": "D:\\FPS3D\\FPSGAME\\Saved\\HillsLandscapeCapture20261117\\20261118-105435/Evidence/08_village_approach.png",
+			"eye": [
+				-1549.7143346975822,
+				-16262.552920654703,
+				7195.4207871308108
+			],
+			"target": [
+				-1622.570691409569,
+				-21271.014955180537,
+				6292
+			],
+			"fov": 75,
+			"settle_seconds": 33.59064020216465,
+			"nearby_static_instances": 30382,
+			"instance_count_stable": true,
+			"terrain_ready": 9,
+			"terrain_required": 9,
+			"vegetation_ready": 184,
+			"vegetation_required": 184,
+			"ground_height_error_cm": 0.045732234921160853,
+			"pawn": [
+				-1549.7143346975827,
+				-16262.552920654703,
+				6195.4207871308108
+			],
+			"render_warm_frames": 538
+		},
+		{
+			"name": "09_quarry_shed_contact",
+			"file": "D:\\FPS3D\\FPSGAME\\Saved\\HillsLandscapeCapture20261117\\20261118-105435/Evidence/09_quarry_shed_contact.png",
+			"eye": [
+				-23500,
+				-34700,
+				7600
+			],
+			"target": [
+				-23143.740000000002,
+				-37123.690000000002,
+				7380
+			],
+			"fov": 65,
+			"settle_seconds": 42.387172400951385,
+			"nearby_static_instances": 100002,
+			"instance_count_stable": true,
+			"terrain_ready": 9,
+			"terrain_required": 9,
+			"vegetation_ready": 173,
+			"vegetation_required": 173,
+			"ground_height_error_cm": 1.612822209182923,
+			"pawn": [
+				-23500,
+				-34700,
+				6910.9582130513845
+			],
+			"render_warm_frames": 535,
+			"quarry_contacts": [
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-22048.21761949746,
+						-35587.518423874972,
+						6550.0444674396213
+					],
+					"field_gap_cm": -703.32133646766215,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -703.31220923751061,
+					"proxy_gap_cm": -626.0186285644877
+				},
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-20484.421163491708,
+						-38186.949254688487,
+						7066.6685613668778
+					],
+					"field_gap_cm": -830.04392893437125,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -830.06367357125509,
+					"proxy_gap_cm": -724.41002935357028
+				},
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-18920.624707485953,
+						-40786.380085502002,
+						6848.6269254891677
+					],
+					"field_gap_cm": -1123.0487402357476,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -1122.9193372699674,
+					"proxy_gap_cm": -874.72097053845027
+				},
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-17747.437432639475,
+						-42573.453564164331,
+						5737.1371685466538
+					],
+					"field_gap_cm": -589.08841540955655,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -590.03885675276706,
+					"proxy_gap_cm": -650.86063893520532
+				},
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-28833.991170397436,
+						-47165.656327523648,
+						6862.2848059479675
+					],
+					"field_gap_cm": -1032.4004088164111,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -1032.1235764423027,
+					"proxy_gap_cm": -965.84784922586914
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-33504.32314851402,
+						-40332.794612679594,
+						6607.7363267863948
+					],
+					"field_gap_cm": -642.89786930632181,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -642.92440079781773,
+					"proxy_gap_cm": -647.55905154635548
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-32772.018222840117,
+						-43276.640650745059,
+						7089.8352825402899
+					],
+					"field_gap_cm": -817.45222715846103,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -817.38973815120971,
+					"proxy_gap_cm": -794.45386015657368
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-32039.713297166214,
+						-46220.486688810524,
+						7286.8305248144825
+					],
+					"field_gap_cm": -817.96588491789407,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -817.51061701167691,
+					"proxy_gap_cm": -694.34918104943517
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-20519.075867078966,
+						-43721.504255004162,
+						6616.5314967724553
+					],
+					"field_gap_cm": -1176.8409274200731,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -1176.6874436610706,
+					"proxy_gap_cm": -1106.2288773092459
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-31605.629604836926,
+						-48313.707018363479,
+						6561.1012402728093
+					],
+					"field_gap_cm": -391.88299053634637,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -391.74913784646469,
+					"proxy_gap_cm": -497.22824280448094
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-31933.495617152887,
+						-41965.502767084938,
+						7227.0776316219662
+					],
+					"field_gap_cm": -67.446173341363647,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -71.476589458700801,
+					"proxy_gap_cm": -193.60024870085908
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-21378.75629217799,
+						-37821.300719024017,
+						7310.8143820801597
+					],
+					"field_gap_cm": -214.39070325697321,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -214.76267190353246,
+					"proxy_gap_cm": -292.1152237191709
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-30938.148032551886,
+						-40360.452311109591,
+						7209.8833867194389
+					],
+					"field_gap_cm": -31.67347441968559,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.782944334941931,
+					"proxy_gap_cm": -30.416834606359771
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-22979.956766922187,
+						-35628.602634985386,
+						7185.9204708249899
+					],
+					"field_gap_cm": -66.615985318438106,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -63.009886179282148,
+					"proxy_gap_cm": 57.029575487226793
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-30648.524354546029,
+						-39566.974747362707,
+						7207.8665600015493
+					],
+					"field_gap_cm": -31.115554456054269,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.239210269513023,
+					"proxy_gap_cm": 24.795317726267058
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-20469.302750132356,
+						-36830.082354236132,
+						7216.8352305982517
+					],
+					"field_gap_cm": -28.289539791392599,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -28.324232249156921,
+					"proxy_gap_cm": -40.902959918817942
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-33141.93403342025,
+						-42461.919576568303,
+						7227.0948573234873
+					],
+					"field_gap_cm": -65.530202932124666,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -68.879181394760963,
+					"proxy_gap_cm": -350.81850078909156
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-20637.347705532778,
+						-39453.606592972486,
+						7872.8641394299721
+					],
+					"field_gap_cm": -31.470553931272661,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.432425518203672,
+					"proxy_gap_cm": -19.770757068581588
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-32940.066804271672,
+						-44719.967216539713,
+						7806.5262190727717
+					],
+					"field_gap_cm": -56.034834954568396,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -55.53147296255338,
+					"proxy_gap_cm": -0.67458321933281695
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-21080.414195673806,
+						-39862.692408083385,
+						7873.2861496488331
+					],
+					"field_gap_cm": -29.868747960123983,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -29.775773284069146,
+					"proxy_gap_cm": -33.785114792222885
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-33522.113046030121,
+						-43083.287378632056,
+						7471.1286021622855
+					],
+					"field_gap_cm": -323.86399083928609,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -321.65132304322105,
+					"proxy_gap_cm": -340.5525737847347
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-23546.858621245072,
+						-38416.267014800876,
+						7227.4030405648582
+					],
+					"field_gap_cm": -29.783020867720552,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -32.948936288945333,
+					"proxy_gap_cm": -174.06025343828878
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-32356.530761491616,
+						-38513.71382314754,
+						6655.491845306221
+					],
+					"field_gap_cm": -29.803963389633282,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -29.946789177352912,
+					"proxy_gap_cm": -85.586651908536624
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-22873.631427336531,
+						-37625.879160662917,
+						7209.2317748762453
+					],
+					"field_gap_cm": -29.365042426272339,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -29.467083997908048,
+					"proxy_gap_cm": -152.75168442641734
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-32194.802316691857,
+						-41380.836479971906,
+						7222.3034207021101
+					],
+					"field_gap_cm": -30.15542973115862,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -30.185344658409122,
+					"proxy_gap_cm": -32.73483391535774
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-21040.333632120906,
+						-37922.026229753334,
+						7552.3981554087013
+					],
+					"field_gap_cm": -250.49152965125722,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -248.64322820369671,
+					"proxy_gap_cm": -119.70814251089269
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-31415.342854933711,
+						-40784.456556544304,
+						7236.2278262206119
+					],
+					"field_gap_cm": -31.960953932132725,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.870004731436893,
+					"proxy_gap_cm": -10.930418557428311
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-21118.476524938516,
+						-39928.482613145061,
+						7871.7169967857826
+					],
+					"field_gap_cm": -30.141361190528187,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -30.070219813713265,
+					"proxy_gap_cm": -36.34060418777517
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-32359.52405577985,
+						-39730.667438448327,
+						7221.9401427591674
+					],
+					"field_gap_cm": -27.719414862785015,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -27.714621189896206,
+					"proxy_gap_cm": 55.805965202680454
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-23179.993680159656,
+						-40192.564124908167,
+						7865.8508702695126
+					],
+					"field_gap_cm": -28.828288829433404,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -28.871221108238387,
+					"proxy_gap_cm": -34.156363201161184
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-30651.340179454775,
+						-42547.001885588572,
+						7857.7817457958099
+					],
+					"field_gap_cm": -28.176629963994856,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -28.386674275598125,
+					"proxy_gap_cm": 80.263862744939615
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-23641.098483437774,
+						-37175.431963016556,
+						7215.9179498307521
+					],
+					"field_gap_cm": -32.675485309568103,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -32.718166262985505,
+					"proxy_gap_cm": -39.279886814436395
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-30639.231669053534,
+						-45464.382158584427,
+						8505.5670921524797
+					],
+					"field_gap_cm": -44.176989312991282,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -43.455816404710276,
+					"proxy_gap_cm": 309.34339348844878
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-20592.255881148842,
+						-41679.899205750953,
+						8492.3447183155095
+					],
+					"field_gap_cm": -56.744818319728438,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -56.590250491159168,
+					"proxy_gap_cm": 38.750154415616635
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-33137.043661125535,
+						-40034.785872284963,
+						7226.5700691498414
+					],
+					"field_gap_cm": -27.669344406192977,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -27.564458805686627,
+					"proxy_gap_cm": -30.709669284525262
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-20182.22235375948,
+						-38292.343716871415,
+						7880.3838095043275
+					],
+					"field_gap_cm": -28.089854163897144,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -28.051627835936415,
+					"proxy_gap_cm": 68.151397814028314
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-31864.85515939003,
+						-41429.22662237758,
+						7227.5970620669086
+					],
+					"field_gap_cm": -31.801478814812072,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.766136851331794,
+					"proxy_gap_cm": -24.800137858838752
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-19902.137631248803,
+						-39625.760341208101,
+						7844.6166473860067
+					],
+					"field_gap_cm": -61.243867219449385,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -61.217698025727259,
+					"proxy_gap_cm": -4.7289156021315648
+				},
+				{
+					"mesh": "SM_QuarryTimberHoist",
+					"bottom": [
+						-30798.245636828473,
+						-42946.153466865093,
+						7866.375788752066
+					],
+					"field_gap_cm": -18.281106207529774,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -18.353100447330689,
+					"proxy_gap_cm": 11.364674477446897
+				},
+				{
+					"mesh": "SM_QuarryRuinedShed",
+					"bottom": [
+						-23143.741220918575,
+						-37123.691603802712,
+						7200.9799831208866
+					],
+					"field_gap_cm": -30,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -30.208400382022774,
+					"proxy_gap_cm": -53.171333617768141
+				},
+				{
+					"mesh": "SM_QuarryOldWinch",
+					"bottom": [
+						-31174.36331426441,
+						-42560.750440514501,
+						7877.7835764115571
+					],
+					"field_gap_cm": -4.0719866096042097,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -4.2748658738883023,
+					"proxy_gap_cm": 89.655756940649553
+				}
+			]
+		},
+		{
+			"name": "10_quarry_rock_face",
+			"file": "D:\\FPS3D\\FPSGAME\\Saved\\HillsLandscapeCapture20261117\\20261118-105435/Evidence/10_quarry_rock_face.png",
+			"eye": [
+				-24200,
+				-35100,
+				7600
+			],
+			"target": [
+				-22048,
+				-35588,
+				7450
+			],
+			"fov": 65,
+			"settle_seconds": 32.322064198553562,
+			"nearby_static_instances": 108542,
+			"instance_count_stable": true,
+			"terrain_ready": 9,
+			"terrain_required": 9,
+			"vegetation_ready": 177,
+			"vegetation_required": 177,
+			"ground_height_error_cm": 2.7267907569421368,
+			"pawn": [
+				-24200,
+				-35100,
+				6917.0239251370158
+			],
+			"render_warm_frames": 539,
+			"quarry_contacts": [
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-22048.21761949746,
+						-35587.518423874972,
+						6550.0444674396213
+					],
+					"field_gap_cm": -703.32133646766215,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -703.31220923751061,
+					"proxy_gap_cm": -626.0186285644877
+				},
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-20484.421163491708,
+						-38186.949254688487,
+						7066.6685613668778
+					],
+					"field_gap_cm": -830.04392893437125,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -830.06367357125509,
+					"proxy_gap_cm": -724.41002935357028
+				},
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-18920.624707485953,
+						-40786.380085502002,
+						6848.6269254891677
+					],
+					"field_gap_cm": -1123.0487402357476,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -1122.9193372699674,
+					"proxy_gap_cm": -874.72097053845027
+				},
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-17747.437432639475,
+						-42573.453564164331,
+						5737.1371685466538
+					],
+					"field_gap_cm": -589.08841540955655,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -590.03885675276706,
+					"proxy_gap_cm": -650.86063893520532
+				},
+				{
+					"mesh": "SM_WhiteCliffA_SolidR9",
+					"bottom": [
+						-28833.991170397436,
+						-47165.656327523648,
+						6862.2848059479675
+					],
+					"field_gap_cm": -1032.4004088164111,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -1032.1235764423027,
+					"proxy_gap_cm": -965.84784922586914
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-33504.32314851402,
+						-40332.794612679594,
+						6607.7363267863948
+					],
+					"field_gap_cm": -642.89786930632181,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -642.92440079781773,
+					"proxy_gap_cm": -647.55905154635548
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-32772.018222840117,
+						-43276.640650745059,
+						7089.8352825402899
+					],
+					"field_gap_cm": -817.45222715846103,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -817.38973815120971,
+					"proxy_gap_cm": -794.45386015657368
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-32039.713297166214,
+						-46220.486688810524,
+						7286.8305248144825
+					],
+					"field_gap_cm": -817.96588491789407,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -817.51061701167691,
+					"proxy_gap_cm": -694.34918104943517
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-20519.075867078966,
+						-43721.504255004162,
+						6616.5314967724553
+					],
+					"field_gap_cm": -1176.8409274200731,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -1176.6874436610706,
+					"proxy_gap_cm": -1106.2288773092459
+				},
+				{
+					"mesh": "SM_WhiteCliffB_SolidR9",
+					"bottom": [
+						-31605.629604836926,
+						-48313.707018363479,
+						6561.1012402728093
+					],
+					"field_gap_cm": -391.88299053634637,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -391.74913784646469,
+					"proxy_gap_cm": -497.22824280448094
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-31933.495617152887,
+						-41965.502767084938,
+						7227.0776316219662
+					],
+					"field_gap_cm": -67.446173341363647,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -71.476589458700801,
+					"proxy_gap_cm": -193.60024870085908
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-21378.75629217799,
+						-37821.300719024017,
+						7310.8143820801597
+					],
+					"field_gap_cm": -214.39070325697321,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -214.76267190353246,
+					"proxy_gap_cm": -292.1152237191709
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-30938.148032551886,
+						-40360.452311109591,
+						7209.8833867194389
+					],
+					"field_gap_cm": -31.67347441968559,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.782944334941931,
+					"proxy_gap_cm": -30.416834606359771
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-22979.956766922187,
+						-35628.602634985386,
+						7185.9204708249899
+					],
+					"field_gap_cm": -66.615985318438106,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -63.009886179282148,
+					"proxy_gap_cm": 57.029575487226793
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-30648.524354546029,
+						-39566.974747362707,
+						7207.8665600015493
+					],
+					"field_gap_cm": -31.115554456054269,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.239210269513023,
+					"proxy_gap_cm": 24.795317726267058
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-20469.302750132356,
+						-36830.082354236132,
+						7216.8352305982517
+					],
+					"field_gap_cm": -28.289539791392599,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -28.324232249156921,
+					"proxy_gap_cm": -40.902959918817942
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-33141.93403342025,
+						-42461.919576568303,
+						7227.0948573234873
+					],
+					"field_gap_cm": -65.530202932124666,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -68.879181394760963,
+					"proxy_gap_cm": -350.81850078909156
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-20637.347705532778,
+						-39453.606592972486,
+						7872.8641394299721
+					],
+					"field_gap_cm": -31.470553931272661,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.432425518203672,
+					"proxy_gap_cm": -19.770757068581588
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-32940.066804271672,
+						-44719.967216539713,
+						7806.5262190727717
+					],
+					"field_gap_cm": -56.034834954568396,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -55.53147296255338,
+					"proxy_gap_cm": -0.67458321933281695
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-21080.414195673806,
+						-39862.692408083385,
+						7873.2861496488331
+					],
+					"field_gap_cm": -29.868747960123983,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -29.775773284069146,
+					"proxy_gap_cm": -33.785114792222885
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-33522.113046030121,
+						-43083.287378632056,
+						7471.1286021622855
+					],
+					"field_gap_cm": -323.86399083928609,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -321.65132304322105,
+					"proxy_gap_cm": -340.5525737847347
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-23546.858621245072,
+						-38416.267014800876,
+						7227.4030405648582
+					],
+					"field_gap_cm": -29.783020867720552,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -32.948936288945333,
+					"proxy_gap_cm": -174.06025343828878
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-32356.530761491616,
+						-38513.71382314754,
+						6655.491845306221
+					],
+					"field_gap_cm": -29.803963389633282,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -29.946789177352912,
+					"proxy_gap_cm": -85.586651908536624
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-22873.631427336531,
+						-37625.879160662917,
+						7209.2317748762453
+					],
+					"field_gap_cm": -29.365042426272339,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -29.467083997908048,
+					"proxy_gap_cm": -152.75168442641734
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-32194.802316691857,
+						-41380.836479971906,
+						7222.3034207021101
+					],
+					"field_gap_cm": -30.15542973115862,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -30.185344658409122,
+					"proxy_gap_cm": -32.73483391535774
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-21040.333632120906,
+						-37922.026229753334,
+						7552.3981554087013
+					],
+					"field_gap_cm": -250.49152965125722,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -248.64322820369671,
+					"proxy_gap_cm": -119.70814251089269
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-31415.342854933711,
+						-40784.456556544304,
+						7236.2278262206119
+					],
+					"field_gap_cm": -31.960953932132725,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.870004731436893,
+					"proxy_gap_cm": -10.930418557428311
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-21118.476524938516,
+						-39928.482613145061,
+						7871.7169967857826
+					],
+					"field_gap_cm": -30.141361190528187,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -30.070219813713265,
+					"proxy_gap_cm": -36.34060418777517
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-32359.52405577985,
+						-39730.667438448327,
+						7221.9401427591674
+					],
+					"field_gap_cm": -27.719414862785015,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -27.714621189896206,
+					"proxy_gap_cm": 55.805965202680454
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-23179.993680159656,
+						-40192.564124908167,
+						7865.8508702695126
+					],
+					"field_gap_cm": -28.828288829433404,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -28.871221108238387,
+					"proxy_gap_cm": -34.156363201161184
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-30651.340179454775,
+						-42547.001885588572,
+						7857.7817457958099
+					],
+					"field_gap_cm": -28.176629963994856,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -28.386674275598125,
+					"proxy_gap_cm": 80.263862744939615
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-23641.098483437774,
+						-37175.431963016556,
+						7215.9179498307521
+					],
+					"field_gap_cm": -32.675485309568103,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -32.718166262985505,
+					"proxy_gap_cm": -39.279886814436395
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-30639.231669053534,
+						-45464.382158584427,
+						8505.5670921524797
+					],
+					"field_gap_cm": -44.176989312991282,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -43.455816404710276,
+					"proxy_gap_cm": 309.34339348844878
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-20592.255881148842,
+						-41679.899205750953,
+						8492.3447183155095
+					],
+					"field_gap_cm": -56.744818319728438,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -56.590250491159168,
+					"proxy_gap_cm": 38.750154415616635
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-33137.043661125535,
+						-40034.785872284963,
+						7226.5700691498414
+					],
+					"field_gap_cm": -27.669344406192977,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -27.564458805686627,
+					"proxy_gap_cm": -30.709669284525262
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-20182.22235375948,
+						-38292.343716871415,
+						7880.3838095043275
+					],
+					"field_gap_cm": -28.089854163897144,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -28.051627835936415,
+					"proxy_gap_cm": 68.151397814028314
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-31864.85515939003,
+						-41429.22662237758,
+						7227.5970620669086
+					],
+					"field_gap_cm": -31.801478814812072,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -31.766136851331794,
+					"proxy_gap_cm": -24.800137858838752
+				},
+				{
+					"mesh": "SM_WhiteLimestoneSpoil",
+					"bottom": [
+						-19902.137631248803,
+						-39625.760341208101,
+						7844.6166473860067
+					],
+					"field_gap_cm": -61.243867219449385,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -61.217698025727259,
+					"proxy_gap_cm": -4.7289156021315648
+				},
+				{
+					"mesh": "SM_QuarryTimberHoist",
+					"bottom": [
+						-30798.245636828473,
+						-42946.153466865093,
+						7866.375788752066
+					],
+					"field_gap_cm": -18.281106207529774,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -18.353100447330689,
+					"proxy_gap_cm": 11.364674477446897
+				},
+				{
+					"mesh": "SM_QuarryRuinedShed",
+					"bottom": [
+						-23143.741220918575,
+						-37123.691603802712,
+						7200.9799831208866
+					],
+					"field_gap_cm": -30,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -30.208400382022774,
+					"proxy_gap_cm": -53.171333617768141
+				},
+				{
+					"mesh": "SM_QuarryOldWinch",
+					"bottom": [
+						-31174.36331426441,
+						-42560.750440514501,
+						7877.7835764115571
+					],
+					"field_gap_cm": -4.0719866096042097,
+					"ground_traced": true,
+					"visible_ground_gap_cm": -4.2748658738883023,
+					"proxy_gap_cm": 89.655756940649553
+				}
+			]
+		}
+	],
+	"elapsed_seconds": 224.51183059811592
+}

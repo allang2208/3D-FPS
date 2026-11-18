@@ -1,0 +1,149 @@
+{
+  "finished": "2026-11-18T11:03:02.7323190+08:00",
+  "scope_completed": true,
+  "interactive_editor_started": false,
+  "seed": 1518277816,
+  "generator_version": 3,
+  "world_id": "DD5554E24E2BF263C186319F8C752D2E",
+  "village_origin": [
+    337.4735176563263,
+    -25432.53231048584,
+    6142
+  ],
+  "build_receipt": "SourceAssets/HillsClosure20261118R2/build.json",
+  "production_binaries": [
+    {
+      "current_sha256": "C010F2C96081B7C73EC4CC528F1F18CD33A97E61AB7BB859010788805C81C710",
+      "tested_sha256": "C010F2C96081B7C73EC4CC528F1F18CD33A97E61AB7BB859010788805C81C710",
+      "path": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll"
+    },
+    {
+      "current_sha256": "D26E9C25F3B1D8A508EAC76F1A94C5CF152C997946AC390C5951F32E2D2BC601",
+      "tested_sha256": "D26E9C25F3B1D8A508EAC76F1A94C5CF152C997946AC390C5951F32E2D2BC601",
+      "path": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\FPSGAME.exe"
+    }
+  ],
+  "network": {
+    "clean_exit": true,
+    "passed": true,
+    "loss_percent": 2,
+    "lag_ms": 60,
+    "source_save_unchanged": true,
+    "cases": 18,
+    "rendered": false,
+    "module_sha256": "C010F2C96081B7C73EC4CC528F1F18CD33A97E61AB7BB859010788805C81C710"
+  },
+  "network_evidence": "Saved/HillsSceneryNetwork20261118/closure02",
+  "visual_evidence": "Saved/HillsLandscapeCapture20261117/20261118-105435/Evidence",
+  "material_recheck": "Saved/HillsLandscapeCapture20261117/20261118-110009/Evidence",
+  "asset_receipts": [
+    "SourceAssets/HillsLandscapeRepair20261117/SolidScansR9/saved.json",
+    "SourceAssets/HillsClosure20261118/BeechMaterial/saved.json"
+  ],
+  "paused_art_layouts": [
+    "river mouth",
+    "white cliffs and quarry"
+  ],
+  "outside_scope_observed": [
+    "parallel blacksmith M_Smith_NativeNeck material compile warning",
+    "parallel blacksmith M_Smith_Apron material compile warning"
+  ],
+  "source_snapshots": [
+    {
+      "sha256": "C67B7D30C3EF08F686BD9B28A5DAC12A5107AD9486917E2A1C9E74935BCD33B0",
+      "path": "Source/FPSGAME/FPSGAME.cpp"
+    },
+    {
+      "sha256": "CC96C9B4B6CFFC42066A634148B15686E2C860C8185BE1EEDC403AEF84AF32D2",
+      "path": "Source/FPSGAME/FPSGAME.Build.cs"
+    },
+    {
+      "sha256": "38033467059B3F1C6B5053FBD96AE3F3ED31D184E55C9A7A1B78686A682884F4",
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h"
+    },
+    {
+      "sha256": "D65E8031C2A4FB3B1A3B534AC2A1F945A926374E48F0EE1EF0C4CAA48B3B4170",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h"
+    },
+    {
+      "sha256": "1CE30E4FD3FCC16407DEBDB47A894DFE0395C939872D0F5F6B9941FD05F59AA6",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp"
+    },
+    {
+      "sha256": "48FAFE469F4A9DE856C910F73B9C7D0F58AECDB9F9742DFB5468549D00470F4A",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp"
+    },
+    {
+      "sha256": "B6C4E489241E1EC312C4E041A91FAA5BB171777C21D4B2FE27FF84F0D4D2DB88",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp"
+    },
+    {
+      "sha256": "64D8D36D8809E2EA308672505AE7F610E4525D8731D168C492A5C38BB9A0E8B6",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWhiteCliffs.cpp"
+    },
+    {
+      "sha256": "F93AA65D0213DD5818BF3B40B5E25AD0BCE00CFD779B2BD1C77FBEC36B245015",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsCompatibility.h"
+    },
+    {
+      "sha256": "78953A1F2C65513432B4FC211B84604DD654A9DB738BCFE8269E8FCD9B24A536",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsCompatibility.cpp"
+    },
+    {
+      "sha256": "568A903AFE8D8A6A67FE731645D0833B54174B310E3F211AECD0B8117AC6A0FF",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.h"
+    },
+    {
+      "sha256": "78D92C6A8707F6C5FF908525811A18DF2DF61194066F8D6A26A795A6789678AC",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp"
+    },
+    {
+      "sha256": "CCA4844DE19A79E6A884693018265ABCB331107A7F725EF49A49ED9DC314E2A7",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVisitQuarry.inl"
+    },
+    {
+      "sha256": "05E678141A3017AD93BB083977A27452BE850AB8FB7E3CCC37719E71CC6A5C1A",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateWoodlandFloor.h"
+    },
+    {
+      "sha256": "EF5D2EC6609597617B894CAE9A40D9E6784EA3FFE35EE1C524B33CE8B945B47E",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp"
+    },
+    {
+      "sha256": "D42FE1B378DF1495A695E3E0B6B2F27811DEDD7D23C98339D2911C866312DCF2",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h"
+    },
+    {
+      "sha256": "B4142884E44C637C1D22D12348863E971F26F93F3018C4DCFF5082E1364853CA",
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundDebris.cpp"
+    },
+    {
+      "sha256": "8DCF547E637B697095B7FA091B833B06F63D4484DBB0C38558D93F6507806EDC",
+      "path": "Source/FPSGAME/Development/HillsSceneryNetworkProbe.h"
+    },
+    {
+      "sha256": "15B4FFCBC1E7DFD92088DDB7EB8689C8C120BDB0931EACBFFACF27BAE2CC92D0",
+      "path": "Source/FPSGAME/Development/HillsSceneryNetworkProbe.cpp"
+    },
+    {
+      "sha256": "5D6B84F684DFD1F130D6B35BA6796FD237323B1E7D59F8766F2FA51953504F34",
+      "path": "Tools/WorldGeneration/Build-HillsLandscapeFinal.ps1"
+    },
+    {
+      "sha256": "49C51917C50F513640CD77A6F471372869813065CA20785FB1A86EFEA84F755F",
+      "path": "Tools/WorldGeneration/Run-HillsSceneryNetwork.ps1"
+    },
+    {
+      "sha256": "5A0C9627157F39BC174F29DCF200ECF98C5FA439B559028D284AFD3A5CEC29A6",
+      "path": "Tools/WorldGeneration/Start-HillsLandscapeCapture.ps1"
+    },
+    {
+      "sha256": "BCEB7DEA261F6D527BFF12DDF799FDFD6F9FB444B565AFDE6F771E295FAAB1B8",
+      "path": "Tools/WorldGeneration/Repair-HillsBeechMaterial.ps1"
+    },
+    {
+      "sha256": "15E37095B3C9A59DCFC39CC0F58356308F95AA597412EC8244B66C2A7C5A7F71",
+      "path": "Tools/WorldGeneration/repair_hills_beech_material.py"
+    }
+  ]
+}

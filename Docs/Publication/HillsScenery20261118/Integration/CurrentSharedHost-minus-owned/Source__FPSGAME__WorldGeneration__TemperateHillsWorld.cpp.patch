@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
+@@ -64,6 +64,7 @@
+     bAlwaysRelevant=true; // One session actor serves the entire kilometre-wide map.
+     GenerationBounds=CreateDefaultSubobject<UBoxComponent>(TEXT("WorldBounds"));
+     RootComponent=GenerationBounds;
++    GenerationBounds->SetMobility(EComponentMobility::Static);
+     GenerationBounds->SetBoxExtent(FVector(51200,51200,50000));
+     GenerationBounds->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+     GenerationBounds->SetCanEverAffectNavigation(false);
+@@ -190,6 +191,8 @@
+ }
+ void ATemperateHillsWorld::BeginPlay()
+ {
++    // The generated world is fixed in space, including previously saved map actors.
++    RootComponent->SetMobility(EComponentMobility::Static);
+     Super::BeginPlay();
+     if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+         Loading->BeginHillsPreparation();

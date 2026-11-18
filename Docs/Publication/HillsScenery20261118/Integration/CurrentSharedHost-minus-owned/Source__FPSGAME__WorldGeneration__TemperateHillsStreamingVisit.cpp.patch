@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp
+@@ -114,7 +114,7 @@
+ bool LandAtVisitTarget(ATemperateHillsWorld& Hills,FTemperateHillsStreamingState& S,UDynamicMeshComponent* Ground,ACharacter& Player)
+ {
+     auto* PC=Cast<APlayerController>(Player.GetController());
+-    if(!PC||!Ground||!PC->IsLocalController())return false;
++    if(!PC||!Ground||(!PC->IsLocalController()&&!Hills.HasAuthority()))return false;
+     auto* Move=Player.GetCharacterMovement();
+     const auto* Capsule=Player.GetCapsuleComponent();
+     const auto Shape=Capsule->GetCollisionShape();
+@@ -160,8 +160,10 @@
+         if(!Player.TeleportTo(Landing,Facing,false,true))continue;
+         S.HeldPawns.Remove(&Player);
+         Move->StopMovementImmediately();
++        Move->SetMovementMode(MOVE_Walking);
+         Player.ClientCheatWalk();  // restores capsule collision and clears bCheatFlying
+         PC->SetControlRotation(FRotator(-6,Facing.Yaw,0));
++        if(!PC->IsLocalController())PC->ClientSetRotation(FRotator(-6,Facing.Yaw,0));
+         Player.ForceNetUpdate();
+         UE_LOG(LogTemp,Display,TEXT("%s seed=%d location=%s support=%s"),
+             S.bVillageVisit?TEXT("HILLS_VILLAGE_LANDED"):S.bWhiteCliffsVisit?TEXT("HILLS_QUARRY_LANDED"):TEXT("HILLS_FOREST_LANDED"),Hills.Seed,*Landing.ToString(),*Ground->GetName());

@@ -1,0 +1,91 @@
+{
+	"passed": true,
+	"checks": [
+		{
+			"case": "landmark_attachment_collision_navigation",
+			"passed": true,
+			"detail": "instances=41 attachment_collision_navigation=1"
+		},
+		{
+			"case": "area_0_peer_terrain_and_five_placement_layers",
+			"passed": true,
+			"detail": "snapshot=94330b76654b3c093a142a50465ce23e"
+		},
+		{
+			"case": "area_0_remote_authority_ground",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "area_1_peer_terrain_and_five_placement_layers",
+			"passed": true,
+			"detail": "snapshot=25b0133800d2231e3ea9f7e9c8387ba1"
+		},
+		{
+			"case": "area_1_remote_authority_ground",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "area_2_peer_terrain_and_five_placement_layers",
+			"passed": true,
+			"detail": "snapshot=2bfe1498c68e78d15c325b75a100f11b"
+		},
+		{
+			"case": "area_2_remote_authority_ground",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "guest_quarry_teleport_rpc",
+			"passed": true,
+			"detail": "guest landmark command used owning PlayerState RPC and server collision staging"
+		},
+		{
+			"case": "client_lakeshore_character_movement",
+			"passed": true,
+			"detail": "X=-48463.514 Y=-8788.847 Z=5360.595"
+		},
+		{
+			"case": "authority_received_client_movement",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "tree_harvest_transaction",
+			"passed": true,
+			"detail": "DD5554E24E2BF263C186319F8C752D2E:v1:0:fffffffdffffffe4"
+		},
+		{
+			"case": "guest_rock_harvest_rpc",
+			"passed": true,
+			"detail": "guest mining submitted through RequestInventoryAction and received authoritative depletion"
+		},
+		{
+			"case": "authority_confirmed_guest_rock_depletion",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "client_received_both_depletions",
+			"passed": true,
+			"detail": "tree and rock depletion received through shared world mirror"
+		},
+		{
+			"case": "production_logout_removed_guest",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "same_profile_and_world_on_rejoin",
+			"passed": true,
+			"detail": ""
+		},
+		{
+			"case": "rejoin_keeps_tree_and_rock_depleted",
+			"passed": true,
+			"detail": "tree and rock depletion received through shared world mirror"
+		}
+	],
+	"content_signature": "35FBCF4410DA8A583962B4775F028A8485A5EA50DE0737B5A60FA1D24052CF15"
+}

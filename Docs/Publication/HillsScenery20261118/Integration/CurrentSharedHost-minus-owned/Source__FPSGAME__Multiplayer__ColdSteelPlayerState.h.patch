@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -267,6 +267,7 @@
+     void FinishTravelBatch(FGuid Id);
+     UFUNCTION(Server,Reliable) void ServerTeamTravel(AActor* Entrance,bool bConfirmUnclaimedReward);
+     /** Development landmark command; server derives the destination from its world. */
++    UFUNCTION(Server,Reliable) void ServerVisitHillsQuarry();
+     UFUNCTION(Client,Reliable) void ClientTeamTravelRejected(const FString& Reason);
+     UFUNCTION(Client,Reliable) void ClientPrepareTeamTravel(FGuid TravelId);
+     UFUNCTION(Server,Reliable) void ServerTeamTravelReady(FGuid TravelId,int32 AcceptedUploadId);

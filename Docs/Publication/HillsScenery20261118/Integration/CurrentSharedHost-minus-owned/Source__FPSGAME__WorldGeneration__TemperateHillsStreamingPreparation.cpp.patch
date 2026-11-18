@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
+@@ -155,6 +155,7 @@
+                 AddPaths(Paths,Assets->Trees);
+                 AddPaths(Paths,Assets->Rocks);AddPaths(Paths,Assets->RiverRocks);
+                 AddPaths(Paths,Assets->FallenLogs);AddPaths(Paths,Assets->ForestRoots);AddPaths(Paths,Assets->Cliffs);
++                AddPaths(Paths,Assets->WhiteCliffMeshes);AddPaths(Paths,Assets->QuarryProps);
+                 Paths.Add(Assets->RainforestBankBoulder.ToSoftObjectPath());
+                 Paths.Append(ProductionOreRocks::AllMeshes());
+                 break;

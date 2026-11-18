@@ -1,0 +1,314 @@
+[
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsRiverLake.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsRiverLake.cpp",
+    "sha256": "cc7ee03c5c8b649a2bec3f9a945587db0666321c5854436681e863e2f229f49b",
+    "local_source_sha256": "a1b373546b45c472b38f734ec04251d641b7de292a336c2ebd92cf82b415a659",
+    "curated": true
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsWhiteCliffs.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsWhiteCliffs.cpp",
+    "sha256": "01eb2b57162a6557e1e4399bc902604f492c276b229b3dd287d8a2d1196b7b2d",
+    "local_source_sha256": "64d8d36d8809e2ea308672505ae7f610e4525d8731d168c492a5c38bb9a0e8b6",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsLakeLandform.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsLakeLandform.cpp",
+    "sha256": "1af6c1bdbfaee2455f17cc158801d1564614a9c3d55771db11c22ab1e5e9aa5a",
+    "local_source_sha256": "8783df488f97c14c876b21088e5ba008698a0dd660521812f088f6c120554a6b",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsLandform.h",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsLandform.h",
+    "sha256": "8864cf35bd4556de1a48f4ec4a3a1c905bb5c5dd21593ab151089afbc0a82f8d",
+    "local_source_sha256": "9a444e37517e814e86f620205d76306477c1edf248d21bf4780c8450b237ae9f",
+    "curated": true
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsHydrologyGround.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsHydrologyGround.cpp",
+    "sha256": "9a04e9c360119246373dac4867748bdf6a075af71035651dc480233447541af8",
+    "local_source_sha256": "2735f258b0c6b39a0337fbb034a00338e3527100a141fc282ef7767414a25f20",
+    "curated": true
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateForestGroves.h",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateForestGroves.h",
+    "sha256": "8e809dbf948732c37ffb129166ddb0639c735777eff714f2419ff4ae3c816a39",
+    "local_source_sha256": "57a1c9cf4feac1fce054a144d6b9badc7b9d4ef716ddc572e2a8e09cd2b9824f",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsHabitatCompanions.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsHabitatCompanions.cpp",
+    "sha256": "3330cb26c905aec11fcc7aa1d7f3afcfc208eb978c56ad5cc3127dd2f9155a7f",
+    "local_source_sha256": "396914771e832bcf9a3421bbca67ed812395f33d7e8a5de5bacade86de2cf89b",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateWoodlandFloor.h",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateWoodlandFloor.h",
+    "sha256": "f2e0e231cfcb9484ae3e419501b893023c8e26b0740f8922044faca7a5619664",
+    "local_source_sha256": "05e678141a3017ad93bb083977a27452be850ab8fb7e3ccc37719e71cc6a5c1a",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsCompatibility.h",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsCompatibility.h",
+    "sha256": "2967c0a6c77dd2a92301583395c96aa6152f4200a2f52a8dbadd75d9d87ce96d",
+    "local_source_sha256": "f93aa65d0213dd5818bf3b40b5e25ad0bce00cfd779b2bd1c77fbec36b245015",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsCompatibility.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsCompatibility.cpp",
+    "sha256": "804554f0c9c7522d8f1d1aa4904cbfce9c1a92258ad57e352f2590a819c6193a",
+    "local_source_sha256": "78953a1f2c65513432b4fc211b84604dd654a9db738bcfe8269e8fcd9b24a536",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.h",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.h",
+    "sha256": "b7bb14739f4dece5d65f7d28dd363f0640c9c9d56c8b09346b9e68458e6ad071",
+    "local_source_sha256": "568a903afe8d8a6a67fe731645d0833b54174b310e3f211aecd0b8117ac6a0ff",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp",
+    "sha256": "675cbce25ccb58633ab762069b68bc7f554a3a57c689459404aee63e86d25a78",
+    "local_source_sha256": "78d92c6a8707f6c5ff908525811a18df2df61194066f8d6a26a795a6789678ac",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsVisitQuarry.inl",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsVisitQuarry.inl",
+    "sha256": "9eb3e88ba14092cdb6f4ba363ac780822c941555bf8a4be1fdf266d69051f9b1",
+    "local_source_sha256": "cca4844de19a79e6a884693018265abcb331107a7f725ef49a49ed9dc314e2a7",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsLandscapeCapture.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/WorldGeneration/TemperateHillsLandscapeCapture.cpp",
+    "sha256": "c299fbd5c6561a4121565793373c81ea7ce608b445c8ce343097cbea3fe395ba",
+    "local_source_sha256": "d708e1661f6370745c87d5ef0dfeab9658b485dc7c5d03649f75828a134b06bf",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/Development/HillsSceneryNetworkProbe.h",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/Development/HillsSceneryNetworkProbe.h",
+    "sha256": "8bc86de0ad04a29a3e5b9875e195ebe62d7e997e0a54f656283dff784ae06e75",
+    "local_source_sha256": "8dcf547e637b697095b7fa091b833b06f63d4484dbb0c38558d93f6507806edc",
+    "curated": false
+  },
+  {
+    "kind": "implementation_snapshot",
+    "target": "Source/FPSGAME/Development/HillsSceneryNetworkProbe.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Implementation/Source/FPSGAME/Development/HillsSceneryNetworkProbe.cpp",
+    "sha256": "607227d2be18faacef60622e009dedf755a5508a4c0c2fef1ffc095d7452460b",
+    "local_source_sha256": "15b4ffcbc1e7dfd92088ddb7eb8689c8c120bdb0931eacbffacf27bae2cc92d0",
+    "curated": false
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateVillageSite.h",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsNaturalApproach20261117/Source__FPSGAME__WorldGeneration__TemperateVillageSite.h.patch",
+    "baseline": "HillsNaturalApproach20261117",
+    "before_utf8_sha256": "2d50df2a1e4cad2fa9d43508ed44d13ccff741fcbe59c14915f174254bfa42c6",
+    "after_utf8_sha256": "eb8db4b286a961944c01063e0917de5acf7101314940994bb47c69b8341d6a64"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateVillageHilltop.inl",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsNaturalApproach20261117/Source__FPSGAME__WorldGeneration__TemperateVillageHilltop.inl.patch",
+    "baseline": "HillsNaturalApproach20261117",
+    "before_utf8_sha256": "8c4578efdbc162d7608626b885afb6ce47f8ae6b4e8170ff77bdad9c959804fb",
+    "after_utf8_sha256": "2289343fe68d1acc24ae001a01446257bb1fb6061d4efeb96f34fcecb7199be5"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsGroveCommunities20261117/Source__FPSGAME__WorldGeneration__TemperateForestHabitat.h.patch",
+    "baseline": "HillsGroveCommunities20261117",
+    "before_utf8_sha256": "b8ae192d252ae25d93f1946b7eb519c0bf8572b67594aa5cf6eb43fd13a584e8",
+    "after_utf8_sha256": "116437a471b2d0e877eb11c5b787a3dae1b3919668ad06849844e4e625bf0eeb"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsGroveCommunities20261117/Source__FPSGAME__WorldGeneration__TemperateForestUnderstory.cpp.patch",
+    "baseline": "HillsGroveCommunities20261117",
+    "before_utf8_sha256": "ceffaee9f618c76507189beb0deaa6977c1b8c22795fc78399bcf1d0b96fa7f2",
+    "after_utf8_sha256": "70208d20f2d462db0b9cfb9e8ec87baace52afd742ef2ab4e3f783c1cae281b4"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundDebris.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsGroveCommunities20261117/Source__FPSGAME__WorldGeneration__TemperateHillsGroundDebris.cpp.patch",
+    "baseline": "HillsGroveCommunities20261117",
+    "before_utf8_sha256": "04beccaa4055b19eaacf01ce58e95574d41607bb02900b60b4e6c29613ef1f15",
+    "after_utf8_sha256": "b4142884e44c637c1d22d12348863e971f26f93f3018c4dcff5082e1364853ca"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsRiver.h",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsRiverLake20261117/Source__FPSGAME__WorldGeneration__TemperateHillsRiver.h.patch",
+    "baseline": "HillsRiverLake20261117",
+    "before_utf8_sha256": "e67f8b26b6badbf1585ca1c19656d71340d36164f382d6c6d976289e8f96928d",
+    "after_utf8_sha256": "e0882a1d59a7ce67842067f66da502d1358557ec79df7f1db87fe00b87576628"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsRiver.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsRiverLake20261117/Source__FPSGAME__WorldGeneration__TemperateHillsRiver.cpp.patch",
+    "baseline": "HillsRiverLake20261117",
+    "before_utf8_sha256": "cc5f281df3138414a862e8c92b188a548c9c7a9b04b07b22440124c4d2cb4f15",
+    "after_utf8_sha256": "5b85262d495682c63b7b95fbb57ae17434a6d81752695e357ac0341ba12b4743"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsRiverIntersection.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsRiverLake20261117/Source__FPSGAME__WorldGeneration__TemperateHillsRiverIntersection.cpp.patch",
+    "baseline": "HillsRiverLake20261117",
+    "before_utf8_sha256": "50878e803f3f54bb08eb8f4befdb7196484e8ebcf56a9db8c5596917ee3c65da",
+    "after_utf8_sha256": "f16013acfa22246a5ac49a14aed5f7ea04e3cee37a50ae28f3b5a97b58859cfd"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsRiverLake20261117/Source__FPSGAME__WorldGeneration__TemperateHillsGroundLayers.h.patch",
+    "baseline": "HillsRiverLake20261117",
+    "before_utf8_sha256": "1f0feb01e06e81a18b3c53d702d874415c0565bc8c94307017e75bad1ff99ded",
+    "after_utf8_sha256": "4f9a71f3d27be0fdda52c2767211d2d720c15a33a1922c771008160f85f10a7d"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsRiverLake20261117/Source__FPSGAME__WorldGeneration__TemperateHillsPlacement.cpp.patch",
+    "baseline": "HillsRiverLake20261117",
+    "before_utf8_sha256": "9895a19563457363a143669da57684d7fefbb93026a0b84ef82b22bfe2d46327",
+    "after_utf8_sha256": "980696602dd115395131512d5716bfa6940b7e2596d9d9a65502f12118f6e75e"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/FPSGAME.Build.cs",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsClosure20261118/Source__FPSGAME__FPSGAME.Build.cs.patch",
+    "baseline": "HillsClosure20261118",
+    "before_utf8_sha256": "6d24b33cf637844861eb43519f80c227a0ce6320c166af81cd20ca2a626906eb",
+    "after_utf8_sha256": "365f85a199789398e7ca5f8e33d1eec3f29b183c7b71d5dc14d0d5aa8d7cc071"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/FPSGAME.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsClosure20261118/Source__FPSGAME__FPSGAME.cpp.patch",
+    "baseline": "HillsClosure20261118",
+    "before_utf8_sha256": "53d1faf24307018e3b91db3f1a54f884ce74f1ab76beaed2f4af5e49d896bcbb",
+    "after_utf8_sha256": "c67b7d30c3ef08f686bd9b28a5dac12a5107ad9486917e2a1c9e74935bcd33b0"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsClosure20261118/Source__FPSGAME__WorldGeneration__TemperateHillsGrass.cpp.patch",
+    "baseline": "HillsClosure20261118",
+    "before_utf8_sha256": "1dcae4ce613c6663d010e625ac8090531bc59732e3d6ac240ec93d93e8cd67bc",
+    "after_utf8_sha256": "ef5d2ec6609597617b894cae9a40d9e6784ea3ffe35ee1c524b33ce8b945b47e"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/Development/VillageDefenseReview.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsLandscapeRepair20261117/Source__FPSGAME__Development__VillageDefenseReview.cpp.patch",
+    "baseline": "HillsLandscapeRepair20261117",
+    "before_utf8_sha256": "81538fe117d4ae86d5a50438288deddc55b6b72ab1fd90c54828a60791802ad3",
+    "after_utf8_sha256": "88c65fd2012773f5096f233efc5c081e75dfae9677c0b886a39fc1e691d0b1e4"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/HillsGroveCommunities20261117/Source__FPSGAME__WorldGeneration__TemperateVegetationPlacement.cpp.patch",
+    "baseline": "HillsGroveCommunities20261117",
+    "before_utf8_sha256": "96e7540a74c4dae8d7966b1f3140ee8763c4d82d149845213db297ff5b7edca0",
+    "after_utf8_sha256": "54c9d3071be7a0bf3347f2680218b3bf40b8a722b189e0c0fe9eca38772486d5"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/CurrentSharedHost-minus-owned/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+    "baseline": "CurrentSharedHost-minus-owned",
+    "before_utf8_sha256": "06dcde9ede92427f2bfdd360ece2ad80906d35d9e75718ceb8913f619a814d24",
+    "after_utf8_sha256": "38033467059b3f1c6b5053fbd96ae3f3ed31d184e55c9a7a1b78686a682884f4"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/CurrentSharedHost-minus-owned/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch",
+    "baseline": "CurrentSharedHost-minus-owned",
+    "before_utf8_sha256": "9ba9f7938315e0809da70934c74ce3d0865ed68da7fe5c4b3d3b777b6bdababf",
+    "after_utf8_sha256": "3ac72a5028ff5a6104bba8fb05be963877fa1b7a3f64010be1c9c146f8673664"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/CurrentSharedHost-minus-owned/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPrivate.h.patch",
+    "baseline": "CurrentSharedHost-minus-owned",
+    "before_utf8_sha256": "4c904d514b40aeb33c8cd35392440c0adc86f00f24d58310aaf68c5e61bbf1b9",
+    "after_utf8_sha256": "8dd1ec6ad4e0903cae53420d64d477ff7deda227815bd211fd4ba94c2d9e3477"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/CurrentSharedHost-minus-owned/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPreparation.cpp.patch",
+    "baseline": "CurrentSharedHost-minus-owned",
+    "before_utf8_sha256": "575211a78c8a6abb7e35198b30f66dc524c19d6a58355bd5da835eaaf941dabc",
+    "after_utf8_sha256": "30d00610184eb2c85824f749bd94633bd0786e26a772e8de9e088cab8795ba28"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/CurrentSharedHost-minus-owned/Source__FPSGAME__WorldGeneration__TemperateHillsStreaming.cpp.patch",
+    "baseline": "CurrentSharedHost-minus-owned",
+    "before_utf8_sha256": "01b76279a89fe241cedaeaa6b3e868d8b38b26e4e0741caac89878fbfe0871a2",
+    "after_utf8_sha256": "0978508122913f2b82a225a3cc935f6f3de0612f383ee715ef1c4c364d370352"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/CurrentSharedHost-minus-owned/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingVisit.cpp.patch",
+    "baseline": "CurrentSharedHost-minus-owned",
+    "before_utf8_sha256": "3b6e5ef3905ef25293ef2efdb575e32339213a8311baa67603ebd4536de87401",
+    "after_utf8_sha256": "deaa75c9bc0e554d5ed9f567e2a4b945ab34b5b33fdc84c53a849ab7231689e1"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/CurrentSharedHost-minus-owned/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch",
+    "baseline": "CurrentSharedHost-minus-owned",
+    "before_utf8_sha256": "da996c9f516122ce5cb19e2103e2935ab4e5d0e8aa082c534d90744b785dcf72",
+    "after_utf8_sha256": "c5376e8d3a63b3a5c384fe2d1e4fd46e8077e45fa080a1321cce29e0ca58e55d"
+  },
+  {
+    "kind": "scoped_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsMicrohabitats.cpp",
+    "published": "Docs/Publication/HillsScenery20261118/Integration/CurrentSharedHost-minus-owned/Source__FPSGAME__WorldGeneration__TemperateHillsMicrohabitats.cpp.patch",
+    "baseline": "CurrentSharedHost-minus-owned",
+    "before_utf8_sha256": "1bd19f205c9bd46e057927087ab99b934873dd841c452640aac3c3867009b1e6",
+    "after_utf8_sha256": "4cc9faeccdab6ecb76a6d7fca59ab9ea4138d689af9c235d5d56ec189d19ec9f"
+  }
+]

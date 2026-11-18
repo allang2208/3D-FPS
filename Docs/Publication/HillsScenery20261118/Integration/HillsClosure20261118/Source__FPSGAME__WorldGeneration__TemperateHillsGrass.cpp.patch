@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp
+@@ -1,6 +1,7 @@
+ #include "TemperateHillsWorld.h"
+ #include "TemperateHillsSurface.h"
+ #include "TemperateForestHabitat.h"
++#include "TemperateWoodlandFloor.h"
+ #include "Engine/StaticMesh.h"
+ 
+ void ATemperateHillsWorld::AddClearingFlowerPatch(int32 GX,int32 GY,double TileSize,const FBox2D& Bounds,
+@@ -166,8 +167,12 @@
+                 (Flower?Smooth((Meadow-.48)/.34)*Smooth((Tuft-.32)/.5):(.28+.72*Clump));
+             // The wet pocket has continuous low cover between fern beds. Keep
+             // the same candidates/grid, with small gaps and the existing edge fade.
++            const double FloorPatch=TemperateWoodlandFloor::Patch(X,Y,Seed);
++            const double WoodlandFinish=(1.-FMath::SmoothStep(0.,.02,Bank.Bank))*(1.-Bank.CliffWeight);
++            const double ForestPatch=FMath::Lerp(.68+.32*Clump,
++                (.25+.75*Clump)*FMath::Lerp(1.,.58,FloorPatch*Forest),WoodlandFinish);
+             const double Patch=Flower?FMath::Lerp(BasePatch,(.10+.90*Opening)*(1.-.88*Shore),Region):
+-                (Accent?BasePatch:FMath::Lerp(BasePatch,.68+.32*Clump,Region));
++                (Accent?BasePatch:FMath::Lerp(BasePatch,ForestPatch,Region));
+             const double PathBlend=Smooth((Path-240)/(Accent?550.0:(Flower?420.0:180.0)));
+             const double BankBlend=1-Smooth(Bank.Bank/.82);
+             // Flowers suppress in forest shade almost fully: a meadow species does
+@@ -243,14 +248,8 @@
+                     Mesh=TuftMesh.ToSoftObjectPath();
+                 }
+             }
+-            else if(!Accent&&!Flower&&Assets->RainforestGrass.Num()>=2&&
+-                Unit(K+109)<.56*Upland.Meadow*(.45+.55*Clump))
+-            {
+-                // Low sward and folded blades are temperate grass forms. The
+-                // sedge and ginger stay in their own wet-ground selection above.
+-                const auto& MeadowTuftMesh=Assets->RainforestGrass[Unit(K+113)<.65?0:1];
+-                if(MeadowTuftMesh.IsValid())Mesh=MeadowTuftMesh.ToSoftObjectPath();
+-            }
++            // Dry hills retain the yellow meadow palette. Green rainforest
++            // tufts are selected only through the region blend above.
+             if(Mesh.IsNull())continue;
+             const double Scale=(Accent?(.65+Unit(K+5)*.55+Clump*.10):
+                 (Flower?(.55+Unit(K+5)*.50+Clump*.08):(.78+Unit(K+5)*.40+Clump*.12)))*

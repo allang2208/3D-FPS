@@ -1,0 +1,72 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h
+@@ -4,6 +4,7 @@
+ #include "TemperateForestWater.h"
+ #include "TemperateChapelSite.h"
+ #include "TemperateVillageSite.h"
++#include "TemperateWoodlandFloor.h"
+ 
+ namespace TemperateHillsGround
+ {
+@@ -15,14 +16,36 @@
+     FVector4f Color;
+ };
+ 
++// Join the authored street ends to their own gates and the surveyed feeder.
++// Work in village coordinates so the wear follows the road on rotated sites.
++inline double VillageTrack(const FTemperateVillageSite& V,double X,double Y,int32 Seed)
++{
++    if(!V.bPlaced||!V.bHilltop||!V.Near(X,Y))return 0.;
++    const FVector2D P=V.Local(X,Y);
++    const bool West=P.X<0.;
++    const double Along=FMath::Abs(P.X)-TemperateVillageLayout::HalfX;
++    const double Length=West?V.FeederLength:(V.bSideLane?V.PadHalfX+V.Shoulder-TemperateVillageLayout::HalfX:0.);
++    if(Length<=0.||Along< -240.||Along>Length)return 0.;
++    const double Across=P.Y-(West?0.:500.);
++    if(FMath::Abs(Across)>630.)return 0.;
++    const double Edge=TemperateHillsSurface::Noise(X*.0011,Y*.0011,Seed,4621);
++    const double Bend=65.*TemperateHillsSurface::Noise(X*.00028,Y*.00028,Seed,4619);
++    const double Width=230.+40.*Edge;
++    return (1.-FMath::SmoothStep(Width-100.,Width+170.,FMath::Abs(Across-Bend)))*
++        FMath::SmoothStep(-240.,10.,Along)*FMath::SmoothStep(0.,600.,Length-Along)*(.89+.08*Edge);
++}
++
+ inline FLayers Layers(double X, double Y, double Z, const FVector& Normal, int32 Seed,
+     const TemperateRiver::FSample& Bank, double Region, const TemperateEcology::FProfile& Ecology,
+-    bool VillageBiomes=false)
++    bool VillageBiomes,const FTemperateVillageSite& Village)
+ {
+     const double Trail = FMath::Abs(Y - TemperateHillsSurface::ValleyY(X, Seed));
+     const double Forest = TemperateForestHabitat::Canopy(X, Y, Seed, Region,
+         Region > 0 ? TemperateForestHabitat::RainforestOpening(X, Y, Seed, Ecology) : 0., Ecology);
+-    const double Litter = TemperateForestHabitat::Litter(X, Y, Seed, Normal.Z, Bank.Bank, Forest, Ecology);
++    const double FloorPatch=TemperateWoodlandFloor::Patch(X,Y,Seed);
++    const double WoodlandFinish=(1.-FMath::SmoothStep(0.,.02,Bank.Bank))*(1.-Bank.CliffWeight);
++    const double Litter = TemperateForestHabitat::Litter(X, Y, Seed, Normal.Z, Bank.Bank, Forest, Ecology)
++        *FMath::Lerp(1.,FMath::Lerp(.40,1.,FloorPatch),WoodlandFinish);
+     const auto Site = TemperateForestHabitat::Upland(Normal, Forest,
+         TemperateForestHabitat::Moisture(X, Y, Seed, Region, Ecology), Region, Ecology);
+     const double Verge = TemperateForestHabitat::UplandSurfaceWeight(Trail, Bank.Bank, Normal.Z);
+@@ -30,14 +53,18 @@
+     const double Patch = .5 + .5 * FMath::PerlinNoise2D(FVector2D(X/690. + Seed%257, Y/690.));
+     const double RoadWear = 1. - FMath::SmoothStep(240., 760., Trail);
+     const double BankWear = FMath::SmoothStep(.02, .15, Bank.Bank) * (1. - FMath::SmoothStep(.25, .62, Bank.Bank));
+-    const double Wear = FMath::Max(RoadWear, BankWear*.6) * Patch * (1.-Region) * FMath::SmoothStep(.83, .96, Normal.Z);
++    const double NaturalWear = FMath::Max(RoadWear, BankWear*.6) * Patch * (1.-Region);
++    const double Track=VillageBiomes?VillageTrack(Village,X,Y,Seed)*(1.-Bank.Bank):0.;
++    const double Wear = FMath::Max(NaturalWear,Track) * FMath::SmoothStep(.83, .96, Normal.Z);
+     const double Wet = Bank.Bank > 0 ? Bank.Bank * (1 - FMath::SmoothStep(-8., 48., Z - Bank.WaterZ)) : 0.;
+     // V3's shared mask already reserves the yellow approach. Do not cut a second
+     // world-wide yellow valley band through the surrounding rainforest floor.
+-    const double ForestSurface=VillageBiomes?Region:Region*FMath::SmoothStep(1400.,2000.,Trail);
++    const double ShoreRock=Bank.ShoreRock*Bank.Bank*(1.-FMath::SmoothStep(.82,.97,Normal.Z));
++    const double ForestSurface=(VillageBiomes?Region:Region*FMath::SmoothStep(1400.,2000.,Trail))*(1.-Bank.CliffWeight)*(1.-ShoreRock);
+     return {FVector2f(X/400, Y/400), FVector2f(ForestSurface, 0),
+-        FVector2f(2. + Site.Meadow*Verge*(1.-Wear) - Wear, 2. + Site.Stony*Verge),
+-        FVector4f(Bank.Bank, Wet, TemperateRiver::PebbleCover(X, Y, Seed, Bank), 1-Litter*(1.-Wear))};
++        FVector2f(2. + Site.Meadow*Verge*(1.-Wear)*(1.-Bank.CliffWeight)*(1.-ShoreRock) - Wear,
++            2. + FMath::Max(FMath::Max(Site.Stony*Verge,Bank.CliffWeight),ShoreRock)),
++        FVector4f(Bank.Bank, Wet, TemperateRiver::PebbleCover(X, Y, Seed, Bank), 1-Litter*(1.-Wear)*(1.-Bank.CliffWeight))};
+ }
+ 
+ inline float SurfaceMoisture(double Mean, double Z, double Step, float Region,

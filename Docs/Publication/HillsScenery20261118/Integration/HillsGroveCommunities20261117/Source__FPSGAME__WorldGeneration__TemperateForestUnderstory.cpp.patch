@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateForestUnderstory.cpp
+@@ -11,6 +11,7 @@
+     const double MinX=FMath::Max(-Half,Bounds.Min.X),MinY=FMath::Max(-Half,Bounds.Min.Y);
+     const double MaxX=FMath::Min(Half,Bounds.Max.X),MaxY=FMath::Min(Half,Bounds.Max.Y);
+     if(MinX>=MaxX||MinY>=MaxY)return;
++    const FVector2D Start(GetStartLocation());
+ 
+     for(int32 Pass=0;Pass<3;++Pass)
+     {
+@@ -33,9 +34,10 @@
+             const double Angle=Unit(Colony+43)*2*PI+I*2.3999632297;
+             const double Radius=FMath::Sqrt((I+.35)/Candidates)*(Pass==2?230.0:260.0)*(.85+.30*Unit(K+1));
+             const double X=CX+FMath::Cos(Angle)*Radius,Y=CY+FMath::Sin(Angle)*Radius;
++            if(X<MinX||X>=MaxX||Y<MinY||Y>=MaxY)continue;
+             const double Path=PathDistance(X,Y);
+-            if(X<MinX||X>=MaxX||Y<MinY||Y>=MaxY||Path<650)continue;
+-            const double StartDistance=FVector2D::Distance(FVector2D(X,Y),FVector2D(GetStartLocation()));
++            if(Path<650)continue;
++            const double StartDistance=FVector2D::Distance(FVector2D(X,Y),Start);
+             if(StartDistance<1400)continue;
+             const auto Bank=RiverPlan?RiverPlan->Sample(X,Y):TemperateRiver::FSample();
+             if(Bank.Bank>.22||(Bank.Bank>0&&Height(X,Y)<Bank.WaterZ+35))continue;

@@ -1,0 +1,102 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp
+@@ -71,7 +71,8 @@
+         Add(Assets.MeadowFlowers,EKind::Grass,3);Add(Assets.RiverGroundCover,EKind::GroundCover,3,44);
+         Add(Assets.RiverReeds,EKind::Reed,3,195);Add(Assets.RiverBankGrasses,EKind::Grass,3,103);
+         Add(Assets.RiverUnderstory,EKind::GroundCover,3,64);
+-        Add(Assets.Shrubs,EKind::Shrub,2,240);Add(Assets.ForestSaplings,EKind::Sapling,4,275);
++        Add(Assets.Shrubs,EKind::Shrub,2,240);
++        Add(Assets.ForestSaplings,EKind::Sapling,4,275);
+         Add(Assets.ForestShrubs,EKind::Shrub,4,235);Add(Assets.ForestFerns,EKind::Fern,4,105);
+     }
+ };
+@@ -189,7 +190,10 @@
+     FCatalog Catalog;
+     FIndex Trees,Wood,Ferns;
+     FBox CellBounds;
+-    TArray<FTemperatePlacement> NurseFloor;
++    // Index floor groups by row once. A village-sized view otherwise scans
++    // every twig and pebble for each 2 m strip.
++    static int32 FloorRow(double Y){return FMath::FloorToInt(Y/800.);}
++    TMap<int32,TArray<FTemperatePlacement>> FloorRows;
+     TSharedPtr<HillsPlacement::FVegetationRockMask> RockMask;
+ };
+ }
+@@ -243,10 +247,10 @@
+ 
+ void ATemperateHillsWorld::GetVegetationPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
+ {
+-    if(auto Neighbors=PrepareVegetationCell(Bounds))GetVegetationStrip(Layer,Bounds,*Neighbors,Out);
+-}
+-
+-TSharedPtr<HillsVegetation::FNeighborhood> ATemperateHillsWorld::PrepareVegetationCell(const FBox& Bounds) const
++    if(auto Neighbors=PrepareVegetationCell(Bounds,Layer==3))GetVegetationStrip(Layer,Bounds,*Neighbors,Out);
++}
++
++TSharedPtr<HillsVegetation::FNeighborhood> ATemperateHillsWorld::PrepareVegetationCell(const FBox& Bounds,bool bNeedsGround) const
+ {
+     TRACE_CPUPROFILER_EVENT_SCOPE(TemperateVegetationRelationships);
+     using namespace HillsVegetation;
+@@ -259,15 +263,17 @@
+     const double GrassHalo=2*Catalog.LowRootOffset+60;
+     const double Halo=8*Catalog.UnderstoryReach+Catalog.LowReach+GrassHalo+200;
+     const FBox Area=Bounds.ExpandBy(FVector(Halo,Halo,0));
+-    const double TreeHalo=FMath::Max(Catalog.UnderstoryReach,Catalog.LowReach)+185;
++    const double TreeHalo=FMath::Max(650.,FMath::Max(Catalog.UnderstoryReach,Catalog.LowReach)+185);
+     const FBox TreeArea=Area.ExpandBy(FVector(TreeHalo,TreeHalo,0));
+     FIndex& Trees=Neighbors->Trees;
++    TArray<FTemperatePlacement> TreeSupports;
+     for(int32 Y=FMath::FloorToInt(TreeArea.Min.Y/1200)-1;Y<=FMath::FloorToInt(TreeArea.Max.Y/1200)+1;++Y)
+     for(int32 X=FMath::FloorToInt(TreeArea.Min.X/1200)-1;X<=FMath::FloorToInt(TreeArea.Max.X/1200)+1;++X)
+     {
+         FTemperatePlacement P;if(!TreeCandidate(X,Y,P))continue;
+         FInfo Info;Info.Box=BoundsOf(P.Mesh.ResolveObject());Info.Kind=EKind::Tree;Info.Layer=0;
+         if(!Info.Box.IsValid)continue;
++        TreeSupports.Add(P);
+         FPlant T=Describe(P,Info);T.Radius=T.Core;Trees.Add(MoveTemp(T));
+     }
+     // Growth presentation uses these same stored offsets. Reserve the mature
+@@ -279,8 +285,22 @@
+     }
+     TArray<FTemperatePlacement> Raw;
+     GetBasePlacements(2,Area,Raw);GetBasePlacements(4,Area,Raw);
+-    const auto& Logs=UpdateVegetationRockMask(Area,400.,Neighbors->RockMask);
+-    GetNurseLogPlacements(Area,Logs,Raw,Neighbors->NurseFloor);
++    const auto& Supports=UpdateVegetationRockMask(Area,650.,Neighbors->RockMask);
++    TArray<FTemperatePlacement> Ground;
++    auto* Floor=bNeedsGround?&Ground:nullptr;
++    GetNurseLogPlacements(Area,Supports,Raw,Floor);
++    GetHabitatCompanions(Area,TreeSupports,true,Raw,Floor);
++    GetHabitatCompanions(Area,Supports,false,Raw,Floor);
++    if(bNeedsGround)
++    {
++        const FBox LowArea=Bounds.ExpandBy(FVector(GrassHalo,GrassHalo,0));
++        for(auto& P:Ground)
++        {
++            const FVector At=P.Transform.GetLocation();
++            if(At.X>=LowArea.Min.X&&At.X<LowArea.Max.X&&At.Y>=LowArea.Min.Y&&At.Y<LowArea.Max.Y)
++                Neighbors->FloorRows.FindOrAdd(FNeighborhood::FloorRow(At.Y)).Add(MoveTemp(P));
++        }
++    }
+     Raw.RemoveAll([&](FTemperatePlacement& P)
+     {
+         const FInfo* Info=Catalog.Info.Find(P.Mesh);
+@@ -326,10 +346,14 @@
+     // well as both cores across a border; leaf tips can interleave in clumps.
+     const FBox GrassArea=Bounds.ExpandBy(FVector(GrassHalo,GrassHalo,0));
+     GetBasePlacements(3,GrassArea,Raw);
+-    for(const auto& P:Neighbors.NurseFloor)
+-    {
+-        const FVector At=P.Transform.GetLocation();
+-        if(At.X>=GrassArea.Min.X&&At.X<GrassArea.Max.X&&At.Y>=GrassArea.Min.Y&&At.Y<GrassArea.Max.Y)Raw.Add(P);
++    for(int32 Row=FNeighborhood::FloorRow(GrassArea.Min.Y);Row<=FNeighborhood::FloorRow(GrassArea.Max.Y);++Row)
++    {
++        if(const auto* Items=Neighbors.FloorRows.Find(Row))
++            for(const auto& P:*Items)
++            {
++                const FVector At=P.Transform.GetLocation();
++                if(At.X>=GrassArea.Min.X&&At.X<GrassArea.Max.X&&At.Y>=GrassArea.Min.Y&&At.Y<GrassArea.Max.Y)Raw.Add(P);
++            }
+     }
+     FIndex GrassCandidates;
+     TArray<FTemperatePlacement> Supported;

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
+@@ -59,6 +59,7 @@
+     TArray<HillsStreaming::FJob> Jobs;
+     TFuture<TemperateRiver::FPlanPtr> RiverJob;
+     bool RiverPending=false;
++    bool WhiteCliffsBuilt=false;
+     TFuture<TemperateRiver::FPlanPtr> VillageBiomeJob;
+     bool VillageBiomePending=false;
+     using FWaterPlans=TTuple<TemperateForestWater::FPlanPtr,TemperateForestWater::FPlanPtr>;
+@@ -84,6 +85,7 @@
+     FVector2D VisitTarget=FVector2D::ZeroVector;
+     FVector2D VisitFocus=FVector2D::ZeroVector;
+     bool bVillageVisit=false;
++    bool bWhiteCliffsVisit=false;
+     void StageVisit(ACharacter* Player,FVector2D Target,FVector2D Focus,double Half)
+     {
+         VisitTarget={FMath::Clamp(Target.X,-Half+150.,Half-150.),FMath::Clamp(Target.Y,-Half+150.,Half-150.)};

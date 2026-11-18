@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Development/VillageDefenseReview.cpp
++++ b/Source/FPSGAME/Development/VillageDefenseReview.cpp
+@@ -55,7 +55,7 @@
+     bool OpenGateThroughInteraction()
+     {
+         if(!Gate.IsValid())return false;
+-        auto* PC=World->GetFirstPlayerController();auto* Pawn=PC->GetPawn();
++        auto* PC=World->GetFirstPlayerController();APawn* Pawn=PC->GetPawn();
+         const auto T=Gate->GetActorTransform();Pawn->SetActorLocation(T.TransformPosition(FVector(-150,-180,94)),false,nullptr,ETeleportType::TeleportPhysics);
+         PC->SetViewTarget(Pawn);const FVector Aim=T.TransformPosition(FVector(-150,0,130));
+         PC->SetControlRotation((Aim-Pawn->GetPawnViewLocation()).Rotation());PC->PlayerCameraManager->UpdateCamera(0);

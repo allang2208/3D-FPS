@@ -1,0 +1,57 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateForestHabitat.h
+@@ -2,6 +2,7 @@
+ 
+ #include "TemperateHillsSurface.h"
+ #include "TemperateEcologyConfig.h"
++#include "TemperateForestGroves.h"
+ 
+ // Visual habitat only. HeightV1/V2, river carving and harvest candidate coordinates
+ // stay frozen. Both worker-built terrain colours and PCG sample this same field.
+@@ -14,20 +15,32 @@
+         TemperateHillsSurface::Noise5(X/Scale,Y/Scale,Seed,3527)*.5+.5);
+ }
+ 
++inline double LegacyCanopy(double X,double Y,int32 Seed,double GroveCover)
++{
++    const double Broad=FMath::SmoothStep(0.0,1.0,
++        (TemperateHillsSurface::Noise(X*.00014,Y*.00014,Seed,173)+.45)/1.05);
++    // This compatibility entry also feeds TreeCandidate's historical floor.
++    // Group that floor as well, or it keeps planting trees between every grove.
++    return GroveCover*(.74+.26*Broad);
++}
++
+ inline double LegacyCanopy(double X,double Y,int32 Seed)
+ {
+-    return FMath::SmoothStep(0.0,1.0,
+-        (TemperateHillsSurface::Noise(X*.00014,Y*.00014,Seed,173)+.45)/1.05);
++    return LegacyCanopy(X,Y,Seed,TemperateForestGroves::Sample(X,Y,Seed).Cover);
+ }
+ 
+ inline double Canopy(double X,double Y,int32 Seed,double Region,double Opening, const TemperateEcology::FProfile& E)
+ {
+-    const double Woodland=E.Woodland.Weight(LegacyCanopy(X,Y,Seed));
++    const double Grove=TemperateForestGroves::Sample(X,Y,Seed).Cover;
++    const double Local=E.Rainforest.Canopy*(.025+.975*Grove)*(1.-.46*Opening);
++    if(Region==1.)return Local;
++    const double Woodland=E.Woodland.Weight(LegacyCanopy(X,Y,Seed,Grove));
+     const double Gap=E.Gaps.Weight(
+         TemperateHillsSurface::Noise5(X/E.GapScaleCm,Y/E.GapScaleCm,Seed,3101)*.5+.5);
+     const double Base=Woodland*(1.0-E.GapStrength*Gap);
+     if(Region<=0)return Base;
+-    const double Local=E.Rainforest.Canopy-.46*Opening;
++    // Wet forest remains denser inside each stand, with readable gaps between
++    // stands. All undergrowth and ground shading consume this same canopy.
+     return FMath::Lerp(Base,Local,Region);
+ }
+ 
+@@ -118,6 +131,9 @@
+ // Neighbouring plants share an age/form cohort without a visible cell seam.
+ inline uint32 Cohort(double X,double Y,int32 Seed,uint32 PlantKey,uint32 Salt, const TemperateEcology::FProfile& E)
+ {
++    const auto Grove=TemperateForestGroves::Sample(X,Y,Seed);
++    if(Grove.Cover>.12&&TemperateHillsSurface::Unit(PlantKey+59)<.72)
++        return TemperateHillsSurface::Mix(Grove.Key^Salt);
+     const double Scale=E.CohortScaleCm;
+     const double PX=X/Scale,PY=Y/Scale;
+     int32 IX=FMath::FloorToInt(PX),IY=FMath::FloorToInt(PY);

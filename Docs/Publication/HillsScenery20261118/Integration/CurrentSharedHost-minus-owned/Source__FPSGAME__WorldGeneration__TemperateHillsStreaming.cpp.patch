@@ -1,0 +1,52 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "TemperateHillsQuarryTravel.h"
+ #include "HillsNightRaidSubsystem.h"
+ #include "VT/RuntimeVirtualTexture.h"
+ #include "TemperateHillsChapel.h"
+@@ -110,6 +111,7 @@
+     auto& S=*Streaming;
+ #if !UE_BUILD_SHIPPING
+     S.bVillageVisit=HasAuthority()&&GetWorld()->URL.HasOption(TEXT("VisitVillage"));
++#include "TemperateHillsVisitQuarry.inl"
+ #endif
+     DetailRadiusMeters=FMath::Clamp(DetailRadiusMeters,96.f,256.f);
+     ViewRadiusMeters=FMath::Clamp(ViewRadiusMeters,DetailRadiusMeters+96.f,512.f);
+@@ -341,6 +343,7 @@
+                 {
+                     auto Updated=MakeShared<TemperateRiver::FPlan,ESPMode::ThreadSafe>(*Original);
+                     Updated->BuildVillageRainforest(WorldSeed,Half,Village,Entry);
++                    Updated->BuildRiverLake(WorldSeed,Half,Village,Entry,Original);
+                     return Updated;
+                 });
+             return;
+@@ -349,6 +352,7 @@
+         UE_LOG(LogTemp,Display,TEXT("HILLS_FOREST_WATER seed=%d pools=%d edits=%d"),Seed,Plan->Pools.Num(),TerrainEdits.Num());
+     }
+     PrepareVillageGroundCache();
++    if(!S.WhiteCliffsBuilt)S.WhiteCliffsBuilt=AssembleWhiteCliffs();
+     constexpr double Size=HillsStreaming::CellSize;
+     const int32 Count=FMath::RoundToInt(SizeMeters*100/Size);
+     const double Half=SizeMeters*50;
+@@ -444,7 +448,10 @@
+         auto* C=NewObject<UDynamicMeshComponent>(this);
+         C->ComponentTags.Add(TEXT("HillsGround"));
+         AddInstanceComponent(C);C->SetupAttachment(RootComponent);C->SetRelativeLocation(CellOrigin(Result->Key));
+-        C->SetMobility(EComponentMobility::Movable);C->SetCanEverAffectNavigation(false);
++        // Cells are replaced when their geometry changes; their transform never moves.
++        // Static mobility keeps character corrections in world space, independent of
++        // the peers' asynchronous component names and streaming order.
++        C->SetMobility(EComponentMobility::Static);C->SetCanEverAffectNavigation(false);
+         C->SetVisibility(false);
+         C->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);C->SetMaterial(0,GroundMID);
+         C->bUseAsyncCooking=true;C->SetDeferredCollisionUpdatesEnabled(true,false);
+@@ -596,6 +603,7 @@
+             LandAtVisitTarget(*this,S,Cell->Mesh.Get(),*Visitor);
+             S.Visitor.Reset();
+             S.bVillageVisit=false;
++            S.bWhiteCliffsVisit=false;
+         }
+     }
+ #endif

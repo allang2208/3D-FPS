@@ -32,3 +32,5 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 树与草已生成却原地周期性消失时，读 [PCG 属性通知导致的重建](references/pcg-property-change-flicker.md)，先区分组件销毁与漏绘。
 
 地图系统的多进程联机证据、无渲染边界与临时宿主归档，读取 [地图联机证据与归档](references/map-marker-network-evidence.md)。
+
+丘陵截图宿主、材质包装引脚与落盘回执，读取 [丘陵截图宿主、材质包装引脚与落盘回执](references/hills-capture-and-material-receipts.md)。

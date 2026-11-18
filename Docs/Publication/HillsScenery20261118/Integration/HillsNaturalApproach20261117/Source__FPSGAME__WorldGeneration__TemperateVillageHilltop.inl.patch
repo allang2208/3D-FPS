@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageHilltop.inl
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageHilltop.inl
+@@ -99,7 +99,7 @@
+                 Site.Ground.Z=FMath::Max(Mean,RimMax+200.);
+                 const double Earthwork=FMath::Max(High-Site.Ground.Z,Site.Ground.Z-Low);
+                 if(Earthwork>2400.)continue;
+-                auto Height=[&](const FVector2D& P){return Site.Grade(P.X,P.Y,Raw(P));};
++                auto Height=[&](const FVector2D& P){return Site.GradeForSiteSurvey(P.X,P.Y,Raw(P));};
+                 double FlankGrade=0.;
+                 for(const auto& F:Flanks)for(double T:{.125,.25,.5,.75,.875,1.})
+                 {

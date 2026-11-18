@@ -1,0 +1,222 @@
+{
+  "public_binary_assets": false,
+  "assets": [
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_CliffA.uasset",
+      "bytes": 10087,
+      "sha256": "24415241564514eaf41291fee94833ccbdb3beeb6d4b0031bbfbfb3f2da2caec"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_CliffB.uasset",
+      "bytes": 10087,
+      "sha256": "8b0582eb0f6c9cda40aa984fb5e36f099b3a61729115b86050f1917bf0e4d354"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_LimestoneCut.uasset",
+      "bytes": 9094,
+      "sha256": "5291f540256f92f5bd9c12a9a91d7dbcd81061d72c91f07ed895b56f12346f6c"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_LimestoneSpoil.uasset",
+      "bytes": 10233,
+      "sha256": "1191c7f86b766f5075497065d0613e1829eb986264eec5663336e7a40662ea4a"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_OldWinch.uasset",
+      "bytes": 7722,
+      "sha256": "8849209bb20776b5786dda3a7fcbab2d0278ed3cb7b0f81ddd1380e43c03c5a8"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/Quarry_MI_DarkForgedIron.uasset",
+      "bytes": 2727,
+      "sha256": "ba814cf49ae89a5f7caec676ff8ab09d80dcc8e14a875830c8ede86c0d7c0517"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/Quarry_MI_Main_StoneWall_00A.uasset",
+      "bytes": 27756,
+      "sha256": "dc1abe68e8a564739d20f5afdd789640588160f54a9551329fa9e43de5c140fd"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/Quarry_MI_StoneWall_Pieces_00B_Gray.uasset",
+      "bytes": 27747,
+      "sha256": "35f07799a1878b9a3e161d93e4cb12238704d4f9943050444fe1be8e572f589d"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/Quarry_M_BlastFurnace_WroughtIron.uasset",
+      "bytes": 13305,
+      "sha256": "80389c221edf3c856c395ad51d49805568b8f8efc8ad3728c87075a533e29286"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/Quarry_M_Master_VertexBlend_Base_Triplanar.uasset",
+      "bytes": 53383,
+      "sha256": "1afa9e0153f7c8caf68111bc925bc6c1d6067b8e6cd5939b409749c970f434e0"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Materials/Quarry_M_OakDry.uasset",
+      "bytes": 15878,
+      "sha256": "fc284aa2e7cb6a615f48318e8e58e908e524e0be72cb21805da7a12191e27430"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_QuarryOldWinch.uasset",
+      "bytes": 1506919,
+      "sha256": "e5e4b222871dd79a633dee43a9b9b9d1a25550e1dcb18b8efefd39932c22014e"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_QuarryRuinedShed.uasset",
+      "bytes": 1217623,
+      "sha256": "7581cf89e0a7d285eff10261c339544d4655e5f2831af00547c2de8ea94853d5"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_QuarryTimberHoist.uasset",
+      "bytes": 275739,
+      "sha256": "c73e6df891689f0bfae42fbe1ff8f600421c99e840720b99b9f4156df85a94ab"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffA.uasset",
+      "bytes": 1241625,
+      "sha256": "c4db374350c65e58708f66ec8b9912c9e82a39283e6846b732a4e4b33c0f457d"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffA_Solid.uasset",
+      "bytes": 3090959,
+      "sha256": "50a55e7b644115145e542479af55b560dc33e48a127004b2a4b266ec2d65378e"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffA_SolidR9.uasset",
+      "bytes": 3092392,
+      "sha256": "8510bdd58c189d61906f7743b018cb0c6d900945fe68acaaf4fa8a33022bacf0"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffB.uasset",
+      "bytes": 495115,
+      "sha256": "bb65b3cf30cae77bf561f90e4bec7d24834459f5e373c662497e1b0a2355fde6"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffB_Solid.uasset",
+      "bytes": 1135455,
+      "sha256": "c16cedda013fdb3027a48b129b05b7a0944b8cb13341c2f50b6a736d79b818cc"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffB_SolidR9.uasset",
+      "bytes": 1137292,
+      "sha256": "02b5d5b9f4da3f3ba8bac6e3666626bccccdc79cdab16619b952a7b2c893b1c7"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteLimestoneSpoil.uasset",
+      "bytes": 2332216,
+      "sha256": "68dd1a620c58abb616e378b6a7c12dd6d0dfa2a9133253a9b82ccc0d69aebfb2"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_CliffA_AO.uasset",
+      "bytes": 6451694,
+      "sha256": "c1c908419ec5692277ae3b308b26890f394aa638ec9e465910811da3ec7bbe2b"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_CliffA_BaseColor.uasset",
+      "bytes": 5988525,
+      "sha256": "b80532c5685098e9ec37d5e1d4886d5b736bc75ec92d764f240c70a59931f2be"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_CliffA_Normal.uasset",
+      "bytes": 21837510,
+      "sha256": "ba6d52c74c53a5a8a2fb2609f8f29e5e262afaa0c628a7e215fcc690672b258f"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_CliffA_Roughness.uasset",
+      "bytes": 4113403,
+      "sha256": "99b86835fb74bc4e71739e06e211bcb73cbd09687656652d66136ce434f81b73"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_CliffB_AO.uasset",
+      "bytes": 5628877,
+      "sha256": "2f5a2291d2773ae441118a26444bcc207b27dd13df25808ae7d84a648f881838"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_CliffB_BaseColor.uasset",
+      "bytes": 4868936,
+      "sha256": "b19379c78a197104bee21faef4ad82e1d693051770113da01aecfb49076c8f26"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_CliffB_Normal.uasset",
+      "bytes": 20896521,
+      "sha256": "195f0ba1a41cc048acde5eb882afc396ed255d2dcec91c59f58fe68fa2e69eec"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_CliffB_Roughness.uasset",
+      "bytes": 3683374,
+      "sha256": "43b4a8e5998f624a4dd2bf4943a90291d4633627c12a353759c2897c0dfa0678"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_LimestoneSpoil_AO.uasset",
+      "bytes": 5840441,
+      "sha256": "31f99d8ee996cc37c46602fad0d2f77e10798b9dffd6edbf09b2cd27f940751d"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_LimestoneSpoil_BaseColor.uasset",
+      "bytes": 9103306,
+      "sha256": "87788c1386e776f7e1acfd4f500393b7d3b44ecabd05b1754b02b0d76bfd34b3"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_LimestoneSpoil_Normal.uasset",
+      "bytes": 17098589,
+      "sha256": "05fb272df122a7ef86fbdb34157d0339a80d4e1dcc5a7c1823c5ac0dfc714f00"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_LimestoneSpoil_Roughness.uasset",
+      "bytes": 2344627,
+      "sha256": "ada08d006be7dc0bb095394662ce541f51013f7ea6d7b33856c804d3538b14e1"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_OldWinch_AO.uasset",
+      "bytes": 7487670,
+      "sha256": "2eb58878a918bba3aeb1d8119bfb09098f5ba9afd1e7033b6ac29d82e4ffb9d8"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_OldWinch_BaseColor.uasset",
+      "bytes": 11797980,
+      "sha256": "ced4a5208f328b1d7452403d8ff13e6fe27486d5d09109d06f9f3276caf5edd3"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_OldWinch_Metalness.uasset",
+      "bytes": 471122,
+      "sha256": "edcb9ab33b00f0546dac1ce4b9cf5bf7dcb6b359cfc7fd0ff4550ca6fa909fc8"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_OldWinch_Normal.uasset",
+      "bytes": 26386737,
+      "sha256": "5e7cacfdeead77f1c3881cbe9b4a0625c7b1e2753b5c99c0799bd3c71e30beaa"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/WhiteCliffs/Textures/T_OldWinch_Roughness.uasset",
+      "bytes": 11101430,
+      "sha256": "aea2f8b095baf9d51b3eba7e0d7571a0f314638f017be58bd33ba70478bfb97d"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+      "bytes": 22402,
+      "sha256": "18c117b1110c84a320f77fd3bf11de920bb3a8417007099baddb9068771de4f2"
+    },
+    {
+      "path": "Content/Items/HarvestTimber/Beech/M_FallingBeech.uasset",
+      "bytes": 41183,
+      "sha256": "ba3b388cd1e8bfa40cb36da67376016e34300adbb094a242f96f8792e61ea24b"
+    },
+    {
+      "path": "Content/Items/HarvestTimber/Beech/MI_FallingBeech_Bark.uasset",
+      "bytes": 11834,
+      "sha256": "5b73ee90e51f9dc2bf15fe8c49db0d8b386216bbd30bd0a11d52e8aa82e5ed7a"
+    },
+    {
+      "path": "Content/Items/HarvestTimber/Beech/MI_FallingBeech_Foliage.uasset",
+      "bytes": 15568,
+      "sha256": "cd778c94ff93cdb1454992cc543ca848a2d8c35b4beb768fc80448d2e4e35098"
+    }
+  ],
+  "retained_sources": [
+    "SourceAssets/HillsLandscapeRepair20261117/SolidScansR9",
+    "SourceAssets/HillsRiverLake20261117/Authored",
+    "SourceAssets/HillsRiverLakeConcept20261117/ConceptV1",
+    "D:/FPS3D/VaultCache/FabLibrary",
+    "SourceAssets/BeechHarvestOreFix20261110/install_assets.py"
+  ]
+}

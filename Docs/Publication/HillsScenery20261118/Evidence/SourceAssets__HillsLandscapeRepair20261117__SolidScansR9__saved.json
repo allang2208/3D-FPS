@@ -1,0 +1,32 @@
+{
+  "meshes": [
+    {
+      "path": "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffA_SolidR9",
+      "size_cm": [
+        246.56279754638672,
+        206.17682266235352,
+        208.1272977590561
+      ],
+      "materials": [
+        "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_CliffA.M_CliffA",
+        "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_LimestoneCut.M_LimestoneCut"
+      ],
+      "saved": true
+    },
+    {
+      "path": "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffB_SolidR9",
+      "size_cm": [
+        239.1269989013672,
+        209.2974090576172,
+        104.6742959022522
+      ],
+      "materials": [
+        "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_CliffB.M_CliffB",
+        "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_LimestoneCut.M_LimestoneCut"
+      ],
+      "saved": true
+    }
+  ],
+  "cut_material": "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Materials/M_LimestoneCut",
+  "data_asset_saved": true
+}

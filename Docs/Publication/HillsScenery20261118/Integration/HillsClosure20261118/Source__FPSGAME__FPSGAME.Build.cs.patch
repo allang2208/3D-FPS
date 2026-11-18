@@ -1,0 +1,56 @@
+--- a/Source/FPSGAME/FPSGAME.Build.cs
++++ b/Source/FPSGAME/FPSGAME.Build.cs
+@@ -1,9 +1,15 @@
+ using UnrealBuildTool;
++using System;
++using System.IO;
++using System.Linq;
++using System.Security.Cryptography;
++using System.Text;
+ 
+ public class FPSGAME : ModuleRules
+ {
+     public FPSGAME(ReadOnlyTargetRules Target) : base(Target)
+     {
++        ConfigureHillsContentIdentity();
+         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+         PublicDependencyModuleNames.AddRange(new[]
+         {
+@@ -68,4 +74,37 @@
+             "ChaosCloth"
+         });
+     }
++    // Refresh when a generation input changes, including asset-only imports.
++    // Only the small compatibility translation unit includes this generated header.
++    // GeneratorVersion/WorldId/harvest IDs remain untouched.
++    private void ConfigureHillsContentIdentity()
++    {
++        string root = Path.GetFullPath(Path.Combine(ModuleDirectory, "../.."));
++        string generation = Path.Combine(ModuleDirectory, "WorldGeneration");
++        string assets = Path.Combine(root, "Content/WorldGeneration/TemperateHills");
++        var inputs = Directory.GetFiles(generation, "Temperate*", SearchOption.TopDirectoryOnly)
++            .Where(p => (p.EndsWith(".h") || p.EndsWith(".cpp") || p.EndsWith(".inl")) &&
++                !Path.GetFileName(p).Contains("Capture") && !Path.GetFileName(p).Contains("Compatibility"))
++            .Concat(Directory.Exists(assets) ? Directory.GetFiles(assets, "*.uasset", SearchOption.AllDirectories) : Array.Empty<string>())
++            .OrderBy(p => Path.GetRelativePath(root, p).Replace('\\', '/'), StringComparer.Ordinal).ToArray();
++        var manifest = new StringBuilder("HillsContent-v1\n");
++        using (var sha = SHA256.Create())
++        {
++            foreach (string path in inputs)
++            {
++                ExternalDependencies.Add(path);
++                using (var stream = File.OpenRead(path))
++                    manifest.Append(Path.GetRelativePath(root, path).Replace('\\', '/')).Append('\0')
++                        .Append(Convert.ToHexString(sha.ComputeHash(stream))).Append('\n');
++            }
++            string digest = Convert.ToHexString(sha.ComputeHash(Encoding.UTF8.GetBytes(manifest.ToString())));
++            uint revision = Convert.ToUInt32(digest.Substring(0, 8), 16) & 0x7fffffffU;
++            string directory = Path.Combine(root, "Intermediate/HillsCompatibility");
++            Directory.CreateDirectory(directory);
++            string header = Path.Combine(directory, "TemperateHillsBuildSignature.h");
++            string text = "#pragma once\n#define FPS_HILLS_CONTENT_SIGNATURE \"" + digest + "\"\n#define FPS_HILLS_CONTENT_REVISION " + revision + "\n";
++            if (!File.Exists(header) || File.ReadAllText(header) != text) File.WriteAllText(header, text, new UTF8Encoding(false));
++            PrivateIncludePaths.Add(directory);
++        }
++    }
+ }

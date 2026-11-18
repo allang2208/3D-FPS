@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsMicrohabitats.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsMicrohabitats.cpp
+@@ -4,7 +4,7 @@
+ #include "Engine/SkeletalMesh.h"
+ 
+ void ATemperateHillsWorld::GetNurseLogPlacements(const FBox& Bounds,const TArray<FTemperatePlacement>& Supports,
+-    TArray<FTemperatePlacement>& Ferns,TArray<FTemperatePlacement>& Floor) const
++    TArray<FTemperatePlacement>& Ferns,TArray<FTemperatePlacement>* Floor) const
+ {
+     if(!Assets||Assets->FallenLogs.IsEmpty())return;
+     const auto& E=EcologyProfile();
+@@ -32,7 +32,7 @@
+         const FBox WorldBox=Box.TransformBy(Log.Transform);
+         const double SideReach=FMath::Abs(Side.X)*WorldBox.GetExtent().X+FMath::Abs(Side.Y)*WorldBox.GetExtent().Y;
+         const int32 GX=FMath::FloorToInt(Origin.X/3600.),GY=FMath::FloorToInt(Origin.Y/3600.);
+-        const int32 Count=12;
++        const int32 Count=Floor?12:4;
+         for(int32 I=0;I<Count;++I)
+         {
+             const uint32 K=Mix(Log.Key^uint32(3701+I*97));
+@@ -76,7 +76,7 @@
+             FTemperatePlacement P;P.Mesh=Ref;P.Key=K;
+             P.Transform=FTransform(Rotation,FVector(At.X,At.Y,Height(At.X,At.Y)+(Kind==2?.8:-1.))-Rotation.RotateVector(RootPoint*Scale),FVector(Scale));
+             P.CandidateId=(uint64(uint32(GX)&0x00ffffffU)<<32)|(uint64(uint32(GY)&0x00ffffffU)<<8)|uint64(0xb0+I);
+-            (Fern?Ferns:Floor).Add(MoveTemp(P));
++            (Fern?Ferns:*Floor).Add(MoveTemp(P));
+         }
+     }
+ }

@@ -1,0 +1,46 @@
+{
+  "completed": "2026-11-18T11:20:28.5710597+08:00",
+  "files": 2904,
+  "bytes": 6454312836.0,
+  "screenshots": 40,
+  "gifs": 0,
+  "junction_descriptors": 27,
+  "readback_sha256_verified": true,
+  "retained": [
+    {
+      "path": "Saved/SaveGames/TemperateHills_World.sav",
+      "sha256": "453DE4A7E0B84E2C419F11BE81AF8B3B2A265CA93374132C2E03B717F9F0E848"
+    },
+    {
+      "path": "SourceAssets/HillsClosure20261118R2/Module/UnrealEditor-FPSGAME.dll",
+      "sha256": "C010F2C96081B7C73EC4CC528F1F18CD33A97E61AB7BB859010788805C81C710"
+    },
+    {
+      "path": "SourceAssets/HillsLandscapeRepair20261117/SolidScansR9/CliffA.blend",
+      "sha256": "3FF138759C5CFF5846008C04F789107A78F0074FB15A739CBDDF3A9E939B457C"
+    },
+    {
+      "path": "SourceAssets/HillsLandscapeRepair20261117/SolidScansR9/CliffB.blend",
+      "sha256": "A2BDCCACE881A63C035A857C58401DC18F2A0C4C99A4666322652BE5DF35E99D"
+    },
+    {
+      "path": "SourceAssets/HillsRiverLake20261117/Authored/QuarryKit.blend",
+      "sha256": "A3DED423B747D26D767E9D78F4A0EAA117A4DA44E55AD2938F2F7538E5E7E5B6"
+    },
+    {
+      "path": "SourceAssets/HillsRiverLakeConcept20261117/ConceptV1/HillsRiverLake-WhiteCliffs-V1.png",
+      "sha256": "CC620C2D8C477928F016029928A2BD2B30502BBB9F02E1AF4BF62835DD1A844D"
+    },
+    {
+      "path": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+      "sha256": "18C117B1110C84A320F77FD3BF11DE920BB3A8417007099BADDB9068771DE4F2"
+    },
+    {
+      "path": "Content/Items/HarvestTimber/Beech/M_FallingBeech.uasset",
+      "sha256": "BA3B388CD1E8BFA40CB36DA67376016E34300ADBB094A242F96F8792E61EA24B"
+    }
+  ],
+  "production_assets_moved": false,
+  "gameplay_tests_run": false,
+  "archive": "D:\\FPS3D\\FPSGAME\\trash\\hills-scenery-20261118"
+}
