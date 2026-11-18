@@ -1,0 +1,110 @@
+{
+  "local_game_integrated": true,
+  "local_editor_and_game_builds_passed": true,
+  "published_subset_rebuilt": false,
+  "standalone_public_build": false,
+  "entries": [
+    {
+      "kind": "complete_opt_in_fixture",
+      "target": "Source/FPSGAME/Development/VillageNetworkAudit.h",
+      "payload": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAudit.h",
+      "sha256": "d25748515dd09884d8ea085c79edb85224e807adad4a84b5d02398e98cfc1848"
+    },
+    {
+      "kind": "complete_opt_in_fixture",
+      "target": "Source/FPSGAME/Development/VillageNetworkAudit.cpp",
+      "payload": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAudit.cpp",
+      "sha256": "c7888f823722fd703a334ab77df3b0c2bc89656db346ef87dfcaac0d7181f49f"
+    },
+    {
+      "kind": "complete_opt_in_fixture",
+      "target": "Source/FPSGAME/Development/VillageNetworkAuditHost.cpp",
+      "payload": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAuditHost.cpp",
+      "sha256": "8dc70f0e045280f7043cfebfe924cbf8eda1dc42a64bf281446609c0310e78fb"
+    },
+    {
+      "kind": "complete_opt_in_fixture",
+      "target": "Source/FPSGAME/Development/VillageNetworkAuditScenarios.cpp",
+      "payload": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAuditScenarios.cpp",
+      "sha256": "5efb6dd21653e84e691de93404337e078e550bc0e41627b0474ebae4329d38c3"
+    },
+    {
+      "kind": "complete_opt_in_fixture",
+      "target": "Source/FPSGAME/Development/VillageNetworkAuditSupport.cpp",
+      "payload": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAuditSupport.cpp",
+      "sha256": "2cd046b2149c7c5874c7c7f477c8208ce1962d0bdaba94075203b3adefdc779e"
+    },
+    {
+      "kind": "owned_delta_on_current_local_prerequisite",
+      "target": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+      "payload": "Docs/Publication/VillageNetwork20261118/Integration/Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch",
+      "prepared_base_sha256": "e60f998627ae24305ecd635279f2a52fea5b9461c2010614732da04a2bacc535",
+      "tested_working_file_sha256": "59a69e67d31abf3226972c9b8c7cb6dabf6d2c8affb944208f94fbfcbe2381e6",
+      "sha256": "829c7e25b3324815212b11c2224c7840fe76126fefaa6b825339b4ba3f9adf33",
+      "zero_context_patch": true
+    },
+    {
+      "kind": "owned_delta_on_current_local_prerequisite",
+      "target": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+      "payload": "Docs/Publication/VillageNetwork20261118/Integration/Source__FPSGAME__NPC__ChapelDialogueComponent.h.patch",
+      "prepared_base_sha256": "555eac15d778d8fb021d183aa67ae9efe72cc5a996b5281fe5f50e87d5ac6978",
+      "tested_working_file_sha256": "f9afd5a0c587fad3e85d1003e1be09335c1fcc2fd4ef6963334ffd1d8e1618aa",
+      "sha256": "07a625baea3328e097588a01d874c57ae7c72f00a23b105f697a0cee0ec5eb13",
+      "zero_context_patch": true
+    },
+    {
+      "kind": "owned_delta_on_current_local_prerequisite",
+      "target": "Source/FPSGAME/Skills/ColdSteelTrainerLearning.cpp",
+      "payload": "Docs/Publication/VillageNetwork20261118/Integration/Source__FPSGAME__Skills__ColdSteelTrainerLearning.cpp.patch",
+      "prepared_base_sha256": "b6e9f190da0b82afca1bd12a2d49e716920eb079a676281b4adade68eabfba58",
+      "tested_working_file_sha256": "7399eade4b4db592b334b1fbc34facbac71a9f3b48fea24bda5256e8dc2caa1a",
+      "sha256": "a0f9cc7de23ef81e6d14d1392e4603eb4b7c3f9c2890301103f514c60bafaa35",
+      "zero_context_patch": true
+    },
+    {
+      "kind": "owned_delta_on_current_local_prerequisite",
+      "target": "Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+      "payload": "Docs/Publication/VillageNetwork20261118/Integration/Source__FPSGAME__Monsters__MonsterBTNodes.cpp.patch",
+      "prepared_base_sha256": "242fda9d54677d62ff7c412c3ac939f127332a9cc71bcf1938e21e6df87d4f87",
+      "tested_working_file_sha256": "2a99d08fcf68effa164e295e3213bab22b9b927fbd24ab2a8b07f766f447b159",
+      "sha256": "8ce0f4803955edfc032b83c3a21418f5ecd7c53688d17413dd15e158dec98258",
+      "zero_context_patch": true
+    },
+    {
+      "kind": "method_replacements",
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp",
+      "payload": "Docs/Publication/VillageNetwork20261118/Integration/VillageDefenseGate-methods.cpp.inc",
+      "sha256": "cd8241d761a4fc0efa833b1a62970cb409f6c8b0227b94af4fd533cfe0d8e2e1",
+      "additional_edits": [
+        "Declare virtual void PostNetInit() override in AVillageDefenseGate protected section of VillageDefenseSection.h.",
+        "Call Pose(DisplayAngle) at the start of AVillageDefenseGate::OnRep_Setup, before Super::OnRep_Setup.",
+        "Keep existing health/async mesh completion/collision/dormancy behavior. Do not apply again to already-fixed local files."
+      ]
+    },
+    {
+      "kind": "direct_source_or_tool",
+      "target": "Source/FPSGAME/Movement/FPSTraversalAir.cpp",
+      "sha256": "53db72e08c52abc03adfd92a1e9f92de3aa6f72ed248fd30629d19afee9029a0"
+    },
+    {
+      "kind": "direct_source_or_tool",
+      "target": "Source/FPSGAME/Movement/FPSTraversalComponent.h",
+      "sha256": "1d5c53549834fcf0596522ec7f494d237057b1ba0050223f56c36fbdaa87ef56"
+    },
+    {
+      "kind": "direct_source_or_tool",
+      "target": "Source/FPSGAME/Movement/FPSTraversalNetwork.cpp",
+      "sha256": "9deb3812df924825da283b4c3ceb2925718335d6c7c06e09625b91f1dd0e38ba"
+    },
+    {
+      "kind": "direct_source_or_tool",
+      "target": "Tools/WorldGeneration/Run-VillageNetworkAudit.ps1",
+      "sha256": "6b77fb52c69d59847c2943bfde1aaa8b24f28093eff61fdd44f270def78182b4"
+    },
+    {
+      "kind": "direct_source_or_tool",
+      "target": "Tools/WorldGeneration/Build-VillageDefenses.ps1",
+      "sha256": "5a55485ccec17f06d94b9b6045f8a3bd4c9c3e38aa63d9820b18b1817428634c"
+    }
+  ]
+}

@@ -1,0 +1,1418 @@
+{
+  "scope": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118",
+  "trash": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118",
+  "moves": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\DerivedDataCache",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\DerivedDataCache"
+    }
+  ],
+  "files": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\FPSGAME-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\FPSGAME-build.json",
+      "bytes": 226,
+      "sha256": "0da774b80fff53e0cd2571388db4432836b146f51c0be2737f3d4d2e23733b39",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\FPSGAMEEditor-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\FPSGAMEEditor-build.json",
+      "bytes": 238,
+      "sha256": "b11c4d4116f28cf3d2b892842c8502b432390726042ca9bf007355c0cdd6969f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\sources.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\sources.json",
+      "bytes": 2262,
+      "sha256": "cf10ef3aa940ab52286d419cbe7dc0bf287c02e08bf453e0b512388a6e3ea25a",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAME-build-stderr.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAME-build-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAME-build-stdout.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAME-build-stdout.log",
+      "bytes": 34113,
+      "sha256": "228bbc7142e3250d989950a9dafbd2a95ef1ca6c9fe8d251bf0980300081db0f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAME-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAME-build.json",
+      "bytes": 93901,
+      "sha256": "d76a264edc6eeb8b50ee0386d2f7639f2b0d57f3fafdb665586dfb25f74b579b",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAME-build.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAME-build.log",
+      "bytes": 40835,
+      "sha256": "5e40a2719bbe218fbce93795cac315c8457a9420034a847e08f7b14285b1deb2",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAMEEditor-build-stderr.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAMEEditor-build-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAMEEditor-build-stdout.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAMEEditor-build-stdout.log",
+      "bytes": 34358,
+      "sha256": "0346337c76e244e0eee4f298d98f1c9972d34d16a3b6a41511d14286cb629812",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAMEEditor-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAMEEditor-build.json",
+      "bytes": 94632,
+      "sha256": "d55dd32e1d864a0282ebf3fc54bacb6365834599226507d91aff1870968e53a6",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAMEEditor-build.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build01\\Logs\\FPSGAMEEditor-build.log",
+      "bytes": 41211,
+      "sha256": "a960532ccbcbca812909dd7f48ccd2b1068a9f1ec01c76166bbbe9a5b2037b4f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\FPSGAME-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\FPSGAME-build.json",
+      "bytes": 226,
+      "sha256": "514942a533b15c612c2d012560af1a1b6ab0438bc66c607bade22512812a3fc6",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\FPSGAMEEditor-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\FPSGAMEEditor-build.json",
+      "bytes": 238,
+      "sha256": "bdba8586aaeaf61be8678bac9d9d3010dfcee0cf6684dd0dba6e2fc542e3499d",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\sources.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\sources.json",
+      "bytes": 2425,
+      "sha256": "d9266e9cfce53cca6edbd19c1091bc8ca419c63f3e33ae10aa577a5a5020bef3",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAME-build-stderr.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAME-build-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAME-build-stdout.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAME-build-stdout.log",
+      "bytes": 36562,
+      "sha256": "360e5e1d7064c0f3e55a7414042d1341ddf9c631f60e0b464e60c97f3e7e5c33",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAME-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAME-build.json",
+      "bytes": 101363,
+      "sha256": "fd53340e4d531755f2fabe7f925998425c2fbf221c2cab98861f5532119bae4e",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAME-build.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAME-build.log",
+      "bytes": 43618,
+      "sha256": "2aff4a0e68030127744141c579231418432e7d9bb061024c87b43cb5d9ce5378",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAMEEditor-build-stderr.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAMEEditor-build-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAMEEditor-build-stdout.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAMEEditor-build-stdout.log",
+      "bytes": 47696,
+      "sha256": "48e7ff3d303833afbc3b6baedfac46f95db2d43632ce549894ccaf6bb77e1b48",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAMEEditor-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAMEEditor-build.json",
+      "bytes": 161887,
+      "sha256": "75fcbe21e5ef196c587c51d3151a918550e8b4abfd6af7c32a864aacbcaa44a7",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAMEEditor-build.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build02\\Logs\\FPSGAMEEditor-build.log",
+      "bytes": 67015,
+      "sha256": "2ff4a5906a6636518968a6b52e37f2a8831435beb3ef2c96e9cb84be44334fac",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\FPSGAME-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\FPSGAME-build.json",
+      "bytes": 226,
+      "sha256": "76540db3ee4013f78070aa70c5b22914bf3d98d09d0ffcdc8ce219e04176db92",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\FPSGAMEEditor-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\FPSGAMEEditor-build.json",
+      "bytes": 238,
+      "sha256": "9fe24d35b76abb5ab775f0e723f2f915e1ccedd5cd36635b5b14df21a68d3411",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\sources.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\sources.json",
+      "bytes": 3089,
+      "sha256": "9cff3a9024670c88576739c4e990800f0be00f33d4617a3dafb64f12d92aecd9",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAME-build-stderr.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAME-build-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAME-build-stdout.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAME-build-stdout.log",
+      "bytes": 1394,
+      "sha256": "6b88eace713e3998f796fe37c22fc510eef75fb6da613cd73f1526ad5980ef04",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAME-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAME-build.json",
+      "bytes": 25178,
+      "sha256": "e853dbf13d3f7bf29071de3ab3c12669f3176db8a4ff3fcde6515b97d8cf486b",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAME-build.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAME-build.log",
+      "bytes": 7606,
+      "sha256": "dc5efceabff9819b4543c7da632e92780f6fde0511819a2d8bc73c8f94029842",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAMEEditor-build-stderr.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAMEEditor-build-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAMEEditor-build-stdout.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAMEEditor-build-stdout.log",
+      "bytes": 1443,
+      "sha256": "c60cc05b720e896ab56f93e63dab9719b9bccc67f799f6729592ba5a51f09b02",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAMEEditor-build.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAMEEditor-build.json",
+      "bytes": 25218,
+      "sha256": "0cbb246728d9b520fea8b83fbe417c34eae24cd2d945fc633f4325e7884eecf9",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAMEEditor-build.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\Build03\\Logs\\FPSGAMEEditor-build.log",
+      "bytes": 7649,
+      "sha256": "3324d97d7c213f465d30e364263c5e5ebfdec52ecc71f6c48616d9ab7be8073e",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\exit-guest.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\exit-guest.json",
+      "bytes": 81,
+      "sha256": "6e0ec386c70ec43ea5ee51969967c721acc424944499d6f5844f8ad6d9b31079",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\exit-host.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\exit-host.json",
+      "bytes": 60,
+      "sha256": "c7465afb1a4cbfa598d7466bf86983d99c36e5ece82eeb3672cb41b99f3ca939",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\exit-rejoin.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\exit-rejoin.json",
+      "bytes": 60,
+      "sha256": "9c8f4c45167a833a251bac2bb209e5d85575d509234a7794ffb943f997b7905f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest.log",
+      "bytes": 386261,
+      "sha256": "02398eb99ae38878e397c9372cfa3d8cfe0a2c4ef317ee369ad17837df0a7186",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\host.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\host.log",
+      "bytes": 451761,
+      "sha256": "065f008446ac9256a0cfd0900dfa2677f525ca82bc26f9fb7747b00433d2f0f3",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\inputs.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\inputs.json",
+      "bytes": 322,
+      "sha256": "01875ac4ebcd48c9bff0300032c4e960ab5e51761ebb4253ea589f029ec16903",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\launch-guest.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\launch-guest.json",
+      "bytes": 1513,
+      "sha256": "e829587a4c156a74805a81588714846115ddd8db8af22e9db29cb099dce2d516",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\launch-host.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\launch-host.json",
+      "bytes": 1554,
+      "sha256": "28b9636290df35da04d8d086524f9b941ebff6794b0893ea84501d1333fc76ca",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\launch-rejoin.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\launch-rejoin.json",
+      "bytes": 1515,
+      "sha256": "307ce9ebeb3023d7eb15fb16aade263078f2de952b5a51ff6d2822a1292156a7",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\rejoin.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\rejoin.log",
+      "bytes": 563808,
+      "sha256": "4e098b6719a1e151d4dd49c4f076f7af65198e8fcaa0bce22f5e647e024e7906",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\summary.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\summary.json",
+      "bytes": 265,
+      "sha256": "b9dea9cd54e2305e600c47db502194af49396668e667856a5109d1bfa1ea1245",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\FPSGAME.uproject",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\FPSGAME.uproject",
+      "bytes": 2769,
+      "sha256": "4832f70346a1dd923f027a88a2f1fda48570c5067225012e7d0c84f9c385c654",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteelMP_Profile_88A773CB4BADAB678E2A4684A5EBBB06.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteelMP_Profile_88A773CB4BADAB678E2A4684A5EBBB06.sav",
+      "bytes": 146706,
+      "sha256": "dfee21e41d3112d5c27b77b286a84ca4e2e2ccece79e2714c2e189d99e2f7eb8",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_A.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_A.sav",
+      "bytes": 122765,
+      "sha256": "637300b74e7cd4d873b608120b1e61506ee6867c6c9483258f2ef1b6cf3688b9",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_A.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_A.sha1",
+      "bytes": 40,
+      "sha256": "3b8bee4d6fb0f6d162eb80c41d8aec4128ad47eca1d3a27c09338077fb31fbc0",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_B.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_B.sav",
+      "bytes": 122765,
+      "sha256": "da4672fda80174e8a21c44064cb63c0bec84053c76d6694eb2ddcee60e9765f2",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_B.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_B.sha1",
+      "bytes": 40,
+      "sha256": "991756f30fe1c7ec13939ce925f57902dc182c44a64afed9cbf3a78583ebac31",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_Shared_7663b00e.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_host_Shared_7663b00e.sav",
+      "bytes": 3180,
+      "sha256": "004157c4fedf61e5f195bcfc3317bbd6887069df3d01a18f6c1b33eef6c9e8e4",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\TemperateHills_World.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\TemperateHills_World.sav",
+      "bytes": 2487,
+      "sha256": "f3e0896495d69ba92c058a8e7665709c235563e9a9f151a0fef66fd27f6e13c5",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\Voxel20_33E48607C137BBE4B25571ABDD6B8996.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Saved\\SaveGames\\Voxel20_33E48607C137BBE4B25571ABDD6B8996.sav",
+      "bytes": 175,
+      "sha256": "9b452f6cbba61b285feb036966074d5b468c3dd1cfe1478d5ab5779ff01fee26",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\CachedAssetRegistryDiscovery.bin",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\CachedAssetRegistryDiscovery.bin",
+      "bytes": 295422,
+      "sha256": "5609f651365fe1a20e7a235ed9c7804c224d1f00d53caa48b04e2e5ec09e63be",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\PipInstall\\extra_urls.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\PipInstall\\extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\PipInstall\\merged_requirements.in",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\PipInstall\\merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0.ref",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0.ref",
+      "bytes": 58,
+      "sha256": "e32459b998ba47886814393a06bf32dfa226232bc436ae2d37553e17c8382eab",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0_CBD84B70456ADBC98305A78541E9E714.bin",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0_CBD84B70456ADBC98305A78541E9E714.bin",
+      "bytes": 280943272,
+      "sha256": "c7eb92a300747ce21281231d396f914a58cb3838a5b1c8a39f42087a09954e78",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\ColdSteelUI.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\ColdSteelUI.json",
+      "bytes": 838,
+      "sha256": "6d1fd16d54768636a9ae003230f73973ab115f7e8742ca5db1ffd6ecd6f89c3f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultEditor.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultEditor.ini",
+      "bytes": 58476,
+      "sha256": "93e2a86f768d743f483c7d5746dda10dffa7d12dea3ed2abf9d5a3362e807d36",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultEditorPerProjectUserSettings.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultEditorPerProjectUserSettings.ini",
+      "bytes": 503,
+      "sha256": "e93471ca6cc34d8159fd14cdd8037ebba5d5adb0cd52ba888d68d8685fcad6b1",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultEngine.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultEngine.ini",
+      "bytes": 8764,
+      "sha256": "8bea76a8015ebc29b1ad6c71ba050871ddc1c996a28598b6c76ea1922683017b",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultGame.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultGame.ini",
+      "bytes": 44135,
+      "sha256": "c75824d630fe2ea019ae4032d6f71241912e770aed5ad914cc25e77dd9ea6b01",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultGameplayTags.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultGameplayTags.ini",
+      "bytes": 780,
+      "sha256": "02451a6ba9237b0c8fdb2b6e2226a3c86fa666e6a6f4c5393adb344867090902",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultInput.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\DefaultInput.ini",
+      "bytes": 10013,
+      "sha256": "1ade056956751443eb05945814f7d3d0e070e66ade2b11d45fdcd83e714f05bc",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\Packaging\\RequiredRuntimePackages.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Config\\Packaging\\RequiredRuntimePackages.txt",
+      "bytes": 8378,
+      "sha256": "18d6cd563b6e6d92662eea129adcc577921e816e06e7fa5118b0949655218a39",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+      "bytes": 49666560,
+      "sha256": "b9beea8c24ef37d50dd78c583b529d7991a1dbe466d685711ab47b5e1ab95ee9",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Binaries\\Win64\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Binaries\\Win64\\UnrealEditor.modules",
+      "bytes": 92,
+      "sha256": "98cc7280a8f067e7f3abe301f7324653bd182384734c32b6c8a4d3322c152064",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_guest_A.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_guest_A.sav",
+      "bytes": 146705,
+      "sha256": "eb84ea5580133d50d7203fba45ca3fc1679c4de0e9825250bd35b229ae2c0ab6",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_guest_A.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_guest_A.sha1",
+      "bytes": 40,
+      "sha256": "f5afc55e6dcb489d5615d85b2216d1c413ab0364f5a61f681a5dc10038c3127e",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_guest_B.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_guest_B.sav",
+      "bytes": 146705,
+      "sha256": "8e61a1c8da736ba3b6a856a6246342f5e4aa51abe67d84c870fcae4c404d4744",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_guest_B.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp01_guest_B.sha1",
+      "bytes": 40,
+      "sha256": "c283897a6da272e70e355271183764b795f7b73149745eaf658ff21314f097d1",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\PipInstall\\extra_urls.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\PipInstall\\extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\PipInstall\\merged_requirements.in",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\PipInstall\\merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\guest\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Evidence\\result.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Evidence\\result.json",
+      "bytes": 4676,
+      "sha256": "c3f021f031c3c5d8a5db6f9f991e8eafe98a247d27086c89f14375622f14295d",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest.log",
+      "bytes": 630052,
+      "sha256": "e6efcfd35aef316738c41dec81fc0e5166e12f002a85b6e36607ce91d95edb7f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\host.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\host.log",
+      "bytes": 352129,
+      "sha256": "ccb17c9742ff6740a0dc7d8b6e348a84fc004882edbec3acf740f367ef9b007c",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\inputs.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\inputs.json",
+      "bytes": 322,
+      "sha256": "4d67ba39f388ac8b5b54d8fe7b2ce9f6264c35d8f94a1fec10b88e97f830c3c6",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\launch-guest.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\launch-guest.json",
+      "bytes": 1513,
+      "sha256": "4a9b9c23f565ff9f3fe8eda29d2e70f5aa4310773473ca05471f10f50ba27fcd",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\launch-host.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\launch-host.json",
+      "bytes": 1554,
+      "sha256": "7b9191d464449f041eb959f288849989025d41a69bd413d6bee54e70b4f55109",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\FPSGAME.uproject",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\FPSGAME.uproject",
+      "bytes": 2769,
+      "sha256": "4832f70346a1dd923f027a88a2f1fda48570c5067225012e7d0c84f9c385c654",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_A.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_A.sav",
+      "bytes": 122765,
+      "sha256": "62ac38a5d12f8a72165197d4f8fa4f66fd4b0489dabe395886a9ecd9f04e0d86",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_A.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_A.sha1",
+      "bytes": 40,
+      "sha256": "e429318b6f8a2f8a657730289810c6ba4798ee66eaad4a988949012e11a18658",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_B.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_B.sav",
+      "bytes": 122300,
+      "sha256": "c00fbc96f96519c64989ae16103e061d5181eb85793d1ac86715b07e1ce079be",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_B.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_B.sha1",
+      "bytes": 40,
+      "sha256": "e041c87655881840d68bc7b33e31a6be5b3514f6edde1ac74d885b70277a51c3",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_Shared_7663b00e.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_host_Shared_7663b00e.sav",
+      "bytes": 3180,
+      "sha256": "b0ec2254fbf920ac37d43e08e2400a43cefc39483db164f06785802167c67808",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\TemperateHills_World.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\TemperateHills_World.sav",
+      "bytes": 2436,
+      "sha256": "1504e62ba2d64839f7e58f060b7e7b81f4da503e2eda4199a13f3b54b05b259b",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\Voxel20_0FD37ED65A85AE51DEC3E53F933402A4.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Saved\\SaveGames\\Voxel20_0FD37ED65A85AE51DEC3E53F933402A4.sav",
+      "bytes": 175,
+      "sha256": "af237109a5da582cb841e099ad566f2748f0da4b9e817f4917bd4dc6b5e6c386",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\CachedAssetRegistryDiscovery.bin",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\CachedAssetRegistryDiscovery.bin",
+      "bytes": 295424,
+      "sha256": "c1ec368aa309219db46387dce9edf7d87c6d626d32b0e9fdb383df6464155fc5",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\PipInstall\\extra_urls.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\PipInstall\\extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\PipInstall\\merged_requirements.in",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\PipInstall\\merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0.ref",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0.ref",
+      "bytes": 58,
+      "sha256": "4858b7b71cba743739d3b69d2d6b6a19df247b3508f6ad110d31bb517a337d1f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0_88C47AE94B102759A8815184478B162B.bin",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0_88C47AE94B102759A8815184478B162B.bin",
+      "bytes": 281052120,
+      "sha256": "a5424148880eaae8a855afe01bbe0935a0358eda9e68fd8e7affa90965f7bd0a",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\ColdSteelUI.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\ColdSteelUI.json",
+      "bytes": 838,
+      "sha256": "6d1fd16d54768636a9ae003230f73973ab115f7e8742ca5db1ffd6ecd6f89c3f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultEditor.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultEditor.ini",
+      "bytes": 58476,
+      "sha256": "93e2a86f768d743f483c7d5746dda10dffa7d12dea3ed2abf9d5a3362e807d36",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultEditorPerProjectUserSettings.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultEditorPerProjectUserSettings.ini",
+      "bytes": 503,
+      "sha256": "e93471ca6cc34d8159fd14cdd8037ebba5d5adb0cd52ba888d68d8685fcad6b1",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultEngine.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultEngine.ini",
+      "bytes": 8764,
+      "sha256": "8bea76a8015ebc29b1ad6c71ba050871ddc1c996a28598b6c76ea1922683017b",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultGame.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultGame.ini",
+      "bytes": 44135,
+      "sha256": "c75824d630fe2ea019ae4032d6f71241912e770aed5ad914cc25e77dd9ea6b01",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultGameplayTags.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultGameplayTags.ini",
+      "bytes": 780,
+      "sha256": "02451a6ba9237b0c8fdb2b6e2226a3c86fa666e6a6f4c5393adb344867090902",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultInput.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\DefaultInput.ini",
+      "bytes": 10013,
+      "sha256": "1ade056956751443eb05945814f7d3d0e070e66ade2b11d45fdcd83e714f05bc",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\Packaging\\RequiredRuntimePackages.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Config\\Packaging\\RequiredRuntimePackages.txt",
+      "bytes": 8378,
+      "sha256": "18d6cd563b6e6d92662eea129adcc577921e816e06e7fa5118b0949655218a39",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+      "bytes": 49793536,
+      "sha256": "c732e994ce1cc9abef5648810b23fa46d3bdb638ddbea61efe5b9662789703d5",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Binaries\\Win64\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Binaries\\Win64\\UnrealEditor.modules",
+      "bytes": 92,
+      "sha256": "98cc7280a8f067e7f3abe301f7324653bd182384734c32b6c8a4d3322c152064",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_guest_A.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_guest_A.sav",
+      "bytes": 146691,
+      "sha256": "234aa95150bc0685ec36905176b093fac6c782678ed5c831edc7ca228354ba59",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_guest_A.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_guest_A.sha1",
+      "bytes": 40,
+      "sha256": "107f07b06d818081e8532272a8c12036b82b97644085b520343a2deccbdb96bd",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_guest_B.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_guest_B.sav",
+      "bytes": 146691,
+      "sha256": "f65e1e80e3769658734f965595e2eddb58306d519f96a419d47bd13b82ace33d",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_guest_B.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp02_guest_B.sha1",
+      "bytes": 40,
+      "sha256": "4dc8cd2d6076e3664251761e236a11099cd4f72b70cd305d79104b12e2d746fa",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\PipInstall\\extra_urls.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\PipInstall\\extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\PipInstall\\merged_requirements.in",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\PipInstall\\merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\guest\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Evidence\\result.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Evidence\\result.json",
+      "bytes": 1950,
+      "sha256": "81ea53d2f52a07ce5639835d8cf5419a6c917d16b1453021aadde72b49728e84",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\FPSGAME.uproject",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\FPSGAME.uproject",
+      "bytes": 2769,
+      "sha256": "4832f70346a1dd923f027a88a2f1fda48570c5067225012e7d0c84f9c385c654",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteelMP_Profile_F8103ACB463C0D0C789F0298B5FF81F7.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteelMP_Profile_F8103ACB463C0D0C789F0298B5FF81F7.sav",
+      "bytes": 146706,
+      "sha256": "06fd23ef8351fb5674928e41c4086c5df953aaf4a9e5fb323206d3382d07b50f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_A.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_A.sav",
+      "bytes": 122765,
+      "sha256": "2f265f4071b85e79014cfdcd25d8b3c93c22f197185ac52bedfe263547195ad8",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_A.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_A.sha1",
+      "bytes": 40,
+      "sha256": "36a86ecff640fdc5afcfee1b19eda65ae777ad10bf150cead0393e2f24043bac",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_B.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_B.sav",
+      "bytes": 122765,
+      "sha256": "070d4ee3c819969d033af68afbd7d26cc18ca968e01713923d148ea96866ba7d",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_B.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_B.sha1",
+      "bytes": 40,
+      "sha256": "d484ace0490504f26772b8d3a79abe79e8b034ef7842e154b22f2c9426f5e221",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_Shared_7663b00e.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_host_Shared_7663b00e.sav",
+      "bytes": 3180,
+      "sha256": "7ddd4ded5a3bca7e35aa9c5c1f49e98c09eef074e5d40df18dd62b3b3dc37108",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\TemperateHills_World.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\TemperateHills_World.sav",
+      "bytes": 2487,
+      "sha256": "f78a032d209594a2b9b129263b3373c2ad363b1df7fce16d00ef39c23e83a0fd",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\VillageDefenses_DD5554E24E2BF263C186319F8C752D2E.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\VillageDefenses_DD5554E24E2BF263C186319F8C752D2E.sav",
+      "bytes": 2257,
+      "sha256": "20578ce42823de421b2a0491be46da8111da12d0e135d961f7c644db3906f9b0",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\Voxel20_D0A2A8EACB2BC7B69775183103BEEBF6.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Saved\\SaveGames\\Voxel20_D0A2A8EACB2BC7B69775183103BEEBF6.sav",
+      "bytes": 175,
+      "sha256": "a36617c5887a218cf1b1c431bf48de0d047fe3206f8ac466682b87f76c96fa14",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\CachedAssetRegistryDiscovery.bin",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\CachedAssetRegistryDiscovery.bin",
+      "bytes": 295424,
+      "sha256": "c1ec368aa309219db46387dce9edf7d87c6d626d32b0e9fdb383df6464155fc5",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\PipInstall\\extra_urls.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\PipInstall\\extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\PipInstall\\merged_requirements.in",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\PipInstall\\merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0.ref",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0.ref",
+      "bytes": 58,
+      "sha256": "4858b7b71cba743739d3b69d2d6b6a19df247b3508f6ad110d31bb517a337d1f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0_88C47AE94B102759A8815184478B162B.bin",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Intermediate\\CachedAssetRegistry\\CachedAssetRegistry_0_88C47AE94B102759A8815184478B162B.bin",
+      "bytes": 281052120,
+      "sha256": "a5424148880eaae8a855afe01bbe0935a0358eda9e68fd8e7affa90965f7bd0a",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\ColdSteelUI.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\ColdSteelUI.json",
+      "bytes": 838,
+      "sha256": "6d1fd16d54768636a9ae003230f73973ab115f7e8742ca5db1ffd6ecd6f89c3f",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultEditor.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultEditor.ini",
+      "bytes": 58476,
+      "sha256": "93e2a86f768d743f483c7d5746dda10dffa7d12dea3ed2abf9d5a3362e807d36",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultEditorPerProjectUserSettings.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultEditorPerProjectUserSettings.ini",
+      "bytes": 503,
+      "sha256": "e93471ca6cc34d8159fd14cdd8037ebba5d5adb0cd52ba888d68d8685fcad6b1",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultEngine.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultEngine.ini",
+      "bytes": 8764,
+      "sha256": "8bea76a8015ebc29b1ad6c71ba050871ddc1c996a28598b6c76ea1922683017b",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultGame.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultGame.ini",
+      "bytes": 44135,
+      "sha256": "c75824d630fe2ea019ae4032d6f71241912e770aed5ad914cc25e77dd9ea6b01",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultGameplayTags.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultGameplayTags.ini",
+      "bytes": 780,
+      "sha256": "02451a6ba9237b0c8fdb2b6e2226a3c86fa666e6a6f4c5393adb344867090902",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultInput.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\DefaultInput.ini",
+      "bytes": 10013,
+      "sha256": "1ade056956751443eb05945814f7d3d0e070e66ade2b11d45fdcd83e714f05bc",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\Packaging\\RequiredRuntimePackages.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Config\\Packaging\\RequiredRuntimePackages.txt",
+      "bytes": 8378,
+      "sha256": "18d6cd563b6e6d92662eea129adcc577921e816e06e7fa5118b0949655218a39",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+      "bytes": 49800192,
+      "sha256": "78e1a14fec4e9d69508f92610258395a400266d349a7d24a185d1e7174ecd64b",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Binaries\\Win64\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Binaries\\Win64\\UnrealEditor.modules",
+      "bytes": 92,
+      "sha256": "98cc7280a8f067e7f3abe301f7324653bd182384734c32b6c8a4d3322c152064",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_guest_A.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_guest_A.sav",
+      "bytes": 146705,
+      "sha256": "f78e561131e9d9b916492857143e4b9898a3b7363ab822f649c1bc9be8e15e03",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_guest_A.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_guest_A.sha1",
+      "bytes": 40,
+      "sha256": "c900acdc11b408896e014e38865473e9a7b9d7c132e2695c88f75251b4b28569",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_guest_B.sav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_guest_B.sav",
+      "bytes": 146705,
+      "sha256": "83cbd64504391ea7aa47b71f10c2633424ebe32113a38ee0de5f5ca0c75f6864",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_guest_B.sha1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Saved\\SaveGames\\ColdSteel_VillageNetworkAudit_udp03_guest_B.sha1",
+      "bytes": 40,
+      "sha256": "04ef8fb360f50c4ea13cf8df61a02dd336c70931d7493decda4619a3cc9c750a",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM6\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\ShaderAutogen\\PCD3D_SM5\\AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\PipInstall\\extra_urls.txt",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\PipInstall\\extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\PipInstall\\merged_requirements.in",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\PipInstall\\merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\PipInstall\\pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\guest\\Intermediate\\PipInstall\\Lib\\site-packages\\plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Superseded build or disposable isolated test host; source and compact evidence retained.",
+      "retained_replacement": "Docs/Publication/VillageNetwork20261118/Evidence and Saved/VillageNetworkAudit20261118/Build04,udp03; production source and rerun tools unchanged."
+    }
+  ],
+  "junctions": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Content",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Content",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Content",
+      "target_moved": false
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Plugins",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Plugins",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Plugins",
+      "target_moved": false
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Shaders",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp01\\Host\\Shaders",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Shaders",
+      "target_moved": false
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Content",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Content",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Content",
+      "target_moved": false
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Plugins",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Plugins",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Plugins",
+      "target_moved": false
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Shaders",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp02\\Host\\Shaders",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Shaders",
+      "target_moved": false
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Content",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Content",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Content",
+      "target_moved": false
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Plugins",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Plugins",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Plugins",
+      "target_moved": false
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Shaders",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\village-network-20261118\\Saved\\VillageNetworkAudit20261118\\udp03\\Host\\Shaders",
+      "link_target": "\\\\?\\D:\\FPS3D\\FPSGAME\\Shaders",
+      "target_moved": false
+    }
+  ],
+  "total_bytes": 999009754,
+  "screenshots_or_gifs": 0
+}

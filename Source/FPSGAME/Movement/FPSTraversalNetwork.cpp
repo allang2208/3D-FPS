@@ -60,6 +60,10 @@ void UFPSTraversalComponent::ClientRejectTraversal_Implementation(uint32 Request
 {
     if(Request!=NetworkRequest||!bAwaitingTraversal)return;
     bAwaitingTraversal=false;
+    // A rejected probe did not consume a traversal. Keep held air-catch intent,
+    // while bounding retries to the authority's probe refill interval.
+    bJumpRequestConsumed=false;
+    NetworkRetryAt=GetWorld()->GetTimeSeconds()+.25f;
     auto* Player=CastChecked<AFPSGAMECharacter>(GetOwner());
     // A rejected wall query should retain the original ordinary-jump intent.
     if(bJumpHeld)Player->Jump();

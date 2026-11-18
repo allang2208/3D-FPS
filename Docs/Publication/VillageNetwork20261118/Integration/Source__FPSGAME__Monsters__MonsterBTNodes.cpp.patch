@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Monsters/MonsterBTNodes.cpp
++++ b/Source/FPSGAME/Monsters/MonsterBTNodes.cpp
+@@ -5,0 +6 @@
++#include "../WorldGeneration/VillageDefenseSection.h"
+@@ -116,0 +118,3 @@
++  // Siege goals are already projected onto a stand-off point outside the wall.
++  // Adding the melee stopping range again leaves the attacker out of reach.
++  if(!Returning&&Cast<AVillageDefenseSection>(B->GetValueAsObject(TEXT("Target"))))Stop=15.f;

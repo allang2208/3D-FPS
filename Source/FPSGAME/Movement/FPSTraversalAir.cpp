@@ -2,6 +2,7 @@
 #include "../FPSGAMECharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "Engine/World.h"
 
 void UFPSTraversalComponent::SetJumpHeld(bool bHeld)
 {
@@ -12,6 +13,7 @@ void UFPSTraversalComponent::SetJumpHeld(bool bHeld)
 void UFPSTraversalComponent::TryAirCatch()
 {
     if (!bJumpHeld || bJumpRequestConsumed || IsTraversing()) return;
+    if (GetWorld()->GetTimeSeconds()<NetworkRetryAt) return;
     auto* C=Cast<AFPSGAMECharacter>(GetOwner());
     if(C&&!C->IsLocallyControlled())return;
     if (!C || !C->Controller || C->Controller->IsMoveInputIgnored())

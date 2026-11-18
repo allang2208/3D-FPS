@@ -76,6 +76,7 @@ protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
+    friend class AVillageNetworkAudit;
     bool BeginTarget(const FFPSTraversalTarget& Target);
     UFUNCTION(Server,Reliable) void ServerRequestTraversal(uint32 Request);
     UFUNCTION(Server,Reliable) void ServerCancelTraversal(uint32 Request);
@@ -90,6 +91,7 @@ private:
     // the RPC every frame; probes are expensive and must be bounded.
     float NetworkRequestTokens=3.f;
     double NetworkRequestRefillAt=0.;
+    float NetworkRetryAt=0.f;
     bool bAwaitingTraversal=false,bAwaitingTraversalEnd=false,bApplyingNetworkEnd=false;
     bool bNetworkCorrectionsHeld=false,bSavedIgnoreCorrections=false;
     float NetworkCorrectionReleaseAt=0.f;

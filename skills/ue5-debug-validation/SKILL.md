@@ -34,3 +34,5 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 地图系统的多进程联机证据、无渲染边界与临时宿主归档，读取 [地图联机证据与归档](references/map-marker-network-evidence.md)。
 
 丘陵截图宿主、材质包装引脚与落盘回执，读取 [丘陵截图宿主、材质包装引脚与落盘回执](references/hills-capture-and-material-receipts.md)。
+
+用户要求村庄主客机联测时，读取 [村庄对话与防御联机边界](../ue5-save-load-replication/references/village-dialogue-and-defenses.md)，区分真实拒绝、随机施工占位与测试环境问题。

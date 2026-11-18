@@ -90,3 +90,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 地图系统的私有/全队标记、个人迷雾和地牢实例边界，读取 [标记共享与个人探索](references/map-markers-and-personal-fog.md)。
 
 丘陵生成地面、客机直达和内容版本兼容，读取 [丘陵生成地面、客机直达和内容版本兼容](references/hills-generated-ground-network.md)。
+
+修女并发交谈、共享村庄修复、个人圣光学习和可破坏城门的晚加入恢复，读取 [村庄对话与防御联机边界](references/village-dialogue-and-defenses.md)。

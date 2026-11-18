@@ -1,0 +1,37 @@
+{
+  "reason": "Public main does not yet contain the complete chapel NPC/village defense base. Shared local files also contain unrelated unpublished work.",
+  "local_sources_required": [
+    "Source/FPSGAME/NPC/ChapelNun.*",
+    "Source/FPSGAME/NPC/ChapelDialogueComponent.*",
+    "Source/FPSGAME/WorldGeneration/VillageDefenseSection.*",
+    "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp",
+    "Source/FPSGAME/WorldGeneration/VillageDefenseState.*",
+    "Source/FPSGAME/WorldGeneration/VillageDefenseDebris.*",
+    "Source/FPSGAME/WorldGeneration/VillageDefenseCombat.*",
+    "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+    "Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp",
+    "Source/FPSGAME/Skills/ColdSteelTrainerLearning.cpp"
+  ],
+  "contracts": [
+    "Current Hills WorldId and durable village repair transactions",
+    "Per-controller chapel dialogue and local NPC facing",
+    "PlayerState shadow profile and stable guest profile save slot",
+    "Current cold-steel dialogue viewport and holyLight skill definition",
+    "Existing shrine objective/monster AI, village wall navigation and collision"
+  ],
+  "local_assets_required": [
+    "/Game/GameMaps/L_TemperateHills_Initial",
+    "/Game/Monsters/NurseZombie/BP_NurseZombie",
+    "/Game/Monsters/AI/BT_Monster",
+    "/Game/WorldGeneration/TemperateHills/VillageDefenses/*",
+    "/Game/WorldGeneration/TemperateHills/VillagePerimeter/*",
+    "Existing chapel nun meshes, materials, animation and repaired blacksmith assets"
+  ],
+  "not_uploaded": [
+    "UE binary assets and external licensed content",
+    "World/player save files",
+    "Frozen DLLs and caches",
+    "Unrelated staged or working changes"
+  ],
+  "restore": "Restore the corresponding local chapel/village prerequisites first; merge the named integration edits, then restore the opt-in fixture files. Root movement edits are direct. Do not claim this scoped publication alone is the complete tested game."
+}

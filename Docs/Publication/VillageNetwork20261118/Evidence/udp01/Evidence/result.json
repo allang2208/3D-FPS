@@ -1,0 +1,89 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "case": "weak_network_enabled",
+      "passed": true,
+      "detail": "PktLag=60 PktLoss=2"
+    },
+    {
+      "case": "guest_profile_ready",
+      "passed": true,
+      "detail": "level=15 learned=0"
+    },
+    {
+      "case": "two_concurrent_dialogue_sessions",
+      "passed": true,
+      "detail": "local=1 yaw=-64.65 expected=-64.65 error=0.00"
+    },
+    {
+      "case": "host_faces_own_player",
+      "passed": true,
+      "detail": "local=1 yaw=-115.35 expected=-115.35 error=0.00"
+    },
+    {
+      "case": "concurrent_wall_unlock_is_shared_idempotent",
+      "passed": true,
+      "detail": "sections=159 gates=2 ruined=0 host=围墙已整体修复，村庄建设进度已保存。 guest=围墙已整体修复，村庄建设进度已保存。"
+    },
+    {
+      "case": "concurrent_blacksmith_unlock_replaces_building",
+      "passed": true,
+      "detail": " guest=repaired=8 ruined=0 station=1"
+    },
+    {
+      "case": "holy_light_only_granted_to_guest",
+      "passed": true,
+      "detail": "你已习得圣光。可在技能树中查看，并拖入快捷栏使用。"
+    },
+    {
+      "case": "holy_light_durable_guest_profile",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "remote_gate_interaction_and_collision",
+      "passed": true,
+      "detail": " guest=angle=88.00 leaves=2 aligned=1"
+    },
+    {
+      "case": "production_logout_removed_guest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "same_profile_reconnected",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "late_join_open_gate_and_learned_skill",
+      "passed": true,
+      "detail": "angle=88.00 leaves=2 aligned=1"
+    },
+    {
+      "case": "real_village_wall_air_target",
+      "passed": true,
+      "detail": "section=0 probe_height=165.5 attempts=1"
+    },
+    {
+      "case": "weak_network_rejected_air_catch_retries",
+      "passed": true,
+      "detail": "requests=2 success=1 pos=X=-6391.901 Y=-21584.734 Z=6240.000"
+    },
+    {
+      "case": "siege_live_controller",
+      "passed": true,
+      "detail": "actual nurse blueprint; damage=400 for bounded duration; no manual TryAttack or damage calls"
+    },
+    {
+      "case": "autonomous_ai_breach_timeout",
+      "passed": false,
+      "detail": "damaged=0 raider=BP_NurseZombie_C_0"
+    }
+  ],
+  "final_stage": 75,
+  "real_udp": true,
+  "rendered": false,
+  "scope": "production hills, host and remote player, production RPC/profile/disk paths, same-profile reconnect, opt-in setup and asset-load fault injection"
+}

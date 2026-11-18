@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Skills/ColdSteelTrainerLearning.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelTrainerLearning.cpp
+@@ -5,0 +6 @@
++#include "../Monsters/FPSCombatHealthComponent.h"
+@@ -12,0 +14,2 @@
++    const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
++    if(!Health||Health->IsDead()){Message=TEXT("死亡状态无法学习圣光。");return false;}

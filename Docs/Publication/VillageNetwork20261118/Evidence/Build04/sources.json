@@ -1,0 +1,80 @@
+{
+  "captured_at": "2026-11-18T12:42:24.4086452+08:00",
+  "files": [
+    {
+      "sha256": "81BE1174CD6723E6A82A7B60A2637AA0EEF03FE89DB66A91BA8B75D2CB3CD8C0",
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.h"
+    },
+    {
+      "sha256": "9C3E64A05B363F0FCAD65559B936C454D5971D758DDD3A99EB308F2B9D35FF00",
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp"
+    },
+    {
+      "sha256": "1D5C53549834FCF0596522EC7F494D237057B1BA0050223F56C36FBDAA87EF56",
+      "path": "Source/FPSGAME/Movement/FPSTraversalComponent.h"
+    },
+    {
+      "sha256": "53DB72E08C52ABC03ADFD92A1E9F92DE3AA6F72ED248FD30629D19AFEE9029A0",
+      "path": "Source/FPSGAME/Movement/FPSTraversalAir.cpp"
+    },
+    {
+      "sha256": "9DEB3812DF924825DA283B4C3CEB2925718335D6C7C06E09625B91F1DD0E38BA",
+      "path": "Source/FPSGAME/Movement/FPSTraversalNetwork.cpp"
+    },
+    {
+      "sha256": "F9AFD5A0C587FAD3E85D1003E1BE09335C1FCC2FD4EF6963334FFD1D8E1618AA",
+      "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h"
+    },
+    {
+      "sha256": "59A69E67D31ABF3226972C9B8C7CB6DABF6D2C8AFFB944208F94FBFCBE2381E6",
+      "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp"
+    },
+    {
+      "sha256": "7399EADE4B4DB592B334B1FBC34FACBAC71A9F3B48FEA24BDA5256E8DC2CAA1A",
+      "path": "Source/FPSGAME/Skills/ColdSteelTrainerLearning.cpp"
+    },
+    {
+      "sha256": "D25748515DD09884D8EA085C79EDB85224E807ADAD4A84B5D02398E98CFC1848",
+      "path": "Source/FPSGAME/Development/VillageNetworkAudit.h"
+    },
+    {
+      "sha256": "C7888F823722FD703A334AB77DF3B0C2BC89656DB346EF87DFCAAC0D7181F49F",
+      "path": "Source/FPSGAME/Development/VillageNetworkAudit.cpp"
+    },
+    {
+      "sha256": "8DC70F0E045280F7043CFEBFE924CBF8EDA1DC42A64BF281446609C0310E78FB",
+      "path": "Source/FPSGAME/Development/VillageNetworkAuditHost.cpp"
+    },
+    {
+      "sha256": "2CD046B2149C7C5874C7C7F477C8208CE1962D0BDABA94075203B3ADEFDC779E",
+      "path": "Source/FPSGAME/Development/VillageNetworkAuditSupport.cpp"
+    },
+    {
+      "sha256": "5EFB6DD21653E84E691DE93404337E078E550BC0E41627B0474EBAE4329D38C3",
+      "path": "Source/FPSGAME/Development/VillageNetworkAuditScenarios.cpp"
+    },
+    {
+      "sha256": "2A99D08FCF68EFFA164E295E3213BAB22B9B927FBD24AB2A8B07F766F447B159",
+      "path": "Source/FPSGAME/Monsters/MonsterBTNodes.cpp"
+    },
+    {
+      "sha256": "8C8A6370A6FAAA7A79EAACFC56D6E307F18E95E67268A71819918441E99D8F21",
+      "path": "Source/FPSGAME/UI/ColdSteelDialogueViewport.h"
+    },
+    {
+      "sha256": "2223944066923B0C3C887CFB909716CA0AB1BB374033E483345BEAF073C2ADB9",
+      "path": "Source/FPSGAME/UI/ColdSteelDialogueViewport.cpp"
+    }
+  ],
+  "adjacent_build_inputs": [
+    {
+      "sha256": "8D522A5A1F6027CE250CE38DD598655A4C0088F647FF7EEB4DB72E026CCF699B",
+      "path": "Source/FPSGAME/Development/HillsContinuityAudit.h"
+    },
+    {
+      "sha256": "33B27DF6C2FF2B563F314648F1E3BD5BB7830BCC3CDF4CC3CFA1BD8DF69841E1",
+      "path": "Source/FPSGAME/Development/HillsContinuityAudit.cpp"
+    }
+  ],
+  "source_gate_scope": "Village gameplay and dialogue dependencies only. Unrelated HillsContinuity test fixture hashes remain recorded as adjacent build inputs."
+}

@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
+@@ -11,0 +12 @@
++#include "../Monsters/FPSCombatHealthComponent.h"
+@@ -31,0 +33,2 @@
++    const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
++    if(!Health||Health->IsDead())return false;

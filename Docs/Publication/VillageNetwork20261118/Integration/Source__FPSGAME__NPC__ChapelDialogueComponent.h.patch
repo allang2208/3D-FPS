@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.h
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.h
+@@ -33,0 +34 @@
++    friend class AVillageNetworkAudit;
