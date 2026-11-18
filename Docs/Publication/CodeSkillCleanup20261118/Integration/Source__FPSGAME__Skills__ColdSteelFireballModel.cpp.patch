@@ -1,0 +1,45 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp b/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+@@ -9,6 +9,8 @@
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+ #include "ColdSteelSkillRules.h"
++#include "ColdSteelSpellRewards.h"
++#include "ColdSteelSpellFeedback.h"
+ #include "FireballDamage.h"
+ #include "MagicOcclusion.h"
+ #include "FPSIceWall.h"
+@@ -223,13 +225,7 @@
+         if(Cast.BurnMultiplier>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Cast.BurnMagicAttack,1,Cast.BurnSeconds,Cast.BurnMultiplier,Cast.BurnTick);
+         // 引燃 specialization: native burn stacks shared with meteor's burn status.
+         if(Cast.SpecBurnStacks>0&&Cast.SpecBurnMultiplier>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Cast.SpecBurnMagicAttack,Cast.SpecBurnStacks,Cast.SpecBurnSeconds,Cast.SpecBurnMultiplier,.5f);
+-        {
+-            FWeaponDamageResult HitResult;
+-            HitResult.bResolved=true;
+-            HitResult.bCritical=Critical;
+-            HitResult.bKilled=Combat->IsDead();
+-            if(auto* Player=::Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied,&HitResult);
+-        }
++        ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
+         if(Eligible)
+         {
+             ++HitCount;if(Combat->IsDead())++KillCount;
+@@ -244,7 +240,7 @@
+     if(bElementalArrow)StageElementalArrowTraining(P,HitCount,KillCount);
+     const auto& F=FireballSkill.Fireball;
+     ColdSteelSkills::AddExperience(P,FireballSkill,HitCount*F.HitExperience+KillCount*FireballSkill.KillExperience+(HitCount>=2?F.MultiHitExperience:0)+(KillCount>=2?F.MultiKillExperience:0));
+-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalHits*CriticalStrikeSkill.CriticalHitExperience+CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
++    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,CriticalHits,CriticalKills);
+     for(const auto& K:Rewards.Kills)
+     {
+         if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;
+@@ -253,7 +249,6 @@
+         P.Experience+=Granted;
+         if(Granted>0 && !CreditCombatSouls(P,Granted))return;
+     }
+-    while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
+-    if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
++    ColdSteelSpellRewards::ApplyExperienceLevels(P);
+     if(StageTraining(MoveTemp(P)))for(const auto& K:Rewards.Kills)RewardedVictims.Add(K.Key);
+ }

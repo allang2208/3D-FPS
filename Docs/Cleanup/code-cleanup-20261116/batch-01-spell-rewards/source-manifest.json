@@ -1,0 +1,39 @@
+[
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+    "before_lines": 143,
+    "after_lines": 141,
+    "before_sha256": "33594efd4e717235ac3b85ea967a102c7a620150136733b5223af7d9fa221138",
+    "after_sha256": "1b585aef1c350beb502b29f2a4fb5ac3b7c0a2f261108376d395620d6ee902dd",
+    "before_bytes": 9677,
+    "after_bytes": 9228,
+    "backup": "Docs/Cleanup/code-cleanup-20261116/batch-01-spell-rewards/ColdSteelHolyLightModel.cpp.before.txt"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+    "before_lines": 135,
+    "after_lines": 133,
+    "before_sha256": "565186a036994fe7f98addd7173385948db154bdcd7c2c64381926ae4ed87191",
+    "after_sha256": "64aa21d1c0da91c9bdde1aff0e7b006975310398639b554bc38263d40856e383",
+    "before_bytes": 9150,
+    "after_bytes": 8701,
+    "backup": "Docs/Cleanup/code-cleanup-20261116/batch-01-spell-rewards/ColdSteelIceSpikeModel.cpp.before.txt"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+    "before_lines": 143,
+    "after_lines": 141,
+    "before_sha256": "d6eaa6c2c920e8a0bda2df3dd2f848f300fec7dda1022bb238d570330f48e90d",
+    "after_sha256": "112cde74ebb4bc28d375ba37218467863c8b290e691d1b651c515dd5cef6943f",
+    "before_bytes": 10147,
+    "after_bytes": 9698,
+    "backup": "Docs/Cleanup/code-cleanup-20261116/batch-01-spell-rewards/ColdSteelLightningModel.cpp.before.txt"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSpellRewards.h",
+    "status": "added",
+    "after_lines": 32,
+    "after_bytes": 1242,
+    "after_sha256": "93b122f4f6418c4a4260119b915c45389ee14cecea6318d39cbb793800e43603"
+  }
+]

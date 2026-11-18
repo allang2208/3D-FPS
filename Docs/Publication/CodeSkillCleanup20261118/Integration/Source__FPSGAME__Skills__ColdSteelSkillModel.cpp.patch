@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -117,7 +117,7 @@
+     SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,DexterousHandsSkill,Amount);return StageTraining(MoveTemp(P));
+ }
+ FColdSteelSkillProgress UColdSteelStatusModel::QuickCombatProgress() const
+-{ const auto* P=Current.Skills.Find(QuickCombatSkill.Id);return P?*P:FColdSteelSkillProgress(); }
++{ return Current.Skills.FindRef(QuickCombatSkill.Id); }
+ FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel,const FMeleeModifiers* PreviewModifiers,const FColdSteelItem* PreviewWeapon,
+     const FGunsmithParts* PreviewParts) const
+ {

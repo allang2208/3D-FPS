@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillTree.cpp b/Source/FPSGAME/Skills/ColdSteelSkillTree.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTree.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTree.cpp
+@@ -235,7 +235,7 @@
+ int32 SpecRank(const FColdSteelProfile& P, FName Skill, FName Node)
+ {
+     const auto* Spec = P.SkillSpecs.Find(Skill); if(!Spec) return 0;
+-    const int32* Rank = Spec->Ranks.Find(Node); return Rank ? *Rank : 0;
++    return Spec->Ranks.FindRef(Node);
+ }
+ int32 SpecPointsSpent(const FColdSteelProfile& P, FName Skill)
+ {

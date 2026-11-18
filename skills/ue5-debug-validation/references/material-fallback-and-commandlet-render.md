@@ -19,12 +19,12 @@
   （本案绕了 AssetLog、-unattended、二分重建一大圈，最后 grep 告警上下文两行就拿到：
   `(Node PixelNormalWS) Invalid node PixelNormalWS used for Normal input`）。
   Normal 输入的依赖树必须是切线空间树，把 `PixelNormalWS` 拿去算法线混合权重=拒译。
-  修法：权重改从已有局部坐标推导（`saturate(1.6·|Z|/(|Y|+|Z|))`），两套投影共享。
+  修法：权重改从已有局部坐标推导（`saturate(1.6·|Z|/(|Y|+|Z|))`），两套投影共享。 原因：表面光照依赖有效的局部方向基底，高频或退化方向会放大着色噪声。
 
 ## 2. 诊断歧路上的三个坑（全部实测）
 
 - `MaterialEditingLibrary.recompile_material` **返回值不可信**：连单贴图最简材质也报 False，
-  不能用它做二分判据；真判据是渲染 commandlet 日志里的编译告警行。
+  不能用它做二分判据；真判据是渲染 commandlet 日志里的编译告警行。 原因：该案例中的布尔返回值与实际编译结果不一致，故障判断需要对应同次编译输出。
 - `-unattended` 会**禁用 AssetLog 落盘**（Saved/AssetLogs/ 为空）；要资产级日志就去掉它，
   但最终仍以告警行上下文最快。
 - Nanite 网格需要材质 `bUsedWithNanite=True`（缺失=额外一条 "needed to set usage flag
@@ -42,7 +42,7 @@
 - 正交相机在 commandlet 下会平面裁掉一切，用透视相机。
 - **单岩石能成像、多组件排队缺席**时别缠：逐个拍（每块单独居中出一图）直接给答案。
 - 对照实验锚点：跑一个 proven 的旧 commandlet（如武器图鉴目录）证明环境无恙，问题在自建
-  场景；再跑"原版网格+新材质"决定性实验分离网格/材质嫌疑（测完移除覆写重编）。
+  场景；再跑"原版网格+新材质"决定性实验分离网格/材质嫌疑（测完移除覆写重编）。 原因：对照需分离环境、网格和材质变量，临时覆盖结束后应撤回以保留正式配置。
 - 判读用日志像素统计（nonzero/max/avg）+ 直接读 PNG，双矿种各一张确认区分度。
 
 ## 4. 状态记录口径

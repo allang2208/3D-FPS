@@ -1,0 +1,21 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelLightningHasteModel.cpp b/Source/FPSGAME/Skills/ColdSteelLightningHasteModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelLightningHasteModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelLightningHasteModel.cpp
+@@ -5,6 +5,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "FPSLightningHasteComponent.h"
+ #include "ColdSteelSkillRules.h"
++#include "ColdSteelSpellCrafting.h"
+ #include "Engine/GameInstance.h"
+ 
+ FLightningHasteCast UColdSteelStatusModel::LightningHasteStats(int32 AtLevel) const
+@@ -19,7 +20,8 @@
+         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
+         {Reduction=E->CraftEffect(*Item,TEXT("magicCooldownPercent"));C.CastSpeed=FMath::Max(.1f,1.f+float(E->CraftEffect(*Item,TEXT("castSpeedPercent"))));}
+     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
+-    C.Cooldown*=FMath::Max(.2f,(1-Reduction)*(1-float(SetEffect(TEXT("cooldown")))))*Rune.SkillCooldown*Rune.MagicCooldown;
++    C.Cooldown*=ColdSteelSpellCrafting::AuraCooldownMultiplier(Reduction,float(SetEffect(TEXT("cooldown"))),
++        Rune.SkillCooldown,Rune.MagicCooldown);
+     ApplySpellCastSpeed(C.CastSpeed);
+     C.CastExperience=T.CastExperience;C.KillExperience=T.KillExperience;C.Kill6Bonus=T.Kill6Bonus;C.Kill11Bonus=T.Kill11Bonus;
+     return C;

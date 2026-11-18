@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-17",
+  "target": "FPSGAMEEditor Win64 Development",
+  "command": "Tools/Build/Build-Editor.ps1",
+  "log_path": "Saved/BuildEditor/build-20261117-152948.log",
+  "planned_actions": 48,
+  "last_observed_completed_action": 21,
+  "result": "Cancelled by this session after prolonged slow progress; no compile error observed in returned output",
+  "cancel_method": "Ctrl+C sent only to owned exec session 56587",
+  "exit_code": 1,
+  "other_build_observed_after_cancel": {
+    "pid": 55812,
+    "log_path": "Saved/BuildEditor/build-20261117-153534.log"
+  },
+  "force_stop_identity_guard_result": "Original compiler absent or identity changed; no process stopped",
+  "unrelated_processes_stopped": false,
+  "tests_run": false,
+  "next_step": "Wait for the existing build; only then retry own build with NoUBA and MaxParallelActions=2 if necessary."
+}

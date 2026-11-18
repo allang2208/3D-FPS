@@ -1,97 +1,39 @@
 # 锁子甲环纹、实体袖口与内外层同步摆动
 
-适用于贴近第一人称手臂的锁子甲、带内衬袖口和小幅衣缘运动。较宽松的裙摆、披风仍按其独立需求选择布料方案；本案例不否定怪物巫婆已有的 Chaos 衣物。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)。
 
-遵守项目后台制作与默认不测试规则。以下参数和数量是 2026-09-29 的制作记录；用户报告旧版穿模和卡顿，新版已保存接入，但运行表现与帧耗改善未测。不要据此宣称所有动作无穿模或固定帧率收益。
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 1. 把环纹分成三种尺度
 
-| 表现目标 | 制作方式 | 决策理由 |
-| --- | --- | --- |
-| 表面相互穿插的环、阴影槽与钢丝截面 | 周期高模 → Normal / Height / ORM / BaseColor | 高模留在作者端，不把整件衣服每个环作为运行时对象 |
-| 近景环面视差 | 同一 UV 的浅层有界 POM | 随蒙皮表面变化；不使用静态世界投影导致纹理滑动 |
-| 袖口轮廓、端面与厚度 | 少量实体环＋闭合包边，合入原生骨骼网格 | 法线和 POM 不能补侧面轮廓、孔洞或遮挡 |
-
-周期单元中，交替倾斜的环错半列排列；不要简单叠加二维椭圆或让同行环体相切，否则交汇处容易变成连续直条。相邻周期边界复用同一个环的随机参数及微纹坐标，不分别随机化边缘复制品。
-
-V2 示例：环中心线约 5 × 5.6 mm、钢丝直径 0.68 mm；同行间距 6 mm、行距 2.2 mm、交替倾角约 ±52°。少量尺寸、倾角与闭合处压扁变化服务于手工感，不能破坏周期接缝。这是视觉交错布局，不是逐环刚体仿真。
-
-灰钢固有色与粗糙度分开：磨亮环面、锻纹、接触磨损、暗色非金属衬底各有掩码。AO 保留在独立通道，不把灯光高光直接烘进 BaseColor；Normal 与 Height 从同一批几何生成，避免凹凸方向互相矛盾。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)中的同名章节。
 
 ## 2. 贴图位移的实际边界
 
-当前四张 2048² 平铺图为 BaseColor、Normal、ORM、Relief。ORM=AO/粗糙度/金属度；Relief=高度/金属遮罩/AO。它与皮革 Relief 的高度/绒毛/UV 岛衰减打包不同，不能按文件名互换。
-
-`Tools/ModularOutfit/chainmail_relief.ush` 当前配方：
-
-- UE 厘米单位，默认深度 0.38 cm，上限 0.44 cm；按形态重新校准，不能直接当作皮革压纹深度。
-- 最多 10 次粗步进＋2 次细化，射线偏移限幅，`SampleGrad` 保留原 UV 导数；距离 85–260 cm、`N·V` 约 .15–.38、mip 1.8–4.5 渐退。
-- Body 与掉落衣物深度为 0，保留相同钢环外观；平铺用 Wrap，法线翻绿取决于实际烘焙约定，保留 mip 与纹理流送。
-- POM 成本按屏幕覆盖和查询次数评估；它不改变轮廓、不产生真实逐环碰撞，也不等同于 UE 运行时细分位移。
-
-袖口附近约 13 cm 区域按实际周长与轴长校准 UV，避免沿用原衣服图集比例把圆环拉成条。Body 与视模分别处理，不强套 M4 腕口平面。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)中的同名章节。
 
 ## 3. 实体袖口保留原生蒙皮
 
-本例每侧 41 个实体环与约 7 mm 宽包边，沿已有 96 点外缘布置并继承相邻原生权重。外缘、端面、内壁连续闭合。不要把袖口做成另一个独立跟踪组件，也不要给每个环创建骨骼、刚体或 Tick。
-
-母版向其他武器派生使用各自原生 bind 矩阵。单手切分保留原几何左右分区及袖口细节，肩端保持袖筒开口，只连接内外层厚度环；不能生成或继承横跨肩口的躯干封面。2026-10-03 已更正旧“保留肩部封口”条款，原因与局部重建见 [攀爬锁子甲肩部旧结构](traversal-chainmail-shoulder-repair.md)。保持既有动画，不为材质迭代重制全套动作。
-
-制作数据：环高模 143 环、1,171,456 四边面，只用于烘焙；M4 双袖 LOD0 从 15,724 增为 37,708 三角形；Body 保持 33,688。三个材质段会增加绘制成本，不描述成零成本。面数应按 [用途预算](../../asset-model-workflow/references/geometry-budgets-by-use.md) 决策，不因高模百万面就推断游戏每件百万面。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)中的同名章节。
 
 ## 4. 巫婆布料哪些可复用，哪些不应照搬
 
-可以复用低模代理、局部约束遮罩、碰撞与显示网格分开的作者思路。是否使用 Chaos 还取决于层间距、骨架映射和需要的自由度。
-
-废弃 `ChainmailCloth20260929` 曾使用双袖合计 640 个代理粒子；外层 section 0 摆动，内衬 section 1 仍普通蒙皮。MaxDistance 0.28 cm 超过约 0.20 cm 层间厚度，允许外层穿到内衬内侧。给内衬增加第二套独立模拟并不能自动保持两层关系，还会增加碰撞、映射与同步成本。
-
-用户已有日志同时出现弓衣袖 LeaderBoneMap 越界、leader/follower 骨骼映射 ensure 和约 0.034 s 错误堆栈回溯。它证明该路径存在错误，不能单凭一次日志把持续卡顿全部归因于三角形或声称代理粒子少就便宜。
-
-贴身袖口仅需要毫米级惯性时，优先复用原生 Leader Pose，让外层、内衬和包边共享同一位移场。宽松独立衣摆如果需要折叠或碰撞，仍可使用受限区域的布料方案；不要把本例改写成全项目禁止 Chaos。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)中的同名章节。
 
 ## 5. 当前轻量摆动配方
 
-`FPSOutfitSecondaryMotion.*` 为每套可见双臂 presentation 维护左右两个弹簧状态。衣物 follower 继续关闭组件 Tick，沿用 Leader Pose；不附加 clothing asset、模拟代理或衣物碰撞。单手 profile 只响应实际存在的手骨。
-
-运动遮罩先在 M4 V2 母版计算一次：R 左袖、G 右袖；同一轴向位置的外层、内衬、包边使用同一权重。袖口最后约 1 cm 权重为 1，向上约 4.5 cm 平滑衰减。按原生派生的固定顶点顺序映射到 21 个第一人称 profile；若拓扑或顶点顺序改变，应重新对应，不能只按数组下标硬套，也不能对每个变换后 bind 姿态重新猜平面。
-
-当前实现参数：
-
-- 手骨世界位置加 2.5 cm 旋转标记，既响应位移也响应转动；速度低通后生成惯性力。
-- 频率 6.5 Hz、阻尼比 .85、最大偏移 .12 cm，细分时间步最多 12 次。数值是本件衣物的小幅外观配方，不是通用物理常数。
-- 三个材质槽共享 `CuffLagLeft/Right` 与 `CuffLagPreviousLeft/Right`；顶点色与左右向量相乘后相加进入 WPO。
-- `PreviousFrameSwitch` 提供上一帧位移，避免新增 WPO 没有对应速度；停稳时不重复写未变化参数。
-- 隐藏、OwnerNoSee、强度归零、显隐切换、过大时间步或手部跳变时重置。服装管理器依赖源视模 Tick，防止用到上帧手位。
-- 通过 `fps.Outfit.ChainmailSway` 在 0–1 范围控制强度。Body 保持静态材质和现有原生蒙皮。
-
-共享位移能减少新增运动造成的内外层相对分离；不保证解决原模型、权重、握持动作或相机近裁剪本来就有的穿模。不要为了“看到摆动”无限增大幅度。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)中的同名章节。
 
 ## 6. 当前生产链及归档边界
 
-1. `ChainmailShirt20260928`：基础衣身、原绑定与掉落形状依赖。
-2. `ChainmailInterlace20260929`：当前环纹、实体袖口、`Authored/*.json`、材质、Body、图标与标准掉落材质。
-3. `ChainmailSharedSway20260929`：第一人称摆动 mask、材质与网格的生产基础；装备配方标记 `secondary_motion=chainmail_shared_sway_v1`。
-4. `ChainmailInsetBinding20260929` / `ChainmailCameraClearance20260929`：当前配置使用的袖口拟合与枪械避让网格；以活动 `rig_meshes` 为准，不重跑旧发布脚本回退。
-5. `ChainmailCameraFade20260930`：仅第一人称的三槽材质覆盖，配置字段 `first_person_materials`；保留全部活动网格引用和 `appearance_family`。
-
-依次定位 `build_chainmail_interlace.py` / `chainmail_interlace_native.py`、`build_chainmail_shared_sway.py`、相应 `import_*` 与 `publish_*`。V2 的 build/import 仍复用 Relief 版的辅助函数；旧日期不表示可删除。SharedSway 重制作读取 V2 `published.json`，不能再依赖废案的 `before.json`。
-
-制作中保留当前配置快照，保存全部目标网格和材质、必要原生构建完成后，再只切换本物品外观字段。旧导入入口应拒绝覆盖较新活动家族。运行时、保存回执与公开源码是三种不同交付物，脚本写好不代表资源已导入。
-
-2026-09-29 整理把被否定的 Chaos 源、资产与脚本移入本机 `trash/gloves-chainmail-20260929`，哈希清单保留恢复路径。反射作者函数保留兼容签名，当前源码返回 false，旧实现归档；不要重新挂回该模拟方案。现有巫婆衣物保持不变。
-
-公开仓库保留制作算法、配置和文档；不公开未核准再分发的几何、权重、动画采样、纹理或生成的姿态曲线。详见项目 `Docs/Publication/gloves-chainmail-publication-20260929.md`。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)中的同名章节。
 
 ## 7. 多动作衣袖贴镜头的公共保护
 
-2026-09-30 已接入 `ChainmailCameraFade20260930`。肩点在相机后方时，上臂衣袖表面仍可能进入镜头，单靠肩点避让不能覆盖这类情况。保留既有动画与骨链修复，服装材质另按实际相机距离处理近处遮挡，避免继续为每个动作增加同类补丁。
-
-三个第一人称材质槽共用区域和距离规则。初始化 MID 时，由衣袖自身参考骨架提供肩／肘／腕位置；顶点阶段按 PreSkinnedPosition 计算肩、上臂及前臂近肘端区域，腕部与袖口排除。完整权重区域在 10 cm 内隐藏、10–22 cm 平滑恢复；使用 Masked 和 `DitherTemporalAA`。这组距离是当前初始配方，实机观感未测。
-
-`FPSModularOutfitComponent` 把 `first_person_materials` 并入已有异步加载批次，仅非 Body 衣袖应用；`FPSOutfitSecondaryMotion::Initialize` 设置参考区域与启用参数，没有新增 Tick，也不依赖摆动强度开关。外层锁环、钢包边、内衬必须一起采用该规则，不能仅隐藏外层。保留原生蒙皮、袖口位移、PBR 与 POM，不修改腕部、手指和武器接触。
-
-制作入口为 `Tools/ModularOutfit/import_chainmail_camera_fade.py`，实际保存三份材质后用 `publish_chainmail_camera_fade.py` 接入。当前覆盖配置内 22 个非 Body rig，法杖经 M4 手臂使用；这是接入范围，不能写成全部动作验收通过。第三人称、掉落与图标保持原材质。此方法不修复裸臂肘部扭曲、错误权重或远离镜头的相交，也不代表零 GPU 成本。记录见项目 `Docs/Characters/chainmail-camera-fade-20260930.md`。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)中的同名章节。
 
 ### 首次空仓换弹的复现边界（SVD，2026-09-30）
 
-用户授权实机排查后，要区分默认枪/改装握把、首次/第二次空仓、待机/ADS 退出/装备动作衔接，并确认第一帧衣袖已加载。只跑了裸臂开头、第二次实际满弹未进入换弹、或进程正常退出，都不能算有效对照。当前 SVD 上方色块仍未捕获，记录见项目 `Docs/Characters/svd-first-empty-reload-20260930.md`。首次默认棋盘材质过渡是独立观察，不得直接称为该色块根因；本轮 `IsGameThreadShaderMapComplete()` 对正常显示的枪/皮肤/衣袖也持续为 false，勿直接以此为衣袖可见门槛。未定位异常时不继续加肩肘偏移或扩大裁切参数。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md)中的同名章节。

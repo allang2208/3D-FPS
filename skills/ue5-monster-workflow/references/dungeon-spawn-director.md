@@ -23,9 +23,9 @@ catalog.modules[].spawn（唯一数据源，覆盖批次注入实时 Actor）
 
 2026-09-27 用户调整废弃地牢池：移除 NurseZombie，增加 FleshHand、FleshHandMinion，并将 InfectedDog 扩展到全部现有战斗房家族；其余种类与数量区间保留。配置真源仍为 DungeonSpawn20260925，按模块 ID / family_id 同步基础房、共享配方和内部库，不能只改磁盘目录快照。制作及实际保存状态见工程 `Docs/Gameplay/dungeon-spawn-pool-20260927.md`。
 
-2026-09-28 阶级入池：每条池条目显式携带 `level`+`rank`（小手 minor，感染犬/野狼/胖子 normal，毒蛆/突变体 elite，大手 **lord**——用户拍板大手、手脑同归 Lord 档；手脑不入池，Boss 遭遇不覆盖属性、全程类默认 Lord/12）。`level>0` 替换实例等级、条目带 `rank` 即覆盖品阶，深度/精英加成恒叠加；封门精英房仍整组强制 Elite+2 级（精英房内大手也是 Elite）。只落导演刷出的实例，类默认（村庄/F6）不动。方案与数值影响见工程 `Docs/Gameplay/dungeon-spawn-rank-tiering-20260928.md`；`install.py` 回执 revision 自配置读取。
+2026-09-28 阶级入池：每条池条目显式携带 `level`+`rank`（小手 minor，感染犬/野狼/胖子 normal，毒蛆/突变体 elite，大手 **lord**——用户拍板大手、手脑同归 Lord 档；手脑不入池，Boss 遭遇不覆盖属性、全程类默认 Lord/12）。`level>0` 替换实例等级、条目带 `rank` 即覆盖品阶，深度/精英加成恒叠加；封门精英房仍整组强制 Elite+2 级（精英房内大手也是 Elite）。只落导演刷出的实例，类默认（村庄/F6）不动。方案与数值影响见工程 `Docs/Gameplay/dungeon-spawn-rank-tiering-20260928.md`；`install.py` 回执 revision 自配置读取。 原因：任务进度与场景实例有独立身份，目标显示和权威开门必须对应同一轮任务。
 
-小手自然刷新的区别使用导演在 FinishSpawning 前设置的 `DungeonSpawned` 标签：取消 90 秒自动消失，允许技能训练及击杀登记，零奖励默认替换为 20 基础经验；召唤小手仍保留寿命和无奖励/无训练合同。不要通过全局修改小手 CDO 取消召唤物限制。该数值未做平衡或实机测试。
+小手自然刷新的区别使用导演在 FinishSpawning 前设置的 `DungeonSpawned` 标签：取消 90 秒自动消失，允许技能训练及击杀登记，零奖励默认替换为 20 基础经验；召唤小手仍保留寿命和无奖励/无训练合同。不要通过全局修改小手 CDO 取消召唤物限制。该数值未做平衡或实机测试。 原因：可施放实现还需要被目录、习得和存档路径识别，漏登记会使入口状态不一致。
 
 ## 休眠配方（顺序严格，PoisonMaggotAudit.cpp:201 先例）
 
@@ -41,11 +41,11 @@ catalog.modules[].spawn（唯一数据源，覆盖批次注入实时 Actor）
 3. 地面 trace：向下 1500，命中法线 Z≥0.94（村庄 spawner 坡度口径）。
 4. 胶囊 sweep：生成尺寸扫一次，DontSpawnIfColliding 兜底。
 5. 玩家闸门：距玩家 ≥1500 且视线被遮挡才落点；无玩家视为通过。玩家阻挡**不消耗**槽位尝试次数。
-6. `SpawnDeferred`：FinishSpawning **前**写槽位标签与实例 `Level`/`Rank`（绝不写 CDO；Level=0 表示保留类默认，LevelBonus 恒叠加）。
+6. `SpawnDeferred`：FinishSpawning **前**写槽位标签与实例 `Level`/`Rank`（绝不写 CDO；Level=0 表示保留类默认，LevelBonus 恒叠加）。 原因：FinishSpawning 可能启动初始化逻辑，需要在此之前写好该实例的身份和数值。
 7. 事后校验：tick 启用、物理资产、控制器、行为树齐备，缺任一立即销毁。
 
 重试模型：每槽 3 次、每房 10s 定时器（村庄 spawner 口径）、0.25s 全局巡检；
-全局存活上限 cvar `fps.Dungeon.Spawn.GlobalCap`（默认 12），**到上限只延后，绝不销毁已生成的怪**。
+全局存活上限 cvar `fps.Dungeon.Spawn.GlobalCap`（默认 12），**到上限只延后，绝不销毁已生成的怪**。 原因：达到调度上限表示暂缓新生成，不应删除已经存在的战斗对象。
 
 ## 警报、清房与持久化
 
@@ -66,15 +66,15 @@ gameplay 流 = `seed ^ 域常量`（SpawnComposition/SpawnPlacement/EliteSelecti
 
 ## 生成器挂接三段式（镜像 Boss 先例）
 
-1. PrepareAssembly `bRuntime` 块装配 job：`SpawnActor`（模板重载必须显式传 `StaticClass()`，两参 Transform 重载不存在——C2672 教训）→ `OwnGenerated(-1)` → `Configure(this)`（只缓存指针）。job 队列天然单次执行；编辑器预览路径零怪物。
-2. FinishAssembly Manifest 赋值后：`bRuntime` 门控 `BindCompletedDungeon`（必须先于武装）。
+1. PrepareAssembly `bRuntime` 块装配 job：`SpawnActor`（模板重载必须显式传 `StaticClass()`，两参 Transform 重载不存在——C2672 教训）→ `OwnGenerated(-1)` → `Configure(this)`（只缓存指针）。job 队列天然单次执行；编辑器预览路径零怪物。 原因：装配阶段只建立任务依赖，运行阶段再生成怪物，可保持编辑器预览与运行时生成的职责边界。
+2. FinishAssembly Manifest 赋值后：`bRuntime` 门控 `BindCompletedDungeon`（必须先于武装）。 原因：武装依赖已绑定的完成清单和运行态，顺序错误会提前启动不完整房间。
 3. 导航就绪收尾批（Boss ActivateEncounter 循环旁）：`Activate()`（开局规划+落怪+巡检启动）。
 **OwnGenerated 只能在 BuildState 存活期调用**（收尾批 `BuildState.Reset()` 之后解引用即崩）。
 
 ## 目录覆盖批次纪律（三件套，纯磁盘编辑会被覆盖）
 
 覆盖脚本（纯函数 extend+deepcopy+双向校验+source 标记幂等整段替换）+ receipt 门控 runpy 钩子（挂在 room_variants 之后，变体房 anchors 重建完再注入）+ 安装器（读**实时 Actor** 的 module_catalog_json 而非磁盘；备份首装原状；module_assets 并集去重；native `/Script/` 与 `_C` 类统一 `load_class`，其余 `load_asset`，失败必须保存前显式报错；只保存名字含目标地图名的脏 OFPA 包；镜像回磁盘 catalog；写 `stage=map_saved` 回执）。
-headless 安装：`UnrealEditor-Cmd <uproject> -run=pythonscript -script=<install.py> -unattended -nopause -nosplash -stdout`。
+headless 安装：`UnrealEditor-Cmd <uproject> -run=pythonscript -script=<install.py> -unattended -nopause -nosplash -stdout`。 原因：作者脚本描述制作过程，只有执行并保存的产物才可供引擎实际引用。
 
 ## 已知风险（首批遗留）
 

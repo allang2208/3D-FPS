@@ -16,7 +16,7 @@ Live assets (2026-09-18).
 | `Tools/WorldGeneration/dump_ground_hlsl.py` + `validate_ground_hlsl.ps1` | Offline shader compile check |
 
 Read `Docs/WorldGeneration/ground-material-layered-20260918.md` for the full design,
-parameter table and open boundaries.
+parameter table and open boundaries. 原因：完整设计页同时记录层参数和未解决边界，单个材质片段不能提供全部输入合同。
 
 ## Contract with the terrain code
 

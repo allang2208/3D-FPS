@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills: reuse the existing critical-training helper in FireMagic, Blizzard and MagicArrowRain settlement",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "before_lines": 146,
+      "after_lines": 147,
+      "before_bytes": 10308,
+      "after_bytes": 10277,
+      "before_sha256": "a65835b7fc05d95f20db04be6217bc93d5a0d6dac72789b51b67d7b32816c4a6",
+      "after_sha256": "e7ffe5d12cf541a1e522981263785f177bcdd5459032123ebaa6c511fcf4cba7",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-06-critical-training/ColdSteelFireMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+      "before_lines": 122,
+      "after_lines": 123,
+      "before_bytes": 7735,
+      "after_bytes": 7704,
+      "before_sha256": "600fdd7bd86e30d0be7c50d992125119f9bb0f630454f6f424ef61e508d722b8",
+      "after_sha256": "3de5a860ea5ccaafd91bc6eead6f22dbdc6bd5b300bd335a93096f81a2be860c",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-06-critical-training/ColdSteelBlizzardModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp",
+      "before_lines": 113,
+      "after_lines": 114,
+      "before_bytes": 7435,
+      "after_bytes": 7404,
+      "before_sha256": "f752c8d6f0cf5999040b558a374c97109f6dd5bd064bdcf973f938bdca0d3c80",
+      "after_sha256": "b5815e5491022c990d2458d7960048b2333d1c761533bd00c4546b3899b17cb1",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-06-critical-training/ColdSteelMagicArrowRainModel.cpp.before.txt"
+    }
+  ]
+}

@@ -1,28 +1,19 @@
 # 正式战斗负载与性能基线
 
-用于 PIE、原工程与 Cooked 独立包之间的性能对照，尤其是“更流畅但无怪、资源不全”。先确认记录代表同一玩法负载，再讨论帧率差异。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-performance-packaging/references/runtime-baseline-equivalence.md)。
 
-- 使用实际主场景到地牢的完整入口，保留加载、导航、刷怪、AI、装备、技能、尸体、灯光和特效。地图名相同并不保证实际内容一致。
-- 对照保留种子、装备/技能、画质、实际渲染分辨率和战斗阶段。波次计划数量不等于已生成/可见数量，准备池实例也不等于正在战斗的怪物。
-- BuildCookRun 返回 0、清单资源已 Cook 或 Dungeon.Ready 只说明各自阶段完成。缺资源、无怪、导航失败、特效不运行的记录用于功能排错，不能证明性能改善。
-- 优先读已有用户日志和完整 F6 目录，不为补一项信息要求用户重复打同一场。本页不自动授权启动 UE、采样或测试。
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## Cooked 内容差异
 
-字符串/JSON 中的 UObject 路径不一定形成 Cook 依赖；按实际入口登记动态资源。已登记 N 项全部进入包，不代表覆盖全部动态引用。FFileHelper/图像读取使用的 PNG、JSON、音频等非资产文件需要相应 staging 策略；补 UObject Cook 目录不能解决普通文件缺失，并须区分 UFS 读取和真实磁盘文件 API。
-
-运行日志中的 SkipPackage、默认材质回退、Niagara spawn/update 属性不匹配、重复文件读取失败都影响实际负载。不能跳过效果、移除怪物或降低画质来让包“通过”。
-
-Spawn deferred 仅说明生成未成功。区分类别加载、导航配置/投影/连通、地面支持和胶囊重叠；不能直接归为未编入刷怪算法。本机 UE 5.8 的 Brush bounds 在编辑器可从 Polys 得出，运行时依赖 BodySetup 聚合几何；空导航范围须查实际模板和 bounds，不能只等 IsNavigationBeingBuiltOrLocked 为 false 就认定战斗就绪。
+详见[维护源](../../_shared/ue5-performance-packaging/references/runtime-baseline-equivalence.md)中的同名章节。
 
 ## 两个同名启动文件
 
-FPSGAME 工程根目录 Launch-F6-WddmCapture.cmd 打开原工程 UE 编辑器并申请采集权限；独立包 Windows 目录中的同名入口启动该包 EXE。给用户完整路径，避免混用。
-
-管理员权限是 WDDM 采集条件，不是性能开关。重启后的驻留历史、编辑器负载和实际场景差异都可能影响体感；没有同负载证据，不能把改善归功于提权或脚本。
+详见[维护源](../../_shared/ue5-performance-packaging/references/runtime-baseline-equivalence.md)中的同名章节。
 
 ## 案例边界
 
-2026-10-27 用户运行 PerformanceDevelopment-20261026-225529 后反馈资源与怪群不完整。日志确认 13 个 UObject 包缺失、图标缺失、部分 Niagara 不运行、多个房间刷怪延后；同时有波次配置及精英生成。此前 126 项资源覆盖和 Cook 成功不足以使其成为性能基线。该包退出对照，优先原工程记录；导航具体失败原因尚未由日志完全证明。
-
-独立包恢复完整内容并由用户确认玩法一致后，才另作 PIE/打包运行对照。项目状态见 Docs/Performance/runtime-baseline-scope-20261027.txt。
+详见[维护源](../../_shared/ue5-performance-packaging/references/runtime-baseline-equivalence.md)中的同名章节。

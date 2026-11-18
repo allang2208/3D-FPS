@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-17",
+  "scope": "Batch 21 Editor build continuation 2 only; no new source changes",
+  "status": "Editor build completion succeeded; target up to date; no tests run",
+  "source_files_changed_this_continuation": 0,
+  "prior_error_sources": [
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "read_only": true,
+      "bytes": 30102,
+      "sha256": "0c12c1d71bada786f560c4161601f82fc2928d15a1aaa2092df1fbea313168f8",
+      "modified_at": "2026-11-17T22:18:30.563784+08:00"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.h",
+      "read_only": true,
+      "bytes": 790,
+      "sha256": "7cf910e3d5eb3c68ed0cbcb6c7b82f2e17efacf2a05063410e8f27a78a7e7cb4",
+      "modified_at": "2026-11-17T22:18:23.866206+08:00"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsLandscapeCapture.cpp",
+      "read_only": true,
+      "bytes": 16840,
+      "sha256": "807717f9980bb3d83f3b498436ed7fd34c269d167a0204587e2faebfab21d80f",
+      "modified_at": "2026-11-17T22:28:54.715575+08:00"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseDebris.cpp",
+      "read_only": true,
+      "bytes": 3609,
+      "sha256": "bd84e907e12456b61abdd846786346a6a8c05b4ba6a5d4ec69786b119427f16c",
+      "modified_at": "2026-11-17T22:28:44.661472+08:00"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp",
+      "read_only": true,
+      "bytes": 4669,
+      "sha256": "d5d807c7a3b6023ea3ff884dc45e6fdd4af2857cfafad2d9e7f43e35c5ab5d51",
+      "modified_at": "2026-11-17T22:28:44.661472+08:00"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+      "read_only": true,
+      "bytes": 4848,
+      "sha256": "2cae1d8232ac58d2c26476dc8be107a1f7622f5fd985f5b87e53f7e8855866cd",
+      "modified_at": "2026-11-17T22:28:44.661472+08:00"
+    }
+  ],
+  "waited_shared_build": {
+    "cmd_pid": 105940,
+    "ubt_pid": 91932,
+    "started_at": "2026-11-17T22:29:00.845023+08:00",
+    "log_path": "Saved/VillageDefenses20261117/Build01/Logs/FPSGAMEEditor-build.log"
+  },
+  "build_started": true,
+  "processes_stopped": false,
+  "editor_launched": false,
+  "tests_run": false,
+  "build_started_at": "2026-11-17T22:36:16.7077570+08:00",
+  "build_finished_at": "2026-11-17T22:36:28.8399319+08:00",
+  "editor_build_complete": true,
+  "result": "Succeeded",
+  "exit_code": 0,
+  "target_up_to_date": true,
+  "log_path": "Saved/BuildEditor/cleanup-batch21-resume2-20261117-223616.log",
+  "receipt": "build-resume2-receipt-20261117.json",
+  "waited_shared_game_build": {
+    "cmd_pid": 93700,
+    "ubt_pid": 105592,
+    "log_path": "Saved/VillageDefenses20261117/Build01/Logs/FPSGAME-build.log"
+  }
+}

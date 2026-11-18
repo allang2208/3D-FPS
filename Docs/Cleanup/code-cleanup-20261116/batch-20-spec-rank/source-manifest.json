@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills C28 SpecRank lookup only; R12 retained",
+  "status": "Selected C28 cleanup and Editor build complete; R12 retained; no tests run",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTree.cpp",
+      "before_lines": 286,
+      "before_bytes": 16200,
+      "before_sha256": "600f5dc5c74016419b16525124d6e538bc341cc7f3dfbc35991bb24a62db8bc0",
+      "backup": "ColdSteelSkillTree.cpp.before.txt",
+      "after_lines": 286,
+      "after_bytes": 16165,
+      "after_sha256": "66cd38358e02a2ce84c04b9e82d0def19a0d83fc8eba41b855e8726a1ba7c432"
+    }
+  ],
+  "modified_existing_files": 1,
+  "new_source_files": 0,
+  "tests_run": false,
+  "build_receipt": "build-receipt.json"
+}

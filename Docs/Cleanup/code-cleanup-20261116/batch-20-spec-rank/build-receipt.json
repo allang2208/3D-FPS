@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "batch": 20,
+  "scope": "Skills C28 SpecRank int32 map lookup only",
+  "source_cleanup_complete": true,
+  "modified_existing_files": 1,
+  "new_source_files": 0,
+  "maximum_modified_file_lines": 286,
+  "editor_build_complete": true,
+  "result": "Succeeded",
+  "exit_code": 0,
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_started_at": "2026-11-17T20:37:33.4957382+08:00",
+  "build_finished_at": "2026-11-17T20:38:03.5187171+08:00",
+  "ubt_execution_seconds": 29.7,
+  "executor_seconds": 17.47,
+  "completed_actions": 6,
+  "compile_actions": 3,
+  "link_actions": 2,
+  "metadata_actions": 1,
+  "linked_dll": "UnrealEditor-FPSGAME.dll",
+  "log_path": "Saved/BuildEditor/cleanup-batch20-20261117-203733.log",
+  "arguments": [
+    "FPSGAMEEditor",
+    "Win64",
+    "Development",
+    "-Project=D:/FPS3D/FPSGAME/FPSGAME.uproject",
+    "-NoHotReload",
+    "-NoHotReloadFromIDE",
+    "-NoUBTMakefiles",
+    "-NoUBA",
+    "-MaxParallelActions=2"
+  ],
+  "directly_modified_cpp_compiled": [
+    "ColdSteelSkillTree.cpp"
+  ],
+  "waited_existing_module_user": {
+    "pid": 76396,
+    "name": "UnrealEditor-Cmd.exe",
+    "started_at": "2026-11-17T20:34:14.968304+08:00"
+  },
+  "build_scope_note": "Other working-tree target dependencies also compiled; this batch modified only ColdSteelSkillTree.cpp",
+  "processes_stopped": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "tests_run": false,
+  "runtime_status": "Untested; user testing"
+}

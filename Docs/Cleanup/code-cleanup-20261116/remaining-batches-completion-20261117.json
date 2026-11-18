@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills only; remaining inventoried cleanup batches 13-15",
+  "source_cleanup_complete": true,
+  "completed_batches": [
+    13,
+    14,
+    15
+  ],
+  "modified_existing_files": 21,
+  "new_source_files": 0,
+  "maximum_modified_file_lines": 713,
+  "deduplicated_sites": {
+    "chain_stack_reads": 8,
+    "staff_specialty_queries": 4,
+    "component_local_models": 9,
+    "limb_prerequisite_removal": 2
+  },
+  "excluded": [
+    "Fireball independent experience scaling and dedicated files",
+    "Source files over 800 lines",
+    "Suspected dead code",
+    "Other modules, assets and rule files",
+    "Distinct gameplay/state-machine contracts documented in report section 20"
+  ],
+  "editor_build_complete": true,
+  "editor_build_status": "Succeeded: independent FPSGAMEEditor Win64 Development invocation after shared builds and module users exited; target up to date, 0 actions, exit 0, 11.29 seconds",
+  "attempt_receipt": "Docs/Cleanup/code-cleanup-20261116/remaining-batches-build-attempt-20261117.json",
+  "shared_build_log_observed": "Saved/BuildEditor/build-20261117-153534.log",
+  "own_wait_session_cancelled": true,
+  "original_residual_compiler": "No longer present at final guarded cleanup; no force-stop executed",
+  "unrelated_processes_stopped": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "tests_run": false,
+  "runtime_status": "Untested; user testing",
+  "source_manifests": [
+    "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/source-manifest.json",
+    "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/source-manifest.json",
+    "Docs/Cleanup/code-cleanup-20261116/batch-15-limb-prerequisites/source-manifest.json"
+  ],
+  "previous_editor_build_status": "Pending: own UBA build cancelled after prolonged slow progress; another shared build owns the engine lock, so no overlapping retry launched",
+  "editor_build_completed_at": "2026-11-17T17:17:28.3918773+08:00",
+  "editor_finalization_receipt": "Docs/Cleanup/code-cleanup-20261116/editor-finalization-20261117.json",
+  "editor_finalization_log": "Saved/BuildEditor/cleanup-finalization-20261117-171716.log",
+  "history_note": "own_wait_session_cancelled, original_residual_compiler and shared_build_log_observed describe the previous attempt; no processes or sessions stopped during finalization.",
+  "source_files_modified_during_finalization": 0,
+  "processes_stopped_during_finalization": false
+}

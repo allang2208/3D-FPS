@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "command": "Tools/Build/Build-Editor.ps1",
+  "target": "FPSGAMEEditor Win64 Development",
+  "scope": "Pending batch 03 RenderCore cleanup and batch 04 survival countdown cleanup",
+  "exit_code": 1,
+  "status": "blocked_before_ubt",
+  "reason": "Existing FPSGAME editor detected by build script guard at line 19",
+  "observed_editor_process": {
+    "name": "UnrealEditor.exe",
+    "pid": 1992
+  },
+  "ubt_started": false,
+  "binary_produced_by_this_batch": false,
+  "processes_stopped": false,
+  "editor_launched_by_this_batch": false,
+  "tests_run": false,
+  "next_step": "Run the same background Editor build for batches 03 and 04 after the existing editor is normally closed by its user"
+}

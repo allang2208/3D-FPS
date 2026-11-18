@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Survival/FPSSurvivalComponent.h b/Source/FPSGAME/Survival/FPSSurvivalComponent.h
+--- a/Source/FPSGAME/Survival/FPSSurvivalComponent.h
++++ b/Source/FPSGAME/Survival/FPSSurvivalComponent.h
+@@ -33,6 +33,7 @@
+     UPROPERTY(ReplicatedUsing=OnRep_SausageRecoveryClock) double SausageRecoveryEndsAt=0.;
+     UPROPERTY(ReplicatedUsing=OnRep_LargeLambMealClock) double LargeLambMealEndsAt=0.;
+     double ServerTime() const;
++    float FoodRecoveryRemaining(float SavedSeconds,double EndsAt,float Duration) const;
+     UFUNCTION() void OnRep_SausageRecoveryClock();
+     UFUNCTION() void OnRep_LargeLambMealClock();
+     // Reference rates: scaled by actual authority calendar progress at runtime.

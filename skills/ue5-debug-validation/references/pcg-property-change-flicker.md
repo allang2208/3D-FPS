@@ -1,11 +1,7 @@
 # PCG 属性通知导致的重建
 
-FPSGAME 丘陵曾出现玩家静止数分钟后仍整棵树、整片草消失，不到一秒恢复。最终用户确认修复成功；这不是所有类似闪烁的通用归因。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-debug-validation/references/pcg-property-change-flicker.md)。
 
-- 若用户提供 F6/GPU/log，先核对时间窗口是否重叠，再关联组件存活、pcg_start/generated/cancelled 和 render_dirty。帧时间导出不能独自证明某个 GPU pass 出错；没有 over-budget 也不能独自排除全部渲染问题。
-- 此例捕获到 75 次 PCG 取消及已生成树组件销毁。沿调用链发现 UDynamicMeshComponent::SetMesh 在 WITH_EDITOR 下广播属性通知，PCG 将丘陵拥有者的地面/水面提交当作输入变化，清理并重建各植被层。后台地形继续提交，因此原地也会反复发生。
-- 修复局限于同步 SetMesh：对关联 PCG 层调用 StartIgnoringChangeOriginDuringGeneration(Component)，用 ON_SCOPE_EXIT 配对 StopIgnoringChangeOriginDuringGeneration(Component)。地面、池塘、河流三条提交路径都经过同一助手。
-- 保留正常 Mesh 通知、显式地形编辑和距离调度；不要靠全局关闭 PCG 刷新、隐藏错误、缩小密度或扩大剔除距离掩盖本原因。
-- 区分代码/构建、用户反馈和实机复测。保留足够的小型最终证据后，已结束采集的 ETL/utrace、截图、旧 DLL/PDB 可按用户整理授权归档；当前 FPSGAME.log、活动采集和生产模块不按旧文件名清理。
-
-代码：TemperateHillsStreaming.cpp 的 HillsStreaming::SetCellMesh。证据：Docs/Publication/HillsVegetation20261115/Evidence/flicker-capture-findings.json。
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。

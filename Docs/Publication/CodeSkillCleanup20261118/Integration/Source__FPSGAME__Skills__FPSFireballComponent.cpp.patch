@@ -1,0 +1,30 @@
+diff --git a/Source/FPSGAME/Skills/FPSFireballComponent.cpp b/Source/FPSGAME/Skills/FPSFireballComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSFireballComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireballComponent.cpp
+@@ -1,5 +1,5 @@
+ #include "FPSFireballComponent.h"
+-#include "../Monsters/UnknownSpellCombat.h"
++#include "NetCastUtils.h"
+ #include "../Monsters/UnknownHumanoid.h"
+ #include "Engine/AssetManager.h"
+ #include "Engine/StreamableManager.h"
+@@ -29,9 +29,7 @@
+ #include "../Movement/FPSTraversalRules.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../UI/ColdSteelStatusModel.h"
+-#include "../Monsters/FPSCombatHealthComponent.h"
+ #include "Camera/CameraComponent.h"
+-#include "Engine/GameInstance.h"
+ #include "Engine/World.h"
+ #include "GameFramework/PlayerController.h"
+ #include "NiagaraSystem.h"
+@@ -81,8 +79,7 @@
+     }
+ }
+ UColdSteelStatusModel* UFPSFireballComponent::Model() const
+-{ return UnknownSpell::IsCaster(GetOwner())?UnknownSpell::Model(Cast<APawn>(GetOwner())):
+-    (GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr); }
++{ return NetCast::LocalModel(*this); }
+ bool UFPSFireballComponent::IsPrepared() const { return Active.IsValid()&&!Active->IsFlying(); }
+ bool UFPSFireballComponent::IsFlying() const { return Active.IsValid()&&Active->IsFlying(); }
+ bool UFPSFireballComponent::HasOtherPreparedSpell(const UActorComponent* Requester) const

@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills C27 MagicArrowRainResources cooldown receipt reuse only; R10/R11 retained",
+  "status": "Selected C27 cleanup and Editor build complete; R10/R11 retained; no tests run",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/MagicArrowRainResources.cpp",
+      "before_lines": 34,
+      "before_bytes": 2250,
+      "before_sha256": "61b199410b7af159fc68177c6a0c1de38ba415518749b14b60ff8eef63365b92",
+      "backup": "MagicArrowRainResources.cpp.before.txt",
+      "after_lines": 35,
+      "after_bytes": 2266,
+      "after_sha256": "113863f459df5a3842a0e0c4d3f1ac1c1344a89fd651b9190e1de1b53a3f642e"
+    }
+  ],
+  "modified_existing_files": 1,
+  "new_source_files": 0,
+  "tests_run": false,
+  "build_receipt": "build-receipt.json"
+}

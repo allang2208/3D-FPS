@@ -8,7 +8,7 @@
 
 `UColdSteelStatusModel::Current` 是主机本地存档。远端玩家的数值来自 `AFPSGAMECharacter::NetShadowProfile`，用 `GetNetShadowProfile()` 取，主机玩家会回退到单例。
 
-所有按玩家读取装备/套装的代码都必须走这条路径：
+所有按玩家读取装备/套装的代码都必须走这条路径： 原因：文件名与版本标签不能证明正在使用的对象，制作需要对应实际引用的资源身份。
 
 ```cpp
 UColdSteelStatusModel* M=nullptr;
@@ -26,18 +26,18 @@ if(!M&&Shooter&&Shooter->GetGameInstance())M=Shooter->GetGameInstance()->GetSubs
 
 - 主机目录里必须已有该套装的 `armorSet`，客机的套装才会被识别。
 - 客机自己目录缺条目不影响判定，判定发生在主机。
-- 物品实例里若残留旧 `bonusStats`，会盖住覆盖层（见 [套装效果三层数据](equipment-set-effect-layers.md)），这个问题在联机下同样存在，因为影子档复制的就是实例 Data。
+- 物品实例里若残留旧 `bonusStats`，会盖住覆盖层（见 [套装效果三层数据](../../ue5-cpp-gameplay/references/equipment-set-effect-layers.md)），这个问题在联机下同样存在，因为影子档复制的就是实例 Data。
 
 ## 移动与速度类要分清“算在哪一侧”
 
 - `ColdSteelWeaponStats::Reload` / `Interval` 是纯函数，客机本地 UI 与主机结算都会各算一次；结果应一致，因为输入（影子档、目录）同源。
 - 移速类（`CombatMoveMultiplier`）由角色移动组件消费，客户端会做预测；数值分叉会表现为“客机脚下打滑或卡顿”，排查时先比主机与客机读到的 `EquipmentBonus` 是否一致。
-- 伤害永远以主机 `ApplyHit` 的结果为准，客机本地只做表现。
+- 伤害永远以主机 `ApplyHit` 的结果为准，客机本地只做表现。 原因：客户端命中表现不能替代主机结算，同一伤害应只接受权威返回结果。
 
 ## 影子档的生命周期与陷阱
 
 - `CreateShadowModel()` 会复制目录状态（定义、弹药、技能），但**不会**自动重读覆盖层——覆盖层是 `CombatItemFormula` 内部静态缓存，进程级共享，因此主机改 JSON 需重启才生效。
-- 影子档的 `bNetShadowProfile=true`，写盘路径被拦；不要试图让影子档自己保存。
+- 影子档的 `bNetShadowProfile=true`，写盘路径被拦；不要试图让影子档自己保存。 原因：影子档是网络运行状态，不是该机器拥有的持久档案，写盘会混淆两者归属。
 - 客机重新上传整档时走消毒与合并；服务器侧计数器（魂值等）以影子档水位为准，不用客机数值。
 
 ## 排查顺序

@@ -1,0 +1,474 @@
+diff --git a/Source/FPSGAME/Weapons/PistolDualEquipment.cpp b/Source/FPSGAME/Weapons/PistolDualEquipment.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/PistolDualEquipment.cpp
+@@ -0,0 +1,469 @@
++#include "PistolDualWieldComponent.h"
++#include "WeaponShotNoise.h"
++#include "../Skills/LightningHasteSpeed.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "DualPistolReloadTiming.h"
++#include "FullAutoTrigger.h"
++#include "TacticalDeviceVariants.h"
++#include "G18WeaponAssets.h"
++#include "PitViper2011WeaponAssets.h"
++#include "LonePistolTwoHandAssets.h"
++#include "PitViper2011SICompensator.h"
++#include "Staff/StaffCatalog.h"
++#include "Kukri/KukriWeaponComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../UI/ColdSteelPickupStudio.h"
++#include "FPSGunplayAnimInstance.h"
++#include "WeaponGripProfile.h"
++#include "FPSWeaponFXComponent.h"
++#include "FPSBallisticsComponent.h"
++#include "WeaponStatEvaluation.h"
++#include "ColdSteelEnchantmentCombat.h"
++#include "../UI/ColdSteelEnhancementSystem.h"
++#include "DanWesson715WeaponAssets.h"
++#include "RSH12WeaponAssets.h"
++#include "RSH12OpticAssets.h"
++#include "RSH12HeavyGrip.h"
++#include "ASH12WeaponAssets.h"
++#include "DanWesson715FittedParts.h"
++#include "M1911MagazineVisual.h"
++#include "M1911WeaponAssets.h"
++#include "PistolAudioAssets.h"
++#include "WeaponReloadStages.h"
++#include "TacticalDeviceComponent.h"
++#include "../Skills/FPSCastingMeshComponent.h"
++#include "../Items/FPSPotionUseComponent.h"
++#include "../Skills/FPSQuickCombatComponent.h"
++#include "QuickCombatRecovery.h"
++#include "DualPistolQuickCombatMotion.h"
++#include "../Skills/QuickCombatPistolMotion.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Components/AudioComponent.h"
++#include "Kismet/GameplayStatics.h"
++#include "Camera/CameraComponent.h"
++#include "Animation/AnimSequence.h"
++#include "Engine/GameInstance.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Dom/JsonObject.h"
++#include "Serialization/JsonSerializer.h"
++
++#include "PistolDualEquipmentPrivate.h"
++using namespace DualPistolEquipment;
++namespace DualPistolEquipment
++{
++FString Root(bool Revolver,int32 Side)
++{
++    return FString::Printf(TEXT("/Game/Weapons/PistolDualWield20260914/%s/%s"),Revolver?TEXT("DW715"):TEXT("M1911"),Side?TEXT("l"):TEXT("r"));
++}
++FString Stem(bool Revolver,int32 Side)
++{
++    return FString::Printf(TEXT("Dual_%s_%s"),Revolver?TEXT("DW715"):TEXT("M1911"),Side?TEXT("l"):TEXT("r"));
++}
++FName PistolPoseFamily(const FString& Kind)
++{
++    return Kind.Contains(TEXT("_long"))?FName(TEXT("long")):Kind.Contains(TEXT("_fitted"))?FName(TEXT("fitted")):FName(NAME_None);
++}
++// Resolves which item drives each hand: akimbo (main + offhand pistol) or the
++// offhand-only rig (staff/pistol pair, and the lone offhand pistol when the main
++// slot is empty). Offhand-only owns one rig in the left hand; the Pit Viper
++// lone variant includes the supporting right arm in that same native mesh.
++struct FPistolWieldSlots
++{
++    const FColdSteelItem* Main=nullptr;
++    const FColdSteelItem* Off=nullptr;
++    bool Staff=false;
++    bool Blade=false;
++    // 主手槽空置、只有副手手枪：同样是"只建左手"，但没有法杖。
++    bool Lone=false;
++    bool Any() const { return Off && ColdSteelInventory::IsDualPistol(*Off); }
++};
++FPistolWieldSlots ResolvePistolSlots(const UColdSteelStatusModel* Model)
++{
++    FPistolWieldSlots Out;
++    if(!Model)return Out;
++    Out.Main=Model->Equipped();
++    // A backpack tool override reserves both hands even when no main-hand
++    // weapon is equipped, so it must never expose the offhand gun.
++    const bool ToolBusy=Model->ActiveProductionTool()!=nullptr;
++    if(Out.Main)
++    {
++        Out.Staff=ColdSteelStaff::IsStaff(*Out.Main) && !ToolBusy;
++        Out.Blade=UKukriWeaponComponent::IsKukri(*Out.Main) && !ToolBusy;
++        Out.Off=Model->Equipped(Out.Main->Cell==6?8:11);
++    }
++    else if(!ToolBusy)
++    {
++        // 主手空置：ActiveFirearm() 在这时正好返回顶替主武器的那把副手手枪。
++        const auto* Lone=Model->ActiveFirearm();
++        if(Lone&&ColdSteelInventory::IsDualPistol(*Lone))
++        {
++            Out.Off=Lone;
++            Out.Lone=true;
++        }
++    }
++    return Out;
++}
++}
++
++void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
++{
++    auto& H=Hands[Index];H.Item=Item;H.Revolver=(Item.Definition==TEXT("ue_dan_wesson715")||Item.Definition==TEXT("ue_rsh12"));
++    const bool G18=Item.Definition==G18WeaponAssets::Definition;
++    const bool PitViper=Item.Definition==PitViper2011WeaponAssets::Definition;
++    const FString Base=PitViper?PitViper2011WeaponAssets::DualRoot(Index):G18?G18WeaponAssets::DualRoot(Index):Root(H.Revolver,Index),Name=PitViper?PitViper2011WeaponAssets::DualStem(Index):G18?G18WeaponAssets::DualStem(Index):Stem(H.Revolver,Index);
++    if(Index==0)H.Mesh=Player->AKMViewmodel;
++    else if(!H.Mesh)
++    {
++        H.Mesh=NewObject<UFPSCastingMeshComponent>(Player,TEXT("DualPistolLeft"));
++        Player->AddInstanceComponent(H.Mesh);
++        H.Mesh->SetupAttachment(Player->FirstPersonCamera);
++        H.Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        H.Mesh->SetCastShadow(false);H.Mesh->SetOnlyOwnerSee(true);
++        H.Mesh->SetFirstPersonPrimitiveType(Player->AKMViewmodel->FirstPersonPrimitiveType);
++        H.Mesh->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
++        H.Mesh->RegisterComponent();
++        H.Mesh->AddTickPrerequisiteActor(Player);
++    }
++    H.Mesh->EmptyOverrideMaterials();
++    H.Mesh->SetSkeletalMesh(LoadObject<USkeletalMesh>(nullptr,*(bTwoHandedLone?FString(LonePistolTwoHandAssets::Mesh(Item.Definition)):Item.Definition==RSH12WeaponAssets::Definition ? RSH12WeaponAssets::DualMeshPath(Index) : Base+TEXT("/SK_")+Name)));
++    H.Mesh->SetBoundsScale(7.f);
++    if(auto* CastMesh=Cast<UFPSCastingMeshComponent>(H.Mesh))CastMesh->bApplyLeftHandCast=Index==1;
++    H.Mesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
++    H.Mesh->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
++    H.Anim=Cast<UFPSGunplayAnimInstance>(H.Mesh->GetAnimInstance());
++    if(Index==0)Player->GunplayAnimation=H.Anim;
++    H.Clips.Empty();
++    H.PoseProfiles.Reset();H.ActionPoseProfile=NAME_None;
++    H.LoneGripFamily=NAME_None;
++    if(bTwoHandedLone)
++    {
++        for(const TCHAR* Family:{TEXT("drum"),TEXT("vertical"),TEXT("canted"),TEXT("prism"),TEXT("angled")})
++        {
++            const bool Wanted=G18?FString(Family)==TEXT("drum"):
++                Item.Definition==RSH12WeaponAssets::Definition&&FString(Family)!=TEXT("drum");
++            if(Wanted)if(auto* Layer=LoadObject<UWeaponGripProfile>(nullptr,*LonePistolTwoHandAssets::Profile(Item.Definition,Family)))
++                H.PoseProfiles.Add(Family,Layer);
++        }
++    }
++    for(const TCHAR* Family:{TEXT("base"),TEXT("fitted"),TEXT("long")})
++    {
++        if(bTwoHandedLone)break; // New clips use the native single-pistol skeleton.
++        const FString Path=Item.Definition==RSH12WeaponAssets::Definition && FString(Family)==TEXT("base")
++            ?RSH12WeaponAssets::DualProfilePath(Index):FString::Printf(TEXT("/Game/Weapons/AnimationProfiles20261001/%s/Dual_%s/DA_%s"),*Item.Definition,Index?TEXT("l"):TEXT("r"),Family);
++        if(auto* Layer=LoadObject<UWeaponGripProfile>(nullptr,*Path,nullptr,LOAD_NoWarn);Layer&&Layer->Family==Family)
++            H.PoseProfiles.Add(Family,Layer);
++    }
++    const auto SharedQuickClip=[&](const FString& Kind)->UAnimSequence*
++    {
++        if(bTwoHandedLone)return nullptr;
++        // V5 supported the wrist only during the recovery flourish. The left
++        // M1911 strike now carries its held group through the full arm solve.
++        if(bOffhandOnly&&Index==1&&Item.Definition==TEXT("ue_m1911")&&Kind.StartsWith(TEXT("quickcombat_left")))
++        {
++            const FString Path=TEXT("/Game/Weapons/StaffQuickCombatFix20261001/M1911/l/Animations/A_Dual_M1911_l_")+Kind;
++            if(auto* Revised=LoadObject<UAnimSequence>(nullptr,*Path,nullptr,LOAD_NoWarn))return Revised;
++        }
++        const auto* Layer=H.PoseProfiles.FindRef(PistolPoseFamily(Kind)).Get();
++        if(!Layer)return nullptr;
++        const FString BaseKind=Kind.Replace(TEXT("_fitted"),TEXT("")).Replace(TEXT("_long"),TEXT(""));
++        const auto* Motion=Layer->FindAction(*BaseKind);
++        return Motion?Motion->Playback():nullptr;
++    };
++    auto Clip=[&](const FString& Kind)
++    {
++        if(bTwoHandedLone){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*LonePistolTwoHandAssets::Animation(Item.Definition,Kind)));return;}
++        if(auto* Shared=SharedQuickClip(Kind)){H.Clips.Add(Kind,Shared);return;}
++        if(PitViper){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*PitViper2011WeaponAssets::DualAnimationPath(Index,Kind)));return;}
++        if(G18){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*G18WeaponAssets::DualAnimationPath(Index,Kind)));return;}
++        const TCHAR* Revision=Kind.StartsWith(TEXT("sprint"))?TEXT("/SprintSmoothV5/Animations/A_"):TEXT("/NaturalAimV3/Animations/A_");
++        if(H.Revolver && (Kind.StartsWith(TEXT("single_")) || Kind.StartsWith(TEXT("speed_"))))
++            Revision=TEXT("/RevolverReloadFlickV6/Animations/A_");
++        H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*(Base+Revision+Name+TEXT("_")+Kind)));
++    };
++    for(const TCHAR* Kind:{TEXT("idle"),TEXT("sprint"),TEXT("fire"),TEXT("equip")})Clip(Kind);
++    if(bTwoHandedLone)Clip(TEXT("equip_empty"));
++    if(H.Revolver)
++    {
++        Clip(TEXT("speed_0"));
++        for(int32 Start=0,Capacity=Item.Definition==RSH12WeaponAssets::Definition?5:6;Start<Capacity;++Start)for(int32 Count=1;Count<=Capacity-Start;++Count)Clip(FString::Printf(TEXT("single_%d_%d"),Start,Count));
++    }
++    else for(const TCHAR* Kind:{TEXT("idle_empty"),TEXT("sprint_empty"),TEXT("fire_last"),TEXT("reload"),TEXT("reload_empty")})Clip(Kind);
++    for(const TCHAR* Kind:{TEXT("quickcombat"),TEXT("quickcombat_empty"),TEXT("quickcombat_left"),TEXT("quickcombat_left_empty"),
++        TEXT("quickcombat_fitted"),TEXT("quickcombat_fitted_empty"),TEXT("quickcombat_left_fitted"),TEXT("quickcombat_left_fitted_empty"),
++        TEXT("quickcombat_long"),TEXT("quickcombat_long_empty"),TEXT("quickcombat_left_long"),TEXT("quickcombat_left_long_empty")})
++    {
++        if(auto* Shared=SharedQuickClip(Kind)){H.Clips.Add(Kind,Shared);continue;}
++        if(bTwoHandedLone || G18 || PitViper){Clip(Kind);continue;}
++        if(H.Revolver && FString(Kind).EndsWith(TEXT("_empty")))continue;
++        const TCHAR* Revision=TEXT("SpinRecoveryV5");
++        const FString Path=FString::Printf(TEXT("/Game/Weapons/DualPistolQuickCombat20260920/%s/%s/%s/Animations/A_%s_%s"),
++            Revision,H.Revolver?TEXT("DW715"):TEXT("M1911"),Index?TEXT("l"):TEXT("r"),*Name,Kind);
++        H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*Path));
++    }
++    H.Sounds.Empty();
++    for(const TCHAR* CueName:{TEXT("Fire"),TEXT("DryClick"),TEXT("MagOut"),TEXT("MagInsert"),TEXT("MagSeat"),TEXT("ChargePull"),TEXT("ChargeRelease"),TEXT("Equip")})
++    {
++        FString Path=H.Revolver?DanWesson715WeaponAssets::SoundPath(CueName)
++            :FString(CueName)==TEXT("Fire")?TEXT("/Game/Weapons/M1911/Integrated20260913/Audio/S_M1911_Fire")
++            :FString::Printf(TEXT("/Game/Weapons/AKM/Audio/S_AKM_%s"),CueName);
++        if(!H.Revolver && FString(CueName).StartsWith(TEXT("Mag")))Path=FString::Printf(TEXT("/Game/Weapons/M4HK416Audio/S_HK416_%s"),CueName);
++        if(!H.Revolver && FString(CueName)==TEXT("Equip"))Path=TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip");
++        if(Item.Definition==RSH12WeaponAssets::Definition && FString(CueName)==TEXT("Fire"))Path=RSH12WeaponAssets::SoundPath(TEXT("Fire"));
++        if(PitViper)Path=PitViper2011WeaponAssets::SoundPath(CueName);
++        if(G18)Path=G18WeaponAssets::SoundPath(CueName);
++        H.Sounds.Add(CueName,LoadObject<USoundBase>(nullptr,*Path));
++    }
++    H.Sounds.Add(TEXT("BoltRelease"),H.Sounds.FindRef(TEXT("ChargeRelease")));
++    if(!H.Revolver || Item.Definition==RSH12WeaponAssets::Definition)H.Sounds.Add(TEXT("Suppressed"),LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed));
++    if(G18)
++    {
++        for(int32 Variant=1;Variant<=4;++Variant)
++            {
++                const FString Key=FString::Printf(TEXT("Fire_%02d"),Variant);
++                H.Sounds.Add(Key,LoadObject<USoundBase>(nullptr,*G18WeaponAssets::SoundPath(Key)));
++            }
++    }
++    H.Sounds.Add(TEXT("SingleOpen"),H.Sounds.FindRef(TEXT("MagOut")));
++    H.Sounds.Add(TEXT("SingleEject"),H.Sounds.FindRef(TEXT("ChargePull")));
++    H.Sounds.Add(TEXT("SingleClose"),H.Sounds.FindRef(TEXT("ChargeRelease")));
++    if(H.Revolver)for(const auto& C:DanWesson715WeaponAssets::SpeedloaderSoundCues)
++        H.Sounds.Add(C.Name,LoadObject<USoundBase>(nullptr,*DanWesson715WeaponAssets::SpeedloaderSoundPath(C.Name)));
++    if(!H.FX)
++    {
++        H.FX=NewObject<UFPSWeaponFXComponent>(Player);Player->AddInstanceComponent(H.FX);H.FX->RegisterComponent();
++        H.Ballistics=NewObject<UFPSBallisticsComponent>(Player);Player->AddInstanceComponent(H.Ballistics);H.Ballistics->RegisterComponent();
++    }
++    H.FX->SetIndependentPistol(H.Revolver,false,nullptr);
++    H.FX->Initialize(H.Mesh,Player->FirstPersonCamera);
++    H.ReloadCaseMeshes.Reset();H.ReloadLiveMeshes.Reset();H.ReloadCasesReleased=false;
++    if(Item.Definition==RSH12WeaponAssets::Definition)
++        for(int32 Chamber=0;Chamber<RSH12WeaponAssets::Capacity;++Chamber)
++        {
++            const FString BasePath=TEXT("/Game/Weapons/RSH12/DualReloadDrop20261004/SM_RSH12_");
++            const FString Suffix=FString::Printf(TEXT("_%s_%d"),Index?TEXT("l"):TEXT("r"),Chamber);
++            H.ReloadCaseMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(BasePath+TEXT("Case")+Suffix)));
++            H.ReloadLiveMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(BasePath+TEXT("Live")+Suffix)));
++        }
++    H.NextShot=GetWorld()->GetTimeSeconds();H.LastShot=-10;H.Pattern=0;H.Bloom=0;H.Sprint=H.SprintBlend=0;H.Recipe.Empty();
++}
++
++bool UPistolDualWieldComponent::MatchesEquipment(const UColdSteelStatusModel* Model,bool bWeaponReady) const
++{
++    const auto E=ResolvePistolSlots(Model);
++    // 法杖/单手刀副手与主手空置的单手枪都只建左手。
++    const bool OffhandOnly=E.Staff||E.Blade||E.Lone;
++    const bool Want=E.Any() && (OffhandOnly || (bWeaponReady && E.Main && ColdSteelInventory::IsDualPistol(*E.Main)));
++    if(!Want)return !bActive;
++    const FString MainInstance=E.Main?E.Main->InstanceId:FString();
++    return bActive && bOffhandOnly==OffhandOnly
++        && MainHandInstance==MainInstance
++        && (!E.Main || E.Staff || E.Blade || Hands[0].Item.Definition==E.Main->Definition)
++        && Hands[1].Item.InstanceId==E.Off->InstanceId && Hands[1].Item.Definition==E.Off->Definition;
++}
++
++void UPistolDualWieldComponent::Deactivate()
++{
++    if(!bActive)return;
++    if(IsQuickCombatActive())Player->QuickCombatPistol->Cancel();
++    CancelInputs();
++    for(int32 Side=FirstHand();Side<2;++Side)
++    {
++        auto& H=Hands[Side];
++        StopAction(Side);
++        if(H.FX)H.FX->StopEmission();
++        if(H.Anim){H.Anim->bDualPistolAim=false;H.Anim->DualPistolAimAlpha=0.f;H.Anim->LonePistolADSAlpha=0.f;}
++    }
++    bActive=false;
++    bMeleePrimary=false;MeleeAvoidance=0.f;
++    MeleeReleaseClip=nullptr;MeleeReleaseGrip=nullptr;
++    MainHandInstance.Reset();
++    // 换枪/退役后瞄具标定作废，下次装配重新量。
++    bLoneSightCalibrated=false;
++    LeftOptic.Reset();
++    if(Hands[1].Mesh)Hands[1].Mesh->SetVisibility(false,true);
++    if(Hands[1].Tactical)Hands[1].Tactical->Configure(TEXT(""),TEXT(""),Hands[1].Mesh,false);
++    if(auto* CastMesh=Cast<UFPSCastingMeshComponent>(Player->AKMViewmodel))CastMesh->bApplyLeftHandCast=true;
++}
++
++void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
++{
++    Player=Cast<AFPSGAMECharacter>(GetOwner());Profile=Model;
++    if(!Player || !Profile)return;
++    const auto E=ResolvePistolSlots(Profile);
++    // 法杖/单手刀副手与主手空置的单手枪都只建左手。
++    const bool OffhandOnly=E.Staff||E.Blade||E.Lone;
++    const bool Want=E.Any() && (OffhandOnly || (Player->HasInventoryWeapon() && E.Main && ColdSteelInventory::IsDualPistol(*E.Main)));
++    // Leaving/replacing a loadout is owned by the character, before it rebuilds
++    // the shared main-hand mesh. Repeated data application never cancels actions.
++    if(!Want)return;
++    const bool TwoHandedLone=E.Lone&&LonePistolTwoHandAssets::Supports(*E.Off->Definition);
++    const bool Changed=!bActive || bOffhandOnly!=OffhandOnly || bTwoHandedLone!=TwoHandedLone;
++    bOffhandOnly=OffhandOnly;
++    bMeleePrimary=E.Blade;
++    bTwoHandedLone=TwoHandedLone;
++    MainHandInstance=E.Main?E.Main->InstanceId:FString();
++    bActive=true;
++    if(Changed)
++    {
++        MeleeAvoidance=0.f;
++        Player->StopMechanicalAudio();Player->ActiveActionAnimation=nullptr;
++        Player->WeaponState=EAKMWeaponState::Idle;Player->WeaponStateElapsed=Player->WeaponStateDuration=0;
++        Player->bReloadAfterCasting=Player->bRevolverReloadAfterFire=Player->bPistolShotPending=false;
++        Player->bAimHeld=false;Player->SetAimingState(false);
++        Player->ADSProgress=Player->WeaponADSFactor=Player->CameraADSFactor=0;
++        Player->WeaponFX->StopEmission();
++        if(!bOffhandOnly)LoadHand(0,*E.Main);
++        LoadHand(1,*E.Off);
++        // 网格换了，瞄具标定必须按新网格重新量。
++        bLoneSightCalibrated=false;
++    }
++    auto* G=Player->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++    for(int32 Side=FirstHand();Side<2;++Side)
++    {
++        auto& H=Hands[Side];H.Item=Side?*E.Off:*E.Main;
++        H.FX->SetBigBlindEnabled(ColdSteelCombat::BigBlind(Player->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),&H.Item).Enabled);
++        const auto Parts=G->Installed(H.Item);
++        H.LoneGripFamily=NAME_None;
++        if(bTwoHandedLone)
++        {
++            if(H.Item.Definition==G18WeaponAssets::Definition&&Parts.FindRef(TEXT("magazine"))==G18WeaponAssets::Drum50Id)
++                H.LoneGripFamily=TEXT("drum");
++            if(H.Item.Definition==RSH12WeaponAssets::Definition)
++            {
++                const FString Grip=Parts.FindRef(TEXT("underbarrel"));
++                if(Grip==TEXT("vertical_foregrip"))H.LoneGripFamily=TEXT("vertical");
++                else if(Grip==TEXT("canted_foregrip"))H.LoneGripFamily=TEXT("canted");
++                else if(Grip==TEXT("prism_handstop"))H.LoneGripFamily=TEXT("prism");
++                else if(Grip==TEXT("angled_foregrip"))H.LoneGripFamily=TEXT("angled");
++            }
++        }
++        const bool Selectable=FullAutoTrigger::Installed(H.Item.Definition,Parts);
++        const bool Automatic=FullAutoTrigger::Automatic(H.Item,Selectable);
++        if(H.SelectableAutomatic!=Selectable || H.Automatic!=Automatic)H.Held=H.Pending=false;
++        H.SelectableAutomatic=Selectable;H.Automatic=Automatic;
++        if(Side==0&&H.Item.Definition==RSH12WeaponAssets::Definition)
++            RSH12HeavyGrip::ShowFactory(H.Mesh,!(RSH12HeavyGrip::IsPart(Parts.FindRef(TEXT("grip_body")))
++                &&Player->GripBodyAttachment&&Player->GripBodyAttachment->IsVisible()));
++        H.Stats=G->Calculate(H.Item.Definition,Parts,true);
++        ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(H.Stats,Profile);
++        H.Stats.Damage=ColdSteelWeaponStats::Damage(H.Item,Profile,H.Stats.Damage)*Profile->AmmoDamageMultiplier(H.Item);
++        H.Stats.Interval=ColdSteelWeaponStats::Interval(&H.Item,Profile,H.Stats.Interval);
++        H.Stats.Reload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.Reload);
++        H.Stats.EmptyReload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.EmptyReload);
++        // Snapshot this hand's installed draw speed after its stats are ready.
++        H.Rounds=FMath::Clamp(H.Item.Magazine,0,H.Stats.Capacity);
++        if(Changed)StartAction(Side,bTwoHandedLone&&(H.Rounds==0||WeaponReloadStages::NeedsCycle(H.Item))?TEXT("equip_empty"):TEXT("equip"));
++        H.Cases=H.Revolver?FMath::Clamp(int32(ColdSteelInventory::Number(H.Item,TEXT("revolver_case_count"),H.Rounds)),H.Rounds,H.Stats.Capacity):H.Rounds;
++        H.Speedloader=H.Revolver && Parts.FindRef(TEXT("reload_device"))==
++            (H.Item.Definition==RSH12WeaponAssets::Definition?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader);
++        H.Suppressed=WeaponShotNoise::PistolSuppressed(H.Item.Definition, Parts.FindRef(TEXT("muzzle")));
++        // Right FX uses the primary attachment interface, left FX uses its own copied exit.
++        H.FX->IndependentSuppressed=H.Suppressed;
++        if(Side==0){H.FX->bUseCharacterMuzzle=true;H.Sounds.Add(TEXT("Suppressed"),Player->SuppressedFireSound);}
++        else
++        {
++            auto* Studio=Player->GetGameInstance()->GetSubsystem<UColdSteelPickupStudio>();
++            const FString Key=Studio->Key(H.Item);
++            if(Key!=H.Recipe){CopyLeftAttachments(H.Item,Parts);H.Recipe=Key;}
++        }
++    }
++    if(!bOffhandOnly){Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;}
++    if(Changed)UpdateAimTarget(0.f);
++    if(!bOffhandOnly)Pose(0,0);
++    Pose(1,0);
++}
++
++void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,const FGunsmithParts& Parts)
++{
++    bLoneSightCalibrated=false;
++    LeftOptic.Reset();
++    for(auto& C:LeftAttachments)if(C)C->DestroyComponent();LeftAttachments.Empty();
++    bool Created=false;
++    auto* Rig=Player->GetGameInstance()->GetSubsystem<UColdSteelPickupStudio>()->Acquire(Item.Definition,Created);
++    if(!Rig)return;
++    if(Created){Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=Rig->bUseQBZ191=false;Rig->bUseM1911=!Hands[1].Revolver;Rig->bUseDanWesson715=Hands[1].Revolver;Rig->InitializeWeaponVisuals();}
++    Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));
++    Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),Player->GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(Item.Definition),Parts.FindRef(TEXT("grip_body")));Rig->SetGunsmithTactical(TEXT(""));
++    if(Item.Definition==RSH12WeaponAssets::Definition)
++        RSH12HeavyGrip::ShowFactory(Hands[1].Mesh,!(Rig->GripBodyAttachment&&Rig->GripBodyAttachment->IsVisible()));
++    Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));
++    if(Item.Definition==RSH12WeaponAssets::Definition)Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));
++    if (!Hands[1].Revolver)
++        M1911MagazineVisual::ShowFactoryMagazine(Hands[1].Mesh,
++            !(Rig->LargeDrum && Rig->LargeDrum->IsVisible()));
++    if (Hands[1].Revolver && Item.Definition != RSH12WeaponAssets::Definition)
++        DanWesson715FittedParts::ShowFactoryGrip(Hands[1].Mesh,
++            !(Rig->RearGripAttachment && Rig->RearGripAttachment->IsVisible()));
++    PitViper2011SICompensator::ShowFactory(Hands[1].Mesh,
++        !(Parts.FindRef(TEXT("muzzle")) == PitViper2011SICompensator::Part
++            && Rig->MuzzleAttachment && Rig->MuzzleAttachment->IsVisible()));
++    TMap<USceneComponent*,USceneComponent*> Copies;Copies.Add(Rig->AKMViewmodel,Hands[1].Mesh);
++    TFunction<USceneComponent*(USceneComponent*)> Copy=[&](USceneComponent* Source)->USceneComponent*
++    {
++        if(auto** Existing=Copies.Find(Source))return *Existing;
++        if(!Source || !Source->GetAttachParent())return nullptr;
++        auto* Parent=Copy(Source->GetAttachParent());if(!Parent)return nullptr;
++        USceneComponent* New=nullptr;
++        if(auto* Static=Cast<UStaticMeshComponent>(Source))
++        {
++            auto* Mesh=NewObject<UStaticMeshComponent>(Player);New=Mesh;
++            Mesh->SetStaticMesh(Static->GetStaticMesh());
++            for(int32 M=0;M<Static->GetNumMaterials();++M)Mesh->SetMaterial(M,Static->GetMaterial(M));
++            Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetCastShadow(false);Mesh->SetOnlyOwnerSee(true);
++            Mesh->SetFirstPersonPrimitiveType(Player->AKMViewmodel->FirstPersonPrimitiveType);
++        }
++        else New=NewObject<USceneComponent>(Player);
++        Player->AddInstanceComponent(New);
++        // 挂到同名 socket 上后，相对变换与源组件同参照系，直接照抄即可。
++        New->SetupAttachment(Parent,Source->GetAttachSocketName());
++        New->RegisterComponent();
++        New->SetRelativeTransform(Source->GetRelativeTransform());
++        New->SetVisibility(Source->IsVisible());
++        Copies.Add(Source,New);LeftAttachments.Add(New);return New;
++    };
++    TArray<USceneComponent*> Children;Rig->AKMViewmodel->GetChildrenComponents(true,Children);
++    for(auto* C:Children)if(auto* Mesh=Cast<UStaticMeshComponent>(C);Mesh && Mesh->IsVisible() && Mesh->GetStaticMesh())Copy(C);
++    if(Rig->bHolographicOptic && Rig->HolographicOptic)
++    {
++        if(auto** Copied=Copies.Find(Rig->HolographicOptic))
++        {
++            LeftOptic=*Copied;
++            LeftOpticRear=Rig->OpticLocalAimPoint();
++            LeftOpticFront=LeftOpticRear+FVector(10.f,0.f,0.f);
++            LeftOpticUp=FVector::UpVector;
++            const UStaticMesh* Asset=Rig->HolographicOptic->GetStaticMesh();
++            const auto* Rear=Asset?Asset->FindSocket(TEXT("SightRear")):nullptr;
++            const auto* Front=Asset?Asset->FindSocket(TEXT("SightFront")):nullptr;
++            const auto* Up=Asset?Asset->FindSocket(TEXT("SightUp")):nullptr;
++            if(Rear && Front && Up)
++            {
++                LeftOpticRear=Rear->RelativeLocation;
++                LeftOpticFront=Front->RelativeLocation;
++                LeftOpticUp=(Up->RelativeLocation-LeftOpticRear).GetSafeNormal();
++            }
++        }
++    }
++    USceneComponent* Tip=nullptr;
++    if(Rig->MuzzleAttachment && Rig->MuzzleAttachment->IsVisible())if(auto** Parent=Copies.Find(Rig->MuzzleAttachment))
++    {
++        Tip=NewObject<USceneComponent>(Player);Player->AddInstanceComponent(Tip);Tip->SetupAttachment(*Parent);
++        Tip->SetRelativeLocation(Rig->MuzzleLocalTip);Tip->SetRelativeRotation(Rig->MuzzleLocalAxis.Rotation());Tip->RegisterComponent();LeftAttachments.Add(Tip);
++    }
++    Hands[1].FX->SetIndependentPistol(Hands[1].Revolver,Hands[1].Suppressed,Tip);
++    if(!Hands[1].Tactical)
++    {
++        Hands[1].Tactical=NewObject<UTacticalDeviceComponent>(Player);Player->AddInstanceComponent(Hands[1].Tactical);Hands[1].Tactical->RegisterComponent();
++    }
++    Hands[1].Tactical->Configure(Hands[1].Item.Definition==RSH12WeaponAssets::Definition?TEXT("RSH12"):Hands[1].Item.Definition==PitViper2011WeaponAssets::Definition?TEXT("PitViper2011"):Hands[1].Item.Definition==G18WeaponAssets::Definition?TEXT("G18"):Hands[1].Revolver?TEXT("DanWesson715"):TEXT("M1911"),Parts.FindRef(TEXT("tactical")),Hands[1].Mesh,true);
++    Hands[1].Sounds.Add(TEXT("Suppressed"),Rig->SuppressedFireSound);
++    Hands[0].Sounds.Add(TEXT("Suppressed"),Player->SuppressedFireSound);
++}
++

@@ -1,0 +1,28 @@
+diff --git a/SourceAssets/KukriThirdPersonCompletion20261029/export_presentation.py b/SourceAssets/KukriThirdPersonCompletion20261029/export_presentation.py
+--- a/SourceAssets/KukriThirdPersonCompletion20261029/export_presentation.py
++++ b/SourceAssets/KukriThirdPersonCompletion20261029/export_presentation.py
+@@ -8,12 +8,21 @@
+       '// Native mount-local deltas, cm. Presentation only; no collision or gameplay notifies.',
+       'namespace FPSBodyKukriPresentationData','{',
+       'struct FKey { float X,Y,Z,QX,QY,QZ,QW; };']
++destination=ROOT/'Source/FPSGAME/Characters'
++(destination/'FPSBodyKukriPresentationTypes.h').write_text('\n'.join(rows+['}'])+'\n',encoding='utf-8')
++common=rows[:4]
++rows=common.copy()
+ for label,takes in d.items():
++    filename='FPSBodyKukriPresentation'+label.capitalize()+'.h'
++    rows.append('#include "'+filename+'"')
++    family=['#pragma once','#include "FPSBodyKukriPresentationTypes.h"']+common[2:]+['namespace FPSBodyKukriPresentationData','{']
+     for take,data in takes.items():
+         for side,keys in data['blades'].items():
+-            name=label.capitalize()+take+side.upper();rows.append('inline constexpr FKey '+name+'[]={')
+-            for k in keys:rows.append('    {'+','.join(f'{v:.7f}f' for v in k)+'},')
+-            rows.append('};')
++            name=label.capitalize()+take+side.upper();family.append('inline constexpr FKey '+name+'[]={')
++            for k in keys:family.append('    {'+','.join(f'{v:.7f}f' for v in k)+'},')
++            family.append('};')
++    (destination/filename).write_text('\n'.join(family+['}'])+'\n',encoding='utf-8')
++rows+=['namespace FPSBodyKukriPresentationData','{']
+ rows+=['template<int32 N> inline FTransform Sample(const FKey (&Keys)[N],float Progress)',
+        '{','    const float X=FMath::Clamp(Progress,0.f,1.f)*(N-1);',
+        '    const int32 I=FMath::Min(int32(X),N-2);const auto& A=Keys[I];const auto& B=Keys[I+1];',

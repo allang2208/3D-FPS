@@ -1,0 +1,17 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelProfilePersistence.h b/Source/FPSGAME/UI/ColdSteelProfilePersistence.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelProfilePersistence.h
+@@ -0,0 +1,12 @@
++#pragma once
++
++#include "ColdSteelInventoryTypes.h"
++
++class UColdSteelProfileSave;
++
++// Shared by profile loading and checked transactions; definitions have one owner.
++namespace ColdSteelProfilePersistence
++{
++    bool RemoveRetiredItems(FColdSteelProfile& Profile);
++    UColdSteelProfileSave* ReadCheckedProfile(const FString& Slot);
++}

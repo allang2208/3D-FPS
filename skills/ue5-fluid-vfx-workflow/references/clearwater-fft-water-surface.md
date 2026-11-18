@@ -19,11 +19,11 @@
 | `SIG_A` / `SIG_S` / `SIG_T` 吸收散射 | 逐通道吸收与散射系数 | 宏库 + 材质标量参数 |
 | Henyey-Greenstein 内散射 | 解析相函数 | 宏，控制水体通透感 |
 | Beckmann NDF glint（LEAN 加宽） | 用斜率方差加宽高光瓣，得到"闪烁带"而不是死高光 | 宏，法线驱动 |
-| `texBS()` 4-tap 三次 B 样条 | 采样重建 | 纹理采样**必须留在材质图里**（见 §3.3） |
+| `texBS()` 4-tap 三次 B 样条 | 采样重建 | 纹理采样**必须留在材质图里**（见 §3.3） 原因：采样器和纹理导数由材质编译上下文提供，移到不具备该上下文的数学宏中会改变调用合同。 |
 | 折射网格焦散 + 逐通道 IOR | `IORS=[1.3315,1.3335,1.3365]`，屏幕空间 Jacobian | **离线**烘焙 32 帧环形序列，见 §7 |
 | 帧间镜头衍射眩光 | FFT 卷积 `buildPSF()`（六边形光圈、划痕、灰尘、8 个波段） | **离线**烘焙成核 + 权重，`glare/` |
 | `sky()` 天空 | 山脊／松树／空气透视的程序化天空 | **换成本工程 `SkyAtmosphere`**，只保留它的天顶／地平线色常数 |
-| 自适应分辨率 | 质量 0.42–1.0，>21 ms 降 ×0.87，<14.5 ms 升 ×1.06，DPR 上限 2 | UE 侧走 TSR／动态分辨率，**不要**移植这套手写缩放 |
+| 自适应分辨率 | 质量 0.42–1.0，>21 ms 降 ×0.87，<14.5 ms 升 ×1.06，DPR 上限 2 | UE 侧走 TSR／动态分辨率，**不要**移植这套手写缩放 原因：UE 已有分辨率调度入口，再叠一套网页缩放会让两套控制器同时改变输出尺寸。 |
 
 **一句话**：上游把"频谱→FFT→位移→光学→焦散→眩光"全塞进一帧；UE 里正确的切法是
 **位移／法线／光学留在实时材质**（48 条解析波够了），**焦散与眩光退到离线烘焙**，
@@ -40,15 +40,14 @@ clearwater_glare.py      → glare/glare_kernel.png       衍射核
         ↓
 clearwater_generate_nodes.py → Shaders/ClearwaterWaves.ush（宏库）+ nodes.json（5 个节点体）
         ↓
-clearwater_embed_check.py    → 按 UE 的包裹方式离线编译校验（假绿灯防线，见 §3.4）
+clearwater_embed_check.py    → 可选离线校验（仅用户要求检查时，见 §3.4）
         ↓
 author_clearwater_water.py   → 编辑器侧建 3 个材质 + 关卡 + 灯光
 ```
 
-**顺序不能反**：改数学必须先跑 `clearwater_generate_nodes.py` 再跑 `clearwater_embed_check.py`，
-通过后才动编辑器资产。跳过校验直接授权资产，等于把编译错误写进已保存的材质。
+修改数学源后先用 `clearwater_generate_nodes.py` 更新节点生成物，再按实际作者入口制作材质；`clearwater_embed_check.py` 仅在用户明确要求离线检查时执行，不作为默认交付门槛。原因：节点体依赖生成器输出，但独立校验脚本不能从历史流程获得新的测试授权。
 
-`nodes.json` 是**生成物，不要手改**——它是生成器与作者脚本之间的合同（含每个节点的引脚清单）。
+`nodes.json` 是**生成物，不要手改**——它是生成器与作者脚本之间的合同（含每个节点的引脚清单）。 原因：重建需要真实的上游输入及先后顺序，仅保留最终输出无法恢复可编辑制作链。
 
 ### 关键参数与上游默认值的偏差
 
@@ -104,7 +103,7 @@ float3 CustomExpression0(FMaterialPixelParameters Parameters, float2 P, ...)
 
 ## 4. 与水交互系统的对接
 
-本工程已有全水体注册表，**不要**为 Clearwater 另建一套查询：
+本工程已有全水体注册表，**不要**为 Clearwater 另建一套查询： 原因：同一对象或业务已有集中入口，复制另一套索引和状态会产生不同步的消费者。
 
 - `RiverPilotFXSubsystem::IsWaterSurfaceRegistered(const UStaticMeshComponent*)` —— 水面是否已注册。
 - `WaterImpactFootprints.cpp` 的回落表 —— 加 `FindComplementaryWaterFootprint` 兜底分支即可。
@@ -112,7 +111,7 @@ float3 CustomExpression0(FMaterialPixelParameters Parameters, float2 P, ...)
   不手写尺寸常量：网格改了，轮廓自动跟上。
 
 **水面网格必须清掉碰撞**（`convex_count = 0`）。留在里面会挡住回程传送门的落地线迹——
-一个跟水本身毫无关系的症状，却花了很久才定位。
+一个跟水本身毫无关系的症状，却花了很久才定位。 原因：物理形状与可见网格用途不同，额外碰撞可能阻挡原有移动或交互查询。
 
 ## 5. 两个传送门共存
 
@@ -136,7 +135,7 @@ const FVector Position = PawnLoc + FRotationMatrix(FRotator(0, LeftYaw, 0)).GetU
   + `ExponentialHeightFog`(**非黑 inscattering**)。**单独一个 `SkyAtmosphere` 不产生任何组件**，所以没有天空。
   创建顺序也要紧：`SkyAtmosphere` 必须**先于** `SkyLight`。
 - 雾密度从 0.012 降到 **0.004**：0.012 在 ~100 m 视距下光学厚度 ≈1.2，约 30% 像素是雾的散射。
-  雾是"画面发白"的常见嫌疑人，但**要用 `r.VolumetricFog 0` 前后对比来判定，不要靠推理**（见 §9）。
+  雾是"画面发白"的常见嫌疑人，但**要用 `r.VolumetricFog 0` 前后对比来判定，不要靠推理**（见 §9）。 原因：图像描述只能提供观察线索，精确尺寸和接触关系需要原始像素或几何数据。
 - 太阳：仰角 +31.0°、方位 +6.0°（从 +X 起算）；`sun_direction()` 返回
   `(cos(el)cos(az), cos(el)sin(az), sin(el))`。
 
@@ -185,8 +184,8 @@ const FVector Position = PawnLoc + FRotationMatrix(FRotator(0, LeftYaw, 0)).GetU
 
 - **关掉体积雾（`r.VolumetricFog 0`）再拍一张**。本次渐变几乎不变（0.235→0.868），
   于是排除了雾，锁定是水面自身输出。
-- **把中间量接 Emissive 做临时材质变体**，比反复改数值重跑 60 s 截图快得多。
-  方法学沉淀在 [ue5-debug-validation 的材质探针参考](../../ue5-debug-validation/references/material-emissive-probes.md)。
+- 用户要求材质诊断时，可**把中间量接 Emissive 做临时材质变体**，比反复改数值重跑 60 s 截图快得多。
+  方法学沉淀在 [ue5-debug-validation 的材质探针参考](../../ue5-debug-validation/references/material-emissive-probes.md)。 原因：临时显示中间量能将材质运算与最终光照分开定位；该诊断方法只在相应任务中使用。
 
 ### 2026-09-26 下午探针判决（21 个探针，结论以实测为准）
 
@@ -228,12 +227,12 @@ nanite 标志**逐项单独复刻全部健康**。病灶跟着**已保存的 mas
 （`clearwater_meshes.py` 的 `spawn_bed_z_cm` / `spawn_dry_margin_cm`），以后改剖面不会无意识淹掉出生点。
 起伏噪声在接近水线前完全衰减（水线是干净曲线，落点高度确定）。
 材质的衰减深度（WaterDepthCm）仍是**均匀常数**——分区地形下它在深浅两区都不准，逐像素深度
-依赖 SceneDepth（当前读黑），随向量参数修复一并处理。
+依赖 SceneDepth（当前读黑），随向量参数修复一并处理。 原因：图像描述只能提供观察线索，精确尺寸和接触关系需要原始像素或几何数据。
 
 ## 11. 交付与验收边界
 
-- 按用户规则：不主动测试、预览、截图或采集性能。本文件里的数据来自用户明确要求的排查轮次。
+- 按用户规则：不主动测试、预览、截图或采集性能。本文件里的数据来自用户明确要求的排查轮次。 原因：制作授权不包含额外运行或验收，交付应保留未测试的实际状态。
 - 交付时如实区分**已构建／已编译**与**已运行验收**：C++ 构建成功、材质编译零错误是前者；
-  水好不好看只有用户能拍板。
+  水好不好看只有用户能拍板。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 - 2 m 内按 **E** 进传送门，**必须先收起启动菜单**——`UsePortal()` 会因为
   `PC->bShowMouseCursor` 为真而拒绝响应，这不是 bug。

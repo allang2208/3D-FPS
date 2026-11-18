@@ -1,42 +1,27 @@
 # 场景家具、容器与表现时钟的联机合同
 
-用于可反复开合的场景柜、坐卧家具、设备开关，以及需要在晚加入端保持同一阶段的环境动画。FPSGAME 公寓是案例；不改变其他场景明确要求的“一次打开后保持开启”行为。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-save-load-replication/references/scene-motion-and-viewers.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 可反复开合的柜体
 
-- 将“已搜寻”和“门的当前动作”分开。已搜寻标记不能代替开关状态；不要把可重复开关分支限定为 `NM_Standalone`。
-- 服务端发布 From、To、Started、Duration，客户端用 GameState 服务端时间求插值。正在打开时收到第二位查看者，不重新起播；反向关门从当前插值继续。
-- 关闭由共享查看会话决定：一位玩家关面板，只移除自己的查看身份；最后一位查看者关闭、超距、死亡、切换目标或断线后才收门。复用已有 CloseLocal → 所属 PlayerState RPC，不让客户端直接修改服务端拥有的柜子。
-- 门动作不另建物品状态。搜索揭示、容器修订号、领取标记、库存事务与存档仍归原系统；“门已合上”不证明物品转移正确或已经保存。
-- 动态生成 Actor 的运行时 Tags 不应被当作自动复制的配置。需要客户端据此选分支时，使用已保存的关卡配置或明确复制的状态；本案使用有效门状态识别可重复动作。
+详见[维护源](../../_shared/ue5-save-load-replication/references/scene-motion-and-viewers.md)中的同名章节。
 
 ## 晚加入与家具状态
 
-- 初始 RepNotify 可能早于组件 BeginPlay。OnRep 尚未取得角色引用时，BeginPlay 初始化依赖后必须再次应用已复制状态；不能依赖下一次属性变化救场。
-- 休息开始时若客户端已收到 MOVE_None，不能把它当作退出后应恢复的模式。按玩法确定合法恢复状态，同时恢复此前碰撞、控制器输入锁和朝向策略。
-- 状态/动作以服务端为准，鼠标看向属于本地相机。UE 的 MouseX、MouseY、Mouse2D 也可能被 `IsMouseButton()` 归类；拦截休息中的鼠标点击时显式放行看向轴。
-- 局部修腿不能伸长骨段来迎合错误家具尺寸。区分模型/角色比例、坐卧锚点、地面高度和动作本身；配置缩放必须与实际关卡实例一致。
+详见[维护源](../../_shared/ue5-save-load-replication/references/scene-motion-and-viewers.md)中的同名章节。
 
 ## 设备与环境表现时钟
 
-- 复制设备开关和本次通电开始时间；设备计时、材质相位和转子姿态从同一时刻推导。不要各端从 BeginPlay 自己累计；唤醒转子时用初始姿态加绝对相位，避免在不可见期间停 Tick 后错相。
-- 公寓材质案例保留 GPU 连续 Time，仅向 MPC 更新 `ServerTimeOffset = ServerTime - WorldTime`；广告、探照灯、车流和它们的水面反射共同使用 Time + Offset。不要每帧复制每辆车和每束光。
-- 接入前区分材质 GameTime、忽略暂停的 RealTime 和周期 Time。周期应作用于校准后的时间，不能对本地取模结果直接加未取模偏移。材质函数内时钟也需按实际依赖查明，不声称扫描顶层节点就覆盖所有函数。
-- 房间灯光可见性、音量与距离休眠是各视点的表现策略，可以本地执行；真正的开关意图与游戏时钟必须权威一致。
+详见[维护源](../../_shared/ue5-save-load-replication/references/scene-motion-and-viewers.md)中的同名章节。
 
 ## 证据边界
 
-2026-10-24 公寓案例完成六阶段本机 UDP 检查：打开、保留另一查看者、最后关闭、重开、晚加入、退出后清理。该夹具注入坐卧 Phase 3/0，仅证明初始状态和退出恢复，不证明实际 E 键上下床、腿部蒙皮、库存并发交易、同档重连、跨机器或打包版本。
-
-工程入口：`ColdSteelSceneContainer`、`ColdSteelContainerSearchSubsystem`、`FPSFurnitureRestComponent`、`ApartmentDeviceControl`、`ApartmentAtmosphere`；制作接入见 `RefinementV21/publish.py`。需要检查时再按 [多进程证据](../../ue5-debug-validation/references/multi-process-runtime-evidence.md) 执行；整理或技能更新不自动恢复测试。
+详见[维护源](../../_shared/ue5-save-load-replication/references/scene-motion-and-viewers.md)中的同名章节。
 
 ## 双人床与单座占位（2026-10-25）
 
-- 服务器以实际家具组件、ISM 实例和 SlotIndex 组合识别座位；同一双人床两个槽可分别预约。不能用角色 Root 距离代替座位身份，两个相邻锚点可能很近，独立椅子也可能相邻。
-- 对齐、进入、Idle、退出（Phase 1..4）都保持预约，完成退出才释放。服务器处理 E 请求时重新检查距离、视线和槽位，不信任客户端挑选；占用侧可按配置选择另一空侧。客户端位置/SlotIndex 只用于提示，不能决定权威资格。
-- 同步 SlotIndex、SlotLocation、bMirror 与当前阶段、服务端起始时间。动作、眼位、进出偏移均读取这份镜像标志。休息是临时动作状态，不作为跨会话持久床位保存；死亡、失去控制器、销毁和结束场景走释放与输入恢复。
-- 服务器上的远端 PlayerController 相机缓存可能未更新。权威交互用角色权威瞄准原点与 ControlRotation，本地玩家才取本地 ReachViewPoint；不要把远端相机零点当成“距离不够”。
-- Tick 中受伤等事件可能从 Idle 切换到 Leave；阶段变更后重新计算 age，再执行完成条件。沿用变更前的长 Idle age 会导致退出动画在同一帧被跳过。
-- 入床恢复 SAN 仅在服务器上已躺稳时执行，按配置速率积分到上限。属性恢复、动画显示和占位资格分别核对；客户端显示正确不证明权威数值改变。
-
-该批双人占位及原生镜像完成 Editor/Game 构建，未执行双玩家同时抢位、退出交接、断线、晚加入或视觉验收。之前 437 项组件检查对应单占位版本；注入 Phase 3/0 的六阶段 UDP 夹具只证明表现状态同步，不能复用为最新双人占位通过的证据。完整原记录与恢复入口见工程 `Docs/Publication/FurnitureRest20261025/README.md`。
+详见[维护源](../../_shared/ue5-save-load-replication/references/scene-motion-and-viewers.md)中的同名章节。

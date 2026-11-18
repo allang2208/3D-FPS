@@ -1,0 +1,79 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp b/Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp
+@@ -2,7 +2,9 @@
+ #include "IceSpikeDamage.h"
+ #include "../Monsters/UnknownSpellCombat.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+-#include "../Dungeon/DungeonLayout.h"
++#include "ColdSteelSpellRewards.h"
++#include "ColdSteelSpellFeedback.h"
++#include "ColdSteelSpellCrafting.h"
+ #include "../Combat/CombatStatusFormula.h"
+ #include "../Monsters/MonsterCombatComponent.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+@@ -18,7 +20,7 @@
+ #include "Kismet/GameplayStatics.h"
+ 
+ FColdSteelSkillProgress UColdSteelStatusModel::IceWallProgress() const
+-{const auto* P=Current.Skills.Find(IceWallSkill.Id);return P?*P:FColdSteelSkillProgress();}
++{return Current.Skills.FindRef(IceWallSkill.Id);}
+ 
+ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
+ {
+@@ -39,9 +41,7 @@
+     C.ChillRadius=T.ChillRadius*T.UnitsToCM;C.ChillInterval=T.ChillInterval;
+     C.ChillDuration=T.ChillDuration;C.ChillSlow=T.ChillSlow;C.ChillStacks=T.ChillStacks;
+     double CooldownReduction=0,ChainDamage=1;
+-    const auto* Player=RuntimePawn();
+-    const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
+-    const int32 Chain=Status?Status->ChainSpellStacks():0;
++    const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
+     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
+         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
+         {
+@@ -49,8 +49,7 @@
+             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
+             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
+             ChainDamage+=Chain*Craft(TEXT("chainSpellDamagePercent"));
+-            C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
+-            C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
++            ColdSteelSpellCrafting::ApplyChainAndCastHaste(C,*E,*Item);
+             C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"))>0?CombatChill::SlowPerStack:0.f;
+             C.PendantChillSeconds=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
+         }
+@@ -59,7 +58,8 @@
+     // Original identity: INT + WIS physical impact, no magic critical/penetration.
+     C.Damage=FMath::FloorToFloat(FMath::FloorToFloat(C.FixedDamage+C.IntelligenceContribution+C.WisdomContribution)*ChainDamage);
+     C.ManaCost=SpellManaCost(TEXT("iceWall"),L);
+-    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
++    ColdSteelSpellCrafting::ApplyCooldownMultipliers(C.Cooldown,CooldownReduction,SetEffect(TEXT("cooldown")),
++        Rune.SkillCooldown*Rune.MagicCooldown);
+     ApplySpellCastSpeed(C.CastSpeed);
+     return C;
+ }
+@@ -106,10 +106,7 @@
+         const bool bTraining=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
+         if(Applied>0)
+         {
+-            FWeaponDamageResult HitResult;
+-            HitResult.bResolved=true;
+-            HitResult.bKilled=Combat->IsDead();
+-            if(auto* P=Cast<AFPSGAMECharacter>(Shooter))P->NotifyConfirmedWeaponHit(Target,Applied,&HitResult);
++            ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,false);
+             if(bTraining){++Hits;if(Combat->IsDead())++Kills;}
+         }
+         if(Combat->IsDead())continue;
+@@ -120,10 +117,8 @@
+             UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,C.PendantChillSeconds);
+     }
+     SyncRuntime();auto P=Snapshot();const auto& T=IceWallSkill.IceWall;
+-    ColdSteelSkills::AddExperience(P,IceWallSkill,Hits*T.HitExperience+Kills*T.KillExperience+(Hits>=2?T.MultiHitExperience:0));
+-    for(const auto& K:Rewards.Kills){if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
+-    while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
+-    if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
++    ColdSteelSkills::AddExperience(P,IceWallSkill,ColdSteelSpellRewards::HitTrainingExperience(T,Hits,Kills,Hits>=2));
++    ColdSteelSpellRewards::AccumulateKillExperience(P,Rewards.Kills,*this);
+     if(StageTraining(MoveTemp(P)))for(const auto& K:Rewards.Kills)RewardedVictims.Add(K.Key);
+ }
+ 

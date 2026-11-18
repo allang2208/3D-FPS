@@ -1,0 +1,90 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "scope": "Editor build finalization for completed Skills cleanup batches 12-15; no source edits in this continuation",
+  "started_at": "2026-11-17T17:17:16.8069990+08:00",
+  "finished_at": "2026-11-17T17:17:28.3918773+08:00",
+  "engine_build_script": "E:/Program Files (x86)/UE_5.8/Engine/Build/BatchFiles/Build.bat",
+  "target": "FPSGAMEEditor Win64 Development",
+  "project": "D:/FPS3D/FPSGAME/FPSGAME.uproject",
+  "arguments": [
+    "FPSGAMEEditor",
+    "Win64",
+    "Development",
+    "-Project=D:/FPS3D/FPSGAME/FPSGAME.uproject",
+    "-NoHotReload",
+    "-NoHotReloadFromIDE",
+    "-NoUBTMakefiles",
+    "-NoUBA",
+    "-MaxParallelActions=2",
+    "-Log=D:/FPS3D/FPSGAME/Saved/BuildEditor/cleanup-finalization-20261117-171716.log"
+  ],
+  "exit_code": 0,
+  "result": "Succeeded",
+  "target_up_to_date": true,
+  "executed_actions": 0,
+  "ubt_execution_seconds": 11.29,
+  "log_path": "Saved/BuildEditor/cleanup-finalization-20261117-171716.log",
+  "newly_linked_outputs": [],
+  "target_metadata_written_by_this_invocation": false,
+  "shared_wait_history": [
+    {
+      "process_id": 56680,
+      "target": "FPSGAME",
+      "log_path": "Saved/HillsNoHangingBell20261117/FPSGAME.log",
+      "outcome": "Process exited; no success footer observed"
+    },
+    {
+      "process_id": 59704,
+      "ubt_process_id": 53064,
+      "target": "FPSGAMEEditor",
+      "log_path": "Saved/BuildEditor/build-20261117-162428.log",
+      "outcome": "Succeeded",
+      "executed_actions": 826,
+      "ubt_execution_seconds": 1716.71
+    },
+    {
+      "process_id": 66076,
+      "target": "FPSGAMEEditor",
+      "log_path": "SourceAssets/HillsRiverLake20261117/Logs/FPSGAMEEditor-build.log",
+      "outcome": "Succeeded",
+      "executed_actions": 4,
+      "ubt_execution_seconds": 22.76
+    },
+    {
+      "process_id": 66972,
+      "ubt_process_id": 64804,
+      "target": "FPSGAME",
+      "log_path": "SourceAssets/HillsRiverLake20261117/Logs/FPSGAME-build.log",
+      "outcome": "Succeeded",
+      "executed_actions": 664,
+      "ubt_execution_seconds": 598.08
+    },
+    {
+      "process_id": 73380,
+      "ubt_process_id": 75332,
+      "target": "FPSGAME",
+      "log_path": "SourceAssets/ChapelNun20261115/IdleCrossedR7/Build/Logs/FPSGAME-build.log",
+      "outcome": "Succeeded",
+      "ubt_execution_seconds": 10.48
+    }
+  ],
+  "project_commandlet_processes_waited_for": [
+    44100,
+    73480,
+    73536
+  ],
+  "prelaunch_gate": "Read-only process inventory; waited for existing native builds and project Editor module users to exit before launching UBT",
+  "lock_forced_or_bypassed": false,
+  "processes_stopped_in_this_continuation": false,
+  "cross_conversation_messages_sent": false,
+  "source_files_modified_in_this_continuation": 0,
+  "editor_launched": false,
+  "game_launched": false,
+  "commandlets_launched": false,
+  "tests_run": false,
+  "lint_or_static_audits_run": false,
+  "runtime_status": "Untested; user testing",
+  "history_note": "Earlier cancelled build attempt remains recorded separately; no build or wait session was cancelled in this continuation.",
+  "historical_attempt_receipt": "Docs/Cleanup/code-cleanup-20261116/remaining-batches-build-attempt-20261117.json"
+}

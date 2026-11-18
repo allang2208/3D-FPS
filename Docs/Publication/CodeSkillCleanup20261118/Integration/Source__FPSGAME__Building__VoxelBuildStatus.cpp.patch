@@ -1,0 +1,117 @@
+diff --git a/Source/FPSGAME/Building/VoxelBuildStatus.cpp b/Source/FPSGAME/Building/VoxelBuildStatus.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/VoxelBuildStatus.cpp
+@@ -0,0 +1,112 @@
++#include "VoxelBuildWorld.h"
++#include "ColdSteelPlantingSystem.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
++#include "ColdSteelCampfire.h"
++#include "VoxelBuildDebug.h"
++#include "VoxelBuildPalette.h"
++#include "VoxelBuildRuntime.h"
++#include "Misc/FileHelper.h"
++#include "VoxelBuildPersistence.h"
++#include "VoxelCollapseFragment.h"
++#include "VoxelBuildPrefabActor.h"
++#include "VoxelBuildGrounding.h"
++#include "SmeltingSystem.h"
++#include "Engine/GameInstance.h"
++
++#include "Components/DynamicMeshComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "GameFramework/Character.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/SecureHash.h"
++#include "EngineUtils.h"
++#include "PhysicalMaterials/PhysicalMaterial.h"
++
++namespace
++{
++    // One joint described for the player: which stress term governs it, how full it is and where it is.
++    FString JointSummary(const FVoxelBondStress& Bond,bool bWithStress)
++    {
++        if(!Bond.bValid||Bond.Ratio<=0)return FString();
++        const TCHAR* Kind=Bond.Kind==EVoxelBondStress::Compression?TEXT("抗压"):
++            Bond.Kind==EVoxelBondStress::Shear?TEXT("抗剪"):TEXT("抗拉·弯");
++        if(!bWithStress)return FString::Printf(TEXT("%s %.0f%% · 格(%d,%d,%d)"),
++            Kind,Bond.Ratio*100.,Bond.A.Cell.X,Bond.A.Cell.Y,Bond.A.Cell.Z);
++        return FString::Printf(TEXT("\n最弱接缝 %s %.0f/%.0f kPa · %.0f%% · 格(%d,%d,%d)"),
++            Kind,Bond.StressPa/1000.,Bond.LimitPa/1000.,Bond.Ratio*100.,
++            Bond.A.Cell.X,Bond.A.Cell.Y,Bond.A.Cell.Z);
++    }
++}
++
++const FString& AVoxelBuildWorld::SaveSlotName() const
++{
++    return SaveSlot;
++}
++
++void AVoxelBuildWorld::SolverStats(float& OutSeconds,int32& OutNodes,int32& OutBoundary) const
++{
++    OutSeconds=Runtime->LastSolveSeconds;OutNodes=Runtime->LastSolveNodes;OutBoundary=Runtime->LastSolveBoundary;
++}
++
++bool AVoxelBuildWorld::LastSolveWasFull() const
++{
++    return Runtime->bGatherFullSolve;
++}
++
++uint64 AVoxelBuildWorld::StatusFingerprint() const
++{
++    // 审计 U1（2026-09-23）：StructureStatus 的过渡态分支不随 Revision 变化，UI 生产端签名
++    // 需要这些内部标志才能避免"过渡期状态行冻结"。每个分支一个位；顺序与 StructureStatus
++    // 的判定顺序一致。纯位打包，零分配。
++    uint64 Bits=0;
++    if(Runtime->bSaveFailed)Bits|=1;
++    else if(Runtime->bFreshRolledBack)Bits|=2;
++    else if(!Runtime->PendingFragments.IsEmpty()||!Runtime->Activation.IsEmpty())Bits|=4;
++    else if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())Bits|=8;
++    else if(Runtime->bStressApproximate)Bits|=16;
++    else if(!LegacyProtected.IsEmpty())Bits|=32;
++    else Bits|=(Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?64:128);
++    return Bits;
++}
++
++float AVoxelBuildWorld::WeakestJointRatio() const
++{
++    return Runtime->WorstBond.bValid?Runtime->WorstBond.Ratio:0.f;
++}
++
++FString AVoxelBuildWorld::WeakestJointSummary() const
++{
++    return JointSummary(Runtime->WorstBond,false);
++}
++
++FString AVoxelBuildWorld::StructureStatus() const
++{
++    if(Runtime->bSaveFailed)return TEXT("保存失败 · 建筑仍在内存中，将重试");
++    if(Runtime->bFreshRolledBack)
++        return FString(TEXT("新建部分承重不足，已倒塌 · 原有结构未受影响"))+JointSummary(Runtime->FailureBond,true);
++    if(!Runtime->PendingFragments.IsEmpty()||!Runtime->Activation.IsEmpty())
++        return FString::Printf(TEXT("倒塌处理中 · 活动物理块 %d"),Runtime->AwakeBodies);
++    if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())return TEXT("正在计算承重");
++    if(Runtime->bStressApproximate)return TEXT("结构求解未收敛 · 未应用估算破坏");
++    if(!LegacyProtected.IsEmpty())return TEXT("旧建筑保留 · 编辑或破坏后计算承重");
++    // 2026-10-13 联机审计 B6：客户端不解算不落盘，末分支原来恒显"承重已更新"误导玩家。
++    return (Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?FString(TEXT("正在保存")):
++        HasAuthority()?FString(TEXT("承重已更新")):FString(TEXT("结构已与主机同步")))
++        +JointSummary(Runtime->WorstBond,true)
++        +SolverSummary();
++}
++
++FString AVoxelBuildWorld::SolverSummary() const
++{
++    if(Runtime->LastSolveNodes<=0)return FString();
++    // 求解规模/耗时直接写进状态行：既是给玩家的"这块多大、算得多快"的反馈，也是性能优化的基线读数。
++    // 审计 C10：bGatherFullSolve 只表示"这次没按 SolveRegionHops 裁剪"，**不等于收满了整块结构**。
++    // 结构超过 MaxSolveNodes 时收集会停在上限、其余邻居被记为边界，但状态行仍写"全量"——
++    // 2 万节点的建筑会在 4096 节点时声称全量。这里按"有没有边界节点"来区分是否真的收全。
++    if(!Runtime->bGatherFullSolve)
++        return FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（局部 + %d 边界）"),Runtime->LastSolveSeconds*1000.f,
++            Runtime->LastSolveNodes,Runtime->LastSolveBoundary);
++    return Runtime->LastSolveBoundary>0
++        ?FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（全量·已达上限，%d 格按边界处理）"),
++            Runtime->LastSolveSeconds*1000.f,Runtime->LastSolveNodes,Runtime->LastSolveBoundary)
++        :FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（全量）"),Runtime->LastSolveSeconds*1000.f,Runtime->LastSolveNodes);
++}

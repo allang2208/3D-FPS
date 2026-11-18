@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "batch": 21,
+  "scope": "Skills C29/C30 long implementation splits and C31 fireball shared settlement; C04 retained",
+  "source_cleanup_complete": true,
+  "modified_existing_files": 4,
+  "new_source_files": 4,
+  "maximum_modified_file_lines": 401,
+  "editor_build_complete": false,
+  "build_attempt_finished": true,
+  "result": "Failed (OtherCompilationError)",
+  "exit_code": 6,
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_started_at": "2026-11-17T20:51:40.2890984+08:00",
+  "build_finished_at": "2026-11-17T20:54:09.2568125+08:00",
+  "ubt_execution_seconds": 148.76,
+  "executor_seconds": 139.03,
+  "planned_actions": 74,
+  "reported_compile_actions": 71,
+  "link_actions": 0,
+  "metadata_actions": 0,
+  "linked_dll": false,
+  "log_path": "Saved/BuildEditor/cleanup-batch21-20261117-205140.log",
+  "arguments": [
+    "FPSGAMEEditor",
+    "Win64",
+    "Development",
+    "-Project=D:/FPS3D/FPSGAME/FPSGAME.uproject",
+    "-NoHotReload",
+    "-NoHotReloadFromIDE",
+    "-NoUBTMakefiles",
+    "-NoUBA",
+    "-MaxParallelActions=2"
+  ],
+  "blocker": {
+    "path": "Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp",
+    "lines": [
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "error_code": "C2248",
+    "cause": "Access to protected ABronzeTorch members declared in Source/FPSGAME/Building/BronzeTorch.h",
+    "outside_skills_scope": true,
+    "modified_by_this_batch": false,
+    "diagnostics": [
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(45,18): error C2248: ﾡﾰABronzeTorch::LightLumensﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)",
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(45,50): error C2248: ﾡﾰABronzeTorch::LightRadiusCmﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)",
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(46,18): error C2248: ﾡﾰABronzeTorch::bLightCastsShadowsﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)",
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(47,18): error C2248: ﾡﾰABronzeTorch::TorchLightﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)",
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(48,18): error C2248: ﾡﾰABronzeTorch::TorchLightﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)",
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(49,18): error C2248: ﾡﾰABronzeTorch::TorchLightﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)",
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(50,18): error C2248: ﾡﾰABronzeTorch::TorchLightﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)",
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(51,18): error C2248: ﾡﾰABronzeTorch::TorchBodyﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)",
+      "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsBlacksmith.cpp(52,18): error C2248: ﾡﾰABronzeTorch::TorchFlameﾡﾱ: ￎ￞ﾷﾨﾷￃￎￊ protected ﾳ￉ￔﾱ(ￔￚﾡﾰABronzeTorchﾡﾱ￀￠ￖ￐￉￹ￃ￷)"
+    ]
+  },
+  "initial_attempt": {
+    "started_at": "2026-11-17T20:50:23.1112749+08:00",
+    "log_path": "Saved/BuildEditor/cleanup-batch21-20261117-205023.log",
+    "result": "Interrupted own command while changing the waiting gate; it had already begun compilation",
+    "exit_code": 1,
+    "note": "No other process was interrupted; existing objects retained for continuation"
+  },
+  "waited_processes": [
+    {
+      "pid": 86784,
+      "name": "UnrealEditor-Cmd.exe",
+      "started_at": "2026-11-17T20:45:03.535001+08:00",
+      "note": "Used an isolated Host DLL copy and exited naturally before the first build launched"
+    },
+    {
+      "pid": 95912,
+      "name": "cmd.exe",
+      "note": "Existing shared Editor build, with UBT PID 27116; waited before continuation"
+    }
+  ],
+  "separate_build_compile_evidence": {
+    "log_path": "SourceAssets/HillsLandscapeCapture20261117R3/Logs/FPSGAMEEditor-build.log",
+    "compiled_split_files": [
+      "ColdSteelSkillProgression.cpp",
+      "ColdSteelSkillCombat.cpp",
+      "ColdSteelSkillRules.cpp",
+      "FPSQuickCombatComponent.cpp",
+      "QuickCombatPresentation.cpp",
+      "QuickCombatContact.cpp"
+    ],
+    "result": "Failed (OtherCompilationError)",
+    "note": "Read existing compile log only; this batch did not launch that build. It also failed on the external HillsBlacksmith access error."
+  },
+  "other_processes_stopped": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "tests_run": false,
+  "runtime_status": "Untested; user testing after build blocker is resolved; no successful DLL link claimed"
+}

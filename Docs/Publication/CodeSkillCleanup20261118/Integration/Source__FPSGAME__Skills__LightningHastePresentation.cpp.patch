@@ -1,0 +1,36 @@
+diff --git a/Source/FPSGAME/Skills/LightningHastePresentation.cpp b/Source/FPSGAME/Skills/LightningHastePresentation.cpp
+--- a/Source/FPSGAME/Skills/LightningHastePresentation.cpp
++++ b/Source/FPSGAME/Skills/LightningHastePresentation.cpp
+@@ -22,13 +22,18 @@
+ }
+ }
+ 
+-void UFPSLightningHasteComponent::ClearVisuals()
++void UFPSLightningHasteComponent::ClearLimbTickPrerequisites()
+ {
+     for(const auto& Mesh:LimbMeshes)if(Mesh.IsValid())
+     {
+         RemoveTickPrerequisiteComponent(Mesh.Get());
+         if(auto* Leader=Mesh->LeaderPoseComponent.Get())RemoveTickPrerequisiteComponent(Leader);
+     }
++}
++
++void UFPSLightningHasteComponent::ClearVisuals()
++{
++    ClearLimbTickPrerequisites();
+     for(const auto& FX:ArcFX)if(FX)FX->DestroyComponent();ArcFX.Reset();
+     for(const auto& Path:ArcPaths)if(Path)Path->DestroyComponent();ArcPaths.Reset();
+     LimbMeshes.Reset();LimbRoots.Reset();LimbTips.Reset();NextLimbResolveAt=0;bVisualWasActive=false;
+@@ -42,11 +47,7 @@
+     const bool First=P->IsPlayerControlled()&&P->IsLocallyControlled()&&(!Body||!Body->IsThirdPersonViewEnabled());
+     auto* Legs=First&&Body?Body->GetFirstPersonLowerBodyMesh():World;
+     TInlineComponentArray<USkeletalMeshComponent*> Skins;P->GetComponents(Skins);
+-    for(const auto& Mesh:LimbMeshes)if(Mesh.IsValid())
+-    {
+-        RemoveTickPrerequisiteComponent(Mesh.Get());
+-        if(auto* Leader=Mesh->LeaderPoseComponent.Get())RemoveTickPrerequisiteComponent(Leader);
+-    }
++    ClearLimbTickPrerequisites();
+     LimbMeshes.SetNum(4);LimbRoots.SetNum(4);LimbTips.SetNum(4);
+     for(int32 I=0;I<4;++I)
+     {

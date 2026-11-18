@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills: eight progress getter bodies reuse TMap::FindRef with unchanged keys and default values",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "before_lines": 133,
+      "after_lines": 133,
+      "before_bytes": 8556,
+      "after_bytes": 8514,
+      "before_sha256": "c625febecbf91cec2bf29bc749c44b9e34dfbf62f021fe9bfcc653018b032b12",
+      "after_sha256": "95d6cec8c137b942d507fa1a8dd42ba1d7a26e5457d4d779716ba924b254397f",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-09-progress-lookup/ColdSteelIceSpikeModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "before_lines": 141,
+      "after_lines": 141,
+      "before_bytes": 9553,
+      "after_bytes": 9511,
+      "before_sha256": "ef2c3ab490b5eb1d434e49b0b9595006fc7a71f3e503819369e346321e47f9ae",
+      "after_sha256": "185c503425f4442187b7b67877e3614031e158d59bc97fa8dbc8427413bc7458",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-09-progress-lookup/ColdSteelLightningModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "before_lines": 141,
+      "after_lines": 141,
+      "before_bytes": 9162,
+      "after_bytes": 9120,
+      "before_sha256": "5c23700a067580b6df76ac69dd0e3c21fee652689ed2acbb48e1b01a6254a549",
+      "after_sha256": "b6743ed5c5a483cc107643c2d4d754a74cd1a1e4423d4f097af64dcb18cfb95e",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-09-progress-lookup/ColdSteelHolyLightModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "before_lines": 143,
+      "after_lines": 143,
+      "before_bytes": 8683,
+      "after_bytes": 8641,
+      "before_sha256": "548cec32d0fb5a21ada110c506337e276af3c8564a3f44d60b3108b7ec795f53",
+      "after_sha256": "ac2d9661aa08b12a0053a8d325735a90ca5af73a267f2efc8c21ec36d6b01472",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-09-progress-lookup/ColdSteelIceWallModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp",
+      "before_lines": 92,
+      "after_lines": 92,
+      "before_bytes": 6364,
+      "after_bytes": 6322,
+      "before_sha256": "93cecb34d3f40d7f0fc13296c986a03518096e85744fd0a7340ccdea4b512d20",
+      "after_sha256": "7af167f576b7a508ec41da154573549a665c6f56a73667f8d395214ab6ededbf",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-09-progress-lookup/ColdSteelElectricMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "before_lines": 146,
+      "after_lines": 146,
+      "before_bytes": 10165,
+      "after_bytes": 10123,
+      "before_sha256": "c34d42dfed228cdea6d8a1a42bb5b036d226119d6d7b0ea7181199cc6a8f5ab1",
+      "after_sha256": "86b40eb7f431bb0ab3df77a4b4fe19208a0cd52f4b9fa1173eee03432fed570e",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-09-progress-lookup/ColdSteelFireMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+      "before_lines": 122,
+      "after_lines": 122,
+      "before_bytes": 7592,
+      "after_bytes": 7550,
+      "before_sha256": "5d1d0cc590e5aac685668d22608805148b5a2b95206619c7360fb259e67dc21a",
+      "after_sha256": "0e6b39bf13a846b70aabd15bbe2b633458fb358c53fcab5a7969b775add0a9ba",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-09-progress-lookup/ColdSteelBlizzardModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "before_lines": 743,
+      "after_lines": 743,
+      "before_bytes": 55059,
+      "after_bytes": 55017,
+      "before_sha256": "22539f1dff6f43ba12ed549571e2fa37dd81c787e942b10248fc714c54bc2ea0",
+      "after_sha256": "2781e0450673910c3c9d1be8194e596824d1aa38ece99b37468aefff6b050e12",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-09-progress-lookup/ColdSteelSkillModel.cpp.before.txt"
+    }
+  ]
+}

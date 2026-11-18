@@ -1,0 +1,198 @@
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunCatalog.cpp b/Source/FPSGAME/Dungeons/DungeonRunCatalog.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRunCatalog.cpp
+@@ -0,0 +1,193 @@
++#include "DungeonRunSubsystem.h"
++#include "DungeonRoomSubsystem.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "AuthoredDungeonGenerator.h"
++#include "FacilityHallEncounter.h"
++#include "DungeonThemeEncounter.h"
++#include "DungeonShortcutGate.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "GameFramework/PlayerController.h"
++#include "../UI/StatusEffectsComponent.h"
++#include "GameFramework/Pawn.h"
++#include "Engine/TargetPoint.h"
++#include "Engine/World.h"
++#include "Engine/Level.h"
++#include "Engine/GameInstance.h"
++#include "EngineUtils.h"
++#include "Dom/JsonValue.h"
++#include "Serialization/JsonReader.h"
++#include "Serialization/JsonSerializer.h"
++#include "Misc/DateTime.h"
++
++namespace
++{
++    // Must stay in sync with IsConnectorModule/IsBossModule in AuthoredDungeonLighting.inl:
++    // connector sleeves add no room depth; terminal pieces keep their own layout category.
++    bool IsConnectorModuleId(const FString& Id)
++    {
++        return Id == TEXT("Transit") || Id == TEXT("Threshold") || Id == TEXT("TreasureLink")
++            || Id == TEXT("RouteElbow") || Id == TEXT("BossApproach") || Id == TEXT("StairDrop1080");
++    }
++    bool IsBossModuleId(const FString& Id)
++    {
++        return Id == TEXT("BossConfluence") || Id == TEXT("BossPumpHall");
++    }
++    FVector ReadVec3(const TSharedPtr<FJsonObject>& O, const TCHAR* Key)
++    {
++        const TArray<TSharedPtr<FJsonValue>>* V = nullptr;
++        if (!O.IsValid() || !O->TryGetArrayField(Key, V) || !V || V->Num() < 3) return FVector::ZeroVector;
++        return FVector((*V)[0]->AsNumber(), (*V)[1]->AsNumber(), (*V)[2]->AsNumber());
++    }
++}
++
++
++bool UDungeonRunSubsystem::ParseLayoutManifest(const FString& Json)
++{
++    Nodes.Reset();
++    EntryNodeId=INDEX_NONE;
++    TSharedPtr<FJsonObject> Root;
++    if (Json.IsEmpty() || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root) || !Root.IsValid())
++        return false;
++    Root->TryGetNumberField(TEXT("entry_node"),EntryNodeId);
++
++    const TArray<TSharedPtr<FJsonValue>>* NodeValues = nullptr;
++    if (!Root->TryGetArrayField(TEXT("nodes"), NodeValues) || !NodeValues) return false;
++    for (const TSharedPtr<FJsonValue>& Value : *NodeValues)
++    {
++        const TSharedPtr<FJsonObject> N = Value.IsValid() ? Value->AsObject() : nullptr;
++        if (!N.IsValid()) continue;
++        int32 Id = INDEX_NONE;
++        if (!N->TryGetNumberField(TEXT("id"), Id) || Id < 0) continue;
++
++        FDungeonRunNode Node;
++        Node.Id = Id;
++        N->TryGetStringField(TEXT("module"), Node.Module);
++        N->TryGetStringField(TEXT("route"), Node.Route);
++        N->TryGetStringField(TEXT("mission_id"),Node.MissionId);N->TryGetStringField(TEXT("encounter_role"),Node.EncounterRole);
++        N->TryGetNumberField(TEXT("threat_bonus"),Node.ThreatBonus);N->TryGetNumberField(TEXT("reward_multiplier"),Node.RewardMultiplier);
++        int32 Floor = 0;
++        if (N->TryGetNumberField(TEXT("floor"), Floor)) Node.Floor = Floor;
++        Node.Origin = ReadVec3(N, TEXT("origin"));
++        N->TryGetNumberField(TEXT("yaw"), Node.Yaw);
++        const FVector VMin = ReadVec3(N, TEXT("volume_min"));
++        const FVector VMax = ReadVec3(N, TEXT("volume_max"));
++        Node.Volume = FBox(FVector::Min(VMin, VMax), FVector::Max(VMin, VMax));
++        N->TryGetNumberField(TEXT("progression_depth"),Node.ProgressionDepth);
++        const TArray<TSharedPtr<FJsonValue>>* Cells=nullptr;
++        if(N->TryGetArrayField(TEXT("cells"),Cells))for(const auto& Cell:*Cells)
++        {
++            const auto C=Cell->AsObject();if(C.IsValid())Node.Cells.Add(FBox(ReadVec3(C,TEXT("min")),ReadVec3(C,TEXT("max"))));
++        }
++        const TArray<TSharedPtr<FJsonValue>>* Navigation=nullptr;
++        if(N->TryGetArrayField(TEXT("navigation_anchors"),Navigation))for(const auto& NavigationValue:*Navigation)
++        {
++            const auto& Point=NavigationValue->AsArray();
++            if(Point.Num()==3)Node.NavigationAnchors.Add(FVector(Point[0]->AsNumber(),Point[1]->AsNumber(),Point[2]->AsNumber()));
++        }
++        Node.bConnector = IsConnectorModuleId(Node.Module);
++        bool SplitLevelRamp=false;
++        N->TryGetBoolField(TEXT("split_level_ramp"),SplitLevelRamp);
++        Node.bConnector |= SplitLevelRamp;
++        Node.bCombatRoom = RoomIds.Contains(Node.Module);
++        if(N->TryGetArrayField(TEXT("walk_cells"),Cells))for(const auto& Cell:*Cells)
++        {const auto C=Cell->AsObject();if(C.IsValid())Node.WalkCells.Add(FBox(ReadVec3(C,TEXT("min")),ReadVec3(C,TEXT("max"))));}
++        Node.bJunction = Node.Module == TEXT("Junction")||Node.Module.StartsWith(TEXT("Fork"));
++        Node.bTreasure = Node.Module == TEXT("Treasure");
++        Node.bBossArea = IsBossModuleId(Node.Module) || Node.Route.StartsWith(TEXT("Boss"));
++        if (Nodes.Num() <= Id) Nodes.SetNum(Id + 1);
++        Nodes[Id] = MoveTemp(Node);
++    }
++
++    const TArray<TSharedPtr<FJsonValue>>* Edges = nullptr;
++    if (Root->TryGetArrayField(TEXT("connections"), Edges) && Edges)
++    {
++        for (const TSharedPtr<FJsonValue>& Value : *Edges)
++        {
++            const TSharedPtr<FJsonObject> E = Value.IsValid() ? Value->AsObject() : nullptr;
++            if (!E.IsValid()) continue;
++            int32 From = INDEX_NONE, To = INDEX_NONE;
++            if (!E->TryGetNumberField(TEXT("from"), From) || !E->TryGetNumberField(TEXT("to"), To)) continue;
++            if (!NodeById(From) || !NodeById(To) || From == To) continue;
++            Nodes[From].Neighbors.AddUnique(To);
++            Nodes[To].Neighbors.AddUnique(From);
++            if(E->HasField(TEXT("position"))&&E->HasField(TEXT("from_normal"))&&E->HasField(TEXT("to_normal")))
++            {
++                double Width=300,Height=280;E->TryGetNumberField(TEXT("width"),Width);E->TryGetNumberField(TEXT("height"),Height);
++                const FVector Position=ReadVec3(E,TEXT("position"));
++                Nodes[From].Doors.Add({To,Position,ReadVec3(E,TEXT("from_normal")),Width,Height});
++                Nodes[To].Doors.Add({From,Position,ReadVec3(E,TEXT("to_normal")),Width,Height});
++            }
++        }
++    }
++    return Nodes.Num() > 0;
++}
++
++void UDungeonRunSubsystem::ParseCatalog(const FString& Json)
++{
++    RoomIds.Reset();
++    ModuleTrackingAreas.Reset();
++    HallTrafficBoxes.Reset();
++    StartPosition = FVector::ZeroVector;
++    ReservedStartRoom.Init();
++    StartNormal = FVector::ForwardVector;
++
++    TSharedPtr<FJsonObject> Root;
++    if (Json.IsEmpty() || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root) || !Root.IsValid())
++    {
++        UE_LOG(LogTemp, Warning, TEXT("[DungeonRun] 模块目录不可解析，房间分类为空。"));
++        return;
++    }
++
++    const TArray<TSharedPtr<FJsonValue>>* Ids = nullptr;
++    if (Root->TryGetArrayField(TEXT("room_ids"), Ids) && Ids)
++    {
++        for (const TSharedPtr<FJsonValue>& V : *Ids)
++            if (V.IsValid() && V->Type == EJson::String) RoomIds.Add(V->AsString());
++    }
++    const TArray<TSharedPtr<FJsonValue>>* Modules = nullptr;
++    if (Root->TryGetArrayField(TEXT("modules"), Modules))
++        for (const auto& Value : *Modules)
++        {
++            const auto Module = Value->AsObject();
++            FString Id;
++            const TArray<TSharedPtr<FJsonValue>>* Clear = nullptr;
++            if (!Module.IsValid() || !Module->TryGetStringField(TEXT("id"), Id)
++                || (Id != TEXT("FacilityReceptionHall") && Id != TEXT("FacilityTransit"))
++                || !Module->TryGetArrayField(TEXT("scene_keep_clear"), Clear)) continue;
++            auto& Boxes = HallTrafficBoxes.FindOrAdd(Id);
++            for (const auto& Entry : *Clear)
++                if (const auto Box = Entry->AsObject(); Box.IsValid())
++                    Boxes.Add(FBox(ReadVec3(Box, TEXT("min")), ReadVec3(Box, TEXT("max"))));
++        }
++    // Use the authored theme sequences, not Route1/2/3: each route contains two
++    // independently drawn regions, and the same region can occupy any branch.
++    const TMap<FString, FString> AreaNames = {
++        {TEXT("freight"), TEXT("货运区")}, {TEXT("medical"), TEXT("医疗区")},
++        {TEXT("treatment"), TEXT("焚化区")}, {TEXT("staff_living"), TEXT("生活区")},
++        {TEXT("ecology"), TEXT("生态区")}, {TEXT("power"), TEXT("发电区")}
++    };
++    const TSharedPtr<FJsonObject>* Themes = nullptr;
++    const TArray<TSharedPtr<FJsonValue>>* Routes = nullptr;
++    if (Root->TryGetObjectField(TEXT("themed_routes"), Themes) && (*Themes)->TryGetArrayField(TEXT("routes"), Routes))
++        for (const auto& Value : *Routes)
++        {
++            const auto Theme = Value->AsObject();
++            FString Id;
++            const TArray<TSharedPtr<FJsonValue>>* Sequence = nullptr;
++            if (!Theme.IsValid() || !Theme->TryGetStringField(TEXT("id"), Id)
++                || !Theme->TryGetArrayField(TEXT("sequence"), Sequence)) continue;
++            FString Name;
++            if (!Theme->TryGetStringField(TEXT("display_name"), Name) || Name.IsEmpty()) Name = AreaNames.FindRef(Id);
++            if (Name.IsEmpty()) continue;
++            for (const auto& Module : *Sequence) ModuleTrackingAreas.Add(Module->AsString(), Name);
++        }
++    StartPosition = ReadVec3(Root, TEXT("start_position"));
++    if (Root->HasField(TEXT("reserved_min")) && Root->HasField(TEXT("reserved_max")))
++        ReservedStartRoom=FBox(ReadVec3(Root,TEXT("reserved_min")),ReadVec3(Root,TEXT("reserved_max")));
++    const TSharedPtr<FJsonObject>* Shrine=nullptr;
++    if(Root->TryGetObjectField(TEXT("start_shrine"),Shrine))ShrineConfig=*Shrine;
++    const FVector N = ReadVec3(Root, TEXT("start_normal"));
++    if (!N.IsNearlyZero()) StartNormal = N;
++}
++

@@ -1,0 +1,122 @@
+[
+  {
+    "path": "AGENTS.md",
+    "bytes": 21889,
+    "sha256": "9cd7daf88d8a159bf261d00f0c9beb0aaa4c00efa2c392dabcdf13822810d386",
+    "reason_count": 42
+  },
+  {
+    "path": "WORKFLOW.md",
+    "bytes": 25523,
+    "sha256": "7c8c7f5a76ec6306a484c0d09b6f6d99f24f79e3d94d05baf491590676c2df1a",
+    "reason_count": 48
+  },
+  {
+    "path": "skills/asset-model-workflow/SKILL.md",
+    "bytes": 3156,
+    "sha256": "e98736db63a0bba315933677d705be98a7cc5e0899741fb4b90bad70589996ae",
+    "reason_count": 9
+  },
+  {
+    "path": "skills/ue5-auto-assistant/SKILL.md",
+    "bytes": 2010,
+    "sha256": "5e39bbbb820a6d4d0581f631b6d5e748a5b89efc5a347d770c7b4109c25825a4",
+    "reason_count": 6
+  },
+  {
+    "path": "skills/ue5-clothing-workflow/SKILL.md",
+    "bytes": 1119,
+    "sha256": "6a1d3604ada506c37b210bd399b125dfec8997a7509e06a610fff1b82e85fbf3",
+    "reason_count": 3
+  },
+  {
+    "path": "skills/ue5-cpp-gameplay/SKILL.md",
+    "bytes": 3543,
+    "sha256": "a8bb05944a07509dd0032dd2647d3319de5f815a8f11f83cf4665265c5e5b428",
+    "reason_count": 11
+  },
+  {
+    "path": "skills/ue5-debug-validation/SKILL.md",
+    "bytes": 3944,
+    "sha256": "293da6842b746ed055a5b81bfae5a7b906ab30fa954bf31f2244a1bf67b859f2",
+    "reason_count": 11
+  },
+  {
+    "path": "skills/ue5-fluid-vfx-workflow/SKILL.md",
+    "bytes": 3071,
+    "sha256": "51f912996590e4e526de8273c116c107c74694f9277d819d6c15551e3764b296",
+    "reason_count": 8
+  },
+  {
+    "path": "skills/ue5-fps-arms-animation/SKILL.md",
+    "bytes": 12571,
+    "sha256": "e8bd2181949d6ec85b5e6f9bd6075ca223bbb57f83cae3de2ff67eb1f7dc514e",
+    "reason_count": 32
+  },
+  {
+    "path": "skills/ue5-item-asset-workflow/SKILL.md",
+    "bytes": 3919,
+    "sha256": "a6176273311173d5e302e0f066d23826f423e96353e3f9f5a483ff1e92812de3",
+    "reason_count": 11
+  },
+  {
+    "path": "skills/ue5-monster-workflow/SKILL.md",
+    "bytes": 4148,
+    "sha256": "da2f790479c42f9a2da96718c28d273c4c56fbed636b08b1eb0490894e5a84f8",
+    "reason_count": 11
+  },
+  {
+    "path": "skills/ue5-multiplayer-netcode/SKILL.md",
+    "bytes": 6295,
+    "sha256": "5060851a9cb1820303721b5362ddf60909376f720519d05d1b3d1cb23371d87e",
+    "reason_count": 21
+  },
+  {
+    "path": "skills/ue5-pcg-building/SKILL.md",
+    "bytes": 3810,
+    "sha256": "62d4639133bfe2e9b0fc093f7569b912e9d60a4c5dc1293f4544593fc74acd41",
+    "reason_count": 9
+  },
+  {
+    "path": "skills/ue5-performance-packaging/SKILL.md",
+    "bytes": 3091,
+    "sha256": "57779728a548a96eab12c7dc4f9317b6ca3e1dd387a87ce1ff7dd29ca08ccacd",
+    "reason_count": 8
+  },
+  {
+    "path": "skills/ue5-save-load-replication/SKILL.md",
+    "bytes": 11437,
+    "sha256": "f02b3f706e0406babf466aa4722d54b20517d7449b9930293b4047755d0e153f",
+    "reason_count": 33
+  },
+  {
+    "path": "skills/ue5-skill-magic-workflow/SKILL.md",
+    "bytes": 9479,
+    "sha256": "32af9e8ef49c40e7239c606280b5d3086ee1e8b6eefa87b6052498fc37cb62b7",
+    "reason_count": 20
+  },
+  {
+    "path": "skills/ue5-ui-umg-slate/SKILL.md",
+    "bytes": 4266,
+    "sha256": "aa070b7e8a0261fe8e2b40ccad07310fd87918a773cc442e2501f68d6a87f03b",
+    "reason_count": 12
+  },
+  {
+    "path": "skills/ue5-weapon-workflow/SKILL.md",
+    "bytes": 10292,
+    "sha256": "e9822e68189685d66ab30b9584d2195adda3486edc6a8968932a026d8bbb1721",
+    "reason_count": 28
+  },
+  {
+    "path": "skills/ue5-weather-workflow/SKILL.md",
+    "bytes": 1119,
+    "sha256": "5be9689b8c9b196ba574be4cbda15d0fefd5c24d1e5b4d14577f31187fbbcf23",
+    "reason_count": 3
+  },
+  {
+    "path": "skills/ue5-world-interaction/SKILL.md",
+    "bytes": 2423,
+    "sha256": "ca33ba296d0dbb80a1e867dc7e28a17cbaf0079fd7497c1b007c41f5ef7de8d3",
+    "reason_count": 7
+  }
+]

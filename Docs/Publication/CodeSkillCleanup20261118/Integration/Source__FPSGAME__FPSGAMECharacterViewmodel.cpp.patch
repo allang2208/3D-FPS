@@ -1,0 +1,667 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterViewmodel.cpp b/Source/FPSGAME/FPSGAMECharacterViewmodel.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterViewmodel.cpp
+@@ -0,0 +1,662 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++bool AFPSGAMECharacter::IsLoneLeftHandRig() const
++{
++    return bLoneOffhandPistol && DualPistols && DualPistols->IsOffhandOnly();
++}
++
++void AFPSGAMECharacter::SetViewmodelMirrored(bool bMirrored)
++{
++    if(bViewmodelMirrored==bMirrored)return;
++    bViewmodelMirrored=bMirrored;
++    ApplyLeftHandPresentation();
++}
++
++void AFPSGAMECharacter::UpdateLeftHandMirrorPlane()
++{
++    if(!GunplayAnimation||!AKMViewmodel)return;
++    // 只有启用姿态镜像时才需要；默认的负缩放节点与它无关。
++    if(!GunplayAnimation->bMirrorLeftHand)return;
++    // 镜面法线 = 相机右轴在网格物体空间的方向。必须用当前机位/开镜旋转实时换算：
++    // 固定成物体 X 轴只在待机的纯 yaw -90 下成立，开镜标定带俯仰+横滚后镜面会偏出去，
++    // 枪随之歪斜并被推穿近裁剪面。
++    GunplayAnimation->LeftHandMirrorPlane=AKMViewmodel->GetRelativeRotation().Quaternion().UnrotateVector(FVector::RightVector);
++}
++
++void AFPSGAMECharacter::ApplyLeftHandPresentation()
++{
++    ApplyLeftHandPresentation(false);
++}
++
++void AFPSGAMECharacter::ApplyLeftHandPresentation(bool bForce)
++{
++    if(!AKMViewmodel)return;
++    // 默认走负缩放镜像节点：这一版已经实测过，ADS 对齐、不被裁剪，代价只是枪身贴图翻面。
++    // 姿态镜像（fps.Weapon.LeftHandPoseMirror 1）能保住贴图正向，但逐骨换算在本骨架上还
++    // 没调对，实测整枪被拉长扭曲，因此不默认启用。
++    const bool bWantPose=LeftHandPoseMirror.GetValueOnGameThread()!=0;
++    const bool bPose=bWantPose&&bViewmodelMirrored&&GunplayAnimation&&GunplayAnimation->bLeftHandMirrorReady;
++    const int32 Want=!bViewmodelMirrored?0:(bPose?1:2);
++    if(GunplayAnimation)GunplayAnimation->bMirrorLeftHand=bPose;
++    USceneComponent* Parent=Want==2&&ViewmodelMirror?static_cast<USceneComponent*>(ViewmodelMirror.Get())
++        :static_cast<USceneComponent*>(FirstPersonCamera.Get());
++    const bool bChanged=Want!=LeftHandPresentation||AKMViewmodel->GetAttachParent()!=Parent;
++    LeftHandPresentation=Want;
++    if(bChanged&&Parent)
++        AKMViewmodel->AttachToComponent(Parent,FAttachmentTransformRules::KeepRelativeTransform);
++    if(bChanged||bForce)
++    {
++        // 只在换模式或显式要求时复位一次；之后由 UpdateADSPose 每帧写相机空间锚点，
++        // 这里再写会跟开镜/后坐的插值打架。
++        AKMViewmodel->SetRelativeScale3D(ViewmodelScale);
++        AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
++        AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
++    }
++    if(bPose)UpdateLeftHandMirrorPlane();
++}
++
++FRotator AFPSGAMECharacter::GetViewmodelBaseRotation() const
++{
++    // P9 is authored toward Blender -Y and imports toward UE +Y.
++    // Its camera basis is the opposite of the existing rifle assets (-Y).
++    return IsPistolWeapon() ? FRotator(0.f, -90.f, 0.f) : ViewmodelRotation;
++}
++
++void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
++{
++    if(bViewmodelMirrored)ApplyLeftHandPresentation();
++    UpdateWeaponCrouchPose(DeltaSeconds);
++    if(HasOffhandPistol()){DualPistols->Advance(DeltaSeconds);return;}
++    const float BipodMotion=BipodDeployment?BipodDeployment->MotionMultiplier():1.f;
++    const float BipodRecoil=(BipodDeployment?BipodDeployment->RecoilMultiplier():1.f)*ColdSteelCombat::ComposureRecoilMultiplier(this);
++    UpdateADSPose();
++    // Reload/inspection need room for the support hand. Equip is performed at
++    // this weapon's hip anchor and must not visit the centered action framing.
++    const bool bPKMReloadFraming = PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel);
++    const bool bClothReloadFraming=HasLMG201ClothBox()&&IsReloading();
++    // M24's complete action family is authored at its calibrated hip anchor.
++    // The M4 anchor would pull it 22.5 cm toward the eye and lift it 20.7 cm,
++    // including during the bolt cycle while the gameplay state is still Idle.
++    const bool bUseActionFraming = !IsM24Weapon() && !IsTubeShotgunWeapon() && (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
++        && !IsPistolWeapon() && !IsTraversing() && !Traversal->IsWeaponRecovering()
++        && !IsDoorPushActive() && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping
++        && !(HasM249SideMagazine()&&IsReloading());
++    float ActionFramingTarget = bUseActionFraming ? 1.0f : 0.0f;
++    if(!QuickCombatPistol||!QuickCombatPistol->IsImpactPaused())
++        M4ActionFramingAlpha = FMath::Lerp(M4ActionFramingAlpha, ActionFramingTarget,
++            1.0f - FMath::Exp(-16.0f * DeltaSeconds));
++    if (WeaponState == EAKMWeaponState::QuickCombat)
++    {
++        // Reach the hip anchor inside the clip's recovery. Filtering this tail
++        // would leave a second component-space correction after the pose ends.
++        M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
++            QuickCombatRecovery::RemainingWeight(WeaponStateElapsed, WeaponStateDuration,
++                QuickCombatRecovery::FramingReturnStart));
++    }
++    else if(bClothReloadFraming&&ActiveActionAnimation)
++    {
++        M4ActionFramingAlpha=FMath::Min(M4ActionFramingAlpha,FMath::Clamp(
++            (LMG201WeaponAssets::ClothDuration-ReloadSourceTime(WeaponStateElapsed))
++            /(LMG201WeaponAssets::ClothDuration-LMG201WeaponAssets::ClothEventTime(
++                LMG201WeaponAssets::ClothReturnStart,bPendingEmptyReload)),0.f,1.f));
++    }
++    else if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition, bDrumInstalled)
++        && IsReloading() && ActiveActionAnimation)
++    {
++        // The calibrated hip location AND rotation must be reached before the
++        // state ends. Use the mapped end, not clip length: M4/HK416 drums keep
++        // their nonlinear source clock. Do not filter this recovery weight.
++        const auto Handoff = RifleReloadHandoff::ForWeapon(ActiveInventoryWeaponDefinition,
++            bPendingEmptyReload, bDrumInstalled, ReloadSourceTime(WeaponStateDuration));
++        M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
++            Handoff.FramingWeight(ReloadSourceTime(WeaponStateElapsed)));
++    }
++    else if (bPKMReloadFraming
++        && IsReloading() && ActiveActionAnimation)
++    {
++        // Recover the gun and both hands' component anchor during the existing
++        // authored return. Keep the SVD grasp and PKM held push on their source
++        // clock; ease framing without retiming either mechanical contact.
++        const float ReturnSeconds = RifleReloadRecovery::ReturnSeconds(
++            bPKMReloadFraming, WeaponState == EAKMWeaponState::ReloadingEmpty);
++        M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
++            RifleReloadRecovery::RemainingWeight(ReloadSourceTime(WeaponStateElapsed),
++                ActiveActionAnimation->GetPlayLength(), ReturnSeconds));
++    }
++    else if (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())
++    {
++        // The component can finish its tick after the weapon state. Its final
++        // busy frame must not restart action framing after the handoff.
++        M4ActionFramingAlpha = 0.f;
++    }
++    const float SpeedM = HorizontalSpeed() / 100.0f;
++    const bool bPistol = IsPistolWeapon();
++    WeaponBobTime += DeltaSeconds * (5.0f + SpeedM * 0.85f);
++    const float SprintSpeedAlpha = FMath::Clamp((HorizontalSpeed() - 50.0f) / FMath::Max(SprintSpeed - 50.0f, 1.0f), 0.0f, 1.0f);
++    const bool bPistolActionTransition = IsWeaponBusy() || bIsAiming || bFireHeld
++        || IsTraversing() || IsDodging() || (bPistol && IsCastBlockingLeftHandAction());
++    const float SprintTarget = bIsSprinting && !bWeaponJumpAirborne && !IsWeaponBusy() && !(bPistol && bPistolActionTransition)
++        ? ((bUsingM4Infima || bPistol) ? SprintSpeedAlpha : 1.0f) : 0.0f;
++    const float SprintBlendRate = bPistol
++        ? (bPistolActionTransition ? 28.f : (SprintTarget < SprintPoseFactor ? 12.f : 8.f))
++        : (bUsingM4Infima && SprintTarget < SprintPoseFactor ? 24.0f : 12.0f);
++    SprintPoseFactor = FMath::Lerp(SprintPoseFactor, SprintTarget, 1.0f - FMath::Exp(-SprintBlendRate * DeltaSeconds*LightningHaste::ActionSpeed(this)));
++    UpdatePistolLocomotion(DeltaSeconds);
++    auto* TacticalSprint = FindComponentByClass<UM4TacticalSprintComponent>();
++    if (TacticalSprint)
++    {
++        // 与枪托砸击共用同一解析口径，避免两处各写一份判定。
++        // GripLayer56 模式 2：PKM / 201 冲刺播放基础 clip，握把由动画图层处理（砸击仍用各握把 clip）。
++        const EM4SprintGrip Grip = GripLayerMode() >= 2 ? (bDrumInstalled ? EM4SprintGrip::Drum : EM4SprintGrip::Base)
++            : ResolveRifleGripProfile();
++        const bool bReady = bInventoryWeaponReady && !bPistol;
++        const bool bRequest = bIsSprinting && !bWeaponJumpAirborne && !IsWeaponBusy() && !bAimHeld && !bFireHeld
++            && !IsTraversing() && !IsDodging() && !bIsSliding && !IsCastBlockingLeftHandAction()
++            && !bGunsmithInspection && HorizontalSpeed() > 50.f;
++        TacticalSprint->Advance(DeltaSeconds, bReady, bRequest, Grip, M4SprintPhase, GroundLocomotionWeight,
++            bAimHeld || bFireHeld || IsWeaponBusy());
++    }
++    const bool bAuthoredRifleSprint = TacticalSprint && TacticalSprint->OwnsPose();
++    FVector BobTarget = FVector::ZeroVector;
++    FVector BobRotationTarget = FVector::ZeroVector;
++    if (bPistol)
++    {
++        // Authored stride and pistol breathing replace the unrelated legacy bob clock.
++    }
++    else
++    {
++        const float Amplitude = ((bUsingM4Infima || bAuthoredRifleSprint) ? .7f * (1.f - (bAuthoredRifleSprint ? TacticalSprint->PoseProgress() : SprintPoseFactor))
++            : FMath::Lerp(.7f, 1.15f, SprintPoseFactor)) * GroundLocomotionWeight
++            * RifleLocomotionWeight * RifleLocomotionScale;
++        const float Side = FMath::Cos(CameraBobPhase);
++        const float Step = FMath::Cos(2.f * CameraBobPhase);
++        BobTarget = FVector(Side * .010f, -Step * .008f, FMath::Sin(2.f * CameraBobPhase) * .002f) * Amplitude;
++        BobRotationTarget = FVector(FMath::Sin(2.f * CameraBobPhase) * .004f, 0.f, Side * .007f) * Amplitude;
++        BobTarget.Y += FMath::Sin(WeaponBobTime * .5f) * .0015f * (1.f - GroundLocomotionWeight)
++            * RifleLocomotionWeight * RifleLocomotionScale;
++    }
++    WeaponBobPosition = FMath::Lerp(WeaponBobPosition, BobTarget, 1.0f - FMath::Exp(-14.0f * DeltaSeconds));
++    WeaponBobRotation = FMath::Lerp(WeaponBobRotation, BobRotationTarget, 1.0f - FMath::Exp(-14.0f * DeltaSeconds));
++    const FVector2D LookRate = (LookInput / FMath::Max(DeltaSeconds, 0.001f) / 60.0f).GetClampedToMaxSize(8.0f);
++    WeaponSwayPosition = FMath::Lerp(WeaponSwayPosition, FVector(LookRate.X * 0.0006f, LookRate.Y * 0.0006f, 0.0f), 1.0f - FMath::Exp(-10.0f * DeltaSeconds));
++    WeaponSwayRotation = FMath::Lerp(WeaponSwayRotation, FVector(LookRate.Y * 0.002f, LookRate.X * 0.003f, 0.0f), 1.0f - FMath::Exp(-10.0f * DeltaSeconds));
++
++    // Fire clip compensation. A weapon whose fire animation carries no gun
++    // motion reads the reference punch here instead, so both present the same
++    // recoil. It is added after the spring clamps: it stands in for authored
++    // animation motion and must not be flattened by a spring limit.
++    const bool bM24Recoil=IsM24Weapon();
++    const auto RecoilProfile=bM24Recoil?M24Recoil::VisualProfile():FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
++    // A negative multiplier flips the whole compensation, which is how the
++    // direction of the added motion is checked in game without a rebuild.
++    const auto AxialProfile=RifleAxialRecoil::ForWeapon(ActiveInventoryWeaponDefinition);
++    const bool bReferenceAxialRecoil=AxialProfile!=RifleAxialRecoil::EProfile::None;
++    // The compensated pulse and authored fire clip must start at the actual
++    // shot, not at the beginning of the frame in which it happened.
++    const float ClipAge=(bReferenceAxialRecoil||bM24Recoil)&&ClipRecoilSeconds>=0.f
++        ?static_cast<float>(FMath::Max(0.0,GetWorld()->GetTimeSeconds()-LastShotWorldTime)):ClipRecoilSeconds;
++    // ASH-12 already carries the full reference motion in its fire sequences.
++    // Remove only the duplicate clip layer; keep its heavier spring profile.
++    const float ClipGain=bUseASH12?0.f:ClipRecoilScale.GetValueOnGameThread()*BipodRecoil*LastShotGripRecoilMultiplier
++        *(bM24Recoil?WeaponHandling.RecoilScale/M24Recoil::ReferenceRecoilScale:1.f);
++    const float ClipWave=(bM24Recoil?M24Recoil::Pulse(ClipAge):FPSVisualRecoil::ClipWave(ClipAge))*ClipGain;
++    FVector ClipPosition=RecoilProfile.ClipPosition*ClipWave;
++    const FVector ClipRotation=RecoilProfile.ClipRotation*ClipWave;
++    FVector ClipADSPosition=RecoilProfile.ClipADSPosition*ClipWave;
++    const FVector ClipADSRotation=RecoilProfile.ClipADSRotation*ClipWave;
++    if(bReferenceAxialRecoil)
++    {
++        // Preserve the reference's short rearward punch and forward rebound.
++        // QBZ and PKM carry their own pulses; remove those contributions by
++        // time rather than subtracting a peak from a different waveform.
++        const bool bNativeFireActive=ActiveActionAnimation &&
++            (ActiveActionAnimation==FireAnimation || ActiveActionAnimation==AimFireAnimation);
++        const FVector2D Axial=RifleAxialRecoil::Compensation(ClipAge,AxialProfile,bNativeFireActive);
++        ClipPosition.Z=Axial.X*ClipGain;
++        ClipADSPosition.Z=Axial.Y*ClipGain;
++    }
++    FVector HipOffset(GunKickPosition.X, GunKickPosition.Y * 0.4f, GunKickPosition.Z * AKMSource::HipAxialScale);
++    HipOffset += GunJitterPosition * 0.35f;
++    HipOffset.X = 0.018f * FMath::Tanh(HipOffset.X / 0.018f);
++    HipOffset.Y = 0.008f * FMath::Tanh(HipOffset.Y / 0.008f);
++    HipOffset.Z = 0.065f * FMath::Tanh(HipOffset.Z / 0.065f);
++    FVector HipAngles(GunKickRotation.X * 0.45f + GunFlip * 0.18f, GunKickRotation.Y, GunKickRotation.Z * 0.6f);
++    HipAngles += GunJitterRotation * 0.35f;
++    HipAngles.X = 0.045f * FMath::Tanh(HipAngles.X / 0.045f);
++    HipAngles.Y = 0.030f * FMath::Tanh(HipAngles.Y / 0.030f);
++    HipAngles.Z = 0.025f * FMath::Tanh(HipAngles.Z / 0.025f);
++
++    const float Suppress = 1.0f - WeaponADSFactor;
++    const float LegacySprint = (bUsingM4Infima || bPistol || bAuthoredRifleSprint) ? 0.0f : SprintPoseFactor;
++    const float SprintSide = FMath::Cos(M4SprintPhase);
++    const float SprintStep = FMath::Cos(2.0f * M4SprintPhase);
++    const float RifleSprintAlpha = FMath::SmoothStep(0.f, 1.f, SprintPoseFactor);
++    // The long M24 and its optic need a right-side carry corridor. The M4's
++    // inward yaw places this rifle across the centre during the whole sprint.
++    const FVector RifleSprintOffset = IsM24Weapon() ? FVector(6.f,9.f,-11.f) : M4SprintOffset;
++    const FVector SprintOffset = bPistol ? PistolLocomotionOffset : bUsingM4Infima && !bAuthoredRifleSprint
++        ? (RifleSprintOffset + FVector(0.25f * SprintStep, M4SprintSwayCM * SprintSide, -0.45f * SprintStep) * GroundLocomotionWeight) * RifleSprintAlpha
++            + M4SprintMidpointOffset * (4.f * RifleSprintAlpha * (1.f - RifleSprintAlpha))
++        : FVector::ZeroVector;
++    FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress * BipodMotion + ClipPosition;
++    if(bM24Recoil)GodotPose.Z=FMath::Clamp(GodotPose.Z,-.01f,.055f);
++    const FVector UEHipPose(-GodotPose.Z * 100.0f, GodotPose.X * 100.0f, GodotPose.Y * 100.0f);
++    const float ScopeWeight=GetScopePresentationAlpha();
++    const float ScopeConvergence=FMath::Lerp(1.f,FMath::Clamp(
++        FMath::Tan(FMath::DegreesToRadians(EffectiveADSVerticalFOV()*.5f)) /
++        FMath::Max(.01f,FMath::Tan(FMath::DegreesToRadians(ADSVerticalFieldOfView*.5f))),.22f,1.f),ScopeWeight);
++    // The clip compensation is added at its measured scale, not through the
++    // spring conversions: it stands in for authored animation motion, and a
++    // matched rearward push is what keeps the sights on the eye line.
++    const float RecoilDistance = FMath::Clamp(GunKickPosition.Z * AKMSource::ADSAxialScale + ClipADSPosition.Z, -0.01f, 0.055f);
++    FVector2D Lateral(GunKickPosition.X * AKMSource::ADSHorizontalScale + GunJitterPosition.X + ClipADSPosition.X, GunKickPosition.Y + GunJitterPosition.Y + ClipADSPosition.Y);
++    Lateral = Lateral.GetClampedToMaxSize(0.012f) * ScopeConvergence;
++    const FVector UEADSRecoil(-RecoilDistance * 100.0f, Lateral.X * 18.0f, Lateral.Y * 18.0f);
++    FHitResult WallHit;
++    const FVector Eye = FirstPersonCamera->GetComponentLocation();
++    FCollisionQueryParams WallParams(SCENE_QUERY_STAT(GunplayNearWall), false, this);
++    const bool bNearWall = RangedAttackQuery::LineTraceSingle(GetWorld(), this, WallHit, Eye, Eye + FirstPersonCamera->GetForwardVector() * 80.0f, ECC_Visibility, WallParams);
++    const float WallTarget = bNearWall ? (1.0f - FMath::Clamp((WallHit.Distance - 25.0f) / 55.0f, 0.0f, 1.0f))
++        * (1.f-(BipodDeployment?BipodDeployment->GetDeploymentBlend():0.f)) : 0.0f;
++    NearWallAlpha = FMath::Lerp(NearWallAlpha, WallTarget, 1.0f - FMath::Exp(-12.0f * DeltaSeconds));
++    const FVector ADSTarget = (bSightCalibrated ? CalibratedADSLocation : ADSViewmodelLocation)
++        + M24UpperSightADSOffset();
++    // Standard magazine and drum share the same camera-space framing.
++    const FVector HipLocation = RifleHipFraming.Location(HipViewmodelLocation);
++    // Keep each existing action's working space; AKM/A762 previously used their hip anchor.
++    const FVector ActionLocation = ((bUsingM4Infima||bClothReloadFraming) ? M4ActionViewmodelLocation : HipViewmodelLocation)
++        + (M249WeaponAssets::Matches(AKMViewmodel)&&IsReloading()&&!HasM249SideMagazine()
++            ? M249WeaponAssets::ReloadPresentationOffset : FVector::ZeroVector);
++    const FVector HipFraming = (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
++        ? FMath::Lerp(HipLocation, ActionLocation, M4ActionFramingAlpha)
++        : HipLocation;
++    FVector TargetLocation = FMath::Lerp(HipFraming + UEHipPose + SprintOffset, ADSTarget + UEADSRecoil, WeaponADSFactor);
++    const float RifleMotionWeight = bPistol ? 0.f : RifleLocomotionWeight * Suppress * Suppress * BipodMotion;
++    TargetLocation += RifleInertiaOffset * RifleMotionWeight;
++    TargetLocation += FVector(-NearWallAlpha * 12.0f, 0.0f, 0.0f);
++
++    FVector ADSKickAngles = GunKickRotation + GunJitterRotation + FVector(GunFlip, 0.0f, 0.0f);
++    ADSKickAngles.Y = GunKickRotation.Y * AKMSource::ADSHorizontalScale + GunJitterRotation.Y;
++    // The clip compensation rides outside the spring clamp: it stands in for
++    // authored animation motion, so it must not be flattened by a spring limit.
++    // Unlike the springs it keeps its measured scale (no VisualRecoilScale): the
++    // reference aimed clip is nearly rotation free, and scaling it down here
++    // would break the sight line it is meant to preserve. ADSRotationScale keeps
++    // long iron sight radii (AKM: 38.7 cm) from swinging the post out of the notch.
++    ADSKickAngles = ADSKickAngles.GetClampedToMaxSize(0.025f) * VisualRecoilScale * RecoilProfile.ADSRotationScale * ScopeConvergence
++        + ClipADSRotation * ScopeConvergence;
++    const FVector GodotAngles = HipAngles + (WeaponBobRotation + WeaponSwayRotation + FVector(0.39f * LegacySprint, 0.0f, 0.0f)) * Suppress * BipodMotion + ClipRotation;
++    const FRotator BaseRotation = RifleHipFraming.IsReady() ? FQuat::Slerp(
++        RifleHipFraming.Rotation(GetViewmodelBaseRotation().Quaternion()),
++        GetViewmodelBaseRotation().Quaternion(), M4ActionFramingAlpha).Rotator() : GetViewmodelBaseRotation();
++    const FQuat HipRotation=bM24Recoil
++        ?FRotator(FMath::RadiansToDegrees(GodotAngles.X),-FMath::RadiansToDegrees(GodotAngles.Y),-FMath::RadiansToDegrees(GodotAngles.Z)).Quaternion()*BaseRotation.Quaternion()
++        :FRotator(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z)).Quaternion();
++    // Premultiply in camera space: adding pitch to a mesh already yawed 90 degrees
++    // rotates about the wrong axis and fails to raise the muzzle.
++    const FRotator RifleSprintRotation = IsM24Weapon() ? FRotator(30.f,8.f,-10.f) : M4SprintRotation;
++    const FRotator SprintAngles = RifleSprintRotation + FRotator(-0.8f * SprintStep, 2.3f * SprintSide, 1.6f * FMath::Sin(M4SprintPhase)) * GroundLocomotionWeight;
++    const FQuat SprintRotation = bPistol ? PistolLocomotionRotation.Quaternion() : bUsingM4Infima && !bAuthoredRifleSprint
++        ? FQuat::Slerp(FQuat::Identity, SprintAngles.Quaternion(), RifleSprintAlpha)
++        : FQuat::Identity;
++    const FQuat ADSBase = bSightCalibrated ? CalibratedADSRotation : (IsPistolWeapon() ? BaseRotation : ADSViewmodelRotation).Quaternion();
++    const FQuat ADSRotation = FRotator(FMath::RadiansToDegrees(ADSKickAngles.X), -FMath::RadiansToDegrees(ADSKickAngles.Y), -FMath::RadiansToDegrees(ADSKickAngles.Z)).Quaternion() * ADSBase;
++    TargetLocation+=FVector(-2.f,0.f,-6.f)*DodgePresentationWeight();
++    const FQuat InertiaRotation = FRotator(RifleInertiaAngles.X, RifleInertiaAngles.Y, RifleInertiaAngles.Z).Quaternion();
++    FQuat TargetRotation = FQuat::Slerp(FQuat::Identity, InertiaRotation, RifleMotionWeight)
++        * FQuat::Slerp(SprintRotation * HipRotation, ADSRotation, WeaponADSFactor);
++    if(M249WeaponAssets::Matches(AKMViewmodel))
++    {
++        float HipLevelWeight=1.f-M4ActionFramingAlpha;
++        if(ActiveActionAnimation&&(IsReloading()||WeaponState==EAKMWeaponState::Equipping))
++        {
++            // Side magazines deliberately keep their hip translation during reload.
++            // Use the source-time idle handoff instead of the framing alpha: the
++            // correction is zero throughout magazine/cover/charging contacts.
++            const float Source=IsReloading()?ReloadSourceTime(WeaponStateElapsed)
++                :ActionStartPosition+WeaponStateElapsed*ActionPlayRate;
++            HipLevelWeight=M249ReloadTiming::ArmIdleWeight(Source,ActiveActionAnimation->GetPlayLength());
++        }
++        M249WeaponAssets::LevelHipPose(TargetLocation,TargetRotation,ViewmodelScale,
++            HipLevelWeight*(1.f-WeaponADSFactor)*(1.f-SprintPoseFactor));
++    }
++    ApplyWeaponCrouchPose(TargetLocation, TargetRotation, bPistol);
++    const FTransform JumpPose = GetWeaponJumpTransform(bPistol ? EFirstPersonJumpRig::Pistol : EFirstPersonJumpRig::Rifle);
++    TargetLocation = JumpPose.TransformPosition(TargetLocation);
++    TargetRotation = JumpPose.GetRotation() * TargetRotation;
++    if(bPistol&&Spellbook&&Spellbook->IsEquipped())
++    {
++        // Low carry opens the hip silhouette. ADS uses the native calibrated
++        // sight distance; the book reads this frame's final wrist afterward.
++        TargetLocation+=FMath::Lerp(SpellbookPistolSupport::HipFraming,
++            SpellbookPistolSupport::AimFraming,WeaponADSFactor)*Spellbook->PistolSupportFramingWeight();
++    }
++    if(bPistol)if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();OffhandKukri&&OffhandKukri->IsEquipped())
++    {
++        // Knife-and-gun hip hold: the whole pistol is centred and canted. The cant
++        // unwinds within the first part of ADS so the native sight line is exact.
++        // Quick melee uses the main hand's clearance arc; the blade retains
++        // its own authored reference rather than following the gun's evasion.
++        FTransform Strike;
++        const bool Striking=OffhandKukri->GetStrikeFraming(Strike);
++        const FTransform& FramingPose=Striking?Strike:OffhandKukriPose::HipFraming;
++        const float Framing=Striking?1.f:
++            OffhandKukri->PistolFramingWeight()*(1.f-FMath::SmoothStep(0.f,OffhandKukriPose::CantUnwindAim,WeaponADSFactor));
++        if(Framing>UE_SMALL_NUMBER)
++        {
++            const FQuat Cant=FQuat::Slerp(FQuat::Identity,FramingPose.GetRotation(),Framing);
++            TargetLocation=Cant.RotateVector(TargetLocation)+FramingPose.GetLocation()*Framing;
++            TargetRotation=Cant*TargetRotation;
++        }
++        TargetLocation+=OffhandKukri->PistolDrawOffset();
++    }
++    // 左手单持的握持微调：负缩放镜像把右手握持整体翻过来，虎口/拇指与枪柄还差一点，
++    // 这里在相机空间补正（只在镜像模式生效，右手主枪不受影响）。
++    if(bViewmodelMirrored)
++    {
++        const float GX=LeftHandGripOffsetX.GetValueOnGameThread();
++        const float GY=LeftHandGripOffsetY.GetValueOnGameThread();
++        const float GZ=LeftHandGripOffsetZ.GetValueOnGameThread();
++        const float GR=LeftHandGripRoll.GetValueOnGameThread();
++        if(!FMath::IsNearlyZero(GX)||!FMath::IsNearlyZero(GY)||!FMath::IsNearlyZero(GZ))
++            TargetLocation+=FVector(GX,GY,GZ);
++        if(!FMath::IsNearlyZero(GR))
++            TargetRotation=FQuat(FVector::ForwardVector,FMath::DegreesToRadians(GR))*TargetRotation;
++    }
++    AKMViewmodel->SetRelativeLocation(TargetLocation);
++    AKMViewmodel->SetRelativeRotation(TargetRotation);
++    // 镜面要跟着最终写入的机位/开镜旋转走，否则开镜的第一帧还用着待机朝向。
++    if(bViewmodelMirrored)UpdateLeftHandMirrorPlane();
++    // The gunsmith side view uses the actual equipped assembly and its attachments.
++    if(bGunsmithInspection)
++    {
++        AKMViewmodel->SetRelativeLocation(FVector(42.f,-2.f,6.f));
++        AKMViewmodel->SetRelativeRotation(FRotator(0.f,20.f,0.f));
++    }
++}
++
++void AFPSGAMECharacter::UpdateADSPose()
++{
++    if (bSightCalibrated || !AimAnimation || !AimAnimation->GetSkeleton()) return;
++    const FReferenceSkeleton& Ref = AimAnimation->GetSkeleton()->GetReferenceSkeleton();
++    const int32 RearIndex = Ref.FindBoneIndex(TEXT("WPN_RearSight"));
++    const int32 FrontIndex = Ref.FindBoneIndex(TEXT("WPN_FrontSight"));
++    if (RearIndex == INDEX_NONE || FrontIndex == INDEX_NONE) return;
++    const auto* SightProfile=IsRSH12Weapon()?WeaponGripProfileFor(EM4SprintGrip::Base):nullptr;
++    const auto* SightLayer=SightProfile?SightProfile->Find(AimAnimation):nullptr;
++    const auto PositionAtRestAim = [&](int32 BoneIndex)
++    {
++        FTransform Transform = FTransform::Identity;
++        for (int32 Index = BoneIndex; Index != INDEX_NONE; Index = Ref.GetParentIndex(Index))
++        {
++            FTransform Local;
++            AimAnimation->GetBoneTransform(Local, FSkeletonPoseBoneIndex(Index), FAnimExtractContext(0.0, false), false);
++            if(SightLayer)SightLayer->ApplyLocal(Ref.GetBoneName(Index),0.f,Local);
++            Transform = Transform * Local;
++        }
++        // Accumulating the full hierarchy includes the FBX root's unit conversion.
++        // The resulting component-space position is already in centimetres.
++        return Transform.GetLocation() * ViewmodelScale;
++    };
++    FVector Rear = PositionAtRestAim(RearIndex);
++    FVector Front = PositionAtRestAim(FrontIndex);
++    FVector SightUp = FVector::UpVector;
++    if (AKMSoviet::Matches(AKMViewmodel) || IsSaiga12KWeapon())
++    {
++        FTransform Root = FTransform::Identity;
++        for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
++        {
++            FTransform Local;
++            AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
++            if(SightLayer)SightLayer->ApplyLocal(Ref.GetBoneName(Index),0.f,Local);
++            Root=Root*Local;
++        }
++        Rear=Root.TransformPosition(IsSaiga12KWeapon()?Saiga12KWeaponAssets::Rear:AKMSoviet::Rear)*ViewmodelScale;
++        Front=Root.TransformPosition(IsSaiga12KWeapon()?Saiga12KWeaponAssets::Front:AKMSoviet::Front)*ViewmodelScale;
++        SightUp=Root.GetRotation().RotateVector(FVector::UpVector);
++    }
++    if (SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
++    {
++        // SVD aims down the PSO-1 tube and SVCh down its own iron sights; neither
++        // sits at the shared M4 sight bone positions, so each weapon carries its
++        // own baked pair (like AKMSoviet above) and supplies the gun's up axis.
++        FTransform Root = FTransform::Identity;
++        for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
++        {
++            FTransform Local;
++            AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
++            Root=Root*Local;
++        }
++        SightUp=Root.GetRotation().RotateVector(FVector::UpVector);
++        if (SVCHWeaponAssets::Matches(AKMViewmodel))
++        {
++            // The SVCh aims down its own iron sights, 537.7 mm apart and 85.9 mm
++            // above the bore. The shared WPN_* bones still carry the SVD's baked
++            // points, so take the measured pair from the weapon header instead.
++            Rear=Root.TransformPosition(SVCHWeaponAssets::RearSight)*ViewmodelScale;
++            Front=Root.TransformPosition(SVCHWeaponAssets::FrontSight)*ViewmodelScale;
++            SightUp=Root.TransformVectorNoScale(SVCHWeaponAssets::SightUp);
++        }
++    }
++    if (bHolographicOptic)
++    {
++        FTransform Root = FTransform::Identity;
++        const FName OpticBone=HolographicOptic?HolographicOptic->GetAttachSocketName():FName(TEXT("WPN_root"));
++        for (int32 Index=Ref.FindBoneIndex(OpticBone); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
++        {
++            FTransform Local;
++            AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
++            Root=Root*Local;
++        }
++        const FTransform Mount=HolographicMount*Root;
++        // Older optics expose only AimCenter; retain that calibrated fallback
++        // when a complete rear/front/up socket frame is unavailable.
++        Rear=Mount.TransformPosition(OpticLocalAimPoint())*ViewmodelScale;
++        Front=Rear+Mount.GetRotation().RotateVector(AKMSoviet::Matches(AKMViewmodel)&&OpticVariant==TEXT("holographic")?FVector::RightVector:FVector::ForwardVector)*10.f;
++        SightUp=Mount.GetRotation().RotateVector(FVector::UpVector);
++        if ((UsesPhysicalScope() || IsM24Weapon() || M249WeaponAssets::Matches(AKMViewmodel) || IsShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic") || OpticVariant == TEXT("kv_scope_4x")) && HolographicOptic && HolographicOptic->GetStaticMesh())
++        {
++            const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
++            const auto* R=OpticMesh->FindSocket(TEXT("SightRear"));
++            const auto* F=OpticMesh->FindSocket(TEXT("SightFront"));
++            const auto* U=OpticMesh->FindSocket(TEXT("SightUp"));
++            if (R&&F&&U)
++            {
++                Rear=Mount.TransformPosition(R->RelativeLocation)*ViewmodelScale;
++                Front=Mount.TransformPosition(F->RelativeLocation)*ViewmodelScale;
++                SightUp=(Mount.TransformPosition(U->RelativeLocation)*ViewmodelScale-Rear).GetSafeNormal();
++            }
++        }
++    }
++    const FVector Axis = (Front - Rear).GetSafeNormal();
++    if (Axis.IsNearlyZero() || Rear.ContainsNaN() || Front.ContainsNaN()) return;
++    const FQuat Base = GetViewmodelBaseRotation().Quaternion();
++    CalibratedADSRotation = FQuat::FindBetweenNormals(Base.RotateVector(Axis), FVector::ForwardVector) * Base;
++    // Mapping a single axis leaves roll unconstrained. Align the complete optic
++    // frame with camera forward/up so ADS is level without twisting it off the rail.
++    if ((IsM24Weapon() || IsPistolWeapon() || IsHK416Weapon() || IsTubeShotgunWeapon() || bUseQBZ191 || M249WeaponAssets::Matches(AKMViewmodel)) && !bHolographicOptic)
++    {
++        FTransform Root = FTransform::Identity;
++        for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
++        {
++            FTransform Local;
++            AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
++            Root=Root*Local;
++        }
++        SightUp=Root.GetRotation().RotateVector(IsM24Weapon() ? M24WeaponAssets::SightUp : M249WeaponAssets::Matches(AKMViewmodel) ? M249WeaponAssets::SightUp : IsTubeShotgunWeapon() ? -FVector::RightVector : FVector::UpVector);
++    }
++    // QBZ191's aim carries about 4.88 degrees of left roll. Its iron sights need
++    // the gun-root up axis, just as hip framing does, while retaining their own
++    // sight line and eye distance. The location below uses this corrected frame.
++    if(IsM24Weapon() || bHolographicOptic || IsShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || M249WeaponAssets::Matches(AKMViewmodel) || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
++    // Calibrate the actual rear ocular to the M24 reference. Optic type, not
++    // its current zoom, selects the relief so a 1x-to-6x change stays seated.
++    const float EyeDistance = UsesPhysicalScope() ? ScopeADSEyeRelief::DistanceCM
++        : IsM24Weapon() ? M24Attachments::EyeDistanceCM(OpticVariant,ADSRearEyeDistance)
++        : bHolographicOptic && !IsPistolWeapon() ? 26.f : ADSRearEyeDistance;
++    CalibratedADSLocation = FVector(EyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
++    bSightCalibrated = true;
++    UE_LOG(LogTemp, Display, TEXT("GUNPLAY_ADS_CALIBRATED rear=%s front=%s offset=%s rotation=%s"), *Rear.ToCompactString(), *Front.ToCompactString(), *CalibratedADSLocation.ToCompactString(), *CalibratedADSRotation.Rotator().ToCompactString());
++}
++

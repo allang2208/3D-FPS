@@ -1,0 +1,18 @@
+diff --git a/Source/FPSGAME/Skills/MagicArrowRainResources.cpp b/Source/FPSGAME/Skills/MagicArrowRainResources.cpp
+--- a/Source/FPSGAME/Skills/MagicArrowRainResources.cpp
++++ b/Source/FPSGAME/Skills/MagicArrowRainResources.cpp
+@@ -1,4 +1,5 @@
+ #include "MagicArrowRainResources.h"
++#include "NetCastUtils.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../FPSGAMECharacter.h"
+@@ -28,7 +29,7 @@
+     P.MagicCrystalManaRestored=R.CrystalManaTotal;
+     P.Mana=FMath::Clamp(R.Mana,0.f,float(Model.Derived(TEXT("maxMp"))));
+     const auto* GS=Model.GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():Model.GetWorld()->GetTimeSeconds();
+-    P.MagicArrowRainCooldown=FMath::Max(0.f,R.Cooldown-float(FMath::Max(0.,Now-R.CapturedAt)));
++    P.MagicArrowRainCooldown=NetCast::RemainingCooldown(R.Cooldown,R.CapturedAt,Now);
+     P.MagicArrowRainCooldownDuration=R.CooldownDuration;P.bMagicArrowRainReserved=R.bReserved;P.MagicArrowRainReservedMana=R.ReservedMana;
+     Model.AdoptNetMirror(P,true);Model.OnChanged.Broadcast();return true;
+ }

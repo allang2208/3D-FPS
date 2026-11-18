@@ -43,6 +43,6 @@
 - `bindings.json`：仅本轮改变的槽引用；`finalize_records.py` 已合并至 `SourceAssets/LMG20120260927/Material21/bindings.json`，保留几何、弹链和动作修订说明。
 - 保存日志：`SourceAssets/WeaponSurface20260930/logs/apply_finish.20261001-155332-059.bridge.txt`，返回 `success=True`，并记录 `WEAPON_SURFACE_201_R01_SAVED 97 instances 92 adapters 30 meshes; geometry_changed=False; tested=False`。
 
-后续材质入口为本轮 `apply_finish.py`。不要直接执行旧 F50 绑定脚本回写旧材质；几何制作仍从当前完整 UE 资产取源。
+后续材质入口为本轮 `apply_finish.py`。不要直接执行旧 F50 绑定脚本回写旧材质；几何制作仍从当前完整 UE 资产取源。 原因：旧绑定脚本会回写已替换材质，后续制作需沿当前完整资产和新配方继续。
 
 未启动编辑器、游戏、截图、预览渲染或额外测试。最终视觉效果交由用户查看，不将保存状态等同于 AKM／HK416／M4 质量对比通过。

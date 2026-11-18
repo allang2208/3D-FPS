@@ -26,7 +26,7 @@ AutoSize、ZOrder 38（在面板之下：面板开着时本来就不出现）。
 
 ## 性能与刷新纪律
 - 每帧只做一次 `TraceTarget` 线trace（250）＋字符串比较；`SetText` 仅在文本变化时调用；
-  徽标可见性用 `bLast…` 缓存 bool 守卫。禁止每帧无条件 SetText（文本键重建 invalidation）。
+  徽标可见性用 `bLast…` 缓存 bool 守卫。禁止每帧无条件 SetText（文本键重建 invalidation）。 原因：高频显示路径会放大重复计算，按变化刷新才能保留同样内容而减少无效工作。
 - 撤除世界名牌时把文本降级为 actor 上的 `FString`（如 `PromptCaption`）/虚函数，
   删掉组件创建、`InitWidget`、Tick 里的 `SetWorldLocation/SetVisibility`。
 

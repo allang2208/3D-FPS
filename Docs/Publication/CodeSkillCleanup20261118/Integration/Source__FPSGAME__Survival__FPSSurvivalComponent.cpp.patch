@@ -1,0 +1,35 @@
+diff --git a/Source/FPSGAME/Survival/FPSSurvivalComponent.cpp b/Source/FPSGAME/Survival/FPSSurvivalComponent.cpp
+--- a/Source/FPSGAME/Survival/FPSSurvivalComponent.cpp
++++ b/Source/FPSGAME/Survival/FPSSurvivalComponent.cpp
+@@ -45,22 +45,23 @@
+     return GameState?GameState->GetServerWorldTimeSeconds():World->GetTimeSeconds();
+ }
+ 
+-float UFPSSurvivalComponent::SausageRecoveryRemaining() const
++float UFPSSurvivalComponent::FoodRecoveryRemaining(float SavedSeconds,double EndsAt,float Duration) const
+ {
+     // Both peers read the server deadline. Only authority sets it; profile saves
+     // capture remaining gameplay time, never an absolute time from another World.
+     const auto* Health=GetOwner()?GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+-    if(Health&&Health->IsDead())return State.SausageRecoverySeconds;
+-    return float(FMath::Clamp(SausageRecoveryEndsAt-ServerTime(),0.,double(FFPSSurvivalState::SausageRecoveryDuration)));
++    if(Health&&Health->IsDead())return SavedSeconds;
++    return float(FMath::Clamp(EndsAt-ServerTime(),0.,double(Duration)));
++}
++
++float UFPSSurvivalComponent::SausageRecoveryRemaining() const
++{
++    return FoodRecoveryRemaining(State.SausageRecoverySeconds,SausageRecoveryEndsAt,FFPSSurvivalState::SausageRecoveryDuration);
+ }
+ 
+ float UFPSSurvivalComponent::LargeLambMealRemaining() const
+ {
+-    // Both peers read the server deadline. Only authority sets it; profile saves
+-    // capture remaining gameplay time, never an absolute time from another World.
+-    const auto* Health=GetOwner()?GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+-    if(Health&&Health->IsDead())return State.LargeLambMealSeconds;
+-    return float(FMath::Clamp(LargeLambMealEndsAt-ServerTime(),0.,double(FFPSSurvivalState::LargeLambMealDuration)));
++    return FoodRecoveryRemaining(State.LargeLambMealSeconds,LargeLambMealEndsAt,FFPSSurvivalState::LargeLambMealDuration);
+ }
+ 
+ FFPSSurvivalState UFPSSurvivalComponent::GetState() const

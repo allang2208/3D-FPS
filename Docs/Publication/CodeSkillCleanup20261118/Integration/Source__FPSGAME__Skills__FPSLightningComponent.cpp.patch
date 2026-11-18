@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Skills/FPSLightningComponent.cpp b/Source/FPSGAME/Skills/FPSLightningComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSLightningComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSLightningComponent.cpp
+@@ -37,8 +37,7 @@
+     }));
+ }
+ UColdSteelStatusModel* UFPSLightningComponent::Model() const
+-{return UnknownSpell::IsCaster(GetOwner())?UnknownSpell::Model(Cast<APawn>(GetOwner())):
+-    (GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr);}
++{return NetCast::LocalModel(*this);}
+ UFPSFireballComponent* UFPSLightningComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
+ bool UFPSLightningComponent::IsTarget(AActor* Target) const
+ {

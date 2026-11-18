@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "command": "Tools/Build/Build-Editor.ps1",
+  "target": "FPSGAMEEditor Win64 Development",
+  "exit_code": 1,
+  "result": "Blocked before UBT by existing project editor",
+  "reason": "The original script refuses to replace Editor DLLs while the project editor is running.",
+  "observed_project_editor": {
+    "pid": 52092,
+    "name": "UnrealEditor.exe",
+    "project": "D:/FPS3D/FPSGAME/FPSGAME.uproject"
+  },
+  "processes_stopped": false,
+  "editor_launched_by_this_batch": false,
+  "fallback_target": "FPSGAME Win64 Development",
+  "fallback_note": "Separate Game target selected after observing no running FPSGAME executable or native build; no editor guard bypass."
+}

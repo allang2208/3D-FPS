@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills only; H01 pure training XP and H02 pure receipt cooldown; H03 retained",
+  "status": "Selected H01/H02 cleanup and Editor build complete; remaining state handling and H03 retained; no tests run",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp",
+      "before_lines": 66,
+      "before_bytes": 3594,
+      "before_sha256": "18de7eeea05259823b0ba6ea6245d3e4bb4831488b5b552a32e02cddead27406",
+      "backup": "ColdSteelChainSlashModel.cpp.before.txt",
+      "after_lines": 68,
+      "after_bytes": 3641,
+      "after_sha256": "2456ee0a99190ba5c129a4de4517e3fcfa41d8e4fc757ee4b33b1b44ac5a683d"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLeapStrikeModel.cpp",
+      "before_lines": 73,
+      "before_bytes": 3911,
+      "before_sha256": "a4712a0abf59c37bb35d68ef27865efdc8ccd59497a85285c92b42ed9c8a69ea",
+      "backup": "ColdSteelLeapStrikeModel.cpp.before.txt",
+      "after_lines": 75,
+      "after_bytes": 3960,
+      "after_sha256": "aaaa047a7f86c375149f8f77ea48291ec8c4aa97d2bd760e9f1682a59879fbbe"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellRewards.h",
+      "before_lines": 79,
+      "before_bytes": 3164,
+      "before_sha256": "db82e50104fce308939a08e246fde6fe06275860e0abeb6f6e9688f2b5305d02",
+      "backup": "ColdSteelSpellRewards.h.before.txt",
+      "after_lines": 85,
+      "after_bytes": 3475,
+      "after_sha256": "e6a2b601d56d4d2e869a6e8a08921320197b8fee39ab6de2abc878bd21a74254"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/NetCastUtils.h",
+      "before_lines": 58,
+      "before_bytes": 2545,
+      "before_sha256": "78c496f267a294ce8588ccd9fbb680bc98ee357d338ca600cf40d4ab619252fd",
+      "backup": "NetCastUtils.h.before.txt",
+      "after_lines": 64,
+      "after_bytes": 2784,
+      "after_sha256": "b75c8729be1c6e6d290ff3bbe756307d7dcebd956fd79d20b9e321061f9c77fa"
+    }
+  ],
+  "modified_existing_files": 4,
+  "new_source_files": 0,
+  "tests_run": false,
+  "build_receipt": "build-receipt.json"
+}

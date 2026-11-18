@@ -1,0 +1,552 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterReloadInput.cpp b/Source/FPSGAME/FPSGAMECharacterReloadInput.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterReloadInput.cpp
+@@ -0,0 +1,547 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++void AFPSGAMECharacter::ReloadPressed()
++{
++    // M24 uses the owner's rifle reload transaction and profile upload. A
++    // remote copy's empty-magazine tick must never consume the host's pouch.
++    if(IsM24Weapon()&&!IsLocallyControlled())return;
++    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
++    if(IsOffhandReloadTransition())return;
++    InterruptWeaponInspection();
++    if(IsChoosingAmmo())return;
++    if(HasOffhandPistol()){DualPistols->Reload();return;}
++    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
++        if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();!PS||!PS->IsPistolServerReady(ActiveInventoryWeapon)||PS->IsPistolReloadPending(ActiveInventoryWeapon))return;
++    if(Staff&&Staff->IsEquipped())return;
++    // 弓的 R＝从箭袋取箭上弦；已上弦时不重复消耗。
++    if(Bow&&Bow->IsEquipped()){Bow->BeginNock();return;}
++    if(IsCastBlockingLeftHandAction())
++    {
++        if(bInventoryWeaponReady && (MagazineAmmo==0 || NeedsReloadCycle()))bReloadAfterCasting=true;
++        return;
++    }
++    if(IsTubeShotgunWeapon()){BeginSuper90Reload();return;}
++    const bool ResumeCycle=PendingAmmoType.IsEmpty() && NeedsReloadCycle();
++    if (!bInventoryWeaponReady || (IsWeaponBusy() && !IsRevolverFireActionPlaying()) || (!ResumeCycle && PendingAmmoType.IsEmpty() && (MagazineAmmo >= MagazineCapacity || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0)))) return;
++    if(BipodDeployment&&BipodDeployment->DeferReload())return;
++    if (IsRevolverFireActionPlaying())
++    {
++        // A fired round makes the magazine empty while the recoil clip is
++        // still playing. Retain both automatic and manual reload requests.
++        bRevolverReloadAfterFire = true;
++        return;
++    }
++    if (bUseM16) FireReleased();
++    if(TryBeginOffhandReload())return;
++    if(IsM24Weapon())bM24DeferReloadTail=false;
++    bRevolverReloadAfterFire = false;
++    bReloadAfterCasting=false;
++    bRevolverSingleReload = bUseDanWesson715 && !bRevolverSpeedloaderInstalled;
++    UAnimSequence* RevolverClip = nullptr;
++    if (bUseDanWesson715)
++    {
++        const bool Switching=!PendingAmmoType.IsEmpty();
++        RevolverReloadStartLive = Switching||ResumeCycle?0:MagazineAmmo;
++        const int32 RetainedRounds = bRevolverSingleReload && !Switching ? MagazineAmmo : 0;
++        const int32 Available=Switching?int32(FMath::Min<int64>(MagazineCapacity,GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->PouchCount(PendingAmmoType))):HasInfiniteReserveAmmo()?MagazineCapacity:ReserveAmmo;
++        RevolverReloadCount = ResumeCycle?1:FMath::Min(MagazineCapacity - RetainedRounds, Available);
++        RevolverReloadCommitted = 0;
++        bRevolverCasesCleared = Switching||ResumeCycle;
++        const FString ClipPath = bRevolverSingleReload
++            ? DanWesson715WeaponAssets::SingleAnimationPath(RevolverReloadStartLive, RevolverReloadCount)
++            : DanWesson715WeaponAssets::SpeedAnimationPath();
++        RevolverClip = LoadObject<UAnimSequence>(nullptr, *ClipPath);
++        if (!RevolverClip) return;
++    }
++    StopMechanicalAudio();
++    GetWorldTimerManager().ClearTimer(FireTimerHandle);
++    SetAimingState(false);
++    // Speedloaders use the full extraction action even with unfired rounds.
++    // Keep those rounds until the extraction contact commits their loss.
++    bPendingEmptyReload = ResumeCycle || !PendingAmmoType.IsEmpty() || MagazineAmmo == 0 || (bUseDanWesson715 && !bRevolverSingleReload);
++    if(ResumeCycle)
++        if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(ActiveInventoryWeapon))
++            bPendingEmptyReload=WeaponReloadStages::UsesEmptyCycle(*Item);
++    WeaponState = bPendingEmptyReload ? EAKMWeaponState::ReloadingEmpty : EAKMWeaponState::Reloading;
++    if (bStabilityGripInstalled) TriggerFirstShotWorldTime = -1.;
++    if(IsM24Weapon())M24ActionBoltDurationScale=bPendingEmptyReload?M24GearBoltDurationScale:1.f;
++    WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
++    WeaponStateElapsed = 0.0f;
++    WeaponStateDuration = FMath::Max(0.01f, bPendingEmptyReload ? EmptyReloadDuration : ReloadDuration);
++    UAnimSequence* Animation = bPendingEmptyReload ? ReloadEmptyAnimation : ReloadAnimation;
++    if(HasM249SideMagazine())Animation=LoadObject<UAnimSequence>(nullptr,*M249SideMagazine::AnimationPath(bPendingEmptyReload));
++    if (bUseDanWesson715) Animation = RevolverClip;
++    if(bDrumInstalled)Animation=bPendingEmptyReload?DrumReloadEmptyAnimation:DrumReloadAnimation;
++    if(HasLMG201ClothBox())Animation=bPendingEmptyReload?LMG201ClothReloadEmptyAnimation:LMG201ClothReloadAnimation;
++    if (bUsingM4Infima && bUseM4Infima && !bUseQBZ191 && !bUseASH12
++        && !IsPistolWeapon() && !bDrumInstalled
++        && (MagazineAttachmentId.IsEmpty() || MagazineAttachmentId == TEXT("ext_mag")))
++    {
++        // bUsingM4Infima also marks QBZ/pistol shared timing. This contact
++        // animation belongs only to the actual M4 mesh and skeleton. Standard
++        // and extended magazines share the unchanged upper contact surface;
++        // both use the same wrapped grasp. Drums keep their separate action.
++        const TCHAR* ExtMagClip = bPendingEmptyReload
++            ? TEXT("/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload_empty")
++            : TEXT("/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload");
++        if (UAnimSequence* ExtMagAnimation = LoadObject<UAnimSequence>(nullptr, ExtMagClip))
++            if (ExtMagAnimation->GetSkeleton() == AKMViewmodel->GetSkeletalMeshAsset()->GetSkeleton())
++                Animation = ExtMagAnimation;
++    }
++    else if (MagazineAttachmentId == TEXT("ext_mag") && AKMSoviet::Matches(AKMViewmodel))
++    {
++        // Keep each attachment's approach/return, with local finger clearance
++        // during the magazine contact. Never route QBZ through this branch.
++        const TCHAR* Grip = HasAngledForegrip() ? TEXT("angled_")
++            : HasCantedForegrip() ? TEXT("canted_")
++            : HasVerticalForegrip() ? TEXT("vertical_")
++            : HasPrismHandstop() ? TEXT("prism_") : TEXT("");
++        const FString ExtMagClip = FString::Printf(
++            TEXT("/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_%s%s"),
++            Grip, bPendingEmptyReload ? TEXT("reload_empty") : TEXT("reload"));
++        if (UAnimSequence* ExtMagAnimation = LoadObject<UAnimSequence>(nullptr, *ExtMagClip))
++            if (ExtMagAnimation->GetSkeleton() == AKMViewmodel->GetSkeletalMeshAsset()->GetSkeleton())
++                Animation = ExtMagAnimation;
++    }
++    const float ClipLength = Animation ? Animation->GetPlayLength() : WeaponStateDuration;
++    if (IsPistolWeapon() && Animation)
++    {
++        float DurationScale = 1.f;
++        if (const auto* Gunsmith = GetGameInstance()->GetSubsystem<UGunsmithSystem>())
++            if (const auto* Weapon = Gunsmith->Weapon(ActiveInventoryWeaponDefinition))
++            {
++                const float BaseDuration = bUseDanWesson715 && !bRevolverSingleReload
++                    ? (bPendingEmptyReload ? DanWesson715WeaponAssets::EmptyReload : DanWesson715WeaponAssets::NormalReload)
++                    : static_cast<float>(bPendingEmptyReload ? Weapon->Base.EmptyReload : Weapon->Base.Reload);
++                DurationScale = WeaponStateDuration / FMath::Max(.01f, BaseDuration);
++            }
++        WeaponStateDuration = FMath::Max(.01f, ClipLength * DurationScale);
++    }
++    if(!Animation){InterruptReload();return;}
++    PlayWeaponAnimation(Animation, false, ClipLength / WeaponStateDuration);
++    // The state owns completion. Animation and all contact events consume this
++    // same duration; changing a reload stat scales the complete action.
++    ActionDuration = WeaponStateDuration;
++
++    const float SourceLength = bPendingEmptyReload ? 4.291667f : 3.333333f;
++    const float Scale = WeaponStateDuration / SourceLength;
++    MechanicalCueTimes = bPendingEmptyReload
++        ? TArray<float>{0.416667f * Scale, 1.15f * Scale, 1.466667f * Scale, 2.133333f * Scale, 2.333333f * Scale}
++        : TArray<float>{0.433333f * Scale, 1.233333f * Scale, 1.483333f * Scale};
++    MechanicalCueSounds.Reset();
++    if (bPendingEmptyReload)
++    {
++        MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound, ChargePullSound, ChargeReleaseSound};
++    }
++    else
++    {
++        MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
++    }
++    NextMechanicalCue = 0;
++    // AKM base/extended/drum share the insertion contact. Delay the new short
++    // sample in source time so reload-speed modifiers keep audio and pose aligned.
++    if (AKMSoviet::Matches(AKMViewmodel) || IsSaiga12KWeapon() || A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel)) MechanicalCueTimes[1] += .18f * Scale;
++    // The AKM drum releases directly from the well at source frame 36 / 120 Hz.
++    if((AKMSoviet::Matches(AKMViewmodel)||IsSaiga12KWeapon()||A762WeaponAssets::Matches(AKMViewmodel))&&bDrumInstalled)MechanicalCueTimes[0]=.3f*Scale;
++    if(LMG201WeaponAssets::Matches(AKMViewmodel))
++        MechanicalCueTimes=bPendingEmptyReload
++            ?TArray<float>{52.f/120.f*Scale,195.f/120.f*Scale,220.f/120.f*Scale,270.f/120.f*Scale,350.f/120.f*Scale}
++            :TArray<float>{52.f/120.f*Scale,195.f/120.f*Scale,220.f/120.f*Scale};
++    if(LMG201WeaponAssets::Matches(AKMViewmodel)&&bDrumInstalled)MechanicalCueTimes[0]=.3f*Scale;
++    if(LMG201WeaponAssets::Matches(AKMViewmodel)&&bPendingEmptyReload&&MechanicalCueSounds.Num()>=5)
++    {
++        // 弹夹/弹鼓空仓换弹的拉栓两接触（后拉/归位）换已验收的 AKM 视频拉栓声——
++        // 191 家族没有拉栓录音，按真实机械动作选源；装备上膛仍播 PKM，本轮只动换弹。
++        if(auto* Pull=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/AKM/VideoAudio20260921/S_AKM_ChargePull.S_AKM_ChargePull")))MechanicalCueSounds[3]=Pull;
++        if(auto* Release=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/AKM/VideoAudio20260921/S_AKM_ChargeRelease.S_AKM_ChargeRelease")))MechanicalCueSounds[4]=Release;
++    }
++    for (float& Cue : MechanicalCueTimes) Cue = ReloadRuntimeTime(Cue / Scale);
++    if(HasLMG201ClothBox())
++    {
++        // Source-time contacts from ClothReload44. Reuse the installed PKM cuts,
++        // including its saved tail repair; no historical full-length WAV tail.
++        MechanicalCueTimes.Reset();
++        for(const float Contact:{LMG201WeaponAssets::ClothCoverOpen,LMG201WeaponAssets::ClothBoxOut,LMG201WeaponAssets::ClothBoxSeat,
++            LMG201WeaponAssets::ClothBeltSeat,LMG201WeaponAssets::ClothCoverClose})
++            MechanicalCueTimes.Add(LMG201WeaponAssets::ClothEventTime(Contact,bPendingEmptyReload));
++        MechanicalCueSounds={PKMReloadAudio::LoadContact(TEXT("CoverOpen")),PKMReloadAudio::LoadContact(TEXT("BoxOut")),
++            PKMReloadAudio::LoadContact(TEXT("BoxInsert")),PKMReloadAudio::LoadContact(TEXT("BeltSeat")),
++            PKMReloadAudio::LoadContact(TEXT("CoverClose"))};
++    }
++    if (bUsingM4Infima)
++    {
++        // Source animation seconds, evaluated by the very same clock as the pose.
++        if(IsM24Weapon())
++        {
++            MechanicalCueTimes={M24WeaponAssets::MagazineOut,M24WeaponAssets::MagazineInsert,M24WeaponAssets::MagazineSeat};
++            MechanicalCueSounds={MagOutSound,MagInsertSound,MagSeatSound};
++            if(bPendingEmptyReload)
++            {MechanicalCueTimes.Append({M24WeaponAssets::ChargePull,M24WeaponAssets::ChargeRelease});MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});}
++        }
++        else if(HasM249SideMagazine())
++        {
++            MechanicalCueTimes={M249SideMagazine::Out,M249SideMagazine::Insert,M249SideMagazine::Seat};
++            MechanicalCueSounds={LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagOut")),
++                LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagInsert")),
++                LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagSeat"))};
++            if(bPendingEmptyReload)
++            {
++                MechanicalCueTimes.Append({M249SideMagazine::ChargePull,M249SideMagazine::ChargeRear,M249SideMagazine::ChargePush,M249SideMagazine::ChargeClosed});
++                MechanicalCueSounds.Append({PKMReloadAudio::LoadContact(TEXT("ChargePullMove")),PKMReloadAudio::LoadContact(TEXT("ChargeRearStop")),PKMReloadAudio::LoadContact(TEXT("ChargePushMove")),PKMReloadAudio::LoadContact(TEXT("ChargeFrontStop"))});
++            }
++        }
++        else if (PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel))
++        {
++            // Dedicated reference cuts, scheduled on the pose's source clock.
++            // The queue holds the loaded objects for the entire reload action.
++            const auto PKMContact = PKMReloadAudio::LoadContact;
++            MechanicalCueTimes={.65f};
++            MechanicalCueSounds={PKMContact(TEXT("CoverOpen"))};
++            if (!bPendingEmptyReload)
++            {
++                MechanicalCueTimes.Add(1.65f);
++                MechanicalCueSounds.Add(PKMContact(TEXT("BeltLift")));
++            }
++            for (const float Contact : {2.6f,4.35f,5.1f,5.72f})
++                MechanicalCueTimes.Add(PKMLowpolyWeaponAssets::ReloadEventTime(Contact,bPendingEmptyReload));
++            MechanicalCueSounds.Append({PKMContact(TEXT("BoxOut")),
++                PKMContact(TEXT("BoxInsert")),PKMContact(TEXT("BeltSeat")),
++                PKMContact(TEXT("CoverClose"))});
++            if (bPendingEmptyReload)
++            {
++                // Charge34/Audio35: travel and stop are separate reference cuts.
++                // Both metal attacks stay on their exact pose-clock contacts.
++                MechanicalCueTimes.Append(M249WeaponAssets::Matches(AKMViewmodel)
++                    ? TArray<float>{M249ReloadTiming::ChargePull,M249ReloadTiming::ChargeRear,M249ReloadTiming::ChargePush,M249ReloadTiming::ChargeClosed}
++                    : TArray<float>{5.13f,5.36f,5.48f,5.82f});
++                MechanicalCueSounds.Append({PKMContact(TEXT("ChargePullMove")),
++                    PKMContact(TEXT("ChargeRearStop")),
++                    PKMContact(TEXT("ChargePushMove")),
++                    PKMContact(TEXT("ChargeFrontStop"))});
++            }
++        }
++        else if (SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
++        {
++            MechanicalCueTimes={SVDWeaponAssets::MagazineOut,SVDWeaponAssets::MagazineInsert,SVDWeaponAssets::MagazineSeat};
++            MechanicalCueSounds={MagOutSound,MagInsertSound,MagSeatSound};
++            if(bPendingEmptyReload)
++            {
++                MechanicalCueTimes.Append({SVDWeaponAssets::ChargePull,SVDWeaponAssets::ChargeRelease});
++                MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});
++            }
++        }
++        else if (bUseASH12)
++        {
++            // Reference remake: drop, retrieve, insert, seat, then (empty only)
++            // overhand pull and release. The two charging contacts are distinct.
++            MechanicalCueTimes = {ASH12WeaponAssets::MagazineOut,
++                ASH12WeaponAssets::MagazineInsert, ASH12WeaponAssets::MagazineSeat};
++            MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
++            if (bPendingEmptyReload)
++            {
++                MechanicalCueTimes.Add(ASH12WeaponAssets::ChargePull);
++                MechanicalCueTimes.Add(ASH12WeaponAssets::ChargeRelease);
++                MechanicalCueSounds.Add(ChargePullSound);
++                MechanicalCueSounds.Add(ChargeReleaseSound);
++            }
++        }
++        else if (bUseM16 && bPendingEmptyReload)
++        {
++            MechanicalCueTimes = {M16WeaponAssets::MagazineOut, M16WeaponAssets::MagazineInsert,
++                M16WeaponAssets::MagazineSeat, M16WeaponAssets::ChargePull, M16WeaponAssets::ChargeRelease};
++            MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound, ChargePullSound, ChargeReleaseSound};
++        }
++        else
++        {
++        MechanicalCueTimes = bPendingEmptyReload
++            ? TArray<float>{21.0f / 60.0f, 54.0f / 60.0f, 80.0f / 60.0f}
++            : TArray<float>{29.0f / 60.0f, 76.0f / 60.0f, 95.0f / 60.0f};
++        MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
++        if (bPendingEmptyReload)
++        {
++            MechanicalCueTimes.Add(130.0f / 60.0f);
++            MechanicalCueSounds.Add(BoltReleaseSound);
++        }
++        }
++        if(bDrumInstalled)
++        {
++            MechanicalCueTimes=bUseM16&&bPendingEmptyReload
++                ? TArray<float>{14.f/60.f,54.f/60.f,80.f/60.f,M16WeaponAssets::ChargePull,M16WeaponAssets::ChargeRelease}
++                : bPendingEmptyReload
++                ? TArray<float>{14.0f/60.0f,54.0f/60.0f,80.0f/60.0f,116.0f/60.0f}
++                : TArray<float>{18.0f/60.0f,76.0f/60.0f,95.0f/60.0f};
++        }
++        if (bUseM1911)
++        {
++            MechanicalCueTimes = {M1911Source::MagazineOut, M1911Source::MagazineInsert, M1911Source::MagazineSeat};
++            MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
++            if (bPendingEmptyReload)
++            {
++                MechanicalCueTimes.Add(M1911Source::SlideRelease);
++                MechanicalCueSounds.Add(ChargeReleaseSound);
++            }
++        }
++        if (bUseDanWesson715)
++        {
++            if (bRevolverSingleReload)
++            {
++                // The three phases single-round loading shares with the speedloader
++                // route -- swinging the cylinder out, clearing spent cases and
++                // closing it -- use the recorded 715 one-shots, which are the same
++                // mechanism. The four loader-only recordings (Retrieve/Insert/
++                // Release/Withdraw) have no single-round equivalent and are
++                // deliberately not used here.
++                // Index into SpeedloaderSoundCues: 0 Open, 2 Eject, 6 Close.
++                // Explicit USoundBase* throughout: the recorded sounds are held as
++                // TObjectPtr and must not meet a raw pointer inside a conditional.
++                auto RecordedCue = [this](int32 CueIndex, float& OutLead) -> USoundBase*
++                {
++                    const float Lead = DanWesson715WeaponAssets::SpeedloaderSoundCues[CueIndex].LeadSeconds;
++                    OutLead = Lead;
++                    TObjectPtr<USoundBase> Recorded = RevolverSpeedloaderSounds.IsValidIndex(CueIndex)
++                        ? RevolverSpeedloaderSounds[CueIndex] : nullptr;
++                    // Missing asset, or a clip too short to hold its own pre-roll:
++                    // fall back to the revolver's own contact with no advance.
++                    if (!Recorded || Recorded->GetDuration() <= Lead) { OutLead = 0.f; return MagOutSound; }
++                    return Recorded.Get();
++                };
++                // Eject uses EmptyCaseClear for the same reason AdvanceReloadStages
++                // does: on an empty cylinder the authored clip clears cases there,
++                // not at the speedloader-bound .Eject constant.
++                const float OpenContact = DanWesson715WeaponAssets::Open;
++                const float EjectContact = DanWesson715WeaponAssets::EmptyCaseClear;
++                const float CloseContact = DanWesson715WeaponAssets::SingleLoopBegin(bPendingEmptyReload)
++                    + RevolverReloadCount * DanWesson715WeaponAssets::SingleStep
++                    + DanWesson715WeaponAssets::SingleCloseContact;
++                float OpenLead = 0.f, EjectLead = 0.f, CloseLead = 0.f;
++                USoundBase* OpenCue = RecordedCue(0, OpenLead);
++                USoundBase* EjectCue = RecordedCue(IsRSH12Weapon() ? 1 : 2, EjectLead);
++                USoundBase* CloseCue = RecordedCue(6, CloseLead);
++                // Each recording carries unpitched pre-roll before its impact, so
++                // the trigger advances by that lead and the impact -- not the file
++                // start -- meets the contact. Same rule as the speedloader route.
++                MechanicalCueTimes = {OpenContact - OpenLead};
++                MechanicalCueSounds = {OpenCue};
++                if (bPendingEmptyReload)
++                {
++                    MechanicalCueTimes.Add(EjectContact - EjectLead);
++                    MechanicalCueSounds.Add(EjectCue);
++                }
++                for (int32 Index = 0; Index < RevolverReloadCount; ++Index)
++                {
++                    // Seating one cartridge. MagSeat is the sample named for this
++                    // mechanism but it is soft and mid-weighted (79% of its energy in
++                    // the first 30 ms, only 27% above 1.5 kHz), so six in a row read
++                    // as mushy. DryClick is the tightest sample the revolver has --
++                    // 98.9% of its energy inside 30 ms and 81% above 1.5 kHz, with a
++                    // 0.33 ms attack -- which gives each cartridge an audible click.
++                    // Swap back to MagSeatSound if the sharper sound reads as too dry.
++                    MechanicalCueTimes.Add(DanWesson715WeaponAssets::SingleSeatTime(Index, bPendingEmptyReload));
++                    MechanicalCueSounds.Add(DryClickSound ? DryClickSound.Get() : MagSeatSound.Get());
++                }
++                MechanicalCueTimes.Add(CloseContact - CloseLead);
++                MechanicalCueSounds.Add(CloseCue);
++            }
++            else
++            {
++                const float CueScale = bPendingEmptyReload ? DanWesson715WeaponAssets::EmptyReload / DanWesson715WeaponAssets::NormalReload : 1.f;
++                const float SourcePerSecond = ClipLength / WeaponStateDuration;
++                struct FScheduledCue { float Time; USoundBase* Sound; };
++                TArray<FScheduledCue> Cues;
++                int32 SoundIndex = 0;
++                for (const auto& Cue : DanWesson715WeaponAssets::SpeedloaderSoundCues)
++                {
++                    USoundBase* Sound = RevolverSpeedloaderSounds.IsValidIndex(SoundIndex) ? RevolverSpeedloaderSounds[SoundIndex].Get() : nullptr;
++                    ++SoundIndex;
++                    if (Cue.bEmptyOnly && !bPendingEmptyReload) continue;
++                    // Advance the trigger so the recorded impact, not the file
++                    // start, meets the contact. Stat changes scale the pose,
++                    // while the recording retains its natural pitch and length.
++                    Cues.Add({FMath::Max(0.f, Cue.Contact * CueScale - Cue.LeadSeconds * SourcePerSecond), Sound});
++                }
++                Cues.Sort([](const FScheduledCue& A, const FScheduledCue& B) { return A.Time < B.Time; });
++                MechanicalCueTimes.Reset();
++                MechanicalCueSounds.Reset();
++                for (const auto& Cue : Cues)
++                {
++                    MechanicalCueTimes.Add(Cue.Time);
++                    MechanicalCueSounds.Add(Cue.Sound);
++                }
++            }
++        }
++        if (bUseQBZ191)
++        {
++            // QBZ uses the normal magazine exchange followed by its dedicated
++            // charging-handle action, not the M4 bolt-release slap.
++            MechanicalCueTimes = {29.f/60.f, 76.f/60.f, 95.f/60.f};
++            MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
++            if(bPendingEmptyReload){
++                MechanicalCueTimes.Append({142.f/60.f,151.f/60.f});
++                MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});
++            }
++        }
++    }
++    InitializeReloadStages(ResumeCycle);
++}
++

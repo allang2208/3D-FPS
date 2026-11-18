@@ -1,0 +1,20 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelElementalArrowModel.cpp b/Source/FPSGAME/Skills/ColdSteelElementalArrowModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelElementalArrowModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelElementalArrowModel.cpp
+@@ -2,6 +2,7 @@
+ #include "ColdSteelSkillTree.h"
+ #include "ElementalArrowTypes.h"
+ #include "ColdSteelSkillRules.h"
++#include "ColdSteelSpellRewards.h"
+ 
+ FElementalArrowCast UColdSteelStatusModel::ElementalArrowStats(EArrowElement Element,int32 AtLevel) const
+ {
+@@ -51,7 +52,7 @@
+ void UColdSteelStatusModel::StageElementalArrowTraining(FColdSteelProfile& P,int32 Hits,int32 Kills) const
+ {
+     const auto& D=MasteryDefinition(TEXT("elementalArrow"));
+-    ColdSteelSkills::AddExperience(P,D,Hits*D.HitExperience+Kills*D.KillExperience+(Hits>=2?D.MultiHitExperience:0));
++    ColdSteelSkills::AddExperience(P,D,ColdSteelSpellRewards::HitTrainingExperience(D,Hits,Kills,Hits>=2));
+ }
+ float UColdSteelStatusModel::ElementalArrowCooldown(EArrowElement Element) const
+ {return Element==EArrowElement::Fire?FireballCooldown():Element==EArrowElement::Ice?IceSpikeCooldown():Element==EArrowElement::Lightning?LightningCooldown():0.f;}

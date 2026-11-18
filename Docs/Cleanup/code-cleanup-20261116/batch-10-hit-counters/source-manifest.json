@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills: five player spell hit-counter blocks; preserve caller eligibility and original death-query sequence",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "before_lines": 141,
+      "after_lines": 140,
+      "before_bytes": 9120,
+      "after_bytes": 9052,
+      "before_sha256": "b6743ed5c5a483cc107643c2d4d754a74cd1a1e4423d4f097af64dcb18cfb95e",
+      "after_sha256": "2e276c04051394f20c964356f106d99d700c85c7036c0c5a464ba88cd2e4228c",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-10-hit-counters/ColdSteelHolyLightModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "before_lines": 133,
+      "after_lines": 132,
+      "before_bytes": 8514,
+      "after_bytes": 8450,
+      "before_sha256": "95d6cec8c137b942d507fa1a8dd42ba1d7a26e5457d4d779716ba924b254397f",
+      "after_sha256": "ff93e86a63dcb998fd4a209bf0a9902224af0de4f9c78ac84799ae0668c227cf",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-10-hit-counters/ColdSteelIceSpikeModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "before_lines": 141,
+      "after_lines": 140,
+      "before_bytes": 9511,
+      "after_bytes": 9443,
+      "before_sha256": "185c503425f4442187b7b67877e3614031e158d59bc97fa8dbc8427413bc7458",
+      "after_sha256": "32cc61d5c377843e33a4a57d53fb9555e88cb2296883afe3a578918eb9f2b0bc",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-10-hit-counters/ColdSteelLightningModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "before_lines": 146,
+      "after_lines": 145,
+      "before_bytes": 10123,
+      "after_bytes": 10055,
+      "before_sha256": "86b40eb7f431bb0ab3df77a4b4fe19208a0cd52f4b9fa1173eee03432fed570e",
+      "after_sha256": "b5310179abfe64f97376a2e8714ce637b1f55569f3383221bc5403b5ff9ea148",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-10-hit-counters/ColdSteelFireMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+      "before_lines": 122,
+      "after_lines": 121,
+      "before_bytes": 7550,
+      "after_bytes": 7482,
+      "before_sha256": "0e6b39bf13a846b70aabd15bbe2b633458fb358c53fcab5a7969b775add0a9ba",
+      "after_sha256": "cfb91e6ef8a61286c503c4745c536a57c5b6bf92133b378f2c43ee0ce5048d24",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-10-hit-counters/ColdSteelBlizzardModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellRewards.h",
+      "before_lines": 59,
+      "after_lines": 73,
+      "before_bytes": 2447,
+      "after_bytes": 2879,
+      "before_sha256": "1ed566514caa57e38589cd59f37be8850726f9a1fa69a6590241483b4e41dd0c",
+      "after_sha256": "35c47dd8a6c1d012134ebffc7e84f6f3943c76b98b71f6fe40460100d229ed0a",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-10-hit-counters/ColdSteelSpellRewards.h.before.txt"
+    }
+  ]
+}

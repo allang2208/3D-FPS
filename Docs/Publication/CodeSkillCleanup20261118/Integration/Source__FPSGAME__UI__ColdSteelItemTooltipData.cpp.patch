@@ -1,0 +1,118 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -41,16 +41,12 @@
+ #include "Misc/Paths.h"
+ #include "UObject/UnrealType.h"
+ 
++#include "ColdSteelTooltipFormatPrivate.h"
++using namespace ColdSteelTooltipPrivate;
++
+ namespace
+ {
+-using J=TSharedPtr<FJsonObject>;
+-J Object(const J& O,const TCHAR* Key){const J* V=nullptr;return O&&O->TryGetObjectField(Key,V)?*V:nullptr;}
+-FString String(const J& O,const TCHAR* Key,const FString& Default=TEXT("")){FString V;return O&&O->TryGetStringField(Key,V)?V:Default;}
+-double Number(const J& O,const TCHAR* Key,double Default=0){double V;return O&&O->TryGetNumberField(Key,V)?V:Default;}
+-FString N(double V){FString S=FString::Printf(TEXT("%.2f"),V);while(S.EndsWith(TEXT("0")))S.LeftChopInline(1);if(S.EndsWith(TEXT(".")))S.LeftChopInline(1);return S==TEXT("-0")?TEXT("0"):S;}
+-FString Signed(double V,const TCHAR* Unit=TEXT("")){return (V>0?TEXT("+"):TEXT(""))+N(V)+Unit;}
+ FString Value(const TSharedPtr<FJsonValue>& V){if(!V)return TEXT("");if(V->Type==EJson::String)return V->AsString();if(V->Type==EJson::Number)return N(V->AsNumber());if(V->Type==EJson::Boolean)return V->AsBool()?TEXT("是"):TEXT("否");return TEXT("");}
+-void Row(FColdSteelTooltipCard& C,const FString& Label,const FString& Val,int32 Tone=0){if(!Val.IsEmpty())C.Rows.Add({Label,Val,Tone,false});}
+ void DamageRows(FColdSteelTooltipCard& C,const FWeaponDamageParts& D)
+ {
+     Row(C,ColdSteelWeaponText::TotalDamage,N(D.Total()));
+@@ -60,7 +56,6 @@
+ }
+ void Section(FColdSteelTooltipCard& C,const FString& Label){C.Rows.Add({Label,TEXT(""),0,true});}
+ // 附魔说明用整行宽行：标签折进内容前缘（标签：内容），文字从最左开始，尽量一行读完。
+-void Note(FColdSteelTooltipCard& C,const FString& Label,const FString& Val,int32 Tone=0){if(Val.IsEmpty())return;C.Rows.Add({TEXT(""),Label.IsEmpty()?Val:Label+TEXT("：")+Val,Tone});}
+ // 分类与槽位的英文键必须在目录值域内全部有中文名；新增 category／equipSlot
+ // 先在这里补映射，否则浮窗会把内部标识原样显示（浮窗标准第二节）。
+ FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("magic_book"),TEXT("魔法书")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("equipment"),TEXT("装备")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("ammo"),TEXT("弹药")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("currency"),TEXT("货币")},{TEXT("gold"),TEXT("灵魂")}};const auto* V=M.Find(K);return V?*V:K;}
+@@ -116,85 +111,7 @@
+         Note(C,TEXT("结算"),TEXT("随连击·重击倍率放大，按魔防减免；换其他符文仍保留"));
+     }
+ 
+-    if(const J Forge=Object(O,TEXT("_forgeQuality")))
+-    {
+-        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("锻造工艺");C.MinimumWidth=300;
+-        Row(C,ColdSteelWeaponText::ForgeQuality,String(Forge,TEXT("label"),TEXT("—")));
+-        const double Multiplier=ColdSteelForgeQuality::Multiplier(I);
+-        const double Percent=(Multiplier-1)*100;
+-        Row(C,ColdSteelWeaponText::ForgeDamageModifier,Signed(Percent,TEXT("%")),Percent>0?1:Percent<0?-1:0);
+-        ForgeSummary=C.Rows;
+-        const bool MaterialRules=Number(Forge,TEXT("version"))>=ColdSteelForgeQuality::Version;
+-        if(MaterialRules)
+-        {
+-            Row(C,TEXT("投入金属"),String(Forge,TEXT("materialName"),TEXT("—")));
+-            Row(C,TEXT("材质保底"),Signed(Number(Forge,TEXT("materialBonus"))*100,TEXT("%")),1);
+-            Row(C,TEXT("命中提升"),FString::Printf(TEXT("+%.2f%% / %.0f%%"),
+-                ColdSteelForgeQuality::HitBonus(int32(Number(Forge,TEXT("hits"))))*100,ColdSteelForgeQuality::MaxHitBonus*100),1);
+-        }
+-        Row(C,TEXT("有效命中"),N(Number(Forge,TEXT("hits")))+TEXT(" / ")+N(Number(Forge,TEXT("total"),20)));
+-        Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.4f"),Multiplier));
+-        Note(C,TEXT("作用"),TEXT("乘于基础伤害，已计入武器总伤害"));
+-        Note(C,TEXT("例外"),TEXT("附加伤害按各自公式结算，不乘此倍率"));
+-        Note(C,TEXT("说明"),MaterialRules?TEXT("材质保底与命中提升相加，最高 +25%，与强化独立"):
+-            TEXT("旧版锻造成品，保留原工艺品质与伤害倍率"));
+-    }
+-    if(Model)
+-        if(const auto* ForgeSystem=Model->GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>())
+-            if(const auto* Metal=ForgeSystem->FindMetal(FName(*I.Definition)))
+-            {
+-                auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("金属材质");C.MinimumWidth=300;
+-                Row(C,TEXT("材质保底"),Signed(Metal->Bonus*100,TEXT("%")),Metal->Bonus>0?1:0);
+-                Note(C,TEXT("用途"),TEXT("用于铁匠锻造与枪械装配；加工表现另计，最高再加 15%"));
+-            }
+-    if(Model&&I.Definition.StartsWith(TEXT("wood_core_")))
+-        if(const auto* Wood=Model->GetGameInstance()->GetSubsystem<UWoodworkingSystem>())
+-            if(const auto* Core=Wood->FindCore(FName(*I.Definition)))
+-            {
+-                auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("木芯材质");C.MinimumWidth=300;
+-                Row(C,TEXT("材质保底"),Signed(Core->Bonus*100,TEXT("%")),Core->Bonus>0?1:0);
+-                ForgeSummary.Append(C.Rows);
+-                Note(C,TEXT("用途"),TEXT("木工制作每件投入 1 枚；弓提高物理伤害，法杖提高本件魔攻"));
+-                Note(C,TEXT("加工"),TEXT("合格成品保留材质加成，小游戏额外提供最高 +15%"));
+-            }
+-    double WoodScore=0;
+-    if(ColdSteelWoodQuality::Read(I,WoodScore))
+-    {
+-        const double Multiplier=ColdSteelWoodQuality::Multiplier(I,ColdSteelWoodQuality::Channel(I)),Percent=(Multiplier-1)*100;
+-        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("木工工艺");C.MinimumWidth=300;
+-        Row(C,TEXT("工艺评分"),N(WoodScore)+TEXT(" / 100"));
+-        Row(C,ColdSteelWoodQuality::StatLabel(I),Signed(Percent,TEXT("%")),Percent>0?1:Percent<0?-1:0);
+-        ForgeSummary.Append(C.Rows);
+-        Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.3f"),Multiplier));
+-        Note(C,TEXT("作用"),ColdSteelWoodQuality::Channel(I)==ColdSteelWoodQuality::EChannel::Physical?
+-            TEXT("已计入本弓物理伤害；附加魔法伤害不受此修正影响"):
+-            TEXT("已计入本件法杖魔法攻击，参与法术伤害计算；挥杖物理伤害不受此修正影响"));
+-        if(ColdSteelWoodQuality::UsesMaterials(I))
+-        {
+-            const double Material=ColdSteelWoodQuality::MaterialBonus(I)*100,Skill=ColdSteelWoodQuality::SkillBonus(WoodScore)*100;
+-            Row(C,TEXT("木芯保底"),Signed(Material,TEXT("%")),Material>0?1:0);
+-            Row(C,TEXT("加工加成"),Signed(Skill,TEXT("%")),Skill>0?1:0);
+-            Note(C,TEXT("评分规则"),TEXT("木芯保底与加工加成相加，最高 +25%；加工满分 +15%"));
+-        }
+-        else Note(C,TEXT("评分规则"),TEXT("旧版工艺：50 分无修正，100 分 +25%，最低 -25%；保留原数值"));
+-    }
+-    if(const J Assembly=Object(O,TEXT("_assemblyQuality")))
+-    {
+-        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("枪械装配工艺");C.MinimumWidth=300;
+-        Row(C,TEXT("装配品质"),String(Assembly,TEXT("label"),TEXT("—")));
+-        Row(C,TEXT("工艺评分"),N(Number(Assembly,TEXT("score")))+TEXT(" / 100"));
+-        const double Base=ColdSteelAssemblyQuality::MaterialBonus(I),Multiplier=ColdSteelAssemblyQuality::Multiplier(I);
+-        Row(C,TEXT("金属材质"),String(Assembly,TEXT("materialName"),TEXT("旧制枪械")));
+-        Row(C,TEXT("材质保底"),FString::Printf(TEXT("+%.2f%%"),Base*100),Base>0?1:0);
+-        Row(C,TEXT("装配提升"),FString::Printf(TEXT("+%.2f%%"),(Multiplier-1.-Base)*100),Multiplier>1.+Base?1:0);
+-        Row(C,TEXT("伤害加成"),FString::Printf(TEXT("+%.2f%%"),(Multiplier-1.)*100),Multiplier>1.?1:0);
+-        ForgeSummary.Append(C.Rows);
+-        Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.4f"),Multiplier));
+-        Note(C,TEXT("作用"),TEXT("与近战锻造相同，乘于基础伤害公式；已计入武器总伤害，附加伤害独立结算"));
+-        Note(C,TEXT("说明"),Number(Assembly,TEXT("version"))>=ColdSteelAssemblyQuality::Version?
+-            TEXT("材质最高 +10%，装配最高 +15%，合计最高 +25%；不再修正后坐力和散布"):
+-            TEXT("旧制枪械按已保存评分折算伤害；没有材质记录时保底为 0%"));
+-    }
++    ForgeSummary=ColdSteelTooltipPrivate::AppendCraftQuality(I,Model,O,Out);
+     const J Enchant=Object(O,TEXT("_enchantData"));const J EE=Object(O,TEXT("_enchantEffects"));
+     if(Enchant&&(Object(Enchant,TEXT("prefix"))||Object(Enchant,TEXT("suffix")))){
+         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("附魔效果");C.MinimumWidth=300;

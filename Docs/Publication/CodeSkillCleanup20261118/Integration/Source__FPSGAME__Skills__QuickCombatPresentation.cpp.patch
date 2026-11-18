@@ -1,0 +1,325 @@
+diff --git a/Source/FPSGAME/Skills/QuickCombatPresentation.cpp b/Source/FPSGAME/Skills/QuickCombatPresentation.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Skills/QuickCombatPresentation.cpp
+@@ -0,0 +1,320 @@
++#include "FPSQuickCombatComponent.h"
++#include "QuickCombatImpactShake.h"
++#include "../FPSGAMECharacter.h"
++#include "../Weapons/M24QuickMeleeMotion.h"
++#include "../Weapons/PistolDualWieldComponent.h"
++#include "../Weapons/DualPistolQuickCombatMotion.h"
++#include "../Weapons/Bow/BowQuickCombatMotion.h"
++#include "../Weapons/Staff/StaffQuickCombatMotion.h"
++#include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "../Production/WarhammerQuickCombatMotion.h"
++#include "../Production/WarhammerConicalThrustMotion.h"
++
++void UFPSQuickCombatComponent::ConfigureForClipLength(float Length,bool bDualPistol)
++{
++    using namespace QuickCombatPistolMotion;
++    Style=bDualPistol?EQuickCombatStyle::DualPistol:EQuickCombatStyle::Pistol;
++    ClipLength=FMath::Max(0.05f,Length);
++    ReleaseEnd=ClipLength*ReleaseFraction;
++    CockEnd=ClipLength*CockFraction;
++    ContactTime=ClipLength*ContactFraction;
++    FollowEnd=ClipLength*FollowFraction;
++    if(bDualPistol)
++    {
++        ReleaseEnd=ClipLength*DualPistolQuickCombatMotion::ReleaseFraction;
++        CockEnd=ClipLength*DualPistolQuickCombatMotion::CockFraction;
++        ContactTime=ClipLength*DualPistolQuickCombatMotion::ContactFraction;
++        FollowEnd=ClipLength*DualPistolQuickCombatMotion::FollowFraction;
++    }
++    AttackEnd=ClipLength;
++}
++
++void UFPSQuickCombatComponent::ConfigureForRifle(float Length,bool bM4Reference)
++{
++    using namespace QuickCombatRifleMotion;
++    Style=bM4Reference?EQuickCombatStyle::M4ReferenceRifle:EQuickCombatStyle::Rifle;
++    ClipLength=FMath::Max(0.05f,Length);
++    ReleaseEnd=ClipLength*(bM4Reference?M4ReferenceReleaseFraction:ReleaseFraction);
++    CockEnd=ClipLength*(bM4Reference?M4ReferenceCockFraction:CockFraction);
++    ContactTime=ClipLength*(bM4Reference?M4ReferenceContactFraction:ContactFraction);
++    FollowEnd=ClipLength*(bM4Reference?M4ReferenceFollowFraction:FollowFraction);
++    AttackEnd=ClipLength;
++    if(const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());Player&&Player->IsM24Weapon())
++    {
++        const float Scale=ClipLength/M24QuickMeleeMotion::Length;
++        ReleaseEnd=M24QuickMeleeMotion::Release*Scale;
++        CockEnd=M24QuickMeleeMotion::Cock*Scale;
++        ContactTime=M24QuickMeleeMotion::Contact*Scale;
++        FollowEnd=M24QuickMeleeMotion::Follow*Scale;
++    }
++    // 步枪是双手持枪的整枪动作，命中探针改用枪身（见 ContactHit），
++    // 其余结算口径与手枪版完全一致：同一体力、修炼与击退公式。
++    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 步枪砸击时钟 总长=%.3f 接触=%.3f"),AttackEnd,ContactTime);
++}
++
++void UFPSQuickCombatComponent::ConfigureForBow(float Length)
++{
++    Style=EQuickCombatStyle::Bow;
++    ClipLength=FMath::Max(.05f,Length);
++    const float Scale=ClipLength/BowQuickCombatMotion::Length;
++    ReleaseEnd=BowQuickCombatMotion::Grip*Scale;
++    CockEnd=BowQuickCombatMotion::Cock*Scale;
++    ContactTime=BowQuickCombatMotion::Contact*Scale;
++    FollowEnd=BowQuickCombatMotion::Follow*Scale;
++    AttackEnd=ClipLength;
++}
++
++float UFPSQuickCombatComponent::GetBowRecoilCM() const
++{
++    return Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand()&&ImpactStrength>0.f
++        ?BowQuickCombatMotion::RecoilCM(ImpactAge)*ImpactStrength:0.f;
++}
++
++float UFPSQuickCombatComponent::GetBowSourcePlaybackRate() const
++{
++    return Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand()&&!IsImpactPaused()
++        ?BowQuickCombatMotion::SourceRate(ActionAge,ClipLength)*ActionRate:0.f;
++}
++
++void UFPSQuickCombatComponent::ConfigureForStaffPunch()
++{
++    Style=EQuickCombatStyle::StaffPunch;
++    ClipLength=AttackEnd=StaffQuickCombatMotion::Length;
++    ReleaseEnd=StaffQuickCombatMotion::Release;
++    CockEnd=StaffQuickCombatMotion::Cock;
++    ContactTime=StaffQuickCombatMotion::Contact;
++    FollowEnd=StaffQuickCombatMotion::Follow;
++}
++
++void UFPSQuickCombatComponent::ConfigureForStaffOffhandPistol(float Length)
++{
++    const auto* Dual=GetOwner()?GetOwner()->FindComponentByClass<UPistolDualWieldComponent>():nullptr;
++    ConfigureForClipLength(Length,!(Dual&&Dual->IsTwoHandedLone()));
++    Style=EQuickCombatStyle::StaffOffhandPistol;
++}
++
++void UFPSQuickCombatComponent::ConfigureForSpellbookPush()
++{
++    // The book shares the unarmed jab's phase/contact clock. Its pose layer
++    // retimes the fixed-grip source with SpellbookQuickCombatMotion.
++    ConfigureForStaffPunch();
++    Style=EQuickCombatStyle::SpellbookPush;
++}
++
++void UFPSQuickCombatComponent::ConfigureForUnarmedPunch()
++{
++    ConfigureForStaffPunch();
++    Style=EQuickCombatStyle::UnarmedPunch;
++}
++
++float UFPSQuickCombatComponent::PhaseFraction() const
++{
++    float Begin=0.f,Span=1.f;
++    switch(Phase)
++    {
++    case EQuickCombatBashPhase::Release:Begin=0.f;Span=ReleaseEnd;break;
++    case EQuickCombatBashPhase::Cock:Begin=ReleaseEnd;Span=CockEnd-ReleaseEnd;break;
++    case EQuickCombatBashPhase::Smash:Begin=CockEnd;Span=ContactTime-CockEnd;break;
++    case EQuickCombatBashPhase::Follow:Begin=ContactTime;Span=FollowEnd-ContactTime;break;
++    case EQuickCombatBashPhase::Recover:Begin=FollowEnd;Span=AttackEnd-FollowEnd;break;
++    default:return 0.f;
++    }
++    return FMath::Clamp((ActionAge-Begin)/FMath::Max(.01f,Span),0.f,1.f);
++}
++
++float UFPSQuickCombatComponent::LayerWeight() const
++{
++    if(Phase!=EQuickCombatBashPhase::Recover)return 1.f;
++    const float T=PhaseFraction();
++    return 1.f-T*T*(3.f-2.f*T);   // 回握段把姿态层交还给动画
++}
++
++float UFPSQuickCombatComponent::GetCameraFOV() const
++{
++    return UsesWarhammerHeadThrust()&&IsOccupyingLeftHand()?WarhammerConicalThrust::CameraFOV(ActionAge):0.f;
++}
++
++void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) const
++{
++    using namespace QuickCombatPistolMotion;
++    Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;
++    const auto* CameraOwner=Cast<AFPSGAMECharacter>(GetOwner());
++    const bool bM24=CameraOwner&&CameraOwner->IsM24Weapon()&&IsRifleStyle();
++    // Bow contact has a short damped impulse; free follow-through is supplied
++    // by the action camera below and must not imitate a collision on a miss.
++    const auto AddImpact=[&]()
++    {
++        if(!bContactDone)return;
++        if(UsesWarhammerHeadThrust())
++        {
++            WarhammerConicalThrust::ImpactCamera(ImpactAge,ImpactStrength,Location,Rotation);
++            return;
++        }
++        if(Style==EQuickCombatStyle::Bow)
++        {
++            BowQuickCombatMotion::ImpactCamera(ImpactAge,ImpactStrength,Location,Rotation);
++            return;
++        }
++        FVector ImpactLocation=FVector::ZeroVector;
++        FRotator ImpactRotation=FRotator::ZeroRotator;
++        QuickCombatImpactShake::Add(ImpactAge,ImpactLocation,ImpactRotation);
++        if(bM24)
++        {
++            const float Weight=M24QuickMeleeMotion::ImpactScale*FMath::Clamp(ImpactStrength,0.f,1.f);
++            ImpactLocation*=Weight;ImpactRotation*=Weight;
++        }
++        if(Style==EQuickCombatStyle::Warhammer)
++        {
++            // Free motion comes from the recorded reference curve. Add a
++            // collision impulse only when the hammer actually hits a target.
++            const float Weight=FMath::Clamp(ImpactStrength,0.f,1.f);
++            ImpactLocation*=FVector(.10f,.025f,.04f)*Weight;
++            ImpactRotation*=.08f*Weight;
++        }
++        Location+=ImpactLocation;Rotation+=ImpactRotation;
++    };
++    if(Phase==EQuickCombatBashPhase::None)
++    {
++        AddImpact();
++        return;
++    }
++    if(Style==EQuickCombatStyle::Warhammer)
++    {
++        if(bWarhammerHeadThrust)WarhammerConicalThrust::Camera(ActionAge,Location,Rotation);
++        else WarhammerQuickCombat::Camera(ActionAge,Location,Rotation);
++        AddImpact();return;
++    }
++    if(bM24)
++    {
++        M24QuickMeleeMotion::Camera(ActionAge,ClipLength,Location,Rotation);
++        AddImpact();return;
++    }
++    if(Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::UnarmedPunch||Style==EQuickCombatStyle::SpellbookPush)
++    {
++        const float T=PhaseFraction(),K=FMath::SmoothStep(0.f,1.f,T);
++        switch(Phase)
++        {
++        case EQuickCombatBashPhase::Release:
++            Location=FVector(-.15f,-.1f,.12f)*K;Rotation=FRotator(.1f,.15f,.12f)*K;break;
++        case EQuickCombatBashPhase::Cock:
++            Location=FMath::Lerp(FVector(-.15f,-.1f,.12f),FVector(-.65f,-.2f,.2f),K);
++            Rotation=FMath::Lerp(FRotator(.1f,.15f,.12f),FRotator(.35f,.4f,.3f),K);break;
++        case EQuickCombatBashPhase::Smash:
++            Location=FMath::Lerp(FVector(-.65f,-.2f,.2f),FVector(2.6f,.35f,-.35f),T*T);
++            Rotation=FMath::Lerp(FRotator(.35f,.4f,.3f),FRotator(-.8f,-.9f,-.4f),T*T);break;
++        case EQuickCombatBashPhase::Follow:
++            Location=FMath::Lerp(FVector(2.6f,.35f,-.35f),FVector(.25f,.1f,-.1f),K);
++            Rotation=FMath::Lerp(FRotator(-.8f,-.9f,-.4f),FRotator(-.15f,-.15f,-.1f),K);break;
++        default:
++            Location=FVector(.25f,.1f,-.1f)*(1.f-K);Rotation=FRotator(-.15f,-.15f,-.1f)*(1.f-K);break;
++        }
++        if(Style==EQuickCombatStyle::UnarmedPunch)
++            if(const auto* Hands=GetOwner()->FindComponentByClass<UFPSUnarmedIdleComponent>();Hands&&Hands->GetPunchSide()==1)
++            {Location.Y=-Location.Y;Rotation.Yaw=-Rotation.Yaw;Rotation.Roll=-Rotation.Roll;}
++        // Spellbook uses the same left-jab camera drive/recoil and shared
++        // contact impulse as the unarmed punch, without a second attenuation.
++        AddImpact();return;
++    }
++    if(Style==EQuickCombatStyle::Bow)
++    {
++        // Shoulder-led loading and a small forward/down arc. Only a real
++        // contact adds the short opposite impulse and rigid assembly recoil.
++        const float T=PhaseFraction();
++        const float K=FMath::SmoothStep(0.f,1.f,T);
++        switch(Phase)
++        {
++        case EQuickCombatBashPhase::Release:
++            Location=FVector(-.3f,.05f,.15f)*K;
++            Rotation=FRotator(.15f,.08f,.12f)*K;break;
++        case EQuickCombatBashPhase::Cock:
++            Location=FMath::Lerp(FVector(-.3f,.05f,.15f),FVector(-1.3f,.15f,.3f),K);
++            Rotation=FMath::Lerp(FRotator(.15f,.08f,.12f),FRotator(.45f,.2f,.25f),K);break;
++        case EQuickCombatBashPhase::Smash:
++            Location=FMath::Lerp(FVector(-1.3f,.15f,.3f),FVector(3.2f,.28f,-.35f),T*T);
++            Rotation=FMath::Lerp(FRotator(.45f,.2f,.25f),FRotator(-.85f,-.25f,-.3f),T*T);break;
++        case EQuickCombatBashPhase::Follow:
++            Location=FMath::Lerp(FVector(3.2f,.28f,-.35f),FVector(.35f,.05f,-.1f),K);
++            Rotation=FMath::Lerp(FRotator(-.85f,-.25f,-.3f),FRotator(-.2f,-.05f,-.06f),K);break;
++        default:
++            Location=FVector(.35f,.05f,-.1f)*(1.f-K);
++            Rotation=FRotator(-.2f,-.05f,-.06f)*(1.f-K);break;
++        }
++        AddImpact();
++        return;
++    }
++    const auto* CameraDual=GetOwner()?GetOwner()->FindComponentByClass<UPistolDualWieldComponent>():nullptr;
++    if((Style==EQuickCombatStyle::DualPistol||Style==EQuickCombatStyle::StaffOffhandPistol)
++        && !(CameraDual&&CameraDual->IsTwoHandedLone()))
++    {
++        // Follow the lateral whip, leaving the gun roll to the authored bones.
++        // The sign follows the same accepted action as the contact probe.
++        const float Sign=Style==EQuickCombatStyle::StaffOffhandPistol?-1.f:DualPistolQuickCombatMotion::StrikingHand(Serial)==0?1.f:-1.f;
++        const float U=ActionAge/FMath::Max(ClipLength,.001f);
++        const float Contact=DualPistolQuickCombatMotion::ContactFraction;
++        const float Follow=DualPistolQuickCombatMotion::FollowFraction;
++        if(U<Contact)
++        {
++            const float T=FMath::SmoothStep(0.f,1.f,U/Contact);
++            Location=FVector(1.2f,-.5f*Sign,-.35f)*T;
++            Rotation=FRotator(-.55f,-1.1f*Sign,-.85f*Sign)*T;
++        }
++        else if(U<Follow)
++        {
++            const float T=FMath::SmoothStep(0.f,1.f,(U-Contact)/(Follow-Contact));
++            Location=FMath::Lerp(FVector(1.2f,-.5f*Sign,-.35f),FVector(.2f,.35f*Sign,-.2f),T);
++            Rotation=FMath::Lerp(FRotator(-.55f,-1.1f*Sign,-.85f*Sign),FRotator(-.2f,.55f*Sign,.4f*Sign),T);
++        }
++        else
++        {
++            const float Weight=1.f-FMath::SmoothStep(0.f,1.f,(U-Follow)/(.72f-Follow));
++            Location=FVector(.2f,.35f*Sign,-.2f)*Weight;
++            Rotation=FRotator(-.2f,.55f*Sign,.4f*Sign)*Weight;
++        }
++        if(bContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
++        return;
++    }
++    // 步枪的整枪抬升与下扫使用更大的动作镜头幅度；判定冲量统一。
++    const bool bRifle=!IsPistolStyle();
++    const float Shape=bRifle?QuickCombatRifleMotion::RifleCameraShapeScale:1.f;
++    const float Strength=bRifle?QuickCombatRifleMotion::RifleStockCameraStrength:PistolBashCameraStrength;
++    // 镜头语言分两层（与剑版同一合同）：
++    // ① 动作镜头：随枪蓄势微抬 → 下砸压头前送 → 跟随回位（动作本体在作者源 clip 里，
++    //    这里只做镜头，幅度按已接受的配重锤量级给）。
++    // ② 判定冲量：伤害查询当帧立即强震一次，随后反向回弹；命中停顿仍单独确认。
++    const float T=PhaseFraction();
++    if(Phase==EQuickCombatBashPhase::Release)
++    {
++        Location=FVector(-0.4f,0.2f,0.5f)*EaseOut(T);Rotation=FRotator(0.4f,0.f,-0.3f)*EaseOut(T);
++    }
++    else if(Phase==EQuickCombatBashPhase::Cock)
++    {
++        const float K=FMath::SmoothStep(0.f,1.f,T);
++        Location=FMath::Lerp(FVector(-0.4f,0.2f,0.5f),FVector(-1.4f,0.5f,1.6f),K);
++        Rotation=FMath::Lerp(FRotator(0.4f,0.f,-0.3f),FRotator(1.3f,0.f,-1.0f),K);
++    }
++    else if(Phase==EQuickCombatBashPhase::Smash)
++    {
++        const float K=T*T;   // 与动作同步加速
++        Location=FMath::Lerp(FVector(-1.4f,0.5f,1.6f),FVector(3.6f,0.f,-1.6f),K);
++        Rotation=FMath::Lerp(FRotator(1.3f,0.f,-1.0f),FRotator(-3.0f,0.f,0.7f),K);
++    }
++    else if(Phase==EQuickCombatBashPhase::Follow)
++    {
++        const float K=FMath::SmoothStep(0.f,1.f,T);
++        Location=FMath::Lerp(FVector(3.6f,0.f,-1.6f),FVector(6.5f,0.f,-2.4f),K);
++        Rotation=FMath::Lerp(FRotator(-3.0f,0.f,0.7f),FRotator(-3.6f,0.f,1.0f),K);
++    }
++    else
++    {
++        const float K=1.f-FMath::SmoothStep(0.f,1.f,T);
++        Location=FVector(6.5f,0.f,-2.4f)*K;Rotation=FRotator(-3.6f,0.f,1.0f)*K;
++    }
++    Location*=Strength*Shape;
++    Rotation*=Strength*Shape;
++    if(CameraDual&&CameraDual->IsTwoHandedLone())
++    {
++        Location.Y=-Location.Y;Rotation.Yaw=-Rotation.Yaw;Rotation.Roll=-Rotation.Roll;
++    }
++    if(bContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
++}
++

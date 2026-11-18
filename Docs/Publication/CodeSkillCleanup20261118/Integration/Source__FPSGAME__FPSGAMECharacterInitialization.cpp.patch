@@ -1,0 +1,678 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterInitialization.cpp b/Source/FPSGAME/FPSGAMECharacterInitialization.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterInitialization.cpp
+@@ -0,0 +1,673 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
++{
++    ReleaseThermalPresentation();
++    RifleHipFraming = FRifleHipFraming();
++    bWeaponVisualPartsApplied=false;
++    // Reset per-weapon trigger semantics here, not inside a weapon branch: the branches only
++    // assign their own weapon, so a flag set by the SVD would otherwise stick to every weapon
++    // equipped afterwards and turn the rifles semiautomatic.
++    bSingleShotTrigger=false;
++    LMG201FeedVisibility=INDEX_NONE;
++    PKMLowpolyWeaponAssets::RemoveBipod(this);PKMAttachments::RemoveRail(this);
++    if(RearGripAttachment)RearGripAttachment->DestroyComponent();
++    RearGripAttachment=nullptr;
++    if(GripBodyAttachment)GripBodyAttachment->DestroyComponent();
++    GripBodyAttachment=nullptr;
++    if(StockAttachment)StockAttachment->DestroyComponent();
++    StockAttachment=nullptr;bSkeletonStock=false;
++    // Mounts and meshes belong to a weapon definition; rebuild them on a weapon swap.
++    for(auto* Part:{LPVORing.Get(),AKMOpticBridge.Get(),HolographicOptic.Get(),LargeDrum.Get(),MuzzleAttachment.Get(),PrismHandstop.Get(),AngledForegrip.Get(),VerticalForegrip.Get(),CantedForegrip.Get()})if(Part)Part->DestroyComponent();
++    AKMOpticBridge=nullptr;
++    LPVORing=nullptr;LPVOMagnification=1.f;DisplayedLPVOMagnification=1.f;PresentedScopeVariant.Reset();ScopeEyeOffset=FVector2D::ZeroVector;HolographicOptic=nullptr;LargeDrum=nullptr;MuzzleAttachment=nullptr;PrismHandstop=nullptr;AngledForegrip=nullptr;VerticalForegrip=nullptr;CantedForegrip=nullptr;
++    bHolographicOptic=false;OpticVariant.Reset();bDrumVisual=false;MuzzleVariant.Reset();
++    bSightCalibrated = false;
++    bUsingM4Infima = false;
++    // Each weapon starts from its own framing, never the previous rifle's ADS.
++    HipViewmodelLocation=M4HipViewmodelLocation;
++    ADSRearEyeDistance=18.f;
++    EquipAnimation=nullptr;
++    // Quick-combat clips belong to the weapon that authored them; leaving the
++    // previous pistol's clip alive would let a clip-less pistol play it.
++    QuickCombatAnimation=nullptr;
++    USkeletalMesh* ViewmodelMesh = nullptr;
++    if (!bPresentationOnly || ActiveInventoryWeaponDefinition == TEXT("ue_akm"))
++    {
++    ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/StockV2/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/WalnutFab/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
++    if (ViewmodelMesh && ViewmodelMesh->GetPathName().Contains(TEXT("/AKMIntegration/SovietFab/")))
++        HipViewmodelLocation = M4HipViewmodelLocation + FVector(6.f, 0.f, 0.f);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SourceMatched/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/Materials/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/Native/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMReplacement/Rendering/SK_AKM_Replacement_Game.SK_AKM_Replacement_Game"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMReplacement/SK_AKM_Replacement.SK_AKM_Replacement"), nullptr, LOAD_NoWarn);
++    if (!ViewmodelMesh || ViewmodelMesh->GetName()!=TEXT("SK_AKM_MannyNative"))
++    {
++        HipViewmodelLocation=FVector(10.f,31.f,-3.f);
++        ADSRearEyeDistance=42.f;
++    }
++    }
++    if ((bUseM4Infima || bUseQBZ191) && (!bPresentationOnly || !bUseQBZ191))
++    {
++        if (USkeletalMesh* M4Mesh = LoadObject<USkeletalMesh>(nullptr, IsHK416Weapon() ? HK416WeaponAssets::MeshPath : TEXT("/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416"), nullptr, LOAD_NoWarn))
++        {
++            ViewmodelMesh = M4Mesh;
++            bUsingM4Infima = true;
++            HipViewmodelLocation = M4HipViewmodelLocation;
++            ADSRearEyeDistance = 12.0f;
++            UE_LOG(LogTemp, Display, TEXT("M4_INFIMA_ACTIVE mesh=%s"), *M4Mesh->GetPathName());
++        }
++    }
++    if (bUseQBZ191)
++    {
++        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny"));
++        if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/QBZ191/Attachments20260913/SK_QBZ191_Manny.SK_QBZ191_Manny"));
++        bUsingM4Infima = ViewmodelMesh != nullptr;
++        HipViewmodelLocation = M4HipViewmodelLocation;
++        ADSRearEyeDistance = 12.f;
++        UE_LOG(LogTemp, Display, TEXT("QBZ191_ACTIVE mesh=%s"), *GetPathNameSafe(ViewmodelMesh));
++    }
++    if (bUseASH12)
++    {
++        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, ASH12WeaponAssets::MeshPath, nullptr, LOAD_NoWarn);
++        bUsingM4Infima = ViewmodelMesh != nullptr; // Shared Manny pose/cue clock.
++        // Move the complete bullpup rig forward from the M4/QBZ hip anchor.
++        // The larger rear receiver needs slightly more room than the AKM's 6 cm.
++        HipViewmodelLocation = M4HipViewmodelLocation + FVector(8.f, 0.f, 0.f);
++        ADSRearEyeDistance = ASH12WeaponAssets::ADSRearEyeDistance;
++        UE_LOG(LogTemp, Display, TEXT("ASH12_ACTIVE mesh=%s eye=%.2f"), *GetPathNameSafe(ViewmodelMesh), ADSRearEyeDistance);
++    }
++    if (bUseM16)
++    {
++        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, M16WeaponAssets::MeshPath);
++        bUsingM4Infima = ViewmodelMesh != nullptr;
++        HipViewmodelLocation = M4HipViewmodelLocation + FVector(5.f, 0.f, 0.f);
++        ADSRearEyeDistance = 18.f;
++        if (!bPresentationOnly) QuickCombatAnimation = LoadObject<UAnimSequence>(nullptr, *M16WeaponAssets::AnimationPath(TEXT("quick_melee")));
++    }
++    if (bUseM1911)
++    {
++        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, IsPitViperWeapon() ? PitViper2011WeaponAssets::MeshPath : IsG18Weapon() ? G18WeaponAssets::MeshPath : M1911Source::MeshPath);
++        bUsingM4Infima = ViewmodelMesh != nullptr; // Common Manny pose/cue clock.
++        HipViewmodelLocation = PistolHipViewmodelLocation;
++        ADSRearEyeDistance = 38.f;
++        bPistolShotPending = false;
++        if (!bPresentationOnly) QuickCombatAnimation = LoadObject<UAnimSequence>(nullptr, IsPitViperWeapon() ? *PitViper2011WeaponAssets::AnimationPath(TEXT("quickcombat")) : IsG18Weapon() ? *G18WeaponAssets::AnimationPath(TEXT("quickcombat")) : M1911WeaponAssets::QuickCombatAnimationPath);
++    }
++    if (bUseDanWesson715)
++    {
++        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, IsRSH12Weapon() ? RSH12WeaponAssets::MeshPath : DanWesson715WeaponAssets::MeshPath);
++        bUsingM4Infima = ViewmodelMesh != nullptr;
++        HipViewmodelLocation = RevolverHipViewmodelLocation;
++        ADSRearEyeDistance = 38.f;
++        bPistolShotPending = false;
++        if (!bPresentationOnly) QuickCombatAnimation = LoadObject<UAnimSequence>(nullptr, DanWesson715WeaponAssets::QuickCombatAnimationPath);
++    }
++    // Both LMG assemblies use the same camera-relative hip anchor.
++    const FVector LMGHipViewmodelLocation=M4HipViewmodelLocation+FVector(9.f,2.f,-4.f);
++    if (ActiveInventoryWeaponDefinition == LMG201WeaponAssets::Definition)
++    {
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,LMG201WeaponAssets::MeshPath);
++        bUsingM4Infima=false;
++        HipViewmodelLocation=LMGHipViewmodelLocation;
++        ADSRearEyeDistance=20.f;
++        if (!bPresentationOnly) QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*LMG201WeaponAssets::AnimationPath(TEXT("quick_melee")));
++    }
++    if (ActiveInventoryWeaponDefinition == A762WeaponAssets::Definition)
++    {
++        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr,A762WeaponAssets::MeshPath);
++        bUsingM4Infima = false;
++        HipViewmodelLocation = M4HipViewmodelLocation + FVector(6.f,0.f,0.f);
++        ADSRearEyeDistance = 18.f;
++    }
++    if (IsSaiga12KWeapon())
++    {
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,Saiga12KWeaponAssets::MeshPath);
++        bUsingM4Infima=false; // AK-pattern magazine and right charging-handle clock.
++        bSingleShotTrigger=false; // Hold the primary trigger to continue firing.
++        bPistolShotPending=false;
++        HipViewmodelLocation=M4HipViewmodelLocation+FVector(6.f,0.f,0.f);
++        ADSRearEyeDistance=18.f;
++    }
++    if (ActiveInventoryWeaponDefinition == SVCHWeaponAssets::Definition)
++    {
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,SVCHWeaponAssets::MeshPath,nullptr,LOAD_NoWarn);
++        // The SVCh shares the Manny skeleton and the SVD's source-time cue clock,
++        // and it is semiautomatic like SVD, so it reuses the accepted rifle clips.
++        bUsingM4Infima=ViewmodelMesh!=nullptr;
++        bSingleShotTrigger=SVCHWeaponAssets::bSingleShotTrigger;
++        bPistolShotPending=false;
++        HipViewmodelLocation=M4HipViewmodelLocation+FVector(6.f,0.f,0.f);
++        if (!bPresentationOnly) QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*SVDWeaponAssets::AnimationPath(TEXT("quick_melee")));
++        // Measured eye relief behind the baked iron-sight pair.
++        ADSRearEyeDistance=SVCHWeaponAssets::ADSRearEyeDistance;
++        UE_LOG(LogTemp, Display, TEXT("SVCH_ACTIVE mesh=%s eye=%.2f single_shot=%d"),
++            *GetPathNameSafe(ViewmodelMesh), ADSRearEyeDistance, bSingleShotTrigger ? 1 : 0);
++    }
++    if (ActiveInventoryWeaponDefinition == SVDWeaponAssets::Definition)
++    {
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,SVDWeaponAssets::MeshPath,nullptr,LOAD_NoWarn);
++        // Dedicated SVD clips share the Manny skeleton and source-time cue clock.
++        bUsingM4Infima=ViewmodelMesh!=nullptr;
++        bSingleShotTrigger=SVDWeaponAssets::bSingleShotTrigger;
++        bPistolShotPending=false;
++        HipViewmodelLocation=M4HipViewmodelLocation+FVector(6.f,0.f,0.f);
++        if (!bPresentationOnly) QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*SVDWeaponAssets::AnimationPath(TEXT("quick_melee")));
++        // Measured eye relief behind the baked PSO-1 rear sight marker.
++        ADSRearEyeDistance=SVDWeaponAssets::ADSRearEyeDistance;
++        UE_LOG(LogTemp, Display, TEXT("SVD_ACTIVE mesh=%s eye=%.2f single_shot=%d"),
++            *GetPathNameSafe(ViewmodelMesh), ADSRearEyeDistance, bSingleShotTrigger ? 1 : 0);
++    }
++    if (ActiveInventoryWeaponDefinition == PKMLowpolyWeaponAssets::Definition || ActiveInventoryWeaponDefinition == M249WeaponAssets::Definition)
++    {
++        const bool bM249=ActiveInventoryWeaponDefinition==M249WeaponAssets::Definition;
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,bM249?M249WeaponAssets::MeshPath:PKMLowpolyWeaponAssets::MeshPath);
++        bUsingM4Infima=ViewmodelMesh!=nullptr;
++        // Clear the central view of the raised carry handle as a complete
++        // weapon/arms assembly. Reload framing and calibrated ADS stay separate.
++        HipViewmodelLocation=LMGHipViewmodelLocation+(bM249?M249WeaponAssets::HipPresentationOffset:FVector::ZeroVector);
++        ADSRearEyeDistance=20.f;
++        if (!bPresentationOnly) QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*(bM249?M249WeaponAssets::AnimationPath(TEXT("quick_melee")):PKMLowpolyWeaponAssets::AnimationPath(TEXT("quick_melee"))));
++    }
++    if (IsTubeShotgunWeapon())
++    {
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,IsM870Weapon()?M870WeaponAssets::MeshPath:Super90WeaponAssets::MeshPath);
++        bUsingM4Infima=ViewmodelMesh!=nullptr;
++        bSingleShotTrigger=true;
++        bPistolShotPending=false;
++        HipViewmodelLocation=M4HipViewmodelLocation;
++        ADSRearEyeDistance=18.f;
++        if(!bPresentationOnly)QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*(IsM870Weapon()?M870WeaponAssets::AnimationPath(TEXT("quick_melee")):Super90WeaponAssets::AnimationPath(TEXT("quick_melee"))));
++    }
++    if(IsM24Weapon())
++    {
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,M24WeaponAssets::MeshPath);
++        bUsingM4Infima=ViewmodelMesh!=nullptr;
++        bSingleShotTrigger=true;bPistolShotPending=false;
++        HipViewmodelLocation=M4HipViewmodelLocation;ADSRearEyeDistance=ScopeADSEyeRelief::DistanceCM;
++        if(!bPresentationOnly)QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*M24WeaponAssets::AnimationPath(TEXT("quick_melee")));
++    }
++    bUsingReplacement = ViewmodelMesh != nullptr;
++    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel"));
++    if (ViewmodelMesh)
++    {
++        // Restore the family baseline on swaps; a pistol's reference-pose bounds
++        // otherwise cull the live receiver while its static attachments survive.
++        AKMViewmodel->SetBoundsScale((ActiveInventoryWeaponDefinition==PKMLowpolyWeaponAssets::Definition || ActiveInventoryWeaponDefinition==M249WeaponAssets::Definition) ? 2.f : bUseDanWesson715 ? DanWesson715WeaponAssets::ViewmodelBoundsScale : IsPitViperWeapon() ? PitViper2011WeaponAssets::ViewmodelBoundsScale : bUseM1911 ? M1911WeaponAssets::ViewmodelBoundsScale : 1.f);
++        AKMViewmodel->EmptyOverrideMaterials();
++        AKMViewmodel->SetSkeletalMeshAsset(ViewmodelMesh);
++        AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
++        AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
++        // 左手单持时视模挂在镜像节点下，上面这两行写的是非镜像的相机空间值；
++        // 立刻按当前父级重算一次，否则换枪那一帧枪会先弹到右手侧再被纠正。
++        if(bViewmodelMirrored)ApplyLeftHandPresentation(true);
++        // Component LOD visibility survives a mesh swap when the LOD count is
++        // unchanged. M4 suppressor/drum section indices are unrelated to AKM.
++        for(int32 L=0;L<ViewmodelMesh->GetLODNum();++L)AKMViewmodel->ShowAllMaterialSections(L);
++        // Also applies to icon/pickup rigs, which return before combat setup.
++        if(IsTubeShotgunWeapon())Super90WeaponAssets::SetLooseShellVisible(AKMViewmodel,false);
++        InitializeFoldingSights();
++        PKMLowpolyWeaponAssets::SetSections(AKMViewmodel,false,false,0.f,100);
++        LMG201WeaponAssets::SetMagazineSections(AKMViewmodel,LMG201FeedVisibility);
++    }
++    IdleAnimation = LoadAKMAnimation(TEXT("A_AKM_idle"));
++    RifleHipFraming.Initialize(ActiveInventoryWeaponDefinition, IdleAnimation,
++        M4HipViewmodelLocation, GetViewmodelBaseRotation(), ViewmodelScale, AKMSoviet::Matches(AKMViewmodel));
++    FVector InitialHipLocation=RifleHipFraming.Location(HipViewmodelLocation);
++    FQuat InitialHipRotation=RifleHipFraming.Rotation(GetViewmodelBaseRotation().Quaternion());
++    if(!bPresentationOnly&&M249WeaponAssets::Matches(AKMViewmodel))
++        M249WeaponAssets::LevelHipPose(InitialHipLocation,InitialHipRotation,ViewmodelScale,1.f);
++    AKMViewmodel->SetRelativeLocationAndRotation(InitialHipLocation,InitialHipRotation);
++    if (bPresentationOnly)
++    {
++        // RSH's native base pose and M24's support grasp belong to their
++        // presentation too; retain these shared layers for icons and pickups.
++        WeaponGripProfiles.Reset();
++        if (IsRSH12Weapon() || IsM24Weapon())
++        {
++            TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
++            InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
++            if(IsM24Weapon())InitializeWeaponGripFamily(TEXT("mag10"), BaseSupport);
++            if(IsRSH12Weapon())AimAnimation = IdleAnimation;
++        }
++        // Callers pose the preview explicitly; combat, audio and FX stay unloaded.
++        AKMViewmodel->SetAnimationMode(EAnimationMode::AnimationSingleNode);
++        return;
++    }
++    InitializeSuper90Speedloader();
++    Super90WalkAnimation=IsTubeShotgunWeapon()?LoadAKMAnimation(TEXT("A_AKM_walk")):nullptr;
++    Super90RunAnimation=IsTubeShotgunWeapon()?LoadAKMAnimation(TEXT("A_AKM_run")):nullptr;
++    AimAnimation = LoadAKMAnimation(TEXT("A_AKM_aim"));
++    FireAnimation = LoadAKMAnimation(TEXT("A_AKM_fire"));
++    AimFireAnimation = LoadAKMAnimation(TEXT("A_AKM_aim_fire"));
++    if (IsRSH12Weapon())
++    {
++        // ADS moves this complete viewmodel to its calibrated sight line. Keep
++        // both hands on the same grip instead of blending separate arm chains.
++        AimAnimation = IdleAnimation;
++        AimFireAnimation = FireAnimation;
++    }
++    ReloadAnimation = LoadAKMAnimation(TEXT("A_AKM_reload"));
++    ReloadEmptyAnimation = LoadAKMAnimation(TEXT("A_AKM_reload_empty"));
++    DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):(IsM24Weapon()||IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel)||SVCHWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
++    DrumReloadEmptyAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload_empty"))):(IsM24Weapon()||IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel)||SVCHWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
++    if(AKMSoviet::Matches(AKMViewmodel)){
++        ReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload"));
++        ReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty"));
++        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload"));
++        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty"));
++    }
++    if(IsSaiga12KWeapon())
++    {
++        // The private grip profiles fit these shared, native PalmGripV3 clips
++        // to the forward-facing 12K drum without a second action clock.
++        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload"));
++        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty"));
++    }
++    if (bUseQBZ191) {
++        DrumReloadAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload"));
++        DrumReloadEmptyAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload_empty"));
++    }
++    if (bUseM16)
++    {
++        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload")));
++        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload_empty")));
++    }
++    // DW715 retains its original inspect; M1911 uses that clip's native-grip adaptation.
++    InspectAnimation = IsM24Weapon() || IsTubeShotgunWeapon() || IsHK416Weapon() || IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel) || bUseM16 || PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
++    if(bUseM1911 && DualPistols)DualPistols->PrepareSingleInspect();
++    if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
++    DrumSupportAnimations.Reset();
++    WeaponGripProfiles.Reset();
++    if (LMG201WeaponAssets::Matches(AKMViewmodel) || IsRSH12Weapon() || SVCHWeaponAssets::Matches(AKMViewmodel) || IsSaiga12KWeapon() || IsM24Weapon())
++    {
++        TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
++        InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
++        if(IsM24Weapon())InitializeWeaponGripFamily(TEXT("mag10"), BaseSupport);
++    }
++    const bool bSharedDrum=InitializeWeaponGripFamily(TEXT("drum"),DrumSupportAnimations);
++    if(!bSharedDrum && IsHK416Weapon())
++    {
++        const TPair<UAnimSequence*,const TCHAR*> Support[]={{IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},{FireAnimation,TEXT("fire")},{AimFireAnimation,TEXT("aim_fire")},{EquipAnimation,TEXT("equip_charge")},{InspectAnimation,TEXT("inspect")}};
++        for(const auto& Pair:Support)if(Pair.Key)
++            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(Pair.Value,TEXT("drum"))))DrumSupportAnimations.Add(Pair.Key,Clip);
++    }
++
++    if (!bSharedDrum && bUsingM4Infima && !IsM24Weapon() && !IsTubeShotgunWeapon() && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel))
++        for (UAnimSequence* Base : {IdleAnimation.Get(), AimAnimation.Get(), FireAnimation.Get(), AimFireAnimation.Get(), EquipAnimation.Get()})
++            if (Base)
++            {
++                const FString Path=FString::Printf(TEXT("/Game/Weapons/M4DrumGripRebuilt/Support/%s.%s"),*Base->GetName(),*Base->GetName());
++                if (auto* Support=LoadObject<UAnimSequence>(nullptr,*Path))DrumSupportAnimations.Add(Base,Support);
++            }
++
++    if (A762WeaponAssets::Matches(AKMViewmodel))
++    {
++        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,*A762Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload")));
++        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*A762Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload_empty")));
++    }
++    ForegripAnimations.Reset(); PrismGripAnimations.Reset(); VerticalGripAnimations.Reset(); CantedGripAnimations.Reset();
++    if (!bSharedDrum && bUseM16)
++    {
++        const TPair<UAnimSequence*,const TCHAR*> Support[]={{IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},
++            {FireAnimation,TEXT("fire")},{AimFireAnimation,TEXT("aim_fire")},{EquipAnimation,TEXT("equip")},{InspectAnimation,TEXT("inspect")}};
++        for(const auto& Pair:Support)
++            if(Pair.Key)
++                if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("drum"),Pair.Value)))
++                    DrumSupportAnimations.Add(Pair.Key,Clip);
++    }
++    if (!IsPistolWeapon() || IsRSH12Weapon())
++    {
++        InitializeForegripAnimations();
++        InitializePrismGripAnimations();
++        InitializeCantedGripAnimations();
++        InitializeVerticalGripAnimations();
++    }
++    PistolIdleEmptyAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_idle_empty")) : nullptr;
++    PistolSprintAnimation = IsPistolWeapon()
++        ? LoadObject<UAnimSequence>(nullptr, *(IsPitViperWeapon() ? PitViper2011WeaponAssets::AnimationPath(TEXT("sprint")) : IsG18Weapon() ? G18WeaponAssets::AnimationPath(TEXT("sprint")) : PistolLocomotionAssets::AnimationPath(bUseDanWesson715))) : nullptr;
++    PistolSprintEmptyAnimation = bUseM1911
++        ? LoadObject<UAnimSequence>(nullptr, *(IsPitViperWeapon() ? PitViper2011WeaponAssets::AnimationPath(TEXT("sprint_empty")) : IsG18Weapon() ? G18WeaponAssets::AnimationPath(TEXT("sprint_empty")) : PistolLocomotionAssets::AnimationPath(false, true))) : nullptr;
++    PistolAimEmptyAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_aim_empty")) : nullptr;
++    PistolFireLastAnimation = (bUseM1911 || IsTubeShotgunWeapon()) ? LoadAKMAnimation(TEXT("A_AKM_fire_last")) : nullptr;
++    PistolAimFireLastAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_aim_fire_last")) : nullptr;
++    if (IsPistolWeapon()) { DrumReloadAnimation = nullptr; DrumReloadEmptyAnimation = nullptr; }
++    LMG201ClothReloadAnimation=nullptr;LMG201ClothReloadEmptyAnimation=nullptr;
++    if (LMG201WeaponAssets::Matches(AKMViewmodel))
++    {
++        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,*LMG201WeaponAssets::DrumAnimationPath(TEXT("base"),TEXT("reload")));
++        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*LMG201WeaponAssets::DrumAnimationPath(TEXT("base"),TEXT("reload_empty")));
++        LMG201ClothReloadAnimation=LoadObject<UAnimSequence>(nullptr,*LMG201WeaponAssets::ClothAnimationPath(TEXT("base"),TEXT("reload")));
++        LMG201ClothReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*LMG201WeaponAssets::ClothAnimationPath(TEXT("base"),TEXT("reload_empty")));
++    }
++    ActiveActionAnimation = nullptr;
++    AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
++    if (auto* Sprint = FindComponentByClass<UM4TacticalSprintComponent>())
++        Sprint->Configure(IsPistolWeapon() ? ERifleSprintWeapon::None
++            : IsM24Weapon() ? ERifleSprintWeapon::M24
++            : IsM870Weapon() ? ERifleSprintWeapon::M870
++            : IsSuper90Weapon() ? ERifleSprintWeapon::Super90
++            : SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::SVD
++            : M249WeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::M249
++            : PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::PKM
++            : bUseM16 ? ERifleSprintWeapon::M16
++            : bUseASH12 ? ERifleSprintWeapon::ASH12
++            : bUseQBZ191 ? ERifleSprintWeapon::QBZ191
++            : bUsingM4Infima && bUseM4Infima ? ERifleSprintWeapon::M4
++            : AKMSoviet::Matches(AKMViewmodel) || IsSaiga12KWeapon() || A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::AKM : ERifleSprintWeapon::None);
++    GunplayAnimation = Cast<UFPSGunplayAnimInstance>(AKMViewmodel->GetAnimInstance());
++    if (GunplayAnimation)
++    {
++        if(IsRSH12Weapon())GunplayAnimation->GripProfile=WeaponGripProfileFor(EM4SprintGrip::Base);
++        GunplayAnimation->IdleClip = IdleAnimation;
++        GunplayAnimation->AimClip = AimAnimation;
++    }
++    WeaponFX->Initialize(AKMViewmodel, FirstPersonCamera);
++    FireSound = LoadAKMSound(TEXT("S_AKM_Fire"));
++    if(IsRSH12Weapon())FireSound=LoadObject<USoundBase>(nullptr,*RSH12WeaponAssets::SoundPath(TEXT("Fire")));
++    // PKM owns its fire one-shot; the AKM family fallback above stays untouched
++    // for every other rifle and remains the fallback if this asset is absent.
++    if (PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
++        if (USoundBase* PKMFire = LoadObject<USoundBase>(nullptr, PKMLowpolyWeaponAssets::FireSoundPath))
++            FireSound = PKMFire;
++    RevolverSpeedloaderSounds.Reset();
++    if (bUseDanWesson715)
++        for (const auto& Cue : DanWesson715WeaponAssets::SpeedloaderSoundCues)
++            RevolverSpeedloaderSounds.Add(LoadObject<USoundBase>(nullptr, *DanWesson715WeaponAssets::SpeedloaderSoundPath(Cue.Name)));
++    RifleFireVariants.Reset();
++    RifleSuppressedVariants.Reset();
++    LastRifleFireVariant = INDEX_NONE;
++    const TCHAR* SuppressedBank = RifleSuppressedAudioAssets::Bank(ActiveInventoryWeaponDefinition);
++    if (bUseM16)
++        SuppressedFireSound=LoadObject<USoundBase>(nullptr,*M16WeaponAssets::SuppressedSoundPath());
++    if(IsShotgunWeapon())
++    {
++        // Each shotgun owns its selected one-shot; suppressors share the shotgun cue.
++        if(FireSound)RifleFireVariants.Add(FireSound);
++        SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
++        if(SuppressedFireSound)RifleSuppressedVariants.Add(SuppressedFireSound);
++        RifleFireConcurrency=NewObject<USoundConcurrency>(this);
++        // The 12K's original 600 ms tail needs up to five overlapping shots at its 120 ms floor.
++        RifleFireConcurrency->Concurrency.MaxCount=IsSaiga12KWeapon()?6:4;
++        RifleFireConcurrency->Concurrency.bLimitToOwner=true;
++        RifleFireConcurrency->Concurrency.ResolutionRule=EMaxConcurrentResolutionRule::StopOldest;
++        RifleFireConcurrency->Concurrency.VoiceStealReleaseTime=.02f;
++    }
++    if (IsG18Weapon())
++    {
++        for (int32 Index=1;Index<=4;++Index)
++        {
++            if(auto* Sound=LoadObject<USoundBase>(nullptr,*G18WeaponAssets::SoundPath(FString::Printf(TEXT("Fire_%02d"),Index))))RifleFireVariants.Add(Sound);
++        }
++        SuppressedFireSound=LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed);
++        if(SuppressedFireSound)RifleSuppressedVariants.Add(SuppressedFireSound);
++        RifleFireConcurrency=NewObject<USoundConcurrency>(this);
++        RifleFireConcurrency->Concurrency.MaxCount=6;
++        RifleFireConcurrency->Concurrency.bLimitToOwner=true;
++        RifleFireConcurrency->Concurrency.ResolutionRule=EMaxConcurrentResolutionRule::StopOldest;
++        RifleFireConcurrency->Concurrency.VoiceStealReleaseTime=.02f;
++    }
++    else if (bUseM1911 || IsRSH12Weapon())
++    {
++        // Supported pistols, including RSH, share the selected suppressor cue.
++        // Dual-wield main-hand audio reads this binding as well.
++        SuppressedFireSound=LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed);
++    }
++    const bool bM24ShotAudio = IsM24Weapon();
++    if (bM24ShotAudio)
++    {
++        SuppressedFireSound = LoadObject<USoundBase>(nullptr, M24WeaponAssets::SuppressedSoundPath);
++        if (FireSound) RifleFireVariants.Add(FireSound);
++        if (SuppressedFireSound) RifleSuppressedVariants.Add(SuppressedFireSound);
++    }
++    if (bUsingM4Infima && !IsTubeShotgunWeapon() && !IsPistolWeapon() && !PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel))
++    {
++        const TCHAR* AudioWeapon = bUseQBZ191 ? TEXT("QBZ191") : TEXT("M4");
++        const int32 SharedVariantCount = bM24ShotAudio ? 0 : 4;
++        for (int32 Index = 1; Index <= SharedVariantCount; ++Index)
++        {
++            const FString Base = FString::Printf(TEXT("/Game/Weapons/FreeFirearmAudio20260913/S_%s_"), AudioWeapon);
++            const FString FirePath = bUseQBZ191
++                ? Base + FString::Printf(TEXT("Fire_%02d"), Index)
++                : FString::Printf(TEXT("/Game/Weapons/M4OriginalAudio20260913/S_M4_Original_%02d"), Index);
++            if (!bUseASH12 && !bUseM16 && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel))
++                if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *FirePath))
++                    RifleFireVariants.Add(Sound);
++            const FString SuppressedPath = bUseM16
++                ? M16WeaponAssets::SuppressedSoundPath(Index)
++                : bUseASH12
++                    ? FString::Printf(TEXT("/Game/Weapons/ASH12/SuppressedAudio20260920/S_ASH12_Suppressed_%02d"), Index)
++                : !bUseQBZ191
++                    ? FString::Printf(TEXT("/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_%02d"), Index)
++                    : Base + FString::Printf(TEXT("Suppressed_%02d"), Index);
++            if (!SuppressedBank)
++                if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *SuppressedPath))
++                    RifleSuppressedVariants.Add(Sound);
++        }
++        // ASH-12 uses the supplied one-shot in the overlapping-tail player;
++        // the generic M4 variant bank must not replace it on equip.
++        if (bUseASH12 && FireSound) RifleFireVariants.Add(FireSound);
++        if (bUseM16 && FireSound) RifleFireVariants.Add(FireSound);
++        if (SVDWeaponAssets::Matches(AKMViewmodel))
++            for(int32 Index=1;Index<=SVDWeaponAssets::FireVariantCount;++Index)
++                if(auto* Sound=LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::FireSoundPath(Index)))RifleFireVariants.Add(Sound);
++        if (!RifleFireVariants.IsEmpty()) FireSound = RifleFireVariants[0];
++        if (!RifleSuppressedVariants.IsEmpty()) SuppressedFireSound = RifleSuppressedVariants[0];
++        RifleFireConcurrency = NewObject<USoundConcurrency>(this);
++        RifleFireConcurrency->Concurrency.MaxCount = 6;
++        RifleFireConcurrency->Concurrency.bLimitToOwner = true;
++        RifleFireConcurrency->Concurrency.ResolutionRule = EMaxConcurrentResolutionRule::StopOldest;
++        RifleFireConcurrency->Concurrency.VoiceStealReleaseTime = 0.02f;
++    }
++    const bool bM249Audio = M249WeaponAssets::Matches(AKMViewmodel);
++    if (LMG201WeaponAssets::Matches(AKMViewmodel) || bM249Audio)
++    {
++        const int32 Count = bM249Audio ? M249WeaponAssets::FireVariantCount : LMG201WeaponAssets::FireVariantCount;
++        for (int32 Index = 1; Index <= Count; ++Index)
++        {
++            const FString Path = bM249Audio ? M249WeaponAssets::FireSoundPath(Index) : LMG201WeaponAssets::FireSoundPath(Index);
++            if (auto* Sound = LoadObject<USoundBase>(nullptr, *Path))
++                RifleFireVariants.Add(Sound);
++        }
++        if (!RifleFireVariants.IsEmpty()) FireSound = RifleFireVariants[0];
++        // Preserve short recording tails under automatic fire with the existing
++        // no-adjacent-repeat player. Suppressor routing retains its own sound.
++        RifleFireConcurrency = NewObject<USoundConcurrency>(this);
++        RifleFireConcurrency->Concurrency.MaxCount = bM249Audio ? 7 : 6;
++        RifleFireConcurrency->Concurrency.bLimitToOwner = true;
++        RifleFireConcurrency->Concurrency.ResolutionRule = EMaxConcurrentResolutionRule::StopOldest;
++        RifleFireConcurrency->Concurrency.VoiceStealReleaseTime = 0.02f;
++    }
++    if (SuppressedBank)
++    {
++        // Bind both the fallback and variant array on every equip. AKM/A762
++        // now use the same bounded overlapping-tail player for suppressed fire.
++        SuppressedFireSound = LoadObject<USoundBase>(nullptr, *RifleSuppressedAudioAssets::SoundPath(SuppressedBank));
++        for (int32 Index = 1; Index <= 4; ++Index)
++            if (auto* Sound = LoadObject<USoundBase>(nullptr, *RifleSuppressedAudioAssets::SoundPath(SuppressedBank, Index)))
++                RifleSuppressedVariants.Add(Sound);
++        if (!RifleSuppressedVariants.IsEmpty()) SuppressedFireSound = RifleSuppressedVariants[0];
++        RifleFireConcurrency = NewObject<USoundConcurrency>(this);
++        RifleFireConcurrency->Concurrency.MaxCount = 6;
++        RifleFireConcurrency->Concurrency.bLimitToOwner = true;
++        RifleFireConcurrency->Concurrency.ResolutionRule = EMaxConcurrentResolutionRule::StopOldest;
++        RifleFireConcurrency->Concurrency.VoiceStealReleaseTime = 0.02f;
++    }
++    EquipSound = LoadAKMSound(TEXT("S_AKM_Equip"));
++    MagOutSound = LoadAKMSound(TEXT("S_AKM_MagOut"));
++    MagInsertSound = LoadAKMSound(TEXT("S_AKM_MagInsert"));
++    MagSeatSound = LoadAKMSound(TEXT("S_AKM_MagSeat"));
++    ChargePullSound = LoadAKMSound(TEXT("S_AKM_ChargePull"));
++    ChargeReleaseSound = LoadAKMSound(TEXT("S_AKM_ChargeRelease"));
++    DryClickSound = LoadAKMSound(TEXT("S_AKM_DryClick"));
++    CriticalHitSound = LoadAKMSound(TEXT("S_AKM_CriticalHit"));
++    BoltReleaseSound = IsTubeShotgunWeapon() ? ChargeReleaseSound.Get() : bUsingM4Infima ? LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_BoltRelease.S_HK416_BoltRelease")) : nullptr;
++
++}
++

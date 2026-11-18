@@ -24,36 +24,36 @@
 | `magicCooldownPercent` / `magicCostPercent` | 小数 | 百分比 | 负值为冷却/消耗降低，属于增益 |
 | `adsPercent` | 小数 | 百分比 | 开镜时间乘区；负值为更快 |
 
-- `crit`、`critRes`、`stunResist` 是**百分点**，不要再乘 100；其余百分比键是**小数**，显示时乘 100。
-- “速度”类词条（移速、近战攻速、换弹、拉弓、施法）正值为增益；“冷却/消耗/瞄准时间”类词条负值为增益。不要只看数值正负。
+- `crit`、`critRes`、`stunResist` 是**百分点**，不要再乘 100；其余百分比键是**小数**，显示时乘 100。 原因：百分点和小数比率的存储单位不同，重复乘 100 会使显示值扩大百倍。
+- “速度”类词条（移速、近战攻速、换弹、拉弓、施法）正值为增益；“冷却/消耗/瞄准时间”类词条负值为增益。不要只看数值正负。 原因：弓的准备、持续和释放阶段有不同费用与动作身份，合并阶段会改变取消和消耗行为。
 - 最大生命用 `maxHpPercent` 而不是平铺 `maxHp`，这样百分比随等级与体质成长；平铺值保留给兼容旧装备。
 
 ## 3. 套装
 
 - 部件在 `items.json`/覆盖表都写 `"armorSet": "<set id>"`，并用 `"setBonusDesc"` 描述五件套效果。
-- `ArmorSet()` 目前用槽位 `{1 头, 7 铠甲, 13 鞋}` 识别三件同套；**套装加成必须五件齐全**（`ColdSteelStatusModel` 的五件判定还包含手套 3 与裤子 15）。
+- `ArmorSet()` 目前用槽位 `{1 头, 7 铠甲, 13 鞋}` 识别三件同套；**套装加成必须五件齐全**（`ColdSteelStatusModel` 的五件判定还包含手套 3 与裤子 15）。 原因：三槽套装识别和五件生效条件承担不同用途，不能用识别结果提前授予整套加成。
 - 防御强化：`floor(base + perEnhance × enhanceLevel)`，护甲强化上限 10。基础防御和强化值改在 `items.json`；`bonusStats` 改在覆盖表。
-- 五件套的防御百分比在 `Derived("def")` 对“角色基础 + 装备防御”整体乘；不要只乘装备部分。
+- 五件套的防御百分比在 `Derived("def")` 对“角色基础 + 装备防御”整体乘；不要只乘装备部分。 原因：派生值需要从同一基础和乘区计算，复用已经缩放的结果会重复应用加成。
 
 ## 4. 联机取值
 
 - 本地玩家/主机：`UColdSteelStatusModel` 直接读当前档案。
 - 服务器上的远端玩家：`ColdSteelAuthority::ForPawn(Pawn)` → `PlayerState::ShadowModel`。凡是按**目标**取装备派生属性（暴击抵抗、眩晕抵抗、减伤等），都先走这个入口。
-- 只有 `Pawn->IsLocallyControlled()` 时才回退到 GameInstance 的本地模型；不要把“本地档案存在”当作远端玩家也有档案。
+- 只有 `Pawn->IsLocallyControlled()` 时才回退到 GameInstance 的本地模型；不要把“本地档案存在”当作远端玩家也有档案。 原因：本地 GameInstance 档案只属于本地玩家，不能为远端角色提供其不存在的状态。
 - 生命上限走 `ApplyGuestProfile` 的 `ResourceMaximum(Adopted,false)`，再用 `ApplyColdSteelProfile` 灌入服务端 pawn；近战伤害走 `ProcessedDamage(..., ShadowModel)`；移速/攻速/施法速度同样读影子档案。
-- `PlayerState::ShadowModel` 是服务端权威副本；客户端表现只做展示，不以客户端档案作为伤害/免控依据。
+- `PlayerState::ShadowModel` 是服务端权威副本；客户端表现只做展示，不以客户端档案作为伤害/免控依据。 原因：客户端表现与服务器结算可能重复经过入口，权威路径必须保持一次有效事务。
 
 ## 5. 检查清单
 
 1. `items.json` 与覆盖表都能被 JSON 解析；新 key 可达（id/name 匹配）。
 2. 同一件装备只有一个 `bonusStats` 来源；五件套的每件都有 `armorSet` 和一致的 `setBonusDesc`。
 3. 百分比键按“小数/百分点”分类检查，避免 5% 被写成 500% 或 0.05%。
-4. `meleeDamagePercent` 只影响近战武器物理伤害；不要扩到枪械、弓、法术。
-5. 联机路径按目标身份取模型；主机本地模型不得用于远端玩家。
+4. `meleeDamagePercent` 只影响近战武器物理伤害；不要扩到枪械、弓、法术。 原因：该字段定义的是近战物理乘区，扩展到其他攻击会改变既定数值合同。
+5. 联机路径按目标身份取模型；主机本地模型不得用于远端玩家。 原因：服务器同时处理多个玩家，本地模型不能替代请求所属玩家的权威模型。
 6. 相关 C++ 文件编译通过；未跑 PIE 时在交付中明确“未测试”。
 
 ## 6. 已知边界（2026-10-19）
 
 - 当前怪物攻击没有暴击判定，`critRes` 在 PvE 中主要是面板值；PvP 武器随机暴击还被 `ApplySkillWeaponHit()` 的 `UMonsterCombatComponent` 非空门槛挡住，法术路径可用抗暴。
 - 部分直接写 `UPlayerGuardBreakComponent::Apply()` 的强制硬直不经过 `AddStun()`，不吃 `stunResist`；常规眩晕入口已覆盖。
-- 蓝色法师与灰钢锁子甲的 `stunResist` 只按玩家、服务器权威侧掷；不要把该概率套到怪物或客户端表现层。
+- 蓝色法师与灰钢锁子甲的 `stunResist` 只按玩家、服务器权威侧掷；不要把该概率套到怪物或客户端表现层。 原因：抗硬直概率有明确受益对象和结算方，客户端或怪物复用会增加额外结算。

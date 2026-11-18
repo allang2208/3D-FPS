@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills: five spell batch hit/kill training formulas; preserve caller-specific multi-hit conditions and existing tuning types",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "before_lines": 133,
+      "after_lines": 133,
+      "before_bytes": 8635,
+      "after_bytes": 8556,
+      "before_sha256": "34a9ecaa1075a5f7b5e496e551389b1394f70b9c48cc6fc552df684538863085",
+      "after_sha256": "c625febecbf91cec2bf29bc749c44b9e34dfbf62f021fe9bfcc653018b032b12",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-07-hit-kill-training/ColdSteelIceSpikeModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "before_lines": 141,
+      "after_lines": 141,
+      "before_bytes": 9632,
+      "after_bytes": 9553,
+      "before_sha256": "f84d408bbf1785551c72d85769b900d7a7cbf16828755d69bb1bdb630dfea82d",
+      "after_sha256": "ef2c3ab490b5eb1d434e49b0b9595006fc7a71f3e503819369e346321e47f9ae",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-07-hit-kill-training/ColdSteelLightningModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "before_lines": 147,
+      "after_lines": 146,
+      "before_bytes": 10277,
+      "after_bytes": 10165,
+      "before_sha256": "e7ffe5d12cf541a1e522981263785f177bcdd5459032123ebaa6c511fcf4cba7",
+      "after_sha256": "c34d42dfed228cdea6d8a1a42bb5b036d226119d6d7b0ea7181199cc6a8f5ab1",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-07-hit-kill-training/ColdSteelFireMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+      "before_lines": 123,
+      "after_lines": 122,
+      "before_bytes": 7704,
+      "after_bytes": 7592,
+      "before_sha256": "3de5a860ea5ccaafd91bc6eead6f22dbdc6bd5b300bd335a93096f81a2be860c",
+      "after_sha256": "5d1d0cc590e5aac685668d22608805148b5a2b95206619c7360fb259e67dc21a",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-07-hit-kill-training/ColdSteelBlizzardModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp",
+      "before_lines": 93,
+      "after_lines": 92,
+      "before_bytes": 6472,
+      "after_bytes": 6364,
+      "before_sha256": "ede7aa612a4417c3895a9a4b2c468de17feda228e27df3c052ea946f00780afe",
+      "after_sha256": "93cecb34d3f40d7f0fc13296c986a03518096e85744fd0a7340ccdea4b512d20",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-07-hit-kill-training/ColdSteelElectricMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellRewards.h",
+      "before_lines": 40,
+      "after_lines": 51,
+      "before_bytes": 1626,
+      "after_bytes": 2139,
+      "before_sha256": "c31fd49ef56dcdccd17653a4847ab5c29f8e262c6557a8bb8180ee98c68e3bb6",
+      "after_sha256": "1d8d0a85a224e68a023fff0f91878b8974bd10f46062b0095214f1408019a77e",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-07-hit-kill-training/ColdSteelSpellRewards.h.before.txt"
+    }
+  ]
+}

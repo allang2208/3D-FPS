@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills retained items: two long implementation splits and fireball shared settlement; C04 read-only, retain reflected compatibility chain",
+  "status": "C29-C31 source cleanup and required Editor build completion succeeded; target up to date at 22:36:28; C04 retained; no tests run",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "before_lines": 973,
+      "before_bytes": 82301,
+      "before_sha256": "54b8c0f349a529dd59cb68828fca1e46248e39cd2feb1a2793e86a0752704993",
+      "backup": "ColdSteelSkillRules.cpp.before.txt",
+      "after_lines": 401,
+      "after_bytes": 36191,
+      "after_sha256": "36106dded96bb8d8d9b4f0979aa6a422675e104a81a77fe95d2f158313fe19c9"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "before_lines": 813,
+      "before_bytes": 42143,
+      "before_sha256": "547df379a19945ab9edee24dd3300a987e6374464fdf073c5a1382945772e589",
+      "backup": "FPSQuickCombatComponent.cpp.before.txt",
+      "after_lines": 345,
+      "after_bytes": 17168,
+      "after_sha256": "4a49c9b17ca2a5a0ba3e34c1bc303b865b5e41a2474c283dbdf00ff778a1ddab"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "before_lines": 259,
+      "before_bytes": 16275,
+      "before_sha256": "36c0242ddedcb373e91fa35ece24e55890086fa45642d90439e98e837dd4b889",
+      "backup": "ColdSteelFireballModel.cpp.before.txt",
+      "after_lines": 254,
+      "after_bytes": 15798,
+      "after_sha256": "7ddc7dd978b2f0a4e22d866efa3c4bf2bad9c5cc6639fbf7cd19ac5e4cb1fabb"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellRewards.h",
+      "before_lines": 85,
+      "before_bytes": 3475,
+      "before_sha256": "e6a2b601d56d4d2e869a6e8a08921320197b8fee39ab6de2abc878bd21a74254",
+      "backup": "ColdSteelSpellRewards.h.before.txt",
+      "after_lines": 91,
+      "after_bytes": 3670,
+      "after_sha256": "d3885aff24ae56bba1b8fe29866271795a2d4a83613ae7f6d000dd63cb49836b"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillProgression.cpp",
+      "existed_before": false,
+      "before_lines": 0,
+      "before_bytes": 0,
+      "after_lines": 194,
+      "after_bytes": 18865,
+      "after_sha256": "ae41eff13e26a460844bc5c3dcf26bab5122e55a11afb8d19dc8a4cfdff1781a"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp",
+      "existed_before": false,
+      "before_lines": 0,
+      "before_bytes": 0,
+      "after_lines": 385,
+      "after_bytes": 27354,
+      "after_sha256": "370d73374f827fb8beaa4d1827560f3a296cece585d83bc944c309a72d06321b"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/QuickCombatPresentation.cpp",
+      "existed_before": false,
+      "before_lines": 0,
+      "before_bytes": 0,
+      "after_lines": 320,
+      "after_bytes": 14900,
+      "after_sha256": "e2cd437164a9868085a4b9dd325e9767c2347bf0f9c2ac83d9b21d28f60a90ea"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/QuickCombatContact.cpp",
+      "existed_before": false,
+      "before_lines": 0,
+      "before_bytes": 0,
+      "after_lines": 170,
+      "after_bytes": 11020,
+      "after_sha256": "ad66b3db0004e1ea0c692cc25282f69ed82925977bdde8e940f85727783265d1"
+    }
+  ],
+  "modified_existing_files": 4,
+  "new_source_files": 4,
+  "tests_run": false,
+  "build_receipt": "build-resume2-receipt-20261117.json",
+  "previous_build_receipts": [
+    "build-receipt.json",
+    "build-resume-receipt-20261117.json"
+  ]
+}

@@ -1,0 +1,62 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp b/Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp
+@@ -1,20 +1,17 @@
+ #include "../UI/ColdSteelStatusModel.h"
++#include "ColdSteelSpellCrafting.h"
+ #include "LightningHasteSpeed.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+-#include "../Combat/CombatStatusFormula.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+-#include "../Combat/CombatItemFormula.h"
+-#include "../Dungeon/DungeonLayout.h"
+-#include "ColdSteelSkillRules.h"
++#include "ColdSteelSpellRewards.h"
+ #include "Engine/GameInstance.h"
+ #include "Kismet/GameplayStatics.h"
+-#include "Dom/JsonObject.h"
+ 
+ const FColdSteelSkillDefinition& UColdSteelStatusModel::ElectricMagicDefinition(FName Id) const
+ {return Id==TEXT("stormDomain")?StormDomainSkill:ThunderLanceSkill;}
+ FColdSteelSkillProgress UColdSteelStatusModel::ElectricMagicProgress(FName Id) const
+-{const auto* P=Current.Skills.Find(Id);return P?*P:FColdSteelSkillProgress();}
++{return Current.Skills.FindRef(Id);}
+ float UColdSteelStatusModel::ElectricMagicCooldown(FName Id) const
+ {return HasNoAbilityCooldown()?0.f:Current.ElectricCooldowns.FindRef(Id);}
+ float UColdSteelStatusModel::ElectricMagicCooldownDuration(FName Id) const
+@@ -41,9 +38,7 @@
+     C.HalfWidth=T.HalfWidth*T.UnitsToCM;C.Knockback=(T.KnockbackBase+FMath::FloorToFloat(Growth*T.KnockbackGrowth))*T.UnitsToCM;
+     C.EndRadius=T.EndRadius*T.UnitsToCM;
+     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
+-    const auto* Player=RuntimePawn();
+-    const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
+-    const int32 Chain=Status?Status->ChainSpellStacks():0;
++    const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
+     double DamageFactor=1,CooldownReduction=0;
+     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
+         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
+@@ -53,8 +48,7 @@
+             const float Range=float(1+Craft(TEXT("magicRangePercent")));H.Range*=Range;H.ChainRange*=Range;C.Radius*=Range;
+             H.StunExtensionSeconds=Craft(TEXT("electricStunExtendMs"))/1000;
+             DamageFactor+=Craft(TEXT("magicDamagePercent"));
+-            const auto Data=CombatItemFormula::ReadOnly(*Item);const TSharedPtr<FJsonObject>* Effects=nullptr;FString Specialty;
+-            if(Data&&Data->TryGetObjectField(TEXT("_craftEffects"),Effects)&&(*Effects)->TryGetStringField(TEXT("staffSpecialty"),Specialty)&&Specialty==TEXT("electric"))
++            if(ColdSteelSpellCrafting::HasStaffSpecialty(*Item,TEXT("electric")))
+                 DamageFactor+=Craft(TEXT("electricDamagePercent"));
+             DamageFactor*=1+Chain*Craft(TEXT("chainSpellDamagePercent"));
+         }
+@@ -86,10 +80,8 @@
+ {
+     if(!ElectricMagic::IsSkill(Id)||Batch.Hit.Hits<=0)return;
+     SyncRuntime();auto P=Snapshot();const auto& D=ElectricMagicDefinition(Id);const auto& T=D.ElectricMagic;const auto& R=Batch.Hit;
+-    ColdSteelSkills::AddExperience(P,D,R.Hits*T.HitExperience+R.Kills*T.KillExperience+(Batch.bMultiHit?T.MultiHitExperience:0)+(R.Kills>=2?T.MultiKillExperience:0));
+-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,R.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+R.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
+-    for(const auto& K:R.KillRewards){if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
+-    while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
+-    if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
++    ColdSteelSpellRewards::AccumulateHitKillTraining(P,D,T,R.Hits,R.Kills,Batch.bMultiHit);
++    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,R.CriticalHits,R.CriticalKills);
++    ColdSteelSpellRewards::AccumulateKillExperience(P,R.KillRewards,*this);
+     if(StageTraining(MoveTemp(P)))for(const auto& K:R.KillRewards)RewardedVictims.Add(K.Key);
+ }

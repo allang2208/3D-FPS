@@ -6,7 +6,7 @@
 
 ## 铁律（WORKFLOW 第 7、8 节）
 
-禁止 `git add -A` / `git add .` / `git clean` / `reset --hard`；禁止 stash；按本次明确路径暂存；不夹带他人未验收功能；只做普通推送并显式 `HEAD:main`；推送后回读远端。
+禁止 `git add -A` / `git add .` / `git clean` / `reset --hard`；禁止 stash；按本次明确路径暂存；不夹带他人未验收功能；只做普通推送并显式 `HEAD:main`；推送后回读远端。 原因：普通增量制作不需要清除整个构建或工具环境，重建会扩大无关成本。
 
 ## 暂存分三档
 
@@ -42,8 +42,8 @@
 
 ## 退役与推送
 
-- 确认退役的文件移入 `trash/<task>/`，README 记录原路径、字节数、SHA-256、原因和替代物；`trash/` 不进提交。`Content/ColdSteelData` 按具体路径的当前跟踪、忽略和许可规则处理，不再沿用早期整目录排除说法；必要文本配置与未核准二进制分开处理。
-- **HEAD 领先别人一个未推送提交时**（2026-09-24 实测：分支上挂着近战会话的提交）：不要替对方决定发布，向用户给两个选项——连对方提交一起 `HEAD:main`，或基于 origin/main 重组干净基线（commit-tree）。用户拍板后再动手。
+- 确认退役的文件移入 `trash/<task>/`，README 记录原路径、字节数、SHA-256、原因和替代物；`trash/` 不进提交。`Content/ColdSteelData` 按具体路径的当前跟踪、忽略和许可规则处理，不再沿用早期整目录排除说法；必要文本配置与未核准二进制分开处理。 原因：退役清单保留恢复信息，文本配置和受许可约束的二进制也不能按整目录一并排除。
+- **HEAD 领先别人一个未推送提交时**（2026-09-24 实测：分支上挂着近战会话的提交）：不要替对方决定发布，向用户给两个选项——连对方提交一起 `HEAD:main`，或基于 origin/main 重组干净基线（commit-tree）。用户拍板后再动手。 原因：候选动作的风格选择由用户决定，制作调用应接续已选动作而不是擅自批量替换。
 - **验证暂存子集能编译**：`git worktree add --detach` 指向新提交后构建；本地插件目录不在跟踪范围，junction 挂过去；**生成式模块要先在 worktree 里生成**（如 `python Tools/Building/build_blast.py` 造 FPSBlast，否则 UBT 直接 RulesError）。验证完 `git worktree remove`。
 - 推送：`git fetch origin main` → 确认 `origin/main..HEAD` 只有自己的提交 → `git push origin HEAD:main`（非强制）→ `git ls-remote origin refs/heads/main` 与本地 `rev-parse HEAD` 比对，并确认归档标签仍在（`git ls-remote --tags origin`，找 `godot`）。
 - **0 字节的自动化产物不是通过凭证**：审计/看守的结果文件为空只会静默通过下游 `Select-String` 检查；汇报时把"跑了但没抓到 PASS 行"如实写成未验证，不当成绿。

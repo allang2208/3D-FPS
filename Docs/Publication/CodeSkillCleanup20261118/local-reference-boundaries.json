@@ -1,0 +1,160 @@
+{
+  "scope": "仅将未公开的既有本机证据改为明确文字位置，不复制其他任务资料",
+  "references": [
+    {
+      "document": "Docs/AssetSetup.md",
+      "local_reference": "Docs/Skills/melee-masteries-20261019.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Characters/dual-pistol-standard-actions-20261020.md",
+      "local_reference": "Docs/Characters/dual-pistol-arm-separation-20261022.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Characters/dual-pistol-standard-actions-20261020.md",
+      "local_reference": "SourceAssets/DualPistolStandards20261020/delivery.json",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-000403.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-093750.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-093750.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-094719.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-095310.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildGame/cleanup-batch07-20261117-103707.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-105258.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-105258.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-122414.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-135808.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-140401.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildGame/cleanup-batch12-20261117-151403.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/build-20261117-152948.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/cleanup-batch22-20261117-234952.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116-report.md",
+      "local_reference": "Saved/BuildEditor/cleanup-all-final-resume3-20261118-101539.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/Cleanup/code-cleanup-20261116/all-batches-20261117.md",
+      "local_reference": "Saved/BuildEditor/cleanup-all-final-resume3-20261118-101539.log",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/UI/ui-cold-steel-design-system.md",
+      "local_reference": "Docs/UI/acquisition-feed-plan-20261013.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/UI/ui-cold-steel-design-system.md",
+      "local_reference": "Docs/UI/damage-numbers-plan-20261017.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/UI/ui-cold-steel-design-system.md",
+      "local_reference": "Docs/UI/experience-gain-feed-plan-20261017.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/UI/ui-cold-steel-design-system.md",
+      "local_reference": "Docs/UI/enhancement-feedback-plan-20261108.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/UI/ui-cold-steel-design-system.md",
+      "local_reference": "Docs/UI/enhancement-world-panel-plan-20261108.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "Docs/UI/ui-cold-steel-design-system.md",
+      "local_reference": "Docs/UI/kukri-readout-plan-20261024.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "skills/_shared/ue5-pcg-building/references/scene-development-standard.md",
+      "local_reference": "SourceAssets/TemperateHillsOldChapel/Concept01/设计与资产清单.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "skills/ue5-fps-arms-animation/SKILL.md",
+      "local_reference": "Docs/Characters/player-knockdown-20261114.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "skills/ue5-skill-magic-workflow/references/skill-tree-and-specializations.md",
+      "local_reference": "Docs/UI/skill-tree-plan-20261115.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "skills/ue5-ui-umg-slate/SKILL.md",
+      "local_reference": "Docs/UI/skill-tree-plan-20261115.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "skills/ue5-ui-umg-slate/references/fpsgame-panels.md",
+      "local_reference": "Docs/UI/experience-gain-feed-plan-20261017.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    },
+    {
+      "document": "skills/ue5-ui-umg-slate/references/fpsgame-panels.md",
+      "local_reference": "Docs/UI/damage-numbers-plan-20261017.md",
+      "reason": "引用到既有本机制作/运行证据，未纳入本批公开文件"
+    }
+  ]
+}

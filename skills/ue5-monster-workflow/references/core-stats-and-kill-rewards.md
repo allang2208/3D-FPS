@@ -2,19 +2,19 @@
 
 对应实装：`Source/FPSGAME/Monsters/MonsterCoreStats.h/.cpp`；交付与审计记录见宿主
 `Docs/Monsters/monster-six-stats-rewards-migration-20260923.md`；离线核查器
-`Tools/Monsters/check_monster_core_stats.py`（改注册表/表面值必须保持 PASS）。
+`Tools/Monsters/check_monster_core_stats.py`（改注册表/表面值必须保持 PASS）。 原因：同一对象或业务已有集中入口，复制另一套索引和状态会产生不同步的消费者。
 
 ## 注册表模式（2026-09-28 起为防御常量表）
 
 - **怪物端六维已剔除**（用户拍板）：`MonsterCoreStats::Get(Actor, FMonsterCoreStats&)` 直接
   返回常量 `{Def,Mdef,CritRes,AttrWeight,Level,Rank}`；类链 `Cast` 优先（覆盖继承族），
-  纯标签识别只作 fallback；未命中返回 false。
+  纯标签识别只作 fallback；未命中返回 false。 原因：候选动作的风格选择由用户决定，制作调用应接续已选动作而不是擅自批量替换。
 - 伤害管线（`CombatFormulaRuntime::MonsterDefense/MonsterCriticalResistance` 直接读表，
   无中间层与特殊分支）与奖励管线共用这一张表。新怪接入 = 常量表加一行 `Fill(...)` +
   头文件加 `Level`/`Rank` UPROPERTY；调防具=改常量，不再有六维可调。
 - 常量为原六维公式（def=⌊1.5体+.3力⌋/mdef=⌊1.2精+.3智⌋/critRes=⌊体⌋）的逐位烤入值，
   并已并入运行时字段覆盖（手脑 mdef65/大手 30/小手 55/巫婆 55）。历史六维只留档在
-  `Tools/Monsters/check_monster_core_stats.py` 的 SPEC 作推导基准（改常量表必须保持 PASS）。
+  `Tools/Monsters/check_monster_core_stats.py` 的 SPEC 作推导基准（改常量表必须保持 PASS）。 原因：同一个数值在不同区域重复或换口径展示会产生歧义，详情需要保留明确的数据来源。
 - 感染减益在 Get 内对常量整体乘系数（与原狼系字段语义一致；floor 位置差异 <1 点）。
 
 ## 公式合同
@@ -33,7 +33,7 @@ matk=floor(.5int+.5wis)、mdef=floor(1.2wis+.3int)、crit=floor(2+luck)、maxHp=
 
 - 调全员血量只改 `MonsterCoreStats::HealthMultiplier()`（当前 1.0：2026-09-23 曾翻倍，2026-09-28 用户要求移除），
   各怪 `BeginPlay` 初始化点 `MaxHealth*=mult; Health=MaxHealth;`。语义=原版 monsterGrowth 层：
-  BP 实例覆盖值同样放大、归巢/回血读 MaxHealth 自动跟随、六维与奖励不动。
+  BP 实例覆盖值同样放大、归巢/回血读 MaxHealth 自动跟随、六维与奖励不动。 原因：统一成长层才能让实例覆盖值、回血上限和归巢恢复同步变化，并保持其他属性与奖励口径。
 - **不要在 ctor 字面量上直接翻倍**：会被 BeginPlay 再乘一次，且盖不住 BP 覆盖。
 - 击杀时间随 HP 线性放大而单只经验不变 = 单位时间经验产出按倍率缩小；补偿属数值决策，
   留给用户拍板，不擅改 `ExperienceReward`。
@@ -48,14 +48,14 @@ matk=floor(.5int+.5wis)、mdef=floor(1.2wis+.3int)、crit=floor(2+luck)、maxHp=
 
 怪物类在构造里设 `AutoPossessAI = PlacedInWorldOrSpawned`（如 `WolfMonster.cpp`），
 **直接 `SpawnActor` 会在预览场景里生成 AI 控制器并跑行为树**。UI 立绘、开发面板预览这类纯展示用途
-必须关掉自动附身，但关的方式有对错：
+必须关掉自动附身，但关的方式有对错： 原因：预览对象只负责显示，自动附身会额外启动 AI 控制和行为树。
 
 - **错**：`Class->GetDefaultObject<ACharacter>()->AutoPossessAI = Disabled;`
   改写的是**共享 CDO**，会污染真正的游戏怪物（所有同类怪都不再附身 AI），且是全局持久副作用。
 - **对**：用 `FActorSpawnParameters::Template` 传一个临时模板——
   `Template = NewObject<ACharacter>(GetTransientPackage(), Class, NAME_None, RF_Transient);`
   `Template->AutoPossessAI = Disabled; Template->AIControllerClass = nullptr;`
-  生成体复制**模板**属性而非 CDO 属性，只影响这一具预览体。
+  生成体复制**模板**属性而非 CDO 属性，只影响这一具预览体。 原因：临时模板限定预览体的 AI 设置，修改 CDO 会影响其他正常生成实例。
 
 同理，任何"预览专用"的属性调整都应走模板或生成后改实例，不落到 CDO。
 
@@ -68,7 +68,7 @@ matk=floor(.5int+.5wis)、mdef=floor(1.2wis+.3int)、crit=floor(2+luck)、maxHp=
   误判成"怪物没分配品阶"。
 - 新增怪物进图鉴 = 在 `DevelopmentSpawnComponent` 构造函数加一行 `Add(Id, Name, ClassPath, Radius)`；
   登记后列表、详情、立绘全自动，无需再改图鉴代码。这是**有意为之**：该表同时是刷怪名单，
-  不应自动收录磁盘上任何怪物资产。
+  不应自动收录磁盘上任何怪物资产。 原因：图鉴与刷怪共用显式目录，磁盘存在的实验资产不应自动成为可生成怪物。
 - 立绘取怪物类后由 `UColdSteelMonsterPortraits` 运行时渲染，口径见
   [运行时图标准备与定向刷新](../../ue5-ui-umg-slate/references/runtime-icon-pipeline.md)。
 
@@ -81,12 +81,12 @@ matk=floor(.5int+.5wis)、mdef=floor(1.2wis+.3int)、crit=floor(2+luck)、maxHp=
 1.15/1.3/1.5）。调参只改 `MonsterCoreStats.cpp` 的基线表与 RankScale 函数；构造器
 只剩表现参数。受击目标面板（准星下方）生命行下新增韧性行，填充语义色
 `ColdSteelUI::Toughness`，数据走 `FMonsterHitFeedback`。矩阵与前后对照见工程
-`Docs/Monsters/monster-toughness-baseline-20260929.md`。
+`Docs/Monsters/monster-toughness-baseline-20260929.md`。 原因：任务进度与场景实例有独立身份，目标显示和权威开门必须对应同一轮任务。
 
 ## 击杀经验结算（2026-09-29 修复记录）
 
 RankExperienceMultiplier（elite×2/lord×4/boss×20）此前**只在图鉴显示、未进结算管线**；
-2026-09-29 起在 `ScaleKillExperience` 内乘上——AwardKill 与火球延迟击杀两条路径都经由此函数，一处修改自动成对生效。未注册目标恒为 1。诊断用 `EXP_KILL` 逐杀日志（victim/base/granted/playerLv/tribute/exp 进度）。
+2026-09-29 起在 `ScaleKillExperience` 内乘上——AwardKill 与火球延迟击杀两条路径都经由此函数，一处修改自动成对生效。未注册目标恒为 1。诊断用 `EXP_KILL` 逐杀日志（victim/base/granted/playerLv/tribute/exp 进度）。 原因：任务进度与场景实例有独立身份，目标显示和权威开门必须对应同一轮任务。
 
 ## 阶级划分与 Cast 顺序坑（2026-10-12 用户拍板）
 
@@ -103,7 +103,7 @@ RankExperienceMultiplier（elite×2/lord×4/boss×20）此前**只在图鉴显�
   园艺/守寝）；普通异形 M-02–09（鼓囊 M-09）；精英 M-10–29（伏窥 M-10/螳螂 M-11/百目 M-12/
   悬钟 M-13/螺柱 M-14）；领主 M-30–59（涡电 M-30/盲祷 M-31/缚群 M-32/沉匣 M-33/根冠 M-34/
   焚骸 M-35/合阙 M-36）；Boss 段 M-60–89 当前空置。内部类名（M07/LurkerM08/M10Mawcrawler/
-  VortexCofferM25/M66 等）与编号解耦，不随改名。
+  VortexCofferM25/M66 等）与编号解耦，不随改名。 原因：对外编号承担分类和识别作用，内部类名承担稳定引用，两者解耦可避免重命名破坏资产和代码依赖。
 - **品阶**：普通=人形职员/护士/鼓囊；精英=M-10~M-14；领主=M-30~M-36（三只地牢首领
   2026-10-19 由 Boss 改领主，注意 `FacilityHallEncounter` 生成点也会覆盖 Rank，改默认
   必须同步生成覆盖处）。提级联动：经验 ×2/×4、韧性缩放、战斗等级加成 +3/+5、编队拉扯
@@ -120,7 +120,7 @@ RankExperienceMultiplier（elite×2/lord×4/boss×20）此前**只在图鉴显�
 - 大招/伏击技允许超上限（螺柱旋风 168、涡电雷枪 212、螳螂影袭 110），由 10–20s 冷却约束。
 - **BP 资产层可覆盖 C++ 默认值**（字节探测确认案例：BoundCongregate BP `WalkSpeed=240`
   vs C++ 60；BlindSupplicantM07 BP 覆写 `MagicAttack`）——调数值前必须探 BP 层，改 C++
-  默认值对已被 BP 覆盖的字段无效。
+  默认值对已被 BP 覆盖的字段无效。 原因：蓝图覆盖优先于 C++ 默认值，仅改构造函数不会更新已经覆盖的字段。
 - 仇恨半径提到 2500+ 时**必须同步检查 LeashRadius ≥ AggroRadius**，否则刚仇恨即脱战。
 改追速后 `SourceChaseSpeed`/`SourceMoveSpeed`（动画源速分母）保持不变，播放速率
 由实际速度自动缩放。

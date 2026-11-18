@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "batch": 17,
+  "scope": "Skills H01 pure XP and H02 pure cooldown only; H03 retained",
+  "source_cleanup_complete": true,
+  "modified_existing_files": 4,
+  "new_source_files": 0,
+  "maximum_modified_file_lines": 85,
+  "editor_build_complete": true,
+  "result": "Succeeded",
+  "observed_game_build": {
+    "wrapper_pid": 84716,
+    "ubt_pid": 44608
+  },
+  "waited_shared_editor_build": {
+    "wrapper_pid": 92000,
+    "ubt_pid": 88356,
+    "log_path": "Saved/BuildVillageTree20261117Integrated/Logs/FPSGAMEEditor-build.log"
+  },
+  "processes_stopped": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "tests_run": false,
+  "runtime_status": "Untested; user testing",
+  "exit_code": 0,
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_started_at": "2026-11-17T19:39:01.5269956+08:00",
+  "build_finished_at": "2026-11-17T19:40:55.6206129+08:00",
+  "ubt_execution_seconds": 113.83,
+  "executor_seconds": 97.68,
+  "completed_actions": 33,
+  "compile_actions": 30,
+  "link_actions": 2,
+  "metadata_actions": 1,
+  "linked_dll": "UnrealEditor-FPSGAME.dll",
+  "log_path": "Saved/BuildEditor/cleanup-batch17-20261117-193901.log",
+  "arguments": [
+    "FPSGAMEEditor",
+    "Win64",
+    "Development",
+    "-Project=D:/FPS3D/FPSGAME/FPSGAME.uproject",
+    "-NoHotReload",
+    "-NoHotReloadFromIDE",
+    "-NoUBTMakefiles",
+    "-NoUBA",
+    "-MaxParallelActions=2"
+  ],
+  "directly_modified_cpp_compiled": [
+    "ColdSteelChainSlashModel.cpp",
+    "ColdSteelLeapStrikeModel.cpp"
+  ],
+  "waited_following_game_build": {
+    "wrapper_pid": 81112,
+    "log_path": "Saved/BuildVillageTree20261117Integrated/Logs/FPSGAME-build.log"
+  },
+  "wait_resolution": "Automatic process gate observed shared builds exit before launching batch 17 UBT; no process terminated",
+  "retained": [
+    "H01 eligibility and private training submission",
+    "H02 receipt state handling outside pure cooldown arithmetic",
+    "H03 all receipt implementations",
+    "files exceeding 800 lines",
+    "suspected dead code",
+    "fireball independent XP scaling"
+  ],
+  "build_scope_note": "Editor target compiled current shared-workspace dependencies; this batch modified only four Skills files in source-manifest.json"
+}

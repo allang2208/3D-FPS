@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "command": "Tools/Build/Build-Editor.ps1",
+  "target": "FPSGAMEEditor Win64 Development",
+  "scope": "Batch 09: eight Skills progress getter bodies reuse TMap::FindRef, preserving keys and default progress values",
+  "exit_code": 0,
+  "result": "Succeeded",
+  "executed_actions": 11,
+  "ubt_execution_seconds": 20.39,
+  "log_path": "Saved/BuildEditor/build-20261117-122414.log",
+  "compiled_translation_units": [
+    "ColdSteelBlizzardModel.cpp",
+    "ColdSteelElectricMagicModel.cpp",
+    "ColdSteelIceWallModel.cpp",
+    "ColdSteelFireMagicModel.cpp",
+    "ColdSteelIceSpikeModel.cpp",
+    "ColdSteelLightningModel.cpp",
+    "ColdSteelHolyLightModel.cpp",
+    "ColdSteelSkillModel.cpp"
+  ],
+  "linked_outputs": [
+    "Intermediate/Build/Win64/x64/UnrealEditor/Development/FPSGAME/UnrealEditor-FPSGAME.lib",
+    "Binaries/Win64/UnrealEditor-FPSGAME.dll"
+  ],
+  "target_metadata_written": true,
+  "processes_stopped": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "game_target_built_by_this_invocation": false,
+  "tests_run": false,
+  "scope_note": "Successful shared-workspace Editor build; compilation and linking do not establish runtime behavior."
+}

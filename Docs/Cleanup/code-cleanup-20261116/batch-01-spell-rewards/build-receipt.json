@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "command": "Tools/Build/Build-Editor.ps1",
+  "target": "FPSGAMEEditor Win64 Development",
+  "scope": "Current shared project Editor build including batch 01 and batch 02 spell reward cleanup",
+  "exit_code": 0,
+  "result": "Succeeded",
+  "actions": 24,
+  "execution_seconds": 67.31,
+  "log": "Saved/BuildEditor/build-20261117-000403.log",
+  "linked_outputs": [
+    "Intermediate/Build/Win64/x64/UnrealEditor/Development/FPSGAME/UnrealEditor-FPSGAME.lib",
+    "Binaries/Win64/UnrealEditor-FPSGAME.dll"
+  ],
+  "unrelated_warnings": [
+    "ColdSteelForgeBoard.cpp: double-to-float conversion",
+    "FrostSwordSurfaceCaptureCommandlet.cpp: double-to-float conversion",
+    "XuanChiSurfaceDiagnosisCommandlet.cpp: deprecated direct NaniteSettings access"
+  ],
+  "unrelated_source_fixes": false,
+  "tests_run": false,
+  "editor_launched": false,
+  "game_target_built": false,
+  "packaging_run": false,
+  "runtime_acceptance": "Not performed"
+}

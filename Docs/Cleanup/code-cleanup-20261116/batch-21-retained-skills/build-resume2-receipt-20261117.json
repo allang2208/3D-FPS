@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "batch": 21,
+  "purpose": "Complete the remaining Editor build after external working-tree fixes",
+  "source_cleanup_complete": true,
+  "source_files_changed_this_continuation": 0,
+  "editor_build_complete": true,
+  "build_attempt_finished": true,
+  "result": "Succeeded",
+  "exit_code": 0,
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_started_at": "2026-11-17T22:36:16.7077570+08:00",
+  "build_finished_at": "2026-11-17T22:36:28.8399319+08:00",
+  "ubt_execution_seconds": 11.89,
+  "executor_seconds": 0.12,
+  "target_up_to_date": true,
+  "completed_actions": 0,
+  "compile_actions": 0,
+  "link_actions": 0,
+  "metadata_actions": 0,
+  "linked_dll_in_this_invocation": false,
+  "log_path": "Saved/BuildEditor/cleanup-batch21-resume2-20261117-223616.log",
+  "arguments": [
+    "FPSGAMEEditor",
+    "Win64",
+    "Development",
+    "-Project=D:/FPS3D/FPSGAME/FPSGAME.uproject",
+    "-NoHotReload",
+    "-NoHotReloadFromIDE",
+    "-NoUBTMakefiles",
+    "-NoUBA",
+    "-MaxParallelActions=2"
+  ],
+  "waited_shared_builds": [
+    {
+      "target": "FPSGAMEEditor",
+      "cmd_pid": 105940,
+      "ubt_pid": 91932,
+      "started_at": "2026-11-17T22:29:00.845023+08:00",
+      "log_path": "Saved/VillageDefenses20261117/Build01/Logs/FPSGAMEEditor-build.log",
+      "result": "Succeeded",
+      "ubt_execution_seconds": 42.16,
+      "reported_actions": 15,
+      "link_actions": [
+        "Link [x64] UnrealEditor-FPSGAME.lib [NoUba]",
+        "Link [x64] UnrealEditor-FPSGAME.dll [NoUba]"
+      ],
+      "target_up_to_date": false
+    },
+    {
+      "target": "FPSGAME",
+      "cmd_pid": 93700,
+      "ubt_pid": 105592,
+      "started_at": "2026-11-17T22:29:43.365585+08:00",
+      "log_path": "Saved/VillageDefenses20261117/Build01/Logs/FPSGAME-build.log",
+      "result": "Succeeded",
+      "ubt_execution_seconds": 392.92,
+      "reported_actions": 193,
+      "link_actions": [
+        "Link [x64] FPSGAME.exe [NoUba]"
+      ],
+      "target_up_to_date": false
+    }
+  ],
+  "source_scope_note": "Prior out-of-scope fixes were already present; this continuation only wrote cleanup documentation and ran the necessary Editor build",
+  "previous_build_receipts": [
+    "build-receipt.json",
+    "build-resume-receipt-20261117.json"
+  ],
+  "other_processes_stopped": false,
+  "own_build_interrupted_this_continuation": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "tests_run": false,
+  "runtime_status": "Not tested; user testing"
+}

@@ -1,0 +1,30 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp b/Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp
+@@ -1,6 +1,8 @@
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Monsters/UnknownSpellCombat.h"
+ #include "ColdSteelSkillRules.h"
++#include "ColdSteelSpellRewards.h"
++#include "ColdSteelSpellFeedback.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "FPSMagicArrowRainComponent.h"
+ #include "MagicArrowRainDamage.h"
+@@ -100,14 +102,13 @@
+         TGuardValue<const CombatFormulaRuntime::MagicHit*> Magic(CombatFormulaRuntime::ActiveMagicHit,&Context);
+         const float Applied=UGameplayStatics::ApplyDamage(Target,Cast.Damage,Shooter->GetController(),Shooter,UMagicArrowRainDamage::StaticClass());
+         if(Applied<=0)continue;
+-        FWeaponDamageResult Result;Result.bResolved=true;Result.bCritical=Critical;Result.bKilled=Combat->IsDead();
+-        if(auto* Player=::Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied,&Result);
++        ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
+         if(!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
+         {++Hits;Kills+=Combat->IsDead()?1:0;CriticalHits+=Critical?1:0;CriticalKills+=Critical&&Combat->IsDead()?1:0;}
+     }
+     if(Hits==0)return;
+     SyncRuntime();auto P=Snapshot();const auto& D=MasteryDefinition(TEXT("magicArrowRain"));
+-    ColdSteelSkills::AddExperience(P,D,Hits*D.HitExperience+Kills*D.KillExperience+(Hits>=2?D.MultiHitExperience:0));
+-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalHits*CriticalStrikeSkill.CriticalHitExperience+CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
++    ColdSteelSkills::AddExperience(P,D,ColdSteelSpellRewards::HitTrainingExperience(D,Hits,Kills,Hits>=2));
++    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,CriticalHits,CriticalKills);
+     StageTraining(MoveTemp(P));
+ }

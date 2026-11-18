@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp b/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSIceArmorComponent.cpp
+@@ -31,8 +31,7 @@
+ UFPSIceArmorComponent::UFPSIceArmorComponent()
+ {PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;SetIsReplicatedByDefault(true);}
+ UColdSteelStatusModel* UFPSIceArmorComponent::Model() const
+-{return UnknownSpell::IsCaster(GetOwner())?UnknownSpell::Model(Cast<APawn>(GetOwner())):
+-    (GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr);}
++{return NetCast::LocalModel(*this);}
+ UFPSFireballComponent* UFPSIceArmorComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
+ double UFPSIceArmorComponent::Clock() const
+ {return GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();}

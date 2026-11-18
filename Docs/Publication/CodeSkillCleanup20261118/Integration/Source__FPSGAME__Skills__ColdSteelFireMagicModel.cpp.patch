@@ -1,0 +1,78 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp b/Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp
+@@ -6,7 +6,9 @@
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Monsters/MonsterCombatComponent.h"
+ #include "../FPSGAMECharacter.h"
+-#include "ColdSteelSkillRules.h"
++#include "ColdSteelSpellRewards.h"
++#include "ColdSteelSpellCrafting.h"
++#include "ColdSteelSpellFeedback.h"
+ #include "FireMagicDamage.h"
+ #include "HolyLightTargets.h"
+ #include "Engine/GameInstance.h"
+@@ -15,7 +17,7 @@
+ const FColdSteelSkillDefinition& UColdSteelStatusModel::FireMagicDefinition(FName Id) const
+ {return Id==TEXT("dragonBreath")?DragonBreathSkill:Id==TEXT("flameArmor")?FlameArmorSkill:MeteorSkill;}
+ FColdSteelSkillProgress UColdSteelStatusModel::FireMagicProgress(FName Id) const
+-{const auto* P=Current.Skills.Find(Id);return P?*P:FColdSteelSkillProgress();}
++{return Current.Skills.FindRef(Id);}
+ float UColdSteelStatusModel::FireMagicCooldown(FName Id) const
+ {return HasNoAbilityCooldown()?0.f:Id==TEXT("dragonBreath")?Current.DragonBreathCooldown:(Id==TEXT("flameArmor")?Current.FlameArmorCooldown:Current.MeteorCooldown);}
+ float UColdSteelStatusModel::FireMagicCooldownDuration(FName Id) const
+@@ -45,20 +47,16 @@
+     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
+     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
+     float DamageFactor=1,CooldownReduction=0;
+-    const auto* Player=RuntimePawn();
+-    const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
+-    const int32 Chain=Status?Status->ChainSpellStacks():0;
++    const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
+     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
+         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
+         {
+             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
+-            C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
+-            C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
++            ColdSteelSpellCrafting::ApplyCriticalStats(C,*E,*Item);
+             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
+             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
+             DamageFactor=(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("fireDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
+-            C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
+-            C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
++            ColdSteelSpellCrafting::ApplyChainAndCastHaste(C,*E,*Item);
+             C.PendantBurnMultiplier=Craft(TEXT("fireBurnDamageMul"));
+             C.PendantBurnSeconds=E->CraftEffect(*Item,TEXT("fireBurnDuration"),3000)/1000;
+             C.PendantBurnTick=E->CraftEffect(*Item,TEXT("fireBurnTickMs"),500)/1000;
+@@ -120,17 +118,10 @@
+     if(Spell.PendantBurnMultiplier>0&&!Combat->IsDead())
+         UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Spell.MagicAttack,1,
+             Spell.PendantBurnSeconds,Spell.PendantBurnMultiplier,Spell.PendantBurnTick);
+-    {
+-        FWeaponDamageResult HitResult;
+-        HitResult.bResolved=true;
+-        HitResult.bCritical=Critical;
+-        HitResult.bKilled=Combat->IsDead();
+-        if(auto* Player=Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied,&HitResult);
+-    }
++    ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
+     if(!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
+     {
+-        ++Batch.Hits;if(Combat->IsDead())++Batch.Kills;
+-        if(Critical){++Batch.CriticalHits;if(Combat->IsDead())++Batch.CriticalKills;}
++        ColdSteelSpellRewards::RecordTrainingHit(Batch,*Combat,Critical);
+     }
+     return true;
+ }
+@@ -139,8 +130,8 @@
+ {
+     if(!FireMagic::IsSkill(Id)||Batch.Hits<=0)return;
+     SyncRuntime();auto P=Snapshot();const auto& D=FireMagicDefinition(Id);const auto& T=D.FireMagic;
+-    ColdSteelSkills::AddExperience(P,D,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience+(Batch.bMultiHit?T.MultiHitExperience:0)+(Batch.Kills>=2?T.MultiKillExperience:0));
+-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
++    ColdSteelSpellRewards::AccumulateHitKillTraining(P,D,T,Batch.Hits,Batch.Kills,Batch.bMultiHit);
++    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,Batch.CriticalHits,Batch.CriticalKills);
+     // 命中与击杀修炼先落实时档案（StageTraining 内部会在升级时立即写盘）。
+     StageTraining(MoveTemp(P));
+ }

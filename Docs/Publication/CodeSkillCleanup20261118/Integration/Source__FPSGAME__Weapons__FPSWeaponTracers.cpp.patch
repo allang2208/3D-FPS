@@ -1,0 +1,616 @@
+diff --git a/Source/FPSGAME/Weapons/FPSWeaponTracers.cpp b/Source/FPSGAME/Weapons/FPSWeaponTracers.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/FPSWeaponTracers.cpp
+@@ -0,0 +1,611 @@
++#include "FPSWeaponFXComponent.h"
++#include "TimerManager.h"
++#include "Camera/PlayerCameraManager.h"
++#include "Super90WeaponAssets.h"
++#include "TubeShotgunAssets.h"
++#include "Saiga12KWeaponAssets.h"
++#include "M24WeaponAssets.h"
++#include "ShotgunBirdcageAssets.h"
++#include "FPSImpactFXSubsystem.h"
++#include "NiagaraComponent.h"
++#include "NiagaraSystem.h"
++#include "AKMSovietCalibration.h"
++#include "A762WeaponAssets.h"
++#include "LMG201WeaponAssets.h"
++#include "PKMLowpolyWeaponAssets.h"
++#include "ASH12WeaponAssets.h"
++#include "CasingPortCalibration.h"
++#include "../FPSGAMECharacter.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++
++#include "Camera/CameraComponent.h"
++#include "Components/DynamicMeshComponent.h"
++#include "Components/PointLightComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "DynamicMesh/DynamicMesh3.h"
++#include "DynamicMesh/DynamicMeshAttributeSet.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "GameFramework/Actor.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Materials/MaterialInterface.h"
++#include "UObject/ConstructorHelpers.h"
++#include "HAL/IConsoleManager.h"
++
++#include "WeaponFXPrivate.h"
++using namespace WeaponFXRuntime;
++namespace WeaponFX
++{
++    // 生成一次螺旋管（含法线与 UV）：法线必须正确，材质用 NormalWS 做侧面衰减。
++    void SpiralVertex(UE::Geometry::FDynamicMesh3& Mesh,const FVector3d& Position,const FVector3f& Normal,const FVector2f& UV)
++    {
++        Mesh.AppendVertex(Position);
++        Mesh.Attributes()->PrimaryNormals()->AppendElement(Normal);
++        Mesh.Attributes()->PrimaryUV()->AppendElement(UV);
++    }
++    void SpiralTriangle(UE::Geometry::FDynamicMesh3& Mesh,int32 A,int32 B,int32 C)
++    {
++        const int32 Id=Mesh.AppendTriangle(A,B,C);
++        Mesh.Attributes()->PrimaryNormals()->SetTriangle(Id,UE::Geometry::FIndex3i(A,B,C));
++        Mesh.Attributes()->PrimaryUV()->SetTriangle(Id,UE::Geometry::FIndex3i(A,B,C));
++    }
++    UE::Geometry::FDynamicMesh3 BuildSpiralTube(float Turns,float CoilRadiusCM,float ThicknessCM,float LengthCM)
++    {
++        using namespace UE::Geometry;
++        FDynamicMesh3 Mesh;Mesh.EnableAttributes();
++        const float Coil=Turns>0.f?Turns:1.f;
++        const int32 Segments=FMath::Clamp(FMath::RoundToInt(Coil*SpiralSegmentsPerTurn),32,SpiralMaxSegments);
++        const float Tube=ThicknessCM*.5f;
++        constexpr float TwoPi=2.f*PI;
++        TArray<int32> RingStart;RingStart.Reserve(Segments+1);
++        for(int32 I=0;I<=Segments;++I)
++        {
++            const float T=static_cast<float>(I)/Segments;
++            const float Angle=TwoPi*Coil*T;
++            const float Z=FMath::Lerp(-LengthCM,0.f,T);
++            const FVector3d Radial(FMath::Cos(Angle),FMath::Sin(Angle),0);
++            const FVector3d Center=Radial*CoilRadiusCM+FVector3d(0,0,Z);
++            // Tangent combines circular travel and the fixed world-space pitch.
++            // 用它建正交基，管环沿路径推进。管是圆的，绕切线滚转不影响外观。
++            const FVector3d Forward=FVector3d(
++                -FMath::Sin(Angle)*CoilRadiusCM,
++                FMath::Cos(Angle)*CoilRadiusCM,
++                LengthCM/TwoPi/Coil).GetSafeNormal();
++            const FVector3d Ref=FMath::Abs(Forward.Z)<.9?FVector3d(0,0,1):FVector3d(1,0,0);
++            const FVector3d U=FVector3d::CrossProduct(Forward,Ref).GetSafeNormal();
++            const FVector3d V=FVector3d::CrossProduct(Forward,U).GetSafeNormal();
++            RingStart.Add(Mesh.VertexCount());
++            for(int32 S=0;S<SpiralRingSides;++S)
++            {
++                const float SA=TwoPi*S/SpiralRingSides;
++                const FVector3d Normal=U*FMath::Cos(SA)+V*FMath::Sin(SA);
++                SpiralVertex(Mesh,Center+Normal*Tube,FVector3f(Normal),
++                    FVector2f(static_cast<float>(S)/SpiralRingSides,T));
++            }
++        }
++        for(int32 I=0;I<Segments;++I)
++            for(int32 S=0;S<SpiralRingSides;++S)
++            {
++                const int32 A=RingStart[I]+S;
++                const int32 B=RingStart[I]+(S+1)%SpiralRingSides;
++                const int32 C=RingStart[I+1]+(S+1)%SpiralRingSides;
++                const int32 D=RingStart[I+1]+S;
++                SpiralTriangle(Mesh,A,B,C);SpiralTriangle(Mesh,A,C,D);
++            }
++        return Mesh;
++    }
++    /** Open cylinder with radial normals. No bright end discs; the dedicated
++        material applies soft transverse coverage and world-space end fades. */
++    UE::Geometry::FDynamicMesh3 BuildTrailColumn()
++    {
++        using namespace UE::Geometry;
++        FDynamicMesh3 Mesh;Mesh.EnableAttributes();
++        constexpr int32 Sides=20;
++        constexpr float Radius=50.f;
++        constexpr float TwoPi=2.f*PI;
++        for(int32 Row=0;Row<=1;++Row)
++            for(int32 S=0;S<=Sides;++S)
++            {
++                const float A=TwoPi*S/Sides;
++                const FVector3f Normal(FMath::Cos(A),FMath::Sin(A),0);
++                SpiralVertex(Mesh,FVector3d(Normal.X*Radius,Normal.Y*Radius,Row?TrailLocalFar:TrailLocalNear),
++                    Normal,FVector2f(static_cast<float>(S)/Sides,static_cast<float>(Row)));
++            }
++        for(int32 S=0;S<Sides;++S)
++        {
++            SpiralTriangle(Mesh,S,S+1,S+Sides+2);
++            SpiralTriangle(Mesh,S,S+Sides+2,S+Sides+1);
++        }
++        return Mesh;
++    }
++}
++void UFPSWeaponFXComponent::OnTracerSegment(const FVector& Start,const FVector& End,bool bConverged)
++{
++    if(!bReady||!TracerMaterial)return;
++    const FVector Travel=End-Start;
++    const float Distance=static_cast<float>(Travel.Size());
++    if(Distance<.1f)return;
++    auto* T=AcquireTracer(INDEX_NONE);
++    if(!T)return;
++    ++TracerSegments;LastTracerEnd=End;
++    // Instantaneous path (no flying round): a short dash at the impact end that fades
++    // over TracerFlashSeconds instead of vanishing inside a single frame.
++    T->bFlash=true;T->bConverged=bConverged;T->FlashAge=0.f;
++    T->Direction=Travel/Distance;
++    T->Length=FMath::Min(FMath::Clamp(Distance,TracerBaseLengthCM(),TracerMaxLengthCM()),Distance);
++    T->Head=End;
++    T->TraveledCM=Distance;
++    T->LastUpdateFrame=GFrameCounter;
++    ApplyTracerTransform(*T);
++}
++
++void UFPSWeaponFXComponent::OnTracerSegment(int32 RoundId,const FVector& Start,const FVector& End,bool bConverged,
++    const FVector* VisualMuzzle)
++{
++    if(!bReady||!TracerMaterial)return;
++    const FVector Travel=End-Start;
++    const float Distance=static_cast<float>(Travel.Size());
++    if(Distance<.1f)return;
++    // A slow or very close round can still be between the AI aim origin and the barrel.
++    // Wait until it clears the socket so the first streak never points back into the gun.
++    if(VisualMuzzle && FVector::DotProduct(End-*VisualMuzzle,Travel)<=0.)return;
++    auto* T=AcquireTracer(RoundId);
++    if(!T)return;
++    ++TracerSegments;LastTracerEnd=End;
++    if(bConverged&&!T->bConverged)
++    {
++        ++ConvergedTracerSegments;
++        if(TracerDiag.GetValueOnGameThread()!=0)
++            UE_LOG(LogTemp,Display,TEXT("TRACER_CONVERGED open round=%d seg=%.0fcm trail=%d spiral=%d"),
++                RoundId,Distance,TracerTrailOn.GetValueOnGameThread(),TracerConvergedSpiral.GetValueOnGameThread());
++    }
++    T->bFlash=false;T->bConverged=bConverged;T->FlashAge=0.f;T->LingerAge=0.f;
++    T->RoundId=RoundId;
++    T->Direction=VisualMuzzle?(End-*VisualMuzzle).GetSafeNormal():Travel/Distance;
++    T->Head=End;
++    T->TraveledCM=VisualMuzzle?static_cast<float>(FVector::Distance(*VisualMuzzle,End)):T->TraveledCM+Distance;
++    // The dash trails the round by its class length and is never shorter than this
++    // frame's travel, so consecutive frames overlap at any frame rate (no dotted path).
++    // It also may not reach behind the muzzle: the streak grows out of the barrel.
++    T->Length=FMath::Min(FMath::Clamp(Distance,TracerBaseLengthCM(),TracerMaxLengthCM()),T->TraveledCM);
++    T->LastUpdateFrame=GFrameCounter;
++    ApplyTracerTransform(*T);
++}
++
++FFPSWeaponFXTracer* UFPSWeaponFXComponent::AcquireTracer(int32 RoundId)
++{
++    if(RoundId!=INDEX_NONE)
++        for(FFPSWeaponFXTracer& T:Tracers)
++            if(T.bActive&&!T.bFlash&&T.RoundId==RoundId)return &T;
++    FFPSWeaponFXTracer* Result=Tracers.FindByPredicate([](const FFPSWeaponFXTracer& T){return !T.bActive;});
++    if(!Result)
++    {
++        if(Tracers.Num()>=MaxTracers)
++        {
++            // Pool exhausted (very fast rounds with long flight times): recycle the streak
++            // that has gone longest without an update so no live round is left without one.
++            Result=&Tracers[0];
++            for(FFPSWeaponFXTracer& T:Tracers)if(T.LastUpdateFrame<Result->LastUpdateFrame)Result=&T;
++            ReleaseTracer(*Result);
++        }
++        else
++        {
++            Result=&Tracers.AddDefaulted_GetRef();
++            Result->Mesh=NewObject<UStaticMeshComponent>(GetOwner());
++            GetOwner()->AddInstanceComponent(Result->Mesh);
++            Result->Mesh->SetMobility(EComponentMobility::Movable);
++            Result->Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++            Result->Mesh->SetGenerateOverlapEvents(false);
++            Result->Mesh->SetCastShadow(false);
++            Result->Mesh->bReceivesDecals=false;
++            Result->Mesh->SetCanEverAffectNavigation(false);
++            Result->Mesh->RegisterComponent();
++            Result->Mesh->SetStaticMesh(CylinderMesh);
++            Result->Material=UMaterialInstanceDynamic::Create(TracerMaterial,Result->Mesh);
++            Result->Mesh->SetMaterial(0,Result->Material);
++            Result->HaloMesh=NewObject<UStaticMeshComponent>(GetOwner());
++            GetOwner()->AddInstanceComponent(Result->HaloMesh);
++            Result->HaloMesh->SetMobility(EComponentMobility::Movable);
++            Result->HaloMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++            Result->HaloMesh->SetGenerateOverlapEvents(false);
++            Result->HaloMesh->SetCastShadow(false);
++            Result->HaloMesh->bReceivesDecals=false;
++            Result->HaloMesh->SetCanEverAffectNavigation(false);
++            Result->HaloMesh->RegisterComponent();
++            Result->HaloMesh->SetStaticMesh(CylinderMesh);
++            Result->HaloMaterial=UMaterialInstanceDynamic::Create(TracerMaterial,Result->HaloMesh);
++            Result->HaloMesh->SetMaterial(0,Result->HaloMaterial);
++        }
++    }
++    Result->bActive=true;
++    Result->RoundId=RoundId;
++    Result->TraveledCM=0.f;
++    Result->FlashAge=0.f;
++    Result->LingerAge=0.f;
++    Result->Head=FVector::ZeroVector;
++    Result->Mesh->SetStaticMesh(CylinderMesh);
++    if(!Result->Material)Result->Material=UMaterialInstanceDynamic::Create(TracerMaterial,Result->Mesh);
++    Result->Mesh->SetMaterial(0,Result->Material);
++    Result->Mesh->SetVisibility(true);
++    Result->Material->SetVectorParameterValue(TEXT("Tint"),WeaponFX::TracerTint);
++    Result->Material->SetScalarParameterValue(TEXT("Emission"),WeaponFX::TracerEmission);
++    Result->Material->SetScalarParameterValue(TEXT("Opacity"),1.f);
++    if(Result->HaloMesh)
++    {
++        Result->HaloMesh->SetStaticMesh(CylinderMesh);
++        if(!Result->HaloMaterial)Result->HaloMaterial=UMaterialInstanceDynamic::Create(TracerMaterial,Result->HaloMesh);
++        Result->HaloMesh->SetMaterial(0,Result->HaloMaterial);
++        Result->HaloMesh->SetVisibility(true);
++        Result->HaloMaterial->SetVectorParameterValue(TEXT("Tint"),WeaponFX::TracerTint);
++        Result->HaloMaterial->SetScalarParameterValue(TEXT("Emission"),TracerHaloEmission.GetValueOnGameThread());
++        Result->HaloMaterial->SetScalarParameterValue(TEXT("Opacity"),1.f);
++    }
++    SetComponentTickEnabled(true);
++    return Result;
++}
++
++void UFPSWeaponFXComponent::ReleaseTracer(FFPSWeaponFXTracer& T)
++{
++    T.bActive=false;
++    T.bFlash=false;
++    T.bConverged=false;
++    T.LingerAge=0.f;
++    T.RoundId=INDEX_NONE;
++    if(T.Mesh)T.Mesh->SetVisibility(false);
++    if(T.HaloMesh)T.HaloMesh->SetVisibility(false);
++    if(T.SpiralMesh)T.SpiralMesh->SetVisibility(false);
++    if(T.TrailMesh)T.TrailMesh->SetVisibility(false);
++}
++
++void UFPSWeaponFXComponent::EnsureSpiral(FFPSWeaponFXTracer& T,float Turns,float CoilRadiusCM,float ThicknessCM)
++{
++    if(!ConvergedMaterial)return;
++    if(!T.SpiralMesh)
++    {
++        T.SpiralMesh=NewObject<UDynamicMeshComponent>(GetOwner());
++        GetOwner()->AddInstanceComponent(T.SpiralMesh);
++        T.SpiralMesh->SetMobility(EComponentMobility::Movable);
++        T.SpiralMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        T.SpiralMesh->SetGenerateOverlapEvents(false);
++        T.SpiralMesh->SetCastShadow(false);
++        T.SpiralMesh->bReceivesDecals=false;
++        T.SpiralMesh->SetCanEverAffectNavigation(false);
++        T.SpiralMesh->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
++        T.SpiralMesh->RegisterComponent();
++        T.SpiralMaterial=UMaterialInstanceDynamic::Create(ConvergedMaterial,T.SpiralMesh);
++        T.SpiralMaterial->SetScalarParameterValue(TEXT("Layer"),1.f);
++        T.SpiralMesh->SetMaterial(0,T.SpiralMaterial);
++    }
++    // 几何只在参数变化时重建：逐帧只改变换与自转，渲染器照旧拿到真实速度（无 TSR 残影）。
++    const float MeshLength=TracerMaxLengthCM();
++    if(!FMath::IsNearlyEqual(T.SpiralBuiltLengthCM,MeshLength,.01f)
++        ||!FMath::IsNearlyEqual(T.SpiralBuiltTurns,Turns,.01f)
++        ||!FMath::IsNearlyEqual(T.SpiralBuiltRadiusCM,CoilRadiusCM,.01f)
++        ||!FMath::IsNearlyEqual(T.SpiralBuiltThicknessCM,ThicknessCM,.01f))
++    {
++        T.SpiralMesh->SetMesh(WeaponFX::BuildSpiralTube(Turns,CoilRadiusCM,ThicknessCM,MeshLength));
++        T.SpiralBuiltLengthCM=MeshLength;
++        T.SpiralBuiltTurns=Turns;
++        T.SpiralBuiltRadiusCM=CoilRadiusCM;
++        T.SpiralBuiltThicknessCM=ThicknessCM;
++        ++SpiralMeshBuilds;
++    }
++}
++
++void UFPSWeaponFXComponent::EnsureTrail(FFPSWeaponFXTracer& T)
++{
++    if(T.TrailMesh||!ConvergedMaterial)return;
++    T.TrailMesh=NewObject<UDynamicMeshComponent>(GetOwner());
++    GetOwner()->AddInstanceComponent(T.TrailMesh);
++    T.TrailMesh->SetMobility(EComponentMobility::Movable);
++    T.TrailMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    T.TrailMesh->SetGenerateOverlapEvents(false);
++    T.TrailMesh->SetCastShadow(false);
++    T.TrailMesh->bReceivesDecals=false;
++    T.TrailMesh->SetCanEverAffectNavigation(false);
++    T.TrailMesh->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
++    T.TrailMesh->RegisterComponent();
++    // Unit cylinder; the dedicated material keeps end fades in world centimetres.
++    T.TrailMesh->SetMesh(WeaponFX::BuildTrailColumn());
++    T.TrailMaterial=UMaterialInstanceDynamic::Create(ConvergedMaterial,T.TrailMesh);
++    T.TrailMaterial->SetScalarParameterValue(TEXT("Layer"),2.f);
++    T.TrailMesh->SetMaterial(0,T.TrailMaterial);
++    T.TrailMesh->SetVisibility(false);
++}
++
++void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
++{
++    if(!T.Mesh)return;
++    if(bTracersOnly && !WorldViewCamera.IsValid())
++        WorldViewCamera=UGameplayStatics::GetPlayerCameraManager(this,0);
++    const auto* Viewer=bWorldGun?WorldViewCamera.Get():nullptr;
++    if(!Viewer && !Camera)
++    {
++        T.Mesh->SetVisibility(false);
++        if(T.HaloMesh)T.HaloMesh->SetVisibility(false);
++        return;
++    }
++    UMaterialInterface* BeamMaterial=T.bConverged&&ConvergedMaterial?ConvergedMaterial.Get():TracerMaterial.Get();
++    // A pooled slot can alternate between ordinary and enchanted rounds. Rebind
++    // only on that transition, never recreate the MID every frame.
++    if(T.Material->Parent!=BeamMaterial)
++    {
++        T.Material=UMaterialInstanceDynamic::Create(BeamMaterial,T.Mesh);
++        T.Mesh->SetMaterial(0,T.Material);
++    }
++    if(T.HaloMesh&&T.HaloMaterial->Parent!=BeamMaterial)
++    {
++        T.HaloMaterial=UMaterialInstanceDynamic::Create(BeamMaterial,T.HaloMesh);
++        T.HaloMesh->SetMaterial(0,T.HaloMaterial);
++    }
++    // Head on the round, tail Length behind it: the dash always covers the most recent
++    // stretch of the real path, so it can never leave the bore or pierce a wall behind it.
++    const FVector Tail=T.Head-T.Direction*T.Length;
++    int32 ViewWidth=1920,ViewHeight=1080;
++    if(bWorldGun)
++    {
++        if(const auto* PC=UGameplayStatics::GetPlayerController(this,0))PC->GetViewportSize(ViewWidth,ViewHeight);
++    }
++    else if(const auto* Pawn=Cast<APawn>(GetOwner()))
++        if(const auto* PC=Cast<APlayerController>(Pawn->GetController()))
++            PC->GetViewportSize(ViewWidth,ViewHeight);
++    const FVector Center=(T.Head+Tail)*.5f;
++    const FVector Eye=Viewer?Viewer->GetCameraLocation():Camera->GetComponentLocation();
++    const FVector ViewAxis=Viewer?Viewer->GetCameraRotation().Vector():Camera->GetForwardVector();
++    const float ViewFOV=Viewer?Viewer->GetFOVAngle():Camera->FieldOfView;
++    const float ViewDepth=FMath::Max(1.f,static_cast<float>(FVector::DotProduct(
++        Center-Eye,ViewAxis)));
++    const float PixelWidth=2.f*ViewDepth*FMath::Tan(FMath::DegreesToRadians(
++        FMath::Clamp(ViewFOV,5.f,150.f)*.5f))/(ViewWidth>0?ViewWidth:1920);
++    // Screen-size compensation, with separate convergence clearance below.
++    const float WidthScale=T.bConverged?FMath::Clamp(TracerConvergedWidth.GetValueOnGameThread(),1.f,6.f):1.f;
++    float Diameter=FMath::Clamp(PixelWidth*FMath::Clamp(TracerWidthPixels.GetValueOnGameThread(),.2f,16.f)*WidthScale,
++        WeaponFX::TracerMinDiameterCM*WidthScale,
++        (ShouldHideCasings()?WeaponFX::TracerScopedDiameterMaxCM:WeaponFX::TracerDiameterMaxCM)*WidthScale);
++    if(T.bConverged)
++    {
++        const float CoilRadius=FMath::Clamp(TracerConvergedSpiralRadiusCM.GetValueOnGameThread(),1.f,120.f);
++        const float TubeWidth=FMath::Clamp(TracerConvergedSpiralThicknessCM.GetValueOnGameThread(),.5f,CoilRadius*.65f);
++        // Leave visible space between the core and the surrounding helix at distance.
++        Diameter=FMath::Min(Diameter,FMath::Max(.5f,FMath::Min(
++            TracerConvergedMaxWidthCM.GetValueOnGameThread(),2.f*CoilRadius-TubeWidth-2.f)));
++    }
++    T.Mesh->SetWorldLocationAndRotation(Center,FRotationMatrix::MakeFromZ(T.Head-Tail).Rotator());
++    T.Mesh->SetWorldScale3D(FVector(Diameter,Diameter,FMath::Max(1.f,T.Length))/100.f);
++    // Colour and brightness are re-applied every frame so console changes show up on streaks
++    // that are already flying instead of only on the next shot.
++    FLinearColor Tint=WeaponFX::TracerTint;
++    ParseTracerTint(T.bConverged?TracerConvergedTint.GetValueOnGameThread():TracerTintSetting.GetValueOnGameThread(),Tint);
++    T.Material->SetVectorParameterValue(TEXT("Tint"),Tint);
++    T.Material->SetScalarParameterValue(TEXT("Emission"),FMath::Clamp(
++        T.bConverged?TracerConvergedEmission.GetValueOnGameThread():TracerEmissionScale.GetValueOnGameThread(),0.f,20.f));
++    const float Linger=FMath::Clamp(TracerLingerSeconds.GetValueOnGameThread(),0.f,2.f);
++    const float Opacity=T.bFlash?FMath::Clamp(1.f-T.FlashAge/WeaponFX::TracerFlashSeconds,0.f,1.f)
++        :(T.LingerAge>0.f&&Linger>0.f?FMath::Clamp(1.f-T.LingerAge/Linger,0.f,1.f):1.f);
++    T.Material->SetScalarParameterValue(TEXT("Opacity"),Opacity);
++    // 曳光段自己的淡出走完就先隐藏：光柱拖尾比它活得久，同一格里还要继续淡。
++    const bool bDashVisible=Opacity>.002f;
++    T.Mesh->SetVisibility(bDashVisible);
++    // Halo pass: same material, wider and much dimmer, so the streak gets a soft outer glow
++    // instead of staying a hard rod. Width 1 / emission 0 turns it off at no cost.
++    if(T.HaloMesh&&T.HaloMaterial)
++    {
++        const float HaloScale=FMath::Clamp(TracerHaloWidth.GetValueOnGameThread(),0.f,6.f)
++            *(T.bConverged?FMath::Clamp(TracerConvergedHaloScale.GetValueOnGameThread(),1.f,4.f):1.f);
++        const float HaloEmission=FMath::Clamp(TracerHaloEmission.GetValueOnGameThread(),0.f,20.f)*(T.bConverged?.35f:1.f);
++        const bool bHalo=bDashVisible&&HaloScale>1.001f&&HaloEmission>0.f;
++        T.HaloMesh->SetVisibility(bHalo);
++        if(bHalo)
++        {
++            const float HaloDiameter=Diameter*HaloScale;
++            T.HaloMesh->SetWorldLocationAndRotation(Center,FRotationMatrix::MakeFromZ(T.Head-Tail).Rotator());
++            T.HaloMesh->SetWorldScale3D(FVector(HaloDiameter,HaloDiameter,FMath::Max(1.f,T.Length))/100.f);
++            T.HaloMaterial->SetVectorParameterValue(TEXT("Tint"),Tint);
++            T.HaloMaterial->SetScalarParameterValue(TEXT("Emission"),HaloEmission);
++            T.HaloMaterial->SetScalarParameterValue(TEXT("Opacity"),Opacity);
++        }
++    }
++    // 汇聚段的螺旋环绕层：唯一一条贴着弹道的螺旋管。几何只在参数变化时重建，逐帧只改
++    // 变换与自转；未附魔的段从不创建它，关掉 CVar 时整层隐藏，不占逐帧开销。
++    const bool bSpiralWanted=bDashVisible&&T.bConverged&&TracerConvergedSpiral.GetValueOnGameThread()!=0
++        &&TracerConvergedSpiralEmission.GetValueOnGameThread()>0.f;
++    if(bSpiralWanted)
++    {
++        const float Turns=FMath::Clamp(TracerConvergedSpiralTurns.GetValueOnGameThread(),.25f,32.f);
++        const float CoilRadius=FMath::Clamp(TracerConvergedSpiralRadiusCM.GetValueOnGameThread(),1.f,120.f);
++        const float Thickness=FMath::Clamp(TracerConvergedSpiralThicknessCM.GetValueOnGameThread(),.5f,CoilRadius*.65f);
++        EnsureSpiral(T,Turns,CoilRadius,Thickness);
++        if(T.SpiralMesh&&T.SpiralMaterial)
++        {
++            // Freeze rotation when flight ends; the lingering image stays in place.
++            const double Now=(GetWorld()?GetWorld()->GetTimeSeconds():0.0)-(T.bFlash?T.FlashAge:T.LingerAge);
++            const float SpinDeg=FMath::Fmod(static_cast<float>(Now)
++                *FMath::Clamp(TracerConvergedSpiralSpin.GetValueOnGameThread(),-3600.f,3600.f)+T.RoundId*37.f,360.f);
++            const FQuat Along=FRotationMatrix::MakeFromZ(T.Head-Tail).ToQuat();
++            T.SpiralMesh->SetVisibility(true);
++            T.SpiralMesh->SetWorldLocationAndRotation(T.Head,
++                (Along*FQuat(FVector::UpVector,FMath::DegreesToRadians(SpinDeg))).Rotator());
++            T.SpiralMesh->SetWorldScale3D(FVector::OneVector);
++            T.SpiralMaterial->SetScalarParameterValue(TEXT("LengthCM"),T.Length);
++            T.SpiralMaterial->SetVectorParameterValue(TEXT("Tint"),Tint);
++            T.SpiralMaterial->SetScalarParameterValue(TEXT("Emission"),
++                FMath::Clamp(TracerConvergedSpiralEmission.GetValueOnGameThread(),0.f,20.f));
++            T.SpiralMaterial->SetScalarParameterValue(TEXT("Opacity"),Opacity);
++        }
++    }
++    else if(T.SpiralMesh)T.SpiralMesh->SetVisibility(false);
++    // Full travelled path, fixed world-space width. Hold after impact, then fade;
++    // the flying head's screen-size compensation must never inflate the muzzle end.
++    const bool bTrailWanted=T.bConverged&&TracerTrailOn.GetValueOnGameThread()!=0
++        &&TracerTrailEmission.GetValueOnGameThread()>0.f&&T.TraveledCM>1.f;
++    if(bTrailWanted)
++    {
++        EnsureTrail(T);
++        if(T.TrailMesh&&T.TrailMaterial)
++        {
++            const float TrailLinger=FMath::Clamp(TracerTrailLingerSeconds.GetValueOnGameThread(),0.f,3.f);
++            const float FadeSeconds=FMath::Clamp(TracerTrailFadeSeconds.GetValueOnGameThread(),0.f,3.f);
++            const float EndAge=T.bFlash?T.FlashAge:T.LingerAge;
++            const float FadeAlpha=EndAge<=TrailLinger?1.f:(FadeSeconds>0.f
++                ?FMath::Clamp(1.f-(EndAge-TrailLinger)/FadeSeconds,0.f,1.f):0.f);
++            const float TrailOpacity=FMath::Pow(FadeAlpha,FMath::Clamp(TracerTrailFadePower.GetValueOnGameThread(),.25f,4.f));
++            const float TrailWidth=FMath::Min(WeaponFX::TracerMinDiameterCM*WidthScale
++                *FMath::Clamp(TracerTrailWidth.GetValueOnGameThread(),1.f,8.f),
++                FMath::Max(4.f,TracerTrailMaxWidthCM.GetValueOnGameThread()));
++            // 可选限长：0 = 整条弹道（默认）。非 0 只保留最后一段。
++            const float CapCM=FMath::Max(0.f,TracerTrailMaxLengthCM.GetValueOnGameThread());
++            const float TrailLength=CapCM>0.f?FMath::Min(T.TraveledCM,CapCM):T.TraveledCM;
++            const FVector TrailTail=T.Head-T.Direction*TrailLength;
++            // Cylinder spans -50..50; independent material fades soften both ends.
++            const float ScaleXY=TrailWidth/100.f;
++            const float ScaleZ=FMath::Max(1.f,TrailLength)/(WeaponFX::TrailLocalFar-WeaponFX::TrailLocalNear);
++            T.TrailMesh->SetVisibility(TrailOpacity>.002f);
++            T.TrailMesh->SetWorldLocationAndRotation(TrailTail-T.Direction*(WeaponFX::TrailLocalNear*ScaleZ),
++                FRotationMatrix::MakeFromZ(T.Direction).Rotator());
++            T.TrailMesh->SetWorldScale3D(FVector(ScaleXY,ScaleXY,ScaleZ));
++            T.TrailMaterial->SetVectorParameterValue(TEXT("Tint"),Tint);
++            T.TrailMaterial->SetScalarParameterValue(TEXT("Emission"),
++                FMath::Clamp(TracerTrailEmission.GetValueOnGameThread(),0.f,20.f));
++            T.TrailMaterial->SetScalarParameterValue(TEXT("Opacity"),TrailOpacity);
++            T.TrailMaterial->SetScalarParameterValue(TEXT("LengthCM"),TrailLength);
++            T.TrailMaterial->SetScalarParameterValue(TEXT("NearFadeCM"),
++                FMath::Clamp(TracerTrailNearFadeCM.GetValueOnGameThread(),1.f,300.f));
++        }
++    }
++    else if(T.TrailMesh)T.TrailMesh->SetVisibility(false);
++}
++
++UPointLightComponent* UFPSWeaponFXComponent::EnsureTracerLight(int32 Index)
++{
++    while(TracerLights.Num()<=Index)TracerLights.Add(nullptr);
++    UPointLightComponent* Light=TracerLights[Index];
++    if(!Light)
++    {
++        Light=NewObject<UPointLightComponent>(GetOwner());
++        GetOwner()->AddInstanceComponent(Light);
++        Light->SetMobility(EComponentMobility::Movable);
++        Light->SetCastShadows(false);
++        Light->SetIntensityUnits(ELightUnits::Lumens);
++        Light->SetSourceRadius(2.f);
++        Light->SetSoftSourceRadius(4.f);
++        Light->SetSpecularScale(.5f);
++        Light->SetVolumetricScatteringIntensity(0.f);
++        Light->SetIndirectLightingIntensity(0.f);
++        Light->SetVisibility(false);
++        Light->RegisterComponent();
++        TracerLights[Index]=Light;
++    }
++    return Light;
++}
++
++void UFPSWeaponFXComponent::UpdateTracerLights()
++{
++    const float Lumens=FMath::Clamp(TracerLightLumens.GetValueOnGameThread(),0.f,20000.f);
++    const float Radius=FMath::Clamp(TracerLightRadiusCM.GetValueOnGameThread(),20.f,3000.f);
++    constexpr int32 Slots=2;
++    int32 Pick[Slots]={INDEX_NONE,INDEX_NONE};
++    float PickDistance[Slots]={FLT_MAX,FLT_MAX};
++    if(Lumens>0.f)
++    {
++        // The two streaks closest to the muzzle are the shots the player just fired, so the
++        // moving light always sits where the eye already is. Fixed slot count keeps the cost
++        // independent of the fire rate.
++        const FVector Muzzle=MuzzleLocation();
++        for(int32 I=0;I<Tracers.Num();++I)
++        {
++            const FFPSWeaponFXTracer& T=Tracers[I];
++            if(!T.bActive||T.bFlash||T.LingerAge>0.f)continue;
++            const float Distance=static_cast<float>(FVector::DistSquared(T.Head,Muzzle));
++            if(Distance<PickDistance[0]){PickDistance[1]=PickDistance[0];Pick[1]=Pick[0];PickDistance[0]=Distance;Pick[0]=I;}
++            else if(Distance<PickDistance[1]){PickDistance[1]=Distance;Pick[1]=I;}
++        }
++    }
++    FLinearColor LightColor=WeaponFX::TracerTint;
++    ParseTracerTint(TracerTintSetting.GetValueOnGameThread(),LightColor);
++    FLinearColor ConvergedLightColor=FLinearColor::White;
++    ParseTracerTint(TracerConvergedTint.GetValueOnGameThread(),ConvergedLightColor);
++    for(int32 Slot=0;Slot<Slots;++Slot)
++    {
++        if(Pick[Slot]==INDEX_NONE)
++        {
++            // Park the slot without creating components for a weapon that is not firing.
++            if(Slot<TracerLights.Num()&&TracerLights[Slot]!=nullptr)TracerLights[Slot]->SetVisibility(false);
++            continue;
++        }
++        UPointLightComponent* Light=EnsureTracerLight(Slot);
++        const FFPSWeaponFXTracer& T=Tracers[Pick[Slot]];
++        Light->SetWorldLocation(T.Head-T.Direction*(T.Length*.35f));
++        Light->SetAttenuationRadius(Radius);
++        // 汇聚弹的随弹光跟着段一起转白并略增亮：白色光带扫过地面比加亮度更能读出"这一发不一样"。
++        const bool bConverged=T.bConverged;
++        Light->SetIntensity(bConverged?Lumens*FMath::Clamp(TracerConvergedLightScale.GetValueOnGameThread(),1.f,4.f):Lumens);
++        Light->SetLightColor(bConverged?ConvergedLightColor:LightColor);
++        Light->SetVisibility(true);
++    }
++}
++
++float UFPSWeaponFXComponent::TracerBaseLengthCM() const
++{
++    const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
++    const float Scale=FMath::Clamp(TracerLengthScale.GetValueOnGameThread(),.1f,5.f);
++    return Scale*((bWorldGun?bWorldPistol:(bIndependentPistol||(Character&&Character->IsPistolWeapon())))
++        ?WeaponFX::TracerPistolLengthCM:WeaponFX::TracerRifleLengthCM);
++}
++
++float UFPSWeaponFXComponent::TracerMaxLengthCM() const
++{
++    const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
++    const float Scale=FMath::Clamp(TracerLengthScale.GetValueOnGameThread(),.1f,5.f);
++    return Scale*((bWorldGun?bWorldPistol:(bIndependentPistol||(Character&&Character->IsPistolWeapon())))
++        ?WeaponFX::TracerPistolMaxCM:WeaponFX::TracerRifleMaxCM);
++}
++
++void UFPSWeaponFXComponent::TickTracers(float DeltaTime)
++{
++    // Tracer streaks: every live round owns exactly one, refreshed in place by the
++    // ballistics tick earlier this frame. A streak that was not refreshed belongs to a round
++    // that ended (impacted or out of range): it keeps its last position, fades out over
++    // fps.Tracer.LingerSeconds and is only then pooled again, so nothing piles up.
++    for (FFPSWeaponFXTracer& T : Tracers)
++    {
++        if (!T.bActive) continue;
++        // Hold and fade are separate phases, including the instantaneous branch.
++        const float TrailLinger=T.bConverged&&TracerTrailOn.GetValueOnGameThread()!=0
++            &&TracerTrailEmission.GetValueOnGameThread()>0.f
++            ?FMath::Clamp(TracerTrailLingerSeconds.GetValueOnGameThread(),0.f,3.f)
++                +FMath::Clamp(TracerTrailFadeSeconds.GetValueOnGameThread(),0.f,3.f):0.f;
++        const float StreakHold=FMath::Max(FMath::Clamp(TracerLingerSeconds.GetValueOnGameThread(),0.f,2.f),
++            TrailLinger);
++        if (T.bFlash)
++        {
++            T.FlashAge += DeltaTime;
++            if (T.FlashAge >= FMath::Max(WeaponFX::TracerFlashSeconds,TrailLinger))
++            { ReleaseTracer(T); ++ExpiredTracerSegments; continue; }
++        }
++        else if (T.LastUpdateFrame != GFrameCounter)
++        {
++            // A 350 m/s round crosses 20 m in about three frames at 60 fps, so a streak that
++            // died with the round was almost invisible. It never moves again after this, so
++            // holding it cannot smear (the material refuses TSR history).
++            T.LingerAge += DeltaTime;
++            if (T.LingerAge >= StreakHold)
++            {
++                // Total post-impact lifetime includes both hold and fade.
++                if(T.bConverged&&TracerDiag.GetValueOnGameThread()!=0)
++                    UE_LOG(LogTemp,Display,TEXT("TRACER_CONVERGED close round=%d held=%.2fs traveled=%.0fcm trail=%.0fcm"),
++                        T.RoundId,T.LingerAge,T.TraveledCM,
++                        T.TrailMesh&&T.TrailMesh->IsVisible()
++                            ?T.TrailMesh->GetComponentScale().Z*(WeaponFX::TrailLocalFar-WeaponFX::TrailLocalNear):0.f);
++                ReleaseTracer(T); ++ExpiredTracerSegments; continue;
++            }
++        }
++        ApplyTracerTransform(T);
++    }
++}
++

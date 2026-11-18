@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Skills/FPSLightningHasteComponent.h b/Source/FPSGAME/Skills/FPSLightningHasteComponent.h
+--- a/Source/FPSGAME/Skills/FPSLightningHasteComponent.h
++++ b/Source/FPSGAME/Skills/FPSLightningHasteComponent.h
+@@ -64,6 +64,7 @@
+     TArray<FName> LimbRoots,LimbTips;
+     double NextLimbResolveAt=0;
+     void ResolveLimbSources();
++    void ClearLimbTickPrerequisites();
+     UColdSteelStatusModel* Model() const;
+     UFPSFireballComponent* Hands() const;
+     double Clock() const;

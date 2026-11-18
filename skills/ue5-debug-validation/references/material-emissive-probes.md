@@ -27,7 +27,7 @@ return float3(px, px * alive, px);         // R=对照组 B=P自身 G=待测量
 
 1. **duplicate 生产 master** → 在副本上给目标 Custom 节点做字符串替换（用节点体最后的
    `return ...;` 精确串当锚点，替换前 assert 命中且唯一）。
-2. 需要看"非输出节点"（如法线节点）时，把 `MP_EMISSIVE` 重连到该节点。
+2. 需要看"非输出节点"（如法线节点）时，把 `MP_EMISSIVE` 重连到该节点。 原因：Emissive 可以把中间值直接作为可见输出，便于隔离后续光照和合成的影响。
 3. `MEL.set_material_instance_parent(生产MI, 探针master)` + 保存——**MI 的参数覆写按名保留**，
    C++ 的 MID 链照常继承。
 4. 跑完 `restore`：父项设回真 master，**读回父项路径断言**，再保存。
@@ -39,7 +39,7 @@ return float3(px, px * alive, px);         // R=对照组 B=P自身 G=待测量
 - **re-parent 前写在 MI 上的覆写，换父后运行时不生效**（按表达式 GUID 匹配，新 master 的表达式是新
   GUID）→ 回退到新 master 的**默认值**。做"默认值 vs 覆写值"实验时要意识到测到的是默认值。
 - **restore 只还原父项，不清除实验注入的覆写**——探针若写过参数值，收尾必须显式写回正确值再保存
-  （本案 Wave01 曾被污染，靠 `get_material_instance_vector_parameter_value` 读出生效值才发现）。
+  （本案 Wave01 曾被污染，靠 `get_material_instance_vector_parameter_value` 读出生效值才发现）。 原因：恢复父材质不清除实例自己的参数覆写，实验值可能继续污染正式表现。
 
 ## 3. 环境坑（Git Bash + 本机编辑器，全部踩过）
 
@@ -56,7 +56,7 @@ return float3(px, px * alive, px);         // R=对照组 B=P自身 G=待测量
   唯一时间戳注释。
 - `r.DumpShaderDebugInfo 1` 经 `-ExecCmds` 传入时**在地图加载之后才生效**——水材质的编译任务已提交完。
   要拿到着色器转储，把 cvar 写进 `DefaultEngine.ini [ConsoleVariables]`（跑完务必删除），且该次运行
-  必须是内容变更后的第一个编译者。
+  必须是内容变更后的第一个编译者。 原因：着色器转储开关必须早于本次着色器编译生效，临时诊断设置不应留作项目默认配置。
 - `MEL.recompile_material` 在 NullRHI commandlet 里**不做 GPU 着色器编译**（工程既有结论），别用它
   当"已编译"的证据；真编译看 -game 运行。
 
@@ -68,4 +68,4 @@ return float3(px, px * alive, px);         // R=对照组 B=P自身 G=待测量
 - **逐特征二分**：把可疑结构（参数数量/共享表达式/WPO 双频/纹理链/include/nanite 标志）在**最小底盘**
   上逐个复刻。本案 8 项全部单独健康——说明病灶在"已保存资产的组合状态"，这时下一步是**从零重建
   同构资产**对比，而不是继续拆特征。
-- 每个探针的判决（活/死）当场量化记录（行内 std / 条带强度），不要凭肉眼记忆比较。
+- 每个探针的判决（活/死）当场量化记录（行内 std / 条带强度），不要凭肉眼记忆比较。 原因：探针用于比较具体中间量，量化记录才能对应同一输入而不依赖观察记忆。

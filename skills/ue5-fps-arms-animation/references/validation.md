@@ -2,40 +2,38 @@
 
 ## 动画采样率与压缩断言
 
-UE 5.8 在 AnimCompressionTypes.cpp 的 IsNearlyZero(SampleFrameTime.GetSubFrame()) 断言时，先找同次日志中的具体动画及 Incompatible resampling frame rate。源模型与压缩目标帧率是两项配置，controller.set_frame_rate 只改前者。
+UE 5.8 在 AnimCompressionTypes.cpp 的 IsNearlyZero(SampleFrameTime.GetSubFrame()) 断言时，先找同次日志中的具体动画及 Incompatible resampling frame rate。源模型与压缩目标帧率是两项配置，controller.set_frame_rate 只改前者。 原因：该断言针对时间重采样，修改源帧率并不会同时修改压缩目标帧率。
 
 - 写轨道前把 platform_target_frame_rate.default 设为作者源帧率，在编辑 bracket 关闭前建立一致采样。保留关键帧数量、动作时长和命中时序，不凑整帧、缩时长或关闭断言。
-- 项目已有 WeaponAnimationAuthoring.finalize_authored_animation，负责 NotifyPopulated 及等待该动画压缩结束。先设正确帧率，不能在错误压缩任务已经启动后依赖 finalizer 补救。
+- 项目已有 WeaponAnimationAuthoring.finalize_authored_animation，负责 NotifyPopulated 及等待该动画压缩结束。先设正确帧率，不能在错误压缩任务已经启动后依赖 finalizer 补救。 原因：几何数量只是部分成本，未经同场景采样不能换算成帧时间收益。
 - 已保存的坏动画在 PostLoad 就可能启动压缩。若作者源完整、资产刚由当前导入器生成，可在无占用且持有共享资产互斥时备份单个包，再按原包路径重建。保留附加 notify/metadata，不将此方法推广为任意资产的无条件替换。
-- 2026-10-27 双持 Kukri 第三击为 223 个关键帧、222 间隔、120 FPS、1.85 秒；默认 30 FPS 得到 55.5 帧而崩溃。匹配 120 FPS 并等待压缩后保存，未改命中时序；导入成功与运行验收分开记录。
+- 2026-10-27 双持 Kukri 第三击为 223 个关键帧、222 间隔、120 FPS、1.85 秒；默认 30 FPS 得到 55.5 帧而崩溃。匹配 120 FPS 并等待压缩后保存，未改命中时序；导入成功与运行验收分开记录。 原因：持久化需要对应已经完成的业务状态，提前或重复保存会遗漏结果或重复应用收益。
 
 ## 证据链
 
 1. 查看当前实际画面和源动作，保存本次改动前路径、时序与散列。候选检查输出必须晚于相应导出文件，避免用上一代报告验收新 FBX。
-2. 按修改范围采样手/弹匣/枪体表面、握持相对矩阵、骨长及关键机械行程。比较已有接触与新穿模，不把探针误差降低等同于自然手型。
+2. 按修改范围采样手/弹匣/枪体表面、握持相对矩阵、骨长及关键机械行程。比较已有接触与新穿模，不把探针误差降低等同于自然手型。 原因：手部接触、骨段长度和关节弯曲共同决定姿态，单独满足一个数值仍可能破坏人体轮廓。
 3. 导入单个目标 clip，指定兼容 Skeleton 和采样参数；独立读回保存后的压缩动画，比较 raw/compressed 及持握区间偏移。当前 M4 使用 `/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel`。
 4. 更新当前 C++/数据的实际引用，必要时编译。以新进程的 `M4_ANIMATION_AUDIT_ACTIVE` 路径和实际输入运行证明已应用；打开的编辑器可能缓存旧模块/资产。
-5. 用同一次游戏进程的画面与混音检查音效触发、接触和恢复。不要用导入成功、日志出现 sound 名、静音图片或事后逐事件重配音作同步证据。
+5. 用同一次游戏进程的画面与混音检查音效触发、接触和恢复。不要用导入成功、日志出现 sound 名、静音图片或事后逐事件重配音作同步证据。 原因：声音触发和空间归属决定听感，重复播放或错误衔接会产生额外声源与断点。
 
 阈值按网格尺度、接触余量和本次目标制定。当前 M4 的 480 Hz 导出、960 Hz 骨骼读回、120 Hz 表面探针是解决已观察到的插值误差后的选择，不是所有动画必须套用的成本。
 
 ## 单一时钟与机械声音
 
-保持源动画时间、运行时间和 clip 播放率的明确映射：`play_rate = source_duration / gameplay_duration`。分段重定时则音效使用同一映射，不仅缩短状态计时器。
+保持源动画时间、运行时间和 clip 播放率的明确映射：`play_rate = source_duration / gameplay_duration`。分段重定时则音效使用同一映射，不仅缩短状态计时器。 原因：声音和姿态需要使用同一源到运行时间映射，只缩短状态计时器会造成错拍。
 
 当前 `ReloadSourceTime(WeaponStateElapsed)` 与机械 cue 共用时钟；跨过事件后只触发一次，并在取消/完成时清理事件状态。额外检查重复 R、低帧率、最后一发按住扳机及切枪。
 
 历史故障是 `lateness < sound_duration` 会丢弃比一帧延迟更短的压实声。当前普通 M4 允许尚未过期的接触音播放至下一接触事件或动作结束；迟到跨越多事件时跳过已失效旧音，防止一次补播整串。该修正仅在当前已验证分支生效，别把音效迟到规则未经检查套给弹鼓。
 
-实际 WAV 可与许可明确的来源片段做相关匹配，结合 cue 日志和关键帧判断：是否真的播放、是否错片段、是否截断/削波、是否明显滞后。录音起点、混音缓冲和截图频率会引入偏移，应明确记录。全程时间轴只做统一起点对齐，不逐事件挪音来掩盖游戏不同步。
+实际 WAV 可与许可明确的来源片段做相关匹配，结合 cue 日志和关键帧判断：是否真的播放、是否错片段、是否截断/削波、是否明显滞后。录音起点、混音缓冲和截图频率会引入偏移，应明确记录。全程时间轴只做统一起点对齐，不逐事件挪音来掩盖游戏不同步。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 读图与请求体预算
 
 本机 `deepseek-v4-flash` 已开原生图片输入（`models.json` 的 `input_modalities` 含 `image`），会话内挂载的 `read_image` 读进来的图会留在历史里，而每轮请求都会重发整段历史（`disable_response_storage = true` 时不走服务端存储）。评审 sheet 单张 1–4 MB，2026-09-16 的蓄力左臂线程累计 26 张、约 49 MB 图片：最后一次成功的请求体约 50.0 MB，再加一张 1.6 MB 的 `sheet_fp.png` 涨到约 51.7 MB 就返回 `413 Payload Too Large: Failed to buffer the request body: length limit exceeded`，此后再发任何消息（含“继续”）都失败，整条线程报废。上限是上游缓冲限制，越界点按实测推断，不是官方文档数字。
 
 - 看之前先确认体积：harness 会对过大的图自行规范化缩放，所以手工缩图不再是看图的必要前置；但**累计体积**这条没变。要主动控制时用 `D:/FPS3D/FPSGAME/Tools/shrink-for-view.ps1` 生成长边 ≤1400、JPEG q80 的副本（默认写入原图同级的 `View/`），单张落到约 150–400 KB。副本只用于看；像素测量、alpha 底边拟合、IoU 这类定量结论必须继续读原图。
-- 单线程图片预算：内联图片累计控制在约 10 MB、8 张以内。换一版（V44→V45）就开新线程，只带 3–5 行简报加关键数据文件路径，不要把上一版整段历史带过来。
-- 已经 413 的线程不要再发消息；`/compact` 也需要发同一体积的请求，通常同样失败。新开线程；DSH 的旧会话压缩存放在 `E:/DSH/sessions/<工程目录>/<session-id>/session.v3.jsonl.zstd`。
 - 只需要文字描述、或要让图片字节完全不进会话时走 `D:/FPS3D/FPSGAME/Tools/deepseek-vision.ps1`（独立 HTTP 调用，不发图片字节），用法与边界见 `D:/FPS3D/FPSGAME/Docs/deepseek-vision.md`。**让我自己看图用会话内挂载的 `read_image` 工具**，不需要 key，也能追问；代价是图片进上下文，所以要盯住下一条的累计预算。
 
 ## 本机复用入口
@@ -49,11 +47,11 @@ rg -n 'M4_ANIMATION_AUDIT_ACTIVE|M4TacticalToss|M4SlapImpact|M4WrapGrip' 'D:/FPS
 & "$caseDir/run_validation.ps1" -Fps 60 -Label m4-new-unique-label -CaptureFrames -CaptureAudio -CaptureHz 20 -PreviewWidth 640
 ```
 
-- `verify_contract.py`：源动作的握持/骨长/机械时间；抓握区间必须随动作更新，不能继续用旧 23–98 断言普通新动作。
+- `verify_contract.py`：源动作的握持/骨长/机械时间；抓握区间必须随动作更新，不能继续用旧 23–98 断言普通新动作。 原因：动作需要持续接触实际武器或道具，只有骨骼位置接近并不能保证真实表面贴合。
 - `triangle_contact_probe.py`、`probe_body.py`：指定网格、动作和采样段的表面检查；网格重拓扑后需重新定义采样组。
-- `publish.py`：只导入候选目标，先检查报告新鲜度和姿态；脚本有资产写操作，不能不改 destination 就拿来做探索。
+- `publish.py`：只导入候选目标，先检查报告新鲜度和姿态；脚本有资产写操作，不能不改 destination 就拿来做探索。 原因：发布脚本实际写入资源，探索性调用若复用正式目标会覆盖当前资产。
 - `verify_assets.py`、`verify_mat_saved.py`：独立进程读回 AnimSequence 与 MAT Sequence。
-- `check_audio.py <Label>`：检查同次混音和日志；使用已确认音频来源，并核对脚本依赖与预期事件数，不能无条件要求所有测试都恰好 11 音。
+- `check_audio.py <Label>`：检查同次混音和日志；使用已确认音频来源，并核对脚本依赖与预期事件数，不能无条件要求所有测试都恰好 11 音。 原因：音频事件数由当前动作和脚本决定，旧案例的固定数量不能作为所有动作的门槛。
 - `make_delivery.py`：实际画面与混音对齐；修改 label、采样率、起点及片段时长；如缺截图沿用上一帧，需在清单说明。
 
 UE 命令行位于 `E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/`，Blender 为 `E:/Program Files/Blender Foundation/Blender 5.1/blender.exe`。用 PowerShell 字面路径，Python 使用 `-X utf8`。脚本路径是本机工作入口，不是可发布资产依赖。
@@ -63,8 +61,8 @@ UE 命令行位于 `E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/`，Blen
 - 当前宿主 `D:/FPS3D/FPSGAME` 已是独立 Git 仓库，直接在这里精确提交推送；写入前核对原字节未被并行任务修改。模块使用尚未占用的唯一 `-ModuleWithSuffix=FPSGAME,<suffix>`；不恢复旧 UnrealEditor.modules 来覆盖另一任务构建。
 - 查明持有 DLL 的编辑器归属，不反复关闭用户/其他任务的实例。新建自己的隐藏辅助进程；有已打开用户编辑器时明确区分新测试进程已验证与用户编辑器是否已重新加载。
 - 实际混音录制时避免同时运行 Blender 渲染、MAT 烘焙或其他重 UE 检查，减少截图遗漏和事件延迟。仍要报告实际缺图。
-- commandlet 的既有 GameFeatureData 或 MCP 端口报错与动画检查分开判断。保留退出码、错误和明确产物读回证据；新错误不能一律列为“已有”。MAT 保存后的已知 Sequencer 退出问题见 [MAT 实操](mat-editing.md)。
-- 不修改运行时的动画任务，只更新技能/文档时，检查前置元数据、链接、镜像和变更边界即可；不要为文档再跑 50 项游戏审计。
+- commandlet 的既有 GameFeatureData 或 MCP 端口报错与动画检查分开判断。保留退出码、错误和明确产物读回证据；新错误不能一律列为“已有”。MAT 保存后的已知 Sequencer 退出问题见 [MAT 实操](mat-editing.md)。 原因：批处理的启动结果不等于内部构建结果，交付必须依据实际结束状态。
+- 不修改运行时的动画任务，只更新技能/文档时，检查前置元数据、链接、镜像和变更边界即可；不要为文档再跑 50 项游戏审计。 原因：可施放实现还需要被目录、习得和存档路径识别，漏登记会使入口状态不一致。
 - **DLL 被编辑器占用（LNK1104）**：`Tools/Build/Build-Editor.ps1` 在检测到本工程编辑器时会直接拒绝构建，这是设计行为。此时编译/`.lib` 链接通常已经成功，只有最终写 `UnrealEditor-FPSGAME.dll` 失败——报错要区分这两件事。不要为了让构建过而杀进程：用户可能正在实测，先按"关闭后重跑"处理。判断"编辑器是否还开着"不能用 `tasklist //FI` 这种窄匹配（`UnrealEditor-Cmd.exe`、以及**第二个实例**都会漏判），用 `Get-CimInstance Win32_Process -Filter "Name='UnrealEditor.exe' OR Name='UnrealEditor-Cmd.exe'"` 再按 `CommandLine -match 'FPSGAME'` 过滤；同名进程要用窗口标题（`MainWindowTitle`）和 `Responding` 确认它到底是活的还是残留。用户说"已关闭"但进程仍在时，先核对日志尾部有没有正常退出（`LogExit: Exiting.`）和 `Saved/Crashes/` 有没有新增目录，再把事实摆出来由用户决定；终止用户进程必须拿到明确授权。
 - 编辑器占用期间的守望：脚本每 15 s 查一次，编辑器一退出就自动补跑 `Build-Editor.ps1`，比反复问用户省事；守望脚本用完即弃，放 `Saved/` 不进仓库。
 - **验证"暂存的子集"要用干净树**：把索引内容 `git checkout-index -f` 写进脏工作区再编译，其他文件带着并行会话的未提交改动，会报出与暂存内容无关的假错误（例如未暂存的函数声明缺失）。要证明某次提交能独立编译，只能建临时工作树（`git worktree add` 指向该提交），或在提交后按该提交重建；不要在脏树上用文件替换法下结论。

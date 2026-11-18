@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-17",
+  "scope": "Eight chain-stack lookups and four staff-specialty queries within Skills",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "before_lines": 134,
+      "after_lines": 129,
+      "before_bytes": 8559,
+      "after_bytes": 8162,
+      "before_sha256": "06b045bee8a7a14c5232db82b3fba854384472bcaaf32ba1b8cfa2a99c8da26e",
+      "after_sha256": "d485cd99b2652c7aeb9ab32b320a0b788761eb8649c85e7c7f0d4e08d9c60d60",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelHolyLightModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "before_lines": 126,
+      "after_lines": 121,
+      "before_bytes": 7955,
+      "after_bytes": 7558,
+      "before_sha256": "05e7aaea1939ced948f2017496276f568ba41b1dfd235114cb699c3d5d890593",
+      "after_sha256": "01ed01a90706086069b997e05ecbabad454bbdac3b4d91186f4a8ca96255690b",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelIceSpikeModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "before_lines": 134,
+      "after_lines": 129,
+      "before_bytes": 8950,
+      "after_bytes": 8553,
+      "before_sha256": "1705b1a759cd6d713bb6f2ce40a8e097eec7f29c9ea064521185a3fd68e569b5",
+      "after_sha256": "dcd36a55005aa0a1fc21eeff03689161d54d224e9542d0435316c80966ac71db",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelLightningModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "before_lines": 139,
+      "after_lines": 137,
+      "before_bytes": 9597,
+      "after_bytes": 9487,
+      "before_sha256": "cfd594a78e6f0ff218d8f4866587a5c670b6771b25d7e57bc59e36944d7c5cd3",
+      "after_sha256": "7ec662c688ec3a73ebb4c29b89866c7ec71964ca662ad5654d534dc0eafaac9b",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelFireMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+      "before_lines": 115,
+      "after_lines": 113,
+      "before_bytes": 7024,
+      "after_bytes": 6914,
+      "before_sha256": "4956362ded48e235091846c03bcde44df60632da1d35fce37fb64ad1efbc5523",
+      "after_sha256": "c5da4963496772ec6303d5cb79cf01a7eb17ca54fae277d22b30486721897a9d",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelBlizzardModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "before_lines": 143,
+      "after_lines": 141,
+      "before_bytes": 8540,
+      "after_bytes": 8430,
+      "before_sha256": "3d1c0b694581a140ba89832f6b7bf5332e4a1e443d00b082f1f326b11b9989f4",
+      "after_sha256": "059d7232be0d7eb71d87e6ee80657bb615b22506850ffe45aa6e196aa6af1ca2",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelIceWallModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp",
+      "before_lines": 92,
+      "after_lines": 87,
+      "before_bytes": 6322,
+      "after_bytes": 5918,
+      "before_sha256": "7af167f576b7a508ec41da154573549a665c6f56a73667f8d395214ab6ededbf",
+      "after_sha256": "fd540497723f0bd4e17e5ae6f919412ecf88bb429149d992aebbf57ecfc617fb",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelElectricMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellMana.cpp",
+      "before_lines": 69,
+      "after_lines": 67,
+      "before_bytes": 3797,
+      "after_bytes": 3668,
+      "before_sha256": "fbd81d35ed1cd7285ff77fef43d7832942cc562e74e0185aead7b803c8cb75e7",
+      "after_sha256": "4748a4b2e9412017d1e1516dcee1952201f7b8155bba77b100ec8dfc5fde10d0",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelSpellMana.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellCrafting.h",
+      "before_lines": 27,
+      "after_lines": 45,
+      "before_bytes": 1116,
+      "after_bytes": 1828,
+      "before_sha256": "306b8540cc1a003ae0ee275fa67bedcd48c613ce02dc8828f333fa033de86690",
+      "after_sha256": "dd6bdf266566ced112872b127f9123273122a62145f07b0a8ca87f67475d2a1e",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-13-spell-lookups/ColdSteelSpellCrafting.h.before.txt"
+    }
+  ]
+}

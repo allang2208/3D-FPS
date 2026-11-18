@@ -1,0 +1,1002 @@
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -51,98 +51,9 @@
+ #include "RenderCommandFence.h"
+ #include "Misc/ScopeExit.h"
+ 
++#include "TemperateHillsStreamingPrivate.h"
+ namespace HillsStreaming
+ {
+-constexpr double CellSize=6400.0;
+-// Entry only waits for this playable neighborhood. The normal view ring starts
+-// streaming after release, with the existing two terrain jobs / one mesh per frame.
+-constexpr double EntryRadius=3200.0;
+-enum EAssetBatch { Solids, Understory, GroundCover, Atmosphere, BatchCount };
+-
+-void SetCellMesh(UDynamicMeshComponent* Component,UE::Geometry::FDynamicMesh3&& Mesh,
+-    TConstArrayView<TObjectPtr<UPCGComponent>> VegetationLayers)
+-{
+-    TRACE_CPUPROFILER_EVENT_SCOPE(HillsSubmitTerrainMesh);
+-#if WITH_EDITOR
+-    // SetMesh broadcasts OnObjectPropertyChanged even in PIE. PCG tracks our
+-    // owning hills actor, so submitting a streamed ground/water mesh otherwise
+-    // dirties ALL vegetation layers, cancels their jobs and removes live cells.
+-    // These meshes are presentation of Height()/TerrainEdits, not PCG inputs.
+-    // Ignore only this component during the synchronous notification; preserve
+-    // normal mesh notifications, explicit edits and the distance scheduler.
+-    for(const auto& Layer:VegetationLayers)
+-        Layer->StartIgnoringChangeOriginDuringGeneration(Component);
+-    ON_SCOPE_EXIT
+-    {
+-        for(const auto& Layer:VegetationLayers)
+-            Layer->StopIgnoringChangeOriginDuringGeneration(Component);
+-    };
+-#endif
+-    Component->SetMesh(MoveTemp(Mesh));
+-}
+-
+-double CellDistanceSquared(const FVector& Point,const FVector& Origin)
+-{
+-    const double DX=FMath::Max(0.,FMath::Abs(Point.X-Origin.X-CellSize*.5)-CellSize*.5);
+-    const double DY=FMath::Max(0.,FMath::Abs(Point.Y-Origin.Y-CellSize*.5)-CellSize*.5);
+-    return DX*DX+DY*DY;
+-}
+-constexpr double EntryVegetationRadius=1600.0;
+-
+-void CountVegetationCells(UPCGComponent* Component,FVector Center,double Radius,double Half,int32& Required,int32& Complete)
+-{
+-    auto& State=Component->GetExecutionState();
+-    const auto* Graph=State.GetGraph();
+-    if(!Graph)return;
+-    const uint32 Grid=Graph->GetDefaultGridSize();
+-    if(!Grid||Grid==PCGHiGenGrid::UnboundedGridSize())return;
+-    const FPCGGridDescriptor Descriptor=FPCGGridDescriptor().SetGridSize(Grid).SetIs2DGrid(true).SetIsRuntime(true);
+-    const int32 MinX=FMath::FloorToInt(FMath::Max(-Half,Center.X-Radius)/Grid);
+-    const int32 MaxX=FMath::FloorToInt(FMath::Min(Half-1,Center.X+Radius)/Grid);
+-    const int32 MinY=FMath::FloorToInt(FMath::Max(-Half,Center.Y-Radius)/Grid);
+-    const int32 MaxY=FMath::FloorToInt(FMath::Min(Half-1,Center.Y+Radius)/Grid);
+-    for(int32 Y=MinY;Y<=MaxY;++Y)for(int32 X=MinX;X<=MaxX;++X)
+-    {
+-        const double DX=FMath::Max(0.0,FMath::Abs(Center.X-(X+.5)*Grid)-Grid*.5);
+-        const double DY=FMath::Max(0.0,FMath::Abs(Center.Y-(Y+.5)*Grid)-Grid*.5);
+-        if(DX*DX+DY*DY>Radius*Radius)continue;
+-        ++Required;
+-        if(auto* Local=State.GetLocalSource(Descriptor,FIntVector(X,Y,0)))
+-            if(Local->GetExecutionState().IsGenerated()&&!Local->GetExecutionState().IsGenerating())++Complete;
+-    }
+-}
+-// Edited cells are meshed at this multiple of the normal quad count. 1 disables the
+-// refinement (cheaper, faceted); 2 is the shipped default.
+-static TAutoConsoleVariable<int32> EditMeshBoost(
+-    TEXT("fps.Hills.EditMeshBoost"), 2,
+-    TEXT("Extra mesh resolution for cells touched by a crater or shovel edit (1..4)."));
+-struct FMeshResult
+-{
+-    FIntPoint Key;
+-    bool Detailed=false;
+-    UE::Geometry::FDynamicMesh3 Mesh;
+-    UE::Geometry::FDynamicMesh3 Water;
+-    UE::Geometry::FDynamicMesh3 Ponds;
+-};
+-struct FJob
+-{
+-    FIntPoint Key;
+-    uint32 EditRevision=0;
+-    TFuture<TSharedPtr<FMeshResult,ESPMode::ThreadSafe>> Future;
+-};
+-struct FCell
+-{
+-    TWeakObjectPtr<UDynamicMeshComponent> Mesh;
+-    TWeakObjectPtr<UDynamicMeshComponent> Pending;
+-    TWeakObjectPtr<UInstancedStaticMeshComponent> Trunks;
+-    TWeakObjectPtr<UDynamicMeshComponent> Water;
+-    TWeakObjectPtr<UDynamicMeshComponent> Ponds;
+-    bool Detailed=false;
+-    bool PendingDetailed=false;
+-    // Set when a runtime crater landed in this cell: the live mesh stays until a
+-    // replacement is cooked, then the cell is rebuilt from the new crater list.
+-    bool Dirty=false;
+-};
+ // Streaming CVars are process-wide, including when several PIE worlds coexist.
+ static int32 BudgetWorldCount=0;
+ static int32 PreparingWorldCount=0;
+@@ -192,247 +103,7 @@
+     BudgetOverrides.Reset();EntryBudgetActive=false;
+ }
+ 
+-TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed,double Half,int32 Seed,TemperateRiver::FPlanPtr River,const TArray<TemperateHillsSurface::FTerrainEdit>& Edits,int32 Version,TemperateForestWater::FPlanPtr ForestWater,FTemperateChapelSite Chapel,FTemperateVillageSite Village)
+-{
+-    auto Result=MakeShared<FMeshResult,ESPMode::ThreadSafe>();Result->Key=Key;Result->Detailed=Detailed;
+-    auto& Mesh=Result->Mesh;Mesh.EnableAttributes();Mesh.Attributes()->EnablePrimaryColors();
+-    Mesh.Attributes()->SetNumUVLayers(3);
+-    auto* Habitat=Mesh.Attributes()->GetUVLayer(1);
+-    auto* UplandCover=Mesh.Attributes()->GetUVLayer(2);
+-    auto* Normals=Mesh.Attributes()->PrimaryNormals();auto* UVs=Mesh.Attributes()->PrimaryUV();
+-    auto* Colors=Mesh.Attributes()->PrimaryColors();
+-    const double OX=-Half+Key.X*CellSize,OY=-Half+Key.Y*CellSize;
+-    const bool RiverCell=River&&River->IntersectsCell(OX,OY,CellSize);
+-    const bool PondCell=ForestWater&&ForestWater->IntersectsCell(OX,OY,CellSize);
+-    // Only the edits that can still reach this cell (plus the normal stencil) travel into the job.
+-    TArray<TemperateHillsSurface::FTerrainEdit> LocalEdits;
+-    if(!Edits.IsEmpty())for(const TemperateHillsSurface::FTerrainEdit& Edit:Edits)
+-    {
+-        const double Reach=TemperateHillsSurface::TerrainEditReach(Edit)+110;
+-        if(Edit.X>OX-Reach&&Edit.X<OX+CellSize+Reach&&Edit.Y>OY-Reach&&Edit.Y<OY+CellSize+Reach)LocalEdits.Add(Edit);
+-    }
+-    // Even distant river cells retain 2 m terrain spacing to avoid a coarse LOD
+-    // spanning across the shallow channel and covering its water surface.
+-    // Edited ground gets twice the resolution: a 3 m crater or a 20 cm shovel step
+-    // needs the extra vertices to avoid reading as a faceted polygon.
+-    const int32 Boost=!LocalEdits.IsEmpty()?FMath::Clamp(HillsStreaming::EditMeshBoost.GetValueOnAnyThread(),1,4):1;
+-    // Shallow forest shorelines retain a 1 m grid even in the distant LOD.
+-    const bool ChapelCell=Chapel.Near(OX+CellSize*.5,OY+CellSize*.5,CellSize*.5);
+-    const bool VillageCell=Village.Near(OX+CellSize*.5,OY+CellSize*.5,CellSize*.5);
+-    const bool CliffCell=River&&River->WhiteCliffs.Weight(OX+CellSize*.5,OY+CellSize*.5)>.01;
+-    const int32 Quads=(PondCell||ChapelCell||VillageCell?64:RiverCell||CliffCell?(Detailed?64:32):(Detailed?32:8))*Boost;
+-    const double Step=CellSize/Quads;
+-    for(int32 Y=0;Y<=Quads;++Y)for(int32 X=0;X<=Quads;++X)
+-    {
+-        const double WX=OX+X*Step,WY=OY+Y*Step;
+-        double Z=River?River->Height(WX,WY,Seed):TemperateHillsSurface::Height(WX,WY,Seed,Version);
+-        if(ForestWater)Z=ForestWater->ShapeGround(WX,WY,Z);
+-        if(VillageCell)Z=Village.Grade(WX,WY,Z);
+-        if(ChapelCell)Z=Chapel.Grade(WX,WY,Z);
+-        if(!LocalEdits.IsEmpty())Z+=TemperateHillsSurface::TerrainEditOffset(LocalEdits,WX,WY);
+-        Mesh.AppendVertex(FVector3d(X*Step,Y*Step,Z));
+-        FVector Normal=River?River->Normal(WX,WY,Seed):TemperateHillsSurface::Normal(WX,WY,Seed,Version);
+-        if((ChapelCell&&Chapel.Near(WX,WY))||(VillageCell&&Village.Near(WX,WY))||(ForestWater&&ForestWater->HasBasin(WX,WY))||(!LocalEdits.IsEmpty()&&TemperateHillsSurface::TerrainEditTouches(LocalEdits,WX,WY)))
+-            Normal=TemperateHillsSurface::NumericNormal([&](double PX,double PY)
+-            {
+-                double Base=River?River->Height(PX,PY,Seed):TemperateHillsSurface::Height(PX,PY,Seed,Version);
+-                if(ForestWater)Base=ForestWater->ShapeGround(PX,PY,Base);
+-                return Chapel.Grade(PX,PY,Village.Grade(PX,PY,Base))+TemperateHillsSurface::TerrainEditOffset(LocalEdits,PX,PY);
+-            },WX,WY);
+-        Normals->AppendElement(FVector3f(Normal));
+-        const auto Bank=River?River->Sample(WX,WY):TemperateRiver::FSample();
+-        const auto Layers=TemperateHillsGround::Layers(WX,WY,Z,Normal,Seed,Bank,River?River->RainforestWeight(WX,WY):0.,
+-            River ? River->Ecology : TemperateEcology::FProfile{},River&&River->bVillageRainforest);
+-        UVs->AppendElement(Layers.UV);
+-        Habitat->AppendElement(Layers.Habitat);
+-        UplandCover->AppendElement(Layers.Upland);
+-        Colors->AppendElement(Layers.Color);
+-    }
+-    // Concavity is sampled from the existing grid, without extra height noise
+-    // queries per vertex. UV1 is an added contract; UV0 and RGBA keep their uses.
+-    auto NeighborZ=[&](int32 X,int32 Y)
+-    {
+-        if(X>=0&&Y>=0&&X<=Quads&&Y<=Quads)return Mesh.GetVertex(Y*(Quads+1)+X).Z;
+-        const double WX=OX+X*Step,WY=OY+Y*Step;
+-        double Z=River?River->Height(WX,WY,Seed):TemperateHillsSurface::Height(WX,WY,Seed,Version);
+-        if(ForestWater)Z=ForestWater->ShapeGround(WX,WY,Z);
+-        return Chapel.Grade(WX,WY,Village.Grade(WX,WY,Z))+TemperateHillsSurface::TerrainEditOffset(LocalEdits,WX,WY);
+-    };
+-    for(int32 Y=0;Y<=Quads;++Y)for(int32 X=0;X<=Quads;++X)
+-    {
+-        const int32 I=Y*(Quads+1)+X;const double Z=Mesh.GetVertex(I).Z;
+-        const double Mean=(NeighborZ(X-1,Y)+NeighborZ(X+1,Y)+NeighborZ(X,Y-1)+NeighborZ(X,Y+1))*.25;
+-        const auto Value=Habitat->GetElement(I);
+-        const float Moisture=TemperateHillsGround::SurfaceMoisture(Mean,Z,Step,Value.X,ForestWater,OX+X*Step,OY+Y*Step);
+-        Habitat->SetElement(I,FVector2f(Value.X,Moisture));
+-    }
+-    auto Tri=[&](int32 A,int32 B,int32 C)
+-    {const int32 ID=Mesh.AppendTriangle(A,B,C);const UE::Geometry::FIndex3i Indices(A,B,C);Normals->SetTriangle(ID,Indices);UVs->SetTriangle(ID,Indices);Colors->SetTriangle(ID,Indices);Habitat->SetTriangle(ID,Indices);UplandCover->SetTriangle(ID,Indices);};
+-    for(int32 Y=0;Y<Quads;++Y)for(int32 X=0;X<Quads;++X)
+-    {const int32 A=Y*(Quads+1)+X;Tri(A,A+Quads+2,A+1);Tri(A,A+Quads+1,A+Quads+2);}
+-    // Downward skirts cover the different edge subdivisions at the LOD boundary.
+-    TArray<int32> Edge;
+-    for(int32 X=0;X<=Quads;++X)Edge.Add(X);
+-    for(int32 Y=1;Y<=Quads;++Y)Edge.Add(Y*(Quads+1)+Quads);
+-    for(int32 X=Quads-1;X>=0;--X)Edge.Add(Quads*(Quads+1)+X);
+-    for(int32 Y=Quads-1;Y>0;--Y)Edge.Add(Y*(Quads+1));
+-    TArray<int32> Bottom;
+-    for(int32 Top:Edge)
+-    {
+-        const FVector3d P=Mesh.GetVertex(Top);
+-        const double Proxy=TemperateBackdrop::CoreTriangleHeight(OX+P.X,OY+P.Y,Half,Seed,River,Version,Village);
+-        Bottom.Add(Mesh.AppendVertex(FVector3d(P.X,P.Y,FMath::Min(P.Z-800,Proxy-50))));
+-        Normals->AppendElement(Normals->GetElement(Top));UVs->AppendElement(UVs->GetElement(Top));
+-        Colors->AppendElement(Colors->GetElement(Top));
+-        Habitat->AppendElement(FVector2f(0,0));
+-        UplandCover->AppendElement(UplandCover->GetElement(Top));
+-    }
+-    for(int32 I=0;I<Edge.Num();++I){const int32 J=(I+1)%Edge.Num();Tri(Edge[I],Bottom[J],Bottom[I]);Tri(Edge[I],Edge[J],Bottom[J]);}
+-    if(RiverCell)River->BuildWaterMesh(OX,OY,CellSize,Result->Water);
+-    if(PondCell)ForestWater->BuildWaterMesh(OX,OY,CellSize,Result->Ponds);
+-    return Result;
+-}
+-template<class T> void AddPaths(TArray<FSoftObjectPath>& Out,const TArray<TSoftObjectPtr<T>>& Values)
+-{for(const auto& V:Values)if(!V.IsNull())Out.AddUnique(V.ToSoftObjectPath());}
+-template<class T> bool Loaded(const TArray<TSoftObjectPtr<T>>& Values)
+-{return !Values.IsEmpty()&&Algo::AllOf(Values,[](const auto& V){return V.IsValid();});}
+-
+-#if WITH_EDITOR
+-bool MaterialPending(UMaterialInterface* Material,EShaderPlatform Platform)
+-{
+-    if(!Material)return false;
+-    const auto* Resource=Material->GetMaterialResource(Platform);
+-    return Material->IsCompiling()||(Resource&&!Resource->IsCompilationFinished());
+-}
+-#endif
+-
+-int32 RequiredGroundMips(const UTexture2D* Texture)
+-{
+-    const auto& State=Texture->GetStreamableResourceState();
+-    // Respect cooked/quality limits; optional (unmounted) mip payloads must not
+-    // make entry impossible. The curated ground textures use ordinary 2D mips.
+-    return FMath::Min(int32(State.NumNonOptionalLODs),
+-        FMath::Max(1,int32(State.MaxNumLODs)-Texture->NumCinematicMipLevels));
+-}
+-
+-bool GroundTextureReady(const UTexture2D* Texture)
+-{
+-    if(!Texture||!Texture->GetResource()||Texture->HasPendingInitOrStreaming())return false;
+-    const auto& State=Texture->GetStreamableResourceState();
+-    return State.IsValid()&&State.NumResidentLODs>=RequiredGroundMips(Texture);
+-}
+-}
+-
+-struct FTemperateHillsStreamingState
+-{
+-    TWeakObjectPtr<ULevelStreamingDynamic> VillageLevel;
+-    TMap<FIntPoint,HillsStreaming::FCell> Cells;
+-    TArray<HillsStreaming::FJob> Jobs;
+-    TFuture<TemperateRiver::FPlanPtr> RiverJob;
+-    bool RiverPending=false;
+-    bool WhiteCliffsBuilt=false;
+-    TFuture<TemperateRiver::FPlanPtr> VillageBiomeJob;
+-    bool VillageBiomePending=false;
+-    using FWaterPlans=TTuple<TemperateForestWater::FPlanPtr,TemperateForestWater::FPlanPtr>;
+-    TFuture<FWaterPlans> ForestWaterJob;
+-    bool ForestWaterPending=false;
+-    uint32 ForestWaterRevision=0;
+-    TArray<TSharedPtr<FStreamableHandle>> Handles;
+-    TArray<TWeakObjectPtr<UTexture2D>> GroundTextures;
+-    TMap<int32,TWeakObjectPtr<AActor>> Fog;
+-    // River mist keyed by centreline point index; separate lifecycle/density.
+-    TMap<int32,TWeakObjectPtr<AActor>> RiverFog;
+-    struct FSurfaceHold
+-    {
+-        EMovementMode ResumeMode=MOVE_Falling;
+-        FIntPoint WaitCell;
+-        FIntPoint PawnCell;
+-    };
+-    TMap<TWeakObjectPtr<ACharacter>,FSurfaceHold> HeldPawns;
+-    TMap<TWeakObjectPtr<APlayerController>,TWeakObjectPtr<UTemperateHillsGuestSource>> GuestSources;
+-#if !UE_BUILD_SHIPPING
+-    TWeakObjectPtr<ACharacter> Visitor;
+-    FIntPoint VisitCell=FIntPoint::ZeroValue;
+-    FVector2D VisitTarget=FVector2D::ZeroVector;
+-    FVector2D VisitFocus=FVector2D::ZeroVector;
+-    bool bVillageVisit=false;
+-    bool bWhiteCliffsVisit=false;
+-    void StageVisit(ACharacter* Player,FVector2D Target,FVector2D Focus,double Half)
+-    {
+-        VisitTarget={FMath::Clamp(Target.X,-Half+150.,Half-150.),FMath::Clamp(Target.Y,-Half+150.,Half-150.)};
+-        VisitFocus=Focus;
+-        VisitCell={FMath::FloorToInt32((VisitTarget.X+Half)/HillsStreaming::CellSize),
+-                   FMath::FloorToInt32((VisitTarget.Y+Half)/HillsStreaming::CellSize)};
+-        Visitor=Player;
+-    }
+-#endif
+-    bool GroundReady=false;
+-    bool LoadingAssets=false;
+-    bool TreesActive=false;
+-    bool FogReady=false;
+-    bool Stopping=false;
+-    bool Failed=false;
+-    bool PreparingBudget=true;
+-    double NextSurfaceWaitLog=0;
+-    struct FAssetBatch
+-    {
+-        bool Requested=false,Loaded=false,Ready=false;
+-        TArray<FSoftObjectPath> Paths;
+-        TSharedPtr<FStreamableHandle> Handle;
+-        double NextWaitLog=0;
+-    };
+-    FAssetBatch Batches[HillsStreaming::BatchCount];
+-    int32 CompletedStages=0;
+-    bool LayerActive[4]={};
+-    int32 WarmupAsset=0;
+-    int32 SettledFrames=0;
+-    int32 InitialPCGTotal=0;
+-    int32 InitialPCGReady=0;
+-    int32 RetainedHandleCount=0;
+-    TArray<TWeakObjectPtr<UObject>> WarmupMeshes;
+-    bool WarmupRemoved=false;
+-    FRenderCommandFence RenderFence;
+-    double TextureWaitStart=0;
+-    double NextGroundResidencyRefresh=0;
+-    double GroundMaterialIdleWaitStart=0;
+-    bool GroundTexturesCollected=false;
+-    bool GroundMaterialReadinessLogged=false;
+-    bool GroundTextureReadinessLogged=false;
+-    double NextFogTime=0;
+-    double NextVegetationFrontierTime=0;
+-    double NextEntryProgressLog=0;
+-    TArray<FIntPoint,TInlineAllocator<9>> SpawnCells;
+-    TSet<TWeakObjectPtr<AController>> WaitingToSpawn;
+-    int32 ReadySpawnCellCount() const
+-    {
+-        int32 Ready=0;
+-        for(const FIntPoint& Key:SpawnCells)
+-            if(const auto* Cell=Cells.Find(Key);Cell&&Cell->Mesh.IsValid()&&Cell->Detailed&&!Cell->Dirty&&!Cell->Pending.IsValid())++Ready;
+-        return Ready;
+-    }
+-};
+-
+-UMaterialInterface* ATemperateHillsWorld::GetMapGroundMaterial() const
+-{
+-    // Do not cache a map of the old shore while an edit's water plan is still computing.
+-    return bReady && Streaming && ForestWaterPlan && !Streaming->ForestWaterPending &&
+-        Streaming->ForestWaterRevision==TerrainEditRevision ? GroundMID.Get() : nullptr;
+-}
+-
+-void ATemperateHillsWorld::CopyMapGround(TemperateHillsGround::FMapSource& Out) const
+-{
+-    const FVector2D Half(SizeMeters*50.);
+-    Out={Seed,GeneratorVersion,FBox2D(-Half,Half),RiverPlan,ForestWaterPlan,ChapelSite,VillageSite,TerrainEdits};
+-}
+-
+-bool ATemperateHillsWorld::PrepareSpawnGround(AController* Controller)
+-{
+-    if(!Streaming||Streaming->Failed||!bSurfaceReady)return false;
+-    if(Streaming->ReadySpawnCellCount()==Streaming->SpawnCells.Num())return true;
+-    Streaming->WaitingToSpawn.Add(Controller);
+-    return false;
+-}
+-
++}
+ void ATemperateHillsWorld::BeginStreaming()
+ {
+     Streaming=MakeShared<FTemperateHillsStreamingState>();
+@@ -507,279 +178,6 @@
+     S.Handles.Add(Handle);
+     if(!Handle)OnSurfaceLoaded.ExecuteIfBound();
+ }
+-
+-void ATemperateHillsWorld::LoadNextEnvironmentStage()
+-{
+-    using namespace HillsStreaming;
+-    auto& S=*Streaming;
+-    if(S.LoadingAssets||S.Failed||S.CompletedStages==BatchCount)return;
+-    auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+-    const bool Full=!GUsingNullRHI&&Loading&&Loading->IsCompletePreloadSelected();
+-
+-    for(int32 Stage=0;Stage<BatchCount;++Stage)
+-    {
+-        auto& Batch=S.Batches[Stage];
+-        if(Batch.Ready)continue;
+-        if(!Batch.Requested)
+-        {
+-            // All playable vegetation loads alongside terrain preparation.
+-            // Only distant atmosphere may wait for the quick-entry overlay.
+-            if(Stage==Atmosphere&&!Full&&(!bReady||(Loading&&Loading->IsHoldingGameplayInput())))continue;
+-            Batch.Requested=true;
+-            TArray<FSoftObjectPath> Paths;
+-            switch(Stage)
+-            {
+-            case Solids:
+-                Paths.Add(Assets->Graphs[0].ToSoftObjectPath());
+-                Paths.Add(Assets->Graphs[1].ToSoftObjectPath());
+-                Paths.Add(Assets->TrunkCollisionMesh.ToSoftObjectPath());
+-                AddPaths(Paths,Assets->Trees);
+-                AddPaths(Paths,Assets->Rocks);AddPaths(Paths,Assets->RiverRocks);
+-                AddPaths(Paths,Assets->FallenLogs);AddPaths(Paths,Assets->ForestRoots);AddPaths(Paths,Assets->Cliffs);
+-                AddPaths(Paths,Assets->WhiteCliffMeshes);AddPaths(Paths,Assets->QuarryProps);
+-                Paths.Add(Assets->RainforestBankBoulder.ToSoftObjectPath());
+-                Paths.Append(ProductionOreRocks::AllMeshes());
+-                break;
+-            case Understory:
+-                Paths.Add(Assets->Graphs[2].ToSoftObjectPath());
+-                AddPaths(Paths,Assets->Shrubs);AddPaths(Paths,Assets->ForestSaplings);
+-                AddPaths(Paths,Assets->ForestShrubs);AddPaths(Paths,Assets->ForestFerns);
+-                break;
+-            case GroundCover:
+-                Paths.Add(Assets->Graphs[3].ToSoftObjectPath());
+-                AddPaths(Paths,Assets->Grass);AddPaths(Paths,Assets->GrassAccents);
+-                AddPaths(Paths,Assets->RainforestGrass);AddPaths(Paths,Assets->RainforestCarpetGrass);
+-                AddPaths(Paths,Assets->RainforestTwigs);AddPaths(Paths,Assets->RainforestHerbs);
+-                AddPaths(Paths,Assets->ForestFungi);AddPaths(Paths,Assets->ForestMoss);
+-                AddPaths(Paths,Assets->RiverGroundCover);AddPaths(Paths,Assets->RiverPebbles);
+-                AddPaths(Paths,Assets->RiverReeds);AddPaths(Paths,Assets->RiverBankGrasses);AddPaths(Paths,Assets->RiverUnderstory);
+-                AddPaths(Paths,Assets->MeadowFlowers);
+-                for(const auto& Family:Assets->ClearingFlowers)AddPaths(Paths,Family.Variants);
+-                break;
+-            case Atmosphere:
+-                Paths.Add(Assets->ValleyFogClass.ToSoftObjectPath());
+-                Paths.Add(Assets->ValleyFogMaterial.ToSoftObjectPath());
+-                AddPaths(Paths,Assets->BackdropTrees);
+-                break;
+-            }
+-            Paths.RemoveAll([](const FSoftObjectPath& Path){return Path.IsNull();});
+-            Batch.Paths=Paths;
+-            auto OnLoaded=FStreamableDelegate::CreateWeakLambda(this,[this,Stage,Full]()
+-            {
+-                if(!Streaming||Streaming->Stopping)return;
+-                auto& State=*Streaming;
+-                auto& LoadedBatch=State.Batches[Stage];
+-                bool Valid=true;
+-                for(const auto& Path:LoadedBatch.Paths)if(!Path.ResolveObject())
+-                {
+-                    UE_LOG(LogTemp,Error,TEXT("HILLS_PREP missing batch=%d asset=%s"),Stage,*Path.ToString());
+-                    Valid=false;
+-                }
+-                if(Stage==Solids)
+-                    Valid&=Loaded(Assets->Trees)&&Loaded(Assets->Rocks)&&(Assets->TrunkCollisionMesh.IsNull()||Assets->TrunkCollisionMesh.IsValid());
+-                else if(Stage==Understory)Valid&=Loaded(Assets->Shrubs);
+-                else if(Stage==GroundCover)Valid&=Loaded(Assets->Grass)&&Loaded(Assets->GrassAccents);
+-                else State.FogReady=Assets->ValleyFogClass.IsValid()&&Assets->ValleyFogMaterial.IsValid();
+-                const int32 FirstLayer=Stage==Solids?0:Stage+1;
+-                const int32 EndLayer=Stage==Solids?2:FMath::Min(FirstLayer+1,4);
+-                for(int32 Layer=FirstLayer;Layer<EndLayer;++Layer)
+-                {
+-                    const auto* Graph=Assets->Graphs[Layer].Get();
+-                    if(!Graph||!Graph->Use2DGrid()||Graph->GetDefaultGridSize()==0||Graph->GetDefaultGridSize()==PCGHiGenGrid::UnboundedGridSize())
+-                    {
+-                        UE_LOG(LogTemp,Error,TEXT("HILLS_PREP layer=%d requires a loaded bounded 2D graph"),Layer);
+-                        Valid=false;
+-                    }
+-                }
+-                LoadedBatch.Loaded=true;
+-                UE_LOG(LogTemp,Display,TEXT("HILLS_PREP loaded_batch=%d valid=%d elapsed=%.2fs"),
+-                    Stage,Valid,FPlatformTime::Seconds()-StartSeconds);
+-                if(!Valid&&(Stage!=Atmosphere||Full))
+-                {
+-                    State.Failed=true;
+-                    if(auto* Transit=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+-                        Transit->FailPreparation(FText::FromString(TEXT("环境资源未能载入，请返回主场景后重试。")));
+-                }
+-            });
+-            const auto Handle=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,OnLoaded,Stage==Solids?FStreamableManager::AsyncLoadHighPriority:FStreamableManager::DefaultAsyncLoadPriority);
+-            Batch.Handle=Handle;
+-            S.Handles.Add(Handle);
+-            if(!Handle)OnLoaded.ExecuteIfBound();
+-            UE_LOG(LogTemp,Display,TEXT("HILLS_PREP requested_batch=%d assets=%d elapsed=%.2fs"),Stage,Paths.Num(),FPlatformTime::Seconds()-StartSeconds);
+-        }
+-        if(S.Failed)continue;
+-        const double Now=FPlatformTime::Seconds();
+-        if(!Batch.Loaded)
+-        {
+-            if(Now>=Batch.NextWaitLog)
+-            {
+-                Batch.NextWaitLog=Now+5.;
+-                UE_LOG(LogTemp,Display,TEXT("HILLS_PREP waiting_batch=%d phase=packages progress=%.1f elapsed=%.2fs"),
+-                    Stage,Batch.Handle?Batch.Handle->GetProgress()*100.f:0.f,Now-StartSeconds);
+-            }
+-            continue;
+-        }
+-        // Package completion can precede mesh compilation in the editor. Placement
+-        // uses mesh bounds, but does not need unused material shader permutations.
+-        bool Compiling=false;
+-#if WITH_EDITOR
+-        const auto Platform=GetFeatureLevelShaderPlatform_Checked(GetWorld()->GetFeatureLevel());
+-        for(const auto& Path:Batch.Paths)
+-        {
+-            UObject* Asset=Path.ResolveObject();
+-            if(auto* Mesh=Cast<UStaticMesh>(Asset))
+-            {
+-                Compiling|=Mesh->IsCompiling();
+-                if(!Compiling&&Full)for(const auto& MaterialSlot:Mesh->GetStaticMaterials())Compiling|=MaterialPending(MaterialSlot.MaterialInterface,Platform);
+-            }
+-            else if(auto* Skin=Cast<USkeletalMesh>(Asset))
+-            {
+-                Compiling|=Skin->IsCompiling();
+-                if(!Compiling&&Full)for(const auto& MaterialSlot:Skin->GetMaterials())Compiling|=MaterialPending(MaterialSlot.MaterialInterface,Platform);
+-            }
+-            else if(Full)Compiling|=MaterialPending(Cast<UMaterialInterface>(Asset),Platform);
+-            if(Compiling)
+-            {
+-                if(Now>=Batch.NextWaitLog)
+-                {
+-                    Batch.NextWaitLog=Now+5.;
+-                    UE_LOG(LogTemp,Display,TEXT("HILLS_PREP waiting_batch=%d phase=compilation asset=%s elapsed=%.2fs"),
+-                        Stage,*Path.ToString(),Now-StartSeconds);
+-                }
+-                break;
+-            }
+-        }
+-#endif
+-        if(Compiling)continue;
+-        Batch.Paths.Reset();Batch.Ready=true;++S.CompletedStages;
+-        UE_LOG(LogTemp,Display,TEXT("HILLS_PREP ready_batch=%d completed=%d/%d elapsed=%.2fs"),Stage,S.CompletedStages,int32(BatchCount),FPlatformTime::Seconds()-StartSeconds);
+-        if(Loading)
+-        {
+-            Loading->RetainBiomeResources(S.Handles,S.CompletedStages==BatchCount);
+-            S.RetainedHandleCount=S.Handles.Num();
+-        }
+-    }
+-}
+-
+-#if !UE_BUILD_SHIPPING
+-// Stage only the destination tile. The visitor can keep moving at the source
+-// until the real, cooked terrain can support a full character capsule.
+-void ATemperateHillsWorld::RequestRainforestVisit()
+-{
+-    auto* PC=GetWorld()->GetFirstPlayerController();
+-    auto* Player=PC?Cast<ACharacter>(PC->GetPawn()):nullptr;
+-    if(!Player||!PC->IsLocalController())return;
+-    if(!HasAuthority()||!bReady||!Streaming||!ForestWaterPlan||!RiverPlan||RiverPlan->RainforestMask.IsEmpty())
+-    {
+-        PC->ClientMessage(TEXT("请先在单人或主机上进入已就绪的温带丘陵密林。"));return;
+-    }
+-    auto& S=*Streaming;
+-    const FVector2D Focus=ForestWaterPlan->Pools.IsEmpty()?
+-        RiverPlan->ForestAnchor:
+-        ForestWaterPlan->Pools[0].Bounds.GetCenter();
+-    S.bVillageVisit=false;S.bWhiteCliffsVisit=false;
+-    S.StageVisit(Player,Focus+FVector2D(-1500,-1100),Focus,SizeMeters*50.);
+-    PC->ClientMessage(TEXT("正在准备密林岸边的地面碰撞…"));
+-}
+-
+-static FAutoConsoleCommandWithWorld VisitRainforestCommand(TEXT("fps.Hills.VisitRainforest"),
+-    TEXT("Travel on foot to the local temperate rainforest bank."),
+-    FConsoleCommandWithWorldDelegate::CreateLambda([](UWorld* World)
+-    {
+-        if(!World||!World->IsGameWorld())return;
+-        for(TActorIterator<ATemperateHillsWorld> It(World);It;++It){It->RequestRainforestVisit();return;}
+-    }));
+-
+-void ATemperateHillsWorld::RequestVillageVisit()
+-{
+-    auto* PC=GetWorld()->GetFirstPlayerController();
+-    if(!PC||!PC->IsLocalController())return;
+-    if(!HasAuthority()||!Streaming||Streaming->Failed)
+-    {
+-        PC->ClientMessage(TEXT("请在单人或主机的丘陵场景使用村庄传送。"));return;
+-    }
+-    Streaming->Visitor.Reset();
+-    Streaming->bWhiteCliffsVisit=false;
+-    Streaming->bVillageVisit=true;
+-    PC->ClientMessage(TEXT("正在准备西侧村口…"));
+-}
+-
+-static FAutoConsoleCommandWithWorld VisitVillageCommand(TEXT("fps.Hills.VisitVillage"),
+-    TEXT("Visit the seeded village from the hills, or continue the saved hills from the solo hub."),
+-    FConsoleCommandWithWorldDelegate::CreateLambda([](UWorld* World)
+-    {
+-        if(!World||!World->IsGameWorld())return;
+-        for(TActorIterator<ATemperateHillsWorld> It(World);It;++It){It->RequestVillageVisit();return;}
+-        const FString Map=UGameplayStatics::GetCurrentLevelName(World,true);
+-        if(World->GetNetMode()==NM_Standalone&&Map==TEXT("DayNight_Lighting"))
+-        {
+-            UGameplayStatics::OpenLevel(World,TEXT("/Game/GameMaps/L_TemperateHills_Initial"),true,TEXT("HillsContinue?VisitVillage"));
+-            return;
+-        }
+-        if(auto* PC=World->GetFirstPlayerController())
+-            PC->ClientMessage(TEXT("请在单人主神空间或主机的温带丘陵使用村庄传送。"));
+-    }));
+-
+-static bool LandAtVisitTarget(ATemperateHillsWorld& Hills,FTemperateHillsStreamingState& S,UDynamicMeshComponent* Ground,ACharacter& Player)
+-{
+-    auto* PC=Cast<APlayerController>(Player.GetController());
+-    if(!PC||!PC->IsLocalController()||!Ground)return false;
+-    auto* Move=Player.GetCharacterMovement();
+-    const auto* Capsule=Player.GetCapsuleComponent();
+-    const auto Shape=Capsule->GetCollisionShape();
+-    const FCollisionQueryParams Query(SCENE_QUERY_STAT(HillsVisitLanding),false,&Player);
+-    const FCollisionResponseParams Response(Capsule->GetCollisionResponseToChannels());
+-    // Reject future trunks / solid rocks even if their PCG cells have not spawned.
+-    const FVector Site(S.VisitTarget,0);
+-    const FBox Neighborhood(Site-FVector(2500,2500,100000),Site+FVector(2500,2500,100000));
+-    TArray<FTemperatePlacement> Trees,Rocks;
+-    Hills.GetPlacements(0,Neighborhood,Trees);
+-    Hills.GetPlacements(1,Neighborhood,Rocks);
+-    const FVector2D AlongStreet=(S.VisitFocus-S.VisitTarget).GetSafeNormal();
+-    for(int32 I=0;I<(S.bVillageVisit?9:49);++I)
+-    {
+-        FVector2D XY=S.VisitTarget;
+-        if(S.bVillageVisit)
+-        {
+-            // Search the lane centreline, inside the gap between the two walls.
+-            XY+=AlongStreet*((I%2?1.:-1.)*((I+1)/2)*75.);
+-        }
+-        else
+-        {
+-            const double Radius=I?175.*(1+(I-1)/12):0.;
+-            const double Angle=(I%12)*(2.*PI/12.);
+-            XY+=Radius*FVector2D(FMath::Cos(Angle),FMath::Sin(Angle));
+-        }
+-        if((!S.bVillageVisit&&!S.bWhiteCliffsVisit&&Hills.RainforestWeight(XY.X,XY.Y)<.5)||
+-            Hills.SampleForestWater(XY.X,XY.Y).Wet||Hills.SampleRiver(XY.X,XY.Y).Bank>.12)continue;
+-        if(Trees.ContainsByPredicate([&](const auto& T)
+-            {return FVector2D::DistSquared(XY,FVector2D(T.Transform.GetLocation()))<FMath::Square(90.+Capsule->GetScaledCapsuleRadius());}))continue;
+-        const FVector Floor(XY,Hills.Height(XY.X,XY.Y));
+-        FHitResult Hit;
+-        if(!Hills.GetWorld()->SweepSingleByChannel(Hit,Floor+FVector(0,0,Shape.GetCapsuleHalfHeight()+140),
+-            Floor-FVector(0,0,60),FQuat::Identity,Capsule->GetCollisionObjectType(),Shape,Query,Response)||
+-            Hit.bStartPenetrating||Hit.GetComponent()!=Ground||!Move->IsWalkable(Hit))continue;
+-        const FVector Landing=Hit.Location+FVector(0,0,2.5);
+-        if(Rocks.ContainsByPredicate([&](const auto& Rock)
+-        {
+-            auto* Mesh=Cast<UStaticMesh>(Rock.Mesh.ResolveObject());
+-            return Mesh&&Mesh->GetBoundingBox().TransformBy(Rock.Transform).ExpandBy(Capsule->Bounds.BoxExtent).IsInsideOrOn(Landing);
+-        }))continue;
+-        const FRotator Facing=FVector(S.VisitFocus-XY,0).Rotation();
+-        if(!Player.TeleportTo(Landing,Facing,false,true))continue;
+-        S.HeldPawns.Remove(&Player);
+-        Move->StopMovementImmediately();
+-        Player.ClientCheatWalk();  // restores capsule collision and clears bCheatFlying
+-        PC->SetControlRotation(FRotator(-6,Facing.Yaw,0));
+-        Player.ForceNetUpdate();
+-        UE_LOG(LogTemp,Display,TEXT("%s seed=%d location=%s support=%s"),
+-            S.bVillageVisit?TEXT("HILLS_VILLAGE_LANDED"):S.bWhiteCliffsVisit?TEXT("HILLS_QUARRY_LANDED"):TEXT("HILLS_FOREST_LANDED"),Hills.Seed,*Landing.ToString(),*Ground->GetName());
+-        return true;
+-    }
+-    PC->ClientMessage(TEXT("附近未找到可站立的干燥地面，已保留当前位置。"));
+-    return false;
+-}
+-#endif
+ 
+ void ATemperateHillsWorld::TickStreaming()
+ {
+@@ -1357,369 +755,6 @@
+         if(S.LayerActive[Layer])SetVegetationGenerationRadius(Layer,Frontier);
+ }
+ 
+-void ATemperateHillsWorld::TickPreparation()
+-{
+-    auto& S=*Streaming;
+-    auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+-    auto Report=[&](const FText& Text,float Progress){if(Loading)Loading->UpdatePreparation(Text,Progress);};
+-    const bool Full=!GUsingNullRHI&&Loading&&Loading->IsCompletePreloadSelected();
+-    const int32 RequiredBatches=Full?int32(HillsStreaming::BatchCount):int32(HillsStreaming::Atmosphere);
+-    bool AssetsReady=true;
+-    for(int32 Batch=0;Batch<RequiredBatches;++Batch)AssetsReady&=S.Batches[Batch].Ready;
+-    if(!AssetsReady)
+-    {
+-        float Completed=0;
+-        const TCHAR* Pending=TEXT("附近植被");
+-        bool Compiling=false,FoundPending=false;
+-        const TCHAR* Names[]={TEXT("树木与岩石"),TEXT("灌木"),TEXT("草地与花卉"),TEXT("远景")};
+-        for(int32 Batch=0;Batch<RequiredBatches;++Batch)
+-        {
+-            const auto& State=S.Batches[Batch];
+-            Completed+=State.Ready?1.f:(State.Loaded?.9f:(State.Handle?.8f*State.Handle->GetProgress():0.f));
+-            if(!State.Ready&&!FoundPending){Pending=Names[Batch];Compiling=State.Loaded;FoundPending=true;}
+-        }
+-        Report(FText::FromString(FString::Printf(TEXT("正在%s%s（资源进度 %.0f%%）…"),
+-            Compiling?TEXT("编译"):TEXT("载入"),Pending,100.f*Completed/RequiredBatches)),.1f+.6f*Completed/RequiredBatches);
+-        return;
+-    }
+-    if(Full&&!IsBackdropReady())
+-    {Report(FText::FromString(TEXT("正在准备远景丘陵…")),.7f);return;}
+-    if(!UGameplayStatics::GetPlayerPawn(this,0))
+-    {Report(FText::FromString(TEXT("正在准备角色与视野…")),.7f);return;}
+-
+-    if(Full)
+-    {
+-        // Register one small sample per asset/frame under the opaque loading overlay.
+-        // Use the same instanced vertex factories as PCG for canopy and understory.
+-        if(S.WarmupMeshes.IsEmpty())
+-        {
+-            for(const auto& Handle:S.Handles)if(Handle)
+-                Handle->ForEachLoadedAsset([&](UObject* Asset)
+-                {
+-                    if(Asset&&Asset!=Assets->TrunkCollisionMesh.Get()&&(Asset->IsA<UStaticMesh>()||Asset->IsA<USkeletalMesh>()))
+-                        S.WarmupMeshes.AddUnique(TWeakObjectPtr<UObject>(Asset));
+-                });
+-        }
+-        const int32 AssetCount=S.WarmupMeshes.Num();
+-        if(S.WarmupAsset<AssetCount)
+-        {
+-            const int32 Index=S.WarmupAsset++;
+-            UObject* Mesh=S.WarmupMeshes[Index].Get();
+-            UPrimitiveComponent* Sample=nullptr;
+-            if(auto* Skin=Cast<USkeletalMesh>(Mesh))
+-            {
+-                auto* C=NewObject<UInstancedSkinnedMeshComponent>(this);
+-                if(Assets->ForestWindProvider)C->SetTransformProvider(Assets->ForestWindProvider);
+-                C->SetSkinnedAsset(Skin);C->AddInstance(FTransform::Identity,0);
+-                Sample=C;
+-            }
+-            else if(auto* Static=Cast<UStaticMesh>(Mesh))
+-            {
+-                auto* C=NewObject<UInstancedStaticMeshComponent>(this);
+-                C->SetStaticMesh(Static);C->AddInstance(FTransform::Identity);
+-                Sample=C;
+-            }
+-            else return;
+-            AddInstanceComponent(Sample);Sample->SetupAttachment(RootComponent);
+-            Sample->SetRelativeLocation(GetStartLocation()+FVector(4000,(Index-AssetCount*.5)*600,-100));
+-            Sample->SetCollisionEnabled(ECollisionEnabled::NoCollision);Sample->SetCanEverAffectNavigation(false);
+-            Sample->RegisterComponent();Sample->PrecachePSOs();WarmupComponents.Add(Sample);
+-            Report(FText::FromString(TEXT("正在准备植被显示…")),.7f+.04f*S.WarmupAsset/FMath::Max(1,AssetCount));
+-            return;
+-        }
+-    }
+-    if(!S.LayerActive[0]||!S.LayerActive[1]||!S.LayerActive[2]||!S.LayerActive[3])
+-    {
+-        Report(FText::FromString(TEXT("正在布置出生区域植被…")),.75f);
+-        return;
+-    }
+-
+-    // Wait for all four layers only within 16 m. Distant visual rings remain
+-    // streamed; nearby grass must no longer start after the player is released.
+-    int32 Required=0,Complete=0;
+-    const double Half=SizeMeters*50;
+-    if(auto* Sub=GetWorld()->GetSubsystem<UPCGSubsystem>())
+-        if(auto* Manager=Sub->GetGenSourceManager())
+-            for(const auto* Source:Manager->GetAllGenSources(Sub->GetPCGWorldActor()))
+-            {
+-                // Use exactly the scheduler's focus; camera offsets and remote
+-                // players must not make local entry wait on unrequested cells.
+-                if(!Source->IsLocal()&&GetNetMode()!=NM_DedicatedServer)continue;
+-                const auto Position=Source->GetPosition();
+-                if(!Position)continue;
+-                for(int32 Layer=0;Layer<4;++Layer)
+-                {
+-                    if(!Source->IsLocal()&&Layer!=1)continue;
+-                    HillsStreaming::CountVegetationCells(PCGLayers[Layer],*Position,HillsStreaming::EntryVegetationRadius,Half,Required,Complete);
+-                }
+-            }
+-    S.InitialPCGTotal=Required;S.InitialPCGReady=Complete;
+-    if(FPlatformTime::Seconds()>=S.NextEntryProgressLog)
+-    {
+-        S.NextEntryProgressLog=FPlatformTime::Seconds()+5.;
+-        UE_LOG(LogTemp,Display,TEXT("HILLS_ENTRY_VEGETATION ready=%d/%d layers=4 elapsed=%.2fs"),Complete,Required,FPlatformTime::Seconds()-StartSeconds);
+-    }
+-    if(Required==0||Complete<Required)
+-    {
+-        S.SettledFrames=0;
+-        Report(FText::FromString(FString::Printf(TEXT("正在准备出生点植被 %d/%d…"),Complete,Required)),.75f+.15f*Complete/FMath::Max(1,Required));
+-        return;
+-    }
+-    // Use the same pawn center/radius as Wanted() and the trunk builder. Camera
+-    // offsets must not make us wait for a cell outside the requested neighborhood.
+-    const FVector TerrainCenter=UGameplayStatics::GetPlayerPawn(this,0)->GetActorLocation();
+-    const int32 Count=FMath::RoundToInt(SizeMeters*100/HillsStreaming::CellSize);
+-    bool TerrainPending=false;
+-    int32 NearbyTerrainTotal=0,NearbyTerrainReady=0;
+-    for(int32 Y=0;Y<Count;++Y)for(int32 X=0;X<Count;++X)
+-    {
+-        const double DX=FMath::Max(0.0,FMath::Abs(TerrainCenter.X+Half-(X+.5)*HillsStreaming::CellSize)-HillsStreaming::CellSize*.5);
+-        const double DY=FMath::Max(0.0,FMath::Abs(TerrainCenter.Y+Half-(Y+.5)*HillsStreaming::CellSize)-HillsStreaming::CellSize*.5);
+-        const double D=DX*DX+DY*DY;
+-        if(D>FMath::Square(HillsStreaming::EntryRadius))continue;
+-        ++NearbyTerrainTotal;
+-        const auto* Cell=S.Cells.Find(FIntPoint(X,Y));
+-        const bool CellReady=Cell&&Cell->Mesh.IsValid()&&Cell->Detailed&&!Cell->Dirty&&!Cell->Pending.IsValid()
+-            &&(!Assets->TrunkCollisionMesh.IsValid()||Cell->Trunks.IsValid());
+-        TerrainPending|=!CellReady;
+-        if(CellReady)++NearbyTerrainReady;
+-    }
+-    if(TerrainPending)
+-    {S.SettledFrames=0;Report(FText::FromString(FString::Printf(TEXT("正在准备附近地形与碰撞 %d/%d…"),NearbyTerrainReady,NearbyTerrainTotal)),.91f);return;}
+-
+-    // UE 5.8 compiles material permutations on demand. "Complete" requires even
+-    // unused permutations and can remain false forever with no queued work.
+-    // Nearby terrain already renders behind the overlay, requesting its passes.
+-    // Wait for those actual jobs plus a renderable map, never force all variants.
+-    int32 GroundTexturesReady=0;
+-    if(!GUsingNullRHI)
+-    {
+-    auto* GroundResource=GroundMID?GroundMID->GetMaterialResource(GetFeatureLevelShaderPlatform_Checked(GetWorld()->GetFeatureLevel())):nullptr;
+-    bool GroundCompiling=false;
+-#if WITH_EDITOR
+-    GroundCompiling=GroundResource&&!GroundResource->IsCompilationFinished();
+-    if(GroundResource&&!GroundResource->GetCompileErrors().IsEmpty())
+-    {
+-        S.Failed=true;
+-        UE_LOG(LogTemp,Error,TEXT("HILLS_GROUND material compile failed: %s"),*FString::Join(GroundResource->GetCompileErrors(),TEXT("; ")));
+-        if(Loading)Loading->FailPreparation(FText::FromString(TEXT("地面材质编译失败，请返回主场景。")));
+-        return;
+-    }
+-#endif
+-    const auto* GroundShaderMap=GroundResource?GroundResource->GetGameThreadShaderMap():nullptr;
+-    if(!GroundShaderMap||!GroundShaderMap->IsValidForRendering()||(Full&&GroundCompiling))
+-    {
+-        S.SettledFrames=0;
+-        if(GroundCompiling)S.GroundMaterialIdleWaitStart=0;
+-        else if(S.GroundMaterialIdleWaitStart==0)S.GroundMaterialIdleWaitStart=FPlatformTime::Seconds();
+-        else if(FPlatformTime::Seconds()-S.GroundMaterialIdleWaitStart>=30)
+-        {
+-            // No pending compilation can resolve this state. Report failure
+-            // instead of leaving a permanent spinner or releasing blurry ground.
+-            S.Failed=true;
+-            UE_LOG(LogTemp,Error,TEXT("HILLS_GROUND no renderable shader map after 30 idle seconds: %s resource=%d map=%d"),
+-                *GetNameSafe(GroundMID?GroundMID->Parent:nullptr),GroundResource!=nullptr,GroundShaderMap!=nullptr);
+-            if(Loading)Loading->FailPreparation(FText::FromString(TEXT("地面材质未能就绪，请返回主场景后重试。")));
+-            return;
+-        }
+-        Report(FText::FromString(GroundCompiling?TEXT("正在编译附近地面材质…"):TEXT("正在准备附近地面材质…")),.92f);
+-        return;
+-    }
+-    S.GroundMaterialIdleWaitStart=0;
+-    if(!S.GroundMaterialReadinessLogged)
+-    {
+-        S.GroundMaterialReadinessLogged=true;
+-        UE_LOG(LogTemp,Display,TEXT("HILLS_GROUND renderable material=%s all_permutations=%d elapsed=%.2fs"),
+-            *GetNameSafe(GroundMID->Parent),GroundResource->IsGameThreadShaderMapComplete(),FPlatformTime::Seconds()-StartSeconds);
+-    }
+-
+-    for(const auto& Weak:S.GroundTextures)
+-        if(HillsStreaming::GroundTextureReady(Weak.Get()))++GroundTexturesReady;
+-    // The actual ground mip requirement applies to both entry modes.
+-    if(!S.GroundTexturesCollected||GroundTexturesReady!=S.GroundTextures.Num())
+-    {
+-        S.SettledFrames=0;
+-        Report(FText::FromString(FString::Printf(TEXT("正在载入清晰地面纹理 %d/%d…"),GroundTexturesReady,S.GroundTextures.Num())),.92f);
+-        return;
+-    }
+-    if(!S.GroundTextureReadinessLogged)
+-    {
+-        S.GroundTextureReadinessLogged=true;
+-        for(const auto& Weak:S.GroundTextures)if(auto* Texture=Weak.Get())
+-        {
+-            const auto& State=Texture->GetStreamableResourceState();
+-            const int32 FirstMip=State.LODCountToAssetFirstLODIdx(State.NumResidentLODs);
+-            UE_LOG(LogTemp,Display,TEXT("HILLS_GROUND resident %s mips=%d required=%d resolution=%dx%d"),
+-                *Texture->GetName(),int32(State.NumResidentLODs),HillsStreaming::RequiredGroundMips(Texture),
+-                FMath::Max(1,Texture->GetSizeX()>>FirstMip),FMath::Max(1,Texture->GetSizeY()>>FirstMip));
+-        }
+-    }
+-    }
+-    if(Full)
+-    {
+-        uint32 PSOs=0;
+-#if WITH_EDITOR
+-        const auto Platform=GetFeatureLevelShaderPlatform_Checked(GetWorld()->GetFeatureLevel());
+-        for(const auto& Sample:WarmupComponents)if(Sample)
+-            for(int32 I=0;I<Sample->GetNumMaterials();++I)
+-                if(HillsStreaming::MaterialPending(Sample->GetMaterial(I),Platform))
+-                {Report(FText::FromString(TEXT("正在准备植被显示材质…")),.93f);return;}
+-#endif
+-        for(const auto& StoredSample:WarmupComponents)if(auto* Sample=StoredSample.Get();Sample&&Sample->IsPSOPrecaching())++PSOs;
+-        if(PSOs>0)
+-        {S.SettledFrames=0;Report(FText::FromString(FString::Printf(TEXT("正在准备显示效果：剩余 %u 项…"),PSOs)),.93f);return;}
+-        if(S.TextureWaitStart==0)S.TextureWaitStart=FPlatformTime::Seconds();
+-        // Noncritical environment textures still obey the global VRAM budget and
+-        // bounded wait. Ground shader/mips above have an independent, strict gate.
+-        if(IStreamingManager::Get().GetNumWantingResources()>0&&FPlatformTime::Seconds()-S.TextureWaitStart<10)
+-        {Report(FText::FromString(TEXT("正在细化附近纹理…")),.95f);return;}
+-        if(!WarmupComponents.IsEmpty())
+-        {
+-            auto* C=WarmupComponents.Pop().Get();RemoveInstanceComponent(C);C->DestroyComponent();
+-            Report(FText::FromString(TEXT("正在完成场景准备…")),.98f);return;
+-        }
+-        if(!S.WarmupRemoved){S.WarmupRemoved=true;S.RenderFence.BeginFence();return;}
+-        if(!S.RenderFence.IsFenceComplete()||++S.SettledFrames<3)return;
+-    }
+-    bReady=true;S.NextVegetationFrontierTime=0;AuditNext=GetWorld()->GetTimeSeconds()+24;
+-    if(Loading)Loading->CompletePreparation();
+-    UE_LOG(LogTemp,Display,TEXT("HILLS_READY seed=%d world=%s entry_radius_m=%.0f terrain_cells=%d/%d pcg_cells=%d/%d ground_textures=%d/%d preparation_ms=%.2f"),Seed,*WorldId.ToString(),HillsStreaming::EntryRadius/100,NearbyTerrainReady,NearbyTerrainTotal,Complete,Required,GroundTexturesReady,S.GroundTextures.Num(),(FPlatformTime::Seconds()-StartSeconds)*1000);
+-}
+-
+-void ATemperateHillsWorld::BuildValleyFog()
+-{
+-    auto& S=*Streaming;const auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);
+-    const FVector Center=Pawn?Pawn->GetActorLocation():GetStartLocation();
+-    const auto* Weather=SkyWeather.Get();
+-    const double Hour=Weather?Weather->NormalizedDayTime*24.:9.;
+-    const double Dawn=FMath::SmoothStep(3.5,6.5,Hour)*(1.-FMath::SmoothStep(6.5,10.5,Hour));
+-    const double Wetness=Weather?Weather->GetSurfaceWetness():0.;
+-    const double Rain=Weather?Weather->GetEffectiveRainIntensity():0.;
+-    const double Wind=Weather?FMath::Clamp(Weather->GetWeatherWind().Size2D()/632.4555,0.,1.):.2;
+-    // Remaining surface moisture carries a little mist after rain. Strong wind
+-    // disperses it; clear midday never carries the old permanent white blanket.
+-    const float Mist=FMath::Clamp(.20+.65*Dawn+.35*Wetness+.15*Rain,.20,1.15)*(1.-.35*Wind);
+-    auto SetDensity=[](UStaticMeshComponent* Mesh,float Target)
+-    {
+-        if(auto* MID=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(0)))
+-            MID->SetScalarParameterValue(TEXT("FogOverallDensity"),FMath::FInterpTo(
+-                MID->K2_GetScalarParameterValue(TEXT("FogOverallDensity")),Target,.5f,.8f));
+-    };
+-    // Shared spawn: scale the fog BP's mesh to a footprint and give it a fresh
+-    // dynamic material at zero density; the owning pool fades it in.
+-    auto SpawnFog=[&](const FVector& Position,const FRotator& Rotation,const FVector& Footprint)->AActor*
+-    {
+-        FActorSpawnParameters Params;Params.Owner=this;
+-        auto* Fog=GetWorld()->SpawnActor<AActor>(Assets->ValleyFogClass.Get(),Position,Rotation,Params);
+-        if(!Fog)return nullptr;
+-        Fog->SetActorEnableCollision(false);Fog->SetActorHiddenInGame(false);
+-        TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
+-        for(auto* M:Meshes)
+-        {
+-            if(!M->GetStaticMesh())continue;
+-            const auto MeshBounds=M->GetStaticMesh()->GetBounds();
+-            const FVector Scale=Footprint/MeshBounds.BoxExtent;
+-            // Mesh bounds exclude the Blueprint's editor-only box/billboard bounds.
+-            M->SetRelativeScale3D(Scale);M->SetRelativeLocation(-MeshBounds.Origin*Scale);
+-            M->SetCollisionEnabled(ECollisionEnabled::NoCollision);M->SetCanEverAffectNavigation(false);M->SetCastShadow(false);
+-            auto* MID=UMaterialInstanceDynamic::Create(Assets->ValleyFogMaterial.Get(),Fog);
+-            MID->SetScalarParameterValue(TEXT("FogOverallDensity"),0);
+-            M->SetMaterial(0,MID);M->SetVisibility(true);M->SetHiddenInGame(false);M->PrecachePSOs();
+-        }
+-        ValleyFog.Add(Fog);
+-        return Fog;
+-    };
+-    // Update a small fixed pool, fading before it leaves the retention radius.
+-    for(auto It=S.Fog.CreateIterator();It;++It)
+-    {
+-        auto* Fog=It.Value().Get();
+-        if(!Fog){It.RemoveCurrent();continue;}
+-        const double Distance=FVector::Dist2D(Fog->GetActorLocation(),Center);
+-        if(Distance>18000)
+-        {ValleyFog.Remove(Fog);Fog->Destroy();It.RemoveCurrent();return;}
+-        const float Fade=(1-FMath::SmoothStep(14000.0,18000.0,Distance))*FMath::Clamp(Fog->GetGameTimeSinceCreation()/3.f,0.f,1.f);
+-        const FVector P=Fog->GetActorLocation();
+-        const double Region=RainforestWeight(P.X,P.Y);
+-        const float Moisture=.65f+.35f*TemperateForestHabitat::Moisture(P.X,P.Y,Seed,Region, EcologyProfile());
+-        TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
+-        const float ForestMist=FMath::Lerp(Mist,FMath::Max(Mist,.46f)+.32f*float(Rain),float(Region));
+-        for(auto* M:Meshes)SetDensity(M,Assets->ValleyFogDensity*Fade*ForestMist*Moisture);
+-    }
+-    // River mist: thin bands hugging the waterline near the pawn, keyed by
+-    // centreline point so a stretch of river keeps exactly one volume.
+-    if(RiverPlan&&Assets->RiverMistDensity>0.01f)
+-    {
+-        for(auto It=S.RiverFog.CreateIterator();It;++It)
+-        {
+-            auto* Fog=It.Value().Get();
+-            if(!Fog){It.RemoveCurrent();continue;}
+-            const double Distance=FVector::Dist2D(Fog->GetActorLocation(),Center);
+-            if(Distance>16000)
+-            {ValleyFog.Remove(Fog);Fog->Destroy();It.RemoveCurrent();continue;}
+-            const float Fade=(1-FMath::SmoothStep(12000.0,16000.0,Distance))*FMath::Clamp(Fog->GetGameTimeSinceCreation()/3.f,0.f,1.f);
+-            TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
+-            for(auto* M:Meshes)SetDensity(M,Assets->RiverMistDensity*Fade*FMath::Min(1.f,Mist+.12f));
+-        }
+-        if(S.RiverFog.Num()<2)
+-        {
+-            int32 Best=-1;double BestScore=DBL_MAX;
+-            const auto& Points=RiverPlan->Points;
+-            for(int32 I=0;I<Points.Num();++I)
+-            {
+-                if(S.RiverFog.Contains(I))continue;
+-                const auto& Pt=Points[I];
+-                const double D2=FVector2D::DistSquared(Pt.XY,FVector2D(Center));
+-                if(D2>FMath::Square(14000.0))continue;
+-                // Keep bands spaced apart along the channel.
+-                bool Crowded=false;
+-                for(const auto& Held:S.RiverFog)
+-                    if(auto* Other=Held.Value.Get();Other&&FVector::Dist2D(Other->GetActorLocation(),FVector(Pt.XY.X,Pt.XY.Y,0))<3800){Crowded=true;break;}
+-                if(Crowded)continue;
+-                if(D2<BestScore){Best=I;BestScore=D2;}
+-            }
+-            if(Best>=0)
+-            {
+-                const auto& Pt=Points[Best];
+-                // Side is the cross-channel normal; the flow axis is its perpendicular.
+-                const FVector2D Flow(-Pt.Side.Y,Pt.Side.X);
+-                const FRotator Rotation(0,FMath::RadiansToDegrees(FMath::Atan2(Flow.Y,Flow.X)),0);
+-                if(auto* Fog=SpawnFog(FVector(Pt.XY.X,Pt.XY.Y,Pt.WaterZ+45),Rotation,FVector(2600,700,85)))
+-                    S.RiverFog.Add(Best,Fog);
+-            }
+-        }
+-    }
+-    if(S.Fog.Num()>=4)return;
+-    const double Half=SizeMeters*50;const int32 Count=FMath::RoundToInt(SizeMeters/64);
+-    const int32 CX=FMath::FloorToInt((Center.X+Half)/6400),CY=FMath::FloorToInt((Center.Y+Half)/6400);
+-    int32 Best=-1;double BestScore=DBL_MAX;FVector Position=FVector::ZeroVector;
+-    for(int32 Y=FMath::Max(0,CY-3);Y<=FMath::Min(Count-1,CY+3);++Y)
+-    for(int32 X=FMath::Max(0,CX-3);X<=FMath::Min(Count-1,CX+3);++X)
+-    {
+-        const int32 ID=Y*Count+X;if(S.Fog.Contains(ID))continue;
+-        const uint32 Key=TemperateHillsSurface::Key(X,Y,Seed,1731);
+-        const double WX=-Half+(X+.5)*6400+(TemperateHillsSurface::Unit(Key)-.5)*3000;
+-        const double WY=-Half+(Y+.5)*6400+(TemperateHillsSurface::Unit(Key+1)-.5)*3000;
+-        const FVector P(WX,WY,Height(WX,WY)+65);const double Distance=FVector::DistSquared2D(P,Center);
+-        if(Distance>FMath::Square(14000.0))continue;
+-        const FVector N=SurfaceNormal(WX,WY);if(N.Z<.9)continue;
+-        const double Nearby=(Height(WX-2000,WY)+Height(WX+2000,WY)+Height(WX,WY-2000)+Height(WX,WY+2000))*.25;
+-        const auto Bank=RiverPlan?RiverPlan->Sample(WX,WY):TemperateRiver::FSample();
+-        const bool Low=Bank.Bank>.02||Bank.Wet>.02||P.Z-65<Nearby-15;
+-        const double LocalRegion=RainforestWeight(WX,WY);
+-        if(!Low&&LocalRegion<.75)continue;
+-        const double Moisture=TemperateForestHabitat::Moisture(WX,WY,Seed,LocalRegion, EcologyProfile());
+-        const double Score=Distance+(Bank.Bank>.02||Bank.Wet>.02?0:16000000)+(1.-Moisture)*8000000;
+-        if(Score<BestScore){Best=ID;BestScore=Score;Position=P;}
+-    }
+-    if(Best<0)return;
+-    const float Yaw=TemperateHillsSurface::Unit(uint32(Seed)+Best*133)*2*PI;
+-    const FRotator Rotation(0,FMath::RadiansToDegrees(Yaw),0);
+-    // This also runs under the loading overlay, warming the volume shader before play.
+-    const double Region=RainforestWeight(Position.X,Position.Y);
+-    const FVector Footprint=FMath::Lerp(FVector(1600,1100,110),FVector(2350,1650,230),Region);
+-    if(auto* Fog=SpawnFog(Position,Rotation,Footprint))S.Fog.Add(Best,Fog);
+-}
+-
+ void ATemperateHillsWorld::EndStreaming()
+ {
+     ReleaseVillageGroundCache();

@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-17",
+  "scope": "Two identical limb tick prerequisite removal loops share one private method",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/LightningHastePresentation.cpp",
+      "before_lines": 177,
+      "after_lines": 178,
+      "before_bytes": 10279,
+      "after_bytes": 10198,
+      "before_sha256": "56803b1420de6e298ec2677cafaf901e95b8f61a1393b7b716edcaf0351aeb97",
+      "after_sha256": "1627d8b6bbd1557fa82055dd2865f89e951ac4c2fe52be1c325fb2e7e949ecb9",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-15-limb-prerequisites/LightningHastePresentation.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningHasteComponent.h",
+      "before_lines": 79,
+      "after_lines": 80,
+      "before_bytes": 3193,
+      "after_bytes": 3232,
+      "before_sha256": "5f675fb3f1a8e25a0c205604c1113586ac902d2794b5fb1d4316df8a63af5735",
+      "after_sha256": "1ae4522f04232aeb885e8f8ad0b61492d76f02d44b07e1f4f3a62786137214fc",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-15-limb-prerequisites/FPSLightningHasteComponent.h.before.txt"
+    }
+  ]
+}

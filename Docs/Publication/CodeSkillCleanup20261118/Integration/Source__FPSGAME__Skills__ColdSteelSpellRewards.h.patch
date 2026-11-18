@@ -1,0 +1,96 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelSpellRewards.h b/Source/FPSGAME/Skills/ColdSteelSpellRewards.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Skills/ColdSteelSpellRewards.h
+@@ -0,0 +1,91 @@
++#pragma once
++
++#include "ColdSteelSkillRules.h"
++#include "../Dungeon/DungeonLayout.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "GameFramework/Actor.h"
++
++namespace ColdSteelSpellRewards
++{
++// Helpers update only caller-owned snapshots and hit batches. Eligibility, skill
++// definitions, commit and rewarded-victim bookkeeping stay with the cast owner.
++// Keep death queries in their original position relative to each counter update.
++template <typename TRewards>
++inline void RecordTrainingHit(TRewards& Batch,const UMonsterCombatComponent& Combat,bool bCritical)
++{
++    ++Batch.Hits;
++    if(Combat.IsDead())++Batch.Kills;
++    if(bCritical)
++    {
++        ++Batch.CriticalHits;
++        if(Combat.IsDead())++Batch.CriticalKills;
++    }
++}
++
++// Hit, kill and multi-hit terms only; the full settlement adds its own multi-kill term.
++template <typename TTraining>
++inline int32 HitTrainingExperience(const TTraining& Training,int32 Hits,int32 Kills,bool bMultiHit)
++{
++    return Hits*Training.HitExperience+Kills*Training.KillExperience
++        +(bMultiHit?Training.MultiHitExperience:0);
++}
++
++// Martial training retains its hit, multi-hit, then kill addition order.
++inline int32 MartialHitTrainingExperience(const FColdSteelSkillDefinition& Skill,int32 Hits,int32 Kills)
++{
++    return Hits*Skill.HitExperience+(Hits>=2?Skill.MultiHitExperience:0)+Kills*Skill.KillExperience;
++}
++
++// Use, kill and multi-kill rewards retain their order and the caller's bonus.
++inline int32 MartialKillTrainingExperience(const FColdSteelSkillDefinition& Skill,int32 Kills,int32 MultiKillExperience)
++{
++    return Skill.UseExperience+FMath::Max(0,Kills)*Skill.KillExperience+(Kills>=2?MultiKillExperience:0);
++}
++
++// The caller keeps its existing multi-hit rule (count threshold or batch flag).
++template <typename TTraining>
++inline void AccumulateHitKillTraining(FColdSteelProfile& Profile,
++    const FColdSteelSkillDefinition& Skill,const TTraining& Training,
++    int32 Hits,int32 Kills,bool bMultiHit)
++{
++    ColdSteelSkills::AddExperience(Profile,Skill,
++        HitTrainingExperience(Training,Hits,Kills,bMultiHit)
++        +(Kills>=2?Training.MultiKillExperience:0));
++}
++
++inline void AccumulateCriticalTraining(FColdSteelProfile& Profile,
++    const FColdSteelSkillDefinition& CriticalStrikeSkill,int32 CriticalHits,int32 CriticalKills)
++{
++    ColdSteelSkills::AddExperience(Profile,CriticalStrikeSkill,
++        CriticalHits*CriticalStrikeSkill.CriticalHitExperience+CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
++}
++
++// Apply the shared level/point progression after each caller finishes awarding experience.
++inline void ApplyExperienceLevels(FColdSteelProfile& Profile)
++{
++    while(Profile.Level<10000)
++    {
++        const int64 Need=(20ll+Profile.Level*20ll+int64(Profile.Level)*Profile.Level*12)*8;
++        if(Profile.Experience<Need)break;
++        Profile.Experience-=Need;
++        ++Profile.Level;
++        Profile.Points=FMath::Min(Profile.Points+3,1000000);
++    }
++    if(Profile.Level==10000)
++        Profile.Experience=FMath::Min(Profile.Experience,
++            (20ll+Profile.Level*20ll+int64(Profile.Level)*Profile.Level*12)*8-1);
++}
++
++inline void AccumulateKillExperience(FColdSteelProfile& Profile,
++    const TMap<TWeakObjectPtr<AActor>,int64>& KillRewards,const UColdSteelStatusModel& Model)
++{
++    for(const auto& Reward:KillRewards)
++    {
++        if(!DungeonLayout::RecordKill(Profile.DungeonRun,Reward.Key.Get()))continue;
++        Profile.Kills=FMath::Min(Profile.Kills+1,MAX_int32-1);
++        Profile.Experience+=FMath::FloorToInt64(Reward.Value*Model.TributeEffect(TEXT("expPercent")));
++    }
++    ApplyExperienceLevels(Profile);
++}
++}

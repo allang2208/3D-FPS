@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills C32 file-local combat model selection in Snapshot, GrantBerserkOnWeaponHit and ApplyHit",
+  "status": "C32 source cleanup and required Editor build complete; R13 retained; no tests run",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp",
+      "before_lines": 385,
+      "before_bytes": 27354,
+      "before_sha256": "370d73374f827fb8beaa4d1827560f3a296cece585d83bc944c309a72d06321b",
+      "backup": "ColdSteelSkillCombat.cpp.before.txt",
+      "after_lines": 391,
+      "after_bytes": 27210,
+      "after_sha256": "4de1ab4e9d3b79a0ca7bdf48e28e2ad9c939390fe1428033b31e2f1dfd1a1adb"
+    }
+  ],
+  "modified_existing_files": 1,
+  "new_source_files": 0,
+  "tests_run": false,
+  "build_receipt": "build-receipt.json"
+}

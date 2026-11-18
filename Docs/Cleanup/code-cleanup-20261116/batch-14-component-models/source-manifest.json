@@ -1,0 +1,106 @@
+{
+  "date": "2026-11-17",
+  "scope": "Nine component-local Model selections; keep authority shadow selection separate",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.cpp",
+      "before_lines": 258,
+      "after_lines": 257,
+      "before_bytes": 16408,
+      "after_bytes": 16229,
+      "before_sha256": "7bacadfa12c7cd3f2874c6288ada01e39f95416c28b046af0e92f628cb6bc82c",
+      "after_sha256": "511123d8d691f30f5e0832b9b678c9676b31398ade928600a62f6fefb6717e79",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSHolyLightComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningComponent.cpp",
+      "before_lines": 299,
+      "after_lines": 298,
+      "before_bytes": 19155,
+      "after_bytes": 18976,
+      "before_sha256": "84a95766acbabcde3f94acb785c993533802597316328dd8daf817224a4372ac",
+      "after_sha256": "76e2e9e4b6af7066704d3f1e4d51e0e554e8b09987a6a7d8ca460afc159c9702",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSLightningComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp",
+      "before_lines": 256,
+      "after_lines": 255,
+      "before_bytes": 14492,
+      "after_bytes": 14313,
+      "before_sha256": "7e2b3a04e41a9743e203a923ecd9ef0781459cefac97ef855811429be62cc7d4",
+      "after_sha256": "a2c9ad2cc8f967492104e13bbb5b522019c9920daf1f7721356bce61351bd3f8",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSIceSpikeComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceWallComponent.cpp",
+      "before_lines": 339,
+      "after_lines": 338,
+      "before_bytes": 20823,
+      "after_bytes": 20643,
+      "before_sha256": "209d382a2f99297b26c1a4b29977d5ca5c74fe62e9a1976ad9fd977e9ee1a1ae",
+      "after_sha256": "a594f8f00e324ff3998e78b0d56b7344c9af61e995adf81e57db95cc6b5b4570",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSIceWallComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.cpp",
+      "before_lines": 390,
+      "after_lines": 389,
+      "before_bytes": 23205,
+      "after_bytes": 23025,
+      "before_sha256": "300e56aae3929caa2a61a57f5f3cd9b449fc5246d389f756d14bffb970947aa9",
+      "after_sha256": "f7e7dd5f954e1301fbcd7223a0c36b74cab063515422e04f0587fdd05092491b",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSBlizzardComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp",
+      "before_lines": 681,
+      "after_lines": 680,
+      "before_bytes": 47021,
+      "after_bytes": 46841,
+      "before_sha256": "b33997616188d662bb34ee72a970dfe8d0a2733e70c5021787ab214413dd6826",
+      "after_sha256": "a2efe48fb45335986d18a0adb85cc8b5ec9de8a6b4ce07d79a82d166e60c83ba",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSElectricMagicComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "before_lines": 714,
+      "after_lines": 713,
+      "before_bytes": 40700,
+      "after_bytes": 40521,
+      "before_sha256": "6c7c3740e0dc9bb210db6b7e00d1523def7788d7ed19d2b5137153c7786fb5cd",
+      "after_sha256": "cfd8bb4dba131ae1d8509abb317bf97bbde8a308a1c087250207b01e04b03a7e",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSFireMagicComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceArmorComponent.cpp",
+      "before_lines": 225,
+      "after_lines": 224,
+      "before_bytes": 15194,
+      "after_bytes": 15015,
+      "before_sha256": "87282a27c4fed11af4a96030b568f8c0d8f6afdc600ad95e0c72eebc6f8b45f9",
+      "after_sha256": "adc7cafaa65ea64503d95e2f23d695ffb723718098e0e1e035fab1ea21f9925d",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSIceArmorComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningHasteComponent.cpp",
+      "before_lines": 216,
+      "after_lines": 215,
+      "before_bytes": 13786,
+      "after_bytes": 13606,
+      "before_sha256": "3a19f938478466d233a28c06db25f520451c1103dc656c2a3e3d09871c20642d",
+      "after_sha256": "5edb492427a61e5e2692226f1abcd500cfc8a83181de10f55803550744f53689",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/FPSLightningHasteComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/NetCastUtils.h",
+      "before_lines": 46,
+      "after_lines": 58,
+      "before_bytes": 1954,
+      "after_bytes": 2545,
+      "before_sha256": "e3d3fb7f2eaf0deabc1fae6beeafbcacf3371a5dcac9af9b02f98ad1165dbf56",
+      "after_sha256": "78c496f267a294ce8588ccd9fbb680bc98ee357d338ca600cf40d4ab619252fd",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-14-component-models/NetCastUtils.h.before.txt"
+    }
+  ]
+}

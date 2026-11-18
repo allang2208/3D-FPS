@@ -1,10 +1,10 @@
 # UE5 武器与手臂标准
 
-**改造图标标准（2026-09-30）**：枪械、弓、法杖、近战与工具统一使用精致金属方框、四角铆钉、银色内环和部件主体。原厂件不加禁止标识；无配件使用中性减号。成图包含边框，UI 不重复套框。详见 [制作与接入规范](skills/ue5-weapon-workflow/references/attachment-icons.md)。
+**改造图标标准（2026-09-30）**：枪械、弓、法杖、近战与工具统一使用精致金属方框、四角铆钉、银色内环和部件主体。原厂件不加禁止标识；无配件使用中性减号。成图包含边框，UI 不重复套框。详见 [制作与接入规范](skills/ue5-weapon-workflow/references/attachment-icons.md)。 原因：图标显示取决于可见轮廓和容器比例，重复边框或留白会缩小有效识别区域。
 
-**默认手模（用户于 2026-09-25 更新）**：新增动画和新武器统一以已认可的 V7 裸手、裸臂开发，基础视模默认也是这套。手套、衣袖适配裸手并复用动作。作者源与接入规则见 [认可的裸手基准](skills/ue5-fps-arms-animation/references/accepted-bare-hands.md)。
+**默认手模（2026-09-25 确定，2026-10-19 升级 V9）**：新增动画和新武器统一以已认可的 V9 裸手、裸臂开发，基础视模默认也是这套。手套、衣袖适配裸手并复用动作。作者源与接入规则见 [认可的裸手基准](skills/ue5-fps-arms-animation/references/accepted-bare-hands.md)。 原因：服饰与新动作依赖同一认可的手部骨架和形体，另选旧母版会破坏接触及外观一致性。
 
-当前工程入口为根目录 `FPSGAME.uproject`，完整本机宿主及 Git 工作目录都是 `D:/FPS3D/FPSGAME`，直接在该目录提交和推送。
+当前工程入口为根目录 `FPSGAME.uproject`，完整本机宿主及 Git 工作目录都是 `D:/FPS3D/FPSGAME`，在此开发；Git 提交与推送按本次用户授权和当前仓库状态执行。原因：工作目录只是实现入口，不自动授予发布所有工作区改动的权限。
 
 - [近战武器标准](MELEE-WEAPON-WORKFLOW.md)：双手握持、轻重攻击、连击、真实突刺跨步、命中判定与防御；包含已接受的 [模块化拆分与改造接口](skills/ue5-weapon-workflow/references/modular-melee.md)。
 - [M4 枪托砸击（快速进战·步枪版）](Docs/Weapons/m4-stock-melee-20260918.md)：作者源 clip 路线（六握把配置各一条）、Blender 对位胶片、命中探针取枪身前段；未实机测试。
@@ -27,7 +27,7 @@
 - [M16A2 发布与恢复](Docs/Weapons/m16-publication-20260920.md)：三连发、M4 换弹/近战复用、空仓拉机柄、通用配件及四款枪托封口；已获用户确认，保留最终作者依赖链。
 - [M4 / M16 换弹左手抓握精度修复](Docs/Weapons/m4-m16-reload-grip-precision-20260925.md)：把抓握存成弹匣自身壳坐标系的关系再跨枪搬运，替换 M16 移植里手估的武器空间常量偏移；12 条换弹重导。方法沉淀见 [弹匣抓握跨枪配准](skills/ue5-fps-arms-animation/references/magazine-grip-registration.md)。
 - [AKM / A762 换弹拇指扭曲修复](Docs/Weapons/akm-a762-reload-thumb-twist-20260925.md)：抓握把拇指根部绕自身轴扭了 67°，按 SVD 经验只重做拇指三条轨道（根部纯 swing）；30 条换弹重导。判据与改法沉淀见 [异形弹匣自然抓握](skills/ue5-fps-arms-animation/references/irregular-magazine-grip.md)。
-- [A762 大弹鼓供弹塔修复](Docs/Weapons/a762-drum-neck-20260925.md)：大弹鼓是 AKM 鼓套壳，塔身上段被 smoothstep 仿射重映射压出折角；改为线性过渡 + 原厂弹匣外包络重建并重导。经验见 [跨枪套用供弹塔](skills/asset-model-workflow/references/modular-part-interfaces.md#跨枪套用供弹塔用线性过渡不要-smoothstep-仿射a762-大弹鼓-2026-09-25)。
+- [A762 大弹鼓供弹塔修复](Docs/Weapons/a762-drum-neck-20260925.md)：大弹鼓是 AKM 鼓套壳，塔身上段被 smoothstep 仿射重映射压出折角；改为线性过渡 + 原厂弹匣外包络重建并重导。经验见 [跨枪套用供弹塔](skills/asset-model-workflow/references/modular-part-interfaces.md#跨枪套用供弹塔用线性过渡不要-smoothstep-仿射a762-大弹鼓-2026-09-25)。 原因：供弹件需要适配目标枪自己的入口和活动空间，复制另一枪外形会侵入机匣。
 - [发布规则](WORKFLOW.md#8-仓库整理与推送) 与 [资产恢复](Docs/AssetSetup.md)。
 
-M4 普通/空仓都甩掉旧弹匣、镜头外取新匣、左手包握插入；空仓保留拍击，装备按其拉栓动作处理。手枪按实际源动作和机械状态适配，M1911 采用拔枪与空仓套筒释放，支持装备途中开火和 ADS。不同枪型重新校准接触和时序，个人技能源与工程镜像保持同步。
+M4 普通/空仓都甩掉旧弹匣、镜头外取新匣、左手包握插入；空仓保留拍击，装备按其拉栓动作处理。手枪按实际源动作和机械状态适配，M1911 采用拔枪与空仓套筒释放，支持装备途中开火和 ADS。不同枪型按实际机械行程适配接触和时序。原因：M4 与 M1911 的装填和闭锁结构不同，不能用同一事件表覆盖。共用流程维护个人源，工程入口保留项目增补。原因：单一维护源可避免重复流程分叉，同时保留工程专属约定。

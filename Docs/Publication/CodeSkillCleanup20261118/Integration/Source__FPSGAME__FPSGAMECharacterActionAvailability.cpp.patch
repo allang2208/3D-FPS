@@ -1,0 +1,349 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp b/Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp
+@@ -0,0 +1,344 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++bool AFPSGAMECharacter::IsSpellHandHeld() const
++{
++    return !(Staff&&Staff->IsEquipped()) && IsLeftHandHeldForCast();
++}
++bool AFPSGAMECharacter::IsSpellHandBusy() const
++{
++    if(UBoundCongregateCaptureComponent::IsCaptured(this))return true;
++    if(IsDoorPushActive())return true;
++    if(Staff&&Staff->IsEquipped())return IsTraversing()||!Staff->CanBeginCast();
++    return IsLeftHandBusyForCast();
++}
++bool AFPSGAMECharacter::IsLeftHandBusyForCast(bool bIgnoreDoorPush) const
++{
++    if(IsOffhandReloadTransition())return true;
++    if(UBoundCongregateCaptureComponent::IsCaptured(this))return true;
++    if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
++    if(Staff&&Staff->IsEquipped()&&!Staff->CanBeginCast())return true;
++    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&(Potion->IsActive()||Potion->IsReturningBow()))return true;
++    if(HasOffhandPistol() && DualPistols->LeftBusy())return true;
++    if(IsTraversing() || Traversal->IsWeaponRecovering() || WeaponState!=EAKMWeaponState::Idle || bAimHeld || bIsAiming || ADSProgress>UE_KINDA_SMALL_NUMBER)return true;
++    if(RuneSword && RuneSword->IsBusy())return true;
++    const auto* Tools=FindComponentByClass<UProductionToolComponent>();
++    return Tools && Tools->IsBusy();
++}
++FString AFPSGAMECharacter::DescribeLeftHandBusy(bool bIgnoreDoorPush) const
++{
++    // 与 IsLeftHandBusyForCast 逐项同序展开：服务端对远端 pawn 复核时（撞门/E 交互）
++    // 这些字段是副本状态，客户端通过而服务端拒收的歧义要能在日志里直接指认。
++    TArray<FString> On;
++    if(!bIgnoreDoorPush&&IsDoorPushActive())On.Add(TEXT("DoorPush"));
++    if(Staff&&Staff->IsEquipped())On.Add(Staff->CanBeginCast()
++        ?TEXT("StaffEquipped"):FString::Printf(TEXT("StaffNotReady(busy=%d,staffVis=%d,armsVis=%d)"),
++            Staff->IsBusy()?1:0,(Staff->AssemblyRoot()&&Staff->AssemblyRoot()->IsVisible())?1:0,
++            (Staff->ArmsMesh()&&Staff->ArmsMesh()->IsVisible())?1:0));
++    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())On.Add(TEXT("Potion"));
++    if(HasOffhandPistol()&&DualPistols&&DualPistols->LeftBusy())On.Add(TEXT("OffhandPistol"));
++    if(IsTraversing())On.Add(TEXT("Traversing"));
++    if(WeaponState!=EAKMWeaponState::Idle)On.Add(FString::Printf(TEXT("WeaponState=%d"),int32(WeaponState)));
++    if(bAimHeld||bIsAiming||ADSProgress>UE_KINDA_SMALL_NUMBER)
++        On.Add(FString::Printf(TEXT("Aim(held=%d,aiming=%d,ads=%.2f)"),bAimHeld?1:0,bIsAiming?1:0,ADSProgress));
++    if(RuneSword&&RuneSword->IsBusy())On.Add(TEXT("RuneSwordBusy"));
++    if(const auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsBusy())On.Add(TEXT("ToolBusy"));
++    return FString::Join(On,TEXT(","));
++}
++bool AFPSGAMECharacter::IsCastingWithLeftHand() const
++{
++    if(IsDoorPushActive())return true;
++    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
++    const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
++    const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
++        OffhandKukri&&(OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()))return true;
++    return (Magic && Magic->IsOccupyingLeftHand())||(Bash&&Bash->IsOccupyingLeftHand());
++}
++bool AFPSGAMECharacter::HasOffhandSpellbook() const {return Spellbook&&Spellbook->IsEquipped();}
++bool AFPSGAMECharacter::IsOffhandSpellbookPresented() const {return Spellbook&&Spellbook->OwnsLeftHand();}
++bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook()||IsLoneOffhandPistol()||UOffhandKukriComponent::IsEquippedOn(this)||UKukriWeaponComponent::IsDualOn(this)||UStaffOffhandMeleeComponent::IsEquippedOn(this); }
++void AFPSGAMECharacter::PrepareForPanelInput()
++{
++    // Stop repeated input, not the current animation, contact or reload clock.
++    bFireHeld=false;bPistolShotPending=false;bBurstTriggerHeld=false;
++    GetWorldTimerManager().ClearTimer(FireTimerHandle);
++    if(HasOffhandPistol()){DualPistols->Trigger(0,false);DualPistols->Trigger(1,false);}
++    if(UnarmedIdle)UnarmedIdle->SetTriggerHeld(false);
++    CancelAmmoSelection();
++}
++
++void AFPSGAMECharacter::SuspendWeaponForMenu()
++{
++    CancelOffhandReload();
++    InterruptWeaponInspection();
++    if(DoorPush)DoorPush->Cancel();
++    if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
++    if(BipodDeployment)BipodDeployment->Release(true);
++    CancelAmmoSelection();
++    InterruptReload();
++    if(HasOffhandPistol())DualPistols->InterruptReloads();
++    // These manual action clocks must also yield before a menu pauses the world.
++    // FireReleased below already settles the sword, staff and bow without firing.
++    if(auto* Tool=FindComponentByClass<UProductionToolComponent>())Tool->CancelUse();
++    if(QuickCombatPistol)QuickCombatPistol->Cancel();
++    if(auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>()){OffhandKukri->CancelQuickCombat();OffhandKukri->CancelUppercut();}
++    FireReleased();AimReleased();
++    // A menu owns the keyboard from here on, so the preview's key release will never arrive.
++    if(auto* Fireball=FindComponentByClass<UFPSFireballComponent>())Fireball->SetAimPreview(false);
++    if(auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>())Ice->SetAimPreview(false);
++    if(auto* IceWall=FindComponentByClass<UFPSIceWallComponent>())IceWall->SuspendPreview();
++    if(auto* Lightning=FindComponentByClass<UFPSLightningComponent>())Lightning->Cancel();
++    if(auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>())Electric->CancelPending();
++    if(auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>())HolyLight->Cancel();
++    if(auto* IceArmor=FindComponentByClass<UFPSIceArmorComponent>())IceArmor->Cancel();
++    if(auto* LightningHaste=FindComponentByClass<UFPSLightningHasteComponent>())LightningHaste->Cancel();
++    if(auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
++    if(auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>())Blizzard->SuspendPreview();
++}
++bool AFPSGAMECharacter::IsCastBlockingLeftHandAction(bool bIgnoreDoorPush) const
++{
++    if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->HasAuthorityConsumableReservation(this))return true;
++    if(IsOffhandReloadTransition())return true;
++    if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
++    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
++    if(const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();Bash&&Bash->IsOccupyingLeftHand())return true;
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
++        OffhandKukri&&(OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()))return true;
++    // Staff gestures and their queued requests reserve the right hand. Keep
++    // the left pistol's trigger/reload free while that staff is casting.
++    if(Staff&&Staff->IsEquipped())
++    {
++        const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
++        return Magic&&Magic->IsOccupyingLeftHand();
++    }
++    return IsSpellGestureBlocking(bIgnoreDoorPush);
++}
++bool AFPSGAMECharacter::IsSpellGestureBlocking(bool bIgnoreDoorPush) const
++{
++    if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
++    const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
++    const auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>();
++    if(const auto* IceWall=FindComponentByClass<UFPSIceWallComponent>();IceWall&&IceWall->HasQueuedAction())return true;
++    const auto* Lightning=FindComponentByClass<UFPSLightningComponent>();
++    if(const auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>();Electric&&Electric->HasQueuedAction())return true;
++    const auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>();
++    if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&FireMagic->HasQueuedAction())return true;
++    if(const auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>();Blizzard&&Blizzard->HasQueuedAction())return true;
++    return (Magic && Magic->BlocksNewLeftHandAction())||(Ice&&Ice->HasQueuedAction())||(Lightning&&Lightning->HasQueuedAction())||(HolyLight&&HolyLight->HasQueuedAction())||(FindComponentByClass<UFPSIceArmorComponent>()&&FindComponentByClass<UFPSIceArmorComponent>()->HasQueuedAction())||(LightningHasteSkill&&LightningHasteSkill->HasQueuedAction());
++}
++void AFPSGAMECharacter::ServiceReloadAfterCasting()
++{
++    if(!bReloadAfterCasting)return;
++    if(!bInventoryWeaponReady || (MagazineAmmo>0 && !NeedsReloadCycle())){bReloadAfterCasting=false;return;}
++    if(IsCastBlockingLeftHandAction() || IsWeaponBusy())return;
++    if(const auto* H=FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead()){bReloadAfterCasting=false;return;}
++    bReloadAfterCasting=false;
++    ReloadPressed();
++}
++bool AFPSGAMECharacter::IsRevolverFireActionPlaying() const
++{
++    return (IsM24Weapon() || bUseDanWesson715 || IsTubeShotgunWeapon()) && ActiveActionAnimation
++        && (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || (IsTubeShotgunWeapon()&&ActiveActionAnimation==PistolFireLastAnimation))
++        && GetWorld()->GetTimeSeconds() < LastShotWorldTime + ActionDuration;
++}
++void AFPSGAMECharacter::ServiceRevolverReloadAfterFire()
++{
++    if (!bRevolverReloadAfterFire) return;
++    if (!bInventoryWeaponReady || (!IsM24Weapon()&&!bUseDanWesson715&&!IsTubeShotgunWeapon()) || MagazineAmmo >= MagazineCapacity
++        || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0))
++    {
++        bRevolverReloadAfterFire = false;
++        return;
++    }
++    if (const auto* Health = FindComponentByClass<UFPSCombatHealthComponent>(); Health && Health->IsDead())
++    {
++        bRevolverReloadAfterFire = false;
++        return;
++    }
++    if (IsRevolverFireActionPlaying() || IsWeaponBusy() || IsCastBlockingLeftHandAction()) return;
++    bRevolverReloadAfterFire = false;
++    ReloadPressed();
++}
++bool AFPSGAMECharacter::IsDualWieldingPistols() const { return DualPistols && DualPistols->IsPair(); }
++bool AFPSGAMECharacter::HasOffhandPistol() const { return DualPistols && DualPistols->IsActive(); }
++bool AFPSGAMECharacter::IsWeaponFireHeld() const { return HasOffhandPistol()?DualPistols->HasHeldTrigger():bFireHeld; }
++bool AFPSGAMECharacter::IsReloading() const { return HasOffhandPistol()?DualPistols->IsReloading():WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
++bool AFPSGAMECharacter::IsDoorPushActive() const {return DoorPush&&DoorPush->IsActive();}
++bool AFPSGAMECharacter::IsWeaponBusy(bool bAllowInspection) const
++{
++    const bool bPumpBusy=(IsM24Weapon()||IsM870Weapon())&&IsRevolverFireActionPlaying();
++    return bPumpBusy || IsWeaponBusyForAim(bAllowInspection);
++}
++bool AFPSGAMECharacter::IsWeaponBusyForAim(bool bAllowInspection) const
++{
++    if(IsOffhandReloadTransition())return true;
++    if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool&&(Tool->IsThunderRecallLocked()||Tool->IsLeapStrikeActive()))return true;
++    const bool bGunBusy=HasOffhandPistol()?DualPistols->IsReloading():
++        (WeaponState!=EAKMWeaponState::Idle && !(bAllowInspection && WeaponState==EAKMWeaponState::Inspecting));
++    const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
++    return IsDoorPushActive() || IsTraversing() || Traversal->IsWeaponRecovering() || (RuneSword && RuneSword->IsBusy()) ||
++        (Staff && Staff->IsEquipped() && Staff->IsBusy()) || bGunBusy ||
++        (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()) ||
++        (OffhandKukri && (OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()));
++}

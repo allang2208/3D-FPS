@@ -1,0 +1,651 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterInput.cpp b/Source/FPSGAME/FPSGAMECharacterInput.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterInput.cpp
+@@ -0,0 +1,646 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++void AFPSGAMECharacter::SetupPlayerInputComponent(UInputComponent* Input)
++{
++    Super::SetupPlayerInputComponent(Input);
++    Input->BindAxis(TEXT("MoveForward"), this, &AFPSGAMECharacter::MoveForward);
++    Input->BindAxis(TEXT("MoveRight"), this, &AFPSGAMECharacter::MoveRight);
++    Input->BindAxis(TEXT("Turn"), this, &AFPSGAMECharacter::Turn);
++    Input->BindAxis(TEXT("LookUp"), this, &AFPSGAMECharacter::LookUp);
++    Input->BindAction(TEXT("Jump"), IE_Pressed, this, &AFPSGAMECharacter::JumpPressed);
++    Input->BindAction(TEXT("Jump"), IE_Released, this, &AFPSGAMECharacter::JumpReleased);
++    Input->BindAction(TEXT("Sprint"), IE_Pressed, this, &AFPSGAMECharacter::SprintPressed);
++    Input->BindAction(TEXT("Sprint"), IE_Released, this, &AFPSGAMECharacter::SprintReleased);
++    Input->BindAction(TEXT("Slide"), IE_Pressed, this, &AFPSGAMECharacter::SlidePressed);
++    Input->BindAction(TEXT("Fire"), IE_Pressed, this, &AFPSGAMECharacter::FirePressed);
++    Input->BindAction(TEXT("Fire"), IE_Released, this, &AFPSGAMECharacter::FireInputReleased);
++    Input->BindAction(TEXT("MainFireMode"), IE_Pressed, this, &AFPSGAMECharacter::MainFireModePressed);
++    Input->BindAction(TEXT("OffhandFireMode"), IE_Pressed, this, &AFPSGAMECharacter::OffhandFireModePressed);
++    Input->BindAction(TEXT("Aim"), IE_Pressed, this, &AFPSGAMECharacter::AimPressed);
++    Input->BindAction(TEXT("Aim"), IE_Released, this, &AFPSGAMECharacter::AimReleased);
++    Input->BindAction(TEXT("Reload"), IE_Pressed, this, &AFPSGAMECharacter::ReloadInputPressed);
++    Input->BindAction(TEXT("Reload"), IE_Released, this, &AFPSGAMECharacter::ReloadInputReleased);
++    Input->BindAction(TEXT("InspectWeapon"), IE_Pressed, this, &AFPSGAMECharacter::InspectPressed);
++    Input->BindAction(TEXT("QuickCombat"), IE_Pressed, this, &AFPSGAMECharacter::QuickCombatPressed);
++    Input->BindAction(TEXT("RuneBlades"), IE_Pressed, this, &AFPSGAMECharacter::RuneBladesPressed);
++    // 玩家击倒测试键（2026-11-14）：Y 触发倒地-站起，联机时由服务端开始。
++    Input->BindKey(EKeys::Y, IE_Pressed, this, &AFPSGAMECharacter::KnockdownTestPressed);
++}
++
++bool AFPSGAMECharacter::IsMeleeSkillMovementLocked() const
++{
++    const auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>();
++    const auto* Tool=FindComponentByClass<UProductionToolComponent>();
++    const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();
++    const auto* PS=GetPlayerState<AColdSteelPlayerState>();
++    return UBoundCongregateCaptureComponent::IsCaptured(this)||(Electric&&Electric->IsCharging())||
++        (PS&&PS->IsSwordWhirlwindExecuting(this))||
++        (Tool&&(Tool->IsLeapStrikeActive()||Tool->IsGroundSlamActive()||Tool->IsWhirlwindActive()||Tool->IsUppercutActive()))||
++        (RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive()))||
++        (Kukri && (Kukri->IsDashAttackActive() || Kukri->IsWhirlwindActive()));
++}
++
++void AFPSGAMECharacter::StopMovementForMeleeSkill()
++{
++    ExitSprintForWeapon();
++    SprintPressedAt = -1.0;
++    MoveInput = FVector2D::ZeroVector;
++    ConsumeMovementInputVector();
++    JumpBufferRemaining = 0.f;
++    StopJumping();
++    Traversal->SetJumpHeld(false);
++    auto* Movement = GetCharacterMovement();
++    // Stop locomotion without suspending gravity if the cast starts in the air.
++    const double FallingSpeed = Movement->IsFalling() ? Movement->Velocity.Z : 0.0;
++    Movement->StopMovementImmediately();
++    Movement->Velocity.Z = FallingSpeed;
++    Movement->UpdateComponentVelocity();
++}
++
++void AFPSGAMECharacter::MoveForward(float Value)
++{
++    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：移动输入被忽略，退出后恢复
++    if (IsMeleeSkillMovementLocked()) { MoveInput.Y = 0.f; return; }
++    // 失焦窗口的轴绑定以最后键值逐帧重发（KeyUp 事件从未到达该窗口）——Tick 里清
++    // MoveInput 记账挡不住 AddMovementInput 的逐帧注入，必须在回调源头按物理键态归零。
++    if (IsLocallyControlled() && !bMPAutoInputActive && !FMath::IsNearlyZero(Value))
++    {
++        auto PhysKey=[](int32 Vk){ return (GetAsyncKeyState(Vk)&0x8000)!=0; };
++        const bool bPhysDown = Value > 0.f ? (PhysKey(0x57)||PhysKey(VK_UP)) : (PhysKey(0x53)||PhysKey(VK_DOWN));
++        if (!bPhysDown) Value = 0.f;
++    }
++    MoveInput.Y = Value;
++    if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
++        AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::X), Value);
++}
++
++void AFPSGAMECharacter::MoveRight(float Value)
++{
++    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：移动输入被忽略，退出后恢复
++    if (IsMeleeSkillMovementLocked()) { MoveInput.X = 0.f; return; }
++    if (IsLocallyControlled() && !bMPAutoInputActive && !FMath::IsNearlyZero(Value))
++    {
++        auto PhysKey=[](int32 Vk){ return (GetAsyncKeyState(Vk)&0x8000)!=0; };
++        const bool bPhysDown = Value > 0.f ? (PhysKey(0x44)||PhysKey(VK_RIGHT)) : (PhysKey(0x41)||PhysKey(VK_LEFT));
++        if (!bPhysDown) Value = 0.f;
++    }
++    MoveInput.X = Value;
++    if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
++        AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::Y), Value);
++}
++
++void AFPSGAMECharacter::Turn(float Value)
++{
++    if(IsAmmoWheelOpen()){MoveAmmoPointer(FVector2D(Value,0));return;}
++    if(RuneSword&&(RuneSword->IsWhirlwindActive()||RuneSword->IsDashAttackActive()))return;
++    if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsWhirlwindActive())return;
++    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsWhirlwindActive())return;
++    if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
++    LookInput.X += Value; AddControllerYawInput(Value * LookSensitivityScale());
++}
++void AFPSGAMECharacter::LookUp(float Value)
++{
++    if(IsAmmoWheelOpen()){MoveAmmoPointer(FVector2D(0,Value));return;}
++    if(RuneSword&&(RuneSword->IsWhirlwindActive()||RuneSword->IsDashAttackActive()))return;
++    if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsWhirlwindActive())return;
++    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsWhirlwindActive())return;
++    if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
++    LookInput.Y += Value; AddControllerPitchInput(Value * LookSensitivityScale());
++}
++void AFPSGAMECharacter::SprintPressed()
++{
++    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：冲刺/疾避键无效
++    if (IsMeleeSkillMovementLocked()) return;
++    if (bSprintHeld) return;
++    SprintPressedAt=(!IsDodging() && !IsTraversing() && Controller && !Controller->IsMoveInputIgnored())
++        ? GetWorld()->GetTimeSeconds() : -1.0;
++    bSprintHeld = true;
++    if (IsDodging()) return;
++    if (bIsSliding && CanStand()) StopSlide(true);
++    else if (bIsCrouched && CanStand()) UnCrouch();
++}
++void AFPSGAMECharacter::SprintReleased()
++{
++    const bool bTap=bSprintHeld && SprintPressedAt>=0.0 &&
++        GetWorld()->GetTimeSeconds()-SprintPressedAt<=DodgeTapMaximumHold;
++    bSprintHeld=false;
++    if(RuneSword)RuneSword->ResetDashReadiness();
++    if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>())Kukri->ResetDashReadiness();
++    SprintPressedAt=-1.0;
++    if (bTap && !IsDoorPushActive()) TryDodge();
++}
++
++void AFPSGAMECharacter::SlidePressed()
++{
++    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：蹲/滑铲键无效
++    if (IsMeleeSkillMovementLocked() || IsTraversing() || IsDodging()) return;
++    if (bIsSliding) { StopSlide(false); return; }
++    if (bIsCrouched) { if (CanStand()) UnCrouch(); return; }
++    // 门槛跟持械移速乘区走：满速要求仍是 600，持机枪降到 402（即 600×0.67），
++    // 否则机枪的疾跑上限 469 永远跨不过固定的 600，滑铲静默失效。
++    if (GetCharacterMovement()->IsMovingOnGround() && HorizontalSpeed() >= SlideEntrySpeed()) StartSlide(); else Crouch();
++}
++
++void AFPSGAMECharacter::JumpPressed()
++{
++    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：跳跃/翻越键无效
++    if (IsMeleeSkillMovementLocked() || IsDodging()) return;
++    Traversal->SetJumpHeld(true);
++    if (IsTraversing()) return;
++    if (Traversal->TryStart(!bIsSliding && !IsWeaponBusy(true))) { JumpBufferRemaining=0.f; StopJumping(); return; }
++    JumpBufferRemaining = JumpInputBufferTime;
++    TryBufferedJump();
++}
++void AFPSGAMECharacter::JumpReleased()
++{
++    Traversal->SetJumpHeld(false);
++    StopJumping();
++}
++
++void AFPSGAMECharacter::FirePressed()
++{
++    if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryPress())return;
++    InterruptWeaponInspection();
++    if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
++    if(IsDualWieldingPistols()){DualPistols->Trigger(0,true);return;}
++    // 左手单持：这把枪由双持组件的手 1 驱动，开火也交给它，避免主手状态机
++    // 与左手网格各算一套弹药/时钟。
++    if(IsLoneLeftHandRig()){DualPistols->Trigger(1,true);return;}
++    // 手枪砸击进行中不接开火（枪已离姿态，动作结束才恢复）。
++    if(QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())return;
++    // 副手弯刀出刀/上挑进行中同样不接开火（枪随动作走位，结束才恢复）。
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
++        OffhandKukri&&(OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()))return;
++    if(IsCastBlockingLeftHandAction())
++    {
++        if(RuneSword && RuneSword->IsEquipped())return;
++        if(Bow && Bow->IsEquipped())return;
++        if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
++    }
++    // 冲刺攻击是连续奔跑就绪后的被动；未就绪沿用轻／重攻击。
++    if(RuneSword && RuneSword->IsEquipped())
++    {
++        // 就绪检测须在退出奔跑前完成；未就绪沿用普通左键轻／重攻击。
++        // The earned charge survives slide-jump and can be released in the air.
++        // Use the same readiness gate as the held pose and skill component.
++        if(!RuneSword->IsBroadbladeSweepReady() && RuneSword->DashReadyFraction()>=1.f-UE_SMALL_NUMBER)
++        {RuneSword->TryBeginDashAttack();return;}
++        ExitSprintForWeapon();
++        RuneSword->BeginPrimaryAttack();
++        return;
++    }
++    // 尼泊尔弯刀：左键三连击（水平横劈 → 左上向右下斜劈 → 单手低位戳刺），连段输入由组件缓冲。
++    if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())
++    {
++        // 冲刺攻击：连续奔跑就绪后左键双手跳劈（被动 dashAttack，与剑同一准备、体力、伤害与扇区规则）。
++        // 就绪检测须在退出奔跑前完成；未就绪沿用普通三连击。
++        if(Kukri->DashReadyFraction()>=1.f-UE_SMALL_NUMBER)
++        {
++            // Capture the real horizontal speed (or a slide jump still queued in LaunchCharacter) before the cast
++            // stops locomotion; the player then slides on into the chop and brakes natively (~1 m from a sprint).
++            auto* Move=Cast<UFPSCharacterMovementComponent>(GetCharacterMovement());
++            const bool bPendingJump=Move&&!Move->PendingLaunchVelocity.IsZero();
++            const FVector Carry=Move?(bPendingJump?Move->PendingLaunchVelocity:Move->Velocity):FVector::ZeroVector;
++            if(Kukri->TryBeginDashAttack())
++            {
++                if(IsSliding())StopSlide(true);
++                StopMovementForMeleeSkill();
++                if(Move&&!Move->BeginMeleeDashMomentum(Carry))
++                {
++                    Move->PendingLaunchVelocity.X=0.;
++                    Move->PendingLaunchVelocity.Y=0.;
++                }
++            }
++            return;
++        }
++        ExitSprintForWeapon();
++        Kukri->BeginPrimaryAttack();
++        return;
++    }
++    // 弓：左键一次按下＝弦上空先搭箭、已搭箭开始拉开；只有真实松手才结算发射。
++    if(Staff&&Staff->IsEquipped())
++    {
++        ExitSprintForWeapon();
++        auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        if(Model&&!Model->SelectedMagicSkill().IsNone())Model->PressStaffMagic();
++        else Staff->BeginPrimaryAttack();
++        return;
++    }
++    if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetTriggerHeld(true);Bow->BeginPrimaryAttack();return;}
++    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
++    {
++        if(Tools->DashReadyFraction()>=1.f-UE_SMALL_NUMBER){Tools->TryBeginSprintAttack();return;}
++        ExitSprintForWeapon();Tools->BeginPrimaryAttack();return;
++    }
++    if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(true);return;}
++    if(IsTubeShotgunWeapon()&&IsReloading())bSuper90CancelReload=true;
++    if (bUseM16)
++    {
++        if (bBurstTriggerHeld) return;
++        bBurstTriggerHeld = true;
++        // A click during an existing group is not queued as another group.
++        if (BurstShotsRemaining > 0 || !bInventoryWeaponReady || IsWeaponBusy()
++            || IsCastBlockingLeftHandAction() || GetWorld()->GetTimeSeconds() < NextAllowedShotTime) return;
++        BurstShotsRemaining = BurstShotCount;
++    }
++    if (!bFireHeld)
++    {
++        NextAllowedShotTime = FMath::Max(NextAllowedShotTime, static_cast<double>(GetWorld()->GetTimeSeconds()));
++        TriggerFirstShotWorldTime = -1.0;
++    }
++    if (UsesSingleShotTrigger() && !bFireHeld) bPistolShotPending = true;
++    bFireHeld = true;
++    ExitSprintForWeapon();
++    ServiceHeldFire();
++}
++
++void AFPSGAMECharacter::FireInputReleased()
++{
++    if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryRelease())return;
++    // Releasing a tap completes its punch; only priority interruption cancels it.
++    if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
++    if(Staff&&Staff->IsEquipped())
++    {
++        if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->ReleaseStaffMagic();
++        return;
++    }
++    // 弯刀挥砍不受松键影响：真实松手不能落到 FireReleased 的取消路径；只有重击蓄力由真实松手决定（轻点／未蓄满 = 普通连击）。
++    if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped()){Kukri->ReleasePrimaryAttack();return;}
++    // Only the physical input release may commit a charged sword attack.
++    // Menu/traversal/equipment callers still use FireReleased to stop actions.
++    if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleasePrimaryAttack();return;}
++    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped()){Tools->ReleasePrimaryAttack();return;}
++    // 松手是弓唯一的发射入口；菜单／翻越等打断走 FireReleased，不放箭。
++    if(Bow&&Bow->IsEquipped()){Bow->SetTriggerHeld(false);Bow->ReleasePrimaryAttack();return;}
++    if (bUseM16) { bBurstTriggerHeld = false; return; }
++    FireReleased();
++}
++
++void AFPSGAMECharacter::FireReleased()
++{
++    if(IsLocallyControlled())if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->CancelStaffMagic();
++    if(UnarmedIdle)UnarmedIdle->CancelAttack();
++    if(Spellbook)Spellbook->CancelFocus();
++    if(Staff)Staff->CancelAction();
++    bFireHeld=false;bPistolShotPending=false;GetWorldTimerManager().ClearTimer(FireTimerHandle);
++    bBurstTriggerHeld=false;BurstShotsRemaining=0;
++    if(IsDualWieldingPistols()){DualPistols->Trigger(0,false);return;}
++    if(IsLoneLeftHandRig()){DualPistols->Trigger(1,false);return;}
++    if(RuneSword && RuneSword->IsEquipped())RuneSword->CancelAction();
++    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())Tools->CancelUse();
++    // 切枪／菜单这类"非真实松手"只收弓，箭留在弦上，不结算发射。
++    if(Bow&&Bow->IsEquipped()){Bow->SetTriggerHeld(false);Bow->CancelAction();}
++    const double Now=GetWorld()->GetTimeSeconds();
++    AdvanceVisualWeaponRecoil(Now);
++    // Preserve the initial kick even when a tap is released in the shot frame.
++    VisualRecoverAt=FMath::Min(VisualRecoverAt,FMath::Max(Now,LastVisualShotAt+.055));
++}
++
++void AFPSGAMECharacter::AimPressed()
++{
++    if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
++    InterruptWeaponInspection();
++    if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
++    // 双持/法杖副手：右键盘手 1 只让机瞄节点指向目标。左手单持不同，
++    // 它要真正的开镜（WeaponADSFactor）来驱动左手网格的瞄具标定。
++    if(HasOffhandPistol()&&!IsLoneLeftHandRig()){DualPistols->Trigger(1,true);return;}
++    if(Staff&&Staff->IsEquipped()){if(Spellbook)Spellbook->ToggleFocus();return;}
++    // 单手弯刀没有机瞄与格挡：右键不进入枪械开镜状态机。
++    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped()){bAimHeld=false;return;}
++    if(IsCastBlockingLeftHandAction())return;
++    if(RuneSword && RuneSword->IsGuardWeaponEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
++    // 弓的右键＝稳持（压住满拉呼吸抖动），不进枪械机瞄状态机。
++    if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetSteadyHeld(true);return;}
++    // Right-click with a production tool out is the shovel's refill, never ADS.
++    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped()){Tools->BeginRefill();return;}
++    if(IsTubeShotgunWeapon()&&IsReloading())bSuper90CancelReload=true;
++    bAimHeld = true;
++    ExitSprintForWeapon();
++    if (!IsWeaponBusyForAim())
++    {
++        SetAimingState(true);
++        // Entering ADS during a shot must not restart its pump/casing clock.
++        if (!IsWeaponBusy()) ResumeWeaponPose();
++    }
++}
++
++void AFPSGAMECharacter::AimReleased()
++{
++    if(HasOffhandPistol()&&!IsLoneLeftHandRig()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
++    if(Staff&&Staff->IsEquipped()){bAimHeld=false;return;}
++    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped()){bAimHeld=false;return;}
++    bAimHeld=false;
++    if(RuneSword && RuneSword->IsGuardWeaponEquipped()){RuneSword->ReleaseGuard();return;}
++    if(Bow&&Bow->IsEquipped()){Bow->SetSteadyHeld(false);return;}
++    SetAimingState(false);if(!IsWeaponBusy())ResumeWeaponPose();
++}
++
++void AFPSGAMECharacter::InspectPressed()
++{
++    // Repeated inspection is a new action with a fresh clip/state clock.
++    InterruptWeaponInspection();
++    // Dual inspect is disabled by user choice. Its clocks do not advance the
++    // single-weapon Inspecting state.
++    if(IsDualWieldingPistols())return;
++    if(RuneSword && RuneSword->IsEquipped())
++    {
++        if(IsCastBlockingLeftHandAction() || IsWeaponBusy())return;
++        ExitSprintForWeapon();RuneSword->BeginInspect();return;
++    }
++    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsWarhammerEquipped())
++    {
++        // Two-handed blunt: raise, rock, flick and one full turn about the shaft.
++        if(IsCastBlockingLeftHandAction() || IsWeaponBusy() || Tools->IsBusy())return;
++        ExitSprintForWeapon();Tools->BeginInspect();return;
++    }
++    if (IsCastBlockingLeftHandAction() || IsWeaponBusy() || IsChoosingAmmo()) return;
++    UAnimSequence* Clip=bUseM1911 && DualPistols && (MagazineAmmo==0 || NeedsReloadCycle())
++        ?DualPistols->SingleEmptyInspect():InspectAnimation.Get();
++    if(!Clip || !bInventoryWeaponReady)return;
++    FireReleased();
++    ExitSprintForWeapon();
++    StopMechanicalAudio();
++    SetAimingState(false);
++    WeaponState = EAKMWeaponState::Inspecting;
++    WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
++    WeaponStateElapsed = 0.0f;
++    WeaponStateDuration = Clip->GetPlayLength()/LightningHaste::ActionSpeed(this);
++    PlayWeaponAnimation(Clip, false,LightningHaste::ActionSpeed(this));
++    if(!GunplayAnimation)AKMViewmodel->SetPosition(0.f,false);
++}
++
++// 「快速进战」F 键入口：转交状态模型，由其按当前武器路由（剑 → 配重锤 / 手枪 → 握把砸击 /
++// 其余枪械 → 步枪枪托砸击）。武器类型锁已于 2026-09-18 按用户要求取消。
++void AFPSGAMECharacter::QuickCombatPressed()
++{
++    InterruptWeaponInspection();
++    if(auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
++        Profile->TriggerQuickCombat();
++}
++
++// 武器专属 G：法杖照明、星髓长锋充能或符文长剑环绕飞剑。
++// 2D 合同"攻击动画未播完不触发"：剑在做任何动作（挥砍/格挡/旋刃/收刀）期间不响应。
++void AFPSGAMECharacter::RuneBladesPressed()
++{
++    InterruptWeaponInspection();
++    // G is the equipped weapon's fixed special-function key.
++    if(Staff&&Staff->IsEquipped()){Staff->ToggleIllumination();return;}
++    if(RuneSword && RuneSword->IsInspecting())RuneSword->CancelAction();
++    if(RuneSword && RuneSword->IsBusy())return;
++    if(auto* Core=FindComponentByClass<UStarMarrowComponent>();Core&&Core->IsEquipped()){Core->Trigger();return;}
++    if(RuneOrbBlades)RuneOrbBlades->Trigger();
++}
++
++// 手枪版快速进战：单持时松开左手、右手持枪以握把前砸。这里只做武装与动作仲裁，
++// 时钟、接触结算与技能提交在动作组件里。
++void AFPSGAMECharacter::RefreshMovementState()
++{
++    const bool bForwardIntent = MoveInput.Y > 0.5f && MoveInput.Size() > 0.7f;
++    const bool bPreviouslySprinting = bIsSprinting;
++    const auto* StaminaProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    const bool Guarding=RuneSword && RuneSword->IsGuarding();
++    const auto* MovementStatus=FindComponentByClass<UCombatStatusFormula>();
++    const bool Exhausted=MovementStatus&&MovementStatus->ExhaustionRemaining()>0.f;
++    SetAimingState(bAimHeld && !IsWeaponBusyForAim());
++    const bool bMovementAiming = bIsAiming || (Bow && Bow->IsAimHeld());
++    bIsSprinting = !Exhausted && !IsMeleeSkillMovementLocked() && !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bMovementAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
++    if (!bIsSprinting && bMPAutoInputActive && bSprintHeld && !Exhausted) bIsSprinting = true; // 测试钩子仍受力竭状态限制。
++    if (!bPreviouslySprinting && bIsSprinting) SprintStartedAt = GetWorld()->GetTimeSeconds();
++    if (bPreviouslySprinting && !bIsSprinting) StartSprintToFireLock(GetWorld()->GetTimeSeconds());
++    // SprintSpeed already carries the held-weapon movement multiplier, and
++    // SlideEntrySpeed() scales the slide gate by that same ratio - changing one
++    // without the other silently disables sliding for the affected weapons.
++    // 联机（重构）：冲刺/瞄准意图写入 CMC 的 bWantsTo*，随 SavedMove 压缩标志与移动包
++    // 同帧到达服务端（UpdateFromCompressedFlags），两端共用同一份速度档依据。
++    auto* Move = Cast<UFPSCharacterMovementComponent>(GetCharacterMovement());
++    if(Move&&Exhausted)Move->bWantsToSprint=false;
++    if (IsLocallyControlled() && Move)
++    {
++        Move->bWantsToSprint = bIsSprinting;
++        Move->bWantsToAim = bMovementAiming;
++        Move->bWantsToSlide = bIsSliding;
++    }
++    if(Move)Move->RefreshSpeedLimits();
++}
++
++void AFPSGAMECharacter::StartSlide()
++{
++    // Sliding changes locomotion only; weapon actions keep their own state/clock.
++    ExitSprintForWeapon();
++    bIsSliding = true;
++    bSlideDownhill = false;
++    SlideAge = 0.0f;
++    SlideTimeRemaining = SlideMaximumTime;
++    Crouch();
++    UCharacterMovementComponent* Movement = GetCharacterMovement();
++    Movement->GroundFriction = 0.0f;
++    Movement->BrakingDecelerationWalking = 0.0f;
++    FVector HorizontalVelocity = Movement->Velocity; HorizontalVelocity.Z = 0.0f;
++    if (SlideBoostCooldownRemaining <= 0.0f)
++    {
++        HorizontalVelocity = HorizontalVelocity.GetClampedToMaxSize(SprintSpeed) * SlideSpeedMultiplier;
++        HorizontalVelocity = HorizontalVelocity.GetClampedToMaxSize(SprintSpeed * SlideSpeedMultiplier);
++        SlideBoostCooldownRemaining = SlideBoostCooldown;
++    }
++    Movement->Velocity.X = HorizontalVelocity.X; Movement->Velocity.Y = HorizontalVelocity.Y;
++}
++
++void AFPSGAMECharacter::StopSlide(bool bTryToStand)
++{
++    bIsSliding = false;
++    bSlideDownhill = false;
++    GetCharacterMovement()->GroundFriction = SavedGroundFriction;
++    GetCharacterMovement()->BrakingDecelerationWalking = SavedBrakingDeceleration;
++    if (bTryToStand && CanStand()) UnCrouch();
++}
++
++void AFPSGAMECharacter::TryBufferedJump()
++{
++    if (IsMeleeSkillMovementLocked() || IsDodging()) return;
++    if (JumpBufferRemaining <= 0.0f || !GetCharacterMovement()->IsMovingOnGround() || !CanStand()) return;
++    if (bIsSliding)
++    {
++        if (SlideAge < SlideJumpLockTime && HorizontalSpeed() > SprintSpeed * 1.75f) return;
++        const FVector HorizontalVelocity(GetVelocity().X, GetVelocity().Y, 0.0f);
++        LastSlideJumpAt = GetWorld()->GetTimeSeconds();
++        StopSlide(true); JumpBufferRemaining = 0.0f;
++        LaunchCharacter(HorizontalVelocity + FVector(0.0f, 0.0f, 650.0f), true, true);
++        if(auto* Movement=Cast<UFPSCharacterMovementComponent>(GetCharacterMovement()))Movement->QueueSlideJumpRequest();
++        return;
++    }
++    if (bIsCrouched) UnCrouch();
++    JumpBufferRemaining = 0.0f; Jump();
++}
++
++bool AFPSGAMECharacter::CanStand() const
++{
++    if (!bIsCrouched) return true;
++    const UCapsuleComponent* Capsule = GetCapsuleComponent();
++    const float Radius = Capsule->GetUnscaledCapsuleRadius();
++    const FVector TestLocation = GetActorLocation() + FVector(0.0f, 0.0f, StandingCapsuleHalfHeight - Capsule->GetUnscaledCapsuleHalfHeight());
++    FCollisionQueryParams Params(SCENE_QUERY_STAT(FPSCanStand), false, this);
++    return !GetWorld()->OverlapBlockingTestByProfile(TestLocation, FQuat::Identity, Capsule->GetCollisionProfileName(), FCollisionShape::MakeCapsule(Radius, StandingCapsuleHalfHeight), Params);
++}
++
++bool AFPSGAMECharacter::IsTraversing() const { return Traversal && Traversal->IsTraversing(); }

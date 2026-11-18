@@ -6,61 +6,66 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ---
 
-弓的节拍/穿心箭、元素箭与箭雨准备、照明箭以及队友搭箭特效，读取 [弓系准备技能](../ue5-skill-magic-workflow/references/bow-prepared-skills.md)。
+弓的节拍/穿心箭、元素箭与箭雨准备、照明箭以及队友搭箭特效，读取 [弓系准备技能](../ue5-skill-magic-workflow/references/bow-prepared-skills.md)。 为什么：「弓系准备技能」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-# 本机维护源入口
+- **2026-10-27 优先规则**：浮窗、改造栏与数值交付统一写 `暴击率+10%`、`暴击伤害+10%`，不用中文百分比单位；按[百分比显示规则](../ue5-ui-umg-slate/references/percentage-display.md)执行，覆盖旧显示写法，保留实际公式。 为什么：统一显示单位可避免将倍率、百分比加成和百分点误读为不同的实际数值。
 
-- 双手剑、锤的通用与专属材质，剑火随装备复制，以及握把轨迹检查，见 [模块剑接口与材质](references/modular-sword-materials.md)。
 
-本机共用流程统一读取[ue5-weapon-workflow](C:/Users/allan/.codex/skills/ue5-weapon-workflow/SKILL.md)，不要叠加旧镜像流程。
 
-工程专属规则以当前 AGENTS.md、WORKFLOW.md 和本次用户要求为准。维护源不可用或需要查找未合入的工程经验时，读取[整理前工程资料](LOCAL-HISTORY.md)及原 references；其中历史测试与协调条款不构成执行授权。
+# 共用规则入口
 
-此入口依赖本机个人目录；跨机器交付需另行导出所需维护源和引用。
+- 双手剑、锤的通用与专属材质，剑火随装备复制，以及握把轨迹检查，见 [模块剑接口与材质](references/modular-sword-materials.md)。 为什么：「模块剑接口与材质」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+
+共用流程读取仓库发布快照：[ue5-weapon-workflow](../_shared/ue5-weapon-workflow/SKILL.md)，不要叠加旧镜像流程。 为什么：共用流程只维护一个来源，避免工程镜像与个人版本给出相互冲突的步骤。
+
+工程专属规则以当前 AGENTS.md、WORKFLOW.md 和本次用户要求为准。维护源不可用或需要查找未合入的工程经验时，读取[整理前工程资料](LOCAL-HISTORY.md)及原 references；其中历史测试与协调条款不构成执行授权。 为什么：当前用户授权决定操作范围，历史测试与协调记录不能自动成为新任务授权。
+
+本入口随仓库提供共用规则快照；日常修订仍回到个人维护源，发布时更新快照。 为什么：相对链接支持换机阅读，单一维护源避免两套规则分叉。
 
 ## 副手魔法书
 
-- 魔法书属性、强化、浮窗、专注与联机打断，读取[副手魔法书：属性、专注与恢复](references/spellbook-focus-and-publication.md)。区分单件／总魔攻、瞬时动画／权威结算及活动源输入／废案。
+- 魔法书属性、强化、浮窗、专注与联机打断，读取[副手魔法书：属性、专注与恢复](references/spellbook-focus-and-publication.md)。区分单件／总魔攻、瞬时动画／权威结算及活动源输入／废案。 为什么：「副手魔法书：属性、专注与恢复」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 ## 霰弹枪弹药与联机收尾
 
-- 伸缩后托/幻影握把表面、M16/ASH 瞄具座、SUPER90 枪口与加长弹仓组合及改造导航记忆，读取 [配件表面与霰弹枪组合](references/attachment-surface-and-shotgun-combinations.md)。保护有效恢复输入，区分视觉草稿与已应用玩法配方。
+- 伸缩后托/幻影握把表面、M16/ASH 瞄具座、SUPER90 枪口与加长弹仓组合及改造导航记忆，读取 [配件表面与霰弹枪组合](references/attachment-surface-and-shotgun-combinations.md)。保护有效恢复输入，区分视觉草稿与已应用玩法配方。 为什么：「配件表面与霰弹枪组合」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- SUPER90 弹药快照、权威装填回执、远端道具／枪口和轮盘缺图处理，读取 [霰弹枪权威与表现](references/shotgun-authority-and-presentation.md)。记录实际构建与尚未进行的联机体验，避免用保存或编译替代运行验收。
+- SUPER90 弹药快照、权威装填回执、远端道具／枪口和轮盘缺图处理，读取 [霰弹枪权威与表现](references/shotgun-authority-and-presentation.md)。记录实际构建与尚未进行的联机体验，避免用保存或编译替代运行验收。 为什么：发布目标与本地历史可能变化，明确目标可避免把其他历史推到错误分支。
 
-- 腰射／ADS 镭射归零、联机光点一致及架枪确认交互，读取 [战术灯与镭射](references/tactical-devices.md) 的最新规则；枪声、火光、退壳与每手机械事件见 [武器音效](references/weapon-audio.md)。
+- 腰射／ADS 镭射归零、联机光点一致及架枪确认交互，读取 [战术灯与镭射](references/tactical-devices.md) 的最新规则；枪声、火光、退壳与每手机械事件见 [武器音效](references/weapon-audio.md)。 为什么：「战术灯与镭射」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 木工成品评分、弓物理伤害与法杖魔攻通道：[工件品质契约](../ue5-cpp-gameplay/references/paid-workpiece-quality.md)。
+- 木工成品评分、弓物理伤害与法杖魔攻通道：[工件品质契约](../ue5-cpp-gameplay/references/paid-workpiece-quality.md)。 为什么：「工件品质契约」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M870 的泵动中断、ADS 保持、枪托近战权威、通用配件衔接及图标手臂剔除：[M870 泵动枪接入](references/m870-pump-integration.md)。按武器实例维护机械状态，区分离线权威检查与真实联机。
+- M870 的泵动中断、ADS 保持、枪托近战权威、通用配件衔接及图标手臂剔除：[M870 泵动枪接入](references/m870-pump-integration.md)。按武器实例维护机械状态，区分离线权威检查与真实联机。 为什么：「M870 泵动枪接入」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- S12K 低模封闭、材质、前向弹鼓与专属后托：[S12K 低模封闭、材质、前向弹鼓与专属后托](references/saiga12k-production.md)。按问题读取；历史检查不授权自动重测。
+- S12K 低模封闭、材质、前向弹鼓与专属后托：[S12K 低模封闭、材质、前向弹鼓与专属后托](references/saiga12k-production.md)。按问题读取；历史检查不授权自动重测。 为什么：「S12K 低模封闭、材质、前向弹鼓与专属后托」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 长刀符文、赤霄双斩、逐风前进旋风与三色剑气：读取 [斩马刀改造](references/zhanmadao-legendary-blades.md)。保留独立攻击时钟、改造配方和仍有效的旧版制作输入。
+- 长刀符文、赤霄双斩、逐风前进旋风与三色剑气：读取 [斩马刀改造](references/zhanmadao-legendary-blades.md)。保留独立攻击时钟、改造配方和仍有效的旧版制作输入。 为什么：「斩马刀改造」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 枪械数值审计、优势条件化调参、改一个字段的连带检查（`mag_delta`、旧档硬编码基数、静态 `stats`）以及目录调校字段的实例快照与联机影子问题，读取 [枪械审计与联机／存档连带检查](references/firearm-balance-audit.md)。
+- 枪械数值审计、优势条件化调参、改一个字段的连带检查（`mag_delta`、旧档硬编码基数、静态 `stats`）以及目录调校字段的实例快照与联机影子问题，读取 [枪械审计与联机／存档连带检查](references/firearm-balance-audit.md)。 为什么：「枪械审计与联机／存档连带检查」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 共享 SVD 动作后换枪体、准星/枪口/弹匣接口与 KV 镜、狙击消音器：读取 [SVCH 换模与实际接口](references/svch-replacement-interfaces.md)。区分目录、数值和真实外观适配。
+- 共享 SVD 动作后换枪体、准星/枪口/弹匣接口与 KV 镜、狙击消音器：读取 [SVCH 换模与实际接口](references/svch-replacement-interfaces.md)。区分目录、数值和真实外观适配。 为什么：「SVCH 换模与实际接口」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 符文战锤、专属锤头、命中苏醒与双重重击，读取 [模块战锤与持续触发](references/runebound-modular-procs.md)；按攻击与目标分别去重，持续刻印通过复制状态恢复。
+- 符文战锤、专属锤头、命中苏醒与双重重击，读取 [模块战锤与持续触发](references/runebound-modular-procs.md)；按攻击与目标分别去重，持续刻印通过复制状态恢复。 为什么：「模块战锤与持续触发」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 弓的装备加速、手动／快速／连续搭箭快照与远端阶段时钟，读取 [装备目录迁移与远端动作时钟](../ue5-save-load-replication/references/equipment-tuning-and-clocks.md)。
+- 弓的装备加速、手动／快速／连续搭箭快照与远端阶段时钟，读取 [装备目录迁移与远端动作时钟](../ue5-save-load-replication/references/equipment-tuning-and-clocks.md)。 为什么：发布目标与本地历史可能变化，明确目标可避免把其他历史推到错误分支。
 
-装备近战体力／施法法力减耗、强化与聚能叠加，读取 [资源费用乘区与最低费用](../ue5-item-asset-workflow/references/resource-cost-multipliers.md)；同件加法、跨件乘法，最终保留正基础费用的 20%，执行与预览共用。
+装备近战体力／施法法力减耗、强化与聚能叠加，读取 [资源费用乘区与最低费用](../ue5-item-asset-workflow/references/resource-cost-multipliers.md)；同件加法、跨件乘法，最终保留正基础费用的 20%，执行与预览共用。 为什么：「资源费用乘区与最低费用」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M24 的独立枪托/后握把、原厂分区、局部表面修订与恢复链：[M24 模块化与恢复](references/m24-modular-recovery.md)。
-- 雷神之锤、贯雷留场召回、疾雷及多改造攻击入口：读取[雷神之锤、贯雷留场召回、疾雷及多改造攻击入口](references/thunder-hammer-lifecycle.md)。
+- M24 的独立枪托/后握把、原厂分区、局部表面修订与恢复链：[M24 模块化与恢复](references/m24-modular-recovery.md)。 为什么：「M24 模块化与恢复」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M24、PKM、LMG201 的支撑判定、镜头限位与展开／收架交接，读取 [共用脚架部署](references/shared-bipod-deployment.md)；保持显示约束与权威资格分离。
+- 雷神之锤、贯雷留场召回、疾雷及多改造攻击入口：读取[雷神之锤、贯雷留场召回、疾雷及多改造攻击入口](references/thunder-hammer-lifecycle.md)。 为什么：「雷神之锤、贯雷留场召回、疾雷及多改造攻击入口」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 单手斧拆分、连续刃厚、原厂 PBR、图标留白与斧面符文：[单手斧模块与符文](references/hatchet-modules-and-runes.md)。
+- M24、PKM、LMG201 的支撑判定、镜头限位与展开／收架交接，读取 [共用脚架部署](references/shared-bipod-deployment.md)；保持显示约束与权威资格分离。 为什么：「共用脚架部署」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 强化突刺替换、固定停帧、镜头至剑尖汇聚和配重被动：[强化突刺与剑气跟随](references/highland-thrust-follow.md)。第一／第三人称都使用当前可见剑尖，属性与服务器同算。
+- 单手斧拆分、连续刃厚、原厂 PBR、图标留白与斧面符文：[单手斧模块与符文](references/hatchet-modules-and-runes.md)。 为什么：「单手斧模块与符文」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M24 后托平滑拼接、瞄具导轨座、止鸣及消音声：读取 [M24 后托平滑拼接、瞄具导轨座、止鸣及消音声](references/sniper-stock-and-zhiming.md)。
+- 强化突刺替换、固定停帧、镜头至剑尖汇聚和配重被动：[强化突刺与剑气跟随](references/highland-thrust-follow.md)。第一／第三人称都使用当前可见剑尖，属性与服务器同算。 为什么：「强化突刺与剑气跟随」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-涉及快速近战改造、伤害通道及检视声音时，读取 [快速近战改造、伤害通道及检视声音](references/quick-combat-variants.md)。
+- M24 后托平滑拼接、瞄具导轨座、止鸣及消音声：读取 [M24 后托平滑拼接、瞄具导轨座、止鸣及消音声](references/sniper-stock-and-zhiming.md)。 为什么：「M24 后托平滑拼接、瞄具导轨座、止鸣及消音声」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M249 六槽改造、侧插供弹、脚架、瞄具瞳距和逐件材质，读取[M249 模块化接入](references/m249-modular-integration.md)。区分当前资产与已退役方案，手部精修转对应手臂参考。
+涉及快速近战改造、伤害通道及检视声音时，读取 [快速近战改造、伤害通道及检视声音](references/quick-combat-variants.md)。 为什么：「快速近战改造、伤害通道及检视声音」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 武器放到工作台后散架、配件错位或展示未就绪，读取 [工作台冻结姿态](references/workbench-frozen-pose.md)。
+- M249 六槽改造、侧插供弹、脚架、瞄具瞳距和逐件材质，读取[M249 模块化接入](references/m249-modular-integration.md)。区分当前资产与已退役方案，手部精修转对应手臂参考。 为什么：「M249 模块化接入」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+
+- 武器放到工作台后散架、配件错位或展示未就绪，读取 [工作台冻结姿态](references/workbench-frozen-pose.md)。 为什么：「工作台冻结姿态」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。

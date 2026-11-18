@@ -1,0 +1,506 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterActionPose.cpp b/Source/FPSGAME/FPSGAMECharacterActionPose.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterActionPose.cpp
+@@ -0,0 +1,501 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++float AFPSGAMECharacter::ReloadSourceTime(float RuntimeTime) const
++{
++    if(M249WeaponAssets::Matches(AKMViewmodel))
++    {
++        const float Phase=RuntimeTime/FMath::Max(WeaponStateDuration,.01f);
++        return HasM249SideMagazine()
++            ?M249ReloadTiming::SideSourceSeconds(Phase,bPendingEmptyReload,MagazineAttachmentId==TEXT("m249_side_mag_45"))
++            :M249ReloadTiming::SourceSeconds(Phase,bPendingEmptyReload);
++    }
++    if(IsTubeShotgunWeapon())return Super90ReloadSourceTime(RuntimeTime);
++    if(IsM24Weapon())
++    {
++        const float Length=ActiveActionAnimation?ActiveActionAnimation->GetPlayLength()
++            :(bPendingEmptyReload?110.f/30.f:60.f/30.f);
++        return M24ReloadTiming::SourceSeconds(RuntimeTime/FMath::Max(WeaponStateDuration,.01f),Length,M24ActionBoltDurationScale);
++    }
++    if (bUsingM4Infima)
++    {
++        const UAnimSequence* Clip = ActiveActionAnimation;
++        float Phase=FMath::Clamp(RuntimeTime / FMath::Max(WeaponStateDuration, 0.01f), 0.0f, 1.0f);
++        if(bDrumInstalled&&!bUseQBZ191&&!bUseM16)return M4DrumReloadTiming::SourceSeconds(Phase,bPendingEmptyReload);
++        return Phase*(Clip ? Clip->GetPlayLength() : 0.0f);
++    }
++    const float Length = ActiveActionAnimation ? ActiveActionAnimation->GetPlayLength()
++        : (bPendingEmptyReload ? 4.291667f : 3.333333f);
++    // AKM contact shaping is already authored into the clips. Stat changes
++    // adjust the speed of the entire clip, including its return to the grip.
++    const float Fraction = FMath::Clamp(RuntimeTime / FMath::Max(WeaponStateDuration, 0.01f), 0.0f, 1.0f);
++    return Fraction * Length;
++}
++
++float AFPSGAMECharacter::ReloadRuntimeTime(float SourceTime) const
++{
++    float Low = 0.0f, High = WeaponStateDuration;
++    for (int32 Iteration = 0; Iteration < 20; ++Iteration)
++    {
++        const float Mid = (Low + High) * 0.5f;
++        if (ReloadSourceTime(Mid) < SourceTime) Low = Mid; else High = Mid;
++    }
++    return (Low + High) * 0.5f;
++}
++
++void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
++{
++    USoundBase* Sound = MechanicalCueSounds.IsValidIndex(CueIndex) ? MechanicalCueSounds[CueIndex].Get() : nullptr;
++    const bool bSourceCueClock = (bUsingM4Infima||HasLMG201ClothBox()) && IsReloading();
++    const bool bSuper90CueClock = IsTubeShotgunWeapon() && IsReloading();
++    const auto CueRuntimeTime = [this,bSourceCueClock,bSuper90CueClock](float Time)
++    {
++        if(bSuper90CueClock)
++        {
++            // Feed cues keep an unwrapped clock even when extra shells reuse
++            // the last native gesture. Loader/cycle cues keep their own source.
++            if(!bSuper90SpeedReload&&!bReloadCycleOnly)return Time/FMath::Max(.001f,Super90ReloadRate);
++            // Invert the same source clock used by both hands and the bolt:
++            // it includes skipped shell loops and the paced ordinary tail.
++            return ReloadRuntimeTime(Time);
++        }
++        return bSourceCueClock ? ReloadRuntimeTime(Time) : Time;
++    };
++    const float ScheduledTime = CueRuntimeTime(MechanicalCueTimes[CueIndex]);
++    const float Lateness = FMath::Max(0.0f, WeaponStateElapsed - ScheduledTime);
++    const bool bPKMReload = (PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel)) && IsReloading();
++    const int32 BoltReleaseCueIndex = HasM249SideMagazine()?(bPendingEmptyReload?6:INDEX_NONE):HasLMG201ClothBox()?INDEX_NONE:bPKMReload ? (bPendingEmptyReload ? 8 : INDEX_NONE)
++        : bUsingM4Infima && !bUseASH12 && !bUseM16 ? 3 : 4;
++    const bool bM16ChargeRelease = bUseM16 && bPendingEmptyReload && IsReloading() && CueIndex == BoltReleaseCueIndex;
++    // Do not emit an obsolete burst of old contacts after a long game-thread stall.
++    const float ContactVolume = AKMSource::ActionVolume * (bM16ChargeRelease ? .90f :
++        (((bUsingM4Infima || LMG201WeaponAssets::Matches(AKMViewmodel)) && !bUseDanWesson715 && bPendingEmptyReload && CueIndex == BoltReleaseCueIndex) ? 1.25f : 1.0f));
++    // A short clip is still relevant until the next contact (or action end).
++    // Using clip duration here dropped the seat click on a 170 ms render hitch.
++    const float ContactValidUntil = MechanicalCueTimes.IsValidIndex(CueIndex + 1)
++        ? CueRuntimeTime(MechanicalCueTimes[CueIndex + 1])
++        : WeaponStateDuration;
++    const bool bPlayContact = Sound && (((bUsingM4Infima) && !bDrumInstalled)
++        ? WeaponStateElapsed < ContactValidUntil
++        : Lateness < Sound->GetDuration());
++    const bool bRecordedLoader = (bUseDanWesson715 && IsReloading() && !bRevolverSingleReload)
++        || (bSuper90CueClock && bSuper90SpeedReload);
++    if (bPlayContact && (!bRecordedLoader || Lateness < Sound->GetDuration()))
++        PlayMechanicalSound(Sound, ContactVolume, bRecordedLoader ? Lateness : 0.f);
++    if (bDrumInstalled && FParse::Param(FCommandLine::Get(),TEXT("DrumGripAudit")))
++        UE_LOG(LogTemp,Display,TEXT("DRUM_AUDIO: empty=%d index=%d target=%.6f runtime=%.6f late=%.6f sound=%s played=%d"),bPendingEmptyReload,CueIndex,MechanicalCueTimes[CueIndex],WeaponStateElapsed,Lateness,*GetNameSafe(Sound),bPlayContact);
++    if (bRunGunplayAcceptance && bUsingM4Infima && !FParse::Param(FCommandLine::Get(), TEXT("EquipFramingAudit")))
++    {
++        if (bPendingEmptyReload) ++AuditEmptyMechanicalCues; else ++AuditNormalMechanicalCues;
++        if (bPendingEmptyReload && CueIndex == BoltReleaseCueIndex) ++AuditBoltReleaseCues;
++        AuditMaxMechanicalLateness = FMath::Max(AuditMaxMechanicalLateness, Lateness);
++        UE_LOG(LogTemp, Display, TEXT("M4_AUDIO_CUE empty=%d index=%d source=%.6f target=%.6f runtime=%.6f late=%.6f sound=%s played=%d"),
++            bPendingEmptyReload, CueIndex, ReloadSourceTime(WeaponStateElapsed), MechanicalCueTimes[CueIndex], WeaponStateElapsed, Lateness, *GetNameSafe(Sound), bPlayContact);
++    }
++    // PKM's gun/hand impulses are baked; its camera contacts are sampled by
++    // WeaponActionCamera. Do not add the M4 index-based impulse to either layer.
++    if (!IsTubeShotgunWeapon() && !bUseDanWesson715 && !bPKMReload && !HasLMG201ClothBox() && (CueIndex == 2 || CueIndex == BoltReleaseCueIndex))
++    {
++        // A seated magazine and released bolt push the whole supported weapon; wrists retain their source pose.
++        const float ContactKickScale = bM16ChargeRelease ? .45f : 1.f;
++        GunKickPositionVelocity.Z += (CueIndex == 2 ? 0.10f : 0.16f) * ContactKickScale;
++        GunKickRotationVelocity.X += (CueIndex == 2 ? -0.08f : 0.14f) * ContactKickScale;
++        // M4 contacts now use a separately sampled camera layer. Keep the gun
++        // impulse and other weapon families' existing camera behavior.
++        if (!(bUsingM4Infima && (bUseM4Infima || bUseM16) && !bUseQBZ191 && !IsPistolWeapon()))
++            CameraKickPitchVelocity += 0.018f;
++    }
++}
++
++void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
++{
++    if(IsDualWieldingPistols())return;
++    if (!GunplayAnimation) return;
++    GunplayAnimation->GripProfile=WeaponGripProfileFor(ResolveRifleGripProfile());
++    GunplayAnimation->ActionGripProfile=nullptr;
++    GunplayAnimation->ArmIdleHandoffAlpha=0.f;
++    const bool bPKMWeapon = PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
++    const bool bPKMFeedAction = PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel) && ActiveActionAnimation
++        && (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation);
++    const double PKMShotAge = bPKMFeedAction ? FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime) : 0.0;
++    // Keep the final shot's visible feed until its cycle finishes. Ammo and
++    // reload eligibility still use the real magazine count immediately.
++    const int32 PKMPresentationRounds = bPKMFeedAction && !IsReloading() && PKMShotAge < ActionDuration
++        ? FMath::Max(1, MagazineAmmo) : MagazineAmmo;
++    PKMLowpolyWeaponAssets::SetSections(AKMViewmodel,IsReloading(),bPendingEmptyReload,
++        IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,bGunsmithInspection?100:PKMPresentationRounds,!HasM249SideMagazine());
++    const bool b201Cloth=HasLMG201ClothBox();
++    const bool b201FeedAction=b201Cloth && ActiveActionAnimation
++        && (ActiveActionAnimation==FireAnimation || ActiveActionAnimation==AimFireAnimation);
++    const double Shot201Age=b201FeedAction?FMath::Max(0.0,GetWorld()->GetTimeSeconds()-LastShotWorldTime):0.0;
++    const float Feed201SourceTime=ActionStartPosition+static_cast<float>(Shot201Age)*ActionPlayRate;
++    const int32 Presentation201Rounds=b201FeedAction && !IsReloading() && Feed201SourceTime<.10f?FMath::Max(1,MagazineAmmo):MagazineAmmo;
++    LMG201WeaponAssets::SetMagazineSections(AKMViewmodel,LMG201FeedVisibility,b201Cloth,
++        IsReloading(),bPendingEmptyReload,IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,bGunsmithInspection?125:Presentation201Rounds,bDrumVisual);
++    if (auto* View=Cast<UFPSCastingMeshComponent>(AKMViewmodel))
++    {
++        View->OutgoingBeltDynamics.Configure(bPKMWeapon,IsReloading(),bPendingEmptyReload,
++            IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,MagazineAmmo,MagazineCapacity,
++            bPKMFeedAction,ActionStartPosition+static_cast<float>(PKMShotAge)*ActionPlayRate,bGunsmithInspection);
++        View->LMG201BeltDynamics.Configure(b201Cloth,IsReloading(),bPendingEmptyReload,
++            IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,MagazineAmmo,
++            b201FeedAction,Feed201SourceTime,LastShotWorldTime,bGunsmithInspection);
++        View->M249BeltDynamics.Configure(M249WeaponAssets::Matches(AKMViewmodel)&&!HasM249SideMagazine(),IsReloading(),bPendingEmptyReload,
++            IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,bGunsmithInspection);
++    }
++    // GripLayer56: clips routed through the grip layer play their base version; the gunplay graph
++    // layers each channel with its reference pair (ADS: aim, otherwise idle).
++    const int32 GripMode=GripLayerMode();
++    // Mode 1: idle / aim / fire / aim_fire (offline identical to the family clips). Mode 2 preview
++    // adds equip and reloads (sprint in UpdateMovement); inspect and quick melee stay per grip.
++    const auto GripRouted=[this,GripMode](UAnimSequence* Clip)
++    {
++        return Clip&&GripFamilyClip(Clip)&&((GripMode>=2&&Clip!=InspectAnimation)||(GripMode>=1&&(Clip==IdleAnimation
++            ||Clip==AimAnimation||Clip==FireAnimation||Clip==AimFireAnimation)));
++    };
++    const auto DrumPose=[this,&GripRouted](UAnimSequence* Clip)->UAnimSequence*
++    {
++        if(!GripRouted(Clip))
++        {
++            if(HasAngledForegrip())if(const auto* Support=ForegripAnimations.Find(Clip))return Support->Get();
++            if(HasCantedForegrip())if(const auto* Support=CantedGripAnimations.Find(Clip))return Support->Get();
++            if(HasVerticalForegrip())if(const auto* Support=VerticalGripAnimations.Find(Clip))return Support->Get();
++            if(HasPrismHandstop())if(const auto* Support=PrismGripAnimations.Find(Clip))return Support->Get();
++        }
++        if(bDrumInstalled)if(const auto* Support=DrumSupportAnimations.Find(Clip))return Support->Get();
++        return Clip;
++    };
++    bool bPistolWorkbench = false;
++    if (IsPistolWeapon() && GetGameInstance())
++    {
++        const auto* Gunsmith = GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++        const auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        bPistolWorkbench = Gunsmith && Gunsmith->IsOpen() && Profile && Profile->Equipped()
++            && Profile->Equipped()->InstanceId == Gunsmith->Instance();
++    }
++    // The workbench presents an assembled, closed-slide pistol independently of
++    // ammunition. Closing it restores the live empty/action pose on the next tick.
++    const bool PistolEmpty = bUseM1911 && !bPistolWorkbench && (MagazineAmmo == 0 || NeedsReloadCycle())
++        && (!IsReloading() || ReloadSourceTime(WeaponStateElapsed) < M1911Source::SlideRelease);
++    GunplayAnimation->IdleClip=PistolEmpty ? PistolIdleEmptyAnimation.Get() : DrumPose(IdleAnimation);
++    RifleHipFraming.SelectIdle(GunplayAnimation->IdleClip,GunplayAnimation->GripProfile);
++    GunplayAnimation->AimClip=PistolEmpty ? PistolAimEmptyAnimation.Get() : DrumPose(AimAnimation);
++    GunplayAnimation->BaseTime = FeedbackTime;
++    GunplayAnimation->AimAlpha = WeaponADSFactor;
++    GunplayAnimation->SprintClip = PistolEmpty ? PistolSprintEmptyAnimation : PistolSprintAnimation;
++    GunplayAnimation->SprintTime = GunplayAnimation->SprintClip
++        ? PistolSprintPhase / (2.f * PI) * GunplayAnimation->SprintClip->GetPlayLength() : 0.f;
++    GunplayAnimation->SprintAlpha = IsPistolWeapon() && !bPistolWorkbench && !IsTraversing()
++        && !IsCastBlockingLeftHandAction() ? PistolLocomotionAlpha : 0.f;
++    GunplayAnimation->SprintLoopClip = nullptr;
++    GunplayAnimation->SprintLoopAlpha = 0.f;
++    GunplayAnimation->SprintLoopTime = 0.f;
++    const auto* Sprint = !IsPistolWeapon() && bInventoryWeaponReady
++        ? FindComponentByClass<UM4TacticalSprintComponent>() : nullptr;
++    const bool bTacticalSprintActive = Sprint && Sprint->OwnsPose() && Sprint->PoseProgress() > 0.f;
++    // Native walk/run is only the non-tactical locomotion channel. Replacing
++    // SprintClip after Apply mixed its two-handed run with the one-handed loop
++    // and skipped the authored left-arm release/return, including grip layers.
++    if(IsTubeShotgunWeapon() && !bTacticalSprintActive)
++    {
++        GunplayAnimation->SprintClip=bIsSprinting?Super90RunAnimation:Super90WalkAnimation;
++        const float Length=GunplayAnimation->SprintClip?GunplayAnimation->SprintClip->GetPlayLength():1.f;
++        GunplayAnimation->SprintTime=FMath::Fmod(FeedbackTime,FMath::Max(.01f,Length));
++        GunplayAnimation->SprintAlpha=!IsWeaponBusy()&&!IsTraversing()&&!IsCastBlockingLeftHandAction()
++            ? FMath::Clamp(HorizontalSpeed()/100.f,0.f,1.f)*(1.f-WeaponADSFactor):0.f;
++    }
++    // Keep entry and return under the same owner until progress reaches zero,
++    // just as on M4/AKM/QBZ191; releasing Shift must not switch back mid-return.
++    if(Sprint && (!IsTubeShotgunWeapon() || bTacticalSprintActive))Sprint->Apply(*GunplayAnimation);
++    if (ActiveActionAnimation)
++    {
++        // A reload can start during input, before this frame's Tick. Adding
++        // DeltaSeconds counts time before that input and used to retire the
++        // animation early (especially on a hitch) while firing stayed locked.
++        const bool bFireAction = ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || ActiveActionAnimation == PistolFireLastAnimation || ActiveActionAnimation == PistolAimFireLastAnimation;
++        const bool bQuickCombatAction = WeaponState == EAKMWeaponState::QuickCombat;
++        // Pit Viper's fast slide cycle shares the actual shot clock; input may
++        // arrive after the interval covered by this frame's DeltaSeconds.
++        if ((IsM24Weapon() || bUseDanWesson715 || bPKMWeapon || IsPitViperWeapon() || IsTubeShotgunWeapon()
++            || bUseASH12 || RifleAxialRecoil::ForWeapon(ActiveInventoryWeaponDefinition)!=RifleAxialRecoil::EProfile::None) && bFireAction)
++            ActionElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime));
++        else if (bQuickCombatAction || IsReloading() || WeaponState == EAKMWeaponState::Inspecting || WeaponState == EAKMWeaponState::Equipping) ActionElapsed = WeaponStateElapsed;
++        else ActionElapsed += DeltaSeconds;
++        const float BlendScale = IsReloading() ? 1.f / FMath::Max(0.01f, ActionPlayRate) : 1.f;
++        const float EquipBlendRate = WeaponState == EAKMWeaponState::Equipping && IsRSH12Weapon() ? FMath::Max(.01f,ActionPlayRate) : 1.f;
++        const float BlendOut = (bFireAction ? 0.028f : (IsPistolWeapon() && IsReloading() ? 0.025f : 0.10f)) * BlendScale / EquipBlendRate;
++        // These authored clips include the existing entry/recovery result.
++        // Blending those local chains a second time separates the palm from
++        // the grip. One authored pose owns contact until its exact idle end.
++        const bool bAuthoredSVCHQuick = bQuickCombatAction && (IsM24Weapon()||SVCHWeaponAssets::Matches(AKMViewmodel)||M249WeaponAssets::Matches(AKMViewmodel));
++        const float In = bAuthoredSVCHQuick ? 1.f
++            : FMath::Clamp((ActionElapsed-(IsReloading()?ReloadResumeElapsed:0.f)) / (ActionBlendIn * BlendScale), 0.0f, 1.0f);
++        const float Out = bAuthoredSVCHQuick ? 1.f : bQuickCombatAction
++            ? QuickCombatRecovery::RemainingWeight(ActionElapsed, ActionDuration, QuickCombatRecovery::IdleHandoffStart)
++            : FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
++        GunplayAnimation->ActionClip = DrumPose(ActiveActionAnimation);
++        if (bQuickCombatAction && IsM24Weapon())
++            GunplayAnimation->ActionGripProfile = M24MeleeHandProfile(GunplayAnimation->GripProfile);
++        // Each SVCH family preserves its native magazine/left-bolt contacts and
++        // adds only the attachment release/regrip. Fall back to the factory layer.
++        if(SVCHWeaponAssets::Matches(AKMViewmodel)
++            && (ActiveActionAnimation==ReloadAnimation || ActiveActionAnimation==ReloadEmptyAnimation))
++        {
++            auto* ReloadProfile=WeaponGripProfileFor(ResolveRifleGripProfile());
++            if(!ReloadProfile || !ReloadProfile->Find(ActiveActionAnimation))
++                ReloadProfile=WeaponGripProfileFor(EM4SprintGrip::Base);
++            if(ReloadProfile && ReloadProfile->Find(ActiveActionAnimation))
++            {
++                GunplayAnimation->ActionClip=ActiveActionAnimation;
++                GunplayAnimation->ActionGripProfile=ReloadProfile;
++            }
++        }
++        GunplayAnimation->ActionAlpha = FMath::Min(In, Out);
++        if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition, bDrumInstalled) && IsReloading())
++        {
++            // Share the framing's source clock/end without shortening the
++            // authored hand-return arc. IdleClip/GripIdle already select the
++            // installed grip and magazine; BaseTime keeps breathing continuous.
++            const auto Handoff = RifleReloadHandoff::ForWeapon(ActiveInventoryWeaponDefinition,
++                bPendingEmptyReload, bDrumInstalled, ReloadSourceTime(WeaponStateDuration));
++            GunplayAnimation->ActionAlpha = FMath::Min(In,
++                Handoff.PoseWeight(ReloadSourceTime(WeaponStateElapsed)));
++        }
++        // Both prop sets have different parked poses. Fade only into the reload;
++        // its authored grip return hands off to idle without blending props through the gun.
++        if ((PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel)||HasLMG201ClothBox()) && IsReloading()) GunplayAnimation->ActionAlpha=In;
++        // Reload11 authors the 201 grip return in the clip. Do not also blend its
++        // new box/belt back toward the parked idle props during the last frames.
++        // The equip starts below the view and ends at the exact family idle.
++        // Blending against visible idle would shorten the authored lifting arc.
++        if ((bPKMWeapon || IsM24Weapon()) && WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation)
++            GunplayAnimation->ActionAlpha=1.0f;
++        // At the end of a feed, identical visible belt units occupy the prior
++        // unit's slot. Fading indexed bones back to idle would reverse the feed.
++        // The source starts at idle and finishes its recoil before the handoff.
++        if (bPKMFeedAction) GunplayAnimation->ActionAlpha=1.0f;
++        float SourceTime = ActionStartPosition + ActionElapsed * ActionPlayRate;
++        if (IsReloading()) SourceTime = ReloadSourceTime(WeaponStateElapsed);
++        else if(IsM24Weapon()&&WeaponState==EAKMWeaponState::Equipping&&EquipAnimation)
++            SourceTime=M24EquipSourceTime(ActionElapsed);
++        else if (WeaponState == EAKMWeaponState::Equipping && !EquipAnimation)
++            SourceTime = ActionStartPosition + FMath::Max(0.0f, ActionElapsed - 0.18f);
++        GunplayAnimation->ActionTime = FMath::Min(SourceTime, ActiveActionAnimation->GetPlayLength());
++        if(M249WeaponAssets::Matches(AKMViewmodel)&&IsReloading())
++            GunplayAnimation->ArmIdleHandoffAlpha=M249ReloadTiming::ArmIdleWeight(SourceTime,ActiveActionAnimation->GetPlayLength());
++        if (!IsReloading() && ActionElapsed >= ActionDuration)
++        {
++            ActiveActionAnimation = nullptr;
++            GunplayAnimation->ActionAlpha = 0.0f;
++        }
++    }
++    else GunplayAnimation->ActionAlpha = 0.0f;
++    if (bPistolWorkbench) GunplayAnimation->ActionAlpha = 0.0f;
++    // GripLayer56 channels: each routed base channel is layered with its reference pair before
++    // blending, so per-grip clips still in use (quick melee, mode-1 reloads) blend correctly.
++    {
++        UAnimSequence* ActionBase = GunplayAnimation->ActionAlpha > 0.f ? ActiveActionAnimation.Get() : nullptr;
++        GunplayAnimation->GripIdleBase = IdleAnimation;
++        GunplayAnimation->GripIdleFamily = GripMode ? GripFamilyClip(IdleAnimation) : nullptr;
++        GunplayAnimation->GripAimBase = AimAnimation;
++        GunplayAnimation->GripAimFamily = GripMode ? GripFamilyClip(AimAnimation) : nullptr;
++        GunplayAnimation->bGripIdle = GripRouted(IdleAnimation) && !PistolEmpty;
++        GunplayAnimation->bGripAim = GripRouted(AimAnimation) && !PistolEmpty;
++        GunplayAnimation->bGripSprint = GripMode >= 2;
++        GunplayAnimation->bGripAction = !GunplayAnimation->ActionGripProfile && ActionBase
++            && GunplayAnimation->ActionClip == ActionBase && GripRouted(ActionBase);
++        GunplayAnimation->bGripActionAim = ActionBase && (ActionBase == AimAnimation || ActionBase == AimFireAnimation);
++    }
++    if(BipodDeployment)BipodDeployment->ApplyHandPose(*GunplayAnimation);
++    GunplayAnimation->bRevolver = bUseDanWesson715;
++    GunplayAnimation->RevolverLiveRounds = bPistolWorkbench ? MagazineCapacity : MagazineAmmo;
++    GunplayAnimation->RevolverCartridges = bPistolWorkbench ? MagazineCapacity : RevolverCaseCount;
++    if (bUseDanWesson715 && IsReloading() && !bPistolWorkbench && !bReloadCycleOnly)
++    {
++        const float SourceSeconds = ReloadSourceTime(WeaponStateElapsed);
++        if (bRevolverSingleReload)
++        {
++            const float Local = SourceSeconds - DanWesson715WeaponAssets::SingleLoopBegin(bPendingEmptyReload);
++            const int32 Index = FMath::FloorToInt(Local / DanWesson715WeaponAssets::SingleStep);
++            if (Index >= 0 && Index < RevolverReloadCount && Local - Index * DanWesson715WeaponAssets::SingleStep >= DanWesson715WeaponAssets::SingleVisible)
++            {
++                // The new cartridge is visible in the hand before it is seated.
++                const int32 Visible = RevolverReloadStartLive + Index + 1;
++                GunplayAnimation->RevolverLiveRounds = FMath::Max(MagazineAmmo, Visible);
++                GunplayAnimation->RevolverCartridges = FMath::Max(RevolverCaseCount, Visible);
++            }
++        }
++        else
++        {
++            const float NormalSeconds = SourceSeconds * (bPendingEmptyReload ? DanWesson715WeaponAssets::NormalReload / DanWesson715WeaponAssets::EmptyReload : 1.f);
++            const bool RoundsShown=NormalSeconds>=DanWesson715WeaponAssets::RoundsVisible;
++            if (RoundsShown)
++            {
++                const int32 Loaded = HasInfiniteReserveAmmo() ? MagazineCapacity : FMath::Min(MagazineCapacity, MagazineAmmo + ReserveAmmo);
++                GunplayAnimation->RevolverLiveRounds = Loaded;
++                GunplayAnimation->RevolverCartridges = Loaded;
++            }
++        }
++    }
++}
++

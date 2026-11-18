@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills: five staff critical/penetration blocks and six chain/cast-haste blocks; original eligibility, read positions, defaults and numeric types retained",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "existed_before": true,
+      "before_lines": 135,
+      "after_lines": 134,
+      "before_bytes": 8848,
+      "after_bytes": 8559,
+      "before_sha256": "232a813baed4828c6b016f775d14818768a62930da950117cf88412f51ce2a8f",
+      "after_sha256": "06b045bee8a7a14c5232db82b3fba854384472bcaaf32ba1b8cfa2a99c8da26e",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-12-staff-crafting/ColdSteelHolyLightModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "existed_before": true,
+      "before_lines": 127,
+      "after_lines": 126,
+      "before_bytes": 8244,
+      "after_bytes": 7955,
+      "before_sha256": "01b1e2874648007659d1e58517fedc8ad4a811ad93b861b6638542d853289a69",
+      "after_sha256": "05e7aaea1939ced948f2017496276f568ba41b1dfd235114cb699c3d5d890593",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-12-staff-crafting/ColdSteelIceSpikeModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "existed_before": true,
+      "before_lines": 135,
+      "after_lines": 134,
+      "before_bytes": 9239,
+      "after_bytes": 8950,
+      "before_sha256": "ec3c0b005244d6090d57d8d2ee54a23d53c39bb0e386083351143d103bb9a365",
+      "after_sha256": "1705b1a759cd6d713bb6f2ce40a8e097eec7f29c9ea064521185a3fd68e569b5",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-12-staff-crafting/ColdSteelLightningModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "existed_before": true,
+      "before_lines": 140,
+      "after_lines": 139,
+      "before_bytes": 9886,
+      "after_bytes": 9597,
+      "before_sha256": "4625b6c5cce95306ab212da55ddf2872a4ede1f970824f6d39e1b1c741f9362b",
+      "after_sha256": "cfd594a78e6f0ff218d8f4866587a5c670b6771b25d7e57bc59e36944d7c5cd3",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-12-staff-crafting/ColdSteelFireMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+      "existed_before": true,
+      "before_lines": 116,
+      "after_lines": 115,
+      "before_bytes": 7313,
+      "after_bytes": 7024,
+      "before_sha256": "d12a32e2c3daf04c9fc988bbdf93c1f85f2f43407c81955f599200bd008b1f9c",
+      "after_sha256": "4956362ded48e235091846c03bcde44df60632da1d35fce37fb64ad1efbc5523",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-12-staff-crafting/ColdSteelBlizzardModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "existed_before": true,
+      "before_lines": 143,
+      "after_lines": 143,
+      "before_bytes": 8641,
+      "after_bytes": 8540,
+      "before_sha256": "ac2d9661aa08b12a0053a8d325735a90ca5af73a267f2efc8c21ec36d6b01472",
+      "after_sha256": "3d1c0b694581a140ba89832f6b7bf5332e4a1e443d00b082f1f326b11b9989f4",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-12-staff-crafting/ColdSteelIceWallModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellCrafting.h",
+      "existed_before": false,
+      "before_lines": 0,
+      "after_lines": 27,
+      "before_bytes": 0,
+      "after_bytes": 1116,
+      "before_sha256": null,
+      "after_sha256": "306b8540cc1a003ae0ee275fa67bedcd48c613ce02dc8828f333fa033de86690",
+      "backup": null
+    }
+  ]
+}

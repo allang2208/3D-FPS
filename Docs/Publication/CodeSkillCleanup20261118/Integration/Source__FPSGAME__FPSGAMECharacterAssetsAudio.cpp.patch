@@ -1,0 +1,548 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterAssetsAudio.cpp b/Source/FPSGAME/FPSGAMECharacterAssetsAudio.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterAssetsAudio.cpp
+@@ -0,0 +1,543 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++namespace PKMReloadAudio
++{
++    USoundBase* LoadContact(const TCHAR* Name)
++    {
++        // Both weapons reference the installed PKM SoundWaves directly. The
++        // cover assets contain the delivered tail repair; never load the old
++        // source WAVs or substitute an AKM contact when a PKM asset is missing.
++        const FString Path = FString(Name).StartsWith(TEXT("Charge"))
++            ? PKMLowpolyWeaponAssets::ChargeSoundPath(Name)
++            : PKMLowpolyWeaponAssets::ReloadSoundPath(Name);
++        USoundBase* Sound = LoadObject<USoundBase>(nullptr, *Path);
++        if (!Sound) UE_LOG(LogTemp, Warning, TEXT("PKM reload contact missing: %s"), *Path);
++        return Sound;
++    }
++}
++
++void AFPSGAMECharacter::PlayWeaponAnimation(UAnimSequence* Animation, bool bLoop, float PlayRate, float StartPosition)
++{
++    if (!Animation || !AKMViewmodel->GetSkeletalMeshAsset()) return;
++    if (GunplayAnimation)
++    {
++        if (bLoop) return; // The idle/aim graph remains running underneath every action.
++        ActiveActionAnimation = Animation;
++        ActionElapsed = 0.0f;
++        ActionStartPosition = StartPosition;
++        ActionPlayRate = PlayRate;
++        ActionDuration = FMath::Max(0.01f, (Animation->GetPlayLength() - StartPosition) / FMath::Max(0.01f, PlayRate));
++        if(IsSuper90Weapon() && Animation == PistolFireLastAnimation)
++        {
++            // The source joins recoil to a chamber inspection at frame 22/60.
++            // End the last-shot action before that inspection, so a queued
++            // reload waits only for recoil. Manual Inspect keeps its own clip.
++            const float RecoilEnd=FMath::Min(Animation->GetPlayLength(),22.f/60.f);
++            ActionDuration=FMath::Max(.01f,(RecoilEnd-StartPosition)/FMath::Max(.01f,PlayRate));
++        }
++        ActionBlendIn = (Animation == FireAnimation || Animation == AimFireAnimation || Animation == PistolFireLastAnimation || Animation == PistolAimFireLastAnimation) ? 0.008f : 0.035f;
++        return;
++    }
++    AKMViewmodel->PlayAnimation(Animation, bLoop);
++    AKMViewmodel->SetPlayRate(PlayRate);
++    if (StartPosition > 0.0f) AKMViewmodel->SetPosition(StartPosition, false);
++}
++
++void AFPSGAMECharacter::ResumeWeaponPose()
++{
++    if (WeaponState == EAKMWeaponState::Idle)
++        PlayWeaponAnimation(bIsAiming ? AimAnimation : IdleAnimation, true);
++}
++
++void AFPSGAMECharacter::PlaySound2D(USoundBase* Sound, float VolumeMultiplier) const
++{
++    if (Sound && (IsLocallyControlled()||GetNetMode()==NM_Standalone)) UGameplayStatics::PlaySound2D(this, Sound, VolumeMultiplier, 1.0f);
++}
++
++void AFPSGAMECharacter::PlayFireVoice(USoundBase* Sound, float Volume, float PitchMultiplier)
++{
++    if (!Sound || FireVoices.Num() < 2) return;
++    // Pick a voice that is not still sounding. With three rotating slots and the
++    // shortest catalog fire interval, a reused slot has always finished, so the
++    // incoming fade starts from silence and can never chop a live tail.
++    int32 Chosen = INDEX_NONE;
++    for (int32 Offset = 0; Offset < FireVoices.Num(); ++Offset)
++    {
++        const int32 Index = 1 + (NextFireVoice - 1 + Offset) % (FireVoices.Num() - 1);
++        UAudioComponent* Candidate = FireVoices.IsValidIndex(Index) ? FireVoices[Index].Get() : nullptr;
++        if (Candidate && !Candidate->IsPlaying()) { Chosen = Index; break; }
++    }
++    if (Chosen == INDEX_NONE)
++    {
++        // Sustained fire faster than the pool: retire the oldest slot gracefully
++        // instead of hard-cutting it, then take it.
++        Chosen = 1 + (NextFireVoice - 1) % (FireVoices.Num() - 1);
++        if (UAudioComponent* Oldest = FireVoices.IsValidIndex(Chosen) ? FireVoices[Chosen].Get() : nullptr)
++            Oldest->FadeOut(AKMSource::FireVoiceFadeSeconds, 0.f, EAudioFaderCurve::Sin);
++    }
++    // Advance past the slot just taken so the next shot starts its search from
++    // the following one.
++    NextFireVoice = 1 + (Chosen - 1 + 1) % (FireVoices.Num() - 1);
++    UAudioComponent* Voice = FireVoices[Chosen];
++    if (!Voice) return;
++    Voice->SetSound(Sound);
++    Voice->SetVolumeMultiplier(Volume);
++    Voice->SetPitchMultiplier(PitchMultiplier);
++    Voice->FadeIn(AKMSource::FireVoiceFadeSeconds, 1.f, 0.f, EAudioFaderCurve::Logarithmic);
++}
++
++void AFPSGAMECharacter::PlayMechanicalSound(USoundBase* Sound, float Volume, float StartTime)
++{
++    // Remote equipment initialization must not play a second, non-spatial voice on the host.
++    if (!Sound || (!IsLocallyControlled()&&GetNetMode()!=NM_Standalone)) return;
++    if(auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>())
++        Body->ReportGunMechanical(0,Sound,Volume*(bUseQBZ191?1.f:2.f),StartTime);
++    auto& Voice = MechanicalVoices.FindOrAdd(Sound->GetFName());
++    if (!Voice)
++    {
++        Voice = NewObject<UAudioComponent>(this);
++        Voice->bAutoActivate = false;
++        Voice->bAutoDestroy = false;
++        Voice->bAllowSpatialization = false;
++        Voice->bIsUISound = true;
++        Voice->bStopWhenOwnerDestroyed = true;
++        Voice->SetupAttachment(FirstPersonCamera);
++        Voice->RegisterComponent();
++    }
++    Voice->SetSound(Sound);
++    Voice->SetVolumeMultiplier(Volume * (bUseQBZ191 ? 1.0f : 2.0f));
++    Voice->SetPitchMultiplier(1.0f);
++    // Retriggering a mechanical cue (fast tap-fire, re-entry after a stall) used
++    // to Stop() at full amplitude, which clicks. FadeIn starts from silence.
++    Voice->FadeIn(AKMSource::MechanicalVoiceFadeSeconds, 1.f, StartTime, EAudioFaderCurve::Logarithmic);
++}
++
++void AFPSGAMECharacter::StopMechanicalAudio()
++{
++    if(!MechanicalVoices.IsEmpty()||!MechanicalCueTimes.IsEmpty())
++        if(auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>())Body->ReportGunMechanicalStop(0);
++    for (const auto& Pair : MechanicalVoices)
++        if (Pair.Value) Pair.Value->Stop();
++    MechanicalCueTimes.Reset();
++    MechanicalCueSounds.Reset();
++    NextMechanicalCue = 0;
++}
++
++UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
++{
++    if(IsM24Weapon())
++    {
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if(Clip==TEXT("walk")||Clip==TEXT("run"))Clip=TEXT("idle");
++        else if(Clip==TEXT("aim_fire")||Clip==TEXT("fire_last"))Clip=TEXT("fire");
++        else if(Clip.StartsWith(TEXT("equip")))Clip=TEXT("equip");
++        return LoadObject<UAnimSequence>(nullptr,*M24WeaponAssets::AnimationPath(*Clip));
++    }
++    if(IsSaiga12KWeapon())
++    {
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        return LoadObject<UAnimSequence>(nullptr,*Saiga12KWeaponAssets::AnimationPath(*Clip));
++    }
++    if(IsTubeShotgunWeapon())
++    {
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if(Clip==TEXT("aim"))Clip=TEXT("idle");
++        else if(Clip==TEXT("aim_fire"))Clip=TEXT("fire");
++        else if(Clip==TEXT("reload"))Clip=TEXT("reload_continuous");
++        else if(Clip==TEXT("reload_empty"))Clip=TEXT("reload_full");
++        else if(Clip.StartsWith(TEXT("equip")))Clip=TEXT("equip");
++        if(IsM870Weapon()&&Clip==TEXT("fire_last"))Clip=TEXT("fire");
++        return LoadObject<UAnimSequence>(nullptr,*(IsM870Weapon()?M870WeaponAssets::AnimationPath(*Clip):Super90WeaponAssets::AnimationPath(*Clip)));
++    }
++    if (IsHK416Weapon())
++    {
++        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if (Clip.StartsWith(TEXT("equip"))) Clip=TEXT("equip_charge");
++        return LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(*Clip));
++    }
++    if(ActiveInventoryWeaponDefinition==LMG201WeaponAssets::Definition)
++    {
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if(Clip.StartsWith(TEXT("equip")))Clip=TEXT("equip");
++        return LoadObject<UAnimSequence>(nullptr,*LMG201WeaponAssets::AnimationPath(*Clip));
++    }
++    if(ActiveInventoryWeaponDefinition==SVDWeaponAssets::Definition
++        || ActiveInventoryWeaponDefinition==SVCHWeaponAssets::Definition)
++    {
++        // The SVCh is a semiautomatic 7.62x54R rifle on the same rig, so it plays
++        // the accepted SVD clip set rather than a second full copy of it.
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if(Clip.StartsWith(TEXT("equip")))Clip=TEXT("equip");
++        return LoadObject<UAnimSequence>(nullptr,*SVDWeaponAssets::AnimationPath(*Clip));
++    }
++    if (ActiveInventoryWeaponDefinition==M249WeaponAssets::Definition)
++        return LoadObject<UAnimSequence>(nullptr,*M249WeaponAssets::AnimationPath(AssetName));
++    if (ActiveInventoryWeaponDefinition==PKMLowpolyWeaponAssets::Definition)
++    {
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if (Clip.StartsWith(TEXT("equip"))) Clip=TEXT("equip");
++        return LoadObject<UAnimSequence>(nullptr,*PKMLowpolyWeaponAssets::AnimationPath(*Clip));
++    }
++    if (ActiveInventoryWeaponDefinition == A762WeaponAssets::Definition)
++    {
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if (Clip.StartsWith(TEXT("equip"))) Clip=TEXT("equip");
++        return LoadObject<UAnimSequence>(nullptr,*A762WeaponAssets::AnimationPath(*Clip));
++    }
++    if (bUseM16)
++    {
++        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if (Clip == TEXT("equip")) Clip = TEXT("equip_charge");
++        return LoadObject<UAnimSequence>(nullptr, *M16WeaponAssets::AnimationPath(*Clip));
++    }
++    if (bUseDanWesson715)
++    {
++        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if (Clip == TEXT("equip") || Clip == TEXT("equip_charge_empty")) Clip = TEXT("equip_charge");
++        return LoadObject<UAnimSequence>(nullptr, *(IsRSH12Weapon()?RSH12WeaponAssets::AnimationPath(*Clip):DanWesson715WeaponAssets::AnimationPath(*Clip)));
++    }
++    if (bUseM1911)
++    {
++        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if (Clip == TEXT("equip")) Clip = TEXT("equip_charge");
++        return LoadObject<UAnimSequence>(nullptr, *(IsPitViperWeapon() ? PitViper2011WeaponAssets::AnimationPath(*Clip) : IsG18Weapon() ? G18WeaponAssets::AnimationPath(*Clip) : M1911WeaponAssets::AnimationPath(*Clip)));
++    }
++    if (bUseQBZ191)
++    {
++        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if (Clip == TEXT("equip")) Clip = TEXT("equip_charge");
++        const TCHAR* Revision=(Clip.Contains(TEXT("reload")) || Clip==TEXT("equip_charge"))?TEXT("Attachments20260913"):TEXT("Refined20260913");
++        return LoadObject<UAnimSequence>(nullptr, *FString::Printf(TEXT("/Game/Weapons/QBZ191/%s/Animations/base/A_QBZ191_%s.A_QBZ191_%s"), Revision, *Clip, *Clip));
++    }
++    if (bUseASH12)
++    {
++        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
++        if (Clip == TEXT("equip")) Clip = TEXT("equip_charge");
++        return LoadObject<UAnimSequence>(nullptr, *ASH12WeaponAssets::AnimationPath(*Clip));
++    }
++    if (bUsingM4Infima)
++    {
++        const TCHAR* Clip = nullptr;
++        if (FCString::Strcmp(AssetName, TEXT("A_AKM_reload")) == 0) Clip = TEXT("reload");
++        else if (FCString::Strcmp(AssetName, TEXT("A_AKM_reload_empty")) == 0) Clip = TEXT("reload_empty");
++        else if (FCString::Strcmp(AssetName, TEXT("A_AKM_equip")) == 0) Clip = TEXT("equip_charge");
++        if (Clip)
++        {
++            const FString Path = FString::Printf(TEXT("/Game/Weapons/%s/A_M4_HK416_%s.A_M4_HK416_%s"),
++                FCString::Strcmp(Clip, TEXT("reload_empty")) == 0 ? TEXT("M4SlapImpactFinal")
++                : (FCString::Strcmp(Clip, TEXT("reload")) == 0 ? TEXT("M4TacticalTossFinal") : TEXT("M4WrapGripFinal")), Clip, Clip);
++            UAnimSequence* Animation = LoadObject<UAnimSequence>(nullptr, *Path);
++            UE_LOG(LogTemp, Display, TEXT("M4_ANIMATION_AUDIT_ACTIVE clip=%s loaded=%d duration=%.4f"),
++                *Path, Animation != nullptr, Animation ? Animation->GetPlayLength() : 0.0f);
++            return Animation;
++        }
++    }
++    FString Folder = bUsingM4Infima ? TEXT("M4ContactImpactFinal") : (AKMViewmodel->GetSkeletalMeshAsset() && AKMViewmodel->GetSkeletalMeshAsset()->GetName()==TEXT("SK_AKM_MannyNative") ? TEXT("AKMIntegration/Native") : (bUsingReplacement ? TEXT("AKMReplacement") : TEXT("AKM")));
++    if (!bUsingM4Infima && AKMViewmodel->GetSkeletalMeshAsset() && (AKMViewmodel->GetSkeletalMeshAsset()->GetPathName().Contains(TEXT("/AKMIntegration/SourceMatched/")) || AKMViewmodel->GetSkeletalMeshAsset()->GetPathName().Contains(TEXT("/AKMIntegration/WalnutFab/")) || AKMViewmodel->GetSkeletalMeshAsset()->GetPathName().Contains(TEXT("/AKMIntegration/SovietFab/"))))
++        Folder = TEXT("AKMIntegration/SourceMatched");
++    const bool bCurledReload = bUsingM4Infima && (FCString::Strcmp(AssetName, TEXT("A_AKM_reload")) == 0
++        || FCString::Strcmp(AssetName, TEXT("A_AKM_reload_empty")) == 0);
++    if (bCurledReload) Folder += TEXT("/ReloadFinger");
++    if (!bUsingM4Infima && Folder == TEXT("AKMIntegration/SourceMatched") && FCString::Strcmp(AssetName, TEXT("A_AKM_equip")) == 0)
++        Folder = TEXT("AKMIntegration/EquipCharge");
++    const FString Path = FString::Printf(TEXT("/Game/Weapons/%s/%s.%s"), *Folder, AssetName, AssetName);
++    UAnimSequence* Animation = LoadObject<UAnimSequence>(nullptr, *Path);
++    if (bCurledReload && Animation) UE_LOG(LogTemp, Display, TEXT("M4_RELOAD_FINGER_ACTIVE %s"), *Path);
++    return Animation;
++}
++
++USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
++{
++    if(IsM24Weapon())
++    {
++        FString Cue(AssetName);Cue.RemoveFromStart(TEXT("S_AKM_"));
++        if(Cue==TEXT("Fire"))return LoadObject<USoundBase>(nullptr,M24WeaponAssets::FireSoundPath);
++        if(Cue.StartsWith(TEXT("Mag"))||Cue.StartsWith(TEXT("Charge")))
++            return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::MechanicalSoundPath(*Cue));
++    }
++    if(IsSaiga12KWeapon())
++    {
++        if(FCString::Strcmp(AssetName,TEXT("S_AKM_Fire"))==0)
++            return LoadObject<USoundBase>(nullptr,Saiga12KWeaponAssets::FireSoundPath);
++        const FString Cue(AssetName);
++        if(Cue.Contains(TEXT("Mag"))||Cue.Contains(TEXT("Charge")))
++            return LoadObject<USoundBase>(nullptr,*FString::Printf(TEXT("/Game/Weapons/AKM/VideoAudio20260921/%s"),AssetName));
++        return LoadObject<USoundBase>(nullptr,*FString::Printf(TEXT("/Game/Weapons/AKM/Audio/%s"),AssetName));
++    }
++
++    if(IsTubeShotgunWeapon())
++    {
++        const TCHAR* Cue=nullptr;
++        if(FCString::Strcmp(AssetName,TEXT("S_AKM_Fire"))==0)Cue=TEXT("Fire");
++        else if(FCString::Strcmp(AssetName,TEXT("S_AKM_MagOut"))==0
++            || FCString::Strcmp(AssetName,TEXT("S_AKM_MagInsert"))==0
++            || FCString::Strcmp(AssetName,TEXT("S_AKM_MagSeat"))==0)Cue=TEXT("Reload");
++        else if(FCString::Strcmp(AssetName,TEXT("S_AKM_Equip"))==0
++            || FCString::Strcmp(AssetName,TEXT("S_AKM_ChargePull"))==0
++            || FCString::Strcmp(AssetName,TEXT("S_AKM_ChargeRelease"))==0)Cue=TEXT("Bolt");
++        if(IsM870Weapon())
++        {
++            if(FCString::Strcmp(AssetName,TEXT("S_AKM_ChargePull"))==0)Cue=TEXT("PumpPull");
++            else if(FCString::Strcmp(AssetName,TEXT("S_AKM_ChargeRelease"))==0)Cue=TEXT("PumpPush");
++            else if(FCString::Strcmp(AssetName,TEXT("S_AKM_Equip"))==0)Cue=TEXT("Equip");
++            if(Cue)return LoadObject<USoundBase>(nullptr,*M870WeaponAssets::SoundPath(Cue));
++        }
++        if(Cue)return LoadObject<USoundBase>(nullptr,*FString::Printf(
++            TEXT("/Game/Weapons/Super90/GameDevAudio20261007/S_Super90_%s.S_Super90_%s"),Cue,Cue));
++    }
++    if (IsPitViperWeapon())
++    {
++        FString Cue(AssetName); Cue.RemoveFromStart(TEXT("S_AKM_"));
++        return LoadObject<USoundBase>(nullptr, *PitViper2011WeaponAssets::SoundPath(Cue));
++    }
++    if (IsG18Weapon())
++    {
++        FString Cue(AssetName); Cue.RemoveFromStart(TEXT("S_AKM_"));
++        return LoadObject<USoundBase>(nullptr, *G18WeaponAssets::SoundPath(Cue));
++    }
++    if (LMG201WeaponAssets::Matches(AKMViewmodel))
++    {
++        // 2026-10-02 用户指派：弹夹（Magazine24）与弹鼓（Drum46）两条换弹路线改干净音源。
++        // 弹匣三接触引用 QBZ-191 弹夹/大弹鼓换弹共用的 HK416 磁条音组；缺失时回退现用
++        // PKM 接触音并记录路径。拉栓接触不在装载层重定向——装备上膛仍播 PKM，换弹的
++        // 拉栓音在换弹站点替换，接触时刻全部保留 201 自己的，不动 201 动画时钟。
++        const TCHAR* Contact = nullptr;
++        const TCHAR* MagPath = nullptr;
++        if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagOut")) == 0)
++        {MagPath = TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagOut.S_HK416_MagOut");Contact = TEXT("BoxOut");}
++        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagInsert")) == 0)
++        {MagPath = TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagInsert.S_HK416_MagInsert");Contact = TEXT("BoxInsert");}
++        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagSeat")) == 0)
++        {MagPath = TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagSeat.S_HK416_MagSeat");Contact = TEXT("BeltSeat");}
++        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_ChargePull")) == 0) Contact = TEXT("ChargeRearStop");
++        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_ChargeRelease")) == 0) Contact = TEXT("ChargeFrontStop");
++        if (MagPath)
++            if (USoundBase* Mag = LoadObject<USoundBase>(nullptr, MagPath)) return Mag;
++        if (Contact) return PKMReloadAudio::LoadContact(Contact);
++    }
++    if (M249WeaponAssets::Matches(AKMViewmodel) && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
++        return LoadObject<USoundBase>(nullptr, *M249WeaponAssets::FireSoundPath(1));
++    if (LMG201WeaponAssets::Matches(AKMViewmodel) && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
++        if (auto* Sound = LoadObject<USoundBase>(nullptr, *LMG201WeaponAssets::FireSoundPath(1)))
++            return Sound;
++    if(SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
++    {
++        // The SVCh has no recorded audio of its own yet, so it plays the accepted
++        // SVD 7.62x54R set; its own set can be dropped in by changing this branch.
++        if(FCString::Strcmp(AssetName,TEXT("S_AKM_Fire"))==0)
++            return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::FireSoundPath(1));
++        if(FCString::Strcmp(AssetName,TEXT("S_AKM_MagOut"))==0 ||
++           FCString::Strcmp(AssetName,TEXT("S_AKM_MagInsert"))==0 ||
++           FCString::Strcmp(AssetName,TEXT("S_AKM_MagSeat"))==0 ||
++           FCString::Strcmp(AssetName,TEXT("S_AKM_ChargePull"))==0 ||
++           FCString::Strcmp(AssetName,TEXT("S_AKM_ChargeRelease"))==0)
++        {
++            FString Cue(AssetName);
++            Cue.RemoveFromStart(TEXT("S_AKM_"));
++            return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::MechanicalSoundPath(*Cue));
++        }
++        return LoadObject<USoundBase>(nullptr,*FString::Printf(TEXT("/Game/Weapons/AKM/Audio/%s.%s"),AssetName,AssetName));
++    }
++    if (PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel))
++        return LoadObject<USoundBase>(nullptr,*FString::Printf(TEXT("/Game/Weapons/AKM/Audio/%s.%s"),AssetName,AssetName));
++    // These rifles reuse the current AKM video cues and original fallbacks.
++    if ((AKMSoviet::Matches(AKMViewmodel) || A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel)) &&
++        (FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0 ||
++         FCString::Strcmp(AssetName, TEXT("S_AKM_MagOut")) == 0 ||
++         FCString::Strcmp(AssetName, TEXT("S_AKM_MagInsert")) == 0 ||
++         FCString::Strcmp(AssetName, TEXT("S_AKM_MagSeat")) == 0 ||
++         FCString::Strcmp(AssetName, TEXT("S_AKM_ChargePull")) == 0 ||
++         FCString::Strcmp(AssetName, TEXT("S_AKM_ChargeRelease")) == 0))
++    {
++        const FString VideoPath = FString::Printf(TEXT("/Game/Weapons/AKM/VideoAudio20260921/%s.%s"), AssetName, AssetName);
++        if (USoundBase* VideoSound = LoadObject<USoundBase>(nullptr, *VideoPath))
++            return VideoSound;
++    }
++    if (bUseM16 && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
++        return LoadObject<USoundBase>(nullptr, M16WeaponAssets::FireSoundPath);
++    if (bUseASH12 && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
++        return LoadObject<USoundBase>(nullptr, ASH12WeaponAssets::FireSoundPath);
++    if (bUseDanWesson715 && FCString::Strcmp(AssetName, TEXT("S_AKM_CriticalHit")) != 0)
++    {
++        FString Cue(AssetName); Cue.RemoveFromStart(TEXT("S_AKM_"));
++        return LoadObject<USoundBase>(nullptr, *DanWesson715WeaponAssets::SoundPath(Cue));
++    }
++    if (bUseM1911 && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
++        return LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/M1911/Integrated20260913/Audio/S_M1911_Fire.S_M1911_Fire"));
++    if (bUsingM4Infima)
++    {
++        const TCHAR* HKName = nullptr;
++        if (FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0) HKName = TEXT("S_HK416_Fire");
++        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_Equip")) == 0)
++            return LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip.S_HK416_Equip"));
++        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagOut")) == 0) HKName = TEXT("S_HK416_MagOut");
++        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagInsert")) == 0) HKName = TEXT("S_HK416_MagInsert");
++        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagSeat")) == 0) HKName = TEXT("S_HK416_MagSeat");
++        if (HKName)
++            return LoadObject<USoundBase>(nullptr, *FString::Printf(TEXT("/Game/Weapons/M4HK416Audio/%s.%s"), HKName, HKName));
++    }
++    const FString Path = FString::Printf(TEXT("/Game/Weapons/AKM/Audio/%s.%s"), AssetName, AssetName);
++    return LoadObject<USoundBase>(nullptr, *Path);
++}
++

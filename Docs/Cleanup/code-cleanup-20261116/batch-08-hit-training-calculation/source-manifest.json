@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills: shared hit, kill and multi-hit training calculation; preserve separate multi-kill term in existing full settlement",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelElementalArrowModel.cpp",
+      "before_lines": 81,
+      "after_lines": 82,
+      "before_bytes": 5656,
+      "after_bytes": 5682,
+      "before_sha256": "5adb9a089cd5225090bb83f8e78d69f357168ae60dca4ebdd8d6869d35b6ed3e",
+      "after_sha256": "fd2389e0193f484e9704784a7a0ac59b6d0a63946468e590184e2e79a4f9e29b",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-08-hit-training-calculation/ColdSteelElementalArrowModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp",
+      "before_lines": 114,
+      "after_lines": 114,
+      "before_bytes": 7404,
+      "after_bytes": 7394,
+      "before_sha256": "b5815e5491022c990d2458d7960048b2333d1c761533bd00c4546b3899b17cb1",
+      "after_sha256": "ea142c7ed50bb59ee7c96535da40937da0564208c52166afeb0f6a3e00625b52",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-08-hit-training-calculation/ColdSteelMagicArrowRainModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "before_lines": 143,
+      "after_lines": 143,
+      "before_bytes": 8693,
+      "after_bytes": 8683,
+      "before_sha256": "8afd99357bfc2a62df5226e5f4b33511131e31e611ce1c8c3d261311418fcda0",
+      "after_sha256": "548cec32d0fb5a21ada110c506337e276af3c8564a3f44d60b3108b7ec795f53",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-08-hit-training-calculation/ColdSteelIceWallModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellRewards.h",
+      "before_lines": 51,
+      "after_lines": 59,
+      "before_bytes": 2139,
+      "after_bytes": 2447,
+      "before_sha256": "1d8d0a85a224e68a023fff0f91878b8974bd10f46062b0095214f1408019a77e",
+      "after_sha256": "1ed566514caa57e38589cd59f37be8850726f9a1fa69a6590241483b4e41dd0c",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-08-hit-training-calculation/ColdSteelSpellRewards.h.before.txt"
+    }
+  ]
+}

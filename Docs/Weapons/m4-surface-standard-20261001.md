@@ -11,7 +11,7 @@
 
 ## M4 的原始 PBR 接入
 
-M4 主体原先使用 `FBXLegacyPhongSurfaceMaterial`：Roughness 图作为 Shininess 输入，而原作者 Metallic 图没有接入当前材质。附加涂层的粗糙度纹理还使用 sRGB 采样。这些转换不能直接套用 HK416 的金属度遮罩配方。
+M4 主体原先使用 `FBXLegacyPhongSurfaceMaterial`：Roughness 图作为 Shininess 输入，而原作者 Metallic 图没有接入当前材质。附加涂层的粗糙度纹理还使用 sRGB 采样。这些转换不能直接套用 HK416 的金属度遮罩配方。 原因：M4 的旧 Phong 转换与采样设置不同，其他枪的遮罩配方不能直接解释同一通道。
 
 本次从现有 `Content/m4noskel.fbm` 导入 Body、Keymod material、Magazine Light、Flash Hider、Grip Default、Classic Stock 的 Metallic/Roughness 源图，共 12 张，保存为 M4 私有线性纹理。原 BaseColor、法线及 UV 接线沿用现有来源；扩容弹匣保留连续 UV 的现用图结构。
 
@@ -47,4 +47,4 @@ M4 主体原先使用 `FBXLegacyPhongSurfaceMaterial`：Roughness 图作为 Shin
 
 最终生产日志：`SourceAssets/WeaponSurface20260930/logs/apply_finish.20261001-200602-200.log`。commandlet 退出码 0，输出 `WEAPON_SURFACE_M4_R01_SAVED 41 instances 33 adapters 2 runtime override materials 30 meshes`。
 
-仅执行必要输入读取、制作、材质编译、导入和保存。未启动游戏、PIE、截图渲染或追加测试；实际观感交由用户测试。
+仅执行必要输入读取、制作、材质编译、导入和保存。未启动游戏、PIE、截图渲染或追加测试；实际观感交由用户测试。 原因：制作授权不包含额外运行或验收，交付应保留未测试的实际状态。

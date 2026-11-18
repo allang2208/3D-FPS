@@ -17,13 +17,13 @@
 
 - `FPSFireballProjectile::Explode` 把真实移动碰撞的完整 `FHitResult` 传给模型，保留 Actor 和 BoneName。没有碰撞的空爆传空指针。
 - `ApplyFireballExplosion` 从实际 Hit 获得直击目标及要害结果，共用 `ColdSteelSkills::IsCriticalHit`（骨骼名包含 head 或等于 cranium，忽略大小写）。当前怪物的 Visibility 查询由骨骼网格返回命中部位。
-- 每个目标独立设置 `MagicHit.bWeakpoint = Target == DirectTarget && DirectWeakpoint`。承伤侧使用 `bWeakpoint || 随机判定`，只执行一次 `CriticalDamage`，并通过 `CriticalResult` 回传实际结果。
+- 每个目标独立设置 `MagicHit.bWeakpoint = Target == DirectTarget && DirectWeakpoint`。承伤侧使用 `bWeakpoint || 随机判定`，只执行一次 `CriticalDamage`，并通过 `CriticalResult` 回传实际结果。 原因：要害只属于实际直击目标，随机暴击与要害合并判断后应只应用一次暴击倍率。
 - 原火球命中／击杀事务继续统计暴击修炼，保持目标去重，不另补一发要害伤害。
-- 火球配置说明、默认说明与火球／暴击详情同步描述新机制。没有新增持久化字段，继续使用已有技能等级和冷却存档。
+- 火球配置说明、默认说明与火球／暴击详情同步描述新机制。没有新增持久化字段，继续使用已有技能等级和冷却存档。 原因：每个实际命中目标和部位都有对应结算上下文，复用错误命中数据会改变伤害结果。
 
 ## 后续开发标准
 
-已同步个人目录与工程镜像的 `ue5-skill-magic-workflow/SKILL.md`，详细接入规则位于 `references/projectile-magic-critical.md`。后续此类投射物保留完整命中部位、按目标构造魔法上下文、统一返回实际暴击结果，并说明波及范围。
+已同步个人目录与工程镜像的 `ue5-skill-magic-workflow/SKILL.md`，详细接入规则位于 `references/projectile-magic-critical.md`。后续此类投射物保留完整命中部位、按目标构造魔法上下文、统一返回实际暴击结果，并说明波及范围。 原因：每个实际命中目标和部位都有对应结算上下文，复用错误命中数据会改变伤害结果。
 
 必要原生构建完成：`Result: Succeeded`，模块 `UnrealEditor-FPSGAME-9150501.dll`，日志 `Saved/Fireball-Weakpoint-Build-20260915.log`。重启编辑器后加载本次 C++ 与技能定义。
 

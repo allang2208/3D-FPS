@@ -11,7 +11,7 @@
 
 ## 数值使用工具自己的快照
 
-在扣除体力的事务完成后，重新取得当前工具并捕获攻击快照；不能借用之前收起武器的基础伤害或附魔。基础公式、物品提示和实战调用走同一武器公式/防御链。
+在扣除体力的事务完成后，重新取得当前工具并捕获攻击快照；不能借用之前收起武器的基础伤害或附魔。基础公式、物品提示和实战调用走同一武器公式/防御链。 原因：同一个数值在不同区域重复或换口径展示会产生歧义，详情需要保留明确的数据来源。
 
 2026-09-20 当前参数：伐木斧 `round(12 + 1.2×力量 + 0.3×敏捷)`，矿镐 `round(10 + 1.0×力量 + 0.2×敏捷)`。角色暴击和目标防御照常结算，排除工具的武器精通固定加伤。参数属于本项目低伤害自卫定位，不是通用平衡标准。
 
@@ -21,10 +21,10 @@
 ## 命中范围与遮挡
 
 - 准星中心射线的有效接触优先；辅助球扫用于增加宽度，而不是把球形前端算作额外攻击距离。
-- 对敌和采集分别设置距离/半径。当前对敌 180 cm；伐木表面距离 320 cm、辅助半径 32 cm；矿镐采矿保留 320 cm 中心射线，对敌另有 20 cm 辅助半径。
-- 从稳定眼位与控制朝向取查询，镜头冲击不能改变采集瞄准。候选点投影必须在前方，表面距离不超过对应上限，最后做可见性遮挡查询。
-- 地形、多个树干可能共用同一 Actor。确认资源遮挡与目标一致时比较组件和实例索引，不能只比较 Actor；怪物则按 Actor 归属识别。
-- 初始重叠没有可信表面点，需向目标补查真实表面；不要用玩家眼位充当接触点。
+- 对敌和采集分别设置距离/半径。当前对敌 180 cm；伐木表面距离 320 cm、辅助半径 32 cm；矿镐采矿保留 320 cm 中心射线，对敌另有 20 cm 辅助半径。 原因：采集表面与战斗目标有不同触及方式，统一距离或辅助半径会改变实际范围。
+- 从稳定眼位与控制朝向取查询，镜头冲击不能改变采集瞄准。候选点投影必须在前方，表面距离不超过对应上限，最后做可见性遮挡查询。 原因：视角和投影决定可见结构，方向未对齐的图无法作为同一对象的直接比较依据。
+- 地形、多个树干可能共用同一 Actor。确认资源遮挡与目标一致时比较组件和实例索引，不能只比较 Actor；怪物则按 Actor 归属识别。 原因：碰撞查询的命中对象未必等于真正遮挡面，错误分类会阻断可达目标。
+- 初始重叠没有可信表面点，需向目标补查真实表面；不要用玩家眼位充当接触点。 原因：初始重叠没有可靠的接触表面，使用眼位会把采集反馈生成在错误位置。
 - 单次攻击只结算一个目标。敌人走伤害确认，资源走采集提交；两者共用确认命中的动作和镜头反馈，但敌人不扣采集次数、不产材料或播放木屑效果。友方、玩家和尸体不作为该自卫攻击的有效目标。
 
 当前入口为 `ProductionAxeContact.cpp`（函数名保留 Axe，但服务斧、镐两者）、`ProductionToolComponent.cpp`、`ColdSteelProductionTools.cpp`、`ColdSteelProfileRuntime.cpp` 和 `production_tools.json`。发布时把调用者的镜头接入、装备交互、公式和源动画恢复说明一起提交，避免只提交工具组件。
@@ -36,7 +36,7 @@
 - 目录 `Content/ColdSteelData/tool-gunsmith.json`，四栏＝握把 `grip`、握柄 `shaft`、改件 `fitting`、主部件 `head`。加载器 `Weapons/ToolGunsmith.cpp` 写进 `UGunsmithSystem::ToolWeapons`，与剑类 `MeleeWeapons`、枪械 `Weapons` 并列；`ModifiableWeapon` 是三者共同入口，因此背包「改造武器」按钮、J 键与工作台自动覆盖工具，不需要另开一条 UI 路径。
 - 存档仍写物品 Data 的 `gunsmith_parts`，槽位键就是栏目键。旧存档没有工具改造字段时按 factory 结算，不需要迁移；`NormalizeProductionState` 只刷新定义字段，不会覆盖 `gunsmith_parts`。
 - 数值口径：倍率相乘、绝对值相加。唯一评估入口是 `Production/ProductionToolStats.h::ColdSteelTool::Evaluate`（自卫伤害面板、挥砍节奏、体力、采集距离与宽容半径、产出倍率、所需命中、额外产出几率、暴击与削韧）。**采集链、自卫链、物品浮窗、工作台总览、图鉴都读这一份结果**，不允许任何一处二次换算。
-- 铁铲没有目录条目：`Evaluate` 对它返回出厂倍率，行为与改造前一致。不要把铁铲塞进工具目录，除非同时补齐视模与作者动画。
+- 铁铲没有目录条目：`Evaluate` 对它返回出厂倍率，行为与改造前一致。不要把铁铲塞进工具目录，除非同时补齐视模与作者动画。 原因：目录可改造项还需要对应视模与动画支持，仅新增条目会暴露未完成的使用路径。
 
 ### 采集与自卫分开结算
 
@@ -47,12 +47,12 @@
 | `harvest_reach_mult`／`harvest_radius_add_cm` | 采集射线距离与辅助球半径 | 矿镐出厂半径 0（只认中心射线），所以辅助宽度必须用**绝对加值**，倍率对它是空操作 |
 | `bonus_harvest_chance` | 采尽结算判定一次，成功则整份材料再落一次 | 期望产出 ＝ 产出倍率 ×（1＋几率）；落点沿用同一条随机流，不会重叠 |
 | `damage_mult`／`toughness_damage_mult`／`crit_chance_add` | 自卫命中：`damage_mult` 走 `ProcessedDamage` 的 `MeleeDamageMultiplier` 通道，削韧与暴击随 `FColdSteelSkillShot` 进 `ColdSteelSkills::ApplyHit` | 不给连击、重击、格挡与精通口径。**不要**加工具版 `hit_reaction_mult`：受击倍率用 `TGuardValue` 设值而非相乘，内层默认 1 会覆盖外层 |
-| `attack_speed_mult` | 只压缩真实时钟（`RateScale`） | 动画与镜头关键帧是**作者秒**：必须传 `AuthoredElapsed = Elapsed × RateScale` 给采样器，真实阈值除以 `RateScale`；`RateScale=1` 时逐帧等价 |
+| `attack_speed_mult` | 只压缩真实时钟（`RateScale`） | 动画与镜头关键帧是**作者秒**：必须传 `AuthoredElapsed = Elapsed × RateScale` 给采样器，真实阈值除以 `RateScale`；`RateScale=1` 时逐帧等价 原因：采样器读取作者秒，实际动作计时读取变速后的秒，两者需要明确换算才能保持关键帧。 |
 | `stamina_mult` | 每次挥动的采集体力，采集与自卫共用同一笔 | `ColdSteelMelee::AttackStamina` 对工具走 `HarvestCost`，不是近战 15 点，否则 HUD 的可用次数会算错 |
 
 ### 进度口径：出厂判定采尽，改造判定完成
 
-`CommitHarvestStrike` 里两个判断不能混用同一份次数（岩块与表土）：
+`CommitHarvestStrike` 里两个判断不能混用同一份次数（岩块与表土）： 原因：岩块与表土的采集条件不同，同一计数不能同时代表两种业务的有效进度。
 
 - 「此处资源已经采尽」按**出厂**所需命中（`FProductionResource::HitsNeeded()`）判断。存档里的进度是历史累计命中，可能是用出厂工具打出来的；若按改造后的次数判定，出厂打到 2 次的资源会在换上减命中改造后被判为采尽而**不发奖励**。
 - 完成判定用 `After >= Needed`（不是 `==`）：换上减命中改造后历史进度可能已越过新的所需次数，这一挥仍要正常结算，否则资源卡在「差一次」的中间态。
@@ -65,7 +65,7 @@
 ### 工作台、浮窗与自检
 
 - 工作台复用近战那套结构（`IsStandaloneWorkbench()` ＝ 近战或工具），预览用 `tool_mesh` 建独立静态网格组件并沿用正交取景；**不要**扩 `ColdSteelMeleePreview::Supports`——它同时服务背包图标渲染，扩了会把工具塞进图标链路。
-- 栏目标签、选项卡片、详情行与浮窗合计的行名必须与目录 `effects` 逐字一致。`Tools/Production/check_tool_modification_consistency.py` 离线断言这一点，并核对 stats 键与 C++ 加载器逐字对齐、description 不含可推导数字、benefit 方向、命中下限与 `production_tools.json` 字段齐全。
+- 栏目标签、选项卡片、详情行与浮窗合计的行名必须与目录 `effects` 逐字一致。`Tools/Production/check_tool_modification_consistency.py` 离线断言这一点，并核对 stats 键与 C++ 加载器逐字对齐、description 不含可推导数字、benefit 方向、命中下限与 `production_tools.json` 字段齐全。 原因：目录、面板和公式读取的是同一组效果，字段与名称一致才能避免显示一种属性却修改另一种。
 - 当前四栏是**数值改造**，沿用原装外形；实体模块拆分后按同一改造 ID 接入（见 [模块化近战](modular-melee.md) 第 1 节），目录的 `appearance` 字段负责如实说明外观归属，浮窗与详情面板照抄它。
 - 新增入口：`Weapons/ToolGunsmith.cpp`、`Production/ProductionToolStats.{h,cpp}`、`Production/ProductionTreeHealth.{h,cpp}`、`UI/M4ToolGunsmith.cpp`；改动入口：`GunsmithSystem.{h,cpp}`、`ProductionToolComponent.{h,cpp}`、`ProductionToolMotion.cpp`、`ProductionAxeLocomotion.cpp`、`ColdSteelProductionTools.cpp`、`ColdSteelProductionDrops.cpp`、`Production/ProductionResource.h`、`WorldGeneration/TemperateHillsProduction.cpp`、`M4Gunsmith*`、`SMeleePartIcon.h`、`ColdSteelItemTooltip{Data,Summary,Formula}.cpp`、`ColdSteelCodexPage.cpp`。
 
@@ -78,14 +78,14 @@
 - 拆槽 v1 曾用纯 Z 切面心（斧 0.195、镐 0.315），**被用户否决**：吞了镐前端绳缠与木帽。v2 语义规则：镐＝连通域（metallic_mean≥0.15 且 chroma_mean≤0.16 且 z_min≥0.33）；斧＝逐面（z≥0.195 且 chroma<0.20 或 metallic>0.2）；视模用 `(WPN_root_rest⁻¹·v).z + grip_z` 还原世界 z 后套同一规则。动手前先跑连通域＋UV 采样 metallic/chroma 分带分析（`analyze_resplit.py` 模式）。
 - UE 侧编辑器已关时走 `UnrealEditor-Cmd -run=pythonscript -unattended -NullRHI`；`AssetImportTask.save` 必须 True，否则 commandlet 退出丢弃整次导入。
 - **保存必须验真**：`EAL.save_asset`／`save_loaded_asset` 在 PIE 期间静默返回 false；一律检查返回值，或改走 `EditorLoadingAndSavingUtils.save_packages([pkg], False)`，并以回读／uasset mtime 为准（2026-09-25 视模金属槽因此退回 WorldGridMaterial）。
-- FBX 导入即使 `import_materials=False` 仍会**按槽名匹配项目内同名材质**；匹配不到就是 WorldGridMaterial——拆槽名（Metal/Wood）不要指望自动匹配，导入后必须显式绑定并回读。
+- FBX 导入即使 `import_materials=False` 仍会**按槽名匹配项目内同名材质**；匹配不到就是 WorldGridMaterial——拆槽名（Metal/Wood）不要指望自动匹配，导入后必须显式绑定并回读。 原因：槽位索引和显示名称可能变化，语义对应错误会把材质绑定到别的部件。
 - **拆槽会平移下游按索引引用槽的数据**：`Content/ColdSteelData/modular_outfits.json` 的 `hide_source_materials` 按索引隐藏源视模手臂槽（`FPSModularOutfitComponent` 逐 LOD 关 section），旧 3 槽布局 [1,2] 在 4 槽布局下会隐藏 Metal。拆槽交付前全局搜索按索引引用（手模隐藏、覆写表），该 json 运行时读取、改后重启生效。
-- 视模"部件缺失"先区分三层：资产槽材质（commandlet 回读盘）、运行时 section 隐藏（modular_outfits）、材质渲染（离屏 SceneCapture 渲染，`-ExecutePythonScript -RenderOffscreen` 独立隐藏编辑器，参照 RuneSword run_review.ps1；PIE 期间活编辑器不能 spawn 诊断 actor）。
+- 视模"部件缺失"先区分三层：资产槽材质（commandlet 回读盘）、运行时 section 隐藏（modular_outfits）、材质渲染（离屏 SceneCapture 渲染，`-ExecutePythonScript -RenderOffscreen` 独立隐藏编辑器，参照 RuneSword run_review.ps1；PIE 期间活编辑器不能 spawn 诊断 actor）。 原因：World 上下文必须与目标操作对应，未初始化或不匹配的世界无法提供所需对象与服务。
 - 静态网格换 FBX 用**删除后全新导入**：重导入保留旧槽名/旧槽，槽索引与面索引对应不可靠；LOD 用 `StaticMeshEditorSubsystem.import_lod` 补回＋`set_lod_screen_sizes`。
-- **资产写边界**：运行中编辑器持有 .uasset 文件锁（外部 commandlet 删/改报 Error 32）；活编辑器 `import_lod` 异步生效（恒返回 -1、后续 tick 落地），失败批次的排队任务还会污染同路径重导包。整包替换安装（删＋新导＋LOD）放**编辑器关闭后的 commandlet 窗口**；活编辑器桥只做槽绑定、save_packages 等短操作。
+- **资产写边界**：运行中编辑器持有 .uasset 文件锁（外部 commandlet 删/改报 Error 32）；活编辑器 `import_lod` 异步生效（恒返回 -1、后续 tick 落地），失败批次的排队任务还会污染同路径重导包。整包替换安装（删＋新导＋LOD）放**编辑器关闭后的 commandlet 窗口**；活编辑器桥只做槽绑定、save_packages 等短操作。 原因：正在运行的进程可能持有用户状态，结束运行只能针对实际接入需要并保护已有内容。
 - UE 5.8 Python：MI 参数用 `MaterialEditingLibrary.set_material_instance_*_parameter_value`（对象方法已移除）；`StaticMaterial` 只有 `material_slot_name`／`material_interface`；`Texture2D` 无尺寸属性。
 - commandlet 里 `print()`／`unreal.log()` 都不进日志：探针脚本把结果写 JSON 文件再读。
-- 覆盖任何已发布二进制（FBX、图标 PNG）前先备份进任务目录 `Before/` 并把前后散列写进 `before-backup.json`；失败重跑可能把新文件误备为旧文件，备份源优先找作者源文件。
+- 覆盖任何已发布二进制（FBX、图标 PNG）前先备份进任务目录 `Before/` 并把前后散列写进 `before-backup.json`；失败重跑可能把新文件误备为旧文件，备份源优先找作者源文件。 原因：失败重跑时当前输出可能已是新文件，原始备份需要有明确来源才能用于恢复。
 
 ## 采集结算统一为伤害驱动（2026-09-30）
 
@@ -95,6 +95,6 @@
 - **伤害是唯一来源**：`StrikeDamage` = 工具伤害面板（工具公式 + 角色物攻 + 改造 + 附魔）×「所需有效命中」改造折算倍率——**该改造不再减次数而是加伤害**（出厂 3 击改 2 击 ＝ ×1.5）。
 - **存档**：`FColdSteelProfile::RockHealth`（Id→剩余比例 0..1，缺省满血）；旧档 1..3 命中在读档 `RockHealthRatio()` 一次性换算，不迁移遍历——改基础生命不作废旧档。岩块不重生、无成熟门禁。
 - **采尽标记别删**：`HarvestProgress=3` 在 HP 归零时照写——`IsProductionDepleted` 已改 HP 比例判采尽（树/岩），但标记仍是旧档兼容与挖掘循环的接口；`RequiredHits=3` 常量同理保留作标定基准。
-- **表土边界**：一挥一层固定挖掘不走伤害（铲子无伤害属性）；其 `progress≥1` 防连挖闸门必须保留——下挖上限触顶时 `CompleteProductionHarvest` 拒绝挖掘且不复位，无闸门会陷入「发放→回收」死循环。
+- **表土边界**：一挥一层固定挖掘不走伤害（铲子无伤害属性）；其 `progress≥1` 防连挖闸门必须保留——下挖上限触顶时 `CompleteProductionHarvest` 拒绝挖掘且不复位，无闸门会陷入「发放→回收」死循环。 原因：任务进度与场景实例有独立身份，目标显示和权威开门必须对应同一轮任务。
 - **展示位同步**：「所需有效命中」全家族替换为「采矿伤害 / 伐木伤害 N / 挥」；图鉴的挥砍数 = `SwingsToFell(标准生命, 伤害)`（A 树 / 标准岩 60 点），不再用命中公式推算。
 - 命中管线未动：工具挥击的 `Shot.DamagePanel` 仍默认全物理（钝击），生命扣减是采集侧独立结算。

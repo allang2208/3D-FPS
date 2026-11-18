@@ -59,7 +59,7 @@ w'_i    = w_i * boost_i ,  再归一化
 - 步数上限 `GroundReliefSteps`（默认 10，代码内 clamp 到 24），并随俯角降低；
 - 循环外算 `ddx/ddy` 再传 `Texture2DSampleGrad`，避免"循环内求梯度"的编译错误；
 - 距离渐隐：`GroundReliefFadeM`（默认 7 m）以内满强度，到 2.3 倍距离完全消失；再乘一个贴地视角门（`smoothstep(0.15,0.42,V.z)`）；
-- **在河岸范围内乘 `(1 - 顶点色 R)`**：河岸已经有自己的卵石视差，两套不能叠加；
+- **在河岸范围内乘 `(1 - 顶点色 R)`**：河岸已经有自己的卵石视差，两套不能叠加； 原因：地表的实际渲染与数据编码决定材质输入，不能把另一种地形后端的节点直接套入。
 - 湿润时（`Wetness` 或顶点色 G）凹凸深度最多衰减 65%，湿地面看起来更平。
 
 步进结果回乘世界尺度后再按家族尺度分别投影，因此各层尺度不同也不会让视差偏移错位。
@@ -144,7 +144,7 @@ LogMaterial: Display: Missing cached shadermap for .../M_TemperateGround...   in
 
 河岸部分的参数（`PebbleReliefDepthCm`、`PebbleNormalStrength`）保持不变。
 
-**开销**：固定采样 16 张（四家族 albedo 4 + normal 4 + 高度 3 + 粗糙度 3 + 细颗粒复用砾石 2），近景再按步数每步多 2 张高度采样，10 步时最坏约 36 张。相比旧版 9 张明显更重，但视差只在 7 m 内、贴地视角下发生，远处退回普通法线贴图。若需要降载，先把 `GroundReliefDepthCm` 调到 0（关掉步进循环）或把 `GroundReliefFadeM` 调到 4。
+**开销**：固定采样 16 张（四家族 albedo 4 + normal 4 + 高度 3 + 粗糙度 3 + 细颗粒复用砾石 2），近景再按步数每步多 2 张高度采样，10 步时最坏约 36 张。相比旧版 9 张明显更重，但视差只在 7 m 内、贴地视角下发生，远处退回普通法线贴图。若需要降载，先把 `GroundReliefDepthCm` 调到 0（关掉步进循环）或把 `GroundReliefFadeM` 调到 4。 原因：表面观感由多个材质输入共同决定，单改颜色或统一覆盖会丢失原有材质身份。
 
 ## 8. PCG：嵌入式碎石（`GroundDebris`）
 

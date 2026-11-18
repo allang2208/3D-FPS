@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Production/ProductionToolEquipmentPrivate.h b/Source/FPSGAME/Production/ProductionToolEquipmentPrivate.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Production/ProductionToolEquipmentPrivate.h
+@@ -0,0 +1,6 @@
++#pragma once
++#include "UObject/SoftObjectPath.h"
++namespace ProductionToolEquipmentPrivate
++{
++extern const FSoftObjectPath WarhammerOrdinarySwingSoundPath;
++}

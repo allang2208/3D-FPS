@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-17",
+  "scope": "C05: shared food recovery countdown; reflection callbacks and fields unchanged",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.cpp",
+      "before_lines": 306,
+      "after_lines": 307,
+      "before_bytes": 16292,
+      "after_bytes": 16136,
+      "before_sha256": "40a91b11f9d069ea747bda101b54404240f474e6017f7ddfd141977160523127",
+      "after_sha256": "3cf33c134956dce735b4d049c076995857370bbb938917d3bf6de440042df0ba",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-04-survival/FPSSurvivalComponent.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.h",
+      "before_lines": 51,
+      "after_lines": 52,
+      "before_bytes": 3003,
+      "after_bytes": 3091,
+      "before_sha256": "c869f0df0ca2cf824c2d6bd5c50eda1c078f5a659a201eb5ed3c3168d6189c1f",
+      "after_sha256": "d3b7973ce5dadc2ff1aa5bdd5f3508dddd52f28bb7caf9db9de027787f18a112",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-04-survival/FPSSurvivalComponent.h.before.txt"
+    }
+  ]
+}

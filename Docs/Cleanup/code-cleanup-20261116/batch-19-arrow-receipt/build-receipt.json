@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "batch": 19,
+  "scope": "Skills C27 MagicArrowRainResources cooldown receipt only",
+  "source_cleanup_complete": true,
+  "modified_existing_files": 1,
+  "new_source_files": 0,
+  "maximum_modified_file_lines": 35,
+  "editor_build_complete": true,
+  "result": "Succeeded",
+  "exit_code": 0,
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_started_at": "2026-11-17T19:58:25.8894759+08:00",
+  "build_finished_at": "2026-11-17T19:59:00.2253902+08:00",
+  "ubt_execution_seconds": 34.12,
+  "executor_seconds": 23.05,
+  "completed_actions": 4,
+  "compile_actions": 1,
+  "link_actions": 2,
+  "metadata_actions": 1,
+  "linked_dll": "UnrealEditor-FPSGAME.dll",
+  "log_path": "Saved/BuildEditor/cleanup-batch19-20261117-195825.log",
+  "arguments": [
+    "FPSGAMEEditor",
+    "Win64",
+    "Development",
+    "-Project=D:/FPS3D/FPSGAME/FPSGAME.uproject",
+    "-NoHotReload",
+    "-NoHotReloadFromIDE",
+    "-NoUBTMakefiles",
+    "-NoUBA",
+    "-MaxParallelActions=2"
+  ],
+  "directly_modified_cpp_compiled": [
+    "MagicArrowRainResources.cpp"
+  ],
+  "waited_shared_game_build": {
+    "wrapper_pid": 57512,
+    "ubt_pid": 85488,
+    "log_path": "SourceAssets/HillsLakeLandform20261117/Logs/FPSGAME-build.log"
+  },
+  "retained": [
+    "R10 identical one-line arrow cooldown multiplier",
+    "R11 blizzard/ice wall local input gates",
+    "H01/H02 remaining private state handling",
+    "H03",
+    "files exceeding 800 lines",
+    "suspected dead code",
+    "fireball independent XP scaling"
+  ],
+  "processes_stopped": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "tests_run": false,
+  "runtime_status": "Untested; user testing"
+}

@@ -1,46 +1,23 @@
 # 地面火场与撞击层次
 
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-fluid-vfx-workflow/references/meteor-ground-impact.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
+
 ## 火球命中基底与当前陨石恢复顺序（2026-11-15）
 
-当前爆燃主体已由火球 `ImpactRealistic20260914/NS_FireballImpactRealistic` 的 ContactIgnition / OutwardCombustion 派生，保存到原 `MeteorImpactReferenceV7/NS_MeteorPressureV7` 路径；同一路径可以换内容，不能凭目录版本判断仍是旧火冠。恢复时先准备旧依赖，再依次运行 `author_meteor_fireball_impact_20261115.py` 和 `author_meteor_longer_roll_20261115.py`，以 revision 2 保存回执为准。保留现有冲击波、火星、V6 飞行、V4 低火与玩法。
-
-延长火团需同时处理生命周期、位移时钟与图集播放：本案翻滚寿命为供体 2.05 倍，位置时钟用 1.18/2.05，白热前段单独保持短促；只拉寿命而不调整播放会变成停帧。放大供体时校准实际可见区域与局部位置，不能仅放大组件。具体参数是本效果配方，不推广成通用火焰倍率。见工程 `Docs/Skills/meteor-fireball-impact-20261115.md`；保存、原生构建和用户画面认可分别记录。
-
-异步加载时将世界空间尾迹的 PreviousPosition / CurrentPosition 初始化为按服务器年龄计算的当前岩体位置；不能从最初高空起点补画整段尾迹。晚到副本恢复剩余低火，不重播过期撞击。
-
-
-处理陨星式落地爆燃、持续火场、统一火焰高度或“只有碎石”的反馈时使用。数值、锁点与修炼规则见 [地面魔法合同](../../ue5-skill-magic-workflow/references/meteor-ground-contract.md)。
+详见[维护源](../../_shared/ue5-fluid-vfx-workflow/references/meteor-ground-impact.md)中的同名章节。
 
 ## 半径与自然度
 
-- 区域扩大时，用实际厘米半径控制水平扩散，别把整个 Niagara 同比放大，否则火焰高度、烟速和飞散也会一起放大。局部空间主体与世界空间尾迹分别设置尺寸参数。
-- 持续地面火焰采用一个流体网格和有界燃点集合。燃点先找真实地面，再检查落点平面的高度带、遮挡与侧向净空；分帧采样并复用共享查询预算。
-- “火环”或整齐火墙不能仅靠降低透明度解决。调整燃点分布、供热、速度、浮力和消散，让少数热点与低矮残火错相起伏；保持稳定的施法种子，避免每帧重抽随机数。
-- 伤害圈描述作用范围，稀疏火舌、烟尘和焦痕属于表现层。焦痕可小于爆炸范围，但预览、燃点约束与权威半径必须来自同一快照。
+详见[维护源](../../_shared/ue5-fluid-vfx-workflow/references/meteor-ground-impact.md)中的同名章节。
 
 ## 冲击层次
 
-- 先让撞地时刻可读，再展开爆燃、扬尘和碎片。短接触停顿仅影响岩体破裂，伤害仍在原撞地帧结算；不要用延迟伤害换重量感。
-- 不同质量碎片使用不同尺寸、抛速、寿命、回弹和切向衰减。位置逐帧更新，几何扫掠限频并共享预算；装饰使用独立随机流，不改变暴击随机序列。
-- 优先复用已有无阴影光和单个池化爆炸系统。声音、镜头、爆心共享服务器时钟；每个副本仅通知本机观察者，迟到表现不重播旧瞬时事件。
-- 焦痕沿地面法线投影，使用技能年龄恢复热量并在结束前淡出；纹理凹陷不等于修改真实地形或碰撞。
+详见[维护源](../../_shared/ue5-fluid-vfx-workflow/references/meteor-ground-impact.md)中的同名章节。
 
 ## 当前制作链与工具陷阱
 
-**2026-11-14 用户已否定 V6 撞地效果。** V6 的保存/构建记录不能作为认可基线。本轮按视频 `BV1ZEWj6qE8S` 中 METEOR / AI VIDEO 的集中亮芯、白金色径向放射、外翻火冠和抛出碎屑重制 `MeteorImpactReferenceV7`，八项新资产已后台保存；只替换撞击，保留岩体、V6 飞行、V4 低火与玩法。实际接入以 `MeteorAssets.h` 和 `SourceAssets/MeteorImpactReferenceV7_20261114/delivery.json` 为准，制作细节见 `Docs/Skills/meteor-impact-reference-v7-20261114.md`。未做游戏视觉对照，不宣称 100% 一致。恢复旧母版/V6 后最后执行 V7 作者与接入器。
-
-2026-10-22 本机基线：封闭岩体 `MeteorClosedVolumeV1`，低火 `MeteorImpactLowFireV4`，撞击/焦痕/音频 `MeteorImpactWeightV5`。`MeteorAssets.h` 统一运行、准备及回调绑定清单。V2/V3 流体和 RealisticV5 容器仍是当前作者输入，不能因版本旧而移走。
-
-作者入口：`build_meteor_ground_fire_v4.py`、`build_meteor_impact_v5.py`、`author_meteor_scorch_audio_v5.py`；恢复顺序和授权资产边界见工程 `Docs/Publication/Meteor20261022/README.md`。
-
-2026-11-14 V6 更新：`MeteorCombustionV6` 的撞击爆燃/余烟、包覆焰、世界空间尾迹已后台制作并保存。岩体仍为 `MeteorClosedVolumeV1`，低矮残火仍为 V4，焦痕与落地音频仍为 V5；玩法数值、伤害帧、镜头及声音不变。运行引用和构建的实际完成状态见 `SourceAssets/MeteorCombustionV6_20261114/delivery.json`，不能仅凭作者脚本存在认定已接入。
-
-V6 使用原创离线 Mantaflow 场投影，两个 64 帧 RGBA 数据图集的 A 通道为烟形体明暗，不能直接作透明度。手动相邻帧插值时 Niagara Renderer 保持 1×1；动态参数连接使用显式 `RGBA` 输出。连续发射器采用 System 生命周期，不设置该模式下隐藏的 Loop Behavior。撞击最多 25 粒子，其中 16 粒烟尘接入共享预算，不新增运行时流体网格或灯光。
-
-完整路线见 `Docs/Skills/meteor-combustion-v6-20261114.md`。恢复旧母版后，最后运行 `bake_meteor_combustion_v6.py`、`build_meteor_combustion_v6.py` 和 `build_meteor_combustion_v6.ps1`，避免旧作者入口把三项运行引用退回旧版。本轮不打开交互 UE、不运行游戏或测试，观感由用户自行查看。
-
-- UE 5.8 CPU VectorVM 的自定义表达式不接受所有 GPU HLSL 内建函数；此案 `smoothstep` 编译失败，用共用多项式曲线恢复，不把材质编译成功等同于 Niagara 全部脚本成功。
-- Substrate 材质引脚的显示名可能含空格，此案 Emissive 使用 `Emissive Color`。以实际接口返回为准。
-- 独立 author host 的 Content 必须指向当前主工程；读取工具顶部工程断言，不为复用工具跳过保护。可直接构造专用发射器，避免导入带顶层主工程断言的旧模块。
-
-用户当日反馈整体基本可用；之后公式及无界面网络检查不代表重新做过画面、音频或帧时验收。制作/发布任务不会自动触发这些检查。
+详见[维护源](../../_shared/ue5-fluid-vfx-workflow/references/meteor-ground-impact.md)中的同名章节。

@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-17",
+  "scope": "Batch 21 Editor build continuation only; no new source changes",
+  "status": "Resume build finished with out-of-scope compilation errors; no DLL link",
+  "editor_process_id": 99196,
+  "editor_started_at": "2026-11-17T21:31:08.572922+08:00",
+  "project": "D:/FPS3D/FPSGAME/FPSGAME.uproject",
+  "build_started": true,
+  "prior_blocker_source_changed_externally": true,
+  "source_files_changed_this_continuation": 0,
+  "processes_stopped": false,
+  "editor_launched": false,
+  "tests_run": false,
+  "editor_exit_observed": true,
+  "user_requested_save_close_and_continue": true,
+  "waited_shared_build": {
+    "cmd_pid": 102852,
+    "ubt_pid": 74520,
+    "started_at": "2026-11-17T21:49:27.182564+08:00",
+    "log_path": "SourceAssets/HillsLandscapeRepair20261117R1/Logs/Editor-compile.log"
+  },
+  "build_started_at": "2026-11-17T22:05:09.8826832+08:00",
+  "log_path": "Saved/BuildEditor/cleanup-batch21-resume-20261117-220509.log",
+  "planned_actions": 150,
+  "build_finished_at": "2026-11-17T22:26:16.8405266+08:00",
+  "exit_code": 6,
+  "result": "Failed (OtherCompilationError)",
+  "editor_build_complete": false,
+  "receipt": "build-resume-receipt-20261117.json"
+}

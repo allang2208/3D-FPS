@@ -1,21 +1,19 @@
 # 冲刺幅度、换弹镜头与双持发力
 
-用于减少冲刺屏幕运动、统一换弹反馈或加强甩匣／开巢力量感。先确认实际加载的动作、源时间与镜头合成入口，保留已认可的握点和机械接触。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-fps-arms-animation/references/reload-camera-and-dual-tempo.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 冲刺镜头
 
-缩放最终位移／旋转输出，不修改参与交叉混合的权重。当前 `SprintCameraMotion::AmplitudeScale=0.5` 覆盖共用步频、战术冲刺和冲刺攻击，普通走路、非冲刺攻击及枪械后坐不额外减半。检查各武器实际走哪个共用入口，双持分支可能绕过单持视模更新。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/reload-camera-and-dual-tempo.md)中的同名章节。
 
 ## 换弹反馈 RC1
 
-统一接触类型、强度基准和总输出上限，不要求所有枪在相同时间震动。取匣、插入、压实、闭锁、开合弹巢、逐发装入使用各自动画源时间；等待取弹阶段保持平静。`WeaponReloadCamera.h` 是幅度真源，`FPSGAMECharacterReloadCamera.cpp` 汇总普通／空仓、逐发／快速装填、弹鼓与双手轨道，统一由 `WeaponActionCameraComponent` 合成一次。
-
-双手独立时钟和镜像方向，合成后统一限幅；结束和中断从最后反馈归零，不能遗留镜头偏置。参数表与逐枪覆盖见工程 `Docs/Weapons/reload-camera-standard-20261013.md`，不把上限当作每次接触的实测幅度。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/reload-camera-and-dual-tempo.md)中的同名章节。
 
 ## 双持发力 R1
 
-原动画已有蓄力、甩腕和回弹时，优先局部时间重映射，不先重做握姿或整段加快。用单调、端点速度连续的秒制曲线分出慢准备、短促发力和回弹停留；保留总换弹时长、原装填阶段及双持耗时倍率。
-
-`SampleActionTime` 驱动两手动画、机械、入膛与镜头；第三人称发布同一实际进度。录音接触先逆映射到运行时间再减实秒预卷，脱落弹壳在准确释放姿态生成，后续重力年龄也使用逆映射。中断只补闭锁不重播甩匣。入口为 `DualPistolReloadTiming.h`，案例见工程 `Docs/Weapons/dual-reload-power-tempo-20261013.md`。
-
-后台正式 Editor/Game 构建已完成；此记录不代表逐枪或双人运行验收。按用户要求才启动游戏或测试。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/reload-camera-and-dual-tempo.md)中的同名章节。

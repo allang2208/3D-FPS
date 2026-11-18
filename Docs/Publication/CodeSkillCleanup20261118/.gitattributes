@@ -1,0 +1,3 @@
+# Unified diffs are recovery payloads: a context-only blank line is one literal
+# space. Preserve that payload rather than stripping it as prose whitespace.
+Integration/*.patch -whitespace

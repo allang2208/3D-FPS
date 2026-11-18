@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "batch": 21,
+  "purpose": "Finish the previously blocked Editor build; no new source cleanup",
+  "source_cleanup_complete": true,
+  "source_files_changed_this_continuation": 0,
+  "editor_build_complete": false,
+  "build_attempt_finished": true,
+  "result": "Failed (OtherCompilationError)",
+  "exit_code": 6,
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_started_at": "2026-11-17T22:05:09.8826832+08:00",
+  "build_finished_at": "2026-11-17T22:26:16.8405266+08:00",
+  "ubt_execution_seconds": 1242.13,
+  "executor_seconds": 1155.27,
+  "planned_actions": 150,
+  "reported_compile_actions": 147,
+  "link_actions": 0,
+  "metadata_actions": 0,
+  "linked_dll": false,
+  "log_path": "Saved/BuildEditor/cleanup-batch21-resume-20261117-220509.log",
+  "arguments": [
+    "FPSGAMEEditor",
+    "Win64",
+    "Development",
+    "-Project=D:/FPS3D/FPSGAME/FPSGAME.uproject",
+    "-NoHotReload",
+    "-NoHotReloadFromIDE",
+    "-NoUBTMakefiles",
+    "-NoUBA",
+    "-MaxParallelActions=2"
+  ],
+  "compiler_errors": [
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "line": 450,
+      "code": "C2143"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "line": 449,
+      "code": "C4430"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "line": 452,
+      "code": "C4430"
+    },
+    {
+      "path": "Intermediate/Build/Win64/UnrealEditor/Inc/FPSGAME/UHT/TemperateHillsWorld.gen.cpp",
+      "line": 2409,
+      "code": "C2600"
+    },
+    {
+      "path": "Intermediate/Build/Win64/UnrealEditor/Inc/FPSGAME/UHT/TemperateHillsWorld.gen.cpp",
+      "line": 2410,
+      "code": "C2511"
+    },
+    {
+      "path": "Intermediate/Build/Win64/UnrealEditor/Inc/FPSGAME/UHT/TemperateHillsWorld.gen.cpp",
+      "line": 2410,
+      "code": "C2550"
+    },
+    {
+      "path": "Intermediate/Build/Win64/UnrealEditor/Inc/FPSGAME/UHT/TemperateHillsWorld.gen.cpp",
+      "line": 2411,
+      "code": "C2600"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.h",
+      "line": 4,
+      "code": "C1083"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsLandscapeCapture.cpp",
+      "line": 224,
+      "code": "C3535"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsLandscapeCapture.cpp",
+      "line": 224,
+      "code": "C2440"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsLandscapeCapture.cpp",
+      "line": 227,
+      "code": "C2661"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseDebris.cpp",
+      "line": 54,
+      "code": "C3535"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseDebris.cpp",
+      "line": 54,
+      "code": "C2440"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp",
+      "line": 18,
+      "code": "C4458"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp",
+      "line": 22,
+      "code": "C2065"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+      "line": 38,
+      "code": "C2065"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+      "line": 39,
+      "code": "C2065"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+      "line": 40,
+      "code": "C2065"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+      "line": 41,
+      "code": "C2065"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+      "line": 42,
+      "code": "C2065"
+    }
+  ],
+  "first_header_diagnostics": [
+    "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\Monsters\\MonsterAIController.cpp(1): error: Expected MonsterAIController.h to be first header included.",
+    "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\Monsters\\MonsterCombatComponent.cpp(1): error: Expected MonsterCombatComponent.h to be first header included.",
+    "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\Monsters\\NurseZombie.cpp(1): error: Expected NurseZombie.h to be first header included.",
+    "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\Movement\\FPSDoorPushComponent.cpp(1): error: Expected FPSDoorPushComponent.h to be first header included.",
+    "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\WorldGeneration\\HillsNightRaidSubsystem.cpp(1): error: Expected HillsNightRaidSubsystem.h to be first header included."
+  ],
+  "blocker_scope": "WorldGeneration and generated code, outside Skills source ownership",
+  "previous_hills_blacksmith_access_error_reported_again": false,
+  "waited_editor": {
+    "pid": 99196,
+    "started_at": "2026-11-17T21:31:08.572922+08:00",
+    "exit_observed": true,
+    "user_saved_and_closed": true,
+    "turnkey_pid": 78632
+  },
+  "waited_shared_build": {
+    "cmd_pid": 102852,
+    "ubt_pid": 74520,
+    "started_at": "2026-11-17T21:49:27.182564+08:00",
+    "log_path": "SourceAssets/HillsLandscapeRepair20261117R1/Logs/Editor-compile.log",
+    "remaining_compiler_processes_also_waited": true
+  },
+  "previous_build_receipt": "build-receipt.json",
+  "other_processes_stopped": false,
+  "own_build_interrupted_this_continuation": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "tests_run": false,
+  "runtime_status": "Not tested; full Editor link remains blocked by out-of-scope compile errors"
+}

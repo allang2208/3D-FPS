@@ -1,0 +1,375 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp b/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
+@@ -0,0 +1,370 @@
++#include "../Weapons/MagicCrystalMana.h"
++#include "../Skills/ColdSteelSkillTree.h"
++#include "../Dungeon/DungeonLayout.h"
++#include "../Weapons/JingangRuneComponent.h"
++#include "../Production/ProductionToolComponent.h"
++#include "ColdSteelStatusModel.h"
++#include "ColdSteelIncineratorStorage.h"
++#include "../Skills/FPSMagicArrowRainComponent.h"
++#include "../Skills/FPSElementalArrowComponent.h"
++#include "ColdSteelContainerSearchSubsystem.h"
++#include "GameFramework/PlayerController.h"
++#include "ColdSteelProfileRecovery.h"
++#include "../Items/FoodSpoilage.h"
++#include "../Items/CampfireFoodCatalog.h"
++#include "ColdSteelCurrency.h"
++#include "ColdSteelItemRarity.h"
++#include "../Items/FPSPotionUseComponent.h"
++#include "../Weapons/WeaponReloadStages.h"
++#include "../Weapons/PistolDualWieldComponent.h"
++#include "../Weapons/RuneOrbBladesComponent.h"
++#include "../Skills/ColdSteelSkillRules.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
++#include "ColdSteelPickup.h"
++#include "../FPSGAMECharacter.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Survival/FPSSurvivalComponent.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "../Monsters/MonsterCoreStats.h"
++#include "Dom/JsonObject.h"
++#include "Dom/JsonValue.h"
++#include "Serialization/JsonSerializer.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Engine/GameInstance.h"
++#include "Engine/Engine.h"
++#include "Engine/World.h"
++#include "HAL/IConsoleManager.h"
++#include "EngineUtils.h"
++#include "../Weapons/GunsmithSystem.h"
++#include "../Weapons/FrostSwordRunes.h"
++#include "Misc/SecureHash.h"
++
++using namespace ColdSteelInventory;
++
++// 定时自动存档周期（秒）。战斗与修行增量先落在内存档案里（StageTraining），由这个时钟统一写盘：
++// 旧口径是「待写盘时每 1 秒补一次」加「无条件每 5 秒一次」，战斗中几乎每秒都在写约 100 KB 的存档、
++// 回读校验、再反序列化校验一遍，全部在游戏线程上。物品、装备、强化、仓库、弹药换装这类玩家主动
++// 事务以及升级、退出仍然立即写盘，最多只会丢一个周期的战斗收益。0 表示关闭定时存档。
++static TAutoConsoleVariable<float> SaveAutosaveSeconds(TEXT("fps.Save.AutosaveSeconds"),300.f,
++    TEXT("Seconds between periodic checked autosaves. Combat and training progress is applied to the live profile immediately and lands on this clock. Inventory, equipment, enhancement, warehouse and ammo-switch transactions, level-ups and exit still save immediately. 0 disables the periodic save."),
++    ECVF_Default);
++
++namespace
++{
++void StoreRevolverCaseCount(FColdSteelItem& Item, int32 Count)
++{
++    TSharedPtr<FJsonObject> Data;
++    if (!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data), Data) || !Data) return;
++    Data->SetNumberField(TEXT("revolver_case_count"), Count);
++    Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
++}
++}
++
++void UColdSteelStatusModel::SyncRuntime()
++{
++    SettleFoodSpoilage();
++    if(!CurrentPawn.IsValid() || CurrentPawn->IsResolvingActionInterrupt())return;
++    const auto* Dual=CurrentPawn->FindComponentByClass<UPistolDualWieldComponent>();
++    const bool DualActive=Dual && Dual->IsActive();
++    if(DualActive)Dual->SyncInventory(Current.Items);
++    if(auto* H=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=H->Health;
++    if(const auto* Survival=CurrentPawn->FindComponentByClass<UFPSSurvivalComponent>())Current.Survival=Survival->GetState();
++    if(const auto* Infection=CurrentPawn->FindComponentByClass<UProgressiveInfectionComponent>())Current.Infection=Infection->GetState();
++    // Dual hand counters are authoritative even inside a synchronous hit/reward
++    // callback, before the character's main-hand display cache has been updated.
++    // The active firearm may sit in an offhand cell (lone offhand pistol), so
++    // match by instance instead of by weapon-set cell.
++    if(!DualActive)
++    {
++        const FString ActiveId=CurrentPawn->GetActiveWeaponInstance();
++        for(auto& I:Current.Items)if(!ActiveId.IsEmpty()&&I.InstanceId==ActiveId&&!IsMeleeWeapon(I))
++        {
++            I.VirtualMagazineAmmo=FMath::Clamp(I.VirtualMagazineAmmo-FMath::Max(0,I.Magazine-CurrentPawn->GetMagazineAmmo()),0,CurrentPawn->GetMagazineAmmo());
++            I.Magazine=CurrentPawn->GetMagazineAmmo();
++            if((I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")) && Number(I,TEXT("revolver_case_count"),-1)!=CurrentPawn->GetRevolverCaseCount())
++            {
++                StoreRevolverCaseCount(I,CurrentPawn->GetRevolverCaseCount());
++            }
++        }
++    }
++    // Guest shadow inventories do not own the host's local drop actors.
++    if(!bNetShadowProfile)for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(auto* I=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==It->ItemId&&V.Place==2;})){I->Position=It->GetActorLocation();I->WorldRotation=It->GetActorRotation();}
++}
++void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->ApplyColdSteelProfile(this);}
++void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn)
++{
++    if(!Pawn)return;
++    if(CurrentPawn.Get()==Pawn){ApplyToPawn();return;}
++    CurrentPawn=Pawn;AimPreviewIndex=INDEX_NONE;AimPreviewPawn.Reset();AimPreviewSkill=NAME_None;
++    Current.bQuickCombatReserved=false;Current.QuickCombatCooldown=Current.QuickCombatCooldownDuration=0.f;
++    const bool bRespawning=Current.Health<=0.f;
++    if(Current.Health<=0){Current.Infection=FInfectionState{};Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}
++    // Death respawn starts each resource at 60; travel/save keep the remaining resources.
++    if(bRespawning)
++    {
++        Current.Survival=FFPSSurvivalState{};
++        Current.Survival.Hunger=Current.Survival.Hydration=Current.Survival.Sanity=60.f;
++        Current.Stamina=float(StaminaMaximum(Current,StaminaTuning));
++    }
++    ApplyToPawn();
++    if(Pawn)UProgressiveInfectionComponent::GetOrAdd(Pawn)->Restore(Current.Infection);
++    RefreshDrops();OnStaminaChanged.Broadcast();
++}
++void UColdSteelStatusModel::ReduceMagicCooldowns(float Seconds,bool bNotifyReduction)
++{
++    if(Seconds<=0.f)return;
++    auto Reduce=[&](float& Remaining,FName Skill)
++    {
++        const float Before=Remaining;
++        Remaining=FMath::Max(0.f,Remaining-Seconds);
++        if(bNotifyReduction&&Remaining<Before)++CooldownReductionRevisions.FindOrAdd(Skill);
++    };
++    for(auto& Pair:Current.ElectricCooldowns)
++        if(!Current.ElectricReservedMana.Contains(Pair.Key))Reduce(Pair.Value,Pair.Key);
++    // Reserved casts have not started their clock. Only running magic clocks
++    // emit feedback; the G weapon clock is added only by the melee-hit entry.
++    if(!Current.bFireballReserved)Reduce(Current.FireballCooldown,TEXT("fireball"));
++    if(!Current.bIceSpikeReserved)Reduce(Current.IceSpikeCooldown,TEXT("iceSpike"));
++    if(!Current.bIceWallReserved)Reduce(Current.IceWallCooldown,TEXT("iceWall"));
++    if(!Current.bBlizzardReserved)Reduce(Current.BlizzardCooldown,TEXT("blizzard"));
++    Reduce(Current.LightningCooldown,TEXT("lightningStrike"));
++    Reduce(Current.HolyLightCooldown,TEXT("holyLight"));
++    Reduce(Current.IceArmorCooldown,TEXT("iceArmor"));
++    Reduce(Current.IlluminationArrowCooldown,TEXT("illuminationArrow"));
++    Reduce(Current.MagicArrowRainCooldown,TEXT("magicArrowRain"));
++    Reduce(Current.LightningHasteCooldown,TEXT("lightningHaste"));
++    Reduce(Current.MeteorCooldown,TEXT("meteor"));
++    Reduce(Current.FlameArmorCooldown,TEXT("flameArmor"));
++    if(!Current.bDragonBreathReserved)Reduce(Current.DragonBreathCooldown,TEXT("dragonBreath"));
++}
++
++void UColdSteelStatusModel::ReduceRuneSwordHitCooldowns(float Seconds)
++{
++    if(Seconds<=0.f||!CurrentPawn.IsValid())return;
++    // Remote melee rewards are confirmed once by the existing attack serial
++    // gates on the server, then delivered to the owning player's HUD.
++    if(CurrentPawn->GetNetMode()==NM_Client)return;
++    ReduceMagicCooldowns(Seconds);
++    if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())
++    {
++        Blades->ReduceCooldown(Seconds,true);
++        if(!CurrentPawn->IsLocallyControlled())
++            Blades->ClientMeleeCooldownReward(Seconds,Blades->CooldownRemaining());
++    }
++}
++
++void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
++{
++    if(Seconds<=0.f)return;
++    ReduceMagicCooldowns(Seconds,false);
++    // General equipment effects retain their separate all-ability contract.
++    Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Seconds);
++    Current.SwordUppercutCooldown=FMath::Max(0.f,Current.SwordUppercutCooldown-Seconds);
++    Current.ChainSlashCooldown=FMath::Max(0.f,Current.ChainSlashCooldown-Seconds);
++    Current.LeapStrikeCooldown=FMath::Max(0.f,Current.LeapStrikeCooldown-Seconds);
++    SyncMartialCooldowns();
++    if(CurrentPawn.IsValid())
++        if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())Blades->ReduceCooldown(Seconds);
++}
++
++void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
++{
++    if(Pawn!=CurrentPawn.Get())return;for(auto& I:Current.Items)I.Cooldown=FMath::Max(0.f,I.Cooldown-Delta);
++    for(auto& Pair:Current.ElectricCooldowns)Pair.Value=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Pair.Value-Delta);
++    if(HasNoAbilityCooldown())Current.FireballCooldown=0.f;
++    else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
++    if(HasNoAbilityCooldown())Current.IceSpikeCooldown=0.f;
++    else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
++    Current.IlluminationArrowCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.IlluminationArrowCooldown-Delta);
++    Current.MagicArrowRainCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MagicArrowRainCooldown-Delta);
++    if(HasNoAbilityCooldown())Current.BlizzardCooldown=0.f;
++    else if(!Current.bBlizzardReserved)Current.BlizzardCooldown=FMath::Max(0.f,Current.BlizzardCooldown-Delta);
++    if(HasNoAbilityCooldown())Current.IceWallCooldown=0.f;
++    else if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Delta);
++    Current.LightningCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LightningCooldown-Delta);
++    Current.HolyLightCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.HolyLightCooldown-Delta);
++    Current.IceArmorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.IceArmorCooldown-Delta);
++    Current.LightningHasteCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LightningHasteCooldown-Delta);
++    Current.MeteorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MeteorCooldown-Delta);
++    Current.FlameArmorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.FlameArmorCooldown-Delta);
++    if(!Current.bDragonBreathReserved)Current.DragonBreathCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.DragonBreathCooldown-Delta);
++    // Quick-combat HUD timing is published by the actual weapon action clock,
++    // including attack-speed retiming and hit stops, independently of CD cheats.
++    if(HasNoAbilityCooldown())Current.WhirlwindCooldown=0.f;
++    else Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Delta);
++    Current.SwordUppercutCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.SwordUppercutCooldown-Delta);
++    Current.ChainSlashCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.ChainSlashCooldown-Delta);
++    Current.LeapStrikeCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LeapStrikeCooldown-Delta);
++    // Dynamic cooldown reduction stops on unequip and never shortens an attack recovery.
++    if(const auto* Rune=UJingangRuneComponent::From(this))
++        ReduceAllAbilityCooldowns(Delta*(1.f/Rune->CooldownMultiplier()-1.f));
++    TickFormulaBuffs(Delta);
++    // Capture the hold before stamina exhaustion can cancel the preparation.
++    if(Delta>0.f&&Pawn->HasAuthority())if(auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>();Element&&Element->IsManaDraining())
++        Element->NoteHoldResourcesSpent();
++    const auto* ThunderTool=Pawn->FindComponentByClass<UProductionToolComponent>();
++    const bool ThunderDrawing=ThunderTool&&ThunderTool->IsThunderCalling();
++    if(ThunderDrawing&&Pawn->HasAuthority())Pawn->FindComponentByClass<UProductionToolComponent>()->NoteThunderCallResourcesSpent();
++    TickStamina(Delta,Pawn);
++    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=Health->Health;
++    if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){
++        const auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();
++        const bool RainDrawing=Rain&&Rain->IsManaDraining();
++        const auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>();
++        const bool ElementDrawing=Element&&Element->IsManaDraining();
++        const float HoldCost=ThunderDrawing?ThunderHammerCall::ManaPerSecond:RainDrawing?MasteryDefinition(TEXT("magicArrowRain")).MagicArrowRain.ManaPerSecond
++            :ElementDrawing?MasteryDefinition(TEXT("elementalArrow")).ElementalArrow.ManaPerSecond*FMath::Max(0.f,1.f+SpecStat(TEXT("elementalArrow"),TEXT("drawManaPercent"))/100.f):0.f;
++        const float ManaDelta=(ThunderDrawing||RainDrawing||ElementDrawing)?(HasInfiniteMana()?0.f:-HoldCost):float(Derived(TEXT("mpRegen")));
++        Current.Mana=FMath::Clamp(Current.Mana+ManaDelta*Delta,0.f,float(Derived(TEXT("maxMp"))));
++        // Stamina exhaustion can end the hold inside TickStamina. Include this
++        // final frame's mana debit in the next authority resource checkpoint.
++        if(ThunderDrawing&&Pawn->HasAuthority())Pawn->FindComponentByClass<UProductionToolComponent>()->NoteThunderCallResourcesSpent();
++        if(Pawn->HasAuthority())Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
++        // 白玉/人参击杀回复：KillProc* 按 1 秒窗口折算成每秒量，窗口内步进结清。
++        if(KillProcTime>0){const float Step=FMath::Min(Delta,KillProcTime);KillProcTime-=Step;
++            if(Pawn->HasAuthority())Health->Health=FMath::Min(Health->MaxHealth,Health->Health+KillProcHp*Step);Current.Health=Health->Health;
++            Current.Mana=FMath::Clamp(Current.Mana+KillProcMp*Step,0.f,Derived(TEXT("maxMp")));}
++    }
++    TickTreeGrowthClock(Delta);
++    if(const auto* Survival=Pawn->FindComponentByClass<UFPSSurvivalComponent>())
++    {
++        const auto Next=Survival->GetState();
++        if(Current.Survival.Hunger!=Next.Hunger||Current.Survival.Hydration!=Next.Hydration||Current.Survival.Sanity!=Next.Sanity||Current.Survival.DeprivationSeconds!=Next.DeprivationSeconds||Current.Survival.FountainBlessingSeconds!=Next.FountainBlessingSeconds||Current.Survival.SausageRecoverySeconds!=Next.SausageRecoverySeconds||Current.Survival.LargeLambMealSeconds!=Next.LargeLambMealSeconds)
++        {SetSurvivalState(Next,Pawn);}
++    }
++    // 修行经验与击杀奖励已经落在实时档案里（StageTraining），这里只负责把「有未写盘增量」的档案
++    // 按可配置周期落盘一次；没有增量就不空写。旧口径的 1 秒补写与无条件 5 秒写盘见文件顶部的说明。
++    const float AutosaveSeconds=SaveAutosaveSeconds.GetValueOnGameThread();
++    if(AutosaveSeconds>0.f)
++    {
++        SaveAccumulator+=Delta;
++        if(SaveAccumulator>=AutosaveSeconds){SaveAccumulator=0;if(bTrainingDirty)SaveNow();}
++    }
++}
++FString UColdSteelStatusModel::AmmoDefinition()const{const auto* I=ActiveFirearm();return I?AmmoDefinitionFor(*I):FString();}
++int32 UColdSteelStatusModel::AmmoCount()const{const auto* I=ActiveFirearm();return I?int32(FMath::Min<int64>(PouchCount(AmmoDefinitionFor(*I)),MAX_int32)):0;}
++int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload, bool bReloadStep, int32 NeedsCycle)
++{
++    if(Requested<=0||!CurrentPawn.IsValid()||!ActiveFirearm()||!CurrentPawn->HasInventoryWeapon())return 0;
++    SyncRuntime();Requested=FMath::Min(Requested,CurrentPawn->GetMagazineCapacity()-CurrentPawn->GetMagazineAmmo());if(Requested<=0)return 0;
++    // Each range insertion may refill without creating inventory stacks. Only
++    // the last insertion grants training, in the same successful save as ammo.
++    const bool Infinite=(bCompletedReload||bReloadStep)&&CurrentPawn->HasInfiniteReserveAmmo();
++    auto P=Snapshot();FString Def=AmmoDefinition();
++    const int32 Taken=Infinite?Requested:int32(FMath::Min<int64>(Requested,P.AmmoPouch.FindRef(Def)));
++    if(!Infinite)P.AmmoPouch.FindOrAdd(Def)-=Taken;
++    // Match by instance, not by weapon-set cell: a lone offhand pistol lives in
++    // the offhand slot while it is the active firearm.
++    const FString ActiveId=CurrentPawn->GetActiveWeaponInstance();
++    for(auto& I:P.Items)if(I.InstanceId==ActiveId)
++    {
++        I.Magazine+=Taken;
++        if(Taken>0 && !WeaponReloadStages::SetNeedsCycle(I,NeedsCycle))return 0;
++        if(Infinite)I.VirtualMagazineAmmo+=Taken;
++        if((I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")))
++        {
++            StoreRevolverCaseCount(I,bReloadStep?FMath::Max(I.Magazine,CurrentPawn->GetRevolverCaseCount()):I.Magazine);
++        }
++    }
++    if(Taken>0&&bCompletedReload)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.ReloadExperience);
++    return Taken>0&&CommitState(P)?Taken:0;
++}
++bool UColdSteelStatusModel::ClearRevolverSpentCases(bool bDiscardLiveRounds)
++{
++    const auto* EquippedFirearm=ActiveFirearm();
++    if (!CurrentPawn.IsValid() || !CurrentPawn->HasInventoryWeapon() || !EquippedFirearm
++        || (EquippedFirearm->Definition != TEXT("ue_dan_wesson715") && EquippedFirearm->Definition != TEXT("ue_rsh12"))) return false;
++    const int32 RetainedRounds = bDiscardLiveRounds ? 0 : CurrentPawn->GetMagazineAmmo();
++    if (CurrentPawn->GetRevolverCaseCount() == RetainedRounds
++        && CurrentPawn->GetMagazineAmmo() == RetainedRounds) return true;
++    SyncRuntime();
++    auto P = Snapshot();
++    const FString ActiveId=CurrentPawn->GetActiveWeaponInstance();
++    for (auto& I : P.Items) if (!ActiveId.IsEmpty() && I.InstanceId == ActiveId)
++    {
++        // A speedloader discards live rounds at extraction. Save the loss with
++        // the cleared cases; do not refund reserves or grant reload experience.
++        if (bDiscardLiveRounds) I.Magazine = 0;
++        I.VirtualMagazineAmmo=FMath::Min(I.VirtualMagazineAmmo,I.Magazine);
++        StoreRevolverCaseCount(I, I.Magazine);
++        return CommitState(P);
++    }
++    return false;
++}
++bool UColdSteelStatusModel::Drop(const FString& Id)
++{
++    if(CurrentPawn.IsValid()&&GetWorld()->GetNetMode()!=NM_Standalone)
++    {
++        if(GetWorld()->GetNetMode()==NM_Client)
++        {
++            auto* PS=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
++            return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::Drop,Id);
++        }
++        auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();
++        return Shared&&Shared->Drop(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr,Id,Message);
++    }
++    if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
++    if(!I||(I->Place>2&&I->Place!=ColdSteelCompartment::Place&&!(I->Place==4&&bWarehouseOpen)))return false;
++    // 仓库层物品只能动当前打开会话的容器：面板开着不代表关着的箱子/别的箱子能被倒出。
++    if(I->Place==4&&I->Container!=ActiveContainer)return false;
++    if(I->Place==1&&I->Cell==14)
++        // 背包本体落到地面会让夹层与扩展格失去宿主（存档校验会整档拒绝），先清空才允许丢弃。
++        for(const auto& V:P.Items)
++        {
++            if(V.Place==ColdSteelCompartment::Place){Message=TEXT("夹层还有物品，先清空再丢弃背包");return false;}
++            if(V.Place==0&&V.Cell+(V.Height-1)*18+V.Width-1>=4*18){Message=TEXT("扩展背包格里还有物品，先腾出后再丢弃背包");return false;}
++        }
++    const FVector Origin=CurrentPawn->GetActorLocation();
++    FVector Candidate=Origin+CurrentPawn->GetActorForwardVector()*120;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(InventoryGroundDrop),false,CurrentPawn.Get());
++    FHitResult Obstacle,Ground;
++    if(GetWorld()->SweepSingleByChannel(Obstacle,Origin,Candidate,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(45),Query))Candidate=Obstacle.Location-CurrentPawn->GetActorForwardVector()*2;
++    auto FindGround=[&](FVector At){return GetWorld()->LineTraceSingleByChannel(Ground,At+FVector(0,0,40),At-FVector(0,0,500),ECC_Visibility,Query)&&Ground.ImpactNormal.Z>=.5f&&FVector::Dist(Origin,Ground.ImpactPoint)<=230;};
++    if(!FindGround(Candidate)&&!FindGround(Origin)){Message=TEXT("附近没有可放置物品的地面");return false;}
++    // Release above the ground; the rigid body resolves the fall and landing.
++    I->Place=2;I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=Ground.ImpactPoint;I->Position.Z=FMath::Max(Ground.ImpactPoint.Z+60,Origin.Z+15);
++    I->WorldRotation=FRotator(5,CurrentPawn->GetActorRotation().Yaw,-65);
++    StampProductionDrop(*I);
++    const double Begin=FPlatformTime::Seconds();if(!CommitState(P))return false;const double Saved=FPlatformTime::Seconds();RefreshDrops();
++    if(bAudit)UE_LOG(LogTemp,Display,TEXT("DropTiming: save %.3f ms spawn %.3f ms"),(Saved-Begin)*1000,(FPlatformTime::Seconds()-Saved)*1000);return true;
++}
++bool UColdSteelStatusModel::Pickup(const FString& Id)
++{
++    if(!CurrentPawn.IsValid())return false;
++    AColdSteelPickup* Target=nullptr;for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==Id&&It->CanInteract(CurrentPawn.Get())){Target=*It;break;}
++    if(!Target)return false;
++    if(GetWorld()->GetNetMode()!=NM_Standalone&&Target->IsSharedPickup())
++    {
++        if(GetWorld()->GetNetMode()==NM_Client)
++        {
++            auto* PS=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
++            return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::Pickup,Id,Target);
++        }
++        auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();
++        return Shared&&Shared->Pickup(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr,Target,false,Message);
++    }
++    SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto&I){return I.InstanceId==Id&&I.Place==2;});
++    if(N<0||P.Items[N].Map!=UGameplayStatics::GetCurrentLevelName(this,true)||FVector::Dist(CurrentPawn->GetActorLocation(),P.Items[N].Position)>250)return false;
++    auto I=P.Items[N];P.Items.RemoveAt(N);if(AmmoType(I.Definition)){if(!AddAmmoToState(P,I.Definition,I.Count))return false;}else if(!Insert(P.Items,I)){Message=TEXT("背包已满，物品留在地面");return false;}if(!CommitState(P))return false;RefreshDrops();return true;
++}
++void UColdSteelStatusModel::RefreshDrops()
++{
++    if(!GetWorld()||!CurrentPawn.IsValid())return;
++    if(GetWorld()->GetNetMode()!=NM_Standalone)
++    {
++        if(GetWorld()->GetNetMode()!=NM_Client)
++            if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
++                Shared->ImportPlayerDrops(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr);
++        return;
++    }
++    if(bNetShadowProfile)return;TSet<FString> Existing;
++    for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It){const auto* I=FindItem(It->ItemId);if(!I||I->Place!=2)It->Destroy();else Existing.Add(It->ItemId);}
++    const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
++    // Harvest drops stream independently with a world GUID, range and spawn budget.
++    for(const auto& I:Current.Items)if(I.Place==2&&!I.HarvestWorldId.IsValid()&&I.Map==Map&&!Existing.Contains(I.InstanceId)){FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;auto* A=GetWorld()->SpawnActor<AColdSteelPickup>(I.Position,I.WorldRotation,Spawn);if(A)A->InitializeItem(I);}
++}

@@ -10,7 +10,7 @@
 - 以原金属度、底色亮度和色度限定聚合物区域，保留黑色密封/凹槽、亮标记和原图集细节；扣件继续使用 R02 金属分支，外壳仍保持非金属身份。
 - 外壳调整接在已有湿润层之前，保留单层水膜/水珠、原 UV0 和法线，不修改贴图、几何、挂点、LOD、容量或动作。
 
-制作源、HLSL、原实例备份及保存回执：`SourceAssets/WeaponSurface20260930/AKM/DrumFinish03/`。新母图及原实例均已实际后台保存；最终日志 `SourceAssets/WeaponSurface20260930/logs/apply_finish.20261001-193646-660.log` 返回 `WEAPON_SURFACE_AKM_DRUM03_SAVED`，退出码 0。未启动游戏、截图、渲染或追加测试，外观由用户查看。
+制作源、HLSL、原实例备份及保存回执：`SourceAssets/WeaponSurface20260930/AKM/DrumFinish03/`。新母图及原实例均已实际后台保存；最终日志 `SourceAssets/WeaponSurface20260930/logs/apply_finish.20261001-193646-660.log` 返回 `WEAPON_SURFACE_AKM_DRUM03_SAVED`，退出码 0。未启动游戏、截图、渲染或追加测试，外观由用户查看。 原因：批处理的启动结果不等于内部构建结果，交付必须依据实际结束状态。
 
 ## R02：加强缎面与部件层次
 
@@ -21,7 +21,7 @@
 - 高光磨损保护从 `.085–.22` 移至 `.12–.32`，高色度保护从 `.22–.55` 移至 `.45–.95`，避免略带色的普通金属大面积退出新配方。明显的装饰色、非金属、暗刻字与明亮露底保留原信息；数值保护不是语义分割。
 - 亮磨损的粗糙度使用保留原细节的轻抛光响应。没有新增颗粒法线或额外贴图，原法线、AO、UV、湿润和几何继续沿用。
 
-R02 源在 `SourceAssets/WeaponSurface20260930/AKM/Refine02/`。已通过现有编辑器保存同路径的 36 个私有母图、2 个 AKM 专用运行时覆盖材质及 38 个 MI；原 30 个网格绑定和 40 个天气映射继续生效。批次返回成功：`WEAPON_SURFACE_AKM_R02_SAVED 38 graphs including 2 runtime overrides; 38 instances; same meshes and weather mappings; tested=False`。该目录 `apply_receipt.json` 已记录完成，并发布 `SourceAssets/WeaponSurface20260930/AKM/current_surface_bindings.json` 供后续导入沿用。
+R02 源在 `SourceAssets/WeaponSurface20260930/AKM/Refine02/`。已通过现有编辑器保存同路径的 36 个私有母图、2 个 AKM 专用运行时覆盖材质及 38 个 MI；原 30 个网格绑定和 40 个天气映射继续生效。批次返回成功：`WEAPON_SURFACE_AKM_R02_SAVED 38 graphs including 2 runtime overrides; 38 instances; same meshes and weather mappings; tested=False`。该目录 `apply_receipt.json` 已记录完成，并发布 `SourceAssets/WeaponSurface20260930/AKM/current_surface_bindings.json` 供后续导入沿用。 原因：持久化需要对应已经完成的业务状态，提前或重复保存会遗漏结果或重复应用收益。
 
 本轮不运行游戏、截图、渲染或追加测试，外观由用户查看。以下保留 R01 的历史制作记录，R01 参数不再代表 R02 配方。
 
@@ -52,7 +52,7 @@ R02 源在 `SourceAssets/WeaponSurface20260930/AKM/Refine02/`。已通过现有�
 
 ## 本轮制作
 
-- 保留原始底色图，在中性、中等亮度金属区域调整色调与反射。采用原 RGB 乘色调系数的连续混合；高色度装饰、明亮露底磨损、暗凹部和非金属区域降低或屏蔽该调整。
+- 保留原始底色图，在中性、中等亮度金属区域调整色调与反射。采用原 RGB 乘色调系数的连续混合；高色度装饰、明亮露底磨损、暗凹部和非金属区域降低或屏蔽该调整。 原因：连续色调调整只适用于选定金属区域，装饰、露底和非金属需保留各自身份。
 - 原图的喷漆、划痕、刻字、边缘磨损和胶木色差继续参与材质。没有用纯色覆盖整张图集，没有抹除原结构法线，也没有重新生成一层均匀划痕。
 - 粗糙度保留原输入相对 `.34` 的变化，权重 `.75`，再加入部件中心和轻微细纹。原 Metallic、AO、法线、透明／遮罩及发光路径保留。
 - 枪体、弹匣、安装座、枪口、瞄具外壳和配件金属使用同一类表面响应，并保留适量部位差异。

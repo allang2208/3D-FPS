@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Weapons/PistolDualEquipmentPrivate.h b/Source/FPSGAME/Weapons/PistolDualEquipmentPrivate.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/PistolDualEquipmentPrivate.h
+@@ -0,0 +1,6 @@
++#pragma once
++#include "CoreMinimal.h"
++namespace DualPistolEquipment
++{
++FName PistolPoseFamily(const FString& Kind);
++}

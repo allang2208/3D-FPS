@@ -6,7 +6,7 @@
 
 历史“全技能 experiencePerLevel=300”只覆盖当时那批技能；后续新增技能现有 100／150／300 配置，本次保持各自数值，不把它们当作漏填。离线配置／注册检查覆盖 484 个数值字段与 59 个静态技能资产包，Editor 构建成功；未做逐技能实战或多人运行验收。审计工具 `Tools/Skills/audit_skill_completion.py` 仅检查声明范围，不代替实际命中与联机测试。
 
-2026-09-17 全量审计 13 个技能的四层链路,2026-09-18 用户拍板经验×3 与巧手新增修炼项。本文沉淀审计方法、踩坑与修炼项接入合同,后续调数值或加修炼项先读这里。
+2026-09-17 全量审计 13 个技能的四层链路,2026-09-18 用户拍板经验×3 与巧手新增修炼项。本文沉淀审计方法、踩坑与修炼项接入合同,后续调数值或加修炼项先读这里。 原因：候选动作的风格选择由用户决定，制作调用应接续已选动作而不是擅自批量替换。
 
 ## 四层链路与审计方法
 
@@ -21,8 +21,8 @@
 
 ## 踩坑记录
 
-- **JSON 里的 `maxLevel` 是死字段**:`LoadDefinition` 从不读取,20 级上限硬编码在 `ColdSteelSkillTypes.h` 默认值 + `Validate` 的 `Level>20` 校验。改 JSON 的 maxLevel 无效,改大了反而以"技能等级无效"拒档。已从 JSON 删除全部 13 处(schemaVersion 8→9)。要改上限必须同步改默认值与 `Validate`。
-- **加载但无消费者的字段 = 死数据**:机枪 `spreadDelayPerLevel`、散弹 `knockbackPerLevel` 装载后没有任何战斗代码消费,面板也不显示——数值上"成长了"实际无效。已连同 `FColdSteelSkillEffect.SpreadDelay/Knockback` 整体删除。加新成长字段前先确认生效侧有消费者。
+- **JSON 里的 `maxLevel` 是死字段**:`LoadDefinition` 从不读取,20 级上限硬编码在 `ColdSteelSkillTypes.h` 默认值 + `Validate` 的 `Level>20` 校验。改 JSON 的 maxLevel 无效,改大了反而以"技能等级无效"拒档。已从 JSON 删除全部 13 处(schemaVersion 8→9)。要改上限必须同步改默认值与 `Validate`。 原因：等级加载和存档校验共同限定有效范围，只修改不参与读取的 JSON 字段不会改变实际上限。
+- **加载但无消费者的字段 = 死数据**:机枪 `spreadDelayPerLevel`、散弹 `knockbackPerLevel` 装载后没有任何战斗代码消费,面板也不显示——数值上"成长了"实际无效。已连同 `FColdSteelSkillEffect.SpreadDelay/Knockback` 整体删除。加新成长字段前先确认生效侧有消费者。 原因：只有被结算或表现消费者使用的成长字段才会产生效果，单独加载数据会形成虚假的成长承诺。
 - **负向表述会被读反**:剑/弓精通的攻速机制是攻击速率 ÷(1−缩减)(`MeleeWeaponStats.cpp`),等级越高出手越快;但面板写"攻击间隔缩减 −X%"被用户误读为"减攻速"。已改为正向"攻击速度 +X%",换算 `1/(1−缩减)−1`。新面板行优先写玩家视角的正向收益。
 - **提交树可能扫入半成品**:并行会话的大提交曾把只改了一半的 `ColdSteelProfileRuntime.cpp`(引用 `MeleeKillExperience`)扫进 a34d6cc,而定义侧未进——HEAD 编译不过,工作区是全的。遇到"干净树编不过"先对照工作区补齐定义侧,别回退。
 
@@ -30,7 +30,7 @@
 
 新修炼项四步:
 
-1. **数值字段**:`skills.json` 加 `xxxExperience`(默认 0 不影响其他技能),`LoadDefinition` 加 clamp 读取,`ColdSteelSkillTypes.h` 加字段;
+1. **数值字段**:`skills.json` 加 `xxxExperience`(默认 0 不影响其他技能),`LoadDefinition` 加 clamp 读取,`ColdSteelSkillTypes.h` 加字段; 原因：新增修炼字段需要在数据、读取和类型声明中有一致入口，默认零用于保留其他技能行为。
 2. **快照标记**:能挂在既有命中/击杀事务上的(近战命中/击杀),在 `Snapshot` 里打标(`FColdSteelSkillShot.bMelee` 按 `IsMeleeWeapon`),`ApplySkillWeaponHit` 命中侧与 `AwardKill` 击杀侧各自结算——击杀档"含命中"合计发放,口径同暴击包;
 3. **独立动作**用 `TrainDexterousHands`(通用入口,已预留):一次性行为的钩子调用它;
 4. **面板同步**:`ColdSteelSkillPage.cpp` 修炼卡加行(经验为 0 的行自动隐藏),描述文案更新。
@@ -38,7 +38,7 @@
 **修炼项候选评估标准**(2026-09-18 用户裁定,先于实现):
 
 - **防刷**:可原地无脑重复的动作不合格——"翻越/攀爬"因能原地反复爬被剔除;"使用消耗品"因属资源行为且不合巧手主题被剔除。合格项要么要求可修炼的活体目标(近战命中/击杀,沿用 Summoned/NoSkillTraining/尸体排除),要么有自然频率限制(换弹需实际补入弹药)。
-- **主题契合**:修炼项必须是该技能身份的自然延伸,不凑数。
+- **主题契合**:修炼项必须是该技能身份的自然延伸,不凑数。 原因：修炼奖励需要表达技能自身用途，凑数的属性会改变原有技能定位。
 
 ## 平衡口径(2026-09-18 生效)
 

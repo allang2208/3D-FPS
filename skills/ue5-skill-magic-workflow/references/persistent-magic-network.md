@@ -1,41 +1,31 @@
 # 持续魔法的联机状态与收尾
 
-适用于 FPSGAME 的龙息、雷暴领域、暴风雪及类似持续技能。实现入口为 `FPSDragonBreath.cpp`、`FPSStormDomainNetwork.cpp`、`FPSBlizzardZone.cpp`、`ColdSteelPlayerState.cpp`；保存入口为 `PrepareForDisconnect` 和 `SaveTeamTravelParticipant`。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-skill-magic-workflow/references/persistent-magic-network.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 一次施法的身份与时间
 
-- 用一个复制结构携带施法快照、CastId、服务器开始／结束时间和活动状态。结束必须写回状态；单独一个一直为 true 的 bool 无法表达重复释放。
-- Prepare、Release、Cancel、Stop 使用同一可靠请求通道；CastId 在整次施法内不变，Pawn 身份另行校验。旧取消或回执只处理对应施法，不能清掉下一次法术的预留。
-- 预测状态与复制状态分开。释放回执和 OnRep 都可能先到；确认扣蓝、撤销预测和退款按 CastId 幂等处理。不能只按全局最近请求序号过滤持续技能回执，否则其他技能的新请求会吞掉尚未完成的确认。
-- 表现年龄用同步服务器时钟减 StartedAt。晚加入只播放剩余时间，inactive 不重建未见过的旧效果；短起手音按 CastId 去重，过期不补播。
+详见[维护源](../../_shared/ue5-skill-magic-workflow/references/persistent-magic-network.md)中的同名章节。
 
 ## 档案、修炼与保存
 
-- 开始权威施法时缓存施法者对应的权威档案，伤害和批次修炼共用；断线后不能重新从 GameInstance 取模型并回落到房主。
-- 缓存属于技能实例或奖励批次。雷暴与雷枪共用 Overload 时，只有雷暴批次取 DomainRewardModel；雷枪仍取其施法者权威档案。不能把所有电系伤害绑到一个可能为空的雷暴缓存。
-- 断线／换图先结束并结算已确认命中，再保存／缓存档案；EndPlay 只补充收尾。调用奖励回调前先设置完成标记、移走奖励批次并清空模型引用，避免重复入口再发一次。
-- 预释放取消、正常结束、死亡、换图、断线是不同规则。沿用技能设计中的死亡策略，不因补齐断线结算而擅自改变死亡奖励。
+详见[维护源](../../_shared/ue5-skill-magic-workflow/references/persistent-magic-network.md)中的同名章节。
 
 ## 异步资产与远端表现
 
-- RPC/OnRep 可能先于素材加载完成。预分配索引槽，检查有效资产；加载回调重新应用最新状态，不用回调捕获的旧激活状态。专用服务器伤害不能依赖云层或声音加载完成。
-- 持续表现由复制状态恢复；短促命中声可用不可靠 Multicast，丢音不影响伤害。不要同时从预测、回执与复制入口无条件播同一声。
-- 远端书本金光复用原几何／材质，在已有书本姿态快照增加强度、效果时钟、翻页活跃度，不另发逐帧 RPC；第一／第三人称拥有者可见性互斥，销毁时释放组件和加载句柄。
-- 专注书本浮起前先完成实际动画采样：缺 SingleNode 实例时初始化，等待可用的压缩动画数据，并同步持久播放状态与采样时间。仅 SetPosition 不能保证组件已经生成正确骨骼姿态。实现见 `SpellbookBookSampling.h`。
+详见[维护源](../../_shared/ue5-skill-magic-workflow/references/persistent-magic-network.md)中的同名章节。
 
-修改 RPC、复制结构或自定义序列化后，各端使用相同新版本。正式构建、资产保存与主客机运行验证分别记录；用户未要求时不自动启动测试。
 # 龙息后台准备补充（2026-10-15）
 
-包加载、Niagara 编译与组件激活不等于流体实例已就绪。用户再次反馈首用加载后，龙息改为已学技能的本地玩家进场时自动隐藏，以零显示强度和少量燃料分帧运行 0.25 秒覆盖注入 shader，再关闭燃料、ResetSystem 清空并运行空网格 0.25 秒，最后 `SetPaused(true)` 留住 GPU 网格。首发只恢复该空实例；尾焰结束 ResetSystem 清空后重新暂停；死亡/离场销毁。不要用 `DeactivateImmediate` 充当预热结束：UE 会释放数据接口及 GPU proxy。远端按实际复制状态启动，专用服务器不加载表现；不得把准备阶段重新变成进场阻塞。详细证据与未测试状态见 `Docs/Skills/dragon-first-cast-preparation-20261015.md`。
+详见[维护源](../../_shared/ue5-skill-magic-workflow/references/persistent-magic-network.md)中的同名章节。
 
 ## 陨星异步表现与离场结算（2026-10-15）
 
-- 陨星复制服务器起始时间，落地和火场年龄由同一时钟推导；晚加入或素材晚到只恢复剩余阶段，不补播过期爆炸、碎块、冲击镜头和落地声。
-- 权威伤害独立于视觉资源准备。表现走软引用异步加载；专用服务器跳过表现。准备回调按当前阶段应用，销毁取消句柄。
-- 初始化时固定施法者奖励模型；断线／换图先结算再存档，清除完成标记和奖励批次后才回调。死亡仍沿技能原定取消规则。
-- 需要法杖的魔法在服务器真正释放时再次校验，准备后换装也必须拒绝并按预留事务退款。
-- 本机整合版已做无界面真实主客机陨星晚复制检查；未据此宣称 GPU 首次可见性或完整换图流程通过。当前发布与验证边界见 `Docs/Publication/SkillMagic20261015/README.md`。
+详见[维护源](../../_shared/ue5-skill-magic-workflow/references/persistent-magic-network.md)中的同名章节。
 
 ## 陨星锁点与死亡结算补充（2026-10-22）
 
-起手由服务器验证地面、距离和视线并保存落点，释放使用已保存快照；仅给厘米级量化容差。按技能设计，已锁定后新出现的遮挡不取消落下。取消与拒绝按实际扣费量和 CastId 退款。陨星死亡时停止火场，但保留此前命中的修炼；正常到期、死亡和 EndPlay 共用一次结算。具体预览/判定规则见 [地面魔法合同](meteor-ground-contract.md)。
+详见[维护源](../../_shared/ue5-skill-magic-workflow/references/persistent-magic-network.md)中的同名章节。

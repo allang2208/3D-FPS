@@ -1,0 +1,676 @@
+diff --git a/Source/FPSGAME/Weapons/RuneSwordActions.cpp b/Source/FPSGAME/Weapons/RuneSwordActions.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/RuneSwordActions.cpp
+@@ -0,0 +1,671 @@
++#include "RuneSwordComponent.h"
++#include "HighlandBreakSweep.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "HighlandRidgeThrust.h"
++#include "HighlandRidgeGatherComponent.h"
++#include "RuneSwordGuardTuning.h"
++#include "StarMarrowChargeMotion.h"
++#include "../Characters/FPSComponentVisibility.h"
++#include "../Skills/LightningHasteSpeed.h"
++#include "BeiweiSwordTrailComponent.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelGenericMelee.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "SprintCameraMotion.h"
++#include "TangDaoGuardComponent.h"
++#include "PanChiGuardComponent.h"
++#include "RuneSwordMeshComponent.h"
++#include "RuneSwordWhirlwindFeel.h"
++#include "RuneSwordOverheadFeel.h"
++#include "RuneSwordUppercutMotion.h"
++#include "../Skills/ChainSlashAssets.h"
++#include "RuneSwordInspectFeel.h"
++#include "RuneSwordRisingDragon.h"
++#include "MeleeRuneVisual.h"
++#include "MeleeGuardAssets.h"
++#include "ModularSwordVisual.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "RuneSwordCombatTuning.h"
++#include "MeleeSmallTargetQuery.h"
++#include "../Skills/FPSCastingMeshComponent.h"
++#include "../Skills/QuickCombatPistolMotion.h"
++#include "../Skills/QuickCombatImpactShake.h"
++#include "ColdSteelEnchantmentCombat.h"
++#include "FPSRiftSlashProjectile.h"
++#include "SwordWaveTuning.h"
++#include "GunsmithSystem.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "NiagaraSystem.h"
++#include "../Skills/ColdSteelSkillRules.h"
++#include "../FPSGAMECharacter.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelEnhancementSystem.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Monsters/BoundCongregateCaptureComponent.h"
++#include "../Building/VoxelBuildComponent.h"
++#include "../Movement/FPSCharacterMovementComponent.h"
++#include "Animation/AnimSequence.h"
++#include "WeaponGripProfile.h"
++#include "Camera/CameraComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/SceneComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/GameInstance.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/PlayerController.h"
++#include "GameFramework/GameStateBase.h"
++#include "Kismet/GameplayStatics.h"
++#include "Sound/SoundBase.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Materials/MaterialInterface.h"
++#include "Misc/ScopeExit.h"
++
++void URuneSwordComponent::BeginAttack(bool bContinuing)
++{
++    if(bChainSlash||bUppercut||bWhirlwind||bDashAttack)return;
++    if((!IsBroadbladeSweepReady() || bGuardHeld) && TryClovenCounter())return;
++    if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
++    // Let the current swing finish; only reject a new swing or queued combo.
++    if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedAttack=false;return;}
++    if(!IsEquipped() || !CanUse(bContinuing) || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
++    if(bInspecting)CancelAction();
++    if(bCharging || bReturningCharge)return;
++    if(bEquipping){bQueuedAttack=true;return;}
++    if(BeginBroadbladeSweep())return;
++    if(bAttacking){if(Elapsed>=ContactEnd)bQueuedAttack=true;return;}
++    if(GetWorld()->GetTimeSeconds()-LastAttackEnd>.85)NextSlash=0;
++    // Repeat two slashes and the installed blade's third-stage finisher.
++    NextSlash%=3;
++    const FName Clip=NextSlash==0?TEXT("Slash1"):(NextSlash==1?TEXT("Slash2"):TEXT("Thrust"));
++    if(StartSwing(Clip,false))NextSlash=(NextSlash+1)%3;
++}
++
++void URuneSwordComponent::BeginOverhead()
++{
++    if(bChainSlash||bUppercut||bWhirlwind||bDashAttack)return;
++    // Sprint attack: same guards and same swing path as the ordinary slash, only
++    // a different clip and its own contact window.  Damage, reach, stamina and
++    // the combo stage are whatever the item already gives the normal attack.
++    if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
++    if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedAttack=false;return;}
++    if(!IsEquipped() || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
++    if(!Animations.FindRef(TEXT("Overhead")))
++    {
++        // Loud on purpose: a missing clip silently falling back to the ordinary
++        // slash is indistinguishable from "the sprint attack does nothing".
++        UE_LOG(LogTemp,Warning,TEXT("RuneSword: Overhead clip is missing for %s; sprint attack falls back to the slash."),*InstanceId);
++        BeginAttack();return;
++    }
++    if(bInspecting)CancelAction();
++    if(bCharging || bReturningCharge)return;
++    if(bEquipping || bAttacking){bQueuedAttack=true;return;}
++    StartSwing(TEXT("Overhead"),false);
++}
++
++void URuneSwordComponent::BeginPrimaryAttack()
++{
++    if(bChainSlash||bUppercut||bWhirlwind||bDashAttack)return;
++    if(IsBroadbladeSweepReady() && !bGuardHeld){BeginAttack();return;}
++    if(TryClovenCounter())return;
++    if(bInspecting)CancelAction();
++    if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
++    // Preserve the ordinary equip/recovery click buffer. This press belongs to
++    // that combo, so its release must not start a second attack or a charge.
++    if(bAttacking || bEquipping){BeginAttack();return;}
++    BeginHeavyCharge();
++}
++
++void URuneSwordComponent::ReleasePrimaryAttack()
++{
++    if(!bCharging)return;
++    if(!CanUse(true) || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
++    if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
++    {CancelHeavyCharge();return;}
++    const double HeldSeconds=GetWorld()->GetTimeSeconds()-ChargeStartedAt;
++    if(HeldSeconds<=.20)
++    {
++        // A tap uses the full normal attack and advances the three-part combo.
++        // The two-second charge clock always starts at the original press.
++        SetHeavyCharging(false);BeginAttack(true);
++        if(!bAttacking)ReturnFromCharge();
++        return;
++    }
++    ReleaseHeavyCharge();
++}
++
++bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride,bool bUseWeaponAttackSpeed,bool bDash)
++{
++    if(bChainSlash||bUppercut)return false;
++    // Keep stage identity when a blade replaces the thrust's motion. Damage and
++    // server reports must still use stage 3 rather than a sprint/heavy skill.
++    const int32 ComboStage=Clip==TEXT("Slash2")?2:Clip==TEXT("Thrust")?3:1;
++    auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    const auto* Item=Profile?Profile->Equipped():nullptr;
++    bRiftPiercerSwing=!Heavy&&Item&&Item->Definition==TEXT("ue_frost_crystal_sword")&&
++        (Clip==TEXT("Slash1")||Clip==TEXT("Slash2")||Clip==TEXT("Thrust"));
++    if(bRiftPiercerSwing)
++    {
++        const auto* Gunsmith=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++        bRiftPiercerSwing=Gunsmith&&Gunsmith->Installed(*Item).FindRef(TEXT("blade_1"))==TEXT("rift_piercer");
++    }
++    const bool OverheadFinisher=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesOverheadFinisher(*Item);
++    const bool Chixiao=Heavy&&bCharging&&bChixiaoEquipped;
++    if(!Heavy&&ComboStage==3&&Animations.Contains(HighlandRidgeThrust::Charge))
++        Clip=HighlandRidgeThrust::Finisher;
++    if(Heavy&&Clip==TEXT("HeavyRelease")&&Animations.Contains(HighlandRidgeThrust::Charge))
++        Clip=bCharging?HighlandRidgeThrust::Release:HighlandRidgeThrust::Counter;
++    if(Chixiao)
++    {
++        auto* Animation=ChixiaoAnimation();
++        const auto* Mesh=Viewmodel?Viewmodel->GetSkeletalMeshAsset():nullptr;
++        if(!Animation||!Mesh||Animation->GetSkeleton()!=Mesh->GetSkeleton())return false;
++        Clip=TEXT("ChixiaoHeavy");Animations.Add(Clip,Animation);
++    }
++    const bool RisingDragon=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesRisingDragonFinisher(*Item);
++    if(OverheadFinisher)Clip=TEXT("Overhead");
++    if(RisingDragon)
++    {
++        UAnimSequence* Uppercut=UppercutAnimation();
++        const auto* Mesh=Viewmodel?Viewmodel->GetSkeletalMeshAsset():nullptr;
++        if(!Uppercut||!Mesh||Uppercut->GetSkeleton()!=Mesh->GetSkeleton())return false;
++        Clip=TEXT("Uppercut");Animations.Add(Clip,Uppercut);
++    }
++    if(!Animations.FindRef(Clip))return false;
++    uint32 GenericReceipt=0;
++    // Special attacks keep their existing authority. Ordinary swings register
++    // on the same PlayerState channel as food use, before any contact exists.
++    if(!Heavy&&!bDash&&Clip!=TEXT("PommelStrike")&&Clip!=HighlandBreakSweep::Clip&&
++        GetNetMode()!=NM_Standalone)
++    {
++        auto* Net=Character->GetPlayerState<AColdSteelPlayerState>();
++        if(!Net)return false;
++        const uint8 Family=Clip==TEXT("Overhead")&&ComboStage!=3?
++            ColdSteelGenericMelee::SwordOverhead:ColdSteelGenericMelee::Sword;
++        GenericReceipt=Net->RequestGenericMeleeStart(Character.Get(),InstanceId,Family,uint8(ComboStage));
++        if(!GenericReceipt)return false;
++    }
++    if(++NetworkBladeSerial==0)++NetworkBladeSerial;
++    if(!Heavy||!bCharging)ClearOath();
++    SwingWaveRange=SwingWaveScale=0.f;
++    using GaleWing::EAttack;
++    const bool Gale = Clip!=TEXT("PommelStrike") && HasGaleGuard(Item);
++    const EAttack GaleAttack = Heavy ? EAttack::Heavy : bDash ? EAttack::Dash :
++        Clip==HighlandBreakSweep::Clip ? EAttack::Sweep : EAttack::Swing;
++    const bool RemoteGaleSwing = Gale && !Character->HasAuthority() &&
++        (GaleAttack==EAttack::Swing || GaleAttack==EAttack::Dash);
++    float GalePaid=0.f;
++    bool bRuneSwordCooldownTrait=false;
++    bQueuedQuickCombat=false;bQuickCombatStrike=false;bQuickCombatContactDone=false;
++    if(Profile)
++    {
++        if(Item)
++        {
++            const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
++            Damage=Stats.Damage;AttackRate=Stats.AttackRate;Reach=Stats.BaseReach;MeleeModifiers=Stats.Modifiers;
++            SwingKnockbackCM=Stats.KnockbackCM;
++            bRuneSwordCooldownTrait=Item->Definition==TEXT("ue_rune_sword");
++            const auto* Enchant=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
++            const auto* Gunsmith=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++            if(Heavy&&Enchant&&Gunsmith&&Gunsmith->IsMelee(Item->Definition)&&Enchant->Effect(*Item,TEXT("riftSlash"))>0.)
++            {
++                const auto Flight=SwordWaveTuning::RiftFlight(Enchant,Item);
++                SwingWaveRange=Flight.RangeCM;
++                SwingWaveScale=Enchant->Effect(*Item,TEXT("riftSlashDamageScale"));
++                SwingWaveSpeed=Flight.SpeedCM;
++            }
++        }
++        const double StaminaCost=Heavy&&bCharging?ColdSteelMelee::HeavyReleaseStamina(Item,Profile):
++            StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Item,Profile);
++        const float BeforeStamina=Profile->Stamina();
++        if(RemoteGaleSwing)
++        {
++            auto* PS=Character->GetPlayerState<AColdSteelPlayerState>();
++            if(!PS || !Profile->CanSpendStamina(StaminaCost)){bQueuedAttack=false;return false;}
++            PS->ServerPayGaleSwing(Character.Get(),InstanceId,NetworkBladeSerial,bDash);
++        }
++        else if(!Profile->SpendStamina(StaminaCost)){bQueuedAttack=false;return false;}
++        if(Gale && Character->HasAuthority())
++            GalePaid=BeforeStamina-Profile->Stamina()+(bCharging?TakeGaleCharge():0.f);
++        OathPaidRelease=Heavy?FMath::Max(0.f,BeforeStamina-Profile->Stamina()):0.f;
++    }
++    OathReleaseStamp=Heavy&&bCharging?OathClock():0.;
++    if(Heavy&&bCharging)CommitOathRelease(OathReleaseStamp,NetworkBladeSerial);
++    SetHeavyCharging(false,Heavy,RemoteGaleSwing && bCharging ? NetworkBladeSerial : 0);
++    bAttacking=true;bQueuedAttack=bReturningCharge=false;bHeavyAttack=Heavy;
++    bChixiaoHeavy=Chixiao;ChixiaoStrikeIndex=-1;
++    // The ridge thrust retains the heavy attack's damage and target rules.
++    // The normal combo thrust also carries a single-target cap and a one-metre step.
++    bThrustAttack=Clip==TEXT("Thrust");bPommelAttack=Clip==TEXT("PommelStrike");
++    bOverheadAttack=Clip==TEXT("Overhead");
++    bLungeStarted=bLungeBlocked=false;
++    // The counterweight sits behind the guard on the hilt axis: each sword keeps
++    // its own pommel length instead of borrowing the rune sword's number.
++    PommelDepthCM=ModularSword?FMath::Clamp(-ColdSteelModularSword::LocalBounds(ModularSword).Min.Z,RuneSwordPommelRhythm::BladeBaseCM+6.f,40.f)
++        :RuneSwordPommelRhythm::CounterweightCM;
++    LungeDirection=FVector::ZeroVector;
++    // Snapshot the current action's combo bonus once, not the number of targets hit.
++    // The independent quick-combat strike supplies its own skill damage below.
++    HitActors.Reset();SwingDamage=Damage*(Heavy?MeleeModifiers.HeavyMultiplier(ChargedMultiplier):MeleeModifiers.ComboMultiplier(ComboStage));
++    bHeavyTrainingPending=Heavy;HeavyTrainingHits=HeavyTrainingKills=0;bAutoHeavyRelease=false;
++    // Martial skills keep their own action clock. Generic weapon/attribute
++    // attack speed applies only to ordinary attacks, including combo finishers.
++    SwingRate=!Heavy&&bUseWeaponAttackSpeed?AttackRate:LightningHaste::ActionSpeed(GetOwner());
++    if(Clip==HighlandBreakSweep::Clip)SwingRate*=HighlandBreakSweep::PlaybackRate;
++    if(Clip==HighlandRidgeThrust::Finisher)SwingRate*=HighlandRidgeThrust::FinisherPlaybackRate;
++    SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,ComboStage==3?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
++    SwingRangeMultiplier=RuneSwordCombatTuning::RangeMultiplier*MeleeModifiers.Range;
++    if(Heavy){SwingReach*=MeleeModifiers.MartialRange;SwingRangeMultiplier*=MeleeModifiers.MartialRange;}
++    SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
++    // 两条独立通道：剑刃攻击（导魔符文）与配重锤快速近战（凝碧星核），互不混用。
++    SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
++    ContactStart=bOverheadAttack?RuneSwordOverheadRhythm::ContactStart:(Heavy?RuneSwordHeavyRhythm::ContactStart:(bThrustAttack?RuneSwordThrustRhythm::ContactStart:(bPommelAttack?RuneSwordPommelRhythm::ContactStart:RuneSwordRhythm::ContactStart)));
++    ContactEnd=bOverheadAttack?RuneSwordOverheadRhythm::ContactEnd:(Heavy?RuneSwordHeavyRhythm::ContactEnd:(bThrustAttack?RuneSwordThrustRhythm::ContactEnd:(bPommelAttack?RuneSwordPommelRhythm::ContactEnd:RuneSwordRhythm::ContactEnd)));
++    if(RisingDragon){ContactStart=RuneSwordUppercutMotion::ReleaseStart;ContactEnd=RuneSwordUppercutMotion::Finish;}
++    if(Clip==HighlandBreakSweep::Clip){ContactStart=HighlandBreakSweep::Contact;ContactEnd=HighlandBreakSweep::Release;}
++    if(HighlandRidgeThrust::IsRelease(Clip))
++    {
++        const float Lead=HighlandRidgeThrust::LeadFor(Clip);
++        ContactStart=Lead+HighlandRidgeThrust::ContactStart;
++        ContactEnd=Lead+HighlandRidgeThrust::ContactEnd;
++        SwingReach*=HighlandRidgeThrust::ReachScale;
++    }
++    bImpactFeedbackPlayed=bSwingCuePlayed=false;
++    SwingTrainingHits=0;
++    SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
++    SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
++    SwingSkills.GenericMeleeSerial=GenericReceipt;
++    CaptureAzureDragonAttack(Profile);
++    SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
++    // 联机上报：轻重击/连段语义，服务端按影子档案的 MeleeModifiers 同参复算倍率。
++    SwingSkills.AttackMeta = uint8(Heavy ? 0x10 : (ComboStage & 0x0F));
++    UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
++    UPanChiGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
++    if(!SwingSkills.GuardAttackSerial)SwingSkills.GuardAttackSerial=NetworkBladeSerial;
++    if(Gale && Character->HasAuthority())
++    {
++        SwingSkills.GalePaymentKey=GaleWing::Key(GaleAttack,SwingSkills.GuardAttackSerial);
++        RecordGalePayment(SwingSkills.GalePaymentKey,InstanceId,GalePaid);
++    }
++    SwingSkills.HeavyReleaseTime=OathReleaseStamp;
++    SwingSkills.GuardSourceInstance=InstanceId;
++    SwingSkills.bRisingDragonFinisher=RisingDragon;
++    // The stage keeps its existing grip/global poise modifiers when its motion changes.
++    if(ComboStage==3&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
++    if(Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.HeavyToughness;
++    if(Heavy && bBroadbladeInstalled)SwingSkills.ToughnessDamageMultiplier*=HighlandBreakSweep::HeavyToughness;
++    ApplyOathToShot(SwingSkills);
++    // 命中形式：配重锤是钝器，其余挥砍与突刺按锐器结算削韧。
++    SwingSkills.AttackForm=bPommelAttack?EMonsterAttackForm::Blunt:EMonsterAttackForm::Blade;
++    // 符文长剑专属；按出手时的武器身份固定，高地与其他共用动作的剑不继承。
++    // 基础 0.5 秒；金色符文强化再追加装备值（合计 1.0 秒），同一挥只结算一次。
++    SwingCooldownReduceSeconds=bRuneSwordCooldownTrait?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
++    SetClip(Clip,false);
++    if(Animations.Contains(HighlandRidgeThrust::Charge)&&!Character->HasAuthority()&&
++        (Clip==TEXT("Slash1")||Clip==TEXT("Slash2")||HighlandRidgeThrust::IsRelease(Clip)))
++    {
++        const uint8 RidgeMeta=Clip==HighlandRidgeThrust::Dash?0x16:
++            Clip==HighlandRidgeThrust::Counter?RuneSwordGuardTuning::ClovenAttackMeta:SwingSkills.AttackMeta;
++        if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
++        {
++            const auto* GS=GetWorld()->GetGameState();
++            PS->ServerBeginRidgeStrike(Character.Get(),InstanceId,SwingSkills.GuardAttackSerial,RidgeMeta,
++                GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds());
++        }
++    }
++    ChooseAzureDragonClaw();
++    if(OverheadFinisher)Elapsed=RuneSwordOverheadRhythm::FinisherEntry;
++    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
++        Arms->LimitLocomotionEntry((RisingDragon?RuneSwordRisingDragon::WindupEnd:ContactStart-Elapsed)/FMath::Max(.01f,SwingRate));
++    if(OverheadFinisher)SamplePose(Elapsed);
++    if(Heavy && bBroadbladeInstalled)GrantBroadbladeSweep(InstanceId);
++    return true;
++}
++
++void URuneSwordComponent::ReleaseSlashWave(const FTransform& Aim)
++{
++    if(!bHeavyAttack||SwingWaveRange<=0.f||SwingWaveScale<=0.f||SwingWaveSpeed<=0.f||!Character.IsValid())return;
++    if(!Character->HasAuthority())
++    {
++        if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
++            PS->ServerReleaseRiftSlash(++RiftReleaseSerial,InstanceId,Aim.GetLocation(),Aim.GetUnitAxis(EAxis::X),SwingSkills.GuardAttackSerial,SwingSkills.AzureDragonPhysicalMultiplier>1.f,SwingSkills.AttackMeta==0x15);
++        return;
++    }
++    auto WaveSkills=SwingSkills;WaveSkills.AttackMeta|=0x40;
++    SpawnAuthoritySlashWave(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,WaveSkills);
++}
++
++void URuneSwordComponent::SpawnAuthoritySlashWave(const FTransform& Aim,float WaveDamage,float Range,float Speed,const FColdSteelSkillShot& Shot)
++{
++    if(!GetOwner()->HasAuthority()||!Character.IsValid())return;
++    FActorSpawnParameters Spawn;Spawn.Owner=Character.Get();Spawn.Instigator=Character.Get();
++    Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    if(auto* Wave=GetWorld()->SpawnActor<AFPSRiftSlashProjectile>(Aim.GetLocation(),Aim.Rotator(),Spawn))
++        Wave->Launch(Aim,WaveDamage,Range,Speed,Shot,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes,HitSound);
++}
++
++bool URuneSwordComponent::BeginQuickCombatStrike()
++{
++    if(!Character.IsValid() || !Character->CanStartQuickCombatPriority())return false;
++    if(!IsEquipped() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset() || !Animations.FindRef(TEXT("PommelStrike")))return false;
++    Character->InterruptActionsForPriority(false);
++    if(!CanUse())return false;
++    return StartQuickCombatStrike();
++}
++
++bool URuneSwordComponent::StartQuickCombatStrike()
++{
++    auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if(!Profile||Profile->ActiveProductionTool()||!Animations.FindRef(TEXT("PommelStrike")))return false;
++    // Quick combat pays its skill cost once, not the ordinary sword swing cost.
++    if(!StartSwing(TEXT("PommelStrike"),false,0.f,false))return false;
++    const float Duration=RuneSwordPommelRhythm::QuickCombatTime(CurrentAnimation->GetPlayLength())/FMath::Max(.01f,SwingRate);
++    const float Before=Profile->Stamina();
++    if(!Profile->CommitQuickCombatCast(Duration)){CancelAction();return false;}
++    if(Character->HasAuthority() && HasGaleGuard(Profile->Equipped()))
++    {
++        SwingSkills.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Quick,NetworkBladeSerial);
++        RecordGalePayment(SwingSkills.GalePaymentKey,InstanceId,Before-Profile->Stamina());
++    }
++    bQuickCombatStrike=true;
++    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
++        Arms->LimitLocomotionEntry(RuneSwordPommelRhythm::QuickCombatTime(ContactStart)/FMath::Max(.01f,SwingRate));
++    const auto Cast=Profile->QuickCombatStats();
++    SwingDamage=Cast.Damage;
++    SwingSkills.AttackMeta |= 0x80; // 联机上报：配重锤快战按 QuickCombatStats 技能面板复算，不走武器面板
++    // The skill submits one pure push after damage, without a stun reaction.
++    SwingKnockbackCM=0.f;
++    QuickCombatKnockbackCM=Cast.KnockbackCM;
++    SwingSkills.ToughnessDamageMultiplier=Cast.ToughnessMultiplier;
++    QuickCombatBleedChance=Cast.BleedChance;
++    bQuickCombatAOE=Cast.bAreaHit;
++    // 判定距离用技能自己的 rangeCM：普通挥击的 SwingReach（刀长×2）与技能范围
++    // 是两套口径，此前 Max() 混用让快速进战的 reach 门控跑到了 360cm。
++    QuickCombatRangeCM=Cast.RangeCM;
++    Profile->TrainQuickCombat(Profile->QuickCombatDefinition().UseExperience);
++    return true;
++}
++
++void URuneSwordComponent::QuickCombatContractHit()
++{
++    // 快速进战合同判定（2026-09-19 与手枪版对齐）：接触时刻一次确定性扫射——
++    // 起点=配重打击端（画面同源，读不到退眼位），方向=玩家瞄准，长度=技能 rangeCM，
++    // 普通配重保留最近目标；陨星锤首在同一球扫范围内贯穿目标，场景仍阻挡。
++    // 小手继续使用原有低位补判范围；不转向或锁定目标。
++    // 调用方须先 SamplePose 到接触帧（ReadBlade 读的是当前骨姿态）。
++    auto* Pawn=Character.Get();
++    if(!Pawn||!GetWorld())return;
++    if(bQuickCombatStrike)
++    {
++        auto* Capture=Pawn->FindComponentByClass<UBoundCongregateCaptureComponent>();
++        if(Capture&&Capture->HitRestraintWithQuickMelee())
++        {
++            bImpactFeedbackPlayed=true;ImpactAge=0.f;
++            Pawn->RefreshQuickCombatCamera();
++            if(PommelHitSound)UGameplayStatics::PlaySound2D(this,PommelHitSound,1.f,1.f);
++            return;
++        }
++    }
++    const auto Aim=Pawn->GetMeleeAimTransform();
++    const FVector Direction=Aim.GetUnitAxis(EAxis::X);
++    FVector Start=Aim.GetLocation();
++    bool bFromPommel=false;
++    if(Viewmodel)
++    {
++        // bPommelAttack 下 ReadBlade 的 Base/Tip 已换成配重打击面（护手后 PommelDepthCM）。
++        const auto Sample=ReadBlade(Aim);
++        if((Sample.Tip-Start).SizeSquared()>1.f){Start=Sample.Tip;bFromPommel=true;}
++    }
++    TArray<FHitResult> Hits;
++    if(bQuickCombatAOE)
++        Hits=MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,AzureDragonRange(QuickCombatRangeCM),
++            QuickCombatPistolMotion::QueryRadiusCM*MeleeModifiers.MartialRange);
++    else
++    {
++        FHitResult Hit;
++        if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Pawn,Aim,Start,AzureDragonRange(QuickCombatRangeCM),
++            QuickCombatPistolMotion::QueryRadiusCM*MeleeModifiers.MartialRange,Hit))Hits.Add(Hit);
++    }
++    // Quick-melee shake belongs to this once-only query, including a miss.
++    // Damage, knockback, training and confirmation cues still require a real hit.
++    bImpactFeedbackPlayed=true;ImpactAge=0.f;
++    Pawn->RefreshQuickCombatCamera();
++    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=剑 射线=%s 起点=%s 方向=%s 距离=%.0f AOE=%d 接触数=%d"),
++        bFromPommel?TEXT("配重端"):TEXT("眼位回退"),*Start.ToCompactString(),*Direction.ToCompactString(),
++        AzureDragonRange(QuickCombatRangeCM),bQuickCombatAOE?1:0,Hits.Num());
++    for(const auto& Hit:Hits)
++    {
++        AActor* Target=Hit.GetActor();
++        auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
++        if(!Combat||Combat->IsDead()||HitActors.Contains(Target))continue;
++        HitActors.Add(Target);
++        const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(Pawn,Target);
++        auto HitSkills=SwingSkills;
++        if(Eligible&&SwingTrainingHits==1)
++            if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
++                HitSkills.ExtraMasteryExperience=Profile->MasteryDefinition(TEXT("swordMastery")).MultiHitExperience;
++        FWeaponDamageResult DamageResult;
++        const float Applied=Combat->ApplyHitWithReactionScale(SwingHitReactionMultiplier,
++            [&](){return ColdSteelSkills::ApplyHit(Pawn,Hit,SwingDamage,Direction,HitSkills,&DamageResult);});
++        const bool bKilled=Combat->IsDead();
++        if(Applied<=0.f&&!bKilled)continue;
++        OnAzureDragonHit();
++        // 金色符文强化：配重锤打击确认命中同样缩减CD（同一次快速近战只算一次）。
++        if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
++        {
++            bSwingCooldownReduced=true;
++            if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceRuneSwordHitCooldowns(SwingCooldownReduceSeconds);
++        }
++        Combat->ReceiveMeleeKnockback(Pawn,QuickCombatKnockbackCM);
++        if(Eligible&&bKilled)QuickCombatKillPending=true;
++        if(bQuickCombatStrike)
++        {
++            // One roll per confirmed target in this strike; reuse the existing bleed stack system.
++            if(!Combat->IsDead()&&QuickCombatBleedChance>0.f&&FMath::FRand()<QuickCombatBleedChance)
++                if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddBleeding(Pawn,1);
++            // Condensed-star vulnerability is settled by ApplySkillWeaponHit.
++        }
++        else if(!Combat->IsDead()&&SwingRuneVulnerability>0)
++            // 剑刃攻击：导魔符文通道（含突刺/上挑等全部非配重挥砍）。
++            if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(SwingRuneVulnerability,SwingRuneVulnerabilitySeconds);
++        if(Eligible)++SwingTrainingHits;
++        Pawn->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
++        ColdSteelCombat::OnHit(Target,Pawn,SwingPoison);
++    }
++}
++
++FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
++{
++    // The thrust and stage-3 overhead finisher share the metre-long stride.
++    // The counterweight only steps far enough to reach past the hands.
++    const bool bOverheadFinisher=bOverheadAttack&&!bDashAttack&&(SwingSkills.AttackMeta&0x0F)==3;
++    const bool RidgeFinisher=CurrentClip==HighlandRidgeThrust::Finisher;
++    if(!bUppercut && !IsRisingDragonFinisher() && !bDashAttack && !bThrustAttack && !bPommelAttack && !bOverheadFinisher&&!RidgeFinisher)return FVector::ZeroVector;
++    float Distance;
++    if(bUppercut||IsRisingDragonFinisher())
++    {
++        Distance=RuneSwordUppercutMotion::LungeDistance*
++            (RuneSwordUppercutMotion::LungeAlpha(ToTime,bUppercut)-RuneSwordUppercutMotion::LungeAlpha(FromTime,bUppercut));
++    }
++    else if(bDashAttack)
++    {
++        // The committed skill snapshot supplies travel (including the ridge
++        // blade's multiplier), without retiming or extending the hit window.
++        const float Start=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
++        Distance=DashCast.DistanceCM*(FMath::SmoothStep(Start,ContactStart,ToTime)-FMath::SmoothStep(Start,ContactStart,FromTime));
++    }
++    else if(RidgeFinisher)
++    {
++        const float Start=ContactStart-(RuneSwordThrustRhythm::ContactStart-RuneSwordThrustRhythm::LungeStart);
++        Distance=RuneSwordThrustRhythm::LungeDistance*(FMath::SmoothStep(Start,ContactEnd,ToTime)-FMath::SmoothStep(Start,ContactEnd,FromTime));
++    }
++    else if(bOverheadFinisher)
++    {
++        Distance=RuneSwordThrustRhythm::LungeDistance*
++            (RuneSwordOverheadRhythm::FinisherLungeAlpha(ToTime)-RuneSwordOverheadRhythm::FinisherLungeAlpha(FromTime));
++    }
++    else Distance=bThrustAttack?
++        RuneSwordThrustRhythm::LungeDistance*(RuneSwordThrustRhythm::LungeAlpha(ToTime)-RuneSwordThrustRhythm::LungeAlpha(FromTime)):
++        RuneSwordPommelRhythm::LungeDistance*(RuneSwordPommelRhythm::LungeAlpha(ToTime)-RuneSwordPommelRhythm::LungeAlpha(FromTime));
++    if(bLungeBlocked || Distance<=0.f)return FVector::ZeroVector;
++    auto* Pawn=Character.Get();
++    auto* Movement=Pawn?Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()):nullptr;
++    if(!Movement || Pawn->IsSliding() || Pawn->IsTraversing() ||
++        (!Movement->IsMovingOnGround()&&!(bDashAttack&&Movement->IsFalling())) || Movement->IsDodging())
++    {bLungeBlocked=true;return FVector::ZeroVector;}
++    if(!bLungeStarted)
++    {
++        LungeDirection=Pawn->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
++        bLungeStarted=true;
++        Movement->BeginMeleeLungeRequest(bUppercut?EFPSMeleeMove::Uppercut:IsRisingDragonFinisher()?EFPSMeleeMove::RisingDragon:
++            bDashAttack?EFPSMeleeMove::Dash:bOverheadFinisher?EFPSMeleeMove::OverheadFinisher:
++            (bThrustAttack||RidgeFinisher)?EFPSMeleeMove::Thrust:EFPSMeleeMove::Pommel,LungeDirection);
++    }
++    if(Movement->IsMeleeLungeRejected()){bLungeBlocked=true;return FVector::ZeroVector;}
++    FVector Moved;
++    if(bDashAttack&&Movement->IsFalling())
++    {
++        // Air dash spends the same horizontal windup distance through a swept
++        // capsule. Native falling keeps vertical velocity, gravity and landing;
++        // ordinary thrusts and pommel steps still require ground support.
++        const auto* Controller=Pawn->GetController();
++        if(AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Controller)))
++        {bLungeBlocked=true;return FVector::ZeroVector;}
++        const FVector Before=Pawn->GetActorLocation();
++        FHitResult Hit;
++        Movement->SafeMoveUpdatedComponent(LungeDirection*Distance,Pawn->GetActorQuat(),true,Hit);
++        Moved=Pawn->GetActorLocation()-Before;
++        if(Hit.bBlockingHit)bLungeBlocked=true;
++    }
++    else Moved=Movement->ApplyMeleeLungeStep(LungeDirection,Distance);
++    Movement->RecordMeleeLungeStep(FMath::Max(0.f,float(FVector::DotProduct(Moved,LungeDirection))));
++    if(FVector::DotProduct(Moved,LungeDirection)+.01f<Distance)bLungeBlocked=true;
++    return Moved;
++}
++
++void URuneSwordComponent::BeginHeavyCharge()
++{
++    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
++    if(bWhirlwind||bDashAttack)return;
++    if(bInspecting)CancelAction();
++    if(!IsEquipped() || IsBusy() || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
++    if(Character->IsCastBlockingLeftHandAction())return;
++    if(!Animations.FindRef(TEXT("HeavyCharge")) || !Animations.FindRef(TEXT("HeavyRelease")))return;
++    const bool Ridge=Animations.Contains(HighlandRidgeThrust::Charge);
++    if(Ridge&&(!Animations.FindRef(HighlandRidgeThrust::Charge)||!Animations.FindRef(HighlandRidgeThrust::Release)))return;
++    if(bChixiaoEquipped&&!ChixiaoAnimation())return;
++    if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
++    {
++        const double Cost=ColdSteelMelee::HeavyReleaseStamina(Profile->Equipped(),Profile);
++        if(!Profile->CanSpendStamina(Cost))return;
++    }
++    const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if(!Profile||Profile->Stamina()<=0.f||Profile->MasteryProgress(TEXT("heavyStrike")).Level<1||Profile->ActiveProductionTool())return;
++    const auto* Item=Profile->Equipped();if(!Item)return;
++    const auto Skill=Profile->MasteryEffect(TEXT("heavyStrike"));
++    RequiredChargeSeconds=ColdSteelMelee::Evaluate(*Item,Profile).HeavyChargeSeconds;ChargedMultiplier=Skill.HeavyMultiplier;
++    bAutoHeavyRelease=false;
++    SetHeavyCharging(true);bQueuedAttack=false;bHeavyAttack=false;HitActors.Reset();
++    ChargeStartedAt=GetWorld()->GetTimeSeconds();
++    BeginOathCharge(OathClock(),RequiredChargeSeconds);
++    SetClip(Ridge?HighlandRidgeThrust::Charge:FName(TEXT("HeavyCharge")),false);
++}
++
++void URuneSwordComponent::ReleaseHeavyCharge()
++{
++    if(!bCharging)return;
++    if(!CanUse(true) || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
++    if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
++    {CancelHeavyCharge();return;}
++    // Input is dispatched before the component tick: decide from the input's
++    // gameplay timestamp, so an exact two-second hold does not lose one frame.
++    const double HeldSeconds=GetWorld()->GetTimeSeconds()-ChargeStartedAt;
++    const bool Heavy=HeldSeconds>=RequiredChargeSeconds;
++    const float ChargePoseTime=Elapsed;
++    const bool Ridge=CurrentClip==HighlandRidgeThrust::Charge;
++    if(Ridge&&Heavy&&CurrentAnimation)
++    {
++        // Input can arrive between ticks. Seat both hands in the fully drawn
++        // pose before release frame zero, which shares this exact pose.
++        Elapsed=CurrentAnimation->GetPlayLength();
++        SamplePose(Elapsed);
++    }
++    // Charging always loads the right shoulder. Continue with Slash1, then
++    // allow the existing left-click combo to mirror into Slash2.
++    if(StartSwing(Heavy?TEXT("HeavyRelease"):TEXT("Slash1"),Heavy))
++    {
++        if(!Heavy&&!Ridge)
++        {
++            // HeavyCharge reaches V6's raised pose at .65 s and its ordinary
++            // load pose at 1.60 s. Resume the matching point in the V8 windup
++            // instead of resetting the hands to idle and lifting a second time.
++            const float SourceTime=ChargePoseTime<.65f ? .17f*ChargePoseTime/.65f :
++                FMath::Lerp(.17f,.40f,FMath::Clamp((ChargePoseTime-.65f)/.95f,0.f,1.f));
++            float Low=0.f,High=RuneSwordRhythm::WindupEnd;
++            for(int32 I=0;I<16;++I)
++            {
++                const float Mid=(Low+High)*.5f;
++                if(RuneSwordRhythm::SourceTime(Mid)<SourceTime)Low=Mid;else High=Mid;
++            }
++            Elapsed=(Low+High)*.5f;
++            if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
++                Arms->LimitLocomotionEntry((ContactStart-Elapsed)/FMath::Max(.01f,SwingRate));
++            SamplePose(Elapsed);
++        }
++        NextSlash=1;return;
++    }
++    // A failed stamina/asset gate still returns safely without dealing damage.
++    ReturnFromCharge();
++}
++
++void URuneSwordComponent::ReturnFromCharge()
++{
++    SetHeavyCharging(false);bReturningCharge=true;bQueuedAttack=false;bAutoHeavyRelease=false;
++    CancelChargeFrom=Elapsed;CancelChargeAge=0.f;
++    CancelChargeDuration=FMath::Clamp(Elapsed*.25f,.1f,.45f);
++}
++
++void URuneSwordComponent::CancelAction()
++{
++    if(bChainSlash||bChainSlashPending)
++    {
++        bChainSlash=bChainSlashPending=false;
++        if(GetNetMode()==NM_Client&&Character.IsValid()&&Character->IsLocallyControlled())
++            ServerChainSlash(ChainWeaponId,ChainSlashSerial,false,ChainTool.IsValid());
++        if(ChainTool.IsValid()){ChainTool.Reset();CurrentAnimation=nullptr;CurrentClip=NAME_None;}
++        FinishChainSlashTraining();
++    }
++    ClearOath();
++    SweepReadyUntil=SweepServerHitUntil=0.;
++    // The claws follow the Azure Dragon state every tick (a cancelled rake blends back to idle);
++    // cancelling an action no longer cuts them (V10.15).
++    bSwingAzureDragon=false;
++    FinishHeavyTraining();
++    bUppercut=bPanChiUppercut=false;
++    bChixiaoHeavy=false;ChixiaoStrikeIndex=-1;
++    FinishDashAttack();
++    FinishWhirlwind();
++    FinishHeavyTraining();bAutoHeavyRelease=false;
++    ClearGuard();
++    SetHeavyCharging(false);
++    InspectAir.Stop();
++    bAttacking=bEquipping=bInspecting=bQueuedAttack=bReturningCharge=bHeavyAttack=bKnockdownPose=false;HitActors.Reset();
++    SwingCooldownReduceSeconds=0.f;bSwingCooldownReduced=false;
++    bThrustAttack=bPommelAttack=bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
++    bOverheadAttack=false;bQuickCombatStrike=bQueuedQuickCombat=false;bQuickCombatContactDone=false;QuickCombatKnockbackCM=0.f;
++    // Death/equipment interruption releases action occupancy without refunding stamina.
++    if(auto* Profile=ColdSteelAuthority::ForPawn(Character.Get()))
++    {
++        Profile->FinishQuickCombatCast();
++        if(QuickCombatKillPending)Profile->TrainQuickCombat(Profile->QuickCombatDefinition().KillExperience);
++    }
++    QuickCombatKillPending=false;
++    ImpactAge=1.f;bImpactFeedbackPlayed=bThrustImpact=false;
++    StopRift();
++    if(IsEquipped()&&Viewmodel&&Animations.FindRef(TEXT("Idle")))SetClip(TEXT("Idle"),true);
++}
++

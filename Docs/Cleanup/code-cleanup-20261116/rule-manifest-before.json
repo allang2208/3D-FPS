@@ -1,0 +1,122 @@
+[
+  {
+    "path": "AGENTS.md",
+    "bytes": 16668,
+    "sha256": "70867d560cf2dc846372b0e09ff05b993eb1becf888ce85034b01af98e8597ff",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/AGENTS.md.txt"
+  },
+  {
+    "path": "WORKFLOW.md",
+    "bytes": 21922,
+    "sha256": "d8dddecc17f395ff0075c26679041300e40294075cd8959f0ae2f148e59bde6c",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/WORKFLOW.md.txt"
+  },
+  {
+    "path": "skills/asset-model-workflow/SKILL.md",
+    "bytes": 1968,
+    "sha256": "e82809c9d4a02f7531eb21d84a9b25e254e8ef1331ef6086be95c4196559d3f0",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/asset-model-workflow/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-auto-assistant/SKILL.md",
+    "bytes": 1313,
+    "sha256": "61341609ab009eaef0fd85ab6ee244efb47d0c8602d992406d5631a7d6181bac",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-auto-assistant/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-clothing-workflow/SKILL.md",
+    "bytes": 765,
+    "sha256": "709ca6d7f8d9b574485cfb45ffcb23a24381decf50c5c72173de3bd78c12c90d",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-clothing-workflow/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-cpp-gameplay/SKILL.md",
+    "bytes": 2116,
+    "sha256": "0b4724b98cf54c5692fad5abc76b58437305cb34d50057bc95743ba792c5f056",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-cpp-gameplay/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-debug-validation/SKILL.md",
+    "bytes": 2479,
+    "sha256": "cf37db05caa58999626600f2c8b2746785931f2432960268c8016150e8d0095a",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-debug-validation/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-fluid-vfx-workflow/SKILL.md",
+    "bytes": 2067,
+    "sha256": "4d801ef0e8aed75f90b81442a659d27e9e6226e8513b2d02a9312db00301bd93",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-fluid-vfx-workflow/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-fps-arms-animation/SKILL.md",
+    "bytes": 8161,
+    "sha256": "09896c6b0425b5aa2af816e0533ad8436731d3e24dc5051116b9ffd9442bb0de",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-fps-arms-animation/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-item-asset-workflow/SKILL.md",
+    "bytes": 2482,
+    "sha256": "e2c1d7f0534be9f6f0771f41a8a6ade23d5beedf691c8b93be4efd5ee70beb29",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-item-asset-workflow/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-monster-workflow/SKILL.md",
+    "bytes": 2737,
+    "sha256": "3b525e818ee9c6013509f51f246fa9dd36a0d012e5401a329452b7562caaa108",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-monster-workflow/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-multiplayer-netcode/SKILL.md",
+    "bytes": 36982,
+    "sha256": "ec8b85cfb8cfbe4b0f41a6b90b3c3841c16a350ca17780caaec28b19129965cc",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-multiplayer-netcode/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-pcg-building/SKILL.md",
+    "bytes": 2664,
+    "sha256": "664cf552159e81c01de9e78a337a23d6cd0de520223ee711242c4e4ceb08a0ef",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-pcg-building/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-performance-packaging/SKILL.md",
+    "bytes": 2105,
+    "sha256": "34651e6254db4de2dcf5d3e0b01a80fc919a48ee7199a388053ba886cc5052ed",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-performance-packaging/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-save-load-replication/SKILL.md",
+    "bytes": 7029,
+    "sha256": "4b2711614e2a2ac86cc375af137559a60abc810598c8c8b05bf64513d59e98ad",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-save-load-replication/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-skill-magic-workflow/SKILL.md",
+    "bytes": 8579,
+    "sha256": "d5ea6fcfb5a5fe6d333dcd0db19eec7a22e5ddf5c0b81cff65bac3d42fadbc0c",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-skill-magic-workflow/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-ui-umg-slate/SKILL.md",
+    "bytes": 2725,
+    "sha256": "8665e61bfa586aa4e139f1736888a691a8f2ede92ee8188bb144ef53fafa8f60",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-ui-umg-slate/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-weapon-workflow/SKILL.md",
+    "bytes": 6429,
+    "sha256": "b3674ece6b17e080283e0c37c23cd6c09fffb144b0d5e59d92d21c25d84606a9",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-weapon-workflow/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-weather-workflow/SKILL.md",
+    "bytes": 795,
+    "sha256": "92ab08265f723909e2c19c706e0639392fef384ec576fd18989336ac75d0904a",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-weather-workflow/SKILL.md.txt"
+  },
+  {
+    "path": "skills/ue5-world-interaction/SKILL.md",
+    "bytes": 1560,
+    "sha256": "7de792460733db85312b6f79d9d3494c64e9b80920cdf95ba8d0a574e768a59c",
+    "backup": "Docs/Cleanup/code-cleanup-20261116/before/skills/ue5-world-interaction/SKILL.md.txt"
+  }
+]

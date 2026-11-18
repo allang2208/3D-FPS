@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "log_timestamp_local": "2026-11-17T09:37:50+08:00",
+  "project_root": "D:/FPS3D/FPSGAME",
+  "command": "Tools/Build/Build-Editor.ps1",
+  "target": "FPSGAMEEditor Win64 Development",
+  "completed_batches": [3, 4],
+  "cleanup_items": ["C02", "C03", "C05"],
+  "exit_code": 0,
+  "result": "Succeeded",
+  "target_state": "Target is up to date",
+  "executed_actions": 0,
+  "ubt_execution_seconds": 8.77,
+  "ubt_started": true,
+  "log_path": "Saved/BuildEditor/build-20261117-093750.log",
+  "new_compile_or_link_actions": false,
+  "dll_generated_by_this_invocation": false,
+  "scope_note": "Successful incremental Editor build of the shared workspace; UBT considered the target current. This invocation did not recompile or relink, and does not establish runtime behavior.",
+  "historical_attempt_receipts": [
+    "batch-03-rendercore/build-receipt.json",
+    "batch-04-survival/build-receipt.json"
+  ],
+  "processes_stopped": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "game_target_built_by_this_invocation": false,
+  "tests_run": false,
+  "source_changes_in_this_completion": false
+}

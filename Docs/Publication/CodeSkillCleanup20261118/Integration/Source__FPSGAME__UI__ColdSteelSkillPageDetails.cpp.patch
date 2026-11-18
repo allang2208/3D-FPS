@@ -1,0 +1,622 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelSkillPageDetails.cpp b/Source/FPSGAME/UI/ColdSteelSkillPageDetails.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelSkillPageDetails.cpp
+@@ -0,0 +1,617 @@
++#include "ColdSteelSkillPage.h"
++#include "ColdSteelHUDWidget.h"
++#include "ColdSteelQuickDrag.h"
++#include "ColdSteelStatusModel.h"
++#include "ColdSteelUIStyle.h"
++#include "../Combat/CombatChill.h"
++#include "../Skills/ColdSteelSkillRules.h"
++#include "../Skills/SwordUppercutTuning.h"
++#include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/Bow/BowStats.h"
++#include "Engine/GameInstance.h"
++#include "Engine/Texture2D.h"
++#include "ImageUtils.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Widgets/Layout/SBox.h"
++#include "Widgets/Layout/SBorder.h"
++#include "Widgets/Layout/SScrollBox.h"
++#include "Widgets/SBoxPanel.h"
++#include "Widgets/Input/SButton.h"
++#include "Widgets/Images/SImage.h"
++#include "Widgets/Notifications/SProgressBar.h"
++#include "Widgets/Text/STextBlock.h"
++#include "Framework/Application/SlateApplication.h"
++
++#include "ColdSteelSkillPagePrivate.h"
++using namespace ColdSteelSkillPagePrivate;
++
++FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
++{
++    if(bNext&&Progress(SelectedSkill).Level>=Definition(SelectedSkill).MaxLevel)return TEXT("MAX");
++    if(SelectedSkill==TEXT("leapStrike"))
++    {
++        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);const auto C=Model->LeapStrikeStats(L);
++        switch(Index)
++        {
++        case 0:case 1:return FString::Printf(TEXT("%.1f%%"),C.DamageMultiplier*100.f);
++        case 2:return FString::Printf(TEXT("%.1f s"),C.CooldownSeconds);
++        case 3:return FString::Printf(TEXT("%.1f"),C.StaminaCost);
++        case 4:return FString::Printf(TEXT("%.1f m"),C.RadiusCM/100.f);
++        case 5:return FString::Printf(TEXT("%.1f m"),C.ReachCM/100.f);
++        default:{const int32 Need=ColdSteelSkills::ExperienceRequired(Definition(SelectedSkill),L);return Need?FString::Printf(TEXT("%d XP"),Need):TEXT("MAX");}
++        }
++    }
++    if(SelectedSkill==TEXT("chainSlash"))
++    {
++        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);const auto C=Model->ChainSlashStats(L);
++        switch(Index)
++        {
++        case 0:case 4:return FString::Printf(TEXT("%.1f%%"),C.DamageMultiplier*100.f);
++        case 1:return FString::Printf(TEXT("%.1f s"),C.CooldownSeconds);
++        case 2:return FString::Printf(TEXT("%.1f"),C.StaminaCost);
++        default:{const int32 Need=ColdSteelSkills::ExperienceRequired(Definition(SelectedSkill),L);return Need?FString::Printf(TEXT("%d XP"),Need):TEXT("MAX");}
++        }
++    }
++    if(SelectedSkill==TEXT("illuminationArrow"))
++    {
++        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);const auto C=Model->IlluminationArrowStats(L);
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.1f m"),C.Radius/100.f);
++        case 1:return FString::Printf(TEXT("%.1f s"),C.Duration);
++        case 2:return FString::Printf(TEXT("+%.1f%%"),C.DamageBonus*100.f);
++        case 3:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        case 4:return FString::Printf(TEXT("%.1f MP"),C.ManaCost);
++        case 6:return FString::Printf(TEXT("%.1f s"),IlluminationArrow::ImpactDuration(C));
++        default:{const int32 Need=ColdSteelSkills::ExperienceRequired(Definition(SelectedSkill),L);return Need?FString::Printf(TEXT("%d XP"),Need):TEXT("MAX");}
++        }
++    }
++    if(SelectedSkill==TEXT("elementalArrow"))
++    {
++        const auto& D=Definition(SelectedSkill);const auto& T=D.ElementalArrow;
++        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);
++        if(Index<=5)
++        {
++            const auto E=Index<2?EArrowElement::Fire:Index<4?EArrowElement::Ice:EArrowElement::Lightning;
++            if(Index%2==0)return FString::Printf(TEXT("×%.2f"),ElementalArrow::DamageMultiplier(T,E,L));
++            const auto C=Model->ElementalArrowStats(E,L);
++            return FString::Printf(TEXT("%.0f"),E==EArrowElement::Fire?C.Fire.Damage:E==EArrowElement::Ice?C.Ice.Damage:C.Lightning.Damage);
++        }
++        if(Index==6)return FString::Printf(TEXT("%.1f m"),Model->ElementalArrowStats(EArrowElement::Fire,L).Radius/100.f);
++        if(Index==7)return FString::Printf(TEXT("−%.0f%% / %.1f s"),CombatChill::SlowPerStack*100,T.ChillSeconds);
++        if(Index==8)return FString::Printf(TEXT("%.1f s"),T.StunSeconds);
++        const int32 Need=ColdSteelSkills::ExperienceRequired(D,L);
++        return Need?FString::Printf(TEXT("%d XP"),Need):TEXT("MAX");
++    }
++    if(SelectedSkill==TEXT("magicArrowRain"))
++    {
++        const auto C=Model->MagicArrowRainStats(Progress(SelectedSkill).Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),C.Damage);
++        case 1:return FString::Printf(TEXT("%.1f m"),C.Radius/100.f);
++        case 2:return FString::Printf(TEXT("%.0f m"),C.Range/100.f);
++        case 3:return FString::Printf(TEXT("%.1f s"),C.ChargeSeconds);
++        case 4:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++        case 5:return FString::Printf(TEXT("%.1f / 秒"),C.ManaPerSecond);
++        case 6:return FString::Printf(TEXT("%.1f / 秒"),Model->HeavyChargeStaminaPerSecond());
++        default:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        }
++    }
++    if(SelectedSkill==TEXT("heartPiercingArrow"))
++    {
++        const int32 Level=Progress(SelectedSkill).Level+(bNext?1:0);
++        const auto& D=Definition(SelectedSkill);
++        const auto S=HeartPiercingArrow::ForModel(Model,Level);
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("×%.2f"),S.DamageMultiplier);
++        case 1:return FString::Printf(TEXT("+%d"),S.TargetPenetration);
++        case 2:return FString::Printf(TEXT("%d 个"),S.TargetPenetration+1);
++        case 3:return FString::Printf(TEXT("×%.0f"),S.SpeedMultiplier);
++        case 4:return FString::Printf(TEXT(">%.1f s"),S.ChargeSeconds);
++        case 6:return FString::Printf(TEXT("%.1f / 秒"),Model->ActiveBow()?ColdSteelBow::ChargeStaminaPerSecond(*Model->ActiveBow(),Model):Model->HeavyChargeStaminaPerSecond());
++        default:{const int32 Need=ColdSteelSkills::ExperienceRequired(D,Level);return Need?FString::Printf(TEXT("%d XP"),Need):TEXT("MAX");}
++        }
++    }
++    if(SelectedSkill==TEXT("lightningHaste"))
++    {
++        const auto C=Model->LightningHasteStats(Progress(SelectedSkill).Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("+%.1f%%"),C.MoveBonus*100);
++        case 1:return FString::Printf(TEXT("+%.1f%%"),C.ActionBonus*100);
++        case 2:return FString::Printf(TEXT("%.1f s"),C.Duration);
++        case 3:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++        default:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        }
++    }
++    if(SelectedSkill==TEXT("iceArmor"))
++    {
++        const auto C=Model->IceArmorStats(Progress(SelectedSkill).Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("+%.0f"),C.PhysicalDefense);
++        case 1:return FString::Printf(TEXT("+%.0f"),C.MagicDefense);
++        case 2:return FString::Printf(TEXT("%.0f s"),C.Duration);
++        case 3:return FString::Printf(TEXT("%.2f m"),C.Radius/100);
++        case 4:return FString::Printf(TEXT("1 层 / %.1f s"),C.PulseSeconds);
++        case 5:return FString::Printf(TEXT("%.1f s"),C.ChillSeconds);
++        case 6:return FString::Printf(TEXT("−%.0f%%"),CombatChill::SlowPerStack*100);
++        case 7:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++        default:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        }
++    }
++    if(FireMagic::IsSkill(SelectedSkill))
++    {
++        const auto C=Model->FireMagicStats(SelectedSkill,Progress(SelectedSkill).Level+(bNext?1:0));
++        const bool Meteor=SelectedSkill==TEXT("meteor");
++        if(SelectedSkill==TEXT("dragonBreath"))
++        {
++            switch(Index)
++            {
++            case 0:return FString::Printf(TEXT("%.0f"),C.Damage);
++            case 1:return FString::Printf(TEXT("%.1f s"),C.TickSeconds);
++            case 2:return FString::Printf(TEXT("%.0f°"),C.ArcDegrees);
++            case 3:return FString::Printf(TEXT("%.2f m"),C.Radius/100);
++            case 4:return FString::Printf(TEXT("%.0f s"),C.Duration);
++            case 5:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++            default:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++            }
++        }
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),C.Damage);
++        case 1:return FString::Printf(TEXT("%.0f / %.2fs"),C.AuraDamage,C.TickSeconds);
++        case 2:return FString::Printf(TEXT("%.2f m"),(Meteor?C.Radius:C.AuraRadius)/100);
++        case 3:return FString::Printf(TEXT("%.2f s"),C.Duration);
++        case 4:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++        case 5:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        case 6:return FString::Printf(TEXT("%.2f m"),C.AuraRadius/100);
++        case 7:return FString::Printf(TEXT("%.2f m"),C.Range/100);
++        case 8:return FString::Printf(TEXT("%.2f s"),C.FallSeconds);
++        case 9:return FString::Printf(TEXT("%.1f s"),C.StunSeconds);
++        case 10:return FString::Printf(TEXT("%d 层 / %.1fs"),C.BurnStacks,C.BurnSeconds);
++        }
++    }
++    if(SelectedSkill==TEXT("holyLight"))
++    {
++        const auto C=Model->HolyLightStats(Model->HolyLightProgress().Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),C.Damage);
++        case 1:return FString::Printf(TEXT("%.0f"),C.Healing);
++        case 2:return FString::Printf(TEXT("%.0f ×"),C.ZombieMultiplier);
++        case 3:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++        case 4:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        case 5:return FString::Printf(TEXT("%.1f m"),C.Range/100);
++        case 6:return FString::Printf(TEXT("%.1f m"),C.AimRadius/100);
++        case 7:return FString::Printf(TEXT("%.2f ×"),C.MagicMultiplier);
++        case 8:return FString::Printf(TEXT("%.2f ×"),C.IntelligenceMultiplier);
++        case 9:return FString::Printf(TEXT("%.2f ×"),C.WisdomMultiplier);
++        default:return FString::Printf(TEXT("%.1f + %.1f s"),C.Duration,C.Fade);
++        }
++    }
++    if(ElectricMagic::IsSkill(SelectedSkill))
++    {
++        const auto C=Model->ElectricMagicStats(SelectedSkill,Progress(SelectedSkill).Level+(bNext?1:0));
++        const bool Storm=SelectedSkill==TEXT("stormDomain");const auto& H=C.Hit;
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),Storm?H.Damage:FMath::FloorToFloat(H.Damage*C.ChargeBonus));
++        case 1:return FString::Printf(TEXT("%.0f"),H.ManaCost);
++        case 2:return FString::Printf(TEXT("%.1f s"),H.Cooldown);
++        case 3:return FString::Printf(TEXT("%.2f m"),(Storm?C.Radius:H.Range)/100);
++        case 4:return FString::Printf(TEXT("%.1f s"),Storm?C.Duration:C.MaxCharge);
++        case 5:return Storm?FString::FromInt(H.Count):FString::Printf(TEXT("%.2f m"),C.Knockback/100);
++        case 6:return Storm?FString::Printf(TEXT("%.2f m"),H.ChainRange/100):FString::Printf(TEXT("%.2f ×"),C.ChargeBonus);
++        case 7:return FString::Printf(TEXT("%.0f%%"),(Storm?H.ChainDecay:C.StackDamage)*100);
++        case 8:return FString::Printf(TEXT("%.2f s"),Storm?H.StunSeconds+H.StunExtensionSeconds:C.MinCharge);
++        case 9:return FString::Printf(TEXT("+%d / %.1f s"),H.ElectrifyStacks,H.ElectrifyDuration);
++        case 10:return FString::Printf(TEXT("%.2f ×"),H.MagicMultiplier);
++        default:return FString::Printf(TEXT("%.2f ×"),H.IntelligenceMultiplier);
++        }
++    }
++    if(SelectedSkill==TEXT("lightningStrike"))
++    {
++        const auto C=Model->LightningStats(Model->LightningProgress().Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),C.Damage);
++        case 1:return FString::Printf(TEXT("%d"),C.Count);
++        case 2:return FString::Printf(TEXT("%.0f%%"),C.ChainDecay*100);
++        case 3:return FString::Printf(TEXT("%.2f s"),C.StunSeconds+C.StunExtensionSeconds);
++        case 4:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++        case 5:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        case 6:return FString::Printf(TEXT("%.1f m"),C.Range/100);
++        case 7:return FString::Printf(TEXT("%.1f m"),C.AimRadius/100);
++        case 8:return FString::Printf(TEXT("%.1f m"),C.ChainRange/100);
++        case 9:return FString::Printf(TEXT("%.2f ×"),C.MagicMultiplier);
++        case 10:return FString::Printf(TEXT("%.2f ×"),C.IntelligenceMultiplier);
++        case 11:return FString::Printf(TEXT("+%d / %.1f s"),C.ElectrifyStacks,C.ElectrifyDuration);
++        case 12:return FString::Printf(TEXT("%.0f%%"),C.ElectricBonusPerStack*100);
++        case 13:return FString::Printf(TEXT("%d / %.1f s"),C.OverloadStacks,C.OverloadStun);
++        case 14:return FString::Printf(TEXT("%.0f"),C.OverloadDamage);
++        default:return FString::Printf(TEXT("%.2f m"),C.OverloadRange/100);
++        }
++    }
++    if(SelectedSkill==TEXT("dashAttack"))
++    {
++        const auto C=Model->DashAttackStats(Progress(SelectedSkill).Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("×%.2f"),C.DamageMultiplier);
++        case 1:return FString::Printf(TEXT("%.2f 秒"),C.ReadySeconds);
++        case 2:return FString::Printf(TEXT("%.1f"),C.StaminaCost);
++        case 3:return C.RangeCM>0.f?FString::Printf(TEXT("%.2f 米"),C.RangeCM/100.f):FString::Printf(TEXT("兵器范围 + %.2f 米"),C.RangeBonusCM/100.f);
++        case 4:return C.RangeCM>0.f?FString::Printf(TEXT("%.2f 米"),C.KnockbackCM/100.f):FString::Printf(TEXT("兵器击退 + %.2f 米"),C.KnockbackBonusCM/100.f);
++        case 5:return C.RectangleWidthCM>0.f?FString::Printf(TEXT("%.2f 米"),C.RectangleWidthCM/100.f):FString::Printf(TEXT("%.0f°"),C.ArcDegrees);
++        default:return C.RangeCM>0.f?FString::Printf(TEXT("%.0f"),C.Damage):TEXT("需装备近战武器");
++        }
++    }
++    if(SelectedSkill==TEXT("whirlwind"))
++    {
++        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);const auto C=Model->WhirlwindStats(L);
++        if(Index==0)return FString::Printf(TEXT("×%.1f"),C.DamageMultiplier);
++        if(Index==1)return FString::Printf(TEXT("+%d"),Model->MasteryEffect(SelectedSkill,L).Strength);
++        if(Index==2)return FString::Printf(TEXT("%.1f 秒"),C.CooldownSeconds);
++        if(Index==3)return FString::Printf(TEXT("%.0f"),C.StaminaCost);
++        if(Index==4)return FString::Printf(TEXT("%.2f 米"),C.RadiusCM/100.f);
++        if(Index==5)return FString::Printf(TEXT("%.2f 米"),C.KnockbackCM/100.f);
++        return FString::Printf(TEXT("%.1f 秒"),C.StunSeconds);
++    }
++    if(SelectedSkill==TEXT("swordUppercut"))
++    {
++        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);
++        const auto E=Model->MasteryEffect(SelectedSkill,L);
++        if(Index==0)return FString::Printf(TEXT("×%.2f"),SwordUppercut::HeavyDamageScale*E.HeavyMultiplier);
++        if(Index==1)return FString::Printf(TEXT("+%d"),E.Strength);
++        if(Index==2)return FString::Printf(TEXT("%d"),ColdSteelSkills::ExperienceRequired(Definition(SelectedSkill),L));
++        if(Index==3)return FString::Printf(TEXT("%.1f"),Model->SwordUppercutStaminaCost());
++        if(Index==4)return FString::Printf(TEXT("%.1f 秒"),Model->SwordUppercutCooldownSeconds());
++        if(Index==5)
++        {
++            const double Reach=ColdSteelMelee::UppercutReachCM(Model,L);
++            return Reach>0.?FString::Printf(TEXT("%.2f 米"),Reach/100.):TEXT("需装备剑");
++        }
++        if(Index==6)return FString::Printf(TEXT("×%.3f"),E.UppercutReachMultiplier);
++        return TEXT("—");
++    }
++    if(SelectedSkill==TEXT("heavyStrike"))
++    {
++        const auto E=Model->MasteryEffect(SelectedSkill,Progress(SelectedSkill).Level+(bNext?1:0));
++        if(Index==0)return FString::Printf(TEXT("×%.1f"),E.HeavyMultiplier);
++        if(Index==1)return FString::Printf(TEXT("%.2f s"),E.HeavyChargeSeconds);
++        if(Index==3)return FString::Printf(TEXT("%.1f / 秒"),Model->HeavyChargeStaminaPerSecond());
++        return FString::Printf(TEXT("+%d"),E.Strength);
++    }
++    if(Additional(SelectedSkill))
++    {
++        const auto E=Model->MasteryEffect(SelectedSkill,Progress(SelectedSkill).Level+(bNext?1:0));
++        if(Index==0)return SelectedSkill==TEXT("bluntMastery")?FString::Printf(TEXT("+%.2f%%"),E.DamagePercent*100):FString::Printf(TEXT("+%.0f%%"),E.DamagePercent*100);
++        if(Index==1)return FString::Printf(TEXT("+%.0f"),E.FlatDamage);
++        if(Index==2)return FString::Printf(TEXT("+%d"),E.Strength+E.Constitution+E.Dexterity);
++        return FString::Printf(TEXT("+%.1f%%"),(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100);
++    }
++    if(SelectedSkill==TEXT("blizzard"))
++    {
++        const auto E=Model->BlizzardStats(Model->BlizzardProgress().Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),E.Damage);
++        case 1:return FString::Printf(TEXT("%.2f × %.2f m"),E.RadiusX*.02f,E.RadiusY*.02f);
++        case 2:return FString::Printf(TEXT("%.1f s"),E.Duration);
++        case 3:return FString::Printf(TEXT("%.1f s"),E.TickSeconds);
++        case 4:return FString::Printf(TEXT("%.0f"),E.ManaCost);
++        case 5:return FString::Printf(TEXT("%.1f s"),E.Cooldown);
++        case 6:return FString::Printf(TEXT("%.2f m"),E.Range*.01f);
++        default:return FString::Printf(TEXT("%d层 / %.1fs / 每层移速−%.0f%%"),E.ChillStacks,E.ChillSeconds,CombatChill::SlowPerStack*100);
++        }
++    }
++    if(SelectedSkill==TEXT("iceWall"))
++    {
++        const auto E=Model->IceWallStats(Model->IceWallProgress().Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),E.Damage);
++        case 1:return FString::Printf(TEXT("%d"),E.Count);
++        case 2:return FString::Printf(TEXT("%.2f m"),E.Width()/100);
++        case 3:return FString::Printf(TEXT("%.1f / %.1f m"),E.HighHeight/100,E.LowHeight/100);
++        case 4:return FString::Printf(TEXT("%.1f s"),E.Duration);
++        case 5:return FString::Printf(TEXT("%.0f"),E.ManaCost);
++        case 6:return FString::Printf(TEXT("%.1f s"),E.Cooldown);
++        case 7:return FString::Printf(TEXT("%.1f m"),E.Range/100);
++        case 8:return FString::Printf(TEXT("%.1f m"),E.ChillRadius/100);
++        case 10:return FString::Printf(TEXT("%.0f"),E.MaxHealth);
++        default:return FString::Printf(TEXT("%d 层 / %.1f s"),E.ChillStacks,E.ChillInterval);
++        }
++    }
++    if(SelectedSkill==TEXT("iceSpike"))
++    {
++        const auto E=Model->IceSpikeStats(Model->IceSpikeProgress().Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("%.0f"),E.Damage);
++        case 1:return FString::Printf(TEXT("%d"),E.Count);
++        case 2:return FString::Printf(TEXT("%.0f"),E.Damage*E.Count);
++        case 3:return FString::Printf(TEXT("%.0f"),E.DamageBase);
++        case 4:return FString::Printf(TEXT("%.2f ×"),E.MagicMultiplier);
++        case 5:return FString::Printf(TEXT("%.1f s"),Model->IceSpikeDefinition().IceSpike.MinimumCooldown);
++        case 6:return FString::Printf(TEXT("%.0f"),E.ManaCost);
++        case 7:return FString::Printf(TEXT("%.1f s"),E.Cooldown);
++        case 8:return FString::Printf(TEXT("%.0f m"),E.Range/100);
++        case 9:return FString::Printf(TEXT("%.0f m/s"),E.Speed/100);
++        default:return FString::Printf(TEXT("%.0f s"),E.HoverDuration);
++        }
++    }
++    if(SelectedSkill==TEXT("fireball"))
++    {
++        const auto E=Model->FireballStats(Model->FireballProgress().Level+(bNext?1:0));
++        if(Index==0)return FString::Printf(TEXT("%.0f"),E.Damage);
++        if(Index==1)return FString::Printf(TEXT("%.2f m"),E.Radius/100);
++        if(Index==2)return FString::Printf(TEXT("%.0f"),E.ManaCost);
++        if(Index==3)return FString::Printf(TEXT("%.1f s"),E.Cooldown);
++        if(Index==4)return FString::Printf(TEXT("%.0f m"),E.Range/100);
++        if(Index==6)return FString::Printf(TEXT("%.2f ×"),E.MagicMultiplier);
++        return FString::Printf(TEXT("%.0f m/s"),E.Speed/100);
++    }
++    if(SelectedSkill==TEXT("criticalStrike"))
++    {
++        const auto E=Model->CriticalStrikeEffect(Model->CriticalStrikeProgress().Level+(bNext?1:0));
++        if(Index==0)return FString::Printf(TEXT("+%.0f%%"),E.CriticalDamageBonus*100);
++        if(Index==1)return FString::Printf(TEXT("%.2fx"),1+E.CriticalDamageBonus);
++        return FString::Printf(TEXT("+%d"),E.Luck);
++    }
++    if(SelectedSkill==TEXT("dexterousHands"))
++    {
++        const auto E=Model->DexterousHandsEffect(Model->DexterousHandsProgress().Level+(bNext?1:0));
++        if(Index==0)return FString::Printf(TEXT("+%d"),E.Dexterity);
++        if(Index==1)return FString::Printf(TEXT("+%.0f%%"),E.ReloadSpeed*100);
++        return FString::Printf(TEXT("+%.2f%%"),E.BowDrawSpeed*100);
++    }
++    if(SelectedSkill==TEXT("dodge"))
++    {
++        const auto E=Model->DodgeEffect(Model->DodgeProgress().Level+(bNext?1:0));
++        if(Index==0)return FString::Printf(TEXT("+%.1f m"),E.DodgeDistanceCM/100);
++        if(Index==1)return FString::Printf(TEXT("−%.1f%%"),E.DodgeCostReduction*100);
++        return FString::Printf(TEXT("%.2f"),Model->DodgeStaminaCost(Model->DodgeProgress().Level+(bNext?1:0)));
++    }
++    if(SelectedSkill==TEXT("quickCombat"))
++    {
++        const int32 L=Model->QuickCombatProgress().Level+(bNext?1:0);
++        const auto C=Model->QuickCombatStats(L);
++        const auto& T=Model->QuickCombatDefinition().QuickCombat;
++        if(Index==0)return TEXT("F");
++        if(Index==1)return FString::Printf(TEXT("%.0f"),C.Damage);
++        if(Index==2)return FString::Printf(TEXT("×%.2f"),(T.StrengthFactorBase+T.StrengthFactorPerLevel*FMath::Min(L,Model->QuickCombatDefinition().MaxLevel))*C.DamageMultiplier);
++        if(Index==3)return FString::Printf(TEXT("%.2f"),C.StaminaCost);
++        if(Index==4)return FString::Printf(TEXT("%.1f m"),C.KnockbackCM/100);
++        if(Index==5)return TEXT("无");
++        return FString::Printf(TEXT("−%.0f%%"),FMath::Clamp(T.StaminaReductionPerLevel*(FMath::Clamp(L,1,Model->QuickCombatDefinition().MaxLevel)-1),0.f,1.f)*100.f);
++    }
++    const bool Pistol=SelectedSkill==TEXT("pistolMastery");
++    const auto E=Pistol?Model->PistolEffect(Model->PistolProgress().Level+(bNext?1:0)):Model->RifleEffect(Model->RifleProgress().Level+(bNext?1:0));
++    if(Index==0)return SelectedSkill==TEXT("bluntMastery")?FString::Printf(TEXT("+%.2f%%"),E.DamagePercent*100):FString::Printf(TEXT("+%.0f%%"),E.DamagePercent*100);
++    if(Index==1)return FString::Printf(TEXT("+%.0f"),E.FlatDamage);
++    if(Index==2)return FString::Printf(TEXT("+%d"),Pistol?E.Dexterity:E.Wisdom);
++    return FString::Printf(TEXT("+%.0f%%"),(Pistol?E.MoveSpeed:E.WeakpointPercent)*100);
++}
++TSharedRef<SWidget> UColdSteelSkillPage::EffectRow(const FString& Caption,int32 Index)
++{
++    auto Value=[this,Index](bool Next){return SNew(STextBlock)
++        .Text_Lambda([this,Index,Next]{return FText::FromString(EffectValue(Index,Next));}).Font(ColdSteelUI::NumberFont(16*.75f/Scale))
++        .ColorAndOpacity(Next?ColdSteelUI::Success:ColdSteelUI::TextPrimary).AutoWrapText(false);};
++    if(PageWidth<480)
++        return SNew(SBorder).BorderImage(&CardBrush).Padding(FMargin(12/Scale,10/Scale))
++            [SNew(SVerticalBox)
++                +SVerticalBox::Slot().AutoHeight()[Label(Caption,14,ColdSteelUI::TextSecondary)]
++                +SVerticalBox::Slot().AutoHeight().Padding(0,8/Scale,0,0)[SNew(SHorizontalBox)
++                    +SHorizontalBox::Slot().FillWidth(1)[SNew(SVerticalBox)
++                        +SVerticalBox::Slot().AutoHeight()[Label(TEXT("当前等级"),12,ColdSteelUI::TextTertiary)]
++                        +SVerticalBox::Slot().AutoHeight().Padding(0,4/Scale,0,0)[Value(false)]]
++                    +SHorizontalBox::Slot().FillWidth(1)[SNew(SVerticalBox)
++                        +SVerticalBox::Slot().AutoHeight()[Label(TEXT("下一等级"),12,ColdSteelUI::TextTertiary)]
++                        +SVerticalBox::Slot().AutoHeight().Padding(0,4/Scale,0,0)[Value(true)]]]];
++    const float ValueWidth=(PageWidth>=640?140.f:100.f)/Scale; // matches the 技能收益 header columns
++    return SNew(SBorder).BorderImage(&CardBrush).Padding(FMargin(12/Scale,10/Scale))
++        [SNew(SHorizontalBox)
++            +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Label(Caption,14,ColdSteelUI::TextSecondary)]
++            +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[SNew(SBox).WidthOverride(ValueWidth).HAlign(HAlign_Right)[Value(false)]]
++            +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[SNew(SBox).WidthOverride(ValueWidth).HAlign(HAlign_Right)[Value(true)]]];
++}
++TSharedRef<SWidget> UColdSteelSkillPage::TrainingCard()
++{
++    const auto& D=Definition(SelectedSkill);
++    auto Content=SNew(SVerticalBox)
++        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,12/Scale)[bEmbedded?StaticCastSharedRef<SWidget>(SNew(STextBlock).Text(FText::FromString(TEXT("修炼方式")))
++            .Font(ColdSteelUI::TextFont(12*.75f/Scale,true)).ColorAndOpacity(ColdSteelUI::HUDGold)):Label(TEXT("修炼方式"),16,ColdSteelUI::TextPrimary)];
++    auto AddReward=[&](const FString& Name,int32 Experience){
++        Content->AddSlot().AutoHeight().Padding(0,5/Scale)[SNew(SHorizontalBox)
++            +SHorizontalBox::Slot().FillWidth(1)[Label(Name,14,ColdSteelUI::TextSecondary)]
++            +SHorizontalBox::Slot().AutoWidth().Padding(12/Scale,0,0,0)[Label(FString::Printf(TEXT("+%d XP"),Experience),14,ColdSteelUI::Success,true)]];
++    };
++    if(SelectedSkill==TEXT("chainSlash")||SelectedSkill==TEXT("leapStrike"))
++    {
++        AddReward(TEXT("释放技能"),D.UseExperience);
++        AddReward(TEXT("每击杀一个目标"),D.KillExperience);
++        AddReward(TEXT("同次击杀至少两个目标"),SelectedSkill==TEXT("leapStrike")?D.LeapStrike.MultiKillExperience:D.ChainSlash.MultiKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(FString::Printf(
++            TEXT("奖励叠加，多杀额外奖励每次限一次。升级需当前等级 × %d XP，最高 %d 级。"),D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Note(SelectedSkill==TEXT("leapStrike")?TEXT("按整次跃击结算，空砸或起手后中断仍获释放经验，选点与释放失败不计；只计落地重砸直接击杀的有效敌人。"):TEXT("按整次连斩结算，空挥可获释放经验；只计技能直接击杀的存活敌人，召唤物与无修炼目标不计。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("illuminationArrow"))
++    {
++        const auto& T=D.IlluminationArrow;
++        AddReward(TEXT("击杀有效标记目标"),D.KillExperience);
++        AddReward(TEXT("同箭标记累计 3 杀额外"),T.ThreeKillExperience);
++        AddReward(TEXT("同箭标记累计 5 杀额外"),T.FiveKillExperience);
++        AddReward(TEXT("同箭标记累计 7 杀额外"),T.SevenKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(FString::Printf(TEXT("每档奖励每支箭仅触发一次，可与击杀经验叠加；七杀合计 %d XP。升级需要当前等级 × %d XP，上限 %d 级。"),7*D.KillExperience+T.ThreeKillExperience+T.FiveKillExperience+T.SevenKillExperience,D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Note(TEXT("只计本人在目标标记尚有效时完成的击杀，可更换武器，也可由本人持续伤害击杀。每个目标死亡只计一次，重复施加后归属本人最新一箭；队友击杀、友方、召唤物、无修炼目标、过期后击杀及单纯扫描不计。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("elementalArrow")||SelectedSkill==TEXT("magicArrowRain"))
++    {
++        const bool bElemental=SelectedSkill==TEXT("elementalArrow");
++        AddReward(TEXT("每个有效目标命中"),D.HitExperience);
++        AddReward(TEXT("每次直接击杀额外"),D.KillExperience);
++        AddReward(TEXT("同箭命中至少两人"),D.MultiHitExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(FString::Printf(
++            TEXT("命中与击杀可叠加，直接击杀共 %d XP；多目标奖励每次释放只计一次。升级需要当前等级 × %d XP，上限 %d 级。"),
++            D.HitExperience+D.KillExperience,D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Note(bElemental?
++            TEXT("火焰爆炸、寒冰散射和闪电放射共用元素箭修炼。只计实际元素伤害，同一目标同一箭最多一次，整批冰锥结束后统一结算；原魔法与暴击照常修炼。普通箭与穿心箭的物理命中不计本项。"):
++            TEXT("整次箭雨统一结算，同一目标只计一次范围命中；视觉箭矢数量不重复增加修炼。暴击照常修炼。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Note(TEXT("空射、取消、友方、尸体、召唤物、无修炼目标与后续持续伤害不计。满级后停止积累经验。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("heartPiercingArrow"))
++    {
++        AddReward(TEXT("穿心箭每个有效命中"),D.HitExperience);
++        AddReward(TEXT("每次直接击杀额外"),D.KillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(FString::Printf(
++            TEXT("命中与击杀奖励叠加，直接击杀共 %d XP。同一箭对同一目标只计一次，穿透不同目标分别计数。仅穿心箭命中存活敌人可修炼；空射、普通箭、友方、尸体、召唤物和后续持续伤害不计。弓精通照常修炼。升级需要当前等级 × %d XP，上限 %d 级。"),
++            D.HitExperience+D.KillExperience,D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(FireMagic::IsSkill(SelectedSkill))
++    {
++        AddReward(TEXT("每次有效命中"),D.FireMagic.HitExperience);
++        AddReward(TEXT("每次直接击杀"),D.FireMagic.KillExperience);
++        AddReward(TEXT("同一轮范围命中至少两个（每次施法一次）"),D.FireMagic.MultiHitExperience);
++        AddReward(TEXT("同次施法直接击杀至少两个"),D.FireMagic.MultiKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(FString::Printf(TEXT("整次魔法结束时统一结算，奖励可叠加。持续范围每轮有效命中也可修炼；空放、尸体、友方和召唤物不计，后续灼烧击杀不计本技能修炼。死亡或离开场景清除未完成修炼。随机暴击同时修炼暴击技能。升级所需经验为当前等级×%d，最高%d级。"),D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("dashAttack"))
++    {
++        AddReward(TEXT("每命中一个目标"),D.HitExperience);
++        AddReward(TEXT("同次命中至少 2 个目标（额外一次）"),D.MultiHitExperience);
++        AddReward(TEXT("每直接击杀一个目标"),D.KillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("命中人数×1 + 多目标额外3 + 击杀人数×15，动作结束统一结算；挥空不加经验。同一目标每次只计一次，不计尸体、召唤物或后续持续伤害击杀。命中同时修炼武器精通与暴击。升级所需经验=100×当前等级，最高20级。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("whirlwind"))
++    {
++        AddReward(TEXT("每命中一个目标"),D.HitExperience);
++        AddReward(TEXT("同次命中至少 2 个目标（额外一次）"),D.MultiHitExperience);
++        AddReward(TEXT("每直接击杀一个目标"),D.KillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("沿用原风车：命中人数×1 + 多目标额外3 + 击杀人数×15，可叠加。每个目标每次只计一次，旋转结束统一结算；挥空不加经验。只计命中前存活的可修炼目标，不计尸体、召唤物或后续持续伤害击杀。升级所需经验=100×当前等级，最高20级。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("swordUppercut"))
++    {
++        AddReward(TEXT("成功释放上挑"),D.UseExperience);
++        AddReward(TEXT("命中存活的可修炼目标"),D.HitExperience);
++        AddReward(TEXT("直接击杀可修炼目标"),D.KillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(
++            FString::Printf(TEXT("每次只领取最高达成档，释放、命中、击杀不叠加。单目标判定，同一目标只计一次；不计尸体、召唤物和后续持续伤害击杀。释放前取消无经验，挥空获得释放经验。升级所需经验为当前等级×%d，最高%d级。"),D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("heavyStrike"))
++    {
++        AddReward(TEXT("成功施放重击"),D.UseExperience);
++        AddReward(TEXT("同次重击命中至少 2 个目标"),D.HeavyHit2Experience);
++        AddReward(TEXT("同次重击直接击杀至少 2 个目标"),D.HeavyKill2Experience);
++        AddReward(TEXT("同次重击命中至少 5 个目标"),D.HeavyHit5Experience);
++        AddReward(TEXT("同次重击直接击杀至少 5 个目标"),D.HeavyKill5Experience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("单次重击只领取最高达成档，不叠加、不按人数倍增。4 个命中算一次 2 人命中档；5 个命中、2 个击杀取 5 人命中档。目标去重，只计存活的可修炼怪物；不计召唤物、尸体、持续伤害击杀。蓄力取消或未蓄满不算施放；完整空挥可得施放经验。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(Additional(SelectedSkill))
++    {
++        if(D.HitExperience)AddReward(TEXT("有效命中"),D.HitExperience);
++        if(D.MultiHitExperience)AddReward(TEXT("一次攻击命中至少两个目标"),D.MultiHitExperience);
++        if(D.CriticalExperience)AddReward(TEXT("暴击命中"),D.CriticalExperience);
++        AddReward(TEXT("对应武器击杀"),D.KillExperience);
++        if(ColdSteelSkills::IsMeleeMastery(SelectedSkill))Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(FString::Printf(TEXT("有效命中、直接击杀和同次多目标奖励可叠加；同一目标同次攻击不重复计数，多目标奖励每次仅一次。挥空、尸体、友方、召唤物和采集资源不计修炼。升下一级需要当前等级×%d经验，上限%d级。刀剑旧进度保留，钝器从1级独立修炼；无需魔法，无主动冷却。"),D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else
++    if(SelectedSkill==TEXT("fireball"))
++    {
++        AddReward(TEXT("每命中一个目标"),D.Fireball.HitExperience);
++        AddReward(TEXT("每击杀一个目标"),D.KillExperience);
++        AddReward(TEXT("一次命中至少两个"),D.Fireball.MultiHitExperience);
++        AddReward(TEXT("一次击杀至少两个"),D.Fireball.MultiKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("上述奖励可叠加，多目标奖励每颗火球各结算一次。火球暴击还可修炼暴击技能；直接命中与爆炸对同一目标只结算一次。空放、召唤物和无修炼目标不提供经验；满级后停止积累。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("holyLight"))
++    {
++        AddReward(TEXT("每次命中／治疗"),D.HolyLight.HitExperience);AddReward(TEXT("每次直接击杀"),D.HolyLight.KillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("有效敌伤或友疗每次计一次，直接击杀额外奖励。满血友疗／自愈按原版仍可修炼；无目标、失败、尸体不计。随机伤害暴击同时修炼暴击技能，治疗不暴击。升级所需经验为当前等级×100，最高20级。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(ElectricMagic::IsSkill(SelectedSkill))
++    {
++        const auto& T=D.ElectricMagic;
++        AddReward(TEXT("每有效命中一个目标"),T.HitExperience);AddReward(TEXT("每直接击杀一个目标"),T.KillExperience);
++        AddReward(TEXT("一次命中至少两个"),T.MultiHitExperience);AddReward(TEXT("整次击杀至少两个"),T.MultiKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(SelectedSkill==TEXT("stormDomain")?
++            TEXT("整片雷云自然结束后统一结算；任一落雷连锁命中至少两个，额外奖励每片云一次。死亡或离场清除未结束雷云，不结算该场修炼。"):
++            TEXT("光束释放结束统一结算，多目标奖励每束各一次。蓄力不足、取消、空放、尸体、友方和召唤物不提供修炼。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Note(TEXT("以上奖励可叠加；过载保留角色击杀经验，不额外计算技能修炼。随机暴击同时修炼暴击技能。升级所需经验为当前等级×100，最高20级。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("lightningStrike"))
++    {
++        AddReward(TEXT("每命中一个目标"),D.Lightning.HitExperience);AddReward(TEXT("每直接击杀一个目标"),D.Lightning.KillExperience);
++        AddReward(TEXT("同次命中至少两个"),D.Lightning.MultiHitExperience);AddReward(TEXT("同次击杀至少两个"),D.Lightning.MultiKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("同次连锁结束后统一结算，以上奖励可叠加；多目标奖励每次各一次。无目标、失败施法、尸体、友方、召唤物不提供修炼；过载保留角色击杀经验，不额外计算闪电修炼。随机暴击同时修炼暴击技能。升级所需经验为当前等级×100，最高20级。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("blizzard"))
++    {
++        AddReward(TEXT("每拍有效命中"),D.Blizzard.HitExperience);AddReward(TEXT("每次直接击杀"),D.Blizzard.KillExperience);
++        AddReward(TEXT("一拍命中至少两个"),D.Blizzard.MultiHitExperience);AddReward(TEXT("整场击杀至少两个"),D.Blizzard.MultiKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("每 0.5 秒分别计命中与击杀，持续结束统一结算；两个额外奖励每场各一次。召唤物、友方、尸体与无修炼目标不计经验；死亡或离场清除未结束区域，不结算该场修炼。随机暴击同时修炼暴击技能。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("lightningHaste"))
++    {
++        const auto& T=D.LightningHaste;
++        AddReward(TEXT("成功施放并生效"),T.CastExperience);AddReward(TEXT("持续期间每次有效击杀"),T.KillExperience);
++        AddReward(TEXT("超过5名敌人：额外奖励"),T.Kill6Bonus);AddReward(TEXT("超过10名敌人：额外奖励"),T.Kill11Bonus);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("第6名、第11名击杀分别达到连杀档位；两个额外奖励只取最高档。枪械、近战、弓、魔法与灼烧归属击杀都计入；同一目标只计一次。结束或死亡时结算已获得的修炼。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("iceArmor"))
++    {
++        const auto& T=D.IceArmor;
++        AddReward(TEXT("成功施放"),T.CastExperience);
++        AddReward(TEXT("承受一次有效近战伤害"),T.MeleeExperience);
++        AddReward(TEXT("承受一次有效远程直接伤害"),T.RangedExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(FString::Printf(TEXT("奖励可叠加；同一攻击者每 %.1f 秒最多记一次受击修炼，每次施法总上限 %d。失效、重新施放、死亡或离场时统一结算已经获得的经验。格挡、闪避、零伤害、持续毒伤、环境伤害、友方和召唤物不提供受击修炼；寒冷脉冲不刷经验。每级所需经验 = %d × 当前等级，最高 %d 级。"),T.TrainingSourceInterval,T.ExperienceCap,D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("iceWall"))
++    {
++        AddReward(TEXT("每次落点有效命中"),D.IceWall.HitExperience);AddReward(TEXT("每次直接击杀"),D.IceWall.KillExperience);
++        AddReward(TEXT("同次命中至少两个"),D.IceWall.MultiHitExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("每个目标在成墙瞬间只结算一次；多目标奖励每堵墙一次。寒冷光环与阻挡本身不刷经验；空放、尸体、友方和召唤物不计修炼。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("iceSpike"))
++    {
++        AddReward(TEXT("每次有效命中"),D.IceSpike.HitExperience);AddReward(TEXT("每次直接击杀"),D.IceSpike.KillExperience);
++        AddReward(TEXT("整轮命中至少两次"),D.IceSpike.MultiHitExperience);AddReward(TEXT("整轮击杀至少两个"),D.IceSpike.MultiKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("整组冰锥结束后汇总，以上奖励可叠加；多枚命中同一目标也计入多次命中。多次命中和多杀额外奖励每轮各一次。空放、尸体、友方、召唤物与无修炼目标不计经验；暴击命中同时修炼暴击技能。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("criticalStrike"))
++    {
++        AddReward(TEXT("暴击命中"),D.CriticalHitExperience);AddReward(TEXT("暴击击杀额外奖励"),D.CriticalKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(FString::Printf(TEXT("暴击击杀合计获得 %d 点经验，可与对应武器精通或火球修炼叠加。普通命中、普通击杀、持续伤害和召唤物不提供暴击修炼。满级后停止积累。"),D.CriticalHitExperience+D.CriticalKillExperience),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("dodge"))
++    {
++        AddReward(TEXT("使用闪避"),D.UseExperience);AddReward(TEXT("成功闪避近战"),D.MeleeDodgeExperience);AddReward(TEXT("成功闪避远程"),D.RangedDodgeExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("无敌期间实际拦截敌人命中才算成功。每次闪避的近战、远程奖励各结算一次，可与使用经验叠加。环境伤害与持续毒伤不计修炼。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("quickCombat"))
++    {
++        AddReward(TEXT("触发快速进战"),D.UseExperience);
++        AddReward(TEXT("使用技能击杀目标"),D.KillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("动作实际开始后扣一次体力并获得施放修炼，挥空也算；动作未结束时重复按键不重复扣费或计经验。可修炼目标被本次打击直接击杀时额外获得击杀经验，每次施放至多一个目标。命中按当前武器精通与暴击规则修炼。满级后停止积累。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else if(SelectedSkill==TEXT("dexterousHands"))
++    {
++        AddReward(TEXT("完成换弹"),D.ReloadExperience);
++        if(D.MeleeHitExperience)AddReward(TEXT("近战武器命中"),D.MeleeHitExperience);
++        if(D.MeleeKillExperience)AddReward(TEXT("近战武器击杀（含命中）"),D.MeleeKillExperience+D.MeleeHitExperience);
++        if(D.PerfectBowHitExperience)AddReward(TEXT("完美箭命中"),D.PerfectBowHitExperience);
++        if(D.PerfectBowKillExperience)AddReward(TEXT("完美箭击杀（含命中）"),D.PerfectBowHitExperience+D.PerfectBowKillExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("一次换弹实际补入至少一发，结算一次修炼经验；取消、满弹匣或没有补入弹药时不计。近战兵器命中可修炼目标即结算，剑与配重锤打击都算；击杀合计获得命中与击杀两档。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++        Content->AddSlot().AutoHeight().Padding(0,8/Scale,0,0)[Note(TEXT("完美节拍手动射出的箭，实际命中敌人并造成伤害才计经验；直击击杀合计获得两档，不再重复发命中奖励。放空、普通箭、自动放箭、尸体、友方、召唤物与无修炼目标不计；后续中毒、流血和派生弹不计本项。可与弓精通、暴击修炼叠加，满级后停止积累。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    else
++    {
++        AddReward(SelectedSkill==TEXT("pistolMastery")?TEXT("手枪击杀"):TEXT("步枪击杀"),D.KillExperience);AddReward(TEXT("有效暴击命中"),D.CriticalExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Note(TEXT("要害击杀可叠加奖励。普通命中不增加修炼值；满级后停止积累。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
++    return SNew(SBorder).BorderImage(&CardBrush).Padding(16/Scale)[Content];
++}

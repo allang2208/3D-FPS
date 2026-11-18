@@ -1,0 +1,654 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp
+@@ -0,0 +1,649 @@
++#include "ColdSteelPlayerState.h"
++#include "ColdSteelMapMarkerSharing.h"
++#include "../Skills/ColdSteelSkillTree.h"
++#include "../Weapons/PojunGrip.h"
++#include "../Weapons/HighlandBreakSweep.h"
++#include "../Weapons/HighlandRidgeThrust.h"
++#include "../Weapons/StarMarrowComponent.h"
++#include "ColdSteelPreparedHit.h"
++#include "../Skills/LightningHasteSpeed.h"
++#include "../Production/ProductionToolComponent.h"
++#include "../Production/ConicalHammerSeat.h"
++#include "../Skills/FPSElementalArrowComponent.h"
++#include "../Skills/FPSMagicArrowRainComponent.h"
++#include "../Movement/FPSCharacterMovementComponent.h"
++#include "../Monsters/RootCrownRigPreview.h"
++#include "../Monsters/RootCrownHitComponent.h"
++#include "../Monsters/HeQueMonster.h"
++#include "../Monsters/HumanoidHitVolumeData.h"
++#include "../Combat/RangedAttackQuery.h"
++#include "ColdSteelNetWorldSubsystem.h"
++#include "ColdSteelNetSessionSubsystem.h"
++#include "../Combat/ProgressiveInfectionComponent.h"
++#include "ColdSteelProfileTransfer.h"
++#include "Serialization/JsonSerializer.h"
++#include "ColdSteelProfileMerge.h"
++#include "UppercutStaminaReceipt.h"
++#include "../Building/WoodworkingQuality.h"
++#include "../Building/ForgingQuality.h"
++#include "../Building/GunAssemblyQuality.h"
++#include "../Items/FoodSpoilage.h"
++#include "../UI/ColdSteelProfileRecovery.h"
++#include "../Dungeons/WardBreakableGlass.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "../Monsters/BoundCongregateCaptureComponent.h"
++#include "../Monsters/BoundCongregate.h"
++#include "Components/PrimitiveComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../Weapons/Super90WeaponAssets.h"
++#include "../Weapons/TubeShotgunAssets.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../Survival/FPSSurvivalComponent.h"
++#include "../Skills/ColdSteelSkillTypes.h"
++#include "../Skills/ColdSteelSkillRules.h"
++#include "../Skills/SwordUppercutTuning.h"
++#include "../Skills/SwordUppercutWeapon.h"
++#include "../Skills/WhirlwindTypes.h"
++#include "../Skills/MagicOcclusion.h"
++#include "../Skills/FPSFireballComponent.h"
++#include "../Skills/FPSFireballProjectile.h"
++#include "../Skills/FPSIceSpikeComponent.h"
++#include "../Skills/FPSIceSpikeVolley.h"
++#include "../Skills/FPSIceWallComponent.h"
++#include "../Skills/FPSBlizzardComponent.h"
++#include "../Skills/FPSHolyLightComponent.h"
++#include "../Skills/FPSIceArmorComponent.h"
++#include "../Skills/FPSLightningHasteComponent.h"
++#include "../Skills/FPSLightningComponent.h"
++#include "../Skills/FPSFireMagicComponent.h"
++#include "../Skills/MeteorGround.h"
++#include "../Skills/FPSElectricMagicComponent.h"
++#include "../Skills/IceSpikeTypes.h"
++#include "../Skills/IceWallTypes.h"
++#include "../Skills/BlizzardTypes.h"
++#include "../Skills/HolyLightTypes.h"
++#include "../Skills/LightningTypes.h"
++#include "../Skills/FireMagicTypes.h"
++#include "../Skills/ElectricMagicTypes.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelCurrency.h"
++#include "../UI/ColdSteelInventoryTypes.h"
++#include "../UI/ColdSteelEnhancementSystem.h"
++#include "../Weapons/ColdSteelEnchantmentCombat.h"
++#include "../Weapons/AzureDragonReach.h"
++#include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/KukriRhythm.h"
++#include "../Weapons/Kukri/OffhandKukriThrust.h"
++#include "../Weapons/GunsmithSystem.h"
++#include "../Weapons/LMGStabilityGrip.h"
++#include "../Weapons/JingangRuneComponent.h"
++#include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/Kukri/SwiftFalconHeavy.h"
++#include "../Weapons/ModularSwordVisual.h"
++#include "../Weapons/Unarmed/UnarmedPunchTuning.h"
++#include "../Weapons/Staff/StaffQuickCombatMotion.h"
++#include "../Weapons/Spellbook/SpellbookComponent.h"
++#include "../Weapons/Spellbook/SpellbookFocusMana.h"
++#include "../Weapons/MagicCrystalMana.h"
++#include "../Weapons/Bow/BowStats.h"
++#include "../Weapons/WeaponStatEvaluation.h"
++#include "../Weapons/SniperSuppressorAssets.h"
++#include "../Weapons/WeaponShotNoise.h"
++#include "../Weapons/WeaponDamageFalloff.h"
++#include "../Combat/WeaponDamageTypes.h"
++#include "../Combat/MonsterToughnessTypes.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "Engine/NetConnection.h"
++#include "Engine/HitResult.h"
++#include "CollisionQueryParams.h"
++#include "Engine/ActorInstanceHandle.h"
++#include "EngineUtils.h"
++#include "Components/CapsuleComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "GameFramework/GameState.h"
++#include "Kismet/GameplayStatics.h"
++#include "Net/UnrealNetwork.h"
++
++
++using ColdSteelProfileTransfer::SaveToBlob;
++using ColdSteelProfileTransfer::BlobToSave;
++
++bool AColdSteelPlayerState::PrepareHitReport(const FColdSteelNetHitReport& Report,FColdSteelPreparedHit& Prepared)
++{
++    if (GetLocalRole() != ROLE_Authority) return false;
++    // SUPER90 firearm hits are generated by server projectiles. A second
++    // client hit report must never deal damage again (melee remains separate).
++    if(TubeShotgunAssets::Supports(Report.ItemDefinition)
++        &&(!(Report.AttackMeta&0x80)||(Report.Flags&(1<<6))))return false;
++    APlayerController* PC = Cast<APlayerController>(GetOwner());
++    AFPSGAMECharacter* Shooter = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
++
++    FString Reject;
++    const FColdSteelItem* Declared = nullptr;
++    if (!ValidateHitReport(Report, Shooter, Reject, Declared))
++    {
++        UE_LOG(LogTemp, Warning, TEXT("MPTEST hit rejected: %s (%s)"), *Reject, *GetPlayerName());
++        return false;
++    }
++    // Damage, mastery and rune callbacks can publish a new inventory, replacing
++    // its backing array. Keep the validated item alive for this entire receipt,
++    // including quick-combat bleed resolution after ApplyHit has returned.
++    FColdSteelItem DeclaredSnapshot;
++    if(Declared){DeclaredSnapshot=*Declared;Declared=&DeclaredSnapshot;}
++    // Blunt swings settle from the replicated component's server contact timer.
++    if(Declared&&PojunGrip::UsesHammerMotion(*Declared)&&!(Report.AttackMeta&0x80))return false;
++    // 远端身体开火表现与身体组件 ServerClock 同域（GameState 服务端世界钟）。
++    LastValidatedShotAt = GetWorld()->GetGameState()
++        ? GetWorld()->GetGameState()->GetServerWorldTimeSeconds()
++        : GetWorld()->GetTimeSeconds();
++
++    // 服务端按影子档案复算 Shot——客户端不再上报伤害构成，只报几何 + 语义 flag。
++    // Snapshot 经 GetNetShadowProfile 自动取到影子（对主机玩家回退单例）。
++    // Whether this contact consumed a real round is equipment-derived, not a
++    // client flag: melee/tools never fire, bows/guns/staff do.
++    const FColdSteelItem* PreItem=Declared?Declared:ShadowModel->Equipped();
++    const auto* PreGunsmith=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
++    const bool RidgeContact=(HighlandRidgeThrust::IsStrikeMeta(Report.AttackMeta)||HighlandRidgeThrust::IsHeavyMeta(Report.AttackMeta))&&
++        HighlandRidgeThrust::Installed(PreGunsmith,Declared);
++    const bool bFiredRound=PreItem&&!ColdSteelInventory::IsMeleeWeapon(*PreItem)
++        &&!ColdSteelInventory::IsTwoHandedBlunt(*PreItem)
++        &&!(PreGunsmith&&PreGunsmith->IsTool(PreItem->Definition))
++        &&!(Report.AttackMeta&(0x20|0x80));
++    // 用客户端声明（且已校验属于持握集合）的那件武器建 Shot——双持副手命中拿到副手面板。
++    FColdSteelSkillShot Shot = ColdSteelSkills::Snapshot(Shooter,PreItem,bFiredRound);
++    if((Report.AttackMeta&0x80)&&ConicalHammerSeat::Installed(PreItem))
++        ConicalHammerSeat::PrepareQuickDamage(Shot.DamagePanel);
++    if(Report.AttackMeta==0x10 && Declared && Declared->Definition==TEXT("ue_tactical_hatchet"))
++    {
++        const auto* Kukri=Shooter->FindComponentByClass<UKukriWeaponComponent>();
++        if(Kukri && Kukri->IsNetworkFalconHeavyRelease(Declared->InstanceId))
++            SwiftFalconHeavy::ScalePhysicalDamage(Shot.DamagePanel);
++    }
++    Shot.bMeleeStrike = (Report.Flags & (1 << 0)) != 0;
++    Shot.bRifle = (Report.Flags & (1 << 1)) != 0;
++    Shot.bPistol = (Report.Flags & (1 << 2)) != 0;
++    // Melee semantics are equipment-derived: a firearm cannot claim a melee flag
++    // to skip the magazine ledger, and a sword cannot lose its contact type to a
++    // cleared flag. Unarmed/quick melee are the only declaration-free cases.
++    const bool bServerMelee = ((Report.AttackMeta==UnarmedPunch::AttackMeta)&&!Declared)
++        ||((Report.AttackMeta&0x80)!=0)
++        ||(Declared&&(ColdSteelInventory::IsMeleeWeapon(*Declared)||ColdSteelInventory::IsTwoHandedBlunt(*Declared)));
++    Shot.bMelee = ((Report.Flags & (1 << 3)) != 0) && bServerMelee;
++    Shot.bRicochet = (Report.Flags & (1 << 4)) != 0;
++    Shot.bInheritedCritical = (Report.Flags & (1 << 5)) != 0;
++    // 枪型类别位按服务端影子里的真实武器重算：申报位只用于训练/附魔分支的补充判断，
++    // 不能让手枪申报成步枪（要害倍率闸门、赌徒附魔分支都读这两位）。
++    if(Declared)
++    {
++        Shot.bRifle=ColdSteelSkills::IsRifle(Declared);
++        Shot.bPistol=ColdSteelSkills::IsPistol(Declared);
++    }
++    // The combo nibble is always server-owned for a plain melee contact, even if
++    // the client omits the melee flag while still declaring the sword.
++    if(Declared&&ColdSteelInventory::IsMeleeWeapon(*Declared)&&!(Report.AttackMeta&(0x10|0x20|0x40|0x80))
++        &&Report.AttackMeta!=SwordUppercut::AttackMeta&&Report.AttackMeta!=UnarmedPunch::AttackMeta&&Report.AttackMeta!=HighlandBreakSweep::AttackMeta)
++        Shot.AttackMeta=(Report.AttackMeta&~0x0F)|(ValidatedComboStage&0x0F);
++    else Shot.AttackMeta=Report.AttackMeta;
++    // 开火命中：同一发的多弹丸/穿透目标共享一次暴击样本（按上报的开火时刻归并，
++    // 窗口取射速间隔的 0.9 倍，绝不跨两发）；近战/武技的多目标命中仍逐个敌人各掷。
++    if(bFiredRound)
++    {
++        const double ShotWindow=FMath::Min(0.25,Shooter?Shooter->EffectiveFireInterval()*0.9:0.25);
++        const bool bSameShot=LastHitCriticalRoll>=0.f
++            &&Report.ClientFireTime-LastHitCriticalTime>=-0.05
++            &&Report.ClientFireTime-LastHitCriticalTime<=ShotWindow;
++        if(!bSameShot)
++        {
++            LastHitCriticalTime=Report.ClientFireTime;
++            LastHitCriticalRoll=FMath::FRand();
++        }
++        Shot.CriticalRoll=LastHitCriticalRoll;
++    }
++    if(Report.AttackMeta&0x80)
++    {
++        QuickCombatTargets.Add(Report.Target.Get());
++        Shot.ToughnessDamageMultiplier=ShadowModel->QuickCombatStats().ToughnessMultiplier;
++    }
++    if(UBoundCongregateCaptureComponent::IsCaptured(Shooter)&&Shot.bMelee&&(Report.AttackMeta&(0x10|0x20))&&!(Report.AttackMeta&0x80))return false;
++    if(!Shot.bRicochet && GaleWing::Installed(PreGunsmith,Declared))
++    {
++        using GaleWing::EAttack;
++        const uint8 Meta=Report.AttackMeta;
++        const auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        if(Meta&0x80)Shot.GalePaymentKey=GaleWing::Key(EAttack::Quick,Report.QuickCombatSerial);
++        else if(Meta&0x20)Shot.GalePaymentKey=GaleWing::Key(EAttack::Whirlwind,Report.WhirlwindSerial);
++        else if(Meta==SwordUppercut::AttackMeta)Shot.GalePaymentKey=GaleWing::Key(EAttack::Uppercut,Report.UppercutSerial);
++        else if(Meta==HighlandBreakSweep::AttackMeta)Shot.GalePaymentKey=GaleWing::Key(EAttack::Sweep,Report.GuardAttackSerial);
++        else if(Meta==0x10)Shot.GalePaymentKey=GaleWing::Key(EAttack::Heavy,Report.GuardAttackSerial);
++        else if((Meta>=1 && Meta<=3) || Meta==0x16)
++        {
++            Shot.GalePaymentKey=GaleWing::Key(Meta==0x16?EAttack::Dash:EAttack::Swing,Report.GuardAttackSerial);
++            if(!Sword || Report.GuardAttackSerial!=LastGaleSwingSerial ||
++                !Sword->HasGalePayment(Shot.GalePaymentKey,Declared->InstanceId))return false;
++        }
++    }
++    Shot.GuardAttackSerial=Report.GuardAttackSerial;
++    Shot.GuardSourceInstance=Declared?Declared->InstanceId:FString();
++    if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())Sword->ApplyOathToShot(Shot);
++    // Reconstruct the attachment effect from the server's item, not a client flag.
++    Shot.bRisingDragonFinisher=Shot.bMelee&&ValidatedComboStage==3&&Declared
++        &&ColdSteelModularSword::UsesRisingDragonFinisher(*Declared);
++    if(Declared&&Shot.bMelee&&ColdSteelInventory::IsMeleeWeapon(*Declared)&&!(Shot.AttackMeta&(0x20|0x80)))
++    {
++        const auto Modifiers=ColdSteelMelee::Evaluate(*Declared,ShadowModel).Modifiers;
++        if((Shot.AttackMeta&0x10)&&Shot.AttackMeta!=0x16)Shot.ToughnessDamageMultiplier*=Modifiers.HeavyToughness;
++        else if((Shot.AttackMeta&0x0F)==3)Shot.ToughnessDamageMultiplier*=Modifiers.ComboThirdToughness;
++        if((Report.AttackMeta==0x10||Report.AttackMeta==0x15) && HighlandBreakSweep::Installed(PreGunsmith,Declared))
++            Shot.ToughnessDamageMultiplier*=HighlandBreakSweep::HeavyToughness;
++        if(RidgeContact)
++            Shot.ArmorPenetration=HighlandRidgeThrust::AddPenetration(Shot.ArmorPenetration,Shot.AttackMeta);
++    }
++    if(Report.AttackMeta==0x16&&Declared&&ColdSteelInventory::IsOneHandedMelee(*Declared))
++    {
++        Shot.ToughnessDamageMultiplier=ShadowModel->DashAttackStats().ToughnessMultiplier;
++        ColdSteelSkills::CapturePairedDash(Shot,Shooter,ShadowModel);
++    }
++    // The pistol + off-hand kukri F is a blade thrust (OffhandKukriStrike.cpp); every other quick melee is a blunt blow.
++    if((Report.AttackMeta&0x80)&&OffhandKukriThrust::IsOffhandThrust(ShadowModel,Declared))Shot.AttackForm=EMonsterAttackForm::Blade;
++    else if((Report.AttackMeta&0x80)||Report.AttackMeta==UnarmedPunch::AttackMeta)Shot.AttackForm=EMonsterAttackForm::Blunt;
++    else if(Report.AttackMeta==SwordUppercut::AttackMeta)Shot.AttackForm=EMonsterAttackForm::Blade;
++    else if(Declared&&ColdSteelInventory::IsTwoHandedBlunt(*Declared))Shot.AttackForm=EMonsterAttackForm::Blunt;
++    else if(Declared&&ColdSteelInventory::IsMeleeWeapon(*Declared))
++        Shot.AttackForm=ColdSteelInventory::Text(*Declared,TEXT("weaponType"))==TEXT("blunt")
++            ?EMonsterAttackForm::Blunt:EMonsterAttackForm::Blade;
++    else if(Declared&&ColdSteelInventory::IsBow(*Declared))Shot.AttackForm=EMonsterAttackForm::Blade;
++    else Shot.AttackForm=EMonsterAttackForm::Impact;
++    // 苍龙：激活窗口在客户端，只信任申报位；数值全部取服务端的附魔与影子档案（翻倍前物理攻击）。
++    if ((Report.Flags & (1 << 7)) && Declared && Shot.bMelee)
++        if (const auto* Enhancement = GetGameInstance() ? GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>() : nullptr;
++            Enhancement && Enhancement->Effect(*Declared, TEXT("azureDragonClaw")) > 0.)
++        {
++            Shot.AzureDragonPhysicalMultiplier = FMath::Max(1.f, static_cast<float>(Enhancement->Effect(*Declared, TEXT("azureDragonPhysicalMultiplier"), 2.)));
++            Shot.AzureDragonMagicDamage = FMath::Max(0.f, ShadowModel->Derived(TEXT("atk")))
++                * FMath::Max(0.f, static_cast<float>(Enhancement->Effect(*Declared, TEXT("azureDragonMagicAttackScale"), 1.)));
++        }
++
++    if(Report.AttackMeta==0x15)
++    {
++        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        if(!Sword||!Declared||!ColdSteelInventory::IsTwoHandedSword(*Declared)
++            ||!Sword->ApplyNetworkClovenAttack(Shot))return false;
++    }
++    if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)
++    {
++        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        if(!Declared||!Sword||!Shot.bMelee||!Sword->AcceptBroadbladeContact(Declared->InstanceId,Shot.GuardAttackSerial,Report.Target.Get()))return false;
++        Shot.DamagePanel.BasePhysical*=HighlandBreakSweep::PhysicalScale;
++        Shot.DamagePanel.AddedPhysical*=HighlandBreakSweep::PhysicalScale;
++    }
++    // 自报伤害钳制在服务端武器包络内：汇聚倍率服务端复算，
++    // 消耗弹数由服务端弹匣账本支付，客户端申报的 Rounds 只作为请求量。
++    const FColdSteelItem* AmmoItem=Declared?Declared:ShadowModel->Equipped();
++    UGameInstance* AmmoGI=GetGameInstance();
++    const auto* AmmoGunsmith=AmmoGI?AmmoGI->GetSubsystem<UGunsmithSystem>():nullptr;
++    const bool bFirearm=AmmoItem&&!ColdSteelInventory::IsMeleeWeapon(*AmmoItem)&&!ColdSteelInventory::IsBow(*AmmoItem)
++        &&!(AmmoGunsmith&&(AmmoGunsmith->IsStaff(AmmoItem->Definition)||AmmoGunsmith->IsTool(AmmoItem->Definition)));
++    int32 AmmoRounds=1;
++    float ConvergenceScale = 1.f;
++    const FColdSteelConvergence Conv=ColdSteelCombat::Convergence(
++        AmmoGI?AmmoGI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr,AmmoItem);
++    // A firearm contact is a fired round unless the server saw a melee/bash flag.
++    // Clearing the client's "fired" bit must not turn it into a free shot.
++    const bool bAmmoShot=bFirearm&&!Shot.bMelee&&!(Report.AttackMeta&(0x20|0x80));
++    if(bAmmoShot)
++    {
++        if(ColdSteelInventory::IsDualPistol(*AmmoItem))
++        {
++            const auto* Launch=Report.FireSequence?RegisteredPistolShots.Find(Report.FireSequence):nullptr;
++            if(!Launch||Launch->Pawn.Get()!=Shooter||Launch->Item.InstanceId!=Report.ItemInstance
++                ||Launch->Item.Definition!=Report.ItemDefinition||Launch->Rounds!=Report.ConvergenceRounds
++                ||GetWorld()->GetTimeSeconds()-Launch->At>30.)return false;
++        }
++        else if(SniperSuppressorAssets::SupportsZhiming(AmmoItem->Definition))
++        {if(!FindM24Launch(Report,Shooter))return false;}
++        else if(!FindGenericLaunch(Report,Shooter))return false;
++    }
++    if(bAmmoShot&&Report.ConvergenceRounds>1)
++    {
++        if(!Conv.Enabled){UE_LOG(LogTemp,Warning,TEXT("MPTEST convergence rejected: not enchanted (%s)"),*GetPlayerName());return false;}
++        AmmoRounds=FMath::Clamp<int32>(Report.ConvergenceRounds,1,FMath::Max(1,AmmoItem->Magazine));
++    }
++    if(bAmmoShot)
++    {
++        const double Now=GetWorld()->GetGameState()
++            ?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++        const double ShotStamp=Report.ClientFireTime>0.?double(Report.ClientFireTime):Now;
++        auto& Ledger=ServerGunLedgers.FindOrAdd(AmmoItem->InstanceId);
++        const bool Sequenced=Report.FireSequence!=0;
++        const bool Seen=Sequenced&&Ledger.CriticalRolls.Contains(Report.FireSequence);
++        const bool bNewShot=Sequenced?!Seen:Ledger.LastClientTime<0.||FMath::Abs(ShotStamp-Ledger.LastClientTime)>.02
++            ||Ledger.LastServerAt<0.||Now-Ledger.LastServerAt>.15;
++        if(bNewShot)
++        {
++            // An older evicted ID cannot restart the magazine accounting.
++            if(Sequenced&&Ledger.LastSequence&&static_cast<int32>(Report.FireSequence-Ledger.LastSequence)<-256)return false;
++            FString AmmoReason;
++            if(!ConsumeServerAmmo(AmmoItem,AmmoRounds,Now,AmmoReason))
++            {
++                UE_LOG(LogTemp,Warning,TEXT("MPTEST hit rejected: %s (%s)"),*AmmoReason,*GetPlayerName());
++                return false;
++            }
++            Ledger.LastClientTime=ShotStamp;Ledger.LastServerAt=Now;
++            if(Sequenced)
++            {
++                if(!Ledger.LastSequence||static_cast<int32>(Report.FireSequence-Ledger.LastSequence)>0)Ledger.LastSequence=Report.FireSequence;
++                Ledger.CriticalRolls.Add(Report.FireSequence,FMath::FRand());
++                for(auto It=Ledger.CriticalRolls.CreateIterator();It;++It)
++                    if(static_cast<int32>(Ledger.LastSequence-It.Key())>256)It.RemoveCurrent();
++            }
++        }
++        if(Sequenced)Shot.CriticalRoll=Ledger.CriticalRolls.FindChecked(Report.FireSequence);
++    }
++    if(Report.ConvergenceRounds>1&&bAmmoShot)
++        ConvergenceScale=static_cast<float>(ColdSteelCombat::ConvergenceShotScale(Conv,AmmoRounds));
++    // 权威伤害由服务端按武器族全量复算；ClaimedDamage 只进对账日志（偏差大即伪报特征）。
++    const float Damage = ComputeServerDamage(Shooter, Report, Shot, Declared, ConvergenceScale);
++    if (Report.ClaimedDamage > 0.f && FMath::Abs(Report.ClaimedDamage - Damage) > FMath::Max(1.f, Damage * 0.25f))
++        UE_LOG(LogTemp, Warning, TEXT("MPTEST dmg recon: claimed=%.1f computed=%.1f shooter=%s"),
++            Report.ClaimedDamage, Damage, *GetPlayerName());
++
++    // The two-vector FHitResult constructor initializes trace start/end only.
++    // Keep the accepted contact itself for rewind, blade marks and replicated impact FX.
++    FHitResult Hit;
++    Hit.Location=Hit.ImpactPoint=Report.ImpactPoint;
++    Hit.Normal=Hit.ImpactNormal=FVector(Report.HitNormal).GetSafeNormal(SMALL_NUMBER,FVector::UpVector);
++    // Bone names select weakpoint/critical rules. Never copy the client's name:
++    // resolve an authoritative bone from the server mesh/pose after rewind.
++    Hit.BoneName = NAME_None;
++    Hit.HitObjectHandle = FActorInstanceHandle(Report.Target.Get());
++    Hit.bBlockingHit = true;
++    const auto* ImpactLaunch=FindM24Launch(Report,Shooter);
++    Hit.TraceStart=ImpactLaunch?ImpactLaunch->Eye:Shooter->GetPawnViewLocation();Hit.TraceEnd=Report.ImpactPoint;
++    const bool bCrownTarget=Report.Target&&Cast<ARootCrownRigPreview>(Report.Target.Get());
++    // Organ-pool actors require a bone for their history lookup. Derive it from
++    // the authority mesh at the reported impact; the client's bone is ignored.
++    const bool bHistoryBone=Report.Target&&(Cast<ABoundCongregate>(Report.Target.Get())
++        ||Cast<AHeQueMonster>(Report.Target.Get()));
++    if(bHistoryBone)
++        if(auto* Mesh=Report.Target->FindComponentByClass<USkeletalMeshComponent>())
++        {
++            FVector ClosestBone;
++            const FName Bone=Mesh->FindClosestBone(FVector(Report.ImpactPoint),&ClosestBone,0.f,false);
++            if(!Bone.IsNone()){Hit.BoneName=Bone;Hit.Component=Mesh;}
++        }
++    if(const auto* Combat=Report.Target?Report.Target->FindComponentByClass<UMonsterCombatComponent>():nullptr)
++        if(!Combat->ResolveNetworkHit(Hit,Report.ClientFireTime))
++        {
++            // The nearest bone may be a decoration. For organ-pool actors retry
++            // the same history segment as a body contact before rejecting.
++            if(!bHistoryBone)return false;
++            Hit.BoneName=NAME_None;Hit.Component=nullptr;
++            if(!Combat->ResolveNetworkHit(Hit,Report.ClientFireTime))return false;
++        }
++    if(Report.Target&&!bHistoryBone&&!bCrownTarget&&Hit.BoneName.IsNone())
++    {
++        if(auto* Mesh=Report.Target->FindComponentByClass<USkeletalMeshComponent>())
++        {
++            FVector ClosestBone;
++            const FName Bone=Mesh->FindClosestBone(FVector(Report.ImpactPoint),&ClosestBone,0.f,false);
++            if(!Bone.IsNone())
++            {
++                Hit.BoneName=Bone;Hit.Component=Mesh;
++                bool bCritical=false;
++                if(UHumanoidHitVolumeData::ResolveCriticalHit(Hit,bCritical)&&!bCritical)
++                    Hit.BoneName=NAME_None;
++                // Validate the derived bone through the same rewind/segment rules.
++                if(!Hit.BoneName.IsNone())
++                    if(const auto* Combat=Report.Target->FindComponentByClass<UMonsterCombatComponent>())
++                        if(!Combat->ResolveNetworkHit(Hit,Report.ClientFireTime))return false;
++            }
++        }
++    }
++    if(const auto* Crown=Cast<ARootCrownRigPreview>(Report.Target.Get()))
++    {
++        // Resolve against the authority's anatomical history. Client bone names
++        // cannot grant weakpoint crits. Existing melee capsule contacts remain body hits.
++        if(!Crown->HitDetection||!Crown->HitDetection->ResolveRemoteContact(
++            Shooter->GetPawnViewLocation(),Report.ImpactPoint,Report.ClientFireTime,Shot.bMelee,Report.HitComponent,Hit))return false;
++    }
++    if(Report.Target)
++    {
++        // Resolve the named pane on the authority actor; never accept an arbitrary
++        // component pointer or allow a frame hit to shatter another pane.
++        TInlineComponentArray<UWardBreakableGlass*> Panes(Report.Target);
++        for(auto* Pane:Panes)if(Pane->GetFName()==Report.HitComponent)
++        {
++            FHitResult Verified;
++            const FVector TraceStart=Hit.TraceStart;
++    const FVector Direction=(FVector(Report.ImpactPoint)-TraceStart).GetSafeNormal();
++            FCollisionQueryParams Query(SCENE_QUERY_STAT(NetGlassHit),true);
++            if(!Pane->LineTraceComponent(Verified,TraceStart,FVector(Report.ImpactPoint)+Direction*20.f,Query)
++                ||FVector::DistSquared(Verified.ImpactPoint,Report.ImpactPoint)>FMath::Square(30.f))return false;
++            Hit=Verified;break;
++        }
++    }
++
++    UColdSteelStatusModel* Model = ShadowModel;
++    if (!Model)
++    {
++        const UGameInstance* GI = GetGameInstance();
++        Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr;
++    }
++    if (!Model) return false;
++
++    // Recompute multi-target training from accepted contacts; never trust client XP.
++    const bool MasteryEligible=ColdSteelSkills::IsMeleeMastery(Shot.MasteryId)&&!Shot.bRicochet
++        &&Report.MasteryAttackSerial&&ColdSteelSkills::IsMasteryTrainingTarget(Shooter,Report.Target);
++    if(MasteryEligible&&(MeleeMasteryPawn.Get()!=Shooter||static_cast<int32>(Report.MasteryAttackSerial-LastMasteryAttackSerial)>0))
++    {
++        LastMasteryAttackSerial=Report.MasteryAttackSerial;MeleeMasteryPawn=Shooter;
++        MeleeMasteryWeapon=Report.ItemDefinition;MeleeMasteryHits=0;MeleeMasteryTargets.Reset();
++    }
++    const bool NewMasteryTarget=MasteryEligible&&Report.MasteryAttackSerial==LastMasteryAttackSerial
++        &&MeleeMasteryWeapon==Report.ItemDefinition&&!MeleeMasteryTargets.Contains(Report.Target.Get());
++    if(NewMasteryTarget&&MeleeMasteryHits==1)Shot.ExtraMasteryExperience=Model->MasteryDefinition(Shot.MasteryId).MultiHitExperience;
++    if(Report.AttackMeta&0x20)
++    {
++        WhirlwindTargets.Add(Report.Target.Get());
++        // The common accepted-contact counter owns mastery rewards for this cast.
++    }
++    if(Report.AttackMeta==SwordUppercut::AttackMeta)bUppercutContact=true;
++    // Rune charging follows the accepted server action, including area skills.
++    // A per-target client mastery ID cannot split one cast into several charges.
++    if(Declared&&ColdSteelInventory::UsesKukriMoveset(*Declared))
++        Shot.MasteryAttackSerial=ResolveKukriRuneAttackSerial(Report,Shot.MasteryAttackSerial);
++    if(Declared&&ColdSteelInventory::UsesKukriMoveset(*Declared)&&Report.AttackMeta==0x20)
++    {
++        // The reported authored phase can only reduce the bonus. A late contact
++        // cannot claim turn zero beyond the accepted first-turn time envelope.
++        const double Stamp=Report.ClientFireTime>0.?Report.ClientFireTime:GetWorld()->GetTimeSeconds();
++        const double FirstTurnUntil=WhirlwindStartedAt+(WhirlwindReadySeconds+WhirlwindMoveSeconds)*.5+.13;
++        Shot.MeleeDamagePhase=Report.MeleeDamagePhase>0||Stamp>FirstTurnUntil?1:0;
++    }
++    if(Report.KukriAttackSerial&&Report.KukriAttackSerial==KukriAttack.Serial)
++        KukriAttack.Targets[Report.ItemInstance==KukriAttack.Main?0:1].Add(Report.Target.Get());
++    if(Declared&&ColdSteelInventory::UsesKukriMoveset(*Declared)&&Report.AttackMeta==0x10)
++        if(auto* Kukri=Shooter->FindComponentByClass<UKukriWeaponComponent>())
++        {
++            Shot.MeleeDamagePhase=Report.MeleeDamagePhase;
++            Kukri->RecordNetworkHeavyTarget(Shot.ItemInstance,Report.Target.Get(),Shot.MeleeDamagePhase);
++        }
++    if(RidgeContact)RidgeStrike.Targets.Add(Report.Target.Get());
++    Prepared.Report=Report;Prepared.Shooter=Shooter;Prepared.Model=Model;Prepared.Hit=Hit;Prepared.Damage=Damage;Prepared.Shot=MoveTemp(Shot);
++    Prepared.bHasItem=Declared!=nullptr;if(Declared)Prepared.Item=MoveTemp(DeclaredSnapshot);
++    Prepared.bFiredRound=bFiredRound;Prepared.NewMasteryTarget=NewMasteryTarget;Prepared.MasteryEligible=MasteryEligible;
++    if(FindM24Launch(Report,Shooter))M24Launches.FindChecked(Report.FireSequence).Targets.Add(Report.Target.Get());
++    return true;
++}
++
++void AColdSteelPlayerState::ServerReportHit_Implementation(const FColdSteelNetHitReport& Report)
++{
++    FColdSteelPreparedHit Prepared;
++    if(PrepareHitReport(Report,Prepared))SettleHitReport(Prepared);
++}
++
++void AColdSteelPlayerState::SettleHitReport(FColdSteelPreparedHit& Prepared,FKukriPairedHeavyHit* PairedHeavy)
++{
++    const auto& Report=Prepared.Report;auto* Shooter=Prepared.Shooter;
++    const auto& Hit=Prepared.Hit;const float Damage=Prepared.Damage;auto& Shot=Prepared.Shot;
++    const auto* Declared=Prepared.bHasItem?&Prepared.Item:nullptr;
++    auto* Model=Prepared.Model;const bool bFiredRound=Prepared.bFiredRound;
++    const bool NewMasteryTarget=Prepared.NewMasteryTarget,MasteryEligible=Prepared.MasteryEligible;
++    CommitGenericMeleeReceipt(Report,Shooter,Declared);
++    FWeaponDamageResult Receipt;
++    // One echo cooldown reward per accepted rune-sword action, across targets.
++    if(Shot.ItemDefinition==TEXT("ue_rune_sword"))Shot.MasteryAttackSerial=Report.MasteryAttackSerial;
++    const float Applied = ColdSteelSkills::ApplyHit(Shooter, Hit, Damage, FVector(Report.Direction), Shot, &Receipt,PairedHeavy);
++    if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())Sword->ConfirmOathHit(Shot,Applied,Hit.ImpactPoint);
++    // The authority rune serial belongs to this server. The owner queues its visual against its own input serial.
++    const bool BladeFeedback=Shot.bMeleeStrike&&(Applied>0.f||Receipt.bKilled)&&
++        UKukriWeaponComponent::PublishBladeHit(Shooter,Hit,Shot);
++    if(Report.AttackMeta==HighlandBreakSweep::AttackMeta && Declared && (Applied>0.f||Receipt.bKilled))
++        if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())
++            Sword->ClientBroadbladeImpact(Declared->InstanceId,Report.GuardAttackSerial);
++    ConfirmKukriHit(Report,Shooter,Applied,Receipt.bKilled,MasteryEligible);
++    if(Shot.ItemDefinition==TEXT("ue_rune_sword")&&!(Report.AttackMeta&0x20)&&Applied>0.f&&Report.MasteryAttackSerial
++        &&(RuneCooldownPawn.Get()!=Shooter||static_cast<int32>(Report.MasteryAttackSerial-LastRuneCooldownAttackSerial)>0))
++    {
++        RuneCooldownPawn=Shooter;LastRuneCooldownAttackSerial=Report.MasteryAttackSerial;
++        Model->ReduceRuneSwordHitCooldowns(.5f+float(ColdSteelMelee::EquippedModifiers(Model).CooldownReduceSecondsPerHit));
++    }
++    if(NewMasteryTarget&&(Applied>0.f||Receipt.bKilled)){MeleeMasteryTargets.Add(Report.Target.Get());++MeleeMasteryHits;}
++    if(Report.AttackMeta&0x20)ConfirmSwordWhirlwindHit(Shooter,Report.Target,Applied,Receipt.bKilled);
++    if(Report.AttackMeta==SwordUppercut::AttackMeta&&Applied>0.f&&Report.Target
++        &&!Report.Target->ActorHasTag(TEXT("Summoned"))&&!Report.Target->ActorHasTag(TEXT("NoSkillTraining")))
++    {UppercutHits=1;UppercutKills=Receipt.bKilled?1:0;}
++    // The committed double thrust owns knockback even when its foot stride has
++    // already ended. A later ordinary swing cannot borrow an old CMC window.
++    if(Report.AttackMeta==0&&Applied>0.f&&Report.Target&&Report.KukriAttackSerial&&
++        Report.KukriAttackSerial==KukriAttack.Serial&&!KukriAttack.Dash&&KukriAttack.Stage==2&&!KukriAttack.Offhand.IsEmpty())
++        if(auto* Combat=Report.Target->FindComponentByClass<UMonsterCombatComponent>();Combat&&!Combat->IsDead())
++            Combat->ReceiveMeleeKnockback(Shooter,KukriRhythm::DualThrustKnockbackCM);
++    if((Report.AttackMeta&0x80)&&Applied>0.f)
++    {
++        const auto QuickStats=Model->QuickCombatStats();
++        if(auto* Combat=Report.Target?Report.Target->FindComponentByClass<UMonsterCombatComponent>():nullptr)
++        {
++            Combat->ReceiveMeleeKnockback(Shooter,QuickStats.KnockbackCM);
++            // The hammer and the kukri pommel strike roll their quick-combat bleed here (authority only, as offline).
++            if(Declared&&(ColdSteelInventory::IsTwoHandedBlunt(*Declared)||ColdSteelInventory::IsOneHandedMelee(*Declared))&&!Combat->IsDead()
++                &&QuickStats.BleedChance>0.f&&FMath::FRand()<QuickStats.BleedChance)
++                if(auto* Status=UCombatStatusFormula::GetOrAdd(Report.Target))Status->AddBleeding(Shooter,1);
++        }
++        if(Receipt.bKilled)Model->TrainQuickCombat(Model->QuickCombatDefinition().KillExperience);
++    }
++    // Remote hit feedback runs on the client, where lifesteal cannot change health.
++    // Settle once on the authoritative pawn using the actual applied damage.
++    if (auto* Rune = Shooter->FindComponentByClass<UJingangRuneComponent>())
++        Rune->ConfirmAttack(Report.Target, Applied);
++    UE_LOG(LogTemp, Warning, TEXT("MPTEST hit applied: shooter=%s target=%s dmg=%.1f crit=%d killed=%d"),
++        *GetNameSafe(Shooter), *GetNameSafe(Report.Target), Applied, Receipt.bCritical ? 1 : 0, Receipt.bKilled ? 1 : 0);
++    bServerDirty = true;
++    ServerSaveTimer = 20.f;
++
++    FColdSteelNetHitReceipt Out;
++    Out.Target = Report.Target;
++    Out.Applied = Applied;
++    Out.bCritical = Receipt.bCritical;
++    Out.bKilled = Receipt.bKilled;Out.bFirearm=bFiredRound;
++    if(BladeFeedback)ClientConfirmBladeHit(Out,Shooter,Hit,Report.MasteryAttackSerial,Shot.MeleeDamagePhase);
++    else ClientConfirmHit(Out);
++}
++
++void AColdSteelPlayerState::ClientConfirmBladeHit_Implementation(const FColdSteelNetHitReceipt& Receipt,APawn* Attacker,const FHitResult& Hit,uint32 OwnerSwing,uint8 Phase)
++{
++    ClientConfirmHit_Implementation(Receipt);
++    if(IsValid(Attacker)&&Attacker==GetPawn())
++        if(auto* Executor=Attacker->FindComponentByClass<UKukriWeaponComponent>())
++            Executor->PresentOwnerBladeHit(Hit,OwnerSwing,Phase);
++}
++
++void AColdSteelPlayerState::ClientConfirmHit_Implementation(const FColdSteelNetHitReceipt& Receipt)
++{
++    APlayerController* PC = Cast<APlayerController>(GetOwner());
++    AFPSGAMECharacter* LocalChar = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
++    if (!LocalChar || !Receipt.Target) return;
++    FWeaponDamageResult Result;
++    Result.bResolved = true;
++    Result.bCritical = Receipt.bCritical;
++    Result.bKilled = Receipt.bKilled;
++    LocalChar->NotifyConfirmedWeaponHit(Receipt.Target, Receipt.Applied, &Result, Receipt.bFirearm);
++    // 远端客户端本地命中不结算伤害，苍龙蓄能以服务端回执为准（每次攻击仍只充能一次）。
++    if (auto* Sword = LocalChar->FindComponentByClass<URuneSwordComponent>())
++        Sword->NotifyAzureDragonNetHit(Receipt.Target, Receipt.Applied, Receipt.bKilled);
++    UE_LOG(LogTemp, Warning, TEXT("MPTEST hit confirmed on client: target=%s applied=%.1f"),
++        *GetNameSafe(Receipt.Target), Receipt.Applied);
++}
++
++// ============================================================================
++// 远端身体表现（离散动作 + 开火戳）
++// ============================================================================
++
++FColdSteelNetHitReport AColdSteelPlayerState::MakeHitReport(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot)
++{
++    const APawn* Pawn = Cast<APawn>(Shooter);
++    AColdSteelPlayerState* PS = Pawn ? Pawn->GetPlayerState<AColdSteelPlayerState>() : nullptr;
++    if (!PS) return {};
++
++    FColdSteelNetHitReport Report;
++    Report.Target = Hit.GetActor();
++    Report.AimOrigin = Hit.TraceStart;
++    Report.ImpactPoint = Hit.ImpactPoint;
++    Report.HitNormal = Hit.ImpactNormal;
++    Report.BoneName = UHumanoidHitVolumeData::NetworkBoneName(Hit);
++    if(Cast<ABoundCongregate>(Hit.GetActor()))Report.BoneName=ABoundCongregate::NetworkHitBone(Hit);
++    if(const auto* Component=Hit.GetComponent())Report.HitComponent=Component->GetFName();
++    if(const auto* Part=Hit.GetComponent();Part&&Part->ComponentHasTag(TEXT("BoundCongregateTentacle")))
++        Report.BoneName=Part->GetAttachSocketName();
++    Report.Direction = Direction;
++    Report.ItemDefinition = Shot.ItemDefinition;
++    Report.ItemInstance = Shot.ItemInstance;
++    Report.FireSequence = Shot.FireSequence;
++    Report.ClaimedDamage = Damage;
++    Report.AttackMeta = Shot.AttackMeta;
++    Report.GuardAttackSerial=Shot.GuardAttackSerial;
++    Report.HeavyReleaseTime=Shot.HeavyReleaseTime;
++    Report.MasteryAttackSerial=Shot.MasteryAttackSerial;
++    Report.GenericMeleeSerial=Shot.GenericMeleeSerial;
++    Report.KukriAttackSerial=Shot.KukriAttackSerial;
++    if(Shot.AttackMeta&0x80)Report.QuickCombatSerial=PS->QuickCombatSequence;
++    if(Shot.AttackMeta==SwordUppercut::AttackMeta)Report.UppercutSerial=PS->UppercutSequence;
++    if(Shot.AttackMeta&0x20)Report.WhirlwindSerial=PS->WhirlwindSequence;
++    Report.DamageContext = Shot.DamageContext;
++    Report.MeleeDamagePhase = Shot.MeleeDamagePhase;
++    Report.AttackForm = static_cast<uint8>(Shot.AttackForm);
++    Report.ConvergenceRounds = static_cast<uint8>(FMath::Clamp(Shot.FiredRounds, 1, 255));
++    // 时间戳用客户端估计的服务端世界钟——服务端据此做 rewind 回放与新鲜度检查。
++    if (const UWorld* W = Pawn->GetWorld())
++    {
++        const AGameStateBase* GS = W->GetGameState();
++        Report.ClientFireTime = GS ? GS->GetServerWorldTimeSeconds() : W->GetTimeSeconds();
++    }
++    if (Shot.bMeleeStrike) Report.Flags |= 1 << 0;
++    if (Shot.bRifle) Report.Flags |= 1 << 1;
++    if (Shot.bPistol) Report.Flags |= 1 << 2;
++    if (Shot.bMelee) Report.Flags |= 1 << 3;
++    if (Shot.bRicochet) Report.Flags |= 1 << 4;
++    if (Shot.bInheritedCritical) Report.Flags |= 1 << 5;
++    // bFiredRound：真正消耗弹药的一发（枪/弓），不含近战挥砍与握把砸击。
++    if (!Shot.bMelee && !Shot.bMeleeStrike) Report.Flags |= 1 << 6;
++    // 苍龙激活中的出手：服务端核对所持剑带苍龙附魔后复原物理倍率与追加魔法伤害。
++    if (Shot.AzureDragonPhysicalMultiplier > 1.f) Report.Flags |= 1 << 7;
++    return Report;
++}
++
++bool AColdSteelPlayerState::ForwardHit(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot)
++{
++    const APawn* Pawn = Cast<APawn>(Shooter);
++    AColdSteelPlayerState* PS = Pawn ? Pawn->GetPlayerState<AColdSteelPlayerState>() : nullptr;
++    if (!PS) return false;
++
++    PS->ServerReportHit(MakeHitReport(Shooter,Hit,Damage,Direction,Shot));
++    return true;
++}
++

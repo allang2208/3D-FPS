@@ -1,46 +1,20 @@
-> 2026-10-10 整理前的工程技能快照。仅维护源不可用或查找工程独有经验时读取；不是当前通用执行规范。
+# ue5-module-router 历史资料索引
 
+本页原为 2026-10-10 整理前的工程技能快照。2026-11-18 移除其中重复的通用执行规则和旧默认步骤，保留原始制作记录的检索入口；这里不再维护另一套现行工作流。
 
-## UE5 默认开发方式（用户确定，2026-09-23）
+- 共用流程读取 [ue5-module-router](../_shared/ue5-module-router/ROUTING.md)，工程增补读取本目录入口与对应 references。原因：个人维护源和工程增补承担不同职责，旧快照继续执行会恢复已替换的流程。
+- [原始快照与历史事实](../../Docs/Workflow/History/SkillsBefore20261118/ue5-module-router/LOCAL-HISTORY.md) 仅用于找回当时的输入、版本、失败记录、已执行结果和未完成项；不能把快照中的测试、协调或编辑器操作当作当前指令。原因：保留证据需要保持原始时间线，但历史授权不能延续为新任务授权。
+- 复用历史案例时按本次实际目标读取相关段落，不以旧版本号或旧“当前”措辞替换现用资产。原因：作者路径可能仍是恢复依赖，而当时的默认成品可能已被后续修订取代。
 
-后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+## 历史主题
 
-# 用途
+- 用途
+- 查表
+- 表内已知失效（2026-09-23 核对）
+- 工具口径
 
-把 UE 模块名 / `Build.cs` 路径解析到本项目负责该领域的技能。
+## 原快照中的资料入口
 
-**技能清单与分流以仓库根 `AGENTS.md` 为准**，本表只做「模块名 → 领域」查表。命中本表后仍按 `AGENTS.md` 点名的技能进入。
+以下保留原有相对引用，供按主题查找；链接本身不表示已重新执行或验收。
 
-# 查表
-
-- 表：`references/ue5-module-routing-table-final.csv`（755 行）。
-  该表约 46k token，**必须用 grep/筛选查，不要整篇读进上下文**。
-- 列：`ModuleName, Layer, TargetSkill, SecondarySkill, RouteConfidence, RouteReason, PrimaryAliases, ExcludeTerms, RelativeBuildCsPath`
-- 匹配优先级：① `ModuleName` 精确匹配 ② `RelativeBuildCsPath` 段匹配 ③ `PrimaryAliases` 关键词重叠 ④ 领域兜底。
-- `ExcludeTerms` 命中即判为不相关（例如 `email`、`translation`、`copywriting` 对 `AITestSuite`）。
-
-# 表内已知失效（2026-09-23 核对）
-
-| `TargetSkill` | 行数 | 状态 |
-| --- | ---: | --- |
-| `ue5-architecture` | 532 | **技能不存在** |
-| `ue5-save-load-replication` | 40 | **技能不存在** |
-| `ue5-cpp-gameplay`、`ue5-performance-packaging`、`ue5-ui-umg-slate`、`ue5-world-interaction` | 183 | 存在 |
-
-命中前两者时**不要跳转**——按 `AGENTS.md` 的技能清单人工判断，模块边界/设计类问题落到 `ue5-cpp-gameplay`。
-重生成脚本引用的 `ue5-architecture/scripts/generate_module_index_v2.py` 同样不存在，该路径已失效。
-
-# 工具口径
-
-`references/routing-policy.md` 里的「Tool Priority Matrix」描述的是**另一套 MCP 工具**
-（`blueprint_feature_build`、`spawn_actor`、`character_data`、`execute_script`、`task_*`），**不是本项目的桥**。
-
-本项目实际走 `Tools/AssetPipeline/mcp_call_codex.ps1`：工具集形如 `Vibe3D.ModelingService`、
-`EditorToolset.EditorAppToolset`、`LiveCodingToolset.LiveCodingToolset`；`call_tool` 用
-`toolset_name` + 裸 `tool_name`；编辑器内 Python 走 `-PythonScript`。**以 `-ListToolsets` 的实时结果为准**，
-不要按上述旧矩阵去找不存在的工具。
-
-# 维护
-
-本表是本机 UE 源码的模块清单，不是项目资产。技能改名或新增时同步更新上表；
-不要依赖 `*_draft.deprecated.csv`（2026-09-23 已移除）。
+- [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)

@@ -1,0 +1,1294 @@
+{
+  "scope": "All remaining report batches, behavior-preserving cleanup only; no tests",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+      "lines": 1873,
+      "bytes": 114935,
+      "sha256": "5e552e76c450fe5038cb6584c6c2c77f79b819aec1db82aaf3d694f9076ed3a6",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+        "lines": 560,
+        "sha256": "398e3656a388b0e4046f52209557a907981dbc7053dc6b2eff0201d24c1d064c"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+      "lines": 928,
+      "bytes": 54637,
+      "sha256": "5bf3cc318f9ec9d21e4732793caaee96de7ceb221a355130666abd91718e2d57",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+        "lines": 544,
+        "sha256": "fd45f8c5ed4ad1f1eeb62be73479fc8c16e005905356d86aef1da3933737f31f"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+      "lines": 861,
+      "bytes": 52709,
+      "sha256": "6945a79edefbc6c992f0dc2f09f4fe5aba247ffeb6f4f5f63823f92ff532bcd9",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+        "lines": 772,
+        "sha256": "26803f0be6901d27e1ad07964d816e1a664e0fef4ae3e5a521c16e19c9e73b21"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriPresentationData.h",
+      "lines": 985,
+      "bytes": 85748,
+      "sha256": "edac7e3cefcb1b5d37a1c479e7db4320b1af8b955d078064c9f771db4fc572d2",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Characters/FPSBodyKukriPresentationData.h",
+        "lines": 26,
+        "sha256": "02231b2ebcb1e215a195e0603cca641467c7e098f6c6bb25df15ee501edbf2a6"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "lines": 2671,
+      "bytes": 187911,
+      "sha256": "cc452901b17f4cf39ae7e4d0c0c036953f38d9e59393dc3902282773738bae63",
+      "status": "retained_complexity",
+      "reason": "See batch 27 in all-batches-20261117.md; class/state/animation boundaries require a broader redesign."
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "lines": 1131,
+      "bytes": 74693,
+      "sha256": "c772242e9ec1b45eeb4fbea1bbfadace5826cff1e8f0373a3d09c055606850b1",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+        "lines": 783,
+        "sha256": "4865f2148b3e0a980b61f2181c6766e588d55db607b5eb2f4d43e0a2be6f1803"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "lines": 859,
+      "bytes": 55417,
+      "sha256": "d5ff9a4aae1ee5beeb5c3a193315eb140d222716f35d7201c4fd5901091a60a1",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+        "lines": 534,
+        "sha256": "55371024d926813b4c2b7c3ffb4f8cc86e1c6769b9b27fb1733c794fcd2baa8d"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "lines": 2280,
+      "bytes": 143881,
+      "sha256": "54632d8101132e8c4d5257589bdc3af9aeb36ab0b00165d0a9ebf13ecdf4abf4",
+      "status": "retained_complexity",
+      "reason": "See all-batches-20261117.md batch 31"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "lines": 854,
+      "bytes": 41515,
+      "sha256": "3c08205d760a51978854d1d18b6cfcefb6ffd2a4a18819765a73a17a61bda3b2",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+        "lines": 684,
+        "sha256": "2d599238d598c97d8d0ae25068fc57790f87b9cb637980a3777bc690400077be"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "lines": 847,
+      "bytes": 46370,
+      "sha256": "1d0e63d7d39b6e9058c37ed174302408a5c25862aea293533f89090e2d8785f4",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+        "lines": 710,
+        "sha256": "76b6d1324fe4344eb78b393fb509e2d0a328df089e6b0c58677cb30a11b86e0b"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "lines": 4830,
+      "bytes": 309244,
+      "sha256": "46c3ce2727c38596bb7c25a02f0cc480aad220eb6df73677fb6e974ae5cda32e",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+        "lines": 647,
+        "sha256": "4aa403b2605501b9a4753019890980639ec5ca54c88e303e7086dd75084053a5"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "lines": 1043,
+      "bytes": 61177,
+      "sha256": "a3f81f1c1e26748c58d53a12561966f7630c42a89b668ff92659fe8c9fa467e3",
+      "status": "retained_complexity",
+      "reason": "See batch 27 in all-batches-20261117.md; class/state/animation boundaries require a broader redesign."
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantAuthoring.cpp",
+      "lines": 1127,
+      "bytes": 64966,
+      "sha256": "e920a6030334b480f0f9af570d1ef5dc656a055608c127f50f07aa98ba60245c",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Monsters/BlindSupplicantAuthoring.cpp",
+        "lines": 584,
+        "sha256": "32902f317c880de7cbb7e9233b684cdc7e5c2e5020fa0edd4d5067de5cd09cc0"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/UnknownHumanoidTactics.cpp",
+      "lines": 843,
+      "bytes": 43397,
+      "sha256": "722ae85a90be80f2222f401b9833cb5d7f6c68bb216074b6efab2db4963ad45f",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Monsters/UnknownHumanoidTactics.cpp",
+        "lines": 756,
+        "sha256": "471faf8ef91c1e844e39118dc6cd354de06ce9bb4411da8d84063e0d0a3fa629"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WildlifeAnimal.cpp",
+      "lines": 1036,
+      "bytes": 42456,
+      "sha256": "1bad81e23a5fc91eb4962fd64d424ca18d24139c4930dac22aec24afe8e9424d",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Monsters/WildlifeAnimal.cpp",
+        "lines": 793,
+        "sha256": "548c2f0280860d8f1618ab7632704c1bed9670994dc231a2bb4c329cd0047e4a"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "lines": 2734,
+      "bytes": 168507,
+      "sha256": "a0a49673ee0fd92cea7242cd573929b6ecdb31269aca6359720b576f406d3ec2",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+        "lines": 361,
+        "sha256": "cc2cfdab6a61e3a9344c5e20a3a86ec124b89cb85b6e7ca2036bc609143a1ba6"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "lines": 822,
+      "bytes": 47101,
+      "sha256": "4aa7feaad014ee4b55d742470177a0b33e6e024e281a2910c60a25010db6779e",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+        "lines": 718,
+        "sha256": "83673074130c69d93fdc8b66f3b3114fdba6d0c1bbc9b14b7b04f63cff125c14"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "lines": 940,
+      "bytes": 58670,
+      "sha256": "a26c10ce7396a8c4acd01346c439ab9dad01e1bbba9ec372697a2145c5aea34d",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+        "lines": 629,
+        "sha256": "36785bd78d3cbe544fcf4d27d015c53fe037f1f140bdd960dfa294e12c3f9ef7"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "lines": 401,
+      "bytes": 36191,
+      "sha256": "36106dded96bb8d8d9b4f0979aa6a422675e104a81a77fe95d2f158313fe19c9",
+      "status": "completed_batch21"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "lines": 345,
+      "bytes": 17168,
+      "sha256": "4a49c9b17ca2a5a0ba3e34c1bc303b865b5e41a2474c283dbdf00ff778a1ddab",
+      "status": "completed_batch21"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCodexPage.cpp",
+      "lines": 1569,
+      "bytes": 84138,
+      "sha256": "1f3de988b6fcfca1f4a8fa53c2776ef51096e461418f87c0db59cc3f20acf3fa",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/ColdSteelCodexPage.cpp",
+        "lines": 677,
+        "sha256": "03c0c1a20ec02b56d09d352c8d689fcace3f5a477dc6327e6fb53694d1bf85ab"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "lines": 1739,
+      "bytes": 98520,
+      "sha256": "c2bb20457066e777e697305d12d9069cd2b95af80a858cb28b01ee5c06b0c5f1",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+        "lines": 617,
+        "sha256": "06c7b3a3c664a70f0894f5f21aed006ab9023b21123074faa33cb50622921590"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "lines": 824,
+      "bytes": 52711,
+      "sha256": "fae1cfab6e2439c1f1f02686626ec69ac4db1099ff3181a5ca9dcb633bd7447a",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+        "lines": 734,
+        "sha256": "f63eff666b42fcf2ba1dc20c7a60d9498a815c3779fb0fd7a2ec59ecb1d2426c"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "lines": 858,
+      "bytes": 75156,
+      "sha256": "49b92a9074952b0c5c819f61633d06608630d670b7f211dd4b9f5c665f80b4b7",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+        "lines": 775,
+        "sha256": "d520d756d3ab3e4d8636e15d697f51ac2d945ee03f3aa02519b1d45d35288bfc"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "lines": 1700,
+      "bytes": 116986,
+      "sha256": "56bc79b0d1c672bf81f68e8515a4d06b725904e717ac416930904ebbd4997429",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+        "lines": 491,
+        "sha256": "e06e7efbab9229cc3f4750465f74c78ee1e3d3237a7ebf98d15056f4d6854beb"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "lines": 1510,
+      "bytes": 160176,
+      "sha256": "ead802262b8a7092da5f551cbd4e2fa786f25889e2caba107df435324e01c98b",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+        "lines": 383,
+        "sha256": "96a52503694e1bebbc2afefd5dab19a9584e4f1734b1e7a0ef6422685ecb8d9d"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp",
+      "lines": 1278,
+      "bytes": 87429,
+      "sha256": "b3e06885cb5fe229f25f36d0b773f6e89b2f5765a10820ec403d361033b2099d",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp",
+        "lines": 771,
+        "sha256": "2e8cff4e0ba49879509d6b28926cc6cd43ee4a8434a9deb86a8edec6ef83127f"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorkbenchWidget.cpp",
+      "lines": 940,
+      "bytes": 62085,
+      "sha256": "3a1d996e149a80a1a5e1def24087ff1e7c6aacb8059cb8e30496e701b25b1517",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/ColdSteelWorkbenchWidget.cpp",
+        "lines": 645,
+        "sha256": "beb29d19045db7932bbd7da0ad5de82cd959d45f70d25c31a42c8a0de363a0bf"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "lines": 1167,
+      "bytes": 63395,
+      "sha256": "ba07b7fa2dfee3944984a2db1b5023f26ba2f309976c24aba097b44cecf68a0f",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+        "lines": 745,
+        "sha256": "3eb8dce0ff66e76aa3892bc3867cba407fd706052353c0236a19850d6b4be636"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "lines": 2078,
+      "bytes": 108630,
+      "sha256": "31cfb2d7278ec6ffbb147021eafd7fb9ea161d06b14447af7b054c2b8801c109",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+        "lines": 391,
+        "sha256": "01c18da54e96a5a5505367fd0993c9b26eddd4f9be78714ce511963958ebd5da"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+      "lines": 1747,
+      "bytes": 100475,
+      "sha256": "1a3e698a67067ef78512649dbdbe618d41f2a8e40374bb09de9874e07ba76666",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+        "lines": 757,
+        "sha256": "fbde5d6d89eb13d20c5036d5f2d57992c8bb00eca70a1cb87ad361268b5018d7"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+      "lines": 1194,
+      "bytes": 70753,
+      "sha256": "10f9380c44ff63f3a1c123e4eb2759e0905b576e4509a4a7c21048b1dbb17c72",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+        "lines": 589,
+        "sha256": "ed1e717f428517c3b5e3fe31aa0039ca602d29b669b1d5e76826cf8242fa3a83"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "lines": 990,
+      "bytes": 56595,
+      "sha256": "a0fa2c7390765bcd00bf6c53f27451370778e9b7a73f5d542dfcb7831afff01f",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+        "lines": 582,
+        "sha256": "75a48cf05b88ab3006bee39a03e01bb5f9434162c1b92f308ad56669ff69517d"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordAzureDragon.cpp",
+      "lines": 1029,
+      "bytes": 63765,
+      "sha256": "c04289c6e3da194a9bb8a929677963baecd15ba61e791d9987acca84c41989bd",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Weapons/RuneSwordAzureDragon.cpp",
+        "lines": 413,
+        "sha256": "c460541e2d0f462240b56f49ea8876e5d3a56c88181ae1e8baddc67c700850cc"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "lines": 1999,
+      "bytes": 117665,
+      "sha256": "b8efb6738968315965d72edd6a22e53fc114dec34231b103b2b95c51e04ff2bd",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+        "lines": 504,
+        "sha256": "ee1ca7122fa799cef6f33df574fd38a0400f0c943a5aff58b1d0df95a8803719"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookAuthoredFocus.h",
+      "lines": 14049,
+      "bytes": 1104006,
+      "sha256": "a8179c639140503ffb3a197c183defda2a6313c01b5591dfaafa18facd63ef41",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookAuthoredGrip.h",
+      "lines": 1918,
+      "bytes": 210747,
+      "sha256": "f08ad9a6a8a1df5d30e4229c2e968447da862d7bba7d1cc612a7138ab218cc20",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookAuthoredStrike.h",
+      "lines": 1666,
+      "bytes": 183660,
+      "sha256": "df3b25d66c2113179ed1b5bcafafed4d6bb4949fa0c9cda1c9aec54b9486ad0f",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffAuthoredCastElbow20260930.h",
+      "lines": 1369,
+      "bytes": 177792,
+      "sha256": "819d703347b300c83066a4635d38017eda6ef1fbd95004d891dd94547c32d2c0",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffAuthoredLeftGaitV16.h",
+      "lines": 1898,
+      "bytes": 199665,
+      "sha256": "734038b55ff43453ea3d6689067657c4ed26714b83713dc753a345e31a54f46d",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h",
+      "lines": 1369,
+      "bytes": 177752,
+      "sha256": "2e2e3caa2eab70d0a31a6f3c2354bbe05ce6387c786fe6b68efb3169d20e3afa",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPrimaryV28.h",
+      "lines": 1137,
+      "bytes": 147747,
+      "sha256": "2b2d43cac0ad2b086683f275cc65be2c74381feaa5fcac92cf54e9eaaf69dc4f",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffAuthoredReleaseAnatomy20261001.h",
+      "lines": 1411,
+      "bytes": 182144,
+      "sha256": "f45499186436bff6c1f05df3b81108a815753e7a27ac6b05d94c94d72e6ef26d",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/UnarmedAuthoredLocomotion20261001.h",
+      "lines": 3852,
+      "bytes": 415861,
+      "sha256": "c059da6fb0eb0068e38abd83650c074b0bc3191acfb039a96935d0bf386f0298",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/UnarmedAuthoredPunch20261002.h",
+      "lines": 999,
+      "bytes": 103189,
+      "sha256": "264e8e450f0e306f20bbb65c4f04f0629ca9b2149765740c9211d62f82bdc168",
+      "status": "retained_generated_data",
+      "reason": "See all-batches-20261117.md batch 30"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformSubsystem.cpp",
+      "lines": 1047,
+      "bytes": 52504,
+      "sha256": "f8a47b2f582106b9e537d97ffdcc1980fcc10dc183bfa8fa39aad373c24ba7b0",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformSubsystem.cpp",
+        "lines": 698,
+        "sha256": "eef8a7378c873b28b556148be490546defc6247d3a259674cdac66c3a0b387d5"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+      "lines": 1758,
+      "bytes": 96891,
+      "sha256": "a19adba623fe2484b8442e849b39503f2483d07f2823b12e29e16261657a0d46",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+        "lines": 793,
+        "sha256": "019046276834b885f93390da915962d5422aad835a78f334d739e70085343387"
+      }
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+      "lines": 1074,
+      "bytes": 60118,
+      "sha256": "f462edcd05b71336e9c7a4e725fd520e90bb63cdd98d3e5bae3cdf21d494ebbb",
+      "status": "completed_batches23_31",
+      "current": {
+        "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+        "lines": 492,
+        "sha256": "48cd1bbb7d1fcb8b08225acc6b2d4bb93f534bbbac542a11101df7670f16e8e2"
+      }
+    }
+  ],
+  "batch": "23-31",
+  "build": {
+    "finished": "2026-11-18T10:16:30.3063651+08:00",
+    "started": "2026-11-18T10:15:39.0371486+08:00",
+    "batch": "final-resume3",
+    "exitCode": 0,
+    "log": "D:/FPS3D/FPSGAME/Saved/BuildEditor/cleanup-all-final-resume3-20261118-101539.log",
+    "result": "Succeeded",
+    "ubt_seconds": 16.46,
+    "actions": 4,
+    "target": "FPSGAMEEditor Win64 Development",
+    "tests_run": false,
+    "receipt": "build-final-resume3-20261118-101539.json"
+  },
+  "edited_paths": [
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfilePersistence.h",
+      "lines": 12,
+      "sha256": "0fa3c6bcd94586b3ef0bbf138e993dba2b6b53077862f723acccd859de6b9f71",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileLoading.cpp",
+      "lines": 526,
+      "sha256": "f8ee654edade1f255a09d7b5b383f08ccfa3c376d115650a92c2f511377e67d7",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRewards.cpp",
+      "lines": 101,
+      "sha256": "bfc96fbcdc16e9d705f1ec041ce9bd4d465289cb1b9a899820579c782ccd026b",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileItems.cpp",
+      "lines": 413,
+      "sha256": "f232b4ab9a31a233f274ac672469a4009af8fba03b817fc9869badd656fe12a6",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfilePawn.cpp",
+      "lines": 370,
+      "sha256": "0c80b8000bf4acf45ae86dd4d3a554ad5a3f07adfc7a42c6305ecbf982b9a061",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "lines": 491,
+      "sha256": "e06e7efbab9229cc3f4750465f74c78ee1e3d3237a7ebf98d15056f4d6854beb",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemProperties.cpp",
+      "lines": 102,
+      "sha256": "6fc69f2e5adfe3046cd7e6c4d10a37627e365a6bcc95f49d938cabb14727c8c4",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "lines": 734,
+      "sha256": "f63eff666b42fcf2ba1dc20c7a60d9498a815c3779fb0fd7a2ec59ecb1d2426c",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCodexPrivate.h",
+      "lines": 31,
+      "sha256": "1221f07722642889868ad367f219c5da2dc39d289ac93915188699d940c332c2",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCodexCatalog.cpp",
+      "lines": 271,
+      "sha256": "ddfdc9506ff9dc2f079f1f929558bab0b8a1ae28b6f4916054d8a978028ff6ab",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCodexDetails.cpp",
+      "lines": 694,
+      "sha256": "0ef701c183f188a6b4ae7f95b17a02476cd28bda90cde1a28531f89ba1a4bb25",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCodexPage.cpp",
+      "lines": 677,
+      "sha256": "03c0c1a20ec02b56d09d352c8d689fcace3f5a477dc6327e6fb53694d1bf85ab",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPagePrivate.h",
+      "lines": 6,
+      "sha256": "bc55cba91c6d6c9a5cb95677c8a96ebca936559adc8441f00dc8a09a4c184e15",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPageDetails.cpp",
+      "lines": 617,
+      "sha256": "acce6999ea0831479e7aaaf3d4f24b3785ee2ef66818f948409c1f32befccb34",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPageLayout.cpp",
+      "lines": 568,
+      "sha256": "455918c189fe811d953b404d0db09160c839ff4922796e90f66844cc816b38c0",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "lines": 383,
+      "sha256": "96a52503694e1bebbc2afefd5dab19a9584e4f1734b1e7a0ef6422685ecb8d9d",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorkbenchLayout.cpp",
+      "lines": 335,
+      "sha256": "c4169ab53dfbadfc85371bc98d70bb98270db5842b0158eaadba51eba677c483",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorkbenchWidget.cpp",
+      "lines": 645,
+      "sha256": "beb29d19045db7932bbd7da0ad5de82cd959d45f70d25c31a42c8a0de363a0bf",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSmeltingLayoutPrivate.h",
+      "lines": 6,
+      "sha256": "2047bcaca5e55d1f368e2b52018ac0e64df3bcd4af27855762baf03595c778eb",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSmeltingLayout.cpp",
+      "lines": 546,
+      "sha256": "9beb2c7b3f888180fb968e35262fabdee26ed5fb310f24887b32fe70a2746599",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp",
+      "lines": 771,
+      "sha256": "2e8cff4e0ba49879509d6b28926cc6cd43ee4a8434a9deb86a8edec6ef83127f",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDPrivate.h",
+      "lines": 21,
+      "sha256": "39e979999b4e59b1123073167022bcdf7c4772e5081fb1ec0ed0aab5c584088c",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+      "lines": 535,
+      "sha256": "f70f910dac2e11450d877ba995721d505f7a517e3ecf43814ebc0937bbc4d9e0",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDTimeline.cpp",
+      "lines": 423,
+      "sha256": "a5efc9d69b1e5b7acc0117916501d46561d74191e509d43136a9be59ca9b2e75",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp",
+      "lines": 404,
+      "sha256": "c005704ef6ab7c8cda0f86ac0ed55276353a728f331b38975a70a4ae6af64601",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "lines": 617,
+      "sha256": "06c7b3a3c664a70f0894f5f21aed006ab9023b21123074faa33cb50622921590",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingViewPrivate.h",
+      "lines": 59,
+      "sha256": "e77dc642963bd0bb0b6abcd930e01f6bbbd53e806f3f84e8a33d35ba6465043f",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitStartupMenu.cpp",
+      "lines": 432,
+      "sha256": "ac0dd0692068d2980d76a67fc63bc5dd1cd678640427e823c7ee76dce6a675a9",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "lines": 745,
+      "sha256": "3eb8dce0ff66e76aa3892bc3867cba407fd706052353c0236a19850d6b4be636",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelTooltipFormatPrivate.h",
+      "lines": 16,
+      "sha256": "54c798e09e2b1f04ac4d6e789c0372a31ad38443a71ae8959117c8b18f2c7932",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelTooltipCraftQuality.cpp",
+      "lines": 132,
+      "sha256": "d611f22ac453bd143cd0fa9c94ffba4169e7a8e967a26d83aa5579bb681e115e",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "lines": 775,
+      "sha256": "d520d756d3ab3e4d8636e15d697f51ac2d945ee03f3aa02519b1d45d35288bfc",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPlacementPrivate.h",
+      "lines": 9,
+      "sha256": "17a4ed760623f4942ab368d8b41ccf749f399c23babc7a4014026b85751cc90f",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+      "lines": 509,
+      "sha256": "c4435e87aa29739faf45bd2d8accbc48cf28626c381075ab7502ef760b3027c5",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPreview.cpp",
+      "lines": 272,
+      "sha256": "66176bbcb0d8e70e888bf8983d397d4f4303e01a653d8b9b43099a2b6421dee7",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+      "lines": 385,
+      "sha256": "9827007117765332f8a9ecd71ce03afdd99f9347c334e7bea9eaa48776371a88",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildInput.cpp",
+      "lines": 298,
+      "sha256": "6a348a0760ebf76d29ba8382f2c6a29b778a2866fdb6e1fdc6cef67be6c8614d",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+      "lines": 560,
+      "sha256": "398e3656a388b0e4046f52209557a907981dbc7053dc6b2eff0201d24c1d064c",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildStatus.cpp",
+      "lines": 112,
+      "sha256": "b572e1a2c7846c04415690759cd5dc9fc4d9bab7ecee5ae47f690e15b00cbbd2",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+      "lines": 772,
+      "sha256": "26803f0be6901d27e1ad07964d816e1a664e0fef4ae3e5a521c16e19c9e73b21",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWidgetLayoutPrivate.h",
+      "lines": 51,
+      "sha256": "e1e44b8220b2a47d264c6142cb785670932b2488107ffc27eb27730050e71acb",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWidgetLayout.cpp",
+      "lines": 382,
+      "sha256": "3c464f68b4d3cbc4831e2b1a579e173793daabe253fdb1301e402d72c810380a",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+      "lines": 544,
+      "sha256": "fd45f8c5ed4ad1f1eeb62be73479fc8c16e005905356d86aef1da3933737f31f",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolEquipmentPrivate.h",
+      "lines": 6,
+      "sha256": "fd9308bb57e9487c7fb8fddb501c43a0b3c3115f096ec3c2ca80547d9e1daab4",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolEquipment.cpp",
+      "lines": 400,
+      "sha256": "c77dd1b041188a90127473db872f86b40bfe5573a887290b182742097fa0eaf3",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "lines": 629,
+      "sha256": "36785bd78d3cbe544fcf4d27d015c53fe037f1f140bdd960dfa294e12c3f9ef7",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunCatalog.cpp",
+      "lines": 193,
+      "sha256": "1828e3e18fb4d5c580f1f87dd8440a8ccb75af2d53fbb1e5de0f52ee20d065d4",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "lines": 684,
+      "sha256": "2d599238d598c97d8d0ae25068fc57790f87b9cb637980a3777bc690400077be",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallPlacement.cpp",
+      "lines": 176,
+      "sha256": "7f4fa4ffe7c7b2233243935f6bea6f9d7f9171919bb45932600b9f654159e528",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "lines": 710,
+      "sha256": "76b6d1324fe4344eb78b393fb509e2d0a328df089e6b0c58677cb30a11b86e0b",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/UnknownHumanoidFocus.cpp",
+      "lines": 104,
+      "sha256": "6e2d0b29efa5f4ee9bf510de8013f30f0c9fd31294d10a93bab71e0cc5d75bcc",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/UnknownHumanoidTactics.cpp",
+      "lines": 756,
+      "sha256": "471faf8ef91c1e844e39118dc6cd354de06ce9bb4411da8d84063e0d0a3fa629",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WildlifeCatalog.cpp",
+      "lines": 214,
+      "sha256": "911042434edadadffbfec3a680452c399f0416fdc5bb75b496f60197a54679ce",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WildlifeSteering.cpp",
+      "lines": 98,
+      "sha256": "974c2e76681a29b14c31a5ce2878d821cc8057da2d1d6f5b0d2165b5390ec780",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WildlifeAnimal.cpp",
+      "lines": 793,
+      "sha256": "548c2f0280860d8f1618ab7632704c1bed9670994dc231a2bb4c329cd0047e4a",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantClothAuthoringPrivate.h",
+      "lines": 67,
+      "sha256": "1aafa4c6d1a4bdccdc709a824e7b23ec07687f7203eeacf26dc0f0e302bfa128",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantClothAuthoring.cpp",
+      "lines": 544,
+      "sha256": "50cacb319a88fa222e250d89543795293b25b0d2ac65f288f30a821695fe1886",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantAuthoring.cpp",
+      "lines": 584,
+      "sha256": "32902f317c880de7cbb7e9233b684cdc7e5c2e5020fa0edd4d5067de5cd09cc0",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterRuntimePrivate.h",
+      "lines": 68,
+      "sha256": "692d1d738058de2ef09e0a1b09d3cd930aa9c636ea16b685a235d259d081b61d",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterInitialization.cpp",
+      "lines": 673,
+      "sha256": "282b53d9450bcd7b142ad72f4961f40670862d271139f0e1fef020745c3f7365",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+      "lines": 646,
+      "sha256": "49ed257af8386aebbbdf74df6c2d326d6c9317a7e9b785423cb76e7b55c4b103",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterReloadInput.cpp",
+      "lines": 547,
+      "sha256": "0888c1630628dba1c31744c4bc05f9298d06b6f2a399c3a631ea6a52710e0ff3",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterWeaponState.cpp",
+      "lines": 680,
+      "sha256": "118adbc9f889514602b8f50cc37993b1706db11e6b0cd12a1a5f6ccae82df1ef",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterCamera.cpp",
+      "lines": 508,
+      "sha256": "34b82ce8ad6e587a3b2063dc65272eb570ba2c62afd1c83ef20e270246a670b3",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterViewmodel.cpp",
+      "lines": 662,
+      "sha256": "053bd8a4b631aa74489859600aad6ee735efd77e3c37caa4fd4b86e2a3a95ee7",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterFiring.cpp",
+      "lines": 671,
+      "sha256": "b8f19377bacc33dff00a8091bb9e90d464ad898d6d50a4c1eba7571eb8e3b497",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterAssetsAudio.cpp",
+      "lines": 543,
+      "sha256": "4b377987bc834204e6666b92d07efffba988d14e43c43ef748ca4aa292e2745a",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterActionPose.cpp",
+      "lines": 501,
+      "sha256": "677203924847964719ca0de76eb279b948a51bf2f9111f593c02ac56a8297a23",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp",
+      "lines": 344,
+      "sha256": "3e207304c4ba26822c471774f8905ae4fb34fbfc0781dc65b8ed72f27a5ebe8a",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "lines": 647,
+      "sha256": "4aa403b2605501b9a4753019890980639ec5ca54c88e303e7086dd75084053a5",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProtocol.h",
+      "lines": 112,
+      "sha256": "ccf1e84a4983c9c89f02e0d74a1bcc19a709d4ab2e0e1f7ad6170d304ab6f052",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "lines": 718,
+      "sha256": "83673074130c69d93fdc8b66f3b3114fdba6d0c1bbc9b14b7b04f63cff125c14",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp",
+      "lines": 484,
+      "sha256": "9f55d809da280dd2fb015e8559279f246f9245917d30916f9ee939d73714ffda",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp",
+      "lines": 704,
+      "sha256": "ee7a0055dc5f7c074537232255182143bb4f17534c8b5f027a5bea3fa29b8a14",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp",
+      "lines": 620,
+      "sha256": "d87add45f6e275ea0399b297dc132bf12315ae5f7ceaa1e16491ff07b3a0f4c5",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp",
+      "lines": 649,
+      "sha256": "a4efa7bd89b006f67433b50b8aa9728e47449658e5ad68b3958361df532393bc",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerSpellCast.cpp",
+      "lines": 491,
+      "sha256": "9d096a4b3d8f049db2b8e7b2af7e5303cb8faa305bed9b5af6fcceaf678b69be",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "lines": 361,
+      "sha256": "cc2cfdab6a61e3a9344c5e20a3a86ec124b89cb85b6e7ca2036bc609143a1ba6",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyEquipmentPrivate.h",
+      "lines": 6,
+      "sha256": "d205a0e3032e52d37be9456bcca62ea8652189d284edc0d9e41b09e2fc6a1db2",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp",
+      "lines": 417,
+      "sha256": "9a79412a23694d2110a0f71befa16c3636f000a577a6a9faf7a0506b6e402212",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "lines": 783,
+      "sha256": "4865f2148b3e0a980b61f2181c6766e588d55db607b5eb2f4d43e0a2be6f1803",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMotionPrivate.h",
+      "lines": 8,
+      "sha256": "1f0cc7a1f1d945544fbbe5be5929722b31c5b43583ae4ca43156a470992af566",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotionApply.cpp",
+      "lines": 368,
+      "sha256": "c4e520becbaebab81f6509ece3826112bb19f750302eb1184c312df40d386e38",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "lines": 534,
+      "sha256": "55371024d926813b4c2b7c3ffb4f8cc86e1c6769b9b27fb1733c794fcd2baa8d",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordPresentation.cpp",
+      "lines": 757,
+      "sha256": "ab1c511f659665f816fbe72133d22e83f0fbcfee7dd0a7532c5bad1960eeff0e",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordActions.cpp",
+      "lines": 671,
+      "sha256": "65cebaa509c520e063ad015b52990b334ccdf89dbb67e5de1bd8ef807f51861b",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordContact.cpp",
+      "lines": 268,
+      "sha256": "f796421b98c60b93e62dba92d6c06c6ee936d324b9fda8d58296fd00a4765cb9",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "lines": 504,
+      "sha256": "ee1ca7122fa799cef6f33df574fd38a0400f0c943a5aff58b1d0df95a8803719",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualEquipmentPrivate.h",
+      "lines": 6,
+      "sha256": "f6d24ded66ff74dd1b9848af2fb97c4d36d0e0738c6c15490aad679df35986ab",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualEquipment.cpp",
+      "lines": 469,
+      "sha256": "b935a42293c09a4fa36caa0393adcdb76ec71239d5721c250eb546d3f634d5ff",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "lines": 582,
+      "sha256": "75a48cf05b88ab3006bee39a03e01bb5f9434162c1b92f308ad56669ff69517d",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponPrivate.h",
+      "lines": 29,
+      "sha256": "873fbca41f7f115edba1c332aab04f6d799544c69ac2e778d80720ad81fe569c",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowEquipment.cpp",
+      "lines": 609,
+      "sha256": "caa44c180c0f532074ba803292504bff7bc6fb411f954b3be4050e9a2f9e7da6",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowActions.cpp",
+      "lines": 515,
+      "sha256": "1b9513ce87fe2346869a099730ff30874ae062bab06aeda61a94e28e264993a3",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowRelease.cpp",
+      "lines": 228,
+      "sha256": "7af348c3b70add7460c9937f623e7be6cf1d7b9585a08fb9e1bf274edf7b2dac",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowPresentation.cpp",
+      "lines": 531,
+      "sha256": "ca36fb33c50c688f4088adbb2a9408b07119081d20d57e520eeb9596cca7c7d7",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "lines": 391,
+      "sha256": "01c18da54e96a5a5505367fd0993c9b26eddd4f9be78714ce511963958ebd5da",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponPrivate.h",
+      "lines": 75,
+      "sha256": "bbcb9cfcd3e7ac36668584d76cd76b8136cc1efb70737278229e15c5d53eec5c",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriEquipment.cpp",
+      "lines": 324,
+      "sha256": "27ede701d04aad5575bbb7c9b746dabda6b18157dc1763398ab40c71c01a9a01",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriPresentation.cpp",
+      "lines": 314,
+      "sha256": "9a8ca100f67151820424d67ca3349d9ea9260225469545f3ca44d090ad7d49b6",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+      "lines": 589,
+      "sha256": "ed1e717f428517c3b5e3fe31aa0039ca602d29b669b1d5e76826cf8242fa3a83",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/AzureDragonPresentationPrivate.h",
+      "lines": 77,
+      "sha256": "3c138c2e64fa97d7ce8b0242c6371b6dd01edbb0c9aa906b52b1f3eb6d10e97a",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordAzurePresentation.cpp",
+      "lines": 581,
+      "sha256": "349fa9ef16dcea5304773541511b2fd0bc87b48fb9d5ff1a723bd78e826e800c",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordAzureDragon.cpp",
+      "lines": 413,
+      "sha256": "c460541e2d0f462240b56f49ea8876e5d3a56c88181ae1e8baddc67c700850cc",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponFXPrivate.h",
+      "lines": 85,
+      "sha256": "60230e4c547deda93ab4212d080d18bc23ace8e598b51a8d251eb025a9e2fa7f",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponTracers.cpp",
+      "lines": 611,
+      "sha256": "99dbba7189e9a5fec04e21a881ad632cdc95bbaa17327944cc87a41a9d529932",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponEmission.cpp",
+      "lines": 428,
+      "sha256": "cda7a69e82aa866b9d0f9424afcfe1585edc98fa6cbd020315367e868b6b4663",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+      "lines": 757,
+      "sha256": "fbde5d6d89eb13d20c5036d5f2d57992c8bb00eca70a1cb87ad361268b5018d7",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformParamsPrivate.h",
+      "lines": 43,
+      "sha256": "f0f154397e08fbb4d85277a39c0fe82129648aa57473c84844539941bd851c29",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformRendering.cpp",
+      "lines": 329,
+      "sha256": "5294ea1b24f24481c523e80e1575bc2bf233b5dceec67243abb9a93765f43131",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformSubsystem.cpp",
+      "lines": 698,
+      "sha256": "eef8a7378c873b28b556148be490546defc6247d3a259674cdac66c3a0b387d5",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsMathPrivate.h",
+      "lines": 12,
+      "sha256": "46cf8f7d8ad35b380e0c6db679048a47037b3c9626bcec2737796035287623de",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+      "lines": 308,
+      "sha256": "ac580d16d3b3b38b6545e474e3e73e61bf6c434dd2c46d80e9c8fe4f59695da1",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp",
+      "lines": 375,
+      "sha256": "1624b50f075189a2e37c917896943a10b2a30ebfe6d96f50dd60f6ef1f2f1a15",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+      "lines": 492,
+      "sha256": "48cd1bbb7d1fcb8b08225acc6b2d4bb93f534bbbac542a11101df7670f16e8e2",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+      "lines": 145,
+      "sha256": "3988da72f4ad1d14fd1d81b60f109afbd463994ad8933538c884df699480e69c",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingMesh.cpp",
+      "lines": 190,
+      "sha256": "4eb572dfcf1790551253f0b27c026dda5d60402b3caad8a6f5421a015616d22a",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+      "lines": 511,
+      "sha256": "2de0c77061955d49e54878d3d1525808651d81d26848f773dd440ed1b6cf70bd",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp",
+      "lines": 174,
+      "sha256": "159398dc1c4a0323457f38e4854165d713ca2a1509ec850182a230f58e869c18",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingFog.cpp",
+      "lines": 188,
+      "sha256": "002d4694e8892b21339ded9ba5d911bcc361cc1437c214bb468d3c00e942596f",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+      "lines": 793,
+      "sha256": "019046276834b885f93390da915962d5422aad835a78f334d739e70085343387",
+      "origin": "existing"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriPresentationTypes.h",
+      "lines": 8,
+      "sha256": "ce6b338a9a72e96be21d911d2a591b1d45e7e12445c6bd9ca5e705a6a0549fb7",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriPresentationJason.h",
+      "lines": 487,
+      "sha256": "9c9c9b4d62814bb2e828cd7c5fb3a364d9a7c62243c69569232586c50d80d401",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriPresentationKaitlin.h",
+      "lines": 487,
+      "sha256": "e26b3b132f09641da4bf1a3c36f35a767a7d0291f9784737afd1fd34763709dc",
+      "origin": "created"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyKukriPresentationData.h",
+      "lines": 26,
+      "sha256": "02231b2ebcb1e215a195e0603cca641467c7e098f6c6bb25df15ee501edbf2a6",
+      "origin": "existing"
+    },
+    {
+      "path": "SourceAssets/KukriThirdPersonCompletion20261029/export_presentation.py",
+      "lines": 38,
+      "sha256": "7a7f6a0509382eaa012b18ad2ddc338cde90c12dac35482e5ed87a82eb301424",
+      "origin": "existing"
+    }
+  ],
+  "ownership_note": "Origins follow the original cleanup inventory and explicitly edited author script. before/ also contains repair snapshots of some newly created files; its file count is not the existing-file count.",
+  "outcome": "All original listed items disposed: 33 newly split, 2 completed batch 21, 13 retained with explicit reasons. No pending source or required build work in this batch.",
+  "current_note": "current and edited_paths record this task last write; concurrent changes are not overwritten or included in the task ownership count."
+}

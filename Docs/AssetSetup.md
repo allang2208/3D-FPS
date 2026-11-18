@@ -4,6 +4,7 @@
 
 公开本轮专属实现快照、共享消费者定向补丁、配置摘录、制作配方与技能经验。混合共享宿主仍需按基线合并，本批不是公开运行树的完整集成；UE 资产、录音和密集动作／表面输入保留本机。32 个确认退役文件已带散列移入 trash；最终本机原生诊断 937 项、四组 UDP 结果作为历史证据保留，未覆盖跃击双端位移及重连。本次仅进行归档与发布检查。见 [发布与恢复边界](Publication/SkillActions20261110/README.md)。
 
+
 ## M24 后托与止鸣（2026-11-07）
 
 公开水平碳纤维后托与导轨座配方、两款后托手部连续性、狙击通用特殊枪口「止鸣」、消音音色及联机修复的源码、精确配置、定向宿主补丁与 SKILL。模型、纹理、录音、密集动作和 UE 包留本机；373 份过时文件已带散列移入 trash。最终本机两组联机检查各 12 项通过；没有重新进行画面、试听或公共克隆构建。恢复链、补丁前置与覆盖边界见 [本批发布](Publication/M24Zhiming20261107/README.md)。
@@ -77,7 +78,6 @@
 
 公开本轮后托/握把表面、M16/ASH 瞄具、改造导航及 SUPER90 枪口/加长弹仓的原创配方和独立源码。18 个共享接入目标以带宿主前置散列的补丁保留，不夹带 M870、步枪音效等并行开发，也不代表干净检出已能完整运行。237 份废案及 8,003 份临时测试宿主文件已带散列归档；活动模型与恢复依赖留本机。用户已停止 UE 测试，完整联机验收交用户；范围、恢复链与技能更新见 [本轮发布记录](Publication/WeaponAttachments20261016/README.md)。
 
-
 ## M66 焚骸与焚化区（2026-10-15）
 
 公开 M66 专属源码、制作/导入配方、六件蓝紫收集物与 40 个容器绑定。交织于共享地牢框架的 11 个区域接入目标保存为带前置散列的增量补丁；源码切片不等于干净检出可构建完整游戏。13,243 个废弃参考、备份、缓存与临时宿主文件已移入 trash，当前混合版本作者输入、实际 Content 和失败证据留本机。怪物、调试和物品 SKILL 已补充。V19/V22 旧网络检查通过不代表 V23 楼梯修正验收；最后复查中断且用户叫停，本次不重开 UE 或测试。恢复链、音效许可、归档与未完成项见 [发布记录](Publication/M66Incineration20261015/README.md)。
@@ -104,12 +104,12 @@
 
 ## 联机排查批次源码与覆盖台账（2026-10-14）
 
-监听服务器的档案传输、物品／世界权威、状态恢复、工作站和动作表现按明确范围发布；独立源码直接提交，共用文件的联机修改以具名 Git 基线补丁保留。完整本机 Editor/Game 已有成功构建记录，公开源码仍需整合共享依赖及授权资产，不能视为干净检出编译或联机验收。83 份一次性脚本已带散列移入 trash，构建与覆盖证据保留。接入方式、补丁限制和技能入口见 [联机批次发布记录](Publication/Multiplayer20261014/README.md)。
+监听服务器的档案传输、物品／世界权威、状态恢复、工作站和动作表现按明确范围发布；独立源码直接提交，共用文件的联机修改以具名 Git 基线补丁保留。完整本机 Editor/Game 已有成功构建记录，公开源码仍需整合共享依赖及授权资产，不能视为干净检出编译或联机验收。83 份一次性脚本已带散列移入 trash，构建与覆盖证据保留。接入方式、补丁限制和技能入口见 [联机批次发布记录](Publication/Multiplayer20261014/README.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 
 ## 地牢性能优化阶段收尾（2026-10-13，暂停）
 
-独立的预览场景生命周期修订、闲置资源回收、AI 采样与导航投影缓存按原路径发布；与未发布的玩法/联机前置改动交织的地牢准备、有限 GPU 预热及 F6 扩展，以包含基线散列的接入补丁保留，不能视为公开仓库已获得完整接入。本机 DLL 已构建，但最新崩溃修订尚未运行复测。模型、贴图、UE 包、原始追踪、CrashContext 和构建产物留本机。31 份过期快照/一次性脚本/失效链接产物已带散列移入 trash。后续入口与恢复限制见 [性能收尾记录](Publication/DungeonPerformance20261013/README.md) 和 [待办](Backlog.md)。
+独立的预览场景生命周期修订、闲置资源回收、AI 采样与导航投影缓存按原路径发布；与未发布的玩法/联机前置改动交织的地牢准备、有限 GPU 预热及 F6 扩展，以包含基线散列的接入补丁保留，不能视为公开仓库已获得完整接入。本机 DLL 已构建，但最新崩溃修订尚未运行复测。模型、贴图、UE 包、原始追踪、CrashContext 和构建产物留本机。31 份过期快照/一次性脚本/失效链接产物已带散列移入 trash。后续入口与恢复限制见 [性能收尾记录](Publication/DungeonPerformance20261013/README.md) 和 [待办](Backlog.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 武器动作、联机表现与镭射（2026-10-13）
 
@@ -134,9 +134,9 @@
 公开鼓囊原骨架动作/抛射/事件音效/场景预警、半速游荡与延迟发现、两厅共同封门和 12 类接地的源码、原创制作脚本及 SKILL。保留 V01/V02/V03/V04/V08/V10/V11 混合恢复链，吸气蓄力和落地引信声音继续关闭；正式模型、原音频、51 个 uasset、密集绑定和构建产物留本机。56 份旧快照及一次性恢复脚本已带散列移入 trash。恢复顺序、发布范围、构建和未游戏验收边界见 [阶段收尾](Publication/MSeries20261012/README.md)。
 
 
-## 魔法书（2026-10-10，暂停）
+## 魔法书（2026-10-10，恢复开发）
 
-公开魔法书 C++、原创制作配方、CC BY 4.0 署名、暂停待办和动作 SKILL。保留 V17 阅读基线恢复现场及 V3 持握；recover 未获认可。原模型、PBR、图标、V7 手模、Blend/FBX、密集作者数据、UE 包和构建产物留本机；589 份废案与旧备份已带散列归档。恢复链与最新编译边界见 [暂停与发布记录](Weapons/spellbook-paused-20261010.md)。
+此前公开魔法书 C++、原创制作配方、CC BY 4.0 署名、暂停待办和动作 SKILL。V19 因用户实机截图中的严重手臂扭曲被明确要求撤回，现已恢复 V18 文件与动画源，仅作为回退基线；逆时针开书及 recover 均未完成。撤回范围见 [V19 记录](Weapons/spellbook-counterclockwise-v19-20261010.md)。原模型、PBR、图标、V7 手模、Blend/FBX、密集作者数据、UE 包和构建产物留本机；589 份历史废案与旧备份已带散列归档。原恢复链见 [暂停与发布记录](Weapons/spellbook-paused-20261010.md)。
 
 ## 法杖与近战配件（2026-10-10）
 
@@ -145,6 +145,7 @@
 ## 装备稀有度与强化掉落光束（2026-10-10）
 
 公开装备稀有度清理、实例迁移、界面适配、强化掉落分档与鲜红传说色的源码、目录和 SKILL，无新增二进制资产。原有 LootFX 材质继续使用 `Tools/AssetPipeline/build_loot_glow.py` 恢复，物品网格／贴图保留各自授权边界。本轮无独立废案；源码回查、常规构建与未游戏测试的范围见 [整理发布](Publication/equipment-rarity-loot-glow-20261010.md)。
+
 
 ## 无面职员 M-03／M-04／M-05（2026-10-09）
 
@@ -170,7 +171,7 @@
 
 **运行版本**：Fab 龙爪 `/Game/Weapons/AzureDragon20261004/ClawFab`（9 个资产）+ 能量条 `HudV10`（6 个）。另外依赖共享法线 `Textures/T_AzureDragonNormal`、`ClawV10/Textures` 的脉络贴图，以及本机已授权的 Realistic Starter VFX Pack Vol2 火焰序列 `T_Fire_F`／`T_Fire_D`（只读引用）。用户已确认特效与判定，后续几版尚待体验。
 
-**恢复**：根目录 `SourceAssets/AzureDragon20261004/run_install.ps1` 依次执行共享法线 → `ClawV10/install_textures_ue.py` → `HudV10/install_hud_ue.py` → `ClawV10/install_fab_ue.py`。
+**恢复**：根目录 `SourceAssets/AzureDragon20261004/run_install.ps1` 依次执行共享法线 → `ClawV10/install_textures_ue.py` → `HudV10/install_hud_ue.py` → `ClawV10/install_fab_ue.py`。 原因：恢复步骤有共享纹理与 HUD 输入先后关系，按已记录入口执行才能获得配套产物。
 
 **本机输入**：Fab 原模型、百炼生成源图、Blend／FBX 和回执只留本机。
 
@@ -184,11 +185,11 @@
 
 ## 裤鞋与第一人称共用身体（2026-10-06）
 
-恢复裤鞋九件、休闲鞋单只斜视图标、锁甲裤护膝护腰 V2、皮革裤靴、连续裆缝七分裤与本机连续肩口。保留原生第一人称手部，身体共用世界姿态；换装加载交接修复已有本机 DLL 构建记录。131 份旧腿模、旧肩口、旧镜头和快照带散列移入 trash。公开源码、配方与 SKILL；授权模型、密集绑定、图标及 UE 包留本机。恢复顺序、发布边界与历史检查范围见 [整理发布](Characters/lower-equipment-publication-20261006.md)。本轮没有运行游戏或画面验收。
+恢复裤鞋九件、休闲鞋单只斜视图标、锁甲裤护膝护腰 V2、皮革裤靴、连续裆缝七分裤与本机连续肩口。保留原生第一人称手部，身体共用世界姿态；换装加载交接修复已有本机 DLL 构建记录。131 份旧腿模、旧肩口、旧镜头和快照带散列移入 trash。公开源码、配方与 SKILL；授权模型、密集绑定、图标及 UE 包留本机。恢复顺序、发布边界与历史检查范围见 [整理发布](Characters/lower-equipment-publication-20261006.md)。本轮没有运行游戏或画面验收。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 伏窥者 M-08：表面追击与背环空气炮（2026-10-05）
 
-恢复用户 Meshy 输入、背部 V02、CanineV03 皮肤／骨架、BoneheadV04 基础动作、V05 越障、V09 飞扑、V10 死亡和 V11 空气炮预警。V12 索敌与追击已完成本机常规构建；游戏表现未测试。45 份废案／旧快照已带散列移入 trash，仍被制作链读取的旧版源保留。公开 C++、原创配方、MIT 参考、预警 HLSL 和 SKILL；媒体、密集采样、UE 包及回执留本机。恢复顺序和发布范围见 [M08 整理发布](Monsters/LurkerM08Publication20261005.md)。
+恢复用户 Meshy 输入、背部 V02、CanineV03 皮肤／骨架、BoneheadV04 基础动作、V05 越障、V09 飞扑、V10 死亡和 V11 空气炮预警。V12 索敌与追击已完成本机常规构建；游戏表现未测试。45 份废案／旧快照已带散列移入 trash，仍被制作链读取的旧版源保留。公开 C++、原创配方、MIT 参考、预警 HLSL 和 SKILL；媒体、密集采样、UE 包及回执留本机。恢复顺序和发布范围见 [M08 整理发布](Monsters/LurkerM08Publication20261005.md)。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 苍龙：能量条与龙爪未达标、待返工（2026-10-05）
 
@@ -204,27 +205,27 @@
 
 ## M-25 涡电匣与战斗修复（2026-10-05）
 
-恢复用户 Meshy 输入、RigV01 专用蒙皮／动画、BiteV01 与受击死亡、BackElectricV02，以及 OptimizationV01 四级游戏网格。怪物已获用户认可；最新撕咬遮挡与客机奖励修复已完成本机 Editor/Game 构建，未游戏测试。60 份旧快照和废案带散列移入 trash；公开源码、原创配方与 SKILL，原媒体／密集数据／UE 包留本机。连续软体死亡挂接以独立补丁记录，地牢刷新按用户要求暂不接入。恢复顺序与公开边界见 [M25 整理发布](Monsters/m25-publication-20261005.md)。
+恢复用户 Meshy 输入、RigV01 专用蒙皮／动画、BiteV01 与受击死亡、BackElectricV02，以及 OptimizationV01 四级游戏网格。怪物已获用户认可；最新撕咬遮挡与客机奖励修复已完成本机 Editor/Game 构建，未游戏测试。60 份旧快照和废案带散列移入 trash；公开源码、原创配方与 SKILL，原媒体／密集数据／UE 包留本机。连续软体死亡挂接以独立补丁记录，地牢刷新按用户要求暂不接入。恢复顺序与公开边界见 [M25 整理发布](Monsters/m25-publication-20261005.md)。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## M-09 悬钟 V24 与源码整理（2026-10-04）
 
-保留 Meshy 原始输入、V03 专用骨架、V13/V15/V16 连续表面链、V18 抓击、V09/V07 鸣震、V08/V10/V12 凝视、V13 死亡、V22 材质、V23 受击与 V24 屋顶移动。136 份废案及旧快照已带散列移入 trash。公开源码、原创配方、HLSL 和 SKILL；模型/PBR、授权动作供体、密集数据、UE 包和运行回执留在本机。恢复依赖、路径覆盖关系、归档及检查边界见 [M09 整理发布](Monsters/HangingBellM09Publication20261004.md)。V24 仅完成构建，未游戏测试。
+保留 Meshy 原始输入、V03 专用骨架、V13/V15/V16 连续表面链、V18 抓击、V09/V07 鸣震、V08/V10/V12 凝视、V13 死亡、V22 材质、V23 受击与 V24 屋顶移动。136 份废案及旧快照已带散列移入 trash。公开源码、原创配方、HLSL 和 SKILL；模型/PBR、授权动作供体、密集数据、UE 包和运行回执留在本机。恢复依赖、路径覆盖关系、归档及检查边界见 [M09 整理发布](Monsters/HangingBellM09Publication20261004.md)。V24 仅完成构建，未游戏测试。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 唐刀改造、G18 弹鼓与韧性整理（2026-10-04）
 
-保留虎头 SideProfileV6 眼位修订、G18 弹鼓 V2 与 Reload Profile、唐刀山岳符文及既有原生手模/材质输入。22份明确旧稿已移入本机trash并记录散列；公开效果源码、五档韧性数据、制作脚本和SKILL，原模型/参考/UE包及构建产物留本机。共享M14新类及其专用路由未混入本次发布，完整本机接入仍保留。来源、恢复、发布依赖及尚未结案的联机审计见 [本轮整理发布](Publication/AttachmentEffects20261004/README.md)。未运行游戏验收。
+保留虎头 SideProfileV6 眼位修订、G18 弹鼓 V2 与 Reload Profile、唐刀山岳符文及既有原生手模/材质输入。22份明确旧稿已移入本机trash并记录散列；公开效果源码、五档韧性数据、制作脚本和SKILL，原模型/参考/UE包及构建产物留本机。共享M14新类及其专用路由未混入本次发布，完整本机接入仍保留。来源、恢复、发布依赖及尚未结案的联机审计见 [本轮整理发布](Publication/AttachmentEffects20261004/README.md)。未运行游戏验收。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## M-10 沉匣制作与接地整理（2026-10-03）
 
-保留 SurfaceRigV5 的 62 骨模型与十段动作、RearGasV7 八秒动作、HowlV4 音波及手脑声音、LocalGasV8／CombatPaceV10 毒雾、原 F6 蓝图和大体型导航。公开 M10 源码、原创制作配方、SKILL 与散列归档说明；Meshy 原始媒体、几何／权重采样、UE／Blend／FBX 与构建产物留本机。20 份废案已移入 `trash/m10-retired-20261003`。玩家 SAN 生存模块尚未公开，嚎叫受击接入以补丁保存，公共源码不具备该完整效果。恢复顺序、依赖和未测边界见 [M10 整理发布](Monsters/m10-publication-20261003.md)。
+保留 SurfaceRigV5 的 62 骨模型与十段动作、RearGasV7 八秒动作、HowlV4 音波及手脑声音、LocalGasV8／CombatPaceV10 毒雾、原 F6 蓝图和大体型导航。公开 M10 源码、原创制作配方、SKILL 与散列归档说明；Meshy 原始媒体、几何／权重采样、UE／Blend／FBX 与构建产物留本机。20 份废案已移入 `trash/m10-retired-20261003`。玩家 SAN 生存模块尚未公开，嚎叫受击接入以补丁保存，公共源码不具备该完整效果。恢复顺序、依赖和未测边界见 [M10 整理发布](Monsters/m10-publication-20261003.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 2011 握把与 SI 制作源整理（2026-10-03）
 
-当前 VIP 与三款通用防滑纹均为纵向握把侧面覆片，下沿沿真实斜缝裁切，不覆盖弹匣、底板和扩口；SI 为原生枪口的完整轮廓延展。200 份废案与旧快照已归档，当前模型、原生手模/光学供体、音频响度输入、私有材质和 UE 包留在本机。公开源码、恢复顺序、来源与未测试边界见 [2011 整理发布](Weapons/pit-viper2011-publication-20261003.md)。本次只做用户要求的归档和仓库发布检查，不启动 UE 或游戏测试。
+当前 VIP 与三款通用防滑纹均为纵向握把侧面覆片，下沿沿真实斜缝裁切，不覆盖弹匣、底板和扩口；SI 为原生枪口的完整轮廓延展。200 份废案与旧快照已归档，当前模型、原生手模/光学供体、音频响度输入、私有材质和 UE 包留在本机。公开源码、恢复顺序、来源与未测试边界见 [2011 整理发布](Weapons/pit-viper2011-publication-20261003.md)。本次只做用户要求的归档和仓库发布检查，不启动 UE 或游戏测试。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 怪物布娃娃、巫婆与飞扑修订（2026-10-03）
 
-恢复连体巫婆 CorpseFollow、专用完整法杖碰撞、巨手死亡 Physics Asset，以及突变体 V3 空中／V4 落地／V5 蓄力动画。公开运行源码、原创制作脚本、ALS 固定修订与 MIT 许可、制作及归档说明；Meshy／Epic／第三方模型、采样姿势、UE／Blender／FBX 包和构建产物留本机。115 个退役文件（约 98.57 MiB）已带散列移入 `trash/monster-ragdoll-retired-20261003`。完整输入、重建顺序和本轮未测试范围见 [怪物布娃娃整理发布](Monsters/monster-ragdoll-publication-20261003.md)。纯源码克隆不包含这些运行内容。
+恢复连体巫婆 CorpseFollow、专用完整法杖碰撞、巨手死亡 Physics Asset，以及突变体 V3 空中／V4 落地／V5 蓄力动画。公开运行源码、原创制作脚本、ALS 固定修订与 MIT 许可、制作及归档说明；Meshy／Epic／第三方模型、采样姿势、UE／Blender／FBX 包和构建产物留本机。115 个退役文件（约 98.57 MiB）已带散列移入 `trash/monster-ragdoll-retired-20261003`。完整输入、重建顺序和本轮未测试范围见 [怪物布娃娃整理发布](Monsters/monster-ragdoll-publication-20261003.md)。纯源码克隆不包含这些运行内容。 原因：动作来源与运行资产的绑定和权利边界需要保留，替换供体会改变制作依赖。
 
 ## M-07 盲祷者 V38 与源码整理（2026-10-04）
 
@@ -232,19 +233,19 @@
 
 ## 本轮手臂动作与撞门（2026-10-02）
 
-恢复 V7 原生手臂、法杖快速近战／积蓄／释放、空手走跑、HK416 换弹接触、201 托握和 M16 腕部／奔跑的本机制作依赖。撞门声音使用用户指定 `撞门.mp3`，保持 `/Game/Audio/Interactions/DoorPush20261002/S_DoorPushImpact` 的完整音频与 ForceInline 设置。公开原创代码、配方及说明，不公开原生绑定导出、供体完整采样、UE／Blender 包和未经再分发核准的音频。恢复顺序、废案归档与未测试边界见 [手臂与撞门整理发布](Weapons/fps-arms-publication-20261002.md)。
+恢复 V7 原生手臂、法杖快速近战／积蓄／释放、空手走跑、HK416 换弹接触、201 托握和 M16 腕部／奔跑的本机制作依赖。撞门声音使用用户指定 `撞门.mp3`，保持 `/Game/Audio/Interactions/DoorPush20261002/S_DoorPushImpact` 的完整音频与 ForceInline 设置。公开原创代码、配方及说明，不公开原生绑定导出、供体完整采样、UE／Blender 包和未经再分发核准的音频。恢复顺序、废案归档与未测试边界见 [手臂与撞门整理发布](Weapons/fps-arms-publication-20261002.md)。 原因：制作授权不包含额外运行或验收，交付应保留未测试的实际状态。
 
 ## 附魔迭代、牛仔补弹与 M1911 消音声（2026-10-01）
 
-恢复汇聚蓝色 V2、碎裂紫晶 V1、感电 V3 武器电弧，以及裂空 V4 双尖蓝白剑气和刃部扰动。原生源码、附魔数据、原创 HLSL、制作脚本与技能记录公开；UE 资产、原音频、既有闪电与枪械依赖保留本机。感电的旧圆箍和裂空的月牙／暗色裂口已退出当前制作版本，观感尚待用户测试。牛仔在滑铲 0.25 秒后消耗真实备弹补弹并显示「已自动换弹」；M1911 修复切枪后复用错误消音音源，保留原共用音色。两份废案脚本已归档，恢复顺序、来源边界及构建记录见 [本轮整理发布](Publication/enchantment-closeout-20261001.md)。本次只做发布检查，未启动 UE 或运行游戏测试。
+恢复汇聚蓝色 V2、碎裂紫晶 V1、感电 V3 武器电弧，以及裂空 V4 双尖蓝白剑气和刃部扰动。原生源码、附魔数据、原创 HLSL、制作脚本与技能记录公开；UE 资产、原音频、既有闪电与枪械依赖保留本机。感电的旧圆箍和裂空的月牙／暗色裂口已退出当前制作版本，观感尚待用户测试。牛仔在滑铲 0.25 秒后消耗真实备弹补弹并显示「已自动换弹」；M1911 修复切枪后复用错误消音音源，保留原共用音色。两份废案脚本已归档，恢复顺序、来源边界及构建记录见 [本轮整理发布](Publication/enchantment-closeout-20261001.md)。本次只做发布检查，未启动 UE 或运行游戏测试。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## G18、HK416 与步枪待机／换弹衔接（2026-10-01）
 
-恢复本机 G18 与 HK416 原始素材、原生手模／共享配件、最终图标、HK416 六动作家族和 AnimationProfiles20261001 运行握把资料；弹鼓与普通／扩容空仓分别使用完整 M4 拍击，检视使用当前六家族 4.2 秒版本。24 份退役文件已放入 trash；来源许可、制作顺序、公开源码与本机二进制边界见 [本轮整理发布](Publication/g18-hk416-publication-20261001.md)。本次只执行仓库发布检查，没有运行游戏测试。
+恢复本机 G18 与 HK416 原始素材、原生手模／共享配件、最终图标、HK416 六动作家族和 AnimationProfiles20261001 运行握把资料；弹鼓与普通／扩容空仓分别使用完整 M4 拍击，检视使用当前六家族 4.2 秒版本。24 份退役文件已放入 trash；来源许可、制作顺序、公开源码与本机二进制边界见 [本轮整理发布](Publication/g18-hk416-publication-20261001.md)。本次只执行仓库发布检查，没有运行游戏测试。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 冰墙凝聚、预览与双形态（2026-09-30）
 
-当前冰墙网格与冰材质使用 `/Game/Skills/IceWall/FabIceV3` 的四种破裂冰块、派生冰面和 `T_IceSurfaceColor` 颜色副本，需恢复用户导入的 `/Game/Ice` 原包第 6 套 normal／roughness／AO 依赖；重建颜色副本时还需原 basecolor。颜色副本必须使用 `TC_DEFAULT`、sRGB 和 Color 采样，不能恢复原包的法线压缩设置。预览材质与施法声继续使用 BlockV1，碎裂粒子和声音来自现有 IceSpike。新增寒雾为 `/Game/Skills/IceWall/ColdMistV1/NS_IceWallColdMist`，依赖冰锥 FrostV2 的 `MI_ColdMist`、母材质及原烟雾图集，由 `Tools/Skills/build_ice_wall_cold_mist.py` 重建；表现、预算和落盘状态见 [冰墙寒雾](Skills/ice-wall-cold-mist-20260930.md)。制作、落盘与棋盘格修复见 [冰墙 Fab V3](Skills/ice-wall-fab-v3-20260930.md)，数值、存档及操作见 [冰墙迁移](Skills/ice-wall-migration-20260930.md)。Fab 二进制与导出贴图参考保持本机，不作公开再分发。V2 保留为历史版本。未运行游戏测试。
+当前冰墙网格与冰材质使用 `/Game/Skills/IceWall/FabIceV3` 的四种破裂冰块、派生冰面和 `T_IceSurfaceColor` 颜色副本，需恢复用户导入的 `/Game/Ice` 原包第 6 套 normal／roughness／AO 依赖；重建颜色副本时还需原 basecolor。颜色副本必须使用 `TC_DEFAULT`、sRGB 和 Color 采样，不能恢复原包的法线压缩设置。预览材质与施法声继续使用 BlockV1，碎裂粒子和声音来自现有 IceSpike。新增寒雾为 `/Game/Skills/IceWall/ColdMistV1/NS_IceWallColdMist`，依赖冰锥 FrostV2 的 `MI_ColdMist`、母材质及原烟雾图集，由 `Tools/Skills/build_ice_wall_cold_mist.py` 重建；表现、预算和落盘状态见 [冰墙寒雾](Skills/ice-wall-cold-mist-20260930.md)。制作、落盘与棋盘格修复见 [冰墙 Fab V3](Skills/ice-wall-fab-v3-20260930.md)，数值、存档及操作见 [冰墙迁移](Skills/ice-wall-migration-20260930.md)。Fab 二进制与导出贴图参考保持本机，不作公开再分发。V2 保留为历史版本。未运行游戏测试。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 衣物、锁子甲与手臂续修（2026-09-30）
 
@@ -252,11 +253,11 @@
 
 ## 毒液僵尸固定步态、随机近战与叠毒（2026-09-29）
 
-恢复本机 Meshy 原蒙皮/绿色材质、V10/V11 四步态、V12/V13 三攻击与共用人形布娃娃。V15 已正式构建，每次实际受伤的存活目标叠一层共用中毒。987 份旧攻击、成品、快照和中间帧已归档；V7 采样助手与原生输入、BiteV8 共用参数仍保留。作者脚本、SKILL 和运行交接补丁公开，依赖未发布共享接口的运行改动尚未整体接入公共 Source。来源、恢复顺序与散列见 [本次发布记录](Monsters/spitter-publication-20260929.md)。
+恢复本机 Meshy 原蒙皮/绿色材质、V10/V11 四步态、V12/V13 三攻击与共用人形布娃娃。V15 已正式构建，每次实际受伤的存活目标叠一层共用中毒。987 份旧攻击、成品、快照和中间帧已归档；V7 采样助手与原生输入、BiteV8 共用参数仍保留。作者脚本、SKILL 和运行交接补丁公开，依赖未发布共享接口的运行改动尚未整体接入公共 Source。来源、恢复顺序与散列见 [本次发布记录](Monsters/spitter-publication-20260929.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 法杖整臂普攻、免费改造、副手与跟随发射（2026-09-29）
 
-保留 V28 整臂动作、V29/V30/V32 默认水晶回退与照明、V33 元素水晶；法杖限主手，副手手枪、G 键照明及右手施法已写入本机运行层。火球与冰锥跟随至实际接触点才发射。44 份 V27/V34 废案归档，当前脚本、原创图标和三个 SKILL 发布；21 份运行源码及共享接入以补丁交接，未整体集成到公共 Source。恢复依赖、历史构建和本轮未测边界见 [法杖整理发布](Weapons/staff-publication-20260929.md)。
+保留 V28 整臂动作、V29/V30/V32 默认水晶回退与照明、V33 元素水晶；法杖限主手，副手手枪、G 键照明及右手施法已写入本机运行层。火球与冰锥跟随至实际接触点才发射。44 份 V27/V34 废案归档，当前脚本、原创图标和三个 SKILL 发布；21 份运行源码及共享接入以补丁交接，未整体集成到公共 Source。恢复依赖、历史构建和本轮未测边界见 [法杖整理发布](Weapons/staff-publication-20260929.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 工作台、枪械组装与脚架／镭射（2026-09-28）
 
@@ -264,15 +265,15 @@
 
 ## 主神空间布局、海面、地毯与金属收边（2026-09-28）
 
-恢复本机 `GameMaps/DayNight_Lighting`、`Props/GodSpaceLayout20260927`、罗马建筑/栏杆/喷泉/祭坛与共享天空依赖。地毯 V2 已获用户认可，连续金属条已保存但未作游戏观感确认；下方云海按用户要求隐藏。Git 发布布局参数、制作脚本、定点路由源码和 SKILL，原模型、贴图、UE 包、构建及导入回执保留本机。本次 48 份废案已归档；恢复输入、旧方案边界与公开发布范围见 [主神空间整理与发布](GodSpace/publication-20260928.md)。本轮仅做仓库发布检查，未重新构建或运行游戏。
+恢复本机 `GameMaps/DayNight_Lighting`、`Props/GodSpaceLayout20260927`、罗马建筑/栏杆/喷泉/祭坛与共享天空依赖。地毯 V2 已获用户认可，连续金属条已保存但未作游戏观感确认；下方云海按用户要求隐藏。Git 发布布局参数、制作脚本、定点路由源码和 SKILL，原模型、贴图、UE 包、构建及导入回执保留本机。本次 48 份废案已归档；恢复输入、旧方案边界与公开发布范围见 [主神空间整理与发布](GodSpace/publication-20260928.md)。本轮仅做仓库发布检查，未重新构建或运行游戏。 原因：用户认可的是具体母版和观感，换成另一版本会改变已有接触或外观基线。
 
 ## PKM 缎面、弓配件与原左轮检视复用（2026-09-27）
 
-恢复 PKM 私有干湿材质与细纹纹理、两款弓弦／箭台／单镜片瞄具，以及 M1911 原左轮动作适配的两段动画。转枪检视已撤回，双持不播放检视；无限备弹箭可靠近收走但不返还真实库存。203 份退役文件已归档。公开源码、配置、作者配方与技能，本机保留模型／贴图／UE 包和导入回执；最终手枪 DLL 与整理后的原生源码仍待构建，未运行游戏测试。当前依赖、恢复顺序和发布检查见 [本轮发布记录](Publication/weapon-bow-inspect-publication-20260927.md)。
+恢复 PKM 私有干湿材质与细纹纹理、两款弓弦／箭台／单镜片瞄具，以及 M1911 原左轮动作适配的两段动画。转枪检视已撤回，双持不播放检视；无限备弹箭可靠近收走但不返还真实库存。203 份退役文件已归档。公开源码、配置、作者配方与技能，本机保留模型／贴图／UE 包和导入回执；最终手枪 DLL 与整理后的原生源码仍待构建，未运行游戏测试。当前依赖、恢复顺序和发布检查见 [本轮发布记录](Publication/weapon-bow-inspect-publication-20260927.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 随机地牢、神像房与刷新池升级（2026-09-27）
 
-恢复随机地图及生成器 ExternalActor、共享房壳/铁闸/楼梯/设施组合件、神像与怪物资源。当前制作链、96 份废案归档、公开源码与运行接口交接范围见 [地牢升级整理与发布](Gameplay/dungeon-upgrades-publication-20260927.md)。公共 Git 包含制作配方和独立辅助源码；完整本机运行仍依赖尚未发布的共享接口与本机授权资源，不能把交接补丁当成已经集成的完整工程。本次没有重新运行游戏测试。
+恢复随机地图及生成器 ExternalActor、共享房壳/铁闸/楼梯/设施组合件、神像与怪物资源。当前制作链、96 份废案归档、公开源码与运行接口交接范围见 [地牢升级整理与发布](Gameplay/dungeon-upgrades-publication-20260927.md)。公共 Git 包含制作配方和独立辅助源码；完整本机运行仍依赖尚未发布的共享接口与本机授权资源，不能把交接补丁当成已经集成的完整工程。本次没有重新运行游戏测试。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 猎手长弓、五槽改造与三类箭矢（2026-09-27）
 
@@ -281,11 +282,11 @@
 
 ## 人形控制、绿色巨手与小手（2026-09-27）
 
-本机模型/动作、根骨接地、冲锋表现、低位近战和受限布娃娃的当前来源、归档及恢复顺序见 [本次发布说明](Monsters/monster-hands-publication-20260927.md)。公开作者配方与 SKILL；模型/PBR、目标蒙皮、密集数据和 UE 包保持本机许可边界。共享战斗接口含其他任务尚未发布改动，13 份新增运行源码以非编译交接补丁保留，不能把本次 Git 克隆当作完整可运行版本。
+本机模型/动作、根骨接地、冲锋表现、低位近战和受限布娃娃的当前来源、归档及恢复顺序见 [本次发布说明](Monsters/monster-hands-publication-20260927.md)。公开作者配方与 SKILL；模型/PBR、目标蒙皮、密集数据和 UE 包保持本机许可边界。共享战斗接口含其他任务尚未发布改动，13 份新增运行源码以非编译交接补丁保留，不能把本次 Git 克隆当作完整可运行版本。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 动态草地：未成功，暂停（2026-09-27）
 
-恢复合法本机 PN_GrassLibrary、丘陵草、WorldGeneration/GrassDeform、高草测试地图及 AutoFootstep 插件／委托。v13 效果被用户否定；v14 主材质已保存但实例尺寸参数未全部落盘，不能作为完成版本。源码、作者、复现工具和 SKILL 保留，49 份废案移入 trash；本轮未继续制作或运行游戏。恢复边界、归档散列和待办见 [草地暂停与发布记录](WorldGeneration/grass-paused-publication-20260927.md)。
+恢复合法本机 PN_GrassLibrary、丘陵草、WorldGeneration/GrassDeform、高草测试地图及 AutoFootstep 插件／委托。v13 效果被用户否定；v14 主材质已保存但实例尺寸参数未全部落盘，不能作为完成版本。源码、作者、复现工具和 SKILL 保留，49 份废案移入 trash；本轮未继续制作或运行游戏。恢复边界、归档散列和待办见 [草地暂停与发布记录](WorldGeneration/grass-paused-publication-20260927.md)。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 裁片露指手套与单只图标（2026-09-27）
 
@@ -293,23 +294,23 @@
 
 ## 药水饮用、四品阶瓶型与恢复数值（2026-09-27）
 
-恢复 `/Game/Items/Consumables/PotionTiersV1` 的 16 个三级 LOD 网格、材质与软木贴图，以及 V7 原生手模、备用左臂和已有上游装备依赖。八种物品共享四档瓶型，同档生命／魔法只换液体材质；全部等级可用，恢复量为基础值加最大资源百分比。源代码、简洁参数、作者脚本、技能与归档索引公开，Blend／FBX／GLB／UE 包、设计图、贴图、导入回执与手模输入保留本机。两份自动备份移入 trash；恢复顺序、旧瓶参考边界和最近一次编译被弓模块阻断的状态见 [药水发布说明](Publication/potion-publication-20260927.md)。未进行游戏测试。
+恢复 `/Game/Items/Consumables/PotionTiersV1` 的 16 个三级 LOD 网格、材质与软木贴图，以及 V7 原生手模、备用左臂和已有上游装备依赖。八种物品共享四档瓶型，同档生命／魔法只换液体材质；全部等级可用，恢复量为基础值加最大资源百分比。源代码、简洁参数、作者脚本、技能与归档索引公开，Blend／FBX／GLB／UE 包、设计图、贴图、导入回执与手模输入保留本机。两份自动备份移入 trash；恢复顺序、旧瓶参考边界和最近一次编译被弓模块阻断的状态见 [药水发布说明](Publication/potion-publication-20260927.md)。未进行游戏测试。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 暗纹猎弓 ContactV9（2026-09-25）
 
-恢复 ContactV9 手模与八段动作、ArmsV4 骨架及衣袖／手套、ArmsV2 静态箭／木纹、细节弓体 `RiserDetail20260925/SM_DarkBow_RiserDetail`、结构重构作者源 `RiserForm20260925`、木质长弓替换 `WoodLongbow20260925`，以及原 dark bow、Normandy `T_WoodSurface_00A` / `T_RottenWoodSurface_00A` 和裸手材质依赖。弓体木纹见 [木纹表面](Weapons/dark-bow-wood-finish-20260925.md)，网格升级见 [弓体细节](Weapons/dark-bow-riser-detail-20260925.md)，结构重构见 [弓体结构](Weapons/dark-bow-riser-form-20260925.md)，长弓替换见 [木质长弓](Weapons/dark-bow-wood-longbow-20260925.md)。源码、配置、作者脚本与技能公开；含第三方表面／姿态的 JSON、Blend／FBX／UE 包及回执留在本机。175 个废案文件已归档至 trash；保留输入、重建顺序、散列清单和未游戏测试边界见 [V9 整理与恢复](Weapons/dark-bow-publication-v9-20260925.md)。
+恢复 ContactV9 手模与八段动作、ArmsV4 骨架及衣袖／手套、ArmsV2 静态箭／木纹、细节弓体 `RiserDetail20260925/SM_DarkBow_RiserDetail`、结构重构作者源 `RiserForm20260925`、木质长弓替换 `WoodLongbow20260925`，以及原 dark bow、Normandy `T_WoodSurface_00A` / `T_RottenWoodSurface_00A` 和裸手材质依赖。弓体木纹见 [木纹表面](Weapons/dark-bow-wood-finish-20260925.md)，网格升级见 [弓体细节](Weapons/dark-bow-riser-detail-20260925.md)，结构重构见 [弓体结构](Weapons/dark-bow-riser-form-20260925.md)，长弓替换见 [木质长弓](Weapons/dark-bow-wood-longbow-20260925.md)。源码、配置、作者脚本与技能公开；含第三方表面／姿态的 JSON、Blend／FBX／UE 包及回执留在本机。175 个废案文件已归档至 trash；保留输入、重建顺序、散列清单和未游戏测试边界见 [V9 整理与恢复](Weapons/dark-bow-publication-v9-20260925.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## V7 默认裸手与独立手套／衣物（2026-09-25）
 
-恢复本机 `Characters/ModularOutfit20260924`、20 个已写入裸手的基础视模及各自原生骨架／动作；保留 V7 原手套恢复件、Body 旧版基底、皮肤材质与物品图标／掉落件。源码、配置和作者脚本公开，含第三方表面／绑定的网格、贴图、密集 JSON、Blend／FBX／UE 包及导入回执留本机。当前依赖链、71 份废案归档、配方重建边界和未运行测试的状态见 [手模与换装发布／恢复](Characters/modular-outfit-publication-20260925.md)。
+恢复本机 `Characters/ModularOutfit20260924`、20 个已写入裸手的基础视模及各自原生骨架／动作；保留 V7 原手套恢复件、Body 旧版基底、皮肤材质与物品图标／掉落件。源码、配置和作者脚本公开，含第三方表面／绑定的网格、贴图、密集 JSON、Blend／FBX／UE 包及导入回执留本机。当前依赖链、71 份废案归档、配方重建边界和未运行测试的状态见 [手模与换装发布／恢复](Characters/modular-outfit-publication-20260925.md)。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 方形祭坛、出征面板、传送门、探险宝箱与 HDR（2026-09-25）
 
-恢复本机 `Props/SquareAltar20260922`、`Props/GamedevPortal20260922`、`Props/GamedevTreasureChest20260922`、相关关卡／调色板及 PWL／NaturalV2 天空资源。宝箱沿用原路径，当前空心结构和材质写回由 20260923 制作链负责；旧源仍提供骨架和开盖动作。七张 PWL HDR 已保存 BC6H 压缩，原分辨率不变。源码发布、54 份废案归档、旧祭坛保存阻塞和未确认的 M4／天空亮斑问题见 [本次发布与恢复](Publication/gamedev-sky-publication-20260925.md)。不公开模型、贴图、原始材质／蓝图导出或 UE 包；本轮未启动引擎或进行游戏测试。
+恢复本机 `Props/SquareAltar20260922`、`Props/GamedevPortal20260922`、`Props/GamedevTreasureChest20260922`、相关关卡／调色板及 PWL／NaturalV2 天空资源。宝箱沿用原路径，当前空心结构和材质写回由 20260923 制作链负责；旧源仍提供骨架和开盖动作。七张 PWL HDR 已保存 BC6H 压缩，原分辨率不变。源码发布、54 份废案归档、旧祭坛保存阻塞和未确认的 M4／天空亮斑问题见 [本次发布与恢复](Publication/gamedev-sky-publication-20260925.md)。不公开模型、贴图、原始材质／蓝图导出或 UE 包；本轮未启动引擎或进行游戏测试。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 裸皮感染犬与 Godot 四足模板（2026-09-25）
 
-恢复 `Content/Monsters/InfectedDog/MeshyV2`、`BP_InfectedDog`、共享血迹 `M_FleshStainV3`，保留合法 Wolf 动作/行为树与完整 Meshy 作者源。当前奔跑为用户认可的 GodotRunNaturalV3；飞扑、咬击和索敌升级仅完成后台构建与保存，未作游戏测试。废案 319 文件已归档至 `trash/infected-dog-retired-20260925`，重建依赖、来源许可及发布边界见 [感染犬发布记录](Monsters/InfectedDogPublication20260925.md)。
+恢复 `Content/Monsters/InfectedDog/MeshyV2`、`BP_InfectedDog`、共享血迹 `M_FleshStainV3`，保留合法 Wolf 动作/行为树与完整 Meshy 作者源。当前奔跑为用户认可的 GodotRunNaturalV3；飞扑、咬击和索敌升级仅完成后台构建与保存，未作游戏测试。废案 319 文件已归档至 `trash/infected-dog-retired-20260925`，重建依赖、来源许可及发布边界见 [感染犬发布记录](Monsters/InfectedDogPublication20260925.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 仓库储物箱五档与统一 E 交互提示（2026-09-24）
 
@@ -317,15 +318,15 @@
 
 ## 地牢生成、墙面与两档加载（2026-09-24）
 
-恢复 `GameMaps/L_Dungeon_Randomized`、本机 `Dungeons` 模板/墙面/杂物资源、Boss 与最终宝箱/返回传送门依赖；完整档主界面直接覆盖当前启动地图，无需新的菜单地图。当前源码、制作链、八份归档、第三方署名及本机二进制边界见 [地牢与加载发布说明](Gameplay/dungeon-loading-publication-20260924.md)。本次只做源码整理和推送检查，未重新运行游戏测试。
+恢复 `GameMaps/L_Dungeon_Randomized`、本机 `Dungeons` 模板/墙面/杂物资源、Boss 与最终宝箱/返回传送门依赖；完整档主界面直接覆盖当前启动地图，无需新的菜单地图。当前源码、制作链、八份归档、第三方署名及本机二进制边界见 [地牢与加载发布说明](Gameplay/dungeon-loading-publication-20260924.md)。本次只做源码整理和推送检查，未重新运行游戏测试。 原因：任务进度与场景实例有独立身份，目标显示和权威开门必须对应同一轮任务。
 
 ## 流体特效与交互（2026-09-24）
 
-恢复本机 `Content/Fluids`、枪口 V14 密度／V15 系统、火系流体燃烧场、血液新材质、冰锥冷雾及喷泉／地牢水面与腐液的既有依赖。原始 Mantaflow 源、缓存、图集、UE 包和制作回执留在本机；源码仓库不替代完整内容备份。重建顺序、68 份退役快照／自动备份的 trash 清单、许可和未测试边界见 [流体整理与恢复](Fluids/fluid-publication-20260924.md)，后续制作遵循 [流体特效工作流](../skills/ue5-fluid-vfx-workflow/SKILL.md)。
+恢复本机 `Content/Fluids`、枪口 V14 密度／V15 系统、火系流体燃烧场、血液新材质、冰锥冷雾及喷泉／地牢水面与腐液的既有依赖。原始 Mantaflow 源、缓存、图集、UE 包和制作回执留在本机；源码仓库不替代完整内容备份。重建顺序、68 份退役快照／自动备份的 trash 清单、许可和未测试边界见 [流体整理与恢复](Fluids/fluid-publication-20260924.md)，后续制作遵循 [流体特效工作流](../skills/ue5-fluid-vfx-workflow/SKILL.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 突变体-3 狂奔、爪型与飞扑（2026-09-23）
 
-恢复 KhaimeraV2 主体/骨架/9 段动作、SurfacePolish 四贴图与 MI、Effects 落地材质和声音，并保留 Meshy 原物理/Death/Stagger、共享感染母材质、AI 与合法 Fab 纹理/音源。先完整身体重排，再叠加飞扑手部旋转，最后安装表面修订；完整依赖、76 份归档及本次源码发布边界见 [突变体恢复与发布](Monsters/Mutant3FeralPublication20260923.md)。用户反馈基本成功，本次整理未运行游戏测试；二进制仍留本机。
+恢复 KhaimeraV2 主体/骨架/9 段动作、SurfacePolish 四贴图与 MI、Effects 落地材质和声音，并保留 Meshy 原物理/Death/Stagger、共享感染母材质、AI 与合法 Fab 纹理/音源。先完整身体重排，再叠加飞扑手部旋转，最后安装表面修订；完整依赖、76 份归档及本次源码发布边界见 [突变体恢复与发布](Monsters/Mutant3FeralPublication20260923.md)。用户反馈基本成功，本次整理未运行游戏测试；二进制仍留本机。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 
 ## 近战手臂开口、相机顺序与突刺双肘（2026-09-23）
@@ -339,30 +340,30 @@
 
 ## 早期 Meshy PKM 分支废案（2026-09-22）
 
-用户已否定并退役本轮 PKM，`SourceAssets/PKM20260921`、`Content/Weapons/PKM` 及专用接入头文件归档至本机 `trash/pkm-rejected-20260922`。武器目录、初始发放、动作/材质引用、预加载和 cook 入口已移除；这些 PKM 包不再属于当前运行内容恢复清单。全部修订均不得按“最新版”自动恢复。范围、SHA-256 清单、构建限制及公开发布边界见 [PKM 废案归档](Weapons/pkm-retirement-20260922.md)。
+用户已否定并退役本轮 PKM，`SourceAssets/PKM20260921`、`Content/Weapons/PKM` 及专用接入头文件归档至本机 `trash/pkm-rejected-20260922`。武器目录、初始发放、动作/材质引用、预加载和 cook 入口已移除；这些 PKM 包不再属于当前运行内容恢复清单。全部修订均不得按“最新版”自动恢复。范围、SHA-256 清单、构建限制及公开发布边界见 [PKM 废案归档](Weapons/pkm-retirement-20260922.md)。 原因：归档存在只说明仍有恢复材料，并不撤销用户对该候选的否决。
 
 
 ## 近战旋风与战术冲刺（2026-09-21）
 
-恢复旋风V5并应用V6后摇，保留V2/V3后处理与边框修订；战术持剑采用V4六条移动动画、V5两条0.25秒前摇攻击动画。当前源、顺序、90份归档散列、许可与源码／本机素材边界见 [近战发布与恢复](Weapons/melee-publication-20260921.md)。最新前摇已通过Live Coding，公开源码不包含完整动画或参考视频，运行效果仍由用户测试。
+恢复旋风V5并应用V6后摇，保留V2/V3后处理与边框修订；战术持剑采用V4六条移动动画、V5两条0.25秒前摇攻击动画。当前源、顺序、90份归档散列、许可与源码／本机素材边界见 [近战发布与恢复](Weapons/melee-publication-20260921.md)。最新前摇已通过Live Coding，公开源码不包含完整动画或参考视频，运行效果仍由用户测试。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 唯一巫婆与重建依赖（2026-09-22）
 
-用户指定只保留 F6「巫婆·重建候选」作为唯一巫婆。当前模型、八个动作、Fabric09 布面和 Drape07 位于 `Content/Monsters/WitchRebuilt`；普通巫婆和 Foundation 的独立运行入口退役。原生构建、旧包归档及实际接入状态见 [唯一巫婆](Monsters/witch-single-variant-20260922.md)。Foundation 模板网格/骨架/物理、原 Meshy 外观贴图及法杖和外部动作源仍是保留版本的依赖，不能按目录名一并删除。
+用户指定只保留 F6「巫婆·重建候选」作为唯一巫婆。当前模型、八个动作、Fabric09 布面和 Drape07 位于 `Content/Monsters/WitchRebuilt`；普通巫婆和 Foundation 的独立运行入口退役。原生构建、旧包归档及实际接入状态见 [唯一巫婆](Monsters/witch-single-variant-20260922.md)。Foundation 模板网格/骨架/物理、原 Meshy 外观贴图及法杖和外部动作源仍是保留版本的依赖，不能按目录名一并删除。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 当前包含 FlightDistance12 投瓶/距离修正及 LiquidProjectile13 普通毒弹表现。公开源码、有效作者输入、未采用 MeshLab 实验与自动备份的 trash 归档边界见 [巫婆发布与恢复](Monsters/witch-publication-20260923.md)；最新修订未进行游戏或性能测试。
 
 ### 历史：巫婆暂停与人体候选（2026-09-21）
 
-当时普通巫婆 V06/V07 未获用户满意，暂停开发；独立 `WitchFoundation` 人体待机/慢走粗模可用，保留两个 F6 入口作对照。此入口安排已被上方唯一巫婆决策替代。原始素材、分件、恢复依赖与当时的 trash 散列清单见 [巫婆暂停与发布](Monsters/witch-paused-publication-20260921.md)。公开仓库只发布代码、作者脚本、参数和文字；Meshy 模型/PBR、Epic Quinn 与动作、UE 包、密集姿态采样留在本机，不能从 Git 克隆恢复完整外观。
+当时普通巫婆 V06/V07 未获用户满意，暂停开发；独立 `WitchFoundation` 人体待机/慢走粗模可用，保留两个 F6 入口作对照。此入口安排已被上方唯一巫婆决策替代。原始素材、分件、恢复依赖与当时的 trash 散列清单见 [巫婆暂停与发布](Monsters/witch-paused-publication-20260921.md)。公开仓库只发布代码、作者脚本、参数和文字；Meshy 模型/PBR、Epic Quinn 与动作、UE 包、密集姿态采样留在本机，不能从 Git 克隆恢复完整外观。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 大旋风 V4（2026-09-20）
 
-恢复普通柄和加长柄 `A_RuneSword_WhirlwindV4`、`Skills/Whirlwind20260920/M_WhirlwindFocus` 与 `ForegroundV3`，保持前景材质JSON映射。保留Manny握持源、ChargedErgoV43母版、共享双臂求解器及V4可编辑源；旧V1–V3动画已归档，V2背景模糊/V3前景材质作者源仍有效。公开脚本与本机授权素材边界、98份归档清单、最后移动限制尚待构建的状态见 [大旋风整理与源码发布](Skills/whirlwind-publication-20260920.md)。
+恢复普通柄和加长柄 `A_RuneSword_WhirlwindV4`、`Skills/Whirlwind20260920/M_WhirlwindFocus` 与 `ForegroundV3`，保持前景材质JSON映射。保留Manny握持源、ChargedErgoV43母版、共享双臂求解器及V4可编辑源；旧V1–V3动画已归档，V2背景模糊/V3前景材质作者源仍有效。公开脚本与本机授权素材边界、98份归档清单、最后移动限制尚待构建的状态见 [大旋风整理与源码发布](Skills/whirlwind-publication-20260920.md)。 原因：作者母版与运行网格承担不同用途，保留母版才能重做细节、烘焙和距离档位。
 
 ## 丘陵河岸、天空与地表加载（2026-09-20）
 
-恢复 `WorldGeneration/TemperateHills` 的地表、河岸生态、卵石、水体、天空和 `DA_TemperateHillsStreaming`，以及原有 PN/Normandy、WaterMaterials、PWL 和 Fab 河岸来源。当前重建入口、树木再生接入、旧材质归档及源码/本机素材边界见 [丘陵发布与恢复](WorldGeneration/hills-publication-20260920.md)。地表最后使用 `build_hills_ground_v2.py`，不要让旧三层脚本覆盖；进入范围改为附近约 96 m，加载修复已完成 Editor 构建，实际清晰度及耗时待用户测试。
+恢复 `WorldGeneration/TemperateHills` 的地表、河岸生态、卵石、水体、天空和 `DA_TemperateHillsStreaming`，以及原有 PN/Normandy、WaterMaterials、PWL 和 Fab 河岸来源。当前重建入口、树木再生接入、旧材质归档及源码/本机素材边界见 [丘陵发布与恢复](WorldGeneration/hills-publication-20260920.md)。地表最后使用 `build_hills_ground_v2.py`，不要让旧三层脚本覆盖；进入范围改为附近约 96 m，加载修复已完成 Editor 构建，实际清晰度及耗时待用户测试。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 双手伐木斧与矿镐（2026-09-20）
 
@@ -393,17 +394,17 @@
 
 ## 火球写实命中（2026-09-14）
 
-恢复 `Content/Skills/Fireball/ImpactRealistic20260914` 的爆燃系统、材质、混音和声音衰减资源。新命中引用由 `FPSFireballComponent` 加载，原悬浮／飞行资产仍沿用现有路径。作者入口为 `Tools/Skills/build_fireball_impact_realistic.py`；运行前从 `SourceAssets/FireballImpactRealistic20260914/author_audio.py` 生成混音，保留 Epic `T_Explosion_EOO`／法线、已有薄烟和 `Realistic_Starter_VFX_Pack_Vol2/T_NoiseNormal_A` 的授权依赖。材质制作需真实 RHI 编译。详见 [写实命中接入](Skills/fireball-realistic-impact-20260914.md)。
+恢复 `Content/Skills/Fireball/ImpactRealistic20260914` 的爆燃系统、材质、混音和声音衰减资源。新命中引用由 `FPSFireballComponent` 加载，原悬浮／飞行资产仍沿用现有路径。作者入口为 `Tools/Skills/build_fireball_impact_realistic.py`；运行前从 `SourceAssets/FireballImpactRealistic20260914/author_audio.py` 生成混音，保留 Epic `T_Explosion_EOO`／法线、已有薄烟和 `Realistic_Starter_VFX_Pack_Vol2/T_NoiseNormal_A` 的授权依赖。材质制作需真实 RHI 编译。详见 [写实命中接入](Skills/fireball-realistic-impact-20260914.md)。 原因：未改表面的着色与变形依赖现有面角属性，整体重建会扩大局部修改的影响。
 
 ## 火球流体燃烧贴图（2026-09-14）
 
 同日镜头残影／悬浮热浪调整增加 `M_FluidThinWispMotion` 与 `M_FluidHoverHeatHalo`，继续使用原运行系统路径。热浪依赖剑气同源的 `Realistic_Starter_VFX_Pack_Vol2/Textures/T_NoiseNormal_A`；增量恢复入口为 `Tools/Skills/tune_fireball_motion_heat.py`，完整流体生成器也已同步。参数、备份及未测试范围见 [镜头残影与悬浮热浪](Skills/fireball-motion-heat-20260914.md)。
 
-恢复 `Content/Skills/Fireball/FluidBurn20260914` 的两套纹理／材质，以及更新后的 `NS_FireballSlowBurnCore`、`NS_FireballVelocityTrail`。作者目录 `SourceAssets/FireballFluidBurn20260914` 保存原创 Mantaflow 模拟、可编辑 Blend、缓存、场数据、图集烘焙脚本和两张 RGBA 图集；保留 Epic Niagara Examples 薄烟／热扰动、Dr.Game Free Spline VFX 短外焰及现有父材质依赖。已有两张图集时，运行 `Tools/Skills/build_fireball_fluid_burn.py` 完成 UE 恢复；完整 `build_fireball_assets.py` 已把这一阶段加入末尾。制作与用户测试边界见 [流体燃烧主体](Skills/fireball-fluid-burn-20260914.md)。
+恢复 `Content/Skills/Fireball/FluidBurn20260914` 的两套纹理／材质，以及更新后的 `NS_FireballSlowBurnCore`、`NS_FireballVelocityTrail`。作者目录 `SourceAssets/FireballFluidBurn20260914` 保存原创 Mantaflow 模拟、可编辑 Blend、缓存、场数据、图集烘焙脚本和两张 RGBA 图集；保留 Epic Niagara Examples 薄烟／热扰动、Dr.Game Free Spline VFX 短外焰及现有父材质依赖。已有两张图集时，运行 `Tools/Skills/build_fireball_fluid_burn.py` 完成 UE 恢复；完整 `build_fireball_assets.py` 已把这一阶段加入末尾。制作与用户测试边界见 [流体燃烧主体](Skills/fireball-fluid-burn-20260914.md)。 原因：重建需要真实的上游输入及先后顺序，仅保留最终输出无法恢复可编辑制作链。
 
 ## Meshy 胖子僵尸（2026-09-14）
 
-恢复 `Content/Monsters/FatZombieMeshy` 的网格、Skeleton、物理资产、四段 Animations、Materials/Textures、Pus；动作重建还需 Sources/Rig/RetargetedRaw。主场景保留 `Content/GameMaps/DayNight_Lighting.umap` 与 `Geometry/SM_MainGround_Subdivided`，以及适合怪物胶囊尺寸的导航。脓液素材依赖 WaterMaterials 的河流法线、泡沫及 RuralAustralia 的浑水遮罩，继续按原素材来源恢复。
+恢复 `Content/Monsters/FatZombieMeshy` 的网格、Skeleton、物理资产、四段 Animations、Materials/Textures、Pus；动作重建还需 Sources/Rig/RetargetedRaw。主场景保留 `Content/GameMaps/DayNight_Lighting.umap` 与 `Geometry/SM_MainGround_Subdivided`，以及适合怪物胶囊尺寸的导航。脓液素材依赖 WaterMaterials 的河流法线、泡沫及 RuralAustralia 的浑水遮罩，继续按原素材来源恢复。 原因：未改表面的着色与变形依赖现有面角属性，整体重建会扩大局部修改的影响。
 
 作者源为 `SourceAssets/FatZombieMeshy20260913`：用户 Meshy ZIP/解包模型、原蒙皮 Blend、成品 Blend/FBX、prepared、native_retarget、四张 PBR 和当前 UEAuthoring。制作顺序与来源见 [作者说明](../SourceAssets/FatZombieMeshy20260913/README.md)，运行和归档边界见 [本次整理](fat-zombie-workflow-publication-20260914.md)。Mesh2Motion 动画的 CC0 许可不覆盖 Meshy 模型或水体资产；本次只发布源码、制作脚本和必要文字记录，不公开上述二进制。
 
@@ -414,13 +415,13 @@
 
 ## 本机继续开发
 
-本机原工程未移动，仍打开 `D:/FPS3D/FPSGAME/FPSGAME.uproject`；本目录现已接入独立 Git，日常开发、提交、推送全部在 D 盘完成，不需复制到 E 盘。如使用新的 Git checkout，在确认拥有使用许可后，从完整宿主复制 `Content`，保持相对路径和 World Partition 的 `__ExternalActors__`/`__ExternalObjects__` 成套；不要用旧快照覆盖当前源码。复制前处理目标同名文件的差异，不批量覆盖新工作。
+本机原工程未移动，仍打开 `D:/FPS3D/FPSGAME/FPSGAME.uproject`；本目录现已接入独立 Git，日常开发、提交、推送全部在 D 盘完成，不需复制到 E 盘。如使用新的 Git checkout，在确认拥有使用许可后，从完整宿主复制 `Content`，保持相对路径和 World Partition 的 `__ExternalActors__`/`__ExternalObjects__` 成套；不要用旧快照覆盖当前源码。复制前处理目标同名文件的差异，不批量覆盖新工作。 原因：共享工作树可能包含其他任务改动，发布范围需要对应本次实际拥有的文件与差异。
 
 作者编辑还需要本机 `SourceAssets` 中的 Blend、FBX、声音和引用源；仓库只包含当前 M4 三段依赖链的作者脚本及记录，恢复本地源目录可补齐其输入。`Tools` 中部分旧参考导出器仍指向本机 Godot 归档，不参与 UE 游戏运行。历史工具带绝对宿主路径，运行前检查其输入和输出路径。
 
 ## 主要资源依赖
 
-2026-09-11 瞄具恢复补充：本次发布源码与作者脚本，二进制仍按本文件的本机恢复规则处理。需要 `Content/Weapons/PanoramicRedDot`、`PrismScope2XMachined`、`LPVO1to6X`（镜身与倍率环两网格）。对应 `SourceAssets/PanoramicRedDot20260911/GameIntegration` 依赖同案例 `Reroll03` 母版；`PrismScope2X20260911/MachinedControls` 依赖上级 scope2x 母版；LPVO 依赖本目录母版、三视图、参考和四张 PBR 贴图。不要从 trash 的旧瞄具输出恢复当前资源。生成图、源 GLB/Blend/FBX、uasset 和第三方参考图此次未公开上传。
+2026-09-11 瞄具恢复补充：本次发布源码与作者脚本，二进制仍按本文件的本机恢复规则处理。需要 `Content/Weapons/PanoramicRedDot`、`PrismScope2XMachined`、`LPVO1to6X`（镜身与倍率环两网格）。对应 `SourceAssets/PanoramicRedDot20260911/GameIntegration` 依赖同案例 `Reroll03` 母版；`PrismScope2X20260911/MachinedControls` 依赖上级 scope2x 母版；LPVO 依赖本目录母版、三视图、参考和四张 PBR 贴图。不要从 trash 的旧瞄具输出恢复当前资源。生成图、源 GLB/Blend/FBX、uasset 和第三方参考图此次未公开上传。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 | 内容 | 当前恢复位置/说明 |
 | --- | --- |
@@ -448,20 +449,20 @@ Windows 系统字体及其派生字体仅按工具中的本地用途处理，不
 
 ## 第一人称攀爬（2026-09-11）
 
-恢复本机 `Content/Movement/Traversal/Native`（手臂网格、动画及动画包围盒版本），以及初始地图及其 ExternalActors/ExternalObjects。测试障碍可由 `Tools/SceneTests/place_traversal_course.py` 在已打开的初始地图重建。源参考与可编辑工程位于 `SourceAssets/GASPTraversal20260910/{Reference,Native}`，作者脚本还依赖本机 `SourceAssets/M4TacticalToss20260910/M4_Hand_MAT_Editable.blend`。需自行取得官方 Game Animation Sample 的使用许可；原始动画、FBX、Blend、参考截图与运动采样数据本次不公开分发。
+恢复本机 `Content/Movement/Traversal/Native`（手臂网格、动画及动画包围盒版本），以及初始地图及其 ExternalActors/ExternalObjects。测试障碍可由 `Tools/SceneTests/place_traversal_course.py` 在已打开的初始地图重建。源参考与可编辑工程位于 `SourceAssets/GASPTraversal20260910/{Reference,Native}`，作者脚本还依赖本机 `SourceAssets/M4TacticalToss20260910/M4_Hand_MAT_Editable.blend`。需自行取得官方 Game Animation Sample 的使用许可；原始动画、FBX、Blend、参考截图与运动采样数据本次不公开分发。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 Git 包含攀爬 C++、配置、作者工具、导入/包围盒/作者校验摘要和技能。AKM 完整宿主集成属于独立内容依赖；发布核心的攀爬测试在缺少 AKM 目录定义时使用第二把 M4，不将其报告为 AKM 素材验收。完整宿主之前的 AKM 运行记录保留在攀爬文档。
 
 ## AKM 瞄具与枪钢（2026-09-11）
 
-本机当前恢复还需要 `Content/Weapons/AKMIntegration/SovietFab/{Attachments,ArmSupport,Optics,OpticSteel}`，以及同枪的动画、原始 Soviet Fab 模型/贴图和 M4 共用手模。`Optics` 为当前侧装桥架，`OpticSteel` 为 AKM 独立瞄具及材质，保留共享 M4 镜片/分划等依赖。完整材质来源仍遵守原 Fab 许可，不能从本次公开脚本推断获得了原资产分发权。
+本机当前恢复还需要 `Content/Weapons/AKMIntegration/SovietFab/{Attachments,ArmSupport,Optics,OpticSteel}`，以及同枪的动画、原始 Soviet Fab 模型/贴图和 M4 共用手模。`Optics` 为当前侧装桥架，`OpticSteel` 为 AKM 独立瞄具及材质，保留共享 M4 镜片/分划等依赖。完整材质来源仍遵守原 Fab 许可，不能从本次公开脚本推断获得了原资产分发权。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 作者复现源需要 `SourceAssets/AKMArmSupport20260911`、`AKMAttachments20260911`、当前 M4 瞄具源以及 `AKMBridgeRefine20260911`、`AKMOpticSteel20260911` 的本机二进制输入；按各案例 README 顺序执行。旧方块底座和失败中间件已移入 trash，当前恢复不从旧文件覆盖正式资产。此次只整理发布工作流、脚本与记录；未将混合并行修改的 AKM 运行模块当作新源码基线发布。见 [整理与验收记录](Weapons/akm-optics-workflow-20260911.md)。
 
 
 ## Gunplay 与枪口 VFX（2026-09-11）
 
-恢复 `Content/NiagaraExamples`（已获授权的 Epic Niagara Examples Pack）及 `Content/Weapons/GunplayFX`。当前引用为 `NS_FPS_MuzzleFlashV10`、`NS_FPS_MuzzleSmokeStreamV12`、`M_BallisticTracerVisibleV12`，以及枪口后备、烟、弹壳材质；以下 V5–V11 记录保留作者依赖与迭代过程。第三方派生 Niagara uasset 仅本机保留，本次没有上传其二进制。
+恢复 `Content/NiagaraExamples`（已获授权的 Epic Niagara Examples Pack）及 `Content/Weapons/GunplayFX`。当前引用为 `NS_FPS_MuzzleFlashV10`、`NS_FPS_MuzzleSmokeStreamV12`、`M_BallisticTracerVisibleV12`，以及枪口后备、烟、弹壳材质；以下 V5–V11 记录保留作者依赖与迭代过程。第三方派生 Niagara uasset 仅本机保留，本次没有上传其二进制。 原因：重建需要真实的上游输入及先后顺序，仅保留最终输出无法恢复可编辑制作链。
 
 基础生成器 [build_muzzle_presentation_v5.py](../Tools/AssetPipeline/build_muzzle_presentation_v5.py) 直接以原包 `FX_Weapons/MuzzleFlashes/NS_MuzzleFlash` 重建，不需要 trash 中的旧候选。需项目 `RainAssetEditor`、UE 5.8 NiagaraToolset 和原始素材；`-MuzzleRebuildProbe` 写独立测试资产。当前曳光材质由 [V6 制作器](../Tools/AssetPipeline/build_gunplay_presentation_v6.py) 创建基础，再用 [V12 制作器](../Tools/AssetPipeline/build_gunplay_visibility_v12.py) 升级。参数、历史迭代和本机证据见 [烟火记录](muzzle-smoke-presentation-20260911.md)，归档记录见 [清单](gunplay-archive-20260911.json)。
 
@@ -483,22 +484,22 @@ V11 烟雾降低透明度与累积烟量、加快消散，并保留连续扩散�
 
 ## 云、雨与附着水滴（2026-09-12）
 
-先恢复 `Content/Weather/NaturalV2/DA_WeatherPresentation.uasset` 基础表现库。恢复既有 `Weather/VFX`、`PWL_Light_Manager/Shader`、M4InfimaV3、M4HK416Replica、AKM SovietFab 和现用配件后，编译 FPSGAMEEditor，再运行 [天气生成器](../Tools/Weather/build_natural_weather.py)。它以本机已授权资产生成 39 个独立副本及程序化材质，不下载资源。原始 HLSL 位于 `SourceAssets/WeatherNatural20260912`；新库中的枪械及天空材质仍依赖原包纹理与函数，不能把衍生 uasset 当作可自由分发的美术包。具体范围、控制参数与验收见 [天气升级记录](WeatherNaturalUpgrade-20260912.md)。
+先恢复 `Content/Weather/NaturalV2/DA_WeatherPresentation.uasset` 基础表现库。恢复既有 `Weather/VFX`、`PWL_Light_Manager/Shader`、M4InfimaV3、M4HK416Replica、AKM SovietFab 和现用配件后，编译 FPSGAMEEditor，再运行 [天气生成器](../Tools/Weather/build_natural_weather.py)。它以本机已授权资产生成 39 个独立副本及程序化材质，不下载资源。原始 HLSL 位于 `SourceAssets/WeatherNatural20260912`；新库中的枪械及天空材质仍依赖原包纹理与函数，不能把衍生 uasset 当作可自由分发的美术包。具体范围、控制参数与验收见 [天气升级记录](WeatherNaturalUpgrade-20260912.md)。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 随后运行 [雨滴可见性修正生成器](../Tools/Weather/fix_rain_visibility.py)，生成 `Content/Weather/RainVisibility` 下四个修正版资产。当前运行入口是该目录的 `DA_WeatherPresentation`；它沿用 NaturalV2 的屏幕、枪械、天空与其余雨效，仅替换下落雨丝和水坑材质。原始雨丝着色器在 `SourceAssets/RainVisibility20260912`，详见 [雨滴与水坑修正](RainVisibility-20260912.md)。两个生成器都通过 UE Python commandlet 执行。
 
 ## 冷钢玻璃改造台（2026-09-12）
 
-保留 `Content/UI/GunsmithWorkbench/T_WorkshopBackground`，恢复同目录 `ColdGlass` 中的九张分类纹理与 `M_CategoryIcon`，以及 `Fonts` 中四份字体、两个 OFL 许可和 provenance。字体可用 [准备器](../Tools/UI/prepare_cold_glass_fonts.py) 从固定官方提交重新下载；分类图标需本机 `SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1` 原图，再通过 UE Python 运行 [导入器](../Tools/UI/import_cold_glass_icons.py)。本机 PNG 保持 RGB，透明效果由 UI 材质完成。详见 [接入与验证](UI/gunsmith-cold-glass-implementation-20260912.md)。
+保留 `Content/UI/GunsmithWorkbench/T_WorkshopBackground`，恢复同目录 `ColdGlass` 中的九张分类纹理与 `M_CategoryIcon`，以及 `Fonts` 中四份字体、两个 OFL 许可和 provenance。字体可用 [准备器](../Tools/UI/prepare_cold_glass_fonts.py) 从固定官方提交重新下载；分类图标需本机 `SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1` 原图，再通过 UE Python 运行 [导入器](../Tools/UI/import_cold_glass_icons.py)。本机 PNG 保持 RGB，透明效果由 UI 材质完成。详见 [接入与验证](UI/gunsmith-cold-glass-implementation-20260912.md)。 原因：文字方向、宽度和字体覆盖决定可读性，窄列逐字换行会破坏信息层级。
 
 
 ## QBZ191 与逐枪配件涂层（2026-09-13）
 
-保留本机 `Content/Weapons/QBZ191` 的 Refined20260913、Attachments20260913、MetalCoat20260913 及其骨架、源纹理和当前机械瞄具；基础枪身/弹匣来自用户提供的 QBZ191 包，许可边界见 `SourceAssets/QBZ19120260912/provenance.json`，不可公开原素材。手臂和参考动作沿用已有合法 M4/Manny 来源。
+保留本机 `Content/Weapons/QBZ191` 的 Refined20260913、Attachments20260913、MetalCoat20260913 及其骨架、源纹理和当前机械瞄具；基础枪身/弹匣来自用户提供的 QBZ191 包，许可边界见 `SourceAssets/QBZ19120260912/provenance.json`，不可公开原素材。手臂和参考动作沿用已有合法 M4/Manny 来源。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`，包含 14 个网格、逐槽材料和 M4 机匣裁片。它们仍依赖原配件法线、光学材料、M4InfimaV3 材质函数和 AKM SovietFab ArmSupport 枪钢纹理；先恢复这些来源，再使用 `SourceAssets/WeaponAttachmentFinish20260913` 中导出、纹理准备、UV 制作和导入脚本。QBZ 涂层依次运行其 MetalCoat 目录的 export_current、bake_coating、record_export_slots、import_coating、finish_editable；输入及前置版本见 [材质记录](Weapons/qbz191-receiver-coating-20260913.md)。
 
-最终可编辑源、贴图与已交付预览保留本机，不提交 Git。公开制作脚本需要已有授权资产，不能单靠克隆仓库恢复画面。归档及本次发布范围见 [整理记录](Weapons/weapon-publication-20260913.md)。
+最终可编辑源、贴图与已交付预览保留本机，不提交 Git。公开制作脚本需要已有授权资产，不能单靠克隆仓库恢复画面。归档及本次发布范围见 [整理记录](Weapons/weapon-publication-20260913.md)。 原因：共享工作树可能包含其他任务改动，发布范围需要对应本次实际拥有的文件与差异。
 
 ## 感染矿工退役（2026-09-13）
 
@@ -509,15 +510,15 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 - 共振握把作者入口：[MeshyIntegration](../SourceAssets/ResonanceGrip20260913/MeshyIntegration/README.md)。本地源 Selected_Meshy_Source.fbx 的原路径与 SHA256 见 source.json；每枪参考 FBX、输出 Blend/FBX/GLB 和微表面贴图需从合法本地备份恢复。仍依赖 AngledForegrip20260910/WristNatural 的 M4 idle Blend、其引用库，以及 ResonanceGrip20260913/Repaired91871/Game 的三枪材质区域参考 Blend。
 - 后托作者入口：[MeshyPerformanceStock20260913](../SourceAssets/MeshyPerformanceStock20260913/README.md)。用户 ZIP 的路径和 SHA256 见 provenance.json；Source/、Imported.blend、Textures/ 和三枪输出均为本地依赖。
 - 材质依赖：WeaponAttachmentFinish20260913 的 M4 机匣纹理、AKMArmSupport20260911/Metal、StableAntiSlipRearGrip20260913/Selected91727/Textures。UE 需恢复 AttachmentFinish20260913/M4/Textures、AKMIntegration/SovietFab/ArmSupport/Textures 和引擎 MF_PhongToMetalRoughness。
-- 运行 Content：Weapons/ResonanceGrip20260913/MeshyIntegration 与 Weapons/QRPerformanceStock/Meshy20260913，下含 M4、AKM、QBZ191 专用网格/材质。先恢复已有枪体、骨架和装配依赖，再按作者及导入脚本恢复资源；只克隆源码不能得到可运行的完整模型工程。
+- 运行 Content：Weapons/ResonanceGrip20260913/MeshyIntegration 与 Weapons/QRPerformanceStock/Meshy20260913，下含 M4、AKM、QBZ191 专用网格/材质。先恢复已有枪体、骨架和装配依赖，再按作者及导入脚本恢复资源；只克隆源码不能得到可运行的完整模型工程。 原因：重建需要真实的上游输入及先后顺序，仅保留最终输出无法恢复可编辑制作链。
 - 本次使用 Repaired91871/ImportHost 内容宿主导入，其 Content 是正式 Content 的目录联接，不可递归移走或删除；主项目曾有 AutoFootstep 启动冲突，此方法不代表该冲突已修复。
 - 用户提供资源的公开再分发权尚未确认，源 ZIP/FBX、贴图、Blend、GLB、uasset 及渲染不提交公开仓库。保留源与当前资源，仅归档明确淘汰版本，见 [清单](AssetArchives/resonance-meshy-20260913.json)。本次整理未启动游戏测试。
 
 ## M1911 手枪（2026-09-13）
 
-公共仓库包含手枪运行代码、物品/枪匠参数、制作/导入脚本、来源记录和审计入口。完整枪体、手臂、原始 P9 动作及其采样、Blend/FBX/uasset、贴图与音频保留本机；克隆仓库本身不恢复完整模型画面。M1911、Manny、P9、枪钢、光学和声音分别沿用各自许可，第三方 GitHub 镜像不能作为原资产再分发授权。
+公共仓库包含手枪运行代码、物品/枪匠参数、制作/导入脚本、来源记录和审计入口。完整枪体、手臂、原始 P9 动作及其采样、Blend/FBX/uasset、贴图与音频保留本机；克隆仓库本身不恢复完整模型画面。M1911、Manny、P9、枪钢、光学和声音分别沿用各自许可，第三方 GitHub 镜像不能作为原资产再分发授权。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
-- 当前枪身：`Content/Weapons/M1911/RearFinish20260913`；当前动作：`Contact20260913` 的待机/射击/拔枪以及 `ReloadReady20260913` 的普通/空仓换弹。枪声仍依赖 `Integrated20260913/Audio`。不要将整份 Integrated 目录当废案删除。
+- 当前枪身：`Content/Weapons/M1911/RearFinish20260913`；当前动作：`Contact20260913` 的待机/射击/拔枪以及 `ReloadReady20260913` 的普通/空仓换弹。枪声仍依赖 `Integrated20260913/Audio`。不要将整份 Integrated 目录当废案删除。 原因：Integrated 目录仍提供当前枪声，动作与材质更新不意味着整个旧目录失效。
 - 配件：`CompactFit20260913` 的全息/普通消音器/激光/手电；`MuzzleRedDot20260913` 的制退器；`SculptedMount20260913` 的全景红点。保留 `Attachments20260913/Materials`、`Tactical20260913/Materials` 和 Wet 依赖，以及来源 M4 光学玻璃/分划、枪口内腔材料。
 - 后部涂层与雨滴：从 `SourceAssets/M1911RearRain20260913/install_finish_and_rain.py`、`M1911Tactical20260913/register_rain.py` 恢复实际材料映射，包括 RainVisibility / NaturalV2 的 `DA_WeatherPresentation`；需先恢复项目天气母材质与参数。
 - 图标：恢复本机 `Content/ColdSteelData` 中 M1911 原厂图标、`AttachmentIcons20260913` 的轻型扳机、短/长枪管、枪口及战术配件图标。动态武器图标还依赖既有 GunsmithWorkbench 的工作室环境和预览材质。
@@ -526,7 +527,7 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 
 ## 表面命中反馈（2026-09-14）
 
-运行资源位于 `Content/Weapons/GunplayFX/Impacts`，由 [制作入口](../Tools/AssetPipeline/build_surface_impact_assets.py) 在 UE Python commandlet 中生成，包含实例化火星/粉尘/碎屑材质、弹痕及 18 个短命中音效。作者源 `SourceAssets/SurfaceImpacts20260914` 使用本项目原创程序化 HLSL 和合成 PCM；几何及淡出依赖引擎 BasicShapes Plane/Cube 和 DitherTemporalAA 函数，不必复制 Niagara 命中示例包。先生成资源，再编译原生世界共享池；仅源码不能替代本机 uasset。表面绑定规则、固定性能预算、枪型后坐力参数与未测试范围见 [接入记录](Weapons/gunplay-impacts-recoil-20260914.md)。
+运行资源位于 `Content/Weapons/GunplayFX/Impacts`，由 [制作入口](../Tools/AssetPipeline/build_surface_impact_assets.py) 在 UE Python commandlet 中生成，包含实例化火星/粉尘/碎屑材质、弹痕及 18 个短命中音效。作者源 `SourceAssets/SurfaceImpacts20260914` 使用本项目原创程序化 HLSL 和合成 PCM；几何及淡出依赖引擎 BasicShapes Plane/Cube 和 DitherTemporalAA 函数，不必复制 Niagara 命中示例包。先生成资源，再编译原生世界共享池；仅源码不能替代本机 uasset。表面绑定规则、固定性能预算、枪型后坐力参数与未测试范围见 [接入记录](Weapons/gunplay-impacts-recoil-20260914.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 肉体血雾后续升级还需恢复合法本地包 `Realistic_Starter_VFX_Pack_Vol2` 的 `T_Smoke_Wisp`、`T_Droplets_A`，再运行 [血液材质制作器](../Tools/AssetPipeline/build_flesh_impact_assets.py)，生成 `Impacts/Blood` 中的血雾和血滴两个材质。作者 HLSL 和来源记录在 `SourceAssets/FleshImpacts20260914`，未改源包或新购资产；血液材质仍引用第三方贴图，不作为可独立公开再分发的素材包。初版参数仅作为历史记录，见 [血雾接入记录](Weapons/flesh-impact-blood-20260914.md)。
 
@@ -534,7 +535,7 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 
 ## 改造配件图标：水平左向与单件机瞄（2026-09-14）
 
-当前图标加载优先使用 `Content/ColdSteelData/AttachmentIcons20260913` 中的武器专属透明 PNG，再回退共享 PNG；分类图也使用同一透明规则。恢复本轮 104 张 PNG 和对应 UE Texture，不能仅恢复旧黑底分类图。5 张已接受枪托 PNG 保留，99 张替换／新增图已在本机导入。实际模型渲染和含第三方资产的可编辑场景保留本机，未核准为可公开再分发素材。精确图标哈希、来源、脚本依赖和制作阶段构建记录见 [配件图标发布与恢复说明](Weapons/attachment-icons-publication-20260914.md)。
+当前图标加载优先使用 `Content/ColdSteelData/AttachmentIcons20260913` 中的武器专属透明 PNG，再回退共享 PNG；分类图也使用同一透明规则。恢复本轮 104 张 PNG 和对应 UE Texture，不能仅恢复旧黑底分类图。5 张已接受枪托 PNG 保留，99 张替换／新增图已在本机导入。实际模型渲染和含第三方资产的可编辑场景保留本机，未核准为可公开再分发素材。精确图标哈希、来源、脚本依赖和制作阶段构建记录见 [配件图标发布与恢复说明](Weapons/attachment-icons-publication-20260914.md)。 原因：用户认可的是具体母版和观感，换成另一版本会改变已有接触或外观基线。
 
 ## Dan-Wesson 715（2026-09-14）
 
@@ -542,7 +543,7 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 
 ## 闪电（2026-09-20）
 
-恢复已许可的 Dr.Game Free Spline VFX 原包 `/Game/_SplineVFX`、`SourceAssets/Lightning20260920` 中的图标与两层原施法音频。`Tools/Skills/prepare_lightning_sources.py` 从原 game-dev 音频转码，`Tools/Skills/build_lightning_assets.py` 经 UE 桥制作 `/Game/Skills/Lightning/NS_LightningChain` 并导入声音；图标恢复已进入 `Tools/UI/prepare_cold_steel_skill_icons.py`。原包和音频派生二进制继续保持本机许可边界。完整来源、数值、三维适配及未测范围见 [闪电迁移](Skills/lightning-migration-20260920.md)。
+恢复已许可的 Dr.Game Free Spline VFX 原包 `/Game/_SplineVFX`、`SourceAssets/Lightning20260920` 中的图标与两层原施法音频。`Tools/Skills/prepare_lightning_sources.py` 从原 game-dev 音频转码，`Tools/Skills/build_lightning_assets.py` 经 UE 桥制作 `/Game/Skills/Lightning/NS_LightningChain` 并导入声音；图标恢复已进入 `Tools/UI/prepare_cold_steel_skill_icons.py`。原包和音频派生二进制继续保持本机许可边界。完整来源、数值、三维适配及未测范围见 [闪电迁移](Skills/lightning-migration-20260920.md)。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ### 圣光魔法（2026-09-20）
 
@@ -570,16 +571,16 @@ M4 N、AKM／ASH-12 跨枪适配、QBZ191 O 与 recover 衔接的运行路径、
 
 用户已认可符文长剑与寒晶剑的六款共享方案。[最终恢复入口](../SourceAssets/SixSharedSwordPommels20260920/README.md) 和 [整理清单与发布边界](Weapons/six-sword-pommels-publication-20260920.md) 记录当前依赖。
 
-- 先恢复四份现行数据：`melee-gunsmith.json`、`rune-sword-modules.json`、`frost-sword-modules.json`、`shared-sword-pommels.json`，均在 `Content/ColdSteelData`。
+- 先恢复四份现行数据：`melee-gunsmith.json`、`rune-sword-modules.json`、`frost-sword-modules.json`、`shared-sword-pommels.json`，均在 `Content/ColdSteelData`。 原因：模块与改造依赖同一组现行数据，先恢复配置才能建立正确资源引用。
 - 本机保留的 UE 内容包括 `Weapons/AzureRunesword20260913/Modules20260919`、`Weapons/AzureRunesword20260913/Pommels20260920`、`Weapons/FrostCrystalSword20260915/PommelsRepair20260915`、`Weapons/SharedSwordPommels20260920` 以及对应附件图标。原手臂／动作／长柄动画和上游材质继续恢复原已许可版本。
 - 四个本轮作者目录中的 Blend／Export／Textures／Icons 和实际接口采样继续留本机。还需要 FrostSwordModules20260915、FrostSwordPommelsRepair20260915、MeleeGuards20260915 的已许可输入；脚本不是这些素材的替代品。
-- 现行脚本最终入口为 `SourceAssets/SixSharedSwordPommels20260920/install_catalog.py`。旧三款安装器与回滚目录已归档，恢复时不要重跑；`restored-options.json` 保留恢复款原属性和独立 ID。安装器操作现行配置，不重写玩家存档。
+- 现行脚本最终入口为 `SourceAssets/SixSharedSwordPommels20260920/install_catalog.py`。旧三款安装器与回滚目录已归档，恢复时不要重跑；`restored-options.json` 保留恢复款原属性和独立 ID。安装器操作现行配置，不重写玩家存档。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 公开仓库不包含本轮模型、贴图、图标、uasset 和密集几何采样；重建前需在本地恢复输入并调整作者脚本中明确的宿主路径。必要 native 构建照常进行，游戏测试由用户按需执行。
 
 ## M16A2（2026-09-20）
 
-用户已确认最新换弹回位与四款枪托接口修复成功。正式物品 `ue_m16a2` 的源码、三连发数据、作者依赖和废案归档见 [M16 发布与恢复](Weapons/m16-publication-20260920.md)。当前 Content、Manny/M4 上游动作、原模型 PBR、用户 M16 原声及密集几何/姿态输入保留本机，不公开上传。恢复时保留 Refinement → M4Insert → RemovalMelee 作者链，并最后安装 RecoveryStocks 四款枪托；AuthoringRecovery 中仍被正式资产引用的 8 个包不能随旧失败包一起删除。
+用户已确认最新换弹回位与四款枪托接口修复成功。正式物品 `ue_m16a2` 的源码、三连发数据、作者依赖和废案归档见 [M16 发布与恢复](Weapons/m16-publication-20260920.md)。当前 Content、Manny/M4 上游动作、原模型 PBR、用户 M16 原声及密集几何/姿态输入保留本机，不公开上传。恢复时保留 Refinement → M4Insert → RemovalMelee 作者链，并最后安装 RecoveryStocks 四款枪托；AuthoringRecovery 中仍被正式资产引用的 8 个包不能随旧失败包一起删除。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 2026-09-20 双持快速近战与冲刺下砍
 
@@ -595,20 +596,22 @@ A762 当前模型、配件、统一瞄具材质、目录图，以及 LP绿／PS�
 
 SplineV4 为历史候选及 V5 容器来源：恢复本地 `_SplineVFX` 包及旧火系制作依赖后，通过 MCP 桥执行 `Tools/Skills/build_fire_magic_spline.py` 的七个阶段，输出 `/Game/Skills/FireMagic20260921/SplineV4`。其原材质曝光修复和 GitHub 参考见 [Free Spline VFX 替换](Skills/fire-magic-spline-vfx-20260921.md)。
 
-陨星主体最新为写实 V3：恢复 RuralAustralia 的 `StaticMeshes/Rocks/Rock_M_02`、`Presets/M_Nature_01` 及其材质函数/细节贴图依赖，运行 `Tools/Skills/build_meteor_realistic.py` 的 `material`、`mesh` 两阶段，输出 `/Game/Skills/FireMagic20260921/RealisticV3`。当前 C++ 主体与碎片均取此目录，外层火焰使用上述 RealisticV5。记录见 [写实陨星](Skills/meteor-realistic-assets-20260921.md)，素材与制作回执在 `SourceAssets/MeteorRealistic20260921`。
+陨星主体的历史写实 V3 来源为 RuralAustralia 的 `StaticMeshes/Rocks/Rock_M_02`、`Presets/M_Nature_01` 及其材质函数/细节贴图依赖，制作入口 `Tools/Skills/build_meteor_realistic.py` 的 `material`、`mesh` 两阶段，输出 `/Game/Skills/FireMagic20260921/RealisticV3`。记录见 [写实陨星](Skills/meteor-realistic-assets-20260921.md)，素材与制作回执在 `SourceAssets/MeteorRealistic20260921`。
+
+2026-10-20 当前版本：主体与碎片使用 `MeteorClosedVolumeV1/SM_MeteorClosedRock`；持续地面火焰重构为 `MeteorGroundFireV3/NS_MeteorGroundVolume`，配套独立基材质与实例。运行 `Tools/Skills/build_meteor_ground_fire_v3.py`（原 `build_meteor_ground_volume.py` 也转到此入口），依赖已保存的 V2 供体和龙息 R6 材质；不要删除这些重建输入。三项 V3 资产已后台编译保存，Game／Editor 已编译；未视觉验收。范围、结构及回执见 [陨星地面火焰 V3](Skills/meteor-ground-fire-v3-20261020.md)。 原因：作者脚本描述制作过程，只有执行并保存的产物才可供引擎实际引用。
 
 V2 作者链作为恢复输入保留：另恢复 `SourceAssets/FireMagicPolish20260921`，运行图标使用 `meteor_hex.png` / `flame_armor_hex.png`。恢复下述初版依赖后，通过 MCP 桥对 `Tools/Skills/build_fire_magic_polish.py` 依次执行 `materials`、`mesh`、`weapon`、`mantle`、`trail`、`ground`，资产保存到 `/Game/Skills/FireMagic20260921/PolishV2`。模型后处理依赖本机 Vibe3D；火舌材质复用 `/Game/Skills/Fireball/TorchBurn20260921/M_FireballTorchErosion`。作者源与出处见该 SourceAssets 目录 `provenance.json`，实现见 [V2 计划](Skills/fire-magic-polish-plan-20260921.md)。保留旧图标和初版资产以支持重建；不再将旧方框图标写回当前技能定义。
 
-恢复本机 SourceAssets/FireMagic20260921 及青铜火把、Vefects Free Fire、Niagara Examples、EasyBuildingSystem 依赖。使用 Tools/Skills/prepare_fire_magic_sources.py 准备原音频与图标，再经 UE MCP 桥分阶段执行 build_fire_magic_assets.run；运行资产集中于 /Game/Skills/FireMagic20260921，复用已有火球飞行拖尾、写实爆炸与热浪。共用技能图标恢复清单已增加两项。详见 [火系魔法迁移](Skills/fire-magic-migration-20260921.md)。资产已制作保存并完成必要 Editor 构建；未启动游戏或测试。
+恢复本机 SourceAssets/FireMagic20260921 及青铜火把、Vefects Free Fire、Niagara Examples、EasyBuildingSystem 依赖。使用 Tools/Skills/prepare_fire_magic_sources.py 准备原音频与图标，再经 UE MCP 桥分阶段执行 build_fire_magic_assets.run；运行资产集中于 /Game/Skills/FireMagic20260921，复用已有火球飞行拖尾、写实爆炸与热浪。共用技能图标恢复清单已增加两项。详见 [火系魔法迁移](Skills/fire-magic-migration-20260921.md)。资产已制作保存并完成必要 Editor 构建；未启动游戏或测试。 原因：资源加载与可绘制状态不是同一步，可选准备必须避免把场景进入条件无限延长。
 
 
 本对话技能、施法和飞剑的恢复顺序、废案与公开边界见 [2026-09-22 整理发布](Skills/skills-magic-publication-20260922.md)。
 
 ## 地牢工作间组合件（2026-09-22 收尾）
 
-当前工作台源为 `SourceAssets/DungeonWorkbenchKit20260921`，货架源为 `SourceAssets/DungeonWorkshopRackPolish20260922`，地图为 `/Game/GameMaps/L_Dungeon_Prototype`。最新完整可编辑源是 `DungeonWorkbenchKit20260921/Authored/DungeonRooms_WithWorkbenchKit.blend`；旧作者目录仍提供材质、对象和整场景装配输入，不能按版本日期整体清除。
+当前工作台源为 `SourceAssets/DungeonWorkbenchKit20260921`，货架源为 `SourceAssets/DungeonWorkshopRackPolish20260922`，地图为 `/Game/GameMaps/L_Dungeon_Prototype`。最新完整可编辑源是 `DungeonWorkbenchKit20260921/Authored/DungeonRooms_WithWorkbenchKit.blend`；旧作者目录仍提供材质、对象和整场景装配输入，不能按版本日期整体清除。 原因：重建需要真实的上游输入及先后顺序，仅保留最终输出无法恢复可编辑制作链。
 
-本次公开作者脚本、配置、文档和归档索引；FBX／Blender／UE 包、贴图、下载原件和原始回执留本机。Fab 免费工具包等不因免费而具备原件再分发许可。恢复依赖、当前组合件入口、废弃发动机与旧备份归档、未测试范围统一见 [工作间收尾与恢复](Gameplay/dungeon-workshop-publication-20260922.md)。Git 克隆不能替代完整本机素材备份。
+本次公开作者脚本、配置、文档和归档索引；FBX／Blender／UE 包、贴图、下载原件和原始回执留本机。Fab 免费工具包等不因免费而具备原件再分发许可。恢复依赖、当前组合件入口、废弃发动机与旧备份归档、未测试范围统一见 [工作间收尾与恢复](Gameplay/dungeon-workshop-publication-20260922.md)。Git 克隆不能替代完整本机素材备份。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## Player world body (2026-09-22)
 
@@ -624,11 +627,11 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 
 ## 地牢性能优化与光照恢复（2026-09-23）
 
-保留恢复后的硬件光追、Lumen、PWL 原预设和 DayNight_Lighting 关卡。当前地牢网格及依赖材质需本机已保存的 Nanite 制作结果；源码克隆不包含 49 个修改网格、72 个材质用途更新和 2 个 ASH-12 静态弹匣材质。作者脚本、剩余资产依赖、25 项废案归档及用户反馈边界见 [地牢性能整理与发布](Performance/dungeon-performance-publication-20260923.md)。旧 RasterProfiles 和全面剔除光追脚本已退役，不从 trash 自动恢复它们。
+保留恢复后的硬件光追、Lumen、PWL 原预设和 DayNight_Lighting 关卡。当前地牢网格及依赖材质需本机已保存的 Nanite 制作结果；源码克隆不包含 49 个修改网格、72 个材质用途更新和 2 个 ASH-12 静态弹匣材质。作者脚本、剩余资产依赖、25 项废案归档及用户反馈边界见 [地牢性能整理与发布](Performance/dungeon-performance-publication-20260923.md)。旧 RasterProfiles 和全面剔除光追脚本已退役，不从 trash 自动恢复它们。 原因：归档存在只说明仍有恢复材料，并不撤销用户对该候选的否决。
 
 ## SVD 完成、抓握与接口细化（2026-09-23）
 
-恢复当前 SVD 需要本机 `Content/Weapons/SVDDragunov20260922`、跨枪 `Content/Weapons/PSO1Russian20260923` 及共享 Manny／配件资产。当前换弹为用户认可的 `SVDThumbUp20260923`，模型／材质为 `SVDRefinedFinish20260923`；旧 Blend 制作链仍需保留，退役导出与恢复快照按清单归档。来源、当前入口、公开发布边界及本机恢复见 [SVD 发布说明](Weapons/svd-publication-20260923.md)。视频提取音频未获公开再分发许可，公共仓库仅提供脚本与来源记录，不包含音视频本体。
+恢复当前 SVD 需要本机 `Content/Weapons/SVDDragunov20260922`、跨枪 `Content/Weapons/PSO1Russian20260923` 及共享 Manny／配件资产。当前换弹为用户认可的 `SVDThumbUp20260923`，模型／材质为 `SVDRefinedFinish20260923`；旧 Blend 制作链仍需保留，退役导出与恢复快照按清单归档。来源、当前入口、公开发布边界及本机恢复见 [SVD 发布说明](Weapons/svd-publication-20260923.md)。视频提取音频未获公开再分发许可，公共仓库仅提供脚本与来源记录，不包含音视频本体。 原因：用户认可的是具体母版和观感，换成另一版本会改变已有接触或外观基线。
 
 ## 近战检视、格挡与弓快速近战（2026-09-27）
 
@@ -637,23 +640,23 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 
 ## 高炉、铸造台与实景锻造（2026-09-27）
 
-恢复 CastingStation20260926、ForgeInteraction20260927、FurnaceCasting20260926、V7 原生手臂与授权供体姿态，以及高炉／Normandy／Clearwater／Mantaflow 依赖。三剑配方公开，forge-grip.json 与音频／二进制保留本机。42 份废案已归档；旧 V3 与初版总装仍是当前作者输入。制作链、SKILL、精确运行交接补丁与公开树未完整接入边界见 [锻造整理与发布](Gameplay/forging-publication-20260927.md)。本轮未运行游戏测试。
+恢复 CastingStation20260926、ForgeInteraction20260927、FurnaceCasting20260926、V7 原生手臂与授权供体姿态，以及高炉／Normandy／Clearwater／Mantaflow 依赖。三剑配方公开，forge-grip.json 与音频／二进制保留本机。42 份废案已归档；旧 V3 与初版总装仍是当前作者输入。制作链、SKILL、精确运行交接补丁与公开树未完整接入边界见 [锻造整理与发布](Gameplay/forging-publication-20260927.md)。本轮未运行游戏测试。 原因：不同武器或角色的参考姿态并不相同，直接套用供体会改变实际接触与变形。
 # 高地改造与幽蓝飞剑增量（2026-09-27）
 
 ## 学徒长杖、持杖施法与库存比例（2026-09-28）
 
-恢复 `ApprenticeStaff20260927` 的 V21 木杆、V22 世界水晶、V23 预览材质，以及 V7 M4 裸臂与 V13/V16 密集姿态表。独立目录／装配、图标修正、装备 profile 和作者配方公开；依赖未发布共享接口的第一人称／施法实现以交接补丁保留。156 份废案已移入 trash。来源、制作顺序、归档散列及公开源码边界见 [长杖发布恢复](Weapons/staff-publication-20260928.md)。V26 本机基础 DLL 构建成功，未做游戏视觉验收。
+恢复 `ApprenticeStaff20260927` 的 V21 木杆、V22 世界水晶、V23 预览材质，以及 V7 M4 裸臂与 V13/V16 密集姿态表。独立目录／装配、图标修正、装备 profile 和作者配方公开；依赖未发布共享接口的第一人称／施法实现以交接补丁保留。156 份废案已移入 trash。来源、制作顺序、归档散列及公开源码边界见 [长杖发布恢复](Weapons/staff-publication-20260928.md)。V26 本机基础 DLL 构建成功，未做游戏视觉验收。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 
 本次增量的当前作者入口、已许可本机输入、归档恢复清单及未混入主线的共享代码依赖，见 [高地与飞剑发布记录](Weapons/sword-publication-20260927.md)。公共仓库提供配方、目录与可独立发布的源码；Blend、FBX、uasset、宿主纹理与密集几何快照仍在本机。飞剑原创快捷图标另有明确 PNG 白名单。仓库拉取完成不等于恢复了本机完整可运行内容。
 
 ## 2026-09-27 配件、镜内表现与改造预览布光
 
-本轮公开 SVD／M1911 扩容弹匣、715 握把／瞄具／枪口、通用手枪防滑覆片、LPVO／PSO 镜内与镭射处理、背包装备自动转向及公共预览布光的源码、目录、制作脚本与技能说明。资产恢复顺序、废案与来源边界见 [发布记录](Weapons/attachments-optics-preview-publication-20260927.md)。`trash`、Blend／FBX／uasset、PBR 和图标、密集几何快照及运行日志不公开；仅克隆本仓库不能获得这些生产资产。
+本轮公开 SVD／M1911 扩容弹匣、715 握把／瞄具／枪口、通用手枪防滑覆片、LPVO／PSO 镜内与镭射处理、背包装备自动转向及公共预览布光的源码、目录、制作脚本与技能说明。资产恢复顺序、废案与来源边界见 [发布记录](Weapons/attachments-optics-preview-publication-20260927.md)。`trash`、Blend／FBX／uasset、PBR 和图标、密集几何快照及运行日志不公开；仅克隆本仓库不能获得这些生产资产。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 手套与锁子甲生产依赖（2026-09-29）
 
-当前四款手套、锁子甲 V2 环纹与 SharedSway 第一人称袖口的作者源、原生曲线和材质恢复见 [本次发布说明](Publication/gloves-chainmail-publication-20260929.md)。`SteelGauntletPoseCurves.inl` 是本地授权数据生成的必要构建输入，不随公开源码分发。旧 Chaos 袖口与单只钢甲样件已归档；不要移动仍被最终版调用的 V2/V3、Interlace/Relief 或钢甲辅助脚本。
+当前四款手套、锁子甲 V2 环纹与 SharedSway 第一人称袖口的作者源、原生曲线和材质恢复见 [本次发布说明](Publication/gloves-chainmail-publication-20260929.md)。`SteelGauntletPoseCurves.inl` 是本地授权数据生成的必要构建输入，不随公开源码分发。旧 Chaos 袖口与单只钢甲样件已归档；不要移动仍被最终版调用的 V2/V3、Interlace/Relief 或钢甲辅助脚本。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 201 原模型废案与新模型恢复（2026-09-29）
 
@@ -681,13 +684,13 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 
 ## 201 弹箱换弹与后续局部修订（2026-10-01）
 
-当前是 ClothReload44.4b+BeltFit53+ArmHinge55 的十条布箱换弹，枪面 F50、提把撤除 H56、固定供弹入口 F57、三款后握把母版恢复 R58。运行时代码已在 main，本轮补充此前遗漏的作者配方与依赖；旧提把及一次性补丁等 86 份文件已归档。当前恢复顺序、公开源码/本机合法资产边界及未实机验收事项见 [201 补充发布](Weapons/lmg201-publication-20261001.md)。不要按目录编号执行旧全量导入器覆盖当前资产。
+当前是 ClothReload44.4b+BeltFit53+ArmHinge55 的十条布箱换弹，枪面 F50、提把撤除 H56、固定供弹入口 F57、三款后握把母版恢复 R58。运行时代码已在 main，本轮补充此前遗漏的作者配方与依赖；旧提把及一次性补丁等 86 份文件已归档。当前恢复顺序、公开源码/本机合法资产边界及未实机验收事项见 [201 补充发布](Weapons/lmg201-publication-20261001.md)。不要按目录编号执行旧全量导入器覆盖当前资产。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## 雷暴领域与贯穿雷枪（2026-10-01）
 
-原版两个剩余电系技能已接入数据、修炼、Profile v19、冷钢详情与快捷栏。合法本机闪电／Blizzard StormV2依赖恢复后，运行 Tools/Skills/build_electric_magic_assets.py 生成并保存 /Game/Skills/ElectricMagic；图标从 SourceAssets/ElectricMagic20261001/Icons 恢复。雷枪满充保持的电团 Infinite 系统规则已同步全量作者；杖前魔法阵可由 Tools/Skills/build_thunder_lance_circle.py 独立保存至 ThunderLanceV2，无外部贴图依赖。来源、完整提示词与恢复入口见 [电系迁移说明](Skills/electric-magic-migration-20261001.md) 和 [雷枪充能优化](Skills/thunder-lance-charge-aim-20261001.md)。本轮不主动实机测试，母版与音频不公开再分发。
+原版两个剩余电系技能已接入数据、修炼、Profile v19、冷钢详情与快捷栏。合法本机闪电／Blizzard StormV2依赖恢复后，运行 Tools/Skills/build_electric_magic_assets.py 生成并保存 /Game/Skills/ElectricMagic；图标从 SourceAssets/ElectricMagic20261001/Icons 恢复。雷枪满充保持的电团 Infinite 系统规则已同步全量作者；杖前魔法阵可由 Tools/Skills/build_thunder_lance_circle.py 独立保存至 ThunderLanceV2，无外部贴图依赖。来源、完整提示词与恢复入口见 [电系迁移说明](Skills/electric-magic-migration-20261001.md) 和 [雷枪充能优化](Skills/thunder-lance-charge-aim-20261001.md)。本轮不主动实机测试，母版与音频不公开再分发。 原因：制作授权不包含额外运行或验收，交付应保留未测试的实际状态。
 
-电矛发射光柱的恢复入口为 `Tools/Skills/build_thunder_lance_column.py`：ThunderLanceV2 的 Column／Coil 两份材质加引擎 Cylinder，无外部贴图／模型依赖。全量电系作者 beam() 调用同一入口；当前源码已从旧 `NS_ThunderLanceBeam` 闪电切到这组连续柱体。制作和实际保存／构建范围见 [电矛光柱](Skills/thunder-lance-column-20261001.md)，不自动运行游戏测试。
+电矛发射光柱的恢复入口为 `Tools/Skills/build_thunder_lance_column.py`：ThunderLanceV2 的 Column／Coil 两份材质加引擎 Cylinder，无外部贴图／模型依赖。全量电系作者 beam() 调用同一入口；当前源码已从旧 `NS_ThunderLanceBeam` 闪电切到这组连续柱体。制作和实际保存／构建范围见 [电矛光柱](Skills/thunder-lance-column-20261001.md)，不自动运行游戏测试。 原因：制作授权不包含额外运行或验收，交付应保留未测试的实际状态。
 
 电矛光柱加粗／十字准星／杖前魔法阵增强及暴风雪凝聚棋盘格修复见 [可读性与材质修复](Skills/magic-readability-and-blizzard-material-fix-20261001.md)。定向作者 `Tools/Skills/refine_magic_readability_20261001.py` 只保存五份相关材质，已经通过现有桥落盘；全量作者同步关闭凝聚乌云的 Output Velocity，避免与 Normandy DepthFade 再次发生 SM6 编译冲突。普通源码构建状态另见该制作记录；未实机测试。
 
@@ -699,7 +702,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 
 ## 九枪表面与动作差量（2026-10-01）
 
-本轮九枪表面配方、A762 扩容/接口制作、SVD 与全武器动作差量制作的当前入口和公开范围见 [阶段发布](Weapons/weapon-surface-animation-publication-20261001.md)。原作者贴图、网格、密集采样、完整动画和 UE 包保留本机来源链；绑定清单必须与实际恢复的材质资产一起使用，不能以公开源码代替本地内容恢复。未进行本次独立构建或游戏测试。
+本轮九枪表面配方、A762 扩容/接口制作、SVD 与全武器动作差量制作的当前入口和公开范围见 [阶段发布](Weapons/weapon-surface-animation-publication-20261001.md)。原作者贴图、网格、密集采样、完整动画和 UE 包保留本机来源链；绑定清单必须与实际恢复的材质资产一起使用，不能以公开源码代替本地内容恢复。未进行本次独立构建或游戏测试。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 主题地牢、错层坡道与全房闸门（2026-10-02）
 
@@ -707,13 +710,13 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 
 ## 百目炉渣巨臂与身体浓烟（2026-10-02）
 
-恢复本机 `Content/Monsters/HundredEyedSlag` 的 V1 骨架与基础动作、PolishV2 跑动／死亡／材质、ArticulationV12 三档网格、原路径下的 RampageV8 横扫与 V9 下劈收势、ThreeAttacksV13 激光片段、EyeLaserJumpV11 激光材质、EyeChargeV14 眼部蓄能、RagdollGroundV16 物理资产、WorldSmokeV19 目盲材质与 SmokeVisibilityFixV21 浓烟系统／材质。当前三攻击、伤害和状态以运行源码为准。
+恢复本机 `Content/Monsters/HundredEyedSlag` 的 V1 骨架与基础动作、PolishV2 跑动／死亡／材质、ArticulationV12 三档网格、原路径下的 RampageV8 横扫与 V9 下劈收势、ThreeAttacksV13 激光片段、EyeLaserJumpV11 激光材质、EyeChargeV14 眼部蓄能、RagdollGroundV16 物理资产、WorldSmokeV19 目盲材质与 SmokeVisibilityFixV21 浓烟系统／材质。当前三攻击、伤害和状态以运行源码为准。 原因：死亡表现依赖既有骨架和碰撞状态，直接切换或新增重复物体会打断连续运动。
 
-公开本次原创玩法、作者配方和恢复说明；Meshy 模型／PBR、Epic Rampage 网格与供体动画／逐帧采样、复用 MayuOrbs／ElectricMagic／Niagara Examples 材质、Mantaflow 图集、UE 包、DLL 和导入回执留在本机。旧日期不能作为判废理由，当前作者仍读 V1–V9 的模型／蒙皮输入和 V17 噪声。归档清单、最新路径、来源与未测试边界见 [百目炉渣整理与发布](Monsters/hundred-eyed-slag-publication-20261002.md)。
+公开本次原创玩法、作者配方和恢复说明；Meshy 模型／PBR、Epic Rampage 网格与供体动画／逐帧采样、复用 MayuOrbs／ElectricMagic／Niagara Examples 材质、Mantaflow 图集、UE 包、DLL 和导入回执留在本机。旧日期不能作为判废理由，当前作者仍读 V1–V9 的模型／蒙皮输入和 V17 噪声。归档清单、最新路径、来源与未测试边界见 [百目炉渣整理与发布](Monsters/hundred-eyed-slag-publication-20261002.md)。 原因：作者脚本描述制作过程，只有执行并保存的产物才可供引擎实际引用。
 
 ## 武器、手臂与呼吸增量（2026-10-03）
 
-恢复裂角护手连续 UV 和剑身金属输入、M16 左指中立绑定、近战湿润材质、空手左右拳生成表，以及撞门 0.25 秒保持的本机作者源。公开原创实现与配方；完整采样、网格、材质包、Blend 和用户音效保持本机。未发布联机基线上的拳击增量以接入补丁保留，不夹带整套联机改动。当前恢复顺序、8 份 M16 废案归档与公开快照未独立构建／未测试边界见 [本轮整理发布](Weapons/weapon-arms-publication-20261003.md)。
+恢复裂角护手连续 UV 和剑身金属输入、M16 左指中立绑定、近战湿润材质、空手左右拳生成表，以及撞门 0.25 秒保持的本机作者源。公开原创实现与配方；完整采样、网格、材质包、Blend 和用户音效保持本机。未发布联机基线上的拳击增量以接入补丁保留，不夹带整套联机改动。当前恢复顺序、8 份 M16 废案归档与公开快照未独立构建／未测试边界见 [本轮整理发布](Weapons/weapon-arms-publication-20261003.md)。 原因：归档存在只说明仍有恢复材料，并不撤销用户对该候选的否决。
 
 ## 唐刀与专属改造（2026-10-03）
 
@@ -721,7 +724,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 
 ## 生存状态与食水消耗品（2026-10-03）
 
-恢复本机水瓶、Quixel 面包／法棍、Fab Soda Can、四个用户吞咽音效和 V7 手模输入。公开生存／赐福／SAN 归零源码、消耗品参数、作者配方及对应 SKILL；模型、PBR、图标、音频、UE 包和导入回执保留本机。8 个旧候选／备份已归档到 trash，体质型耐力与联机合并的未发布依赖另列，不夹带其他功能。恢复顺序、当前数值与构建／未测试边界见 [生存与消耗品整理发布](UI/survival-consumables-publication-20261003.md)。
+恢复本机水瓶、Quixel 面包／法棍、Fab Soda Can、四个用户吞咽音效和 V7 手模输入。公开生存／赐福／SAN 归零源码、消耗品参数、作者配方及对应 SKILL；模型、PBR、图标、音频、UE 包和导入回执保留本机。8 个旧候选／备份已归档到 trash，体质型耐力与联机合并的未发布依赖另列，不夹带其他功能。恢复顺序、当前数值与构建／未测试边界见 [生存与消耗品整理发布](UI/survival-consumables-publication-20261003.md)。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## RSH-12：当前双动改造与资源恢复（2026-10-06）
 
@@ -741,7 +744,7 @@ RSH 后续采用状态（2026-10-04）：用户已认可 [双手握姿与 ADS �
 
 公开原创建模/PBR/组装配方、参数、容器通用运行支持和说明；UE 包、Blender/FBX、生成贴图、完整运行快照、第三方源与恢复包留在本机。钢、橡胶、描边材质继续引用本地员工生活区已保存资产；线路测试图的宝箱碰撞蓝图继续引用本地 StationWorkshop，正式运行不依赖该预览蓝图。恢复配方前需具备这些 Content 依赖，不手写资产安装成功回执。
 
-按用户要求保留医院、车站和焚化炉线路测试地图；只归档本轮废案。详情及公开归档摘要见 [采用与发布](Gameplay/incinerator-theme-publication-20261003.md) 和 [归档清单](Gameplay/incinerator-theme-trash-20261003.json)。本轮后台保存完成，未运行游戏、PIE、渲染或测试。
+按用户要求保留医院、车站和焚化炉线路测试地图；只归档本轮废案。详情及公开归档摘要见 [采用与发布](Gameplay/incinerator-theme-publication-20261003.md) 和 [归档清单](Gameplay/incinerator-theme-trash-20261003.json)。本轮后台保存完成，未运行游戏、PIE、渲染或测试。 原因：「采用与发布、归档清单」记录该任务的专属入口和边界，按主题引用可避免另写一套相互冲突的步骤。
 
 
 ## 上挑与四枚技能图标（2026-10-04）
@@ -758,25 +761,25 @@ RSH 后续采用状态（2026-10-04）：用户已认可 [双手握姿与 ADS �
 
 快速装填的最新播放节奏为 [R25 前 30% 对准／后 70% 推进](Weapons/super90-speedloader-r25-align-drive-20261012.md)。用户已确认现有动作，保留当前资产轨迹；`Super90LoaderPushTiming.h` 将完整推进源帧 86–110 映射为 30 个属性帧，前 30% 行程占 18 帧，后 70% 占 12 帧，之后按原速延后六帧。恢复入口 `SourceAssets/Super90LoaderR25_20261012/author_timing.py`；需一起保留 `FPSGAMECharacterSuper90.cpp` 的动作时长与源时间结算、`Super90SpeedloaderVisual.cpp` 的声音队列时钟。原声、镜头强度、完整推进和一次补满保持，未运行游戏测试。
 
-普通空仓收尾的最新播放节奏为 [R2](Weapons/super90-native-empty-pacing-r2-20261010.md)：用户否定上一版的过快节奏，现保持下述 7.4 秒姿态资产，用运行时单调 Hermite 源时钟将 1.4 秒源尾段展至 2.16 秒属性时钟（基础倍率下约 1.66 秒），并同步音效反算与中断续作。时间表和源备份在 `SourceAssets/Super90NativeEmptyPacingR2_20261010/`，恢复时保留两份 C++ 的节奏映射；不能把资产片长直接当作游戏收尾时长。未运行游戏测试。
+普通空仓收尾的最新播放节奏为 [R2](Weapons/super90-native-empty-pacing-r2-20261010.md)：用户否定上一版的过快节奏，现保持下述 7.4 秒姿态资产，用运行时单调 Hermite 源时钟将 1.4 秒源尾段展至 2.16 秒属性时钟（基础倍率下约 1.66 秒），并同步音效反算与中断续作。时间表和源备份在 `SourceAssets/Super90NativeEmptyPacingR2_20261010/`，恢复时保留两份 C++ 的节奏映射；不能把资产片长直接当作游戏收尾时长。未运行游戏测试。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
-普通空仓最新采用[抓握拉机柄收尾](Weapons/super90-native-empty-grasped-bolt-20261010.md)，作者源 `SourceAssets/Super90NativeEmptyBolt20261010/`。保留原逐发装填，接 0.3 秒源时长的右手回握，再接原速 1.1 秒 R24 cycle；总源长 7.4 秒，保留 5 mm 枪机额外后拉。普通空仓序列及四份 Profile 对应条目已保存，`save_receipt.json` 为 completed=true，五套可编辑动作位于 `Super90_NativeEmpty_Editable.blend`；其他动作条目保持。恢复需同步三份 C++ 文件的拉柄时钟、音效跳段映射和 cycle-only 续作逻辑，不能仅恢复动画或把 `FullReload` 属性换算参考改为新片长。Editor / Game 构建完成，未运行游戏测试。
+普通空仓最新采用[抓握拉机柄收尾](Weapons/super90-native-empty-grasped-bolt-20261010.md)，作者源 `SourceAssets/Super90NativeEmptyBolt20261010/`。保留原逐发装填，接 0.3 秒源时长的右手回握，再接原速 1.1 秒 R24 cycle；总源长 7.4 秒，保留 5 mm 枪机额外后拉。普通空仓序列及四份 Profile 对应条目已保存，`save_receipt.json` 为 completed=true，五套可编辑动作位于 `Super90_NativeEmpty_Editable.blend`；其他动作条目保持。恢复需同步三份 C++ 文件的拉柄时钟、音效跳段映射和 cycle-only 续作逻辑，不能仅恢复动画或把 `FullReload` 属性换算参考改为新片长。Editor / Game 构建完成，未运行游戏测试。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
-普通移动最新采用[待机右手握姿](Weapons/super90-locomotion-idle-right-grip-20261010.md)，作者源 `SourceAssets/Super90LocomotionIdleGrip20261010/`。用户认可当前 idle；walk / run 的完整右链按各自待机枪身空间关系制作，保留原移动起伏。两份原生动画和四份 Profile 已保存，回执 `save_receipt.json` 为 completed=true；十套动作保存在 `Super90_Locomotion_IdleGrip_Editable.blend`。恢复时在原移动动画与握把配置之上应用此补丁，不能反向改写认可的 idle。未运行游戏测试。
+普通移动最新采用[待机右手握姿](Weapons/super90-locomotion-idle-right-grip-20261010.md)，作者源 `SourceAssets/Super90LocomotionIdleGrip20261010/`。用户认可当前 idle；walk / run 的完整右链按各自待机枪身空间关系制作，保留原移动起伏。两份原生动画和四份 Profile 已保存，回执 `save_receipt.json` 为 completed=true；十套动作保存在 `Super90_Locomotion_IdleGrip_Editable.blend`。恢复时在原移动动画与握把配置之上应用此补丁，不能反向改写认可的 idle。未运行游戏测试。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 快速近战最新右臂修订为 [RightArmR9](Weapons/super90-quick-melee-right-arm-r9-20261010.md)，作者源在 `SourceAssets/Super90QuickMelee20261008/RightArmR9/`。R8 的右前臂轮廓仍被用户指出问题；R9 取消辅助骨向腕锚偏移和完整腕弯混入，按实际站位分配轴向转动，并局部平顺两份 Super90 网格的右肘表面。保留右掌、手指、肩肘路线以及 [R7](Weapons/super90-quick-melee-20261008.md) 的枪路、左臂竖直折叠和动作时钟。近战序列、四份握把 Profile、两份网格共七项及五套可编辑动作已保存；回执 `RightArmR9/save_receipt.json` 为 completed=true。运行保留原近战交接曲线及已编译 `Super90SupportArmNode.cpp`，恢复时保留 R5 校准、R23 左肘补丁及 R9 右肘补丁。R24 快速拉栓及其他动作轨道保持，无新 C++ 改动。本轮后台保存，未运行游戏或新增渲染，待用户体验。
 
 快速拉栓机械修正现为 [R24](Weapons/super90-speedloader-r24-bolt-rear-stop-20261010.md)：用户红圈处是枪机后端越过机匣后上表面，额外后拉由 24 mm 缩至 5 mm，左掌接触位移同步修正，松手后平滑交给原回握。八个动画及四份握把 Profile 已后台实际保存，保留 R7 近战和全部其他条目。作者源、局部平移补丁和保存回执位于 `SourceAssets/Super90LoaderR24_20261010/`；没有新增 C++、没有运行游戏或新增渲染，待用户体验。
 
-手臂支撑基线仍为 [R23](Weapons/super90-speedloader-r23-wrist-support-clearance-20261010.md)：最终姿态后的 Super90 左臂支撑覆盖待机和换弹，修正辅助骨扭转及肩肘；局部平顺裸臂肘部，调整空仓抓握掌心／拇指与接近绕行。R23 的手部数值没有覆盖本次枪机穿模，不能作为机械件已修复的证据。恢复时先保留 `SourceAssets/Super90LoaderR23_20261010/` 的支撑代码和两网格表面修正，再应用 R24 的两骨平移补丁；保留 R21 发力反馈、R22 镜头、完整推进速度、声音、一次补满与 60 ms 间隔。下述 R14–R22 为历史沿革。
+手臂支撑基线仍为 [R23](Weapons/super90-speedloader-r23-wrist-support-clearance-20261010.md)：最终姿态后的 Super90 左臂支撑覆盖待机和换弹，修正辅助骨扭转及肩肘；局部平顺裸臂肘部，调整空仓抓握掌心／拇指与接近绕行。R23 的手部数值没有覆盖本次枪机穿模，不能作为机械件已修复的证据。恢复时先保留 `SourceAssets/Super90LoaderR23_20261010/` 的支撑代码和两网格表面修正，再应用 R24 的两骨平移补丁；保留 R21 发力反馈、R22 镜头、完整推进速度、声音、一次补满与 60 ms 间隔。下述 R14–R22 为历史沿革。 原因：动作需要持续接触实际武器或道具，只有骨骼位置接近并不能保证真实表面贴合。
 
-源码、原生导入配方、瞄具／前握把、装备派生和 R5 快速近战的恢复入口见 [Super90 整理发布](Weapons/super90-publication-20261009.md)。511 份旧稿／备份已归档到本机 trash；模型、声音、完整姿态、Blender 与 UE 包留在合法本机。快速装填 R11 因手臂扭曲、细节不可见被用户否定；R12 按“枪托抵肩、参考枪姿与取景”重做。R13 随后因推进像接触即结束被用户否定。用户现已确认 [R14 完整推进](Weapons/super90-speedloader-r14-preserved-push-20261009.md) 装填动作没有问题。当前 [R15 原声与推进加速](Weapons/super90-speedloader-r15-audio-drive-20261009.md) 保留认可轨迹，推进 48 → 36 帧，并从参考视频截取七段独立快速装填声音；普通逐发声音保持。15 段动画、四份握把配置及七段 SoundWave 已保存，沿用当前模型、材质和 idle。后续按用户要求继续制作 [R16](Weapons/super90-speedloader-r16-snappy-push-20261009.md)，推进再由 36 → 24 帧，最初松手 5 → 3 帧；七段原声保持，同步接触与镜头时钟。当前编译边界见 R16 记录；R16 节奏与 R5 左臂仍待用户体验，本轮未启动游戏测试。
+源码、原生导入配方、瞄具／前握把、装备派生和 R5 快速近战的恢复入口见 [Super90 整理发布](Weapons/super90-publication-20261009.md)。511 份旧稿／备份已归档到本机 trash；模型、声音、完整姿态、Blender 与 UE 包留在合法本机。快速装填 R11 因手臂扭曲、细节不可见被用户否定；R12 按“枪托抵肩、参考枪姿与取景”重做。R13 随后因推进像接触即结束被用户否定。用户现已确认 [R14 完整推进](Weapons/super90-speedloader-r14-preserved-push-20261009.md) 装填动作没有问题。当前 [R15 原声与推进加速](Weapons/super90-speedloader-r15-audio-drive-20261009.md) 保留认可轨迹，推进 48 → 36 帧，并从参考视频截取七段独立快速装填声音；普通逐发声音保持。15 段动画、四份握把配置及七段 SoundWave 已保存，沿用当前模型、材质和 idle。后续按用户要求继续制作 [R16](Weapons/super90-speedloader-r16-snappy-push-20261009.md)，推进再由 36 → 24 帧，最初松手 5 → 3 帧；七段原声保持，同步接触与镜头时钟。当前编译边界见 R16 记录；R16 节奏与 R5 左臂仍待用户体验，本轮未启动游戏测试。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 Super90 快速装填手部续修（2026-10-09）：用户明确手臂没有问题，仅修推完后的反手拉栓手部。当前 [R17](Weapons/super90-speedloader-r17-hand-hook-20261009.md) 只修改左手五指旋转，采用食指主勾、中指辅助、拇指张开及复进前松指；保留 R16 腕部、手臂、完整推进与音画时钟。八个空仓／单独拉栓动画和四份握把配置已通过现有编辑器桥保存；未改 C++，未进行游戏测试。
 
 后续曾制作 [R18](Weapons/super90-speedloader-r18-direct-drive-20261009.md)，其换弹部分随后已被否定：直接从完整推进起点进入换弹，推完快速松手与回握，空仓保留拉栓；Super90 基础射击间隔由 650 ms 改为 60 ms，最快下限也为 60 ms。14 个动画、四份握把配置及常规 Editor/Game 编译均已完成，未运行游戏测试。
 
-当前 Super90 换弹已[恢复 R17](Weapons/super90-restore-r17-20261009.md)：完整取出、对接、推动、松手、空仓拉栓与回握，以及原音画时钟均已恢复，重新保存 18 项资产并完成常规编译。60 ms 基础射击间隔与下限保留。用户真正要求的是保持动作原速、提前掏出、消除阶段间等待，不能删取出／对接或整体快放；该新节奏尚未另行实施。
+当前 Super90 换弹已[恢复 R17](Weapons/super90-restore-r17-20261009.md)：完整取出、对接、推动、松手、空仓拉栓与回握，以及原音画时钟均已恢复，重新保存 18 项资产并完成常规编译。60 ms 基础射击间隔与下限保留。用户真正要求的是保持动作原速、提前掏出、消除阶段间等待，不能删取出／对接或整体快放；该新节奏尚未另行实施。 原因：机械部件与手部动作需要对应实际武器状态，移植表现时不能替换原有机械事件顺序。
 
 随后按追加要求制作 [R19 一次补满与上臂避让](Weapons/super90-speedloader-r19-full-fill-arm-20261009.md)：快速装填在原压实点一次结算全部可装弹药，左臂在保留腕点、手型和时间轴的基础上作 4° 弯面避让。当前 normal／empty 的 14 个动画和四份握把配置已保存为 R19；cycle-only 保留 R17。作者源、导出、导入回执及覆盖前备份在 `SourceAssets/Super90LoaderR19_20261009/`，原生构建回执同目录记录。没有主动运行游戏或渲染。
 
@@ -790,7 +793,7 @@ R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初
 
 ## 第三人称法杖、持书与进食／饮用（2026-10-10）
 
-当前制作、配置入口、合法素材依赖、归档清单和发布边界见[第三人称动作源码发布与恢复](Publication/ThirdPersonActions20261010/README.md)。右手与空闲左手复用已认可第一人称抓握，整臂使用当前 CarryClearance／StrikeCarry／BookCarryRelax／BookPush 派生；饮用使用 WizardDrink，进食使用已修复上臂覆盖问题的 FoodNative。六组新动画已补齐 Cook 目录；本次没有执行打包。Fab 原包、完整关键帧、派生 uasset 和退役文件留本机，不能仅凭公开配方重建全部资产。
+当前制作、配置入口、合法素材依赖、归档清单和发布边界见[第三人称动作源码发布与恢复](Publication/ThirdPersonActions20261010/README.md)。右手与空闲左手复用已认可第一人称抓握，整臂使用当前 CarryClearance／StrikeCarry／BookCarryRelax／BookPush 派生；饮用使用 WizardDrink，进食使用已修复上臂覆盖问题的 FoodNative。六组新动画已补齐 Cook 目录；本次没有执行打包。Fab 原包、完整关键帧、派生 uasset 和退役文件留本机，不能仅凭公开配方重建全部资产。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 玩家观察、近战与穿戴修复（2026-10-12）
 
@@ -818,17 +821,17 @@ R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初
 
 ## 合阙最终首领（2026-10-15）
 
-公开合阙五类招式、控制恢复、原生击退、心脏弱点、原创制作配方和对应 SKILL；最终房间与未公开共享框架交织的接入保存为 25 路径具名前置补丁。46 个废案/旧备份已带 SHA-256 移入 trash，当前模型、混合版本作者输入、UE 包、日志和存档留本机。此前控制状态联机用例与默认预加载客机载图已有记录，完整地牢并发搜刮/队伍返程未跑完，用户改为自行测试；无界面兼容源码仍未构建。本次不新增运行验收。恢复依赖、发布边界和归档见 [合阙发布记录](Publication/HeQue20261015/README.md)。
+公开合阙五类招式、控制恢复、原生击退、心脏弱点、原创制作配方和对应 SKILL；最终房间与未公开共享框架交织的接入保存为 25 路径具名前置补丁。46 个废案/旧备份已带 SHA-256 移入 trash，当前模型、混合版本作者输入、UE 包、日志和存档留本机。此前控制状态联机用例与默认预加载客机载图已有记录，完整地牢并发搜刮/队伍返程未跑完，用户改为自行测试；无界面兼容源码仍未构建。本次不新增运行验收。恢复依赖、发布边界和归档见 [合阙发布记录](Publication/HeQue20261015/README.md)。 原因：旧输出可能仍是当前作者链的输入，保留可追溯来源才能恢复现用资产。
 
 ## M870 Tactical（2026-10-17）
 
 源码、目录与作者工具见 [M870 发布和恢复说明](Publication/M87020261017/README.md)。完整本机资产位于 `/Game/Weapons/M870/`；当前基础动画为 LeftArm 组合修订、快速近战为 R3、通用握姿与快速装填为独立 Profile。Git 不包含 Blend、FBX、UE 包、音频、图标、原始下载或密集姿态。
 
-枪体、V7 手臂、SUPER90 供体、UC 动作与声音分别保留来源。UC_Workfiles 所选源没有确认独立游戏再分发许可，原始和派生动作留在本机，公开作者脚本不授予该素材权利。恢复后不要重导早期装备／装填版本覆盖当前手型。317 份确认废案已归档，当前母版及有效工具前置保留。
+枪体、V7 手臂、SUPER90 供体、UC 动作与声音分别保留来源。UC_Workfiles 所选源没有确认独立游戏再分发许可，原始和派生动作留在本机，公开作者脚本不授予该素材权利。恢复后不要重导早期装备／装填版本覆盖当前手型。317 份确认废案已归档，当前母版及有效工具前置保留。 原因：归档存在只说明仍有恢复材料，并不撤销用户对该候选的否决。
 
 ## 食物、手套衣袖与弓动作交接（2026-10-18）
 
-公开本轮手部、消耗品与持弓动作源码、制作配方及 SKILL；混合宿主中的 UI、M870 授权表面控制点和诊断入口分别保存具名前置补丁／恢复依赖。216 份退役初稿、错误服装旧包、中间资产和构建检查输出已带散列移入 trash；Sparrow、原生皮肤、UE 包与完整回执留本机。历史 180 项隔离及 28 组限定本地 UDP 结果与本轮只做仓库检查分开记录。范围、恢复顺序与限制见 [整理发布说明](Publication/BowFood20261018/README.md)。
+公开本轮手部、消耗品与持弓动作源码、制作配方及 SKILL；混合宿主中的 UI、M870 授权表面控制点和诊断入口分别保存具名前置补丁／恢复依赖。216 份退役初稿、错误服装旧包、中间资产和构建检查输出已带散列移入 trash；Sparrow、原生皮肤、UE 包与完整回执留本机。历史 180 项隔离及 28 组限定本地 UDP 结果与本轮只做仓库检查分开记录。范围、恢复顺序与限制见 [整理发布说明](Publication/BowFood20261018/README.md)。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 地牢性能与区域提前准备（2026-10-19）
 
@@ -838,9 +841,13 @@ R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初
 
 模型长度、通用改造、标准图标、背嵬、赤霄、逐风、唐刀刀身群体判定及旋风联机修复见 [斩马刀发布记录](Publication/Zhanmadao20261019/README.md)。共享宿主使用带基线散列的接入补丁；模型、图标、动作和密集姿态输入留在本机，公开树不代表完整工程的独立构建副本。
 
+## 刀剑精通与钝器精通（2026-10-19）
+
+刀剑保留 `swordMastery` 进度键，钝器新增 `bluntMastery`，通过 Profile v25 补项。两枚图标的生成提示、当前源与实际保存记录位于 `SourceAssets/MeleeMasteries20261019`；刀剑最终使用 V2 并列长剑／唐刀构图。运行 `Tools/UI/prepare_cold_steel_skill_icons.py` 从本机 Selected 恢复 PNG，再通过 `Tools/Skills/import_melee_mastery_icons.py` 保存 `/Game/ColdSteelData/Skills/blade_mastery_cold_steel` 与 `blunt_mastery_cold_steel`。两枚 Texture2D 已后台实际保存，构建与未测试边界见 精通接入记录（本机资料：`Docs/Skills/melee-masteries-20261019.md`，不随本次发布）。旧扭曲图按 `retired-icon.json` 归档，不再作为运行图源。
+
 ## ST6、法师套装与钢盔（2026-10-20）
 
-公开源码、制作脚本、当前服装配方及本轮归档清单见 [Outfits20261020](Publication/Outfits20261020/README.md)。原生角色／武器依赖、密集几何、Blender／FBX、PBR、PNG、UE 包与构建／保存回执留在本机，不能从 Git 克隆推断已恢复。当前法袍保留 FacingFix20261020、HemContinuity20261019 与 cross-section-v3；钢盔保留 ReferenceMatchV5。复原顺序、仍有效的旧输入和历史联机证据边界见该入口。
+公开源码、制作脚本、当前服装配方及本轮归档清单见 [Outfits20261020](Publication/Outfits20261020/README.md)。原生角色／武器依赖、密集几何、Blender／FBX、PBR、PNG、UE 包与构建／保存回执留在本机，不能从 Git 克隆推断已恢复。当前法袍保留 FacingFix20261020、HemContinuity20261019 与 cross-section-v3；钢盔保留 ReferenceMatchV5。复原顺序、仍有效的旧输入和历史联机证据边界见该入口。 原因：可复用制作方法与可分发原始素材是不同权利范围，公开代码不能代替素材授权。
 
 ## 连续皮革长靴与装备搭配（2026-10-22）
 
@@ -850,13 +857,13 @@ R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初
 
 公开符文战锤被动、两种魔力符文、两款传说锤头、模块数据和原创制作脚本。共享框架中交织的动作/权威消费者以带基线散列的接入补丁保留；本次公开切片不等于干净检出完整编译。用户提供Meshy模型、UE包、贴图、动画与图标母图留本机。543份退役快照、错误图标、一次性改码器和重复导入宿主已带SHA-256移入trash；本机已有73项资源检查、37项隔离权威和一次真实UDP测试通过，未做渲染验收，整理阶段未重跑。恢复与发布边界见 [本次整理发布](Publication/RuneboundWarhammer20261023/README.md)。
 
-## 公寓与海湾增量制作、联机修补（2026-10-24）
-
-本次公开公寓/海湾制作配方、楼体与灯光、广告/道路、水体、阳台玻璃栏杆、设备与门原生代码，以及共享消费者中的限定差量。最新坐卧动作已经由另一轮精修接续，本批不重写其配置，不恢复历史 V14 默认；共享搜索与坐卧基础的本机前置及限定补丁单独列出。二进制地图、模型、贴图、动画、字体、密集采样和完整运行回执仍需本机合法来源，仓库克隆不等于可运行完整场景。退役快照和首次失败检查已带 SHA-256 移至本机 trash。恢复顺序、资产和发布边界见 [公寓发布说明](Publication/CyberpunkApartment20261024/README.md)。
-
 ## 手枪动作与弹药修复的恢复边界（2026-10-24）
 
 本机已保存的左右单持／双持动作、五枪左主手与六段换弹精修，使用本地 Jason、枪械原生输入、Twinblast 及用户选定的 GitHub 动作源。原始二进制和密集姿态数据不随源码公开。公开代码、待接入补丁、20 个角色配置键、资产散列、许可及制作顺序见 [手枪发布交接](Publication/Pistol20261024/README.md)。当前为部分源码发布，完整角色／库存／联机消费者尚有共享基线依赖；历史本机构建与测试不代表公共提交已独立验收。
+
+## 公寓与海湾增量制作、联机修补（2026-10-24）
+
+本次公开公寓/海湾制作配方、楼体与灯光、广告/道路、水体、阳台玻璃栏杆、设备与门原生代码，以及共享消费者中的限定差量。最新坐卧动作已经由另一轮精修接续，本批不重写其配置，不恢复历史 V14 默认；共享搜索与坐卧基础的本机前置及限定补丁单独列出。二进制地图、模型、贴图、动画、字体、密集采样和完整运行回执仍需本机合法来源，仓库克隆不等于可运行完整场景。退役快照和首次失败检查已带 SHA-256 移至本机 trash。恢复顺序、资产和发布边界见 [公寓发布说明](Publication/CyberpunkApartment20261024/README.md)。
 ## Kaitlin 女性身体、装备与外观同步（2026-10-24）
 
 公开 F6 身体切换、原生毛发/服装配置、家具相机与夹克背包作者脚本；联机/家具共享宿主修复和九个依赖较新包体/动作的字段，以带前置散列的接入材料保留。93 份废案已移入 trash，正式资产、授权源与制作输入留本机。历史完整本机 Editor/Game 构建成功，公开切片未重新构建，也未进行实际联机或视觉验收。范围与恢复顺序见 [女性角色发布说明](Publication/Kaitlin20261024/README.md)。
@@ -867,7 +874,7 @@ R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初
 
 ## 家具坐卧、双人床与存储入口（2026-10-25）
 
-椅子／沙发／床铺共 25 个模型配置、45 个位置，其中 7 款双人床分左右占位；Bed Idle 权威恢复 SAN 5 点/秒。公开运行组件、镜像接入、精确动作／相机配置及作者工具。Meshy/Fab 原素材、密集骨骼／几何数据、UE 资产包和存档仍需从合法素材与本机/NAS 备份恢复。当前 Content 通过 D 盘工程入口联接到 F:/FPSGAMEData/Content，DDC 使用独立 Caches 目录，不能混作废案。发布内容、14 个旧保存／发布入口及一次性辅助脚本的 trash 清单、制作依赖和未验收范围见 [家具坐卧发布说明](Publication/FurnitureRest20261025/README.md)。
+椅子／沙发／床铺共 25 个模型配置、45 个位置，其中 7 款双人床分左右占位；Bed Idle 权威恢复 SAN 5 点/秒。公开运行组件、镜像接入、精确动作／相机配置及作者工具。Meshy/Fab 原素材、密集骨骼／几何数据、UE 资产包和存档仍需从合法素材与本机/NAS 备份恢复。当前 Content 通过 D 盘工程入口联接到 F:/FPSGAMEData/Content，DDC 使用独立 Caches 目录，不能混作废案。发布内容、14 个旧保存／发布入口及一次性辅助脚本的 trash 清单、制作依赖和未验收范围见 [家具坐卧发布说明](Publication/FurnitureRest20261025/README.md)。 原因：源码、磁盘资产、二进制和运行效果属于不同交付阶段，需要各自的完成依据。
 
 ## 战锤后续改造与冲刺发布（2026-10-25）
 
@@ -877,13 +884,25 @@ R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初
 
 七款背包贴合、正面图标、容量与重力；破阵／星律腰带和非箭袋横 3 × 竖 2；共享减耗公式的源码、配置键、制作源依赖与废案恢复边界见 [BackpacksBelts20261025](Publication/BackpacksBelts20261025/README.md)。UE 包、贴图、模型及原生身体衍生数据留本机。坚冰铠甲／雷电迅捷扩展以带前置散列的接入补丁保存；本批不包含这两项完整独立技能，不宣称公开子集重新完成构建或联机。
 
+## 魔法箭雨玩家端（2026-10-26）
+
+元素箭（2026-10-27）复用现有箭焰、FrostV2 寒雾/冰晶、闪电和火球爆炸资产。三枚新图标源与生成提示词位于 `SourceAssets/ElementalArrow20261027`；PNG 恢复入口为 `Tools/Skills/restore_elemental_arrow_icons.py`，UE Texture2D 保存入口为 `Tools/Skills/import_elemental_arrow_icons.py`。交互、共享魔法数值与后台交付边界见 [元素箭制作记录](Skills/elemental-arrow-20261027.md)，实际保存结果以 `Saved/ElementalArrow20261027` 回执为准。
+
+弓限定主动魔法的准备搭箭、绿色脉冲、镜头地面选点、持续耗体耗蓝、空爆与单次密集箭雨已接入源码。技能图标、详情卡和拖拽快捷栏共用技能数据；新资产仅落在 `/Game/Skills/MagicArrowRain20261026`。操作、初版数值、制作来源、后台导入入口及未测试边界见 [魔法箭雨制作记录](Skills/magic-arrow-rain-20261026.md)。
+
+同日空爆 V2 的增量作者为 `Tools/Skills/build_magic_arrow_rain_airburst_v2.py`，完整恢复脚本也会调用该升级。它仅更新本技能的三份空爆材质、箭体材质及空爆 Niagara；使用原 Mantaflow 烟雾图集作为只读依赖，地面烟尘和声音不重导入。源蒙版、参数与恢复范围见 `SourceAssets/MagicArrowRain20261026/AirburstV2/README.md`，实际保存状态以本次 `Saved/MagicArrowRain20261026/AirburstV2/asset-receipt.json` 为准。
+
+同日圆锥箭雨 V3 使用 `Tools/Skills/build_magic_arrow_rain_cone_impacts_v3.py`，完整恢复流程在 V2 后调用。只重建 `NS_ArrowRainDust`，使每根箭按接触位置、法线和时刻产生绿色冲击及烟尘；复用 V2 气浪材质、原箭光和原 Mantaflow 烟材质。运行代码使用共同爆点、0.125 秒飞行及同步提前的范围伤害时机。Editor/Game 构建成功，资产作者退出码 0，保存回执为 `Saved/MagicArrowRain20261026/ConeV3/asset-receipt.json`；未游戏测试或重新打包。
+
+2026-10-27 可见性 V4 增量入口为 `Tools/Skills/import_magic_arrow_rain_visibility_v4.ps1`，对应作者 `build_magic_arrow_rain_visibility_v4.py`；完整恢复流程最后调用 V4。新增本技能专用粗尾光材质和两份空爆材质，更新箭头发光与原空爆 Niagara；上方气浪不复写落地薄圈使用的 V2 材质，持箭脉冲和 V3 落地系统也不重导入。源与预算见 `SourceAssets/MagicArrowRain20261026/VisibilityV4/README.md`。13:02 完成 Editor/Game 构建及五个包保存，作者退出码 0；实际记录在 `Saved/MagicArrowRain20261026/VisibilityV4/`，未游戏测试或重新打包。
+
 ## 篝火食品与面板补充发布（2026-10-27）
 
 篝火面板、食品保鲜与事务、七类菜谱、野味模型制作工具及共享接入资料见 [篝火发布清单](Publication/Campfire20261027/README.md)。六款野味衍生模型、贴图、图标及 UE 包留在本机授权内容恢复链；源码和工具已按精确路径整理发布。
 
 ## 弯刀改造、流血与传说符文（2026-10-28）
 
-本轮源码、最终目录、原创制作配方及共享接入补丁见 [发布说明](Publication/KukriMods20261028/README.md)。基础弯刀与合法素材、生产模型、PBR／法线、图标、UE 包和制作宿主留在本机，GitHub 不包含这些二进制。当前 HUD 为 WolfHeadComposite；VolumeRefine 的刀面投射仍为活动供体，废弃整体能量柱及旧浮雕已移入 trash。按发布说明恢复供体和资产，再整合同版本战斗／网络前置；不要把公共源码切片当作完整可运行工程。
+本轮源码、最终目录、原创制作配方及共享接入补丁见 [发布说明](Publication/KukriMods20261028/README.md)。基础弯刀与合法素材、生产模型、PBR／法线、图标、UE 包和制作宿主留在本机，GitHub 不包含这些二进制。当前 HUD 为 WolfHeadComposite；VolumeRefine 的刀面投射仍为活动供体，废弃整体能量柱及旧浮雕已移入 trash。按发布说明恢复供体和资产，再整合同版本战斗／网络前置；不要把公共源码切片当作完整可运行工程。 原因：二维明暗和真实体积承担不同视觉信息，直接把颜色变成高度会制造不属于结构的起伏。
 
 ## 弯刀霜鸦定稿与联机回查增量（2026-10-28）
 
@@ -911,9 +930,11 @@ M24 的装备补栓、换弹姿态、战术挂件、开火声、枪托材质与�
 
 女性第三人称武器握持的 38 个动画包、对应的 56 个角色键、配方与本地恢复条件，见[角色交互发布记录](Publication/PlayerInteraction20261105/README.md)。
 
+
 ## 高地双手剑：横扫、强化突刺与风誓配重（2026-11-06）
 
 本批原创执行器、配置、模型与动作配方、共用宿主接入补丁及已有检查证据见[发布与恢复说明](Publication/HighlandSword20261106/README.md)。棱脊使用 Junction R4、配重使用 SurfaceR2；原始视频、密集骨骼采样、模型/PBR、图标及已保存 UE 包留在有权使用的本机内容库。归档 8,766 个退役文件可按 trash 清单及 SHA-256 恢复。38 项原生隔离检查、7 阶段真实 UDP 记录来自上轮完整本机宿主；本次整理没有启动 UE 或重跑游戏，不代表公开切片独立构建或双人实打与画面验收。
+
 
 ## 高地第三人称、誓约与风誓翼锋（2026-11-07）
 
@@ -923,6 +944,7 @@ M24 的装备补栓、换弹姿态、战术挂件、开火声、枪托材质与�
 
 本批公开本轮独立源码、精确锤座配置、制作配方、领域 SKILL 和定向共享宿主接入材料。8,005 份退役素材/旧备份及结束的隔离构建文件已带散列归档；当前模型、PBR、声音、图标和 UE 包保留本机。2026-11-08 本地 206 项原生、29 项资产及六组 UDP 检查通过；这不是公开克隆重新构建或视觉验收。共享宿主仍有本机前置，恢复顺序与发布边界见 [本批说明](Publication/ConversationCombat20261109/README.md)。
 
+
 ## 破军长柄、斩马刀符文与观峰镜（2026-11-13）
 
-恢复破军握姿、四段连斩、跃击及砸地环、刀面固定纹样与观峰镜成像时，从[配置、制作配方与本机素材清单](Publication/PojunPeakwatch20261113/README.md)进入。该记录包括主客机及独立旁观端的实测结果，以及仍待玩家确认的表现。
+恢复破军握姿、四段连斩、跃击及砸地环、刀面固定纹样与观峰镜成像时，从[配置、制作配方与本机素材清单](Publication/PojunPeakwatch20261113/README.md)进入。该记录包括主客机及独立旁观端的实测结果，以及仍待玩家确认的表现。 原因：该恢复记录列出完整制作链和实际证据边界，入口导航避免把某个局部产物当全套恢复。

@@ -1,0 +1,2387 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -334,1940 +334,6 @@
+     // PIE display names are temporary and can otherwise bind another client's save.
+ }
+ 
+-bool AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProfile,bool bFromNetwork)
+-{
+-    FColdSteelProfile Sanitized;
+-    const FColdSteelProfile* Source=&GuestProfile;
+-    if(bFromNetwork)
+-    {
+-        Sanitized=GuestProfile;
+-        FString SanitizeReason;
+-        if(!SanitizeGuestProfile(Sanitized,SanitizeReason))
+-        {
+-            UE_LOG(LogTemp,Warning,TEXT("MPTEST guest profile rejected: %s"),*SanitizeReason);
+-            ClientProfileSyncRejected(SanitizeReason);
+-            return false;
+-        }
+-        Source=&Sanitized;
+-    }
+-    const FColdSteelProfile& Guest=*Source;
+-    if(Guest.NetworkProfileId.IsValid())
+-    {
+-        if(BoundProfileId.IsValid()&&BoundProfileId!=Guest.NetworkProfileId)return false;
+-        if(!BoundProfileId.IsValid())
+-        {
+-            // One live player per durable profile. Otherwise two shadow models overwrite one save slot.
+-            for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)
+-            {
+-                if(*It==this||It->IsActorBeingDestroyed())continue;
+-                const auto* OtherPC=Cast<APlayerController>(It->GetOwner());
+-                if(!OtherPC||OtherPC->PlayerState!=*It)continue;
+-                FGuid OtherId=It->BoundProfileId;
+-                if(OtherPC->IsLocalController())
+-                    if(const auto* Host=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())OtherId=Host->Snapshot().NetworkProfileId;
+-                if(OtherId==Guest.NetworkProfileId)
+-                {ClientProfileSyncRejected(TEXT("此角色档案已被房间内另一名玩家使用，请切换档案后重新加入"));return false;}
+-            }
+-            BoundProfileId=Guest.NetworkProfileId;
+-            if(const auto* Session=GetWorld()->GetSubsystem<UColdSteelNetWorldSubsystem>())
+-                for(FName Key:Session->RestoreGuestKeys(BoundProfileId))SessionDoorKeys.AddUnique(Key);
+-            SlotName=TEXT("ColdSteelMP_Profile_")+BoundProfileId.ToString(EGuidFormats::Digits);
+-            // Null-subsystem PIE player names change on reconnect. Bind durable
+-            // receipts to the isolated saved profile, never that temporary name.
+-            if(ShadowModel&&ShadowModel->Snapshot().NetworkProfileId!=BoundProfileId)ShadowModel=nullptr;
+-            auto* Session=GetGameInstance()->GetSubsystem<UColdSteelNetSessionSubsystem>();
+-            if(auto* Cached=Session?Session->RestoreGuestProfile(GetWorld(),BoundProfileId):nullptr)
+-            {
+-                // Never discard the last live state merely because logout could not write it.
+-                if(Cached->HasUnconfirmedTransactionSave())
+-                {BoundProfileId.Invalidate();ClientProfileSyncRejected(TEXT("此档案的交易保存结果待恢复，请主机保留存档并重启后再加入"));return false;}
+-                ShadowModel=Cached;bRestoreGuestAmmo=true;
+-                // Restore the saved resources before the upload merge reads the new pawn's components.
+-                ApplyShadowToServerPawn();
+-            }
+-            else if(UGameplayStatics::DoesSaveGameExist(SlotName,0))
+-            {
+-                auto* Stored=Cast<UColdSteelProfileSave>(UGameplayStatics::LoadGameFromSlot(SlotName,0));
+-                if(!Stored||Stored->Profile.NetworkProfileId!=BoundProfileId)
+-                {
+-                    // An existing unreadable/mismatched host slot is evidence, not a new guest.
+-                    BoundProfileId.Invalidate();ClientProfileSyncRejected(TEXT("主机已有客机档案无法读取或身份不符，已保留文件，未用上传档案覆盖"));return false;
+-                }
+-                if(!ApplyGuestProfile(Stored->Profile)){BoundProfileId.Invalidate();return false;}
+-                bRestoreGuestAmmo=ShadowModel!=nullptr;
+-            }
+-        }
+-    }
+-    // Settle against the authority clock before comparing upload receipts. An
+-    // upload captured before expiry must not resurrect the consumed raw item.
+-    if(ShadowModel&&ShadowModel->RuntimePawn()&&ShadowModel->RuntimePawn()->HasAuthority())
+-        ShadowModel->SettleFoodSpoilage(true);
+-    if(ShadowModel&&ShadowModel->HasUnconfirmedTransactionSave())
+-    {ClientProfileSyncRejected(TEXT("交易保存结果待恢复，已停止覆盖主机档案"));return false;}
+-    UGameInstance* GI = GetGameInstance();
+-    UColdSteelStatusModel* HostModel = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr;
+-    if (!HostModel) return false;
+-
+-    if (!ShadowModel)
+-    {
+-        auto FoodMigrated=Guest;
+-        ColdSteelFood::RebaseProfile(FoodMigrated,ColdSteelFood::Clock(this));
+-        ShadowModel = HostModel->CreateShadowModel(FoodMigrated);
+-        if(!ShadowModel){ClientProfileSyncRejected(HostModel->ResultMessage());return false;}
+-        UE_LOG(LogTemp, Warning, TEXT("MPTEST shadow profile created: %s items=%d hp=%.0f"),
+-            *SlotName, Guest.Items.Num(), Guest.Health);
+-    }
+-    else
+-    {
+-        // Preserve server transactions; merge progression as coherent level/XP
+-        // pairs and cumulative attribute entitlement. Repeated uploads are idempotent.
+-        const FColdSteelProfile Prev = ShadowModel->Snapshot();
+-        FColdSteelProfile Adopted = Guest;
+-        const auto FoodClock=ColdSteelFood::Clock(this);
+-        ColdSteelFood::RebaseProfile(Adopted,FoodClock);
+-        Adopted.Health=Prev.Health;
+-        // Uploads carry inventory intent, not authority health. An old upload
+-        // must neither heal a wounded pawn nor revive a pawn awaiting respawn.
+-        if(const auto* Pawn=GetPawn())
+-            if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())Adopted.Health=Health->Health;
+-        const bool KeepServerPouch=bRestoreGuestAmmo||Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision;
+-        // Same-revision owner uploads can predate continuous bow upkeep. Keep
+-        // authority resources while prepared, then rely on the end checkpoint.
+-        const auto* UpkeepPawn=GetPawn();
+-        const auto* ElementHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UFPSElementalArrowComponent>():nullptr;
+-        const auto* RainHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UFPSMagicArrowRainComponent>():nullptr;
+-        const auto* ThunderHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UProductionToolComponent>():nullptr;
+-        if((ElementHold&&ElementHold->OwnsHoldResources())||(RainHold&&RainHold->HasPreparedArrow())||(ThunderHold&&ThunderHold->OwnsThunderCallResources()))
+-        {
+-            Adopted.Mana=Prev.Mana;Adopted.StarMarrowManaSpent=Prev.StarMarrowManaSpent;Adopted.MagicCrystalManaRestored=Prev.MagicCrystalManaRestored;Adopted.Stamina=Prev.Stamina;Adopted.StaminaRecoveryDelay=Prev.StaminaRecoveryDelay;Adopted.bSprintExhausted=Prev.bSprintExhausted;
+-            Adopted.SpellbookFocusManaLoss=Prev.SpellbookFocusManaLoss;Adopted.UppercutStaminaSpent=Prev.UppercutStaminaSpent;
+-            Adopted.OathStaminaRestored=Prev.OathStaminaRestored;
+-        }
+-        if(Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision)
+-        {
+-            Adopted.Items=Prev.Items;
+-            // Capacity and layout belong to the same authoritative inventory,
+-            // including extra pages allocated by an earlier footprint migration.
+-            Adopted.WarehousePages=Prev.WarehousePages;
+-            Adopted.WarehouseLayoutVersion=Prev.WarehouseLayoutVersion;
+-            Adopted.StoragePages=Prev.StoragePages;
+-            Adopted.ActiveWeaponSlot=Prev.ActiveWeaponSlot;Adopted.ActiveProductionTool=Prev.ActiveProductionTool;
+-            Adopted.AmmoPouch=Prev.AmmoPouch;
+-            Adopted.Mana=Prev.Mana;Adopted.StarMarrowManaSpent=Prev.StarMarrowManaSpent;Adopted.MagicCrystalManaRestored=Prev.MagicCrystalManaRestored;Adopted.Stamina=Prev.Stamina;
+-            Adopted.UppercutStaminaSpent=Prev.UppercutStaminaSpent;
+-            Adopted.OathStaminaRestored=Prev.OathStaminaRestored;
+-            Adopted.CampfireInventoryRevision=Prev.CampfireInventoryRevision;
+-        }
+-        ColdSteelProfileRecovery::NetworkSpells(Adopted,Prev);
+-        ColdSteelProfileRecovery::MartialCooldowns(Adopted,Prev);
+-        // Uppercut now commits on authority. A delayed owner profile cannot
+-        // shorten/reset its server cooldown or undo a confirmed release.
+-        Adopted.SwordUppercutCooldown=Prev.SwordUppercutCooldown;
+-        Adopted.SwordUppercutCooldownDuration=Prev.SwordUppercutCooldownDuration;
+-        Adopted.ChainSlashCooldown=Prev.ChainSlashCooldown;Adopted.ChainSlashCooldownDuration=Prev.ChainSlashCooldownDuration;
+-        Adopted.LeapStrikeCooldown=Prev.LeapStrikeCooldown;Adopted.LeapStrikeCooldownDuration=Prev.LeapStrikeCooldownDuration;
+-        Adopted.WhirlwindCooldown=Prev.WhirlwindCooldown;
+-        Adopted.WhirlwindCooldownDuration=Prev.WhirlwindCooldownDuration;
+-        Adopted.CampfireWorldReceipts=Prev.CampfireWorldReceipts;
+-        Adopted.ForgeJob=Prev.ForgeJob;Adopted.GunAssemblyJob=Prev.GunAssemblyJob;Adopted.WoodworkingJob=Prev.WoodworkingJob;Adopted.AlchemyJob=Prev.AlchemyJob;Adopted.EnhancementItem=Prev.EnhancementItem;
+-        // Uploads may move ordinary inventory, never duplicate or modify escrow.
+-        if(!Prev.EnhancementItem.InstanceId.IsEmpty())
+-            Adopted.Items.RemoveAll([&](const auto& Item){return Item.InstanceId==Prev.EnhancementItem.InstanceId;});
+-        Adopted.DungeonRun=Prev.DungeonRun;
+-        ColdSteelWoodQuality::PreserveAuthoritative(Adopted.Items,Prev.Items);
+-        ColdSteelForgeQuality::PreserveAuthoritative(Adopted.Items,Prev.Items);
+-        UColdSteelEnhancementSystem::PreserveAuthoritative(Adopted.Items,Prev.Items);
+-        ColdSteelAssemblyQuality::PreserveAuthoritative(Adopted.Items,Prev.Items);
+-        // Preserve age even when the inventory receipt is equal (moves/splits
+-        // can upload independently of the periodic authority settlement).
+-        for(auto& Item:Adopted.Items)
+-        {
+-            const auto* Previous=Prev.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Item.InstanceId;});
+-            if(!Previous||ColdSteelFood::LifetimeDays(*Previous)<=0.)continue;
+-            if(Item.Definition!=Previous->Definition){Item=*Previous;continue;}
+-            // Food definitions have no client-authored processing fields. Keep
+-            // the server lifetime contract as well as its accumulated age.
+-            Item.Data=Previous->Data;
+-            if(FoodClock.Id.IsValid())
+-            {
+-                const double UploadedAge=ColdSteelFood::AgeDays(Item,FoodClock);
+-                if(UploadedAge<=ColdSteelFood::AgeDays(*Previous,FoodClock))
+-                {
+-                    // Preserve the exact birth representation of the existing
+-                    // batch instead of repeatedly rounding it through Stamp.
+-                    Item.FoodVersion=Previous->FoodVersion;Item.FoodClockId=Previous->FoodClockId;
+-                    Item.FoodSampleDay=Previous->FoodSampleDay;Item.FoodAgeDays=Previous->FoodAgeDays;
+-                }
+-                else ColdSteelFood::Stamp(Item,FoodClock,UploadedAge);
+-            }
+-        }
+-        if(!RebaseSuper90Upload(Adopted,Prev,KeepServerPouch)){SendSuper90Ammo(true);return false;}
+-        EnsurePistolAmmoIds();
+-        if(!RebasePistolUpload(Adopted,Prev,KeepServerPouch)){SendPistolAmmo();return false;}
+-        // A profile upload may have been captured before the focus-break RPC.
+-        if(Adopted.MagicCrystalManaRestored<Prev.MagicCrystalManaRestored)
+-            MagicCrystalMana::Merge(Adopted,Prev.MagicCrystalManaRestored,float(UColdSteelStatusModel::ResourceMaximum(Adopted,true)));
+-        Adopted.StarMarrowManaSpent=FMath::Clamp(Adopted.StarMarrowManaSpent,0.,Prev.StarMarrowManaSpent);
+-        Adopted.MergeStarMarrowSpend(Prev.StarMarrowManaSpent);
+-        SpellbookFocusMana::Merge(Adopted,Prev.SpellbookFocusManaLoss);
+-        UppercutStaminaReceipt::Merge(Adopted,Prev.UppercutStaminaSpent);
+-        Adopted.OathStaminaRestored=FMath::IsFinite(Adopted.OathStaminaRestored)?FMath::Clamp(Adopted.OathStaminaRestored,0.,Prev.OathStaminaRestored):0.;
+-        Adopted.MergeOathStamina(Prev.OathStaminaRestored,UColdSteelStatusModel::StaminaMaximum(Adopted,ShadowModel->StaminaSettings()));
+-        bool CurrencyChanged=false;FString CurrencyReason;
+-        // Server-side grant/debit watermarks are not client state. Overwriting
+-        // them here also prevents a forged watermark from suppressing rewards.
+-        Adopted.ServerSoulCredits=Prev.ServerSoulCredits;
+-        Adopted.ServerSoulDebits=Prev.ServerSoulDebits;
+-        if(!ColdSteelCurrency::Normalize(Adopted,CurrencyChanged,CurrencyReason) || !ColdSteelCurrency::MergeServerCredits(Adopted,Prev))return false;
+-        Adopted.Souls=FMath::Clamp<int64>(Adopted.Souls,0,1000000000ll);
+-        const double MaxHealth=UColdSteelStatusModel::ResourceMaximum(Adopted,false);
+-        const double MaxMana=UColdSteelStatusModel::ResourceMaximum(Adopted,true);
+-        const double MaxStamina=UColdSteelStatusModel::StaminaMaximum(Adopted,ShadowModel->StaminaSettings());
+-        Adopted.Health=FMath::Clamp(double(Adopted.Health),0.,MaxHealth);
+-        Adopted.Mana=FMath::Clamp(double(Adopted.Mana),0.,MaxMana);
+-        Adopted.Stamina=FMath::Clamp(double(Adopted.Stamina),0.,MaxStamina);
+-        // Ongoing survival is server-owned; inventory uploads must not refill or rewind it.
+-        Adopted.Infection=Prev.Infection;
+-        if(const auto* Pawn=GetPawn())if(const auto* I=Pawn->FindComponentByClass<UProgressiveInfectionComponent>())Adopted.Infection=I->GetState();
+-        Adopted.Survival=Prev.Survival;
+-        if(const auto* Character=Cast<AFPSGAMECharacter>(GetPawn()))
+-            if(const auto* Survival=Character->FindComponentByClass<UFPSSurvivalComponent>())Adopted.Survival=Survival->GetState();
+-        ColdSteelProfileMerge::Progression(Adopted,Prev);
+-        ColdSteelProfileMerge::OfferingUsage(Adopted,Prev);
+-        if(const auto* Pawn=GetPawn())
+-            if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())
+-            {
+-                const float Maximum=float(UColdSteelStatusModel::ResourceMaximum(Adopted,false));
+-                // Equipment/attribute growth preserves missing HP, exactly as
+-                // local PersistState does, without trusting uploaded health.
+-                Adopted.Health=Health->IsDead()?0.f:FMath::Clamp(Health->Health+Maximum-Health->MaxHealth,0.f,Maximum);
+-            }
+-        // A respawn/revive replaces the pawn and refills the magazine client-side;
+-        // drop the old shot ledger so the first post-respawn shot is not billed
+-        // against the rounds the player died with.
+-        if(Prev.Health<=0.f&&Adopted.Health>0.f)
+-        {
+-            ServerGunLedgers.Reset();RegisteredPistolShots.Reset();M24Launches.Reset();LastM24LaunchSequence=0;
+-        GenericLaunches.Reset();LastGenericLaunchSequence=0;GenericLaunchPawn.Reset();GenericLaunchReadyAt=0.;GenericLaunchTokenAt=0.;GenericLaunchTokens=6.f;
+-        GenericMeleeReceipts.Reset();GenericMeleePawn.Reset();LastGenericMeleeSequence=0;GenericMeleeReadyAt=0.;
+-        AuthorityShotRecoveryPawn.Reset();AuthorityShotRecoveryUntil=0.;
+-            StopPistolAuthority();
+-            ServerComboStage=0;ServerComboSwingAt=-100.;ServerComboWeapon.Reset();
+-        }
+-        // Covers reconnect caches and the retained host inventory after revision
+-        // reconciliation. NetView projections must not perform this migration.
+-        bool FootprintChanged=false;FString FootprintReason;
+-        if(!ColdSteelInventory::MigrateAuthoredGridFootprints(Adopted,FootprintChanged,FootprintReason))
+-        {ClientProfileSyncRejected(FootprintReason);return false;}
+-        const bool TubeCapacityChanged=Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision;
+-        auto* ThunderTool=GetPawn()?GetPawn()->FindComponentByClass<UProductionToolComponent>():nullptr;
+-        FString ThunderReason;
+-        if(ThunderTool&&!ThunderTool->ValidateThunderEquipmentChange(Prev,Adopted,ThunderReason))
+-        {ClientProfileSyncRejected(ThunderReason);return false;}
+-        ShadowModel->AdoptNetMirror(Adopted);
+-        if(ThunderTool)ThunderTool->CommitThunderEquipmentChange(Adopted);
+-        if(TubeCapacityChanged)
+-        {
+-            RecordSuper90PouchChange(Prev,Adopted);
+-            RecordPistolPouchChange(Prev.AmmoPouch);
+-            for(auto& Pair:PistolReloads)Pair.Value.Active=false;
+-            // A magazine resize ends the old reload plan. The receipt waits for
+-            // this inventory revision on the owner before interrupting its pose.
+-            if(Super90Reload.Active){Super90Reload.Active=false;SendSuper90Ammo(true);}
+-        }
+-    }
+-    bRestoreGuestAmmo=false;
+-    ApplyShadowToServerPawn();
+-    ShadowModel->SettleFoodSpoilage(true);
+-    if(ShadowModel->HasUnconfirmedTransactionSave())
+-    {ClientProfileSyncRejected(TEXT("食物腐败保存未确认，保留服务器物品等待恢复"));return false;}
+-    SendSuper90Ammo();
+-    SendPistolAmmo();
+-    bServerDirty = true;
+-    ServerSaveTimer = 20.f;
+-    return true;
+-}
+-
+-bool AColdSteelPlayerState::SanitizeGuestProfile(FColdSteelProfile& Profile,FString& OutReason) const
+-{
+-    UGameInstance* GI=GetGameInstance();
+-    UColdSteelStatusModel* Host=GI?GI->GetSubsystem<UColdSteelStatusModel>():nullptr;
+-    if(!Host){OutReason=TEXT("主机档案目录不可用");return false;}
+-
+-    // Bound progression before structural validation. The host never accepts a
+-    // client's raw attribute/currency watermark as authority.
+-    if(Profile.Items.Num()>10000)
+-    {
+-        Profile.Items.SetNum(10000);
+-        UE_LOG(LogTemp,Warning,TEXT("MPTEST guest profile item cap trimmed upload"));
+-    }
+-    Profile.Level=FMath::Clamp(Profile.Level,1,10000);
+-    const int64 LevelNeed=(20ll+int64(Profile.Level)*20ll+int64(Profile.Level)*Profile.Level*12ll)*8ll;
+-    Profile.Experience=FMath::Clamp<int64>(Profile.Experience,0,FMath::Max<int64>(0,LevelNeed-1));
+-    const int64 PointCap=3ll*Profile.Level+100ll;
+-    Profile.Points=FMath::Clamp<int32>(Profile.Points,0,int32(FMath::Min<int64>(PointCap,1000000)));
+-    int64 AttributeTotal=0;
+-    for(auto& Pair:Profile.Attributes)
+-    {
+-        Pair.Value=FMath::Clamp(Pair.Value,0,999);
+-        AttributeTotal+=Pair.Value;
+-    }
+-    if(AttributeTotal>PointCap&&Profile.Attributes.Num()>0)
+-    {
+-        const int32 PerAttribute=int32(PointCap/Profile.Attributes.Num());
+-        for(auto& Pair:Profile.Attributes)Pair.Value=FMath::Clamp(Pair.Value,0,PerAttribute);
+-    }
+-    Profile.Souls=FMath::Clamp<int64>(Profile.Souls,0,1000000000ll);
+-    // Server grant/debit watermarks are never client state. Starting from zero
+-    // also stops a fresh upload from suppressing future server rewards.
+-    Profile.ServerSoulCredits=0;
+-    Profile.ServerSoulDebits=0;
+-    if(!FMath::IsFinite(Profile.Stamina))Profile.Stamina=0.f;
+-    if(!FMath::IsFinite(Profile.Mana))Profile.Mana=0.f;
+-    if(!FMath::IsFinite(Profile.StarMarrowManaSpent)||Profile.StarMarrowManaSpent<0.||Profile.StarMarrowManaSpent>1.e12)Profile.StarMarrowManaSpent=0.;
+-    if(!FMath::IsFinite(Profile.Health))Profile.Health=0.f;
+-    Profile.Stamina=FMath::Clamp(Profile.Stamina,0.f,
+-        float(Host->StaminaMaximum(Profile,Host->StaminaSettings())));
+-    Profile.Mana=FMath::Clamp(Profile.Mana,0.f,
+-        float(Host->ResourceMaximum(Profile,true)));
+-    if(!ShadowModel)Profile.CampfireInventoryRevision=0;
+-
+-    // Fresh profiles can bring legitimate personal escrow from another world.
+-    // Existing authority profiles replace uploads below; normalize new seeds just
+-    // like ordinary items, without granting an extra copy in inventory.
+-    if(ShadowModel)Profile.EnhancementItem=ShadowModel->Snapshot().EnhancementItem;
+-    if(!Profile.EnhancementItem.InstanceId.IsEmpty())
+-    {
+-        const auto* Enhancement=GI->GetSubsystem<UColdSteelEnhancementSystem>();
+-        if(!Host->SanitizeNetworkItem(Profile.EnhancementItem)||!Enhancement||!Enhancement->Supports(Profile.EnhancementItem))
+-        {OutReason=TEXT("工作台暂存武器无效，请恢复原档案后重试");return false;}
+-        Profile.Items.RemoveAll([&](const auto& Item){return Item.InstanceId==Profile.EnhancementItem.InstanceId;});
+-    }
+-    TSet<FString> KeptIds;
+-    int32 Dropped=0;
+-    for(int32 Index=Profile.Items.Num()-1;Index>=0;--Index)
+-    {
+-        FColdSteelItem& Item=Profile.Items[Index];
+-        if(!Host->SanitizeNetworkItem(Item)||KeptIds.Contains(Item.InstanceId))
+-        {
+-            Profile.Items.RemoveAt(Index);
+-            ++Dropped;
+-            continue;
+-        }
+-        KeptIds.Add(Item.InstanceId);
+-    }
+-    if(Dropped>0)
+-        UE_LOG(LogTemp,Warning,TEXT("MPTEST guest profile dropped %d invalid item instances"),Dropped);
+-
+-    // Legacy currency items are normalized into Souls. Bound their contribution
+-    // so a forged stack cannot bypass the balance cap during Normalize.
+-    int64 CurrencyBudget=FMath::Max<int64>(0,1000000000ll-Profile.Souls);
+-    for(int32 Index=Profile.Items.Num()-1;Index>=0;--Index)
+-    {
+-        FColdSteelItem& Item=Profile.Items[Index];
+-        if(!ColdSteelCurrency::IsCurrency(Item.Definition))continue;
+-        if(CurrencyBudget<=0)
+-        {
+-            KeptIds.Remove(Item.InstanceId);
+-            Profile.Items.RemoveAt(Index);
+-            continue;
+-        }
+-        Item.Count=FMath::Min<int64>(Item.Count,CurrencyBudget);
+-        Item.StackMax=FMath::Max(Item.StackMax,Item.Count);
+-        CurrencyBudget-=Item.Count;
+-    }
+-    for(FString& Id:Profile.Hotbar)
+-        if(!Id.IsEmpty()&&!KeptIds.Contains(Id))Id.Reset();
+-    // Resources are bounded by the same server-side stat formula the pawn uses.
+-    // Uploaded Health/Mana must not start a first-join shadow above its maximum.
+-    Profile.Health=FMath::Clamp(Profile.Health,0.f,float(Host->ResourceMaximum(Profile,false)));
+-    Profile.Mana=FMath::Clamp(Profile.Mana,0.f,float(Host->ResourceMaximum(Profile,true)));
+-    // Preserve the saved row stride until layout migration. Validating an old
+-    // 6x8 expedition compartment as 8x6 first can reject a legitimate guest
+-    // before CreateShadowProfile gets a chance to migrate it. Items above are
+-    // already sanitized; the shared migration validates both layouts atomically.
+-    // Skill tree (2026-11-15): learned skills and specialization ranks must obey the tree rules.
+-    ColdSteelSkillTree::Sanitize(Profile);
+-    bool LayoutChanged=false;
+-    return ColdSteelInventory::MigrateAuthoredGridFootprints(Profile,LayoutChanged,OutReason);
+-}
+-
+-void AColdSteelPlayerState::GrantSessionDoorKey(FName Key)
+-{
+-    if(!HasAuthority()||Key.IsNone())return;
+-    SessionDoorKeys.AddUnique(Key);ForceNetUpdate();
+-    if(auto* Session=GetWorld()->GetSubsystem<UColdSteelNetWorldSubsystem>())Session->RememberGuestKeys(BoundProfileId,SessionDoorKeys);
+-}
+-void AColdSteelPlayerState::ClientProfileSyncRejected_Implementation(const FString& Reason)
+-{
+-    if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->PostNotice(TEXT("角色档案未接入"),Reason);
+-}
+-
+-void AColdSteelPlayerState::ApplyShadowToServerPawn()
+-{
+-    APlayerController* PC = Cast<APlayerController>(GetOwner());
+-    AFPSGAMECharacter* Character = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
+-    if (!Character || !ShadowModel) return;
+-    Character->NetShadowProfile = ShadowModel;
+-    // 影子档绑定服务端 pawn：TickRuntime（冷却/回复）据此承认该 pawn，
+-    // ApplyToPawn 内部幂等（装备比对不重复换装）。
+-    if(ShadowPawn.Get()!=Character||ShadowModel->RuntimePawn()!=Character)
+-    {
+-        ServerGunLedgers.Reset();RegisteredPistolShots.Reset();M24Launches.Reset();LastM24LaunchSequence=0;
+-        GenericLaunches.Reset();LastGenericLaunchSequence=0;GenericLaunchPawn.Reset();GenericLaunchReadyAt=0.;GenericLaunchTokenAt=0.;GenericLaunchTokens=6.f;
+-        GenericMeleeReceipts.Reset();GenericMeleePawn.Reset();LastGenericMeleeSequence=0;GenericMeleeReadyAt=0.;
+-        AuthorityShotRecoveryPawn.Reset();AuthorityShotRecoveryUntil=0.;
+-        StopPistolAuthority();
+-        ShadowModel->AttachPawn(Character);
+-        // An unfinished download belongs to the old pawn. Publish the new life promptly.
+-        PendingMirrorBlob.Reset();LastMirrorBlob.Reset();LastMirrorWithoutFoodTime.Reset();ShadowMirrorTimer=3.f;
+-        WoodOutgoing.Reset();bWoodDirty=bStationDirty=true;
+-        Super90Reload.Active=false;SendSuper90Ammo();
+-    }
+-    else Character->ApplyColdSteelProfile(ShadowModel);
+-    ShadowPawn = Character;
+-    InitializeStations(ShadowModel);
+-    UE_LOG(LogTemp, Log, TEXT("MPTEST shadow applied to server pawn: %s"), *GetNameSafe(Character));
+-}
+-
+-bool AColdSteelPlayerState::SaveShadowToHostDisk()
+-{
+-    if (!ShadowModel || SlotName.IsEmpty() || ShadowModel->HasUnconfirmedTransactionSave()) return false;
+-    ShadowModel->SyncRuntime();
+-    UColdSteelProfileSave* Save = Cast<UColdSteelProfileSave>(
+-        UGameplayStatics::CreateSaveGameObject(UColdSteelProfileSave::StaticClass()));
+-    Save->Profile = ShadowModel->Snapshot();
+-    if (UGameplayStatics::SaveGameToSlot(Save, SlotName, 0))
+-    {
+-        UE_LOG(LogTemp, Warning, TEXT("MPTEST guest profile saved to host disk: %s items=%d hp=%.0f"),
+-            *SlotName, Save->Profile.Items.Num(), Save->Profile.Health);
+-        return true;
+-    }
+-    UE_LOG(LogTemp,Error,TEXT("Guest profile save failed: %s"),*SlotName);
+-    return false;
+-}
+-
+-void AColdSteelPlayerState::TickShadowMirror(float DeltaSeconds)
+-{
+-    if (!ShadowModel || !GetPawn() || ShadowModel->RuntimePawn()!=GetPawn()) return;
+-    ShadowMirrorTimer += DeltaSeconds;
+-    if (PendingMirrorBlob.IsEmpty())
+-    {
+-        if (ShadowMirrorTimer < 3.f) return;
+-        ShadowMirrorTimer = 0.f;
+-        auto* Save = NewObject<UColdSteelProfileSave>();
+-        Save->Profile = ShadowModel->Snapshot();
+-        const double FoodDay=Save->Profile.FoodClockDay;
+-        Save->Profile.FoodClockDay=0.;
+-        TArray<uint8> WithoutFoodTime;
+-        if(!SaveToBlob(Save,WithoutFoodTime)||(!bGunsmithReplyPending&&WithoutFoodTime==LastMirrorWithoutFoodTime))return;
+-        Save->Profile.FoodClockDay=FoodDay;
+-        TArray<uint8> Blob;
+-        if (!SaveToBlob(Save, Blob) || (!bGunsmithReplyPending&&(Blob == LastAppliedBlob || Blob == LastMirrorBlob))) return;
+-        LastMirrorWithoutFoodTime=MoveTemp(WithoutFoodTime);
+-        PendingMirrorBlob = MoveTemp(Blob);
+-        PendingMirrorPawn=GetPawn();PendingMirrorCastSequence=ProcessedCastSequence;
+-        PendingMirrorGunsmithSequence=ProcessedGunsmithSequence;bGunsmithReplyPending=false;
+-        const auto* GS=GetWorld()->GetGameState();
+-        PendingMirrorCapturedAt=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+-        NextMirrorChunk = 0;
+-        ++MirrorTransferId;
+-        if (!MirrorTransferId) ++MirrorTransferId;
+-    }
+-
+-    // A replicated TArray adds per-element delta headers: even a compressed
+-    // 57 KB profile exceeded the engine's 64 KB bunch limit. Send bounded RPCs.
+-    auto* PC = Cast<APlayerController>(GetOwner());
+-    UNetConnection* Connection = PC ? PC->GetNetConnection() : nullptr;
+-    if (!Connection || !Connection->IsNetReady()) return;
+-    const double Now = GetWorld()->GetRealTimeSeconds();
+-    const double BytesPerSecond = FMath::Min(16.0 * 1024.0, double(Connection->CurrentNetSpeed) * .2);
+-    if (BytesPerSecond <= 0.0 || Now - LastMirrorChunkAt < (ProfileChunkSize + 256.0) / BytesPerSecond) return;
+-    const int32 Total = FMath::DivideAndRoundUp(PendingMirrorBlob.Num(), ProfileChunkSize);
+-    const int32 Start = NextMirrorChunk * ProfileChunkSize;
+-    TArray<uint8> Chunk;
+-    Chunk.Append(PendingMirrorBlob.GetData() + Start, FMath::Min(ProfileChunkSize, PendingMirrorBlob.Num() - Start));
+-    ClientReceiveProfileChunk(MirrorTransferId, NextMirrorChunk, Total, Chunk,PendingMirrorPawn.Get(),PendingMirrorCastSequence,PendingMirrorCapturedAt,PendingMirrorGunsmithSequence);
+-    LastMirrorChunkAt = Now;
+-    if (++NextMirrorChunk == Total)
+-    {
+-        LastMirrorBlob = MoveTemp(PendingMirrorBlob);
+-        PendingMirrorBlob.Reset();
+-    }
+-}
+-
+-void AColdSteelPlayerState::ClientReceiveProfileChunk_Implementation(uint32 TransferId, int32 ChunkIndex,
+-    int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt,uint32 GunsmithSequence)
+-{
+-    const auto* PC = Cast<APlayerController>(GetOwner());
+-    if (!PC || !PC->IsLocalController() || TotalChunks <= 0 || TotalChunks > ColdSteelProfileTransfer::MaxChunks ||
+-        ChunkIndex < 0 || ChunkIndex >= TotalChunks || Chunk.IsEmpty() || Chunk.Num() > ProfileChunkSize) return;
+-    if (ChunkIndex == 0)
+-    {
+-        ReceivingMirrorId = TransferId;
+-        ReceivingMirrorTotal = TotalChunks;
+-        ReceivingMirrorPawn=SourcePawn;bMirrorReady=false;
+-        ReceivingMirrorCastSequence=CastSequence;ReceivingMirrorCapturedAt=CapturedAt;
+-        ReceivingMirrorGunsmithSequence=GunsmithSequence;
+-        MirrorBlob.Reset();
+-    }
+-    if (TransferId != ReceivingMirrorId || TotalChunks != ReceivingMirrorTotal || ReceivingMirrorPawn.Get()!=SourcePawn ||
+-        ReceivingMirrorGunsmithSequence!=GunsmithSequence||ChunkIndex * ProfileChunkSize != MirrorBlob.Num()) return;
+-    MirrorBlob.Append(Chunk);
+-    if (ChunkIndex + 1 == TotalChunks)
+-    {
+-        bMirrorReady=true;
+-        ReceivingMirrorTotal = 0;
+-        OnRep_MirrorBlob();
+-    }
+-}
+-
+-void AColdSteelPlayerState::TickPublicInfo(float DeltaSeconds)
+-{
+-    if (!ShadowModel) return;
+-    // 展示字段（武器/等级/击杀）1Hz 足够——原来每 tick 全量 Snapshot()，
+-    // ~84KB 深拷贝×帧率×远端玩家数纯属浪费。
+-    PublicInfoTimer += DeltaSeconds;
+-    if (PublicInfoTimer < 1.f) return;
+-    PublicInfoTimer = 0.f;
+-    const FColdSteelItem* Eq = ShadowModel->Equipped();
+-    PublicInfo.ActiveWeaponDefinition = Eq ? Eq->Definition : TEXT("");
+-    const FColdSteelProfile P = ShadowModel->Snapshot();
+-    PublicInfo.Level = P.Level;
+-    PublicInfo.Kills = P.Kills;
+-}
+-
+-// ============================================================================
+-// 客户端：档案快照分块上行（从 UColdSteelNetChannelComponent 移植，口径不变）
+-// ============================================================================
+-
+-/** 结构判脏归一：生命体征/冷却/游戏时钟等持续漂移字段置零后再比对——
+- *  否则 Snapshot 每 2s 都变，字节去重形同虚设（84KB 全量事实上仍在心跳）。 */
+-static void NormalizeProfileForCompare(FColdSteelProfile& P)
+-{
+-    P.Health = P.Mana = P.Stamina = P.StaminaRecoveryDelay = 0.f;
+-    P.bSprintExhausted = false;
+-    P.FireballCooldown = P.FireballCooldownDuration = 0.f;
+-    P.IceSpikeCooldown = P.IceSpikeCooldownDuration = 0.f;
+-    P.LightningCooldown = P.LightningCooldownDuration = 0.f;
+-    P.HolyLightCooldown = P.HolyLightCooldownDuration = 0.f;
+-    P.WhirlwindCooldown = P.WhirlwindCooldownDuration = 0.f;
+-    P.SwordUppercutCooldown = P.SwordUppercutCooldownDuration = 0.f;
+-    P.ChainSlashCooldown = P.ChainSlashCooldownDuration = 0.f;
+-    P.LeapStrikeCooldown = P.LeapStrikeCooldownDuration = 0.f;
+-    P.QuickCombatCooldown = P.QuickCombatCooldownDuration = 0.f;
+-    P.MeteorCooldown = P.MeteorCooldownDuration = 0.f;
+-    P.FlameArmorCooldown = P.FlameArmorCooldownDuration = 0.f;
+-    P.DragonBreathCooldown=P.DragonBreathCooldownDuration=P.DragonBreathReservedMana=0.f;
+-    P.bDragonBreathReserved=false;
+-    P.IceWallCooldown = P.IceWallCooldownDuration = 0.f;
+-    P.IceWallReservedMana = 0.f;
+-    P.TreeGrowthDay = 0.0;
+-    P.FoodClockDay = 0.0;
+-    P.ForgeJob={};P.GunAssemblyJob={};P.WoodworkingJob={};P.AlchemyJob={};P.EnhancementItem={};
+-    P.Infection = FInfectionState();
+-    P.DungeonRun = FDungeonRunState();
+-    // 弹药经济随每次开火/装填漂移（SyncRuntime 把 MagazineAmmo 回写进 item），
+-    // 归一后交 30s 兜底上行——否则持续开火期间每 2s 一次"结构"全量。
+-    for (auto& I : P.Items) { I.Magazine = I.Reserve = I.VirtualMagazineAmmo = 0; }
+-    P.AmmoPouch.Empty();
+-}
+-
+-void AColdSteelPlayerState::AcknowledgeInventoryProfile()
+-{
+-    auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!M)return;
+-    if(!ScratchSave)ScratchSave=NewObject<UColdSteelProfileSave>();
+-    ScratchSave->Profile=M->Snapshot();ConfirmedSouls=ScratchSave->Profile.Souls;ConfirmedSoulCredits=ScratchSave->Profile.ServerSoulCredits;ConfirmedSoulDebits=ScratchSave->Profile.ServerSoulDebits;
+-    if(!SaveToBlob(ScratchSave,LastSentBlob))return;
+-    NormalizeProfileForCompare(ScratchSave->Profile);if(!SaveToBlob(ScratchSave,LastSentNormBlob))return;
+-    bHasLastSent=true;LastUploadAt=GetWorld()->GetRealTimeSeconds();HeartbeatTimer=2.f;
+-    if(!bHasUploadedAppearance||M->PlayerHeadId()!=UploadedHeadId||M->PlayerHairId()!=UploadedHairId)
+-    {bHasLastSent=false;HeartbeatTimer=0.f;}
+-}
+-void AColdSteelPlayerState::TickUpload(float DeltaSeconds)
+-{
+-    APlayerController* PC = Cast<APlayerController>(GetOwner());
+-    if (!PC || !PC->IsLocalController() || !PC->GetPawn()) return;
+-    if(const auto* Health=PC->GetPawn()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+-    if(bInventoryRequestPending&&!bInventoryWaitingUpload)return;
+-    if(bCampfirePending&&!bCampfireWaitingUpload)return;
+-
+-    // 调试豁免：双进程回归时 -MPNoHeartbeat 只传首包不重传。
+-    static const bool bNoHeartbeat = FParse::Param(FCommandLine::Get(), TEXT("MPNoHeartbeat"));
+-    if (bNoHeartbeat && bHasLastSent) { HeartbeatTimer = 60.f; }
+-
+-    HeartbeatTimer -= DeltaSeconds;
+-    if (HeartbeatTimer <= 0.f&&!bCampfirePending&&!bInventoryRequestPending&&PendingUpload.IsEmpty())
+-    {
+-        HeartbeatTimer = 2.f;
+-        const UGameInstance* GI = GetGameInstance();
+-        if (UColdSteelStatusModel* Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr)
+-        {
+-            if (!ScratchSave)
+-            {
+-                ScratchSave = Cast<UColdSteelProfileSave>(
+-                    UGameplayStatics::CreateSaveGameObject(UColdSteelProfileSave::StaticClass()));
+-            }
+-            if(Model->RuntimePawn()!=PC->GetPawn())return;
+-            Model->SyncRuntime();
+-            ScratchSave->Profile = Model->Snapshot();
+-            TArray<uint8> Blob;
+-            if (!SaveToBlob(ScratchSave, Blob))
+-            {
+-                UE_LOG(LogTemp, Warning, TEXT("ProfileTransfer: profile exceeds compressed upload capacity"));
+-                return;
+-            }
+-            FColdSteelProfile NormProfile = ScratchSave->Profile;
+-            NormalizeProfileForCompare(NormProfile);
+-            ScratchSave->Profile = NormProfile;
+-            TArray<uint8> NormBlob;
+-            if (!SaveToBlob(ScratchSave, NormBlob)) return;
+-            ScratchSave->Profile = Model->Snapshot(); // 复位供别处复用
+-            const double Now = GetWorld()->GetRealTimeSeconds();
+-            // 两级判脏：结构字段变了立刻上行；结构没变但超 30s → 兜底把漂移的生命体征带上去。
+-            const bool bStructural = !bHasLastSent || LocalGunsmithSequence!=UploadedGunsmithSequence
+-                || NormBlob != (PendingUpload.Num() > 0 ? PendingNormBlob : LastSentNormBlob);
+-            const bool bVitalFlush = bHasLastSent && (Now - LastUploadAt >= VitalFlushInterval)
+-                && Blob != LastSentBlob;
+-            if ((bStructural || bVitalFlush) && PendingUpload.Num() == 0)
+-            {
+-                PendingUpload = MoveTemp(Blob);
+-                PendingUploadHeadId=ScratchSave->Profile.PlayerHeadId;
+-                PendingUploadGunsmithSequence=LocalGunsmithSequence;
+-                PendingUploadHairId=ScratchSave->Profile.PlayerHairId;
+-                PendingUploadPawn=PC->GetPawn();
+-                PendingSuper90Revision=Super90AppliedRevision;
+-                PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;
+-                PendingNormBlob = MoveTemp(NormBlob);
+-                PendingUploadId = ++UploadCounter;
+-                NextChunkIndex = 0;
+-                PendingTotalChunks = FMath::Max(1, FMath::DivideAndRoundUp(PendingUpload.Num(), ProfileChunkSize));
+-                UE_LOG(LogTemp, Warning, TEXT("MPTEST profile upload started: %d bytes / %d chunks (%s)"),
+-                    PendingUpload.Num(), PendingTotalChunks, bStructural ? TEXT("structural") : TEXT("vital-flush"));
+-            }
+-        }
+-    }
+-    // Reliable profile traffic shares the connection with unreliable ServerMove.
+-    // Pace by real time and negotiated bandwidth, with no catch-up burst after a stall.
+-    if (PendingUpload.Num() > 0)
+-    {
+-        UNetConnection* Connection = PC->GetNetConnection();
+-        if (!Connection || !Connection->IsNetReady()) return;
+-        const double Now = GetWorld()->GetRealTimeSeconds();
+-        const double BytesPerSecond = FMath::Min(16.0 * 1024.0, double(Connection->CurrentNetSpeed) * .2);
+-        if (BytesPerSecond <= 0.0 || Now - LastUploadAt < (ProfileChunkSize + 256.0) / BytesPerSecond) return;
+-        if (NextChunkIndex < PendingTotalChunks)
+-        {
+-            const int32 Start = NextChunkIndex * ProfileChunkSize;
+-            const int32 Count = FMath::Min(ProfileChunkSize, PendingUpload.Num() - Start);
+-            TArray<uint8> Chunk;
+-            Chunk.Append(PendingUpload.GetData() + Start, Count);
+-            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk,PendingSuper90Revision,PendingUploadPawn.Get(),PendingPistolAmmoRevision,PendingPistolIntent,PendingUploadGunsmithSequence);
+-            ++NextChunkIndex;
+-            LastUploadAt = Now;
+-        }
+-        if (NextChunkIndex >= PendingTotalChunks)
+-        {
+-            LastSentBlob = MoveTemp(PendingUpload);
+-            LastSentNormBlob = MoveTemp(PendingNormBlob);
+-            UploadedHeadId=PendingUploadHeadId;UploadedHairId=PendingUploadHairId;bHasUploadedAppearance=true;
+-            UploadedGunsmithSequence=PendingUploadGunsmithSequence;
+-            bHasLastSent = true;
+-            LastUploadAt = Now;
+-            PendingUpload.Reset();
+-            DispatchCampfireAfterUpload();
+-            DispatchInventoryAfterUpload();
+-        }
+-    }
+-}
+-
+-namespace
+-{
+-bool CopyFreeWeaponCustomization(FColdSteelItem& TargetItem,const FColdSteelItem& SourceItem)
+-{
+-    if(TargetItem.InstanceId!=SourceItem.InstanceId||TargetItem.Definition!=SourceItem.Definition)return false;
+-    const bool LightMachineGun=LMGStabilityGrip::Supports(TargetItem.Definition);
+-    if(!LightMachineGun&&TargetItem.Definition!=TEXT("ue_thunder_god_hammer")&&TargetItem.Definition!=TEXT("ue_kukri")&&TargetItem.Definition!=TEXT("ue_tactical_hatchet"))return false;
+-    TSharedPtr<FJsonObject> Target,Source;
+-    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(TargetItem.Data),Target)||!Target||
+-        !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(SourceItem.Data),Source)||!Source)return false;
+-    bool Changed=false;
+-    for(const TCHAR* Key:{TEXT("gunsmith_parts"),TEXT("gunsmith_version"),TEXT("tool_enhance_level")})
+-    {
+-        if(LightMachineGun&&FCString::Strcmp(Key,TEXT("tool_enhance_level"))==0)continue;
+-        const auto Before=Target->TryGetField(Key),Value=Source->TryGetField(Key);
+-        if((!Before&&!Value)||(Before&&Value&&FJsonValue::CompareEqual(*Before,*Value)))continue;
+-        Changed=true;if(Value)Target->SetField(Key,Value);else Target->RemoveField(Key);
+-    }
+-    if(Changed){TargetItem.Data.Reset();FJsonSerializer::Serialize(Target.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&TargetItem.Data));}
+-    return Changed;
+-}
+-}
+-void AColdSteelPlayerState::NotifyGunsmithApplied(const FString& InstanceId)
+-{
+-    if(GetNetMode()!=NM_Client||InstanceId.IsEmpty())return;
+-    if(++LocalGunsmithSequence==0)++LocalGunsmithSequence;
+-    PendingGunsmithInstances.Add(InstanceId);HeartbeatTimer=0.f;
+-}
+-void AColdSteelPlayerState::ClientRetryProfileUpload_Implementation(int32 UploadId)
+-{
+-    // The client keeps its local inventory intent and captures it again on the new pawn.
+-    // Do not cancel a newer upload that already superseded the rejected one.
+-    if(UploadId!=PendingUploadId)return;
+-    PendingUpload.Reset();PendingNormBlob.Reset();bHasLastSent=false;bHasUploadedAppearance=false;HeartbeatTimer=0.f;
+-}
+-
+-void AColdSteelPlayerState::OnRep_MirrorBlob()
+-{
+-    if(!bMirrorReady)return;
+-    if(!ReceivingMirrorPawn.IsValid()){bMirrorReady=false;MirrorBlob.Reset();return;}
+-    // The actor may arrive before possession/profile attachment. Defer until both are ready.
+-    if(ReceivingMirrorPawn.Get()!=GetPawn())return;
+-    // 仅拥有者收到：服务端权威档案回写（下行通道——原组件里预留未实现的回程）。
+-    APlayerController* PC = Cast<APlayerController>(GetOwner());
+-    if (!PC || !PC->IsLocalController()) return;
+-    UGameInstance* GI = GetGameInstance();
+-    UColdSteelStatusModel* Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr;
+-    if(!Model||Model->RuntimePawn()!=ReceivingMirrorPawn.Get())return;
+-    UColdSteelProfileSave* Save = MirrorBlob.Num() > 0 ? BlobToSave(MirrorBlob) : nullptr;
+-    bMirrorReady=false;
+-    if (!Save){MirrorBlob.Reset();return;}
+-    // A paced older mirror can finish after an immediate item receipt.
+-    // Never let it restore consumed items or undo a completed transaction.
+-    Model->SyncRuntime();
+-    const auto CurrentInventory=Model->Snapshot();
+-    // Elemental and illumination arrows commit cooldowns through the inventory channel.
+-    const bool KeepElementCooldowns=Save->Profile.CampfireInventoryRevision<CurrentInventory.CampfireInventoryRevision;
+-    const double MirrorUppercutSpent=Save->Profile.UppercutStaminaSpent;
+-    const double MirrorOathRefund=Save->Profile.OathStaminaRestored;
+-    const double MirrorStarMarrowSpend=Save->Profile.StarMarrowManaSpent;
+-    const double MirrorCrystalMana=Save->Profile.MagicCrystalManaRestored;
+-    // The owner chooses these cosmetics. A paced mirror may have been captured
+-    // before the latest switch, even after its upload has finished sending.
+-    Save->Profile.PlayerHeadId=CurrentInventory.PlayerHeadId;
+-    Save->Profile.PlayerHairId=CurrentInventory.PlayerHairId;
+-    // Bindings belong to the local profile, including deliberate clearing/reordering.
+-    Save->Profile.QuickBarVersion=CurrentInventory.QuickBarVersion;
+-    Save->Profile.QuickBindings=CurrentInventory.QuickBindings;
+-    // Skill-tree specialization ranks are owner-authored too (invest / F6 reset); every upload is
+-    // sanitized on the host. A mirror captured before the upload landed must not revert them.
+-    // LearnedSkills need no copy: ColdSteelProfileMerge::Progression unions them below.
+-    Save->Profile.SkillSpecs=CurrentInventory.SkillSpecs;
+-    Save->Profile.MagicWheelVersion=CurrentInventory.MagicWheelVersion;
+-    Save->Profile.MagicWheelSkills=CurrentInventory.MagicWheelSkills;
+-    Save->Profile.SelectedMagicSlot=CurrentInventory.SelectedMagicSlot;
+-    Save->Profile.Hotbar=CurrentInventory.Hotbar;Save->Profile.HotbarDefinitions=CurrentInventory.HotbarDefinitions;
+-    Save->Profile.bQuickCombatReserved=CurrentInventory.bQuickCombatReserved;
+-    Save->Profile.QuickCombatCooldown=CurrentInventory.QuickCombatCooldown;
+-    Save->Profile.QuickCombatCooldownDuration=CurrentInventory.QuickCombatCooldownDuration;
+-    // A slow full mirror is not a new owner-side shot or magazine reload.
+-    if(Save->Profile.CampfireInventoryRevision==CurrentInventory.CampfireInventoryRevision)
+-        Save->Profile.AmmoPouch=CurrentInventory.AmmoPouch;
+-    // A local Apply can happen while an older, same-revision mirror is in
+-    // flight. Protect only those customized fields until a server snapshot
+-    // explicitly resolves that Apply; rejected edits then roll back normally.
+-    TSet<FString> ResolvedGunsmithInstances;
+-    bool bGunsmithResolvedChanged=false;
+-    if(ReceivingMirrorGunsmithSequence==LocalGunsmithSequence)
+-    {
+-        ResolvedGunsmithInstances=MoveTemp(PendingGunsmithInstances);
+-        for(auto Item:CurrentInventory.Items)if(ResolvedGunsmithInstances.Contains(Item.InstanceId))
+-            if(const auto* ServerItem=Save->Profile.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId;}))
+-                bGunsmithResolvedChanged|=CopyFreeWeaponCustomization(Item,*ServerItem);
+-    }
+-    else if(Save->Profile.CampfireInventoryRevision>=CurrentInventory.CampfireInventoryRevision)
+-        for(auto& Item:Save->Profile.Items)
+-        {
+-            if(!PendingGunsmithInstances.Contains(Item.InstanceId))continue;
+-            const auto* Local=CurrentInventory.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId&&E.Definition==Item.Definition;});
+-            if(Local)CopyFreeWeaponCustomization(Item,*Local);
+-        }
+-    for(auto& I:Save->Profile.Items)
+-        if(const auto* Local=CurrentInventory.Items.FindByPredicate([&](const auto& E){return E.InstanceId==I.InstanceId;}))
+-        ColdSteelProfileRecovery::LoadedAmmo(I,*Local);
+-    for(const auto& Item:CurrentInventory.Items)if(Item.Container.StartsWith(TEXT("NetView.")))Save->Profile.Items.Add(Item);
+-    for(const auto& Page:CurrentInventory.StoragePages)if(Page.Key.StartsWith(TEXT("NetView.")))Save->Profile.StoragePages.Add(Page.Key,Page.Value);
+-    if(bInventoryRequestPending||Save->Profile.CampfireInventoryRevision<CurrentInventory.CampfireInventoryRevision)
+-    {
+-        Save->Profile.Items=CurrentInventory.Items;
+-        Save->Profile.ActiveWeaponSlot=CurrentInventory.ActiveWeaponSlot;Save->Profile.ActiveProductionTool=CurrentInventory.ActiveProductionTool;
+-        Save->Profile.ForgeJob=CurrentInventory.ForgeJob;Save->Profile.GunAssemblyJob=CurrentInventory.GunAssemblyJob;
+-        Save->Profile.WoodworkingJob=CurrentInventory.WoodworkingJob;Save->Profile.AlchemyJob=CurrentInventory.AlchemyJob;Save->Profile.EnhancementItem=CurrentInventory.EnhancementItem;Save->Profile.DungeonRun=CurrentInventory.DungeonRun;
+-        Save->Profile.AmmoPouch=CurrentInventory.AmmoPouch;
+-        Save->Profile.CampfireInventoryRevision=CurrentInventory.CampfireInventoryRevision;
+-        Save->Profile.CampfireWorldReceipts=CurrentInventory.CampfireWorldReceipts;
+-        Save->Profile.Health=CurrentInventory.Health;Save->Profile.Mana=CurrentInventory.Mana;
+-        Save->Profile.StarMarrowManaSpent=CurrentInventory.StarMarrowManaSpent;
+-        Save->Profile.MagicCrystalManaRestored=CurrentInventory.MagicCrystalManaRestored;
+-        Save->Profile.Stamina=CurrentInventory.Stamina;Save->Profile.Survival=CurrentInventory.Survival;
+-        Save->Profile.UppercutStaminaSpent=CurrentInventory.UppercutStaminaSpent;
+-        Save->Profile.OathStaminaRestored=CurrentInventory.OathStaminaRestored;
+-    }
+-    UppercutStaminaReceipt::Merge(Save->Profile,FMath::Max(MirrorUppercutSpent,CurrentInventory.UppercutStaminaSpent));
+-    Save->Profile.MergeOathStamina(FMath::Max(MirrorOathRefund,CurrentInventory.OathStaminaRestored),Model->MaxStamina());
+-    Save->Profile.MergeStarMarrowSpend(FMath::Max(MirrorStarMarrowSpend,CurrentInventory.StarMarrowManaSpent));
+-    MagicCrystalMana::Merge(Save->Profile,FMath::Max(MirrorCrystalMana,CurrentInventory.MagicCrystalManaRestored),Model->Derived(TEXT("maxMp")));
+-    Model->SyncRuntime();
+-    ColdSteelProfileRecovery::StationProgress(Save->Profile,CurrentInventory);
+-    // A newer local cast must keep its prediction until this snapshot acknowledges it.
+-    if(ReceivingMirrorCastSequence==LocalCastSequence)
+-    {
+-        const auto* GS=GetWorld()->GetGameState();
+-        const double Now=GS?GS->GetServerWorldTimeSeconds():ReceivingMirrorCapturedAt;
+-        ColdSteelProfileRecovery::NetworkSpells(Save->Profile,Save->Profile,float(FMath::Max(0.,Now-ReceivingMirrorCapturedAt)));
+-    }
+-    else ColdSteelProfileRecovery::NetworkSpells(Save->Profile,Model->Snapshot());
+-    if(KeepElementCooldowns)
+-    {
+-        Save->Profile.FireballCooldown=CurrentInventory.FireballCooldown;Save->Profile.FireballCooldownDuration=CurrentInventory.FireballCooldownDuration;
+-        Save->Profile.IceSpikeCooldown=CurrentInventory.IceSpikeCooldown;Save->Profile.IceSpikeCooldownDuration=CurrentInventory.IceSpikeCooldownDuration;
+-        Save->Profile.LightningCooldown=CurrentInventory.LightningCooldown;Save->Profile.LightningCooldownDuration=CurrentInventory.LightningCooldownDuration;
+-        Save->Profile.IlluminationArrowCooldown=CurrentInventory.IlluminationArrowCooldown;
+-        Save->Profile.IlluminationArrowCooldownDuration=CurrentInventory.IlluminationArrowCooldownDuration;
+-        Save->Profile.MagicArrowRainCooldown=CurrentInventory.MagicArrowRainCooldown;
+-        Save->Profile.MagicArrowRainCooldownDuration=CurrentInventory.MagicArrowRainCooldownDuration;
+-        Save->Profile.bMagicArrowRainReserved=CurrentInventory.bMagicArrowRainReserved;
+-        Save->Profile.MagicArrowRainReservedMana=CurrentInventory.MagicArrowRainReservedMana;
+-    }
+-
+-    const auto* MartialGS=GetWorld()->GetGameState();
+-    const float MartialAge=MartialGS?float(FMath::Max(0.,MartialGS->GetServerWorldTimeSeconds()-ReceivingMirrorCapturedAt)):0.f;
+-    auto MartialState=Model->Snapshot();ColdSteelProfileRecovery::MartialCooldowns(MartialState,Save->Profile,MartialAge);
+-    Save->Profile.MartialCooldownRevision=MartialState.MartialCooldownRevision;
+-    Save->Profile.WhirlwindCooldown=MartialState.WhirlwindCooldown;Save->Profile.WhirlwindCooldownDuration=MartialState.WhirlwindCooldownDuration;
+-    Save->Profile.SwordUppercutCooldown=MartialState.SwordUppercutCooldown;Save->Profile.SwordUppercutCooldownDuration=MartialState.SwordUppercutCooldownDuration;
+-    Save->Profile.ChainSlashCooldown=MartialState.ChainSlashCooldown;Save->Profile.ChainSlashCooldownDuration=MartialState.ChainSlashCooldownDuration;
+-    Save->Profile.LeapStrikeCooldown=MartialState.LeapStrikeCooldown;Save->Profile.LeapStrikeCooldownDuration=MartialState.LeapStrikeCooldownDuration;
+-
+-    auto CurrencyState=Model->Snapshot();
+-    if(!ColdSteelCurrency::MergeServerCredits(CurrencyState,Save->Profile))return;
+-    Save->Profile.Souls=CurrencyState.Souls;
+-    Save->Profile.ServerSoulCredits=CurrencyState.ServerSoulCredits;
+-    Save->Profile.ServerSoulDebits=CurrencyState.ServerSoulDebits;
+-    Save->Profile.SoulCurrencyVersion=CurrencyState.SoulCurrencyVersion;
+-    ColdSteelProfileMerge::Progression(Save->Profile,CurrencyState);
+-    ColdSteelProfileMerge::OfferingUsage(Save->Profile,CurrencyState);
+-
+-    // 冲突消解：本机在上次上行后未改 → 全量镜像；有本地变更 → 只并入服务端口径的修行字段。
+-    bool bLocalClean = false;
+-    if (bHasLastSent)
+-    {
+-        if (!ScratchSave)
+-        {
+-            ScratchSave = Cast<UColdSteelProfileSave>(
+-                UGameplayStatics::CreateSaveGameObject(UColdSteelProfileSave::StaticClass()));
+-        }
+-        ScratchSave->Profile = Model->Snapshot();
+-        TArray<uint8> CurrentBlob;
+-        SaveToBlob(ScratchSave, CurrentBlob);
+-        bLocalClean = (CurrentBlob == LastSentBlob);
+-    }
+-    const bool bCampfireInventoryChanged=Save->Profile.CampfireInventoryRevision!=Model->Snapshot().CampfireInventoryRevision;
+-    // An otherwise clean upload may already include a later cast. Preserve its balance through the partial merge.
+-    if (bLocalClean&&ReceivingMirrorCastSequence==LocalCastSequence&&!bInventoryRequestPending&&!bCampfireInventoryChanged&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
+-    {
+-        PreserveSuper90ClientAmmo(Save->Profile);
+-        PreservePistolClientAmmo(Save->Profile);
+-        Model->AdoptNetMirror(Save->Profile,true);
+-    }
+-    else
+-    {
+-        FColdSteelProfile Merged = Model->Snapshot();
+-        // Resolve accepted/rejected customization even while unrelated local
+-        // health or training changes make the full-profile comparison dirty.
+-        for(auto& Item:Merged.Items)if(ResolvedGunsmithInstances.Contains(Item.InstanceId))
+-            if(const auto* ServerItem=Save->Profile.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId;}))
+-                CopyFreeWeaponCustomization(Item,*ServerItem);
+-        if(bCampfireInventoryChanged)
+-        {
+-            auto ServerItems=Save->Profile.Items;
+-            // Campfire materials never modify loaded ammunition. Preserve firing since upload.
+-            for(auto& I:ServerItems)if(const auto* Local=Merged.Items.FindByPredicate([&](const auto& E){return E.InstanceId==I.InstanceId;}))
+-            ColdSteelProfileRecovery::LoadedAmmo(I,*Local);
+-            Merged.Items=MoveTemp(ServerItems);Merged.CampfireInventoryRevision=Save->Profile.CampfireInventoryRevision;
+-            Merged.ActiveWeaponSlot=Save->Profile.ActiveWeaponSlot;Merged.ActiveProductionTool=Save->Profile.ActiveProductionTool;
+-            Merged.AmmoPouch=Save->Profile.AmmoPouch;
+-            Merged.CampfireWorldReceipts=Save->Profile.CampfireWorldReceipts;
+-        }
+-        ColdSteelProfileRecovery::NetworkSpells(Merged,Save->Profile);
+-        ColdSteelProfileRecovery::MartialCooldowns(Merged,Save->Profile);
+-        Merged.MergeStarMarrowSpend(Save->Profile.StarMarrowManaSpent);
+-        MagicCrystalMana::Merge(Merged,Save->Profile.MagicCrystalManaRestored,Model->Derived(TEXT("maxMp")));
+-        SpellbookFocusMana::Merge(Merged,Save->Profile.SpellbookFocusManaLoss);
+-        UppercutStaminaReceipt::Merge(Merged,Save->Profile.UppercutStaminaSpent);
+-        Merged.MergeOathStamina(Save->Profile.OathStaminaRestored,Model->MaxStamina());
+-        Merged.Souls=CurrencyState.Souls;
+-        Merged.ServerSoulCredits=CurrencyState.ServerSoulCredits;
+-        Merged.ServerSoulDebits=CurrencyState.ServerSoulDebits;
+-        Merged.SoulCurrencyVersion=CurrencyState.SoulCurrencyVersion;
+-        if(!bInventoryRequestPending&&Save->Profile.CampfireInventoryRevision>=CurrentInventory.CampfireInventoryRevision)
+-        {
+-            Merged.ForgeJob=Save->Profile.ForgeJob;Merged.GunAssemblyJob=Save->Profile.GunAssemblyJob;Merged.WoodworkingJob=Save->Profile.WoodworkingJob;Merged.AlchemyJob=Save->Profile.AlchemyJob;Merged.EnhancementItem=Save->Profile.EnhancementItem;
+-            if(!Merged.EnhancementItem.InstanceId.IsEmpty())
+-                Merged.Items.RemoveAll([&](const auto& Item){return Item.InstanceId==Merged.EnhancementItem.InstanceId;});
+-            Merged.DungeonRun=Save->Profile.DungeonRun;
+-            ColdSteelWoodQuality::PreserveAuthoritative(Merged.Items,Save->Profile.Items);
+-            ColdSteelForgeQuality::PreserveAuthoritative(Merged.Items,Save->Profile.Items);
+-            UColdSteelEnhancementSystem::PreserveAuthoritative(Merged.Items,Save->Profile.Items);
+-            ColdSteelAssemblyQuality::PreserveAuthoritative(Merged.Items,Save->Profile.Items);
+-        }
+-        Merged.Survival=Save->Profile.Survival;
+-        ColdSteelProfileMerge::Progression(Merged,Save->Profile);
+-        ColdSteelProfileMerge::OfferingUsage(Merged,Save->Profile);
+-        PreserveSuper90ClientAmmo(Merged);
+-        PreservePistolClientAmmo(Merged);
+-        Model->AdoptNetMirror(Merged,true);
+-    }
+-    if(bCampfireInventoryChanged||bGunsmithResolvedChanged)
+-        if(auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn()))Pawn->ApplyColdSteelProfile(Model);
+-    if(bCampfireInventoryChanged||bGunsmithResolvedChanged||
+-        !FColdSteelItem::StaticStruct()->CompareScriptStruct(&CurrentInventory.EnhancementItem,&Save->Profile.EnhancementItem,0)||
+-        !FColdSteelForgeJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.ForgeJob,&Save->Profile.ForgeJob,0)||
+-        !FColdSteelGunAssemblyJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.GunAssemblyJob,&Save->Profile.GunAssemblyJob,0)||
+-        !FColdSteelWoodworkingJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.WoodworkingJob,&Save->Profile.WoodworkingJob,0)||
+-        !FColdSteelAlchemyJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.AlchemyJob,&Save->Profile.AlchemyJob,0))
+-        Model->NotifyChanged();
+-    UE_LOG(LogTemp, Warning, TEXT("MPTEST mirror applied: %dB lv=%d"), MirrorBlob.Num(), Save->Profile.Level);
+-    TickSuper90Recovery();
+-    FinishCampfireReceipt();
+-    MirrorBlob.Reset();
+-}
+-
+-void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn,uint32 UploadPistolRevision,uint32 PistolIntentSequence,uint32 GunsmithSequence)
+-{
+-    if (GetLocalRole() != ROLE_Authority || TotalChunks <= 0 || TotalChunks > ColdSteelProfileTransfer::MaxChunks ||
+-        ChunkIndex < 0 || ChunkIndex >= TotalChunks || Chunk.Num() <= 0 || Chunk.Num() > ProfileChunkSize)
+-    {
+-        return;
+-    }
+-    if (UploadId != IncomingUploadId)
+-    {
+-        InvalidateTeamTravelReady();
+-        IncomingUploadId = UploadId;
+-        IncomingBlob.Reset();
+-        IncomingReceived = 0;
+-        IncomingTotal = TotalChunks;
+-        IncomingSuper90Revision=AmmoRevision;IncomingUploadPawn=SourcePawn;
+-        IncomingPistolAmmoRevision=UploadPistolRevision;IncomingPistolIntent=PistolIntentSequence;
+-        IncomingGunsmithSequence=GunsmithSequence;
+-    }
+-    // reliable 同 actor 通道保序：按到达顺序尾接即可，偏移不符说明丢包/重放，丢弃该包。
+-    if (ChunkIndex * ProfileChunkSize != IncomingBlob.Num()||IncomingTotal!=TotalChunks||IncomingSuper90Revision!=AmmoRevision||IncomingUploadPawn.Get()!=SourcePawn
+-        ||IncomingPistolAmmoRevision!=UploadPistolRevision||IncomingPistolIntent!=PistolIntentSequence||IncomingGunsmithSequence!=GunsmithSequence)
+-    {
+-        return;
+-    }
+-    IncomingBlob.Append(Chunk);
+-    ++IncomingReceived;
+-    if (IncomingReceived >= IncomingTotal)
+-    {
+-        TArray<uint8> Completed = MoveTemp(IncomingBlob);
+-        IncomingUploadId = INDEX_NONE;
+-        IncomingReceived = 0;
+-        IncomingTotal = 0;
+-        const auto* Health=GetPawn()?GetPawn()->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+-        if(!SourcePawn||SourcePawn!=GetPawn()||(Health&&Health->IsDead()))
+-        {ClientRetryProfileUpload(UploadId);return;}
+-        auto ResolveGunsmith=[&]()
+-        {
+-            if(ProcessedGunsmithSequence==GunsmithSequence)return;
+-            ProcessedGunsmithSequence=GunsmithSequence;bGunsmithReplyPending=true;ShadowMirrorTimer=3.f;
+-        };
+-        if (Completed == LastAppliedBlob&&ProcessedGunsmithSequence==GunsmithSequence) {LastAcceptedUploadId=UploadId;SendInventoryBaseline();return;}
+-        if (UColdSteelProfileSave* Save = BlobToSave(Completed))
+-        {
+-            UE_LOG(LogTemp, Warning, TEXT("MPTEST profile upload complete: %d bytes"), Completed.Num());
+-            const bool StaleInventory=ShadowModel&&Save->Profile.CampfireInventoryRevision!=ShadowModel->Snapshot().CampfireInventoryRevision;
+-            const bool Applied=ApplyGuestProfile(Save->Profile,true);
+-            if(Applied){LastAcceptedUploadId=UploadId;LastAppliedBlob=MoveTemp(Completed);SendInventoryBaseline();}
+-            // A revision reconciliation discarded uploaded inventory, so it
+-            // cannot acknowledge the new parts. Return the new inventory first;
+-            // the owner rebases surviving instances and uploads them normally.
+-            if(!Applied||!StaleInventory)ResolveGunsmith();
+-        }
+-    }
+-}
+-
+-// ============================================================================
+-// 命中权威：服务端校验 + 影子档案复算（替代原"客户端报数值照单全收"）
+-// ============================================================================
+-
+-void AColdSteelPlayerState::ServerRememberPistolShot_Implementation(uint32 Sequence,const FString& Instance,int32 ActiveSlot,int32 Rounds,APawn* SourcePawn)
+-{
+-    if(!HasAuthority()||!Sequence||!ShadowModel||!SourcePawn||SourcePawn!=GetPawn()||
+-        (ActiveSlot!=6&&ActiveSlot!=9)||RegisteredPistolShots.Contains(Sequence))return;
+-    if(PistolProcessedShot&&static_cast<int32>(Sequence-PistolProcessedShot)<=0)return;
+-    PistolProcessedShot=Sequence;TickPistolAuthority();
+-    // Reliable owner receipts remove accepted AND rejected predictions. A
+-    // rejected round must not leave the owner's display permanently debited.
+-    struct FReceiptOnExit {AColdSteelPlayerState* Owner;~FReceiptOnExit(){Owner->SendPistolAmmo();}} Receipt{this};
+-    if(HasAuthorityConsumableReservation(SourcePawn))return;
+-    const auto* Gun=ShadowModel->FindItem(Instance);
+-    if(!Gun||!ColdSteelInventory::IsDualPistol(*Gun)||Gun->Place!=1||
+-        (Gun->Cell!=ActiveSlot&&Gun->Cell!=(ActiveSlot==6?8:11))||Rounds<1)return;
+-    const auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+-    if(!G||Rounds>G->CalculateItem(*Gun,G->Installed(*Gun)).Capacity)return;
+-    if(Rounds>1&&!ColdSteelCombat::Convergence(GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),Gun).Enabled)return;
+-    if(const auto* Health=SourcePawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+-    const double Now=GetWorld()->GetTimeSeconds();
+-    auto& Ledger=ServerGunLedgers.FindOrAdd(Instance);
+-    if(Ledger.LastSequence&&static_cast<int32>(Sequence-Ledger.LastSequence)<=0)return;
+-    const FColdSteelItem FiredGun=*Gun;
+-    FString Reason;if(!ConsumeServerAmmo(&FiredGun,Rounds,Now,Reason))return;
+-    Ledger.LastSequence=Sequence;Ledger.LastServerAt=Now;Ledger.CriticalRolls.Add(Sequence,FMath::FRand());
+-    for(auto It=Ledger.CriticalRolls.CreateIterator();It;++It)
+-        if(static_cast<int32>(Sequence-It.Key())>256)It.RemoveCurrent();
+-    for(auto It=RegisteredPistolShots.CreateIterator();It;++It)
+-        if(It.Value().Pawn.Get()!=SourcePawn||Now-It.Value().At>30.)It.RemoveCurrent();
+-    FRegisteredPistolShot Shot;Shot.Item=FiredGun;Shot.Pawn=SourcePawn;Shot.At=Now;Shot.Rounds=Rounds;
+-    RegisteredPistolShots.Add(Sequence,MoveTemp(Shot));
+-    if (!SourcePawn->IsLocallyControlled())
+-    {
+-        const FString Muzzle = G->Installed(FiredGun).FindRef(TEXT("muzzle"));
+-        WeaponShotNoise::Report(SourcePawn, FiredGun.Definition, Muzzle, WeaponShotNoise::PistolSuppressed(FiredGun.Definition, Muzzle));
+-    }
+-    RecordAuthorityShotRecovery(SourcePawn,ColdSteelWeaponStats::Interval(&FiredGun,ShadowModel,G->CalculateItem(FiredGun,G->Installed(FiredGun)).Interval)/LightningHaste::ActionSpeed(SourcePawn));
+-}
+-
+-bool AColdSteelPlayerState::ConsumeServerAmmo(const FColdSteelItem* Item,int32 Rounds,double Now,FString& OutReason)
+-{
+-    if(!Item)return true;
+-    if(ColdSteelInventory::IsDualPistol(*Item))return ConsumePistolAmmo(*Item,Rounds,OutReason);
+-    if(ColdSteelInventory::IsMeleeWeapon(*Item)||ColdSteelInventory::IsBow(*Item))return true;
+-    const auto* G=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
+-    if(G&&(G->IsStaff(Item->Definition)||G->IsTool(Item->Definition)))return true;
+-    int32 Capacity=0;
+-    if(G)Capacity=G->CalculateItem(*Item,G->Installed(*Item)).Capacity;
+-    Capacity=FMath::Clamp(Capacity,0,1000);
+-    if(Capacity<=0)Capacity=FMath::Max(1,Item->Magazine);
+-    auto& Ledger=ServerGunLedgers.FindOrAdd(Item->InstanceId);
+-    const auto* Shooter=Cast<AFPSGAMECharacter>(GetPawn());
+-    const bool Primary=ShadowModel&&ShadowModel->Equipped()&&ShadowModel->Equipped()->InstanceId==Item->InstanceId;
+-    const double ReloadSeconds=Primary&&Shooter?FMath::Max(.35f,Shooter->GetReloadSeconds(true)):
+-        G?FMath::Max(.35,ColdSteelWeaponStats::Reload(Item,ShadowModel,G->CalculateItem(*Item,G->Installed(*Item)).EmptyReload)):1.;
+-    if(Ledger.Magazine<0)
+-    {
+-        Ledger.Magazine=FMath::Clamp(Item->Magazine,0,Capacity);
+-        Ledger.ReloadReadyAt=Ledger.Magazine<=0?Now+ReloadSeconds:0.;
+-    }
+-    if(Ledger.Magazine<=0)
+-    {
+-        if(Now<Ledger.ReloadReadyAt){OutReason=TEXT("reloading");return false;}
+-        Ledger.Magazine=Capacity;
+-    }
+-    const int32 Cost=FMath::Max(1,Rounds);
+-    if(Cost>Ledger.Magazine){OutReason=TEXT("magazine empty");return false;}
+-    Ledger.Magazine-=Cost;
+-    if(Ledger.Magazine<=0)Ledger.ReloadReadyAt=Now+ReloadSeconds;
+-    return true;
+-}
+-
+-bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Report, AFPSGAMECharacter* Shooter,
+-    FString& OutReason, const FColdSteelItem*& OutDeclaredItem)
+-{
+-    OutDeclaredItem = nullptr;
+-    if(Report.Flags&(1<<4)){OutReason=TEXT("ricochet is server simulated");return false;}
+-    ValidatedComboStage=Report.AttackMeta&0x0F;
+-    if(Report.AttackMeta&0x40){OutReason=TEXT("rift slash is server simulated");return false;}
+-    if (!ShadowModel) { OutReason = TEXT("no shadow"); return false; }
+-    if (!Shooter) { OutReason = TEXT("no pawn"); return false; }
+-    if((Report.AttackMeta&0x20)&&!ValidateSwordWhirlwindHit(Report,Shooter,OutReason))return false;
+-    if(Report.AttackMeta==SwordUppercut::AttackMeta)
+-    {
+-        if(!Report.UppercutSerial||Report.UppercutSerial!=UppercutActiveSequence||UppercutPawn.Get()!=Shooter
+-            ||GetWorld()->GetTimeSeconds()>=UppercutUntil||bUppercutContact||!(Report.Flags&(1<<3))||(Report.Flags&(1<<4)))
+-        {OutReason=TEXT("uppercut not committed or duplicate contact");return false;}
+-        const auto* Item=SwordUppercutWeapon::Resolve(ShadowModel);
+-        if(!Item||Item->InstanceId!=UppercutWeapon||!SwordUppercutWeapon::Supports(ShadowModel,Item)
+-            ||ShadowModel->ActiveProductionTool())
+-        {OutReason=TEXT("uppercut equipment changed");return false;}
+-    }
+-    if (UFPSCombatHealthComponent* HP = Shooter->FindComponentByClass<UFPSCombatHealthComponent>())
+-        if (HP->IsDead()) { OutReason = TEXT("shooter dead"); return false; }
+-    if(Report.AttackMeta&0x80)
+-        if(const auto* Spellbook=Shooter->FindComponentByClass<USpellbookComponent>();Spellbook&&Spellbook->IsFocusActive())
+-        {OutReason=TEXT("spellbook focus occupies quick melee");return false;}
+-
+-    // 武器声明必须匹配服务端影子的持握武器——主手或双持副手任一同型号槽位。
+-    // Quick combat allows an empty declaration; ordinary punches require both active hands empty.
+-    const bool bUnarmed=Report.AttackMeta==UnarmedPunch::AttackMeta&&Report.ItemDefinition.IsEmpty();
+-    if(Report.AttackMeta==UnarmedPunch::AttackMeta&&!bUnarmed)
+-    {OutReason=TEXT("unarmed attack declared a weapon");return false;}
+-    if(Report.AttackMeta&0x80)
+-    {
+-        if(!Report.QuickCombatSerial||Report.QuickCombatSerial!=QuickCombatServerSequence
+-            ||QuickCombatPawn.Get()!=Shooter||GetWorld()->GetTimeSeconds()>QuickCombatUntil
+-            ||QuickCombatTargets.Contains(Report.Target.Get()))
+-        {OutReason=TEXT("quick combat not authorized or duplicate contact");return false;}
+-        if(QuickCombatEquipment!=QuickCombatEquipmentKey())
+-        {OutReason=TEXT("quick combat equipment changed");return false;}
+-        if(!ShadowModel->QuickCombatStats().bAreaHit&&!QuickCombatTargets.IsEmpty())
+-        {OutReason=TEXT("quick combat single target");return false;}
+-    }
+-    if(bUnarmed)
+-    {
+-        const int32 Primary=ShadowModel->Snapshot().ActiveWeaponSlot;
+-        const int32 Offhand=Primary==6?8:11;
+-        if(ShadowModel->Equipped(Primary)||ShadowModel->Equipped(Offhand)||ShadowModel->ActiveProductionTool())
+-        {OutReason=TEXT("unarmed equipment mismatch");return false;}
+-    }
+-    const int32 Active=ShadowModel->Snapshot().ActiveWeaponSlot;
+-    const int32 Paired=Active==6?8:11;
+-    const auto Matches=[&](const FColdSteelItem* Item)
+-    {return Item&&Item->Definition==Report.ItemDefinition&&
+-        (Report.ItemInstance.IsEmpty()||Item->InstanceId==Report.ItemInstance);};
+-    // A new client always names the exact item. Never fall back to the other
+-    // gun when an explicit identity is stale or absent from the held group.
+-    for(const int32 Cell:{Active,Paired})
+-        if(const auto* Item=ShadowModel->Equipped(Cell);Matches(Item))
+-        {OutDeclaredItem=Item;break;}
+-    if(!OutDeclaredItem)
+-        if(const auto* Tool=ShadowModel->ActiveProductionTool();Matches(Tool))OutDeclaredItem=Tool;
+-    const auto* GenericLaunch=FindGenericLaunch(Report,Shooter);
+-    if(GenericLaunch&&OutDeclaredItem)
+-    {
+-        // Receipt was accepted before the hit. Preserve the existing held-group
+-        // and geometry checks; never register a launch at impact.
+-        OutDeclaredItem=&GenericLaunch->Item;
+-    }
+-    const auto* M24Launch=FindM24Launch(Report,Shooter);
+-    if(M24Launch)
+-    {
+-        // A stowed weapon is an exception to the held-group check. Restrict
+-        // that exception to the original view cone, with near-muzzle parallax.
+-        const FVector Travel=FVector(Report.ImpactPoint)-M24Launch->Eye;
+-        if(!OutDeclaredItem&&Travel.SizeSquared()>FMath::Square(200.f)
+-            &&FVector::DotProduct(Travel.GetSafeNormal(),M24Launch->ViewForward)<FMath::Cos(FMath::DegreesToRadians(25.f)))
+-        {OutReason=TEXT("stowed sniper launch direction mismatch");return false;}
+-        if(FVector::DistSquared(M24Launch->Eye,FVector(Report.AimOrigin))>FMath::Square(600.f))
+-        {OutReason=TEXT("sniper launch origin mismatch");return false;}
+-        if(M24Launch->Targets.Num()>=M24Launch->MaxTargets||M24Launch->Targets.Contains(Report.Target.Get()))
+-        {OutReason=TEXT("sniper round contacts exhausted");return false;}
+-        OutDeclaredItem=&M24Launch->Item;
+-    }
+-    if(Report.FireSequence&&!(Report.AttackMeta&(0x20|0x80)))
+-    {
+-        const auto* Launch=RegisteredPistolShots.Find(Report.FireSequence);
+-        if(Launch&&Launch->Pawn.Get()==Shooter&&Launch->Item.InstanceId==Report.ItemInstance&&
+-            Launch->Item.Definition==Report.ItemDefinition&&GetWorld()->GetTimeSeconds()-Launch->At<=30.)
+-        {
+-            if(Report.ConvergenceRounds!=Launch->Rounds){OutReason=TEXT("pistol shot cost mismatch");return false;}
+-            OutDeclaredItem=&Launch->Item;
+-        }
+-        else if(OutDeclaredItem&&ColdSteelInventory::IsDualPistol(*OutDeclaredItem))
+-        {OutReason=TEXT("pistol shot not registered");return false;}
+-    }
+-    if(OutDeclaredItem&&ColdSteelInventory::IsDualPistol(*OutDeclaredItem)&&Report.ItemInstance.IsEmpty())
+-    {OutReason=TEXT("pistol instance missing");return false;}
+-    if(OutDeclaredItem)
+-    {
+-        // Only held weapons/tools can author a hit. Armor, backpacks and other
+-        // equipment rows must not fall through to the generic firearm branch.
+-        const FString Category=ColdSteelInventory::Text(*OutDeclaredItem,TEXT("category"));
+-        const bool bWeaponCategory=Category.StartsWith(TEXT("weapon"));
+-        if(!bWeaponCategory&&!ColdSteelInventory::IsEquippedProductionTool(*OutDeclaredItem))
+-            if(const auto* G=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
+-                !G||(!G->IsTool(OutDeclaredItem->Definition)&&!G->IsStaff(OutDeclaredItem->Definition)))
+-                OutDeclaredItem=nullptr;
+-    }
+-    if (!OutDeclaredItem && !bUnarmed && !((Report.AttackMeta & 0x80) && Report.ItemDefinition.IsEmpty()))
+-    { OutReason = TEXT("weapon mismatch"); return false; }
+-    if(OutDeclaredItem&&ColdSteelInventory::UsesKukriMoveset(*OutDeclaredItem)&&!KukriAttackReceipt::SupportedMeta(Report.AttackMeta))
+-    {OutReason=TEXT("unsupported kukri attack semantic");return false;}
+-
+-    if(OutDeclaredItem&&ColdSteelInventory::IsBow(*OutDeclaredItem)&&!(Report.AttackMeta&0x80))
+-    {OutReason=TEXT("bow projectile is server simulated");return false;}
+-    if(RequiresGenericMeleeReceipt(Report,OutDeclaredItem)&&!ValidateGenericMeleeReceipt(Report,Shooter,OutDeclaredItem))
+-    {OutReason=TEXT("generic melee start not accepted");return false;}
+-
+-    // Attack semantic gates: the server owns whether a heavy/dash/third-stage
+-    // contact was actually committed. Client AttackMeta alone cannot select the
+-    // heavy or dash damage branch.
+-    const bool bPlainMelee=OutDeclaredItem&&ColdSteelInventory::IsMeleeWeapon(*OutDeclaredItem)
+-        &&!(Report.AttackMeta&(0x10|0x20|0x40|0x80))&&Report.AttackMeta!=SwordUppercut::AttackMeta
+-        &&Report.AttackMeta!=UnarmedPunch::AttackMeta&&Report.AttackMeta!=HighlandBreakSweep::AttackMeta;
+-    const bool bKukriCommitted=OutDeclaredItem&&ColdSteelInventory::UsesKukriMoveset(*OutDeclaredItem)&&
+-        (bPlainMelee||Report.AttackMeta==0x16);
+-    if(bKukriCommitted&&!ValidateKukriHit(Report,Shooter,OutReason))return false;
+-    if((Report.AttackMeta&0x10)&&Report.AttackMeta!=0x15&&Report.AttackMeta!=0x16
+-        &&Report.AttackMeta!=SwordUppercut::AttackMeta&&OutDeclaredItem
+-        &&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
+-    {
+-        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
+-        if(!Sword||(!Sword->IsNetworkHeavyReleaseWindowOpen(OutDeclaredItem->InstanceId)
+-            &&!Sword->ConsumeNetworkHeavyChargeForRelease(OutDeclaredItem->InstanceId,Report.HeavyReleaseTime,Report.GuardAttackSerial)))
+-        {OutReason=TEXT("heavy release not committed");return false;}
+-        Sword->CommitOathRelease(Report.HeavyReleaseTime,Report.GuardAttackSerial);
+-    }
+-    // The one-handed kukri's heavy release has its own charge receipt (KukriHeavy.cpp).
+-    if((Report.AttackMeta&0x10)&&Report.AttackMeta!=0x15&&Report.AttackMeta!=0x16
+-        &&Report.AttackMeta!=SwordUppercut::AttackMeta&&OutDeclaredItem
+-        &&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem))
+-    {
+-        auto* Kukri=Shooter->FindComponentByClass<UKukriWeaponComponent>();
+-        if(!Kukri||(!Kukri->IsNetworkHeavyReleaseWindowOpen(OutDeclaredItem->InstanceId)
+-            &&!Kukri->ConsumeNetworkHeavyChargeForRelease(OutDeclaredItem->InstanceId,Report.MeleeDamagePhase,Report.ClientFireTime)))
+-        {OutReason=TEXT("heavy release not committed");return false;}
+-        if(!Kukri->IsNetworkHeavyTargetNew(OutDeclaredItem->InstanceId,Report.Target.Get(),Report.MeleeDamagePhase))
+-        {OutReason=TEXT("duplicate kukri heavy blade target");return false;}
+-    }
+-    if(Report.AttackMeta==0x16&&!bKukriCommitted)
+-    {
+-        const auto* Move=Cast<UFPSCharacterMovementComponent>(Shooter->GetCharacterMovement());
+-        if(!Move||!Move->IsNetworkDashWindowOpen())
+-        {OutReason=TEXT("dash attack not committed");return false;}
+-    }
+-    int32 NextComboStage=ServerComboStage;
+-    double NextComboSwingAt=ServerComboSwingAt;
+-    const auto* RidgeSmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+-    const bool RidgeEquipped=HighlandRidgeThrust::Installed(RidgeSmith,OutDeclaredItem);
+-    if(RidgeEquipped&&bPlainMelee&&(Report.AttackMeta<1||Report.AttackMeta>3))
+-    {OutReason=TEXT("invalid ridge combo stage");return false;}
+-    const bool RidgeContact=RidgeEquipped&&(HighlandRidgeThrust::IsStrikeMeta(Report.AttackMeta)||HighlandRidgeThrust::IsHeavyMeta(Report.AttackMeta));
+-    if(RidgeContact)
+-    {
+-        const double Clock=GetWorld()->GetTimeSeconds();
+-        const double ContactClock=Report.ClientFireTime;
+-        if(!FMath::IsFinite(ContactClock)||ContactClock<=0.||ContactClock>Clock+.1||Clock-ContactClock>.9)
+-        {OutReason=TEXT("invalid ridge contact timestamp");return false;}
+-        if(!(Report.Flags&(1<<3))||(Report.Flags&(1<<4))||!Report.Target||RidgeStrike.Pawn.Get()!=Shooter||
+-            RidgeStrike.Weapon!=OutDeclaredItem->InstanceId||!Report.GuardAttackSerial||RidgeStrike.Serial!=Report.GuardAttackSerial||
+-            RidgeStrike.Meta!=Report.AttackMeta||ContactClock<RidgeStrike.HitFrom||ContactClock>RidgeStrike.HitUntil||RidgeStrike.Targets.Contains(Report.Target.Get()))
+-        {OutReason=TEXT("ridge thrust not committed or duplicate target");return false;}
+-        const FVector Forward=Report.AttackMeta==0x16?RidgeStrike.DashForward:Shooter->GetBaseAimRotation().Vector();
+-        const auto Contacts=RuneSwordCombat::QueryRectangle(GetWorld(),Shooter,Shooter->GetActorLocation(),Forward,
+-            RidgeStrike.Length,HighlandRidgeThrust::HalfWidthCM,RidgeStrike.Targets);
+-        if(!Contacts.ContainsByPredicate([&Report](const FHitResult& Hit){return Hit.GetActor()==Report.Target.Get();}))
+-        {OutReason=TEXT("outside ridge thrust rectangle");return false;}
+-    }
+-    if(bPlainMelee)
+-    {
+-        const double Now=GetWorld()->GetTimeSeconds();
+-        if(Now-ServerComboAt>0.9){NextComboStage=0;NextComboSwingAt=-100.;}
+-        if(ServerComboWeapon!=OutDeclaredItem->InstanceId){NextComboStage=0;NextComboSwingAt=-100.;}
+-        // One swing can touch several targets; only its first report advances
+-        // the chain. Client timestamps are the shot identity, not damage proof.
+-        const double SwingStamp=Report.ClientFireTime>0.?double(Report.ClientFireTime):Now;
+-        if(FMath::Abs(SwingStamp-NextComboSwingAt)>.02)
+-        {
+-            ++NextComboStage;
+-            NextComboSwingAt=SwingStamp;
+-        }
+-        if(ValidatedComboStage<=0)ValidatedComboStage=1;
+-        const bool RegisteredStage=RidgeEquipped&&RidgeStrike.Pawn.Get()==Shooter&&RidgeStrike.Weapon==OutDeclaredItem->InstanceId&&
+-            RidgeStrike.Serial==Report.GuardAttackSerial&&RidgeStrike.Meta==Report.AttackMeta&&Report.AttackMeta>=1&&Report.AttackMeta<=3;
+-        if(!RegisteredStage)ValidatedComboStage=FMath::Min(ValidatedComboStage,NextComboStage);
+-    }
+-
+-    // 射速限流：令牌桶按服务端 EffectiveFireInterval 充能，上限容纳一次性补射连发。
+-    const double Now = GetWorld()->GetTimeSeconds();
+-    const auto* HitGunsmith=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
+-    const bool PistolItem=OutDeclaredItem&&ColdSteelInventory::IsDualPistol(*OutDeclaredItem);
+-    const double HeldInterval=PistolItem&&HitGunsmith?ColdSteelWeaponStats::Interval(OutDeclaredItem,ShadowModel,HitGunsmith->CalculateItem(*OutDeclaredItem,HitGunsmith->Installed(*OutDeclaredItem)).Interval)/LightningHaste::ActionSpeed(Shooter):Shooter->EffectiveFireInterval();
+-    const double Interval = bUnarmed?double(StaffQuickCombatMotion::Length)/LightningHaste::ActionSpeed(Shooter):FMath::Max(0.01,M24Launch?M24Launch->Interval:HeldInterval);
+-    FireTokenBucket = FMath::Min(6.f, FireTokenBucket + static_cast<float>((Now - LastFireTokenRefillAt) / Interval));
+-    LastFireTokenRefillAt = Now;
+-    float HitTokenCost=1.f;
+-    if(RidgeContact)HitTokenCost=0.f;
+-    // One committed whirlwind may legitimately strike an entire crowd. Its
+-    // cast sequence, cooldown and per-target set replace the firearm hit bucket.
+-    if(Report.AttackMeta&0x20)HitTokenCost=0.f;
+-    if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)HitTokenCost=0.f; // one committed swing, one receipt per target
+-    // The second Falcon contact uses the already-paid release, validated above per phase, hand and target.
+-    if(Report.AttackMeta==0x10&&Report.MeleeDamagePhase==1&&OutDeclaredItem&&ColdSteelInventory::UsesKukriMoveset(*OutDeclaredItem))HitTokenCost=0.f;
+-    if(OutDeclaredItem&&Report.AttackMeta==0&&(Report.Flags&(1<<6)))
+-    {
+-        // 多弹丸/穿透按实际接触点摊薄射速令牌：霰弹一次 N 颗、一发弹丸打穿 M 个额外目标，
+-        // 每个接触点都花整令牌时，连射中合法的穿透/散弹命中会被 rate 拒掉。
+-        int32 ExtraTargets=0;
+-        if(const auto* Ammo=ShadowModel->AmmoType(ShadowModel->AmmoDefinitionFor(*OutDeclaredItem)))
+-            ExtraTargets=Ammo->TargetPenetration;
+-        if(const auto* Enhancement=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr)
+-            ExtraTargets+=FMath::Clamp(int32(Enhancement->Effect(*OutDeclaredItem,TEXT("piercingBonus"))),0,8);
+-        const bool bScatter=ColdSteelInventory::Text(*OutDeclaredItem,TEXT("weaponType"))==TEXT("shotgun");
+-        const int32 Projectiles=bScatter
+-            ?FMath::Max(1,ShadowModel->AmmoProjectileCount(*OutDeclaredItem,Super90WeaponAssets::PelletCount)):1;
+-        HitTokenCost=1.f/(Projectiles*(1+ExtraTargets));
+-    }
+-    if(PistolItem&&ShadowModel->Equipped(Active)&&ShadowModel->Equipped(Paired)
+-        &&ColdSteelInventory::IsDualPistol(*ShadowModel->Equipped(Active))
+-        &&ColdSteelInventory::IsDualPistol(*ShadowModel->Equipped(Paired)))HitTokenCost*=.5f;
+-    // Dual one-handed melee (two kukris): each blade of one swing reports its own contact with every target, so the
+-    // pair spends what one blade does (the same allowance as the paired pistols above).
+-    if(OutDeclaredItem&&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem)
+-        &&ColdSteelMelee::PairedOneHandedWeapon(ShadowModel->Equipped(Active),ShadowModel))HitTokenCost*=.5f;
+-    if (FireTokenBucket < HitTokenCost) { OutReason = TEXT("rate"); return false; }
+-
+-    // 几何合理性（抗明显伪造）。投射物（箭/法杖弹/裂斩波/弹道弹）的 TraceStart 是
+-    // 弹体飞行末段位置、远离射手属正常——只对直线类命中保留 600cm 原点漂移检查；
+-    // 统一改为"命中点距服务端射手 ≤ 射程"的主口径。
+-    UGameInstance* GI = GetGameInstance();
+-    const UGunsmithSystem* Gunsmith = GI ? GI->GetSubsystem<UGunsmithSystem>() : nullptr;
+-    // A gun/staff's ballistic speed does not turn its quick melee into a
+-    // projectile: these contacts still require origin and wall-occlusion checks.
+-    const bool bProjectile = !bUnarmed&&!(Report.AttackMeta&(0x20|0x80))&&((Report.AttackMeta & 0x40) != 0
+-        || (OutDeclaredItem && (ColdSteelInventory::IsBow(*OutDeclaredItem)
+-            || (Gunsmith && Gunsmith->IsStaff(OutDeclaredItem->Definition))))
+-        || M24Launch || Shooter->ProjectileSpeedCM > 0.f);
+-    if (!bProjectile)
+-    {
+-        const float OriginDrift = FVector::Dist(Shooter->GetActorLocation(), FVector(Report.AimOrigin));
+-        if (OriginDrift > 600.f) { OutReason = TEXT("origin drift"); return false; }
+-    }
+-    float MaxRange = bUnarmed?UnarmedPunch::ReachCM+120.f:Shooter->TraceDistance*1.25f;
+-    if(M24Launch)MaxRange=M24Launch->TraceRange*1.25f;
+-    if(PistolItem&&Gunsmith)MaxRange=FMath::Max(10000.f,float(Gunsmith->CalculateItem(*OutDeclaredItem,Gunsmith->Installed(*OutDeclaredItem)).Range)*300.f)*1.25f;
+-    if(Report.AttackMeta&0x80)MaxRange=ShadowModel->QuickCombatStats().RangeCM+120.f;
+-    if(OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
+-    {
+-        if(RidgeContact)MaxRange=RidgeStrike.Length+120.f;
+-        else if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)MaxRange=HighlandBreakSweep::Radius(ColdSteelMelee::Evaluate(*OutDeclaredItem,ShadowModel).SlashReach)+120.f;
+-        else if(Report.AttackMeta==0x16)MaxRange=ShadowModel->DashAttackStats().RangeCM*1.25f+120.f;
+-        else if(Report.AttackMeta&0x20)MaxRange=ServerWhirlwindCast.RadiusCM*1.25f+120.f;
+-        else if(Report.AttackMeta==0x10||Report.AttackMeta==0x15)
+-        {
+-            const auto Stats=ColdSteelMelee::Evaluate(*OutDeclaredItem,ShadowModel);
+-            MaxRange=FMath::Max(MaxRange,float(Stats.SlashReach*Stats.Modifiers.MartialRange)+120.f);
+-        }
+-    }
+-    // Kukri whirlwind and sprint attack: the same skill range bounds as the sword's.
+-    if((Report.AttackMeta&0x20)&&OutDeclaredItem&&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem))
+-        MaxRange=ServerWhirlwindCast.RadiusCM*1.25f+120.f;
+-    if(Report.AttackMeta==0x16&&OutDeclaredItem&&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem))
+-        MaxRange=ShadowModel->DashAttackStats().RangeCM*1.25f+120.f;
+-    // Kukri uppercut: short blade reach plus the 120 cm stride slack.
+-    if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&
+-        (ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem)||SwordUppercutWeapon::IsStaffBlade(ShadowModel,OutDeclaredItem)))
+-        MaxRange=static_cast<float>(ColdSteelMelee::UppercutReachCM(ShadowModel))*1.25f+120.f;
+-    else if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
+-    {
+-        MaxRange=static_cast<float>(ColdSteelMelee::UppercutReachCM(ShadowModel))*1.25f;
+-        // 苍龙激活期间上挑延伸到龙爪爪尖最远处；激活窗口在客户端，按所持剑带苍龙附魔放宽。
+-        const auto* Enhancement=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+-        if(Enhancement&&Enhancement->Effect(*OutDeclaredItem,TEXT("azureDragonClaw"))>0.)
+-            MaxRange=FMath::Max(MaxRange,AzureDragonReach::ClawReachCM*1.1f);
+-    }
+-    if (FVector::Dist(M24Launch?M24Launch->Eye:Shooter->GetActorLocation(), FVector(Report.ImpactPoint)) > MaxRange)
+-    { OutReason = TEXT("range"); return false; }
+-    const float Range = FVector::Dist(FVector(Report.AimOrigin), FVector(Report.ImpactPoint));
+-    if (Range > MaxRange) { OutReason = TEXT("range"); return false; }
+-
+-    // 服务端 LOS：所有客户端命中申报都从服务端眼位到命中点做遮挡检查。
+-    // 弹道武器也检查直线视线；宁可拒绝少数越障弧线，也不接受墙后伪报。
+-    {
+-        const FVector ServerEye=M24Launch?M24Launch->Eye:Shooter->GetPawnViewLocation();
+-        if(FVector::Dist(ServerEye,FVector(Report.ImpactPoint))>MaxRange)
+-        { OutReason=TEXT("range"); return false; }
+-        FCollisionQueryParams LOSParams(SCENE_QUERY_STAT(NetHitLOS), true);
+-        LOSParams.AddIgnoredActor(Shooter);
+-        if (Report.Target) LOSParams.AddIgnoredActor(Report.Target.Get());
+-        FHitResult LOSHit;
+-        // Whirlwind, the heavy/dash family and third-stage area finishers must
+-        // use the same open-barrier sight as their client-side group queries.
+-        // The client's blade/sector/rectangle query still owns the actual shape.
+-        const bool bAreaMelee=Report.Target&&OutDeclaredItem&&(Report.Flags&(1<<3))&&
+-            ColdSteelInventory::IsMeleeWeapon(*OutDeclaredItem)&&
+-            ((Report.AttackMeta&0x20)||Report.AttackMeta==0x10||Report.AttackMeta==0x15||Report.AttackMeta==0x16||Report.AttackMeta==HighlandBreakSweep::AttackMeta||ValidatedComboStage==3);
+-        const bool bBlocked=bAreaMelee?
+-            !MagicOcclusion::HasExposure(GetWorld(),Report.Target.Get(),Shooter->GetPawnViewLocation(),LOSParams,Shooter):
+-            RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter, LOSHit,ServerEye,
+-                FVector(Report.ImpactPoint),ECC_Visibility,LOSParams);
+-        if (bBlocked)
+-        { OutReason = TEXT("los blocked"); return false; }
+-    }
+-
+-    if (!Report.Target) { OutReason = TEXT("no target"); return false; }
+-    UFPSCombatHealthComponent* TargetHealth = Report.Target->FindComponentByClass<UFPSCombatHealthComponent>();
+-    if (TargetHealth && TargetHealth->IsDead()) { OutReason = TEXT("target dead"); return false; }
+-
+-    // rewind 时间戳：客户端上报的是它估计的服务端世界钟（GameState->GetServerWorldTimeSeconds）。
+-    // 超出历史窗口的报数直接拒（过期重放/伪时间戳）。
+-    const double ServerNow = GetWorld()->GetGameState()
+-        ? GetWorld()->GetGameState()->GetServerWorldTimeSeconds()
+-        : GetWorld()->GetTimeSeconds();
+-    const double ShotAge = Report.ClientFireTime > 0.0 ? ServerNow - Report.ClientFireTime : 0.0;
+-    if (Report.ClientFireTime > 0.0 && (ShotAge < -0.10 || ShotAge > 0.9))
+-    { OutReason = TEXT("stale timestamp"); return false; }
+-
+-    // rewind 几何校验：把目标胶囊轴插值回射击时刻的位姿，检验弹道线段确实穿过它。
+-    // 容差=胶囊半径 + 60cm 采样间位移余量（25Hz 录制 + 冲刺/闪避高速目标）。
+-    if (TargetHealth)
+-    {
+-        FVector RewoundCenter, RewoundTop;
+-        const UCapsuleComponent* Capsule = Report.Target->FindComponentByClass<UCapsuleComponent>();
+-        const double PoseTime = Report.ClientFireTime > 0.0 ? Report.ClientFireTime : ServerNow;
+-        if (Capsule && TargetHealth->GetLagPose(PoseTime, RewoundCenter, RewoundTop))
+-        {
+-            const FVector CapBottom = RewoundCenter + (RewoundCenter - RewoundTop);
+-            FVector OnShot, OnAxis;
+-            // The client-controlled AimOrigin cannot define the rewind segment;
+-            // use the server's eye position and the reported impact point.
+-            FMath::SegmentDistToSegmentSafe(M24Launch?M24Launch->Eye:Shooter->GetPawnViewLocation(), FVector(Report.ImpactPoint),
+-                CapBottom, RewoundTop, OnShot, OnAxis);
+-            const float MissDist = FVector::Dist(OnShot, OnAxis);
+-            if (MissDist > Capsule->GetScaledCapsuleRadius() + 60.f)
+-            { OutReason = FString::Printf(TEXT("rewind miss %.0fcm"), MissDist); return false; }
+-        }
+-    }
+-
+-    // Commit the chain only after every geometry/rewind check passed; rejected
+-    // reports must not advance the combo counter.
+-    if(bPlainMelee)
+-    {
+-        ServerComboStage=NextComboStage;ServerComboSwingAt=NextComboSwingAt;
+-        ServerComboWeapon=OutDeclaredItem->InstanceId;
+-        ServerComboAt=GetWorld()->GetTimeSeconds();
+-    }
+-    FireTokenBucket -= HitTokenCost;
+-    return true;
+-}
+-
+-float AColdSteelPlayerState::ComputeServerDamage(AFPSGAMECharacter* Shooter,
+-    const FColdSteelNetHitReport& Report, const FColdSteelSkillShot& Shot,
+-    const FColdSteelItem* Item, float ConvergenceScale) const
+-{
+-    // 全部走服务端可信输入：影子档案装备/修炼 + 已校验几何 + 申报语义上下文。
+-    // 客户端不可再决定伤害数值，只决定"用了哪种攻击"。Item=已校验的申报武器。
+-    const float Panel = Shot.DamagePanel.Total();
+-    UGameInstance* GI = GetGameInstance();
+-    UGunsmithSystem* G = GI ? GI->GetSubsystem<UGunsmithSystem>() : nullptr;
+-
+-    if(Report.AttackMeta==UnarmedPunch::AttackMeta&&Report.ItemDefinition.IsEmpty())
+-        return UnarmedPunch::Damage(ShadowModel);
+-
+-    // Skill semantics take precedence. QuickCombatStats also owns the conical
+-    // seat's authoritative weapon input, using the shadow's installed parts.
+-    if (Report.AttackMeta & 0x20)
+-        return ServerWhirlwindCast.Damage;
+-    if (Report.AttackMeta & 0x80)
+-    {
+-        // 副手弯刀快速近战（单次突刺）：申报武器是影子档案副手槽位的弯刀且主手是双持手枪时，
+-        // 伤害 = 副手物理面板 200% × 快速近战增伤 + 快速近战技能伤害（客户端同式，OffhandKukriThrust.h）。
+-        if(OffhandKukriThrust::IsOffhandThrust(ShadowModel,Item))
+-            return OffhandKukriThrust::Damage(*Item,ShadowModel);
+-        return ShadowModel ? ShadowModel->QuickCombatStats().Damage : Panel;
+-    }
+-
+-    if (Item && ColdSteelInventory::IsBow(*Item))
+-    {
+-        // 弓：面板 × 拉弦倍率(0.5-1.5，申报比钳 [0,1]) × 箭种倍率（服务端影子同参）。
+-        const float Draw = ColdSteelBow::DrawDamageMultiplier(FMath::Clamp(Report.DamageContext, 0.f, 1.f));
+-        return Panel * Draw * ShadowModel->AmmoDamageMultiplier(*Item);
+-    }
+-
+-    if (Item && PojunGrip::UsesHammerMotion(*Item))return Panel;
+-
+-    if (Item && ColdSteelInventory::IsMeleeWeapon(*Item))
+-    {
+-        // 剑挥砍：面板 × 轻重击/连段倍率——倍率函数与客户端同一套（MeleeModifiers 服务端可算）。
+-        const auto Melee = ColdSteelMelee::Evaluate(*Item, ShadowModel);
+-        if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)return Panel*Melee.Modifiers.ComboMultiplier(1);
+-        if(Report.AttackMeta==0x16)return ShadowModel->DashAttackStats().Damage;
+-        // Uppercut uses its own level while retaining the complete heavy formula.
+-        if(Report.AttackMeta==0x14)
+-            return Melee.Damage*ColdSteelMelee::UppercutMultiplier(ShadowModel,Melee.Modifiers);
+-        const int32 Stage = Shot.AttackMeta & 0x0F;
+-        const double Mult = (Report.AttackMeta & 0x10)
+-            ? Melee.Modifiers.HeavyMultiplier(ShadowModel->MasteryEffect(TEXT("heavyStrike")).HeavyMultiplier)
+-            : Melee.Modifiers.ComboMultiplier(Stage);
+-        double Damage = Panel * Mult;
+-        if (Report.AttackMeta & 0x40) // 裂斩波 = 挥砍伤害 × 附魔缩放（服务端同参）
+-            if (const auto* E = GI ? GI->GetSubsystem<UColdSteelEnhancementSystem>() : nullptr)
+-                Damage *= E->Effect(*Item, TEXT("riftSlashDamageScale"));
+-        return float(Damage);
+-    }
+-
+-    if (Item && G && G->IsStaff(Item->Definition))
+-        return float(ColdSteelWeaponStats::Damage(*Item, ShadowModel, 3.0));
+-
+-    if (Item && G && G->IsTool(Item->Definition))
+-        return Panel; // 斧头等生产工具：面板即伤害（AxeStrike.DamagePanel.Total() 同口径）
+-
+-    // 枪械 hitscan 与弹道投射物：面板 × 汇聚(已按弹匣容量钳) × 弹种伤害倍率 ÷ 弹丸数 × 服务端距离衰减。
+-    // 弹种倍率对每种枪都生效（AP ×1.05、独头 ×0.75、箭形 ×0.9）；此前只有霰弹枪乘了它，
+-    // 远端客户端打 AP 弹会比单机/主机少 5%。
+-    const auto* M24Launch=FindM24Launch(Report,Shooter);
+-    const float Distance = FVector::Dist(M24Launch?M24Launch->Eye:Shooter->GetPawnViewLocation(),FVector(Report.ImpactPoint));
+-    const float AmmoDamage=Item?ShadowModel->AmmoDamageMultiplier(*Item):1.f;
+-    const bool bShotgun=Item&&(TubeShotgunAssets::Supports(Item->Definition)||Item->Definition==TEXT("ue_saiga12k"));
+-    const float PelletScale=bShotgun?AmmoDamage
+-        /ShadowModel->AmmoProjectileCount(*Item,Super90WeaponAssets::PelletCount):AmmoDamage;
+-    return Panel * ConvergenceScale * PelletScale
+-        * WeaponDamageFalloff::Multiplier(Distance,M24Launch?M24Launch->EffectiveRange:
+-            Item&&ColdSteelInventory::IsDualPistol(*Item)&&G?float(G->CalculateItem(*Item,G->Installed(*Item)).Range)*100.f:Shooter->EffectiveWeaponRangeCM);
+-}
+-
+-bool AColdSteelPlayerState::PrepareHitReport(const FColdSteelNetHitReport& Report,FColdSteelPreparedHit& Prepared)
+-{
+-    if (GetLocalRole() != ROLE_Authority) return false;
+-    // SUPER90 firearm hits are generated by server projectiles. A second
+-    // client hit report must never deal damage again (melee remains separate).
+-    if(TubeShotgunAssets::Supports(Report.ItemDefinition)
+-        &&(!(Report.AttackMeta&0x80)||(Report.Flags&(1<<6))))return false;
+-    APlayerController* PC = Cast<APlayerController>(GetOwner());
+-    AFPSGAMECharacter* Shooter = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
+-
+-    FString Reject;
+-    const FColdSteelItem* Declared = nullptr;
+-    if (!ValidateHitReport(Report, Shooter, Reject, Declared))
+-    {
+-        UE_LOG(LogTemp, Warning, TEXT("MPTEST hit rejected: %s (%s)"), *Reject, *GetPlayerName());
+-        return false;
+-    }
+-    // Damage, mastery and rune callbacks can publish a new inventory, replacing
+-    // its backing array. Keep the validated item alive for this entire receipt,
+-    // including quick-combat bleed resolution after ApplyHit has returned.
+-    FColdSteelItem DeclaredSnapshot;
+-    if(Declared){DeclaredSnapshot=*Declared;Declared=&DeclaredSnapshot;}
+-    // Blunt swings settle from the replicated component's server contact timer.
+-    if(Declared&&PojunGrip::UsesHammerMotion(*Declared)&&!(Report.AttackMeta&0x80))return false;
+-    // 远端身体开火表现与身体组件 ServerClock 同域（GameState 服务端世界钟）。
+-    LastValidatedShotAt = GetWorld()->GetGameState()
+-        ? GetWorld()->GetGameState()->GetServerWorldTimeSeconds()
+-        : GetWorld()->GetTimeSeconds();
+-
+-    // 服务端按影子档案复算 Shot——客户端不再上报伤害构成，只报几何 + 语义 flag。
+-    // Snapshot 经 GetNetShadowProfile 自动取到影子（对主机玩家回退单例）。
+-    // Whether this contact consumed a real round is equipment-derived, not a
+-    // client flag: melee/tools never fire, bows/guns/staff do.
+-    const FColdSteelItem* PreItem=Declared?Declared:ShadowModel->Equipped();
+-    const auto* PreGunsmith=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
+-    const bool RidgeContact=(HighlandRidgeThrust::IsStrikeMeta(Report.AttackMeta)||HighlandRidgeThrust::IsHeavyMeta(Report.AttackMeta))&&
+-        HighlandRidgeThrust::Installed(PreGunsmith,Declared);
+-    const bool bFiredRound=PreItem&&!ColdSteelInventory::IsMeleeWeapon(*PreItem)
+-        &&!ColdSteelInventory::IsTwoHandedBlunt(*PreItem)
+-        &&!(PreGunsmith&&PreGunsmith->IsTool(PreItem->Definition))
+-        &&!(Report.AttackMeta&(0x20|0x80));
+-    // 用客户端声明（且已校验属于持握集合）的那件武器建 Shot——双持副手命中拿到副手面板。
+-    FColdSteelSkillShot Shot = ColdSteelSkills::Snapshot(Shooter,PreItem,bFiredRound);
+-    if((Report.AttackMeta&0x80)&&ConicalHammerSeat::Installed(PreItem))
+-        ConicalHammerSeat::PrepareQuickDamage(Shot.DamagePanel);
+-    if(Report.AttackMeta==0x10 && Declared && Declared->Definition==TEXT("ue_tactical_hatchet"))
+-    {
+-        const auto* Kukri=Shooter->FindComponentByClass<UKukriWeaponComponent>();
+-        if(Kukri && Kukri->IsNetworkFalconHeavyRelease(Declared->InstanceId))
+-            SwiftFalconHeavy::ScalePhysicalDamage(Shot.DamagePanel);
+-    }
+-    Shot.bMeleeStrike = (Report.Flags & (1 << 0)) != 0;
+-    Shot.bRifle = (Report.Flags & (1 << 1)) != 0;
+-    Shot.bPistol = (Report.Flags & (1 << 2)) != 0;
+-    // Melee semantics are equipment-derived: a firearm cannot claim a melee flag
+-    // to skip the magazine ledger, and a sword cannot lose its contact type to a
+-    // cleared flag. Unarmed/quick melee are the only declaration-free cases.
+-    const bool bServerMelee = ((Report.AttackMeta==UnarmedPunch::AttackMeta)&&!Declared)
+-        ||((Report.AttackMeta&0x80)!=0)
+-        ||(Declared&&(ColdSteelInventory::IsMeleeWeapon(*Declared)||ColdSteelInventory::IsTwoHandedBlunt(*Declared)));
+-    Shot.bMelee = ((Report.Flags & (1 << 3)) != 0) && bServerMelee;
+-    Shot.bRicochet = (Report.Flags & (1 << 4)) != 0;
+-    Shot.bInheritedCritical = (Report.Flags & (1 << 5)) != 0;
+-    // 枪型类别位按服务端影子里的真实武器重算：申报位只用于训练/附魔分支的补充判断，
+-    // 不能让手枪申报成步枪（要害倍率闸门、赌徒附魔分支都读这两位）。
+-    if(Declared)
+-    {
+-        Shot.bRifle=ColdSteelSkills::IsRifle(Declared);
+-        Shot.bPistol=ColdSteelSkills::IsPistol(Declared);
+-    }
+-    // The combo nibble is always server-owned for a plain melee contact, even if
+-    // the client omits the melee flag while still declaring the sword.
+-    if(Declared&&ColdSteelInventory::IsMeleeWeapon(*Declared)&&!(Report.AttackMeta&(0x10|0x20|0x40|0x80))
+-        &&Report.AttackMeta!=SwordUppercut::AttackMeta&&Report.AttackMeta!=UnarmedPunch::AttackMeta&&Report.AttackMeta!=HighlandBreakSweep::AttackMeta)
+-        Shot.AttackMeta=(Report.AttackMeta&~0x0F)|(ValidatedComboStage&0x0F);
+-    else Shot.AttackMeta=Report.AttackMeta;
+-    // 开火命中：同一发的多弹丸/穿透目标共享一次暴击样本（按上报的开火时刻归并，
+-    // 窗口取射速间隔的 0.9 倍，绝不跨两发）；近战/武技的多目标命中仍逐个敌人各掷。
+-    if(bFiredRound)
+-    {
+-        const double ShotWindow=FMath::Min(0.25,Shooter?Shooter->EffectiveFireInterval()*0.9:0.25);
+-        const bool bSameShot=LastHitCriticalRoll>=0.f
+-            &&Report.ClientFireTime-LastHitCriticalTime>=-0.05
+-            &&Report.ClientFireTime-LastHitCriticalTime<=ShotWindow;
+-        if(!bSameShot)
+-        {
+-            LastHitCriticalTime=Report.ClientFireTime;
+-            LastHitCriticalRoll=FMath::FRand();
+-        }
+-        Shot.CriticalRoll=LastHitCriticalRoll;
+-    }
+-    if(Report.AttackMeta&0x80)
+-    {
+-        QuickCombatTargets.Add(Report.Target.Get());
+-        Shot.ToughnessDamageMultiplier=ShadowModel->QuickCombatStats().ToughnessMultiplier;
+-    }
+-    if(UBoundCongregateCaptureComponent::IsCaptured(Shooter)&&Shot.bMelee&&(Report.AttackMeta&(0x10|0x20))&&!(Report.AttackMeta&0x80))return false;
+-    if(!Shot.bRicochet && GaleWing::Installed(PreGunsmith,Declared))
+-    {
+-        using GaleWing::EAttack;
+-        const uint8 Meta=Report.AttackMeta;
+-        const auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
+-        if(Meta&0x80)Shot.GalePaymentKey=GaleWing::Key(EAttack::Quick,Report.QuickCombatSerial);
+-        else if(Meta&0x20)Shot.GalePaymentKey=GaleWing::Key(EAttack::Whirlwind,Report.WhirlwindSerial);
+-        else if(Meta==SwordUppercut::AttackMeta)Shot.GalePaymentKey=GaleWing::Key(EAttack::Uppercut,Report.UppercutSerial);
+-        else if(Meta==HighlandBreakSweep::AttackMeta)Shot.GalePaymentKey=GaleWing::Key(EAttack::Sweep,Report.GuardAttackSerial);
+-        else if(Meta==0x10)Shot.GalePaymentKey=GaleWing::Key(EAttack::Heavy,Report.GuardAttackSerial);
+-        else if((Meta>=1 && Meta<=3) || Meta==0x16)
+-        {
+-            Shot.GalePaymentKey=GaleWing::Key(Meta==0x16?EAttack::Dash:EAttack::Swing,Report.GuardAttackSerial);
+-            if(!Sword || Report.GuardAttackSerial!=LastGaleSwingSerial ||
+-                !Sword->HasGalePayment(Shot.GalePaymentKey,Declared->InstanceId))return false;
+-        }
+-    }
+-    Shot.GuardAttackSerial=Report.GuardAttackSerial;
+-    Shot.GuardSourceInstance=Declared?Declared->InstanceId:FString();
+-    if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())Sword->ApplyOathToShot(Shot);
+-    // Reconstruct the attachment effect from the server's item, not a client flag.
+-    Shot.bRisingDragonFinisher=Shot.bMelee&&ValidatedComboStage==3&&Declared
+-        &&ColdSteelModularSword::UsesRisingDragonFinisher(*Declared);
+-    if(Declared&&Shot.bMelee&&ColdSteelInventory::IsMeleeWeapon(*Declared)&&!(Shot.AttackMeta&(0x20|0x80)))
+-    {
+-        const auto Modifiers=ColdSteelMelee::Evaluate(*Declared,ShadowModel).Modifiers;
+-        if((Shot.AttackMeta&0x10)&&Shot.AttackMeta!=0x16)Shot.ToughnessDamageMultiplier*=Modifiers.HeavyToughness;
+-        else if((Shot.AttackMeta&0x0F)==3)Shot.ToughnessDamageMultiplier*=Modifiers.ComboThirdToughness;
+-        if((Report.AttackMeta==0x10||Report.AttackMeta==0x15) && HighlandBreakSweep::Installed(PreGunsmith,Declared))
+-            Shot.ToughnessDamageMultiplier*=HighlandBreakSweep::HeavyToughness;
+-        if(RidgeContact)
+-            Shot.ArmorPenetration=HighlandRidgeThrust::AddPenetration(Shot.ArmorPenetration,Shot.AttackMeta);
+-    }
+-    if(Report.AttackMeta==0x16&&Declared&&ColdSteelInventory::IsOneHandedMelee(*Declared))
+-    {
+-        Shot.ToughnessDamageMultiplier=ShadowModel->DashAttackStats().ToughnessMultiplier;
+-        ColdSteelSkills::CapturePairedDash(Shot,Shooter,ShadowModel);
+-    }
+-    // The pistol + off-hand kukri F is a blade thrust (OffhandKukriStrike.cpp); every other quick melee is a blunt blow.
+-    if((Report.AttackMeta&0x80)&&OffhandKukriThrust::IsOffhandThrust(ShadowModel,Declared))Shot.AttackForm=EMonsterAttackForm::Blade;
+-    else if((Report.AttackMeta&0x80)||Report.AttackMeta==UnarmedPunch::AttackMeta)Shot.AttackForm=EMonsterAttackForm::Blunt;
+-    else if(Report.AttackMeta==SwordUppercut::AttackMeta)Shot.AttackForm=EMonsterAttackForm::Blade;
+-    else if(Declared&&ColdSteelInventory::IsTwoHandedBlunt(*Declared))Shot.AttackForm=EMonsterAttackForm::Blunt;
+-    else if(Declared&&ColdSteelInventory::IsMeleeWeapon(*Declared))
+-        Shot.AttackForm=ColdSteelInventory::Text(*Declared,TEXT("weaponType"))==TEXT("blunt")
+-            ?EMonsterAttackForm::Blunt:EMonsterAttackForm::Blade;
+-    else if(Declared&&ColdSteelInventory::IsBow(*Declared))Shot.AttackForm=EMonsterAttackForm::Blade;
+-    else Shot.AttackForm=EMonsterAttackForm::Impact;
+-    // 苍龙：激活窗口在客户端，只信任申报位；数值全部取服务端的附魔与影子档案（翻倍前物理攻击）。
+-    if ((Report.Flags & (1 << 7)) && Declared && Shot.bMelee)
+-        if (const auto* Enhancement = GetGameInstance() ? GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>() : nullptr;
+-            Enhancement && Enhancement->Effect(*Declared, TEXT("azureDragonClaw")) > 0.)
+-        {
+-            Shot.AzureDragonPhysicalMultiplier = FMath::Max(1.f, static_cast<float>(Enhancement->Effect(*Declared, TEXT("azureDragonPhysicalMultiplier"), 2.)));
+-            Shot.AzureDragonMagicDamage = FMath::Max(0.f, ShadowModel->Derived(TEXT("atk")))
+-                * FMath::Max(0.f, static_cast<float>(Enhancement->Effect(*Declared, TEXT("azureDragonMagicAttackScale"), 1.)));
+-        }
+-
+-    if(Report.AttackMeta==0x15)
+-    {
+-        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
+-        if(!Sword||!Declared||!ColdSteelInventory::IsTwoHandedSword(*Declared)
+-            ||!Sword->ApplyNetworkClovenAttack(Shot))return false;
+-    }
+-    if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)
+-    {
+-        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
+-        if(!Declared||!Sword||!Shot.bMelee||!Sword->AcceptBroadbladeContact(Declared->InstanceId,Shot.GuardAttackSerial,Report.Target.Get()))return false;
+-        Shot.DamagePanel.BasePhysical*=HighlandBreakSweep::PhysicalScale;
+-        Shot.DamagePanel.AddedPhysical*=HighlandBreakSweep::PhysicalScale;
+-    }
+-    // 自报伤害钳制在服务端武器包络内：汇聚倍率服务端复算，
+-    // 消耗弹数由服务端弹匣账本支付，客户端申报的 Rounds 只作为请求量。
+-    const FColdSteelItem* AmmoItem=Declared?Declared:ShadowModel->Equipped();
+-    UGameInstance* AmmoGI=GetGameInstance();
+-    const auto* AmmoGunsmith=AmmoGI?AmmoGI->GetSubsystem<UGunsmithSystem>():nullptr;
+-    const bool bFirearm=AmmoItem&&!ColdSteelInventory::IsMeleeWeapon(*AmmoItem)&&!ColdSteelInventory::IsBow(*AmmoItem)
+-        &&!(AmmoGunsmith&&(AmmoGunsmith->IsStaff(AmmoItem->Definition)||AmmoGunsmith->IsTool(AmmoItem->Definition)));
+-    int32 AmmoRounds=1;
+-    float ConvergenceScale = 1.f;
+-    const FColdSteelConvergence Conv=ColdSteelCombat::Convergence(
+-        AmmoGI?AmmoGI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr,AmmoItem);
+-    // A firearm contact is a fired round unless the server saw a melee/bash flag.
+-    // Clearing the client's "fired" bit must not turn it into a free shot.
+-    const bool bAmmoShot=bFirearm&&!Shot.bMelee&&!(Report.AttackMeta&(0x20|0x80));
+-    if(bAmmoShot)
+-    {
+-        if(ColdSteelInventory::IsDualPistol(*AmmoItem))
+-        {
+-            const auto* Launch=Report.FireSequence?RegisteredPistolShots.Find(Report.FireSequence):nullptr;
+-            if(!Launch||Launch->Pawn.Get()!=Shooter||Launch->Item.InstanceId!=Report.ItemInstance
+-                ||Launch->Item.Definition!=Report.ItemDefinition||Launch->Rounds!=Report.ConvergenceRounds
+-                ||GetWorld()->GetTimeSeconds()-Launch->At>30.)return false;
+-        }
+-        else if(SniperSuppressorAssets::SupportsZhiming(AmmoItem->Definition))
+-        {if(!FindM24Launch(Report,Shooter))return false;}
+-        else if(!FindGenericLaunch(Report,Shooter))return false;
+-    }
+-    if(bAmmoShot&&Report.ConvergenceRounds>1)
+-    {
+-        if(!Conv.Enabled){UE_LOG(LogTemp,Warning,TEXT("MPTEST convergence rejected: not enchanted (%s)"),*GetPlayerName());return false;}
+-        AmmoRounds=FMath::Clamp<int32>(Report.ConvergenceRounds,1,FMath::Max(1,AmmoItem->Magazine));
+-    }
+-    if(bAmmoShot)
+-    {
+-        const double Now=GetWorld()->GetGameState()
+-            ?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+-        const double ShotStamp=Report.ClientFireTime>0.?double(Report.ClientFireTime):Now;
+-        auto& Ledger=ServerGunLedgers.FindOrAdd(AmmoItem->InstanceId);
+-        const bool Sequenced=Report.FireSequence!=0;
+-        const bool Seen=Sequenced&&Ledger.CriticalRolls.Contains(Report.FireSequence);
+-        const bool bNewShot=Sequenced?!Seen:Ledger.LastClientTime<0.||FMath::Abs(ShotStamp-Ledger.LastClientTime)>.02
+-            ||Ledger.LastServerAt<0.||Now-Ledger.LastServerAt>.15;
+-        if(bNewShot)
+-        {
+-            // An older evicted ID cannot restart the magazine accounting.
+-            if(Sequenced&&Ledger.LastSequence&&static_cast<int32>(Report.FireSequence-Ledger.LastSequence)<-256)return false;
+-            FString AmmoReason;
+-            if(!ConsumeServerAmmo(AmmoItem,AmmoRounds,Now,AmmoReason))
+-            {
+-                UE_LOG(LogTemp,Warning,TEXT("MPTEST hit rejected: %s (%s)"),*AmmoReason,*GetPlayerName());
+-                return false;
+-            }
+-            Ledger.LastClientTime=ShotStamp;Ledger.LastServerAt=Now;
+-            if(Sequenced)
+-            {
+-                if(!Ledger.LastSequence||static_cast<int32>(Report.FireSequence-Ledger.LastSequence)>0)Ledger.LastSequence=Report.FireSequence;
+-                Ledger.CriticalRolls.Add(Report.FireSequence,FMath::FRand());
+-                for(auto It=Ledger.CriticalRolls.CreateIterator();It;++It)
+-                    if(static_cast<int32>(Ledger.LastSequence-It.Key())>256)It.RemoveCurrent();
+-            }
+-        }
+-        if(Sequenced)Shot.CriticalRoll=Ledger.CriticalRolls.FindChecked(Report.FireSequence);
+-    }
+-    if(Report.ConvergenceRounds>1&&bAmmoShot)
+-        ConvergenceScale=static_cast<float>(ColdSteelCombat::ConvergenceShotScale(Conv,AmmoRounds));
+-    // 权威伤害由服务端按武器族全量复算；ClaimedDamage 只进对账日志（偏差大即伪报特征）。
+-    const float Damage = ComputeServerDamage(Shooter, Report, Shot, Declared, ConvergenceScale);
+-    if (Report.ClaimedDamage > 0.f && FMath::Abs(Report.ClaimedDamage - Damage) > FMath::Max(1.f, Damage * 0.25f))
+-        UE_LOG(LogTemp, Warning, TEXT("MPTEST dmg recon: claimed=%.1f computed=%.1f shooter=%s"),
+-            Report.ClaimedDamage, Damage, *GetPlayerName());
+-
+-    // The two-vector FHitResult constructor initializes trace start/end only.
+-    // Keep the accepted contact itself for rewind, blade marks and replicated impact FX.
+-    FHitResult Hit;
+-    Hit.Location=Hit.ImpactPoint=Report.ImpactPoint;
+-    Hit.Normal=Hit.ImpactNormal=FVector(Report.HitNormal).GetSafeNormal(SMALL_NUMBER,FVector::UpVector);
+-    // Bone names select weakpoint/critical rules. Never copy the client's name:
+-    // resolve an authoritative bone from the server mesh/pose after rewind.
+-    Hit.BoneName = NAME_None;
+-    Hit.HitObjectHandle = FActorInstanceHandle(Report.Target.Get());
+-    Hit.bBlockingHit = true;
+-    const auto* ImpactLaunch=FindM24Launch(Report,Shooter);
+-    Hit.TraceStart=ImpactLaunch?ImpactLaunch->Eye:Shooter->GetPawnViewLocation();Hit.TraceEnd=Report.ImpactPoint;
+-    const bool bCrownTarget=Report.Target&&Cast<ARootCrownRigPreview>(Report.Target.Get());
+-    // Organ-pool actors require a bone for their history lookup. Derive it from
+-    // the authority mesh at the reported impact; the client's bone is ignored.
+-    const bool bHistoryBone=Report.Target&&(Cast<ABoundCongregate>(Report.Target.Get())
+-        ||Cast<AHeQueMonster>(Report.Target.Get()));
+-    if(bHistoryBone)
+-        if(auto* Mesh=Report.Target->FindComponentByClass<USkeletalMeshComponent>())
+-        {
+-            FVector ClosestBone;
+-            const FName Bone=Mesh->FindClosestBone(FVector(Report.ImpactPoint),&ClosestBone,0.f,false);
+-            if(!Bone.IsNone()){Hit.BoneName=Bone;Hit.Component=Mesh;}
+-        }
+-    if(const auto* Combat=Report.Target?Report.Target->FindComponentByClass<UMonsterCombatComponent>():nullptr)
+-        if(!Combat->ResolveNetworkHit(Hit,Report.ClientFireTime))
+-        {
+-            // The nearest bone may be a decoration. For organ-pool actors retry
+-            // the same history segment as a body contact before rejecting.
+-            if(!bHistoryBone)return false;
+-            Hit.BoneName=NAME_None;Hit.Component=nullptr;
+-            if(!Combat->ResolveNetworkHit(Hit,Report.ClientFireTime))return false;
+-        }
+-    if(Report.Target&&!bHistoryBone&&!bCrownTarget&&Hit.BoneName.IsNone())
+-    {
+-        if(auto* Mesh=Report.Target->FindComponentByClass<USkeletalMeshComponent>())
+-        {
+-            FVector ClosestBone;
+-            const FName Bone=Mesh->FindClosestBone(FVector(Report.ImpactPoint),&ClosestBone,0.f,false);
+-            if(!Bone.IsNone())
+-            {
+-                Hit.BoneName=Bone;Hit.Component=Mesh;
+-                bool bCritical=false;
+-                if(UHumanoidHitVolumeData::ResolveCriticalHit(Hit,bCritical)&&!bCritical)
+-                    Hit.BoneName=NAME_None;
+-                // Validate the derived bone through the same rewind/segment rules.
+-                if(!Hit.BoneName.IsNone())
+-                    if(const auto* Combat=Report.Target->FindComponentByClass<UMonsterCombatComponent>())
+-                        if(!Combat->ResolveNetworkHit(Hit,Report.ClientFireTime))return false;
+-            }
+-        }
+-    }
+-    if(const auto* Crown=Cast<ARootCrownRigPreview>(Report.Target.Get()))
+-    {
+-        // Resolve against the authority's anatomical history. Client bone names
+-        // cannot grant weakpoint crits. Existing melee capsule contacts remain body hits.
+-        if(!Crown->HitDetection||!Crown->HitDetection->ResolveRemoteContact(
+-            Shooter->GetPawnViewLocation(),Report.ImpactPoint,Report.ClientFireTime,Shot.bMelee,Report.HitComponent,Hit))return false;
+-    }
+-    if(Report.Target)
+-    {
+-        // Resolve the named pane on the authority actor; never accept an arbitrary
+-        // component pointer or allow a frame hit to shatter another pane.
+-        TInlineComponentArray<UWardBreakableGlass*> Panes(Report.Target);
+-        for(auto* Pane:Panes)if(Pane->GetFName()==Report.HitComponent)
+-        {
+-            FHitResult Verified;
+-            const FVector TraceStart=Hit.TraceStart;
+-    const FVector Direction=(FVector(Report.ImpactPoint)-TraceStart).GetSafeNormal();
+-            FCollisionQueryParams Query(SCENE_QUERY_STAT(NetGlassHit),true);
+-            if(!Pane->LineTraceComponent(Verified,TraceStart,FVector(Report.ImpactPoint)+Direction*20.f,Query)
+-                ||FVector::DistSquared(Verified.ImpactPoint,Report.ImpactPoint)>FMath::Square(30.f))return false;
+-            Hit=Verified;break;
+-        }
+-    }
+-
+-    UColdSteelStatusModel* Model = ShadowModel;
+-    if (!Model)
+-    {
+-        const UGameInstance* GI = GetGameInstance();
+-        Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr;
+-    }
+-    if (!Model) return false;
+-
+-    // Recompute multi-target training from accepted contacts; never trust client XP.
+-    const bool MasteryEligible=ColdSteelSkills::IsMeleeMastery(Shot.MasteryId)&&!Shot.bRicochet
+-        &&Report.MasteryAttackSerial&&ColdSteelSkills::IsMasteryTrainingTarget(Shooter,Report.Target);
+-    if(MasteryEligible&&(MeleeMasteryPawn.Get()!=Shooter||static_cast<int32>(Report.MasteryAttackSerial-LastMasteryAttackSerial)>0))
+-    {
+-        LastMasteryAttackSerial=Report.MasteryAttackSerial;MeleeMasteryPawn=Shooter;
+-        MeleeMasteryWeapon=Report.ItemDefinition;MeleeMasteryHits=0;MeleeMasteryTargets.Reset();
+-    }
+-    const bool NewMasteryTarget=MasteryEligible&&Report.MasteryAttackSerial==LastMasteryAttackSerial
+-        &&MeleeMasteryWeapon==Report.ItemDefinition&&!MeleeMasteryTargets.Contains(Report.Target.Get());
+-    if(NewMasteryTarget&&MeleeMasteryHits==1)Shot.ExtraMasteryExperience=Model->MasteryDefinition(Shot.MasteryId).MultiHitExperience;
+-    if(Report.AttackMeta&0x20)
+-    {
+-        WhirlwindTargets.Add(Report.Target.Get());
+-        // The common accepted-contact counter owns mastery rewards for this cast.
+-    }
+-    if(Report.AttackMeta==SwordUppercut::AttackMeta)bUppercutContact=true;
+-    // Rune charging follows the accepted server action, including area skills.
+-    // A per-target client mastery ID cannot split one cast into several charges.
+-    if(Declared&&ColdSteelInventory::UsesKukriMoveset(*Declared))
+-        Shot.MasteryAttackSerial=ResolveKukriRuneAttackSerial(Report,Shot.MasteryAttackSerial);
+-    if(Declared&&ColdSteelInventory::UsesKukriMoveset(*Declared)&&Report.AttackMeta==0x20)
+-    {
+-        // The reported authored phase can only reduce the bonus. A late contact
+-        // cannot claim turn zero beyond the accepted first-turn time envelope.
+-        const double Stamp=Report.ClientFireTime>0.?Report.ClientFireTime:GetWorld()->GetTimeSeconds();
+-        const double FirstTurnUntil=WhirlwindStartedAt+(WhirlwindReadySeconds+WhirlwindMoveSeconds)*.5+.13;
+-        Shot.MeleeDamagePhase=Report.MeleeDamagePhase>0||Stamp>FirstTurnUntil?1:0;
+-    }
+-    if(Report.KukriAttackSerial&&Report.KukriAttackSerial==KukriAttack.Serial)
+-        KukriAttack.Targets[Report.ItemInstance==KukriAttack.Main?0:1].Add(Report.Target.Get());
+-    if(Declared&&ColdSteelInventory::UsesKukriMoveset(*Declared)&&Report.AttackMeta==0x10)
+-        if(auto* Kukri=Shooter->FindComponentByClass<UKukriWeaponComponent>())
+-        {
+-            Shot.MeleeDamagePhase=Report.MeleeDamagePhase;
+-            Kukri->RecordNetworkHeavyTarget(Shot.ItemInstance,Report.Target.Get(),Shot.MeleeDamagePhase);
+-        }
+-    if(RidgeContact)RidgeStrike.Targets.Add(Report.Target.Get());
+-    Prepared.Report=Report;Prepared.Shooter=Shooter;Prepared.Model=Model;Prepared.Hit=Hit;Prepared.Damage=Damage;Prepared.Shot=MoveTemp(Shot);
+-    Prepared.bHasItem=Declared!=nullptr;if(Declared)Prepared.Item=MoveTemp(DeclaredSnapshot);
+-    Prepared.bFiredRound=bFiredRound;Prepared.NewMasteryTarget=NewMasteryTarget;Prepared.MasteryEligible=MasteryEligible;
+-    if(FindM24Launch(Report,Shooter))M24Launches.FindChecked(Report.FireSequence).Targets.Add(Report.Target.Get());
+-    return true;
+-}
+-
+-void AColdSteelPlayerState::ServerReportHit_Implementation(const FColdSteelNetHitReport& Report)
+-{
+-    FColdSteelPreparedHit Prepared;
+-    if(PrepareHitReport(Report,Prepared))SettleHitReport(Prepared);
+-}
+-
+-void AColdSteelPlayerState::SettleHitReport(FColdSteelPreparedHit& Prepared,FKukriPairedHeavyHit* PairedHeavy)
+-{
+-    const auto& Report=Prepared.Report;auto* Shooter=Prepared.Shooter;
+-    const auto& Hit=Prepared.Hit;const float Damage=Prepared.Damage;auto& Shot=Prepared.Shot;
+-    const auto* Declared=Prepared.bHasItem?&Prepared.Item:nullptr;
+-    auto* Model=Prepared.Model;const bool bFiredRound=Prepared.bFiredRound;
+-    const bool NewMasteryTarget=Prepared.NewMasteryTarget,MasteryEligible=Prepared.MasteryEligible;
+-    CommitGenericMeleeReceipt(Report,Shooter,Declared);
+-    FWeaponDamageResult Receipt;
+-    // One echo cooldown reward per accepted rune-sword action, across targets.
+-    if(Shot.ItemDefinition==TEXT("ue_rune_sword"))Shot.MasteryAttackSerial=Report.MasteryAttackSerial;
+-    const float Applied = ColdSteelSkills::ApplyHit(Shooter, Hit, Damage, FVector(Report.Direction), Shot, &Receipt,PairedHeavy);
+-    if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())Sword->ConfirmOathHit(Shot,Applied,Hit.ImpactPoint);
+-    // The authority rune serial belongs to this server. The owner queues its visual against its own input serial.
+-    const bool BladeFeedback=Shot.bMeleeStrike&&(Applied>0.f||Receipt.bKilled)&&
+-        UKukriWeaponComponent::PublishBladeHit(Shooter,Hit,Shot);
+-    if(Report.AttackMeta==HighlandBreakSweep::AttackMeta && Declared && (Applied>0.f||Receipt.bKilled))
+-        if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())
+-            Sword->ClientBroadbladeImpact(Declared->InstanceId,Report.GuardAttackSerial);
+-    ConfirmKukriHit(Report,Shooter,Applied,Receipt.bKilled,MasteryEligible);
+-    if(Shot.ItemDefinition==TEXT("ue_rune_sword")&&!(Report.AttackMeta&0x20)&&Applied>0.f&&Report.MasteryAttackSerial
+-        &&(RuneCooldownPawn.Get()!=Shooter||static_cast<int32>(Report.MasteryAttackSerial-LastRuneCooldownAttackSerial)>0))
+-    {
+-        RuneCooldownPawn=Shooter;LastRuneCooldownAttackSerial=Report.MasteryAttackSerial;
+-        Model->ReduceRuneSwordHitCooldowns(.5f+float(ColdSteelMelee::EquippedModifiers(Model).CooldownReduceSecondsPerHit));
+-    }
+-    if(NewMasteryTarget&&(Applied>0.f||Receipt.bKilled)){MeleeMasteryTargets.Add(Report.Target.Get());++MeleeMasteryHits;}
+-    if(Report.AttackMeta&0x20)ConfirmSwordWhirlwindHit(Shooter,Report.Target,Applied,Receipt.bKilled);
+-    if(Report.AttackMeta==SwordUppercut::AttackMeta&&Applied>0.f&&Report.Target
+-        &&!Report.Target->ActorHasTag(TEXT("Summoned"))&&!Report.Target->ActorHasTag(TEXT("NoSkillTraining")))
+-    {UppercutHits=1;UppercutKills=Receipt.bKilled?1:0;}
+-    // The committed double thrust owns knockback even when its foot stride has
+-    // already ended. A later ordinary swing cannot borrow an old CMC window.
+-    if(Report.AttackMeta==0&&Applied>0.f&&Report.Target&&Report.KukriAttackSerial&&
+-        Report.KukriAttackSerial==KukriAttack.Serial&&!KukriAttack.Dash&&KukriAttack.Stage==2&&!KukriAttack.Offhand.IsEmpty())
+-        if(auto* Combat=Report.Target->FindComponentByClass<UMonsterCombatComponent>();Combat&&!Combat->IsDead())
+-            Combat->ReceiveMeleeKnockback(Shooter,KukriRhythm::DualThrustKnockbackCM);
+-    if((Report.AttackMeta&0x80)&&Applied>0.f)
+-    {
+-        const auto QuickStats=Model->QuickCombatStats();
+-        if(auto* Combat=Report.Target?Report.Target->FindComponentByClass<UMonsterCombatComponent>():nullptr)
+-        {
+-            Combat->ReceiveMeleeKnockback(Shooter,QuickStats.KnockbackCM);
+-            // The hammer and the kukri pommel strike roll their quick-combat bleed here (authority only, as offline).
+-            if(Declared&&(ColdSteelInventory::IsTwoHandedBlunt(*Declared)||ColdSteelInventory::IsOneHandedMelee(*Declared))&&!Combat->IsDead()
+-                &&QuickStats.BleedChance>0.f&&FMath::FRand()<QuickStats.BleedChance)
+-                if(auto* Status=UCombatStatusFormula::GetOrAdd(Report.Target))Status->AddBleeding(Shooter,1);
+-        }
+-        if(Receipt.bKilled)Model->TrainQuickCombat(Model->QuickCombatDefinition().KillExperience);
+-    }
+-    // Remote hit feedback runs on the client, where lifesteal cannot change health.
+-    // Settle once on the authoritative pawn using the actual applied damage.
+-    if (auto* Rune = Shooter->FindComponentByClass<UJingangRuneComponent>())
+-        Rune->ConfirmAttack(Report.Target, Applied);
+-    UE_LOG(LogTemp, Warning, TEXT("MPTEST hit applied: shooter=%s target=%s dmg=%.1f crit=%d killed=%d"),
+-        *GetNameSafe(Shooter), *GetNameSafe(Report.Target), Applied, Receipt.bCritical ? 1 : 0, Receipt.bKilled ? 1 : 0);
+-    bServerDirty = true;
+-    ServerSaveTimer = 20.f;
+-
+-    FColdSteelNetHitReceipt Out;
+-    Out.Target = Report.Target;
+-    Out.Applied = Applied;
+-    Out.bCritical = Receipt.bCritical;
+-    Out.bKilled = Receipt.bKilled;Out.bFirearm=bFiredRound;
+-    if(BladeFeedback)ClientConfirmBladeHit(Out,Shooter,Hit,Report.MasteryAttackSerial,Shot.MeleeDamagePhase);
+-    else ClientConfirmHit(Out);
+-}
+-
+-void AColdSteelPlayerState::ClientConfirmBladeHit_Implementation(const FColdSteelNetHitReceipt& Receipt,APawn* Attacker,const FHitResult& Hit,uint32 OwnerSwing,uint8 Phase)
+-{
+-    ClientConfirmHit_Implementation(Receipt);
+-    if(IsValid(Attacker)&&Attacker==GetPawn())
+-        if(auto* Executor=Attacker->FindComponentByClass<UKukriWeaponComponent>())
+-            Executor->PresentOwnerBladeHit(Hit,OwnerSwing,Phase);
+-}
+-
+-void AColdSteelPlayerState::ClientConfirmHit_Implementation(const FColdSteelNetHitReceipt& Receipt)
+-{
+-    APlayerController* PC = Cast<APlayerController>(GetOwner());
+-    AFPSGAMECharacter* LocalChar = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
+-    if (!LocalChar || !Receipt.Target) return;
+-    FWeaponDamageResult Result;
+-    Result.bResolved = true;
+-    Result.bCritical = Receipt.bCritical;
+-    Result.bKilled = Receipt.bKilled;
+-    LocalChar->NotifyConfirmedWeaponHit(Receipt.Target, Receipt.Applied, &Result, Receipt.bFirearm);
+-    // 远端客户端本地命中不结算伤害，苍龙蓄能以服务端回执为准（每次攻击仍只充能一次）。
+-    if (auto* Sword = LocalChar->FindComponentByClass<URuneSwordComponent>())
+-        Sword->NotifyAzureDragonNetHit(Receipt.Target, Receipt.Applied, Receipt.bKilled);
+-    UE_LOG(LogTemp, Warning, TEXT("MPTEST hit confirmed on client: target=%s applied=%.1f"),
+-        *GetNameSafe(Receipt.Target), Receipt.Applied);
+-}
+-
+-// ============================================================================
+-// 远端身体表现（离散动作 + 开火戳）
+-// ============================================================================
+-
+ void AColdSteelPlayerState::ServerReportBodyAction_Implementation(uint8 Action, FName Variant, float Duration)
+ {
+     APlayerController* PC = Cast<APlayerController>(GetOwner());
+@@ -2293,442 +359,3 @@
+ // 施法意图通道（A 模式：客户端报意图，服务端按影子档案执行，实体经复制回流）
+ // ============================================================================
+ 
+-void AColdSteelPlayerState::CancelPendingNetworkCast()
+-{
+-    if(!HasAuthority()||PendingCastSkill.IsNone())return;
+-    const FName Skill=PendingCastSkill;const float Paid=PendingCastPaidMana;
+-    PendingCastSkill=NAME_None;PendingCastPaidMana=0.f;PendingCastPawn.Reset();PendingIdentifiedCastId=0;
+-    if(PendingCastOrb.IsValid())PendingCastOrb->Destroy();
+-    PendingCastOrb.Reset();
+-    if(ShadowModel)ShadowModel->RefundUnreleasedCast(Paid,Skill);
+-    bServerDirty=true;
+-}
+-
+-uint32 AColdSteelPlayerState::RequestCastSpell(FColdSteelNetCastRequest Request)
+-{
+-    Request.SourcePawn=GetPawn();Request.Sequence=++LocalCastSequence;
+-    if(!Request.Sequence)Request.Sequence=++LocalCastSequence;
+-    if((Request.SkillId==TEXT("dragonBreath")||Request.SkillId==TEXT("stormDomain")||Request.SkillId==TEXT("flameArmor")||Request.SkillId==TEXT("iceArmor")||Request.SkillId==TEXT("lightningHaste")||Request.SkillId==TEXT("meteor"))&&Request.Phase==0)Request.CastId=Request.Sequence;
+-    ServerCastSpell(Request);
+-    return Request.Sequence;
+-}
+-
+-void AColdSteelPlayerState::ServerCastSpell_Implementation(const FColdSteelNetCastRequest& Request)
+-{
+-    if (GetLocalRole() != ROLE_Authority) return;
+-    if (GetWorld() && GetWorld()->GetNetMode() == NM_Standalone) return;
+-    if(!Request.Sequence||Request.Sequence<=ProcessedCastSequence)return;
+-    ProcessedCastSequence=Request.Sequence;bServerDirty=true;
+-    if(!Request.SourcePawn||Request.SourcePawn!=GetPawn()){ShadowMirrorTimer=3.f;return;}
+-    // Limit new reservations only. Reliable release/cancel transitions must always settle.
+-    const double Now = GetWorld()->GetTimeSeconds();
+-    if(Request.Phase==0)
+-    {
+-        if(HasAuthorityConsumableReservation(Request.SourcePawn)){ClientCastResult(Request.SkillId,Request.Phase,4,Request.SourcePawn,Request.Sequence,Request.CastId);return;}
+-        if(Now-LastCastRequestAt<.15){ClientCastResult(Request.SkillId,Request.Phase,4,Request.SourcePawn,Request.Sequence,Request.CastId);return;}
+-        LastCastRequestAt=Now;
+-    }
+-    ExecuteCastRequest(Request);
+-}
+-
+-namespace
+-{
+-// 各技能在服务端落地的最小校验：影子档扣账入口 + 对应组件指针。Phase1 的具体执行在组件侧。
+-struct FNetCastSkill { FName Id; };
+-const FNetCastSkill NetCastSkills[] = {
+-    { TEXT("fireball") }, { TEXT("iceSpike") }, { TEXT("iceWall") }, { TEXT("blizzard") },
+-    { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") }, { TEXT("iceArmor") }, { TEXT("lightningHaste") }, { TEXT("dragonBreath") },
+-    { TEXT("stormDomain") }, { TEXT("thunderLance") }, { TEXT("starMarrowCharge") },
+-};
+-bool IsNetCastSkill(FName Id)
+-{
+-    for (const auto& S : NetCastSkills) if (S.Id == Id) return true;
+-    return false;
+-}
+-}
+-
+-void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& Request)
+-{
+-    APlayerController* PC = Cast<APlayerController>(GetOwner());
+-    AFPSGAMECharacter* Pawn = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
+-    const auto Reject = [&](uint8 Code)
+-    {
+-        if(Request.Phase==1&&PendingCastSkill==Request.SkillId&&
+-            ((Request.SkillId!=TEXT("dragonBreath")&&Request.SkillId!=TEXT("stormDomain")&&Request.SkillId!=TEXT("flameArmor")&&Request.SkillId!=TEXT("iceArmor")&&Request.SkillId!=TEXT("lightningHaste")&&Request.SkillId!=TEXT("meteor"))||Request.CastId==PendingIdentifiedCastId))CancelPendingNetworkCast();
+-        ClientCastResult(Request.SkillId, Request.Phase, Code,Request.SourcePawn,Request.Sequence,Request.CastId);
+-    };
+-    const auto Accept = [&](bool bNotifyRelease=true) {
+-        if(bNotifyRelease&&Request.Phase==1&&ShadowModel)ShadowModel->NotifyMagicReleased();
+-        ClientCastResult(Request.SkillId, Request.Phase, 0,Request.SourcePawn,Request.Sequence,Request.CastId); };
+-    if (!ShadowModel) { Reject(1); return; }
+-    const bool Dragon=Request.SkillId==TEXT("dragonBreath");
+-    const bool Identified=Dragon||Request.SkillId==TEXT("stormDomain")||Request.SkillId==TEXT("flameArmor")||Request.SkillId==TEXT("iceArmor")||Request.SkillId==TEXT("lightningHaste")||Request.SkillId==TEXT("meteor");
+-    if (!IsNetCastSkill(Request.SkillId)||Request.Phase>(Dragon?4:3)) { Reject(2); return; }
+-    if(Request.SkillId==TEXT("starMarrowCharge"))
+-    {
+-        const auto* Weapon=ShadowModel->Equipped();
+-        if(Request.Phase!=0||Request.WeaponInstance.IsEmpty()||!Weapon||Request.WeaponInstance!=Weapon->InstanceId){Reject(2);return;}
+-    }
+-    if(Identified&&(!Request.CastId||(Request.Phase==0&&Request.CastId!=Request.Sequence))){Reject(2);return;}
+-    const double Now = GetWorld()->GetTimeSeconds();
+-
+-    // Dragon release and stop share this PlayerState's reliable channel.
+-    // A repeated/late stop only settles the identified cast, never its successor.
+-    if(Dragon&&Request.Phase==4)
+-    {
+-        if(PendingCastSkill==Request.SkillId&&PendingIdentifiedCastId==Request.CastId)CancelPendingNetworkCast();
+-        if(Pawn)if(auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->NetStopDragonBreath(Request.CastId);
+-        Accept();return;
+-    }
+-
+-    // ── Phase 2/3 取消/弃置：通用收尾——销毁在途实体，按技能退蓝/清占用。 ──
+-    if (Request.Phase == 2 || Request.Phase == 3)
+-    {
+-        if (PendingCastSkill == Request.SkillId&&(!Identified||PendingIdentifiedCastId==Request.CastId))
+-        {
+-            if (PendingCastOrb.IsValid()) { PendingCastOrb->Destroy(); PendingCastOrb.Reset(); }
+-            if (Request.Phase == 2||Request.SkillId==TEXT("blizzard")) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, Request.SkillId);
+-            else
+-            {
+-                if (Request.SkillId == TEXT("fireball")) ShadowModel->FinishFireballCast();
+-                else if (Request.SkillId == TEXT("iceSpike")) ShadowModel->FinishIceSpikeCast(FIceSpikeRewards());
+-                // iceWall 无独立 Finish：弃置未释放的种子墙只占用手位，CommitIceWallRelease 之前不产生结算。
+-                else if (Request.SkillId == TEXT("blizzard")) ShadowModel->FinishBlizzardCast(FBlizzardRewards());
+-                else if (Request.SkillId == TEXT("holyLight")) ShadowModel->FinishHolyLightCast(FHolyLightRewards());
+-                else if (Request.SkillId == TEXT("lightning")) ShadowModel->FinishLightningCast(FLightningRewards());
+-                else if (FireMagic::IsSkill(Request.SkillId)) ShadowModel->FinishFireMagicCast(Request.SkillId, FFireMagicRewards());
+-                else if (ElectricMagic::IsSkill(Request.SkillId)) ShadowModel->FinishElectricMagicCast(Request.SkillId, FElectricMagicRewards());
+-            }
+-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;PendingIdentifiedCastId=0;
+-        }
+-        Accept();
+-        return;
+-    }
+-    if(!Pawn){Reject(1);return;}
+-    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Reject(5);return;}
+-    if(Request.Phase==1&&PendingCastPawn.Get()!=Pawn){Reject(5);return;}
+-    if(Identified&&Request.Phase==1&&PendingIdentifiedCastId!=Request.CastId){Reject(3);return;}
+-
+-    // Restraint blocks both prepare and release, while cancellation/refunds
+-    // above remain available. Firearm reports use their separate hit path.
+-    if(UBoundCongregateCaptureComponent::IsCaptured(Pawn)){Reject(8);return;}
+-
+-    if(Request.SkillId==TEXT("starMarrowCharge"))
+-    {
+-        auto* Core=Pawn->FindComponentByClass<UStarMarrowComponent>();
+-        if(!PendingCastSkill.IsNone()||!Core||!Core->ActivateCharge(ShadowModel)){Reject(6);return;}
+-        ClientStarMarrowSpend(Pawn,ShadowModel->Snapshot().StarMarrowManaSpent);
+-        ShadowMirrorTimer=3.f;Accept();return;
+-    }
+-
+-    // ── Phase 1 释放：按技能分派到组件服务端入口（影子档案校验在里面）。 ──
+-    if (Request.Phase == 1)
+-    {
+-        if (Request.SkillId == TEXT("fireball"))
+-        {
+-            auto* Ball = Cast<AFPSFireballProjectile>(PendingCastOrb.Get());
+-            if (PendingCastSkill != TEXT("fireball") || !Ball || Now - PendingCastAt > 35.0) { Reject(3); return; }
+-            Ball->LaunchAt(Request.AimPoint);
+-            ShadowModel->FinishFireballCast();
+-            PendingCastOrb.Reset(); PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+-            Accept(); return;
+-        }
+-        if (Request.SkillId == TEXT("iceSpike"))
+-        {
+-            auto* Volley = Cast<AFPSIceSpikeVolley>(PendingCastOrb.Get());
+-            if (PendingCastSkill != TEXT("iceSpike") || !Volley || Now - PendingCastAt > 35.0) { Reject(3); return; }
+-            Volley->LaunchAt(Request.AimPoint);
+-            PendingCastOrb.Reset(); PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+-            Accept(); return;
+-        }
+-        if (Request.SkillId == TEXT("iceWall"))
+-        {
+-            if (PendingCastSkill != TEXT("iceWall")) { Reject(3); return; }
+-            auto* Wall = Pawn->FindComponentByClass<UFPSIceWallComponent>();
+-            if (!Wall || !Wall->NetCommitWall(Pawn, Request, ShadowModel, PendingIceWallStats)) { Reject(7); return; }
+-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+-            Accept(); return;
+-        }
+-        if (Request.SkillId == TEXT("blizzard"))
+-        {
+-            if (PendingCastSkill != TEXT("blizzard")) { Reject(3); return; }
+-            auto* B = Pawn->FindComponentByClass<UFPSBlizzardComponent>();
+-            if (!B || !B->NetCommitZone(Pawn, Request, ShadowModel, PendingBlizzardStats)) { Reject(7); return; }
+-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+-            Accept(); return;
+-        }
+-        if(Request.SkillId==TEXT("lightningHaste"))
+-        {
+-            auto* Ice=Pawn->FindComponentByClass<UFPSLightningHasteComponent>();
+-            if(PendingCastSkill!=Request.SkillId||!Ice||!Ice->NetRelease(Pawn,Request,ShadowModel,PendingLightningHasteStats)){Reject(7);return;}
+-            // CommitLightningHasteCast already dispatches the release notification.
+-            PendingCastSkill=NAME_None;PendingCastPaidMana=0;PendingIdentifiedCastId=0;Accept(false);return;
+-        }
+-        if(Request.SkillId==TEXT("iceArmor"))
+-        {
+-            auto* Ice=Pawn->FindComponentByClass<UFPSIceArmorComponent>();
+-            if(PendingCastSkill!=Request.SkillId||!Ice||!Ice->NetRelease(Pawn,Request,ShadowModel,PendingIceArmorStats)){Reject(7);return;}
+-            PendingCastSkill=NAME_None;PendingCastPaidMana=0;PendingIdentifiedCastId=0;Accept();return;
+-        }
+-        if (Request.SkillId == TEXT("holyLight"))
+-        {
+-            if (PendingCastSkill != TEXT("holyLight")) { Reject(3); return; }
+-            auto* H = Pawn->FindComponentByClass<UFPSHolyLightComponent>();
+-            if (!H || !H->NetRelease(Pawn, Request, ShadowModel, PendingHolyLightStats)) { Reject(7); return; }
+-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+-            Accept(); return;
+-        }
+-        if (Request.SkillId == TEXT("lightning"))
+-        {
+-            if (PendingCastSkill != TEXT("lightning")) { Reject(3); return; }
+-            auto* L = Pawn->FindComponentByClass<UFPSLightningComponent>();
+-            if (!L || !L->NetRelease(Pawn, Request, ShadowModel, PendingLightningStats)) { Reject(7); return; }
+-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+-            Accept(); return;
+-        }
+-        if (FireMagic::IsSkill(Request.SkillId))
+-        {
+-            if (PendingCastSkill != Request.SkillId) { Reject(3); return; }
+-            auto* F = Pawn->FindComponentByClass<UFPSFireMagicComponent>();
+-            auto Release=Request;
+-            const bool Meteor=Request.SkillId==TEXT("meteor");
+-            if(Meteor){Release.AimPoint=PendingMeteorPoint;Release.AimNormal=PendingMeteorNormal;}
+-            if (!F || !F->NetRelease(Pawn, Release, ShadowModel, PendingFireMagicStats,Meteor)) { Reject(7); return; }
+-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;PendingIdentifiedCastId=0;
+-            Accept(); return;
+-        }
+-        if (ElectricMagic::IsSkill(Request.SkillId))
+-        {
+-            if (PendingCastSkill != Request.SkillId) { Reject(3); return; }
+-            auto* E = Pawn->FindComponentByClass<UFPSElectricMagicComponent>();
+-            if (!E || !E->NetRelease(Pawn, Request, ShadowModel, PendingElectricMagicStats)) { Reject(7); return; }
+-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;PendingIdentifiedCastId=0;
+-            Accept(); return;
+-        }
+-        Reject(2); return;
+-    }
+-
+-    // ── Phase 0 凝聚：影子档校验法耗/冷却并扣账；带悬停体的技能同时生成权威实体。 ──
+-    if (PendingCastOrb.IsValid() || PendingCastSkill != NAME_None) { Reject(4); return; }
+-    if(const auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>();Fire&&Fire->IsDragonBreathActive()){Reject(4);return;}
+-    if (auto* HP = Pawn->FindComponentByClass<UFPSCombatHealthComponent>(); HP && HP->IsDead()) { Reject(5); return; }
+-    // Skill tree (2026-11-15): the shadow profile must have learned the spell. Net id "lightning" is lightningStrike;
+-    // ids outside the tree (starMarrowCharge, ...) are always learned.
+-    if (!ShadowModel->IsSkillLearned(Request.SkillId == TEXT("lightning") ? FName(TEXT("lightningStrike")) : Request.SkillId)) { Reject(2); return; }
+-
+-    if (Request.SkillId == TEXT("fireball"))
+-    {
+-        const FFireballCast Stats = ShadowModel->FireballStats();
+-        if (!ShadowModel->BeginFireballCast()) { Reject(6); return; }
+-        auto* Ability = Pawn->FindComponentByClass<UFPSFireballComponent>();
+-        auto* Ball = Ability ? Ability->SpawnOrbForCast(Pawn, Stats) : nullptr;
+-        if (!Ball) { ShadowModel->RefundUnreleasedCast(Stats.ManaCost, TEXT("fireball")); Reject(7); return; }
+-        PendingCastOrb = Ball; PendingCastPaidMana = Stats.ManaCost;
+-    }
+-    else if (Request.SkillId == TEXT("iceSpike"))
+-    {
+-        const FIceSpikeCast Stats = ShadowModel->IceSpikeStats();
+-        if (!ShadowModel->BeginIceSpikeCast(Stats)) { Reject(6); return; }
+-        auto* Ability = Pawn->FindComponentByClass<UFPSIceSpikeComponent>();
+-        auto* Volley = Ability ? Ability->SpawnVolleyForCast(Pawn, Stats) : nullptr;
+-        if (!Volley) { ShadowModel->RefundUnreleasedCast(Stats.ManaCost, TEXT("iceSpike")); Reject(7); return; }
+-        PendingCastOrb = Volley; PendingCastPaidMana = Stats.ManaCost;
+-    }
+-    else if (Request.SkillId == TEXT("iceWall"))
+-    {
+-        const FIceWallCast Stats = ShadowModel->IceWallStats();
+-        if (!ShadowModel->BeginIceWallCast(Stats)) { Reject(6); return; }
+-        PendingCastPaidMana = Stats.ManaCost;
+-        PendingIceWallStats = Stats;
+-    }
+-    else if (Request.SkillId == TEXT("blizzard"))
+-    {
+-        const FBlizzardCast Stats = ShadowModel->BlizzardStats();
+-        if (!ShadowModel->BeginBlizzardCast(Stats)) { Reject(6); return; }
+-        PendingCastPaidMana = Stats.ManaCost;
+-        PendingBlizzardStats = Stats;
+-    }
+-    else if(Request.SkillId==TEXT("lightningHaste"))
+-    {
+-        const auto Stats=ShadowModel->LightningHasteStats();const float Before=ShadowModel->Snapshot().Mana;
+-        if(!ShadowModel->BeginLightningHasteCast(Stats)){Reject(6);return;}
+-        PendingCastPaidMana=FMath::Max(0.f,Before-ShadowModel->Snapshot().Mana);PendingLightningHasteStats=Stats;
+-    }
+-        else if(Request.SkillId==TEXT("iceArmor"))
+-    {
+-        const auto Stats=ShadowModel->IceArmorStats();const float Before=ShadowModel->Snapshot().Mana;
+-        if(!ShadowModel->BeginIceArmorCast(Stats)){Reject(6);return;}
+-        PendingCastPaidMana=FMath::Max(0.f,Before-ShadowModel->Snapshot().Mana);PendingIceArmorStats=Stats;
+-    }
+-    else if (Request.SkillId == TEXT("holyLight"))
+-    {
+-        const FHolyLightCast Stats = ShadowModel->HolyLightStats();
+-        if (!ShadowModel->BeginHolyLightCast(Stats)) { Reject(6); return; }
+-        PendingCastPaidMana = Stats.ManaCost;
+-        PendingHolyLightStats = Stats;
+-    }
+-    else if (Request.SkillId == TEXT("lightning"))
+-    {
+-        const FLightningCast Stats = ShadowModel->LightningStats();
+-        if (!ShadowModel->BeginLightningCast(Stats)) { Reject(6); return; }
+-        PendingCastPaidMana = Stats.ManaCost;
+-        PendingLightningStats = Stats;
+-    }
+-    else if (FireMagic::IsSkill(Request.SkillId))
+-    {
+-        const FFireMagicCast Stats = ShadowModel->FireMagicStats(Request.SkillId);
+-        FVector Point=Request.AimPoint,Normal=Request.AimNormal;FString Failure;
+-        if(Request.SkillId==TEXT("meteor")&&!MeteorGround::Validate(Pawn,Stats.Range,Point,Normal,true,Failure))
+-        {Reject(7);return;}
+-        const float BeforeMana=ShadowModel->Snapshot().Mana;
+-        if (!ShadowModel->BeginFireMagicCast(Stats)) { Reject(6); return; }
+-        PendingCastPaidMana = FMath::Max(0.f,BeforeMana-ShadowModel->Snapshot().Mana);
+-        PendingFireMagicStats = Stats;
+-        if(Request.SkillId==TEXT("meteor")){PendingMeteorPoint=Point;PendingMeteorNormal=Normal;}
+-    }
+-    else if (ElectricMagic::IsSkill(Request.SkillId))
+-    {
+-        const FElectricMagicCast Stats = ShadowModel->ElectricMagicStats(Request.SkillId);
+-        if (!ShadowModel->BeginElectricMagicCast(Request.SkillId, Stats)) { Reject(6); return; }
+-        PendingCastPaidMana = Stats.Hit.ManaCost;
+-        PendingElectricMagicStats = Stats;
+-    }
+-    PendingCastSkill = Request.SkillId; PendingCastAt = Now; PendingCastPawn=Pawn;
+-    PendingIdentifiedCastId=Identified?Request.CastId:0;
+-    // Snapshot first, then consume: match local casts, including later cancellation.
+-    if(auto* Status=Pawn->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
+-    Accept();
+-}
+-
+-void AColdSteelPlayerState::ClientStarMarrowSpend_Implementation(AFPSGAMECharacter* Character,double Total)
+-{
+-    if(!Character||Character!=GetPawn())return;
+-    if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->ReconcileStarMarrowSpend(Total);
+-}
+-
+-void AColdSteelPlayerState::ClientCastResult_Implementation(FName SkillId, uint8 Phase, uint8 Code,APawn* SourcePawn,uint32 Sequence,uint32 CastId)
+-{
+-    APlayerController* PC = Cast<APlayerController>(GetOwner());
+-    AFPSGAMECharacter* Pawn = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
+-    if (!Pawn||Pawn!=SourcePawn) return;
+-    if(SkillId==TEXT("starMarrowCharge")){if(auto* Core=Pawn->FindComponentByClass<UStarMarrowComponent>())Core->NetCastResult(Sequence,Code);return;}
+-    if(SkillId==TEXT("dragonBreath"))
+-    {
+-        if(auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->NetDragonCastResult(Phase,Code,CastId);
+-        return;
+-    }
+-    if(SkillId==TEXT("stormDomain"))
+-    {
+-        if(auto* Electric=Pawn->FindComponentByClass<UFPSElectricMagicComponent>())Electric->NetDomainCastResult(Phase,Code,CastId);
+-        return;
+-    }
+-    if(SkillId==TEXT("flameArmor"))
+-    {
+-        if(auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->NetArmorCastResult(Phase,Code,CastId);
+-        return;
+-    }
+-    if(SkillId==TEXT("iceArmor")){if(auto* Ice=Pawn->FindComponentByClass<UFPSIceArmorComponent>())Ice->NetCastResult(Phase,Code,CastId);return;}
+-    if(SkillId==TEXT("lightningHaste")){if(auto* Ice=Pawn->FindComponentByClass<UFPSLightningHasteComponent>())Ice->NetCastResult(Phase,Code,CastId);return;}
+-    if(SkillId==TEXT("meteor")){if(auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->NetMeteorCastResult(Phase,Code,CastId);return;}
+-    if(Sequence<LocalCastSequence)return;
+-    // 把回执路由到发起技能的组件；各组件自己决定拒收/取消的本地收尾。
+-    const auto Receipt = [Phase, Code](auto* C)
+-    {
+-        if (!C) return;
+-        if (Code == 0 && (Phase == 2 || Phase == 3)) C->NetCastCancelled(Phase);
+-        else if (Code != 0) C->NetCastRejected(Phase, Code);
+-    };
+-    if (SkillId == TEXT("fireball")) Receipt(Pawn->FindComponentByClass<UFPSFireballComponent>());
+-    else if (SkillId == TEXT("iceSpike")) Receipt(Pawn->FindComponentByClass<UFPSIceSpikeComponent>());
+-    else if (SkillId == TEXT("iceWall")) Receipt(Pawn->FindComponentByClass<UFPSIceWallComponent>());
+-    else if (SkillId == TEXT("blizzard"))
+-    {
+-        auto* Blizzard=Pawn->FindComponentByClass<UFPSBlizzardComponent>();
+-        if(Blizzard&&Code==0&&Phase<2)Blizzard->NetCastAccepted(Phase);
+-        else Receipt(Blizzard);
+-    }
+-    else if (SkillId == TEXT("holyLight"))
+-    {
+-        auto* C=Pawn->FindComponentByClass<UFPSHolyLightComponent>();
+-        if(C&&Code==0&&Phase<2)C->NetCastAccepted(Phase);else Receipt(C);
+-    }
+-    else if (SkillId == TEXT("lightning"))
+-    {
+-        auto* C=Pawn->FindComponentByClass<UFPSLightningComponent>();
+-        if(C&&Code==0&&Phase<2)C->NetCastAccepted(Phase);else Receipt(C);
+-    }
+-    else if (FireMagic::IsSkill(SkillId))
+-    {
+-        auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>();
+-        Receipt(Fire);
+-    }
+-    else if (ElectricMagic::IsSkill(SkillId)) Receipt(Pawn->FindComponentByClass<UFPSElectricMagicComponent>());
+-}
+-
+-// ============================================================================
+-// 命中转发器（ColdSteelNet 模块注册到 ColdSteelSkills::NetHitForward()）
+-// ============================================================================
+-
+-FColdSteelNetHitReport AColdSteelPlayerState::MakeHitReport(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot)
+-{
+-    const APawn* Pawn = Cast<APawn>(Shooter);
+-    AColdSteelPlayerState* PS = Pawn ? Pawn->GetPlayerState<AColdSteelPlayerState>() : nullptr;
+-    if (!PS) return {};
+-
+-    FColdSteelNetHitReport Report;
+-    Report.Target = Hit.GetActor();
+-    Report.AimOrigin = Hit.TraceStart;
+-    Report.ImpactPoint = Hit.ImpactPoint;
+-    Report.HitNormal = Hit.ImpactNormal;
+-    Report.BoneName = UHumanoidHitVolumeData::NetworkBoneName(Hit);
+-    if(Cast<ABoundCongregate>(Hit.GetActor()))Report.BoneName=ABoundCongregate::NetworkHitBone(Hit);
+-    if(const auto* Component=Hit.GetComponent())Report.HitComponent=Component->GetFName();
+-    if(const auto* Part=Hit.GetComponent();Part&&Part->ComponentHasTag(TEXT("BoundCongregateTentacle")))
+-        Report.BoneName=Part->GetAttachSocketName();
+-    Report.Direction = Direction;
+-    Report.ItemDefinition = Shot.ItemDefinition;
+-    Report.ItemInstance = Shot.ItemInstance;
+-    Report.FireSequence = Shot.FireSequence;
+-    Report.ClaimedDamage = Damage;
+-    Report.AttackMeta = Shot.AttackMeta;
+-    Report.GuardAttackSerial=Shot.GuardAttackSerial;
+-    Report.HeavyReleaseTime=Shot.HeavyReleaseTime;
+-    Report.MasteryAttackSerial=Shot.MasteryAttackSerial;
+-    Report.GenericMeleeSerial=Shot.GenericMeleeSerial;
+-    Report.KukriAttackSerial=Shot.KukriAttackSerial;
+-    if(Shot.AttackMeta&0x80)Report.QuickCombatSerial=PS->QuickCombatSequence;
+-    if(Shot.AttackMeta==SwordUppercut::AttackMeta)Report.UppercutSerial=PS->UppercutSequence;
+-    if(Shot.AttackMeta&0x20)Report.WhirlwindSerial=PS->WhirlwindSequence;
+-    Report.DamageContext = Shot.DamageContext;
+-    Report.MeleeDamagePhase = Shot.MeleeDamagePhase;
+-    Report.AttackForm = static_cast<uint8>(Shot.AttackForm);
+-    Report.ConvergenceRounds = static_cast<uint8>(FMath::Clamp(Shot.FiredRounds, 1, 255));
+-    // 时间戳用客户端估计的服务端世界钟——服务端据此做 rewind 回放与新鲜度检查。
+-    if (const UWorld* W = Pawn->GetWorld())
+-    {
+-        const AGameStateBase* GS = W->GetGameState();
+-        Report.ClientFireTime = GS ? GS->GetServerWorldTimeSeconds() : W->GetTimeSeconds();
+-    }
+-    if (Shot.bMeleeStrike) Report.Flags |= 1 << 0;
+-    if (Shot.bRifle) Report.Flags |= 1 << 1;
+-    if (Shot.bPistol) Report.Flags |= 1 << 2;
+-    if (Shot.bMelee) Report.Flags |= 1 << 3;
+-    if (Shot.bRicochet) Report.Flags |= 1 << 4;
+-    if (Shot.bInheritedCritical) Report.Flags |= 1 << 5;
+-    // bFiredRound：真正消耗弹药的一发（枪/弓），不含近战挥砍与握把砸击。
+-    if (!Shot.bMelee && !Shot.bMeleeStrike) Report.Flags |= 1 << 6;
+-    // 苍龙激活中的出手：服务端核对所持剑带苍龙附魔后复原物理倍率与追加魔法伤害。
+-    if (Shot.AzureDragonPhysicalMultiplier > 1.f) Report.Flags |= 1 << 7;
+-    return Report;
+-}
+-
+-bool AColdSteelPlayerState::ForwardHit(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot)
+-{
+-    const APawn* Pawn = Cast<APawn>(Shooter);
+-    AColdSteelPlayerState* PS = Pawn ? Pawn->GetPlayerState<AColdSteelPlayerState>() : nullptr;
+-    if (!PS) return false;
+-
+-    PS->ServerReportHit(MakeHitReport(Shooter,Hit,Damage,Direction,Shot));
+-    return true;
+-}
+-

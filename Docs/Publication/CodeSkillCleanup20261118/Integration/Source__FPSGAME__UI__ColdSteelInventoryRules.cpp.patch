@@ -1,0 +1,100 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -23,96 +23,6 @@
+     TSharedPtr<FJsonObject> Result;
+     FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data), Result);
+     return Result;
+-}
+-// Scalar lookups never mutate the parsed data. Key by the complete payload so
+-// crafting, attachments and same-instance edits take effect on the next read.
+-// Keep mutable Object() results separate (Compatible removes identity fields).
+-static TSharedPtr<const FJsonObject> ReadOnlyObject(const FColdSteelItem& Item)
+-{
+-    return ColdSteelItemData::Read(Item.Data);
+-}
+-FString Text(const FColdSteelItem& Item, const TCHAR* Key)
+-{
+-    if(Item.Definition==TEXT("spoiled_food")&&FCString::Strcmp(Key,TEXT("ue_icon"))==0)return SpoiledFoodVisuals::Icon;
+-    auto O=ReadOnlyObject(Item);FString V;
+-    if(O)
+-    {
+-        if((FCString::Strcmp(Key,TEXT("rarity"))==0||FCString::Strcmp(Key,TEXT("grade"))==0)&&ColdSteelItemRarity::IsEquipment(*O))return V;
+-        O->TryGetStringField(Key,V);
+-    }
+-    return V;
+-}
+-// 目录调校的固有加成（要害 / 护甲穿透）写在物品定义里，而存档实例自带一份 Data 快照。
+-// 旧档、服务端影子档案和联机镜像里的实例早于这些字段，缺项时读 0 会把 M1911 的要害、
+-// Viper 的穿甲和狙击的弱点收益整段吞掉。这里按定义目录兜底，只缓存声明了这两项的少数定义。
+-struct FCatalogInnate { double Weakpoint=0., Penetration=0.; bool bWeakpoint=false, bPenetration=false; };
+-static const TMap<FString,FCatalogInnate>& CatalogInnate()
+-{
+-    static const TMap<FString,FCatalogInnate> Catalog=[]{
+-        TMap<FString,FCatalogInnate> Result;
+-        FString Json; TSharedPtr<FJsonObject> Root;
+-        if(!FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))
+-            ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root)||!Root)return Result;
+-        for(const auto& Pair:Root->Values)
+-        {
+-            const TSharedPtr<FJsonObject> Entry=Pair.Value.IsValid()?Pair.Value->AsObject():nullptr;
+-            if(!Entry)continue;
+-            FCatalogInnate Values; double Value=0.;
+-            Values.bWeakpoint=Entry->TryGetNumberField(TEXT("innate_weakpoint_percent"),Value);Values.Weakpoint=Value;
+-            Value=0.;
+-            Values.bPenetration=Entry->TryGetNumberField(TEXT("innate_armor_penetration"),Value);Values.Penetration=Value;
+-            if(Values.bWeakpoint||Values.bPenetration)Result.Add(FString(*Pair.Key),Values);
+-        }
+-        return Result;
+-    }();
+-    return Catalog;
+-}
+-static const double* CatalogInnateValue(const FString& Definition,const TCHAR* Key)
+-{
+-    const FCatalogInnate* Entry=CatalogInnate().Find(Definition);if(!Entry)return nullptr;
+-    if(FCString::Strcmp(Key,TEXT("innate_weakpoint_percent"))==0)return Entry->bWeakpoint?&Entry->Weakpoint:nullptr;
+-    if(FCString::Strcmp(Key,TEXT("innate_armor_penetration"))==0)return Entry->bPenetration?&Entry->Penetration:nullptr;
+-    return nullptr;
+-}
+-double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default)
+-{
+-    auto O=ReadOnlyObject(Item);double V=Default;
+-    if(O&&O->TryGetNumberField(Key,V))return V;
+-    if(const double* Innate=CatalogInnateValue(Item.Definition,Key))return *Innate;
+-    return Default;
+-}
+-bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if((IsDualPistol(Item)||Text(Item,TEXT("weaponType"))==TEXT("staff")) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=ReadOnlyObject(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
+-FIntPoint BaseFootprint(const FColdSteelItem& I)
+-{
+-    const FString Type=Text(I,TEXT("weaponType")),Ranged=Text(I,TEXT("rangedType")),Category=Text(I,TEXT("category")),Slot=Text(I,TEXT("equipSlot"));
+-    const bool Firearm=Type==TEXT("rifle")||Type==TEXT("sniper")||!Ranged.IsEmpty()||Category==TEXT("weapon_ranged");
+-    auto O=ReadOnlyObject(I);const bool Two=O&&O->HasField(TEXT("isTwoHanded"))?Flag(I,TEXT("isTwoHanded")):Firearm;
+-    if(I.Definition==TEXT("wood"))return FIntPoint(1,2);
+-    if(Firearm&&Type!=TEXT("pistol")&&Ranged!=TEXT("pistol")&&Two)return FIntPoint(5,2);
+-    const int32 W=Number(I,TEXT("grid_w")),H=Number(I,TEXT("grid_h"));if(W>0&&H>0)return FIntPoint(W,H);
+-    if(Type==TEXT("pistol"))return FIntPoint(3,2);
+-    if(Type==TEXT("spellbook")||Type==TEXT("magic_book")||Category==TEXT("magic_book"))return FIntPoint(2,2);
+-    if(Type==TEXT("shield"))return FIntPoint(2,3);
+-    if(Firearm)return FIntPoint(8,2);
+-    if(Category==TEXT("weapon_melee"))return Two?FIntPoint(2,4):FIntPoint(1,3);
+-    if(!Type.IsEmpty()||Category==TEXT("weapon"))return Two?FIntPoint(8,2):FIntPoint(3,2);
+-    if(Slot==TEXT("armor"))return FIntPoint(3,4);
+-    if(Slot==TEXT("pants"))return FIntPoint(2,3);
+-    if(Slot==TEXT("helmet")||Slot==TEXT("gloves")||Slot==TEXT("boots"))return FIntPoint(2,2);
+-    if(Slot==TEXT("cloak")||Slot==TEXT("backpack"))return FIntPoint(3,3);
+-    if(Slot==TEXT("belt"))return FIntPoint(2,1);
+-    return FIntPoint(1,1);
+-}
+-FIntPoint Footprint(const FColdSteelItem& I)
+-{
+-    const FIntPoint Base=BaseFootprint(I);
+-    return I.bRotated?FIntPoint(Base.Y,Base.X):Base;
+-}
+-void ApplyOrientation(FColdSteelItem& Item,int32 Orientation)
+-{
+-    // Square items keep a single footprint shape; the flag stays false so their art never turns.
+-    if(Orientation>=0&&CanRotate(Item))Item.bRotated=Orientation!=0;
+-    const FIntPoint Size=Footprint(Item);Item.Width=Size.X;Item.Height=Size.Y;
+ }
+ const TArray<FString>& SlotNames() { static const TArray<FString> Names={TEXT("左耳环"),TEXT("头部"),TEXT("右耳环"),TEXT("手套"),TEXT("项链"),TEXT("披风"),TEXT("主手武器"),TEXT("铠甲"),TEXT("副手武器"),TEXT("主手武器2"),TEXT("腰带"),TEXT("副手武器2"),TEXT("额外物品"),TEXT("鞋靴"),TEXT("背包装备"),TEXT("裤子")}; return Names; }
+ int32 EquippedBag(const TArray<FColdSteelItem>& Items)

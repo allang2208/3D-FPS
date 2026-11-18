@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-17",
+  "batch": 22,
+  "source_cleanup_complete": true,
+  "editor_build_started": true,
+  "status": "Editor build succeeded and DLL linked",
+  "waited_process": {
+    "pid": 106840,
+    "started_at": "2026-11-17T23:47:23.690217+08:00"
+  },
+  "processes_stopped": false,
+  "tests_run": false,
+  "editor_build_complete": true,
+  "result": "Succeeded",
+  "exit_code": 0,
+  "build_started_at": "2026-11-17T23:49:52.0843975+08:00",
+  "build_finished_at": "2026-11-17T23:50:24.7725025+08:00",
+  "receipt": "build-receipt.json"
+}

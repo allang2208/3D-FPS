@@ -1,57 +1,71 @@
-**用户规则（2026-09-20）：禁止主动向其他对话/任务发送协调消息。** 不调用 send_message_to_thread 或跨任务消息工具询问占用、请求让位、通知释放、协商编译/重启；不通过轮询其他对话或共享留言板变相协调。接入等待交由桥的批次互斥处理，期间继续独立制作。真实文件/资产归属冲突或无法安全执行的编译/重启，保留现场，仅在当前对话向用户简要说明阻塞；不联系其他对话。此规则覆盖旧文中的“定向协调/集中协调”等要求；只有用户明确另行要求发送指定消息时才执行。
+**数值显示规则（用户确定，2026-10-27）：浮窗、改造栏和数值交付统一使用 `暴击率+10%`、`暴击伤害+10%` 等格式，不使用中文百分比单位。** 本条覆盖旧显示写法，保留原计算公式、实际数值和双持归属；具体遵循 [百分比显示规则](skills/ue5-ui-umg-slate/references/percentage-display.md)。 为什么：统一显示单位可避免将倍率、百分比加成和百分点误读为不同的实际数值。
 
-**全局用户规则（2026-09-12）：所有工作默认不主动进行检查、测试或验收，由用户自行测试；仅用户明确要求时执行。此规则覆盖本项目文档、SKILL 及引用文档中的默认验证要求。必要的开发、构建与接入照常完成，交付时如实说明未测试。**
+**用户规则（2026-09-20）：禁止主动向其他对话/任务发送协调消息。** 不调用 send_message_to_thread 或跨任务消息工具询问占用、请求让位、通知释放、协商编译/重启；不通过轮询其他对话或共享留言板变相协调。接入等待交由桥的批次互斥处理，期间继续独立制作。真实文件/资产归属冲突或无法安全执行的编译/重启，保留现场，仅在当前对话向用户简要说明阻塞；不联系其他对话。此规则覆盖旧文中的“定向协调/集中协调”等要求；只有用户明确另行要求发送指定消息时才执行。 为什么：共享资源互斥由现有工具处理，跨对话消息会打扰其他工作且不代表获得操作权。
 
-**默认后台制作、编译与落盘（用户确定，2026-09-23）。** 不主动启动 UE 编辑器。源码、配置、文档、外部模型/贴图/动画，以及可在后台完成的构建、导入和保存，优先通过文件、命令行或适用的 commandlet 完成。只有用户明确要求打开，或必要操作确实无法在后台完成、只能在编辑器中进行时，才打开 UE；仅剩必要编辑器操作时使用短批次接入。 后台构建成功后直接交付，不自动打开或重启编辑器；已经运行的编辑器不因本规则主动关闭。必要编辑器接入统一使用 Tools/AssetPipeline/mcp_call_codex.ps1 的批次互斥；不另起进程覆盖已加载资产，不强制结束他人编辑器。详细条件见 [后台开发与编辑器使用条件](skills/ue5-auto-assistant/references/editor-open-development.md)。
+**全局用户规则（2026-09-12）：所有工作默认不主动进行检查、测试或验收，由用户自行测试；仅用户明确要求时执行。此规则覆盖本项目文档、SKILL 及引用文档中的默认验证要求。必要的开发、构建与接入照常完成，交付时如实说明未测试。** 为什么：后台制作与必要构建可以独立交付，测试和打开应用应由用户指定范围。
+
+**默认后台制作、编译与落盘（用户确定，2026-09-23）。** 不主动启动 UE 编辑器。源码、配置、文档、外部模型/贴图/动画，以及可在后台完成的构建、导入和保存，优先通过文件、命令行或适用的 commandlet 完成。只有用户明确要求打开，或必要操作确实无法在后台完成、只能在编辑器中进行时，才打开 UE；仅剩必要编辑器操作时使用短批次接入。 后台构建成功后直接交付，不自动打开或重启编辑器；已经运行的编辑器不因本规则主动关闭。必要编辑器接入统一使用 Tools/AssetPipeline/mcp_call_codex.ps1 的批次互斥；不另起进程覆盖已加载资产，不强制结束他人编辑器。详细条件见 [后台开发与编辑器使用条件](skills/ue5-auto-assistant/references/editor-open-development.md)。 为什么：后台制作与必要构建可以独立交付，测试和打开应用应由用户指定范围。
 
 # 当前开发方向
 
-**共享玩家配置与动作发布（2026-10-20 工作流修订）**：修改 `Content/ColdSteelData/player_body.json`（动作、身体、衣物、头部装备）前读取 [共享配置写入与发布](Docs/Workflow/player-body-config-publication.md)。使用 `Tools/PlayerBody/config_transaction.py` 按字段写入，保留其他动作与并行修改；不将 HEAD、暂存裁剪内容或旧完整备份覆盖工作文件。复用历史脚本先接入同一写入入口，`publish_jason.py` 整库初始化器已停用。本地 `published` 回执不代表 Git 已推送；获授权发布时按功能清单包含所需配置与消费者源码，分别记录本地接入、提交、远端和用户认可。
+**服装搭配接入（用户于 2026-10-23 扩展至全部上衣与裤装）：** 新增或重做上衣／裤装时按 [服装腰部工作流](Docs/Characters/garment-waist-workflow.md) 完成穿法、原生绑定、世界／本人身体和普通／靴型配对，入口为 `Tools/GarmentWaist/run.ps1`。它承接原 `PantsCompatibility` 的野行上衣配对，并覆盖炭灰短袖、锁子甲及 ST6 独立腰部饰边；法袍保留专用内穿路线。新上衣先登记 `policies.json` 的穿法与实际外层槽，新骨架先提供对应作者源。保留 `pants_fit_default` 与 `pants_underlayer_default`，专用配对优先；通用回退不表示任意新模型已经验收。此要求不自动授权测试、截图或启动 UE。 为什么：衣物必须延续当前骨架与穿戴组合，外观修改不能破坏已有接缝和动作。
 
-**任务与目标工作流（用户要求，2026-10-13）**：新增任务、阶段/区域目标、完成反馈或左侧追踪栏内容时，先读 [任务与目标标准工作流](TASK-WORKFLOW.md)。使用稳定任务/实例/目标 ID，通过 `ITaskTrackingSource` 发布到统一任务栏；实际进度、开门和奖励由玩法拥有者维护。显式说明存档与联机范围，不把显示接入当成完整任务闭环。
+**共享玩家配置与动作发布（2026-10-20 工作流修订）**：修改 `Content/ColdSteelData/player_body.json`（动作、身体、衣物、头部装备）前读取 [共享配置写入与发布](Docs/Workflow/player-body-config-publication.md)。使用 `Tools/PlayerBody/config_transaction.py` 按字段写入，保留其他动作与并行修改；不将 HEAD、暂存裁剪内容或旧完整备份覆盖工作文件。复用历史脚本先接入同一写入入口，`publish_jason.py` 整库初始化器已停用。本地 `published` 回执不代表 Git 已推送；获授权发布时按功能清单包含所需配置与消费者源码，分别记录本地接入、提交、远端和用户认可。 为什么：该文件由多个动作与装备共用，按字段写入才能保留其他未提交内容。
 
-**界面文字横排规则（用户确定，2026-10-12）**：全系统文字默认横向排列，能不换行就不换行。按钮、页签、短标签、数值默认单行；空间不足先增宽、调整列宽或让整枚按钮换行，不把文字挤成逐字竖排。长说明仅在必要时正常换行。本条替代旧“升级／收回”逐字换行页签规则，正式规范见 `Docs/UI/ui-cold-steel-design-system.md`。
+**食物与生存默认（用户确定，2026-10-15）**：现有及后续食物提供的限时 buff/debuff 默认持续 600 秒，只有明确特殊说明时例外；强度、即时恢复／扣除、进食动作时长和非食物效果不随之改变。按同日最新要求，正常默认饥饿从 100 到 0 为一个实际游戏日，水分消耗为饥饿的两倍、半日耗尽；读取权威天气时钟的自然日进度。默认入口天空蓝图的地图实例速度已核实为 1.111111164，名义日长与原生标准均约 2160 秒（36 分钟，40 倍游戏时间），故水分为 1080 秒（18 分钟）；不拿蓝图 CDO 的 0.035 代替地图值。保留篝火、喷泉及 SAN 等既有修正；手动跳时不补扣资源。见 [食物与生存默认规则](Docs/Survival/food-duration-and-daily-consumption-20261015.md) 与 [实际时钟接入及交付状态](Docs/Survival/authority-clock-consumption-20261015.md)。 为什么：生存消耗依赖真实天气时钟，混用默认值会改变一天内的实际消耗。
 
-**武技速度规则（用户确定，2026-10-12）**：无特殊说明时，武器攻速与武技释放速度不挂钩；普通攻击与连段沿用攻速，武技使用独立动作时钟。仅明确注明的武技／蓄力加速效果例外，详见 [武技独立动作速度](Docs/Skills/martial-skill-independent-speed-20261012.md)。
 
-**物品稀有度规则（用户确定，2026-10-09）**：武器与装备不再区分稀有度，包括枪械、近战、弓、法杖、魔法书、护甲、背包、饰品及手持工具；目录和实例不再设置顶层 `rarity`／旧 `grade`。仅非装备物品保留稀有度。新增内容沿用 `ColdSteelItemRarity` 分类，不根据物品当前所在背包、装备槽或地面改变分类。界面不显示装备稀有度标签与颜色分级，装备掉落按数值强化 `enhanceLevel` 分档，未强化为银白，完整档位见 [强化掉落光束](Docs/Art/equipment-enhancement-loot-glow-20261009.md)。强化、附魔词缀和锻造工艺品质保留独立机制。细节见 [装备取消稀有度](Docs/UI/equipment-no-rarity-plan-20261009.md)。
 
-**详情与介绍标准（用户确定，2026-10-09）**：后续编写或修改武器／改造配件介绍，先读 [统一标准](skills/ue5-weapon-workflow/references/attachment-detail-presentation.md)。仅列直接属性；二段／三段攻击、附加伤害拆分和派生数值默认不列，总览也不保留，只有用户明确要求时例外；独立机制用简短特效段，外观不重复数值；改造台、物品浮窗和武器背景各用对应格式。
+**任务与目标工作流（用户要求，2026-10-13）**：新增任务、阶段/区域目标、完成反馈或左侧追踪栏内容时，先读 [任务与目标标准工作流](TASK-WORKFLOW.md)。使用稳定任务/实例/目标 ID，通过 `ITaskTrackingSource` 发布到统一任务栏；实际进度、开门和奖励由玩法拥有者维护。显式说明存档与联机范围，不把显示接入当成完整任务闭环。 为什么：稳定任务身份与玩法状态源能保证追踪显示、奖励和开门读取同一事实。
 
-**场景开发约定（用户确定，2026-10-01）**：新房间、栏杆/楼梯交互、样板预览和退役先读 [场景开发标准流程](skills/ue5-pcg-building/references/scene-development-standard.md)。统一翻越代码配合正确碰撞/标签；默认给控制台直达命令，不接祭坛出征菜单。用户确认并正式接入后，清理样板专属地图与临时入口，保留共用资产和制作源。
+**界面文字横排规则（用户确定，2026-10-12）**：全系统文字默认横向排列，能不换行就不换行。按钮、页签、短标签、数值默认单行；空间不足先增宽、调整列宽或让整枚按钮换行，不把文字挤成逐字竖排。长说明仅在必要时正常换行。本条替代旧“升级／收回”逐字换行页签规则，正式规范见 `Docs/UI/ui-cold-steel-design-system.md`。 为什么：短标签保持可读，避免窄列把中文挤成逐字竖排。
 
-**第一人称手模基准（用户于 2026-09-25 确定，2026-10-19 升级为 V9）**：以后新增、迁移和调整动画统一以当前认可的裸手、裸臂开发，游戏默认也使用这套。2026-10-19 用户认可现有 V9 手模，直接复用推广：V9 表面与材质、`JC_` 矫正形状、前臂扭转分配（twist_01 100%、twist_02 50%）。手套、衣袖作为装备外观匹配该手型并复用动画；旧原版手套仅保留为装备恢复版本。具体母版、各原生骨架派生及默认接入约定见 [认可的裸手基准](skills/ue5-fps-arms-animation/references/accepted-bare-hands.md)。此条替代旧文中默认使用原版手套手模的约定。
+**武技速度规则（用户确定，2026-10-12）**：无特殊说明时，武器攻速与武技释放速度不挂钩；普通攻击与连段沿用攻速，武技使用独立动作时钟。仅明确注明的武技／蓄力加速效果例外，详见 [武技独立动作速度](Docs/Skills/martial-skill-independent-speed-20261012.md)。 为什么：普通攻击和武技使用不同动作合同，混用攻速会改变释放和命中时点。
 
-当前工程为根目录 `FPSGAME.uproject`（UE 5.8.2）。用户已指定后续全面转向 UE5；Godot 只作为归档参考。完整本机宿主为 `D:/FPS3D/FPSGAME`，Git main 的当前源码直接位于根目录，不再仅发布 `unreal/<topic>` 摘录。
+**物品稀有度规则（用户确定，2026-10-09）**：武器与装备不再区分稀有度，包括枪械、近战、弓、法杖、魔法书、护甲、背包、饰品及手持工具；目录和实例不再设置顶层 `rarity`／旧 `grade`。仅非装备物品保留稀有度。新增内容沿用 `ColdSteelItemRarity` 分类，不根据物品当前所在背包、装备槽或地面改变分类。界面不显示装备稀有度标签与颜色分级，装备掉落按数值强化 `enhanceLevel` 分档，未强化为银白，完整档位见 [强化掉落光束](Docs/Art/equipment-enhancement-loot-glow-20261009.md)。强化、附魔词缀和锻造工艺品质保留独立机制。细节见 [装备取消稀有度](Docs/UI/equipment-no-rarity-plan-20261009.md)。 为什么：装备强化和非装备稀有度是独立机制，混用会改变目录分类与界面含义。
 
-- 开发和发布先读 [WORKFLOW.md](WORKFLOW.md)，仓库整理、归档与推送遵守第 8 节。
-- 多会话／多子代理并行开发遵守 [WORKFLOW.md 第 7 节「构建串行化与并行编码」](WORKFLOW.md)：子代理默认只写码、不各自触发构建，合并点统一构建一次；任务按模块／文件切分，避免同批文件被并行写；已有构建在跑时等其结束再提交，不依赖 `-WaitMutex` 轮询抢锁。
-- 枪械读 [ue5-weapon-workflow](skills/ue5-weapon-workflow/SKILL.md)，手臂和 MAT 读 [ue5-fps-arms-animation](skills/ue5-fps-arms-animation/SKILL.md)。先参考现有动作，核对实际运行加载，再修改。
-- 天气读 [ue5-weather-workflow](skills/ue5-weather-workflow/SKILL.md)，调试读 [ue5-debug-validation](skills/ue5-debug-validation/SKILL.md)。
-- 流体特效（枪口烟、火焰／爆燃烟、水花／涟漪、毒液／毒池、血液及冷雾）的新增、优化与针对性修复，先读 [流体特效工作流](skills/ue5-fluid-vfx-workflow/SKILL.md)。后续同类任务按此标准制作，复用离线流体源、共享调度与有界池，保留已认可的水花方块修复；技能数值、枪械动作和怪物 AI 仍走对应领域技能。执行后台制作／必要编译／资产保存，不自动测试或验收。
-- 新建或改造面板、页签、栏目、卡片与弹窗，先读 [面板与栏目工作流](UI-WORKFLOW.md) 和 [UE UI 技能](skills/ue5-ui-umg-slate/SKILL.md)，按 [规划模板](Docs/UI/panel-column-plan-template.md) 明确结构、响应布局、数据范围、状态和交互，再按授权阶段制作／接入。
-- 冷钢 UI 以 [正式设计规则](Docs/UI/ui-cold-steel-design-system.md) 为准：黑灰低透明度玻璃、Noto Sans SC／JetBrains Mono、统一按钮；冲突的旧字体、配色和抽屉条款由该文替换。共享 `ColdSteelUIStyle`，不再复制近似主题。
-- 非枪械物品（药水、材料、弹药包装、卷轴）的图标、三视图、按精度分流的模型制作、材质与稀有度光效读 [ue5-item-asset-workflow](skills/ue5-item-asset-workflow/SKILL.md)。
-- 怪物制作、混元管线、专用绑骨、动画、布娃娃、战斗和村庄刷怪读 [ue5-monster-workflow](skills/ue5-monster-workflow/SKILL.md)。手脑案例中的未通过项不作为已完成标准。
-- **非人形死亡标准（用户指定，2026-10-05）**：后续采用螺柱 M-14 V19 的连续软体下落与摊地方式，按各模型制作独立代理和绑定；人形及类人双足暂不推广。具体范围、接入与重建工具见 [连续软体死亡标准](Docs/Monsters/continuous-soft-corpse-standard-20261005.md)。制作、构建与实际资产保存照常完成，不自动测试；本批其他怪物仍由用户体验。
-- 20 cm 体素建造（材质、放置构件、承重与倒塌数值）读 [体素建造工作流](Docs/Building/voxel-build-workflow.md)：任何材质的净跨 2 m 必须成立，改承重数值必须跑 `Tools/Building/run_voxel_stress_probe.ps1` 离线探针；带资产的 USTRUCT 不要用热补丁改。
-- 地貌破坏（丘陵高度场弹坑、铲子挖／填、下沉与抬升上限、性能开关）读 [地貌破坏：高度场方案](Docs/WorldGeneration/terrain-destruction-20260916.md)；体素地形已退役（归档在 `trash/voxel-terrain-retired-20260916/`），不要再叠加第二套地形。它与 20 cm 建造体素是两套语义，不要混用。
-- 丘陵地表材质（分层家族、按高度图混合、近景视差凹凸、顶点色与 `Wetness` 契约、材质 HLSL 离线校验）读 [丘陵地表材质：分层与凹凸](Docs/WorldGeneration/ground-material-layered-20260918.md)；运行时地形用 DynamicMesh，没有 Landscape，Landscape 节点一概不可用。重建一律走 `Tools/WorldGeneration/build_hills_ground_v2.py`，不要重跑已作废的三层／河岸旧脚本。
-- C++ 玩法实现（Actor/Component/DataAsset、UPROPERTY/UFUNCTION、GameplayTags）读 [ue5-cpp-gameplay](skills/ue5-cpp-gameplay/SKILL.md)；世界交互（拾取、生成器、overlap/trace、反馈）读 [ue5-world-interaction](skills/ue5-world-interaction/SKILL.md)；PCG 生成、模块化建筑与运行时高度场地表读 [ue5-pcg-building](skills/ue5-pcg-building/SKILL.md)；PIE 性能、打包前检查与发布就绪读 [ue5-performance-packaging](skills/ue5-performance-packaging/SKILL.md)。
-- UE 模块名（`RenderCore`、`AIModule` 等）到领域的对照表在 [UE 模块索引](skills/ue5-module-router/references/ue5-module-routing-table-final.csv)，**技能分流以本文件上面的清单为准**；该表约 76% 的行指向已不存在的技能（`ue5-architecture`、`ue5-save-load-replication`），只当模块清单查，不要按它的 `TargetSkill` 跳转。
-- 保留动画时序、UI、库存、存档和并行修改。源码编译与真实运行验收分别报告。
-- FPSGAME 后续开发把性能约束纳入制作：触及 HUD／属性／技能读取、场景灯光与几何、纹理或图标加载时，读取 [性能开发约束](skills/ue5-performance-packaging/references/fpsgame-performance-development.md)，复用有界缓存和已有调度，避免重新引入重复刷新、同步等待与无预算资源。保留已恢复的光追／Lumen；本规则不自动授权采样或测试。
-- 截图、渲染与候选图的判读：**交互读图直接用会话内挂载的 `read_image` 工具**（能看图、可追问、不需要 key）；需要批量、headless 调用或刻意不让图片字节进会话历史时才走 [读图脚本](Tools/deepseek-vision.ps1)。用法与边界见 [DeepSeek Flash 读图](Docs/deepseek-vision.md)。读图只做定性确认和差异列表；定量几何用像素测量，最终视觉验收仍由用户拍板。
-- 技能与魔法开发、迁移及左手施法读 [技能／魔法标准工作流](skills/ue5-skill-magic-workflow/SKILL.md)。当前火球左手 V3 已获用户认可，后续复用动作占用、数据接入与完整骨段方法，数值按具体技能调整。
-- 唯一日常开发及 Git 工作目录为 `D:/FPS3D/FPSGAME`，直接从这里提交并推送 `origin/main`。本目录已有独立 `.git`，不依赖 E 盘仓库。E 盘旧仓库/发布副本已退出工作流；不要再建立常驻同步副本。并行修改精确暂存，保留未提交工作。
-- 退役文件放 `trash/<task>/` 并记录散列。二进制资源及恢复边界见 [AssetSetup](Docs/AssetSetup.md)，未审核再分发许可的原始资源不公开提交。
+**详情与介绍标准（用户确定，2026-10-09）**：后续编写或修改武器／改造配件介绍，先读 [统一标准](skills/ue5-weapon-workflow/references/attachment-detail-presentation.md)。仅列直接属性；二段／三段攻击、附加伤害拆分和派生数值默认不列，总览也不保留，只有用户明确要求时例外；独立机制用简短特效段，外观不重复数值；改造台、物品浮窗和武器背景各用对应格式。 为什么：属性与机制分别呈现可避免派生数值重复展示或被误当作额外加成。
+
+**场景开发约定（用户确定，2026-10-01）**：新房间、栏杆/楼梯交互、样板预览和退役先读 [场景开发标准流程](skills/ue5-pcg-building/references/scene-development-standard.md)。统一翻越代码配合正确碰撞/标签；默认给控制台直达命令，不接祭坛出征菜单。用户确认并正式接入后，清理样板专属地图与临时入口，保留共用资产和制作源。 为什么：样板与正式入口生命周期不同，明确边界能保留共用资产并清除退役入口。
+
+**第一人称手模基准（用户于 2026-09-25 确定，2026-10-19 升级为 V9）**：以后新增、迁移和调整动画统一以当前认可的裸手、裸臂开发，游戏默认也使用这套。2026-10-19 用户认可现有 V9 手模，直接复用推广：V9 表面与材质、`JC_` 矫正形状、前臂扭转分配（twist_01 100%、twist_02 50%）。手套、衣袖作为装备外观匹配该手型并复用动画；旧原版手套仅保留为装备恢复版本。具体母版、各原生骨架派生及默认接入约定见 [认可的裸手基准](skills/ue5-fps-arms-animation/references/accepted-bare-hands.md)。此条替代旧文中默认使用原版手套手模的约定。 为什么：已认可手型是动作接触基线，换用旧手模会破坏握点、袖口和装备适配。
+
+当前工程为根目录 `FPSGAME.uproject`（UE 5.8.2）。用户已指定后续全面转向 UE5；Godot 只作为归档参考。完整本机宿主为 `D:/FPS3D/FPSGAME`，Git main 的当前源码直接位于根目录，不再仅发布 `unreal/<topic>` 摘录。 为什么：源码真源必须唯一，避免把归档或发布副本覆盖到正在开发的工程。
+
+- 开发和发布先读 [WORKFLOW.md](WORKFLOW.md)，仓库整理、归档与推送遵守第 8 节。 为什么：退役判断需要替代物和恢复记录，文件日期或名字不足以证明可删除。
+- 多会话／多子代理并行开发遵守 [WORKFLOW.md 第 7 节「构建串行化与并行编码」](WORKFLOW.md)：子代理默认只写码、不各自触发构建，合并点统一构建一次；任务按模块／文件切分，避免同批文件被并行写；已有构建在跑时等其结束再提交，不依赖 `-WaitMutex` 轮询抢锁。 为什么：共享引擎构建锁和 DLL 占用使重复并发构建相互阻塞。
+- 枪械读 [ue5-weapon-workflow](skills/ue5-weapon-workflow/SKILL.md)，手臂和 MAT 读 [ue5-fps-arms-animation](skills/ue5-fps-arms-animation/SKILL.md)。先参考现有动作与当前资产引用，再修改；运行加载检查仅在用户要求时进行。 为什么：「ue5-weapon-workflow」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 天气读 [ue5-weather-workflow](skills/ue5-weather-workflow/SKILL.md)，调试读 [ue5-debug-validation](skills/ue5-debug-validation/SKILL.md)。 为什么：「ue5-weather-workflow」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 流体特效（枪口烟、火焰／爆燃烟、水花／涟漪、毒液／毒池、血液及冷雾）的新增、优化与针对性修复，先读 [流体特效工作流](skills/ue5-fluid-vfx-workflow/SKILL.md)。后续同类任务按此标准制作，复用离线流体源、共享调度与有界池，保留已认可的水花方块修复；技能数值、枪械动作和怪物 AI 仍走对应领域技能。执行后台制作／必要编译／资产保存，不自动测试或验收。 为什么：「流体特效工作流」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 新建或改造面板、页签、栏目、卡片与弹窗，先读 [面板与栏目工作流](UI-WORKFLOW.md) 和 [UE UI 技能](skills/ue5-ui-umg-slate/SKILL.md)，按 [规划模板](Docs/UI/panel-column-plan-template.md) 明确结构、响应布局、数据范围、状态和交互，再按授权阶段制作／接入。 为什么：「面板与栏目工作流」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 冷钢 UI 以 [正式设计规则](Docs/UI/ui-cold-steel-design-system.md) 为准：黑灰低透明度玻璃、Noto Sans SC／JetBrains Mono、统一按钮；冲突的旧字体、配色和抽屉条款由该文替换。共享 `ColdSteelUIStyle`，不再复制近似主题。 为什么：「正式设计规则」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 非枪械物品（药水、材料、弹药包装、卷轴）的图标、三视图、按精度分流的模型制作、材质与稀有度光效读 [ue5-item-asset-workflow](skills/ue5-item-asset-workflow/SKILL.md)。 为什么：装备强化和非装备稀有度是独立机制，混用会改变目录分类与界面含义。
+- 怪物制作、混元管线、专用绑骨、动画、布娃娃、战斗和村庄刷怪读 [ue5-monster-workflow](skills/ue5-monster-workflow/SKILL.md)。手脑案例中的未通过项不作为已完成标准。 为什么：「ue5-monster-workflow」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- **非人形死亡标准（用户指定，2026-10-05）**：后续采用螺柱 M-14 V19 的连续软体下落与摊地方式，按各模型制作独立代理和绑定；人形及类人双足暂不推广。具体范围、接入与重建工具见 [连续软体死亡标准](Docs/Monsters/continuous-soft-corpse-standard-20261005.md)。制作、构建与实际资产保存照常完成，不自动测试；本批其他怪物仍由用户体验。 为什么：「连续软体死亡标准」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 20 cm 体素建造（材质、放置构件、承重与倒塌数值）读 [体素建造工作流](Docs/Building/voxel-build-workflow.md)：任何材质的净跨 2 m 必须成立，改承重数值时保留 `Tools/Building/run_voxel_stress_probe.ps1` 作为用户明确要求检查时的离线入口；带资产的 USTRUCT 不要用热补丁改。 为什么：建造体素与运行时高度场不是同一系统，套用错误生成或材质路线会破坏现有场景。
+- 地貌破坏（丘陵高度场弹坑、铲子挖／填、下沉与抬升上限、性能开关）读 [地貌破坏：高度场方案](Docs/WorldGeneration/terrain-destruction-20260916.md)；体素地形已退役（归档在 `trash/voxel-terrain-retired-20260916/`），不要再叠加第二套地形。它与 20 cm 建造体素是两套语义，不要混用。 为什么：退役判断需要替代物和恢复记录，文件日期或名字不足以证明可删除。
+- 丘陵地表材质（分层家族、按高度图混合、近景视差凹凸、顶点色与 `Wetness` 契约、材质 HLSL 离线校验）读 [丘陵地表材质：分层与凹凸](Docs/WorldGeneration/ground-material-layered-20260918.md)；运行时地形用 DynamicMesh，没有 Landscape，Landscape 节点一概不可用。重建一律走 `Tools/WorldGeneration/build_hills_ground_v2.py`，不要重跑已作废的三层／河岸旧脚本。 为什么：建造体素与运行时高度场不是同一系统，套用错误生成或材质路线会破坏现有场景。
+- C++ 玩法实现（Actor/Component/DataAsset、UPROPERTY/UFUNCTION、GameplayTags）读 [ue5-cpp-gameplay](skills/ue5-cpp-gameplay/SKILL.md)；世界交互（拾取、生成器、overlap/trace、反馈）读 [ue5-world-interaction](skills/ue5-world-interaction/SKILL.md)；PCG 生成、模块化建筑与运行时高度场地表读 [ue5-pcg-building](skills/ue5-pcg-building/SKILL.md)；PIE 性能、打包前检查与发布就绪读 [ue5-performance-packaging](skills/ue5-performance-packaging/SKILL.md)。 为什么：重复读取、同步加载和无预算工作会直接进入游戏帧，复用现有调度可控制成本。
+- UE 模块名（`RenderCore`、`AIModule` 等）到领域的对照表在 [UE 模块索引](skills/ue5-module-router/references/ue5-module-routing-table-final.csv)，**技能分流以本文件上面的清单为准**；该表的 `TargetSkill` 不自动代表当前仓库入口；按本仓库实际存在的 SKILL 分流，个人维护源与工程镜像分别定位。 为什么：「UE 模块索引」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 保留动画时序、UI、库存、存档和并行修改。源码编译与真实运行验收分别报告。 为什么：文件保存、编译成功与运行效果对应不同证据，不能相互代替。
+- FPSGAME 后续开发把性能约束纳入制作：触及 HUD／属性／技能读取、场景灯光与几何、纹理或图标加载时，读取 [性能开发约束](skills/ue5-performance-packaging/references/fpsgame-performance-development.md)，复用有界缓存和已有调度，避免重新引入重复刷新、同步等待与无预算资源。保留已恢复的光追／Lumen；本规则不自动授权采样或测试。 为什么：用户选定的光照基线需要保留，清理或性能工作不能暗中改变画面路线。
+- 截图、渲染与候选图的判读：**交互读图使用当前会话实际提供的原生读图工具**（能看图、可追问、不需要 key）；需要批量、headless 调用或刻意不让图片字节进会话历史时才走 [读图脚本](Tools/deepseek-vision.ps1)。用法与边界见 [DeepSeek Flash 读图](Docs/deepseek-vision.md)。读图只做定性确认和差异列表；定量几何用像素测量，最终视觉验收仍由用户拍板。 为什么：「读图脚本」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 技能与魔法开发、迁移及左手施法读 [技能／魔法标准工作流](skills/ue5-skill-magic-workflow/SKILL.md)。当前火球左手 V3 已获用户认可，后续复用动作占用、数据接入与完整骨段方法，数值按具体技能调整。 为什么：「技能／魔法标准工作流」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 唯一日常开发及 Git 工作目录为 `D:/FPS3D/FPSGAME`，直接从这里提交并推送 `origin/main`。本目录已有独立 `.git`，不依赖 E 盘仓库。E 盘旧仓库/发布副本已退出工作流；不要再建立常驻同步副本。并行修改精确暂存，保留未提交工作。 为什么：源码真源必须唯一，避免把归档或发布副本覆盖到正在开发的工程。
+- 退役文件放 `trash/<task>/` 并记录散列。二进制资源及恢复边界见 [AssetSetup](Docs/AssetSetup.md)，未审核再分发许可的原始资源不公开提交。 为什么：退役判断需要替代物和恢复记录，文件日期或名字不足以证明可删除。
 
 ## 通用模型生成入口（2026-09-13）
 
-**面数与装备表面标准（用户确定，2026-09-29）：** 模型面数与 LOD 按 [用途预算](skills/asset-model-workflow/references/geometry-budgets-by-use.md) 分配：复杂近景物体允许高面数，区间不是强制上限；不为凑数损伤轮廓、厚度和关键变形，也不由面数推算帧率。手套／衣物表面制作读 [高模烘焙、材质与实体厚度标准](skills/ue5-fps-arms-animation/references/glove-clothing-surface-production.md)，按活动家族保留原生绑定和动作，并同步装备图标；案例参数与脚本见其配方参考。默认不主动减面、测试或打开 UE。
+**面数与装备表面标准（用户确定，2026-09-29）：** 模型面数与 LOD 按 [用途预算](skills/asset-model-workflow/references/geometry-budgets-by-use.md) 分配：复杂近景物体允许高面数，区间不是强制上限；不为凑数损伤轮廓、厚度和关键变形，也不由面数推算帧率。手套／衣物表面制作读 [高模烘焙、材质与实体厚度标准](skills/ue5-fps-arms-animation/references/glove-clothing-surface-production.md)，按活动家族保留原生绑定和动作，并同步装备图标；案例参数与脚本见其配方参考。默认不主动减面、测试或打开 UE。 为什么：衣物必须延续当前骨架与穿戴组合，外观修改不能破坏已有接缝和动作。
 
-用户指定新的配件、枪械、怪物、道具和建材模型生成采用 [asset-model-workflow](skills/asset-model-workflow/SKILL.md)。先按形态与精度分流：5080 优先用于冰锥、矿石、树干等不规则粗糙主体；精细小件、工具、灯具和规则构件优先 Blender／Vibe3D 精确建模，再转对应领域技能。保留明确指定的模型路线与已认可资产；不得将后握把参数直接套到所有类别。继续遵守默认不主动测试、预览或验收的用户规则。
+用户指定新的配件、枪械、怪物、道具和建材模型生成采用 [asset-model-workflow](skills/asset-model-workflow/SKILL.md)。先按形态与精度分流：5080 优先用于冰锥、矿石、树干等不规则粗糙主体；精细小件、工具、灯具和规则构件优先 Blender／Vibe3D 精确建模，再转对应领域技能。保留明确指定的模型路线与已认可资产；不得将后握把参数直接套到所有类别。继续遵守默认不主动测试、预览或验收的用户规则。 为什么：不同几何与变形需求需要不同制作路线，统一套用面数或生成参数会损失有效细节。
 
 ## Vibe3D 建模入口（2026-09-19）
 
-规则几何与模型后处理使用 [Vibe3D 制作与后处理](skills/asset-model-workflow/references/vibe3d-workflow.md)，由通用模型技能分流；PCG、动画、玩法接入继续走各自技能。按需使用现有 UE MCP 桥，不自动运行插件测试、截图或建模验收，不批量替换已认可资产。
+规则几何与模型后处理使用 [Vibe3D 制作与后处理](skills/asset-model-workflow/references/vibe3d-workflow.md)，由通用模型技能分流；PCG、动画、玩法接入继续走各自技能。按需使用现有 UE MCP 桥，不自动运行插件测试、截图或建模验收，不批量替换已认可资产。 为什么：不同几何与变形需求需要不同制作路线，统一套用面数或生成参数会损失有效细节。
+
+## 清理工作的范围
+
+- 按功能建立最多三级模块清单，每批明确目录和入口；先列死代码与重复逻辑证据。为什么：模块边界让清理范围可以审阅，避免把全仓逐文件阅读误当成已完成审计。
+- 单个代码文件超过 800 行时先交付拆分方案，本批不修改该文件。为什么：大文件的调用、状态与生成来源必须先分清，才能保留现有行为。
+- 规则保留项附写原因；源码没有实现的历史方案从现行入口移除，兼容数据与用户工作约定不能仅因无代码符号而删除。为什么：规则要能解释当前工程，同时防止误删存档合同或用户限制。

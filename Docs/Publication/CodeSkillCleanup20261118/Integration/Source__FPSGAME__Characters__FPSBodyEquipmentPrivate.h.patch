@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Characters/FPSBodyEquipmentPrivate.h b/Source/FPSGAME/Characters/FPSBodyEquipmentPrivate.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Characters/FPSBodyEquipmentPrivate.h
+@@ -0,0 +1,6 @@
++#pragma once
++class UPrimitiveComponent;
++namespace FPSBodyEquipment
++{
++void WorldVisibility(UPrimitiveComponent* Mesh);
++}

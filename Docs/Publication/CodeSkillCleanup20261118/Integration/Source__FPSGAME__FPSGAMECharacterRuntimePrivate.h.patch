@@ -1,0 +1,73 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterRuntimePrivate.h b/Source/FPSGAME/FPSGAMECharacterRuntimePrivate.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterRuntimePrivate.h
+@@ -0,0 +1,68 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Weapons/WeaponHandling.h"
++#include "HAL/IConsoleManager.h"
++class USoundBase;
++
++namespace FPSCharacterRuntimePrivate
++{
++extern TAutoConsoleVariable<float> BuildLookSensitivity;
++extern TAutoConsoleVariable<float> CameraShakeScale;
++extern TAutoConsoleVariable<float> ClipRecoilScale;
++extern TAutoConsoleVariable<int32> ConvergenceDiag;
++extern TAutoConsoleVariable<int32> LeftHandPoseMirror;
++extern TAutoConsoleVariable<float> LeftHandGripOffsetX;
++extern TAutoConsoleVariable<float> LeftHandGripOffsetY;
++extern TAutoConsoleVariable<float> LeftHandGripOffsetZ;
++extern TAutoConsoleVariable<float> LeftHandGripRoll;
++}
++
++namespace AKMSource
++{
++    inline constexpr float FireVolume = 0.562341f;
++    inline constexpr float ActionVolume = 0.630957f;
++    // Retrigger fades. Long enough to remove the click from cutting a live voice,
++    // short enough that fast fire still reads as a fresh transient per shot.
++    inline constexpr float FireVoiceFadeSeconds = 0.015f;
++    inline constexpr float MechanicalVoiceFadeSeconds = 0.012f;
++    inline constexpr float KickStiffness = 210.0f;
++    inline constexpr float KickDamping = 16.0f;
++    inline constexpr float JitterStiffness = 7000.0f;
++    inline constexpr float JitterDamping = 48.0f;
++    inline constexpr float FlipStiffness = 260.0f;
++    inline constexpr float FlipDamping = 16.0f;
++    inline constexpr float CameraKickStiffness = FWeaponHandling::CameraStiffness;
++    inline constexpr float CameraKickDamping = FWeaponHandling::CameraDamping;
++    inline constexpr float CameraADSExtraDamping = FWeaponHandling::CameraADSDamping;
++    // Amplitude base of the whole shot camera layer (kick, jitter, trauma). It
++    // was 0.5, which left the per-shot camera motion around 0.2 degrees - the
++    // viewmodel shook while the view behind the crosshair barely moved.
++    inline constexpr float FeedbackScale = 1.0f;
++    inline constexpr float ViewmodelGain = 0.35f;
++    inline constexpr float ADSCameraImpulse = 34.0f;
++    inline constexpr float ADSAxialScale = 3.2f;
++    inline constexpr float HipAxialScale = 2.2f;
++    inline constexpr float ADSHorizontalScale = 0.30f;
++    // Trauma is squared when rendered, so the gain sets how many shots it takes
++    // for the sustained burst shake to become visible. 0.11 reaches full trauma
++    // inside one magazine; 3.0 keeps it alive across the gaps of a burst.
++    inline constexpr float ShakeDecay = 3.0f;
++    inline constexpr float FOVPunchDecay = 6.5f;
++    inline constexpr float FOVSmooth = 10.0f;
++    inline constexpr float RecoveryDelay = 0.30f;
++    inline constexpr float RecoveryInterval = 0.05f;
++}
++
++namespace M1911Source
++{
++    inline constexpr const TCHAR* MeshPath = TEXT("/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny.SK_M1911_Manny");
++    inline constexpr float MagazineOut = 38.f / 120.f;
++    inline constexpr float MagazineInsert = 126.f / 120.f;
++    inline constexpr float MagazineSeat = 128.f / 120.f;
++    inline constexpr float SlideRelease = 192.f / 120.f;
++}
++
++namespace PKMReloadAudio
++{
++USoundBase* LoadContact(const TCHAR* Name);
++}

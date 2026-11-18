@@ -1,0 +1,676 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterFiring.cpp b/Source/FPSGAME/FPSGAMECharacterFiring.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterFiring.cpp
+@@ -0,0 +1,671 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++double AFPSGAMECharacter::EffectiveFireInterval() const
++{
++    const double Base = FMath::Max(0.001, static_cast<double>(FireInterval));
++    const double Interval = Base * ColdSteelCombat::TurboIntervalMultiplier(TurboRampParams, TurboRampSeconds);
++    const double Clamped=IsSaiga12KWeapon()?FMath::Max(double(Saiga12KWeaponAssets::MinimumAttackInterval),Interval):IsTubeShotgunWeapon()?FMath::Max(TubeShotgunAssets::MinimumInterval(ActiveInventoryWeaponDefinition),Interval):Interval;
++    return Clamped/LightningHaste::ActionSpeed(this);
++}
++
++void AFPSGAMECharacter::UpdateTurboRamp(float DeltaSeconds)
++{
++    // 与原版能量轻机枪同口径：只有真正在持续开火时才累积，停火立即回落到初始射速。
++    const bool bSustained = TurboRampParams.Enabled && bFireHeld && bInventoryWeaponReady
++        && !IsWeaponBusy() && !bIsSprinting && MagazineAmmo > 0
++        && GetWorld()->GetTimeSeconds() + 1.e-6 >= SprintFireUnlockTime;
++    if (!bSustained) { TurboRampSeconds = 0.0; return; }
++    TurboRampSeconds = FMath::Min(TurboRampParams.Seconds, TurboRampSeconds + DeltaSeconds);
++}
++
++void AFPSGAMECharacter::ServiceHeldFire()
++{
++    if(IsDualWieldingPistols())return;
++    if (!bFireHeld || (UsesSingleShotTrigger() && !bPistolShotPending)) return;
++    const double Now = GetWorld()->GetTimeSeconds();
++    if (IsWeaponBusy() || bIsSprinting || (bUseM16 && IsCastBlockingLeftHandAction()))
++    {
++        if (bUseM16) FireReleased();
++        NextAllowedShotTime = FMath::Max(NextAllowedShotTime, Now);
++        return;
++    }
++    NextAllowedShotTime = FMath::Max(NextAllowedShotTime, SprintFireUnlockTime);
++    if (Now < SprintFireUnlockTime) return;
++
++    // At 500 RPM, the world's default 0.4 s maximum delta has at most four due
++    // shots. Process every eligible event, keeping the fractional cadence phase.
++    for (int32 I = 0; I < MaxFireCatchUpShots && bFireHeld && Now + 1.e-6 >= NextAllowedShotTime; ++I)
++    {
++        const double PreviousDeadline = NextAllowedShotTime;
++        FireShot();
++        if (UsesSingleShotTrigger()) break;
++        if (IsWeaponBusy() || bIsSprinting || !bFireHeld
++            || NextAllowedShotTime <= PreviousDeadline) break;
++    }
++    if (bFireHeld && !IsWeaponBusy() && !bIsSprinting && Now + 1.e-6 >= NextAllowedShotTime)
++    {
++        // A custom world limit may allow a much longer hitch. Discard excess
++        // beyond the bounded batch, preserving cadence without future debt.
++        const double Interval = EffectiveFireInterval();
++        const double Remainder = FMath::Fmod(FMath::Max(0.0, Now - NextAllowedShotTime), Interval);
++        NextAllowedShotTime = Now + Interval - Remainder;
++    }
++}
++
++void AFPSGAMECharacter::FireShot()
++{
++    if(IsDualWieldingPistols())return;
++    if(BipodDeployment && BipodDeployment->BlocksFire())return;
++    if (!bInventoryWeaponReady) return;
++    auto* Super90PS=IsTubeShotgunWeapon()?GetPlayerState<AColdSteelPlayerState>():nullptr;
++    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
++        if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();!PS||!PS->IsPistolServerReady(ActiveInventoryWeapon)||PS->IsPistolReloadPending(ActiveInventoryWeapon))return;
++    const bool PredictSuper90=IsTubeShotgunWeapon()&&GetNetMode()==NM_Client;
++    if(PredictSuper90&&(!Super90PS||!Super90PS->IsSuper90ServerReady(ActiveInventoryWeapon)||Super90PS->IsSuper90ReloadPending()))return;
++    if (bUseM16 && BurstShotsRemaining <= 0) return;
++    const float WeaponAudioGain = bUseQBZ191 || IsRSH12Weapon() ? 1.0f : 2.0f;
++    const double Now = GetWorld()->GetTimeSeconds();
++    if (IsWeaponBusy() || bIsSprinting || Now < SprintFireUnlockTime || Now + 1.e-6 < NextAllowedShotTime) return;
++    if(NeedsReloadCycle()){ReloadPressed();return;}
++    if (MagazineAmmo <= 0)
++    {
++        if (HasInfiniteReserveAmmo() || ReserveAmmo > 0) ReloadPressed();
++        else { FireReleased(); PlaySound2D(DryClickSound, 0.501187f * WeaponAudioGain); }
++        return;
++    }
++    // 汇聚（附魔）：一次射击打空弹匣，本发按消耗发数聚合结算；未附魔固定消耗 1 发。
++    const int32 ConvergenceRounds = ConvergenceParams.Enabled ? MagazineAmmo : 1;
++    const float ConvergenceScale = static_cast<float>(ColdSteelCombat::ConvergenceShotScale(ConvergenceParams, ConvergenceRounds));
++    MagazineAmmo -= ConvergenceRounds;
++    LastShotConvergenceRounds = ConvergenceRounds; // 命中上报复核包络用（见 AColdSteelPlayerState::ForwardHit）
++    if(ConvergenceParams.Enabled&&ConvergenceDiag.GetValueOnGameThread()!=0)
++        UE_LOG(LogTemp,Display,TEXT("CONVERGENCE_SHOT rounds=%d scale=%.3f damage=%.1f mag_left=%d"),
++            ConvergenceRounds,ConvergenceScale,DamagePerShot*ConvergenceScale,MagazineAmmo);
++    if(MagazineAmmo==0 && IsCastBlockingLeftHandAction())bReloadAfterCasting=true;
++    if (UsesSingleShotTrigger()) bPistolShotPending = false;
++    ++ShotsFired;
++    const bool bSuppressedNoise = IsMuzzleSuppressed();
++    const bool bSniperLaunch=SniperSuppressorAssets::SupportsZhiming(ActiveInventoryWeaponDefinition);
++    if(!PredictSuper90&&(HasAuthority()||!bSniperLaunch))
++        WeaponShotNoise::Report(this,ActiveInventoryWeaponDefinition,MuzzleVariant,bSuppressedNoise);
++    LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
++    if (TriggerFirstShotWorldTime < 0.0) TriggerFirstShotWorldTime = Now;
++    // Remote body recoil uses this stamp; gun audio/flash/casing use the per-hand event below.
++    if (!HasAuthority()&&!PredictSuper90)
++    {
++        if(auto* PS=GetPlayerState<AColdSteelPlayerState>())
++        {
++            if(bSniperLaunch)PS->ServerRememberM24Launch(this,ActiveInventoryWeapon,uint32(ShotsFired),ConvergenceRounds);
++            else if(IsPistolWeapon())PS->ServerReportShotStamp();
++        }
++    }
++    const double ShotInterval = EffectiveFireInterval();
++    NextAllowedShotTime += ShotInterval;
++    // Super90's minimum is an actual inter-shot gap, including after a hitch.
++    if(IsShotgunWeapon())NextAllowedShotTime=FMath::Max(NextAllowedShotTime,Now+ShotInterval);
++    if (bUseM16 && (--BurstShotsRemaining == 0 || MagazineAmmo == 0))
++    {
++        BurstShotsRemaining=0;
++        bFireHeld=false;
++        NextAllowedShotTime=FMath::Max(NextAllowedShotTime,Now+BurstRecoverySeconds);
++    }
++    // Snapshot visible aim before restarting the mechanical action or adding recoil.
++    const FVector TraceStart = FirstPersonCamera->GetComponentLocation();
++    FVector TraceDirection = ComputeShotDirection();
++    const FTransform ShotMuzzle=GetEffectiveMuzzleTransform();
++    const FVector Muzzle=ShotMuzzle.GetLocation()+ShotMuzzle.GetRotation().GetAxisX()*2.f; // 2 cm clearance beyond the visible exit, before animation.
++    FRandomStream Super90Random;
++    const bool PreciseSuper90Aim=bIsAiming||WeaponADSFactor>.98f;
++    if(PredictSuper90)
++    {
++        const FVector Aim=PreciseSuper90Aim?TraceDirection:FirstPersonCamera->GetForwardVector();
++        const uint32 Sequence=Super90PS->RequestSuper90Shot(ActiveInventoryWeapon,TraceStart,Muzzle,Aim,PreciseSuper90Aim,ConvergenceRounds);
++        if(IsM870Weapon())M870ShotSequence=Sequence;
++        Super90Random.Initialize(Super90Spread::Seed(Sequence));
++        const FRotationMatrix Basis(Aim.Rotation());
++        const float Spread=PreciseSuper90Aim?0.f:GetHipSpread();
++        const float X=Super90Random.FRandRange(-Spread,Spread),Y=Super90Random.FRandRange(-Spread,Spread);
++        TraceDirection=(Aim+Basis.GetUnitAxis(EAxis::Y)*X+Basis.GetUnitAxis(EAxis::Z)*Y).GetSafeNormal();
++    }
++    UAnimSequence* Animation = bIsAiming ? AimFireAnimation : FireAnimation;
++    if (bUseM1911 && MagazineAmmo == 0)
++        Animation = bIsAiming ? PistolAimFireLastAnimation : PistolFireLastAnimation;
++    if(IsTubeShotgunWeapon()&&MagazineAmmo==0)Animation=PistolFireLastAnimation;
++    // PKM advances one belt pitch per shot. Complete the authored cycle before
++    // the next shot even when the effective fire interval is shortened.
++    const float HasteShotRate=LightningHaste::ActionSpeed(this);
++    float ShotAnimationRate = HasteShotRate;
++    if (Animation && PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel))
++        ShotAnimationRate = FMath::Max(HasteShotRate, Animation->GetPlayLength() / FMath::Max(0.01f, static_cast<float>(ShotInterval)));
++    if(Animation && IsRSH12Weapon())
++        ShotAnimationRate=Animation->GetPlayLength()/FMath::Max(.01f,float(ShotInterval));
++    if(Animation && IsTubeShotgunWeapon())
++    {
++        // Fit recoil/bolt cycling to the new 60 ms cadence. The last-round
++        // source appends an inspection, which is not part of a shot cycle.
++        const float ShotLength=!IsM870Weapon()&&Animation==PistolFireLastAnimation
++            ?FMath::Min(Animation->GetPlayLength(),22.f/60.f):Animation->GetPlayLength();
++        ShotAnimationRate=FMath::Max(HasteShotRate,ShotLength/FMath::Max(.01f,float(ShotInterval)));
++    }
++    if(Animation&&IsM24Weapon())ShotAnimationRate=M24CyclePlayRate();
++    PlayWeaponAnimation(Animation, false, ShotAnimationRate);
++    if(IsM24Weapon()){M24CycleCueMask=0;bM24PendingCasing=false;NextAllowedShotTime=Now+FMath::Max(ShotInterval,double(ActionDuration));}
++    if(IsM870Weapon()){M870PumpCueMask=0;M870PendingCasingWeapons.Remove(ActiveInventoryWeapon);}
++    if(IsRSH12Weapon())
++    {
++        // The double-action trigger cycle fits the effective cadence; no thumb latch.
++        NextAllowedShotTime=Now+FMath::Max(ShotInterval,double(ActionDuration));
++        NextMechanicalCue=0;
++    }
++    GetWorldTimerManager().ClearTimer(WeaponPoseTimerHandle);
++    USoundBase* ShotSound=IsMuzzleSuppressed()&&SuppressedFireSound?SuppressedFireSound.Get():FireSound.Get();
++    const auto& RifleVariants = IsMuzzleSuppressed() ? RifleSuppressedVariants : RifleFireVariants;
++    float ShotPitch=1.f;
++    // PKM raises bUsingM4Infima too, but it must not inherit the M4's
++    // stop-and-restart voice: a 650 RPM machine gun needs its previous one-shot
++    // to keep ringing under the next one. Only the M4 keeps that dedicated
++    // component (the muzzle-migration audit reads it by name).
++    const bool bUsesDedicatedM4Voice = bUsingM4Infima
++        && !PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel);
++    if (!RifleVariants.IsEmpty())
++    {
++        int32 Variant = FMath::RandRange(0, RifleVariants.Num() - 1);
++        if (RifleVariants.Num() > 1 && Variant == LastRifleFireVariant)
++            Variant = (Variant + FMath::RandRange(1, RifleVariants.Num() - 1)) % RifleVariants.Num();
++        LastRifleFireVariant = Variant;
++        // Overlapping short recording tails survive the next shot; concurrency bounds burst buildup.
++        ShotSound=RifleVariants[Variant];ShotPitch=bUseQBZ191?FMath::FRandRange(.992f,1.008f):1.f;
++        UGameplayStatics::PlaySound2D(this, ShotSound, AKMSource::FireVolume * WeaponAudioGain,
++            ShotPitch, 0.0f, RifleFireConcurrency, this);
++    }
++    else if (bUsesDedicatedM4Voice && M4FireVoice && ShotSound)
++    {
++        // Match Godot's single AudioStreamPlayer: restart each shot at original pitch.
++        M4FireVoice->Stop();
++        M4FireVoice->SetSound(ShotSound);
++        M4FireVoice->SetVolumeMultiplier(AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f) * WeaponAudioGain);
++        M4FireVoice->SetPitchMultiplier(1.0f);
++        M4FireVoice->Play();
++    }
++    else PlayFireVoice(ShotSound, AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f) * WeaponAudioGain);
++    if(auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>())
++        Body->ReportGunShot(0,ShotSound,AKMSource::FireVolume*(RifleVariants.IsEmpty()&&IsPistolWeapon()?1.5f:1.f)*WeaponAudioGain,ShotPitch,bIsAiming);
++
++    // 汇聚把整匣伤害聚合到这一发；伤害类型仍由 Shot.DamagePanel 的比例决定，不因缩放改变。
++    const auto* ShotProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    const auto* ShotItem=ShotProfile?ShotProfile->FindItem(ActiveInventoryWeapon):nullptr;
++    const int32 NativePelletCount=IsShotgunWeapon()?Super90WeaponAssets::PelletCount:1;
++    const int32 PelletCount=ShotItem?ShotProfile->AmmoProjectileCount(*ShotItem,NativePelletCount):NativePelletCount;
++    const float PelletCone=Super90Spread::ConeRadians(PelletCount,PreciseSuper90Aim,GetShotgunPelletSpreadMultiplier());
++    const bool Duckbill=PelletCount>1&&HasShotgunDuckbill();
++    const float ShotDamage=DamagePerShot*ConvergenceScale/PelletCount;
++    // 暴击每发只掷一次（2026-10-19）：霰弹多弹丸、穿透多目标共用同一个样本，
++    // 面板暴击率就是这一发的真实概率；没有预掷的路径（近战/快捷进战）仍按接触点各掷。
++    ShotCriticalRoll=FMath::FRand();
++    auto Training=ColdSteelSkills::Snapshot(this,nullptr,true);
++    Training.CriticalRoll=ShotCriticalRoll;
++    Training.FireSequence=uint32(ShotsFired);
++    if(!HasAuthority()&&ShotItem)
++        if(auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsGenericFirearm(*ShotItem))
++            PS->ServerRememberGenericLaunch(this,ShotItem->InstanceId,uint32(ShotsFired),ConvergenceRounds);
++    if(IsPistolWeapon()&&!HasAuthority()&&ShotItem&&ShotProfile)
++        if(auto* PS=GetPlayerState<AColdSteelPlayerState>())
++            PS->RequestPistolShot(uint32(ShotsFired),ShotItem->InstanceId,ShotProfile->Snapshot().ActiveWeaponSlot,ConvergenceRounds);
++    Training.FiredRounds=ConvergenceRounds;
++    const auto Effects=ColdSteelCombat::Snapshot(this);
++    TArray<FVector_NetQuantizeNormal> ShotDirections;
++    for(int32 Pellet=0;Pellet<PelletCount;++Pellet)
++    {
++    const FVector PelletDirection=Duckbill?
++        Super90Spread::HorizontalFan(TraceDirection,PelletCone,Pellet,PelletCount,PredictSuper90?Super90Random.FRand():FMath::FRand()):
++        PelletCount>1?(PredictSuper90?Super90Random.VRandCone(TraceDirection,PelletCone):FMath::VRandCone(TraceDirection,PelletCone)):TraceDirection;
++    FHitResult Hit;
++    FCollisionQueryParams Params(SCENE_QUERY_STAT(AKMFire), true, this);
++    Params.bReturnPhysicalMaterial = true;
++    Params.bReturnFaceIndex = true; // Reuse the hit triangle for cosmetic surface selection; no extra trace.
++    FHitResult AimHit;
++    const bool bAimHit = RangedAttackQuery::LineTraceSingle(GetWorld(), this, AimHit, TraceStart, TraceStart + PelletDirection * TraceDistance, ECC_Visibility, Params);
++    const FVector AimTarget = bAimHit ? AimHit.ImpactPoint : TraceStart + PelletDirection * TraceDistance;
++    // A muzzle beyond a wall must not damage targets through it, even if the camera can see them.
++    bool bHit = RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit, TraceStart, Muzzle, ECC_Visibility, Params);
++    bLastShotMuzzleBlocked = bHit;
++    if (!bHit)
++    {
++        if(ProjectileSpeedCM>0)
++        {
++            const FVector Flight=(AimTarget-Muzzle).GetSafeNormal();
++            if(IsTubeShotgunWeapon())ShotDirections.Add(Flight);
++            Ballistics->Launch(Muzzle,Flight,ProjectileSpeedCM,TraceDistance,ShotDamage,WeaponFX,CriticalHitSound,EffectiveWeaponRangeCM,ShotItem,ConvergenceParams.Enabled,PredictSuper90,uint32(ShotsFired),ConvergenceRounds);
++        }
++        else
++        {
++            bHit=RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,Muzzle,AimTarget+PelletDirection*2.f,ECC_Visibility,Params);
++            WeaponFX->OnTracerSegment(Muzzle,bHit?Hit.ImpactPoint:AimTarget,ConvergenceParams.Enabled);
++        }
++    }
++    if (bHit && Hit.GetActor()&&!PredictSuper90)
++    {
++        const float HitDamage=ShotDamage*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,Hit.ImpactPoint),EffectiveWeaponRangeCM);
++        FWeaponDamageResult DamageResult;
++        const float Applied=ColdSteelSkills::ApplyHit(this,Hit,HitDamage,PelletDirection,Training,&DamageResult);
++        NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
++        ColdSteelCombat::OnHit(Hit,this,Effects.Poison);
++        if(!bLastShotMuzzleBlocked&&ProjectileSpeedCM<=0){
++            FHitResult NextHit=Hit;int32 Remaining=Effects.Piercing;
++            while(Remaining-->0&&Cast<APawn>(NextHit.GetActor())){
++                Params.AddIgnoredActor(NextHit.GetActor());
++                if(!RangedAttackQuery::LineTraceSingle(GetWorld(), this, NextHit,Muzzle,TraceStart+PelletDirection*TraceDistance,ECC_Visibility,Params))break;
++                const float NextDamage=ShotDamage*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,NextHit.ImpactPoint),EffectiveWeaponRangeCM);
++                if(NextHit.GetActor())
++                {
++                    FWeaponDamageResult NextResult;
++                    const float NextApplied=ColdSteelSkills::ApplyHit(this,NextHit,NextDamage,PelletDirection,Training,&NextResult);
++                    NotifyConfirmedWeaponHit(NextHit.GetActor(),NextApplied,&NextResult,true);
++                }
++                ColdSteelCombat::OnHit(NextHit,this,Effects.Poison);WeaponFX->OnImpact(NextHit);
++            }
++        }
++        if (ColdSteelSkills::IsCriticalHit(Hit))
++            PlaySound2D(CriticalHitSound, AKMSource::ActionVolume);
++    }
++    if (bHit) WeaponFX->OnImpact(Hit);
++    }
++    if(Super90PS&&HasAuthority()&&GetNetMode()!=NM_Standalone)
++        Super90PS->MulticastSuper90Shot(this,Muzzle,ShotDirections,ProjectileSpeedCM,TraceDistance,PreciseSuper90Aim,bSuppressedNoise,ActiveInventoryWeapon,GetWorld()->GetTimeSeconds(),M870PumpPlayRate());
++    WeaponFX->OnShotAtMuzzle(bIsAiming,ShotMuzzle);
++    ApplyShotFeedback();
++    // The final real shot receives its earned bonus. An empty magazine starts no new burst.
++    if (bStabilityGripInstalled && MagazineAmmo == 0) TriggerFirstShotWorldTime = -1.;
++    // 连点扩散按武器系数缩放（1 = 参考枪），上限同步缩放：耐用型武器连打不劣化。
++    if(!bIsAiming){const float Growth=WeaponHandling.SpreadGrowthScale;CurrentSpread = FMath::Min(0.018f*Growth, CurrentSpread + 0.003f*Growth);}
++}
++
++void AFPSGAMECharacter::ApplyShotFeedback()
++{
++    const double VisualNow=GetWorld()->GetTimeSeconds();
++    const float GripAlpha = StabilityGripFireAlpha(VisualNow);
++    LastShotGripRecoilMultiplier = LMGStabilityGrip::AdditionalRecoilMultiplier(GripAlpha);
++    const float ShotRecoil = (BipodDeployment ? BipodDeployment->RecoilMultiplier() : 1.f) * LastShotGripRecoilMultiplier;
++    const FWeaponHandling FeedbackHandling = FeedbackHandlingAt(GripAlpha);
++    const float ComposureRecoil=ColdSteelCombat::ComposureRecoilMultiplier(this);
++    const float EffectiveBallisticRecoilScale=BallisticRecoilScale*ComposureRecoil;
++    AdvanceVisualWeaponRecoil(VisualNow);
++    const double BurstReset=FMath::Clamp(static_cast<double>(FireInterval)*2.5,.25,.45);
++    VisualBurstIndex=VisualNow-LastVisualShotAt>BurstReset?0:FMath::Min(VisualBurstIndex+1,8);
++    LastVisualShotAt=VisualNow;
++    ClipRecoilSeconds=0.f;
++    VisualRecoverAt=VisualNow+FMath::Clamp(static_cast<double>(FireInterval)*.8,.065,.12);
++    const auto VisualProfile=IsM24Weapon()?M24Recoil::VisualProfile():FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
++    const float CameraShake=FMath::Max(0.f,CameraShakeScale.GetValueOnGameThread())*(IsRSH12Weapon()?1.12f:1.f);
++    // A defined first pulse followed by smaller settled pulses, rather than
++    // increasing random tumbling as the automatic burst continues.
++    const float BurstGain=VisualBurstIndex==0?1.12f:FMath::Lerp(1.f,.86f,VisualBurstIndex/8.f);
++    const int32 PatternCount = FWeaponHandling::PatternCount;
++    const FVector2D Pattern = FWeaponHandling::Pattern(RecoilPatternIndex);
++    if(RecoilPatternIndex==0)ADSHorizontalRecoilIndex=0;
++    const float HorizontalDegrees=bIsAiming?FeedbackHandling.ADSHorizontalDegrees(ADSHorizontalRecoilIndex)
++        :FMath::RadiansToDegrees(Pattern.Y)*EffectiveBallisticRecoilScale;
++    if (Controller)
++    {
++        FRotator Aim = Controller->GetControlRotation();
++        Aim.Pitch = FMath::Clamp(FRotator::NormalizeAxis(Aim.Pitch) + FMath::RadiansToDegrees(Pattern.X) * EffectiveBallisticRecoilScale * ShotRecoil, -85.0f, 85.0f);
++        Aim.Yaw += HorizontalDegrees * ShotRecoil;
++        Controller->SetControlRotation(Aim);
++    }
++    RecoilPatternIndex = FMath::Min(RecoilPatternIndex + 1, PatternCount - 1);
++    if(bIsAiming)ADSHorizontalRecoilIndex=(ADSHorizontalRecoilIndex+1)%FWeaponHandling::PatternCount;
++    TimeSinceLastShot = 0.0f;
++    PatternRecoveryAccumulator = 0.0f;
++    const float Horizontal = FMath::Clamp(Pattern.Y / 0.003f + FMath::FRandRange(-0.35f, 0.35f), -1.0f, 1.0f);
++    // 只有"扩散/移动/滞空带来的额外部分"受武器系数缩放，静止的基础项固定 1.0。
++    const float RecoilLoadExtra = FMath::Clamp((CurrentSpread + MoveSpread + AirSpread) / 0.024f, 0.0f, 2.0f) * 0.7f;
++    const float RecoilLoad = (1.0f + RecoilLoadExtra * FeedbackHandling.RecoilLoadScale) * ShotRecoil;
++    GunKickPositionVelocity += FVector(-Horizontal * 0.24f, FMath::FRandRange(0.04f, 0.10f), FMath::FRandRange(0.55f, 0.85f)) * VisualProfile.Position * AKMSource::ViewmodelGain * RecoilLoad * FeedbackHandling.RecoilScale * BurstGain;
++    GunKickRotationVelocity += FVector(FMath::FRandRange(0.55f, 1.0f), Horizontal * 0.50f, FMath::FRandRange(-0.7f, 0.7f)) * VisualProfile.Rotation * AKMSource::ViewmodelGain * RecoilLoad * FeedbackHandling.RecoilScale * BurstGain;
++    // Godot's ADS convergence is applied once to the common gun/camera pulse.
++    // Aim progress already eases continuously through both ADS transitions.
++    const float JitterScale = RecoilLoad * FeedbackHandling.ShakeScale
++        * FMath::Lerp(1.f, FWeaponHandling::ADSJitterMultiplier, WeaponADSFactor);
++    const FVector PositionImpulse = FVector(FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f)) * JitterScale;
++    const FVector RotationImpulse = FVector(FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f)) * JitterScale;
++    GunJitterPositionVelocity += PositionImpulse * VisualProfile.Jitter;
++    GunJitterRotationVelocity += RotationImpulse * VisualProfile.Jitter;
++    GunFlipVelocity += 1.5f * RecoilLoad * FeedbackHandling.RecoilScale * VisualProfile.Flip * BurstGain;
++    CameraJitterPositionVelocity += PositionImpulse * 0.11f * AKMSource::FeedbackScale * CameraShake;
++    CameraJitterRotationVelocity += RotationImpulse * 0.34f * AKMSource::FeedbackScale * CameraShake;
++    const float ImpulseScale = FMath::Lerp(13.0f, 19.0f, WeaponADSFactor) * VisualRecoilScale * FeedbackHandling.ShakeScale * CameraShake * ShotRecoil * ComposureRecoil;
++    CameraKickPitchVelocity += (Pattern.X + FMath::FRandRange(-0.0012f, 0.0012f)) * ImpulseScale * AKMSource::FeedbackScale
++        *(IsM24Weapon()?M24Recoil::CameraPitchGain:1.f);
++    CameraKickYawVelocity += (Pattern.Y + FMath::FRandRange(-0.0008f, 0.0008f)) * ImpulseScale * AKMSource::FeedbackScale;
++    FOVPunch = (IsRSH12Weapon()?FMath::Lerp(.75f,.32f,WeaponADSFactor):FMath::Lerp(1.2f, 0.4f, WeaponADSFactor)) * CameraShake * ShotRecoil * ComposureRecoil;
++    // Trauma is squared when rendered: sqrt keeps a single-shot amplitude linear,
++    // and the gain below is what makes a burst build up before the crosshair.
++    FireTrauma = FMath::Min(1.0f, FireTrauma + 0.11f * RecoilLoad * FMath::Sqrt(FeedbackHandling.ShakeScale));
++}
++
++// Dual wield fires two independent triggers into one camera. The per-hand
++// control-rotation pattern already lives in UPistolDualWieldComponent, so this
++// adds the layers the single-weapon path receives from ApplyShotFeedback(): one
++// viewmodel spring set per hand plus the shared camera kick, jitter, trauma and
++// FOV punch. Presentation only - ballistics, cadence and damage are untouched.
++void AFPSGAMECharacter::ApplyDualWieldShotFeedback(int32 HandIndex, bool bRevolver, const FWeaponHandling& Handling,
++    int32 ShotIndex, float Interval, float RecoilLoad)
++{
++    const float ComposureRecoil=ColdSteelCombat::ComposureRecoilMultiplier(this);
++    auto& R=DualRecoil[FMath::Clamp(HandIndex,0,1)];
++    const double Now=GetWorld()->GetTimeSeconds();
++    const auto Profile=FPSVisualRecoil::ForWeapon(true,bRevolver,false,false);
++    const auto Dual=FPSVisualRecoil::ForDualWield(bRevolver);
++    const float CameraShake=FMath::Max(0.f,CameraShakeScale.GetValueOnGameThread());
++    // A defined first pulse then smaller settled pulses, exactly like the single
++    // rig; the dual hand keeps its own burst clock instead of the rifle's.
++    const float BurstGain=ShotIndex<=0?1.12f:FMath::Lerp(1.f,.86f,FMath::Min(ShotIndex,8)/8.f);
++    R.RecoverAt=Now+static_cast<double>(FMath::Clamp(Interval*.8f,.065f,.12f));
++    R.UpdatedAt=Now;
++    const FVector2D Pattern=FWeaponHandling::Pattern(ShotIndex);
++    const float Horizontal=FMath::Clamp(Pattern.Y/0.003f+FMath::FRandRange(-0.35f,0.35f),-1.0f,1.0f);
++    const float HandGain=Dual.HandGain*RecoilLoad*Handling.RecoilScale*BurstGain;
++    R.PositionVelocity+=FVector(-Horizontal*0.24f,FMath::FRandRange(0.04f,0.10f),FMath::FRandRange(0.55f,0.85f))
++        *Profile.Position*AKMSource::ViewmodelGain*HandGain;
++    R.RotationVelocity+=FVector(FMath::FRandRange(0.55f,1.0f),Horizontal*0.50f,FMath::FRandRange(-0.7f,0.7f))
++        *Profile.Rotation*AKMSource::ViewmodelGain*HandGain;
++    R.FlipVelocity+=1.5f*HandGain*Profile.Flip;
++    const float JitterScale=RecoilLoad*Handling.ShakeScale*Dual.HandGain;
++    const FVector PositionImpulse=FVector(FMath::FRandRange(-0.7f,0.7f),FMath::FRandRange(-0.7f,0.7f),FMath::FRandRange(-0.7f,0.7f))*JitterScale;
++    const FVector RotationImpulse=FVector(FMath::FRandRange(-2.2f,2.2f),FMath::FRandRange(-2.2f,2.2f),FMath::FRandRange(-2.2f,2.2f))*JitterScale;
++    R.JitterPositionVelocity+=PositionImpulse*Profile.Jitter;
++    R.JitterRotationVelocity+=RotationImpulse*Profile.Jitter;
++    // Shared camera layers. Dual pistols never aim down sights, so only the hip
++    // weighting of the single rig applies.
++    CameraJitterPositionVelocity+=PositionImpulse*0.11f*AKMSource::FeedbackScale*CameraShake;
++    CameraJitterRotationVelocity+=RotationImpulse*0.34f*AKMSource::FeedbackScale*CameraShake;
++    const float CameraGain=Dual.CameraGain*Handling.ShakeScale*ComposureRecoil;
++    const float ImpulseScale=FMath::Lerp(13.0f,19.0f,0.0f)*VisualRecoilScale*CameraGain*CameraShake;
++    CameraKickPitchVelocity+=(Pattern.X+FMath::FRandRange(-0.0012f,0.0012f))*ImpulseScale*AKMSource::FeedbackScale;
++    CameraKickYawVelocity+=(Pattern.Y+FMath::FRandRange(-0.0008f,0.0008f))*ImpulseScale*AKMSource::FeedbackScale;
++    FOVPunch=FMath::Max(FOVPunch,1.2f*Dual.CameraGain*CameraShake*ComposureRecoil);
++    FireTrauma=FMath::Min(1.0f,FireTrauma+0.11f*RecoilLoad*FMath::Sqrt(Handling.ShakeScale)*Dual.CameraGain);
++}
++
++void AFPSGAMECharacter::AdvanceDualWieldHandRecoil(int32 HandIndex, bool bRevolver, const FWeaponHandling& Handling, float DeltaSeconds)
++{
++    auto& R=DualRecoil[FMath::Clamp(HandIndex,0,1)];
++    const double Now=GetWorld()->GetTimeSeconds();
++    const double Previous=R.UpdatedAt<0.?Now:R.UpdatedAt;
++    R.UpdatedAt=Now;
++    const float Elapsed=FMath::Max(0.f,static_cast<float>(Now-Previous));
++    if(Elapsed<=0.f)return;
++    const auto Profile=FPSVisualRecoil::ForWeapon(true,bRevolver,false,false);
++    // Same event-boundary split as the single rig: the impulse shares use the
++    // attack damping, the remainder recovers. No frame integrates twice.
++    const float Attack=FMath::Clamp(static_cast<float>(R.RecoverAt-Previous),0.f,Elapsed);
++    auto Integrate=[&](float Seconds,bool Recovering)
++    {
++        if(Seconds<=0.f)return;
++        const float Dt=Seconds*Handling.RecoveryRate();
++        const float PositionDamping=Recovering?1.94f*FMath::Sqrt(Profile.PositionStiffness):Profile.PositionDamping;
++        const float RotationDamping=Recovering?1.94f*FMath::Sqrt(Profile.RotationStiffness):Profile.RotationDamping;
++        AdvanceSpring(R.Position,R.PositionVelocity,Profile.PositionStiffness,PositionDamping,Dt);
++        AdvanceSpring(R.Rotation,R.RotationVelocity,Profile.RotationStiffness,RotationDamping,Dt);
++        AdvanceSpring(R.Flip,R.FlipVelocity,Profile.RotationStiffness,RotationDamping,Dt);
++        AdvanceSpring(R.JitterPosition,R.JitterPositionVelocity,7000.f,Recovering?70.f:54.f,Dt);
++        AdvanceSpring(R.JitterRotation,R.JitterRotationVelocity,7000.f,Recovering?70.f:54.f,Dt);
++    };
++    Integrate(Attack,false);
++    Integrate(Elapsed-Attack,true);
++}
++
++void AFPSGAMECharacter::GetDualWieldHandRecoil(int32 HandIndex, FVector& OutOffset, FVector& OutAngles) const
++{
++    const auto& R=DualRecoil[FMath::Clamp(HandIndex,0,1)];
++    // Identical camera-space conversion and clamps to the single-pistol hip rig
++    // below, so a dual hand and a lone pistol share one recoil language.
++    FVector Offset(R.Position.X,R.Position.Y*0.4f,R.Position.Z*AKMSource::HipAxialScale);
++    Offset+=R.JitterPosition*0.35f;
++    Offset.X=0.018f*FMath::Tanh(Offset.X/0.018f);
++    Offset.Y=0.008f*FMath::Tanh(Offset.Y/0.008f);
++    Offset.Z=0.065f*FMath::Tanh(Offset.Z/0.065f);
++    FVector Angles(R.Rotation.X*0.45f+R.Flip*0.18f,R.Rotation.Y,R.Rotation.Z*0.6f);
++    Angles+=R.JitterRotation*0.35f;
++    Angles.X=0.045f*FMath::Tanh(Angles.X/0.045f);
++    Angles.Y=0.030f*FMath::Tanh(Angles.Y/0.030f);
++    Angles.Z=0.025f*FMath::Tanh(Angles.Z/0.025f);
++    OutOffset=Offset;OutAngles=Angles;
++}
++
++float AFPSGAMECharacter::GetHipSpread() const
++{
++    if (Bow && Bow->IsEquipped()) return Bow->ShotSpread();
++    // Dual pistols never aim down sights, so there is no ADS tightening to fall
++    // back on: the reticle carries the whole cone, including each hand's own
++    // bloom, averaged across both guns. Ballistics stay where they were - the dual
++    // component still owns the shot direction and pattern.
++    if(HasOffhandPistol())return DualPistols->SharedConeSpread();
++    return 2.f*(0.0175f+CurrentSpread+MoveSpread+AirSpread)*HipSpreadMultiplier
++        *(BipodDeployment?BipodDeployment->SpreadMultiplier():1.f);
++}
++
++FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
++{
++    const auto* PC=Cast<APlayerController>(Controller);
++    if(!PC)return FVector2D::ZeroVector;
++    int32 Width=0,Height=0;PC->GetViewportSize(Width,Height);
++    if(Width<=0||Height<=0)return FVector2D::ZeroVector;
++    const FVector Center=FirstPersonCamera->GetComponentLocation()+FirstPersonCamera->GetForwardVector()*1000.f;
++    FVector2D SpreadTangents(GetHipSpread());
++    if(IsShotgunWeapon())
++    {
++        const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        const auto* Item=Model?Model->FindItem(ActiveInventoryWeapon):nullptr;
++        const int32 Pellets=Item?Model->AmmoProjectileCount(*Item,Super90WeaponAssets::PelletCount):Super90WeaponAssets::PelletCount;
++        SpreadTangents=HasShotgunDuckbill()?Super90Spread::FanRingTangents(SpreadTangents.X,Pellets,GetShotgunPelletSpreadMultiplier()):
++            FVector2D(Super90Spread::RingTangent(SpreadTangents.X,Pellets,GetShotgunPelletSpreadMultiplier()));
++    }
++    const FVector2D Spread=SpreadTangents*1000.f;
++    FVector2D ScreenCenter,Right,Up;
++    if(!PC->ProjectWorldLocationToScreen(Center,ScreenCenter,true)
++        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread.X,Right,true)
++        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread.Y,Up,true))return FVector2D::ZeroVector;
++    return FVector2D(FMath::Abs(Right.X-ScreenCenter.X)*LocalSize.X/Width,
++        FMath::Abs(Up.Y-ScreenCenter.Y)*LocalSize.Y/Height);
++}
++
++FVector AFPSGAMECharacter::ComputeWeaponAimDirection() const
++{
++    // 双持/法杖副手不开镜，只用腰射准星方向。左手单持例外：它会真正开镜，
++    // 必须继续往下走精确瞄准分支，否则开镜后弹道仍锁死在相机正前方、对不上瞄具。
++    if(HasOffhandPistol()&&!IsLoneLeftHandRig())return FirstPersonCamera->GetForwardVector();
++    const bool bPreciseAim = bIsAiming || WeaponADSFactor > 0.98f;
++    // Lens and angular reticle use the firing camera throughout ADS and zoom.
++    if (bPreciseAim && UsesPhysicalScope())
++        return FirstPersonCamera->GetForwardVector();
++    if(bPreciseAim && IsLoneLeftHandRig())return DualPistols->LoneAimDirection();
++    if (bHolographicOptic && bPreciseAim)
++        return (HolographicAimPoint() - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
++    const FVector Forward = FirstPersonCamera->GetForwardVector();
++    if (bPreciseAim && IsSaiga12KWeapon())
++        return (AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(Saiga12KWeaponAssets::Front)-FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
++    if (bPreciseAim && AKMSoviet::Matches(AKMViewmodel))
++        return (AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Front) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
++    // SVCH's visible iron sights use measured root-local points in UpdateADSPose.
++    // The shared skeleton's WPN_FrontSight still belongs to the donor weapon.
++    if (bPreciseAim && SVCHWeaponAssets::Matches(AKMViewmodel))
++        return (AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(SVCHWeaponAssets::FrontSight) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
++    // 左手单持已在函数开头处理，这里只剩主手视模的瞄具。
++    if (bPreciseAim && AKMViewmodel->DoesSocketExist(TEXT("WPN_FrontSight")))
++        return (AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight")) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
++    return Forward;
++}
++
++FVector AFPSGAMECharacter::ComputeShotDirection() const
++{
++    const FVector Forward=ComputeWeaponAimDirection();
++    if(bIsAiming||WeaponADSFactor>.98f)return Forward;
++    // Godot gun.gd: independent uniform offsets in camera right/up, in angular space.
++    const float Spread = GetHipSpread();
++    return (Forward
++        + FirstPersonCamera->GetRightVector() * FMath::FRandRange(-Spread, Spread)
++        + FirstPersonCamera->GetUpVector() * FMath::FRandRange(-Spread, Spread)).GetSafeNormal();
++}
++

@@ -1,6 +1,6 @@
 # 面板工作流与废案归档 · 2026-09-13
 
-本轮交付 [面板与栏目工作流](../../UI-WORKFLOW.md)、[规划模板](panel-column-plan-template.md)，并更新 [UE UI 技能](../../skills/ue5-ui-umg-slate/SKILL.md) 及个人技能镜像。新面板／栏目按当前黑灰玻璃规范先规划布局、数据和状态，再按授权阶段制作。
+2026-09-13 本轮交付 [面板与栏目工作流](../../UI-WORKFLOW.md)、[规划模板](panel-column-plan-template.md)，并更新 [UE UI 技能](../../skills/ue5-ui-umg-slate/SKILL.md) 及个人技能镜像。现行面板规则读取上述工作流和正式设计规范，不把这份归档回执中的“当前”或旧镜像方式当作新任务指令。原因：归档记录说明当时移动与发布的内容，现行规范另有维护入口。
 
 ## 废案范围
 

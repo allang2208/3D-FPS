@@ -1,0 +1,35 @@
+diff --git a/Source/FPSGAME/Skills/NetCastUtils.h b/Source/FPSGAME/Skills/NetCastUtils.h
+--- a/Source/FPSGAME/Skills/NetCastUtils.h
++++ b/Source/FPSGAME/Skills/NetCastUtils.h
+@@ -2,6 +2,8 @@
+ #include "CoreMinimal.h"
+ #include "../Monsters/UnknownSpellCombat.h"
+ #include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "Components/ActorComponent.h"
+ #include "GameFramework/PlayerController.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -13,6 +15,22 @@
+  */
+ namespace NetCast
+ {
++// Component-local selection keeps its original GI fallback; authority requests
++// continue to use AuthorityModel and its remote-player shadow profile.
++inline UColdSteelStatusModel* LocalModel(const UActorComponent& Component)
++{
++    return UnknownSpell::IsCaster(Component.GetOwner())?
++        UnknownSpell::Model(Cast<APawn>(Component.GetOwner())):
++        (Component.GetWorld()&&Component.GetWorld()->GetGameInstance()?
++            Component.GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr);
++}
++
++// Receipt owners keep revision checks and clock reads; preserve the float subtraction.
++inline float RemainingCooldown(float Cooldown,double ServerAt,double Now)
++{
++    return FMath::Max(0.f,Cooldown-float(FMath::Max(0.,Now-ServerAt)));
++}
++
+ inline AColdSteelPlayerState* StateFor(const APawn* Pawn)
+ {
+     const auto* PC = Pawn ? Cast<APlayerController>(Pawn->GetController()) : nullptr;

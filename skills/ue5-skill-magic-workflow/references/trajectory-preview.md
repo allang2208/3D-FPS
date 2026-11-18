@@ -1,13 +1,13 @@
 # 法术弹道预览（悬浮长按 → 松手发射）
 
-2026-09-17 在火球与冰锥上落地的通用做法。新法术接入时照这套走，不要再各写一份。
+2026-09-17 在火球与冰锥上落地的通用做法。新法术接入时照这套走，不要再各写一份。 原因：移动状态需要真实支撑和碰撞条件，达到缓存坐标并不等于动作已经安全完成。
 
 ## 输入契约
 
 - **点按发射；悬浮时长按显示预览，松手才发射。** 快速点按＝按下进预览、抬手瞬间发射，观感与「按下即发射」一致。
 - 凝聚（gather）期间按下保持原语义：排队一次发射／齐射请求，不进入预览——否则第一下按键会被吞掉。
 - 菜单（背包／枪匠／附魔／建造／破防）会吞掉按键抬起，`AFPSGAMECharacter::SuspendWeaponForMenu()` 必须清掉预览；释放分支除索引外还要校验该法术的 `IsAimPreviewActive()`，否则预览随投射物消失后仍会触发一次施法。
-- 世界交互键（E）优先级不变：交互判定仍在快捷槽之前。
+- 世界交互键（E）优先级不变：交互判定仍在快捷槽之前。 原因：同一 E 输入先处理实际世界交互，快捷技能不能抢走既有交互入口。
 - 接线：`AFPSGAMEPlayerController::InputKey`（按下 → `BeginSpellAimPreview`，抬起 → `EndSpellAimPreview`）→ `UColdSteelStatusModel` → 法术组件的 `SetAimPreview/IsAimPreviewActive` → 投射物／volley 的 `SetAimPreviewActive` + `RefreshAimPreview`。
 
 ## 弹道预测必须与飞行同源

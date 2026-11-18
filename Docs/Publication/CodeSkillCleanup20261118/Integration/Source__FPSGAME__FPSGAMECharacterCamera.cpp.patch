@@ -1,0 +1,513 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterCamera.cpp b/Source/FPSGAME/FPSGAMECharacterCamera.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/FPSGAMECharacterCamera.cpp
+@@ -0,0 +1,508 @@
++#include "FPSGAMECharacter.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/StarMarrowComponent.h"
++#include "Skills/LightningHasteSpeed.h"
++#include "Combat/RangedAttackQuery.h"
++#include "Multiplayer/FPSStatusReplicationComponent.h"
++#include "Weapons/Super90WeaponAssets.h"
++#include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
++#include "Weapons/Super90Spread.h"
++#include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/JingangRuneComponent.h"
++#include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/PanChiGuardComponent.h"
++#include "Weapons/ZhenmoRuneComponent.h"
++#include "Weapons/TimeSandEchoComponent.h"
++#include "Weapons/Kukri/KukriBerserkerComponent.h"
++#include "Weapons/Kukri/KukriFrostRavenComponent.h"
++#include "Weapons/Kukri/KukriRelentlessComponent.h"
++#include "Weapons/Kukri/KukriDecisiveComponent.h"
++#include "Weapons/Kukri/HatchetCharmComponent.h"
++#include "Weapons/DealerEnchantmentComponent.h"
++#include "Windows/AllowWindowsPlatformTypes.h"
++#include <Windows.h>
++#include "Windows/HideWindowsPlatformTypes.h"
++#include "Weapons/HK416WeaponAssets.h"
++#include "Weapons/WeaponGripProfile.h"
++#include "Weapons/HK416Attachments.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshSocket.h"
++#include "Weapons/LMG201Attachments.h"
++#include "Weapons/LMGStabilityGrip.h"
++#include "Weapons/LMG201WeaponAssets.h"
++#include "Items/FPSPotionUseComponent.h"
++#include "Characters/FPSPlayerBodyComponent.h"
++#include "Characters/FPSPlayerBodyMeshComponent.h"
++#include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/PlayerKnockdownComponent.h"
++#include "Building/FPSForgeWorkComponent.h"
++#include "WeaponWeatherStateComponent.h"
++#include "Multiplayer/ColdSteelPlayerState.h"
++#include "Characters/FPSModularOutfitComponent.h"
++#include "Characters/FPSArmJointCorrectiveComponent.h"
++#include "Weapons/PistolDualWieldComponent.h"
++#include "Weapons/PistolAudioAssets.h"
++#include "Development/DevelopmentTuningSubsystem.h"
++#include "Production/ProductionToolComponent.h"
++#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Bow/BowWeaponComponent.h"
++#include "Weapons/Bow/BowMountainEchoComponent.h"
++#include "Weapons/Bow/BowCadenceComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
++#include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
++#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "Movement/FPSDoorPushComponent.h"
++#include "Weapons/FrostRuneVisualDiagnosis.h"
++#include "Weapons/SprintCameraMotion.h"
++#include "Skills/ColdSteelSkillRules.h"
++#include "Skills/FPSFireballComponent.h"
++#include "Skills/FPSIceSpikeComponent.h"
++#include "Skills/FPSIceWallComponent.h"
++#include "Skills/FPSBlizzardComponent.h"
++#include "Skills/FPSMagicArrowRainComponent.h"
++#include "Skills/FPSElementalArrowComponent.h"
++#include "Skills/FPSIlluminationArrowComponent.h"
++#include "Skills/FPSLightningComponent.h"
++#include "Skills/FPSElectricMagicComponent.h"
++#include "Weapons/FPSMeleeLightningComponent.h"
++#include "Weapons/FPSRiftBladeComponent.h"
++#include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
++#include "Skills/FPSLightningHasteComponent.h"
++#include "Skills/FPSFireMagicComponent.h"
++#include "Skills/FPSQuickCombatComponent.h"
++#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
++#include "Weapons/QuickCombatRecovery.h"
++#include "Weapons/RifleReloadRecovery.h"
++#include "Weapons/RifleReloadHandoff.h"
++#include "Skills/FPSCastingMeshComponent.h"
++#include "Perception/AISense_Hearing.h"
++#include "Weapons/AKMSovietCalibration.h"
++#include "Weapons/A762WeaponAssets.h"
++#include "Weapons/PKMLowpolyWeaponAssets.h"
++#include "Weapons/M249WeaponAssets.h"
++#include "Weapons/M249SideMagazine.h"
++#include "Weapons/ScopeADSEyeRelief.h"
++#include "Weapons/PKMAttachments.h"
++#include "Weapons/A762Attachments.h"
++#include "Weapons/AKMAttachmentVisual.h"
++#include "Movement/FPSTraversalComponent.h"
++#include "Movement/FPSFootstepAudioComponent.h"
++#include "Movement/FPSExhaustionComponent.h"
++#include "Combat/CombatStatusFormula.h"
++#include "Movement/FPSCharacterMovementComponent.h"
++#include "Movement/FPSStairAudit.h"
++#include "UI/ColdSteelStatusModel.h"
++#include "UI/TransitLoadingSubsystem.h"
++#include "Building/VoxelBuildComponent.h"
++#include "Engine/GameInstance.h"
++#include "Monsters/FPSCombatHealthComponent.h"
++#include "Monsters/BoundCongregateCaptureComponent.h"
++#include "Survival/FPSSurvivalComponent.h"
++#include "Weapons/FPSGunplayAnimInstance.h"
++#include "Weapons/M4DrumReloadTiming.h"
++#include "Weapons/M1911WeaponAssets.h"
++#include "Weapons/G18WeaponAssets.h"
++#include "Weapons/PitViper2011WeaponAssets.h"
++#include "Weapons/DanWesson715WeaponAssets.h"
++#include "Weapons/RSH12WeaponAssets.h"
++#include "Weapons/ASH12WeaponAssets.h"
++#include "Weapons/SVDWeaponAssets.h"
++#include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/M24WeaponAssets.h"
++#include "Weapons/M24ReloadTiming.h"
++#include "Weapons/M24Attachments.h"
++#include "Weapons/SniperSuppressorAssets.h"
++#include "Weapons/WeaponShotNoise.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
++#include "Weapons/SVDAttachments.h"
++#include "Weapons/M16WeaponAssets.h"
++#include "Weapons/RifleSuppressedAudioAssets.h"
++#include "Weapons/M16Attachments.h"
++#include "Weapons/GunsmithSystem.h"
++#include "Weapons/FPSWeaponFXComponent.h"
++#include "Weapons/FPSBallisticsComponent.h"
++#include "Weapons/WeaponDamageFalloff.h"
++#include "Weapons/ColdSteelEnchantmentCombat.h"
++
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Camera/CameraComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/AudioComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "HAL/PlatformMisc.h"
++#include "HighResScreenshot.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundConcurrency.h"
++#include "Weapons/FPSVisualRecoil.h"
++#include "Weapons/M24Recoil.h"
++#include "Weapons/RifleAxialRecoil.h"
++#include "Weapons/WeaponBipodDeploymentComponent.h"
++#include "Weapons/PistolLocomotionAssets.h"
++#include "Weapons/M4TacticalSprintComponent.h"
++#include "Weapons/WeaponActionCameraComponent.h"
++#include "TimerManager.h"
++#include "HAL/IConsoleManager.h"
++
++#include "FPSGAMECharacterRuntimePrivate.h"
++using namespace FPSCharacterRuntimePrivate;
++
++FTransform AFPSGAMECharacter::GetMeleeAimTransform() const
++{
++    FVector Eye=CameraRestLocation;
++    Eye.Z=(bIsSliding || bIsCrouched)?SlidingCameraHeight:StandingCameraHeight;
++    if(const auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>())Eye+=Body->GetOwnerCameraOffset();
++    const auto* Parent=FirstPersonCamera->GetAttachParent();
++    const FTransform& ParentWorld=Parent?Parent->GetComponentTransform():GetActorTransform();
++    const FQuat Aim=Controller?Controller->GetControlRotation().Quaternion():GetActorQuat();
++    return FTransform(Aim,ParentWorld.TransformPosition(Eye));
++}
++
++void AFPSGAMECharacter::RefreshQuickCombatCamera()
++{
++    UpdateCamera(0.f);
++}
++
++void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
++{
++    if(BipodDeployment)BipodDeployment->RestoreCameraOffset();
++    auto* Knockdown=FindComponentByClass<UPlayerKnockdownComponent>();
++    if(Knockdown)Knockdown->RestoreCamera(*FirstPersonCamera);
++    auto* ProductionTools=FindComponentByClass<UProductionToolComponent>();
++    if(ProductionTools)ProductionTools->AdvanceActionBeforeCamera(DeltaSeconds);
++    // 弓的拉距时钟与镜头同帧：先推进动作，再合成相机，抖动与释放冲量读到同一个 age。
++    if(Bow)Bow->AdvanceActionBeforeCamera(DeltaSeconds);
++    if(auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>())OffhandKukri->AdvanceActionBeforeCamera(DeltaSeconds);
++    if(auto* Pair=FindComponentByClass<UStaffOffhandMeleeComponent>())Pair->AdvanceBeforeCamera(DeltaSeconds);
++    if(Staff)Staff->AdvanceActionBeforeCamera(DeltaSeconds);
++    if(UnarmedIdle)UnarmedIdle->AdvanceActionBeforeCamera(DeltaSeconds);
++    if(Spellbook)Spellbook->AdvanceActionBeforeCamera(DeltaSeconds);
++    UpdateADSProgress();
++    CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
++    if(BipodDeployment)CameraADSFactor*=BipodDeployment->AimPresentationWeight();
++    WeaponADSFactor = CameraADSFactor;
++    AdvanceScopeOptics(DeltaSeconds);
++    // Bow owns its sight pose/clock; keep rifle pose state independent while
++    // sharing the existing camera bob suppression and movement presentation.
++    if (Bow && Bow->IsEquipped()) CameraADSFactor = Bow->AimAlpha();
++    UpdateLocomotionPresentation(DeltaSeconds);
++    auto* ActionCamera = FindComponentByClass<UWeaponActionCameraComponent>();
++    const auto* TacticalSprint = FindComponentByClass<UM4TacticalSprintComponent>();
++    const bool bRifleSprintCamera = bInventoryWeaponReady && !IsPistolWeapon() && !IsDualWieldingPistols()
++        && TacticalSprint && TacticalSprint->OwnsPose() && !bGunsmithInspection
++        && !IsTraversing() && !IsCastBlockingLeftHandAction() && !IsDodging() && !bIsSliding;
++    const bool bSwordSprintCamera = RuneSword && RuneSword->IsEquipped() && !RuneSword->IsBusy()
++        && !IsTraversing() && !IsCastBlockingLeftHandAction() && !IsDodging() && !bIsSliding;
++    const float SwordSprintWeight = bSwordSprintCamera ? RuneSword->TacticalSprintPoseWeight() : 0.f;
++    const bool bRifleSprintRequested = bIsSprinting && !bWeaponJumpAirborne && !IsWeaponBusy() && !bAimHeld && !bFireHeld && HorizontalSpeed() > 50.f;
++    if (ActionCamera)
++        ActionCamera->UpdateSprint(DeltaSeconds, bRifleSprintCamera || bSwordSprintCamera,
++            bSwordSprintCamera ? SwordSprintWeight > UE_SMALL_NUMBER && !bWeaponJumpAirborne : bRifleSprintRequested,
++            M4SprintPhase, GroundLocomotionWeight * FMath::Clamp(HorizontalSpeed() / FMath::Max(SprintSpeed, 1.f), 0.f, 1.f)
++                * (bSwordSprintCamera ? .65f * SwordSprintWeight : 1.f));
++    // Crossfade from the ordinary walking bob into the stronger rendered view
++    // offset, keeping both layers on the same footstep phase.
++    const float LegacyBobWeight = ActionCamera ? 1.f - ActionCamera->SprintCameraWeight() : 1.f;
++    SprintCameraFactor = FMath::Lerp(SprintCameraFactor, bIsSprinting && !bWeaponJumpAirborne ? 1.0f : 0.0f, 1.0f - FMath::Exp(-9.0f * DeltaSeconds));
++    // Shared by rifles, single/dual pistols, melee, bows, staves, books and tools.
++    // The sprint layer keeps its original crossfade weight; scale only its output.
++    const float SprintBobScale = SprintCameraMotion::LocomotionScale(SprintCameraFactor);
++    const bool bGrounded = GetCharacterMovement()->IsMovingOnGround();
++    if (bGrounded && !bWasGrounded)
++        LandingVelocity -= FMath::Clamp(-PreviousVerticalVelocity / 650.0f, 0.0f, 1.8f) * 36.0f;
++    bWasGrounded = bGrounded;
++    PreviousVerticalVelocity = GetVelocity().Z;
++    AdvanceSpring(LandingOffset, LandingVelocity, 150.0f, 20.0f, DeltaSeconds);
++    FVector TargetLocation = CameraRestLocation;
++    TargetLocation.Z = (bIsSliding || bIsCrouched) ? SlidingCameraHeight : StandingCameraHeight;
++    if(auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>())Body->ApplyOwnerCameraOffset(TargetLocation);
++    FVector SlamEye;
++    const bool bSlamPosture=ProductionTools&&ProductionTools->GetGroundSlamCameraLocation(SlamEye);
++    if(bSlamPosture)
++    {
++        const auto* EyeParent=FirstPersonCamera->GetAttachParent();
++        const FTransform& EyeFrame=EyeParent?EyeParent->GetComponentTransform():GetActorTransform();
++        TargetLocation=EyeFrame.InverseTransformPosition(SlamEye);
++    }
++    float MovementRoll = 0.0f;
++    float MovementPitch = 0.0f;
++    if (GroundLocomotionWeight > 0.001f)
++    {
++        const float Weight = 1.0f - CameraADSFactor * 0.85f;
++        const float Amplitude = FMath::Lerp(1.0f, 2.4f, SprintCameraFactor) * GroundLocomotionWeight * Weight * CameraMotionScale * LegacyBobWeight * SprintBobScale;
++        const float Side = FMath::Cos(CameraBobPhase);
++        const float Step = FMath::Cos(CameraBobPhase * 2.0f);
++        TargetLocation.Y += Side * Amplitude * .65f;
++        TargetLocation.Z -= Step * Amplitude * .75f;
++        MovementRoll = Side * Amplitude * .14f;
++        MovementPitch = -Step * Amplitude * .08f;
++    }
++    MovementRoll -= LocomotionSideAlpha * .35f * (1.f - CameraADSFactor * .9f) * CameraMotionScale * SprintBobScale;
++    const float DodgeWeight=DodgePresentationWeight()*CameraMotionScale;
++    TargetLocation.Z-=3.f*DodgeWeight;
++    if (IsDodging())
++    {
++        const auto* Move=CastChecked<UFPSCharacterMovementComponent>(GetCharacterMovement());
++        const FVector ViewRight=FRotationMatrix(FRotator(0.f,GetViewRotation().Yaw,0.f)).GetUnitAxis(EAxis::Y);
++        MovementRoll+=3.f*DodgeWeight*FVector::DotProduct(Move->GetDodgeDirection(),ViewRight);
++    }
++    TargetLocation.Z += LandingOffset * (1.0f - CameraADSFactor * 0.8f) * CameraMotionScale;
++    const float TraumaStrength = FMath::Square(FireTrauma) * AKMSource::FeedbackScale * CameraShakeScale.GetValueOnGameThread() * CameraMotionScale * (1.0f - 0.8f * CameraADSFactor);
++    const float NoiseRight = FMath::PerlinNoise1D(FeedbackTime * 11.0f) * 4.5f * TraumaStrength;
++    const float NoiseUp = FMath::PerlinNoise1D(FeedbackTime * 13.0f + 91.3f) * 4.5f * TraumaStrength;
++    TargetLocation += FVector(-CameraJitterPosition.Z * 100.0f, CameraJitterPosition.X * 100.0f + NoiseRight, CameraJitterPosition.Y * 100.0f + NoiseUp);
++    FVector SwordCameraLocation=FVector::ZeroVector;
++    FRotator SwordCameraRotation=FRotator::ZeroRotator;
++    RuneSword->GetCameraMotion(SwordCameraLocation,SwordCameraRotation);
++    // 手枪砸击的镜头语言（上抬随动/前捅压头/命中下压冲量）与剑版同一叠加口径。
++    FVector BashCameraLocation=FVector::ZeroVector;
++    FRotator BashCameraRotation=FRotator::ZeroRotator;
++    if(QuickCombatPistol)QuickCombatPistol->GetCameraMotion(BashCameraLocation,BashCameraRotation);
++    const bool bConicalThrustCamera=QuickCombatPistol&&QuickCombatPistol->UsesWarhammerHeadThrust();
++    const float BashFeedbackScale=CameraMotionScale*(bConicalThrustCamera?CameraShakeScale.GetValueOnGameThread():1.f);
++    const float BashFOV=QuickCombatPistol?QuickCombatPistol->GetCameraFOV():0.f;
++    FVector ToolCameraLocation=FVector::ZeroVector;
++    FRotator ToolCameraRotation=FRotator::ZeroRotator;
++    if(ProductionTools)ProductionTools->GetCameraMotion(ToolCameraLocation,ToolCameraRotation);
++    // 拉弓的镜头语言（弓身后带、满拉呼吸抖动、撒弦回弹）与工具／剑同一叠加口径。
++    FVector BowCameraLocation=FVector::ZeroVector;
++    FRotator BowCameraRotation=FRotator::ZeroRotator;
++    if(Bow)Bow->GetCameraMotion(BowCameraLocation,BowCameraRotation);
++    FVector StaffCameraLocation=FVector::ZeroVector;FRotator StaffCameraRotation=FRotator::ZeroRotator;
++    if(Staff)Staff->GetCameraMotion(StaffCameraLocation,StaffCameraRotation);
++    // 尼泊尔弯刀：参考视频配准的挥刀镜头曲线（含出刀翻滚冲击、视场放宽）与命中抖动。
++    FVector KukriCameraLocation=FVector::ZeroVector;FRotator KukriCameraRotation=FRotator::ZeroRotator;float KukriFOV=0.f;
++    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>())Kukri->GetCameraMotion(KukriCameraLocation,KukriCameraRotation,KukriFOV);
++    // 副手弯刀出刀：参考视频配准的镜头曲线 + 命中抖动/出刀冲量，与弯刀主武器同一叠加口径。
++    FVector OffhandKukriLocation=FVector::ZeroVector;FRotator OffhandKukriRotation=FRotator::ZeroRotator;float OffhandKukriFOV=0.f;
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>())OffhandKukri->GetCameraMotion(OffhandKukriLocation,OffhandKukriRotation,OffhandKukriFOV);
++    if(const auto* Pair=FindComponentByClass<UStaffOffhandMeleeComponent>())
++    {
++        FRotator DrawRotation;float DrawFov=0.f;Pair->GetCameraMotion(DrawRotation,DrawFov);
++        OffhandKukriRotation+=DrawRotation;OffhandKukriFOV+=DrawFov;
++    }
++    FVector FireMagicLocation=FVector::ZeroVector;FRotator FireMagicRotation=FRotator::ZeroRotator;
++    if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->GetCameraMotion(FireMagicLocation,FireMagicRotation);
++    const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
++    // The recorded sword camera is already in screen degrees at the default handling scale.
++    const float SwordFeedbackScale=RuneSword->IsChainSlashActive()
++        ? (CameraMotionScale/.45f)*CameraShakeScale.GetValueOnGameThread() : CameraMotionScale;
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(SwordCameraLocation))*SwordFeedbackScale;
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BashCameraLocation))*BashFeedbackScale;
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(ToolCameraLocation))*CameraMotionScale;
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BowCameraLocation))*CameraMotionScale;
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(StaffCameraLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(KukriCameraLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(OffhandKukriLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(FireMagicLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    // Whirlwind publishes its final action sample in PostPhysics, including
++    // contact holds. Do not smooth its camera position against the previous
++    // action frame while rotation and attached arms use the current frame.
++    // Conical thrust uses the same exact-clock path for its brief contact stop
++    // and pull: smoothing just its translation would lag rotation and FOV.
++    const auto* WhirlKukri = FindComponentByClass<UKukriWeaponComponent>();
++    FirstPersonCamera->SetRelativeLocation((bSlamPosture || (bConicalThrustCamera&&QuickCombatPistol->IsOccupyingLeftHand()) || IsTraversing() || Traversal->IsCameraRecovering() || (RuneSword && (RuneSword->IsWhirlwindActive()||RuneSword->IsStarMarrowChargeMotionPlaying())) || (WhirlKukri && WhirlKukri->IsWhirlwindActive()) || (ProductionTools && (ProductionTools->IsWhirlwindActive()||ProductionTools->IsUppercutActive())))?TargetLocation:
++        FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
++
++    const float NoisePitch = FMath::PerlinNoise1D(FeedbackTime * 9.0f + 17.0f) * 0.03f * TraumaStrength;
++    const float NoiseYaw = FMath::PerlinNoise1D(FeedbackTime * 7.0f + 55.0f) * 0.03f * TraumaStrength;
++    FRotator CameraFeedback(
++        MovementPitch + FMath::RadiansToDegrees(CameraKickPitch + CameraJitterRotation.X + NoisePitch),
++        FMath::RadiansToDegrees(CameraKickYaw + CameraJitterRotation.Y + NoiseYaw),
++        MovementRoll + FMath::RadiansToDegrees(CameraJitterRotation.Z));
++    CameraFeedback+=SwordCameraRotation*SwordFeedbackScale;
++    CameraFeedback+=BashCameraRotation*BashFeedbackScale;
++    CameraFeedback+=ToolCameraRotation*CameraMotionScale;
++    CameraFeedback+=BowCameraRotation*CameraMotionScale;
++    CameraFeedback+=StaffCameraRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    CameraFeedback+=KukriCameraRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    CameraFeedback+=OffhandKukriRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    CameraFeedback+=FireMagicRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    FQuat PresentedAim=ControlAim;
++    float SlamPitch=0.f,SlamViewWeight=0.f;
++    if(ProductionTools&&ProductionTools->GetGroundSlamCameraPitch(SlamPitch,SlamViewWeight))
++    {
++        FRotator View=ControlAim.Rotator();
++        View.Pitch=FMath::Lerp(FRotator::NormalizeAxis(View.Pitch),SlamPitch,SlamViewWeight);
++        PresentedAim=View.Quaternion();
++    }
++    if(WhirlKukri)
++    {
++        // World-space yaw preserves view pitch; skill direction is not camera shake.
++        const FQuat WhirlwindViewYaw(FVector::UpVector,FMath::DegreesToRadians(WhirlKukri->GetWhirlwindFirstPersonYawOffset()));
++        PresentedAim=WhirlwindViewYaw*PresentedAim;
++    }
++    FirstPersonCamera->SetWorldRotation(PresentedAim * CameraFeedback.Quaternion());
++
++    const float AimVerticalFOV = Bow && Bow->IsEquipped()
++        ? Bow->AimVerticalFOV(BaseVerticalFieldOfView) : EffectiveADSVerticalFOV();
++    float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor) + FOVPunch
++        + (KukriFOV+OffhandKukriFOV)*CameraMotionScale*CameraShakeScale.GetValueOnGameThread()+BashFOV*BashFeedbackScale);
++    TargetHorizontalFOV = FMath::Lerp(TargetHorizontalFOV, SprintFieldOfView, SprintCameraFactor * (1.0f - CameraADSFactor));
++    if (ActionCamera) TargetHorizontalFOV = ActionCamera->EquipFieldOfView(FirstPersonCamera->FieldOfView, TargetHorizontalFOV, DeltaSeconds);
++    FirstPersonCamera->SetFieldOfView(TargetHorizontalFOV);
++    if (Bow) Bow->UpdateScopeCamera();
++    if (ActionCamera)
++    {
++        EM4CameraAction CameraAction = EM4CameraAction::None;
++        float SourceTime = 0.f;
++        float SourceEnd = 0.f;
++        // Each family selects its own contact order and source-clock profile.
++        const bool bPKMActionCamera = PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel);
++        // The 201 cloth box reload shares PKM's belt-box camera; its other actions stay unchanged.
++        const bool b201ClothCamera = HasLMG201ClothBox() && IsReloading();
++        const bool bRSHReloadCamera = IsRSH12Weapon() && IsReloading();
++        const bool bSuper90LoaderCamera = IsTubeShotgunWeapon() && bSuper90SpeedReload && IsReloading();
++        const bool bActionCamera = bInventoryWeaponReady
++            && (((bUsingM4Infima || bPKMActionCamera) && (bUseM4Infima || bUseASH12 || bUseM16 || bPKMActionCamera)) || b201ClothCamera || bRSHReloadCamera || bSuper90LoaderCamera)
++            && !bUseQBZ191 && (!IsPistolWeapon() || bRSHReloadCamera) && !IsDualWieldingPistols()
++            && !bGunsmithInspection && !IsTraversing() && !IsCastBlockingLeftHandAction();
++        TArray<float, TInlineAllocator<8>> ClothCameraContacts;
++        TConstArrayView<float> CameraContacts = MechanicalCueTimes;
++        if (bActionCamera && ActiveActionAnimation)
++        {
++            if (IsReloading())
++            {
++                if (bSuper90LoaderCamera)
++                {
++                    CameraAction = Super90ReloadCount == 0 ? EM4CameraAction::Super90LoaderCycle
++                        : bPendingEmptyReload ? EM4CameraAction::Super90LoaderEmpty : EM4CameraAction::Super90Loader;
++                    ClothCameraContacts = {Super90SpeedloaderAssets::Dock, Super90SpeedloaderAssets::LastContact(Super90ReloadCount),
++                        Super90SpeedloaderAssets::Release(Super90ReloadCount, IsM870Weapon())};
++                    CameraContacts = ClothCameraContacts;
++                }
++                else if (bRSHReloadCamera)
++                {
++                    CameraAction = bPendingEmptyReload ? EM4CameraAction::RSH12ReloadEmpty : EM4CameraAction::RSH12Reload;
++                    // Contact seconds, not the audio's advanced pre-roll. The
++                    // original 715 action and reload interruption own this clock.
++                    const float ContactScale=bRevolverSingleReload?1.f:
++                        DanWesson715WeaponAssets::EmptyReload/DanWesson715WeaponAssets::NormalReload;
++                    ClothCameraContacts = {DanWesson715WeaponAssets::Open*ContactScale,
++                        (bRevolverSingleReload?DanWesson715WeaponAssets::EmptyCaseClear:DanWesson715WeaponAssets::Eject)*ContactScale, ReloadStages.Ready};
++                    CameraContacts = ClothCameraContacts;
++                }
++                else if (b201ClothCamera)
++                {
++                    CameraAction = bPendingEmptyReload ? EM4CameraAction::LMG201ClothReloadEmpty : EM4CameraAction::LMG201ClothReload;
++                    // Normal reload also pulls the spent belt from the tray (PKM's belt-lift pulse).
++                    if (!bPendingEmptyReload && MechanicalCueTimes.Num() == 5)
++                    {
++                        ClothCameraContacts = {MechanicalCueTimes[0], LMG201WeaponAssets::ClothTrayPull, MechanicalCueTimes[1],
++                            MechanicalCueTimes[2], MechanicalCueTimes[3], MechanicalCueTimes[4]};
++                        CameraContacts = ClothCameraContacts;
++                    }
++                }
++                else if (HasM249SideMagazine())
++                    CameraAction = bPendingEmptyReload ? EM4CameraAction::M249SideReloadEmpty : EM4CameraAction::M249SideReload;
++                else if (bPKMActionCamera)
++                    CameraAction = bPendingEmptyReload ? EM4CameraAction::PKMReloadEmpty : EM4CameraAction::PKMReload;
++                else if (bUseASH12 || (bUseM16 && bPendingEmptyReload))
++                    CameraAction = bPendingEmptyReload ? EM4CameraAction::Ash12ReloadEmpty : EM4CameraAction::Ash12Reload;
++                else
++                    CameraAction = bDrumInstalled
++                    ? (bPendingEmptyReload ? EM4CameraAction::DrumReloadEmpty : EM4CameraAction::DrumReload)
++                    : (bPendingEmptyReload ? EM4CameraAction::ReloadEmpty : EM4CameraAction::Reload);
++                SourceTime = ReloadSourceTime(WeaponStateElapsed);
++                SourceEnd = ReloadSourceTime(WeaponStateDuration);
++            }
++            else if (WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation
++                && (!IsM24Weapon() || !MechanicalCueTimes.IsEmpty()))
++            {
++                CameraAction = bPKMActionCamera ? EM4CameraAction::PKMEquip : EM4CameraAction::EquipCharge;
++                SourceTime = IsM24Weapon()?M24EquipSourceTime(WeaponStateElapsed):ActionStartPosition+WeaponStateElapsed*ActionPlayRate;
++                SourceEnd = ActiveActionAnimation->GetPlayLength();
++            }
++        }
++        FWeaponReloadCameraTracks ReloadTracks;
++        BuildReloadCameraTracks(ReloadTracks);
++        if(!ReloadTracks.IsEmpty()&&!HasOffhandPistol())
++        {
++            // The old family selector only retains authored broad follow curves.
++            // Every reload now gets standardized contact feedback independently.
++            ReloadTracks[0].FollowAction=CameraAction;
++            ReloadTracks[0].FollowContacts.Append(CameraContacts.GetData(),CameraContacts.Num());
++        }
++        // M24 bolt contacts remain subtle through ADS; aim and viewmodel anchors are unchanged.
++        const float ActionCameraWeight = CameraMotionScale * (1.f - CameraADSFactor * (IsM24Weapon() ? .85f : 1.f));
++        ActionCamera->Apply(*FirstPersonCamera, CameraAction, SourceTime, SourceEnd,
++            CameraContacts, ActionCameraWeight, ReloadTracks, DeltaSeconds);
++    }
++    if(ProductionTools)
++    {
++        FVector Eye=FirstPersonCamera->GetComponentLocation();
++        ProductionTools->UpdateLeapStrikeCamera(Eye,DeltaSeconds);
++        if(!Eye.Equals(FirstPersonCamera->GetComponentLocation(),UE_SMALL_NUMBER))
++            FirstPersonCamera->SetWorldLocation(Eye);
++    }
++    // Knockdown falls last, on top of every layer above; the viewmodel rides the same camera.
++    if(Knockdown)Knockdown->ApplyCamera(*FirstPersonCamera);
++}
++
++float AFPSGAMECharacter::HorizontalSpeed() const { return FVector(GetVelocity().X, GetVelocity().Y, 0.0f).Size(); }
++
++float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const
++{
++    return FMath::RadiansToDegrees(2.0f * FMath::Atan(FMath::Tan(FMath::DegreesToRadians(VerticalFOV) * 0.5f) * (16.0f / 9.0f)));
++}
++
++float AFPSGAMECharacter::LookSensitivityScale() const
++{
++    // Match screen-space motion across magnification; mouse deltas stay raw (no aim smoothing).
++    const float AimVerticalFOV = Bow && Bow->IsEquipped()
++        ? Bow->AimVerticalFOV(BaseVerticalFieldOfView) : EffectiveADSVerticalFOV();
++    const float Ratio = FMath::Tan(FMath::DegreesToRadians(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor)) * 0.5f)
++        / FMath::Tan(FMath::DegreesToRadians(BaseVerticalFieldOfView) * 0.5f);
++    float Scale = FMath::Lerp(1.0f, Ratio * ADSMouseSensitivity, CameraADSFactor);
++    if (UsesPhysicalScope())
++    {
++        // Relative/centre-screen matching: the main camera stays wide in PiP,
++        // but its physical lens adds optical magnification. Include that gain
++        // exactly once; equal cm/360 would feel six times faster inside 6x.
++        Scale = Ratio * FMath::Lerp(1.f, ADSMouseSensitivity, CameraADSFactor)
++            / GetPhysicalScopeMagnification();
++    }
++    // Voxel building snaps to 20 cm cells, so full FPS sensitivity overshoots the cell the player is
++    // aiming at. Scale the look down while build mode is active; tune live with the console variable.
++    if (const auto* PC = Cast<APlayerController>(Controller))
++    {
++        if (const auto* Builder = PC->FindComponentByClass<UVoxelBuildComponent>())
++        {
++            if (Builder->IsBuilding()) Scale *= FMath::Clamp(BuildLookSensitivity.GetValueOnGameThread(), .05f, 1.f);
++        }
++    }
++    return Scale;
++}
++
++void AFPSGAMECharacter::StartSprintToFireLock(double StartTime)
++{
++    SprintFireUnlockTime = FMath::Max(SprintFireUnlockTime, StartTime + FMath::Max(0.0f, SprintToFireDuration)/LightningHaste::ActionSpeed(this));
++    NextAllowedShotTime = FMath::Max(NextAllowedShotTime, SprintFireUnlockTime);
++    SprintToFireLeft = static_cast<float>(FMath::Max(0.0, SprintFireUnlockTime - GetWorld()->GetTimeSeconds()));
++}
++
++void AFPSGAMECharacter::ExitSprintForWeapon(double ExitTime)
++{
++    if (bIsSprinting)
++    {
++        // A sprint entered in this Tick cannot exit retroactively at an older
++        // reload completion time; its own start is the earliest valid boundary.
++        StartSprintToFireLock(FMath::Max(SprintStartedAt, ExitTime >= 0.0 ? ExitTime : GetWorld()->GetTimeSeconds()));
++        bIsSprinting = false;
++    }
++}
++

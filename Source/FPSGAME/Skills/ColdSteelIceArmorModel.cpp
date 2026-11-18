@@ -4,6 +4,7 @@
 #include "../Combat/CombatStatusFormula.h"
 #include "../FPSGAMECharacter.h"
 #include "ColdSteelSkillRules.h"
+#include "ColdSteelSpellCrafting.h"
 #include "Engine/GameInstance.h"
 
 FIceArmorCast UColdSteelStatusModel::IceArmorStats(int32 AtLevel) const
@@ -20,7 +21,8 @@ FIceArmorCast UColdSteelStatusModel::IceArmorStats(int32 AtLevel) const
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {Reduction=E->CraftEffect(*Item,TEXT("magicCooldownPercent"));C.CastSpeed=FMath::Max(.1f,1.f+float(E->CraftEffect(*Item,TEXT("castSpeedPercent"))));}
-    C.Cooldown*=FMath::Max(.2f,(1-Reduction)*(1-float(SetEffect(TEXT("cooldown")))))*Rune.SkillCooldown*Rune.MagicCooldown;
+    C.Cooldown*=ColdSteelSpellCrafting::AuraCooldownMultiplier(Reduction,float(SetEffect(TEXT("cooldown"))),
+        Rune.SkillCooldown,Rune.MagicCooldown);
     ApplySpellCastSpeed(C.CastSpeed);
     C.CastExperience=T.CastExperience;C.MeleeExperience=T.MeleeExperience;C.RangedExperience=T.RangedExperience;C.ExperienceCap=T.ExperienceCap;C.TrainingSourceInterval=T.TrainingSourceInterval;
     return C;

@@ -1,21 +1,19 @@
 # 根冠：原生动画、命中与混合版本恢复
 
-用于原生动画代理的非人形首领接入。默认遵守用户后台制作与测试授权；这里的历史排查不自动触发游戏、检查或渲染。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-monster-workflow/references/root-crown-native-animation.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 原生图不能假定拥有蓝图 NodeData
 
-根冠通过 FAnimInstanceProxy::GetCustomRootNode / GetCustomNodes 建图。FAnimNode_Inertialization 求值会访问 GetNodeIndex 所需的蓝图 NodeData；C++ 构建和资产保存成功并不能保证此路径可运行。2026-10-14 的 F6 生成崩溃来自这里。
-
-当前 FRootCrownPoseTransition 保存上一帧实际输出到持久数组，以 0.14 秒混入新状态；连续打断从当前混合结果开始，接地前采样，骨骼缓存/LOD 改变及瞬移时丢弃历史。不可跨帧保存动画栈分配内存，也不通过关闭断言掩盖缺失的节点数据。死亡软体交接在零 Delta 或延迟复制时仍须采样指定姿态。
+详见[维护源](../../_shared/ue5-monster-workflow/references/root-crown-native-animation.md)中的同名章节。
 
 ## 动作、命中和复制使用同一时间合同
 
-攻击蓄力、发力、接触、回弹分别定时；提高砸下速度只压缩发力段。扩大判定后同步白弧视觉覆盖。扇叶发射点来自实际骨骼/插槽，姿势改变后更新出口；不能让模型位置、音效和命中使用互不关联的时钟。
-
-服务器生成投射物/地雷、判定敌我、伤害、控制及死亡；客户端由复制状态与动作时钟表现。地雷的 5 秒致残放在玩家接受伤害后的存活路径，由既有状态组件复制，不能在每个客户端碰撞或短寿命地雷的本地 RPC 中重复施加。清除首领时同步清除其遗留攻击物；重复复制不重放一次性伤害。
+详见[维护源](../../_shared/ue5-monster-workflow/references/root-crown-native-animation.md)中的同名章节。
 
 ## 当前根冠 M-01 的恢复组合
 
-RigV01 + MotionV01 + 快速 SlashV02 + 上扇叶 NeedlesV02 动作 + NeedlesV01 弹体/声音 + RootsV01 动作/根结模型 + MinesV01 机制/声音 + ReactionsV01 + SoftDeathV01 + CombatV01。原“三足根围”的动作和模型仍服务当前地雷，不能因旧招式名称就归档其依赖。
-
-保留用户原 GLB、源绑定、可编辑 rig/locomotion、当前接触/出口数据和软体绑定输入。作者脚本、稀疏参数可公开；模型、UE 包、纹理、音频和密集蒙皮/姿态数据按来源许可留本机。详细资产路径、顺序、归档散列及历史构建边界见工程 Docs/Publication/RootCrownEcology20261014/README.md。
+详见[维护源](../../_shared/ue5-monster-workflow/references/root-crown-native-animation.md)中的同名章节。

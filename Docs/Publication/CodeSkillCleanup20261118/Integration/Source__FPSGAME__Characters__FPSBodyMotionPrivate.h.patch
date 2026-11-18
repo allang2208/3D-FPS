@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Characters/FPSBodyMotionPrivate.h b/Source/FPSGAME/Characters/FPSBodyMotionPrivate.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Characters/FPSBodyMotionPrivate.h
+@@ -0,0 +1,8 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/PrimitiveComponent.h"
++namespace FPSBodyMotionPrivate
++{
++inline FTransform BodyMotionRigidTransform(FTransform T){T.SetScale3D(FVector::OneVector);return T;}
++inline bool Drawn(const UPrimitiveComponent* C){return C&&C->IsVisible()&&!C->bHiddenInGame;}
++}

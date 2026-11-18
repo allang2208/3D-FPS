@@ -1,24 +1,19 @@
 # 战锤成熟动作复用与冲刺下半身
 
-用于镇魂钟二连重击方向、双臂扭曲、冲刺滑步和抬锤到下砸的腿部跳变。默认只制作和接入，检查／采样／渲染按用户要求启用。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-fps-arms-animation/references/warhammer-native-reuse-and-sprint-gait.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 先取实际运行供体
 
-“按普攻第一下从右上到左下”应读取当前普攻首击的完整轨道。手腕、手指、双臂、武器根一起复用；不能用整组旋转、单独扭腕或换根骨方向去伪造轨迹。被否定的姿态不作为下一版的默认供体。
-
-镇魂钟 V5 的第一人称供体是 `NormalComboV4/A_Warhammer_Slash1` 和 `UppercutV1/A_Warhammer_Uppercut`。首击用源 0.84–0.97 秒发力段映射到 0–0.10 秒，延续至 0.15 秒；0.15–0.24 秒只混合完整局部姿态；上挑源接触 1.05 秒映射到第二击 0.42 秒。蓄力用同一普攻的 0–0.84 秒，避免松手时接点不连续。这些数值只用于本案。
-
-第三人称从各身体变体当前 Slash1/Uppercut 角色读取供体，分别生成 charge/heavy。通过共享配置事务写四个具体叶字段；如果角色后续有接触修正派生，保留当前派生，不用 V5 原始回执覆盖它。来源、保存包和运行配置值分别记录。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/warhammer-native-reuse-and-sprint-gait.md)中的同名章节。
 
 ## 位移、动作速率和腿部权重
 
-- 胶囊 sweep 前踏可能不写普通 Velocity，动画若只看 Velocity 会站桩滑行。地面冲刺阶段使用实际平面位移／Delta 驱动步态；远端使用平滑后的身体位置。空中继续使用原有速度与空中层，不把固定前踏误作空中步态。
-- 短促起手不能被平滑速度滤掉；释放后 Sprint 按键已松开也应按实际速度保留 jog。跳变位置过滤只处理传送，不消除真实前踏。
-- 抬锤进度应与执行器真实时钟一致：作者时钟、Elapsed、HasteActionRate、接触点之间只做一次明确换算，不写死供体时长。当前起锤 0.25 秒，2 倍动作率是 0.125 秒。
-- 腿部所有权使用跨 lift/slam 的连续权重，减速时逐渐接入支撑姿态，在接触时完成；不要抬锤最后一帧归零、下砸首帧突然整段接管。蹲伏、翻越、空中和滑铲权重继续参与。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/warhammer-native-reuse-and-sprint-gait.md)中的同名章节。
 
 ## 证据范围
 
-`fps.body.DiagnoseHammerSprint <json>` 采样真实原生动画图；夹具重建前踏轨迹，离线蒙皮图只能判断该图的姿态衔接，不能冒充实机武器、衣物、地面 IK 或联机观察者画面。
-
-2026-10-25 已有 Jason/Kaitlin 共 8 组采样及限定联机结果，位置在 `SourceAssets/WarhammerSprintLunge20261025`。复用已有回执时注明日期和范围，不因整理发布自动重测。动作和网络的共同身份合同见 [战锤冲刺移动](../../ue5-save-load-replication/references/hammer-sprint-movement.md)。
+详见[维护源](../../_shared/ue5-fps-arms-animation/references/warhammer-native-reuse-and-sprint-gait.md)中的同名章节。

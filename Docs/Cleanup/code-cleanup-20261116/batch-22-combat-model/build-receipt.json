@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "batch": 22,
+  "scope": "Skills C32 file-local combat model selection only; R13 routing differences retained",
+  "source_cleanup_complete": true,
+  "modified_existing_files": 1,
+  "new_source_files": 0,
+  "maximum_modified_file_lines": 391,
+  "editor_build_complete": true,
+  "result": "Succeeded",
+  "exit_code": 0,
+  "target": "FPSGAMEEditor Win64 Development",
+  "build_started_at": "2026-11-17T23:49:52.0843975+08:00",
+  "build_finished_at": "2026-11-17T23:50:24.7725025+08:00",
+  "ubt_execution_seconds": 32.44,
+  "executor_seconds": 21.58,
+  "completed_actions": 4,
+  "compile_actions": 1,
+  "link_actions": 2,
+  "metadata_actions": 1,
+  "directly_modified_cpp_compiled": [
+    "ColdSteelSkillCombat.cpp"
+  ],
+  "linked_dll": "UnrealEditor-FPSGAME.dll",
+  "log_path": "Saved/BuildEditor/cleanup-batch22-20261117-234952.log",
+  "arguments": [
+    "FPSGAMEEditor",
+    "Win64",
+    "Development",
+    "-Project=D:/FPS3D/FPSGAME/FPSGAME.uproject",
+    "-NoHotReload",
+    "-NoHotReloadFromIDE",
+    "-NoUBTMakefiles",
+    "-NoUBA",
+    "-MaxParallelActions=2"
+  ],
+  "waited_existing_module_user": {
+    "pid": 106840,
+    "name": "UnrealEditor-Cmd.exe",
+    "started_at": "2026-11-17T23:47:23.690217+08:00",
+    "exit_observed_before_build": true
+  },
+  "other_processes_stopped": false,
+  "editor_launched": false,
+  "game_launched": false,
+  "tests_run": false,
+  "runtime_status": "Untested; user testing"
+}

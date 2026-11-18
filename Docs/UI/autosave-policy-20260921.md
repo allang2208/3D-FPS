@@ -37,9 +37,9 @@
 ## 三、改动后的口径
 
 1. **定时自动存档改为可配置周期**：新增控制台变量 `fps.Save.AutosaveSeconds`，默认 **300 秒**（0 = 关闭定时存档，下限不做额外钳制，取负值等同关闭）。可在 `Config/DefaultEngine.ini` 的 `[ConsoleVariables]` 里写死默认值，也可运行时用控制台／F6 面板临时调整。
-2. **只在有未写盘增量时写**：累加器到点时若 `bTrainingDirty` 为假就跳过，不空写。空闲挂机不再产生任何写盘。
+2. **只在有未写盘增量时写**：累加器到点时若 `bTrainingDirty` 为假就跳过，不空写。空闲挂机不再产生任何写盘。 原因：没有脏增量时写盘不改变存档，只会增加无效 IO。
 3. **进度型事务统一走 `StageTraining`**（与子弹命中修炼同一机制）：实时档案立刻更新，伤害、奖励、面板读数保持精确；写盘并入上面的周期。涉及：`AwardKill`、`TrainDodge`、`TrainDexterousHands`、`TrainQuickCombat`、`TrainWhirlwind`、`TrainDashAttack`、重击修炼、火球／火系／冰锥／闪电／圣光的命中与击杀结算。
-4. **仍然立即写盘**（不能被周期推迟）：
+4. **仍然立即写盘**（不能被周期推迟）： 原因：关键事务需要及时持久化，等待周期可能在退出或崩溃时丢失已提交结果。
    - 玩家主动事务：拾取、移动／交换／拆分／丢弃、使用消耗品、强化、附魔、仓库存取与整理、快捷栏绑定、枪匠应用、弹种换装（`ConsumeAmmo`）等 `CommitState` 路径；
    - **升级**：`StageTraining` 内部检测到角色或技能升级时立刻走一次带校验事务，升级提示与派生属性同一次提交；
    - **退出**：`Deinitialize(){SaveNow();}`（`ColdSteelProfileRuntime.cpp:110`）与 `FPSGAMECharacterProfile.cpp:144` 的角色存档路径。

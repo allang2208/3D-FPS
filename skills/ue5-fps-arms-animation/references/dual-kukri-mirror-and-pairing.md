@@ -16,7 +16,7 @@
   - 连击 1/2（`author_dual_attack.py`）：右手先按单持该段挥完并沉到画面下方垂手位，左手在偏移（56/120、60/120 s）后按镜像再挥一次；两把刀各用自己那一段的命中窗、打击时刻、镜头和剑气（左手的左右分量取反）。
   - 第三段双刺（`author_dual_attack.py` 的 `THRUST` + `fit_dual_thrust.py`）：两只手从画面下角**同时**沿刀身直刺，左右镜像但左拳低 3 cm / 近 8 cm，让两把刀一上一下错开（严格镜像会在刀尖相交处切进去约 0.5 cm）。
   - 双持重击（`author_dual_heavy.py`）：两只手同时交叉 X 斩，左手按"与右手同时刻的胶囊间距"约束单独拟合（`fit_dual_heavy.fit_pair`），交叉之后左拳略深略低从右臂下面滑过去。
-- **清隙用真实网格距离场，不用胶囊**（`kukri_sdf.py`）：刀与刀、刀与对侧手臂蒙皮。段胶囊只能查手臂之间；换了更长的刀身模块（猎手刀身 +10 cm）必须换成对应包络重查（`KUKRI_SDF_VARIANT=hunter`）。
+- **清隙用真实网格距离场，不用胶囊**（`kukri_sdf.py`）：刀与刀、刀与对侧手臂蒙皮。段胶囊只能查手臂之间；换了更长的刀身模块（猎手刀身 +10 cm）必须换成对应包络重查（`KUKRI_SDF_VARIANT=hunter`）。 原因：刀身形状和模块长度决定真实间隙，手臂胶囊不能表示刀刃与手部表面的距离。
 - **镜头**：双刀同时出手的动作，镜头曲线要两只手合成——同时出手的相加（或取更强的那个），先后出手的把第二段延迟 `DualSweepOffset(Stage)` 再叠一次（左右分量取反，`KukriRhythm::DualSweepCamera`）。
 
 ## 双刀拔刀：把"刀离手"的飞行镜像到第二只手
@@ -36,10 +36,10 @@
 
 第一人称的镜像做法（`UKukriArmsMeshComponent::MirrorRightPose`：逐骨对称 + 绑定修正）**不能直接套到世界身体**。世界身体的骨架不是精确对称的共享剑手臂骨架，而且它的动画图分很多层（动作库、staff/book carry、消耗、反应、Grounding 脚部求解、手指抓握）。正确位置是**所有混合之后、手指抓握之前**做一次整段上半身镜像：
 
-- 用 `FAnimationRuntime::MirrorPose(Pose, EAxis::X, MirrorBones, RefRotations)`（UE5 自带，按 reference skeleton 累计旋转做修正），不要手写逐骨镜像；
+- 用 `FAnimationRuntime::MirrorPose(Pose, EAxis::X, MirrorBones, RefRotations)`（UE5 自带，按 reference skeleton 累计旋转做修正），不要手写逐骨镜像； 原因：参考骨架的累计旋转参与镜像修正，逐骨直接翻分量会丢失这层关系。
 - 它作用在**局部**变换上，调用前把 component-space 姿态转 local，调用后再 `InitPose` 回 component space；
-- 只镜像 `spine_01` 及其子骨；镜像后把胸的朝向按"搬骨盆旋转 × 参考骨盆的镜像修正"重新锚回，腿和骨盆保持原步态；
+- 只镜像 `spine_01` 及其子骨；镜像后把胸的朝向按"搬骨盆旋转 × 参考骨盆的镜像修正"重新锚回，腿和骨盆保持原步态； 原因：限定镜像到上身可保留原有步态，重新锚定胸部使上身方向仍与未镜像的骨盆相接。
 - 手指抓握层放在镜像之后，这样装备的左手握法直接落在 hand_l 上；
-- 进食（`ConsumeWeight > 0`）不要镜像，那条链是专用的双手食物姿态。
+- 进食（`ConsumeWeight > 0`）不要镜像，那条链是专用的双手食物姿态。 原因：同一输入可能跨动作结束继续存在，取消和恢复时必须保留明确的输入归属。
 
 同一套思路也可以复用到"主手武器放到左手播"的其他系统（手枪已经有 `FSinglePistolMirrorLayer`）。

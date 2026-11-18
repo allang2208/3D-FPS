@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills only; P01 martial hit XP calculation and P02 four spell cooldown multipliers",
+  "status": "Source cleanup and Editor build complete; no tests run",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+      "before_lines": 99,
+      "before_bytes": 6412,
+      "before_sha256": "22ba5ef998f539a337d0f9c507e3505ec0366aff55f617a24fb944915f65dc97",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-16-training-cooldown/ColdSteelDashAttackModel.cpp.before.txt",
+      "after_lines": 100,
+      "after_bytes": 6436,
+      "after_sha256": "400684186f765a3639f32d0a1d85c7fa75f1e96c458d3a007a28bd72e004d2f2"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "before_lines": 81,
+      "before_bytes": 4312,
+      "before_sha256": "eb4a953434a128a20ac181e325ace491c57e63e218285a021d164697e8a341cb",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-16-training-cooldown/ColdSteelWhirlwindModel.cpp.before.txt",
+      "after_lines": 82,
+      "after_bytes": 4336,
+      "after_sha256": "22302fb839d2849ad8f88582909f9cfdceb1f93de66068e9982041c770a3c31a"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "before_lines": 129,
+      "before_bytes": 8162,
+      "before_sha256": "d485cd99b2652c7aeb9ab32b320a0b788761eb8649c85e7c7f0d4e08d9c60d60",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-16-training-cooldown/ColdSteelHolyLightModel.cpp.before.txt",
+      "after_lines": 130,
+      "after_bytes": 8179,
+      "after_sha256": "2ad9a6ee1cb48e92a7b8c24c2164f59274408237ddadaadb8e609c57802cf124"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "before_lines": 121,
+      "before_bytes": 7558,
+      "before_sha256": "01ed01a90706086069b997e05ecbabad454bbdac3b4d91186f4a8ca96255690b",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-16-training-cooldown/ColdSteelIceSpikeModel.cpp.before.txt",
+      "after_lines": 121,
+      "after_bytes": 7570,
+      "after_sha256": "15c6b75a9e94cdc2d5241173c32cd2ea21612d2db32933ab9748e2aaf1b2c5bc"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "before_lines": 129,
+      "before_bytes": 8553,
+      "before_sha256": "dcd36a55005aa0a1fc21eeff03689161d54d224e9542d0435316c80966ac71db",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-16-training-cooldown/ColdSteelLightningModel.cpp.before.txt",
+      "after_lines": 130,
+      "after_bytes": 8570,
+      "after_sha256": "b3cfa7267da5e93c426248872e1063f7ff700e0592268b7e215e1ce3b8ab8ff1"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "before_lines": 141,
+      "before_bytes": 8430,
+      "before_sha256": "059d7232be0d7eb71d87e6ee80657bb615b22506850ffe45aa6e196aa6af1ca2",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-16-training-cooldown/ColdSteelIceWallModel.cpp.before.txt",
+      "after_lines": 142,
+      "after_bytes": 8447,
+      "after_sha256": "296b768381096ca35b16a5bec1e64ff06376c81e1f05edc16233fdc6c06820d6"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellRewards.h",
+      "before_lines": 73,
+      "before_bytes": 2879,
+      "before_sha256": "35c47dd8a6c1d012134ebffc7e84f6f3943c76b98b71f6fe40460100d229ed0a",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-16-training-cooldown/ColdSteelSpellRewards.h.before.txt",
+      "after_lines": 79,
+      "after_bytes": 3164,
+      "after_sha256": "db82e50104fce308939a08e246fde6fe06275860e0abeb6f6e9688f2b5305d02"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellCrafting.h",
+      "before_lines": 45,
+      "before_bytes": 1828,
+      "before_sha256": "dd6bdf266566ced112872b127f9123273122a62145f07b0a8ca87f67475d2a1e",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-16-training-cooldown/ColdSteelSpellCrafting.h.before.txt",
+      "after_lines": 53,
+      "after_bytes": 2166,
+      "after_sha256": "952018170824b464438eefa2d39ab077e5b5d06a9f9b2e154a8122d7e4c390d9"
+    }
+  ],
+  "modified_existing_files": 8,
+  "new_source_files": 0,
+  "tests_run": false,
+  "build_receipt": "build-receipt.json"
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-18",
+  "status": "complete",
+  "document_counts": {
+    "history": 16,
+    "reference": 843,
+    "personal_skill": 19,
+    "domain_workflow": 4,
+    "linked_rules": 53
+  },
+  "project_documents": 483,
+  "personal_documents": 452,
+  "total_documents": 935,
+  "duplicate_project_references_consolidated": 323,
+  "historical_evidence_left_as_evidence": 1162,
+  "project_entry_read_only": 18,
+  "before_bytes": 6384675,
+  "after_bytes": 5446634,
+  "features_added": false,
+  "tests_run": false,
+  "build_run": false,
+  "editor_started": false,
+  "publication_performed": false,
+  "result": "result.md",
+  "manifest": "final-manifest.json"
+}

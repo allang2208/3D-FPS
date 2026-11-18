@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "command": "Engine/Build/BatchFiles/Build.bat FPSGAME Win64 Development -Project=D:/FPS3D/FPSGAME/FPSGAME.uproject -WaitMutex -NoHotReload -NoHotReloadFromIDE -NoUBTMakefiles",
+  "target": "FPSGAME Win64 Development",
+  "scope": "Batch 12: five staff critical/penetration blocks and six chain/cast-haste blocks within Skills",
+  "exit_code": 0,
+  "result": "Succeeded",
+  "executed_actions": 8,
+  "ubt_execution_seconds": 52.81,
+  "log_path": "Saved/BuildGame/cleanup-batch12-20261117-151403.log",
+  "compiled_translation_units": [
+    "ColdSteelIceSpikeModel.cpp",
+    "ColdSteelIceWallModel.cpp",
+    "ColdSteelBlizzardModel.cpp",
+    "ColdSteelLightningModel.cpp",
+    "ColdSteelFireMagicModel.cpp",
+    "ColdSteelHolyLightModel.cpp"
+  ],
+  "linked_outputs": [
+    "Binaries/Win64/FPSGAME.exe",
+    "Binaries/Win64/FPSGAME.lib"
+  ],
+  "target_metadata_written": true,
+  "editor_build_pending": false,
+  "editor_attempt_receipt": "Docs/Cleanup/code-cleanup-20261116/batch-12-staff-crafting/editor-build-attempt.json",
+  "processes_stopped": false,
+  "editor_launched_by_this_batch": false,
+  "game_launched": false,
+  "tests_run": false,
+  "scope_note": "Original Game build evidence is preserved. The subsequent independent Editor invocation is recorded in editor_finalization_receipt; neither result establishes runtime behavior.",
+  "historical_editor_blocking_reason": "Original Editor build script blocked by project UnrealEditor.exe PID 52092, still observed after Game build; no processes stopped.",
+  "editor_build_complete": true,
+  "editor_finalization_receipt": "Docs/Cleanup/code-cleanup-20261116/editor-finalization-20261117.json",
+  "editor_finalization_log": "Saved/BuildEditor/cleanup-finalization-20261117-171716.log",
+  "editor_finalization_result": "Succeeded; target up to date; 0 actions; exit 0; 11.29 seconds"
+}

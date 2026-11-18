@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp b/Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp
+@@ -79,8 +79,7 @@
+     PlayerSkillAssets::Defer(GetOwner(),TEXT("thunderLance"),Ready,Requests);
+ }
+ UColdSteelStatusModel* UFPSElectricMagicComponent::Model() const
+-{return UnknownSpell::IsCaster(GetOwner())?UnknownSpell::Model(Cast<APawn>(GetOwner())):
+-    (GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr);}
++{return NetCast::LocalModel(*this);}
+ UFPSFireballComponent* UFPSElectricMagicComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
+ bool UFPSElectricMagicComponent::Enemy(AActor* Actor) const
+ {if(UnknownSpell::IsCaster(GetOwner()))return UnknownSpell::IsTarget(GetOwner(),Actor);

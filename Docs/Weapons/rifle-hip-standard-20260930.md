@@ -6,7 +6,7 @@
 
 ## 适用范围
 
-仅 `ue_m4a1`、`ue_hk416`、`ue_qbz191`、`ue_akm`、`ue_m16a2`、`ue_ash12`、`ue_a762`、`ue_svd`。PKM、201 轻机枪、手枪和其他武器不进入新标定。
+仅 `ue_m4a1`、`ue_hk416`、`ue_qbz191`、`ue_akm`、`ue_m16a2`、`ue_ash12`、`ue_a762`、`ue_svd`。PKM、201 轻机枪、手枪和其他武器不进入新标定。 原因：本轮标定限定明确枪型，其他武器有自己的构图合同而不应被连带覆盖。
 
 ## 统一规格
 
@@ -34,7 +34,7 @@
 
 - `Source/FPSGAME/Weapons/RifleHipFraming.h/.cpp`：八种武器白名单、待机取样和刚体标定。
 - `Source/FPSGAME/FPSGAMECharacter.h/.cpp`：初始化、腰射/动作混合、拔枪和配件待机切换入口。
-- `SourceAssets/RifleHipStandard20260930/Before`：编辑前的两份共享源码快照，仅作本轮追溯，不能整文件覆盖并行改动。
+- `SourceAssets/RifleHipStandard20260930/Before`：编辑前的两份共享源码快照，仅作本轮追溯，不能整文件覆盖并行改动。 原因：快照包含当时整份源码，直接覆盖会抹掉之后其他任务的有效修订。
 - `SourceAssets/RifleHipStandard20260930/build_editor.ps1`：后台构建入口，沿用端口 8000 批次互斥。
 
 构建遇到 `Skills/FPSIceWall.cpp` 中 `auto*` 无法从 `TObjectPtr<APawn>` 推导的 C3535/C2440 错误。仅将这一行变量声明改为显式 `APawn*`，保留原逻辑；该文件编辑前快照也保存在本轮 `Before` 目录。

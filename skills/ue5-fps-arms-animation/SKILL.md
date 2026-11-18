@@ -3,75 +3,77 @@ name: ue5-fps-arms-animation
 description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装备外观（皮肤、衣袖、手套材质与袖口），包括自然手指抓握、双手近战挥砍/重击/突刺/格挡、单手工具挥击、甩弹匣、取弹插入、普通与空仓换弹、拉栓、装备、检视、换握和奔跑；用 MAT、Control Rig、Blender 及实际音画检查修复扭曲、穿模、抖动与接触不同步。
 ---
 
-# 本机维护源入口
+# 共用规则入口
 
-本机共用流程统一读取[ue5-fps-arms-animation](C:/Users/allan/.codex/skills/ue5-fps-arms-animation/SKILL.md)，不要叠加旧镜像流程。
+本轮导出的 [手枪与副手书](references/pistol-book-ads-and-reload.md) 记录原待机/V5 ADS、直接回握、双持消耗品及联机身份边界；共享维护仍以个人目录为准。 为什么：个人目录不随工程仓库传输，明确依赖可避免换机后入口失效。
 
-工程专属规则以当前 AGENTS.md、WORKFLOW.md 和本次用户要求为准。维护源不可用或需要查找未合入的工程经验时，读取[整理前工程资料](LOCAL-HISTORY.md)及原 references；其中历史测试与协调条款不构成执行授权。
+共用流程读取仓库发布快照：[ue5-fps-arms-animation](../_shared/ue5-fps-arms-animation/SKILL.md)，不要叠加旧镜像流程。 为什么：共用流程只维护一个来源，避免工程镜像与个人版本给出相互冲突的步骤。
 
-此入口依赖本机个人目录；跨机器交付需另行导出所需维护源和引用。
+工程专属规则以当前 AGENTS.md、WORKFLOW.md 和本次用户要求为准。维护源不可用或需要查找未合入的工程经验时，读取[整理前工程资料](LOCAL-HISTORY.md)及原 references；其中历史测试与协调条款不构成执行授权。 为什么：当前用户授权决定操作范围，历史测试与协调记录不能自动成为新任务授权。
 
-枪械换弹屏幕反馈的当前实现和逐枪覆盖见[换弹镜头标准 RC1](../../Docs/Weapons/reload-camera-standard-20261013.md)。
+第三人称动作恢复、共用身体配置修改及动画发布，另读 [共享配置写入与发布](../../Docs/Workflow/player-body-config-publication.md)，保留其他动作入口并区分本地接入、Git 推送与用户认可。 为什么：该文件由多个动作与装备共用，按字段写入才能保留其他未提交内容。
 
-双持甩弹匣／开弹巢的运行时分段节奏、音效提前量和独立弹壳交接见[双持换弹发力节奏 R1](../../Docs/Weapons/dual-reload-power-tempo-20261013.md)。
+本入口随仓库提供共用规则快照；日常修订仍回到个人维护源，发布时更新快照。 为什么：相对链接支持换机阅读，单一维护源避免两套规则分叉。
+
+枪械换弹屏幕反馈的当前实现和逐枪覆盖见[换弹镜头标准 RC1](../../Docs/Weapons/reload-camera-standard-20261013.md)。 为什么：「换弹镜头标准 RC1」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+
+双持甩弹匣／开弹巢的运行时分段节奏、音效提前量和独立弹壳交接见[双持换弹发力节奏 R1](../../Docs/Weapons/dual-reload-power-tempo-20261013.md)。 为什么：「双持换弹发力节奏 R1」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 ## 魔法书衔接
 
-- 魔法书侧握到悬浮阅读、开合或落掌回握，及重复翻转/腕臂扭曲：[魔法书开合衔接](references/spellbook-transitions.md)。区分握持、掌向与阅读终点；当前 V30 保留已合格的主体动作与 1.12 秒时长，细调手指错峰、肩肘弧线和回握接触，效果待用户体验。
+- 魔法书侧握到悬浮阅读、开合或落掌回握，及重复翻转/腕臂扭曲：[魔法书开合衔接](references/spellbook-transitions.md)。区分握持、掌向与阅读终点；当前 V30 保留已合格的主体动作与 1.12 秒时长，细调手指错峰、肩肘弧线和回握接触，效果待用户体验。 为什么：「魔法书开合衔接」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 ## Super90 分段节奏与腕臂续修
 
-- 用户认可动作而只要求慢对准／快推进，或修腕臂、拉栓穿模时，读取 [Super90 共用源时钟与局部修订](references/super90-shared-clock.md)。保留有效作者输入，区分历史废案、已保存资产和待用户体验的最新节奏。
+- 用户认可动作而只要求慢对准／快推进，或修腕臂、拉栓穿模时，读取 [Super90 共用源时钟与局部修订](references/super90-shared-clock.md)。保留有效作者输入，区分历史废案、已保存资产和待用户体验的最新节奏。 为什么：「Super90 共用源时钟与局部修订」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 第三人称持剑握柄接触、旋风方向和版本恢复：[持剑接触与方向](references/third-person-sword-contact.md)。
+- 第三人称持剑握柄接触、旋风方向和版本恢复：[持剑接触与方向](references/third-person-sword-contact.md)。 为什么：「持剑接触与方向」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 双手剑转刀检视（L 键）的逆时针起手、掌心托剑与手背回握，以及两版动画按剑转角拼接、重剑节奏、长柄档案重烘：[双手近战与转刀](references/two-handed-melee.md)。按问题读取；历史版本与用户否定记录不作为当前实现。
+- 双手剑转刀检视（L 键）的逆时针起手、掌心托剑与手背回握，以及两版动画按剑转角拼接、重剑节奏、长柄档案重烘：[双手近战与转刀](references/two-handed-melee.md)。按问题读取；历史版本与用户否定记录不作为当前实现。 为什么：「双手近战与转刀」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 冲刺屏幕幅度、全枪换弹镜头标准及双持甩匣／开巢节奏：[镜头反馈与双持发力](references/reload-camera-and-dual-tempo.md)。
+- 冲刺屏幕幅度、全枪换弹镜头标准及双持甩匣／开巢节奏：[镜头反馈与双持发力](references/reload-camera-and-dual-tempo.md)。 为什么：「镜头反馈与双持发力」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M870 的 AKM 整手复用、UC 装备／装填继承与快速近战右肘修订：[M870 动作与抓握](references/m870-source-motion-and-grip.md)。保留本枪接触、真实蒙皮铰链及仍有效的旧版工具依赖。
+- M870 的 AKM 整手复用、UC 装备／装填继承与快速近战右肘修订：[M870 动作与抓握](references/m870-source-motion-and-grip.md)。保留本枪接触、真实蒙皮铰链及仍有效的旧版工具依赖。 为什么：「M870 动作与抓握」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- [第三人称双手锤左手施法](references/third-person-casting-arm.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。
+- [第三人称双手锤左手施法](references/third-person-casting-arm.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。 为什么：「第三人称双手锤左手施法」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 持弓左手施法、进食与回握，以及双手食物的取消恢复：[弓动作交接](references/bow-hand-string-contact.md#第三人称-sparrow-与左手动作交接2026-10-18)；拇指与最终蒙皮问题：[进食抓握](references/food-and-drink-grasp.md)。
+- 持弓左手施法、进食与回握，以及双手食物的取消恢复：[弓动作交接](references/bow-hand-string-contact.md#第三人称-sparrow-与左手动作交接2026-10-18)；拇指与最终蒙皮问题：[进食抓握](references/food-and-drink-grasp.md)。 为什么：「弓动作交接」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- S12K 检视避让、空仓拇指回握与共振握把整臂跟随：[S12K 检视避让、空仓拇指回握与共振握把整臂跟随](references/saiga12k-grip-and-return.md)。按问题读取；历史检查不授权自动重测。
+- S12K 检视避让、空仓拇指回握与共振握把整臂跟随：[S12K 检视避让、空仓拇指回握与共振握把整臂跟随](references/saiga12k-grip-and-return.md)。按问题读取；历史检查不授权自动重测。 为什么：「S12K 检视避让、空仓拇指回握与共振握把整臂跟随」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 ## 固定工位视角手臂 IK
 
-- 工作视角里手看不见、同时有一条贯穿屏幕的 1px 细线，或要改 `AAlchemyWorldView`／`AForgeInteraction` 这类把相机与手臂一起搬进工位的视角：[工位视角手臂 IK 锚点](references/workbench-view-arm-anchor.md)。核心是"够手距离必须落在臂展内"，按该页的量取顺序先算距离再查渲染；`ArmBones` 含 clavicle 全部子骨，折叠非手臂骨救不了肩部拉伸。
+- 工作视角里手看不见、同时有一条贯穿屏幕的 1px 细线，或要改 `AAlchemyWorldView`／`AForgeInteraction` 这类把相机与手臂一起搬进工位的视角：[工位视角手臂 IK 锚点](references/workbench-view-arm-anchor.md)。核心是"够手距离必须落在臂展内"，按该页的量取顺序先算距离再查渲染；`ArmBones` 含 clavicle 全部子骨，折叠非手臂骨救不了肩部拉伸。 为什么：「工位视角手臂 IK 锚点」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 衣袖与长袍漏空、原生绑定、下摆连续覆盖和布料同帧时序：[衣袖与长袍漏空、原生绑定、下摆连续覆盖和布料同帧时序](references/garment-continuity-and-cloth-timing.md)。按问题读取，历史证据不授权自动重测。
+- 衣袖与长袍漏空、原生绑定、下摆连续覆盖和布料同帧时序：[衣袖与长袍漏空、原生绑定、下摆连续覆盖和布料同帧时序](references/garment-continuity-and-cloth-timing.md)。按问题读取，历史证据不授权自动重测。 为什么：衣物必须延续当前骨架与穿戴组合，外观修改不能破坏已有接缝和动作。
 
-- SVCH 快速近战整手错位、腕肘扭曲、压缩帧间甩臂与动作时钟：读取 [SVCH 握点与帧间修订](references/svch-grip-subframes.md)。保留 V9、实际握点和仍有效的旧版恢复输入。
+- SVCH 快速近战整手错位、腕肘扭曲、压缩帧间甩臂与动作时钟：读取 [SVCH 握点与帧间修订](references/svch-grip-subframes.md)。保留 V9、实际握点和仍有效的旧版恢复输入。 为什么：「SVCH 握点与帧间修订」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-本轮导出的 [手枪与副手书](references/pistol-book-ads-and-reload.md) 记录原待机/V5 ADS、直接回握、双持消耗品及联机身份边界；共享维护仍以个人目录为准。
-
-第三人称动作恢复、共用身体配置修改及动画发布，另读 [共享配置写入与发布](../../Docs/Workflow/player-body-config-publication.md)，保留其他动作入口并区分本地接入、Git 推送与用户认可。
-
-- 衣物接缝、长靴及距离档位的原生蒙皮读回，参考[连续长靴与渲染 LOD](../asset-model-workflow/references/continuous-boots-and-render-lods.md)；动画在无界面启动触发曲线迁移时，转[骨架曲线迁移](../ue5-debug-validation/references/uncooked-animation-curve-migration.md)。
+- 衣物接缝、长靴及距离档位的原生蒙皮读回，参考[连续长靴与渲染 LOD](../asset-model-workflow/references/continuous-boots-and-render-lods.md)；动画在无界面启动触发曲线迁移时，转[骨架曲线迁移](../ue5-debug-validation/references/uncooked-animation-curve-migration.md)。 为什么：不同几何与变形需求需要不同制作路线，统一套用面数或生成参数会损失有效细节。
 
 ## 副手刀镜像与衔接
 
-- 把一只手的剪辑镜像到另一只手（缩放矩阵归一化、按绑定逐骨修正、刀身/指节误差验收）、副手抬臂时手肘翻转与上臂变细（肩根随剪辑、锁骨份额）、`FTransform` 乘法顺序，以及装备入场/换弹下沉弧线与原生支撑手接入：[副手刀镜像、手臂修正与衔接](references/offhand-blade-mirror-and-handoff.md)。
+- 把一只手的剪辑镜像到另一只手（缩放矩阵归一化、按绑定逐骨修正、刀身/指节误差验收）、副手抬臂时手肘翻转与上臂变细（肩根随剪辑、锁骨份额）、`FTransform` 乘法顺序，以及装备入场/换弹下沉弧线与原生支撑手接入：[副手刀镜像、手臂修正与衔接](references/offhand-blade-mirror-and-handoff.md)。 为什么：「副手刀镜像、手臂修正与衔接」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 左右各一把同时打（双持）：左臂按镜像右臂解、双刀动作错开编排与真实网格清隙、第二把刀的抛接飞行表：[双持弯刀镜像与双刀编排](references/dual-kukri-mirror-and-pairing.md)。
-- 武器共用弯刀动作族但要有专属动作（如单手斧的抛接、第三段劈砍、冲刺就绪跑姿）：只换 clip 与呈现、用 static_assert 钉住原时钟；锤握够不到正下方、双斧交叉与穿模排查：[单手斧专属动作](references/hatchet-dedicated-actions.md)。
+- 左右各一把同时打（双持）：左臂按镜像右臂解、双刀动作错开编排与真实网格清隙、第二把刀的抛接飞行表：[双持弯刀镜像与双刀编排](references/dual-kukri-mirror-and-pairing.md)。 为什么：「双持弯刀镜像与双刀编排」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 武器共用弯刀动作族但要有专属动作（如单手斧的抛接、第三段劈砍、冲刺就绪跑姿）：只换 clip 与呈现、用 static_assert 钉住原时钟；锤握够不到正下方、双斧交叉与穿模排查：[单手斧专属动作](references/hatchet-dedicated-actions.md)。 为什么：「单手斧专属动作」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 ## 手枪第三人称源动作
 
-左右单持镜像、双枪肩肘扭曲、长前握把撤手或插弹匣接触问题，读 [手枪第三人称源与接触](references/pistol-third-person-source.md)。先复用完整原生链，再按枪型适配。
+左右单持镜像、双枪肩肘扭曲、长前握把撤手或插弹匣接触问题，读 [手枪第三人称源与接触](references/pistol-third-person-source.md)。先复用完整原生链，再按枪型适配。 为什么：「手枪第三人称源与接触」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 坐椅扶手、上床移腿、倒放下床和双人床镜像，读取 [坐卧动作、支撑与左右侧复用](references/furniture-rest-motion.md)。
+- 坐椅扶手、上床移腿、倒放下床和双人床镜像，读取 [坐卧动作、支撑与左右侧复用](references/furniture-rest-motion.md)。 为什么：「坐卧动作、支撑与左右侧复用」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 镇魂钟首击／上挑方向、双臂扭曲及冲刺抬锤下半身衔接，读取 [战锤成熟动作复用与冲刺步态](references/warhammer-native-reuse-and-sprint-gait.md)。保留完整原生轨道、真实位移与统一阶段时钟。
+- 镇魂钟首击／上挑方向、双臂扭曲及冲刺抬锤下半身衔接，读取 [战锤成熟动作复用与冲刺步态](references/warhammer-native-reuse-and-sprint-gait.md)。保留完整原生轨道、真实位移与统一阶段时钟。 为什么：「战锤成熟动作复用与冲刺步态」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M24 肩根退镜、独立握把换握和拉栓微动复用：[保留接触的局部腕臂修订](references/m24-preserve-contact.md)。
+- M24 肩根退镜、独立握把换握和拉栓微动复用：[保留接触的局部腕臂修订](references/m24-preserve-contact.md)。 为什么：「保留接触的局部腕臂修订」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 视频拟合双手横扫／突刺，尤其画外肘腕扭曲、蓄满到释放衔接：[视频拟合与突刺衔接](references/video-fit-thrust-handoff.md)。保留实际握点、角度连续性和活跃采样依赖。
+- 视频拟合双手横扫／突刺，尤其画外肘腕扭曲、蓄满到释放衔接：[视频拟合与突刺衔接](references/video-fit-thrust-handoff.md)。保留实际握点、角度连续性和活跃采样依赖。 为什么：「视频拟合与突刺衔接」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M24 骨架与碳纤维后托的快速近战、手指回握与差量分流：读取 [M24 骨架与碳纤维后托的快速近战、手指回握与差量分流](references/m24-stock-hand-continuity.md)。
+- M24 骨架与碳纤维后托的快速近战、手指回握与差量分流：读取 [M24 骨架与碳纤维后托的快速近战、手指回握与差量分流](references/m24-stock-hand-continuity.md)。 为什么：「M24 骨架与碳纤维后托的快速近战、手指回握与差量分流」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-涉及混合主副手的斧头下劈与恢复时，读取 [混合主副手的斧头下劈与恢复](references/mixed-offhand-quick-combat.md)。
+涉及混合主副手的斧头下劈与恢复时，读取 [混合主副手的斧头下劈与恢复](references/mixed-offhand-quick-combat.md)。 为什么：「混合主副手的斧头下劈与恢复」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- M249 侧插换弹的插匣肘部、取弹停顿和枪身静止，读取[侧插换弹与整枪随动](references/m249-reload-assembly-feedback.md)。保留接触与当前源时钟，公共 root 差量包含真实父级尺度。
+- M249 侧插换弹的插匣肘部、取弹停顿和枪身静止，读取[侧插换弹与整枪随动](references/m249-reload-assembly-feedback.md)。保留接触与当前源时钟，公共 root 差量包含真实父级尺度。 为什么：「侧插换弹与整枪随动」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+
+- 玩家被击倒（后仰倒地—仰躺—站起）的第一人称相机、输入锁定与武器手臂：玩家击倒 V1（本机资料：`Docs/Characters/player-knockdown-20261114.md`，不随本次发布）。双手剑为首个标准；其他武器沿用同一时钟 `PlayerKnockdownMotion` 和关键帧刚体组方法，测试键 Y。 为什么：「玩家击倒 V1」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。

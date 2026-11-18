@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp b/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp
+@@ -42,8 +42,7 @@
+     }));
+ }
+ UColdSteelStatusModel* UFPSIceSpikeComponent::Model() const
+-{return UnknownSpell::IsCaster(GetOwner())?UnknownSpell::Model(Cast<APawn>(GetOwner())):
+-    (GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr);}
++{return NetCast::LocalModel(*this);}
+ UFPSFireballComponent* UFPSIceSpikeComponent::Hands() const {return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
+ bool UFPSIceSpikeComponent::IsPrepared() const {return (Active.IsValid()&&!Active->IsFlying())||bNetExpect;}
+ int32 UFPSIceSpikeComponent::ActiveCount() const {return Active.IsValid()?Active->RemainingCount():0;}

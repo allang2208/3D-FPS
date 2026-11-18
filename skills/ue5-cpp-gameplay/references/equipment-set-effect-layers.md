@@ -43,7 +43,7 @@ return true;
 同一个数值放哪一层，玩家感知完全不同：
 
 - 放单件 `bonusStats`：戴上这一件就生效，浮窗在“属性加成”段显示。
-- 放 `SetEffect()`：必须凑齐才生效，浮窗在“套装效果”段显示。
+- 放 `SetEffect()`：必须凑齐才生效，浮窗在“套装效果”段显示。 原因：单件属性与集齐条件的生效范围不同，混写会让未集齐装备也获得整套效果。
 
 用户说“帽子提高 10% 暴击率”和“5 件套提高 10% 暴击率”是两件事。前者写 `bonusStats.crit`，后者写 `SetEffect("crit")`；两者可以叠加，帽子自带 + 套装额外是常见形态。
 
@@ -70,7 +70,7 @@ return true;
 
 ## 交付与核对
 
-1. 发布脚本用字段级替换（如 `Tools/BrownLeatherSet/json_entries.py` 的 `replace` / `insert`），保留同文件里其他并行改动与 BOM。
+1. 发布脚本用字段级替换（如 `Tools/BrownLeatherSet/json_entries.py` 的 `replace` / `insert`），保留同文件里其他并行改动与 BOM。 原因：字段级写入保留其他条目和文件编码，整份旧配置覆盖会丢失并行修订。
 2. `source-combat-items.json` 的 `setBonusDesc` 是玩家可见文案，术语要与浮窗、文档三处统一。
 3. 核对实际生效值要**同时**读 `items.json` 和覆盖层，取覆盖层优先；只读一方会得到错误合计。
 4. 未测试就写未测试：套装识别、叠加、联机同步都需要实机确认，构建成功不等于生效。

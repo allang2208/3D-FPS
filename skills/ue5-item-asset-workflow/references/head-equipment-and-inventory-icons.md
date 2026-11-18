@@ -1,32 +1,23 @@
 # 头部装备与背包图标
 
-适用：从零接入法师帽、闭面钢盔等头部装备；装备限制第一人称视野；穿戴正常但背包图标缺失。沿用服装制作和当前物品合同，不自动开启游戏或验收渲染。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-item-asset-workflow/references/head-equipment-and-inventory-icons.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 头部装备
 
-- 使用已有 helmet 装备槽和权威装备身份，沿身体装备刷新入口生成头部组件。每种支持的头型独立记录 head 骨拟合，不能把单个头型的平移缩放当作全部头型的通用解。
-- 第三人称展示真实帽／盔模型，按头饰覆盖范围隐藏对应头发。卸装和头型切换要恢复头发。可摆动帽尖使用所属角色自己的次级运动，根部仍贴合头部。
-- 第一人称内盔呈现与第三人称外壳分工。近眼视野层可以采用基于模型的带透明眼缝图层，重点保留真实板边、衬里、曲率和非均匀表面；纯圆角黑框无法还原闭面盔。若用真实近眼模型，另行处理近裁剪、相机穿入和 FOV，不把外壳直接塞进相机。
-- 视野层仅创建给本地拥有者，第三人称、死亡视角、角色隐藏或卸盔时关闭。所有权变化需重建拥有者相关外观，远端玩家不能收到本机遮罩。装备权威和本地视觉限制分开，不复制视野纹理或 UI 实例。
-- 异步加载使用请求序号和取消句柄；旧请求不可覆写新装备。卸装、结束游戏和头型变化均释放所属组件／Widget，不修改其他角色的实例。
+详见[维护源](../../_shared/ue5-item-asset-workflow/references/head-equipment-and-inventory-icons.md)中的同名章节。
 
 ## 图标的四个交付点
 
-1. 当前模型生成的规范 PNG，以及物品 ue_icon 指向的家族目录副本。
-2. UI 读取的根目录同名缓存 PNG；仅更新家族目录仍可能显示旧图或空白。
-3. 已导入保存的 UE UI Texture；透明背景、贴图组和压缩按现有图标流程设置。
-4. ue_equipment_icon_mesh 指向的独立展示网格；裤子、成对手套、帽子与靴子分别构图，不误用穿戴姿态或被隐藏材质的运行网格。
-
-修改模型后同步上述路径和物品条目，只更新本物品键。保存脚本写好不等于已导入；保留保存回执和源哈希。法袍正反面修复后也须重新生成展示网格与图标，不能继续引用错误胸饰的旧图。
+详见[维护源](../../_shared/ue5-item-asset-workflow/references/head-equipment-and-inventory-icons.md)中的同名章节。
 
 ## 当前工程入口与出版范围
 
-运行时代码为 Characters/FPSPlayerHeadEquipment.cpp、FPSHeadEquipmentMeshComponent 和 UI/FPSHelmetVisorWidget；数据为 player_body.json 的 head_equipment。钢盔当前使用 Tools/SteelArmet/*reference* 与 ReferenceMatchV5，初版和 Refined 已退出制作入口。图标共用 Tools/BlueMageSetIcons。配套恢复说明见 Docs/Publication/Outfits20261020/README.md。
-
-公开 Git 只交付原创制作脚本、配方和源码；依赖原生身体的 Blender、FBX、密集几何 JSON、贴图与 UE 包保留本机并列出恢复依赖。历史截图、构建成功与早期联机记录均不能替代当前视觉验收。
+详见[维护源](../../_shared/ue5-item-asset-workflow/references/head-equipment-and-inventory-icons.md)中的同名章节。
 
 ## 开放式帽子保留头发（2026-10-25）
 
-`covers_scalp_hair` 在当前运行时隐藏整个 HeadScalpHair groom，不是仅裁掉帽内头发。贝雷帽、奔尼帽、羽饰帽、法师帽和运动帽使用 false；闭面钢盔的覆盖策略单独保留。穿开放帽后女性长发变短，先核对该开关，不要直接删 groom 或更换发型。
-
-根配置与 `body_variants.kaitlin.head_equipment` 都要处理，目录中实际头饰与身体配方交叉列出；未分类头饰保留原设置并报告。更新通过 `Tools/PlayerBody/config_transaction.py` 精确提交所属键，复用工具 `repair_open_hat_hair.py`。当前配置在角色 BeginPlay 读取；写盘不证明已生成角色实时刷新，保留头发也不证明帽口动态无穿模。
+详见[维护源](../../_shared/ue5-item-asset-workflow/references/head-equipment-and-inventory-icons.md)中的同名章节。

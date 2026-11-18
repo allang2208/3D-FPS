@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+@@ -97,8 +97,7 @@
+     MeteorAimMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(MeteorSpellAssets::Preview);
+ }
+ UColdSteelStatusModel* UFPSFireMagicComponent::Model() const
+-{return UnknownSpell::IsCaster(GetOwner())?UnknownSpell::Model(Cast<APawn>(GetOwner())):
+-    (GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr);}
++{return NetCast::LocalModel(*this);}
+ UFPSFireballComponent* UFPSFireMagicComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
+ void UFPSFireMagicComponent::Feedback(FName Skill,const FString& Text){MessageSkill=Skill;Message=Text;MessageUntil=GetWorld()->GetTimeSeconds()+2;}
+ void UFPSFireMagicComponent::RejectHeldHand(FName Skill){QueuedSkill=NAME_None;NoticeSkill=Skill;HandNotice.Show(GetWorld()->GetTimeSeconds());}

@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelSkillPagePrivate.h b/Source/FPSGAME/UI/ColdSteelSkillPagePrivate.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelSkillPagePrivate.h
+@@ -0,0 +1,6 @@
++#pragma once
++#include "../Skills/ColdSteelSkillRules.h"
++namespace ColdSteelSkillPagePrivate
++{
++inline bool Additional(FName Id){return ColdSteelSkills::IsMeleeMastery(Id)||Id==TEXT("machineGunMastery")||Id==TEXT("shotgunMastery")||Id==TEXT("bowMastery")||Id==TEXT("heartPiercingArrow")||Id==TEXT("magicArrowRain")||Id==TEXT("elementalArrow")||Id==TEXT("illuminationArrow");}
++}

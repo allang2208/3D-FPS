@@ -1,6 +1,6 @@
 #include "../UI/ColdSteelStatusModel.h"
+#include "ColdSteelSpellCrafting.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
-#include "../Combat/CombatStatusFormula.h"
 #include "../Combat/CombatItemFormula.h"
 #include "../Combat/ResourceCostFormula.h"
 #include "../Weapons/MeleeWeaponStats.h"
@@ -33,9 +33,7 @@ float UColdSteelStatusModel::SpellManaCost(FName Id,int32 AtLevel,bool bApplyFoc
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
-            const auto* Pawn=RuntimePawn();
-            const auto* Status=Pawn?Pawn->FindComponentByClass<UCombatStatusFormula>():nullptr;
-            const int32 Chain=Status?Status->ChainSpellStacks():0;
+            const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
             StaffCost=E->CraftEffect(*Item,TEXT("magicMpCostPercent"));
             ChainCost=Chain*E->CraftEffect(*Item,TEXT("chainSpellMpCostPercent"));
         }

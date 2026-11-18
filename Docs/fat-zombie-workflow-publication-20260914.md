@@ -7,10 +7,10 @@
 `Meshy 已绑定模型 → Mesh2Motion 成熟动作 → UE IK Rig / IK Retargeter → 原蒙皮体型修正 → 同 Skeleton 动画 → 角色、伤害反馈、死亡物理及脓液`。
 
 - 作者入口：[源文件与制作脚本](../SourceAssets/FatZombieMeshy20260913/README.md)。原模型、原绑定、PBR、干净动作源和重定向中间件均保留。
-- 技能入口：[UE5 怪物工作流](../skills/ue5-monster-workflow/SKILL.md)；详细经验：[Meshy 人形与成熟动作](../skills/ue5-monster-workflow/references/meshy-humanoid.md)。个人技能与工程镜像同步。
+- 技能入口：[UE5 怪物工作流](../skills/ue5-monster-workflow/SKILL.md)；详细经验：[Meshy 人形与成熟动作](../skills/ue5-monster-workflow/references/meshy-humanoid.md)。共用流程维护个人源，工程入口保留项目增补。
 - 动作源固定为 Mesh2Motion 提交 `2d3d1ff03247d9e7e830d1ae375653da4e2146e2`，选择 Zombie_Idle / Zombie_Walk / Zombie_Scratch / Death_D。动画 CC0 与用户模型、水体素材的来源分别维护。
 - 成品时长分别为 1.6 / 1.6667 / 2.0833 / 2.5667 秒；待机和移动循环，攻击和死亡单次。完整死亡动画后才转布娃娃，脓液从生命归零开始生成并逐渐扩散。
-- 当前默认各怪物尸体 15 秒回收；胖子脓液 1.6 秒铺开，持续伤害至第 20 秒，再以 1 秒淡出。时间从死亡/生成起计，脓液独立于尸体存在。
+- 当前默认各怪物尸体 15 秒回收；胖子脓液 1.6 秒铺开，持续伤害至第 20 秒，再以 1 秒淡出。时间从死亡/生成起计，脓液独立于尸体存在。 原因：死亡表现依赖既有骨架和碰撞状态，直接切换或新增重复物体会打断连续运动。
 
 ## 复用的修复经验
 
@@ -27,7 +27,7 @@
 
 已将 13 组、54 个文件（196,959,301 字节）移至 `trash/fat-zombie-workflow-20260914`。包括旧 WorkProject、100 倍位移错误版本、三份 Blender 旧自动保存、被替代的命中/布娃娃/脓液材质副本，以及导航和主地面修复前的地图副本。逐文件原路径、归档位置、大小、SHA-256 和原因见 [归档清单](AssetArchives/fat-zombie-20260914.json)；移动后逐项核对大小与散列。
 
-正式 Content、Meshy 原 ZIP、原蒙皮、当前 Blend/FBX、prepared、native_retarget、源动作库和 UEAuthoring 保留。旧地图只用于定点恢复，不得整张覆盖当前并行场景修改。未将诊断记录、干净重定向输入或本机素材依赖误判为废案。
+正式 Content、Meshy 原 ZIP、原蒙皮、当前 Blend/FBX、prepared、native_retarget、源动作库和 UEAuthoring 保留。旧地图只用于定点恢复，不得整张覆盖当前并行场景修改。未将诊断记录、干净重定向输入或本机素材依赖误判为废案。 原因：重建需要真实的上游输入及先后顺序，仅保留最终输出无法恢复可编辑制作链。
 
 ## Git 与恢复边界
 

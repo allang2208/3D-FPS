@@ -1,8 +1,7 @@
 # 施法失败、打断与死亡时退蓝
 
-2026-09-24。优先权打断已经会退还未释放法术的蓝；释放失败和死亡取消之前不会，冷却也停在已扣状态。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-skill-magic-workflow/references/cast-interrupt-refund.md)。
 
-- 圣光、闪电、火系组件在释放失败和死亡时走 `RefundUnreleasedCast`：退蓝并回滚这次冷却。
-- `ColdSteelFireballModel::RefundInterruptedSpellMana` 委托给 `RefundUnreleasedCast`，并清掉圣光、闪电、陨星、焰甲、火球、冰锥的冷却。
-- 优先权打断先记下未释放技能名，再 `InterruptPending`，然后 `RefundUnreleasedCast`。
-- 火球死亡只在本组件持有手势付款、且尚未提交发射时退蓝（`!GestureOwner && !bLaunchCommitted`），随后把 `GesturePaidMana` 清零。不要退掉别的法术已经记在火球组件上的付款。
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。

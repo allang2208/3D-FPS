@@ -25,11 +25,9 @@ public class FPSGAME : ModuleRules
             "GameplayTasks",
             "ImageWrapper"
             ,"Json"
-            // Public because FPSGAME.cpp (the module entry point) calls
-            // AddShaderSourceDirectoryMapping from ShaderCore.h to expose Source/Shaders as
-            // the virtual shader directory /Project, so material Custom nodes can
-            // `#include "/Project/ClearwaterWaves.ush"`. Without file-scope functions a
-            // Custom node cannot compile at all -- its code field is a function body.
+            // Public headers expose RenderCore types: FacilityHallSpawnSubsystem.h and
+            // GameResourcePreparation.h use FRenderCommandFence; TemperateVegetationRenderAudit.h
+            // includes RenderingThread.h. Keep this dependency public for their consumers.
             ,"RenderCore"
         });
         RuntimeDependencies.Add("$(ProjectDir)/Content/ColdSteelData/...", StagedFileType.UFS);
@@ -49,7 +47,7 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.Add("AnimationCore");
         PrivateDependencyModuleNames.Add("HairStrandsCore");
         PrivateDependencyModuleNames.Add("AnimationWarpingRuntime");
-        PrivateDependencyModuleNames.AddRange(new[] { "RenderCore", "RHI" });
+        PrivateDependencyModuleNames.Add("RHI");
         if (Target.Platform == UnrealTargetPlatform.Win64)
         {
             PrivateDependencyModuleNames.Add("D3D12RHI"); // Public native-resource identity API for opt-in F6 capture.

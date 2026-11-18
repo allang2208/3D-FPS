@@ -1,0 +1,373 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -1,3 +1,4 @@
++#include "FPSBodyEquipmentPrivate.h"
+ #include "FPSPlayerBodyComponent.h"
+ #include "FPSBodyHighlandMotion.h"
+ #include "FPSBodyOutfitResources.h"
+@@ -122,7 +123,7 @@
+     while(auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material))Material=Dynamic->Parent;
+     return Material;
+ }
+-static void WorldVisibility(UPrimitiveComponent* Mesh)
++void WorldVisibility(UPrimitiveComponent* Mesh)
+ {
+     Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetGenerateOverlapEvents(false);
+     const auto* Body=Mesh->GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
+@@ -551,355 +552,6 @@
+         bOutfitDirty=false;
+     }
+ }
+-void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapons)
+-{
+-    auto* Body=GetBodyMesh();if(!Body)return;
+-    if(FPSPlayerBodyWorldBodySuppressed())return;
+-    UFPSPerformanceMetricsSubsystem::CountEquipmentRebuild(this);
+-    const bool NeedsKukriRift=GetNetMode()!=NM_DedicatedServer&&Character.IsValid()&&!Character->IsLocallyControlled()&&
+-        Weapons.ContainsByPredicate([](const FFPSBodyWeapon& W)
+-        {return W.PoseFamily==TEXT("Kukri")||W.PoseFamily==TEXT("KukriDual")||W.PoseFamily==TEXT("OffhandKukri");});
+-    // Equipment is built synchronously below. Resolve its shared trail in the
+-    // same preparation step, not after the first remote swing has already begun.
+-    // Holding it here also prevents a traversal/history reset from unloading it.
+-    if(NeedsKukriRift)
+-    {
+-        if(!WorldKukriRiftMaterial)
+-            WorldKukriRiftMaterial=LoadObject<UMaterialInterface>(nullptr,KukriRhythm::RiftMaterial);
+-    }
+-    else WorldKukriRiftMaterial=nullptr;
+-    for(auto Device:WorldTacticalDevices)if(Device)Device->DestroyComponent();WorldTacticalDevices.Reset();
+-    ClearGunPresentation();
+-    for(auto Part:WorldParts)if(Part){GhostScytheMist::Clear(Part);Part->DestroyComponent();}WorldParts.Reset();
+-    for(auto Prop:WorldReloadProps)if(Prop)Prop->DestroyComponent();WorldReloadProps.Reset();
+-    for(auto Weapon:WorldWeapons)if(Weapon)Weapon->DestroyComponent();WorldWeapons.Reset();
+-    WorldEquipmentHands.Reset();
+-    WorldWeatherInstances[0].Reset();WorldWeatherInstances[1].Reset();
+-    for(const auto& Weapon:Weapons)
+-        WorldWeatherInstances[FMath::Min<int32>(Weapon.AttachHand,1)]=Weapon.ItemInstance;
+-    MotionBindings.Reset();MotionMaps.Reset();MotionEquipmentIndices.Reset();
+-    WorldPistolMagazineAssets.Reset();
+-    WorldRevolverAssets.Reset();
+-    // New equipment must not interpolate from the preceding gun's support hand.
+-    SmoothedContacts=FFPSBodyMotionSample();bMotionSampleValid=false;
+-    SmoothedPistolHandChannels[0]=SmoothedPistolHandChannels[1]=NAME_None;
+-    if(WorldStaffLight){WorldStaffLight->DestroyComponent();WorldStaffLight=nullptr;}WorldStaffMaterials.Reset();LastWorldLight=-1.f;
+-    ClearBow();
+-    bHasBaseRightSupport=false;BaseRightSupportGrip=FTransform::Identity;
+-    if(BodyAnimation)BodyAnimation->SinglePistolContact=FFPSBodySinglePistolContact();
+-    if(BodyAnimation)
+-    {
+-        BodyAnimation->bOffhandKukriEquipment=false;
+-        BodyAnimation->OffhandKukriEquipmentInstance.Reset();
+-        BodyAnimation->PistolHatchetPalmInView.Reset();
+-    }
+-    if(BodyAnimation){BodyAnimation->bHasLeftGrip=BodyAnimation->bHasRightGrip=false;BodyAnimation->LeftGripFromRight=BodyAnimation->RightGripFromLeft=FTransform::Identity;BodyAnimation->RifleHold=FFPSBodyRifleHold();for(auto& Frame:BodyAnimation->GunAimFrames)Frame=FFPSBodyGunAimFrame();BodyAnimation->IndependentPistolHands=0;BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
+-    if(BodyAnimation)FPSBodyHighlandMotion::SelectGrip(BodyAnimation->Clips,false);
+-    for(int32 Index=0;Index<Weapons.Num();++Index)
+-    {
+-        const auto& Definition=Weapons[Index];
+-        auto& Motion=MotionBindings.AddDefaulted_GetRef();Motion.Definition=Definition;
+-        // The lone off-hand blade hangs on hand_l (mirrored upper body), even though its body identity is the main slot's.
+-        const int32 Side=Definition.bLoneBlade?1:FMath::Min<int32>(Definition.AttachHand,1);
+-        const FName BodyHand=Side==1?TEXT("hand_l"):TEXT("hand_r");
+-        if(auto* Static=Definition.StaticMesh.LoadSynchronous())
+-        {
+-            auto* Part=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+-            GetOwner()->AddInstanceComponent(Part);Part->SetStaticMesh(Static);
+-            Part->SetupAttachment(Body,BodyHand);Part->SetRelativeTransform(Definition.StaticGrip);
+-            if(Definition.PoseFamily==TEXT("Kukri")||Definition.PoseFamily==TEXT("KukriDual")||Definition.PoseFamily==TEXT("OffhandKukri"))
+-                Part->ComponentTags.AddUnique(TEXT("SwordSlot=blade_1"));
+-            if(Definition.PoseFamily==TEXT("Shovel"))BuildShovelGrip(Definition,*Part);
+-            if(Definition.PoseFamily==TEXT("Kukri")||Definition.PoseFamily==TEXT("KukriDual"))BuildKukriGrip(Definition,*Part);
+-            if(Definition.PoseFamily==TEXT("KukriDual"))Part->ComponentTags.Add(TEXT("KukriDual"));
+-            // Lone off-hand blade: single presentation mirrored onto the left arm; the tag hides it during cast/consume.
+-            if(Definition.bLoneBlade)Part->ComponentTags.Add(TEXT("OffhandKukri"));
+-            const bool PistolAxe=Definition.PoseFamily==TEXT("OffhandKukri")&&Definition.Mesh.ToSoftObjectPath()==FSoftObjectPath(KukriRhythm::ArmsMesh);
+-            if(PistolAxe)
+-            {
+-                BuildKukriGrip(Definition,*Part);
+-                Part->ComponentTags.AddUnique(TEXT("OffhandKukri"));
+-                // The separate pistol uppercut still uses its original M4 reverse-grip donor.
+-                if(auto* UpperRig=LoadObject<USkeletalMesh>(nullptr,TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7")))
+-                {
+-                    FFPSBodyGripRig Grip;
+-                    Grip.Initialize(UpperRig->GetRefSkeleton(),Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),BodyHand);
+-                    if(Grip.IsValid())Motion.UppercutReverseMount=OffhandKukriPose::KukriInHand*Grip.Mount;
+-                }
+-            }
+-            else if(Definition.PoseFamily==TEXT("OffhandKukri"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
+-            {
+-                const auto& Ref=Native->GetRefSkeleton();auto Pose=Ref.GetRefBonePose();
+-                for(const auto& Finger:OffhandKukriPose::Digits)
+-                    if(const int32 I=Ref.FindBoneIndex(Finger.Name);I>=0)Pose[I].SetRotation(Finger.LocalRotation.GetNormalized());
+-                for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
+-                FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),BodyHand);
+-                if(Grip.IsValid())
+-                {
+-                    Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=2;
+-                    Part->SetRelativeTransform(OffhandKukriPose::KukriInHand*Grip.Mount);
+-                    Part->ComponentTags.Add(TEXT("OffhandKukri"));BodyAnimation->bOffhandKukriEquipment=true;
+-                    BodyAnimation->OffhandKukriEquipmentInstance=Definition.ItemInstance;
+-                }
+-            }
+-            if(Definition.PoseFamily==TEXT("Spellbook"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
+-            {
+-                const auto& Ref=Native->GetRefSkeleton();auto Pose=Ref.GetRefBonePose();
+-                for(const auto& Finger:SpellbookAuthoredGrip::Fingers)
+-                    if(const int32 I=Ref.FindBoneIndex(Finger.Name);I>=0)Pose[I].SetRotation(Finger.Rotation.GetNormalized());
+-                for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
+-                FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),BodyHand);
+-                if(Grip.IsValid())
+-                {
+-                    Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=1<<Side;
+-                    Part->SetRelativeTransform(SpellbookAuthoredGrip::BookInHand*Grip.Mount);
+-                    BodyAnimation->SpellbookEquipmentIndex=Index;
+-                }
+-            }
+-            WorldEquipmentHands.Add(Part,static_cast<uint8>(Side));
+-            if(Definition.PoseFamily==TEXT("Staff"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
+-            {
+-                const auto& Ref=Native->GetRefSkeleton();auto Bind=Ref.GetRefBonePose();
+-                for(int32 I=0;I<Bind.Num();++I)if(Ref.GetParentIndex(I)>=0)Bind[I]=Bind[I]*Bind[Ref.GetParentIndex(I)];
+-                const auto& Hold=StaffGripPose::Get(Native,Bind,Definition.StaffVariant);
+-                auto Pose=Hold.Local[0];
+-                for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
+-                FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_r"),BodyHand);
+-                if(Grip.IsValid())
+-                {
+-                    FPSBodyStaffGrip::AdaptMount(Grip,Definition.StaffVariant);
+-                    if(!FPSBodyStaffGrip::Transfer(Grip,Ref,Pose,BodyAnimation->EquipmentFingers,Definition.StaffVariant))
+-                        Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);
+-                    BodyAnimation->EquipmentGripHands|=1<<Side;
+-                    Part->SetRelativeTransform(FTransform(-StaffGripPose::HoldPoint())*Hold.HandInGrip.Inverse()*Grip.Mount);
+-                    BodyAnimation->StaffHandRotation=(Grip.Mount.Inverse()*Pose[Grip.SourceHand]*FTransform(FRotator(0,90,0))).GetRotation();
+-                }
+-                const bool HasOffhand=Weapons.ContainsByPredicate([](const FFPSBodyWeapon& Weapon){return Weapon.AttachHand==1;});
+-                if(!HasOffhand&&FPSUnarmedHandPose::Build(Ref,TEXT("hand_l"),Pose))
+-                {
+-                    FFPSBodyGripRig FreeHand;
+-                    FreeHand.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),TEXT("hand_l"));
+-                    // Reuse the complete FPS fist, including its thumb and palm
+-                    // fan. Only finger descendants are applied: the native
+-                    // unarmed walk/run still owns shoulder, elbow and wrist.
+-                    if(FPSBodyStaffGrip::Transfer(FreeHand,Ref,Pose,BodyAnimation->EquipmentFingers))
+-                        BodyAnimation->EquipmentGripHands|=2;
+-                }
+-            }
+-            FPSBodyEquipment::WorldVisibility(Part);
+-            for(int32 I=0;I<Definition.Materials.Num();++I)if(auto* Material=Definition.Materials[I].LoadSynchronous())Part->SetMaterial(I,Material);
+-            Part->RegisterComponent();WorldParts.Add(Part);
+-            GhostScytheMist::Refresh(Part);
+-            Motion.Static=Part;
+-            MotionEquipmentIndices.Add(Part,Index);
+-            for(const auto& Attachment:Definition.Parts)if(auto* ChildMesh=Attachment.Mesh.LoadSynchronous())
+-            {
+-                const auto TailSpec=Definition.PoseFamily==TEXT("Staff")?ColdSteelStaffAssembly::TailDynamics(ChildMesh):ColdSteelModularSword::HangingDynamics(ChildMesh);
+-                UStaticMeshComponent* Child=TailSpec?NewObject<USwordTasselMeshComponent>(GetOwner(),NAME_None,RF_Transient):NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+-                GetOwner()->AddInstanceComponent(Child);
+-                Child->SetStaticMesh(ChildMesh);Child->SetupAttachment(Part);Child->SetRelativeTransform(Attachment.RelativeTransform);
+-                if(!Attachment.Slot.IsNone())Child->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+Attachment.Slot.ToString())));
+-                WorldEquipmentHands.Add(Child,static_cast<uint8>(Side));FPSBodyEquipment::WorldVisibility(Child);
+-                for(int32 I=0;I<Attachment.Materials.Num();++I)if(auto* M=Attachment.Materials[I].LoadSynchronous())Child->SetMaterial(I,M);
+-                Child->RegisterComponent();WorldParts.Add(Child);
+-                if(auto* Tail=Cast<USwordTasselMeshComponent>(Child))
+-                {
+-                    Tail->Configure(TailSpec);
+-                    Tail->AddTickPrerequisiteComponent(this);
+-                    Tail->AddTickPrerequisiteComponent(Body);
+-                }
+-                Motion.Parts.Add(Child);
+-                MotionEquipmentIndices.Add(Child,Index);
+-            }
+-            if(Definition.PoseFamily==TEXT("Staff"))
+-            {
+-                TArray<UStaticMeshComponent*> Pieces={Part};for(const auto& Weak:Motion.Parts)if(Weak.IsValid())Pieces.Add(Weak.Get());
+-                for(auto* Piece:Pieces)for(int32 M=0;M<Piece->GetNumMaterials();++M)
+-                {
+-                    auto* Material=Piece->GetMaterial(M);float Value=0.f;
+-                    if(Material&&Material->GetScalarParameterValue(FMaterialParameterInfo(TEXT("StaffLightAmount")),Value))
+-                        if(auto* Dynamic=Piece->CreateDynamicMaterialInstance(M))WorldStaffMaterials.Add(Dynamic);
+-                }
+-                if(!WorldStaffMaterials.IsEmpty())
+-                {
+-                    WorldStaffLight=NewObject<UPointLightComponent>(GetOwner(),NAME_None,RF_Transient);GetOwner()->AddInstanceComponent(WorldStaffLight);
+-                    WorldStaffLight->SetupAttachment(Part);WorldStaffLight->SetRelativeLocation(Definition.StaffLightLocation);
+-                    WorldStaffLight->SetIntensityUnits(ELightUnits::Lumens);WorldStaffLight->SetInverseExposureBlend(1.f);
+-                    WorldStaffLight->SetAttenuationRadius(800.f);WorldStaffLight->SetSourceRadius(3.f);WorldStaffLight->SetSoftSourceRadius(5.f);
+-                    WorldStaffLight->SetLightColor(FLinearColor(1.f,.94f,.82f));WorldStaffLight->SetCastShadows(true);
+-                    WorldStaffLight->SetIntensity(0.f);WorldStaffLight->SetVisibility(false);WorldStaffLight->RegisterComponent();
+-                }
+-            }
+-            continue;
+-        }
+-        auto* Asset=Definition.Mesh.LoadSynchronous();if(!Asset)continue;
+-        auto* Weapon=NewObject<UFPSBodyWeaponMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+-        Weapon->GripProfile=Definition.GripProfile.LoadSynchronous();
+-        if(Index==0&&Definition.PoseFamily==TEXT("Sword")&&BodyAnimation)
+-            FPSBodyHighlandMotion::SelectGrip(BodyAnimation->Clips,
+-                Weapon->GripProfile&&Weapon->GripProfile->Family==TEXT("Sword_LongGrip"));
+-        GetOwner()->AddInstanceComponent(Weapon);Weapon->SetSkeletalMeshAsset(Asset);
+-        Weapon->SetupAttachment(Body,BodyHand);
+-        WorldEquipmentHands.Add(Weapon,static_cast<uint8>(Side));
+-        FPSBodyEquipment::WorldVisibility(Weapon);Weapon->RegisterComponent();
+-        Weapon->SetAnimationMode(EAnimationMode::AnimationSingleNode);
+-        if(auto* Hold=Definition.HoldClip.LoadSynchronous())
+-        {Weapon->PlayAnimation(Hold,false);Weapon->SetPosition(0.f,false);Weapon->SetPlayRate(0.f);Weapon->TickAnimation(0.f,false);}
+-        Weapon->RefreshBoneTransforms();
+-        FTransform Grip=Weapon->GetSocketTransform(Definition.GripBone,RTS_Component);
+-        // Imported viewmodel hand bones can carry scale 100. Their component-space
+-        // locations are already centimetres; invert only the rigid grip transform.
+-        Grip.SetScale3D(FVector::OneVector);
+-        Weapon->SetRelativeTransform(Grip.Inverse()*HandRigOffsets[Definition.bGunPistol?Side:(Index==1?1:0)]);
+-        FFPSBodyGripRig FingerRigs[2];
+-        if(BodyAnimation&&(Definition.PoseFamily==TEXT("Gun")||Definition.PoseFamily==TEXT("Tool")||Definition.PoseFamily==TEXT("Sword")))
+-        {
+-            FingerRigs[Side].Initialize(Asset->GetRefSkeleton(),Body->GetSkeletalMeshAsset()->GetRefSkeleton(),Definition.GripBone,BodyHand);
+-            FingerRigs[Side].Transfer(Weapon->GetComponentSpaceTransforms(),BodyAnimation->EquipmentFingers);
+-            if(FingerRigs[Side].IsValid())
+-            {BodyAnimation->EquipmentGripHands|=1<<Side;Weapon->SetRelativeTransform(Grip.Inverse()*FingerRigs[Side].Mount);}
+-            if(FingerRigs[Side].IsValid()&&Definition.bGunPistol)
+-            {
+-                // Dual native clips and the Jason mesh both face +Y. Preserve
+-                // this gun's palm/barrel relation, not the two-hand idle wrist.
+-                BodyAnimation->IndependentPistolRotation[Side]=
+-                    (FingerRigs[Side].Mount.Inverse()*Grip).GetRotation().GetNormalized();
+-                BodyAnimation->IndependentPistolHands|=1<<Side;
+-            }
+-        }
+-        for(int32 I=0;I<Definition.Materials.Num();++I)if(auto* Material=Definition.Materials[I].LoadSynchronous())Weapon->SetMaterial(I,Material);
+-        const bool SharedBeltFeed=PKMLowpolyWeaponAssets::SharesFeedMotion(Weapon);
+-        if(const auto* Render=Asset->GetResourceForRendering())for(int32 L=0;L<Render->LODRenderData.Num();++L)
+-            for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
+-            {
+-                const int32 Material=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
+-                const bool ParkedShell=TubeShotgunAssets::MatchesMesh(Asset->GetPathName())
+-                    &&Asset->GetMaterials()[Material].MaterialSlotName==Super90WeaponAssets::LooseShellMaterial;
+-                const bool ParkedFeed=SharedBeltFeed&&Material<32&&Asset->GetMaterials()[Material].MaterialSlotName.ToString().Contains(TEXT("__New"));
+-                if(ParkedFeed)Motion.IncomingFeedSections|=1u<<Material;
+-                Weapon->ShowMaterialSection(Material,S,!Definition.HiddenMaterials.Contains(Material)&&!ParkedShell&&!ParkedFeed,L);
+-            }
+-        Weapon->SetComponentTickEnabled(false);WorldWeapons.Add(Weapon);
+-        Motion.Mesh=Weapon;Motion.FrozenPose=Weapon->GetComponentSpaceTransforms();
+-        if(auto* PropAsset=Definition.ReloadPropMesh.LoadSynchronous())
+-        {
+-            auto* Prop=NewObject<USkeletalMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+-            GetOwner()->AddInstanceComponent(Prop);Prop->SetSkeletalMeshAsset(PropAsset);
+-            Prop->SetupAttachment(Weapon);FPSBodyEquipment::WorldVisibility(Prop);
+-            for(int32 M=0;M<Definition.ReloadPropMaterials.Num();++M)
+-                if(auto* Material=Definition.ReloadPropMaterials[M].LoadSynchronous())Prop->SetMaterial(M,Material);
+-            Prop->bUseAttachParentBound=true;Prop->SetLeaderPoseComponent(Weapon);
+-            Prop->RegisterComponent();Prop->SetVisibility(false);
+-            WorldReloadProps.Add(Prop);WorldEquipmentHands.Add(Prop,static_cast<uint8>(Side));Motion.ReloadProp=Prop;
+-        }
+-        Motion.NativeWeaponRoot=Asset->GetRefSkeleton().FindBoneIndex(TEXT("WPN_root"));
+-        if(Definition.PoseFamily!=TEXT("Bow"))MotionEquipmentIndices.Add(Weapon,Index);
+-        if(Definition.PoseFamily==TEXT("Bow")){BuildBow(Definition,Weapon);continue;}
+-        if(Index==0&&Weapons.Num()>1&&!DisplayState.bDual&&Definition.bGunPistol&&BodyAnimation&&Weapon->DoesSocketExist(TEXT("hand_l")))
+-        {
+-            // Keep a ready support contact for the empty-hand transfer, without
+-            // replacing the equipped book's finger rig or carry ownership.
+-            FFPSBodyGripRig Support;
+-            Support.Initialize(Asset->GetRefSkeleton(),Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),TEXT("hand_l"));
+-            if(Support.IsValid())
+-            {
+-                auto Left=Weapon->GetSocketTransform(TEXT("hand_l"),RTS_Component);Left.SetScale3D(FVector::OneVector);
+-                BodyAnimation->LeftGripFromRight=Support.Mount.Inverse()*Left.GetRelativeTransform(Grip)*FingerRigs[0].Mount;
+-            }
+-        }
+-        if(Index==0&&Weapons.Num()==1&&!DisplayState.bDual&&Definition.bGunPistol&&Side==1&&BodyAnimation&&Weapon->DoesSocketExist(TEXT("hand_r")))
+-        {
+-            // Left-primary singles own the gun through hand_l; the opposite
+-            // hand is a support contact, never another left-from-right grip.
+-            auto Right=Weapon->GetSocketTransform(TEXT("hand_r"),RTS_Component);Right.SetScale3D(FVector::OneVector);
+-            FingerRigs[0].Initialize(Asset->GetRefSkeleton(),Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_r"),TEXT("hand_r"));
+-            FingerRigs[0].Transfer(Weapon->GetComponentSpaceTransforms(),BodyAnimation->EquipmentFingers);
+-            if(FingerRigs[0].IsValid()&&FingerRigs[1].IsValid())
+-            {
+-                BodyAnimation->EquipmentGripHands|=1;
+-                BodyAnimation->RightGripFromLeft=FingerRigs[0].Mount.Inverse()*Right.GetRelativeTransform(Grip)*FingerRigs[1].Mount;
+-                BodyAnimation->bHasRightGrip=true;
+-            }
+-        }
+-        if(Index==0&&Weapons.Num()==1&&!DisplayState.bDual&&Side==0&&BodyAnimation&&Weapon->DoesSocketExist(TEXT("hand_l")))
+-        {
+-            FTransform LeftGrip=Weapon->GetSocketTransform(TEXT("hand_l"),RTS_Component);
+-            LeftGrip.SetScale3D(FVector::OneVector);
+-            BodyAnimation->LeftGripFromRight=HandRigOffsets[1].Inverse()*LeftGrip.GetRelativeTransform(Grip)*HandRigOffsets[0];
+-            BodyAnimation->bHasLeftGrip=true;
+-            if(Definition.PoseFamily==TEXT("Gun")||Definition.PoseFamily==TEXT("Tool")||Definition.PoseFamily==TEXT("Sword"))
+-            {
+-                FingerRigs[1].Initialize(Asset->GetRefSkeleton(),Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),TEXT("hand_l"));
+-                FingerRigs[1].Transfer(Weapon->GetComponentSpaceTransforms(),BodyAnimation->EquipmentFingers);
+-                if(FingerRigs[1].IsValid())
+-                {
+-                    BodyAnimation->EquipmentGripHands|=2;
+-                    BodyAnimation->LeftGripFromRight=FingerRigs[1].Mount.Inverse()*LeftGrip.GetRelativeTransform(Grip)*FingerRigs[0].Mount;
+-                }
+-            }
+-        }
+-        const FString GunId=Definition.GunDefinition.ToString();
+-        const bool LMG=LMGStabilityGrip::Supports(GunId);
+-        for(int32 PartIndex=0;PartIndex<Definition.Parts.Num();++PartIndex)
+-        {
+-            const auto& DefinitionPart=Definition.Parts[PartIndex];
+-            auto* AssetPart=DefinitionPart.Mesh.LoadSynchronous();if(!AssetPart)continue;
+-            auto* Part=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+-            GetOwner()->AddInstanceComponent(Part);Part->SetStaticMesh(AssetPart);
+-            const bool RigidGrip=DefinitionPart.Socket==TEXT("WPN_root")&&LMG
+-                &&DefinitionPart.Mesh.ToSoftObjectPath().GetLongPackageName()==LMGStabilityGrip::MeshPath(GunId);
+-            Part->SetupAttachment(Weapon,RigidGrip?DefinitionPart.Socket:NAME_None);
+-            Part->SetRelativeTransform((RigidGrip||DefinitionPart.Socket.IsNone())?DefinitionPart.RelativeTransform
+-                :DefinitionPart.RelativeTransform*Weapon->GetSocketTransform(DefinitionPart.Socket,RTS_Component));
+-            WorldEquipmentHands.Add(Part,static_cast<uint8>(Side));
+-            FPSBodyEquipment::WorldVisibility(Part);
+-            if(LMG&&!DefinitionPart.bVisible)
+-            {
+-                Part->ComponentTags.Add(TEXT("HiddenInLMGHold"));
+-                Part->SetVisibility(false);Part->SetHiddenInGame(true);
+-            }
+-            for(int32 I=0;I<DefinitionPart.Materials.Num();++I)if(auto* Material=DefinitionPart.Materials[I].LoadSynchronous())Part->SetMaterial(I,Material);
+-            FPSBodyRuneVisual::Apply(Part,DefinitionPart);
+-            Part->RegisterComponent();WorldParts.Add(Part);
+-            Motion.Parts.Add(Part);
+-            if(!DefinitionPart.Slot.IsNone())Part->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+DefinitionPart.Slot.ToString())));
+-            MotionEquipmentIndices.Add(Part,Index);
+-            if(!Character->IsLocallyControlled()&&(TacticalDeviceVariants::IsLaser(DefinitionPart.TacticalKind.ToString())
+-                ||DefinitionPart.TacticalKind==TEXT("flashlight")))
+-            {
+-                auto* Device=NewObject<UTacticalDeviceComponent>(GetOwner(),NAME_None,RF_Transient);
+-                GetOwner()->AddInstanceComponent(Device);Device->RegisterComponent();
+-                Device->ConfigureWorld(DefinitionPart.TacticalKind.ToString(),Weapon,Part,
+-                    DefinitionPart.bAuthoredEmitterAxis,Index,PartIndex,Definition.MotionSchema);
+-                WorldTacticalDevices.Add(Device);
+-            }
+-        }
+-        BuildGunPresentation(Definition,Weapon);
+-        if(BodyAnimation&&Definition.PoseFamily==TEXT("Gun"))BodyAnimation->GunAimFrames[Side]=FPSBodyGunAim::FromWeapon(*Weapon);
+-        if(Index==0&&Weapons.Num()==1&&BodyAnimation)BodyAnimation->RifleHold=BuildFPSBodyRifleHold(*Weapon,Definition);
+-    }
+-    for(auto& Binding:MotionBindings)
+-    {
+-        if(Binding.Mesh.IsValid())Binding.Mount=Binding.Mesh->GetRelativeTransform();
+-        else if(Binding.Static.IsValid())Binding.Mount=Binding.Static->GetRelativeTransform();
+-        for(const auto& Part:Binding.Parts)Binding.FrozenParts.Add(Part.IsValid()?Part->GetRelativeTransform():FTransform::Identity);
+-        PreparePistolMagazine(Binding);
+-        PrepareRevolverReload(Binding);
+-    }
+-    if(BodyAnimation)
+-    {
+-        BaseSupportGrip=BodyAnimation->LeftGripFromRight;
+-        BaseRightSupportGrip=BodyAnimation->RightGripFromLeft;bHasBaseRightSupport=BodyAnimation->bHasRightGrip;
+-        // Keep the accepted ready grip separate from the live FPS operating
+-        // hand. Reload retrieval must never overwrite the carry contact.
+-        const bool LeftPrimary=Weapons.Num()==1&&Weapons[0].bGunPistol&&Weapons[0].AttachHand==1;
+-        BodyAnimation->SinglePistolContact.Ready=LeftPrimary?BaseRightSupportGrip:BaseSupportGrip;
+-        BodyAnimation->SinglePistolContact.bReady=Weapons.Num()==1&&
+-            (LeftPrimary?BodyAnimation->bHasRightGrip:BodyAnimation->bHasLeftGrip);
+-    }
+-    UpdateWorldWeaponPresentation();
+-}
+-
+ bool UFPSPlayerBodyComponent::IsWorldWeaponStowed(UPrimitiveComponent* Mesh) const
+ {
+     const float Now=ServerClock();

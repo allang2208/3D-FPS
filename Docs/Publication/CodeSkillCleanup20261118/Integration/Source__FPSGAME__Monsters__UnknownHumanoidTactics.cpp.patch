@@ -1,0 +1,97 @@
+diff --git a/Source/FPSGAME/Monsters/UnknownHumanoidTactics.cpp b/Source/FPSGAME/Monsters/UnknownHumanoidTactics.cpp
+--- a/Source/FPSGAME/Monsters/UnknownHumanoidTactics.cpp
++++ b/Source/FPSGAME/Monsters/UnknownHumanoidTactics.cpp
+@@ -38,93 +38,6 @@
+         LastFrame=GFrameCounter;
+         return true;
+     }
+-}
+-
+-bool AUnknownHumanoid::HasFiringLane(FVector Origin,const APawn& Target,FVector Aim) const
+-{
+-    FCollisionQueryParams Query(SCENE_QUERY_STAT(UnknownFiringLane),true,this);
+-    Query.AddIgnoredActor(&Target);
+-    FHitResult Hit;
+-    Aim.Z+=14.f; // Same body offset as ReleaseAttack for bullets and directed spells.
+-    if (Loadout.Role==EUnknownRole::Gun)
+-        return !RangedAttackQuery::LineTraceSingle(GetWorld(),this,Hit,Origin,Aim,ECC_Visibility,Query);
+-    return !MagicOcclusion::TraceBlocker(GetWorld(),Origin,Aim,Query,Hit,this);
+-}
+-
+-void AUnknownHumanoid::UpdateCombatFocus(APawn* Target, bool bVisible, FVector LastKnown)
+-{
+-    auto* AI = Cast<AMonsterAIController>(GetController());
+-    bCombatFacing = AI && AI->bDecisionEnabled && IsValid(Target) && !Dead() &&
+-        (bVisible || ServerTime() - LastSeenTime <= 4.f);
+-    bGunTracking=Loadout.Role==EUnknownRole::Gun && bCombatFacing && !Controlled();
+-    if(bGunTracking)
+-        GunAimPoint=bVisible?Target->GetActorLocation()+FVector(0,0,14):
+-            LastKnown+FVector(0,0,Target->GetSimpleCollisionHalfHeight()+14.f);
+-    auto* Movement = GetCharacterMovement();
+-    Movement->bOrientRotationToMovement = !bCombatFacing && !Controlled() && !Dead();
+-    Movement->bUseControllerDesiredRotation = false;
+-    if (!AI) return;
+-    if (!bCombatFacing) AI->ClearFocus(EAIFocusPriority::Gameplay);
+-    else if (bVisible) AI->SetFocus(Target, EAIFocusPriority::Gameplay);
+-    else
+-    {
+-        FVector Look=LastKnown+FVector(0,0,100);
+-        if (FVector::DistSquared2D(GetNavAgentLocation(),LastKnown)<FMath::Square(120.f))
+-        {
+-            // Do not pivot back and forth across a remembered point under
+-            // the feet. Look along the investigation path, or hold heading.
+-            const FVector Next=AI->GetImmediateMoveDestination();
+-            Look=AI->GetMoveStatus()==EPathFollowingStatus::Moving &&
+-                FVector::DistSquared2D(GetNavAgentLocation(),Next)>FMath::Square(60.f)?
+-                Next+FVector(0,0,100):AimOrigin()+GetActorForwardVector()*250.f;
+-        }
+-        AI->SetFocalPoint(Look,EAIFocusPriority::Gameplay);
+-    }
+-}
+-
+-void AUnknownHumanoid::FaceRotation(FRotator NewControlRotation, float DeltaTime)
+-{
+-    if (!HasAuthority() || !bCombatFacing || Dead() || Controlled()) return;
+-    const auto* AI = Cast<AMonsterAIController>(GetController());
+-    if (!AI || !AI->bDecisionEnabled) return;
+-    // Navigation owns translation. Combat focus alone owns facing while engaged.
+-    float TurnRate = 360.f;
+-    if (Motion.Action == EUnknownAction::Swing) TurnRate = 240.f;
+-    else if (Motion.Action == EUnknownAction::Fire || Motion.Action == EUnknownAction::DrawBow) TurnRate = 180.f;
+-    else if (Motion.Action == EUnknownAction::Cast)
+-        TurnRate = Motion.Skill==TEXT("thunderLance") && bPendingContact?90.f:180.f;
+-    // A stationary pivot needs time to change supporting feet. Moving pursuit
+-    // retains its faster steering; this does not delay the attack's own clock.
+-    if (GetVelocity().SizeSquared2D() < FMath::Square(12.f)) TurnRate = FMath::Min(TurnRate, 240.f);
+-    const auto* Fire = FindComponentByClass<UFPSFireMagicComponent>();
+-    const bool Breathing = Fire && Fire->IsDragonBreathActive();
+-    if (Breathing) TurnRate = 90.f;
+-    const float Yaw = FMath::FixedTurn(GetActorRotation().Yaw, NewControlRotation.Yaw, TurnRate * DeltaTime);
+-    CombatAimPitch = FMath::FixedTurn(CombatAimPitch, NewControlRotation.Pitch, TurnRate * DeltaTime);
+-    SetActorRotation(FRotator(0, Yaw, 0));
+-    if (Breathing) GetController()->SetControlRotation(FRotator(CombatAimPitch, Yaw, 0));
+-}
+-
+-bool AUnknownHumanoid::FacingTarget(const APawn& Target) const
+-{
+-    const FVector ToTarget = (Target.GetActorLocation() - GetActorLocation()).GetSafeNormal2D();
+-    const float HalfAngle = IsRanged() ? 25.f : 45.f;
+-    return ToTarget.IsNearlyZero() || FVector::DotProduct(GetActorForwardVector(), ToTarget) >=
+-        FMath::Cos(FMath::DegreesToRadians(HalfAngle));
+-}
+-
+-bool AUnknownHumanoid::CanPursueDuringAction(const APawn* Target,bool bVisible) const
+-{
+-    if (CanPursueDuringSwing(bVisible?Target:nullptr)) return true;
+-    if (Controlled() || !Target || Target!=TacticalTarget.Get()) return false;
+-    if (UsesMobileGunCombat()) return Motion.Action==EUnknownAction::Fire || Motion.Action==EUnknownAction::Reload;
+-    if (Loadout.Role==EUnknownRole::Bow && Motion.Action==EUnknownAction::SwapWeapon) return true;
+-    if (AttackTarget.Get()!=Target) return false;
+-    if (Motion.Action==EUnknownAction::DrawBow) return true;
+-    // Match the player's planted thunder-lance charge. Other staff gestures
+-    // and the recovery after release only occupy the upper body.
+-    return Motion.Action==EUnknownAction::Cast &&
+-        (Motion.Skill!=TEXT("thunderLance") || ServerTime()>=Motion.Started+Motion.Windup);
+ }
+ 
+ void AUnknownHumanoid::UpdateBowTactics(APawn* Target,bool bVisible)

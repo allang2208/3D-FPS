@@ -2,13 +2,13 @@
 
 2026-09-14。UE 5.8.2，狼为首个母版。交付阶段为本机可复用动画资源、播放接口和骨链；本次不开展游戏测试、动作渲染或人工验收。
 
-2026-09-25 用户确认裸皮感染犬 GodotRunNaturalV3“基本成功，可以作为四足犬科的模板了”。后续犬科奔跑优先参考该已认可版本及其直接适配方法，入口见 [NaturalV3 制作与复用](../../SourceAssets/InfectedDogMeshy20260924/GodotRunNaturalV3/README.md)。它使用 MeshyV2 的 41 骨目标绑定；下文原 WolfV1 的 34 骨资产继续作为历史来源，不能直接互换动画。新的提前量、接触范围与狩猎 AI 属于后续独立升级，记录见 [感染犬狩猎配置](InfectedDogHunting20260925.md)，不借用此次奔跑认可作为攻击验收。
+2026-09-25 用户确认裸皮感染犬 GodotRunNaturalV3“基本成功，可以作为四足犬科的模板了”。后续犬科奔跑优先参考该已认可版本及其直接适配方法，入口见 [NaturalV3 制作与复用](../../SourceAssets/InfectedDogMeshy20260924/GodotRunNaturalV3/README.md)。它使用 MeshyV2 的 41 骨目标绑定；下文原 WolfV1 的 34 骨资产继续作为历史来源，不能直接互换动画。新的提前量、接触范围与狩猎 AI 属于后续独立升级，记录见 [感染犬狩猎配置](InfectedDogHunting20260925.md)，不借用此次奔跑认可作为攻击验收。 原因：明确目标后才能复用正确的既有入口，准备步骤不应扩大已授权工作的边界。
 
 ## 来源与适用范围
 
 [ANIMAL VARIETY PACK / PROTOFACTOR INC](https://www.fab.com/listings/2dd7964c-a601-4264-a53d-465dcae1644c) 包含乌鸦、狐狸、鹿、猪、狼五类动物，其中鹿分公鹿和母鹿。本机源资产位于 `/Game/AnimalVarietyPack`，具有模型、独立 Skeleton、Physics Asset、材质、贴图和动画。源文件的帧数、时长、Skeleton、Notify 名称与骨骼父链记录在 [source_catalog.json](../../SourceAssets/QuadrupedTemplates/source_catalog.json)。商品页动画数量与本机版本/原地及 RM 变体计数分别记录，不混为同一口径。
 
-狼适合作为犬形捕食者的动作来源，狐狸适合作为较轻巧犬形来源；猪与鹿分别保留粗壮、蹄类分支。这里的“通用”指动作语义、数据结构和调用接口通用，不表示不同骨架能直接共享动画。公母鹿、狼狐也不能仅凭骨数相同宣布兼容。乌鸦不进入四足模板。
+狼适合作为犬形捕食者的动作来源，狐狸适合作为较轻巧犬形来源；猪与鹿分别保留粗壮、蹄类分支。这里的“通用”指动作语义、数据结构和调用接口通用，不表示不同骨架能直接共享动画。公母鹿、狼狐也不能仅凭骨数相同宣布兼容。乌鸦不进入四足模板。 原因：动作语义共享不等于骨架兼容，不同动物有各自体型与运动链。
 
 | 本机模型 | UE 动画文件数（含 RM 变体） | UE 骨数 |
 |---|---:|---:|
@@ -61,31 +61,31 @@
 
 ## 播放与时钟接口
 
-模板 Actor 的 `ManualSpeed` 为 cm/s，默认 0；`bUseOwnerVelocity=false` 时方便用户手动改变速度观察动作，`InitialAction` 可填上表任一 ID，在 BeginPlay 播放一次。未设置时使用 Idle/Walk/Run 混合。这些设置不移动 Actor，也不在编辑器里自动启动动画。
+模板 Actor 的 `ManualSpeed` 为 cm/s，默认 0；`bUseOwnerVelocity=false` 时方便用户手动改变速度观察动作，`InitialAction` 可填上表任一 ID，在 BeginPlay 播放一次。未设置时使用 Idle/Walk/Run 混合。这些设置不移动 Actor，也不在编辑器里自动启动动画。 原因：ManualSpeed 是动画驱动参数，不会替代 Actor 移动，也不自动启动编辑器预览。
 
 蓝图调用链：模板 Actor 引用 → `Play Template Action(ActionName, ExternalClock=false)` → 读取布尔返回值。成功时从当前可见姿态过渡到所选动作；不存在的动作或死亡锁定状态返回 false。需要中断时调用 `Resume Locomotion`；Death 不可取消。重新生成实例开始新生命。
 
-接入实际怪物：Mesh 使用 `QuadrupedTemplateAnimInstance` → BeginPlay 获取该 AnimInstance → `Set Animation Set(角色自己的数据集)` → 使用 `bUseOwnerVelocity=true`。Mesh 与数据集必须采用同一个目标 Skeleton。运行时不再调用 `PlayAnimation` 切走该 AnimInstance。
+接入实际怪物：Mesh 使用 `QuadrupedTemplateAnimInstance` → BeginPlay 获取该 AnimInstance → `Set Animation Set(角色自己的数据集)` → 使用 `bUseOwnerVelocity=true`。Mesh 与数据集必须采用同一个目标 Skeleton。运行时不再调用 `PlayAnimation` 切走该 AnimInstance。 原因：数据集与 Mesh 必须共享目标骨架，PlayAnimation 会切走承担混合逻辑的动画实例。
 
-战斗调用链：现有 Behavior Tree/执行组件选择攻击 → `Play Template Action(Action, ExternalClock=true)` → 用现有唯一战斗时钟驱动 `Set Action Time(源动画秒)` → 到收势末端调用 `Resume Locomotion`。外部时钟模式不自动完成/切换动作，不另乘数据集 PlayRate。普通自动播放模式才使用 PlayRate。命中去重、遮挡、打断、死亡取消伤害仍归当前战斗系统；动画模板不施加伤害、不发送源包 Notify。
+战斗调用链：现有 Behavior Tree/执行组件选择攻击 → `Play Template Action(Action, ExternalClock=true)` → 用现有唯一战斗时钟驱动 `Set Action Time(源动画秒)` → 到收势末端调用 `Resume Locomotion`。外部时钟模式不自动完成/切换动作，不另乘数据集 PlayRate。普通自动播放模式才使用 PlayRate。命中去重、遮挡、打断、死亡取消伤害仍归当前战斗系统；动画模板不施加伤害、不发送源包 Notify。 原因：战斗系统已经持有唯一动作和命中时钟，模板只提供姿态才能避免双重播放率、重复伤害和打断后残留命中。
 
-所有接触起止默认 `-1`（未编排）。设定真实窗口后采用半开区间 `[start,end)`；离散接触在上一时刻到当前时刻跨越事件点时消费一次。伤害窗口不能由总时长的固定百分比猜测。模板的位移策略固定为原地表现；原始 `_RM` 资产保留在源包，并在清单中关联，启用 RM 须另行定义唯一移动责任方。
+所有接触起止默认 `-1`（未编排）。设定真实窗口后采用半开区间 `[start,end)`；离散接触在上一时刻到当前时刻跨越事件点时消费一次。伤害窗口不能由总时长的固定百分比猜测。模板的位移策略固定为原地表现；原始 `_RM` 资产保留在源包，并在清单中关联，启用 RM 须另行定义唯一移动责任方。 原因：视觉播放、武器普攻和技能时长有各自的数值合同，重复缩放会改变节奏或伤害输出。
 
-自动移动图采用 Idle 与走跑混合；Walk/Run 共享归一化相位，可分别配置 `WalkPhaseOffset` / `RunPhaseOffset`。默认相位未做足底接触标定。母版走/跑标称速度 140/450 cm/s 为最初设计值，正式狼自己的数据集采用源根位移测得的速度。2026-09-15 [奔跑 V2](QuadrupedLocomotionV2.md) 将走跑转换阈值与标称速度解耦：35%–65% 跑速区间完成过渡，之后保持完整 Run；按每周期步幅推进相位，左右转向槽按平滑转向速度自动混合并保持同相位。新目标仍需适配自己的步幅和转向片段。
+自动移动图采用 Idle 与走跑混合；Walk/Run 共享归一化相位，可分别配置 `WalkPhaseOffset` / `RunPhaseOffset`。默认相位未做足底接触标定。母版走/跑标称速度 140/450 cm/s 为最初设计值，正式狼自己的数据集采用源根位移测得的速度。2026-09-15 [奔跑 V2](QuadrupedLocomotionV2.md) 将走跑转换阈值与标称速度解耦：35%–65% 跑速区间完成过渡，之后保持完整 Run；按每周期步幅推进相位，左右转向槽按平滑转向速度自动混合并保持同相位。新目标仍需适配自己的步幅和转向片段。 原因：模板标称值不代表每个目标步幅，实际源速度与相位决定是否滑步。
 
 ## 四足骨链与后续角色适配
 
 2026-09-15 已开展首个完整狼角色接入，入口 `/Game/Monsters/Wolf/BP_WolfMonster`，F6 显示“野狼”。数值、AI、战斗时钟和三向受击使用角色自己的数据集，详见 [野狼接入说明](WolfMonster.md)。母版继续只承担动作表现；角色制作不等同于母版动作已获用户验收。
 
-按父链映射 `BodyRoot`、`Spine`、`Neck`、`Head`、`Jaw`、`ForeLeg_L/R`、`HindLeg_L/R`、`Tail`；肩胛单独保留，耳等附件可使用独立短链。容器 Root 与承重骨盆分别记录，源 rig 的实际骨名以制作清单为准。脚尖/蹄端是支撑点，不能把前腿当人手、后腿当直腿人形，不能套用人形自动映射。
+按父链映射 `BodyRoot`、`Spine`、`Neck`、`Head`、`Jaw`、`ForeLeg_L/R`、`HindLeg_L/R`、`Tail`；肩胛单独保留，耳等附件可使用独立短链。容器 Root 与承重骨盆分别记录，源 rig 的实际骨名以制作清单为准。脚尖/蹄端是支撑点，不能把前腿当人手、后腿当直腿人形，不能套用人形自动映射。 原因：四足支撑链与人形手脚含义不同，按实际父链映射才能保留肩胛、骨盆和足端关系。
 
-每个新模型复制数据集，依次完成目标骨链、参考姿态、源→目标重定向、体型修正，再填入同一批动作 ID。分别保留源动作、重定向原始结果与体型修正结果。修正重点是前后躯负重、肩胛滑动、前腕/后跗屈曲、四足接触顺序、腹部离地、尾部平衡、攻击器官轨迹和死亡落地。额外肢体/翅膀及招牌动作使用专用链与片段。
+每个新模型复制数据集，依次完成目标骨链、参考姿态、源→目标重定向、体型修正，再填入同一批动作 ID。分别保留源动作、重定向原始结果与体型修正结果。修正重点是前后躯负重、肩胛滑动、前腕/后跗屈曲、四足接触顺序、腹部离地、尾部平衡、攻击器官轨迹和死亡落地。额外肢体/翅膀及招牌动作使用专用链与片段。 原因：移动状态需要真实支撑和碰撞条件，达到缓存坐标并不等于动作已经安全完成。
 
 ## 重建与交付边界
 
 作者脚本：[read_source_catalog.py](../../Tools/QuadrupedTemplates/read_source_catalog.py) 读取原包；[create_wolf_template.py](../../Tools/QuadrupedTemplates/create_wolf_template.py) 创建缺失的模板资源。脚本不会启动关卡或动画预览，也不覆盖已有模板副本和用户调好的数据集。后续制作第二版时使用新目录和新名称。
 
-原生实现：[QuadrupedAnimationTemplate.h](../../Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.h)、[QuadrupedAnimationTemplate.cpp](../../Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.cpp)。数据资产持有序列引用；AnimInstance 生命周期随 Mesh，姿态图只在游戏线程采集数据，再由原生代理求值。本版为单机表现模板，不含联机动作同步。
+原生实现：[QuadrupedAnimationTemplate.h](../../Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.h)、[QuadrupedAnimationTemplate.cpp](../../Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.cpp)。数据资产持有序列引用；AnimInstance 生命周期随 Mesh，姿态图只在游戏线程采集数据，再由原生代理求值。本版为单机表现模板，不含联机动作同步。 原因：不同武器或角色的参考姿态并不相同，直接套用供体会改变实际接触与变形。
 
 执行必要 Editor 构建后，在 UE Python 中运行制作脚本，或使用 `UnrealEditor-Cmd.exe FPSGAME.uproject -run=pythonscript -script=<脚本绝对路径> -unattended -nop4 -nullrhi`。这是资源制作命令，不是测试命令。二进制依赖原包；发布遵循 [AssetSetup](../AssetSetup.md)。
 

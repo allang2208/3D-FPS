@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Skills/FPSBlizzardComponent.cpp b/Source/FPSGAME/Skills/FPSBlizzardComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSBlizzardComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSBlizzardComponent.cpp
+@@ -45,8 +45,7 @@
+     }),Requests);
+ }
+ UColdSteelStatusModel* UFPSBlizzardComponent::Model() const
+-{return UnknownSpell::IsCaster(GetOwner())?UnknownSpell::Model(Cast<APawn>(GetOwner())):
+-    (GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr);}
++{return NetCast::LocalModel(*this);}
+ UFPSFireballComponent* UFPSBlizzardComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
+ bool UFPSBlizzardComponent::InputAvailable(bool bContinuing) const
+ {

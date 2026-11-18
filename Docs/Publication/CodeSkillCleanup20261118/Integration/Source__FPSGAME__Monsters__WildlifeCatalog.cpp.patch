@@ -1,0 +1,219 @@
+diff --git a/Source/FPSGAME/Monsters/WildlifeCatalog.cpp b/Source/FPSGAME/Monsters/WildlifeCatalog.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/WildlifeCatalog.cpp
+@@ -0,0 +1,214 @@
++#include "WildlifeAnimal.h"
++#include "HillsWildlifeAudio.h"
++#include "WildlifeDistanceActivity.h"
++#include "WildlifeSubsystem.h"
++#include "MonsterIdleBreathingMeshComponent.h"
++#include "MonsterCombatComponent.h"
++#include "TimerManager.h"
++#include "Perception/AIPerceptionComponent.h"
++#include "Perception/AISenseConfig_Hearing.h"
++#include "QuadrupedAnimationTemplate.h"
++#include "MonsterCorpseRagdollComponent.h"
++#include "MonsterCoreStats.h"
++#include "../Combat/CombatFormulaRuntime.h"
++#include "../Skills/ColdSteelSkillRules.h"
++#include "../Skills/EnemyAttackDamage.h"
++#include "FPSCombatHealthComponent.h"
++#include "Animation/AnimSequence.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/DamageEvents.h"
++#include "Engine/GameInstance.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/GameStateBase.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Net/UnrealNetwork.h"
++#include "Serialization/JsonSerializer.h"
++
++namespace
++{
++    float Num(const TSharedPtr<FJsonObject>& O, const TCHAR* K, float D)
++    {
++        double V = D;
++        if (O.IsValid()) O->TryGetNumberField(K, V);
++        return static_cast<float>(V);
++    }
++    int32 Int(const TSharedPtr<FJsonObject>& O, const TCHAR* K, int32 D)
++    {
++        double V = D;
++        if (O.IsValid()) O->TryGetNumberField(K, V);
++        return static_cast<int32>(V);
++    }
++    bool Flag(const TSharedPtr<FJsonObject>& O, const TCHAR* K, bool D)
++    {
++        bool V = D;
++        if (O.IsValid()) O->TryGetBoolField(K, V);
++        return V;
++    }
++    FString Str(const TSharedPtr<FJsonObject>& O, const TCHAR* K, const TCHAR* D = TEXT(""))
++    {
++        FString V = D;
++        if (O.IsValid()) O->TryGetStringField(K, V);
++        return V;
++    }
++    const TSharedPtr<FJsonObject>* Obj(const TSharedPtr<FJsonObject>& O, const TCHAR* K)
++    {
++        const TSharedPtr<FJsonObject>* V = nullptr;
++        return O.IsValid() && O->TryGetObjectField(K, V) ? V : nullptr;
++    }
++}
++
++const FWildlifeSpecies* FWildlifeCatalog::Find(const FString& Id) const
++{
++    for (const FWildlifeSpecies& Row : Species)
++        if (Row.Id == Id) return &Row;
++    return nullptr;
++}
++
++TArray<const FWildlifeSpecies*> FWildlifeCatalog::ForActivity(bool bDay) const
++{
++    TArray<const FWildlifeSpecies*> Out;
++    for (const FWildlifeSpecies& Row : Species)
++    {
++        if (Row.SpawnWeight <= 0 || Row.Id.Equals(TEXT("pig"), ESearchCase::IgnoreCase)) continue;
++        if (Row.Activity == TEXT("day") && !bDay) continue;
++        if (Row.Activity == TEXT("night") && bDay) continue;
++        Out.Add(&Row);
++    }
++    return Out;
++}
++
++namespace
++{
++    TUniquePtr<FWildlifeCatalog> GCatalog;
++
++    void ParseSpecies(const TSharedPtr<FJsonObject>& J, FWildlifeSpecies& Row)
++    {
++        Row.Id = Str(J, TEXT("id"));
++        Row.DisplayName = Str(J, TEXT("displayName"));
++        Row.Behavior = Str(J, TEXT("behavior"), TEXT("skittish"));
++        Row.AnimationSet = Str(J, TEXT("animationSet"));
++        Row.CharacterClass = Str(J, TEXT("characterClass"));
++        Row.MeshYaw = Num(J, TEXT("meshYaw"), -90.f);
++        Row.CapsuleRadius = Num(J, TEXT("capsuleRadius"), 34.f);
++        Row.CapsuleHalfHeight = Num(J, TEXT("capsuleHalfHeight"), 60.f);
++        Row.Level = Int(J, TEXT("level"), 1);
++        Row.Rank = Str(J, TEXT("rank"), TEXT("Normal"));
++        Row.Health = Num(J, TEXT("health"), 100.f);
++        Row.PhysicalDefense = Num(J, TEXT("physicalDefense"), 0.f);
++        Row.MagicDefense = Num(J, TEXT("magicDefense"), 0.f);
++        Row.Experience = Int(J, TEXT("experience"), 0);
++        Row.WalkSpeed = Num(J, TEXT("walkSpeed"), 110.f);
++        Row.RunSpeed = Num(J, TEXT("runSpeed"), 450.f);
++        Row.AlertRadius = Num(J, TEXT("alertRadius"), 1200.f);
++        Row.FleeRadius = Num(J, TEXT("fleeRadius"), 800.f);
++        Row.AggroRadius = Num(J, TEXT("aggroRadius"), 0.f);
++        Row.LeashRadius = Num(J, TEXT("leashRadius"), 0.f);
++        Row.HomeRadius = Num(J, TEXT("homeRadius"), 1500.f);
++        Row.Activity = Str(J, TEXT("activity"), TEXT("always"));
++        Row.CorpseSeconds = Num(J, TEXT("corpseSeconds"), Row.CorpseSeconds);
++        Row.bUseRagdoll = Flag(J, TEXT("useRagdoll"), true);
++        Row.HerdMin = FMath::Max(1, Int(J, TEXT("herdMin"), 1));
++        Row.HerdMax = FMath::Max(Row.HerdMin, Int(J, TEXT("herdMax"), Row.HerdMin));
++        Row.SpawnWeight = Int(J, TEXT("spawnWeight"), 10);
++
++        const TArray<TSharedPtr<FJsonValue>>* Loot = nullptr;
++        if (J.IsValid() && J->TryGetArrayField(TEXT("loot"), Loot))
++        {
++            for (const TSharedPtr<FJsonValue>& V : *Loot)
++            {
++                const TSharedPtr<FJsonObject> E = V.IsValid() ? V->AsObject() : nullptr;
++                if (!E.IsValid()) continue;
++                FWildlifeLootRow Item;
++                Item.Item = Str(E, TEXT("item"));
++                Item.Min = FMath::Max(1, Int(E, TEXT("min"), 1));
++                Item.Max = FMath::Max(Item.Min, Int(E, TEXT("max"), Item.Min));
++                Item.Chance = FMath::Clamp(Num(E, TEXT("chance"), 1.f), 0.f, 1.f);
++                if (!Item.Item.IsEmpty()) Row.Loot.Add(Item);
++            }
++        }
++
++        if (const TSharedPtr<FJsonObject>* A = Obj(J, TEXT("attack")))
++        {
++            Row.Attack.Damage = Num(*A, TEXT("damage"), 0.f);
++            Row.Attack.Range = Num(*A, TEXT("range"), 160.f);
++            Row.Attack.Cooldown = Num(*A, TEXT("cooldown"), 3.f);
++            Row.Attack.Windup = Num(*A, TEXT("windup"), .25f);
++            Row.Attack.ContactStart = Num(*A, TEXT("contactStart"), -1.f);
++            Row.Attack.ContactEnd = Num(*A, TEXT("contactEnd"), -1.f);
++        }
++    }
++}
++
++void WildlifeCatalog::Reload()
++{
++    GCatalog.Reset();
++    GCatalog = MakeUnique<FWildlifeCatalog>();
++    const FString Path = FPaths::ProjectContentDir() / TEXT("ColdSteelData/wildlife.json");
++    FString Raw;
++    if (!FFileHelper::LoadFileToString(Raw, *Path))
++    {
++        UE_LOG(LogTemp, Error, TEXT("WILDLIFE_CATALOG_MISSING %s"), *Path);
++        return;
++    }
++    TSharedPtr<FJsonObject> Root;
++    const TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Raw);
++    if (!FJsonSerializer::Deserialize(Reader, Root) || !Root.IsValid())
++    {
++        UE_LOG(LogTemp, Error, TEXT("WILDLIFE_CATALOG_INVALID %s"), *Path);
++        return;
++    }
++    if (const TSharedPtr<FJsonObject>* S = Obj(Root, TEXT("spawn")))
++    {
++        FWildlifeSpawnSettings& D = GCatalog->Spawn;
++        D.TargetPopulation = Int(*S, TEXT("targetPopulation"), D.TargetPopulation);
++        D.PopulationRadius = Num(*S, TEXT("populationRadius"), D.PopulationRadius);
++        D.ActivityRadius = FMath::Max(0.f, Num(*S, TEXT("activityRadius"), D.ActivityRadius));
++        D.SpawnMinDistance = Num(*S, TEXT("spawnMinDistance"), D.SpawnMinDistance);
++        D.SpawnMaxDistance = Num(*S, TEXT("spawnMaxDistance"), D.SpawnMaxDistance);
++        D.DespawnDistance = Num(*S, TEXT("despawnDistance"), D.DespawnDistance);
++        D.IntervalSeconds = FMath::Max(.5f, Num(*S, TEXT("intervalSeconds"), D.IntervalSeconds));
++        D.MaxGlobal = Int(*S, TEXT("maxGlobal"), D.MaxGlobal);
++        D.DayStart = Num(*S, TEXT("dayStart"), D.DayStart);
++        D.DayEnd = Num(*S, TEXT("dayEnd"), D.DayEnd);
++        D.GroundTraceUp = Num(*S, TEXT("groundTraceUp"), D.GroundTraceUp);
++        D.GroundTraceDown = Num(*S, TEXT("groundTraceDown"), D.GroundTraceDown);
++        D.MaxSlopeZ = Num(*S, TEXT("maxSlopeZ"), D.MaxSlopeZ);
++        D.MinPlayerDistance = Num(*S, TEXT("minPlayerDistance"), D.MinPlayerDistance);
++    }
++    if (const TSharedPtr<FJsonObject>* Group = Obj(Root, TEXT("hillsGroups")))
++    {
++        auto& G = GCatalog->HillsGroups;
++        G.PastureDistance = FMath::Clamp(Num(*Group,TEXT("pastureDistanceCm"),G.PastureDistance),600.f,6000.f);
++        G.ForageSeconds = FMath::Clamp(Num(*Group,TEXT("forageSeconds"),G.ForageSeconds),3.f,120.f);
++        G.RegroupDistance = FMath::Clamp(Num(*Group,TEXT("regroupDistanceCm"),G.RegroupDistance),250.f,2500.f);
++        G.EscapeDistance = FMath::Clamp(Num(*Group,TEXT("escapeDistanceCm"),G.EscapeDistance),800.f,6000.f);
++        G.FlightDistance = FMath::Clamp(Num(*Group,TEXT("flightDistanceCm"),G.FlightDistance),1600.f,9000.f);
++        G.FlightHeight = FMath::Clamp(Num(*Group,TEXT("flightHeightCm"),G.FlightHeight),450.f,3500.f);
++        G.FlightSpeed = FMath::Clamp(Num(*Group,TEXT("flightSpeedCmS"),G.FlightSpeed),300.f,1500.f);
++    }
++    const TArray<TSharedPtr<FJsonValue>>* Species = nullptr;
++    if (Root->TryGetArrayField(TEXT("species"), Species))
++    {
++        for (const TSharedPtr<FJsonValue>& V : *Species)
++        {
++            const TSharedPtr<FJsonObject> E = V.IsValid() ? V->AsObject() : nullptr;
++            if (!E.IsValid()) continue;
++            FWildlifeSpecies& Row = GCatalog->Species.AddDefaulted_GetRef();
++            ParseSpecies(E, Row);
++        }
++    }
++    UE_LOG(LogTemp, Log, TEXT("WILDLIFE_CATALOG_LOADED species=%d"), GCatalog->Species.Num());
++}
++
++const FWildlifeCatalog& WildlifeCatalog::Get()
++{
++    if (!GCatalog.IsValid()) Reload();
++    return *GCatalog;
++}
++

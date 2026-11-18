@@ -1,0 +1,540 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -0,0 +1,535 @@
++#include "ColdSteelHUDWidget.h"
++#include "StatusEffectsHUD.h"
++#include "../Dungeons/DungeonRoomSubsystem.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Building/ColdSteelCampfire.h"
++#include "ColdSteelSceneContainer.h"
++#include "Framework/Application/SlateApplication.h"
++#include "ColdSteelGunAssemblyWidget.h"
++#include "ColdSteelIncineratorWidget.h"
++#include "ColdSteelSmeltingWidget.h"
++#include "ColdSteelWorkbenchWidget.h"
++#include "../Building/VoxelBuildWorld.h"
++#include "Widgets/SWidget.h"
++#include "ColdSteelSkillPage.h"
++#include "ColdSteelCodexPage.h"
++#include "ColdSteelProgressNotification.h"
++#include "ColdSteelSkillTreeScreen.h"
++#include "ColdSteelDungeonTracker.h"
++#include "ColdSteelAcquisitionFeed.h"
++#include "ColdSteelExperienceFeed.h"
++#include "ColdSteelDamageNumbers.h"
++#include "ColdSteelAmmoReadout.h"
++#include "ColdSteelAmmoPouchWidget.h"
++#include "ColdSteelInventoryWidget.h"
++#include "ColdSteelWorldClock.h"
++#include "ColdSteelStatusModel.h"
++#include "../Weapons/MeleeWeaponStats.h"
++#include "Dom/JsonValue.h"
++#include "Blueprint/WidgetBlueprintLibrary.h"
++#include "Engine/GameInstance.h"
++
++#include "../FPSGAMECharacter.h"
++#include "../FPSWeatherManager.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "ColdSteelUIStyle.h"
++#include "GunsmithUIStyle.h"
++#include "ColdSteelWorldInteraction.h"
++
++#include "Blueprint/WidgetTree.h"
++#include "Blueprint/WidgetLayoutLibrary.h"
++#include "Components/BackgroundBlur.h"
++#include "Components/Border.h"
++#include "Components/Button.h"
++#include "Kismet/GameplayStatics.h"
++#include "Sound/SoundBase.h"
++#include "Components/ButtonSlot.h"
++#include "Components/CanvasPanel.h"
++#include "Components/CanvasPanelSlot.h"
++#include "Components/HorizontalBox.h"
++#include "Components/HorizontalBoxSlot.h"
++#include "Components/Image.h"
++#include "Components/Overlay.h"
++#include "Components/OverlaySlot.h"
++#include "Components/ProgressBar.h"
++#include "Components/ScaleBox.h"
++#include "Components/ScaleBoxSlot.h"
++#include "Components/ScrollBox.h"
++#include "Components/SizeBox.h"
++#include "Components/Spacer.h"
++#include "Components/TextBlock.h"
++#include "Components/UniformGridPanel.h"
++#include "Components/UniformGridSlot.h"
++#include "Components/VerticalBox.h"
++#include "Components/VerticalBoxSlot.h"
++#include "Engine/Texture2D.h"
++#include "EngineUtils.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "ImageUtils.h"
++#include "Input/Reply.h"
++#include "InputCoreTypes.h"
++#include "Misc/Paths.h"
++#include "Styling/SlateTypes.h"
++#include "UObject/UnrealType.h"
++#include "ProfilingDebugging/CpuProfilerTrace.h"
++
++#include "ColdSteelHUDPrivate.h"
++using namespace ColdSteelHUDPrivate;
++
++void UColdSteelHUDWidget::BuildInteractHint(UCanvasPanel* Root)
++{
++    // 统一 E 交互小浮窗（2026-09-24 用户指令）：准星下方居中的毛玻璃灰黑卡＋白字，
++    // 取代高炉/工作台/宝箱/储物箱/拾取等一切挂在模型上方的世界空间名牌。
++    auto* Blur=WidgetTree->ConstructWidget<UBackgroundBlur>();
++    Blur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);
++    Blur->SetOverrideAutoRadiusCalculation(true);
++    Blur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
++    Blur->SetCornerRadius(FVector4(ReferenceUnits(ColdSteelUI::CardRadius)));
++    Blur->SetApplyAlphaToBlur(true);
++    Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::CardRadius));
++    Blur->SetVisibility(ESlateVisibility::Collapsed);
++    auto* Surface=MakeSurface(ColdSteelUI::GlassTint,ReferenceUnits(ColdSteelUI::CardRadius),ColdSteelUI::Border,ReferenceUnits(1));
++    Surface->SetPadding(FMargin(ReferenceUnits(12),ReferenceUnits(7)));
++    Blur->SetContent(Surface);
++    auto* Row=WidgetTree->ConstructWidget<UHorizontalBox>();
++    Surface->SetContent(Row);
++    InteractHintKey=MakeReferenceText(TEXT("E"),16,FLinearColor::White,true,true);
++    auto* KeySlot=Row->AddChildToHorizontalBox(InteractHintKey);
++    KeySlot->SetPadding(FMargin(0,0,ReferenceUnits(9),0));
++    KeySlot->SetVerticalAlignment(VAlign_Center);
++    InteractHintText=MakeReferenceText(FString(),15,FLinearColor::White);
++    auto* TextSlot=Row->AddChildToHorizontalBox(InteractHintText);
++    TextSlot->SetVerticalAlignment(VAlign_Center);
++    auto* HintSlot=Root->AddChildToCanvas(Blur);
++    HintSlot->SetAnchors(FAnchors(0.5f,0.5f));
++    HintSlot->SetAlignment(FVector2D(0.5f,0.f));
++    HintSlot->SetPosition(FVector2D(0,ReferenceUnits(56)));
++    HintSlot->SetAutoSize(true);
++    HintSlot->SetZOrder(38);
++    InteractHintBlur=Blur;
++}
++
++void UColdSteelHUDWidget::UpdateInteractHint()
++{
++    if(!InteractHintBlur)return;
++    APlayerController* PC=GetOwningPlayer();
++    const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
++    // 与旧准星提示同一出现条件：任一面板打开／光标显示／弹药轮／命中反馈 期间都不出浮窗。
++    FString Text;bool bAction=true;
++    const bool bWorldInteraction=Character&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen();
++    AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bWorldInteraction&&!UFPSFurnitureRestComponent::IsResting(Character));
++    if(auto* Rest=Character?Character->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr)
++        Text=Rest->UpdateFocus(bWorldInteraction&&!ContainerFocus);
++    if(bWorldInteraction)
++    {
++        FMonsterHitFeedback Feedback;
++        if(!Character->GetMonsterHitFeedback(Feedback))
++        {
++            if(Text.IsEmpty())
++            {
++                const auto Hint=ColdSteelWorldInteraction::ResolveInteractionHint(ContainerFocus?ContainerFocus:ColdSteelWorldInteraction::TraceTarget(PC));
++                if(!Hint.Text.IsEmpty()){Text=Hint.Text;bAction=Hint.bAction;}
++            }
++        }
++    }
++    if(Text.IsEmpty()){InteractHintBlur->SetVisibility(ESlateVisibility::Collapsed);LastInteractHintText.Reset();return;}
++    InteractHintBlur->SetVisibility(ESlateVisibility::HitTestInvisible);
++    if(Text!=LastInteractHintText){InteractHintText->SetText(FText::FromString(Text));LastInteractHintText=Text;}
++    if(bAction!=bLastInteractHintAction){InteractHintKey->SetVisibility(bAction?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);bLastInteractHintAction=bAction;}
++}
++
++void UColdSteelHUDWidget::BuildInterface()
++{
++    UCanvasPanel* Root = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("ColdSteelRoot"));
++    WidgetTree->RootWidget = Root;
++    BuildAmmoReadout(Root);
++    BuildHotbar(Root);
++    BuildStamina(Root);
++    BuildExpBar(Root);
++    BuildEventTimeline(Root);
++    BuildSoulHUD(Root);
++    BuildInventory(Root);
++    BuildCharacterSummary(Root);
++    BuildWarehouse(Root);
++    BuildSmelting(Root);
++    BuildWorkbench(Root);
++    BuildForging(Root);
++    BuildPanelNavigation(Root);
++    BuildInteractHint(Root); // 统一 E 交互小浮窗（在面板 Z 之下：面板打开时本就不显示）
++    TaskTracker = CreateWidget<UColdSteelDungeonTracker>(GetOwningPlayer());
++    FillSlot(Root->AddChildToCanvas(TaskTracker),FAnchors(0,0,1,1),FMargin(0),12);
++    ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
++    FillSlot(Root->AddChildToCanvas(ProgressNotification),FAnchors(0,0,1,1),FMargin(0),90);
++    ExperienceFeed=CreateWidget<UColdSteelExperienceFeed>(GetOwningPlayer());
++    FillSlot(Root->AddChildToCanvas(ExperienceFeed),FAnchors(0,0,1,1),FMargin(0),89);
++    DamageNumbers=CreateWidget<UColdSteelDamageNumbers>(GetOwningPlayer());
++    FillSlot(Root->AddChildToCanvas(DamageNumbers),FAnchors(0,0,1,1),FMargin(0),88);
++    RefreshAmmo();
++    RefreshEventTimeline(true);
++    RefreshWorldClock();
++}
++
++void UColdSteelHUDWidget::BuildAmmoReadout(UCanvasPanel* Root)
++{
++    AmmoReadout=CreateWidget<UColdSteelAmmoReadout>(GetOwningPlayer());
++    UCanvasPanelSlot* CanvasSlot = Root->AddChildToCanvas(AmmoReadout);
++    CanvasSlot->SetAnchors(FAnchors(1.0f, 1.0f));
++    CanvasSlot->SetAlignment(FVector2D(1.0f, 1.0f));
++    CanvasSlot->SetPosition(FVector2D(-ReferenceUnits(20), -ReferenceUnits(20)));
++    CanvasSlot->SetAutoSize(true);
++    CanvasSlot->SetZOrder(10);
++    AmmoReadout->UpdateLayout(UColdSteelAmmoReadout::PreferredWidth,20.f);
++}
++
++void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
++{
++    InventoryBackdrop = MakeSurface(FLinearColor(0.0f, 0.0f, 0.0f, 0.40f), 0.0f, FLinearColor::Transparent, 0.0f);
++    InventoryBackdrop->SetVisibility(ESlateVisibility::Collapsed);
++    FillSlot(Root->AddChildToCanvas(InventoryBackdrop), FAnchors(0.0f, 0.0f, 1.0f, 1.0f), FMargin(0.0f), 40);
++
++    InventoryPanel = MakeSurface(FLinearColor::Transparent, ReferenceUnits(10), GunsmithUI::Edge, ReferenceUnits(1));
++    InventoryPanel->SetPadding(FMargin(ReferenceUnits(1)));
++    InventoryPanel->SetVisibility(ESlateVisibility::Collapsed);
++    InventoryPanelSlot=Root->AddChildToCanvas(InventoryPanel);
++    InventoryPanelSlot->SetAnchors(FAnchors(1,0,1,1));InventoryPanelSlot->SetAlignment(FVector2D(1,0));InventoryPanelSlot->SetZOrder(41);
++    InventoryPanelSlot->SetOffsets(FMargin(-ReferenceUnits(ColdSteelUI::NavigationDrawerInset),ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
++    InventoryBlur=WidgetTree->ConstructWidget<UBackgroundBlur>();InventoryBlur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);InventoryBlur->SetOverrideAutoRadiusCalculation(true);InventoryBlur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
++    InventoryBlur->SetCornerRadius(FVector4(10,10,10,10));InventoryBlur->SetApplyAlphaToBlur(true);
++    InventoryBlur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius));
++    InventoryPanel->SetContent(InventoryBlur);
++    auto* Glass=MakeSurface(ColdSteelUI::GlassTint,ReferenceUnits(ColdSteelUI::PanelRadius),FLinearColor::Transparent,0);
++    Glass->SetPadding(FMargin(0));InventoryBlur->SetContent(Glass);
++
++    UVerticalBox* Body = WidgetTree->ConstructWidget<UVerticalBox>();
++    Glass->SetContent(Body);
++
++    UBorder* HeaderSurface = MakeSurface(ColdSteelUI::HeaderTint, ReferenceUnits(ColdSteelUI::PanelRadius), FLinearColor::Transparent, 0.0f);
++    InventoryHeaderSurface=HeaderSurface;
++    HeaderSurface->SetPadding(FMargin(ReferenceUnits(18), ReferenceUnits(12)));
++    USizeBox* HeaderHeight = WidgetTree->ConstructWidget<USizeBox>();
++    InventoryHeaderSize=HeaderHeight;
++    HeaderHeight->SetHeightOverride(ReferenceUnits(36));
++    HeaderSurface->SetContent(HeaderHeight);
++    Body->AddChildToVerticalBox(HeaderSurface)->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
++    UHorizontalBox* Header = WidgetTree->ConstructWidget<UHorizontalBox>();
++    HeaderHeight->SetContent(Header);
++    InventoryTitleText = MakeInventoryText(TEXT("装备与背包"),20,GunsmithUI::Text,false,true);
++    UHorizontalBoxSlot* TitleSlot = Header->AddChildToHorizontalBox(InventoryTitleText);
++    TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    TitleSlot->SetVerticalAlignment(VAlign_Center);
++
++    CloseButton = WidgetTree->ConstructWidget<UButton>();
++    CloseButton->SetStyle(ColdSteelUI::ButtonStyle(ColdSteelUI::PixelScale(this)));
++    CloseButton->SetContent(MakeInventoryText(TEXT("Esc  返回"),14,GunsmithUI::Text));
++    Cast<UButtonSlot>(CloseButton->GetContent()->Slot)->SetPadding(FMargin(ReferenceUnits(12),ReferenceUnits(8)));
++    CloseButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleCloseClicked);
++    Header->AddChildToHorizontalBox(CloseButton)->SetVerticalAlignment(VAlign_Center);
++
++    UHorizontalBox* Tabs = WidgetTree->ConstructWidget<UHorizontalBox>();
++    auto AddTab = [this, Tabs](const FString& Caption, bool bActive, TObjectPtr<UBorder>& OutSurface, TObjectPtr<UTextBlock>& OutText, TObjectPtr<UBorder>& OutUnderline, bool bEnabled)
++    {
++        UButton* Button = WidgetTree->ConstructWidget<UButton>();
++        Button->SetStyle(FButtonStyle()
++            .SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::Transparent, 0.0f, FLinearColor::Transparent, 0.0f))
++            .SetHovered(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(110,45),7,FLinearColor::Transparent,0))
++            .SetPressed(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(24,180),7,FLinearColor::Transparent,0)));
++        OutSurface = MakeTab(Caption, bActive);
++        UOverlay* Layer = Cast<UOverlay>(Cast<USizeBox>(OutSurface->GetContent())->GetContent());
++        OutText = Layer ? Cast<UTextBlock>(Layer->GetChildAt(0)) : nullptr;
++        OutUnderline = Layer && Layer->GetChildrenCount() > 1 ? Cast<UBorder>(Layer->GetChildAt(1)) : nullptr;
++        Button->SetContent(OutSurface);
++        if (auto* ContentSlot = Cast<UButtonSlot>(OutSurface->Slot))
++        {
++            ContentSlot->SetHorizontalAlignment(HAlign_Fill);
++            ContentSlot->SetVerticalAlignment(VAlign_Fill);
++            ContentSlot->SetPadding(FMargin(0));
++        }
++        Button->SetIsEnabled(bEnabled);
++        UHorizontalBoxSlot* TabSlot = Tabs->AddChildToHorizontalBox(Button);
++        TabSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++        return Button;
++    };
++    UButton* StatusButton = AddTab(TEXT("状态"), false, StatusTabSurface, StatusTabText, StatusTabUnderline, true);
++    UButton* EquipmentButton = AddTab(TEXT("装备"), true, EquipmentTabSurface, EquipmentTabText, EquipmentTabUnderline, true);
++    TObjectPtr<UBorder> DummySurface = nullptr;
++    TObjectPtr<UTextBlock> DummyText = nullptr;
++    TObjectPtr<UBorder> DummyUnderline = nullptr;
++    UButton* SkillButton=AddTab(TEXT("技能"), false, SkillTabSurface, SkillTabText, SkillTabUnderline, true);
++    SkillButton->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::OpenSkills);
++    AddTab(TEXT("图鉴"), false, DummySurface, DummyText, DummyUnderline, false);
++    StatusButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleStatusTabClicked);
++    EquipmentButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleEquipmentTabClicked);
++    Body->AddChildToVerticalBox(Tabs)->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
++    // The persistent right rail now owns the three available panel destinations.
++    Tabs->SetVisibility(ESlateVisibility::Collapsed);
++
++    EquipmentAmmoTabs=WidgetTree->ConstructWidget<UHorizontalBox>();
++    auto* GearTab=WidgetTree->ConstructWidget<UButton>();
++    GearTab->SetStyle(ColdSteelUI::ButtonStyle(ColdSteelUI::PixelScale(this)));
++    GearTab->SetContent(MakeInventoryText(TEXT("装备与背包"),14,ColdSteelUI::TextPrimary));
++    GearTab->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleEquipmentTabClicked);
++    EquipmentAmmoTabs->AddChildToHorizontalBox(GearTab)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    auto* AmmoTab=WidgetTree->ConstructWidget<UButton>();
++    AmmoTab->SetStyle(ColdSteelUI::ButtonStyle(ColdSteelUI::PixelScale(this)));
++    AmmoTab->SetContent(MakeInventoryText(TEXT("弹药袋"),14,ColdSteelUI::TextPrimary));
++    AmmoTab->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::OpenAmmoPouch);
++    EquipmentAmmoTabs->AddChildToHorizontalBox(AmmoTab)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    Body->AddChildToVerticalBox(EquipmentAmmoTabs)->SetPadding(FMargin(ReferenceUnits(16),ReferenceUnits(6),ReferenceUnits(16),ReferenceUnits(8)));
++    BuildSoulWallet(Body);
++
++    StatusPage = BuildStatusPage();
++    EquipmentPage = BuildEquipmentPage();
++    Body->AddChildToVerticalBox(StatusPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    Body->AddChildToVerticalBox(EquipmentPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    AmmoPouchPage=CreateWidget<UColdSteelAmmoPouchWidget>(GetOwningPlayer());AmmoPouchPage->SetHUD(this);
++    Body->AddChildToVerticalBox(AmmoPouchPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    SkillPage=CreateWidget<UColdSteelSkillPage>(GetOwningPlayer());
++    SkillPage->SetHUD(this);
++    auto* SkillSlot=Body->AddChildToVerticalBox(SkillPage);
++    SkillSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));SkillSlot->SetHorizontalAlignment(HAlign_Fill);
++    // 图鉴与技能页同为抽屉内的自包含 Slate 页，共用同一 Fill 槽位与生命周期。
++    CodexPage=CreateWidget<UColdSteelCodexPage>(GetOwningPlayer());
++    CodexPage->SetHUD(this);
++    auto* CodexSlot=Body->AddChildToVerticalBox(CodexPage);
++    CodexSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CodexSlot->SetHorizontalAlignment(HAlign_Fill);
++    BuildStatusTooltip(Root);
++    BuildEquipmentTooltip(Root);
++    SetInventoryTab(false);
++}
++
++
++UWidget* UColdSteelHUDWidget::BuildEquipmentPage()
++{
++    auto* Scroll = WidgetTree->ConstructWidget<UScrollBox>();
++    Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
++    Scroll->SetScrollbarThickness(FVector2D(ReferenceUnits(6),ReferenceUnits(6)));
++    Scroll->SetAllowOverscroll(false);
++    auto* Board = CreateWidget<UColdSteelInventoryWidget>(GetOwningPlayer());
++    Scroll->AddChild(Board);
++    return Scroll;
++}
++
++UWidget* UColdSteelHUDWidget::MakeAttributeRow(const FString& Label, const FString& Key, UTextBlock*& OutValue)
++{
++    UButton* Button = WidgetTree->ConstructWidget<UButton>();
++    Button->SetStyle(FButtonStyle()
++        .SetNormal(ColdSteelUI::RoundedBrush(AttributeRow, 4.0f, FLinearColor::Transparent, 0.0f))
++        .SetHovered(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("3A4652A8"))), 4.0f, FLinearColor::Transparent, 0.0f))
++        .SetPressed(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("222B33D0"))), 4.0f, ColdSteelUI::Accent, 1.0f)));
++    UHorizontalBox* Row = WidgetTree->ConstructWidget<UHorizontalBox>();
++    UButtonSlot* ContentSlot = Cast<UButtonSlot>(Button->SetContent(Row));
++    if (ContentSlot) ContentSlot->SetPadding(FMargin(9.0f, 4.0f));
++    Row->AddChildToHorizontalBox(MakeReferenceText(Label, 12, ColdSteelUI::TextSecondary))->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    OutValue = MakeReferenceText(TEXT("10"), 14, ColdSteelUI::TextPrimary, true, true);
++    OutValue->SetJustification(ETextJustify::Right);
++    Row->AddChildToHorizontalBox(OutValue);
++    if (Key == TEXT("str")) Button->OnHovered.AddDynamic(this, &UColdSteelHUDWidget::HandleStrengthHovered);
++    else if (Key == TEXT("dex")) Button->OnHovered.AddDynamic(this, &UColdSteelHUDWidget::HandleDexterityHovered);
++    else if (Key == TEXT("intt")) Button->OnHovered.AddDynamic(this, &UColdSteelHUDWidget::HandleIntelligenceHovered);
++    else if (Key == TEXT("con")) Button->OnHovered.AddDynamic(this, &UColdSteelHUDWidget::HandleConstitutionHovered);
++    else if (Key == TEXT("wis")) Button->OnHovered.AddDynamic(this, &UColdSteelHUDWidget::HandleWisdomHovered);
++    else Button->OnHovered.AddDynamic(this, &UColdSteelHUDWidget::HandleLuckHovered);
++    Button->OnUnhovered.AddDynamic(this, &UColdSteelHUDWidget::HandleAttributeUnhovered);
++    return Button;
++}
++
++void UColdSteelHUDWidget::BuildStatusTooltip(UCanvasPanel* Root)
++{
++    StatusTooltip = MakeSurface(FLinearColor::Transparent, ReferenceUnits(ColdSteelUI::PanelRadius), ColdSteelUI::Border, ReferenceUnits(1));
++    StatusTooltip->SetPadding(FMargin(ReferenceUnits(1)));
++    StatusTooltip->SetVisibility(ESlateVisibility::Collapsed);
++    StatusTooltipCanvasSlot = Root->AddChildToCanvas(StatusTooltip);
++    StatusTooltipCanvasSlot->SetAnchors(FAnchors(0.56f, 0.51f));
++    StatusTooltipCanvasSlot->SetPosition(FVector2D(0.0f, 0.0f));
++    StatusTooltipCanvasSlot->SetSize(FVector2D(ReferenceUnits(260.0f), ReferenceUnits(142.0f)));
++    StatusTooltipCanvasSlot->SetZOrder(60);
++    auto* Blur=WidgetTree->ConstructWidget<UBackgroundBlur>();Blur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);
++    Blur->SetOverrideAutoRadiusCalculation(true);Blur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
++    Blur->SetCornerRadius(FVector4(10,10,10,10));Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius));
++    StatusTooltip->SetContent(Blur);
++    auto* Tint=MakeSurface(ColdSteelUI::Tooltip,ReferenceUnits(ColdSteelUI::PanelRadius),FLinearColor::Transparent,0);
++    Tint->SetPadding(FMargin(ReferenceUnits(16),ReferenceUnits(12)));Blur->SetContent(Tint);
++    UVerticalBox* Column = WidgetTree->ConstructWidget<UVerticalBox>();
++    Tint->SetContent(Column);
++    StatusTooltipTitle = MakeInventoryText(TEXT("力量"), 16, ColdSteelUI::TextPrimary, false, true);
++    Column->AddChildToVerticalBox(StatusTooltipTitle);
++    UBorder* Divider = MakeSurface(ColdSteelUI::Border, 0.0f, FLinearColor::Transparent, 0.0f);
++    USizeBox* DividerHeight = WidgetTree->ConstructWidget<USizeBox>();
++    DividerHeight->SetHeightOverride(ReferenceUnits(1.0f)); Divider->SetContent(DividerHeight);
++    Column->AddChildToVerticalBox(Divider)->SetPadding(FMargin(0, ReferenceUnits(4), 0, ReferenceUnits(6)));
++    StatusTooltipDescription = MakeInventoryText(TEXT("提升物理攻击与少量物理防御。"), 14, ColdSteelUI::TextPrimary);
++    StatusTooltipDescription->SetAutoWrapText(true);
++    Column->AddChildToVerticalBox(StatusTooltipDescription);
++    StatusTooltipRowsBox = WidgetTree->ConstructWidget<UVerticalBox>();
++    Column->AddChildToVerticalBox(StatusTooltipRowsBox)->SetPadding(FMargin(0, ReferenceUnits(4), 0, 0));
++    StatusTooltipNote = MakeInventoryText(TEXT("每点力量 ≈ +0.05 物理攻击"), 12, ColdSteelUI::TextSecondary);
++    StatusTooltipNote->SetAutoWrapText(true);
++    Column->AddChildToVerticalBox(StatusTooltipNote)->SetPadding(FMargin(0, ReferenceUnits(4), 0, 0));
++}
++
++void UColdSteelHUDWidget::BuildEquipmentTooltip(UCanvasPanel* Root)
++{
++    EquipmentTooltip = MakeSurface(FLinearColor::Transparent, 0.0f, FLinearColor::Transparent, 0.0f);
++    EquipmentTooltip->SetClipping(EWidgetClipping::ClipToBounds);
++    EquipmentTooltip->SetVisibility(ESlateVisibility::Collapsed);
++    EquipmentTooltipCanvasSlot = Root->AddChildToCanvas(EquipmentTooltip);
++    EquipmentTooltipCanvasSlot->SetAnchors(FAnchors(0.008f, 0.56f, 0.992f, 0.90f));
++    EquipmentTooltipCanvasSlot->SetOffsets(FMargin(0.0f));
++    EquipmentTooltipCanvasSlot->SetZOrder(50);
++    EquipmentTooltipScroll = WidgetTree->ConstructWidget<UScrollBox>();
++    EquipmentTooltipScroll->SetOrientation(EOrientation::Orient_Horizontal);
++    EquipmentTooltipScroll->SetScrollbarThickness(FVector2D(ReferenceUnits(12), ReferenceUnits(12)));
++    EquipmentTooltipScroll->SetAlwaysShowScrollbar(false);
++    EquipmentTooltipScroll->SetAnimateWheelScrolling(false);
++    EquipmentTooltip->SetContent(EquipmentTooltipScroll);
++    UHorizontalBox* Cards = WidgetTree->ConstructWidget<UHorizontalBox>();
++    EquipmentTooltipScroll->AddChild(Cards);
++    auto AddCard = [this, Cards](float Width, float PadX, float PadY)
++    {
++        UBorder* Card = MakeSurface(TooltipSurface, ReferenceUnits(16.0f), FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("7187928A"))), 1.0f);
++        Card->SetPadding(FMargin(ReferenceUnits(PadX + 2.0f), ReferenceUnits(PadY + 2.0f)));
++        USizeBox* CardSize = WidgetTree->ConstructWidget<USizeBox>();
++        CardSize->SetWidthOverride(ReferenceUnits(Width));
++        CardSize->SetContent(Card);
++        Cards->AddChildToHorizontalBox(CardSize)->SetPadding(FMargin(0, 0, ReferenceUnits(18), 0));
++        UVerticalBox* Column = WidgetTree->ConstructWidget<UVerticalBox>();
++        Card->SetContent(Column);
++        return Column;
++    };
++
++    UVerticalBox* Main = AddCard(460.0f, 20.0f, 16.0f);
++    UHorizontalBox* Header = WidgetTree->ConstructWidget<UHorizontalBox>();
++    Main->AddChildToVerticalBox(Header)->SetPadding(FMargin(0, 0, 0, ReferenceUnits(8)));
++    UVerticalBox* TitleBox = WidgetTree->ConstructWidget<UVerticalBox>();
++    Header->AddChildToHorizontalBox(TitleBox)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    UHorizontalBox* NameRow = WidgetTree->ConstructWidget<UHorizontalBox>();
++    TitleBox->AddChildToVerticalBox(NameRow);
++    WeaponNameText = MakeReferenceText(TEXT("当前武器"), 16, ColdSteelUI::TextPrimary, false, true);
++    NameRow->AddChildToHorizontalBox(WeaponNameText)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    TitleBox->AddChildToVerticalBox(MakeReferenceText(TEXT("武器  |  普通"), 12, ColdSteelUI::TextSecondary));
++    UHorizontalBox* Meta = WidgetTree->ConstructWidget<UHorizontalBox>();
++    Header->AddChildToHorizontalBox(Meta);
++    UButton* Close = WidgetTree->ConstructWidget<UButton>();
++    Close->SetStyle(FButtonStyle()
++        .SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C83232CC"))), ReferenceUnits(12), FLinearColor::Transparent, 0.0f))
++        .SetHovered(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("DC4646FF"))), ReferenceUnits(12), FLinearColor::Transparent, 0.0f)));
++    Close->SetContent(MakeReferenceText(TEXT("×"), 14, ColdSteelUI::TextPrimary));
++    Close->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleEquipmentTooltipCloseClicked);
++    USizeBox* CloseSize = WidgetTree->ConstructWidget<USizeBox>(); CloseSize->SetWidthOverride(ReferenceUnits(24)); CloseSize->SetHeightOverride(ReferenceUnits(24)); CloseSize->SetContent(Close);
++    Meta->AddChildToHorizontalBox(CloseSize);
++    EquipmentDamageValue = AddTooltipRow(Main, TEXT("武器总伤害"), TEXT("30"), ColdSteelUI::TextPrimary, true);
++    EquipmentCapacityValue = AddTooltipRow(Main, TEXT("弹匣容量"), TEXT("30 发"), ColdSteelUI::TextPrimary);
++    AddTooltipRow(Main, TEXT("分类"), TEXT("武器"), ColdSteelUI::TextPrimary);
++    AddTooltipRow(Main, TEXT("武器类型"), TEXT("步枪"), ColdSteelUI::TextPrimary);
++    AddTooltipRow(Main, TEXT("装备槽位"), TEXT("主手武器"), ColdSteelUI::TextPrimary);
++    AddTooltipSection(Main, TEXT("攻击参数"));
++    EquipmentIntervalValue = AddTooltipRow(Main, TEXT("攻击间隔"), TEXT("120ms"), ColdSteelUI::TextPrimary, true);
++    EquipmentReloadValue = AddTooltipRow(Main, TEXT("换弹时间"), TEXT("2700ms"), ColdSteelUI::TextPrimary, true);
++    EquipmentAmmoValue = AddTooltipRow(Main, TEXT("当前弹药"), TEXT("30 / 90"), ColdSteelUI::TextPrimary, true);
++    EquipmentTraitsBox = WidgetTree->ConstructWidget<UVerticalBox>();
++    Main->AddChildToVerticalBox(EquipmentTraitsBox)->SetPadding(FMargin(0, ReferenceUnits(4), 0, 0));
++}
++
++UTextBlock* UColdSteelHUDWidget::AddTooltipRow(UVerticalBox* Parent, const FString& Label, const FString& Value, const FLinearColor& ValueColor, bool bNumericValue)
++{
++    UHorizontalBox* Row = WidgetTree->ConstructWidget<UHorizontalBox>();
++    Parent->AddChildToVerticalBox(Row)->SetPadding(FMargin(0, ReferenceUnits(2), 0, ReferenceUnits(2)));
++    UTextBlock* Name = MakeReferenceText(Label, 14, ColdSteelUI::TextSecondary);
++    FSlateChildSize NameSize(ESlateSizeRule::Fill);
++    NameSize.Value = 0.4f;
++    Row->AddChildToHorizontalBox(Name)->SetSize(NameSize);
++    UTextBlock* Result = MakeReferenceText(Value, 14, ValueColor, bNumericValue);
++    Result->SetJustification(ETextJustify::Right);
++    FSlateChildSize ValueSize(ESlateSizeRule::Fill);
++    ValueSize.Value = 0.6f;
++    Row->AddChildToHorizontalBox(Result)->SetSize(ValueSize);
++    return Result;
++}
++
++void UColdSteelHUDWidget::AddTooltipSection(UVerticalBox* Parent, const FString& Title)
++{
++    Parent->AddChildToVerticalBox(MakeReferenceText(Title, 16, ColdSteelUI::TextPrimary, false, true));
++    UBorder* Divider = MakeSurface(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("B8D6DF3D"))), 0.0f, FLinearColor::Transparent, 0.0f);
++    USizeBox* Height = WidgetTree->ConstructWidget<USizeBox>();
++    Height->SetHeightOverride(ReferenceUnits(1));
++    Divider->SetContent(Height);
++    Parent->AddChildToVerticalBox(Divider)->SetPadding(FMargin(0, ReferenceUnits(3), 0, ReferenceUnits(4)));
++}
++
++UWidget* UColdSteelHUDWidget::MakeInventoryGrid()
++{
++    USizeBox* DesignSize = WidgetTree->ConstructWidget<USizeBox>();
++    DesignSize->SetWidthOverride(720.0f);
++    DesignSize->SetHeightOverride(160.0f);
++    UCanvasPanel* Grid = WidgetTree->ConstructWidget<UCanvasPanel>();
++    DesignSize->SetContent(Grid);
++
++    for (int32 Row = 0; Row < InventoryRows; ++Row)
++    {
++        for (int32 Column = 0; Column < InventoryColumns; ++Column)
++        {
++            const float L = static_cast<float>(Column) / InventoryColumns;
++            const float T = static_cast<float>(Row) / InventoryRows;
++            const float R = static_cast<float>(Column + 1) / InventoryColumns;
++            const float B = static_cast<float>(Row + 1) / InventoryRows;
++            UBorder* Cell = MakeSurface(SlotDark, 0.0f, GridLine, 1.0f);
++            FillSlot(Grid->AddChildToCanvas(Cell), FAnchors(L, T, R, B));
++        }
++    }
++
++    auto AddItem = [this, Grid](const FAnchors& Anchors, const FString& Name, const FString& File, const FString& Count, const FLinearColor& Rail)
++    {
++        UBorder* Card = MakeSurface(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("20282FF6"))), 2.0f, ColdSteelUI::Border, 1.0f);
++        FillSlot(Grid->AddChildToCanvas(Card), Anchors, FMargin(1.0f), 3);
++        UOverlay* Layer = WidgetTree->ConstructWidget<UOverlay>();
++        Card->SetContent(Layer);
++        if (!Name.IsEmpty())
++        {
++            UOverlaySlot* LabelSlot = Layer->AddChildToOverlay(MakeText(Name, 12, ColdSteelUI::TextPrimary));
++            LabelSlot->SetHorizontalAlignment(HAlign_Left);
++            LabelSlot->SetVerticalAlignment(VAlign_Top);
++            LabelSlot->SetPadding(FMargin(6.0f, 3.0f));
++        }
++        if (UTexture2D* Texture = LoadUiTexture(File))
++        {
++            UImage* Image = WidgetTree->ConstructWidget<UImage>();
++            Image->SetBrushFromTexture(Texture, true);
++            UOverlaySlot* ImageSlot = Layer->AddChildToOverlay(Image);
++            ImageSlot->SetHorizontalAlignment(HAlign_Fill);
++            ImageSlot->SetVerticalAlignment(VAlign_Fill);
++            ImageSlot->SetPadding(FMargin(8.0f, Name.IsEmpty() ? 4.0f : 17.0f, 8.0f, 4.0f));
++        }
++        UBorder* Badge = MakeSurface(Rail, 3.0f, FLinearColor::Transparent, 0.0f);
++        UOverlaySlot* BadgeSlot = Layer->AddChildToOverlay(Badge);
++        BadgeSlot->SetHorizontalAlignment(HAlign_Left);
++        BadgeSlot->SetVerticalAlignment(VAlign_Fill);
++        BadgeSlot->SetPadding(FMargin(3.0f));
++        USizeBox* BadgeWidth = WidgetTree->ConstructWidget<USizeBox>();
++        BadgeWidth->SetWidthOverride(6.0f);
++        Badge->SetContent(BadgeWidth);
++        if (!Count.IsEmpty())
++        {
++            UOverlaySlot* CountSlot = Layer->AddChildToOverlay(MakeText(Count, 10, ColdSteelUI::TextPrimary, true, true));
++            CountSlot->SetHorizontalAlignment(HAlign_Center);
++            CountSlot->SetVerticalAlignment(VAlign_Center);
++        }
++    };
++
++    AddItem(FAnchors(0.0f, 0.0f, 5.0f / 18.0f, 0.5f), TEXT("M4A1"), TEXT("ue_m4a1.png"), TEXT(""), FLinearColor(0.72f, 0.76f, 0.84f, 0.9f));
++    AddItem(FAnchors(5.0f / 18.0f, 0.0f, 6.0f / 18.0f, 0.25f), TEXT(""), TEXT("health_potion.png"), TEXT("5"), FLinearColor(0.91f, 0.55f, 0.62f, 0.9f));
++    AddItem(FAnchors(6.0f / 18.0f, 0.0f, 7.0f / 18.0f, 0.25f), TEXT(""), TEXT("mana_potion.png"), TEXT("3"), FLinearColor(0.52f, 0.70f, 0.91f, 0.9f));
++    AddItem(FAnchors(7.0f / 18.0f, 0.0f, 8.0f / 18.0f, 0.25f), TEXT(""), TEXT("gold.png"), TEXT("200"), FLinearColor(0.89f, 0.70f, 0.47f, 0.9f));
++
++    UScaleBox* Scale = WidgetTree->ConstructWidget<UScaleBox>();
++    Scale->SetStretch(EStretch::ScaleToFit);
++    Scale->SetStretchDirection(EStretchDirection::DownOnly);
++    if (UScaleBoxSlot* ScaleSlot = Cast<UScaleBoxSlot>(Scale->SetContent(DesignSize)))
++    {
++        ScaleSlot->SetHorizontalAlignment(HAlign_Fill);
++        ScaleSlot->SetVerticalAlignment(VAlign_Top);
++    }
++    return Scale;
++}
++

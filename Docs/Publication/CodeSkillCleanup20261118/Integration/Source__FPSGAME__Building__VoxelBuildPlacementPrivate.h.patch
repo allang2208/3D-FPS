@@ -1,0 +1,14 @@
+diff --git a/Source/FPSGAME/Building/VoxelBuildPlacementPrivate.h b/Source/FPSGAME/Building/VoxelBuildPlacementPrivate.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/VoxelBuildPlacementPrivate.h
+@@ -0,0 +1,9 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "InputCoreTypes.h"
++namespace VoxelBuildPlacementPrivate
++{
++extern TArray<FHitResult> AimScratch;
++extern int32 ClippedPlayerCells;
++int32 NumberKeyIndex(const FKey& Key);
++}

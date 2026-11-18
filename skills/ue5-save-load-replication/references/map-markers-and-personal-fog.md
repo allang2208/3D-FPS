@@ -1,23 +1,19 @@
 # 标记共享与个人探索
 
-适用于 FPSGAME 地图的「本人可见 / 全队友可见」、随机地牢分层与返程。工程规则和本次授权优先；历史检查结果不自动授权复测。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-save-load-replication/references/map-markers-and-personal-fog.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 私有和共享分开存放
 
-私有标记留在本地会话，不上传后由客户端过滤。每位玩家的共享数组放在自己的 PlayerState 默认复制组件，持有者通过所属连接 RPC 提交；服务器校验 ID、条数、文本、颜色、位置、逻辑区域和地牢实例。用持久复制状态满足晚加入，不能只发一次 multicast。
-
-当前产品规则：每人合计最多 10 个自有标记，两种可见性共用额度；文字最多 32 个 UTF-16 单元、8 色。队友收到的记录只读、不占本人的额度，编辑和删除都按真实所有者限制。切换成私有时撤回共享副本。失败回执须匹配最新提交序号，旧拒绝不能把较新成功修改退回私有。
-
-地图、方向提示和光柱合并读取私有记录与可见的共享记录。共享标记可以指向本人尚未探索的楼层，允许定位该楼层并显示「共享标记」，但绝不调用探索揭示逻辑。
+详见[维护源](../../_shared/ue5-save-load-replication/references/map-markers-and-personal-fog.md)中的同名章节。
 
 ## 个人迷雾与楼层
 
-探索归本地玩家会话，不能把队伍成员访问房间集合当成个人探索集合。XY 相同并不代表同一层：用所在房间/通道、楼层高度和连通关系定位折返坡道、楼梯及上下重叠空间。可见性传播要检查门的实际开启状态；标记存在或队友到达都不能绕过关门边界。
-
-持久化身份使用逻辑区域 + RunId + 布局身份，不能依赖 Pawn 所在 ULevel；主神空间和地牢可能共存于一个 World。单人返程时隐藏异区标记并保留仍活跃的同实例探索；真正实例结束、新 RunId 或新布局要清掉旧地牢记录。晚到 EndPlay 只能退休它自己的实例，不能清掉新实例。重生、世界切换和重连单独定义，不把 PlayerState 重建等同于旧会话恢复。
-
-网络位置采用绝对世界坐标，显示和光柱再换成本地原点坐标。示例实现：ColdSteelMapMarkerSharing、ColdSteelMapMarkerSharingView、ColdSteelDungeonMap 与 ColdSteelDungeonFogLifecycle。
+详见[维护源](../../_shared/ue5-save-load-replication/references/map-markers-and-personal-fog.md)中的同名章节。
 
 ## 明确验证层级
 
-几何/生命周期 commandlet 可验证门、层和状态边界；真实 socket 多进程才证明 RPC、复制、晚加入和断线。NullRHI 不证明材质画面、鼠标焦点或公网表现。方法见 [地图联机证据](../../ue5-debug-validation/references/map-marker-network-evidence.md)。
+详见[维护源](../../_shared/ue5-save-load-replication/references/map-markers-and-personal-fog.md)中的同名章节。

@@ -17,7 +17,7 @@
 V8 自然随机性续篇：环状水帘用周期噪声保证环向接缝连续，以 `时间 - 飞行时间` 传播疏密变化；
 慢变化管水束，快变化管碎边，各层/实例使用不同偏移。粒子随机初始条件应在出生时保存，更新时只推进轨迹。
 Niagara 的发射器脚本仍走 CPU VM，即使粒子设为 GPU；本机 VM 不支持 HLSL `smoothstep`，
-平滑插值改写为 `t*t*(3-2*t)`（先保证 t 在 0–1）。实例预算不因新增随机性而放宽。
+平滑插值改写为 `t*t*(3-2*t)`（先保证 t 在 0–1）。实例预算不因新增随机性而放宽。 原因：出生时固定随机初值可使轨迹连续；周期噪声闭合环向接缝，分层频率产生不同尺度的变化，兼容表达式与原实例预算保留可执行范围。
 
 项目里已经有一套成熟的"无头 Python 造材质"路线（先例 `Tools/Building/create_voxel_assets.py`、
 `Tools/ZombieDog/install_random_wounds.py`、`Tools/Building/create_build_preview.py`）。喷泉那轮又补了几条：
@@ -48,9 +48,9 @@ Niagara 的发射器脚本仍走 CPU VM，即使粒子设为 GPU；本机 VM 不
    加载关卡用 `LevelEditorSubsystem.load_level()` 是安全的。
 8. **材质已被引用时不要重建它的表达式表**（2026-09-18 喷泉水面 v6，崩了两次）：
    `MaterialEditingLibrary.delete_all_material_expressions(mat)` 对**已被已保存的网格/材质实例引用**的材质
-   会断言 `!IsRooted()`（`UObjectBaseUtility.h:209`）并直接杀掉进程。规矩：
-   - 常态化做法是**只改材质实例参数**（`set_material_instance_*` + `update_material_instance`），图不动；
-   - 非要改图：先删掉引用它的实例（并把网格槽指过去之前不要保存），或**换一个新的材质资产名**再建；
+   会断言 `!IsRooted()`（`UObjectBaseUtility.h:209`）并直接杀掉进程。规矩： 原因：材质图可能被现有资产和渲染资源引用，局部参数修改与重建整张图的影响范围不同。
+   - 常态化做法是**只改材质实例参数**（`set_material_instance_*` + `update_material_instance`），图不动； 原因：材质图可能被现有资产和渲染资源引用，局部参数修改与重建整张图的影响范围不同。
+   - 非要改图：先删掉引用它的实例（并把网格槽指过去之前不要保存），或**换一个新的材质资产名**再建； 原因：材质图可能被现有资产和渲染资源引用，局部参数修改与重建整张图的影响范围不同。
    - 脚本里写成"已存在且有表达式 → 跳过重建并打印提示"，就不会因为重跑而崩。
 9. **别用 PowerShell 的 `Set-Content`/`Out-File` 改写源文件**：PS 5.1 会加 UTF-8 BOM、换行也可能被改，
    中文注释在 `Select-String` 默认编码下还会显示成乱码（看起来像文件坏了，其实只是读法）。只读检查用
@@ -62,7 +62,7 @@ Niagara 的发射器脚本仍走 CPU VM，即使粒子设为 GPU；本机 VM 不
     一个属性解决，不改图、不依赖 UV。
 11. **"动感"不要只靠一张贴图**：贴图偏平时滚动几乎看不见。确定可见的做法是
     **程序化条纹（sin 波）+ 贴图**叠加，滚动方向由自算柱面 UV 的 v 决定；
-    要改已投产材质的图时**新建一个资产名**（重建被网格引用的材质会断言 `!IsRooted` 崩进程）。
+    要改已投产材质的图时**新建一个资产名**（重建被网格引用的材质会断言 `!IsRooted` 崩进程）。 原因：可见运动需要可辨识的空间变化，只有均匀颜色的贴图即使滚动也很难表现流动。
 12. **拿现成材质当"底板／衬底"前先查 blend mode**（2026-09-18 喷泉"像固体"真凶）：
     包内 `M_Caustics` 是 **`BLEND_OPAQUE`**，拿它垫在盆底＝每个盆一块**不透明平板**，
     透过半透明水看下去就是"实心地板"——**水面波浪做得再好也改不了盆底的读感**。
@@ -128,12 +128,12 @@ Niagara 的发射器脚本仍走 CPU VM，即使粒子设为 GPU；本机 VM 不
 
 | 想做什么 | 坑 / 结论 |
 | --- | --- |
-| 在材质函数图里建节点 | `MEL.create_material_expression` 只收 `UMaterial`；函数图必须用 `create_material_expression_in_function`（Python 绑定强制声明类型，传错报 "Cannot nativize 'MaterialFunction' as 'Object'"） |
+| 在材质函数图里建节点 | `MEL.create_material_expression` 只收 `UMaterial`；函数图必须用 `create_material_expression_in_function`（Python 绑定强制声明类型，传错报 "Cannot nativize 'MaterialFunction' as 'Object'"） 原因：编辑器接口按真实对象类型及反射权限工作，名称相近的类或属性并不具有相同读写能力。 |
 | 重编译材质函数 | `recompile_material` 只收 `UMaterial`；函数用 `MEL.update_material_function(fn, None)`——会级联重编译所有引用它的材质 |
   | 读材质图节点列表（事后修接线） | UE 5.8 使用 `MEL.get_material_expressions(mat)` / `get_material_function_expressions(fn)`；无需读取 protected 的 `Expressions`。`get_material_property_input_node` 可在 commandlet 读输出链。调用节点用 `set_material_function(fn)` 刷新，保留 FunctionOutput GUID 后重连、编译、保存；不必打开材质编辑器 |
 | FunctionInput 没接线会怎样 | 静默取 preview 默认值（通常 0），**不报任何错**——HeightMask=0 把 WPO 输出恒置零，实机表现为"完全无反应"，是最难定位的断点 |
-| 建 RenderTarget 资产 | 工厂类名 `TextureRenderTargetFactoryNew`（**不带 "2D"**，`TextureRenderTarget2DFactoryNew` 不存在）；其 `Width/Height/Format` 是无 Edit 标记的 UPROPERTY，Python 视为 protected 拒设——先按工厂默认创建，再在资产上设 `size_x`/`size_y`/`render_target_format`（这些是 EditAnywhere） |
-| RT 资源刷新 | `TextureRenderTarget2D` 在 5.8 Python **没有** `update_resource()`（那是 `UCanvasRenderTarget2D` 的 API）；`set_editor_property` 已触发 PostEditChangeProperty 自动重建资源。`b_auto_generate_mips` 同样不可设（RT 默认无 mip 链，实测无害） |
+| 建 RenderTarget 资产 | 工厂类名 `TextureRenderTargetFactoryNew`（**不带 "2D"**，`TextureRenderTarget2DFactoryNew` 不存在）；其 `Width/Height/Format` 是无 Edit 标记的 UPROPERTY，Python 视为 protected 拒设——先按工厂默认创建，再在资产上设 `size_x`/`size_y`/`render_target_format`（这些是 EditAnywhere） 原因：编辑器接口按真实对象类型及反射权限工作，名称相近的类或属性并不具有相同读写能力。 |
+| RT 资源刷新 | `TextureRenderTarget2D` 在 5.8 Python **没有** `update_resource()`（那是 `UCanvasRenderTarget2D` 的 API）；`set_editor_property` 已触发 PostEditChangeProperty 自动重建资源。`b_auto_generate_mips` 同样不可设（RT 默认无 mip 链，实测无害） 原因：编辑器接口按真实对象类型及反射权限工作，名称相近的类或属性并不具有相同读写能力。 |
 | TextureSample 的 UV 引脚 | 引脚名是 **`UVs`**（GetShortenPinName 规则：Coordinates→UVs），`UV`、`Coordinates` 都连不上；FunctionOutput 的输入引脚名是**空字符串**（GetInputName 返回 NAME_None） |
 | Custom 节点输出类型 | Python 枚举拼写全大写带数字：`CMOT_FLOAT1`；C++ 源码拼写 `CMOT_Float1` 解析不到 |
 | 材质版本标记 | `UMaterial` 没有 `description` 属性（只有 `UMaterialFunction` 有）；材质版本标签走 `EditorAssetLibrary` 的 asset metadata（如键 `GrassDeformVersion`），随资产序列化、可驱动幂等重建 |

@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills C24 ice wall feedback, C25 fireball model lookup only, C26 two buff cooldown formulas",
+  "status": "Source cleanup and Editor build complete; no tests run",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "before_lines": 142,
+      "before_bytes": 8447,
+      "before_sha256": "296b768381096ca35b16a5bec1e64ff06376c81e1f05edc16233fdc6c06820d6",
+      "backup": "ColdSteelIceWallModel.cpp.before.txt",
+      "after_lines": 140,
+      "after_bytes": 8327,
+      "after_sha256": "e8ee976c69c0b2395f94be8722da5e6af4a3cb313e0dfc87a98eff32c566696e"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "before_lines": 649,
+      "before_bytes": 37125,
+      "before_sha256": "e2610ca8319e8fc0a593791021531993e1870081790856da12ad717865fd495f",
+      "backup": "FPSFireballComponent.cpp.before.txt",
+      "after_lines": 646,
+      "after_bytes": 36845,
+      "after_sha256": "7e813f8e22cc2386e00ca7aa6b779a7b72ab86cd357534cdb2258d8a81ed7b30"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceArmorModel.cpp",
+      "before_lines": 38,
+      "before_bytes": 2638,
+      "before_sha256": "1acbb313a3db86b142d8f27a3f5e8f4728648b01f9d3377f1661f7b65bddeaf5",
+      "backup": "ColdSteelIceArmorModel.cpp.before.txt",
+      "after_lines": 40,
+      "after_bytes": 2707,
+      "after_sha256": "ce5191a62b456b187bb029412dc37e016221c7a13002b4be399e9e09ff56e0a7"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningHasteModel.cpp",
+      "before_lines": 49,
+      "before_bytes": 2834,
+      "before_sha256": "f574418e2f9e76555d1eef41feca3b9315155b0190b3d29e483105bc6ac4dc50",
+      "backup": "ColdSteelLightningHasteModel.cpp.before.txt",
+      "after_lines": 51,
+      "after_bytes": 2903,
+      "after_sha256": "2d25d88d4fb821d59bc18645bd906fd9288e3fcb244280889feeccb056bb63d3"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellCrafting.h",
+      "before_lines": 53,
+      "before_bytes": 2166,
+      "before_sha256": "952018170824b464438eefa2d39ab077e5b5d06a9f9b2e154a8122d7e4c390d9",
+      "backup": "ColdSteelSpellCrafting.h.before.txt",
+      "after_lines": 60,
+      "after_bytes": 2496,
+      "after_sha256": "bd7a5ba8a5fd8eecf90d3fa4ff199c95013c00c4a93b952c8b19d679ed7837c9"
+    }
+  ],
+  "modified_existing_files": 5,
+  "new_source_files": 0,
+  "tests_run": false,
+  "build_receipt": "build-receipt.json"
+}

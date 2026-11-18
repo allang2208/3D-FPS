@@ -1,33 +1,23 @@
 # 雷神之锤：攻击、装备身份与召回
 
-适用雷神之锤及同类可留场、可召回的近战武器。以下规则来自 2026-11-01 收尾；读取历史记录不授权自动测试、运行游戏或重新导入。
+本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-weapon-workflow/references/thunder-hammer-lifecycle.md)。
+
+- 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
+- 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。
+- 下列原章节名只保留旧链接定位，不代表额外执行步骤。原因：已存在的章节引用需要继续落到可识别的位置，执行规则仍以维护源为准。
 
 ## 当前玩法合同
 
-- 贯雷投出后按装备栏中的**武器实例**保留。切换当前手持槽不清除场上锤；切回对应空手槽，普通攻击触发召回。移到背包、仓库、丢弃等使原实例离开装备栏时，服务器清理场上实体，不播放另一把武器的接锤动作。
-- 不主动召回则持续留场，不增加自动召回计时。召回固定时长、无阻挡碰撞，可以穿墙；超过 60 米时关闭回程伤害。死亡、断线、World EndPlay 和飞出有效世界边界分别收尾，不能只检查当前手持武器。
-- 投掷落地结算重击物理部分与雷击魔法部分。重击系数读取人物技能等级，不固定写死。疾雷使用重击的魔法伤害通道。原生雷击、贯雷落地、疾雷及震霆追加雷的命中入口都要覆盖感电与改造效果。
-- 震霆三道追加雷由近及远、间隔 0.25 秒；基于已接受释放的来源、方向与改造快照排程。静电场和线圈按普通重击、贯雷留场、疾雷每次实际落雷分别分流，额外落雷不能漏触发，也不能把衍生闪电再次递归当重击。
+详见[维护源](../../_shared/ue5-weapon-workflow/references/thunder-hammer-lifecycle.md)中的同名章节。
 
 ## 权威提交与表现
 
-- 列出实际入口：普攻各连段、普通重击、贯雷落地、回程、疾雷、震霆、静电场、线圈、雷鸣、回响、雷吸。监听主机既有本地预测又有权威请求；资源、伤害与状态效果只在被接受的权威路径结算一次，Standalone 才走本地结算。
-- 先复制所需物品、改造与伤害数据，再调用伤害/感电回调。回调可能替换库存存储，不能继续持有旧 JSON 数组元素引用。周期效果按原实例核对装备栏与当前握柄，换手持槽不能误停、拆掉握柄不能继续。
-- 敌方判定复用共用团队/伙伴规则，不只判断 `Player` 或 `Friendly` 标签。客户端资产未加载不能阻止服务器发布电弧或结算伤害。
-- 接锤音效独立于高面数模型/材质异步加载；装备时预加载，音频独立请求。短暂接锤状态的事件同步见[复制字段与终止事件](../../ue5-save-load-replication/references/replicated-terminal-events.md)。
-- 第一人称与远端装备描述携带相同握柄纠正配置；外观变体识别不要只匹配旧版资源的完整短名。使用稳定身份或明确的版本前缀，且核对当前目录真正引用的资产。
+详见[维护源](../../_shared/ue5-weapon-workflow/references/thunder-hammer-lifecycle.md)中的同名章节。
 
 ## 当前恢复入口
 
-工程源码为 `Source/FPSGAME/Production/ThunderHammer*`、`ProductionThunderThrow/Call`，目录为 `Content/ColdSteelData/thunder-god-hammer-{modules,gunsmith}.json`。源资产根 `SourceAssets/ThunderGodHammer20261028/`：贯雷 `GuanLeiClosedCrownV12/Integration20261101` 使用 `V12_UV2`，疾雷 `JiLeiInlaidLightningV14`。旧 `JiLeiSeatV1` 与 `RecallAudioV1` 仍含运行依赖，不能按版本号整目录清理。
-
-本次记录位于工程 `Docs/Publication/ThunderHammer20261101/`。历史 1071 项隔离检查与监听/专用服务器各 11 项本地 UDP 场景分开列示；无画面、静音运行不代表动作/音效认可，也未覆盖真正换图、重连或帧率表现。
+详见[维护源](../../_shared/ue5-weapon-workflow/references/thunder-hammer-lifecycle.md)中的同名章节。
 
 ## 后续输入与恢复入口（2026-11-03）
 
-- 疾雷共享按键先进入待判定阶段，短按仍走普通连段，明确确认长按后才进入单手举锤蓄力。放下支撑手、蓄力特效与音频应由同一意图阶段驱动；取消/重按清理上一轮阶段，不靠单独延长左手动画掩盖冲突。入口为 `ThunderHammerCallIntent.h`。
-- 落地/吸附位置按当前装配锤头的真实支撑点及地面法线求解，保留设计要求的嵌入深度。不要用整个武器包围盒中心或固定高度代替接触面；更换锤头必须同步接触数据。当前贯雷采用约 4 cm 嵌入，这只是该设计参数。
-- 当前模型为 `GuanLeiClosedCrownV12/MeshyV13`、`JiLeiInlaidLightningV14/MeshyV15`；通用座为 `CommonSeatsStructuralV7_20261102`，轻型座由 `LightSeatWindowFixV8_20261102` 修正横杠。旧作者版本若仍为输入，不能因版本较小而退役。
-- 当前疾雷蓄力声为用户录音六片段 `JiLeiRecordedCurrentV2/MS_JiLei_CurrentRandom`；旧电磁声及未采用的合成试听已归档，不从历史批处理恢复。片段衔接见 [武器音频](weapon-audio.md)。
-
-当前接入索引为工程 `Docs/Weapons/thunder-hammer-current-20261102.md`，发布边界为 `Docs/Publication/ThunderHammer20261103/`。上文 11 月 1 日路径与检查数保留为历史，不代表后续版本的验收。
+详见[维护源](../../_shared/ue5-weapon-workflow/references/thunder-hammer-lifecycle.md)中的同名章节。

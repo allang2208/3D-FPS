@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-17",
+  "scope": "C02/C03: RenderCore duplicate declaration and stale dependency explanation",
+  "path": "Source/FPSGAME/FPSGAME.Build.cs",
+  "before_lines": 73,
+  "after_lines": 71,
+  "before_bytes": 4199,
+  "after_bytes": 4022,
+  "before_sha256": "d1a38d94541f559debb0ef19529e23088d38fb8bdca334d1281a738493dc4182",
+  "after_sha256": "a2fcb9aa8e46bfac5faf11dd62f00d2cd2291f6fb939188cc269df335309fac3",
+  "backup": "Docs/Cleanup/code-cleanup-20261116/batch-03-rendercore/FPSGAME.Build.cs.before.txt"
+}

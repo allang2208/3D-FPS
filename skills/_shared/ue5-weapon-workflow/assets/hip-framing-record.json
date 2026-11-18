@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "recipe_revision": 1,
+  "status": "recipe_template",
+  "weapon_definition": null,
+  "source_files": [],
+  "source_revision_or_export_signature": null,
+  "runtime_assets": {
+    "mesh": null,
+    "idle": null,
+    "grip_profile": null
+  },
+  "pose": {
+    "sample_time_seconds": 0,
+    "pose_source": null,
+    "component_scale": [
+      1,
+      1,
+      1
+    ],
+    "local_units": null,
+    "root_unit_conversion": null
+  },
+  "common_basis": {
+    "idle": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle",
+    "anchor_camera_cm": [
+      0,
+      7,
+      -7
+    ],
+    "rotation_pitch_yaw_roll_degrees": [
+      0,
+      90,
+      0
+    ],
+    "axis": "rear_to_front",
+    "up": "WPN_root_same_sample"
+  },
+  "camera": {
+    "fov_axis": "vertical",
+    "fov_degrees": 75,
+    "aspect_width_height": [
+      16,
+      9
+    ],
+    "near_clip_cm": 1,
+    "parameter_source": null
+  },
+  "target": {
+    "origin": "production_candidate",
+    "reference_record": null,
+    "screen_margin_xy": [
+      0.02,
+      0.02
+    ],
+    "required_landmark_coverage": 1,
+    "regions": [],
+    "projected_area_minimum_by_region": null,
+    "search_bounds_camera_cm": {
+      "x": null,
+      "y": [
+        0,
+        0
+      ],
+      "z": [
+        0,
+        0
+      ]
+    }
+  },
+  "result": {
+    "previous_presentation_offset_camera_cm": null,
+    "presentation_offset_camera_cm": null,
+    "solver_method": null,
+    "projection_metric_method": null,
+    "region_metrics_before": null,
+    "region_metrics_candidate": null,
+    "unresolved_targets": [],
+    "evidence_paths": []
+  },
+  "delivery": {
+    "source_applied": false,
+    "build_receipt": null,
+    "user_visual_accepted": false,
+    "user_acceptance_source": null
+  },
+  "change_reason": null
+}

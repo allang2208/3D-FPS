@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-17",
+  "scope": "Skills: ElectricMagic and IceWall reward accumulation only",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp",
+      "before_lines": 95,
+      "after_lines": 93,
+      "before_bytes": 6987,
+      "after_bytes": 6538,
+      "before_sha256": "5d220836393736db51c6f0c3fd12d9f9c9be3aec99732ab0ca91c5d7f83e7ca6",
+      "after_sha256": "a3ba741e3246ce1e59ec5b619de209b5a55c4237c614af8e3d7d01e055eccafc",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-02-spell-rewards/ColdSteelElectricMagicModel.cpp.before.txt"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "before_lines": 145,
+      "after_lines": 143,
+      "before_bytes": 9142,
+      "after_bytes": 8693,
+      "before_sha256": "68534cf9cb4560296f346d4842c024eaab14f91476e8fd0eefb526da45200a44",
+      "after_sha256": "8afd99357bfc2a62df5226e5f4b33511131e31e611ce1c8c3d261311418fcda0",
+      "backup": "Docs/Cleanup/code-cleanup-20261116/batch-02-spell-rewards/ColdSteelIceWallModel.cpp.before.txt"
+    }
+  ]
+}
