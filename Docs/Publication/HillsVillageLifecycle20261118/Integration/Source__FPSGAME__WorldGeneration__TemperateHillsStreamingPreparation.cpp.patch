@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
+@@ -139,0 +140,2 @@
++    if(bVillageBlacksmithRepaired && !S.SmithAppearance)
++        S.SmithAppearance=UAssetManager::GetStreamableManager().RequestAsyncLoad(AVillageBlacksmithResident::AppearancePaths());
+@@ -527,0 +530,2 @@
++    if(bVillageBlacksmithRepaired && !ResidentReady(S.SmithAppearance, AVillageBlacksmithResident::AppearancePaths,
++        AVillageBlacksmithResident::IsAppearanceCompilationPending)) return;
+@@ -541,0 +546,16 @@
++    // Discard initial load/assembly transients before this world's first input
++    // handoff. Ask the engine to collect at its safe end-of-frame point: it can
++    // wait for package loading without a synchronous FlushAsyncLoading here.
++    // No GC interval changes, no repeat on a guest joining an already-ready world,
++    // and no process-wide forced collection while other PIE worlds are playing.
++    if(GetWorld()->WorldType==EWorldType::Game && GEngine && Loading && Loading->IsHoldingGameplayInput())
++    {
++        if(!S.EntryCleanupRequested)
++        {
++            S.EntryCleanupRequested=true;S.EntryCleanupGCTime=GetLastGCTime();
++            GEngine->ForceGarbageCollection(false);
++            UE_LOG(LogTemp,Display,TEXT("HILLS_PREP requested initial resource cleanup before input release"));
++            Report(FText::FromString(TEXT("正在整理入场资源…")),.99f);return;
++        }
++        if(GetLastGCTime()<=S.EntryCleanupGCTime)return;
++    }

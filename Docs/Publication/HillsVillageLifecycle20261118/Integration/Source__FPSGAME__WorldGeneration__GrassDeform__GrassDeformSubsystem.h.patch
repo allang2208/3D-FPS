@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformSubsystem.h
++++ b/Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformSubsystem.h
+@@ -115,0 +116 @@
++    bool ArePassShadersReady() const;

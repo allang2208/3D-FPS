@@ -13,3 +13,9 @@
 ## 诊断与结论边界
 
 详见[维护源](../../_shared/ue5-debug-validation/references/preview-scene-lifecycle.md)中的同名章节。
+
+## 独立游戏退出时的 instanced skin 清理
+
+UE 5.8 丘陵退出案例中，SkinningSceneExtension 的批次移除仍需读取旧 MeshObject / skeleton；组件先排入延迟销毁后再做场景更新会访问已释放资源。`FPSGameSceneLifecycle` 在 OnWorldBeginTearDown、ClearWorldComponents 之前，仅收集该 Scene 仍注册且有 proxy 的 InstancedSkinnedMeshComponent，批量移除并提交一次场景更新，再等待渲染命令完成。随后保留引擎正常组件注销；不把 flush 放进每帧，也不关闭风动或蒙皮来隐藏错误。
+
+该修复基于本机引擎调用顺序；升级引擎先确认仍有相同的生命周期依赖。功能结果、正常 RequestExit 的进程退出码与用户中止分别记录。用户要求暂停而停止隔离测试进程，不算正常退出通过，也不算新出现的渲染崩溃。

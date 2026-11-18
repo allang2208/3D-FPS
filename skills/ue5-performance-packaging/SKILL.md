@@ -22,3 +22,5 @@ PIE、原工程与独立包性能对照，或资源不全/无怪但帧率更高�
 城市街区的实例、碰撞代理、连续道路及距离剔除优化，读取 [几何成本与城市实例口径](references/scene-geometry-cost-and-lod.md) 和 [城市分区制作](../ue5-pcg-building/references/city-district-production.md)。 为什么：「几何成本与城市实例口径」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 调整温带丘陵的快速／完整入场、延迟加入或后台植被批次时，读取[进入场景前的资源准备](references/entry-resource-preparation.md)。 为什么：「进入场景前的资源准备」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+
+丘陵入场、自然 GC 后再次加入、导航批次和压草编译等待，读 [入场与 GC 资源生命周期](references/hills-entry-gc-and-join.md)。

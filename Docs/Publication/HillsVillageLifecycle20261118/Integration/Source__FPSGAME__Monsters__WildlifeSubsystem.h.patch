@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Monsters/WildlifeSubsystem.h
++++ b/Source/FPSGAME/Monsters/WildlifeSubsystem.h
+@@ -61,0 +62 @@
++    TMap<FString,TSharedPtr<FStreamableHandle>> AmbientAudioLoads;

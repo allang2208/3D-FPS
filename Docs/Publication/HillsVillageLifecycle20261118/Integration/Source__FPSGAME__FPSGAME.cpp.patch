@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/FPSGAME.cpp
++++ b/Source/FPSGAME/FPSGAME.cpp
+@@ -6,0 +7 @@
++#include "Diagnostics/FPSGameSceneLifecycle.h"
+@@ -48,0 +50 @@
++        FFPSGameSceneLifecycle::Startup();
+@@ -54,0 +57 @@
++        FFPSGameSceneLifecycle::Shutdown();

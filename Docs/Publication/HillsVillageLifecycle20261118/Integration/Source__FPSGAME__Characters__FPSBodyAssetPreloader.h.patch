@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSBodyAssetPreloader.h
++++ b/Source/FPSGAME/Characters/FPSBodyAssetPreloader.h
+@@ -35,0 +36,4 @@
++    /** Keep the actual native pawn bootstrap resident for subsequent joins/respawns.
++     * Called before the saved equipment replaces these temporary defaults. */
++    void RetainSpawnAssets(class AActor* Character);
++
+@@ -40,0 +45,2 @@
++    UPROPERTY() TArray<TObjectPtr<UObject>> SpawnAssets;
++    TSet<TWeakObjectPtr<UClass>> CapturedSpawnClasses;

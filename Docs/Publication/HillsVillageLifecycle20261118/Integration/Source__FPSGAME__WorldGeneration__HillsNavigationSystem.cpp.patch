@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp
+@@ -42 +42,6 @@
+-
++    // Geometry gathering / completed-tile installation still run on the game
++    // thread. The default wide launch batch multiplied across all agent profiles
++    // cost 136-172 ms at entry. Bound submissions while keeping tile resolution,
++    // invoker coverage and every supported agent unchanged.
++    SetMaxSimultaneousTileGenerationJobsCount(2);
++    UE_LOG(LogTemp,Display,TEXT("HILLS_NAV tile jobs per profile=2 profiles=%d"),NavDataSet.Num());

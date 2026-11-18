@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/PlayerSkillRenderPreparation.cpp
++++ b/Source/FPSGAME/Skills/PlayerSkillRenderPreparation.cpp
+@@ -20,0 +21 @@
++#include "RHIGlobals.h"
+@@ -56,0 +58,5 @@
++    // Headless worlds still load assets and deliver gameplay consumer bindings,
++    // but cannot render/advance these hidden GPU representatives. Compiling and
++    // activating them here caused entry hitches followed by readiness timeouts.
++    if(GUsingNullRHI || World->GetNetMode()==NM_DedicatedServer)
++    {SkipCurrent();return true;}

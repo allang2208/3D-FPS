@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Monsters/MonsterCombatComponent.h
++++ b/Source/FPSGAME/Monsters/MonsterCombatComponent.h
+@@ -16,0 +17 @@
++ static FSoftObjectPath DefaultStunAnimationPath(const FString& Role);

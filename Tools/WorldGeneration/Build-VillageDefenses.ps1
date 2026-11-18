@@ -1,4 +1,4 @@
-param([string]$OutputRoot='D:/FPS3D/FPSGAME/Saved/VillageDefenses20261117/Build07')
+param([string]$OutputRoot='D:/FPS3D/FPSGAME/Saved/VillageDefenses20261117/Build07',[ValidateRange(1,16)][int]$MaxParallelActions=2)
 $ErrorActionPreference='Stop'
 $plantProject='D:/FPS3D/FPSGAME'
 $plantRoot=$OutputRoot
@@ -21,7 +21,7 @@ while($true) {
  try {Wait-Process -Id $plantBusy[0].ProcessId -Timeout 45 -ErrorAction Stop} catch [System.TimeoutException] {} catch {if(Get-Process -Id $plantBusy[0].ProcessId -ErrorAction SilentlyContinue){throw}}
 }
  $plantLog="$plantRoot/Logs/$plantTarget-build.log"
- $plantCommand='""E:\Program Files (x86)\UE_5.8\Engine\Build\BatchFiles\Build.bat" '+$plantTarget+' Win64 Development "-Project='+$plantProject+'/FPSGAME.uproject" -NoHotReload -NoHotReloadFromIDE -NoUBTMakefiles -NoUBA -NoUBALocal -NoXGE -NoSNDBS -NoFASTBuild -MaxParallelActions=2 "-Log='+$plantLog+'""'
+ $plantCommand='""E:\Program Files (x86)\UE_5.8\Engine\Build\BatchFiles\Build.bat" '+$plantTarget+' Win64 Development "-Project='+$plantProject+'/FPSGAME.uproject" -NoHotReload -NoHotReloadFromIDE -NoUBTMakefiles -NoUBA -NoUBALocal -NoXGE -NoSNDBS -NoFASTBuild -MaxParallelActions='+$MaxParallelActions+' "-Log='+$plantLog+'""'
  $plantProcess=Start-Process -FilePath $env:ComSpec -ArgumentList @('/d','/s','/c',$plantCommand) -WindowStyle Hidden -PassThru -RedirectStandardOutput "$plantRoot/Logs/$plantTarget-build-stdout.log" -RedirectStandardError "$plantRoot/Logs/$plantTarget-build-stderr.log"
  $plantHandle=$plantProcess.Handle
  # Keep only this invocation's compiler children at normal priority: BelowNormal

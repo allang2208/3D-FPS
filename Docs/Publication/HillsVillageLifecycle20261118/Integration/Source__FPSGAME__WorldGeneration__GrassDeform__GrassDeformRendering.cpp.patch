@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformRendering.cpp
++++ b/Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformRendering.cpp
+@@ -15,0 +16,2 @@
++#include "MaterialShared.h"
++#include "RHIGlobals.h"
+@@ -19,0 +22,15 @@
++bool UGrassDeformSubsystem::ArePassShadersReady() const
++{
++#if WITH_EDITOR
++    const UWorld* World=GetWorld();if(!World)return false;
++    const auto Platform=GetFeatureLevelShaderPlatform_Checked(World->GetFeatureLevel());
++    for(const auto* Material:{StampMaterial.Get(),StampTimeMaterial.Get(),RecenterMaterial.Get(),RecenterTimeMaterial.Get()})
++    {
++        if(!Material)return false;
++        const auto* Resource=Material->GetMaterialResource(Platform);
++        if(Material->IsCompiling() || (Resource && !Resource->IsCompilationFinished()))return false;
++    }
++#endif
++    return true;
++}
++
+@@ -38,0 +56,4 @@
++    // Canvas otherwise finishes pending shader maps synchronously (108 ms in
++    // the entry trace). Keep the bounded stamp queue until compilation finishes.
++    if (!ArePassShadersReady()) return;
++
+@@ -128,0 +150 @@
++    if (!ArePassShadersReady()) return;

@@ -1,0 +1,188 @@
+{
+  "player_body": {
+    "default": {
+      "clips": {
+        "Rest.ChapelPew.Enter": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/ChapelPewHangingHandsR3_20261116/A_Rest_ChapelPew_Enter.A_Rest_ChapelPew_Enter",
+        "Rest.ChapelPew.Idle": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/ChapelPewHangingHandsR3_20261116/A_Rest_ChapelPew_Idle.A_Rest_ChapelPew_Idle",
+        "Rest.ChapelPew.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/ChapelPewHangingHandsR3_20261116/A_Rest_ChapelPew_Exit.A_Rest_ChapelPew_Exit"
+      }
+    },
+    "kaitlin": {
+      "clips": {
+        "Rest.ChapelPew.Enter": "/Game/Characters/KaitlinPlayer20261023/ChapelPewHangingHandsR3_20261116/K_A_Rest_ChapelPew_Enter.K_A_Rest_ChapelPew_Enter",
+        "Rest.ChapelPew.Idle": "/Game/Characters/KaitlinPlayer20261023/ChapelPewHangingHandsR3_20261116/K_A_Rest_ChapelPew_Idle.K_A_Rest_ChapelPew_Idle",
+        "Rest.ChapelPew.Exit": "/Game/Characters/KaitlinPlayer20261023/ChapelPewHangingHandsR3_20261116/K_A_Rest_ChapelPew_Exit.K_A_Rest_ChapelPew_Exit"
+      }
+    }
+  },
+  "furniture_rest": {
+    "types": {
+      "ChapelPew": {
+        "lying": false,
+        "surface_height": 54.561,
+        "entry_offset": [
+          0,
+          70,
+          0
+        ],
+        "entry_yaw": 0
+      }
+    },
+    "furniture": [
+      {
+        "mesh": "/Game/WorldGeneration/TemperateHills/OldChapel/Meshes/SM_ChapelPew.SM_ChapelPew",
+        "caption": "教堂长椅",
+        "scale": [
+          1.25,
+          1.25,
+          1.25
+        ],
+        "auto_select_free_slot": true,
+        "slots": [
+          {
+            "kind": "ChapelPew",
+            "seat": [
+              -18,
+              -70,
+              43.6488
+            ],
+            "focus": [
+              -8,
+              -70,
+              43.6488
+            ],
+            "yaw": 180,
+            "label": "左座"
+          },
+          {
+            "kind": "ChapelPew",
+            "seat": [
+              -18,
+              0,
+              43.6488
+            ],
+            "focus": [
+              -8,
+              0,
+              43.6488
+            ],
+            "yaw": 180,
+            "label": "中座"
+          },
+          {
+            "kind": "ChapelPew",
+            "seat": [
+              -18,
+              70,
+              43.6488
+            ],
+            "focus": [
+              -8,
+              70,
+              43.6488
+            ],
+            "yaw": 180,
+            "label": "右座"
+          }
+        ]
+      }
+    ],
+    "clips": {
+      "Rest.ChapelPew.Enter": {
+        "duration": 2.799999952316284,
+        "camera_source": "Retained local furniture_rest.json / authored chapel camera track"
+      },
+      "Rest.ChapelPew.Idle": {
+        "duration": 4.0,
+        "camera_source": "Retained local furniture_rest.json / authored chapel camera track"
+      },
+      "Rest.ChapelPew.Exit": {
+        "duration": 3.0999999046325684,
+        "camera_source": "Retained local furniture_rest.json / authored chapel camera track"
+      }
+    }
+  },
+  "retained_camera_tracks": [
+    {
+      "file": "player_body.json",
+      "variant": "default",
+      "key": [
+        "furniture_camera_tracks",
+        "Rest.ChapelPew.Enter"
+      ],
+      "sha256": "0617aaa4e5d51eed6c842b4194a9ab509e976ebdbbc59da867a71e255d93e152"
+    },
+    {
+      "file": "player_body.json",
+      "variant": "default",
+      "key": [
+        "furniture_camera_tracks",
+        "Rest.ChapelPew.Idle"
+      ],
+      "sha256": "f25abc978d87bfbf5e50494326df6f8a551c28531c0420702d0edbf5575dfb7a"
+    },
+    {
+      "file": "player_body.json",
+      "variant": "default",
+      "key": [
+        "furniture_camera_tracks",
+        "Rest.ChapelPew.Exit"
+      ],
+      "sha256": "78d807e7cb61b2524f42a8655aea382910d74c040fcb333fec1dcb14aa964f7e"
+    },
+    {
+      "file": "player_body.json",
+      "variant": "kaitlin",
+      "key": [
+        "furniture_camera_tracks",
+        "Rest.ChapelPew.Enter"
+      ],
+      "sha256": "7bfe90824b45332688c53698f933fe28a55ee8dafc8de1044c552731927a1ee6"
+    },
+    {
+      "file": "player_body.json",
+      "variant": "kaitlin",
+      "key": [
+        "furniture_camera_tracks",
+        "Rest.ChapelPew.Idle"
+      ],
+      "sha256": "b2657fb34a99242961fe01478992abe87755d654e44fdfd7d2fe5262f7308295"
+    },
+    {
+      "file": "player_body.json",
+      "variant": "kaitlin",
+      "key": [
+        "furniture_camera_tracks",
+        "Rest.ChapelPew.Exit"
+      ],
+      "sha256": "9dda601caff7e04cd1402c0006b88afdf3f62ccbef3968a38d9c3392d68911d2"
+    },
+    {
+      "file": "furniture_rest.json",
+      "key": [
+        "clips",
+        "Rest.ChapelPew.Enter",
+        "camera"
+      ],
+      "sha256": "5fc46c98e41dd02b02a43ab19a83c5d3cf8ae07733854d88ec7d4eef2e75fa05"
+    },
+    {
+      "file": "furniture_rest.json",
+      "key": [
+        "clips",
+        "Rest.ChapelPew.Idle",
+        "camera"
+      ],
+      "sha256": "7e4d6364857773ab044db39ee546beeea081e9aab451f1b1d1b00aa3123386ec"
+    },
+    {
+      "file": "furniture_rest.json",
+      "key": [
+        "clips",
+        "Rest.ChapelPew.Exit",
+        "camera"
+      ],
+      "sha256": "92a622a86bb92fc010fc44f57a410ba34c71a5595cfdb1043d2c07e175e83566"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Building/VoxelBuildComponent.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildComponent.cpp
+@@ -280,0 +281 @@
++    if(!PreparePreviewAssets())return;
+@@ -554,0 +556,4 @@
++    if(PreviewAssetHandle)PreviewAssetHandle->CancelHandle();
++    PreviewAssetHandle.Reset();
++    if(SurfaceAssetHandle)SurfaceAssetHandle->CancelHandle();
++    SurfaceAssetHandle.Reset();

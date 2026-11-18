@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Monsters/WildlifeSubsystem.cpp
++++ b/Source/FPSGAME/Monsters/WildlifeSubsystem.cpp
+@@ -2,0 +3 @@
++#include "HillsWildlifeAudio.h"
+@@ -52,0 +54,4 @@
++            // The native audio component's soft paths are not class dependencies.
++            // Request the same ambient manifest on receiving clients as well.
++            if(GetWorld()->GetNetMode()!=NM_DedicatedServer)
++                AmbientAudioLoads.Add(Row.Id,UAssetManager::GetStreamableManager().RequestAsyncLoad(UHillsWildlifeAudio::AssetPaths(Row.Id)));
+@@ -68,0 +74 @@
++    AmbientAudioLoads.Reset();
+@@ -83,0 +90 @@
++    if(const auto* Audio=AmbientAudioLoads.Find(Row.Id);Audio&&*Audio&&!(*Audio)->HasLoadCompleted())return false;

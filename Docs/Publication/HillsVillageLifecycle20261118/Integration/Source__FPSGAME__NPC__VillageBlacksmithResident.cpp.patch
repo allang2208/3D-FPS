@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/NPC/VillageBlacksmithResident.cpp
++++ b/Source/FPSGAME/NPC/VillageBlacksmithResident.cpp
+@@ -76,0 +77,8 @@
++    // Package completion is earlier than skeletal compilation in an uncooked
++    // game. SetSkeletalMeshAsset would synchronously join all three workers.
++    if (IsAppearanceCompilationPending())
++    {
++        GetWorldTimerManager().SetTimer(AppearanceRetryTimer, this,
++            &AVillageBlacksmithResident::AssembleAppearance, .05f, false);
++        return;
++    }
+@@ -93,0 +102 @@
++    GetWorldTimerManager().ClearTimer(AppearanceRetryTimer);

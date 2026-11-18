@@ -1,0 +1,337 @@
+[
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Characters/FPSBodySpawnResources.cpp",
+    "artifact": "Implementation/Source/FPSGAME/Characters/FPSBodySpawnResources.cpp",
+    "sha256": "01b57dfb0882b6c3d0d8f79d27657c99f680664e430d0d7cca97979db20b1201"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Building/VoxelBuildPreparation.cpp",
+    "artifact": "Implementation/Source/FPSGAME/Building/VoxelBuildPreparation.cpp",
+    "sha256": "44c9ff6dfca87dfe1a5e9df56913404b39a498c12f03166e2151826019b7860e"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Diagnostics/FPSGameSceneLifecycle.cpp",
+    "artifact": "Implementation/Source/FPSGAME/Diagnostics/FPSGameSceneLifecycle.cpp",
+    "sha256": "d32fa963c22280bc08968cbbe47790ea6aa7effaeaf33860c5f3e71f628fa74e"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Diagnostics/FPSGameSceneLifecycle.h",
+    "artifact": "Implementation/Source/FPSGAME/Diagnostics/FPSGameSceneLifecycle.h",
+    "sha256": "21c3f5fae74c1bebd3cc2ef7956bc9e6c0b25b2bbd5b4fd0675ee7ada21fd45d"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightAssets.cpp",
+    "artifact": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightAssets.cpp",
+    "sha256": "483af71d0f07ab238314eb75b06011ec55b7c0e381c008fcbc753694b5fe4e9f"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightPersistence.cpp",
+    "artifact": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightPersistence.cpp",
+    "sha256": "4900933ffb28986593e428b822a1abedfa232f37a994efcd99ef9503a88ebd83"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightRaidSave.h",
+    "artifact": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightRaidSave.h",
+    "sha256": "19be95930df6865b349e4656072ddf2f47668c5d1990eecb7befcc38f76f504d"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightReplicationGate.cpp",
+    "artifact": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightReplicationGate.cpp",
+    "sha256": "bfea1eb50f21646a655acb92081138840ba1632a7e3a0e0fc377bc4b49ee5094"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightReplicationGate.h",
+    "artifact": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightReplicationGate.h",
+    "sha256": "7847a86f6beccc45c25eb0e192d3a4e9a3572889f03319d7dd81a4a630e1a87b"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsNetLoadAudit.cpp",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsNetLoadAudit.cpp",
+    "sha256": "e5da3273557fc4c1c96bc0e3729940c5ac069e6d7790f0e07572eb40882521c8"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsNetLoadAudit.h",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsNetLoadAudit.h",
+    "sha256": "4f90bbc91fbdb03b59241ad2365e3779fac630db1208050431816a427eb1accd"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsContinuityAudit.cpp",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsContinuityAudit.cpp",
+    "sha256": "3d97a95ec7db0957e836e4cbd136e140e3d85db963af251229cad012c21ea8f1"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsContinuityAudit.h",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsContinuityAudit.h",
+    "sha256": "692b42b1a3ed773497769525d7295ee96115bd157cca6be58742ea40ae142936"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsContinuityHost.cpp",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsContinuityHost.cpp",
+    "sha256": "6c64dccd3f7e1c8e8e68337c8e46562c2c86711544c8a4df56079f5aac25f8b8"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsContinuitySupport.cpp",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsContinuitySupport.cpp",
+    "sha256": "2156bae243a6b962e86cf4be9b091ed31646e088131ee42634d901ae5a01645d"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsContinuitySupport.h",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsContinuitySupport.h",
+    "sha256": "39fc40eaf064ba0c9b7c1b35f1719c80018b56bbb8eb61411e1b334df7fff90b"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsVillageInteractionAudit.cpp",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsVillageInteractionAudit.cpp",
+    "sha256": "895749b0124ec4cffe850e92df258264c3ab845c060ef1c4b28323b5dbf56f0d"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/Development/HillsVillageInteractionAudit.h",
+    "artifact": "Implementation/Source/FPSGAME/Development/HillsVillageInteractionAudit.h",
+    "sha256": "d9d69d1af2b8b702bfcac1cb13fbdf9752e02c0f6166a5dc4df509bb17449496"
+  },
+  {
+    "kind": "implementation",
+    "target": "Plugins/FPSStandaloneRuntime/FPSStandaloneRuntime.uplugin",
+    "artifact": "Implementation/Plugins/FPSStandaloneRuntime/FPSStandaloneRuntime.uplugin",
+    "sha256": "03274057a5c830567285fc2069aa07fb271f69cbeb2bc92e7477b815dd1d6066"
+  },
+  {
+    "kind": "implementation",
+    "target": "Plugins/FPSStandaloneRuntime/Source/FPSStandaloneRuntime/FPSStandaloneRuntime.Build.cs",
+    "artifact": "Implementation/Plugins/FPSStandaloneRuntime/Source/FPSStandaloneRuntime/FPSStandaloneRuntime.Build.cs",
+    "sha256": "f85793d9bf708eb6975bda8a81822a604fbfaff3731aac7d0b16b258079a24e4"
+  },
+  {
+    "kind": "implementation",
+    "target": "Plugins/FPSStandaloneRuntime/Source/FPSStandaloneRuntime/Private/FPSStandaloneRuntime.cpp",
+    "artifact": "Implementation/Plugins/FPSStandaloneRuntime/Source/FPSStandaloneRuntime/Private/FPSStandaloneRuntime.cpp",
+    "sha256": "922def10adef2ee0283328e501b7f46709fee636a00e714271c1cc00108150ae"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp",
+    "artifact": "Implementation/Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp",
+    "sha256": "e66b4aeb0c0bd5bb8d97729d72dd83c78cb2dfca997b26f9644ab7099302143f",
+    "excluded_parallel_change": "Additional pass-2 shadow/distance-field policy"
+  },
+  {
+    "kind": "implementation",
+    "target": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.h",
+    "artifact": "Implementation/Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.h",
+    "sha256": "0eb8cc4b52a667d7410ea473c7ded12edd50c21f6c6a154033276f80348e1812"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Characters/FPSBodyAssetPreloader.h",
+    "artifact": "Integration/Source__FPSGAME__Characters__FPSBodyAssetPreloader.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "a50ee634e4e70492ef2396fb6d9081ce3beb0a687606d88fac079509b6d1f526",
+    "result_sha256": "f9ae40b4f5479588e6ba242c84e591204134dc90e494dc023c43b1b609633ae4",
+    "sha256": "3fdcbf5d6ee6a59d3a5cb73576c3d60b1233bdac7790fb60dd87b7d57a51e0b8"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp",
+    "artifact": "Integration/Source__FPSGAME__Characters__FPSBodyAssetPreloader.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "c5ff8eacf6e04e713dd0f4dfbade279dedc79874e47a7dd13701f7fc051a536a",
+    "result_sha256": "82ef513b95dba4d2a78510d05e18d880f6ca796b0707673388490a53dc638971",
+    "sha256": "d94965be57e21c27e5908f976ab935be9a2279eb951a857e0cfbd44cb2e4f9e9"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "artifact": "Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "2d6f2869211220d7b9847f9a11274bd88de9ef9239ca0b70166c7b6ff4ae27e8",
+    "result_sha256": "ea8f2f37d41de210d3a8ceb05b41ce08eb4d86746cab130c52d340a997a5512f",
+    "sha256": "e6907c7241152ca9f971d0685d96062d9f1bca4da3c08a50500dd80ed9771a9f"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/FPSGAME.cpp",
+    "artifact": "Integration/Source__FPSGAME__FPSGAME.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "c67b7d30c3ef08f686bd9b28a5dac12a5107ad9486917e2a1c9e74935bcd33b0",
+    "result_sha256": "8b72f8575d1a83b76143514e80030949b1e2f9c5f6c8cf13f6376f16e72edaf1",
+    "sha256": "8829d527a0f034d6fd36590a27572add07cebe7228c47bed9ad08a1e7944b33e"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+    "artifact": "Integration/Source__FPSGAME__Building__VoxelBuildComponent.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "26135a9aaf5b919878df1ddc4e5d6338ff2804d47223578b7cc536204e2abf6e",
+    "result_sha256": "8c6ef41cf886a03508003d8719ecc223f65a4035613d25cd1e666d9e14d29ef1",
+    "sha256": "fa905ffc272829479943b4aec0ad5d0f12a54bd0a1de80f9041c507dab5448a5"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+    "artifact": "Integration/Source__FPSGAME__Building__VoxelBuildComponent.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "d8bd01f7b54f2ea1a300f8ece11906694ccf67f81576732b2578c52b98313590",
+    "result_sha256": "49208ad2d8e78dfe216428792b0db5b317292b70997aa7fb45ae583cdc7050b5",
+    "sha256": "3d0e03904032e1272dcdb33471000dac0b3e15a410ea860f1adc591dee915bc4"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Skills/PlayerSkillRenderPreparation.cpp",
+    "artifact": "Integration/Source__FPSGAME__Skills__PlayerSkillRenderPreparation.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "fcaa8d7aeb12a006b5ad45c395af4c9f12559254a9acb1b23bd072c6ba75708f",
+    "result_sha256": "24db56d16a487d882530f583e2600a52a6445bc349d79981a06d7e66d7b56190",
+    "sha256": "2198057c1bb2616bf6e4eaf291910e3df5586c3eab77d7b240c2074d294cdf74"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+    "artifact": "Integration/Source__FPSGAME__WorldGeneration__HillsNavigationSystem.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "9c529ef6916149557b5fe8ca67edc1119cb4ad18640802b17fae60c48b5ef581",
+    "result_sha256": "f680dbcd1b89f66d81cd962c067097798d27ad5f5717acea9ffd59e8098408b6",
+    "sha256": "653b22099238a0a90c2e3693b695057fd82abf4cb56c31f9a56b7c85e1bd9773"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformRendering.cpp",
+    "artifact": "Integration/Source__FPSGAME__WorldGeneration__GrassDeform__GrassDeformRendering.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "8d7704dae16cd07d8463a3e268f14cf5cde48fd67bf50bcfdad52d7e401f1ad5",
+    "result_sha256": "0915051c9a5f7716daa3fe2c1d20e0d298252abad920dabf8b120e06ee218eec",
+    "sha256": "974ccd43ee4ff456119c01e77e40efb27e084697cf74ec872a43474cabd25033"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformSubsystem.h",
+    "artifact": "Integration/Source__FPSGAME__WorldGeneration__GrassDeform__GrassDeformSubsystem.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "9918cc11c81485c2982a6c451495fa9fc2624993b9deaa9fdc55abc7700da9ac",
+    "result_sha256": "f220be7f8adba75d5a94c1c52c456d96ef4e354dd2f89b21aad38305311bbc8c",
+    "sha256": "3b07f3d0d872a5403479963c961293efb69b373021a4692835e353233b5096cc"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Monsters/WildlifeSubsystem.cpp",
+    "artifact": "Integration/Source__FPSGAME__Monsters__WildlifeSubsystem.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "041c84225359c439ae46e739a687d8d55f200b6f4a59cd9da6678a9b1ec46e17",
+    "result_sha256": "075ed5665c39e81d2ee55890eff90e3e73e198f1c769ce77c67dbe0e1dec2065",
+    "sha256": "26ccfefa0c6d34b99f30a0197a66f95627239e72f207dfb614c84607c4d43d1f"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Monsters/WildlifeSubsystem.h",
+    "artifact": "Integration/Source__FPSGAME__Monsters__WildlifeSubsystem.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "04796919d90c61aaf30d80cc6d84b11c91c73f63635a80080f0b0d10f9b4c159",
+    "result_sha256": "3d2d14a24063e4f5560449f4624454e2e023e100071ab48da6d130b0653da35a",
+    "sha256": "33e585da48bfcc51d23cf11a2811d374826e35c4143a037724502c52af85a2b3"
+  },
+  {
+    "kind": "method_replacement",
+    "target": "Source/FPSGAME/Monsters/HillsWildlifeAudio.cpp",
+    "artifact": "Integration/HillsWildlifeAudioManifest.fragment.cpp",
+    "sha256": "861e2792a2ca2b188eb9cf01a03d82c13efc987218ab7e35ea96b09a803f8239",
+    "instructions": "Place AppendTakes/LoadTakes in existing anonymous namespace; add AssetPaths static declaration to HillsWildlifeAudio.h. Preserve existing playback/RPC methods."
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/NPC/VillageBlacksmithResident.h",
+    "artifact": "Integration/Source__FPSGAME__NPC__VillageBlacksmithResident.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "e02c10605e1c52c1cd11c3b9255c1578261dce5186035354e6b8c4865cd0736d",
+    "result_sha256": "f5fccd3a03c8df6f5dbff1052f9d5bc0e9b269512213cb04f7fcb2097011b2ba",
+    "sha256": "53f1b6e63c90396ad0e89fb219eda5bcadb3313f4f6ab704827456336e05a198"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/NPC/VillageBlacksmithResident.cpp",
+    "artifact": "Integration/Source__FPSGAME__NPC__VillageBlacksmithResident.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "63bc63d5a3c6818bac7047d4e382ab4010144ff3f7604252427ff5f9b2de64e4",
+    "result_sha256": "5f409136679c8a8e9471a11f5cddf542a2a71f629f4fa425bc49b0eb036fc56e",
+    "sha256": "6be93daa7e6afb44a42571b92ce6c727e799776fd0835204465b5ed0225ac3a1"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+    "artifact": "Integration/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPrivate.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "0143f6c6a8982e78d13f538237b008bf18d8232e47da7bb6ab08b9710e8f3045",
+    "result_sha256": "72b1dfb8665bd0fe392a7418bd1dc09b84c73fa3db6de7edd698a9da2164f932",
+    "sha256": "3fe8c6c58272938d6296bb39ac54b5e8fc306b305c3ced993ba04faf186e1bc8"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+    "artifact": "Integration/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPreparation.cpp.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "6edb1ca66430d0c2d618263e690908a998ee92fc6efe7eeb5ac81431add631f1",
+    "result_sha256": "aa9d2f7c9d5c2d1bd0ce4d1a60d442fa78c79d062fe8169aeb6580eeee1d4fd1",
+    "sha256": "0c4dd1353194c2ef5ca3e70cbbf78925cab6d42b37595b906ba446ecf8afe555"
+  },
+  {
+    "kind": "shared_helper_contract",
+    "target": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+    "artifact": "Integration/SmithReadiness.fragment.cpp",
+    "sha256": "b6e0acc32ddb4e1cb2cd7f0b1f9636d2778db07e7add11d31309dfc871f897a3"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Monsters/NurseZombie.h",
+    "artifact": "Integration/Source__FPSGAME__Monsters__NurseZombie.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "e7a67ac905bd9abce68252e52815f61dccf3e926a72678f72ba8f3dd787c7f3b",
+    "result_sha256": "86a8275c67a92bfbced702e71f24e97bcf0b1e96f7e46e22993df6b55a05332f",
+    "sha256": "5796f30c49908c05185d25a6f4ca111b678b09609ee2d906b871e68617868555"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+    "artifact": "Integration/Source__FPSGAME__Monsters__MonsterCombatComponent.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "bc397416197e78928c85437143b7a63514938a875664f971c0f26a394b86d531",
+    "result_sha256": "4bfaf2c9e6fc60d4d39094fb0ee52f58e2ba89c873f3bed5a3134ead22e274a7",
+    "sha256": "6bf7ca44e6e60588187447cf8f851ae592f5e1a18bf27d81b375cf6814442075"
+  },
+  {
+    "kind": "method_replacement",
+    "target": "Source/FPSGAME/Monsters/MonsterStunPresentation.cpp",
+    "artifact": "Integration/MonsterStunSharedManifest.fragment.cpp",
+    "sha256": "39bf1f8f44c120bf8626138e7f786a8397456e036b983a1d73f801628e379abb"
+  },
+  {
+    "kind": "method_replacement",
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+    "artifact": "Integration/PortalAssetManifest.fragment.cpp",
+    "sha256": "c78b5433e0264123a2ff200db74c5c05dd258115208e0d399db54337962912e8"
+  },
+  {
+    "kind": "additive_patch",
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightPortal.h",
+    "artifact": "Integration/Source__FPSGAME__WorldGeneration__HillsNightPortal.h.patch",
+    "base_kind": "current shared context with ONLY these additions removed; not a historical commit",
+    "base_sha256": "89d7163279ef32b78645c9d011d95626dbe5183d324fff9476e1adfafc3485ae",
+    "result_sha256": "ce53965ddc5fc8fac2cfefbe28e822f712eb3dcc407992db9f0bf6f4370d0ae6",
+    "sha256": "90bf8ff569679d83aa41a69915b8ef1d2a1f0321689f52d60be3a4bfea789911"
+  }
+]

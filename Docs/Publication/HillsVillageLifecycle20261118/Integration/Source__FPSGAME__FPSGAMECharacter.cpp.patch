@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1,0 +2 @@
++#include "Characters/FPSBodyAssetPreloader.h"
+@@ -418,0 +420,2 @@
++    if (auto* Resources = GetGameInstance()->GetSubsystem<UFPSBodyAssetPreloader>())
++        Resources->RetainSpawnAssets(this);

@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
+@@ -70,0 +71 @@
++    TSharedPtr<FStreamableHandle> SmithAppearance;
+@@ -106,0 +108,2 @@
++    bool EntryCleanupRequested=false;
++    double EntryCleanupGCTime=0;

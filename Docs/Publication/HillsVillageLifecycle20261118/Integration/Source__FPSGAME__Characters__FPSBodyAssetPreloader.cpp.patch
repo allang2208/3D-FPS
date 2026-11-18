@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp
++++ b/Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp
+@@ -385,0 +386 @@
++    SpawnAssets.Reset(); CapturedSpawnClasses.Reset();

@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Building/VoxelBuildComponent.h
++++ b/Source/FPSGAME/Building/VoxelBuildComponent.h
+@@ -54,0 +55,4 @@
++    bool PreparePreviewAssets();
++    TSharedPtr<struct FStreamableHandle> PreviewAssetHandle;
++    TSharedPtr<struct FStreamableHandle> SurfaceAssetHandle;
++    bool bSurfaceAssetsRequested=false;

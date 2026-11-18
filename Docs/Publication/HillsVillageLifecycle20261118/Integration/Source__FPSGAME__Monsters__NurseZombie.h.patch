@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/Monsters/NurseZombie.h
++++ b/Source/FPSGAME/Monsters/NurseZombie.h
+@@ -34,0 +35 @@
++    virtual bool IsNetRelevantFor(const AActor* RealViewer,const AActor* ViewTarget,const FVector& SrcLocation) const override;

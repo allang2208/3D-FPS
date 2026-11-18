@@ -1,0 +1,1602 @@
+{
+  "host": {
+    "passed": true,
+    "detail": "native nightly wave preserved across client reconnect",
+    "ready_seconds": 81.55700400099158,
+    "rendered": false,
+    "max_monsters": 3,
+    "async_net_loading": true,
+    "lag_ms": 60,
+    "loss_percent": 2,
+    "seed": 1518277816,
+    "world_id": "DD5554E24E2BF263C186319F8C752D2E",
+    "phases": {
+      "await_spawn": {
+        "frames": 585,
+        "p50_ms": 28.688,
+        "p95_ms": 48.459,
+        "p99_ms": 76.327,
+        "max_ms": 265.813,
+        "over_50ms": 19,
+        "over_100ms": 4,
+        "over_200ms": 1
+      },
+      "loading": {
+        "frames": 2535,
+        "p50_ms": 25.248,
+        "p95_ms": 49.567,
+        "p99_ms": 149.147,
+        "max_ms": 3347.87,
+        "over_50ms": 123,
+        "over_100ms": 37,
+        "over_200ms": 15
+      },
+      "spawn_active": {
+        "frames": 8551,
+        "p50_ms": 29.296,
+        "p95_ms": 33.896,
+        "p99_ms": 46.48,
+        "max_ms": 114.946,
+        "over_50ms": 41,
+        "over_100ms": 1,
+        "over_200ms": 0
+      }
+    },
+    "arrivals": [
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 94.53567130118608,
+        "frame": 2977,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 94.43834180012345,
+            "ms": 21.227099001407623,
+            "frame": 2975,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 94.46506790071726,
+            "ms": 26.726100593805313,
+            "frame": 2976,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 94.55845650285482,
+            "ms": 93.38860213756561,
+            "frame": 2977,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 94.59390360116959,
+            "ms": 35.447098314762115,
+            "frame": 2978,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 94.60808630287647,
+            "ms": 14.182701706886292,
+            "frame": 2979,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "monsters_1",
+        "time": 94.53829900175333,
+        "frame": 2977,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 94.43834180012345,
+            "ms": 21.227099001407623,
+            "frame": 2975,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 94.46506790071726,
+            "ms": 26.726100593805313,
+            "frame": 2976,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 94.55845650285482,
+            "ms": 93.38860213756561,
+            "frame": 2977,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 94.59390360116959,
+            "ms": 35.447098314762115,
+            "frame": 2978,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 94.60808630287647,
+            "ms": 14.182701706886292,
+            "frame": 2979,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 96.52434450015426,
+        "frame": 3044,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 96.4622580036521,
+            "ms": 27.265701442956924,
+            "frame": 3042,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 96.49199530109763,
+            "ms": 29.73729744553566,
+            "frame": 3043,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 96.53733570128679,
+            "ms": 45.3404001891613,
+            "frame": 3044,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 96.56660610064864,
+            "ms": 29.27039936184883,
+            "frame": 3045,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 96.57653000205755,
+            "ms": 9.923901408910751,
+            "frame": 3046,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "monsters_2",
+        "time": 96.66373010352254,
+        "frame": 3049,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 96.60643680021167,
+            "ms": 29.906798154115677,
+            "frame": 3047,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 96.63833900168538,
+            "ms": 31.90220147371292,
+            "frame": 3048,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 96.6702968031168,
+            "ms": 31.957801431417465,
+            "frame": 3049,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 96.6981809027493,
+            "ms": 27.884099632501602,
+            "frame": 3050,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 96.74394400045276,
+            "ms": 45.76309770345688,
+            "frame": 3051,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "time": 98.55334790050983,
+        "frame": 3116,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 98.49502510204911,
+            "ms": 26.39010176062584,
+            "frame": 3114,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 98.5271953009069,
+            "ms": 32.17019885778427,
+            "frame": 3115,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 98.56656450033188,
+            "ms": 39.36919942498207,
+            "frame": 3116,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 98.61301150172949,
+            "ms": 46.44700139760971,
+            "frame": 3117,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 98.64568110182881,
+            "ms": 32.66960009932518,
+            "frame": 3118,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "monsters_3",
+        "time": 98.67435160279274,
+        "frame": 3120,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 98.64568110182881,
+            "ms": 32.66960009932518,
+            "frame": 3118,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 98.66447860002518,
+            "ms": 18.79749819636345,
+            "frame": 3119,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 98.68410930037498,
+            "ms": 19.63070034980774,
+            "frame": 3120,
+            "phase": "spawn_active"
+          },
+          {
+            "time": 98.72194960340858,
+            "ms": 37.84030303359032,
+            "frame": 3121,
+            "phase": "spawn_active"
+          },
+          {
+            "time": 98.73649790138006,
+            "ms": 14.548297971487045,
+            "frame": 3122,
+            "phase": "spawn_active"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "probe_initialized",
+        "time": 2.2202730178833008e-05,
+        "frame": 0,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "gc_begin",
+        "time": 3.4273224025964737,
+        "frame": 1,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "gc_end",
+        "time": 3.485894802957773,
+        "frame": 1,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false,
+        "gc_ms": 58.57250094413757
+      },
+      {
+        "name": "gc_begin",
+        "time": 3.794191502034664,
+        "frame": 1,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "gc_end",
+        "time": 3.81296020001173,
+        "frame": 1,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false,
+        "gc_ms": 18.768299371004105
+      },
+      {
+        "name": "player_spawn",
+        "time": 31.449083901941776,
+        "frame": 879,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "player_spawn",
+        "time": 31.52346610277891,
+        "frame": 879,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "day_set",
+        "time": 35.12632740288973,
+        "frame": 975,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "input_ready",
+        "time": 81.5570311024785,
+        "frame": 2535,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "night_set",
+        "time": 81.55712820217013,
+        "frame": 2535,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_begin",
+        "time": 82.0175782032311,
+        "frame": 2552,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 82.24820040166378,
+        "frame": 2552,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 230.62289878726006
+      },
+      {
+        "name": "host_at_portal",
+        "time": 82.47654260322452,
+        "frame": 2560,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "guest_at_portal",
+        "time": 82.47674400359392,
+        "frame": 2560,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 94.53567130118608,
+        "frame": 2977,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "monsters_1",
+        "time": 94.53829900175333,
+        "frame": 2977,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 96.52434450015426,
+        "frame": 3044,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "monsters_2",
+        "time": 96.66373010352254,
+        "frame": 3049,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "time": 98.55334790050983,
+        "frame": 3116,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "monsters_3",
+        "time": 98.67435160279274,
+        "frame": 3120,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "wave_ready",
+        "time": 98.67441630363464,
+        "frame": 3120,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_begin",
+        "time": 143.1275566034019,
+        "frame": 4651,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 143.15021500363946,
+        "frame": 4651,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 22.659599781036377
+      },
+      {
+        "name": "late_join_ready",
+        "time": 189.00263200327754,
+        "frame": 6219,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_begin",
+        "time": 204.24512450024486,
+        "frame": 6743,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 204.2898918017745,
+        "frame": 6743,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 44.765498489141464
+      },
+      {
+        "name": "player_spawn",
+        "time": 220.64724280312657,
+        "frame": 7315,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "guest_at_portal",
+        "time": 220.75858230143785,
+        "frame": 7319,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_begin",
+        "time": 265.3819123022258,
+        "frame": 8860,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 265.4053071029484,
+        "frame": 8860,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 23.378197103738785
+      },
+      {
+        "name": "gc_begin",
+        "time": 326.48798510059714,
+        "frame": 10953,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 326.515622202307,
+        "frame": 10953,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 27.635499835014343
+      }
+    ],
+    "sync_loads": [],
+    "long_net_serializes": [],
+    "net_errors": [],
+    "spawn_frames": [
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "frame": 2977,
+        "phase": "await_spawn",
+        "reaction_defaults_loaded": true,
+        "ms": 93.389
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "frame": 3044,
+        "phase": "await_spawn",
+        "reaction_defaults_loaded": true,
+        "ms": 45.34
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "frame": 3116,
+        "phase": "await_spawn",
+        "reaction_defaults_loaded": true,
+        "ms": 39.369
+      }
+    ],
+    "player_spawn_frames": [
+      {
+        "name": "player_spawn",
+        "time": 31.449083901941776,
+        "frame": 879,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "ms": 2093.272
+      },
+      {
+        "name": "player_spawn",
+        "time": 31.52346610277891,
+        "frame": 879,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "ms": 2093.272
+      },
+      {
+        "name": "player_spawn",
+        "time": 220.64724280312657,
+        "frame": 7315,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "ms": 83.111
+      }
+    ],
+    "gc_cycles": [
+      {
+        "name": "gc_end",
+        "time": 3.485894802957773,
+        "frame": 1,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false,
+        "gc_ms": 58.57250094413757,
+        "frame_ms": 484.259
+      },
+      {
+        "name": "gc_end",
+        "time": 3.81296020001173,
+        "frame": 1,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false,
+        "gc_ms": 18.768299371004105,
+        "frame_ms": 484.259
+      },
+      {
+        "name": "gc_end",
+        "time": 82.24820040166378,
+        "frame": 2552,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 230.62289878726006,
+        "frame_ms": 265.813
+      },
+      {
+        "name": "gc_end",
+        "time": 143.15021500363946,
+        "frame": 4651,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 22.659599781036377,
+        "frame_ms": 53.735
+      },
+      {
+        "name": "gc_end",
+        "time": 204.2898918017745,
+        "frame": 6743,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 44.765498489141464,
+        "frame_ms": 75.178
+      },
+      {
+        "name": "gc_end",
+        "time": 265.4053071029484,
+        "frame": 8860,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 23.378197103738785,
+        "frame_ms": 60.364
+      },
+      {
+        "name": "gc_end",
+        "time": 326.515622202307,
+        "frame": 10953,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 27.635499835014343,
+        "frame_ms": 56.361
+      }
+    ],
+    "entry_first_10s": {
+      "frames": 339,
+      "p50_ms": 28.614,
+      "p95_ms": 49.24,
+      "p99_ms": 102.685,
+      "max_ms": 265.813,
+      "over_50ms": 13,
+      "over_100ms": 4,
+      "over_200ms": 1
+    },
+    "village_planting": [
+      {
+        "count": 9162,
+        "groups": 34
+      }
+    ],
+    "process_exit": {
+      "exited": true,
+      "pid": 116156,
+      "exit_code": 0
+    }
+  },
+  "client": {
+    "passed": true,
+    "detail": "2 nurses + 1 fat zombie, replicated meshes and reaction clips ready; 90s including periodic GC observed",
+    "ready_seconds": 44.49624390155077,
+    "rendered": true,
+    "max_monsters": 3,
+    "async_net_loading": true,
+    "lag_ms": 60,
+    "loss_percent": 2,
+    "seed": 1518277816,
+    "world_id": "DD5554E24E2BF263C186319F8C752D2E",
+    "phases": {
+      "await_spawn": {
+        "frames": 951,
+        "p50_ms": 28.099,
+        "p95_ms": 46.306,
+        "p99_ms": 58.59,
+        "max_ms": 109.952,
+        "over_50ms": 24,
+        "over_100ms": 1,
+        "over_200ms": 0
+      },
+      "loading": {
+        "frames": 1110,
+        "p50_ms": 28.936,
+        "p95_ms": 73.395,
+        "p99_ms": 194.064,
+        "max_ms": 2631.289,
+        "over_50ms": 85,
+        "over_100ms": 45,
+        "over_200ms": 11
+      },
+      "spawn_active": {
+        "frames": 3117,
+        "p50_ms": 29.234,
+        "p95_ms": 40.992,
+        "p99_ms": 50.592,
+        "max_ms": 65.636,
+        "over_50ms": 36,
+        "over_100ms": 0,
+        "over_200ms": 0
+      }
+    },
+    "arrivals": [
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 67.55462529882789,
+        "frame": 1943,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 67.49976490065455,
+            "ms": 25.399100035429,
+            "frame": 1941,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 67.52942309901118,
+            "ms": 29.658198356628418,
+            "frame": 1942,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 67.5749601982534,
+            "ms": 45.53709924221039,
+            "frame": 1943,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 67.58880250155926,
+            "ms": 13.842303305864334,
+            "frame": 1944,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 67.65749119967222,
+            "ms": 68.68869811296463,
+            "frame": 1945,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "monsters_1",
+        "time": 67.57037569954991,
+        "frame": 1943,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 67.49976490065455,
+            "ms": 25.399100035429,
+            "frame": 1941,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 67.52942309901118,
+            "ms": 29.658198356628418,
+            "frame": 1942,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 67.5749601982534,
+            "ms": 45.53709924221039,
+            "frame": 1943,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 67.58880250155926,
+            "ms": 13.842303305864334,
+            "frame": 1944,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 67.65749119967222,
+            "ms": 68.68869811296463,
+            "frame": 1945,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 69.52640390023589,
+        "frame": 2014,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 69.4743991009891,
+            "ms": 29.07560020685196,
+            "frame": 2012,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 69.5036211013794,
+            "ms": 29.222000390291214,
+            "frame": 2013,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 69.5594800002873,
+            "ms": 55.85889890789986,
+            "frame": 2014,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 69.5741931013763,
+            "ms": 14.713101089000702,
+            "frame": 2015,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 69.60921239852905,
+            "ms": 35.019297152757645,
+            "frame": 2016,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "monsters_2",
+        "time": 69.55507300049067,
+        "frame": 2014,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 69.4743991009891,
+            "ms": 29.07560020685196,
+            "frame": 2012,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 69.5036211013794,
+            "ms": 29.222000390291214,
+            "frame": 2013,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 69.5594800002873,
+            "ms": 55.85889890789986,
+            "frame": 2014,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 69.5741931013763,
+            "ms": 14.713101089000702,
+            "frame": 2015,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 69.60921239852905,
+            "ms": 35.019297152757645,
+            "frame": 2016,
+            "phase": "await_spawn"
+          }
+        ]
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "time": 71.56674819812179,
+        "frame": 2087,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 71.52661810070276,
+            "ms": 17.381802201271057,
+            "frame": 2085,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 71.54865730181336,
+            "ms": 22.039201110601425,
+            "frame": 2086,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 71.59420970082283,
+            "ms": 45.55239900946617,
+            "frame": 2087,
+            "phase": "spawn_active"
+          },
+          {
+            "time": 71.60989269986749,
+            "ms": 15.682999044656754,
+            "frame": 2088,
+            "phase": "spawn_active"
+          },
+          {
+            "time": 71.64613730087876,
+            "ms": 36.244601011276245,
+            "frame": 2089,
+            "phase": "spawn_active"
+          }
+        ]
+      },
+      {
+        "name": "monsters_3",
+        "time": 71.59027830138803,
+        "frame": 2087,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 71.52661810070276,
+            "ms": 17.381802201271057,
+            "frame": 2085,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 71.54865730181336,
+            "ms": 22.039201110601425,
+            "frame": 2086,
+            "phase": "await_spawn"
+          },
+          {
+            "time": 71.59420970082283,
+            "ms": 45.55239900946617,
+            "frame": 2087,
+            "phase": "spawn_active"
+          },
+          {
+            "time": 71.60989269986749,
+            "ms": 15.682999044656754,
+            "frame": 2088,
+            "phase": "spawn_active"
+          },
+          {
+            "time": 71.64613730087876,
+            "ms": 36.244601011276245,
+            "frame": 2089,
+            "phase": "spawn_active"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "probe_initialized",
+        "time": 2.250075340270996e-05,
+        "frame": 26,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "player_spawn",
+        "time": 4.585308101028204,
+        "frame": 58,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "player_spawn",
+        "time": 5.973005600273609,
+        "frame": 58,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "gc_begin",
+        "time": 42.132067799568176,
+        "frame": 1072,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 42.262878101319075,
+        "frame": 1072,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 130.80979883670807
+      },
+      {
+        "name": "input_ready",
+        "time": 44.49627460166812,
+        "frame": 1136,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 67.55462529882789,
+        "frame": 1943,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "monsters_1",
+        "time": 67.57037569954991,
+        "frame": 1943,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 69.52640390023589,
+        "frame": 2014,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "monsters_2",
+        "time": 69.55507300049067,
+        "frame": 2014,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "time": 71.56674819812179,
+        "frame": 2087,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "monsters_3",
+        "time": 71.59027830138803,
+        "frame": 2087,
+        "phase": "await_spawn",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "all_replicas_ready",
+        "time": 71.59031980112195,
+        "frame": 2087,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_begin",
+        "time": 103.18692709878087,
+        "frame": 3199,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 103.21558859944344,
+        "frame": 3199,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 28.66160124540329
+      }
+    ],
+    "sync_loads": [],
+    "long_net_serializes": [],
+    "net_errors": [],
+    "spawn_frames": [
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "frame": 1943,
+        "phase": "await_spawn",
+        "reaction_defaults_loaded": true,
+        "ms": 45.537
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "frame": 2014,
+        "phase": "await_spawn",
+        "reaction_defaults_loaded": true,
+        "ms": 55.859
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "frame": 2087,
+        "phase": "await_spawn",
+        "reaction_defaults_loaded": true,
+        "ms": 45.552
+      }
+    ],
+    "player_spawn_frames": [
+      {
+        "name": "player_spawn",
+        "time": 4.585308101028204,
+        "frame": 58,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false,
+        "ms": 1682.526
+      },
+      {
+        "name": "player_spawn",
+        "time": 5.973005600273609,
+        "frame": 58,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false,
+        "ms": 1682.526
+      }
+    ],
+    "gc_cycles": [
+      {
+        "name": "gc_end",
+        "time": 42.262878101319075,
+        "frame": 1072,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 130.80979883670807,
+        "frame_ms": 205.467
+      },
+      {
+        "name": "gc_end",
+        "time": 103.21558859944344,
+        "frame": 3199,
+        "phase": "spawn_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 28.66160124540329,
+        "frame_ms": 63.043
+      }
+    ],
+    "entry_first_10s": {
+      "frames": 345,
+      "p50_ms": 28.567,
+      "p95_ms": 45.864,
+      "p99_ms": 58.59,
+      "max_ms": 63.923,
+      "over_50ms": 11,
+      "over_100ms": 0,
+      "over_200ms": 0
+    },
+    "village_planting": [
+      {
+        "count": 9162,
+        "groups": 34
+      }
+    ],
+    "process_exit": {
+      "exited": true,
+      "pid": 135728,
+      "exit_code": 0
+    }
+  },
+  "late": {
+    "passed": true,
+    "detail": "2 nurses + 1 fat zombie, replicated meshes and reaction clips ready; 90s including periodic GC observed",
+    "ready_seconds": 37.36625099927187,
+    "rendered": true,
+    "max_monsters": 3,
+    "async_net_loading": true,
+    "lag_ms": 60,
+    "loss_percent": 2,
+    "seed": 1518277816,
+    "world_id": "DD5554E24E2BF263C186319F8C752D2E",
+    "phases": {
+      "late_active": {
+        "frames": 3144,
+        "p50_ms": 29.032,
+        "p95_ms": 43.946,
+        "p99_ms": 51.033,
+        "max_ms": 90.78,
+        "over_50ms": 47,
+        "over_100ms": 0,
+        "over_200ms": 0
+      },
+      "loading": {
+        "frames": 933,
+        "p50_ms": 27.91,
+        "p95_ms": 91.94,
+        "p99_ms": 212.564,
+        "max_ms": 1891.022,
+        "over_50ms": 81,
+        "over_100ms": 44,
+        "over_200ms": 10
+      }
+    },
+    "arrivals": [
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 14.33187809959054,
+        "frame": 353,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 13.395300898700953,
+            "ms": 14.768898487091064,
+            "frame": 351,
+            "phase": "loading"
+          },
+          {
+            "time": 13.419342499226332,
+            "ms": 24.04160052537918,
+            "frame": 352,
+            "phase": "loading"
+          },
+          {
+            "time": 14.344804000109434,
+            "ms": 925.4615008831024,
+            "frame": 353,
+            "phase": "loading"
+          },
+          {
+            "time": 14.390481397509575,
+            "ms": 45.67739740014076,
+            "frame": 354,
+            "phase": "loading"
+          },
+          {
+            "time": 14.511942099779844,
+            "ms": 121.4607022702694,
+            "frame": 355,
+            "phase": "loading"
+          }
+        ]
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 14.33749970048666,
+        "frame": 353,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 13.395300898700953,
+            "ms": 14.768898487091064,
+            "frame": 351,
+            "phase": "loading"
+          },
+          {
+            "time": 13.419342499226332,
+            "ms": 24.04160052537918,
+            "frame": 352,
+            "phase": "loading"
+          },
+          {
+            "time": 14.344804000109434,
+            "ms": 925.4615008831024,
+            "frame": 353,
+            "phase": "loading"
+          },
+          {
+            "time": 14.390481397509575,
+            "ms": 45.67739740014076,
+            "frame": 354,
+            "phase": "loading"
+          },
+          {
+            "time": 14.511942099779844,
+            "ms": 121.4607022702694,
+            "frame": 355,
+            "phase": "loading"
+          }
+        ]
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "time": 14.338317599147558,
+        "frame": 353,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 13.395300898700953,
+            "ms": 14.768898487091064,
+            "frame": 351,
+            "phase": "loading"
+          },
+          {
+            "time": 13.419342499226332,
+            "ms": 24.04160052537918,
+            "frame": 352,
+            "phase": "loading"
+          },
+          {
+            "time": 14.344804000109434,
+            "ms": 925.4615008831024,
+            "frame": 353,
+            "phase": "loading"
+          },
+          {
+            "time": 14.390481397509575,
+            "ms": 45.67739740014076,
+            "frame": 354,
+            "phase": "loading"
+          },
+          {
+            "time": 14.511942099779844,
+            "ms": 121.4607022702694,
+            "frame": 355,
+            "phase": "loading"
+          }
+        ]
+      },
+      {
+        "name": "monsters_3",
+        "time": 14.342306900769472,
+        "frame": 353,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "nearby_frames": [
+          {
+            "time": 13.395300898700953,
+            "ms": 14.768898487091064,
+            "frame": 351,
+            "phase": "loading"
+          },
+          {
+            "time": 13.419342499226332,
+            "ms": 24.04160052537918,
+            "frame": 352,
+            "phase": "loading"
+          },
+          {
+            "time": 14.344804000109434,
+            "ms": 925.4615008831024,
+            "frame": 353,
+            "phase": "loading"
+          },
+          {
+            "time": 14.390481397509575,
+            "ms": 45.67739740014076,
+            "frame": 354,
+            "phase": "loading"
+          },
+          {
+            "time": 14.511942099779844,
+            "ms": 121.4607022702694,
+            "frame": 355,
+            "phase": "loading"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "probe_initialized",
+        "time": 2.1200627088546753e-05,
+        "frame": 11,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "player_spawn",
+        "time": 2.801467999815941,
+        "frame": 26,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "player_spawn",
+        "time": 3.888428997248411,
+        "frame": 26,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 14.33187809959054,
+        "frame": 353,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "time": 14.33749970048666,
+        "frame": 353,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "time": 14.338317599147558,
+        "frame": 353,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "monsters_3",
+        "time": 14.342306900769472,
+        "frame": 353,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_begin",
+        "time": 33.6903910972178,
+        "frame": 855,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 33.76229779794812,
+        "frame": 855,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 71.90719991922379
+      },
+      {
+        "name": "input_ready",
+        "time": 37.36628659814596,
+        "frame": 944,
+        "phase": "late_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "all_replicas_ready",
+        "time": 37.366739097982645,
+        "frame": 944,
+        "phase": "late_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_begin",
+        "time": 94.8246186003089,
+        "frame": 2969,
+        "phase": "late_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true
+      },
+      {
+        "name": "gc_end",
+        "time": 94.85242489725351,
+        "frame": 2969,
+        "phase": "late_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 27.806401252746582
+      }
+    ],
+    "sync_loads": [
+      {
+        "object": "/Game/WorldGeneration/TemperateHills/OldChapel/Meshes/SM_ChapelDoor",
+        "owner": "/Game/GameMaps/L_TemperateHills_Initial.L_TemperateHills_Initial:PersistentLevel.ColdSteelDoor_0",
+        "type": 1,
+        "frame": 36,
+        "time": 4.285096500068903,
+        "phase": "loading"
+      }
+    ],
+    "long_net_serializes": [],
+    "net_errors": [],
+    "spawn_frames": [
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "frame": 353,
+        "phase": "loading",
+        "reaction_defaults_loaded": true,
+        "ms": 925.462
+      },
+      {
+        "name": "actor_spawn_BP_NurseZombie_C",
+        "frame": 353,
+        "phase": "loading",
+        "reaction_defaults_loaded": true,
+        "ms": 925.462
+      },
+      {
+        "name": "actor_spawn_FatZombie",
+        "frame": 353,
+        "phase": "loading",
+        "reaction_defaults_loaded": true,
+        "ms": 925.462
+      }
+    ],
+    "player_spawn_frames": [
+      {
+        "name": "player_spawn",
+        "time": 2.801467999815941,
+        "frame": 26,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false,
+        "ms": 1228.074
+      },
+      {
+        "name": "player_spawn",
+        "time": 3.888428997248411,
+        "frame": 26,
+        "phase": "loading",
+        "nurse_class_loaded": false,
+        "reaction_defaults_loaded": false,
+        "ms": 1228.074
+      }
+    ],
+    "gc_cycles": [
+      {
+        "name": "gc_end",
+        "time": 33.76229779794812,
+        "frame": 855,
+        "phase": "loading",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 71.90719991922379,
+        "frame_ms": 221.922
+      },
+      {
+        "name": "gc_end",
+        "time": 94.85242489725351,
+        "frame": 2969,
+        "phase": "late_active",
+        "nurse_class_loaded": true,
+        "reaction_defaults_loaded": true,
+        "gc_ms": 27.806401252746582,
+        "frame_ms": 79.478
+      }
+    ],
+    "entry_first_10s": {
+      "frames": 348,
+      "p50_ms": 25.736,
+      "p95_ms": 49.828,
+      "p99_ms": 61.734,
+      "max_ms": 90.78,
+      "over_50ms": 17,
+      "over_100ms": 0,
+      "over_200ms": 0
+    },
+    "village_planting": [
+      {
+        "count": 9162,
+        "groups": 34
+      }
+    ],
+    "process_exit": {
+      "exited": true,
+      "pid": 135192,
+      "exit_code": 0
+    }
+  }
+}

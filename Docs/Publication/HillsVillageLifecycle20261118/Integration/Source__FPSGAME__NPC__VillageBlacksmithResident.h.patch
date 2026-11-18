@@ -1,0 +1,4 @@
+--- a/Source/FPSGAME/NPC/VillageBlacksmithResident.h
++++ b/Source/FPSGAME/NPC/VillageBlacksmithResident.h
+@@ -48,0 +49 @@
++    FTimerHandle AppearanceRetryTimer;
