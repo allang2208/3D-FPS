@@ -1,0 +1,14 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -194,5 +194,8 @@
+ {
+     FString Title, Detail, Icon;
+     float Duration = 2.8f;
+-};
+-
++    // game-dev top notice tones (2026-11-15): upgrades/unlocks use the gold 28px level-up format,
++    // everything else (PostNotice) the plate-less 20px info format.
++    bool bUpgrade = false;
++};
++

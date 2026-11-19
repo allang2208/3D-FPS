@@ -1,0 +1,43 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp b/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+@@ -66,7 +66,7 @@
+     return Value>0.?Value:1.;
+ }
+ 
+-FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
++FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel,bool bApplySpecs) const
+ {
+     const int32 L=FMath::Clamp(AtLevel<0?FireballProgress().Level:AtLevel,1,FireballSkill.MaxLevel);
+     const auto& F=FireballSkill.Fireball;FFireballCast C;
+@@ -105,6 +105,19 @@
+             C.BurnMagicAttack=Derived(TEXT("matk"));C.BurnMultiplier=Craft(TEXT("fireBurnDamageMul"));
+             C.BurnSeconds=E->CraftEffect(*I,TEXT("fireBurnDuration"),3000)/1000;C.BurnTick=E->CraftEffect(*I,TEXT("fireBurnTickMs"),500)/1000;
+         }
++    // Specializations (skill-tree.json, 2026-11-15). Elemental arrows ask for bApplySpecs=false and
++    // apply their 50% inherited share themselves. NPC sheets have no specs, so these read 0.
++    if(bApplySpecs)
++    {
++        C.Radius*=1.f+SpecStat(TEXT("fireball"),TEXT("radiusPercent"))/100.f;
++        C.Range+=100.f*SpecStat(TEXT("fireball"),TEXT("rangeMeters"));
++        C.DropDelay=FMath::Clamp(SpecStat(TEXT("fireball"),TEXT("dropDelaySeconds")),0.f,3.f);
++        C.SpecBurnStacks=FMath::RoundToInt(SpecStat(TEXT("fireball"),TEXT("burnStacks")));
++        if(const auto* Spec=ColdSteelSkillTree::FindSpec(TEXT("fireball")))if(const auto* Ignite=Spec->Find(TEXT("ignite")))
++        {C.SpecBurnSeconds=Ignite->Param(TEXT("burnSeconds"),3.5f);C.SpecBurnMultiplier=Ignite->Param(TEXT("burnMultiplier"),.5f);}
++        C.SpecBurnMagicAttack=Derived(TEXT("matk"));
++    }
++    C.Range*=float(MagicRangeMultiplier());
+     C.ManaCost=SpellManaCost(TEXT("fireball"),L);
+     C.HoverDuration=F.HoverDuration;ApplySpellCastSpeed(C.CastSpeed);
+     return C;
+@@ -202,7 +215,9 @@
+         Rewards.Victim=nullptr;
+         if(Applied<=0)continue;
+         if(Cast.BurnMultiplier>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Cast.BurnMagicAttack,1,Cast.BurnSeconds,Cast.BurnMultiplier,Cast.BurnTick);
+-        if(auto* Player=::Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
++        // 引燃 specialization: native burn stacks shared with meteor's burn status.
++        if(Cast.SpecBurnStacks>0&&Cast.SpecBurnMultiplier>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Cast.SpecBurnMagicAttack,Cast.SpecBurnStacks,Cast.SpecBurnSeconds,Cast.SpecBurnMultiplier,.5f);
++        ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
+         if(Eligible)
+         {
+             ++HitCount;if(Combat->IsDead())++KillCount;

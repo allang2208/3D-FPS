@@ -1,0 +1,46 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -204,7 +204,9 @@
+     void ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Rewards);
+     void FinishIceSpikeCast(const FIceSpikeRewards& Rewards);
+     FColdSteelSkillProgress FireballProgress() const;
+-    FFireballCast FireballStats(int32 AtLevel=-1) const;
++    FFireballCast FireballStats(int32 AtLevel=-1,bool bApplySpecs=true) const;
++    /** Elemental arrow mana cost incl. the 节能 specialization; shared by cast, prepare and hold checks. */
++    float ElementalArrowManaCost(float SpellCost) const;
+     /**
+      * Wand hook: the spell multiplier carried by the equipped wand's item data
+      * (`wandSpellMultiplier`, 1 = unchanged). No wand exists yet, so every spell
+@@ -252,6 +254,23 @@
+     UFUNCTION(BlueprintCallable, Category="Development") bool RaiseSkillLevel(FName Id,int32 Count=1);
+     /** 开发面板：把指定技能直接提升到满级。 */
+     UFUNCTION(BlueprintCallable, Category="Development") bool MaxSkillLevel(FName Id);
++    // ---- 技能树（2026-11-15，Content/ColdSteelData/skill-tree.json） ----
++    /** 不在技能树中的技能始终为已习得。 */
++    bool IsSkillLearned(FName Id) const;
++    bool CanLearnSkill(FName Id, FString* Reason=nullptr) const;
++    /** 条件满足后免费习得，走存档事务并推送顶部提示。 */
++    bool LearnSkill(FName Id);
++    int32 SpecRank(FName Skill, FName Node) const;
++    int32 SpecPointsFree(FName Skill) const;
++    bool CanInvestSpec(FName Skill, FName Node, FString* Reason=nullptr) const;
++    bool InvestSpec(FName Skill, FName Node);
++    /** 开发面板：返还该技能（或全部，Skill 为 None）的专精点，不改等级与修炼值。返回返还点数，-1 表示失败。 */
++    int32 ResetSpecs(FName Skill);
++    /** 专精数值：已实现节点按 PerRank × 等级累加。 */
++    float SpecStat(FName Skill, const TCHAR* Stat) const;
++    /** 火焰元素箭按比例继承的火球专精数值。 */
++    float InheritedFireSpecStat(const TCHAR* Stat) const;
++    const FColdSteelProfile& ProfileView() const { return Current; }
+     /** 开发面板：当前加载的物品目录（定义 id、名称与归纳类别），供分类下拉使用。 */
+     const TArray<FColdSteelCatalogEntry>& ItemCatalog() const;
+     int64 MaxExperience() const;
+@@ -520,6 +539,7 @@
+     struct FTrainingHit { AActor* Victim=nullptr; FName SkillId; int32 ExtraExperience=0; bool bEligible=false,bCritical=false,bKillAttempted=false,bMelee=false,bPerfectBowHit=false; };
+     FTrainingHit* ActiveTrainingHit=nullptr;
+     void QueueProgressNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
++    void QueueSkillTreeNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
+     FColdSteelProfile Current;
+     TMap<FName,uint32> CooldownReductionRevisions;
+     TMap<FString,FString> Definitions;

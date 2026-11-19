@@ -1,0 +1,51 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelHUDWidget.h b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -72,6 +72,9 @@
+     class UColdSteelQuickDrag* StartQuickDrag(FName Skill,int32 From,const FSlateBrush* Icon,FVector2D Position);
+     void UpdateQuickDrag(UColdSteelQuickDrag* Drag,FVector2D Position);
+     bool DropQuickDrag(UColdSteelQuickDrag* Drag,int32 Target);
++    bool DropMagicDrag(UColdSteelQuickDrag* Drag,int32 Target);
++    UFUNCTION() void ToggleMagicConfiguration();
++    bool IsMagicConfigurationOpen() const { return bMagicConfigurationOpen; }
+     bool DropInventoryOnQuickBar(UColdSteelItemDrag* Drag,int32 Target);
+     void EndQuickDrag();
+     void CancelQuickDrag();
+@@ -84,6 +87,10 @@
+     void FocusItemTooltip();
+     void OpenStatus();
+     UFUNCTION(BlueprintCallable,Category="Cold Steel UI") void OpenSkills();
++    /** 全屏技能树（P，2026-11-15）：替代右侧抽屉技能页；抽屉技能页保留给快捷魔法配置。 */
++    void OpenSkillTree(FName SkillId=NAME_None);
++    void CloseSkillTree();
++    bool IsSkillTreeOpen() const { return SkillTreeScreen!=nullptr; }
+     /** 图鉴：右侧抽屉第 4 页（武器／怪物档案），快捷键 K。 */
+     UFUNCTION(BlueprintCallable,Category="Cold Steel UI") void OpenCodex();
+     void OpenWarehouse(class AColdSteelWarehouseChest* Chest);
+@@ -130,6 +137,17 @@
+     virtual UWidget* NativeGetDesiredFocusTarget() const override;
+ 
+ private:
++    void CloseMagicConfiguration(bool RideWithDrawer=false);
++    void TickMagicConfiguration(float Delta);
++    void UpdateMagicConfigurationLayout(float Scale);
++    UPROPERTY(Transient) TObjectPtr<class UColdSteelMagicWheel> MagicConfiguration;
++    UPROPERTY(Transient) TObjectPtr<UBorder> MagicConfigurationPanel;
++    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> MagicConfigurationSlot;
++    UPROPERTY(Transient) TObjectPtr<UBorder> MagicConfigurationHeader;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> MagicConfigurationHeaderSize;
++    UPROPERTY(Transient) TObjectPtr<UButton> MagicConfigurationClose;
++    bool bMagicConfigurationOpen=false,bMagicRiding=false;
++    float MagicConfigurationMotion=0.f;
+     void BuildSoulHUD(UCanvasPanel* Root);
+     void BuildSoulWallet(UVerticalBox* Body);
+     void LayoutSoulHUD(float Scale,float Left,float Bottom,float Width);
+@@ -428,6 +446,8 @@
+     UPROPERTY(Transient) TObjectPtr<UHorizontalBox> EquipmentAmmoTabs;
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelAmmoPouchWidget> AmmoPouchPage;
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelSkillPage> SkillPage;
++    UPROPERTY(Transient) TObjectPtr<class UColdSteelSkillTreeScreen> SkillTreeScreen;
++    bool bSkillTreeReturnCursor=false;
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelCodexPage> CodexPage;
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelProgressNotification> ProgressNotification;
+     UPROPERTY(Transient) TObjectPtr<UBorder> SkillTabSurface;

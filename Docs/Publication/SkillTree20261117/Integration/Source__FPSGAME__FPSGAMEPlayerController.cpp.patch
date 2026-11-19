@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/FPSGAMEPlayerController.cpp b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -644,7 +644,7 @@
+ {
+     if(IsGameMenuOpen()||AlchemyPanel||WoodworkingPanel)return false;
+     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return false;
+-    return (ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen())||GunsmithPanel||EnhancementPanel||ExpeditionPanel||
++    return (ColdSteelHUD&&(ColdSteelHUD->IsInventoryOpen()||ColdSteelHUD->IsSkillTreeOpen()))||GunsmithPanel||EnhancementPanel||ExpeditionPanel||
+         (WeatherPanel&&WeatherPanel->IsPanelOpen());
+ }
+ 

@@ -1,0 +1,23 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp b/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp
+@@ -1,4 +1,5 @@
+ #include "../UI/ColdSteelStatusModel.h"
++#include "ColdSteelSkillTree.h"
+ #include "ColdSteelSkillRules.h"
+ #include "../Weapons/Bow/BowDamageTuning.h"
+ const FColdSteelSkillDefinition& UColdSteelStatusModel::MasteryDefinition(FName Id) const
+@@ -9,7 +10,12 @@
+     if(const auto* D=AdditionalDefinitions.Find(Id))return *D;return RifleDefinition();
+ }
+ FColdSteelSkillProgress UColdSteelStatusModel::MasteryProgress(FName Id)const
+-{if(const auto* P=Current.Skills.Find(Id))return *P;FColdSteelSkillProgress Empty;Empty.Level=0;return Empty;}
++{
++    // Skill tree (2026-11-15): an unlearned tree skill reads as Level 0, so every existing
++    // MasteryProgress(...).Level<1 gate (client and server authority) also means "未习得".
++    if(const auto* P=Current.Skills.Find(Id);P&&ColdSteelSkillTree::IsLearned(Current,Id))return *P;
++    FColdSteelSkillProgress Empty;Empty.Level=0;return Empty;
++}
+ FColdSteelSkillEffect UColdSteelStatusModel::MasteryEffect(FName Id,int32 L)const
+ {return ColdSteelSkills::Effect(MasteryDefinition(Id),L<0?MasteryProgress(Id).Level:L);}
+ FName UColdSteelStatusModel::WeaponMastery(const FColdSteelItem* Item)const

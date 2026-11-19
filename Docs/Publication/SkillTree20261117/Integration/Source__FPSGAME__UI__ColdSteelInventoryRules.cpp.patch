@@ -1,0 +1,18 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelInventoryTypes.h"
++#include "../Skills/ColdSteelSkillTree.h"
++#include "../Building/GunAssemblyCalibration.h"
+ #include "ColdSteelItemReadCache.h"
+ #include "ColdSteelItemRarity.h"
+ #include "../Skills/ColdSteelSkillRules.h"
+@@ -432,6 +434,7 @@
+     if(P.AmmoPouchVersion<0||P.AmmoPouchVersion>1){Reason=TEXT("弹药袋版本无效");return false;}
+     for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
+     if(!ColdSteelSkills::Validate(P,Reason))return false;
++    if(!ColdSteelSkillTree::Validate(P,Reason))return false;
+     if(!ColdSteelQuickBar::Validate(P,Reason))return false;
+     if(!P.AlchemyJob.Id.IsEmpty())
+     {

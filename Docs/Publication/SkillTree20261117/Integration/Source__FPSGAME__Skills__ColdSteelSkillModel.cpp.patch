@@ -1,0 +1,78 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -38,9 +38,9 @@
+ #include "Kismet/GameplayStatics.h"
+ 
+ FColdSteelSkillProgress UColdSteelStatusModel::RifleProgress() const
+-{ const auto* P=Current.Skills.Find(RifleSkill.Id); return P?*P:FColdSteelSkillProgress(); }
++{ return MasteryProgress(RifleSkill.Id); }
+ FColdSteelSkillProgress UColdSteelStatusModel::CriticalStrikeProgress() const
+-{ const auto* P=Current.Skills.Find(CriticalStrikeSkill.Id);return P?*P:FColdSteelSkillProgress(); }
++{ return MasteryProgress(CriticalStrikeSkill.Id); }
+ FColdSteelSkillEffect UColdSteelStatusModel::CriticalStrikeEffect(int32 AtLevel) const
+ {
+     auto E=ColdSteelSkills::Effect(CriticalStrikeSkill,AtLevel<0?CriticalStrikeProgress().Level:AtLevel);
+@@ -51,7 +51,7 @@
+     return E;
+ }
+ FColdSteelSkillProgress UColdSteelStatusModel::PistolProgress() const
+-{ const auto* P=Current.Skills.Find(PistolSkill.Id);return P?*P:FColdSteelSkillProgress(); }
++{ return MasteryProgress(PistolSkill.Id); }
+ FColdSteelSkillEffect UColdSteelStatusModel::PistolEffect(int32 AtLevel) const
+ { return ColdSteelSkills::Effect(PistolSkill,AtLevel<0?PistolProgress().Level:AtLevel); }
+ float UColdSteelStatusModel::PistolWeaponDamage(const FColdSteelItem& Item,float WeaponDamage) const
+@@ -72,9 +72,9 @@
+     return Multiplier>0.f?Multiplier:1.f;
+ }
+ FColdSteelSkillProgress UColdSteelStatusModel::DodgeProgress() const
+-{ const auto* P=Current.Skills.Find(DodgeSkill.Id);return P?*P:FColdSteelSkillProgress(); }
++{ return MasteryProgress(DodgeSkill.Id); }
+ FColdSteelSkillProgress UColdSteelStatusModel::DexterousHandsProgress() const
+-{ const auto* P=Current.Skills.Find(DexterousHandsSkill.Id);return P?*P:FColdSteelSkillProgress(); }
++{ return MasteryProgress(DexterousHandsSkill.Id); }
+ FColdSteelSkillEffect UColdSteelStatusModel::DexterousHandsEffect(int32 AtLevel) const
+ { return ColdSteelSkills::Effect(DexterousHandsSkill,AtLevel<0?DexterousHandsProgress().Level:AtLevel); }
+ float UColdSteelStatusModel::ReloadSpeedMultiplier() const
+@@ -135,6 +135,7 @@
+ bool UColdSteelStatusModel::CommitQuickCombatCast(float ActionDuration)
+ {
+     if(Current.bQuickCombatReserved)return false;
++    if(!IsSkillLearned(TEXT("quickCombat"))){Message=TEXT("尚未习得快速进战");return false;}
+     if(bPersistenceBlocked&&!bNetShadowProfile)return false;
+     auto* PS=CurrentPawn.IsValid()?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+     if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&!PS)return false;
+@@ -164,6 +165,7 @@
+     // F/快捷栏统一入口：完整动作期间拒绝再次施放，结束后没有额外冷却。
+     // 各类武器共用体力、修炼和数值合同：
+     //   剑类 → 符文剑配重锤；单持手枪 → 握把砸击；其余枪械 → 步枪枪托砸击。
++    if(!IsSkillLearned(TEXT("quickCombat"))){Message=TEXT("尚未习得快速进战　按 P 打开技能树");return false;}
+     if(Current.bQuickCombatReserved)
+     {
+         UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 动作尚未结束（剩余 %.2f 秒），忽略触发"),QuickCombatCooldown());
+@@ -462,7 +464,7 @@
+ {
+     if (After.Level>Before.Level)
+     {
+-        FColdSteelProgressNotice N; N.Title=FString::Printf(TEXT("角色升级   Lv.%d → %d"),Before.Level,After.Level);
++        FColdSteelProgressNotice N; N.Title=FString::Printf(TEXT("角色升级   Lv.%d → %d"),Before.Level,After.Level);N.bUpgrade=true;
+         N.Detail=FString::Printf(TEXT("获得 %d 点属性点 · 打开角色状态进行分配"),After.Points-Before.Points);
+         ProgressNotices.Add(MoveTemp(N));
+     }
+@@ -472,7 +474,7 @@
+     const auto* Old=Before.Skills.Find(Definition->Id); const auto* New=After.Skills.Find(Definition->Id);
+     if (Old && New && New->Level>Old->Level)
+     {
+-        FColdSteelProgressNotice N; N.Title=FString::Printf(TEXT("%s升级   Lv.%d → %d"),*Definition->Name,Old->Level,New->Level);
++        FColdSteelProgressNotice N; N.Title=FString::Printf(TEXT("%s升级   Lv.%d → %d"),*Definition->Name,Old->Level,New->Level);N.bUpgrade=true;
+         N.Detail=ColdSteelSkills::EffectSummary(ColdSteelSkills::Effect(*Definition,New->Level)); N.Icon=Definition->Icon;
+         if(Definition->Id==TEXT("swordMastery")){const auto E=ColdSteelSkills::Effect(*Definition,New->Level);N.Detail=FString::Printf(TEXT("剑精通固定伤害 +%.0f · 攻速 +%.0f%%"),E.FlatDamage,(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100);}
+         if(Definition->Id==TEXT("swordUppercut")){const auto E=ColdSteelSkills::Effect(*Definition,New->Level);N.Detail=FString::Printf(TEXT("上挑 ×%.2f · 力量 +%d · 距离 ×%.3f"),SwordUppercut::HeavyDamageScale*E.HeavyMultiplier,E.Strength,E.UppercutReachMultiplier);}
+@@ -491,6 +493,7 @@
+         ProgressNotices.Add(MoveTemp(N));
+     }
+     }
++    QueueSkillTreeNotices(Before,After);
+ }
+ bool UColdSteelStatusModel::PopProgressNotice(FColdSteelProgressNotice& Out)
+ { if (ProgressNotices.IsEmpty()) return false; Out=MoveTemp(ProgressNotices[0]); ProgressNotices.RemoveAt(0); return true; }

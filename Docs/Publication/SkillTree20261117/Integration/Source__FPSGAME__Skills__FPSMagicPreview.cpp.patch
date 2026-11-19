@@ -1,0 +1,21 @@
+diff --git a/Source/FPSGAME/Skills/FPSMagicPreview.cpp b/Source/FPSGAME/Skills/FPSMagicPreview.cpp
+--- a/Source/FPSGAME/Skills/FPSMagicPreview.cpp
++++ b/Source/FPSGAME/Skills/FPSMagicPreview.cpp
+@@ -70,7 +70,7 @@
+ }
+ 
+ void FPSMagicPreview::SamplePath(const APawn* Shooter,const AActor* Ignore,const FVector& Start,
+-    const FVector& LaunchVelocity,float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead)
++    const FVector& LaunchVelocity,float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead,float DropDelay)
+ {
+     OutPoints.Reset();
+     OutPoints.Add(Start);
+@@ -81,7 +81,7 @@
+     {
+         // Same ballistic integration the flight uses, so the drawn arc is the real trajectory.
+         const float T=Step*StepSeconds;
+-        const FVector Next=LimitStep(Previous,Start+LaunchVelocity*T+.5f*Acceleration*T*T,MaxDistance-Travelled);
++        const FVector Next=LimitStep(Previous,DelayedBallistic(Start,LaunchVelocity,FMath::Max(0.f,Gravity),T,DropDelay),MaxDistance-Travelled);
+         FVector End;
+         if(SweepSegment(Shooter,Ignore,Previous,Next,SweepRadius,End,bIgnoreDead)){OutPoints.Add(End);return;}
+         Travelled+=FVector::Distance(Previous,Next);

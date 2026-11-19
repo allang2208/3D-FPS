@@ -1,0 +1,65 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelHotbarLayout.cpp b/Source/FPSGAME/UI/ColdSteelHotbarLayout.cpp
+--- a/Source/FPSGAME/UI/ColdSteelHotbarLayout.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHotbarLayout.cpp
+@@ -13,7 +13,7 @@
+ namespace
+ {
+     constexpr float SlotPixels=48.f, GapPixels=8.f, GroupGap=16.f, BarPadding=9.f;
+-    constexpr float Step=SlotPixels+GapPixels;
++    constexpr float HotbarSlotStride=SlotPixels+GapPixels;
+     float RowWidth(int32 Count) { return Count*SlotPixels+(Count-1)*GapPixels; }
+ }
+ 
+@@ -26,6 +26,7 @@
+     {
+         auto* CellSurface=MakeHotbarSlot(Index);QuickSlotSurfaces.Add(CellSurface);
+         if(Index>=ColdSteelQuickBar::ItemOffset)HotbarDropSlots.Add(CellSurface);
++        else CellSurface->SetVisibility(ESlateVisibility::Collapsed);   // Q/E/X retired 2026-11-17
+         HotbarLayoutPanel->AddChildToCanvas(CellSurface)->SetZOrder(1);
+     }
+     // Fixed F/G actions are deliberately absent from the binding and drop-target arrays.
+@@ -67,14 +68,15 @@
+     if(ViewWidth<100)ViewWidth=UWidgetLayoutLibrary::GetViewportSize(this).X;
+     if(ViewWidth<100)ViewWidth=1280;
+     const bool HasSpecial=RuneBladesSlotSurface->GetVisibility()!=ESlateVisibility::Collapsed;
+-    const float SpecialWidth=RowWidth(HasSpecial?2:1),LettersWidth=RowWidth(3),NumbersWidth=RowWidth(10);
+-    const float FullWidth=LettersWidth+GroupGap+NumbersWidth+GroupGap+SpecialWidth;
++    // 2026-11-17: Q/E/X retired; the bar is the ten number slots plus the fixed F/G actions.
++    const float SpecialWidth=RowWidth(HasSpecial?2:1),NumbersWidth=RowWidth(10);
++    const float FullWidth=NumbersWidth+GroupGap+SpecialWidth;
+     const int32 Mode=ViewWidth>=FullWidth+2*BarPadding+24?0:ViewWidth>=NumbersWidth+2*BarPadding+24?1:2;
+     if(Mode==HotbarLayoutMode&&FMath::IsNearlyEqual(S,HotbarLayoutScale,.0001f)&&HasSpecial==bHotbarLayoutHasSpecial)return;
+     HotbarLayoutMode=Mode;HotbarLayoutScale=S;bHotbarLayoutHasSpecial=HasSpecial;
+     const float HeaderWidth=LettersWidth+GroupGap+SpecialWidth;
+     const float InnerWidth=Mode==0?FullWidth:Mode==1?NumbersWidth:FMath::Max(HeaderWidth,RowWidth(5));
+-    const float InnerHeight=SlotPixels+Mode*Step;
++    const float InnerHeight=SlotPixels+Mode*HotbarSlotStride;
+     HotbarPixelSize=FVector2D(InnerWidth+2*BarPadding,InnerHeight+2*BarPadding);
+     HotbarCanvasSlot->SetSize(HotbarPixelSize/S);HotbarCanvasSlot->SetPosition(FVector2D(0,-12/S));
+     HotbarLayoutSize->SetWidthOverride(InnerWidth/S);HotbarLayoutSize->SetHeightOverride(InnerHeight/S);
+@@ -92,18 +94,17 @@
+         auto* DividerLayout=CastChecked<UCanvasPanelSlot>(Widget->Slot);DividerLayout->SetPosition(FVector2D(X,8)/S);DividerLayout->SetSize(FVector2D(1,32)/S);
+     };
+     const float HeaderStart=Mode==0?0:(InnerWidth-HeaderWidth)*.5f;
+-    for(int32 Index=0;Index<ColdSteelQuickBar::ItemOffset;++Index)Place(QuickSlotSurfaces[Index],HeaderStart+Index*Step,0);
+     for(int32 N=0;N<10;++N)
+     {
+-        const float X=Mode==0?LettersWidth+GroupGap+N*Step:Mode==1?N*Step:(InnerWidth-RowWidth(5))*.5f+(N%5)*Step;
+-        const float Y=Mode==0?0:Mode==1?Step:(1+N/5)*Step;
++        const float X=Mode<=1?N*HotbarSlotStride:(InnerWidth-RowWidth(5))*.5f+(N%5)*HotbarSlotStride;
++        const float Y=Mode==0?0:Mode==1?HotbarSlotStride:(1+N/5)*HotbarSlotStride;
+         Place(QuickSlotSurfaces[ColdSteelQuickBar::ItemOffset+N],X,Y);
+     }
+-    const float SpecialStart=Mode==0?LettersWidth+GroupGap+NumbersWidth+GroupGap:HeaderStart+LettersWidth+GroupGap;
+-    Place(QuickCombatSlotSurface,SpecialStart,0);Place(RuneBladesSlotSurface,SpecialStart+Step,0);
+-    PlaceDivider(HotbarNumberDivider,LettersWidth+7);
+-    HotbarNumberDivider->SetVisibility(Mode==0?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+-    PlaceDivider(HotbarSpecialDivider,SpecialStart-9);PlaceDivider(RuneBladesDivider,SpecialStart+SlotPixels+3);
++    const float SpecialStart=Mode==0?NumbersWidth+GroupGap:HeaderStart;
++    Place(QuickCombatSlotSurface,SpecialStart,0);Place(RuneBladesSlotSurface,SpecialStart+HotbarSlotStride,0);
++    HotbarNumberDivider->SetVisibility(ESlateVisibility::Collapsed);
++    PlaceDivider(HotbarSpecialDivider,SpecialStart-9);
++    HotbarSpecialDivider->SetVisibility(Mode==0?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);PlaceDivider(RuneBladesDivider,SpecialStart+SlotPixels+3);
+     for(const auto& QuickSlot:QuickSlots)if(QuickSlot)QuickSlot->SetDisplayScale(S);
+     // The left status card also depends on the actual bar width/height and G visibility.
+     TopHUDViewport=FVector2D::ZeroVector;

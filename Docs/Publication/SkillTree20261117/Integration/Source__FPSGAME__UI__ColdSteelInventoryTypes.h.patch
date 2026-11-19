@@ -1,0 +1,40 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -84,6 +84,14 @@
+     UPROPERTY() bool bStumpCleared = false;
+ };
+ 
++/** Specialization ranks invested in one skill: spec node id -> rank (skill-tree.json "specializations"). */
++USTRUCT()
++struct FColdSteelSkillSpec
++{
++    GENERATED_BODY()
++    UPROPERTY() TMap<FName,int32> Ranks;
++};
++
+ USTRUCT()
+ struct FColdSteelFormulaBuff
+ {
+@@ -226,6 +234,9 @@
+     UPROPERTY() TArray<FString> HotbarDefinitions;
+     UPROPERTY() int32 QuickBarVersion = 0;
+     UPROPERTY() TArray<FColdSteelQuickBinding> QuickBindings;
++    UPROPERTY() int32 MagicWheelVersion = 0;
++    UPROPERTY() TArray<FName> MagicWheelSkills;
++    UPROPERTY() int32 SelectedMagicSlot = INDEX_NONE;
+     UPROPERTY() float Health = 200;
+     UPROPERTY() float Mana = 250;
+     /** Cumulative focus-break charges already included in Mana; legacy saves default to zero. */
+@@ -250,6 +261,11 @@
+     UPROPERTY() int32 EnhancementSupplyVersion = 0;
+     UPROPERTY() int32 SkillProgressVersion = 0;
+     UPROPERTY() TMap<FName,FColdSteelSkillProgress> Skills;
++    // Skill tree (2026-11-15, Content/ColdSteelData/skill-tree.json). Version 0 = legacy save:
++    // the one-time migration marks every tree skill learned so no existing ability is revoked.
++    UPROPERTY() int32 SkillTreeVersion = 0;
++    UPROPERTY() TArray<FName> LearnedSkills;
++    UPROPERTY() TMap<FName,FColdSteelSkillSpec> SkillSpecs;
+     UPROPERTY() TArray<FColdSteelFormulaBuff> FormulaBuffs;
+     UPROPERTY() float FireballCooldown = 0;
+     // Skill schema v9: total duration captured when this cooldown was committed.

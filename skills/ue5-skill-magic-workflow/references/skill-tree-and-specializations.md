@@ -1,6 +1,6 @@
 # 技能树与子专精（2026-11-15）
 
-用户于 2026-11-15 要求把技能面板升级为技能树并接入游戏，后续再慢慢调整内容和数值。规划与界面合同见 技能树接入规划（本机资料：`Docs/UI/skill-tree-plan-20261115.md`，不随本次发布），设计稿在 `Work/SkillTreeMockup20261115/`。
+用户于 2026-11-15 要求把技能面板升级为技能树并接入游戏，后续再慢慢调整内容和数值。规划与界面合同见 [技能树接入规划](../../../Docs/UI/skill-tree-plan-20261115.md)，设计稿在 `Work/SkillTreeMockup20261115/`。
 
 ## 数据
 
@@ -54,5 +54,5 @@
 
 ## 联机同步（2026-11-17 检查）
 
-- 习得与专精由客机本地决定，随档案上传，主机 `SanitizeGuestProfile` → `ColdSteelSkillTree::Sanitize` 清洗；主机施法入口按影子档案 `IsSkillLearned` 判定。新增技能树相关的客机自有字段时，记得同时加进客机镜像合并处（`OnRep_MirrorBlob` 里保留 `CurrentInventory` 字段的那一组），否则在途旧镜像会回滚它。
+- 习得与专精由客机本地决定，随档案上传，主机 `SanitizeGuestProfile`（`ColdSteelPlayerProfileAdmission.cpp`）→ `ColdSteelSkillTree::Sanitize` 清洗；主机施法入口（`ColdSteelPlayerSpellCast.cpp`）按影子档案 `IsSkillLearned` 判定。新增技能树相关的客机自有字段时，记得同时加进客机镜像合并处（`Multiplayer/ColdSteelPlayerProfileSync.cpp` 的 `OnRep_MirrorBlob` 里保留 `CurrentInventory` 字段的那一组），否则在途旧镜像会回滚它。
 - 主机生效有延迟：客机改动后最多 2 秒开始上传，加上传输时间；这期间施放刚习得的魔法会被拒绝并退蓝。

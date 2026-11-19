@@ -1,0 +1,18 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp b/Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp
+--- a/Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelHUDWidget.h"
++#include "ColdSteelSkillTreeScreen.h"
+ #include "ColdSteelSkillPage.h"
+ #include "Blueprint/WidgetBlueprintLibrary.h"
+ #include "ColdSteelDetailRow.h"
+@@ -53,6 +54,8 @@
+ }
+ void UColdSteelHUDWidget::NativeDestruct()
+ {
++    if(SkillTreeScreen){SkillTreeScreen->RemoveFromParent();SkillTreeScreen=nullptr;}
++    ExpeditionEquipmentClosed.Unbind();
+     ResourceBarTransitions.Reset();
+     ResourceMeterPawn.Reset();
+     ExperienceBarLevel=INDEX_NONE;

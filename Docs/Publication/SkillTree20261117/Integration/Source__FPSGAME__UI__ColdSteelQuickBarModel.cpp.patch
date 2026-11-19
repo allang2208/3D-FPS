@@ -1,0 +1,83 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+@@ -30,7 +30,8 @@
+ }
+ int32 KeyIndex(const FKey& Input)
+ {
+-    for(int32 I=0;I<Count;++I)if(Input==Key(I))return I;
++    if(!Input.IsValid())return INDEX_NONE;
++    for(int32 I=ItemOffset;I<Count;++I)if(Input==Key(I))return I;
+     return INDEX_NONE;
+ }
+ void MirrorLegacy(FColdSteelProfile& P)
+@@ -39,13 +40,24 @@
+     P.Hotbar.SetNum(4);P.HotbarDefinitions.SetNum(4);
+     for(int32 I=0;I<4;++I){P.Hotbar[I]=P.QuickBindings[I+ItemOffset].ItemId;P.HotbarDefinitions[I]=P.QuickBindings[I+ItemOffset].ItemDefinition;}
+ }
++// Q/E/X retired (version 3): their bindings move to the first free number slot, otherwise they are dropped.
++static void RetireLetterSlots(FColdSteelProfile& P)
++{
++    for(int32 I=0;I<ItemOffset&&I<P.QuickBindings.Num();++I)
++    {
++        if(P.QuickBindings[I].IsEmpty())continue;
++        for(int32 J=ItemOffset;J<P.QuickBindings.Num();++J)if(P.QuickBindings[J].IsEmpty()){P.QuickBindings[J]=P.QuickBindings[I];break;}
++        P.QuickBindings[I]=FColdSteelQuickBinding();
++    }
++}
+ bool Migrate(FColdSteelProfile& P)
+ {
+     if(P.QuickBarVersion==1&&P.QuickBindings.Num()==LegacyCount)
+     {
+-        P.QuickBindings.SetNum(Count);P.QuickBarVersion=Version;MirrorLegacy(P);return true;
+-    }
+-    if(P.QuickBarVersion!=0)return false;
++        P.QuickBindings.SetNum(Count);RetireLetterSlots(P);P.QuickBarVersion=Version;MirrorLegacy(P);return true;
++    }
++    if(P.QuickBarVersion==2&&P.QuickBindings.Num()==Count){RetireLetterSlots(P);P.QuickBarVersion=Version;MirrorLegacy(P);return true;}
++    if(P.QuickBarVersion!=0)return MagicMigrated;
+     P.QuickBindings.SetNum(Count);P.QuickBindings[0].Skill=TEXT("fireball");
+     TSet<FString> Seen;
+     for(int32 I=0;I<4;++I)
+@@ -54,14 +66,14 @@
+         if(!P.Hotbar[I].IsEmpty()&&Seen.Contains(P.Hotbar[I]))continue;
+         auto& B=P.QuickBindings[I+ItemOffset];B.ItemId=P.Hotbar[I];B.ItemDefinition=P.HotbarDefinitions[I];Seen.Add(B.ItemId);
+     }
+-    P.QuickBarVersion=Version;MirrorLegacy(P);return true;
++    RetireLetterSlots(P);P.QuickBarVersion=Version;MirrorLegacy(P);return true;
+ }
+ bool Validate(const FColdSteelProfile& P,FString& Reason)
+ {
+     if(P.QuickBarVersion==0)return true;
+     Reason=TEXT("快捷栏绑定无效，保留原存档");
+     if(!((P.QuickBarVersion==1&&P.QuickBindings.Num()==LegacyCount)||
+-        (P.QuickBarVersion==Version&&P.QuickBindings.Num()==Count)))return false;
++        ((P.QuickBarVersion==2||P.QuickBarVersion==Version)&&P.QuickBindings.Num()==Count)))return false;
+     TSet<FName> Skills;TSet<FString> Items;
+     for(const auto& B:P.QuickBindings)
+     {
+@@ -111,7 +123,7 @@
+ }
+ bool UColdSteelStatusModel::BindQuickSkill(int32 Index,FName Id)
+ {
+-    if(!Current.QuickBindings.IsValidIndex(Index)||!CanBindQuickSkill(Id))return false;
++    if(Index<ColdSteelQuickBar::ItemOffset||!Current.QuickBindings.IsValidIndex(Index)||!CanBindQuickSkill(Id))return false;
+     const int32 Existing=Current.QuickBindings.IndexOfByPredicate([&](const auto& B){return B.Skill==Id;});
+     if(Existing==Index)return true;
+     SyncRuntime();auto P=Snapshot();
+@@ -122,6 +134,7 @@
+ bool UColdSteelStatusModel::BindQuickItem(int32 Index,const FString& Id)
+ {
+     if(!Current.QuickBindings.IsValidIndex(Index))return false;
++    if(Index<ColdSteelQuickBar::ItemOffset&&!Id.IsEmpty())return false;
+     if(Id.IsEmpty())return ClearQuickBinding(Index);
+     const auto* Item=FindItem(Id);
+     // Match the drag preview: equipped backpack compartments are carried inventory too.
+@@ -140,6 +153,7 @@
+ bool UColdSteelStatusModel::SwapQuickBindings(int32 From,int32 To)
+ {
+     if(!Current.QuickBindings.IsValidIndex(From)||!Current.QuickBindings.IsValidIndex(To))return false;
++    if(From<ColdSteelQuickBar::ItemOffset||To<ColdSteelQuickBar::ItemOffset)return false;
+     if(From==To)return true;
+     SyncRuntime();auto P=Snapshot();P.QuickBindings.Swap(From,To);return CommitState(P);
+ }

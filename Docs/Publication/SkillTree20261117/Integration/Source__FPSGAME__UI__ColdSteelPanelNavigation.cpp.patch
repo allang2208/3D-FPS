@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp b/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp
+--- a/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp
++++ b/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp
+@@ -201,7 +201,7 @@
+ 
+ void UColdSteelHUDWidget::HandleNavigationStatus(){ActivatePanelNavigation(0);}
+ void UColdSteelHUDWidget::HandleNavigationBackpack(){ActivatePanelNavigation(1);}
+-void UColdSteelHUDWidget::HandleNavigationSkills(){ActivatePanelNavigation(2);}
++void UColdSteelHUDWidget::HandleNavigationSkills(){PlayButtonClick();if(IsSkillTreeOpen())CloseSkillTree();else OpenSkillTree();}
+ void UColdSteelHUDWidget::HandleNavigationCodex(){ActivatePanelNavigation(3);}
+ 
+ bool UColdSteelHUDWidget::HandlePanelNavigationClick(FVector2D Position)

@@ -1,0 +1,29 @@
+diff --git a/Source/FPSGAME/Skills/FPSFireballProjectile.cpp b/Source/FPSGAME/Skills/FPSFireballProjectile.cpp
+--- a/Source/FPSGAME/Skills/FPSFireballProjectile.cpp
++++ b/Source/FPSGAME/Skills/FPSFireballProjectile.cpp
+@@ -153,7 +153,7 @@
+     LaunchPosition=Start;
+     LaunchVelocity=FPSMagicPreview::LaunchVelocity(Start,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
+     FPSMagicPreview::SamplePath(Shooter.Get(),this,Start,LaunchVelocity,Cast.Gravity,
+-        Cast.Range,14.f,PreviewPoints,false);
++        Cast.Range,14.f,PreviewPoints,false,Cast.DropDelay);
+     FPSMagicPreview::DrawPath(AimPreviewLines,PreviewPoints);
+ }
+ void AFPSFireballProjectile::UpdateHover()
+@@ -239,11 +239,13 @@
+     const FVector PreviousPosition=GetActorLocation();
+     // Ballistic flight: the analytic position keeps the drop frame-rate independent, so the
+     // preview line can reproduce the same arc with the same integration.
++    // 平直弹道 specialization: gravity starts only after Cast.DropDelay (0 = original arc).
+     const FVector Gravity(0,0,-Cast.Gravity);
+     const FVector NextPosition=FPSMagicPreview::LimitStep(PreviousPosition,
+-        LaunchPosition+LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge,Cast.Range-Distance);
+-    Velocity=LaunchVelocity+Gravity*FlightAge;
+-    const bool Blocked=RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
++        FPSMagicPreview::DelayedBallistic(LaunchPosition,LaunchVelocity,Cast.Gravity,FlightAge,Cast.DropDelay),Cast.Range-Distance);
++    Velocity=LaunchVelocity+Gravity*FMath::Max(0.f,FlightAge-Cast.DropDelay);
++    const bool Blocked=Shooter->IsA<AUnknownHumanoid>() ? RangedAttackQuery::TraceToPlayer(GetWorld(),Shooter.Get(),Hit,PreviousPosition,NextPosition,14.f,Query) :
++        RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
+     SetActorLocation(Blocked?Hit.Location:NextPosition);
+     if(!bWaterContact)
+         if(auto* Water=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())

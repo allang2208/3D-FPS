@@ -1,0 +1,45 @@
+diff --git a/Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp b/Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp
+--- a/Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp
++++ b/Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp
+@@ -2,12 +2,19 @@
+ // SyncRuntime → Snapshot → CommitState 事务，控件不直接改写存档。
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Skills/ColdSteelSkillRules.h"
++#include "../Skills/ColdSteelSkillTree.h"
+ #include "Dom/JsonObject.h"
+ #include "Serialization/JsonReader.h"
+ #include "Serialization/JsonSerializer.h"
+ 
+ namespace
+ {
++    /** 2026-11-17: F6 技能升级同时习得技能树节点，否则未习得技能的等级不生效，高阶技能也无法直接测试。 */
++    bool DevelopmentLearnTreeSkill(FColdSteelProfile& P,FName Id)
++    {
++        if(P.SkillTreeVersion<1||!ColdSteelSkillTree::InTree(Id)||P.LearnedSkills.Contains(Id))return false;
++        P.LearnedSkills.Add(Id);return true;
++    }
+     /** 大类沿用目录顺序，武器与消耗品的真实类型形成独立子标题。 */
+     void ClassifyItem(const FString& Category,const FString& Type,const FString& WeaponType,
+         const FString& WeaponTag,FColdSteelCatalogEntry& Entry)
+@@ -97,8 +104,9 @@
+     if(Count<=0||!SkillCatalog().Contains(Id))return false;
+     const FColdSteelSkillDefinition& Definition=DevelopmentSkillDefinition(Id);
+     SyncRuntime();auto Next=Snapshot();
++    const bool bLearned=DevelopmentLearnTreeSkill(Next,Id);
+     FColdSteelSkillProgress& Progress=Next.Skills.FindOrAdd(Id);
+-    if(Progress.Level>=Definition.MaxLevel)return false;
++    if(Progress.Level>=Definition.MaxLevel&&!bLearned)return false;
+     Progress.Level=FMath::Clamp(Progress.Level+Count,1,Definition.MaxLevel);
+     // 满级必须把修炼值清零，与 ColdSteelSkills::Validate 的合同一致。
+     if(Progress.Level>=Definition.MaxLevel)Progress.Experience=0;
+@@ -110,8 +118,9 @@
+     if(!SkillCatalog().Contains(Id))return false;
+     const FColdSteelSkillDefinition& Definition=DevelopmentSkillDefinition(Id);
+     SyncRuntime();auto Next=Snapshot();
++    const bool bLearned=DevelopmentLearnTreeSkill(Next,Id);
+     FColdSteelSkillProgress& Progress=Next.Skills.FindOrAdd(Id);
+-    if(Progress.Level>=Definition.MaxLevel)return false;
++    if(Progress.Level>=Definition.MaxLevel&&!bLearned)return false;
+     Progress.Level=Definition.MaxLevel;Progress.Experience=0;
+     return CommitState(MoveTemp(Next));
+ }

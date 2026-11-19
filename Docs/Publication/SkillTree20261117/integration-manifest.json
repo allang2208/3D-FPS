@@ -1,0 +1,217 @@
+{
+  "date": "2026-11-17",
+  "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+  "base_note": "HEAD-relative preimages; the remote main advanced past this base after the work, so patches were cut against this commit and must be merged, not applied blindly.",
+  "remote": "https://github.com/allang2208/3D-FPS.git",
+  "branch": "main",
+  "entries": [
+    {
+      "path": "Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Development__ColdSteelDevelopmentTools.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "03a7b3f511dc107739e5fb72e6c92cf0b35bf804fa997b0489fd243a178b9a9d",
+      "patch_bytes": 2499,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "ab033bf78d94574541ca6125a00014d2608229a355d70860545c944ce6010609",
+      "patch_bytes": 711,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelProfileMerge.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Multiplayer__ColdSteelProfileMerge.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "45191d4e0acc62a36048374ae33a607ab5f18200cb5b3f74621f52a8b653d8c2",
+      "patch_bytes": 1198,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__ColdSteelAdditionalMasteries.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "b2e201468e3554d180dd006324e5554ed46d2b53179888e9b385f667dc8a4de7",
+      "patch_bytes": 1418,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__ColdSteelFireballModel.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "b29d7b2a56ccced49422a62aa1aaeee2cee9d97b1b0219f4d3313783bfa5bec4",
+      "patch_bytes": 2826,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__ColdSteelHeavyStrikeModel.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "949cb44176986d2d23a23dd6a59c55141c5737050f684168cde94c61723c64c4",
+      "patch_bytes": 1339,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__ColdSteelSkillModel.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "74dfa3cb57c6f4e34672f4b1caf8556081e3e30bfaedc3ec9d83caccbdf8c9d9",
+      "patch_bytes": 5233,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__ColdSteelSkillTypes.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "c13df5a6dd7bf481fc8706edad3e25ef60ca8a23d0e91c9f27258c510f7874e9",
+      "patch_bytes": 498,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballTypes.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__FireballTypes.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "bc59f5df3fd1c2daa1d6d2bb4c172423791193c27af7b559c87254b08ee2a177",
+      "patch_bytes": 661,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__FPSFireballProjectile.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "1de7e63e758c819587a0e407e38031ecb3e04e9dce9c8f19a6594e3f308799e3",
+      "patch_bytes": 2200,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicPreview.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__FPSMagicPreview.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "f8ce8b4bb7de942d8cb18234be4fa11959e09b421995e7268c7b571462592327",
+      "patch_bytes": 1258,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicPreview.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__Skills__FPSMagicPreview.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "9306fa725ee17c25fe9fed36a6c52d57def6bd7e5078a6f0594f5265a4541577",
+      "patch_bytes": 1149,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelCharacterSheet.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "2aec572597154bdd8cc5ccc7ebfc9573caa9aa626082d15853be037f4faa5dba",
+      "patch_bytes": 713,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHotbarLayout.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelHotbarLayout.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "924eeeb784979ea3929b04f3e7e9e48a17004222eb14b533f3a1d2fcdf3409c0",
+      "patch_bytes": 4594,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "7c6354b4ee424ac908841b1a14277201ad7565cf21fff240ffa73299ca4424a6",
+      "patch_bytes": 3031,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelInventoryRules.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "1b70995f239f43161964d89fc7130674f12328cf7d1cfcb0f0770cd9cad14b24",
+      "patch_bytes": 979,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelInventoryTypes.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "c491bd3178ec36046816c72be0f65ff66282cd0b5eb8bf34303957589b9b6a90",
+      "patch_bytes": 1758,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelPanelNavigation.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "466c767a5e9339836109c5961e317228f0fce00cedce37b81861a64623f0d730",
+      "patch_bytes": 769,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "5208b9ad26fe61669743eb9ee5e09859b6c9f517eb6a3a8afe1175f25f076ffb",
+      "patch_bytes": 1638,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProgressNotification.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelProgressNotification.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "ab678b089a68339310d938ebb3ea54bf22b3dff3866ed76c313902ff21f26a1e",
+      "patch_bytes": 10799,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProgressNotification.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelProgressNotification.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "32e5a3b8ecb3f21e7f1cbc42b4fdc31975e862126c78e76a6c781aafd1652e84",
+      "patch_bytes": 596,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelQuickBarModel.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "79181ce53bce23b80d3cd1b80eff914bbf39ee973c08fd01830c762f69096bd7",
+      "patch_bytes": 4120,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarTypes.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelQuickBarTypes.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "51f122d255af3e0cac39fcc5301ec32c21322132593e9fade80dbd02246518eb",
+      "patch_bytes": 772,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickDrag.cpp",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelQuickDrag.cpp.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "6e75833fbc80e6e44b1e293b6146cef614b50941877c216e6f55ba10f4afa7ce",
+      "patch_bytes": 2773,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "6520bc8772ce18e997d31514d0f10776b872cabcbc31aea8fd58a2cdc36b4924",
+      "patch_bytes": 3110,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+      "patch": "Docs/Publication/SkillTree20261117/Integration/Source__FPSGAME__UI__ColdSteelUIStyle.h.patch",
+      "base_commit": "34c08285d0675e1038e94800464c68c06c149178",
+      "patch_sha256": "a5750487e7fddd3d8ad77f3080a8cf6ad6b6187095de7aadd0f5de5c83f10e0b",
+      "patch_bytes": 1151,
+      "scope": "skill-tree / specialization / notice / quick-bar hunks only; unrelated local work excluded"
+    }
+  ]
+}

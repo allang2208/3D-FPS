@@ -1,0 +1,932 @@
+{
+  "schemaVersion": 1,
+  "source": "Work/SkillTreeMockup20261115 V3 (user approved 2026-11-15); balance: Work/SkillTreeMockup20261115/balance.py",
+  "columns": [
+    "I · 初级",
+    "II · 中级",
+    "III · 高级",
+    "IV · 终极"
+  ],
+  "groups": [
+    {
+      "id": "magic",
+      "name": "魔法",
+      "branches": [
+        "fire",
+        "ice",
+        "storm",
+        "holy"
+      ]
+    },
+    {
+      "id": "ranged",
+      "name": "远程",
+      "branches": [
+        "bow",
+        "guns"
+      ]
+    },
+    {
+      "id": "melee",
+      "name": "近战",
+      "branches": [
+        "melee"
+      ]
+    },
+    {
+      "id": "general",
+      "name": "通用",
+      "branches": [
+        "general"
+      ]
+    }
+  ],
+  "branches": {
+    "fire": {
+      "name": "火焰",
+      "lanes": 1
+    },
+    "ice": {
+      "name": "寒冰",
+      "lanes": 2
+    },
+    "storm": {
+      "name": "雷电",
+      "lanes": 2
+    },
+    "holy": {
+      "name": "圣光",
+      "lanes": 1
+    },
+    "bow": {
+      "name": "弓术",
+      "lanes": 2
+    },
+    "guns": {
+      "name": "枪械",
+      "lanes": 3
+    },
+    "melee": {
+      "name": "近战",
+      "lanes": 3
+    },
+    "general": {
+      "name": "通用",
+      "lanes": 1,
+      "note": "根基 · 默认习得"
+    }
+  },
+  "skills": {
+    "fireball": {
+      "branch": "fire",
+      "lane": 0,
+      "column": 0,
+      "kind": "magic",
+      "active": true,
+      "requires": []
+    },
+    "flameArmor": {
+      "branch": "fire",
+      "lane": 0,
+      "column": 1,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "fireball",
+          "level": 4
+        }
+      ]
+    },
+    "meteor": {
+      "branch": "fire",
+      "lane": 0,
+      "column": 2,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "flameArmor",
+          "level": 6
+        },
+        {
+          "skill": "fireball",
+          "level": 7
+        }
+      ]
+    },
+    "dragonBreath": {
+      "branch": "fire",
+      "lane": 0,
+      "column": 3,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "meteor",
+          "level": 11
+        },
+        {
+          "skill": "fireball",
+          "level": 10
+        }
+      ]
+    },
+    "iceSpike": {
+      "branch": "ice",
+      "lane": 0,
+      "column": 0,
+      "kind": "magic",
+      "active": true,
+      "requires": []
+    },
+    "iceWall": {
+      "branch": "ice",
+      "lane": 0,
+      "column": 1,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "iceSpike",
+          "level": 3
+        }
+      ]
+    },
+    "blizzard": {
+      "branch": "ice",
+      "lane": 0,
+      "column": 2,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "iceWall",
+          "level": 7
+        },
+        {
+          "skill": "iceSpike",
+          "level": 5
+        }
+      ]
+    },
+    "iceArmor": {
+      "branch": "ice",
+      "lane": 1,
+      "column": 1,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "iceSpike",
+          "level": 3
+        }
+      ]
+    },
+    "lightningStrike": {
+      "branch": "storm",
+      "lane": 0,
+      "column": 0,
+      "kind": "magic",
+      "active": true,
+      "requires": []
+    },
+    "thunderLance": {
+      "branch": "storm",
+      "lane": 0,
+      "column": 2,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "lightningStrike",
+          "level": 7
+        }
+      ]
+    },
+    "stormDomain": {
+      "branch": "storm",
+      "lane": 0,
+      "column": 3,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "thunderLance",
+          "level": 11
+        },
+        {
+          "skill": "lightningHaste",
+          "level": 7
+        }
+      ]
+    },
+    "lightningHaste": {
+      "branch": "storm",
+      "lane": 1,
+      "column": 1,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "lightningStrike",
+          "level": 4
+        }
+      ]
+    },
+    "holyLight": {
+      "branch": "holy",
+      "lane": 0,
+      "column": 1,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "characterLevel": 15
+        }
+      ]
+    },
+    "bowMastery": {
+      "branch": "bow",
+      "lane": 0,
+      "column": 0,
+      "kind": "mastery",
+      "active": false,
+      "requires": []
+    },
+    "heartPiercingArrow": {
+      "branch": "bow",
+      "lane": 0,
+      "column": 1,
+      "kind": "martial",
+      "active": false,
+      "requires": [
+        {
+          "skill": "bowMastery",
+          "level": 3
+        }
+      ]
+    },
+    "elementalArrow": {
+      "branch": "bow",
+      "lane": 0,
+      "column": 2,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "skill": "bowMastery",
+          "level": 4
+        },
+        {
+          "anyOf": [
+            "fireball",
+            "iceSpike",
+            "lightningStrike"
+          ],
+          "level": 5,
+          "crossBranch": true
+        }
+      ]
+    },
+    "magicArrowRain": {
+      "branch": "bow",
+      "lane": 0,
+      "column": 3,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "skill": "elementalArrow",
+          "level": 7
+        },
+        {
+          "skill": "illuminationArrow",
+          "level": 7
+        }
+      ]
+    },
+    "illuminationArrow": {
+      "branch": "bow",
+      "lane": 1,
+      "column": 1,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "skill": "bowMastery",
+          "level": 3
+        }
+      ]
+    },
+    "pistolMastery": {
+      "branch": "guns",
+      "lane": 0,
+      "column": 0,
+      "kind": "mastery",
+      "active": false,
+      "requires": []
+    },
+    "shotgunMastery": {
+      "branch": "guns",
+      "lane": 0,
+      "column": 1,
+      "kind": "mastery",
+      "active": false,
+      "requires": [
+        {
+          "skill": "pistolMastery",
+          "level": 3
+        }
+      ]
+    },
+    "quickCombat": {
+      "branch": "guns",
+      "lane": 1,
+      "column": 1,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "anyOf": [
+            "pistolMastery",
+            "rifleMastery"
+          ],
+          "level": 3
+        }
+      ]
+    },
+    "rifleMastery": {
+      "branch": "guns",
+      "lane": 2,
+      "column": 0,
+      "kind": "mastery",
+      "active": false,
+      "requires": []
+    },
+    "machineGunMastery": {
+      "branch": "guns",
+      "lane": 2,
+      "column": 1,
+      "kind": "mastery",
+      "active": false,
+      "requires": [
+        {
+          "skill": "rifleMastery",
+          "level": 3
+        }
+      ]
+    },
+    "swordMastery": {
+      "branch": "melee",
+      "lane": 0,
+      "column": 0,
+      "kind": "mastery",
+      "active": false,
+      "requires": []
+    },
+    "swordUppercut": {
+      "branch": "melee",
+      "lane": 0,
+      "column": 1,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "skill": "swordMastery",
+          "level": 3
+        }
+      ]
+    },
+    "chainSlash": {
+      "branch": "melee",
+      "lane": 0,
+      "column": 2,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "skill": "swordUppercut",
+          "level": 5
+        },
+        {
+          "skill": "swordMastery",
+          "level": 4
+        }
+      ]
+    },
+    "heavyStrike": {
+      "branch": "melee",
+      "lane": 1,
+      "column": 1,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "anyOf": [
+            "swordMastery",
+            "bluntMastery"
+          ],
+          "level": 3
+        }
+      ]
+    },
+    "whirlwind": {
+      "branch": "melee",
+      "lane": 1,
+      "column": 2,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "skill": "heavyStrike",
+          "level": 5
+        }
+      ]
+    },
+    "bluntMastery": {
+      "branch": "melee",
+      "lane": 2,
+      "column": 0,
+      "kind": "mastery",
+      "active": false,
+      "requires": []
+    },
+    "dashAttack": {
+      "branch": "melee",
+      "lane": 2,
+      "column": 1,
+      "kind": "martial",
+      "active": false,
+      "requires": [
+        {
+          "skill": "bluntMastery",
+          "level": 3
+        }
+      ]
+    },
+    "leapStrike": {
+      "branch": "melee",
+      "lane": 2,
+      "column": 2,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "skill": "heavyStrike",
+          "level": 5
+        },
+        {
+          "skill": "bluntMastery",
+          "level": 4
+        }
+      ]
+    },
+    "criticalStrike": {
+      "branch": "general",
+      "lane": 0,
+      "column": 0,
+      "kind": "general",
+      "active": false,
+      "requires": []
+    },
+    "dodge": {
+      "branch": "general",
+      "lane": 0,
+      "column": 1,
+      "kind": "general",
+      "active": true,
+      "requires": []
+    },
+    "dexterousHands": {
+      "branch": "general",
+      "lane": 0,
+      "column": 2,
+      "kind": "general",
+      "active": false,
+      "requires": []
+    }
+  },
+  "specializations": {
+    "fireball": {
+      "title": "火球 · 专精",
+      "pointsPerLevel": 1,
+      "columns": [
+        "第一层",
+        "第二层",
+        "核心"
+      ],
+      "resetCost": "none (F6 development panel only, 2026-11-15)",
+      "rows": [
+        {
+          "id": "blast",
+          "name": "爆破",
+          "note": "范围"
+        },
+        {
+          "id": "burn",
+          "name": "灼烧",
+          "note": "减益"
+        },
+        {
+          "id": "ballistic",
+          "name": "弹道",
+          "note": "射程"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "spread",
+          "row": "blast",
+          "column": 0,
+          "maxRank": 5,
+          "cost": 1,
+          "name": "扩散爆炸",
+          "glyph": "rings",
+          "tone": "fire",
+          "text": "爆炸半径 +6%",
+          "requires": [],
+          "effect": {
+            "stat": "radiusPercent",
+            "perRank": 6,
+            "implemented": true
+          }
+        },
+        {
+          "id": "quake",
+          "row": "blast",
+          "column": 1,
+          "maxRank": 3,
+          "cost": 2,
+          "name": "余震",
+          "glyph": "quake",
+          "tone": "fire",
+          "text": "爆炸 0.6 s 后原地余震一次，余震伤害为爆炸的 20% / 30% / 40%",
+          "requires": [
+            {
+              "skill": "spread",
+              "level": 3
+            }
+          ],
+          "effect": {
+            "mechanic": "aftershock",
+            "delaySeconds": 0.6,
+            "damagePercentByRank": [
+              20,
+              30,
+              40
+            ],
+            "implemented": false
+          }
+        },
+        {
+          "id": "ignite",
+          "row": "burn",
+          "column": 0,
+          "maxRank": 2,
+          "cost": 1,
+          "name": "引燃",
+          "glyph": "flame",
+          "tone": "fire",
+          "text": "命中施加 1 层灼烧（3.5 s，伤害倍率 0.5，与陨星坠落共用灼烧状态）",
+          "requires": [],
+          "effect": {
+            "stat": "burnStacks",
+            "perRank": 1,
+            "burnSeconds": 3.5,
+            "burnMultiplier": 0.5,
+            "implemented": true
+          }
+        },
+        {
+          "id": "wildfire",
+          "row": "burn",
+          "column": 1,
+          "maxRank": 1,
+          "cost": 2,
+          "name": "烈焰蔓延",
+          "glyph": "spreadfire",
+          "tone": "fire",
+          "text": "灼烧中的敌人死亡时，向 3 m 内敌人各传递 1 层灼烧",
+          "requires": [
+            {
+              "skill": "ignite",
+              "level": 2
+            }
+          ],
+          "effect": {
+            "mechanic": "burnSpreadOnDeath",
+            "radiusMeters": 3,
+            "stacks": 1,
+            "implemented": false
+          }
+        },
+        {
+          "id": "core",
+          "row": "burn",
+          "column": 2,
+          "maxRank": 1,
+          "cost": 3,
+          "name": "熔核火球",
+          "glyph": "core",
+          "tone": "fire",
+          "text": "按住施法键凝聚 1 s 释放熔核：爆炸半径再 +30%，魔法消耗 +50%",
+          "requires": [
+            {
+              "anyOf": [
+                "quake",
+                "wildfire",
+                "far"
+              ],
+              "level": 1
+            },
+            {
+              "pointsInvested": 10
+            }
+          ],
+          "effect": {
+            "mechanic": "moltenCore",
+            "chargeSeconds": 1,
+            "radiusPercent": 30,
+            "manaPercent": 50,
+            "implemented": false
+          }
+        },
+        {
+          "id": "flat",
+          "row": "ballistic",
+          "column": 0,
+          "maxRank": 4,
+          "cost": 1,
+          "name": "平直弹道",
+          "glyph": "flat",
+          "tone": "fire",
+          "text": "下坠开始时间 +0.15 s：火球先直线飞行，之后才受重力下坠",
+          "requires": [],
+          "effect": {
+            "stat": "dropDelaySeconds",
+            "perRank": 0.15,
+            "implemented": true
+          }
+        },
+        {
+          "id": "far",
+          "row": "ballistic",
+          "column": 1,
+          "maxRank": 3,
+          "cost": 1,
+          "name": "远射",
+          "glyph": "far",
+          "tone": "fire",
+          "text": "最大射程 +3 m",
+          "requires": [
+            {
+              "skill": "flat",
+              "level": 2
+            }
+          ],
+          "effect": {
+            "stat": "rangeMeters",
+            "perRank": 3,
+            "implemented": true
+          }
+        }
+      ]
+    },
+    "elementalArrow": {
+      "title": "元素箭 · 专精",
+      "pointsPerLevel": 1,
+      "columns": [
+        "第一层",
+        "第二层",
+        "核心"
+      ],
+      "resetCost": "none (F6 development panel only, 2026-11-15)",
+      "rows": [
+        {
+          "id": "fire",
+          "name": "火焰",
+          "note": "爆燃"
+        },
+        {
+          "id": "ice",
+          "name": "寒冰",
+          "note": "控制"
+        },
+        {
+          "id": "storm",
+          "name": "闪电",
+          "note": "眩晕"
+        },
+        {
+          "id": "craft",
+          "name": "箭术",
+          "note": "消耗"
+        }
+      ],
+      "inherit": {
+        "element": "fire",
+        "from": "fireball",
+        "scale": 0.5,
+        "nodes": [
+          "spread",
+          "quake",
+          "ignite",
+          "wildfire"
+        ]
+      },
+      "nodes": [
+        {
+          "id": "blaze",
+          "row": "fire",
+          "column": 0,
+          "maxRank": 3,
+          "cost": 1,
+          "name": "爆燃箭",
+          "glyph": "burst",
+          "tone": "fire",
+          "text": "火焰箭伤害倍率 +0.10（基础 1.50×）",
+          "requires": [],
+          "effect": {
+            "stat": "fireMultiplier",
+            "perRank": 0.1,
+            "implemented": true
+          }
+        },
+        {
+          "id": "embers",
+          "row": "fire",
+          "column": 1,
+          "maxRank": 1,
+          "cost": 3,
+          "name": "余烬地面",
+          "glyph": "ember",
+          "tone": "fire",
+          "text": "火焰箭爆炸处留下 2 m 燃烧地面，持续 3 s，进入者获得 1 层灼烧",
+          "requires": [
+            {
+              "skill": "blaze",
+              "level": 2
+            }
+          ],
+          "effect": {
+            "mechanic": "burningGround",
+            "radiusMeters": 2,
+            "seconds": 3,
+            "stacks": 1,
+            "implemented": false
+          }
+        },
+        {
+          "id": "rime",
+          "row": "ice",
+          "column": 0,
+          "maxRank": 3,
+          "cost": 1,
+          "name": "霜凝",
+          "glyph": "frost",
+          "tone": "ice",
+          "text": "寒冰箭寒冷持续 +1 s（基础 5 s）",
+          "requires": [],
+          "effect": {
+            "stat": "chillSeconds",
+            "perRank": 1,
+            "implemented": true
+          }
+        },
+        {
+          "id": "freeze",
+          "row": "ice",
+          "column": 1,
+          "maxRank": 1,
+          "cost": 3,
+          "name": "冰封",
+          "glyph": "freeze",
+          "tone": "ice",
+          "text": "寒冰箭命中已寒冷的目标时冻结 0.8 s；同一目标 8 s 内只触发一次",
+          "requires": [
+            {
+              "skill": "rime",
+              "level": 2
+            }
+          ],
+          "effect": {
+            "mechanic": "freezeChilled",
+            "seconds": 0.8,
+            "perTargetCooldown": 8,
+            "implemented": false
+          }
+        },
+        {
+          "id": "conduct",
+          "row": "storm",
+          "column": 0,
+          "maxRank": 3,
+          "cost": 1,
+          "name": "导电",
+          "glyph": "bolt",
+          "tone": "storm",
+          "text": "闪电箭眩晕 +0.2 s（基础 1.5 s）",
+          "requires": [],
+          "effect": {
+            "stat": "stunSeconds",
+            "perRank": 0.2,
+            "implemented": true
+          }
+        },
+        {
+          "id": "arc",
+          "row": "storm",
+          "column": 1,
+          "maxRank": 1,
+          "cost": 3,
+          "name": "电弧跳跃",
+          "glyph": "chain",
+          "tone": "storm",
+          "text": "闪电箭命中后弹向 6 m 内另 1 名敌人，造成 50% 伤害",
+          "requires": [
+            {
+              "skill": "conduct",
+              "level": 2
+            }
+          ],
+          "effect": {
+            "mechanic": "chainBounce",
+            "radiusMeters": 6,
+            "damagePercent": 50,
+            "implemented": false
+          }
+        },
+        {
+          "id": "thrift",
+          "row": "craft",
+          "column": 0,
+          "maxRank": 3,
+          "cost": 1,
+          "name": "节能",
+          "glyph": "mana",
+          "tone": "steel",
+          "text": "射出时的魔法消耗倍率 −0.10（基础 1.50×）",
+          "requires": [],
+          "effect": {
+            "stat": "manaMultiplier",
+            "perRank": -0.1,
+            "implemented": true
+          }
+        },
+        {
+          "id": "steady",
+          "row": "craft",
+          "column": 1,
+          "maxRank": 2,
+          "cost": 2,
+          "name": "稳弦",
+          "glyph": "string",
+          "tone": "steel",
+          "text": "持续拉弓的魔法消耗 −25%（基础 3/s）",
+          "requires": [
+            {
+              "skill": "thrift",
+              "level": 2
+            }
+          ],
+          "effect": {
+            "stat": "drawManaPercent",
+            "perRank": -25,
+            "implemented": true
+          }
+        },
+        {
+          "id": "volley",
+          "row": "craft",
+          "column": 2,
+          "maxRank": 1,
+          "cost": 4,
+          "name": "三元齐射",
+          "glyph": "tri",
+          "tone": "steel",
+          "text": "满拉时同时射出火、冰、雷三支元素箭，各造成 50% 伤害；蓝耗为三者之和，冷却分别计算",
+          "requires": [
+            {
+              "anyOf": [
+                "embers",
+                "freeze",
+                "arc",
+                "steady"
+              ],
+              "level": 1
+            },
+            {
+              "pointsInvested": 10
+            }
+          ],
+          "effect": {
+            "mechanic": "tripleVolley",
+            "damagePercent": 50,
+            "implemented": false
+          }
+        }
+      ]
+    }
+  }
+}

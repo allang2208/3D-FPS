@@ -1,0 +1,44 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickDrag.cpp b/Source/FPSGAME/UI/ColdSteelQuickDrag.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickDrag.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickDrag.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelQuickDrag.h"
++#include "ColdSteelSkillTreeScreen.h"
++#include "ColdSteelMagicWheel.h"
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelDragVisual.h"
+@@ -34,9 +36,14 @@
+     Drag->Visual=CreateWidget<UColdSteelDragVisual>(GetOwningPlayer());
+     const FVector2D Size(48);Drag->Visual->Configure(Icon,Size,Size*.5,Position);Drag->Visual->AddToViewport(1000);
+     auto* Empty=NewObject<USizeBox>(this);Empty->SetVisibility(ESlateVisibility::HitTestInvisible);Drag->DefaultDragVisual=Empty;Drag->Pivot=EDragPivot::TopLeft;
+-    QuickDrag=Drag;bCloseAfterQuickDrag=From<0;
++    // Skill tree screen (2026-11-16): it owns input and focus during the drag; never touch the drawer.
++    const bool bTree=IsSkillTreeOpen();
++    QuickDrag=Drag;bCloseAfterQuickDrag=!bTree&&From<0&&!IsMagicConfigurationOpen();
+     QuickDragActivationHandle=FSlateApplication::Get().OnApplicationActivationStateChanged().AddUObject(this,&ThisClass::HandleQuickDragActivation);
+-    HideItemTooltip(true);SetVisibility(ESlateVisibility::Visible);SetIsFocusable(true);
++    HideItemTooltip(true);
++    if(!bTree)
++    {
++    SetVisibility(ESlateVisibility::Visible);SetIsFocusable(true);
+     InventoryBackdrop->SetVisibility(ESlateVisibility::Visible);
+     if(bCloseAfterQuickDrag){InventoryPanel->SetVisibility(ESlateVisibility::Hidden);InventoryBackdrop->SetRenderOpacity(0);InventoryBlur->SetRenderOpacity(0);}
+     if(HotbarCanvasSlot)HotbarCanvasSlot->SetZOrder(60);
+@@ -44,7 +51,7 @@
+     UpdateQuickDrag(Drag,Position);return Drag;
+ }
+ int32 UColdSteelHUDWidget::QuickBarDropIndex(FVector2D Position) const
+-{for(int32 I=0;I<QuickSlotSurfaces.Num();++I)if(QuickSlotSurfaces[I]->GetCachedGeometry().IsUnderLocation(Position))return I;return INDEX_NONE;}
++{for(int32 I=ColdSteelQuickBar::ItemOffset;I<QuickSlotSurfaces.Num();++I)if(QuickSlotSurfaces[I]->GetCachedGeometry().IsUnderLocation(Position))return I;return INDEX_NONE;}
+ void UColdSteelHUDWidget::HighlightQuickBar(int32 Index,bool Valid)
+ {
+     const float Scale=ColdSteelUI::PixelScale(this);
+@@ -94,6 +101,7 @@
+     InventoryBackdrop->SetVisibility(bInventoryOpen?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+     InventoryBackdrop->SetRenderOpacity(DrawerProgress);InventoryBlur->SetRenderOpacity(DrawerProgress);
+     if(bInventoryOpen)SetKeyboardFocus();
++    if(SkillTreeScreen)SkillTreeScreen->SetKeyboardFocus();
+ }
+ void UColdSteelHUDWidget::CancelQuickDrag()
+ {if(QuickDrag.IsValid()){UWidgetBlueprintLibrary::CancelDragDrop();EndQuickDrag();}}

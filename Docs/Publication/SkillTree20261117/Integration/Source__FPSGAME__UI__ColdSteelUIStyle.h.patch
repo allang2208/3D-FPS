@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelUIStyle.h b/Source/FPSGAME/UI/ColdSteelUIStyle.h
+--- a/Source/FPSGAME/UI/ColdSteelUIStyle.h
++++ b/Source/FPSGAME/UI/ColdSteelUIStyle.h
+@@ -23,6 +23,9 @@
+     inline const FLinearColor HUDGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C7AA70FF")));
+     inline const FLinearColor HUDGoldLight = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E8D39AFF")));
+     inline const FLinearColor HUDGoldDim = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("756447FF")));
++    // Top progress notice (2026-11-15, game-dev level-up-text): plate-less gold title, green detail.
++    inline const FLinearColor NoticeGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E3C574FF")));
++    inline const FLinearColor NoticeDetail = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A8CBB1FF")));
+     // Legendary modification identity; installation remains a separate green status.
+     inline const FLinearColor LegendaryCard = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("4A2029E8")));
+     inline const FLinearColor LegendaryCardHover = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("6A2938EE")));
