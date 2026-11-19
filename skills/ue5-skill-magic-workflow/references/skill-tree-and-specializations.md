@@ -56,3 +56,10 @@
 
 - 习得与专精由客机本地决定，随档案上传，主机 `SanitizeGuestProfile`（`ColdSteelPlayerProfileAdmission.cpp`）→ `ColdSteelSkillTree::Sanitize` 清洗；主机施法入口（`ColdSteelPlayerSpellCast.cpp`）按影子档案 `IsSkillLearned` 判定。新增技能树相关的客机自有字段时，记得同时加进客机镜像合并处（`Multiplayer/ColdSteelPlayerProfileSync.cpp` 的 `OnRep_MirrorBlob` 里保留 `CurrentInventory` 字段的那一组），否则在途旧镜像会回滚它。
 - 主机生效有延迟：客机改动后最多 2 秒开始上传，加上传输时间；这期间施放刚习得的魔法会被拒绝并退蓝。
+
+## 发布与仓库边界（2026-11-19）
+
+- 本批发布见 `Docs/Publication/SkillTree20261117/README.md`：11 个技能树专属源文件与 `skill-tree.json` 直接提交；共享宿主（`ColdSteelStatusModel.h`、`ColdSteelInventoryTypes.h`、`ColdSteelProfileRuntime.cpp`、快捷栏／提示／火球模型等）只出 HEAD 相对补丁。别把整份共享宿主当本批产物提交。 原因：并行会话在同一宿主里留有未发布的工作，整文件提交会连带他人内容。
+- 切分工具：`Work/pubaudit/slice.py` + `skilltree_spec.py`（未命中默认 `theirs`，按关键字规则认领本批 hunk），产物在 `Work/pubaudit/out/*.patch`；核对 `.result` 里的关键声明是否留下。 原因：关键字规则漏认领会静默产出空补丁或丢掉接口声明。
+- 本仓库工作树约 3.6 万索引项，`git log/show/diff-tree` 单次可能数十秒；批量重放用临时索引脚本（`skilltree_replay.py`：`read-tree origin/main` → 逐项 `update-index --cacheinfo` → `write-tree` → `commit-tree -p origin/main`），不要反复手工调用。 原因：重复慢速调用会持续超时。
+- 本地 `main` 可能落后 `origin/main`，且工作树带大量未提交改动导致 `git merge --ff-only` 被拒；不要强推，也不要 stash 他人改动。用 `commit-tree -p origin/main` 生成重放提交后 `git push origin <sha>:main`。 原因：工作树是多会话共享状态，任何整树操作都会破坏他人未提交工作。
