@@ -1,0 +1,328 @@
+{
+  "reference_commit": "0565e92fc10ca0268671c87bb7583abb3b6624f5",
+  "hashing": "SHA-256, UTF-8, LF line endings; local-feature-preimage isolates the feature from other local development and differs from origin/main.",
+  "patches": [
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopModel.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelShopModel.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "964f4c5e1b299f2d0f125df1f098d9a9a22d5dc93e21f56c743e5f36d4fa6329",
+      "after_sha256_lf": "9056032f204baa8737f49bc0a7b7e2c05631db91bf0458f2fa5ea5998b5f58b0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopModel.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelShopModel.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "fb6c31ef058f3beb7adb4ee1893d859c66a0b4e7bacf7e3875782ed2ba9d9a37",
+      "after_sha256_lf": "c359fd07b6385bdc8b088b1f5ce8092c8cc57a0e5f92bc5e6f1e188996a8c2d1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopHUD.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelShopHUD.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "70c400700e7bd8d66a95dcc2466a2e79dc6865dfff59eccd69114e4225507510",
+      "after_sha256_lf": "b3b3dad122108981168957f1243a2ef2e0322a9252825ee556dd31547d5cebb0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopWidget.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelShopWidget.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "ad3a4f6cc51d6222e42f6d98bbdd0c4ac29131457e540b2646597927861ac2f7",
+      "after_sha256_lf": "c3af653455f09e7095c6dc3697942c1c92fb45c4cad99da0cfb82055681ff0b9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopWidget.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelShopWidget.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "24ad14d08f0a1e58e4ec47ea48042664fa205a0701252f88534ab43288df808c",
+      "after_sha256_lf": "3f95aca4fadf9d37b0334ab498e6563a9a64f1481fda5ccc0d2c7511c4c1f59b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopGrid.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelShopGrid.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "cfa0ae69682dc0e0bb9b560c1577617e15e5b6805ec0149df955aec994819bf8",
+      "after_sha256_lf": "e1d5a79514d0bc57dcacfba94e48db9a924fae06a6bf4abde84574c4a9872d23"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "df6257a037b234598bd84f09a73baba760208826aebd1ed27bcd9d9d7ea1810c",
+      "after_sha256_lf": "ada0d248fe91b1a999a3c73052d4a9ca2d1b5e157fcf3d1754688e831756bb51"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipHUD.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelItemTooltipHUD.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "e9cf6c9f18064337083fd3371ecb90a5ed4960cd1232ce3009033aabae20d22d",
+      "after_sha256_lf": "c083517752d53b39915a4c4623ae4a6964e22d1e2f247b3b3ff60f5fea96ee27"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelInventoryWidget.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "275890733a5c5f06d8492acf566b45fcc64ff856e1a128cc3f928b19865d7476",
+      "after_sha256_lf": "b02b8d6b6200a850c49cb456009bf51b582efd313c75baf0794d48485ed05794"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltip.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelItemTooltip.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "44bcad7e0b5a273fe8094f97f42bae796774a19432ed6a8ee2fc2ba0c6fc90e7",
+      "after_sha256_lf": "df79554203632358f614b16a0a800ee64eaf6cbbe91651da726d2e196008f77d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltip.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelItemTooltip.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "42c5bf174b0bcc439eb9f7d8e5ade4c540190b63a2519c16fe53dab39c3fff5c",
+      "after_sha256_lf": "eb1ec324112a173bc3dfbcec4826aee3793622b7111d4cc5204ff0c0a987deb8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelItemTooltipData.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "0dae97ae33f340704cd09b9b5dbc9c3f620f1caa240929277dc79924d43d47ae",
+      "after_sha256_lf": "249046aa0bc61a29e9240f060128fb3a3c1d7f024662ec36632174d0fdc7d809"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelItemTooltipData.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "97ff466131f37aaa0707a18753386fb0415ad0efad4317c4e46570c292d5d90b",
+      "after_sha256_lf": "4c59acd41982d21be67defbfc7f8aaa294c9756295d4809fe02e5a910636170b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelItemTooltipSummary.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "6b8d2bb1f4be04ea71954ca02d641b515fa2b62a19fcf6c1d28d4e5a22921767",
+      "after_sha256_lf": "f017e5ba1df8bcb33f45bc71db0928cabc0203d636a3cd4539c5964c0d6dffb7"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelItemTooltipLayout.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "3b6eb7471601bedcaef94e32ef6bdc8c769a0a802fdefcf28df339a92252cbad",
+      "after_sha256_lf": "3f65bc5fab30fbdbadf665292bf077a45616c828fdf0459a31dabe51c2bb276c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelInventoryTypes.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "03dec458a66f795be38c22fff9e7fad61307abecab0879f1613266c89141f31f",
+      "after_sha256_lf": "b0d10ddb58a24e5d745df9e0dd0a48543642875ba7a7e4bad051bcaed39b383b"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "3fa377b089ae0ecd0b4659028c52415fbb8d4e43cad09faea5bf5b424feaa679",
+      "after_sha256_lf": "52ae51971c4098d73be727d8d91816703b4ef37dd4688e6f6e6f80fab64c369d"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Multiplayer__ColdSteelInventoryRequestTypes.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "164f51076a819a43fcdcc7ecf5b160593f7aa44d300a2a8de93e07f850fe2fea",
+      "after_sha256_lf": "b33716b6aec655a781886ea2b4b7c7ad13a67a7b0bd6a82c81bfb7f944a6b212"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Multiplayer__ColdSteelInventoryRequests.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "924b4d2c44f5d1c0fe897706f6353c91af4f44b4c0623a8263de713eca9b46fa",
+      "after_sha256_lf": "56a08af068bac3973f5d34f3e066f0742b43e69063d33072c4d249f568de4fcc"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerProfileAdmission.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "3c0a787d1af2fcb75a5275020793d3bc8e992c66b4d33d18007a2665b0592e40",
+      "after_sha256_lf": "bca063b386382652dca1bc2c18deaf25583c52cb6edbbb9d383a9ec8ad7a2f90"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerProfileSync.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "28b80ccdc473e35dfbd404417db0c2070f898cbda2fe4602d9d51f8ccf47dc8d",
+      "after_sha256_lf": "199981ddc37f2559c029c4923fe2a24be9d3df92e6ebd89f47555017e0519b29"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "21e787370d7b062465c7faae2fea070f5c151ceec1f4a84cbacac3974c5c5ff4",
+      "after_sha256_lf": "e81124b3cfc3fe7e2dd8e999a4f452679fb9d8c3a0b75fa02da64b8aba643119"
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgingQuality.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Building__ForgingQuality.h.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "3c371c73e2d8a11088782dbf21a625646925434a0b77c415df2105a6f789164f",
+      "after_sha256_lf": "52c50da7894721e3d464fc4f29374b8d9c1869f31f35fa1e748a56831a2bd673"
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgingQuality.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Building__ForgingQuality.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "4abf76b73233193bfbb6e687484f44c9be115e453ccc9ef9df230a7aa06c588d",
+      "after_sha256_lf": "e1d35287d5391ca8f9650983cec93b04fe03e33fbcb9139133d8990c4c9d29f3"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelTooltipCraftQuality.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelTooltipCraftQuality.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "15d3f0c3a8dbdb6a42ebd85a83c743eccf0cc0af1192fd1380898c88b0c19639",
+      "after_sha256_lf": "ca1ce7fd4369cf10a9b391112c2b0ff741bcc4a20ce45d7946c29c977c093745"
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgingSystem.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Building__ForgingSystem.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "5952e225f201018dcd4bdc9e5a0f471697f568d7bf40c508863d07aa3766f903",
+      "after_sha256_lf": "aac3a8a24fb67cf40b09c131829313514fb757651881666d94f9e1aa236fb98e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "fa822383bd50761b46b251481f7c9de8237f4bb388787ee0afc729925cc76559",
+      "after_sha256_lf": "277703570b373c2b786b15ed4700647ab8c330ed08a5656da3385f5e736badb4"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Multiplayer__ColdSteelStationNetwork.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "87a6b4b780d9433938fb274d3ac0ee13b615af226f69ea07bf30a0ce314dfc72",
+      "after_sha256_lf": "ff6b5a8e3680e4dae3cc518410dd9fa1c27bfca766201e0938b039840c84693b"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Multiplayer__ColdSteelStationNetwork.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "15d68e6cedb85cf1c1ca9bb0afe83eadd11fff37ba663bc56d35b995197a666f",
+      "after_sha256_lf": "8201fd2fe3152ab730d98f64a0ac94dbd106d5aac96093c98323b691e5cc0b2e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelProfileRecovery.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "a32d00be35e31a885f71cb68a9149f3e8378d2da5a53fdd9738a664178999d83",
+      "after_sha256_lf": "cee0253c0bde21c57121ad0489ddbb09eb527d8f50d9d9cc602f162f11e1d556"
+    },
+    {
+      "path": "Source/FPSGAME/Building/WoodworkingSystem.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Building__WoodworkingSystem.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "6e6520fc8d5590d429d593631d0f3c2e0583c093cbf82771e5032262c6964c40",
+      "after_sha256_lf": "33cd04fe01935c13bc31feb35c8de30606cd65346d448e88ba90dc2426caf501"
+    },
+    {
+      "path": "Source/FPSGAME/Building/WoodworkingJob.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Building__WoodworkingJob.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "ab2e6d824837b3e67fed0b687929c0f4c152761d212172617746cc07591cb9ae",
+      "after_sha256_lf": "105f9e669d750e25cb58d759719ef7ff680bff1dbb188f69014615afc81c2e39"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__FPSGAMEPlayerController.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "d115b42b5d4f336943c298ab7b8bd2b9788deb7e1b523beb911c30ff42189bca",
+      "after_sha256_lf": "ce524e56aca8fb6df4e0b449ea1a4c4fafbb6b258e00c28cf33f66c1f3067691"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "252d41a0a4c3031b31cb050b0dbc7f77a9107cd8997ae164ee538345b030ddb7",
+      "after_sha256_lf": "cba9e259a1d837e2c7cbd3ec14d6c755d6a409e94584b2664d23d50eea24b6a0"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEGameMenu.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__FPSGAMEGameMenu.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "7ed515fe87fa87d442438f7b37f156ad6a7460c745a5400c1b117afc4b27c1f2",
+      "after_sha256_lf": "28024521b1f95005b26148175db9f85325fde808f2f74cfbef02e45e4331ccbe"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "1bda59c682b53b2bf707f691c0333fb724d83bd07d02a4f78fc9828b33b4c259",
+      "after_sha256_lf": "5f72f21ca7874715e43a6abeaf4cc663a453033248506ed11996359b1e4626ea"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsStreaming.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "53148d9016562e571ee91aed0bd384bc493deca6fa873cf8600171480a94eafd",
+      "after_sha256_lf": "f1cdbe1d913a8200f77d115fabf92c61a86963a7e78e3d6a54f2952639a39898"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPreparation.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "a1d9dccbf0f2ce432e45777ad0280fa5386b575c132dd5aba5ce733267de6c93",
+      "after_sha256_lf": "5577549f4b8b97570bed9ac4e2ea5ff72ca28fd7128be034249e2a089f00fb6a"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPrivate.h.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "d6ef5a7863236c55c22cf963274b8c20f4d4492ea9ef699364eb5a7075df45e9",
+      "after_sha256_lf": "8e7df726eae0e2fa974ef727af2d67bc62c74cfb1e6377c9348c9bf2ace4bced"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAME.Build.cs",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__FPSGAME.Build.cs.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "365f85a199789398e7ca5f8e33d1eec3f29b183c7b71d5dc14d0d5aa8d7cc071",
+      "after_sha256_lf": "e6c3662738b2cd62591303050ff1aae1faf8e6acc7e2dc34975560e80bf946c4"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "16329845d07ffd4a4c6be19a29202d760788403f4561062255e7657b0e6a37d9",
+      "after_sha256_lf": "700b1bca5de43edd5f226533841efcaeacfea8ee8cba7350c2c223cdcada04de"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "82701be5a70120c9ceeb1fa273b637f22e771d9c1eb429748e4e05de3c4fac94",
+      "after_sha256_lf": "04e21026108776dc7964bdc1a2566cc38f29e0bbdb03ad3615590c1e12491aca"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsTerrain.cpp.patch",
+      "baseline": "local-feature-preimage",
+      "before_sha256_lf": "fbe8619b850f99c716d828a5be12628b2d97c86431ddba17329073e85b9c8e07",
+      "after_sha256_lf": "59d2ac662dfc1a04884c181c5e4bbbc2942a4073ace0143e487f9ecb7632f587"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Building__VoxelBuildWorld.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "0af427146f807b7d3c39bdc045828ec9080f14ef6a960ed511b39816e4322ca5",
+      "after_sha256_lf": "1b77e32f19bb394005ad2c8f98a45fa541d0286b8932f1640dbe38ebc74f66c2"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Building__VoxelBuildWorldCasting.cpp.patch",
+      "baseline": "public",
+      "before_sha256_lf": "a9875e36eea7a327c2f413b504a9fe5e08b2b1b2fcac6e46be2cc1be7328dcdf",
+      "after_sha256_lf": "42f0f7911fea0044126affd129fb740418eaf3a4b71472a209d176b7e951b1b6"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+      "patch": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__Building__VoxelBuildPrefabActor.h.patch",
+      "baseline": "public",
+      "before_sha256_lf": "52a955f497c414dd46012ffc795735748222bf3c234ce5694b7f44a69d8a0a9b",
+      "after_sha256_lf": "9933b7fb2b78aef46951577179c9032c23c476d9d6d3837443e977f49665b508"
+    }
+  ]
+}

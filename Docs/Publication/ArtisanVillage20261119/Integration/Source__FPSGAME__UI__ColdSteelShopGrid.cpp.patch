@@ -1,0 +1,334 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopGrid.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopGrid.cpp
+@@ -1,9 +1,21 @@
+ #include "ColdSteelShopWidget.h"
++#include "ColdSteelHUDWidget.h"
++#include "ColdSteelItemTooltipData.h"
+ #include "ColdSteelUIStyle.h"
++#include "ColdSteelWeaponIcons.h"
++#include "ColdSteelStaffIcon.h"
++#include "../Weapons/GunsmithSystem.h"
++#include "ColdSteelItemReadCache.h"
++#include "ColdSteelTooltipFormatPrivate.h"
++#include "ColdSteelWeaponText.h"
++#include "../Building/ForgingQuality.h"
+ #include "Blueprint/WidgetTree.h"
+ #include "Blueprint/WidgetBlueprintLibrary.h"
+ #include "Components/Border.h"
++#include "Engine/GameInstance.h"
+ #include "Engine/Texture2D.h"
++#include "ImageUtils.h"
++#include "Misc/Paths.h"
+ #include "Framework/Application/SlateApplication.h"
+ #include "Fonts/FontMeasure.h"
+ #include "Rendering/SlateRenderer.h"
+@@ -15,12 +27,27 @@
+ void UColdSteelShopGrid::NativeOnInitialized()
+ {
+     Super::NativeOnInitialized();SetIsFocusable(true);SetClipping(EWidgetClipping::ClipToBounds);
++    WeaponIcons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();
+     auto* Surface=WidgetTree->ConstructWidget<UBorder>();Surface->SetBrushColor(FLinearColor::Transparent);
+     Surface->SetPadding(FMargin(0));WidgetTree->RootWidget=Surface;
+ }
++void UColdSteelShopGrid::NativeConstruct()
++{
++    Super::NativeConstruct();
++    if(WeaponIcons&&!IconHandle.IsValid())
++        IconHandle=WeaponIcons->OnReady.AddUObject(this,&ThisClass::OnIconReady);
++}
++void UColdSteelShopGrid::NativeDestruct()
++{
++    if(Shop&&Shop->TooltipHUD())Shop->TooltipHUD()->HideItemTooltip(true,this);
++    ClearHover();
++    if(WeaponIcons)WeaponIcons->OnReady.Remove(IconHandle);
++    IconHandle.Reset();
++    Super::NativeDestruct();
++}
+ void UColdSteelShopGrid::Configure(UColdSteelShopWidget* Owner,bool Sale){Shop=Owner;bSale=Sale;}
+ void UColdSteelShopGrid::InvalidateGridPaint(){if(auto Widget=GetCachedWidget())Widget->Invalidate(EInvalidateWidgetReason::Paint);}
+-void UColdSteelShopGrid::ResetPage(){Page=0;Selected.Empty();Hovered=INDEX_NONE;SetToolTipText(FText::GetEmpty());InvalidateGridPaint();}
++void UColdSteelShopGrid::ResetPage(){Page=0;Selected.Empty();ClearHover();InvalidateGridPaint();}
+ void UColdSteelShopGrid::SetItems(const TArray<FColdSteelShopSaleLine>& Items)
+ {
+     // Rebuild presentation only on model changes, never in Paint / Tick.
+@@ -28,19 +55,41 @@
+     for(const auto& Line:Items)
+     {
+         auto& Entry=Entries.AddDefaulted_GetRef();Entry.Line=Line;
+-        Entry.Key=bSale?Line.Item.InstanceId:Line.Item.Definition;
++        Entry.Key=Line.Item.InstanceId;
+         Entry.Name=ColdSteelInventory::Text(Line.Item,TEXT("name"));
+-        if(auto* Texture=Shop->IconFor(Line.Item))
+-        {Entry.Icon.SetResourceObject(Texture);Entry.Icon.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Entry.Icon.DrawAs=ESlateBrushDrawType::Image;}
++        Entry.Description=Entry.Name;
++        if(!bSale)
++        {
++            const auto Data=ColdSteelItemData::Read(Line.Item.Data);
++            if(Data&&Data->HasTypedField<EJson::Object>(TEXT("_forgeQuality")))
++            {
++                const double Bonus=(ColdSteelForgeQuality::Multiplier(Line.Item)-1.)*100.;
++                Entry.Quality=ColdSteelTooltipPrivate::Signed(Bonus,TEXT("%"));
++                Entry.Description+=FString::Printf(TEXT(" · %s %s"),ColdSteelWeaponText::ForgeQuality,*Entry.Quality);
++            }
++        }
++        Entry.Description+=FString::Printf(TEXT(" · %lld 灵魂/件"),Line.UnitPrice);
+     }
+     if(!Entries.ContainsByPredicate([&](const auto& E){return E.Key==Selected;}))Selected.Empty();
+     Pack();Shop->GridChanged(bSale,Previous!=Selected);
++    if(auto* HUD=Shop->TooltipHUD();HUD&&HUD->IsItemTooltipPinnedFrom(this))
++    {
++        if(const auto* Line=SelectedLine())ShowItemDetails(*Line,TooltipAnchor,true);
++        else HUD->HideItemTooltip(true,this);
++    }
+ }
+ void UColdSteelShopGrid::NativeTick(const FGeometry& G,float Delta)
+ {
+     Super::NativeTick(G,Delta);
+     if(!Size.Equals(G.GetLocalSize(),.5f))
+     {Size=G.GetLocalSize();Pack();if(Shop)Shop->GridChanged(bSale);}
++    if(Hovered==INDEX_NONE)return;
++    if(!IsHovered()||!CanShowHover()){ClearHover();return;}
++    if(!bTooltipShown)
++    {
++        HoverSeconds+=Delta;
++        if(HoverSeconds>=.2f&&!Shop->TooltipHUD()->HasPinnedItemTooltip())ShowHoveredItem();
++    }
+ }
+ void UColdSteelShopGrid::Pack()
+ {
+@@ -79,8 +128,60 @@
+             for(int32 Y=0;Y<H;++Y)for(int32 X=0;X<W;++X)Occupancy[P][Y*ShopColumns+X]=true;
+         }
+     }
+-    Page=FMath::Clamp(Page,0,PageRows.Num()-1);Hovered=INDEX_NONE;SetToolTipText(FText::GetEmpty());
++    Page=FMath::Clamp(Page,0,PageRows.Num()-1);
++    if(IsHovered())UpdateHover(GetCachedGeometry(),FSlateApplication::Get().GetCursorPos(),true);
++    else ClearHover();
++    PreparePageIcons();
+     InvalidateGridPaint();
++}
++void UColdSteelShopGrid::PreparePageIcons()
++{
++    if(Size.X<25||Size.Y<3)return;
++    TMap<FString,FSlateBrush> VisibleBrushes;
++    const auto* Guns=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++    const auto LoadCatalog=[&](const FString& Path,const FColdSteelItem& Item)
++    {
++        if(Path.IsEmpty())return false;
++        if(const auto* Existing=VisibleBrushes.Find(Path))return Existing->GetResourceObject()!=nullptr;
++        auto& Brush=VisibleBrushes.Add(Path);
++        if(const auto* Existing=CatalogBrushes.Find(Path))
++            Brush=*Existing;
++        else if(auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Path))
++        {
++            Brush.SetResourceObject(Texture);
++            Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());
++            Brush.DrawAs=ESlateBrushDrawType::Image;
++            if(ColdSteelInventory::IsStaff(Item)||ColdSteelInventory::IsOneHandedMelee(Item)||Item.Definition==TEXT("ue_m870"))
++                ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
++        }
++        return Brush.GetResourceObject()!=nullptr;
++    };
++    for(auto& Entry:Entries)
++    {
++        if(Entry.Page!=Page)continue;
++        const auto& Item=Entry.Line.Item;
++        Entry.IconRecipe=WeaponIcons?WeaponIcons->Request(Item):FString();
++        if(!Entry.IconRecipe.IsEmpty())
++        {
++            const FString Variant=Guns?UColdSteelWeaponIcons::CatalogVariantIcon(Item.Definition,Guns->Installed(Item)):FString();
++            if(!Variant.IsEmpty())
++            {
++                Entry.CatalogIcon=TEXT("Icons/")+Variant+TEXT(".png");
++                if(LoadCatalog(Entry.CatalogIcon,Item))continue;
++            }
++            Entry.CatalogIcon=TEXT("Icons/")+Item.Definition+TEXT(".png");
++            if(LoadCatalog(Entry.CatalogIcon,Item))continue;
++        }
++        Entry.CatalogIcon=ColdSteelInventory::Text(Item,TEXT("ue_icon"));
++        LoadCatalog(Entry.CatalogIcon,Item);
++    }
++    CatalogBrushes=MoveTemp(VisibleBrushes);
++}
++void UColdSteelShopGrid::OnIconReady(const FString& Recipe)
++{
++    if(Shop&&Shop->ShopModel()->IsOpen()&&Entries.ContainsByPredicate([&](const FEntry& E)
++        {return E.Page==Page&&E.IconRecipe==Recipe;}))
++        InvalidateGridPaint();
+ }
+ void UColdSteelShopGrid::GridGeometry(FVector2D& Origin,float& Cell)const
+ {
+@@ -95,15 +196,22 @@
+     const int32 X=FMath::FloorToInt(P.X/Cell),Y=FMath::FloorToInt(P.Y/Cell);
+     return Entries.IndexOfByPredicate([&](const auto& E){return E.Page==Page&&X>=E.Cell%ShopColumns&&X<E.Cell%ShopColumns+E.Line.Item.Width&&Y>=E.Cell/ShopColumns&&Y<E.Cell/ShopColumns+E.Line.Item.Height;});
+ }
+-const FColdSteelShopSaleLine* UColdSteelShopGrid::SelectedLine()const
++const FColdSteelShopSaleLine* UColdSteelShopGrid::SelectedLine(FString* Description)const
+ {
+     const auto* Entry=Entries.FindByPredicate([&](const auto& E){return E.Key==Selected&&E.Page==Page;});
++    if(Entry&&Description)*Description=Entry->Description;
+     return Entry?&Entry->Line:nullptr;
+ }
+ void UColdSteelShopGrid::SelectKey(const FString& Key,bool Reveal)
+ {
+     if(const auto* Entry=Entries.FindByPredicate([&](const auto& E){return E.Key==Key;}))
+-    {Selected=Key;if(Reveal)Page=Entry->Page;InvalidateGridPaint();if(Shop)Shop->GridChanged(bSale,true);}
++    {
++        if(Selected!=Key&&Shop&&Shop->TooltipHUD())Shop->TooltipHUD()->HideItemTooltip(true,this);
++        Selected=Key;
++        if(Reveal&&Page!=Entry->Page){Page=Entry->Page;ClearHover();PreparePageIcons();}
++        InvalidateGridPaint();
++        if(Shop)Shop->GridChanged(bSale,true);
++    }
+ }
+ void UColdSteelShopGrid::TurnPage(int32 Direction,bool Wrap)
+ {
+@@ -111,40 +219,94 @@
+     UWidgetBlueprintLibrary::CancelDragDrop();
+     const int32 Target=Wrap?(Page+Direction+PageRows.Num())%PageRows.Num():FMath::Clamp(Page+Direction,0,PageRows.Num()-1);
+     if(Target==Page)return;
+-    Page=Target;Selected.Empty();Hovered=INDEX_NONE;SetToolTipText(FText::GetEmpty());InvalidateGridPaint();Shop->GridChanged(bSale,true);
++    if(auto* HUD=Shop->TooltipHUD())HUD->HideItemTooltip(true,this);
++    Page=Target;PreparePageIcons();Selected.Empty();ClearHover();InvalidateGridPaint();Shop->GridChanged(bSale,true);
++    if(IsHovered())UpdateHover(GetCachedGeometry(),FSlateApplication::Get().GetCursorPos());
+ }
+ FReply UColdSteelShopGrid::NativeOnMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
+ {
+     if(!Shop||Shop->IsConfirming())return FReply::Handled();
+     if(E.GetEffectingButton()!=EKeys::LeftMouseButton&&E.GetEffectingButton()!=EKeys::RightMouseButton)return Super::NativeOnMouseButtonDown(G,E);
+     SetKeyboardFocus(); // Commit the previous quantity before changing the selected item.
++    if(auto* HUD=Shop->TooltipHUD())HUD->HideItemTooltip(true);
+     const int32 Index=Hit(G,E.GetScreenSpacePosition());
+     Selected=Entries.IsValidIndex(Index)?Entries[Index].Key:FString();InvalidateGridPaint();Shop->GridChanged(bSale,true);
+     if(Index!=INDEX_NONE&&E.GetEffectingButton()==EKeys::RightMouseButton)Shop->ActivateGridItem(bSale);
++    else if(Index!=INDEX_NONE)ShowItemDetails(Entries[Index].Line,E.GetScreenSpacePosition(),true);
+     return FReply::Handled();
+ }
+ FReply UColdSteelShopGrid::NativeOnMouseButtonDoubleClick(const FGeometry& G,const FPointerEvent& E)
+ {
+     if(Shop&&!Shop->IsConfirming()&&E.GetEffectingButton()==EKeys::LeftMouseButton)
+     {
++        if(auto* HUD=Shop->TooltipHUD())HUD->HideItemTooltip(true);
+         const int32 Index=Hit(G,E.GetScreenSpacePosition());
+         if(Index!=INDEX_NONE){SelectKey(Entries[Index].Key,false);Shop->ActivateGridItem(bSale);}
+         return FReply::Handled();
+     }
+     return Super::NativeOnMouseButtonDoubleClick(G,E);
+ }
++FReply UColdSteelShopGrid::NativeOnKeyDown(const FGeometry& G,const FKeyEvent& E)
++{
++    if(E.GetKey()==EKeys::F1&&CanShowHover())
++    {
++        if(const auto* Line=SelectedLine())
++        {
++            ShowItemDetails(*Line,G.LocalToAbsolute(G.GetLocalSize()*.5f),true);
++            Shop->TooltipHUD()->FocusItemTooltip();
++        }
++        return FReply::Handled();
++    }
++    return Super::NativeOnKeyDown(G,E);
++}
++bool UColdSteelShopGrid::CanShowHover() const
++{
++    return Shop&&Shop->TooltipHUD()&&Shop->TooltipHUD()->IsShopOpen()&&Shop->GetVisibility()==ESlateVisibility::Visible
++        &&!Shop->IsConfirming()&&!FSlateApplication::Get().IsDragDropping();
++}
++void UColdSteelShopGrid::ClearHover()
++{
++    if(Hovered==INDEX_NONE)return;
++    if(Shop&&Shop->TooltipHUD())Shop->TooltipHUD()->HideItemTooltip(false,this);
++    Hovered=INDEX_NONE;HoveredKey.Reset();HoverSeconds=0.f;bTooltipShown=false;
++    InvalidateGridPaint();
++}
++void UColdSteelShopGrid::UpdateHover(const FGeometry& G,FVector2D ScreenPosition,bool RefreshItem)
++{
++    if(!CanShowHover()){ClearHover();return;}
++    const int32 Index=Hit(G,ScreenPosition);
++    if(!Entries.IsValidIndex(Index)){ClearHover();return;}
++    const FEntry& Entry=Entries[Index];
++    if(Entry.Key!=HoveredKey||Hovered==INDEX_NONE)
++    {
++        ClearHover();
++        Hovered=Index;HoveredKey=Entry.Key;TooltipAnchor=ScreenPosition;
++        InvalidateGridPaint();
++    }
++    else
++    {
++        Hovered=Index;
++        if(RefreshItem&&bTooltipShown)ShowHoveredItem();
++    }
++}
++void UColdSteelShopGrid::ShowHoveredItem()
++{
++    ShowItemDetails(Entries[Hovered].Line,TooltipAnchor,false);
++    bTooltipShown=true;
++}
++void UColdSteelShopGrid::ShowItemDetails(const FColdSteelShopSaleLine& Line,FVector2D Anchor,bool Pinned)
++{
++    const FString Location=bSale?FString(TEXT("待售栏")):Shop->ShopModel()->MerchantName()+TEXT("货架");
++    const FString Hint=FString::Printf(TEXT("%lld 灵魂/件 · %s"),Line.UnitPrice,bSale?TEXT("右键或双击移出待售栏"):TEXT("右键或双击购买"));
++    const FColdSteelItemTooltipPreview Preview{Line.Item,Location,Hint};
++    Shop->TooltipHUD()->ShowItemTooltip(Line.Item.InstanceId,Anchor,Pinned,this,&Preview);
++}
+ FReply UColdSteelShopGrid::NativeOnMouseMove(const FGeometry& G,const FPointerEvent& E)
+ {
+-    const int32 Index=Hit(G,E.GetScreenSpacePosition());
+-    if(Index!=Hovered)
+-    {
+-        Hovered=Index;
+-        InvalidateGridPaint();
+-        SetToolTipText(Index==INDEX_NONE?FText::GetEmpty():FText::FromString(FString::Printf(TEXT("%s\n%lld 灵魂 / 件\n%s"),*Entries[Index].Name,Entries[Index].Line.UnitPrice,bSale?TEXT("右键或双击移出待售栏"):TEXT("右键或双击购买 1 件"))));
+-    }
++    UpdateHover(G,E.GetScreenSpacePosition());
+     return FReply::Handled();
+ }
+-void UColdSteelShopGrid::NativeOnMouseLeave(const FPointerEvent& E){Hovered=INDEX_NONE;SetToolTipText(FText::GetEmpty());InvalidateGridPaint();Super::NativeOnMouseLeave(E);}
++void UColdSteelShopGrid::NativeOnMouseLeave(const FPointerEvent& E){ClearHover();Super::NativeOnMouseLeave(E);}
+ FReply UColdSteelShopGrid::NativeOnMouseWheel(const FGeometry&,const FPointerEvent& E){TurnPage(E.GetWheelDelta()>0?-1:E.GetWheelDelta()<0?1:0,true);return FReply::Handled();}
+ 
+ int32 UColdSteelShopGrid::NativePaint(const FPaintArgs& Args,const FGeometry& G,const FSlateRect& C,FSlateWindowElementList& Out,int32 Layer,const FWidgetStyle& Style,bool Enabled)const
+@@ -182,19 +344,21 @@
+         for(int32 X=1;X<Item.Width;++X)Box(P+FVector2D(X*Cell,2),FVector2D(1,Bounds.Y-4),ColdSteelUI::Gray(220,10),FLinearColor::Transparent,0,2);
+         for(int32 Y=1;Y<Item.Height;++Y)Box(P+FVector2D(2,Y*Cell),FVector2D(Bounds.X-4,1),ColdSteelUI::Gray(220,10),FLinearColor::Transparent,0,2);
+         const bool ShowName=Bounds.Y>=48;
+-        if(E.Icon.GetResourceObject())
+-        {
+-            FVector2D Image=E.Icon.ImageSize;
++        const FSlateBrush* Icon=WeaponIcons&&!E.IconRecipe.IsEmpty()?WeaponIcons->FindRecipe(E.IconRecipe):nullptr;
++        if(!Icon)Icon=CatalogBrushes.Find(E.CatalogIcon);
++        if(Icon&&Icon->GetResourceObject())
++        {
++            FVector2D Image=Icon->ImageSize;
+             const float AvailableW=FMath::Max(1.,Bounds.X-8),AvailableH=FMath::Max(1.,Bounds.Y-(ShowName?22:8));
+             const float Fit=Item.bRotated?FMath::Min(AvailableW/Image.Y,AvailableH/Image.X):FMath::Min(AvailableW/Image.X,AvailableH/Image.Y);
+             Image*=Fit;
+             const FVector2D Center=P+FVector2D(Bounds.X*.5,ShowName?16+AvailableH*.5:Bounds.Y*.5);
+             const auto Paint=G.ToPaintGeometry(Image,FSlateLayoutTransform(Center-Image*.5));
+-            if(Item.bRotated)FSlateDrawElement::MakeRotatedBox(Out,Layer+3,Paint,&E.Icon,ESlateDrawEffect::None,PI*.5f,TOptional<FVector2f>(),FSlateDrawElement::RelativeToElement,Tint);
+-            else FSlateDrawElement::MakeBox(Out,Layer+3,Paint,&E.Icon,ESlateDrawEffect::None,Tint);
++            if(Item.bRotated)FSlateDrawElement::MakeRotatedBox(Out,Layer+3,Paint,Icon,ESlateDrawEffect::None,PI*.5f,TOptional<FVector2f>(),FSlateDrawElement::RelativeToElement,Tint);
++            else FSlateDrawElement::MakeBox(Out,Layer+3,Paint,Icon,ESlateDrawEffect::None,Tint);
+         }
+         if(ShowName)Label(E.Name,P+FVector2D(4,2),Bounds.X-8,false,ColdSteelUI::TextPrimary);
+-        else if(!E.Icon.GetResourceObject())Label(E.Name,P+FVector2D(4,FMath::Max(2.,Bounds.Y*.5-8)),Bounds.X-8,false,ColdSteelUI::TextPrimary);
++        else if(!Icon||!Icon->GetResourceObject())Label(E.Name,P+FVector2D(4,FMath::Max(2.,Bounds.Y*.5-8)),Bounds.X-8,false,ColdSteelUI::TextPrimary);
+         if(!bSale||E.Line.Count>1)
+         {
+             const FString Count=FString::Printf(TEXT("%lld"),bSale?E.Line.Count:E.Line.UnitPrice);
+@@ -202,6 +366,16 @@
+             const FVector2D At=P+FVector2D(Bounds.X-Width-2,Bounds.Y-17);
+             Box(At,FVector2D(Width,15),ColdSteelUI::Gray(10,220),FLinearColor::Transparent,2,4);
+             Label(Count,At+FVector2D(3,0),Width-4,true,bSale?ColdSteelUI::TextPrimary:ColdSteelUI::HUDGoldLight);
++            if(!E.Quality.IsEmpty())
++            {
++                const float QualityWidth=Measure->Measure(E.Quality,ColdSteelUI::NumberFont(9)).X+6;
++                if(Bounds.X>=Width+QualityWidth+6)
++                {
++                    const FVector2D QualityAt(P.X+2,At.Y);
++                    Box(QualityAt,FVector2D(QualityWidth,15),ColdSteelUI::Gray(10,220),FLinearColor::Transparent,2,4);
++                    Label(E.Quality,QualityAt+FVector2D(3,0),QualityWidth-3,true,ColdSteelUI::TextPrimary);
++                }
++            }
+         }
+     }
+     if(Entries.IsEmpty())

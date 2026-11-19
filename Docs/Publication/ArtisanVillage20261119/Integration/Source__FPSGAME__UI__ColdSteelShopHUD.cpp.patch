@@ -1,0 +1,59 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopHUD.cpp
+@@ -1,6 +1,7 @@
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelShopWidget.h"
+ #include "ColdSteelShopModel.h"
++#include "../NPC/VillageBlacksmithResident.h"
+ #include "ColdSteelUIStyle.h"
+ #include "Blueprint/WidgetTree.h"
+ #include "Blueprint/WidgetBlueprintLibrary.h"
+@@ -10,11 +11,30 @@
+ 
+ void UColdSteelHUDWidget::OpenShop()
+ {
++    OpenShopFor(nullptr);
++}
++void UColdSteelHUDWidget::OpenBlacksmithShop(AVillageBlacksmithResident* Blacksmith)
++{
++    OpenArtisanShop(Blacksmith);
++}
++void UColdSteelHUDWidget::OpenArtisanShop(AVillageArtisanMerchant* Seller)
++{
++    if(IsValid(Seller))OpenShopFor(Seller);
++}
++void UColdSteelHUDWidget::OpenShopFor(AActor* Seller)
++{
+     if(bShopOpen)return;
++    auto* ShopModel=GetGameInstance()->GetSubsystem<UColdSteelShopModel>();
++    if(!Seller)ShopModel->BeginSession();
++    else if(auto* Artisan=Cast<AVillageArtisanMerchant>(Seller))
++    {
++        if(!ShopModel->BeginArtisanSession(Artisan))return;
++    }
++    else return;
++    if(!ShopModel->IsOpen())return;
+     UWidgetBlueprintLibrary::CancelDragDrop();
+     CloseWarehouse();HideForgingInstantly();HideSmeltingInstantly();HideWorkbenchInstantly();
+     SetInventoryPage(1);SetInventoryOpen(true);HideItemTooltip(true);
+-    GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->BeginSession();
+     if(!ShopWidget)
+     {
+         ShopWidget=CreateWidget<UColdSteelShopWidget>(GetOwningPlayer());ShopWidget->Configure(this);
+@@ -32,7 +52,7 @@
+ void UColdSteelHUDWidget::CloseShop()
+ {
+     if(!bShopOpen)return;
+-    UWidgetBlueprintLibrary::CancelDragDrop();bShopOpen=false;
++    UWidgetBlueprintLibrary::CancelDragDrop();bShopOpen=false;HideItemTooltip(true);
+     ShopWidget->CancelConfirmation();ShopWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
+     GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->EndSession();
+ }
+@@ -47,6 +67,7 @@
+ void UColdSteelHUDWidget::TickShop(float Delta)
+ {
+     if(!ShopWidget)return;
++    if(bShopOpen&&ShopWidget->ShopModel()->SellerHasLeft())CloseShop();
+     // Reveal from behind the backpack only after its drawer has reached its dock.
+     const float Target=bShopOpen&&DrawerProgress>1.f-KINDA_SMALL_NUMBER?1.f:0.f;
+     ShopMotion=FMath::FInterpConstantTo(ShopMotion,Target,Delta,4.f);

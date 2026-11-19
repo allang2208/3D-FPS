@@ -25,3 +25,5 @@ description: UE5.6-UE5.8 gameplay C++ implementation for Actors, Components, Dat
 - 人物冷加载缺头、整人隐藏及衣物晚到：读取 [首次外观就绪](references/initial-appearance-readiness.md)。 为什么：「首次外观就绪」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 - 消耗品的双手互斥、左键取消、普通面板与工作台待机见[交互动作占用](references/consumable-action-ownership.md)。 为什么：「交互动作占用」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+
+铁匠和木匠共用身体、独立头与工装的装配见[Jason R4 工匠身体](references/native-body-variants.md#铁匠与木匠共用-jason-r4)。

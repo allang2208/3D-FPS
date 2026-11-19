@@ -1,0 +1,57 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
+@@ -110,16 +110,34 @@
+     const bool Explicit=!ContinueWorld&&FParse::Value(FCommandLine::Get(),TEXT("HillsSeed="),Requested);
+     const bool NewWorld=!ContinueWorld&&FParse::Param(FCommandLine::Get(),TEXT("HillsNewWorld"));
+     UTemperateHillsSave* Saved=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
+-    if(Saved&&!NewWorld&&!Explicit&&(Saved->Version>5||Saved->GeneratorVersion>3))
++    if(Saved&&!NewWorld&&!Explicit&&(Saved->Version>6||Saved->GeneratorVersion>3||Saved->VillagePlanVersion>UTemperateHillsSave::CurrentVillagePlanVersion))
+     {
+         UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION incompatible version=%d; original save retained"),Saved->Version);
+         Slot.Reset();return;
+     }
+     if(Saved&&!NewWorld&&!Explicit)
+     {
++        // V1 stored plans without repairing buildings. Resolve those unlocks before
++        // scene generation; no live pawns or building collision exist at this point.
++        if(Saved->VillagePlanVersion<2&&(Saved->VillagePlansUnlocked&3))
++        {
++            const bool OldWall=Saved->bVillageWallRepaired,OldShop=Saved->bVillageBlacksmithRepaired;
++            const int32 OldPlanVersion=Saved->VillagePlanVersion;
++            Saved->bVillageWallRepaired|=(Saved->VillagePlansUnlocked&1)!=0;
++            Saved->bVillageBlacksmithRepaired|=(Saved->VillagePlansUnlocked&2)!=0;
++            Saved->VillagePlanVersion=2;
++            if(!UGameplayStatics::SaveGameToSlot(Saved,Slot,0))
++            {
++                Saved->bVillageWallRepaired=OldWall;Saved->bVillageBlacksmithRepaired=OldShop;
++                Saved->VillagePlanVersion=OldPlanVersion;
++                UE_LOG(LogTemp,Warning,TEXT("HILLS_SESSION village plan migration could not be saved; repair remains available from the nun"));
++            }
++        }
+         Seed=Saved->Seed;WorldId=Saved->WorldId;
+         VillageDefenseGeneration=Saved->VillageDefenseGeneration;
+         bVillageWallRepaired=Saved->bVillageWallRepaired;
++        bVillageBlacksmithRepaired=Saved->bVillageBlacksmithRepaired;
++        VillagePlansUnlocked=Saved->SavedVillagePlans();
+         // Old saves have no GeneratorVersion and must keep the frozen V1 field.
+         GeneratorVersion=FMath::Clamp(Saved->GeneratorVersion,1,3);
+         // V1 saves carry no edits and simply start with untouched ground. V2 stored
+@@ -150,7 +168,8 @@
+         WorldId=FGuid::NewGuid();
+         GeneratorVersion=FMath::Clamp(RequestedGen,1,3);
+         auto* Save=Cast<UTemperateHillsSave>(UGameplayStatics::CreateSaveGameObject(UTemperateHillsSave::StaticClass()));
+-        Save->Version=5;Save->Seed=Seed;Save->WorldId=WorldId;Save->GeneratorVersion=GeneratorVersion;
++        Save->Version=6;Save->Seed=Seed;Save->WorldId=WorldId;Save->GeneratorVersion=GeneratorVersion;
++        Save->VillagePlanVersion=2;
+         if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION save failed"));Slot.Reset();}
+     }
+     UE_LOG(LogTemp,Display,TEXT("HILLS_SESSION seed=%d generator=%d world=%s"),Seed,GeneratorVersion,*WorldId.ToString());
+@@ -163,6 +182,8 @@
+     DOREPLIFETIME(ATemperateHillsWorld,GeneratorVersion);
+     DOREPLIFETIME(ATemperateHillsWorld,WorldId);
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageWallRepaired);
++    DOREPLIFETIME(ATemperateHillsWorld,bVillageBlacksmithRepaired);
++    DOREPLIFETIME(ATemperateHillsWorld,VillagePlansUnlocked);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,SizeMeters,COND_InitialOnly);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,NetEcology,COND_InitialOnly);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,bTerrainDestructionEnabled,COND_InitialOnly);

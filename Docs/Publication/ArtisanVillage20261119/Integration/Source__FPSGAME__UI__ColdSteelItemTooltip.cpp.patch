@@ -1,0 +1,74 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltip.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltip.cpp
+@@ -40,7 +40,7 @@
+ void UColdSteelItemTooltip::NativeConstruct()
+ {
+     Super::NativeConstruct();
+-    if(Model&&!ChangedHandle.IsValid())ChangedHandle=Model->OnChanged.AddUObject(this,&ThisClass::Refresh);
++    if(Model&&!ChangedHandle.IsValid())ChangedHandle=Model->OnChanged.AddUObject(this,&ThisClass::ProfileChanged);
+     if(WeaponIcons&&!IconHandle.IsValid())IconHandle=WeaponIcons->OnReady.AddUObject(this,&ThisClass::OnWeaponIconReady);
+ }
+ void UColdSteelItemTooltip::NativeDestruct()
+@@ -73,10 +73,11 @@
+     }
+     return Result;
+ }
+-void UColdSteelItemTooltip::ShowItem(const FString& Id,FVector2D Anchor,bool Pin,UWidget* Source)
++void UColdSteelItemTooltip::ShowItem(const FString& Id,FVector2D Anchor,bool Pin,UWidget* Source,const FColdSteelItemTooltipPreview* Preview)
+ {
+     if(IsPinned()&&!Pin)return;
+-    const bool Changed=InstanceId!=Id,ModeChanged=bPinned!=Pin;
++    const bool Changed=InstanceId!=Id||ReturnFocus.Get()!=Source,ModeChanged=bPinned!=Pin;
++    if(Preview)PreviewInstance=*Preview;else PreviewInstance.Reset();
+     if(Changed||ModeChanged||!IsVisible()){bPlacementLocked=false;bStartDisclosureIntro=Pin;}
+     InstanceId=Id;ReturnFocus=Source;bPinned=Pin;
+     if(Changed||ModeChanged||!IsVisible())At=Anchor;
+@@ -92,12 +93,22 @@
+     FitAndPlace(Changed);
+     if(Pin)SetKeyboardFocus();
+ }
++const FColdSteelItem* UColdSteelItemTooltip::DisplayedItem() const
++{
++    if(PreviewInstance.IsSet())return &PreviewInstance->Item;
++    return Model?Model->FindItem(InstanceId):nullptr;
++}
++void UColdSteelItemTooltip::ProfileChanged()
++{
++    // A preview's owner supplies the updated instance when it refreshes its list.
++    if(!PreviewInstance.IsSet())Refresh();
++}
+ void UColdSteelItemTooltip::Refresh()
+ {
+     if(!IsVisible()||!Model)return;
+-    const auto* Item=Model->FindItem(InstanceId);
++    const auto* Item=DisplayedItem();
+     if(!Item||Item->Place==2){Hide(true);return;}
+-    Presentation=BuildColdSteelItemTooltip(*Item,Model,GetGameInstance()->GetSubsystem<UGunsmithSystem>());
++    Presentation=BuildColdSteelItemTooltip(*Item,Model,GetGameInstance()->GetSubsystem<UGunsmithSystem>(),PreviewInstance.IsSet()?PreviewInstance->Location:FString());
+     const FString Next=StructureSignature();
+     if(Next!=Signature){Signature=Next;BuildCards();}
+     UpdateRows();RefreshIcon();SettleSeconds=.15f;
+@@ -105,13 +116,13 @@
+ void UColdSteelItemTooltip::OnWeaponIconReady(const FString& Recipe)
+ {
+     if (!IsVisible() || !Model || !WeaponIcons) return;
+-    const auto* Item = Model->FindItem(InstanceId);
++    const auto* Item = DisplayedItem();
+     if (Item && WeaponIcons->Supports(*Item) && WeaponIcons->Key(*Item) == Recipe) RefreshIcon();
+ }
+ void UColdSteelItemTooltip::RefreshIcon()
+ {
+     if(!IsVisible()||!Icon||!Model)return;
+-    const auto* Item=Model->FindItem(InstanceId);if(!Item)return;
++    const auto* Item=DisplayedItem();if(!Item)return;
+     const bool Live=WeaponIcons&&WeaponIcons->Supports(*Item);
+     const FString Key=Live?WeaponIcons->Key(*Item):Presentation.Icon;
+     if(IconKey!=Key){IconKey=Key;if(Live)WeaponIcons->Request(*Item);}
+@@ -185,6 +196,7 @@
+ void UColdSteelItemTooltip::Hide(bool Force)
+ {
+     if(IsPinned()&&!Force)return;
++    PreviewInstance.Reset();
+     const bool Restore=HasKeyboardFocus()||HasFocusedDescendants();bPinned=false;
+     SetVisibility(ESlateVisibility::Collapsed);
+     if(Restore&&ReturnFocus.IsValid())ReturnFocus->SetKeyboardFocus();

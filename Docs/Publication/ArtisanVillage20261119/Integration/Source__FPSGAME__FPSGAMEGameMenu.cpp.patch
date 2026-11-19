@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/FPSGAMEGameMenu.cpp
++++ b/Source/FPSGAME/FPSGAMEGameMenu.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSGAMEPlayerController.h"
++#include "NPC/ChapelDialogueComponent.h"
+ #include "FPSGAMECharacter.h"
+ #include "UI/ColdSteelGameMenuWidget.h"
+ #include "UI/ColdSteelHUDWidget.h"
+@@ -20,7 +21,7 @@
+ 
+ bool AFPSGAMEPlayerController::CanOpenGameMenu() const
+ {
+-    if (!IsLocalController() || !GetPawn() || IsGameMenuOpen()) return false;
++    if (!IsLocalController() || !GetPawn() || IsGameMenuOpen() || (ChapelDialogue && ChapelDialogue->IsOpen())) return false;
+     const auto* Loading = GetGameInstance() ? GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>() : nullptr;
+     if (Loading && Loading->OwnsPlayerCursor()) return false;
+     // Existing drawers, drags and stations keep their own close/back semantics.

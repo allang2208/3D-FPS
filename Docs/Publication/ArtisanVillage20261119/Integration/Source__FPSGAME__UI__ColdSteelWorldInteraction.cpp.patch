@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelWorldInteraction.h"
++#include "../NPC/ChapelNun.h"
++#include "../NPC/VillageArtisanMerchant.h"
+ #include "../Building/ApartmentDeviceControl.h"
+ #include "Engine/World.h"
+ #include "Engine/GameInstance.h"
+@@ -47,6 +49,11 @@
+ }
+ void ColdSteelWorldInteraction::GetReachViewPoint(const APlayerController* PC,FVector& Eye,FRotator& View)
+ {
++    // A server's remote camera cache is not an interaction authority. Match the
++    // pawn-eye contract used by doors and furniture, including after teleport.
++    if(!PC->IsLocalController())
++        if(const auto* Pawn=Cast<AFPSGAMECharacter>(PC->GetPawn()))
++        {Eye=Pawn->GetMeleeAimTransform().GetLocation();View=Pawn->GetControlRotation();return;}
+     PC->GetPlayerViewPoint(Eye,View);
+     if(const APawn* Pawn=PC->GetPawn())
+         if(const auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>()) Body->ApplyInteractionView(Eye,View);
+@@ -71,6 +78,7 @@
+             // 直接用同一个 IsNativeDoor 口径，避免新增门子类时这条白名单漏项。
+             return PC->GetNetMode()!=NM_Client||UFPSDoorPushComponent::IsNativeDoor(Target)
+                 ||Cast<AColdSteelCampfire>(Target)||Cast<AColdSteelFountain>(Target)||Cast<AColdSteelPickup>(Target)
++                ||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)
+                 ||Cast<AColdSteelWarehouseChest>(Target)||Cast<AColdSteelSceneContainer>(Target)||IsTreasureChest(Target)||IsExpeditionAltar(Target)
+                 ||Cast<AVoxelBuildPrefabActor>(Target)||Cast<AApartmentDeviceControl>(Target)
+                 ||(UDungeonRunSubsystem::Get(PC->GetWorld())&&UDungeonRunSubsystem::Get(PC->GetWorld())->IsShrine(Target))?Target:nullptr;
+@@ -357,6 +365,8 @@
+     // 分派顺序与 PlayerController 的 E 键处理一致：先特异后泛化；空文本＝不显示浮窗。
+     FInteractionHint Hint;
+     if(!IsValid(Target))return Hint;
++    if(Cast<AChapelNun>(Target)){Hint.Text=TEXT("修女 · 交谈");return Hint;}
++    if(const auto* Artisan=Cast<AVillageArtisanMerchant>(Target)){Hint.Text=FString::Printf(TEXT("%s · 交谈"),Artisan->MerchantName());return Hint;}
+     if(const auto* Control=Cast<AApartmentDeviceControl>(Target)){Hint.Text=Control->GetPrompt();return Hint;}
+     if(IsExpeditionAltar(Target)){Hint.Text=TEXT("祭坛 · 打开出征面板");return Hint;}
+     if(IsBlessingFountain(Target)){Hint.Text=TEXT("喷泉 · 补满水分并获得 12 分钟赐福");return Hint;}

@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
+@@ -137,9 +137,13 @@
+     auto* Save=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
+     if(!Save)Save=Cast<UTemperateHillsSave>(UGameplayStatics::CreateSaveGameObject(UTemperateHillsSave::StaticClass()));
+     if(!Save)return;
+-    Save->Version=5;Save->Seed=Seed;Save->WorldId=WorldId;Save->GeneratorVersion=GeneratorVersion;
++    Save->Version=6;Save->Seed=Seed;Save->WorldId=WorldId;Save->GeneratorVersion=GeneratorVersion;
+     Save->bVillageWallRepaired=bVillageWallRepaired;
++    Save->bVillageBlacksmithRepaired=bVillageBlacksmithRepaired;
++    Save->VillagePlansUnlocked=VillagePlansUnlocked;
+     Save->VillageDefenseGeneration=VillageDefenseGeneration;
++    if(IsTavernRepaired())Save->VillagePlanVersion=FMath::Max(4,Save->VillagePlanVersion);
++    else if(IsVillageCarpenterRepaired())Save->VillagePlanVersion=FMath::Max(3,Save->VillagePlanVersion);
+     Save->Craters.Reset();
+     Save->Edits.Reset(TerrainEdits.Num());
+     for(const TemperateHillsSurface::FTerrainEdit& Edit:TerrainEdits)

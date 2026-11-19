@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Building/WoodworkingSystem.cpp
++++ b/Source/FPSGAME/Building/WoodworkingSystem.cpp
+@@ -1,4 +1,5 @@
+ #include "WoodworkingSystem.h"
++#include "../Tasks/CarpenterApprenticeship.h"
+ #include "../Development/DevelopmentTuningSubsystem.h"
+ #include "../Multiplayer/ColdSteelStationNetwork.h"
+ #include "WoodworkingQuality.h"
+@@ -320,6 +321,7 @@
+     if(!ColdSteelWoodQuality::Apply(Next.WoodworkingJob.Item,Next.WoodworkingJob))
+     {Notice=TEXT("成品工艺属性不可读，工件保留待领");return false;}
+     if(!ColdSteelInventory::Insert(Next.Items,Next.WoodworkingJob.Item)){Notice=TEXT("背包空间不足，成品保留待领");return false;}
++    CarpenterApprenticeship::WorkpieceRemoved(Next,true);
+     Next.WoodworkingJob={};
+     if(!M->CommitState(MoveTemp(Next))){Notice=M->ResultMessage();return false;}
+     Phase=EWoodworkingPhase::Delivered;Notice=TEXT("成品已放入背包 · 本次制作已结算");return true;

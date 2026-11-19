@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -272,6 +272,7 @@
+     UFUNCTION(Client,Reliable) void ClientCampfireResult(int32 RequestId,int64 InventoryRevision,bool Success,const FString& Reason);
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+     bool RequestInventoryAction(EColdSteelInventoryAction Action,const FString& Item=FString(),AActor* Target=nullptr);
++    bool RequestArtisanLesson(class AVillageArtisanMerchant* Teacher,uint32 ConversationSession);
+     bool RequestInventoryAction(FColdSteelInventoryRequest Request);
+     UFUNCTION(Server,Reliable) void ServerBeginConsumableUse(APawn* SourcePawn,FGuid UseId,const FString& Item,FName Definition);
+     UFUNCTION(Server,Reliable) void ServerCancelConsumableUse(FGuid UseId);
+@@ -343,6 +344,8 @@
+     UFUNCTION(Client,Reliable) void ClientQuickCombatRejected(uint32 Sequence);
+     UFUNCTION(Server,Reliable) void ServerInventoryAction(const FColdSteelInventoryRequest& Request);
+     UFUNCTION(Client,Reliable) void ClientInventoryReplyChunk(uint32 Sequence,int32 Index,int32 Total,const TArray<uint8>& Chunk);
++    UFUNCTION(Client,Reliable) void ClientBlacksmithLesson(FGuid ProfileId,uint8 StageValue);
++    UFUNCTION(Client,Reliable) void ClientCarpenterLesson(FGuid ProfileId,uint8 StageValue);
+     UFUNCTION(Client,Reliable) void ClientInventoryBaseline(const FString& Digest,int64 Souls,int64 Credits,int64 Debits);
+     UFUNCTION(Server,Reliable) void ServerWarehouseOpen(class AColdSteelWarehouseChest* Chest,bool Open);
+     UFUNCTION(Client,Reliable) void ClientContainerInvalidated(AActor* Target);

@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -76,7 +76,7 @@
+     for(auto& Card:Out.Cards)RefreshRows(Card.Rows);
+ }
+ 
+-FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,UGunsmithSystem* G)
++FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,UGunsmithSystem* G,const FString& Location)
+ {
+     FColdSteelTooltipContent Out;TArray<FColdSteelTooltipRow> ForgeSummary;J O;
+     O=CombatItemFormula::Read(I);if(!O)return Out;
+@@ -716,6 +716,7 @@
+     {
+         RefreshColdSteelFoodTooltip(I,Model,Out);
+     }
++    Out.Location=Location;
+     CompleteColdSteelTooltipSummary(I,Model,G,Out);
+     if(!ForgeSummary.IsEmpty())
+     {

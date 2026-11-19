@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -1,4 +1,7 @@
+ #include "FPSGAMEPlayerController.h"
++#include "NPC/ChapelNun.h"
++#include "NPC/VillageArtisanMerchant.h"
++#include "NPC/ChapelDialogueComponent.h"
+ #include "Building/ApartmentDeviceControl.h"
+ #include "Movement/FPSFurnitureRestComponent.h"
+ #include "UI/ColdSteelWoodworkingWidget.h"
+@@ -83,6 +86,7 @@
+ 
+ AFPSGAMEPlayerController::AFPSGAMEPlayerController()
+ {
++    ChapelDialogue=CreateDefaultSubobject<UChapelDialogueComponent>(TEXT("ChapelDialogue"));
+     VoxelBuilder=CreateDefaultSubobject<UVoxelBuildComponent>(TEXT("VoxelBuilder"));
+     DevelopmentSpawner=CreateDefaultSubobject<UDevelopmentSpawnComponent>(TEXT("DevelopmentSpawner"));
+     bShowMouseCursor = false;
+@@ -397,6 +401,8 @@
+ 
+ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+ {
++    if(ChapelDialogue&&ChapelDialogue->IsOpen())
++        return Params.Event==IE_Released?Super::InputKey(Params):true;
+     if (IsGameMenuOpen())
+     {
+         if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) GameMenu->GoBack();
+@@ -515,6 +521,8 @@
+         {
+             if(auto* Rest=GetPawn()->FindComponentByClass<UFPSFurnitureRestComponent>();Rest&&Rest->Interact())return true;
+             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
++            if(auto* Nun=Cast<AChapelNun>(Target)){InterruptInspection();ChapelDialogue->Open(Nun);return true;}
++            if(auto* Artisan=Cast<AVillageArtisanMerchant>(Target)){InterruptInspection();ChapelDialogue->OpenArtisan(Artisan);return true;}
+             if(auto* Control=Cast<AApartmentDeviceControl>(Target))
+             {InterruptInspection();ServerUseApartmentControl(Control);return true;}
+             if(ColdSteelWorldInteraction::IsExpeditionAltar(Target)){OpenExpedition();return true;}

@@ -1,0 +1,28 @@
+{
+  "archive": "trash/ArtisanVillage20261119",
+  "file_count": 3545,
+  "bytes": 8259584499,
+  "review_images": 160,
+  "gifs": 0,
+  "junction_target_records": 18,
+  "groups": [
+    {
+      "folder": "Art",
+      "files": 929,
+      "bytes": 3976772875,
+      "manifest": "Art/manifest.json",
+      "manifest_sha256": "40d0b7ea2a1a024453ad555b304a07a387a4c469daa688d5e48dd5d1982ee842"
+    },
+    {
+      "folder": "Network",
+      "files": 2616,
+      "bytes": 4282811624,
+      "manifest": "Network/manifest.json",
+      "manifest_sha256": "a717cab5ebeb51c7a70dd9ae8a191c2efcf022909b7599e8f5253f6b91100be5",
+      "receipt": "Network/receipt.json",
+      "junctions": 18
+    }
+  ],
+  "verification": "Each moved file was hash-checked before relocation and read back at the destination. Junctions are recorded separately, with no traversal of their target.",
+  "restore": "Use the local manifests for original paths and expected hashes. Re-create a junction only when its recorded target is available. Resolve any occupied original path before restoring."
+}

@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
+@@ -1,6 +1,7 @@
+ #include "TemperateHillsWorld.h"
+ #include "HillsNightRaidSubsystem.h"
+ #include "../NPC/VillageBlacksmithResident.h"
++#include "../NPC/VillageCarpenterResident.h"
+ #include "VT/RuntimeVirtualTexture.h"
+ #include "TemperateHillsChapel.h"
+ #include "TemperateHillsPCG.h"
+@@ -138,6 +139,8 @@
+     // after terrain readiness. Prepare its actual shared manifest during entry.
+     if(bVillageBlacksmithRepaired && !S.SmithAppearance)
+         S.SmithAppearance=UAssetManager::GetStreamableManager().RequestAsyncLoad(AVillageBlacksmithResident::AppearancePaths());
++    if(!bReady && GetNetMode()!=NM_DedicatedServer && IsVillageCarpenterRepaired() && !S.CarpenterAppearance)
++        S.CarpenterAppearance=UAssetManager::GetStreamableManager().RequestAsyncLoad(AVillageCarpenterResident::AppearancePaths());
+     if(S.LoadingAssets||S.Failed||S.CompletedStages==BatchCount)return;
+     auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+     const bool Full=!GUsingNullRHI&&Loading&&Loading->IsCompletePreloadSelected();
+@@ -530,6 +533,9 @@
+     };
+     if(bVillageBlacksmithRepaired && !ResidentReady(S.SmithAppearance, AVillageBlacksmithResident::AppearancePaths,
+         AVillageBlacksmithResident::IsAppearanceCompilationPending)) return;
++    if(GetNetMode()!=NM_DedicatedServer && IsVillageCarpenterRepaired() &&
++        !ResidentReady(S.CarpenterAppearance, AVillageCarpenterResident::AppearancePaths,
++            AVillageCarpenterResident::IsAppearanceCompilationPending)) return;
+     if(const auto* Raid=GetWorld()->GetSubsystem<UHillsNightRaidSubsystem>();Raid&&!Raid->AreAssetsReady())
+     {
+         S.SettledFrames=0;

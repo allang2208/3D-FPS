@@ -1,0 +1,48 @@
+{
+  "upgraded": [
+    "Linen",
+    "Twill",
+    "Apron",
+    "Saddle",
+    "Boot"
+  ],
+  "reuse": [
+    "Brass",
+    "Thread",
+    "Sole"
+  ],
+  "normal_format": "DirectX",
+  "surface_inputs": "Original image-generated colour plates. Height, normal, roughness and occlusion art-directed from aligned grain.",
+  "original_uv": true,
+  "apron_contact": {
+    "position_cm": "pre-skinned x,z",
+    "u": "0.5 + x/37.0",
+    "v": "(136.2-z)/81.0",
+    "wear_rgb_lift_linear": [
+      0.086,
+      0.045,
+      0.017
+    ],
+    "oil_darkening": 0.39,
+    "soot_darkening": 0.35,
+    "rough_adjust": [
+      0.09,
+      -0.24,
+      0.14
+    ]
+  },
+  "specular": {
+    "Linen": 0.26,
+    "Twill": 0.28,
+    "Saddle": 0.47,
+    "Apron": 0.43,
+    "Boot": 0.45
+  },
+  "size": {
+    "Linen": 2048,
+    "Twill": 1024,
+    "Apron": 2048,
+    "Saddle": 1024,
+    "Boot": 1024
+  }
+}

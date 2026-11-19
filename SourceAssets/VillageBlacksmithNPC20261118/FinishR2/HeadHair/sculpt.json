@@ -1,0 +1,11 @@
+{
+  "original_mesh": "../../HeadHair/face.json.gz",
+  "crown_affected_vertices": 51051,
+  "crown_peak_reduction_cm": 0.345,
+  "eye_rise_cm": [
+    0.165,
+    0.145
+  ],
+  "triangles": 112488,
+  "uses_original_uv_weights": true
+}

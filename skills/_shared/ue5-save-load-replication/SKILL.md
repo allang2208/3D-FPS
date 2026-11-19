@@ -110,3 +110,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 地图系统的私有/全队标记、个人迷雾和地牢实例边界，读取 [标记共享与个人探索](references/map-markers-and-personal-fog.md)。
 
 丘陵生成地面、客机直达和内容版本兼容，读取 [丘陵生成地面、客机直达和内容版本兼容](references/hills-generated-ground-network.md)。
+
+丘陵监听服的种子归属、工匠货架竞争和个人修炼进度见[房主存档、共享货架与学徒任务](references/artisan-village-session-and-stock.md)。

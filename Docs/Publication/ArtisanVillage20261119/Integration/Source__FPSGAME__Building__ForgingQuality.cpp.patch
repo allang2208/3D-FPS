@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Building/ForgingQuality.cpp
++++ b/Source/FPSGAME/Building/ForgingQuality.cpp
+@@ -25,6 +25,9 @@
+ {
+     const auto Data=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Q=nullptr;
+     if(!Data||!Data->TryGetObjectField(Field,Q)||!Q||!*Q)return 1.;
++    double SmithPercent=0.;
++    if((*Q)->TryGetNumberField(TEXT("blacksmithPercent"),SmithPercent))
++        return FMath::IsFinite(SmithPercent)?1.+.01*FMath::Clamp(SmithPercent,double(SmithMinPercent),double(SmithMaxPercent)):1.;
+     double SavedVersion=0;(*Q)->TryGetNumberField(TEXT("version"),SavedVersion);
+     if(SavedVersion>=Version)
+     {
+@@ -57,6 +60,17 @@
+     }
+     Data->SetObjectField(Field,Q);Write(Item,Data);return true;
+ }
++bool ApplyBlacksmithOffer(FColdSteelItem& Item,int32 QualityPercent)
++{
++    TSharedPtr<FJsonObject> Data;
++    if(QualityPercent<SmithMinPercent||QualityPercent>SmithMaxPercent||
++        !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)return false;
++    auto Q=MakeShared<FJsonObject>();
++    Q->SetNumberField(TEXT("blacksmithPercent"),QualityPercent);
++    Q->SetStringField(TEXT("label"),TEXT("铁匠成品"));
++    Data->SetObjectField(Field,Q);Write(Item,Data);
++    return true;
++}
+ void PreserveAuthoritative(TArray<FColdSteelItem>& Incoming,const TArray<FColdSteelItem>& Authority)
+ {
+     TMap<FString,const FColdSteelItem*> ById;ById.Reserve(Authority.Num());

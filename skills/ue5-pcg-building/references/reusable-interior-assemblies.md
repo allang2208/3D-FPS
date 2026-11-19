@@ -57,3 +57,7 @@
 ### 告示与标牌的字形比例（2026-10-02）
 
 详见[维护源](../../_shared/ue5-pcg-building/references/reusable-interior-assemblies.md)中的同名章节。
+
+## 丘陵酒馆的残破与修复
+
+详见[共用技能发布快照](../../_shared/ue5-pcg-building/references/reusable-interior-assemblies.md#丘陵酒馆的残破与修复)。

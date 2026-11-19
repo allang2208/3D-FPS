@@ -1,0 +1,17 @@
+{
+  "recipes": [
+    {
+      "id": "woodwork_staff",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "output": {
+        "item": "ue_apprentice_staff",
+        "count": 1
+      }
+    }
+  ]
+}

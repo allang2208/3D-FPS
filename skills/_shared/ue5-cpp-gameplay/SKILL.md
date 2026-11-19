@@ -36,3 +36,5 @@ FPSGAME first/third person animation, world equipment and outfits: [player world
 - 人物冷加载缺头、整人隐藏及衣物晚到：读取 [首次外观就绪](references/initial-appearance-readiness.md)。
 
 - 消耗品的双手互斥、左键取消、普通面板与工作台待机见[交互动作占用](references/consumable-action-ownership.md)。
+
+铁匠和木匠共用身体、独立头与工装的装配见[Jason R4 工匠身体](references/native-body-variants.md#铁匠与木匠共用-jason-r4)。

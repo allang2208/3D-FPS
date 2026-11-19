@@ -1,0 +1,15 @@
+PASS guest grants require the matching durable slot
+PASS matching guest receives both packets through real shadow saves
+PASS repeated guest grants retain revision and exact counts
+PASS loaded guest slot preserves receipts without advancing host
+PASS actual blacksmith stocks eleven melee weapons, pickaxe and zero staffs
+PASS actual carpenter stocks both bows, wood axe and apprentice staff
+PASS display item is created from the quoted server lot
+PASS another profile cannot settle this pawn's artisan purchase
+PASS guest purchases quoted item: 购买成功 · 花费 3200 灵魂
+PASS received instance has quoted quality, one price paid
+PASS stale second purchase cannot take replacement lot or spend again
+PASS guest disk contains the quoted forged instance and matching debit
+PASS guest resale removes same instance and credits exact earnings
+PASS repeated resale cannot credit twice
+checks=14 failures=0

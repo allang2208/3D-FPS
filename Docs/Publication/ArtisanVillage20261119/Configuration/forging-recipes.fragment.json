@@ -1,0 +1,41 @@
+{
+  "recipes": [
+    {
+      "id": "forge_tang_dao",
+      "output": "ue_tang_dao",
+      "blank": "tang_dao",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "mold": "Icons/ue_tang_dao.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        }
+      ],
+      "metal_count": 6
+    }
+  ],
+  "metals": [
+    {
+      "item": "ironIngot",
+      "damage_bonus": 0.0
+    }
+  ]
+}

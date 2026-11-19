@@ -1,0 +1,49 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -3,6 +3,7 @@
+ #include "HillsNightRaidSubsystem.h"
+ #include "VT/RuntimeVirtualTexture.h"
+ #include "TemperateHillsChapel.h"
++#include "HillsTavernInterior.h"
+ #include "TemperateHillsPCG.h"
+ #include "TemperateHillsVisibility.h"
+ #include "TemperateHillsSurface.h"
+@@ -142,6 +143,7 @@
+     if(bHasVillage)
+     {
+         TemperateHillsChapel::AddMeshPaths(SurfacePaths);
++        FHillsTavernInterior::AddBlockingMeshPaths(SurfacePaths);
+     }
+     if(!Assets->VillageColorCache.IsNull())SurfacePaths.Add(Assets->VillageColorCache.ToSoftObjectPath());
+     if(!Assets->VillageHeightCache.IsNull())SurfacePaths.Add(Assets->VillageHeightCache.ToSoftObjectPath());
+@@ -158,6 +160,13 @@
+     {
+         if(!Streaming||Streaming->Stopping)return;
+         Streaming->LoadingAssets=false;
++        if(bHasVillage && !FHillsTavernInterior::AreBlockingMeshesLoaded())
++        {
++            Streaming->Failed=true;
++            if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
++                Loading->FailPreparation(FText::FromString(TEXT("村庄酒馆碰撞资源加载失败，请返回主场景后重试。")));
++            return;
++        }
+         // Check the actual typed objects, not just completion of the package load.
+         if(!Assets->RiverMaterial.IsNull()&&(!RiverPilotMaterial.Get()||!RiverPilotSplash.Get()))
+         {
+@@ -315,6 +324,8 @@
+                 {
+                     GroundMID->SetVectorParameterValue(TEXT("VillageRoadPose"), FLinearColor(
+                         VillageSite.Ground.X, VillageSite.Ground.Y, VillageSite.Axis.X, VillageSite.Axis.Y));
++                    S.VillageLevel->OnLevelShown.AddDynamic(this,&ATemperateHillsWorld::BindStreamedVillageTavern);
++                    if (S.VillageLevel->IsLevelVisible()) BindStreamedVillageTavern();
+                     AssembleOldChapel();
+                 }
+                 else
+@@ -775,6 +786,7 @@
+     auto& S=*Streaming;S.Stopping=true;
+     if(ULevelStreamingDynamic* Level=S.VillageLevel.Get())
+     {
++        Level->OnLevelShown.RemoveDynamic(this,&ATemperateHillsWorld::BindStreamedVillageTavern);
+         Level->SetShouldBeVisible(false);
+         Level->SetShouldBeLoaded(false);
+         Level->SetIsRequestingUnloadAndRemoval(true);

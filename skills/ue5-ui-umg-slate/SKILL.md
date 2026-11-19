@@ -35,3 +35,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 - 全屏技能树（P）、game-dev 科技树网格连线的 C++ 移植与 game-dev 金色顶部提示，读取 [技能树与子专精](../ue5-skill-magic-workflow/references/skill-tree-and-specializations.md) 与 接入规划（本机资料：`Docs/UI/skill-tree-plan-20261115.md`，不随本次发布）。 为什么：「技能树与子专精」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 地图系统的实景底图、输入焦点和冷钢标记表现，读取 [实景底图、地图输入与标记表现](references/world-map-navigation.md)。
+
+新增村民对话、货架详情或排查无 RHI 的目录图标时，读[村民对话与商店预览](references/resident-dialogue-and-shop-previews.md)。

@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelPlayerState.h"
++#include "../Tasks/BlacksmithApprenticeship.h"
++#include "../Tasks/CarpenterApprenticeship.h"
+ #include "ColdSteelMapMarkerSharing.h"
+ #include "../Skills/ColdSteelSkillTree.h"
+ #include "../Weapons/PojunGrip.h"
+@@ -192,6 +194,8 @@
+         auto FoodMigrated=Guest;
+         if(bFromNetwork)
+         {
++            BlacksmithApprenticeship::NormalizeImportedProfile(FoodMigrated);
++            CarpenterApprenticeship::NormalizeImportedProfile(FoodMigrated);
+         }
+         ColdSteelFood::RebaseProfile(FoodMigrated,ColdSteelFood::Clock(this));
+         ShadowModel = HostModel->CreateShadowModel(FoodMigrated);
+@@ -251,6 +255,8 @@
+         Adopted.WhirlwindCooldown=Prev.WhirlwindCooldown;
+         Adopted.WhirlwindCooldownDuration=Prev.WhirlwindCooldownDuration;
+         Adopted.CampfireWorldReceipts=Prev.CampfireWorldReceipts;
++        Adopted.BlacksmithApprenticeshipStage=Prev.BlacksmithApprenticeshipStage;
++        Adopted.CarpenterApprenticeshipStage=Prev.CarpenterApprenticeshipStage;
+         Adopted.ForgeJob=Prev.ForgeJob;Adopted.GunAssemblyJob=Prev.GunAssemblyJob;Adopted.WoodworkingJob=Prev.WoodworkingJob;Adopted.AlchemyJob=Prev.AlchemyJob;Adopted.EnhancementItem=Prev.EnhancementItem;
+         // Uploads may move ordinary inventory, never duplicate or modify escrow.
+         if(!Prev.EnhancementItem.InstanceId.IsEmpty())
+@@ -365,6 +371,10 @@
+     {ClientProfileSyncRejected(TEXT("食物腐败保存未确认，保留服务器物品等待恢复"));return false;}
+     SendSuper90Ammo();
+     SendPistolAmmo();
++    if(bFromNetwork&&GuestProfile.BlacksmithApprenticeshipStage!=ShadowModel->ProfileView().BlacksmithApprenticeshipStage)
++        ClientBlacksmithLesson(BoundProfileId,ShadowModel->ProfileView().BlacksmithApprenticeshipStage);
++    if(bFromNetwork&&GuestProfile.CarpenterApprenticeshipStage!=ShadowModel->ProfileView().CarpenterApprenticeshipStage)
++        ClientCarpenterLesson(BoundProfileId,ShadowModel->ProfileView().CarpenterApprenticeshipStage);
+     bServerDirty = true;
+     ServerSaveTimer = 20.f;
+     return true;

@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -429,6 +429,8 @@
+     State.Generation=Current.Generation+1;
+     if(bNetShadowProfile)
+     {
++        const bool SendSmithLesson=State.BlacksmithApprenticeshipStage!=Current.BlacksmithApprenticeshipStage;
++        const bool SendCarpenterLesson=State.CarpenterApprenticeshipStage!=Current.CarpenterApprenticeshipStage;
+         if(!CampfireGuestSaveSlot.IsEmpty())
+         {
+             auto* Saved=NewObject<UColdSteelProfileSave>();Saved->Profile=State;StripNetworkContainerView(Saved->Profile);
+@@ -436,6 +438,16 @@
+             {bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("客机交易写入未确认，已保留原存档等待恢复");return false;}
+         }
+         Publish(State);
++        if(!CampfireGuestSaveSlot.IsEmpty()&&(SendSmithLesson||SendCarpenterLesson))
++        {
++            auto* Pawn=RuntimePawn();
++            auto* Owner=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
++            if(Owner&&Owner->GetShadowModel()==this)
++            {
++                if(SendSmithLesson)Owner->ClientBlacksmithLesson(Current.NetworkProfileId,Current.BlacksmithApprenticeshipStage);
++                if(SendCarpenterLesson)Owner->ClientCarpenterLesson(Current.NetworkProfileId,Current.CarpenterApprenticeshipStage);
++            }
++        }
+         if(Tool)Tool->CommitThunderEquipmentChange(Current);
+         if(bApplyPawn)ApplyToPawn();
+         OnChanged.Broadcast();return true;

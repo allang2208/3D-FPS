@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltip.h
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltip.h
+@@ -16,7 +16,7 @@
+ {
+     GENERATED_BODY()
+ public:
+-    void ShowItem(const FString& Id,FVector2D Anchor,bool Pin,UWidget* Source);
++    void ShowItem(const FString& Id,FVector2D Anchor,bool Pin,UWidget* Source,const FColdSteelItemTooltipPreview* Preview=nullptr);
+     void Hide(bool Force=false);
+     bool IsPinned()const{return bPinned&&IsVisible();}
+     const FString& ItemId()const{return InstanceId;}
+@@ -59,6 +59,7 @@
+     TWeakObjectPtr<UWidget> ReturnFocus;
+     FDelegateHandle ChangedHandle,IconHandle;
+     FColdSteelTooltipContent Presentation;
++    TOptional<FColdSteelItemTooltipPreview> PreviewInstance;
+     FString InstanceId,Signature,IconKey;
+     FVector2D At,Size,LastViewport,PlacedAt;
+     float Scale=1;
+@@ -74,6 +75,8 @@
+     TArray<FRowView> RowViews;
+     bool bPinned=false,bHorizontalOverflow=false,bVerticalOverflow=false;
+     bool bPlacementLocked=false,bStartDisclosureIntro=false;
++    void ProfileChanged();
++    const FColdSteelItem* DisplayedItem() const;
+     void Refresh();
+     void BuildCards();
+     void FitAndPlace(bool RevealMain);

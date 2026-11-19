@@ -1,0 +1,83 @@
+--- a/Source/FPSGAME/Building/ForgingSystem.cpp
++++ b/Source/FPSGAME/Building/ForgingSystem.cpp
+@@ -4,6 +4,7 @@
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Multiplayer/ColdSteelStationNetwork.h"
+ #include "../FPSGAMECharacter.h"
++#include "../Tasks/BlacksmithApprenticeship.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "Engine/GameInstance.h"
+ #include "Engine/World.h"
+@@ -12,10 +13,11 @@
+ #include "Misc/FileHelper.h"
+ #include "Misc/Paths.h"
+ 
+-void UColdSteelStatusModel::StageForgeHit(const FString& JobId,int32 Hits)
++void UColdSteelStatusModel::StageForgeContact(const FString& JobId,bool bHit)
+ {
+     if(Current.ForgeJob.Id!=JobId||Current.ForgeJob.bFinished)return;
+-    Current.ForgeJob.Hits=FMath::Clamp(Hits,Current.ForgeJob.Hits,UColdSteelForgingSystem::TargetCount);
++    Current.ForgeJob.bHammeredBlank=true;
++    if(bHit)Current.ForgeJob.Hits=FMath::Min(Current.ForgeJob.Hits+1,UColdSteelForgingSystem::TargetCount);
+     bTrainingDirty=true;
+ }
+ 
+@@ -188,6 +190,7 @@
+     if(!ColdSteelForgeQuality::Apply(P.ForgeJob.Item,P.ForgeJob))
+     {Reason=TEXT("工件数据不可读，未消耗材料");return false;}
+     if(!Free)for(const auto& In:Inputs)P.ForgeJob.PaidMaterials.Add(In.Item,In.Count);
++    BlacksmithApprenticeship::WorkpieceUpdated(P);
+     if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}
+     Sequence.Reset();FRandomStream Random(FMath::Rand());int32 Last=INDEX_NONE;
+     for(int32 I=0;I<TargetCount;++I)
+@@ -257,7 +260,7 @@
+         ||RadiusUV.X<=0||RadiusUV.Y<=0||Job().Id!=ActiveId||(bStrikePending&&Now+.08<StrikeContactAt))return false;
+     const FVector2D Delta((UV.X-Point.X)/RadiusUV.X,(UV.Y-Point.Y)/RadiusUV.Y);
+     const bool bHit=Delta.SizeSquared()<=Life*Life;
+-    if(bHit)Model()->StageForgeHit(ActiveId,Job().Hits+1);
++    if(bHit||(UV.X>=0.&&UV.X<=1.&&UV.Y>=0.&&UV.Y<=1.))Model()->StageForgeContact(ActiveId,bHit);
+     ResolveTarget(Now);return bHit;
+ }
+ void UColdSteelForgingSystem::Tick(float DeltaTime)
+@@ -277,6 +280,7 @@
+     if(!ColdSteelForgeQuality::Apply(J.Item,J))
+     {Reason=TEXT("工件数据不可读，保留待处理记录");return false;}
+     J.bFinished=true;
++    BlacksmithApprenticeship::WorkpieceUpdated(P);
+     const auto* Pawn=NetworkModel?M->RuntimePawn():nullptr;
+     const auto* Owner=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+     if(!M->CommitWorkshopCheckpoint(MoveTemp(P),Owner?Owner->CampfireGuestSlot():FString()))
+@@ -289,8 +293,16 @@
+     auto* M=Model();if(!M||bActive||Job().Id.IsEmpty()||!Job().bFinished){Reason=TEXT("还没有可领取的成品");return false;}
+     M->SyncRuntime();auto P=M->Snapshot();
+     if(!ColdSteelInventory::Insert(P.Items,P.ForgeJob.Item)){Reason=TEXT("背包空间不足，成品保留待领");return false;}
++    const auto LessonStage = BlacksmithApprenticeship::Stage(P);
++    const bool UnworkedLessonBlade = P.ForgeJob.Recipe == BlacksmithApprenticeship::TargetRecipe
++        && LessonStage != BlacksmithApprenticeship::EStage::NotStarted
++        && LessonStage != BlacksmithApprenticeship::EStage::Complete
++        && !P.ForgeJob.bHammeredBlank && P.ForgeJob.Hits == 0;
++    BlacksmithApprenticeship::WorkpieceRemoved(P,true);
+     P.ForgeJob={};if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}
+-    LastError.Reset();Reason=TEXT("成品已放入背包");return true;
++    LastError.Reset();
++    Reason=UnworkedLessonBlade ? TEXT("唐刀已放入背包。这炉没有敲到刀坯，打铁修炼仍在进行。") : TEXT("成品已放入背包");
++    return true;
+ }
+ bool UColdSteelForgingSystem::GetPaidMaterials(TMap<FString,int64>& Paid) const
+ {
+@@ -341,6 +353,7 @@
+     }
+     // Refund and consumption of the pending result share one saved transaction.
+     const bool Free=P.ForgeJob.bMaterialsWaived;
++    BlacksmithApprenticeship::WorkpieceRemoved(P,false);
+     P.ForgeJob={};
+     if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}
+     LastError.Reset();
+@@ -355,6 +368,7 @@
+ FColdSteelForgeNetState UColdSteelForgingSystem::NetworkState() const
+ {
+     FColdSteelForgeNetState S;const auto& CurrentJob=Job();S.JobId=CurrentJob.Id;S.Hits=CurrentJob.Hits;S.Finished=CurrentJob.bFinished;
++    S.bHammeredBlank=CurrentJob.bHammeredBlank;
+     S.Points=Sequence;S.Active=bActive;S.Open=bTargetOpen;S.Pending=bStrikePending;
+     S.Completed=CompletedTargets;const double Now=FPlatformTime::Seconds();S.Elapsed=Now-StartedAt;
+     S.Remaining=PhaseEndsAt-Now;S.ContactRemaining=StrikeContactAt-Now;S.Window=PhaseEndsAt-TargetOpenedAt;S.Life=StrikeTargetLife;return S;

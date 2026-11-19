@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.h
++++ b/Source/FPSGAME/FPSGAMEPlayerController.h
+@@ -26,6 +26,7 @@
+     void ToggleDevelopmentPanel();
+     UDevelopmentSpawnComponent* GetDevelopmentSpawner() const { return DevelopmentSpawner; }
+     /** 开发面板打开期间与背包共用右侧 HUD 让位规则。 */
++    class UChapelDialogueComponent* GetChapelDialogue() const { return ChapelDialogue; }
+     UColdSteelHUDWidget* GetColdSteelHUD() const { return ColdSteelHUD; }
+     /** Live item thumbnails are only produced while a consuming panel is open. */
+     bool IsItemIconPanelOpen() const;
+@@ -77,6 +78,7 @@
+     void SpawnHubTestChest();
+     /** 主神空间训练靶（2026-10-02）：出生点前方 5.5m 生成可命中木架靶（GodSpace.PracticeTarget），仅 Hub 调用。 */
+     void SpawnHubPracticeTarget();
++    UPROPERTY(VisibleAnywhere, Category="NPC") TObjectPtr<class UChapelDialogueComponent> ChapelDialogue;
+     UPROPERTY(VisibleAnywhere,Category="Building") TObjectPtr<class UVoxelBuildComponent> VoxelBuilder;
+     /** -VoxelBuildAudit 时创建的建筑系统验收运行器。 */
+     UPROPERTY(Transient) TObjectPtr<class UVoxelBuildAudit> VoxelBuildAudit;

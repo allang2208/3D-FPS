@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRecovery.h
++++ b/Source/FPSGAME/UI/ColdSteelProfileRecovery.h
+@@ -98,6 +98,7 @@
+     {
+         if(PreviousForge.bFinished&&!Forge.bFinished)Forge=PreviousForge;
+         Forge.Hits=FMath::Max(Forge.Hits,PreviousForge.Hits);
++        Forge.bHammeredBlank|=PreviousForge.bHammeredBlank;
+     }
+     auto& Assembly=Into.GunAssemblyJob;const auto& PreviousAssembly=Other.GunAssemblyJob;
+     if(!Assembly.Id.IsEmpty()&&Assembly.Id==PreviousAssembly.Id)

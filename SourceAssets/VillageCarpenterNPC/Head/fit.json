@@ -1,0 +1,29 @@
+{
+  "skeleton": "/Game/AsianMale_Jason/Mesh/Body/SKM_Jason_body_Skeleton.SKM_Jason_body_Skeleton",
+  "nose_target_cm": [
+    0,
+    13.2,
+    164.9
+  ],
+  "crown_cm": 181.0,
+  "source_nose_xyz": [
+    -0.00042799999937415123,
+    0.6818869709968567,
+    -0.02281299978494644
+  ],
+  "uniform_scale_cm": 16.580400466918945,
+  "head_bone": 9,
+  "collar_join_cm": [
+    154.5,
+    154.85
+  ],
+  "blend_ends_cm": 156.7,
+  "upper_neck_linear_tint": [
+    1.867473680192764,
+    2.6238689154538455,
+    2.73571768679811
+  ],
+  "face_triangles": 176291,
+  "neck_and_join_triangles": 3472,
+  "lod0_triangles": 179763
+}

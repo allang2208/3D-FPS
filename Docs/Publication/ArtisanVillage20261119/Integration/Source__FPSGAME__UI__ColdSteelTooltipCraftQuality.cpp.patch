@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelTooltipCraftQuality.cpp
++++ b/Source/FPSGAME/UI/ColdSteelTooltipCraftQuality.cpp
+@@ -64,11 +64,13 @@
+             Row(C,TEXT("命中提升"),FString::Printf(TEXT("+%.2f%% / %.0f%%"),
+                 ColdSteelForgeQuality::HitBonus(int32(Number(Forge,TEXT("hits"))))*100,ColdSteelForgeQuality::MaxHitBonus*100),1);
+         }
+-        Row(C,TEXT("有效命中"),N(Number(Forge,TEXT("hits")))+TEXT(" / ")+N(Number(Forge,TEXT("total"),20)));
++        const bool FromSmith=Forge->HasField(TEXT("blacksmithPercent"));
++        if(!FromSmith)Row(C,TEXT("有效命中"),N(Number(Forge,TEXT("hits")))+TEXT(" / ")+N(Number(Forge,TEXT("total"),20)));
+         Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.4f"),Multiplier));
+         Note(C,TEXT("作用"),TEXT("乘于基础伤害，已计入武器总伤害"));
+         Note(C,TEXT("例外"),TEXT("附加伤害按各自公式结算，不乘此倍率"));
+-        Note(C,TEXT("说明"),MaterialRules?TEXT("材质保底与命中提升相加，最高 +25%，与强化独立"):
++        Note(C,TEXT("说明"),FromSmith?TEXT("铁匠出售的成品，锻造品质介于 -25% 和 +5% 之间"):
++            MaterialRules?TEXT("材质保底与命中提升相加，最高 +25%，与强化独立"):
+             TEXT("旧版锻造成品，保留原工艺品质与伤害倍率"));
+     }
+     if(Model)

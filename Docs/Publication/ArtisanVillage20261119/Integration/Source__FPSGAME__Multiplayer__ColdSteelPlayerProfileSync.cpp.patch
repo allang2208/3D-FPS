@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
+@@ -275,6 +275,8 @@
+     P.TreeGrowthDay = 0.0;
+     P.FoodClockDay = 0.0;
+     P.ForgeJob={};P.GunAssemblyJob={};P.WoodworkingJob={};P.AlchemyJob={};P.EnhancementItem={};
++    P.BlacksmithApprenticeshipStage=0;
++    P.CarpenterApprenticeshipStage=0;
+     P.Infection = FInfectionState();
+     P.DungeonRun = FDungeonRunState();
+     // 弹药经济随每次开火/装填漂移（SyncRuntime 把 MagazineAmmo 回写进 item），
+@@ -448,6 +450,8 @@
+     const auto CurrentInventory=Model->Snapshot();
+     // This personal stage has its own ordered owner receipts. A slow mirror can
+     // have been captured before an acceptance or even before the final claim.
++    Save->Profile.BlacksmithApprenticeshipStage=CurrentInventory.BlacksmithApprenticeshipStage;
++    Save->Profile.CarpenterApprenticeshipStage=CurrentInventory.CarpenterApprenticeshipStage;
+     // Elemental and illumination arrows commit cooldowns through the inventory channel.
+     const bool KeepElementCooldowns=Save->Profile.CampfireInventoryRevision<CurrentInventory.CampfireInventoryRevision;
+     const double MirrorUppercutSpent=Save->Profile.UppercutStaminaSpent;

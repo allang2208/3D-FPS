@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -125,6 +125,8 @@
+     UPROPERTY() FName Recipe;
+     UPROPERTY() FColdSteelItem Item;
+     UPROPERTY() int32 Hits=0;
++    /** A hammer reached the blank. Accuracy still affects quality independently. */
++    UPROPERTY() bool bHammeredBlank=false;
+     UPROPERTY() bool bFinished=false;
+     /** Actual inputs paid at start; empty for legacy jobs that use the recipe fallback. */
+     UPROPERTY() TMap<FString,int64> PaidMaterials;
+@@ -304,8 +306,11 @@
+     UPROPERTY() int64 CampfireInventoryRevision=0;
+     UPROPERTY() TMap<FString,int64> CampfireWorldReceipts;
+     UPROPERTY() FColdSteelForgeJob ForgeJob;
++    // BlacksmithApprenticeship::EStage. Older tagged saves start with the lesson available.
++    UPROPERTY() uint8 BlacksmithApprenticeshipStage=0;
+     UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
+     UPROPERTY() FColdSteelWoodworkingJob WoodworkingJob;
++    UPROPERTY() uint8 CarpenterApprenticeshipStage=0;
+     UPROPERTY() FColdSteelAlchemyJob AlchemyJob;
+     // Skill schema v17: the preparation reserves cooldown, release starts its clock.
+     UPROPERTY() float IceWallCooldown = 0;

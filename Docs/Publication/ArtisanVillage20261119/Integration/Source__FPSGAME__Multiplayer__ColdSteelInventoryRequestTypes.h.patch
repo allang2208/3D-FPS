@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
+@@ -30,7 +30,8 @@
+     SoilRefill,
+     Building,
+     Workstation,
+-    Shop
++    Shop,
++    ArtisanLesson = 22
+ };
+ 
+ USTRUCT()
+@@ -46,6 +47,7 @@
+ {
+     GENERATED_BODY()
+     UPROPERTY() uint32 Sequence = 0;
++    UPROPERTY() uint32 ConversationSession = 0;
+     UPROPERTY() int64 Revision = 0;
+     UPROPERTY() EColdSteelInventoryAction Action = EColdSteelInventoryAction::Consume;
+     UPROPERTY() FString Item;

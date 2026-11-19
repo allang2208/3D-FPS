@@ -1,0 +1,189 @@
+{
+  "passed": true,
+  "mode": "listen",
+  "rendered": false,
+  "module_sha256": "c375597dd0061096a576fcb31ea0a95e7dda5920bbd214af2967d1e1a287a5c5",
+  "identities_distinct_and_restored": true,
+  "checks": [
+    {
+      "peer": "owner",
+      "case": "carpenter-talk",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "owner",
+      "case": "carpenter",
+      "passed": true,
+      "detail": "材料已放入背包：木材 × 2、原木芯 × 1。请锯出一把学徒长杖，达到图样要求后领取成品。"
+    },
+    {
+      "peer": "owner",
+      "case": "done",
+      "passed": true,
+      "detail": "8"
+    },
+    {
+      "peer": "owner",
+      "case": "purchase-request",
+      "passed": true,
+      "detail": "交易已提交，等待结算"
+    },
+    {
+      "peer": "owner",
+      "case": "purchase",
+      "passed": true,
+      "detail": "购买成功 · 花费 30 灵魂"
+    },
+    {
+      "peer": "owner",
+      "case": "restored",
+      "passed": true,
+      "detail": "smiths=1 carpenters=1 ruined=0 kitchen=1 stools=11 chopstickPairs=6 stations=1/1"
+    },
+    {
+      "peer": "owner",
+      "case": "ruined",
+      "passed": true,
+      "detail": "smiths=0 carpenters=0 ruined=1 kitchen=0 stools=2 chopstickPairs=0 stations=1/1"
+    },
+    {
+      "peer": "owner",
+      "case": "smith-materials",
+      "passed": true,
+      "detail": "材料已放入背包：锻造合金坯 × 1、木材 × 2、铁锭 × 6。请亲手锻出唐刀，然后领取成品。"
+    },
+    {
+      "peer": "owner",
+      "case": "smith-talk",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "owner",
+      "case": "stock",
+      "passed": true,
+      "detail": "smith=12 carpenter=4"
+    },
+    {
+      "peer": "rejoin",
+      "case": "done",
+      "passed": true,
+      "detail": "0"
+    },
+    {
+      "peer": "rejoin",
+      "case": "late-layout",
+      "passed": true,
+      "detail": "smiths=1 carpenters=1 ruined=0 kitchen=1 stools=11 chopstickPairs=6 stations=1/1"
+    },
+    {
+      "peer": "rejoin",
+      "case": "profile",
+      "passed": true,
+      "detail": "test-profile-1"
+    },
+    {
+      "peer": "server",
+      "case": "at-carpenter",
+      "passed": true,
+      "detail": "smiths=1 carpenters=1 ruined=0 kitchen=1 stools=11 chopstickPairs=6 stations=1/1"
+    },
+    {
+      "peer": "server",
+      "case": "at-smith",
+      "passed": true,
+      "detail": "smiths=1 carpenters=1 ruined=0 kitchen=1 stools=11 chopstickPairs=6 stations=1/1"
+    },
+    {
+      "peer": "server",
+      "case": "done",
+      "passed": true,
+      "detail": "5"
+    },
+    {
+      "peer": "server",
+      "case": "host-isolation",
+      "passed": true,
+      "detail": "test-profile-2"
+    },
+    {
+      "peer": "server",
+      "case": "host-layout",
+      "passed": true,
+      "detail": "smiths=1 carpenters=1 ruined=0 kitchen=1 stools=11 chopstickPairs=6 stations=1/1"
+    },
+    {
+      "peer": "server",
+      "case": "personal-carpenter",
+      "passed": true,
+      "detail": "test-profile-1"
+    },
+    {
+      "peer": "server",
+      "case": "personal-smith",
+      "passed": true,
+      "detail": "test-profile-1"
+    },
+    {
+      "peer": "server",
+      "case": "rejoin-authority",
+      "passed": true,
+      "detail": "test-profile-1"
+    },
+    {
+      "peer": "server",
+      "case": "repair-blacksmith",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "repair-carpenter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "repair-tavern",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "ruined",
+      "passed": true,
+      "detail": "smiths=0 carpenters=0 ruined=1 kitchen=0 stools=2 chopstickPairs=0 stations=1/1"
+    },
+    {
+      "peer": "server",
+      "case": "transport",
+      "passed": true,
+      "detail": "listen-server UDP lag=60 loss=2"
+    },
+    {
+      "peer": "server",
+      "case": "visitor-authority",
+      "passed": true,
+      "detail": "test-profile-3"
+    },
+    {
+      "peer": "visitor",
+      "case": "done",
+      "passed": true,
+      "detail": "0"
+    },
+    {
+      "peer": "visitor",
+      "case": "late-layout",
+      "passed": true,
+      "detail": "smiths=1 carpenters=1 ruined=0 kitchen=1 stools=11 chopstickPairs=6 stations=1/1"
+    },
+    {
+      "peer": "visitor",
+      "case": "profile",
+      "passed": true,
+      "detail": "test-profile-3"
+    }
+  ]
+}

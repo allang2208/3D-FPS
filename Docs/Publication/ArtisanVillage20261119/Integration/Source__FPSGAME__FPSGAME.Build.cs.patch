@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/FPSGAME.Build.cs
++++ b/Source/FPSGAME/FPSGAME.Build.cs
+@@ -82,10 +82,17 @@
+         string root = Path.GetFullPath(Path.Combine(ModuleDirectory, "../.."));
+         string generation = Path.Combine(ModuleDirectory, "WorldGeneration");
+         string assets = Path.Combine(root, "Content/WorldGeneration/TemperateHills");
++        string tavernAssets = Path.Combine(root, "Content/WorldGeneration/VillageTavern");
++        string villageMap = Path.Combine(assets, "AbandonedVillage/L_AbandonedVillage.umap");
+         var inputs = Directory.GetFiles(generation, "Temperate*", SearchOption.TopDirectoryOnly)
+             .Where(p => (p.EndsWith(".h") || p.EndsWith(".cpp") || p.EndsWith(".inl")) &&
+                 !Path.GetFileName(p).Contains("Capture") && !Path.GetFileName(p).Contains("Compatibility"))
+             .Concat(Directory.Exists(assets) ? Directory.GetFiles(assets, "*.uasset", SearchOption.AllDirectories) : Array.Empty<string>())
++            // Peers rebuild the streamed shell and its static furniture collision locally.
++            .Concat(Directory.GetFiles(generation, "HillsTavern*.cpp", SearchOption.TopDirectoryOnly))
++            .Concat(Directory.GetFiles(generation, "HillsTavern*.h", SearchOption.TopDirectoryOnly))
++            .Concat(Directory.Exists(tavernAssets) ? Directory.GetFiles(tavernAssets, "SM_*.uasset", SearchOption.AllDirectories) : Array.Empty<string>())
++            .Concat(File.Exists(villageMap) ? new[] { villageMap } : Array.Empty<string>())
+             .OrderBy(p => Path.GetRelativePath(root, p).Replace('\\', '/'), StringComparer.Ordinal).ToArray();
+         var manifest = new StringBuilder("HillsContent-v1\n");
+         using (var sha = SHA256.Create())

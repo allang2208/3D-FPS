@@ -113,3 +113,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 - 世界工作台拖动卡片、场景命中坐标及四位置种植布局，读取 [工作台拖动与四位置种植](references/world-workbench-drag-and-four-plots.md)。
 
 地图系统的实景底图、输入焦点和冷钢标记表现，读取 [实景底图、地图输入与标记表现](references/world-map-navigation.md)。
+
+新增村民对话、货架详情或排查无 RHI 的目录图标时，读[村民对话与商店预览](references/resident-dialogue-and-shop-previews.md)。

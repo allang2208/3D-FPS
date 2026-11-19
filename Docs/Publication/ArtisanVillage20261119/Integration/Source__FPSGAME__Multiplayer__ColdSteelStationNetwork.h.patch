@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h
+@@ -10,6 +10,7 @@
+     GENERATED_BODY()
+     UPROPERTY() FString JobId;
+     UPROPERTY() int32 Hits=0;
++    UPROPERTY() bool bHammeredBlank=false;
+     UPROPERTY() bool Finished=false;
+     UPROPERTY() TArray<FVector2D> Points;
+     UPROPERTY() bool Active=false;

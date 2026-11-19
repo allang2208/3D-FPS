@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp
+@@ -2,8 +2,25 @@
+ #include "VoxelBuildPrefabActor.h"
+ #include "EngineUtils.h"
+ 
++void AVoxelBuildWorld::RegisterSceneStation(AVoxelBuildPrefabActor* Station)
++{
++    if(!IsValid(Station)||Station->GetOwner()!=this||!Station->IsSceneStationAvailable()||Station->PrefabId().IsNone())return;
++    UnregisterSceneStation(Station);
++    const FIntVector Cell=Station->AnchorCell();
++    if(Prefabs.ContainsByPredicate([Cell](const auto& P){return P.Cell==Cell;}))
++    {UE_LOG(LogTemp,Warning,TEXT("Village station %s overlaps existing construction at %s"),*Station->GetName(),*Cell.ToString());return;}
++    SceneStations.Add(Cell,Station);
++}
++
++void AVoxelBuildWorld::UnregisterSceneStation(AVoxelBuildPrefabActor* Station)
++{
++    for(auto It=SceneStations.CreateIterator();It;++It)
++        if(!It.Value().IsValid()||It.Value().Get()==Station)It.RemoveCurrent();
++}
++
+ AVoxelBuildPrefabActor* AVoxelBuildWorld::PrefabActorAt(FIntVector Cell) const
+ {
++    if(auto* Scene=SceneStations.FindRef(Cell).Get())return Scene;
+     if(auto* Found=Cast<AVoxelBuildPrefabActor>(PrefabActors.FindRef(Cell).Get()))return Found;
+     if(!HasAuthority())for(TActorIterator<AVoxelBuildPrefabActor> It(GetWorld());It;++It)
+         if(It->GetOwner()==this&&It->AnchorCell()==Cell&&!It->IsFalling())

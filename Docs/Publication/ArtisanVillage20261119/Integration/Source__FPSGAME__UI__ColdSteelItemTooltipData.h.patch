@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.h
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.h
+@@ -3,6 +3,12 @@
+ #include "ColdSteelInventoryTypes.h"
+ class UColdSteelStatusModel;
+ class UGunsmithSystem;
++/** A read-only instance supplied by a view which owns its own item list. */
++struct FColdSteelItemTooltipPreview
++{
++    FColdSteelItem Item;
++    FString Location, ActionHint;
++};
+ struct FColdSteelTooltipRow
+ {
+     FString Label, Value;
+@@ -41,7 +47,7 @@
+     /** 武器特殊性质；为空时工具提示不渲染该段。 */
+     TArray<FColdSteelTooltipTrait> Traits;
+ };
+-FPSGAME_API FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& Item,UColdSteelStatusModel* Model,UGunsmithSystem* Gunsmith);
++FPSGAME_API FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& Item,UColdSteelStatusModel* Model,UGunsmithSystem* Gunsmith,const FString& Location = FString());
+ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatusModel* Model,UGunsmithSystem* Gunsmith,FColdSteelTooltipContent& Content);
+ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelStatusModel* Model,double WeaponBase,FColdSteelTooltipCard& Card);
+ 

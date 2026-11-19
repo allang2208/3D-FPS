@@ -1,0 +1,40 @@
+PASS isolated standalone authority, audit profile and workstations ready
+PASS fixture pawn and controller spawned
+PASS smith accepts and grants real Tang Dao recipe materials 材料已放入背包：锻造合金坯 × 1、木材 × 2、铁锭 × 6。请亲手锻出唐刀，然后领取成品。
+PASS carpenter accepts and grants real staff recipe materials 材料已放入背包：木材 × 2、原木芯 × 1。请锯出一把学徒长杖，达到图样要求后领取成品。
+PASS reversed duplicate teaching requests do not grant a second material pack
+PASS smith starts paid Tang Dao 准备锻打
+PASS smith cannot claim an unfinished job
+PASS smith finish without any hammer contact remains materials 锻造完成 · 领取或废弃后可开始下一轮
+PASS unworked forge output can be collected but grants no lesson credit 成品已放入背包
+PASS smith paid retry for discard 准备锻打
+PASS manual off-target blank contact recorded without an accuracy hit
+PASS manual contact is enough to reach smith claim stage 锻造完成 · 领取或废弃后可开始下一轮
+PASS discarding finished hammer-work resets the lesson with no product 成品已废弃，已返还背包：铁锭 × 3、木材 × 1
+PASS smith paid retry for final product 准备锻打
+PASS accurate hammer contact and successful settlement 锻造完成 · 领取或废弃后可开始下一轮
+PASS smith claim save failure preserves job and inventory 验收注入：保存失败，操作未提交
+PASS smith claim atomically delivers exactly one Tang Dao and completes 成品已放入背包
+PASS smith duplicate claim rejected and completed product survives checked save reload 还没有可领取的成品
+PASS carpenter starts paid staff using ordinary wood core 材料已投入 · 先调整木板方向，按空格进入切割；加工结束后返回工作面板结算。
+PASS carpenter cannot claim before settling
+PASS uncut board fails real production scoring 工件未达标，可废弃返还一半材料
+PASS failed staff cannot be claimed
+PASS discard of failed staff allows retry 工件已废弃 · 一半投入材料已返还背包（逐项向下取整）。木工修炼仍在进行，重新备料制作学徒长杖，达标后领取成品。
+PASS target-guided mask saw cuts pass staff scoring and yield a pending result 加工达标 · 返回工作面板领取成品或废弃返还一半材料
+PASS discard of qualified staff gives no completion or product 工件已废弃 · 一半投入材料已返还背包（逐项向下取整）。木工修炼仍在进行，重新备料制作学徒长杖，达标后领取成品。
+PASS carpenter can craft again after discarding the qualified staff 加工达标 · 返回工作面板领取成品或废弃返还一半材料
+PASS carpenter claim save failure preserves the qualified workpiece 验收注入：保存失败，操作未提交
+PASS carpenter claim atomically delivers exactly one staff and completes 成品已放入背包 · 本次制作已结算
+PASS duplicate staff claim rejected and both unique products and completions survive checked save reload
+PASS smith rejects correct recipe with wrong output
+PASS carpenter rejects correct recipe with wrong output
+PASS smith rejects different recipe with correct item
+PASS carpenter rejects different recipe with correct item
+PASS write tagged legacy-state fixture to isolated physical slot
+PASS load tagged legacy-state fixture from physical slot
+PASS legacy accurate hit with no contact field or material receipt restores claim stage
+PASS legacy qualified staff with old stage and no receipt restores claim stage
+PASS two abandoned legacy jobs return to material collection
+PASS material receipts recover both missing stages without granting new packs
+checks=39 passed=39 failed=0

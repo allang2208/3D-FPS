@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp
+@@ -232,7 +232,7 @@
+     if(!SourcePawn||SourcePawn!=GetPawn())return;
+     auto* M=ColdSteelAuthority::Model(this);if(!M)return;
+     const auto Previous=M->Snapshot();auto P=Previous;
+-    if(P.ForgeJob.Id==Forge.JobId){P.ForgeJob.Hits=Forge.Hits;P.ForgeJob.bFinished=Forge.Finished;}
++    if(P.ForgeJob.Id==Forge.JobId){P.ForgeJob.Hits=Forge.Hits;P.ForgeJob.bHammeredBlank|=Forge.bHammeredBlank;P.ForgeJob.bFinished=Forge.Finished;}
+     if(P.GunAssemblyJob.Id==Assembly.Id)
+     {
+         auto& Job=P.GunAssemblyJob;Job.InstalledMask=Assembly.InstalledMask;Job.Scores=Assembly.Scores;Job.Misses=Assembly.Misses;

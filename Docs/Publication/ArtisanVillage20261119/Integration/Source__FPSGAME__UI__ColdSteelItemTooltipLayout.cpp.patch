@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp
+@@ -340,7 +340,7 @@
+     if(bPinned)AddDetails(Body);
+     FooterFrame=WidgetTree->ConstructWidget<UBorder>();FooterFrame->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,0,FLinearColor::Transparent,0));FooterFrame->SetPadding(FMargin(16/Scale,10/Scale,16/Scale,12/Scale));RootColumn->AddChildToVerticalBox(FooterFrame);
+     auto* Footer=WidgetTree->ConstructWidget<UVerticalBox>();FooterFrame->SetContent(Footer);AddRule(Footer,0,9);
+-    FooterText=Text(bPinned?TEXT("已固定 · 滚轮浏览 · Esc 关闭"):TEXT("点击物品或按 F1 查看完整详情"),12,ColdSteelUI::ItemTooltipSecondary);FooterText->SetJustification(ETextJustify::Center);Footer->AddChildToVerticalBox(FooterText);
++    FooterText=Text(PreviewInstance.IsSet()?PreviewInstance->ActionHint:bPinned?TEXT("已固定 · 滚轮浏览 · Esc 关闭"):TEXT("点击物品或按 F1 查看完整详情"),12,ColdSteelUI::ItemTooltipSecondary);FooterText->SetJustification(ETextJustify::Center);Footer->AddChildToVerticalBox(FooterText);
+     Vertical->SetScrollOffset(OldScroll);if(HadFocus)SetKeyboardFocus();
+ }
+ void UColdSteelItemTooltip::UpdateRows()

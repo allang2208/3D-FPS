@@ -87,3 +87,5 @@ description: UE5.6-UE5.8 建筑与场景地编。适用于从场景设计图、�
 修改雨林专属草、联机生态参数或扩大水坑选址时，读 [雨林植被与局部积水](references/hills-vegetation-and-pools.md)。 原因：「雨林植被与局部积水」记录该任务的专属入口和边界，按主题引用可避免另写一套相互冲突的步骤。
 
 丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面，读取 [丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面](references/hills-scenery-continuity.md)。
+
+可修复酒馆的房壳、通行碰撞和桌面摆放见[酒馆两态与室内承托](references/reusable-interior-assemblies.md#丘陵酒馆的残破与修复)。

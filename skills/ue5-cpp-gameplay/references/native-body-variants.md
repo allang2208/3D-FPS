@@ -21,3 +21,7 @@
 ## 女性武器握持与坐卧观察
 
 详见[维护源](../../_shared/ue5-cpp-gameplay/references/native-body-variants.md)中的同名章节。
+
+## 铁匠与木匠共用 Jason R4
+
+详见[共用技能发布快照](../../_shared/ue5-cpp-gameplay/references/native-body-variants.md#铁匠与木匠共用-jason-r4)。

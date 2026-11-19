@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
+@@ -69,6 +69,7 @@
+     uint32 ForestWaterRevision=0;
+     TArray<TSharedPtr<FStreamableHandle>> Handles;
+     TSharedPtr<FStreamableHandle> SmithAppearance;
++    TSharedPtr<FStreamableHandle> CarpenterAppearance;
+     TArray<TWeakObjectPtr<UTexture2D>> GroundTextures;
+     TMap<int32,TWeakObjectPtr<AActor>> Fog;
+     // River mist keyed by centreline point index; separate lifecycle/density.

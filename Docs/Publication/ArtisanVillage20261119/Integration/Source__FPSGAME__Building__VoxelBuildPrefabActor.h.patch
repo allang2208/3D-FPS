@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPrefabActor.h
++++ b/Source/FPSGAME/Building/VoxelBuildPrefabActor.h
+@@ -19,7 +19,7 @@
+ public:
+     AVoxelBuildPrefabActor();
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
+-    UFUNCTION() void OnRep_Configuration();
++    UFUNCTION() virtual void OnRep_Configuration();
+     UPROPERTY(ReplicatedUsing=OnRep_Configuration) TObjectPtr<UStaticMesh> NetMesh;
+     UPROPERTY(ReplicatedUsing=OnRep_Configuration) TObjectPtr<UMaterialInterface> NetSurface;
+     void Configure(FName InId,FIntVector InCell,int32 InYaw,UStaticMesh* Mesh,UMaterialInterface* Surface,UPhysicalMaterial* Contact);
+@@ -27,6 +27,7 @@
+     FIntVector AnchorCell() const {return Cell;}
+     int32 Yaw() const {return QuarterTurns;}
+     UStaticMeshComponent* Body() const {return MeshComponent;}
++    virtual bool IsSceneStationAvailable() const { return false; }
+     /** Cosmetic burn interval, authority writes only after a durable inventory commit. */
+     void PresentIncineration();
+     double IncinerationRemaining() const;

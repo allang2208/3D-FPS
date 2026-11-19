@@ -1,0 +1,23 @@
+PASS accept smith lesson with authority and checked profile write
+PASS exact smith supplies
+PASS second smith acceptance neither grants nor writes
+PASS accept carpenter lesson and exact additional supplies
+PASS duplicate carpenter acceptance
+PASS both receipts round trip checked profile slots
+PASS missing imported stage recovers from personal issuance receipts
+PASS recovering tracking never issues additional supplies
+PASS paid target forge job tracks hammering
+PASS unworked claimed blade leaves lesson active
+PASS finished hammered blade unlocks claim objective
+PASS discarded hammered blade leaves lesson active
+PASS other claimed recipe cannot complete smith lesson
+PASS claimed hammered target completes smith lesson
+PASS paid target staff tracks sawing
+PASS failed staff cannot complete lesson
+PASS passing staff tracks final claim
+PASS discarded staff leaves lesson active
+PASS wrong woodworking recipe stays incomplete
+PASS claiming qualified staff completes carpenter lesson
+PASS both completions survive checked save/reload
+PASS full bag preserves entire smith packet and its unclaimed receipt
+checks=22 failures=0

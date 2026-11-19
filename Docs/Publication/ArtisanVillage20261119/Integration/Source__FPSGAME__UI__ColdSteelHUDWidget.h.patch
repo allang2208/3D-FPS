@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -5,6 +5,7 @@
+ #include "ColdSteelMeterPresentation.h"
+ #include "ColdSteelHUDWidget.generated.h"
+ 
++struct FColdSteelItemTooltipPreview;
+ class UBorder;
+ class APawn;
+ class UBackgroundBlur;
+@@ -78,8 +79,9 @@
+     bool IsQuickDragging() const { return QuickDrag.IsValid(); }
+     void RunItemTooltipAudit();
+     void RunTopVitalsAudit();
+-    void ShowItemTooltip(const FString& Id,FVector2D ScreenAnchor,bool Pinned=false,UWidget* Source=nullptr);
+-    void HideItemTooltip(bool Force=false);
++    void ShowItemTooltip(const FString& Id,FVector2D ScreenAnchor,bool Pinned=false,UWidget* Source=nullptr,const FColdSteelItemTooltipPreview* Preview=nullptr);
++    void HideItemTooltip(bool Force=false,const UWidget* Source=nullptr);
++    bool IsItemTooltipPinnedFrom(const UWidget* Source) const;
+     bool HasPinnedItemTooltip()const;
+     void FocusItemTooltip();
+     void OpenStatus();
+@@ -93,6 +95,8 @@
+     void CloseWarehouse();
+     bool IsWarehouseOpen() const { return bWarehouseOpen; }
+     void OpenShop();
++    void OpenBlacksmithShop(class AVillageBlacksmithResident* Blacksmith);
++    void OpenArtisanShop(class AVillageArtisanMerchant* Seller);
+     void CloseShop();
+     void ToggleShop();
+     bool IsShopOpen() const { return bShopOpen; }
+@@ -175,6 +179,7 @@
+     TWeakObjectPtr<class AActor> WarehouseAnchor;
+     bool bWarehouseOpen=false;
+     float WarehouseMotion=0,WarehouseStart=0,WarehouseElapsed=.3f;
++    void OpenShopFor(AActor* Seller);
+     void TickShop(float Delta);
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelShopWidget> ShopWidget;
+     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> ShopSlot;

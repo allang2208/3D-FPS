@@ -1,0 +1,66 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -143,6 +143,22 @@
+     // Kept so V2 saves still load; new saves write Edits only.
+     UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FHillsCraterRecord> Craters;
+     UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FHillsTerrainEditRecord> Edits;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bVillageWallRepaired = false;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bVillageBlacksmithRepaired = false;
++    UPROPERTY() int32 VillagePlanVersion = 1;
++    // V1 recorded unlocks only. V2 atomically restored the wall and smithy.
++    // From V3 onward each new plan bit records a committed restoration.
++    static constexpr int32 CurrentVillagePlanVersion = 4;
++    static constexpr uint8 CarpenterPlan = 4;
++    static constexpr uint8 TavernPlan = 8;
++    UPROPERTY() uint8 VillagePlansUnlocked = 0;
++    uint8 SavedVillagePlans() const
++    {
++        uint8 Mask = 3;
++        if (VillagePlanVersion >= 3) Mask |= CarpenterPlan;
++        if (VillagePlanVersion >= 4) Mask |= TavernPlan;
++        return VillagePlansUnlocked & Mask;
++    }
+ };
+ 
+ struct FTemperatePlacement
+@@ -182,6 +198,25 @@
+     void OnRep_NetEdits();
+     UFUNCTION(BlueprintPure, Category="Hills") FVector GetStartLocation() const;
+     FRotator GetStartRotation() const;
++    UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsVillageWallRepaired() const { return bVillageWallRepaired; }
++    /** Call from the authoritative repair quest after its real objectives succeed.
++      * Returns false if saving fails or a pawn occupies the completed wall footprint. */
++    UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Hills|Village")
++    bool CompleteVillageWallRepair(FText& FailureReason);
++    UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsVillageBlacksmithRepaired() const { return bVillageBlacksmithRepaired; }
++    /** Quest completion entry; commits the restored shop before enabling its forge. */
++    UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Hills|Village")
++    bool CompleteVillageBlacksmithRepair(FText& FailureReason);
++    UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsVillageCarpenterRepaired() const { return (VillagePlansUnlocked & UTemperateHillsSave::CarpenterPlan) != 0; }
++    UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Hills|Village")
++    bool CompleteVillageCarpenterRepair(FText& FailureReason);
++    UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsTavernRepaired() const { return (VillagePlansUnlocked & UTemperateHillsSave::TavernPlan) != 0; }
++    // The streamed tavern supplies its construction footprint while present.
++    DECLARE_DELEGATE_RetVal(bool, FTavernAreaOccupied);
++    FTavernAreaOccupied TavernAreaOccupied;
++    FSimpleMulticastDelegate OnTavernRepairChanged;
++    bool IsVillagePlanUnlocked(FName Plan) const;
++    bool UnlockVillagePlan(FName Plan,FText& FailureReason);
+     double Height(double X, double Y) const;
+     TemperateRiver::FSample SampleRiver(double X, double Y) const
+     { return RiverPlan ? RiverPlan->Sample(X, Y) : TemperateRiver::FSample(); }
+@@ -271,6 +306,14 @@
+     void GetCliffPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+     void BeginStreaming();
+     void TickStreaming();
++    UFUNCTION() void BindStreamedVillageTavern();
++    UPROPERTY(ReplicatedUsing=OnRep_VillageWall) bool bVillageWallRepaired=false;
++    UPROPERTY(ReplicatedUsing=OnRep_VillageBlacksmith) bool bVillageBlacksmithRepaired=false;
++    UPROPERTY(ReplicatedUsing=OnRep_VillagePlansUnlocked) uint8 VillagePlansUnlocked=0;
++    UFUNCTION() void OnRep_VillagePlansUnlocked(uint8 PreviousPlans);
++    bool CommitVillagePlanRepair(uint8 PlanBit, int32 RequiredVersion, const TCHAR* SaveError, FText& FailureReason);
++    UFUNCTION() void OnRep_VillageBlacksmith();
++    UFUNCTION() void OnRep_VillageWall();
+     void EndStreaming();
+     void LoadNextEnvironmentStage();
+     void TickPreparation();

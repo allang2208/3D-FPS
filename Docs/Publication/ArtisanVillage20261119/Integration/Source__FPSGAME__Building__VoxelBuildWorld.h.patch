@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorld.h
++++ b/Source/FPSGAME/Building/VoxelBuildWorld.h
+@@ -147,7 +147,10 @@
+     UFUNCTION(BlueprintPure,Category="Building|Prefab") int32 PrefabCount() const {return Prefabs.Num();}
+     /** 该锚格上是否还有一件**在记录里**的构件（落体件不算：它已离开 Prefabs）。 */
+     bool HasPrefabAt(FIntVector Cell) const
+-    {return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});}
++    {return SceneStations.FindRef(Cell).IsValid()||Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});}
++    /** Fixed scene stations are owned by their scene save, never serialized as player construction. */
++    void RegisterSceneStation(AVoxelBuildPrefabActor* Station);
++    void UnregisterSceneStation(AVoxelBuildPrefabActor* Station);
+     /**
+      * 炉内冶炼（VBX v6，随构件记录同生共死）：任务与燃料都按高炉锚格存。
+      * 进度模型＝已积累秒数＋当前燃烧段（UTC ticks），燃料耗尽即停炉；
+@@ -217,6 +220,7 @@
+     UPROPERTY() TArray<TObjectPtr<UMaterialInterface>> SurfaceMaterials;
+     UPROPERTY() TObjectPtr<UPhysicalMaterial> StructuralContact;
+     UPROPERTY() TMap<FGuid,TObjectPtr<AVoxelCollapseFragment>> Fragments;
++    UPROPERTY(Transient) TMap<FIntVector,TWeakObjectPtr<AVoxelBuildPrefabActor>> SceneStations;
+     UPROPERTY() TMap<FIntVector,TWeakObjectPtr<AActor>> PrefabActors;
+     TMap<FIntVector,FName> Cells;
+     TMap<FIntVector,uint8> CellShapes;

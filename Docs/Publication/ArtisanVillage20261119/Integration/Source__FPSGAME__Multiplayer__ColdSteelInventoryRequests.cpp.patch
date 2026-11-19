@@ -1,0 +1,59 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -1,4 +1,8 @@
+ #include "ColdSteelPlayerState.h"
++#include "../NPC/ChapelDialogueComponent.h"
++#include "../NPC/VillageArtisanMerchant.h"
++#include "../Tasks/BlacksmithApprenticeship.h"
++#include "../Tasks/CarpenterApprenticeship.h"
+ #include "../Items/FPSPotionUseComponent.h"
+ #include "TimerManager.h"
+ #include "../Building/AlchemySystem.h"
+@@ -21,6 +25,16 @@
+ #include "GameFramework/PlayerController.h"
+ #include "Misc/SecureHash.h"
+ 
++bool AColdSteelPlayerState::RequestArtisanLesson(AVillageArtisanMerchant* Teacher,uint32 ConversationSession)
++{
++    if(!IsValid(Teacher)||!ConversationSession||GetNetMode()!=NM_Client)return false;
++    FColdSteelInventoryRequest Request;
++    Request.Action=EColdSteelInventoryAction::ArtisanLesson;
++    Request.Target=Teacher;
++    Request.ConversationSession=ConversationSession;
++    return RequestInventoryAction(Request);
++}
++
+ bool AColdSteelPlayerState::RequestInventoryAction(EColdSteelInventoryAction Action,const FString& Item,AActor* Target)
+ {
+     FColdSteelInventoryRequest Request;Request.Action=Action;Request.Item=Item;Request.Target=Target;
+@@ -171,6 +185,18 @@
+     {if(auto* Run=UDungeonRunSubsystem::Get(GetWorld()))Success=Run->ClaimShrine(PC,Request.Target);Reason=Success?TEXT("已获得本次地牢赐福"):TEXT("神龛不可达或已领取");}
+     else if(Request.Action==EColdSteelInventoryAction::Shop)
+         Success=UColdSteelShopModel::ExecuteNetworkTrade(Model,Request,PC->IsLocalController()?FString():SlotName,Reason);
++    else if(Request.Action==EColdSteelInventoryAction::ArtisanLesson)
++    {
++        const auto* Dialogue=PC->FindComponentByClass<UChapelDialogueComponent>();
++        const auto* Teacher=Cast<AVillageArtisanMerchant>(Request.Target.Get());
++        if(!Teacher||!Dialogue||!Dialogue->CanAcceptArtisanTask(Request.ConversationSession,Teacher))
++            Reason=TEXT("交谈已结束，请回到师傅身边。");
++        else if(!IsGuestInitialized()||SlotName.IsEmpty()||Model->RuntimePawn()!=Pawn)
++            Reason=TEXT("角色档案正在同步，请稍后再试。");
++        else
++            Success=Teacher->IsCarpenterMerchant()?CarpenterApprenticeship::Accept(Model,SlotName,Reason)
++                                               :BlacksmithApprenticeship::Accept(Model,SlotName,Reason);
++    }
+     else if(Request.Action>=EColdSteelInventoryAction::Harvest)
+         Success=ExecuteWorldAction(Request,Model,Reason);
+     else if(Request.Action==EColdSteelInventoryAction::Consume)
+@@ -335,6 +361,11 @@
+         Model->SetCampfireInventoryPending(false);
+         const bool Applied=Decoded&&(!Reply->bSuccess||Model->ApplyNetworkInventoryReply(Reply,InventoryRequestPawn.Get()));
+         OwnerAppliedReceipt=Applied&&Reply->bSuccess;
++        if(PendingInventoryRequest.Action==EColdSteelInventoryAction::ArtisanLesson)
++            if(auto* PC=Cast<APlayerController>(GetOwner()))
++                if(auto* Dialogue=PC->FindComponentByClass<UChapelDialogueComponent>())
++                    Dialogue->FinishArtisanInventoryRequest(PendingInventoryRequest.ConversationSession,OwnerAppliedReceipt,
++                        Applied?Reply->Message:TEXT("材料正在与主机同步，请稍后查看背包。"));
+         if(PendingInventoryRequest.Action==EColdSteelInventoryAction::Consume && InventoryRequestPawn.IsValid() &&
+             InventoryRequestPawn.Get()==GetPawn())
+             if(auto* Use=InventoryRequestPawn->FindComponentByClass<UFPSPotionUseComponent>())

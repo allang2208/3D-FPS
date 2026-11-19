@@ -1,0 +1,13 @@
+{
+  "asset": "/Game/Characters/ModularOutfit20260924/JasonStrong20261117/R4_PoseRefined/SK_Jason_StrongTall_R4.SK_Jason_StrongTall_R4",
+  "post_process": "/Game/Characters/ModularOutfit20260924/JasonStrong20261117/R4_PoseRefined/ABP_Jason_R4_Correctives.ABP_Jason_R4_Correctives_C",
+  "skeleton": "/Game/AsianMale_Jason/Mesh/Body/SKM_Jason_body_Skeleton.SKM_Jason_body_Skeleton",
+  "morphs": [
+    "R4_Shoulder_l",
+    "R4_Biceps_l",
+    "R4_Shoulder_r",
+    "R4_Biceps_r"
+  ],
+  "lods": 3,
+  "source": "/Game/Characters/ModularOutfit20260924/JasonStrong20261117/R3_ArmsRefined/SK_Jason_StrongTall_R3.SK_Jason_StrongTall_R3"
+}

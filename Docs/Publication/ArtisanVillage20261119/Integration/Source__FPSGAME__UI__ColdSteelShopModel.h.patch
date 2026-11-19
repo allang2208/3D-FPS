@@ -1,0 +1,43 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopModel.h
++++ b/Source/FPSGAME/UI/ColdSteelShopModel.h
+@@ -5,6 +5,7 @@
+ #include "ColdSteelShopModel.generated.h"
+ 
+ class UColdSteelStatusModel;
++class AVillageArtisanMerchant;
+ struct FColdSteelInventoryRequest;
+ struct FColdSteelShopSelection { FString Id; int64 Count = 1; };
+ struct FColdSteelShopSaleLine { FColdSteelItem Item; int64 Count = 1; int64 UnitPrice = 0; };
+@@ -23,6 +24,10 @@
+     GENERATED_BODY()
+ public:
+     void BeginSession();
++    bool BeginArtisanSession(AVillageArtisanMerchant* Seller);
++    bool IsArtisanShop() const { return !Merchant.IsExplicitlyNull(); }
++    bool SellerHasLeft();
++    FString MerchantName() const;
+     static bool ExecuteNetworkTrade(UColdSteelStatusModel* Profile,const FColdSteelInventoryRequest& Request,const FString& HostSlot,FString& Reason);
+     void NetworkTradeFinished(bool Success,const FString& Reason);
+     void EndSession();
+@@ -39,16 +44,20 @@
+     bool SetSaleCount(const FString& Id, int64 Count);
+     void ClearSale();
+     bool QuoteSale(FColdSteelShopQuote& Out) const;
+-    bool Buy(const FString& Definition, int32 Count);
++    bool Buy(const FString& StockItemId, int32 Count);
+     bool ConfirmSale(const FColdSteelShopQuote& Quote);
+     const FString& ResultMessage() const { return Message; }
+     FColdSteelShopChanged OnChanged;
+ private:
++    bool OpenProfile();
++    void RefreshArtisanStock();
+     void ProfileChanged();
+     bool Fail(const FString& Reason);
+     bool CanTrade();
+     UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Model;
+     FDelegateHandle ProfileHandle;
++    TWeakObjectPtr<AVillageArtisanMerchant> Merchant;
++    FDelegateHandle StockHandle;
+     TArray<FColdSteelItem> Shelf;
+     TArray<FColdSteelShopSelection> Basket;
+     mutable TMap<FString,FVector2D> SaleRules;

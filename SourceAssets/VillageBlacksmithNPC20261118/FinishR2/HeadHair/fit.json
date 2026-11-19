@@ -1,0 +1,29 @@
+{
+  "source": "Meshy/CombinedR1/head.glb",
+  "integrated_meshy_hair": true,
+  "uniform_scale_cm": 17.245697021484375,
+  "source_nose_xyz": [
+    -0.0018074155086651444,
+    0.6468121409416199,
+    0.01358689833432436
+  ],
+  "target_nose": [
+    0,
+    13.2,
+    164.9
+  ],
+  "crown_cm": 181.0,
+  "face_triangles": 107955,
+  "native_neck_triangles": 4072,
+  "neck_transition_cm": [
+    155.3,
+    157.8
+  ],
+  "neck_tint_upper_linear": [
+    1.2271330540181995,
+    1.6812534457556685,
+    1.6345022079567746
+  ],
+  "rigid_head_index": 9,
+  "native_skeleton": "/Game/AsianMale_Jason/Mesh/Body/SKM_Jason_body_Skeleton.SKM_Jason_body_Skeleton"
+}

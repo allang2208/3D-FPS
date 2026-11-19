@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/Building/WoodworkingJob.cpp
++++ b/Source/FPSGAME/Building/WoodworkingJob.cpp
+@@ -5,6 +5,7 @@
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Multiplayer/ColdSteelStationNetwork.h"
++#include "../Tasks/CarpenterApprenticeship.h"
+ #include "../FPSGAMECharacter.h"
+ #include "Engine/GameInstance.h"
+ #include "Serialization/MemoryWriter.h"
+@@ -47,6 +48,7 @@
+     if(!Free)for(const auto& Input:Inputs)Pending.PaidMaterials.FindOrAdd(Input.Item)+=Input.Count;
+     FString Error;if(!Board.Initialize(Rules,P->Outline,P->Connections,Error)){Notice=Error;return false;}
+     FrozenElapsed=0;bCheckpointReady=true;WriteCheckpoint(Pending.Mask);
++    CarpenterApprenticeship::WorkpieceUpdated(Next);
+     if(!M->CommitState(MoveTemp(Next))){Notice=M->ResultMessage();return false;}
+     AcceptedRecipe=*Recipe;return true;
+ }
+@@ -76,6 +78,7 @@
+     if(Pending.bPassed&&ColdSteelWoodQuality::Channel(Pending.Item)!=ColdSteelWoodQuality::EChannel::None)
+         Pending.Result+=FString::Printf(TEXT("\n木工评分 %.1f / 100 · %s %+.1f%%"),Score,*ColdSteelWoodQuality::StatLabel(Pending.Item),(ColdSteelWoodQuality::FromJob(Pending)-1)*100);
+     WriteCheckpoint(Pending.Mask);
++    CarpenterApprenticeship::WorkpieceUpdated(Next);
+     const auto* Pawn=NetworkModel?M->RuntimePawn():nullptr;
+     const auto* Owner=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+     if(!M->CommitWorkshopCheckpoint(MoveTemp(Next),Owner?Owner->CampfireGuestSlot():FString()))
+@@ -214,9 +217,12 @@
+         {Notice=TEXT("背包无法容纳全部返还材料，工件保留待处理");return false;}
+     }
+     const bool Free=Next.WoodworkingJob.bMaterialsWaived;
++    CarpenterApprenticeship::WorkpieceRemoved(Next,false);
++    const bool RetryLesson=CarpenterApprenticeship::Stage(Next)==CarpenterApprenticeship::EStage::Materials;
+     Next.WoodworkingJob={};
+     if(!M->CommitState(MoveTemp(Next))){Notice=M->ResultMessage();return false;}
+     Phase=EWoodworkingPhase::Delivered;Notice=Free?TEXT("工件已废弃 · 免材料制作，无材料返还"):TEXT("工件已废弃 · 一半投入材料已返还背包（逐项向下取整）");
++    if(RetryLesson)Notice+=TEXT("。木工修炼仍在进行，重新备料制作学徒长杖，达标后领取成品。");
+     return true;
+ }
+ 
